@@ -263,6 +263,8 @@ def update_law_revision_facts(
     explanations: list[str],
     correction: dict[str, Any],
     reviewed_at: str,
+    correct_choice_texts: list[str] | None = None,
+    correct_choice_text_changed: bool = False,
 ) -> None:
     facts = entry.get("lawRevisionFacts")
     if facts is None:
@@ -271,6 +273,8 @@ def update_law_revision_facts(
     if not isinstance(facts, list) or len(facts) != len(explanations):
         raise ValueError("lawRevisionFacts length mismatch")
     bases = correction_basis_by_choice(correction, len(explanations))
+    if correct_choice_texts is not None and len(correct_choice_texts) != len(explanations):
+        raise ValueError("correctChoiceText length mismatch")
     reference_date = reviewed_at[:10]
 
     for choice_index, (fact, explanation, basis) in enumerate(
@@ -310,6 +314,8 @@ def update_law_revision_facts(
             current["item"] = item
         if subitem:
             current["subitem"] = subitem
+        if correct_choice_texts is not None:
+            current["correctChoiceText"] = str(correct_choice_texts[choice_index])
         fact["auditStatus"] = "same_as_current"
         fact["reviewState"] = "refresh_reviewed"
         fact["auditedAt"] = reviewed_at
@@ -321,12 +327,20 @@ def update_law_revision_facts(
         )
         fact["reconciliationStatus"] = "direct_primary_basis_reverified"
         fact["current"] = current
-        fact["differenceFacts"] = [
-            "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-        ]
-        fact["answerImpactFacts"] = [
-            "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-        ]
+        if correct_choice_text_changed:
+            fact["differenceFacts"] = [
+                "問題文と選択肢を結合した判定命題を確認し、既存の正誤方向との不一致を修正した。"
+            ]
+            fact["answerImpactFacts"] = [
+                "correctChoiceText、解説及び直接根拠の向きを判定命題に合わせて更新した。"
+            ]
+        else:
+            fact["differenceFacts"] = [
+                "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+            ]
+            fact["answerImpactFacts"] = [
+                "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+            ]
         fact["notes"] = [
             (
                 "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
@@ -369,6 +383,21 @@ def update_law_revision_facts(
         }
 
 
+def apply_correct_choice_text(
+    entry: dict[str, Any], review_decision: dict[str, Any], choice_count: int
+) -> bool:
+    changed = bool(review_decision.get("correctChoiceTextChanged"))
+    if not changed:
+        return False
+    proposed = review_decision.get("proposedCorrectChoiceText")
+    if not isinstance(proposed, list) or len(proposed) != choice_count:
+        raise ValueError("proposedCorrectChoiceText length mismatch")
+    if not all(isinstance(value, str) and value.strip() for value in proposed):
+        raise ValueError("proposedCorrectChoiceText must contain non-empty strings")
+    entry["correctChoiceText"] = list(proposed)
+    return True
+
+
 def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
     decision = load_json(decision_path)
     audit_key = str(decision.get("auditKey") or "")
@@ -391,6 +420,9 @@ def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
     if not isinstance(explanations, list) or len(explanations) != ledger_row["choiceCount"]:
         raise ValueError("proposedExplanationText length mismatch")
 
+    correct_choice_text_changed = apply_correct_choice_text(
+        entry, review_decision, len(explanations)
+    )
     entry["explanationText"] = explanations
     entry["suggestedExplanationText"] = list(explanations)
     entry["lawGroundedExplanationText"] = list(explanations)
@@ -411,6 +443,12 @@ def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
             explanations=explanations,
             correction=correction,
             reviewed_at=str(decision["reviewedAt"]),
+            correct_choice_texts=(
+                [str(value) for value in entry["correctChoiceText"]]
+                if isinstance(entry.get("correctChoiceText"), list)
+                else None
+            ),
+            correct_choice_text_changed=correct_choice_text_changed,
         )
     else:
         law_references = entry.get("lawReferences")
@@ -431,7 +469,7 @@ def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
     decision["application"] = {
         "patchFile": str(patch_path.relative_to(ROOT_DIR)),
         "choiceCount": len(explanations),
-        "correctChoiceTextChanged": False,
+        "correctChoiceTextChanged": correct_choice_text_changed,
     }
     write_json(decision_path, decision)
     return decision["application"]

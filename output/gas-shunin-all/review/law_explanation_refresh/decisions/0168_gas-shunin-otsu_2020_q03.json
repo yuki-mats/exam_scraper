@@ -3,28 +3,36 @@
   "sequence": 168,
   "auditKey": "gas-shunin:otsu:2020:law:q03:2d0d3eca4277",
   "auditInputHash": "def9064f0449a2bc4f9b746ba6530a71d2616d6571a5af41ac4fd65e40f06fe0",
-  "status": "published",
-  "reviewedAt": "2026-07-12T00:14:07+09:00",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T12:59:47+09:00",
   "reviewDecision": {
-    "correctChoiceTextChanged": false,
+    "correctChoiceTextChanged": true,
     "correctChoiceTextReview": {
       "status": "confirmed",
       "flags": []
     },
     "requiresPatch": true,
     "changeFields": [
+      "correctChoiceText",
       "explanationText",
       "lawReferences",
       "lawRevisionFacts",
       "suggestedQuestions",
       "suggestedQuestionDetails"
     ],
+    "proposedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
     "proposedExplanationText": [
-      "正しい。ガス関係報告規則第4条第1項の表第5号は、ガス工作物の欠陥、損傷若しくは破壊又は操作により人が負傷した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "間違い。選択肢の「製造支障時間が6時間」が速報対象に該当するとする点が誤り。ガス関係報告規則第4条第1項の表第8号は、製造支障事故を速報対象とする時間を、10時間以上24時間未満と定めている。6時間の製造支障事故は、この基準に達しない。",
-      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "間違い。選択肢の「最高使用圧力が低圧の主要なガス工作物の損壊事故」が速報対象に該当するとする点が誤り。ガス関係報告規則第4条第1項の表第11号は、この事故をガス事故詳報のみの対象と定めており、ガス事故速報の対象とはしていない。",
-      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥、損壊又は破壊により漏えいしたガスへ引火して発生した負傷事故を、ガス事故速報及びガス事故詳報の対象と定めている。"
+      "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物の損傷等により人が負傷した事故をガス事故速報の対象と定めている。問題文は速報対象に該当しない事故を判定するため、この選択肢は該当しない。",
+      "正しい。ガス関係報告規則第4条第1項の表第8号は、速報対象となる製造支障事故を製造支障時間が10時間以上24時間未満のものと定めている。6時間の事故について速報は規定されておらず、問題文の「速報対象に該当しない事故」に該当する。",
+      "間違い。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故をガス事故速報の対象と定めている。問題文は速報対象に該当しない事故を判定するため、この選択肢は該当しない。",
+      "正しい。ガス関係報告規則第4条第1項の表第11号は、最高使用圧力が低圧の主要なガス工作物の損壊事故をガス事故詳報のみの対象と定めている。速報は規定されておらず、問題文の「速報対象に該当しない事故」に該当する。",
+      "間違い。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した負傷事故をガス事故速報の対象と定めている。問題文は速報対象に該当しない事故を判定するため、この選択肢は該当しない。"
     ],
     "proposedSuggestedQuestions": [
       "ガス工作物の損傷による負傷事故は速報対象？",
@@ -119,13 +127,13 @@
     }
   },
   "reviewNotes": [
-    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、正しいは現行条文と一致する。",
-    "選択肢1は製造支障6時間が第8号の10時間以上という速報基準に達しないことを明記した。",
-    "選択肢3は第11号の低圧主要ガス工作物損壊事故が詳報のみで、速報対象ではないことを明記した。"
+    "選択肢は事故名の断片であり、問題文と結合した判定命題は『この事故はガス事故速報の対象に該当しない』となる。",
+    "00_source.correctChoiceTextは速報対象である事故を正しいとしていたため、問題文の否定条件に合わせて正誤方向を反転した。",
+    "answer_result_textの正解3は、速報対象外のロ・ニに対応する。"
   ],
   "evidence": {
     "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "sourceCorrectTextUsed": true,
+    "sourceCorrectTextUsed": false,
     "currentLaw": {
       "lawTitle": "ガス関係報告規則",
       "lawId": "429M60000400016",
@@ -138,13 +146,13 @@
     },
     "examTime": {
       "referenceDate": "2020",
-      "verificationStatus": "source_correct_choice_confirmed"
+      "verificationStatus": "official_answer_and_predicate_reconstruction_confirmed"
     }
   },
-  "appliedAt": "2026-07-11T15:14:47Z",
+  "appliedAt": "2026-07-12T04:01:43Z",
   "application": {
     "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
     "choiceCount": 5,
-    "correctChoiceTextChanged": false
+    "correctChoiceTextChanged": true
   }
 }

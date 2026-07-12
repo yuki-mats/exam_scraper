@@ -3,17 +3,16 @@
   "sequence": 233,
   "auditKey": "gas-shunin:otsu:2024:law:q04:25e1628d3225",
   "auditInputHash": "6e497f790659ab1834eeb8dfe742c78a5b6033c2f9d1fe55df9d43411ecc9755",
-  "status": "published",
-  "reviewedAt": "2026-07-12T10:24:24+09:00",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T12:59:47+09:00",
   "reviewDecision": {
-    "correctChoiceTextChanged": true,
+    "correctChoiceTextChanged": false,
     "correctChoiceTextReview": {
       "status": "confirmed",
       "flags": []
     },
     "requiresPatch": true,
     "changeFields": [
-      "correctChoiceText",
       "explanationText",
       "lawReferences",
       "lawRevisionFacts",
@@ -28,11 +27,11 @@
       "正しい"
     ],
     "proposedExplanationText": [
-      "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
-      "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
-      "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。"
+      "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
+      "正しい。ガス関係報告規則第4条第1項の表第7号は、速報対象となる供給支障事故を供給支障戸数が100以上500未満のものと定めている。20戸の事故について速報は規定されておらず、問題文の条件に該当する。",
+      "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の事故をガス事故速報の対象と定めている。10時間は対象に含まれるため、問題文の「速報が規定されていない事故」には該当しない。",
+      "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる火災事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
+      "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めている。速報は規定されておらず、問題文の条件に該当する。"
     ],
     "proposedSuggestedQuestions": [
       "ガス工作物の操作により人が酸素欠乏症となった事故は、ガス事故速報の対象か？",
@@ -121,7 +120,8 @@
   "reviewNotes": [
     "JIA公式問題PDFの問4における組合せ選択肢3はロ・ホである。",
     "JIA公式解答PDFは法令問4の正解を3としている。",
-    "00_sourceは組合せ3をロ・ハへ誤展開していたため、00_sourceは変更せず公開派生成果物をロ・ホへ訂正する。"
+    "00_sourceは組合せ3をロ・ハへ誤展開していたため、00_sourceは変更せず公開派生成果物をロ・ホへ訂正する。",
+    "事故名の各選択肢を、問題文の『ガス事故速報が規定されていない』という判定命題まで補って説明した。"
   ],
   "evidence": {
     "verificationStatus": "official_question_answer_and_current_law_aligned",
@@ -137,7 +137,7 @@
     "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
     "sourceCorrectTextUsed": false
   },
-  "appliedAt": "2026-07-12T01:24:32Z",
+  "appliedAt": "2026-07-12T04:05:20Z",
   "application": {
     "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
     "choiceCount": 5,

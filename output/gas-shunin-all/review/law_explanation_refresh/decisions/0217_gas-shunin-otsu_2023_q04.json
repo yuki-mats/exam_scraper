@@ -3,28 +3,36 @@
   "sequence": 217,
   "auditKey": "gas-shunin:otsu:2023:law:q04:b2b5b6cb6d50",
   "auditInputHash": "259fc86b8c1113d6d344a1d70efccd1b1ecd7b28c4f53e7652c375df9e78f9fc",
-  "status": "published",
-  "reviewedAt": "2026-07-12T03:10:37+09:00",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T12:59:47+09:00",
   "reviewDecision": {
-    "correctChoiceTextChanged": false,
+    "correctChoiceTextChanged": true,
     "correctChoiceTextReview": {
       "status": "confirmed",
       "flags": []
     },
     "requiresPatch": true,
     "changeFields": [
+      "correctChoiceText",
       "explanationText",
       "lawReferences",
       "lawRevisionFacts",
       "suggestedQuestions",
       "suggestedQuestionDetails"
     ],
+    "proposedCorrectChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
     "proposedExplanationText": [
-      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "正しい。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "間違い。選択肢の「製造支障時間が5時間以上」が誤り。ガス関係報告規則第4条第1項の表第8号は10時間以上24時間未満、同表第4号は24時間以上の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。対象となる時間の下限は10時間である。",
-      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥、損壊又は破壊により漏えいしたガスに引火して発生した負傷事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "正しい。ガス関係報告規則第4条第1項の表第19号は、消費機器又はガス栓から漏えいしたガスに引火して発生した負傷事故を、ガス事故速報及びガス事故詳報の対象と定めている。"
+      "間違い。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故をガス事故速報及びガス事故詳報の対象と定めている。問題文は両方の報告が規定されていない事故を選ぶため、この選択肢は該当しない。",
+      "間違い。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故をガス事故速報及びガス事故詳報の対象と定めている。問題文は両方の報告が規定されていない事故を選ぶため、この選択肢は該当しない。",
+      "正しい。ガス関係報告規則第4条第1項の表第8号は10時間以上24時間未満、同表第4号は24時間以上の製造支障事故を速報及び詳報の対象と定めている。5時間の事故について両方の報告は規定されておらず、問題文の条件に該当する。",
+      "間違い。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した負傷事故をガス事故速報及びガス事故詳報の対象と定めている。問題文は両方の報告が規定されていない事故を選ぶため、この選択肢は該当しない。",
+      "間違い。ガス関係報告規則第4条第1項の表第19号は、消費機器から漏えいしたガスへの引火により発生した負傷事故をガス事故速報及びガス事故詳報の対象と定めている。問題文は両方の報告が規定されていない事故を選ぶため、この選択肢は該当しない。"
     ],
     "proposedSuggestedQuestions": [
       "供給支障事故の報告対象戸数は？",
@@ -119,13 +127,13 @@
     }
   },
   "reviewNotes": [
-    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行規則と一致する。",
-    "第3肢の5時間以上は誤りである。製造支障事故は、10時間以上24時間未満が表第8号、24時間以上が表第4号により速報及び詳報の対象となる。",
-    "設問のただし書にある表第13号の大規模自然災害等の指定事故は、各肢の判定対象から除外されている。"
+    "選択肢は事故名の断片であり、問題文と結合した判定命題は『この事故は速報及び詳報の両方が規定されていない』となる。",
+    "00_source.correctChoiceTextは両方の報告対象である事故を正しいとしていたため、問題文の否定条件に合わせて正誤方向を反転した。",
+    "answer_result_textの正解3は、両方の報告対象外となる第3肢に対応する。"
   ],
   "evidence": {
     "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "sourceCorrectTextUsed": true,
+    "sourceCorrectTextUsed": false,
     "targetQuestionIds": [
       "gas-shunin-otsu-2023-law-q04-s01",
       "gas-shunin-otsu-2023-law-q04-s02",
@@ -145,13 +153,13 @@
     },
     "examTime": {
       "referenceDate": "2023",
-      "verificationStatus": "source_correct_text_confirmed"
+      "verificationStatus": "official_answer_and_predicate_reconstruction_confirmed"
     }
   },
-  "appliedAt": "2026-07-11T18:11:24Z",
+  "appliedAt": "2026-07-12T04:01:45Z",
   "application": {
     "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
     "choiceCount": 5,
-    "correctChoiceTextChanged": false
+    "correctChoiceTextChanged": true
   }
 }

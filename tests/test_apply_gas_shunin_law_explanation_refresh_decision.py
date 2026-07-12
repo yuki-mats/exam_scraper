@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
+    apply_correct_choice_text,
     basis_api_url,
     basis_label,
     basis_references,
@@ -15,6 +16,31 @@ from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
 
 
 class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
+    def test_apply_correct_choice_text_updates_entry_when_confirmed_change_exists(self) -> None:
+        entry = {"correctChoiceText": ["正しい", "間違い"]}
+
+        changed = apply_correct_choice_text(
+            entry,
+            {
+                "correctChoiceTextChanged": True,
+                "proposedCorrectChoiceText": ["間違い", "正しい"],
+            },
+            2,
+        )
+
+        self.assertTrue(changed)
+        self.assertEqual(entry["correctChoiceText"], ["間違い", "正しい"])
+
+    def test_apply_correct_choice_text_preserves_entry_without_change(self) -> None:
+        entry = {"correctChoiceText": ["正しい"]}
+
+        changed = apply_correct_choice_text(
+            entry, {"correctChoiceTextChanged": False}, 1
+        )
+
+        self.assertFalse(changed)
+        self.assertEqual(entry["correctChoiceText"], ["正しい"])
+
     def test_strip_verdict(self) -> None:
         self.assertEqual(strip_verdict("間違い。選択肢のAが誤り。"), "選択肢のAが誤り。")
         self.assertEqual(strip_verdict("正しい。条文と一致する。"), "条文と一致する。")
