@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 261,
+  "auditKey": "gas-shunin:otsu:2025:law:q16:9ea289516db8",
+  "auditInputHash": "3f515d5cbaec979da4f637bc212042e48d54e1e425d4db5e9bae273a5e330aad",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:19:30+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。屋内に設置するガス消費量12kW超のガス調理機器で、密閉燃焼式以外のものには、原則として燃焼器に接続した排気筒を設ける。構造上などの理由で困難な場合に排気フードを設ける例外も認められる。",
+      "間違い。屋内に設置する自然排気式の燃焼器の排気筒（排気扇を接続するものを除く。）は、排気部との接続部の有効断面積より小さくないことが基準である。「小さいこと」としている点が誤り。",
+      "正しい。燃焼器の排気筒に接続する排気扇には、排気扇が停止した場合に燃焼器へのガス供給を自動的に遮断する装置を設ける必要がある。",
+      "間違い。屋内に設置する密閉燃焼式ガス湯沸器の給排気部が外壁を貫通する箇所は、排気ガスが屋内に流れ込む隙間がないことが基準である。「点検のための隙間を設けること」としている点が誤り。",
+      "正しい。屋内に設置する密閉燃焼式ガス湯沸器の給排気部の先端は、鳥、落葉、雨水などの異物の侵入や風雨等により給排気が妨げられるおそれのない構造である必要がある。"
+    ],
+    "proposedSuggestedQuestions": [
+      "12kW超の屋内ガス調理機器には原則何を設ける？",
+      "自然排気式燃焼器の排気筒の有効断面積はどう定められる？",
+      "排気筒に接続する排気扇停止時には何が必要？",
+      "密閉燃焼式ガス湯沸器の給排気部が外壁を貫通する箇所に必要な条件は？",
+      "密閉燃焼式ガス湯沸器の給排気部先端はどんな構造が必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "燃焼器に接続した排気筒。。密閉燃焼式以外でガス消費量12kW超の屋内ガス調理機器は、原則として排気筒が必要である。現行法では、ガス事業法施行規則 第197条第1項第1号を根拠に確認済み。",
+        "question": "12kW超の屋内ガス調理機器には原則何を設ける？"
+      },
+      {
+        "answer": "排気部との接続部の有効断面積より小さくないこと。現行法では、ガス事業法施行規則 第197条第1項第1号を根拠に確認済み。",
+        "question": "自然排気式燃焼器の排気筒の有効断面積はどう定められる？"
+      },
+      {
+        "answer": "ガス供給を自動的に遮断する装置。。排気扇停止時に燃焼器へのガス供給を自動遮断する装置が必要である。現行法では、ガス事業法施行規則 第197条第1項第2号を根拠に確認済み。",
+        "question": "排気筒に接続する排気扇停止時には何が必要？"
+      },
+      {
+        "answer": "排気ガスが屋内に流れ込む隙間がないこと。現行法では、ガス事業法施行規則 第197条第1項第2号を根拠に確認済み。",
+        "question": "密閉燃焼式ガス湯沸器の給排気部が外壁を貫通する箇所に必要な条件は？"
+      },
+      {
+        "answer": "異物侵入などで給排気が妨げられない構造。現行法では、ガス事業法施行規則 第197条第1項第2号を根拠に確認済み。",
+        "question": "密閉燃焼式ガス湯沸器の給排気部先端はどんな構造が必要？"
+      },
+      {
+        "answer": "根拠は、ガス事業法施行規則第202条第1項第1号、ガス事業法施行規則第202条第1項第2号、ガス事業法施行規則第202条第1項第3号。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "1",
+          "subitem": "イ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "2",
+          "subitem": "イ（3）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "2",
+          "subitem": "ロ（4）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "3",
+          "subitem": "ニ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "3",
+          "subitem": "リ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:19:30Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
