@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 245,
+  "auditKey": "gas-shunin:otsu:2024:law:q16:30a25f6a2617",
+  "auditInputHash": "83fe37eb0a55fb823436715460855b728da710811df1f722adaaa1eb7c29e12a",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:08:24+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第1号ロは、屋内に設置する密閉燃焼式以外のガス瞬間湯沸器で、ガスの消費量が12kWを超えるものには排気筒を設けることを求めている。同号ただし書は、構造上その他の理由により困難な場合に排気フードを設ける例外も定めている。",
+      "間違い。ガス事業法施行規則第202条第2号イ(8)は、自然排気式燃焼器の排気筒の天井裏、床裏等にある部分について、燃焼器出口の排気ガス温度が100℃を超える場合は金属以外の不燃性材料で覆うことを求めている。金属材料で覆うとしている点が誤り。",
+      "間違い。ガス事業法施行規則第202条第3号ハは、排気筒に接続する排気扇が停止した場合に、当該燃焼器へのガスの供給を自動的に遮断する装置を設けることを求めている。燃焼を継続する装置としている点が誤り。",
+      "間違い。ガス事業法施行規則第202条第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けることを求めている。自動ガス遮断装置としている点が誤り。",
+      "正しい。ガス事業法施行規則第202条第11号は、燃焼器は供給されるガスに適応したものであることを技術上の基準として定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "屋内に設置する密閉燃焼式以外の12kW超のガス瞬間湯沸器には排気筒が必要か。",
+      "自然排気式燃焼器の排気筒の天井裏等の部分は、100℃超の場合に金属材料で覆えばよいか。",
+      "排気筒に接続する排気扇が停止した場合、燃焼を継続する装置ではなく何を設ける必要があるか。",
+      "特定地下街等又は特定地下室等に設置する燃焼器には、自動ガス遮断装置ではなく何を設ける必要があるか。",
+      "燃焼器は供給されるガスに適応したものでなければならないか。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "必要である。。屋内設置で密閉燃焼式以外、かつ12kWを超えるガス瞬間湯沸器は排気筒設置の対象である。",
+        "question": "屋内に設置する密閉燃焼式以外の12kW超のガス瞬間湯沸器には排気筒が必要か。"
+      },
+      {
+        "answer": "金属材料ではなく、金属以外の不燃性材料で覆う必要がある。",
+        "question": "自然排気式燃焼器の排気筒の天井裏等の部分は、100℃超の場合に金属材料で覆えばよいか。"
+      },
+      {
+        "answer": "ガスの供給を自動的に遮断する装置。。排気扇停止時に燃焼を継続させる趣旨ではなく、ガス供給を止める安全装置が必要である。",
+        "question": "排気筒に接続する排気扇が停止した場合、燃焼を継続する装置ではなく何を設ける必要があるか。"
+      },
+      {
+        "answer": "ガス漏れ警報設備。。特定地下街等又は特定地下室等では、告示規格に適合するガス漏れ警報設備の設置が求められる。",
+        "question": "特定地下街等又は特定地下室等に設置する燃焼器には、自動ガス遮断装置ではなく何を設ける必要があるか。"
+      },
+      {
+        "answer": "適応したものでなければならない。。供給ガスに合わない燃焼器は燃焼不良などの危険があるため、供給ガスへの適応が技術上の基準である。",
+        "question": "燃焼器は供給されるガスに適応したものでなければならないか。"
+      },
+      {
+        "answer": "根拠は、ガス事業法施行規則第202条第1号、ガス事業法施行規則第202条第2号、ガス事業法施行規則第202条第3号、ガス事業法施行規則第202条第8号、ガス事業法施行規則第202条第11号。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "paragraph": "1",
+          "item": "1"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "paragraph": "1",
+          "item": "2"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "paragraph": "1",
+          "item": "3"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "paragraph": "1",
+          "item": "8"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "paragraph": "1",
+          "item": "11"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:08:24Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
