@@ -255,6 +255,10 @@ class QualificationWorkflowTests(unittest.TestCase):
             "fields": ["lawRevisionFacts.current.correctChoiceText"],
         }
         with tempfile.TemporaryDirectory() as directory:
+            law_question = question(issues=[issue], law_related=True)
+            law_question["id"] = "law-question"
+            non_law_question = question(law_related=False)
+            non_law_question["id"] = "non-law-question"
             workflow = QualificationWorkflow(
                 Path(directory),
                 FakeInventory(
@@ -262,24 +266,44 @@ class QualificationWorkflowTests(unittest.TestCase):
                     [
                         {
                             "listGroupId": "2026",
-                            "questions": [
-                                question(issues=[issue], law_related=True)
-                            ],
+                            "questions": [law_question, non_law_question],
                         }
                     ],
                 ),
             )
+            stage_ids = [
+                "question_type",
+                "law_context",
+                "explanation",
+                "law_audit",
+            ]
+            plan = workflow.plan_many(
+                "sample",
+                stage_ids,
+                "group_refresh",
+                list_group_id="2026",
+            )
             result = workflow.prompt_many(
                 "sample",
-                ["question_type", "explanation", "law_audit"],
+                stage_ids,
                 "group_refresh",
                 list_group_id="2026",
             )
 
-        self.assertEqual(result["stageIds"], ["question_type", "explanation", "law_audit"])
-        self.assertEqual(result["targetCount"], 1)
+        audit_plan = next(
+            item for item in plan["stagePlans"] if item["stageId"] == "law_audit"
+        )
+        self.assertEqual(result["stageIds"], stage_ids)
+        self.assertEqual(result["targetCount"], 2)
+        self.assertEqual(result["workItemCount"], 8)
+        self.assertEqual(audit_plan["priorLawQuestionCount"], 1)
+        self.assertEqual(audit_plan["targetCount"], 2)
+        self.assertTrue(audit_plan["allQuestionGate"])
+        self.assertIn("対象問題: `2問すべて`", result["prompt"])
+        self.assertIn("工程判定: `延べ8件`", result["prompt"])
         self.assertIn("選択工程を上記順序で完了してから次の問題へ進む", result["prompt"])
         self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", result["prompt"])
+        self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
         self.assertNotIn("## 問題文", result["prompt"])
 
     def test_law_audit_prompt_is_path_only_and_requires_per_choice_research(self):

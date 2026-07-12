@@ -149,8 +149,12 @@ class QualificationRunTests(unittest.TestCase):
 
         self.assertEqual(preview["stageId"], "multi")
         self.assertEqual(preview["stageIds"], stage_ids)
+        self.assertEqual(preview["stageCount"], 3)
+        self.assertEqual(preview["targetCount"], 1)
+        self.assertEqual(preview["workItemCount"], 3)
         self.assertEqual(preview["targetGroupIds"], ["2026"])
         self.assertEqual(started["run"]["stageIds"], stage_ids)
+        self.assertEqual(started["run"]["workItemCount"], 3)
         self.assertEqual(started["run"]["scopeListGroupId"], "2026")
         self.assertIn("一問を読み、その問題について選択工程", started["prompt"])
 

@@ -396,6 +396,8 @@ class QualificationWorkflow:
                 list_group_id=list_group_id,
             )
             plan["stageIds"] = ordered
+            plan["stageCount"] = 1
+            plan["workItemCount"] = plan["targetCount"]
             plan["stagePlans"] = [dict(plan)]
             return plan
 
@@ -418,6 +420,32 @@ class QualificationWorkflow:
             )
             for stage_id in ordered
         ]
+        if mode in {"refresh", "group_refresh"} and "law_audit" in ordered:
+            scope_plan = max(
+                (plan for plan in stage_plans if plan["stageId"] != "law_audit"),
+                key=lambda plan: int(plan["targetCount"]),
+            )
+            audit_plan = next(
+                plan for plan in stage_plans if plan["stageId"] == "law_audit"
+            )
+            audit_plan["priorLawQuestionCount"] = audit_plan["targetCount"]
+            audit_plan["targetCount"] = scope_plan["targetCount"]
+            audit_plan["targetQuestionKeys"] = list(
+                scope_plan.get("targetQuestionKeys") or []
+            )
+            audit_plan["targetGroupIds"] = list(
+                scope_plan.get("targetGroupIds") or []
+            )
+            audit_plan["sourceFiles"] = list(scope_plan.get("sourceFiles") or [])
+            audit_plan["outputFiles"] = _unique(
+                str(
+                    Path(source_path).parent.parent
+                    / "21_explanationText_added"
+                    / f"{Path(source_path).stem}_explanationText_added.json"
+                )
+                for source_path in audit_plan["sourceFiles"]
+            )
+            audit_plan["allQuestionGate"] = True
         target_question_keys = _unique(
             key
             for plan in stage_plans
@@ -427,6 +455,7 @@ class QualificationWorkflow:
             "qualification": qualification,
             "stageId": "multi",
             "stageIds": ordered,
+            "stageCount": len(ordered),
             "stageCode": " → ".join(str(plan["stageCode"]) for plan in stage_plans),
             "stageLabel": "複数工程",
             "purpose": "選択した工程を一問単位で順番に完了する",
@@ -434,6 +463,9 @@ class QualificationWorkflow:
             "mode": mode,
             "modeLabel": stage_plans[0]["modeLabel"],
             "targetCount": len(target_question_keys),
+            "workItemCount": sum(
+                int(plan["targetCount"]) for plan in stage_plans
+            ),
             "targetQuestionKeys": target_question_keys,
             "targetGroupIds": _unique(
                 group_id
@@ -518,7 +550,8 @@ class QualificationWorkflow:
             "",
             f"- 工程: `{stage_summary}`",
             f"- 範囲: `{plan['modeLabel']}`",
-            f"- 対象問題: `{plan['targetCount']}件`",
+            f"- 対象問題: `{plan['targetCount']}問すべて`",
+            f"- 工程判定: `延べ{plan.get('workItemCount', plan['targetCount'])}件`",
             "",
             "## 正本",
             "",
@@ -549,6 +582,15 @@ class QualificationWorkflow:
                 if "law_audit" in selected_stage_ids
                 else []
             ),
+            *(
+                ["全件洗い替えの現行法監査は、既存のisLawRelatedだけで対象を絞らず、各問題で法令該当性を再確認する。非該当なら確認結果を確定して次工程へ進む。"]
+                if any(
+                    item.get("allQuestionGate")
+                    for item in stage_plans
+                    if item.get("stageId") == "law_audit"
+                )
+                else []
+            ),
             "既存の正本と共通workflowを優先し、資格固有の局所ルールを重複実装しない。",
             "対象外の変更と`00_source`、既存IDは変更しない。作業後は正本記載の検証を実行する。",
         ]
@@ -558,6 +600,7 @@ class QualificationWorkflow:
             "stageIds": selected_stage_ids,
             "mode": mode,
             "targetCount": plan["targetCount"],
+            "workItemCount": plan.get("workItemCount", plan["targetCount"]),
             "prompt": "\n".join(lines).strip() + "\n",
         }
 

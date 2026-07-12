@@ -430,6 +430,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('value="group_refresh" checked', html)
         self.assertIn("selectedQualificationRunStageIds", javascript)
         self.assertIn("stageIds,", javascript)
+        self.assertIn("問すべて × ${preview.stageCount}工程", javascript)
+        self.assertIn("延べ${preview.workItemCount}工程判定", javascript)
         self.assertIn('"/api/qualification-runs/resume-prompt"', javascript)
         self.assertIn('offset: String(offset)', javascript)
         self.assertIn('limit: String(state.questionPage.limit)', javascript)

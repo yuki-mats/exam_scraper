@@ -70,6 +70,7 @@ class QualificationRunStore:
             "kind": str(plan["kind"]),
             "status": status,
             "targetCount": int(plan["targetCount"]),
+            "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "completedGroupIds": [],
@@ -337,6 +338,10 @@ class QualificationRunCoordinator:
             "modeLabel": plan["modeLabel"],
             "resumedFrom": resumed_from,
             "targetCount": plan["targetCount"],
+            "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
+            "stageCount": int(
+                plan.get("stageCount") or len(plan.get("stageIds") or [plan["stageId"]])
+            ),
             "targetGroupIds": plan["targetGroupIds"],
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "canonicalDocs": list(plan.get("canonicalDocs") or []),

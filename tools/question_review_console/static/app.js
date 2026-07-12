@@ -975,7 +975,9 @@ function renderQualificationActiveRun() {
       element("span", `run-status ${item.status}`, QUALIFICATION_RUN_STATUS_LABELS[item.status] || item.status),
       element("strong", "", `${item.stageCode} ${item.stageLabel}`),
       element("span", "", item.modeLabel),
-      element("span", "", `${item.targetCount}${item.kind === "machine" ? "フォルダ" : "件"}`),
+      element("span", "", item.kind === "machine"
+        ? `${item.targetCount}フォルダ`
+        : `${item.targetCount}問 × ${item.stageIds?.length || 1}工程`),
       element("time", "", new Date(item.updatedAt).toLocaleString("ja-JP", { dateStyle: "short", timeStyle: "short" })),
     );
     historyList.append(row);
@@ -989,7 +991,7 @@ function renderQualificationActiveRun() {
   const completed = (run.completedGroupIds || []).length;
   $("#qualification-active-run-progress").textContent = run.kind === "machine"
     ? `${completed}/${run.targetCount}フォルダ`
-    : `${run.targetCount}件を依頼済み`;
+    : `${run.targetCount}問すべて × ${run.stageIds?.length || 1}工程を依頼済み`;
   const action = $("#qualification-active-run-action");
   action.textContent = run.kind === "human"
     ? "依頼を再コピー"
@@ -1150,14 +1152,27 @@ function renderQualificationRunPreview(preview) {
       element("span", "", "別の範囲を選ぶか、次の工程を確認してください。"),
     );
   } else {
-    const unit = preview.kind === "machine" ? "フォルダ" : "件";
+    const isMultiStage = preview.kind === "human" && preview.stageCount > 1;
     container.append(
-      element("strong", "run-preview-count", `${preview.targetCount}${unit}`),
+      element(
+        "strong",
+        "run-preview-count",
+        preview.kind === "machine"
+          ? `${preview.targetCount}フォルダ`
+          : isMultiStage
+            ? `${preview.targetCount}問すべて × ${preview.stageCount}工程`
+            : `${preview.targetCount}問`,
+      ),
       element("span", "", `${preview.stageCode} ${preview.stageLabel}`),
       element("span", "", preview.kind === "machine"
         ? "Merge・Convert・upload-readyを順番に再生成して検証します。"
         : "対象パスと正本文書だけを含むCodex依頼を保存します。"),
     );
+    if (isMultiStage) {
+      container.append(
+        element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
+      );
+    }
     if (preview.targetGroupIds?.length) {
       container.append(element("span", "run-preview-groups", preview.targetGroupIds.join(" / ")));
     }
