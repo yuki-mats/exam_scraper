@@ -133,6 +133,59 @@ class ScrapeGassyuninTests(unittest.TestCase):
             ],
         )
 
+    def test_parse_numbered_choice_box_as_group_choice(self) -> None:
+        html = """
+        <h1>2018年（平成30年）甲種 過去問題</h1>
+        <div class="tab-content-kiso">
+          <h2>問1</h2>
+          <p>計算結果として、最も近い値はどれか。</p>
+          <ol class="choice-list">
+            <li><strong>(1)</strong> 1060</li>
+            <li><strong>(2)</strong> 1080</li>
+            <li><strong>(3)</strong> 1100</li>
+          </ol>
+          <details>
+            <h3>正解: (2)</h3>
+            <h3>計算方法</h3>
+          </details>
+        </div>
+        """
+
+        questions = parse_exam_page_html(
+            html,
+            "https://gassyunin.com/exam/kou/kou_2018/",
+            download_images=False,
+        )
+
+        self.assertEqual(len(questions), 1)
+        question = questions[0]
+        self.assertEqual(question["questionType"], "group_choice")
+        self.assertEqual(question["choiceTextList"], ["1060", "1080", "1100"])
+        self.assertEqual(question["choiceTextMarkedList"], ["1060", "1080", "1100"])
+        self.assertEqual(question["correctChoiceText"], ["不正解", "正解", "不正解"])
+        self.assertEqual(question["explanation_choice_correctness"], ["不正解", "正解", "不正解"])
+        self.assertEqual(question["answer_result_inferred_correct_choice_numbers"], [2])
+
+    @unittest.skipUnless(RUN_LIVE_TESTS, "live site dependent (set RUN_LIVE_TESTS=1)")
+    def test_parse_live_kou_2018_numbered_choice(self) -> None:
+        response = requests.get(
+            "https://gassyunin.com/exam/kou/kou_2018/",
+            timeout=20,
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        response.raise_for_status()
+        questions = parse_exam_page_html(
+            response.text,
+            "https://gassyunin.com/exam/kou/kou_2018/",
+            download_images=False,
+        )
+        question = find_question(questions, category="基礎理論", question_label="問1")
+
+        self.assertEqual(question["questionType"], "group_choice")
+        self.assertEqual(question["choiceTextList"], ["1060", "1080", "1100", "1120", "1140"])
+        self.assertEqual(question["correctChoiceText"], ["正解", "不正解", "不正解", "不正解", "不正解"])
+        self.assertEqual(question["answer_result_inferred_correct_choice_numbers"], [1])
+
     @unittest.skipUnless(RUN_LIVE_TESTS, "live site dependent (set RUN_LIVE_TESTS=1)")
     def test_live_2025_subject_question_counts(self) -> None:
         response = requests.get(

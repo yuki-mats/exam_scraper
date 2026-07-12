@@ -22,17 +22,13 @@ python3 scripts/scrape/run_qualification_scrape.py <qualification> <list_group_i
 ## 新しい資格・サイトの追加
 
 1. 対象年度・回、一覧URL、問題ページへの到達性を確認する。
-2. 既存`scanner_type`で表現できる場合はpresetだけを追加する。
+2. [site台帳](../sources/README.md)を確認し、既存`scraper_type`で表現できる場合はpresetだけを追加する。
 3. 新しいsite差分が必要な場合だけsite scraperを追加し、共通処理は`scripts/scrape/common.py`へ寄せる。
 4. `config/scrape_presets.json`へ資格名、出力ID、URL、対象範囲を登録する。
 5. fixtureで本文、選択肢、正答、画像、IDを検証する。
 6. 小さな取得で保存内容を確認してから、依頼された全年度・全公開groupを取得する。
 
-site固有の抽出方針は`document/sources/<source>/`へ置きます。共通ルールをsite文書へ複製しません。
-
-現行のsite固有契約:
-
-- [gassyunin.com](../sources/gas-shunin/gassyunin_source_contract.md)
+site、実装、認証、既知制約の対応は[site台帳](../sources/README.md)を入口にします。site固有の抽出方針は`document/sources/<source>/`へ置き、共通ルールをsite文書へ複製しません。
 
 ## IDと出典
 

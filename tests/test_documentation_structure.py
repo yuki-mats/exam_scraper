@@ -83,6 +83,16 @@ class DocumentationStructureTests(unittest.TestCase):
         )
         self.assertNotIn("23_correctChoiceText_fixed", config["promptStageFiles"])
 
+    def test_scraping_site_registry_covers_configured_scraper_types(self):
+        workflow = (ROOT / "document" / "operations" / "scraping_workflow.md").read_text(encoding="utf-8")
+        registry = (ROOT / "document" / "sources" / "README.md").read_text(encoding="utf-8")
+        presets = json.loads((ROOT / "config" / "scrape_presets.json").read_text(encoding="utf-8"))
+
+        self.assertIn("../sources/README.md", workflow)
+        scraper_types = {str(preset.get("scraper_type", "kakomonn")) for preset in presets.values()}
+        for scraper_type in scraper_types:
+            self.assertIn(f"`{scraper_type}`", registry)
+
 
 if __name__ == "__main__":
     unittest.main()

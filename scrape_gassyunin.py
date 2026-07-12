@@ -43,6 +43,8 @@ SUBJECT_DEFINITIONS = [
 CHOICE_LINE_PATTERN = re.compile(
     r"^(?:[（(](?P<paren_marker>[^）)]+)[）)]|(?P<plain_marker>[イロハニホ]))\s*(?P<rest>.*)$"
 )
+NUMBERED_CHOICE_MARKER_PATTERN = re.compile(r"^[（(]?([0-9０-９]+)[）)]?$")
+FULLWIDTH_DIGITS = str.maketrans("０１２３４５６７８９", "0123456789")
 
 
 def apply_runtime_overrides_from_env() -> None:
@@ -177,6 +179,56 @@ def extract_question_body_and_markers_from_nodes(nodes: Iterable[Tag]) -> tuple[
                 body_lines.append(stripped_line)
 
     return "\n".join(body_lines).strip(), discovered_markers
+
+
+def extract_numbered_choice_texts_from_nodes(nodes: Iterable[Tag]) -> list[str]:
+    for node in nodes:
+        if node.name == "details":
+            break
+
+        containers: list[Tag] = []
+        classes = node.get("class") or []
+        if "num-choice-box" in classes or (node.name == "ol" and "choice-list" in classes):
+            containers.append(node)
+        containers.extend(node.select(".num-choice-box, ol.choice-list"))
+
+        for container in containers:
+            choices_by_number: dict[int, str] = {}
+            for candidate in container.find_all(["li", "div"]):
+                marker = candidate.find("strong", recursive=False)
+                if not isinstance(marker, Tag):
+                    continue
+                marker_text = normalize_inline_text(marker.get_text(" ", strip=True)).translate(FULLWIDTH_DIGITS)
+                match = NUMBERED_CHOICE_MARKER_PATTERN.fullmatch(marker_text)
+                if match is None:
+                    continue
+
+                cloned_candidate = BeautifulSoup(str(candidate), "html.parser")
+                cloned_marker = cloned_candidate.find("strong")
+                if cloned_marker is not None:
+                    cloned_marker.decompose()
+                choice_text = normalize_inline_text(cloned_candidate.get_text(" ", strip=True))
+                if choice_text:
+                    choices_by_number[int(match.group(1))] = choice_text
+
+            if not choices_by_number:
+                continue
+            expected_numbers = list(range(1, max(choices_by_number) + 1))
+            if sorted(choices_by_number) != expected_numbers:
+                raise ValueError(f"数値選択肢の番号が連続していません: {sorted(choices_by_number)}")
+            return [choices_by_number[number] for number in expected_numbers]
+
+    return []
+
+
+def build_group_choice_correctness(choice_count: int, correct_numbers: list[int]) -> list[str]:
+    unique_numbers = sorted(set(correct_numbers))
+    if len(unique_numbers) != 1:
+        raise ValueError(f"数値選択肢の正答番号を1つに確定できません: {correct_numbers}")
+    correct_number = unique_numbers[0]
+    if correct_number < 1 or correct_number > choice_count:
+        raise ValueError(f"数値選択肢の正答番号が範囲外です: {correct_number}/{choice_count}")
+    return ["正解" if number == correct_number else "不正解" for number in range(1, choice_count + 1)]
 
 
 def extract_question_image_urls(nodes: Iterable[Tag], base_url: str) -> list[str]:
@@ -410,6 +462,7 @@ def parse_subject_section(
         public_question_id = make_public_question_id(source_question_id)
         block_nodes = collect_nodes_until_next_h2(question_heading)
         details = next((node for node in block_nodes if node.name == "details"), None)
+        numbered_choice_texts = extract_numbered_choice_texts_from_nodes(block_nodes)
 
         question_body_text, discovered_question_markers = extract_question_body_and_markers_from_nodes(block_nodes)
         question_image_urls = extract_question_image_urls(block_nodes, page_url)
@@ -441,6 +494,8 @@ def parse_subject_section(
         marker_alignment_mode = "no_marker_data"
         marker_mismatch_detected = False
         answer_result_numbers_remapped = False
+        question_type = "flash_card"
+        explanation_choice_correctness: list[str | None] = []
 
         if details is not None:
             answer_heading = details.find("h3", string=lambda s: s and "正解" in s)
@@ -455,6 +510,7 @@ def parse_subject_section(
             )
 
             if row_records:
+                question_type = "true_false"
                 choice_marker_source = "judge"
                 if question_choice_markers and judge_choice_markers and question_choice_markers != judge_choice_markers:
                     marker_mismatch_detected = True
@@ -473,24 +529,39 @@ def parse_subject_section(
                 marker_alignment_mode = "question_only"
 
             answer_result_text = build_answer_result_text(answer_result_numbers)
-            choice_text_list = [row_record["plain_text"] for row_record in row_records]
-            choice_text_marked_list = [row_record["marked_text"] for row_record in row_records]
-            correct_choice_texts = [
-                verdict_text_to_correct_choice_text(
-                    row_record["verdict_text"],
-                    question_body_text,
-                    row_record["class_list"],
+            if row_records:
+                choice_text_list = [row_record["plain_text"] for row_record in row_records]
+                choice_text_marked_list = [row_record["marked_text"] for row_record in row_records]
+                correct_choice_texts = [
+                    verdict_text_to_correct_choice_text(
+                        row_record["verdict_text"],
+                        question_body_text,
+                        row_record["class_list"],
+                    )
+                    for row_record in row_records
+                ]
+                explanation_choice_snippets = [row_record["snippet"] for row_record in row_records]
+                explanation_choice_correctness = [None for _ in choice_text_list]
+            elif numbered_choice_texts:
+                question_type = "group_choice"
+                choice_text_list = numbered_choice_texts
+                choice_text_marked_list = numbered_choice_texts.copy()
+                correct_choice_texts = build_group_choice_correctness(
+                    len(numbered_choice_texts),
+                    answer_result_numbers,
                 )
-                for row_record in row_records
-            ]
-            explanation_choice_snippets = [row_record["snippet"] for row_record in row_records]
+                explanation_choice_snippets = [[] for _ in numbered_choice_texts]
+                explanation_choice_correctness = correct_choice_texts.copy()
+
+        if numbered_choice_texts and not choice_text_list:
+            raise ValueError(f"数値選択肢を取得しましたが正答を確定できません: {source_question_id}")
 
         exam_label = f"{exam_title} {subject_name}".strip()
         question_dict = {
             "questionBodyText": question_body_text,
             "examLabel": exam_label,
             "questionLabel": question_label,
-            "questionType": "true_false" if choice_text_list else "flash_card",
+            "questionType": question_type,
             "choiceTextList": choice_text_list,
             "choiceTextMarkedList": choice_text_marked_list,
             "questionChoiceMarkers": question_choice_markers,
@@ -515,7 +586,7 @@ def parse_subject_section(
             ),
             "explanation_common_summary": [],
             "explanation_choice_snippets": explanation_choice_snippets,
-            "explanation_choice_correctness": [None for _ in choice_text_list],
+            "explanation_choice_correctness": explanation_choice_correctness,
             "answer_result_text": answer_result_text,
             "answer_result_inferred_correct_choice_numbers": answer_result_numbers,
             "source_question_id": source_question_id,

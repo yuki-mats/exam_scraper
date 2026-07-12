@@ -396,6 +396,7 @@ def validate_question(
 
 def run_check(args: argparse.Namespace) -> dict[str, Any]:
     qualifications = args.qualifications
+    list_group_ids = set(args.list_group_ids or [])
     all_issues: list[dict[str, Any]] = []
     source_unique_key_counter: Counter[str] = Counter()
     review_id_counter: Counter[str] = Counter()
@@ -408,6 +409,8 @@ def run_check(args: argparse.Namespace) -> dict[str, Any]:
 
     for qualification in qualifications:
         for source_path in iter_source_paths(qualification):
+            if list_group_ids and source_path.parent.parent.name not in list_group_ids:
+                continue
             file_count += 1
             payload = load_json(source_path)
             bodies = payload.get("question_bodies") if isinstance(payload, dict) else None
@@ -505,6 +508,7 @@ def run_check(args: argparse.Namespace) -> dict[str, Any]:
         "generatedAt": utc_now(),
         "fixApplied": bool(args.fix),
         "qualifications": qualifications,
+        "listGroupIds": sorted(list_group_ids),
         "sourceFileCount": file_count,
         "questionCount": question_count,
         "changedFileCount": len(changed_files),
@@ -531,6 +535,11 @@ def parse_args() -> argparse.Namespace:
         default=["gas-shunin-kou", "gas-shunin-otsu"],
         choices=sorted(QUALIFICATION_GRADE),
     )
+    parser.add_argument(
+        "--list-group-ids",
+        nargs="+",
+        help="対象のoutput list_group_idだけを検査する。新規sourceへの--fixでは指定必須",
+    )
     parser.add_argument("--fix", action="store_true", help="本文・選択肢は変えず、決定的メタデータだけを補う")
     parser.add_argument("--report", type=Path, help="検証レポートJSONの保存先")
     parser.add_argument("--max-issues", type=int, default=200)
@@ -539,6 +548,9 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.fix and not args.list_group_ids:
+        print("[ERROR] --fix には --list-group-ids を指定してください")
+        return 2
     report = run_check(args)
     output = json.dumps(report, ensure_ascii=False, indent=2)
     print(output)
