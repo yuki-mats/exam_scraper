@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>問題レビュー</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand-block">
+        <h1>問題レビュー</h1>
+        <span id="project-status" class="environment-label">本番Firestore: 読取専用</span>
+      </div>
+      <div class="toolbar" aria-label="表示条件">
+        <label>
+          <span>資格</span>
+          <select id="qualification-select"></select>
+        </label>
+        <label>
+          <span>年度・回</span>
+          <select id="group-select"></select>
+        </label>
+        <label class="search-field">
+          <span>検索</span>
+          <input id="search-input" type="search" placeholder="問題文・問番" autocomplete="off">
+        </label>
+        <div class="segmented" aria-label="一覧範囲">
+          <button id="exceptions-button" class="active" type="button">例外のみ</button>
+          <button id="all-button" type="button">全問</button>
+        </div>
+        <button id="refresh-button" class="icon-button" type="button" title="再読込" aria-label="再読込">↻</button>
+      </div>
+    </header>
+
+    <section class="filter-bar" aria-label="追加フィルター">
+      <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
+      <label class="check-control"><input id="firestore-mismatch" type="checkbox"> Firestore差分</label>
+      <label>
+        <span>issue</span>
+        <select id="issue-select">
+          <option value="">すべて</option>
+        </select>
+      </label>
+      <label>
+        <span>review</span>
+        <select id="review-status-select">
+          <option value="">すべて</option>
+          <option value="unreviewed">未確認</option>
+          <option value="needs_review">要確認</option>
+          <option value="awaiting_codex">Codex対応待ち</option>
+          <option value="post_fix_review">修正後確認</option>
+          <option value="approved">承認済み</option>
+          <option value="hold">保留</option>
+        </select>
+      </label>
+      <span id="list-summary" class="list-summary">読み込み中</span>
+    </section>
+
+    <main class="workspace">
+      <aside class="queue-pane" aria-label="問題一覧">
+        <div id="queue" class="queue" role="listbox" aria-label="レビュー対象"></div>
+      </aside>
+      <section id="detail-pane" class="detail-pane" aria-live="polite">
+        <div class="empty-state">
+          <strong>問題を選択してください</strong>
+          <span>例外の理由とpatch合成後の状態を確認できます。</span>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="review-dialog">
+      <form id="review-form" method="dialog">
+        <header class="dialog-header">
+          <h2 id="review-dialog-title">指摘を記録</h2>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <label>
+            <span>issue種別</span>
+            <select id="review-issue" required></select>
+          </label>
+          <fieldset>
+            <legend>対象選択肢</legend>
+            <div id="review-choice-list" class="checkbox-grid"></div>
+          </fieldset>
+          <fieldset>
+            <legend>対象field</legend>
+            <div id="review-field-list" class="checkbox-grid"></div>
+          </fieldset>
+          <label>
+            <span>何がおかしいか</span>
+            <textarea id="review-note" rows="4" required></textarea>
+          </label>
+          <label>
+            <span>期待する状態（不明なら空で可）</span>
+            <textarea id="review-expected" rows="3"></textarea>
+          </label>
+        </div>
+        <footer class="dialog-actions">
+          <button class="secondary-button close-dialog" type="button">キャンセル</button>
+          <button id="review-submit" class="primary-button" type="submit">記録</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog id="edit-dialog" class="wide-dialog">
+      <form id="edit-form" method="dialog">
+        <header class="dialog-header">
+          <h2>解説・正誤の直接編集</h2>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <p id="edit-guidance" class="inline-notice"></p>
+          <div id="edit-choice-list" class="edit-choice-list"></div>
+          <fieldset>
+            <legend>補足質問</legend>
+            <div id="suggestion-edit-list" class="suggestion-edit-list"></div>
+            <button id="add-suggestion" class="secondary-button" type="button">+ 質問を追加</button>
+          </fieldset>
+          <label>
+            <span>変更理由</span>
+            <textarea id="edit-reason" rows="3" placeholder="正誤を変更する場合は必須"></textarea>
+          </label>
+        </div>
+        <footer class="dialog-actions">
+          <button class="secondary-button close-dialog" type="button">キャンセル</button>
+          <button class="primary-button" type="submit">差分を確認</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog id="confirm-dialog">
+      <form id="confirm-form" method="dialog">
+        <header class="dialog-header">
+          <h2>保存差分</h2>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <div id="confirm-diffs" class="confirm-diffs"></div>
+        </div>
+        <footer class="dialog-actions">
+          <button class="secondary-button close-dialog" type="button">戻る</button>
+          <button id="confirm-apply" class="danger-button" type="submit">patchに保存</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

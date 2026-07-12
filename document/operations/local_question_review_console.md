@@ -439,11 +439,13 @@ tests/
   test_question_review_firestore_readback.py
 ```
 
-日常入口は、実装後に次へ統合する。
+日常入口は次へ統合済み。
 
 ```text
 python tools/question_bank/question_bank.py review-ui
 ```
+
+実装済み。資格・年度を初期指定する場合は`--qualification`と`--list-group-id`を付ける。Google Drive上で未ダウンロードの任意比較成果物は、画面起動時に自動materializeせず未生成相当として扱い、sourceとpatchの確認を先に可能にする。
 
 サーバーは`127.0.0.1`だけへbindし、空いているportを選ぶ。ブラウザを自動で開き、終了時に一時session tokenを破棄する。
 

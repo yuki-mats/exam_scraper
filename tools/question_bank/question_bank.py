@@ -604,6 +604,21 @@ def add_law_revision_hold_materialize_parser(
     parser.add_argument("--skip-missing-patch-ids", action="store_true")
 
 
+def add_review_ui_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "review-ui",
+        help="Open the local exception-first question review console.",
+    )
+    parser.set_defaults(command="review-ui")
+    parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--port", type=int, default=0)
+    parser.add_argument("--no-browser", action="store_true")
+    parser.add_argument("--qualification")
+    parser.add_argument("--list-group-id")
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -698,6 +713,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_law_revision_fact_coverage_parser(subparsers)
     add_law_revision_audit_queue_parser(subparsers)
     add_law_revision_hold_materialize_parser(subparsers)
+    add_review_ui_parser(subparsers)
     add_question_issue_report_parsers(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
@@ -861,6 +877,16 @@ def run_law_revision_hold_materialize(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.command == "review-ui":
+        from tools.question_review_console.server import run_server
+
+        return run_server(
+            host=args.host,
+            port=args.port,
+            open_browser=not args.no_browser,
+            qualification=args.qualification,
+            list_group_id=args.list_group_id,
+        )
     if args.command in {
         "report-inventory",
         "report-snapshot",

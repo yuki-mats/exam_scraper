@@ -29,6 +29,26 @@ python scripts/check/run_question_quality_gate.py \
   --list-group-id <list_group_id>
 ```
 
+## ローカル問題レビュー
+
+Codex整備後のpatch合成値、merge、convert、upload-ready、本番Firestoreを元問題単位で確認する場合は、例外優先のローカル画面を起動します。
+
+```bash
+python tools/question_bank/question_bank.py review-ui
+```
+
+初期表示を指定する場合:
+
+```bash
+python tools/question_bank/question_bank.py review-ui \
+  --qualification gas-shunin-otsu \
+  --list-group-id 2024
+```
+
+サーバーは空いているportの`127.0.0.1`だけにbindし、ブラウザを開きます。`00_source`は閲覧専用です。直接編集は解説・補足質問と、非法令問題で整合検証できる正誤だけを対象patchへ保存します。法令問題の正誤、問題文、選択肢、分類、法令根拠はCodex用依頼へ切り替えます。
+
+本番Firestoreは選択中の問題に対応するdocumentだけを読み取ります。この画面にupload又はFirestore書込APIはありません。仕様と保存先は`document/operations/local_question_review_console.md`を正本にします。
+
 ## 何を確認するか
 
 - `00_source`、merged、`40_convert` の必須フィールド
