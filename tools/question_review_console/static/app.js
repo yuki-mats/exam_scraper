@@ -1,5 +1,7 @@
 "use strict";
 
+const ALL_LIST_GROUPS = "__all__";
+
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
   firestore_readback_stale: "Firestore再取得待ち",
@@ -40,6 +42,51 @@ const WORKFLOW_LABELS = {
   error: "取得失敗",
   unavailable: "比較不可",
   upstream_stale: "前回取得・現在は古い比較",
+};
+
+const FIELD_LABELS = {
+  questionLabel: "問題番号",
+  questionBodyText: "問題文",
+  choiceTextList: "選択肢",
+  correctChoiceText: "正誤",
+  explanationText: "基本解説",
+  questionType: "問題形式",
+  questionIntent: "出題意図",
+  questionSetId: "問題セットID",
+  originalQuestionId: "元問題ID",
+  original_question_id: "元問題ID",
+  answer_result_text: "公式解答",
+  isLawRelated: "法令関連",
+  lawReferences: "条文根拠",
+  lawRevisionFacts: "法令監査情報",
+  lawTitle: "法令名",
+  lawAlias: "法令別名",
+  article: "条",
+  paragraph: "項",
+  item: "号",
+  subitem: "枝番",
+  role: "根拠の役割",
+  referenceDate: "基準日",
+  verificationStatus: "検証状態",
+  comparisonStatus: "現行法との比較",
+  reason: "判断理由",
+  sourceUrl: "参照先",
+  apiUrl: "API参照先",
+  auditStatus: "監査結果",
+  reviewState: "レビュー状態",
+  auditedAt: "監査日時",
+  nextAuditDueAt: "次回監査期限",
+  auditMethodVersion: "監査方式",
+  reconciliationStatus: "照合状態",
+  examTime: "出題時点",
+  current: "現行法",
+  differenceFacts: "条文差分",
+  answerImpactFacts: "正誤への影響",
+  evidenceSummary: "根拠要約",
+  verdict: "判定",
+  differenceSummary: "差分の要約",
+  promptContext: "AIへの判断範囲",
+  notes: "監査メモ",
 };
 
 const EDITABLE_FIELDS = [
@@ -124,6 +171,16 @@ function actionWithHelp(text, className, handler, helpTitle, helpContent) {
   return wrapper;
 }
 
+function helpIcon(title, content, ariaLabel = "説明") {
+  const help = button("?", "help-button", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openHelp(title, content);
+  }, ariaLabel);
+  help.setAttribute("aria-label", ariaLabel);
+  return help;
+}
+
 async function api(path, options = {}) {
   const request = { method: options.method || "GET", headers: { Accept: "application/json" } };
   if (options.body !== undefined) {
@@ -178,6 +235,7 @@ async function initialize() {
 function bindControls() {
   $("#qualification-select").addEventListener("change", async (event) => {
     state.qualification = event.target.value;
+    state.listGroupId = ALL_LIST_GROUPS;
     populateGroups();
     await loadQuestions(false);
     updateUrl();
@@ -259,13 +317,18 @@ function populateGroups(requested = null) {
   const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
   const groups = qualification?.listGroupIds || [];
   $("#group-select-label").textContent = scopeLabelForGroups(groups);
-  state.listGroupId = groups.includes(requested)
+  state.listGroupId = requested === ALL_LIST_GROUPS
+    ? ALL_LIST_GROUPS
+    : groups.includes(requested)
     ? requested
-    : groups.includes(state.listGroupId)
+    : state.listGroupId === ALL_LIST_GROUPS || groups.includes(state.listGroupId)
       ? state.listGroupId
-      : groups[groups.length - 1] || "";
+      : ALL_LIST_GROUPS;
   const select = $("#group-select");
   select.replaceChildren();
+  const allOption = element("option", "", `すべて（${groups.length}件）`);
+  allOption.value = ALL_LIST_GROUPS;
+  select.append(allOption);
   for (const group of groups) {
     const option = element("option", "", group);
     option.value = group;
@@ -347,6 +410,9 @@ function renderQueue() {
     const head = element("div", "queue-item-head");
     head.append(
       element("span", "queue-label", question.questionLabel || question.sourceQuestionKey || question.sourceStem),
+      ...(state.listGroupId === ALL_LIST_GROUPS
+        ? [element("span", "queue-group", question.listGroupId)]
+        : []),
       element("span", "queue-review", REVIEW_LABELS[question.reviewStatus] || question.reviewStatus),
     );
     const body = element("p", "queue-body", question.body || "（問題文なし）");
@@ -376,7 +442,11 @@ async function loadDetail(questionId) {
   state.selectedId = questionId;
   renderQueue();
   try {
-    const params = new URLSearchParams({ qualification: state.qualification, listGroupId: state.listGroupId });
+    const summary = state.questions.find((question) => question.id === questionId);
+    const params = new URLSearchParams({
+      qualification: state.qualification,
+      listGroupId: summary?.listGroupId || state.listGroupId,
+    });
     state.detail = await api(`/api/questions/${questionId}?${params}`);
     renderDetail();
     renderQueue();
@@ -1118,7 +1188,8 @@ function renderFirestoreDiff(question) {
 }
 
 function groupApiPath(action) {
-  return `/api/groups/${encodeURIComponent(state.qualification)}/${encodeURIComponent(state.listGroupId)}/${action}`;
+  const listGroupId = state.detail?.listGroupId || state.listGroupId;
+  return `/api/groups/${encodeURIComponent(state.qualification)}/${encodeURIComponent(listGroupId)}/${action}`;
 }
 
 function resetWorkflowDialog(mode, title) {
@@ -1558,30 +1629,170 @@ function renderSuggestions(projected) {
   return table;
 }
 
+function fieldLabel(key) {
+  return FIELD_LABELS[key] || key;
+}
+
+function structuredDataPath(basePath, tokens) {
+  return tokens.reduce(
+    (path, token) => path + (Number.isInteger(token) ? `[${token}]` : `.${token}`),
+    basePath,
+  );
+}
+
+function structuredTargetContext(baseContext, pathTokens) {
+  const dataPath = structuredDataPath(baseContext.dataPath, pathTokens);
+  const pathLabel = pathTokens.map(fieldLabel).join(" / ");
+  return {
+    fields: baseContext.fields,
+    choiceIndexes: baseContext.choiceIndexes
+      || (Number.isInteger(pathTokens[0]) ? [pathTokens[0]] : []),
+    targetLabel: pathLabel ? `${baseContext.targetLabel} / ${pathLabel}` : baseContext.targetLabel,
+    dataPath,
+  };
+}
+
+function renderStructuredValue(value, baseContext, pathTokens = []) {
+  if (value === undefined || value === null || typeof value !== "object") {
+    const text = value === undefined
+      ? "fieldなし"
+      : value === null
+        ? "null"
+        : typeof value === "boolean"
+          ? value ? "はい" : "いいえ"
+          : String(value);
+    const node = /^https?:\/\//.test(text)
+      ? element("a", "structured-link", text)
+      : element("span", "structured-value", text);
+    if (node.tagName === "A") {
+      node.href = text;
+      node.target = "_blank";
+      node.rel = "noreferrer";
+    }
+    installReviewTarget(node, structuredTargetContext(baseContext, pathTokens));
+    return node;
+  }
+
+  if (Array.isArray(value)) {
+    if (!value.length) return element("span", "structured-empty", "なし");
+    const list = element("ol", "structured-list");
+    value.forEach((item, index) => {
+      const row = document.createElement("li");
+      row.append(renderStructuredValue(item, baseContext, [...pathTokens, index]));
+      list.append(row);
+    });
+    return list;
+  }
+
+  const entries = Object.entries(value);
+  if (!entries.length) return element("span", "structured-empty", "なし");
+  const object = element("div", "structured-object");
+  for (const [key, item] of entries) {
+    const row = element("div", "structured-row");
+    row.append(
+      element("div", "structured-key", fieldLabel(key)),
+      element("div", "structured-cell"),
+    );
+    row.children[1].append(
+      renderStructuredValue(item, baseContext, [...pathTokens, key]),
+    );
+    object.append(row);
+  }
+  return object;
+}
+
+function articleLocation(value) {
+  if (!value || typeof value !== "object") return "";
+  return [
+    value.article ? `第${value.article}条` : "",
+    value.paragraph ? `第${value.paragraph}項` : "",
+    value.item ? `第${value.item}号` : "",
+  ].filter(Boolean).join(" ");
+}
+
+function lawReferenceEntries(value) {
+  const entries = [];
+  const choices = Array.isArray(value) ? value : value ? [value] : [];
+  choices.forEach((choiceValue, outerIndex) => {
+    const references = Array.isArray(choiceValue) ? choiceValue : [choiceValue];
+    references.filter((reference) => reference && typeof reference === "object")
+      .forEach((reference, referenceIndex) => {
+        const choiceIndex = Number.isInteger(reference.choiceIndex)
+          ? reference.choiceIndex
+          : outerIndex;
+        entries.push({ reference, choiceIndex, outerIndex, referenceIndex });
+      });
+  });
+  return entries;
+}
+
+function renderLawReferences(value) {
+  const entries = lawReferenceEntries(value);
+  if (!entries.length) return element("p", "structured-empty", "条文根拠はありません。");
+  const list = element("div", "law-entry-list");
+  entries.forEach(({ reference, choiceIndex, outerIndex, referenceIndex }, index) => {
+    const details = document.createElement("details");
+    details.className = "law-entry";
+    details.open = index === 0;
+    const title = [
+      `選択肢${choiceIndex + 1}`,
+      reference.lawTitle || reference.lawAlias || "法令名なし",
+      articleLocation(reference),
+    ].filter(Boolean).join(" / ");
+    details.append(element("summary", "", title));
+    const content = element("div", "details-content");
+    content.append(renderStructuredValue(reference, {
+      fields: ["lawReferences"],
+      choiceIndexes: [choiceIndex],
+      targetLabel: `条文根拠 / 選択肢${choiceIndex + 1}`,
+      dataPath: `lawReferences[${outerIndex}][${referenceIndex}]`,
+    }));
+    details.append(content);
+    list.append(details);
+  });
+  return list;
+}
+
+function renderLawRevisionFacts(value) {
+  const facts = Array.isArray(value) ? value : value ? [value] : [];
+  if (!facts.length) return element("p", "structured-empty", "法令監査情報はありません。");
+  const list = element("div", "law-entry-list");
+  facts.forEach((fact, index) => {
+    const details = document.createElement("details");
+    details.className = "law-entry";
+    details.open = index === 0;
+    const auditStatus = fact?.auditStatus || "監査状態なし";
+    const currentVerdict = fact?.current?.correctChoiceText || "現行法判定なし";
+    details.append(element(
+      "summary",
+      "",
+      `選択肢${index + 1} / ${auditStatus} / ${currentVerdict}`,
+    ));
+    const content = element("div", "details-content");
+    content.append(renderStructuredValue(fact, {
+      fields: ["lawRevisionFacts"],
+      choiceIndexes: [index],
+      targetLabel: `法令監査情報 / 選択肢${index + 1}`,
+      dataPath: `lawRevisionFacts[${index}]`,
+    }));
+    details.append(content);
+    list.append(details);
+  });
+  return list;
+}
+
 function renderLawSection(projected) {
   const node = section("法令根拠");
   const references = document.createElement("details");
   references.open = true;
-  references.append(element("summary", "", "lawReferences"));
+  references.append(element("summary", "", "条文根拠"));
   const content = element("div", "details-content");
-  const referenceData = jsonPre(projected.lawReferences || []);
-  installReviewTarget(referenceData, {
-    fields: ["lawReferences"],
-    targetLabel: "法令根拠 / lawReferences",
-    dataPath: "lawReferences",
-  });
-  content.append(referenceData);
+  content.append(renderLawReferences(projected.lawReferences));
   references.append(content);
   const facts = document.createElement("details");
-  facts.append(element("summary", "", "lawRevisionFacts"));
+  facts.append(element("summary", "", "法令監査情報"));
   const factContent = element("div", "details-content");
-  const factData = jsonPre(projected.lawRevisionFacts || []);
-  installReviewTarget(factData, {
-    fields: ["lawRevisionFacts"],
-    targetLabel: "法令根拠 / lawRevisionFacts",
-    dataPath: "lawRevisionFacts",
-  });
-  factContent.append(factData);
+  factContent.append(renderLawRevisionFacts(projected.lawRevisionFacts));
   facts.append(factContent);
   node.append(references, facts);
   return node;
@@ -1600,6 +1811,57 @@ function renderReviewSection(question) {
   );
   node.append(status, note, actions);
   return node;
+}
+
+function structuredValueSummary(value) {
+  if (Array.isArray(value)) return `${value.length}件`;
+  if (value && typeof value === "object") return `${Object.keys(value).length}項目`;
+  if (value === undefined) return "fieldなし";
+  if (value === null) return "null";
+  if (typeof value === "boolean") return value ? "はい" : "いいえ";
+  const text = String(value);
+  return text.length > 42 ? `${text.slice(0, 41)}…` : text;
+}
+
+function renderProjectedData(projected) {
+  const details = document.createElement("details");
+  details.className = "projected-data";
+  const summary = element("summary", "structured-summary");
+  summary.append(
+    element("span", "", "パッチ適用後データ"),
+    helpIcon(
+      "パッチ適用後データとは",
+      "00_sourceに各patchを重ねた、Merge直前の問題データです。パッチの修正が想定したfieldに反映され、別のfieldを壊していないか確認するために表示します。JSONファイルの表示ではなく、fieldごとに確認できます。",
+      "パッチ適用後データの説明",
+    ),
+  );
+  details.append(summary);
+  const content = element("div", "details-content projected-field-list");
+  const entries = Object.entries(projected || {});
+  if (!entries.length) {
+    content.append(element("p", "structured-empty", "パッチ適用後データがありません。"));
+  }
+  for (const [field, value] of entries) {
+    const fieldDetails = document.createElement("details");
+    fieldDetails.className = "projected-field";
+    const fieldSummary = element("summary", "projected-field-summary");
+    fieldSummary.append(
+      element("span", "", fieldLabel(field)),
+      element("code", "", field),
+      element("span", "projected-field-preview", structuredValueSummary(value)),
+    );
+    fieldDetails.append(fieldSummary);
+    const fieldContent = element("div", "details-content");
+    fieldContent.append(renderStructuredValue(value, {
+      fields: [field],
+      targetLabel: `パッチ適用後データ / ${fieldLabel(field)}`,
+      dataPath: field,
+    }));
+    fieldDetails.append(fieldContent);
+    content.append(fieldDetails);
+  }
+  details.append(content);
+  return details;
 }
 
 function renderDataSection(question) {
@@ -1642,12 +1904,7 @@ function renderDataSection(question) {
   pathContent.append(pathList);
   pathDetails.append(pathContent);
 
-  const rawDetails = document.createElement("details");
-  rawDetails.append(element("summary", "", "投影後JSON"));
-  const rawContent = element("div", "details-content");
-  rawContent.append(jsonPre(question.projected));
-  rawDetails.append(rawContent);
-  node.append(diffDetails, pathDetails, rawDetails);
+  node.append(diffDetails, pathDetails, renderProjectedData(question.projected));
   return node;
 }
 
@@ -1657,10 +1914,6 @@ function topLevelDifferences(left, right) {
   return [...new Set([...Object.keys(left), ...Object.keys(right)])]
     .filter((key) => !ignored.has(key) && JSON.stringify(left[key]) !== JSON.stringify(right[key]))
     .sort();
-}
-
-function jsonPre(value) {
-  return element("pre", "", JSON.stringify(value, null, 2));
 }
 
 function normalizedReviewSelection(node, context, selectedText = "") {

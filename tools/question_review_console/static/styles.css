@@ -137,6 +137,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .queue-item.selected { background: #e9f2fa; box-shadow: inset 4px 0 var(--blue); }
 .queue-item-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
 .queue-label { font-weight: 750; font-size: 13px; }
+.queue-group { padding: 1px 5px; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--text-muted); background: #fff; font-size: 10px; font-weight: 700; }
 .queue-review { margin-left: auto; color: var(--text-muted); font-size: 11px; }
 .queue-body { margin: 0 0 8px; color: #3f4852; font-size: 12px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .issue-row { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -324,6 +325,26 @@ pre { margin: 0; padding: 10px; overflow: auto; background: #202830; color: #e7e
 .diff-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .diff-table th, .diff-table td { border: 1px solid var(--line); padding: 7px; text-align: left; vertical-align: top; }
 .diff-table th { background: var(--surface-muted); }
+.structured-summary { display: flex; align-items: center; gap: 7px; }
+.structured-summary .help-button { margin-left: auto; }
+.structured-object { width: 100%; border-top: 1px solid var(--line); }
+.structured-row { display: grid; grid-template-columns: minmax(130px, 190px) minmax(0, 1fr); border-bottom: 1px solid var(--line); }
+.structured-key { padding: 8px 10px; background: var(--surface-muted); color: #46515c; font-size: 11px; font-weight: 700; overflow-wrap: anywhere; }
+.structured-cell { min-width: 0; padding: 8px 10px; font-size: 12px; line-height: 1.55; overflow-wrap: anywhere; }
+.structured-value { white-space: pre-wrap; }
+.structured-link { color: var(--blue); overflow-wrap: anywhere; }
+.structured-empty { color: var(--text-muted); font-size: 12px; font-style: italic; }
+.structured-list { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+.structured-list > li { padding-left: 3px; }
+.law-entry-list { display: grid; gap: 7px; }
+.law-entry { border-color: var(--line-strong); }
+.law-entry > summary { font-size: 12px; }
+.projected-field-list { display: grid; gap: 6px; }
+.projected-field { border-color: var(--line); }
+.projected-field + .projected-field { margin-top: 0; }
+.projected-field-summary { display: grid; grid-template-columns: minmax(130px, 190px) minmax(120px, 0.7fr) minmax(160px, 1fr); align-items: center; gap: 10px; font-size: 12px; }
+.projected-field-summary code { color: var(--text-muted); font-size: 10px; overflow-wrap: anywhere; }
+.projected-field-preview { color: var(--text-muted); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 dialog { width: min(620px, calc(100vw - 28px)); max-height: calc(100vh - 28px); padding: 0; border: 1px solid var(--line-strong); border-radius: 6px; box-shadow: var(--shadow); }
 dialog::backdrop { background: rgba(19, 25, 31, 0.48); }
@@ -464,4 +485,8 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   .selection-toolbar { right: 10px; bottom: 10px; width: calc(100vw - 20px); align-items: stretch; flex-direction: column; }
   .selection-toolbar-actions { width: 100%; }
   .selection-toolbar-actions .primary-button, .selection-toolbar-actions .secondary-button { flex: 1; }
+  .structured-row { grid-template-columns: 1fr; }
+  .structured-key { border-bottom: 1px solid var(--line); }
+  .projected-field-summary { grid-template-columns: 1fr; gap: 3px; }
+  .projected-field-preview { white-space: normal; }
 }

@@ -32,6 +32,7 @@ from tools.question_review_console.workflow_runner import ArtifactSynchronizer, 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATIC_ROOT = Path(__file__).resolve().parent / "static"
 MAX_REQUEST_BYTES = 2 * 1024 * 1024
+ALL_LIST_GROUPS = "__all__"
 STATIC_CONTENT_TYPES = {
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
@@ -269,7 +270,21 @@ class QuestionReviewApplication:
                 HTTPStatus.BAD_REQUEST,
                 "qualificationとlistGroupIdを指定してください。",
             )
-        group = self.inventory.group(qualification, list_group_id)
+        if list_group_id == ALL_LIST_GROUPS:
+            qualification_info = next(
+                (
+                    item
+                    for item in self.inventory.inventory()["qualifications"]
+                    if item["id"] == qualification
+                ),
+                None,
+            )
+            if qualification_info is None:
+                raise ApiError(HTTPStatus.NOT_FOUND, "対象資格がありません。")
+            group_ids = qualification_info["listGroupIds"]
+        else:
+            group_ids = [list_group_id]
+        groups = [self.inventory.group(qualification, group_id) for group_id in group_ids]
         search = _query_value(query, "search").casefold()
         issue = _query_value(query, "issue")
         review_status = _query_value(query, "status")
@@ -278,40 +293,42 @@ class QuestionReviewApplication:
         firestore_mismatch = _query_bool(query, "firestoreMismatch", default=False)
         summaries = []
         decorated_issue_count = 0
-        for raw in group["questions"]:
-            question = self._decorate(raw)
-            decorated_issue_count += bool(question["issues"])
-            if search and search not in " ".join(
-                (
-                    question.get("body", ""),
-                    question.get("questionLabel", ""),
-                    question.get("sourceQuestionKey", ""),
-                )
-            ).casefold():
-                continue
-            if issue and issue not in question["issueCodes"]:
-                continue
-            if review_status and question["reviewStatus"] != review_status:
-                continue
-            if law_only and not question["isLawRelated"]:
-                continue
-            if firestore_mismatch and question["workflow"]["firestore"] not in {
-                "mismatch",
-                "missing",
-                "error",
-                "upstream_stale",
-            }:
-                continue
-            if exceptions_only and not question["issues"]:
-                continue
-            summaries.append(self._summary(question))
+        for group in groups:
+            for raw in group["questions"]:
+                question = self._decorate(raw)
+                decorated_issue_count += bool(question["issues"])
+                if search and search not in " ".join(
+                    (
+                        question.get("body", ""),
+                        question.get("questionLabel", ""),
+                        question.get("sourceQuestionKey", ""),
+                        question.get("listGroupId", ""),
+                    )
+                ).casefold():
+                    continue
+                if issue and issue not in question["issueCodes"]:
+                    continue
+                if review_status and question["reviewStatus"] != review_status:
+                    continue
+                if law_only and not question["isLawRelated"]:
+                    continue
+                if firestore_mismatch and question["workflow"]["firestore"] not in {
+                    "mismatch",
+                    "missing",
+                    "error",
+                    "upstream_stale",
+                }:
+                    continue
+                if exceptions_only and not question["issues"]:
+                    continue
+                summaries.append(self._summary(question))
         return {
             "qualification": qualification,
             "listGroupId": list_group_id,
-            "questionCount": group["questionCount"],
+            "questionCount": sum(group["questionCount"] for group in groups),
             "issueQuestionCount": decorated_issue_count,
             "filteredCount": len(summaries),
-            "fingerprint": group["fingerprint"],
+            "fingerprint": "|".join(group["fingerprint"] for group in groups),
             "questions": summaries,
         }
 
@@ -334,11 +351,25 @@ class QuestionReviewApplication:
         qualification = _query_value(query, "qualification")
         list_group_id = _query_value(query, "listGroupId")
         if qualification and list_group_id:
-            self.inventory.group(qualification, list_group_id)
-            try:
-                return self.inventory.question(question_id)
-            except KeyError:
-                raise ApiError(HTTPStatus.NOT_FOUND, "対象問題がありません。") from None
+            if list_group_id == ALL_LIST_GROUPS:
+                qualification_info = next(
+                    (
+                        item
+                        for item in self.inventory.inventory()["qualifications"]
+                        if item["id"] == qualification
+                    ),
+                    None,
+                )
+                group_ids = qualification_info["listGroupIds"] if qualification_info else []
+            else:
+                group_ids = [list_group_id]
+            for group_id in group_ids:
+                self.inventory.group(qualification, group_id)
+                try:
+                    return self.inventory.question(question_id)
+                except KeyError:
+                    continue
+            raise ApiError(HTTPStatus.NOT_FOUND, "対象問題がありません。") from None
 
         for qualification_info in self.inventory.inventory()["qualifications"]:
             for group_id in qualification_info["listGroupIds"]:

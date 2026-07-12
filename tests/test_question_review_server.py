@@ -14,6 +14,57 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_lists_all_groups_for_a_qualification(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2024", "2025"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": 1,
+                    "fingerprint": f"fingerprint-{list_group_id}",
+                    "questions": [
+                        {
+                            "id": f"question-{list_group_id}",
+                            "listGroupId": list_group_id,
+                            "body": f"{list_group_id}年の問題",
+                            "questionLabel": "問1",
+                            "sourceQuestionKey": f"sample:{list_group_id}:q01",
+                            "issues": [],
+                            "issueCodes": [],
+                            "reviewStatus": "unreviewed",
+                            "isLawRelated": False,
+                            "workflow": {"firestore": "unread"},
+                        }
+                    ],
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            result = app._questions(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["__all__"],
+                    "exceptionsOnly": ["false"],
+                }
+            )
+
+        self.assertEqual(result["questionCount"], 2)
+        self.assertEqual(result["filteredCount"], 2)
+        self.assertEqual(
+            [question["listGroupId"] for question in result["questions"]],
+            ["2024", "2025"],
+        )
+
     def test_single_question_readback_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))

@@ -318,6 +318,11 @@ class WorkflowUiContractTests(unittest.TestCase):
             "renderLawAuditQualityWarning",
             "openLawAuditQualityReview",
             "openFindingsReview",
+            "helpIcon",
+            "renderStructuredValue",
+            "renderLawReferences",
+            "renderLawRevisionFacts",
+            "renderProjectedData",
             "startWorkflowExecution",
             "parseDataPath",
             "installReviewTarget",
@@ -352,6 +357,12 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
         self.assertIn('"監査パッチをまとめて修正依頼"', javascript)
+        self.assertIn('const ALL_LIST_GROUPS = "__all__"', javascript)
+        self.assertIn('`すべて（${groups.length}件）`', javascript)
+        self.assertIn('"パッチ適用後データ"', javascript)
+        self.assertNotIn('"投影後JSON"', javascript)
+        self.assertNotIn("function jsonPre", javascript)
+        self.assertIn("state.detail?.listGroupId || state.listGroupId", javascript)
         pipeline_source = javascript[
             javascript.index("function renderPipelineActions") :
             javascript.index("function parseDataPath")
