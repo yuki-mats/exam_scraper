@@ -123,6 +123,7 @@ const state = {
   selectedId: "",
   detail: null,
   reviewMode: "awaiting_codex",
+  reviewRequestKind: "",
   reviewSelection: null,
   selectionCandidate: null,
   pendingEdit: null,
@@ -658,7 +659,7 @@ function renderLawAuditQualityWarning(question) {
       "primary-button",
       () => openLawAuditQualityReview(question),
       "監査パッチをまとめて修正依頼",
-      "この問題の監査メタデータ不完全をまとめ、同じフォルダ内の同原因問題を選択肢ごとの条文照合対象にします。",
+      "選択中の資格について、全フォルダの法令監査不備を一問一肢ずつ条文照合するCodex依頼を作成します。",
     ),
   );
   return node;
@@ -694,8 +695,9 @@ function openLawAuditQualityReview(question) {
     issueType: warnings[0]?.code || "law_audit_metadata_incomplete",
     title: "法令監査パッチをまとめて修正依頼",
     targetLabel: "法令監査メタデータの一括報告",
-    note: "既存メタデータを正本扱いせず、各選択肢で問題文＋選択肢の完全命題を作り、保存済みapiUrl/e-Gov条文本文を開いて現行法判定を確認する。未確認はhold。同原因も一問一肢ずつ確認し、upload-readyまで再生成する。",
-    investigationScope: "current_group",
+    note: "資格内の法令監査不備を一問一肢ずつ現行条文で確認し、patchとupload-readyを更新する。",
+    investigationScope: "qualification",
+    requestKind: "qualification_law_audit",
     selectedText: summarizedFindingsText(warnings),
   });
 }
@@ -708,6 +710,7 @@ function openFindingsReview({
   targetLabel,
   note,
   investigationScope,
+  requestKind = "",
   selectedText,
 }) {
   const uploadDocs = question.uploadReadyDocs || [];
@@ -733,6 +736,7 @@ function openFindingsReview({
     },
     issueType,
     investigationScope,
+    requestKind,
   );
   $("#review-dialog-title").textContent = title;
   $("#review-note").value = note;
@@ -2013,9 +2017,16 @@ function openSelectionReview(investigationScope) {
   openReview("awaiting_codex", selection, issueType, investigationScope);
 }
 
-function openReview(mode, selection = null, issueType = "", investigationScope = "current_question") {
+function openReview(
+  mode,
+  selection = null,
+  issueType = "",
+  investigationScope = "current_question",
+  requestKind = "",
+) {
   if (!state.detail) return;
   state.reviewMode = mode;
+  state.reviewRequestKind = requestKind;
   state.reviewSelection = selection;
   $("#review-dialog-title").textContent = selection
     ? "選択した箇所の修正を依頼"
@@ -2025,10 +2036,13 @@ function openReview(mode, selection = null, issueType = "", investigationScope =
   $("#review-issue").value = ISSUE_LABELS[firstIssue] ? firstIssue : "other";
   $("#review-note").value = "";
   $("#review-expected").value = "";
-  $("#review-scope").value = REVIEW_SCOPES.has(investigationScope)
-    ? investigationScope
-    : "current_question";
-  $("#review-scope-wrap").hidden = false;
+  const qualificationLawAudit = requestKind === "qualification_law_audit";
+  $("#review-scope").value = qualificationLawAudit
+    ? "qualification"
+    : REVIEW_SCOPES.has(investigationScope)
+      ? investigationScope
+      : "current_question";
+  $("#review-scope-wrap").hidden = qualificationLawAudit;
 
   const selectionNode = $("#review-selection");
   selectionNode.hidden = !selection;
@@ -2079,6 +2093,7 @@ async function submitReview(event) {
           choiceIndexes,
           fields,
           issueTypes: [$("#review-issue").value],
+          requestKind: state.reviewRequestKind,
           note: $("#review-note").value,
           expectedOutcome: $("#review-expected").value,
           selection: state.reviewSelection,

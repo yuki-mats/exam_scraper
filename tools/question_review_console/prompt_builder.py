@@ -11,6 +11,8 @@ LAW_AUDIT_ISSUES = {
     "law_basis_missing",
 }
 
+QUALIFICATION_LAW_AUDIT_REQUEST = "qualification_law_audit"
+
 
 def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
     projected = question.get("projected") or {}
@@ -63,12 +65,56 @@ def _law_audit_instruction() -> str:
 """
 
 
+def _is_qualification_law_audit(review: Mapping[str, Any]) -> bool:
+    if review.get("requestKind") == QUALIFICATION_LAW_AUDIT_REQUEST:
+        return True
+    selection = review.get("selection") or {}
+    return (
+        isinstance(selection, Mapping)
+        and selection.get("targetLabel") == "法令監査メタデータの一括報告"
+        and review.get("investigationScope") == "qualification"
+    )
+
+
+def _build_qualification_law_audit_prompt(
+    review_path: Path,
+    question: Mapping[str, Any],
+    review: Mapping[str, Any],
+) -> str:
+    issue_types = ", ".join(str(value) for value in review.get("issueTypes") or [])
+    fields = ", ".join(str(value) for value in review.get("fields") or [])
+    return f"""# 資格単位の法令監査パッチ整備
+
+- review JSON: `{review_path}`
+- qualification: `{question.get('qualification')}`
+- issue: {issue_types or '法令監査品質不備'}
+- fields: {fields or 'lawReferences, lawRevisionFacts'}
+- 人間の指摘: {review.get('note') or '（補足なし）'}
+
+このreviewは作業の起点であり、表示中の1問だけを直す依頼ではない。qualification配下の全listGroupIdを棚卸しし、法令監査品質不備がある全問題・全選択肢を一問一肢ずつ処理する。
+
+## 実施条件
+
+- 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`を正本扱いせず、各肢で「問題文＋選択肢」の完全命題を作る。
+- 保存済み`apiUrl`/`sourceUrl`又はe-Govの現行条文本文を実際に開き、条文、適用条件、数値、例外を目視照合する。一括コピーや正誤ラベルだけの補完は禁止する。
+- 確認結果と根拠を各問題の責務に合うpatchへ個別に記録する。条文で確定できないものは推測せず`hold`/`needs_secondary_review`にする。
+- `correctChoiceText`を変える場合は、解説先頭、根拠、`lawRevisionFacts.current.correctChoiceText`も同時に整合させる。
+- `00_source`と既存の`questionId`、`originalQuestionId`、`questionSetId`は変更しない。対象外の変更も破棄しない。
+- 変更した全listGroupIdでmerge、convert、法令監査quality-gateを実行し、upload-readyへの反映を確認する。Firestoreへはアップロードしない。
+
+完了時は、確認した問題数・選択肢数、変更したpatchとfield、各問の判断根拠を追跡できる監査記録、hold一覧、検証結果、Firestore未反映を示す。
+"""
+
+
 def build_codex_prompt(
     repo_root: Path,
     review_path: Path,
     question: Mapping[str, Any],
     review: Mapping[str, Any],
 ) -> str:
+    if _is_qualification_law_audit(review):
+        return _build_qualification_law_audit_prompt(review_path, question, review)
+
     paths = question.get("paths") or {}
     selected_indexes = [int(value) for value in review.get("choiceIndexes") or []]
     issue_types = ", ".join(str(value) for value in review.get("issueTypes") or [])

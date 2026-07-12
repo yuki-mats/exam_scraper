@@ -57,7 +57,7 @@ class QuestionReviewStoreTests(unittest.TestCase):
         self.assertEqual(latest["status"], "approved")
         self.assertEqual(latest["snapshots"]["projectedHash"], "state-2")
 
-    def test_law_audit_prompt_requires_per_choice_article_review(self):
+    def test_qualification_law_audit_prompt_is_compact_and_requires_per_choice_review(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             store = ReviewStore(root)
@@ -83,6 +83,7 @@ class QuestionReviewStoreTests(unittest.TestCase):
                 question,
                 {
                     "issueTypes": ["law_audit_metadata_incomplete"],
+                    "requestKind": "qualification_law_audit",
                     "fields": ["lawRevisionFacts.current.correctChoiceText"],
                     "note": "監査メタデータを確認してほしい",
                     "selection": {
@@ -92,15 +93,20 @@ class QuestionReviewStoreTests(unittest.TestCase):
                         "choiceIndexes": [0],
                         "selectedText": "fieldなし",
                     },
-                    "investigationScope": "current_group",
+                    "investigationScope": "qualification",
                 },
             )
 
-        self.assertIn("## 法令監査指示", created["prompt"])
-        self.assertIn("値を写すだけで確定しない", created["prompt"])
-        self.assertIn("e-Gov条文本文を開いて目視照合", created["prompt"])
-        self.assertIn("確認不能・根拠不足は`hold`", created["prompt"])
+        self.assertEqual(created["requestKind"], "qualification_law_audit")
+        self.assertIn("# 資格単位の法令監査パッチ整備", created["prompt"])
+        self.assertIn("表示中の1問だけを直す依頼ではない", created["prompt"])
+        self.assertIn("全問題・全選択肢を一問一肢ずつ処理", created["prompt"])
+        self.assertIn("e-Govの現行条文本文を実際に開き", created["prompt"])
         self.assertIn("一括コピーや正誤ラベルだけの補完は禁止", created["prompt"])
+        self.assertNotIn("## 問題文", created["prompt"])
+        self.assertNotIn("## UIで選択した箇所", created["prompt"])
+        self.assertNotIn("## 関連ファイル", created["prompt"])
+        self.assertNotIn("条文上の記述A", created["prompt"])
 
 
 if __name__ == "__main__":

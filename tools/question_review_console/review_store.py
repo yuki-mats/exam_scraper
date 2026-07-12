@@ -102,6 +102,7 @@ class ReviewStore:
             "all_qualifications",
         }:
             investigation_scope = "current_question"
+        request_kind = str(request.get("requestKind") or "").strip()
         payload = {
             "schemaVersion": "local-question-review/v1",
             "reviewId": review_id,
@@ -139,6 +140,8 @@ class ReviewStore:
             "createdAt": now,
             "updatedAt": now,
         }
+        if request_kind:
+            payload["requestKind"] = request_kind
         atomic_write(
             review_path,
             json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
