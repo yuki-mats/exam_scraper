@@ -191,6 +191,49 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .pipeline-message span { color: var(--text-muted); font-size: 11px; line-height: 1.4; }
 .pipeline-buttons { margin-left: auto; display: flex; flex: 0 0 auto; gap: 6px; }
 
+.firestore-diff-panel { scroll-margin-top: 230px; }
+.firestore-diff-summary {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-left: 4px solid var(--red);
+  background: var(--red-bg);
+}
+.firestore-diff-summary strong { font-size: 13px; }
+.firestore-diff-summary span { color: #653b37; font-size: 12px; }
+.firestore-diff-notice { margin: 0; padding: 10px 12px; border-left: 4px solid var(--amber); background: var(--amber-bg); font-size: 12px; }
+.firestore-diff-notice.error { border-left-color: var(--red); background: var(--red-bg); }
+.firestore-diff-documents { margin-top: 10px; display: grid; gap: 12px; }
+.firestore-diff-document { border: 1px solid var(--line-strong); background: #fff; }
+.firestore-diff-document-heading {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-muted);
+}
+.firestore-diff-document-heading strong { min-width: 0; overflow-wrap: anywhere; font-size: 12px; }
+.firestore-diff-document-heading code { color: var(--text-muted); font-size: 10px; overflow-wrap: anywhere; }
+.firestore-diff-status { padding: 3px 6px; border: 1px solid #efc2bd; border-radius: 3px; color: var(--red); background: var(--red-bg); font-size: 10px; font-weight: 700; white-space: nowrap; }
+.firestore-diff-status.missing { color: var(--amber); border-color: #ead394; background: var(--amber-bg); }
+.firestore-diff-missing { margin: 0; padding: 12px; font-size: 12px; }
+.firestore-diff-table-wrap { width: 100%; overflow-x: auto; }
+.firestore-diff-table { width: 100%; min-width: 680px; border-collapse: collapse; table-layout: fixed; font-size: 11px; }
+.firestore-diff-table th, .firestore-diff-table td { padding: 8px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.firestore-diff-table tr:last-child th, .firestore-diff-table tr:last-child td { border-bottom: 0; }
+.firestore-diff-table th:first-child { width: 18%; }
+.firestore-diff-table thead th { background: #f4f6f8; }
+.firestore-diff-paths { margin-top: 7px; display: grid; gap: 3px; color: var(--text-muted); font-weight: 400; }
+.firestore-diff-paths code { padding: 2px 3px; background: #eef1f4; font-size: 9px; overflow-wrap: anywhere; }
+.firestore-diff-paths span { font-size: 9px; }
+.firestore-diff-value { max-height: 220px; margin: 0; padding: 0; overflow: auto; color: #26313b; background: transparent; font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.firestore-diff-empty { color: var(--text-muted); font-style: italic; }
+
 .primary-button, .secondary-button, .danger-button, .text-button {
   min-height: 34px;
   border-radius: 4px;
@@ -310,6 +353,10 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   .pipeline-action-bar { align-items: stretch; flex-direction: column; }
   .pipeline-buttons { width: 100%; margin-left: 0; }
   .pipeline-buttons button { flex: 1; }
+  .firestore-diff-panel { scroll-margin-top: 12px; }
+  .firestore-diff-summary { align-items: start; flex-direction: column; gap: 3px; }
+  .firestore-diff-document-heading { grid-template-columns: 1fr auto; }
+  .firestore-diff-document-heading code { grid-column: 1 / -1; grid-row: 2; }
   .workflow { grid-template-columns: repeat(5, minmax(82px, 1fr)); overflow-x: auto; }
   .choice-card { grid-template-columns: 48px minmax(0, 1fr); }
   .choice-explanation { grid-column: 2; border-top: 1px solid var(--line); }

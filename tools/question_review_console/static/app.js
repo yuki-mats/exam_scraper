@@ -369,8 +369,11 @@ function renderDetail() {
     button("編集", "secondary-button", openEdit, "解説・正誤をpatchで修正"),
   );
   titleRow.append(titleBlock, actions);
-  header.append(titleRow, renderWorkflow(question.workflow), renderPipelineActions(question));
+  header.append(titleRow, renderWorkflow(question), renderPipelineActions(question));
   pane.append(header);
+
+  const firestoreDiff = renderFirestoreDiff(question);
+  if (firestoreDiff) pane.append(firestoreDiff);
 
   const questionSection = section("問題文");
   questionSection.append(element("p", "question-body", question.body));
@@ -405,7 +408,8 @@ function section(title) {
   return node;
 }
 
-function renderWorkflow(workflow) {
+function renderWorkflow(question) {
+  const workflow = question.workflow || {};
   const node = element("div", "workflow");
   const stages = [
     ["Patch", workflow.patch],
@@ -416,10 +420,44 @@ function renderWorkflow(workflow) {
   ];
   for (const [name, status] of stages) {
     const step = element("div", `workflow-step ${status}`);
-    step.append(element("strong", "", name), element("span", "", WORKFLOW_LABELS[status] || status));
+    step.append(
+      element("strong", "", name),
+      element("span", "", workflowStatusLabel(name, status, question)),
+    );
     node.append(step);
   }
   return node;
+}
+
+function topLevelFirestoreField(path) {
+  return String(path || "").match(/^[^.[\]]+/)?.[0] || String(path || "");
+}
+
+function firestoreDiffStats(question) {
+  const documents = question.liveReadback?.documents || [];
+  const mismatched = documents.filter((document) => document.status === "mismatch");
+  const missing = documents.filter((document) => document.status === "missing");
+  const fields = new Set();
+  for (const document of mismatched) {
+    for (const path of document.differences || []) fields.add(topLevelFirestoreField(path));
+  }
+  return {
+    fieldCount: fields.size,
+    mismatchedCount: mismatched.length,
+    missingCount: missing.length,
+  };
+}
+
+function workflowStatusLabel(name, status, question) {
+  if (name !== "Firestore") return WORKFLOW_LABELS[status] || status;
+  const stats = firestoreDiffStats(question);
+  if (status === "mismatch") return `差分あり ${stats.fieldCount}項目`;
+  if (status === "missing") return `未登録 ${stats.missingCount}件`;
+  return WORKFLOW_LABELS[status] || status;
+}
+
+function scrollToFirestoreDiff() {
+  $("#firestore-diff-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderPipelineActions(question) {
@@ -434,24 +472,172 @@ function renderPipelineActions(question) {
       element("strong", "", "最新patchが後続成果物へ未反映です"),
       element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
     );
+    if (["mismatch", "missing"].includes(workflow.firestore)) {
+      actions.append(button("差分を見る", "secondary-button", scrollToFirestoreDiff));
+    }
     actions.append(button("成果物を同期", "primary-button", openSyncDialog));
   } else {
+    const stats = firestoreDiffStats(question);
+    const differenceSummary = [
+      stats.missingCount ? `未登録${stats.missingCount}件` : "",
+      stats.fieldCount ? `差分${stats.fieldCount}項目` : "",
+    ].filter(Boolean).join("・");
     const messages = {
       match: ["本番Firestoreまで一致しています", "選択中の問題は最新upload-readyと一致しています。"],
-      mismatch: ["本番Firestoreに差分があります", "対象フォルダ全体の差分を確認してから本番へ反映できます。"],
-      missing: ["本番Firestoreに未登録の問題があります", "対象フォルダ全体の追加対象を確認できます。"],
+      mismatch: ["本番Firestoreに差分があります", `${differenceSummary || "field差分あり"}。下の比較表ですぐ確認できます。`],
+      missing: ["本番Firestoreに未登録の問題があります", `${differenceSummary || "未登録documentあり"}。下の比較表ですぐ確認できます。`],
       error: ["Firestoreの確認に失敗しました", "credentialと接続状態を確認してください。"],
       unread: ["ローカル成果物は最新です", "本番Firestoreはまだ確認していません。"],
       unavailable: ["Firestoreと比較できません", "upload-readyのdocument IDを確認してください。"],
+      upstream_stale: ["最新成果物とは未比較です", "成果物を同期後、Firestoreを再読取してください。"],
     };
     const [title, detail] = messages[workflow.firestore] || messages.unread;
     status.append(element("strong", "", title), element("span", "", detail));
+    if (["mismatch", "missing"].includes(workflow.firestore)) {
+      actions.append(button("差分を見る", "primary-button", scrollToFirestoreDiff));
+    }
     actions.append(
       button("この問題を再読取", "secondary-button", runFirestoreReadback),
-      button("本番差分を確認", "primary-button", openPublishDialog),
+      button(
+        "本番差分を確認",
+        ["mismatch", "missing"].includes(workflow.firestore) ? "secondary-button" : "primary-button",
+        openPublishDialog,
+      ),
     );
   }
   node.append(status, actions);
+  return node;
+}
+
+function firestoreDiffValue(value) {
+  if (value === undefined) return element("span", "firestore-diff-empty", "fieldなし");
+  if (value === null) return element("span", "firestore-diff-empty", "null");
+  const formatted = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+  return element("pre", "firestore-diff-value", formatted);
+}
+
+function renderFirestoreDiff(question) {
+  const workflowStatus = question.workflow?.firestore;
+  const liveReadback = question.liveReadback;
+  if (!["mismatch", "missing", "error", "unavailable", "upstream_stale"].includes(workflowStatus)) {
+    return null;
+  }
+
+  const node = section("Firestore差分");
+  node.id = "firestore-diff-panel";
+  node.classList.add("firestore-diff-panel");
+
+  if (workflowStatus === "upstream_stale") {
+    node.append(element(
+      "p",
+      "firestore-diff-notice",
+      "表示中のFirestore結果は古いupload-readyとの比較です。成果物を同期し、この問題を再読取すると最新値の差分を表示できます。",
+    ));
+    return node;
+  }
+  if (["error", "unavailable"].includes(workflowStatus)) {
+    node.append(element(
+      "p",
+      "firestore-diff-notice error",
+      liveReadback?.error || "Firestoreの比較結果を取得できませんでした。",
+    ));
+    return node;
+  }
+
+  const stats = firestoreDiffStats(question);
+  const summary = element("div", "firestore-diff-summary");
+  summary.append(
+    element("strong", "", `${stats.mismatchedCount + stats.missingCount}件のdocumentに差分`),
+    element("span", "", `値の差分 ${stats.fieldCount}項目 / 未登録 ${stats.missingCount}件`),
+  );
+  node.append(summary);
+
+  const expectedDocuments = question.uploadReadyDocs?.length
+    ? question.uploadReadyDocs
+    : question.convertedDocs || [];
+  const expectedById = new Map(
+    expectedDocuments.map((document) => [String(document.questionId || ""), document]),
+  );
+  const changedDocuments = (liveReadback?.documents || [])
+    .filter((document) => document.status !== "match");
+
+  if (!changedDocuments.length) {
+    node.append(element("p", "firestore-diff-notice", "比較結果の詳細がありません。この問題を再読取してください。"));
+    return node;
+  }
+
+  const list = element("div", "firestore-diff-documents");
+  for (const readbackDocument of changedDocuments) {
+    const expected = expectedById.get(String(readbackDocument.questionId || "")) || {};
+    const block = element("article", "firestore-diff-document");
+    const heading = element("div", "firestore-diff-document-heading");
+    heading.append(
+      element(
+        "strong",
+        "",
+        expected.originalQuestionChoiceText || expected.questionText || readbackDocument.questionId || "document IDなし",
+      ),
+      element("code", "", readbackDocument.questionId || "questionIdなし"),
+      element(
+        "span",
+        `firestore-diff-status ${readbackDocument.status}`,
+        readbackDocument.status === "missing" ? "Firestore未登録" : "値に差分",
+      ),
+    );
+    block.append(heading);
+
+    if (readbackDocument.status === "missing") {
+      block.append(element(
+        "p",
+        "firestore-diff-missing",
+        "upload-readyにはこのdocumentがありますが、本番Firestoreには存在しません。",
+      ));
+      list.append(block);
+      continue;
+    }
+
+    const fields = [...new Set((readbackDocument.differences || []).map(topLevelFirestoreField))].filter(Boolean);
+    const tableWrap = element("div", "firestore-diff-table-wrap");
+    const table = element("table", "firestore-diff-table");
+    const head = document.createElement("thead");
+    const headRow = document.createElement("tr");
+    headRow.append(
+      element("th", "", "field"),
+      element("th", "", "upload-ready"),
+      element("th", "", "Firestore（現在値）"),
+    );
+    head.append(headRow);
+    table.append(head);
+    const body = document.createElement("tbody");
+    for (const field of fields) {
+      const row = document.createElement("tr");
+      const fieldCell = element("th", "");
+      fieldCell.append(element("strong", "", field));
+      const nestedPaths = (readbackDocument.differences || [])
+        .filter((path) => topLevelFirestoreField(path) === field && path !== field);
+      if (nestedPaths.length) {
+        const pathList = element("div", "firestore-diff-paths");
+        for (const path of nestedPaths.slice(0, 6)) pathList.append(element("code", "", path));
+        if (nestedPaths.length > 6) {
+          pathList.append(element("span", "", `ほか${nestedPaths.length - 6}箇所`));
+        }
+        fieldCell.append(pathList);
+      }
+      row.append(
+        fieldCell,
+        element("td", ""),
+        element("td", ""),
+      );
+      row.children[1].append(firestoreDiffValue(expected[field]));
+      row.children[2].append(firestoreDiffValue(readbackDocument.live?.[field]));
+      body.append(row);
+    }
+    table.append(body);
+    tableWrap.append(table);
+    block.append(tableWrap);
+    list.append(block);
+  }
+  node.append(list);
   return node;
 }
 
@@ -1088,9 +1274,14 @@ async function runFirestoreReadback() {
       method: "POST",
       body: {},
     });
+    const stats = firestoreDiffStats({ liveReadback: result });
+    const differenceSummary = [
+      stats.missingCount ? `未登録${stats.missingCount}件` : "",
+      stats.fieldCount ? `値の差分${stats.fieldCount}項目` : "",
+    ].filter(Boolean).join("・");
     const message = result.status === "match"
       ? `Firestoreと${result.expectedSource}は一致しています。`
-      : result.error || `Firestore差分: ${result.differenceCount || result.missingDocumentIds?.length || 0}件`;
+      : result.error || `Firestore差分: ${differenceSummary || "詳細を確認してください"}`;
     toast(message, result.status === "error");
     await loadQuestions(true);
   } catch (error) {

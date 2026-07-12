@@ -236,8 +236,12 @@ class WorkflowUiContractTests(unittest.TestCase):
             "openReadbackDialog",
             "executeScopedReadback",
             "pollReadbackJob",
+            "renderFirestoreDiff",
+            "scrollToFirestoreDiff",
         ):
             self.assertIn(f"function {function_name}", javascript)
+        self.assertIn('node.id = "firestore-diff-panel"', javascript)
+        self.assertIn('"Firestore（現在値）"', javascript)
 
 
 if __name__ == "__main__":
