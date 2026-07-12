@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 248,
+  "auditKey": "gas-shunin:otsu:2025:law:q03:2453598fc140",
+  "auditInputHash": "49ddaf15650ceb12008997659c34c23c4d56fd042b821262f19c642d78a1654d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:10:34+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物を経済産業省令で定める技術上の基準に適合するように維持しなければならない。",
+      "正しい。経済産業大臣は、災害発生防止のため緊急の必要があると認めるとき、一般ガス導管事業者に対し、ガス工作物の移転、使用の一時停止・制限、又はガス工作物内のガスの廃棄を命ずることができる。",
+      "間違い。保安規程は、一般ガス導管事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するために定め、事業の開始前に経済産業大臣へ届け出る必要がある。経済産業大臣の許可を受けるとしている点が誤り。",
+      "正しい。保安規程には、ガス主任技術者が旅行、疾病その他事故によってその職務を行うことができない場合に、その職務を代行する者に関することを定めなければならない。",
+      "間違い。保安規程には、導管の工事現場の責任者の条件その他導管の工事現場における保安監督体制に関することを定める。作業員の条件としている点が誤り。"
+    ],
+    "proposedSuggestedQuestions": [
+      "一般ガス導管事業者は、ガス工作物を技術上の基準に適合するよう維持する義務がある。",
+      "経済産業大臣は、災害防止の緊急必要があるとき、ガス工作物の移転、使用停止・制限、ガス廃棄を命ずることができる。",
+      "保安規程は事業開始前に経済産業大臣へ届け出るもので、許可を受けるものではない。",
+      "保安規程には、ガス主任技術者が職務を行えない場合の代行者に関する事項を定める。",
+      "保安規程には、導管工事現場の責任者の条件など保安監督体制に関する事項を定める。作業員の条件ではない。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "正しい。一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物を経済産業省令で定める技術上の基準に適合するように維持しなければならない。現行法では、ガス事業法 第2条第6項を根拠に確認済み。",
+        "question": "一般ガス導管事業者は、ガス工作物を技術上の基準に適合するよう維持する義務がある。"
+      },
+      {
+        "answer": "正しい。経済産業大臣は、災害発生防止のため緊急の必要があると認めるとき、一般ガス導管事業者に対し、ガス工作物の移転、使用の一時停止・制限、又はガス工作物内のガスの廃棄を命ずることができる。現行法では、ガス事業法 第2条第6項を根拠に確認済み。",
+        "question": "経済産業大臣は、災害防止の緊急必要があるとき、ガス工作物の移転、使用停止・制限、ガス廃棄を命ずることができる。"
+      },
+      {
+        "answer": "間違い。保安規程は、一般ガス導管事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するために定め、事業の開始前に経済産業大臣へ届け出る必要がある。経済産業大臣の許可を受けるとしている点が誤り。現行法では、ガス事業法 第64条第1項を根拠に確認済み。",
+        "question": "保安規程は事業開始前に経済産業大臣へ届け出るもので、許可を受けるものではない。"
+      },
+      {
+        "answer": "正しい。保安規程には、ガス主任技術者が旅行、疾病その他事故によってその職務を行うことができない場合に、その職務を代行する者に関することを定めなければならない。現行法では、ガス事業法 第24条を根拠に確認済み。",
+        "question": "保安規程には、ガス主任技術者が職務を行えない場合の代行者に関する事項を定める。"
+      },
+      {
+        "answer": "間違い。保安規程には、導管の工事現場の責任者の条件その他導管の工事現場における保安監督体制に関することを定める。作業員の条件としている点が誤り。現行法では、ガス事業法 第64条第1項を根拠に確認済み。",
+        "question": "保安規程には、導管工事現場の責任者の条件など保安監督体制に関する事項を定める。作業員の条件ではない。"
+      },
+      {
+        "answer": "根拠は、ガス事業法第61条第1項、ガス事業法第61条第3項、ガス事業法第64条第1項、ガス事業法施行規則第92条第2号、ガス事業法施行規則第92条第8号。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "1",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=61"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "3",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=61"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "1",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=64"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "item": "2",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "item": "8",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:10:34Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
