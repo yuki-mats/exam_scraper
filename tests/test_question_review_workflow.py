@@ -295,6 +295,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "openHelp",
             "actionWithHelp",
             "renderRequiredFieldWarning",
+            "openRequiredFieldsReview",
             "startWorkflowExecution",
             "parseDataPath",
             "installReviewTarget",
@@ -325,6 +326,7 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('"selectionchange"', javascript)
         self.assertIn("selection: state.reviewSelection", javascript)
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
+        self.assertIn('"欠損をまとめて修正依頼"', javascript)
 
 
 if __name__ == "__main__":

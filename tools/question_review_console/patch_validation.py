@@ -20,6 +20,24 @@ PATCH_REQUIRED_FIELDS = {
     },
 }
 
+UPLOAD_REQUIRED_STRING_FIELDS = (
+    "questionId",
+    "originalQuestionBodyText",
+    "questionSetId",
+    "questionText",
+    "questionType",
+    "qualificationId",
+    "correctChoiceText",
+    "explanationText",
+)
+
+UPLOAD_REQUIRED_BOOLEAN_FIELDS = (
+    "isOfficial",
+    "isDeleted",
+    "isChoiceOnly",
+    "isGroupable",
+)
+
 
 def patch_entry_required_warnings(
     entry: Mapping[str, Any], stage: str
@@ -74,5 +92,83 @@ def projected_required_warnings(record: Mapping[str, Any]) -> list[dict[str, str
         add("explanationText", "解説数が選択肢数と一致しません。")
     elif any(not str(value or "").strip() for value in explanations):
         add("explanationText", "空の解説があります。")
+
+    return warnings
+
+
+def upload_document_required_warnings(
+    document: Mapping[str, Any],
+) -> list[dict[str, str]]:
+    """Return every missing upload-ready field needed for a usable question doc."""
+    warnings: list[dict[str, str]] = []
+    document_id = str(document.get("questionId") or "document IDなし")
+
+    def add(field: str, detail: str) -> None:
+        warnings.append(
+            {
+                "stage": "upload-ready",
+                "documentId": document_id,
+                "field": field,
+                "dataPath": field,
+                "detail": detail,
+            }
+        )
+
+    for field in UPLOAD_REQUIRED_STRING_FIELDS:
+        if field not in document:
+            add(field, f"upload-ready documentに{field}がありません。")
+        elif not str(document.get(field) or "").strip():
+            add(field, f"upload-ready documentの{field}が空です。")
+
+    if "correctChoiceText" in document and normalize_verdict(
+        document.get("correctChoiceText")
+    ) not in {"正しい", "間違い"}:
+        if not any(warning["field"] == "correctChoiceText" for warning in warnings):
+            add("correctChoiceText", "upload-ready documentの正誤が不正です。")
+
+    for field in UPLOAD_REQUIRED_BOOLEAN_FIELDS:
+        if field not in document:
+            add(field, f"upload-ready documentに{field}がありません。")
+        elif not isinstance(document.get(field), bool):
+            add(field, f"upload-ready documentの{field}がbooleanではありません。")
+
+    tags = document.get("questionTags")
+    if "questionTags" not in document:
+        add("questionTags", "upload-ready documentにquestionTagsがありません。")
+    elif not isinstance(tags, list) or any(not isinstance(tag, str) for tag in tags):
+        add("questionTags", "upload-ready documentのquestionTagsがlist[str]ではありません。")
+
+    if document.get("questionType") == "true_false" and document.get("isChoiceOnly") is False:
+        choice_text = str(document.get("originalQuestionChoiceText") or "").strip()
+        choice_images = document.get("originalQuestionChoiceImageUrls")
+        has_choice_image = isinstance(choice_images, list) and any(
+            str(value or "").strip() for value in choice_images
+        )
+        if not choice_text and not has_choice_image:
+            add(
+                "originalQuestionChoiceText",
+                "true_falseのupload-ready documentに選択肢文字列又は選択肢画像がありません。",
+            )
+
+    if document.get("isLawRelated") is True:
+        references = document.get("lawReferences")
+        if not isinstance(references, list) or not references:
+            add("lawReferences", "法令問題のlawReferencesがありません。")
+
+        facts = document.get("lawRevisionFacts")
+        if not isinstance(facts, Mapping) or not facts:
+            add("lawRevisionFacts", "法令問題のlawRevisionFactsがありません。")
+        else:
+            if not str(facts.get("auditStatus") or "").strip():
+                add(
+                    "lawRevisionFacts.auditStatus",
+                    "lawRevisionFacts.auditStatusがありません。",
+                )
+            summary = facts.get("evidenceSummary")
+            if not isinstance(summary, Mapping) or not summary:
+                add(
+                    "lawRevisionFacts.evidenceSummary",
+                    "lawRevisionFacts.evidenceSummaryがありません。",
+                )
 
     return warnings

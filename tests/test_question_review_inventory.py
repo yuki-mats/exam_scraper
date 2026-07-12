@@ -6,6 +6,7 @@ from pathlib import Path
 from tools.question_review_console.inventory import QuestionInventory, detect_issues
 from tools.question_review_console.patch_validation import (
     patch_entry_required_warnings,
+    upload_document_required_warnings,
 )
 
 
@@ -15,6 +16,67 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_reports_missing_top_level_upload_ready_verdict(self):
+        warnings = upload_document_required_warnings(
+            {
+                "questionId": "doc1",
+                "originalQuestionBodyText": "問題文",
+                "questionSetId": "set1",
+                "questionText": "問題文 [quote]選択肢[/quote]",
+                "questionType": "true_false",
+                "qualificationId": "sample",
+                "explanationText": "間違い。根拠。",
+                "isOfficial": True,
+                "isDeleted": False,
+                "isChoiceOnly": False,
+                "isGroupable": True,
+                "questionTags": [],
+                "originalQuestionChoiceText": "選択肢",
+                "isLawRelated": True,
+                "lawReferences": [{"lawId": "law1"}],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "current": {"lawId": "law1"},
+                    "evidenceSummary": {"verdict": "incorrect"},
+                },
+            }
+        )
+
+        self.assertEqual(
+            [warning["field"] for warning in warnings],
+            ["correctChoiceText"],
+        )
+        self.assertTrue(all(warning["documentId"] == "doc1" for warning in warnings))
+
+    def test_allows_missing_law_snapshot_verdict_when_top_level_verdict_exists(self):
+        warnings = upload_document_required_warnings(
+            {
+                "questionId": "doc1",
+                "originalQuestionBodyText": "問題文",
+                "questionSetId": "set1",
+                "questionText": "問題文 [quote]選択肢[/quote]",
+                "questionType": "true_false",
+                "qualificationId": "sample",
+                "correctChoiceText": "間違い",
+                "explanationText": "間違い。根拠。",
+                "isOfficial": True,
+                "isDeleted": False,
+                "isChoiceOnly": False,
+                "isGroupable": True,
+                "questionTags": [],
+                "originalQuestionChoiceText": "選択肢",
+                "isLawRelated": True,
+                "lawReferences": [{"lawId": "law1"}],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "current": {"lawId": "law1"},
+                    "evidenceSummary": {"verdict": "incorrect"},
+                },
+            }
+        )
+
+        self.assertEqual(warnings, [])
+
     def test_detects_missing_required_fields_in_applied_patch_entry(self):
         warnings = patch_entry_required_warnings(
             {

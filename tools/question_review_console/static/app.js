@@ -445,7 +445,10 @@ function renderDetail() {
   if (question.issues.length) {
     const issues = element("div", "issue-panel");
     for (const issue of question.issues) {
-      issues.append(element("div", "issue-line", `${ISSUE_LABELS[issue.code] || issue.code}: ${issue.detail}`));
+      const detail = issue.code === "required_field_missing" && question.requiredFieldWarnings?.length
+        ? `${question.requiredFieldWarnings.length}件の欠損を検出。上の警告欄で確認・一括依頼できます。`
+        : issue.detail;
+      issues.append(element("div", "issue-line", `${ISSUE_LABELS[issue.code] || issue.code}: ${detail}`));
     }
     questionSection.append(issues);
   }
@@ -491,18 +494,76 @@ function directEditHelpText(question) {
 function renderRequiredFieldWarning(question) {
   const issues = (question.issues || []).filter((issue) => issue.code === "required_field_missing");
   if (!issues.length) return null;
+  const warnings = question.requiredFieldWarnings?.length
+    ? question.requiredFieldWarnings
+    : issues.flatMap((issue) => (issue.fields || [""]).map((field) => ({
+      stage: "投影後データ",
+      field,
+      dataPath: field,
+      detail: issue.detail,
+    })));
   const node = element("section", "required-warning-panel");
   node.append(
-    element("strong", "", "必須フィールドが不足しています"),
+    element("strong", "", `必須フィールドが不足しています（${warnings.length}件）`),
     element("p", "", "不足を解消するまで、パッチ変更をMerge・Convert・upload-readyへ反映できません。"),
   );
   const list = document.createElement("ul");
-  for (const issue of issues) {
-    const fields = (issue.fields || []).join(", ");
-    list.append(element("li", "", `${fields || "field不明"}: ${issue.detail}`));
+  for (const warning of warnings) {
+    const location = [warning.stage, warning.documentId].filter(Boolean).join(" / ");
+    const field = warning.dataPath || warning.field || "field不明";
+    const item = element(
+      "li",
+      "",
+      `${location ? `${location} / ` : ""}${field}: ${warning.detail}`,
+    );
+    installReviewTarget(item, {
+      fields: [field],
+      targetLabel: `必須フィールド欠損 / ${location || "投影後データ"}`,
+      dataPath: field,
+      issueType: "required_field_missing",
+    });
+    list.append(item);
   }
-  node.append(list);
+  node.append(
+    list,
+    actionWithHelp(
+      "欠損をまとめて修正依頼",
+      "primary-button",
+      () => openRequiredFieldsReview(question),
+      "欠損をまとめて修正依頼",
+      "この問題で検出した必須フィールド欠損を1件のCodex依頼にまとめます。欠損の一覧と対象document IDも依頼に含めます。",
+    ),
+  );
   return node;
+}
+
+function openRequiredFieldsReview(question) {
+  const warnings = question.requiredFieldWarnings || [];
+  const uploadDocs = question.uploadReadyDocs || [];
+  const choiceIndexes = [...new Set(warnings
+    .map((warning) => uploadDocs.findIndex((doc) => doc.questionId === warning.documentId))
+    .filter((index) => index >= 0))];
+  const fields = [...new Set(warnings
+    .map((warning) => warning.dataPath || warning.field)
+    .filter(Boolean))];
+  const selectedText = warnings.map((warning) => {
+    const location = [warning.stage, warning.documentId].filter(Boolean).join(" / ");
+    return `${location ? `${location} / ` : ""}${warning.dataPath || warning.field}: fieldなし - ${warning.detail}`;
+  }).join("\n");
+  openReview(
+    "awaiting_codex",
+    {
+      targetLabel: "必須フィールド欠損の一括報告",
+      dataPath: fields.join(", "),
+      fields,
+      choiceIndexes,
+      selectedText,
+    },
+    "required_field_missing",
+    "current_question",
+  );
+  $("#review-dialog-title").textContent = "必須フィールド欠損をまとめて修正依頼";
+  $("#review-note").value = "検出された必須フィールド欠損をすべて調査し、適切なpatchを修正してupload-readyまで再生成する。";
 }
 
 function section(title) {
@@ -763,8 +824,15 @@ function firestoreReviewContext(context, tokens = []) {
 
 function renderReadableValue(value, otherValue, reviewContext = null) {
   if (valuesEqual(value, otherValue)) return noDiffValue();
-  if (value === undefined) return element("span", "firestore-diff-empty", "fieldなし");
-  if (value === null) return element("span", "firestore-diff-empty", "null");
+  if (value === undefined || value === null) {
+    const node = element(
+      "span",
+      "firestore-diff-empty",
+      value === undefined ? "fieldなし" : "null",
+    );
+    if (reviewContext) installReviewTarget(node, reviewContext);
+    return node;
+  }
   if (isPlainValue(value)) {
     const node = element("span", "firestore-diff-text");
     node.textContent = plainValueText(value);

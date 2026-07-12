@@ -30,6 +30,7 @@ from tools.question_review_console.projection import (
 from tools.question_review_console.patch_validation import (
     patch_entry_required_warnings,
     projected_required_warnings,
+    upload_document_required_warnings,
 )
 
 
@@ -435,24 +436,36 @@ class QuestionInventory:
                     stage_maps,
                     issue_paths,
                 )
-                patch_warnings = []
-                for stage in ("explanation", "correctChoice"):
-                    patch_entry = find_patch_entry(stage_maps.get(stage, {}), aliases)
-                    if patch_entry is None:
-                        continue
-                    patch_warnings.extend(
-                        patch_entry_required_warnings(patch_entry.entry, stage)
-                    )
                 projected_aliases = aliases | record_aliases(projection.record)
                 matched_converted = self._matching_docs(converted_docs, projected_aliases, qualification)
                 matched_upload = self._matching_docs(upload_docs, projected_aliases, qualification)
+                required_field_warnings = [
+                    {**warning, "stage": "projected", "dataPath": warning["field"]}
+                    for warning in projected_required_warnings(projection.record)
+                ]
+                required_field_warnings.extend(
+                    {**warning, "stage": f"{stage} patch", "dataPath": warning["field"]}
+                    for stage in ("explanation", "correctChoice")
+                    for patch_entry in [find_patch_entry(stage_maps.get(stage, {}), aliases)]
+                    if patch_entry is not None
+                    for warning in patch_entry_required_warnings(patch_entry.entry, stage)
+                )
+                required_field_warnings.extend(
+                    warning
+                    for document in matched_upload
+                    for warning in upload_document_required_warnings(document)
+                )
                 issues = detect_issues(
                     projection.record,
                     merged,
                     matched_converted,
                     matched_upload,
                     projection.errors,
-                    patch_warnings,
+                    [
+                        warning
+                        for warning in required_field_warnings
+                        if warning.get("stage") != "projected"
+                    ],
                 )
                 source_stem = source_path.stem
                 stable_key = review_key(qualification, list_group_id, source_stem, source)
@@ -509,6 +522,7 @@ class QuestionInventory:
                             _ordered_choice_docs(matched_upload, choices)
                         ),
                         "paths": paths,
+                        "requiredFieldWarnings": _json_safe(required_field_warnings),
                         "issues": issues,
                         "issueCodes": [issue["code"] for issue in issues],
                         "stateHash": state_hash,
