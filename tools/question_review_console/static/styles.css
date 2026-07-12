@@ -231,7 +231,29 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .firestore-diff-paths { margin-top: 7px; display: grid; gap: 3px; color: var(--text-muted); font-weight: 400; }
 .firestore-diff-paths code { padding: 2px 3px; background: #eef1f4; font-size: 9px; overflow-wrap: anywhere; }
 .firestore-diff-paths span { font-size: 9px; }
-.firestore-diff-value { max-height: 220px; margin: 0; padding: 0; overflow: auto; color: #26313b; background: transparent; font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.firestore-diff-item-list, .firestore-diff-leaf-list { max-height: 280px; overflow: auto; display: grid; gap: 6px; }
+.firestore-diff-item, .firestore-diff-leaf {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(112px, 0.36fr) minmax(0, 1fr);
+  gap: 7px;
+  align-items: start;
+  padding: 5px 0;
+  border-bottom: 1px solid #eef1f4;
+}
+.firestore-diff-item:last-child, .firestore-diff-leaf:last-child { border-bottom: 0; }
+.firestore-diff-item-path, .firestore-diff-leaf-path {
+  min-width: 0;
+  padding: 2px 4px;
+  color: #53606c;
+  background: #f0f3f5;
+  font-size: 9px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.firestore-diff-text { color: #26313b; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.firestore-diff-mark { padding: 1px 2px; border-radius: 2px; color: #672824; background: #ffd9d5; }
+.firestore-diff-more { color: var(--text-muted); font-size: 10px; }
 .firestore-diff-empty { color: var(--text-muted); font-style: italic; }
 
 .primary-button, .secondary-button, .danger-button, .text-button {

@@ -205,7 +205,7 @@ listGroupIdがすべて4桁西暦の場合だけ画面上で`年度`と表示す
 
 ### 6.5 差分表示
 
-Firestoreが`差分あり`又は`未登録`の場合は、問題詳細のworkflow直下に差分件数と比較表を自動表示する。`差分を見る`操作で比較表へ移動できる。比較表はFirestore documentごとに、差分のあるtop-level fieldについて`upload-ready`と`Firestore（現在値）`を横並びで表示する。未登録documentはdocument IDと選択肢を示し、本番Firestoreに存在しないことを明示する。
+Firestoreが`差分あり`又は`未登録`の場合は、問題詳細のworkflow直下に差分件数と比較表を自動表示する。`差分を見る`操作で比較表へ移動できる。比較表はFirestore documentごとに、差分のあるtop-level fieldについて`upload-ready`と`Firestore（現在値）`を横並びで表示する。値はJSON全文ではなく、差分のあるpathを`1件目 / articleTextHash`のような単位で分解し、文字列の変更箇所だけをハイライトする。未登録documentはdocument IDと選択肢を示し、本番Firestoreに存在しないことを明示する。
 
 source、projectedなどの中間差分は通常は非表示とし、`データ差分・ファイル`で次をfield単位に展開する。
 

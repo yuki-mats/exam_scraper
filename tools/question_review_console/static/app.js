@@ -46,6 +46,8 @@ const EDITABLE_FIELDS = [
   "suggestedQuestionDetails",
 ];
 
+const FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT = 8;
+
 const state = {
   token: "",
   inventory: null,
@@ -509,11 +511,169 @@ function renderPipelineActions(question) {
   return node;
 }
 
-function firestoreDiffValue(value) {
+function parseDataPath(path) {
+  const tokens = [];
+  const pattern = /([^.[\]]+)|\[(\d+)\]/g;
+  let match;
+  while ((match = pattern.exec(String(path || "")))) {
+    tokens.push(match[1] !== undefined ? match[1] : Number(match[2]));
+  }
+  return tokens;
+}
+
+function relativeDiffPath(path, field) {
+  const tokens = parseDataPath(path);
+  if (tokens[0] === field) return tokens.slice(1);
+  return tokens;
+}
+
+function dataPathLabel(tokens) {
+  if (!tokens.length) return "全体";
+  return tokens
+    .map((token) => (Number.isInteger(token) ? `${token + 1}件目` : String(token)))
+    .join(" / ");
+}
+
+function valueAtPath(value, tokens) {
+  let current = value;
+  for (const token of tokens) {
+    if (current === undefined || current === null) return undefined;
+    current = current[token];
+  }
+  return current;
+}
+
+function isPlainValue(value) {
+  return value === undefined || value === null || typeof value !== "object";
+}
+
+function plainValueText(value) {
+  if (value === undefined) return "fieldなし";
+  if (value === null) return "null";
+  if (typeof value === "boolean") return value ? "true" : "false";
+  return String(value);
+}
+
+function commonPrefixLength(left, right) {
+  const limit = Math.min(left.length, right.length);
+  let index = 0;
+  while (index < limit && left[index] === right[index]) index += 1;
+  return index;
+}
+
+function commonSuffixLength(left, right, prefixLength) {
+  const limit = Math.min(left.length, right.length) - prefixLength;
+  let index = 0;
+  while (
+    index < limit
+    && left[left.length - 1 - index] === right[right.length - 1 - index]
+  ) {
+    index += 1;
+  }
+  return index;
+}
+
+function appendHighlightedText(container, value, otherValue) {
+  const text = plainValueText(value);
+  const other = plainValueText(otherValue);
+  if (text === other) {
+    container.append(document.createTextNode(text));
+    return;
+  }
+
+  const prefixLength = commonPrefixLength(text, other);
+  const suffixLength = commonSuffixLength(text, other, prefixLength);
+  const changedEnd = text.length - suffixLength;
+  const prefix = text.slice(0, prefixLength);
+  const changed = text.slice(prefixLength, changedEnd);
+  const suffix = text.slice(changedEnd);
+  if (prefix) container.append(document.createTextNode(prefix));
+  container.append(element("mark", "firestore-diff-mark", changed || " "));
+  if (suffix) container.append(document.createTextNode(suffix));
+}
+
+function collectLeafEntries(value, prefix = [], entries = []) {
+  if (isPlainValue(value)) {
+    entries.push([prefix, value]);
+    return entries;
+  }
+  if (Array.isArray(value)) {
+    if (!value.length) entries.push([prefix, "[]"]);
+    value.forEach((item, index) => collectLeafEntries(item, [...prefix, index], entries));
+    return entries;
+  }
+  const keys = Object.keys(value);
+  if (!keys.length) {
+    entries.push([prefix, "{}"]);
+    return entries;
+  }
+  for (const key of keys) collectLeafEntries(value[key], [...prefix, key], entries);
+  return entries;
+}
+
+function renderReadableValue(value, otherValue) {
   if (value === undefined) return element("span", "firestore-diff-empty", "fieldなし");
   if (value === null) return element("span", "firestore-diff-empty", "null");
-  const formatted = typeof value === "string" ? value : JSON.stringify(value, null, 2);
-  return element("pre", "firestore-diff-value", formatted);
+  if (isPlainValue(value)) {
+    const node = element("span", "firestore-diff-text");
+    appendHighlightedText(node, value, otherValue);
+    return node;
+  }
+
+  const entries = collectLeafEntries(value);
+  const list = element("div", "firestore-diff-leaf-list");
+  for (const [tokens, entryValue] of entries.slice(0, FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT)) {
+    const row = element("div", "firestore-diff-leaf");
+    row.append(element("code", "firestore-diff-leaf-path", dataPathLabel(tokens)));
+    const text = element("span", "firestore-diff-text");
+    appendHighlightedText(text, entryValue, valueAtPath(otherValue, tokens));
+    row.append(text);
+    list.append(row);
+  }
+  if (entries.length > FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT) {
+    list.append(element(
+      "span",
+      "firestore-diff-more",
+      `ほか${entries.length - FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT}項目`,
+    ));
+  }
+  return list;
+}
+
+function uniqueRelativePaths(paths, field) {
+  const seen = new Set();
+  const values = [];
+  for (const path of paths || []) {
+    const tokens = relativeDiffPath(path, field);
+    const key = JSON.stringify(tokens);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    values.push(tokens);
+  }
+  return values;
+}
+
+function firestoreDiffValue(value, otherValue, paths, field) {
+  const relativePaths = uniqueRelativePaths(paths, field);
+  if (!relativePaths.length || (relativePaths.length === 1 && !relativePaths[0].length)) {
+    return renderReadableValue(value, otherValue);
+  }
+
+  const list = element("div", "firestore-diff-item-list");
+  for (const tokens of relativePaths.slice(0, FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT)) {
+    const item = element("div", "firestore-diff-item");
+    item.append(element("code", "firestore-diff-item-path", dataPathLabel(tokens)));
+    item.append(renderReadableValue(valueAtPath(value, tokens), valueAtPath(otherValue, tokens)));
+    list.append(item);
+  }
+  if (relativePaths.length > FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT) {
+    list.append(element(
+      "span",
+      "firestore-diff-more",
+      `ほか${relativePaths.length - FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT}箇所`,
+    ));
+  }
+  return list;
 }
 
 function renderFirestoreDiff(question) {
@@ -628,8 +788,13 @@ function renderFirestoreDiff(question) {
         element("td", ""),
         element("td", ""),
       );
-      row.children[1].append(firestoreDiffValue(expected[field]));
-      row.children[2].append(firestoreDiffValue(readbackDocument.live?.[field]));
+      const fieldPaths = nestedPaths.length ? nestedPaths : [field];
+      row.children[1].append(
+        firestoreDiffValue(expected[field], readbackDocument.live?.[field], fieldPaths, field),
+      );
+      row.children[2].append(
+        firestoreDiffValue(readbackDocument.live?.[field], expected[field], fieldPaths, field),
+      );
       body.append(row);
     }
     table.append(body);
