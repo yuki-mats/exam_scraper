@@ -121,6 +121,11 @@ LAW_AUDIT_ISSUES = {
     "law_hold",
     "law_basis_missing",
 }
+RUN_MODES = {
+    "remaining": "未作業のみ",
+    "attention": "要確認のみ",
+    "refresh": "全件洗い替え",
+}
 
 
 def _now_iso() -> str:
@@ -176,26 +181,7 @@ class QualificationWorkflow:
         self.inventory = inventory
 
     def overview(self, qualification: str) -> dict[str, Any]:
-        qualification_info = next(
-            (
-                item
-                for item in self.inventory.inventory().get("qualifications") or []
-                if item.get("id") == qualification
-            ),
-            None,
-        )
-        if qualification_info is None:
-            raise FileNotFoundError(f"対象資格がありません: {qualification}")
-
-        groups = [
-            self.inventory.group(qualification, str(list_group_id))
-            for list_group_id in qualification_info.get("listGroupIds") or []
-        ]
-        questions = [
-            question
-            for group in groups
-            for question in group.get("questions") or []
-        ]
+        groups, questions = self._qualification_data(qualification)
         stages = self._build_stages(qualification, groups, questions)
         next_stage = next(
             (stage for stage in stages if stage["status"] != "ready"), None
@@ -239,15 +225,141 @@ class QualificationWorkflow:
             "groups": group_summaries,
         }
 
-    def prompt(self, qualification: str, stage_id: str) -> dict[str, Any]:
-        overview = self.overview(qualification)
-        stage = next(
-            (item for item in overview["stages"] if item["id"] == stage_id), None
-        )
-        if stage is None:
+    def plan(
+        self, qualification: str, stage_id: str, mode: str = "remaining"
+    ) -> dict[str, Any]:
+        if mode not in RUN_MODES:
+            raise ValueError(f"対象範囲が不正です: {mode}")
+        definition = STAGE_BY_ID.get(stage_id)
+        if definition is None:
             raise ValueError(f"対象工程がありません: {stage_id}")
-        if stage["kind"] != "human":
+        if stage_id == "source":
+            raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
+
+        groups, questions = self._qualification_data(qualification)
+        target_questions: list[Mapping[str, Any]] = []
+        output_files: list[str] = []
+        target_group_ids: list[str] = []
+
+        if stage_id == "setup":
+            policy_dir = Path("prompt") / "qualification_docs" / qualification
+            policy_exists = (self.repo_root / policy_dir).is_dir()
+            if mode == "attention":
+                target_questions = questions if not policy_exists else []
+            elif mode == "remaining":
+                target_questions = questions if not policy_exists else []
+            else:
+                target_questions = questions
+            source_files = _unique(
+                str(Path(str(question.get("paths", {}).get("source") or "")).parent)
+                for question in target_questions
+                if question.get("paths", {}).get("source")
+            )
+            output_files = [
+                str(policy_dir / name)
+                for name in (
+                    "README.md",
+                    "01_exam_profile.md",
+                    "02_explanation_strategy.md",
+                    "03_category_preparation.md",
+                )
+            ] if target_questions else []
+        elif stage_id == "law_audit":
+            applicable = [
+                question for question in questions if question.get("isLawRelated") is True
+            ]
+            if mode == "refresh":
+                target_questions = applicable
+            elif mode == "attention":
+                target_questions = [
+                    question
+                    for question in applicable
+                    if set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
+                ]
+            else:
+                target_questions = [
+                    question
+                    for question in applicable
+                    if set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
+                    or not (question.get("projected") or {}).get("lawRevisionFacts")
+                ]
+            source_files = _unique(
+                str(question.get("paths", {}).get("source") or "")
+                for question in target_questions
+            )
+            output_files = _unique(
+                self._law_audit_output_path(question) for question in target_questions
+            )
+        elif stage_id == "delivery":
+            if mode == "refresh":
+                target_group_ids = [str(group.get("listGroupId") or "") for group in groups]
+            else:
+                target_group_ids = [
+                    str(group.get("listGroupId") or "")
+                    for group in groups
+                    if not self._group_summary(group)["localReady"]
+                ]
+            source_files = [
+                str(Path("output") / qualification / "questions_json" / group_id)
+                for group_id in target_group_ids
+            ]
+        else:
+            patch_dir = str(definition["patchDir"])
+            issue_fields = set(definition.get("issueFields") or [])
+            if mode == "refresh":
+                target_questions = questions
+            elif mode == "attention":
+                target_questions = [
+                    question
+                    for question in questions
+                    if _issue_count(question, issue_fields)
+                ]
+            else:
+                target_questions = [
+                    question for question in questions if not _has_patch(question, patch_dir)
+                ]
+            source_files = _unique(
+                str(question.get("paths", {}).get("source") or "")
+                for question in target_questions
+            )
+            output_files = _unique(
+                _expected_patch_path(
+                    str(question.get("paths", {}).get("source") or ""), definition
+                )
+                for question in target_questions
+                if question.get("paths", {}).get("source")
+            )
+
+        if not target_group_ids:
+            target_group_ids = _unique(
+                str(question.get("listGroupId") or self._group_id_from_source(question))
+                for question in target_questions
+            )
+        return {
+            "qualification": qualification,
+            "stageId": stage_id,
+            "stageCode": str(definition["code"]),
+            "stageLabel": str(definition["label"]),
+            "purpose": str(definition["purpose"]),
+            "kind": str(definition["kind"]),
+            "mode": mode,
+            "modeLabel": RUN_MODES[mode],
+            "targetCount": len(target_group_ids) if stage_id == "delivery" else len(target_questions),
+            "targetGroupIds": target_group_ids,
+            "sourceFiles": source_files,
+            "outputFiles": output_files,
+            "canonicalDocs": ["prompt/README.md", *definition.get("canonicalDocs", [])],
+            "force": stage_id == "delivery" and mode == "refresh",
+        }
+
+    def prompt(
+        self, qualification: str, stage_id: str, mode: str = "remaining"
+    ) -> dict[str, Any]:
+        plan = self.plan(qualification, stage_id, mode)
+        if plan["kind"] != "human":
             raise ValueError("この工程はCodex依頼ではなく既存の実行導線を使います。")
+        if not plan["targetCount"]:
+            raise ValueError("選択した範囲に対象はありません。")
 
         def absolute(path: str) -> str:
             candidate = (self.repo_root / path).resolve()
@@ -255,15 +367,19 @@ class QualificationWorkflow:
                 raise ValueError(f"repo外のpathです: {path}")
             return str(candidate)
 
-        canonical = [absolute(path) for path in stage["canonicalDocs"]]
-        source_files = [absolute(path) for path in stage["targetFiles"]]
-        output_files = [absolute(path) for path in stage["outputFiles"]]
+        canonical = [absolute(path) for path in plan["canonicalDocs"]]
+        source_files = [absolute(path) for path in plan["sourceFiles"]]
+        output_files = [absolute(path) for path in plan["outputFiles"]]
         qualification_policy = self.repo_root / "prompt" / "qualification_docs" / qualification
         if qualification_policy.is_dir():
             canonical.append(str(qualification_policy))
 
         lines = [
             "# 資格単位の問題整備",
+            "",
+            f"- 工程: `{plan['stageCode']} {plan['stageLabel']}`",
+            f"- 範囲: `{plan['modeLabel']}`",
+            f"- 対象: `{plan['targetCount']}件`",
             "",
             "## 正本",
             "",
@@ -281,7 +397,12 @@ class QualificationWorkflow:
             "",
             (
                 f"上記正本に従い、qualification=`{qualification}`の"
-                f"{stage['code']} {stage['label']}を対象全問について一問ずつ実施する。"
+                f"{plan['stageCode']} {plan['stageLabel']}を対象ごとに一件ずつ実施する。"
+            ),
+            *(
+                ["各問題は問題文と全選択肢を結合した命題として読み、Lawzilla MCPとFirestore条文検索で一問一肢ずつ根拠を照合する。"]
+                if stage_id == "law_audit"
+                else []
             ),
             "既存の正本と共通workflowを優先し、資格固有の局所ルールを重複実装しない。",
             "対象外の変更と`00_source`、既存IDは変更しない。作業後は正本記載の検証を実行する。",
@@ -289,9 +410,62 @@ class QualificationWorkflow:
         return {
             "qualification": qualification,
             "stageId": stage_id,
-            "targetCount": stage["targetCount"],
+            "mode": mode,
+            "targetCount": plan["targetCount"],
             "prompt": "\n".join(lines).strip() + "\n",
         }
+
+    def _qualification_data(
+        self, qualification: str
+    ) -> tuple[list[Mapping[str, Any]], list[Mapping[str, Any]]]:
+        qualification_info = next(
+            (
+                item
+                for item in self.inventory.inventory().get("qualifications") or []
+                if item.get("id") == qualification
+            ),
+            None,
+        )
+        if qualification_info is None:
+            raise FileNotFoundError(f"対象資格がありません: {qualification}")
+        groups = [
+            self.inventory.group(qualification, str(list_group_id))
+            for list_group_id in qualification_info.get("listGroupIds") or []
+        ]
+        questions: list[Mapping[str, Any]] = []
+        for group in groups:
+            group_id = str(group.get("listGroupId") or "")
+            for raw in group.get("questions") or []:
+                if raw.get("listGroupId"):
+                    questions.append(raw)
+                else:
+                    question = dict(raw)
+                    question["listGroupId"] = group_id
+                    questions.append(question)
+        return groups, questions
+
+    @staticmethod
+    def _group_id_from_source(question: Mapping[str, Any]) -> str:
+        source = Path(str(question.get("paths", {}).get("source") or ""))
+        return source.parent.parent.name if len(source.parents) >= 2 else ""
+
+    @staticmethod
+    def _law_audit_output_path(question: Mapping[str, Any]) -> str:
+        existing = [
+            str(path)
+            for path in question.get("paths", {}).get("patches") or []
+            if "/21_explanationText_added/" in str(path)
+        ]
+        if existing:
+            return existing[-1]
+        source = Path(str(question.get("paths", {}).get("source") or ""))
+        if not source.name:
+            return ""
+        return str(
+            source.parent.parent
+            / "21_explanationText_added"
+            / f"{source.stem}_explanationText_added.json"
+        )
 
     def _build_stages(
         self,
@@ -426,8 +600,8 @@ class QualificationWorkflow:
                     "targetCount": target_count,
                     "remainingCount": max(target_count - complete, 0),
                     "issueCount": issue_count,
-                    "targetFiles": target_files,
-                    "outputFiles": output_files,
+                    "targetPreview": target_files[:3],
+                    "outputPreview": output_files[:3],
                     "canonicalDocs": [
                         "prompt/README.md",
                         *stage.get("canonicalDocs", []),
@@ -440,15 +614,14 @@ class QualificationWorkflow:
 
     @staticmethod
     def _stage_action(stage: Mapping[str, Any]) -> dict[str, Any]:
-        if stage.get("status") == "ready":
-            return {"type": "none", "label": "完了"}
+        if stage.get("id") == "source":
+            return {"type": "none", "label": "取得済み"}
         if stage.get("status") == "waiting":
             return {"type": "none", "label": "前工程待ち"}
-        if stage.get("kind") == "human":
-            return {"type": "copy_prompt", "label": "この工程を開始"}
-        if stage.get("id") == "delivery":
-            return {"type": "open_group", "label": "対象フォルダを開く"}
-        return {"type": "none", "label": "確認"}
+        return {
+            "type": "open_run",
+            "label": "再確認する" if stage.get("status") == "ready" else "この工程を開始",
+        }
 
     @staticmethod
     def _group_summary(group: Mapping[str, Any]) -> dict[str, Any]:

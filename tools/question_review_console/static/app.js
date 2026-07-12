@@ -52,6 +52,15 @@ const QUALIFICATION_WORKFLOW_LABELS = {
   waiting: "前工程待ち",
 };
 
+const QUALIFICATION_RUN_STATUS_LABELS = {
+  queued: "実行待ち",
+  running: "処理中",
+  awaiting_changes: "Codex作業中",
+  interrupted: "再開待ち",
+  failed: "失敗",
+  succeeded: "完了",
+};
+
 const FIELD_LABELS = {
   questionLabel: "問題番号",
   questionBodyText: "問題文",
@@ -132,6 +141,15 @@ const state = {
   detail: null,
   qualificationWorkflow: null,
   qualificationWorkflowStageId: "",
+  qualificationRuns: [],
+  qualificationActiveRun: null,
+  qualificationRunDialog: {
+    preview: null,
+    running: false,
+    previewSequence: 0,
+    resumedFrom: "",
+  },
+  questionPage: { filteredCount: 0, hasMore: false, limit: 50 },
   reviewMode: "awaiting_codex",
   reviewRequestKind: "",
   reviewSelection: null,
@@ -236,6 +254,7 @@ async function initialize() {
     $("#project-status").textContent = `本番Firestore: ${session.projectId} ・ UI反映可`;
     initializeSelectors();
     await loadQualificationWorkflow(false);
+    await loadQualificationRuns();
     await loadQuestions(false);
     window.setInterval(checkFingerprint, 2000);
   } catch (error) {
@@ -250,6 +269,7 @@ function bindControls() {
     state.listGroupId = ALL_LIST_GROUPS;
     populateGroups();
     await loadQualificationWorkflow(false);
+    await loadQualificationRuns();
     await loadQuestions(false);
     updateUrl();
   });
@@ -267,9 +287,19 @@ function bindControls() {
   $("#all-button").addEventListener("click", () => setListMode(false));
   $("#refresh-button").addEventListener("click", async () => {
     await loadQualificationWorkflow(true);
+    await loadQualificationRuns();
     await loadQuestions(true);
   });
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
+  $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
+  $("#qualification-run-form").addEventListener("submit", startQualificationRun);
+  $("#qualification-run-dialog").addEventListener("cancel", (event) => {
+    if (state.qualificationRunDialog.running) event.preventDefault();
+  });
+  for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
+    node.addEventListener("change", previewQualificationRun);
+  }
+  $("#load-more-questions").addEventListener("click", () => loadQuestions(true, true));
   $("#bulk-readback-button").addEventListener("click", openReadbackDialog);
   $("#bulk-readback-help").addEventListener("click", () => openHelp(
     "資格のFirestoreを確認",
@@ -470,28 +500,254 @@ async function executeQualificationWorkflowAction() {
   if (!workflow) return;
   const stageId = $("#qualification-workflow-action").dataset.stageId;
   const stage = workflow.stages.find((item) => item.id === stageId);
-  if (!stage) return;
+  if (!stage || stage.action.type !== "open_run") return;
+  openQualificationRunDialog(stage);
+}
+
+async function loadQualificationRuns() {
+  if (!state.qualification) return;
   try {
-    if (stage.action.type === "copy_prompt") {
-      const result = await api("/api/qualification-workflow/prompt", {
-        method: "POST",
-        body: { qualification: workflow.qualification, stageId },
-      });
+    const params = new URLSearchParams({ qualification: state.qualification });
+    const payload = await api(`/api/qualification-runs?${params}`);
+    state.qualificationRuns = payload.runs || [];
+    state.qualificationActiveRun = payload.activeRun || null;
+  } catch (error) {
+    state.qualificationRuns = [];
+    state.qualificationActiveRun = null;
+  }
+  renderQualificationActiveRun();
+}
+
+function renderQualificationActiveRun() {
+  const run = state.qualificationActiveRun;
+  const container = $("#qualification-active-run");
+  const history = $("#qualification-run-history");
+  const historyList = $("#qualification-run-history-list");
+  history.hidden = !state.qualificationRuns.length;
+  historyList.replaceChildren();
+  for (const item of state.qualificationRuns) {
+    const row = element("div", "qualification-run-history-row");
+    row.append(
+      element("span", `run-status ${item.status}`, QUALIFICATION_RUN_STATUS_LABELS[item.status] || item.status),
+      element("strong", "", `${item.stageCode} ${item.stageLabel}`),
+      element("span", "", item.modeLabel),
+      element("span", "", `${item.targetCount}${item.kind === "machine" ? "フォルダ" : "件"}`),
+      element("time", "", new Date(item.updatedAt).toLocaleString("ja-JP", { dateStyle: "short", timeStyle: "short" })),
+    );
+    historyList.append(row);
+  }
+  container.hidden = !run;
+  if (!run) return;
+  const status = QUALIFICATION_RUN_STATUS_LABELS[run.status] || run.status;
+  $("#qualification-active-run-status").textContent = status;
+  $("#qualification-active-run-status").className = `run-status ${run.status}`;
+  $("#qualification-active-run-title").textContent = `${run.stageCode} ${run.stageLabel}・${run.modeLabel}`;
+  const completed = (run.completedGroupIds || []).length;
+  $("#qualification-active-run-progress").textContent = run.kind === "machine"
+    ? `${completed}/${run.targetCount}フォルダ`
+    : `${run.targetCount}件を依頼済み`;
+  const action = $("#qualification-active-run-action");
+  action.textContent = run.kind === "human"
+    ? "依頼を再コピー"
+    : run.status === "running" || run.status === "queued"
+      ? "進捗を見る"
+      : "残りを再開";
+}
+
+function selectedQualificationRunMode() {
+  return document.querySelector('input[name="qualification-run-mode"]:checked')?.value || "remaining";
+}
+
+function openQualificationRunDialog(stage, options = {}) {
+  state.qualificationRunDialog = {
+    preview: null,
+    running: false,
+    previewSequence: state.qualificationRunDialog.previewSequence + 1,
+    resumedFrom: options.resumedFrom || "",
+  };
+  state.qualificationWorkflowStageId = stage.id;
+  $("#qualification-run-title").textContent = `${stage.code} ${stage.label}`;
+  $("#qualification-run-purpose").textContent = stage.purpose;
+  const defaultMode = options.mode || (stage.status === "ready"
+    ? "refresh"
+    : stage.completeCount === stage.targetCount && stage.issueCount > 0
+      ? "attention"
+      : "remaining");
+  for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
+    node.checked = node.value === defaultMode;
+  }
+  $("#qualification-run-preview").textContent = "対象を確認しています。";
+  $("#qualification-run-job").hidden = true;
+  $("#qualification-run-job-log").textContent = "";
+  $("#qualification-run-start").disabled = true;
+  $("#qualification-run-start").textContent = "確認中";
+  $("#qualification-run-cancel").hidden = false;
+  $("#qualification-run-dialog").showModal();
+  previewQualificationRun();
+}
+
+async function previewQualificationRun() {
+  const workflow = state.qualificationWorkflow;
+  const stageId = state.qualificationWorkflowStageId;
+  if (!workflow || !stageId || state.qualificationRunDialog.running) return;
+  const sequence = state.qualificationRunDialog.previewSequence + 1;
+  state.qualificationRunDialog.previewSequence = sequence;
+  state.qualificationRunDialog.preview = null;
+  $("#qualification-run-preview").textContent = "対象を確認しています。";
+  $("#qualification-run-start").disabled = true;
+  try {
+    const preview = await api("/api/qualification-runs/preview", {
+      method: "POST",
+      body: {
+        qualification: workflow.qualification,
+        stageId,
+        mode: selectedQualificationRunMode(),
+        resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
+      },
+    });
+    if (sequence !== state.qualificationRunDialog.previewSequence) return;
+    state.qualificationRunDialog.preview = preview;
+    renderQualificationRunPreview(preview);
+  } catch (error) {
+    if (sequence !== state.qualificationRunDialog.previewSequence) return;
+    $("#qualification-run-preview").textContent = error.message;
+    $("#qualification-run-start").disabled = true;
+  }
+}
+
+function renderQualificationRunPreview(preview) {
+  const container = $("#qualification-run-preview");
+  container.replaceChildren();
+  if (!preview.targetCount) {
+    container.append(
+      element("strong", "", "この範囲に対象はありません"),
+      element("span", "", "別の範囲を選ぶか、次の工程を確認してください。"),
+    );
+  } else {
+    const unit = preview.kind === "machine" ? "フォルダ" : "件";
+    container.append(
+      element("strong", "run-preview-count", `${preview.targetCount}${unit}`),
+      element("span", "", preview.kind === "machine"
+        ? "Merge・Convert・upload-readyを順番に再生成して検証します。"
+        : "対象パスと正本文書だけを含むCodex依頼を保存します。"),
+    );
+    if (preview.targetGroupIds?.length) {
+      container.append(element("span", "run-preview-groups", preview.targetGroupIds.join(" / ")));
+    }
+  }
+  if (preview.blockingWarnings?.length) {
+    container.append(element("span", "run-preview-warning", `必須field不足 ${preview.blockingWarnings.length}件`));
+  }
+  const action = $("#qualification-run-start");
+  action.textContent = preview.kind === "machine" ? "出力を開始" : "依頼を保存してコピー";
+  action.disabled = !preview.canStart;
+}
+
+async function startQualificationRun(event) {
+  event.preventDefault();
+  const preview = state.qualificationRunDialog.preview;
+  if (!preview) {
+    $("#qualification-run-dialog").close();
+    return;
+  }
+  if (!preview.canStart || state.qualificationRunDialog.running) return;
+  setQualificationRunRunning(true);
+  try {
+    const result = await api("/api/qualification-runs/start", {
+      method: "POST",
+      body: {
+        qualification: preview.qualification,
+        stageId: preview.stageId,
+        mode: preview.mode,
+        previewToken: preview.previewToken,
+        resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
+      },
+    });
+    if (result.prompt) {
       await copyText(result.prompt);
-      toast(`${stage.code} ${stage.label}のCodex依頼をコピーしました。`);
+      setQualificationRunRunning(false);
+      $("#qualification-run-dialog").close();
+      await loadQualificationRuns();
+      toast(`${preview.stageCode} ${preview.stageLabel}の依頼を保存してコピーしました。`);
       return;
     }
-    if (stage.action.type === "open_group") {
-      const target = stage.targetGroupIds?.[0];
-      if (!target) return;
-      populateGroups(target);
-      await loadQuestions(false);
-      updateUrl();
-      document.querySelector(".workspace")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    await pollQualificationRunJob(result.job.jobId);
   } catch (error) {
+    setQualificationRunRunning(false);
+    $("#qualification-run-job").hidden = false;
+    $("#qualification-run-job-status").textContent = "処理を完了できませんでした。";
+    $("#qualification-run-preview").textContent = error.message;
+    await loadQualificationRuns();
     toast(error.message, true);
   }
+}
+
+function setQualificationRunRunning(running) {
+  state.qualificationRunDialog.running = running;
+  $("#qualification-run-start").disabled = running;
+  $("#qualification-run-cancel").hidden = running;
+  $("#qualification-run-job").hidden = !running;
+  for (const node of $("#qualification-run-dialog").querySelectorAll(".close-dialog")) {
+    node.disabled = running;
+  }
+}
+
+async function pollQualificationRunJob(jobId) {
+  setQualificationRunRunning(true);
+  if (!$("#qualification-run-dialog").open) $("#qualification-run-dialog").showModal();
+  while (true) {
+    const job = await api(`/api/jobs/${encodeURIComponent(jobId)}`);
+    $("#qualification-run-job-status").textContent = QUALIFICATION_RUN_STATUS_LABELS[job.status] || job.status;
+    $("#qualification-run-job-log").textContent = (job.logs || []).join("\n");
+    if (job.status === "queued" || job.status === "running") {
+      await new Promise((resolve) => window.setTimeout(resolve, 800));
+      continue;
+    }
+    if (job.status === "failed") throw new Error(job.error || "出力処理に失敗しました。");
+    setQualificationRunRunning(false);
+    $("#qualification-run-job").hidden = false;
+    $("#qualification-run-start").textContent = "閉じる";
+    $("#qualification-run-start").disabled = false;
+    state.qualificationRunDialog.preview = null;
+    await loadQualificationWorkflow(true);
+    await loadQualificationRuns();
+    await loadQuestions(true);
+    $("#qualification-run-job-status").textContent = job.result?.message || "完了しました。";
+    toast(job.result?.message || "資格全体の出力を確認しました。");
+    return;
+  }
+}
+
+async function resumeQualificationRun() {
+  const run = state.qualificationActiveRun;
+  if (!run) return;
+  if (run.kind === "human") {
+    try {
+      const result = await api("/api/qualification-runs/resume-prompt", {
+        method: "POST",
+        body: { qualification: run.qualification, runId: run.runId },
+      });
+      await copyText(result.prompt);
+      toast(`${run.stageCode} ${run.stageLabel}の依頼を再コピーしました。`);
+    } catch (error) {
+      toast(error.message, true);
+    }
+    return;
+  }
+  if ((run.status === "running" || run.status === "queued") && run.jobId) {
+    const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
+    if (!stage) return;
+    openQualificationRunDialog(stage, { mode: run.mode, resumedFrom: run.runId });
+    setQualificationRunRunning(true);
+    pollQualificationRunJob(run.jobId).catch(async (error) => {
+      setQualificationRunRunning(false);
+      await loadQualificationRuns();
+      toast(error.message, true);
+    });
+    return;
+  }
+  const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
+  if (stage) openQualificationRunDialog(stage, { mode: run.mode, resumedFrom: run.runId });
 }
 
 async function setListMode(exceptionsOnly) {
@@ -501,13 +757,15 @@ async function setListMode(exceptionsOnly) {
   await loadQuestions(false);
 }
 
-function listQuery() {
+function listQuery(offset = 0) {
   const params = new URLSearchParams({
     qualification: state.qualification,
     listGroupId: state.listGroupId,
     exceptionsOnly: String(state.exceptionsOnly),
     lawOnly: String($("#law-only").checked),
     firestoreMismatch: String($("#firestore-mismatch").checked),
+    offset: String(offset),
+    limit: String(state.questionPage.limit),
   });
   const search = $("#search-input").value.trim();
   const issue = $("#issue-select").value;
@@ -518,27 +776,40 @@ function listQuery() {
   return params;
 }
 
-async function loadQuestions(preserveSelection) {
+async function loadQuestions(preserveSelection, append = false) {
   if (!state.qualification || !state.listGroupId) return;
-  setLoading("読み込み中");
+  const offset = append ? state.questions.length : 0;
+  if (append) {
+    $("#load-more-questions").disabled = true;
+    $("#load-more-questions").textContent = "読み込み中";
+  } else {
+    setLoading("読み込み中");
+  }
   try {
-    const payload = await api(`/api/questions?${listQuery()}`);
-    state.questions = payload.questions;
+    const payload = await api(`/api/questions?${listQuery(offset)}`);
+    state.questions = append
+      ? [...state.questions, ...payload.questions]
+      : payload.questions;
+    state.questionPage.filteredCount = payload.filteredCount;
+    state.questionPage.hasMore = payload.hasMore;
     renderQueue();
-    $("#list-summary").textContent = `${payload.filteredCount}件表示 / 全${payload.questionCount}問 ・ 例外${payload.issueQuestionCount}問`;
+    $("#list-summary").textContent = `${state.questions.length}/${payload.filteredCount}件表示 / 全${payload.questionCount}問 ・ 例外${payload.issueQuestionCount}問`;
     const selectedStillExists = state.questions.some((question) => question.id === state.selectedId);
-    if (!preserveSelection || !selectedStillExists) {
+    if (!append && (!preserveSelection || !selectedStillExists)) {
       state.selectedId = state.questions[0]?.id || "";
     }
-    if (state.selectedId) {
+    if (!append && state.selectedId) {
       await loadDetail(state.selectedId);
-    } else {
+    } else if (!append) {
       state.detail = null;
       renderEmpty("条件に一致する問題はありません。");
     }
   } catch (error) {
     toast(error.message, true);
-    setLoading("読み込み失敗");
+    if (!append) setLoading("読み込み失敗");
+  } finally {
+    $("#load-more-questions").disabled = false;
+    $("#load-more-questions").textContent = "さらに表示";
   }
 }
 
@@ -566,6 +837,7 @@ function renderQueue() {
     item.addEventListener("click", () => loadDetail(question.id));
     queue.append(item);
   }
+  $("#queue-pagination").hidden = !state.questionPage.hasMore;
 }
 
 function issueBadge(issue) {
@@ -2501,6 +2773,7 @@ async function checkFingerprint() {
     ) {
       toast("対象問題の更新を検出しました。");
       await loadQualificationWorkflow(true);
+      await loadQualificationRuns();
       await loadQuestions(true);
     }
   } catch (_) {

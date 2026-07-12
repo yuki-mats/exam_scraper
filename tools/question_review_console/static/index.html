@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>問題レビュー</title>
+    <title>問題整備</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <header class="app-header">
       <div class="brand-block">
-        <h1>問題レビュー</h1>
+        <h1>問題整備</h1>
         <span id="project-status" class="environment-label">本番Firestore: 接続確認中</span>
       </div>
       <div class="toolbar" aria-label="表示条件">
@@ -55,6 +55,16 @@
         </div>
         <span id="qualification-workflow-stage-count"></span>
       </div>
+      <div id="qualification-active-run" class="qualification-active-run" hidden>
+        <span id="qualification-active-run-status" class="run-status"></span>
+        <strong id="qualification-active-run-title"></strong>
+        <span id="qualification-active-run-progress"></span>
+        <button id="qualification-active-run-action" class="secondary-button" type="button">作業を再開</button>
+      </div>
+      <details id="qualification-run-history" class="qualification-run-history" hidden>
+        <summary>作業履歴</summary>
+        <div id="qualification-run-history-list"></div>
+      </details>
     </section>
 
     <section class="filter-bar" aria-label="追加フィルター">
@@ -88,6 +98,9 @@
     <main class="workspace">
       <aside class="queue-pane" aria-label="問題一覧">
         <div id="queue" class="queue" role="listbox" aria-label="レビュー対象"></div>
+        <div id="queue-pagination" class="queue-pagination" hidden>
+          <button id="load-more-questions" class="secondary-button" type="button">さらに表示</button>
+        </div>
       </aside>
       <section id="detail-pane" class="detail-pane" aria-live="polite">
         <div class="empty-state">
@@ -96,6 +109,39 @@
         </div>
       </section>
     </main>
+
+    <dialog id="qualification-run-dialog">
+      <form id="qualification-run-form" method="dialog">
+        <header class="dialog-header">
+          <div>
+            <span class="dialog-eyebrow">資格全体の作業</span>
+            <h2 id="qualification-run-title">工程を開始</h2>
+          </div>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <p id="qualification-run-purpose"></p>
+          <fieldset>
+            <legend>対象範囲</legend>
+            <div class="run-mode-options">
+              <label><input type="radio" name="qualification-run-mode" value="remaining" checked><span>未作業のみ</span></label>
+              <label><input type="radio" name="qualification-run-mode" value="attention"><span>要確認のみ</span></label>
+              <label><input type="radio" name="qualification-run-mode" value="refresh"><span>全件洗い替え</span></label>
+            </div>
+          </fieldset>
+          <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
+          <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>
+          <div id="qualification-run-job" class="qualification-run-job" hidden>
+            <strong id="qualification-run-job-status">処理中</strong>
+            <pre id="qualification-run-job-log"></pre>
+          </div>
+        </div>
+        <footer class="dialog-actions">
+          <button id="qualification-run-cancel" class="secondary-button close-dialog" type="button">キャンセル</button>
+          <button id="qualification-run-start" class="primary-button" type="submit" disabled>開始</button>
+        </footer>
+      </form>
+    </dialog>
 
     <dialog id="review-dialog">
       <form id="review-form" method="dialog">

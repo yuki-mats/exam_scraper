@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-control-center/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-control-center"
 
-active_task: T005
+active_task: T999
 tasks:
   - id: T001
     type: scout
@@ -318,7 +318,7 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: xhigh
     objective: "資格作業セッションとして未作業・要確認・全件洗い替え、対象preview、永続run履歴、資格単位の出力batch/resume、全件一覧paginationを縦断実装する"
     allowed_files:
@@ -346,11 +346,63 @@ tasks:
       - "00_source又は既存IDの変更が必要になる。"
       - "正本promptをUIへ複製する必要が生じる。"
       - "対象外のユーザー変更と競合する。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "資格作業セッションとして未作業・要確認・全件洗い替えのpreview、path-only Codex依頼の保存と再コピー、資格単位のローカル出力batch、再起動後resume、直近履歴、50件paginationを縦断実装した。"
+      changed_files:
+        - tools/question_review_console/qualification_workflow.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/workflow_runner.py
+        - tools/question_review_console/server.py
+        - tools/question_review_console/static/index.html
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/styles.css
+        - tests/test_question_review_qualification_workflow.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+      evidence:
+        - "source-only fixture starts setup run and persists prompt"
+        - "human run prompt survives coordinator restart and can be recopied"
+        - "qualification delivery run processes two groups and records completion"
+        - "interrupted run recovery excludes completed groups on resume"
+        - "question API returns at most 50 items with hasMore"
+        - "real gas-shunin-otsu overview 6.9KB and 1.81 seconds"
+        - "real previews: 02b remaining 522, 03b attention 112, delivery blocked by 3 required warnings"
+        - "law audit prompt has no problem body and names Lawzilla MCP plus Firestore article search"
+      facts:
+        - "workflow runs are stored under output/question_review_console/workflow_runs and ignored by git"
+        - "qualification batch invokes prepare_firestore_upload with upload-dry-run and never production publish"
+        - "00_source and existing IDs are unchanged"
+        - "default scope remains remaining while missing patches exist; attention is default only after full patch coverage"
+      commands:
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+          status: pass
+          summary: "focused workflow, run, server, and UI contract suite passed"
+        - command: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "51 tests passed"
+        - command: ".venv/bin/python -m py_compile tools/question_review_console/qualification_workflow.py tools/question_review_console/qualification_runs.py tools/question_review_console/jobs.py tools/question_review_console/workflow_runner.py tools/question_review_console/server.py"
+          status: pass
+        - command: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+        - command: "real qualification workflow and run previews for gas-shunin-otsu and 1st-class-kenchikushi"
+          status: pass
+        - command: "in-app Browser preflight of 02b run dialog"
+          status: pass
+          summary: "scope preview, safety notice, target counts rendered; default scope issue found and fixed before receipt"
+      remaining:
+        - "restart server with final code and run desktop/mobile Judge walkthrough"
+        - "verify 1,354-question all-group view remains bounded to 50 DOM rows"
+        - "final oracle audit and commit/push"
+      harness: codex
   - id: T006
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: xhigh
     objective: "資格作業セッションを新規・既存資格でブラウザ検証し、実行・再開・洗い替え・upload-ready到達の残差を評価する"
     inputs:
@@ -366,11 +418,46 @@ tasks:
       - "milestone verdict"
       - "oracle evidence map"
       - "remaining Worker package or final-audit readiness"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved_for_final_audit
+      full_outcome_complete: false
+      summary: "資格作業セッションを既存資格とsource-only資格でdesktop/mobile検証し、scope、pagination、安全停止、responsive UXがoracleを満たすことを確認した。最終判定はT999へ委ねる。"
+      rationale: "gas-shunin-otsuは02bの未作業522件を初期選択し、要確認51件、全件洗い替え522件へ切替できた。出力工程は3フォルダを抽出し必須field不足3件で開始ボタンを無効化した。1st-class-kenchikushiは資格方針を次工程として示し、全1,354問を50件だけDOM表示し、追加操作後100件となった。1440x900と390x844の双方で主要導線が読め、モバイルdialogは352x597内に収まり、console warning/errorはゼロ。"
+      evidence:
+        - "desktop 1440x900 screenshot: source-only qualification setup dialog"
+        - "mobile 390x844 screenshot: qualification cockpit first viewport"
+        - "mobile 390x844 screenshot: 352px-wide scope dialog with all actions visible"
+        - "gas 02b previews: remaining 522, attention 51, refresh 522"
+        - "gas delivery preview: 3 groups, 3 blocking warnings, start disabled, local-only and no-production-write notice visible"
+        - "source-only list: 50/1354 then 100/1354 after load more"
+        - "browser console: no errors or warnings"
+      browser_findings:
+        - "PASS: first viewport shows purpose, current state, next action, and counts"
+        - "PASS: missing work is the default scope even when stage status is attention"
+        - "PASS: all-group DOM is bounded and load-more is stable"
+        - "PASS: local-only safety boundary is explicit before execution"
+        - "PASS: desktop and mobile have no horizontal overflow or incoherent overlap"
+        - "PASS: production Firestore was not invoked"
+      missing_evidence: []
+      required_board_updates:
+        - "activate T999 final audit"
+      commands:
+        - command: "in-app Browser desktop 1440x900 gas-shunin-otsu scope walkthrough"
+          status: pass
+        - command: "in-app Browser delivery safety preview"
+          status: pass
+        - command: "in-app Browser source-only qualification and 50-item pagination walkthrough"
+          status: pass
+        - command: "in-app Browser mobile 390x844 cockpit and dialog walkthrough"
+          status: pass
+        - command: "browser console warning/error inspection"
+          status: pass
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: xhigh
     objective: "全receiptと最終browser walkthroughを元の依頼へ対応付け、全成果が完成したか監査する"
     inputs:

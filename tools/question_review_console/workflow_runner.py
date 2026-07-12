@@ -63,7 +63,9 @@ class ArtifactSynchronizer:
         self.secret = secret.encode("utf-8")
         self.command_runner = command_runner or self._run_command
 
-    def preview(self, qualification: str, list_group_id: str) -> dict[str, Any]:
+    def preview(
+        self, qualification: str, list_group_id: str, *, force: bool = False
+    ) -> dict[str, Any]:
         group = self.inventory.group(qualification, list_group_id)
         summary = aggregate_group_workflow(group)
         allow_missing_answer_result = self._allow_missing_answer_result(group)
@@ -89,12 +91,14 @@ class ArtifactSynchronizer:
             "fingerprint": group["fingerprint"],
             "sourceHash": self._source_hash(qualification, list_group_id),
             "command": command,
+            "force": force,
         }
         return {
             **summary,
             "qualification": qualification,
             "listGroupId": list_group_id,
-            "needsSync": not summary["localReady"],
+            "needsSync": force or not summary["localReady"],
+            "force": force,
             "canSync": not required_field_warnings,
             "requiredFieldWarnings": required_field_warnings,
             "allowMissingAnswerResult": allow_missing_answer_result,
@@ -107,8 +111,10 @@ class ArtifactSynchronizer:
         list_group_id: str,
         preview_token: str,
         emit: Callable[[str], None],
+        *,
+        force: bool = False,
     ) -> dict[str, Any]:
-        preview = self.preview(qualification, list_group_id)
+        preview = self.preview(qualification, list_group_id, force=force)
         if not hmac.compare_digest(preview["previewToken"], preview_token):
             raise WorkflowError("確認後にpatch又は成果物が更新されました。再読込してください。")
         if preview["requiredFieldWarnings"]:

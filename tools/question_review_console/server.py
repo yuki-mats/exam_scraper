@@ -26,6 +26,10 @@ from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import GroupPublisher, PublicationError
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
+from tools.question_review_console.qualification_runs import (
+    QualificationRunCoordinator,
+    QualificationRunError,
+)
 from tools.question_review_console.review_store import ReviewStore
 from tools.question_review_console.prompt_builder import (
     LAW_AUDIT_ISSUES,
@@ -81,6 +85,13 @@ class QuestionReviewApplication:
         self.qualification_workflow = QualificationWorkflow(
             self.repo_root, self.inventory
         )
+        self.qualification_runs = QualificationRunCoordinator(
+            self.repo_root,
+            self.qualification_workflow,
+            self.synchronizer,
+            self.jobs,
+            self.session_token,
+        )
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
         self.origin = ""
@@ -110,6 +121,16 @@ class QuestionReviewApplication:
                 )
             except FileNotFoundError as exc:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+        if path == "/api/qualification-runs":
+            qualification = _query_value(query, "qualification")
+            if not qualification:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
+                )
+            try:
+                return HTTPStatus.OK, self.qualification_runs.recent(qualification)
+            except (ValueError, QualificationRunError) as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
         if path == "/api/questions":
             return HTTPStatus.OK, self._questions(query)
         if path.startswith("/api/jobs/"):
@@ -141,11 +162,58 @@ class QuestionReviewApplication:
                 )
             try:
                 return HTTPStatus.OK, self.qualification_workflow.prompt(
-                    qualification, stage_id
+                    qualification, stage_id, str(body.get("mode") or "remaining")
                 )
             except FileNotFoundError as exc:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
             except ValueError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
+        if path in {
+            "/api/qualification-runs/preview",
+            "/api/qualification-runs/start",
+            "/api/qualification-runs/resume-prompt",
+        }:
+            qualification = str(body.get("qualification") or "")
+            if not qualification:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
+                )
+            try:
+                if path.endswith("/resume-prompt"):
+                    run_id = str(body.get("runId") or "")
+                    if not run_id:
+                        raise ValueError("runIdを指定してください。")
+                    return HTTPStatus.OK, self.qualification_runs.resume_prompt(
+                        qualification, run_id
+                    )
+                stage_id = str(body.get("stageId") or "")
+                mode = str(body.get("mode") or "remaining")
+                if not stage_id:
+                    raise ValueError("stageIdを指定してください。")
+                if path.endswith("/preview"):
+                    return HTTPStatus.OK, self.qualification_runs.preview(
+                        qualification,
+                        stage_id,
+                        mode,
+                        resumed_from=str(body.get("resumedFrom") or "") or None,
+                    )
+                result = self.qualification_runs.start(
+                    qualification,
+                    stage_id,
+                    mode,
+                    str(body.get("previewToken") or ""),
+                    resumed_from=str(body.get("resumedFrom") or "") or None,
+                )
+                return (
+                    HTTPStatus.ACCEPTED if result.get("job") else HTTPStatus.CREATED,
+                    result,
+                )
+            except FileNotFoundError as exc:
+                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
         if path in {
@@ -412,14 +480,21 @@ class QuestionReviewApplication:
                 if exceptions_only and not question["issues"]:
                     continue
                 summaries.append(self._summary(question))
+        offset = _query_int(query, "offset", default=0, minimum=0, maximum=1_000_000)
+        limit = _query_int(query, "limit", default=50, minimum=1, maximum=100)
+        filtered_count = len(summaries)
+        page = summaries[offset : offset + limit]
         return {
             "qualification": qualification,
             "listGroupId": list_group_id,
             "questionCount": sum(group["questionCount"] for group in groups),
             "issueQuestionCount": decorated_issue_count,
-            "filteredCount": len(summaries),
+            "filteredCount": filtered_count,
+            "offset": offset,
+            "limit": limit,
+            "hasMore": offset + len(page) < filtered_count,
             "fingerprint": "|".join(group["fingerprint"] for group in groups),
-            "questions": summaries,
+            "questions": page,
         }
 
     def _question(
@@ -744,6 +819,24 @@ def _query_bool(
     if not value:
         return default
     return value.casefold() in {"1", "true", "yes", "on"}
+
+
+def _query_int(
+    query: Mapping[str, list[str]],
+    key: str,
+    *,
+    default: int,
+    minimum: int,
+    maximum: int,
+) -> int:
+    value = _query_value(query, key)
+    if not value:
+        return default
+    try:
+        parsed = int(value)
+    except ValueError as exc:
+        raise ApiError(HTTPStatus.BAD_REQUEST, f"{key}は整数で指定してください。") from exc
+    return min(max(parsed, minimum), maximum)
 
 
 def _group_action(path: str) -> tuple[str, str, str] | None:

@@ -186,6 +186,47 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         self.assertIn("--upload-dry-run", commands[0])
         self.assertIn("--allow-missing-answer-result", commands[0])
 
+    def test_force_refresh_runs_pipeline_even_when_artifacts_match(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            (source_dir / "question.json").write_text("{}", encoding="utf-8")
+            group = group_payload({"merge": "match", "convert": "match", "upload": "match"})
+            group["questions"][0]["projected"] = {
+                "answer_result_text": "正しい",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+            }
+            commands = []
+
+            def run(command, *, cwd, env, emit):
+                commands.append(command)
+                return 0
+
+            synchronizer = ArtifactSynchronizer(
+                root, FakeInventory(group), "secret", command_runner=run
+            )
+            preview = synchronizer.preview("sample-exam", "2026", force=True)
+            result = synchronizer.run(
+                "sample-exam",
+                "2026",
+                preview["previewToken"],
+                lambda _: None,
+                force=True,
+            )
+
+        self.assertTrue(preview["needsSync"])
+        self.assertEqual(len(commands), 1)
+        self.assertTrue(result["localReady"])
+
 
 class GroupPublisherTests(unittest.TestCase):
     def test_law_audit_quality_issue_blocks_publish(self):
@@ -288,6 +329,11 @@ class WorkflowUiContractTests(unittest.TestCase):
             "qualification-workflow",
             "qualification-workflow-stages",
             "qualification-workflow-action",
+            "qualification-active-run",
+            "qualification-run-history",
+            "qualification-run-dialog",
+            "qualification-run-start",
+            "load-more-questions",
             "workflow-dialog",
             "production-confirm",
             "workflow-execute",
@@ -307,6 +353,11 @@ class WorkflowUiContractTests(unittest.TestCase):
             "loadQualificationWorkflow",
             "renderQualificationWorkflow",
             "executeQualificationWorkflowAction",
+            "loadQualificationRuns",
+            "openQualificationRunDialog",
+            "previewQualificationRun",
+            "startQualificationRun",
+            "resumeQualificationRun",
             "openSyncDialog",
             "openPublishDialog",
             "executeWorkflow",
@@ -370,8 +421,13 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('requestKind === "qualification_law_audit"', javascript)
         self.assertIn('$("#review-scope-wrap").hidden = qualificationLawAudit', javascript)
         self.assertIn('const ALL_LIST_GROUPS = "__all__"', javascript)
-        self.assertIn('"/api/qualification-workflow/prompt"', javascript)
         self.assertIn('`/api/qualification-workflow?${params}`', javascript)
+        self.assertIn('"/api/qualification-runs/preview"', javascript)
+        self.assertIn('"/api/qualification-runs/start"', javascript)
+        self.assertIn('"/api/qualification-runs/resume-prompt"', javascript)
+        self.assertIn('offset: String(offset)', javascript)
+        self.assertIn('limit: String(state.questionPage.limit)', javascript)
+        self.assertIn('stage.completeCount === stage.targetCount && stage.issueCount > 0', javascript)
         self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
         self.assertIn('`すべて（${groups.length}件）`', javascript)
         self.assertIn('"パッチ適用後データ"', javascript)

@@ -75,7 +75,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         stage = next(item for item in prepared["stages"] if item["id"] == "question_type")
         self.assertEqual(stage["status"], "not_started")
         self.assertEqual(stage["remainingCount"], 1)
-        self.assertIn("10_questionType_fixed", stage["outputFiles"][0])
+        self.assertIn("10_questionType_fixed", stage["outputPreview"][0])
         self.assertIn("prompt/01_prompt_fix_questionType.md", prompt)
         self.assertIn("question_2026_1.json", prompt)
         self.assertNotIn("## 問題文", prompt)
@@ -111,12 +111,68 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(with_issue["nextStageId"], "law_audit")
         audit = next(item for item in with_issue["stages"] if item["id"] == "law_audit")
         self.assertEqual(audit["remainingCount"], 1)
-        self.assertIn("21_explanationText_added", audit["outputFiles"][0])
+        self.assertIn("21_explanationText_added", audit["outputPreview"][0])
         self.assertEqual(without_issue["nextStageId"], "delivery")
         delivery = next(
             item for item in without_issue["stages"] if item["id"] == "delivery"
         )
         self.assertEqual(delivery["targetGroupIds"], ["2026"])
+
+    def test_stage_plan_supports_remaining_attention_and_refresh(self):
+        patches = [
+            "output/sample/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json"
+        ]
+        issue = {"code": "required_field_missing", "fields": ["questionType"]}
+        item = question(patches=patches, issues=[issue])
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample", [{"listGroupId": "2026", "questions": [item]}]
+                ),
+            )
+            remaining = workflow.plan("sample", "question_type", "remaining")
+            attention = workflow.plan("sample", "question_type", "attention")
+            refresh = workflow.plan("sample", "question_type", "refresh")
+
+        self.assertEqual(remaining["targetCount"], 0)
+        self.assertEqual(attention["targetCount"], 1)
+        self.assertEqual(refresh["targetCount"], 1)
+
+    def test_law_audit_prompt_is_path_only_and_requires_per_choice_research(self):
+        patches = [
+            "output/sample/questions_json/2026/18_law_context_prepared/question_2026_1_lawContext_prepared.json",
+            "output/sample/questions_json/2026/21_explanationText_added/question_2026_1_explanationText_added.json",
+        ]
+        issue = {
+            "code": "law_audit_metadata_incomplete",
+            "fields": ["lawRevisionFacts.current.correctChoiceText"],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [
+                        {
+                            "listGroupId": "2026",
+                            "questions": [
+                                question(
+                                    patches=patches,
+                                    issues=[issue],
+                                    law_related=True,
+                                )
+                            ],
+                        }
+                    ],
+                ),
+            )
+            prompt = workflow.prompt("sample", "law_audit", "attention")["prompt"]
+
+        self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", prompt)
+        self.assertIn("21_explanationText_added", prompt)
+        self.assertNotIn("## 問題文", prompt)
 
 
 if __name__ == "__main__":

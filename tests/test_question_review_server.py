@@ -19,10 +19,11 @@ class QuestionReviewServerTests(unittest.TestCase):
             def overview(self, qualification):
                 return {"qualification": qualification, "nextStageId": "question_type"}
 
-            def prompt(self, qualification, stage_id):
+            def prompt(self, qualification, stage_id, mode="remaining"):
                 return {
                     "qualification": qualification,
                     "stageId": stage_id,
+                    "mode": mode,
                     "prompt": "依頼",
                 }
 
@@ -41,6 +42,67 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(overview["nextStageId"], "question_type")
         self.assertEqual(post_status, 200)
         self.assertEqual(prompt["prompt"], "依頼")
+
+    def test_previews_starts_and_resumes_qualification_run(self):
+        class Runs:
+            def preview(self, qualification, stage_id, mode, *, resumed_from=None):
+                return {
+                    "qualification": qualification,
+                    "stageId": stage_id,
+                    "mode": mode,
+                    "previewToken": "token",
+                }
+
+            def start(
+                self,
+                qualification,
+                stage_id,
+                mode,
+                preview_token,
+                *,
+                resumed_from=None,
+            ):
+                return {
+                    "run": {"runId": "run-1", "qualification": qualification},
+                    "prompt": "依頼",
+                    "job": None,
+                }
+
+            def resume_prompt(self, qualification, run_id):
+                return {"run": {"runId": run_id}, "prompt": "依頼"}
+
+            def recent(self, qualification):
+                return {"qualification": qualification, "runs": []}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.qualification_runs = Runs()
+            _, preview = app.post(
+                "/api/qualification-runs/preview",
+                {"qualification": "sample", "stageId": "law_audit", "mode": "attention"},
+            )
+            start_status, started = app.post(
+                "/api/qualification-runs/start",
+                {
+                    "qualification": "sample",
+                    "stageId": "law_audit",
+                    "mode": "attention",
+                    "previewToken": "token",
+                },
+            )
+            _, resumed = app.post(
+                "/api/qualification-runs/resume-prompt",
+                {"qualification": "sample", "runId": "run-1"},
+            )
+            _, recent = app.get(
+                "/api/qualification-runs", {"qualification": ["sample"]}
+            )
+
+        self.assertEqual(preview["mode"], "attention")
+        self.assertEqual(start_status, 201)
+        self.assertEqual(started["run"]["runId"], "run-1")
+        self.assertEqual(resumed["prompt"], "依頼")
+        self.assertEqual(recent["qualification"], "sample")
 
     def test_bulk_law_audit_post_adds_all_qualification_target_files(self):
         class Inventory:
@@ -188,6 +250,55 @@ class QuestionReviewServerTests(unittest.TestCase):
             [question["listGroupId"] for question in result["questions"]],
             ["2024", "2025"],
         )
+
+    def test_question_list_is_paginated(self):
+        class Inventory:
+            def inventory(self):
+                return {"qualifications": [{"id": "sample", "listGroupIds": ["2026"]}]}
+
+            def group(self, qualification, list_group_id):
+                questions = [
+                    {
+                        "id": f"question-{index}",
+                        "listGroupId": list_group_id,
+                        "body": f"問題{index}",
+                        "questionLabel": f"問{index}",
+                        "sourceQuestionKey": f"sample:2026:q{index}",
+                        "issues": [],
+                        "issueCodes": [],
+                        "reviewStatus": "unreviewed",
+                        "isLawRelated": False,
+                        "workflow": {"firestore": "unread"},
+                    }
+                    for index in range(120)
+                ]
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": "fingerprint",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            result = app._questions(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                    "exceptionsOnly": ["false"],
+                    "offset": ["50"],
+                    "limit": ["50"],
+                }
+            )
+
+        self.assertEqual(result["filteredCount"], 120)
+        self.assertEqual(len(result["questions"]), 50)
+        self.assertTrue(result["hasMore"])
+        self.assertEqual(result["questions"][0]["id"], "question-50")
 
     def test_single_question_readback_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
