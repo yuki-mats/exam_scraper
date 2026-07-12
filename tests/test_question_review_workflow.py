@@ -8,7 +8,10 @@ from pathlib import Path
 from scripts.upload.upload_questions_to_firestore import build_doc_data_base
 from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.publisher import GroupPublisher
-from tools.question_review_console.workflow_runner import ArtifactSynchronizer
+from tools.question_review_console.workflow_runner import (
+    ArtifactSynchronizer,
+    WorkflowError,
+)
 
 
 class FakeInventory:
@@ -77,6 +80,54 @@ def upload_document():
 
 
 class ArtifactSynchronizerTests(unittest.TestCase):
+    def test_blocks_patch_propagation_when_required_fields_are_missing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            (source_dir / "question.json").write_text("{}", encoding="utf-8")
+            group = group_payload(
+                {"merge": "stale", "convert": "stale", "upload": "missing"}
+            )
+            group["questions"][0].update(
+                {
+                    "id": "review-1",
+                    "sourceQuestionKey": "sample:2026:q01",
+                    "issues": [
+                        {
+                            "code": "required_field_missing",
+                            "detail": "questionTypeがありません。",
+                            "fields": ["questionType"],
+                        }
+                    ],
+                    "projected": {
+                        "answer_result_text": "正しい",
+                        "choiceTextList": ["A"],
+                        "correctChoiceText": ["正しい"],
+                    },
+                }
+            )
+            synchronizer = ArtifactSynchronizer(root, FakeInventory(group), "secret")
+            preview = synchronizer.preview("sample-exam", "2026")
+
+            with self.assertRaises(WorkflowError):
+                synchronizer.run(
+                    "sample-exam",
+                    "2026",
+                    preview["previewToken"],
+                    lambda _: None,
+                )
+
+        self.assertFalse(preview["canSync"])
+        self.assertEqual(len(preview["requiredFieldWarnings"]), 1)
+
     def test_missing_answer_result_is_not_allowed_with_incomplete_verdicts(self):
         group = group_payload(
             {"merge": "stale", "convert": "stale", "upload": "missing"}
@@ -221,9 +272,14 @@ class WorkflowUiContractTests(unittest.TestCase):
             "workflow-execute",
             "job-log",
             "bulk-readback-button",
+            "bulk-readback-help",
             "readback-dialog",
             "readback-execute",
             "group-select-label",
+            "help-dialog",
+            "help-dialog-title",
+            "help-dialog-content",
+            "confirm-validation",
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (
@@ -236,6 +292,10 @@ class WorkflowUiContractTests(unittest.TestCase):
             "pollReadbackJob",
             "renderFirestoreDiff",
             "scrollToFirestoreDiff",
+            "openHelp",
+            "actionWithHelp",
+            "renderRequiredFieldWarning",
+            "startWorkflowExecution",
             "parseDataPath",
             "installReviewTarget",
             "normalizedReviewSelection",
@@ -246,7 +306,13 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
         self.assertIn('"Firestore（取得値）"', javascript)
         self.assertIn("formatReadbackTime", javascript)
-        self.assertIn('button("資格全体を再取得"', javascript)
+        self.assertIn('"資格のFirestoreを確認"', javascript)
+        self.assertIn('"パッチ変更を反映"', javascript)
+        self.assertIn('"Firestoreへ反映"', javascript)
+        self.assertIn('"保存済み差分を見る"', javascript)
+        self.assertIn('"修正を依頼"', javascript)
+        self.assertIn('"直接編集"', javascript)
+        self.assertIn("actionWithHelp", javascript)
         self.assertNotIn("selectedReadbackGroupIds", javascript)
         self.assertNotIn("runFirestoreReadback", javascript)
         self.assertIn('"firestore-diff-item-path"', javascript)

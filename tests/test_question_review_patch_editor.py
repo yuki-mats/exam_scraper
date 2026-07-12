@@ -15,7 +15,14 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
             explanation_path = group / "21_explanationText_added" / "question_2026_1_explanationText_added.json"
             source_path.parent.mkdir(parents=True)
             explanation_path.parent.mkdir(parents=True)
-            source_payload = {"question_bodies": [{"original_question_id": "q1"}]}
+            source_payload = {
+                "question_bodies": [
+                    {
+                        "original_question_id": "q1",
+                        "question_url": "https://example.test/q1",
+                    }
+                ]
+            }
             source_path.write_text(json.dumps(source_payload), encoding="utf-8")
             source_before = source_path.read_bytes()
             explanation_path.write_text(
@@ -30,7 +37,10 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
             )
             question = {
                 "stateHash": "hash-1",
-                "source": {"original_question_id": "q1"},
+                "source": {
+                    "original_question_id": "q1",
+                    "question_url": "https://example.test/q1",
+                },
                 "projected": {
                     "original_question_id": "q1",
                     "choiceTextList": ["A", "B"],
@@ -64,6 +74,9 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
 
         self.assertEqual(source_before, source_after)
         self.assertEqual(explanation[0]["explanationText"], ["間違い。新", "正しい。新"])
+        self.assertEqual(explanation[0]["suggestedQuestions"], [])
+        self.assertEqual(explanation[0]["suggestedQuestionDetails"], [])
+        self.assertEqual(explanation[0]["question_url"], "https://example.test/q1")
         self.assertEqual(explanation[1]["explanationText"], ["正しい。他"])
         self.assertEqual(correct[0]["correctChoiceText"], ["間違い", "正しい"])
         self.assertEqual(len(result["changedPaths"]), 2)
@@ -87,6 +100,30 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
                 "hash",
             )
         self.assertTrue(context.exception.codex_required)
+
+    def test_preview_reports_required_field_warnings(self):
+        editor = PatchEditor(Path.cwd())
+        question = {
+            "stateHash": "hash",
+            "projected": {
+                "questionBodyText": "問題文",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。旧"],
+            },
+        }
+
+        preview = editor.preview(
+            question,
+            {"explanationText": ["正しい。新"]},
+            "",
+            "hash",
+        )
+
+        self.assertEqual(
+            preview["validationWarnings"],
+            [{"field": "questionType", "detail": "questionTypeがありません。"}],
+        )
 
 
 if __name__ == "__main__":

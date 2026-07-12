@@ -11,6 +11,10 @@ from tools.question_review_console.projection import (
     normalize_verdict,
     record_aliases,
 )
+from tools.question_review_console.patch_validation import (
+    patch_entry_required_warnings,
+    projected_required_warnings,
+)
 from tools.question_review_console.review_store import atomic_write
 
 
@@ -143,11 +147,15 @@ class PatchEditor:
                     + ", ".join(str(index + 1) for index in mismatch)
                 )
 
+        final_record = copy.deepcopy(dict(projected))
+        final_record.update(copy.deepcopy(normalized_changes))
+
         return {
             "changes": normalized_changes,
             "diffs": diffs,
             "previewToken": _preview_token(expected_state_hash, normalized_changes, reason),
             "codexRequired": False,
+            "validationWarnings": projected_required_warnings(final_record),
         }
 
     def apply(
@@ -162,6 +170,10 @@ class PatchEditor:
         if preview["previewToken"] != preview_token:
             raise DirectEditError("確認後に変更内容が変わりました。もう一度確認してください。")
         normalized = preview["changes"]
+        projected = question.get("projected") or {}
+        final_record = copy.deepcopy(dict(projected))
+        final_record.update(copy.deepcopy(normalized))
+        original_id, question_url = self._patch_identity(question)
         aliases = record_aliases(question.get("projected") or {}) | record_aliases(
             question.get("source") or {}
         )
@@ -181,7 +193,25 @@ class PatchEditor:
             original_bytes = explanation_path.read_bytes()
             payload = json.loads(original_bytes.decode("utf-8"))
             entry = _find_entry(_records_container(payload), aliases)
-            entry.update(copy.deepcopy(explanation_changes))
+            entry.update(
+                {
+                    "explanationText": copy.deepcopy(
+                        final_record.get("explanationText")
+                    ),
+                    "suggestedQuestions": copy.deepcopy(
+                        final_record.get("suggestedQuestions") or []
+                    ),
+                    "suggestedQuestionDetails": copy.deepcopy(
+                        final_record.get("suggestedQuestionDetails") or []
+                    ),
+                    "original_question_id": original_id,
+                    "question_url": question_url,
+                }
+            )
+            self._validate_patch_entry(
+                entry,
+                "explanation",
+            )
             pending_writes.append((explanation_path, payload, original_bytes))
             changed_paths.append(str(explanation_path.relative_to(self.repo_root)))
 
@@ -200,16 +230,9 @@ class PatchEditor:
             try:
                 entry = _find_entry(records, aliases)
             except PatchEntryNotFound:
-                source = question.get("source") or {}
-                original_id = str(source.get("original_question_id") or source.get("public_question_id") or "")
-                if not original_id:
-                    raise DirectEditError(
-                        "23 patch用のoriginal_question_idを特定できません。",
-                        codex_required=True,
-                    )
                 entry = {
                     "original_question_id": original_id,
-                    "question_url": str(source.get("question_url") or ""),
+                    "question_url": question_url,
                 }
                 records.append(entry)
             entry.update(
@@ -218,7 +241,13 @@ class PatchEditor:
                     "correctChoiceText_change_detail": "ローカル問題レビューUIで正誤を修正。",
                     "correctChoiceText_change_reason": reason.strip(),
                     "correctChoiceText": copy.deepcopy(normalized["correctChoiceText"]),
+                    "original_question_id": original_id,
+                    "question_url": question_url,
                 }
+            )
+            self._validate_patch_entry(
+                entry,
+                "correctChoice",
             )
             pending_writes.append((correct_path, payload, original_bytes))
             changed_paths.append(str(correct_path.relative_to(self.repo_root)))
@@ -235,7 +264,46 @@ class PatchEditor:
                 json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
             )
 
-        return {"changedPaths": changed_paths, "diffs": preview["diffs"]}
+        return {
+            "changedPaths": changed_paths,
+            "diffs": preview["diffs"],
+            "validationWarnings": preview["validationWarnings"],
+        }
+
+    @staticmethod
+    def _patch_identity(question: Mapping[str, Any]) -> tuple[str, str]:
+        source = question.get("source") or {}
+        original_id = str(
+            source.get("original_question_id")
+            or source.get("public_question_id")
+            or question.get("originalQuestionId")
+            or ""
+        ).strip()
+        question_url = str(source.get("question_url") or "").strip()
+        missing = []
+        if not original_id:
+            missing.append("original_question_id")
+        if not question_url:
+            missing.append("question_url")
+        if missing:
+            raise DirectEditError(
+                "patch保存に必要な識別fieldを特定できません: "
+                + ", ".join(missing),
+                codex_required=True,
+            )
+        return original_id, question_url
+
+    @staticmethod
+    def _validate_patch_entry(
+        entry: Mapping[str, Any], stage: str
+    ) -> None:
+        warnings = patch_entry_required_warnings(entry, stage)
+        if warnings:
+            raise DirectEditError(
+                "patchの必須fieldが不足しています: "
+                + " / ".join(warning["detail"] for warning in warnings),
+                codex_required=True,
+            )
 
     @staticmethod
     def _validate_explanation_fields(

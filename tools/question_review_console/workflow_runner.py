@@ -67,6 +67,17 @@ class ArtifactSynchronizer:
         group = self.inventory.group(qualification, list_group_id)
         summary = aggregate_group_workflow(group)
         allow_missing_answer_result = self._allow_missing_answer_result(group)
+        required_field_warnings = [
+            {
+                "questionId": str(question.get("id") or ""),
+                "sourceQuestionKey": str(question.get("sourceQuestionKey") or ""),
+                "detail": str(issue.get("detail") or ""),
+                "fields": list(issue.get("fields") or []),
+            }
+            for question in group.get("questions") or []
+            for issue in question.get("issues") or []
+            if issue.get("code") == "required_field_missing"
+        ]
         command = self._command(
             qualification,
             list_group_id,
@@ -84,6 +95,8 @@ class ArtifactSynchronizer:
             "qualification": qualification,
             "listGroupId": list_group_id,
             "needsSync": not summary["localReady"],
+            "canSync": not required_field_warnings,
+            "requiredFieldWarnings": required_field_warnings,
             "allowMissingAnswerResult": allow_missing_answer_result,
             "previewToken": self._token(token_payload),
         }
@@ -98,6 +111,10 @@ class ArtifactSynchronizer:
         preview = self.preview(qualification, list_group_id)
         if not hmac.compare_digest(preview["previewToken"], preview_token):
             raise WorkflowError("確認後にpatch又は成果物が更新されました。再読込してください。")
+        if preview["requiredFieldWarnings"]:
+            raise WorkflowError(
+                "必須field不足があるため反映できません。問題詳細の警告を修正してください。"
+            )
         if not preview["needsSync"]:
             return {**preview, "message": "ローカル成果物はすでに最新です。"}
 

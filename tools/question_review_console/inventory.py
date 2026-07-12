@@ -16,6 +16,7 @@ from tools.question_review_console.projection import (
     build_stage_maps,
     explanation_prefix_matches,
     extract_records,
+    find_patch_entry,
     load_json,
     normalize_text,
     normalize_verdict,
@@ -25,6 +26,10 @@ from tools.question_review_console.projection import (
     review_key,
     sha256_json,
     source_question_key,
+)
+from tools.question_review_console.patch_validation import (
+    patch_entry_required_warnings,
+    projected_required_warnings,
 )
 
 
@@ -195,37 +200,42 @@ def detect_issues(
     converted_docs: list[dict[str, Any]],
     upload_docs: list[dict[str, Any]],
     projection_errors: Iterable[str],
+    patch_warnings: Iterable[Mapping[str, str]] = (),
 ) -> list[dict[str, Any]]:
     issues: dict[str, dict[str, Any]] = {}
 
     def add(code: str, detail: str, fields: Iterable[str] = ()) -> None:
-        issues.setdefault(
-            code,
-            {
+        if code not in issues:
+            issues[code] = {
                 "code": code,
                 "detail": detail,
                 "fields": sorted(set(fields)),
                 "priority": ISSUE_PRIORITY.get(code, 99),
-            },
-        )
+            }
+            return
+        existing = issues[code]
+        existing["fields"] = sorted(set(existing.get("fields") or []) | set(fields))
+        details = [value.strip() for value in str(existing.get("detail") or "").split(" / ")]
+        if detail not in details:
+            existing["detail"] = " / ".join([*details, detail])
 
     choices = projected.get("choiceTextList")
     choices = choices if isinstance(choices, list) else []
     correctness = projected.get("correctChoiceText")
     explanations = projected.get("explanationText")
 
-    if not str(projected.get("questionBodyText") or "").strip():
-        add("required_field_missing", "問題文がありません。", ["questionBodyText"])
-    if not projected.get("questionType"):
-        add("required_field_missing", "questionTypeがありません。", ["questionType"])
-
-    if isinstance(explanations, list):
-        if choices and len(explanations) != len(choices):
-            add("explanation_missing", "選択肢数と解説数が一致しません。", ["explanationText"])
-        elif any(not str(value or "").strip() for value in explanations):
-            add("explanation_missing", "空の解説があります。", ["explanationText"])
-    elif not str(explanations or "").strip():
-        add("explanation_missing", "解説がありません。", ["explanationText"])
+    for warning in projected_required_warnings(projected):
+        add(
+            "required_field_missing",
+            warning["detail"],
+            [warning["field"]],
+        )
+    for warning in patch_warnings:
+        add(
+            "required_field_missing",
+            str(warning.get("detail") or "patchの必須fieldが不足しています。"),
+            [str(warning.get("field") or "patch")],
+        )
 
     if isinstance(correctness, list) and isinstance(explanations, list):
         mismatch_indexes = [
@@ -425,6 +435,14 @@ class QuestionInventory:
                     stage_maps,
                     issue_paths,
                 )
+                patch_warnings = []
+                for stage in ("explanation", "correctChoice"):
+                    patch_entry = find_patch_entry(stage_maps.get(stage, {}), aliases)
+                    if patch_entry is None:
+                        continue
+                    patch_warnings.extend(
+                        patch_entry_required_warnings(patch_entry.entry, stage)
+                    )
                 projected_aliases = aliases | record_aliases(projection.record)
                 matched_converted = self._matching_docs(converted_docs, projected_aliases, qualification)
                 matched_upload = self._matching_docs(upload_docs, projected_aliases, qualification)
@@ -434,6 +452,7 @@ class QuestionInventory:
                     matched_converted,
                     matched_upload,
                     projection.errors,
+                    patch_warnings,
                 )
                 source_stem = source_path.stem
                 stable_key = review_key(qualification, list_group_id, source_stem, source)

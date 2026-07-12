@@ -4,6 +4,9 @@ import unittest
 from pathlib import Path
 
 from tools.question_review_console.inventory import QuestionInventory, detect_issues
+from tools.question_review_console.patch_validation import (
+    patch_entry_required_warnings,
+)
 
 
 def write_json(path: Path, payload) -> None:
@@ -12,6 +15,46 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_detects_missing_required_fields_in_applied_patch_entry(self):
+        warnings = patch_entry_required_warnings(
+            {
+                "original_question_id": "q1",
+                "explanationText": ["正しい。根拠"],
+            },
+            "explanation",
+        )
+
+        self.assertEqual(
+            {warning["field"] for warning in warnings},
+            {"question_url", "suggestedQuestions", "suggestedQuestionDetails"},
+        )
+
+    def test_reports_all_projected_required_field_warnings(self):
+        projected = {
+            "questionBodyText": "",
+            "choiceTextList": ["A", ""],
+            "correctChoiceText": ["未確定"],
+            "explanationText": [""],
+        }
+
+        issues = detect_issues(projected, projected, [], [], [])
+        required = next(
+            issue for issue in issues if issue["code"] == "required_field_missing"
+        )
+
+        self.assertEqual(
+            required["fields"],
+            [
+                "choiceTextList",
+                "correctChoiceText",
+                "explanationText",
+                "questionBodyText",
+                "questionType",
+            ],
+        )
+        self.assertIn("問題文がありません。", required["detail"])
+        self.assertIn("正誤数が選択肢数と一致しません。", required["detail"])
+
     def test_merge_comparison_treats_verdict_synonyms_as_equal(self):
         projected = {
             "questionBodyText": "正しいものはどれか。",
@@ -45,7 +88,15 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             write_json(group / "30_merged_2" / "question_2026_1_merged.json", {"question_bodies": [source]})
             write_json(
                 group / "21_explanationText_added" / "question_2026_1_explanationText_added.json",
-                [{"original_question_id": "q1", "explanationText": ["正しい。新", "間違い。新"]}],
+                [
+                    {
+                        "original_question_id": "q1",
+                        "question_url": "https://example.test/q1",
+                        "explanationText": ["正しい。新", "間違い。新"],
+                        "suggestedQuestions": [],
+                        "suggestedQuestionDetails": [],
+                    }
+                ],
             )
             firestore_docs = [
                 {

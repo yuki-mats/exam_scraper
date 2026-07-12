@@ -73,7 +73,7 @@ const state = {
   questions: [],
   selectedId: "",
   detail: null,
-  reviewMode: "needs_review",
+  reviewMode: "awaiting_codex",
   reviewSelection: null,
   selectionCandidate: null,
   pendingEdit: null,
@@ -97,6 +97,29 @@ function button(text, className, handler, title) {
   if (title) node.title = title;
   node.addEventListener("click", handler);
   return node;
+}
+
+function openHelp(title, content) {
+  $("#help-dialog-title").textContent = title;
+  $("#help-dialog-content").textContent = content;
+  $("#help-dialog").showModal();
+}
+
+function actionWithHelp(text, className, handler, helpTitle, helpContent) {
+  const wrapper = element("div", "action-with-help");
+  const action = button(text, className, handler);
+  const help = button(
+    "?",
+    "help-button",
+    () => openHelp(
+      helpTitle,
+      typeof helpContent === "function" ? helpContent() : helpContent,
+    ),
+    `${text}の説明`,
+  );
+  help.setAttribute("aria-label", `${text}の説明`);
+  wrapper.append(action, help);
+  return wrapper;
 }
 
 async function api(path, options = {}) {
@@ -171,6 +194,10 @@ function bindControls() {
   $("#all-button").addEventListener("click", () => setListMode(false));
   $("#refresh-button").addEventListener("click", () => loadQuestions(true));
   $("#bulk-readback-button").addEventListener("click", openReadbackDialog);
+  $("#bulk-readback-help").addEventListener("click", () => openHelp(
+    "資格のFirestoreを確認",
+    "選択中の資格に含まれる全フォルダを本番Firestoreから読み取ります。書き込みは行いません。取得結果と取得日時はローカルに保存され、後から問題ごとの差分を確認できます。",
+  ));
   for (const selector of ["#law-only", "#firestore-mismatch", "#issue-select", "#review-status-select"]) {
     $(selector).addEventListener("change", () => loadQuestions(false));
   }
@@ -382,13 +409,27 @@ function renderDetail() {
   );
   const actions = element("div", "detail-actions");
   actions.append(
-    button("指摘", "secondary-button", () => openReview("needs_review"), "要確認として記録"),
-    button("Codex依頼", "primary-button", () => openReview("awaiting_codex"), "Codex用依頼を作成・コピー"),
-    button("編集", "secondary-button", openEdit, "解説・正誤をpatchで修正"),
+    actionWithHelp(
+      "修正を依頼",
+      "primary-button",
+      () => openReview("awaiting_codex"),
+      "修正を依頼",
+      "おかしい箇所と調査範囲を記録し、同時にCodex用の修正依頼を作成してクリップボードへコピーします。指摘記録とCodex依頼を一度で行います。",
+    ),
+    actionWithHelp(
+      "直接編集",
+      "secondary-button",
+      openEdit,
+      "直接編集で変更されるファイル",
+      () => directEditHelpText(question),
+    ),
   );
   titleRow.append(titleBlock, actions);
   header.append(titleRow, renderWorkflow(question), renderPipelineActions(question));
   pane.append(header);
+
+  const requiredWarning = renderRequiredFieldWarning(question);
+  if (requiredWarning) pane.append(requiredWarning);
 
   const firestoreDiff = renderFirestoreDiff(question);
   if (firestoreDiff) pane.append(firestoreDiff);
@@ -424,6 +465,44 @@ function renderDetail() {
   if (question.isLawRelated) pane.append(renderLawSection(question.projected || {}));
   if (question.review) pane.append(renderReviewSection(question));
   pane.append(renderDataSection(question));
+}
+
+function directEditHelpText(question) {
+  const patches = question.paths?.patches || [];
+  const explanationPath = patches.find((path) => path.includes("/21_explanationText_added/"));
+  const correctPath = patches.find((path) => path.includes("/23_correctChoiceText_fixed/"));
+  const sourcePath = question.paths?.source || "";
+  const generatedCorrectPath = sourcePath
+    ? sourcePath
+      .replace("/00_source/", "/23_correctChoiceText_fixed/")
+      .replace(/\.json$/, "_correctChoiceText_fixed.json")
+    : "23_correctChoiceText_fixed内の対象ファイル";
+  return [
+    "基本解説・補足質問:",
+    explanationPath || "21_explanationText_added内の既存対象ファイル（存在しない場合は保存を停止）",
+    "",
+    "正誤:",
+    correctPath || generatedCorrectPath,
+    "",
+    "00_sourceは変更しません。保存前に必須fieldと差分を確認します。法令問題の正誤は直接編集せず、Codex依頼へ切り替えます。",
+  ].join("\n");
+}
+
+function renderRequiredFieldWarning(question) {
+  const issues = (question.issues || []).filter((issue) => issue.code === "required_field_missing");
+  if (!issues.length) return null;
+  const node = element("section", "required-warning-panel");
+  node.append(
+    element("strong", "", "必須フィールドが不足しています"),
+    element("p", "", "不足を解消するまで、パッチ変更をMerge・Convert・upload-readyへ反映できません。"),
+  );
+  const list = document.createElement("ul");
+  for (const issue of issues) {
+    const fields = (issue.fields || []).join(", ");
+    list.append(element("li", "", `${fields || "field不明"}: ${issue.detail}`));
+  }
+  node.append(list);
+  return node;
 }
 
 function section(title) {
@@ -522,9 +601,21 @@ function renderPipelineActions(question) {
     if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
     const hasStoredDiff = ["mismatch", "missing"].includes(question.liveReadback?.status);
     if (["mismatch", "missing"].includes(workflow.firestore) || hasStoredDiff) {
-      actions.append(button("差分を見る", "secondary-button", scrollToFirestoreDiff));
+      actions.append(actionWithHelp(
+        "保存済み差分を見る",
+        "secondary-button",
+        scrollToFirestoreDiff,
+        "保存済み差分を見る",
+        "最後に資格単位で取得したFirestore値と、その取得時点のローカル成果物との差分へ移動します。現在の成果物より古い比較の場合は、その旨を表示します。",
+      ));
     }
-    actions.append(button("成果物を同期", "primary-button", openSyncDialog));
+    actions.append(actionWithHelp(
+      "パッチ変更を反映",
+      "primary-button",
+      () => openSyncDialog(true),
+      "パッチ変更を反映",
+      "現在の資格・フォルダだけを対象に、最新patchからMerge、Convert、upload-readyを再生成し、upload dry-runまで自動で検証します。Firestoreへの書き込みは行いません。必須field不足がある場合は開始しません。",
+    ));
   } else {
     const stats = firestoreDiffStats(question);
     const differenceSummary = [
@@ -538,21 +629,35 @@ function renderPipelineActions(question) {
       error: ["Firestoreの確認に失敗しました", "credentialと接続状態を確認してください。"],
       unread: ["ローカル成果物は最新です", "本番Firestoreはまだ確認していません。"],
       unavailable: ["Firestoreと比較できません", "upload-readyのdocument IDを確認してください。"],
-      upstream_stale: ["最新成果物とは未比較です", "前回取得結果は保持されています。成果物を同期後、資格全体を再取得してください。"],
+      upstream_stale: ["最新成果物とは未比較です", "前回取得結果は保持されています。パッチ変更を反映後、資格のFirestoreを確認してください。"],
     };
     const [title, detail] = messages[workflow.firestore] || messages.unread;
     status.append(element("strong", "", title), element("span", "", detail));
     const readbackTime = questionReadbackTime(question);
     if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
     if (["mismatch", "missing"].includes(workflow.firestore)) {
-      actions.append(button("差分を見る", "primary-button", scrollToFirestoreDiff));
+      actions.append(actionWithHelp(
+        "保存済み差分を見る",
+        "primary-button",
+        scrollToFirestoreDiff,
+        "保存済み差分を見る",
+        "最後に資格単位で取得したFirestore値とローカル成果物の差分へ移動します。",
+      ));
     }
     actions.append(
-      button("資格全体を再取得", "secondary-button", openReadbackDialog),
-      button(
-        "本番差分を確認",
+      actionWithHelp(
+        "資格のFirestoreを確認",
+        "secondary-button",
+        openReadbackDialog,
+        "資格のFirestoreを確認",
+        "選択中の資格全体を本番Firestoreから読み取り、結果と取得日時をローカルへ保存します。読み取り専用で、Firestoreは変更しません。",
+      ),
+      actionWithHelp(
+        "Firestoreへ反映",
         ["mismatch", "missing"].includes(workflow.firestore) ? "secondary-button" : "primary-button",
         openPublishDialog,
+        "Firestoreへ反映",
+        "現在の資格・フォルダのupload-readyと本番Firestoreを比較し、差分がある場合だけ確認画面を経て本番へ書き込みます。資格全体の読取とは別の操作です。",
       ),
     );
   }
@@ -770,7 +875,7 @@ function renderFirestoreDiff(question) {
     .filter((document) => document.status !== "match");
 
   if (!changedDocuments.length) {
-    node.append(element("p", "firestore-diff-notice", "比較結果の詳細がありません。資格全体を再取得してください。"));
+    node.append(element("p", "firestore-diff-notice", "比較結果の詳細がありません。資格のFirestoreを確認してください。"));
     return node;
   }
 
@@ -894,8 +999,8 @@ function stageSummary(preview, stage, label) {
   return summaryMetric(label, value, data.status === "match" ? "good" : "warning");
 }
 
-async function openSyncDialog() {
-  resetWorkflowDialog("sync", "成果物を同期");
+async function openSyncDialog(autoStart = false) {
+  resetWorkflowDialog("sync", "パッチ変更を反映");
   try {
     const preview = await api(groupApiPath("sync-preview"), { method: "POST", body: {} });
     state.workflowDialog.preview = preview;
@@ -911,16 +1016,28 @@ async function openSyncDialog() {
       stageSummary(preview, "convert", "Convert"),
       stageSummary(preview, "upload", "upload-ready"),
     );
-    $("#workflow-execute").textContent = preview.needsSync ? "同期を実行" : "閉じる";
+    if (preview.requiredFieldWarnings?.length) {
+      $("#workflow-dialog-message").textContent =
+        "必須field不足があるため、パッチ変更を反映できません。問題詳細の警告を修正してください。";
+      $("#workflow-dialog-summary").append(
+        summaryMetric("必須field不足", `${preview.requiredFieldWarnings.length}問`, "danger"),
+      );
+      state.workflowDialog.mode = "";
+      $("#workflow-execute").textContent = "閉じる";
+      $("#workflow-execute").disabled = false;
+      return;
+    }
+    $("#workflow-execute").textContent = preview.needsSync ? "反映を開始" : "閉じる";
     $("#workflow-execute").disabled = false;
     if (!preview.needsSync) state.workflowDialog.mode = "";
+    if (autoStart && preview.needsSync) await startWorkflowExecution();
   } catch (error) {
     showWorkflowError(error);
   }
 }
 
 async function openPublishDialog() {
-  resetWorkflowDialog("publish", "本番Firestoreの差分確認");
+  resetWorkflowDialog("publish", "Firestoreへ反映");
   try {
     const preview = await api(groupApiPath("publish-preview"), { method: "POST", body: {} });
     state.workflowDialog.preview = preview;
@@ -979,6 +1096,10 @@ function updateWorkflowExecuteState() {
 
 async function executeWorkflow(event) {
   event.preventDefault();
+  await startWorkflowExecution();
+}
+
+async function startWorkflowExecution() {
   const { mode, preview } = state.workflowDialog;
   if (!mode || !preview) {
     $("#workflow-dialog").close();
@@ -1071,7 +1192,7 @@ function openReadbackDialog() {
   $("#readback-job-status").hidden = true;
   $("#readback-job-log-wrap").hidden = true;
   $("#readback-job-log").textContent = "";
-  $("#readback-execute").textContent = "Firestoreを読み取る";
+  $("#readback-execute").textContent = "資格全体を読み取る";
   $("#readback-execute").onclick = null;
   $("#readback-cancel").hidden = false;
   setReadbackRunning(false);
@@ -1082,7 +1203,7 @@ function openReadbackDialog() {
 async function refreshReadbackPreview() {
   if (state.readbackDialog.running) return;
   $("#readback-execute").onclick = null;
-  $("#readback-execute").textContent = "Firestoreを読み取る";
+  $("#readback-execute").textContent = "資格全体を読み取る";
   const sequence = ++state.readbackDialog.requestSequence;
   state.readbackDialog.preview = null;
   $("#readback-summary").replaceChildren();
@@ -1319,7 +1440,7 @@ function renderReviewSection(question) {
   const actions = element("div", "detail-actions");
   actions.append(
     button("承認", "secondary-button", () => updateReviewStatus("approved")),
-    button("再度Codexへ", "primary-button", () => openReview("awaiting_codex")),
+    button("修正を再依頼", "primary-button", () => openReview("awaiting_codex")),
     button("保留", "secondary-button", () => updateReviewStatus("hold")),
   );
   node.append(status, note, actions);
@@ -1465,9 +1586,9 @@ function openReview(mode, selection = null, issueType = "", investigationScope =
   state.reviewMode = mode;
   state.reviewSelection = selection;
   $("#review-dialog-title").textContent = selection
-    ? "選択した箇所をCodexに確認"
-    : mode === "awaiting_codex" ? "Codex用依頼を作成" : "指摘を記録";
-  $("#review-submit").textContent = mode === "awaiting_codex" ? "作成してコピー" : "記録";
+    ? "選択した箇所の修正を依頼"
+    : "修正を依頼";
+  $("#review-submit").textContent = "依頼を作成してコピー";
   const firstIssue = issueType || state.detail.issueCodes[0] || "other";
   $("#review-issue").value = ISSUE_LABELS[firstIssue] ? firstIssue : "other";
   $("#review-note").value = "";
@@ -1475,7 +1596,7 @@ function openReview(mode, selection = null, issueType = "", investigationScope =
   $("#review-scope").value = REVIEW_SCOPES.has(investigationScope)
     ? investigationScope
     : "current_question";
-  $("#review-scope-wrap").hidden = mode !== "awaiting_codex";
+  $("#review-scope-wrap").hidden = false;
 
   const selectionNode = $("#review-selection");
   selectionNode.hidden = !selection;
@@ -1536,7 +1657,7 @@ async function submitReview(event) {
     $("#review-dialog").close();
     if (state.reviewMode === "awaiting_codex") {
       await copyText(review.prompt);
-      toast("Codex用依を作成し、クリップボードへコピーしました。");
+      toast("指摘を記録し、Codex用依頼をクリップボードへコピーしました。");
     } else {
       toast("指摘を記録しました。");
     }
@@ -1582,7 +1703,7 @@ function openEdit() {
   const correctness = projected.correctChoiceText || [];
   const explanations = projected.explanationText || [];
   $("#edit-guidance").textContent = state.detail.isLawRelated
-    ? "法令問題の正誤変更は根拠監査が必要なため、Codex依頼で行います。解説と補足質問は直接編集できます。"
+    ? "法令問題の正誤変更は根拠監査が必要なため、「修正を依頼」から行います。解説と補足質問は直接編集できます。"
     : "保存先は21_explanationText_addedと23_correctChoiceText_fixedです。00_sourceは変更しません。";
   const list = $("#edit-choice-list");
   list.replaceChildren();
@@ -1686,7 +1807,7 @@ async function previewEdit(event) {
       },
     });
     state.pendingEdit = { changes, reason, preview };
-    renderConfirmDiffs(preview.diffs);
+    renderConfirmDiffs(preview.diffs, preview.validationWarnings || []);
     $("#confirm-dialog").showModal();
   } catch (error) {
     if (error.payload?.codexRequired) {
@@ -1697,7 +1818,18 @@ async function previewEdit(event) {
   }
 }
 
-function renderConfirmDiffs(diffs) {
+function renderConfirmDiffs(diffs, validationWarnings) {
+  const validation = $("#confirm-validation");
+  validation.replaceChildren();
+  validation.hidden = !validationWarnings.length;
+  if (validationWarnings.length) {
+    validation.append(element("strong", "", "保存後も確認が必要な必須fieldがあります"));
+    const list = document.createElement("ul");
+    for (const warning of validationWarnings) {
+      list.append(element("li", "", `${warning.field}: ${warning.detail}`));
+    }
+    validation.append(list);
+  }
   const container = $("#confirm-diffs");
   container.replaceChildren();
   for (const diff of diffs) {
@@ -1732,7 +1864,14 @@ async function applyEdit(event) {
     $("#confirm-dialog").close();
     $("#edit-dialog").close();
     state.detail = result.question;
-    toast(`patchを更新しました: ${result.changedPaths.join(", ")}`);
+    const requiredWarnings = (result.question?.issues || [])
+      .filter((issue) => issue.code === "required_field_missing");
+    toast(
+      requiredWarnings.length
+        ? `patchを更新しました。必須field不足 ${requiredWarnings.length}件を確認してください。`
+        : `patchを更新しました: ${result.changedPaths.join(", ")}`,
+      Boolean(requiredWarnings.length),
+    );
     await loadQuestions(true);
   } catch (error) {
     if (error.payload?.codexRequired) {
@@ -1755,7 +1894,7 @@ function switchEditToCodex(message) {
     const input = $(`#field-${CSS.escape(field)}`);
     if (input) input.checked = true;
   }
-  toast("Codex依頼に切り替えました。", true);
+  toast("修正依頼に切り替えました。", true);
 }
 
 async function checkFingerprint() {
@@ -1764,7 +1903,11 @@ async function checkFingerprint() {
   const params = new URLSearchParams({ qualification: current.qualification, listGroupId: current.listGroupId });
   try {
     const fingerprint = await api(`/api/questions/${current.id}/fingerprint?${params}`);
-    if (fingerprint.stateHash !== current.stateHash || fingerprint.reviewStatus !== current.reviewStatus) {
+    if (
+      fingerprint.stateHash !== current.stateHash
+      || fingerprint.reviewStatus !== current.reviewStatus
+      || !same(fingerprint.issueCodes || [], current.issueCodes || [])
+    ) {
       toast("対象問題の更新を検出しました。");
       await loadQuestions(true);
     }
