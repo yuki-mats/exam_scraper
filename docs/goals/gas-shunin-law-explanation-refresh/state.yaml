@@ -5,7 +5,7 @@ goal:
   slug: "gas-shunin-law-explanation-refresh"
   kind: existing_plan
   tranche: "pending問題を一問ずつ公式e-Govで精査し、検証・commit・origin/main pushまで継続する。"
-  status: active
+  status: done
   oracle:
     signal: "summary.jsonで261問適用済み、pending/error/未処理flagが0、公開成果物監査と17テストが通り、00_sourceと既存IDが不変。"
     cadence: "各設問のWorker完了後と最終PM監査時"
@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T999
+active_task: null
 
 tasks:
   - id: T153
@@ -5620,7 +5620,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "全261問、公開成果物、Firestore前gate、00_source/ID不変、最終検証を監査する。"
     inputs:
@@ -5635,8 +5635,36 @@ tasks:
       - "complete | not_complete"
       - "full_outcome_complete: true | false"
       - "missing evidence"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "全261問の精査・公開成果物・Firestore前gate・source/ID不変・テスト・origin/main同期を最終監査し、元の依頼を完了と判定した。"
+      changed_files: []
+      commands:
+        - cmd: "publication check --require-materialized"
+          status: pass
+        - cmd: "upload gate for 16 files"
+          status: pass
+        - cmd: "22 unittest cases"
+          status: pass
+        - cmd: "decision/public exact match and pre-public ID comparison"
+          status: pass
+        - cmd: "00_source comparison against 62b9b4240"
+          status: pass
+        - cmd: "goal state checker and origin/main sync"
+          status: pass
+      evidence:
+        - "publishedQuestionCount=261, remaining/pending/hold=0"
+        - "correctChoiceTextFlagCount=0, mappingErrorCount=0, decisionErrorCount=0"
+        - "mappedChoiceCount=1289, exactFieldMismatchCount=0"
+        - "publication issueCount=0"
+        - "upload gate issueCount=0 for 16 files and 4639 questions"
+        - "questionId/originalQuestionId/questionSetId tuple mismatch files=0"
+        - "00_source unchanged"
+        - "commit 1862a00d4 pushed to origin/main"
+      missing_evidence: []
+      harness: codex
 checks:
   dirty_fingerprint: "sequence-238-verified@5633e6461"
   last_verification:
