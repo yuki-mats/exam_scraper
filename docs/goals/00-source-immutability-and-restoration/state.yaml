@@ -1,0 +1,263 @@
+version: 2
+
+goal:
+  title: "00_source 全資格不変化と過去変更復元"
+  slug: "00-source-immutability-and-restoration"
+  kind: recovery
+  tranche: "過去変更19ファイルを復元し、全source immutable guardを導入・検証する。"
+  status: active
+  oracle:
+    signal: "復元19ファイル、全source hash manifest、pre-commit gate、拒否/許可テスト、資格別patch検証がすべてgreen。"
+    cadence: "各Worker package後と最終監査時"
+    final_proof: "復元前後blob、patch保持、manifest全件一致、guardテスト、git同期を対応付けた最終receipt。"
+  intake:
+    original_request: "スクレイピング後は00_sourceを直接変更できず、パッチだけで修正し、過去変更も元に戻す。"
+    interpreted_outcome: "全資格で00_sourceは作成後不変となり、既存19変更は修正内容をパッチに残したまま復元される。"
+    input_shape: recovery
+    audience: "exam_scraperのデータ作成・レビュー・公開担当者"
+    authority: requested
+    proof_type: test
+    completion_proof: "既存source変更拒否、新規追加許可、19ファイル復元、patch検証、全source hash一致。"
+    likely_misfire: "新規scrapeを禁止する、修正結果を失う、Git追跡ファイルだけを守る。"
+    blind_spots_considered:
+      - "output配下の非追跡sourceが多数ある。"
+      - "過去変更にはcorrectChoiceText、questionIntent、choiceText、source metadataが含まれる。"
+      - "manifest未登録の新規scrapeを安全に登録する操作が必要。"
+    existing_plan_facts:
+      - "新規00_source追加は許可する。"
+      - "修正は10/15/21/22/23等の派生パッチへ入れる。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: none
+  local:
+    status: not_requested
+    url: null
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/00-source-immutability-and-restoration"
+
+active_task: T004
+
+tasks:
+  - id: T001
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "Git履歴上直接変更された既存00_source 19ファイルを変更直前へ復元し、修正内容が派生パッチに保持されていることを検証する。"
+    inputs:
+      - "Git全履歴の00_source A/M監査"
+      - "15件のmutation commitと19 source paths"
+      - "各資格の10/15/21/22/23 patch成果物"
+    constraints:
+      - "新規追加789ファイルは変更しない。"
+      - "復元対象以外の00_sourceを変更しない。"
+      - "現在patchに保持されていない修正を失わない。"
+    allowed_files:
+      - "output/shinkyu/questions_json/*/00_source/*.json"
+      - "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json"
+      - "docs/goals/00-source-immutability-and-restoration/state.yaml"
+      - "docs/goals/00-source-immutability-and-restoration/notes/*"
+    verify:
+      - "19 paths equal their pre-mutation blobs"
+      - "source mutation diff count is exactly 19"
+      - "shinkyu 01-04 patch coverage checks"
+      - "gas-shunin source consistency/readiness checks"
+      - "git diff --check"
+    stop_if:
+      - "修正内容がpatchに存在せず、復元すると公開結果が失われる。"
+      - "履歴上の復元元が一意でない。"
+    receipt:
+      result: blocked
+      blocked_reason: "復元対象の現行修正値のうち、正答・intent 3件と問題文・選択肢10件が既存10/15パッチに未保持。このまま復元すると修正内容を失うため、先にT002でパッチ移行が必要。"
+      changed_files: []
+      commands:
+        - cmd: "audit current source corrections against 10/15 patches"
+          status: fail
+      evidence:
+        - "correct/intent changes=73, preserved=70, missing=3"
+        - "body/choice changes=10, preserved=0, missing=10"
+        - "all 19 source paths have 10/15/21/22 patch files"
+      summary: "安全な復元条件を満たさないためsource変更前に停止し、patch migration taskを分離した。"
+      spawned_tasks:
+        - T002
+        - T003
+      harness: codex
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "source復元前に不足している正答・intent 3件と問題文・選択肢10件を既存10/15パッチへ移し、merge後に現行修正値が再現されることを検証する。"
+    allowed_files:
+      - "output/shinkyu/questions_json/*/10_questionType_fixed/*.json"
+      - "output/shinkyu/questions_json/*/15_correctChoiceText_fixed/*.json"
+      - "docs/goals/00-source-immutability-and-restoration/state.yaml"
+    verify:
+      - "73 correct/intent changes preserved in 15 patch"
+      - "10 body/choice changes preserved in 10 patch"
+      - "target merge outputs reproduce current corrected values"
+      - "patch coverage checks pass"
+    stop_if:
+      - "既存mergeが10 patchのquestionBodyText/choiceTextListを反映しない。"
+      - "復元後のID対応が曖昧。"
+    receipt:
+      result: done
+      changed_files:
+        - output/shinkyu/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json
+        - output/shinkyu/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json
+        - output/shinkyu/questions_json/1994/15_correctChoiceText_fixed/question_1994_6_correctChoiceText_fixed.json
+        - output/shinkyu/questions_json/1998/15_correctChoiceText_fixed/question_1998_3_correctChoiceText_fixed.json
+        - output/shinkyu/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json
+        - output/shinkyu/questions_json/2000/10_questionType_fixed/question_2000_6_questionType_fixed.json
+        - output/shinkyu/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json
+        - output/shinkyu/questions_json/2001/10_questionType_fixed/question_2001_5_questionType_fixed.json
+        - output/shinkyu/questions_json/2001/10_questionType_fixed/question_2001_6_questionType_fixed.json
+      commands:
+        - cmd: "apply actual patch_views merge functions to every pre-mutation shinkyu source blob"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      evidence:
+        - "73 correct/intent changes are preserved in 15 patches"
+        - "10 body/choice changes are preserved in 10 patches"
+        - "157 changed field values reproduced from pre-mutation source plus current patches"
+        - "merge reproduction failures=0"
+      summary: "source復元で失われる修正値をパッチへ移し、実マージ関数で完全再現を確認した。"
+      harness: codex
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "パッチ移行完了後、既存00_source 19ファイルを変更直前へ復元し、派生mergeが修正値を維持することを検証する。"
+    allowed_files:
+      - "output/shinkyu/questions_json/*/00_source/*.json"
+      - "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json"
+      - "output/shinkyu/questions_json/*/12_merged_questionType/*.json"
+      - "output/shinkyu/questions_json/*/20_merged_1/*.json"
+      - "output/shinkyu/questions_json/*/30_merged_2/*.json"
+      - "docs/goals/00-source-immutability-and-restoration/state.yaml"
+    verify:
+      - "19 paths equal pre-mutation blobs"
+      - "10/15 patch corrections survive merge"
+      - "shinkyu and gas-shunin validation pass"
+      - "restoration changes no other 00_source"
+    stop_if:
+      - "merge後の現行修正値が失われる。"
+      - "復元元blobが一意でない。"
+    receipt:
+      result: done
+      changed_files:
+        - output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json
+        - output/shinkyu/questions_json/1993/00_source/question_1993_1.json
+        - output/shinkyu/questions_json/1994/00_source/question_1994_6.json
+        - output/shinkyu/questions_json/1998/00_source/question_1998_3.json
+        - output/shinkyu/questions_json/1999/00_source/question_1999_1.json
+        - output/shinkyu/questions_json/2000/00_source/question_2000_1.json
+        - output/shinkyu/questions_json/2000/00_source/question_2000_6.json
+        - output/shinkyu/questions_json/2001/00_source/question_2001_1.json
+        - output/shinkyu/questions_json/2001/00_source/question_2001_2.json
+        - output/shinkyu/questions_json/2001/00_source/question_2001_3.json
+        - output/shinkyu/questions_json/2001/00_source/question_2001_4.json
+        - output/shinkyu/questions_json/2001/00_source/question_2001_5.json
+        - output/shinkyu/questions_json/2001/00_source/question_2001_6.json
+        - output/shinkyu/questions_json/2002/00_source/question_2002_1.json
+        - output/shinkyu/questions_json/2002/00_source/question_2002_2.json
+        - output/shinkyu/questions_json/2002/00_source/question_2002_3.json
+        - output/shinkyu/questions_json/2002/00_source/question_2002_4.json
+        - output/shinkyu/questions_json/2003/00_source/question_2003_1.json
+        - output/shinkyu/questions_json/2003/00_source/question_2003_2.json
+      commands:
+        - cmd: "compare 19 restored files byte-for-byte with each pre-mutation Git blob"
+          status: pass
+        - cmd: "apply real merge functions after restoration and compare 157 changed fields"
+          status: pass
+        - cmd: "check_gas_shunin_00_source_contract.py --qualifications gas-shunin-otsu"
+          status: pass
+        - cmd: "check_gas_shunin_source_consistency.py --fail-on-issues"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      evidence:
+        - "restored blob matches=19/19"
+        - "00_source worktree diffs=19 and no additional source path"
+        - "shinkyu corrected field reproduction=157/157"
+        - "gas-shunin otsu source contract issueCount=0"
+      summary: "過去に直接書き換えた既存00_source 19ファイルを変更直前へ復元し、修正結果がパッチ層で保持されることを確認した。"
+      harness: codex
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "全3,479 sourceをhash manifestへ固定し、既存変更・削除・移動を拒否して新規scrape追加だけを登録可能にするglobal guardを実装する。"
+    allowed_files:
+      - "AGENTS.md"
+      - ".githooks/pre-commit"
+      - "scripts/check/check_00_source_immutability.py"
+      - "scripts/setup/install_git_hooks.sh"
+      - "tests/test_check_00_source_immutability.py"
+      - "docs/contracts/00_source_sha256_manifest.jsonl"
+      - "docs/goals/templates/manual-patch-quality/README.md"
+      - "docs/goals/00-source-immutability-and-restoration/state.yaml"
+    verify:
+      - "existing modification rejected"
+      - "deletion and rename rejected"
+      - "new source addition allowed only through record-new"
+      - "manifest check --require-all passes"
+      - "pre-commit hook installed and passes"
+      - "unit tests pass"
+    stop_if:
+      - "新規scrapeまで禁止する。"
+      - "既存workflowへ大規模な侵襲が必要。"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "復元、patch保持、全source immutable guard、テスト、Git同期がユーザー要求を満たすか最終監査する。"
+    inputs:
+      - "T001/T002 receipts"
+      - "全source manifest report"
+      - "Git diffとテスト結果"
+    constraints:
+      - "必要Workerが未完了なら完了を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "clean@61da69314"
+  last_verification:
+    result: pass
+    task: T001
+    commands:
+      - "git history audit: 789 added, 19 modified, 0 deleted"
