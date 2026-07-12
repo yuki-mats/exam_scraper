@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "gas-shunin-source-final-correct-choice-diff-review/v1",
+  "generatedAt": "2026-07-12T02:18:16Z",
+  "scope": "gas-shunin law-section final upload artifacts vs immutable 00_source",
+  "reviewStatus": "pending_user_review",
+  "firestoreUploadApproved": false,
+  "sourceQuestionCount": 261,
+  "comparedChoiceCount": 1289,
+  "finalUploadQuestionCount": 4639,
+  "differenceQuestionCount": 1,
+  "differenceChoiceCount": 2,
+  "decisionCorrectChoiceTextChangedCount": 1,
+  "decisionDiffSetMatchesActualDiffSet": true,
+  "comparisonErrorCount": 0,
+  "comparisonErrors": [],
+  "diffs": [
+    {
+      "sourceQuestionKey": "gas-shunin:otsu:2024:law:q04",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2024,
+      "questionLabel": "問4",
+      "questionBodyText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
+      "answerResultText": "正解は 3 です。",
+      "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q4",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+      "finalUploadFiles": [
+        "output/gas-shunin-all/questions_json/upload_ready_subset_all/2024_otsu_firestore_20260711_141739.json"
+      ],
+      "sourceCorrectChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "finalCorrectChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "changedChoiceNumbers": [
+        3,
+        5
+      ],
+      "decisionCorrectChoiceTextChanged": true,
+      "reviewNotes": [
+        "JIA公式問題PDFの問4における組合せ選択肢3はロ・ホである。",
+        "JIA公式解答PDFは法令問4の正解を3としている。",
+        "00_sourceは組合せ3をロ・ハへ誤展開していたため、00_sourceは変更せず公開派生成果物をロ・ホへ訂正する。"
+      ],
+      "officialEvidence": {
+        "questionPdfUrl": "https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r6.pdf",
+        "questionPdfSha256": "59c4d7b13289bfa20916504b16cc829a4046b9baa05e6cac4e3737bd9ba54282",
+        "answerPdfUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+        "answerPdfSha256": "62e3460dd2956badc9c6364da374fe876c241c717d0b4ed49ad790c8c43ce0d5",
+        "officialAnswerNumber": 3,
+        "officialCombination": [
+          "ロ",
+          "ホ"
+        ],
+        "verificationStatus": "official_question_answer_and_current_law_aligned"
+      },
+      "choices": [
+        {
+          "choiceNumber": 1,
+          "choiceMarker": "イ",
+          "choiceText": "ガス工作物(ガス栓を除く。)を操作することにより人が\n酸素欠乏症となった事故",
+          "sourceCorrectChoiceText": "間違い",
+          "finalCorrectChoiceText": "間違い",
+          "changed": false,
+          "explanationText": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+          "questionId": "gas-shunin-otsu-2024-law-q04-s01",
+          "originalQuestionId": "b312de5198cdf4bf",
+          "questionSetId": "chiefgasengineerlicense-B-1150",
+          "lawReferences": [
+            {
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "5",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+              "verificationStatus": "verified"
+            }
+          ]
+        },
+        {
+          "choiceNumber": 2,
+          "choiceMarker": "ロ",
+          "choiceText": "ガスの供給に支障を及ぼした事故であって、供給支障戸数が20のもの",
+          "sourceCorrectChoiceText": "正しい",
+          "finalCorrectChoiceText": "正しい",
+          "changed": false,
+          "explanationText": "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
+          "questionId": "gas-shunin-otsu-2024-law-q04-s02",
+          "originalQuestionId": "b312de5198cdf4bf",
+          "questionSetId": "chiefgasengineerlicense-B-1150",
+          "lawReferences": [
+            {
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "7",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+              "verificationStatus": "verified"
+            }
+          ]
+        },
+        {
+          "choiceNumber": 3,
+          "choiceMarker": "ハ",
+          "choiceText": "ガスの製造に支障を及ぼした事故であって、製造支障時間が10時間のもの",
+          "sourceCorrectChoiceText": "正しい",
+          "finalCorrectChoiceText": "間違い",
+          "changed": true,
+          "explanationText": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
+          "questionId": "gas-shunin-otsu-2024-law-q04-s03",
+          "originalQuestionId": "b312de5198cdf4bf",
+          "questionSetId": "chiefgasengineerlicense-B-1150",
+          "lawReferences": [
+            {
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "8",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+              "verificationStatus": "verified"
+            }
+          ]
+        },
+        {
+          "choiceNumber": 4,
+          "choiceMarker": "ニ",
+          "choiceText": "ガス工作物(ガス栓を除く。)からのガスの漏えいによる火災事故",
+          "sourceCorrectChoiceText": "間違い",
+          "finalCorrectChoiceText": "間違い",
+          "changed": false,
+          "explanationText": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+          "questionId": "gas-shunin-otsu-2024-law-q04-s04",
+          "originalQuestionId": "b312de5198cdf4bf",
+          "questionSetId": "chiefgasengineerlicense-B-1150",
+          "lawReferences": [
+            {
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "12",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+              "verificationStatus": "verified"
+            }
+          ]
+        },
+        {
+          "choiceNumber": 5,
+          "choiceMarker": "ホ",
+          "choiceText": "消費機器から漏えいしたガスに引火することにより、発生した消費機器が損傷した物損事故\nであって、人が死亡せず、又は負傷しないもの",
+          "sourceCorrectChoiceText": "間違い",
+          "finalCorrectChoiceText": "正しい",
+          "changed": true,
+          "explanationText": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。",
+          "questionId": "gas-shunin-otsu-2024-law-q04-s05",
+          "originalQuestionId": "b312de5198cdf4bf",
+          "questionSetId": "chiefgasengineerlicense-B-1150",
+          "lawReferences": [
+            {
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "18",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+              "verificationStatus": "verified"
+            }
+          ]
+        }
+      ],
+      "userReview": {
+        "status": "pending",
+        "correctChoiceTextApproved": null,
+        "explanationTextApproved": null,
+        "firestoreUploadApproved": null,
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": ""
+      }
+    }
+  ]
+}
