@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 246,
+  "auditKey": "gas-shunin:otsu:2025:law:q01:6883f308d72a",
+  "auditInputHash": "1ac7f49b87554a154cbc0af1dd0871bdf1f0ada115dc455dfa431cb6c9fb2487",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:10:08+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。「小売供給」は、一般の需要に応じ導管によりガスを供給することをいい、特定ガス発生設備による供給では一の団地内の供給地点数が70以上のものに限られる。70未満としている点が誤り。",
+      "正しい。「ガス工作物」とは、ガスの供給のために施設するガス発生設備、ガスホルダー、ガス精製設備、排送機、圧送機、整圧器、導管、受電設備その他の工作物及びこれらの附属設備であって、ガス事業の用に供するものをいう。",
+      "間違い。「熱量」とは、標準状態の乾燥したガス1m³中で測定される総熱量をいう。22.4L中としている点が誤り。",
+      "間違い。「液化ガス」は、常用の温度で圧力が0.2MPa以上となり現にその圧力が0.2MPa以上であるもの、又は圧力が0.2MPaとなる場合の温度が35℃以下である液化ガスをいう。40℃以下としている点が誤り。",
+      "間違い。高圧ガス保安法中の高圧ガスの製造又は販売の事業及びその施設に関する規定は、ガス事業及びガス工作物については適用しない。適用しなければならないとしている点が誤り。"
+    ],
+    "proposedSuggestedQuestions": [
+      "小売供給の定義では、特定ガス発生設備による供給は一の団地内の供給地点数が70以上のものに限られる。",
+      "ガス工作物は、ガス供給のための各種設備と附属設備で、ガス事業の用に供するものをいう。",
+      "熱量は標準状態の乾燥したガス1m³中で測定される総熱量であり、22.4L中ではない。",
+      "液化ガスの定義では、圧力が0.2MPaとなる場合の温度は35℃以下であり、40℃以下ではない。",
+      "高圧ガス保安法の高圧ガス製造・販売事業等に関する規定は、ガス事業及びガス工作物には適用しない。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "間違い。「小売供給」は、一般の需要に応じ導管によりガスを供給することをいい、特定ガス発生設備による供給では一の団地内の供給地点数が70以上のものに限られる。70未満としている点が誤り。現行法では、ガス事業法 第2条第1項を根拠に確認済み。",
+        "question": "小売供給の定義では、特定ガス発生設備による供給は一の団地内の供給地点数が70以上のものに限られる。"
+      },
+      {
+        "answer": "正しい。「ガス工作物」とは、ガスの供給のために施設するガス発生設備、ガスホルダー、ガス精製設備、排送機、圧送機、整圧器、導管、受電設備その他の工作物及びこれらの附属設備であって、ガス事業の用に供するものをいう。現行法では、ガス事業法施行規則 第17条第1項第2号を根拠に確認済み。",
+        "question": "ガス工作物は、ガス供給のための各種設備と附属設備で、ガス事業の用に供するものをいう。"
+      },
+      {
+        "answer": "間違い。「熱量」とは、標準状態の乾燥したガス1m³中で測定される総熱量をいう。22.4L中としている点が誤り。現行法では、ガス事業法 第18条を根拠に確認済み。",
+        "question": "熱量は標準状態の乾燥したガス1m³中で測定される総熱量であり、22.4L中ではない。"
+      },
+      {
+        "answer": "間違い。「液化ガス」は、常用の温度で圧力が0.2MPa以上となり現にその圧力が0.2MPa以上であるもの、又は圧力が0.2MPaとなる場合の温度が35℃以下である液化ガスをいう。40℃以下としている点が誤り。現行法では、高圧ガス保安法 第2条第1項第1号を根拠に確認済み。",
+        "question": "液化ガスの定義では、圧力が0.2MPaとなる場合の温度は35℃以下であり、40℃以下ではない。"
+      },
+      {
+        "answer": "間違い。高圧ガス保安法中の高圧ガスの製造又は販売の事業及びその施設に関する規定は、ガス事業及びガス工作物については適用しない。適用しなければならないとしている点が誤り。現行法では、ガス工作物の技術上の基準を定める省令 第2条第3項第2号を根拠に確認済み。",
+        "question": "高圧ガス保安法の高圧ガス製造・販売事業等に関する規定は、ガス事業及びガス工作物には適用しない。"
+      },
+      {
+        "answer": "根拠は、ガス事業法第2条第1項、ガス事業法第2条第13項、ガス事業法施行規則第1条第4号、ガス事業法施行規則第1条第5号、ガス事業法第175条。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "1",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "13",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "1",
+          "item": "4",
+          "articleTextHash": "dc5325c9671968fb2f1c44b66ff36ea9223b5184fd5ef8b3d00d6ece64eb7da2",
+          "rawXmlHash": "0626e12cf0eca5afb6b5a1470cd3d7cd18e07e89379d925c9d83ea1f7fac219d",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=1"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "1",
+          "item": "5",
+          "articleTextHash": "dc5325c9671968fb2f1c44b66ff36ea9223b5184fd5ef8b3d00d6ece64eb7da2",
+          "rawXmlHash": "0626e12cf0eca5afb6b5a1470cd3d7cd18e07e89379d925c9d83ea1f7fac219d",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=1"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "175",
+          "articleTextHash": "5920d9b9e122f7e7b9abdaf9a89edb785f45a03e647a690157ec4c322ba7098f",
+          "rawXmlHash": "927241d890e3c04007cbd92dab7b2f14daa4311c3886bf2628a19ba6102f8ac0",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=175"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:10:08Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
