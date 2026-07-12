@@ -231,12 +231,18 @@ class QualificationWorkflowTests(unittest.TestCase):
                 ),
             )
             before = workflow.overview("sample")
+            category_plan = workflow.plan("sample", "category_setup", "remaining")
             with self.assertRaisesRegex(ValueError, "03c カテゴリ設計"):
                 workflow.plan("sample", "question_set", "refresh")
             write_category(root)
             after = workflow.overview("sample")
 
         self.assertEqual(before["nextStageId"], "category_setup")
+        self.assertIn("output/sample/category/category.json", category_plan["outputFiles"])
+        self.assertIn(
+            "prompt/qualification_docs/sample/03_category_preparation.md",
+            category_plan["outputFiles"],
+        )
         question_set = next(
             stage for stage in before["stages"] if stage["id"] == "question_set"
         )

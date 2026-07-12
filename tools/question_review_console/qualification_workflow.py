@@ -246,7 +246,15 @@ class QualificationWorkflow:
                 str(question.get("paths", {}).get("source") or "")
                 for question in questions
             ) if should_run else []
-            output_files = [category["path"]] if should_run else []
+            output_files = [
+                category["path"],
+                str(
+                    Path("prompt")
+                    / "qualification_docs"
+                    / qualification
+                    / "03_category_preparation.md"
+                ),
+            ] if should_run else []
         elif stage_id == "law_audit":
             applicable = [
                 question for question in questions if question.get("isLawRelated") is True
