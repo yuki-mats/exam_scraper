@@ -352,6 +352,7 @@ class WorkflowUiContractTests(unittest.TestCase):
         for function_name in (
             "loadQualificationWorkflow",
             "renderQualificationWorkflow",
+            "revealSelectedQualificationStage",
             "executeQualificationWorkflowAction",
             "loadQualificationRuns",
             "openQualificationRunDialog",

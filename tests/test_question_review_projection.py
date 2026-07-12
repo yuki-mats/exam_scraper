@@ -10,7 +10,7 @@ from tools.question_review_console.projection import (
 
 
 class QuestionReviewProjectionTests(unittest.TestCase):
-    def test_later_correct_choice_patch_overrides_intent_patch(self):
+    def test_strict_correct_choice_patch_overrides_intent_before_explanation(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             intent = PatchEntry(
@@ -45,7 +45,7 @@ class QuestionReviewProjectionTests(unittest.TestCase):
 
         self.assertEqual(result.record["correctChoiceText"], ["間違い", "正しい"])
         self.assertEqual(result.record["explanationText"][1], "正しい。根拠2")
-        self.assertEqual(result.applied_files, (str(intent.path), str(explanation.path), str(strict.path)))
+        self.assertEqual(result.applied_files, (str(intent.path), str(strict.path), str(explanation.path)))
 
     def test_explanation_prefix_matches_normalized_verdict(self):
         self.assertTrue(explanation_prefix_matches("○", "正しい。条文の通り。"))

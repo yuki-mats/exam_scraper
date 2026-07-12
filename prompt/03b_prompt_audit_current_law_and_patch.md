@@ -36,14 +36,14 @@
 2. 既存の `18_law_context_prepared/` patch
 3. `20_merged_1/` または `30_merged_2/` の対象問題
 4. 既存の `21_explanationText_added/` patch
-5. 正誤を更新する必要がある場合は、既存の `15_correctChoiceText_fixed/` または後続補正用の `23_correctChoiceText_fixed/`
+5. 正誤を更新する必要がある場合は、02aの正答正本である`23_correctChoiceText_fixed/`
 6. 必要時のみ `00_source/`
 7. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
 8. Lawzilla などの法令DB。条文探索や改正前後のあたり付けに使ってよいが、最終 `verified` は一次情報相当で照合する
 
 ## 出力とマージ
 
-03bの成果は、監査履歴を残す sidecar と、必要に応じて既存工程へ反映する patch です。既存の `15_correctChoiceText_fixed/` や `21_explanationText_added/` を直接編集して終わらせず、まず03bの判断結果を記録し、その情報をマージします。
+03bの成果は、監査履歴を残すsidecarと、必要に応じて既存工程へ反映するpatchです。まず03bの判断結果を記録し、正誤変更は`23_correctChoiceText_fixed/`へ反映してmergeした後、`21_explanationText_added/`を再生成します。
 
 ### 1. 03b監査 sidecar
 
@@ -103,12 +103,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 
 ### 2. 正誤更新 patch へのマージ
 
-現行法で正誤が明らかに変わる場合だけ作ります。出力先は、その資格・工程の既存受け口に合わせます。
-
-- 02直後の通常フローなら `15_correctChoiceText_fixed/`
-- 03以降や年次監査で後追い補正するなら、既存運用がある資格では `23_correctChoiceText_fixed/`
-
-どちらを使う場合でも、`questionIntent`、`answer_result_text`、更新後の `correctChoiceText` の整合を崩してはいけません。出題当時の元正答は、patch 本文ではなく監査 sidecar に残します。
+現行法で正誤が明らかに変わる場合だけ作り、`23_correctChoiceText_fixed/`へ反映します。`questionIntent`、`answer_result_text`、更新後の`correctChoiceText`の整合を崩してはいけません。出題当時の元正答は監査sidecarに残します。更新後はmergeで`20_merged_1`へ反映し、02bの法令情報と03の解説・想定質問を再生成します。
 
 03b sidecar の `auditStatus="updated_to_current_law"` を根拠に、正誤更新 patch を作成・更新します。ただし公開確定は `reviewState="tertiary_verified"` 後を原則にします。`hold`、`needs_secondary_review`、`needs_tertiary_review` の問題は推測でマージしてはいけません。
 

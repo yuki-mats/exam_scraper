@@ -84,6 +84,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         patches = [
             "output/sample/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json",
             "output/sample/questions_json/2026/15_correctChoiceText_fixed/question_2026_1_correctChoiceText_fixed.json",
+            "output/sample/questions_json/2026/23_correctChoiceText_fixed/question_2026_1_correctChoiceText_fixed.json",
             "output/sample/questions_json/2026/18_law_context_prepared/question_2026_1_lawContext_prepared.json",
             "output/sample/questions_json/2026/21_explanationText_added/question_2026_1_explanationText_added.json",
             "output/sample/questions_json/2026/22_questionSetId_linked/question_2026_1_questionSetId_linked.json",
@@ -117,6 +118,33 @@ class QualificationWorkflowTests(unittest.TestCase):
             item for item in without_issue["stages"] if item["id"] == "delivery"
         )
         self.assertEqual(delivery["targetGroupIds"], ["2026"])
+
+    def test_strict_correct_choice_is_a_separate_stage_before_law_context(self):
+        patches = [
+            "output/sample/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json",
+            "output/sample/questions_json/2026/15_correctChoiceText_fixed/question_2026_1_correctChoiceText_fixed.json",
+        ]
+        item = question(patches=patches)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            policy_dir = root / "prompt" / "qualification_docs" / "sample"
+            policy_dir.mkdir(parents=True)
+            (policy_dir / "README.md").write_text("# sample\n", encoding="utf-8")
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory("sample", [{"listGroupId": "2026", "questions": [item]}]),
+            )
+
+            overview = workflow.overview("sample")
+            prompt = workflow.prompt("sample", "correct_choice")["prompt"]
+
+        self.assertEqual(overview["nextStageId"], "correct_choice")
+        self.assertLess(
+            [stage["id"] for stage in overview["stages"]].index("correct_choice"),
+            [stage["id"] for stage in overview["stages"]].index("law_context"),
+        )
+        self.assertIn("23_correctChoiceText_fixed", prompt)
+        self.assertIn("prompt/02a_prompt_review_correctChoiceText.md", prompt)
 
     def test_stage_plan_supports_remaining_attention_and_refresh(self):
         patches = [

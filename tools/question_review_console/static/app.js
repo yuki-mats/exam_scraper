@@ -424,6 +424,17 @@ async function loadQualificationWorkflow(preserveSelection = true) {
   }
 }
 
+function revealSelectedQualificationStage(stageList) {
+  const selected = stageList.querySelector(".qualification-stage.selected");
+  if (!selected || stageList.scrollWidth <= stageList.clientWidth) return;
+  const listRect = stageList.getBoundingClientRect();
+  const selectedRect = selected.getBoundingClientRect();
+  if (selectedRect.left >= listRect.left && selectedRect.right <= listRect.right) return;
+  stageList.scrollLeft += selectedRect.left
+    - listRect.left
+    - (listRect.width - selectedRect.width) / 2;
+}
+
 function renderQualificationWorkflow() {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return;
@@ -479,6 +490,7 @@ function renderQualificationWorkflow() {
     });
     stageList.append(item);
   }
+  revealSelectedQualificationStage(stageList);
 
   const detail = $("#qualification-workflow-detail");
   detail.hidden = !selectedStage;

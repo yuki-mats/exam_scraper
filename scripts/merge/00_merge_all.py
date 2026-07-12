@@ -407,6 +407,25 @@ def merge_all(
         key_fields=("original_question_id",),
     )
 
+    patch_correct_dir = list_group_dir / PATCH_DIR_CORRECT
+    correct_paths = (
+        select_latest_patch_files(
+            sorted(patch_correct_dir.glob("*.json")),
+            PATCH_TAGS["correct_choice"],
+        )
+        if patch_correct_dir.exists()
+        else []
+    )
+    strict_correct_map = build_patch_map_from_paths(
+        correct_paths,
+        value_key="correctChoiceText",
+        key_fields=("original_question_id",),
+    )
+    strict_correct_entry_map = build_patch_map_from_paths(
+        correct_paths,
+        key_fields=("original_question_id",),
+    )
+
     patch_law_context_dir = list_group_dir / PATCH_DIR_LAW_CONTEXT
     law_context_paths = (
         select_latest_patch_files(
@@ -443,11 +462,16 @@ def merge_all(
     exam_year_backfills = 0
     correct_choice_backfills = 0
     answer_result_override_updates = 0
+    strict_answer_result_override_updates = 0
+    strict_correct_updates = 0
     law_context_updates = 0
     for base_path in base_files:
         data = load_json(base_path)
         qtype_updates += apply_question_type(data, qtype_map_by_id)
         answer_result_override_updates += apply_answer_result_overrides(data, intent_entry_map)
+        strict_answer_result_override_updates += apply_answer_result_overrides(
+            data, strict_correct_entry_map
+        )
         intent_updates += apply_question_intent(data, intent_map)
         law_context_updates += apply_law_context_fields(data, law_context_map)
         u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
@@ -455,6 +479,7 @@ def merge_all(
         true_false_correct_choice_updates += u_choice
         exam_year_backfills += backfill_exam_year(data)
         correct_choice_backfills += backfill_correct_choice_text_from_answer_result(data)
+        strict_correct_updates += apply_correct_choice(data, strict_correct_map)
         if require_answer_result_text:
             ensure_answer_result_text_present(data=data, source_path=base_path)
 
@@ -470,6 +495,13 @@ def merge_all(
     print(f"[INFO] true_false correctChoiceText 正規化件数: {true_false_correct_choice_updates}")
     if answer_result_override_updates:
         print(f"[INFO] answer_result override 更新件数: {answer_result_override_updates}")
+    if strict_answer_result_override_updates:
+        print(
+            "[INFO] 02a answer_result override 更新件数: "
+            f"{strict_answer_result_override_updates}"
+        )
+    if strict_correct_updates:
+        print(f"[INFO] 02a strict correctChoiceText 更新件数: {strict_correct_updates}")
     if law_context_updates:
         print(f"[INFO] law context 更新件数: {law_context_updates}")
     if exam_year_backfills:
@@ -484,7 +516,6 @@ def merge_all(
 
     patch_expl_dir = list_group_dir / PATCH_DIR_EXPLANATION
     patch_qset_dir = list_group_dir / PATCH_DIR_QSET
-    patch_correct_dir = list_group_dir / PATCH_DIR_CORRECT
     patch_question_issues_dir = list_group_dir / PATCH_DIR_QUESTION_ISSUES
 
     expl_paths = (
@@ -503,14 +534,6 @@ def merge_all(
         if patch_qset_dir.exists()
         else []
     )
-    correct_paths = (
-        select_latest_patch_files(
-            sorted(patch_correct_dir.glob("*.json")),
-            PATCH_TAGS["correct_choice"],
-        )
-        if patch_correct_dir.exists()
-        else []
-    )
     question_issue_paths = (
         sorted(patch_question_issues_dir.glob("*.json"))
         if patch_question_issues_dir.exists()
@@ -525,15 +548,8 @@ def merge_all(
         qset_paths,
         key_fields=("original_question_id",),
     )
-    correct_map = build_patch_map_from_paths(
-        correct_paths,
-        value_key="correctChoiceText",
-        key_fields=("original_question_id",),
-    )
-    correct_entry_map = build_patch_map_from_paths(
-        correct_paths,
-        key_fields=("original_question_id",),
-    )
+    correct_map = dict(strict_correct_map)
+    correct_entry_map = dict(strict_correct_entry_map)
     correct_entry_map_fallback = build_patch_map_from_paths(
         intent_paths,
         key_fields=("original_question_id",),
@@ -570,7 +586,6 @@ def merge_all(
         data = load_json(merged_path)
         expl_updates += apply_explanation_fields(data, expl_map)
         qset_updates += apply_question_set(data, qset_map)
-        correct_updates += apply_correct_choice(data, correct_map)
         answer_result_updates += apply_answer_result_overrides(data, correct_entry_map)
         intent_updates_merged2 += apply_question_intent(data, intent_map)
         u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
@@ -578,6 +593,7 @@ def merge_all(
         true_false_correct_choice_updates_merged2 += u_choice
         exam_year_backfills_merged2 += backfill_exam_year(data)
         correct_choice_backfills_merged2 += backfill_correct_choice_text_from_answer_result(data)
+        correct_updates += apply_correct_choice(data, correct_map)
         question_issue_updates += apply_question_issue_correction_paths(
             data,
             question_issue_paths,

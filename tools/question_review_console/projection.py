@@ -19,10 +19,10 @@ from scripts.merge.question_issue_corrections import (
 STAGE_SPECS: tuple[tuple[str, str, str], ...] = (
     ("questionType", "10_questionType_fixed", "questionType_fixed"),
     ("questionIntent", "15_correctChoiceText_fixed", "correctChoiceText_fixed"),
+    ("correctChoice", "23_correctChoiceText_fixed", "correctChoiceText_fixed"),
     ("lawContext", "18_law_context_prepared", "lawContext_prepared"),
     ("explanation", "21_explanationText_added", "explanationText_added"),
     ("questionSet", "22_questionSetId_linked", "questionSetId_linked"),
-    ("correctChoice", "23_correctChoiceText_fixed", "correctChoiceText_fixed"),
 )
 
 QUESTION_TYPE_FIELDS = (

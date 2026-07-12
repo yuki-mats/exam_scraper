@@ -115,19 +115,21 @@ merge が生成する主な出力:
 5. `23_correctChoiceText_fixed/` 厳密レビュー
    - 下書き補完結果を `questionIntent`、`answer_result_text`、選択肢、元解説と一問ずつ突き合わせる
    - 必要なら最終 `correctChoiceText` patch を更新する
-6. `02b_prompt_prepare_law_context.md`
+6. merge
+   - `23_correctChoiceText_fixed/`を`20_merged_1/`へ反映し、03の正答前提を固定する
+7. `02b_prompt_prepare_law_context.md`
    - 主入力: `20_merged_1/question_*_merged.json`
    - 資格別 law reference policy と必要時のみ外部一次情報を参照
    - `isLawRelated`、`lawGroundedExplanationNotNeeded`、必要な現行法 `lawReferences` 候補を作る
    - 出力: `18_law_context_prepared/`
-7. merge
+8. merge
    - `18_law_context_prepared/` を `20_merged_1/` に反映する
-8. `03_prompt_add_explanationText.md`
+9. `03_prompt_add_explanationText.md`
    - 主入力: `20_merged_1/question_*_merged.json`
-   - 必要時のみ `23_correctChoiceText_fixed/`、`00_source/`、外部一次情報を参照
+   - `23_correctChoiceText_fixed/`は反映確認、`00_source/`は出題時正答の追跡が必要な場合だけ参照
    - 法令問題では02bの法令コンテキストを解説文・想定質問へ反映する。明確な現行法差分があれば03bへ切り出す
    - 出力: `21_explanationText_added/`
-9. `04_prompt_link_questionSetId.md`
+10. `04_prompt_link_questionSetId.md`
    - 主入力: `20_merged_1/question_*_merged.json` と `category.json`
    - 出力: `22_questionSetId_linked/`
 

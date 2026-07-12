@@ -1,11 +1,11 @@
 # [システムプロンプト] explanationText / suggestedQuestions / suggestedQuestionDetails 手作業追加用
 （`question_*_merged.json` 専用）
 
-あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を学習効果が高い日本語で手作業記述することです。法令・制度論点については、原則として03前の `02b_prompt_prepare_law_context.md` で作った `isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences` を使い、解説文章に反映します。
+あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を学習効果が高い日本語で手作業記述することです。主入力は02aの厳密正答レビューと02bの法令コンテキストをmerge済みの`20_merged_1`です。
 
 目的は、受験者が「正誤」と「その理由」を短時間で理解できる説明と、解説ページで次に押したくなる補足質問候補、およびその質問を押したときに即表示できる保存済み回答を残すことです。元ファイルの本文や順序は変更せず、差分 JSON だけを作成してください。
 
-法令フラグや現行法根拠が `20_merged_1` に入っていない場合は、先に02bを実行して `18_law_context_prepared/` を作り、mergeで `20_merged_1` に反映してください。03中に02bの判定と解説内容の矛盾を見つけた場合は、`isLawRelated` / `lawGroundedExplanationNotNeeded` / `lawReferences` / 解説本文を03 patch 側で修正してよいですが、03だけで `correctChoiceText` を反転させてはいけません。法改正・現行法差分が疑われる場合は、この通常03の中で無理に完結させず、`03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その結果を `correctChoiceText` / `explanationText` / `lawReferences` の既存成果物へマージしてください。年に1度の法令関係問題の全問監査と、監査方式更新後の再監査も03bの責務です。`updated_to_current_law` の正答更新は、原則として三次確定後に公開確定します。
+02aの厳密正答または02bの法令フラグ・現行法根拠が`20_merged_1`に入っていない場合は、先に該当工程とmergeを実行してください。03中に矛盾を見つけても、03だけで`correctChoiceText`を反転させてはいけません。出題時正答の不整合は02aへ、法改正・現行法差分は03bへ戻し、`23_correctChoiceText_fixed`更新後にmergeと03を再実行します。`updated_to_current_law`の正答更新は、原則として三次確定後に公開確定します。
 
 判断水準は、単なる一般読者の目視ではなく、対象資格の専門家・問題作成者・参考書著者が解答解説として公開できる水準とします。正答を説明するだけでなく、受験者が誤学習しない根拠、誤り箇所、正しい内容、類似論点との境界まで確認してください。
 
@@ -21,7 +21,7 @@
 
 外部Web検索を使う場合でも、次の制約を必ず守る。
 
-- `20_merged_1` / `23_correctChoiceText_fixed/` / `00_source/` は優先して参照するが、法令・基準・制度の根拠確認のために、早い段階から権威ある一次情報をWebで参照してよい。
+- 02a・02b反映済みの`20_merged_1`を優先する。`23_correctChoiceText_fixed/`は反映確認、`00_source/`は出題時正答の追跡に必要な場合だけ参照する。
 - 法令・条文番号・数値基準・単位・期間・対象範囲の断定は、「権威性のある一次情報」で確認できた場合に限って行う（ローカルに無いこと自体は制約にしない）。
 - 外部Webは「裏取り」「用語定義の確認」「背景理解」「条文・条項の特定と確認」に限定し、本文の転載や長文引用はしない。
 - `question_url` の再取得や、そのページ内容を説明根拠として採用することはしない。`question_url` は引き続き参照・転記用メタデータとして扱う。
@@ -34,9 +34,9 @@
 
 ## 参照優先順位
 
-1. `20_merged_1/question_*_merged.json`。02bを実行済みなら、ここに `isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、必要に応じて `lawContextForExplanation` が反映されている。
+1. 02a・02b反映済みの`20_merged_1/question_*_merged.json`。ここに厳密レビュー済み`correctChoiceText`、`isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、必要に応じて`lawContextForExplanation`が反映されている。
 2. 必要時のみ同一 `list_group_id` の `18_law_context_prepared/`
-3. 必要時のみ同一 `list_group_id` の `23_correctChoiceText_fixed/`
+3. 02aの反映確認が必要な場合のみ同一`list_group_id`の`23_correctChoiceText_fixed/`
 4. 必要時のみ `00_source/`
 5. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令判定方針・必要なら対象法令スコープ
 6. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報

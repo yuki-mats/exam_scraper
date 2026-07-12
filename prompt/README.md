@@ -6,18 +6,19 @@
 
 1. `01_prompt_fix_questionType.md`: 問題形式を決める。
 2. `02_prompt_fix_questionIntent.md`: 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを決める。
-3. `02b_prompt_prepare_law_context.md`: 03の前に、厳密な `isLawRelated` と現行法根拠候補を整理する。
-4. `03_prompt_add_explanationText.md`: 02bの法令コンテキストを使って、基本解説、想定質問、保存済み回答を整える。
-5. `03b_prompt_audit_current_law_and_patch.md`: 法改正・現行法差分が疑われる問題、年1回の法令関係問題の全問監査、または監査方式を更新した再監査で、03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする。
-6. `04_prompt_link_questionSetId.md`: `category.json` を見て問題集へ紐付ける。
+3. `02a_prompt_review_correctChoiceText.md`: 問題・公式解答・各選択肢を一問ずつ照合し、解説の前提となる正誤を確定する。
+4. `02b_prompt_prepare_law_context.md`: 03の前に、厳密な `isLawRelated` と現行法根拠候補を整理する。
+5. `03_prompt_add_explanationText.md`: 02aの正答と02bの法令コンテキストを使って、基本解説、想定質問、保存済み回答を整える。
+6. `03b_prompt_audit_current_law_and_patch.md`: 法改正・現行法差分が疑われる問題、年1回の法令関係問題の全問監査、または監査方式を更新した再監査で、03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする。
+7. `04_prompt_link_questionSetId.md`: `category.json` を見て問題集へ紐付ける。
 
 この目視作業が品質判断の本体です。スクリプトは、patch 形式の補完、merge、convert、検証、upload dry-run を効率化するために使います。
 
 ## 法改正・現行法差分監査
 
-通常は03の前に02bで `18_law_context_prepared/` を作り、mergeで `20_merged_1/` に反映します。03は、その `isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、必要なら `lawContextForExplanation` を使って、解説本文と想定質問を作ります。
+通常は03の前に02aの`23_correctChoiceText_fixed/`と02bの`18_law_context_prepared/`を作り、mergeで両方を`20_merged_1/`に反映します。03は、その確定正答、`isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、必要なら`lawContextForExplanation`を使って、解説本文と想定質問を作ります。
 
-03または02bで法改正・現行法差分が疑われる問題を見つけたら、03bの監査パッチ/sidecarを作成・更新します。その後、03bの判断結果を `15_correctChoiceText_fixed` / `23_correctChoiceText_fixed` / `21_explanationText_added` などの既存成果物へマージします。年に1度、法令が関係する問題を全問監査して更新する場合、または `auditMethodVersion` を更新して再監査する場合も同じ流れです。
+03または02bで法改正・現行法差分が疑われる問題を見つけたら、03bの監査パッチ/sidecarを作成・更新します。正誤変更は`23_correctChoiceText_fixed`へ反映してmergeし、その確定正答を使って`21_explanationText_added`を再生成します。年に1度、法令が関係する問題を全問監査して更新する場合、または`auditMethodVersion`を更新して再監査する場合も同じ流れです。
 
 03bは、一次監査で現行法・必要な出題当時法令の evidence bundle を固定し、二次監査でその evidence bundle に基づく正答・解説の妥当性を確認し、三次確定で `updated_to_current_law` の正答更新を承認する流れです。監査結果には `auditedAt`、`nextAuditDueAt`、`auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査 run ID を残します。
 

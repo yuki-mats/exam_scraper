@@ -49,6 +49,7 @@
 | `00_source` | `question_bodies[]` | `question_url`, `answer_result_text`, `examYear`, `examLabel`, `public_question_id` または `original_question_id` | 元サイトからの出典、年度、正答根拠を保持する。 |
 | `10_questionType_fixed` | patch | `questionType` | 回答体験を確定する。ここで `true_false` / `flash_card` / `group_choice` などを決める。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent`, `answer_result_text`, `correctChoiceText` | `answer_result_text` と設問意図から正誤を機械的に整合する。 |
+| `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `answer_result_text`, `correctChoiceText`, `examYear`, `examLabel` | Firestore 変換前の最低限の品質を担保する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
