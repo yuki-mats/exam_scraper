@@ -2,8 +2,8 @@
   "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
   "sequence": 168,
   "auditKey": "gas-shunin:otsu:2020:law:q03:2d0d3eca4277",
-  "auditInputHash": "def9064f0449a2bc4f9b746ba6530a71d2616d6571a5af41ac4fd65e40f06fe0",
-  "status": "patch_applied",
+  "auditInputHash": "0a1fbc0aca7a1b5e0fb37aa0dface7af166b772a45c55c689241b4f20976f091",
+  "status": "published",
   "reviewedAt": "2026-07-12T12:59:47+09:00",
   "reviewDecision": {
     "correctChoiceTextChanged": true,
@@ -149,10 +149,28 @@
       "verificationStatus": "official_answer_and_predicate_reconstruction_confirmed"
     }
   },
-  "appliedAt": "2026-07-12T04:01:43Z",
+  "appliedAt": "2026-07-12T04:45:59Z",
   "application": {
     "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
     "choiceCount": 5,
-    "correctChoiceTextChanged": true
+    "correctChoiceTextChanged": true,
+    "correctChoicePatchFile": "output/gas-shunin-otsu/questions_json/2020/23_correctChoiceText_fixed/question_2020_1_correctChoiceText_fixed.json"
+  },
+  "publishedAt": "2026-07-12T13:52:00+09:00",
+  "publication": {
+    "artifact": "output/gas-shunin-all/questions_json/firestore_gas_accident_refresh_artifacts/20260712_predicate_refresh/upload.json",
+    "readback": "output/gas-shunin-all/questions_json/firestore_gas_accident_refresh_artifacts/20260712_predicate_refresh/readback.json",
+    "firestoreDocumentCount": 5,
+    "readbackStatus": "verified",
+    "verifiedFields": [
+      "correctChoiceText",
+      "explanationText",
+      "suggestedQuestions",
+      "suggestedQuestionDetails",
+      "lawReferences",
+      "lawRevisionFacts",
+      "isLawRelated",
+      "lawGroundedExplanationNotNeeded"
+    ]
   }
 }

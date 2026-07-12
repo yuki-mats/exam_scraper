@@ -2170,14 +2170,13 @@
       "correctChoiceText": "間違い",
       "examSource": "ガス主任技術者（乙種）, 2024年, 問4, 設問1",
       "examYear": 2024,
-      "explanationText": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "explanationText": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
       "isChoiceOnly": false,
       "isDeleted": false,
       "isGroupable": true,
       "isLawRelated": true,
       "isOfficial": true,
       "lawGroundedExplanationNotNeeded": false,
-      "lawGroundedExplanationText": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
       "lawReferences": [
         {
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
@@ -2192,7 +2191,7 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "reason": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+          "reason": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
           "referenceDate": "2026-07-12",
           "role": "current_basis",
           "scope": "choice",
@@ -2203,16 +2202,17 @@
       ],
       "lawRevisionFacts": {
         "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+          "correctChoiceText、解説及び直接根拠の向きを判定命題に合わせて更新した。"
         ],
         "auditInputHash": "03c886509dbfd1a735f2d00c40af9e869046372007ff632632c2cf3f0f903c4d",
         "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_otsu_2024_year_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-12T10:24:24+09:00",
+        "auditedAt": "2026-07-12T12:59:47+09:00",
         "current": {
           "article": "4",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "correctChoiceText": "間違い",
           "item": "5",
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
@@ -2222,12 +2222,12 @@
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+          "問題文と選択肢を結合した判定命題を確認し、既存の正誤方向との不一致を修正した。"
         ],
         "evidenceBindingHash": "cdd8626353097b4d1e7786c57723fb319f6423c23ebdee1a57fe54239ede99e1",
         "evidenceSummary": {
           "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "explanationText": "ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+          "explanationText": "ガス関係報告規則第4条第1項の表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
           "promptContext": "ガス関係報告規則第4条第1項第5号を選択肢0の直接根拠として確認。",
           "refs": [
             {
@@ -2246,8 +2246,8 @@
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_2024_otsu_source_choice_correctness"
+          "correctChoiceText": "間違い",
+          "verificationStatus": "predicate_reconstruction_confirmed"
         },
         "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "nextAuditDueAt": "2027-07-09",
@@ -2271,7 +2271,6 @@
       "questionTags": [],
       "questionText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。[quote]ガス工作物(ガス栓を除く。)を操作することにより人が酸素欠乏症となった事故[/quote]",
       "questionType": "true_false",
-      "suggestedExplanationText": "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
       "suggestedQuestionDetails": [
         {
           "answer": "対象である。ガス関係報告規則第4条第1項表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故を速報及び詳報の対象にしている。",
@@ -2311,14 +2310,13 @@
       "correctChoiceText": "正しい",
       "examSource": "ガス主任技術者（乙種）, 2024年, 問4, 設問2",
       "examYear": 2024,
-      "explanationText": "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
+      "explanationText": "正しい。ガス関係報告規則第4条第1項の表第7号は、速報対象となる供給支障事故を供給支障戸数が100以上500未満のものと定めている。20戸の事故について速報は規定されておらず、問題文の条件に該当する。",
       "isChoiceOnly": false,
       "isDeleted": false,
       "isGroupable": true,
       "isLawRelated": true,
       "isOfficial": true,
       "lawGroundedExplanationNotNeeded": false,
-      "lawGroundedExplanationText": "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
       "lawReferences": [
         {
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
@@ -2333,7 +2331,7 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "reason": "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
+          "reason": "正しい。ガス関係報告規則第4条第1項の表第7号は、速報対象となる供給支障事故を供給支障戸数が100以上500未満のものと定めている。20戸の事故について速報は規定されておらず、問題文の条件に該当する。",
           "referenceDate": "2026-07-12",
           "role": "current_basis",
           "scope": "choice",
@@ -2344,16 +2342,17 @@
       ],
       "lawRevisionFacts": {
         "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+          "correctChoiceText、解説及び直接根拠の向きを判定命題に合わせて更新した。"
         ],
         "auditInputHash": "cbb4ad958497ea4065abe8a166d59f4f0faf74e7775a2476df4c8fddf10b35ef",
         "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_otsu_2024_year_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-12T10:24:24+09:00",
+        "auditedAt": "2026-07-12T12:59:47+09:00",
         "current": {
           "article": "4",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "correctChoiceText": "正しい",
           "item": "7",
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
@@ -2363,12 +2362,12 @@
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+          "問題文と選択肢を結合した判定命題を確認し、既存の正誤方向との不一致を修正した。"
         ],
         "evidenceBindingHash": "635ab6a5908caaf265bcbf371abd10c66e9b8094cd41ad19fb959e6de923ade2",
         "evidenceSummary": {
           "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "explanationText": "ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
+          "explanationText": "ガス関係報告規則第4条第1項の表第7号は、速報対象となる供給支障事故を供給支障戸数が100以上500未満のものと定めている。20戸の事故について速報は規定されておらず、問題文の条件に該当する。",
           "promptContext": "ガス関係報告規則第4条第1項第7号を選択肢1の直接根拠として確認。",
           "refs": [
             {
@@ -2387,8 +2386,8 @@
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_2024_otsu_source_choice_correctness"
+          "correctChoiceText": "正しい",
+          "verificationStatus": "predicate_reconstruction_confirmed"
         },
         "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "nextAuditDueAt": "2027-07-09",
@@ -2412,7 +2411,6 @@
       "questionTags": [],
       "questionText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。[quote]ガスの供給に支障を及ぼした事故であって、供給支障戸数が20のもの[/quote]",
       "questionType": "true_false",
-      "suggestedExplanationText": "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
       "suggestedQuestionDetails": [
         {
           "answer": "対象である。ガス関係報告規則第4条第1項表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故を速報及び詳報の対象にしている。",
@@ -2452,14 +2450,13 @@
       "correctChoiceText": "間違い",
       "examSource": "ガス主任技術者（乙種）, 2024年, 問4, 設問3",
       "examYear": 2024,
-      "explanationText": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
+      "explanationText": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の事故をガス事故速報の対象と定めている。10時間は対象に含まれるため、問題文の「速報が規定されていない事故」には該当しない。",
       "isChoiceOnly": false,
       "isDeleted": false,
       "isGroupable": true,
       "isLawRelated": true,
       "isOfficial": true,
       "lawGroundedExplanationNotNeeded": false,
-      "lawGroundedExplanationText": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
       "lawReferences": [
         {
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
@@ -2474,7 +2471,7 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "reason": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
+          "reason": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の事故をガス事故速報の対象と定めている。10時間は対象に含まれるため、問題文の「速報が規定されていない事故」には該当しない。",
           "referenceDate": "2026-07-12",
           "role": "current_basis",
           "scope": "choice",
@@ -2485,16 +2482,17 @@
       ],
       "lawRevisionFacts": {
         "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+          "correctChoiceText、解説及び直接根拠の向きを判定命題に合わせて更新した。"
         ],
         "auditInputHash": "afa1d556ab508dab9ef116a2583e8f14acfd65f0f337afa4cae1a0b5885701de",
         "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_otsu_2024_year_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-12T10:24:24+09:00",
+        "auditedAt": "2026-07-12T12:59:47+09:00",
         "current": {
           "article": "4",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "correctChoiceText": "間違い",
           "item": "8",
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
@@ -2504,12 +2502,12 @@
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+          "問題文と選択肢を結合した判定命題を確認し、既存の正誤方向との不一致を修正した。"
         ],
         "evidenceBindingHash": "5d3322002270ec1256ae6c7fd23ff3e29cb075d443f406529c2b0b2773c1a877",
         "evidenceSummary": {
           "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "explanationText": "ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
+          "explanationText": "ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の事故をガス事故速報の対象と定めている。10時間は対象に含まれるため、問題文の「速報が規定されていない事故」には該当しない。",
           "promptContext": "ガス関係報告規則第4条第1項第8号を選択肢2の直接根拠として確認。",
           "refs": [
             {
@@ -2528,8 +2526,8 @@
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_2024_otsu_source_choice_correctness"
+          "correctChoiceText": "間違い",
+          "verificationStatus": "predicate_reconstruction_confirmed"
         },
         "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "nextAuditDueAt": "2027-07-09",
@@ -2553,7 +2551,6 @@
       "questionTags": [],
       "questionText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。[quote]ガスの製造に支障を及ぼした事故であって、製造支障時間が10時間のもの[/quote]",
       "questionType": "true_false",
-      "suggestedExplanationText": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
       "suggestedQuestionDetails": [
         {
           "answer": "対象である。ガス関係報告規則第4条第1項表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故を速報及び詳報の対象にしている。",
@@ -2593,14 +2590,13 @@
       "correctChoiceText": "間違い",
       "examSource": "ガス主任技術者（乙種）, 2024年, 問4, 設問4",
       "examYear": 2024,
-      "explanationText": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "explanationText": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる火災事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
       "isChoiceOnly": false,
       "isDeleted": false,
       "isGroupable": true,
       "isLawRelated": true,
       "isOfficial": true,
       "lawGroundedExplanationNotNeeded": false,
-      "lawGroundedExplanationText": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
       "lawReferences": [
         {
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
@@ -2615,7 +2611,7 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "reason": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+          "reason": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる火災事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
           "referenceDate": "2026-07-12",
           "role": "current_basis",
           "scope": "choice",
@@ -2626,16 +2622,17 @@
       ],
       "lawRevisionFacts": {
         "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+          "correctChoiceText、解説及び直接根拠の向きを判定命題に合わせて更新した。"
         ],
         "auditInputHash": "c82949ae9ab93456c0d5b4e9a7d943e316697fb14585c7bc87c5b0a4317a3004",
         "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_otsu_2024_year_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-12T10:24:24+09:00",
+        "auditedAt": "2026-07-12T12:59:47+09:00",
         "current": {
           "article": "4",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "correctChoiceText": "間違い",
           "item": "12",
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
@@ -2645,12 +2642,12 @@
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+          "問題文と選択肢を結合した判定命題を確認し、既存の正誤方向との不一致を修正した。"
         ],
         "evidenceBindingHash": "1abf40ef1d8c9d3d56947434ef9926770ae5ef4dc727f06a1adde9c7321b346d",
         "evidenceSummary": {
           "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "explanationText": "ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+          "explanationText": "ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる火災事故をガス事故速報の対象と定めている。問題文は速報が規定されていない事故を判定するため、この選択肢は該当しない。",
           "promptContext": "ガス関係報告規則第4条第1項第12号を選択肢3の直接根拠として確認。",
           "refs": [
             {
@@ -2669,8 +2666,8 @@
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_2024_otsu_source_choice_correctness"
+          "correctChoiceText": "間違い",
+          "verificationStatus": "predicate_reconstruction_confirmed"
         },
         "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "nextAuditDueAt": "2027-07-09",
@@ -2694,7 +2691,6 @@
       "questionTags": [],
       "questionText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。[quote]ガス工作物(ガス栓を除く。)からのガスの漏えいによる火災事故[/quote]",
       "questionType": "true_false",
-      "suggestedExplanationText": "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
       "suggestedQuestionDetails": [
         {
           "answer": "対象である。ガス関係報告規則第4条第1項表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故を速報及び詳報の対象にしている。",
@@ -2734,14 +2730,13 @@
       "correctChoiceText": "正しい",
       "examSource": "ガス主任技術者（乙種）, 2024年, 問4, 設問5",
       "examYear": 2024,
-      "explanationText": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。",
+      "explanationText": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めている。速報は規定されておらず、問題文の条件に該当する。",
       "isChoiceOnly": false,
       "isDeleted": false,
       "isGroupable": true,
       "isLawRelated": true,
       "isOfficial": true,
       "lawGroundedExplanationNotNeeded": false,
-      "lawGroundedExplanationText": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。",
       "lawReferences": [
         {
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
@@ -2756,7 +2751,7 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "reason": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。",
+          "reason": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めている。速報は規定されておらず、問題文の条件に該当する。",
           "referenceDate": "2026-07-12",
           "role": "current_basis",
           "scope": "choice",
@@ -2767,16 +2762,17 @@
       ],
       "lawRevisionFacts": {
         "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+          "correctChoiceText、解説及び直接根拠の向きを判定命題に合わせて更新した。"
         ],
         "auditInputHash": "c7f9fcb3b659046ff9c0422ba831deea86da699b7a7fc2a761b301688599a48e",
         "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_otsu_2024_year_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-12T10:24:24+09:00",
+        "auditedAt": "2026-07-12T12:59:47+09:00",
         "current": {
           "article": "4",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "correctChoiceText": "正しい",
           "item": "18",
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
@@ -2786,12 +2782,12 @@
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+          "問題文と選択肢を結合した判定命題を確認し、既存の正誤方向との不一致を修正した。"
         ],
         "evidenceBindingHash": "e152234be2185f9c4ea04484690e132adf80f2102692579b1d676edb62c91ad3",
         "evidenceSummary": {
           "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "explanationText": "ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。",
+          "explanationText": "ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めている。速報は規定されておらず、問題文の条件に該当する。",
           "promptContext": "ガス関係報告規則第4条第1項第18号を選択肢4の直接根拠として確認。",
           "refs": [
             {
@@ -2810,8 +2806,8 @@
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_2024_otsu_source_choice_correctness"
+          "correctChoiceText": "正しい",
+          "verificationStatus": "predicate_reconstruction_confirmed"
         },
         "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "nextAuditDueAt": "2027-07-09",
@@ -2835,7 +2831,6 @@
       "questionTags": [],
       "questionText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。[quote]消費機器から漏えいしたガスに引火することにより、発生した消費機器が損傷した物損事故であって、人が死亡せず、又は負傷しないもの[/quote]",
       "questionType": "true_false",
-      "suggestedExplanationText": "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。",
       "suggestedQuestionDetails": [
         {
           "answer": "対象である。ガス関係報告規則第4条第1項表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故を速報及び詳報の対象にしている。",

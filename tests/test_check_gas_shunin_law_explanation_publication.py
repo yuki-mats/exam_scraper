@@ -1,6 +1,7 @@
 import unittest
 
 from scripts.check.check_gas_shunin_law_explanation_publication import (
+    review_correct_choice_labels,
     strip_explanation_prefix,
     valid_explanation_prefix,
     valid_external_primary_reference,
@@ -8,6 +9,17 @@ from scripts.check.check_gas_shunin_law_explanation_publication import (
 
 
 class CheckGasShuninLawExplanationPublicationTest(unittest.TestCase):
+    def test_prefers_confirmed_patched_correct_choice_labels(self) -> None:
+        self.assertEqual(
+            review_correct_choice_labels(
+                {
+                    "sourceCorrectChoiceText": ["正しい", "間違い"],
+                    "patchedCorrectChoiceText": ["間違い", "正しい"],
+                }
+            ),
+            ["間違い", "正しい"],
+        )
+
     def test_accepts_only_the_two_supported_verdict_prefixes(self) -> None:
         self.assertTrue(valid_explanation_prefix("正しい", "正しい。根拠です。"))
         self.assertTrue(valid_explanation_prefix("正しい", "正解。根拠です。"))

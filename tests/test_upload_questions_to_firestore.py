@@ -7,6 +7,17 @@ from scripts.upload import upload_questions_to_firestore as module
 
 
 class UploadQuestionsToFirestoreTests(unittest.TestCase):
+    def test_top_level_merge_fields_replaces_nested_maps_as_one_field(self) -> None:
+        doc_data = {
+            "questionId": "q1",
+            "lawRevisionFacts": {"current": {"article": "4"}},
+        }
+
+        self.assertEqual(
+            module.top_level_merge_fields(doc_data),
+            ["questionId", "lawRevisionFacts"],
+        )
+
     def test_validate_required_question_fields_rejects_blank_original_question_body_text(self) -> None:
         questions = [
             {

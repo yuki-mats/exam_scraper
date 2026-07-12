@@ -210,6 +210,11 @@ def build_doc_data(question: dict, now: datetime) -> dict:
     return doc_data
 
 
+def top_level_merge_fields(doc_data: dict) -> list[str]:
+    """指定フィールドの map 値を丸ごと置換し、未指定の既存フィールドは保持する。"""
+    return list(doc_data.keys())
+
+
 def fetch_existing_question_snapshots(db, doc_refs: list):
     get_all = getattr(db, "get_all", None)
     if callable(get_all):
@@ -434,7 +439,7 @@ def upload_questions(
             doc_data["updatedAt"] = now
             doc_data["updatedById"] = UPDATED_BY_ID
             validate_question_doc(doc_data, doc_id=str(qid))
-            batch.set(doc_ref, doc_data, merge=True)
+            batch.set(doc_ref, doc_data, merge=top_level_merge_fields(doc_data))
             chunk_valid += 1
 
         try:

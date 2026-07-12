@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import json
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
     apply_correct_choice_text,
@@ -11,6 +14,7 @@ from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
     strip_verdict,
     update_law_references,
     update_law_revision_facts,
+    upsert_correct_choice_patch,
     validate_basis,
 )
 
@@ -40,6 +44,34 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
 
         self.assertFalse(changed)
         self.assertEqual(entry["correctChoiceText"], ["正しい"])
+
+    def test_upsert_correct_choice_patch_writes_later_precedence_patch(self) -> None:
+        with TemporaryDirectory() as directory:
+            group_dir = Path(directory) / "2020"
+            explanation_path = (
+                group_dir
+                / "21_explanationText_added"
+                / "question_2020_1_explanationText_added.json"
+            )
+
+            output_path = upsert_correct_choice_patch(
+                explanation_path,
+                {
+                    "original_question_id": "question-id",
+                    "question_url": "https://example.com/q1",
+                },
+                ["間違い", "正しい"],
+            )
+
+            self.assertEqual(
+                output_path,
+                group_dir
+                / "23_correctChoiceText_fixed"
+                / "question_2020_1_correctChoiceText_fixed.json",
+            )
+            payload = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertEqual(payload[0]["original_question_id"], "question-id")
+            self.assertEqual(payload[0]["correctChoiceText"], ["間違い", "正しい"])
 
     def test_strip_verdict(self) -> None:
         self.assertEqual(strip_verdict("間違い。選択肢のAが誤り。"), "選択肢のAが誤り。")
@@ -215,6 +247,48 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
         self.assertEqual(fact["current"]["sourceType"], "external_primary")
         self.assertEqual(fact["current"]["source"], "official_pdf")
         self.assertEqual(fact["reviewState"], "refresh_reviewed")
+
+    def test_update_law_revision_facts_aligns_exam_time_correctness_after_predicate_change(self) -> None:
+        entry = {
+            "lawRevisionFacts": [
+                {
+                    "examTime": {
+                        "correctChoiceText": "正しい",
+                        "verificationStatus": "from_source",
+                    }
+                }
+            ]
+        }
+        correction = {
+            "basisByChoiceIndex": {
+                "0": {
+                    "lawId": "429M60000400016",
+                    "lawTitle": "ガス関係報告規則",
+                    "article": "4",
+                    "paragraph": "1",
+                    "item": "5",
+                    "articleTextHash": "article-hash",
+                    "rawXmlHash": "xml-hash",
+                }
+            }
+        }
+
+        update_law_revision_facts(
+            entry,
+            explanations=["間違い。速報対象と定めている。"],
+            correction=correction,
+            reviewed_at="2026-07-12T00:00:00+09:00",
+            correct_choice_texts=["間違い"],
+            correct_choice_text_changed=True,
+        )
+
+        fact = entry["lawRevisionFacts"][0]
+        self.assertEqual(fact["current"]["correctChoiceText"], "間違い")
+        self.assertEqual(fact["examTime"]["correctChoiceText"], "間違い")
+        self.assertEqual(
+            fact["examTime"]["verificationStatus"],
+            "predicate_reconstruction_confirmed",
+        )
 
 
 if __name__ == "__main__":

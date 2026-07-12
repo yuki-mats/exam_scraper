@@ -66,6 +66,18 @@ def strip_explanation_prefix(verdict: str, explanation: str) -> str:
     return explanation.strip()
 
 
+def review_correct_choice_labels(review: dict[str, Any]) -> list[Any] | None:
+    source = review.get("sourceCorrectChoiceText")
+    patched = review.get("patchedCorrectChoiceText")
+    if (
+        isinstance(patched, list)
+        and isinstance(source, list)
+        and len(patched) == len(source)
+    ):
+        return patched
+    return source if isinstance(source, list) else None
+
+
 def valid_external_primary_reference(ref: dict[str, Any]) -> bool:
     source_url = str(ref.get("sourceUrl") or "")
     if not ref.get("externalPrimarySource"):
@@ -149,7 +161,7 @@ def review_choice_map(
 
         choices = entry.get("choiceTextList")
         reviews = review.get("choiceReviews")
-        labels = review.get("sourceCorrectChoiceText")
+        labels = review_correct_choice_labels(review)
         if not isinstance(choices, list) or not isinstance(reviews, list) or not isinstance(labels, list):
             errors.append(f"invalid review arrays: {review.get('sourceQuestionKey')}")
             continue

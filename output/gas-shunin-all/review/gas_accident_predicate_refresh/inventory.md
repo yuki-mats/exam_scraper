@@ -10,7 +10,7 @@
 ## 結果
 
 - 整合済み・変更なし: 12問
-- 解説更新パッチ適用済み・Firestore再公開待ち: 4問
+- 解説更新パッチ適用・Firestore再公開・readback済み: 4問
 - `00_source` の変更: なし
 
 | 種別 | 年 | 問 | sourceQuestionKey | 棚卸し結果 |
@@ -25,11 +25,11 @@
 | 乙種 | 2017 | 2 | `gas-shunin:otsu:2017:law:q02` | 整合済み・変更なし |
 | 乙種 | 2018 | 2 | `gas-shunin:otsu:2018:law:q02` | 整合済み・変更なし |
 | 乙種 | 2019 | 2 | `gas-shunin:otsu:2019:law:q02` | 整合済み・変更なし |
-| 乙種 | 2020 | 3 | `gas-shunin:otsu:2020:law:q03` | 更新済み・Firestore再公開待ち |
-| 乙種 | 2021 | 4 | `gas-shunin:otsu:2021:law:q04` | 更新済み・Firestore再公開待ち |
+| 乙種 | 2020 | 3 | `gas-shunin:otsu:2020:law:q03` | 更新済み・Firestore公開確認済み |
+| 乙種 | 2021 | 4 | `gas-shunin:otsu:2021:law:q04` | 更新済み・Firestore公開確認済み |
 | 乙種 | 2022 | 4 | `gas-shunin:otsu:2022:law:q04` | 整合済み・変更なし |
-| 乙種 | 2023 | 4 | `gas-shunin:otsu:2023:law:q04` | 更新済み・Firestore再公開待ち |
-| 乙種 | 2024 | 4 | `gas-shunin:otsu:2024:law:q04` | 更新済み・Firestore再公開待ち |
+| 乙種 | 2023 | 4 | `gas-shunin:otsu:2023:law:q04` | 更新済み・Firestore公開確認済み |
+| 乙種 | 2024 | 4 | `gas-shunin:otsu:2024:law:q04` | 更新済み・Firestore公開確認済み |
 | 乙種 | 2025 | 4 | `gas-shunin:otsu:2025:law:q04` | 整合済み・変更なし |
 
 ## 更新内容
@@ -59,7 +59,7 @@
 
 - 判定命題: 各事故は「ガス事故速報を報告することが規定されていない事故」である。
 - 更新後の `correctChoiceText`: `間違い / 正しい / 間違い / 間違い / 正しい`
-- 更新理由: 正誤値は整合していたが、既存解説だけでは事故が速報対象かどうかと、問題文の否定条件との対応が分かりにくかった。
+- 更新理由: `21_explanationText_added` の正誤値は整合していたが、原本・前段正誤パッチから公開成果物へmergeすると選択肢3・5が旧方向に戻る状態だった。後段正誤パッチでロ・ホを正しい組合せとして固定し、問題文の否定条件との対応が分かる解説へ更新した。
 - パッチ: `output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json`
 
 ## 解説の記述方針

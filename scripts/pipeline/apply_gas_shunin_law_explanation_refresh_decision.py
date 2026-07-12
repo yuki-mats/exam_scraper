@@ -316,6 +316,15 @@ def update_law_revision_facts(
             current["subitem"] = subitem
         if correct_choice_texts is not None:
             current["correctChoiceText"] = str(correct_choice_texts[choice_index])
+            exam_time = fact.get("examTime")
+            if not isinstance(exam_time, dict):
+                exam_time = {}
+            exam_time["correctChoiceText"] = str(correct_choice_texts[choice_index])
+            if correct_choice_text_changed:
+                exam_time["verificationStatus"] = "predicate_reconstruction_confirmed"
+            else:
+                exam_time.setdefault("verificationStatus", "reviewed")
+            fact["examTime"] = exam_time
         fact["auditStatus"] = "same_as_current"
         fact["reviewState"] = "refresh_reviewed"
         fact["auditedAt"] = reviewed_at
@@ -398,6 +407,55 @@ def apply_correct_choice_text(
     return True
 
 
+def upsert_correct_choice_patch(
+    explanation_patch_path: Path,
+    entry: dict[str, Any],
+    correct_choice_texts: list[str],
+) -> Path:
+    group_dir = explanation_patch_path.parent.parent
+    filename = explanation_patch_path.name.replace(
+        "_explanationText_added.json", "_correctChoiceText_fixed.json"
+    )
+    if filename == explanation_patch_path.name:
+        raise ValueError(f"unexpected explanation patch filename: {explanation_patch_path}")
+    output_path = group_dir / "23_correctChoiceText_fixed" / filename
+
+    original_question_id = str(entry.get("original_question_id") or "").strip()
+    if not original_question_id:
+        raise ValueError("original_question_id is required for correctChoiceText patch")
+    payload: list[Any] = []
+    if output_path.exists():
+        loaded = load_json(output_path)
+        if not isinstance(loaded, list):
+            raise ValueError(f"correctChoiceText patch root must be list: {output_path}")
+        payload = loaded
+
+    record = {
+        "original_question_id": original_question_id,
+        "question_url": str(entry.get("question_url") or ""),
+        "correctChoiceText_changed": True,
+        "correctChoiceText_change_detail": (
+            "問題文と選択肢を結合した判定命題に合わせて正誤方向を修正。"
+        ),
+        "correctChoiceText_change_reason": (
+            "否定条件を含む問題文を選択肢と結合し、完全な命題として判定したため。"
+        ),
+        "correctChoiceText": list(correct_choice_texts),
+    }
+    for index, existing in enumerate(payload):
+        if (
+            isinstance(existing, dict)
+            and str(existing.get("original_question_id") or "").strip()
+            == original_question_id
+        ):
+            payload[index] = {**existing, **record}
+            break
+    else:
+        payload.append(record)
+    write_json(output_path, payload)
+    return output_path
+
+
 def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
     decision = load_json(decision_path)
     audit_key = str(decision.get("auditKey") or "")
@@ -423,6 +481,13 @@ def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
     correct_choice_text_changed = apply_correct_choice_text(
         entry, review_decision, len(explanations)
     )
+    correct_choice_patch_path: Path | None = None
+    if correct_choice_text_changed:
+        correct_choice_patch_path = upsert_correct_choice_patch(
+            patch_path,
+            entry,
+            [str(value) for value in entry["correctChoiceText"]],
+        )
     entry["explanationText"] = explanations
     entry["suggestedExplanationText"] = list(explanations)
     entry["lawGroundedExplanationText"] = list(explanations)
@@ -471,6 +536,10 @@ def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
         "choiceCount": len(explanations),
         "correctChoiceTextChanged": correct_choice_text_changed,
     }
+    if correct_choice_patch_path is not None:
+        decision["application"]["correctChoicePatchFile"] = str(
+            correct_choice_patch_path.relative_to(ROOT_DIR)
+        )
     write_json(decision_path, decision)
     return decision["application"]
 

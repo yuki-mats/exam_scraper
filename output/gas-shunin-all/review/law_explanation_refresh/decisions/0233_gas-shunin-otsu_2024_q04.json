@@ -2,17 +2,18 @@
   "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
   "sequence": 233,
   "auditKey": "gas-shunin:otsu:2024:law:q04:25e1628d3225",
-  "auditInputHash": "6e497f790659ab1834eeb8dfe742c78a5b6033c2f9d1fe55df9d43411ecc9755",
-  "status": "patch_applied",
+  "auditInputHash": "02b4ef22240cdb72a308ab0895947a682d276220d090a47ed5bd0c36615e5279",
+  "status": "published",
   "reviewedAt": "2026-07-12T12:59:47+09:00",
   "reviewDecision": {
-    "correctChoiceTextChanged": false,
+    "correctChoiceTextChanged": true,
     "correctChoiceTextReview": {
       "status": "confirmed",
       "flags": []
     },
     "requiresPatch": true,
     "changeFields": [
+      "correctChoiceText",
       "explanationText",
       "lawReferences",
       "lawRevisionFacts",
@@ -137,10 +138,28 @@
     "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
     "sourceCorrectTextUsed": false
   },
-  "appliedAt": "2026-07-12T04:05:20Z",
+  "appliedAt": "2026-07-12T04:47:08Z",
   "application": {
     "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
     "choiceCount": 5,
-    "correctChoiceTextChanged": false
+    "correctChoiceTextChanged": true,
+    "correctChoicePatchFile": "output/gas-shunin-otsu/questions_json/2024/23_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json"
+  },
+  "publishedAt": "2026-07-12T13:52:00+09:00",
+  "publication": {
+    "artifact": "output/gas-shunin-all/questions_json/firestore_gas_accident_refresh_artifacts/20260712_predicate_refresh/upload.json",
+    "readback": "output/gas-shunin-all/questions_json/firestore_gas_accident_refresh_artifacts/20260712_predicate_refresh/readback.json",
+    "firestoreDocumentCount": 5,
+    "readbackStatus": "verified",
+    "verifiedFields": [
+      "correctChoiceText",
+      "explanationText",
+      "suggestedQuestions",
+      "suggestedQuestionDetails",
+      "lawReferences",
+      "lawRevisionFacts",
+      "isLawRelated",
+      "lawGroundedExplanationNotNeeded"
+    ]
   }
 }
