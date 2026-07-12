@@ -171,6 +171,8 @@ flowchart LR
 
 開始前に対象件数とlistGroupIdをpreviewする。人間判断工程はCodex依頼とmanifestを`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ保存し、同じ依頼を再コピーできるようにする。出力工程は対象listGroupIdを順番に`prepare_firestore_upload.py --upload-dry-run`へ渡し、完了済みlistGroupIdをmanifestへ記録する。UI再起動で中断した場合は、完了済みを除いた残りだけを再開する。本番Firestoreへの公開はこの資格作業セッションに含めない。
 
+人間判断工程のCodex依頼には、run directory直下の固定`result.json`を完了receiptとして指定する。`succeeded`を受理する条件は、非空のsummaryと1件以上すべて`pass`の検証commandがあること。不正又は書きかけのreceiptはrunを完了させず、receipt errorとして履歴へ残す。manifestやreceipt内の別pathを読取先として使用しない。
+
 ### 6.2 一覧ペイン
 
 各行に次を表示する。

@@ -79,12 +79,20 @@ class QualificationRunStore:
             "error": None,
             "result": None,
             "promptPath": None,
+            "resultReceiptPath": str(
+                (run_dir / "result.json").relative_to(self.repo_root)
+            ),
+            "resultReceiptHash": None,
+            "receiptError": None,
         }
         with self._lock:
             run_dir.mkdir(parents=True, exist_ok=False)
             if prompt is not None:
                 prompt_path = run_dir / "prompt.md"
-                prompt_path.write_text(prompt, encoding="utf-8")
+                prompt_path.write_text(
+                    self._with_receipt_contract(prompt, run_dir / "result.json"),
+                    encoding="utf-8",
+                )
                 manifest["promptPath"] = str(prompt_path.relative_to(self.repo_root))
             self._write_manifest(run_dir / "manifest.json", manifest)
         return copy.deepcopy(manifest)
@@ -109,6 +117,7 @@ class QualificationRunStore:
         with self._lock:
             for path in sorted(directory.glob("*/manifest.json"), reverse=True):
                 manifest = self._load_manifest(path)
+                manifest = self._apply_result_receipt(path, manifest)
                 manifests.append(self._public(manifest))
                 if len(manifests) >= limit:
                     break
@@ -144,6 +153,97 @@ class QualificationRunStore:
                 manifest["updatedAt"] = _now()
                 self._write_manifest(path, manifest)
 
+    def _apply_result_receipt(
+        self, manifest_path: Path, manifest: dict[str, Any]
+    ) -> dict[str, Any]:
+        if manifest.get("kind") != "human":
+            return manifest
+        receipt_path = manifest_path.parent / "result.json"
+        if not receipt_path.is_file():
+            return manifest
+        raw = receipt_path.read_bytes()
+        receipt_hash = hashlib.sha256(raw).hexdigest()
+        if receipt_hash == manifest.get("resultReceiptHash"):
+            return manifest
+        manifest["resultReceiptHash"] = receipt_hash
+        manifest["updatedAt"] = _now()
+        try:
+            value = json.loads(raw.decode("utf-8"))
+            receipt = self._validated_result_receipt(value)
+        except (UnicodeDecodeError, json.JSONDecodeError, QualificationRunError) as exc:
+            manifest["receiptError"] = str(exc)
+            self._write_manifest(manifest_path, manifest)
+            return manifest
+
+        manifest["receiptError"] = None
+        manifest["status"] = receipt["status"]
+        manifest["result"] = receipt
+        manifest["error"] = receipt["summary"] if receipt["status"] == "failed" else None
+        manifest["finishedAt"] = manifest["updatedAt"]
+        self._write_manifest(manifest_path, manifest)
+        return manifest
+
+    @staticmethod
+    def _validated_result_receipt(value: Any) -> dict[str, Any]:
+        if not isinstance(value, Mapping):
+            raise QualificationRunError("完了receiptはJSON objectで保存してください。")
+        status = str(value.get("status") or "")
+        if status not in {"succeeded", "failed"}:
+            raise QualificationRunError("完了receiptのstatusはsucceeded又はfailedです。")
+        summary = str(value.get("summary") or "").strip()
+        if not summary:
+            raise QualificationRunError("完了receiptにsummaryが必要です。")
+        commands_value = value.get("commands") or []
+        if not isinstance(commands_value, list):
+            raise QualificationRunError("完了receiptのcommandsは配列で保存してください。")
+        commands: list[dict[str, str]] = []
+        for item in commands_value:
+            if not isinstance(item, Mapping):
+                raise QualificationRunError("commandsの各要素はobjectで保存してください。")
+            command = str(item.get("command") or "").strip()
+            command_status = str(item.get("status") or "").strip()
+            if not command or command_status not in {"pass", "fail"}:
+                raise QualificationRunError("commandsにはcommandとpass/failのstatusが必要です。")
+            commands.append({"command": command[:2000], "status": command_status})
+        if status == "succeeded" and (
+            not commands or any(item["status"] != "pass" for item in commands)
+        ):
+            raise QualificationRunError(
+                "succeededの完了receiptには、1件以上のpass検証が必要です。"
+            )
+        changed_files_value = value.get("changedFiles") or []
+        if not isinstance(changed_files_value, list) or not all(
+            isinstance(item, str) for item in changed_files_value
+        ):
+            raise QualificationRunError("changedFilesは文字列配列で保存してください。")
+        return {
+            "status": status,
+            "summary": summary[:4000],
+            "commands": commands,
+            "changedFiles": [str(item)[:2000] for item in changed_files_value],
+        }
+
+    @staticmethod
+    def _with_receipt_contract(prompt: str, receipt_path: Path) -> str:
+        example = {
+            "status": "succeeded",
+            "summary": "対象工程と検証が完了した。",
+            "commands": [{"command": "<実行した検証>", "status": "pass"}],
+            "changedFiles": [],
+        }
+        return "\n".join(
+            [
+                prompt.rstrip(),
+                "",
+                "## 完了記録",
+                "",
+                f"完了時に検証結果を次へJSONで保存する: `{receipt_path}`",
+                f"`{json.dumps(example, ensure_ascii=False, separators=(',', ':'))}`",
+                "未完了時はstatusをfailedにし、summaryへ理由を記録する。",
+                "",
+            ]
+        )
+
     @staticmethod
     def _load_manifest(path: Path) -> dict[str, Any]:
         if not path.is_file():
@@ -165,7 +265,9 @@ class QualificationRunStore:
 
     @staticmethod
     def _public(manifest: Mapping[str, Any]) -> dict[str, Any]:
-        return copy.deepcopy(dict(manifest))
+        value = copy.deepcopy(dict(manifest))
+        value.pop("resultReceiptHash", None)
+        return value
 
 
 class QualificationRunCoordinator:
@@ -258,7 +360,8 @@ class QualificationRunCoordinator:
                 prompt=prompt,
                 resumed_from=resumed_from,
             )
-            return {"run": run, "prompt": prompt, "job": None}
+            saved_prompt = self.store.prompt(qualification, run["runId"])
+            return {"run": run, "prompt": saved_prompt, "job": None}
 
         run = self.store.create(
             plan, status="queued", resumed_from=resumed_from

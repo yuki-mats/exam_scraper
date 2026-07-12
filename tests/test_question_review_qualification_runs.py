@@ -1,3 +1,4 @@
+import json
 import tempfile
 import time
 import unittest
@@ -111,6 +112,8 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(preview["targetCount"], 1)
         self.assertEqual(started["run"]["stageId"], "setup")
         self.assertIn("qualification_docs/new-exam", started["prompt"])
+        self.assertIn("## 完了記録", started["prompt"])
+        self.assertIn("result.json", started["prompt"])
         self.assertNotIn("## 問題文", started["prompt"])
 
     def test_human_run_persists_prompt_and_can_resume_after_restart(self):
@@ -144,6 +147,106 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIsNone(started["job"])
         self.assertEqual(recent["activeRun"]["runId"], started["run"]["runId"])
         self.assertIn("資格単位の問題整備", resumed["prompt"])
+
+    def test_human_run_converges_after_valid_result_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            receipt_path = root / started["run"]["resultReceiptPath"]
+            receipt_path.write_text(
+                json.dumps(
+                    {
+                        "status": "succeeded",
+                        "summary": "全対象を監査した。",
+                        "commands": [
+                            {"command": "python check.py", "status": "pass"}
+                        ],
+                        "changedFiles": ["output/sample/patch.json"],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            recent = coordinator.recent("sample")
+
+        self.assertIsNone(recent["activeRun"])
+        self.assertEqual(recent["runs"][0]["status"], "succeeded")
+        self.assertEqual(recent["runs"][0]["result"]["summary"], "全対象を監査した。")
+
+    def test_invalid_success_receipt_does_not_complete_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            receipt_path = root / started["run"]["resultReceiptPath"]
+            receipt_path.write_text(
+                json.dumps(
+                    {
+                        "status": "succeeded",
+                        "summary": "検証していない。",
+                        "commands": [],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            recent = coordinator.recent("sample")
+
+        self.assertEqual(recent["activeRun"]["status"], "awaiting_changes")
+        self.assertIn("pass検証", recent["activeRun"]["receiptError"])
+
+    def test_result_receipt_path_in_manifest_cannot_redirect_read(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            redirected = root / "outside-result.json"
+            redirected.write_text(
+                json.dumps(
+                    {
+                        "status": "succeeded",
+                        "summary": "外部",
+                        "commands": [{"command": "fake", "status": "pass"}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            coordinator.store.update(
+                "sample",
+                started["run"]["runId"],
+                resultReceiptPath=str(redirected),
+            )
+            recent = coordinator.recent("sample")
+
+        self.assertEqual(recent["activeRun"]["status"], "awaiting_changes")
 
     def test_delivery_run_processes_all_groups_and_records_completion(self):
         with tempfile.TemporaryDirectory() as directory:

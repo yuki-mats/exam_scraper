@@ -454,6 +454,96 @@ tasks:
         - command: "browser console warning/error inspection"
           status: pass
       harness: codex
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "人間工程promptへ最小の完了receipt契約を付与し、保存済みreceiptからrun履歴をsucceeded/failedへ安全に収束させる"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py"
+      - "git diff --check"
+    stop_if:
+      - "receiptがpatch又は00_sourceを書き換える必要がある。"
+      - "production Firestore writeが必要になる。"
+      - "外部CodexからローカルUI APIへの接続が必要になる。"
+    receipt:
+      result: done
+      summary: "人間工程promptへrun固定result.jsonの完了receipt契約を追加し、valid receiptでsucceeded、invalid receiptでawaiting_changesを維持する収束処理を実装した。"
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+        - document/operations/local_question_review_console.md
+      evidence:
+        - "saved Codex prompt contains absolute result.json path and minimal receipt schema"
+        - "succeeded receipt requires non-empty summary and at least one pass command"
+        - "invalid succeeded receipt leaves run awaiting_changes with receiptError"
+        - "manifest resultReceiptPath tampering cannot redirect the fixed receipt read"
+        - "valid receipt removes the run from activeRun and retains it as succeeded history"
+      facts:
+        - "receipt reconciliation reads only <runDir>/result.json"
+        - "receipt never changes patches, 00_source, IDs, or Firestore"
+        - "resultReceiptHash is not exposed by the public run payload"
+      commands:
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+          status: pass
+          summary: "12 tests passed"
+        - command: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "54 tests passed"
+        - command: ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+      harness: codex
+  - id: T008
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "人間工程runがreceipt-backedで完了収束し、履歴・再開・次工程を妨げないことを監査する"
+    inputs:
+      - "T007 receipt"
+      - "receipt reconciliation tests"
+      - "final git and browser evidence"
+    constraints:
+      - "Do not implement."
+      - "receipt内容から任意pathを読まない。"
+      - "既存browser evidenceを再利用し、変更表面に必要な確認だけ追加する。"
+    expected_output:
+      - "milestone verdict"
+      - "final-audit readiness"
+    receipt:
+      result: done
+      decision: approved_for_final_audit
+      full_outcome_complete: false
+      summary: "人間工程runのreceipt-backed完了収束を監査し、履歴・再開・次工程を妨げる残差がないことを確認した。"
+      rationale: "固定run directoryのresult.jsonだけを読み、valid succeeded receiptはpass検証を必須とする。invalid receiptはactive runを維持してエラーを表示し、manifest内pathの改ざんでは読取先を変更できない。UI変更はないためT006のdesktop/mobile evidenceを再利用できる。"
+      evidence:
+        - "12 focused receipt and workflow tests passed"
+        - "54 question review tests passed"
+        - "fixed-path redirect resistance test passed"
+        - "valid receipt convergence test passed"
+        - "T006 desktop/mobile browser evidence remains applicable"
+      missing_evidence: []
+      required_board_updates:
+        - "activate T999 final audit"
+      commands:
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+          status: pass
+        - command: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+        - command: ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
