@@ -10,7 +10,7 @@
     <header class="app-header">
       <div class="brand-block">
         <h1>問題レビュー</h1>
-        <span id="project-status" class="environment-label">本番Firestore: 読取専用</span>
+        <span id="project-status" class="environment-label">本番Firestore: 接続確認中</span>
       </div>
       <div class="toolbar" aria-label="表示条件">
         <label>
@@ -142,6 +142,32 @@
         <footer class="dialog-actions">
           <button class="secondary-button close-dialog" type="button">戻る</button>
           <button id="confirm-apply" class="danger-button" type="submit">patchに保存</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog id="workflow-dialog" class="wide-dialog">
+      <form id="workflow-form" method="dialog">
+        <header class="dialog-header">
+          <h2 id="workflow-dialog-title">成果物を同期</h2>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <p id="workflow-dialog-message" class="workflow-dialog-message"></p>
+          <div id="workflow-dialog-summary" class="workflow-summary"></div>
+          <label id="production-confirm-wrap" class="production-confirm" hidden>
+            <input id="production-confirm" type="checkbox">
+            <span>本番Firestore「repaso-rbaqy4」へ、表示された差分だけを反映する</span>
+          </label>
+          <div id="job-status" class="job-status" hidden></div>
+          <details id="job-log-wrap" class="job-log-wrap" hidden>
+            <summary>実行ログ</summary>
+            <pre id="job-log"></pre>
+          </details>
+        </div>
+        <footer class="dialog-actions">
+          <button id="workflow-cancel" class="secondary-button close-dialog" type="button">キャンセル</button>
+          <button id="workflow-execute" class="primary-button" type="submit">実行</button>
         </footer>
       </form>
     </dialog>

@@ -17,8 +17,11 @@ from tools.question_review_console.firestore_readback import (
     FirestoreReadback,
 )
 from tools.question_review_console.inventory import QuestionInventory
+from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
+from tools.question_review_console.publisher import GroupPublisher, PublicationError
 from tools.question_review_console.review_store import ReviewStore
+from tools.question_review_console.workflow_runner import ArtifactSynchronizer, WorkflowError
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -46,6 +49,16 @@ class QuestionReviewApplication:
         self.reviews = ReviewStore(self.repo_root)
         self.editor = PatchEditor(self.repo_root)
         self.firestore = FirestoreReadback()
+        self.jobs = JobManager()
+        self.synchronizer = ArtifactSynchronizer(
+            self.repo_root, self.inventory, self.session_token
+        )
+        self.publisher = GroupPublisher(
+            self.repo_root,
+            self.inventory,
+            self.firestore,
+            self.session_token,
+        )
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
         self.origin = ""
@@ -58,12 +71,15 @@ class QuestionReviewApplication:
             return HTTPStatus.OK, {
                 "sessionToken": self.session_token,
                 "projectId": PRODUCTION_PROJECT_ID,
-                "readOnlyFirestore": True,
+                "readOnlyFirestore": False,
+                "firestoreWriteEnabled": True,
             }
         if path == "/api/inventory":
             return HTTPStatus.OK, self.inventory.inventory()
         if path == "/api/questions":
             return HTTPStatus.OK, self._questions(query)
+        if path.startswith("/api/jobs/"):
+            return HTTPStatus.OK, self.jobs.get(path.removeprefix("/api/jobs/"))
         if path.startswith("/api/questions/"):
             suffix = path.removeprefix("/api/questions/")
             if suffix.endswith("/fingerprint"):
@@ -81,6 +97,54 @@ class QuestionReviewApplication:
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
 
     def post(self, path: str, body: Mapping[str, Any]) -> tuple[int, Any]:
+        group_action = _group_action(path)
+        if group_action is not None:
+            qualification, list_group_id, action = group_action
+            key = f"{qualification}:{list_group_id}"
+            try:
+                if action == "sync-preview":
+                    return HTTPStatus.OK, self.synchronizer.preview(
+                        qualification, list_group_id
+                    )
+                if action == "sync":
+                    token = str(body.get("previewToken") or "")
+                    current = self.synchronizer.preview(qualification, list_group_id)
+                    if current["previewToken"] != token:
+                        raise WorkflowError("確認後に対象状態が更新されました。")
+                    job = self.jobs.start(
+                        kind="sync",
+                        key=key,
+                        worker=lambda emit: self._run_sync_job(
+                            qualification, list_group_id, token, emit
+                        ),
+                    )
+                    return HTTPStatus.ACCEPTED, job
+                if action == "publish-preview":
+                    return HTTPStatus.OK, self.publisher.preview(
+                        qualification, list_group_id
+                    )
+                if action == "publish":
+                    if body.get("confirmedProduction") is not True:
+                        raise PublicationError("本番反映の確認が必要です。")
+                    token = str(body.get("preflightToken") or "")
+                    preflight = self.publisher.preview(qualification, list_group_id)
+                    if not self.publisher.token_matches(preflight, token):
+                        raise PublicationError("確認後に成果物又はFirestoreが更新されました。")
+                    if not preflight.get("canPublish"):
+                        raise PublicationError("本番反映する差分がありません。")
+                    job = self.jobs.start(
+                        kind="publish",
+                        key=key,
+                        worker=lambda emit: self._run_publish_job(
+                            qualification, list_group_id, preflight, emit
+                        ),
+                    )
+                    return HTTPStatus.ACCEPTED, job
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except (WorkflowError, PublicationError) as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
         if path.startswith("/api/questions/") and path.endswith("/live-readback"):
             question_id = path.removeprefix("/api/questions/").removesuffix(
                 "/live-readback"
@@ -201,6 +265,7 @@ class QuestionReviewApplication:
                 "mismatch",
                 "missing",
                 "error",
+                "upstream_stale",
             }:
                 continue
             if exceptions_only and not question["issues"]:
@@ -284,7 +349,16 @@ class QuestionReviewApplication:
             live = copy.deepcopy(self.live_results.get(question["id"]))
         question["liveReadback"] = live
         if live:
-            question["workflow"]["firestore"] = live.get("status", "error")
+            live_status = live.get("status", "error")
+            local_ready = all(
+                question["workflow"].get(stage) == "match"
+                for stage in ("merge", "convert", "upload")
+            )
+            question["workflow"]["firestore"] = (
+                "upstream_stale"
+                if live_status == "match" and not local_ready
+                else live_status
+            )
             if live.get("status") in {"mismatch", "missing"}:
                 question["issues"].insert(
                     0,
@@ -297,6 +371,36 @@ class QuestionReviewApplication:
                 )
                 question["issueCodes"].insert(0, "live_mismatch")
         return question
+
+    def _run_sync_job(
+        self,
+        qualification: str,
+        list_group_id: str,
+        preview_token: str,
+        emit: Any,
+    ) -> dict[str, Any]:
+        result = self.synchronizer.run(
+            qualification, list_group_id, preview_token, emit
+        )
+        self._clear_live_results()
+        return result
+
+    def _run_publish_job(
+        self,
+        qualification: str,
+        list_group_id: str,
+        preflight: Mapping[str, Any],
+        emit: Any,
+    ) -> dict[str, Any]:
+        result = self.publisher.run(
+            qualification, list_group_id, preflight, emit
+        )
+        self._clear_live_results()
+        return result
+
+    def _clear_live_results(self) -> None:
+        with self._live_lock:
+            self.live_results.clear()
 
     @staticmethod
     def _summary(question: Mapping[str, Any]) -> dict[str, Any]:
@@ -437,6 +541,18 @@ def _query_bool(
     return value.casefold() in {"1", "true", "yes", "on"}
 
 
+def _group_action(path: str) -> tuple[str, str, str] | None:
+    parts = path.strip("/").split("/")
+    if len(parts) != 5 or parts[:2] != ["api", "groups"]:
+        return None
+    qualification = urllib.parse.unquote(parts[2])
+    list_group_id = urllib.parse.unquote(parts[3])
+    action = parts[4]
+    if action not in {"sync-preview", "sync", "publish-preview", "publish"}:
+        return None
+    return qualification, list_group_id, action
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="ローカル問題レビューUIを起動します。")
     parser.add_argument("--host", default="127.0.0.1")
@@ -471,7 +587,7 @@ def run_server(
     suffix = "?" + urllib.parse.urlencode(params) if params else ""
     url = f"{app.origin}/{suffix}"
     print(f"Question review console: {url}", flush=True)
-    print(f"Firestore: {PRODUCTION_PROJECT_ID} (read only)", flush=True)
+    print(f"Firestore: {PRODUCTION_PROJECT_ID} (UI publish enabled)", flush=True)
     if open_browser:
         threading.Timer(0.3, lambda: webbrowser.open(url)).start()
     try:

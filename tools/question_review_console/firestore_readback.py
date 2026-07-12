@@ -185,6 +185,10 @@ class FirestoreReadback:
                 result[snapshot.id] = json_safe(snapshot.to_dict() or {})
         return result
 
+    def read_documents(self, document_ids: list[str]) -> dict[str, dict[str, Any]]:
+        """Read only the explicitly requested production question documents."""
+        return self._read_documents(list(dict.fromkeys(document_ids)))
+
     def _database(self) -> Any:
         if self._db is not None:
             return self._db

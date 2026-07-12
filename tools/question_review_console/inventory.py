@@ -62,9 +62,10 @@ ISSUE_PRIORITY = {
     "merge_stale": 4,
     "convert_stale": 5,
     "upload_stale": 6,
-    "law_basis_missing": 7,
-    "explanation_missing": 8,
-    "projection_error": 9,
+    "upload_missing": 7,
+    "law_basis_missing": 8,
+    "explanation_missing": 9,
+    "projection_error": 10,
 }
 
 
@@ -259,7 +260,9 @@ def detect_issues(
             if stale_fields:
                 add("convert_stale", "patch合成後と40_convertが一致しません。", stale_fields)
 
-    if upload_docs and converted_docs:
+    if converted_docs and not upload_docs:
+        add("upload_missing", "upload-readyに対応する問題がありません。")
+    elif upload_docs and converted_docs:
         by_id = {str(doc.get("questionId") or ""): doc for doc in upload_docs}
         stale = []
         for converted in converted_docs:
@@ -483,7 +486,7 @@ class QuestionInventory:
                         "stateHash": state_hash,
                         "workflow": {
                             "source": "match",
-                            "patch": "match" if projection.applied_files else "missing",
+                            "patch": "match",
                             "merge": (
                                 "missing"
                                 if merged is None
@@ -496,6 +499,15 @@ class QuestionInventory:
                                 if not matched_converted
                                 else "stale"
                                 if "convert_stale" in {issue["code"] for issue in issues}
+                                else "match"
+                            ),
+                            "upload": (
+                                "missing"
+                                if not matched_upload
+                                or upload_path is None
+                                or upload_path.parent.name != "upload_to_firestore"
+                                else "stale"
+                                if "upload_stale" in {issue["code"] for issue in issues}
                                 else "match"
                             ),
                             "firestore": "unread",

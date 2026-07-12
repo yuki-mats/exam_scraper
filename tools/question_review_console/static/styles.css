@@ -171,8 +171,25 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .workflow-step strong { font-size: 11px; text-transform: uppercase; color: #4a5661; }
 .workflow-step span { font-size: 12px; font-weight: 700; }
 .workflow-step.match span { color: var(--green); }
-.workflow-step.stale span, .workflow-step.mismatch span, .workflow-step.missing span { color: var(--red); }
+.workflow-step.stale span, .workflow-step.mismatch span, .workflow-step.missing span, .workflow-step.upstream_stale span { color: var(--red); }
 .workflow-step.unread span { color: var(--text-muted); }
+
+.pipeline-action-bar {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-top: 0;
+  background: #fff;
+}
+.pipeline-action-bar.attention { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.pipeline-action-bar.ready { border-left: 4px solid var(--green); }
+.pipeline-message { min-width: 0; display: grid; gap: 2px; }
+.pipeline-message strong { font-size: 12px; }
+.pipeline-message span { color: var(--text-muted); font-size: 11px; line-height: 1.4; }
+.pipeline-buttons { margin-left: auto; display: flex; flex: 0 0 auto; gap: 6px; }
 
 .primary-button, .secondary-button, .danger-button, .text-button {
   min-height: 34px;
@@ -244,6 +261,21 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .confirm-values { display: grid; grid-template-columns: 1fr 1fr; }
 .confirm-values pre { border-radius: 0; min-height: 80px; }
 .confirm-values pre:first-child { border-right: 1px solid #46515d; }
+.workflow-dialog-message { margin: 0; line-height: 1.6; }
+.workflow-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
+.workflow-summary-item { min-height: 64px; display: grid; align-content: center; gap: 5px; padding: 9px 11px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+.workflow-summary-item:nth-child(3n) { border-right: 0; }
+.workflow-summary-item span { color: var(--text-muted); font-size: 11px; }
+.workflow-summary-item strong { min-width: 0; font-size: 13px; overflow-wrap: anywhere; }
+.workflow-summary-item.good strong { color: var(--green); }
+.workflow-summary-item.warning strong { color: var(--amber); }
+.workflow-summary-item.danger strong { color: var(--red); }
+.production-confirm { display: flex; grid-template-columns: 18px 1fr; align-items: start; gap: 9px; padding: 12px; border: 1px solid #e5aaa4; background: var(--red-bg); color: #672824; font-size: 13px; line-height: 1.5; }
+.production-confirm[hidden] { display: none; }
+.production-confirm input { margin: 3px 0 0; }
+.job-status { padding: 9px 11px; border-left: 3px solid var(--blue); background: #edf4fa; font-weight: 700; font-size: 12px; }
+.job-log-wrap pre { max-height: 280px; }
+button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .toast { position: fixed; right: 18px; bottom: 18px; z-index: 20; max-width: min(420px, calc(100vw - 36px)); padding: 10px 14px; border-radius: 4px; color: #fff; background: #28343e; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 150ms ease, transform 150ms ease; }
 .toast.show { opacity: 1; transform: translateY(0); }
@@ -266,6 +298,9 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
   .detail-header { position: relative; margin: 0 -12px; padding: 12px; }
   .detail-title-row { display: block; }
   .detail-actions { margin-top: 10px; justify-content: flex-start; }
+  .pipeline-action-bar { align-items: stretch; flex-direction: column; }
+  .pipeline-buttons { width: 100%; margin-left: 0; }
+  .pipeline-buttons button { flex: 1; }
   .workflow { grid-template-columns: repeat(5, minmax(82px, 1fr)); overflow-x: auto; }
   .choice-card { grid-template-columns: 48px minmax(0, 1fr); }
   .choice-explanation { grid-column: 2; border-top: 1px solid var(--line); }
@@ -279,6 +314,9 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
   .segmented button { flex: 1; }
   .segmented button { white-space: nowrap; }
   .workflow { grid-template-columns: repeat(5, minmax(68px, 1fr)); }
+  .workflow-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .workflow-summary-item:nth-child(3n) { border-right: 1px solid var(--line); }
+  .workflow-summary-item:nth-child(2n) { border-right: 0; }
   .detail-actions button { flex: 1 1 132px; }
   .suggestion-table th, .suggestion-table td { display: block; width: 100%; }
   .suggestion-table tr + tr th { border-top-width: 3px; }

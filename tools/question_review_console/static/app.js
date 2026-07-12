@@ -9,6 +9,7 @@ const ISSUE_LABELS = {
   merge_stale: "merge未反映",
   convert_stale: "convert未反映",
   upload_stale: "upload-ready未反映",
+  upload_missing: "upload-ready未生成",
   law_basis_missing: "法令根拠不足",
   explanation_missing: "解説不足",
   projection_error: "patch合成エラー",
@@ -35,6 +36,7 @@ const WORKFLOW_LABELS = {
   mismatch: "差分あり",
   error: "取得失敗",
   unavailable: "比較不可",
+  upstream_stale: "旧成果物と一致",
 };
 
 const EDITABLE_FIELDS = [
@@ -56,6 +58,7 @@ const state = {
   reviewMode: "needs_review",
   pendingEdit: null,
   editBaselinePairs: [],
+  workflowDialog: { mode: "", preview: null, running: false },
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -116,7 +119,7 @@ async function initialize() {
     const [session, inventory] = await Promise.all([api("/api/session"), api("/api/inventory")]);
     state.token = session.sessionToken;
     state.inventory = inventory;
-    $("#project-status").textContent = `本番Firestore: ${session.projectId} ・ 読取専用`;
+    $("#project-status").textContent = `本番Firestore: ${session.projectId} ・ UI反映可`;
     initializeSelectors();
     await loadQuestions(false);
     window.setInterval(checkFingerprint, 2000);
@@ -155,6 +158,11 @@ function bindControls() {
   $("#review-form").addEventListener("submit", submitReview);
   $("#edit-form").addEventListener("submit", previewEdit);
   $("#confirm-form").addEventListener("submit", applyEdit);
+  $("#workflow-form").addEventListener("submit", executeWorkflow);
+  $("#production-confirm").addEventListener("change", updateWorkflowExecuteState);
+  $("#workflow-dialog").addEventListener("cancel", (event) => {
+    if (state.workflowDialog.running) event.preventDefault();
+  });
   $("#add-suggestion").addEventListener("click", () => addSuggestionRow("", ""));
 }
 
@@ -337,10 +345,9 @@ function renderDetail() {
     button("指摘", "secondary-button", () => openReview("needs_review"), "要確認として記録"),
     button("Codex依頼", "primary-button", () => openReview("awaiting_codex"), "Codex用依頼を作成・コピー"),
     button("編集", "secondary-button", openEdit, "解説・正誤をpatchで修正"),
-    button("Firestore読取", "secondary-button", runFirestoreReadback, "対象documentだけを本番から取得"),
   );
   titleRow.append(titleBlock, actions);
-  header.append(titleRow, renderWorkflow(question.workflow));
+  header.append(titleRow, renderWorkflow(question.workflow), renderPipelineActions(question));
   pane.append(header);
 
   const questionSection = section("問題文");
@@ -379,10 +386,10 @@ function section(title) {
 function renderWorkflow(workflow) {
   const node = element("div", "workflow");
   const stages = [
-    ["Source", workflow.source],
     ["Patch", workflow.patch],
     ["Merge", workflow.merge],
     ["Convert", workflow.convert],
+    ["upload-ready", workflow.upload],
     ["Firestore", workflow.firestore],
   ];
   for (const [name, status] of stages) {
@@ -391,6 +398,241 @@ function renderWorkflow(workflow) {
     node.append(step);
   }
   return node;
+}
+
+function renderPipelineActions(question) {
+  const workflow = question.workflow || {};
+  const localReady = ["merge", "convert", "upload"].every((stage) => workflow[stage] === "match");
+  const node = element("div", `pipeline-action-bar ${localReady ? "ready" : "attention"}`);
+  const status = element("div", "pipeline-message");
+  const actions = element("div", "pipeline-buttons");
+
+  if (!localReady) {
+    status.append(
+      element("strong", "", "最新patchが後続成果物へ未反映です"),
+      element("span", "", "対象の年度・回だけをMerge、Convert、upload-readyまで再生成します。"),
+    );
+    actions.append(button("成果物を同期", "primary-button", openSyncDialog));
+  } else {
+    const messages = {
+      match: ["本番Firestoreまで一致しています", "選択中の問題は最新upload-readyと一致しています。"],
+      mismatch: ["本番Firestoreに差分があります", "年度・回全体の差分を確認してから本番へ反映できます。"],
+      missing: ["本番Firestoreに未登録の問題があります", "年度・回全体の追加対象を確認できます。"],
+      error: ["Firestoreの確認に失敗しました", "credentialと接続状態を確認してください。"],
+      unread: ["ローカル成果物は最新です", "本番Firestoreはまだ確認していません。"],
+      unavailable: ["Firestoreと比較できません", "upload-readyのdocument IDを確認してください。"],
+    };
+    const [title, detail] = messages[workflow.firestore] || messages.unread;
+    status.append(element("strong", "", title), element("span", "", detail));
+    actions.append(
+      button("この問題を再読取", "secondary-button", runFirestoreReadback),
+      button("本番差分を確認", "primary-button", openPublishDialog),
+    );
+  }
+  node.append(status, actions);
+  return node;
+}
+
+function groupApiPath(action) {
+  return `/api/groups/${encodeURIComponent(state.qualification)}/${encodeURIComponent(state.listGroupId)}/${action}`;
+}
+
+function resetWorkflowDialog(mode, title) {
+  state.workflowDialog = { mode, preview: null, running: false };
+  $("#workflow-dialog-title").textContent = title;
+  $("#workflow-dialog-message").textContent = "確認情報を取得しています。";
+  $("#workflow-dialog-summary").replaceChildren();
+  $("#production-confirm-wrap").hidden = true;
+  $("#production-confirm").checked = false;
+  $("#job-status").hidden = true;
+  $("#job-status").textContent = "";
+  $("#job-log-wrap").hidden = true;
+  $("#job-log").textContent = "";
+  $("#workflow-execute").textContent = "確認中";
+  $("#workflow-execute").disabled = true;
+  $("#workflow-cancel").hidden = false;
+  for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
+  if (!$("#workflow-dialog").open) $("#workflow-dialog").showModal();
+}
+
+function summaryMetric(label, value, tone = "") {
+  const item = element("div", `workflow-summary-item ${tone}`.trim());
+  item.append(element("span", "", label), element("strong", "", value));
+  return item;
+}
+
+function stageSummary(preview, stage, label) {
+  const data = preview.stages?.[stage] || { status: "missing", counts: {} };
+  const counts = data.counts || {};
+  const value = data.status === "match"
+    ? `一致 ${counts.match || 0}問`
+    : `${WORKFLOW_LABELS[data.status] || data.status} ${Number(counts.stale || 0) + Number(counts.missing || 0)}問`;
+  return summaryMetric(label, value, data.status === "match" ? "good" : "warning");
+}
+
+async function openSyncDialog() {
+  resetWorkflowDialog("sync", "成果物を同期");
+  try {
+    const preview = await api(groupApiPath("sync-preview"), { method: "POST", body: {} });
+    state.workflowDialog.preview = preview;
+    $("#workflow-dialog-message").textContent = preview.needsSync
+      ? "既存workflowを対象年度・回だけ実行し、upload dry-runまで検証します。00_sourceは変更しません。"
+      : "Merge、Convert、upload-readyはすでに最新です。";
+    $("#workflow-dialog-summary").append(
+      summaryMetric("対象", `${preview.qualification} / ${preview.listGroupId}`),
+      summaryMetric("問題", `${preview.questionCount}問`),
+      stageSummary(preview, "merge", "Merge"),
+      stageSummary(preview, "convert", "Convert"),
+      stageSummary(preview, "upload", "upload-ready"),
+    );
+    $("#workflow-execute").textContent = preview.needsSync ? "同期を実行" : "閉じる";
+    $("#workflow-execute").disabled = false;
+    if (!preview.needsSync) state.workflowDialog.mode = "";
+  } catch (error) {
+    showWorkflowError(error);
+  }
+}
+
+async function openPublishDialog() {
+  resetWorkflowDialog("publish", "本番Firestoreの差分確認");
+  try {
+    const preview = await api(groupApiPath("publish-preview"), { method: "POST", body: {} });
+    state.workflowDialog.preview = preview;
+    const summary = $("#workflow-dialog-summary");
+    summary.append(
+      summaryMetric("対象", `${preview.qualification} / ${preview.listGroupId}`),
+      summaryMetric("本番project", preview.projectId),
+    );
+    if (!preview.localReady || preview.blockingIssues && Object.keys(preview.blockingIssues).length) {
+      $("#workflow-dialog-message").textContent = preview.reason || "本番反映の前提条件を満たしていません。";
+      if (preview.stages) {
+        summary.append(
+          stageSummary(preview, "merge", "Merge"),
+          stageSummary(preview, "convert", "Convert"),
+          stageSummary(preview, "upload", "upload-ready"),
+        );
+      }
+      for (const [code, count] of Object.entries(preview.blockingIssues || {})) {
+        summary.append(summaryMetric(ISSUE_LABELS[code] || code, `${count}問`, "danger"));
+      }
+      state.workflowDialog.mode = "";
+      $("#workflow-execute").textContent = "閉じる";
+      $("#workflow-execute").disabled = false;
+      return;
+    }
+
+    summary.append(
+      summaryMetric("全document", `${preview.documentCount}件`),
+      summaryMetric("変更・追加", `${preview.changedCount}件`, preview.changedCount ? "warning" : "good"),
+      summaryMetric("未登録", `${preview.missingCount}件`, preview.missingCount ? "warning" : "good"),
+      summaryMetric("成果物SHA", String(preview.artifactHash || "").slice(0, 12)),
+    );
+    if (!preview.canPublish) {
+      $("#workflow-dialog-message").textContent = "年度・回のupload-readyと本番Firestoreは一致しています。反映は不要です。";
+      state.workflowDialog.mode = "";
+      $("#workflow-execute").textContent = "閉じる";
+      $("#workflow-execute").disabled = false;
+      return;
+    }
+    $("#workflow-dialog-message").textContent =
+      "表示中のupload-readyを本番へ差分反映します。questionsに加えて公式試験年度manifestも更新されます。";
+    $("#production-confirm-wrap").hidden = false;
+    $("#workflow-execute").textContent = "本番へ反映";
+    updateWorkflowExecuteState();
+  } catch (error) {
+    showWorkflowError(error);
+  }
+}
+
+function updateWorkflowExecuteState() {
+  if (state.workflowDialog.running) return;
+  if (state.workflowDialog.mode === "publish") {
+    $("#workflow-execute").disabled = !$("#production-confirm").checked;
+  }
+}
+
+async function executeWorkflow(event) {
+  event.preventDefault();
+  const { mode, preview } = state.workflowDialog;
+  if (!mode || !preview) {
+    $("#workflow-dialog").close();
+    return;
+  }
+  if (mode === "publish" && !$("#production-confirm").checked) return;
+
+  setWorkflowRunning(true);
+  try {
+    const body = mode === "sync"
+      ? { previewToken: preview.previewToken }
+      : { preflightToken: preview.preflightToken, confirmedProduction: true };
+    const job = await api(groupApiPath(mode === "sync" ? "sync" : "publish"), {
+      method: "POST",
+      body,
+    });
+    await pollJob(job.jobId);
+  } catch (error) {
+    showWorkflowError(error);
+  }
+}
+
+function setWorkflowRunning(running) {
+  state.workflowDialog.running = running;
+  $("#workflow-execute").disabled = running;
+  $("#workflow-cancel").hidden = running;
+  $("#production-confirm-wrap").hidden = true;
+  $("#job-status").hidden = !running;
+  $("#job-status").textContent = running ? "処理を開始しています。" : "";
+  $("#job-log-wrap").hidden = !running;
+  for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = running;
+}
+
+async function pollJob(jobId) {
+  while (true) {
+    const job = await api(`/api/jobs/${encodeURIComponent(jobId)}`);
+    $("#job-status").textContent = job.status === "queued" ? "実行待ち" : job.status === "running" ? "処理中" : "完了";
+    $("#job-log").textContent = (job.logs || []).join("\n");
+    $("#job-log").scrollTop = $("#job-log").scrollHeight;
+    if (job.status === "queued" || job.status === "running") {
+      await new Promise((resolve) => window.setTimeout(resolve, 800));
+      continue;
+    }
+    if (job.status === "failed") throw new Error(job.error || "処理に失敗しました。");
+    await refreshAfterWorkflow();
+    state.workflowDialog.running = false;
+    state.workflowDialog.mode = "";
+    $("#job-status").textContent = job.result?.message || "完了しました。";
+    $("#workflow-dialog-message").textContent = job.result?.message || "処理が完了しました。";
+    $("#workflow-execute").textContent = "閉じる";
+    $("#workflow-execute").disabled = false;
+    $("#workflow-cancel").hidden = true;
+    for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
+    toast(job.result?.message || "処理が完了しました。");
+    return;
+  }
+}
+
+async function refreshAfterWorkflow() {
+  if (state.selectedId) {
+    try {
+      await api(`/api/questions/${state.selectedId}/live-readback`, { method: "POST", body: {} });
+    } catch (_) {
+      // 一覧再読込で取得失敗状態を表示するため、ここでは処理完了を妨げない。
+    }
+  }
+  await loadQuestions(true);
+}
+
+function showWorkflowError(error) {
+  state.workflowDialog.running = false;
+  state.workflowDialog.mode = "";
+  $("#workflow-dialog-message").textContent = error.message;
+  $("#job-status").hidden = false;
+  $("#job-status").textContent = "処理を完了できませんでした。";
+  $("#workflow-execute").textContent = "閉じる";
+  $("#workflow-execute").disabled = false;
+  $("#workflow-cancel").hidden = true;
+  for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
+  toast(error.message, true);
 }
 
 function renderChoices(projected) {

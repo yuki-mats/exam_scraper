@@ -7,12 +7,22 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 
 from tools.question_review_console.server import (
+    ApiError,
     QuestionReviewApplication,
     QuestionReviewRequestHandler,
 )
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_production_publish_requires_explicit_confirmation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            with self.assertRaises(ApiError) as caught:
+                app.post("/api/groups/sample/2026/publish", {})
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("本番反映の確認", str(caught.exception))
+
     def test_mutation_api_requires_session_token_and_local_origin(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
