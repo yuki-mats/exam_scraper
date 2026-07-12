@@ -1,228 +1,97 @@
-# Lawzilla MCP integrated question maintenance workflow
+# 現行法監査とLawzilla MCP
 
-この文書は、Lawzilla MCP を過去問整備ワークフローへ組み込み、解説文の精度を高め、誤った正答・解説を安全に修正するための運用正本です。
+この文書は、法令関連問題のevidence取得、現行法監査、正誤更新の正本です。field構造は[question field契約](../reference/question_field_contract.md)、具体的なpatch作業は[02b](../../prompt/02b_prompt_prepare_law_context.md)と[03b](../../prompt/03b_prompt_audit_current_law_and_patch.md)に従います。
 
-API キー、endpoint URL、Bearer token、credential、個人メール、ローカル secret path は、この repo、生成 artifact、送付用レビュー文面に書かないでください。Lawzilla MCP はローカル MCP 設定と環境変数で接続します。
+## 適用範囲
 
-## 目的
+- 02bで法令関連性と根拠候補を準備する。
+- 03bで法令関連問題を一問一肢ずつ監査する。
+- 年次再監査又は`auditMethodVersion`変更時に全対象を洗い替える。
+- 出題当時の公式正答と現行法ベースの学習上の正誤を分ける。
 
-- 解説文を、問題文の読解だけでなく条文 locator / evidence hash / 監査済み facts に基づいて作る。
-- 既存の条文検索と Lawzilla MCP を並列検証し、条文候補の漏れ、広すぎる根拠、項・号・別表の不足を発見する。
-- 正答が誤っている可能性を、次の 2 種類に分けて修正する。
-  - **source / parsing / mapping error**: 出題当時の公式正答・解答結果と `correctChoiceText` がずれているもの。
-  - **current-law update**: 出題当時の正答は保持しつつ、現行法ベースの学習データとして正誤・解説を更新すべきもの。
-- Lawzilla MCP の有用性と限界を継続記録し、既存検索改善と Lawzilla 側への feedback に戻す。
+通常の01から04の順序や保存先はここへ複製せず、[幹](exam_pipeline_manual_and_automation.md)と[artifact契約](artifact_contract.md)を参照します。
 
 ## 原則
 
-- `00_source` は変更しない。元問題文、元選択肢、元正答、出題情報は保存する。
-- `correctChoiceText` を推測で変えない。必ず source、公式正答、既存 Firestore ID、条文 evidence、sidecar のどれを根拠にしたかを残す。
-- Lawzilla MCP 単独で `verificationStatus="verified"`、`updated_to_current_law`、公開用の正答更新を確定しない。
-- question doc に条文本文の長文を持たせない。本文は整備用 evidence cache に保存し、question doc は locator / hash / summary を持つ。
-- アプリ実行時に Lawzilla MCP を呼ばない。問題整備時の evidence 取得、検証、品質改善に限定する。
-- 出題当時正答と現行法ベース正答を混同しない。
-- `updated_to_current_law` は `reviewState="tertiary_verified"` になってから公開確定する。
+- `00_source`と既存IDを変更しない。
+- 問題文と各選択肢を結合した完全命題を、一問一肢ずつ確認する。
+- `correctChoiceText`を既存メタデータ、類似問題、検索結果だけで反転させない。
+- Lawzilla MCP単独で`verified`又は`updated_to_current_law`を確定しない。
+- 条文本文はevidence cacheへ保存し、question docにはlocator、hash、要約を残す。
+- 判断不能は`hold`又は`needs_secondary_review`へ戻す。
+- `updated_to_current_law`は`tertiary_verified`後だけ公開確定する。
 
-## Lawzilla MCP の役割
+## evidence sourceの役割
 
-Lawzilla MCP は、既存 e-Gov / corpus ルートの置き換えではなく、並列検証レイヤーとして扱います。
-
-| 用途 | 使い方 | 最終判断 |
+| source | 用途 | 確定できること |
 | --- | --- | --- |
-| 条文候補探索 | 問題文・選択肢・既存解説から関連法令や条項候補を探す | 既存 evidence で照合する |
-| 根拠漏れ検出 | 既存 `lawReferences` にない候補が返るかを見る | `candidate` として記録し、照合後に `verified` |
-| 粒度改善 | 条だけでなく項・号・別表まで絞れるかを見る | 既存 corpus / e-Gov / 手動確認で確定 |
-| 解説改善 | 条文上の判断軸、主体、手続、数値基準を補足する | `lawRevisionFacts.evidenceSummary` に反映 |
-| 既存検索改善 | 略称、検索語、条番号正規化、資格別 scope の不足を抽出する | policy / query builder へ還元 |
-| feedback | 実務に耐えうる点・不足点を蓄積する | 定期 summary を送付候補にする |
+| e-Gov・官公庁一次資料 | 法令名、条・項・号、施行日、本文確認 | `verified`の直接根拠。 |
+| Firestore条文検索・整備済みcorpus | 既存locator、revision、hashとの照合 | 固定snapshotとの一致。 |
+| Lawzilla MCP | 条文候補、関連条項、項号・別表の探索 | candidateの発見。単独確定は不可。 |
+| 公式問題・公式解答 | 出題時の正答と問題構造 | `examTime.correctChoiceText`。 |
+| 資格別law policy | 対象法令、許可source、過去法令方針 | 監査scope。 |
 
-Lawzilla MCP は現行法中心の補助情報として使います。過去法令、附則、経過措置、施行日、改正法令名が正誤に関係する場合は、既存の三段階監査へ戻します。
+LawzillaとFirestore条文検索は同じ問題・選択肢に対して使い、法令名、条・項・号、条件、例外を本文で照合します。片方がno-hitでも、もう片方の回答を無条件に採用しません。
 
-## 全体フロー
+## 監査手順
 
-### 0. Scope 固定
+### 1. Scope
 
-対象資格、`list_group_id`、対象ファイル、作業目的を固定します。
+qualification、全listGroupId又は対象group、基準日、資格別law policyを固定します。資格全体の洗い替えでは、対象ファイル一覧を固定してから一問ずつ処理します。
 
-- 通常整備: `01` から `04` の過去問整備。
-- 法令整備: `02b` で法令コンテキストを固定してから `03` の解説へ進む。
-- 現行法監査: `03b` で一次・二次・三次を分ける。
+### 2. Evidence bundle
 
-対象外の既存差分、他年度の生成物、別資格の patch は触りません。
+各選択肢について次を固定します。
 
-### 1. Source と既存 ID を保護
+- 問題・選択肢・現行正誤・出題時正誤。
+- `lawId`、法令名、条・項・号、必要な別表・附則。
+- `referenceDate`、revision、施行日。
+- 条文snapshotの`articleTextHash`とraw response hash。
+- LawzillaとFirestore条文検索の照合結果。
 
-`00_source`、既存 Firestore question document ID、`originalQuestionId`、source conflict ledger を確認します。
+固定入力全体から`auditInputHash`を作り、後段も同じbundleを参照します。
 
-ここで分けます。
+### 3. 一次監査
 
-- source 自体が怪しい: source conflict / hold。
-- source は正しいが parse / mapping が怪しい: `correctChoiceText` 修正候補。
-- source 正答と現行法の学習上の扱いが違う可能性: `03b` 候補。
+evidenceを取得し、暫定verdictと不足点を記録します。根拠不足は推測せず`needs_secondary_review`又は`hold`です。
 
-### 2. 正答の初期整合
+### 4. 二次監査
 
-`15_correctChoiceText_fixed` で、設問意図、公式正答、選択肢数、`answer_result_text` を整合させます。
+一次bundleを変えずに、正答、解説、根拠locator、差分説明の妥当性を再確認します。`same_as_current`と`not_law_related`は、根拠が十分なら`secondary_verified`で確定できます。
 
-修正できるもの:
+### 5. 三次確定
 
-- 公式解答との mapping error。
-- `select_correct` / `select_incorrect` の取り違え。
-- grouped choice / true_false / flash_card の形式由来の配列ずれ。
+`updated_to_current_law`、一次・二次不一致、高リスク判断を確定します。確定前の正答変更は公開しません。
 
-修正してはいけないもの:
+## 状態
 
-- 現行法では違う気がする、という理由だけの正答変更。
-- Lawzilla MCP の回答だけを根拠にした正答変更。
-
-### 3. 02b 法令コンテキスト準備
-
-`20_merged_1` を入力に、`18_law_context_prepared` を作ります。
-
-1. 資格別 law reference policy を読む。
-2. 問題・選択肢ごとに `isLawRelated` を判定する。
-3. 既存検索 / e-Gov / corpus で `lawReferences` 候補を作る。
-4. Lawzilla MCP を同じ問題・選択肢で並列照会する。
-5. 一致・不一致・追加候補を review artifact に残す。
-
-出力方針:
-
-- 一致している候補: `lawReferences` に反映し、既存 evidence で verified にできるか確認する。
-- Lawzilla だけが出した候補: `candidate` / `unverified` として扱い、根拠照合へ回す。
-- 不一致: `lawContextForExplanation` に未確定点を残し、`hold` または `needs_secondary_review` へ回す。
-
-### 4. Evidence 取得と固定
-
-既存 verified `lawReferences` から条文 snapshot を取得し、Lawzilla MCP の照会結果も別 artifact として保存します。
-
-主な保存先:
-
-```text
-output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/
-output/<qualification>/review/lawzilla_mcp_feedback/
-output/<qualification>/review/law_revision_audit/
-```
-
-保存する情報:
-
-- `lawId`, `lawTitle`, `article`, `paragraph`, `item`, `subitem`
-- `referenceDate`, `source`, `verificationStatus`, `comparisonStatus`
-- `articleTextHash`, `rawXmlHash` または raw MCP response hash
-- `questionId`, `originalQuestionId`, `choiceIndex`
-- 既存 evidence と Lawzilla evidence の比較結果
-
-条文本文は整備用 evidence cache に保存し、Firestore question doc には locator / hash / summary を残します。
-
-### 5. Evidence 比較
-
-既存ルートと Lawzilla MCP の結果を、次のように分類します。
-
-| 状態 | 判断 | 次アクション |
+| `auditStatus` | 意味 | 公開条件 |
 | --- | --- | --- |
-| 同じ法令・同じ条項 | confidence を上げる | 解説精度改善へ使う |
-| 同じ法令だが Lawzilla の方が細かい | 項・号・別表候補 | 既存 evidence で照合して `lawReferences` を更新 |
-| Lawzilla が追加候補を出す | 根拠漏れ候補 | `candidate` として review queue へ |
-| 既存 evidence と矛盾 | 危険 | `hold` / `needs_secondary_review` |
-| Lawzilla が no hit / too broad | Lawzilla feedback 候補 | 既存 evidence を優先 |
-| 既存検索が no hit で Lawzilla が hit | 既存検索改善候補 | alias / query / scope / normalization へ還元 |
+| `same_as_current` | 出題時正答と現行法判定が同じ | `secondary_verified`以上。 |
+| `updated_to_current_law` | 現行法に合わせ正誤又は説明を更新 | `tertiary_verified`必須。 |
+| `not_law_related` | 法令監査対象ではない | 根拠付き`secondary_verified`。 |
+| `hold` | evidence又は方針不足 | 公開不可。 |
 
-### 6. 03 解説作成
+監査結果には`auditedAt`、`nextAuditDueAt`、`auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`と各run IDを残します。
 
-`03` では、`02b` と evidence 比較結果を使って `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を作ります。
+## 更新先
 
-解説文のルール:
+| 変更 | 更新先 |
+| --- | --- |
+| 法令関連性・根拠候補 | `18_law_context_prepared` |
+| 現行法で確定した正誤 | `23_correctChoiceText_fixed` |
+| 解説・想定質問・監査facts | `21_explanationText_added` |
+| 監査履歴と未確認事項 | `output/<qualification>/review/law_revision_audit/` |
+| 条文本文・raw hash | `output/<qualification>/law_evidence/<list_group_id>/` |
 
-- 正誤の理由を条文上の主体、手続、時期、数値、定義、例外に結びつける。
-- 根拠未確定の条文を断定しない。
-- 法改正・出題当時との差分が疑われる場合は、解説内で断定せず `03b` に送る。
-- Lawzilla MCP が示した表現は、既存 evidence と一致した場合だけ説明の補強に使う。
+正誤を更新した場合は`23`をmergeして`20_merged_1`へ反映し、その値を前提に03を再生成します。出題当時の正答は`lawRevisionFacts.examTime`へ保持します。
 
-### 7. 03b 現行法監査
+## 公開前条件
 
-法令関連問題は、差分がある問題だけでなく全件を `lawRevisionFacts` 作成対象にします。
+- `isLawRelated=true`の全問題に必要な`lawReferences`と`lawRevisionFacts`がある。
+- トップレベル正答、`lawRevisionFacts.current.correctChoiceText`、解説先頭が一致する。
+- `hold`と未完了review stateが残っていない。
+- evidence summaryから主要根拠を追跡できる。
+- [delivery workflow](delivery_workflow.md)のquality-gateとupload dry-runが通る。
 
-三段階で扱います。
-
-1. **一次監査**: 現行法 evidence bundle を取得し、`articleTextHash`、raw hash、暫定判断、Lawzilla 比較結果を固定する。
-2. **二次監査**: 一次 evidence に基づき、正答・解説・差分説明が条文と矛盾しないか確認する。
-3. **三次確定**: `updated_to_current_law`、一次/二次不一致、高リスク判断を最終承認する。
-
-`same_as_current` / `not_law_related` は二次確認後に確定できます。`updated_to_current_law` は三次確定後だけ公開確定します。
-
-### 8. 誤答修正の分岐
-
-正答が間違っている可能性を検出したら、必ず分岐を明示します。
-
-| 誤りの種類 | 例 | 修正先 | 必要な根拠 |
-| --- | --- | --- | --- |
-| source / parse error | 公式正答は 2 なのに `correctChoiceText` が 1 扱い | `15_correctChoiceText_fixed` または後続補正 patch | source / answer_result / 既存 ID mapping |
-| questionIntent error | 誤っているものを選ぶ問題を正しいもの扱い | `15_correctChoiceText_fixed` | 設問文と公式正答 |
-| explanation-only error | 正答は合っているが理由が条文と違う | `21_explanationText_added` | verified evidence / Lawzilla 比較 |
-| lawReferences error | 法令名・条番号・項号が違う | `18_law_context_prepared` / `21_explanationText_added` | 既存 evidence + sidecar |
-| current-law update | 出題当時は正しいが現行法では違う | `03b` sidecar + tertiary 後の正誤/解説 patch | 三段階監査 |
-| evidence gap | 根拠条文が特定できない | `hold` | 未確定理由と追加取得 queue |
-
-### 9. Convert / upload 前の検証
-
-最低限、次を通します。
-
-```bash
-python tools/question_bank/question_bank.py quality-gate \
-  --qualification <qualification> \
-  --list-group-id <list_group_id> \
-  --require-law-context-stage \
-  --require-is-law-related \
-  --require-law-grounded-flag \
-  --require-law-revision-facts \
-  --require-law-references-for-law-related
-```
-
-公開前は、法令関連問題に `hold` を残さない方針なら次も追加します。
-
-```bash
-python tools/question_bank/question_bank.py quality-gate \
-  --qualification <qualification> \
-  --list-group-id <list_group_id> \
-  --mode firestore \
-  --skip-upload-dry-run \
-  --require-law-revision-facts \
-  --fail-on-law-revision-hold \
-  --require-law-revision-evidence-summary \
-  --require-law-references-for-law-related
-```
-
-既存の repo-wide patch coverage failure が混ざる場合は、今回追加した Lawzilla / lawRevision artifact の妥当性と、既存 hygiene failure を分けて報告します。
-
-### 10. Lawzilla feedback と既存検索改善
-
-Lawzilla MCP を使ったケースは、`lawzilla_mcp_practical_review_workflow.md` の schema で記録します。
-
-既存検索へ還元する分類:
-
-- `alias_needed`: 資格別 law reference policy に略称や法令名を追加。
-- `query_rewrite_needed`: 検索 query / prompt を改善。
-- `article_normalization_needed`: 条番号、枝番号、別表番号の正規化を改善。
-- `scope_doc_needed`: 対象法令スコープを明記。
-- `none`: 改善不要、または Lawzilla 側 feedback のみ。
-
-定期的に 20 から 30 ケース、または 1 資格 1 年度ごとに summary を作り、実務利用上の良かった点・不足点・改善要望を整理します。
-
-## 成功条件
-
-- `00_source` と既存 document ID を壊していない。
-- `correctChoiceText` の変更理由が source / current-law update / explanation-only のどれか明示されている。
-- 法令関連問題に `isLawRelated`、`lawGroundedExplanationNotNeeded=false`、必要な `lawReferences` がある。
-- verified 根拠は locator と hash で再現できる。
-- Lawzilla MCP の結果は既存 evidence と比較され、単独断定になっていない。
-- `explanationText` は条文上の判断軸に沿っており、未確認事項を断定していない。
-- `updated_to_current_law` は三次確定済みで、出題当時正答と現行法ベースの扱いが区別されている。
-- Lawzilla feedback と既存検索改善候補が蓄積されている。
-
-## 実装順序
-
-1. 既存の `02b` / `03b` / quality gate を維持したまま、Lawzilla MCP の結果を sidecar に保存する。
-2. sidecar と既存 evidence の比較 report を作る。
-3. 一致ケースだけを解説精度改善へ使う。
-4. 不一致ケースを `hold` / `needs_secondary_review` に送る。
-5. 既存検索改善候補を資格別 policy と query 正規化へ戻す。
-6. 十分に安定してから、`tools/question_bank` の正式サブコマンドとして日常運用へ入れる。
+Lawzilla自体の検索品質や改善要望は[practical review workflow](lawzilla_mcp_practical_review_workflow.md)へ記録し、問題監査factsへ評価メモを混ぜません。

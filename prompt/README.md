@@ -1,44 +1,33 @@
-# prompt
+# 問題整備prompt
 
-過去問整備の目視作業で使うプロンプト置き場です。
+この文書は、人間・AIが行うpatch工程の**順序と入口**の正本です。判定方法は各prompt、保存先は[artifact契約](../document/operations/artifact_contract.md)、fieldの型は[question field契約](../document/reference/question_field_contract.md)で管理します。
 
-## 日々の基本順序
+## 標準順序
 
-1. `01_prompt_fix_questionType.md`: 問題形式を決める。
-2. `02_prompt_fix_questionIntent.md`: 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを決める。
-3. `02a_prompt_review_correctChoiceText.md`: 問題・公式解答・各選択肢を一問ずつ照合し、解説の前提となる正誤を確定する。
-4. `02b_prompt_prepare_law_context.md`: 03の前に、厳密な `isLawRelated` と現行法根拠候補を整理する。
-5. `03_prompt_add_explanationText.md`: 02aの正答と02bの法令コンテキストを使って、基本解説、想定質問、保存済み回答を整える。
-6. `03b_prompt_audit_current_law_and_patch.md`: 法改正・現行法差分が疑われる問題、年1回の法令関係問題の全問監査、または監査方式を更新した再監査で、03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする。
-7. `04_prompt_link_questionSetId.md`: `category.json` を見て問題集へ紐付ける。
+| 工程 | 正本prompt | 入力 | 出力 | 目的 |
+| --- | --- | --- | --- | --- |
+| 01 | [01 questionType](01_prompt_fix_questionType.md) | `00_source` | `10_questionType_fixed` | 回答体験の形式を確定する。 |
+| merge | script | source + 01 | `20_merged_1` | 02の入力を作る。 |
+| 02 | [02 questionIntent](02_prompt_fix_questionIntent.md) | `20_merged_1` | `15_correctChoiceText_fixed` | 正しいもの・誤っているもののどちらを選ぶか確定する。 |
+| merge | script | source + 01 + 02 | `20_merged_1` | `correctChoiceText`下書きを作る。 |
+| 02a | [02a correctChoiceText](02a_prompt_review_correctChoiceText.md) | 下書き済み`20_merged_1` | `23_correctChoiceText_fixed` | 問題・全選択肢・公式解答を一問ずつ照合し、正誤を確定する。 |
+| merge | script | source + 01 + 02 + 02a | `20_merged_1` | 厳密正答を03前の入力へ反映する。 |
+| 02b | [02b law context](02b_prompt_prepare_law_context.md) | 02a反映済み`20_merged_1` | `18_law_context_prepared` | 法令関連性と現行法根拠候補を準備する。 |
+| merge | script | source + 01 + 02 + 02a + 02b | `20_merged_1` | 法令コンテキストを03へ渡す。 |
+| 03 | [03 explanation](03_prompt_add_explanationText.md) | 02a・02b反映済み`20_merged_1` | `21_explanationText_added` | 解説と想定質問を作る。 |
+| 03b | [03b current law audit](03b_prompt_audit_current_law_and_patch.md) | 法令関連問題とevidence | audit sidecar + 必要なpatch | 現行法監査を一次・二次・三次で確定する。 |
+| 04 | [04 questionSetId](04_prompt_link_questionSetId.md) | `20_merged_1` + `category.json` | `22_questionSetId_linked` | 問題集へ分類する。 |
 
-この目視作業が品質判断の本体です。スクリプトは、patch 形式の補完、merge、convert、検証、upload dry-run を効率化するために使います。
-
-## 法改正・現行法差分監査
-
-通常は03の前に02aの`23_correctChoiceText_fixed/`と02bの`18_law_context_prepared/`を作り、mergeで両方を`20_merged_1/`に反映します。03は、その確定正答、`isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、必要なら`lawContextForExplanation`を使って、解説本文と想定質問を作ります。
-
-03または02bで法改正・現行法差分が疑われる問題を見つけたら、03bの監査パッチ/sidecarを作成・更新します。正誤変更は`23_correctChoiceText_fixed`へ反映してmergeし、その確定正答を使って`21_explanationText_added`を再生成します。年に1度、法令が関係する問題を全問監査して更新する場合、または`auditMethodVersion`を更新して再監査する場合も同じ流れです。
-
-03bは、一次監査で現行法・必要な出題当時法令の evidence bundle を固定し、二次監査でその evidence bundle に基づく正答・解説の妥当性を確認し、三次確定で `updated_to_current_law` の正答更新を承認する流れです。監査結果には `auditedAt`、`nextAuditDueAt`、`auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査 run ID を残します。
-
-現行法ベースへ正誤・解説を更新した問題では、ユーザーが「出題当時の正答」と「現行法ベースの学習上の扱い」を区別できるように、`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、年次監査 sidecar に注記と根拠を残します。
-
-02b以降では、全問題に `isLawRelated` を必ず付けます。`isLawRelated` は法令・制度論点かどうかの正本フラグで、`lawGroundedExplanationNotNeeded` は原則その逆です。03はこの判定を文章化に使い、年次03b監査は `isLawRelated=true` の問題を起点にします。
+03bで正誤が変わった場合は`23_correctChoiceText_fixed`を更新し、merge後に03を再生成します。
 
 ## 資格固有資料
 
-資格ごとの出題範囲、解説方針、カテゴリ粒度、法令スコープは `qualification_docs/<qualification>/` に置きます。共通フィールドの意味は資格ごとに変えず、必ず `document/reference/question_field_contract.md` に従ってください。
+[qualification_docs](qualification_docs/README.md)に、資格ごとの試験範囲、解説方針、カテゴリ境界、法令スコープを置きます。共通fieldの意味や共通工程を資格文書へ複製しません。
 
-## 機械チェック
+## 実行境界
 
-patch 作成後は、個別 script を探さず統一CLIを使います。
-
-```bash
-python tools/question_bank/question_bank.py quality-gate \
-  --qualification <qualification> \
-  --list-group-id <list_group_id> \
-  --require-law-context-stage \
-  --require-is-law-related \
-  --require-law-grounded-flag
-```
+- 判断本文は一問ずつ読み、scriptで量産しない。
+- scriptはarchive、materialize、merge、convert、validation、upload dry-runに使う。
+- 既存patchを洗い替える場合も、各promptに指定された一次情報から再判定する。
+- 判断不能は`99_model_review_flags`又はreview sidecarへ残し、推測で完了させない。
+- 機械検証は[question_bank CLI](../tools/question_bank/README.md)を使う。

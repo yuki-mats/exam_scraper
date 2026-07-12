@@ -2,9 +2,9 @@
 
 このディレクトリは、資格ごとの出題傾向、問題形式、解説方針、`category.json` 整備メモを集約する共通置き場である。
 
-各資格に共通する `category.json` の分類・命名・Firestore 取り込み方針は、まず [category_taxonomy_policy.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/category_taxonomy_policy.md) を正本として参照する。
+各資格に共通する`category.json`の分類・命名方針は、[category taxonomy policy](category_taxonomy_policy.md)を正本として参照する。
 
-過去問データの共通 field、Firestore 上のキー名、型、必須/任意、nullable、`questionType` enum、`lawReferences` の形は、資格別資料ではなく [question_field_contract.md](/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md) を正本として参照する。資格別資料では、共通 field の意味を上書きせず、法令スコープ、カテゴリ粒度、出題傾向、解説方針だけを書く。
+過去問データの共通field、Firestoreキー、型、必須性、`questionType`、`lawReferences`は[question field契約](../../document/reference/question_field_contract.md)を正本とする。資格別資料では共通fieldの意味を上書きせず、法令スコープ、カテゴリ粒度、出題傾向、解説方針だけを書く。
 
 ## 役割の優先順位
 - 主用途は `03_prompt_add_explanationText.md`
@@ -47,7 +47,7 @@
 - まず `03` のために `01_exam_profile.md` と `02_explanation_strategy.md` を整備する。
 - 法令問題を扱う資格では、解説作成前に法令スコープ文書を整備する。未整備なら簡易版を作ってから `03_prompt_add_explanationText.md` を実行する。
 - `category.json` の設計や見直しが必要になった段階で、`03_category_preparation.md` を追加・更新する。
-- `03_category_preparation.md` は、共通方針として [category_taxonomy_policy.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/category_taxonomy_policy.md) を踏まえたうえで、資格固有の専門家資料・目次・境界ルールだけを書く。
+- `03_category_preparation.md`は、共通方針として[category taxonomy policy](category_taxonomy_policy.md)を踏まえ、資格固有の専門家資料・目次・境界ルールだけを書く。
 - 日常の `questionSetId` 紐付けが補助資料依存になっている場合は、先に `category.json` 側の `description` と `matchingHints` を改善する。
 - 資格別の指針を参照する作業では、各資格ディレクトリの内容を正本とみなし、prompt 本体は共通ルールの置き場として扱う。
 

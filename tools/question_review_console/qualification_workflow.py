@@ -13,7 +13,7 @@ STAGE_CATALOG: tuple[dict[str, Any], ...] = (
         "label": "取得",
         "purpose": "出題時の問題文・選択肢・解答情報を保存する",
         "kind": "source",
-        "canonicalDocs": ["document/operations/exam_pipeline_manual_and_automation.md"],
+        "canonicalDocs": ["document/operations/scraping_workflow.md"],
     },
     {
         "id": "setup",
@@ -119,7 +119,7 @@ STAGE_CATALOG: tuple[dict[str, Any], ...] = (
         "purpose": "patchをmerge・convertしupload-readyを検証する",
         "kind": "machine",
         "canonicalDocs": [
-            "document/operations/exam_pipeline_manual_and_automation.md",
+            "document/operations/delivery_workflow.md",
             "tools/question_bank/README.md",
         ],
     },

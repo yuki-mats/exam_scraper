@@ -2,7 +2,7 @@
 
 `exam_scraper` の内部実装・互換入口・個別補助スクリプト置き場です。
 
-日常運用で直接使う入口は [tools/question_bank](/Users/yuki/development/exam_scraper/tools/question_bank/README.md) です。全体手順は [document/operations/exam_pipeline_manual_and_automation.md](/Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md) を正本にします。
+日常運用で直接使う入口は[question_bank CLI](../tools/question_bank/README.md)です。全体手順は[問題整備ワークフロー](../document/operations/exam_pipeline_manual_and_automation.md)を正本にします。
 
 ## ディレクトリ
 

@@ -1,15 +1,15 @@
 {
   "schemaVersion": "question-issue-report-config/v1",
   "reviewProtocol": "blind-a-b-challenge/v1",
-  "canonicalBranch": "codex/goal-driven-workflow",
+  "canonicalBranch": "main",
   "promptStageFiles": {
     "01": "prompt/01_prompt_fix_questionType.md",
     "02": "prompt/02_prompt_fix_questionIntent.md",
+    "02a": "prompt/02a_prompt_review_correctChoiceText.md",
     "02b": "prompt/02b_prompt_prepare_law_context.md",
     "03": "prompt/03_prompt_add_explanationText.md",
     "03b": "prompt/03b_prompt_audit_current_law_and_patch.md",
-    "04": "prompt/04_prompt_link_questionSetId.md",
-    "23_correctChoiceText_fixed": "document/operations/ai_patch_execution_prompt_templates.md"
+    "04": "prompt/04_prompt_link_questionSetId.md"
   },
   "categories": {
     "question_content": {
@@ -28,7 +28,7 @@
         "answer_result_inferred_correct_choice_numbers",
         "questionIntent"
       ],
-      "existingPromptStages": ["02", "23_correctChoiceText_fixed"]
+      "existingPromptStages": ["02", "02a"]
     },
     "explanation": {
       "label": "解説",
@@ -101,7 +101,7 @@
         "originalQuestionChoiceImageUrls",
         "explanationImageUrls"
       ],
-      "existingPromptStages": ["01", "02", "02b", "03", "04"]
+      "existingPromptStages": ["01", "02", "02a", "02b", "03", "04"]
     }
   },
   "workflowStatuses": {

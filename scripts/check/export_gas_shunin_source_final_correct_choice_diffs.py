@@ -29,7 +29,7 @@ from scripts.pipeline.finalize_gas_shunin_law_explanations import (  # noqa: E40
 )
 
 
-DEFAULT_OUTPUT_DIR = ROOT_DIR / "docs" / "reviews" / "gas-shunin"
+DEFAULT_OUTPUT_DIR = ROOT_DIR / "document" / "temporary" / "reviews" / "gas-shunin"
 DEFAULT_STEM = "20260712_source_final_correct_choice_diff_review"
 
 
