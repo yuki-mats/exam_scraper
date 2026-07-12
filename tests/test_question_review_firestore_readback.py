@@ -36,7 +36,8 @@ class FakeDatabase:
             raise AssertionError("questions以外を読み取った")
         return FakeCollection()
 
-    def get_all(self, references):
+    def get_all(self, references, field_paths=None):
+        self.field_paths = field_paths
         return [FakeSnapshot(reference.id, self.documents.get(reference.id)) for reference in references]
 
 
@@ -73,6 +74,7 @@ class QuestionReviewFirestoreReadbackTests(unittest.TestCase):
         )
         self.assertEqual(result["status"], "match")
         self.assertEqual(result["documentCount"], 1)
+        self.assertIn("correctChoiceText", database.field_paths)
 
 
 if __name__ == "__main__":

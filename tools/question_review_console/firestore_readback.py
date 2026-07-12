@@ -146,7 +146,9 @@ class FirestoreReadback:
                 "documents": [],
             }
         try:
-            live = self._read_documents(document_ids)
+            live = self._read_documents(
+                document_ids, fields=FIRESTORE_COMPARE_FIELDS
+            )
         except RuntimeError:
             return {
                 "projectId": self.project_id,
@@ -170,12 +172,23 @@ class FirestoreReadback:
         )
         return result
 
-    def _read_documents(self, document_ids: list[str]) -> dict[str, dict[str, Any]]:
+    def _read_documents(
+        self,
+        document_ids: list[str],
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> dict[str, dict[str, Any]]:
         db = self._database()
         refs = [db.collection("questions").document(value) for value in document_ids]
         result: dict[str, dict[str, Any]] = {}
         if hasattr(db, "get_all"):
-            for snapshot in db.get_all(refs):
+            field_paths = list(dict.fromkeys(fields or ()))
+            snapshots = (
+                db.get_all(refs, field_paths=field_paths)
+                if field_paths
+                else db.get_all(refs)
+            )
+            for snapshot in snapshots:
                 if snapshot.exists:
                     result[snapshot.id] = json_safe(snapshot.to_dict() or {})
             return result
@@ -185,9 +198,16 @@ class FirestoreReadback:
                 result[snapshot.id] = json_safe(snapshot.to_dict() or {})
         return result
 
-    def read_documents(self, document_ids: list[str]) -> dict[str, dict[str, Any]]:
+    def read_documents(
+        self,
+        document_ids: list[str],
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> dict[str, dict[str, Any]]:
         """Read only the explicitly requested production question documents."""
-        return self._read_documents(list(dict.fromkeys(document_ids)))
+        return self._read_documents(
+            list(dict.fromkeys(document_ids)), fields=fields
+        )
 
     def _database(self) -> Any:
         if self._db is not None:

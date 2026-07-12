@@ -25,7 +25,11 @@ def firestore_document(question_id, group_id):
 class FakeInventory:
     def __init__(self):
         self.groups = {}
-        for group_id, question_id in (("2024", "doc-2024"), ("2025", "doc-2025")):
+        for group_id, question_id in (
+            ("2024", "doc-2024"),
+            ("2025", "doc-2025"),
+            ("general", "doc-general"),
+        ):
             document = firestore_document(question_id, group_id)
             self.groups[group_id] = {
                 "qualification": "sample-exam",
@@ -46,7 +50,7 @@ class FakeInventory:
             "qualifications": [
                 {
                     "id": "sample-exam",
-                    "listGroupIds": ["2024", "2025"],
+                    "listGroupIds": ["2024", "2025", "general"],
                 }
             ]
         }
@@ -62,8 +66,9 @@ class FakeFirestore:
         self.documents = documents
         self.calls = []
 
-    def read_documents(self, document_ids):
+    def read_documents(self, document_ids, *, fields=None):
         self.calls.append(list(document_ids))
+        self.fields = fields
         return {
             question_id: copy.deepcopy(self.documents[question_id])
             for question_id in document_ids
@@ -95,7 +100,14 @@ class ScopedFirestoreReadbackTests(unittest.TestCase):
         self.assertEqual(preview["groupCount"], 1)
         self.assertEqual(preview["questionCount"], 1)
         self.assertEqual(preview["documentCount"], 1)
+        self.assertEqual(preview["scopeLabel"], "年度")
         self.assertEqual(self.firestore.calls, [])
+
+    def test_preview_uses_folder_label_when_group_has_no_year(self):
+        preview = self.reader.preview("sample-exam", ["general"])
+
+        self.assertEqual(preview["scopeLabel"], "フォルダ")
+        self.assertEqual(preview["listGroupIds"], ["general"])
 
     def test_run_reads_multiple_selected_groups_and_updates_each_question(self):
         preview = self.reader.preview("sample-exam", ["2024", "2025"])

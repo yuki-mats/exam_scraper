@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 import json
+import re
 from collections import Counter
 from typing import Any, Callable, Mapping
 
@@ -11,7 +12,10 @@ from tools.question_review_console.firestore_readback import (
     FirestoreReadback,
     compare_documents,
 )
-from tools.question_review_console.inventory import QuestionInventory
+from tools.question_review_console.inventory import (
+    FIRESTORE_COMPARE_FIELDS,
+    QuestionInventory,
+)
 
 
 READ_CHUNK_SIZE = 400
@@ -49,6 +53,14 @@ class ScopedFirestoreReadback:
             "projectId": PRODUCTION_PROJECT_ID,
             "listGroupIds": selection["listGroupIds"],
             "groupCount": len(selection["listGroupIds"]),
+            "scopeLabel": (
+                "年度"
+                if all(
+                    re.fullmatch(r"(?:19|20)\d{2}", value)
+                    for value in selection["listGroupIds"]
+                )
+                else "フォルダ"
+            ),
             "questionCount": len(selection["questions"]),
             "documentCount": len(selection["documentIds"]),
             "unavailableQuestionCount": selection["unavailableQuestionCount"],
@@ -79,14 +91,19 @@ class ScopedFirestoreReadback:
         try:
             for start in range(0, len(document_ids), READ_CHUNK_SIZE):
                 chunk = document_ids[start : start + READ_CHUNK_SIZE]
-                live_documents.update(self.firestore.read_documents(chunk))
+                live_documents.update(
+                    self.firestore.read_documents(
+                        chunk, fields=FIRESTORE_COMPARE_FIELDS
+                    )
+                )
                 emit(
                     f"読取進捗: {min(start + len(chunk), len(document_ids))}"
                     f" / {len(document_ids)} documents"
                 )
         except Exception as exc:  # noqa: BLE001
+            emit(f"読取エラー: {type(exc).__name__}: {str(exc)[:500]}")
             raise ScopedReadbackError(
-                "Firestoreの一括読み取りに失敗しました。"
+                "Firestoreの一括読み取りに失敗しました。実行ログを確認してください。"
             ) from exc
 
         status_counts: Counter[str] = Counter()
@@ -138,7 +155,7 @@ class ScopedFirestoreReadback:
             raise ScopedReadbackError("listGroupIdsを配列で指定してください。")
         selected = list(dict.fromkeys(str(value).strip() for value in list_group_ids))
         if not selected or any(not value for value in selected):
-            raise ScopedReadbackError("年度・回を1件以上選択してください。")
+            raise ScopedReadbackError("対象フォルダを1件以上選択してください。")
 
         inventory = self.inventory.inventory()
         qualification_info = next(
@@ -155,7 +172,7 @@ class ScopedFirestoreReadback:
         unknown = [value for value in selected if value not in available]
         if unknown:
             raise ScopedReadbackError(
-                "対象資格に存在しない年度・回です: " + ", ".join(unknown)
+                "対象資格に存在しないフォルダです: " + ", ".join(unknown)
             )
 
         questions: list[dict[str, Any]] = []

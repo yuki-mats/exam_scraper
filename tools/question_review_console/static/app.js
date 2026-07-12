@@ -211,6 +211,7 @@ function initializeSelectors() {
 function populateGroups(requested = null) {
   const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
   const groups = qualification?.listGroupIds || [];
+  $("#group-select-label").textContent = scopeLabelForGroups(groups);
   state.listGroupId = groups.includes(requested)
     ? requested
     : groups.includes(state.listGroupId)
@@ -224,6 +225,12 @@ function populateGroups(requested = null) {
     select.append(option);
   }
   select.value = state.listGroupId;
+}
+
+function scopeLabelForGroups(groupIds) {
+  return groupIds.length && groupIds.every((value) => /^(?:19|20)\d{2}$/.test(value))
+    ? "年度"
+    : "フォルダ";
 }
 
 function updateUrl() {
@@ -425,14 +432,14 @@ function renderPipelineActions(question) {
   if (!localReady) {
     status.append(
       element("strong", "", "最新patchが後続成果物へ未反映です"),
-      element("span", "", "対象の年度・回だけをMerge、Convert、upload-readyまで再生成します。"),
+      element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
     );
     actions.append(button("成果物を同期", "primary-button", openSyncDialog));
   } else {
     const messages = {
       match: ["本番Firestoreまで一致しています", "選択中の問題は最新upload-readyと一致しています。"],
-      mismatch: ["本番Firestoreに差分があります", "年度・回全体の差分を確認してから本番へ反映できます。"],
-      missing: ["本番Firestoreに未登録の問題があります", "年度・回全体の追加対象を確認できます。"],
+      mismatch: ["本番Firestoreに差分があります", "対象フォルダ全体の差分を確認してから本番へ反映できます。"],
+      missing: ["本番Firestoreに未登録の問題があります", "対象フォルダ全体の追加対象を確認できます。"],
       error: ["Firestoreの確認に失敗しました", "credentialと接続状態を確認してください。"],
       unread: ["ローカル成果物は最新です", "本番Firestoreはまだ確認していません。"],
       unavailable: ["Firestoreと比較できません", "upload-readyのdocument IDを確認してください。"],
@@ -493,7 +500,7 @@ async function openSyncDialog() {
     $("#workflow-dialog-message").textContent = preview.needsSync
       ? preview.allowMissingAnswerResult
         ? "既存workflowを実行します。回答結果が空の問題は、全選択肢の精査済み正誤を保持して検証します。00_sourceは変更しません。"
-        : "既存workflowを対象年度・回だけ実行し、upload dry-runまで検証します。00_sourceは変更しません。"
+        : "既存workflowを対象フォルダだけで実行し、upload dry-runまで検証します。00_sourceは変更しません。"
       : "Merge、Convert、upload-readyはすでに最新です。";
     $("#workflow-dialog-summary").append(
       summaryMetric("対象", `${preview.qualification} / ${preview.listGroupId}`),
@@ -545,7 +552,7 @@ async function openPublishDialog() {
       summaryMetric("成果物SHA", String(preview.artifactHash || "").slice(0, 12)),
     );
     if (!preview.canPublish) {
-      $("#workflow-dialog-message").textContent = "年度・回のupload-readyと本番Firestoreは一致しています。反映は不要です。";
+      $("#workflow-dialog-message").textContent = "対象フォルダのupload-readyと本番Firestoreは一致しています。反映は不要です。";
       state.workflowDialog.mode = "";
       $("#workflow-execute").textContent = "閉じる";
       $("#workflow-execute").disabled = false;
@@ -664,8 +671,11 @@ function openReadbackDialog() {
   const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
   state.readbackDialog = { preview: null, running: false, requestSequence: 0 };
   $("#readback-qualification").textContent = state.qualification;
+  $("#readback-scope-label").textContent = scopeLabelForGroups(
+    qualification?.listGroupIds || [],
+  );
   $("#readback-message").textContent =
-    "選択した年度・回のupload-readyに含まれるdocumentだけを本番から読み取ります。";
+    "選択したフォルダのupload-readyに含まれるdocumentだけを本番から読み取ります。";
   $("#readback-summary").replaceChildren();
   $("#readback-job-status").hidden = true;
   $("#readback-job-log-wrap").hidden = true;
@@ -717,7 +727,7 @@ async function refreshReadbackPreview() {
   $("#readback-summary").replaceChildren();
   $("#readback-execute").disabled = true;
   if (!groupIds.length) {
-    $("#readback-message").textContent = "年度・回を1件以上選択してください。";
+    $("#readback-message").textContent = "対象フォルダを1件以上選択してください。";
     return;
   }
   $("#readback-message").textContent = "ローカル成果物から読取範囲を計算しています。";
@@ -730,9 +740,10 @@ async function refreshReadbackPreview() {
     state.readbackDialog.preview = preview;
     $("#readback-message").textContent =
       "この確認ではFirestoreへアクセスしていません。実行時に表示件数だけを読み取ります。";
+    $("#readback-scope-label").textContent = preview.scopeLabel;
     $("#readback-summary").append(
       summaryMetric("資格", preview.qualification),
-      summaryMetric("年度・回", `${preview.groupCount}件`),
+      summaryMetric(preview.scopeLabel, `${preview.groupCount}件`),
       summaryMetric("元問題", `${preview.questionCount}問`),
       summaryMetric("読取対象", `${preview.documentCount} documents`, preview.documentCount ? "warning" : ""),
       summaryMetric("比較不可", `${preview.unavailableQuestionCount}問`, preview.unavailableQuestionCount ? "danger" : "good"),

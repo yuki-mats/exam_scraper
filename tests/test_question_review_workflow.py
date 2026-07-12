@@ -30,7 +30,7 @@ class FakeFirestore:
     def __init__(self, documents=None):
         self.documents = documents or {}
 
-    def read_documents(self, document_ids):
+    def read_documents(self, document_ids, *, fields=None):
         return {
             question_id: copy.deepcopy(self.documents[question_id])
             for question_id in document_ids
@@ -224,6 +224,8 @@ class WorkflowUiContractTests(unittest.TestCase):
             "readback-dialog",
             "readback-group-list",
             "readback-execute",
+            "group-select-label",
+            "readback-scope-label",
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (

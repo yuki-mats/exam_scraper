@@ -72,7 +72,8 @@ class GroupPublisher:
         )
         try:
             live = self.firestore.read_documents(
-                [str(document["questionId"]) for document in documents]
+                [str(document["questionId"]) for document in documents],
+                fields=DOC_COMPARE_KEYS,
             )
         except Exception as exc:  # noqa: BLE001
             raise PublicationError("Firestoreの差分取得に失敗しました。") from exc
@@ -207,7 +208,7 @@ class GroupPublisher:
             if document.get("qualificationId") != qualification:
                 raise PublicationError("upload-readyに別資格のdocumentが含まれています。")
             if str(document.get("listGroupId") or "") != list_group_id:
-                raise PublicationError("upload-readyに別年度・回のdocumentが含まれています。")
+                raise PublicationError("upload-readyに別フォルダのdocumentが含まれています。")
         return path, documents, self._file_hash(path)
 
     @staticmethod
