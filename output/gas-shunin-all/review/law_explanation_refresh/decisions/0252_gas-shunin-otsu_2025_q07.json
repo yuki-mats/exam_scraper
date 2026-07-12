@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 252,
+  "auditKey": "gas-shunin:otsu:2025:law:q07:4fadd8223028",
+  "auditInputHash": "b5f29a06261bc181f63e8c54f65cfbc5b5fc6683cdb0c2e94bcf27241aca00dd",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:13:39+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準では、製造所及び供給所には構内に公衆がみだりに立ち入らないよう適切な措置を講じる必要がある。ただし、周囲の状況により公衆が立ち入るおそれがない場合は例外となる。",
+      "正しい。製造所（特定製造所を除く。）、供給所及び導管を管理する事業場には、緊急時に迅速な通信を確保するため、適切な通信設備を設ける必要がある。",
+      "間違い。製造所には、漏えいしたガスが滞留するおそれのある適当な場所に、ガスの漏えいを適切に検知し、かつ、警報する設備を設ける必要がある。「安全に放出する設備」としている点が誤り。",
+      "正しい。製造所に設置するガス若しくは液化ガスを通ずるガス工作物の付近に設置する電気設備は、設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能を有する必要がある。",
+      "正しい。ガス発生設備及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分は、不活性のもののみを通ずる場合を除き、ガス又は液化ガスを安全に置換できる構造でなければならない。"
+    ],
+    "proposedSuggestedQuestions": [
+      "法令上、製造所等には公衆の立入りに対してどんな措置が必要？",
+      "製造所等には緊急時通信のため何を設ける？",
+      "製造所のガス漏えい場所には検知と何を行う設備が必要？",
+      "ガス工作物付近の電気設備にはどんな性能が必要？",
+      "製造設備のガスを通ずる部分にはどんな置換構造が必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "公衆がみだりに立ち入らないようにする適切な措置。現行法では、ガス事業法施行規則 第1条第2項第8号を根拠に確認済み。",
+        "question": "法令上、製造所等には公衆の立入りに対してどんな措置が必要？"
+      },
+      {
+        "answer": "適切な通信設備。現行法では、ガス事業法施行規則 第26条第1項を根拠に確認済み。",
+        "question": "製造所等には緊急時通信のため何を設ける？"
+      },
+      {
+        "answer": "警報する設備。現行法では、ガス事業法施行規則 第1条第2項第8号を根拠に確認済み。",
+        "question": "製造所のガス漏えい場所には検知と何を行う設備が必要？"
+      },
+      {
+        "answer": "防爆性能。現行法では、ガス事業法施行規則 第1条第2項第8号を根拠に確認済み。",
+        "question": "ガス工作物付近の電気設備にはどんな性能が必要？"
+      },
+      {
+        "answer": "ガス又は液化ガスを安全に置換できる構造。現行法では、ガス工作物の技術上の基準を定める省令 第13条第1項を根拠に確認済み。",
+        "question": "製造設備のガスを通ずる部分にはどんな置換構造が必要？"
+      },
+      {
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第4条第1項、ガス工作物の技術上の基準を定める省令第5条、ガス工作物の技術上の基準を定める省令第9条第2項、ガス工作物の技術上の基準を定める省令第10条第1項、ガス工作物の技術上の基準を定める省令第13条第1項。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "4",
+          "paragraph": "1",
+          "articleTextHash": "b6d5a0556ec648f70109d2644282720fa04461f174c87b34bcc4dcd963178ae2",
+          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "5",
+          "articleTextHash": "13050333b7a56805c831b5da7eec0aa727d08f96dd997628ce8e8ca086882275",
+          "rawXmlHash": "37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "9",
+          "paragraph": "2",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "10",
+          "paragraph": "1",
+          "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+          "rawXmlHash": "691a406b6b56039913bff94378d326c79f179673f3b195beea758e587da5e59f",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "rawXmlHash": "90e37be1a77ea96227e1404350b4e7b34d86b42dce85b0f9d6f66cfd1579ea15",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:13:40Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
