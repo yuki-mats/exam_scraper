@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 256,
+  "auditKey": "gas-shunin:otsu:2025:law:q11:c1641887881a",
+  "auditInputHash": "1cf2d518ba1a16b21c11c92c669a8e4fbfe05cb01c61d8998934b7496fc4a6a0",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:16:07+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。告示で定める着脱が容易なガス栓は、内部に過流出安全機構を有するものでなければならない。",
+      "正しい。ガスの使用場所である超高層建物、高層建物、特定大規模建物、又は最高使用圧力が中圧の導管でガスを供給する建物にガスを供給する導管には、危急の場合にガスを速やかに遮断できる適切な装置を適切な場所に設ける必要がある。",
+      "間違い。地下室等にガスを供給する導管には、危急の場合に当該地下室等へのガスの供給を地上から速やかに遮断できる適切な装置を設ける必要がある。当該地下室等から速やかに遮断としている点が誤り。",
+      "間違い。道路の路面に露出している一定の導管は、車両の接触その他の衝撃により損傷のおそれのある部分に、衝撃による損傷を防止するための措置を講じる必要がある。損傷を受けた場合にガスを遮断する装置としている点が誤り。",
+      "間違い。対象となるガスメーターは、地震動、過大なガス流量又は異常なガス圧力の低下を検知した場合にガスを速やかに遮断する機能を有する必要がある。ガス中の水分を検知対象に含めている点が誤り。"
+    ],
+    "proposedSuggestedQuestions": [
+      "法令上、着脱が容易なガス栓にはどのような安全機構が必要か。",
+      "超高層建物等にガスを供給する導管には、危急時に備えて何を設ける必要があるか。",
+      "地下室等へのガス供給を危急時に遮断する装置は、どこから遮断できる必要があるか。",
+      "道路路面に露出する一定の導管には、車両接触等に対してどのような措置が必要か。",
+      "対象ガスメーターの遮断機能が検知するものは何か。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "内部の過流出安全機構。現行法では、ガス工作物の技術上の基準を定める省令 第45条第1項第2号を根拠に確認済み。",
+        "question": "法令上、着脱が容易なガス栓にはどのような安全機構が必要か。"
+      },
+      {
+        "answer": "ガスを速やかに遮断できる適切な装置。現行法では、ガス工作物の技術上の基準を定める省令 第49条第6項を根拠に確認済み。",
+        "question": "超高層建物等にガスを供給する導管には、危急時に備えて何を設ける必要があるか。"
+      },
+      {
+        "answer": "地上から。現行法では、ガス工作物の技術上の基準を定める省令 第49条第3項を根拠に確認済み。",
+        "question": "地下室等へのガス供給を危急時に遮断する装置は、どこから遮断できる必要があるか。"
+      },
+      {
+        "answer": "衝撃による損傷を防止するための措置。現行法では、ガス事業法施行規則 第1条第2項第1号を根拠に確認済み。",
+        "question": "道路路面に露出する一定の導管には、車両接触等に対してどのような措置が必要か。"
+      },
+      {
+        "answer": "地震動、過大なガス流量、異常なガス圧力の低下。現行法では、ガス事業法施行規則 第1条第2項第1号を根拠に確認済み。",
+        "question": "対象ガスメーターの遮断機能が検知するものは何か。"
+      },
+      {
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第45条第1項第2号、ガス工作物の技術上の基準を定める省令第49条第3項、ガス工作物の技術上の基準を定める省令第49条第4項、ガス工作物の技術上の基準を定める省令第48条第1項、ガス工作物の技術上の基準を定める省令第50条第1項。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "45",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
+          "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "3",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "4",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "1",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:16:08Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
