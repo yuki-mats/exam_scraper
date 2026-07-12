@@ -46,6 +46,23 @@ const EDITABLE_FIELDS = [
   "suggestedQuestionDetails",
 ];
 
+const REVIEW_FIELDS = [
+  ...EDITABLE_FIELDS,
+  "lawReferences",
+  "lawRevisionFacts",
+  "questionBodyText",
+  "choiceTextList",
+];
+
+const REVIEW_SCOPES = new Set([
+  "current_question",
+  "current_group",
+  "qualification",
+  "all_qualifications",
+]);
+
+const reviewTargetContexts = new WeakMap();
+
 const state = {
   token: "",
   inventory: null,
@@ -56,6 +73,8 @@ const state = {
   selectedId: "",
   detail: null,
   reviewMode: "needs_review",
+  reviewSelection: null,
+  selectionCandidate: null,
   pendingEdit: null,
   editBaselinePairs: [],
   workflowDialog: { mode: "", preview: null, running: false },
@@ -176,6 +195,10 @@ function bindControls() {
     if (state.readbackDialog.running) event.preventDefault();
   });
   $("#add-suggestion").addEventListener("click", () => addSuggestionRow("", ""));
+  $("#selection-review-current").addEventListener("click", () => openSelectionReview("current_question"));
+  $("#selection-review-similar").addEventListener("click", () => openSelectionReview("qualification"));
+  $("#selection-toolbar-close").addEventListener("click", () => clearSelectionToolbar(true));
+  document.addEventListener("selectionchange", scheduleSelectionToolbar);
 }
 
 function populateIssueControls() {
@@ -376,7 +399,13 @@ function renderDetail() {
   if (firestoreDiff) pane.append(firestoreDiff);
 
   const questionSection = section("問題文");
-  questionSection.append(element("p", "question-body", question.body));
+  const questionBody = element("p", "question-body", question.body);
+  installReviewTarget(questionBody, {
+    fields: ["questionBodyText"],
+    targetLabel: "問題文",
+    dataPath: "questionBodyText",
+  });
+  questionSection.append(questionBody);
   if (question.issues.length) {
     const issues = element("div", "issue-panel");
     for (const issue of question.issues) {
@@ -592,13 +621,27 @@ function collectLeafEntries(value, prefix = [], entries = []) {
   return entries;
 }
 
-function renderReadableValue(value, otherValue) {
+function firestoreReviewContext(context, tokens = []) {
+  if (!context) return null;
+  const field = context.fields?.[0] || "";
+  const pathTokens = [...(context.pathTokens || []), ...tokens];
+  const suffix = pathTokens.map((token) => (Number.isInteger(token) ? `[${token}]` : `.${token}`)).join("");
+  return {
+    ...context,
+    pathTokens,
+    choiceIndexes: Number.isInteger(pathTokens[0]) ? [pathTokens[0]] : [],
+    dataPath: `${field}${suffix}`,
+  };
+}
+
+function renderReadableValue(value, otherValue, reviewContext = null) {
   if (valuesEqual(value, otherValue)) return noDiffValue();
   if (value === undefined) return element("span", "firestore-diff-empty", "fieldなし");
   if (value === null) return element("span", "firestore-diff-empty", "null");
   if (isPlainValue(value)) {
     const node = element("span", "firestore-diff-text");
     node.textContent = plainValueText(value);
+    if (reviewContext) installReviewTarget(node, reviewContext);
     return node;
   }
 
@@ -607,7 +650,11 @@ function renderReadableValue(value, otherValue) {
   for (const [tokens, entryValue] of entries) {
     const row = element("div", "firestore-diff-leaf");
     row.append(element("code", "firestore-diff-leaf-path", dataPathLabel(tokens)));
-    row.append(renderReadableValue(entryValue, valueAtPath(otherValue, tokens)));
+    row.append(renderReadableValue(
+      entryValue,
+      valueAtPath(otherValue, tokens),
+      firestoreReviewContext(reviewContext, tokens),
+    ));
     list.append(row);
   }
   return list;
@@ -626,17 +673,26 @@ function uniqueRelativePaths(paths, field) {
   return values;
 }
 
-function firestoreDiffValue(value, otherValue, paths, field) {
+function firestoreDiffValue(value, otherValue, paths, field, sourceLabel) {
   const relativePaths = uniqueRelativePaths(paths, field);
+  const reviewContext = {
+    fields: [field],
+    issueType: "live_mismatch",
+    targetLabel: `Firestore差分 / ${sourceLabel} / ${field}`,
+  };
   if (!relativePaths.length || (relativePaths.length === 1 && !relativePaths[0].length)) {
-    return renderReadableValue(value, otherValue);
+    return renderReadableValue(value, otherValue, firestoreReviewContext(reviewContext));
   }
 
   const list = element("div", "firestore-diff-item-list");
   for (const tokens of relativePaths) {
     const item = element("div", "firestore-diff-item");
     item.append(element("code", "firestore-diff-item-path", dataPathLabel(tokens)));
-    item.append(renderReadableValue(valueAtPath(value, tokens), valueAtPath(otherValue, tokens)));
+    item.append(renderReadableValue(
+      valueAtPath(value, tokens),
+      valueAtPath(otherValue, tokens),
+      firestoreReviewContext(reviewContext, tokens),
+    ));
     list.append(item);
   }
   return list;
@@ -759,10 +815,10 @@ function renderFirestoreDiff(question) {
       );
       const fieldPaths = nestedPaths.length ? nestedPaths : [field];
       row.children[1].append(
-        firestoreDiffValue(expected[field], readbackDocument.live?.[field], fieldPaths, field),
+        firestoreDiffValue(expected[field], readbackDocument.live?.[field], fieldPaths, field, "upload-ready"),
       );
       row.children[2].append(
-        firestoreDiffValue(readbackDocument.live?.[field], expected[field], fieldPaths, field),
+        firestoreDiffValue(readbackDocument.live?.[field], expected[field], fieldPaths, field, "Firestore現在値"),
       );
       body.append(row);
     }
@@ -1180,14 +1236,35 @@ function renderChoices(projected) {
     const verdictValue = normalizeVerdict(rawVerdict);
     const card = element("article", "choice-card");
     const indexNode = element("div", "choice-index");
+    const verdict = element("span", `verdict ${verdictValue === "正しい" ? "correct" : "incorrect"}`, rawVerdict);
+    installReviewTarget(verdict, {
+      fields: ["correctChoiceText"],
+      choiceIndexes: [index],
+      targetLabel: `選択肢${index + 1}の正誤`,
+      dataPath: `correctChoiceText[${index}]`,
+    });
     indexNode.append(
       element("span", "", String(index + 1)),
-      element("span", `verdict ${verdictValue === "正しい" ? "correct" : "incorrect"}`, rawVerdict),
+      verdict,
     );
+    const choiceText = element("div", "choice-text", choice);
+    installReviewTarget(choiceText, {
+      fields: ["choiceTextList"],
+      choiceIndexes: [index],
+      targetLabel: `選択肢${index + 1}`,
+      dataPath: `choiceTextList[${index}]`,
+    });
+    const explanation = element("div", "choice-explanation", explanations[index] || "（解説なし）");
+    installReviewTarget(explanation, {
+      fields: ["explanationText"],
+      choiceIndexes: [index],
+      targetLabel: `選択肢${index + 1}の基本解説`,
+      dataPath: `explanationText[${index}]`,
+    });
     card.append(
       indexNode,
-      element("div", "choice-text", choice),
-      element("div", "choice-explanation", explanations[index] || "（解説なし）"),
+      choiceText,
+      explanation,
     );
     node.append(card);
   });
@@ -1204,10 +1281,23 @@ function renderSuggestions(projected) {
   for (let index = 0; index < count; index += 1) {
     const detail = details[index] || {};
     const row = document.createElement("tr");
-    row.append(
-      element("th", "", detail.question || questions[index] || ""),
-      element("td", "", detail.answer || "（回答なし）"),
-    );
+    const question = element("th", "", detail.question || questions[index] || "");
+    const questionField = detail.question ? "suggestedQuestionDetails" : "suggestedQuestions";
+    const questionPath = detail.question
+      ? `suggestedQuestionDetails[${index}].question`
+      : `suggestedQuestions[${index}]`;
+    installReviewTarget(question, {
+      fields: [questionField],
+      targetLabel: `補足質問${index + 1}`,
+      dataPath: questionPath,
+    });
+    const answer = element("td", "", detail.answer || "（回答なし）");
+    installReviewTarget(answer, {
+      fields: ["suggestedQuestionDetails"],
+      targetLabel: `補足質問${index + 1}の回答`,
+      dataPath: `suggestedQuestionDetails[${index}].answer`,
+    });
+    row.append(question, answer);
     table.append(row);
   }
   return table;
@@ -1219,12 +1309,24 @@ function renderLawSection(projected) {
   references.open = true;
   references.append(element("summary", "", "lawReferences"));
   const content = element("div", "details-content");
-  content.append(jsonPre(projected.lawReferences || []));
+  const referenceData = jsonPre(projected.lawReferences || []);
+  installReviewTarget(referenceData, {
+    fields: ["lawReferences"],
+    targetLabel: "法令根拠 / lawReferences",
+    dataPath: "lawReferences",
+  });
+  content.append(referenceData);
   references.append(content);
   const facts = document.createElement("details");
   facts.append(element("summary", "", "lawRevisionFacts"));
   const factContent = element("div", "details-content");
-  factContent.append(jsonPre(projected.lawRevisionFacts || []));
+  const factData = jsonPre(projected.lawRevisionFacts || []);
+  installReviewTarget(factData, {
+    fields: ["lawRevisionFacts"],
+    targetLabel: "法令根拠 / lawRevisionFacts",
+    dataPath: "lawRevisionFacts",
+  });
+  factContent.append(factData);
   facts.append(factContent);
   node.append(references, facts);
   return node;
@@ -1306,35 +1408,127 @@ function jsonPre(value) {
   return element("pre", "", JSON.stringify(value, null, 2));
 }
 
-function openReview(mode) {
+function normalizedReviewSelection(node, context, selectedText = "") {
+  return {
+    targetLabel: String(context.targetLabel || "表示箇所"),
+    dataPath: String(context.dataPath || ""),
+    fields: [...new Set((context.fields || []).map(String).filter(Boolean))],
+    choiceIndexes: [...new Set((context.choiceIndexes || []).map(Number).filter(Number.isInteger))],
+    selectedText: selectedText || String(context.selectedText || node.textContent || "").trim(),
+  };
+}
+
+function installReviewTarget(node, context) {
+  node.classList.add("reviewable-content");
+  node.title = "文字列を選択してCodexに確認";
+  reviewTargetContexts.set(node, context);
+}
+
+let selectionToolbarTimer = null;
+
+function reviewTargetFromSelectionNode(node) {
+  const elementNode = node?.nodeType === Node.ELEMENT_NODE ? node : node?.parentElement;
+  return elementNode?.closest?.(".reviewable-content") || null;
+}
+
+function selectionCandidate() {
+  const selection = window.getSelection?.();
+  const selectedText = selection?.toString().trim() || "";
+  if (!selection || selection.isCollapsed || !selectedText) return null;
+  const anchorTarget = reviewTargetFromSelectionNode(selection.anchorNode);
+  const focusTarget = reviewTargetFromSelectionNode(selection.focusNode);
+  if (!anchorTarget || anchorTarget !== focusTarget) return null;
+  const context = reviewTargetContexts.get(anchorTarget);
+  if (!context) return null;
+  return {
+    selection: normalizedReviewSelection(anchorTarget, context, selectedText),
+    issueType: context.issueType || "",
+  };
+}
+
+function scheduleSelectionToolbar() {
+  window.clearTimeout(selectionToolbarTimer);
+  selectionToolbarTimer = window.setTimeout(renderSelectionToolbar, 120);
+}
+
+function renderSelectionToolbar() {
+  const candidate = selectionCandidate();
+  const toolbar = $("#selection-toolbar");
+  if (!candidate || document.querySelector("dialog[open]")) {
+    if (!candidate && toolbar.matches(":focus-within")) return;
+    toolbar.hidden = true;
+    state.selectionCandidate = null;
+    return;
+  }
+  state.selectionCandidate = candidate;
+  $("#selection-toolbar-label").textContent = candidate.selection.targetLabel;
+  $("#selection-toolbar-text").textContent = candidate.selection.selectedText;
+  toolbar.hidden = false;
+}
+
+function clearSelectionToolbar(clearBrowserSelection = false) {
+  window.clearTimeout(selectionToolbarTimer);
+  $("#selection-toolbar").hidden = true;
+  state.selectionCandidate = null;
+  if (clearBrowserSelection) window.getSelection?.().removeAllRanges();
+}
+
+function openSelectionReview(investigationScope) {
+  const candidate = state.selectionCandidate;
+  if (!candidate) return;
+  const { selection, issueType } = candidate;
+  clearSelectionToolbar(true);
+  openReview("awaiting_codex", selection, issueType, investigationScope);
+}
+
+function openReview(mode, selection = null, issueType = "", investigationScope = "current_question") {
   if (!state.detail) return;
   state.reviewMode = mode;
-  $("#review-dialog-title").textContent = mode === "awaiting_codex" ? "Codex用依頼を作成" : "指摘を記録";
+  state.reviewSelection = selection;
+  $("#review-dialog-title").textContent = selection
+    ? "選択した箇所をCodexに確認"
+    : mode === "awaiting_codex" ? "Codex用依頼を作成" : "指摘を記録";
   $("#review-submit").textContent = mode === "awaiting_codex" ? "作成してコピー" : "記録";
-  const firstIssue = state.detail.issueCodes[0] || "other";
+  const firstIssue = issueType || state.detail.issueCodes[0] || "other";
   $("#review-issue").value = ISSUE_LABELS[firstIssue] ? firstIssue : "other";
   $("#review-note").value = "";
   $("#review-expected").value = "";
+  $("#review-scope").value = REVIEW_SCOPES.has(investigationScope)
+    ? investigationScope
+    : "current_question";
+  $("#review-scope-wrap").hidden = mode !== "awaiting_codex";
+
+  const selectionNode = $("#review-selection");
+  selectionNode.hidden = !selection;
+  $("#review-selection-label").textContent = selection?.targetLabel || "";
+  $("#review-selection-path").textContent = selection?.dataPath ? `field: ${selection.dataPath}` : "";
+  $("#review-selection-text").textContent = selection?.selectedText || "";
 
   const choiceList = $("#review-choice-list");
   choiceList.replaceChildren();
   const choices = state.detail.projected?.choiceTextList || [];
-  choices.forEach((_, index) => choiceList.append(checkbox(`choice-${index}`, `選択肢${index + 1}`, String(index))));
+  const selectedChoices = new Set(selection?.choiceIndexes || []);
+  choices.forEach((_, index) => choiceList.append(
+    checkbox(`choice-${index}`, `選択肢${index + 1}`, String(index), selectedChoices.has(index)),
+  ));
 
   const fieldList = $("#review-field-list");
   fieldList.replaceChildren();
-  for (const field of [...EDITABLE_FIELDS, "lawReferences", "lawRevisionFacts", "questionBodyText", "choiceTextList"]) {
-    fieldList.append(checkbox(`field-${field}`, field, field));
+  const selectedFields = new Set(selection?.fields || []);
+  for (const field of [...new Set([...REVIEW_FIELDS, ...selectedFields])]) {
+    fieldList.append(checkbox(`field-${field}`, field, field, selectedFields.has(field)));
   }
   $("#review-dialog").showModal();
+  $("#review-note").focus();
 }
 
-function checkbox(id, label, value) {
+function checkbox(id, label, value, checked = false) {
   const wrapper = document.createElement("label");
   const input = document.createElement("input");
   input.type = "checkbox";
   input.id = id;
   input.value = value;
+  input.checked = checked;
   wrapper.append(input, document.createTextNode(label));
   return wrapper;
 }
@@ -1355,6 +1549,8 @@ async function submitReview(event) {
           issueTypes: [$("#review-issue").value],
           note: $("#review-note").value,
           expectedOutcome: $("#review-expected").value,
+          selection: state.reviewSelection,
+          investigationScope: $("#review-scope").value,
         },
       },
     });

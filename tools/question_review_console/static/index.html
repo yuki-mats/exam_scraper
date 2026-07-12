@@ -77,6 +77,23 @@
           <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
         </header>
         <div class="dialog-body">
+          <section id="review-selection" class="review-selection" hidden>
+            <div class="review-selection-heading">
+              <strong>選択した箇所</strong>
+              <span id="review-selection-label"></span>
+            </div>
+            <p id="review-selection-path"></p>
+            <blockquote id="review-selection-text"></blockquote>
+          </section>
+          <label id="review-scope-wrap">
+            <span>Codexの調査範囲</span>
+            <select id="review-scope">
+              <option value="current_question">この問題のみ</option>
+              <option value="current_group">このフォルダの類似問題</option>
+              <option value="qualification">この資格の類似問題</option>
+              <option value="all_qualifications">全資格の類似問題</option>
+            </select>
+          </label>
           <label>
             <span>issue種別</span>
             <select id="review-issue" required></select>
@@ -91,7 +108,7 @@
           </fieldset>
           <label>
             <span>何がおかしいか</span>
-            <textarea id="review-note" rows="4" required></textarea>
+            <textarea id="review-note" rows="4" placeholder="例: 条文の内容と逆ではないか。根拠として挙げている条文番号が違うのではないか。" required></textarea>
           </label>
           <label>
             <span>期待する状態（不明なら空で可）</span>
@@ -207,6 +224,17 @@
       </form>
     </dialog>
 
+    <aside id="selection-toolbar" class="selection-toolbar" aria-label="選択箇所の操作" hidden>
+      <div class="selection-toolbar-copy">
+        <strong id="selection-toolbar-label"></strong>
+        <span id="selection-toolbar-text"></span>
+      </div>
+      <div class="selection-toolbar-actions">
+        <button id="selection-review-current" class="primary-button" type="button">この箇所を確認</button>
+        <button id="selection-review-similar" class="secondary-button" type="button">類似も調査</button>
+        <button id="selection-toolbar-close" class="icon-button" type="button" title="閉じる" aria-label="閉じる">×</button>
+      </div>
+    </aside>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/app.js"></script>
   </body>

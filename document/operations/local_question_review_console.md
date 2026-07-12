@@ -178,6 +178,10 @@ flowchart LR
 - `suggestedQuestions`と回答
 - 法令問題の場合は条文位置、検証状態、監査状態
 
+問題文、選択肢、正誤、基本解説、補足質問、法令根拠、Firestore差分の文字列を選択すると、「この箇所を確認」と「類似も調査」の操作を表示する。対象field、選択肢番号、data path、選択文字列を自動取得し、「何がおかしいか」は別の自由記述欄へ自然言語で入力する。
+
+調査範囲は「この問題のみ」「このフォルダの類似問題」「この資格の類似問題」「全資格の類似問題」から選ぶ。類似問題は文言一致だけで一括修正せず、Codexが同じ原因と確認できた問題だけを対象とする。
+
 組合せ問題や選択肢が断片の問題も、元問題文と全選択肢を一つの単位として表示する。Firestoreで選択肢ごとに分割されていても、レビュー画面では元問題へ再構成する。
 
 ### 6.4 workflow状態表示
@@ -263,6 +267,8 @@ review sidecarの状態は次に限定する。
 - 何がおかしいか
 - 期待する状態。分からない場合は空でよい
 - 補足根拠。分からない場合は空でよい
+- UIの文字列選択から作成する場合は、表示位置、data path、対象field、選択肢番号、選択文字列
+- Codexの調査範囲。この問題、同じフォルダ、同じ資格、全資格のいずれか
 
 指摘だけで正答を確定しない。`期待する状態`が空でもCodexへ調査依頼できる。
 
@@ -297,6 +303,14 @@ review JSONは問題patchではない。merge対象にしない。
   "fields": ["correctChoiceText", "explanationText"],
   "note": "問題文の否定条件と正誤方向を確認してほしい。",
   "expectedOutcome": "",
+  "selection": {
+    "targetLabel": "選択肢2の基本解説",
+    "dataPath": "explanationText[1]",
+    "fields": ["explanationText"],
+    "choiceIndexes": [1],
+    "selectedText": "UIで選択した文字列"
+  },
+  "investigationScope": "qualification",
   "snapshots": {
     "sourceHash": "sha256...",
     "projectedHash": "sha256...",

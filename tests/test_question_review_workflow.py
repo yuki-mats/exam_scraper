@@ -239,6 +239,10 @@ class WorkflowUiContractTests(unittest.TestCase):
             "renderFirestoreDiff",
             "scrollToFirestoreDiff",
             "parseDataPath",
+            "installReviewTarget",
+            "normalizedReviewSelection",
+            "renderSelectionToolbar",
+            "openSelectionReview",
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
@@ -247,6 +251,12 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('"firestore-diff-no-change"', javascript)
         self.assertIn('"差分なし"', javascript)
         self.assertNotIn('"firestore-diff-more"', javascript)
+        self.assertIn('id="review-selection"', html)
+        self.assertIn('id="selection-toolbar"', html)
+        self.assertIn('id="review-scope"', html)
+        self.assertIn('"selectionchange"', javascript)
+        self.assertIn("selection: state.reviewSelection", javascript)
+        self.assertIn('investigationScope: $("#review-scope").value', javascript)
 
 
 if __name__ == "__main__":

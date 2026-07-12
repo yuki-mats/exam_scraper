@@ -49,6 +49,40 @@ def build_codex_prompt(
         path_lines.append(f"- patch: `{repo_root / value}`")
 
     body = str(question.get("body") or "")
+    selection = review.get("selection") or {}
+    selection_text = str(selection.get("selectedText") or "")
+    quoted_selection = "\n".join(f"> {line}" for line in selection_text.splitlines())
+    selection_section = ""
+    if selection:
+        selected_fields = ", ".join(str(value) for value in selection.get("fields") or [])
+        selected_choices = ", ".join(
+            f"選択肢{int(value) + 1}" for value in selection.get("choiceIndexes") or []
+        )
+        selection_section = f"""## UIで選択した箇所
+
+- 表示位置: {selection.get('targetLabel') or '未指定'}
+- data path: `{selection.get('dataPath') or '未指定'}`
+- field: {selected_fields or '未指定'}
+- 対象選択肢: {selected_choices or 'なし'}
+
+{quoted_selection or '>（表示テキストなし）'}
+
+"""
+    scope = str(review.get("investigationScope") or "current_question")
+    scope_labels = {
+        "current_question": "この問題のみ",
+        "current_group": "同じ資格・同じフォルダの類似問題",
+        "qualification": "同じ資格の全フォルダにある類似問題",
+        "all_qualifications": "全資格にある類似問題",
+    }
+    scope_instruction = {
+        "current_question": "指定された問題だけを調査・修正する。",
+        "current_group": "同じqualification・listGroupId内を検索し、同じ原因と確認できた類似問題も修正する。",
+        "qualification": "同じqualificationの全listGroupIdを検索し、同じ原因と確認できた類似問題も修正する。",
+        "all_qualifications": "全qualificationを検索し、同じ原因と確認できた類似問題も修正する。",
+    }
+    scope_label = scope_labels.get(scope, scope_labels["current_question"])
+    scope_text = scope_instruction.get(scope, scope_instruction["current_question"])
     return f"""# 問題整備レビュー対応
 
 ローカル問題レビューUIで次の指摘が作成されました。review JSONを読み、現行workflowに従って原因調査、必要なpatch修正、検証まで行ってください。
@@ -63,6 +97,7 @@ def build_codex_prompt(
 - reviewKey: `{question.get('reviewKey')}`
 - issue: {issue_types or '未分類'}
 - fields: {fields or '未指定'}
+- 調査範囲: {scope_label}
 
 ## 人間の指摘
 
@@ -72,7 +107,7 @@ def build_codex_prompt(
 
 {review.get('expectedOutcome') or '（Codexで根拠を確認して判断する）'}
 
-## 問題文
+{selection_section}## 問題文
 
 {body}
 
@@ -92,6 +127,7 @@ def build_codex_prompt(
 - 対象外の未コミット変更を破棄しない。
 - merge、convert、対象quality-gateを実行し、変更が最終成果物へ反映されることを確認する。
 - Firestoreへの実アップロードは、この依頼又はユーザーが明示した場合だけ行う。
+- 調査範囲は「{scope_label}」とする。{scope_text}文言が似ているだけで一括置換せず、問題文と選択肢を結合した判定命題と根拠を個別に確認する。
 
 ## 完了時に示すもの
 

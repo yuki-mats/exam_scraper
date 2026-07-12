@@ -77,6 +77,31 @@ class ReviewStore:
         directory = self.root / qualification / list_group_id
         review_path = directory / "reviews" / f"{review_id}.json"
         prompt_path = directory / "prompts" / f"{review_id}.md"
+        selection = request.get("selection")
+        if isinstance(selection, Mapping):
+            selection_payload = {
+                "targetLabel": str(selection.get("targetLabel") or "").strip(),
+                "dataPath": str(selection.get("dataPath") or "").strip(),
+                "fields": [str(value) for value in selection.get("fields") or []],
+                "choiceIndexes": sorted(
+                    {
+                        int(value)
+                        for value in selection.get("choiceIndexes") or []
+                        if isinstance(value, int) or str(value).isdigit()
+                    }
+                ),
+                "selectedText": str(selection.get("selectedText") or "").strip(),
+            }
+        else:
+            selection_payload = None
+        investigation_scope = str(request.get("investigationScope") or "current_question")
+        if investigation_scope not in {
+            "current_question",
+            "current_group",
+            "qualification",
+            "all_qualifications",
+        }:
+            investigation_scope = "current_question"
         payload = {
             "schemaVersion": "local-question-review/v1",
             "reviewId": review_id,
@@ -98,6 +123,8 @@ class ReviewStore:
             "fields": [str(value) for value in request.get("fields") or []],
             "note": str(request.get("note") or "").strip(),
             "expectedOutcome": str(request.get("expectedOutcome") or "").strip(),
+            "selection": selection_payload,
+            "investigationScope": investigation_scope,
             "snapshots": {
                 "projectedHash": question["stateHash"],
                 "sourceHash": _hash(question.get("source")),

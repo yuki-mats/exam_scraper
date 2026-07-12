@@ -25,7 +25,26 @@ class QuestionReviewStoreTests(unittest.TestCase):
                 "uploadReadyDocs": [],
                 "paths": {"source": "output/source.json", "patches": []},
             }
-            created = store.create(question, {"note": "確認してほしい"})
+            created = store.create(
+                question,
+                {
+                    "note": "確認してほしい",
+                    "selection": {
+                        "targetLabel": "選択肢1の基本解説",
+                        "dataPath": "explanationText[0]",
+                        "fields": ["explanationText"],
+                        "choiceIndexes": [0],
+                        "selectedText": "正しい。",
+                    },
+                    "investigationScope": "qualification",
+                },
+            )
+            self.assertEqual(created["selection"]["dataPath"], "explanationText[0]")
+            self.assertEqual(created["investigationScope"], "qualification")
+            self.assertIn("UIで選択した箇所", created["prompt"])
+            self.assertIn("選択肢1の基本解説", created["prompt"])
+            self.assertIn("> 正しい。", created["prompt"])
+            self.assertIn("同じ資格の全フォルダ", created["prompt"])
             question["stateHash"] = "state-2"
             latest = store.latest_for(question)
             self.assertEqual(latest["status"], "post_fix_review")
