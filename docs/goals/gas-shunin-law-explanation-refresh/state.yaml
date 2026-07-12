@@ -5395,6 +5395,59 @@ tasks:
         - "correctChoiceText・00_source・選択肢・既存ID不変"
         - "mappingErrorCount=0, decisionErrorCount=0"
       harness: codex
+  - id: T262
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "sequence 233の公式PDF組合せ変換誤りを、00_source不変のまま公開派生成果物で訂正し、保留を解消する。"
+    inputs:
+      - "JIA令和6年度乙種公式問題・解答PDF"
+      - "ガス関係報告規則第4条第1項表"
+      - "sequence 233 hold decision"
+    constraints:
+      - "00_sourceと既存IDを変更しない。"
+      - "公式解答番号3は維持する。"
+      - "選択肢別正誤の展開だけをロ・ホへ訂正する。"
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0233_gas-shunin-otsu_2024_q04.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/correct_choice_review_flags.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json"
+    verify:
+      - "build inventory"
+      - "19 unittest cases"
+      - "00_source diff check"
+      - "derived correctChoiceText is ロ・ホ"
+    stop_if:
+      - "公式PDFの組合せ3がロ・ホでない。"
+      - "00_source又は既存ID変更が必要。"
+    receipt:
+      result: done
+      summary: "sequence 233の保留を再監査。JIA公式問題の組合せ3がロ・ホ、公式解答が3であることを視覚確認し、00_source不変のまま公開派生成果物の選択肢別正誤をロ・ホへ訂正した。"
+      changed_files:
+        - output/gas-shunin-all/review/law_explanation_refresh/decisions/0233_gas-shunin-otsu_2024_q04.json
+        - output/gas-shunin-all/review/law_explanation_refresh/correct_choice_review_flags.jsonl
+        - output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl
+        - output/gas-shunin-all/review/law_explanation_refresh/summary.json
+        - output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json
+      commands:
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+        - cmd: "derived correctChoiceText is ロ・ホ"
+          status: pass
+      evidence:
+        - "JIA question PDF sha256=59c4d7b13289bfa20916504b16cc829a4046b9baa05e6cac4e3737bd9ba54282"
+        - "JIA answer PDF sha256=62e3460dd2956badc9c6364da374fe876c241c717d0b4ed49ad790c8c43ce0d5"
+        - "officialAnswerNumber=3, officialCombination=ロ・ホ"
+        - "patchAppliedQuestionCount=261, hold=0, pending=0, flags=0, errors=0"
+        - "public_question_id=b312de5198cdf4bf and choice text unchanged"
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge

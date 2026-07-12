@@ -3,19 +3,92 @@
   "sequence": 233,
   "auditKey": "gas-shunin:otsu:2024:law:q04:25e1628d3225",
   "auditInputHash": "02fa2b0b60ee502e6705dd19a8fb5876904dbb9a9787817042844e6b23f943ec",
-  "status": "hold",
-  "reviewedAt": "2026-07-12T04:13:26+09:00",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:24:24+09:00",
   "reviewDecision": {
-    "correctChoiceTextChanged": false,
+    "correctChoiceTextChanged": true,
     "correctChoiceTextReview": {
-      "status": "flagged",
-      "flags": [
-        {
-          "issueCode": "current_law_correct_choice_mismatch",
-          "choiceIndex": 2,
-          "sourceCorrectChoiceText": "正しい",
-          "currentLawCorrectChoiceText": "間違い",
-          "reason": "製造支障時間10時間は、ガス関係報告規則第4条第1項の表第8号が定める10時間以上24時間未満に該当し、ガス事故速報及び詳報の対象である。",
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "correctChoiceText",
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "proposedExplanationText": [
+      "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
+      "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
+      "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物の操作により人が酸素欠乏症となった事故は、ガス事故速報の対象か？",
+      "供給支障戸数が20の供給支障事故は、ガス事故速報の対象か？",
+      "製造支障時間が10時間の製造支障事故は、ガス事故速報の対象か？",
+      "ガス工作物からのガス漏えいによる火災事故は、ガス事故速報の対象か？",
+      "死傷なしの消費機器損傷物損事故は、ガス事故速報の対象か？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "対象である。ガス関係報告規則第4条第1項表第5号は、ガス工作物の操作により人が酸素欠乏症となった事故を速報及び詳報の対象にしている。",
+        "question": "ガス工作物の操作により人が酸素欠乏症となった事故は、ガス事故速報の対象か？"
+      },
+      {
+        "answer": "対象ではない。供給支障事故の速報対象は、供給支障戸数が100以上のものなどであり、20戸はしきい値に達しない。",
+        "question": "供給支障戸数が20の供給支障事故は、ガス事故速報の対象か？"
+      },
+      {
+        "answer": "e-Gov掲載の現行・出題時参照版では対象である。同表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を速報及び詳報の対象としている。一方、本問のJIA公式解答はハを速報対象外の組合せに含めているため、公式解答との不整合を監査記録に明記している。",
+        "question": "製造支障時間が10時間の製造支障事故は、ガス事故速報の対象か？"
+      },
+      {
+        "answer": "対象である。同表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を速報及び詳報の対象としている。",
+        "question": "ガス工作物からのガス漏えいによる火災事故は、ガス事故速報の対象か？"
+      },
+      {
+        "answer": "e-Gov掲載の現行・出題時参照版では対象ではない。同表第18号の死傷なしの消費機器損傷物損事故は詳報のみの対象であり、速報は規定されていない。一方、本問のJIA公式解答はホを速報対象外の組合せに含めていないため、公式解答との不整合を監査記録に明記している。",
+        "question": "死傷なしの消費機器損傷物損事故は、ガス事故速報の対象か？"
+      },
+      {
+        "answer": "根拠は、ガス関係報告規則第4条第1項第5号の表、ガス関係報告規則第4条第1項第7号の表、ガス関係報告規則第4条第1項第8号の表、ガス関係報告規則第4条第1項第12号の表、ガス関係報告規則第4条第1項第18号の表。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "5",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "1": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "7",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "2": {
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
@@ -24,12 +97,16 @@
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         },
-        {
-          "issueCode": "current_law_correct_choice_mismatch",
-          "choiceIndex": 4,
-          "sourceCorrectChoiceText": "間違い",
-          "currentLawCorrectChoiceText": "正しい",
-          "reason": "死傷者がいない消費機器損傷の物損事故は、ガス関係報告規則第4条第1項の表第18号で詳報のみの対象とされ、ガス事故速報の報告は規定されていない。",
+        "3": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "12",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "4": {
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
@@ -38,59 +115,32 @@
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
           "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         }
-      ]
-    },
-    "requiresPatch": false,
-    "changeFields": [],
-    "sourceNotReportableChoiceIndexes": [
-      1,
-      2
-    ],
-    "currentLawNotReportableChoiceIndexes": [
-      1,
-      4
-    ],
-    "currentLawExplanationText": [
-      "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
-      "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
-      "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
-      "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。"
-    ]
+      }
+    }
   },
   "reviewNotes": [
-    "00_source.correctChoiceTextは間違い、正しい、正しい、間違い、間違いで、速報対象外を第2肢と第3肢としている。",
-    "現行のガス関係報告規則第4条第1項の表では、速報対象外は第2肢と第5肢である。",
-    "第3肢は表第8号により速報及び詳報の対象、第5肢は表第18号により詳報のみの対象であり、source評価が相互に逆転している。",
-    "00_source、既存ID及び公開正答は変更せず、correct_choice_review_flags.jsonlで人手確認待ちとする。"
+    "JIA公式問題PDFの問4における組合せ選択肢3はロ・ホである。",
+    "JIA公式解答PDFは法令問4の正解を3としている。",
+    "00_sourceは組合せ3をロ・ハへ誤展開していたため、00_sourceは変更せず公開派生成果物をロ・ホへ訂正する。"
   ],
   "evidence": {
+    "verificationStatus": "official_question_answer_and_current_law_aligned",
+    "questionPdfUrl": "https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r6.pdf",
+    "questionPdfSha256": "59c4d7b13289bfa20916504b16cc829a4046b9baa05e6cac4e3737bd9ba54282",
+    "answerPdfUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+    "answerPdfSha256": "62e3460dd2956badc9c6364da374fe876c241c717d0b4ed49ad790c8c43ce0d5",
+    "officialAnswerNumber": 3,
+    "officialCombination": [
+      "ロ",
+      "ホ"
+    ],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceCorrectTextUsed": false,
-    "targetQuestionIds": [
-      "gas-shunin-otsu-2024-law-q04-s01",
-      "gas-shunin-otsu-2024-law-q04-s02",
-      "gas-shunin-otsu-2024-law-q04-s03",
-      "gas-shunin-otsu-2024-law-q04-s04",
-      "gas-shunin-otsu-2024-law-q04-s05"
-    ],
-    "currentLaws": [
-      {
-        "lawTitle": "ガス関係報告規則",
-        "lawId": "429M60000400016",
-        "articles": [
-          "4"
-        ],
-        "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
-        "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-        "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
-      }
-    ],
-    "referenceDate": "2026-07-12",
-    "verificationStatus": "verified_source_conflict",
-    "examTime": {
-      "referenceDate": "2024",
-      "verificationStatus": "source_correct_text_requires_confirmation"
-    }
+    "sourceCorrectTextUsed": false
+  },
+  "appliedAt": "2026-07-12T01:24:32Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
   }
 }
