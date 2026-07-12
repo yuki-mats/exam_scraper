@@ -20,12 +20,14 @@ from scripts.fix.auto_assign_correct_choice_text import build_expected_correct_c
 SCHEMA_VERSION = "qualification-01-04-manual-review/v1"
 PROMPT_01 = "prompt/01_prompt_fix_questionType.md"
 PROMPT_02 = "prompt/02_prompt_fix_questionIntent.md"
+PROMPT_02A = "prompt/02a_prompt_review_correctChoiceText.md"
 PROMPT_03 = "prompt/03_prompt_add_explanationText.md"
 PROMPT_04 = "prompt/04_prompt_link_questionSetId.md"
 
 STAGE_DEFS = {
     "questionType": ("10_questionType_fixed", "questionType_fixed"),
-    "correctChoice": ("15_correctChoiceText_fixed", "correctChoiceText_fixed"),
+    "questionIntent": ("15_correctChoiceText_fixed", "correctChoiceText_fixed"),
+    "correctChoice": ("23_correctChoiceText_fixed", "correctChoiceText_fixed"),
     "explanation": ("21_explanationText_added", "explanationText_added"),
     "questionSet": ("22_questionSetId_linked", "questionSetId_linked"),
 }
@@ -219,11 +221,12 @@ def build_review_row(
     return {
         "schemaVersion": SCHEMA_VERSION,
         "reviewId": review_id,
-        "workflow": "01_questionType -> 02_questionIntent_correctChoiceText -> 03_explanationText -> 04_questionSetId",
+        "workflow": "01_questionType -> 02_questionIntent -> 02a_correctChoiceText -> 03_explanationText -> 04_questionSetId",
         "qualification": qualification,
         "qualificationName": qualification_name,
         "prompt01Path": PROMPT_01,
         "prompt02Path": PROMPT_02,
+        "prompt02aPath": PROMPT_02A,
         "prompt03Path": PROMPT_03,
         "prompt04Path": PROMPT_04,
         "categoryPath": rel(category_path),
@@ -266,8 +269,8 @@ def build_review_row(
         },
         "requiredManualChecks": [
             "01: questionType が設問形式と選択肢構造に合っているか確認する",
-            "02a: questionIntent が『正しいもの/誤っているもの』の設問要求に合っているか確認する",
-            "02b: correctChoiceText が answer_result_text と選択肢位置に合っているか確認する",
+            "02: questionIntent が『正しいもの/誤っているもの』の設問要求に合っているか確認する",
+            "02a: correctChoiceText が answer_result_text と選択肢位置に合っているか確認する",
             "03: explanationText が各選択肢の正誤理由を誤学習なく説明しているか確認する",
             "04: questionSetId が公式出題基準ベースの category.json に合っているか確認する",
         ],
@@ -372,10 +375,9 @@ def build_work_order_markdown(summary: dict[str, Any], output_dir: Path) -> str:
         f"- questions: {summary['questionCount']}",
         "",
         "## Workflow",
-        "- 01: `10_questionType_fixed/` の固定名ファイルを上書きする。",
-        "- 02: `15_correctChoiceText_fixed/` で `questionIntent` と `correctChoiceText` を上書きする。",
-        "- 03: `21_explanationText_added/` で `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を上書きする。",
-        "- 04: `22_questionSetId_linked/` で `category.json` の `questionSets[].questionSetId` だけを付与する。",
+        "- 正本: `prompt/README.md` と各工程promptに従う。",
+        "- 02は`15_correctChoiceText_fixed/`、02aは`23_correctChoiceText_fixed/`へ分ける。",
+        "- 保存先・ファイル名は`document/operations/artifact_contract.md`を参照する。",
         "- 各問の `reviewDecision` は、一問ずつ確認が済むまで `pending` のままにする。",
         "",
         "## Verification",

@@ -8,6 +8,15 @@ from scripts.merge.patch_views import apply_question_type
 
 
 class PrepareQualification0104ManualReviewTest(unittest.TestCase):
+    def test_question_intent_and_strict_answer_use_separate_patch_layers(self) -> None:
+        source = Path("output/sample/questions_json/2026/00_source/question_2026_1.json")
+
+        intent = module.patch_path_for(source, "questionIntent")
+        correct = module.patch_path_for(source, "correctChoice")
+
+        self.assertEqual(intent.parent.name, "15_correctChoiceText_fixed")
+        self.assertEqual(correct.parent.name, "23_correctChoiceText_fixed")
+
     def test_question_id_uses_firestore_ids_before_original_question_id(self) -> None:
         question = {
             "original_question_id": "duplicated-original",

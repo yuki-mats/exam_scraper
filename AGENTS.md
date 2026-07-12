@@ -19,5 +19,13 @@
 ## `00_source`
 
 - スクレイピングでの新規作成だけ許可し、既存ファイルは変更・削除・改名しない。
-- 修正は `10` / `15` / `21` / `22` / `23` のpatch層へ入れる。
+- 修正は責務に応じて `10` / `15` / `18` / `21` / `22` / `23` / `24` のpatch層へ入れる。
 - 新規scrape後のみ `python scripts/check/check_00_source_immutability.py --record-new` を実行する。
+
+## ドキュメント
+
+- 最初に`document/operations/exam_pipeline_manual_and_automation.md`を読み、そこから関心事ごとの正本へ進む。
+- 幹には全体順序とリンク先の要旨だけを書き、field、コマンド、UI、法令監査などの詳細を複製しない。
+- 継続更新する仕様は`document/operations/`、`document/reference/`、`document/sources/`、`prompt/`の責務に合う1ファイルをSSOTとする。
+- 日付付き監査、単発レビュー、移行記録は`document/temporary/`へ置く。`docs/goals/`も実行記録であり仕様正本にしない。
+- 新しい文書を追加する前に既存正本へ統合できないか確認し、重複文書と重複記述を残さない。

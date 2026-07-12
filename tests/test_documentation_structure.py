@@ -33,6 +33,9 @@ class DocumentationStructureTests(unittest.TestCase):
         ):
             self.assertIn(path, text)
 
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("document/operations/exam_pipeline_manual_and_automation.md", agents)
+
     def test_removed_duplicate_documents_do_not_return(self):
         for relative in REMOVED_DUPLICATES:
             self.assertFalse((ROOT / relative).exists(), relative)
@@ -49,6 +52,7 @@ class DocumentationStructureTests(unittest.TestCase):
                 ROOT / "prompt" / "qualification_docs" / "README.md",
                 ROOT / "tools" / "question_bank" / "README.md",
                 ROOT / "docs" / "goals" / "README.md",
+                ROOT / "docs" / "goals" / "templates" / "manual-patch-quality" / "README.md",
             )
         )
 
