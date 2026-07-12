@@ -28,6 +28,7 @@ from tools.question_review_console.projection import (
     source_question_key,
 )
 from tools.question_review_console.patch_validation import (
+    law_audit_quality_warnings,
     patch_entry_required_warnings,
     projected_required_warnings,
     upload_document_required_warnings,
@@ -64,14 +65,16 @@ ISSUE_PRIORITY = {
     "identity_mismatch": 0,
     "answer_explanation_mismatch": 1,
     "required_field_missing": 2,
-    "law_hold": 3,
-    "merge_stale": 4,
-    "convert_stale": 5,
-    "upload_stale": 6,
-    "upload_missing": 7,
-    "law_basis_missing": 8,
-    "explanation_missing": 9,
-    "projection_error": 10,
+    "law_audit_verdict_mismatch": 3,
+    "law_audit_metadata_incomplete": 4,
+    "law_hold": 5,
+    "merge_stale": 6,
+    "convert_stale": 7,
+    "upload_stale": 8,
+    "upload_missing": 9,
+    "law_basis_missing": 10,
+    "explanation_missing": 11,
+    "projection_error": 12,
 }
 
 
@@ -201,7 +204,8 @@ def detect_issues(
     converted_docs: list[dict[str, Any]],
     upload_docs: list[dict[str, Any]],
     projection_errors: Iterable[str],
-    patch_warnings: Iterable[Mapping[str, str]] = (),
+    external_required_warnings: Iterable[Mapping[str, Any]] = (),
+    quality_warnings: Iterable[Mapping[str, Any]] = (),
 ) -> list[dict[str, Any]]:
     issues: dict[str, dict[str, Any]] = {}
 
@@ -231,11 +235,17 @@ def detect_issues(
             warning["detail"],
             [warning["field"]],
         )
-    for warning in patch_warnings:
+    for warning in external_required_warnings:
         add(
             "required_field_missing",
             str(warning.get("detail") or "patchの必須fieldが不足しています。"),
             [str(warning.get("field") or "patch")],
+        )
+    for warning in quality_warnings:
+        add(
+            str(warning.get("code") or "law_audit_metadata_incomplete"),
+            str(warning.get("detail") or "法令監査メタデータの確認が必要です。"),
+            [str(warning.get("field") or "lawRevisionFacts")],
         )
 
     if isinstance(correctness, list) and isinstance(explanations, list):
@@ -440,21 +450,48 @@ class QuestionInventory:
                 matched_converted = self._matching_docs(converted_docs, projected_aliases, qualification)
                 matched_upload = self._matching_docs(upload_docs, projected_aliases, qualification)
                 required_field_warnings = [
-                    {**warning, "stage": "projected", "dataPath": warning["field"]}
+                    {
+                        **warning,
+                        "code": "required_field_missing",
+                        "category": "required",
+                        "stage": "projected",
+                        "dataPath": warning["field"],
+                        "blocksSync": True,
+                        "blocksPublish": True,
+                    }
                     for warning in projected_required_warnings(projection.record)
                 ]
                 required_field_warnings.extend(
-                    {**warning, "stage": f"{stage} patch", "dataPath": warning["field"]}
+                    {
+                        **warning,
+                        "code": "required_field_missing",
+                        "category": "required",
+                        "stage": f"{stage} patch",
+                        "dataPath": warning["field"],
+                        "blocksSync": True,
+                        "blocksPublish": True,
+                    }
                     for stage in ("explanation", "correctChoice")
                     for patch_entry in [find_patch_entry(stage_maps.get(stage, {}), aliases)]
                     if patch_entry is not None
                     for warning in patch_entry_required_warnings(patch_entry.entry, stage)
                 )
                 required_field_warnings.extend(
-                    warning
+                    {
+                        **warning,
+                        "code": "required_field_missing",
+                        "category": "required",
+                        "blocksSync": True,
+                        "blocksPublish": True,
+                    }
                     for document in matched_upload
                     for warning in upload_document_required_warnings(document)
                 )
+                quality_warnings = [
+                    warning
+                    for document in matched_upload
+                    for warning in law_audit_quality_warnings(document)
+                ]
                 issues = detect_issues(
                     projection.record,
                     merged,
@@ -466,6 +503,7 @@ class QuestionInventory:
                         for warning in required_field_warnings
                         if warning.get("stage") != "projected"
                     ],
+                    quality_warnings,
                 )
                 source_stem = source_path.stem
                 stable_key = review_key(qualification, list_group_id, source_stem, source)
@@ -523,6 +561,10 @@ class QuestionInventory:
                         ),
                         "paths": paths,
                         "requiredFieldWarnings": _json_safe(required_field_warnings),
+                        "qualityWarnings": _json_safe(quality_warnings),
+                        "validationFindings": _json_safe(
+                            [*required_field_warnings, *quality_warnings]
+                        ),
                         "issues": issues,
                         "issueCodes": [issue["code"] for issue in issues],
                         "stateHash": state_hash,

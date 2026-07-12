@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-07-12T19:46:04+09:00",
+  "scope": {
+    "qualifications": [
+      "gas-shunin-kou",
+      "gas-shunin-otsu"
+    ],
+    "artifactSelection": "latest upload_to_firestore JSON per listGroupId by mtime and filename",
+    "lawRelatedOnly": true
+  },
+  "condition": {
+    "requiredFieldMissing": "Top-level correctChoiceText or another upload-required field is absent or invalid.",
+    "lawAuditMetadataIncomplete": "Top-level correctChoiceText exists, but law audit metadata required for a complete audit snapshot is absent.",
+    "lawAuditVerdictMismatch": "Top-level correctChoiceText and lawRevisionFacts.current.correctChoiceText disagree."
+  },
+  "summary": {
+    "documentCount": 900,
+    "findingCount": 900,
+    "lawAuditMetadataIncompleteCount": 897,
+    "lawAuditVerdictMismatchCount": 3
+  },
+  "fieldBreakdown": {
+    "lawRevisionFacts.current.correctChoiceText": 878,
+    "lawRevisionFacts.current": 15,
+    "lawRevisionFacts": 7
+  },
+  "groups": [
+    {
+      "qualification": "gas-shunin-kou",
+      "listGroupId": "2019",
+      "findingCount": 80
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "listGroupId": "2020",
+      "findingCount": 20
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "listGroupId": "2022",
+      "findingCount": 10,
+      "breakdown": {
+        "lawRevisionFacts": 7,
+        "lawAuditVerdictMismatch": 3
+      }
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "listGroupId": "2024",
+      "findingCount": 75
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "listGroupId": "2025",
+      "findingCount": 80
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2017",
+      "findingCount": 80
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2018",
+      "findingCount": 80
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2019",
+      "findingCount": 80
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2020",
+      "findingCount": 75
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2021",
+      "findingCount": 90,
+      "breakdown": {
+        "lawRevisionFacts.current": 15,
+        "lawRevisionFacts.current.correctChoiceText": 75
+      }
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2023",
+      "findingCount": 75
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2024",
+      "findingCount": 75
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "listGroupId": "2025",
+      "findingCount": 80
+    }
+  ]
+}

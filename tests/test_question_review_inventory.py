@@ -5,6 +5,7 @@ from pathlib import Path
 
 from tools.question_review_console.inventory import QuestionInventory, detect_issues
 from tools.question_review_console.patch_validation import (
+    law_audit_quality_warnings,
     patch_entry_required_warnings,
     upload_document_required_warnings,
 )
@@ -49,8 +50,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertTrue(all(warning["documentId"] == "doc1" for warning in warnings))
 
     def test_allows_missing_law_snapshot_verdict_when_top_level_verdict_exists(self):
-        warnings = upload_document_required_warnings(
-            {
+        document = {
                 "questionId": "doc1",
                 "originalQuestionBodyText": "問題文",
                 "questionSetId": "set1",
@@ -73,9 +73,40 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                     "evidenceSummary": {"verdict": "incorrect"},
                 },
             }
-        )
+
+        warnings = upload_document_required_warnings(document)
 
         self.assertEqual(warnings, [])
+
+        quality_warnings = law_audit_quality_warnings(document)
+        self.assertEqual(len(quality_warnings), 1)
+        self.assertEqual(
+            quality_warnings[0]["code"], "law_audit_metadata_incomplete"
+        )
+        self.assertEqual(
+            quality_warnings[0]["field"],
+            "lawRevisionFacts.current.correctChoiceText",
+        )
+        self.assertFalse(quality_warnings[0]["blocksSync"])
+        self.assertTrue(quality_warnings[0]["blocksPublish"])
+
+    def test_reports_law_snapshot_verdict_mismatch_separately(self):
+        warnings = law_audit_quality_warnings(
+            {
+                "questionId": "doc1",
+                "correctChoiceText": "正しい",
+                "isLawRelated": True,
+                "lawReferences": [{"lawId": "law1"}],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "current": {"correctChoiceText": "間違い"},
+                    "evidenceSummary": {"verdict": "correct"},
+                },
+            }
+        )
+
+        self.assertEqual(len(warnings), 1)
+        self.assertEqual(warnings[0]["code"], "law_audit_verdict_mismatch")
 
     def test_detects_missing_required_fields_in_applied_patch_entry(self):
         warnings = patch_entry_required_warnings(

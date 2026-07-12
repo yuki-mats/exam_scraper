@@ -210,6 +210,11 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .required-warning-panel p { margin: 5px 0; font-size: 12px; }
 .required-warning-panel ul { margin: 6px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.55; }
 .required-warning-panel .action-with-help { margin-top: 12px; }
+.quality-warning-panel { margin-top: 12px; padding: 11px 13px; border-left: 4px solid var(--amber); background: var(--amber-bg); color: #614710; }
+.quality-warning-panel strong { font-size: 13px; }
+.quality-warning-panel p { margin: 5px 0; font-size: 12px; }
+.quality-warning-panel ul { margin: 6px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.55; }
+.quality-warning-panel .action-with-help { margin-top: 12px; }
 
 .firestore-diff-panel { scroll-margin-top: 230px; }
 .firestore-diff-summary {

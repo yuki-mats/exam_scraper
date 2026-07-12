@@ -150,25 +150,94 @@ def upload_document_required_warnings(
                 "true_falseのupload-ready documentに選択肢文字列又は選択肢画像がありません。",
             )
 
-    if document.get("isLawRelated") is True:
-        references = document.get("lawReferences")
-        if not isinstance(references, list) or not references:
-            add("lawReferences", "法令問題のlawReferencesがありません。")
+    return warnings
 
-        facts = document.get("lawRevisionFacts")
-        if not isinstance(facts, Mapping) or not facts:
-            add("lawRevisionFacts", "法令問題のlawRevisionFactsがありません。")
-        else:
-            if not str(facts.get("auditStatus") or "").strip():
-                add(
-                    "lawRevisionFacts.auditStatus",
-                    "lawRevisionFacts.auditStatusがありません。",
-                )
-            summary = facts.get("evidenceSummary")
-            if not isinstance(summary, Mapping) or not summary:
-                add(
-                    "lawRevisionFacts.evidenceSummary",
-                    "lawRevisionFacts.evidenceSummaryがありません。",
-                )
+
+def law_audit_quality_warnings(
+    document: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    """Validate law-audit metadata without conflating it with upload schema."""
+    if document.get("isLawRelated") is not True:
+        return []
+
+    warnings: list[dict[str, Any]] = []
+    document_id = str(document.get("questionId") or "document IDなし")
+
+    def add(code: str, field: str, detail: str) -> None:
+        warnings.append(
+            {
+                "code": code,
+                "category": "law_audit_quality",
+                "stage": "upload-ready",
+                "documentId": document_id,
+                "field": field,
+                "dataPath": field,
+                "detail": detail,
+                "blocksSync": False,
+                "blocksPublish": True,
+            }
+        )
+
+    references = document.get("lawReferences")
+    if not isinstance(references, list) or not references:
+        add(
+            "law_audit_metadata_incomplete",
+            "lawReferences",
+            "法令問題のlawReferencesがありません。",
+        )
+
+    facts = document.get("lawRevisionFacts")
+    if not isinstance(facts, Mapping) or not facts:
+        add(
+            "law_audit_metadata_incomplete",
+            "lawRevisionFacts",
+            "法令問題のlawRevisionFactsがありません。",
+        )
+        return warnings
+
+    if not str(facts.get("auditStatus") or "").strip():
+        add(
+            "law_audit_metadata_incomplete",
+            "lawRevisionFacts.auditStatus",
+            "lawRevisionFacts.auditStatusがありません。",
+        )
+
+    summary = facts.get("evidenceSummary")
+    if not isinstance(summary, Mapping) or not summary:
+        add(
+            "law_audit_metadata_incomplete",
+            "lawRevisionFacts.evidenceSummary",
+            "lawRevisionFacts.evidenceSummaryがありません。",
+        )
+
+    current = facts.get("current")
+    if not isinstance(current, Mapping):
+        add(
+            "law_audit_metadata_incomplete",
+            "lawRevisionFacts.current",
+            "現行法監査のlawRevisionFacts.currentがありません。",
+        )
+        return warnings
+
+    top_level_verdict = normalize_verdict(document.get("correctChoiceText"))
+    audit_verdict = normalize_verdict(current.get("correctChoiceText"))
+    if audit_verdict not in {"正しい", "間違い"}:
+        add(
+            "law_audit_metadata_incomplete",
+            "lawRevisionFacts.current.correctChoiceText",
+            (
+                "トップレベルのcorrectChoiceTextは存在しますが、"
+                "現行法監査スナップショットの判定がありません。"
+            ),
+        )
+    elif top_level_verdict in {"正しい", "間違い"} and audit_verdict != top_level_verdict:
+        add(
+            "law_audit_verdict_mismatch",
+            "lawRevisionFacts.current.correctChoiceText",
+            (
+                "トップレベルのcorrectChoiceTextと"
+                "lawRevisionFacts.current.correctChoiceTextが一致しません。"
+            ),
+        )
 
     return warnings

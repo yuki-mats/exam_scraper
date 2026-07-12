@@ -5,6 +5,8 @@ const ISSUE_LABELS = {
   firestore_readback_stale: "Firestore再取得待ち",
   answer_explanation_mismatch: "正誤と解説の矛盾",
   required_field_missing: "必須field不足",
+  law_audit_metadata_incomplete: "法令監査パッチ不完全",
+  law_audit_verdict_mismatch: "法令監査判定の不一致",
   identity_mismatch: "ID不整合",
   law_hold: "法令監査保留",
   merge_stale: "merge未反映",
@@ -430,6 +432,8 @@ function renderDetail() {
 
   const requiredWarning = renderRequiredFieldWarning(question);
   if (requiredWarning) pane.append(requiredWarning);
+  const qualityWarning = renderLawAuditQualityWarning(question);
+  if (qualityWarning) pane.append(qualityWarning);
 
   const firestoreDiff = renderFirestoreDiff(question);
   if (firestoreDiff) pane.append(firestoreDiff);
@@ -445,9 +449,12 @@ function renderDetail() {
   if (question.issues.length) {
     const issues = element("div", "issue-panel");
     for (const issue of question.issues) {
-      const detail = issue.code === "required_field_missing" && question.requiredFieldWarnings?.length
-        ? `${question.requiredFieldWarnings.length}件の欠損を検出。上の警告欄で確認・一括依頼できます。`
-        : issue.detail;
+      let detail = issue.detail;
+      if (issue.code === "required_field_missing" && question.requiredFieldWarnings?.length) {
+        detail = `${question.requiredFieldWarnings.length}件の欠損を検出。上の警告欄で確認・一括依頼できます。`;
+      } else if (issue.code.startsWith("law_audit_") && question.qualityWarnings?.length) {
+        detail = `${question.qualityWarnings.length}件の監査メタデータ要修正を検出。上の警告欄で確認・一括依頼できます。`;
+      }
       issues.append(element("div", "issue-line", `${ISSUE_LABELS[issue.code] || issue.code}: ${detail}`));
     }
     questionSection.append(issues);
@@ -538,7 +545,77 @@ function renderRequiredFieldWarning(question) {
 }
 
 function openRequiredFieldsReview(question) {
-  const warnings = question.requiredFieldWarnings || [];
+  openFindingsReview({
+    question,
+    warnings: question.requiredFieldWarnings || [],
+    issueType: "required_field_missing",
+    title: "必須フィールド欠損をまとめて修正依頼",
+    targetLabel: "必須フィールド欠損の一括報告",
+    note: "検出された必須フィールド欠損をすべて調査し、適切なpatchを修正してupload-readyまで再生成する。",
+    investigationScope: "current_question",
+  });
+}
+
+function renderLawAuditQualityWarning(question) {
+  const warnings = question.qualityWarnings || [];
+  if (!warnings.length) return null;
+  const node = element("section", "quality-warning-panel");
+  node.append(
+    element("strong", "", `法令監査パッチの修正が必要です（${warnings.length}件）`),
+    element(
+      "p",
+      "",
+      "トップレベルの正答は存在しますが、法令監査メタデータが不完全です。パッチ再生成は実行できますが、Firestoreへの公開は修正まで停止します。",
+    ),
+  );
+  const list = document.createElement("ul");
+  for (const warning of warnings) {
+    const location = [warning.stage, warning.documentId].filter(Boolean).join(" / ");
+    const field = warning.dataPath || warning.field || "lawRevisionFacts";
+    const item = element("li", "", `${location} / ${field}: ${warning.detail}`);
+    installReviewTarget(item, {
+      fields: [field],
+      targetLabel: `法令監査パッチ要修正 / ${location}`,
+      dataPath: field,
+      issueType: warning.code || "law_audit_metadata_incomplete",
+    });
+    list.append(item);
+  }
+  node.append(
+    list,
+    actionWithHelp(
+      "監査パッチをまとめて修正依頼",
+      "primary-button",
+      () => openLawAuditQualityReview(question),
+      "監査パッチをまとめて修正依頼",
+      "この問題の監査メタデータ不完全をまとめ、同じ資格の全フォルダにある同原因問題もCodexの調査対象にします。",
+    ),
+  );
+  return node;
+}
+
+function openLawAuditQualityReview(question) {
+  const warnings = question.qualityWarnings || [];
+  openFindingsReview({
+    question,
+    warnings,
+    issueType: warnings[0]?.code || "law_audit_metadata_incomplete",
+    title: "法令監査パッチをまとめて修正依頼",
+    targetLabel: "法令監査メタデータの一括報告",
+    note: "トップレベルの正答を公開用の正本として維持しつつ、法令監査パッチの不完全なメタデータを根拠と照合して修正し、upload-readyまで再生成する。",
+    investigationScope: "qualification",
+  });
+}
+
+function openFindingsReview({
+  question,
+  warnings,
+  issueType,
+  title,
+  targetLabel,
+  note,
+  investigationScope,
+}) {
   const uploadDocs = question.uploadReadyDocs || [];
   const choiceIndexes = [...new Set(warnings
     .map((warning) => uploadDocs.findIndex((doc) => doc.questionId === warning.documentId))
@@ -548,22 +625,23 @@ function openRequiredFieldsReview(question) {
     .filter(Boolean))];
   const selectedText = warnings.map((warning) => {
     const location = [warning.stage, warning.documentId].filter(Boolean).join(" / ");
-    return `${location ? `${location} / ` : ""}${warning.dataPath || warning.field}: fieldなし - ${warning.detail}`;
+    const stateLabel = warning.code === "law_audit_verdict_mismatch" ? "不一致" : "fieldなし";
+    return `${location ? `${location} / ` : ""}${warning.dataPath || warning.field}: ${stateLabel} - ${warning.detail}`;
   }).join("\n");
   openReview(
     "awaiting_codex",
     {
-      targetLabel: "必須フィールド欠損の一括報告",
+      targetLabel,
       dataPath: fields.join(", "),
       fields,
       choiceIndexes,
       selectedText,
     },
-    "required_field_missing",
-    "current_question",
+    issueType,
+    investigationScope,
   );
-  $("#review-dialog-title").textContent = "必須フィールド欠損をまとめて修正依頼";
-  $("#review-note").value = "検出された必須フィールド欠損をすべて調査し、適切なpatchを修正してupload-readyまで再生成する。";
+  $("#review-dialog-title").textContent = title;
+  $("#review-note").value = note;
 }
 
 function section(title) {
@@ -646,12 +724,28 @@ function scrollToFirestoreDiff() {
   $("#firestore-diff-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function patchSyncAction() {
+  return actionWithHelp(
+    "パッチ変更を反映",
+    "primary-button",
+    () => openSyncDialog(true),
+    "パッチ変更を反映",
+    "現在の資格・フォルダだけを対象に、最新patchからMerge、Convert、upload-readyを再生成し、upload dry-runまで自動で検証します。成果物が一致済みでも再実行できます。Firestoreへの書き込みは行いません。必須field不足がある場合は開始しません。",
+  );
+}
+
 function renderPipelineActions(question) {
   const workflow = question.workflow || {};
   const localReady = ["merge", "convert", "upload"].every((stage) => workflow[stage] === "match");
-  const node = element("div", `pipeline-action-bar ${localReady ? "ready" : "attention"}`);
+  const firestoreNeedsAttention = ["mismatch", "missing", "error", "upstream_stale"]
+    .includes(workflow.firestore);
+  const node = element(
+    "div",
+    `pipeline-action-bar ${localReady && !firestoreNeedsAttention ? "ready" : "attention"}`,
+  );
   const status = element("div", "pipeline-message");
   const actions = element("div", "pipeline-buttons");
+  actions.append(patchSyncAction());
 
   if (!localReady) {
     status.append(
@@ -670,13 +764,6 @@ function renderPipelineActions(question) {
         "最後に資格単位で取得したFirestore値と、その取得時点のローカル成果物との差分へ移動します。現在の成果物より古い比較の場合は、その旨を表示します。",
       ));
     }
-    actions.append(actionWithHelp(
-      "パッチ変更を反映",
-      "primary-button",
-      () => openSyncDialog(true),
-      "パッチ変更を反映",
-      "現在の資格・フォルダだけを対象に、最新patchからMerge、Convert、upload-readyを再生成し、upload dry-runまで自動で検証します。Firestoreへの書き込みは行いません。必須field不足がある場合は開始しません。",
-    ));
   } else {
     const stats = firestoreDiffStats(question);
     const differenceSummary = [

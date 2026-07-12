@@ -188,6 +188,24 @@ class ArtifactSynchronizerTests(unittest.TestCase):
 
 
 class GroupPublisherTests(unittest.TestCase):
+    def test_law_audit_quality_issue_blocks_publish(self):
+        counts = GroupPublisher._blocking_issue_counts(
+            {
+                "questions": [
+                    {"issueCodes": ["law_audit_metadata_incomplete"]},
+                    {"issueCodes": ["law_audit_verdict_mismatch"]},
+                ]
+            }
+        )
+
+        self.assertEqual(
+            counts,
+            {
+                "law_audit_metadata_incomplete": 1,
+                "law_audit_verdict_mismatch": 1,
+            },
+        )
+
     def test_publishes_exact_artifact_and_requires_clean_readback(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -292,10 +310,14 @@ class WorkflowUiContractTests(unittest.TestCase):
             "pollReadbackJob",
             "renderFirestoreDiff",
             "scrollToFirestoreDiff",
+            "patchSyncAction",
             "openHelp",
             "actionWithHelp",
             "renderRequiredFieldWarning",
             "openRequiredFieldsReview",
+            "renderLawAuditQualityWarning",
+            "openLawAuditQualityReview",
+            "openFindingsReview",
             "startWorkflowExecution",
             "parseDataPath",
             "installReviewTarget",
@@ -309,6 +331,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("formatReadbackTime", javascript)
         self.assertIn('"資格のFirestoreを確認"', javascript)
         self.assertIn('"パッチ変更を反映"', javascript)
+        self.assertIn("actions.append(patchSyncAction())", javascript)
+        self.assertIn("firestoreNeedsAttention", javascript)
         self.assertIn('"Firestoreへ反映"', javascript)
         self.assertIn('"保存済み差分を見る"', javascript)
         self.assertIn('"修正を依頼"', javascript)
@@ -327,6 +351,15 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("selection: state.reviewSelection", javascript)
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
+        self.assertIn('"監査パッチをまとめて修正依頼"', javascript)
+        pipeline_source = javascript[
+            javascript.index("function renderPipelineActions") :
+            javascript.index("function parseDataPath")
+        ]
+        self.assertLess(
+            pipeline_source.index("actions.append(patchSyncAction())"),
+            pipeline_source.index("if (!localReady)"),
+        )
 
 
 if __name__ == "__main__":
