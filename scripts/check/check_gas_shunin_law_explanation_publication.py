@@ -8,6 +8,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -40,6 +41,45 @@ DEFAULT_REPORT = (
 LAW_ID_RE = re.compile(
     r"^gas-shunin-(?:kou|otsu)-\d{4}-law-q\d+-s\d+(?:-site-shadow-[0-9a-f]+)?$"
 )
+EXPLANATION_PREFIXES = {
+    "正しい": ("正しい。", "正解。"),
+    "間違い": ("間違い。", "不正解。"),
+}
+EXTERNAL_PRIMARY_SOURCE_PREFIXES = (
+    "https://www.meti.go.jp/",
+    "https://www.jia-page.or.jp/files/user/doc/exam/",
+    "https://laws.e-gov.go.jp/",
+)
+ARCHIVED_JIA_OFFICIAL_RE = re.compile(
+    r"^/web/\d+(?:id_)?/https://www\.jia-page\.or\.jp/files/user/doc/exam/[^/?#]+\.pdf$"
+)
+
+
+def valid_explanation_prefix(verdict: str, explanation: str) -> bool:
+    return explanation.startswith(EXPLANATION_PREFIXES.get(verdict, ()))
+
+
+def strip_explanation_prefix(verdict: str, explanation: str) -> str:
+    for prefix in EXPLANATION_PREFIXES.get(verdict, ()):
+        if explanation.startswith(prefix):
+            return explanation.removeprefix(prefix).strip()
+    return explanation.strip()
+
+
+def valid_external_primary_reference(ref: dict[str, Any]) -> bool:
+    source_url = str(ref.get("sourceUrl") or "")
+    if not ref.get("externalPrimarySource"):
+        return False
+    if source_url.startswith(EXTERNAL_PRIMARY_SOURCE_PREFIXES):
+        return True
+    parsed = urlparse(source_url)
+    return (
+        parsed.scheme == "https"
+        and parsed.netloc == "web.archive.org"
+        and bool(ARCHIVED_JIA_OFFICIAL_RE.fullmatch(parsed.path))
+        and not parsed.query
+        and not parsed.fragment
+    )
 
 
 def is_law_section_doc(question: dict[str, Any]) -> bool:
@@ -208,9 +248,15 @@ def check(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
             )
 
         explanation = str(question.get("explanationText") or "")
-        expected_prefix = mapping["expectedVerdict"] + "。"
-        if args.require_materialized and not explanation.startswith(expected_prefix):
-            add("explanation_prefix_mismatch", question, expectedPrefix=expected_prefix)
+        expected_prefixes = EXPLANATION_PREFIXES.get(mapping["expectedVerdict"], ())
+        if args.require_materialized and not valid_explanation_prefix(
+            mapping["expectedVerdict"], explanation
+        ):
+            add(
+                "explanation_prefix_mismatch",
+                question,
+                expectedPrefixes=list(expected_prefixes),
+            )
         if args.require_materialized and mapping["expectedVerdict"] == "間違い":
             if "選択肢の記載が誤り" in explanation:
                 add(
@@ -218,7 +264,7 @@ def check(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
                     question,
                     explanationText=explanation,
                 )
-            explanation_body = explanation.removeprefix("間違い。").strip()
+            explanation_body = strip_explanation_prefix("間違い", explanation)
             if len(normalize_text(explanation_body)) < 20:
                 add("wrong_reason_too_short", question, explanationText=explanation)
 
@@ -244,9 +290,7 @@ def check(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
                     if not str(ref.get("lawId") or "") or not str(ref.get("article") or ""):
                         add("incomplete_egov_reference", question, refIndex=ref_index)
                 elif ref.get("appLinkMode") == "source_url":
-                    if not ref.get("externalPrimarySource") or not str(ref.get("sourceUrl") or "").startswith(
-                        "https://www.meti.go.jp/"
-                    ):
+                    if not valid_external_primary_reference(ref):
                         add("invalid_external_primary_reference", question, refIndex=ref_index)
                 else:
                     add("missing_app_link_mode", question, refIndex=ref_index)

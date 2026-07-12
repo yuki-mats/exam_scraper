@@ -5448,6 +5448,175 @@ tasks:
         - "patchAppliedQuestionCount=261, hold=0, pending=0, flags=0, errors=0"
         - "public_question_id=b312de5198cdf4bf and choice text unchanged"
       harness: codex
+  - id: T263
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "全261 decisionsを公開用upload_ready_subset_allへID不変で同期し、全1289肢一致とFirestore前gateを完了する。"
+    inputs:
+      - "全261 decisions"
+      - "review_ledger.jsonl"
+      - "各年21_explanationText_added"
+      - "upload_ready_subset_all"
+    constraints:
+      - "questionId、originalQuestionId、questionSetIdを変更しない。"
+      - "Firestoreへ実アップロードしない。"
+      - "全1289肢のdecision一致をreadbackする。"
+    allowed_files:
+      - "output/gas-shunin-all/questions_json/upload_ready_subset_all/*.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/*.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/correct_choice_review_flags.jsonl"
+      - "output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_explanation_publication_check.json"
+      - "output/gas-shunin/reports/gas-shunin-upload-gate-report.json"
+    verify:
+      - "decision/public exact match 1289/1289"
+      - "publication check --require-materialized"
+      - "upload gate issueCount=0"
+      - "19 unittest cases"
+      - "00_source and ID sets unchanged"
+    stop_if:
+      - "公開questionIdがdecision台帳へ一意に対応しない。"
+      - "既存ID又はquestionSetId変更が必要。"
+    receipt:
+      result: blocked
+      blocked_reason: "公開同期は1289/1289で完了しID不変・upload gate greenだが、publication checkerが同義接頭辞、JIA公式PDF及び問4訂正済み監査入力を表現できず36件を報告した。検査仕様と監査入力はT263のallowed_files外。"
+      changed_files:
+        - "output/gas-shunin-all/questions_json/upload_ready_subset_all/*.json"
+        - output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_explanation_publication_check.json
+        - output/gas-shunin/reports/gas-shunin-upload-gate-report.json
+      commands:
+        - cmd: "decision/public exact match 1289/1289"
+          status: pass
+        - cmd: "publication check --require-materialized"
+          status: fail
+        - cmd: "upload gate"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source and ID sets unchanged"
+          status: pass
+      summary: "261 decisionsを公開16ファイルへ同期し、全1289肢の指定フィールド一致、4639 ID/qset不変、Firestore前gate issueCount=0を確認。公開検査契約修復をT264へ分離した。"
+      spawned_tasks:
+        - T264
+      harness: codex
+  - id: T264
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "公開監査を公式根拠契約へ合わせ、正解/不正解同義接頭辞、JIA公式PDF、問4ロ・ホ訂正を正しく検証できるよう修復する。"
+    inputs:
+      - "publication check 36 issues"
+      - "JIA official question/answer PDFs"
+      - "sequence 233 resolution evidence"
+    constraints:
+      - "検査を弱めず、許可する一次資料と同義ラベルを限定する。"
+      - "00_sourceと既存IDを変更しない。"
+    allowed_files:
+      - "scripts/check/check_gas_shunin_law_explanation_publication.py"
+      - "tests/test_check_gas_shunin_law_explanation_publication.py"
+      - "output/gas-shunin-all/review/manual_law_explanation_audit/20260711_gas_shunin_law_explanation_manual_review_otsu_2024_q04.jsonl"
+      - "output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_explanation_publication_check.json"
+      - "output/gas-shunin/reports/gas-shunin-upload-gate-report.json"
+    verify:
+      - "publication check --require-materialized issueCount=0"
+      - "upload gate issueCount=0"
+      - "publication checker unit tests"
+      - "19 existing unittest cases"
+    stop_if:
+      - "JIA URLを一般外部URLまで広く許可する必要がある。"
+      - "00_source又はID変更が必要。"
+    receipt:
+      result: done
+      summary: "公開監査を限定語・公式ドメイン契約へ修復し、2024乙問4の監査記録をJIA公式問題のロ・ホへ訂正。261問・1289肢のpublication check issueCount=0を確認した。"
+      changed_files:
+        - scripts/check/check_gas_shunin_law_explanation_publication.py
+        - tests/test_check_gas_shunin_law_explanation_publication.py
+        - output/gas-shunin-all/review/manual_law_explanation_audit/20260711_gas_shunin_law_explanation_manual_review_otsu_2024_q04.jsonl
+        - output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_explanation_publication_check.json
+        - output/gas-shunin/reports/gas-shunin-upload-gate-report.json
+      commands:
+        - cmd: "publication check --require-materialized"
+          status: pass
+        - cmd: "upload gate for 16 files"
+          status: pass
+        - cmd: "22 unittest cases"
+          status: pass
+      evidence:
+        - "publication issueCount=0, mappedChoiceCount=1289"
+        - "upload gate issueCount=0, uploadQuestionCount=4639"
+        - "external URLs restricted to METI, JIA exam PDF, e-Gov and archived JIA official exam PDF"
+        - "JIA question 3=ロ・ホ and answer 3 reconciled with current Reporting Rule"
+      harness: codex
+  - id: T265
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "2024乙問4の補足Q&Aを公式問題ロ・ホへ収束させ、全261 decisionsを公開済みにして台帳を再構築する。"
+    inputs:
+      - "T264 publication check issueCount=0"
+      - "全1289肢を同期済みのupload_ready_subset_all"
+      - "sequence 233のJIA公式問題・解答・現行法readback"
+    constraints:
+      - "00_source、questionId、originalQuestionId、questionSetIdを変更しない。"
+      - "Firestoreへ実アップロードしない。"
+      - "公開済み判定は公開監査とupload gateがgreenの場合だけ付与する。"
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/*.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/correct_choice_review_flags.jsonl"
+      - "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json"
+      - "output/gas-shunin-all/questions_json/upload_ready_subset_all/2024_otsu_firestore_20260711_141739.json"
+      - "output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_explanation_publication_check.json"
+      - "output/gas-shunin/reports/gas-shunin-upload-gate-report.json"
+    verify:
+      - "summary publishedQuestionCount=261 and remainingQuestionCount=0"
+      - "decision/public exact match 1289/1289"
+      - "publication check --require-materialized issueCount=0"
+      - "upload gate issueCount=0"
+      - "22 unittest cases"
+      - "00_source and all existing ID sets unchanged"
+    stop_if:
+      - "公開成果物とdecisionが一意に対応しない。"
+      - "00_source又は既存ID変更が必要。"
+    receipt:
+      result: done
+      summary: "2024乙問4の補足Q&AをJIA公式問題のロ・ホへ訂正し、全261 decisionsを公開後入力ハッシュで再封印してpublishedへ移行。公開1289肢・ID・Firestore前gateを検証した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/*.json"
+        - output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl
+        - output/gas-shunin-all/review/law_explanation_refresh/summary.json
+        - output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json
+        - output/gas-shunin-all/questions_json/upload_ready_subset_all/2024_otsu_firestore_20260711_141739.json
+        - output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_explanation_publication_check.json
+        - output/gas-shunin/reports/gas-shunin-upload-gate-report.json
+      commands:
+        - cmd: "build refresh inventory"
+          status: pass
+        - cmd: "decision/public exact match"
+          status: pass
+        - cmd: "publication check --require-materialized"
+          status: pass
+        - cmd: "upload gate for 16 files"
+          status: pass
+        - cmd: "22 unittest cases"
+          status: pass
+        - cmd: "00_source and ID tuple comparison"
+          status: pass
+      evidence:
+        - "publishedQuestionCount=261, remainingQuestionCount=0"
+        - "pending=0, hold=0, correctChoiceTextFlagCount=0"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+        - "mappedChoiceCount=1289, exactFieldMismatchCount=0"
+        - "uploadQuestionCount=4639, idTupleMismatchFileCount=0"
+        - "publication and upload gate issueCount=0"
+        - "00_source unchanged"
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
