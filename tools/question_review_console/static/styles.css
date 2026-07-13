@@ -478,8 +478,15 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .run-stage-options span small { color: var(--text-muted); font-size: 9px; }
 .run-stage-options input:checked + span { border-color: var(--blue); color: var(--blue-dark); background: #edf4fa; font-weight: 750; }
 .run-stage-options input:focus-visible + span { outline: 3px solid rgba(22, 102, 168, 0.25); outline-offset: 1px; }
-.run-mode-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
+.run-group-actions { display: flex; gap: 14px; margin-bottom: 7px; }
+.run-group-options { max-height: 156px; display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); overflow-y: auto; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.run-group-options label { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 7px; padding: 7px 8px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+.run-group-options input { width: 15px; height: 15px; margin: 0; accent-color: var(--blue); }
+.run-group-options span { min-width: 0; display: grid; gap: 1px; font-size: 11px; }
+.run-group-options small { color: var(--text-muted); font-size: 9px; }
+.run-mode-options { display: grid; grid-template-columns: repeat(var(--run-mode-count, 3), minmax(0, 1fr)); border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
 .run-mode-options label { position: relative; display: block; border-right: 1px solid var(--line-strong); color: #3d4853; text-align: center; }
+.run-mode-options label[hidden] { display: none; }
 .run-mode-options label:last-child { border-right: 0; }
 .run-mode-options input { position: absolute; opacity: 0; pointer-events: none; }
 .run-mode-options span { display: grid; min-height: 36px; place-items: center; padding: 5px 8px; background: #fff; font-size: 11px; }
@@ -706,6 +713,9 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .run-stage-options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .run-stage-options span { min-height: 52px; padding: 8px; font-size: 13px; line-height: 1.35; overflow-wrap: anywhere; }
   .run-stage-options span small { font-size: 11px; line-height: 1.35; }
+  .run-group-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .run-group-options span { font-size: 13px; }
+  .run-group-options small { font-size: 11px; }
   .run-mode-options span { min-height: 48px; padding: 8px 10px; font-size: 13px; line-height: 1.4; }
   .run-preview { min-height: auto; padding: 10px; }
   .run-preview strong { overflow-wrap: anywhere; }

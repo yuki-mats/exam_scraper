@@ -73,6 +73,7 @@ class QualificationRunStore:
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
             "scopeListGroupId": plan.get("scopeListGroupId"),
+            "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "completedGroupIds": [],
             "jobId": None,
             "resumedFrom": resumed_from,
@@ -299,6 +300,7 @@ class QualificationRunCoordinator:
         *,
         stage_ids: list[str] | None = None,
         list_group_id: str | None = None,
+        list_group_ids: list[str] | None = None,
         resumed_from: str | None = None,
     ) -> dict[str, Any]:
         plan = self._plan(
@@ -308,6 +310,7 @@ class QualificationRunCoordinator:
             resumed_from,
             stage_ids=stage_ids,
             list_group_id=list_group_id,
+            list_group_ids=list_group_ids,
         )
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
@@ -344,6 +347,7 @@ class QualificationRunCoordinator:
             ),
             "targetGroupIds": plan["targetGroupIds"],
             "scopeListGroupId": plan.get("scopeListGroupId"),
+            "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "canonicalDocs": list(plan.get("canonicalDocs") or []),
             "sourceFileCount": len(plan.get("sourceFiles") or []),
             "outputFileCount": len(plan.get("outputFiles") or []),
@@ -362,6 +366,7 @@ class QualificationRunCoordinator:
         *,
         stage_ids: list[str] | None = None,
         list_group_id: str | None = None,
+        list_group_ids: list[str] | None = None,
         resumed_from: str | None = None,
     ) -> dict[str, Any]:
         preview = self.preview(
@@ -370,6 +375,7 @@ class QualificationRunCoordinator:
             mode,
             stage_ids=stage_ids,
             list_group_id=list_group_id,
+            list_group_ids=list_group_ids,
             resumed_from=resumed_from,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
@@ -386,22 +392,28 @@ class QualificationRunCoordinator:
             resumed_from,
             stage_ids=stage_ids,
             list_group_id=list_group_id,
+            list_group_ids=list_group_ids,
         )
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
+            prompt_scope = {}
+            if list_group_ids is not None:
+                prompt_scope["list_group_ids"] = list_group_ids
+            elif list_group_id is not None:
+                prompt_scope["list_group_id"] = list_group_id
             if len(selected_stage_ids) > 1:
                 prompt = self.workflow.prompt_many(
                     qualification,
                     selected_stage_ids,
                     mode,
-                    list_group_id=list_group_id,
+                    **prompt_scope,
                 )["prompt"]
-            elif list_group_id is not None:
+            elif prompt_scope:
                 prompt = self.workflow.prompt(
                     qualification,
                     selected_stage_ids[0],
                     mode,
-                    list_group_id=list_group_id,
+                    **prompt_scope,
                 )["prompt"]
             else:
                 prompt = self.workflow.prompt(
@@ -515,24 +527,30 @@ class QualificationRunCoordinator:
         *,
         stage_ids: list[str] | None = None,
         list_group_id: str | None = None,
+        list_group_ids: list[str] | None = None,
     ) -> dict[str, Any]:
         selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
+        scope: dict[str, Any] = {}
+        if list_group_ids is not None:
+            scope["list_group_ids"] = list_group_ids
+        elif list_group_id is not None:
+            scope["list_group_id"] = list_group_id
         if len(selected_stage_ids) > 1:
             plan = dict(
                 self.workflow.plan_many(
                     qualification,
                     selected_stage_ids,
                     mode,
-                    list_group_id=list_group_id,
+                    **scope,
                 )
             )
-        elif list_group_id is not None:
+        elif scope:
             plan = dict(
                 self.workflow.plan(
                     qualification,
                     selected_stage_ids[0],
                     mode,
-                    list_group_id=list_group_id,
+                    **scope,
                 )
             )
         else:
@@ -543,7 +561,19 @@ class QualificationRunCoordinator:
         if not resumed_from or plan["kind"] != "machine":
             return plan
         previous = self.store.get(qualification, resumed_from)
-        if previous.get("stageId") != stage_id or previous.get("mode") != mode:
+        previous_scope = (
+            list(previous.get("scopeListGroupIds") or [])
+            if "scopeListGroupIds" in previous
+            else [str(previous["scopeListGroupId"])]
+            if previous.get("scopeListGroupId")
+            else None
+        )
+        if (
+            previous.get("stageId") != stage_id
+            or previous.get("mode") != mode
+            or previous_scope is not None
+            and previous_scope != list(plan.get("scopeListGroupIds") or [])
+        ):
             raise QualificationRunError("再開元と工程又は対象範囲が一致しません。")
         completed = set(previous.get("completedGroupIds") or [])
         remaining = [

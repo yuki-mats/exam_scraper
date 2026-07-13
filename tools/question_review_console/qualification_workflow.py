@@ -16,11 +16,27 @@ LAW_AUDIT_ISSUES = {
     "law_basis_missing",
 }
 RUN_MODES = {
-    "group_refresh": "選択年度を全件洗い替え",
+    "group_refresh": "選択範囲を全件洗い替え",
     "remaining": "未作業のみ",
     "attention": "要確認のみ",
     "refresh": "資格全体を全件洗い替え",
 }
+
+
+def _group_scope(
+    list_group_id: str | None,
+    list_group_ids: Iterable[str] | None,
+) -> tuple[list[str], bool]:
+    provided = list_group_ids is not None or list_group_id is not None
+    raw = list(list_group_ids or [])
+    if list_group_ids is None and list_group_id:
+        raw = [list_group_id]
+    selected = _ordered_unique(str(value).strip() for value in raw)
+    if any(value == "__all__" for value in selected):
+        raise ValueError("年度は具体的なlistGroupIdで指定してください。")
+    if provided and not selected:
+        raise ValueError("対象年度を一つ以上選択してください。")
+    return selected, provided
 
 
 def _now_iso() -> str:
@@ -178,6 +194,7 @@ class QualificationWorkflow:
         mode: str = "remaining",
         *,
         list_group_id: str | None = None,
+        list_group_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         if mode not in RUN_MODES:
             raise ValueError(f"対象範囲が不正です: {mode}")
@@ -190,29 +207,42 @@ class QualificationWorkflow:
         if stage_id == "source":
             raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
 
+        selected_group_ids, scope_provided = _group_scope(
+            list_group_id, list_group_ids
+        )
+        if stage_id in {"setup", "category_setup"} and scope_provided:
+            raise ValueError(f"{definition['label']}は年度ではなく資格単位で整備します。")
+        if mode == "group_refresh" and not selected_group_ids:
+            raise ValueError("対象年度を一つ以上選択してください。")
+
         groups, questions = self._qualification_data(qualification)
-        if mode == "group_refresh":
-            if not list_group_id or list_group_id == "__all__":
-                raise ValueError("年度を一つ選択してから全件洗い替えを開始してください。")
+        if selected_group_ids:
+            available_group_ids = {
+                str(group.get("listGroupId") or "") for group in groups
+            }
+            unknown = [
+                group_id
+                for group_id in selected_group_ids
+                if group_id not in available_group_ids
+            ]
+            if unknown:
+                raise ValueError("対象年度がありません: " + ", ".join(unknown))
+            selected_set = set(selected_group_ids)
             groups = [
                 group
                 for group in groups
-                if str(group.get("listGroupId") or "") == list_group_id
+                if str(group.get("listGroupId") or "") in selected_set
             ]
-            if not groups:
-                raise ValueError(f"対象年度がありません: {list_group_id}")
             questions = [
                 question
                 for question in questions
-                if str(question.get("listGroupId") or "") == list_group_id
+                if str(question.get("listGroupId") or "") in selected_set
             ]
         target_questions: list[Mapping[str, Any]] = []
         output_files: list[str] = []
         target_group_ids: list[str] = []
 
         if stage_id == "setup":
-            if mode == "group_refresh":
-                raise ValueError("資格方針は年度単位ではなく資格単位で整備します。")
             policy_dir = Path("prompt") / "qualification_docs" / qualification
             policy_exists = (self.repo_root / policy_dir).is_dir()
             if mode == "attention":
@@ -235,8 +265,6 @@ class QualificationWorkflow:
                 )
             ] if target_questions else []
         elif stage_id == "category_setup":
-            if mode == "group_refresh":
-                raise ValueError("カテゴリ設計は年度単位ではなく資格単位で整備します。")
             category = self._category_state(qualification)
             should_run = mode == "refresh" or not category["ready"]
             if mode == "attention":
@@ -336,11 +364,20 @@ class QualificationWorkflow:
         target_question_keys = _unique(
             self._question_key(question) for question in target_questions
         )
-        mode_label = (
-            f"{list_group_id}を全件洗い替え"
-            if mode == "group_refresh"
-            else RUN_MODES[mode]
+        scope_label = (
+            "・".join(selected_group_ids)
+            if len(selected_group_ids) <= 3
+            else f"{selected_group_ids[0]}ほか{len(selected_group_ids) - 1}件"
         )
+        if selected_group_ids:
+            mode_label = {
+                "group_refresh": f"{scope_label}を全件洗い替え",
+                "refresh": f"{scope_label}を全件洗い替え",
+                "remaining": f"{scope_label}の未作業のみ",
+                "attention": f"{scope_label}の要確認のみ",
+            }[mode]
+        else:
+            mode_label = RUN_MODES[mode]
         return {
             "qualification": qualification,
             "stageId": stage_id,
@@ -359,7 +396,10 @@ class QualificationWorkflow:
             ),
             "targetQuestionKeys": target_question_keys,
             "targetGroupIds": target_group_ids,
-            "scopeListGroupId": list_group_id if mode == "group_refresh" else None,
+            "scopeListGroupId": (
+                selected_group_ids[0] if len(selected_group_ids) == 1 else None
+            ),
+            "scopeListGroupIds": selected_group_ids,
             "sourceFiles": source_files,
             "outputFiles": output_files,
             "canonicalDocs": list(definition.get("canonicalDocs") or []),
@@ -374,8 +414,12 @@ class QualificationWorkflow:
         mode: str = "remaining",
         *,
         list_group_id: str | None = None,
+        list_group_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         requested = _ordered_unique(str(stage_id) for stage_id in stage_ids)
+        scoped_group_ids = (
+            list(list_group_ids) if list_group_ids is not None else None
+        )
         if not requested:
             raise ValueError("工程を一つ以上選択してください。")
         catalog = self.catalog(qualification)
@@ -394,6 +438,7 @@ class QualificationWorkflow:
                 ordered[0],
                 mode,
                 list_group_id=list_group_id,
+                list_group_ids=scoped_group_ids,
             )
             plan["stageIds"] = ordered
             plan["stageCount"] = 1
@@ -417,6 +462,7 @@ class QualificationWorkflow:
                 stage_id,
                 mode,
                 list_group_id=list_group_id,
+                list_group_ids=scoped_group_ids,
             )
             for stage_id in ordered
         ]
@@ -472,8 +518,9 @@ class QualificationWorkflow:
                 for plan in stage_plans
                 for group_id in plan.get("targetGroupIds") or []
             ),
-            "scopeListGroupId": (
-                list_group_id if mode == "group_refresh" else None
+            "scopeListGroupId": stage_plans[0].get("scopeListGroupId"),
+            "scopeListGroupIds": list(
+                stage_plans[0].get("scopeListGroupIds") or []
             ),
             "sourceFiles": _unique(
                 path
@@ -502,12 +549,14 @@ class QualificationWorkflow:
         mode: str = "remaining",
         *,
         list_group_id: str | None = None,
+        list_group_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         return self.prompt_many(
             qualification,
             [stage_id],
             mode,
             list_group_id=list_group_id,
+            list_group_ids=list_group_ids,
         )
 
     def prompt_many(
@@ -517,12 +566,14 @@ class QualificationWorkflow:
         mode: str = "remaining",
         *,
         list_group_id: str | None = None,
+        list_group_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         plan = self.plan_many(
             qualification,
             stage_ids,
             mode,
             list_group_id=list_group_id,
+            list_group_ids=list_group_ids,
         )
         if plan["kind"] != "human":
             raise ValueError("この工程はCodex依頼ではなく既存の実行導線を使います。")
@@ -545,12 +596,30 @@ class QualificationWorkflow:
             f"{item['stageCode']} {item['stageLabel']}（{item['targetCount']}件）"
             for item in stage_plans
         )
+        target_label = (
+            f"{plan['targetCount']}問すべて"
+            if mode in {"refresh", "group_refresh"}
+            else f"{plan['targetCount']}問"
+        )
         lines = [
-            "# 資格単位の問題整備",
+            (
+                "# 選択年度・フォルダの問題整備"
+                if plan.get("scopeListGroupIds")
+                else "# 資格単位の問題整備"
+            ),
             "",
             f"- 工程: `{stage_summary}`",
             f"- 範囲: `{plan['modeLabel']}`",
-            f"- 対象問題: `{plan['targetCount']}問すべて`",
+            *(
+                [
+                    "- 対象listGroupId: `"
+                    + "`, `".join(plan.get("scopeListGroupIds") or [])
+                    + "`"
+                ]
+                if plan.get("scopeListGroupIds")
+                else []
+            ),
+            f"- 対象問題: `{target_label}`",
             f"- 工程判定: `延べ{plan.get('workItemCount', plan['targetCount'])}件`",
             "",
             "## 正本",

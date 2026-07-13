@@ -75,7 +75,10 @@ class SourceOnlyInventory:
             "questions": [
                 {
                     "paths": {
-                        "source": "output/new-exam/questions_json/2026/00_source/question_2026_1.json",
+                        "source": (
+                            f"output/new-exam/questions_json/{list_group_id}/"
+                            f"00_source/question_{list_group_id}_1.json"
+                        ),
                         "patches": [],
                     },
                     "issues": [],
@@ -91,6 +94,14 @@ class SourceOnlyInventory:
             ],
         }
 
+
+class MultiGroupSourceInventory(SourceOnlyInventory):
+    def inventory(self):
+        return {
+            "qualifications": [
+                {"id": "new-exam", "listGroupIds": ["2025", "2026"]}
+            ]
+        }
 
 class QualificationRunTests(unittest.TestCase):
     def test_source_only_qualification_starts_setup_session(self):
@@ -122,7 +133,7 @@ class QualificationRunTests(unittest.TestCase):
     def test_multi_stage_year_refresh_is_saved_as_one_human_run(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            workflow = QualificationWorkflow(root, SourceOnlyInventory())
+            workflow = QualificationWorkflow(root, MultiGroupSourceInventory())
             coordinator = QualificationRunCoordinator(
                 root,
                 workflow,
@@ -136,7 +147,7 @@ class QualificationRunTests(unittest.TestCase):
                 stage_ids[0],
                 "group_refresh",
                 stage_ids=stage_ids,
-                list_group_id="2026",
+                list_group_ids=["2025", "2026"],
             )
             started = coordinator.start(
                 "new-exam",
@@ -144,18 +155,21 @@ class QualificationRunTests(unittest.TestCase):
                 "group_refresh",
                 preview["previewToken"],
                 stage_ids=stage_ids,
-                list_group_id="2026",
+                list_group_ids=["2025", "2026"],
             )
 
         self.assertEqual(preview["stageId"], "multi")
         self.assertEqual(preview["stageIds"], stage_ids)
         self.assertEqual(preview["stageCount"], 3)
-        self.assertEqual(preview["targetCount"], 1)
-        self.assertEqual(preview["workItemCount"], 3)
-        self.assertEqual(preview["targetGroupIds"], ["2026"])
+        self.assertEqual(preview["targetCount"], 2)
+        self.assertEqual(preview["workItemCount"], 6)
+        self.assertEqual(preview["targetGroupIds"], ["2025", "2026"])
+        self.assertEqual(preview["scopeListGroupIds"], ["2025", "2026"])
         self.assertEqual(started["run"]["stageIds"], stage_ids)
-        self.assertEqual(started["run"]["workItemCount"], 3)
-        self.assertEqual(started["run"]["scopeListGroupId"], "2026")
+        self.assertEqual(started["run"]["workItemCount"], 6)
+        self.assertIsNone(started["run"]["scopeListGroupId"])
+        self.assertEqual(started["run"]["scopeListGroupIds"], ["2025", "2026"])
+        self.assertIn("対象listGroupId: `2025`, `2026`", started["prompt"])
         self.assertIn("一問を読み、その問題について選択工程", started["prompt"])
 
     def test_human_run_persists_prompt_and_can_resume_after_restart(self):

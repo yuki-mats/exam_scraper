@@ -393,6 +393,10 @@ class WorkflowUiContractTests(unittest.TestCase):
             "qualification-run-dialog",
             "qualification-run-stage-fieldset",
             "qualification-run-stages",
+            "qualification-run-group-fieldset",
+            "qualification-run-groups",
+            "qualification-run-groups-all",
+            "qualification-run-groups-clear",
             "qualification-run-start",
             "load-more-questions",
             "workflow-dialog",
@@ -489,7 +493,11 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('value="group_refresh" checked', html)
         self.assertIn("selectedQualificationRunStageIds", javascript)
         self.assertIn("stageIds,", javascript)
-        self.assertIn("問すべて × ${preview.stageCount}工程", javascript)
+        self.assertIn("selectedQualificationRunListGroupIds", javascript)
+        self.assertIn("listGroupIds:", javascript)
+        self.assertIn("複数選択可", javascript)
+        self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
+        self.assertIn("${preview.targetCount}${questionUnit} × ${preview.stageCount}工程", javascript)
         self.assertIn("延べ${preview.workItemCount}工程判定", javascript)
         self.assertIn('"/api/qualification-runs/resume-prompt"', javascript)
         self.assertIn('offset: String(offset)', javascript)

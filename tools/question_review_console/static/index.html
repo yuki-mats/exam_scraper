@@ -117,7 +117,7 @@
       <form id="qualification-run-form" method="dialog">
         <header class="dialog-header">
           <div>
-            <span class="dialog-eyebrow">資格全体の作業</span>
+            <span id="qualification-run-scope-eyebrow" class="dialog-eyebrow">整備範囲を指定</span>
             <h2 id="qualification-run-title">工程を開始</h2>
           </div>
           <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
@@ -129,13 +129,21 @@
             <legend>工程範囲</legend>
             <div id="qualification-run-stages" class="run-stage-options"></div>
           </fieldset>
-          <fieldset>
+          <fieldset id="qualification-run-group-fieldset">
+            <legend id="qualification-run-group-legend">対象年度</legend>
+            <div class="run-group-actions">
+              <button id="qualification-run-groups-all" class="document-link-button" type="button">すべて選択</button>
+              <button id="qualification-run-groups-clear" class="document-link-button" type="button">選択解除</button>
+            </div>
+            <div id="qualification-run-groups" class="run-group-options"></div>
+          </fieldset>
+          <fieldset id="qualification-run-mode-fieldset">
             <legend>対象範囲</legend>
             <div class="run-mode-options">
-              <label id="qualification-run-group-refresh"><input type="radio" name="qualification-run-mode" value="group_refresh" checked><span>この年度で全件洗い替える</span></label>
+              <label id="qualification-run-group-refresh"><input type="radio" name="qualification-run-mode" value="group_refresh" checked><span id="qualification-run-group-refresh-label">選択年度を全件洗い替え</span></label>
               <label><input type="radio" name="qualification-run-mode" value="remaining"><span>未作業のみ</span></label>
               <label><input type="radio" name="qualification-run-mode" value="attention"><span>要確認のみ</span></label>
-              <label><input type="radio" name="qualification-run-mode" value="refresh"><span>資格全体を全件洗い替え</span></label>
+              <label id="qualification-run-refresh"><input type="radio" name="qualification-run-mode" value="refresh"><span>資格全体を全件洗い替え</span></label>
             </div>
           </fieldset>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>

@@ -275,6 +275,7 @@ class QuestionReviewApplication:
             ):
                 raise ApiError(HTTPStatus.BAD_REQUEST, "stageIdsは文字列配列で指定してください。")
             stage_ids = list(dict.fromkeys(raw_stage_ids or ([stage_id] if stage_id else [])))
+            list_group_ids = _body_string_list(body, "listGroupIds")
             if not qualification or not stage_ids:
                 raise ApiError(
                     HTTPStatus.BAD_REQUEST,
@@ -283,7 +284,12 @@ class QuestionReviewApplication:
             try:
                 mode = str(body.get("mode") or "remaining")
                 list_group_id = str(body.get("listGroupId") or "") or None
-                if raw_stage_ids is None and list_group_id is None:
+                scope = {}
+                if list_group_ids is not None:
+                    scope["list_group_ids"] = list_group_ids
+                elif list_group_id is not None:
+                    scope["list_group_id"] = list_group_id
+                if raw_stage_ids is None and not scope:
                     return HTTPStatus.OK, self.qualification_workflow.prompt(
                         qualification, stage_ids[0], mode
                     )
@@ -291,7 +297,7 @@ class QuestionReviewApplication:
                     qualification,
                     stage_ids,
                     mode,
-                    list_group_id=list_group_id,
+                    **scope,
                 )
             except FileNotFoundError as exc:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
@@ -328,6 +334,7 @@ class QuestionReviewApplication:
                 stage_ids = list(
                     dict.fromkeys(raw_stage_ids or ([stage_id] if stage_id else []))
                 )
+                list_group_ids = _body_string_list(body, "listGroupIds")
                 mode = str(body.get("mode") or "remaining")
                 if not stage_ids:
                     raise ValueError("stageId又はstageIdsを指定してください。")
@@ -338,7 +345,9 @@ class QuestionReviewApplication:
                 }
                 if raw_stage_ids is not None:
                     run_options["stage_ids"] = stage_ids
-                if list_group_id is not None:
+                if list_group_ids is not None:
+                    run_options["list_group_ids"] = list_group_ids
+                elif list_group_id is not None:
                     run_options["list_group_id"] = list_group_id
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, self.qualification_runs.preview(
@@ -362,6 +371,8 @@ class QuestionReviewApplication:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
             except JobConflictError as exc:
                 raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except ApiError:
+                raise
             except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
@@ -1050,6 +1061,21 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
 def _query_value(query: Mapping[str, list[str]], key: str) -> str:
     values = query.get(key) or []
     return str(values[-1]).strip() if values else ""
+
+
+def _body_string_list(
+    body: Mapping[str, Any], key: str
+) -> list[str] | None:
+    value = body.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, list) or not all(
+        isinstance(item, str) and item.strip() for item in value
+    ):
+        raise ApiError(
+            HTTPStatus.BAD_REQUEST, f"{key}は空でない文字列配列で指定してください。"
+        )
+    return list(dict.fromkeys(item.strip() for item in value))
 
 
 def _query_bool(

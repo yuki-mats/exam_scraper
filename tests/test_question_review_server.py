@@ -46,7 +46,17 @@ class QuestionReviewServerTests(unittest.TestCase):
 
     def test_previews_starts_and_resumes_qualification_run(self):
         class Runs:
-            def preview(self, qualification, stage_id, mode, *, resumed_from=None):
+            def preview(
+                self,
+                qualification,
+                stage_id,
+                mode,
+                *,
+                stage_ids=None,
+                list_group_ids=None,
+                resumed_from=None,
+            ):
+                self.scope = list_group_ids
                 return {
                     "qualification": qualification,
                     "stageId": stage_id,
@@ -61,8 +71,11 @@ class QuestionReviewServerTests(unittest.TestCase):
                 mode,
                 preview_token,
                 *,
+                stage_ids=None,
+                list_group_ids=None,
                 resumed_from=None,
             ):
+                self.scope = list_group_ids
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
                     "prompt": "依頼",
@@ -77,16 +90,25 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
-            app.qualification_runs = Runs()
+            runs = Runs()
+            app.qualification_runs = runs
             _, preview = app.post(
                 "/api/qualification-runs/preview",
-                {"qualification": "sample", "stageId": "law_audit", "mode": "attention"},
+                {
+                    "qualification": "sample",
+                    "stageId": "law_audit",
+                    "stageIds": ["law_audit"],
+                    "listGroupIds": ["2024", "2026"],
+                    "mode": "attention",
+                },
             )
             start_status, started = app.post(
                 "/api/qualification-runs/start",
                 {
                     "qualification": "sample",
                     "stageId": "law_audit",
+                    "stageIds": ["law_audit"],
+                    "listGroupIds": ["2024", "2026"],
                     "mode": "attention",
                     "previewToken": "token",
                 },
@@ -100,6 +122,7 @@ class QuestionReviewServerTests(unittest.TestCase):
             )
 
         self.assertEqual(preview["mode"], "attention")
+        self.assertEqual(runs.scope, ["2024", "2026"])
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
         self.assertEqual(resumed["prompt"], "依頼")

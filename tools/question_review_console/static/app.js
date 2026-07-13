@@ -149,6 +149,7 @@ const state = {
     previewSequence: 0,
     resumedFrom: "",
     stageIds: [],
+    listGroupIds: [],
   },
   workflowGuide: {
     open: false,
@@ -311,6 +312,8 @@ function bindControls() {
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
   $("#qualification-run-form").addEventListener("submit", startQualificationRun);
   $("#qualification-run-guide").addEventListener("click", openQualificationRunGuide);
+  $("#qualification-run-groups-all").addEventListener("click", () => setQualificationRunGroupSelection(true));
+  $("#qualification-run-groups-clear").addEventListener("click", () => setQualificationRunGroupSelection(false));
   $("#qualification-run-dialog").addEventListener("cancel", (event) => {
     if (state.qualificationRunDialog.running) event.preventDefault();
   });
@@ -993,7 +996,7 @@ function renderQualificationActiveRun() {
   const completed = (run.completedGroupIds || []).length;
   $("#qualification-active-run-progress").textContent = run.kind === "machine"
     ? `${completed}/${run.targetCount}フォルダ`
-    : `${run.targetCount}問すべて × ${run.stageIds?.length || 1}工程を依頼済み`;
+    : `${run.targetCount}${["refresh", "group_refresh"].includes(run.mode) ? "問すべて" : "問"} × ${run.stageIds?.length || 1}工程を依頼済み`;
   const action = $("#qualification-active-run-action");
   action.textContent = run.kind === "human"
     ? "依頼を再コピー"
@@ -1011,6 +1014,73 @@ function selectedQualificationRunStageIds() {
   if (!inputs.length) return [...state.qualificationRunDialog.stageIds];
   return inputs.filter((node) => node.checked)
     .map((node) => node.value);
+}
+
+function qualificationRunSupportsGroupScope(stage) {
+  return Boolean(stage?.batchSelectable || stage?.id === "delivery");
+}
+
+function qualificationRunGroupIds() {
+  return state.qualificationWorkflow?.groups?.map((group) => group.listGroupId) || [];
+}
+
+function selectedQualificationRunListGroupIds() {
+  const inputs = [...document.querySelectorAll('input[name="qualification-run-group"]')];
+  if (!inputs.length) return [...state.qualificationRunDialog.listGroupIds];
+  return inputs.filter((node) => node.checked).map((node) => node.value);
+}
+
+function defaultQualificationRunListGroupIds(stage, options = {}) {
+  if (!qualificationRunSupportsGroupScope(stage)) return [];
+  const available = qualificationRunGroupIds();
+  if (options.listGroupIds?.length) {
+    return options.listGroupIds.filter((groupId) => available.includes(groupId));
+  }
+  if (state.listGroupId && state.listGroupId !== ALL_LIST_GROUPS) {
+    return available.includes(state.listGroupId) ? [state.listGroupId] : [];
+  }
+  return available;
+}
+
+function renderQualificationRunGroups(stage, selectedGroupIds) {
+  const fieldset = $("#qualification-run-group-fieldset");
+  const container = $("#qualification-run-groups");
+  const supportsScope = qualificationRunSupportsGroupScope(stage);
+  fieldset.hidden = !supportsScope;
+  container.replaceChildren();
+  if (!supportsScope) return;
+  const groups = state.qualificationWorkflow.groups || [];
+  const scopeName = scopeLabelForGroups(groups.map((group) => group.listGroupId));
+  $("#qualification-run-group-legend").textContent = `対象${scopeName}（複数選択可）`;
+  $("#qualification-run-group-refresh-label").textContent = `選択${scopeName}を全件洗い替え`;
+  for (const group of groups) {
+    const label = element("label", "");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "qualification-run-group";
+    input.value = group.listGroupId;
+    input.checked = selectedGroupIds.includes(group.listGroupId);
+    input.addEventListener("change", () => {
+      state.qualificationRunDialog.listGroupIds = selectedQualificationRunListGroupIds();
+      previewQualificationRun();
+    });
+    const content = element("span", "");
+    content.append(
+      element("strong", "", group.listGroupId),
+      element("small", "", `${group.questionCount}問`),
+    );
+    label.append(input, content);
+    container.append(label);
+  }
+}
+
+function setQualificationRunGroupSelection(selectAll) {
+  if (state.qualificationRunDialog.running) return;
+  for (const input of document.querySelectorAll('input[name="qualification-run-group"]')) {
+    input.checked = selectAll;
+  }
+  state.qualificationRunDialog.listGroupIds = selectedQualificationRunListGroupIds();
+  previewQualificationRun();
 }
 
 function defaultQualificationRunStageIds(stage) {
@@ -1074,21 +1144,30 @@ function updateQualificationRunHeading() {
 
 function openQualificationRunDialog(stage, options = {}) {
   const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
+  const selectedGroupIds = defaultQualificationRunListGroupIds(stage, options);
   state.qualificationRunDialog = {
     preview: null,
     running: false,
     previewSequence: state.qualificationRunDialog.previewSequence + 1,
     resumedFrom: options.resumedFrom || "",
     stageIds: selectedStageIds,
+    listGroupIds: selectedGroupIds,
   };
   state.qualificationWorkflowStageId = stage.id;
   renderQualificationRunStages(stage, selectedStageIds);
+  renderQualificationRunGroups(stage, selectedGroupIds);
   updateQualificationRunHeading();
   $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
   const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
-  const hasSelectedYear = Boolean(state.listGroupId && state.listGroupId !== ALL_LIST_GROUPS);
-  groupRefresh.disabled = !hasSelectedYear || !stage.batchSelectable;
-  const defaultMode = options.mode || (hasSelectedYear && stage.batchSelectable
+  const supportsScope = qualificationRunSupportsGroupScope(stage);
+  const groupRefreshLabel = $("#qualification-run-group-refresh");
+  const refreshLabel = $("#qualification-run-refresh");
+  groupRefreshLabel.hidden = !supportsScope;
+  refreshLabel.hidden = supportsScope && options.mode !== "refresh";
+  groupRefresh.disabled = !supportsScope;
+  const visibleModeCount = $("#qualification-run-mode-fieldset").querySelectorAll(".run-mode-options > label:not([hidden])").length;
+  $("#qualification-run-mode-fieldset").style.setProperty("--run-mode-count", String(visibleModeCount));
+  const defaultMode = options.mode || (supportsScope
     ? "group_refresh"
     : stage.status === "ready"
       ? "refresh"
@@ -1118,6 +1197,14 @@ async function previewQualificationRun() {
     $("#qualification-run-start").disabled = true;
     return;
   }
+  const stage = qualificationWorkflowStage(stageId);
+  const supportsScope = qualificationRunSupportsGroupScope(stage);
+  const listGroupIds = selectedQualificationRunListGroupIds();
+  if (supportsScope && !listGroupIds.length) {
+    $("#qualification-run-preview").textContent = "対象年度を一つ以上選択してください。";
+    $("#qualification-run-start").disabled = true;
+    return;
+  }
   const sequence = state.qualificationRunDialog.previewSequence + 1;
   state.qualificationRunDialog.previewSequence = sequence;
   state.qualificationRunDialog.preview = null;
@@ -1131,7 +1218,7 @@ async function previewQualificationRun() {
         stageId,
         stageIds,
         mode: selectedQualificationRunMode(),
-        listGroupId: selectedQualificationRunMode() === "group_refresh" ? state.listGroupId : undefined,
+        listGroupIds: supportsScope ? listGroupIds : undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
@@ -1155,6 +1242,9 @@ function renderQualificationRunPreview(preview) {
     );
   } else {
     const isMultiStage = preview.kind === "human" && preview.stageCount > 1;
+    const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)
+      ? "問すべて"
+      : "問";
     container.append(
       element(
         "strong",
@@ -1162,7 +1252,7 @@ function renderQualificationRunPreview(preview) {
         preview.kind === "machine"
           ? `${preview.targetCount}フォルダ`
           : isMultiStage
-            ? `${preview.targetCount}問すべて × ${preview.stageCount}工程`
+            ? `${preview.targetCount}${questionUnit} × ${preview.stageCount}工程`
             : `${preview.targetCount}問`,
       ),
       element("span", "", `${preview.stageCode} ${preview.stageLabel}`),
@@ -1175,8 +1265,19 @@ function renderQualificationRunPreview(preview) {
         element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
       );
     }
-    if (preview.targetGroupIds?.length) {
-      container.append(element("span", "run-preview-groups", preview.targetGroupIds.join(" / ")));
+    if (preview.scopeListGroupIds?.length) {
+      const scopeName = scopeLabelForGroups(preview.scopeListGroupIds);
+      const targetSuffix = preview.targetGroupIds?.length
+        && preview.targetGroupIds.length !== preview.scopeListGroupIds.length
+        ? ` / 作業対象 ${preview.targetGroupIds.join("・")}`
+        : "";
+      container.append(
+        element(
+          "span",
+          "run-preview-groups",
+          `選択${scopeName} ${preview.scopeListGroupIds.join("・")}${targetSuffix}`,
+        ),
+      );
     }
   }
   container.append(
@@ -1211,7 +1312,7 @@ async function startQualificationRun(event) {
         stageId: preview.stageId,
         stageIds: preview.stageIds,
         mode: preview.mode,
-        listGroupId: preview.scopeListGroupId || undefined,
+        listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
@@ -1246,10 +1347,18 @@ function setQualificationRunRunning(running) {
   for (const node of $("#qualification-run-dialog").querySelectorAll("input")) {
     const stage = qualificationWorkflowStage();
     node.disabled = running || (
-      node.value === "group_refresh"
-      && (!stage?.batchSelectable || !state.listGroupId || state.listGroupId === ALL_LIST_GROUPS)
+      node.value === "group_refresh" && !qualificationRunSupportsGroupScope(stage)
     );
   }
+  for (const node of $("#qualification-run-dialog").querySelectorAll(".run-group-actions button")) {
+    node.disabled = running;
+  }
+}
+
+function qualificationRunResumeGroupIds(run) {
+  if (run.scopeListGroupIds?.length) return run.scopeListGroupIds;
+  if (run.scopeListGroupId) return [run.scopeListGroupId];
+  return qualificationRunGroupIds();
 }
 
 async function pollQualificationRunJob(jobId) {
@@ -1297,7 +1406,11 @@ async function resumeQualificationRun() {
   if ((run.status === "running" || run.status === "queued") && run.jobId) {
     const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
     if (!stage) return;
-    openQualificationRunDialog(stage, { mode: run.mode, resumedFrom: run.runId });
+    openQualificationRunDialog(stage, {
+      mode: run.mode,
+      resumedFrom: run.runId,
+      listGroupIds: qualificationRunResumeGroupIds(run),
+    });
     setQualificationRunRunning(true);
     pollQualificationRunJob(run.jobId).catch(async (error) => {
       setQualificationRunRunning(false);
@@ -1307,7 +1420,11 @@ async function resumeQualificationRun() {
     return;
   }
   const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
-  if (stage) openQualificationRunDialog(stage, { mode: run.mode, resumedFrom: run.runId });
+  if (stage) openQualificationRunDialog(stage, {
+    mode: run.mode,
+    resumedFrom: run.runId,
+    listGroupIds: qualificationRunResumeGroupIds(run),
+  });
 }
 
 async function setListMode(exceptionsOnly) {

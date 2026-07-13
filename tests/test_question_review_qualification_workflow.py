@@ -210,6 +210,50 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(plan["modeLabel"], "2025を全件洗い替え")
         self.assertTrue(all("/2025/" in path for path in plan["sourceFiles"]))
 
+    def test_selected_years_scope_all_modes_and_prompt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {"listGroupId": "2024", "questions": [question(group="2024")]},
+                        {"listGroupId": "2025", "questions": [question(group="2025")]},
+                        {"listGroupId": "2026", "questions": [question(group="2026")]},
+                    ],
+                ),
+            )
+            selected = ["2024", "2026"]
+            remaining = workflow.plan(
+                "sample",
+                "question_type",
+                "remaining",
+                list_group_ids=selected,
+            )
+            refresh = workflow.plan(
+                "sample",
+                "question_type",
+                "group_refresh",
+                list_group_ids=selected,
+            )
+            prompt = workflow.prompt(
+                "sample",
+                "question_type",
+                "remaining",
+                list_group_ids=selected,
+            )["prompt"]
+
+        self.assertEqual(remaining["targetCount"], 2)
+        self.assertEqual(remaining["targetGroupIds"], selected)
+        self.assertEqual(remaining["scopeListGroupIds"], selected)
+        self.assertEqual(remaining["modeLabel"], "2024・2026の未作業のみ")
+        self.assertEqual(refresh["modeLabel"], "2024・2026を全件洗い替え")
+        self.assertNotIn("/2025/", "\n".join(remaining["sourceFiles"]))
+        self.assertIn("# 選択年度・フォルダの問題整備", prompt)
+        self.assertIn("対象listGroupId: `2024`, `2026`", prompt)
+        self.assertIn("対象問題: `2問`", prompt)
+        self.assertNotIn("対象問題: `2問すべて`", prompt)
+
     def test_category_setup_blocks_question_set_until_valid_category_exists(self):
         patches = [
             "output/sample/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json",
