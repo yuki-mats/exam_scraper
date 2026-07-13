@@ -1118,7 +1118,7 @@ def _group_action(path: str) -> tuple[str, str, str] | None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="問題整備コントロールセンターを起動します。")
+    parser = argparse.ArgumentParser(description="問題整備システムを起動します。")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--no-browser", action="store_true")
@@ -1163,7 +1163,7 @@ def run_server(
         params["listGroupId"] = list_group_id
     suffix = "?" + urllib.parse.urlencode(params) if params else ""
     url = f"{app.origin}/{suffix}"
-    print(f"問題整備コントロールセンター: {url}", flush=True)
+    print(f"問題整備システム: {url}", flush=True)
     if tailscale_access is not None:
         print(f"Tailscale Serve: {tailscale_access.origin}/{suffix}", flush=True)
     print(f"Firestore: {PRODUCTION_PROJECT_ID} (UI publish enabled)", flush=True)

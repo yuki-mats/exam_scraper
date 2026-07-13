@@ -1,6 +1,6 @@
-# 問題整備コントロールセンター
+# 問題整備システム
 
-この文書は、ローカルGUI「問題整備コントロールセンター」と`tools/question_review_console/`のAPI・書き込み安全性の正本です。問題整備工程は[幹](exam_pipeline_manual_and_automation.md)、patchの責務は[artifact契約](artifact_contract.md)を参照します。
+この文書は、ローカルGUI「問題整備システム」と`tools/question_review_console/`のAPI・書き込み安全性の正本です。問題整備工程は[幹](exam_pipeline_manual_and_automation.md)、patchの責務は[artifact契約](artifact_contract.md)を参照します。
 
 ## 目的
 

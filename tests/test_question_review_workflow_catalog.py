@@ -74,7 +74,7 @@ class WorkflowCatalogTests(unittest.TestCase):
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()
 
-        self.assertEqual(catalog["system"]["name"], "問題整備コントロールセンター")
+        self.assertEqual(catalog["system"]["name"], "問題整備システム")
         self.assertEqual(
             [stage["id"] for stage in catalog["stages"]],
             [
@@ -168,7 +168,7 @@ class CanonicalDocumentTests(unittest.TestCase):
             ROOT / "tools" / "question_review_console" / "static" / "app.js"
         ).read_text(encoding="utf-8")
 
-        self.assertIn("問題整備コントロールセンター", html)
+        self.assertIn("問題整備システム", html)
         for element_id in (
             "qualification-workflow-guide",
             "workflow-guide",

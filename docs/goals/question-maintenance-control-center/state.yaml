@@ -1,7 +1,7 @@
 version: 2
 
 goal:
-  title: "資格横断問題整備コントロールセンター"
+  title: "資格横断問題整備システム"
   slug: "question-maintenance-control-center"
   kind: specific
   tranche: "continuous execution: workflow全体を調査・設計・実装・検証し、元の成果が完了するまで進める"
@@ -571,7 +571,7 @@ tasks:
       result: done
       decision: complete
       full_outcome_complete: true
-      summary: "元の依頼を資格横断問題整備コントロールセンターとして完成させた。既存・新規資格でworkflow把握から人間工程、資格batch、upload-ready確認まで安全に進められ、desktop/mobileと自動テストで証明した。"
+      summary: "元の依頼を資格横断問題整備システムとして完成させた。既存・新規資格でworkflow把握から人間工程、資格batch、upload-ready確認まで安全に進められ、desktop/mobileと自動テストで証明した。"
       oracle_evidence_map:
         workflow_overview: "T003/T006: 00・準備・01・02・02b・03・03b・04・出力の目的、状態、次工程を実データで表示"
         human_work: "T005/T006/T007: 未作業・要確認・全件洗い替え、path-only prompt、Lawzilla MCPとFirestore条文検索、一問一肢、保存・再コピー・完了receipt"

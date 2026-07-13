@@ -1,8 +1,8 @@
-# 資格横断問題整備コントロールセンター
+# 資格横断問題整備システム
 
 ## Objective
 
-ローカル問題レビューUIを、新規スクレイピング資格を含む全資格について、01〜04・02b・03b、未作業、再実行、洗い替え、patch更新、merge、convert、quality-gate、upload-ready確認まで一貫して把握・実行できる問題整備コントロールセンターへ拡張する。
+ローカル問題レビューUIを、新規スクレイピング資格を含む全資格について、01〜04・02b・03b、未作業、再実行、洗い替え、patch更新、merge、convert、quality-gate、upload-ready確認まで一貫して把握・実行できる問題整備システムへ拡張する。
 
 ## Original Request
 
