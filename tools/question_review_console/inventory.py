@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from scripts.common.question_identity import review_question_id
+from scripts.scrape.qualification_presets import load_qualification_catalog
 from tools.question_review_console.projection import (
     PROJECTED_COMPARE_FIELDS,
     api_question_id,
@@ -337,6 +338,9 @@ class QuestionInventory:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
         self.output_root = self.repo_root / "output"
+        self.qualification_catalog = load_qualification_catalog(
+            self.repo_root / "config" / "scrape_presets.json"
+        )
         self._cache: dict[tuple[str, str], GroupCache] = {}
         self._id_map: dict[str, dict[str, Any]] = {}
         self._lock = threading.RLock()
@@ -356,13 +360,17 @@ class QuestionInventory:
             ]
             if not groups:
                 continue
+            metadata = self.qualification_catalog.get(qualification_dir.name, {})
             qualifications.append(
                 {
                     "id": qualification_dir.name,
+                    "displayName": metadata.get("displayName", qualification_dir.name),
+                    "publicationId": metadata.get("publicationId", qualification_dir.name),
                     "listGroupIds": groups,
                     "listGroupCount": len(groups),
                 }
             )
+        qualifications.sort(key=lambda item: (item["displayName"], item["id"]))
         ids = {item["id"] for item in qualifications}
         default = "gas-shunin-otsu" if "gas-shunin-otsu" in ids else (
             qualifications[0]["id"] if qualifications else None
@@ -437,11 +445,19 @@ class QuestionInventory:
         group_dir: Path,
         fingerprint: str,
     ) -> dict[str, Any]:
+        publication_qualification_id = self.qualification_catalog.get(
+            qualification, {}
+        ).get("publicationId", qualification)
         stage_maps = build_stage_maps(group_dir)
         issue_paths = _current_json_files(group_dir / "24_questionIssueCorrections")
         merged_map = _record_map(_current_json_files(group_dir / "30_merged_2"))
         converted_docs, converted_path = self._converted_docs(group_dir)
-        upload_docs, upload_path = self._upload_docs(qualification, list_group_id, group_dir)
+        upload_docs, upload_path = self._upload_docs(
+            qualification,
+            publication_qualification_id,
+            list_group_id,
+            group_dir,
+        )
 
         questions: list[dict[str, Any]] = []
         source_files = _current_json_files(group_dir / SOURCE_SUBDIR)
@@ -462,8 +478,12 @@ class QuestionInventory:
                     issue_paths,
                 )
                 projected_aliases = aliases | record_aliases(projection.record)
-                matched_converted = self._matching_docs(converted_docs, projected_aliases, qualification)
-                matched_upload = self._matching_docs(upload_docs, projected_aliases, qualification)
+                matched_converted = self._matching_docs(
+                    converted_docs, projected_aliases, publication_qualification_id
+                )
+                matched_upload = self._matching_docs(
+                    upload_docs, projected_aliases, publication_qualification_id
+                )
                 required_field_warnings = [
                     {
                         **warning,
@@ -623,6 +643,7 @@ class QuestionInventory:
         )
         return {
             "qualification": qualification,
+            "publicationQualificationId": publication_qualification_id,
             "listGroupId": list_group_id,
             "fingerprint": fingerprint,
             "questionCount": len(questions),
@@ -647,7 +668,11 @@ class QuestionInventory:
         )
 
     def _upload_docs(
-        self, qualification: str, list_group_id: str, group_dir: Path
+        self,
+        qualification: str,
+        publication_qualification_id: str,
+        list_group_id: str,
+        group_dir: Path,
     ) -> tuple[list[dict[str, Any]], Path | None]:
         questions_dir = group_dir.parent
         direct = _latest_json(
@@ -675,7 +700,8 @@ class QuestionInventory:
             docs = [
                 dict(value)
                 for value in values
-                if isinstance(value, dict) and value.get("qualificationId") == qualification
+                if isinstance(value, dict)
+                and value.get("qualificationId") == publication_qualification_id
             ]
             if docs:
                 return docs, path

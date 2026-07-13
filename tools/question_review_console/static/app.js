@@ -387,12 +387,19 @@ function initializeSelectors() {
   const select = $("#qualification-select");
   select.replaceChildren();
   for (const qualification of qualifications) {
-    const option = element("option", "", qualification.id);
+    const option = element("option", "", qualification.displayName || qualification.id);
     option.value = qualification.id;
+    option.title = qualification.id;
     select.append(option);
   }
   select.value = state.qualification;
   populateGroups(params.get("listGroupId"));
+}
+
+function qualificationDisplayName(qualificationId = state.qualification) {
+  return state.inventory.qualifications?.find((item) => item.id === qualificationId)?.displayName
+    || qualificationId
+    || "";
 }
 
 function populateGroups(requested = null) {
@@ -420,9 +427,13 @@ function populateGroups(requested = null) {
 }
 
 function scopeLabelForGroups(groupIds) {
-  return groupIds.length && groupIds.every((value) => /^(?:19|20)\d{2}$/.test(value))
-    ? "年度"
-    : "フォルダ";
+  if (groupIds.length && groupIds.every((value) => /^(?:19|20)\d{2}$/.test(value))) {
+    return "年度";
+  }
+  if (groupIds.length && groupIds.every((value) => /^(?:19|20)\d{2}(?:01|02)$/.test(value))) {
+    return "年度・区分";
+  }
+  return "フォルダ";
 }
 
 function updateUrl() {
@@ -456,7 +467,7 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     if (quiet) return;
     state.qualificationWorkflow = null;
     $("#qualification-workflow-status").textContent = "取得失敗";
-    $("#qualification-workflow-title").textContent = state.qualification || "問題整備の流れ";
+    $("#qualification-workflow-title").textContent = qualificationDisplayName() || "問題整備の流れ";
     $("#qualification-workflow-next").textContent = error.message;
     $("#qualification-workflow-stages").replaceChildren();
     $("#qualification-workflow-detail").hidden = true;
@@ -488,7 +499,7 @@ function renderQualificationWorkflow() {
       : "整備中";
   $("#qualification-workflow-status").textContent = overallLabel;
   $("#qualification-workflow-status").className = `workflow-overall-status ${workflow.overallStatus}`;
-  $("#qualification-workflow-title").textContent = workflow.qualification;
+  $("#qualification-workflow-title").textContent = qualificationDisplayName(workflow.qualification);
   $("#qualification-workflow-next").textContent = nextStage
     ? `次は ${nextStage.code} ${nextStage.label}：${nextStage.missingSummary}`
     : "すべてのローカル工程が整っています。";
@@ -2395,7 +2406,7 @@ async function openSyncDialog(autoStart = false) {
         : "既存workflowを対象フォルダだけで実行し、upload dry-runまで検証します。00_sourceは変更しません。"
       : "Merge、Convert、upload-readyはすでに最新です。";
     $("#workflow-dialog-summary").append(
-      summaryMetric("対象", `${preview.qualification} / ${preview.listGroupId}`),
+      summaryMetric("対象", `${qualificationDisplayName(preview.qualification)} / ${preview.listGroupId}`),
       summaryMetric("問題", `${preview.questionCount}問`),
       stageSummary(preview, "merge", "Merge"),
       stageSummary(preview, "convert", "Convert"),
@@ -2428,7 +2439,7 @@ async function openPublishDialog() {
     state.workflowDialog.preview = preview;
     const summary = $("#workflow-dialog-summary");
     summary.append(
-      summaryMetric("対象", `${preview.qualification} / ${preview.listGroupId}`),
+      summaryMetric("対象", `${qualificationDisplayName(preview.qualification)} / ${preview.listGroupId}`),
       summaryMetric("本番project", preview.projectId),
     );
     if (!preview.localReady || preview.blockingIssues && Object.keys(preview.blockingIssues).length) {
@@ -2571,7 +2582,7 @@ function showWorkflowError(error) {
 
 function openReadbackDialog() {
   state.readbackDialog = { preview: null, running: false, requestSequence: 0 };
-  $("#readback-qualification").textContent = state.qualification;
+  $("#readback-qualification").textContent = qualificationDisplayName();
   $("#readback-message").textContent =
     "この資格の全フォルダをまとめて読み取り、結果をローカルに保存します。";
   $("#readback-summary").replaceChildren();

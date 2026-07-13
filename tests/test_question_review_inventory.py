@@ -17,6 +17,43 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_inventory_exposes_japanese_qualification_name_and_publication_id(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            write_json(
+                root / "config" / "scrape_presets.json",
+                {
+                    "readable-code": {
+                        "qualification_name": "表示用資格名",
+                        "publication_qualification_id": "stable-public-id",
+                    }
+                },
+            )
+            source_dir = (
+                root
+                / "output"
+                / "readable-code"
+                / "questions_json"
+                / "202501"
+                / "00_source"
+            )
+            write_json(source_dir / "question_source_1.json", {"question_bodies": []})
+
+            overview = QuestionInventory(root).inventory()
+
+        self.assertEqual(
+            overview["qualifications"],
+            [
+                {
+                    "id": "readable-code",
+                    "displayName": "表示用資格名",
+                    "publicationId": "stable-public-id",
+                    "listGroupIds": ["202501"],
+                    "listGroupCount": 1,
+                }
+            ],
+        )
+
     def test_reports_missing_top_level_upload_ready_verdict(self):
         warnings = upload_document_required_warnings(
             {

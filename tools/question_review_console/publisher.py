@@ -199,13 +199,16 @@ class GroupPublisher:
             raise PublicationError("upload-readyにquestionsがありません。")
         documents = [copy.deepcopy(value) for value in raw_documents if isinstance(value, dict)]
         validate_required_question_fields(documents, str(path))
+        publication_qualification_id = str(
+            group.get("publicationQualificationId") or qualification
+        )
         ids: set[str] = set()
         for document in documents:
             question_id = str(document.get("questionId") or "")
             if question_id in ids:
                 raise PublicationError(f"questionIdが重複しています: {question_id}")
             ids.add(question_id)
-            if document.get("qualificationId") != qualification:
+            if document.get("qualificationId") != publication_qualification_id:
                 raise PublicationError("upload-readyに別資格のdocumentが含まれています。")
             if str(document.get("listGroupId") or "") != list_group_id:
                 raise PublicationError("upload-readyに別フォルダのdocumentが含まれています。")
