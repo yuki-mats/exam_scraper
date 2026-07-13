@@ -10,12 +10,7 @@ else
   python_cmd=python3
 fi
 
-"$python_cmd" scripts/check/check_00_source_immutability.py
-
-if git diff --cached --name-status --diff-filter=MDR | grep -q '/00_source/'; then
-  echo "[BLOCKED] 既存00_sourceの変更・削除・改名はできません" >&2
-  exit 1
-fi
+"$python_cmd" scripts/check/check_00_source_immutability.py --check-staged
 
 manifest=docs/contracts/00_source_sha256_manifest.jsonl
 if ! git diff --quiet -- "$manifest"; then

@@ -1,6 +1,6 @@
 # 二級土木施工管理技士試験 `category.json` 整備メモ
 
-この文書は、`output/2dobokusekou/category/category.json` を新規作成・見直しする際に、どの粒度で分類するか、どの境界で分けるかを検討するための資料である。
+この文書は、`output/2nd-class-doboku-sekou/category/category.json` を新規作成・見直しする際に、どの粒度で分類するか、どの境界で分けるかを検討するための資料である。
 
 ## この文書の位置付け
 - 日常の `questionSetId` 紐付けでは、完成済みの `category.json` の `name` / `description` / `matchingHints` を主根拠にする。

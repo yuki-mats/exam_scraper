@@ -18,7 +18,8 @@
 
 ## `00_source`
 
-- スクレイピングでの新規作成だけ許可し、既存ファイルは変更・削除・改名しない。
+- スクレイピングでの新規作成だけ許可し、既存ファイルの内容・ファイル名は変更・削除しない。
+- 資格コード又は年度・試験区分を整理する親ディレクトリ移動は、内容と`00_source/`以下の相対名を保持し、`python scripts/check/check_00_source_immutability.py --record-moves`で明示登録する場合だけ許可する。
 - 修正は責務に応じて `10` / `15` / `18` / `21` / `22` / `23` / `24` のpatch層へ入れる。
 - 新規scrape後のみ `python scripts/check/check_00_source_immutability.py --record-new` を実行する。
 

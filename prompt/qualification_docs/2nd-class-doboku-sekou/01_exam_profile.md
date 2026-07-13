@@ -3,7 +3,7 @@
 この文書は、二級土木施工管理技士試験の章立て、出題傾向、問題形式を整理し、解説文作成や `category.json` 検討の共通前提とするための資料である。
 
 ## 試験全体の見取り図
-- `output/2dobokusekou/category/category.json` では、試験範囲を次の31フォルダに整理している。
+- `output/2nd-class-doboku-sekou/category/category.json` では、試験範囲を次の31フォルダに整理している。
   1. 工学基礎知識
   2. 土工
   3. コンクリート

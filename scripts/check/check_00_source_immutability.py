@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""00_source の新規追加だけを許可し、既存ファイルの差分を拒否する。"""
+"""00_source の内容を固定し、新規追加と明示的な親ディレクトリ移動を管理する。"""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
-from pathlib import Path
+import subprocess
 import sys
+from pathlib import Path
 
 
 DEFAULT_MANIFEST = Path("docs/contracts/00_source_sha256_manifest.jsonl")
@@ -56,6 +57,99 @@ def differences(manifest: dict[str, str], current: dict[str, str]) -> dict[str, 
     }
 
 
+def record_parent_moves(
+    manifest: dict[str, str],
+    current: dict[str, str],
+    diff: dict[str, list[str]],
+) -> dict[str, str]:
+    """00_source以下の相対名と内容を保った親ディレクトリ移動だけを反映する。"""
+    if diff["改変"]:
+        raise ValueError("内容が変わった00_sourceがあるため移動を登録できません")
+
+    def move_key(path: str, digest: str) -> tuple[str, str]:
+        marker = "/00_source/"
+        if marker not in path:
+            raise ValueError(f"00_source配下ではありません: {path}")
+        return digest, path.split(marker, 1)[1]
+
+    missing_by_key: dict[tuple[str, str], list[str]] = {}
+    new_by_key: dict[tuple[str, str], list[str]] = {}
+    for path in diff["消失"]:
+        missing_by_key.setdefault(move_key(path, manifest[path]), []).append(path)
+    for path in diff["未登録"]:
+        new_by_key.setdefault(move_key(path, current[path]), []).append(path)
+
+    if {
+        key: len(paths) for key, paths in missing_by_key.items()
+    } != {
+        key: len(paths) for key, paths in new_by_key.items()
+    }:
+        raise ValueError(
+            "消失と未登録が同一内容・同一ファイル名で対応しないため、親ディレクトリ移動として扱えません"
+        )
+
+    updated = dict(manifest)
+    for paths in missing_by_key.values():
+        for path in paths:
+            updated.pop(path)
+    for paths in new_by_key.values():
+        for path in paths:
+            updated[path] = current[path]
+    return updated
+
+
+def staged_source_changes(root: Path) -> list[tuple[str, ...]]:
+    """index上の00_source変更をname-statusのtupleとして返す。"""
+    result = subprocess.run(
+        [
+            "git",
+            "diff",
+            "--cached",
+            "--name-status",
+            "-z",
+            "--find-renames=100%",
+            "--diff-filter=MDR",
+            "--",
+            ":(glob)**/00_source/**",
+        ],
+        cwd=root,
+        check=True,
+        capture_output=True,
+    )
+    tokens = result.stdout.decode("utf-8").split("\0")
+    if tokens and not tokens[-1]:
+        tokens.pop()
+
+    changes: list[tuple[str, ...]] = []
+    index = 0
+    while index < len(tokens):
+        status = tokens[index]
+        path_count = 2 if status.startswith(("R", "C")) else 1
+        paths = tokens[index + 1 : index + 1 + path_count]
+        if len(paths) != path_count:
+            raise ValueError("git diffの00_source変更を解析できません")
+        changes.append((status, *paths))
+        index += 1 + path_count
+    return changes
+
+
+def staged_source_change_violations(changes: list[tuple[str, ...]]) -> list[str]:
+    """内容・00_source以下の相対名を保つ親移動以外を列挙する。"""
+    marker = "/00_source/"
+    violations: list[str] = []
+    for change in changes:
+        status, *paths = change
+        if status == "R100" and len(paths) == 2:
+            old_path, new_path = paths
+            if marker in old_path and marker in new_path:
+                old_suffix = old_path.split(marker, 1)[1]
+                new_suffix = new_path.split(marker, 1)[1]
+                if old_suffix == new_suffix:
+                    continue
+        violations.append("\t".join(change))
+    return violations
+
+
 def show_differences(diff: dict[str, list[str]]) -> None:
     for label, paths in diff.items():
         if paths:
@@ -71,6 +165,8 @@ def main(argv: list[str] | None = None) -> int:
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--initialize", action="store_true")
     action.add_argument("--record-new", action="store_true")
+    action.add_argument("--record-moves", action="store_true")
+    action.add_argument("--check-staged", action="store_true")
     args = parser.parse_args(argv)
 
     root = args.root.resolve()
@@ -86,6 +182,11 @@ def main(argv: list[str] | None = None) -> int:
 
         manifest = load_manifest(manifest_path)
         diff = differences(manifest, current)
+        if args.record_moves:
+            updated = record_parent_moves(manifest, current, diff)
+            save_manifest(manifest_path, updated)
+            print(f"[OK] 00_source親ディレクトリ移動登録: {len(diff['消失'])} files")
+            return 0
         if args.record_new:
             if diff["改変"] or diff["消失"]:
                 show_differences(diff)
@@ -98,9 +199,22 @@ def main(argv: list[str] | None = None) -> int:
         if any(diff.values()):
             show_differences(diff)
             return 1
+        if args.check_staged:
+            changes = staged_source_changes(root)
+            violations = staged_source_change_violations(changes)
+            if violations:
+                print(
+                    "[BLOCKED] 既存00_sourceの内容・ファイル名変更はできません",
+                    file=sys.stderr,
+                )
+                for violation in violations:
+                    print(f"  - {violation}", file=sys.stderr)
+                return 1
+            print(f"[OK] staged 00_source親ディレクトリ移動: {len(changes)} files")
+            return 0
         print(f"[OK] 00_source差分なし: {len(manifest)} files")
         return 0
-    except (OSError, ValueError, json.JSONDecodeError) as exc:
+    except (OSError, ValueError, json.JSONDecodeError, subprocess.SubprocessError) as exc:
         print(f"[BLOCKED] {exc}", file=sys.stderr)
         return 1
 

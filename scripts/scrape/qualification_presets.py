@@ -18,6 +18,7 @@ class ScrapeTarget:
 @dataclass(frozen=True)
 class ScrapePreset:
     qualification_code: str
+    publication_qualification_id: str
     qualification_name: str
     scraper_type: str
     list_first_page_url_template: str
@@ -57,6 +58,12 @@ def load_scrape_preset(
 
     return ScrapePreset(
         qualification_code=str(preset.get("qualification_code", qualification_code)),
+        publication_qualification_id=str(
+            preset.get(
+                "publication_qualification_id",
+                preset.get("qualification_code", qualification_code),
+            )
+        ),
         qualification_name=preset["qualification_name"],
         scraper_type=str(preset.get("scraper_type", "kakomonn")),
         list_first_page_url_template=preset["list_first_page_url_template"],
@@ -68,6 +75,47 @@ def load_scrape_preset(
             for target in raw_targets
         ],
     )
+
+
+def load_qualification_catalog(
+    config_path: Path = DEFAULT_CONFIG_PATH,
+) -> dict[str, dict[str, str]]:
+    """ローカル資格コードごとの和名と公開用qualificationIdを返す。"""
+    if not config_path.is_file():
+        return {}
+    with config_path.open("r", encoding="utf-8") as fin:
+        raw = json.load(fin)
+
+    catalog: dict[str, dict[str, str]] = {}
+    for preset_key, value in raw.items():
+        if not isinstance(value, dict):
+            continue
+        local_code = str(value.get("qualification_code", preset_key)).strip()
+        name = str(value.get("qualification_name", "")).strip()
+        if not local_code or not name:
+            continue
+        publication_id = str(
+            value.get("publication_qualification_id", local_code)
+        ).strip()
+        candidate = {
+            "displayName": name,
+            "publicationId": publication_id or local_code,
+        }
+        existing = catalog.get(local_code)
+        if existing is not None and existing != candidate:
+            raise ValueError(f"資格表示情報が競合しています: {local_code}")
+        catalog[local_code] = candidate
+    return catalog
+
+
+def publication_qualification_id_for_code(
+    qualification_code: str | None,
+    config_path: Path = DEFAULT_CONFIG_PATH,
+) -> str | None:
+    if not qualification_code:
+        return qualification_code
+    metadata = load_qualification_catalog(config_path).get(qualification_code, {})
+    return metadata.get("publicationId", qualification_code)
 
 
 def resolve_target_list_group_ids(

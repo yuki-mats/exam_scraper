@@ -54,6 +54,14 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
 
         self.assertEqual(module.resolve_license_name(path, None), "医師")
 
+    def test_readable_local_code_maps_to_stable_publication_id(self) -> None:
+        path = "output/2nd-class-doboku-sekou/category/category.json"
+
+        self.assertEqual(
+            module.infer_qualification_id_from_path(path),
+            "2dobokusekou",
+        )
+
     def test_license_name_prefers_category_metadata(self) -> None:
         path = "output/kougai/category/category.json"
         category = {"metadata": {"licenseName": "大気関係第1種公害防止管理者"}}

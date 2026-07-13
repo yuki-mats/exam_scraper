@@ -46,6 +46,8 @@ else:
         LAW_REVISION_SNAPSHOT_KEYS,
     )
 
+from scripts.scrape.qualification_presets import publication_qualification_id_for_code
+
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
 EXAM_NAME_BY_QUALIFICATION = {
@@ -1303,7 +1305,8 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
         with open(invalid_path, "r", encoding="utf-8") as f:
             invalid_data = json.load(f)
         raise_on_question_intent_correct_choice_violations(payload=invalid_data, source_path=invalid_path)
-    qualification = infer_qualification_from_path(input_path)
+    local_qualification = infer_qualification_from_path(input_path)
+    qualification = publication_qualification_id_for_code(local_qualification)
     normalize_payload_image_urls(merged_data, qualification)
     list_group_id = merged_data.get("list_group_id", "unknown")
     question_bodies = merged_data.get("question_bodies", [])
@@ -1447,12 +1450,13 @@ def main(argv: list[str] | None = None):
     
     try:
         base_dir = Path(args.base_dir)
-        qualification = infer_qualification_from_path(base_dir)
+        local_qualification = infer_qualification_from_path(base_dir)
+        qualification = publication_qualification_id_for_code(local_qualification)
         # CLI指定を最優先し、既知の資格コード/listGroupIdからも試験名を補完する
         global OVERRIDE_EXAM_NAME
         OVERRIDE_EXAM_NAME = resolve_exam_name_override(
             explicit_exam_name=args.exam_name,
-            qualification=qualification,
+            qualification=local_qualification,
             list_group_id=args.list_group_id,
         )
         merged_files = find_merged_files(args.list_group_id, base_dir)

@@ -20,6 +20,7 @@ from scripts.common.repaso_firestore_schema import (
     validate_folder_doc,
     validate_question_set_doc,
 )
+from scripts.scrape.qualification_presets import publication_qualification_id_for_code
 
 PROJECT_ID = DEFAULT_PROJECT_ID
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
@@ -114,11 +115,13 @@ def infer_qualification_id_from_path(category_json_path: str) -> str:
     parts = list(path.parts)
     for idx, part in enumerate(parts):
         if part == "output" and idx + 1 < len(parts):
-            return str(parts[idx + 1])
+            local_code = str(parts[idx + 1])
+            return str(publication_qualification_id_for_code(local_code) or local_code)
     # フォールバック: output 配下でない場合は親ディレクトリ名を使う
     try:
         if path.name == "category.json" and path.parent.name == "category":
-            return str(path.parents[1].name)
+            local_code = str(path.parents[1].name)
+            return str(publication_qualification_id_for_code(local_code) or local_code)
     except Exception:
         pass
     return ""

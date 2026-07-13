@@ -8,6 +8,7 @@ from scripts.scrape.qualification_presets import (
     REPO_ROOT,
     build_list_first_page_url,
     has_existing_source_json,
+    load_qualification_catalog,
     load_scrape_preset,
     resolve_target_list_group_ids,
 )
@@ -184,38 +185,58 @@ class ScrapePresetTests(unittest.TestCase):
             "https://1kenchikushi.kakomonn.com/list1/69011?page=1",
         )
 
-    def test_load_scrape_preset_for_2dobokusekou(self) -> None:
-        preset = load_scrape_preset("2dobokusekou")
+    def test_load_scrape_preset_for_second_class_doboku_sekou(self) -> None:
+        preset = load_scrape_preset("2nd-class-doboku-sekou")
 
         self.assertEqual(preset.qualification_name, "2級土木施工管理技士")
+        self.assertEqual(preset.publication_qualification_id, "2dobokusekou")
         self.assertEqual(preset.scraper_type, "kakomonn")
-        self.assertEqual(preset.list_group_ids[0], "84016")
-        self.assertEqual(preset.list_group_ids[-1], "84001")
+        self.assertEqual(preset.list_group_ids[0], "202502")
+        self.assertEqual(preset.list_group_ids[-1], "201701")
 
-    def test_build_list_first_page_url_for_2dobokusekou(self) -> None:
-        preset = load_scrape_preset("2dobokusekou")
-        url = build_list_first_page_url(preset, "84016")
+    def test_build_list_first_page_url_for_second_class_doboku_sekou(self) -> None:
+        preset = load_scrape_preset("2nd-class-doboku-sekou")
+        url = build_list_first_page_url(preset, "202502")
 
         self.assertEqual(
             url,
             "https://2dobokusekou.kakomonn.com/list1/84016?page=1",
         )
 
-    def test_load_scrape_preset_for_2kenchikusekou(self) -> None:
-        preset = load_scrape_preset("2kenchikusekou")
+    def test_load_scrape_preset_for_second_class_kenchiku_sekou(self) -> None:
+        preset = load_scrape_preset("2nd-class-kenchiku-sekou")
 
         self.assertEqual(preset.qualification_name, "2級建築施工管理技士")
+        self.assertEqual(preset.publication_qualification_id, "2kenchikusekou")
         self.assertEqual(preset.scraper_type, "kakomonn")
-        self.assertEqual(preset.list_group_ids[0], "74016")
-        self.assertEqual(preset.list_group_ids[-1], "74001")
+        self.assertEqual(preset.list_group_ids[0], "202502")
+        self.assertEqual(preset.list_group_ids[-1], "201702")
 
-    def test_build_list_first_page_url_for_2kenchikusekou(self) -> None:
-        preset = load_scrape_preset("2kenchikusekou")
-        url = build_list_first_page_url(preset, "74016")
+    def test_build_list_first_page_url_for_second_class_kenchiku_sekou(self) -> None:
+        preset = load_scrape_preset("2nd-class-kenchiku-sekou")
+        url = build_list_first_page_url(preset, "202502")
 
         self.assertEqual(
             url,
             "https://kenchikusekou2.kakomonn.com/list1/74016?page=1",
+        )
+
+    def test_qualification_catalog_separates_local_and_publication_codes(self) -> None:
+        catalog = load_qualification_catalog()
+
+        self.assertEqual(
+            catalog["2nd-class-doboku-sekou"],
+            {
+                "displayName": "2級土木施工管理技士",
+                "publicationId": "2dobokusekou",
+            },
+        )
+        self.assertEqual(
+            catalog["2nd-class-kenchiku-sekou"],
+            {
+                "displayName": "2級建築施工管理技士",
+                "publicationId": "2kenchikusekou",
+            },
         )
 
     def test_load_scrape_preset_for_judoseifukushi(self) -> None:
