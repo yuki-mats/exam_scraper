@@ -319,6 +319,65 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_mobile_dialog_uses_dynamic_viewport_and_scrollable_body(self):
+        root = Path(__file__).resolve().parents[1]
+        static = root / "tools" / "question_review_console" / "static"
+        html = (static / "index.html").read_text(encoding="utf-8")
+        css = (static / "styles.css").read_text(encoding="utf-8")
+        javascript = (static / "app.js").read_text(encoding="utf-8")
+        compact_css = " ".join(css.split())
+
+        self.assertIn(
+            '<meta name="viewport" content="width=device-width, initial-scale=1">',
+            html,
+        )
+        self.assertIn("max-height: calc(100dvh - 28px)", compact_css)
+        self.assertIn(
+            "dialog[open] { display: flex; flex-direction: column; }",
+            compact_css,
+        )
+        self.assertIn("dialog > form { width: 100%; flex: 1 1 auto; }", compact_css)
+        self.assertIn(
+            ".dialog-body { min-height: 0; flex: 1 1 auto;",
+            compact_css,
+        )
+        self.assertIn("-webkit-overflow-scrolling: touch", compact_css)
+        self.assertIn(
+            "html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }",
+            compact_css,
+        )
+        self.assertIn(
+            'document.documentElement.classList.add("workflow-guide-open")',
+            javascript,
+        )
+        self.assertIn(
+            'document.documentElement.classList.remove("workflow-guide-open")',
+            javascript,
+        )
+        self.assertIn(
+            ".markdown-document { min-width: 0; overflow: auto; overscroll-behavior: contain;",
+            compact_css,
+        )
+
+        mobile_css = compact_css.split("@media (max-width: 520px)", 1)[1]
+        self.assertIn(
+            "dialog, .wide-dialog, .help-dialog { inset: 0; width: 100vw;",
+            mobile_css,
+        )
+        self.assertIn("height: 100dvh", mobile_css)
+        self.assertIn(
+            ".run-stage-options { grid-template-columns: repeat(2, minmax(0, 1fr));",
+            mobile_css,
+        )
+        for selector in (
+            ".qualification-stage-head strong",
+            ".selection-toolbar-copy span",
+            ".workflow-guide-footer span",
+        ):
+            rule = mobile_css.split(f"{selector} {{", 1)[1].split("}", 1)[0]
+            self.assertIn("white-space: normal", rule)
+            self.assertIn("overflow-wrap: anywhere", rule)
+
     def test_dialog_controls_have_matching_javascript_handlers(self):
         root = Path(__file__).resolve().parents[1]
         static = root / "tools" / "question_review_console" / "static"

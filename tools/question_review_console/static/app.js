@@ -570,6 +570,7 @@ async function openWorkflowGuide(stageId = "", options = {}) {
   }
   $("#workflow-guide").hidden = false;
   $("#workflow-guide-backdrop").hidden = false;
+  document.documentElement.classList.add("workflow-guide-open");
   document.body.classList.add("workflow-guide-open");
   renderWorkflowGuideContext();
   renderWorkflowGuideDocuments();
@@ -591,6 +592,7 @@ function closeWorkflowGuide(options = {}) {
   state.workflowGuide.returnToRun = false;
   $("#workflow-guide").hidden = true;
   $("#workflow-guide-backdrop").hidden = true;
+  document.documentElement.classList.remove("workflow-guide-open");
   document.body.classList.remove("workflow-guide-open");
   if (shouldReturn && !$("#qualification-run-dialog").open) {
     $("#qualification-run-dialog").showModal();
