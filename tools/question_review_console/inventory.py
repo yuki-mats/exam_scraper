@@ -174,6 +174,12 @@ def _ordered_choice_docs(
     return ordered
 
 
+def _aligned_choice_values(value: Any, choices: list[Any]) -> list[Any] | None:
+    if not isinstance(value, list) or len(value) != len(choices):
+        return None
+    return value
+
+
 def _contains_hold(value: Any) -> bool:
     if isinstance(value, dict):
         return any(
@@ -276,16 +282,25 @@ def detect_issues(
     elif merge_fields:
         add("merge_stale", "最新patchがmergeへ反映されていません。", merge_fields)
 
-    if isinstance(correctness, list) and choices:
+    if choices:
         if len(converted_docs) != len(choices):
             add("identity_mismatch", "選択肢とFirestore変換documentの件数が一致しません。")
         else:
             ordered = _ordered_choice_docs(converted_docs, choices)
+            aligned_correctness = _aligned_choice_values(correctness, choices)
+            aligned_explanations = _aligned_choice_values(explanations, choices)
             stale_fields: list[str] = []
             for index, doc in enumerate(ordered):
-                if normalize_verdict(doc.get("correctChoiceText")) != normalize_verdict(correctness[index]):
+                if (
+                    aligned_correctness is not None
+                    and normalize_verdict(doc.get("correctChoiceText"))
+                    != normalize_verdict(aligned_correctness[index])
+                ):
                     stale_fields.append(f"correctChoiceText[{index}]")
-                if isinstance(explanations, list) and doc.get("explanationText") != explanations[index]:
+                if (
+                    aligned_explanations is not None
+                    and doc.get("explanationText") != aligned_explanations[index]
+                ):
                     stale_fields.append(f"explanationText[{index}]")
             if stale_fields:
                 add("convert_stale", "patch合成後と40_convertが一致しません。", stale_fields)

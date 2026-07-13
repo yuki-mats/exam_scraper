@@ -148,6 +148,38 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertIn("問題文がありません。", required["detail"])
         self.assertIn("正誤数が選択肢数と一致しません。", required["detail"])
 
+    def test_malformed_choice_arrays_do_not_stop_converted_comparison(self):
+        projected = {
+            "questionBodyText": "正しいものはどれか。",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["正しい"],
+            "explanationText": ["正しい。根拠", "間違い。根拠"],
+            "questionType": "multiple_choice",
+            "isLawRelated": False,
+        }
+        converted = [
+            {
+                "questionId": f"doc{index}",
+                "originalQuestionChoiceText": choice,
+                "correctChoiceText": verdict,
+                "explanationText": explanation,
+            }
+            for index, (choice, verdict, explanation) in enumerate(
+                [
+                    ("A", "正しい", "正しい。根拠"),
+                    ("B", "間違い", "間違い。根拠"),
+                ]
+            )
+        ]
+
+        issues = detect_issues(projected, projected, converted, converted, [])
+
+        required = next(
+            issue for issue in issues if issue["code"] == "required_field_missing"
+        )
+        self.assertIn("correctChoiceText", required["fields"])
+        self.assertNotIn("convert_stale", {issue["code"] for issue in issues})
+
     def test_merge_comparison_treats_verdict_synonyms_as_equal(self):
         projected = {
             "questionBodyText": "正しいものはどれか。",

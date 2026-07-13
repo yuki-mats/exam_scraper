@@ -4,6 +4,7 @@ import argparse
 import copy
 import ipaddress
 import json
+import logging
 import secrets
 import threading
 import urllib.parse
@@ -62,6 +63,7 @@ FORWARDED_HEADERS = (
     "X-Forwarded-Host",
     "X-Forwarded-Proto",
 )
+LOGGER = logging.getLogger(__name__)
 
 
 class ApiError(ValueError):
@@ -998,6 +1000,7 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
         except (ValueError, json.JSONDecodeError) as exc:
             self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(exc)})
         except Exception:
+            LOGGER.exception("Unhandled review API error: %s %s", method, parsed.path)
             self._send_json(
                 HTTPStatus.INTERNAL_SERVER_ERROR,
                 {"error": "サーバー内部でエラーが発生しました。"},

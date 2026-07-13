@@ -1,6 +1,7 @@
 "use strict";
 
 const ALL_LIST_GROUPS = "__all__";
+const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -150,6 +151,7 @@ const state = {
     resumedFrom: "",
     stageIds: [],
     listGroupIds: [],
+    previewController: null,
   },
   workflowGuide: {
     open: false,
@@ -233,6 +235,7 @@ async function api(path, options = {}) {
     request.headers["X-Review-Session"] = state.token;
     request.body = JSON.stringify(options.body);
   }
+  if (options.signal) request.signal = options.signal;
   const response = await fetch(path, request);
   let payload;
   try {
@@ -317,6 +320,7 @@ function bindControls() {
   $("#qualification-run-dialog").addEventListener("cancel", (event) => {
     if (state.qualificationRunDialog.running) event.preventDefault();
   });
+  $("#qualification-run-dialog").addEventListener("close", cancelQualificationRunPreview);
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.addEventListener("change", previewQualificationRun);
   }
@@ -1143,6 +1147,7 @@ function updateQualificationRunHeading() {
 }
 
 function openQualificationRunDialog(stage, options = {}) {
+  cancelQualificationRunPreview();
   const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
   const selectedGroupIds = defaultQualificationRunListGroupIds(stage, options);
   state.qualificationRunDialog = {
@@ -1152,6 +1157,7 @@ function openQualificationRunDialog(stage, options = {}) {
     resumedFrom: options.resumedFrom || "",
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
+    previewController: null,
   };
   state.qualificationWorkflowStageId = stage.id;
   renderQualificationRunStages(stage, selectedStageIds);
@@ -1177,42 +1183,66 @@ function openQualificationRunDialog(stage, options = {}) {
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.checked = node.value === defaultMode;
   }
-  $("#qualification-run-preview").textContent = "対象を確認しています。";
   $("#qualification-run-job").hidden = true;
   $("#qualification-run-job-log").textContent = "";
-  $("#qualification-run-start").disabled = true;
-  $("#qualification-run-start").textContent = "確認中";
+  setQualificationRunPreviewState("loading", "対象を確認しています。");
   $("#qualification-run-cancel").hidden = false;
   $("#qualification-run-dialog").showModal();
   previewQualificationRun();
+}
+
+function cancelQualificationRunPreview() {
+  const dialog = state.qualificationRunDialog;
+  dialog.previewSequence += 1;
+  dialog.previewController?.abort();
+  dialog.previewController = null;
+}
+
+function setQualificationRunPreviewState(status, message) {
+  const action = $("#qualification-run-start");
+  $("#qualification-run-preview").textContent = message;
+  state.qualificationRunDialog.preview = null;
+  if (status === "loading") {
+    action.textContent = "確認中";
+    action.disabled = true;
+    return;
+  }
+  action.textContent = status === "error" ? "再確認" : "開始できません";
+  action.disabled = status !== "error";
 }
 
 async function previewQualificationRun() {
   const workflow = state.qualificationWorkflow;
   const stageId = state.qualificationWorkflowStageId;
   if (!workflow || !stageId || state.qualificationRunDialog.running) return;
+  const sequence = state.qualificationRunDialog.previewSequence + 1;
+  state.qualificationRunDialog.previewSequence = sequence;
+  state.qualificationRunDialog.previewController?.abort();
+  state.qualificationRunDialog.previewController = null;
   const stageIds = selectedQualificationRunStageIds();
   if (!stageIds.length) {
-    $("#qualification-run-preview").textContent = "工程を一つ以上選択してください。";
-    $("#qualification-run-start").disabled = true;
+    setQualificationRunPreviewState("blocked", "工程を一つ以上選択してください。");
     return;
   }
   const stage = qualificationWorkflowStage(stageId);
   const supportsScope = qualificationRunSupportsGroupScope(stage);
   const listGroupIds = selectedQualificationRunListGroupIds();
   if (supportsScope && !listGroupIds.length) {
-    $("#qualification-run-preview").textContent = "対象年度を一つ以上選択してください。";
-    $("#qualification-run-start").disabled = true;
+    setQualificationRunPreviewState("blocked", "対象年度を一つ以上選択してください。");
     return;
   }
-  const sequence = state.qualificationRunDialog.previewSequence + 1;
-  state.qualificationRunDialog.previewSequence = sequence;
-  state.qualificationRunDialog.preview = null;
-  $("#qualification-run-preview").textContent = "対象を確認しています。";
-  $("#qualification-run-start").disabled = true;
+  const controller = new AbortController();
+  state.qualificationRunDialog.previewController = controller;
+  let timedOut = false;
+  const timeoutId = window.setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, QUALIFICATION_PREVIEW_TIMEOUT_MS);
+  setQualificationRunPreviewState("loading", "対象を確認しています。");
   try {
     const preview = await api("/api/qualification-runs/preview", {
       method: "POST",
+      signal: controller.signal,
       body: {
         qualification: workflow.qualification,
         stageId,
@@ -1227,8 +1257,17 @@ async function previewQualificationRun() {
     renderQualificationRunPreview(preview);
   } catch (error) {
     if (sequence !== state.qualificationRunDialog.previewSequence) return;
-    $("#qualification-run-preview").textContent = error.message;
-    $("#qualification-run-start").disabled = true;
+    const message = timedOut
+      ? "確認に時間がかかっています。再確認してください。"
+      : error.name === "AbortError"
+        ? "確認を中断しました。再確認してください。"
+        : `${error.message} 再確認してください。`;
+    setQualificationRunPreviewState("error", message);
+  } finally {
+    window.clearTimeout(timeoutId);
+    if (state.qualificationRunDialog.previewController === controller) {
+      state.qualificationRunDialog.previewController = null;
+    }
   }
 }
 
@@ -1299,7 +1338,7 @@ async function startQualificationRun(event) {
   event.preventDefault();
   const preview = state.qualificationRunDialog.preview;
   if (!preview) {
-    $("#qualification-run-dialog").close();
+    await previewQualificationRun();
     return;
   }
   if (!preview.canStart || state.qualificationRunDialog.running) return;
