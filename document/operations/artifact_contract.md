@@ -24,8 +24,6 @@ output/<qualification>/
   questions_json/upload_to_firestore/
   category/category.json
   law_evidence/<exam_occurrence_id>/
-  review/
-    question_quality/<runId>/
   reports/
 ```
 
@@ -63,11 +61,18 @@ output/<qualification>/
 | category | `output/<qualification>/category/category.json` | `questionSetId`の分類正本。 |
 | law snapshot | `output/<qualification>/law_evidence/<list_group_id>/` | 条文本文・hashなどの監査用evidence。 |
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
-| question quality | `output/<qualification>/review/question_quality/<runId>/` | 元問題ごとの別セッション正誤確認、解説評価、システム算出verdict。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
-| review UI | `output/question_review_console/` | review、prompt、workflow/publish run receipt、readback cache。 |
+| review UI | `output/question_review_console/` | review、別セッション評価、prompt、workflow/publish run receipt、readback cache。 |
 
-品質確認runは`manifest.json`、`summary.json`と、`questions/<questionKeyHash>/`配下の`answer_research.json`、`answer_verification.json`、`explanation_assessment.json`、`verdict.json`で構成します。各AI出力は異なる`sessionId`、固定input/policy/profile hash、evidence locatorを持ち、`verdict.json`だけをシステムが決定論的に生成します。
+問題整備システムの別セッション評価は次へ保存します。
+
+```text
+output/question_review_console/<qualification>/<listGroupId>/
+  evaluations/<questionKeyHash>.json
+  evaluation_prompts/<questionKeyHash>.md
+```
+
+評価JSONは元問題1問の最新結果だけを持ちます。`reviewKey`、問題内容の`stateHash`、別セッションの`sessionId`、全選択肢の根拠付き判定、正答対応、解説点数、重大指摘、総合結果を保存します。問題内容が変わった既存評価は削除せず`stale`として扱います。
 
 ## 編集境界
 

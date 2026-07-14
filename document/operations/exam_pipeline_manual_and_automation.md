@@ -13,10 +13,10 @@ flowchart LR
   Category --> QuestionSet["04 問題集"]
   QuestionSet --> Merge["merge / convert"]
   Merge --> Gate["quality-gate / upload dry-run"]
-  Gate --> Verify["別セッション品質確認"]
-  Verify --> Ready{"全公開条件OK"}
-  Ready -->|yes| Publish["Storage / Firestore"]
-  Ready -->|no| Rework["基準未達を再整備"]
+  Gate --> Verify["1問を別セッションで評価"]
+  Verify --> Ready{"基準を満たしたか"}
+  Ready -->|yes| Publish["その問題をFirestoreへ反映"]
+  Ready -->|no| Rework["その問題を再整備"]
   Rework --> Review
 
   Review --> Law{"法令問題"}
@@ -39,8 +39,8 @@ flowchart LR
 4. 法令問題は02bで根拠候補を準備し、必要な問題を03bで監査する。
 5. 03cで資格全体の`category.json`を整備し、04で各問題を問題集へ紐付ける。
 6. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
-7. 問題ごとの別セッションで全選択肢の正誤と解説品質を確認し、不一致は責務に合う工程へ戻す。
-8. 選択範囲の全問題が確認済みの場合だけ、明示操作でStorageとFirestoreへ反映し、readbackする。
+7. 元問題1問ごとに別セッションを1回起動し、全選択肢の正誤と解説品質を根拠付きで評価する。
+8. 合格した問題は、その問題に属する全Firestore documentだけを明示操作で反映し、直後にreadbackする。不合格は該当工程へ戻して再評価する。
 
 ## 正本マップ
 
@@ -55,7 +55,7 @@ flowchart LR
 | 現行法監査 | [lawzilla_mcp_question_maintenance_workflow.md](lawzilla_mcp_question_maintenance_workflow.md) | evidence取得、Lawzillaの位置づけ、一次・二次・三次監査を定義する。 |
 | 機械検証CLI | [../../tools/question_bank/README.md](../../tools/question_bank/README.md) | `quality-gate`など、日常的に実行するCLIの使い方を定義する。 |
 | merge・convert・公開 | [delivery_workflow.md](delivery_workflow.md) | upload-ready生成、機械gate、品質確認gate、Storage・Firestore反映とreadbackを定義する。 |
-| 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 整備・品質確認・公開のUX、別セッション状態、公開flag、Firestore操作の安全境界を定義する。 |
+| 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 1問単位の整備・別セッション評価・Firestore反映と安全境界を定義する。 |
 | 公式問題の問題報告 | [question_issue_report_workflow.md](question_issue_report_workflow.md) | blind review、correction overlay、限定公開の手順を定義する。 |
 | Lawzilla利用評価 | [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md) | Lawzillaの検索品質と改善点を記録するschemaを定義する。 |
 | 一時資料 | [../temporary/README.md](../temporary/README.md) | 日付付き監査、移行記録、単発レビューの置き場所と削除基準。 |
