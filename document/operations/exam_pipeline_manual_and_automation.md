@@ -13,7 +13,11 @@ flowchart LR
   Category --> QuestionSet["04 問題集"]
   QuestionSet --> Merge["merge / convert"]
   Merge --> Gate["quality-gate / upload dry-run"]
-  Gate --> Publish["Storage / Firestore"]
+  Gate --> Verify["別セッション品質確認"]
+  Verify --> Ready{"全公開条件OK"}
+  Ready -->|yes| Publish["Storage / Firestore"]
+  Ready -->|no| Rework["基準未達を再整備"]
+  Rework --> Review
 
   Review --> Law{"法令問題"}
   Law --> Audit["03b 現行法監査"]
@@ -23,6 +27,8 @@ flowchart LR
   Review --> Console
   Merge --> Console
   Gate --> Console
+  Verify --> Console
+  Publish --> Console
 ```
 
 通常の順序は次のとおりです。
@@ -32,8 +38,9 @@ flowchart LR
 3. 01から03bの人間判断を、各promptに従ってpatchへ保存する。
 4. 法令問題は02bで根拠候補を準備し、必要な問題を03bで監査する。
 5. 03cで資格全体の`category.json`を整備し、04で各問題を問題集へ紐付ける。
-6. merge、convert、quality-gate、upload dry-runで公開可能性を確認する。
-7. 明示的に公開するときだけStorageとFirestoreへ反映し、readbackする。
+6. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
+7. 問題ごとの別セッションで全選択肢の正誤と解説品質を確認し、不一致は責務に合う工程へ戻す。
+8. 選択範囲の全問題が確認済みの場合だけ、明示操作でStorageとFirestoreへ反映し、readbackする。
 
 ## 正本マップ
 
@@ -47,8 +54,8 @@ flowchart LR
 | field・型・必須性 | [../reference/question_field_contract.md](../reference/question_field_contract.md) | Firestoreへ至る共通field契約を定義する。 |
 | 現行法監査 | [lawzilla_mcp_question_maintenance_workflow.md](lawzilla_mcp_question_maintenance_workflow.md) | evidence取得、Lawzillaの位置づけ、一次・二次・三次監査を定義する。 |
 | 機械検証CLI | [../../tools/question_bank/README.md](../../tools/question_bank/README.md) | `quality-gate`など、日常的に実行するCLIの使い方を定義する。 |
-| merge・convert・公開 | [delivery_workflow.md](delivery_workflow.md) | upload-ready生成、dry-run、Storage・Firestore反映とreadbackを定義する。 |
-| 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 正本閲覧、工程状態、対象範囲、例外レビュー、Firestore操作の安全境界を定義する。 |
+| merge・convert・公開 | [delivery_workflow.md](delivery_workflow.md) | upload-ready生成、機械gate、品質確認gate、Storage・Firestore反映とreadbackを定義する。 |
+| 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 整備・品質確認・公開のUX、別セッション状態、公開flag、Firestore操作の安全境界を定義する。 |
 | 公式問題の問題報告 | [question_issue_report_workflow.md](question_issue_report_workflow.md) | blind review、correction overlay、限定公開の手順を定義する。 |
 | Lawzilla利用評価 | [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md) | Lawzillaの検索品質と改善点を記録するschemaを定義する。 |
 | 一時資料 | [../temporary/README.md](../temporary/README.md) | 日付付き監査、移行記録、単発レビューの置き場所と削除基準。 |
@@ -60,6 +67,7 @@ flowchart LR
 - 問題文と選択肢を結合した完全な命題を一問ずつ確認し、類似文言だけで一括判断しない。
 - `questionId`、`originalQuestionId`、`questionSetId`を理由なく変更しない。
 - 判断不能な問題は推測で閉じず、review sidecarまたは`hold`へ送る。
+- 別セッション確認が未実施、古い、不一致、根拠不足の問題を公開しない。
 - Firestoreへの書き込みは、依頼又はUI上の明示確認がある場合だけ行う。
 
 詳細な例外や値の意味はここへ追記せず、上の正本マップから責務を選んで更新してください。

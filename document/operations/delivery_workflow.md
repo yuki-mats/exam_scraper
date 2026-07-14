@@ -21,7 +21,7 @@ python3 scripts/pipeline/prepare_firestore_upload.py <list_group_id> \
 
 資格配下の全groupを更新する場合は`list_group_id`の代わりにqualificationを指定します。`--skip-merge`、`--skip-qset-check`、`--skip-update-category-counts`などは、前提を確認できる場合だけ使います。
 
-## 品質ゲート
+## 機械品質ゲート
 
 公開前の標準入口:
 
@@ -32,6 +32,22 @@ python3 tools/question_bank/question_bank.py quality-gate \
 ```
 
 法令監査を必須にする資格では、CLI正本に記載されたlaw revision optionを追加します。既存の別資格・別groupの失敗と今回対象の失敗を分けて報告し、対象のgateを省略しません。
+
+## 別セッション品質ゲート
+
+機械品質ゲートの後、[問題整備システム](local_question_review_console.md)で選択範囲の全元問題を別セッション確認へ通します。正誤は全選択肢の根拠と独立確認、解説は最新profileの評価を必要とし、review artifactから算出した`publishReady=true`だけを合格とします。
+
+次のいずれかがあれば選択範囲全体を公開しません。
+
+- 別セッション未実施、実行中又は失敗。
+- 一肢以上の判定不一致又は根拠不足。
+- 公式正答、設問意図、`correctChoiceText`との不整合。
+- 解説基準未達又は重大指摘。
+- input、方針、prompt、評価profile変更後の古い結果。
+- 法令監査の`hold`又は公開前review state不足。
+- merge、convert、upload dry-runの失敗又は古いartifact。
+
+品質確認はpatchやupload-readyを直接変更しません。不合格は01、02、02a、02b、03、03bの該当工程へ戻し、再生成後にhashが変わった元問題だけを再確認します。
 
 ## 画像Storage
 
@@ -64,11 +80,21 @@ python3 scripts/upload/upload_questions_to_firestore.py \
 
 本番反映は、同じartifactのSHA、project ID、追加・更新document数を確認してから`--dry-run`を外します。upload後は同じdocumentをreadbackし、対象fieldの一致を確認します。
 
+## 問題整備システムからの公開
+
+標準UXでは、`公開` viewでqualificationと対象年度を固定し、対象内の全元問題が`publishReady=true`になった場合だけ`公開前確認`を有効にします。公開可能な問題だけを暗黙に抜き出す部分公開は行いません。
+
+preflightはproject ID、元問題数、Firestore document数、追加・更新・削除件数、artifact SHA、品質確認run/hashを固定します。削除、対象外差分、品質確認の古さがあれば停止します。確認dialogの`Firestoreへ公開`を明示操作した後だけ同じartifactを既存uploaderへ渡します。
+
+実行直前にFirestoreとローカルhashを再確認し、反映直後に同じdocumentを自動readbackします。upload成功だけでは完了にせず、全対象fieldが一致した場合だけ`公開済み・Firestore一致`とします。preflight、result、readbackは`output/question_review_console/publish_runs/<qualification>/<runId>/`へ保存します。
+
 ## 公開境界
 
 - Firestore schemaの最終正本はrepasoの`firestore.rules`とtyped model。exam_scraper側は`scripts/common/repaso_firestore_schema.py`で同期する。
 - `00_source`のhashが作業前後で変わった場合は停止する。
 - 既存`questionId`、`originalQuestionId`、作成日時を維持する。
 - 差分のないdocumentは書き込まず、`updatedAt`を更新しない。
+- 選択範囲の全元問題で最新の`publishReady=true`をserver側で再計算する。
+- review artifactの公開flagをFirestore question documentへ追加しない。
 - Firestore実反映はユーザー依頼又はUIの明示確認がある場合だけ行う。
 - upload commandの成功だけで完了にせず、live readback一致を完了条件にする。

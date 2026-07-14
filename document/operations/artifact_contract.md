@@ -25,6 +25,7 @@ output/<qualification>/
   category/category.json
   law_evidence/<exam_occurrence_id>/
   review/
+    question_quality/<runId>/
   reports/
 ```
 
@@ -62,8 +63,11 @@ output/<qualification>/
 | category | `output/<qualification>/category/category.json` | `questionSetId`の分類正本。 |
 | law snapshot | `output/<qualification>/law_evidence/<list_group_id>/` | 条文本文・hashなどの監査用evidence。 |
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
+| question quality | `output/<qualification>/review/question_quality/<runId>/` | 元問題ごとの別セッション正誤確認、解説評価、システム算出verdict。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
-| review UI | `output/question_review_console/` | review、prompt、run receipt、readback cache。 |
+| review UI | `output/question_review_console/` | review、prompt、workflow/publish run receipt、readback cache。 |
+
+品質確認runは`manifest.json`、`summary.json`と、`questions/<questionKeyHash>/`配下の`answer_research.json`、`answer_verification.json`、`explanation_assessment.json`、`verdict.json`で構成します。各AI出力は異なる`sessionId`、固定input/policy/profile hash、evidence locatorを持ち、`verdict.json`だけをシステムが決定論的に生成します。
 
 ## 編集境界
 
@@ -71,5 +75,6 @@ output/<qualification>/
 - `00_source`の親ディレクトリは、資格コード又は年度・試験区分を整理する移行に限り、file hashと`00_source/`以下の相対名を保持して移動できる。移行後はimmutability manifestへ明示登録する。
 - `12`、`20`、`30`、`40`、`upload_to_firestore`は生成物であり、直接修正しない。
 - 不確実性と監査履歴をFirestore用recordへ未知fieldとして混ぜない。
+- 品質確認artifactと公開flagはreview専用であり、patch、merged、Firestore question documentへ混ぜない。
 - 新fieldを公開artifactへ入れる前に、field契約、repaso schema、convert、upload、quality-gateを同時に更新する。
 - 正誤が02a又は03bで変わった場合は`23`を更新し、`20`と03以降を再生成する。
