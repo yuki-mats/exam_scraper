@@ -72,7 +72,7 @@ output/question_review_console/<qualification>/<listGroupId>/
   evaluation_prompts/<questionKeyHash>.md
 ```
 
-評価JSONは元問題1問の最新結果だけを持ちます。`reviewKey`、問題内容の`stateHash`、別セッションの`sessionId`、全選択肢の根拠付き判定、正答対応、解説点数、重大指摘、総合結果を保存します。問題内容が変わった既存評価は削除せず`stale`として扱います。
+評価JSONは元問題1問の最新結果だけを持ちます。`reviewKey`、問題内容の`stateHash`、別セッションの`sessionId`、全選択肢の根拠付き判定、正答対応、解説点数、重大指摘、総合結果、内容検証用の`resultHash`を保存します。問題内容が変わった既存評価は`stale`、`resultHash`が一致しない評価は未評価として扱います。
 
 ## 編集境界
 
