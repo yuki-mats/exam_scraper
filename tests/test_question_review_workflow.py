@@ -405,6 +405,9 @@ class WorkflowUiContractTests(unittest.TestCase):
             "job-log",
             "bulk-readback-button",
             "bulk-readback-help",
+            "evaluation-status-select",
+            "select-visible",
+            "bulk-evaluate-button",
             "readback-dialog",
             "readback-execute",
             "group-select-label",
@@ -426,6 +429,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "resumeQualificationRun",
             "openSyncDialog",
             "openPublishDialog",
+            "openEvaluationDialog",
             "executeWorkflow",
             "pollJob",
             "openReadbackDialog",
@@ -452,6 +456,9 @@ class WorkflowUiContractTests(unittest.TestCase):
             "normalizedReviewSelection",
             "renderSelectionToolbar",
             "openSelectionReview",
+            "toggleVisibleQuestionSelection",
+            "updateEvaluationSelectionControls",
+            "renderEvaluationPanel",
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
@@ -462,6 +469,9 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("actions.append(patchSyncAction())", javascript)
         self.assertIn("firestoreNeedsAttention", javascript)
         self.assertIn('"Firestoreへ反映"', javascript)
+        self.assertIn('"/api/evaluations/preview"', javascript)
+        self.assertIn('"/api/evaluations/start"', javascript)
+        self.assertIn("selectedQuestionIds", javascript)
         self.assertIn('"保存済み差分を見る"', javascript)
         self.assertIn('"修正を依頼"', javascript)
         self.assertIn('"直接編集"', javascript)
@@ -518,7 +528,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             javascript.index("function renderPipelineActions") :
             javascript.index("function parseDataPath")
         ]
-        self.assertLess(
+        self.assertGreater(
             pipeline_source.index("actions.append(patchSyncAction())"),
             pipeline_source.index("if (!localReady)"),
         )

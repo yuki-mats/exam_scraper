@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import ipaddress
 import json
 import logging
@@ -24,11 +25,15 @@ from tools.question_review_console.bulk_readback import (
     ScopedReadbackError,
 )
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
+from tools.question_review_console.evaluation import (
+    EvaluationError,
+    QuestionEvaluationService,
+)
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
-from tools.question_review_console.publisher import GroupPublisher, PublicationError
+from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.qualification_runs import (
     QualificationRunCoordinator,
@@ -168,10 +173,14 @@ class QuestionReviewApplication:
         self.synchronizer = ArtifactSynchronizer(
             self.repo_root, self.inventory, self.session_token
         )
-        self.publisher = GroupPublisher(
+        self.evaluations = QuestionEvaluationService(
+            self.repo_root, self.session_token
+        )
+        self.question_publisher = QuestionPublisher(
             self.repo_root,
             self.inventory,
             self.firestore,
+            self.evaluations,
             self.session_token,
         )
         self.qualification_workflow = QualificationWorkflow(
@@ -201,6 +210,8 @@ class QuestionReviewApplication:
                 "projectId": PRODUCTION_PROJECT_ID,
                 "readOnlyFirestore": False,
                 "firestoreWriteEnabled": True,
+                "evaluationEnabled": self.evaluations.configured,
+                "evaluationProvider": self.evaluations.provider,
             }
         if path == "/api/inventory":
             return HTTPStatus.OK, self.inventory.inventory()
@@ -404,6 +415,92 @@ class QuestionReviewApplication:
             except ScopedReadbackError as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
+        if path in {"/api/evaluations/preview", "/api/evaluations/start"}:
+            question_ids = _body_string_list(body, "questionIds")
+            if not question_ids:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "評価するquestionIdsを1問以上指定してください。",
+                )
+            questions = [self._question(question_id, {}) for question_id in question_ids]
+            try:
+                preview = self.evaluations.preview_many(questions)
+                if path.endswith("/preview"):
+                    return HTTPStatus.OK, preview
+                token = str(body.get("previewToken") or "")
+                if not self.evaluations.token_matches(preview, token):
+                    raise EvaluationError("確認後に選択問題の内容が更新されました。")
+                if not preview.get("canStart"):
+                    raise EvaluationError("評価を開始できる問題がありません。")
+                key_hash = hashlib.sha256(
+                    "\n".join(sorted(question_ids)).encode("utf-8")
+                ).hexdigest()[:16]
+                job = self.jobs.start(
+                    kind="question-evaluation-batch",
+                    key=f"evaluation-batch:{key_hash}",
+                    worker=lambda emit: self._run_evaluation_batch_job(
+                        question_ids, token, emit
+                    ),
+                )
+                return HTTPStatus.ACCEPTED, job
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except EvaluationError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
+        question_action = _question_action(path)
+        if question_action is not None:
+            question_id, action = question_action
+            question = self._question(question_id, {})
+            job_key = f"question:{question['reviewKey']}"
+            try:
+                if action == "evaluation-preview":
+                    return HTTPStatus.OK, self.evaluations.preview(question)
+                if action == "evaluation":
+                    preview = self.evaluations.preview(question)
+                    token = str(body.get("previewToken") or "")
+                    if not self.evaluations.token_matches(preview, token):
+                        raise EvaluationError("確認後に問題内容が更新されました。")
+                    if not preview.get("canEvaluate"):
+                        raise EvaluationError(
+                            str(preview.get("reason") or "評価を開始できません。")
+                        )
+                    job = self.jobs.start(
+                        kind="question-evaluation",
+                        key=job_key,
+                        worker=lambda emit: self._run_evaluation_job(
+                            question_id, token, emit
+                        ),
+                    )
+                    return HTTPStatus.ACCEPTED, job
+                if action == "publish-preview":
+                    return HTTPStatus.OK, self.question_publisher.preview(question)
+                if action == "publish":
+                    if body.get("confirmedProduction") is not True:
+                        raise PublicationError("本番反映の確認が必要です。")
+                    preview = self.question_publisher.preview(question)
+                    token = str(body.get("preflightToken") or "")
+                    if not self.question_publisher.token_matches(preview, token):
+                        raise PublicationError(
+                            "確認後に問題、評価結果又はFirestoreが更新されました。"
+                        )
+                    if not preview.get("canPublish"):
+                        raise PublicationError(
+                            str(preview.get("reason") or "本番反映する差分がありません。")
+                        )
+                    job = self.jobs.start(
+                        kind="question-publish",
+                        key=job_key,
+                        worker=lambda emit: self._run_question_publish_job(
+                            question_id, preview, emit
+                        ),
+                    )
+                    return HTTPStatus.ACCEPTED, job
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except (EvaluationError, PublicationError) as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
         group_action = _group_action(path)
         if group_action is not None:
             qualification, list_group_id, action = group_action
@@ -426,27 +523,10 @@ class QuestionReviewApplication:
                         ),
                     )
                     return HTTPStatus.ACCEPTED, job
-                if action == "publish-preview":
-                    return HTTPStatus.OK, self.publisher.preview(
-                        qualification, list_group_id
+                if action in {"publish-preview", "publish"}:
+                    raise PublicationError(
+                        "グループ単位の本番反映は無効です。評価合格した問題を問題詳細から反映してください。"
                     )
-                if action == "publish":
-                    if body.get("confirmedProduction") is not True:
-                        raise PublicationError("本番反映の確認が必要です。")
-                    token = str(body.get("preflightToken") or "")
-                    preflight = self.publisher.preview(qualification, list_group_id)
-                    if not self.publisher.token_matches(preflight, token):
-                        raise PublicationError("確認後に成果物又はFirestoreが更新されました。")
-                    if not preflight.get("canPublish"):
-                        raise PublicationError("本番反映する差分がありません。")
-                    job = self.jobs.start(
-                        kind="publish",
-                        key=key,
-                        worker=lambda emit: self._run_publish_job(
-                            qualification, list_group_id, preflight, emit
-                        ),
-                    )
-                    return HTTPStatus.ACCEPTED, job
             except JobConflictError as exc:
                 raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
             except (WorkflowError, PublicationError) as exc:
@@ -608,15 +688,25 @@ class QuestionReviewApplication:
         search = _query_value(query, "search").casefold()
         issue = _query_value(query, "issue")
         review_status = _query_value(query, "status")
+        evaluation_status = _query_value(query, "evaluationStatus")
         exceptions_only = _query_bool(query, "exceptionsOnly", default=True)
         law_only = _query_bool(query, "lawOnly", default=False)
         firestore_mismatch = _query_bool(query, "firestoreMismatch", default=False)
         summaries = []
         decorated_issue_count = 0
+        evaluation_counts = {
+            "maintenance": 0,
+            "unreviewed": 0,
+            "needsRework": 0,
+            "publishReady": 0,
+            "published": 0,
+        }
         for group in groups:
             for raw in group["questions"]:
                 question = self._decorate(raw)
                 decorated_issue_count += bool(question["issues"])
+                quality_bucket = self._quality_bucket(question)
+                evaluation_counts[quality_bucket] += 1
                 if search and search not in " ".join(
                     (
                         question.get("body", ""),
@@ -630,6 +720,8 @@ class QuestionReviewApplication:
                     continue
                 if review_status and question["reviewStatus"] != review_status:
                     continue
+                if evaluation_status and quality_bucket != evaluation_status:
+                    continue
                 if law_only and not question["isLawRelated"]:
                     continue
                 if firestore_mismatch and question["workflow"]["firestore"] not in {
@@ -639,7 +731,11 @@ class QuestionReviewApplication:
                     "upstream_stale",
                 }:
                     continue
-                if exceptions_only and not question["issues"]:
+                if (
+                    exceptions_only
+                    and not question["issues"]
+                    and quality_bucket == "published"
+                ):
                     continue
                 summaries.append(self._summary(question))
         offset = _query_int(query, "offset", default=0, minimum=0, maximum=1_000_000)
@@ -651,6 +747,7 @@ class QuestionReviewApplication:
             "listGroupId": list_group_id,
             "questionCount": sum(group["questionCount"] for group in groups),
             "issueQuestionCount": decorated_issue_count,
+            "evaluationCounts": evaluation_counts,
             "filteredCount": filtered_count,
             "offset": offset,
             "limit": limit,
@@ -709,6 +806,7 @@ class QuestionReviewApplication:
 
     def _decorate(self, raw: Mapping[str, Any]) -> dict[str, Any]:
         question = copy.deepcopy(dict(raw))
+        machine_issue_codes = list(question.get("issueCodes") or [])
         review = self.reviews.latest_for(question)
         review_status = str(review.get("status") if review else "unreviewed")
         issues = list(question.get("issues") or [])
@@ -777,7 +875,47 @@ class QuestionReviewApplication:
                     },
                 )
                 question["issueCodes"].insert(0, "live_mismatch")
+        evaluation_input = copy.deepcopy(question)
+        evaluation_input["issueCodes"] = machine_issue_codes
+        evaluation = self.evaluations.status_for(
+            evaluation_input,
+            live_status=str(question.get("workflow", {}).get("firestore") or "unread"),
+        )
+        question["evaluation"] = evaluation
+        question["publishReady"] = evaluation["publishReady"]
+        question["nextAction"] = evaluation["nextAction"]
         return question
+
+    def _run_evaluation_job(
+        self,
+        question_id: str,
+        preview_token: str,
+        emit: Any,
+    ) -> dict[str, Any]:
+        question = self._question(question_id, {})
+        return self.evaluations.run(question, preview_token, emit)
+
+    def _run_evaluation_batch_job(
+        self,
+        question_ids: list[str],
+        preview_token: str,
+        emit: Any,
+    ) -> dict[str, Any]:
+        questions = [self._question(question_id, {}) for question_id in question_ids]
+        return self.evaluations.run_many(questions, preview_token, emit)
+
+    def _run_question_publish_job(
+        self,
+        question_id: str,
+        preflight: Mapping[str, Any],
+        emit: Any,
+    ) -> dict[str, Any]:
+        question = self._question(question_id, {})
+        result = self.question_publisher.run(question, preflight, emit)
+        readback = result.get("readback")
+        if isinstance(readback, Mapping):
+            self._store_live_result(question_id, dict(readback))
+        return result
 
     def _run_sync_job(
         self,
@@ -801,19 +939,6 @@ class QuestionReviewApplication:
         result = self.scoped_readback.run(qualification, preview_token, emit)
         self.live_store.save_manifest(qualification, result)
         emit("取得結果をローカルへ保存しました。")
-        return result
-
-    def _run_publish_job(
-        self,
-        qualification: str,
-        list_group_id: str,
-        preflight: Mapping[str, Any],
-        emit: Any,
-    ) -> dict[str, Any]:
-        result = self.publisher.run(
-            qualification, list_group_id, preflight, emit
-        )
-        self._clear_group_live_results(qualification, list_group_id)
         return result
 
     def _clear_group_live_results(
@@ -864,11 +989,45 @@ class QuestionReviewApplication:
                 "reviewStatus",
                 "workflow",
                 "stateHash",
+                "publishReady",
+                "nextAction",
+            )
+        }
+        evaluation = question.get("evaluation")
+        evaluation = evaluation if isinstance(evaluation, Mapping) else {}
+        summary["evaluation"] = {
+            key: evaluation.get(key)
+            for key in (
+                "status",
+                "configured",
+                "machineReady",
+                "publishReady",
+                "nextAction",
+                "verifiedChoiceCount",
+                "choiceCount",
+                "explanationScore",
+                "summary",
+                "evaluatedAt",
             )
         }
         body = str(summary.get("body") or "")
         summary["body"] = body if len(body) <= 280 else body[:279] + "…"
         return summary
+
+    @staticmethod
+    def _quality_bucket(question: Mapping[str, Any]) -> str:
+        evaluation = question.get("evaluation")
+        evaluation = evaluation if isinstance(evaluation, Mapping) else {}
+        status = str(evaluation.get("status") or "not_started")
+        if not evaluation.get("machineReady"):
+            return "maintenance"
+        if status in {"not_started", "stale", "running"}:
+            return "unreviewed"
+        if status == "needs_rework":
+            return "needsRework"
+        if question.get("workflow", {}).get("firestore") == "match":
+            return "published"
+        return "publishReady"
 
 
 class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
@@ -1118,6 +1277,21 @@ def _group_action(path: str) -> tuple[str, str, str] | None:
     if action not in {"sync-preview", "sync", "publish-preview", "publish"}:
         return None
     return qualification, list_group_id, action
+
+
+def _question_action(path: str) -> tuple[str, str] | None:
+    parts = path.strip("/").split("/")
+    if len(parts) != 4 or parts[:2] != ["api", "questions"]:
+        return None
+    action = parts[3]
+    if action not in {
+        "evaluation-preview",
+        "evaluation",
+        "publish-preview",
+        "publish",
+    }:
+        return None
+    return urllib.parse.unquote(parts[2]), action
 
 
 def build_parser() -> argparse.ArgumentParser:

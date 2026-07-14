@@ -576,6 +576,7 @@ class QuestionInventory:
                             qualification, list_group_id, projection.record
                         ),
                         "qualification": qualification,
+                        "publicationQualificationId": publication_qualification_id,
                         "listGroupId": list_group_id,
                         "sourceStem": source_stem,
                         "sourceIndex": source_index,

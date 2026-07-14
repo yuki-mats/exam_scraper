@@ -354,14 +354,15 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertNotIn("question-2024", app.live_results)
         self.assertIn("question-2025", app.live_results)
 
-    def test_production_publish_requires_explicit_confirmation(self):
+    def test_group_publish_is_disabled(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
-            with self.assertRaises(ApiError) as caught:
-                app.post("/api/groups/sample/2026/publish", {})
+            for action in ("publish-preview", "publish"):
+                with self.subTest(action=action), self.assertRaises(ApiError) as caught:
+                    app.post(f"/api/groups/sample/2026/{action}", {})
 
-        self.assertEqual(caught.exception.status, 422)
-        self.assertIn("本番反映の確認", str(caught.exception))
+                self.assertEqual(caught.exception.status, 422)
+                self.assertIn("グループ単位の本番反映は無効", str(caught.exception))
 
     def test_tailscale_access_configuration_is_all_or_none_and_private(self):
         self.assertIsNone(build_tailscale_access(None))
