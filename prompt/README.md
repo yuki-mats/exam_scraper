@@ -4,16 +4,7 @@
 
 ## 詳細prompt
 
-- [01 questionType](01_prompt_fix_questionType.md)
-- [02 questionIntent](02_prompt_fix_questionIntent.md)
-- [02a correctChoiceText](02a_prompt_review_correctChoiceText.md)
-- [02b law context](02b_prompt_prepare_law_context.md)
-- [03 explanation](03_prompt_add_explanationText.md)
-- [03b current law audit](03b_prompt_audit_current_law_and_patch.md)
-- [03c category.json](03c_prompt_prepare_category_json.md)
-- [04 questionSetId](04_prompt_link_questionSetId.md)
-
-各ファイルは担当工程の判断方法だけを所有します。工程間の入力・出力と保存先は[artifact契約](../document/operations/artifact_contract.md)を参照します。
+工程一覧、表示名、順序、各promptへの対応は[`config/question_maintenance_workflow.toml`](../config/question_maintenance_workflow.toml)だけで定義します。この文書へ一覧を複製しません。各promptは担当工程の判断方法だけを所有し、工程間の保存先は[artifact契約](../document/operations/artifact_contract.md)を参照します。
 
 ## 資格固有資料
 

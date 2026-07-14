@@ -8,18 +8,18 @@
 flowchart LR
   Setup["資格・取得設定"] --> Scrape["scrape"]
   Scrape --> Source["00_source"]
-  Source --> Review["01 → 02 → 02a → 02b → 03"]
+  Source --> Review["整備（新規session）"]
   Review --> Category["03c category.json"]
   Category --> QuestionSet["04 問題集"]
   QuestionSet --> Merge["merge / convert"]
   Merge --> Gate["quality-gate / upload dry-run"]
   Gate --> Queue["整備済みを評価待ちへ蓄積"]
   Queue --> Select["後日 任意の問題を複数選択"]
-  Select --> Verify["問題ごとに別セッションで評価"]
+  Select --> Verify["評価（問題ごとの新規session）"]
   Verify --> Ready{"問題ごとの合否"]
   Ready -->|合格| Publish["合格した問題をFirestoreへ反映"]
-  Ready -->|不合格| Rework["不合格だけ再整備"]
-  Rework --> Review
+  Ready -->|不合格| Rework["再整備（新規session）"]
+  Rework --> Merge
 
   Review --> Law{"法令問題"}
   Law --> Audit["03b 現行法監査"]
@@ -37,19 +37,20 @@ flowchart LR
 
 1. 資格と対象回を設定し、問題・画像を取得する。
 2. `00_source`を固定し、既存ファイルは変更しない。
-3. 01から03bの人間判断を、各promptに従ってpatchへ保存する。
+3. 01から03bの人間判断を、新しい整備sessionで各promptに従ってpatchへ保存する。
 4. 法令問題は02bで根拠候補を準備し、必要な問題を03bで監査する。
 5. 03cで資格全体の`category.json`を整備し、04で各問題を問題集へ紐付ける。
 6. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
-7. 複数問題の整備を先に進め、整備済み問題を評価待ちとして蓄積する。後日、年度や作業回に関係なく任意の問題を複数選択し、問題ごとに新しい別セッションで全選択肢の正誤と解説品質を評価する。
-8. 合格した問題は、その問題に属する全Firestore documentだけを明示操作で反映し、直後にreadbackする。不合格だけを該当工程へ戻して再整備・再評価する。
+7. 整備済み問題を評価待ちへ蓄積し、任意の問題を選んで、問題ごとの新しい評価sessionで客観的に確認する。
+8. 不合格は新しい再整備sessionへ送り、再生成後にさらに新しい評価sessionで確認する。合格した問題だけを明示操作でFirestoreへ反映し、直後にreadbackする。
 
 ## 正本マップ
 
 | 関心事 | 正本 | 要旨 |
 | --- | --- | --- |
 | 資格追加・スクレイピング | [scraping_workflow.md](scraping_workflow.md) | preset、scraper実装、ID、画像、`00_source`不変条件を定義する。 |
-| 01から04の作業順 | [../../prompt/README.md](../../prompt/README.md) | 人間判断工程の順序と、各工程の詳細promptへの入口。 |
+| 工程順・名称・正本文書 | [../../config/question_maintenance_workflow.toml](../../config/question_maintenance_workflow.toml) | 問題整備システムの工程カタログを一元管理する。 |
+| 人間判断prompt | [../../prompt/README.md](../../prompt/README.md) | 各promptが所有する判断方法と実行境界への入口。 |
 | 資格固有方針 | [../../prompt/qualification_docs/README.md](../../prompt/qualification_docs/README.md) | 出題範囲、解説、分類、法令スコープを資格単位で定義する。 |
 | category.json | [../../prompt/qualification_docs/category_taxonomy_policy.md](../../prompt/qualification_docs/category_taxonomy_policy.md) | 03cで作る資格単位taxonomyの根拠、ID、検証方法を定義する。 |
 | 保存先・ファイル名 | [artifact_contract.md](artifact_contract.md) | source、patch、merged、convert、review artifactの責務を定義する。 |

@@ -62,17 +62,12 @@ output/<qualification>/
 | law snapshot | `output/<qualification>/law_evidence/<list_group_id>/` | 条文本文・hashなどの監査用evidence。 |
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
-| review UI | `output/question_review_console/` | review、別セッション評価、prompt、workflow/publish run receipt、readback cache。 |
+| review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | `manifest.json`、`prompt.md`、`result.json`。app-server移行後は整備・評価・再整備の不変receiptを共通保存する。 |
+| evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
+| publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-問題整備システムの別セッション評価は次へ保存します。
-
-```text
-output/question_review_console/<qualification>/<listGroupId>/
-  evaluations/<questionKeyHash>.json
-  evaluation_prompts/<questionKeyHash>.md
-```
-
-評価JSONは元問題1問の最新結果だけを持ちます。`reviewKey`、問題内容の`stateHash`、別セッションの`sessionId`、全選択肢の根拠付き判定、正答対応、解説点数、重大指摘、総合結果、内容検証用の`resultHash`を保存します。問題内容が変わった既存評価は`stale`、`resultHash`が一致しない評価は未評価として扱います。
+app-server移行後のsession runは`workType`、`threadId`、`turnId`、対象、`stateHash`、時刻、状態をmanifestへ保存し、上書きしません。`evaluations/`はUI向けの最新projectionに限定し、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)、有効性と公開条件は[問題整備システム](local_question_review_console.md)を正本とします。
 
 ## 編集境界
 
