@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import concurrent.futures
 import hashlib
 import hmac
 import json
@@ -20,7 +21,9 @@ from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 
 SCHEMA_VERSION = "question-evaluation/v1"
 EVALUATION_COMMAND_ENV = "QUESTION_EVALUATION_COMMAND"
+EVALUATION_CONCURRENCY_ENV = "QUESTION_EVALUATION_CONCURRENCY"
 DEFAULT_TIMEOUT_SECONDS = 1800
+DEFAULT_EVALUATION_CONCURRENCY = 4
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
 ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
@@ -359,6 +362,7 @@ class QuestionEvaluationService:
         command: str | None = None,
         result_runner: Callable[[str], Mapping[str, Any]] | None = None,
         timeout_seconds: int | None = None,
+        concurrency: int | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.secret = secret.encode("utf-8")
@@ -366,6 +370,7 @@ class QuestionEvaluationService:
         self.schema_path = Path(__file__).with_name("evaluation_result.schema.json")
         self.result_runner = result_runner
         self.timeout_seconds = timeout_seconds or self._timeout_from_environment()
+        self.concurrency = concurrency or self._concurrency_from_environment()
         self.command, self.provider = self._resolve_command(command)
         self._active: set[str] = set()
         self._active_lock = threading.RLock()
@@ -463,7 +468,10 @@ class QuestionEvaluationService:
         completed: list[dict[str, Any]] = []
         failures: list[dict[str, str]] = []
         eligible_items = [item for item in preview["items"] if item["canEvaluate"]]
-        for position, item in enumerate(eligible_items, start=1):
+        def evaluate(
+            positioned_item: tuple[int, Mapping[str, Any]],
+        ) -> tuple[dict[str, Any] | None, dict[str, str] | None]:
+            position, item = positioned_item
             question_id = str(item["questionId"])
             emit(
                 f"評価 {position}/{len(eligible_items)}: "
@@ -474,19 +482,36 @@ class QuestionEvaluationService:
                     by_id[question_id], str(item["previewToken"]), emit
                 )
             except Exception as exc:  # noqa: BLE001
-                failures.append({"questionId": question_id, "error": str(exc)})
-                emit(f"評価失敗: {item.get('questionLabel') or question_id}")
-                continue
+                error = str(exc)
+                emit(
+                    f"評価失敗: {item.get('questionLabel') or question_id} / {error}"
+                )
+                return None, {"questionId": question_id, "error": error}
             evaluation = result["evaluation"]
-            completed.append(
-                {
-                    "questionId": question_id,
-                    "status": evaluation["status"],
-                    "verifiedChoiceCount": evaluation["verifiedChoiceCount"],
-                    "choiceCount": evaluation["choiceCount"],
-                    "explanationScore": evaluation["explanationScore"],
-                }
-            )
+            return {
+                "questionId": question_id,
+                "status": evaluation["status"],
+                "verifiedChoiceCount": evaluation["verifiedChoiceCount"],
+                "choiceCount": evaluation["choiceCount"],
+                "explanationScore": evaluation["explanationScore"],
+            }, None
+
+        positioned_items = list(enumerate(eligible_items, start=1))
+        worker_count = min(self.concurrency, len(positioned_items))
+        if worker_count > 1:
+            emit(f"個別の別セッションを最大{worker_count}件並列で実行します。")
+            with concurrent.futures.ThreadPoolExecutor(
+                max_workers=worker_count,
+                thread_name_prefix="question-evaluation",
+            ) as executor:
+                outcomes = list(executor.map(evaluate, positioned_items))
+        else:
+            outcomes = [evaluate(item) for item in positioned_items]
+        for completed_item, failure in outcomes:
+            if completed_item is not None:
+                completed.append(completed_item)
+            if failure is not None:
+                failures.append(failure)
         passed_count = sum(item["status"] == "passed" for item in completed)
         needs_rework_count = sum(
             item["status"] == "needs_rework" for item in completed
@@ -636,8 +661,10 @@ class QuestionEvaluationService:
         except subprocess.TimeoutExpired as exc:
             raise EvaluationError("別セッション評価が時間切れになりました。") from exc
         if completed.returncode != 0:
+            stderr = " ".join(completed.stderr.strip().splitlines()[-8:])
+            detail = f": {stderr[-1200:]}" if stderr else ""
             raise EvaluationError(
-                f"別セッション評価を完了できませんでした（exit={completed.returncode}）。"
+                f"別セッション評価を完了できませんでした（exit={completed.returncode}）{detail}"
             )
         if len(completed.stdout.encode("utf-8")) > 2_000_000:
             raise EvaluationError("別セッションの出力が2MBを超えました。")
@@ -662,6 +689,25 @@ class QuestionEvaluationService:
                 str(codex_path),
                 "exec",
                 "--ephemeral",
+                "--ignore-user-config",
+                "--disable",
+                "apps",
+                "--disable",
+                "plugins",
+                "--disable",
+                "remote_plugin",
+                "--disable",
+                "plugin_sharing",
+                "--disable",
+                "multi_agent",
+                "--disable",
+                "goals",
+                "--disable",
+                "memories",
+                "--model",
+                "gpt-5.4-mini",
+                "-c",
+                'model_reasoning_effort="medium"',
                 "--sandbox",
                 "read-only",
                 "--output-schema",
@@ -707,10 +753,11 @@ class QuestionEvaluationService:
 2. currentCorrectChoiceTextとcurrentExplanationTextは比較対象であり、根拠として扱わない。
 3. 各選択肢に、第三者がたどれるsource、具体的locator、短い根拠要約を最低1件付ける。
 4. 根拠が足りない選択肢はinsufficient_evidenceとし、推測で合格にしない。
-5. 現在の正誤対応が全選択肢で正しいかをanswerMappingMatchedへ返す。
-6. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
-7. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
-8. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
+5. choiceEvaluations[].verdictは選択肢の記述自体が事実として正しければtrue、誤っていればfalseとする。currentCorrectChoiceTextとの一致可否や現在値の評価をverdictへ入れない。
+6. 現在の正誤対応が全選択肢で正しいかをanswerMappingMatchedへ返す。
+7. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
+8. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
+9. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
 
 内部思考過程は出力せず、指定JSON schemaに一致する結果だけを返してください。choiceIndexは0始まりで、0から{max(int(question.get('choiceCount') or 0) - 1, 0)}までを重複なく全件返してください。
 
@@ -733,3 +780,12 @@ class QuestionEvaluationService:
         except ValueError:
             return DEFAULT_TIMEOUT_SECONDS
         return max(60, min(value, 7200))
+
+    @staticmethod
+    def _concurrency_from_environment() -> int:
+        raw = os.environ.get(EVALUATION_CONCURRENCY_ENV, "")
+        try:
+            value = int(raw) if raw else DEFAULT_EVALUATION_CONCURRENCY
+        except ValueError:
+            return DEFAULT_EVALUATION_CONCURRENCY
+        return max(1, min(value, 8))

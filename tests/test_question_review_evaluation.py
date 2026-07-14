@@ -1,6 +1,7 @@
 import copy
 import json
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -113,6 +114,30 @@ def upload_document(question_id, original_id, choice, verdict):
 
 
 class QuestionEvaluationServiceTests(unittest.TestCase):
+    def test_output_schema_uses_supported_structured_output_keywords(self):
+        schema_path = (
+            Path(__file__).resolve().parents[1]
+            / "tools"
+            / "question_review_console"
+            / "evaluation_result.schema.json"
+        )
+        schema_text = json.dumps(json.loads(schema_path.read_text(encoding="utf-8")))
+
+        self.assertNotIn('"uniqueItems"', schema_text)
+        self.assertIn("Truth value of the choice statement itself", schema_text)
+
+    def test_prompt_defines_verdict_as_the_choice_statement_truth_value(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            prompt = service._build_prompt(question_payload())
+
+        self.assertIn("選択肢の記述自体が事実として正しければtrue", prompt)
+        self.assertIn("現在値の評価をverdictへ入れない", prompt)
+
     def test_saves_passed_result_and_marks_it_stale_after_question_change(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -209,6 +234,51 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["completedCount"], 1)
         self.assertEqual(result["failedCount"], 1)
         self.assertEqual(result["passedCount"], 1)
+
+    def test_batch_limits_parallel_sessions_and_preserves_result_order(self):
+        active = 0
+        max_active = 0
+        lock = threading.Lock()
+
+        def runner(_prompt):
+            nonlocal active, max_active
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            time.sleep(0.03)
+            with lock:
+                active -= 1
+            return evaluation_result()
+
+        questions = []
+        for index in range(4):
+            question = question_payload(
+                question_id=f"api-q{index + 1}",
+                body=f"問題{index + 1}",
+                state_hash=f"state-{index + 1}",
+            )
+            question["reviewKey"] = (
+                f"sample:2026:question_{index + 1}:api-q{index + 1}"
+            )
+            questions.append(question)
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=runner,
+                concurrency=2,
+            )
+            preview = service.preview_many(questions)
+            result = service.run_many(
+                questions, preview["previewToken"], lambda _line: None
+            )
+
+        self.assertEqual(max_active, 2)
+        self.assertEqual(
+            [item["questionId"] for item in result["results"]],
+            [question["id"] for question in questions],
+        )
 
     def test_batch_rejects_questions_from_different_qualifications(self):
         with tempfile.TemporaryDirectory() as directory:

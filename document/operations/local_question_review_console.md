@@ -115,6 +115,8 @@ output/question_review_console/workflow_runs/<qualification>/<runId>/
 
 品質結果と再試行を混ぜないため、workerの実行単位は`元問題1問`です。選択された各問題について、整備に使った会話を再利用しない新しいprocess又はsessionを一つずつ起動します。一問の失敗でrun全体を停止せず、残りを継続します。入力には次を固定します。
 
+同一runでは独立性を保ったまま最大4問を並列評価します。端末負荷やprovider制約に合わせて変更する場合だけ`QUESTION_EVALUATION_CONCURRENCY`を設定し、値は1から8の範囲に制限します。
+
 - `reviewKey`と現在の`stateHash`。
 - 問題文、設問意図、全選択肢。
 - 現在の正誤、公式正答、解説。
@@ -130,7 +132,7 @@ output/question_review_console/workflow_runs/<qualification>/<runId>/
 server-side adapterはpromptを標準入力で渡し、評価sessionから構造化JSONを受け取ります。最低限、次を検証して保存します。
 
 - `sessionId`、`reviewKey`、`stateHash`、開始・終了日時。
-- 全選択肢について`choiceIndex`、判定、短い理由、1件以上の根拠。
+- 全選択肢について`choiceIndex`、選択肢の記述自体の真偽、短い理由、1件以上の根拠。
 - 現在の正答対応が正しいか。
 - 解説点数、重大指摘、改善事項。
 - 総合結果`passed`又は`needs_rework`。

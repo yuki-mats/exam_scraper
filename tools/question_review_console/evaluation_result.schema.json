@@ -42,7 +42,8 @@
           "choiceIndex": {"type": "integer", "minimum": 0},
           "verdict": {
             "type": "string",
-            "enum": ["true", "false", "insufficient_evidence"]
+            "enum": ["true", "false", "insufficient_evidence"],
+            "description": "Truth value of the choice statement itself. Use true only when the statement is factually correct, false when it is factually incorrect, and insufficient_evidence when it cannot be determined."
           },
           "reason": {"type": "string", "minLength": 1},
           "evidence": {
@@ -76,8 +77,7 @@
           "message": {"type": "string", "minLength": 1},
           "choiceIndexes": {
             "type": "array",
-            "items": {"type": "integer", "minimum": 0},
-            "uniqueItems": true
+            "items": {"type": "integer", "minimum": 0}
           }
         }
       }
