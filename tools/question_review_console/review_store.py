@@ -103,11 +103,60 @@ class ReviewStore:
         }:
             investigation_scope = "current_question"
         request_kind = str(request.get("requestKind") or "").strip()
-        target_files = []
-        for value in request.get("targetFiles") or []:
-            candidate = (self.repo_root / str(value)).resolve()
-            if candidate.is_relative_to(self.repo_root):
-                target_files.append(str(candidate.relative_to(self.repo_root)))
+        def repository_paths(values: Any) -> list[str]:
+            paths: list[str] = []
+            for value in values or []:
+                candidate = (self.repo_root / str(value)).resolve()
+                if candidate.is_relative_to(self.repo_root):
+                    paths.append(str(candidate.relative_to(self.repo_root)))
+            return sorted(set(paths))
+
+        target_files = repository_paths(request.get("targetFiles"))
+        target_source_files = repository_paths(request.get("targetSourceFiles"))
+        target_record_alias_groups = [
+            sorted(
+                {
+                    str(value)
+                    for value in group
+                    if str(value).strip()
+                    and not str(value).startswith(("http://", "https://"))
+                }
+            )
+            for group in request.get("targetRecordAliasGroups") or []
+            if isinstance(group, (list, tuple, set))
+        ]
+        target_record_alias_groups = [
+            group for group in target_record_alias_groups if group
+        ]
+        raw_source_scopes = request.get("targetSourceRecordScopes")
+        target_source_record_scopes: dict[str, list[list[str]]] = {}
+        if isinstance(raw_source_scopes, Mapping):
+            allowed_sources = set(target_source_files)
+            for raw_path, raw_groups in raw_source_scopes.items():
+                normalized_paths = repository_paths([raw_path])
+                if (
+                    len(normalized_paths) != 1
+                    or normalized_paths[0] not in allowed_sources
+                    or not isinstance(raw_groups, (list, tuple))
+                ):
+                    continue
+                groups = [
+                    sorted(
+                        {
+                            str(alias)
+                            for alias in group
+                            if str(alias).strip()
+                            and not str(alias).startswith(
+                                ("http://", "https://")
+                            )
+                        }
+                    )
+                    for group in raw_groups
+                    if isinstance(group, (list, tuple, set))
+                ]
+                groups = [group for group in groups if group]
+                if groups:
+                    target_source_record_scopes[normalized_paths[0]] = groups
         payload = {
             "schemaVersion": "local-question-review/v1",
             "reviewId": review_id,
@@ -147,8 +196,17 @@ class ReviewStore:
         }
         if request_kind:
             payload["requestKind"] = request_kind
+        evaluation_snapshot = request.get("evaluationSnapshot")
+        if isinstance(evaluation_snapshot, Mapping):
+            payload["evaluationSnapshot"] = copy.deepcopy(dict(evaluation_snapshot))
         if target_files:
-            payload["targetFiles"] = sorted(set(target_files))
+            payload["targetFiles"] = target_files
+        if target_source_files:
+            payload["targetSourceFiles"] = target_source_files
+        if target_record_alias_groups:
+            payload["targetRecordAliasGroups"] = target_record_alias_groups
+        if target_source_record_scopes:
+            payload["targetSourceRecordScopes"] = target_source_record_scopes
         atomic_write(
             review_path,
             json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

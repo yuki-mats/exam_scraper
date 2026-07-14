@@ -4,14 +4,31 @@ import copy
 import hashlib
 import hmac
 import json
+import os
 import re
 import secrets
+import subprocess
+import sys
+import tempfile
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
-from tools.question_review_console.jobs import JobConflictError, JobManager
+from scripts.merge.merge_utils import (
+    select_latest_patch_files,
+    source_stem_from_patch_filename,
+)
+from tools.question_review_console.projection import (
+    extract_records,
+    record_identity_aliases,
+)
+from tools.question_review_console.jobs import (
+    REPOSITORY_OPERATION_KEY,
+    JobConflictError,
+    JobManager,
+)
+from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.workflow_runner import ArtifactSynchronizer
 
@@ -19,10 +36,129 @@ from tools.question_review_console.workflow_runner import ArtifactSynchronizer
 ACTIVE_RUN_STATUSES = {
     "queued",
     "running",
+    "validating",
     "awaiting_changes",
     "interrupted",
     "failed",
 }
+ALLOWED_MAINTENANCE_DIR_NAMES = {
+    "10_questionType_fixed",
+    "15_correctChoiceText_fixed",
+    "18_law_context_prepared",
+    "21_explanationText_added",
+    "22_questionSetId_linked",
+    "23_correctChoiceText_fixed",
+    "24_questionIssueCorrections",
+    "99_model_review_flags",
+}
+STAGE_PATCH_DIR_NAMES = {
+    "question_type": {"10_questionType_fixed", "99_model_review_flags"},
+    "question_intent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
+    "correct_choice": {"23_correctChoiceText_fixed", "99_model_review_flags"},
+    "law_context": {"18_law_context_prepared", "99_model_review_flags"},
+    "explanation": {"21_explanationText_added", "99_model_review_flags"},
+    "law_audit": {
+        "18_law_context_prepared",
+        "21_explanationText_added",
+        "23_correctChoiceText_fixed",
+        "99_model_review_flags",
+    },
+    "question_set": {"22_questionSetId_linked", "99_model_review_flags"},
+}
+PATCH_SUFFIX_BY_DIR = {
+    "10_questionType_fixed": "questionType_fixed",
+    "15_correctChoiceText_fixed": "correctChoiceText_fixed",
+    "18_law_context_prepared": "lawContext_prepared",
+    "21_explanationText_added": "explanationText_added",
+    "22_questionSetId_linked": "questionSetId_linked",
+    "23_correctChoiceText_fixed": "correctChoiceText_fixed",
+}
+REVIEW_FLAG_SUFFIX_BY_PATCH_DIR = {
+    "10_questionType_fixed": "questionType",
+    "15_correctChoiceText_fixed": "questionIntent",
+    "18_law_context_prepared": "lawContext",
+    "21_explanationText_added": "explanationText",
+    "22_questionSetId_linked": "questionSetId",
+    "23_correctChoiceText_fixed": "correctChoiceText",
+}
+STAGE_REVIEW_FLAG_SUFFIXES = {
+    "question_type": {"questionType"},
+    "question_intent": {"questionIntent"},
+    "correct_choice": {"correctChoiceText"},
+    "law_context": {"lawContext"},
+    "explanation": {"explanationText"},
+    "law_audit": {"lawRevision"},
+    "question_set": {"questionSetId"},
+}
+FIELD_PATCH_DIR_NAMES = {
+    "questionType": {"10_questionType_fixed", "99_model_review_flags"},
+    "questionIntent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
+    "answer_result_text": {"15_correctChoiceText_fixed", "99_model_review_flags"},
+    "correctChoiceText": {"23_correctChoiceText_fixed", "99_model_review_flags"},
+    "explanationText": {"21_explanationText_added", "99_model_review_flags"},
+    "suggestedQuestions": {"21_explanationText_added", "99_model_review_flags"},
+    "suggestedQuestionDetails": {"21_explanationText_added", "99_model_review_flags"},
+    "questionSetId": {"22_questionSetId_linked", "99_model_review_flags"},
+}
+NON_AUTOMATED_CORRECTION_FIELDS = {"questionBodyText", "choiceTextList"}
+LAW_PATCH_DIR_NAMES = set(STAGE_PATCH_DIR_NAMES["law_audit"])
+LAW_AUDIT_ISSUES = {
+    "law_audit_metadata_incomplete",
+    "law_audit_verdict_mismatch",
+    "law_basis_missing",
+    "law_hold",
+}
+ISSUE_PATCH_DIR_NAMES = {
+    "answer_explanation_mismatch": {
+        "21_explanationText_added",
+        "23_correctChoiceText_fixed",
+        "99_model_review_flags",
+    },
+    "explanation_missing": {"21_explanationText_added", "99_model_review_flags"},
+    "law_audit_metadata_incomplete": LAW_PATCH_DIR_NAMES,
+    "law_audit_verdict_mismatch": LAW_PATCH_DIR_NAMES,
+    "law_basis_missing": LAW_PATCH_DIR_NAMES,
+    "law_hold": LAW_PATCH_DIR_NAMES,
+}
+REWORK_STAGE_PATCH_DIR_NAMES = {
+    "01": STAGE_PATCH_DIR_NAMES["question_type"],
+    "02": STAGE_PATCH_DIR_NAMES["question_intent"],
+    "02a": STAGE_PATCH_DIR_NAMES["correct_choice"],
+    "02b": STAGE_PATCH_DIR_NAMES["law_context"],
+    "03": STAGE_PATCH_DIR_NAMES["explanation"],
+    "03b": STAGE_PATCH_DIR_NAMES["law_audit"],
+}
+SNAPSHOT_IGNORED_DIR_NAMES = {
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "node_modules",
+}
+CODEX_PROTECTED_CONTENT_FIELDS = (
+    "questionBodyText",
+    "choiceTextList",
+    "originalQuestionBodyText",
+    "originalChoiceTextList",
+    "sourceUniqueKeys",
+    "firestoreSourceQuestions",
+    "sourceConflictReviewDecision",
+    "sourceContentConflictPolicy",
+)
+CODEX_PROTECTED_IDENTITY_FIELDS = (
+    "original_question_id",
+    "public_question_id",
+    "originalQuestionId",
+    "questionId",
+    "reviewQuestionId",
+    "review_question_id",
+    "sourceQuestionKey",
+    "source_question_key",
+    "uploadOriginalQuestionId",
+    "firestoreQuestionIds",
+)
 
 
 def _now() -> str:
@@ -33,6 +169,140 @@ def _safe_segment(value: str) -> str:
     if not re.fullmatch(r"[A-Za-z0-9._-]+", value):
         raise ValueError(f"invalid path segment: {value}")
     return value
+
+
+def _normalized_alias_groups(value: Any) -> list[list[str]]:
+    if not isinstance(value, (list, tuple)):
+        return []
+    return [
+        list(group)
+        for group in dict.fromkeys(
+            tuple(sorted({str(alias) for alias in raw if alias}))
+            for raw in value
+            if isinstance(raw, (list, tuple, set)) and raw
+        )
+        if group
+    ]
+
+
+def _add_record_scope(
+    scopes: dict[str, list[list[str]]],
+    path: str,
+    groups: list[list[str]],
+) -> None:
+    scopes[path] = _normalized_alias_groups(
+        [*(scopes.get(path) or []), *groups]
+    )
+
+
+def _content_fingerprint(path: Path) -> str:
+    if path.is_symlink():
+        return f"symlink:{os.readlink(path)}"
+    if not path.exists():
+        return "missing"
+    if not path.is_file():
+        stat = path.lstat()
+        return f"directory:{stat.st_mode}"
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return f"sha256:{digest.hexdigest()}"
+
+
+def _snapshot_roots(repo_root: Path, roots: list[Path] | tuple[Path, ...]) -> dict[str, str]:
+    snapshot: dict[str, str] = {}
+    resolved_repo = repo_root.resolve()
+    for raw_root in roots:
+        root = raw_root.resolve()
+        if not root.is_relative_to(resolved_repo):
+            raise QualificationRunError("baseline対象がrepository外です。")
+        relative_root = root.relative_to(resolved_repo)
+        snapshot[relative_root.as_posix()] = _content_fingerprint(root)
+        if not root.is_dir():
+            continue
+        for current_root, dir_names, file_names in os.walk(root, followlinks=False):
+            current = Path(current_root)
+            for name in sorted(dir_names):
+                path = current / name
+                if path.is_symlink():
+                    relative = path.relative_to(resolved_repo)
+                    snapshot[relative.as_posix()] = _content_fingerprint(path)
+            for name in sorted(file_names):
+                path = current / name
+                relative = path.relative_to(resolved_repo)
+                snapshot[relative.as_posix()] = _content_fingerprint(path)
+    return snapshot
+
+
+def _snapshot_records(path: Path) -> list[dict[str, Any]]:
+    if path.suffix.lower() == ".jsonl":
+        records: list[dict[str, Any]] = []
+        for line_number, raw_line in enumerate(
+            path.read_text(encoding="utf-8").splitlines(), start=1
+        ):
+            line = raw_line.strip()
+            if not line:
+                continue
+            value = json.loads(line)
+            if not isinstance(value, Mapping):
+                raise QualificationRunError(
+                    f"JSONLの{line_number}行目がobjectではありません: {path}"
+                )
+            records.append(dict(value))
+        return records
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    records = extract_records(payload)
+    if records:
+        return records
+    if isinstance(payload, Mapping) and isinstance(payload.get("entries"), list):
+        return [
+            dict(value)
+            for value in payload["entries"]
+            if isinstance(value, Mapping)
+        ]
+    if isinstance(payload, Mapping):
+        return [dict(payload)]
+    return []
+
+
+def _record_snapshot(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    if path.is_symlink() or not path.is_file():
+        raise QualificationRunError(f"record snapshot対象が通常fileではありません: {path}")
+    try:
+        records = _snapshot_records(path)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise QualificationRunError(
+            f"patch JSON/JSONLをrecord単位で確認できません: {path}"
+        ) from exc
+    snapshot: list[dict[str, Any]] = []
+    for index, record in enumerate(records):
+        canonical = json.dumps(
+            record,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        snapshot.append(
+            {
+                "index": index,
+                "aliases": sorted(record_identity_aliases(record)),
+                "hash": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
+                "protectedFields": {
+                    field: copy.deepcopy(record[field])
+                    for field in CODEX_PROTECTED_CONTENT_FIELDS
+                    if field in record
+                },
+                "identityFields": {
+                    field: copy.deepcopy(record[field])
+                    for field in CODEX_PROTECTED_IDENTITY_FIELDS
+                    if field in record
+                },
+            }
+        )
+    return snapshot
 
 
 class QualificationRunError(RuntimeError):
@@ -53,11 +323,40 @@ class QualificationRunStore:
         status: str,
         prompt: str | None = None,
         resumed_from: str | None = None,
+        append_receipt_contract: bool = True,
     ) -> dict[str, Any]:
         qualification = _safe_segment(str(plan["qualification"]))
         run_id = f"{datetime.now().strftime('%Y%m%dT%H%M%S%f')}-{secrets.token_hex(4)}"
         run_dir = self.root / qualification / run_id
+        result_path = (
+            run_dir / "agent_output" / "result.json"
+            if str(plan["kind"]) == "human"
+            else run_dir / "result.json"
+        )
         now = _now()
+        target_record_alias_groups = [
+            sorted({str(value) for value in group if value})
+            for group in plan.get("targetRecordAliasGroups") or []
+            if isinstance(group, (list, tuple, set)) and group
+        ]
+        target_record_aliases = {
+            str(value) for value in plan.get("targetRecordAliases") or []
+        }
+        target_record_aliases.update(
+            value for group in target_record_alias_groups for value in group
+        )
+        def normalized_record_scopes(value: Any) -> dict[str, list[list[str]]]:
+            if not isinstance(value, Mapping):
+                return {}
+            return {
+                str(path): [
+                    sorted({str(alias) for alias in group if alias})
+                    for group in groups
+                    if isinstance(group, (list, tuple, set)) and group
+                ]
+                for path, groups in value.items()
+                if isinstance(groups, (list, tuple))
+            }
         manifest = {
             "runId": run_id,
             "qualification": qualification,
@@ -68,33 +367,89 @@ class QualificationRunStore:
             "mode": str(plan["mode"]),
             "modeLabel": str(plan["modeLabel"]),
             "kind": str(plan["kind"]),
+            "workType": str(
+                plan.get("workType")
+                or ("delivery" if str(plan["kind"]) == "machine" else "maintenance")
+            ),
             "status": status,
             "targetCount": int(plan["targetCount"]),
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
+            "targetQuestionIds": list(plan.get("targetQuestionIds") or []),
+            "sourceFiles": sorted(
+                {str(value) for value in plan.get("sourceFiles") or []}
+            ),
+            "targetRecordAliases": sorted(target_record_aliases),
+            "targetRecordAliasGroups": target_record_alias_groups,
+            "targetSourceRecordScopes": normalized_record_scopes(
+                plan.get("targetSourceRecordScopes")
+            ),
+            "targetRecordScopes": normalized_record_scopes(
+                plan.get("targetRecordScopes")
+            ),
+            "reviewId": plan.get("reviewId"),
+            "stateHash": plan.get("stateHash"),
+            "sandbox": plan.get("sandbox"),
+            "provider": plan.get("provider"),
+            "threadId": None,
+            "sessionId": None,
+            "turnId": None,
             "completedGroupIds": [],
             "jobId": None,
             "resumedFrom": resumed_from,
             "createdAt": now,
+            "startedAt": None,
             "updatedAt": now,
             "finishedAt": None,
             "error": None,
             "result": None,
             "promptPath": None,
             "resultReceiptPath": str(
-                (run_dir / "result.json").relative_to(self.repo_root)
+                result_path.relative_to(self.repo_root)
             ),
             "resultReceiptHash": None,
             "receiptError": None,
+            "receiptValidated": False,
+            "baselinePath": None,
+            "baselineHash": None,
+            "deltaUnknown": False,
+            "allowedPatchDirs": sorted(
+                {str(value) for value in plan.get("allowedPatchDirs") or []}
+            ),
+            "allowedWriteAreas": sorted(
+                {str(value) for value in plan.get("allowedWriteAreas") or []}
+            ),
+            "allowedWriteFiles": sorted(
+                {str(value) for value in plan.get("allowedWriteFiles") or []}
+            ),
+            "allowedPatchFiles": sorted(
+                {str(value) for value in plan.get("allowedPatchFiles") or []}
+            ),
+            "resolvableFailedDeltaPaths": sorted(
+                {
+                    str(value)
+                    for value in plan.get("resolvableFailedDeltaPaths") or []
+                }
+            ),
         }
         with self._lock:
             run_dir.mkdir(parents=True, exist_ok=False)
+            if str(plan["kind"]) == "human":
+                result_path.parent.mkdir()
             if prompt is not None:
                 prompt_path = run_dir / "prompt.md"
                 prompt_path.write_text(
-                    self._with_receipt_contract(prompt, run_dir / "result.json"),
+                    (
+                        self._with_receipt_contract(
+                            prompt,
+                            result_path,
+                            manifest["resolvableFailedDeltaPaths"],
+                        )
+                        if append_receipt_contract
+                        else prompt.rstrip() + "\n"
+                    ),
                     encoding="utf-8",
                 )
                 manifest["promptPath"] = str(prompt_path.relative_to(self.repo_root))
@@ -131,6 +486,96 @@ class QualificationRunStore:
         with self._lock:
             return self._public(self._load_manifest(self._manifest_path(qualification, run_id)))
 
+    def refresh(self, qualification: str, run_id: str) -> dict[str, Any]:
+        path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._apply_result_receipt(path, self._load_manifest(path))
+            return self._public(manifest)
+
+    def write_result(
+        self, qualification: str, run_id: str, result: Mapping[str, Any]
+    ) -> Path:
+        with self._lock:
+            manifest_path = self._manifest_path(qualification, run_id)
+            manifest = self._load_manifest(manifest_path)
+            path = self._result_path(manifest_path, manifest)
+            self._write_json(path, result)
+        return path
+
+    def result_path(self, qualification: str, run_id: str) -> Path:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            return self._result_path(
+                manifest_path,
+                self._load_manifest(manifest_path),
+            )
+
+    def write_baseline(
+        self,
+        qualification: str,
+        run_id: str,
+        roots: tuple[Path, ...],
+    ) -> Path:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            agent_output = self._result_path(manifest_path, manifest).parent.resolve()
+            tracked_roots = [
+                path.resolve() for path in roots if path.resolve() != agent_output
+            ]
+            record_paths: list[Path] = []
+            for value in [
+                *(manifest.get("allowedPatchFiles") or []),
+                *(manifest.get("allowedWriteFiles") or []),
+            ]:
+                relative = Path(str(value))
+                absolute = (self.repo_root / relative).resolve()
+                if (
+                    relative.is_absolute()
+                    or not absolute.is_relative_to(self.repo_root)
+                ):
+                    raise QualificationRunError("record baselineのpathが不正です。")
+                if relative.suffix.lower() in {".json", ".jsonl"}:
+                    record_paths.append(relative)
+            source_record_paths: list[Path] = []
+            for value in manifest.get("sourceFiles") or []:
+                relative = Path(str(value))
+                absolute = (self.repo_root / relative).resolve()
+                if (
+                    relative.is_absolute()
+                    or not absolute.is_relative_to(self.repo_root)
+                ):
+                    raise QualificationRunError("source baselineのpathが不正です。")
+                if relative.suffix.lower() == ".json":
+                    source_record_paths.append(relative)
+            payload = {
+                "schemaVersion": "question-maintenance-baseline/v1",
+                "roots": [
+                    path.relative_to(self.repo_root).as_posix()
+                    for path in tracked_roots
+                ],
+                "files": _snapshot_roots(self.repo_root, tracked_roots),
+                "recordSnapshots": {
+                    relative.as_posix(): _record_snapshot(self.repo_root / relative)
+                    for relative in sorted(set(record_paths))
+                },
+                "sourceRecordSnapshots": {
+                    relative.as_posix(): _record_snapshot(self.repo_root / relative)
+                    for relative in sorted(set(source_record_paths))
+                },
+            }
+            baseline_path = manifest_path.parent / "baseline.json"
+            self._write_json(baseline_path, payload)
+            baseline_hash = hashlib.sha256(baseline_path.read_bytes()).hexdigest()
+            manifest["baselinePath"] = str(
+                baseline_path.relative_to(self.repo_root)
+            )
+            manifest["baselineHash"] = baseline_hash
+            manifest["deltaUnknown"] = False
+            manifest["updatedAt"] = _now()
+            self._write_manifest(manifest_path, manifest)
+        return baseline_path
+
     def prompt(self, qualification: str, run_id: str) -> str:
         manifest = self.get(qualification, run_id)
         relative = str(manifest.get("promptPath") or "")
@@ -150,20 +595,104 @@ class QualificationRunStore:
         with self._lock:
             for path in self.root.glob("*/*/manifest.json"):
                 manifest = self._load_manifest(path)
-                if manifest.get("status") not in {"queued", "running"}:
+                if manifest.get("status") not in {"queued", "running", "validating"}:
                     continue
-                manifest["status"] = "interrupted"
-                manifest["error"] = "ローカルUIの再起動で処理が中断されました。再開できます。"
+                was_running = manifest.get("status") in {"running", "validating"}
+                changed_files: list[str] | None = None
+                if was_running and manifest.get("kind") == "human":
+                    changed_files = self._recover_baseline_delta(path, manifest)
+                if changed_files is None:
+                    manifest["status"] = "interrupted"
+                    manifest["deltaUnknown"] = bool(
+                        was_running and manifest.get("kind") == "human"
+                    )
+                    manifest["error"] = (
+                        "ローカルUIの再起動で処理が中断され、差分を安全に復元できません。"
+                        if manifest["deltaUnknown"]
+                        else "ローカルUIの再起動で処理が中断されました。再開できます。"
+                    )
+                else:
+                    summary = (
+                        "ローカルUIの再起動でCodex turnが中断されました。"
+                        + (
+                            " 未確定差分: " + ", ".join(changed_files[:20])
+                            if changed_files
+                            else " file差分はありません。"
+                        )
+                    )
+                    receipt = {
+                        "status": "failed",
+                        "summary": summary,
+                        "commands": [],
+                        "changedFiles": changed_files,
+                        "resolvedFailedDeltaPaths": [],
+                    }
+                    receipt_path = self._result_path(path, manifest)
+                    self._write_json(receipt_path, receipt)
+                    manifest["status"] = "failed"
+                    manifest["result"] = receipt
+                    manifest["resultReceiptHash"] = hashlib.sha256(
+                        receipt_path.read_bytes()
+                    ).hexdigest()
+                    manifest["deltaUnknown"] = False
+                    manifest["error"] = summary
                 manifest["updatedAt"] = _now()
+                manifest["finishedAt"] = manifest["updatedAt"]
                 self._write_manifest(path, manifest)
+
+    def _recover_baseline_delta(
+        self,
+        manifest_path: Path,
+        manifest: Mapping[str, Any],
+    ) -> list[str] | None:
+        baseline_path = manifest_path.parent / "baseline.json"
+        expected_hash = str(manifest.get("baselineHash") or "")
+        if not baseline_path.is_file() or not expected_hash:
+            return None
+        raw = baseline_path.read_bytes()
+        if not hmac.compare_digest(hashlib.sha256(raw).hexdigest(), expected_hash):
+            return None
+        try:
+            payload = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        if (
+            not isinstance(payload, Mapping)
+            or payload.get("schemaVersion") != "question-maintenance-baseline/v1"
+            or not isinstance(payload.get("files"), Mapping)
+            or not isinstance(payload.get("roots"), list)
+        ):
+            return None
+        roots: list[Path] = []
+        for value in payload["roots"]:
+            relative = Path(str(value))
+            absolute = (self.repo_root / relative).resolve()
+            if relative.is_absolute() or not absolute.is_relative_to(self.repo_root):
+                return None
+            roots.append(absolute)
+        before = {str(key): str(value) for key, value in payload["files"].items()}
+        try:
+            after = _snapshot_roots(self.repo_root, roots)
+        except (OSError, QualificationRunError):
+            return None
+        return sorted(
+            path
+            for path in before.keys() | after.keys()
+            if before.get(path) != after.get(path)
+        )
 
     def _apply_result_receipt(
         self, manifest_path: Path, manifest: dict[str, Any]
     ) -> dict[str, Any]:
         if manifest.get("kind") != "human":
             return manifest
-        receipt_path = manifest_path.parent / "result.json"
+        receipt_path = self._result_path(manifest_path, manifest)
         if not receipt_path.is_file():
+            return manifest
+        if receipt_path.is_symlink():
+            manifest["receiptError"] = "完了receiptにsymlinkは使用できません。"
+            manifest["updatedAt"] = _now()
+            self._write_manifest(manifest_path, manifest)
             return manifest
         raw = receipt_path.read_bytes()
         receipt_hash = hashlib.sha256(raw).hexdigest()
@@ -180,12 +709,34 @@ class QualificationRunStore:
             return manifest
 
         manifest["receiptError"] = None
-        manifest["status"] = receipt["status"]
+        requires_server_validation = bool(
+            manifest.get("provider") == "Codex App Server"
+            and manifest.get("sandbox") == "workspace-write"
+        )
+        manifest["status"] = (
+            "validating"
+            if receipt["status"] == "succeeded"
+            and requires_server_validation
+            and manifest.get("receiptValidated") is not True
+            else receipt["status"]
+        )
         manifest["result"] = receipt
-        manifest["error"] = receipt["summary"] if receipt["status"] == "failed" else None
-        manifest["finishedAt"] = manifest["updatedAt"]
+        manifest["error"] = (
+            receipt["summary"] if receipt["status"] == "failed" else None
+        )
+        manifest["finishedAt"] = (
+            manifest["updatedAt"]
+            if manifest["status"] in {"succeeded", "failed"}
+            else None
+        )
         self._write_manifest(manifest_path, manifest)
         return manifest
+
+    @staticmethod
+    def _result_path(manifest_path: Path, manifest: Mapping[str, Any]) -> Path:
+        if manifest.get("kind") == "human":
+            return manifest_path.parent / "agent_output" / "result.json"
+        return manifest_path.parent / "result.json"
 
     @staticmethod
     def _validated_result_receipt(value: Any) -> dict[str, Any]:
@@ -220,20 +771,39 @@ class QualificationRunStore:
             isinstance(item, str) for item in changed_files_value
         ):
             raise QualificationRunError("changedFilesは文字列配列で保存してください。")
+        resolved_value = value.get("resolvedFailedDeltaPaths") or []
+        if not isinstance(resolved_value, list) or not all(
+            isinstance(item, str) for item in resolved_value
+        ):
+            raise QualificationRunError(
+                "resolvedFailedDeltaPathsは文字列配列で保存してください。"
+            )
+        if status != "succeeded" and resolved_value:
+            raise QualificationRunError(
+                "失敗receiptでは未確定差分を解決済みにできません。"
+            )
         return {
             "status": status,
             "summary": summary[:4000],
             "commands": commands,
             "changedFiles": [str(item)[:2000] for item in changed_files_value],
+            "resolvedFailedDeltaPaths": [
+                str(item)[:2000] for item in resolved_value
+            ],
         }
 
     @staticmethod
-    def _with_receipt_contract(prompt: str, receipt_path: Path) -> str:
+    def _with_receipt_contract(
+        prompt: str,
+        receipt_path: Path,
+        resolvable_failed_paths: list[str],
+    ) -> str:
         example = {
             "status": "succeeded",
             "summary": "対象工程と検証が完了した。",
             "commands": [{"command": "<実行した検証>", "status": "pass"}],
             "changedFiles": [],
+            "resolvedFailedDeltaPaths": [],
         }
         return "\n".join(
             [
@@ -243,6 +813,16 @@ class QualificationRunStore:
                 "",
                 f"完了時に検証結果を次へJSONで保存する: `{receipt_path}`",
                 f"`{json.dumps(example, ensure_ascii=False, separators=(',', ':'))}`",
+                "changedFilesには実際の最終差分だけを記載し、result.json自身は含めない。",
+                *(
+                    [
+                        "次の未確定差分は内容と検証結果を確認する:",
+                        *(f"- `{path}`" for path in resolvable_failed_paths),
+                        "変更不要でも正しいと確認できたpathだけをresolvedFailedDeltaPathsへ記載する。",
+                    ]
+                    if resolvable_failed_paths
+                    else []
+                ),
                 "未完了時はstatusをfailedにし、summaryへ理由を記録する。",
                 "",
             ]
@@ -259,10 +839,14 @@ class QualificationRunStore:
 
     @staticmethod
     def _write_manifest(path: Path, manifest: Mapping[str, Any]) -> None:
+        QualificationRunStore._write_json(path, manifest)
+
+    @staticmethod
+    def _write_json(path: Path, value: Mapping[str, Any]) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         temporary = path.with_suffix(".tmp")
         temporary.write_text(
-            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+            json.dumps(value, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
         temporary.replace(path)
@@ -284,6 +868,7 @@ class QualificationRunCoordinator:
         secret: str,
         *,
         store: QualificationRunStore | None = None,
+        app_server: Any | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.workflow = workflow
@@ -291,6 +876,7 @@ class QualificationRunCoordinator:
         self.jobs = jobs
         self.secret = secret.encode("utf-8")
         self.store = store or QualificationRunStore(self.repo_root)
+        self.app_server = app_server
 
     def preview(
         self,
@@ -328,6 +914,14 @@ class QualificationRunCoordinator:
                     }
                 )
                 blocking_warnings.extend(preview.get("requiredFieldWarnings") or [])
+                blocking_warnings.extend(
+                    {
+                        "detail": "失敗turnの未確定patchを成功runで確定してください。",
+                        "path": path,
+                        "fields": [],
+                    }
+                    for path in preview.get("failedDeltaPaths") or []
+                )
         token_payload = {"plan": plan, "groupPreviews": group_previews}
         return {
             "qualification": qualification,
@@ -351,7 +945,13 @@ class QualificationRunCoordinator:
             "canonicalDocs": list(plan.get("canonicalDocs") or []),
             "sourceFileCount": len(plan.get("sourceFiles") or []),
             "outputFileCount": len(plan.get("outputFiles") or []),
-            "canStart": bool(plan["targetCount"]) and not blocking_warnings,
+            "canStart": bool(plan["targetCount"])
+            and not blocking_warnings
+            and (
+                plan["kind"] == "machine"
+                or self.app_server is None
+                or bool(self.app_server.configured)
+            ),
             "blockingWarnings": blocking_warnings[:20],
             "isProductionWrite": False,
             "previewToken": self._token(token_payload),
@@ -382,6 +982,14 @@ class QualificationRunCoordinator:
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
         if not preview["canStart"]:
             if preview["blockingWarnings"]:
+                if any(
+                    warning.get("path")
+                    for warning in preview["blockingWarnings"]
+                    if isinstance(warning, Mapping)
+                ):
+                    raise QualificationRunError(
+                        "失敗又は中断turnの未確定差分があるため開始できません。"
+                    )
                 raise QualificationRunError("必須field不足があるため開始できません。")
             raise QualificationRunError("選択した範囲に対象はありません。")
 
@@ -419,14 +1027,56 @@ class QualificationRunCoordinator:
                 prompt = self.workflow.prompt(
                     qualification, selected_stage_ids[0], mode
                 )["prompt"]
+            if self.app_server is None:
+                run = self.store.create(
+                    plan,
+                    status="awaiting_changes",
+                    prompt=prompt,
+                    resumed_from=resumed_from,
+                )
+                saved_prompt = self.store.prompt(qualification, run["runId"])
+                return {"run": run, "prompt": saved_prompt, "job": None}
+            try:
+                self.app_server.assert_subscription_access(force=False)
+            except Exception as exc:  # noqa: BLE001
+                raise QualificationRunError(str(exc)) from exc
+            plan = {
+                **plan,
+                "workType": "maintenance",
+                "sandbox": "workspace-write",
+                "provider": self.app_server.provider,
+            }
             run = self.store.create(
                 plan,
-                status="awaiting_changes",
+                status="queued",
                 prompt=prompt,
                 resumed_from=resumed_from,
             )
             saved_prompt = self.store.prompt(qualification, run["runId"])
-            return {"run": run, "prompt": saved_prompt, "job": None}
+            try:
+                job = self.jobs.start(
+                    kind="codex-maintenance",
+                    key=REPOSITORY_OPERATION_KEY,
+                    worker=lambda emit: self._run_human(
+                        qualification,
+                        run["runId"],
+                        saved_prompt,
+                        "maintenance",
+                        emit,
+                    ),
+                )
+            except JobConflictError:
+                self.store.update(
+                    qualification,
+                    run["runId"],
+                    status="failed",
+                    error="この資格で別の整備処理が実行中です。",
+                )
+                raise
+            run = self.store.update(
+                qualification, run["runId"], jobId=job["jobId"]
+            )
+            return {"run": run, "prompt": None, "job": job}
 
         run = self.store.create(
             plan, status="queued", resumed_from=resumed_from
@@ -434,7 +1084,7 @@ class QualificationRunCoordinator:
         try:
             job = self.jobs.start(
                 kind="qualification-sync",
-                key=f"qualification-sync:{qualification}",
+                key=REPOSITORY_OPERATION_KEY,
                 worker=lambda emit: self._run_delivery(plan, run["runId"], emit),
             )
         except JobConflictError:
@@ -451,7 +1101,11 @@ class QualificationRunCoordinator:
         return {"run": run, "prompt": None, "job": job}
 
     def recent(self, qualification: str) -> dict[str, Any]:
-        runs = self.store.list(qualification)
+        runs = [
+            run
+            for run in self.store.list(qualification, limit=100)
+            if run.get("workType") not in {"evaluation", "reevaluation"}
+        ][:8]
         return {
             "qualification": qualification,
             "runs": runs,
@@ -464,6 +1118,568 @@ class QualificationRunCoordinator:
     def resume_prompt(self, qualification: str, run_id: str) -> dict[str, Any]:
         run = self.store.get(qualification, run_id)
         return {"run": run, "prompt": self.store.prompt(qualification, run_id)}
+
+    def start_review(
+        self,
+        question: Mapping[str, Any],
+        review: Mapping[str, Any],
+        *,
+        work_type: str,
+    ) -> dict[str, Any]:
+        if self.app_server is None:
+            raise QualificationRunError("Codex App Serverが設定されていません。")
+        if work_type not in {"maintenance", "rework"}:
+            raise ValueError(f"unsupported work type: {work_type}")
+        prompt = str(review.get("prompt") or "").strip()
+        if not prompt:
+            raise QualificationRunError("Codex App Serverへ渡すpromptがありません。")
+        try:
+            self.app_server.assert_subscription_access(force=False)
+        except Exception as exc:  # noqa: BLE001
+            raise QualificationRunError(str(exc)) from exc
+        qualification = str(question["qualification"])
+        list_group_id = str(question["listGroupId"])
+        question_id = str(question["id"])
+        target_group_ids = self._review_target_group_ids(question, review)
+        investigation_scope = str(
+            review.get("investigationScope") or "current_question"
+        )
+        stage_code = "再整備" if work_type == "rework" else "整備"
+        (
+            allowed_patch_dirs,
+            allowed_write_areas,
+            allowed_patch_files,
+            allowed_write_files,
+        ) = self._review_write_contract(question, review)
+        selected_stages: set[str] = set()
+        if work_type == "rework":
+            snapshot = review.get("evaluationSnapshot")
+            rework_items = (
+                snapshot.get("reworkItems")
+                if isinstance(snapshot, Mapping)
+                else None
+            )
+            selected_stages = {
+                str(item.get("stage") or "")
+                for item in rework_items or []
+                if isinstance(item, Mapping)
+            }
+            selected_dirs = set().union(
+                *(
+                    REWORK_STAGE_PATCH_DIR_NAMES.get(stage, set())
+                    for stage in selected_stages
+                )
+            )
+            if selected_dirs:
+                allowed_patch_dirs = selected_dirs
+                allowed_write_areas = (
+                    {"review"}
+                    if selected_stages & {"03b"}
+                    else set()
+                )
+                allowed_patch_files = self._review_patch_files(
+                    question,
+                    review,
+                    selected_dirs,
+                    {
+                        suffix
+                        for patch_dir in selected_dirs
+                        for suffix in [
+                            REVIEW_FLAG_SUFFIX_BY_PATCH_DIR.get(patch_dir)
+                        ]
+                        if suffix
+                    }
+                    | ({"lawRevision"} if "03b" in selected_stages else set()),
+                )
+                allowed_write_files = (
+                    {self._law_review_sidecar_file(question)}
+                    if selected_stages & {"03b"}
+                    and investigation_scope == "current_question"
+                    else set()
+                )
+        if "review" in allowed_write_areas:
+            allowed_write_files = {
+                self._law_review_sidecar_path(qualification, group_id)
+                for group_id in target_group_ids
+            }
+        if (
+            investigation_scope == "current_question"
+            or review.get("requestKind") != "qualification_law_audit"
+        ):
+            target_record_alias_groups = [
+                sorted(self._question_record_aliases(question))
+            ]
+        else:
+            target_record_alias_groups = [
+                sorted({str(value) for value in group if value})
+                for group in review.get("targetRecordAliasGroups") or []
+                if isinstance(group, (list, tuple, set)) and group
+            ]
+            if (
+                review.get("requestKind") == "qualification_law_audit"
+                and not target_record_alias_groups
+            ):
+                raise QualificationRunError(
+                    "法令監査の対象record identityを安全に特定できません。"
+                )
+        target_record_aliases = sorted(
+            {
+                value
+                for group in target_record_alias_groups
+                for value in group
+            }
+        )
+        source_files = (
+            sorted(
+                {
+                    str(value)
+                    for value in review.get("targetSourceFiles") or []
+                    if value
+                }
+            )
+            if review.get("requestKind") == "qualification_law_audit"
+            else [str(question.get("paths", {}).get("source") or "")]
+        )
+        if review.get("requestKind") == "qualification_law_audit":
+            raw_source_scopes = review.get("targetSourceRecordScopes")
+            if not isinstance(raw_source_scopes, Mapping):
+                raise QualificationRunError(
+                    "法令監査のsource別record scopeを確認できません。"
+                )
+            target_source_record_scopes = {
+                self._maintenance_relative_path(path).as_posix(): (
+                    _normalized_alias_groups(groups)
+                )
+                for path, groups in raw_source_scopes.items()
+            }
+            if (
+                set(target_source_record_scopes) != set(source_files)
+                or any(not groups for groups in target_source_record_scopes.values())
+            ):
+                raise QualificationRunError(
+                    "法令監査のsource別record scopeが対象sourceと一致しません。"
+                )
+        else:
+            target_source_record_scopes = {
+                source_files[0]: target_record_alias_groups
+            }
+        scoped_groups = _normalized_alias_groups(
+            [
+                group
+                for groups in target_source_record_scopes.values()
+                for group in groups
+            ]
+        )
+        if {
+            tuple(group) for group in scoped_groups
+        } != {tuple(group) for group in target_record_alias_groups}:
+            raise QualificationRunError(
+                "対象record scopeとsource別scopeが一致しません。"
+            )
+
+        review_flag_suffixes: set[str] | None = None
+        if review.get("requestKind") == "qualification_law_audit":
+            review_flag_suffixes = {"lawRevision"}
+        elif selected_stages:
+            review_flag_suffixes = {
+                suffix
+                for patch_dir in allowed_patch_dirs
+                for suffix in [
+                    REVIEW_FLAG_SUFFIX_BY_PATCH_DIR.get(patch_dir)
+                ]
+                if suffix
+            } | ({"lawRevision"} if "03b" in selected_stages else set())
+        target_record_scopes: dict[str, list[list[str]]] = {}
+        for source_path, groups in target_source_record_scopes.items():
+            scoped_files = self._review_patch_files(
+                {"paths": {"source": source_path, "patches": []}},
+                {"investigationScope": "current_question"},
+                set(allowed_patch_dirs),
+                review_flag_suffixes,
+            )
+            for path in scoped_files & set(allowed_patch_files):
+                _add_record_scope(target_record_scopes, path, groups)
+            source_parts = Path(source_path).parts
+            if len(source_parts) >= 4:
+                sidecar = self._law_review_sidecar_path(
+                    qualification, source_parts[3]
+                )
+                if sidecar in allowed_write_files:
+                    _add_record_scope(target_record_scopes, sidecar, groups)
+        scoped_record_files = {
+            path
+            for path in [*allowed_patch_files, *allowed_write_files]
+            if Path(path).suffix.lower() in {".json", ".jsonl"}
+            and (
+                set(Path(path).parts) & allowed_patch_dirs
+                or "/review/law_revision_audit/" in f"/{path}"
+            )
+        }
+        if scoped_record_files - set(target_record_scopes):
+            raise QualificationRunError(
+                "対象file別のrecord scopeを安全に作成できません。"
+            )
+        plan = {
+            "qualification": qualification,
+            "stageId": work_type,
+            "stageIds": [work_type],
+            "stageCode": stage_code,
+            "stageLabel": str(question.get("questionLabel") or question_id),
+            "mode": "question",
+            "modeLabel": {
+                "current_group": "対象フォルダ",
+                "qualification": "対象資格全体",
+            }.get(investigation_scope, "対象問題のみ"),
+            "kind": "human",
+            "workType": work_type,
+            "targetCount": max(1, len(target_record_alias_groups)),
+            "workItemCount": max(1, len(target_record_alias_groups)),
+            "targetGroupIds": target_group_ids,
+            "scopeListGroupId": (
+                target_group_ids[0] if len(target_group_ids) == 1 else None
+            ),
+            "scopeListGroupIds": target_group_ids,
+            "targetQuestionIds": [question_id],
+            "sourceFiles": source_files,
+            "targetRecordAliases": target_record_aliases,
+            "targetRecordAliasGroups": target_record_alias_groups,
+            "targetSourceRecordScopes": target_source_record_scopes,
+            "targetRecordScopes": target_record_scopes,
+            "reviewId": review.get("reviewId"),
+            "stateHash": question.get("stateHash"),
+            "sandbox": "workspace-write",
+            "provider": self.app_server.provider,
+            "allowedPatchDirs": sorted(allowed_patch_dirs),
+            "allowedWriteAreas": sorted(allowed_write_areas),
+            "allowedPatchFiles": sorted(allowed_patch_files),
+            "allowedWriteFiles": sorted(allowed_write_files),
+            "resolvableFailedDeltaPaths": self._unresolved_for_groups(
+                qualification, target_group_ids
+            ),
+        }
+        run = self.store.create(plan, status="queued", prompt=prompt)
+        saved_prompt = self.store.prompt(qualification, run["runId"])
+        try:
+            job = self.jobs.start(
+                kind=f"codex-{work_type}",
+                key=REPOSITORY_OPERATION_KEY,
+                worker=lambda emit: self._run_human(
+                    qualification,
+                    run["runId"],
+                    saved_prompt,
+                    work_type,
+                    emit,
+                ),
+            )
+        except JobConflictError:
+            self.store.update(
+                qualification,
+                run["runId"],
+                status="failed",
+                error="この指摘のCodex処理は既に実行中です。",
+            )
+            raise
+        run = self.store.update(qualification, run["runId"], jobId=job["jobId"])
+        return {"run": run, "prompt": None, "job": job}
+
+    def _review_write_contract(
+        self,
+        question: Mapping[str, Any],
+        review: Mapping[str, Any],
+    ) -> tuple[set[str], set[str], set[str], set[str]]:
+        selection = review.get("selection")
+        selection_fields = (
+            selection.get("fields")
+            if isinstance(selection, Mapping)
+            else []
+        )
+        fields = {
+            str(value).split(".", 1)[0].split("[", 1)[0]
+            for value in [
+                *(review.get("fields") or []),
+                *(selection_fields or []),
+            ]
+            if value
+        }
+        blocked_fields = fields & NON_AUTOMATED_CORRECTION_FIELDS
+        if blocked_fields:
+            raise QualificationRunError(
+                "問題文・選択肢は専用の24_questionIssueCorrections契約で"
+                "blind reviewするため、Codex App Serverの自動整備対象外です: "
+                + ", ".join(sorted(blocked_fields))
+            )
+        issue_types = {
+            str(value) for value in review.get("issueTypes") or [] if value
+        }
+        patch_dirs = set().union(
+            *(FIELD_PATCH_DIR_NAMES.get(field, set()) for field in fields)
+        )
+        patch_dirs.update(
+            set().union(
+                *(ISSUE_PATCH_DIR_NAMES.get(issue, set()) for issue in issue_types)
+            )
+        )
+        evaluation_snapshot = review.get("evaluationSnapshot")
+        rework_items = (
+            evaluation_snapshot.get("reworkItems")
+            if isinstance(evaluation_snapshot, Mapping)
+            else []
+        )
+        patch_dirs.update(
+            set().union(
+                *(
+                    REWORK_STAGE_PATCH_DIR_NAMES.get(
+                        str(item.get("stage") or ""), set()
+                    )
+                    for item in rework_items or []
+                    if isinstance(item, Mapping)
+                )
+            )
+        )
+        law_related = bool(
+            any(field.startswith(("law", "isLawRelated")) for field in fields)
+            or issue_types & {
+                "law_audit_metadata_incomplete",
+                "law_audit_verdict_mismatch",
+                "law_basis_missing",
+                "law_hold",
+            }
+            or review.get("requestKind") == "qualification_law_audit"
+        )
+        if law_related:
+            patch_dirs.update(LAW_PATCH_DIR_NAMES)
+        for value in review.get("targetFiles") or []:
+            path = self._maintenance_relative_path(value)
+            if "24_questionIssueCorrections" in path.parts:
+                raise QualificationRunError(
+                    "24_questionIssueCorrectionsは専用workflow以外から変更できません。"
+                )
+        if not patch_dirs:
+            raise QualificationRunError(
+                "整備責務を限定できません。修正するfieldを1つ以上選択してください。"
+            )
+        scope = str(review.get("investigationScope") or "current_question")
+        law_audit_requested = bool(
+            issue_types & LAW_AUDIT_ISSUES
+            or review.get("requestKind") == "qualification_law_audit"
+            or any(
+                isinstance(item, Mapping)
+                and str(item.get("stage") or "") == "03b"
+                for item in rework_items or []
+            )
+        )
+        write_areas: set[str] = set()
+        write_files: set[str] = set()
+        if law_audit_requested:
+            write_areas.add("review")
+            write_files.add(self._law_review_sidecar_file(question))
+        review_flag_suffixes = (
+            {"lawRevision"}
+            if review.get("requestKind") == "qualification_law_audit"
+            else None
+        )
+        patch_files = self._review_patch_files(
+            question,
+            review,
+            patch_dirs,
+            review_flag_suffixes,
+        )
+        return patch_dirs, write_areas, patch_files, write_files
+
+    @staticmethod
+    def _law_review_sidecar_file(question: Mapping[str, Any]) -> str:
+        return QualificationRunCoordinator._law_review_sidecar_path(
+            str(question["qualification"]), str(question["listGroupId"])
+        )
+
+    @staticmethod
+    def _law_review_sidecar_path(
+        qualification: str, list_group_id: str
+    ) -> str:
+        qualification = _safe_segment(qualification)
+        list_group_id = _safe_segment(list_group_id)
+        return str(
+            Path("output")
+            / qualification
+            / "review"
+            / "law_revision_audit"
+            / f"{list_group_id}_law_revision_audit.jsonl"
+        )
+
+    @staticmethod
+    def _question_record_aliases(question: Mapping[str, Any]) -> set[str]:
+        aliases: set[str] = set()
+        for key in ("source", "projected"):
+            value = question.get(key)
+            if isinstance(value, Mapping):
+                aliases.update(record_identity_aliases(value))
+        for value in (
+            question.get("id"),
+            question.get("originalQuestionId"),
+            question.get("sourceQuestionKey"),
+        ):
+            text = str(value or "").strip()
+            if text and not text.startswith(("http://", "https://")):
+                aliases.add(text)
+        if not aliases:
+            raise QualificationRunError(
+                "対象問題に一意IDがなく、record identityを安全に特定できません。"
+            )
+        return aliases
+
+    def _review_patch_files(
+        self,
+        question: Mapping[str, Any],
+        review: Mapping[str, Any],
+        patch_dirs: set[str],
+        review_flag_suffixes: set[str] | None = None,
+    ) -> set[str]:
+        if review_flag_suffixes is None:
+            review_flag_suffixes = {
+                suffix
+                for patch_dir in patch_dirs
+                for suffix in [REVIEW_FLAG_SUFFIX_BY_PATCH_DIR.get(patch_dir)]
+                if suffix
+            }
+            if (
+                {str(value) for value in review.get("issueTypes") or []}
+                & LAW_AUDIT_ISSUES
+                or review.get("requestKind") == "qualification_law_audit"
+            ):
+                review_flag_suffixes.add("lawRevision")
+        scope = str(review.get("investigationScope") or "current_question")
+        if (
+            scope != "current_question"
+            and review.get("requestKind") == "qualification_law_audit"
+        ):
+            allowed: set[str] = set()
+            for source_value in review.get("targetSourceFiles") or []:
+                allowed.update(
+                    self._review_patch_files(
+                        {
+                            "paths": {
+                                "source": source_value,
+                                "patches": [],
+                            }
+                        },
+                        {"investigationScope": "current_question"},
+                        patch_dirs,
+                        set(review_flag_suffixes),
+                    )
+                )
+            if not allowed:
+                raise QualificationRunError(
+                    "法令監査の対象patch fileを安全に特定できません。"
+                )
+            return allowed
+        allowed: set[Path] = set()
+        paths = question.get("paths")
+        paths = paths if isinstance(paths, Mapping) else {}
+        source_value = paths.get("source")
+        if source_value:
+            source = self._maintenance_relative_path(source_value)
+            if len(source.parts) >= 2:
+                group_dir = source.parent.parent
+                for patch_dir in patch_dirs:
+                    suffix = PATCH_SUFFIX_BY_DIR.get(patch_dir)
+                    if suffix:
+                        patch_root = self.repo_root / group_dir / patch_dir
+                        selected = select_latest_patch_files(
+                            sorted(patch_root.glob("*.json")), suffix
+                        )
+                        source_stems = {source.stem, f"{source.stem}_merged"}
+                        preferred = [
+                            path
+                            for path in selected
+                            if source_stem_from_patch_filename(path.name, suffix)
+                            in source_stems
+                        ]
+                        if preferred:
+                            allowed.add(
+                                sorted(preferred)[-1].relative_to(self.repo_root)
+                            )
+                        else:
+                            merged = (
+                                "_merged"
+                                if patch_dir
+                                in {
+                                    "18_law_context_prepared",
+                                    "21_explanationText_added",
+                                }
+                                else ""
+                            )
+                            allowed.add(
+                                group_dir
+                                / patch_dir
+                                / f"{source.stem}{merged}_{suffix}.json"
+                            )
+                if "99_model_review_flags" in patch_dirs:
+                    for suffix in sorted(review_flag_suffixes):
+                        allowed.add(
+                            group_dir
+                            / "99_model_review_flags"
+                            / f"{source.stem}_{suffix}_needs_5_5_high_review.jsonl"
+                        )
+        if not allowed:
+            raise QualificationRunError(
+                "対象問題のpatch fileを安全に特定できません。"
+            )
+        return {path.as_posix() for path in allowed}
+
+    def _review_target_group_ids(
+        self,
+        question: Mapping[str, Any],
+        review: Mapping[str, Any],
+    ) -> list[str]:
+        qualification = _safe_segment(str(question["qualification"]))
+        current_group = _safe_segment(str(question["listGroupId"]))
+        if review.get("requestKind") == "qualification_law_audit":
+            groups: set[str] = set()
+            for value in review.get("targetSourceFiles") or []:
+                relative = self._maintenance_relative_path(value)
+                parts = relative.parts
+                if (
+                    len(parts) < 5
+                    or parts[:3] != ("output", qualification, "questions_json")
+                ):
+                    raise QualificationRunError(
+                        "法令監査の対象source pathが資格配下ではありません。"
+                    )
+                groups.add(_safe_segment(parts[3]))
+            if not groups:
+                raise QualificationRunError(
+                    "法令監査の対象年度を安全に特定できません。"
+                )
+            return sorted(groups)
+        scope = str(review.get("investigationScope") or "current_question")
+        if scope == "all_qualifications":
+            raise QualificationRunError(
+                "Codex App Serverの書込調査は1資格ずつ実行してください。"
+            )
+        if review.get("requestKind") != "qualification_law_audit":
+            return [current_group]
+        groups = {current_group}
+        if scope == "qualification":
+            inventory = getattr(self.workflow, "inventory", None)
+            inventory_method = getattr(inventory, "inventory", None)
+            if callable(inventory_method):
+                value = inventory_method()
+                qualifications = (
+                    value.get("qualifications")
+                    if isinstance(value, Mapping)
+                    else None
+                )
+                for item in qualifications or []:
+                    if (
+                        isinstance(item, Mapping)
+                        and str(item.get("id") or "") == qualification
+                    ):
+                        groups.update(
+                            _safe_segment(str(group_id))
+                            for group_id in item.get("listGroupIds") or []
+                        )
+                        break
+        return sorted(groups)
 
     def _run_delivery(
         self,
@@ -518,6 +1734,969 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
+    def _run_human(
+        self,
+        qualification: str,
+        run_id: str,
+        prompt: str,
+        work_type: str,
+        emit: Callable[[str], None],
+    ) -> dict[str, Any]:
+        if self.app_server is None:
+            raise QualificationRunError("Codex App Serverが設定されていません。")
+        created_writable_dirs: list[Path] = []
+        filesystem_changed_files: tuple[str, ...] = ()
+        self.store.update(
+            qualification,
+            run_id,
+            status="running",
+            startedAt=_now(),
+        )
+        try:
+            self._check_source_immutability(emit)
+            writable_roots, created_writable_dirs = self._maintenance_writable_roots(
+                qualification, run_id
+            )
+            baseline_path = self.store.write_baseline(
+                qualification, run_id, writable_roots
+            )
+            emit(f"再起動回収用baselineを保存: {baseline_path.relative_to(self.repo_root)}")
+            before_files = self._repository_file_fingerprints(
+                qualification, run_id
+            )
+
+            def on_thread_started(thread_id: str, session_id: str) -> None:
+                self.store.update(
+                    qualification,
+                    run_id,
+                    threadId=thread_id,
+                    sessionId=session_id,
+                )
+
+            def on_turn_started(thread_id: str, turn_id: str) -> None:
+                self.store.update(
+                    qualification,
+                    run_id,
+                    threadId=thread_id,
+                    turnId=turn_id,
+                )
+
+            result = None
+            turn_error: Exception | None = None
+            try:
+                with tempfile.TemporaryDirectory(
+                    prefix="question-maintenance-session-"
+                ) as directory:
+                    result = self.app_server.run_turn(
+                        prompt,
+                        work_type=work_type,
+                        sandbox="workspace-write",
+                        emit=emit,
+                        on_thread_started=on_thread_started,
+                        on_turn_started=on_turn_started,
+                        cwd=Path(directory),
+                        writable_roots=writable_roots,
+                    )
+            except Exception as exc:  # noqa: BLE001
+                turn_error = exc
+            after_files = self._repository_file_fingerprints(
+                qualification, run_id
+            )
+            filesystem_changed_files = tuple(
+                str(path)
+                for path in sorted(before_files.keys() | after_files.keys())
+                if before_files.get(path) != after_files.get(path)
+            )
+            self._check_source_immutability(emit)
+            if turn_error is not None:
+                changed = self._failed_run_changed_files(
+                    qualification,
+                    run_id,
+                    filesystem_changed_files,
+                )
+                suffix = (
+                    " 失敗前のfile変更: " + ", ".join(changed)
+                    if changed
+                    else ""
+                )
+                raise QualificationRunError(
+                    f"Codex App Serverのturnに失敗しました: {turn_error}{suffix}"
+                ) from turn_error
+            if result is None:
+                raise QualificationRunError(
+                    "Codex App Serverの実行結果がありません。"
+                )
+            refreshed = self.store.refresh(qualification, run_id)
+            if refreshed.get("receiptError"):
+                raise QualificationRunError(str(refreshed["receiptError"]))
+            refreshed_result = refreshed.get("result")
+            if (
+                not isinstance(refreshed_result, Mapping)
+                or refreshed_result.get("status") != "succeeded"
+            ):
+                raise QualificationRunError(
+                    "Codex App Serverは完了しましたが、有効な成功receiptがありません。"
+                )
+            self._validate_changed_files(
+                qualification,
+                run_id,
+                refreshed,
+                result.changed_files,
+                filesystem_changed_files,
+            )
+            refreshed = self.store.update(
+                qualification,
+                run_id,
+                status="succeeded",
+                receiptValidated=True,
+                error=None,
+            )
+            inventory = getattr(self.workflow, "inventory", None)
+            invalidate = getattr(inventory, "invalidate", None)
+            if callable(invalidate):
+                for list_group_id in refreshed.get("targetGroupIds") or []:
+                    invalidate(qualification, str(list_group_id))
+            emit("完了receiptと00_source不変を確認しました。")
+            return {
+                "qualification": qualification,
+                "runId": run_id,
+                "threadId": result.thread_id,
+                "turnId": result.turn_id,
+                "message": str(refreshed.get("result", {}).get("summary") or "整備を完了しました。"),
+            }
+        except Exception as exc:  # noqa: BLE001
+            original_exc = exc
+            error_to_raise: Exception = exc
+            current = self.store.refresh(qualification, run_id)
+            current_result = current.get("result")
+            current_result = current_result if isinstance(current_result, Mapping) else {}
+            try:
+                changed_files = self._failed_run_changed_files(
+                    qualification,
+                    run_id,
+                    filesystem_changed_files,
+                )
+            except QualificationRunError as change_error:
+                receipt_relative = Path(
+                    "output",
+                    "question_review_console",
+                    "workflow_runs",
+                    qualification,
+                    run_id,
+                    "agent_output",
+                    "result.json",
+                )
+                changed_files = [
+                    str(path)
+                    for value in filesystem_changed_files
+                    for path in [self._maintenance_relative_path(value)]
+                    if path != receipt_relative
+                ]
+                error_to_raise = QualificationRunError(
+                    f"{original_exc}; {change_error}"
+                )
+            self.store.write_result(
+                qualification,
+                run_id,
+                {
+                    "status": "failed",
+                    "summary": str(error_to_raise),
+                    "commands": list(current_result.get("commands") or []),
+                    "changedFiles": changed_files,
+                },
+            )
+            self.store.refresh(qualification, run_id)
+            self.store.update(
+                qualification,
+                run_id,
+                status="failed",
+                error=str(error_to_raise),
+            )
+            if error_to_raise is not original_exc:
+                raise error_to_raise from original_exc
+            raise
+        finally:
+            for path in sorted(
+                created_writable_dirs,
+                key=lambda item: len(item.parts),
+                reverse=True,
+            ):
+                try:
+                    path.rmdir()
+                except OSError:
+                    pass
+
+    def _failed_run_changed_files(
+        self,
+        qualification: str,
+        run_id: str,
+        filesystem_changed_files: tuple[str, ...],
+    ) -> list[str]:
+        paths = {
+            self._maintenance_relative_path(value)
+            for value in filesystem_changed_files
+        }
+        paths.discard(
+            Path(
+                "output",
+                "question_review_console",
+                "workflow_runs",
+                qualification,
+                run_id,
+                "agent_output",
+                "result.json",
+            )
+        )
+        run = self.store.get(qualification, run_id)
+        allowed_roots = self._maintenance_root_candidates(
+            qualification,
+            run_id,
+            run,
+        )
+        unsafe = {
+            path
+            for path in paths
+            if not self._maintenance_path_allowed_for_run(
+                path, allowed_roots, run
+            )
+        }
+        if unsafe:
+            raise QualificationRunError(
+                "失敗turnで整備責務外のfile変更を検出しました: "
+                + ", ".join(str(path) for path in sorted(unsafe))
+            )
+        return [str(path) for path in sorted(paths)]
+
+    def _check_source_immutability(self, emit: Callable[[str], None]) -> None:
+        checker = self.repo_root / "scripts" / "check" / "check_00_source_immutability.py"
+        if not checker.is_file():
+            return
+        completed = subprocess.run(
+            [sys.executable, str(checker)],
+            cwd=self.repo_root,
+            text=True,
+            capture_output=True,
+            timeout=300,
+            check=False,
+        )
+        if completed.returncode != 0:
+            detail = " ".join((completed.stderr or completed.stdout).splitlines()[-10:])
+            raise QualificationRunError(
+                f"00_source不変検証に失敗しました{': ' + detail[-1200:] if detail else ''}"
+            )
+        emit("00_source不変を確認しました。")
+
+    def _maintenance_writable_roots(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> tuple[tuple[Path, ...], list[Path]]:
+        run = self.store.get(qualification, run_id)
+        roots = self._maintenance_root_candidates(qualification, run_id, run)
+        created: list[Path] = []
+        resolved_roots: list[Path] = []
+        for root in sorted(roots):
+            resolved = root.resolve()
+            if not resolved.is_relative_to(self.repo_root):
+                raise QualificationRunError("整備用writable rootがrepository外です。")
+            if not resolved.exists():
+                missing: list[Path] = []
+                cursor = resolved
+                while not cursor.exists() and cursor.is_relative_to(self.repo_root):
+                    missing.append(cursor)
+                    cursor = cursor.parent
+                resolved.mkdir(parents=True, exist_ok=True)
+                created.extend(reversed(missing))
+            if not resolved.is_dir():
+                raise QualificationRunError("整備用writable rootがdirectoryではありません。")
+            symlink = next(
+                (path for path in resolved.rglob("*") if path.is_symlink()),
+                None,
+            )
+            if symlink is not None:
+                raise QualificationRunError(
+                    f"整備用writable root内にsymlinkがあります: {symlink}"
+                )
+            resolved_roots.append(resolved)
+        return tuple(resolved_roots), created
+
+    def _maintenance_root_candidates(
+        self,
+        qualification: str,
+        run_id: str,
+        run: Mapping[str, Any],
+    ) -> set[Path]:
+        questions_root = self.repo_root / "output" / qualification / "questions_json"
+        roots = {
+            self.store.root / qualification / run_id / "agent_output"
+        }
+        stage_ids = {
+            str(value)
+            for value in run.get("stageIds") or [run.get("stageId")]
+            if value
+        }
+        patch_dirs = {
+            str(value) for value in run.get("allowedPatchDirs") or []
+        }
+        write_areas = {
+            str(value) for value in run.get("allowedWriteAreas") or []
+        }
+        if not patch_dirs and not write_areas:
+            unknown = stage_ids - set(STAGE_PATCH_DIR_NAMES) - {
+                "setup",
+                "category_setup",
+            }
+            if unknown:
+                raise QualificationRunError(
+                    "書込範囲を安全に判定できない工程です: "
+                    + ", ".join(sorted(unknown))
+                )
+            patch_dirs = set().union(
+                *(STAGE_PATCH_DIR_NAMES.get(stage, set()) for stage in stage_ids)
+            )
+            if "setup" in stage_ids:
+                write_areas.add("qualification_docs")
+            if "category_setup" in stage_ids:
+                write_areas.update({"category", "qualification_docs"})
+            if "law_context" in stage_ids:
+                write_areas.add("law_evidence")
+            if "explanation" in stage_ids:
+                write_areas.update({"qualification_docs", "review"})
+            if "law_audit" in stage_ids:
+                write_areas.update({"law_evidence", "review", "reports"})
+        if not patch_dirs.issubset(ALLOWED_MAINTENANCE_DIR_NAMES):
+            raise QualificationRunError("未定義のpatch層は書き込めません。")
+        allowed_areas = {
+            "category",
+            "law_evidence",
+            "reports",
+            "review",
+            "qualification_docs",
+        }
+        if not write_areas.issubset(allowed_areas):
+            raise QualificationRunError("未定義の整備領域は書き込めません。")
+        for area in write_areas:
+            roots.add(
+                self.repo_root / "prompt" / "qualification_docs" / qualification
+                if area == "qualification_docs"
+                else self.repo_root / "output" / qualification / area
+            )
+        for list_group_id in run.get("targetGroupIds") or []:
+            try:
+                safe_group_id = _safe_segment(str(list_group_id))
+            except ValueError as exc:
+                raise QualificationRunError(
+                    f"整備対象のグループIDが不正です: {list_group_id}"
+                ) from exc
+            group_root = questions_root / safe_group_id
+            roots.update(group_root / name for name in patch_dirs)
+        for path in roots:
+            if path.is_symlink():
+                raise QualificationRunError(
+                    f"整備用writable rootにsymlinkは使用できません: {path}"
+                )
+        return {path.resolve() for path in roots}
+
+    def _validate_changed_files(
+        self,
+        qualification: str,
+        run_id: str,
+        run: Mapping[str, Any],
+        app_server_changed_files: tuple[str, ...],
+        filesystem_changed_files: tuple[str, ...] = (),
+    ) -> None:
+        result = run.get("result")
+        result = result if isinstance(result, Mapping) else {}
+        declared = {
+            self._maintenance_relative_path(path)
+            for path in result.get("changedFiles") or []
+        }
+        resolved_failed = {
+            self._maintenance_relative_path(path)
+            for path in result.get("resolvedFailedDeltaPaths") or []
+        }
+        resolvable = {
+            self._maintenance_relative_path(path)
+            for path in run.get("resolvableFailedDeltaPaths") or []
+        }
+        unexpected_resolutions = resolved_failed - resolvable
+        if unexpected_resolutions:
+            raise QualificationRunError(
+                "このrunの開始時に未確定でなかったpathは解決済みにできません: "
+                + ", ".join(str(path) for path in sorted(unexpected_resolutions))
+            )
+        notified = {
+            self._maintenance_relative_path(path)
+            for path in app_server_changed_files
+        }
+        actual = {
+            self._maintenance_relative_path(path)
+            for path in filesystem_changed_files
+        }
+        receipt_path = Path(
+            "output",
+            "question_review_console",
+            "workflow_runs",
+            qualification,
+            run_id,
+            "agent_output",
+            "result.json",
+        )
+        notified.discard(receipt_path)
+        actual.discard(receipt_path)
+        agent_output_root = receipt_path.parent
+        extra_agent_output = {
+            path
+            for path in declared | notified | actual
+            if path == agent_output_root or path.is_relative_to(agent_output_root)
+        }
+        if extra_agent_output:
+            raise QualificationRunError(
+                "agent_outputにはresult.json以外を保存できません: "
+                + ", ".join(str(path) for path in sorted(extra_agent_output))
+            )
+        symlinks = {
+            path for path in actual if (self.repo_root / path).is_symlink()
+        }
+        if symlinks:
+            raise QualificationRunError(
+                "整備差分にsymlinkは使用できません: "
+                + ", ".join(str(path) for path in sorted(symlinks))
+            )
+        self._validate_record_scope(
+            qualification,
+            run_id,
+            run,
+            actual,
+        )
+        allowed_roots = self._maintenance_root_candidates(
+            qualification,
+            run_id,
+            run,
+        )
+        for path in resolved_failed:
+            if self._is_failed_delta_manifest_sentinel(path, qualification):
+                continue
+            if not self._maintenance_path_allowed_for_run(
+                path, allowed_roots, run
+            ):
+                raise QualificationRunError(
+                    f"整備責務外の未確定差分は解決済みにできません: {path}"
+                )
+        for path in declared | notified | actual:
+            if not self._maintenance_path_allowed_for_run(
+                path, allowed_roots, run
+            ):
+                raise QualificationRunError(
+                    f"整備責務外のfile変更を検出しました: {path}"
+                )
+        undeclared = (notified | actual) - declared
+        if undeclared:
+            raise QualificationRunError(
+                "完了receiptに未記載のfile変更があります: "
+                + ", ".join(str(path) for path in sorted(undeclared))
+            )
+        missing = declared - actual
+        if missing:
+            raise QualificationRunError(
+                "完了receiptに記載されたが実際の最終差分にないfileがあります: "
+                + ", ".join(str(path) for path in sorted(missing))
+            )
+
+    def _validate_record_scope(
+        self,
+        qualification: str,
+        run_id: str,
+        run: Mapping[str, Any],
+        actual: set[Path],
+    ) -> None:
+        target_aliases = {
+            str(value) for value in run.get("targetRecordAliases") or []
+        }
+        target_alias_groups = [
+            {str(value) for value in group if value}
+            for group in run.get("targetRecordAliasGroups") or []
+            if isinstance(group, list) and group
+        ]
+        if not target_alias_groups and target_aliases:
+            target_alias_groups = [set(target_aliases)]
+        target_aliases.update(
+            value for group in target_alias_groups for value in group
+        )
+        raw_record_scopes = run.get("targetRecordScopes")
+        record_scopes = (
+            {
+                self._maintenance_relative_path(path): (
+                    _normalized_alias_groups(groups)
+                )
+                for path, groups in raw_record_scopes.items()
+            }
+            if isinstance(raw_record_scopes, Mapping)
+            else {}
+        )
+        allowed_record_files = {
+            self._maintenance_relative_path(value)
+            for value in [
+                *(run.get("allowedPatchFiles") or []),
+                *(run.get("allowedWriteFiles") or []),
+            ]
+        }
+        changed_record_files = {
+            path
+            for path in actual & allowed_record_files
+            if path.suffix.lower() in {".json", ".jsonl"}
+        }
+        if not changed_record_files:
+            return
+        if target_aliases and not record_scopes:
+            raise QualificationRunError(
+                "file別の対象record scopeを確認できません。"
+            )
+        baseline_path = (
+            self.store.root / qualification / run_id / "baseline.json"
+        )
+        try:
+            raw = baseline_path.read_bytes()
+            if not hmac.compare_digest(
+                hashlib.sha256(raw).hexdigest(),
+                str(run.get("baselineHash") or ""),
+            ):
+                raise QualificationRunError("record baselineのhashが一致しません。")
+            payload = json.loads(raw.decode("utf-8"))
+            snapshots = payload.get("recordSnapshots")
+            source_snapshots = payload.get("sourceRecordSnapshots")
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise QualificationRunError(
+                "record baselineを確認できません。"
+            ) from exc
+        if not isinstance(snapshots, Mapping):
+            raise QualificationRunError("record baselineがありません。")
+        if not isinstance(source_snapshots, Mapping):
+            raise QualificationRunError("source record baselineがありません。")
+        source_entries = [
+            entry
+            for entries in source_snapshots.values()
+            if isinstance(entries, list)
+            for entry in entries
+            if isinstance(entry, Mapping)
+        ]
+
+        def aliases(entry: Mapping[str, Any]) -> set[str]:
+            return {str(value) for value in entry.get("aliases") or []}
+
+        def protected(entry: Mapping[str, Any]) -> dict[str, Any]:
+            value = entry.get("protectedFields")
+            if not isinstance(value, Mapping):
+                raise QualificationRunError("record baselineの保護field形式が不正です。")
+            return dict(value)
+
+        def identity(entry: Mapping[str, Any]) -> dict[str, Any]:
+            value = entry.get("identityFields")
+            if not isinstance(value, Mapping):
+                raise QualificationRunError("record baselineのID field形式が不正です。")
+            return dict(value)
+
+        def matching(
+            entries: list[Any], entry_aliases: set[str]
+        ) -> list[Mapping[str, Any]]:
+            if not entry_aliases:
+                return []
+            return [
+                entry
+                for entry in entries
+                if isinstance(entry, Mapping)
+                and aliases(entry) & entry_aliases
+            ]
+
+        def unambiguous_protected(
+            entries: list[Mapping[str, Any]], relative: Path
+        ) -> dict[str, Any] | None:
+            if not entries:
+                return None
+            values = [protected(entry) for entry in entries]
+            canonical = {
+                json.dumps(
+                    value,
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                for value in values
+            }
+            if len(canonical) != 1:
+                raise QualificationRunError(
+                    f"保護fieldの参照recordが一意ではありません: {relative}"
+                )
+            return values[0]
+
+        def unambiguous_identity(
+            entries: list[Mapping[str, Any]], relative: Path
+        ) -> dict[str, Any] | None:
+            if not entries:
+                return None
+            values = [identity(entry) for entry in entries]
+            canonical = {
+                json.dumps(
+                    value,
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                for value in values
+            }
+            if len(canonical) != 1:
+                raise QualificationRunError(
+                    f"ID fieldの参照recordが一意ではありません: {relative}"
+                )
+            return values[0]
+
+        for relative in sorted(changed_record_files):
+            file_target_alias_groups = [
+                set(group) for group in record_scopes.get(relative, [])
+            ]
+            if target_aliases and not file_target_alias_groups:
+                raise QualificationRunError(
+                    f"file別の対象record scopeがありません: {relative}"
+                )
+            file_target_aliases = {
+                alias
+                for group in file_target_alias_groups
+                for alias in group
+            }
+            before = snapshots.get(relative.as_posix())
+            if not isinstance(before, list):
+                raise QualificationRunError(
+                    f"変更前recordを確認できません: {relative}"
+                )
+            after = _record_snapshot(self.repo_root / relative)
+
+            for after_entry in after:
+                if not isinstance(after_entry, Mapping):
+                    raise QualificationRunError("record baselineの形式が不正です。")
+                entry_aliases = aliases(after_entry)
+                before_matches = matching(before, entry_aliases)
+                source_matches = matching(source_entries, entry_aliases)
+                before_fields = unambiguous_protected(
+                    before_matches, relative
+                )
+                source_fields = unambiguous_protected(
+                    source_matches, relative
+                )
+                after_fields = protected(after_entry)
+                before_identity = unambiguous_identity(
+                    before_matches, relative
+                )
+                after_identity = identity(after_entry)
+                if before_identity is not None:
+                    if after_identity != before_identity:
+                        raise QualificationRunError(
+                            f"既存ID fieldの変更を検出しました: {relative}"
+                        )
+                else:
+                    for field, value in after_identity.items():
+                        if field == "firestoreQuestionIds":
+                            valid = bool(
+                                isinstance(value, list)
+                                and value
+                                and all(
+                                    isinstance(item, str) and bool(item.strip())
+                                    for item in value
+                                )
+                                and len({item.strip() for item in value})
+                                == len(value)
+                            )
+                        else:
+                            valid = bool(
+                                isinstance(value, str) and value.strip()
+                            )
+                        if not valid:
+                            raise QualificationRunError(
+                                f"新規recordのID fieldが空又は不正です: "
+                                f"{relative} / {field}"
+                            )
+                    source_aliases = {
+                        alias
+                        for entry in source_matches
+                        for alias in aliases(entry)
+                    }
+                    matching_target_groups = [
+                        group
+                        for group in file_target_alias_groups
+                        if entry_aliases & group
+                    ]
+                    if len(matching_target_groups) > 1:
+                        raise QualificationRunError(
+                            f"新規recordが複数の対象問題IDに一致します: {relative}"
+                        )
+                    if (
+                        len(matching_target_groups) != 1
+                        or not source_matches
+                        or not entry_aliases.issubset(source_aliases)
+                    ):
+                        raise QualificationRunError(
+                            f"sourceと異なるID fieldを検出しました: {relative}"
+                        )
+                if before_fields is None and source_fields is None:
+                    if after_fields:
+                        raise QualificationRunError(
+                            f"問題文・選択肢の参照元を確認できません: {relative}"
+                        )
+                    continue
+                for field in CODEX_PROTECTED_CONTENT_FIELDS:
+                    if before_fields is not None and field in before_fields:
+                        if (
+                            field not in after_fields
+                            or after_fields[field] != before_fields[field]
+                        ):
+                            raise QualificationRunError(
+                                f"Codex自動整備対象外fieldの変更を検出しました: "
+                                f"{relative} / {field}"
+                            )
+                    elif field in after_fields:
+                        if (
+                            source_fields is None
+                            or field not in source_fields
+                            or after_fields[field] != source_fields[field]
+                        ):
+                            raise QualificationRunError(
+                                f"Codex自動整備対象外fieldの追加を検出しました: "
+                                f"{relative} / {field}"
+                            )
+
+            def target_count(entries: list[Any], group: set[str]) -> int:
+                return sum(
+                    1
+                    for entry in entries
+                    if isinstance(entry, Mapping)
+                    and aliases(entry) & group
+                )
+
+            for group in file_target_alias_groups:
+                before_count = target_count(before, group)
+                after_count = target_count(after, group)
+                if before_count > 1 or after_count > 1:
+                    raise QualificationRunError(
+                        f"対象問題の一意IDがfile内で重複しています: {relative}"
+                    )
+                if before_count == 1 and after_count == 0:
+                    raise QualificationRunError(
+                        f"対象問題のrecord削除を検出しました: {relative}"
+                    )
+
+            if not file_target_aliases:
+                continue
+
+            def non_target(entries: list[Any]) -> list[tuple[tuple[str, ...], str]]:
+                values: list[tuple[tuple[str, ...], str]] = []
+                for entry in entries:
+                    if not isinstance(entry, Mapping):
+                        raise QualificationRunError("record baselineの形式が不正です。")
+                    entry_aliases = tuple(
+                        sorted(str(value) for value in entry.get("aliases") or [])
+                    )
+                    if set(entry_aliases) & file_target_aliases:
+                        continue
+                    values.append((entry_aliases, str(entry.get("hash") or "")))
+                return sorted(values)
+
+            if non_target(before) != non_target(after):
+                raise QualificationRunError(
+                    f"対象問題以外のrecord変更を検出しました: {relative}"
+                )
+
+    def _repository_file_fingerprints(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> dict[Path, str]:
+        fingerprints: dict[Path, str] = {}
+        for root_value, dir_names, file_names in os.walk(self.repo_root):
+            root = Path(root_value)
+            relative_root = root.relative_to(self.repo_root)
+            kept_dirs = []
+            for name in dir_names:
+                child = root / name
+                relative = relative_root / name
+                if name in SNAPSHOT_IGNORED_DIR_NAMES or name == "00_source":
+                    continue
+                if relative == Path("output", "question_review_console"):
+                    # UI自身が管理するreview・job・receiptは、整備threadの
+                    # repository差分と分離する。実体patchは別途、厳密照合する。
+                    continue
+                if child.is_symlink():
+                    fingerprints[relative] = self._path_fingerprint(child)
+                    continue
+                kept_dirs.append(name)
+            dir_names[:] = kept_dirs
+            for name in file_names:
+                path = root / name
+                relative = relative_root / name
+                fingerprints[relative] = self._path_fingerprint(path)
+
+        # UI管理treeは通常除外するが、agent専用receipt inboxだけは全fileを監視する。
+        agent_output = self.store.result_path(qualification, run_id).parent
+        if agent_output.is_dir():
+            for path in agent_output.rglob("*"):
+                relative = path.relative_to(self.repo_root)
+                fingerprints[relative] = self._path_fingerprint(path)
+
+        head = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=self.repo_root,
+            text=True,
+            capture_output=True,
+            timeout=30,
+            check=False,
+        )
+        if head.returncode != 0:
+            raise QualificationRunError("Git HEADを確認できません。")
+        fingerprints[Path(".git", "HEAD")] = "commit:" + head.stdout.strip()
+
+        changed_paths: set[Path] = set()
+        for command in (
+            ["git", "diff", "--name-only", "-z", "HEAD", "--"],
+            ["git", "ls-files", "--others", "--exclude-standard", "-z"],
+        ):
+            completed = subprocess.run(
+                command,
+                cwd=self.repo_root,
+                capture_output=True,
+                timeout=60,
+                check=False,
+            )
+            if completed.returncode != 0:
+                raise QualificationRunError("repository差分を確認できません。")
+            changed_paths.update(
+                Path(os.fsdecode(value))
+                for value in completed.stdout.split(b"\0")
+                if value
+            )
+        for relative in changed_paths:
+            if relative.parts[:2] == ("output", "question_review_console"):
+                continue
+            path = (self.repo_root / relative).resolve()
+            if not path.is_relative_to(self.repo_root):
+                raise QualificationRunError("repository差分のpathが不正です。")
+            fingerprints[relative] = self._path_content_fingerprint(path)
+        fingerprints[Path(".git", "config")] = self._path_content_fingerprint(
+            self.repo_root / ".git" / "config"
+        )
+        staged = subprocess.run(
+            ["git", "diff", "--cached", "--binary", "HEAD", "--"],
+            cwd=self.repo_root,
+            capture_output=True,
+            timeout=60,
+            check=False,
+        )
+        if staged.returncode != 0:
+            raise QualificationRunError("staging差分を確認できません。")
+        fingerprints[Path(".git", "index")] = (
+            "staged:" + hashlib.sha256(staged.stdout).hexdigest()
+        )
+        hooks_root = self.repo_root / ".git" / "hooks"
+        if hooks_root.is_dir():
+            for hook in hooks_root.iterdir():
+                if hook.is_file() or hook.is_symlink():
+                    relative = hook.relative_to(self.repo_root)
+                    fingerprints[relative] = self._path_content_fingerprint(hook)
+        return fingerprints
+
+    @staticmethod
+    def _path_fingerprint(path: Path) -> str:
+        try:
+            stat = path.lstat()
+        except FileNotFoundError:
+            return "missing"
+        suffix = f":{os.readlink(path)}" if path.is_symlink() else ""
+        return (
+            f"stat:{stat.st_mode}:{stat.st_size}:{stat.st_mtime_ns}:"
+            f"{stat.st_ctime_ns}{suffix}"
+        )
+
+    @staticmethod
+    def _path_content_fingerprint(path: Path) -> str:
+        if path.is_symlink():
+            return f"symlink:{os.readlink(path)}"
+        if not path.exists():
+            return "missing"
+        if not path.is_file():
+            return QualificationRunCoordinator._path_fingerprint(path)
+        digest = hashlib.sha256()
+        with path.open("rb") as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(chunk)
+        return f"sha256:{digest.hexdigest()}"
+
+    def _maintenance_relative_path(self, value: Any) -> Path:
+        path = Path(str(value))
+        absolute = Path(
+            os.path.abspath(path if path.is_absolute() else self.repo_root / path)
+        )
+        if not absolute.is_relative_to(self.repo_root):
+            raise QualificationRunError(f"repository外のfile変更は許可しません: {value}")
+        return absolute.relative_to(self.repo_root)
+
+    def _maintenance_path_allowed_for_roots(
+        self,
+        path: Path,
+        roots: set[Path],
+    ) -> bool:
+        candidate = (self.repo_root / path).absolute()
+        return any(
+            candidate == root or candidate.is_relative_to(root)
+            for root in roots
+        )
+
+    def _maintenance_path_allowed_for_run(
+        self,
+        path: Path,
+        roots: set[Path],
+        run: Mapping[str, Any],
+    ) -> bool:
+        if not self._maintenance_path_allowed_for_roots(path, roots):
+            return False
+        allowed_patch_files = {
+            self._maintenance_relative_path(value)
+            for value in run.get("allowedPatchFiles") or []
+        }
+        if set(path.parts) & ALLOWED_MAINTENANCE_DIR_NAMES:
+            return not allowed_patch_files or path in allowed_patch_files
+
+        qualification = str(run.get("qualification") or "")
+        write_roots = {
+            (
+                Path("prompt", "qualification_docs", qualification)
+                if str(area) == "qualification_docs"
+                else Path("output", qualification, str(area))
+            )
+            for area in run.get("allowedWriteAreas") or []
+        }
+        if any(path == root or path.is_relative_to(root) for root in write_roots):
+            allowed_write_files = {
+                self._maintenance_relative_path(value)
+                for value in run.get("allowedWriteFiles") or []
+            }
+            return not allowed_write_files or path in allowed_write_files
+        return True
+
+    @staticmethod
+    def _is_failed_delta_manifest_sentinel(
+        path: Path, qualification: str
+    ) -> bool:
+        parts = path.parts
+        return (
+            len(parts) == 6
+            and parts[:4]
+            == (
+                "output",
+                "question_review_console",
+                "workflow_runs",
+                qualification,
+            )
+            and bool(re.fullmatch(r"[A-Za-z0-9._-]+", parts[4]))
+            and parts[5] == "manifest.json"
+        )
+
     def _plan(
         self,
         qualification: str,
@@ -558,7 +2737,14 @@ class QualificationRunCoordinator:
                 self.workflow.plan(qualification, selected_stage_ids[0], mode)
             )
         plan.setdefault("stageIds", selected_stage_ids)
+        if plan["kind"] == "human":
+            self._apply_plan_write_contract(plan)
         if not resumed_from or plan["kind"] != "machine":
+            if plan["kind"] == "human":
+                plan["resolvableFailedDeltaPaths"] = self._unresolved_for_groups(
+                    qualification,
+                    list(plan.get("targetGroupIds") or []),
+                )
             return plan
         previous = self.store.get(qualification, resumed_from)
         previous_scope = (
@@ -588,6 +2774,131 @@ class QualificationRunCoordinator:
             for group_id in remaining
         ]
         return plan
+
+    def _apply_plan_write_contract(self, plan: dict[str, Any]) -> None:
+        raw_stage_plans = plan.get("stagePlans")
+        stage_plans = (
+            [value for value in raw_stage_plans if isinstance(value, Mapping)]
+            if isinstance(raw_stage_plans, list) and raw_stage_plans
+            else [plan]
+        )
+        patch_dirs: set[str] = set()
+        write_areas: set[str] = set()
+        patch_files: set[str] = set()
+        write_files: set[str] = set()
+        record_scopes: dict[str, list[list[str]]] = {}
+        for stage_plan in stage_plans:
+            current_stage_ids = {
+                str(value)
+                for value in stage_plan.get("stageIds")
+                or [stage_plan.get("stageId")]
+                if value and str(value) != "multi"
+            }
+            current_patch_dirs = set().union(
+                *(
+                    STAGE_PATCH_DIR_NAMES.get(stage, set())
+                    for stage in current_stage_ids
+                )
+            )
+            patch_dirs.update(current_patch_dirs)
+
+            if "setup" in current_stage_ids:
+                write_areas.add("qualification_docs")
+            if "category_setup" in current_stage_ids:
+                write_areas.update({"category", "qualification_docs"})
+            if "law_audit" in current_stage_ids:
+                write_areas.add("review")
+                for group_id in stage_plan.get("targetGroupIds") or []:
+                    write_files.add(
+                        self._law_review_sidecar_path(
+                            str(plan["qualification"]), str(group_id)
+                        )
+                    )
+
+            raw_source_scopes = stage_plan.get("targetSourceRecordScopes")
+            source_scopes = (
+                {
+                    self._maintenance_relative_path(path).as_posix(): (
+                        _normalized_alias_groups(groups)
+                    )
+                    for path, groups in raw_source_scopes.items()
+                }
+                if isinstance(raw_source_scopes, Mapping)
+                else {}
+            )
+
+            for value in stage_plan.get("outputFiles") or []:
+                relative = self._maintenance_relative_path(value)
+                if set(relative.parts) & current_patch_dirs:
+                    patch_files.add(relative.as_posix())
+                else:
+                    write_files.add(relative.as_posix())
+
+            if not current_patch_dirs:
+                continue
+            review_flag_suffixes = set().union(
+                *(
+                    STAGE_REVIEW_FLAG_SUFFIXES.get(stage, set())
+                    for stage in current_stage_ids
+                )
+            )
+            for source_value in stage_plan.get("sourceFiles") or []:
+                if Path(str(source_value)).suffix.lower() != ".json":
+                    continue
+                scoped_files = self._review_patch_files(
+                    {"paths": {"source": source_value, "patches": []}},
+                    {"investigationScope": "current_question"},
+                    current_patch_dirs,
+                    review_flag_suffixes,
+                )
+                patch_files.update(scoped_files)
+                groups = source_scopes.get(str(source_value), [])
+                for path in scoped_files:
+                    if groups:
+                        _add_record_scope(record_scopes, path, groups)
+                source_parts = Path(str(source_value)).parts
+                if "law_audit" in current_stage_ids and len(source_parts) >= 4:
+                    sidecar = self._law_review_sidecar_path(
+                        str(plan["qualification"]), source_parts[3]
+                    )
+                    if sidecar in write_files and groups:
+                        _add_record_scope(record_scopes, sidecar, groups)
+
+        plan["allowedPatchDirs"] = sorted(patch_dirs)
+        plan["allowedWriteAreas"] = sorted(write_areas)
+        plan["allowedPatchFiles"] = sorted(patch_files)
+        plan["allowedWriteFiles"] = sorted(write_files)
+        scoped_record_files = {
+            path
+            for path in [*patch_files, *write_files]
+            if Path(path).suffix.lower() in {".json", ".jsonl"}
+            and (
+                set(Path(path).parts) & patch_dirs
+                or "/review/law_revision_audit/" in f"/{path}"
+            )
+        }
+        if plan.get("targetRecordAliasGroups") and (
+            scoped_record_files - set(record_scopes)
+        ):
+            raise QualificationRunError(
+                "工程の対象file別record scopeを安全に作成できません。"
+            )
+        plan["targetRecordScopes"] = record_scopes
+
+    def _unresolved_for_groups(
+        self, qualification: str, group_ids: list[str]
+    ) -> list[str]:
+        if not group_ids:
+            return list(unresolved_failed_delta_paths(self.repo_root, qualification))
+        return sorted(
+            {
+                path
+                for group_id in group_ids
+                for path in unresolved_failed_delta_paths(
+                    self.repo_root, qualification, str(group_id)
+                )
+            }
+        )
 
     def _token(self, payload: Mapping[str, Any]) -> str:
         value = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))

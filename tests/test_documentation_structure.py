@@ -10,6 +10,7 @@ REMOVED_DUPLICATES = (
     "document/operations/goal_driven_update_workflow.md",
     "document/operations/ai_patch_execution_prompt_templates.md",
     "document/reference/firestore_datamodel.md",
+    "document/operations/lawzilla_mcp_question_maintenance_workflow.md",
     "document/notes",
 )
 LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
@@ -26,7 +27,7 @@ class DocumentationStructureTests(unittest.TestCase):
             "delivery_workflow.md",
             "../../prompt/README.md",
             "../reference/question_field_contract.md",
-            "lawzilla_mcp_question_maintenance_workflow.md",
+            "current_law_question_maintenance_workflow.md",
             "local_question_review_console.md",
             "question_issue_report_workflow.md",
             "../temporary/README.md",

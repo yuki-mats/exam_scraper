@@ -6,6 +6,7 @@ import unittest
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 
+from tools.question_review_console.jobs import JobConflictError
 from tools.question_review_console.server import (
     ApiError,
     QuestionReviewApplication,
@@ -15,6 +16,132 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_codex_start_conflict_returns_review_to_needs_review(self):
+        class Gate:
+            def assert_subscription_access(self, *, force=True):
+                return {"allowed": True, "planType": "pro"}
+
+        class Reviews:
+            def create(self, question, request, *, status):
+                return {
+                    "reviewId": "review-conflict-1",
+                    "qualification": question["qualification"],
+                    "prompt": "maintenance prompt",
+                    **request,
+                }
+
+            def update_status(self, review_id, status, *, current_state_hash=None):
+                self.updated = (review_id, status, current_state_hash)
+                return {"reviewId": review_id, "status": status}
+
+        class Runs:
+            def start_review(self, question, review, *, work_type):
+                raise JobConflictError("別の処理が実行中です。")
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            reviews = Reviews()
+            app.app_server = Gate()
+            app.reviews = reviews
+            app.qualification_runs = Runs()
+            app._question = lambda question_id, query: {
+                "id": question_id,
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-current",
+            }
+            app._decorate = lambda question: question
+            with self.assertRaises(ApiError) as caught:
+                app.post(
+                    "/api/reviews",
+                    {
+                        "questionId": "question-1",
+                        "status": "awaiting_codex",
+                        "startCodex": True,
+                        "review": {
+                            "issueTypes": ["other"],
+                            "note": "再確認する",
+                        },
+                    },
+                )
+
+        self.assertEqual(caught.exception.status, 409)
+        self.assertEqual(
+            reviews.updated,
+            ("review-conflict-1", "needs_review", "state-current"),
+        )
+
+    def test_evaluation_rework_starts_fresh_codex_job_with_server_snapshot(self):
+        class Gate:
+            def assert_subscription_access(self, *, force=True):
+                return {"allowed": True, "planType": "pro"}
+
+        class Reviews:
+            def create(self, question, request, *, status):
+                self.request = request
+                return {
+                    "reviewId": "review-1",
+                    "qualification": question["qualification"],
+                    "prompt": "rework prompt",
+                    **request,
+                }
+
+        class Runs:
+            def start_review(self, question, review, *, work_type):
+                self.work_type = work_type
+                self.question = question
+                self.review = review
+                return {
+                    "run": {"runId": "run-rework-1", "workType": work_type},
+                    "prompt": None,
+                    "job": {"jobId": "job-rework-1", "status": "queued"},
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.app_server = Gate()
+            reviews = Reviews()
+            runs = Runs()
+            app.reviews = reviews
+            app.qualification_runs = runs
+            app._question = lambda question_id, query: {
+                "id": question_id,
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-current",
+            }
+            app._decorate = lambda question: {
+                **question,
+                "evaluation": {
+                    "status": "needs_rework",
+                    "stateHash": "state-current",
+                    "resultHash": "result-hash",
+                    "summary": "正誤不一致",
+                    "criticalIssues": ["正答が逆"],
+                    "choiceEvaluations": [{"choiceIndex": 0}],
+                    "reworkItems": [{"stage": "02a", "message": "正答修正"}],
+                },
+            }
+            status, response = app.post(
+                "/api/reviews",
+                {
+                    "questionId": "question-1",
+                    "status": "awaiting_codex",
+                    "startCodex": True,
+                    "review": {
+                        "requestKind": "evaluation_rework",
+                        "issueTypes": ["other"],
+                        "note": "評価結果に従って再確認する",
+                    },
+                },
+            )
+
+        self.assertEqual(status, 202)
+        self.assertEqual(response["job"]["jobId"], "job-rework-1")
+        self.assertEqual(runs.work_type, "rework")
+        self.assertEqual(reviews.request["evaluationSnapshot"]["resultHash"], "result-hash")
+        self.assertEqual(runs.review["prompt"], "rework prompt")
+
     def test_serves_qualification_workflow_and_stage_prompt(self):
         class Workflow:
             def overview(self, qualification):
@@ -139,6 +266,8 @@ class QuestionReviewServerTests(unittest.TestCase):
                 return {
                     "questions": [
                         {
+                            "id": "sample-2025-q1",
+                            "originalQuestionId": "sample-2025-q1",
                             "sourceStem": "question_2025_1",
                             "issueCodes": ["law_audit_metadata_incomplete"],
                             "paths": {
@@ -182,7 +311,11 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(status, 201)
         self.assertEqual(review["requestKind"], "qualification_law_audit")
         self.assertEqual(review["investigationScope"], "qualification")
-        self.assertEqual(len(review["targetFiles"]), 1)
+        self.assertEqual(len(review["targetFiles"]), 4)
+        self.assertEqual(len(review["targetSourceFiles"]), 1)
+        self.assertEqual(
+            review["targetRecordAliasGroups"], [["sample-2025-q1"]]
+        )
 
     def test_collects_qualification_law_audit_patch_files_for_selected_issue(self):
         class Inventory:
@@ -201,11 +334,15 @@ class QuestionReviewServerTests(unittest.TestCase):
                 return {
                     "questions": [
                         {
+                            "id": f"sample-{list_group_id}-q1",
+                            "originalQuestionId": f"sample-{list_group_id}-q1",
                             "sourceStem": f"question_{list_group_id}_1",
                             "issueCodes": ["law_audit_metadata_incomplete"],
                             "paths": {"patches": [path]},
                         },
                         {
+                            "id": f"sample-{list_group_id}-q2",
+                            "originalQuestionId": f"sample-{list_group_id}-q2",
                             "sourceStem": f"question_{list_group_id}_2",
                             "issueCodes": ["law_hold"],
                             "paths": {"patches": []},
@@ -220,8 +357,21 @@ class QuestionReviewServerTests(unittest.TestCase):
                 "sample", ["law_audit_metadata_incomplete"]
             )
 
-        self.assertEqual(len(paths), 2)
-        self.assertTrue(all("21_explanationText_added" in path for path in paths))
+        self.assertEqual(len(paths), 8)
+        self.assertTrue(
+            all(
+                any(
+                    marker in path
+                    for marker in (
+                        "18_law_context_prepared",
+                        "21_explanationText_added",
+                        "23_correctChoiceText_fixed",
+                        "99_model_review_flags",
+                    )
+                )
+                for path in paths
+            )
+        )
         self.assertFalse(any("question_2024_2" in path for path in paths))
 
     def test_lists_all_groups_for_a_qualification(self):

@@ -33,7 +33,7 @@ kind = "human"
 batch_selectable = true
 patch_dir = "10_questionType_fixed"
 patch_suffix = "questionType_fixed"
-issue_fields = ["questionType", "questionBodyText", "choiceTextList"]
+issue_fields = ["questionType"]
 documents = ["prompt/01_prompt_fix_questionType.md"]
 
 [[stages]]
@@ -94,7 +94,7 @@ batch_selectable = true
 issue_fields = ["lawReferences", "lawRevisionFacts"]
 documents = [
   "prompt/03b_prompt_audit_current_law_and_patch.md",
-  "document/operations/lawzilla_mcp_question_maintenance_workflow.md",
+  "document/operations/current_law_question_maintenance_workflow.md",
 ]
 
 [[stages]]

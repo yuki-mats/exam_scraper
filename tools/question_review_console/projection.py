@@ -114,25 +114,43 @@ def normalize_verdict(value: Any) -> str:
 
 
 def record_aliases(record: Mapping[str, Any]) -> set[str]:
-    aliases: set[str] = set()
+    aliases = record_identity_aliases(record)
     stable = review_question_id(record)
     if stable:
         aliases.add(stable)
         if stable.startswith("firestore:"):
             aliases.update(value for value in stable.removeprefix("firestore:").split(",") if value)
+    for field in ("question_url",):
+        value = record.get(field)
+        if value:
+            aliases.add(str(value))
+    return aliases
+
+
+def record_identity_aliases(record: Mapping[str, Any]) -> set[str]:
+    """Return only identifiers suitable for write-scope enforcement."""
+
+    aliases: set[str] = set()
     for field in (
         "original_question_id",
         "public_question_id",
         "originalQuestionId",
         "questionId",
-        "question_url",
+        "reviewQuestionId",
+        "review_question_id",
+        "sourceQuestionKey",
+        "source_question_key",
+        "uploadOriginalQuestionId",
     ):
         value = record.get(field)
         if value:
             aliases.add(str(value))
     firestore_ids = record.get("firestoreQuestionIds")
     if isinstance(firestore_ids, list):
-        aliases.update(str(value) for value in firestore_ids if value)
+        values = [str(value) for value in firestore_ids if value]
+        aliases.update(values)
+        if values:
+            aliases.add("firestore:" + ",".join(values))
     return aliases
 
 

@@ -72,7 +72,7 @@ build-law-revision-audit-queue
 materialize-law-revision-hold-facts
 ```
 
-これらはevidence取得や監査判断そのものを自動化しません。監査契約は[現行法監査](../../document/operations/lawzilla_mcp_question_maintenance_workflow.md)を参照してください。
+これらはevidence取得や監査判断そのものを自動化しません。監査契約は[現行法監査](../../document/operations/current_law_question_maintenance_workflow.md)を参照してください。
 
 ## 公式問題報告
 

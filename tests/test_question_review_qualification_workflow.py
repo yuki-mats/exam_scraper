@@ -29,7 +29,10 @@ class FakeInventory:
 
 
 def question(*, patches=None, issues=None, law_related=False, workflow=None, group="2026"):
+    original_id = f"sample-{group}-q1"
     return {
+        "id": original_id,
+        "originalQuestionId": original_id,
         "paths": {
             "source": f"output/sample/questions_json/{group}/00_source/question_{group}_1.json",
             "patches": list(patches or []),
@@ -38,6 +41,7 @@ def question(*, patches=None, issues=None, law_related=False, workflow=None, gro
         "issueCodes": [issue["code"] for issue in issues or []],
         "isLawRelated": law_related,
         "projected": {
+            "originalQuestionId": original_id,
             "isLawRelated": law_related,
             "lawRevisionFacts": {"auditStatus": "same_as_current"}
             if law_related
@@ -66,6 +70,52 @@ def write_category(root: Path, qualification: str = "sample") -> None:
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_attention_plan_carries_only_target_record_identity_groups(self):
+        target = question(
+            issues=[{"code": "type_issue", "fields": ["questionType"]}]
+        )
+        other = question()
+        other["id"] = "sample-2026-q2"
+        other["originalQuestionId"] = "sample-2026-q2"
+        other["projected"]["originalQuestionId"] = "sample-2026-q2"
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {
+                            "listGroupId": "2026",
+                            "questions": [target, other],
+                        }
+                    ],
+                ),
+            )
+
+            plan = workflow.plan("sample", "question_type", "attention")
+
+        self.assertEqual(plan["targetCount"], 1)
+        self.assertEqual(
+            plan["targetRecordAliasGroups"], [["sample-2026-q1"]]
+        )
+
+    def test_human_patch_plan_rejects_question_without_strong_identity(self):
+        item = question()
+        item.pop("id")
+        item.pop("originalQuestionId")
+        item["projected"].pop("originalQuestionId")
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+
+            with self.assertRaisesRegex(ValueError, "一意ID"):
+                workflow.plan("sample", "question_type", "refresh")
+
     def test_source_only_qualification_starts_with_policy_then_stage_01(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -164,6 +214,65 @@ class QualificationWorkflowTests(unittest.TestCase):
         )
         self.assertIn("23_correctChoiceText_fixed", prompt)
         self.assertIn("prompt/02a_prompt_review_correctChoiceText.md", prompt)
+
+    def test_law_context_and_explanation_follow_the_merged_filename_contract(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [question()]}],
+                ),
+            )
+
+            law_context = workflow.plan(
+                "sample", "law_context", "refresh"
+            )
+            explanation = workflow.plan(
+                "sample", "explanation", "refresh"
+            )
+
+        self.assertEqual(
+            law_context["outputFiles"],
+            [
+                "output/sample/questions_json/2026/18_law_context_prepared/"
+                "question_2026_1_merged_lawContext_prepared.json"
+            ],
+        )
+        self.assertEqual(
+            explanation["outputFiles"],
+            [
+                "output/sample/questions_json/2026/21_explanationText_added/"
+                "question_2026_1_merged_explanationText_added.json"
+            ],
+        )
+
+    def test_stage_plan_reuses_the_selected_timestamp_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_root = (
+                root
+                / "output/sample/questions_json/2026/21_explanationText_added"
+            )
+            patch_root.mkdir(parents=True)
+            fixed = patch_root / "question_2026_1_merged_explanationText_added.json"
+            latest = (
+                patch_root
+                / "question_2026_1_merged_explanationText_added_20260714_1200.json"
+            )
+            fixed.write_text("{}\n", encoding="utf-8")
+            latest.write_text("{}\n", encoding="utf-8")
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [question()]}],
+                ),
+            )
+
+            plan = workflow.plan("sample", "explanation", "refresh")
+
+        self.assertEqual(plan["outputFiles"], [str(latest.relative_to(root))])
 
     def test_stage_plan_supports_remaining_attention_and_refresh(self):
         patches = [
@@ -346,7 +455,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertIn("対象問題: `2問すべて`", result["prompt"])
         self.assertIn("工程判定: `延べ8件`", result["prompt"])
         self.assertIn("選択工程を上記順序で完了してから次の問題へ進む", result["prompt"])
-        self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", result["prompt"])
+        self.assertIn("Codex組み込みweb検索でe-Gov又は所管官庁", result["prompt"])
         self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
         self.assertNotIn("## 問題文", result["prompt"])
 
@@ -381,7 +490,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             )
             prompt = workflow.prompt("sample", "law_audit", "attention")["prompt"]
 
-        self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", prompt)
+        self.assertIn("Codex組み込みweb検索でe-Gov又は所管官庁", prompt)
         self.assertIn("21_explanationText_added", prompt)
         self.assertNotIn("## 問題文", prompt)
 

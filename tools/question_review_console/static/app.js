@@ -64,6 +64,7 @@ const QUALIFICATION_WORKFLOW_LABELS = {
 const QUALIFICATION_RUN_STATUS_LABELS = {
   queued: "実行待ち",
   running: "処理中",
+  validating: "完了検証中",
   awaiting_changes: "Codex作業中",
   interrupted: "再開待ち",
   failed: "失敗",
@@ -126,15 +127,12 @@ const REVIEW_FIELDS = [
   ...EDITABLE_FIELDS,
   "lawReferences",
   "lawRevisionFacts",
-  "questionBodyText",
-  "choiceTextList",
 ];
 
 const REVIEW_SCOPES = new Set([
   "current_question",
   "current_group",
   "qualification",
-  "all_qualifications",
 ]);
 
 const reviewTargetContexts = new WeakMap();
@@ -277,13 +275,17 @@ async function initialize() {
   bindControls();
   populateIssueControls();
   try {
-    const [session, inventory] = await Promise.all([api("/api/session"), api("/api/inventory")]);
+    const [session, inventory, codexStatus] = await Promise.all([
+      api("/api/session"),
+      api("/api/inventory"),
+      api("/api/codex/status"),
+    ]);
     state.token = session.sessionToken;
     state.inventory = inventory;
-    state.evaluationEnabled = session.evaluationEnabled === true;
+    state.evaluationEnabled = session.evaluationEnabled === true && codexStatus.allowed === true;
     $("#project-status").textContent = state.evaluationEnabled
-      ? `本番Firestore: ${session.projectId} ・ 別セッション評価可`
-      : `本番Firestore: ${session.projectId} ・ 評価command未設定`;
+      ? `Codex App Server: ChatGPT ${codexStatus.planType} / Standard ・ Firestore: ${session.projectId}`
+      : `Codex App Server: 開始不可 ・ ${codexStatus.reason || "状態を確認できません"}`;
     initializeSelectors();
     await loadQualificationWorkflow(false);
     await loadQualificationRuns();
@@ -1037,10 +1039,10 @@ function renderQualificationActiveRun() {
     ? `${completed}/${run.targetCount}フォルダ`
     : `${run.targetCount}${["refresh", "group_refresh"].includes(run.mode) ? "問すべて" : "問"} × ${run.stageIds?.length || 1}工程を依頼済み`;
   const action = $("#qualification-active-run-action");
-  action.textContent = run.kind === "human"
-    ? "依頼を再コピー"
-    : run.status === "running" || run.status === "queued"
-      ? "進捗を見る"
+  action.textContent = ["queued", "running", "validating"].includes(run.status)
+    ? "進捗を見る"
+    : run.kind === "human"
+      ? "新規threadで再実行"
       : "残りを再開";
 }
 
@@ -1332,7 +1334,7 @@ function renderQualificationRunPreview(preview) {
       element("span", "", `${preview.stageCode} ${preview.stageLabel}`),
       element("span", "", preview.kind === "machine"
         ? "Merge・Convert・upload-readyを順番に再生成して検証します。"
-        : "対象パスと正本文書だけを含むCodex依頼を保存します。"),
+        : "Codex App Serverの新規threadで対象工程を整備します。"),
     );
     if (isMultiStage) {
       container.append(
@@ -1365,7 +1367,7 @@ function renderQualificationRunPreview(preview) {
     container.append(element("span", "run-preview-warning", `必須field不足 ${preview.blockingWarnings.length}件`));
   }
   const action = $("#qualification-run-start");
-  action.textContent = preview.kind === "machine" ? "出力を開始" : "依頼を保存してコピー";
+  action.textContent = preview.kind === "machine" ? "出力を開始" : "整備を開始";
   action.disabled = !preview.canStart;
 }
 
@@ -1391,14 +1393,7 @@ async function startQualificationRun(event) {
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
-    if (result.prompt) {
-      await copyText(result.prompt);
-      setQualificationRunRunning(false);
-      $("#qualification-run-dialog").close();
-      await loadQualificationRuns();
-      toast(`${preview.stageCode} ${preview.stageLabel}の依頼を保存してコピーしました。`);
-      return;
-    }
+    if (!result.job) throw new Error("Codex App Serverのjobを開始できませんでした。");
     await pollQualificationRunJob(result.job.jobId);
   } catch (error) {
     setQualificationRunRunning(false);
@@ -1464,33 +1459,16 @@ async function pollQualificationRunJob(jobId) {
 async function resumeQualificationRun() {
   const run = state.qualificationActiveRun;
   if (!run) return;
-  if (run.kind === "human") {
-    try {
-      const result = await api("/api/qualification-runs/resume-prompt", {
-        method: "POST",
-        body: { qualification: run.qualification, runId: run.runId },
-      });
-      await copyText(result.prompt);
-      toast(`${run.stageCode} ${run.stageLabel}の依頼を再コピーしました。`);
-    } catch (error) {
-      toast(error.message, true);
-    }
-    return;
-  }
-  if ((run.status === "running" || run.status === "queued") && run.jobId) {
-    const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
-    if (!stage) return;
-    openQualificationRunDialog(stage, {
-      mode: run.mode,
-      resumedFrom: run.runId,
-      listGroupIds: qualificationRunResumeGroupIds(run),
-    });
-    setQualificationRunRunning(true);
+  if (["queued", "running", "validating"].includes(run.status) && run.jobId) {
     pollQualificationRunJob(run.jobId).catch(async (error) => {
       setQualificationRunRunning(false);
       await loadQualificationRuns();
       toast(error.message, true);
     });
+    return;
+  }
+  if (run.kind === "human") {
+    toast("工程又は問題詳細から開始すると、新しいCodex App Server threadで再実行します。");
     return;
   }
   const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
@@ -1750,7 +1728,7 @@ function renderDetail() {
       "secondary-button",
       () => openReview("awaiting_codex"),
       "修正を依頼",
-      "おかしい箇所と調査範囲を記録し、同時にCodex用の修正依頼を作成してクリップボードへコピーします。指摘記録とCodex依頼を一度で行います。",
+      "おかしい箇所と調査範囲を記録し、Codex App Serverの新規threadで整備を開始します。",
     ),
     actionWithHelp(
       "直接編集",
@@ -1776,11 +1754,6 @@ function renderDetail() {
 
   const questionSection = section("問題文");
   const questionBody = element("p", "question-body", question.body);
-  installReviewTarget(questionBody, {
-    fields: ["questionBodyText"],
-    targetLabel: "問題文",
-    dataPath: "questionBodyText",
-  });
   questionSection.append(questionBody);
   if (question.issues.length) {
     const issues = element("div", "issue-panel");
@@ -2023,7 +1996,7 @@ function renderLawAuditQualityWarning(question) {
       "primary-button",
       () => openLawAuditQualityReview(question),
       "監査パッチをまとめて修正依頼",
-      "対象patch一覧を作り、Lawzilla MCPとFirestore条文検索で全対象を一問一肢ずつ監査するCodex依頼を作成します。",
+      "対象patch一覧を作り、Codex組み込みweb検索でe-Gov又は所管官庁の一次情報を開き、全対象を一問一肢ずつ監査します。",
     ),
   );
   return node;
@@ -2059,7 +2032,7 @@ function openLawAuditQualityReview(question) {
     issueType: warnings[0]?.code || "law_audit_metadata_incomplete",
     title: "法令監査パッチをまとめて修正依頼",
     targetLabel: "法令監査メタデータの一括報告",
-    note: "資格内の法令監査不備をLawzilla MCPとFirestore条文検索で一問一肢ずつ監査する。",
+    note: "資格内の法令監査不備をCodex組み込みweb検索と公的な一次情報で一問一肢ずつ監査する。",
     investigationScope: "qualification",
     requestKind: "qualification_law_audit",
     selectedText: summarizedFindingsText(warnings),
@@ -2262,10 +2235,10 @@ function renderPipelineActions(question) {
       element("span", "", "不合格理由と根拠を付けて、この問題だけ再整備します。"),
     );
     actions.append(actionWithHelp(
-      "再整備を依頼",
+      "再整備を開始",
       "primary-button",
       () => openEvaluationRework(question),
-      "再整備を依頼",
+      "再整備を開始",
       "別セッション評価の不合格理由、対象選択肢、推奨工程をCodex依頼へ含めます。",
     ));
   } else if (question.nextAction === "complete") {
@@ -2335,6 +2308,8 @@ function openEvaluationRework(question) {
       selectedText: items.map((item) => `${item.stage}: ${item.message}`).join("\n"),
     },
     "other",
+    "current_question",
+    "evaluation_rework",
   );
   $("#review-note").value = [
     "別セッション評価で基準未達となった問題を再整備する。",
@@ -2748,7 +2723,7 @@ async function openEvaluationDialog(questionIds = []) {
     );
     if (!preview.canStart) {
       $("#workflow-dialog-message").textContent =
-        "選択した問題に評価可能な対象がありません。整備状態又は評価commandを確認してください。";
+        "選択した問題に評価可能な対象がありません。整備状態又はCodex App Serverを確認してください。";
       state.workflowDialog.mode = "";
       $("#workflow-execute").textContent = "閉じる";
       $("#workflow-execute").disabled = false;
@@ -3079,12 +3054,6 @@ function renderChoices(projected) {
       verdict,
     );
     const choiceText = element("div", "choice-text", choice);
-    installReviewTarget(choiceText, {
-      fields: ["choiceTextList"],
-      choiceIndexes: [index],
-      targetLabel: `選択肢${index + 1}`,
-      dataPath: `choiceTextList[${index}]`,
-    });
     const explanation = element("div", "choice-explanation", explanations[index] || "（解説なし）");
     installReviewTarget(explanation, {
       fields: ["explanationText"],
@@ -3505,10 +3474,13 @@ function openReview(
   state.reviewMode = mode;
   state.reviewRequestKind = requestKind;
   state.reviewSelection = selection;
-  $("#review-dialog-title").textContent = selection
-    ? "選択した箇所の修正を依頼"
-    : "修正を依頼";
-  $("#review-submit").textContent = "依頼を作成してコピー";
+  const rework = requestKind === "evaluation_rework";
+  $("#review-dialog-title").textContent = rework
+    ? "再整備を開始"
+    : selection
+      ? "選択した箇所を整備"
+      : "整備を開始";
+  $("#review-submit").textContent = rework ? "再整備を開始" : "整備を開始";
   const firstIssue = issueType || state.detail.issueCodes[0] || "other";
   $("#review-issue").value = ISSUE_LABELS[firstIssue] ? firstIssue : "other";
   $("#review-note").value = "";
@@ -3566,6 +3538,7 @@ async function submitReview(event) {
       body: {
         questionId: state.detail.id,
         status: state.reviewMode,
+        startCodex: state.reviewMode === "awaiting_codex",
         review: {
           choiceIndexes,
           fields,
@@ -3579,9 +3552,18 @@ async function submitReview(event) {
       },
     });
     $("#review-dialog").close();
-    if (state.reviewMode === "awaiting_codex") {
-      await copyText(review.prompt);
-      toast("指摘を記録し、Codex用依頼をクリップボードへコピーしました。");
+    if (review.job) {
+      resetWorkflowDialog(
+        "codexReview",
+        state.reviewRequestKind === "evaluation_rework" ? "再整備を実行" : "整備を実行",
+      );
+      state.workflowDialog.preview = {};
+      setWorkflowRunning(true);
+      try {
+        await pollJob(review.job.jobId, "codexReview");
+      } catch (error) {
+        showWorkflowError(error);
+      }
     } else {
       toast("指摘を記録しました。");
     }
@@ -3589,21 +3571,6 @@ async function submitReview(event) {
   } catch (error) {
     toast(error.message, true);
   }
-}
-
-async function copyText(value) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(value);
-    return;
-  }
-  const textarea = document.createElement("textarea");
-  textarea.value = value;
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
-  document.body.append(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  textarea.remove();
 }
 
 async function updateReviewStatus(status) {

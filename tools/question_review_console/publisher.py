@@ -22,6 +22,7 @@ from tools.question_review_console.firestore_readback import (
     FirestoreReadback,
 )
 from tools.question_review_console.evaluation import QuestionEvaluationService
+from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.workflow_runner import (
@@ -54,7 +55,12 @@ class GroupPublisher:
         group = self.inventory.group(qualification, list_group_id)
         local = aggregate_group_workflow(group)
         issue_counts = self._blocking_issue_counts(group)
-        if not local["localReady"] or issue_counts:
+        failed_delta_paths = list(
+            unresolved_failed_delta_paths(
+                self.repo_root, qualification, list_group_id
+            )
+        )
+        if not local["localReady"] or issue_counts or failed_delta_paths:
             return {
                 "qualification": qualification,
                 "listGroupId": list_group_id,
@@ -62,9 +68,12 @@ class GroupPublisher:
                 "localReady": local["localReady"],
                 "stages": local["stages"],
                 "blockingIssues": issue_counts,
+                "failedDeltaPaths": failed_delta_paths,
                 "canPublish": False,
                 "reason": (
-                    "Merge・Convert・upload-readyを先に同期してください。"
+                    "失敗又は中断turnの未確定差分を先に解決してください。"
+                    if failed_delta_paths
+                    else "Merge・Convert・upload-readyを先に同期してください。"
                     if not local["localReady"]
                     else "公開を停止する要確認項目が残っています。"
                 ),
@@ -112,6 +121,7 @@ class GroupPublisher:
             "projectId": PRODUCTION_PROJECT_ID,
             "localReady": True,
             "blockingIssues": {},
+            "failedDeltaPaths": [],
             "artifactPath": str(path.relative_to(self.repo_root)),
             "artifactHash": artifact_hash,
             "documentCount": len(documents),
@@ -290,6 +300,13 @@ class QuestionPublisher:
     def preview(self, question: Mapping[str, Any]) -> dict[str, Any]:
         current = self._current_question(question)
         evaluation = self.evaluations.status_for(current)
+        failed_delta_paths = list(
+            unresolved_failed_delta_paths(
+                self.repo_root,
+                str(current["qualification"]),
+                str(current["listGroupId"]),
+            )
+        )
         base = {
             "questionId": str(current["id"]),
             "reviewKey": str(current["reviewKey"]),
@@ -301,7 +318,15 @@ class QuestionPublisher:
             "evaluationStatus": evaluation["status"],
             "evaluationHash": str(evaluation.get("resultHash") or ""),
             "publishReady": bool(evaluation["publishReady"]),
+            "failedDeltaPaths": failed_delta_paths,
         }
+        if failed_delta_paths:
+            return {
+                **base,
+                "canPublish": False,
+                "reason": "失敗又は中断turnの未確定差分を先に解決してください。",
+                "blockingIssues": evaluation.get("blockingIssues") or [],
+            }
         if not evaluation["publishReady"]:
             return {
                 **base,

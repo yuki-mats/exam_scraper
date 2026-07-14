@@ -7,29 +7,26 @@ import hmac
 import json
 import os
 import secrets
-import shlex
-import shutil
-import subprocess
+import tempfile
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
 from tools.question_review_console.review_store import atomic_write
+from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
+from tools.question_review_console.qualification_runs import QualificationRunStore
 from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 
 
 SCHEMA_VERSION = "question-evaluation/v1"
-EVALUATION_COMMAND_ENV = "QUESTION_EVALUATION_COMMAND"
 EVALUATION_CONCURRENCY_ENV = "QUESTION_EVALUATION_CONCURRENCY"
-DEFAULT_TIMEOUT_SECONDS = 1800
 DEFAULT_EVALUATION_CONCURRENCY = 4
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
 ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
 TRUE_LABELS = {"正しい", "正解", "○", "〇", "true"}
 FALSE_LABELS = {"間違い", "不正解", "誤り", "×", "false"}
-DEFAULT_CODEX_PATH = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
 
 
 class EvaluationError(RuntimeError):
@@ -135,6 +132,10 @@ class EvaluationStore:
         session_id: str,
         provider: str,
         started_at: str,
+        thread_id: str | None = None,
+        turn_id: str | None = None,
+        run_id: str | None = None,
+        work_type: str = "evaluation",
     ) -> dict[str, Any]:
         validated = self._validate_result(question, worker_result)
         payload = {
@@ -146,6 +147,10 @@ class EvaluationStore:
             "originalQuestionId": str(question.get("originalQuestionId") or ""),
             "stateHash": str(question["stateHash"]),
             "sessionId": session_id,
+            "threadId": thread_id,
+            "turnId": turn_id,
+            "runId": run_id,
+            "workType": work_type,
             "provider": provider,
             "startedAt": started_at,
             "evaluatedAt": _now(),
@@ -193,9 +198,6 @@ class EvaluationStore:
         reported_status = str(worker_result.get("status") or "")
         if reported_status not in {"passed", "needs_rework"}:
             raise EvaluationError("statusはpassed又はneeds_reworkで返してください。")
-        answer_mapping = worker_result.get("answerMappingMatched")
-        if not isinstance(answer_mapping, bool):
-            raise EvaluationError("answerMappingMatchedはbooleanで返してください。")
         score = worker_result.get("explanationScore")
         if isinstance(score, bool) or not isinstance(score, int) or not 0 <= score <= 100:
             raise EvaluationError("explanationScoreは0から100の整数で返してください。")
@@ -315,7 +317,6 @@ class EvaluationStore:
 
         passed = bool(
             reported_status == "passed"
-            and answer_mapping
             and all_choices_verified
             and current_mapping_matched
             and score >= PASSING_EXPLANATION_SCORE
@@ -337,7 +338,9 @@ class EvaluationStore:
         return {
             "status": "passed" if passed else "needs_rework",
             "reportedStatus": reported_status,
-            "answerMappingMatched": bool(answer_mapping and current_mapping_matched),
+            # 現在の正答対応は評価promptへ渡さず、独立した全肢判定と
+            # repository上の現在値をserver側でのみ照合する。
+            "answerMappingMatched": current_mapping_matched,
             "allChoicesVerified": all_choices_verified,
             "verifiedChoiceCount": sum(
                 item["verdict"] != "insufficient_evidence"
@@ -359,9 +362,9 @@ class QuestionEvaluationService:
         repo_root: Path,
         secret: str,
         *,
-        command: str | None = None,
         result_runner: Callable[[str], Mapping[str, Any]] | None = None,
-        timeout_seconds: int | None = None,
+        app_server: Any | None = None,
+        run_store: QualificationRunStore | None = None,
         concurrency: int | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
@@ -369,15 +372,24 @@ class QuestionEvaluationService:
         self.store = EvaluationStore(self.repo_root)
         self.schema_path = Path(__file__).with_name("evaluation_result.schema.json")
         self.result_runner = result_runner
-        self.timeout_seconds = timeout_seconds or self._timeout_from_environment()
+        self.app_server = app_server
+        self.run_store = run_store or QualificationRunStore(self.repo_root)
         self.concurrency = concurrency or self._concurrency_from_environment()
-        self.command, self.provider = self._resolve_command(command)
+        self.provider = (
+            str(app_server.provider)
+            if app_server is not None
+            else "test runner"
+            if result_runner is not None
+            else "未設定"
+        )
         self._active: set[str] = set()
         self._active_lock = threading.RLock()
 
     @property
     def configured(self) -> bool:
-        return self.result_runner is not None or bool(self.command)
+        return self.result_runner is not None or bool(
+            self.app_server is not None and self.app_server.configured
+        )
 
     def preview(self, question: Mapping[str, Any]) -> dict[str, Any]:
         status = self.status_for(question)
@@ -390,7 +402,7 @@ class QuestionEvaluationService:
         }
         reason = ""
         if not self.configured:
-            reason = "別セッションを起動できるCodex CLI又はQUESTION_EVALUATION_COMMANDがありません。"
+            reason = "Codex App Serverを起動できません。"
         elif not status["machineReady"]:
             reason = "評価前にMerge・Convert・upload-readyと要確認項目を整えてください。"
         return {
@@ -552,18 +564,92 @@ class QuestionEvaluationService:
             self._active.add(review_key)
         started_at = _now()
         session_id = "evaluation-" + secrets.token_urlsafe(12)
+        previous = self.store.load(question)
+        work_type = "reevaluation" if previous is not None else "evaluation"
+        prompt = self._build_prompt(question)
+        plan = {
+            "qualification": str(question["qualification"]),
+            "stageId": work_type,
+            "stageIds": [work_type],
+            "stageCode": "再評価" if work_type == "reevaluation" else "評価",
+            "stageLabel": str(
+                question.get("questionLabel")
+                or question.get("sourceQuestionKey")
+                or question["id"]
+            ),
+            "mode": "question",
+            "modeLabel": "元問題1問",
+            "kind": "evaluation",
+            "workType": work_type,
+            "targetCount": 1,
+            "workItemCount": 1,
+            "targetGroupIds": [str(question["listGroupId"])],
+            "scopeListGroupId": str(question["listGroupId"]),
+            "scopeListGroupIds": [str(question["listGroupId"])],
+            "targetQuestionIds": [str(question["id"])],
+            "stateHash": str(question["stateHash"]),
+            "sandbox": "read-only",
+            "provider": self.provider,
+        }
+        run = self.run_store.create(
+            plan,
+            status="queued",
+            prompt=prompt,
+            append_receipt_contract=False,
+        )
+        qualification = str(question["qualification"])
+        run_id = str(run["runId"])
         try:
-            prompt = self._build_prompt(question)
+            self.run_store.update(
+                qualification, run_id, status="running", startedAt=started_at
+            )
             prompt_path = self.store.save_prompt(question, prompt)
             emit(f"別セッションを開始: {question.get('questionLabel') or question.get('sourceQuestionKey')}")
             emit(f"評価inputを保存: {prompt_path.relative_to(self.repo_root)}")
-            worker_result = self._run_result(prompt)
+            worker_result, metadata = self._run_result(
+                prompt,
+                emit,
+                lambda thread_id, session_id: self.run_store.update(
+                    qualification,
+                    run_id,
+                    threadId=thread_id,
+                    sessionId=session_id,
+                ),
+                lambda thread_id, turn_id: self.run_store.update(
+                    qualification,
+                    run_id,
+                    threadId=thread_id,
+                    turnId=turn_id,
+                ),
+                work_type,
+            )
+            thread_id = str(metadata.get("threadId") or "") or None
+            app_server_session_id = str(metadata.get("sessionId") or "") or None
+            turn_id = str(metadata.get("turnId") or "") or None
+            if app_server_session_id:
+                session_id = app_server_session_id
             result = self.store.save(
                 question,
                 worker_result,
                 session_id=session_id,
                 provider=self.provider,
                 started_at=started_at,
+                thread_id=thread_id,
+                turn_id=turn_id,
+                run_id=run_id,
+                work_type=work_type,
+            )
+            self.run_store.write_result(qualification, run_id, result)
+            self.run_store.update(
+                qualification,
+                run_id,
+                status="succeeded",
+                sessionId=app_server_session_id,
+                result={
+                    "status": result["status"],
+                    "summary": result["summary"],
+                    "resultHash": result["resultHash"],
+                },
             )
             label = "合格" if result["status"] == "passed" else "要再整備"
             emit(
@@ -572,8 +658,22 @@ class QuestionEvaluationService:
             )
             return {
                 "evaluation": result,
+                "runId": run_id,
                 "message": f"別セッション評価が完了しました: {label}",
             }
+        except Exception as exc:  # noqa: BLE001
+            self.run_store.write_result(
+                qualification,
+                run_id,
+                {"status": "failed", "summary": str(exc)},
+            )
+            self.run_store.update(
+                qualification,
+                run_id,
+                status="failed",
+                error=str(exc),
+            )
+            raise
         finally:
             with self._active_lock:
                 self._active.discard(review_key)
@@ -592,6 +692,10 @@ class QuestionEvaluationService:
             status = "running"
         elif payload is None:
             status = "not_started"
+        elif self.app_server is not None and not self._session_receipt_valid(
+            question, payload
+        ):
+            status = "stale"
         elif payload.get("stateHash") != question.get("stateHash"):
             status = "stale"
         else:
@@ -608,7 +712,19 @@ class QuestionEvaluationService:
                 and str(code) not in {"live_mismatch", "firestore_readback_stale"}
             }
         )
-        machine_ready = bool(local_ready and not blocking_issues and question.get("uploadReadyDocs"))
+        failed_delta_paths = list(
+            unresolved_failed_delta_paths(
+                self.repo_root,
+                str(question.get("qualification") or ""),
+                str(question.get("listGroupId") or ""),
+            )
+        )
+        machine_ready = bool(
+            local_ready
+            and not blocking_issues
+            and not failed_delta_paths
+            and question.get("uploadReadyDocs")
+        )
         publish_ready = bool(status == "passed" and machine_ready)
         if not machine_ready:
             next_action = "maintain"
@@ -630,6 +746,7 @@ class QuestionEvaluationService:
                 "provider": self.provider,
                 "machineReady": machine_ready,
                 "blockingIssues": blocking_issues,
+                "failedDeltaPaths": failed_delta_paths,
                 "publishReady": publish_ready,
                 "nextAction": next_action,
                 "choiceCount": int(
@@ -640,86 +757,69 @@ class QuestionEvaluationService:
         )
         return result
 
-    def _run_result(self, prompt: str) -> Mapping[str, Any]:
+    def _session_receipt_valid(
+        self,
+        question: Mapping[str, Any],
+        payload: Mapping[str, Any],
+    ) -> bool:
+        run_id = str(payload.get("runId") or "")
+        session_id = str(payload.get("sessionId") or "")
+        thread_id = str(payload.get("threadId") or "")
+        turn_id = str(payload.get("turnId") or "")
+        if not run_id or not session_id or not thread_id or not turn_id:
+            return False
+        try:
+            qualification = _safe_segment(str(question["qualification"]))
+            manifest = self.run_store.get(qualification, run_id)
+            result_path = self.run_store.root / qualification / _safe_segment(run_id) / "result.json"
+            receipt = json.loads(result_path.read_text(encoding="utf-8"))
+        except (KeyError, OSError, ValueError, json.JSONDecodeError):
+            return False
+        return bool(
+            manifest.get("status") == "succeeded"
+            and manifest.get("workType") in {"evaluation", "reevaluation"}
+            and manifest.get("stateHash") == question.get("stateHash")
+            and manifest.get("sessionId") == session_id
+            and manifest.get("threadId") == thread_id
+            and manifest.get("turnId") == turn_id
+            and isinstance(receipt, Mapping)
+            and receipt.get("resultHash") == payload.get("resultHash")
+        )
+
+    def _run_result(
+        self,
+        prompt: str,
+        emit: Callable[[str], None],
+        on_thread_started: Callable[[str, str], None],
+        on_turn_started: Callable[[str, str], None],
+        work_type: str,
+    ) -> tuple[Mapping[str, Any], dict[str, Any]]:
         if self.result_runner is not None:
             result = self.result_runner(prompt)
             if not isinstance(result, Mapping):
                 raise EvaluationError("別セッションrunnerがJSON objectを返しませんでした。")
-            return result
-        if not self.command:
-            raise EvaluationError("別セッションを起動するcommandがありません。")
-        try:
-            completed = subprocess.run(
-                self.command,
-                cwd=self.repo_root,
-                input=prompt,
-                text=True,
-                capture_output=True,
-                timeout=self.timeout_seconds,
-                check=False,
+            return result, {}
+        if self.app_server is None:
+            raise EvaluationError("Codex App Serverが設定されていません。")
+        schema = json.loads(self.schema_path.read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory(prefix="question-objective-evaluation-") as directory:
+            turn = self.app_server.run_turn(
+                prompt,
+                work_type=work_type,
+                sandbox="read-only",
+                output_schema=schema,
+                emit=emit,
+                on_thread_started=on_thread_started,
+                on_turn_started=on_turn_started,
+                cwd=Path(directory),
             )
-        except subprocess.TimeoutExpired as exc:
-            raise EvaluationError("別セッション評価が時間切れになりました。") from exc
-        if completed.returncode != 0:
-            stderr = " ".join(completed.stderr.strip().splitlines()[-8:])
-            detail = f": {stderr[-1200:]}" if stderr else ""
-            raise EvaluationError(
-                f"別セッション評価を完了できませんでした（exit={completed.returncode}）{detail}"
-            )
-        if len(completed.stdout.encode("utf-8")) > 2_000_000:
-            raise EvaluationError("別セッションの出力が2MBを超えました。")
-        return _extract_json(completed.stdout)
-
-    def _resolve_command(self, command: str | None) -> tuple[list[str], str]:
-        configured = command if command is not None else os.environ.get(EVALUATION_COMMAND_ENV)
-        if configured:
-            parsed = shlex.split(configured)
-            return parsed, EVALUATION_COMMAND_ENV if parsed else "未設定"
-        codex_path: Path | None = None
-        if DEFAULT_CODEX_PATH.is_file() and os.access(DEFAULT_CODEX_PATH, os.X_OK):
-            codex_path = DEFAULT_CODEX_PATH
-        else:
-            located = shutil.which("codex")
-            if located and os.access(located, os.X_OK):
-                codex_path = Path(located)
-        if codex_path is None:
-            return [], "未設定"
-        return (
-            [
-                str(codex_path),
-                "exec",
-                "--ephemeral",
-                "--ignore-user-config",
-                "--disable",
-                "apps",
-                "--disable",
-                "plugins",
-                "--disable",
-                "remote_plugin",
-                "--disable",
-                "plugin_sharing",
-                "--disable",
-                "multi_agent",
-                "--disable",
-                "goals",
-                "--disable",
-                "memories",
-                "--model",
-                "gpt-5.4-mini",
-                "-c",
-                'model_reasoning_effort="medium"',
-                "--sandbox",
-                "read-only",
-                "--output-schema",
-                str(self.schema_path),
-                "--color",
-                "never",
-                "-C",
-                str(self.repo_root),
-                "-",
-            ],
-            "Codex CLI",
-        )
+        if len(turn.final_message.encode("utf-8")) > 2_000_000:
+            raise EvaluationError("Codex App Serverの出力が2MBを超えました。")
+        return _extract_json(turn.final_message), {
+            "threadId": turn.thread_id,
+            "sessionId": turn.session_id,
+            "turnId": turn.turn_id,
+        }
 
     def _build_prompt(self, question: Mapping[str, Any]) -> str:
         projected = question.get("projected")
@@ -734,14 +834,11 @@ class QuestionEvaluationService:
             "questionBodyText": projected.get("questionBodyText") or question.get("body"),
             "questionIntent": projected.get("questionIntent"),
             "choiceTextList": projected.get("choiceTextList"),
-            "currentCorrectChoiceText": projected.get("correctChoiceText"),
-            "officialAnswer": projected.get("answer_result_text"),
             "currentExplanationText": projected.get("explanationText"),
             "isLawRelated": projected.get("isLawRelated"),
             "lawReferences": projected.get("lawReferences"),
             "lawRevisionFacts": projected.get("lawRevisionFacts"),
             "examYear": projected.get("examYear"),
-            "paths": question.get("paths"),
         }
         return f"""# 問題品質評価
 
@@ -750,11 +847,11 @@ class QuestionEvaluationService:
 ## 必須確認
 
 1. 問題文と全選択肢を一体で読み、各選択肢の命題を一次資料、公式資料、法令本文又は独立計算で確認する。
-2. currentCorrectChoiceTextとcurrentExplanationTextは比較対象であり、根拠として扱わない。
+2. 現在の正答対応と公式正答は意図的に渡されていない。currentExplanationTextは解説採点だけに使い、各選択肢の判定根拠として扱わない。
 3. 各選択肢に、第三者がたどれるsource、具体的locator、短い根拠要約を最低1件付ける。
 4. 根拠が足りない選択肢はinsufficient_evidenceとし、推測で合格にしない。
-5. choiceEvaluations[].verdictは選択肢の記述自体が事実として正しければtrue、誤っていればfalseとする。currentCorrectChoiceTextとの一致可否や現在値の評価をverdictへ入れない。
-6. 現在の正誤対応が全選択肢で正しいかをanswerMappingMatchedへ返す。
+5. choiceEvaluations[].verdictは選択肢の記述自体が事実として正しければtrue、誤っていればfalseとする。現在値との一致可否をverdictへ入れない。
+6. 現在の正誤対応との比較はPython serverが行う。推測して出力へ加えない。
 7. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
 8. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
 9. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
@@ -771,15 +868,6 @@ class QuestionEvaluationService:
     def _token(self, payload: Mapping[str, Any]) -> str:
         value = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return hmac.new(self.secret, value.encode("utf-8"), hashlib.sha256).hexdigest()
-
-    @staticmethod
-    def _timeout_from_environment() -> int:
-        raw = os.environ.get("QUESTION_EVALUATION_TIMEOUT_SECONDS", "")
-        try:
-            value = int(raw) if raw else DEFAULT_TIMEOUT_SECONDS
-        except ValueError:
-            return DEFAULT_TIMEOUT_SECONDS
-        return max(60, min(value, 7200))
 
     @staticmethod
     def _concurrency_from_environment() -> int:

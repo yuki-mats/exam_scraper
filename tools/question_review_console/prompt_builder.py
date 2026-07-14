@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -90,19 +91,47 @@ def _build_qualification_law_audit_prompt(
             continue
         target_paths.append(repo_root / relative)
     path_lines = "\n".join(f"- `{path}`" for path in target_paths)
+    sidecar_paths: set[Path] = set()
+    for value in review.get("targetSourceFiles") or []:
+        relative = Path(str(value))
+        parts = relative.parts
+        if (
+            relative.is_absolute()
+            or ".." in parts
+            or len(parts) < 5
+            or parts[0] != "output"
+            or parts[2] != "questions_json"
+        ):
+            continue
+        sidecar_paths.add(
+            repo_root
+            / "output"
+            / parts[1]
+            / "review"
+            / "law_revision_audit"
+            / f"{parts[3]}_law_revision_audit.jsonl"
+        )
+    sidecar_lines = "\n".join(
+        f"- `{path}`" for path in sorted(sidecar_paths)
+    )
     return f"""# 法令監査パッチ一括修正
 
 ## 対象ファイル
 
 {path_lines or '- （対象ファイルを取得できないため、依頼を作り直す）'}
 
+## 監査sidecar
+
+{sidecar_lines or '- （対象年度を取得できないため、依頼を作り直す）'}
+
 ## やること
 
 - 各ファイル内で`law_audit_metadata_incomplete`等の法令監査品質不備がある全questionを特定し、一問一肢ずつ「問題文＋選択肢」の完全命題を作る。
-- 各命題についてLawzilla MCPとFirestoreの条文検索を実行し、双方が示す条文本文を人間の目視レベルで照合する。主体、要件、数値、例外、委任先まで確認する。
-- 既存の正誤・解説・法令メタデータやLawzilla単独の回答を正本扱いしない。不一致又は根拠不足は推測せず`hold`/`needs_secondary_review`にする。
+- 各命題についてCodex組み込みweb検索を使い、e-Gov法令検索又は所管官庁の一次情報を開いて条文本文を目視レベルで照合する。主体、要件、数値、例外、委任先まで確認する。
+- 既存の正誤・解説・法令メタデータや検索要約を正本扱いしない。不一致又は根拠不足は推測せず`hold`/`needs_secondary_review`にする。
 - 確認結果と根拠を各questionのpatchへ個別に反映する。`correctChoiceText`を変える場合は解説先頭、根拠、`lawRevisionFacts.current.correctChoiceText`も整合させる。
-- `00_source`と既存IDは変更しない。変更対象のmerge、convert、法令監査quality-gateを実行し、upload-readyへの反映を確認する。Firestoreへの実アップロードは行わない。
+- 一問ごとの判断、根拠、未確認事項を対象年度の監査sidecarへ1行1問で記録する。
+- `00_source`と既存IDは変更しない。patchを更新してpatch単体の検証を行う。merge、convert、upload-ready生成、Firestore反映はこのsessionでは行わず、問題整備システムの別工程へ残す。
 """
 
 
@@ -158,13 +187,25 @@ def build_codex_prompt(
     }
     scope_instruction = {
         "current_question": "指定された問題だけを調査・修正する。",
-        "current_group": "同じqualification・listGroupId内を検索し、同じ原因と確認できた類似問題も修正する。",
-        "qualification": "同じqualificationの全listGroupIdを検索し、同じ原因と確認できた類似問題も修正する。",
+        "current_group": "同じqualification・listGroupId内を調査する。ただし、このrunで修正するのは指定された問題だけとし、類似問題は別reviewへ残す。",
+        "qualification": "同じqualificationの全listGroupIdを調査する。ただし、このrunで修正するのは指定された問題だけとし、類似問題は別reviewへ残す。",
         "all_qualifications": "全qualificationを検索し、同じ原因と確認できた類似問題も修正する。",
     }
     scope_label = scope_labels.get(scope, scope_labels["current_question"])
     scope_text = scope_instruction.get(scope, scope_instruction["current_question"])
     law_audit_section = _law_audit_instruction() if _is_law_audit_review(review) else ""
+    evaluation_snapshot = review.get("evaluationSnapshot")
+    rework_section = ""
+    if isinstance(evaluation_snapshot, Mapping):
+        rework_section = f"""## 独立評価の構造化結果
+
+次は現在の問題内容に対する評価結果だけです。評価threadの会話は引き継がず、指摘と根拠を再確認して必要なpatchだけを修正してください。
+
+```json
+{json.dumps(evaluation_snapshot, ensure_ascii=False, indent=2)}
+```
+
+"""
     return f"""# 問題整備レビュー対応
 
 問題整備システムで次の指摘が作成されました。review JSONを読み、現行workflowに従って原因調査、必要なpatch修正、検証まで行ってください。
@@ -189,7 +230,7 @@ def build_codex_prompt(
 
 {review.get('expectedOutcome') or '（Codexで根拠を確認して判断する）'}
 
-{law_audit_section}{selection_section}## 問題文
+{law_audit_section}{selection_section}{rework_section}## 問題文
 
 {body}
 
@@ -207,8 +248,8 @@ def build_codex_prompt(
 - `correctChoiceText`を変更する場合は、解説先頭、根拠、`lawRevisionFacts`との整合も確認する。
 - 既存の`questionId`、`originalQuestionId`、`questionSetId`を不用意に変更しない。
 - 対象外の未コミット変更を破棄しない。
-- merge、convert、対象quality-gateを実行し、変更が最終成果物へ反映されることを確認する。
-- Firestoreへの実アップロードは、この依頼又はユーザーが明示した場合だけ行う。
+- patch単体のschema又は対象quality-gateを実行する。merge、convert、upload-ready生成はこのsessionで行わず、問題整備システムの別工程へ残す。
+- Firestore、Storage、GitHubへ反映しない。
 - 調査範囲は「{scope_label}」とする。{scope_text}文言が似ているだけで一括置換せず、問題文と選択肢を結合した判定命題と根拠を個別に確認する。
 
 ## 完了時に示すもの
@@ -216,5 +257,5 @@ def build_codex_prompt(
 - 変更したpatchとfield
 - 判断根拠
 - 実行した検証と結果
-- Firestore未反映の場合は、その状態
+- merge、convert、upload-ready、Firestoreが未反映であること
 """

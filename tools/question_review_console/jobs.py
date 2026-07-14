@@ -8,6 +8,8 @@ from typing import Any, Callable
 
 
 JobWorker = Callable[[Callable[[str], None]], dict[str, Any]]
+ExclusiveWorker = Callable[[], dict[str, Any]]
+REPOSITORY_OPERATION_KEY = "question-review-repository-operation"
 
 
 def _now() -> str:
@@ -27,11 +29,8 @@ class JobManager:
     def start(self, *, kind: str, key: str, worker: JobWorker) -> dict[str, Any]:
         with self._lock:
             active_id = self._active_keys.get(key)
-            if active_id and self._jobs.get(active_id, {}).get("status") in {
-                "queued",
-                "running",
-            }:
-                raise JobConflictError("この資格・年度で別の処理が実行中です。")
+            if active_id:
+                raise JobConflictError("問題整備システムで別の処理が実行中です。")
             job_id = secrets.token_urlsafe(12)
             job = {
                 "jobId": job_id,
@@ -56,6 +55,19 @@ class JobManager:
         )
         thread.start()
         return self.get(job_id)
+
+    def run_exclusive(self, *, key: str, worker: ExclusiveWorker) -> dict[str, Any]:
+        lease_id = f"sync:{secrets.token_urlsafe(12)}"
+        with self._lock:
+            if self._active_keys.get(key):
+                raise JobConflictError("問題整備システムで別の処理が実行中です。")
+            self._active_keys[key] = lease_id
+        try:
+            return worker()
+        finally:
+            with self._lock:
+                if self._active_keys.get(key) == lease_id:
+                    self._active_keys.pop(key, None)
 
     def get(self, job_id: str) -> dict[str, Any]:
         with self._lock:

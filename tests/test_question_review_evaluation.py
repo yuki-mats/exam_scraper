@@ -11,6 +11,7 @@ from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
 )
+from tools.question_review_console.codex_app_server import AppServerTurnResult
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 
 
@@ -55,7 +56,6 @@ def question_payload(*, question_id="api-q1", body="問題1", state_hash="state-
 def evaluation_result(*, first_verdict="true", status="passed"):
     return {
         "status": status,
-        "answerMappingMatched": True,
         "explanationScore": 94,
         "criticalIssues": [],
         "summary": "全選択肢の正誤と解説を確認した。",
@@ -114,6 +114,115 @@ def upload_document(question_id, original_id, choice, verdict):
 
 
 class QuestionEvaluationServiceTests(unittest.TestCase):
+    def test_failed_app_server_turn_keeps_session_trace(self):
+        class FailingAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def run_turn(self, _prompt, **kwargs):
+                kwargs["on_thread_started"]("thread-failed", "session-failed")
+                kwargs["on_turn_started"]("thread-failed", "turn-failed")
+                raise RuntimeError("turn failed")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service = QuestionEvaluationService(
+                root,
+                "secret",
+                app_server=FailingAppServer(),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+
+            with self.assertRaisesRegex(RuntimeError, "turn failed"):
+                service.run(question, preview["previewToken"], lambda _line: None)
+
+            manifest_path = next(
+                (
+                    root
+                    / "output"
+                    / "question_review_console"
+                    / "workflow_runs"
+                    / "sample"
+                ).glob("*/manifest.json")
+            )
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(manifest["status"], "failed")
+        self.assertEqual(manifest["sessionId"], "session-failed")
+        self.assertEqual(manifest["threadId"], "thread-failed")
+        self.assertEqual(manifest["turnId"], "turn-failed")
+
+    def test_app_server_evaluation_saves_real_thread_receipt_in_isolated_cwd(self):
+        class FakeAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def __init__(self):
+                self.calls = []
+
+            def run_turn(self, prompt, **kwargs):
+                self.calls.append((prompt, kwargs))
+                kwargs["on_thread_started"](
+                    "thread-evaluation-1", "session-evaluation-1"
+                )
+                kwargs["on_turn_started"](
+                    "thread-evaluation-1", "turn-evaluation-1"
+                )
+                return AppServerTurnResult(
+                    thread_id="thread-evaluation-1",
+                    session_id="session-evaluation-1",
+                    turn_id="turn-evaluation-1",
+                    final_message=json.dumps(evaluation_result(), ensure_ascii=False),
+                    model="gpt-test",
+                    service_tier=None,
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = FakeAppServer()
+            service = QuestionEvaluationService(
+                root,
+                "secret",
+                app_server=app_server,
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            result = service.run(
+                question, preview["previewToken"], lambda _line: None
+            )["evaluation"]
+            manifest = json.loads(
+                (
+                    root
+                    / "output"
+                    / "question_review_console"
+                    / "workflow_runs"
+                    / "sample"
+                    / result["runId"]
+                    / "manifest.json"
+                ).read_text(encoding="utf-8")
+            )
+            receipt_path = root / manifest["resultReceiptPath"]
+            receipt_exists = receipt_path.is_file()
+            receipt_path.unlink()
+            missing_receipt_status = service.status_for(question)
+
+        self.assertEqual(result["threadId"], "thread-evaluation-1")
+        self.assertEqual(result["turnId"], "turn-evaluation-1")
+        self.assertEqual(result["sessionId"], "session-evaluation-1")
+        self.assertEqual(manifest["workType"], "evaluation")
+        self.assertEqual(manifest["sandbox"], "read-only")
+        self.assertEqual(manifest["threadId"], "thread-evaluation-1")
+        self.assertEqual(manifest["sessionId"], "session-evaluation-1")
+        self.assertEqual(manifest["turnId"], "turn-evaluation-1")
+        self.assertTrue(receipt_exists)
+        self.assertEqual(missing_receipt_status["status"], "stale")
+        self.assertFalse(missing_receipt_status["publishReady"])
+        prompt, kwargs = app_server.calls[0]
+        self.assertEqual(kwargs["sandbox"], "read-only")
+        self.assertNotEqual(Path(kwargs["cwd"]), root)
+        self.assertNotIn('"paths"', prompt)
+
     def test_output_schema_uses_supported_structured_output_keywords(self):
         schema_path = (
             Path(__file__).resolve().parents[1]
@@ -136,7 +245,9 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             prompt = service._build_prompt(question_payload())
 
         self.assertIn("選択肢の記述自体が事実として正しければtrue", prompt)
-        self.assertIn("現在値の評価をverdictへ入れない", prompt)
+        self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
+        self.assertNotIn("currentCorrectChoiceText", prompt)
+        self.assertNotIn("officialAnswer", prompt)
 
     def test_saves_passed_result_and_marks_it_stale_after_question_change(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -332,6 +443,46 @@ class FakeFirestore:
 
 
 class QuestionPublisherTests(unittest.TestCase):
+    def test_failed_delta_blocks_question_publish_before_firestore_read(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = question_payload()
+            failed_path = Path(
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/partial.json"
+            )
+            absolute = root / failed_path
+            absolute.parent.mkdir(parents=True)
+            absolute.write_text("{}\n", encoding="utf-8")
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "20260101-run/manifest.json"
+            )
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "status": "failed",
+                        "result": {"changedFiles": [failed_path.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            publisher = QuestionPublisher(
+                root,
+                FakeInventory(question),
+                FakeFirestore(),
+                FakeEvaluationService(),
+                "secret",
+            )
+
+            preview = publisher.preview(question)
+
+        self.assertFalse(preview["canPublish"])
+        self.assertEqual(preview["failedDeltaPaths"], [failed_path.as_posix()])
+        self.assertIn("未確定差分", preview["reason"])
+
     def test_uploads_only_documents_for_the_selected_original_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

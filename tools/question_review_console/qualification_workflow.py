@@ -7,6 +7,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from scripts.merge.merge_utils import (
+    select_latest_patch_files,
+    source_stem_from_patch_filename,
+)
+from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
+from tools.question_review_console.projection import record_identity_aliases
 from tools.question_review_console.workflow_catalog import WorkflowCatalog
 
 LAW_AUDIT_ISSUES = {
@@ -45,8 +51,11 @@ def _now_iso() -> str:
 
 def _has_patch(question: Mapping[str, Any], patch_dir: str) -> bool:
     marker = f"/{patch_dir}/"
+    failed_paths = {
+        str(path) for path in question.get("failedRunChangedPaths") or []
+    }
     return any(
-        marker in str(path)
+        marker in str(path) and str(path) not in failed_paths
         for path in question.get("paths", {}).get("patches") or []
     )
 
@@ -75,10 +84,16 @@ def _status_from_coverage(
 def _expected_patch_path(source_path: str, stage: Mapping[str, Any]) -> str:
     source = Path(source_path)
     group_dir = source.parent.parent
+    merged = (
+        "_merged"
+        if str(stage["patchDir"])
+        in {"18_law_context_prepared", "21_explanationText_added"}
+        else ""
+    )
     return str(
         group_dir
         / str(stage["patchDir"])
-        / f"{source.stem}_{stage['patchSuffix']}.json"
+        / f"{source.stem}{merged}_{stage['patchSuffix']}.json"
     )
 
 
@@ -88,6 +103,23 @@ def _unique(values: Iterable[str]) -> list[str]:
 
 def _ordered_unique(values: Iterable[str]) -> list[str]:
     return list(dict.fromkeys(value for value in values if value))
+
+
+def _target_record_alias_group(question: Mapping[str, Any]) -> list[str]:
+    aliases: set[str] = set()
+    for key in ("source", "projected"):
+        value = question.get(key)
+        if isinstance(value, Mapping):
+            aliases.update(record_identity_aliases(value))
+    for value in (
+        question.get("id"),
+        question.get("originalQuestionId"),
+        question.get("sourceQuestionKey"),
+    ):
+        text = str(value or "").strip()
+        if text and not text.startswith(("http://", "https://")):
+            aliases.add(text)
+    return sorted(aliases)
 
 
 class QualificationWorkflow:
@@ -136,6 +168,27 @@ class QualificationWorkflow:
             "catalogPath": loaded["catalogPath"],
             "stages": stages,
         }
+
+    def _selected_or_expected_patch_path(
+        self, source_path: str, stage: Mapping[str, Any]
+    ) -> str:
+        expected = Path(_expected_patch_path(source_path, stage))
+        source = Path(source_path)
+        patch_root = self.repo_root / expected.parent
+        patch_tag = str(stage["patchSuffix"])
+        selected = select_latest_patch_files(
+            sorted(patch_root.glob("*.json")), patch_tag
+        )
+        source_stems = {source.stem, f"{source.stem}_merged"}
+        preferred = [
+            path
+            for path in selected
+            if source_stem_from_patch_filename(path.name, patch_tag)
+            in source_stems
+        ]
+        if preferred:
+            return str(sorted(preferred)[-1].relative_to(self.repo_root))
+        return str(expected)
 
     def overview(self, qualification: str) -> dict[str, Any]:
         catalog = self.catalog(qualification)
@@ -349,7 +402,7 @@ class QualificationWorkflow:
                 for question in target_questions
             )
             output_files = _unique(
-                _expected_patch_path(
+                self._selected_or_expected_patch_path(
                     str(question.get("paths", {}).get("source") or ""), definition
                 )
                 for question in target_questions
@@ -364,6 +417,28 @@ class QualificationWorkflow:
         target_question_keys = _unique(
             self._question_key(question) for question in target_questions
         )
+        target_record_alias_groups = [
+            _target_record_alias_group(question) for question in target_questions
+        ]
+        if (
+            str(definition["kind"]) == "human"
+            and stage_id not in {"setup", "category_setup"}
+            and any(not aliases for aliases in target_record_alias_groups)
+        ):
+            raise ValueError(
+                "対象問題に一意IDがなく、安全なrecord書込範囲を作成できません。"
+            )
+        target_record_alias_groups = [
+            aliases for aliases in target_record_alias_groups if aliases
+        ]
+        target_source_record_scopes: dict[str, list[list[str]]] = {}
+        for question in target_questions:
+            aliases = _target_record_alias_group(question)
+            source_path = str(question.get("paths", {}).get("source") or "")
+            if source_path and aliases:
+                target_source_record_scopes.setdefault(source_path, []).append(
+                    aliases
+                )
         scope_label = (
             "・".join(selected_group_ids)
             if len(selected_group_ids) <= 3
@@ -395,6 +470,8 @@ class QualificationWorkflow:
                 else len(target_questions)
             ),
             "targetQuestionKeys": target_question_keys,
+            "targetRecordAliasGroups": target_record_alias_groups,
+            "targetSourceRecordScopes": target_source_record_scopes,
             "targetGroupIds": target_group_ids,
             "scopeListGroupId": (
                 selected_group_ids[0] if len(selected_group_ids) == 1 else None
@@ -479,15 +556,27 @@ class QualificationWorkflow:
             audit_plan["targetQuestionKeys"] = list(
                 scope_plan.get("targetQuestionKeys") or []
             )
+            audit_plan["targetRecordAliasGroups"] = [
+                list(aliases)
+                for aliases in scope_plan.get("targetRecordAliasGroups") or []
+            ]
+            audit_plan["targetSourceRecordScopes"] = {
+                str(path): [list(group) for group in groups]
+                for path, groups in (
+                    scope_plan.get("targetSourceRecordScopes") or {}
+                ).items()
+            }
             audit_plan["targetGroupIds"] = list(
                 scope_plan.get("targetGroupIds") or []
             )
             audit_plan["sourceFiles"] = list(scope_plan.get("sourceFiles") or [])
             audit_plan["outputFiles"] = _unique(
-                str(
-                    Path(source_path).parent.parent
-                    / "21_explanationText_added"
-                    / f"{Path(source_path).stem}_explanationText_added.json"
+                self._selected_or_expected_patch_path(
+                    source_path,
+                    {
+                        "patchDir": "21_explanationText_added",
+                        "patchSuffix": "explanationText_added",
+                    },
                 )
                 for source_path in audit_plan["sourceFiles"]
             )
@@ -513,6 +602,35 @@ class QualificationWorkflow:
                 int(plan["targetCount"]) for plan in stage_plans
             ),
             "targetQuestionKeys": target_question_keys,
+            "targetRecordAliasGroups": [
+                list(aliases)
+                for aliases in dict.fromkeys(
+                    tuple(aliases)
+                    for plan in stage_plans
+                    for aliases in plan.get("targetRecordAliasGroups") or []
+                    if aliases
+                )
+            ],
+            "targetSourceRecordScopes": {
+                path: [
+                    list(group)
+                    for group in dict.fromkeys(
+                        tuple(group)
+                        for plan in stage_plans
+                        for group in (
+                            plan.get("targetSourceRecordScopes") or {}
+                        ).get(path, [])
+                        if group
+                    )
+                ]
+                for path in _unique(
+                    path
+                    for plan in stage_plans
+                    for path in (
+                        plan.get("targetSourceRecordScopes") or {}
+                    )
+                )
+            },
             "targetGroupIds": _unique(
                 group_id
                 for plan in stage_plans
@@ -647,7 +765,7 @@ class QualificationWorkflow:
             ),
             "`未作業のみ`又は`要確認のみ`では、各工程の対象に該当する問題だけを更新する。",
             *(
-                ["各問題は問題文と全選択肢を結合した命題として読み、Lawzilla MCPとFirestore条文検索で一問一肢ずつ根拠を照合する。"]
+                ["各問題は問題文と全選択肢を結合した命題として読み、Codex組み込みweb検索でe-Gov又は所管官庁の一次情報を開き、一問一肢ずつ根拠を照合する。"]
                 if "law_audit" in selected_stage_ids
                 else []
             ),
@@ -694,14 +812,20 @@ class QualificationWorkflow:
             for list_group_id in qualification_info.get("listGroupIds") or []
         ]
         questions: list[Mapping[str, Any]] = []
+        failed_paths = unresolved_failed_delta_paths(
+            self.repo_root, qualification
+        )
         for group in groups:
             group_id = str(group.get("listGroupId") or "")
             for raw in group.get("questions") or []:
                 if raw.get("listGroupId"):
-                    questions.append(raw)
+                    question = dict(raw)
+                    question["failedRunChangedPaths"] = failed_paths
+                    questions.append(question)
                 else:
                     question = dict(raw)
                     question["listGroupId"] = group_id
+                    question["failedRunChangedPaths"] = failed_paths
                     questions.append(question)
         return groups, questions
 
@@ -819,8 +943,7 @@ class QualificationWorkflow:
         source = Path(str(question.get("paths", {}).get("source") or ""))
         return source.parent.parent.name if len(source.parents) >= 2 else ""
 
-    @staticmethod
-    def _law_audit_output_path(question: Mapping[str, Any]) -> str:
+    def _law_audit_output_path(self, question: Mapping[str, Any]) -> str:
         existing = [
             str(path)
             for path in question.get("paths", {}).get("patches") or []
@@ -828,13 +951,15 @@ class QualificationWorkflow:
         ]
         if existing:
             return existing[-1]
-        source = Path(str(question.get("paths", {}).get("source") or ""))
-        if not source.name:
+        source = str(question.get("paths", {}).get("source") or "")
+        if not Path(source).name:
             return ""
-        return str(
-            source.parent.parent
-            / "21_explanationText_added"
-            / f"{source.stem}_explanationText_added.json"
+        return self._selected_or_expected_patch_path(
+            source,
+            {
+                "patchDir": "21_explanationText_added",
+                "patchSuffix": "explanationText_added",
+            },
         )
 
     def _build_stages(
@@ -967,7 +1092,7 @@ class QualificationWorkflow:
                     downstream_count=downstream_count,
                 )
                 output_files = _unique(
-                    _expected_patch_path(
+                    self._selected_or_expected_patch_path(
                         str(question.get("paths", {}).get("source") or ""), stage
                     )
                     for question in target_questions

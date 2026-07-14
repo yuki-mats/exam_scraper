@@ -88,6 +88,11 @@ class QuestionReviewStoreTests(unittest.TestCase):
                         "output/sample-exam/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
                         "output/sample-exam/questions_json/2026/21_explanationText_added/question_2026_1_explanationText_added.json",
                     ],
+                    "targetSourceFiles": [
+                        "output/sample-exam/questions_json/2025/00_source/question_2025_1.json",
+                        "output/sample-exam/questions_json/2026/00_source/question_2026_1.json",
+                    ],
+                    "targetRecordAliasGroups": [["q1"], ["q2"]],
                     "fields": ["lawRevisionFacts.current.correctChoiceText"],
                     "note": "監査メタデータを確認してほしい",
                     "selection": {
@@ -105,8 +110,10 @@ class QuestionReviewStoreTests(unittest.TestCase):
         self.assertIn("# 法令監査パッチ一括修正", created["prompt"])
         self.assertIn("/2025/21_explanationText_added/", created["prompt"])
         self.assertIn("/2026/21_explanationText_added/", created["prompt"])
-        self.assertIn("Lawzilla MCPとFirestoreの条文検索", created["prompt"])
+        self.assertIn("Codex組み込みweb検索", created["prompt"])
         self.assertIn("一問一肢ずつ", created["prompt"])
+        self.assertEqual(len(created["targetSourceFiles"]), 2)
+        self.assertEqual(created["targetRecordAliasGroups"], [["q1"], ["q2"]])
         self.assertNotIn("## 問題文", created["prompt"])
         self.assertNotIn("## UIで選択した箇所", created["prompt"])
         self.assertNotIn("## 関連ファイル", created["prompt"])

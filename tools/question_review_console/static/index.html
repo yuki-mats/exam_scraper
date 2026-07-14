@@ -216,7 +216,6 @@
               <option value="current_question">この問題のみ</option>
               <option value="current_group">このフォルダの類似問題</option>
               <option value="qualification">この資格の類似問題</option>
-              <option value="all_qualifications">全資格の類似問題</option>
             </select>
           </label>
           <label>
@@ -231,6 +230,7 @@
             <legend>対象field</legend>
             <div id="review-field-list" class="checkbox-grid"></div>
           </fieldset>
+          <p class="inline-notice">問題文・選択肢はCodex自動整備の対象外です。専用の24_questionIssueCorrections契約でblind reviewします。</p>
           <label>
             <span>何がおかしいか</span>
             <textarea id="review-note" rows="4" placeholder="例: 条文の内容と逆ではないか。根拠として挙げている条文番号が違うのではないか。" required></textarea>
@@ -242,7 +242,7 @@
         </div>
         <footer class="dialog-actions">
           <button class="secondary-button close-dialog" type="button">キャンセル</button>
-          <button id="review-submit" class="primary-button" type="submit">依頼を作成してコピー</button>
+          <button id="review-submit" class="primary-button" type="submit">整備を開始</button>
         </footer>
       </form>
     </dialog>

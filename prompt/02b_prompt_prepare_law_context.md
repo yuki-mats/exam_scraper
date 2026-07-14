@@ -19,7 +19,7 @@
 2. 対象資格の `prompt/qualification_docs/<qualification>/`、特に `*law_reference*.md`
 3. 必要時のみ `00_source/`
 4. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
-5. Lawzilla などの法令DB。条文探索や改正前後のあたり付けに使ってよいが、最終 `verified` は一次情報相当で照合する
+5. Codex組み込みweb検索。e-Gov又は所管官庁の一次情報を開く入口に限り、検索要約だけで`verified`にしない
 
 ## 判定方針
 

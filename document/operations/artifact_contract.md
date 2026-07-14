@@ -63,11 +63,11 @@ output/<qualification>/
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
-| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | `manifest.json`、`prompt.md`、`result.json`。app-server移行後は整備・評価・再整備の不変receiptを共通保存する。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | Codex App Serverで実行した整備・評価・再整備の`manifest.json`、`prompt.md`、`result.json`。整備系は再起動回収用`baseline.json`と`agent_output/result.json`を持つ。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-app-server移行後のsession runは`workType`、`threadId`、`turnId`、対象、`stateHash`、時刻、状態をmanifestへ保存し、上書きしません。`evaluations/`はUI向けの最新projectionに限定し、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)、有効性と公開条件は[問題整備システム](local_question_review_console.md)を正本とします。
+session runは`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、sandbox、時刻、状態をmanifestへ保存します。run directoryは再利用しません。`evaluations/`はUI向けの最新projectionに限定し、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)、有効性と公開条件は[問題整備システム](local_question_review_console.md)を正本とします。
 
 ## 編集境界
 

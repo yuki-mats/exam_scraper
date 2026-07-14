@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.firestore_readback import PRODUCTION_PROJECT_ID
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.projection import normalize_verdict
@@ -80,6 +81,13 @@ class ArtifactSynchronizer:
             for issue in question.get("issues") or []
             if issue.get("code") == "required_field_missing"
         ]
+        failed_delta_paths = list(
+            unresolved_failed_delta_paths(
+                self.repo_root,
+                qualification,
+                list_group_id,
+            )
+        )
         command = self._command(
             qualification,
             list_group_id,
@@ -99,8 +107,9 @@ class ArtifactSynchronizer:
             "listGroupId": list_group_id,
             "needsSync": force or not summary["localReady"],
             "force": force,
-            "canSync": not required_field_warnings,
+            "canSync": not required_field_warnings and not failed_delta_paths,
             "requiredFieldWarnings": required_field_warnings,
+            "failedDeltaPaths": failed_delta_paths,
             "allowMissingAnswerResult": allow_missing_answer_result,
             "previewToken": self._token(token_payload),
         }
@@ -120,6 +129,11 @@ class ArtifactSynchronizer:
         if preview["requiredFieldWarnings"]:
             raise WorkflowError(
                 "必須field不足があるため反映できません。問題詳細の警告を修正してください。"
+            )
+        if preview["failedDeltaPaths"]:
+            raise WorkflowError(
+                "失敗したCodex turnの未確定patchがあるため反映できません: "
+                + ", ".join(preview["failedDeltaPaths"][:10])
             )
         if not preview["needsSync"]:
             return {**preview, "message": "ローカル成果物はすでに最新です。"}

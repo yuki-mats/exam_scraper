@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import copy
-import hashlib
 import ipaddress
 import json
 import logging
@@ -25,19 +24,26 @@ from tools.question_review_console.bulk_readback import (
     ScopedReadbackError,
 )
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
+from tools.question_review_console.codex_app_server import CodexAppServerClient
 from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
 )
 from tools.question_review_console.inventory import QuestionInventory
-from tools.question_review_console.jobs import JobConflictError, JobManager
+from tools.question_review_console.jobs import (
+    REPOSITORY_OPERATION_KEY,
+    JobConflictError,
+    JobManager,
+)
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.qualification_runs import (
+    LAW_PATCH_DIR_NAMES,
     QualificationRunCoordinator,
     QualificationRunError,
+    QualificationRunStore,
 )
 from tools.question_review_console.review_store import ReviewStore
 from tools.question_review_console.prompt_builder import (
@@ -154,6 +160,7 @@ class QuestionReviewApplication:
         repo_root: Path = REPO_ROOT,
         *,
         tailscale_access: TailscaleAccess | None = None,
+        app_server: Any | None = None,
     ):
         self.repo_root = repo_root.resolve()
         self.tailscale_access = tailscale_access
@@ -164,6 +171,8 @@ class QuestionReviewApplication:
         self.editor = PatchEditor(self.repo_root)
         self.firestore = FirestoreReadback()
         self.jobs = JobManager()
+        self.app_server = app_server or CodexAppServerClient(self.repo_root)
+        self.run_store = QualificationRunStore(self.repo_root)
         self.scoped_readback = ScopedFirestoreReadback(
             self.inventory,
             self.firestore,
@@ -174,7 +183,10 @@ class QuestionReviewApplication:
             self.repo_root, self.inventory, self.session_token
         )
         self.evaluations = QuestionEvaluationService(
-            self.repo_root, self.session_token
+            self.repo_root,
+            self.session_token,
+            app_server=self.app_server,
+            run_store=self.run_store,
         )
         self.question_publisher = QuestionPublisher(
             self.repo_root,
@@ -193,6 +205,8 @@ class QuestionReviewApplication:
             self.synchronizer,
             self.jobs,
             self.session_token,
+            store=self.run_store,
+            app_server=self.app_server,
         )
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
@@ -203,8 +217,12 @@ class QuestionReviewApplication:
         self.origin = f"http://{host}:{port}"
         self.local_authority = f"{host}:{port}"
 
+    def close(self) -> None:
+        self.app_server.close()
+
     def get(self, path: str, query: Mapping[str, list[str]]) -> tuple[int, Any]:
         if path == "/api/session":
+            app_server_status = self.app_server.public_status(refresh=False)
             return HTTPStatus.OK, {
                 "sessionToken": self.session_token,
                 "projectId": PRODUCTION_PROJECT_ID,
@@ -212,7 +230,10 @@ class QuestionReviewApplication:
                 "firestoreWriteEnabled": True,
                 "evaluationEnabled": self.evaluations.configured,
                 "evaluationProvider": self.evaluations.provider,
+                "appServer": app_server_status,
             }
+        if path == "/api/codex/status":
+            return HTTPStatus.OK, self.app_server.public_status(refresh=True)
         if path == "/api/inventory":
             return HTTPStatus.OK, self.inventory.inventory()
         if path == "/api/workflow-catalog":
@@ -404,7 +425,7 @@ class QuestionReviewApplication:
                 token = str(body.get("previewToken") or "")
                 job = self.jobs.start(
                     kind="firestore-readback",
-                    key=f"firestore-readback:{qualification}",
+                    key=REPOSITORY_OPERATION_KEY,
                     worker=lambda emit: self._run_readback_job(
                         qualification, token, emit
                     ),
@@ -432,12 +453,9 @@ class QuestionReviewApplication:
                     raise EvaluationError("確認後に選択問題の内容が更新されました。")
                 if not preview.get("canStart"):
                     raise EvaluationError("評価を開始できる問題がありません。")
-                key_hash = hashlib.sha256(
-                    "\n".join(sorted(question_ids)).encode("utf-8")
-                ).hexdigest()[:16]
                 job = self.jobs.start(
                     kind="question-evaluation-batch",
-                    key=f"evaluation-batch:{key_hash}",
+                    key=REPOSITORY_OPERATION_KEY,
                     worker=lambda emit: self._run_evaluation_batch_job(
                         question_ids, token, emit
                     ),
@@ -452,7 +470,6 @@ class QuestionReviewApplication:
         if question_action is not None:
             question_id, action = question_action
             question = self._question(question_id, {})
-            job_key = f"question:{question['reviewKey']}"
             try:
                 if action == "evaluation-preview":
                     return HTTPStatus.OK, self.evaluations.preview(question)
@@ -467,7 +484,7 @@ class QuestionReviewApplication:
                         )
                     job = self.jobs.start(
                         kind="question-evaluation",
-                        key=job_key,
+                        key=REPOSITORY_OPERATION_KEY,
                         worker=lambda emit: self._run_evaluation_job(
                             question_id, token, emit
                         ),
@@ -490,7 +507,7 @@ class QuestionReviewApplication:
                         )
                     job = self.jobs.start(
                         kind="question-publish",
-                        key=job_key,
+                        key=REPOSITORY_OPERATION_KEY,
                         worker=lambda emit: self._run_question_publish_job(
                             question_id, preview, emit
                         ),
@@ -504,7 +521,6 @@ class QuestionReviewApplication:
         group_action = _group_action(path)
         if group_action is not None:
             qualification, list_group_id, action = group_action
-            key = f"{qualification}:{list_group_id}"
             try:
                 if action == "sync-preview":
                     return HTTPStatus.OK, self.synchronizer.preview(
@@ -515,9 +531,17 @@ class QuestionReviewApplication:
                     current = self.synchronizer.preview(qualification, list_group_id)
                     if current["previewToken"] != token:
                         raise WorkflowError("確認後に対象状態が更新されました。")
+                    if not current.get("canSync"):
+                        failed_paths = current.get("failedDeltaPaths") or []
+                        if failed_paths:
+                            raise WorkflowError(
+                                "失敗turnの未確定patchを成功runで確定してください: "
+                                + ", ".join(str(path) for path in failed_paths[:10])
+                            )
+                        raise WorkflowError("反映前の確認項目が残っています。")
                     job = self.jobs.start(
                         kind="sync",
-                        key=key,
+                        key=REPOSITORY_OPERATION_KEY,
                         worker=lambda emit: self._run_sync_job(
                             qualification, list_group_id, token, emit
                         ),
@@ -549,16 +573,71 @@ class QuestionReviewApplication:
             if is_qualification_law_audit(request):
                 request["requestKind"] = QUALIFICATION_LAW_AUDIT_REQUEST
                 request["investigationScope"] = "qualification"
-                request["targetFiles"] = self._qualification_law_audit_target_files(
+                targets = self._qualification_law_audit_targets(
                     str(question["qualification"]),
                     request.get("issueTypes") or [],
                 )
+                request["targetFiles"] = targets["patchFiles"]
+                request["targetSourceFiles"] = targets["sourceFiles"]
+                request["targetRecordAliasGroups"] = targets[
+                    "targetRecordAliasGroups"
+                ]
+                request["targetSourceRecordScopes"] = targets[
+                    "targetSourceRecordScopes"
+                ]
             if not str(request.get("note") or "").strip():
                 raise ApiError(HTTPStatus.BAD_REQUEST, "指摘内容を入力してください。")
             requested_status = str(body.get("status") or "awaiting_codex")
             if requested_status not in {"needs_review", "awaiting_codex"}:
                 raise ApiError(HTTPStatus.BAD_REQUEST, "review作成状態が不正です。")
+            start_codex = body.get("startCodex") is True
+            request_kind = str(request.get("requestKind") or "")
+            if request_kind == "evaluation_rework":
+                evaluation = question.get("evaluation")
+                if not isinstance(evaluation, Mapping) or evaluation.get("status") != "needs_rework":
+                    raise ApiError(
+                        HTTPStatus.UNPROCESSABLE_ENTITY,
+                        "再整備を開始できる評価結果がありません。",
+                    )
+                request["evaluationSnapshot"] = {
+                    key: copy.deepcopy(evaluation.get(key))
+                    for key in (
+                        "stateHash",
+                        "resultHash",
+                        "summary",
+                        "criticalIssues",
+                        "choiceEvaluations",
+                        "reworkItems",
+                    )
+                }
+            if start_codex and requested_status == "awaiting_codex":
+                try:
+                    self.app_server.assert_subscription_access(force=False)
+                except Exception as exc:  # noqa: BLE001
+                    raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
             review = self.reviews.create(question, request, status=requested_status)
+            if start_codex and requested_status == "awaiting_codex":
+                try:
+                    started = self.qualification_runs.start_review(
+                        question,
+                        review,
+                        work_type=(
+                            "rework" if request_kind == "evaluation_rework" else "maintenance"
+                        ),
+                    )
+                except (JobConflictError, QualificationRunError) as exc:
+                    try:
+                        self.reviews.update_status(
+                            str(review["reviewId"]),
+                            "needs_review",
+                            current_state_hash=str(question["stateHash"]),
+                        )
+                    except Exception:  # noqa: BLE001
+                        pass
+                    if isinstance(exc, JobConflictError):
+                        raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+                    raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+                return HTTPStatus.ACCEPTED, {**review, **started}
             return HTTPStatus.CREATED, review
 
         if path.startswith("/api/reviews/") and path.endswith("/status"):
@@ -591,36 +670,56 @@ class QuestionReviewApplication:
             changes = body.get("changes")
             if not isinstance(changes, Mapping):
                 raise ApiError(HTTPStatus.BAD_REQUEST, "changesを指定してください。")
-            result = self.editor.apply(
-                question,
-                changes,
-                str(body.get("reason") or ""),
-                str(body.get("stateHash") or ""),
-                str(body.get("previewToken") or ""),
-            )
-            self.inventory.invalidate(question["qualification"], question["listGroupId"])
-            updated = self._question(question["id"], {})
-            review = self.reviews.create(
-                self._decorate(updated),
-                {
-                    "issueTypes": ["direct_edit"],
-                    "fields": sorted(changes),
-                    "note": str(body.get("reason") or "").strip()
-                    or "ローカルレビューUIで直接編集した。",
-                },
-                status="post_fix_review",
-            )
-            return HTTPStatus.OK, {
-                **result,
-                "question": self._decorate(updated),
-                "review": review,
-            }
+
+            def apply_direct_edit() -> dict[str, Any]:
+                result = self.editor.apply(
+                    question,
+                    changes,
+                    str(body.get("reason") or ""),
+                    str(body.get("stateHash") or ""),
+                    str(body.get("previewToken") or ""),
+                )
+                self.inventory.invalidate(
+                    question["qualification"], question["listGroupId"]
+                )
+                updated = self._question(question["id"], {})
+                review = self.reviews.create(
+                    self._decorate(updated),
+                    {
+                        "issueTypes": ["direct_edit"],
+                        "fields": sorted(changes),
+                        "note": str(body.get("reason") or "").strip()
+                        or "ローカルレビューUIで直接編集した。",
+                    },
+                    status="post_fix_review",
+                )
+                return {
+                    **result,
+                    "question": self._decorate(updated),
+                    "review": review,
+                }
+
+            try:
+                response = self.jobs.run_exclusive(
+                    key=REPOSITORY_OPERATION_KEY,
+                    worker=apply_direct_edit,
+                )
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            return HTTPStatus.OK, response
 
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
 
     def _qualification_law_audit_target_files(
         self, qualification: str, issue_types: list[Any]
     ) -> list[str]:
+        return self._qualification_law_audit_targets(
+            qualification, issue_types
+        )["patchFiles"]
+
+    def _qualification_law_audit_targets(
+        self, qualification: str, issue_types: list[Any]
+    ) -> dict[str, list[Any]]:
         selected_codes = {str(value) for value in issue_types} & LAW_AUDIT_ISSUES
         if not selected_codes:
             selected_codes = set(LAW_AUDIT_ISSUES)
@@ -633,34 +732,72 @@ class QuestionReviewApplication:
             None,
         )
         if qualification_info is None:
-            return []
+            return {
+                "sourceFiles": [],
+                "patchFiles": [],
+                "targetRecordAliasGroups": [],
+                "targetSourceRecordScopes": {},
+            }
 
-        target_files = set()
+        target_source_files: set[str] = set()
+        target_files: set[str] = set()
+        target_record_alias_groups: list[list[str]] = []
+        target_source_record_scopes: dict[str, list[list[str]]] = {}
         for list_group_id in qualification_info["listGroupIds"]:
             group = self.inventory.group(qualification, list_group_id)
             for question in group["questions"]:
                 if not (set(question.get("issueCodes") or []) & selected_codes):
                     continue
-                explanation_patches = [
-                    path
-                    for path in question.get("paths", {}).get("patches") or []
-                    if "/21_explanationText_added/" in path
-                ]
-                if explanation_patches:
-                    target_files.add(explanation_patches[-1])
-                    continue
                 source_stem = str(question.get("sourceStem") or "")
-                target_files.add(
-                    str(
-                        Path("output")
-                        / qualification
-                        / "questions_json"
-                        / str(list_group_id)
-                        / "21_explanationText_added"
-                        / f"{source_stem}_explanationText_added.json"
+                source_path = str(
+                    question.get("paths", {}).get("source")
+                    or Path("output")
+                    / qualification
+                    / "questions_json"
+                    / str(list_group_id)
+                    / "00_source"
+                    / f"{source_stem}.json"
+                )
+                target_source_files.add(source_path)
+                aliases = sorted(
+                    self.qualification_runs._question_record_aliases(question)
+                )
+                target_record_alias_groups.append(aliases)
+                target_source_record_scopes.setdefault(source_path, []).append(
+                    aliases
+                )
+                bounded_question = dict(question)
+                bounded_question["paths"] = {
+                    **dict(question.get("paths") or {}),
+                    "source": source_path,
+                }
+                target_files.update(
+                    self.qualification_runs._review_patch_files(
+                        bounded_question,
+                        {"investigationScope": "current_question"},
+                        set(LAW_PATCH_DIR_NAMES),
+                        {"lawRevision"},
                     )
                 )
-        return sorted(target_files)
+        return {
+            "sourceFiles": sorted(target_source_files),
+            "patchFiles": sorted(target_files),
+            "targetRecordAliasGroups": [
+                list(group)
+                for group in dict.fromkeys(
+                    tuple(group) for group in target_record_alias_groups
+                )
+            ],
+            "targetSourceRecordScopes": {
+                path: [
+                    list(group)
+                    for group in dict.fromkeys(
+                        tuple(group) for group in groups
+                    )
+                ]
+                for path, groups in sorted(target_source_record_scopes.items())
+            },
+        }
 
     def _questions(self, query: Mapping[str, list[str]]) -> dict[str, Any]:
         qualification = _query_value(query, "qualification")
@@ -1352,6 +1489,7 @@ def run_server(
         pass
     finally:
         server.server_close()
+        app.close()
     return 0
 
 

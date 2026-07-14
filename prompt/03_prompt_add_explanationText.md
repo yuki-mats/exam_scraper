@@ -5,7 +5,7 @@
 
 目的は、受験者が「正誤」と「その理由」を短時間で理解できる説明と、解説ページで次に押したくなる補足質問候補、およびその質問を押したときに即表示できる保存済み回答を残すことです。元ファイルの本文や順序は変更せず、差分 JSON だけを作成してください。
 
-02aの厳密正答または02bの法令フラグ・現行法根拠が`20_merged_1`に入っていない場合は、先に該当工程とmergeを実行してください。03中に矛盾を見つけても、03だけで`correctChoiceText`を反転させてはいけません。出題時正答の不整合は02aへ、法改正・現行法差分は03bへ戻し、`23_correctChoiceText_fixed`更新後にmergeと03を再実行します。`updated_to_current_law`の正答更新は、原則として三次確定後に公開確定します。
+02aの厳密正答または02bの法令フラグ・現行法根拠が`20_merged_1`に入っていない場合は、03を開始せずfailed receiptに理由を残します。該当patchを作成し、問題整備システムの独立merge工程後に新規03 sessionを開始してください。03中に矛盾を見つけても、03だけで`correctChoiceText`を反転させてはいけません。出題時正答の不整合は02aへ、法改正・現行法差分は03bへ戻し、`23_correctChoiceText_fixed`更新後に独立mergeと03を再実行します。`updated_to_current_law`の正答更新は、原則として三次確定後に公開確定します。
 
 判断水準は、単なる一般読者の目視ではなく、対象資格の専門家・問題作成者・参考書著者が解答解説として公開できる水準とします。正答を説明するだけでなく、受験者が誤学習しない根拠、誤り箇所、正しい内容、類似論点との境界まで確認してください。
 
@@ -27,7 +27,7 @@
 - `question_url` の再取得や、そのページ内容を説明根拠として採用することはしない。`question_url` は引き続き参照・転記用メタデータとして扱う。
 - `explanationText` 本文にはURLや出典リンクを埋め込まない（必要な場合は作業報告・タスクreceipt側に記録する）。
 - 信頼性の高い一次情報（例: e-Gov法令検索、官公庁、自治体の公式要綱、法令データ提供元、標準規格団体、大学・学会、原典に近い資料）を優先し、内容が揺れやすい二次まとめは鵜呑みにしない。
-- Lawzilla（https://lawzilla.jp/）などの法令データベースは、条文探索、関連条項の発見、改正前後のあたり付けに使ってよい。ただし、最終的に `verificationStatus="verified"` とする場合は、e-Gov、官公庁、法令データ提供元、または資格別に認めた一次情報相当の本文で、法令名・条・項・号を照合する。
+- Codex App Server sessionでは民間法令データベースや外部MCPを使わず、e-Gov又は所管官庁の一次情報で法令名・条・項・号を照合する。
 - 法令確認では、資格別の対象法令スコープを先に確認する。e-Gov の全法令から無差別に探してはいけない。
 - 対象法令スコープにない法令を使う必要が出た場合は、問題文・設問文・選択肢・解説候補にその法令が直接関係する根拠を確認し、資格別補助資料へ追記してから、必要な資格だけで `lawReferences` に使う。
 - 外部Webで裏取りしても、最終的な説明は「受験者が次に同論点を見たときに自力判定できる」形へ要点を再構成する（単なる言い換えにしない）。
@@ -334,7 +334,7 @@
 
 スクレイピング元の正答・解説は、原則として出題当時の公式正答または掲載元の正誤を反映しているものとして扱う。法令問題では、これを現行法の正誤と同一視してはいけない。
 
-法令問題では、1問ずつ独自に現行法・出題当時法令を監査する。確認には、e-Gov 法令検索、官公庁資料、資格別に認めた公式資料、Lawzilla などの法令データベースを使ってよい。Lawzilla などは条文探索・関連条項の発見に有用だが、最終的な `verified` 判定では、法令名・条・項・号まで本文で照合する。
+法令問題では、1問ずつ独自に現行法・出題当時法令を監査する。確認には、e-Gov法令検索、官公庁資料、資格別に認めた公式資料を使う。Codex組み込みweb検索は公的一次情報を開く入口に限り、最終的な`verified`判定では法令名・条・項・号まで本文で照合する。
 
 現行法との照合で、出題当時の正誤と現行法での正誤が明らかに異なる場合は、03bで監査し、必要な確認段階を通過した場合だけ現行法ベースの学習データへ更新してよい。通常03の判断だけでは更新しない。確定後は `correctChoiceText` と `explanationText` を現行法の正誤に合わせるが、更新した事実を隠してはいけない。解説本文、想定質問、`lawReferences`、review sidecar に、出題当時の正答から現行法ベースへ更新したことを残す。
 
@@ -390,7 +390,7 @@
 
 1. この `03_prompt_add_explanationText.md` と資格別補助資料を読む。
 2. 法令問題を扱う資格では、資格別方針を確認する。`lawReferences` を出す資格は対象法令スコープを確認し、未整備なら簡易スコープを作ってから進める。
-3. `20_merged_1/question_*_merged.json` を起点に、02bで反映済みの `isLawRelated` / `lawGroundedExplanationNotNeeded` / `lawReferences` / `lawContextForExplanation` を確認する。未反映なら先に02bを実行する。
+3. `20_merged_1/question_*_merged.json` を起点に、02bで反映済みの `isLawRelated` / `lawGroundedExplanationNotNeeded` / `lawReferences` / `lawContextForExplanation` を確認する。未反映ならこの03 sessionをfailedとし、02b patchと独立merge工程の完了後に再開する。
 4. 02bの法令コンテキストを使って、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` を作る。資格別方針で必要な場合だけ、03で `lawReferences` を補正してよい。
 5. `lawReferences` を出す資格では、問題文・設問文・選択肢・解説文・法令文書本文を照合して使う。`lawId` が入っているだけでは合格にしない。
 6. `isLawRelated` / `lawGroundedExplanationNotNeeded` の修正や、`lawReferences` を出す資格での条文紐付けは、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・必要なら法令本文を目視で照合して判断する。
@@ -761,7 +761,7 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 - sidecar の各行は次のフィールドを持つ:
 ```json
 {"original_question_id":"xxxx","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["missing_choice_snippets","primary_source_uncertain"],"currentDecision":{"isLawRelated":true,"lawGroundedExplanationNotNeeded":false},"reviewQuestion":"選択肢3の誤り理由が現行制度と出題当時制度で変わらないかを再確認する。","evidenceChecked":["20_merged_1","00_source","官公庁一次資料"],"notes":"explanation_choice_snippets が空で、一次情報では現行制度のみ確認できた。"}
-{"original_question_id":"yyyy","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["current_vs_historical_rule"],"currentDecision":{"isLawRelated":true,"lawGroundedExplanationNotNeeded":false,"updatedToCurrentLaw":true,"originalExamTimeCorrectChoiceText":"正しい","updatedCorrectChoiceText":"間違い","currentBasis":"○○法第○条","examTimeBasis":"出題当時の○○法第○条"},"reviewQuestion":"現行法に合わせて正誤更新した判断と、出題当時正答との差分注記が妥当かを再確認する。","evidenceChecked":["20_merged_1","00_source","e-Gov","Lawzilla"],"notes":"現行法では対象範囲が変更され、元の正答と逆になるため更新した。"}
+{"original_question_id":"yyyy","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["current_vs_historical_rule"],"currentDecision":{"isLawRelated":true,"lawGroundedExplanationNotNeeded":false,"updatedToCurrentLaw":true,"originalExamTimeCorrectChoiceText":"正しい","updatedCorrectChoiceText":"間違い","currentBasis":"○○法第○条","examTimeBasis":"出題当時の○○法第○条"},"reviewQuestion":"現行法に合わせて正誤更新した判断と、出題当時正答との差分注記が妥当かを再確認する。","evidenceChecked":["20_merged_1","00_source","e-Gov"],"notes":"現行法では対象範囲が変更され、元の正答と逆になるため更新した。"}
 ```
 - `reasonCategory` は、必要に応じて次から選ぶ:
   - `missing_common_summary`

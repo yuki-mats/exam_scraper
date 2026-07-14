@@ -1,6 +1,7 @@
 import copy
 import json
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -80,6 +81,74 @@ def upload_document():
 
 
 class ArtifactSynchronizerTests(unittest.TestCase):
+    def test_blocks_sync_when_failed_run_left_an_unverified_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            (source_dir / "question.json").write_text("{}", encoding="utf-8")
+            changed_path = Path(
+                "output/sample-exam/questions_json/2026/"
+                "21_explanationText_added/partial.json"
+            )
+            absolute_changed_path = root / changed_path
+            absolute_changed_path.parent.mkdir(parents=True)
+            absolute_changed_path.write_text("{}", encoding="utf-8")
+            manifest_path = (
+                root
+                / "output"
+                / "question_review_console"
+                / "workflow_runs"
+                / "sample-exam"
+                / "20260101-run"
+                / "manifest.json"
+            )
+            manifest_path.parent.mkdir(parents=True)
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "status": "failed",
+                        "result": {"changedFiles": [changed_path.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            group = group_payload(
+                {"merge": "stale", "convert": "stale", "upload": "missing"}
+            )
+            group["questions"][0]["projected"] = {
+                "answer_result_text": "正しい",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+            }
+            commands = []
+            synchronizer = ArtifactSynchronizer(
+                root,
+                FakeInventory(group),
+                "secret",
+                command_runner=lambda *args, **kwargs: commands.append(args) or 0,
+            )
+
+            preview = synchronizer.preview("sample-exam", "2026")
+
+            self.assertFalse(preview["canSync"])
+            self.assertEqual(preview["failedDeltaPaths"], [changed_path.as_posix()])
+            with self.assertRaisesRegex(WorkflowError, "未確定patch"):
+                synchronizer.run(
+                    "sample-exam",
+                    "2026",
+                    preview["previewToken"],
+                    lambda _: None,
+                )
+            self.assertEqual(commands, [])
+
     def test_blocks_patch_propagation_when_required_fields_are_missing(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -229,6 +298,46 @@ class ArtifactSynchronizerTests(unittest.TestCase):
 
 
 class GroupPublisherTests(unittest.TestCase):
+    def test_failed_delta_blocks_group_publish(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            failed_path = Path(
+                "output/sample-exam/questions_json/2026/"
+                "21_explanationText_added/partial.json"
+            )
+            absolute = root / failed_path
+            absolute.parent.mkdir(parents=True)
+            absolute.write_text("{}\n", encoding="utf-8")
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample-exam/"
+                "20260101-run/manifest.json"
+            )
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "status": "failed",
+                        "result": {"changedFiles": [failed_path.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            group = group_payload(
+                {"merge": "match", "convert": "match", "upload": "match"}
+            )
+            publisher = GroupPublisher(
+                root,
+                FakeInventory(group),
+                FakeFirestore(),
+                "secret",
+            )
+
+            preview = publisher.preview("sample-exam", "2026")
+
+        self.assertFalse(preview["canPublish"])
+        self.assertEqual(preview["failedDeltaPaths"], [failed_path.as_posix()])
+
     def test_law_audit_quality_issue_blocks_publish(self):
         counts = GroupPublisher._blocking_issue_counts(
             {
@@ -316,6 +425,37 @@ class JobManagerTests(unittest.TestCase):
             time.sleep(0.02)
         self.assertEqual(result["status"], "succeeded")
         self.assertEqual(result["logs"], ["done"])
+
+    def test_sync_exclusive_work_blocks_background_job(self):
+        manager = JobManager()
+        entered = threading.Event()
+        release = threading.Event()
+
+        def run_sync():
+            entered.set()
+            release.wait(1)
+            return {"ok": True}
+
+        thread = threading.Thread(
+            target=lambda: manager.run_exclusive(key="sample:2026", worker=run_sync)
+        )
+        thread.start()
+        self.assertTrue(entered.wait(1))
+        with self.assertRaises(JobConflictError):
+            manager.start(
+                kind="publish",
+                key="sample:2026",
+                worker=lambda _emit: {"ok": True},
+            )
+        release.set()
+        thread.join(1)
+
+        job = manager.start(
+            kind="publish",
+            key="sample:2026",
+            worker=lambda _emit: {"ok": True},
+        )
+        self.assertIn(job["status"], {"queued", "running", "succeeded"})
 
 
 class WorkflowUiContractTests(unittest.TestCase):
@@ -478,6 +618,12 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('summaryMetric("資格", qualificationDisplayName(preview.qualification))', javascript)
         self.assertIn('summaryMetric("年度", preview.listGroupIds?.join("・") || "-")', javascript)
         self.assertIn('"保存済み差分を見る"', javascript)
+        self.assertIn("専用の24_questionIssueCorrections契約", html)
+        review_fields = javascript.split("const REVIEW_FIELDS = [", 1)[1].split(
+            "];", 1
+        )[0]
+        self.assertNotIn('"questionBodyText"', review_fields)
+        self.assertNotIn('"choiceTextList"', review_fields)
         self.assertIn('"修正を依頼"', javascript)
         self.assertIn('"直接編集"', javascript)
         self.assertIn("actionWithHelp", javascript)
@@ -490,12 +636,13 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('id="review-selection"', html)
         self.assertIn('id="selection-toolbar"', html)
         self.assertIn('id="review-scope"', html)
+        self.assertNotIn('value="all_qualifications"', html)
         self.assertIn('"selectionchange"', javascript)
         self.assertIn("selection: state.reviewSelection", javascript)
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
         self.assertIn('"監査パッチをまとめて修正依頼"', javascript)
-        self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", javascript)
+        self.assertIn("Codex組み込みweb検索", javascript)
         self.assertIn('investigationScope: "qualification"', javascript)
         self.assertIn('requestKind: "qualification_law_audit"', javascript)
         self.assertIn("requestKind: state.reviewRequestKind", javascript)
@@ -519,7 +666,11 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
         self.assertIn("${preview.targetCount}${questionUnit} × ${preview.stageCount}工程", javascript)
         self.assertIn("延べ${preview.workItemCount}工程判定", javascript)
-        self.assertIn('"/api/qualification-runs/resume-prompt"', javascript)
+        self.assertIn('api("/api/codex/status")', javascript)
+        self.assertIn('startCodex: state.reviewMode === "awaiting_codex"', javascript)
+        self.assertIn('requestKind === "evaluation_rework"', javascript)
+        self.assertIn("Codex App Server:", javascript)
+        self.assertNotIn('"/api/qualification-runs/resume-prompt"', javascript)
         self.assertIn('offset: String(offset)', javascript)
         self.assertIn('limit: String(state.questionPage.limit)', javascript)
         self.assertIn('stage.completeCount === stage.targetCount && stage.issueCount > 0', javascript)

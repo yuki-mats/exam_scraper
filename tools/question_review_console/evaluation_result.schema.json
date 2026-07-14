@@ -4,7 +4,6 @@
   "additionalProperties": false,
   "required": [
     "status",
-    "answerMappingMatched",
     "explanationScore",
     "criticalIssues",
     "summary",
@@ -15,9 +14,6 @@
     "status": {
       "type": "string",
       "enum": ["passed", "needs_rework"]
-    },
-    "answerMappingMatched": {
-      "type": "boolean"
     },
     "explanationScore": {
       "type": "integer",
