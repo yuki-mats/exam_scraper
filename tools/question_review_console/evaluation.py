@@ -417,6 +417,14 @@ class QuestionEvaluationService:
             raise EvaluationError("評価する問題を1問以上選択してください。")
         if len(unique) > MAX_BATCH_SIZE:
             raise EvaluationError(f"一度に評価できるのは{MAX_BATCH_SIZE}問までです。")
+        qualifications = sorted(
+            {str(question.get("qualification") or "") for question in unique}
+        )
+        if len(qualifications) != 1 or not qualifications[0]:
+            raise EvaluationError("1回の評価では同じ資格の問題だけを選択してください。")
+        list_group_ids = sorted(
+            {str(question.get("listGroupId") or "") for question in unique}
+        )
         items = [self.preview(question) for question in unique]
         evaluable = [item for item in items if item["canEvaluate"]]
         token_payload = {
@@ -430,6 +438,8 @@ class QuestionEvaluationService:
             ]
         }
         return {
+            "qualification": qualifications[0],
+            "listGroupIds": list_group_ids,
             "selectedCount": len(items),
             "evaluableCount": len(evaluable),
             "blockedCount": len(items) - len(evaluable),

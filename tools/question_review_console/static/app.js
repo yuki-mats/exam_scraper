@@ -308,18 +308,21 @@ function bindControls() {
     updateUrl();
   });
   $("#group-select").addEventListener("change", async (event) => {
+    clearEvaluationSelection();
     state.listGroupId = event.target.value;
     await loadQuestions(false);
     updateUrl();
   });
   let searchTimer;
   $("#search-input").addEventListener("input", () => {
+    clearEvaluationSelection();
     window.clearTimeout(searchTimer);
     searchTimer = window.setTimeout(() => loadQuestions(false), 220);
   });
   $("#exceptions-button").addEventListener("click", () => setListMode(true));
   $("#all-button").addEventListener("click", () => setListMode(false));
   $("#refresh-button").addEventListener("click", async () => {
+    clearEvaluationSelection();
     await loadQualificationWorkflow(true);
     await loadQualificationRuns();
     await loadQuestions(true);
@@ -355,7 +358,10 @@ function bindControls() {
     "選択中の資格に含まれる全フォルダを本番Firestoreから読み取ります。書き込みは行いません。取得結果と取得日時はローカルに保存され、後から問題ごとの差分を確認できます。",
   ));
   for (const selector of ["#law-only", "#firestore-mismatch", "#issue-select", "#review-status-select", "#evaluation-status-select"]) {
-    $(selector).addEventListener("change", () => loadQuestions(false));
+    $(selector).addEventListener("change", () => {
+      clearEvaluationSelection();
+      loadQuestions(false);
+    });
   }
   $("#select-visible").addEventListener("change", toggleVisibleQuestionSelection);
   $("#bulk-evaluate-button").addEventListener("click", () => {
@@ -1496,6 +1502,7 @@ async function resumeQualificationRun() {
 }
 
 async function setListMode(exceptionsOnly) {
+  clearEvaluationSelection();
   state.exceptionsOnly = exceptionsOnly;
   $("#exceptions-button").classList.toggle("active", exceptionsOnly);
   $("#all-button").classList.toggle("active", !exceptionsOnly);
@@ -1523,6 +1530,12 @@ function listQuery(offset = 0) {
   return params;
 }
 
+function evaluationScopeLabel() {
+  if (state.listGroupId === ALL_LIST_GROUPS) return "資格全体";
+  const scopeName = $("#group-select-label")?.textContent || "年度";
+  return `${scopeName} ${state.listGroupId}`;
+}
+
 async function loadQuestions(preserveSelection, append = false) {
   if (!state.qualification || !state.listGroupId) return;
   const offset = append ? state.questions.length : 0;
@@ -1537,11 +1550,18 @@ async function loadQuestions(preserveSelection, append = false) {
     state.questions = append
       ? [...state.questions, ...payload.questions]
       : payload.questions;
+    if (!append) {
+      const visibleIds = new Set(state.questions.map((question) => question.id));
+      for (const questionId of state.selectedQuestionIds) {
+        if (!visibleIds.has(questionId)) state.selectedQuestionIds.delete(questionId);
+      }
+    }
     state.questionPage.filteredCount = payload.filteredCount;
     state.questionPage.hasMore = payload.hasMore;
     renderQueue();
     const counts = payload.evaluationCounts || {};
     $("#list-summary").textContent = [
+      `評価範囲 ${evaluationScopeLabel()}`,
       `${state.questions.length}/${payload.filteredCount}件表示`,
       `全${payload.questionCount}問`,
       `評価待ち${counts.unreviewed || 0}`,
@@ -1650,9 +1670,15 @@ function updateEvaluationSelectionControls() {
   const visibleIds = state.questions.map((question) => question.id);
   const visibleSelected = visibleIds.filter((id) => state.selectedQuestionIds.has(id)).length;
   const selectVisible = $("#select-visible");
+  const selectVisibleLabel = $("#select-visible-label");
   if (selectVisible) {
     selectVisible.checked = visibleIds.length > 0 && visibleSelected === visibleIds.length;
     selectVisible.indeterminate = visibleSelected > 0 && visibleSelected < visibleIds.length;
+  }
+  if (selectVisibleLabel) {
+    selectVisibleLabel.textContent = visibleIds.length
+      ? `一覧の${visibleIds.length}問を選択`
+      : "一覧を選択";
   }
   const count = state.selectedQuestionIds.size;
   const action = $("#bulk-evaluate-button");
@@ -2712,6 +2738,8 @@ async function openEvaluationDialog(questionIds = []) {
     });
     state.workflowDialog.preview = preview;
     $("#workflow-dialog-summary").append(
+      summaryMetric("資格", qualificationDisplayName(preview.qualification)),
+      summaryMetric("年度", preview.listGroupIds?.join("・") || "-"),
       summaryMetric("選択", `${preview.selectedCount}問`),
       summaryMetric("評価可能", `${preview.evaluableCount}問`, preview.evaluableCount ? "good" : "danger"),
       summaryMetric("別セッション", `${preview.sessionCount}回`, preview.sessionCount ? "warning" : ""),

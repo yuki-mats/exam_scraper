@@ -459,6 +459,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "toggleVisibleQuestionSelection",
             "updateEvaluationSelectionControls",
             "renderEvaluationPanel",
+            "evaluationScopeLabel",
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
@@ -472,6 +473,10 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('"/api/evaluations/preview"', javascript)
         self.assertIn('"/api/evaluations/start"', javascript)
         self.assertIn("selectedQuestionIds", javascript)
+        self.assertIn("評価範囲 ${evaluationScopeLabel()}", javascript)
+        self.assertIn("一覧の${visibleIds.length}問を選択", javascript)
+        self.assertIn('summaryMetric("資格", qualificationDisplayName(preview.qualification))', javascript)
+        self.assertIn('summaryMetric("年度", preview.listGroupIds?.join("・") || "-")', javascript)
         self.assertIn('"保存済み差分を見る"', javascript)
         self.assertIn('"修正を依頼"', javascript)
         self.assertIn('"直接編集"', javascript)

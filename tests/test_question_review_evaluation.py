@@ -6,7 +6,10 @@ import unittest
 from pathlib import Path
 
 from scripts.upload.upload_questions_to_firestore import build_doc_data_base
-from tools.question_review_console.evaluation import QuestionEvaluationService
+from tools.question_review_console.evaluation import (
+    EvaluationError,
+    QuestionEvaluationService,
+)
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 
 
@@ -200,10 +203,27 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             )
 
         self.assertEqual(preview["sessionCount"], 2)
+        self.assertEqual(preview["qualification"], "sample")
+        self.assertEqual(preview["listGroupIds"], ["2026"])
         self.assertEqual(len(calls), 2)
         self.assertEqual(result["completedCount"], 1)
         self.assertEqual(result["failedCount"], 1)
         self.assertEqual(result["passedCount"], 1)
+
+    def test_batch_rejects_questions_from_different_qualifications(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            first = question_payload()
+            second = question_payload(question_id="api-q2", body="問題2")
+            second["qualification"] = "other"
+            second["reviewKey"] = "other:2026:question_2:api-q2"
+
+            with self.assertRaisesRegex(EvaluationError, "同じ資格"):
+                service.preview_many([first, second])
 
 
 class FakeInventory:
