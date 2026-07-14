@@ -138,6 +138,36 @@ class ConvertMergedToFirestoreTests(unittest.TestCase):
             },
         )
 
+    def test_resolve_law_revision_facts_selects_choice_snapshot_verdicts(self) -> None:
+        question_body = {
+            "lawRevisionFacts": {
+                "auditStatus": "same_as_current",
+                "examTime": {
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "verificationStatus": "from_original_answer",
+                },
+                "current": {
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "verificationStatus": "verified_current_law",
+                },
+            }
+        }
+
+        self.assertEqual(
+            resolve_law_revision_facts(question_body, 1),
+            {
+                "auditStatus": "same_as_current",
+                "examTime": {
+                    "correctChoiceText": "間違い",
+                    "verificationStatus": "from_original_answer",
+                },
+                "current": {
+                    "correctChoiceText": "間違い",
+                    "verificationStatus": "verified_current_law",
+                },
+            },
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

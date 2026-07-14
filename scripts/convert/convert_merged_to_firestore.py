@@ -440,7 +440,18 @@ def resolve_law_revision_facts(
 ) -> dict | None:
     value = question_body.get("lawRevisionFacts")
     if isinstance(value, dict):
-        return sanitize_law_revision_facts(value)
+        resolved = dict(value)
+        if choice_index is not None:
+            for snapshot_key in ("examTime", "current"):
+                snapshot = value.get(snapshot_key)
+                if not isinstance(snapshot, dict):
+                    continue
+                resolved_snapshot = dict(snapshot)
+                verdicts = snapshot.get("correctChoiceText")
+                if isinstance(verdicts, list) and choice_index < len(verdicts):
+                    resolved_snapshot["correctChoiceText"] = verdicts[choice_index]
+                resolved[snapshot_key] = resolved_snapshot
+        return sanitize_law_revision_facts(resolved)
     if choice_index is not None and isinstance(value, list) and choice_index < len(value):
         choice_value = value[choice_index]
         if isinstance(choice_value, dict):
