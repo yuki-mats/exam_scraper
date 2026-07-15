@@ -295,7 +295,7 @@ async function initialize() {
       ? `Codex: ${modelLabel} / 推論 ${effortLabel} ・ ChatGPT ${codexStatus.planType} Standard ・ Firestore: ${session.projectId}`
       : `Codex App Server: 開始不可 ・ ${codexStatus.reason || "状態を確認できません"}`;
     $("#project-status").title = codexStatus.configuredReasoningEffort
-      ? `Codex全体設定の推論強度: ${codexStatus.configuredReasoningEffort} / 問題整備システムの実行値: ${effortLabel}`
+      ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: ${modelLabel} / 推論 ${effortLabel}`
       : "";
     initializeSelectors();
     await loadQualificationWorkflow(false);

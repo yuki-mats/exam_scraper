@@ -70,9 +70,10 @@ class SubscriptionGateTests(unittest.TestCase):
 
         status = client.assert_subscription_access()
 
-        self.assertEqual(status["model"], "gpt-5.6-sol")
+        self.assertEqual(status["configuredModel"], "gpt-5.6-sol")
         self.assertEqual(status["configuredReasoningEffort"], "xhigh")
-        self.assertEqual(status["turnReasoningEffort"], "medium")
+        self.assertEqual(status["model"], "gpt-5.5")
+        self.assertEqual(status["turnReasoningEffort"], "high")
 
     def test_rejects_non_subscription_accounts(self):
         for account in (
@@ -195,7 +196,7 @@ class ProtocolClient(CodexAppServerClient):
             sandbox_type = "readOnly" if params["sandbox"] == "read-only" else "workspaceWrite"
             return {
                 "thread": {"id": thread_id, "sessionId": f"session-{self.turn_number}"},
-                "model": "gpt-test",
+                "model": "gpt-5.5",
                 "modelProvider": "openai",
                 "serviceTier": None,
                 "sandbox": {"type": sandbox_type, "networkAccess": False},
@@ -319,8 +320,8 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(second_turn["sandboxPolicy"]["excludeTmpdirEnvVar"])
         self.assertTrue(second_turn["sandboxPolicy"]["excludeSlashTmp"])
         self.assertEqual(first.final_message, '{"status":"ok"}')
-        self.assertEqual(first.model, "gpt-test")
-        self.assertEqual(first.reasoning_effort, "medium")
+        self.assertEqual(first.model, "gpt-5.5")
+        self.assertEqual(first.reasoning_effort, "high")
         self.assertEqual(
             started,
             [
@@ -350,6 +351,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(all(params["approvalPolicy"] == "never" for params in thread_params))
         self.assertTrue(all(params["serviceTier"] is None for params in thread_params))
         self.assertTrue(all(params["modelProvider"] == "openai" for params in thread_params))
+        self.assertTrue(all(params["model"] == "gpt-5.5" for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["fast_mode"] is False for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["plugins"] is False for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["hooks"] is False for params in thread_params))
@@ -361,7 +363,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(turn_params[1]["sandboxPolicy"]["type"], "workspaceWrite")
         self.assertTrue(all(params["sandboxPolicy"]["networkAccess"] is False for params in turn_params))
         self.assertTrue(all(params["serviceTier"] is None for params in turn_params))
-        self.assertTrue(all(params["effort"] == "medium" for params in turn_params))
+        self.assertTrue(all(params["effort"] == "high" for params in turn_params))
 
     def test_four_work_types_use_distinct_sessions_and_expected_sandboxes(self):
         client = ProtocolClient()
@@ -425,6 +427,26 @@ class AppServerTurnTests(unittest.TestCase):
         client = UnsafeProtocolClient()
 
         with self.assertRaises(SubscriptionGateError):
+            client.run_turn(
+                "maintain",
+                work_type="maintenance",
+                sandbox="workspace-write",
+                emit=lambda _line: None,
+            )
+
+        self.assertNotIn("turn/start", [method for method, _params in client.calls])
+
+    def test_rejects_when_requested_model_is_not_applied(self):
+        class WrongModelClient(ProtocolClient):
+            def _request(self, method, params, *, timeout=None):
+                response = super()._request(method, params, timeout=timeout)
+                if method == "thread/start":
+                    response["model"] = "gpt-other"
+                return response
+
+        client = WrongModelClient()
+
+        with self.assertRaisesRegex(SubscriptionGateError, "gpt-5.5"):
             client.run_turn(
                 "maintain",
                 work_type="maintenance",

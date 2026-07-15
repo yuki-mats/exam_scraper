@@ -10,6 +10,8 @@ browser -> Python server -> Codex App Server（stdio）
 
 Python serverがChatGPT app同梱binaryの`codex app-server` processを一つ管理します。画面の`整備を開始`、`評価を開始`、`再整備を開始`は、すべて`thread/start`と`turn/start`へ変換します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへはfallbackしません。
 
+整備、評価、再整備、再評価はすべて`gpt-5.5`と推論強度`high`を明示して開始します。Codex全体configの既定値には依存せず、App Serverが別modelを返した場合はそのrunを開始しません。
+
 ## サブスクリプション境界
 
 接続時と各thread開始前に`account/read`と`account/rateLimits/read`を確認し、次をすべて満たす場合だけ開始します。

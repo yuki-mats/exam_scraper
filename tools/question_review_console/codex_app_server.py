@@ -71,7 +71,8 @@ DISABLED_EXTERNAL_FEATURES = (
     "tool_suggest",
 )
 
-TURN_REASONING_EFFORT = "medium"
+QUESTION_MAINTENANCE_MODEL = "gpt-5.5"
+TURN_REASONING_EFFORT = "high"
 
 
 class CodexAppServerError(RuntimeError):
@@ -281,7 +282,8 @@ class CodexAppServerClient:
         )
         status.update(
             {
-                "model": self._effective_model,
+                "model": QUESTION_MAINTENANCE_MODEL,
+                "configuredModel": self._effective_model,
                 "configuredReasoningEffort": self._configured_reasoning_effort,
                 "turnReasoningEffort": TURN_REASONING_EFFORT,
             }
@@ -342,6 +344,7 @@ class CodexAppServerClient:
             "thread/start",
             {
                 "cwd": str(turn_cwd),
+                "model": QUESTION_MAINTENANCE_MODEL,
                 "modelProvider": "openai",
                 "approvalPolicy": approval_policy,
                 "approvalsReviewer": "user",
@@ -367,6 +370,11 @@ class CodexAppServerClient:
         model_provider = str(thread_response.get("modelProvider") or "")
         if model_provider != "openai":
             raise SubscriptionGateError("外部model providerでは実行しません。")
+        actual_model = str(thread_response.get("model") or "")
+        if actual_model != QUESTION_MAINTENANCE_MODEL:
+            raise SubscriptionGateError(
+                f"指定model {QUESTION_MAINTENANCE_MODEL}が適用されませんでした。"
+            )
         sandbox_response = _as_mapping(thread_response.get("sandbox"), "sandbox response")
         expected_sandbox = "readOnly" if sandbox == "read-only" else "workspaceWrite"
         if sandbox_response.get("type") != expected_sandbox:
@@ -453,7 +461,7 @@ class CodexAppServerClient:
             session_id=session_id,
             turn_id=turn_id,
             final_message=final_message,
-            model=str(thread_response.get("model") or ""),
+            model=actual_model,
             service_tier=service_tier if isinstance(service_tier, str) else None,
             reasoning_effort=TURN_REASONING_EFFORT,
             changed_files=tuple(sorted(state.changed_files)),

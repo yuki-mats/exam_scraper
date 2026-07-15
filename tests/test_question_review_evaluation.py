@@ -217,7 +217,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(manifest["turnId"], "turn-evaluation-1")
         self.assertEqual(manifest["model"], "gpt-test")
         self.assertIsNone(manifest["serviceTier"])
-        self.assertEqual(manifest["reasoningEffort"], "medium")
+        self.assertEqual(manifest["reasoningEffort"], "high")
         self.assertTrue(receipt_exists)
         self.assertEqual(missing_receipt_status["status"], "stale")
         self.assertFalse(missing_receipt_status["publishReady"])

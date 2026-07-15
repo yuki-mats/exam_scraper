@@ -1581,7 +1581,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["turnId"], "turn-maintenance-1")
         self.assertEqual(run["model"], "gpt-test")
         self.assertIsNone(run["serviceTier"])
-        self.assertEqual(run["reasoningEffort"], "medium")
+        self.assertEqual(run["reasoningEffort"], "high")
         self.assertEqual(app_server.kwargs["work_type"], "maintenance")
         self.assertNotEqual(app_server.kwargs["cwd"], root)
         self.assertTrue(app_server.kwargs["writable_roots"])
