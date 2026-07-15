@@ -297,9 +297,16 @@ class QuestionReviewApplication:
                     "qualificationとrunIdを指定してください。",
                 )
             try:
-                return HTTPStatus.OK, self.qualification_runs.progress(
+                progress = self.qualification_runs.progress(
                     qualification, run_id
                 )
+                include_questions = _query_bool(
+                    query, "includeQuestions", default=False
+                )
+                progress["questionsIncluded"] = include_questions
+                if not include_questions:
+                    progress["questions"] = []
+                return HTTPStatus.OK, progress
             except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
         if path == "/api/questions":

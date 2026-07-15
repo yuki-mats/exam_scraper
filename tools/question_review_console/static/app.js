@@ -2148,7 +2148,10 @@ function enterQualificationProgressView(run) {
 }
 
 async function loadQualificationRunProgress(runId) {
-  const params = new URLSearchParams({ qualification: state.qualification });
+  const params = new URLSearchParams({
+    qualification: state.qualification,
+    includeQuestions: "true",
+  });
   try {
     const progress = await api(`/api/qualification-runs/${encodeURIComponent(runId)}/progress?${params}`);
     state.qualificationRunProgress = progress;
@@ -2230,7 +2233,11 @@ async function resumeQualificationRun() {
     });
     return;
   }
-  if (!state.qualificationRunProgress || state.qualificationRunProgress.runId !== run.runId) {
+  if (
+    !state.qualificationRunProgress
+    || state.qualificationRunProgress.runId !== run.runId
+    || state.qualificationRunProgress.questionsIncluded !== true
+  ) {
     await loadQualificationRunProgress(run.runId);
   }
   setQualificationRunRunning(false);

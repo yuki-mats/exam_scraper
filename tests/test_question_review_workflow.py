@@ -667,6 +667,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn("progress.questions || []", javascript)
+        self.assertIn('includeQuestions: "true"', javascript)
+        self.assertIn("questionsIncluded !== true", javascript)
         self.assertNotIn(".slice(-20)", javascript)
         self.assertNotIn("max-height: 30vh", css)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
