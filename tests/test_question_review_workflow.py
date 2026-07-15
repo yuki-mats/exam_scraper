@@ -577,6 +577,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "qualification-run-groups-clear",
             "qualification-run-start",
             "qualification-run-progress-current",
+            "qualification-run-progress-title",
             "qualification-run-progress-events",
             "qualification-run-progress-bar",
             "qualification-run-status-detail",
@@ -665,6 +666,9 @@ class WorkflowUiContractTests(unittest.TestCase):
             "workVersionBadge",
         ):
             self.assertIn(f"function {function_name}", javascript)
+        self.assertIn("progress.questions || []", javascript)
+        self.assertNotIn(".slice(-20)", javascript)
+        self.assertNotIn("max-height: 30vh", css)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
         self.assertIn('"Firestore（取得値）"', javascript)
         self.assertIn("formatReadbackTime", javascript)

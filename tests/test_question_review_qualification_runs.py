@@ -293,9 +293,88 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(progress["groups"][0]["percent"], 50)
         self.assertEqual(progress["invalidEventCount"], 1)
         self.assertNotIn("privateReasoning", progress["events"][1]["result"])
+        self.assertEqual(len(progress["questions"]), 1)
+        self.assertTrue(progress["questions"][0]["completed"])
+        self.assertEqual(len(progress["questions"][0]["outputs"]), 1)
         self.assertIn("画面用の問題別進捗", prompt)
         self.assertIn("progressTargets", prompt)
         self.assertIn("policyTargets", prompt)
+
+    def test_progress_summarizes_all_58_questions_beyond_recent_event_window(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            question_ids = [f"q{index}" for index in range(1, 59)]
+            plan = {
+                "qualification": "sample",
+                "stageId": "explanation",
+                "stageIds": ["explanation"],
+                "stageCode": "03",
+                "stageLabel": "解説",
+                "mode": "outdated",
+                "modeLabel": "洗い替え必要のみ",
+                "kind": "human",
+                "targetCount": 58,
+                "workItemCount": 58,
+                "targetGroupIds": ["2026"],
+                "policyTargets": {"explanation": question_ids},
+                "progressTargets": [
+                    {
+                        "id": question_id,
+                        "questionKey": f"sample:2026:{question_id}",
+                        "listGroupId": "2026",
+                        "questionLabel": f"問{index}",
+                        "bodyPreview": f"問題本文{index}",
+                        "aliases": [],
+                    }
+                    for index, question_id in enumerate(question_ids, start=1)
+                ],
+                "stagePlans": [
+                    {
+                        "stageId": "explanation",
+                        "stageCode": "03",
+                        "stageLabel": "解説",
+                    }
+                ],
+                "sourceFiles": [],
+                "canonicalDocs": [],
+            }
+            run = store.create(plan, status="running", prompt="整備する。")
+            progress_path = root / run["progressReceiptPath"]
+            lines = []
+            for index, question_id in enumerate(question_ids, start=1):
+                lines.extend(
+                    [
+                        {"event": "question_started", "questionId": question_id},
+                        {
+                            "event": "stage_completed",
+                            "questionId": question_id,
+                            "stageId": "explanation",
+                            "result": {"explanationText": f"解説{index}"},
+                        },
+                        {"event": "question_completed", "questionId": question_id},
+                    ]
+                )
+            progress_path.write_text(
+                "\n".join(
+                    json.dumps(line, ensure_ascii=False) for line in lines
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            progress = store.progress("sample", run["runId"])
+
+        self.assertEqual(len(progress["events"]), 40)
+        self.assertEqual(len(progress["questions"]), 58)
+        self.assertEqual(progress["questions"][0]["questionLabel"], "問1")
+        self.assertEqual(progress["questions"][-1]["questionLabel"], "問58")
+        self.assertEqual(
+            progress["questions"][-1]["outputs"][0]["result"][
+                "explanationText"
+            ],
+            "解説58",
+        )
 
     def test_progress_receipt_is_not_treated_as_a_maintenance_change(self):
         with tempfile.TemporaryDirectory() as directory:

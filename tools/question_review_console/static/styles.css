@@ -766,7 +766,7 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .qualification-run-progress-current strong { color: var(--blue-dark); font-size: 15px; }
 .qualification-run-progress-current span { color: #344b5e; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 .qualification-run-progress-title { margin: 0 0 7px; font-size: 12px; }
-.qualification-run-progress-events { display: grid; gap: 6px; max-height: 270px; overflow-y: auto; }
+.qualification-run-progress-events { display: grid; align-content: start; gap: 6px; }
 .qualification-progress-event { width: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 9px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--text); text-align: left; }
 .qualification-progress-event:hover { border-color: #9fb2c3; background: #f8fafb; }
 .qualification-progress-event .progress-event-question { grid-row: 1 / span 2; color: var(--blue-dark); font-size: 11px; font-weight: 800; white-space: nowrap; }
@@ -989,7 +989,6 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .qualification-run-history-row { grid-template-columns: 70px minmax(110px, 1fr); padding-right: 10px; padding-left: 10px; }
   .qualification-run-history-row .run-status { grid-row: 1 / span 4; }
   .qualification-run-history-row strong, .qualification-run-history-row > span:not(.run-status), .qualification-run-history-row time { grid-column: 2; }
-  .qualification-run-progress-events { max-height: 30vh; }
   .qualification-run-progress-current { min-height: 76px; }
   .qualification-progress-event { min-height: 60px; padding: 10px; }
   .run-mode-options { grid-template-columns: 1fr; }

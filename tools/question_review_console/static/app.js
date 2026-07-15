@@ -2,6 +2,7 @@
 
 const ALL_LIST_GROUPS = "__all__";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
+const QUALIFICATION_RUN_POLL_MS = 3000;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -1968,6 +1969,15 @@ function compactProgressText(value, limit = 260) {
   return text.length > limit ? `${text.slice(0, limit)}…` : text;
 }
 
+function progressQuestionOutputText(question) {
+  const outputs = Array.isArray(question?.outputs) ? question.outputs : [];
+  if (!outputs.length) return progressResultText(question);
+  return outputs.map((event) => {
+    const stage = [event.stageCode, event.stageLabel].filter(Boolean).join(" ");
+    return `${stage ? `${stage}: ` : ""}${progressResultText(event)}`;
+  }).join(" / ");
+}
+
 function setQualificationRunStatusDetail(message = "", status = "") {
   const detail = $("#qualification-run-status-detail");
   detail.hidden = !message;
@@ -1978,6 +1988,7 @@ function setQualificationRunStatusDetail(message = "", status = "") {
 function renderQualificationRunProgress(progress) {
   const currentButton = $("#qualification-run-progress-current");
   const eventsContainer = $("#qualification-run-progress-events");
+  const progressTitle = $("#qualification-run-progress-title");
   const progressBar = $("#qualification-run-progress-bar");
   const label = $("#qualification-run-progress-label");
   progressBar.style.width = `${Number(progress?.percent || 0)}%`;
@@ -1985,6 +1996,7 @@ function renderQualificationRunProgress(progress) {
     label.textContent = "問題別の進捗を待っています。";
     currentButton.hidden = true;
     currentButton.replaceChildren();
+    progressTitle.textContent = "問題ごとの出力";
     eventsContainer.replaceChildren(
       element("p", "qualification-run-progress-empty", "開始後、問題番号・工程・出力結果をここに表示します。"),
     );
@@ -2001,7 +2013,7 @@ function renderQualificationRunProgress(progress) {
       : Number(progress.percent || 0) >= 100
         ? `${completed}/${target}問・${workCompleted}/${workTarget}工程の処理完了（最終検証中）`
         : `${completed}/${target}問完了・${workCompleted}/${workTarget}工程（作業中の出力）`;
-  const current = progress.current;
+  const current = progress.verified ? null : progress.current;
   currentButton.hidden = !current;
   currentButton.replaceChildren();
   if (current) {
@@ -2020,31 +2032,39 @@ function renderQualificationRunProgress(progress) {
       element("span", "", "タップして問題本文を見る"),
     );
   }
-  const visibleEvents = (progress.events || [])
-    .filter((event) => event.event !== "question_started")
-    .slice(-20)
-    .reverse();
+  const visibleQuestions = (progress.questions || [])
+    .slice()
+    .sort((left, right) => Number(left.targetIndex || 0) - Number(right.targetIndex || 0));
+  progressTitle.textContent = target
+    ? `問題ごとの出力（${visibleQuestions.length}/${target}問）`
+    : `問題ごとの出力（${visibleQuestions.length}問）`;
   eventsContainer.replaceChildren();
-  if (!visibleEvents.length) {
+  if (!visibleQuestions.length) {
     eventsContainer.append(
       element("p", "qualification-run-progress-empty", "最初の工程結果を待っています。"),
     );
   }
-  for (const event of visibleEvents) {
+  for (const question of visibleQuestions) {
     const node = element("button", "qualification-progress-event");
     node.type = "button";
     node.append(
-      element("span", "progress-event-question", `${event.listGroupId} ${event.questionLabel}`),
+      element(
+        "span",
+        "progress-event-question",
+        `${question.listGroupId} ${question.questionLabel}・${question.targetIndex}/${target}問`,
+      ),
       element(
         "strong",
         "",
-        event.stageLabel
-          ? `${event.stageCode || ""} ${event.stageLabel}`
-          : "問題の整備を完了",
+        question.completed
+          ? "問題の整備を完了"
+          : question.stageLabel
+            ? `${question.stageCode || ""} ${question.stageLabel}`
+            : "問題を確認中",
       ),
-      element("span", "", compactProgressText(progressResultText(event))),
+      element("span", "", compactProgressText(progressQuestionOutputText(question))),
     );
-    node.addEventListener("click", () => openProgressQuestion(event));
+    node.addEventListener("click", () => openProgressQuestion(question));
     eventsContainer.append(node);
   }
   if (progress.invalidEventCount) {
@@ -2073,8 +2093,10 @@ async function openProgressQuestion(event) {
     });
     const question = await api(`/api/questions/${encodeURIComponent(event.questionId)}?${params}`);
     const projected = question.projected || {};
-    const questionOutputs = (state.qualificationRunProgress?.events || [])
-      .filter((item) => item.questionId === event.questionId && Object.keys(item.result || {}).length);
+    const questionOutputs = Array.isArray(event.outputs)
+      ? event.outputs.slice()
+      : (state.qualificationRunProgress?.events || [])
+        .filter((item) => item.questionId === event.questionId && Object.keys(item.result || {}).length);
     if (!questionOutputs.length && Object.keys(event.result || {}).length) questionOutputs.push(event);
     content.replaceChildren();
     content.append(progressQuestionSection("問題本文", question.body || projected.questionBodyText));
@@ -2162,7 +2184,7 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
     );
     $("#qualification-run-job-log").textContent = (job.logs || []).join("\n");
     if (job.status === "queued" || job.status === "running") {
-      await new Promise((resolve) => window.setTimeout(resolve, 800));
+      await new Promise((resolve) => window.setTimeout(resolve, QUALIFICATION_RUN_POLL_MS));
       continue;
     }
     if (job.status === "failed") throw new Error(job.error || "出力処理に失敗しました。");

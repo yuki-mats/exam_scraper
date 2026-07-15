@@ -648,6 +648,7 @@ class QualificationRunStore:
             "percent": 0,
             "current": None,
             "events": [],
+            "questions": [],
             "groups": [],
             "invalidEventCount": 0,
         }
@@ -782,6 +783,31 @@ class QualificationRunStore:
             for event in events
             if event["event"] == "stage_completed" and event["stageId"]
         }
+        events_by_question: dict[str, list[dict[str, Any]]] = {}
+        for event in events:
+            events_by_question.setdefault(event["questionId"], []).append(event)
+        questions: list[dict[str, Any]] = []
+        for target in targets:
+            question_id = str(target["id"])
+            question_events = events_by_question.get(question_id, [])
+            if not question_events:
+                continue
+            latest_stage_events: dict[str, dict[str, Any]] = {}
+            for event in question_events:
+                if event["event"] == "stage_completed" and event["stageId"]:
+                    latest_stage_events[str(event["stageId"])] = event
+            outputs = sorted(
+                latest_stage_events.values(),
+                key=lambda event: int(event["sequence"]),
+            )
+            display_event = outputs[-1] if outputs else question_events[-1]
+            questions.append(
+                {
+                    **display_event,
+                    "completed": question_id in completed_questions,
+                    "outputs": outputs,
+                }
+            )
         groups: list[dict[str, Any]] = []
         for group_id in dict.fromkeys(
             str(target.get("listGroupId") or "") for target in targets
@@ -813,6 +839,7 @@ class QualificationRunStore:
                 ) if target_count else 0,
                 "current": events[-1] if events else None,
                 "events": events[-40:],
+                "questions": questions,
                 "groups": groups,
                 "invalidEventCount": invalid_count,
             }
