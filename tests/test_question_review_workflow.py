@@ -536,6 +536,11 @@ class WorkflowUiContractTests(unittest.TestCase):
             "qualification-workflow-stages",
             "qualification-workflow-action",
             "qualification-active-run",
+            "qualification-active-run-eyebrow",
+            "qualification-active-run-phases",
+            "qualification-active-run-meter-value",
+            "qualification-active-run-error",
+            "qualification-active-run-updated",
             "qualification-run-history",
             "qualification-run-dialog",
             "qualification-run-stage-fieldset",
@@ -548,6 +553,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "qualification-run-progress-current",
             "qualification-run-progress-events",
             "qualification-run-progress-bar",
+            "qualification-run-status-detail",
             "progress-question-dialog",
             "progress-question-content",
             "load-more-questions",
@@ -692,6 +698,20 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('api("/api/codex/status")', javascript)
         self.assertIn('id="qualification-active-run"', html)
         self.assertIn('id="qualification-active-run-model"', html)
+        self.assertIn("現在実行中の作業はありません", html)
+        self.assertIn("function qualificationRunViewState", javascript)
+        self.assertIn(
+            "const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null",
+            javascript,
+        )
+        self.assertIn('phase = "最終検証で停止"', javascript)
+        self.assertIn('progress.status === "failed"', javascript)
+        self.assertIn("最終検証は未承認", javascript)
+        self.assertIn(".qualification-active-run.failed", css)
+        self.assertIn(
+            ".qualification-active-run-phases { grid-template-columns: 1fr; }",
+            css,
+        )
         self.assertIn("function pollSharedRunProgress", javascript)
         self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", javascript)
         self.assertIn("state.qualificationActiveJob?.logs", javascript)

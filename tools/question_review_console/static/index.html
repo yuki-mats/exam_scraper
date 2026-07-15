@@ -31,16 +31,31 @@
         </div>
         <button id="maintenance-start" class="primary-button maintenance-start" type="button" disabled>整備を開始</button>
       </div>
+      <section id="qualification-active-run" class="qualification-active-run idle" aria-live="polite" aria-labelledby="qualification-active-run-title">
+        <div class="qualification-active-run-head">
+          <div>
+            <span id="qualification-active-run-eyebrow" class="qualification-active-run-eyebrow">いまの作業</span>
+            <div class="qualification-active-run-title-row">
+              <span id="qualification-active-run-status" class="run-status idle">待機中</span>
+              <strong id="qualification-active-run-title">現在実行中の作業はありません</strong>
+            </div>
+          </div>
+          <button id="qualification-active-run-action" class="secondary-button" type="button" hidden>詳細を見る</button>
+        </div>
+        <p id="qualification-active-run-progress">資格・年度を選んで整備を開始できます。</p>
+        <ol id="qualification-active-run-phases" class="qualification-active-run-phases" aria-label="作業の進み方" hidden></ol>
+        <span class="qualification-active-run-meter" aria-hidden="true">
+          <span id="qualification-active-run-meter-value"></span>
+        </span>
+        <div id="qualification-active-run-error" class="qualification-active-run-error" hidden></div>
+        <footer class="qualification-active-run-meta">
+          <span id="qualification-active-run-model" class="qualification-active-run-model"></span>
+          <time id="qualification-active-run-updated"></time>
+        </footer>
+      </section>
       <div class="maintenance-year-section">
         <h3>年度別の進捗</h3>
         <div id="maintenance-year-progress" class="maintenance-year-progress" aria-live="polite"></div>
-      </div>
-      <div id="qualification-active-run" class="qualification-active-run" aria-live="polite" hidden>
-        <span id="qualification-active-run-status" class="run-status"></span>
-        <strong id="qualification-active-run-title"></strong>
-        <span id="qualification-active-run-progress"></span>
-        <span id="qualification-active-run-model" class="qualification-active-run-model"></span>
-        <button id="qualification-active-run-action" class="secondary-button" type="button">進捗を見る</button>
       </div>
     </section>
 
@@ -199,6 +214,7 @@
               <strong id="qualification-run-job-status">処理中</strong>
               <span id="qualification-run-progress-label">進捗を取得しています。</span>
             </div>
+            <p id="qualification-run-status-detail" class="qualification-run-status-detail" hidden></p>
             <span class="qualification-run-progress-meter" aria-hidden="true">
               <span id="qualification-run-progress-bar"></span>
             </span>

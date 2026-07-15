@@ -687,14 +687,20 @@ function renderMaintenanceDashboard() {
   if (isRunning) {
     const completed = Number(liveProgress?.completedQuestionCount || 0);
     const target = Number(liveProgress?.targetQuestionCount || activeRun.targetCount || 0);
+    const workCompleted = Number(liveProgress?.completedWorkItemCount || 0);
+    const workTarget = Number(liveProgress?.targetWorkItemCount || activeRun.workItemCount || 0);
+    const checkingResult = activeRun.status === "validating"
+      || (target > 0 && completed >= target && workTarget > 0 && workCompleted >= workTarget);
     const location = currentEvent
       ? `${currentEvent.listGroupId} ${currentEvent.questionLabel}`
       : "開始準備中";
     const stage = currentEvent?.stageLabel
       ? `・${currentEvent.stageCode || ""} ${currentEvent.stageLabel}`
       : "";
-    $("#maintenance-progress-text").textContent = `${location}${stage} / ${completed}/${target}問完了`;
-    start.textContent = "整備を実行中";
+    $("#maintenance-progress-text").textContent = checkingResult
+      ? `${completed}/${target}問の整備完了・最終検証中`
+      : `${location}${stage} / ${completed}/${target}問完了`;
+    start.textContent = checkingResult ? "最終検証中" : "整備を実行中";
     start.disabled = true;
   }
 
@@ -718,7 +724,9 @@ function renderMaintenanceDashboard() {
         "span",
         "",
         working && liveGroup
-          ? `作業中 ${liveGroup.completedQuestionCount}/${liveGroup.targetQuestionCount}問完了`
+          ? liveGroup.percent >= 100
+            ? `${liveGroup.completedQuestionCount}/${liveGroup.targetQuestionCount}問完了・最終検証中`
+            : `作業中 ${liveGroup.completedQuestionCount}/${liveGroup.targetQuestionCount}問完了`
           : `${groupCurrent}/${groupTotal}問 整備済み`,
       ),
     );
@@ -733,7 +741,9 @@ function renderMaintenanceDashboard() {
     const action = element(
       "button",
       groupRequired ? "secondary-button" : "secondary-button complete",
-      working ? "作業中" : groupRequired ? `${groupRequired}問を整備` : "整備済み",
+      working
+        ? liveGroup?.percent >= 100 ? "最終検証中" : "作業中"
+        : groupRequired ? `${groupRequired}問を整備` : "整備済み",
     );
     action.type = "button";
     action.disabled = groupRequired === 0 || isRunning;
@@ -1162,12 +1172,14 @@ async function loadQualificationRuns() {
     state.qualificationActiveRun = payload.activeRun || null;
     state.qualificationActiveJob = null;
     state.qualificationRunProgress = null;
-    if (state.qualificationActiveRun?.jobId) {
-      const run = state.qualificationActiveRun;
+    const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null;
+    if (visibleRun?.runId) {
       const params = new URLSearchParams({ qualification });
       const [jobResult, progressResult] = await Promise.allSettled([
-        api(`/api/jobs/${encodeURIComponent(run.jobId)}/summary`),
-        api(`/api/qualification-runs/${encodeURIComponent(run.runId)}/progress?${params}`),
+        visibleRun.jobId
+          ? api(`/api/jobs/${encodeURIComponent(visibleRun.jobId)}/summary`)
+          : Promise.resolve(null),
+        api(`/api/qualification-runs/${encodeURIComponent(visibleRun.runId)}/progress?${params}`),
       ]);
       state.qualificationActiveJob = jobResult.status === "fulfilled" ? jobResult.value : null;
       state.qualificationRunProgress = progressResult.status === "fulfilled" ? progressResult.value : null;
@@ -1208,8 +1220,142 @@ async function pollSharedRunProgress() {
   }
 }
 
+function displayedQualificationRun() {
+  return state.qualificationActiveRun || state.qualificationRuns[0] || null;
+}
+
+function humanizeQualificationRunError(value) {
+  const message = String(value || "").trim();
+  if (!message) return "最終結果を承認できませんでした。詳細を確認してください。";
+  if (message.includes("repository外のfile変更")) {
+    return "安全ガードが許可範囲外のファイル変更を検出したため、生成結果を承認せず停止しました。";
+  }
+  if (message.includes("別の整備処理が実行中")) {
+    return "別の整備が動いているため、この作業は開始されませんでした。";
+  }
+  if (message.includes("receipt")) {
+    return "完了記録を検証できなかったため、生成結果を未承認のまま停止しました。";
+  }
+  return compactProgressText(message, 180);
+}
+
+function qualificationRunViewState(run, progress = state.qualificationRunProgress) {
+  const completedQuestions = Number(progress?.completedQuestionCount || 0);
+  const targetQuestions = Number(progress?.targetQuestionCount || run?.targetCount || 0);
+  const completedWork = Number(progress?.completedWorkItemCount || 0);
+  const targetWork = Number(progress?.targetWorkItemCount || run?.workItemCount || 0);
+  const verified = Boolean(progress?.verified || run?.receiptValidated || run?.status === "succeeded");
+  const workComplete = targetWork > 0
+    ? completedWork >= targetWork
+    : targetQuestions > 0 && completedQuestions >= targetQuestions;
+  const failed = ["failed", "interrupted"].includes(run?.status);
+  const active = Boolean(run && state.qualificationActiveRun?.runId === run.runId);
+  const validationStarted = verified
+    || run?.status === "validating"
+    || (workComplete && ["running", "failed", "interrupted"].includes(run?.status));
+  const progressText = targetQuestions
+    ? `${completedQuestions}/${targetQuestions}問・${completedWork}/${targetWork || run?.workItemCount || 0}工程`
+    : "問題別進捗は未記録";
+  let phase = "待機中";
+  let statusLabel = QUALIFICATION_RUN_STATUS_LABELS[run?.status] || run?.status || "待機中";
+  let summary = "資格・年度を選んで整備を開始できます。";
+  if (run?.status === "queued") {
+    phase = "開始待ち";
+    summary = "Codex App Serverが作業を開始するのを待っています。";
+  } else if (["running", "awaiting_changes"].includes(run?.status) && !workComplete) {
+    phase = "問題を整備中";
+    const current = progress?.current;
+    summary = current
+      ? `${current.listGroupId} ${current.questionLabel}・${current.stageCode || ""} ${current.stageLabel || "確認中"} / ${progressText}`
+      : "Codex App Serverが正本文書と対象問題を読み込んでいます。";
+  } else if (["running", "validating"].includes(run?.status) && workComplete) {
+    phase = "最終検証中";
+    statusLabel = "最終検証中";
+    summary = `${progressText}の問題処理が終わり、安全ガードと完了記録を確認しています。`;
+  } else if (run?.status === "succeeded") {
+    phase = "完了";
+    summary = `${progressText}を検証済みです。`;
+  } else if (failed && validationStarted) {
+    phase = "最終検証で停止";
+    statusLabel = "検証で停止";
+    summary = `${progressText}の問題処理後、最終検証で停止しました。生成結果は未承認です。`;
+  } else if (failed) {
+    phase = completedQuestions ? "問題整備中に停止" : "開始できませんでした";
+    statusLabel = run.status === "interrupted" ? "中断" : "停止";
+    summary = completedQuestions
+      ? `${progressText}の時点で停止しました。生成結果は未承認です。`
+      : "この作業は問題整備を開始できませんでした。";
+  }
+  const phaseStates = ["pending", "pending", "pending"];
+  if (verified) {
+    phaseStates.fill("complete");
+  } else if (failed && validationStarted) {
+    phaseStates[0] = "complete";
+    phaseStates[1] = "failed";
+  } else if (failed) {
+    phaseStates[0] = "failed";
+  } else if (validationStarted) {
+    phaseStates[0] = "complete";
+    phaseStates[1] = "current";
+  } else if (active || run?.status === "awaiting_changes") {
+    phaseStates[0] = "current";
+  }
+  return {
+    active,
+    completedQuestions,
+    failed,
+    phase,
+    phaseStates,
+    progressText,
+    statusLabel,
+    summary,
+    targetQuestions,
+    verified,
+    workComplete,
+  };
+}
+
+function renderQualificationRunPhases(run, view) {
+  const container = $("#qualification-active-run-phases");
+  const details = [
+    view.targetQuestions ? view.progressText : "対象を準備",
+    view.phaseStates[1] === "failed"
+      ? "安全ガードで停止"
+      : view.phaseStates[1] === "complete"
+        ? "検証済み"
+        : view.phaseStates[1] === "current"
+          ? "変更範囲と完了記録を確認中"
+          : "問題整備完了後に実行",
+    view.phaseStates[2] === "complete" ? "結果を承認済み" : "検証成功後に確定",
+  ];
+  container.replaceChildren();
+  ["問題を整備", "最終検証", "完了"].forEach((label, index) => {
+    const item = element("li", `qualification-active-run-phase ${view.phaseStates[index]}`);
+    const copy = element("span", "qualification-active-run-phase-copy");
+    copy.append(element("strong", "", label), element("span", "", details[index]));
+    item.append(element("span", "qualification-active-run-phase-number", String(index + 1)), copy);
+    container.append(item);
+  });
+  container.hidden = !run;
+}
+
+function qualificationRunUpdatedLabel(run, progress) {
+  const timestamps = [run?.finishedAt, run?.updatedAt, run?.startedAt, progress?.current?.at]
+    .map((value) => Date.parse(value || ""))
+    .filter(Number.isFinite);
+  if (!timestamps.length) return "";
+  const updated = new Date(Math.max(...timestamps));
+  return `最終更新 ${updated.toLocaleString("ja-JP", {
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  })}`;
+}
+
 function renderQualificationActiveRun() {
-  const run = state.qualificationActiveRun;
+  const run = displayedQualificationRun();
   const container = $("#qualification-active-run");
   const history = $("#qualification-run-history");
   const historyList = $("#qualification-run-history-list");
@@ -1228,36 +1374,51 @@ function renderQualificationActiveRun() {
     );
     historyList.append(row);
   }
-  container.hidden = !run;
-  if (!run) return;
-  const status = QUALIFICATION_RUN_STATUS_LABELS[run.status] || run.status;
-  $("#qualification-active-run-status").textContent = status;
-  $("#qualification-active-run-status").className = `run-status ${run.status}`;
-  $("#qualification-active-run-title").textContent = `${run.stageCode} ${run.stageLabel}・${run.modeLabel}`;
-  const completed = (run.completedGroupIds || []).length;
-  const targetProgress = run.kind === "machine"
-    ? `${completed}/${run.targetCount}フォルダ`
-    : `${run.targetCount}${["refresh", "group_refresh"].includes(run.mode) ? "問すべて" : "問"} × ${run.stageIds?.length || 1}工程を依頼済み`;
+  const phases = $("#qualification-active-run-phases");
+  const action = $("#qualification-active-run-action");
+  const errorBox = $("#qualification-active-run-error");
+  if (!run) {
+    container.className = "qualification-active-run idle";
+    $("#qualification-active-run-eyebrow").textContent = "いまの作業";
+    $("#qualification-active-run-status").textContent = "待機中";
+    $("#qualification-active-run-status").className = "run-status idle";
+    $("#qualification-active-run-title").textContent = "現在実行中の作業はありません";
+    $("#qualification-active-run-progress").textContent = "資格・年度を選んで整備を開始できます。";
+    $("#qualification-active-run-meter-value").style.width = "0%";
+    $("#qualification-active-run-model").textContent = "";
+    $("#qualification-active-run-updated").textContent = "";
+    phases.hidden = true;
+    phases.replaceChildren();
+    errorBox.hidden = true;
+    errorBox.textContent = "";
+    action.hidden = true;
+    return;
+  }
   const progress = state.qualificationRunProgress;
-  const current = progress?.current;
-  const semanticProgress = current
-    ? `${current.listGroupId} ${current.questionLabel}・${current.stageCode || ""} ${current.stageLabel || "確認中"} / ${progress.completedQuestionCount}/${progress.targetQuestionCount}問完了`
-    : progress
-      ? `${progress.completedQuestionCount}/${progress.targetQuestionCount}問完了・開始状況を確認中`
-      : "";
+  const view = qualificationRunViewState(run, progress);
+  const statusClass = run.status === "failed" || run.status === "interrupted"
+    ? run.status
+    : run.status === "succeeded" ? "succeeded" : "running";
+  container.className = `qualification-active-run ${statusClass}`;
+  $("#qualification-active-run-eyebrow").textContent = view.active ? "いまの作業" : "直近の作業";
+  $("#qualification-active-run-status").textContent = view.statusLabel;
+  $("#qualification-active-run-status").className = `run-status ${statusClass}`;
+  $("#qualification-active-run-title").textContent = `${qualificationDisplayName(run.qualification)}・${run.modeLabel}`;
+  $("#qualification-active-run-progress").textContent = view.summary;
+  renderQualificationRunPhases(run, view);
+  $("#qualification-active-run-meter-value").style.width = `${Number(progress?.percent || (view.verified ? 100 : 0))}%`;
   const latestLog = [...(state.qualificationActiveJob?.logs || [])]
     .reverse()
     .find((line) => String(line).trim());
-  $("#qualification-active-run-progress").textContent = semanticProgress || latestLog || targetProgress;
+  const runError = run.error || state.qualificationActiveJob?.error || (view.failed ? latestLog : "");
+  errorBox.hidden = !view.failed;
+  errorBox.textContent = view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
   const model = run.model || state.codexStatus?.model || "自動選択";
   const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
   $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}`;
-  const action = $("#qualification-active-run-action");
-  action.textContent = ["queued", "running", "validating"].includes(run.status)
-    ? "進捗を見る"
-    : run.kind === "human"
-      ? "新規threadで再実行"
-      : "残りを再開";
+  $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
+  action.hidden = false;
+  action.textContent = view.active ? "進捗を見る" : "結果を見る";
 }
 
 function selectedQualificationRunMode() {
@@ -1456,6 +1617,7 @@ function openQualificationRunDialog(stage, options = {}) {
   }
   $("#qualification-run-job").hidden = true;
   $("#qualification-run-job-log").textContent = "";
+  setQualificationRunStatusDetail();
   state.qualificationRunProgress = null;
   renderQualificationRunProgress(null);
   setQualificationRunPreviewState("loading", "対象を確認しています。");
@@ -1634,9 +1796,19 @@ async function startQualificationRun(event) {
   } catch (error) {
     setQualificationRunRunning(false);
     $("#qualification-run-job").hidden = false;
-    $("#qualification-run-job-status").textContent = "処理を完了できませんでした。";
-    $("#qualification-run-preview").textContent = error.message;
     await loadQualificationRuns();
+    const failedRun = displayedQualificationRun();
+    const view = failedRun
+      ? qualificationRunViewState(failedRun, state.qualificationRunProgress)
+      : null;
+    enterQualificationProgressView(failedRun || preview);
+    renderQualificationRunProgress(state.qualificationRunProgress);
+    $("#qualification-run-job").hidden = false;
+    $("#qualification-run-job-status").textContent = view?.phase || "停止しました";
+    setQualificationRunStatusDetail(
+      humanizeQualificationRunError(failedRun?.error || error.message),
+      "failed",
+    );
     toast(error.message, true);
   }
 }
@@ -1693,6 +1865,13 @@ function compactProgressText(value, limit = 260) {
   return text.length > limit ? `${text.slice(0, limit)}…` : text;
 }
 
+function setQualificationRunStatusDetail(message = "", status = "") {
+  const detail = $("#qualification-run-status-detail");
+  detail.hidden = !message;
+  detail.textContent = message;
+  detail.className = `qualification-run-status-detail${status ? ` ${status}` : ""}`;
+}
+
 function renderQualificationRunProgress(progress) {
   const currentButton = $("#qualification-run-progress-current");
   const eventsContainer = $("#qualification-run-progress-events");
@@ -1714,7 +1893,11 @@ function renderQualificationRunProgress(progress) {
   const workTarget = Number(progress.targetWorkItemCount || 0);
   label.textContent = progress.verified
     ? `${completed}/${target}問・${workCompleted}/${workTarget}工程を検証済み`
-    : `${completed}/${target}問完了・${workCompleted}/${workTarget}工程（作業中の出力）`;
+    : progress.status === "failed"
+      ? `${completed}/${target}問・${workCompleted}/${workTarget}工程（最終検証は未承認）`
+      : Number(progress.percent || 0) >= 100
+        ? `${completed}/${target}問・${workCompleted}/${workTarget}工程の処理完了（最終検証中）`
+        : `${completed}/${target}問完了・${workCompleted}/${workTarget}工程（作業中の出力）`;
   const current = progress.current;
   currentButton.hidden = !current;
   currentButton.replaceChildren();
@@ -1859,11 +2042,21 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
   renderQualificationRunProgress(state.qualificationRunProgress);
   if (!$("#qualification-run-dialog").open) $("#qualification-run-dialog").showModal();
   while (true) {
-    const [job] = await Promise.all([
+    const [job, progress] = await Promise.all([
       api(`/api/jobs/${encodeURIComponent(jobId)}`),
       run?.runId ? loadQualificationRunProgress(run.runId) : Promise.resolve(null),
     ]);
-    $("#qualification-run-job-status").textContent = QUALIFICATION_RUN_STATUS_LABELS[job.status] || job.status;
+    const currentRun = {
+      ...(run || {}),
+      status: job.status === "running" ? progress?.status || run?.status || "running" : job.status,
+      error: job.error || run?.error || null,
+    };
+    const view = qualificationRunViewState(currentRun, progress);
+    $("#qualification-run-job-status").textContent = view.phase;
+    setQualificationRunStatusDetail(
+      view.failed ? humanizeQualificationRunError(currentRun.error) : view.summary,
+      view.failed ? "failed" : view.verified ? "succeeded" : "",
+    );
     $("#qualification-run-job-log").textContent = (job.logs || []).join("\n");
     if (job.status === "queued" || job.status === "running") {
       await new Promise((resolve) => window.setTimeout(resolve, 800));
@@ -1880,36 +2073,49 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
     await loadQuestions(true);
     if (run?.runId) await loadQualificationRunProgress(run.runId);
     $("#qualification-run-job-status").textContent = job.result?.message || "完了しました。";
+    setQualificationRunStatusDetail("最終検証に成功し、結果を承認しました。", "succeeded");
     toast(job.result?.message || "資格全体の出力を確認しました。");
     return;
   }
 }
 
 async function resumeQualificationRun() {
-  const run = state.qualificationActiveRun;
+  const run = displayedQualificationRun();
   if (!run) return;
-  if (["queued", "running", "validating"].includes(run.status) && run.jobId) {
+  const active = state.qualificationActiveRun?.runId === run.runId;
+  if (active && ["queued", "running", "validating"].includes(run.status) && run.jobId) {
     pollQualificationRunJob(run.jobId, run).catch(async (error) => {
       setQualificationRunRunning(false);
       await loadQualificationRuns();
       enterQualificationProgressView(run);
       renderQualificationRunProgress(state.qualificationRunProgress);
       $("#qualification-run-job").hidden = false;
-      $("#qualification-run-job-status").textContent = "接続を再確認しています";
+      const failedRun = displayedQualificationRun() || run;
+      const view = qualificationRunViewState(failedRun, state.qualificationRunProgress);
+      $("#qualification-run-job-status").textContent = view.phase;
+      setQualificationRunStatusDetail(
+        humanizeQualificationRunError(failedRun.error || error.message),
+        "failed",
+      );
       toast(error.message, true);
     });
     return;
   }
-  if (run.kind === "human") {
-    toast("工程又は問題詳細から開始すると、新しいCodex App Server threadで再実行します。");
-    return;
+  if (!state.qualificationRunProgress || state.qualificationRunProgress.runId !== run.runId) {
+    await loadQualificationRunProgress(run.runId);
   }
-  const stage = state.qualificationWorkflow?.stages.find((item) => item.id === run.stageId);
-  if (stage) openQualificationRunDialog(stage, {
-    mode: run.mode,
-    resumedFrom: run.runId,
-    listGroupIds: qualificationRunResumeGroupIds(run),
-  });
+  setQualificationRunRunning(false);
+  enterQualificationProgressView(run);
+  renderQualificationRunProgress(state.qualificationRunProgress);
+  $("#qualification-run-job").hidden = false;
+  $("#qualification-run-job-log").textContent = (state.qualificationActiveJob?.logs || []).join("\n");
+  const view = qualificationRunViewState(run, state.qualificationRunProgress);
+  $("#qualification-run-job-status").textContent = view.phase;
+  setQualificationRunStatusDetail(
+    view.failed ? humanizeQualificationRunError(run.error || state.qualificationActiveJob?.error) : view.summary,
+    view.failed ? "failed" : view.verified ? "succeeded" : "",
+  );
+  if (!$("#qualification-run-dialog").open) $("#qualification-run-dialog").showModal();
 }
 
 async function setListMode(exceptionsOnly) {
