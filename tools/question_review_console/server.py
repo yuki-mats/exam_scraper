@@ -52,6 +52,7 @@ from tools.question_review_console.prompt_builder import (
     is_qualification_law_audit,
 )
 from tools.question_review_console.workflow_runner import ArtifactSynchronizer, WorkflowError
+from tools.question_review_console.work_versions import QuestionWorkVersionStore
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -173,6 +174,7 @@ class QuestionReviewApplication:
         self.jobs = JobManager()
         self.app_server = app_server or CodexAppServerClient(self.repo_root)
         self.run_store = QualificationRunStore(self.repo_root)
+        self.work_versions = QuestionWorkVersionStore(self.repo_root)
         self.scoped_readback = ScopedFirestoreReadback(
             self.inventory,
             self.firestore,
@@ -182,11 +184,18 @@ class QuestionReviewApplication:
         self.synchronizer = ArtifactSynchronizer(
             self.repo_root, self.inventory, self.session_token
         )
+        self.qualification_workflow = QualificationWorkflow(
+            self.repo_root,
+            self.inventory,
+            work_versions=self.work_versions,
+        )
         self.evaluations = QuestionEvaluationService(
             self.repo_root,
             self.session_token,
             app_server=self.app_server,
             run_store=self.run_store,
+            work_versions=self.work_versions,
+            work_policy_provider=self.qualification_workflow.versioned_policies,
         )
         self.question_publisher = QuestionPublisher(
             self.repo_root,
@@ -194,9 +203,6 @@ class QuestionReviewApplication:
             self.firestore,
             self.evaluations,
             self.session_token,
-        )
-        self.qualification_workflow = QualificationWorkflow(
-            self.repo_root, self.inventory
         )
         self.canonical_documents = CanonicalDocumentStore(self.repo_root)
         self.qualification_runs = QualificationRunCoordinator(
@@ -207,6 +213,7 @@ class QuestionReviewApplication:
             self.session_token,
             store=self.run_store,
             app_server=self.app_server,
+            work_versions=self.work_versions,
         )
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
@@ -826,6 +833,8 @@ class QuestionReviewApplication:
         issue = _query_value(query, "issue")
         review_status = _query_value(query, "status")
         evaluation_status = _query_value(query, "evaluationStatus")
+        work_stage_id = _query_value(query, "workStageId")
+        work_version_status = _query_value(query, "workVersionStatus")
         exceptions_only = _query_bool(query, "exceptionsOnly", default=True)
         law_only = _query_bool(query, "lawOnly", default=False)
         firestore_mismatch = _query_bool(query, "firestoreMismatch", default=False)
@@ -838,12 +847,33 @@ class QuestionReviewApplication:
             "publishReady": 0,
             "published": 0,
         }
+        work_version_counts = {"current": 0, "outdated": 0, "unrecorded": 0}
+        work_policies = self._work_policies(qualification)
         for group in groups:
             for raw in group["questions"]:
-                question = self._decorate(raw)
+                decorator = self._decorate
+                question = (
+                    decorator(raw, work_policies=work_policies)
+                    if getattr(decorator, "__func__", None)
+                    is QuestionReviewApplication._decorate
+                    else decorator(raw)
+                )
                 decorated_issue_count += bool(question["issues"])
                 quality_bucket = self._quality_bucket(question)
                 evaluation_counts[quality_bucket] += 1
+                selected_work_stage = next(
+                    (
+                        stage
+                        for stage in question.get("workVersions", {}).get("stages", [])
+                        if stage.get("id") == work_stage_id
+                    ),
+                    None,
+                )
+                if work_stage_id and selected_work_stage is not None:
+                    state = str(selected_work_stage.get("status") or "unrecorded")
+                    bucket = "outdated" if state in {"outdated", "future"} else state
+                    if bucket in work_version_counts:
+                        work_version_counts[bucket] += 1
                 if search and search not in " ".join(
                     (
                         question.get("body", ""),
@@ -859,6 +889,17 @@ class QuestionReviewApplication:
                     continue
                 if evaluation_status and quality_bucket != evaluation_status:
                     continue
+                if work_version_status:
+                    if selected_work_stage is None:
+                        continue
+                    selected_status = str(
+                        selected_work_stage.get("status") or "unrecorded"
+                    )
+                    if work_version_status == "outdated":
+                        if selected_status not in {"outdated", "future"}:
+                            continue
+                    elif selected_status != work_version_status:
+                        continue
                 if law_only and not question["isLawRelated"]:
                     continue
                 if firestore_mismatch and question["workflow"]["firestore"] not in {
@@ -885,6 +926,7 @@ class QuestionReviewApplication:
             "questionCount": sum(group["questionCount"] for group in groups),
             "issueQuestionCount": decorated_issue_count,
             "evaluationCounts": evaluation_counts,
+            "workVersionCounts": work_version_counts,
             "filteredCount": filtered_count,
             "offset": offset,
             "limit": limit,
@@ -941,13 +983,44 @@ class QuestionReviewApplication:
                     continue
         raise ApiError(HTTPStatus.NOT_FOUND, "対象問題がありません。")
 
-    def _decorate(self, raw: Mapping[str, Any]) -> dict[str, Any]:
+    def _decorate(
+        self,
+        raw: Mapping[str, Any],
+        *,
+        work_policies: list[Mapping[str, Any]] | None = None,
+    ) -> dict[str, Any]:
         question = copy.deepcopy(dict(raw))
         machine_issue_codes = list(question.get("issueCodes") or [])
         review = self.reviews.latest_for(question)
         review_status = str(review.get("status") if review else "unreviewed")
         issues = list(question.get("issues") or [])
         codes = {str(issue.get("code")) for issue in issues}
+        work_versions = self.work_versions.status_for(
+            question,
+            work_policies or self._work_policies(str(question["qualification"])),
+        )
+        question["workVersions"] = work_versions
+        if not work_versions["allCurrent"]:
+            code = (
+                "work_policy_outdated"
+                if work_versions["outdatedStageIds"]
+                else "work_policy_unrecorded"
+            )
+            if code not in codes:
+                stage_ids = [
+                    *work_versions["outdatedStageIds"],
+                    *work_versions["unrecordedStageIds"],
+                ]
+                issues.append(
+                    {
+                        "code": code,
+                        "detail": "現行作業バージョンで未完了の工程: "
+                        + ", ".join(stage_ids),
+                        "fields": [],
+                        "priority": -2,
+                    }
+                )
+                codes.add(code)
         if review_status == "post_fix_review" and "post_fix_review" not in codes:
             issues.append(
                 {
@@ -1022,6 +1095,12 @@ class QuestionReviewApplication:
         question["publishReady"] = evaluation["publishReady"]
         question["nextAction"] = evaluation["nextAction"]
         return question
+
+    def _work_policies(self, qualification: str) -> list[Mapping[str, Any]]:
+        return [
+            *self.qualification_workflow.versioned_policies(qualification).values(),
+            self.evaluations.current_policy(),
+        ]
 
     def _run_evaluation_job(
         self,
@@ -1145,7 +1224,22 @@ class QuestionReviewApplication:
                 "explanationScore",
                 "summary",
                 "evaluatedAt",
+                "policyReady",
+                "policyVersion",
             )
+        }
+        work_versions = question.get("workVersions")
+        work_versions = work_versions if isinstance(work_versions, Mapping) else {}
+        summary["workVersions"] = {
+            "status": work_versions.get("status"),
+            "allCurrent": work_versions.get("allCurrent"),
+            "currentCount": work_versions.get("currentCount"),
+            "applicableCount": work_versions.get("applicableCount"),
+            "outdatedStageIds": list(work_versions.get("outdatedStageIds") or []),
+            "unrecordedStageIds": list(
+                work_versions.get("unrecordedStageIds") or []
+            ),
+            "stages": list(work_versions.get("stages") or []),
         }
         body = str(summary.get("body") or "")
         summary["body"] = body if len(body) <= 280 else body[:279] + "…"

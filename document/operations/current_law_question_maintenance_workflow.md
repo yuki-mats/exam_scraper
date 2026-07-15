@@ -10,6 +10,7 @@
 - e-Gov法令検索又は所管官庁の一次情報で、法令名、条・項・号、施行日、本文を確認する。
 - 根拠不足は`hold`又は`needs_secondary_review`にする。
 - `updated_to_current_law`は`tertiary_verified`後だけ公開確定する。
+- 03bの判断方法が変わる場合は03bの作業版だけを上げ、現行版で法令問題を洗い替える。問題単位の`auditMethodVersion`は使用した監査方式の証跡であり、作業版の代わりにしない。
 
 Codex App Serverでは、組み込みweb検索を一次情報の入口として使います。外部MCP、Lawzilla、Firestore条文検索は使いません。保存済みの`lawReferences`、`lawRevisionFacts`、evidence cacheは候補として読み、一次情報と一致した場合だけ根拠にします。
 

@@ -30,6 +30,7 @@ from tools.question_review_console.jobs import (
 )
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
+from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_runner import ArtifactSynchronizer
 
 
@@ -127,6 +128,23 @@ REWORK_STAGE_PATCH_DIR_NAMES = {
     "02b": STAGE_PATCH_DIR_NAMES["law_context"],
     "03": STAGE_PATCH_DIR_NAMES["explanation"],
     "03b": STAGE_PATCH_DIR_NAMES["law_audit"],
+}
+REWORK_POLICY_STAGE_IDS = {
+    "01": "question_type",
+    "02": "question_intent",
+    "02a": "correct_choice",
+    "02b": "law_context",
+    "03": "explanation",
+    "03b": "law_audit",
+    "04": "question_set",
+}
+POLICY_STAGE_BY_PATCH_DIR = {
+    "10_questionType_fixed": "question_type",
+    "15_correctChoiceText_fixed": "question_intent",
+    "23_correctChoiceText_fixed": "correct_choice",
+    "18_law_context_prepared": "law_context",
+    "21_explanationText_added": "explanation",
+    "22_questionSetId_linked": "question_set",
 }
 SNAPSHOT_IGNORED_DIR_NAMES = {
     ".git",
@@ -378,6 +396,23 @@ class QualificationRunStore:
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "targetQuestionIds": list(plan.get("targetQuestionIds") or []),
+            "targetQuestionKeys": list(plan.get("targetQuestionKeys") or []),
+            "canonicalDocs": list(plan.get("canonicalDocs") or []),
+            "catalogHash": plan.get("catalogHash"),
+            "policyVersions": {
+                str(stage_id): int(version)
+                for stage_id, version in (plan.get("policyVersions") or {}).items()
+            },
+            "policyFingerprints": {
+                str(stage_id): str(fingerprint)
+                for stage_id, fingerprint in (
+                    plan.get("policyFingerprints") or {}
+                ).items()
+            },
+            "policyTargets": {
+                str(stage_id): [str(value) for value in values or []]
+                for stage_id, values in (plan.get("policyTargets") or {}).items()
+            },
             "sourceFiles": sorted(
                 {str(value) for value in plan.get("sourceFiles") or []}
             ),
@@ -412,6 +447,7 @@ class QualificationRunStore:
             "resultReceiptHash": None,
             "receiptError": None,
             "receiptValidated": False,
+            "workVersionReceipt": None,
             "baselinePath": None,
             "baselineHash": None,
             "deltaUnknown": False,
@@ -869,6 +905,7 @@ class QualificationRunCoordinator:
         *,
         store: QualificationRunStore | None = None,
         app_server: Any | None = None,
+        work_versions: QuestionWorkVersionStore | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.workflow = workflow
@@ -877,6 +914,11 @@ class QualificationRunCoordinator:
         self.secret = secret.encode("utf-8")
         self.store = store or QualificationRunStore(self.repo_root)
         self.app_server = app_server
+        self.work_versions = (
+            work_versions
+            or getattr(workflow, "work_versions", None)
+            or QuestionWorkVersionStore(self.repo_root)
+        )
 
     def preview(
         self,
@@ -1319,6 +1361,50 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "対象file別のrecord scopeを安全に作成できません。"
             )
+        catalog_loader = getattr(self.workflow, "catalog", None)
+        catalog = (
+            catalog_loader(qualification)
+            if callable(catalog_loader)
+            else QualificationWorkflow(self.repo_root, None).catalog(qualification)
+        )
+        policy_by_id = {
+            str(stage["id"]): stage
+            for stage in catalog["stages"]
+            if stage.get("policyVersion") is not None
+        }
+        issue_types = {
+            str(value) for value in review.get("issueTypes") or [] if value
+        }
+        if review.get("requestKind") == "qualification_law_audit":
+            requested_policy_ids = {"law_audit"}
+        elif work_type == "rework" and selected_stages:
+            requested_policy_ids = {
+                REWORK_POLICY_STAGE_IDS[stage]
+                for stage in selected_stages
+                if stage in REWORK_POLICY_STAGE_IDS
+            }
+        elif issue_types & LAW_AUDIT_ISSUES:
+            requested_policy_ids = {"law_audit"}
+        else:
+            requested_policy_ids = {
+                POLICY_STAGE_BY_PATCH_DIR[patch_dir]
+                for patch_dir in allowed_patch_dirs
+                if patch_dir in POLICY_STAGE_BY_PATCH_DIR
+            }
+        policy_stage_ids = [
+            str(stage["id"])
+            for stage in catalog["stages"]
+            if str(stage["id"]) in requested_policy_ids
+        ]
+        if not policy_stage_ids:
+            raise QualificationRunError("整備対象の工程バージョンを特定できません。")
+        canonical_docs = list(
+            dict.fromkeys(
+                path
+                for stage_id in policy_stage_ids
+                for path in policy_by_id[stage_id].get("canonicalDocs") or []
+            )
+        )
         plan = {
             "qualification": qualification,
             "stageId": work_type,
@@ -1340,6 +1426,7 @@ class QualificationRunCoordinator:
             ),
             "scopeListGroupIds": target_group_ids,
             "targetQuestionIds": [question_id],
+            "targetQuestionKeys": target_record_aliases,
             "sourceFiles": source_files,
             "targetRecordAliases": target_record_aliases,
             "targetRecordAliasGroups": target_record_alias_groups,
@@ -1349,6 +1436,20 @@ class QualificationRunCoordinator:
             "stateHash": question.get("stateHash"),
             "sandbox": "workspace-write",
             "provider": self.app_server.provider,
+            "canonicalDocs": canonical_docs,
+            "catalogHash": catalog["catalogHash"],
+            "policyVersions": {
+                stage_id: int(policy_by_id[stage_id]["policyVersion"])
+                for stage_id in policy_stage_ids
+            },
+            "policyFingerprints": {
+                stage_id: str(policy_by_id[stage_id]["policyFingerprint"])
+                for stage_id in policy_stage_ids
+            },
+            "policyTargets": {
+                stage_id: list(target_record_aliases)
+                for stage_id in policy_stage_ids
+            },
             "allowedPatchDirs": sorted(allowed_patch_dirs),
             "allowedWriteAreas": sorted(allowed_write_areas),
             "allowedPatchFiles": sorted(allowed_patch_files),
@@ -1847,7 +1948,7 @@ class QualificationRunCoordinator:
             refreshed = self.store.update(
                 qualification,
                 run_id,
-                status="succeeded",
+                status="validating",
                 receiptValidated=True,
                 error=None,
             )
@@ -1856,7 +1957,15 @@ class QualificationRunCoordinator:
             if callable(invalidate):
                 for list_group_id in refreshed.get("targetGroupIds") or []:
                     invalidate(qualification, str(list_group_id))
-            emit("完了receiptと00_source不変を確認しました。")
+            work_version_receipt = self._record_work_versions(refreshed)
+            refreshed = self.store.update(
+                qualification,
+                run_id,
+                status="succeeded",
+                workVersionReceipt=work_version_receipt,
+                error=None,
+            )
+            emit("完了receipt・00_source不変・工程バージョンを確認しました。")
             return {
                 "qualification": qualification,
                 "runId": run_id,
@@ -1925,6 +2034,105 @@ class QualificationRunCoordinator:
                     path.rmdir()
                 except OSError:
                     pass
+
+    def _record_work_versions(self, run: Mapping[str, Any]) -> dict[str, Any]:
+        qualification = str(run["qualification"])
+        versions = run.get("policyVersions") or {}
+        if not versions:
+            return {"recordedCount": 0, "stages": []}
+        inventory = getattr(self.workflow, "inventory", None)
+        if inventory is None:
+            raise QualificationRunError("工程バージョン記録用inventoryがありません。")
+        questions: list[Mapping[str, Any]] = []
+        for list_group_id in run.get("targetGroupIds") or []:
+            group = inventory.group(qualification, str(list_group_id))
+            questions.extend(group.get("questions") or [])
+        policy_loader = getattr(self.workflow, "versioned_policies", None)
+        policies = (
+            policy_loader(qualification)
+            if callable(policy_loader)
+            else QualificationWorkflow(
+                self.repo_root, inventory, work_versions=self.work_versions
+            ).versioned_policies(qualification)
+        )
+        fingerprints = run.get("policyFingerprints") or {}
+        targets = run.get("policyTargets") or {}
+        planned: list[tuple[list[Mapping[str, Any]], dict[str, Any]]] = []
+        for stage_id, raw_version in versions.items():
+            stage_id = str(stage_id)
+            if stage_id not in policies:
+                raise QualificationRunError(
+                    f"実行時の工程バージョン定義を確認できません: {stage_id}"
+                )
+            run_fingerprint = str(fingerprints.get(stage_id) or "")
+            current_version = int(policies[stage_id]["policyVersion"])
+            current_fingerprint = str(
+                policies[stage_id].get("policyFingerprint") or ""
+            )
+            if (
+                int(raw_version) != current_version
+                or not run_fingerprint
+                or run_fingerprint != current_fingerprint
+            ):
+                raise QualificationRunError(
+                    f"実行中に{stage_id}の作業版又は正本文書が変更されました。"
+                    "新しいrunでやり直してください。"
+                )
+            target_values = {
+                str(value) for value in targets.get(stage_id) or [] if value
+            }
+            selected = [
+                question
+                for question in questions
+                if not target_values
+                or target_values & self._work_version_aliases(question)
+            ]
+            if target_values and not selected:
+                raise QualificationRunError(
+                    f"工程バージョンの対象問題を解決できません: {stage_id}"
+                )
+            policy = {
+                **policies[stage_id],
+                "policyVersion": int(raw_version),
+                "policyFingerprint": run_fingerprint,
+            }
+            planned.append((selected, policy))
+        for list_group_id in run.get("targetGroupIds") or []:
+            self.work_versions.load_group(qualification, str(list_group_id))
+        receipts = [
+            self.work_versions.record_stage(
+                selected,
+                policy,
+                run_id=str(run["runId"]),
+                source="validated_run",
+            )
+            for selected, policy in planned
+        ]
+        return {
+            "recordedCount": sum(
+                int(receipt.get("recordedCount") or 0) for receipt in receipts
+            ),
+            "stages": receipts,
+        }
+
+    @staticmethod
+    def _work_version_aliases(question: Mapping[str, Any]) -> set[str]:
+        aliases: set[str] = set()
+        for key in ("source", "projected"):
+            value = question.get(key)
+            if isinstance(value, Mapping):
+                aliases.update(record_identity_aliases(value))
+        aliases.update(
+            str(value)
+            for value in (
+                question.get("id"),
+                question.get("reviewKey"),
+                question.get("sourceQuestionKey"),
+                question.get("originalQuestionId"),
+            )
+            if value
+        )
+        return aliases
 
     def _failed_run_changed_files(
         self,

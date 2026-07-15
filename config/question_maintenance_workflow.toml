@@ -30,6 +30,9 @@ code = "01"
 label = "問題形式"
 purpose = "回答体験に合うquestionTypeを一問ずつ確定する"
 kind = "human"
+# 同じ入力でも判断又は出力が変わり得る変更だけ、影響する工程を+1する。
+policy_version = 1
+qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 patch_dir = "10_questionType_fixed"
 patch_suffix = "questionType_fixed"
@@ -42,6 +45,8 @@ code = "02"
 label = "設問意図"
 purpose = "正しいもの・誤っているもののどちらを選ぶ設問か確定する"
 kind = "human"
+policy_version = 1
+qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 patch_dir = "15_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
@@ -54,6 +59,8 @@ code = "02a"
 label = "正答精査"
 purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
 kind = "human"
+policy_version = 1
+qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 patch_dir = "23_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
@@ -66,6 +73,12 @@ code = "02b"
 label = "法令根拠"
 purpose = "法令関連性と現行法の根拠候補を全問で整理する"
 kind = "human"
+policy_version = 1
+qualification_document_patterns = [
+  "README.md",
+  "01_exam_profile.md",
+  "*law_reference*.md",
+]
 batch_selectable = true
 patch_dir = "18_law_context_prepared"
 patch_suffix = "lawContext_prepared"
@@ -78,6 +91,13 @@ code = "03"
 label = "解説"
 purpose = "正誤理由と学習用の補足質問を選択肢単位で整える"
 kind = "human"
+policy_version = 1
+qualification_document_patterns = [
+  "README.md",
+  "01_exam_profile.md",
+  "02_explanation_strategy.md",
+  "*law_reference*.md",
+]
 batch_selectable = true
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
@@ -90,6 +110,12 @@ code = "03b"
 label = "現行法監査"
 purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定する"
 kind = "human"
+policy_version = 1
+qualification_document_patterns = [
+  "README.md",
+  "01_exam_profile.md",
+  "*law_reference*.md",
+]
 batch_selectable = true
 issue_fields = ["lawReferences", "lawRevisionFacts"]
 documents = [
@@ -115,6 +141,12 @@ code = "04"
 label = "問題集"
 purpose = "category方針に沿って問題集へ意味的に紐付ける"
 kind = "human"
+policy_version = 1
+qualification_document_patterns = [
+  "README.md",
+  "01_exam_profile.md",
+  "03_category_preparation.md",
+]
 batch_selectable = true
 patch_dir = "22_questionSetId_linked"
 patch_suffix = "questionSetId_linked"
@@ -130,4 +162,12 @@ kind = "machine"
 documents = [
   "document/operations/delivery_workflow.md",
   "tools/question_bank/README.md",
+]
+
+[evaluation]
+policy_version = 1
+documents = ["document/operations/local_question_review_console.md"]
+inputs = [
+  "tools/question_review_console/evaluation.py",
+  "tools/question_review_console/evaluation_result.schema.json",
 ]

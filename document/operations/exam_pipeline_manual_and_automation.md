@@ -37,11 +37,11 @@ flowchart LR
 
 1. 資格と対象回を設定し、問題・画像を取得する。
 2. `00_source`を固定し、既存ファイルは変更しない。
-3. 01から03bの人間判断を、新しい整備sessionで各promptに従ってpatchへ保存する。
+3. 01から03bの人間判断を、新しい整備sessionで各promptに従ってpatchへ保存し、検証済みreceiptの工程版を問題ごとに記録する。
 4. 法令問題は02bで根拠候補を準備し、必要な問題を03bで監査する。
 5. 03cで資格全体の`category.json`を整備し、04で各問題を問題集へ紐付ける。
 6. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
-7. 整備済み問題を評価待ちへ蓄積し、任意の問題を選んで、問題ごとの新しい評価sessionで客観的に確認する。
+7. 適用対象の整備工程がすべて現行版になった問題を評価待ちへ蓄積し、任意の問題を選んで、問題ごとの新しい評価sessionで客観的に確認する。
 8. 不合格は新しい再整備sessionへ送り、再生成後にさらに新しい評価sessionで確認する。合格した問題だけを明示操作でFirestoreへ反映し、直後にreadbackする。
 
 ## 正本マップ
@@ -59,6 +59,7 @@ flowchart LR
 | 機械検証CLI | [../../tools/question_bank/README.md](../../tools/question_bank/README.md) | `quality-gate`など、日常的に実行するCLIの使い方を定義する。 |
 | merge・convert・公開 | [delivery_workflow.md](delivery_workflow.md) | upload-ready生成、機械gate、品質確認gate、Storage・Firestore反映とreadbackを定義する。 |
 | 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 複数問題の整備、後日の複数選択評価、問題ごとのFirestore反映と安全境界を定義する。 |
+| 作業バージョン | [local_question_review_console.md#作業バージョン](local_question_review_console.md#作業バージョン) | 影響工程だけを上げる判断、問題単位の履歴、旧版の洗い替えと公開条件を定義する。 |
 | 公式問題の問題報告 | [question_issue_report_workflow.md](question_issue_report_workflow.md) | blind review、correction overlay、限定公開の手順を定義する。 |
 | Lawzilla利用評価 | [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md) | Lawzillaの検索品質と改善点を記録するschemaを定義する。 |
 | 一時資料 | [../temporary/README.md](../temporary/README.md) | 日付付き監査、移行記録、単発レビューの置き場所と削除基準。 |
@@ -70,7 +71,7 @@ flowchart LR
 - 問題文と選択肢を結合した完全な命題を一問ずつ確認し、類似文言だけで一括判断しない。
 - `questionId`、`originalQuestionId`、`questionSetId`を理由なく変更しない。
 - 判断不能な問題は推測で閉じず、review sidecarまたは`hold`へ送る。
-- 別セッション確認が未実施、古い、不一致、根拠不足の問題を公開しない。
+- 適用対象の整備工程が現行版でなく、又は現在内容に対する現行版の別session評価がない問題を公開しない。
 - Firestoreへの書き込みは、依頼又はUI上の明示確認がある場合だけ行う。
 
 詳細な例外や値の意味はここへ追記せず、上の正本マップから責務を選んで更新してください。

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import fnmatch
 import hashlib
 import json
 from collections import Counter
@@ -14,6 +15,10 @@ from scripts.merge.merge_utils import (
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.projection import record_identity_aliases
 from tools.question_review_console.workflow_catalog import WorkflowCatalog
+from tools.question_review_console.work_versions import (
+    QuestionWorkVersionStore,
+    policy_fingerprint,
+)
 
 LAW_AUDIT_ISSUES = {
     "law_audit_metadata_incomplete",
@@ -25,6 +30,7 @@ RUN_MODES = {
     "group_refresh": "選択範囲を全件洗い替え",
     "remaining": "未作業のみ",
     "attention": "要確認のみ",
+    "outdated": "旧版・未記録のみ",
     "refresh": "資格全体を全件洗い替え",
 }
 
@@ -123,10 +129,17 @@ def _target_record_alias_group(question: Mapping[str, Any]) -> list[str]:
 
 
 class QualificationWorkflow:
-    def __init__(self, repo_root: Path, inventory: Any):
+    def __init__(
+        self,
+        repo_root: Path,
+        inventory: Any,
+        *,
+        work_versions: QuestionWorkVersionStore | None = None,
+    ):
         self.repo_root = repo_root.resolve()
         self.inventory = inventory
         self.catalog_store = WorkflowCatalog(self.repo_root)
+        self.work_versions = work_versions or QuestionWorkVersionStore(self.repo_root)
 
     def catalog(self, qualification: str = "") -> dict[str, Any]:
         loaded = self.catalog_store.load()
@@ -140,11 +153,24 @@ class QualificationWorkflow:
         for definition in loaded["stages"]:
             stage = dict(definition)
             stage_documents = list(stage.pop("documents", []))
+            patterns = list(stage.get("qualificationDocumentPatterns") or [])
+            stage_qualification_documents = (
+                [
+                    path
+                    for path in qualification_documents
+                    if any(
+                        fnmatch.fnmatch(Path(path).name, pattern)
+                        for pattern in patterns
+                    )
+                ]
+                if patterns
+                else qualification_documents
+            )
             stage["canonicalDocs"] = _ordered_unique(
                 [
                     *stage_documents,
                     *(
-                        qualification_documents
+                        stage_qualification_documents
                         if stage.get("kind") == "human"
                         else []
                     ),
@@ -152,10 +178,25 @@ class QualificationWorkflow:
                     *shared_documents,
                 ]
             )
+            if stage.get("policyVersion") is not None:
+                stage["policyFingerprint"] = policy_fingerprint(
+                    self.repo_root,
+                    str(loaded["catalogPath"]),
+                    stage,
+                    canonical_docs=stage["canonicalDocs"],
+                )
             stages.append(stage)
         effective_hash = hashlib.sha256(
             json.dumps(
-                [loaded["catalogHash"], qualification_documents],
+                [
+                    loaded["catalogHash"],
+                    qualification_documents,
+                    [
+                        [stage["id"], stage.get("policyFingerprint")]
+                        for stage in stages
+                        if stage.get("policyVersion") is not None
+                    ],
+                ],
                 ensure_ascii=False,
                 separators=(",", ":"),
             ).encode("utf-8")
@@ -167,6 +208,13 @@ class QualificationWorkflow:
             "catalogHash": effective_hash,
             "catalogPath": loaded["catalogPath"],
             "stages": stages,
+        }
+
+    def versioned_policies(self, qualification: str) -> dict[str, dict[str, Any]]:
+        return {
+            str(stage["id"]): dict(stage)
+            for stage in self.catalog(qualification)["stages"]
+            if stage.get("policyVersion") is not None
         }
 
     def _selected_or_expected_patch_path(
@@ -189,6 +237,15 @@ class QualificationWorkflow:
         if preferred:
             return str(sorted(preferred)[-1].relative_to(self.repo_root))
         return str(expected)
+
+    def _stage_version_status(
+        self,
+        question: Mapping[str, Any],
+        stage: Mapping[str, Any],
+    ) -> str:
+        status = self.work_versions.status_for(question, [stage])
+        stages = status.get("stages") or []
+        return str(stages[0].get("status") or "unrecorded") if stages else "unrecorded"
 
     def overview(self, qualification: str) -> dict[str, Any]:
         catalog = self.catalog(qualification)
@@ -259,6 +316,8 @@ class QualificationWorkflow:
             raise ValueError(f"対象工程がありません: {stage_id}")
         if stage_id == "source":
             raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
+        if mode == "outdated" and definition.get("policyVersion") is None:
+            raise ValueError("旧版・未記録だけの選択は工程バージョン対象でのみ使えます。")
 
         selected_group_ids, scope_provided = _group_scope(
             list_group_id, list_group_ids
@@ -342,6 +401,12 @@ class QualificationWorkflow:
             ]
             if mode in {"refresh", "group_refresh"}:
                 target_questions = applicable
+            elif mode == "outdated":
+                target_questions = [
+                    question
+                    for question in applicable
+                    if self._stage_version_status(question, definition) != "current"
+                ]
             elif mode == "attention":
                 target_questions = [
                     question
@@ -387,6 +452,12 @@ class QualificationWorkflow:
             issue_fields = set(definition.get("issueFields") or [])
             if mode in {"refresh", "group_refresh"}:
                 target_questions = questions
+            elif mode == "outdated":
+                target_questions = [
+                    question
+                    for question in questions
+                    if self._stage_version_status(question, definition) != "current"
+                ]
             elif mode == "attention":
                 target_questions = [
                     question
@@ -450,9 +521,25 @@ class QualificationWorkflow:
                 "refresh": f"{scope_label}を全件洗い替え",
                 "remaining": f"{scope_label}の未作業のみ",
                 "attention": f"{scope_label}の要確認のみ",
+                "outdated": f"{scope_label}の旧版・未記録のみ",
             }[mode]
         else:
             mode_label = RUN_MODES[mode]
+        policy_versions = (
+            {stage_id: int(definition["policyVersion"])}
+            if definition.get("policyVersion") is not None
+            else {}
+        )
+        policy_fingerprints = (
+            {stage_id: str(definition.get("policyFingerprint") or "")}
+            if definition.get("policyVersion") is not None
+            else {}
+        )
+        policy_targets = (
+            {stage_id: target_question_keys}
+            if definition.get("policyVersion") is not None
+            else {}
+        )
         return {
             "qualification": qualification,
             "stageId": stage_id,
@@ -481,6 +568,9 @@ class QualificationWorkflow:
             "outputFiles": output_files,
             "canonicalDocs": list(definition.get("canonicalDocs") or []),
             "catalogHash": catalog["catalogHash"],
+            "policyVersions": policy_versions,
+            "policyFingerprints": policy_fingerprints,
+            "policyTargets": policy_targets,
             "force": stage_id == "delivery" and mode in {"refresh", "group_refresh"},
         }
 
@@ -555,6 +645,9 @@ class QualificationWorkflow:
             audit_plan["targetCount"] = scope_plan["targetCount"]
             audit_plan["targetQuestionKeys"] = list(
                 scope_plan.get("targetQuestionKeys") or []
+            )
+            audit_plan.setdefault("policyTargets", {})["law_audit"] = list(
+                audit_plan["targetQuestionKeys"]
             )
             audit_plan["targetRecordAliasGroups"] = [
                 list(aliases)
@@ -656,6 +749,23 @@ class QualificationWorkflow:
                 for path in plan.get("canonicalDocs") or []
             ),
             "catalogHash": catalog["catalogHash"],
+            "policyVersions": {
+                str(stage_id): int(version)
+                for plan in stage_plans
+                for stage_id, version in (plan.get("policyVersions") or {}).items()
+            },
+            "policyFingerprints": {
+                str(stage_id): str(fingerprint)
+                for plan in stage_plans
+                for stage_id, fingerprint in (
+                    plan.get("policyFingerprints") or {}
+                ).items()
+            },
+            "policyTargets": {
+                str(stage_id): list(keys)
+                for plan in stage_plans
+                for stage_id, keys in (plan.get("policyTargets") or {}).items()
+            },
             "force": False,
             "stagePlans": stage_plans,
         }
@@ -739,6 +849,20 @@ class QualificationWorkflow:
             ),
             f"- 対象問題: `{target_label}`",
             f"- 工程判定: `延べ{plan.get('workItemCount', plan['targetCount'])}件`",
+            *(
+                [
+                    "- 作業バージョン: `"
+                    + " / ".join(
+                        f"{stage_id}=v{version}"
+                        for stage_id, version in (
+                            plan.get("policyVersions") or {}
+                        ).items()
+                    )
+                    + "`"
+                ]
+                if plan.get("policyVersions")
+                else []
+            ),
             "",
             "## 正本",
             "",
@@ -764,6 +888,7 @@ class QualificationWorkflow:
                 else "対象を一問ずつ読み、判断とpatch更新を完了してから次の問題へ進む。"
             ),
             "`未作業のみ`又は`要確認のみ`では、各工程の対象に該当する問題だけを更新する。",
+            "同じ入力でも判断又は出力が変わり得る正本変更は、該当工程だけを+1する。",
             *(
                 ["各問題は問題文と全選択肢を結合した命題として読み、Codex組み込みweb検索でe-Gov又は所管官庁の一次情報を開き、一問一肢ずつ根拠を照合する。"]
                 if "law_audit" in selected_stage_ids
@@ -978,6 +1103,21 @@ class QualificationWorkflow:
             for stage in definitions
             if stage.get("patchDir")
         }
+        versioned_definitions = [
+            definition
+            for definition in definitions
+            if definition.get("policyVersion") is not None
+        ]
+        version_items_by_stage: dict[
+            str, list[tuple[Mapping[str, Any], Mapping[str, Any]]]
+        ] = {
+            str(definition["id"]): [] for definition in versioned_definitions
+        }
+        for question in questions:
+            for item in self.work_versions.status_for(
+                question, versioned_definitions
+            )["stages"]:
+                version_items_by_stage[str(item["id"])].append((question, item))
         stages: list[dict[str, Any]] = []
         for index, definition in enumerate(definitions):
             stage = dict(definition)
@@ -1101,6 +1241,76 @@ class QualificationWorkflow:
                 if stage_id == "question_set" and not self.category_ready(qualification):
                     status = "waiting"
 
+            if stage.get("policyVersion") is not None:
+                version_items = version_items_by_stage[stage_id]
+                current_version_count = sum(
+                    item["status"] == "current" for _, item in version_items
+                )
+                outdated_version_count = sum(
+                    item["status"] in {"outdated", "future"}
+                    for _, item in version_items
+                )
+                unrecorded_version_count = sum(
+                    item["status"] == "unrecorded" for _, item in version_items
+                )
+                version_tracking_active = True
+                stage.update(
+                    {
+                        "versionTrackingActive": version_tracking_active,
+                        "versionCurrentCount": current_version_count,
+                        "versionOutdatedCount": outdated_version_count,
+                        "versionUnrecordedCount": unrecorded_version_count,
+                    }
+                )
+                if outdated_version_count or unrecorded_version_count:
+                    target_count = len(version_items)
+                    complete = current_version_count
+                    version_target_questions = [
+                        question
+                        for question, item in version_items
+                        if item["status"] != "current"
+                    ]
+                    combined_targets: list[Mapping[str, Any]] = []
+                    seen_targets: set[str] = set()
+                    for question in [*target_questions, *version_target_questions]:
+                        key = self._question_key(question)
+                        if key not in seen_targets:
+                            seen_targets.add(key)
+                            combined_targets.append(question)
+                    target_questions = combined_targets
+                    if stage_id == "law_audit":
+                        output_files = _unique(
+                            [
+                                *output_files,
+                                *(
+                                    self._law_audit_output_path(question)
+                                    for question in version_target_questions[:3]
+                                ),
+                            ]
+                        )
+                    elif stage.get("patchDir"):
+                        output_files = _unique(
+                            [
+                                *output_files,
+                                *(
+                                    self._selected_or_expected_patch_path(
+                                        str(question.get("paths", {}).get("source") or ""),
+                                        stage,
+                                    )
+                                    for question in version_target_questions[:3]
+                                    if question.get("paths", {}).get("source")
+                                ),
+                            ]
+                        )
+                    if status != "waiting":
+                        status = (
+                            "attention"
+                            if outdated_version_count
+                            else "not_started"
+                            if complete == 0
+                            else "in_progress"
+                        )
+
             target_files = _unique(
                 str(question.get("paths", {}).get("source") or "")
                 for question in target_questions
@@ -1137,6 +1347,18 @@ class QualificationWorkflow:
             return "資格固有の方針文書が未作成です。"
         if stage_id == "category_setup":
             return "資格全体のcategory.jsonが未作成又は不正です。"
+        outdated = int(stage.get("versionOutdatedCount") or 0)
+        unrecorded = int(stage.get("versionUnrecordedCount") or 0)
+        if stage.get("versionTrackingActive") and (outdated or unrecorded):
+            parts = [
+                value
+                for value in (
+                    f"旧版{outdated}問" if outdated else "",
+                    f"未記録{unrecorded}問" if unrecorded else "",
+                )
+                if value
+            ]
+            return "・".join(parts) + "を現行版で洗い替えます。"
         if issues:
             return f"要確認項目が{issues}件あります。"
         unit = "フォルダ" if stage_id == "delivery" else "問"

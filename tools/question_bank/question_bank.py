@@ -622,6 +622,22 @@ def add_review_ui_parser(
     parser.add_argument("--tailscale-source-ip", action="append", default=[])
 
 
+def add_work_version_backfill_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "backfill-work-versions",
+        help="Assign legacy v0 work versions to every active published question.",
+    )
+    parser.set_defaults(command="backfill-work-versions")
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Write local work_versions.json files. Without this flag, read-only dry-run.",
+    )
+    parser.add_argument("--credentials-json", type=Path)
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -717,6 +733,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_law_revision_audit_queue_parser(subparsers)
     add_law_revision_hold_materialize_parser(subparsers)
     add_review_ui_parser(subparsers)
+    add_work_version_backfill_parser(subparsers)
     add_question_issue_report_parsers(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
@@ -893,6 +910,18 @@ def main(argv: list[str] | None = None) -> int:
             tailscale_logins=args.tailscale_login,
             tailscale_source_ips=args.tailscale_source_ip,
         )
+    if args.command == "backfill-work-versions":
+        from tools.question_review_console.work_version_backfill import (
+            backfill_published_work_versions,
+        )
+
+        result = backfill_published_work_versions(
+            REPO_ROOT,
+            execute=bool(args.execute),
+            credentials_json=args.credentials_json,
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0 if result["status"] in {"ready", "succeeded"} else 1
     if args.command in {
         "report-inventory",
         "report-snapshot",

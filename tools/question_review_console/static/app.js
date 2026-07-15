@@ -22,6 +22,8 @@ const ISSUE_LABELS = {
   post_fix_review: "修正後確認",
   manual_flag: "手動要確認",
   direct_edit: "直接編集",
+  work_policy_outdated: "旧版工程あり",
+  work_policy_unrecorded: "工程版未記録",
   other: "その他",
 };
 
@@ -359,7 +361,7 @@ function bindControls() {
     "資格のFirestoreを確認",
     "選択中の資格に含まれる全フォルダを本番Firestoreから読み取ります。書き込みは行いません。取得結果と取得日時はローカルに保存され、後から問題ごとの差分を確認できます。",
   ));
-  for (const selector of ["#law-only", "#firestore-mismatch", "#issue-select", "#review-status-select", "#evaluation-status-select"]) {
+  for (const selector of ["#law-only", "#firestore-mismatch", "#issue-select", "#review-status-select", "#evaluation-status-select", "#work-version-select"]) {
     $(selector).addEventListener("change", () => {
       clearEvaluationSelection();
       loadQuestions(false);
@@ -518,6 +520,17 @@ function renderQualificationWorkflow() {
   const selectedStage = workflow.stages.find(
     (stage) => stage.id === state.qualificationWorkflowStageId,
   ) || nextStage || workflow.stages[0];
+  const workVersionLabel = $("#work-version-label");
+  const workVersionSelect = $("#work-version-select");
+  if (workVersionLabel) {
+    workVersionLabel.textContent = selectedStage?.policyVersion
+      ? `${selectedStage.code} v${selectedStage.policyVersion}`
+      : "作業バージョン";
+  }
+  if (workVersionSelect) {
+    workVersionSelect.disabled = !selectedStage?.policyVersion;
+    if (workVersionSelect.disabled) workVersionSelect.value = "";
+  }
   const overallLabel = workflow.overallStatus === "ready"
     ? "ローカル整備完了"
     : workflow.overallStatus === "attention"
@@ -549,7 +562,7 @@ function renderQualificationWorkflow() {
     const head = element("span", "qualification-stage-head");
     head.append(
       element("span", "qualification-stage-code", stage.code),
-      element("strong", "", stage.label),
+      element("strong", "", `${stage.label}${stage.policyVersion ? ` v${stage.policyVersion}` : ""}`),
     );
     const progress = stage.status === "waiting"
       ? QUALIFICATION_WORKFLOW_LABELS.waiting
@@ -562,9 +575,11 @@ function renderQualificationWorkflow() {
       element("span", "qualification-stage-progress", progress),
     );
     item.addEventListener("click", () => {
+      const versionFilterWasActive = Boolean($("#work-version-select")?.value);
       state.qualificationWorkflowStageId = stage.id;
       renderQualificationWorkflow();
       if (state.workflowGuide.open) openWorkflowGuide(stage.id);
+      if (versionFilterWasActive) loadQuestions(false);
     });
     stageList.append(item);
   }
@@ -1204,14 +1219,19 @@ function openQualificationRunDialog(stage, options = {}) {
   const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
   const supportsScope = qualificationRunSupportsGroupScope(stage);
   const groupRefreshLabel = $("#qualification-run-group-refresh");
+  const outdatedLabel = $("#qualification-run-outdated");
   const refreshLabel = $("#qualification-run-refresh");
   groupRefreshLabel.hidden = !supportsScope;
   refreshLabel.hidden = supportsScope && options.mode !== "refresh";
+  outdatedLabel.hidden = !stage.policyVersion;
   groupRefresh.disabled = !supportsScope;
   const visibleModeCount = $("#qualification-run-mode-fieldset").querySelectorAll(".run-mode-options > label:not([hidden])").length;
   $("#qualification-run-mode-fieldset").style.setProperty("--run-mode-count", String(visibleModeCount));
-  const defaultMode = options.mode || (supportsScope
-    ? "group_refresh"
+  const defaultMode = options.mode || (stage.versionTrackingActive
+    && (stage.versionOutdatedCount || stage.versionUnrecordedCount)
+    ? "outdated"
+    : supportsScope
+      ? "group_refresh"
     : stage.status === "ready"
       ? "refresh"
       : stage.completeCount === stage.targetCount && stage.issueCount > 0
@@ -1501,10 +1521,15 @@ function listQuery(offset = 0) {
   const issue = $("#issue-select").value;
   const reviewStatus = $("#review-status-select").value;
   const evaluationStatus = $("#evaluation-status-select").value;
+  const workVersionStatus = $("#work-version-select").value;
   if (search) params.set("search", search);
   if (issue) params.set("issue", issue);
   if (reviewStatus) params.set("status", reviewStatus);
   if (evaluationStatus) params.set("evaluationStatus", evaluationStatus);
+  if (workVersionStatus && state.qualificationWorkflowStageId) {
+    params.set("workStageId", state.qualificationWorkflowStageId);
+    params.set("workVersionStatus", workVersionStatus);
+  }
   return params;
 }
 
@@ -1538,6 +1563,7 @@ async function loadQuestions(preserveSelection, append = false) {
     state.questionPage.hasMore = payload.hasMore;
     renderQueue();
     const counts = payload.evaluationCounts || {};
+    const workCounts = payload.workVersionCounts || {};
     $("#list-summary").textContent = [
       `評価範囲 ${evaluationScopeLabel()}`,
       `${state.questions.length}/${payload.filteredCount}件表示`,
@@ -1546,6 +1572,9 @@ async function loadQuestions(preserveSelection, append = false) {
       `要再整備${counts.needsRework || 0}`,
       `公開可能${counts.publishReady || 0}`,
       `反映済み${counts.published || 0}`,
+      ...($("#work-version-select").value
+        ? [`現行版${workCounts.current || 0}・旧版${workCounts.outdated || 0}・未記録${workCounts.unrecorded || 0}`]
+        : []),
     ].join(" / ");
     updateEvaluationSelectionControls();
     const selectedStillExists = state.questions.some((question) => question.id === state.selectedId);
@@ -1597,6 +1626,7 @@ function renderQueue() {
       ...(state.listGroupId === ALL_LIST_GROUPS
         ? [element("span", "queue-group", question.listGroupId)]
         : []),
+      workVersionBadge(question),
       evaluationBadge(question),
     );
     const body = element("p", "queue-body", question.body || "（問題文なし）");
@@ -1629,6 +1659,29 @@ function evaluationDisplay(question) {
 function evaluationBadge(question) {
   const display = evaluationDisplay(question);
   return element("span", `queue-quality ${display.tone}`, display.label);
+}
+
+function selectedWorkVersion(question) {
+  return question.workVersions?.stages?.find(
+    (stage) => stage.id === state.qualificationWorkflowStageId,
+  ) || null;
+}
+
+function workVersionBadge(question) {
+  const stage = selectedWorkVersion(question);
+  if (!stage) return element("span", "work-version-badge neutral", "版対象外");
+  const recorded = stage.recordedVersion === null ? "未記録" : `v${stage.recordedVersion}`;
+  const transition = stage.status === "current"
+    ? recorded
+    : `${recorded}→v${stage.currentVersion}`;
+  const tone = stage.status === "current"
+    ? "good"
+    : stage.status === "unrecorded"
+      ? "neutral"
+      : "warning";
+  const badge = element("span", `work-version-badge ${tone}`, `${stage.code} ${transition}`);
+  badge.title = stage.detail || "";
+  return badge;
 }
 
 function clearEvaluationSelection() {
@@ -1742,7 +1795,7 @@ function renderDetail() {
   header.append(titleRow, renderWorkflow(question), renderPipelineActions(question));
   pane.append(header);
 
-  pane.append(renderEvaluationPanel(question));
+  pane.append(renderWorkVersionPanel(question), renderEvaluationPanel(question));
 
   const requiredWarning = renderRequiredFieldWarning(question);
   if (requiredWarning) pane.append(requiredWarning);
@@ -1784,6 +1837,39 @@ function renderDetail() {
   if (question.isLawRelated) pane.append(renderLawSection(question.projected || {}));
   if (question.review) pane.append(renderReviewSection(question));
   pane.append(renderDataSection(question));
+}
+
+function renderWorkVersionPanel(question) {
+  const workVersions = question.workVersions || {};
+  const node = element("section", `work-version-panel ${workVersions.allCurrent ? "good" : "warning"}`);
+  const heading = element("div", "work-version-heading");
+  heading.append(
+    element("h3", "", "作業バージョン"),
+    element(
+      "span",
+      `work-version-overall ${workVersions.allCurrent ? "good" : "warning"}`,
+      workVersions.allCurrent ? "全工程が現行版" : "洗い替えあり",
+    ),
+  );
+  const stages = element("div", "work-version-stages");
+  for (const stage of workVersions.stages || []) {
+    const recorded = stage.recordedVersion === null ? "未記録" : `v${stage.recordedVersion}`;
+    const text = stage.status === "current"
+      ? `${stage.code} ${stage.label} ${recorded}`
+      : `${stage.code} ${stage.label} ${recorded} → v${stage.currentVersion}`;
+    const item = element("span", `work-version-stage ${stage.status}`, text);
+    item.title = stage.detail || "";
+    stages.append(item);
+  }
+  node.append(heading, stages);
+  if (!workVersions.allCurrent) {
+    node.append(element(
+      "p",
+      "work-version-summary",
+      "旧版又は未記録の工程だけを選び、現行版で一問ずつ洗い替えます。",
+    ));
+  }
+  return node;
 }
 
 function renderEvaluationPanel(question) {

@@ -546,6 +546,8 @@ class WorkflowUiContractTests(unittest.TestCase):
             "bulk-readback-button",
             "bulk-readback-help",
             "evaluation-status-select",
+            "work-version-select",
+            "work-version-label",
             "select-visible",
             "bulk-evaluate-button",
             "readback-dialog",
@@ -555,6 +557,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "help-dialog-title",
             "help-dialog-content",
             "confirm-validation",
+            "qualification-run-outdated",
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (
@@ -599,6 +602,8 @@ class WorkflowUiContractTests(unittest.TestCase):
             "toggleVisibleQuestionSelection",
             "updateEvaluationSelectionControls",
             "renderEvaluationPanel",
+            "renderWorkVersionPanel",
+            "workVersionBadge",
             "evaluationScopeLabel",
         ):
             self.assertIn(f"function {function_name}", javascript)
@@ -673,6 +678,12 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertNotIn('"/api/qualification-runs/resume-prompt"', javascript)
         self.assertIn('offset: String(offset)', javascript)
         self.assertIn('limit: String(state.questionPage.limit)', javascript)
+        self.assertIn('params.set("workStageId", state.qualificationWorkflowStageId)', javascript)
+        self.assertIn('params.set("workVersionStatus", workVersionStatus)', javascript)
+        self.assertIn("workVersionSelect.disabled = !selectedStage?.policyVersion", javascript)
+        self.assertIn("outdatedLabel.hidden = !stage.policyVersion", javascript)
+        self.assertIn('value="outdated"', html)
+        self.assertIn("旧版・未記録のみ", html)
         self.assertIn('stage.completeCount === stage.targetCount && stage.issueCount > 0', javascript)
         self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
         self.assertIn('`すべて（${groups.length}件）`', javascript)

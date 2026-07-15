@@ -28,6 +28,36 @@ def _document_path(value: Any) -> str:
     return path
 
 
+def _artifact_path(value: Any) -> str:
+    path = str(value or "").strip()
+    parsed = PurePosixPath(path)
+    if not path or parsed.is_absolute() or ".." in parsed.parts or parsed.suffix == "":
+        raise ValueError(f"workflow artifact pathが不正です: {path}")
+    return path
+
+
+def _policy_version(value: Any, field: str, *, required: bool = False) -> int | None:
+    if value is None and not required:
+        return None
+    if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+        raise ValueError(f"{field}は1以上の整数で指定してください。")
+    return value
+
+
+def _document_patterns(value: Any, field: str) -> list[str]:
+    patterns = _string_list(value, field)
+    if any(
+        not pattern
+        or "/" in pattern
+        or "\\" in pattern
+        or ".." in pattern
+        or not pattern.endswith(".md")
+        for pattern in patterns
+    ):
+        raise ValueError(f"{field}は資格文書の安全なMarkdown basenameで指定してください。")
+    return patterns
+
+
 def _string_list(value: Any, field: str) -> list[str]:
     if value is None:
         return []
@@ -55,6 +85,7 @@ class WorkflowCatalog:
         return {
             "system": system,
             "stages": stages,
+            "evaluation": self._evaluation(parsed.get("evaluation")),
             "catalogHash": hashlib.sha256(raw).hexdigest(),
             "catalogPath": str(self.path),
         }
@@ -118,6 +149,15 @@ class WorkflowCatalog:
                 "purpose": str(raw["purpose"]),
                 "kind": kind,
                 "batchSelectable": bool(raw.get("batch_selectable", False)),
+                "policyVersion": _policy_version(
+                    raw.get("policy_version"),
+                    f"{stage_id}.policy_version",
+                    required=bool(raw.get("batch_selectable", False)),
+                ),
+                "qualificationDocumentPatterns": _document_patterns(
+                    raw.get("qualification_document_patterns"),
+                    f"{stage_id}.qualification_document_patterns",
+                ),
                 "documents": [
                     _document_path(path)
                     for path in _string_list(raw.get("documents"), f"{stage_id}.documents")
@@ -185,3 +225,30 @@ class WorkflowCatalog:
                 "複数工程へ含められないstageです: " + ", ".join(invalid_batch_stages)
             )
         return stages
+
+    @staticmethod
+    def _evaluation(value: Any) -> dict[str, Any] | None:
+        if value is None:
+            return None
+        if not isinstance(value, Mapping):
+            raise ValueError("workflow catalogの[evaluation]が不正です。")
+        return {
+            "id": "evaluation",
+            "code": "評価",
+            "label": "別セッション評価",
+            "policyVersion": _policy_version(
+                value.get("policy_version"),
+                "evaluation.policy_version",
+                required=True,
+            ),
+            "documents": [
+                _document_path(path)
+                for path in _string_list(
+                    value.get("documents"), "evaluation.documents"
+                )
+            ],
+            "inputs": [
+                _artifact_path(path)
+                for path in _string_list(value.get("inputs"), "evaluation.inputs")
+            ],
+        }

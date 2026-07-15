@@ -32,6 +32,9 @@ def question(*, patches=None, issues=None, law_related=False, workflow=None, gro
     original_id = f"sample-{group}-q1"
     return {
         "id": original_id,
+        "reviewKey": f"sample:{group}:question_{group}_1:{original_id}",
+        "qualification": "sample",
+        "listGroupId": group,
         "originalQuestionId": original_id,
         "paths": {
             "source": f"output/sample/questions_json/{group}/00_source/question_{group}_1.json",
@@ -67,6 +70,17 @@ def write_category(root: Path, qualification: str = "sample") -> None:
         ),
         encoding="utf-8",
     )
+
+
+def mark_current(workflow, item, stage_ids):
+    policies = workflow.versioned_policies("sample")
+    for stage_id in stage_ids:
+        workflow.work_versions.record_stage(
+            [item],
+            policies[stage_id],
+            run_id=f"run-{stage_id}",
+            source="validated_run",
+        )
 
 
 class QualificationWorkflowTests(unittest.TestCase):
@@ -172,6 +186,19 @@ class QualificationWorkflowTests(unittest.TestCase):
                 "sample", [{"listGroupId": "2026", "questions": [item]}]
             )
             workflow = QualificationWorkflow(root, inventory)
+            mark_current(
+                workflow,
+                item,
+                [
+                    "question_type",
+                    "question_intent",
+                    "correct_choice",
+                    "law_context",
+                    "explanation",
+                    "law_audit",
+                    "question_set",
+                ],
+            )
 
             with_issue = workflow.overview("sample")
             item["issues"] = []
@@ -202,6 +229,11 @@ class QualificationWorkflowTests(unittest.TestCase):
             workflow = QualificationWorkflow(
                 root,
                 FakeInventory("sample", [{"listGroupId": "2026", "questions": [item]}]),
+            )
+            mark_current(
+                workflow,
+                item,
+                ["question_type", "question_intent"],
             )
 
             overview = workflow.overview("sample")
@@ -295,6 +327,43 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(attention["targetCount"], 1)
         self.assertEqual(refresh["targetCount"], 1)
 
+    def test_outdated_mode_selects_only_questions_below_current_stage_version(self):
+        item = question()
+        item.update(
+            {
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "reviewKey": "sample:2026:question_2026_1:sample-2026-q1",
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample", [{"listGroupId": "2026", "questions": [item]}]
+                ),
+            )
+            stage = workflow.versioned_policies("sample")["question_type"]
+            unrecorded = workflow.plan("sample", "question_type", "outdated")
+            workflow.work_versions.record_stage(
+                [item],
+                stage,
+                run_id=None,
+                source="firestore_published_backfill",
+                version=0,
+                policy_fingerprint_override="legacy-unknown",
+            )
+            legacy = workflow.plan("sample", "question_type", "outdated")
+            workflow.work_versions.record_stage(
+                [item], stage, run_id="run-1", source="validated_run"
+            )
+            current = workflow.plan("sample", "question_type", "outdated")
+
+        self.assertEqual(unrecorded["targetCount"], 1)
+        self.assertEqual(legacy["targetCount"], 1)
+        self.assertEqual(legacy["policyVersions"], {"question_type": 1})
+        self.assertEqual(current["targetCount"], 0)
+
     def test_group_refresh_targets_only_the_selected_year(self):
         with tempfile.TemporaryDirectory() as directory:
             workflow = QualificationWorkflow(
@@ -376,12 +445,24 @@ class QualificationWorkflowTests(unittest.TestCase):
             policy_dir = root / "prompt" / "qualification_docs" / "sample"
             policy_dir.mkdir(parents=True)
             (policy_dir / "README.md").write_text("# sample\n", encoding="utf-8")
+            item = question(patches=patches)
             workflow = QualificationWorkflow(
                 root,
                 FakeInventory(
                     "sample",
-                    [{"listGroupId": "2026", "questions": [question(patches=patches)]}],
+                    [{"listGroupId": "2026", "questions": [item]}],
                 ),
+            )
+            mark_current(
+                workflow,
+                item,
+                [
+                    "question_type",
+                    "question_intent",
+                    "correct_choice",
+                    "law_context",
+                    "explanation",
+                ],
             )
             before = workflow.overview("sample")
             category_plan = workflow.plan("sample", "category_setup", "remaining")

@@ -81,6 +81,12 @@ class SourceOnlyInventory:
             "questions": [
                 {
                     "id": original_id,
+                    "reviewKey": (
+                        f"new-exam:{list_group_id}:"
+                        f"question_{list_group_id}_1:{original_id}"
+                    ),
+                    "qualification": "new-exam",
+                    "listGroupId": list_group_id,
                     "originalQuestionId": original_id,
                     "paths": {
                         "source": (
@@ -112,6 +118,82 @@ class MultiGroupSourceInventory(SourceOnlyInventory):
         }
 
 class QualificationRunTests(unittest.TestCase):
+    def test_validated_run_records_only_the_manifest_stage_version(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, SourceOnlyInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            policy = workflow.versioned_policies("new-exam")["question_type"]
+            run = {
+                "runId": "run-question-type",
+                "qualification": "new-exam",
+                "targetGroupIds": ["2026"],
+                "policyVersions": {"question_type": policy["policyVersion"]},
+                "policyFingerprints": {
+                    "question_type": policy["policyFingerprint"]
+                },
+                "policyTargets": {"question_type": ["new-exam-2026-q1"]},
+            }
+
+            receipt = coordinator._record_work_versions(run)
+            item = SourceOnlyInventory().group("new-exam", "2026")["questions"][0]
+            status = workflow.work_versions.status_for(
+                item,
+                workflow.versioned_policies("new-exam").values(),
+            )
+
+        self.assertEqual(receipt["recordedCount"], 1)
+        by_id = {stage["id"]: stage for stage in status["stages"]}
+        self.assertEqual(by_id["question_type"]["status"], "current")
+        self.assertEqual(by_id["question_intent"]["status"], "unrecorded")
+
+    def test_run_policy_drift_blocks_version_recording(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, SourceOnlyInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            policies = workflow.versioned_policies("new-exam")
+            question_type = policies["question_type"]
+            question_intent = policies["question_intent"]
+
+            with self.assertRaisesRegex(QualificationRunError, "実行中"):
+                coordinator._record_work_versions(
+                    {
+                        "runId": "run-stale",
+                        "qualification": "new-exam",
+                        "targetGroupIds": ["2026"],
+                        "policyVersions": {
+                            "question_type": question_type["policyVersion"],
+                            "question_intent": question_intent["policyVersion"],
+                        },
+                        "policyFingerprints": {
+                            "question_type": question_type["policyFingerprint"],
+                            "question_intent": "stale",
+                        },
+                        "policyTargets": {
+                            "question_type": ["new-exam-2026-q1"],
+                            "question_intent": ["new-exam-2026-q1"],
+                        },
+                    }
+                )
+            version_path_exists = workflow.work_versions.path_for(
+                "new-exam", "2026"
+            ).exists()
+
+        self.assertFalse(version_path_exists)
+
     def test_qualification_stage_writable_roots_are_limited_to_its_patch_layer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
@@ -225,6 +307,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
+        self.assertEqual(run["policyVersions"], {"explanation": 1})
 
     def test_qualification_law_audit_preserves_trusted_sources_and_record_scope(self):
         class FakeAppServer:
@@ -284,6 +367,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["targetRecordAliasGroups"], [["q1"], ["q2"]])
         self.assertEqual(run["targetRecordAliases"], ["q1", "q2"])
         self.assertEqual(run["targetCount"], 2)
+        self.assertEqual(run["policyVersions"], {"law_audit": 1})
         expected_record_files = {
             path
             for path in [*run["allowedPatchFiles"], *run["allowedWriteFiles"]]

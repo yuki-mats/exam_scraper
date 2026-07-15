@@ -474,6 +474,67 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertTrue(result["hasMore"])
         self.assertEqual(result["questions"][0]["id"], "question-50")
 
+    def test_question_list_filters_the_selected_stage_work_version(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2026"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                questions = []
+                for status in ("current", "outdated", "unrecorded"):
+                    questions.append(
+                        {
+                            "id": f"question-{status}",
+                            "listGroupId": list_group_id,
+                            "body": status,
+                            "questionLabel": status,
+                            "sourceQuestionKey": f"sample:2026:{status}",
+                            "issues": [],
+                            "issueCodes": [],
+                            "reviewStatus": "unreviewed",
+                            "isLawRelated": False,
+                            "workflow": {"firestore": "unread"},
+                            "workVersions": {
+                                "stages": [
+                                    {"id": "question_type", "status": status}
+                                ]
+                            },
+                        }
+                    )
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": "fingerprint",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            result = app._questions(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                    "exceptionsOnly": ["false"],
+                    "workStageId": ["question_type"],
+                    "workVersionStatus": ["outdated"],
+                }
+            )
+
+        self.assertEqual(result["filteredCount"], 1)
+        self.assertEqual(result["questions"][0]["id"], "question-outdated")
+        self.assertEqual(
+            result["workVersionCounts"],
+            {"current": 1, "outdated": 1, "unrecorded": 1},
+        )
+
     def test_single_question_readback_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))

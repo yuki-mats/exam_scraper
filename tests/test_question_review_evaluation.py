@@ -264,6 +264,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             )["evaluation"]
 
             current = service.status_for(question)
+            version_record = service.work_versions.record_for(question)
             changed = copy.deepcopy(question)
             changed["stateHash"] = "state-2"
             stale = service.status_for(changed)
@@ -271,8 +272,56 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], 1)
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
+
+    def test_evaluation_freshness_uses_version_not_document_fingerprint(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            original_policy = service.current_policy()
+            service.current_policy = lambda: {
+                **original_policy,
+                "policyFingerprint": "non-semantic-document-change",
+            }
+            same_version = service.status_for(question)
+            service.current_policy = lambda: {
+                **original_policy,
+                "policyVersion": int(original_policy["policyVersion"]) + 1,
+                "policyFingerprint": "new-evaluation-policy",
+            }
+            next_version = service.status_for(question)
+
+        self.assertEqual(same_version["status"], "passed")
+        self.assertEqual(next_version["status"], "stale")
+
+    def test_current_work_policy_is_required_before_evaluation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            question = question_payload()
+            question["workVersions"] = {
+                "allCurrent": False,
+                "outdatedStageIds": ["question_type"],
+                "unrecordedStageIds": [],
+            }
+
+            status = service.status_for(question)
+            preview = service.preview(question)
+
+        self.assertFalse(status["policyReady"])
+        self.assertFalse(status["machineReady"])
+        self.assertFalse(preview["canEvaluate"])
 
     def test_server_recomputes_failure_when_reported_pass_disagrees_with_current_answer(self):
         with tempfile.TemporaryDirectory() as directory:

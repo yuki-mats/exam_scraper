@@ -98,6 +98,15 @@ class WorkflowCatalogTests(unittest.TestCase):
             *(path for stage in catalog["stages"] for path in stage["documents"]),
         }
         self.assertTrue(all((ROOT / path).is_file() for path in document_paths))
+        versioned = [
+            stage for stage in catalog["stages"] if stage.get("batchSelectable")
+        ]
+        self.assertTrue(versioned)
+        self.assertTrue(all(stage["policyVersion"] == 1 for stage in versioned))
+        self.assertEqual(catalog["evaluation"]["policyVersion"], 1)
+        self.assertTrue(
+            all((ROOT / path).is_file() for path in catalog["evaluation"]["inputs"])
+        )
         workflow_source = (
             ROOT / "tools" / "question_review_console" / "qualification_workflow.py"
         ).read_text(encoding="utf-8")

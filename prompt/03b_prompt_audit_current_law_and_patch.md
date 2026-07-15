@@ -28,7 +28,7 @@
 - `lawReferences` の `verified` は、法令名・`lawId`・条番号まで確認できた場合だけ使う。
 - 条文本文の長文転載は禁止する。必要な事実を要約し、`lawId` / `lawRevisionId` / `elm` / `articleTextHash` / `textHash` を `lawRevisionFacts` に残す。
 - `referenceDate` は条文基準日、`auditedAt` は監査判断を確定した日時として分ける。
-- `auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査 run ID を残し、年次監査や方式更新時に再現可能にする。
+- `auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査 run ID を残し、年次監査や方式更新時に再現可能にする。`auditMethodVersion`は問題内の監査証跡であり、03bの作業版は問題整備システムが別に記録する。
 
 ## 入力の参照順
 

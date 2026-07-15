@@ -102,6 +102,15 @@
           <option value="published">反映済み</option>
         </select>
       </label>
+      <label>
+        <span id="work-version-label">作業バージョン</span>
+        <select id="work-version-select">
+          <option value="">すべて</option>
+          <option value="current">現行版</option>
+          <option value="outdated">旧版</option>
+          <option value="unrecorded">未記録</option>
+        </select>
+      </label>
       <label class="check-control evaluation-select-visible"><input id="select-visible" type="checkbox"> <span id="select-visible-label">一覧を選択</span></label>
       <button id="bulk-evaluate-button" class="primary-button" type="button" disabled>選択した問題を評価</button>
       <div class="action-with-help">
@@ -156,6 +165,7 @@
               <label id="qualification-run-group-refresh"><input type="radio" name="qualification-run-mode" value="group_refresh" checked><span id="qualification-run-group-refresh-label">選択年度を全件洗い替え</span></label>
               <label><input type="radio" name="qualification-run-mode" value="remaining"><span>未作業のみ</span></label>
               <label><input type="radio" name="qualification-run-mode" value="attention"><span>要確認のみ</span></label>
+              <label id="qualification-run-outdated"><input type="radio" name="qualification-run-mode" value="outdated"><span>旧版・未記録のみ</span></label>
               <label id="qualification-run-refresh"><input type="radio" name="qualification-run-mode" value="refresh"><span>資格全体を全件洗い替え</span></label>
             </div>
           </fieldset>

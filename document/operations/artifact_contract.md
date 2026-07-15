@@ -25,6 +25,14 @@ output/<qualification>/
   category/category.json
   law_evidence/<exam_occurrence_id>/
   reports/
+output/question_review_console/
+  <qualification>/<listGroupId>/
+    work_versions.json
+    evaluations/
+    reviews/
+  workflow_runs/<qualification>/<runId>/
+  work_version_backfills/<timestamp>/manifest.json
+  publish_runs/<qualification>/<runId>/
 ```
 
 `<qualification>`は人が読めるkebab-caseのローカル資格コードとします。本番Firestoreで既存`qualificationId`を維持する必要がある場合は、`config/scrape_presets.json`の`publication_qualification_id`へ分離します。
@@ -63,11 +71,13 @@ output/<qualification>/
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
+| work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 問題ごとの工程版履歴。patch又はFirestore fieldではない。 |
 | session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | Codex App Serverで実行した整備・評価・再整備の`manifest.json`、`prompt.md`、`result.json`。整備系は再起動回収用`baseline.json`と`agent_output/result.json`を持つ。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
+| work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0`へ初期化した対象、照合結果、件数のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-session runは`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、sandbox、時刻、状態をmanifestへ保存します。run directoryは再利用しません。`evaluations/`はUI向けの最新projectionに限定し、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)、有効性と公開条件は[問題整備システム](local_question_review_console.md)を正本とします。
+session runは`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`、sandbox、時刻、状態をmanifestへ保存し、成功時だけ`workVersionReceipt`を持ちます。run directoryは再利用しません。`evaluations/`はUI向けの最新projectionに限定し、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)、作業版の意味、有効性、公開条件は[問題整備システム](local_question_review_console.md)を正本とします。
 
 ## 編集境界
 
@@ -76,5 +86,6 @@ session runは`workType`、`sessionId`、`threadId`、`turnId`、対象、`state
 - `12`、`20`、`30`、`40`、`upload_to_firestore`は生成物であり、直接修正しない。
 - 不確実性と監査履歴をFirestore用recordへ未知fieldとして混ぜない。
 - 品質確認artifactと公開flagはreview専用であり、patch、merged、Firestore question documentへ混ぜない。
+- `work_versions.json`はserverだけが検証済みreceipt又は明示的なbackfillから更新し、patch、merged、upload-ready、Firestore question documentへ複製しない。
 - 新fieldを公開artifactへ入れる前に、field契約、repaso schema、convert、upload、quality-gateを同時に更新する。
 - 正誤が02a又は03bで変わった場合は`23`を更新し、`20`と03以降を再生成する。

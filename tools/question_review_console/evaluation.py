@@ -9,6 +9,7 @@ import os
 import secrets
 import tempfile
 import threading
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
@@ -16,6 +17,10 @@ from typing import Any, Callable, Mapping
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_runs import QualificationRunStore
+from tools.question_review_console.work_versions import (
+    QuestionWorkVersionStore,
+    evaluation_policy,
+)
 from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 
 
@@ -136,6 +141,8 @@ class EvaluationStore:
         turn_id: str | None = None,
         run_id: str | None = None,
         work_type: str = "evaluation",
+        policy_version: int,
+        policy_fingerprint: str,
     ) -> dict[str, Any]:
         validated = self._validate_result(question, worker_result)
         payload = {
@@ -151,6 +158,8 @@ class EvaluationStore:
             "turnId": turn_id,
             "runId": run_id,
             "workType": work_type,
+            "policyVersion": policy_version,
+            "policyFingerprint": policy_fingerprint,
             "provider": provider,
             "startedAt": started_at,
             "evaluatedAt": _now(),
@@ -365,6 +374,8 @@ class QuestionEvaluationService:
         result_runner: Callable[[str], Mapping[str, Any]] | None = None,
         app_server: Any | None = None,
         run_store: QualificationRunStore | None = None,
+        work_versions: QuestionWorkVersionStore | None = None,
+        work_policy_provider: Callable[[str], Any] | None = None,
         concurrency: int | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
@@ -374,6 +385,11 @@ class QuestionEvaluationService:
         self.result_runner = result_runner
         self.app_server = app_server
         self.run_store = run_store or QualificationRunStore(self.repo_root)
+        self.work_versions = work_versions or QuestionWorkVersionStore(self.repo_root)
+        self.work_policy_provider = work_policy_provider
+        self._policy_lock = threading.RLock()
+        self._policy = evaluation_policy(self.repo_root)
+        self._policy_checked_at = time.monotonic()
         self.concurrency = concurrency or self._concurrency_from_environment()
         self.provider = (
             str(app_server.provider)
@@ -391,7 +407,16 @@ class QuestionEvaluationService:
             self.app_server is not None and self.app_server.configured
         )
 
+    def current_policy(self, *, force: bool = False) -> dict[str, Any]:
+        now = time.monotonic()
+        with self._policy_lock:
+            if force or now - self._policy_checked_at >= 1:
+                self._policy = evaluation_policy(self.repo_root)
+                self._policy_checked_at = now
+            return copy.deepcopy(self._policy)
+
     def preview(self, question: Mapping[str, Any]) -> dict[str, Any]:
+        policy = self.current_policy()
         status = self.status_for(question)
         can_evaluate = bool(self.configured and status["machineReady"])
         token_payload = {
@@ -399,6 +424,8 @@ class QuestionEvaluationService:
             "stateHash": str(question["stateHash"]),
             "choiceCount": int(question.get("choiceCount") or 0),
             "provider": self.provider,
+            "policyVersion": int(policy["policyVersion"]),
+            "policyFingerprint": str(policy["policyFingerprint"]),
         }
         reason = ""
         if not self.configured:
@@ -557,6 +584,13 @@ class QuestionEvaluationService:
             raise EvaluationError("確認後に問題内容が更新されました。")
         if not preview.get("canEvaluate"):
             raise EvaluationError(str(preview.get("reason") or "評価を開始できません。"))
+        run_policy = self.current_policy()
+        if (
+            preview.get("policyVersion") != run_policy.get("policyVersion")
+            or preview.get("policyFingerprint")
+            != run_policy.get("policyFingerprint")
+        ):
+            raise EvaluationError("確認後に評価版又は正本文書が更新されました。")
         review_key = str(question["reviewKey"])
         with self._active_lock:
             if review_key in self._active:
@@ -587,9 +621,18 @@ class QuestionEvaluationService:
             "scopeListGroupId": str(question["listGroupId"]),
             "scopeListGroupIds": [str(question["listGroupId"])],
             "targetQuestionIds": [str(question["id"])],
+            "targetQuestionKeys": [str(question["id"])],
             "stateHash": str(question["stateHash"]),
             "sandbox": "read-only",
             "provider": self.provider,
+            "canonicalDocs": list(run_policy.get("canonicalDocs") or []),
+            "policyVersions": {
+                "evaluation": int(run_policy["policyVersion"])
+            },
+            "policyFingerprints": {
+                "evaluation": str(run_policy["policyFingerprint"])
+            },
+            "policyTargets": {"evaluation": [str(question["id"])]},
         }
         run = self.run_store.create(
             plan,
@@ -628,6 +671,16 @@ class QuestionEvaluationService:
             turn_id = str(metadata.get("turnId") or "") or None
             if app_server_session_id:
                 session_id = app_server_session_id
+            latest_policy = self.current_policy(force=True)
+            if (
+                latest_policy.get("policyVersion")
+                != run_policy.get("policyVersion")
+                or latest_policy.get("policyFingerprint")
+                != run_policy.get("policyFingerprint")
+            ):
+                raise EvaluationError(
+                    "評価中に評価版又は正本文書が変更されました。新しいrunでやり直してください。"
+                )
             result = self.store.save(
                 question,
                 worker_result,
@@ -638,6 +691,8 @@ class QuestionEvaluationService:
                 turn_id=turn_id,
                 run_id=run_id,
                 work_type=work_type,
+                policy_version=int(run_policy["policyVersion"]),
+                policy_fingerprint=str(run_policy["policyFingerprint"]),
             )
             self.run_store.write_result(qualification, run_id, result)
             self.run_store.update(
@@ -650,6 +705,17 @@ class QuestionEvaluationService:
                     "summary": result["summary"],
                     "resultHash": result["resultHash"],
                 },
+            )
+            version_receipt = self.work_versions.record_stage(
+                [question],
+                run_policy,
+                run_id=run_id,
+                source="validated_evaluation",
+            )
+            self.run_store.update(
+                qualification,
+                run_id,
+                workVersionReceipt=version_receipt,
             )
             label = "合格" if result["status"] == "passed" else "要再整備"
             emit(
@@ -684,6 +750,7 @@ class QuestionEvaluationService:
         *,
         live_status: str | None = None,
     ) -> dict[str, Any]:
+        policy = self.current_policy()
         review_key = str(question.get("reviewKey") or "")
         with self._active_lock:
             running = review_key in self._active
@@ -697,6 +764,8 @@ class QuestionEvaluationService:
         ):
             status = "stale"
         elif payload.get("stateHash") != question.get("stateHash"):
+            status = "stale"
+        elif payload.get("policyVersion") != policy.get("policyVersion"):
             status = "stale"
         else:
             status = str(payload.get("status") or "needs_rework")
@@ -719,11 +788,28 @@ class QuestionEvaluationService:
                 str(question.get("listGroupId") or ""),
             )
         )
+        work_versions = question.get("workVersions")
+        if not isinstance(work_versions, Mapping) and self.work_policy_provider is not None:
+            raw_policies = self.work_policy_provider(
+                str(question.get("qualification") or "")
+            )
+            policies = (
+                list(raw_policies.values())
+                if isinstance(raw_policies, Mapping)
+                else list(raw_policies or [])
+            )
+            work_versions = self.work_versions.status_for(question, policies)
+        policy_ready = (
+            bool(work_versions.get("allCurrent"))
+            if isinstance(work_versions, Mapping)
+            else True
+        )
         machine_ready = bool(
             local_ready
             and not blocking_issues
             and not failed_delta_paths
             and question.get("uploadReadyDocs")
+            and policy_ready
         )
         publish_ready = bool(status == "passed" and machine_ready)
         if not machine_ready:
@@ -747,6 +833,9 @@ class QuestionEvaluationService:
                 "machineReady": machine_ready,
                 "blockingIssues": blocking_issues,
                 "failedDeltaPaths": failed_delta_paths,
+                "policyReady": policy_ready,
+                "policyVersion": int(policy["policyVersion"]),
+                "policyFingerprint": str(policy["policyFingerprint"]),
                 "publishReady": publish_ready,
                 "nextAction": next_action,
                 "choiceCount": int(

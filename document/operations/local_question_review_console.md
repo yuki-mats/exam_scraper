@@ -37,6 +37,26 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 
 初期実装は`approvalPolicy = "never"`です。workspace内の通常処理だけを許し、sandbox外のcommand、file変更、追加permission要求は自動承認せず拒否します。
 
+## 作業バージョン
+
+工程ごとの現行版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけで管理します。全工程共通の版や、再整備専用の版は作りません。
+
+版を上げる判断は一つです。
+
+> 同じ入力でも判断又は出力が変わり得る変更なら、該当工程を1つ上げる。
+
+- 影響する工程だけを`+1`する。複数工程へ影響する場合は、その各工程をそれぞれ`+1`する。
+- 誤字、体裁、説明の明確化など、判断と出力が変わらない変更では上げない。
+- 再整備は、修正した01、02、02a、02b、03、03b又は04の現行版を記録する。`再整備vN`は作らない。
+- 評価基準、評価prompt又は評価JSON Schemaが変わる場合は評価版だけを`+1`する。
+- 資格文書は、同configの`qualification_document_patterns`で紐づく工程だけに影響する。
+
+各runは版番号に加えて正本文書のfingerprintを持ちます。開始時と成功receipt検証時のfingerprintが異なるrunは失敗にし、途中で判断ルールが入れ替わった結果を記録しません。過去問の洗い替え判定は版番号だけで行うため、判断と出力が変わらない誤字・体裁変更では既存問題を旧版にしません。判断又は出力が変わり得る変更では、担当者が該当工程の`policy_version`を必ず`+1`します。
+
+成功receiptを検証した後だけ、対象の各問へ「どの工程を何版で実施したか」を記録します。失敗・中断・receipt不備では記録しません。法令監査版は法令問題だけに適用します。既存公開問題の初期値`v0`は「過去に作業済みだが使用版を証明できない」を表し、現行版への洗い替え対象です。
+
+`stateHash`は問題内容の新しさ、作業バージョンは判断ルールの新しさを表します。公開には、適用対象の全整備工程が現行版であること、現在内容に対する現行評価版の合格、機械品質ゲートのすべてが必要です。GUIでは資格、年度・フォルダ、選択工程の作業バージョンを組み合わせ、`旧版・未記録のみ`を実行できます。
+
 ## 客観評価
 
 - 問題文と全選択肢を一問ずつ確認する。
@@ -46,11 +66,13 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 - 根拠不足は`insufficient_evidence`として不合格にする。
 - 指定JSON Schemaへ限定し、serverが全選択肢、正答対応、解説点数、重大指摘を再検証する。
 
-問題の`stateHash`が変わると以前の評価は自動で古くなります。再整備後は、新しい評価threadに合格するまで公開できません。
+問題の`stateHash`又は評価版が変わると以前の評価は自動で古くなります。再整備後は、新しい評価threadに合格するまで公開できません。
 
 ## 保存と安全境界
 
-各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ`manifest.json`、`prompt.md`、`result.json`を保存します。整備・再整備では、再起動回収用の`baseline.json`も保存し、`result.json`だけを`agent_output/`配下へ分離します。manifestには`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、sandbox、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
+各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ`manifest.json`、`prompt.md`、`result.json`を保存します。整備・再整備では、再起動回収用の`baseline.json`も保存し、`result.json`だけを`agent_output/`配下へ分離します。manifestには`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、`policyVersions`、`policyFingerprints`、sandbox、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
+
+問題ごとの工程履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`へ保存します。各工程は最新記録と過去の`history`を持つため、洗い替え後も`v0`などの旧記録を追跡できます。これは運用メタデータであり、`00_source`、patch、merged、upload-ready、Firestore question documentへ複製しません。公開済み問題の一括初期化receiptは`output/question_review_console/work_version_backfills/<timestamp>/manifest.json`へ保存します。
 
 - 整備と再整備の前後で`00_source`不変検証を行う。
 - 整備と再整備は工程又は選択fieldに対応するpatchだけを変更する。1問指定では対象patch fileとJSON/JSONL内の対象recordも限定し、App Server通知、実行前後のrepository差分、receiptの`changedFiles`を双方向で照合する。

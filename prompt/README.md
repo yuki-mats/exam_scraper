@@ -12,6 +12,7 @@
 
 ## 実行境界
 
+- 同じ入力でも判断又は出力が変わり得る変更では、影響する工程だけの`policy_version`を`+1`する。版管理と洗い替えの詳細は[問題整備システム](../document/operations/local_question_review_console.md#作業バージョン)を正本とする。
 - 判断本文は一問ずつ読み、scriptで量産しない。
 - scriptはarchive、materialize、merge、convert、validation、upload dry-runに使う。
 - 既存patchを洗い替える場合も、各promptに指定された一次情報から再判定する。

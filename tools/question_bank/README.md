@@ -41,6 +41,22 @@ python3 tools/question_bank/question_bank.py review-ui \
 
 UIの安全境界と保存先は[レビューコンソール仕様](../../document/operations/local_question_review_console.md)が正本です。
 
+## 公開済み問題の初期版付与
+
+最初に本番Firestoreを読み取り、公開対象とローカル問題の全件一致を確認します。この時点では書き込みません。
+
+```bash
+python3 tools/question_bank/question_bank.py backfill-work-versions
+```
+
+`unmatchedQuestionCount=0`を確認後、公開済みだが使用版を証明できない各問題へlegacy `v0`をローカルに記録します。
+
+```bash
+python3 tools/question_bank/question_bank.py backfill-work-versions --execute
+```
+
+このコマンドはFirestoreを変更せず、既存の検証済み工程版も上書きしません。結果は`output/question_review_console/work_version_backfills/<timestamp>/manifest.json`へ保存します。版の意味と洗い替え方法は[作業バージョン](../../document/operations/local_question_review_console.md#作業バージョン)を参照してください。
+
 ## patch単体
 
 最小JSONを正式patchへ変換:
