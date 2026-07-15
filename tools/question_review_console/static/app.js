@@ -1902,6 +1902,7 @@ async function startQualificationRun(event) {
     $("#qualification-run-job").hidden = false;
     await loadQualificationRuns();
     const failedRun = displayedQualificationRun();
+    if (failedRun?.runId) await loadQualificationRunProgress(failedRun.runId);
     const view = failedRun
       ? qualificationRunViewState(failedRun, state.qualificationRunProgress)
       : null;
@@ -2219,10 +2220,11 @@ async function resumeQualificationRun() {
     pollQualificationRunJob(run.jobId, run).catch(async (error) => {
       setQualificationRunRunning(false);
       await loadQualificationRuns();
-      enterQualificationProgressView(run);
+      const failedRun = displayedQualificationRun() || run;
+      if (failedRun.runId) await loadQualificationRunProgress(failedRun.runId);
+      enterQualificationProgressView(failedRun);
       renderQualificationRunProgress(state.qualificationRunProgress);
       $("#qualification-run-job").hidden = false;
-      const failedRun = displayedQualificationRun() || run;
       const view = qualificationRunViewState(failedRun, state.qualificationRunProgress);
       $("#qualification-run-job-status").textContent = view.phase;
       setQualificationRunStatusDetail(

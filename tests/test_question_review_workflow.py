@@ -669,6 +669,29 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("progress.questions || []", javascript)
         self.assertIn('includeQuestions: "true"', javascript)
         self.assertIn("questionsIncluded !== true", javascript)
+        start_failure = javascript[
+            javascript.index("async function startQualificationRun") :
+            javascript.index("function setQualificationRunRunning")
+        ]
+        resume_failure = javascript[
+            javascript.index("async function resumeQualificationRun") :
+            javascript.index("async function setListMode")
+        ]
+        for failure_path in (start_failure, resume_failure):
+            self.assertLess(
+                failure_path.index("await loadQualificationRuns();"),
+                failure_path.index(
+                    "await loadQualificationRunProgress(failedRun.runId);"
+                ),
+            )
+            self.assertLess(
+                failure_path.index(
+                    "await loadQualificationRunProgress(failedRun.runId);"
+                ),
+                failure_path.index(
+                    "renderQualificationRunProgress(state.qualificationRunProgress);"
+                ),
+            )
         self.assertNotIn(".slice(-20)", javascript)
         self.assertNotIn("max-height: 30vh", css)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
