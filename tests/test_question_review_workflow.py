@@ -523,9 +523,16 @@ class WorkflowUiContractTests(unittest.TestCase):
         static = root / "tools" / "question_review_console" / "static"
         html = (static / "index.html").read_text(encoding="utf-8")
         javascript = (static / "app.js").read_text(encoding="utf-8")
+        css = (static / "styles.css").read_text(encoding="utf-8")
 
         for control_id in (
             "qualification-workflow",
+            "maintenance-dashboard",
+            "maintenance-required-count",
+            "maintenance-progress-text",
+            "maintenance-start",
+            "maintenance-year-progress",
+            "advanced-tools-toggle",
             "qualification-workflow-stages",
             "qualification-workflow-action",
             "qualification-active-run",
@@ -563,6 +570,9 @@ class WorkflowUiContractTests(unittest.TestCase):
         for function_name in (
             "loadQualificationWorkflow",
             "renderQualificationWorkflow",
+            "renderMaintenanceDashboard",
+            "maintenanceRunStageIds",
+            "openRequiredMaintenance",
             "revealSelectedQualificationStage",
             "executeQualificationWorkflowAction",
             "loadQualificationRuns",
@@ -683,7 +693,13 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("workVersionSelect.disabled = !selectedStage?.policyVersion", javascript)
         self.assertIn("outdatedLabel.hidden = !stage.policyVersion", javascript)
         self.assertIn('value="outdated"', html)
-        self.assertIn("旧版・未記録のみ", html)
+        self.assertIn("洗い替え必要・未整備のみ", html)
+        self.assertIn('mode: "outdated"', javascript)
+        self.assertIn('simplified: true', javascript)
+        self.assertIn('workflow.groups.map((group) => group.listGroupId)', javascript)
+        self.assertIn('openRequiredMaintenance([group.listGroupId])', javascript)
+        self.assertIn(".maintenance-start { width: 100%; min-height: 48px; }", css)
+        self.assertIn(".maintenance-year-progress { grid-template-columns: 1fr; }", css)
         self.assertIn('stage.completeCount === stage.targetCount && stage.issueCount > 0', javascript)
         self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
         self.assertIn('`すべて（${groups.length}件）`', javascript)

@@ -49,13 +49,20 @@ UIの安全境界と保存先は[レビューコンソール仕様](../../docume
 python3 tools/question_bank/question_bank.py backfill-work-versions
 ```
 
-`unmatchedQuestionCount=0`を確認後、公開済みだが使用版を証明できない各問題へlegacy `v0`をローカルに記録します。
+`unmatchedQuestionCount=0`を確認後、公開済みだが使用版を証明できない各問題へlegacy `v0.0`をローカルに記録します。
 
 ```bash
 python3 tools/question_bank/question_bank.py backfill-work-versions --execute
 ```
 
 このコマンドはFirestoreを変更せず、既存の検証済み工程版も上書きしません。結果は`output/question_review_console/work_version_backfills/<timestamp>/manifest.json`へ保存します。版の意味と洗い替え方法は[作業バージョン](../../document/operations/local_question_review_console.md#作業バージョン)を参照してください。
+
+既存の整数版を`MAJOR.MINOR`形式へ移行する場合は、dry-run後に実行します。
+
+```bash
+python3 tools/question_bank/question_bank.py migrate-work-versions
+python3 tools/question_bank/question_bank.py migrate-work-versions --execute
+```
 
 ## patch単体
 

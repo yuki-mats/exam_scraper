@@ -14,7 +14,10 @@ from scripts.merge.merge_utils import (
 )
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.projection import record_identity_aliases
-from tools.question_review_console.workflow_catalog import WorkflowCatalog
+from tools.question_review_console.workflow_catalog import (
+    WorkflowCatalog,
+    normalize_policy_version,
+)
 from tools.question_review_console.work_versions import (
     QuestionWorkVersionStore,
     policy_fingerprint,
@@ -30,7 +33,7 @@ RUN_MODES = {
     "group_refresh": "選択範囲を全件洗い替え",
     "remaining": "未作業のみ",
     "attention": "要確認のみ",
-    "outdated": "旧版・未記録のみ",
+    "outdated": "洗い替え必要・未整備のみ",
     "refresh": "資格全体を全件洗い替え",
 }
 
@@ -250,8 +253,21 @@ class QualificationWorkflow:
     def overview(self, qualification: str) -> dict[str, Any]:
         catalog = self.catalog(qualification)
         groups, questions = self._qualification_data(qualification)
+        versioned_definitions = [
+            stage
+            for stage in catalog["stages"]
+            if stage.get("policyVersion") is not None
+        ]
+        version_statuses = [
+            (question, self.work_versions.status_for(question, versioned_definitions))
+            for question in questions
+        ]
         stages = self._build_stages(
-            qualification, groups, questions, catalog["stages"]
+            qualification,
+            groups,
+            questions,
+            catalog["stages"],
+            version_statuses=version_statuses,
         )
         next_stage = next(
             (stage for stage in stages if stage["status"] != "ready"), None
@@ -262,7 +278,21 @@ class QualificationWorkflow:
             for question in questions
             for code in question.get("issueCodes") or []
         )
-        group_summaries = [self._group_summary(group) for group in groups]
+        progress = self._maintenance_progress(version_statuses)
+        group_summaries = [
+            self._group_summary(
+                group,
+                self._maintenance_progress(
+                    [
+                        item
+                        for item in version_statuses
+                        if str(item[0].get("listGroupId") or "")
+                        == str(group.get("listGroupId") or "")
+                    ]
+                ),
+            )
+            for group in groups
+        ]
         overall_status = (
             "ready"
             if next_stage is None
@@ -291,6 +321,7 @@ class QualificationWorkflow:
                 ),
                 "readyStageCount": ready_count,
                 "stageCount": len(stages),
+                "maintenanceProgress": progress,
                 "issueCounts": dict(sorted(issue_counts.items())),
             },
             "stages": stages,
@@ -317,7 +348,7 @@ class QualificationWorkflow:
         if stage_id == "source":
             raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
         if mode == "outdated" and definition.get("policyVersion") is None:
-            raise ValueError("旧版・未記録だけの選択は工程バージョン対象でのみ使えます。")
+            raise ValueError("洗い替え必要・未整備だけの選択は工程版対象でのみ使えます。")
 
         selected_group_ids, scope_provided = _group_scope(
             list_group_id, list_group_ids
@@ -521,12 +552,14 @@ class QualificationWorkflow:
                 "refresh": f"{scope_label}を全件洗い替え",
                 "remaining": f"{scope_label}の未作業のみ",
                 "attention": f"{scope_label}の要確認のみ",
-                "outdated": f"{scope_label}の旧版・未記録のみ",
+                "outdated": f"{scope_label}の洗い替え必要・未整備のみ",
             }[mode]
         else:
             mode_label = RUN_MODES[mode]
         policy_versions = (
-            {stage_id: int(definition["policyVersion"])}
+            {
+                stage_id: normalize_policy_version(definition["policyVersion"])
+            }
             if definition.get("policyVersion") is not None
             else {}
         )
@@ -750,7 +783,7 @@ class QualificationWorkflow:
             ),
             "catalogHash": catalog["catalogHash"],
             "policyVersions": {
-                str(stage_id): int(version)
+                str(stage_id): normalize_policy_version(version)
                 for plan in stage_plans
                 for stage_id, version in (plan.get("policyVersions") or {}).items()
             },
@@ -1093,6 +1126,10 @@ class QualificationWorkflow:
         groups: list[Mapping[str, Any]],
         questions: list[Mapping[str, Any]],
         definitions: list[Mapping[str, Any]],
+        *,
+        version_statuses: list[
+            tuple[Mapping[str, Any], Mapping[str, Any]]
+        ] | None = None,
     ) -> list[dict[str, Any]]:
         total = len(questions)
         coverage: dict[str, int] = {
@@ -1113,10 +1150,16 @@ class QualificationWorkflow:
         ] = {
             str(definition["id"]): [] for definition in versioned_definitions
         }
-        for question in questions:
-            for item in self.work_versions.status_for(
-                question, versioned_definitions
-            )["stages"]:
+        if version_statuses is None:
+            version_statuses = [
+                (
+                    question,
+                    self.work_versions.status_for(question, versioned_definitions),
+                )
+                for question in questions
+            ]
+        for question, status in version_statuses:
+            for item in status["stages"]:
                 version_items_by_stage[str(item["id"])].append((question, item))
         stages: list[dict[str, Any]] = []
         for index, definition in enumerate(definitions):
@@ -1353,12 +1396,12 @@ class QualificationWorkflow:
             parts = [
                 value
                 for value in (
-                    f"旧版{outdated}問" if outdated else "",
+                    f"洗い替え必要{outdated}問" if outdated else "",
                     f"未記録{unrecorded}問" if unrecorded else "",
                 )
                 if value
             ]
-            return "・".join(parts) + "を現行版で洗い替えます。"
+            return "・".join(parts) + "を現在の基準で整備します。"
         if issues:
             return f"要確認項目が{issues}件あります。"
         unit = "フォルダ" if stage_id == "delivery" else "問"
@@ -1383,7 +1426,22 @@ class QualificationWorkflow:
         }
 
     @staticmethod
-    def _group_summary(group: Mapping[str, Any]) -> dict[str, Any]:
+    def _maintenance_progress(
+        version_statuses: list[tuple[Mapping[str, Any], Mapping[str, Any]]],
+    ) -> dict[str, int]:
+        total = len(version_statuses)
+        current = sum(bool(status.get("allCurrent")) for _, status in version_statuses)
+        return {
+            "totalCount": total,
+            "currentCount": current,
+            "requiredCount": total - current,
+        }
+
+    @staticmethod
+    def _group_summary(
+        group: Mapping[str, Any],
+        maintenance_progress: Mapping[str, int],
+    ) -> dict[str, Any]:
         questions = group.get("questions") or []
         issue_count = sum(bool(question.get("issues")) for question in questions)
         local_ready = all(
@@ -1398,4 +1456,5 @@ class QualificationWorkflow:
             "questionCount": len(questions),
             "issueQuestionCount": issue_count,
             "localReady": local_ready,
+            "maintenanceProgress": dict(maintenance_progress),
         }

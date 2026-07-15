@@ -22,7 +22,7 @@ const ISSUE_LABELS = {
   post_fix_review: "修正後確認",
   manual_flag: "手動要確認",
   direct_edit: "直接編集",
-  work_policy_outdated: "旧版工程あり",
+  work_policy_outdated: "洗い替え工程あり",
   work_policy_unrecorded: "工程版未記録",
   other: "その他",
 };
@@ -331,6 +331,7 @@ function bindControls() {
     await loadQualificationRuns();
     await loadQuestions(true);
   });
+  $("#maintenance-start").addEventListener("click", () => openRequiredMaintenance());
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
   $("#qualification-workflow-guide").addEventListener("click", () => openWorkflowGuide());
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
@@ -499,6 +500,10 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     $("#qualification-workflow-next").textContent = error.message;
     $("#qualification-workflow-stages").replaceChildren();
     $("#qualification-workflow-detail").hidden = true;
+    $("#maintenance-required-count").textContent = "取得失敗";
+    $("#maintenance-progress-text").textContent = error.message;
+    $("#maintenance-start").disabled = true;
+    $("#maintenance-year-progress").replaceChildren();
   }
 }
 
@@ -516,6 +521,7 @@ function revealSelectedQualificationStage(stageList) {
 function renderQualificationWorkflow() {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return;
+  renderMaintenanceDashboard();
   const nextStage = workflow.stages.find((stage) => stage.id === workflow.nextStageId);
   const selectedStage = workflow.stages.find(
     (stage) => stage.id === state.qualificationWorkflowStageId,
@@ -599,6 +605,92 @@ function renderQualificationWorkflow() {
   action.disabled = selectedStage.action.type === "none";
   action.dataset.action = selectedStage.action.type;
   action.dataset.stageId = selectedStage.id;
+}
+
+function maintenanceRunStageIds() {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow) return [];
+  const categoryReady = workflow.stages.find((stage) => stage.id === "category_setup")?.status === "ready";
+  return workflow.stages
+    .filter((stage) => stage.batchSelectable
+      && stage.versionTrackingActive
+      && (stage.versionOutdatedCount || stage.versionUnrecordedCount)
+      && (stage.id !== "question_set" || categoryReady))
+    .map((stage) => stage.id);
+}
+
+function openRequiredMaintenance(listGroupIds = []) {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow) return;
+  const stageIds = maintenanceRunStageIds();
+  const firstStage = workflow.stages.find((stage) => stage.id === stageIds[0]);
+  if (!firstStage) {
+    toast("現在の基準で整備が必要な問題はありません。");
+    return;
+  }
+  openQualificationRunDialog(firstStage, {
+    stageIds,
+    listGroupIds: listGroupIds.length
+      ? listGroupIds
+      : workflow.groups.map((group) => group.listGroupId),
+    mode: "outdated",
+    simplified: true,
+  });
+}
+
+function renderMaintenanceDashboard() {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow) return;
+  const progress = workflow.summary.maintenanceProgress || {};
+  const total = Number(progress.totalCount || 0);
+  const current = Number(progress.currentCount || 0);
+  const required = Number(progress.requiredCount || 0);
+  const versions = [...new Set(
+    workflow.stages
+      .filter((stage) => stage.policyVersion)
+      .map((stage) => stage.policyVersion),
+  )];
+  const versionLabel = $("#maintenance-version-label");
+  versionLabel.textContent = versions.length === 1
+    ? `現行基準 v${versions[0]}`
+    : "現行基準（工程別）";
+  versionLabel.className = `workflow-overall-status ${required ? "attention" : "ready"}`;
+  $("#maintenance-required-count").textContent = required ? `${required}問` : "0問";
+  $("#maintenance-progress-text").textContent = required
+    ? `全${total}問のうち${current}問が整備済みです。`
+    : `全${total}問が現在の基準で整備済みです。`;
+  const start = $("#maintenance-start");
+  start.textContent = required ? `未整備${required}問を整備` : "整備済み";
+  start.disabled = required === 0 || maintenanceRunStageIds().length === 0;
+
+  const years = $("#maintenance-year-progress");
+  years.replaceChildren();
+  for (const group of workflow.groups || []) {
+    const groupProgress = group.maintenanceProgress || {};
+    const groupTotal = Number(groupProgress.totalCount || 0);
+    const groupCurrent = Number(groupProgress.currentCount || 0);
+    const groupRequired = Number(groupProgress.requiredCount || 0);
+    const row = element("div", `maintenance-year-row${groupRequired ? "" : " complete"}`);
+    const copy = element("div", "maintenance-year-copy");
+    copy.append(
+      element("strong", "", group.listGroupId),
+      element("span", "", `${groupCurrent}/${groupTotal}問 整備済み`),
+    );
+    const meter = element("span", "maintenance-year-meter");
+    const meterValue = element("span", "maintenance-year-meter-value");
+    meterValue.style.width = `${groupTotal ? Math.round((groupCurrent / groupTotal) * 100) : 100}%`;
+    meter.append(meterValue);
+    const action = element(
+      "button",
+      groupRequired ? "secondary-button" : "secondary-button complete",
+      groupRequired ? `${groupRequired}問を整備` : "整備済み",
+    );
+    action.type = "button";
+    action.disabled = groupRequired === 0;
+    action.addEventListener("click", () => openRequiredMaintenance([group.listGroupId]));
+    row.append(copy, meter, action);
+    years.append(row);
+  }
 }
 
 function qualificationWorkflowStage(stageId = "") {
@@ -1102,7 +1194,7 @@ function renderQualificationRunGroups(stage, selectedGroupIds) {
   const fieldset = $("#qualification-run-group-fieldset");
   const container = $("#qualification-run-groups");
   const supportsScope = qualificationRunSupportsGroupScope(stage);
-  fieldset.hidden = !supportsScope;
+  fieldset.hidden = state.qualificationRunDialog.simplified || !supportsScope;
   container.replaceChildren();
   if (!supportsScope) return;
   const groups = state.qualificationWorkflow.groups || [];
@@ -1154,7 +1246,7 @@ function renderQualificationRunStages(stage, selectedStageIds) {
   const fieldset = $("#qualification-run-stage-fieldset");
   const container = $("#qualification-run-stages");
   const selectable = state.qualificationWorkflow.stages.filter((item) => item.batchSelectable);
-  fieldset.hidden = !stage.batchSelectable;
+  fieldset.hidden = state.qualificationRunDialog.simplified || !stage.batchSelectable;
   container.replaceChildren();
   if (!stage.batchSelectable) return;
   for (const item of selectable) {
@@ -1210,17 +1302,20 @@ function openQualificationRunDialog(stage, options = {}) {
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
     previewController: null,
+    simplified: options.simplified === true,
   };
   state.qualificationWorkflowStageId = stage.id;
   renderQualificationRunStages(stage, selectedStageIds);
   renderQualificationRunGroups(stage, selectedGroupIds);
   updateQualificationRunHeading();
   $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
+  $("#qualification-run-guide").hidden = state.qualificationRunDialog.simplified;
   const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
   const supportsScope = qualificationRunSupportsGroupScope(stage);
   const groupRefreshLabel = $("#qualification-run-group-refresh");
   const outdatedLabel = $("#qualification-run-outdated");
   const refreshLabel = $("#qualification-run-refresh");
+  $("#qualification-run-mode-fieldset").hidden = state.qualificationRunDialog.simplified;
   groupRefreshLabel.hidden = !supportsScope;
   refreshLabel.hidden = supportsScope && options.mode !== "refresh";
   outdatedLabel.hidden = !stage.policyVersion;
@@ -1239,6 +1334,13 @@ function openQualificationRunDialog(stage, options = {}) {
         : "remaining");
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.checked = node.value === defaultMode;
+  }
+  if (state.qualificationRunDialog.simplified) {
+    $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
+    $("#qualification-run-title").textContent = `${qualificationDisplayName()}の未整備を整備`;
+    $("#qualification-run-purpose").textContent = "現行メジャー未満又は未記録の工程だけを、問題ごとに順番に整備します。";
+  } else {
+    $("#qualification-run-scope-eyebrow").textContent = "整備範囲を指定";
   }
   $("#qualification-run-job").hidden = true;
   $("#qualification-run-job-log").textContent = "";
@@ -1573,7 +1675,7 @@ async function loadQuestions(preserveSelection, append = false) {
       `公開可能${counts.publishReady || 0}`,
       `反映済み${counts.published || 0}`,
       ...($("#work-version-select").value
-        ? [`現行版${workCounts.current || 0}・旧版${workCounts.outdated || 0}・未記録${workCounts.unrecorded || 0}`]
+        ? [`整備済み${workCounts.current || 0}・洗い替え必要${workCounts.outdated || 0}・未記録${workCounts.unrecorded || 0}`]
         : []),
     ].join(" / ");
     updateEvaluationSelectionControls();
@@ -1848,7 +1950,7 @@ function renderWorkVersionPanel(question) {
     element(
       "span",
       `work-version-overall ${workVersions.allCurrent ? "good" : "warning"}`,
-      workVersions.allCurrent ? "全工程が現行版" : "洗い替えあり",
+      workVersions.allCurrent ? "全工程が整備済み" : "洗い替えあり",
     ),
   );
   const stages = element("div", "work-version-stages");
@@ -1866,7 +1968,7 @@ function renderWorkVersionPanel(question) {
     node.append(element(
       "p",
       "work-version-summary",
-      "旧版又は未記録の工程だけを選び、現行版で一問ずつ洗い替えます。",
+      "現行メジャー未満又は未記録の工程だけを選び、一問ずつ整備します。",
     ));
   }
   return node;

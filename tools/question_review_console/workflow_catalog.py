@@ -13,6 +13,7 @@ DEFAULT_CATALOG_PATH = (
     / "question_maintenance_workflow.toml"
 )
 STAGE_KINDS = {"source", "human", "machine"}
+POLICY_VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)")
 
 
 def _document_path(value: Any) -> str:
@@ -36,12 +37,47 @@ def _artifact_path(value: Any) -> str:
     return path
 
 
-def _policy_version(value: Any, field: str, *, required: bool = False) -> int | None:
+def normalize_policy_version(
+    value: Any,
+    field: str = "policyVersion",
+    *,
+    minimum_major: int = 0,
+) -> str:
+    """Return a MAJOR.MINOR string; legacy integers become MAJOR.0."""
+
+    if isinstance(value, bool):
+        raise ValueError(f"{field}はMAJOR.MINOR形式で指定してください。")
+    if isinstance(value, int):
+        major, minor = value, 0
+    elif isinstance(value, str):
+        match = POLICY_VERSION_PATTERN.fullmatch(value.strip())
+        if match is None:
+            raise ValueError(f"{field}はMAJOR.MINOR形式で指定してください。")
+        major, minor = int(match.group(1)), int(match.group(2))
+    else:
+        raise ValueError(f"{field}はMAJOR.MINOR形式で指定してください。")
+    if major < minimum_major:
+        raise ValueError(
+            f"{field}のメジャーは{minimum_major}以上で指定してください。"
+        )
+    return f"{major}.{minor}"
+
+
+def policy_version_major(value: Any, field: str = "policyVersion") -> int:
+    return int(normalize_policy_version(value, field).split(".", 1)[0])
+
+
+def same_policy_major(left: Any, right: Any) -> bool:
+    try:
+        return policy_version_major(left) == policy_version_major(right)
+    except ValueError:
+        return False
+
+
+def _policy_version(value: Any, field: str, *, required: bool = False) -> str | None:
     if value is None and not required:
         return None
-    if isinstance(value, bool) or not isinstance(value, int) or value < 1:
-        raise ValueError(f"{field}は1以上の整数で指定してください。")
-    return value
+    return normalize_policy_version(value, field, minimum_major=1)
 
 
 def _document_patterns(value: Any, field: str) -> list[str]:

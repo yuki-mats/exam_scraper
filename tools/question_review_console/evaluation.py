@@ -21,6 +21,10 @@ from tools.question_review_console.work_versions import (
     QuestionWorkVersionStore,
     evaluation_policy,
 )
+from tools.question_review_console.workflow_catalog import (
+    normalize_policy_version,
+    same_policy_major,
+)
 from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 
 
@@ -141,7 +145,7 @@ class EvaluationStore:
         turn_id: str | None = None,
         run_id: str | None = None,
         work_type: str = "evaluation",
-        policy_version: int,
+        policy_version: str,
         policy_fingerprint: str,
     ) -> dict[str, Any]:
         validated = self._validate_result(question, worker_result)
@@ -158,7 +162,7 @@ class EvaluationStore:
             "turnId": turn_id,
             "runId": run_id,
             "workType": work_type,
-            "policyVersion": policy_version,
+            "policyVersion": normalize_policy_version(policy_version),
             "policyFingerprint": policy_fingerprint,
             "provider": provider,
             "startedAt": started_at,
@@ -424,7 +428,7 @@ class QuestionEvaluationService:
             "stateHash": str(question["stateHash"]),
             "choiceCount": int(question.get("choiceCount") or 0),
             "provider": self.provider,
-            "policyVersion": int(policy["policyVersion"]),
+            "policyVersion": normalize_policy_version(policy["policyVersion"]),
             "policyFingerprint": str(policy["policyFingerprint"]),
         }
         reason = ""
@@ -627,7 +631,7 @@ class QuestionEvaluationService:
             "provider": self.provider,
             "canonicalDocs": list(run_policy.get("canonicalDocs") or []),
             "policyVersions": {
-                "evaluation": int(run_policy["policyVersion"])
+                "evaluation": normalize_policy_version(run_policy["policyVersion"])
             },
             "policyFingerprints": {
                 "evaluation": str(run_policy["policyFingerprint"])
@@ -691,7 +695,7 @@ class QuestionEvaluationService:
                 turn_id=turn_id,
                 run_id=run_id,
                 work_type=work_type,
-                policy_version=int(run_policy["policyVersion"]),
+                policy_version=normalize_policy_version(run_policy["policyVersion"]),
                 policy_fingerprint=str(run_policy["policyFingerprint"]),
             )
             self.run_store.write_result(qualification, run_id, result)
@@ -765,7 +769,9 @@ class QuestionEvaluationService:
             status = "stale"
         elif payload.get("stateHash") != question.get("stateHash"):
             status = "stale"
-        elif payload.get("policyVersion") != policy.get("policyVersion"):
+        elif not same_policy_major(
+            payload.get("policyVersion"), policy.get("policyVersion")
+        ):
             status = "stale"
         else:
             status = str(payload.get("status") or "needs_rework")
@@ -834,7 +840,7 @@ class QuestionEvaluationService:
                 "blockingIssues": blocking_issues,
                 "failedDeltaPaths": failed_delta_paths,
                 "policyReady": policy_ready,
-                "policyVersion": int(policy["policyVersion"]),
+                "policyVersion": normalize_policy_version(policy["policyVersion"]),
                 "policyFingerprint": str(policy["policyFingerprint"]),
                 "publishReady": publish_ready,
                 "nextAction": next_action,

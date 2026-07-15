@@ -74,7 +74,8 @@ output/question_review_console/
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 問題ごとの工程版履歴。patch又はFirestore fieldではない。 |
 | session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | Codex App Serverで実行した整備・評価・再整備の`manifest.json`、`prompt.md`、`result.json`。整備系は再起動回収用`baseline.json`と`agent_output/result.json`を持つ。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
-| work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0`へ初期化した対象、照合結果、件数のreceipt。 |
+| work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |
+| work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
 session runは`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`、sandbox、時刻、状態をmanifestへ保存し、成功時だけ`workVersionReceipt`を持ちます。run directoryは再利用しません。`evaluations/`はUI向けの最新projectionに限定し、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)、作業版の意味、有効性、公開条件は[問題整備システム](local_question_review_console.md)を正本とします。

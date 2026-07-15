@@ -307,7 +307,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": 1})
+        self.assertEqual(run["policyVersions"], {"explanation": "1.0"})
 
     def test_qualification_law_audit_preserves_trusted_sources_and_record_scope(self):
         class FakeAppServer:
@@ -367,7 +367,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["targetRecordAliasGroups"], [["q1"], ["q2"]])
         self.assertEqual(run["targetRecordAliases"], ["q1", "q2"])
         self.assertEqual(run["targetCount"], 2)
-        self.assertEqual(run["policyVersions"], {"law_audit": 1})
+        self.assertEqual(run["policyVersions"], {"law_audit": "1.0"})
         expected_record_files = {
             path
             for path in [*run["allowedPatchFiles"], *run["allowedWriteFiles"]]

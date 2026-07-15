@@ -627,7 +627,7 @@ def add_work_version_backfill_parser(
 ) -> None:
     parser = subparsers.add_parser(
         "backfill-work-versions",
-        help="Assign legacy v0 work versions to every active published question.",
+        help="Assign legacy v0.0 work versions to every active published question.",
     )
     parser.set_defaults(command="backfill-work-versions")
     parser.add_argument(
@@ -636,6 +636,21 @@ def add_work_version_backfill_parser(
         help="Write local work_versions.json files. Without this flag, read-only dry-run.",
     )
     parser.add_argument("--credentials-json", type=Path)
+
+
+def add_work_version_migration_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "migrate-work-versions",
+        help="Normalize local work versions to MAJOR.MINOR strings.",
+    )
+    parser.set_defaults(command="migrate-work-versions")
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Rewrite validated work_versions.json files. Without this flag, dry-run.",
+    )
 
 
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
@@ -734,6 +749,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_law_revision_hold_materialize_parser(subparsers)
     add_review_ui_parser(subparsers)
     add_work_version_backfill_parser(subparsers)
+    add_work_version_migration_parser(subparsers)
     add_question_issue_report_parsers(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
@@ -922,6 +938,14 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0 if result["status"] in {"ready", "succeeded"} else 1
+    if args.command == "migrate-work-versions":
+        from tools.question_review_console.work_version_backfill import (
+            migrate_work_versions,
+        )
+
+        result = migrate_work_versions(REPO_ROOT, execute=bool(args.execute))
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0
     if args.command in {
         "report-inventory",
         "report-snapshot",

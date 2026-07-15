@@ -43,6 +43,34 @@ def _database(credentials_json: Path | None = None) -> Any:
     return firestore.client(app=firebase_admin.get_app())
 
 
+def migrate_work_versions(repo_root: Path, *, execute: bool) -> dict[str, Any]:
+    """Normalize existing local records to the MAJOR.MINOR schema."""
+
+    repo_root = repo_root.resolve()
+    result = QuestionWorkVersionStore(repo_root).migrate_all(execute=execute)
+    result.update(
+        {
+            "status": "succeeded" if execute else "ready",
+            "generatedAt": _now(),
+        }
+    )
+    if execute:
+        receipt_path = (
+            repo_root
+            / "output"
+            / "question_review_console"
+            / "work_version_migrations"
+            / _timestamp()
+            / "manifest.json"
+        )
+        result["receiptPath"] = str(receipt_path.relative_to(repo_root))
+        atomic_write(
+            receipt_path,
+            json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+    return result
+
+
 def _published_qualification_ids(db: Any) -> list[str]:
     snapshot = db.collection("config").document(CONFIG_DOC_ID).get()
     if not snapshot.exists:

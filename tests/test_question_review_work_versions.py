@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -22,7 +23,7 @@ def policy(stage_id="question_type", *, fingerprint="fingerprint-1"):
         "id": stage_id,
         "code": "01" if stage_id == "question_type" else "03b",
         "label": "問題形式" if stage_id == "question_type" else "現行法監査",
-        "policyVersion": 1,
+        "policyVersion": "1.0",
         "policyFingerprint": fingerprint,
     }
 
@@ -62,14 +63,63 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         self.assertEqual(initial["status"], "unrecorded")
         self.assertEqual(legacy["recordedCount"], 1)
         self.assertEqual(old["status"], "outdated")
-        self.assertEqual(old["stages"][0]["recordedVersion"], 0)
+        self.assertEqual(old["stages"][0]["recordedVersion"], "0.0")
         self.assertEqual(current["recordedCount"], 1)
         self.assertTrue(complete["allCurrent"])
         self.assertEqual(complete["stages"][0]["runId"], "run-1")
         self.assertEqual(
             [entry["version"] for entry in record["stages"]["question_type"]["history"]],
-            [0],
+            ["0.0"],
         )
+
+    def test_minor_change_stays_current_and_major_change_requires_rework(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            item = question()
+            store.record_stage(
+                [item], policy(), run_id="run-1", source="validated_run"
+            )
+
+            minor = store.status_for(
+                item, [{**policy(), "policyVersion": "1.1"}]
+            )
+            major = store.status_for(
+                item, [{**policy(), "policyVersion": "2.0"}]
+            )
+
+        self.assertEqual(minor["status"], "current")
+        self.assertIn("洗い替え不要", minor["stages"][0]["detail"])
+        self.assertEqual(major["status"], "outdated")
+
+    def test_migration_normalizes_legacy_group_and_history(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QuestionWorkVersionStore(root)
+            item = question()
+            store.record_stage(
+                [item], policy(), run_id="run-1", source="validated_run"
+            )
+            path = store.path_for("sample", "2026")
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            payload["schemaVersion"] = "question-work-versions/v1"
+            stage = next(iter(payload["questions"].values()))["stages"]["question_type"]
+            stage["version"] = 1
+            stage["history"] = [{"version": 0}]
+            path.write_text(
+                json.dumps(payload, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            dry_run = QuestionWorkVersionStore(root).migrate_all()
+            migrated = QuestionWorkVersionStore(root).migrate_all(execute=True)
+            saved = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(dry_run["changedFileCount"], 1)
+        self.assertEqual(migrated["stageRecordCount"], 1)
+        self.assertEqual(saved["schemaVersion"], "question-work-versions/v2")
+        saved_stage = next(iter(saved["questions"].values()))["stages"]["question_type"]
+        self.assertEqual(saved_stage["version"], "1.0")
+        self.assertEqual(saved_stage["history"][0]["version"], "0.0")
 
     def test_backfill_never_overwrites_a_validated_run(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -4,7 +4,10 @@ from pathlib import Path
 
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
 from tools.question_review_console.server import ApiError, QuestionReviewApplication
-from tools.question_review_console.workflow_catalog import WorkflowCatalog
+from tools.question_review_console.workflow_catalog import (
+    WorkflowCatalog,
+    normalize_policy_version,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -102,8 +105,8 @@ class WorkflowCatalogTests(unittest.TestCase):
             stage for stage in catalog["stages"] if stage.get("batchSelectable")
         ]
         self.assertTrue(versioned)
-        self.assertTrue(all(stage["policyVersion"] == 1 for stage in versioned))
-        self.assertEqual(catalog["evaluation"]["policyVersion"], 1)
+        self.assertTrue(all(stage["policyVersion"] == "1.0" for stage in versioned))
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "1.0")
         self.assertTrue(
             all((ROOT / path).is_file() for path in catalog["evaluation"]["inputs"])
         )
@@ -111,6 +114,14 @@ class WorkflowCatalogTests(unittest.TestCase):
             ROOT / "tools" / "question_review_console" / "qualification_workflow.py"
         ).read_text(encoding="utf-8")
         self.assertNotIn("STAGE_CATALOG", workflow_source)
+
+    def test_policy_version_is_a_major_minor_string(self):
+        self.assertEqual(normalize_policy_version("1.10"), "1.10")
+        self.assertEqual(normalize_policy_version(1), "1.0")
+        for invalid in (1.1, "v1.0", "1", True):
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ValueError):
+                    normalize_policy_version(invalid)
 
     def test_catalog_changes_are_loaded_without_process_restart(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -1014,7 +1014,7 @@ class QuestionReviewApplication:
                 issues.append(
                     {
                         "code": code,
-                        "detail": "現行作業バージョンで未完了の工程: "
+                        "detail": "現行メジャーで未完了の工程: "
                         + ", ".join(stage_ids),
                         "fields": [],
                         "priority": -2,

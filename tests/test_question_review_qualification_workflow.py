@@ -84,6 +84,47 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_overview_counts_unique_required_questions_by_year(self):
+        current_question = question(group="2025")
+        legacy_question = question(group="2026")
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {"listGroupId": "2025", "questions": [current_question]},
+                        {"listGroupId": "2026", "questions": [legacy_question]},
+                    ],
+                ),
+            )
+            policies = workflow.versioned_policies("sample")
+            for stage in policies.values():
+                workflow.work_versions.record_stage(
+                    [current_question],
+                    stage,
+                    run_id=f"current-{stage['id']}",
+                    source="validated_run",
+                )
+                workflow.work_versions.record_stage(
+                    [legacy_question],
+                    stage,
+                    run_id=None,
+                    source="firestore_published_backfill",
+                    version="0.0",
+                    policy_fingerprint_override="legacy-unknown",
+                )
+
+            overview = workflow.overview("sample")
+
+        self.assertEqual(
+            overview["summary"]["maintenanceProgress"],
+            {"totalCount": 2, "currentCount": 1, "requiredCount": 1},
+        )
+        by_year = {item["listGroupId"]: item for item in overview["groups"]}
+        self.assertEqual(by_year["2025"]["maintenanceProgress"]["requiredCount"], 0)
+        self.assertEqual(by_year["2026"]["maintenanceProgress"]["requiredCount"], 1)
+
     def test_attention_plan_carries_only_target_record_identity_groups(self):
         target = question(
             issues=[{"code": "type_issue", "fields": ["questionType"]}]
@@ -361,7 +402,7 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertEqual(unrecorded["targetCount"], 1)
         self.assertEqual(legacy["targetCount"], 1)
-        self.assertEqual(legacy["policyVersions"], {"question_type": 1})
+        self.assertEqual(legacy["policyVersions"], {"question_type": "1.0"})
         self.assertEqual(current["targetCount"], 0)
 
     def test_group_refresh_targets_only_the_selected_year(self):

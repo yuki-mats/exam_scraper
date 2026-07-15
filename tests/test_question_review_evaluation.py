@@ -272,7 +272,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], 1)
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "1.0")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -294,13 +294,20 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             same_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": int(original_policy["policyVersion"]) + 1,
+                "policyVersion": "1.1",
                 "policyFingerprint": "new-evaluation-policy",
             }
-            next_version = service.status_for(question)
+            minor_version = service.status_for(question)
+            service.current_policy = lambda: {
+                **original_policy,
+                "policyVersion": "2.0",
+                "policyFingerprint": "breaking-evaluation-policy",
+            }
+            next_major = service.status_for(question)
 
         self.assertEqual(same_version["status"], "passed")
-        self.assertEqual(next_version["status"], "stale")
+        self.assertEqual(minor_version["status"], "passed")
+        self.assertEqual(next_major["status"], "stale")
 
     def test_current_work_policy_is_required_before_evaluation(self):
         with tempfile.TemporaryDirectory() as directory:

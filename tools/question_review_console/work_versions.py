@@ -9,11 +9,16 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from tools.question_review_console.review_store import atomic_write
-from tools.question_review_console.workflow_catalog import WorkflowCatalog
+from tools.question_review_console.workflow_catalog import (
+    WorkflowCatalog,
+    normalize_policy_version,
+    policy_version_major,
+)
 
 
-SCHEMA_VERSION = "question-work-versions/v1"
-LEGACY_VERSION = 0
+SCHEMA_VERSION = "question-work-versions/v2"
+READABLE_SCHEMA_VERSIONS = {"question-work-versions/v1", SCHEMA_VERSION}
+LEGACY_VERSION = "0.0"
 MAINTENANCE_STAGE_IDS = (
     "question_type",
     "question_intent",
@@ -114,19 +119,31 @@ def version_state(
 ) -> tuple[str, str]:
     if not recorded:
         return "unrecorded", "この工程の作業バージョンが未記録です。"
-    recorded_version = int(recorded.get("version") or 0)
-    current_version = int(policy.get("policyVersion") or 0)
-    if recorded_version < current_version:
+    recorded_version = normalize_policy_version(
+        recorded.get("version", LEGACY_VERSION), "recorded.version"
+    )
+    current_version = normalize_policy_version(
+        policy.get("policyVersion"), "policy.policyVersion"
+    )
+    recorded_major = policy_version_major(recorded_version)
+    current_major = policy_version_major(current_version)
+    if recorded_major < current_major:
         return (
             "outdated",
             f"v{recorded_version}で作業済み、現行はv{current_version}です。",
         )
-    if recorded_version > current_version:
+    if recorded_major > current_major:
         return (
             "future",
             f"記録v{recorded_version}が現行v{current_version}より新しい状態です。",
         )
-    return "current", f"現行v{current_version}で作業済みです。"
+    if recorded_version == current_version:
+        return "current", f"現行v{current_version}で作業済みです。"
+    return (
+        "current",
+        f"v{recorded_version}で作業済みです。現行v{current_version}は"
+        "マイナー改訂のため洗い替え不要です。",
+    )
 
 
 class QuestionWorkVersionStore:
@@ -168,7 +185,7 @@ class QuestionWorkVersionStore:
             raise ValueError(f"作業バージョンfileを読めません: {path}") from exc
         if (
             not isinstance(payload, dict)
-            or payload.get("schemaVersion") != SCHEMA_VERSION
+            or payload.get("schemaVersion") not in READABLE_SCHEMA_VERSIONS
             or payload.get("qualification") != qualification
             or payload.get("listGroupId") != list_group_id
             or not isinstance(payload.get("questions"), dict)
@@ -196,6 +213,7 @@ class QuestionWorkVersionStore:
             for stage in stages.values():
                 if isinstance(stage, dict):
                     stage.setdefault("history", [])
+                    self._normalize_stage_versions(stage)
         return normalized
 
     def status_for(
@@ -222,9 +240,16 @@ class QuestionWorkVersionStore:
                     "id": stage_id,
                     "code": str(policy.get("code") or stage_id),
                     "label": str(policy.get("label") or stage_id),
-                    "currentVersion": int(policy.get("policyVersion") or 0),
+                    "currentVersion": normalize_policy_version(
+                        policy.get("policyVersion"), "policy.policyVersion"
+                    ),
                     "recordedVersion": (
-                        int(recorded.get("version") or 0) if recorded else None
+                        normalize_policy_version(
+                            recorded.get("version", LEGACY_VERSION),
+                            "recorded.version",
+                        )
+                        if recorded
+                        else None
                     ),
                     "status": status,
                     "detail": detail,
@@ -275,7 +300,7 @@ class QuestionWorkVersionStore:
         run_id: str | None,
         source: str,
         only_missing: bool = False,
-        version: int | None = None,
+        version: str | int | None = None,
         policy_fingerprint_override: str | None = None,
     ) -> dict[str, Any]:
         stage_id = str(policy.get("id") or "")
@@ -294,6 +319,8 @@ class QuestionWorkVersionStore:
             prepared: list[tuple[Path, dict[str, Any]]] = []
             for (qualification, list_group_id), items in sorted(grouped.items()):
                 payload = self.load_group(qualification, list_group_id)
+                self._normalize_payload_versions(payload)
+                payload["schemaVersion"] = SCHEMA_VERSION
                 changed = False
                 for question in items:
                     key = _question_key_hash(question)
@@ -335,8 +362,9 @@ class QuestionWorkVersionStore:
                             }
                         )
                     stages[stage_id] = {
-                        "version": int(
-                            policy.get("policyVersion") if version is None else version
+                        "version": normalize_policy_version(
+                            policy.get("policyVersion") if version is None else version,
+                            f"{stage_id}.version",
                         ),
                         "policyFingerprint": str(
                             policy_fingerprint_override
@@ -365,11 +393,90 @@ class QuestionWorkVersionStore:
                 paths.append(str(path.relative_to(self.repo_root)))
         return {
             "stageId": stage_id,
-            "version": int(policy.get("policyVersion") if version is None else version),
+            "version": normalize_policy_version(
+                policy.get("policyVersion") if version is None else version,
+                f"{stage_id}.version",
+            ),
             "recordedCount": recorded_count,
             "skippedCount": skipped_count,
             "paths": paths,
         }
+
+    def migrate_all(self, *, execute: bool = False) -> dict[str, Any]:
+        """Convert legacy integer versions to MAJOR.MINOR after full validation."""
+
+        paths = sorted(self.root.glob("*/*/work_versions.json"))
+        prepared: list[tuple[Path, dict[str, Any]]] = []
+        stage_record_count = 0
+        changed_paths: list[str] = []
+        with self._lock:
+            for path in paths:
+                qualification = path.parent.parent.name
+                list_group_id = path.parent.name
+                original = self.load_group(qualification, list_group_id)
+                payload = copy.deepcopy(original)
+                stage_record_count += self._normalize_payload_versions(payload)
+                payload["schemaVersion"] = SCHEMA_VERSION
+                if payload != original:
+                    payload["updatedAt"] = _now()
+                    prepared.append((path, payload))
+                    changed_paths.append(str(path.relative_to(self.repo_root)))
+            if execute:
+                for path, payload in prepared:
+                    atomic_write(
+                        path,
+                        json.dumps(
+                            payload, ensure_ascii=False, indent=2, sort_keys=True
+                        )
+                        + "\n",
+                    )
+                    self._cache.pop(path, None)
+        return {
+            "schemaVersion": SCHEMA_VERSION,
+            "executed": execute,
+            "fileCount": len(paths),
+            "changedFileCount": len(prepared),
+            "stageRecordCount": stage_record_count,
+            "changedPaths": changed_paths,
+        }
+
+    @classmethod
+    def _normalize_payload_versions(cls, payload: dict[str, Any]) -> int:
+        questions = payload.get("questions")
+        if not isinstance(questions, Mapping):
+            raise ValueError("作業バージョンfileのquestions形式が不正です。")
+        stage_record_count = 0
+        for record in questions.values():
+            if not isinstance(record, Mapping):
+                raise ValueError("作業バージョンfileのquestion形式が不正です。")
+            stages = record.get("stages")
+            if not isinstance(stages, Mapping):
+                raise ValueError("作業バージョンfileのstages形式が不正です。")
+            for stage in stages.values():
+                if not isinstance(stage, dict):
+                    raise ValueError("作業バージョンfileのstage形式が不正です。")
+                cls._normalize_stage_versions(stage)
+                stage_record_count += 1
+        return stage_record_count
+
+    @staticmethod
+    def _normalize_stage_versions(stage: dict[str, Any]) -> None:
+        if "version" not in stage:
+            raise ValueError("作業バージョン記録にversionがありません。")
+        stage["version"] = normalize_policy_version(
+            stage["version"], "recorded.version"
+        )
+        history = stage.get("history")
+        if history is None:
+            return
+        if not isinstance(history, list):
+            raise ValueError("作業バージョン履歴の形式が不正です。")
+        for entry in history:
+            if not isinstance(entry, dict) or "version" not in entry:
+                raise ValueError("作業バージョン履歴の形式が不正です。")
+            entry["version"] = normalize_policy_version(
+                entry["version"], "recorded.history.version"
+            )
 
     @staticmethod
     def _empty_group(qualification: str, list_group_id: str) -> dict[str, Any]:

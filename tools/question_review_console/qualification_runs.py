@@ -31,6 +31,7 @@ from tools.question_review_console.jobs import (
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
+from tools.question_review_console.workflow_catalog import normalize_policy_version
 from tools.question_review_console.workflow_runner import ArtifactSynchronizer
 
 
@@ -400,7 +401,7 @@ class QualificationRunStore:
             "canonicalDocs": list(plan.get("canonicalDocs") or []),
             "catalogHash": plan.get("catalogHash"),
             "policyVersions": {
-                str(stage_id): int(version)
+                str(stage_id): normalize_policy_version(version)
                 for stage_id, version in (plan.get("policyVersions") or {}).items()
             },
             "policyFingerprints": {
@@ -1439,7 +1440,9 @@ class QualificationRunCoordinator:
             "canonicalDocs": canonical_docs,
             "catalogHash": catalog["catalogHash"],
             "policyVersions": {
-                stage_id: int(policy_by_id[stage_id]["policyVersion"])
+                stage_id: normalize_policy_version(
+                    policy_by_id[stage_id]["policyVersion"]
+                )
                 for stage_id in policy_stage_ids
             },
             "policyFingerprints": {
@@ -2065,12 +2068,14 @@ class QualificationRunCoordinator:
                     f"実行時の工程バージョン定義を確認できません: {stage_id}"
                 )
             run_fingerprint = str(fingerprints.get(stage_id) or "")
-            current_version = int(policies[stage_id]["policyVersion"])
+            current_version = normalize_policy_version(
+                policies[stage_id]["policyVersion"]
+            )
             current_fingerprint = str(
                 policies[stage_id].get("policyFingerprint") or ""
             )
             if (
-                int(raw_version) != current_version
+                normalize_policy_version(raw_version) != current_version
                 or not run_fingerprint
                 or run_fingerprint != current_fingerprint
             ):
@@ -2093,7 +2098,7 @@ class QualificationRunCoordinator:
                 )
             policy = {
                 **policies[stage_id],
-                "policyVersion": int(raw_version),
+                "policyVersion": normalize_policy_version(raw_version),
                 "policyFingerprint": run_fingerprint,
             }
             planned.append((selected, policy))

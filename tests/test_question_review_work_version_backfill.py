@@ -105,7 +105,7 @@ class WorkVersionBackfillTests(unittest.TestCase):
             "evaluation",
         })
         self.assertTrue(
-            all(stage["version"] == 0 for stage in record["stages"].values())
+            all(stage["version"] == "0.0" for stage in record["stages"].values())
         )
 
     def test_unmatched_live_document_blocks_all_local_writes(self):
