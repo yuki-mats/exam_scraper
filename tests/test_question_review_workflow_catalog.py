@@ -108,7 +108,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         version_by_stage = {
             stage["id"]: stage["policyVersion"] for stage in versioned
         }
-        self.assertEqual(version_by_stage["explanation"], "1.1")
+        self.assertEqual(version_by_stage["explanation"], "2.0")
         self.assertTrue(
             all(
                 version == "1.0"
@@ -116,7 +116,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 if stage_id != "explanation"
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "1.1")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "2.0")
         self.assertTrue(
             all((ROOT / path).is_file() for path in catalog["evaluation"]["inputs"])
         )
@@ -149,6 +149,16 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(second["system"]["name"], "更新後の名前")
         self.assertEqual(second["stages"][0]["purpose"], "更新後の目的")
         self.assertNotEqual(first["catalogHash"], second["catalogHash"])
+
+    def test_explanation_policy_uses_fact_then_choice_difference_order(self):
+        prompt = (ROOT / "prompt" / "03_prompt_add_explanationText.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("正しい内容と条文位置 → 選択肢との差", prompt)
+        self.assertIn("ガス事業は、ガス事業法第2条第11項において", prompt)
+        self.assertNotIn("誤り部分が条文説明より先", prompt)
+        self.assertNotIn("誤り部分 → 正式法令名と条文位置", prompt)
 
 
 class CanonicalDocumentTests(unittest.TestCase):
