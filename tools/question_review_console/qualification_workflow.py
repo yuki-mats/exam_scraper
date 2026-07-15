@@ -131,6 +131,23 @@ def _target_record_alias_group(question: Mapping[str, Any]) -> list[str]:
     return sorted(aliases)
 
 
+def _progress_target(question: Mapping[str, Any]) -> dict[str, Any]:
+    question_id = str(question.get("id") or "")
+    question_key = str(
+        question.get("sourceQuestionKey")
+        or question.get("reviewKey")
+        or question_id
+    )
+    return {
+        "id": question_id or question_key,
+        "questionKey": question_key,
+        "listGroupId": str(question.get("listGroupId") or ""),
+        "questionLabel": str(question.get("questionLabel") or ""),
+        "bodyPreview": str(question.get("body") or "")[:240],
+        "aliases": _target_record_alias_group(question),
+    }
+
+
 class QualificationWorkflow:
     def __init__(
         self,
@@ -522,6 +539,9 @@ class QualificationWorkflow:
         target_record_alias_groups = [
             _target_record_alias_group(question) for question in target_questions
         ]
+        progress_targets = [
+            _progress_target(question) for question in target_questions
+        ]
         if (
             str(definition["kind"]) == "human"
             and stage_id not in {"setup", "category_setup"}
@@ -590,6 +610,7 @@ class QualificationWorkflow:
                 else len(target_questions)
             ),
             "targetQuestionKeys": target_question_keys,
+            "progressTargets": progress_targets,
             "targetRecordAliasGroups": target_record_alias_groups,
             "targetSourceRecordScopes": target_source_record_scopes,
             "targetGroupIds": target_group_ids,
@@ -679,6 +700,9 @@ class QualificationWorkflow:
             audit_plan["targetQuestionKeys"] = list(
                 scope_plan.get("targetQuestionKeys") or []
             )
+            audit_plan["progressTargets"] = [
+                dict(target) for target in scope_plan.get("progressTargets") or []
+            ]
             audit_plan.setdefault("policyTargets", {})["law_audit"] = list(
                 audit_plan["targetQuestionKeys"]
             )
@@ -728,6 +752,14 @@ class QualificationWorkflow:
                 int(plan["targetCount"]) for plan in stage_plans
             ),
             "targetQuestionKeys": target_question_keys,
+            "progressTargets": list(
+                {
+                    str(target.get("id") or target.get("questionKey")): dict(target)
+                    for plan in stage_plans
+                    for target in plan.get("progressTargets") or []
+                    if target.get("id") or target.get("questionKey")
+                }.values()
+            ),
             "targetRecordAliasGroups": [
                 list(aliases)
                 for aliases in dict.fromkeys(

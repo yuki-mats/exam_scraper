@@ -35,14 +35,25 @@ from tools.question_review_console.workflow_catalog import normalize_policy_vers
 from tools.question_review_console.workflow_runner import ArtifactSynchronizer
 
 
-ACTIVE_RUN_STATUSES = {
+LIVE_RUN_STATUSES = {
     "queued",
     "running",
     "validating",
-    "awaiting_changes",
-    "interrupted",
-    "failed",
 }
+PROGRESS_EVENT_TYPES = {"question_started", "stage_completed", "question_completed"}
+PROGRESS_RESULT_FIELDS = {
+    "summary",
+    "correctChoiceText",
+    "explanationText",
+    "questionType",
+    "questionIntent",
+    "lawContext",
+    "lawAudit",
+    "questionSetId",
+}
+MAX_PROGRESS_BYTES = 8 * 1024 * 1024
+MAX_PROGRESS_EVENTS = 10_000
+MAX_PROGRESS_LINE_BYTES = 32 * 1024
 ALLOWED_MAINTENANCE_DIR_NAMES = {
     "10_questionType_fixed",
     "15_correctChoiceText_fixed",
@@ -352,6 +363,7 @@ class QualificationRunStore:
             if str(plan["kind"]) == "human"
             else run_dir / "result.json"
         )
+        progress_path = run_dir / "agent_output" / "progress.jsonl"
         now = _now()
         target_record_alias_groups = [
             sorted({str(value) for value in group if value})
@@ -364,6 +376,45 @@ class QualificationRunStore:
         target_record_aliases.update(
             value for group in target_record_alias_groups for value in group
         )
+        progress_targets = []
+        for raw_target in plan.get("progressTargets") or []:
+            if not isinstance(raw_target, Mapping):
+                continue
+            question_id = str(
+                raw_target.get("id") or raw_target.get("questionKey") or ""
+            ).strip()
+            if not question_id:
+                continue
+            aliases = sorted(
+                {
+                    question_id,
+                    str(raw_target.get("questionKey") or "").strip(),
+                    *(
+                        str(value).strip()
+                        for value in raw_target.get("aliases") or []
+                    ),
+                }
+                - {""}
+            )
+            progress_targets.append(
+                {
+                    "id": question_id,
+                    "questionKey": str(raw_target.get("questionKey") or question_id)[:300],
+                    "listGroupId": str(raw_target.get("listGroupId") or "")[:100],
+                    "questionLabel": str(raw_target.get("questionLabel") or "")[:200],
+                    "bodyPreview": str(raw_target.get("bodyPreview") or "")[:240],
+                    "aliases": aliases,
+                }
+            )
+        progress_stages = [
+            {
+                "id": str(stage.get("stageId") or ""),
+                "code": str(stage.get("stageCode") or ""),
+                "label": str(stage.get("stageLabel") or ""),
+            }
+            for stage in plan.get("stagePlans") or [plan]
+            if str(stage.get("stageId") or "")
+        ]
         def normalized_record_scopes(value: Any) -> dict[str, list[list[str]]]:
             if not isinstance(value, Mapping):
                 return {}
@@ -398,6 +449,8 @@ class QualificationRunStore:
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "targetQuestionIds": list(plan.get("targetQuestionIds") or []),
             "targetQuestionKeys": list(plan.get("targetQuestionKeys") or []),
+            "progressTargets": progress_targets,
+            "progressStages": progress_stages,
             "canonicalDocs": list(plan.get("canonicalDocs") or []),
             "catalogHash": plan.get("catalogHash"),
             "policyVersions": {
@@ -448,6 +501,11 @@ class QualificationRunStore:
             "resultReceiptPath": str(
                 result_path.relative_to(self.repo_root)
             ),
+            "progressReceiptPath": (
+                str(progress_path.relative_to(self.repo_root))
+                if str(plan["kind"]) == "human"
+                else None
+            ),
             "resultReceiptHash": None,
             "receiptError": None,
             "receiptValidated": False,
@@ -478,6 +536,7 @@ class QualificationRunStore:
             run_dir.mkdir(parents=True, exist_ok=False)
             if str(plan["kind"]) == "human":
                 result_path.parent.mkdir()
+                progress_path.touch()
             if prompt is not None:
                 prompt_path = run_dir / "prompt.md"
                 prompt_path.write_text(
@@ -485,6 +544,8 @@ class QualificationRunStore:
                         self._with_receipt_contract(
                             prompt,
                             result_path,
+                            progress_path,
+                            run_dir / "manifest.json",
                             manifest["resolvableFailedDeltaPaths"],
                         )
                         if append_receipt_contract
@@ -549,6 +610,188 @@ class QualificationRunStore:
                 manifest_path,
                 self._load_manifest(manifest_path),
             )
+
+    def progress_path(self, qualification: str, run_id: str) -> Path:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            if manifest.get("kind") != "human":
+                raise QualificationRunError("この作業には問題単位の進捗がありません。")
+            return manifest_path.parent / "agent_output" / "progress.jsonl"
+
+    def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            if manifest.get("kind") != "human":
+                return self._empty_progress(manifest)
+            progress_path = manifest_path.parent / "agent_output" / "progress.jsonl"
+            raw = progress_path.read_bytes() if progress_path.is_file() else b""
+        return self._parsed_progress(manifest, raw)
+
+    @staticmethod
+    def _empty_progress(manifest: Mapping[str, Any]) -> dict[str, Any]:
+        return {
+            "runId": manifest.get("runId"),
+            "status": manifest.get("status"),
+            "verified": bool(
+                manifest.get("status") == "succeeded"
+                and manifest.get("receiptValidated") is True
+            ),
+            "targetQuestionCount": int(manifest.get("targetCount") or 0),
+            "completedQuestionCount": 0,
+            "targetWorkItemCount": int(manifest.get("workItemCount") or 0),
+            "completedWorkItemCount": 0,
+            "percent": 0,
+            "current": None,
+            "events": [],
+            "groups": [],
+            "invalidEventCount": 0,
+        }
+
+    @classmethod
+    def _parsed_progress(
+        cls, manifest: Mapping[str, Any], raw: bytes
+    ) -> dict[str, Any]:
+        payload = cls._empty_progress(manifest)
+        if not raw:
+            return payload
+        if len(raw) > MAX_PROGRESS_BYTES:
+            payload["invalidEventCount"] = 1
+            payload["warning"] = "進捗記録が上限を超えたため表示できません。"
+            return payload
+
+        targets = [
+            dict(target)
+            for target in manifest.get("progressTargets") or []
+            if isinstance(target, Mapping) and target.get("id")
+        ]
+        target_by_alias: dict[str, dict[str, Any]] = {}
+        for index, target in enumerate(targets, start=1):
+            target["targetIndex"] = index
+            aliases = {
+                str(target.get("id") or ""),
+                str(target.get("questionKey") or ""),
+                *(str(value) for value in target.get("aliases") or []),
+            } - {""}
+            for alias in aliases:
+                target_by_alias.setdefault(alias, target)
+        stages = {
+            str(stage.get("id")): dict(stage)
+            for stage in manifest.get("progressStages") or []
+            if isinstance(stage, Mapping) and stage.get("id")
+        }
+        invalid_count = 0
+        events: list[dict[str, Any]] = []
+        for raw_line in raw.splitlines()[:MAX_PROGRESS_EVENTS]:
+            if not raw_line.strip():
+                continue
+            if len(raw_line) > MAX_PROGRESS_LINE_BYTES:
+                invalid_count += 1
+                continue
+            try:
+                value = json.loads(raw_line.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                invalid_count += 1
+                continue
+            if not isinstance(value, Mapping):
+                invalid_count += 1
+                continue
+            event_type = str(value.get("event") or "")
+            target = target_by_alias.get(str(value.get("questionId") or ""))
+            stage_id = str(value.get("stageId") or "")
+            stage = stages.get(stage_id) if stage_id else None
+            if (
+                event_type not in PROGRESS_EVENT_TYPES
+                or target is None
+                or (event_type == "stage_completed" and stage is None)
+                or (stage_id and stage is None)
+            ):
+                invalid_count += 1
+                continue
+            raw_result = value.get("result")
+            result: dict[str, Any] = {}
+            if isinstance(raw_result, Mapping):
+                for field in PROGRESS_RESULT_FIELDS:
+                    if field not in raw_result:
+                        continue
+                    item = raw_result[field]
+                    if isinstance(item, list):
+                        result[field] = [str(entry)[:2000] for entry in item[:20]]
+                    elif isinstance(item, Mapping):
+                        result[field] = {
+                            str(key)[:100]: str(entry)[:1000]
+                            for key, entry in list(item.items())[:20]
+                        }
+                    elif item is not None:
+                        result[field] = str(item)[:4000]
+            events.append(
+                {
+                    "sequence": len(events) + 1,
+                    "event": event_type,
+                    "questionId": str(target["id"]),
+                    "questionKey": str(target.get("questionKey") or ""),
+                    "questionLabel": str(target.get("questionLabel") or "")
+                    or f"問{target['targetIndex']}",
+                    "targetIndex": int(target["targetIndex"]),
+                    "listGroupId": str(target.get("listGroupId") or ""),
+                    "bodyPreview": str(target.get("bodyPreview") or ""),
+                    "stageId": stage_id or None,
+                    "stageCode": str((stage or {}).get("code") or "") or None,
+                    "stageLabel": str((stage or {}).get("label") or "") or None,
+                    "result": result,
+                    "at": str(value.get("at") or "")[:100] or None,
+                }
+            )
+        if len(raw.splitlines()) > MAX_PROGRESS_EVENTS:
+            invalid_count += len(raw.splitlines()) - MAX_PROGRESS_EVENTS
+
+        completed_questions = {
+            event["questionId"]
+            for event in events
+            if event["event"] == "question_completed"
+        }
+        completed_work_items = {
+            (event["questionId"], event["stageId"])
+            for event in events
+            if event["event"] == "stage_completed" and event["stageId"]
+        }
+        groups: list[dict[str, Any]] = []
+        for group_id in dict.fromkeys(
+            str(target.get("listGroupId") or "") for target in targets
+        ):
+            group_targets = {
+                str(target["id"])
+                for target in targets
+                if str(target.get("listGroupId") or "") == group_id
+            }
+            group_completed = group_targets & completed_questions
+            groups.append(
+                {
+                    "listGroupId": group_id,
+                    "targetQuestionCount": len(group_targets),
+                    "completedQuestionCount": len(group_completed),
+                    "percent": round(
+                        (len(group_completed) / len(group_targets)) * 100
+                    ) if group_targets else 0,
+                }
+            )
+        target_count = len(targets) or int(manifest.get("targetCount") or 0)
+        payload.update(
+            {
+                "targetQuestionCount": target_count,
+                "completedQuestionCount": len(completed_questions),
+                "completedWorkItemCount": len(completed_work_items),
+                "percent": round(
+                    (len(completed_questions) / target_count) * 100
+                ) if target_count else 0,
+                "current": events[-1] if events else None,
+                "events": events[-40:],
+                "groups": groups,
+                "invalidEventCount": invalid_count,
+            }
+        )
+        return payload
 
     def write_baseline(
         self,
@@ -836,6 +1079,8 @@ class QualificationRunStore:
     def _with_receipt_contract(
         prompt: str,
         receipt_path: Path,
+        progress_path: Path,
+        manifest_path: Path,
         resolvable_failed_paths: list[str],
     ) -> str:
         example = {
@@ -845,9 +1090,42 @@ class QualificationRunStore:
             "changedFiles": [],
             "resolvedFailedDeltaPaths": [],
         }
+        started_example = {
+            "event": "question_started",
+            "questionId": "<progressTargets[].id>",
+            "at": "<ISO 8601>",
+        }
+        stage_example = {
+            "event": "stage_completed",
+            "questionId": "<progressTargets[].id>",
+            "stageId": "<progressStages[].id>",
+            "result": {
+                "summary": "正答判断を完了",
+                "correctChoiceText": ["正しい", "誤り"],
+            },
+            "at": "<ISO 8601>",
+        }
+        completed_example = {
+            "event": "question_completed",
+            "questionId": "<progressTargets[].id>",
+            "at": "<ISO 8601>",
+        }
         return "\n".join(
             [
                 prompt.rstrip(),
+                "",
+                "## 画面用の問題別進捗",
+                "",
+                f"対象IDと工程IDは `{manifest_path}` のprogressTargetsとprogressStagesを使う。",
+                f"作業中、次のJSONLへ1イベント1行で追記する: `{progress_path}`",
+                "各行は追記直後に完全なJSONと改行を保存し、既存行は変更しない。",
+                "問題を始める直前にquestion_started、各工程の判断完了直後にstage_completed、問題の全工程完了直後にquestion_completedを追記する。",
+                "resultには思考過程ではなく、利用者が確認できる最終判断・正答・解説文などの出力だけを記録する。",
+                f"開始例: `{json.dumps(started_example, ensure_ascii=False, separators=(',', ':'))}`",
+                f"工程完了例: `{json.dumps(stage_example, ensure_ascii=False, separators=(',', ':'))}`",
+                f"問題完了例: `{json.dumps(completed_example, ensure_ascii=False, separators=(',', ':'))}`",
+                "正答工程ではcorrectChoiceText、解説工程ではexplanationTextのように、該当工程の確定出力だけをresultへ入れる。該当しないfieldは省略する。",
+                "progress.jsonl自身はchangedFilesへ含めない。",
                 "",
                 "## 完了記録",
                 "",
@@ -1156,10 +1434,16 @@ class QualificationRunCoordinator:
             "qualification": qualification,
             "runs": runs,
             "activeRun": next(
-                (run for run in runs if run.get("status") in ACTIVE_RUN_STATUSES),
+                (run for run in runs if run.get("status") in LIVE_RUN_STATUSES),
                 None,
             ),
         }
+
+    def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
+        run = self.store.get(qualification, run_id)
+        if str(run.get("qualification") or "") != qualification:
+            raise QualificationRunError("対象資格と作業履歴が一致しません。")
+        return self.store.progress(qualification, run_id)
 
     def resume_prompt(self, qualification: str, run_id: str) -> dict[str, Any]:
         run = self.store.get(qualification, run_id)
@@ -2170,6 +2454,17 @@ class QualificationRunCoordinator:
                 "result.json",
             )
         )
+        paths.discard(
+            Path(
+                "output",
+                "question_review_console",
+                "workflow_runs",
+                qualification,
+                run_id,
+                "agent_output",
+                "progress.jsonl",
+            )
+        )
         run = self.store.get(qualification, run_id)
         allowed_roots = self._maintenance_root_candidates(
             qualification,
@@ -2365,8 +2660,12 @@ class QualificationRunCoordinator:
             "agent_output",
             "result.json",
         )
+        progress_path = receipt_path.with_name("progress.jsonl")
         notified.discard(receipt_path)
         actual.discard(receipt_path)
+        notified.discard(progress_path)
+        actual.discard(progress_path)
+        declared.discard(progress_path)
         agent_output_root = receipt_path.parent
         extra_agent_output = {
             path
@@ -2375,7 +2674,7 @@ class QualificationRunCoordinator:
         }
         if extra_agent_output:
             raise QualificationRunError(
-                "agent_outputにはresult.json以外を保存できません: "
+                "agent_outputにはresult.json以外（画面用progress.jsonlを除く）を保存できません: "
                 + ", ".join(str(path) for path in sorted(extra_agent_output))
             )
         symlinks = {

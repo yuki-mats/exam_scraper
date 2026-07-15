@@ -241,6 +241,13 @@ class QuestionReviewServerTests(unittest.TestCase):
             def recent(self, qualification):
                 return {"qualification": qualification, "runs": []}
 
+            def progress(self, qualification, run_id):
+                return {
+                    "qualification": qualification,
+                    "runId": run_id,
+                    "completedQuestionCount": 3,
+                }
+
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
             runs = Runs()
@@ -273,6 +280,10 @@ class QuestionReviewServerTests(unittest.TestCase):
             _, recent = app.get(
                 "/api/qualification-runs", {"qualification": ["sample"]}
             )
+            _, progress = app.get(
+                "/api/qualification-runs/run-1/progress",
+                {"qualification": ["sample"]},
+            )
 
         self.assertEqual(preview["mode"], "attention")
         self.assertEqual(runs.scope, ["2024", "2026"])
@@ -280,6 +291,8 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(started["run"]["runId"], "run-1")
         self.assertEqual(resumed["prompt"], "依頼")
         self.assertEqual(recent["qualification"], "sample")
+        self.assertEqual(progress["runId"], "run-1")
+        self.assertEqual(progress["completedQuestionCount"], 3)
 
     def test_bulk_law_audit_post_adds_all_qualification_target_files(self):
         class Inventory:

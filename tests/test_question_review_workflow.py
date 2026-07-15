@@ -545,6 +545,11 @@ class WorkflowUiContractTests(unittest.TestCase):
             "qualification-run-groups-all",
             "qualification-run-groups-clear",
             "qualification-run-start",
+            "qualification-run-progress-current",
+            "qualification-run-progress-events",
+            "qualification-run-progress-bar",
+            "progress-question-dialog",
+            "progress-question-content",
             "load-more-questions",
             "workflow-dialog",
             "production-confirm",
@@ -580,6 +585,9 @@ class WorkflowUiContractTests(unittest.TestCase):
             "previewQualificationRun",
             "startQualificationRun",
             "resumeQualificationRun",
+            "renderQualificationRunProgress",
+            "openProgressQuestion",
+            "loadQualificationRunProgress",
             "openSyncDialog",
             "openPublishDialog",
             "openEvaluationDialog",
@@ -687,6 +695,12 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("function pollSharedRunProgress", javascript)
         self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", javascript)
         self.assertIn("state.qualificationActiveJob?.logs", javascript)
+        self.assertIn("state.qualificationRunProgress", javascript)
+        self.assertIn("maintenance-year-row${working ? \" working\"", javascript)
+        self.assertIn(".maintenance-year-row.working", css)
+        self.assertIn("作業中の出力", javascript)
+        self.assertIn("タップして問題本文を見る", javascript)
+        self.assertIn("/progress?${params}", javascript)
         self.assertIn("/summary`", javascript)
         self.assertIn("codexStatus.turnReasoningEffort", javascript)
         self.assertIn('startCodex: state.reviewMode === "awaiting_codex"', javascript)

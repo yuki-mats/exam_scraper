@@ -118,6 +118,131 @@ class MultiGroupSourceInventory(SourceOnlyInventory):
         }
 
 class QualificationRunTests(unittest.TestCase):
+    def test_human_run_records_validated_question_level_progress(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan = {
+                "qualification": "sample",
+                "stageId": "multi",
+                "stageIds": ["correct_choice", "explanation"],
+                "stageCode": "02a → 03",
+                "stageLabel": "複数工程",
+                "mode": "outdated",
+                "modeLabel": "洗い替え必要のみ",
+                "kind": "human",
+                "targetCount": 2,
+                "workItemCount": 4,
+                "targetGroupIds": ["2026"],
+                "targetQuestionKeys": ["sample:2026:q01", "sample:2026:q02"],
+                "progressTargets": [
+                    {
+                        "id": "ui-q1",
+                        "questionKey": "sample:2026:q01",
+                        "listGroupId": "2026",
+                        "questionLabel": "問1",
+                        "bodyPreview": "問題本文1",
+                        "aliases": ["source-q1"],
+                    },
+                    {
+                        "id": "ui-q2",
+                        "questionKey": "sample:2026:q02",
+                        "listGroupId": "2026",
+                        "questionLabel": "問2",
+                        "bodyPreview": "問題本文2",
+                        "aliases": ["source-q2"],
+                    },
+                ],
+                "stagePlans": [
+                    {
+                        "stageId": "correct_choice",
+                        "stageCode": "02a",
+                        "stageLabel": "正答精査",
+                    },
+                    {
+                        "stageId": "explanation",
+                        "stageCode": "03",
+                        "stageLabel": "解説整備",
+                    },
+                ],
+                "sourceFiles": [],
+                "canonicalDocs": [],
+            }
+            run = store.create(plan, status="running", prompt="整備する。")
+            progress_path = root / run["progressReceiptPath"]
+            progress_path.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {"event": "question_started", "questionId": "source-q1"},
+                            ensure_ascii=False,
+                        ),
+                        json.dumps(
+                            {
+                                "event": "stage_completed",
+                                "questionId": "ui-q1",
+                                "stageId": "correct_choice",
+                                "result": {
+                                    "correctChoiceText": ["正しい", "誤り"],
+                                    "privateReasoning": "表示してはいけない",
+                                },
+                            },
+                            ensure_ascii=False,
+                        ),
+                        json.dumps(
+                            {"event": "question_completed", "questionId": "ui-q1"},
+                            ensure_ascii=False,
+                        ),
+                        json.dumps(
+                            {"event": "stage_completed", "questionId": "scope外", "stageId": "explanation"},
+                            ensure_ascii=False,
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            progress = store.progress("sample", run["runId"])
+            prompt = store.prompt("sample", run["runId"])
+
+        self.assertEqual(progress["completedQuestionCount"], 1)
+        self.assertEqual(progress["completedWorkItemCount"], 1)
+        self.assertEqual(progress["percent"], 50)
+        self.assertEqual(progress["current"]["questionId"], "ui-q1")
+        self.assertEqual(progress["groups"][0]["percent"], 50)
+        self.assertEqual(progress["invalidEventCount"], 1)
+        self.assertNotIn("privateReasoning", progress["events"][1]["result"])
+        self.assertIn("画面用の問題別進捗", prompt)
+        self.assertIn("progressTargets", prompt)
+
+    def test_progress_receipt_is_not_treated_as_a_maintenance_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            run = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="running",
+                prompt="整備する。",
+            )
+            progress_relative = str(
+                (root / run["progressReceiptPath"]).relative_to(root)
+            )
+
+            coordinator._validate_changed_files(
+                "sample",
+                run["runId"],
+                coordinator.store.get("sample", run["runId"]),
+                (progress_relative,),
+                (progress_relative,),
+            )
+
     def test_validated_run_records_only_the_manifest_stage_version(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1909,7 +2034,8 @@ class QualificationRunTests(unittest.TestCase):
 
         self.assertEqual(started["run"]["status"], "awaiting_changes")
         self.assertIsNone(started["job"])
-        self.assertEqual(recent["activeRun"]["runId"], started["run"]["runId"])
+        self.assertIsNone(recent["activeRun"])
+        self.assertEqual(recent["runs"][0]["runId"], started["run"]["runId"])
         self.assertIn("資格単位の問題整備", resumed["prompt"])
 
     def test_human_run_converges_after_valid_result_receipt(self):
@@ -1975,8 +2101,9 @@ class QualificationRunTests(unittest.TestCase):
             )
             recent = coordinator.recent("sample")
 
-        self.assertEqual(recent["activeRun"]["status"], "awaiting_changes")
-        self.assertIn("pass検証", recent["activeRun"]["receiptError"])
+        self.assertIsNone(recent["activeRun"])
+        self.assertEqual(recent["runs"][0]["status"], "awaiting_changes")
+        self.assertIn("pass検証", recent["runs"][0]["receiptError"])
 
     def test_result_receipt_path_in_manifest_cannot_redirect_read(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2010,7 +2137,8 @@ class QualificationRunTests(unittest.TestCase):
             )
             recent = coordinator.recent("sample")
 
-        self.assertEqual(recent["activeRun"]["status"], "awaiting_changes")
+        self.assertIsNone(recent["activeRun"])
+        self.assertEqual(recent["runs"][0]["status"], "awaiting_changes")
 
     def test_delivery_run_processes_all_groups_and_records_completion(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -195,13 +195,43 @@
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
           <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>
           <div id="qualification-run-job" class="qualification-run-job" hidden>
-            <strong id="qualification-run-job-status">処理中</strong>
-            <pre id="qualification-run-job-log"></pre>
+            <div class="qualification-run-progress-heading">
+              <strong id="qualification-run-job-status">処理中</strong>
+              <span id="qualification-run-progress-label">進捗を取得しています。</span>
+            </div>
+            <span class="qualification-run-progress-meter" aria-hidden="true">
+              <span id="qualification-run-progress-bar"></span>
+            </span>
+            <button id="qualification-run-progress-current" class="qualification-run-progress-current" type="button" hidden></button>
+            <div>
+              <h3 class="qualification-run-progress-title">問題ごとの出力</h3>
+              <div id="qualification-run-progress-events" class="qualification-run-progress-events" aria-live="polite"></div>
+            </div>
+            <details id="qualification-run-technical-log" class="qualification-run-technical-log">
+              <summary>技術ログを表示</summary>
+              <pre id="qualification-run-job-log"></pre>
+            </details>
           </div>
         </div>
         <footer class="dialog-actions">
           <button id="qualification-run-cancel" class="secondary-button close-dialog" type="button">キャンセル</button>
           <button id="qualification-run-start" class="primary-button" type="submit" disabled>開始</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog id="progress-question-dialog" class="progress-question-dialog">
+      <form method="dialog">
+        <header class="dialog-header">
+          <div>
+            <span class="dialog-eyebrow">作業対象を確認</span>
+            <h2 id="progress-question-title">問題本文</h2>
+          </div>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div id="progress-question-content" class="dialog-body progress-question-content" aria-live="polite"></div>
+        <footer class="dialog-actions">
+          <button class="secondary-button close-dialog" type="button">閉じる</button>
         </footer>
       </form>
     </dialog>

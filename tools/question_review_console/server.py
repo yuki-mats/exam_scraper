@@ -285,6 +285,22 @@ class QuestionReviewApplication:
                 return HTTPStatus.OK, self.qualification_runs.recent(qualification)
             except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+        if path.startswith("/api/qualification-runs/") and path.endswith("/progress"):
+            qualification = _query_value(query, "qualification")
+            run_id = path.removeprefix("/api/qualification-runs/").removesuffix(
+                "/progress"
+            )
+            if not qualification or not run_id:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "qualificationとrunIdを指定してください。",
+                )
+            try:
+                return HTTPStatus.OK, self.qualification_runs.progress(
+                    qualification, run_id
+                )
+            except (ValueError, QualificationRunError) as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
         if path == "/api/questions":
             return HTTPStatus.OK, self._questions(query)
         if path.startswith("/api/jobs/") and path.endswith("/summary"):
