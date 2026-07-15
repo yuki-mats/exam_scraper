@@ -69,7 +69,7 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 
 実行状態はbrowserではなくserver側のrun記録を正本にします。入口の`いまの作業`は待機中も常に表示し、実行時は資格・年度と`問題を整備`、`最終検証`、`完了`の3段階だけを示します。問題処理が100%でもreceiptと変更範囲の確認中は`最終検証中`とし、失敗時は直近の作業を消さず、停止した段階、未承認であること、停止理由を表示します。
 
-作業中は問題開始、工程完了、問題完了を`progress.jsonl`へ順次記録し、画面には現在の年度・問題番号・工程、正答や解説などの最終出力、問題単位と工程単位の件数を表示します。思考過程は保存しません。完了検証前は`作業中の出力`、成功receipt検証後だけ`検証済み`として扱います。
+作業中は問題開始、工程完了、問題完了を`progress.jsonl`へ順次記録し、画面には現在の年度・問題番号・工程、正答や解説などの最終出力、問題単位と工程単位の件数を表示します。工程数は`policyTargets`で適用対象になる問題と工程の組合せだけを数え、対象外の進捗通知は表示・集計しません。思考過程は保存しません。完了検証前は`作業中の出力`、成功receipt検証後だけ`検証済み`として扱います。
 
 同じURLを別のSafari又は本人の別端末で開いても、選択資格の実行中カード、問題別出力、年度の作業中ハイライトと進捗バーを3秒ごとに自動更新します。問題別出力をタップすると既存の問題APIから本文、選択肢、現在保存済みの正答と解説を表示します。完了後は資格全体と年度別の件数を再取得します。技術ログは通常表示から分離し、必要な場合だけ展開します。
 
@@ -94,6 +94,7 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 問題ごとの工程履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`へ保存します。各工程は最新記録と過去の`history`を持つため、洗い替え後も`v0.0`などの旧記録を追跡できます。これは運用メタデータであり、`00_source`、patch、merged、upload-ready、Firestore question documentへ複製しません。公開済み問題の一括初期化receiptは`work_version_backfills/`、`MAJOR.MINOR`形式への移行receiptは`work_version_migrations/`へ保存します。
 
 - 整備と再整備の前後で`00_source`不変検証を行う。
+- Codex App Serverのfile変更通知は、run専用の一時directoryとrepositoryをserver側で1回だけ切り分ける。一時directory内の補助fileは実行終了時に削除して成果物に数えず、repository内だけを実差分とreceiptで照合し、どちらにも属さないpathは停止する。
 - 整備と再整備は工程又は選択fieldに対応するpatchだけを変更する。1問指定では対象patch fileとJSON/JSONL内の対象recordも限定し、App Server通知、実行前後のrepository差分、receiptの`changedFiles`を双方向で照合する。
 - `questionBodyText`と`choiceTextList`はCodex自動整備の対象外とする。両fieldはblind reviewと根拠を必須にする`24_questionIssueCorrections`専用workflowで扱う。
 - 実体patch、評価projection、readback、merge、sync、公開artifactを変更する処理は、システム全体で1件ずつ実行する。一意IDのreview・run metadataは開始前にatomic writeし、排他競合時はfailed又は`needs_review`へ戻す。

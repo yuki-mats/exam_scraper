@@ -66,6 +66,59 @@ class FakeSynchronizer:
         return {"message": "同期しました。"}
 
 
+class SuccessfulAppServer:
+    configured = True
+    provider = "Codex App Server"
+
+    def __init__(self, changed_files=(), *, temporary_helper=False):
+        self.changed_files = list(changed_files)
+        self.temporary_helper = temporary_helper
+        self.kwargs = {}
+
+    def assert_subscription_access(self, *, force=True):
+        return {"allowed": True, "planType": "pro"}
+
+    def run_turn(self, prompt, **kwargs):
+        self.kwargs = kwargs
+        kwargs["on_thread_started"](
+            "thread-maintenance-1", "session-maintenance-1"
+        )
+        kwargs["on_turn_started"](
+            "thread-maintenance-1", "turn-maintenance-1"
+        )
+        receipt_line = next(
+            line
+            for line in prompt.splitlines()
+            if "完了時に検証結果を次へJSONで保存" in line
+        )
+        Path(receipt_line.split("`")[1]).write_text(
+            json.dumps(
+                {
+                    "status": "succeeded",
+                    "summary": "対象工程を整備した。",
+                    "commands": [{"command": "python check.py", "status": "pass"}],
+                    "changedFiles": self.changed_files,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        notifications = []
+        if self.temporary_helper:
+            helper_path = kwargs["cwd"] / "generate_progress.py"
+            helper_path.write_text("# disposable helper\n", encoding="utf-8")
+            notifications.append(str(helper_path))
+        return AppServerTurnResult(
+            thread_id="thread-maintenance-1",
+            session_id="session-maintenance-1",
+            turn_id="turn-maintenance-1",
+            final_message="整備完了",
+            model="gpt-test",
+            service_tier=None,
+            changed_files=tuple(notifications),
+        )
+
+
 class SourceOnlyInventory:
     def inventory(self):
         return {
@@ -132,9 +185,13 @@ class QualificationRunTests(unittest.TestCase):
                 "modeLabel": "洗い替え必要のみ",
                 "kind": "human",
                 "targetCount": 2,
-                "workItemCount": 4,
+                "workItemCount": 3,
                 "targetGroupIds": ["2026"],
                 "targetQuestionKeys": ["sample:2026:q01", "sample:2026:q02"],
+                "policyTargets": {
+                    "correct_choice": ["source-q1"],
+                    "explanation": ["source-q1", "source-q2"],
+                },
                 "progressTargets": [
                     {
                         "id": "ui-q1",
@@ -194,6 +251,14 @@ class QualificationRunTests(unittest.TestCase):
                             ensure_ascii=False,
                         ),
                         json.dumps(
+                            {
+                                "event": "stage_completed",
+                                "questionId": "ui-q2",
+                                "stageId": "correct_choice",
+                            },
+                            ensure_ascii=False,
+                        ),
+                        json.dumps(
                             {"event": "stage_completed", "questionId": "scope外", "stageId": "explanation"},
                             ensure_ascii=False,
                         ),
@@ -215,6 +280,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertNotIn("privateReasoning", progress["events"][1]["result"])
         self.assertIn("画面用の問題別進捗", prompt)
         self.assertIn("progressTargets", prompt)
+        self.assertIn("policyTargets", prompt)
 
     def test_progress_receipt_is_not_treated_as_a_maintenance_change(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1614,54 +1680,15 @@ class QualificationRunTests(unittest.TestCase):
                 )
 
     def test_human_run_executes_in_fresh_app_server_thread_and_records_receipt(self):
-        class FakeAppServer:
-            configured = True
-            provider = "Codex App Server"
-
-            def assert_subscription_access(self, *, force=True):
-                return {"allowed": True, "planType": "pro"}
-
-            def run_turn(self, prompt, **kwargs):
-                self.kwargs = kwargs
-                kwargs["on_thread_started"](
-                    "thread-maintenance-1", "session-maintenance-1"
-                )
-                kwargs["on_turn_started"](
-                    "thread-maintenance-1", "turn-maintenance-1"
-                )
-                receipt_line = next(
-                    line for line in prompt.splitlines() if "完了時に検証結果を次へJSONで保存" in line
-                )
-                receipt_path = Path(receipt_line.split("`")[1])
-                receipt_path.write_text(
-                    json.dumps(
-                        {
-                            "status": "succeeded",
-                            "summary": "対象工程を整備した。",
-                            "commands": [
-                                {"command": "python check.py", "status": "pass"}
-                            ],
-                            "changedFiles": [
-                                "output/sample/questions_json/2026/"
-                                "21_explanationText_added/patch.json"
-                            ],
-                        },
-                        ensure_ascii=False,
-                    ),
-                    encoding="utf-8",
-                )
-                return AppServerTurnResult(
-                    thread_id="thread-maintenance-1",
-                    session_id="session-maintenance-1",
-                    turn_id="turn-maintenance-1",
-                    final_message="整備完了",
-                    model="gpt-test",
-                    service_tier=None,
-                )
-
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = FakeAppServer()
+            app_server = SuccessfulAppServer(
+                (
+                    "output/sample/questions_json/2026/"
+                    "21_explanationText_added/patch.json",
+                ),
+                temporary_helper=True,
+            )
             jobs = JobManager()
             coordinator = QualificationRunCoordinator(
                 root,
@@ -1724,6 +1751,88 @@ class QualificationRunTests(unittest.TestCase):
             app_server.kwargs["writable_roots"],
         )
         self.assertNotIn(run_dir, app_server.kwargs["writable_roots"])
+
+    def test_change_notifications_allow_only_turn_workspace_or_repository(self):
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            tempfile.TemporaryDirectory() as turn_directory,
+            tempfile.TemporaryDirectory() as outside_directory,
+        ):
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            turn_workspace = Path(turn_directory)
+            outside = Path(outside_directory)
+            repository_file = root / "output/sample/questions_json/2026/patch.json"
+
+            persistent = coordinator._repository_change_notifications(
+                (
+                    str(turn_workspace / "helper.py"),
+                    "relative-helper.py",
+                    str(repository_file),
+                ),
+                transient_root=turn_workspace,
+            )
+
+            self.assertEqual(
+                persistent,
+                ("output/sample/questions_json/2026/patch.json",),
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError, "repository外のfile変更"
+            ):
+                coordinator._repository_change_notifications(
+                    (str(outside / "file.json"),),
+                    transient_root=turn_workspace,
+                )
+            (turn_workspace / "escape").symlink_to(outside, target_is_directory=True)
+            with self.assertRaisesRegex(
+                QualificationRunError, "repository外のfile変更"
+            ):
+                coordinator._repository_change_notifications(
+                    ("escape/file.json",),
+                    transient_root=turn_workspace,
+                )
+
+    def test_version_recording_failure_never_marks_the_receipt_as_verified(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=SuccessfulAppServer(),
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+
+            def fail_version_recording(_run):
+                raise QualificationRunError("version recording failed")
+
+            coordinator._record_work_versions = fail_version_recording
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            deadline = time.monotonic() + 2
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.refresh("sample", started["run"]["runId"])
+
+        self.assertEqual(job["status"], "failed")
+        self.assertEqual(run["status"], "failed")
+        self.assertFalse(run["receiptValidated"])
+        self.assertIsNone(run["workVersionReceipt"])
+        self.assertIsNotNone(run["finishedAt"])
 
     def test_success_receipt_must_match_the_actual_final_diff(self):
         with tempfile.TemporaryDirectory() as directory:

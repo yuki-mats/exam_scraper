@@ -681,6 +681,23 @@ class QualificationRunStore:
             for stage in manifest.get("progressStages") or []
             if isinstance(stage, Mapping) and stage.get("id")
         }
+        raw_policy_targets = manifest.get("policyTargets")
+        planned_work_items: set[tuple[str, str]] | None = None
+        if isinstance(raw_policy_targets, Mapping) and raw_policy_targets:
+            planned_work_items = set()
+            for stage_id, raw_aliases in raw_policy_targets.items():
+                stage_id = str(stage_id)
+                if stage_id not in stages or not isinstance(raw_aliases, list):
+                    continue
+                stage_aliases = {str(value) for value in raw_aliases if value}
+                for target in targets:
+                    target_aliases = {
+                        str(target.get("id") or ""),
+                        str(target.get("questionKey") or ""),
+                        *(str(value) for value in target.get("aliases") or []),
+                    } - {""}
+                    if target_aliases & stage_aliases:
+                        planned_work_items.add((str(target["id"]), stage_id))
         invalid_count = 0
         events: list[dict[str, Any]] = []
         for raw_line in raw.splitlines()[:MAX_PROGRESS_EVENTS]:
@@ -708,6 +725,12 @@ class QualificationRunStore:
                 or (stage_id and stage is None)
             ):
                 invalid_count += 1
+                continue
+            if (
+                event_type == "stage_completed"
+                and planned_work_items is not None
+                and (str(target["id"]), stage_id) not in planned_work_items
+            ):
                 continue
             raw_result = value.get("result")
             result: dict[str, Any] = {}
@@ -1117,6 +1140,7 @@ class QualificationRunStore:
                 "## 画面用の問題別進捗",
                 "",
                 f"対象IDと工程IDは `{manifest_path}` のprogressTargetsとprogressStagesを使う。",
+                "stage_completedはpolicyTargetsでその工程の対象になる問題だけに追記する。",
                 f"作業中、次のJSONLへ1イベント1行で追記する: `{progress_path}`",
                 "各行は追記直後に完全なJSONと改行を保存し、既存行は変更しない。",
                 "問題を始める直前にquestion_started、各工程の判断完了直後にstage_completed、問題の全工程完了直後にquestion_completedを追記する。",
@@ -2173,11 +2197,13 @@ class QualificationRunCoordinator:
                 )
 
             result = None
+            app_server_changed_files: tuple[str, ...] = ()
             turn_error: Exception | None = None
             try:
                 with tempfile.TemporaryDirectory(
                     prefix="question-maintenance-session-"
                 ) as directory:
+                    turn_workspace = Path(directory).resolve()
                     result = self.app_server.run_turn(
                         prompt,
                         work_type=work_type,
@@ -2185,8 +2211,12 @@ class QualificationRunCoordinator:
                         emit=emit,
                         on_thread_started=on_thread_started,
                         on_turn_started=on_turn_started,
-                        cwd=Path(directory),
+                        cwd=turn_workspace,
                         writable_roots=writable_roots,
+                    )
+                    app_server_changed_files = self._repository_change_notifications(
+                        result.changed_files,
+                        transient_root=turn_workspace,
                     )
             except Exception as exc:  # noqa: BLE001
                 turn_error = exc
@@ -2239,14 +2269,14 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 refreshed,
-                result.changed_files,
+                app_server_changed_files,
                 filesystem_changed_files,
             )
             refreshed = self.store.update(
                 qualification,
                 run_id,
                 status="validating",
-                receiptValidated=True,
+                receiptValidated=False,
                 error=None,
             )
             inventory = getattr(self.workflow, "inventory", None)
@@ -2259,6 +2289,7 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 status="succeeded",
+                receiptValidated=True,
                 workVersionReceipt=work_version_receipt,
                 error=None,
             )
@@ -3157,6 +3188,29 @@ class QualificationRunCoordinator:
         if not absolute.is_relative_to(self.repo_root):
             raise QualificationRunError(f"repository外のfile変更は許可しません: {value}")
         return absolute.relative_to(self.repo_root)
+
+    def _repository_change_notifications(
+        self,
+        values: tuple[str, ...],
+        *,
+        transient_root: Path,
+    ) -> tuple[str, ...]:
+        """Separate disposable turn files from persistent repository changes."""
+        transient = transient_root.resolve()
+        repository_paths: set[Path] = set()
+        for value in values:
+            raw = Path(str(value))
+            candidate = (
+                raw if raw.is_absolute() else transient / raw
+            ).resolve(strict=False)
+            if candidate == transient or candidate.is_relative_to(transient):
+                continue
+            if not candidate.is_relative_to(self.repo_root):
+                raise QualificationRunError(
+                    f"repository外のfile変更は許可しません: {value}"
+                )
+            repository_paths.add(candidate.relative_to(self.repo_root))
+        return tuple(path.as_posix() for path in sorted(repository_paths))
 
     def _maintenance_path_allowed_for_roots(
         self,
