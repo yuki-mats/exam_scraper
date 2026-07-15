@@ -17,6 +17,74 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_direct_patch_edit_automatically_regenerates_publication_artifacts(self):
+        class Editor:
+            def apply(self, *args):
+                return {"changedPaths": ["patch.json"], "diffs": []}
+
+        class Inventory:
+            def group(self, qualification, list_group_id):
+                return {"questions": [{"id": "question-1"}]}
+
+            def invalidate(self, qualification, list_group_id):
+                return None
+
+        class Synchronizer:
+            def __init__(self):
+                self.calls = []
+
+            def preview(self, qualification, list_group_id):
+                return {
+                    "needsSync": True,
+                    "canSync": True,
+                    "requiredFieldWarnings": [],
+                    "failedDeltaPaths": [],
+                    "previewToken": "token",
+                }
+
+            def run(self, qualification, list_group_id, token, emit):
+                self.calls.append((qualification, list_group_id, token))
+                return {"message": "同期しました。"}
+
+        class Reviews:
+            def create(self, question, request, *, status):
+                return {"reviewId": "review-1", "status": status}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            question = {
+                "id": "question-1",
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-1",
+            }
+            app._question = lambda _question_id, _query: dict(question)
+            app._decorate = lambda value: dict(value)
+            app.editor = Editor()
+            app.inventory = Inventory()
+            synchronizer = Synchronizer()
+            app.synchronizer = synchronizer
+            app.reviews = Reviews()
+
+            status, result = app.post(
+                "/api/direct-edits/apply",
+                {
+                    "questionId": "question-1",
+                    "stateHash": "state-1",
+                    "changes": {"explanationText": ["正しい。新"]},
+                    "reason": "読みやすくした",
+                    "previewToken": "preview",
+                },
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(result["artifactSync"]["status"], "succeeded")
+        self.assertFalse(result["warning"])
+        self.assertEqual(
+            synchronizer.calls,
+            [("sample", "2026", "token")],
+        )
+
     def test_question_fingerprint_includes_cross_browser_publication_state(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))

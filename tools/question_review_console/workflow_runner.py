@@ -28,6 +28,84 @@ class WorkflowError(RuntimeError):
     pass
 
 
+def sync_after_patch_update(
+    synchronizer: "ArtifactSynchronizer",
+    qualification: str,
+    list_group_id: str,
+    emit: Callable[[str], None],
+) -> dict[str, Any]:
+    """Best-effort propagation used after a validated patch update."""
+
+    try:
+        preview = synchronizer.preview(qualification, list_group_id)
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "listGroupId": list_group_id,
+            "status": "failed",
+            "message": f"公開用データの状態を確認できませんでした: {exc}",
+        }
+
+    needs_sync = bool(
+        preview.get("needsSync", not bool(preview.get("localReady")))
+    )
+    if not needs_sync:
+        return {
+            "listGroupId": list_group_id,
+            "status": "current",
+            "message": "Merge・Convert・upload-readyはすでに最新です。",
+        }
+
+    required_warnings = list(preview.get("requiredFieldWarnings") or [])
+    failed_delta_paths = list(preview.get("failedDeltaPaths") or [])
+    if required_warnings:
+        return {
+            "listGroupId": list_group_id,
+            "status": "blocked",
+            "message": (
+                "必須field不足があるため公開用データを自動更新できませんでした"
+                f"（{len(required_warnings)}問）。"
+            ),
+        }
+    if failed_delta_paths:
+        return {
+            "listGroupId": list_group_id,
+            "status": "blocked",
+            "message": (
+                "失敗したCodex turnの未確定patchがあるため公開用データを"
+                "自動更新できませんでした。"
+            ),
+        }
+    if preview.get("canSync") is False:
+        return {
+            "listGroupId": list_group_id,
+            "status": "blocked",
+            "message": "公開用データを自動更新できない状態です。",
+        }
+
+    emit(f"{list_group_id}: 最新patchから公開用データを自動更新します。")
+    try:
+        result = synchronizer.run(
+            qualification,
+            list_group_id,
+            str(preview["previewToken"]),
+            emit,
+        )
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "listGroupId": list_group_id,
+            "status": "failed",
+            "message": f"公開用データの自動更新に失敗しました: {exc}",
+        }
+    return {
+        "listGroupId": list_group_id,
+        "status": "succeeded",
+        "message": str(
+            result.get("message")
+            or "Merge・Convert・upload-readyを最新patchへ同期しました。"
+        ),
+    }
+
+
 def aggregate_group_workflow(group: Mapping[str, Any]) -> dict[str, Any]:
     questions = group.get("questions") or []
     stages: dict[str, dict[str, Any]] = {}

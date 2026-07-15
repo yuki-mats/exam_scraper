@@ -58,10 +58,16 @@ def _failed_delta_paths(
         if not isinstance(manifest, Mapping):
             continue
         status = str(manifest.get("status") or "")
+        validated_success = bool(
+            status == "validating"
+            and manifest.get("kind") == "human"
+            and manifest.get("receiptValidated") is True
+        )
         if (
             (
                 status in {"running", "validating"}
                 and manifest.get("kind") == "human"
+                and not validated_success
             )
             or (
                 status == "interrupted"
@@ -73,7 +79,8 @@ def _failed_delta_paths(
                     manifest_path.relative_to(repo_root.resolve()).as_posix()
                 ] = manifest
             continue
-        if status not in {"failed", "succeeded"}:
+        effective_status = "succeeded" if validated_success else status
+        if effective_status not in {"failed", "succeeded"}:
             continue
         result = manifest.get("result")
         if not isinstance(result, Mapping):
@@ -88,9 +95,9 @@ def _failed_delta_paths(
             ):
                 continue
             key = relative.as_posix()
-            if status == "failed":
+            if effective_status == "failed":
                 states.setdefault(key, []).append(manifest)
-        if status == "succeeded":
+        if effective_status == "succeeded":
             resolved_paths = result.get("resolvedFailedDeltaPaths")
             resolved_keys: set[str] = set()
             if isinstance(resolved_paths, list):

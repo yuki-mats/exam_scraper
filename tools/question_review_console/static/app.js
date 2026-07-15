@@ -2205,9 +2205,18 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
       invalidateAuditView();
     }
     if (run?.runId) await loadQualificationRunProgress(run.runId);
-    $("#qualification-run-job-status").textContent = job.result?.message || "完了しました。";
-    setQualificationRunStatusDetail("最終検証に成功し、結果を承認しました。", "succeeded");
-    toast(job.result?.message || "資格全体の出力を確認しました。");
+    const completionMessage = job.result?.message || "完了しました。";
+    const syncNotRequired = job.result?.artifactSync?.status === "not_required";
+    $("#qualification-run-job-status").textContent = completionMessage;
+    setQualificationRunStatusDetail(
+      job.result?.warning
+        ? completionMessage
+        : syncNotRequired
+          ? "最終検証に成功し、結果を承認しました。"
+          : "最終検証に成功し、公開用データまで自動更新しました。",
+      job.result?.warning ? "failed" : "succeeded",
+    );
+    toast(completionMessage, Boolean(job.result?.warning));
     return;
   }
 }
@@ -4698,6 +4707,9 @@ async function applyEdit(event) {
   event.preventDefault();
   if (!state.pendingEdit) return;
   const pending = state.pendingEdit;
+  const applyButton = $("#confirm-apply");
+  applyButton.disabled = true;
+  applyButton.textContent = "保存・再生成中";
   try {
     const result = await api("/api/direct-edits/apply", {
       method: "POST",
@@ -4718,8 +4730,8 @@ async function applyEdit(event) {
     toast(
       requiredWarnings.length
         ? `patchを更新しました。必須field不足 ${requiredWarnings.length}件を確認してください。`
-        : `patchを更新しました: ${result.changedPaths.join(", ")}`,
-      Boolean(requiredWarnings.length),
+        : result.message || `patchを更新しました: ${result.changedPaths.join(", ")}`,
+      Boolean(requiredWarnings.length || result.warning),
     );
     await loadQuestions(true);
   } catch (error) {
@@ -4728,6 +4740,9 @@ async function applyEdit(event) {
       return;
     }
     toast(error.message, true);
+  } finally {
+    applyButton.disabled = false;
+    applyButton.textContent = "この変更をpatchに保存";
   }
 }
 

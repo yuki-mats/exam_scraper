@@ -51,17 +51,23 @@ class FakeWorkflow:
 class FakeSynchronizer:
     def __init__(self):
         self.calls = []
+        self.local_ready = True
+        self.can_sync = True
 
     def preview(self, qualification, list_group_id, *, force=False):
         return {
             "previewToken": f"token-{list_group_id}-{force}",
             "questionCount": 2,
-            "localReady": not force,
+            "localReady": self.local_ready,
+            "needsSync": force or not self.local_ready,
+            "canSync": self.can_sync,
             "requiredFieldWarnings": [],
+            "failedDeltaPaths": [],
         }
 
     def run(self, qualification, list_group_id, token, emit, *, force=False):
         self.calls.append((qualification, list_group_id, force))
+        self.local_ready = True
         emit(f"{list_group_id}: 完了")
         return {"message": "同期しました。"}
 
@@ -1866,10 +1872,12 @@ class QualificationRunTests(unittest.TestCase):
                 temporary_helper=True,
             )
             jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
             coordinator = QualificationRunCoordinator(
                 root,
                 FakeWorkflow(),
-                FakeSynchronizer(),
+                synchronizer,
                 jobs,
                 "secret",
                 app_server=app_server,
@@ -1911,6 +1919,8 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIsNone(run["serviceTier"])
         self.assertEqual(run["reasoningEffort"], "high")
         self.assertEqual(app_server.kwargs["work_type"], "maintenance")
+        self.assertEqual(synchronizer.calls, [("sample", "2026", False)])
+        self.assertEqual(run["artifactSync"]["status"], "succeeded")
         self.assertNotEqual(app_server.kwargs["cwd"], root)
         self.assertTrue(app_server.kwargs["writable_roots"])
         self.assertTrue(
@@ -1927,6 +1937,54 @@ class QualificationRunTests(unittest.TestCase):
             app_server.kwargs["writable_roots"],
         )
         self.assertNotIn(run_dir, app_server.kwargs["writable_roots"])
+
+    def test_human_run_succeeds_with_warning_when_automatic_sync_is_blocked(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            changed_file = (
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/patch.json"
+            )
+            app_server = SuccessfulAppServer((changed_file,))
+            jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            synchronizer.can_sync = False
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            snapshots = iter(
+                [
+                    {},
+                    {Path(changed_file): "sha256:after"},
+                ]
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: next(
+                snapshots
+            )
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            deadline = time.monotonic() + 2
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.refresh("sample", started["run"]["runId"])
+
+        self.assertEqual(job["status"], "succeeded")
+        self.assertTrue(job["result"]["warning"])
+        self.assertEqual(job["result"]["artifactSync"]["status"], "blocked")
+        self.assertEqual(run["status"], "succeeded")
+        self.assertTrue(run["receiptValidated"])
+        self.assertEqual(run["artifactSync"]["status"], "blocked")
+        self.assertEqual(synchronizer.calls, [])
 
     def test_change_notifications_allow_only_turn_workspace_or_repository(self):
         with (
@@ -2573,6 +2631,28 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(recovered[0]["runId"], run["runId"])
         self.assertEqual(recovered[0]["status"], "interrupted")
         self.assertIn("再開", recovered[0]["error"])
+
+    def test_validated_patch_run_recovers_as_success_when_auto_sync_is_interrupted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            run = store.create(
+                FakeWorkflow().plan("sample", "law_audit", "remaining"),
+                status="validating",
+                prompt="work",
+            )
+            store.update(
+                "sample",
+                run["runId"],
+                receiptValidated=True,
+                artifactSync={"status": "running", "groups": []},
+            )
+
+            recovered = QualificationRunStore(root).get("sample", run["runId"])
+
+        self.assertEqual(recovered["status"], "succeeded")
+        self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
+        self.assertIsNone(recovered["error"])
 
     def test_running_human_manifest_recovers_partial_delta_from_baseline(self):
         with tempfile.TemporaryDirectory() as directory:

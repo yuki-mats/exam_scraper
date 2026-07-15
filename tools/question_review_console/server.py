@@ -52,7 +52,11 @@ from tools.question_review_console.prompt_builder import (
     QUALIFICATION_LAW_AUDIT_REQUEST,
     is_qualification_law_audit,
 )
-from tools.question_review_console.workflow_runner import ArtifactSynchronizer, WorkflowError
+from tools.question_review_console.workflow_runner import (
+    ArtifactSynchronizer,
+    WorkflowError,
+    sync_after_patch_update,
+)
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 
 
@@ -728,8 +732,19 @@ class QuestionReviewApplication:
                     str(body.get("stateHash") or ""),
                     str(body.get("previewToken") or ""),
                 )
+                self._clear_group_live_results(
+                    str(question["qualification"]),
+                    str(question["listGroupId"]),
+                )
                 self.inventory.invalidate(
                     question["qualification"], question["listGroupId"]
+                )
+                sync_logs: list[str] = []
+                artifact_sync = sync_after_patch_update(
+                    self.synchronizer,
+                    str(question["qualification"]),
+                    str(question["listGroupId"]),
+                    sync_logs.append,
                 )
                 updated = self._question(question["id"], {})
                 review = self.reviews.create(
@@ -742,10 +757,22 @@ class QuestionReviewApplication:
                     },
                     status="post_fix_review",
                 )
+                sync_ok = artifact_sync["status"] in {"succeeded", "current"}
+                message = (
+                    "patchを保存し、公開用データも最新にしました。"
+                    if sync_ok
+                    else (
+                        "patchは保存しましたが、公開用データを自動更新できませんでした。"
+                        "問題詳細又は管理機能から再生成できます。"
+                    )
+                )
                 return {
                     **result,
                     "question": self._decorate(updated),
                     "review": review,
+                    "artifactSync": artifact_sync,
+                    "warning": not sync_ok,
+                    "message": message,
                 }
 
             try:

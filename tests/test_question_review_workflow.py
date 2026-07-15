@@ -12,6 +12,7 @@ from tools.question_review_console.publisher import GroupPublisher
 from tools.question_review_console.workflow_runner import (
     ArtifactSynchronizer,
     WorkflowError,
+    sync_after_patch_update,
 )
 
 
@@ -81,6 +82,82 @@ def upload_document():
 
 
 class ArtifactSynchronizerTests(unittest.TestCase):
+    def test_automatically_syncs_stale_artifacts_after_patch_update(self):
+        class Synchronizer:
+            def __init__(self):
+                self.calls = []
+
+            def preview(self, qualification, list_group_id):
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "needsSync": True,
+                    "canSync": True,
+                    "requiredFieldWarnings": [],
+                    "failedDeltaPaths": [],
+                    "previewToken": "token",
+                }
+
+            def run(self, qualification, list_group_id, token, emit):
+                self.calls.append((qualification, list_group_id, token))
+                emit("pipeline complete")
+                return {"message": "同期しました。"}
+
+        synchronizer = Synchronizer()
+        logs = []
+
+        result = sync_after_patch_update(
+            synchronizer, "sample-exam", "2026", logs.append
+        )
+
+        self.assertEqual(result["status"], "succeeded")
+        self.assertEqual(
+            synchronizer.calls,
+            [("sample-exam", "2026", "token")],
+        )
+        self.assertIn("2026: 最新patchから公開用データを自動更新します。", logs)
+
+    def test_keeps_validated_patch_when_automatic_sync_is_blocked(self):
+        class Synchronizer:
+            def preview(self, qualification, list_group_id):
+                return {
+                    "needsSync": True,
+                    "canSync": False,
+                    "requiredFieldWarnings": [{"questionId": "q1"}],
+                    "failedDeltaPaths": [],
+                    "previewToken": "token",
+                }
+
+            def run(self, *args, **kwargs):
+                raise AssertionError("blocked sync must not run")
+
+        result = sync_after_patch_update(
+            Synchronizer(), "sample-exam", "2026", lambda _: None
+        )
+
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("必須field不足", result["message"])
+
+    def test_does_not_run_when_preview_disallows_automatic_sync(self):
+        class Synchronizer:
+            def preview(self, qualification, list_group_id):
+                return {
+                    "needsSync": True,
+                    "canSync": False,
+                    "requiredFieldWarnings": [],
+                    "failedDeltaPaths": [],
+                    "previewToken": "token",
+                }
+
+            def run(self, *args, **kwargs):
+                raise AssertionError("blocked sync must not run")
+
+        result = sync_after_patch_update(
+            Synchronizer(), "sample-exam", "2026", lambda _: None
+        )
+
+        self.assertEqual(result["status"], "blocked")
+
     def test_blocks_sync_when_failed_run_left_an_unverified_patch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -700,6 +777,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('"資格のFirestoreを確認"', javascript)
         self.assertIn('"パッチ変更を反映"', javascript)
         self.assertIn("actions.append(patchSyncAction())", javascript)
+        self.assertIn('applyButton.textContent = "保存・再生成中"', javascript)
+        self.assertIn("公開用データまで自動更新しました。", javascript)
         self.assertIn('"Firestoreへ反映"', javascript)
         self.assertIn('"/api/evaluations/preview"', javascript)
         self.assertIn('"/api/evaluations/start"', javascript)

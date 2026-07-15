@@ -35,7 +35,10 @@ from tools.question_review_console.failed_delta import (
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
-from tools.question_review_console.workflow_runner import ArtifactSynchronizer
+from tools.question_review_console.workflow_runner import (
+    ArtifactSynchronizer,
+    sync_after_patch_update,
+)
 
 
 LIVE_RUN_STATUSES = {
@@ -932,6 +935,31 @@ class QualificationRunStore:
             for path in self.root.glob("*/*/manifest.json"):
                 manifest = self._load_manifest(path)
                 if manifest.get("status") not in {"queued", "running", "validating"}:
+                    continue
+                if (
+                    manifest.get("status") == "validating"
+                    and manifest.get("kind") == "human"
+                    and manifest.get("receiptValidated") is True
+                ):
+                    artifact_sync = manifest.get("artifactSync")
+                    artifact_sync = (
+                        artifact_sync
+                        if isinstance(artifact_sync, Mapping)
+                        else {}
+                    )
+                    manifest["status"] = "succeeded"
+                    manifest["artifactSync"] = {
+                        "status": "interrupted",
+                        "groups": list(artifact_sync.get("groups") or []),
+                        "message": (
+                            "公開用データの自動更新中にローカルUIが停止しました。"
+                            "問題詳細又は管理機能から再生成できます。"
+                        ),
+                    }
+                    manifest["error"] = None
+                    manifest["updatedAt"] = _now()
+                    manifest["finishedAt"] = manifest["updatedAt"]
+                    self._write_manifest(path, manifest)
                     continue
                 was_running = manifest.get("status") in {"running", "validating"}
                 changed_files: list[str] | None = None
@@ -2320,18 +2348,70 @@ class QualificationRunCoordinator:
             refreshed = self.store.update(
                 qualification,
                 run_id,
-                status="succeeded",
                 receiptValidated=True,
                 workVersionReceipt=work_version_receipt,
+                artifactSync={
+                    "status": "running",
+                    "groups": [],
+                },
                 error=None,
             )
             emit("完了receipt・00_source不変・工程バージョンを確認しました。")
+            if refreshed.get("allowedPatchDirs"):
+                sync_groups = [
+                    sync_after_patch_update(
+                        self.synchronizer,
+                        qualification,
+                        str(list_group_id),
+                        emit,
+                    )
+                    for list_group_id in refreshed.get("targetGroupIds") or []
+                ]
+                sync_statuses = {
+                    str(group.get("status") or "failed") for group in sync_groups
+                }
+                if sync_statuses <= {"succeeded", "current"}:
+                    sync_status = "succeeded"
+                    sync_message = "公開用データも最新patchへ同期しました。"
+                    warning = False
+                else:
+                    sync_status = (
+                        "failed" if "failed" in sync_statuses else "blocked"
+                    )
+                    sync_message = (
+                        "公開用データの自動更新は完了できませんでした。"
+                        "問題詳細又は管理機能から再生成できます。"
+                    )
+                    warning = True
+            else:
+                sync_groups = []
+                sync_status = "not_required"
+                sync_message = ""
+                warning = False
+            artifact_sync = {
+                "status": sync_status,
+                "groups": sync_groups,
+                "message": sync_message,
+            }
+            refreshed = self.store.update(
+                qualification,
+                run_id,
+                status="succeeded",
+                artifactSync=artifact_sync,
+                error=None,
+            )
+            summary = str(
+                refreshed.get("result", {}).get("summary")
+                or "整備を完了しました。"
+            )
             return {
                 "qualification": qualification,
                 "runId": run_id,
                 "threadId": result.thread_id,
                 "turnId": result.turn_id,
-                "message": str(refreshed.get("result", {}).get("summary") or "整備を完了しました。"),
+                "artifactSync": artifact_sync,
+                "warning": warning,
+                "message": " ".join(value for value in (summary, sync_message) if value),
             }
         except Exception as exc:  # noqa: BLE001
             original_exc = exc

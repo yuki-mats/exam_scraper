@@ -47,6 +47,44 @@ class FailedDeltaTests(unittest.TestCase):
         self.assertEqual(blocked, (relative.as_posix(),))
         self.assertEqual(resolved, ())
 
+    def test_validated_run_resolves_failed_delta_while_artifacts_are_syncing(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/partial.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            self._write_manifest(
+                runs / "20260101-run" / "manifest.json", "failed", relative
+            )
+            validating = runs / "20260102-run" / "manifest.json"
+            validating.parent.mkdir(parents=True)
+            validating.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "validating",
+                        "kind": "human",
+                        "receiptValidated": True,
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "targetGroupIds": ["2026"],
+                        "targetQuestionIds": ["q1"],
+                        **self._contract(relative),
+                        "result": {
+                            "changedFiles": [],
+                            "resolvedFailedDeltaPaths": [relative.as_posix()],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            resolved = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(resolved, ())
+
     def test_single_group_success_resolves_only_its_paths_from_a_multi_group_failure(
         self,
     ):
