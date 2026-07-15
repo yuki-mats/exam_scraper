@@ -29,6 +29,7 @@ from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
 )
+from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
@@ -329,6 +330,11 @@ class QuestionReviewApplication:
                     "stateHash": decorated["stateHash"],
                     "reviewStatus": decorated["reviewStatus"],
                     "issueCodes": decorated["issueCodes"],
+                    "workflowFirestore": decorated.get("workflow", {}).get("firestore"),
+                    "evaluationStatus": decorated.get("evaluation", {}).get("status"),
+                    "evaluationResultHash": decorated.get("evaluation", {}).get("resultHash"),
+                    "publishReady": decorated.get("publishReady"),
+                    "nextAction": decorated.get("nextAction"),
                 }
             question = self._question(suffix, query)
             return HTTPStatus.OK, self._decorate(question)
@@ -879,10 +885,19 @@ class QuestionReviewApplication:
         work_version_counts = {"current": 0, "outdated": 0, "unrecorded": 0}
         work_policies = self._work_policies(qualification)
         for group in groups:
+            group_failed_delta_paths = unresolved_failed_delta_paths(
+                self.repo_root,
+                qualification,
+                str(group["listGroupId"]),
+            )
             for raw in group["questions"]:
                 decorator = self._decorate
                 question = (
-                    decorator(raw, work_policies=work_policies)
+                    decorator(
+                        raw,
+                        work_policies=work_policies,
+                        failed_delta_paths=group_failed_delta_paths,
+                    )
                     if getattr(decorator, "__func__", None)
                     is QuestionReviewApplication._decorate
                     else decorator(raw)
@@ -938,11 +953,7 @@ class QuestionReviewApplication:
                     "upstream_stale",
                 }:
                     continue
-                if (
-                    exceptions_only
-                    and not question["issues"]
-                    and quality_bucket == "published"
-                ):
+                if exceptions_only and quality_bucket == "published":
                     continue
                 summaries.append(self._summary(question))
         offset = _query_int(query, "offset", default=0, minimum=0, maximum=1_000_000)
@@ -1017,6 +1028,7 @@ class QuestionReviewApplication:
         raw: Mapping[str, Any],
         *,
         work_policies: list[Mapping[str, Any]] | None = None,
+        failed_delta_paths: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         question = copy.deepcopy(dict(raw))
         machine_issue_codes = list(question.get("issueCodes") or [])
@@ -1119,6 +1131,7 @@ class QuestionReviewApplication:
         evaluation = self.evaluations.status_for(
             evaluation_input,
             live_status=str(question.get("workflow", {}).get("firestore") or "unread"),
+            failed_delta_paths=failed_delta_paths,
         )
         question["evaluation"] = evaluation
         question["publishReady"] = evaluation["publishReady"]
@@ -1246,6 +1259,7 @@ class QuestionReviewApplication:
                 "status",
                 "configured",
                 "machineReady",
+                "blockingIssues",
                 "publishReady",
                 "nextAction",
                 "verifiedChoiceCount",
@@ -1257,6 +1271,9 @@ class QuestionReviewApplication:
                 "policyVersion",
             )
         }
+        summary["evaluation"]["failedDeltaCount"] = len(
+            evaluation.get("failedDeltaPaths") or []
+        )
         work_versions = question.get("workVersions")
         work_versions = work_versions if isinstance(work_versions, Mapping) else {}
         summary["workVersions"] = {
@@ -1269,6 +1286,37 @@ class QuestionReviewApplication:
                 work_versions.get("unrecordedStageIds") or []
             ),
             "stages": list(work_versions.get("stages") or []),
+        }
+        workflow = question.get("workflow")
+        workflow = workflow if isinstance(workflow, Mapping) else {}
+        local_ready = all(
+            workflow.get(stage) == "match" for stage in ("merge", "convert", "upload")
+        )
+        upload_documents = question.get("uploadReadyDocs")
+        upload_documents = (
+            [document for document in upload_documents if isinstance(document, Mapping)]
+            if isinstance(upload_documents, list)
+            else []
+        )
+        projected = question.get("projected")
+        projected = projected if isinstance(projected, Mapping) else {}
+        if local_ready and upload_documents:
+            verdicts = [document.get("correctChoiceText") for document in upload_documents]
+            explanations = [document.get("explanationText") for document in upload_documents]
+            content_source = "upload_ready"
+        else:
+            raw_verdicts = projected.get("correctChoiceText")
+            raw_explanations = projected.get("explanationText")
+            verdicts = list(raw_verdicts) if isinstance(raw_verdicts, list) else []
+            explanations = (
+                list(raw_explanations) if isinstance(raw_explanations, list) else []
+            )
+            content_source = "projected"
+        summary["publicationSummary"] = {
+            "contentSource": content_source,
+            "verdicts": [str(value or "") for value in verdicts],
+            "explanationCount": sum(bool(str(value or "").strip()) for value in explanations),
+            "choiceCount": int(question.get("choiceCount") or len(verdicts)),
         }
         body = str(summary.get("body") or "")
         summary["body"] = body if len(body) <= 280 else body[:279] + "…"
@@ -1452,13 +1500,16 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(content)
 
     def _send_json(self, status: int, payload: Any) -> None:
-        content = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Content-Length", str(len(content)))
-        self._send_security_headers()
-        self.end_headers()
-        self.wfile.write(content)
+        try:
+            content = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(content)))
+            self._send_security_headers()
+            self.end_headers()
+            self.wfile.write(content)
+        except (BrokenPipeError, ConnectionResetError):
+            LOGGER.info("Client disconnected before the API response was sent.")
 
     def _send_security_headers(self) -> None:
         self.send_header("Cache-Control", "no-store")

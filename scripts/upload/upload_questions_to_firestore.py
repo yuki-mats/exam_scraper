@@ -1,4 +1,7 @@
 import json
+import hashlib
+import hmac
+import os
 import firebase_admin
 from firebase_admin import firestore
 from datetime import datetime
@@ -55,6 +58,7 @@ DOC_COMPARE_KEYS = (
     "qualificationId",
     "correctChoiceText",
     "explanationText",
+    "knowledgeText",
     "suggestedQuestions",
     "suggestedQuestionDetails",
     "lawReferences",
@@ -64,6 +68,8 @@ DOC_COMPARE_KEYS = (
     "examYear",
     "examSource",
     "questionTags",
+    "questionImageUrls",
+    "importKey",
     "isOfficial",
     "isDeleted",
     "isChoiceOnly",
@@ -222,6 +228,75 @@ def fetch_existing_question_snapshots(db, doc_refs: list):
     return [ref.get(field_paths=EXISTING_DOC_FIELD_PATHS) for ref in doc_refs]
 
 
+def _json_safe(value):
+    if isinstance(value, dict):
+        return {str(key): _json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if hasattr(value, "to_json"):
+        return _json_safe(value.to_json())
+    return value
+
+
+def firestore_live_fingerprint(document_ids: list[str], live_documents: dict) -> str:
+    records = []
+    for question_id in document_ids:
+        document = live_documents.get(question_id)
+        filtered = None
+        if isinstance(document, dict):
+            filtered = {
+                field: _json_safe(document[field])
+                for field in DOC_COMPARE_KEYS
+                if field in document
+            }
+        records.append(
+            {
+                "questionId": question_id,
+                "exists": document is not None,
+                "document": filtered,
+            }
+        )
+    value = json.dumps(records, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def require_expected_live_fingerprint(
+    document_ids: list[str], snapshots: list, expected: str
+) -> None:
+    snapshots_by_id = {
+        str(getattr(snapshot, "id", "")): snapshot
+        for snapshot in snapshots
+        if getattr(snapshot, "id", None)
+    }
+    if set(snapshots_by_id) != set(document_ids):
+        raise RuntimeError("Firestore documentの確認結果が対象範囲と一致しません。")
+    live_documents = {
+        question_id: (snapshots_by_id[question_id].to_dict() or {})
+        for question_id in document_ids
+        if getattr(snapshots_by_id[question_id], "exists", False)
+    }
+    current = firestore_live_fingerprint(document_ids, live_documents)
+    if not expected or not hmac.compare_digest(current, expected):
+        raise RuntimeError("確認後にFirestore documentが更新されたため反映を停止しました。")
+
+
+def add_guarded_question_write(batch, doc_ref, doc_data: dict, snapshot) -> None:
+    """read後の同時更新を上書きしないFirestore writeをbatchへ追加する。"""
+    if getattr(snapshot, "exists", False):
+        update_time = getattr(snapshot, "update_time", None)
+        if update_time is None:
+            raise RuntimeError("既存documentのupdate_timeを取得できません。")
+        batch.update(
+            doc_ref,
+            doc_data,
+            option=firestore.LastUpdateOption(update_time),
+        )
+        return
+    batch.create(doc_ref, doc_data)
+
+
 def normalize_exam_year(value: object) -> int | None:
     if isinstance(value, bool):
         return None
@@ -376,6 +451,26 @@ def upload_questions(
     db = init_firestore(credentials_json)
     now = datetime.now()
 
+    expected_live_hash = os.environ.get("QUESTION_PUBLISH_EXPECTED_LIVE_HASH", "").strip()
+    guarded_snapshots_by_id = None
+    if expected_live_hash:
+        guarded_ids = [str(question.get("questionId") or "").strip() for question in questions]
+        if not all(guarded_ids) or len(set(guarded_ids)) != len(guarded_ids):
+            raise RuntimeError("公開対象のquestionIdが空又は重複しています。")
+        guarded_refs = [
+            db.collection("questions").document(question_id)
+            for question_id in guarded_ids
+        ]
+        guarded_snapshots = fetch_existing_question_snapshots(db, guarded_refs)
+        require_expected_live_fingerprint(
+            guarded_ids,
+            guarded_snapshots,
+            expected_live_hash,
+        )
+        guarded_snapshots_by_id = {
+            str(snapshot.id): snapshot for snapshot in guarded_snapshots
+        }
+
     success_count = 0
     error_count = 0
     batch_num = 0
@@ -405,7 +500,11 @@ def upload_questions(
 
         # 既存ドキュメントをまとめて取得し、差分があるものだけ書き込む（updatedAtは差分がある時のみ更新）
         try:
-            snapshots = fetch_existing_question_snapshots(db, doc_refs)
+            snapshots = (
+                [guarded_snapshots_by_id[question_id] for question_id in base_by_id]
+                if guarded_snapshots_by_id is not None
+                else fetch_existing_question_snapshots(db, doc_refs)
+            )
         except Exception as exc:
             # 「差分がある時のみ updatedAt 更新」を守るため、既存取得に失敗したら中断する
             raise RuntimeError(f"既存ドキュメントの取得に失敗しました: {exc}") from exc
@@ -439,7 +538,7 @@ def upload_questions(
             doc_data["updatedAt"] = now
             doc_data["updatedById"] = UPDATED_BY_ID
             validate_question_doc(doc_data, doc_id=str(qid))
-            batch.set(doc_ref, doc_data, merge=top_level_merge_fields(doc_data))
+            add_guarded_question_write(batch, doc_ref, doc_data, snap)
             chunk_valid += 1
 
         try:

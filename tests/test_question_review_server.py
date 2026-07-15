@@ -5,6 +5,7 @@ import threading
 import unittest
 from http.server import ThreadingHTTPServer
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.question_review_console.jobs import JobConflictError
 from tools.question_review_console.server import (
@@ -16,6 +17,90 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_question_fingerprint_includes_cross_browser_publication_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app._question = lambda _question_id, _query: {"id": "question-1"}
+            app._decorate = lambda _question: {
+                "id": "question-1",
+                "stateHash": "state-1",
+                "reviewStatus": "approved",
+                "issueCodes": [],
+                "workflow": {"firestore": "match"},
+                "evaluation": {"status": "passed", "resultHash": "result-1"},
+                "publishReady": False,
+                "nextAction": "complete",
+            }
+
+            status, result = app.get(
+                "/api/questions/question-1/fingerprint", {}
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(result["workflowFirestore"], "match")
+        self.assertEqual(result["evaluationStatus"], "passed")
+        self.assertEqual(result["evaluationResultHash"], "result-1")
+        self.assertFalse(result["publishReady"])
+        self.assertEqual(result["nextAction"], "complete")
+
+    def test_json_response_ignores_client_disconnect_without_retrying_headers(self):
+        class DisconnectedWriter:
+            def write(self, _content):
+                raise BrokenPipeError("client closed")
+
+        handler = object.__new__(QuestionReviewRequestHandler)
+        statuses = []
+        handler.wfile = DisconnectedWriter()
+        handler.send_response = statuses.append
+        handler.send_header = lambda _name, _value: None
+        handler.end_headers = lambda: None
+        handler._send_security_headers = lambda: None
+
+        handler._send_json(200, {"ok": True})
+
+        self.assertEqual(statuses, [200])
+
+    def test_question_summary_uses_upload_ready_content_only_when_locally_current(self):
+        question = {
+            "id": "question-1",
+            "body": "問題文",
+            "choiceCount": 2,
+            "workflow": {"merge": "match", "convert": "match", "upload": "match"},
+            "projected": {
+                "correctChoiceText": ["間違い", "間違い"],
+                "explanationText": ["patch A", "patch B"],
+            },
+            "uploadReadyDocs": [
+                {"correctChoiceText": "正しい", "explanationText": "公開 A"},
+                {"correctChoiceText": "間違い", "explanationText": ""},
+            ],
+        }
+
+        current = QuestionReviewApplication._summary(question)["publicationSummary"]
+        question["workflow"]["upload"] = "stale"
+        stale = QuestionReviewApplication._summary(question)["publicationSummary"]
+
+        self.assertEqual(current["contentSource"], "upload_ready")
+        self.assertEqual(current["verdicts"], ["正しい", "間違い"])
+        self.assertEqual(current["explanationCount"], 1)
+        self.assertEqual(stale["contentSource"], "projected")
+        self.assertEqual(stale["verdicts"], ["間違い", "間違い"])
+        self.assertEqual(stale["explanationCount"], 2)
+
+    def test_question_summary_exposes_failed_delta_count_without_repeating_paths(self):
+        question = {
+            "id": "question-1",
+            "evaluation": {
+                "status": "stale",
+                "failedDeltaPaths": ["first.json", "second.json"],
+            },
+        }
+
+        summary = QuestionReviewApplication._summary(question)
+
+        self.assertEqual(summary["evaluation"]["failedDeltaCount"], 2)
+        self.assertNotIn("failedDeltaPaths", summary["evaluation"])
+
     def test_job_summary_returns_only_recent_truncated_logs(self):
         class Jobs:
             def get(self, job_id):
@@ -512,6 +597,113 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(len(result["questions"]), 50)
         self.assertTrue(result["hasMore"])
         self.assertEqual(result["questions"][0]["id"], "question-50")
+
+    def test_reflection_pending_filter_excludes_published_questions_with_warnings(self):
+        class Inventory:
+            def inventory(self):
+                return {"qualifications": [{"id": "sample", "listGroupIds": ["2026"]}]}
+
+            def group(self, qualification, list_group_id):
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": 2,
+                    "fingerprint": "fingerprint",
+                    "questions": [
+                        {
+                            "id": "published",
+                            "listGroupId": list_group_id,
+                            "body": "反映済み",
+                            "issues": [{"code": "warning"}],
+                            "issueCodes": ["warning"],
+                            "reviewStatus": "approved",
+                            "isLawRelated": False,
+                            "workflow": {"firestore": "match"},
+                            "evaluation": {"machineReady": True, "status": "passed"},
+                        },
+                        {
+                            "id": "pending",
+                            "listGroupId": list_group_id,
+                            "body": "反映待ち",
+                            "issues": [],
+                            "issueCodes": [],
+                            "reviewStatus": "approved",
+                            "isLawRelated": False,
+                            "workflow": {"firestore": "mismatch"},
+                            "evaluation": {"machineReady": True, "status": "passed"},
+                        },
+                    ],
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            result = app._questions(
+                {"qualification": ["sample"], "listGroupId": ["2026"]}
+            )
+
+        self.assertEqual([item["id"] for item in result["questions"]], ["pending"])
+
+    def test_question_list_resolves_failed_deltas_once_per_group(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2025", "2026"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                questions = [
+                    {
+                        "id": f"question-{list_group_id}-{index}",
+                        "listGroupId": list_group_id,
+                        "body": f"問題{index}",
+                        "questionLabel": f"問{index}",
+                        "sourceQuestionKey": f"sample:{list_group_id}:q{index}",
+                        "issues": [],
+                        "issueCodes": [],
+                        "reviewStatus": "unreviewed",
+                        "isLawRelated": False,
+                        "workflow": {"firestore": "unread"},
+                    }
+                    for index in range(60)
+                ]
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": f"fingerprint-{list_group_id}",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            with patch(
+                "tools.question_review_console.server.unresolved_failed_delta_paths",
+                side_effect=lambda _root, _qualification, group: (f"{group}.json",),
+            ) as resolver:
+                result = app._questions(
+                    {
+                        "qualification": ["sample"],
+                        "listGroupId": ["__all__"],
+                        "exceptionsOnly": ["false"],
+                        "limit": ["100"],
+                    }
+                )
+
+        self.assertEqual(result["questionCount"], 120)
+        self.assertEqual(len(result["questions"]), 100)
+        self.assertEqual(resolver.call_count, 2)
+        self.assertEqual(
+            [call.args[2] for call in resolver.call_args_list],
+            ["2025", "2026"],
+        )
 
     def test_question_list_filters_the_selected_stage_work_version(self):
         class Inventory:

@@ -287,7 +287,7 @@ function auditViewIsOpen() {
 }
 
 function renderAuditViewHeading() {
-  $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・問題本文と生成した正答・解説を見比べます。`;
+  $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・patch適用後の内容とFirestore反映状態を確認します。`;
 }
 
 function invalidateAuditView() {
@@ -303,8 +303,8 @@ function invalidateAuditView() {
   clearSelectionToolbar(true);
   $("#queue").replaceChildren();
   $("#queue-pagination").hidden = true;
-  renderEmpty("監査を開くと、問題本文と生成内容を読み込みます。");
-  setLoading("監査を開くと読み込みます");
+  renderEmpty("公開前確認を開くと、問題本文と反映予定の内容を読み込みます。");
+  setLoading("公開前確認を開くと読み込みます");
 }
 
 async function openAuditView() {
@@ -421,6 +421,7 @@ function bindControls() {
   $("#audit-view-close").addEventListener("click", closeAuditView);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
+    renderQueue();
   });
   $("#maintenance-start").addEventListener("click", () => openRequiredMaintenance());
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
@@ -1258,9 +1259,12 @@ async function loadQualificationRuns() {
     const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null;
     if (visibleRun?.runId) {
       const params = new URLSearchParams({ qualification });
+      const activeJobId = state.qualificationActiveRun?.runId === visibleRun.runId
+        ? visibleRun.jobId
+        : "";
       const [jobResult, progressResult] = await Promise.allSettled([
-        visibleRun.jobId
-          ? api(`/api/jobs/${encodeURIComponent(visibleRun.jobId)}/summary`)
+        activeJobId
+          ? api(`/api/jobs/${encodeURIComponent(activeJobId)}/summary`)
           : Promise.resolve(null),
         api(`/api/qualification-runs/${encodeURIComponent(visibleRun.runId)}/progress?${params}`),
       ]);
@@ -1505,7 +1509,7 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}`;
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
-  action.textContent = view.active ? "進捗と出力を見る" : "生成内容を監査";
+  action.textContent = view.active ? "進捗と出力を見る" : "公開前の内容を確認";
 }
 
 function selectedQualificationRunMode() {
@@ -2255,12 +2259,6 @@ function listQuery(offset = 0) {
   return params;
 }
 
-function evaluationScopeLabel() {
-  if (state.listGroupId === ALL_LIST_GROUPS) return "資格全体";
-  const scopeName = $("#group-select-label")?.textContent || "年度";
-  return `${scopeName} ${state.listGroupId}`;
-}
-
 async function loadQuestions(preserveSelection, append = false) {
   if (!state.qualification || !state.listGroupId) return false;
   const offset = append ? state.questions.length : 0;
@@ -2286,12 +2284,14 @@ async function loadQuestions(preserveSelection, append = false) {
     renderQueue();
     const counts = payload.evaluationCounts || {};
     const workCounts = payload.workVersionCounts || {};
+    const pendingCount = Number(counts.maintenance || 0)
+      + Number(counts.unreviewed || 0)
+      + Number(counts.needsRework || 0)
+      + Number(counts.publishReady || 0);
     $("#list-summary").textContent = [
-      `評価範囲 ${evaluationScopeLabel()}`,
-      `${state.questions.length}/${payload.filteredCount}件表示`,
+      `${state.questions.length}/${payload.filteredCount}問表示`,
       `全${payload.questionCount}問`,
-      `評価待ち${counts.unreviewed || 0}`,
-      `要再整備${counts.needsRework || 0}`,
+      `反映待ち${pendingCount}`,
       `公開可能${counts.publishReady || 0}`,
       `反映済み${counts.published || 0}`,
       ...($("#work-version-select").value
@@ -2312,7 +2312,16 @@ async function loadQuestions(preserveSelection, append = false) {
     return true;
   } catch (error) {
     toast(error.message, true);
-    if (!append) setLoading("読み込み失敗");
+    if (!append) {
+      state.questions = [];
+      state.detail = null;
+      state.questionPage.hasMore = false;
+      state.questionPage.filteredCount = 0;
+      $("#queue-pagination").hidden = true;
+      renderQueue();
+      renderLoadError(error.message);
+      setLoading("読み込みできませんでした");
+    }
     return false;
   } finally {
     $("#load-more-questions").disabled = false;
@@ -2320,8 +2329,21 @@ async function loadQuestions(preserveSelection, append = false) {
   }
 }
 
+function renderLoadError(message) {
+  const pane = $("#detail-pane");
+  pane.replaceChildren();
+  const empty = element("div", "empty-state load-error-state");
+  empty.append(
+    element("strong", "", "問題を読み込めませんでした"),
+    element("span", "", message || "サーバーの稼働状態を確認してください。"),
+    button("もう一度読み込む", "primary-button", () => loadQuestions(false)),
+  );
+  pane.append(empty);
+}
+
 function renderQueue() {
   const queue = $("#queue");
+  const adminToolsOpen = $("#audit-admin-tools").open;
   queue.replaceChildren();
   for (const question of state.questions) {
     const item = element("div", `queue-item${question.id === state.selectedId ? " selected" : ""}`);
@@ -2350,13 +2372,15 @@ function renderQueue() {
       ...(state.listGroupId === ALL_LIST_GROUPS
         ? [element("span", "queue-group", question.listGroupId)]
         : []),
-      workVersionBadge(question),
+      ...(adminToolsOpen ? [workVersionBadge(question)] : []),
       evaluationBadge(question),
     );
     const body = element("p", "queue-body", question.body || "（問題文なし）");
+    const publicationSummary = renderQueuePublicationSummary(question);
     const issueRow = element("div", "issue-row");
     for (const issue of question.issues.slice(0, 3)) issueRow.append(issueBadge(issue));
-    open.append(head, body, issueRow);
+    open.append(head, body, publicationSummary);
+    if (adminToolsOpen) open.append(issueRow);
     open.addEventListener("click", () => loadDetail(question.id));
     item.append(selectLabel, open);
     queue.append(item);
@@ -2365,8 +2389,34 @@ function renderQueue() {
   updateEvaluationSelectionControls();
 }
 
+function renderQueuePublicationSummary(question) {
+  const summary = question.publicationSummary || {};
+  const verdicts = (summary.verdicts || []).map((value) => {
+    const normalized = normalizeVerdict(value);
+    if (normalized === "正しい") return "○";
+    if (normalized === "間違い") return "×";
+    return "?";
+  });
+  const node = element("div", "queue-publication-summary");
+  node.append(
+    element("span", "", `正誤 ${verdicts.length ? verdicts.join("") : "未設定"}`),
+    element(
+      "span",
+      "",
+      `解説 ${Number(summary.explanationCount || 0)}/${Number(summary.choiceCount || question.choiceCount || 0)}`,
+    ),
+  );
+  return node;
+}
+
 function evaluationDisplay(question) {
+  const workflow = question.workflow || {};
+  const localReady = ["merge", "convert", "upload"].every((stage) => workflow[stage] === "match");
   const status = question.evaluation?.status || "not_started";
+  if (maintenanceBlocksPublication(question)) {
+    return { label: "修正が必要", tone: "warning" };
+  }
+  if (!localReady) return { label: "公開用データ更新待ち", tone: "warning" };
   if (status === "passed" && question.workflow?.firestore === "match") {
     return { label: "反映済み", tone: "good" };
   }
@@ -2378,6 +2428,16 @@ function evaluationDisplay(question) {
   if (status === "running") return { label: "評価中", tone: "running" };
   if (status === "stale") return { label: "再評価", tone: "warning" };
   return { label: "評価待ち", tone: "neutral" };
+}
+
+function maintenanceBlocksPublication(question) {
+  const evaluation = question.evaluation || {};
+  return Boolean(
+    evaluation.policyReady === false
+    || evaluation.blockingIssues?.length
+    || evaluation.failedDeltaPaths?.length
+    || Number(evaluation.failedDeltaCount || 0) > 0
+  );
 }
 
 function evaluationBadge(question) {
@@ -2501,23 +2561,38 @@ function renderDetail() {
   const actions = element("div", "detail-actions");
   actions.append(
     actionWithHelp(
-      "ズレを報告",
-      "primary-button",
-      () => openReview("awaiting_codex"),
-      "修正を依頼",
-      "問題本文と生成内容のズレを記録し、Codex App Serverの新規threadで再整備を開始します。",
+      "パッチを修正",
+      "secondary-button",
+      openEdit,
+      "パッチを直接修正",
+      "正誤・解説・補足質問のpatchを確認後に更新します。法令問題の正誤など根拠監査が必要な変更は、Codex App Serverの別threadによる修正依頼へ切り替えます。",
     ),
   );
   titleRow.append(titleBlock, actions);
   header.append(titleRow);
   pane.append(header);
 
+  const publication = publicationContent(question);
+  pane.append(renderPublicationStatus(question, publication));
+
   const questionSection = section("問題文");
-  const questionBody = element("p", "question-body", question.body);
+  const questionBody = element("p", "question-body", publication.record.questionBodyText || question.body);
   questionSection.append(questionBody);
-  if (question.issues.length) {
+  const visibleIssues = question.issues.filter(
+    (issue) => ![
+      "live_mismatch",
+      "firestore_readback_stale",
+      "merge_stale",
+      "convert_stale",
+      "upload_stale",
+      "upload_missing",
+      "work_policy_outdated",
+      "work_policy_unrecorded",
+    ].includes(issue.code),
+  );
+  if (visibleIssues.length) {
     const issues = element("div", "issue-panel");
-    for (const issue of question.issues) {
+    for (const issue of visibleIssues) {
       let detail = issue.detail;
       if (issue.code === "required_field_missing" && question.requiredFieldWarnings?.length) {
         detail = `${question.requiredFieldWarnings.length}件の欠損を検出。上の警告欄で確認・一括依頼できます。`;
@@ -2530,10 +2605,12 @@ function renderDetail() {
   }
   pane.append(questionSection);
 
-  const choicesSection = section("選択肢と生成結果");
+  const choicesSection = section(
+    publication.ready ? "Firestoreへ反映する内容" : "patch適用後の内容",
+  );
   choicesSection.append(
-    element("p", "audit-compare-hint", "問題の選択肢に対して、生成した正答と解説がズレていないかを確認します。"),
-    renderChoices(question.projected || {}),
+    element("p", "audit-compare-hint", publication.description),
+    renderChoices(publication.record),
   );
   pane.append(choicesSection);
 
@@ -2542,15 +2619,66 @@ function renderDetail() {
   const qualityWarning = renderLawAuditQualityWarning(question);
   if (qualityWarning) pane.append(qualityWarning);
 
-  const suggested = renderSuggestions(question.projected || {});
+  const suggested = renderSuggestions(publication.record);
   if (suggested) {
     const suggestionSection = section("補足質問");
     suggestionSection.append(suggested);
     pane.append(suggestionSection);
   }
 
-  if (question.isLawRelated) pane.append(renderLawSection(question.projected || {}));
+  if (question.isLawRelated) pane.append(renderLawSection(publication.record));
   pane.append(renderQuestionAdminDetails(question));
+}
+
+function publicationContent(question) {
+  const workflow = question.workflow || {};
+  const ready = ["merge", "convert", "upload"].every((stage) => workflow[stage] === "match")
+    && Array.isArray(question.uploadReadyDocs)
+    && question.uploadReadyDocs.length > 0;
+  const projected = question.projected || {};
+  if (!ready) {
+    return {
+      ready: false,
+      record: projected,
+      description: "現在のpatch適用後データです。公開用データを更新すると、Firestoreへ反映する最終内容に切り替わります。",
+    };
+  }
+  const documents = question.uploadReadyDocs;
+  const shared = documents[0] || {};
+  return {
+    ready: true,
+    record: {
+      ...projected,
+      questionBodyText: shared.questionBodyText || projected.questionBodyText,
+      choiceTextList: documents.map(
+        (document, index) => document.originalQuestionChoiceText
+          || projected.choiceTextList?.[index]
+          || document.questionText
+          || "",
+      ),
+      correctChoiceText: documents.map((document) => document.correctChoiceText || ""),
+      explanationText: documents.map((document) => document.explanationText || ""),
+      suggestedQuestions: shared.suggestedQuestions || [],
+      suggestedQuestionDetails: shared.suggestedQuestionDetails || [],
+      lawReferences: documents.map((document) => document.lawReferences || []),
+      lawRevisionFacts: documents.map((document) => document.lawRevisionFacts || null),
+      knowledgeText: documents.map((document) => document.knowledgeText || ""),
+      questionImageUrls: shared.questionImageUrls || [],
+    },
+    description: "公開用データに保存された正誤・解説です。この内容だけが問題単位の確認後にFirestoreへ反映されます。",
+  };
+}
+
+function renderPublicationStatus(question, publication) {
+  const node = section("公開前の状態");
+  node.classList.add("publication-status-section");
+  const source = element(
+    "span",
+    `publication-source ${publication.ready ? "ready" : "pending"}`,
+    publication.ready ? "公開用データ反映済み" : "公開用データ更新待ち",
+  );
+  node.append(source, renderPipelineActions(question));
+  return node;
 }
 
 function renderQuestionAdminDetails(question) {
@@ -2569,7 +2697,6 @@ function renderQuestionAdminDetails(question) {
   content.append(
     actions,
     renderWorkflow(question),
-    renderPipelineActions(question),
     renderWorkVersionPanel(question),
     renderEvaluationPanel(question),
   );
@@ -2983,10 +3110,6 @@ function questionReadbackTime(question) {
   return formatReadbackTime(question.liveReadback?.readbackMeta?.storedAt);
 }
 
-function scrollToFirestoreDiff() {
-  $("#firestore-diff-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 function patchSyncAction() {
   return actionWithHelp(
     "パッチ変更を反映",
@@ -3000,8 +3123,6 @@ function patchSyncAction() {
 function renderPipelineActions(question) {
   const workflow = question.workflow || {};
   const localReady = ["merge", "convert", "upload"].every((stage) => workflow[stage] === "match");
-  const firestoreNeedsAttention = ["mismatch", "missing", "error", "upstream_stale"]
-    .includes(workflow.firestore);
   const evaluation = question.evaluation || {};
   const node = element(
     "div",
@@ -3010,28 +3131,10 @@ function renderPipelineActions(question) {
   const status = element("div", "pipeline-message");
   const actions = element("div", "pipeline-buttons");
 
-  if (!localReady) {
+  if (maintenanceBlocksPublication(question)) {
     status.append(
-      element("strong", "", "最新patchが後続成果物へ未反映です"),
-      element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
-    );
-    actions.append(patchSyncAction());
-    const readbackTime = questionReadbackTime(question);
-    if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
-    const hasStoredDiff = ["mismatch", "missing"].includes(question.liveReadback?.status);
-    if (["mismatch", "missing"].includes(workflow.firestore) || hasStoredDiff) {
-      actions.append(actionWithHelp(
-        "保存済み差分を見る",
-        "secondary-button",
-        scrollToFirestoreDiff,
-        "保存済み差分を見る",
-        "最後に資格単位で取得したFirestore値と、その取得時点のローカル成果物との差分へ移動します。現在の成果物より古い比較の場合は、その旨を表示します。",
-      ));
-    }
-  } else if (!evaluation.machineReady) {
-    status.append(
-      element("strong", "", "評価前の整備が残っています"),
-      element("span", "", "上の要確認項目を修正すると、評価待ちへ進みます。"),
+      element("strong", "", "公開前の修正が残っています"),
+      element("span", "", "表示中の要確認項目をパッチで直すか、別threadへ修正を依頼します。"),
     );
     actions.append(actionWithHelp(
       "修正を依頼",
@@ -3040,6 +3143,14 @@ function renderPipelineActions(question) {
       "修正を依頼",
       "現在の要確認項目を、正本と対象pathを含むCodex依頼として作成します。",
     ));
+  } else if (!localReady) {
+    status.append(
+      element("strong", "", "最新patchが後続成果物へ未反映です"),
+      element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
+    );
+    actions.append(patchSyncAction());
+    const readbackTime = questionReadbackTime(question);
+    if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
   } else if (["not_started", "stale"].includes(evaluation.status)) {
     status.append(
       element("strong", "", evaluation.status === "stale" ? "再評価が必要です" : "評価待ちです"),
@@ -3074,7 +3185,7 @@ function renderPipelineActions(question) {
       element("strong", "", "評価合格・Firestore反映済みです"),
       element("span", "", "この問題に属する全documentのreadbackが一致しています。"),
     );
-  } else {
+  } else if (evaluation.publishReady === true && question.nextAction === "publish") {
     const stats = firestoreDiffStats(question);
     const differenceSummary = [
       stats.missingCount ? `未登録${stats.missingCount}件` : "",
@@ -3084,15 +3195,6 @@ function renderPipelineActions(question) {
       element("strong", "", "評価に合格し、公開可能です"),
       element("span", "", differenceSummary || "この問題だけを本番Firestoreへ反映できます。"),
     );
-    if (firestoreNeedsAttention && ["mismatch", "missing"].includes(workflow.firestore)) {
-      actions.append(actionWithHelp(
-        "保存済み差分を見る",
-        "secondary-button",
-        scrollToFirestoreDiff,
-        "保存済み差分を見る",
-        "最後に資格単位で取得したFirestore値とローカル成果物の差分へ移動します。",
-      ));
-    }
     actions.append(actionWithHelp(
       "この問題をFirestoreへ反映",
       "primary-button",
@@ -3100,15 +3202,11 @@ function renderPipelineActions(question) {
       "Firestoreへ反映",
       "評価に合格したこの元問題に属する全documentだけを、確認画面を経て本番へ反映します。",
     ));
-  }
-  if (localReady && question.nextAction !== "complete") {
-    actions.append(actionWithHelp(
-      "資格のFirestoreを確認",
-      "secondary-button",
-      openReadbackDialog,
-      "資格のFirestoreを確認",
-      "選択中の資格全体を読み取り、問題ごとの保存済み差分を更新します。Firestoreは変更しません。",
-    ));
+  } else {
+    status.append(
+      element("strong", "", "公開状態を確認できません"),
+      element("span", "", "安全のため本番反映を停止しています。再読込後も続く場合は管理詳細を確認してください。"),
+    );
   }
   node.append(status, actions);
   return node;
@@ -3589,12 +3687,14 @@ async function openPublishDialog() {
 
     summary.append(
       summaryMetric("全document", `${preview.documentCount}件`),
-      summaryMetric("変更・追加", `${preview.changedCount}件`, preview.changedCount ? "warning" : "good"),
-      summaryMetric("未登録", `${preview.missingCount}件`, preview.missingCount ? "warning" : "good"),
+      summaryMetric("更新", `${preview.updateCount || 0}件`, preview.updateCount ? "warning" : "good"),
+      summaryMetric("追加", `${preview.missingCount}件`, preview.missingCount ? "warning" : "good"),
       summaryMetric("成果物SHA", String(preview.artifactHash || "").slice(0, 12)),
     );
     if (!preview.canPublish) {
-      $("#workflow-dialog-message").textContent = "この問題のupload-readyと本番Firestoreは一致しています。反映は不要です。";
+      $("#workflow-dialog-message").textContent = preview.status === "match"
+        ? "この問題のupload-readyと本番Firestoreは一致しています。反映は不要です。"
+        : preview.reason || "安全条件を満たさないため、本番反映を開始できません。";
       state.workflowDialog.mode = "";
       $("#workflow-execute").textContent = "閉じる";
       $("#workflow-execute").disabled = false;
@@ -4086,7 +4186,6 @@ function renderLawRevisionFacts(value) {
 function renderLawSection(projected) {
   const node = section("法令根拠");
   const references = document.createElement("details");
-  references.open = true;
   references.append(element("summary", "", "条文根拠"));
   const content = element("div", "details-content");
   content.append(renderLawReferences(projected.lawReferences));
@@ -4626,6 +4725,11 @@ async function checkFingerprint() {
       fingerprint.stateHash !== current.stateHash
       || fingerprint.reviewStatus !== current.reviewStatus
       || !same(fingerprint.issueCodes || [], current.issueCodes || [])
+      || fingerprint.workflowFirestore !== current.workflow?.firestore
+      || fingerprint.evaluationStatus !== current.evaluation?.status
+      || (fingerprint.evaluationResultHash || "") !== (current.evaluation?.resultHash || "")
+      || fingerprint.publishReady !== current.publishReady
+      || fingerprint.nextAction !== current.nextAction
     ) {
       toast("対象問題の更新を検出しました。");
       await loadQualificationWorkflow(true);

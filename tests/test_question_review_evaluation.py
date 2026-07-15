@@ -5,6 +5,7 @@ import threading
 import time
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.upload.upload_questions_to_firestore import build_doc_data_base
 from tools.question_review_console.evaluation import (
@@ -114,6 +115,41 @@ def upload_document(question_id, original_id, choice, verdict):
 
 
 class QuestionEvaluationServiceTests(unittest.TestCase):
+    def test_status_uses_precomputed_failed_delta_paths_without_rescanning_runs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            with patch(
+                "tools.question_review_console.evaluation.unresolved_failed_delta_paths",
+                side_effect=AssertionError("manifestを再走査しない"),
+            ):
+                status = service.status_for(
+                    question_payload(),
+                    failed_delta_paths=(),
+                )
+
+        self.assertEqual(status["failedDeltaPaths"], [])
+        self.assertTrue(status["machineReady"])
+
+    def test_precomputed_failed_delta_paths_still_block_evaluation(self):
+        failed_path = "output/sample/questions_json/2026/21_explanationText_added/partial.json"
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            status = service.status_for(
+                question_payload(),
+                failed_delta_paths=(failed_path,),
+            )
+
+        self.assertEqual(status["failedDeltaPaths"], [failed_path])
+        self.assertFalse(status["machineReady"])
+
     def test_failed_app_server_turn_keeps_session_trace(self):
         class FailingAppServer:
             configured = True
@@ -481,7 +517,7 @@ class FakeInventory:
 
 
 class FakeEvaluationService:
-    def status_for(self, _question):
+    def status_for(self, _question, *, failed_delta_paths=None):
         return {
             "status": "passed",
             "publishReady": True,
@@ -551,6 +587,9 @@ class QuestionPublisherTests(unittest.TestCase):
             question["uploadReadyDocs"][0].pop("isDeleted")
             artifact = root / question["paths"]["uploadReady"]
             artifact.parent.mkdir(parents=True)
+            source = root / question["paths"]["source"]
+            source.parent.mkdir(parents=True)
+            source.write_text('{"question":"source"}\n', encoding="utf-8")
             other = upload_document("doc-other", "original-other", "他の選択肢", "正しい")
             artifact.write_text(
                 json.dumps(
@@ -611,6 +650,9 @@ class QuestionPublisherTests(unittest.TestCase):
             question["publicationQualificationId"] = "published-sample"
             artifact = root / question["paths"]["uploadReady"]
             artifact.parent.mkdir(parents=True)
+            source = root / question["paths"]["source"]
+            source.parent.mkdir(parents=True)
+            source.write_text('{"question":"source"}\n', encoding="utf-8")
             artifact.write_text(
                 json.dumps({"questions": question["uploadReadyDocs"]}),
                 encoding="utf-8",

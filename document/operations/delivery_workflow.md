@@ -82,9 +82,9 @@ python3 scripts/upload/upload_questions_to_firestore.py \
 
 標準UXでは、問題詳細で最新評価が`publishReady=true`になった元問題だけ`この問題をFirestoreへ反映`を有効にします。元問題がFirestore上で複数documentへ分割されている場合は、その全documentを一つの公開単位として扱い、一部の選択肢だけを公開しません。
 
-preflightはproject ID、元問題ID、Firestore document数、追加・更新件数、元artifact SHA、問題内容のhash、適用工程の作業版、評価版を固定します。削除、対象外document、現行MAJOR未満・未記録、評価の古さがあれば停止します。確認dialogの明示操作後だけ、元artifactから対象問題のdocumentを抽出した一時artifactを既存uploaderへ渡します。
+preflightはproject ID、元問題ID、Firestore document数、追加・更新件数、元artifact SHA、`00_source` hash、確認時のFirestore値、問題内容のhash、適用工程の作業版、評価版を固定します。candidate又は既存Firestoreの`isDeleted=true`、既存documentの資格・年度・元問題ID不一致、対象外document、現行MAJOR未満・未記録、評価の古さがあれば停止します。確認dialogの明示操作後だけ、元artifactから対象問題のdocumentを抽出した一時artifactを既存uploaderへ渡します。
 
-実行直前にFirestore、ローカルhash、`publishReady`を再確認し、反映直後に同じdocumentを自動readbackします。upload成功だけでは完了にせず、全対象fieldが一致した場合だけ`Firestore反映済み`とします。preflight、対象artifact、result、readbackは`output/question_review_console/publish_runs/<qualification>/<runId>/`へ保存します。
+実行直前にFirestore、ローカルhash、`publishReady`を再確認し、uploader内でも確認時のFirestore値とdocument更新時刻を照合して同時更新の上書きを拒否します。反映直後に同じdocumentを自動readbackし、upload成功だけでは完了にせず、全対象fieldが一致した場合だけ`Firestore反映済み`とします。preflight、対象artifact、result、readbackは`output/question_review_console/publish_runs/<qualification>/<runId>/`へ保存し、worker開始後の早期停止でもfailed receiptを残します。
 
 ## 公開境界
 

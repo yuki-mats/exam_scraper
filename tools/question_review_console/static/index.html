@@ -60,8 +60,8 @@
       <div class="maintenance-audit-entry">
         <button id="audit-view-open" class="audit-view-open-button" type="button">
           <span>
-            <strong>生成内容を監査</strong>
-            <small>問題本文と生成した正答・解説を見比べる</small>
+            <strong>公開前の内容を確認</strong>
+            <small>patch適用後の正答・解説とFirestore反映状態を見る</small>
           </span>
           <span aria-hidden="true">監査を開く →</span>
         </button>
@@ -72,9 +72,9 @@
       <header class="audit-view-header">
         <button id="audit-view-close" class="secondary-button audit-view-back" type="button">← 整備へ戻る</button>
         <div>
-          <span class="dialog-eyebrow">必要なときだけ確認</span>
-          <h2 id="audit-view-title">生成内容の監査</h2>
-          <p id="audit-view-qualification">問題本文と生成した正答・解説を見比べます。</p>
+          <span class="dialog-eyebrow">Firestoreへ反映する前に確認</span>
+          <h2 id="audit-view-title">公開前の内容を確認</h2>
+          <p id="audit-view-qualification">patch適用後の正答・解説とFirestore反映状態を確認します。</p>
         </div>
       </header>
       <div id="audit-view-content" class="audit-view-content">
@@ -90,7 +90,7 @@
             <input id="search-input" type="search" placeholder="問題文・問番" autocomplete="off">
           </label>
           <div class="segmented" aria-label="一覧範囲">
-            <button id="exceptions-button" class="active" type="button">要確認のみ</button>
+            <button id="exceptions-button" class="active" type="button">反映待ち</button>
             <button id="all-button" type="button">全問</button>
           </div>
         </div>
@@ -110,7 +110,7 @@
           <section id="detail-pane" class="detail-pane" aria-live="polite">
             <div class="empty-state">
               <strong>問題を選択してください</strong>
-              <span>問題本文と、patch適用後の正答・解説を見比べられます。</span>
+              <span>Firestoreへ反映する正答・解説と、現在の公開状態を確認できます。</span>
             </div>
           </section>
         </main>

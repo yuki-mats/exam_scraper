@@ -15,6 +15,7 @@ from typing import Any, Callable, Mapping
 from scripts.upload.upload_questions_to_firestore import (
     DOC_COMPARE_KEYS,
     build_doc_data_base,
+    firestore_live_fingerprint,
     validate_required_question_fields,
 )
 from tools.question_review_console.firestore_readback import (
@@ -33,6 +34,92 @@ from tools.question_review_console.workflow_runner import (
 
 class PublicationError(RuntimeError):
     pass
+
+
+def _source_fingerprint(
+    repo_root: Path,
+    qualification: str,
+    list_group_id: str,
+) -> str:
+    """対象groupの00_sourceにあるJSON名と内容を1つのhashに固定する。"""
+    source_dir = (
+        repo_root
+        / "output"
+        / qualification
+        / "questions_json"
+        / list_group_id
+        / "00_source"
+    )
+    if not source_dir.is_dir():
+        raise PublicationError("対象groupの00_sourceがありません。")
+    records: list[tuple[str, str]] = []
+    try:
+        for path in sorted(source_dir.rglob("*.json")):
+            if not path.is_file():
+                continue
+            records.append(
+                (
+                    path.relative_to(source_dir).as_posix(),
+                    hashlib.sha256(path.read_bytes()).hexdigest(),
+                )
+            )
+    except OSError as exc:
+        raise PublicationError("00_sourceのfingerprint取得に失敗しました。") from exc
+    if not records:
+        raise PublicationError("対象groupの00_sourceにJSONがありません。")
+    value = json.dumps(records, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _require_source_fingerprint(
+    repo_root: Path,
+    qualification: str,
+    list_group_id: str,
+    expected: str,
+) -> str:
+    current = _source_fingerprint(repo_root, qualification, list_group_id)
+    if not expected or not hmac.compare_digest(current, expected):
+        raise PublicationError("確認後に00_sourceが変化したため本番反映を停止しました。")
+    return current
+
+
+def _deleted_document_ids(documents: list[dict[str, Any]]) -> list[str]:
+    return sorted(
+        str(document.get("questionId") or "")
+        for document in documents
+        if document.get("isDeleted") is True
+    )
+
+
+def _live_fingerprint(
+    document_ids: list[str],
+    live: Mapping[str, Mapping[str, Any]],
+) -> str:
+    """確認時のFirestore値を固定し、同じ差分field内の競合も検知する。"""
+    return firestore_live_fingerprint(document_ids, dict(live))
+
+
+def _live_document_conflicts(
+    documents: list[dict[str, Any]],
+    live: Mapping[str, Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    conflicts: list[dict[str, Any]] = []
+    identity_fields = ("qualificationId", "listGroupId", "originalQuestionId")
+    for document in documents:
+        question_id = str(document["questionId"])
+        existing = live.get(question_id)
+        if existing is None:
+            continue
+        reasons = []
+        for field in identity_fields:
+            live_value = existing.get(field)
+            if live_value not in (None, "") and live_value != document.get(field):
+                reasons.append(field)
+        if existing.get("isDeleted") is True:
+            reasons.append("isDeleted")
+        if reasons:
+            conflicts.append({"questionId": question_id, "fields": reasons})
+    return conflicts
 
 
 class GroupPublisher:
@@ -82,13 +169,61 @@ class GroupPublisher:
         path, documents, artifact_hash = self._load_artifact(
             group, qualification, list_group_id
         )
+        source_hash = _source_fingerprint(
+            self.repo_root, qualification, list_group_id
+        )
+        deleted_document_ids = _deleted_document_ids(documents)
+        if deleted_document_ids:
+            return {
+                "qualification": qualification,
+                "listGroupId": list_group_id,
+                "projectId": PRODUCTION_PROJECT_ID,
+                "localReady": True,
+                "blockingIssues": {"deleted_document": len(deleted_document_ids)},
+                "failedDeltaPaths": [],
+                "artifactPath": str(path.relative_to(self.repo_root)),
+                "artifactHash": artifact_hash,
+                "sourceHash": source_hash,
+                "documentCount": len(documents),
+                "changedCount": 0,
+                "updateCount": 0,
+                "missingCount": 0,
+                "unchangedCount": len(documents),
+                "deletedDocumentIds": deleted_document_ids,
+                "canPublish": False,
+                "status": "blocked",
+                "reason": "isDeleted=trueのdocumentは本番反映できません。",
+            }
+        document_ids = [str(document["questionId"]) for document in documents]
         try:
             live = self.firestore.read_documents(
-                [str(document["questionId"]) for document in documents],
+                document_ids,
                 fields=DOC_COMPARE_KEYS,
             )
         except Exception as exc:  # noqa: BLE001
             raise PublicationError("Firestoreの差分取得に失敗しました。") from exc
+        live_conflicts = _live_document_conflicts(documents, live)
+        if live_conflicts:
+            return {
+                "qualification": qualification,
+                "listGroupId": list_group_id,
+                "projectId": PRODUCTION_PROJECT_ID,
+                "localReady": True,
+                "blockingIssues": {"live_document_conflict": len(live_conflicts)},
+                "failedDeltaPaths": [],
+                "artifactPath": str(path.relative_to(self.repo_root)),
+                "artifactHash": artifact_hash,
+                "sourceHash": source_hash,
+                "documentCount": len(documents),
+                "changedCount": 0,
+                "updateCount": 0,
+                "missingCount": 0,
+                "unchangedCount": len(documents),
+                "liveConflicts": live_conflicts,
+                "canPublish": False,
+                "status": "blocked",
+                "reason": "既存Firestore documentの資格・元問題又は削除状態が一致しません。",
+            }
         changed: list[dict[str, Any]] = []
         missing: list[str] = []
         for document in documents:
@@ -107,11 +242,14 @@ class GroupPublisher:
             if fields:
                 changed.append({"questionId": question_id, "fields": fields})
 
+        live_hash = _live_fingerprint(document_ids, live)
         token_payload = {
             "qualification": qualification,
             "listGroupId": list_group_id,
             "projectId": PRODUCTION_PROJECT_ID,
             "artifactHash": artifact_hash,
+            "sourceHash": source_hash,
+            "liveHash": live_hash,
             "changed": changed,
             "missing": missing,
         }
@@ -124,8 +262,11 @@ class GroupPublisher:
             "failedDeltaPaths": [],
             "artifactPath": str(path.relative_to(self.repo_root)),
             "artifactHash": artifact_hash,
+            "sourceHash": source_hash,
+            "liveHash": live_hash,
             "documentCount": len(documents),
             "changedCount": len(changed),
+            "updateCount": len(changed) - len(missing),
             "missingCount": len(missing),
             "unchangedCount": len(documents) - len(changed),
             "changes": changed[:100],
@@ -142,6 +283,12 @@ class GroupPublisher:
         preflight: Mapping[str, Any],
         emit: Callable[[str], None],
     ) -> dict[str, Any]:
+        _require_source_fingerprint(
+            self.repo_root,
+            qualification,
+            list_group_id,
+            str(preflight.get("sourceHash") or ""),
+        )
         current = self.preview(qualification, list_group_id)
         if not self.token_matches(current, str(preflight.get("preflightToken") or "")):
             raise PublicationError("実行直前に成果物又はFirestoreが更新されました。")
@@ -153,6 +300,12 @@ class GroupPublisher:
             raise PublicationError("upload-ready成果物がありません。")
         if self._file_hash(path) != preflight.get("artifactHash"):
             raise PublicationError("確認後にupload-readyが更新されました。")
+        _require_source_fingerprint(
+            self.repo_root,
+            qualification,
+            list_group_id,
+            str(preflight.get("sourceHash") or ""),
+        )
 
         emit(f"本番反映: {qualification} / {list_group_id}")
         emit(f"対象document: {preflight.get('changedCount', 0)} / {preflight.get('documentCount', 0)}")
@@ -161,16 +314,24 @@ class GroupPublisher:
             str(self.repo_root / "scripts" / "upload" / "upload_questions_to_firestore.py"),
             str(path),
         ]
+        environment = self._environment()
+        environment["QUESTION_PUBLISH_EXPECTED_LIVE_HASH"] = str(preflight["liveHash"])
         return_code = self.command_runner(
             command,
             cwd=self.repo_root,
-            env=self._environment(),
+            env=environment,
             emit=emit,
         )
         if return_code != 0:
             raise PublicationError(f"Firestore反映に失敗しました（exit={return_code}）。")
 
         verification = self.preview(qualification, list_group_id)
+        _require_source_fingerprint(
+            self.repo_root,
+            qualification,
+            list_group_id,
+            str(preflight.get("sourceHash") or ""),
+        )
         if verification.get("changedCount") != 0 or verification.get("missingCount") != 0:
             raise PublicationError("upload後のreadbackで差分が残っています。")
         emit("本番Firestoreとupload-readyの一致を確認しました。")
@@ -299,13 +460,16 @@ class QuestionPublisher:
 
     def preview(self, question: Mapping[str, Any]) -> dict[str, Any]:
         current = self._current_question(question)
-        evaluation = self.evaluations.status_for(current)
         failed_delta_paths = list(
             unresolved_failed_delta_paths(
                 self.repo_root,
                 str(current["qualification"]),
                 str(current["listGroupId"]),
             )
+        )
+        evaluation = self.evaluations.status_for(
+            current,
+            failed_delta_paths=failed_delta_paths,
         )
         base = {
             "questionId": str(current["id"]),
@@ -336,22 +500,67 @@ class QuestionPublisher:
             }
 
         path, documents, artifact_hash = self._load_question_artifact(current)
+        source_hash = _source_fingerprint(
+            self.repo_root,
+            str(current["qualification"]),
+            str(current["listGroupId"]),
+        )
+        deleted_document_ids = _deleted_document_ids(documents)
+        if deleted_document_ids:
+            return {
+                **base,
+                "artifactPath": str(path.relative_to(self.repo_root)),
+                "artifactHash": artifact_hash,
+                "sourceHash": source_hash,
+                "documentCount": len(documents),
+                "changedCount": 0,
+                "updateCount": 0,
+                "missingCount": 0,
+                "unchangedCount": len(documents),
+                "deletedDocumentIds": deleted_document_ids,
+                "canPublish": False,
+                "status": "blocked",
+                "reason": "isDeleted=trueのdocumentは本番反映できません。",
+                "blockingIssues": ["deleted_document"],
+            }
+        document_ids = [str(document["questionId"]) for document in documents]
         try:
             live = self.firestore.read_documents(
-                [str(document["questionId"]) for document in documents],
+                document_ids,
                 fields=DOC_COMPARE_KEYS,
             )
         except Exception as exc:  # noqa: BLE001
             raise PublicationError("Firestoreの差分取得に失敗しました。") from exc
+        live_conflicts = _live_document_conflicts(documents, live)
+        if live_conflicts:
+            return {
+                **base,
+                "artifactPath": str(path.relative_to(self.repo_root)),
+                "artifactHash": artifact_hash,
+                "sourceHash": source_hash,
+                "documentCount": len(documents),
+                "changedCount": 0,
+                "updateCount": 0,
+                "missingCount": 0,
+                "unchangedCount": len(documents),
+                "liveConflicts": live_conflicts,
+                "canPublish": False,
+                "status": "blocked",
+                "reason": "既存Firestore documentの資格・元問題又は削除状態が一致しません。",
+                "blockingIssues": ["live_document_conflict"],
+            }
         changed, missing = self._changes(documents, live)
         candidate_hash = self._documents_hash(documents)
+        live_hash = _live_fingerprint(document_ids, live)
         token_payload = {
             "questionId": str(current["id"]),
             "reviewKey": str(current["reviewKey"]),
             "stateHash": str(current["stateHash"]),
             "projectId": PRODUCTION_PROJECT_ID,
             "artifactHash": artifact_hash,
+            "sourceHash": source_hash,
             "candidateHash": candidate_hash,
+            "liveHash": live_hash,
             "evaluationHash": str(evaluation.get("resultHash") or ""),
             "changed": changed,
             "missing": missing,
@@ -360,9 +569,12 @@ class QuestionPublisher:
             **base,
             "artifactPath": str(path.relative_to(self.repo_root)),
             "artifactHash": artifact_hash,
+            "sourceHash": source_hash,
             "candidateHash": candidate_hash,
+            "liveHash": live_hash,
             "documentCount": len(documents),
             "changedCount": len(changed),
+            "updateCount": len(changed) - len(missing),
             "missingCount": len(missing),
             "unchangedCount": len(documents) - len(changed),
             "changes": changed,
@@ -378,15 +590,31 @@ class QuestionPublisher:
         preflight: Mapping[str, Any],
         emit: Callable[[str], None],
     ) -> dict[str, Any]:
-        current = self._current_question(question)
-        fresh = self.preview(current)
-        if not self.token_matches(fresh, str(preflight.get("preflightToken") or "")):
-            raise PublicationError("実行直前に問題、評価結果又はFirestoreが更新されました。")
-        if not fresh.get("canPublish"):
-            raise PublicationError("実行直前の確認で本番反映対象がなくなりました。")
-        path, documents, artifact_hash = self._load_question_artifact(current)
-        if artifact_hash != fresh.get("artifactHash"):
-            raise PublicationError("確認後にupload-readyが更新されました。")
+        try:
+            current = self._current_question(question)
+            _require_source_fingerprint(
+                self.repo_root,
+                str(current["qualification"]),
+                str(current["listGroupId"]),
+                str(preflight.get("sourceHash") or ""),
+            )
+            fresh = self.preview(current)
+            if not self.token_matches(fresh, str(preflight.get("preflightToken") or "")):
+                raise PublicationError("実行直前に問題、評価結果又はFirestoreが更新されました。")
+            if not fresh.get("canPublish"):
+                raise PublicationError("実行直前の確認で本番反映対象がなくなりました。")
+            path, documents, artifact_hash = self._load_question_artifact(current)
+            if artifact_hash != fresh.get("artifactHash"):
+                raise PublicationError("確認後にupload-readyが更新されました。")
+            _require_source_fingerprint(
+                self.repo_root,
+                str(current["qualification"]),
+                str(current["listGroupId"]),
+                str(fresh.get("sourceHash") or ""),
+            )
+        except Exception as exc:
+            self._write_rejected_receipt(question, preflight, exc)
+            raise
 
         run_id = datetime.now().strftime("%Y%m%dT%H%M%S%f") + "-" + hashlib.sha256(
             f"{current['reviewKey']}:{fresh['candidateHash']}".encode("utf-8")
@@ -412,6 +640,7 @@ class QuestionPublisher:
             "projectId": PRODUCTION_PROJECT_ID,
             "sourceArtifactPath": str(path.relative_to(self.repo_root)),
             "sourceArtifactHash": artifact_hash,
+            "sourceHash": str(fresh["sourceHash"]),
             "candidateHash": str(fresh["candidateHash"]),
             "evaluationHash": str(fresh.get("evaluationHash") or ""),
             "documentIds": [str(document["questionId"]) for document in documents],
@@ -441,10 +670,12 @@ class QuestionPublisher:
             str(candidate_path),
         ]
         try:
+            environment = self._environment()
+            environment["QUESTION_PUBLISH_EXPECTED_LIVE_HASH"] = str(fresh["liveHash"])
             return_code = self.command_runner(
                 command,
                 cwd=self.repo_root,
-                env=self._environment(),
+                env=environment,
                 emit=emit,
             )
             if return_code != 0:
@@ -460,12 +691,26 @@ class QuestionPublisher:
                 {
                     "projectId": PRODUCTION_PROJECT_ID,
                     "expectedSource": "upload-ready",
+                    "sourceHash": _source_fingerprint(
+                        self.repo_root,
+                        str(current["qualification"]),
+                        str(current["listGroupId"]),
+                    ),
                     "readAt": self._now(),
                 }
+            )
+            readback["sourceUnchanged"] = hmac.compare_digest(
+                str(readback["sourceHash"]), str(fresh["sourceHash"])
             )
             atomic_write(
                 run_dir / "readback.json",
                 json.dumps(readback, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            )
+            _require_source_fingerprint(
+                self.repo_root,
+                str(current["qualification"]),
+                str(current["listGroupId"]),
+                str(fresh.get("sourceHash") or ""),
             )
             if readback["status"] != "match":
                 raise PublicationError("upload後のreadbackで差分が残っています。")
@@ -514,6 +759,64 @@ class QuestionPublisher:
     def token_matches(self, preview: Mapping[str, Any], token: str) -> bool:
         expected = str(preview.get("preflightToken") or "")
         return bool(expected and hmac.compare_digest(expected, token))
+
+    def _write_rejected_receipt(
+        self,
+        question: Mapping[str, Any],
+        preflight: Mapping[str, Any],
+        error: Exception,
+    ) -> None:
+        now = self._now()
+        qualification = str(question.get("qualification") or "unknown")
+        seed = (
+            f"{question.get('reviewKey') or question.get('id') or 'unknown'}:"
+            f"{preflight.get('candidateHash') or ''}:rejected:{now}"
+        )
+        run_id = datetime.now().strftime("%Y%m%dT%H%M%S%f") + "-" + hashlib.sha256(
+            seed.encode("utf-8")
+        ).hexdigest()[:8]
+        run_dir = (
+            self.repo_root
+            / "output"
+            / "question_review_console"
+            / "publish_runs"
+            / qualification
+            / run_id
+        )
+        result = {
+            "schemaVersion": "question-publish-result/v1",
+            "runId": run_id,
+            "status": "failed",
+            "error": str(error),
+            "finishedAt": now,
+        }
+        manifest = {
+            "schemaVersion": "question-publish-run/v1",
+            "runId": run_id,
+            "status": "failed",
+            "questionId": str(question.get("id") or ""),
+            "reviewKey": str(question.get("reviewKey") or ""),
+            "qualification": qualification,
+            "listGroupId": str(question.get("listGroupId") or ""),
+            "projectId": PRODUCTION_PROJECT_ID,
+            "sourceHash": str(preflight.get("sourceHash") or ""),
+            "candidateHash": str(preflight.get("candidateHash") or ""),
+            "startedAt": now,
+            "finishedAt": now,
+            "error": str(error),
+        }
+        atomic_write(
+            run_dir / "preflight.json",
+            json.dumps(dict(preflight), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+        atomic_write(
+            run_dir / "result.json",
+            json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+        atomic_write(
+            run_dir / "manifest.json",
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
 
     def _current_question(self, question: Mapping[str, Any]) -> Mapping[str, Any]:
         qualification = str(question["qualification"])

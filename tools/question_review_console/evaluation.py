@@ -12,7 +12,7 @@ import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
@@ -761,6 +761,7 @@ class QuestionEvaluationService:
         question: Mapping[str, Any],
         *,
         live_status: str | None = None,
+        failed_delta_paths: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         policy = self.current_policy()
         review_key = str(question.get("reviewKey") or "")
@@ -795,12 +796,14 @@ class QuestionEvaluationService:
                 and str(code) not in {"live_mismatch", "firestore_readback_stale"}
             }
         )
-        failed_delta_paths = list(
+        resolved_failed_delta_paths = list(
             unresolved_failed_delta_paths(
                 self.repo_root,
                 str(question.get("qualification") or ""),
                 str(question.get("listGroupId") or ""),
             )
+            if failed_delta_paths is None
+            else failed_delta_paths
         )
         work_versions = question.get("workVersions")
         if not isinstance(work_versions, Mapping) and self.work_policy_provider is not None:
@@ -821,7 +824,7 @@ class QuestionEvaluationService:
         machine_ready = bool(
             local_ready
             and not blocking_issues
-            and not failed_delta_paths
+            and not resolved_failed_delta_paths
             and question.get("uploadReadyDocs")
             and policy_ready
         )
@@ -846,7 +849,7 @@ class QuestionEvaluationService:
                 "provider": self.provider,
                 "machineReady": machine_ready,
                 "blockingIssues": blocking_issues,
-                "failedDeltaPaths": failed_delta_paths,
+                "failedDeltaPaths": resolved_failed_delta_paths,
                 "policyReady": policy_ready,
                 "policyVersion": normalize_policy_version(policy["policyVersion"]),
                 "policyFingerprint": str(policy["policyFingerprint"]),

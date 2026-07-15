@@ -370,6 +370,12 @@ class GroupPublisherTests(unittest.TestCase):
                 json.dumps({"questions": [document]}, ensure_ascii=False),
                 encoding="utf-8",
             )
+            source = (
+                root
+                / "output/sample-exam/questions_json/2026/00_source/question_1.json"
+            )
+            source.parent.mkdir(parents=True)
+            source.write_text('{"question":"source"}\n', encoding="utf-8")
             group = group_payload(
                 {"merge": "match", "convert": "match", "upload": "match"},
                 upload_path=str(relative_path),
@@ -627,7 +633,6 @@ class WorkflowUiContractTests(unittest.TestCase):
             "executeScopedReadback",
             "pollReadbackJob",
             "renderFirestoreDiff",
-            "scrollToFirestoreDiff",
             "patchSyncAction",
             "openHelp",
             "actionWithHelp",
@@ -652,8 +657,12 @@ class WorkflowUiContractTests(unittest.TestCase):
             "renderEvaluationPanel",
             "renderWorkVersionPanel",
             "renderQuestionAdminDetails",
+            "renderPublicationStatus",
+            "publicationContent",
+            "renderQueuePublicationSummary",
+            "renderLoadError",
+            "maintenanceBlocksPublication",
             "workVersionBadge",
-            "evaluationScopeLabel",
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
@@ -662,16 +671,14 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('"資格のFirestoreを確認"', javascript)
         self.assertIn('"パッチ変更を反映"', javascript)
         self.assertIn("actions.append(patchSyncAction())", javascript)
-        self.assertIn("firestoreNeedsAttention", javascript)
         self.assertIn('"Firestoreへ反映"', javascript)
         self.assertIn('"/api/evaluations/preview"', javascript)
         self.assertIn('"/api/evaluations/start"', javascript)
         self.assertIn("selectedQuestionIds", javascript)
-        self.assertIn("評価範囲 ${evaluationScopeLabel()}", javascript)
+        self.assertIn("`反映待ち${pendingCount}`", javascript)
         self.assertIn("一覧の${visibleIds.length}問を選択", javascript)
         self.assertIn('summaryMetric("資格", qualificationDisplayName(preview.qualification))', javascript)
         self.assertIn('summaryMetric("年度", preview.listGroupIds?.join("・") || "-")', javascript)
-        self.assertIn('"保存済み差分を見る"', javascript)
         self.assertIn("専用の24_questionIssueCorrections契約", html)
         review_fields = javascript.split("const REVIEW_FIELDS = [", 1)[1].split(
             "];", 1
@@ -692,15 +699,24 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('id="review-scope"', html)
         self.assertNotIn('id="advanced-tools-toggle"', html)
         self.assertNotIn('id="audit-details-dialog"', html)
-        self.assertIn("生成内容を監査", html)
-        self.assertIn("問題本文と生成した正答・解説を見比べる", html)
+        self.assertIn("公開前の内容を確認", html)
+        self.assertIn("patch適用後の正答・解説とFirestore反映状態を見る", html)
+        self.assertIn('id="exceptions-button" class="active" type="button">反映待ち</button>', html)
         self.assertIn("工程・評価・Firestoreなどの管理機能", html)
         self.assertNotIn('id="audit-admin-tools" class="audit-admin-tools" open', html)
         self.assertIn('$("#audit-view-open").addEventListener("click", openAuditView)', javascript)
         self.assertIn('$("#audit-view-close").addEventListener("click", closeAuditView)', javascript)
         self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
         self.assertIn('.audit-view:not(.admin-tools-open) .queue-select { display: none; }', css)
-        self.assertIn("問題の選択肢に対して、生成した正答と解説がズレていないか", javascript)
+        self.assertIn("Firestoreへ反映する最終内容", javascript)
+        self.assertIn("question.uploadReadyDocs", javascript)
+        self.assertIn('"パッチを修正"', javascript)
+        self.assertIn("renderLawSection(publication.record)", javascript)
+        self.assertIn("lawReferences: documents.map", javascript)
+        self.assertIn('evaluation.publishReady === true && question.nextAction === "publish"', javascript)
+        self.assertIn("fingerprint.workflowFirestore !== current.workflow?.firestore", javascript)
+        self.assertIn('(fingerprint.evaluationResultHash || "") !== (current.evaluation?.resultHash || "")', javascript)
+        self.assertIn("state.questionPage.hasMore = false", javascript)
         initialize_source = javascript[
             javascript.index("async function initialize") :
             javascript.index("function bindControls")
@@ -719,6 +735,10 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertLess(
             detail_source.index('section("問題文")'),
             detail_source.index("renderQuestionAdminDetails(question)"),
+        )
+        self.assertLess(
+            detail_source.index("renderPublicationStatus(question, publication)"),
+            detail_source.index('section("問題文")'),
         )
         self.assertNotIn('value="all_qualifications"', html)
         self.assertIn('"selectionchange"', javascript)
@@ -757,6 +777,10 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("function qualificationRunViewState", javascript)
         self.assertIn(
             "const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null",
+            javascript,
+        )
+        self.assertIn(
+            "const activeJobId = state.qualificationActiveRun?.runId === visibleRun.runId",
             javascript,
         )
         self.assertIn('phase = "最終検証で停止"', javascript)
@@ -802,6 +826,10 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
         self.assertIn('`すべて（${groups.length}件）`', javascript)
         self.assertIn('"パッチ適用後データ"', javascript)
+        self.assertIn('summaryMetric("更新", `${preview.updateCount || 0}件`', javascript)
+        self.assertIn('summaryMetric("追加", `${preview.missingCount}件`', javascript)
+        self.assertIn('preview.reason || "安全条件を満たさないため', javascript)
+        self.assertNotIn("references.open = true", javascript)
         self.assertNotIn('"投影後JSON"', javascript)
         self.assertNotIn("function jsonPre", javascript)
         self.assertIn("state.detail?.listGroupId || state.listGroupId", javascript)

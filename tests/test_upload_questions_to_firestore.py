@@ -174,6 +174,44 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             ["https://example.test/choice.png"],
         )
 
+    def test_compare_keys_cover_every_field_written_from_upload_ready(self) -> None:
+        question = {
+            "questionId": "qsample",
+            "questionSetId": "qs1",
+            "listGroupId": "2026",
+            "originalQuestionId": "original-1",
+            "originalQuestionBodyText": "元問題文",
+            "questionBodyText": "問題文",
+            "originalQuestionChoiceText": "選択肢",
+            "originalQuestionChoiceImageUrls": ["https://example.test/choice.png"],
+            "questionText": "本文",
+            "questionType": "true_false",
+            "qualificationId": "sample-qualification",
+            "correctChoiceText": "正しい",
+            "explanationText": "解説",
+            "knowledgeText": "補足知識",
+            "suggestedQuestions": [],
+            "suggestedQuestionDetails": [],
+            "lawReferences": [],
+            "lawRevisionFacts": {},
+            "isLawRelated": False,
+            "lawGroundedExplanationNotNeeded": False,
+            "examYear": 2026,
+            "examSource": "サンプル試験",
+            "questionTags": [],
+            "questionImageUrls": ["https://example.test/question.png"],
+            "importKey": "sample-import-key",
+            "isOfficial": True,
+            "isDeleted": False,
+            "isChoiceOnly": False,
+            "isGroupable": False,
+        }
+
+        self.assertEqual(
+            set(module.build_doc_data_base(question)),
+            set(module.DOC_COMPARE_KEYS),
+        )
+
     def test_build_doc_data_sets_meta_fields(self) -> None:
         now = datetime(2026, 4, 13, 12, 0, 0)
         doc_data = module.build_doc_data(
@@ -261,6 +299,80 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
 
         self.assertEqual(module.fetch_existing_question_snapshots(FakeDb(), [ref]), ["snapshot"])
         self.assertEqual(ref.field_paths, module.EXISTING_DOC_FIELD_PATHS)
+
+    def test_guarded_write_uses_last_update_precondition_for_existing_document(self) -> None:
+        class FakeBatch:
+            def __init__(self) -> None:
+                self.calls = []
+
+            def update(self, ref, data, *, option=None):
+                self.calls.append((ref, data, option))
+
+        class Snapshot:
+            exists = True
+            update_time = datetime(2026, 7, 15, 12, 0, 0)
+
+        batch = FakeBatch()
+        module.add_guarded_question_write(batch, "ref", {"field": "value"}, Snapshot())
+
+        self.assertEqual(batch.calls[0][:2], ("ref", {"field": "value"}))
+        self.assertIsInstance(batch.calls[0][2], module.firestore.LastUpdateOption)
+
+    def test_guarded_write_uses_create_for_missing_document(self) -> None:
+        class FakeBatch:
+            def __init__(self) -> None:
+                self.calls = []
+
+            def create(self, ref, data):
+                self.calls.append((ref, data))
+
+        class Snapshot:
+            exists = False
+
+        batch = FakeBatch()
+        module.add_guarded_question_write(batch, "ref", {"field": "value"}, Snapshot())
+
+        self.assertEqual(batch.calls, [("ref", {"field": "value"})])
+
+    def test_guarded_write_rejects_existing_document_without_update_time(self) -> None:
+        class Snapshot:
+            exists = True
+            update_time = None
+
+        with self.assertRaisesRegex(RuntimeError, "update_time"):
+            module.add_guarded_question_write(object(), "ref", {}, Snapshot())
+
+    def test_expected_live_fingerprint_detects_value_change_in_same_field(self) -> None:
+        class Snapshot:
+            id = "q1"
+            exists = True
+
+            def __init__(self, explanation: str) -> None:
+                self.explanation = explanation
+
+            def to_dict(self):
+                return {"explanationText": self.explanation}
+
+        expected = module.firestore_live_fingerprint(
+            ["q1"], {"q1": {"explanationText": "確認時"}}
+        )
+
+        with self.assertRaisesRegex(RuntimeError, "Firestore documentが更新"):
+            module.require_expected_live_fingerprint(
+                ["q1"], [Snapshot("別更新")], expected
+            )
+
+    def test_expected_live_fingerprint_accepts_unchanged_missing_document(self) -> None:
+        class Snapshot:
+            id = "q1"
+            exists = False
+
+            def to_dict(self):
+                return None
+
+        expected = module.firestore_live_fingerprint(["q1"], {})
+
+        module.require_expected_live_fingerprint(["q1"], [Snapshot()], expected)
 
 
 if __name__ == "__main__":

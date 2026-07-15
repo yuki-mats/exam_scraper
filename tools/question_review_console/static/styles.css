@@ -436,6 +436,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .work-version-badge.good { color: var(--green); border-color: #b8dec7; background: var(--green-bg); }
 .work-version-badge.warning { color: var(--amber); border-color: #ead394; background: var(--amber-bg); }
 .queue-body { margin: 0 0 8px; color: #3f4852; font-size: 12px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.queue-publication-summary { display: flex; flex-wrap: wrap; gap: 5px 10px; margin: -2px 0 8px; color: #53606c; font-size: 10px; font-weight: 700; }
 .issue-row { display: flex; flex-wrap: wrap; gap: 4px; }
 
 .badge {
@@ -476,12 +477,19 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .work-version-summary { margin: 8px 0 0; color: var(--text-muted); font-size: 11px; }
 .empty-state { min-height: 70vh; display: grid; place-content: center; gap: 8px; text-align: center; color: var(--text-muted); }
 .empty-state strong { color: #37414b; }
+.load-error-state span { max-width: 520px; line-height: 1.55; overflow-wrap: anywhere; }
+.load-error-state button { justify-self: center; margin-top: 6px; }
 
 .detail-header { position: sticky; top: 0; z-index: 3; margin: 0 -22px; padding: 14px 22px 12px; background: rgba(248, 249, 250, 0.97); border-bottom: 1px solid var(--line); }
 .detail-title-row { display: flex; align-items: start; gap: 14px; }
 .detail-title-row h2 { margin: 0; font-size: 19px; line-height: 1.35; }
 .detail-meta { margin-top: 4px; color: var(--text-muted); font-size: 12px; overflow-wrap: anywhere; }
 .detail-actions { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.publication-status-section { padding-bottom: 14px; }
+.publication-source { display: inline-flex; width: fit-content; margin-bottom: 8px; padding: 3px 7px; border: 1px solid var(--line); border-radius: 3px; font-size: 10px; font-weight: 800; }
+.publication-source.ready { color: var(--green); border-color: #b8dec7; background: var(--green-bg); }
+.publication-source.pending { color: var(--amber); border-color: #ead394; background: var(--amber-bg); }
+.publication-status-section .pipeline-action-bar { margin-top: 0; border-top: 1px solid var(--line); }
 .action-with-help { display: inline-flex; align-items: center; gap: 3px; }
 .help-button {
   width: 22px;
@@ -1024,6 +1032,9 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .segmented { min-width: 170px; flex: 1 1 auto; }
   .segmented button { flex: 1; }
   .segmented button { white-space: nowrap; }
+  .queue-item-head { align-items: flex-start; flex-wrap: wrap; }
+  .queue-quality { margin-left: 0; }
+  .audit-primary-filter .list-summary { overflow: visible; text-overflow: clip; white-space: normal; }
   .workflow { grid-template-columns: repeat(5, minmax(68px, 1fr)); }
   .workflow-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .workflow-summary-item:nth-child(3n) { border-right: 1px solid var(--line); }
