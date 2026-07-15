@@ -152,6 +152,9 @@ const state = {
   qualificationWorkflowStageId: "",
   qualificationRuns: [],
   qualificationActiveRun: null,
+  qualificationActiveJob: null,
+  codexStatus: null,
+  sharedRunPolling: false,
   qualificationRunDialog: {
     preview: null,
     running: false,
@@ -284,15 +287,22 @@ async function initialize() {
     ]);
     state.token = session.sessionToken;
     state.inventory = inventory;
+    state.codexStatus = codexStatus;
     state.evaluationEnabled = session.evaluationEnabled === true && codexStatus.allowed === true;
+    const modelLabel = codexStatus.model || "自動選択";
+    const effortLabel = codexStatus.turnReasoningEffort || "標準";
     $("#project-status").textContent = state.evaluationEnabled
-      ? `Codex App Server: ChatGPT ${codexStatus.planType} / Standard ・ Firestore: ${session.projectId}`
+      ? `Codex: ${modelLabel} / 推論 ${effortLabel} ・ ChatGPT ${codexStatus.planType} Standard ・ Firestore: ${session.projectId}`
       : `Codex App Server: 開始不可 ・ ${codexStatus.reason || "状態を確認できません"}`;
+    $("#project-status").title = codexStatus.configuredReasoningEffort
+      ? `Codex全体設定の推論強度: ${codexStatus.configuredReasoningEffort} / 問題整備システムの実行値: ${effortLabel}`
+      : "";
     initializeSelectors();
     await loadQualificationWorkflow(false);
     await loadQualificationRuns();
     await loadQuestions(false);
     window.setInterval(checkFingerprint, 2000);
+    window.setInterval(pollSharedRunProgress, 3000);
   } catch (error) {
     toast(error.message, true);
     setLoading("起動に失敗しました");
@@ -1102,17 +1112,55 @@ async function executeQualificationWorkflowAction() {
 }
 
 async function loadQualificationRuns() {
-  if (!state.qualification) return;
+  if (!state.qualification) return false;
+  const qualification = state.qualification;
   try {
-    const params = new URLSearchParams({ qualification: state.qualification });
+    const params = new URLSearchParams({ qualification });
     const payload = await api(`/api/qualification-runs?${params}`);
+    if (qualification !== state.qualification) return false;
     state.qualificationRuns = payload.runs || [];
     state.qualificationActiveRun = payload.activeRun || null;
+    state.qualificationActiveJob = null;
+    if (state.qualificationActiveRun?.jobId) {
+      try {
+        state.qualificationActiveJob = await api(
+          `/api/jobs/${encodeURIComponent(state.qualificationActiveRun.jobId)}/summary`,
+        );
+      } catch (_error) {
+        state.qualificationActiveJob = null;
+      }
+    }
   } catch (error) {
     state.qualificationRuns = [];
     state.qualificationActiveRun = null;
+    state.qualificationActiveJob = null;
+    renderQualificationActiveRun();
+    return false;
   }
   renderQualificationActiveRun();
+  return true;
+}
+
+async function pollSharedRunProgress() {
+  if (
+    state.sharedRunPolling
+    || !state.qualification
+    || document.visibilityState === "hidden"
+  ) return;
+  const qualification = state.qualification;
+  const previousRunId = state.qualificationActiveRun?.runId || "";
+  state.sharedRunPolling = true;
+  try {
+    const loaded = await loadQualificationRuns();
+    if (!loaded || qualification !== state.qualification) return;
+    const currentRunId = state.qualificationActiveRun?.runId || "";
+    if (previousRunId && previousRunId !== currentRunId) {
+      await loadQualificationWorkflow(true, true);
+      await loadQuestions(true);
+    }
+  } finally {
+    state.sharedRunPolling = false;
+  }
 }
 
 function renderQualificationActiveRun() {
@@ -1142,9 +1190,16 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-status").className = `run-status ${run.status}`;
   $("#qualification-active-run-title").textContent = `${run.stageCode} ${run.stageLabel}・${run.modeLabel}`;
   const completed = (run.completedGroupIds || []).length;
-  $("#qualification-active-run-progress").textContent = run.kind === "machine"
+  const targetProgress = run.kind === "machine"
     ? `${completed}/${run.targetCount}フォルダ`
     : `${run.targetCount}${["refresh", "group_refresh"].includes(run.mode) ? "問すべて" : "問"} × ${run.stageIds?.length || 1}工程を依頼済み`;
+  const latestLog = [...(state.qualificationActiveJob?.logs || [])]
+    .reverse()
+    .find((line) => String(line).trim());
+  $("#qualification-active-run-progress").textContent = latestLog || targetProgress;
+  const model = run.model || state.codexStatus?.model || "自動選択";
+  const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
+  $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}`;
   const action = $("#qualification-active-run-action");
   action.textContent = ["queued", "running", "validating"].includes(run.status)
     ? "進捗を見る"

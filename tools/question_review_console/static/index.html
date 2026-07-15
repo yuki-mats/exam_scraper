@@ -35,6 +35,13 @@
         <h3>年度別の進捗</h3>
         <div id="maintenance-year-progress" class="maintenance-year-progress" aria-live="polite"></div>
       </div>
+      <div id="qualification-active-run" class="qualification-active-run" aria-live="polite" hidden>
+        <span id="qualification-active-run-status" class="run-status"></span>
+        <strong id="qualification-active-run-title"></strong>
+        <span id="qualification-active-run-progress"></span>
+        <span id="qualification-active-run-model" class="qualification-active-run-model"></span>
+        <button id="qualification-active-run-action" class="secondary-button" type="button">進捗を見る</button>
+      </div>
     </section>
 
     <details id="advanced-tools-toggle" class="advanced-tools">
@@ -78,12 +85,6 @@
           <span id="qualification-workflow-stage-purpose"></span>
         </div>
         <span id="qualification-workflow-stage-count"></span>
-      </div>
-      <div id="qualification-active-run" class="qualification-active-run" hidden>
-        <span id="qualification-active-run-status" class="run-status"></span>
-        <strong id="qualification-active-run-title"></strong>
-        <span id="qualification-active-run-progress"></span>
-        <button id="qualification-active-run-action" class="secondary-button" type="button">作業を再開</button>
       </div>
       <details id="qualification-run-history" class="qualification-run-history" hidden>
         <summary>作業履歴</summary>

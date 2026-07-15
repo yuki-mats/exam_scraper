@@ -61,6 +61,10 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 
 最初の画面では資格だけを選び、資格全体の整備済み問数、整備が必要な問数、年度別進捗を表示します。主ボタンの`未整備を整備`は、資格全体又は選択年度にある未記録と現行MAJOR未満の工程だけを、問題ごとに工程順で開始します。工程選択、全件洗い替え、検索、評価、Firestore操作などは`工程・問題を詳しく見る`へ収納します。
 
+実行状態はbrowserではなくserver側のrun記録を正本にします。同じURLを別のSafari又は本人の別端末で開いても、選択資格の実行中カードと最新ログを3秒ごとに自動更新し、完了後は資格全体と年度別の件数を再取得します。
+
+画面には、Codex App Serverが返した実modelと問題整備システムが`turn/start`で指定した推論強度を表示します。実行後は同じ値をrunの`manifest.json`へ保存します。Codex全体configの推論強度とturn指定が異なる場合は、実作業にはturn指定を使います。
+
 ## 客観評価
 
 - 問題文と全選択肢を一問ずつ確認する。
@@ -74,7 +78,7 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 
 ## 保存と安全境界
 
-各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ`manifest.json`、`prompt.md`、`result.json`を保存します。整備・再整備では、再起動回収用の`baseline.json`も保存し、`result.json`だけを`agent_output/`配下へ分離します。manifestには`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、`policyVersions`、`policyFingerprints`、sandbox、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
+各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ`manifest.json`、`prompt.md`、`result.json`を保存します。整備・再整備では、再起動回収用の`baseline.json`も保存し、`result.json`だけを`agent_output/`配下へ分離します。manifestには`workType`、`sessionId`、`threadId`、`turnId`、実model、service tier、推論強度、対象、`stateHash`、`policyVersions`、`policyFingerprints`、sandbox、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
 
 問題ごとの工程履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`へ保存します。各工程は最新記録と過去の`history`を持つため、洗い替え後も`v0.0`などの旧記録を追跡できます。これは運用メタデータであり、`00_source`、patch、merged、upload-ready、Firestore question documentへ複製しません。公開済み問題の一括初期化receiptは`work_version_backfills/`、`MAJOR.MINOR`形式への移行receiptは`work_version_migrations/`へ保存します。
 

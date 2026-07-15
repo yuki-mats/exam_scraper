@@ -287,6 +287,19 @@ class QuestionReviewApplication:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
         if path == "/api/questions":
             return HTTPStatus.OK, self._questions(query)
+        if path.startswith("/api/jobs/") and path.endswith("/summary"):
+            job_id = path.removeprefix("/api/jobs/").removesuffix("/summary")
+            job = self.jobs.get(job_id)
+            return HTTPStatus.OK, {
+                "jobId": job["jobId"],
+                "kind": job["kind"],
+                "status": job["status"],
+                "logs": [str(line)[:500] for line in (job.get("logs") or [])[-5:]],
+                "createdAt": job.get("createdAt"),
+                "startedAt": job.get("startedAt"),
+                "finishedAt": job.get("finishedAt"),
+                "error": str(job.get("error") or "")[:1000] or None,
+            }
         if path.startswith("/api/jobs/"):
             return HTTPStatus.OK, self.jobs.get(path.removeprefix("/api/jobs/"))
         if path.startswith("/api/questions/"):

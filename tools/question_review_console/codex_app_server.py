@@ -71,6 +71,8 @@ DISABLED_EXTERNAL_FEATURES = (
     "tool_suggest",
 )
 
+TURN_REASONING_EFFORT = "medium"
+
 
 class CodexAppServerError(RuntimeError):
     pass
@@ -88,6 +90,7 @@ class AppServerTurnResult:
     final_message: str
     model: str
     service_tier: str | None
+    reasoning_effort: str = TURN_REASONING_EFFORT
     changed_files: tuple[str, ...] = ()
 
 
@@ -228,6 +231,8 @@ class CodexAppServerClient:
         self._initialized = False
         self._last_status: dict[str, Any] | None = None
         self._last_status_at = 0.0
+        self._effective_model = ""
+        self._configured_reasoning_effort = ""
 
     @property
     def configured(self) -> bool:
@@ -273,6 +278,13 @@ class CodexAppServerClient:
         status = validate_subscription_access(
             _as_mapping(account, "Codex account response"),
             _as_mapping(rate_limits, "Codex rate limit response"),
+        )
+        status.update(
+            {
+                "model": self._effective_model,
+                "configuredReasoningEffort": self._configured_reasoning_effort,
+                "turnReasoningEffort": TURN_REASONING_EFFORT,
+            }
         )
         with self._state_lock:
             self._last_status = dict(status)
@@ -382,7 +394,7 @@ class CodexAppServerClient:
             "approvalsReviewer": "user",
             "sandboxPolicy": sandbox_policy,
             "serviceTier": None,
-            "effort": "medium",
+            "effort": TURN_REASONING_EFFORT,
         }
         if output_schema is not None:
             params["outputSchema"] = copy.deepcopy(dict(output_schema))
@@ -443,6 +455,7 @@ class CodexAppServerClient:
             final_message=final_message,
             model=str(thread_response.get("model") or ""),
             service_tier=service_tier if isinstance(service_tier, str) else None,
+            reasoning_effort=TURN_REASONING_EFFORT,
             changed_files=tuple(sorted(state.changed_files)),
         )
 
@@ -668,6 +681,10 @@ class CodexAppServerClient:
                 or server.get("command") != "/usr/bin/false"
             ):
                 raise SubscriptionGateError("全MCP serverの無効化を確認できません。")
+        self._effective_model = str(config.get("model") or "")
+        self._configured_reasoning_effort = str(
+            config.get("model_reasoning_effort") or ""
+        )
 
     def _assert_no_active_hooks(self, cwd: Path) -> None:
         response = _as_mapping(

@@ -16,6 +16,32 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_job_summary_returns_only_recent_truncated_logs(self):
+        class Jobs:
+            def get(self, job_id):
+                return {
+                    "jobId": job_id,
+                    "kind": "codex-maintenance",
+                    "status": "running",
+                    "logs": [f"log-{index}-" + "x" * 800 for index in range(8)],
+                    "createdAt": "created",
+                    "startedAt": "started",
+                    "finishedAt": None,
+                    "result": None,
+                    "error": None,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.jobs = Jobs()
+            status, payload = app.get("/api/jobs/job-1/summary", {})
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["jobId"], "job-1")
+        self.assertEqual(len(payload["logs"]), 5)
+        self.assertTrue(all(len(line) == 500 for line in payload["logs"]))
+        self.assertNotIn("result", payload)
+
     def test_codex_start_conflict_returns_review_to_needs_review(self):
         class Gate:
             def assert_subscription_access(self, *, force=True):

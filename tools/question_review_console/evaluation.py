@@ -673,6 +673,14 @@ class QuestionEvaluationService:
             thread_id = str(metadata.get("threadId") or "") or None
             app_server_session_id = str(metadata.get("sessionId") or "") or None
             turn_id = str(metadata.get("turnId") or "") or None
+            if metadata:
+                self.run_store.update(
+                    qualification,
+                    run_id,
+                    model=str(metadata.get("model") or ""),
+                    serviceTier=metadata.get("serviceTier"),
+                    reasoningEffort=str(metadata.get("reasoningEffort") or ""),
+                )
             if app_server_session_id:
                 session_id = app_server_session_id
             latest_policy = self.current_policy(force=True)
@@ -914,6 +922,9 @@ class QuestionEvaluationService:
             "threadId": turn.thread_id,
             "sessionId": turn.session_id,
             "turnId": turn.turn_id,
+            "model": turn.model,
+            "serviceTier": turn.service_tier,
+            "reasoningEffort": turn.reasoning_effort,
         }
 
     def _build_prompt(self, question: Mapping[str, Any]) -> str:

@@ -59,6 +59,21 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(status["planType"], "pro")
         self.assertFalse(status["creditsEnabled"])
 
+    def test_public_subscription_status_reports_effective_and_turn_model_settings(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._ensure_started = lambda: None
+        client._effective_model = "gpt-5.6-sol"
+        client._configured_reasoning_effort = "xhigh"
+        client._request = lambda method, _params: (
+            account_response() if method == "account/read" else rate_limit_response()
+        )
+
+        status = client.assert_subscription_access()
+
+        self.assertEqual(status["model"], "gpt-5.6-sol")
+        self.assertEqual(status["configuredReasoningEffort"], "xhigh")
+        self.assertEqual(status["turnReasoningEffort"], "medium")
+
     def test_rejects_non_subscription_accounts(self):
         for account in (
             {"account": {"type": "apiKey"}},
@@ -304,6 +319,8 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(second_turn["sandboxPolicy"]["excludeTmpdirEnvVar"])
         self.assertTrue(second_turn["sandboxPolicy"]["excludeSlashTmp"])
         self.assertEqual(first.final_message, '{"status":"ok"}')
+        self.assertEqual(first.model, "gpt-test")
+        self.assertEqual(first.reasoning_effort, "medium")
         self.assertEqual(
             started,
             [
@@ -344,6 +361,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(turn_params[1]["sandboxPolicy"]["type"], "workspaceWrite")
         self.assertTrue(all(params["sandboxPolicy"]["networkAccess"] is False for params in turn_params))
         self.assertTrue(all(params["serviceTier"] is None for params in turn_params))
+        self.assertTrue(all(params["effort"] == "medium" for params in turn_params))
 
     def test_four_work_types_use_distinct_sessions_and_expected_sandboxes(self):
         client = ProtocolClient()

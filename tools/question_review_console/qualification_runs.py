@@ -429,6 +429,9 @@ class QualificationRunStore:
             "stateHash": plan.get("stateHash"),
             "sandbox": plan.get("sandbox"),
             "provider": plan.get("provider"),
+            "model": None,
+            "serviceTier": None,
+            "reasoningEffort": None,
             "threadId": None,
             "sessionId": None,
             "turnId": None,
@@ -1930,6 +1933,13 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     "Codex App Serverの実行結果がありません。"
                 )
+            self.store.update(
+                qualification,
+                run_id,
+                model=result.model,
+                serviceTier=result.service_tier,
+                reasoningEffort=result.reasoning_effort,
+            )
             refreshed = self.store.refresh(qualification, run_id)
             if refreshed.get("receiptError"):
                 raise QualificationRunError(str(refreshed["receiptError"]))
