@@ -487,6 +487,15 @@ class WorkflowUiContractTests(unittest.TestCase):
             compact_css,
         )
         self.assertIn(
+            "html.audit-view-open, body.audit-view-open { overflow: hidden; }",
+            compact_css,
+        )
+        self.assertIn(
+            ".audit-view { position: fixed; inset: 0; z-index: 24;",
+            compact_css,
+        )
+        self.assertIn(".audit-view[hidden] { display: none; }", compact_css)
+        self.assertIn(
             'document.documentElement.classList.add("workflow-guide-open")',
             javascript,
         )
@@ -500,6 +509,13 @@ class WorkflowUiContractTests(unittest.TestCase):
         )
 
         mobile_css = compact_css.split("@media (max-width: 520px)", 1)[1]
+        tablet_css = compact_css.split("@media (max-width: 900px)", 1)[1].split(
+            "@media (max-width: 520px)", 1
+        )[0]
+        self.assertIn(
+            ".audit-view-content { display: block; overflow-y: auto;",
+            tablet_css,
+        )
         self.assertIn(
             "dialog, .wide-dialog, .help-dialog { inset: 0; width: 100vw;",
             mobile_css,
@@ -532,7 +548,11 @@ class WorkflowUiContractTests(unittest.TestCase):
             "maintenance-progress-text",
             "maintenance-start",
             "maintenance-year-progress",
-            "advanced-tools-toggle",
+            "audit-view-open",
+            "audit-view",
+            "audit-view-close",
+            "audit-view-loading",
+            "audit-admin-tools",
             "qualification-workflow-stages",
             "qualification-workflow-action",
             "qualification-active-run",
@@ -582,6 +602,10 @@ class WorkflowUiContractTests(unittest.TestCase):
             "loadQualificationWorkflow",
             "renderQualificationWorkflow",
             "renderMaintenanceDashboard",
+            "auditViewIsOpen",
+            "invalidateAuditView",
+            "openAuditView",
+            "closeAuditView",
             "maintenanceRunStageIds",
             "openRequiredMaintenance",
             "revealSelectedQualificationStage",
@@ -627,6 +651,7 @@ class WorkflowUiContractTests(unittest.TestCase):
             "updateEvaluationSelectionControls",
             "renderEvaluationPanel",
             "renderWorkVersionPanel",
+            "renderQuestionAdminDetails",
             "workVersionBadge",
             "evaluationScopeLabel",
         ):
@@ -665,6 +690,36 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('id="review-selection"', html)
         self.assertIn('id="selection-toolbar"', html)
         self.assertIn('id="review-scope"', html)
+        self.assertNotIn('id="advanced-tools-toggle"', html)
+        self.assertNotIn('id="audit-details-dialog"', html)
+        self.assertIn("生成内容を監査", html)
+        self.assertIn("問題本文と生成した正答・解説を見比べる", html)
+        self.assertIn("工程・評価・Firestoreなどの管理機能", html)
+        self.assertNotIn('id="audit-admin-tools" class="audit-admin-tools" open', html)
+        self.assertIn('$("#audit-view-open").addEventListener("click", openAuditView)', javascript)
+        self.assertIn('$("#audit-view-close").addEventListener("click", closeAuditView)', javascript)
+        self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
+        self.assertIn('.audit-view:not(.admin-tools-open) .queue-select { display: none; }', css)
+        self.assertIn("問題の選択肢に対して、生成した正答と解説がズレていないか", javascript)
+        initialize_source = javascript[
+            javascript.index("async function initialize") :
+            javascript.index("function bindControls")
+        ]
+        self.assertNotIn("loadQuestions", initialize_source)
+        audit_open_source = javascript[
+            javascript.index("async function openAuditView") :
+            javascript.index("function closeAuditView")
+        ]
+        self.assertIn("loadQuestions(preserveSelection)", audit_open_source)
+        self.assertIn('$("#maintenance-dashboard").inert = true', audit_open_source)
+        detail_source = javascript[
+            javascript.index("function renderDetail") :
+            javascript.index("function renderQuestionAdminDetails")
+        ]
+        self.assertLess(
+            detail_source.index('section("問題文")'),
+            detail_source.index("renderQuestionAdminDetails(question)"),
+        )
         self.assertNotIn('value="all_qualifications"', html)
         self.assertIn('"selectionchange"', javascript)
         self.assertIn("selection: state.reviewSelection", javascript)
@@ -737,6 +792,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("洗い替え必要・未整備のみ", html)
         self.assertIn('mode: "outdated"', javascript)
         self.assertIn('simplified: true', javascript)
+        self.assertIn('`未整備 ${preview.targetCount}問`', javascript)
+        self.assertIn('"本番Firestoreには反映せず、ローカルで整備します。"', javascript)
         self.assertIn('workflow.groups.map((group) => group.listGroupId)', javascript)
         self.assertIn('openRequiredMaintenance([group.listGroupId])', javascript)
         self.assertIn(".maintenance-start { width: 100%; min-height: 48px; }", css)

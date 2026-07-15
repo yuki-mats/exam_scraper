@@ -165,20 +165,85 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   transition: width 240ms ease;
 }
 
-.advanced-tools { min-height: 0; overflow: hidden; background: var(--surface); }
-.advanced-tools[open] {
+.maintenance-audit-entry { grid-column: 1 / -1; }
+.audit-view-open-button {
+  width: 100%;
+  min-height: 54px;
   display: grid;
-  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: #26313b;
+  background: #fff;
+  text-align: left;
 }
-.advanced-tools > summary {
-  padding: 9px 16px;
-  border-bottom: 1px solid var(--line);
-  color: #3f4b56;
-  background: #f7f8fa;
-  font-size: 12px;
+.audit-view-open-button:hover { border-color: #8fa2b3; background: #f8fafb; }
+.audit-view-open-button > span:first-child { min-width: 0; display: grid; gap: 2px; }
+.audit-view-open-button strong { color: var(--blue-dark); font-size: 13px; }
+.audit-view-open-button small { color: var(--text-muted); font-size: 10px; line-height: 1.4; }
+.audit-view-open-button > span:last-child { color: var(--blue); font-size: 11px; font-weight: 750; white-space: nowrap; }
+
+html.audit-view-open, body.audit-view-open { overflow: hidden; }
+.audit-view {
+  position: fixed;
+  inset: 0;
+  z-index: 24;
+  min-width: 320px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: #eef1f4;
+}
+.audit-view[hidden] { display: none; }
+.audit-view-header {
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #111820;
+  color: #fff;
+  background: #202830;
+}
+.audit-view-header > div { min-width: 0; display: grid; gap: 2px; }
+.audit-view-header .dialog-eyebrow { color: #b8c7d5; }
+.audit-view-header h2 { margin: 0; font-size: 19px; line-height: 1.25; }
+.audit-view-header p { margin: 0; color: #cbd5df; font-size: 11px; line-height: 1.4; overflow-wrap: anywhere; }
+.audit-view-back { min-height: 40px; border-color: #8693a0; color: #fff; background: #35414d; white-space: nowrap; }
+.audit-view-content {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+.audit-view-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: #344b5e;
+  background: rgba(238, 241, 244, 0.92);
+  font-size: 13px;
   font-weight: 750;
-  cursor: pointer;
 }
+.audit-view-loading[hidden] { display: none; }
+.audit-admin-tools { min-height: 38px; max-height: min(45vh, 430px); overflow: auto; border-top: 1px solid var(--line-strong); background: #f7f8fa; }
+.audit-admin-tools > summary { min-height: 38px; display: flex; align-items: center; padding: 8px 16px; color: #53606c; font-size: 11px; font-weight: 750; cursor: pointer; }
+.audit-admin-tools[open] > summary { border-bottom: 1px solid var(--line); }
+.audit-admin-content { background: #fff; }
+.audit-admin-filter { flex-wrap: wrap; }
+.audit-primary-filter { min-height: 42px; }
+.audit-primary-filter .list-summary { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.audit-view:not(.admin-tools-open) .queue-item { grid-template-columns: minmax(0, 1fr); }
+.audit-view:not(.admin-tools-open) .queue-select { display: none; }
+.audit-view:not(.admin-tools-open) .queue-open { padding-left: 14px; }
+
 .advanced-toolbar {
   flex: none;
   justify-content: flex-start;
@@ -391,6 +456,13 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 
 .detail-pane { width: 100%; min-width: 0; overflow-y: auto; padding: 0 22px 54px; background: #f8f9fa; }
 
+.question-admin-details { margin: 18px 0 0; border: 1px solid var(--line); border-radius: 5px; background: #fff; }
+.question-admin-details > summary { min-height: 44px; display: flex; align-items: center; padding: 9px 12px; color: #53606c; font-size: 11px; font-weight: 750; cursor: pointer; }
+.question-admin-details[open] > summary { border-bottom: 1px solid var(--line); background: var(--surface-muted); }
+.question-admin-content { padding: 0 12px 16px; }
+.question-admin-actions { display: flex; justify-content: flex-end; padding: 12px 0; }
+.question-admin-content > .workflow { margin-right: 0; margin-left: 0; }
+
 .work-version-panel { padding: 16px 0; border-bottom: 1px solid var(--line); }
 .work-version-heading { display: flex; align-items: center; gap: 10px; }
 .work-version-heading h3 { margin: 0; font-size: 14px; }
@@ -562,6 +634,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 
 .detail-section { padding: 20px 0; border-bottom: 1px solid var(--line); }
 .detail-section h3 { margin: 0 0 12px; font-size: 15px; }
+.audit-compare-hint { margin: -4px 0 12px; color: var(--text-muted); font-size: 11px; line-height: 1.5; }
 .question-body { margin: 0; max-width: 980px; white-space: pre-wrap; line-height: 1.75; font-size: 16px; }
 .reviewable-content { cursor: text; user-select: text; }
 .issue-panel { margin-top: 12px; display: grid; gap: 6px; }
@@ -840,7 +913,8 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .qualification-active-run { grid-row: auto; }
   .maintenance-year-section { grid-column: 1 / -1; }
   .maintenance-year-progress { max-height: none; }
-  .advanced-tools[open] { display: block; overflow: visible; }
+  .audit-view-content { display: block; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .audit-admin-tools { max-height: none; overflow: visible; }
   .qualification-workflow-head { grid-template-columns: minmax(0, 1fr) auto; }
   .qualification-workflow-actions { align-self: stretch; }
   .qualification-workflow-metrics { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
@@ -878,7 +952,12 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .maintenance-year-progress { grid-template-columns: 1fr; }
   .maintenance-year-row { padding: 9px; }
   .maintenance-year-row button { min-height: 44px; font-size: 12px; }
-  .advanced-tools > summary { min-height: 44px; display: flex; align-items: center; padding-right: 10px; padding-left: 10px; }
+  .audit-view-open-button { min-height: 60px; }
+  .audit-view-header { min-height: 72px; gap: 10px; padding: max(8px, env(safe-area-inset-top)) 10px 8px; }
+  .audit-view-back { min-height: 44px; padding: 7px 10px; font-size: 12px; }
+  .audit-view-header h2 { font-size: 17px; }
+  .audit-view-header p { font-size: 10px; }
+  .audit-admin-tools > summary { min-height: 44px; padding-right: 10px; padding-left: 10px; }
   .advanced-toolbar { padding-right: 10px; padding-left: 10px; }
   .qualification-workflow { padding: 10px; }
   .qualification-workflow-head { grid-template-columns: 1fr; gap: 9px; }

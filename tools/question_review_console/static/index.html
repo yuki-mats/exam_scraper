@@ -57,121 +57,161 @@
         <h3>年度別の進捗</h3>
         <div id="maintenance-year-progress" class="maintenance-year-progress" aria-live="polite"></div>
       </div>
+      <div class="maintenance-audit-entry">
+        <button id="audit-view-open" class="audit-view-open-button" type="button">
+          <span>
+            <strong>生成内容を監査</strong>
+            <small>問題本文と生成した正答・解説を見比べる</small>
+          </span>
+          <span aria-hidden="true">監査を開く →</span>
+        </button>
+      </div>
     </section>
 
-    <details id="advanced-tools-toggle" class="advanced-tools">
-      <summary>工程・問題を詳しく見る</summary>
-      <div class="toolbar advanced-toolbar" aria-label="問題一覧の表示条件">
-        <label>
-          <span id="group-select-label">年度</span>
-          <select id="group-select"></select>
-        </label>
-        <label class="search-field">
-          <span>検索</span>
-          <input id="search-input" type="search" placeholder="問題文・問番" autocomplete="off">
-        </label>
-        <div class="segmented" aria-label="一覧範囲">
-          <button id="exceptions-button" class="active" type="button">例外のみ</button>
-          <button id="all-button" type="button">全問</button>
-        </div>
-      </div>
-
-    <section id="qualification-workflow" class="qualification-workflow" aria-labelledby="qualification-workflow-title">
-      <div class="qualification-workflow-head">
-        <div class="qualification-workflow-copy">
-          <span id="qualification-workflow-status" class="workflow-overall-status">確認中</span>
-          <h2 id="qualification-workflow-title">問題整備の流れ</h2>
-          <p id="qualification-workflow-next">資格全体の状態を確認しています。</p>
-        </div>
-        <dl class="qualification-workflow-metrics" aria-label="資格全体の進捗">
-          <div><dt>工程</dt><dd id="qualification-workflow-progress">-</dd></div>
-          <div><dt>問題</dt><dd id="qualification-workflow-questions">-</dd></div>
-          <div><dt>要確認</dt><dd id="qualification-workflow-issues">-</dd></div>
-        </dl>
-        <div class="qualification-workflow-actions">
-          <button id="qualification-workflow-guide" class="secondary-button" type="button" disabled>正本を見る</button>
-          <button id="qualification-workflow-action" class="primary-button" type="button" disabled>次の作業</button>
-        </div>
-      </div>
-      <div id="qualification-workflow-stages" class="qualification-workflow-stages" role="list" aria-label="問題整備工程"></div>
-      <div id="qualification-workflow-detail" class="qualification-workflow-detail" hidden>
+    <section id="audit-view" class="audit-view" aria-labelledby="audit-view-title" hidden>
+      <header class="audit-view-header">
+        <button id="audit-view-close" class="secondary-button audit-view-back" type="button">← 整備へ戻る</button>
         <div>
-          <strong id="qualification-workflow-stage-title"></strong>
-          <span id="qualification-workflow-stage-purpose"></span>
+          <span class="dialog-eyebrow">必要なときだけ確認</span>
+          <h2 id="audit-view-title">生成内容の監査</h2>
+          <p id="audit-view-qualification">問題本文と生成した正答・解説を見比べます。</p>
         </div>
-        <span id="qualification-workflow-stage-count"></span>
-      </div>
-      <details id="qualification-run-history" class="qualification-run-history" hidden>
-        <summary>作業履歴</summary>
-        <div id="qualification-run-history-list"></div>
-      </details>
-    </section>
+      </header>
+      <div id="audit-view-content" class="audit-view-content">
+        <div id="audit-view-loading" class="audit-view-loading" hidden>問題と生成内容を読み込んでいます。</div>
 
-    <section class="filter-bar" aria-label="追加フィルター">
-      <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
-      <label class="check-control"><input id="firestore-mismatch" type="checkbox"> Firestore差分</label>
-      <label>
-        <span>issue</span>
-        <select id="issue-select">
-          <option value="">すべて</option>
-        </select>
-      </label>
-      <label>
-        <span>review</span>
-        <select id="review-status-select">
-          <option value="">すべて</option>
-          <option value="unreviewed">未確認</option>
-          <option value="needs_review">要確認</option>
-          <option value="awaiting_codex">Codex対応待ち</option>
-          <option value="post_fix_review">修正後確認</option>
-          <option value="approved">承認済み</option>
-          <option value="hold">保留</option>
-        </select>
-      </label>
-      <label>
-        <span>評価</span>
-        <select id="evaluation-status-select">
-          <option value="">すべて</option>
-          <option value="maintenance">整備が必要</option>
-          <option value="unreviewed">評価待ち</option>
-          <option value="needsRework">要再整備</option>
-          <option value="publishReady">公開可能</option>
-          <option value="published">反映済み</option>
-        </select>
-      </label>
-      <label>
-        <span id="work-version-label">作業バージョン</span>
-        <select id="work-version-select">
-          <option value="">すべて</option>
-          <option value="current">整備済み</option>
-          <option value="outdated">洗い替え必要</option>
-          <option value="unrecorded">未記録</option>
-        </select>
-      </label>
-      <label class="check-control evaluation-select-visible"><input id="select-visible" type="checkbox"> <span id="select-visible-label">一覧を選択</span></label>
-      <button id="bulk-evaluate-button" class="primary-button" type="button" disabled>選択した問題を評価</button>
-      <div class="action-with-help">
-        <button id="bulk-readback-button" class="secondary-button" type="button" aria-label="資格のFirestoreを確認">Firestore確認</button>
-        <button id="bulk-readback-help" class="help-button" type="button" aria-label="資格のFirestore確認の説明">?</button>
-      </div>
-      <span id="list-summary" class="list-summary">読み込み中</span>
-    </section>
+        <div class="toolbar advanced-toolbar" aria-label="問題一覧の表示条件">
+          <label>
+            <span id="group-select-label">年度</span>
+            <select id="group-select"></select>
+          </label>
+          <label class="search-field">
+            <span>問題を検索</span>
+            <input id="search-input" type="search" placeholder="問題文・問番" autocomplete="off">
+          </label>
+          <div class="segmented" aria-label="一覧範囲">
+            <button id="exceptions-button" class="active" type="button">要確認のみ</button>
+            <button id="all-button" type="button">全問</button>
+          </div>
+        </div>
 
-    <main class="workspace">
-      <aside class="queue-pane" aria-label="問題一覧">
-        <div id="queue" class="queue" role="listbox" aria-label="レビュー対象"></div>
-        <div id="queue-pagination" class="queue-pagination" hidden>
-          <button id="load-more-questions" class="secondary-button" type="button">さらに表示</button>
-        </div>
-      </aside>
-      <section id="detail-pane" class="detail-pane" aria-live="polite">
-        <div class="empty-state">
-          <strong>問題を選択してください</strong>
-          <span>例外の理由とpatch合成後の状態を確認できます。</span>
-        </div>
-      </section>
-    </main>
-    </details>
+        <section class="filter-bar audit-primary-filter" aria-label="監査フィルター">
+          <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
+          <span id="list-summary" class="list-summary">監査を開くと読み込みます</span>
+        </section>
+
+        <main class="workspace audit-workspace">
+          <aside class="queue-pane" aria-label="問題一覧">
+            <div id="queue" class="queue" role="listbox" aria-label="レビュー対象"></div>
+            <div id="queue-pagination" class="queue-pagination" hidden>
+              <button id="load-more-questions" class="secondary-button" type="button">さらに表示</button>
+            </div>
+          </aside>
+          <section id="detail-pane" class="detail-pane" aria-live="polite">
+            <div class="empty-state">
+              <strong>問題を選択してください</strong>
+              <span>問題本文と、patch適用後の正答・解説を見比べられます。</span>
+            </div>
+          </section>
+        </main>
+
+        <details id="audit-admin-tools" class="audit-admin-tools">
+          <summary>工程・評価・Firestoreなどの管理機能</summary>
+          <div class="audit-admin-content">
+            <section id="qualification-workflow" class="qualification-workflow" aria-labelledby="qualification-workflow-title">
+              <div class="qualification-workflow-head">
+                <div class="qualification-workflow-copy">
+                  <span id="qualification-workflow-status" class="workflow-overall-status">確認中</span>
+                  <h2 id="qualification-workflow-title">工程と監査の状態</h2>
+                  <p id="qualification-workflow-next">資格全体の状態を確認しています。</p>
+                </div>
+                <dl class="qualification-workflow-metrics" aria-label="資格全体の進捗">
+                  <div><dt>工程</dt><dd id="qualification-workflow-progress">-</dd></div>
+                  <div><dt>問題</dt><dd id="qualification-workflow-questions">-</dd></div>
+                  <div><dt>要確認</dt><dd id="qualification-workflow-issues">-</dd></div>
+                </dl>
+                <div class="qualification-workflow-actions">
+                  <button id="qualification-workflow-guide" class="secondary-button" type="button" disabled>正本を見る</button>
+                  <button id="qualification-workflow-action" class="primary-button" type="button" disabled>この工程を開始</button>
+                </div>
+              </div>
+              <div id="qualification-workflow-stages" class="qualification-workflow-stages" role="list" aria-label="問題整備工程"></div>
+              <div id="qualification-workflow-detail" class="qualification-workflow-detail" hidden>
+                <div>
+                  <strong id="qualification-workflow-stage-title"></strong>
+                  <span id="qualification-workflow-stage-purpose"></span>
+                </div>
+                <span id="qualification-workflow-stage-count"></span>
+              </div>
+              <details id="qualification-run-history" class="qualification-run-history" hidden>
+                <summary>作業履歴</summary>
+                <div id="qualification-run-history-list"></div>
+              </details>
+            </section>
+
+            <section class="filter-bar audit-admin-filter" aria-label="管理フィルター">
+              <label class="check-control"><input id="firestore-mismatch" type="checkbox"> Firestore差分</label>
+              <label>
+                <span>issue</span>
+                <select id="issue-select">
+                  <option value="">すべて</option>
+                </select>
+              </label>
+              <label>
+                <span>review</span>
+                <select id="review-status-select">
+                  <option value="">すべて</option>
+                  <option value="unreviewed">未確認</option>
+                  <option value="needs_review">要確認</option>
+                  <option value="awaiting_codex">Codex対応待ち</option>
+                  <option value="post_fix_review">修正後確認</option>
+                  <option value="approved">承認済み</option>
+                  <option value="hold">保留</option>
+                </select>
+              </label>
+              <label>
+                <span>評価</span>
+                <select id="evaluation-status-select">
+                  <option value="">すべて</option>
+                  <option value="maintenance">整備が必要</option>
+                  <option value="unreviewed">評価待ち</option>
+                  <option value="needsRework">要再整備</option>
+                  <option value="publishReady">公開可能</option>
+                  <option value="published">反映済み</option>
+                </select>
+              </label>
+              <label>
+                <span id="work-version-label">作業バージョン</span>
+                <select id="work-version-select">
+                  <option value="">すべて</option>
+                  <option value="current">整備済み</option>
+                  <option value="outdated">洗い替え必要</option>
+                  <option value="unrecorded">未記録</option>
+                </select>
+              </label>
+              <label class="check-control evaluation-select-visible"><input id="select-visible" type="checkbox"> <span id="select-visible-label">一覧を選択</span></label>
+              <button id="bulk-evaluate-button" class="primary-button" type="button" disabled>選択した問題を評価</button>
+              <div class="action-with-help">
+                <button id="bulk-readback-button" class="secondary-button" type="button" aria-label="資格のFirestoreを確認">Firestore確認</button>
+                <button id="bulk-readback-help" class="help-button" type="button" aria-label="資格のFirestore確認の説明">?</button>
+              </div>
+            </section>
+          </div>
+        </details>
+
+        <aside id="selection-toolbar" class="selection-toolbar" aria-label="選択箇所の操作" hidden>
+          <div class="selection-toolbar-copy">
+            <strong id="selection-toolbar-label"></strong>
+            <span id="selection-toolbar-text"></span>
+          </div>
+          <div class="selection-toolbar-actions">
+            <button id="selection-review-current" class="primary-button" type="button">この箇所を確認</button>
+            <button id="selection-review-similar" class="secondary-button" type="button">類似も調査</button>
+            <button id="selection-toolbar-close" class="icon-button" type="button" title="閉じる" aria-label="閉じる">×</button>
+          </div>
+        </aside>
+      </div>
+    </section>
 
     <dialog id="qualification-run-dialog">
       <form id="qualification-run-form" method="dialog">
@@ -433,17 +473,6 @@
       </form>
     </dialog>
 
-    <aside id="selection-toolbar" class="selection-toolbar" aria-label="選択箇所の操作" hidden>
-      <div class="selection-toolbar-copy">
-        <strong id="selection-toolbar-label"></strong>
-        <span id="selection-toolbar-text"></span>
-      </div>
-      <div class="selection-toolbar-actions">
-        <button id="selection-review-current" class="primary-button" type="button">この箇所を確認</button>
-        <button id="selection-review-similar" class="secondary-button" type="button">類似も調査</button>
-        <button id="selection-toolbar-close" class="icon-button" type="button" title="閉じる" aria-label="閉じる">×</button>
-      </div>
-    </aside>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/app.js"></script>
   </body>

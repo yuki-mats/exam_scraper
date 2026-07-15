@@ -156,6 +156,11 @@ const state = {
   qualificationRunProgress: null,
   codexStatus: null,
   sharedRunPolling: false,
+  auditView: {
+    open: false,
+    loadedQualification: "",
+    loading: false,
+  },
   qualificationRunDialog: {
     preview: null,
     running: false,
@@ -277,6 +282,72 @@ function setLoading(message) {
   $("#list-summary").textContent = message;
 }
 
+function auditViewIsOpen() {
+  return state.auditView.open && !$("#audit-view").hidden;
+}
+
+function renderAuditViewHeading() {
+  $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・問題本文と生成した正答・解説を見比べます。`;
+}
+
+function invalidateAuditView() {
+  state.auditView.loadedQualification = "";
+  state.questions = [];
+  state.selectedId = "";
+  state.detail = null;
+  state.questionPage.filteredCount = 0;
+  state.questionPage.hasMore = false;
+  $("#audit-admin-tools").open = false;
+  $("#audit-view").classList.remove("admin-tools-open");
+  clearEvaluationSelection();
+  clearSelectionToolbar(true);
+  $("#queue").replaceChildren();
+  $("#queue-pagination").hidden = true;
+  renderEmpty("監査を開くと、問題本文と生成内容を読み込みます。");
+  setLoading("監査を開くと読み込みます");
+}
+
+async function openAuditView() {
+  const qualification = state.qualification;
+  state.auditView.open = true;
+  $("#audit-view").hidden = false;
+  $(".app-header").inert = true;
+  $("#maintenance-dashboard").inert = true;
+  $(".app-header").setAttribute("aria-hidden", "true");
+  $("#maintenance-dashboard").setAttribute("aria-hidden", "true");
+  document.documentElement.classList.add("audit-view-open");
+  document.body.classList.add("audit-view-open");
+  renderAuditViewHeading();
+  $("#audit-view-close").focus();
+  const preserveSelection = state.auditView.loadedQualification === qualification;
+  state.auditView.loading = true;
+  $("#audit-view-loading").hidden = false;
+  try {
+    const loaded = await loadQuestions(preserveSelection);
+    if (loaded && state.qualification === qualification) {
+      state.auditView.loadedQualification = qualification;
+    }
+  } finally {
+    state.auditView.loading = false;
+    $("#audit-view-loading").hidden = true;
+  }
+}
+
+function closeAuditView(options = {}) {
+  if (!state.auditView.open) return;
+  closeWorkflowGuide({ reopenRun: false });
+  clearSelectionToolbar(true);
+  state.auditView.open = false;
+  $("#audit-view").hidden = true;
+  $(".app-header").inert = false;
+  $("#maintenance-dashboard").inert = false;
+  $(".app-header").removeAttribute("aria-hidden");
+  $("#maintenance-dashboard").removeAttribute("aria-hidden");
+  document.documentElement.classList.remove("audit-view-open");
+  document.body.classList.remove("audit-view-open");
+  if (options.restoreFocus !== false) $("#audit-view-open").focus();
+}
+
 async function initialize() {
   bindControls();
   populateIssueControls();
@@ -301,7 +372,6 @@ async function initialize() {
     initializeSelectors();
     await loadQualificationWorkflow(false);
     await loadQualificationRuns();
-    await loadQuestions(false);
     window.setInterval(checkFingerprint, 2000);
     window.setInterval(pollSharedRunProgress, 3000);
   } catch (error) {
@@ -313,13 +383,14 @@ async function initialize() {
 function bindControls() {
   $("#qualification-select").addEventListener("change", async (event) => {
     closeWorkflowGuide({ reopenRun: false });
+    closeAuditView({ restoreFocus: false });
     clearEvaluationSelection();
     state.qualification = event.target.value;
     state.listGroupId = ALL_LIST_GROUPS;
     populateGroups();
+    invalidateAuditView();
     await loadQualificationWorkflow(false);
     await loadQualificationRuns();
-    await loadQuestions(false);
     updateUrl();
   });
   $("#group-select").addEventListener("change", async (event) => {
@@ -340,7 +411,16 @@ function bindControls() {
     clearEvaluationSelection();
     await loadQualificationWorkflow(true);
     await loadQualificationRuns();
-    await loadQuestions(true);
+    if (auditViewIsOpen()) {
+      if (await loadQuestions(true)) state.auditView.loadedQualification = state.qualification;
+    } else {
+      invalidateAuditView();
+    }
+  });
+  $("#audit-view-open").addEventListener("click", openAuditView);
+  $("#audit-view-close").addEventListener("click", closeAuditView);
+  $("#audit-admin-tools").addEventListener("toggle", (event) => {
+    $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
   });
   $("#maintenance-start").addEventListener("click", () => openRequiredMaintenance());
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
@@ -370,6 +450,9 @@ function bindControls() {
     if (event.key === "Escape" && state.workflowGuide.open) {
       event.preventDefault();
       closeWorkflowGuide();
+    } else if (event.key === "Escape" && auditViewIsOpen() && !document.querySelector("dialog[open]")) {
+      event.preventDefault();
+      closeAuditView();
     }
   });
   $("#load-more-questions").addEventListener("click", () => loadQuestions(true, true));
@@ -1213,7 +1296,11 @@ async function pollSharedRunProgress() {
     const currentRunId = state.qualificationActiveRun?.runId || "";
     if (previousRunId && previousRunId !== currentRunId) {
       await loadQualificationWorkflow(true, true);
-      await loadQuestions(true);
+      if (auditViewIsOpen()) {
+        if (await loadQuestions(true)) state.auditView.loadedQualification = state.qualification;
+      } else {
+        invalidateAuditView();
+      }
     }
   } finally {
     state.sharedRunPolling = false;
@@ -1418,7 +1505,7 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}`;
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
-  action.textContent = view.active ? "進捗を見る" : "結果を見る";
+  action.textContent = view.active ? "進捗と出力を見る" : "生成内容を監査";
 }
 
 function selectedQualificationRunMode() {
@@ -1612,8 +1699,10 @@ function openQualificationRunDialog(stage, options = {}) {
     $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
     $("#qualification-run-title").textContent = `${qualificationDisplayName()}の未整備を整備`;
     $("#qualification-run-purpose").textContent = "現行メジャー未満又は未記録の工程だけを、問題ごとに順番に整備します。";
+    $("#qualification-run-safety").textContent = "本番Firestoreには反映せず、ローカルで整備します。";
   } else {
     $("#qualification-run-scope-eyebrow").textContent = "整備範囲を指定";
+    $("#qualification-run-safety").textContent = "ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。";
   }
   $("#qualification-run-job").hidden = true;
   $("#qualification-run-job-log").textContent = "";
@@ -1709,6 +1798,7 @@ async function previewQualificationRun() {
 function renderQualificationRunPreview(preview) {
   const container = $("#qualification-run-preview");
   container.replaceChildren();
+  const simplified = state.qualificationRunDialog.simplified;
   if (!preview.targetCount) {
     container.append(
       element("strong", "", "この範囲に対象はありません"),
@@ -1719,25 +1809,32 @@ function renderQualificationRunPreview(preview) {
     const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)
       ? "問すべて"
       : "問";
-    container.append(
-      element(
-        "strong",
-        "run-preview-count",
-        preview.kind === "machine"
-          ? `${preview.targetCount}フォルダ`
-          : isMultiStage
-            ? `${preview.targetCount}${questionUnit} × ${preview.stageCount}工程`
-            : `${preview.targetCount}問`,
-      ),
-      element("span", "", `${preview.stageCode} ${preview.stageLabel}`),
-      element("span", "", preview.kind === "machine"
-        ? "Merge・Convert・upload-readyを順番に再生成して検証します。"
-        : "Codex App Serverの新規threadで対象工程を整備します。"),
-    );
-    if (isMultiStage) {
+    if (simplified && preview.kind === "human") {
       container.append(
-        element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
+        element("strong", "run-preview-count", `未整備 ${preview.targetCount}問`),
+        element("span", "", "問題ごとに必要な工程だけを順に整備します。"),
       );
+    } else {
+      container.append(
+        element(
+          "strong",
+          "run-preview-count",
+          preview.kind === "machine"
+            ? `${preview.targetCount}フォルダ`
+            : isMultiStage
+              ? `${preview.targetCount}${questionUnit} × ${preview.stageCount}工程`
+              : `${preview.targetCount}問`,
+        ),
+        element("span", "", `${preview.stageCode} ${preview.stageLabel}`),
+        element("span", "", preview.kind === "machine"
+          ? "Merge・Convert・upload-readyを順番に再生成して検証します。"
+          : "Codex App Serverの新規threadで対象工程を整備します。"),
+      );
+      if (isMultiStage) {
+        container.append(
+          element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
+        );
+      }
     }
     if (preview.scopeListGroupIds?.length) {
       const scopeName = scopeLabelForGroups(preview.scopeListGroupIds);
@@ -1754,13 +1851,15 @@ function renderQualificationRunPreview(preview) {
       );
     }
   }
-  container.append(
-    element(
-      "span",
-      "run-preview-combination",
-      `正本 ${preview.canonicalDocs?.length || 0}文書 × 対象source ${preview.sourceFileCount || 0}ファイル × 更新先 ${preview.outputFileCount || 0}ファイル`,
-    ),
-  );
+  if (!simplified) {
+    container.append(
+      element(
+        "span",
+        "run-preview-combination",
+        `正本 ${preview.canonicalDocs?.length || 0}文書 × 対象source ${preview.sourceFileCount || 0}ファイル × 更新先 ${preview.outputFileCount || 0}ファイル`,
+      ),
+    );
+  }
   if (preview.blockingWarnings?.length) {
     container.append(element("span", "run-preview-warning", `必須field不足 ${preview.blockingWarnings.length}件`));
   }
@@ -2070,7 +2169,11 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
     state.qualificationRunDialog.preview = null;
     await loadQualificationWorkflow(true);
     await loadQualificationRuns();
-    await loadQuestions(true);
+    if (auditViewIsOpen()) {
+      if (await loadQuestions(true)) state.auditView.loadedQualification = state.qualification;
+    } else {
+      invalidateAuditView();
+    }
     if (run?.runId) await loadQualificationRunProgress(run.runId);
     $("#qualification-run-job-status").textContent = job.result?.message || "完了しました。";
     setQualificationRunStatusDetail("最終検証に成功し、結果を承認しました。", "succeeded");
@@ -2159,7 +2262,7 @@ function evaluationScopeLabel() {
 }
 
 async function loadQuestions(preserveSelection, append = false) {
-  if (!state.qualification || !state.listGroupId) return;
+  if (!state.qualification || !state.listGroupId) return false;
   const offset = append ? state.questions.length : 0;
   if (append) {
     $("#load-more-questions").disabled = true;
@@ -2206,9 +2309,11 @@ async function loadQuestions(preserveSelection, append = false) {
       state.detail = null;
       renderEmpty("条件に一致する問題はありません。");
     }
+    return true;
   } catch (error) {
     toast(error.message, true);
     if (!append) setLoading("読み込み失敗");
+    return false;
   } finally {
     $("#load-more-questions").disabled = false;
     $("#load-more-questions").textContent = "さらに表示";
@@ -2396,33 +2501,16 @@ function renderDetail() {
   const actions = element("div", "detail-actions");
   actions.append(
     actionWithHelp(
-      "修正を依頼",
-      "secondary-button",
+      "ズレを報告",
+      "primary-button",
       () => openReview("awaiting_codex"),
       "修正を依頼",
-      "おかしい箇所と調査範囲を記録し、Codex App Serverの新規threadで整備を開始します。",
-    ),
-    actionWithHelp(
-      "直接編集",
-      "secondary-button",
-      openEdit,
-      "直接編集で変更されるファイル",
-      () => directEditHelpText(question),
+      "問題本文と生成内容のズレを記録し、Codex App Serverの新規threadで再整備を開始します。",
     ),
   );
   titleRow.append(titleBlock, actions);
-  header.append(titleRow, renderWorkflow(question), renderPipelineActions(question));
+  header.append(titleRow);
   pane.append(header);
-
-  pane.append(renderWorkVersionPanel(question), renderEvaluationPanel(question));
-
-  const requiredWarning = renderRequiredFieldWarning(question);
-  if (requiredWarning) pane.append(requiredWarning);
-  const qualityWarning = renderLawAuditQualityWarning(question);
-  if (qualityWarning) pane.append(qualityWarning);
-
-  const firestoreDiff = renderFirestoreDiff(question);
-  if (firestoreDiff) pane.append(firestoreDiff);
 
   const questionSection = section("問題文");
   const questionBody = element("p", "question-body", question.body);
@@ -2442,9 +2530,17 @@ function renderDetail() {
   }
   pane.append(questionSection);
 
-  const choicesSection = section("選択肢・正誤・基本解説");
-  choicesSection.append(renderChoices(question.projected || {}));
+  const choicesSection = section("選択肢と生成結果");
+  choicesSection.append(
+    element("p", "audit-compare-hint", "問題の選択肢に対して、生成した正答と解説がズレていないかを確認します。"),
+    renderChoices(question.projected || {}),
+  );
   pane.append(choicesSection);
+
+  const requiredWarning = renderRequiredFieldWarning(question);
+  if (requiredWarning) pane.append(requiredWarning);
+  const qualityWarning = renderLawAuditQualityWarning(question);
+  if (qualityWarning) pane.append(qualityWarning);
 
   const suggested = renderSuggestions(question.projected || {});
   if (suggested) {
@@ -2454,8 +2550,35 @@ function renderDetail() {
   }
 
   if (question.isLawRelated) pane.append(renderLawSection(question.projected || {}));
-  if (question.review) pane.append(renderReviewSection(question));
-  pane.append(renderDataSection(question));
+  pane.append(renderQuestionAdminDetails(question));
+}
+
+function renderQuestionAdminDetails(question) {
+  const details = document.createElement("details");
+  details.className = "question-admin-details";
+  details.append(element("summary", "", "工程・評価・Firestoreなどの詳細"));
+  const content = element("div", "question-admin-content");
+  const actions = element("div", "question-admin-actions");
+  actions.append(actionWithHelp(
+    "直接編集",
+    "secondary-button",
+    openEdit,
+    "直接編集で変更されるファイル",
+    () => directEditHelpText(question),
+  ));
+  content.append(
+    actions,
+    renderWorkflow(question),
+    renderPipelineActions(question),
+    renderWorkVersionPanel(question),
+    renderEvaluationPanel(question),
+  );
+  const firestoreDiff = renderFirestoreDiff(question);
+  if (firestoreDiff) content.append(firestoreDiff);
+  if (question.review) content.append(renderReviewSection(question));
+  content.append(renderDataSection(question));
+  details.append(content);
+  return details;
 }
 
 function renderWorkVersionPanel(question) {
@@ -4494,7 +4617,7 @@ function switchEditToCodex(message) {
 }
 
 async function checkFingerprint() {
-  if (!state.detail || document.hidden || document.querySelector("dialog[open]")) return;
+  if (!auditViewIsOpen() || !state.detail || document.hidden || document.querySelector("dialog[open]")) return;
   const current = state.detail;
   const params = new URLSearchParams({ qualification: current.qualification, listGroupId: current.listGroupId });
   try {
