@@ -79,6 +79,10 @@ class WorkflowCatalogTests(unittest.TestCase):
 
         self.assertEqual(catalog["system"]["name"], "問題整備システム")
         self.assertEqual(
+            catalog["system"]["humanDocuments"],
+            ["AGENTS.md", "prompt/README.md"],
+        )
+        self.assertEqual(
             [stage["id"] for stage in catalog["stages"]],
             [
                 "source",

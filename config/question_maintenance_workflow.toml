@@ -3,7 +3,7 @@ id = "question-maintenance-control-center"
 name = "問題整備システム"
 description = "正本ドキュメントと資格配下の実データを結び、次に必要な問題整備を進めるローカルGUI"
 trunk_document = "document/operations/exam_pipeline_manual_and_automation.md"
-human_documents = ["prompt/README.md"]
+human_documents = ["AGENTS.md", "prompt/README.md"]
 
 [[stages]]
 id = "source"

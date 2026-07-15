@@ -36,6 +36,10 @@ class DocumentationStructureTests(unittest.TestCase):
 
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
         self.assertIn("document/operations/exam_pipeline_manual_and_automation.md", agents)
+        self.assertIn("## 日本語の品質", agents)
+        self.assertIn("良質な参考書・問題集の編集水準", agents)
+        self.assertIn("事実と根拠を確定する作業と", agents)
+        self.assertIn("一度読み直さないと分からない文は書き直す", agents)
 
     def test_removed_duplicate_documents_do_not_return(self):
         for relative in REMOVED_DUPLICATES:

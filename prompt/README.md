@@ -12,6 +12,7 @@
 
 ## 実行境界
 
+- 人間向け日本語の共通品質は[`AGENTS.md`](../AGENTS.md#日本語の品質)を正本とし、すべての人間工程へ渡す。解説固有の構成は`03_prompt_add_explanationText.md`だけで定義する。
 - 工程版の改訂と洗い替え要否は[問題整備システム](../document/operations/local_question_review_console.md#作業バージョン)だけを正本とする。
 - 判断本文は一問ずつ読み、scriptで量産しない。
 - scriptはarchive、materialize、merge、convert、validation、upload dry-runに使う。
