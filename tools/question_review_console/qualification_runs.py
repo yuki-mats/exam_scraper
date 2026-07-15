@@ -2328,11 +2328,12 @@ class QualificationRunCoordinator:
                     "agent_output",
                     "result.json",
                 )
+                progress_relative = receipt_relative.with_name("progress.jsonl")
                 changed_files = [
                     str(path)
                     for value in filesystem_changed_files
                     for path in [self._maintenance_relative_path(value)]
-                    if path != receipt_relative
+                    if path not in {receipt_relative, progress_relative}
                 ]
                 error_to_raise = QualificationRunError(
                     f"{original_exc}; {change_error}"
@@ -3166,10 +3167,9 @@ class QualificationRunCoordinator:
         except FileNotFoundError:
             return "missing"
         suffix = f":{os.readlink(path)}" if path.is_symlink() else ""
-        return (
-            f"stat:{stat.st_mode}:{stat.st_size}:{stat.st_mtime_ns}:"
-            f"{stat.st_ctime_ns}{suffix}"
-        )
+        # Google Drive File Providerは、placeholderの実体化だけでもctimeを更新する。
+        # 内容を表さないctimeは除外し、mode・size・mtimeとsymlink先を監視する。
+        return f"stat:{stat.st_mode}:{stat.st_size}:{stat.st_mtime_ns}{suffix}"
 
     @staticmethod
     def _path_content_fingerprint(path: Path) -> str:

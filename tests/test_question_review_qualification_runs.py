@@ -119,6 +119,21 @@ class SuccessfulAppServer:
         )
 
 
+class FailingAppServer:
+    configured = True
+    provider = "Codex App Server"
+
+    def assert_subscription_access(self, *, force=True):
+        return {"allowed": True, "planType": "pro"}
+
+    def run_turn(self, prompt, **kwargs):
+        kwargs["on_thread_started"](
+            "thread-failed-1", "session-failed-1"
+        )
+        kwargs["on_turn_started"]("thread-failed-1", "turn-failed-1")
+        raise RuntimeError("turn crashed")
+
+
 class SourceOnlyInventory:
     def inventory(self):
         return {
@@ -1881,6 +1896,39 @@ class QualificationRunTests(unittest.TestCase):
                     transient_root=turn_workspace,
                 )
 
+    def test_path_fingerprint_ignores_ctime_only_cloud_hydration(self):
+        class StubPath:
+            def __init__(self, *, size=10, mtime_ns=100, ctime_ns=200):
+                self._stat = type(
+                    "StubStat",
+                    (),
+                    {
+                        "st_mode": 0o100644,
+                        "st_size": size,
+                        "st_mtime_ns": mtime_ns,
+                        "st_ctime_ns": ctime_ns,
+                    },
+                )()
+
+            def lstat(self):
+                return self._stat
+
+            def is_symlink(self):
+                return False
+
+        original = QualificationRunCoordinator._path_fingerprint(
+            StubPath(ctime_ns=200)
+        )
+        hydrated = QualificationRunCoordinator._path_fingerprint(
+            StubPath(ctime_ns=300)
+        )
+        modified = QualificationRunCoordinator._path_fingerprint(
+            StubPath(mtime_ns=101, ctime_ns=300)
+        )
+
+        self.assertEqual(original, hydrated)
+        self.assertNotEqual(original, modified)
+
     def test_version_recording_failure_never_marks_the_receipt_as_verified(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -2078,20 +2126,6 @@ class QualificationRunTests(unittest.TestCase):
             )
 
     def test_failed_turn_still_records_the_actual_repository_diff(self):
-        class FailingAppServer:
-            configured = True
-            provider = "Codex App Server"
-
-            def assert_subscription_access(self, *, force=True):
-                return {"allowed": True, "planType": "pro"}
-
-            def run_turn(self, prompt, **kwargs):
-                kwargs["on_thread_started"](
-                    "thread-failed-1", "session-failed-1"
-                )
-                kwargs["on_turn_started"]("thread-failed-1", "turn-failed-1")
-                raise RuntimeError("turn crashed")
-
         changed_path = Path(
             "output/sample/questions_json/2026/"
             "21_explanationText_added/patch.json"
@@ -2129,6 +2163,56 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["result"]["changedFiles"], [str(changed_path)])
         self.assertEqual(run["threadId"], "thread-failed-1")
         self.assertEqual(run["turnId"], "turn-failed-1")
+
+    def test_unsafe_failed_turn_receipt_excludes_progress_file(self):
+        unsafe_path = Path("tools/question_review_console/unsafe.json")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=FailingAppServer(),
+            )
+            snapshot_count = 0
+
+            def snapshots(qualification, run_id):
+                nonlocal snapshot_count
+                snapshot_count += 1
+                if snapshot_count == 1:
+                    return {}
+                progress_path = Path(
+                    "output",
+                    "question_review_console",
+                    "workflow_runs",
+                    qualification,
+                    run_id,
+                    "agent_output",
+                    "progress.jsonl",
+                )
+                return {
+                    progress_path: "sha256:progress",
+                    unsafe_path: "sha256:unsafe",
+                }
+
+            coordinator._repository_file_fingerprints = snapshots
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            deadline = time.monotonic() + 2
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.refresh("sample", started["run"]["runId"])
+
+        self.assertEqual(job["status"], "failed")
+        self.assertIn("整備責務外", job["error"])
+        self.assertEqual(run["result"]["changedFiles"], [str(unsafe_path)])
 
     def test_review_qualification_scope_investigates_broadly_but_writes_anchor_group(self):
         with tempfile.TemporaryDirectory() as directory:

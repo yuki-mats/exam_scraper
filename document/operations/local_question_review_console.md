@@ -100,6 +100,7 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 
 - 整備と再整備の前後で`00_source`不変検証を行う。
 - Codex App Serverのfile変更通知は、run専用の一時directoryとrepositoryをserver側で1回だけ切り分ける。一時directory内の補助fileは実行終了時に削除して成果物に数えず、repository内だけを実差分とreceiptで照合し、どちらにも属さないpathは停止する。
+- repository全体の監視では、Google Driveの実体化によるctimeだけの変化は差分とせず、pathの出現・消失、mode・size・mtime、Git差分を監視する。
 - 整備と再整備は工程又は選択fieldに対応するpatchだけを変更する。1問指定では対象patch fileとJSON/JSONL内の対象recordも限定し、App Server通知、実行前後のrepository差分、receiptの`changedFiles`を双方向で照合する。
 - `questionBodyText`と`choiceTextList`はCodex自動整備の対象外とする。両fieldはblind reviewと根拠を必須にする`24_questionIssueCorrections`専用workflowで扱う。
 - 実体patch、評価projection、readback、merge、sync、公開artifactを変更する処理は、システム全体で1件ずつ実行する。一意IDのreview・run metadataは開始前にatomic writeし、排他競合時はfailed又は`needs_review`へ戻す。
