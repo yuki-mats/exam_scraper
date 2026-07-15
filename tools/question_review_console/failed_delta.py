@@ -13,6 +13,32 @@ def unresolved_failed_delta_paths(
 ) -> tuple[str, ...]:
     """Return live paths changed by a failed run and not superseded by success."""
 
+    return _failed_delta_paths(repo_root, qualification, list_group_id)
+
+
+def resolvable_failed_delta_paths(
+    repo_root: Path,
+    qualification: str,
+    resolver: Mapping[str, Any],
+    list_group_id: str | None = None,
+) -> tuple[str, ...]:
+    """Return unresolved paths fully covered by a proposed run contract."""
+
+    return _failed_delta_paths(
+        repo_root,
+        qualification,
+        list_group_id,
+        resolver=resolver,
+    )
+
+
+def _failed_delta_paths(
+    repo_root: Path,
+    qualification: str,
+    list_group_id: str | None,
+    *,
+    resolver: Mapping[str, Any] | None = None,
+) -> tuple[str, ...]:
     root = (
         repo_root.resolve()
         / "output"
@@ -78,7 +104,11 @@ def unresolved_failed_delta_paths(
                         remaining = [
                             failed
                             for failed in states.get(key, [])
-                            if not _success_supersedes(failed, manifest)
+                            if not _success_supersedes_path(
+                                failed,
+                                manifest,
+                                relative,
+                            )
                         ]
                         if remaining:
                             states[key] = remaining
@@ -89,7 +119,23 @@ def unresolved_failed_delta_paths(
                     interrupted, manifest
                 ):
                     unknown_runs.pop(key, None)
-    return tuple(sorted({*states, *unknown_runs}))
+    if resolver is None:
+        return tuple(sorted({*states, *unknown_runs}))
+    resolvable = {
+        key
+        for key, failures in states.items()
+        if failures
+        and all(
+            _success_supersedes_path(failed, resolver, Path(key))
+            for failed in failures
+        )
+    }
+    resolvable.update(
+        key
+        for key, interrupted in unknown_runs.items()
+        if _success_supersedes(interrupted, resolver)
+    )
+    return tuple(sorted(resolvable))
 
 
 def _safe_relative_path(repo_root: Path, raw: Any) -> Path | None:
@@ -148,17 +194,9 @@ def _success_supersedes(
         succeeded.get("workType") or ""
     ):
         return False
-    interrupted_stages = {
-        str(value)
-        for value in interrupted.get("stageIds") or [interrupted.get("stageId")]
-        if value
-    }
-    succeeded_stages = {
-        str(value)
-        for value in succeeded.get("stageIds") or [succeeded.get("stageId")]
-        if value
-    }
-    if not interrupted_stages.issubset(succeeded_stages):
+    if not _responsible_stages(interrupted).issubset(
+        _responsible_stages(succeeded)
+    ):
         return False
     interrupted_groups = {
         str(value) for value in interrupted.get("targetGroupIds") or []
@@ -266,3 +304,147 @@ def _success_supersedes(
         if not interrupted_values.issubset(succeeded_values):
             return False
     return True
+
+
+def _success_supersedes_path(
+    failed: Mapping[str, Any],
+    succeeded: Mapping[str, Any],
+    path: Path,
+) -> bool:
+    """Return whether a success safely resolves one known failed path.
+
+    A failed run can span several years and files.  A later run is allowed to
+    resolve only the file it explicitly verified, so comparing the two whole
+    run contracts would incorrectly require every original year to be rerun at
+    once.  Unknown interrupted deltas still use the stricter whole-run check in
+    ``_success_supersedes`` because their affected path is not known.
+    """
+
+    if str(failed.get("workType") or "") != str(
+        succeeded.get("workType") or ""
+    ):
+        return False
+    if not _responsible_stages(failed).issubset(
+        _responsible_stages(succeeded)
+    ):
+        return False
+    if not _has_complete_contract(failed) or not _has_complete_contract(
+        succeeded
+    ):
+        return False
+    if not _path_allowed_by_contract(failed, path) or not _path_allowed_by_contract(
+        succeeded, path
+    ):
+        return False
+
+    qualification = str(failed.get("qualification") or "")
+    if qualification != str(succeeded.get("qualification") or ""):
+        return False
+    group_id = _path_group_id(path, qualification)
+    if group_id is not None:
+        failed_groups = {str(value) for value in failed.get("targetGroupIds") or []}
+        succeeded_groups = {
+            str(value) for value in succeeded.get("targetGroupIds") or []
+        }
+        if group_id not in failed_groups or group_id not in succeeded_groups:
+            return False
+
+    if _requires_record_scope(path, qualification):
+        failed_groups = _record_scope_groups(failed, path)
+        succeeded_groups = _record_scope_groups(succeeded, path)
+        if failed_groups is None or succeeded_groups is None:
+            return False
+        if not failed_groups.issubset(succeeded_groups):
+            return False
+    return True
+
+
+def _has_complete_contract(manifest: Mapping[str, Any]) -> bool:
+    return all(
+        field in manifest
+        for field in (
+            "allowedPatchDirs",
+            "allowedWriteAreas",
+            "allowedPatchFiles",
+            "allowedWriteFiles",
+            "targetRecordScopes",
+        )
+    )
+
+
+def _responsible_stages(manifest: Mapping[str, Any]) -> set[str]:
+    policy_versions = manifest.get("policyVersions")
+    if isinstance(policy_versions, Mapping) and policy_versions:
+        return {str(value) for value in policy_versions}
+    return {
+        str(value)
+        for value in manifest.get("stageIds") or [manifest.get("stageId")]
+        if value
+    }
+
+
+def _path_allowed_by_contract(manifest: Mapping[str, Any], path: Path) -> bool:
+    key = path.as_posix()
+    patch_dirs = {str(value) for value in manifest.get("allowedPatchDirs") or []}
+    if set(path.parts) & patch_dirs:
+        files = {str(value) for value in manifest.get("allowedPatchFiles") or []}
+        return not files or key in files
+
+    qualification = str(manifest.get("qualification") or "")
+    write_areas = {str(value) for value in manifest.get("allowedWriteAreas") or []}
+    write_roots = {
+        (
+            Path("prompt", "qualification_docs", qualification)
+            if area == "qualification_docs"
+            else Path("output", qualification, area)
+        )
+        for area in write_areas
+    }
+    if not any(path == root or path.is_relative_to(root) for root in write_roots):
+        return False
+    files = {str(value) for value in manifest.get("allowedWriteFiles") or []}
+    return not files or key in files
+
+
+def _path_group_id(path: Path, qualification: str) -> str | None:
+    parts = path.parts
+    if parts[:3] == ("output", qualification, "questions_json") and len(parts) >= 4:
+        return parts[3]
+    if parts[:3] == ("output", qualification, "law_evidence") and len(parts) >= 4:
+        return parts[3]
+    if (
+        parts[:4] == ("output", qualification, "review", "law_revision_audit")
+        and len(parts) >= 5
+        and parts[4].endswith("_law_revision_audit.jsonl")
+    ):
+        return parts[4][: -len("_law_revision_audit.jsonl")]
+    return None
+
+
+def _requires_record_scope(path: Path, qualification: str) -> bool:
+    parts = path.parts
+    return path.suffix.lower() in {".json", ".jsonl"} and (
+        parts[:3] == ("output", qualification, "questions_json")
+        or parts[:4]
+        == ("output", qualification, "review", "law_revision_audit")
+    )
+
+
+def _record_scope_groups(
+    manifest: Mapping[str, Any], path: Path
+) -> set[tuple[str, ...]] | None:
+    scopes = manifest.get("targetRecordScopes")
+    if not isinstance(scopes, Mapping):
+        return None
+    groups = scopes.get(path.as_posix())
+    if not isinstance(groups, list) or not groups:
+        return None
+    normalized: set[tuple[str, ...]] = set()
+    for group in groups:
+        if not isinstance(group, list):
+            return None
+        aliases = tuple(sorted({str(alias) for alias in group if alias}))
+        if not aliases:
+            return None
+        normalized.add(aliases)
+    return normalized

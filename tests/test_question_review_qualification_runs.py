@@ -1022,6 +1022,88 @@ class QualificationRunTests(unittest.TestCase):
         self.assertTrue(planned)
         self.assertFalse(unplanned)
 
+    def test_qualification_plan_exposes_only_resolvable_failed_delta_paths(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            planned = (
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/patch.json"
+            )
+            unplanned = (
+                "output/sample/questions_json/2026/"
+                "18_law_context_prepared/law.json"
+            )
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "20260101-run/manifest.json"
+            )
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "policyVersions": {"explanation": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        "allowedPatchDirs": [
+                            "18_law_context_prepared",
+                            "21_explanationText_added",
+                        ],
+                        "allowedWriteAreas": [],
+                        "allowedPatchFiles": [planned, unplanned],
+                        "allowedWriteFiles": [],
+                        "targetRecordScopes": {
+                            planned: [["q1"]],
+                            unplanned: [["q1"]],
+                        },
+                        "result": {"changedFiles": [planned, unplanned]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            plan = {
+                "qualification": "sample",
+                "workType": "maintenance",
+                "stageId": "explanation",
+                "stageIds": ["explanation"],
+                "policyVersions": {"explanation": "1.0"},
+                "targetGroupIds": ["2026"],
+                "allowedPatchDirs": ["21_explanationText_added"],
+                "allowedWriteAreas": [],
+                "allowedPatchFiles": [planned],
+                "allowedWriteFiles": [],
+                "targetRecordScopes": {planned: [["q1"]]},
+            }
+            plan["resolvableFailedDeltaPaths"] = (
+                coordinator._resolvable_for_plan(
+                    "sample",
+                    ["2026"],
+                    plan,
+                )
+            )
+
+            self.assertEqual(plan["resolvableFailedDeltaPaths"], [planned])
+            run = {
+                **plan,
+                "result": {
+                    "changedFiles": [],
+                    "resolvedFailedDeltaPaths": [planned],
+                },
+            }
+            coordinator._validate_changed_files(
+                "sample", "run-1", run, (), ()
+            )
+
     def test_record_scope_rejects_a_different_question_in_aggregate_json(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1923,6 +2005,44 @@ class QualificationRunTests(unittest.TestCase):
             run["resolvableFailedDeltaPaths"] = []
             with self.assertRaisesRegex(
                 QualificationRunError, "未確定でなかった"
+            ):
+                coordinator._validate_changed_files(
+                    "sample", "run-1", run, (), ()
+                )
+
+    def test_success_receipt_cannot_resolve_a_path_outside_its_write_contract(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            planned = (
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/patch.json"
+            )
+            outside = (
+                "output/sample/questions_json/2026/"
+                "18_law_context_prepared/law.json"
+            )
+            run = {
+                "qualification": "sample",
+                "stageId": "explanation",
+                "stageIds": ["explanation"],
+                "targetGroupIds": ["2026"],
+                "allowedPatchDirs": ["21_explanationText_added"],
+                "allowedPatchFiles": [planned],
+                "resolvableFailedDeltaPaths": [outside],
+                "result": {
+                    "changedFiles": [],
+                    "resolvedFailedDeltaPaths": [outside],
+                },
+            }
+
+            with self.assertRaisesRegex(
+                QualificationRunError, "整備責務外の未確定差分"
             ):
                 coordinator._validate_changed_files(
                     "sample", "run-1", run, (), ()

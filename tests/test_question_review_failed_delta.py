@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from tools.question_review_console.failed_delta import (
+    resolvable_failed_delta_paths,
     unresolved_failed_delta_paths,
 )
 
@@ -45,6 +46,178 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(blocked, (relative.as_posix(),))
         self.assertEqual(resolved, ())
+
+    def test_single_group_success_resolves_only_its_paths_from_a_multi_group_failure(
+        self,
+    ):
+        path_2025 = Path(
+            "output/sample/questions_json/2025/"
+            "21_explanationText_added/partial.json"
+        )
+        path_2026 = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/partial.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed_contract = {
+                "allowedPatchDirs": ["21_explanationText_added"],
+                "allowedWriteAreas": [],
+                "allowedPatchFiles": [
+                    path_2025.as_posix(),
+                    path_2026.as_posix(),
+                ],
+                "allowedWriteFiles": [],
+                "targetRecordScopes": {
+                    path_2025.as_posix(): [["q1"]],
+                    path_2026.as_posix(): [["q1"]],
+                },
+            }
+            failed = runs / "20260101-run/manifest.json"
+            failed.parent.mkdir(parents=True)
+            failed.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "targetGroupIds": ["2025", "2026"],
+                        **failed_contract,
+                        "result": {
+                            "changedFiles": [
+                                path_2025.as_posix(),
+                                path_2026.as_posix(),
+                            ]
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            success = runs / "20260102-run/manifest.json"
+            success.parent.mkdir(parents=True)
+            success.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "succeeded",
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "targetGroupIds": ["2026"],
+                        **self._contract(path_2026),
+                        "result": {
+                            "changedFiles": [],
+                            "resolvedFailedDeltaPaths": [
+                                path_2026.as_posix()
+                            ],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            unresolved = unresolved_failed_delta_paths(root, "sample")
+
+        self.assertEqual(unresolved, (path_2025.as_posix(),))
+
+    def test_success_from_another_stage_does_not_resolve_a_failed_path(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            contract = self._contract(relative)
+            failed = runs / "20260101-run/manifest.json"
+            failed.parent.mkdir(parents=True)
+            failed.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": ["law_audit"],
+                        "policyVersions": {"law_audit": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **contract,
+                        "result": {"changedFiles": [relative.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            success = runs / "20260102-run/manifest.json"
+            success.parent.mkdir(parents=True)
+            success.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "succeeded",
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "policyVersions": {"explanation": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **contract,
+                        "result": {
+                            "changedFiles": [],
+                            "resolvedFailedDeltaPaths": [relative.as_posix()],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(blocked, (relative.as_posix(),))
+
+    def test_partial_record_scope_is_not_exposed_as_resolvable(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed_contract = self._contract(relative)
+            failed_contract["targetRecordScopes"] = {
+                relative.as_posix(): [["q1"], ["q2"]]
+            }
+            failed = runs / "20260101-run/manifest.json"
+            failed.parent.mkdir(parents=True)
+            failed.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "policyVersions": {"explanation": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **failed_contract,
+                        "result": {"changedFiles": [relative.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            resolver = {
+                "qualification": "sample",
+                "workType": "maintenance",
+                "stageIds": ["explanation"],
+                "policyVersions": {"explanation": "1.0"},
+                "targetGroupIds": ["2026"],
+                **self._contract(relative),
+            }
+
+            resolvable = resolvable_failed_delta_paths(
+                root,
+                "sample",
+                resolver,
+                "2026",
+            )
+
+        self.assertEqual(resolvable, ())
 
     def test_other_group_failure_does_not_block_selected_group(self):
         relative = Path(
@@ -371,26 +544,35 @@ class FailedDeltaTests(unittest.TestCase):
             )
             success = runs / "20260102-run/manifest.json"
             success.parent.mkdir(parents=True)
+            resolver = {
+                "qualification": "sample",
+                "workType": "maintenance",
+                "stageIds": ["maintenance"],
+                "targetGroupIds": ["2026"],
+                "targetQuestionIds": ["q1"],
+                "allowedPatchDirs": ["10_questionType_fixed"],
+                "allowedWriteAreas": [],
+                "allowedPatchFiles": [
+                    "output/sample/questions_json/2026/"
+                    "10_questionType_fixed/q1.json"
+                ],
+                "allowedWriteFiles": [],
+                "targetRecordScopes": {
+                    "output/sample/questions_json/2026/"
+                    "10_questionType_fixed/q1.json": [["q1"]]
+                },
+            }
+            resolvable = resolvable_failed_delta_paths(
+                root,
+                "sample",
+                resolver,
+                "2026",
+            )
             success.write_text(
                 json.dumps(
                     {
-                        "qualification": "sample",
                         "status": "succeeded",
-                        "workType": "maintenance",
-                        "stageIds": ["maintenance"],
-                        "targetGroupIds": ["2026"],
-                        "targetQuestionIds": ["q1"],
-                        "allowedPatchDirs": ["10_questionType_fixed"],
-                        "allowedWriteAreas": [],
-                        "allowedPatchFiles": [
-                            "output/sample/questions_json/2026/"
-                            "10_questionType_fixed/q1.json"
-                        ],
-                        "allowedWriteFiles": [],
-                        "targetRecordScopes": {
-                            "output/sample/questions_json/2026/"
-                            "10_questionType_fixed/q1.json": [["q1"]]
-                        },
+                        **resolver,
                         "result": {"changedFiles": []},
                     }
                 ),
@@ -399,6 +581,7 @@ class FailedDeltaTests(unittest.TestCase):
 
             blocked = unresolved_failed_delta_paths(root, "sample", "2026")
 
+        self.assertEqual(resolvable, ())
         self.assertEqual(
             blocked,
             (

@@ -106,7 +106,7 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 - 評価threadはfileとFirestoreを変更しない。Python serverだけがrun receiptと最新評価projectionを保存する。
 - Firestore反映はCodex threadへ任せず、既存preflight、UIの明示確認、直後のreadbackを使う。
 - app-server停止、認証不一致、利用上限、receipt不備は安全な失敗として保存する。
-- 失敗又は中断turnの変更と削除はfailed receiptへ残し、merge・convert・問題単位を含む公開をブロックする。再実行で変更したpath、又は内容を検証して`resolvedFailedDeltaPaths`へ明示したpathだけを解除する。
+- 失敗又は中断turnの変更と削除はfailed receiptへ残し、merge・convert・問題単位を含む公開をブロックする。再実行で変更したpath、又は内容を検証して`resolvedFailedDeltaPaths`へ明示したpathだけを解除する。解除候補は現在runの書込責務内に限定し、pathが判明している場合は工程・対象file・年度・record scope、path不明の場合はrun全体の契約一致で解除可否を判定する。
 
 ## 起動
 

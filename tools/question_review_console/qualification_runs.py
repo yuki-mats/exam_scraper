@@ -28,7 +28,10 @@ from tools.question_review_console.jobs import (
     JobConflictError,
     JobManager,
 )
-from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
+from tools.question_review_console.failed_delta import (
+    resolvable_failed_delta_paths,
+    unresolved_failed_delta_paths,
+)
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
@@ -1768,10 +1771,12 @@ class QualificationRunCoordinator:
             "allowedWriteAreas": sorted(allowed_write_areas),
             "allowedPatchFiles": sorted(allowed_patch_files),
             "allowedWriteFiles": sorted(allowed_write_files),
-            "resolvableFailedDeltaPaths": self._unresolved_for_groups(
-                qualification, target_group_ids
-            ),
         }
+        plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
+            qualification,
+            target_group_ids,
+            plan,
+        )
         run = self.store.create(plan, status="queued", prompt=prompt)
         saved_prompt = self.store.prompt(qualification, run["runId"])
         try:
@@ -3314,12 +3319,14 @@ class QualificationRunCoordinator:
             )
         plan.setdefault("stageIds", selected_stage_ids)
         if plan["kind"] == "human":
+            plan.setdefault("workType", "maintenance")
             self._apply_plan_write_contract(plan)
         if not resumed_from or plan["kind"] != "machine":
             if plan["kind"] == "human":
-                plan["resolvableFailedDeltaPaths"] = self._unresolved_for_groups(
+                plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
                     qualification,
                     list(plan.get("targetGroupIds") or []),
+                    plan,
                 )
             return plan
         previous = self.store.get(qualification, resumed_from)
@@ -3472,6 +3479,35 @@ class QualificationRunCoordinator:
                 for group_id in group_ids
                 for path in unresolved_failed_delta_paths(
                     self.repo_root, qualification, str(group_id)
+                )
+            }
+        )
+
+    def _resolvable_for_plan(
+        self,
+        qualification: str,
+        group_ids: list[str],
+        plan: Mapping[str, Any],
+    ) -> list[str]:
+        """Limit failed-delta resolution to the current run's write contract."""
+
+        if not group_ids:
+            return list(
+                resolvable_failed_delta_paths(
+                    self.repo_root,
+                    qualification,
+                    plan,
+                )
+            )
+        return sorted(
+            {
+                path
+                for group_id in group_ids
+                for path in resolvable_failed_delta_paths(
+                    self.repo_root,
+                    qualification,
+                    plan,
+                    str(group_id),
                 )
             }
         )
