@@ -959,8 +959,9 @@ class QuestionEvaluationService:
 5. choiceEvaluations[].verdictは選択肢の記述自体が事実として正しければtrue、誤っていればfalseとする。現在値との一致可否をverdictへ入れない。
 6. 現在の正誤対応との比較はPython serverが行う。推測して出力へ加えない。
 7. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
-8. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
-9. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
+8. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
+9. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
+10. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
 
 内部思考過程は出力せず、指定JSON schemaに一致する結果だけを返してください。choiceIndexは0始まりで、0から{max(int(question.get('choiceCount') or 0) - 1, 0)}までを重複なく全件返してください。
 

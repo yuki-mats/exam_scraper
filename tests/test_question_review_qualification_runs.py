@@ -432,7 +432,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": "1.0"})
+        self.assertEqual(run["policyVersions"], {"explanation": "1.1"})
 
     def test_qualification_law_audit_preserves_trusted_sources_and_record_scope(self):
         class FakeAppServer:

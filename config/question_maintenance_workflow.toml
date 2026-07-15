@@ -91,7 +91,7 @@ code = "03"
 label = "解説"
 purpose = "正誤理由と学習用の補足質問を選択肢単位で整える"
 kind = "human"
-policy_version = "1.0"
+policy_version = "1.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -165,7 +165,7 @@ documents = [
 ]
 
 [evaluation]
-policy_version = "1.0"
+policy_version = "1.1"
 documents = ["document/operations/local_question_review_console.md"]
 inputs = [
   "tools/question_review_console/evaluation.py",

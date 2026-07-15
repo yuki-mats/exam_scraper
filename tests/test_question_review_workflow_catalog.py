@@ -105,8 +105,18 @@ class WorkflowCatalogTests(unittest.TestCase):
             stage for stage in catalog["stages"] if stage.get("batchSelectable")
         ]
         self.assertTrue(versioned)
-        self.assertTrue(all(stage["policyVersion"] == "1.0" for stage in versioned))
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "1.0")
+        version_by_stage = {
+            stage["id"]: stage["policyVersion"] for stage in versioned
+        }
+        self.assertEqual(version_by_stage["explanation"], "1.1")
+        self.assertTrue(
+            all(
+                version == "1.0"
+                for stage_id, version in version_by_stage.items()
+                if stage_id != "explanation"
+            )
+        )
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "1.1")
         self.assertTrue(
             all((ROOT / path).is_file() for path in catalog["evaluation"]["inputs"])
         )

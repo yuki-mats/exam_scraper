@@ -29,6 +29,6 @@
 
 ## 今回の運用
 
-- `lawReferences` を別途作る前提ではなく、必要な根拠は `explanationText` に簡潔に書く。
-- ただし、法令名・制度名・統計名は省略しすぎず、受験者が再確認できる粒度は残す。
+- `lawReferences` を別途作る前提ではなく、必要な正誤理由は `explanationText` に簡潔に書く。
+- 非法令問題では、裏取りに使った機関名・資料名・URLを `explanationText` に明示する必要はない。制度名・統計名などが問題の論点そのものである場合だけ、判定に必要な名称を正確に書く。
 - 法規・制度・届出・免許・業務範囲が絡む問題は、迷ったら `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒す。

@@ -249,6 +249,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
 
         self.assertIn("選択肢の記述自体が事実として正しければtrue", prompt)
         self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
+        self.assertIn("非法令問題のcurrentExplanationText", prompt)
+        self.assertIn("減点又は要再整備理由にしない", prompt)
         self.assertNotIn("currentCorrectChoiceText", prompt)
         self.assertNotIn("officialAnswer", prompt)
 
@@ -275,7 +277,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "1.0")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "1.1")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -297,7 +299,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             same_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": "1.1",
+                "policyVersion": "1.2",
                 "policyFingerprint": "new-evaluation-policy",
             }
             minor_version = service.status_for(question)
