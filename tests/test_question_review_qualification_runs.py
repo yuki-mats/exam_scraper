@@ -2800,6 +2800,69 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(recent["runs"][0]["runId"], run["runId"])
         self.assertTrue(all(not item.get("parentRunId") for item in recent["runs"]))
 
+    def test_top_maintenance_skips_current_phase_before_outdated_phase(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = LawSourceInventory()
+            workflow = QualificationWorkflow(root, inventory)
+            question = inventory.group("new-exam", "2026")["questions"][0]
+            workflow.work_versions.record_stage(
+                [question],
+                workflow.versioned_policies("new-exam")["question_type"],
+                run_id="completed-question-type",
+                source="test",
+            )
+            app_server = FlowAppServer()
+            jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            stage_ids = ["question_type", "law_audit"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "outdated",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )
+            deadline = time.monotonic() + 3
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.get("new-exam", started["run"]["runId"])
+
+        self.assertEqual(preview["targetCount"], 1)
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(
+            [item["status"] for item in run["phaseExecutions"]],
+            ["skipped", "succeeded"],
+        )
+        self.assertEqual(len(run["childRunIds"]), 1)
+        self.assertEqual(
+            [kwargs["work_type"] for _, kwargs in app_server.calls],
+            ["maintenance_law_audit"],
+        )
+        self.assertEqual(synchronizer.merge_calls, [])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", False)])
+
     def test_top_maintenance_stops_before_later_session_after_phase_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

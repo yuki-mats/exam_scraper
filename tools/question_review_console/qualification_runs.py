@@ -2403,6 +2403,8 @@ class QualificationRunCoordinator:
             stage_ids=stage_ids,
             **scope,
         )
+        if not int(plan.get("targetCount") or 0):
+            return plan, ""
         if len(stage_ids) > 1:
             prompt = self.workflow.prompt_many(
                 qualification,
