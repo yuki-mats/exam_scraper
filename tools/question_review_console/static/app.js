@@ -1943,26 +1943,46 @@ function qualificationRunResumeGroupIds(run) {
   return qualificationRunGroupIds();
 }
 
-function progressResultText(event) {
+const PROGRESS_RESULT_FIELDS = [
+  ["correctChoiceText", "正答"],
+  ["explanationText", "解説"],
+  ["questionType", "問題形式"],
+  ["questionIntent", "出題意図"],
+  ["questionSetId", "問題セット"],
+  ["lawAudit", "法令監査"],
+  ["lawContext", "法令情報"],
+  ["summary", ""],
+];
+
+function progressValueText(value) {
+  if (Array.isArray(value)) return value.filter(Boolean).map(progressValueText).join(" / ");
+  if (value && typeof value === "object") {
+    return Object.entries(value).map(([key, item]) => `${key}: ${progressValueText(item)}`).join(" / ");
+  }
+  return String(value ?? "");
+}
+
+function progressResultEntry(event) {
   const result = event?.result || {};
-  const valueText = (value) => {
-    if (Array.isArray(value)) return value.filter(Boolean).join(" / ");
-    if (value && typeof value === "object") {
-      return Object.entries(value).map(([key, item]) => `${key}: ${item}`).join(" / ");
-    }
-    return String(value || "");
-  };
-  if (result.correctChoiceText) return `正答: ${valueText(result.correctChoiceText)}`;
-  if (result.explanationText) return `解説: ${valueText(result.explanationText)}`;
-  if (result.questionType) return `問題形式: ${valueText(result.questionType)}`;
-  if (result.questionIntent) return `出題意図: ${valueText(result.questionIntent)}`;
-  if (result.questionSetId) return `問題セット: ${valueText(result.questionSetId)}`;
-  if (result.lawAudit) return `法令監査: ${valueText(result.lawAudit)}`;
-  if (result.lawContext) return `法令情報: ${valueText(result.lawContext)}`;
-  if (result.summary) return valueText(result.summary);
-  if (event?.event === "question_completed") return "この問題の選択工程が完了しました。";
-  if (event?.event === "question_started") return "問題本文と選択肢を確認しています。";
-  return "判断結果を記録しました。";
+  for (const [field, label] of PROGRESS_RESULT_FIELDS) {
+    const value = result[field];
+    if (value === undefined || value === null || value === "") continue;
+    if (Array.isArray(value) && !value.length) continue;
+    return { field, label, value };
+  }
+  if (event?.event === "question_completed") {
+    return { field: "event", label: "", value: "この問題の選択工程が完了しました。" };
+  }
+  if (event?.event === "question_started") {
+    return { field: "event", label: "", value: "問題本文と選択肢を確認しています。" };
+  }
+  return { field: "event", label: "", value: "判断結果を記録しました。" };
+}
+
+function progressResultText(event) {
+  const entry = progressResultEntry(event);
+  const text = progressValueText(entry.value);
+  return entry.label ? `${entry.label}: ${text}` : text;
 }
 
 function compactProgressText(value, limit = 260) {
@@ -1975,7 +1995,9 @@ function progressQuestionOutputText(question) {
   if (!outputs.length) return progressResultText(question);
   return outputs.map((event) => {
     const stage = [event.stageCode, event.stageLabel].filter(Boolean).join(" ");
-    return `${stage ? `${stage}: ` : ""}${progressResultText(event)}`;
+    const entry = progressResultEntry(event);
+    const label = !stage && entry.label ? `${entry.label}: ` : "";
+    return `${stage ? `${stage}: ` : ""}${label}${progressValueText(entry.value)}`;
   }).join(" / ");
 }
 
@@ -2075,9 +2097,73 @@ function renderQualificationRunProgress(progress) {
   }
 }
 
-function progressQuestionSection(title, content, className = "") {
+function progressVerdictParts(value) {
+  const text = progressValueText(value).trim();
+  const match = text.match(/^(正しい|間違い|誤り)(?:[。．]\s*|$)/);
+  if (!match) return { text, verdict: "", tone: "" };
+  const explanation = text.slice(match[0].length).trim();
+  return {
+    text: explanation ? text : "",
+    verdict: match[1],
+    tone: match[1] === "正しい" ? "correct" : "incorrect",
+  };
+}
+
+function progressValueNode(value, indexLabel = "項目") {
+  if (Array.isArray(value)) {
+    if (!value.length) return element("p", "", "（記録なし）");
+    const list = element("ol", "progress-value-list");
+    value.forEach((item, index) => {
+      const parts = progressVerdictParts(item);
+      const row = element("li", "progress-value-item");
+      const header = element("div", "progress-value-item-header");
+      header.append(element("span", "progress-value-index", `${indexLabel}${index + 1}`));
+      if (parts.verdict) {
+        header.append(element("strong", `progress-value-verdict ${parts.tone}`, parts.verdict));
+      }
+      row.append(header);
+      if (parts.text) row.append(element("p", "", parts.text));
+      list.append(row);
+    });
+    return list;
+  }
+  if (value && typeof value === "object") {
+    const list = element("dl", "progress-value-object");
+    for (const [key, item] of Object.entries(value)) {
+      list.append(element("dt", "", key), element("dd", "", progressValueText(item) || "（記録なし）"));
+    }
+    return list;
+  }
+  return element("p", "", progressValueText(value) || "（記録なし）");
+}
+
+function progressQuestionSection(title, content, className = "", indexLabel = "項目") {
   const section = element("section", `progress-question-section${className ? ` ${className}` : ""}`);
-  section.append(element("h3", "", title), element("p", "", content || "（記録なし）"));
+  section.append(element("h3", "", title), progressValueNode(content, indexLabel));
+  return section;
+}
+
+function progressQuestionOutputSection(title, outputs) {
+  const section = element("section", "progress-question-section output");
+  section.append(element("h3", "", title));
+  for (const event of outputs) {
+    const entry = progressResultEntry(event);
+    const stage = [event.stageCode, event.stageLabel].filter(Boolean).join(" ") || entry.label || "整備結果";
+    const block = element("section", "progress-output-stage");
+    const header = element("div", "progress-output-stage-header");
+    header.append(element("strong", "", stage));
+    if (Array.isArray(entry.value)) {
+      header.append(element("span", "", `${entry.value.length}件`));
+    }
+    block.append(
+      header,
+      progressValueNode(
+        entry.value,
+        entry.field === "correctChoiceText" || entry.field === "explanationText" ? "選択肢" : "項目",
+      ),
+    );
+    section.append(block);
+  }
   return section;
 }
 
@@ -2111,23 +2197,14 @@ async function openProgressQuestion(event) {
       content.append(section);
     }
     if (questionOutputs.length) {
-      content.append(progressQuestionSection(
+      content.append(progressQuestionOutputSection(
         state.qualificationRunProgress?.verified ? "この作業で確定した出力" : "この作業での出力（完了検証前）",
-        questionOutputs
-          .map((item) => `${item.stageCode || ""} ${item.stageLabel || ""}: ${progressResultText(item)}`.trim())
-          .join("\n"),
-        "output",
+        questionOutputs,
       ));
     }
-    const storedCorrect = Array.isArray(projected.correctChoiceText)
-      ? projected.correctChoiceText.join("\n")
-      : projected.correctChoiceText;
-    const storedExplanation = Array.isArray(projected.explanationText)
-      ? projected.explanationText.join("\n")
-      : projected.explanationText;
     content.append(
-      progressQuestionSection("現在保存されている正答", storedCorrect),
-      progressQuestionSection("現在保存されている解説", storedExplanation),
+      progressQuestionSection("現在保存されている正答", projected.correctChoiceText, "", "選択肢"),
+      progressQuestionSection("現在保存されている解説", projected.explanationText, "", "選択肢"),
     );
   } catch (error) {
     content.replaceChildren(element("p", "qualification-run-progress-empty", error.message));

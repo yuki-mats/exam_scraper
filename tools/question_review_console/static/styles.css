@@ -782,6 +782,22 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .progress-question-content p { margin: 0; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
 .progress-question-section { display: grid; gap: 7px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
 .progress-question-section.output { border-color: #9fc0dc; background: #f4f9fd; }
+.progress-output-stage { display: grid; gap: 9px; }
+.progress-output-stage + .progress-output-stage { margin-top: 5px; padding-top: 12px; border-top: 1px solid #cbdce9; }
+.progress-output-stage-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.progress-output-stage-header strong { color: var(--blue-dark); font-size: 14px; }
+.progress-output-stage-header span { color: var(--text-muted); font-size: 11px; font-weight: 700; }
+.progress-value-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.progress-value-item { display: grid; gap: 7px; padding: 10px 11px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+.progress-value-item-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.progress-value-index { color: #506373; font-size: 11px; font-weight: 800; }
+.progress-value-verdict { padding: 3px 8px; border-radius: 999px; font-size: 11px; line-height: 1.2; }
+.progress-value-verdict.correct { background: var(--green-bg); color: #205c39; }
+.progress-value-verdict.incorrect { background: var(--red-bg); color: #752e28; }
+.progress-value-item p { color: #253746; font-size: 14px; line-height: 1.65; }
+.progress-value-object { display: grid; grid-template-columns: minmax(80px, auto) minmax(0, 1fr); gap: 6px 10px; margin: 0; }
+.progress-value-object dt { color: var(--text-muted); font-size: 11px; font-weight: 800; overflow-wrap: anywhere; }
+.progress-value-object dd { margin: 0; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
 .progress-question-choice-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .progress-question-choice-list li { padding: 8px 9px; border-left: 3px solid #c7d0d8; background: var(--surface-muted); font-size: 12px; line-height: 1.5; }
 .edit-choice-list { display: grid; gap: 10px; }
@@ -991,6 +1007,9 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .qualification-run-history-row strong, .qualification-run-history-row > span:not(.run-status), .qualification-run-history-row time { grid-column: 2; }
   .qualification-run-progress-current { min-height: 76px; }
   .qualification-progress-event { min-height: 60px; padding: 10px; }
+  .progress-question-section { padding: 10px; }
+  .progress-value-item { padding: 10px; }
+  .progress-value-item p { font-size: 13px; line-height: 1.7; }
   .run-mode-options { grid-template-columns: 1fr; }
   .run-mode-options label { border-right: 0; border-bottom: 1px solid var(--line-strong); }
   .run-mode-options label:last-child { border-bottom: 0; }
