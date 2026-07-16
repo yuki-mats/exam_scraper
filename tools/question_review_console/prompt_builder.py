@@ -59,7 +59,7 @@ def _law_audit_instruction() -> str:
 
 - 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。
 - 各対象選択肢で「問題文＋選択肢」の完全命題を作り、保存済み`apiUrl`/`sourceUrl`又はe-Gov条文本文を開いて目視照合する。
-- 条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。確認不能・根拠不足は`hold`/`needs_secondary_review`へ戻す。
+- 条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。patchでは各選択肢と同じ順序・件数で保存し、トップレベル`correctChoiceText`と一致させる。確認不能・根拠不足は`hold`/`needs_secondary_review`へ戻す。
 - 類似問題も一問一肢ずつ同じ手順で確認する。一括コピーや正誤ラベルだけの補完は禁止。
 - 完了時は「選択肢 / 条文 / 判定 / patch有無」の短い確認表を出す。
 
@@ -129,7 +129,8 @@ def _build_qualification_law_audit_prompt(
 - 各ファイル内で`law_audit_metadata_incomplete`等の法令監査品質不備がある全questionを特定し、一問一肢ずつ「問題文＋選択肢」の完全命題を作る。
 - 各命題についてCodex組み込みweb検索を使い、e-Gov法令検索又は所管官庁の一次情報を開いて条文本文を目視レベルで照合する。主体、要件、数値、例外、委任先まで確認する。
 - 既存の正誤・解説・法令メタデータや検索要約を正本扱いしない。不一致又は根拠不足は推測せず`hold`/`needs_secondary_review`にする。
-- 確認結果と根拠を各questionのpatchへ個別に反映する。`correctChoiceText`を変える場合は解説先頭、根拠、`lawRevisionFacts.current.correctChoiceText`も整合させる。
+- 確認結果と根拠を各questionのpatchへ個別に反映する。正誤を変えない場合も`lawRevisionFacts.current.correctChoiceText`を省略せず、各選択肢と同じ順序・件数でトップレベル正誤及び解説先頭に整合させる。
+- `law_audit_metadata_incomplete`又は`law_audit_verdict_mismatch`が残るquestionをno-opで完了しない。根拠を確認できない場合は推測で補完せず`hold`にする。
 - 一問ごとの判断、根拠、未確認事項を対象年度の監査sidecarへ1行1問で記録する。
 - `00_source`と既存IDは変更しない。patchを更新してpatch単体の検証を行う。merge、convert、upload-ready生成、Firestore反映はこのsessionでは行わず、問題整備システムの別工程へ残す。
 """

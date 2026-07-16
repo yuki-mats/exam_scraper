@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
+from tools.question_review_console.law_audit_quality import (
+    law_revision_current_verdict_issues,
+)
 from tools.question_review_console.projection import normalize_verdict
 
 
@@ -209,34 +212,10 @@ def law_audit_quality_warnings(
             "lawRevisionFacts.evidenceSummaryがありません。",
         )
 
-    current = facts.get("current")
-    if not isinstance(current, Mapping):
-        add(
-            "law_audit_metadata_incomplete",
-            "lawRevisionFacts.current",
-            "現行法監査のlawRevisionFacts.currentがありません。",
-        )
-        return warnings
-
-    top_level_verdict = normalize_verdict(document.get("correctChoiceText"))
-    audit_verdict = normalize_verdict(current.get("correctChoiceText"))
-    if audit_verdict not in {"正しい", "間違い"}:
-        add(
-            "law_audit_metadata_incomplete",
-            "lawRevisionFacts.current.correctChoiceText",
-            (
-                "トップレベルのcorrectChoiceTextは存在しますが、"
-                "現行法監査スナップショットの判定がありません。"
-            ),
-        )
-    elif top_level_verdict in {"正しい", "間違い"} and audit_verdict != top_level_verdict:
-        add(
-            "law_audit_verdict_mismatch",
-            "lawRevisionFacts.current.correctChoiceText",
-            (
-                "トップレベルのcorrectChoiceTextと"
-                "lawRevisionFacts.current.correctChoiceTextが一致しません。"
-            ),
-        )
+    for issue in law_revision_current_verdict_issues(
+        correct_choice_text=document.get("correctChoiceText"),
+        law_revision_facts=facts,
+    ):
+        add(issue["code"], issue["field"], issue["detail"])
 
     return warnings

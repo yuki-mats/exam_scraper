@@ -375,10 +375,13 @@ class LawSourceInventory(SourceOnlyInventory):
         question["projected"] = {
             **question["projected"],
             "isLawRelated": True,
+            "correctChoiceText": ["正しい"],
             "lawRevisionFacts": [
                 {
                     "auditStatus": "same_as_current",
                     "reviewState": "secondary_verified",
+                    "current": {"correctChoiceText": "正しい"},
+                    "evidenceSummary": {"verdict": "correct"},
                 }
             ],
             "lawReferences": [
@@ -402,6 +405,9 @@ class IncompleteLawSourceInventory(LawSourceInventory):
         group = super().group(qualification, list_group_id)
         group["questions"][0]["issueCodes"] = [
             "law_audit_metadata_incomplete"
+        ]
+        del group["questions"][0]["projected"]["lawRevisionFacts"][0][
+            "current"
         ]
         return group
 
@@ -3489,7 +3495,14 @@ class QualificationRunTests(unittest.TestCase):
             "issueCodes": [],
             "projected": {
                 "isLawRelated": True,
-                "lawRevisionFacts": [{"auditStatus": "same_as_current"}],
+                "correctChoiceText": ["正しい"],
+                "lawRevisionFacts": [
+                    {
+                        "auditStatus": "same_as_current",
+                        "current": {"correctChoiceText": "正しい"},
+                        "evidenceSummary": {"verdict": "correct"},
+                    }
+                ],
                 "lawReferences": [
                     {"lawTitle": "ガス事業法", "article": "第2条"}
                 ],
@@ -3504,6 +3517,12 @@ class QualificationRunTests(unittest.TestCase):
                 ],
             },
         }
+
+        QualificationRunCoordinator._validate_law_audit_quality([question])
+
+    def test_law_audit_quality_uses_projected_metadata_before_artifact_sync(self):
+        question = LawSourceInventory().group("new-exam", "2026")["questions"][0]
+        question["issueCodes"] = ["law_audit_metadata_incomplete"]
 
         QualificationRunCoordinator._validate_law_audit_quality([question])
 

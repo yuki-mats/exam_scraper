@@ -1048,6 +1048,14 @@ class QualificationWorkflow:
                 else []
             ),
             *(
+                [
+                    "法令関連と確定した各問題では、正誤を変更しない場合もlawRevisionFacts.current.correctChoiceTextを省略しない。patchでは各選択肢と同じ順序・件数の判定を保存し、トップレベルcorrectChoiceText及び解説先頭と一致させる。",
+                    "law_audit_metadata_incomplete又はlaw_audit_verdict_mismatchが残る問題をno-opで完了しない。根拠を確認できない場合は推測で補完せずholdへ戻す。",
+                ]
+                if "law_audit" in selected_stage_ids
+                else []
+            ),
+            *(
                 ["全件洗い替えの現行法監査は、既存のisLawRelatedだけで対象を絞らず、各問題で法令該当性を再確認する。非該当なら確認結果を確定して次工程へ進む。"]
                 if any(
                     item.get("allQuestionGate")

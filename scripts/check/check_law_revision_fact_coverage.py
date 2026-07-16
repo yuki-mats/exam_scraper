@@ -14,6 +14,9 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
 from tools.question_bank.question_bank import timestamp_sort_key
+from tools.question_review_console.law_audit_quality import (
+    law_revision_current_verdict_issues,
+)
 
 
 LAW_REVISION_FACT_STATUSES = {
@@ -101,6 +104,7 @@ def audit_records(
     fail_on_hold: bool,
     require_evidence_summary: bool,
     require_law_references: bool,
+    require_current_correct_choice: bool = False,
 ) -> tuple[list[str], Counter[str]]:
     errors: list[str] = []
     counts: Counter[str] = Counter()
@@ -141,6 +145,14 @@ def audit_records(
                     errors.append(f"{label}: lawRevisionFacts auditStatus is hold")
                 if require_evidence_summary and not facts.get("evidenceSummary"):
                     errors.append(f"{label}: missing lawRevisionFacts.evidenceSummary")
+            if require_current_correct_choice:
+                errors.extend(
+                    f"{label}: {issue['detail']}"
+                    for issue in law_revision_current_verdict_issues(
+                        correct_choice_text=record.get("correctChoiceText"),
+                        law_revision_facts=record.get("lawRevisionFacts"),
+                    )
+                )
         elif is_law_related is False:
             counts["not_law_related"] += 1
         else:
@@ -167,6 +179,7 @@ def run(
     fail_on_hold: bool,
     require_evidence_summary: bool,
     require_law_references: bool,
+    require_current_correct_choice: bool,
     report: Path | None,
 ) -> int:
     if stage == "firestore":
@@ -191,6 +204,7 @@ def run(
         fail_on_hold=fail_on_hold,
         require_evidence_summary=require_evidence_summary,
         require_law_references=require_law_references,
+        require_current_correct_choice=require_current_correct_choice,
     )
     print(f"stage: {stage}")
     for source_file in source_files:
@@ -233,6 +247,14 @@ def main() -> int:
         action="store_true",
         help="Fail when isLawRelated=true records do not have lawReferences.",
     )
+    parser.add_argument(
+        "--require-current-correct-choice",
+        action="store_true",
+        help=(
+            "Fail when lawRevisionFacts.current.correctChoiceText is missing "
+            "or differs from the published verdict."
+        ),
+    )
     parser.add_argument("--report", type=Path, help="Optional JSON report output path.")
     args = parser.parse_args()
     return run(
@@ -242,6 +264,7 @@ def main() -> int:
         fail_on_hold=args.fail_on_hold,
         require_evidence_summary=args.require_evidence_summary,
         require_law_references=args.require_law_references,
+        require_current_correct_choice=args.require_current_correct_choice,
         report=args.report,
     )
 

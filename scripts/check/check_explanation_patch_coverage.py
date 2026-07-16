@@ -22,6 +22,9 @@ from tools.question_review_console.explanation_quality import (
     has_non_empty_law_references,
     validate_law_evidence_utilization,
 )
+from tools.question_review_console.law_audit_quality import (
+    law_revision_current_verdict_issues,
+)
 
 
 REQUIRED_FIELDS = [
@@ -212,7 +215,31 @@ def validate_law_revision_facts_shape(
     errors: List[str],
 ) -> None:
     if isinstance(law_revision_facts, dict):
-        if not _is_law_revision_facts(law_revision_facts):
+        normalized_facts = dict(law_revision_facts)
+        for snapshot_key in ("examTime", "current"):
+            snapshot = law_revision_facts.get(snapshot_key)
+            if not isinstance(snapshot, dict):
+                continue
+            verdicts = snapshot.get("correctChoiceText")
+            if not isinstance(verdicts, list):
+                continue
+            if (
+                (choice_count and len(verdicts) != choice_count)
+                or not verdicts
+                or any(
+                    not isinstance(value, str) or not value.strip()
+                    for value in verdicts
+                )
+            ):
+                errors.append(
+                    f"index {index}: lawRevisionFacts.{snapshot_key}.correctChoiceText "
+                    "must match the source choice count"
+                )
+                return
+            normalized_snapshot = dict(snapshot)
+            normalized_snapshot["correctChoiceText"] = verdicts[0]
+            normalized_facts[snapshot_key] = normalized_snapshot
+        if not _is_law_revision_facts(normalized_facts):
             errors.append(f"index {index}: lawRevisionFacts must be a valid object")
         return
     if isinstance(law_revision_facts, list):
@@ -378,6 +405,17 @@ def compare_entries(
         ):
             errors.append(
                 f"index {idx}: missing lawRevisionFacts for law-related question"
+            )
+        elif require_law_revision_facts and is_law_related is True:
+            effective_correctness = patch.get(
+                "correctChoiceText", src.get("correctChoiceText")
+            )
+            errors.extend(
+                f"index {idx}: {issue['detail']}"
+                for issue in law_revision_current_verdict_issues(
+                    correct_choice_text=effective_correctness,
+                    law_revision_facts=patch.get("lawRevisionFacts"),
+                )
             )
         if require_law_evidence_utilization:
             validate_law_evidence_utilization(

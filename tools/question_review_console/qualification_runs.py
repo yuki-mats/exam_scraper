@@ -36,6 +36,9 @@ from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
     law_evidence_utilization_issues,
 )
+from tools.question_review_console.law_audit_quality import (
+    law_revision_current_verdict_issues,
+)
 from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
 )
@@ -3414,7 +3417,20 @@ class QualificationRunCoordinator:
                 or "対象問題"
             )
             issue_codes = set(question.get("issueCodes") or [])
-            blocking = sorted(issue_codes & LAW_AUDIT_ISSUES)
+            # metadata/verdict issue codes can come from the pre-sync
+            # upload-ready snapshot.  Validate those fields from projected
+            # patches below; otherwise a correct patch can never reach the
+            # artifact sync that clears the stale warning.
+            blocking = sorted(
+                issue_codes
+                & (
+                    LAW_AUDIT_ISSUES
+                    - {
+                        "law_audit_metadata_incomplete",
+                        "law_audit_verdict_mismatch",
+                    }
+                )
+            )
             projected = question.get("projected")
             facts = (
                 projected.get("lawRevisionFacts")
@@ -3426,6 +3442,36 @@ class QualificationRunCoordinator:
             elif question.get("isLawRelated") is not False and not facts:
                 errors.append(f"{label}: lawRevisionFactsを確認できません。")
             elif isinstance(projected, Mapping):
+                fact_items = (
+                    list(facts)
+                    if isinstance(facts, list)
+                    else [facts]
+                    if isinstance(facts, Mapping)
+                    else []
+                )
+                for fact_index, fact in enumerate(fact_items, start=1):
+                    fact_label = (
+                        f"lawRevisionFacts[{fact_index}]"
+                        if isinstance(facts, list)
+                        else "lawRevisionFacts"
+                    )
+                    if not isinstance(fact, Mapping):
+                        errors.append(f"{label}: {fact_label}を確認できません。")
+                        continue
+                    if not str(fact.get("auditStatus") or "").strip():
+                        errors.append(f"{label}: {fact_label}.auditStatusがありません。")
+                    summary = fact.get("evidenceSummary")
+                    if not isinstance(summary, Mapping) or not summary:
+                        errors.append(
+                            f"{label}: {fact_label}.evidenceSummaryがありません。"
+                        )
+                errors.extend(
+                    f"{label}: {issue['detail']}"
+                    for issue in law_revision_current_verdict_issues(
+                        correct_choice_text=projected.get("correctChoiceText"),
+                        law_revision_facts=facts,
+                    )
+                )
                 errors.extend(
                     f"{label}: {issue}"
                     for issue in law_evidence_utilization_issues(dict(projected))

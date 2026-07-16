@@ -391,6 +391,7 @@ def run_law_revision_fact_coverage_checks(
     fail_on_hold: bool,
     require_evidence_summary: bool,
     require_law_references: bool,
+    require_current_correct_choice: bool,
 ) -> int:
     print_heading("lawRevisionFacts coverage")
     failed = 0
@@ -410,6 +411,8 @@ def run_law_revision_fact_coverage_checks(
             cmd.append("--require-evidence-summary")
         if require_law_references:
             cmd.append("--require-law-references")
+        if require_current_correct_choice:
+            cmd.append("--require-current-correct-choice")
         if run_command(cmd) != 0:
             failed += 1
     return 1 if failed else 0
@@ -568,6 +571,7 @@ def add_law_revision_fact_coverage_parser(
     parser.add_argument("--fail-on-hold", action="store_true")
     parser.add_argument("--require-evidence-summary", action="store_true")
     parser.add_argument("--require-law-references", action="store_true")
+    parser.add_argument("--require-current-correct-choice", action="store_true")
     parser.add_argument("--report", type=Path)
 
 
@@ -884,6 +888,8 @@ def run_law_revision_fact_coverage(args: argparse.Namespace) -> int:
         cmd.append("--require-evidence-summary")
     if args.require_law_references:
         cmd.append("--require-law-references")
+    if args.require_current_correct_choice:
+        cmd.append("--require-current-correct-choice")
     if args.report:
         cmd.extend(["--report", str(args.report)])
     return run_command(cmd)
@@ -1061,6 +1067,9 @@ def main(argv: list[str] | None = None) -> int:
             fail_on_hold=args.fail_on_law_revision_hold,
             require_evidence_summary=args.require_law_revision_evidence_summary,
             require_law_references=args.require_law_references_for_law_related,
+            # Patch mode validates the latest patch projection above.  Other
+            # modes validate merged/Firestore artifacts as well.
+            require_current_correct_choice=args.mode != "patches",
         )
 
     if failures:

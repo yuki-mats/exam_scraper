@@ -286,6 +286,85 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             any("missing lawRevisionFacts for law-related question" in error for error in errors)
         )
 
+    def test_compare_entries_requires_current_verdict_for_every_law_choice(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1", "肢2"],
+                "correctChoiceText": ["正しい", "間違い"],
+            }
+        ]
+        facts = valid_law_revision_facts()
+        facts["current"].pop("correctChoiceText")
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。根拠がある。", "間違い。根拠がある。"],
+                "suggestedQuestions": ["現行法ではどう考える？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "現行法ではどう考える？",
+                        "answer": "現行法の根拠に従って判断する。",
+                    }
+                ],
+                "isLawRelated": True,
+                "lawRevisionFacts": facts,
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_revision_facts=True,
+        )
+
+        self.assertTrue(
+            any(
+                "各選択肢に対応する現行法監査判定" in error
+                for error in errors
+            )
+        )
+
+    def test_compare_entries_accepts_per_choice_law_revision_facts(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1", "肢2"],
+                "correctChoiceText": ["正しい", "間違い"],
+            }
+        ]
+        first = valid_law_revision_facts()
+        second = valid_law_revision_facts()
+        second["current"]["correctChoiceText"] = "間違い"
+        second["examTime"]["correctChoiceText"] = "間違い"
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。根拠がある。", "間違い。根拠がある。"],
+                "suggestedQuestions": ["現行法ではどう考える？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "現行法ではどう考える？",
+                        "answer": "現行法の根拠に従って判断する。",
+                    }
+                ],
+                "isLawRelated": True,
+                "lawRevisionFacts": [first, second],
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_revision_facts=True,
+        )
+
+        self.assertEqual(errors, [])
+
     def test_compare_entries_accepts_public_question_id_when_original_id_missing(self) -> None:
         source_questions = [
             {
