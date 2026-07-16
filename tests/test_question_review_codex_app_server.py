@@ -6,7 +6,11 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.question_review_console.codex_app_server import (
+    APP_SERVER_AGENT_MAX_DEPTH,
+    APP_SERVER_AGENT_THREAD_CAP,
+    CodexAppServerError,
     CodexAppServerClient,
+    MAINTENANCE_RESEARCH_WORKERS,
     SubscriptionGateError,
     validate_subscription_access,
 )
@@ -183,6 +187,11 @@ class ProtocolClient(CodexAppServerClient):
         self.turn_number = 0
         self.sent = []
         self.subscription_forces = []
+        self.research_threads = set()
+        self.subagent_parents = {}
+        self.research_child_count = 2
+        self.research_child_model = "gpt-5.5"
+        self.research_child_effort = "high"
 
     def assert_subscription_access(self, *, force=True):
         self.subscription_forces.append(force)
@@ -193,6 +202,8 @@ class ProtocolClient(CodexAppServerClient):
         if method == "thread/start":
             self.turn_number += 1
             thread_id = f"thread-{self.turn_number}"
+            if params.get("threadSource") == "exam_scraper_maintenance_research":
+                self.research_threads.add(thread_id)
             sandbox_type = "readOnly" if params["sandbox"] == "read-only" else "workspaceWrite"
             return {
                 "thread": {"id": thread_id, "sessionId": f"session-{self.turn_number}"},
@@ -217,6 +228,31 @@ class ProtocolClient(CodexAppServerClient):
         if method == "turn/start":
             thread_id = params["threadId"]
             turn_id = thread_id.replace("thread", "turn")
+            if thread_id in self.research_threads:
+                child_ids = [
+                    f"{thread_id}-child-{index}"
+                    for index in range(1, self.research_child_count + 1)
+                ]
+                self.subagent_parents.update(
+                    {child_id: thread_id for child_id in child_ids}
+                )
+                self._handle_turn_notification(
+                    {
+                        "method": "item/completed",
+                        "params": {
+                            "threadId": thread_id,
+                            "turnId": turn_id,
+                            "item": {
+                                "type": "collabAgentToolCall",
+                                "tool": "spawnAgent",
+                                "status": "completed",
+                                "receiverThreadIds": child_ids,
+                                "model": self.research_child_model,
+                                "reasoningEffort": self.research_child_effort,
+                            },
+                        },
+                    }
+                )
             self._handle_turn_notification(
                 {
                     "method": "item/completed",
@@ -246,6 +282,15 @@ class ProtocolClient(CodexAppServerClient):
                 }
             )
             return {"turn": {"id": turn_id}}
+        if method == "thread/read":
+            child_id = params["threadId"]
+            return {
+                "thread": {
+                    "id": child_id,
+                    "modelProvider": "openai",
+                    "parentThreadId": self.subagent_parents[child_id],
+                }
+            }
         raise AssertionError(method)
 
     def _send(self, message):
@@ -253,6 +298,64 @@ class ProtocolClient(CodexAppServerClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_runtime_home_copies_only_chatgpt_auth(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source_home = Path(directory) / "source"
+            source_home.mkdir()
+            (source_home / "auth.json").write_text('{"auth": "chatgpt"}', encoding="utf-8")
+            (source_home / "config.toml").write_text(
+                '[agents.explorer]\nconfig_file = "/tmp/unsafe.toml"\n',
+                encoding="utf-8",
+            )
+            agents = source_home / "agents"
+            agents.mkdir()
+            (agents / "other.toml").write_text(
+                'name = "other"\ndescription = "unsafe"\n'
+                'developer_instructions = "unsafe"\n',
+                encoding="utf-8",
+            )
+            with patch.dict(os.environ, {"CODEX_HOME": str(source_home)}):
+                client = CodexAppServerClient(
+                    Path(directory), binary_path=Path("/bin/echo")
+                )
+                runtime_home = client._prepare_isolated_codex_home()
+                self.assertEqual(
+                    (runtime_home / "auth.json").read_text(encoding="utf-8"),
+                    '{"auth": "chatgpt"}',
+                )
+                self.assertFalse((runtime_home / "config.toml").exists())
+                self.assertFalse((runtime_home / "agents").exists())
+                client.close()
+                self.assertFalse(runtime_home.exists())
+
+    def test_isolated_config_rejects_external_layers_and_custom_roles(self):
+        client = ProtocolClient()
+        client._assert_isolated_config_layers(
+            {
+                "layers": [
+                    {"name": {"type": "sessionFlags"}},
+                    {"name": {"type": "system"}},
+                ]
+            }
+        )
+        client._assert_no_custom_agent_config(
+            {"agents": {"max_threads": 3, "max_depth": 1}}
+        )
+
+        with self.assertRaisesRegex(SubscriptionGateError, "config layer"):
+            client._assert_isolated_config_layers(
+                {"layers": [{"name": {"type": "user"}}]}
+            )
+        with self.assertRaisesRegex(SubscriptionGateError, "explorer"):
+            client._assert_no_custom_agent_config(
+                {
+                    "agents": {
+                        "max_threads": 3,
+                        "explorer": {"config_file": "/tmp/unsafe.toml"},
+                    }
+                }
+            )
+
     def test_startup_disables_configured_mcp_plugins_and_shell_environment(self):
         with tempfile.TemporaryDirectory() as directory:
             codex_home = Path(directory)
@@ -274,6 +377,9 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertIn("plugins", command)
         self.assertIn("hooks", command)
         self.assertIn("browser_use", command)
+        self.assertIn("multi_agent", command)
+        self.assertNotIn(f"agents.max_threads={APP_SERVER_AGENT_THREAD_CAP}", command)
+        self.assertNotIn(f"agents.max_depth={APP_SERVER_AGENT_MAX_DEPTH}", command)
         self.assertIn('forced_login_method="chatgpt"', command)
         self.assertIn("notify=[]", command)
         self.assertIn("analytics.enabled=false", command)
@@ -356,14 +462,113 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(all(params["config"]["features"]["plugins"] is False for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["hooks"] is False for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["browser_use"] is False for params in thread_params))
+        self.assertFalse(thread_params[0]["config"]["features"]["multi_agent"])
+        self.assertFalse(thread_params[1]["config"]["features"]["multi_agent"])
+        self.assertTrue(
+            all(
+                params["config"]["agents"]["max_threads"]
+                == APP_SERVER_AGENT_THREAD_CAP
+                for params in thread_params
+            )
+        )
+        self.assertTrue(
+            all(
+                params["config"]["agents"]["max_depth"]
+                == APP_SERVER_AGENT_MAX_DEPTH
+                for params in thread_params
+            )
+        )
         self.assertTrue(all(params["config"]["web_search"] == "live" for params in thread_params))
         self.assertIn("外部状態は変更しない", thread_params[1]["developerInstructions"])
+        self.assertIn("subagentは使わない", thread_params[1]["developerInstructions"])
         turn_params = [params for method, params in client.calls if method == "turn/start"]
         self.assertEqual(turn_params[0]["sandboxPolicy"]["type"], "readOnly")
         self.assertEqual(turn_params[1]["sandboxPolicy"]["type"], "workspaceWrite")
         self.assertTrue(all(params["sandboxPolicy"]["networkAccess"] is False for params in turn_params))
         self.assertTrue(all(params["serviceTier"] is None for params in turn_params))
         self.assertTrue(all(params["effort"] == "high" for params in turn_params))
+
+    def test_read_only_research_enables_bounded_subagents_only_for_that_thread(self):
+        client = ProtocolClient()
+        with tempfile.TemporaryDirectory() as directory:
+            result = client.run_turn(
+                "research",
+                work_type="maintenance_research",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                cwd=Path(directory),
+            )
+
+        self.assertEqual(result.model, "gpt-5.5")
+        self.assertEqual(
+            result.subagent_thread_ids,
+            ("thread-1-child-1", "thread-1-child-2"),
+        )
+        self.assertEqual(result.subagent_models, ("gpt-5.5",))
+        self.assertEqual(result.subagent_reasoning_efforts, ("high",))
+        thread_params = next(
+            params for method, params in client.calls if method == "thread/start"
+        )
+        self.assertTrue(thread_params["config"]["features"]["multi_agent"])
+        self.assertEqual(
+            thread_params["config"]["agents"]["max_threads"],
+            APP_SERVER_AGENT_THREAD_CAP,
+        )
+        self.assertEqual(
+            thread_params["config"]["agents"]["max_depth"],
+            APP_SERVER_AGENT_MAX_DEPTH,
+        )
+        self.assertTrue(thread_params["ephemeral"])
+        self.assertIn(
+            f"最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagent",
+            thread_params["developerInstructions"],
+        )
+
+    def test_research_rejects_any_project_custom_agent_before_start(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory) / "project"
+            agents = project / ".codex" / "agents"
+            agents.mkdir(parents=True)
+            (agents / "custom.toml").write_text(
+                'name = "other"\ndescription = "override"\n'
+                'developer_instructions = "override"\n',
+                encoding="utf-8",
+            )
+            client = ProtocolClient()
+            with self.assertRaisesRegex(SubscriptionGateError, "custom agent"):
+                client.run_turn(
+                    "research",
+                    work_type="maintenance_research",
+                    sandbox="read-only",
+                    emit=lambda _line: None,
+                    cwd=project,
+                )
+
+        self.assertNotIn("thread/start", [method for method, _params in client.calls])
+
+    def test_research_rejects_more_than_two_or_wrong_model_subagents(self):
+        too_many = ProtocolClient()
+        too_many.research_child_count = MAINTENANCE_RESEARCH_WORKERS + 1
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(CodexAppServerError, "上限を超え"):
+                too_many.run_turn(
+                    "research",
+                    work_type="maintenance_research",
+                    sandbox="read-only",
+                    emit=lambda _line: None,
+                    cwd=Path(directory),
+                )
+
+            wrong_model = ProtocolClient()
+            wrong_model.research_child_model = "gpt-other"
+            with self.assertRaisesRegex(SubscriptionGateError, "指定外model"):
+                wrong_model.run_turn(
+                    "research",
+                    work_type="maintenance_research",
+                    sandbox="read-only",
+                    emit=lambda _line: None,
+                    cwd=Path(directory),
+                )
 
     def test_four_work_types_use_distinct_sessions_and_expected_sandboxes(self):
         client = ProtocolClient()

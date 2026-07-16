@@ -35,6 +35,9 @@ from tools.question_review_console.failed_delta import (
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
+from tools.question_review_console.codex_app_server import (
+    MAINTENANCE_RESEARCH_WORKERS,
+)
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
@@ -348,6 +351,42 @@ class QualificationRunError(RuntimeError):
     pass
 
 
+def _maintenance_research_prompt(prompt: str) -> str:
+    base_prompt = prompt.partition("\n## 画面用の問題別進捗\n")[0].rstrip()
+    return "\n".join(
+        [
+            "# read-only並列調査",
+            "",
+            "下の整備promptをこのthreadで実行・保存せず、親threadが後続の別sessionで使う判断案だけを作成する。",
+            f"対象問題を重複なく分け、最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagentで並列に確認する。",
+            "patch、progress.jsonl、result.jsonを含むfileは一切変更しない。",
+            "返却は問題IDと工程ごとの最終案に限定し、思考過程は含めない。",
+            "",
+            "# 参照する整備prompt",
+            "",
+            base_prompt,
+        ]
+    )
+
+
+def _maintenance_writer_prompt(prompt: str, research_summary: str) -> str:
+    if not research_summary.strip():
+        return prompt
+    return "\n".join(
+        [
+            "# read-only並列調査の統合結果",
+            "",
+            "以下は別sessionのread-only調査結果である。必ず現在の問題本文と正本で再確認し、ズレがあれば採用しない。",
+            "",
+            research_summary.strip(),
+            "",
+            "# 保存する整備prompt",
+            "",
+            prompt,
+        ]
+    )
+
+
 class QualificationRunStore:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
@@ -491,6 +530,20 @@ class QualificationRunStore:
             "stateHash": plan.get("stateHash"),
             "sandbox": plan.get("sandbox"),
             "provider": plan.get("provider"),
+            "parallelStrategy": plan.get("parallelStrategy"),
+            "parallelWorkerLimit": int(plan.get("parallelWorkerLimit") or 1),
+            "writeWorkerLimit": int(plan.get("writeWorkerLimit") or 1),
+            "executionPhase": "queued",
+            "researchStatus": None,
+            "researchThreadId": None,
+            "researchSessionId": None,
+            "researchTurnId": None,
+            "researchModel": None,
+            "researchServiceTier": None,
+            "researchReasoningEffort": None,
+            "researchSubagentCount": 0,
+            "researchSubagentThreadIds": [],
+            "researchError": None,
             "model": None,
             "serviceTier": None,
             "reasoningEffort": None,
@@ -1454,6 +1507,13 @@ class QualificationRunCoordinator:
                 "workType": "maintenance",
                 "sandbox": "workspace-write",
                 "provider": self.app_server.provider,
+                "parallelStrategy": "read_only_research",
+                "parallelWorkerLimit": (
+                    MAINTENANCE_RESEARCH_WORKERS
+                    if int(plan.get("targetCount") or 0) > 1
+                    else 1
+                ),
+                "writeWorkerLimit": 1,
             }
             run = self.store.create(
                 plan,
@@ -1809,6 +1869,13 @@ class QualificationRunCoordinator:
             "stateHash": question.get("stateHash"),
             "sandbox": "workspace-write",
             "provider": self.app_server.provider,
+            "parallelStrategy": "read_only_research",
+            "parallelWorkerLimit": (
+                MAINTENANCE_RESEARCH_WORKERS
+                if len(target_record_alias_groups) > 1
+                else 1
+            ),
+            "writeWorkerLimit": 1,
             "canonicalDocs": canonical_docs,
             "catalogHash": catalog["catalogHash"],
             "policyVersions": {
@@ -2231,6 +2298,13 @@ class QualificationRunCoordinator:
             startedAt=_now(),
         )
         try:
+            current_run = self.store.get(qualification, run_id)
+            target_count = int(current_run.get("targetCount") or 0)
+            if target_count > 1:
+                emit(
+                    f"問題の読み取りと根拠確認は最大{MAINTENANCE_RESEARCH_WORKERS}並列、"
+                    "patch・進捗・receiptの保存は1担当で実行します。"
+                )
             self._check_source_immutability(emit)
             writable_roots, created_writable_dirs = self._maintenance_writable_roots(
                 qualification, run_id
@@ -2241,6 +2315,96 @@ class QualificationRunCoordinator:
             emit(f"再起動回収用baselineを保存: {baseline_path.relative_to(self.repo_root)}")
             before_files = self._repository_file_fingerprints(
                 qualification, run_id
+            )
+
+            research_summary = ""
+            if target_count > 1:
+                self.store.update(
+                    qualification,
+                    run_id,
+                    executionPhase="parallel_research",
+                    researchStatus="running",
+                )
+
+                def on_research_thread_started(
+                    thread_id: str, session_id: str
+                ) -> None:
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        researchThreadId=thread_id,
+                        researchSessionId=session_id,
+                    )
+
+                def on_research_turn_started(thread_id: str, turn_id: str) -> None:
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        researchThreadId=thread_id,
+                        researchTurnId=turn_id,
+                    )
+
+                try:
+                    emit("read-only並列調査を開始します。")
+                    with tempfile.TemporaryDirectory(
+                        prefix="question-maintenance-research-"
+                    ) as research_directory:
+                        research_result = self.app_server.run_turn(
+                            _maintenance_research_prompt(prompt),
+                            work_type="maintenance_research",
+                            sandbox="read-only",
+                            emit=emit,
+                            on_thread_started=on_research_thread_started,
+                            on_turn_started=on_research_turn_started,
+                            cwd=Path(research_directory).resolve(),
+                        )
+                    if research_result.changed_files:
+                        raise QualificationRunError(
+                            "read-only並列調査でfile変更通知を検出しました。"
+                        )
+                    research_summary = research_result.final_message
+                    research_subagent_count = len(
+                        research_result.subagent_thread_ids
+                    )
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        researchStatus=(
+                            "succeeded"
+                            if research_subagent_count > 1
+                            else "completed_without_parallel"
+                        ),
+                        researchModel=research_result.model,
+                        researchServiceTier=research_result.service_tier,
+                        researchReasoningEffort=research_result.reasoning_effort,
+                        researchSubagentCount=research_subagent_count,
+                        researchSubagentThreadIds=list(
+                            research_result.subagent_thread_ids
+                        ),
+                    )
+                    emit(
+                        "read-only並列調査を完了し、"
+                        f"実績{research_subagent_count}件の調査担当から"
+                        "保存担当へ引き継ぎました。"
+                    )
+                except QualificationRunError:
+                    raise
+                except Exception as exc:  # noqa: BLE001
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        researchStatus="failed",
+                        researchError=str(exc),
+                    )
+                    emit(
+                        "read-only並列調査を完了できなかったため、"
+                        f"1担当の整備へ切り替えます: {exc}"
+                    )
+
+            self.store.update(
+                qualification,
+                run_id,
+                executionPhase="writing",
             )
 
             def on_thread_started(thread_id: str, session_id: str) -> None:
@@ -2268,7 +2432,7 @@ class QualificationRunCoordinator:
                 ) as directory:
                     turn_workspace = Path(directory).resolve()
                     result = self.app_server.run_turn(
-                        prompt,
+                        _maintenance_writer_prompt(prompt, research_summary),
                         work_type=work_type,
                         sandbox="workspace-write",
                         emit=emit,

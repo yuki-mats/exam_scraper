@@ -5,7 +5,9 @@ import json
 import math
 import os
 import re
+import shutil
 import subprocess
+import tempfile
 import threading
 import time
 import tomllib
@@ -63,7 +65,6 @@ DISABLED_EXTERNAL_FEATURES = (
     "image_generation",
     "in_app_browser",
     "memories",
-    "multi_agent",
     "plugin_sharing",
     "plugins",
     "remote_plugin",
@@ -73,6 +74,15 @@ DISABLED_EXTERNAL_FEATURES = (
 
 QUESTION_MAINTENANCE_MODEL = "gpt-5.5"
 TURN_REASONING_EFFORT = "high"
+MAINTENANCE_RESEARCH_WORKERS = 2
+APP_SERVER_AGENT_THREAD_CAP = MAINTENANCE_RESEARCH_WORKERS + 1
+APP_SERVER_AGENT_MAX_DEPTH = 1
+GLOBAL_AGENT_CONFIG_KEYS = {
+    "interrupt_message",
+    "job_max_runtime_seconds",
+    "max_depth",
+    "max_threads",
+}
 
 
 class CodexAppServerError(RuntimeError):
@@ -93,6 +103,9 @@ class AppServerTurnResult:
     service_tier: str | None
     reasoning_effort: str = TURN_REASONING_EFFORT
     changed_files: tuple[str, ...] = ()
+    subagent_thread_ids: tuple[str, ...] = ()
+    subagent_models: tuple[str, ...] = ()
+    subagent_reasoning_efforts: tuple[str, ...] = ()
 
 
 @dataclass
@@ -110,6 +123,9 @@ class _TurnState:
     event: threading.Event = field(default_factory=threading.Event)
     messages: list[tuple[str | None, str]] = field(default_factory=list)
     changed_files: set[str] = field(default_factory=set)
+    subagent_thread_ids: set[str] = field(default_factory=set)
+    subagent_models: set[str] = field(default_factory=set)
+    subagent_reasoning_efforts: set[str] = field(default_factory=set)
     status: str = "inProgress"
     error: Any = None
 
@@ -234,6 +250,11 @@ class CodexAppServerClient:
         self._last_status_at = 0.0
         self._effective_model = ""
         self._configured_reasoning_effort = ""
+        self._source_codex_home = Path(
+            os.environ.get("CODEX_HOME") or Path.home() / ".codex"
+        ).resolve()
+        self._runtime_home_context: tempfile.TemporaryDirectory[str] | None = None
+        self._runtime_home: Path | None = None
 
     @property
     def configured(self) -> bool:
@@ -322,24 +343,44 @@ class CodexAppServerClient:
         ):
             raise ValueError("writable rootはrepository内に限定してください。")
         approval_policy = "never"
+        evaluation_work = work_type in {"evaluation", "reevaluation"}
+        research_work = work_type == "maintenance_research"
+        read_only_work = evaluation_work or research_work
         config = {
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
                 "fast_mode": False,
+                # 並列subagentはread-only調査threadだけに限定する。
+                "multi_agent": research_work,
+            },
+            "agents": {
+                "max_threads": APP_SERVER_AGENT_THREAD_CAP,
+                "max_depth": APP_SERVER_AGENT_MAX_DEPTH,
             },
             "service_tier": None,
             "web_search": "live",
         }
-        evaluation_work = work_type in {"evaluation", "reevaluation"}
-        developer_instructions = (
-            "このthreadは問題品質の客観評価専用である。過去thread、memory、整備会話を参照せず、"
-            "入力された現在の1問だけを評価する。file又は外部状態を変更しない。"
-            if evaluation_work
-            else "このthreadは問題整備専用である。00_sourceと既存IDを変更せず、責務に合うpatchだけを変更する。"
-            "merge、convert、upload-ready生成は別工程に残す。git add、commit、pushは行わず、"
-            "Firestore、Storage、GitHub等の外部状態は変更しない。"
-        )
+        if evaluation_work:
+            developer_instructions = (
+                "このthreadは問題品質の客観評価専用である。過去thread、memory、整備会話を参照せず、"
+                "入力された現在の1問だけを評価する。subagentは使わない。file又は外部状態を変更しない。"
+            )
+        elif research_work:
+            developer_instructions = (
+                "このthreadは問題整備のread-only事前調査専用である。file又は外部状態を変更しない。"
+                f"対象問題を重複なく分け、最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagentで並列に読み取り、"
+                "根拠と問題IDごとの最終判断案を親threadで統合する。思考過程は返さない。"
+            )
+        else:
+            developer_instructions = (
+                "このthreadは問題整備の保存専用である。subagentは使わない。"
+                "00_sourceと既存IDを変更せず、責務に合うpatchだけを変更する。"
+                "merge、convert、upload-ready生成は別工程に残す。git add、commit、pushは行わず、"
+                "Firestore、Storage、GitHub等の外部状態は変更しない。"
+            )
         self._assert_no_active_hooks(turn_cwd)
+        if research_work:
+            self._assert_no_custom_agents(turn_cwd)
         thread_response = self._request(
             "thread/start",
             {
@@ -352,7 +393,7 @@ class CodexAppServerClient:
                 "serviceTier": None,
                 "config": config,
                 "developerInstructions": developer_instructions,
-                "ephemeral": evaluation_work,
+                "ephemeral": read_only_work,
                 "threadSource": f"exam_scraper_{work_type}",
             },
         )
@@ -456,6 +497,32 @@ class CodexAppServerClient:
         )
         if not final_message:
             raise CodexAppServerError("Codex App Serverが最終応答を返しませんでした。")
+        if research_work:
+            if len(state.subagent_thread_ids) > MAINTENANCE_RESEARCH_WORKERS:
+                raise CodexAppServerError(
+                    "read-only調査subagentが上限を超えました。"
+                )
+            if state.subagent_thread_ids and (
+                not state.subagent_models
+                or not state.subagent_reasoning_efforts
+            ):
+                raise SubscriptionGateError(
+                    "read-only調査subagentのmodel又は推論強度を確認できません。"
+                )
+            unexpected_models = state.subagent_models - {QUESTION_MAINTENANCE_MODEL}
+            if unexpected_models:
+                raise SubscriptionGateError(
+                    "read-only調査subagentで指定外modelを検出しました: "
+                    + ", ".join(sorted(unexpected_models))
+                )
+            unexpected_efforts = state.subagent_reasoning_efforts - {
+                TURN_REASONING_EFFORT
+            }
+            if unexpected_efforts:
+                raise SubscriptionGateError(
+                    "read-only調査subagentで指定外の推論強度を検出しました: "
+                    + ", ".join(sorted(unexpected_efforts))
+                )
         return AppServerTurnResult(
             thread_id=thread_id,
             session_id=session_id,
@@ -465,6 +532,11 @@ class CodexAppServerClient:
             service_tier=service_tier if isinstance(service_tier, str) else None,
             reasoning_effort=TURN_REASONING_EFFORT,
             changed_files=tuple(sorted(state.changed_files)),
+            subagent_thread_ids=tuple(sorted(state.subagent_thread_ids)),
+            subagent_models=tuple(sorted(state.subagent_models)),
+            subagent_reasoning_efforts=tuple(
+                sorted(state.subagent_reasoning_efforts)
+            ),
         )
 
     def close(self) -> None:
@@ -472,10 +544,39 @@ class CodexAppServerClient:
             self._closed = True
             process = self._process
             stream = self._stdin
+            runtime_home_context = self._runtime_home_context
             self._process = None
             self._stdin = None
+            self._runtime_home_context = None
+            self._runtime_home = None
         self._stop_process(process, stream)
         self._fail_all("Codex App Serverを停止しました。")
+        if runtime_home_context is not None:
+            runtime_home_context.cleanup()
+
+    def _prepare_isolated_codex_home(self) -> Path:
+        if self._runtime_home is not None:
+            return self._runtime_home
+        source_auth = self._source_codex_home / "auth.json"
+        if not source_auth.is_file():
+            raise SubscriptionGateError(
+                "ChatGPT認証情報を隔離実行環境へ準備できません。"
+            )
+        context = tempfile.TemporaryDirectory(prefix="question-review-codex-home-")
+        runtime_home = Path(context.name).resolve()
+        try:
+            runtime_home.chmod(0o700)
+            runtime_auth = runtime_home / "auth.json"
+            shutil.copyfile(source_auth, runtime_auth)
+            runtime_auth.chmod(0o600)
+        except OSError as exc:
+            context.cleanup()
+            raise SubscriptionGateError(
+                "ChatGPT認証情報を隔離実行環境へ準備できません。"
+            ) from exc
+        self._runtime_home_context = context
+        self._runtime_home = runtime_home
+        return runtime_home
 
     def _ensure_started(self) -> None:
         if self.binary_path is None:
@@ -496,10 +597,12 @@ class CodexAppServerClient:
             env = dict(os.environ)
             for key in API_CREDENTIAL_ENV_VARS:
                 env.pop(key, None)
+            runtime_home = self._prepare_isolated_codex_home()
+            env["CODEX_HOME"] = str(runtime_home)
             try:
                 process = subprocess.Popen(
                     self._app_server_command(),
-                    cwd=self.repo_root,
+                    cwd=runtime_home,
                     stdin=subprocess.PIPE,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
@@ -579,6 +682,12 @@ class CodexAppServerClient:
             'otel.trace_exporter="none"',
             "-c",
             "otel.log_user_prompt=false",
+            "-c",
+            f'model="{QUESTION_MAINTENANCE_MODEL}"',
+            "-c",
+            f'model_reasoning_effort="{TURN_REASONING_EFFORT}"',
+            "--enable",
+            "multi_agent",
         ]
         for feature in DISABLED_EXTERNAL_FEATURES:
             command.extend(["--disable", feature])
@@ -596,8 +705,7 @@ class CodexAppServerClient:
         return command
 
     def _configured_mcp_names(self) -> list[str]:
-        codex_home = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex")
-        candidates = [codex_home / "config.toml"]
+        candidates = [self._source_codex_home / "config.toml"]
         candidates.extend(
             parent / ".codex" / "config.toml"
             for parent in (self.repo_root, *self.repo_root.parents)
@@ -620,15 +728,86 @@ class CodexAppServerClient:
             names.update(str(name) for name in servers)
         return sorted(names)
 
+    def _assert_no_custom_agents(self, cwd: Path) -> None:
+        directories = []
+        if self._runtime_home is not None:
+            directories.append(self._runtime_home / "agents")
+        directories.extend(
+            parent / ".codex" / "agents"
+            for parent in (cwd.resolve(), *cwd.resolve().parents)
+        )
+        for directory in dict.fromkeys(path.resolve() for path in directories):
+            if not directory.is_dir():
+                continue
+            for path in directory.glob("*.toml"):
+                try:
+                    value = tomllib.loads(path.read_text(encoding="utf-8"))
+                except (OSError, UnicodeDecodeError, tomllib.TOMLDecodeError) as exc:
+                    raise SubscriptionGateError(
+                        f"custom agent設定を安全に確認できません: {path}"
+                    ) from exc
+                if not isinstance(value, Mapping):
+                    raise SubscriptionGateError(
+                        f"custom agent設定を安全に確認できません: {path}"
+                    )
+                raise SubscriptionGateError(
+                    "custom agentがあるため並列調査を開始しません: "
+                    f"{path}"
+                )
+
+    def _assert_isolated_config_layers(self, response: Mapping[str, Any]) -> None:
+        layers = response.get("layers")
+        if not isinstance(layers, list):
+            raise SubscriptionGateError("Codex config layerを確認できません。")
+        for layer in layers:
+            if not isinstance(layer, Mapping):
+                raise SubscriptionGateError("Codex config layerを確認できません。")
+            name = layer.get("name")
+            layer_type = name.get("type") if isinstance(name, Mapping) else None
+            isolated_user_file = (
+                self._runtime_home / "config.toml"
+                if self._runtime_home is not None
+                else None
+            )
+            layer_file = name.get("file") if isinstance(name, Mapping) else None
+            isolated_user_layer = (
+                layer_type == "user"
+                and isolated_user_file is not None
+                and isinstance(layer_file, str)
+                and Path(layer_file).resolve() == isolated_user_file.resolve()
+            )
+            if layer_type not in {"sessionFlags", "system"} and not isolated_user_layer:
+                raise SubscriptionGateError(
+                    "隔離外のCodex config layerがあるため実行しません。"
+                )
+
+    @staticmethod
+    def _assert_no_custom_agent_config(config: Mapping[str, Any]) -> None:
+        agents = config.get("agents")
+        if agents is None:
+            return
+        agents = _as_mapping(agents, "agent設定")
+        custom_roles = set(str(key) for key in agents) - GLOBAL_AGENT_CONFIG_KEYS
+        if custom_roles:
+            raise SubscriptionGateError(
+                "custom agent roleがあるため並列調査を開始しません: "
+                + ", ".join(sorted(custom_roles))
+            )
+
     def _assert_official_chatgpt_endpoint(self) -> None:
         response = _as_mapping(
             self._request(
                 "config/read",
-                {"cwd": str(self.repo_root), "includeLayers": True},
+                {
+                    "cwd": str(self._runtime_home or self.repo_root),
+                    "includeLayers": True,
+                },
             ),
             "Codex config",
         )
+        self._assert_isolated_config_layers(response)
         config = _as_mapping(response.get("config"), "Codex effective config")
+        self._assert_no_custom_agent_config(config)
         for key in ("openai_base_url", "chatgpt_base_url"):
             if config.get(key) is not None:
                 raise SubscriptionGateError(
@@ -661,6 +840,8 @@ class CodexAppServerClient:
         features = _as_mapping(config.get("features"), "Codex feature設定")
         if any(features.get(name) is not False for name in DISABLED_EXTERNAL_FEATURES):
             raise SubscriptionGateError("外部作用機能の無効化を確認できません。")
+        if features.get("multi_agent") is not True:
+            raise SubscriptionGateError("整備判断の並列機能を確認できません。")
         shell_environment = _as_mapping(
             config.get("shell_environment_policy"),
             "shell environment設定",
@@ -914,6 +1095,56 @@ class CodexAppServerClient:
         if method in {"item/completed", "turn/completed", "error"}:
             self._handle_turn_notification(message)
 
+    @staticmethod
+    def _record_turn_item(state: _TurnState, item: Mapping[str, Any]) -> None:
+        item_type = str(item.get("type") or "")
+        if item_type == "agentMessage":
+            message_text = str(item.get("text") or "")
+            if message_text:
+                phase = item.get("phase")
+                value = (
+                    str(phase) if isinstance(phase, str) else None,
+                    message_text,
+                )
+                if value not in state.messages:
+                    state.messages.append(value)
+            return
+        if item_type == "commandExecution":
+            command = " ".join(str(item.get("command") or "").split())[:240]
+            status = str(item.get("status") or "")
+            state.emit(f"command {status}: {command}")
+            return
+        if item_type == "fileChange":
+            changes = item.get("changes")
+            count = len(changes) if isinstance(changes, list) else 0
+            if isinstance(changes, list):
+                for change in changes:
+                    if isinstance(change, Mapping):
+                        path = str(change.get("path") or "").strip()
+                        if path:
+                            state.changed_files.add(path)
+            state.emit(f"file change: {count}件")
+            return
+        if item_type != "collabAgentToolCall" or item.get("tool") != "spawnAgent":
+            return
+        receivers = {
+            str(value)
+            for value in item.get("receiverThreadIds") or []
+            if str(value)
+        }
+        added = receivers - state.subagent_thread_ids
+        state.subagent_thread_ids.update(receivers)
+        model = str(item.get("model") or "").strip()
+        if model:
+            state.subagent_models.add(model)
+        effort = str(item.get("reasoningEffort") or "").strip()
+        if effort:
+            state.subagent_reasoning_efforts.add(effort)
+        if added:
+            state.emit(
+                f"read-only調査担当を{len(state.subagent_thread_ids)}件開始しました。"
+            )
+
     def _handle_turn_notification(self, message: dict[str, Any]) -> None:
         method = str(message.get("method") or "")
         params = message.get("params")
@@ -937,28 +1168,7 @@ class CodexAppServerClient:
         if method == "item/completed":
             item = params.get("item")
             if isinstance(item, Mapping):
-                item_type = str(item.get("type") or "")
-                if item_type == "agentMessage":
-                    text = str(item.get("text") or "")
-                    if text:
-                        phase = item.get("phase")
-                        state.messages.append(
-                            (str(phase) if isinstance(phase, str) else None, text)
-                        )
-                elif item_type == "commandExecution":
-                    command = " ".join(str(item.get("command") or "").split())[:240]
-                    status = str(item.get("status") or "")
-                    state.emit(f"command {status}: {command}")
-                elif item_type == "fileChange":
-                    changes = item.get("changes")
-                    count = len(changes) if isinstance(changes, list) else 0
-                    if isinstance(changes, list):
-                        for change in changes:
-                            if isinstance(change, Mapping):
-                                path = str(change.get("path") or "").strip()
-                                if path:
-                                    state.changed_files.add(path)
-                    state.emit(f"file change: {count}件")
+                self._record_turn_item(state, item)
             return
         if method == "error":
             state.error = params.get("error")
@@ -974,12 +1184,8 @@ class CodexAppServerClient:
                 items = turn.get("items")
                 if isinstance(items, list):
                     for item in items:
-                        if isinstance(item, Mapping) and item.get("type") == "agentMessage":
-                            text = str(item.get("text") or "")
-                            phase = item.get("phase")
-                            value = (str(phase) if isinstance(phase, str) else None, text)
-                            if text and value not in state.messages:
-                                state.messages.append(value)
+                        if isinstance(item, Mapping):
+                            self._record_turn_item(state, item)
             else:
                 state.status = "failed"
             state.event.set()

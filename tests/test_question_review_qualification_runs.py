@@ -80,11 +80,31 @@ class SuccessfulAppServer:
         self.changed_files = list(changed_files)
         self.temporary_helper = temporary_helper
         self.kwargs = {}
+        self.calls = []
 
     def assert_subscription_access(self, *, force=True):
         return {"allowed": True, "planType": "pro"}
 
     def run_turn(self, prompt, **kwargs):
+        self.calls.append((prompt, kwargs))
+        if kwargs["work_type"] == "maintenance_research":
+            kwargs["on_thread_started"](
+                "thread-research-1", "session-research-1"
+            )
+            kwargs["on_turn_started"](
+                "thread-research-1", "turn-research-1"
+            )
+            return AppServerTurnResult(
+                thread_id="thread-research-1",
+                session_id="session-research-1",
+                turn_id="turn-research-1",
+                final_message="問題IDごとの調査案",
+                model="gpt-research-test",
+                service_tier=None,
+                subagent_thread_ids=("subagent-1", "subagent-2"),
+                subagent_models=("gpt-5.5",),
+                subagent_reasoning_efforts=("high",),
+            )
         self.kwargs = kwargs
         kwargs["on_thread_started"](
             "thread-maintenance-1", "session-maintenance-1"
@@ -628,6 +648,8 @@ class QualificationRunTests(unittest.TestCase):
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
         self.assertEqual(run["policyVersions"], {"explanation": "2.0"})
+        self.assertEqual(run["parallelWorkerLimit"], 1)
+        self.assertEqual(run["writeWorkerLimit"], 1)
 
     def test_qualification_law_audit_preserves_trusted_sources_and_record_scope(self):
         class FakeAppServer:
@@ -685,6 +707,7 @@ class QualificationRunTests(unittest.TestCase):
 
         self.assertEqual(run["sourceFiles"], source_files)
         self.assertEqual(run["targetRecordAliasGroups"], [["q1"], ["q2"]])
+        self.assertEqual(run["parallelWorkerLimit"], 2)
         self.assertEqual(run["targetRecordAliases"], ["q1", "q2"])
         self.assertEqual(run["targetCount"], 2)
         self.assertEqual(run["policyVersions"], {"law_audit": "1.0"})
@@ -1947,6 +1970,30 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["model"], "gpt-test")
         self.assertIsNone(run["serviceTier"])
         self.assertEqual(run["reasoningEffort"], "high")
+        self.assertEqual(run["parallelStrategy"], "read_only_research")
+        self.assertEqual(run["parallelWorkerLimit"], 2)
+        self.assertEqual(run["writeWorkerLimit"], 1)
+        self.assertEqual(run["researchStatus"], "succeeded")
+        self.assertEqual(run["researchThreadId"], "thread-research-1")
+        self.assertEqual(run["researchSessionId"], "session-research-1")
+        self.assertEqual(run["researchTurnId"], "turn-research-1")
+        self.assertEqual(run["researchModel"], "gpt-research-test")
+        self.assertEqual(run["researchSubagentCount"], 2)
+        self.assertEqual(
+            run["researchSubagentThreadIds"], ["subagent-1", "subagent-2"]
+        )
+        self.assertEqual(len(app_server.calls), 2)
+        research_prompt, research_kwargs = app_server.calls[0]
+        writer_prompt, writer_kwargs = app_server.calls[1]
+        self.assertEqual(research_kwargs["work_type"], "maintenance_research")
+        self.assertEqual(research_kwargs["sandbox"], "read-only")
+        self.assertNotIn("writable_roots", research_kwargs)
+        self.assertIn("read-only並列調査", research_prompt)
+        self.assertNotIn("画面用の問題別進捗", research_prompt)
+        self.assertNotIn("完了時に検証結果を次へJSONで保存", research_prompt)
+        self.assertEqual(writer_kwargs["work_type"], "maintenance")
+        self.assertEqual(writer_kwargs["sandbox"], "workspace-write")
+        self.assertIn("問題IDごとの調査案", writer_prompt)
         self.assertEqual(app_server.kwargs["work_type"], "maintenance")
         self.assertEqual(synchronizer.calls, [("sample", "2026", False)])
         self.assertEqual(run["artifactSync"]["status"], "succeeded")

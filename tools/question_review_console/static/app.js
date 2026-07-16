@@ -1522,7 +1522,32 @@ function renderQualificationActiveRun() {
     : view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
   const model = run.model || state.codexStatus?.model || "自動選択";
   const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
-  $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}`;
+  const parallelWorkers = Number(run.parallelWorkerLimit || 0);
+  const actualResearchWorkers = Number(run.researchSubagentCount || 0);
+  const researchStatus = String(run.researchStatus || "");
+  let parallelLabel = "";
+  if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
+    parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
+  } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
+    parallelLabel = " ・ 並列調査失敗・単独保存中";
+  } else if (view.active && run.executionPhase === "writing" && actualResearchWorkers > 1) {
+    parallelLabel = ` ・ 判断${actualResearchWorkers}並列完了・保存中（1件ずつ）`;
+  } else if (view.active && run.executionPhase === "writing" && actualResearchWorkers > 0) {
+    parallelLabel = ` ・ 判断調査${actualResearchWorkers}担当完了・保存中（1件ずつ）`;
+  } else if (view.active && run.executionPhase === "writing") {
+    parallelLabel = " ・ 保存中（1件ずつ）";
+  } else if (researchStatus === "failed") {
+    parallelLabel = " ・ 並列調査失敗・単独処理";
+  } else if (actualResearchWorkers > 1) {
+    parallelLabel = ` ・ 判断${actualResearchWorkers}並列完了（保存は1件ずつ）`;
+  } else if (actualResearchWorkers > 0) {
+    parallelLabel = ` ・ 判断調査${actualResearchWorkers}担当完了（保存は1件ずつ）`;
+  } else if (researchStatus === "completed_without_parallel") {
+    parallelLabel = " ・ 並列調査実績0・単独処理";
+  } else if (parallelWorkers > 1) {
+    parallelLabel = ` ・ 判断最大${parallelWorkers}並列（保存は1件ずつ）`;
+  }
+  $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}${parallelLabel}`;
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "公開前の内容を確認";
