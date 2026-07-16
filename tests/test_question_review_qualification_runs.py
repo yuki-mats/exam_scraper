@@ -886,6 +886,71 @@ class QualificationRunTests(unittest.TestCase):
             any("_lawRevision_needs_5_5_high_review" in path for path in run["allowedPatchFiles"])
         )
 
+    def test_current_question_law_hold_scopes_every_allowed_record_file(self):
+        class FakeAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def assert_subscription_access(self, *, force=True):
+                return {"allowed": True, "planType": "pro"}
+
+        class DeferredJobs:
+            def start(self, *, kind, key, worker):
+                self.worker = worker
+                return {"jobId": "job-deferred", "status": "queued"}
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=FakeAppServer(),
+            )
+            started = coordinator.start_review(
+                {
+                    "id": "question-1",
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "stateHash": "state-1",
+                    "originalQuestionId": "original-1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "paths": {
+                        "source": (
+                            "output/sample/questions_json/2026/"
+                            "00_source/question_2026_1.json"
+                        ),
+                        "patches": [],
+                    },
+                },
+                {
+                    "reviewId": "review-1",
+                    "prompt": "law hold review",
+                    "investigationScope": "current_question",
+                    "issueTypes": ["law_hold"],
+                    "fields": ["lawReferences", "lawRevisionFacts"],
+                },
+                work_type="maintenance",
+            )
+            run = coordinator.store.get(
+                "sample", started["run"]["runId"]
+            )
+
+        expected_record_files = {
+            path
+            for path in [*run["allowedPatchFiles"], *run["allowedWriteFiles"]]
+            if Path(path).suffix in {".json", ".jsonl"}
+        }
+        self.assertEqual(set(run["targetRecordScopes"]), expected_record_files)
+        self.assertTrue(
+            any(
+                "_lawRevision_needs_5_5_high_review" in path
+                for path in run["targetRecordScopes"]
+            )
+        )
+
     def test_question_review_contract_limits_fields_and_patch_files(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator = QualificationRunCoordinator(
@@ -2799,6 +2864,116 @@ class QualificationRunTests(unittest.TestCase):
         )
         self.assertEqual(recent["runs"][0]["runId"], run["runId"])
         self.assertTrue(all(not item.get("parentRunId") for item in recent["runs"]))
+
+    def test_flow_phase_recomputes_failed_delta_after_specializing_work_type(self):
+        class FakeAppServer:
+            provider = "Codex App Server"
+
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+                app_server=FakeAppServer(),
+            )
+            coordinator._plan = lambda *_args, **_kwargs: {
+                "targetCount": 1,
+                "targetGroupIds": ["2026"],
+                "workType": "maintenance",
+            }
+            coordinator._resolvable_for_plan = (
+                lambda _qualification, _group_ids, plan: (
+                    ["resolved-by-law-audit"]
+                    if plan.get("workType") == "maintenance_law_audit"
+                    else []
+                )
+            )
+
+            plan, _prompt = coordinator._flow_phase_plan_prompt(
+                {
+                    "qualification": "sample",
+                    "mode": "outdated",
+                    "scopeListGroupIds": [],
+                    "runId": "parent-run",
+                },
+                {
+                    "id": "law_audit",
+                    "index": 0,
+                    "stageIds": ["law_audit"],
+                },
+            )
+
+        self.assertEqual(plan["workType"], "maintenance_law_audit")
+        self.assertEqual(
+            plan["resolvableFailedDeltaPaths"],
+            ["resolved-by-law-audit"],
+        )
+
+    def test_flow_phase_promotes_to_group_refresh_for_failed_aggregate_delta(self):
+        class FakeAppServer:
+            provider = "Codex App Server"
+
+        class ScopedWorkflow(FakeWorkflow):
+            def prompt(self, qualification, stage_id, mode="remaining", **_scope):
+                return {
+                    "qualification": qualification,
+                    "stageId": stage_id,
+                    "mode": mode,
+                    "targetCount": 3,
+                    "prompt": f"prompt:{mode}",
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                ScopedWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+                app_server=FakeAppServer(),
+            )
+
+            def phase_plan(_qualification, _stage_id, mode, _resumed, **_scope):
+                return {
+                    "targetCount": 58 if mode == "group_refresh" else 34,
+                    "targetGroupIds": ["2026"],
+                    "workType": "maintenance",
+                    "mode": mode,
+                }
+
+            coordinator._plan = phase_plan
+            coordinator._resolvable_for_plan = (
+                lambda _qualification, _group_ids, plan: (
+                    ["failed-aggregate.json"]
+                    if plan.get("workType") == "maintenance_law_audit"
+                    and plan.get("targetCount") == 58
+                    else []
+                )
+            )
+
+            plan, prompt = coordinator._flow_phase_plan_prompt(
+                {
+                    "qualification": "sample",
+                    "mode": "outdated",
+                    "scopeListGroupIds": ["2026"],
+                    "runId": "parent-run",
+                },
+                {
+                    "id": "law_audit",
+                    "index": 0,
+                    "stageIds": ["law_audit"],
+                },
+            )
+
+        self.assertEqual(plan["mode"], "group_refresh")
+        self.assertEqual(plan["targetCount"], 58)
+        self.assertEqual(
+            plan["resolvableFailedDeltaPaths"],
+            ["failed-aggregate.json"],
+        )
+        self.assertEqual(prompt, "prompt:group_refresh")
 
     def test_top_maintenance_skips_current_phase_before_outdated_phase(self):
         with tempfile.TemporaryDirectory() as directory:

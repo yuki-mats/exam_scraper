@@ -1914,10 +1914,14 @@ class QualificationRunCoordinator:
                 if suffix
             } | ({"lawRevision"} if "03b" in selected_stages else set())
         target_record_scopes: dict[str, list[list[str]]] = {}
+        scoped_review = {
+            **review,
+            "investigationScope": "current_question",
+        }
         for source_path, groups in target_source_record_scopes.items():
             scoped_files = self._review_patch_files(
                 {"paths": {"source": source_path, "patches": []}},
-                {"investigationScope": "current_question"},
+                scoped_review,
                 set(allowed_patch_dirs),
                 review_flag_suffixes,
             )
@@ -2403,6 +2407,53 @@ class QualificationRunCoordinator:
             stage_ids=stage_ids,
             **scope,
         )
+
+        def specialize(candidate: dict[str, Any]) -> dict[str, Any]:
+            candidate.update(
+                {
+                    "parentRunId": str(parent["runId"]),
+                    "flowPhaseId": str(phase["id"]),
+                    "phaseIndex": int(phase["index"]),
+                    "workType": f"maintenance_{phase['id']}",
+                    "sandbox": "workspace-write",
+                    "provider": self.app_server.provider,
+                    "parallelStrategy": "read_only_research",
+                    "parallelWorkerLimit": (
+                        MAINTENANCE_RESEARCH_WORKERS
+                        if int(candidate.get("targetCount") or 0) > 1
+                        else 1
+                    ),
+                    "writeWorkerLimit": 1,
+                }
+            )
+            candidate["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
+                qualification,
+                list(candidate.get("targetGroupIds") or []),
+                candidate,
+            )
+            return candidate
+
+        plan = specialize(plan)
+        if scope.get("list_group_ids") and phase_mode != "group_refresh":
+            refresh_plan = specialize(
+                self._plan(
+                    qualification,
+                    stage_ids[0],
+                    "group_refresh",
+                    None,
+                    stage_ids=stage_ids,
+                    **scope,
+                )
+            )
+            current_resolvable = set(
+                plan.get("resolvableFailedDeltaPaths") or []
+            )
+            refresh_resolvable = set(
+                refresh_plan.get("resolvableFailedDeltaPaths") or []
+            )
+            if refresh_resolvable - current_resolvable:
+                plan = refresh_plan
+                phase_mode = "group_refresh"
         if not int(plan.get("targetCount") or 0):
             return plan, ""
         if len(stage_ids) > 1:
@@ -2419,23 +2470,6 @@ class QualificationRunCoordinator:
                 phase_mode,
                 **scope,
             )["prompt"]
-        plan.update(
-            {
-                "parentRunId": str(parent["runId"]),
-                "flowPhaseId": str(phase["id"]),
-                "phaseIndex": int(phase["index"]),
-                "workType": f"maintenance_{phase['id']}",
-                "sandbox": "workspace-write",
-                "provider": self.app_server.provider,
-                "parallelStrategy": "read_only_research",
-                "parallelWorkerLimit": (
-                    MAINTENANCE_RESEARCH_WORKERS
-                    if int(plan.get("targetCount") or 0) > 1
-                    else 1
-                ),
-                "writeWorkerLimit": 1,
-            }
-        )
         return plan, prompt
 
     def _update_flow_phase(
