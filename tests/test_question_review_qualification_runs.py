@@ -425,11 +425,22 @@ class QualificationRunTests(unittest.TestCase):
                 "runId": "run-question-type",
                 "qualification": "new-exam",
                 "targetGroupIds": ["2026"],
-                "policyVersions": {"question_type": policy["policyVersion"]},
-                "policyFingerprints": {
-                    "question_type": policy["policyFingerprint"]
+                "policyVersions": {
+                    "question_type": policy["policyVersion"],
+                    "question_intent": workflow.versioned_policies("new-exam")[
+                        "question_intent"
+                    ]["policyVersion"],
                 },
-                "policyTargets": {"question_type": ["new-exam-2026-q1"]},
+                "policyFingerprints": {
+                    "question_type": policy["policyFingerprint"],
+                    "question_intent": workflow.versioned_policies("new-exam")[
+                        "question_intent"
+                    ]["policyFingerprint"],
+                },
+                "policyTargets": {
+                    "question_type": ["new-exam-2026-q1"],
+                    "question_intent": [],
+                },
             }
 
             receipt = coordinator._record_work_versions(run)
@@ -443,6 +454,24 @@ class QualificationRunTests(unittest.TestCase):
         by_id = {stage["id"]: stage for stage in status["stages"]}
         self.assertEqual(by_id["question_type"]["status"], "current")
         self.assertEqual(by_id["question_intent"]["status"], "unrecorded")
+
+    def test_explanation_version_recording_rejects_old_legal_style(self):
+        with self.assertRaisesRegex(
+            QualificationRunError, "03 解説の日本語品質検証"
+        ):
+            QualificationRunCoordinator._validate_explanation_quality(
+                [
+                    {
+                        "originalQuestionId": "q1",
+                        "projected": {
+                            "explanationText": [
+                                "正しい。ガス事業法第2条第1項は、"
+                                "小売供給を定義している。"
+                            ]
+                        },
+                    }
+                ]
+            )
 
     def test_run_policy_drift_blocks_version_recording(self):
         with tempfile.TemporaryDirectory() as directory:

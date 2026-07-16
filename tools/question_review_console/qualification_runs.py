@@ -32,6 +32,9 @@ from tools.question_review_console.failed_delta import (
     resolvable_failed_delta_paths,
     unresolved_failed_delta_paths,
 )
+from tools.question_review_console.explanation_quality import (
+    explanation_style_issues,
+)
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
@@ -2524,16 +2527,19 @@ class QualificationRunCoordinator:
             target_values = {
                 str(value) for value in targets.get(stage_id) or [] if value
             }
+            if not target_values:
+                continue
             selected = [
                 question
                 for question in questions
-                if not target_values
-                or target_values & self._work_version_aliases(question)
+                if target_values & self._work_version_aliases(question)
             ]
-            if target_values and not selected:
+            if not selected:
                 raise QualificationRunError(
                     f"工程バージョンの対象問題を解決できません: {stage_id}"
                 )
+            if stage_id == "explanation":
+                self._validate_explanation_quality(selected)
             policy = {
                 **policies[stage_id],
                 "policyVersion": normalize_policy_version(raw_version),
@@ -2557,6 +2563,38 @@ class QualificationRunCoordinator:
             ),
             "stages": receipts,
         }
+
+    @staticmethod
+    def _validate_explanation_quality(
+        questions: list[Mapping[str, Any]],
+    ) -> None:
+        errors: list[str] = []
+        for question in questions:
+            projected = question.get("projected")
+            explanations = (
+                projected.get("explanationText")
+                if isinstance(projected, Mapping)
+                else None
+            )
+            label = str(
+                question.get("questionLabel")
+                or question.get("originalQuestionId")
+                or question.get("id")
+                or "対象問題"
+            )
+            if not isinstance(explanations, list) or not explanations:
+                errors.append(f"{label}: explanationTextを確認できません。")
+                continue
+            errors.extend(
+                f"{label} {issue}"
+                for issue in explanation_style_issues(explanations)
+            )
+        if errors:
+            raise QualificationRunError(
+                "03 解説の日本語品質検証に失敗しました。"
+                + " ".join(errors[:5])
+                + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
+            )
 
     @staticmethod
     def _work_version_aliases(question: Mapping[str, Any]) -> set[str]:

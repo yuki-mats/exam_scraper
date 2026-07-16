@@ -100,6 +100,8 @@ API key、usage-based plan、追加credit、判定不能な状態では開始し
 
 誤ったrunを成功扱いにした場合は、`invalidate-work-version-run`で対象run・工程だけを`v0.0`へ戻します。無効化前の記録は`history`へ残し、`work_version_invalidations/`のreceiptで理由と対象を追跡します。他工程の完了記録とpatchは変更しません。
 
+工程03は、構造検証に加えて解説文体をserver側でも検証します。法令名・条文を機械的に文頭の主語へ置く旧構文又は「点が誤り」で終える表現が残る場合、成功receiptがあっても工程版を完了記録へ進めません。
+
 - 整備と再整備の前後で`00_source`不変検証を行う。
 - Codex App Serverのfile変更通知は、run専用の一時directoryとrepositoryをserver側で1回だけ切り分ける。一時directory内の補助fileは実行終了時に削除して成果物に数えず、repository内だけを実差分とreceiptで照合し、どちらにも属さないpathは停止する。
 - repository全体の監視では、Google Driveの実体化によるctimeだけの変化は差分とせず、pathの出現・消失、mode・size・mtime、Git差分を監視する。

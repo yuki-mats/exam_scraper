@@ -18,6 +18,9 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.question_identity import review_question_id
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from tools.question_review_console.explanation_quality import (
+    explanation_style_issues,
+)
 
 
 REQUIRED_FIELDS = [
@@ -505,6 +508,8 @@ def compare_entries(
                     "index {}: explanationText length mismatch "
                     "(source={} patch={})".format(idx, len(choices), len(explanations))
                 )
+            for issue in explanation_style_issues(explanations):
+                errors.append(f"index {idx}: {issue}")
 
         suggested_questions = patch.get("suggestedQuestions")
         if not isinstance(suggested_questions, list) or any(
