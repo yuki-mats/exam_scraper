@@ -11,6 +11,10 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     CodexAppServerClient,
     MAINTENANCE_RESEARCH_WORKERS,
+    RESEARCH_AGENT_CONFIG,
+    RESEARCH_AGENT_CONFIG_FILENAME,
+    RESEARCH_AGENT_DESCRIPTION,
+    RESEARCH_AGENT_ROLE,
     SubscriptionGateError,
     validate_subscription_access,
 )
@@ -192,10 +196,16 @@ class ProtocolClient(CodexAppServerClient):
         self.research_child_count = 2
         self.research_child_model = "gpt-5.5"
         self.research_child_effort = "high"
+        self.research_agent_config_path = Path(
+            "/isolated/question-maintenance-explorer.toml"
+        )
 
     def assert_subscription_access(self, *, force=True):
         self.subscription_forces.append(force)
         return {"allowed": True, "planType": "pro"}
+
+    def _trusted_research_agent_config(self):
+        return self.research_agent_config_path
 
     def _request(self, method, params, *, timeout=None):
         self.calls.append((method, copy.deepcopy(params)))
@@ -354,6 +364,40 @@ class AppServerTurnTests(unittest.TestCase):
                 client.close()
                 self.assertFalse(runtime_home.exists())
 
+    def test_trusted_research_agent_config_is_private_exact_and_tamper_evident(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source_home = Path(directory) / "source"
+            source_home.mkdir()
+            (source_home / "auth.json").write_text(
+                '{"auth": "chatgpt"}', encoding="utf-8"
+            )
+            with patch.dict(os.environ, {"CODEX_HOME": str(source_home)}):
+                client = CodexAppServerClient(
+                    Path(directory), binary_path=Path("/bin/echo")
+                )
+                runtime_home = client._prepare_isolated_codex_home()
+                config_path = client._trusted_research_agent_config()
+
+                self.assertEqual(
+                    config_path,
+                    runtime_home / RESEARCH_AGENT_CONFIG_FILENAME,
+                )
+                self.assertEqual(
+                    config_path.read_text(encoding="utf-8"),
+                    RESEARCH_AGENT_CONFIG,
+                )
+                self.assertEqual(config_path.stat().st_mode & 0o777, 0o600)
+                self.assertFalse((runtime_home / "agents").exists())
+
+                config_path.chmod(0o644)
+                with self.assertRaisesRegex(SubscriptionGateError, "安全に確認"):
+                    client._trusted_research_agent_config()
+                config_path.chmod(0o600)
+                config_path.write_text("name = 'tampered'\n", encoding="utf-8")
+                with self.assertRaisesRegex(SubscriptionGateError, "安全に確認"):
+                    client._trusted_research_agent_config()
+                client.close()
+
     def test_isolated_config_rejects_external_layers_and_custom_roles(self):
         client = ProtocolClient()
         client._assert_isolated_config_layers(
@@ -504,6 +548,12 @@ class AppServerTurnTests(unittest.TestCase):
                 for params in thread_params
             )
         )
+        self.assertTrue(
+            all(
+                RESEARCH_AGENT_ROLE not in params["config"]["agents"]
+                for params in thread_params
+            )
+        )
         self.assertTrue(all(params["config"]["web_search"] == "live" for params in thread_params))
         self.assertIn("外部状態は変更しない", thread_params[1]["developerInstructions"])
         self.assertIn("subagentは使わない", thread_params[1]["developerInstructions"])
@@ -571,6 +621,13 @@ class AppServerTurnTests(unittest.TestCase):
             thread_params["config"]["agents"]["max_depth"],
             APP_SERVER_AGENT_MAX_DEPTH,
         )
+        self.assertEqual(
+            thread_params["config"]["agents"][RESEARCH_AGENT_ROLE],
+            {
+                "description": RESEARCH_AGENT_DESCRIPTION,
+                "config_file": str(client.research_agent_config_path),
+            },
+        )
         self.assertTrue(thread_params["ephemeral"])
         self.assertIn(
             f"最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagent",
@@ -599,7 +656,7 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertNotIn("thread/start", [method for method, _params in client.calls])
 
-    def test_research_rejects_more_than_two_or_wrong_model_subagents(self):
+    def test_research_rejects_more_than_two_wrong_model_or_wrong_effort_subagents(self):
         too_many = ProtocolClient()
         too_many.research_child_count = MAINTENANCE_RESEARCH_WORKERS + 1
         with tempfile.TemporaryDirectory() as directory:
@@ -616,6 +673,17 @@ class AppServerTurnTests(unittest.TestCase):
             wrong_model.research_child_model = "gpt-other"
             with self.assertRaisesRegex(SubscriptionGateError, "指定外model"):
                 wrong_model.run_turn(
+                    "research",
+                    work_type="maintenance_research",
+                    sandbox="read-only",
+                    emit=lambda _line: None,
+                    cwd=Path(directory),
+                )
+
+            wrong_effort = ProtocolClient()
+            wrong_effort.research_child_effort = "medium"
+            with self.assertRaisesRegex(SubscriptionGateError, "medium"):
+                wrong_effort.run_turn(
                     "research",
                     work_type="maintenance_research",
                     sandbox="read-only",

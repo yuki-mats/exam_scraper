@@ -6,6 +6,7 @@ import math
 import os
 import re
 import shutil
+import stat
 import subprocess
 import tempfile
 import threading
@@ -77,6 +78,24 @@ TURN_REASONING_EFFORT = "high"
 MAINTENANCE_RESEARCH_WORKERS = 2
 APP_SERVER_AGENT_THREAD_CAP = MAINTENANCE_RESEARCH_WORKERS + 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
+RESEARCH_AGENT_ROLE = "explorer"
+RESEARCH_AGENT_CONFIG_FILENAME = "question-maintenance-explorer.toml"
+RESEARCH_AGENT_DESCRIPTION = "問題整備のread-only事前調査担当"
+RESEARCH_AGENT_DEVELOPER_INSTRUCTIONS = (
+    "問題整備に必要な根拠と問題IDごとの判断案だけを調査する。"
+    "ファイル、Git、Firestoreその他の外部状態を変更しない。"
+    "割り当てられた対象だけを読み、結論と根拠を親threadへ簡潔に返す。"
+)
+RESEARCH_AGENT_CONFIG = f'''name = "{RESEARCH_AGENT_ROLE}"
+description = "{RESEARCH_AGENT_DESCRIPTION}"
+developer_instructions = "{RESEARCH_AGENT_DEVELOPER_INSTRUCTIONS}"
+model = "{QUESTION_MAINTENANCE_MODEL}"
+model_reasoning_effort = "{TURN_REASONING_EFFORT}"
+sandbox_mode = "read-only"
+
+[features]
+multi_agent = false
+'''
 GLOBAL_AGENT_CONFIG_KEYS = {
     "interrupt_message",
     "job_max_runtime_seconds",
@@ -383,6 +402,11 @@ class CodexAppServerClient:
         self._assert_no_active_hooks(turn_cwd)
         if research_work:
             self._assert_no_custom_agents(turn_cwd)
+            research_agent_config = self._trusted_research_agent_config()
+            config["agents"][RESEARCH_AGENT_ROLE] = {
+                "description": RESEARCH_AGENT_DESCRIPTION,
+                "config_file": str(research_agent_config),
+            }
         thread_response = self._request(
             "thread/start",
             {
@@ -608,6 +632,56 @@ class CodexAppServerClient:
         self._runtime_home_context = context
         self._runtime_home = runtime_home
         return runtime_home
+
+    def _trusted_research_agent_config(self) -> Path:
+        runtime_home = self._runtime_home
+        if runtime_home is None:
+            raise SubscriptionGateError(
+                "read-only調査agentの隔離設定を準備できません。"
+            )
+        path = runtime_home / RESEARCH_AGENT_CONFIG_FILENAME
+        try:
+            if path.is_symlink():
+                raise SubscriptionGateError(
+                    "read-only調査agentの隔離設定pathが不正です。"
+                )
+            if not path.exists():
+                path.write_text(RESEARCH_AGENT_CONFIG, encoding="utf-8")
+                path.chmod(0o600)
+            if (
+                path.is_symlink()
+                or not path.is_file()
+                or path.parent.resolve() != runtime_home.resolve()
+                or stat.S_IMODE(path.stat().st_mode) != 0o600
+            ):
+                raise SubscriptionGateError(
+                    "read-only調査agentの隔離設定を安全に確認できません。"
+                )
+            content = path.read_text(encoding="utf-8")
+            if content != RESEARCH_AGENT_CONFIG:
+                raise SubscriptionGateError(
+                    "read-only調査agentの隔離設定を安全に確認できません。"
+                )
+            parsed = tomllib.loads(content)
+        except SubscriptionGateError:
+            raise
+        except (OSError, UnicodeDecodeError, tomllib.TOMLDecodeError) as exc:
+            raise SubscriptionGateError(
+                "read-only調査agentの隔離設定を安全に確認できません。"
+            ) from exc
+        if parsed != {
+            "name": RESEARCH_AGENT_ROLE,
+            "description": RESEARCH_AGENT_DESCRIPTION,
+            "developer_instructions": RESEARCH_AGENT_DEVELOPER_INSTRUCTIONS,
+            "model": QUESTION_MAINTENANCE_MODEL,
+            "model_reasoning_effort": TURN_REASONING_EFFORT,
+            "sandbox_mode": "read-only",
+            "features": {"multi_agent": False},
+        }:
+            raise SubscriptionGateError(
+                "read-only調査agentの許可fieldを確認できません。"
+            )
+        return path
 
     def _ensure_started(self) -> None:
         if self.binary_path is None:
