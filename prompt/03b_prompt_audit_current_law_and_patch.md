@@ -30,6 +30,15 @@
 - `referenceDate` は条文基準日、`auditedAt` は監査判断を確定した日時として分ける。
 - `auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査 run ID を残し、年次監査や方式更新時に再現可能にする。`auditMethodVersion`は問題内の監査証跡であり、03bの作業版は問題整備システムが別に記録する。
 
+## 法令関連性を先に確定する
+
+`hold` は、問題の正誤が法令の定義・義務・数値基準に依存すると確認でき、法改正差分又は適用条文だけを確定しきれない場合に限る。法令根拠が見つからないこと自体を理由に、技術問題を `isLawRelated=true` 又は `hold` へ変更してはいけない。
+
+- 問題文・選択肢が法令名、条文上の定義・義務・数値基準、又は「省令で規定されているもの」のような条文基準を直接問う場合は、法令関連性を確認する。
+- 技術分野が法令でも規制され得るというだけでは法令関連ではない。技術知識だけで各選択肢の正誤を判断できる場合は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"` とする。
+- 既存の `18_law_context_prepared/` が `isLawRelated=false` の問題を `true` へ変更する場合は、少なくとも一つの選択肢の正誤を直接決める法令名・`lawId`・条番号を確認し、その接続を sidecar の `sourceSummary` に記録する。これを確認できなければ `false` を維持する。
+- 資格別の `*law_reference*.md` に「作らないケース」がある場合は、その境界を優先する。`lawReferences` を作らない技術問題を、根拠不足の法令問題として `hold` にしてはいけない。
+
 ## 入力の参照順
 
 1. 対象資格の `prompt/qualification_docs/<qualification>/`、特に `*law_reference*.md`

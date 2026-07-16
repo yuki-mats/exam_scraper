@@ -45,6 +45,32 @@ class DocumentationStructureTests(unittest.TestCase):
         for relative in REMOVED_DUPLICATES:
             self.assertFalse((ROOT / relative).exists(), relative)
 
+    def test_law_audit_docs_do_not_turn_technical_questions_into_holds(self):
+        audit_prompt = (
+            ROOT / "prompt" / "03b_prompt_audit_current_law_and_patch.md"
+        ).read_text(encoding="utf-8")
+        gas_policy = (
+            ROOT
+            / "prompt"
+            / "qualification_docs"
+            / "gas-shunin-kou"
+            / "01_law_reference_policy.md"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            "法令根拠が見つからないこと自体を理由に、技術問題を",
+            audit_prompt,
+        )
+        self.assertIn(
+            '`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`',
+            audit_prompt,
+        )
+        self.assertIn(
+            "法令IDや条項を確認できないという理由だけで",
+            gas_policy,
+        )
+        self.assertIn("付臭、設備操業、防食、地震対策、換気", gas_policy)
+
     def test_canonical_document_links_resolve(self):
         documents = [ROOT / "README.md", ROOT / "scripts" / "README.md"]
         documents.extend((ROOT / "document" / "operations").glob("*.md"))
