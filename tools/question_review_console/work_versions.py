@@ -402,6 +402,96 @@ class QuestionWorkVersionStore:
             "paths": paths,
         }
 
+    def invalidate_stage_run(
+        self,
+        qualification: str,
+        list_group_id: str,
+        *,
+        stage_id: str,
+        run_id: str,
+        question_ids: Iterable[str],
+        reason: str,
+        receipt_id: str,
+        execute: bool = False,
+    ) -> dict[str, Any]:
+        """Invalidate one validated run without deleting its audit history."""
+
+        if stage_id not in MAINTENANCE_STAGE_IDS:
+            raise ValueError(f"作業バージョン対象外の工程です: {stage_id}")
+        target_ids = {str(value).strip() for value in question_ids if str(value).strip()}
+        if not target_ids:
+            raise ValueError("無効化対象のquestionIdがありません。")
+        if not str(run_id).strip():
+            raise ValueError("無効化対象のrunIdがありません。")
+        if not str(reason).strip():
+            raise ValueError("無効化理由がありません。")
+        if not str(receipt_id).strip():
+            raise ValueError("無効化receipt IDがありません。")
+
+        with self._lock:
+            payload = self.load_group(qualification, list_group_id)
+            self._normalize_payload_versions(payload)
+            matched: list[tuple[str, dict[str, Any]]] = []
+            skipped_ids: list[str] = []
+            for record in payload["questions"].values():
+                if not isinstance(record, dict):
+                    continue
+                question_id = str(record.get("questionId") or "")
+                if question_id not in target_ids:
+                    continue
+                stages = record.get("stages")
+                current = stages.get(stage_id) if isinstance(stages, dict) else None
+                if not isinstance(current, dict) or current.get("runId") != run_id:
+                    skipped_ids.append(question_id)
+                    continue
+                matched.append((question_id, record))
+
+            if execute and matched:
+                recorded_at = _now()
+                for _, record in matched:
+                    stages = record["stages"]
+                    previous = stages[stage_id]
+                    history = list(previous.get("history") or [])
+                    history.append(
+                        {
+                            str(key): copy.deepcopy(value)
+                            for key, value in previous.items()
+                            if key != "history"
+                        }
+                    )
+                    stages[stage_id] = {
+                        "version": LEGACY_VERSION,
+                        "policyFingerprint": "invalidated",
+                        "runId": receipt_id,
+                        "source": "invalidated_run",
+                        "recordedAt": recorded_at,
+                        "invalidatedRunId": run_id,
+                        "reason": str(reason).strip(),
+                        "history": history,
+                    }
+                payload["schemaVersion"] = SCHEMA_VERSION
+                payload["updatedAt"] = recorded_at
+                path = self.path_for(qualification, list_group_id)
+                atomic_write(
+                    path,
+                    json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
+                    + "\n",
+                )
+                self._cache.pop(path, None)
+
+        return {
+            "qualification": qualification,
+            "listGroupId": list_group_id,
+            "stageId": stage_id,
+            "invalidatedRunId": run_id,
+            "executed": execute,
+            "targetCount": len(target_ids),
+            "invalidatedCount": len(matched),
+            "invalidatedQuestionIds": sorted(question_id for question_id, _ in matched),
+            "skippedQuestionIds": sorted(skipped_ids),
+            "path": str(self.path_for(qualification, list_group_id).relative_to(self.repo_root)),
+        }
+
     def migrate_all(self, *, execute: bool = False) -> dict[str, Any]:
         """Convert legacy integer versions to MAJOR.MINOR after full validation."""
 

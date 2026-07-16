@@ -71,6 +71,121 @@ def migrate_work_versions(repo_root: Path, *, execute: bool) -> dict[str, Any]:
     return result
 
 
+def invalidate_work_version_run(
+    repo_root: Path,
+    *,
+    qualification: str,
+    run_id: str,
+    stage_id: str,
+    reason: str,
+    execute: bool,
+) -> dict[str, Any]:
+    """Return one run/stage to rework while preserving the invalidated record."""
+
+    repo_root = repo_root.resolve()
+    run_path = (
+        repo_root
+        / "output"
+        / "question_review_console"
+        / "workflow_runs"
+        / qualification
+        / run_id
+        / "manifest.json"
+    )
+    if not run_path.is_file():
+        raise ValueError(f"対象runのmanifestがありません: {run_path}")
+    manifest = json.loads(run_path.read_text(encoding="utf-8"))
+    if manifest.get("qualification") != qualification or manifest.get("runId") != run_id:
+        raise ValueError("対象runのqualification又はrunIdが一致しません。")
+    if manifest.get("status") != "succeeded":
+        raise ValueError("成功済みrunだけを無効化できます。")
+    policy_targets = manifest.get("policyTargets")
+    target_ids = (
+        policy_targets.get(stage_id)
+        if isinstance(policy_targets, Mapping)
+        else None
+    )
+    if not isinstance(target_ids, list) or not target_ids:
+        raise ValueError(f"対象runに{stage_id}の完了記録がありません。")
+    group_ids = [str(value) for value in manifest.get("targetGroupIds") or [] if str(value)]
+    if not group_ids:
+        raise ValueError("対象runにlistGroupIdがありません。")
+
+    receipt_id = f"invalidate-{_timestamp()}"
+    store = QuestionWorkVersionStore(repo_root)
+    preflight_groups = [
+        store.invalidate_stage_run(
+            qualification,
+            group_id,
+            stage_id=stage_id,
+            run_id=run_id,
+            question_ids=target_ids,
+            reason=reason,
+            receipt_id=receipt_id,
+            execute=False,
+        )
+        for group_id in group_ids
+    ]
+    matched_ids = {
+        question_id
+        for group in preflight_groups
+        for question_id in group["invalidatedQuestionIds"]
+    }
+    target_id_set = {str(value) for value in target_ids}
+    if matched_ids != target_id_set:
+        missing = sorted(target_id_set - matched_ids)
+        raise ValueError(
+            "対象runと現在の作業バージョンが一致しません: "
+            + ", ".join(missing[:10])
+        )
+    groups = (
+        [
+            store.invalidate_stage_run(
+                qualification,
+                group_id,
+                stage_id=stage_id,
+                run_id=run_id,
+                question_ids=target_ids,
+                reason=reason,
+                receipt_id=receipt_id,
+                execute=True,
+            )
+            for group_id in group_ids
+        ]
+        if execute
+        else preflight_groups
+    )
+
+    result = {
+        "schemaVersion": "question-work-version-invalidation/v1",
+        "status": "succeeded" if execute else "ready",
+        "generatedAt": _now(),
+        "receiptId": receipt_id,
+        "qualification": qualification,
+        "stageId": stage_id,
+        "invalidatedRunId": run_id,
+        "reason": reason,
+        "targetCount": len(target_id_set),
+        "invalidatedCount": len(matched_ids),
+        "groups": groups,
+    }
+    if execute:
+        receipt_path = (
+            repo_root
+            / "output"
+            / "question_review_console"
+            / "work_version_invalidations"
+            / receipt_id
+            / "manifest.json"
+        )
+        result["receiptPath"] = str(receipt_path.relative_to(repo_root))
+        atomic_write(
+            receipt_path,
+            json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+    return result
+
+
 def _published_qualification_ids(db: Any) -> list[str]:
     snapshot = db.collection("config").document(CONFIG_DOC_ID).get()
     if not snapshot.exists:

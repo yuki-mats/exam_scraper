@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -45,6 +46,62 @@ def local_question():
 
 
 class WorkVersionBackfillTests(unittest.TestCase):
+    def test_invalidate_run_writes_receipt_and_returns_stage_to_rework(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            item = local_question()
+            store = QuestionWorkVersionStore(root)
+            explanation_policy = {
+                "id": "explanation",
+                "code": "03",
+                "label": "解説",
+                "policyVersion": "2.0",
+                "policyFingerprint": "fingerprint-2",
+            }
+            store.record_stage(
+                [item],
+                explanation_policy,
+                run_id="bad-run",
+                source="validated_run",
+            )
+            run_path = (
+                root
+                / "output/question_review_console/workflow_runs/sample/bad-run"
+                / "manifest.json"
+            )
+            run_path.parent.mkdir(parents=True)
+            run_path.write_text(
+                json.dumps(
+                    {
+                        "runId": "bad-run",
+                        "qualification": "sample",
+                        "status": "succeeded",
+                        "targetGroupIds": ["2026"],
+                        "policyTargets": {"explanation": ["question-1"]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            result = work_version_backfill.invalidate_work_version_run(
+                root,
+                qualification="sample",
+                run_id="bad-run",
+                stage_id="explanation",
+                reason="解説品質が基準未達のため",
+                execute=True,
+            )
+            status = QuestionWorkVersionStore(root).status_for(
+                item, [explanation_policy]
+            )
+            receipt_path = root / result["receiptPath"]
+            receipt_exists = receipt_path.is_file()
+
+        self.assertEqual(result["status"], "succeeded")
+        self.assertEqual(result["invalidatedCount"], 1)
+        self.assertEqual(status["status"], "outdated")
+        self.assertTrue(receipt_exists)
+
     def test_execute_assigns_one_legacy_record_per_published_original_question(self):
         documents = [
             {

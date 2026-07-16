@@ -32,6 +32,7 @@ output/question_review_console/
     reviews/
   workflow_runs/<qualification>/<runId>/
   work_version_backfills/<timestamp>/manifest.json
+  work_version_invalidations/<receipt_id>/manifest.json
   publish_runs/<qualification>/<runId>/
 ```
 
@@ -75,6 +76,7 @@ output/question_review_console/
 | session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | Codex App Serverで実行した整備・評価・再整備の`manifest.json`、`prompt.md`、`result.json`。整備系は再起動回収用`baseline.json`と`agent_output/result.json`を持つ。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |
+| work version invalidation | `output/question_review_console/work_version_invalidations/<receipt_id>/manifest.json` | 誤って成功扱いにしたrun・工程を再整備対象へ戻した履歴。 |
 | work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 

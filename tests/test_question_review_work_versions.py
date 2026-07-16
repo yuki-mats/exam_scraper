@@ -161,6 +161,40 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         self.assertEqual(status["status"], "current")
         self.assertFalse(status["stages"][0]["policyFingerprintMatches"])
 
+    def test_invalidated_run_returns_only_that_stage_to_outdated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            item = question()
+            explanation_policy = {
+                **policy("explanation"),
+                "code": "03",
+                "label": "解説",
+                "policyVersion": "2.0",
+            }
+            store.record_stage(
+                [item], explanation_policy, run_id="bad-run", source="validated_run"
+            )
+
+            receipt = store.invalidate_stage_run(
+                "sample",
+                "2026",
+                stage_id="explanation",
+                run_id="bad-run",
+                question_ids=["question-1"],
+                reason="文体規則に適合しない出力を成功扱いにしたため",
+                receipt_id="invalidate-1",
+                execute=True,
+            )
+            status = store.status_for(item, [explanation_policy])
+            record = store.record_for(item)["stages"]["explanation"]
+
+        self.assertEqual(receipt["invalidatedCount"], 1)
+        self.assertEqual(status["status"], "outdated")
+        self.assertEqual(status["stages"][0]["recordedVersion"], "0.0")
+        self.assertEqual(record["source"], "invalidated_run")
+        self.assertEqual(record["invalidatedRunId"], "bad-run")
+        self.assertEqual(record["history"][-1]["version"], "2.0")
+
     def test_law_audit_version_applies_only_to_law_questions(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))

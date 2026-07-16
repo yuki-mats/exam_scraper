@@ -653,6 +653,25 @@ def add_work_version_migration_parser(
     )
 
 
+def add_work_version_invalidation_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "invalidate-work-version-run",
+        help="Invalidate one successful run/stage so the same questions can be maintained again.",
+    )
+    parser.set_defaults(command="invalidate-work-version-run")
+    parser.add_argument("--qualification", required=True)
+    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--stage", required=True)
+    parser.add_argument("--reason", required=True)
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Write invalidation records and receipt. Without this flag, dry-run.",
+    )
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -750,6 +769,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_review_ui_parser(subparsers)
     add_work_version_backfill_parser(subparsers)
     add_work_version_migration_parser(subparsers)
+    add_work_version_invalidation_parser(subparsers)
     add_question_issue_report_parsers(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
@@ -944,6 +964,21 @@ def main(argv: list[str] | None = None) -> int:
         )
 
         result = migrate_work_versions(REPO_ROOT, execute=bool(args.execute))
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0
+    if args.command == "invalidate-work-version-run":
+        from tools.question_review_console.work_version_backfill import (
+            invalidate_work_version_run,
+        )
+
+        result = invalidate_work_version_run(
+            REPO_ROOT,
+            qualification=args.qualification,
+            run_id=args.run_id,
+            stage_id=args.stage,
+            reason=args.reason,
+            execute=bool(args.execute),
+        )
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0
     if args.command in {
