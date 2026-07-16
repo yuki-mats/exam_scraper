@@ -118,7 +118,7 @@ question_xxx_merged_lawContext_prepared.json
 AIが最小JSONを作ったら、次で正式パッチへ補完します。
 
 ```bash
-python3 tools/question_bank/question_bank.py materialize-patch \
+.venv/bin/python tools/question_bank/question_bank.py materialize-patch \
   --task law_context \
   --source /path/to/question_*_merged.json \
   --raw /path/to/raw.json \
@@ -128,7 +128,7 @@ python3 tools/question_bank/question_bank.py materialize-patch \
 ## 検証
 
 ```bash
-python3 tools/question_bank/question_bank.py check-law-context-patch \
+.venv/bin/python tools/question_bank/question_bank.py check-law-context-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/18_law_context_prepared/question_*_merged_lawContext_prepared.json
 ```
@@ -136,7 +136,7 @@ python3 tools/question_bank/question_bank.py check-law-context-patch \
 資格・年度単位で02bを必須にする場合:
 
 ```bash
-python3 tools/question_bank/question_bank.py quality-gate \
+.venv/bin/python tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id> \
   --require-law-context-stage \

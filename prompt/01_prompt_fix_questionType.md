@@ -111,7 +111,7 @@ PY
 ```
 - 次に、AI生出力を正式パッチJSONへ補完すること。
 ```bash
-python3 tools/question_bank/question_bank.py materialize-patch \
+.venv/bin/python tools/question_bank/question_bank.py materialize-patch \
   --task question_type \
   --source /path/to/00_source/question_*.json \
   --raw /path/to/raw.json \
@@ -119,7 +119,7 @@ python3 tools/question_bank/question_bank.py materialize-patch \
 ```
 - 出力後に必ず以下を実行し、通過するまで出力を修正すること。
 ```bash
-python tools/question_bank/question_bank.py check-question-type-patch \
+.venv/bin/python tools/question_bank/question_bank.py check-question-type-patch \
   --source /path/to/question_*.json \
   --patch /path/to/10_questionType_fixed/question_*_questionType_fixed.json
 ```

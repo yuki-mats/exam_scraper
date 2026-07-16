@@ -1994,6 +1994,9 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(writer_kwargs["work_type"], "maintenance")
         self.assertEqual(writer_kwargs["sandbox"], "workspace-write")
         self.assertIn("問題IDごとの調査案", writer_prompt)
+        self.assertIn(str((root / ".venv/bin/python").resolve()), writer_prompt)
+        self.assertIn("成功ならpass、失敗ならfail", writer_prompt)
+        self.assertIn("独自の代替検証だけで成功扱いにせず", writer_prompt)
         self.assertEqual(app_server.kwargs["work_type"], "maintenance")
         self.assertEqual(synchronizer.calls, [("sample", "2026", False)])
         self.assertEqual(run["artifactSync"]["status"], "succeeded")
@@ -2630,6 +2633,25 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIsNone(recent["activeRun"])
         self.assertEqual(recent["runs"][0]["status"], "awaiting_changes")
         self.assertIn("pass検証", recent["runs"][0]["receiptError"])
+
+    def test_result_receipt_normalizes_past_tense_command_statuses(self):
+        succeeded = QualificationRunStore._validated_result_receipt(
+            {
+                "status": "succeeded",
+                "summary": "検証済み。",
+                "commands": [{"command": "check", "status": "passed"}],
+            }
+        )
+        failed = QualificationRunStore._validated_result_receipt(
+            {
+                "status": "failed",
+                "summary": "検証失敗。",
+                "commands": [{"command": "check", "status": "failed"}],
+            }
+        )
+
+        self.assertEqual(succeeded["commands"][0]["status"], "pass")
+        self.assertEqual(failed["commands"][0]["status"], "fail")
 
     def test_result_receipt_path_in_manifest_cannot_redirect_read(self):
         with tempfile.TemporaryDirectory() as directory:

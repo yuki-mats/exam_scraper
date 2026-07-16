@@ -814,7 +814,7 @@ AI が最初に作る JSON は、原則として次の最小形式でよい。
 その後、必要に応じて次で `question_url` を補完する。
 
 ```bash
-python3 tools/question_bank/question_bank.py materialize-patch \
+.venv/bin/python tools/question_bank/question_bank.py materialize-patch \
   --task explanation \
   --source /path/to/question_*_merged.json \
   --raw /path/to/raw.json \
@@ -901,7 +901,7 @@ python3 scripts/fix/archive_patch_outputs.py \
 検証コマンド:
 
 ```bash
-python3 tools/question_bank/question_bank.py check-explanation-patch \
+.venv/bin/python tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json \
   --require-is-law-related \

@@ -1177,6 +1177,10 @@ class QualificationRunStore:
                 raise QualificationRunError("commandsの各要素はobjectで保存してください。")
             command = str(item.get("command") or "").strip()
             command_status = str(item.get("status") or "").strip()
+            command_status = {
+                "passed": "pass",
+                "failed": "fail",
+            }.get(command_status, command_status)
             if not command or command_status not in {"pass", "fail"}:
                 raise QualificationRunError("commandsにはcommandとpass/failのstatusが必要です。")
             commands.append({"command": command[:2000], "status": command_status})
@@ -1212,14 +1216,15 @@ class QualificationRunStore:
             ],
         }
 
-    @staticmethod
     def _with_receipt_contract(
+        self,
         prompt: str,
         receipt_path: Path,
         progress_path: Path,
         manifest_path: Path,
         resolvable_failed_paths: list[str],
     ) -> str:
+        python_executable = (self.repo_root / ".venv" / "bin" / "python").resolve()
         example = {
             "status": "succeeded",
             "summary": "対象工程と検証が完了した。",
@@ -1267,6 +1272,9 @@ class QualificationRunStore:
                 "",
                 "## 完了記録",
                 "",
+                f"このローカルUIのPython検証は、正本中のpython又はpython3を必ず `{python_executable}` に読み替えて実行する。system Pythonへ代替しない。",
+                "commands各要素のstatusは、成功ならpass、失敗ならfailの文字列だけを保存する。passed又はfailed等の別表記は使わない。",
+                "正本指定の検証が1件でもfailなら、独自の代替検証だけで成功扱いにせず、修正して正本指定の検証を再実行する。failが残る場合は完了receipt自体をfailedにする。",
                 f"完了時に検証結果を次へJSONで保存する: `{receipt_path}`",
                 f"`{json.dumps(example, ensure_ascii=False, separators=(',', ':'))}`",
                 "changedFilesには実際の最終差分だけを記載し、result.json自身は含めない。",

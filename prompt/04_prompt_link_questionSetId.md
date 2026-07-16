@@ -232,7 +232,7 @@ python3 scripts/fix/archive_patch_outputs.py \
 
 ### 2. AI生出力を正式パッチJSONへ補完
 ```bash
-python3 tools/question_bank/question_bank.py materialize-patch \
+.venv/bin/python tools/question_bank/question_bank.py materialize-patch \
   --task question_set \
   --source /absolute/path/to/question_*_merged.json \
   --raw /absolute/path/to/raw_questionSetId.json \
@@ -241,7 +241,7 @@ python3 tools/question_bank/question_bank.py materialize-patch \
 
 ### 3. カバレッジ検証
 ```bash
-python3 tools/question_bank/question_bank.py check-question-set-patch \
+.venv/bin/python tools/question_bank/question_bank.py check-question-set-patch \
   --source /absolute/path/to/question_*_merged.json \
   --patch /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json \
   --category /absolute/path/to/category.json \
@@ -250,7 +250,7 @@ python3 tools/question_bank/question_bank.py check-question-set-patch \
 
 ### 4. 最終検証
 ```bash
-python3 tools/question_bank/question_bank.py quality-gate \
+.venv/bin/python tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id>
 ```

@@ -107,6 +107,7 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 工程03は、構造検証に加えて解説文体をserver側でも検証します。法令名・条文を機械的に文頭の主語へ置く旧構文又は「点が誤り」で終える表現が残る場合、成功receiptがあっても工程版を完了記録へ進めません。
 
 - 整備と再整備の前後で`00_source`不変検証を行う。
+- UIから起動したPython検証はrepositoryの`.venv/bin/python`へ固定する。正本指定の検証が1件でも失敗している間は独自の代替検証だけで成功扱いにせず、receiptのcommand statusは`pass`又は`fail`で記録する。
 - Codex App Serverのfile変更通知は、run専用の一時directoryとrepositoryをserver側で1回だけ切り分ける。一時directory内の補助fileは実行終了時に削除して成果物に数えず、repository内だけを実差分とreceiptで照合し、どちらにも属さないpathは停止する。
 - repository全体の監視では、Google Driveの実体化によるctimeだけの変化は差分とせず、pathの出現・消失、mode・size・mtime、Git差分を監視する。
 - 整備と再整備は工程又は選択fieldに対応するpatchだけを変更する。1問指定では対象patch fileとJSON/JSONL内の対象recordも限定し、App Server通知、実行前後のrepository差分、receiptの`changedFiles`を双方向で照合する。
@@ -120,7 +121,7 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 ## 起動
 
 ```bash
-python3 tools/question_bank/question_bank.py review-ui
+.venv/bin/python tools/question_bank/question_bank.py review-ui
 ```
 
 serverは`127.0.0.1`だけへbindします。本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。Codex App Server protocolの正本は[Codex App Server](https://learn.chatgpt.com/docs/app-server)と、使用中binaryから生成したschemaです。
