@@ -16,7 +16,6 @@ PATCH_REQUIRED_FIELDS = {
     "correctChoice": {
         "correctChoiceText",
         "original_question_id",
-        "question_url",
     },
 }
 

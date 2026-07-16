@@ -159,6 +159,17 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             {"question_url", "suggestedQuestions", "suggestedQuestionDetails"},
         )
 
+    def test_correct_choice_patch_does_not_require_question_url(self):
+        warnings = patch_entry_required_warnings(
+            {
+                "original_question_id": "q1",
+                "correctChoiceText": ["正しい"],
+            },
+            "correctChoice",
+        )
+
+        self.assertEqual(warnings, [])
+
     def test_reports_all_projected_required_field_warnings(self):
         projected = {
             "questionBodyText": "",

@@ -21,7 +21,6 @@ from scripts.common.question_identity import review_question_id
 REQUIRED_FIELDS = [
     "correctChoiceText",
     "original_question_id",
-    "question_url",
 ]
 
 
@@ -114,7 +113,10 @@ def compare_entries(
         source_pos, source = source_index[str(pid)]
         indices.append(source_pos)
 
-        if entry.get("question_url") != source.get("question_url"):
+        if (
+            "question_url" in entry
+            and entry.get("question_url") != source.get("question_url")
+        ):
             errors.append(
                 "index {}: question_url mismatch (source={} patch={})".format(
                     idx, source.get("question_url"), entry.get("question_url")
