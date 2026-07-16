@@ -2470,7 +2470,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn("独自の代替検証だけで成功扱いにせず", writer_prompt)
         self.assertIn("result.jsonを最後のfile操作", writer_prompt)
         self.assertEqual(app_server.kwargs["work_type"], "maintenance")
-        self.assertEqual(synchronizer.calls, [("sample", "2026", False)])
+        self.assertEqual(synchronizer.calls, [("sample", "2026", True)])
         self.assertEqual(run["artifactSync"]["status"], "succeeded")
         self.assertNotEqual(app_server.kwargs["cwd"], root)
         self.assertTrue(app_server.kwargs["writable_roots"])
@@ -3111,7 +3111,7 @@ class QualificationRunTests(unittest.TestCase):
             ["maintenance_question_type", "maintenance_law_audit"],
         )
         self.assertEqual(synchronizer.merge_calls, [("new-exam", "2026")])
-        self.assertEqual(synchronizer.calls, [("new-exam", "2026", False)])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(
             events,
             [
@@ -3295,7 +3295,7 @@ class QualificationRunTests(unittest.TestCase):
             ["maintenance_law_audit"],
         )
         self.assertEqual(synchronizer.merge_calls, [])
-        self.assertEqual(synchronizer.calls, [("new-exam", "2026", False)])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_top_maintenance_stops_before_later_session_after_phase_failure(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -3448,7 +3448,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["targetCount"], preview["targetCount"])
         self.assertEqual(run["workItemCount"], preview["workItemCount"])
         self.assertEqual(synchronizer.merge_calls, [])
-        self.assertEqual(synchronizer.calls, [("new-exam", "2026", False)])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_law_audit_quality_accepts_explicitly_non_law_question(self):
         question = {

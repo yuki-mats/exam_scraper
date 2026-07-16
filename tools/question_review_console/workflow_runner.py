@@ -33,11 +33,22 @@ def sync_after_patch_update(
     qualification: str,
     list_group_id: str,
     emit: Callable[[str], None],
+    *,
+    force: bool = True,
 ) -> dict[str, Any]:
-    """Best-effort propagation used after a validated patch update."""
+    """Best-effort propagation used after a validated patch update.
+
+    A validated patch is itself sufficient reason to rebuild.  The inventory
+    stale detector is intentionally a UI hint and may not compare every nested
+    field, so it must not suppress propagation after a save.
+    """
 
     try:
-        preview = synchronizer.preview(qualification, list_group_id)
+        preview = synchronizer.preview(
+            qualification,
+            list_group_id,
+            force=force,
+        )
     except Exception as exc:  # noqa: BLE001
         return {
             "listGroupId": list_group_id,
@@ -89,6 +100,7 @@ def sync_after_patch_update(
             list_group_id,
             str(preview["previewToken"]),
             emit,
+            force=force,
         )
     except Exception as exc:  # noqa: BLE001
         return {

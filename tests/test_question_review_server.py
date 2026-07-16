@@ -33,7 +33,7 @@ class QuestionReviewServerTests(unittest.TestCase):
             def __init__(self):
                 self.calls = []
 
-            def preview(self, qualification, list_group_id):
+            def preview(self, qualification, list_group_id, *, force=False):
                 return {
                     "needsSync": True,
                     "canSync": True,
@@ -42,7 +42,9 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "previewToken": "token",
                 }
 
-            def run(self, qualification, list_group_id, token, emit):
+            def run(
+                self, qualification, list_group_id, token, emit, *, force=False
+            ):
                 self.calls.append((qualification, list_group_id, token))
                 return {"message": "同期しました。"}
 

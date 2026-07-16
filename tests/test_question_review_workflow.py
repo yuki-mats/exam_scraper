@@ -87,19 +87,21 @@ class ArtifactSynchronizerTests(unittest.TestCase):
             def __init__(self):
                 self.calls = []
 
-            def preview(self, qualification, list_group_id):
+            def preview(self, qualification, list_group_id, *, force=False):
                 return {
                     "qualification": qualification,
                     "listGroupId": list_group_id,
-                    "needsSync": True,
+                    "needsSync": force,
                     "canSync": True,
                     "requiredFieldWarnings": [],
                     "failedDeltaPaths": [],
                     "previewToken": "token",
                 }
 
-            def run(self, qualification, list_group_id, token, emit):
-                self.calls.append((qualification, list_group_id, token))
+            def run(
+                self, qualification, list_group_id, token, emit, *, force=False
+            ):
+                self.calls.append((qualification, list_group_id, token, force))
                 emit("pipeline complete")
                 return {"message": "同期しました。"}
 
@@ -113,13 +115,13 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         self.assertEqual(result["status"], "succeeded")
         self.assertEqual(
             synchronizer.calls,
-            [("sample-exam", "2026", "token")],
+            [("sample-exam", "2026", "token", True)],
         )
         self.assertIn("2026: 最新patchから公開用データを自動更新します。", logs)
 
     def test_keeps_validated_patch_when_automatic_sync_is_blocked(self):
         class Synchronizer:
-            def preview(self, qualification, list_group_id):
+            def preview(self, qualification, list_group_id, *, force=False):
                 return {
                     "needsSync": True,
                     "canSync": False,
@@ -140,7 +142,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
 
     def test_does_not_run_when_preview_disallows_automatic_sync(self):
         class Synchronizer:
-            def preview(self, qualification, list_group_id):
+            def preview(self, qualification, list_group_id, *, force=False):
                 return {
                     "needsSync": True,
                     "canSync": False,
