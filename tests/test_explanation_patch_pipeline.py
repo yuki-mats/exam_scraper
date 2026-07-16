@@ -60,7 +60,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(actual.count("正しい"), 1)
         self.assertEqual(actual[0], "間違い")
 
-    def test_tsukanshi_patch_builder_repairs_correct_choice_text_and_explanation_labels(self) -> None:
+    def test_tsukanshi_patch_builder_preserves_existing_audited_choice_labels(self) -> None:
         question = {
             "public_question_id": "q123",
             "question_url": "https://example.com/q123",
@@ -79,12 +79,12 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         intent_patch = build_intent_patch([question])[0]
         explanation_patch = build_explanation_patch([question])[0]
 
-        self.assertTrue(intent_patch["correctChoiceText_changed"])
-        self.assertEqual(intent_patch["correctChoiceText"][10], "正しい")
-        self.assertEqual(intent_patch["correctChoiceText"][0], "間違い")
-        self.assertIn("answer_result_text=正解は 11 です。", intent_patch["correctChoiceText_change_detail"])
-        self.assertIn("選択肢1は「間違い」です。", explanation_patch["explanationText"][0])
-        self.assertIn("選択肢11は「正しい」です。", explanation_patch["explanationText"][10])
+        self.assertFalse(intent_patch["correctChoiceText_changed"])
+        self.assertEqual(intent_patch["correctChoiceText"][0], "正しい")
+        self.assertEqual(intent_patch["correctChoiceText"][10], "間違い")
+        self.assertEqual(intent_patch["correctChoiceText_change_detail"], "")
+        self.assertIn("選択肢1は「正しい」です。", explanation_patch["explanationText"][0])
+        self.assertIn("選択肢11は「間違い」です。", explanation_patch["explanationText"][10])
 
     def test_materialize_explanation_preserves_suggested_questions_and_law_references(self) -> None:
         source_question = {
