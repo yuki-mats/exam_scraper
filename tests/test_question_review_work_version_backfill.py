@@ -96,11 +96,18 @@ class WorkVersionBackfillTests(unittest.TestCase):
             )
             receipt_path = root / result["receiptPath"]
             receipt_exists = receipt_path.is_file()
+            invalidated_run = json.loads(run_path.read_text(encoding="utf-8"))
 
         self.assertEqual(result["status"], "succeeded")
         self.assertEqual(result["invalidatedCount"], 1)
         self.assertEqual(status["status"], "outdated")
         self.assertTrue(receipt_exists)
+        self.assertEqual(invalidated_run["status"], "invalidated")
+        self.assertFalse(invalidated_run["receiptValidated"])
+        self.assertEqual(
+            invalidated_run["workVersionInvalidation"]["stageId"],
+            "explanation",
+        )
 
     def test_execute_assigns_one_legacy_record_per_published_original_question(self):
         documents = [

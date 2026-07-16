@@ -72,6 +72,7 @@ const QUALIFICATION_RUN_STATUS_LABELS = {
   interrupted: "再開待ち",
   failed: "失敗",
   succeeded: "完了",
+  invalidated: "無効化済み",
 };
 
 const FIELD_LABELS = {
@@ -1336,7 +1337,11 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   const targetQuestions = Number(progress?.targetQuestionCount || run?.targetCount || 0);
   const completedWork = Number(progress?.completedWorkItemCount || 0);
   const targetWork = Number(progress?.targetWorkItemCount || run?.workItemCount || 0);
-  const verified = Boolean(progress?.verified || run?.receiptValidated || run?.status === "succeeded");
+  const invalidated = run?.status === "invalidated";
+  const verified = Boolean(
+    !invalidated
+    && (progress?.verified || run?.receiptValidated || run?.status === "succeeded")
+  );
   const workComplete = targetWork > 0
     ? completedWork >= targetWork
     : targetQuestions > 0 && completedQuestions >= targetQuestions;
@@ -1367,6 +1372,10 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   } else if (run?.status === "succeeded") {
     phase = "完了";
     summary = `${progressText}を検証済みです。`;
+  } else if (invalidated) {
+    phase = "無効化済み";
+    statusLabel = "無効化済み";
+    summary = "この作業結果は品質基準未達のため無効化し、再整備対象へ戻しました。";
   } else if (failed && validationStarted) {
     phase = "最終検証で停止";
     statusLabel = "検証で停止";
@@ -1381,6 +1390,9 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   const phaseStates = ["pending", "pending", "pending"];
   if (verified) {
     phaseStates.fill("complete");
+  } else if (invalidated) {
+    phaseStates[0] = "complete";
+    phaseStates[1] = "failed";
   } else if (failed && validationStarted) {
     phaseStates[0] = "complete";
     phaseStates[1] = "failed";
@@ -1396,6 +1408,7 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     active,
     completedQuestions,
     failed,
+    invalidated,
     phase,
     phaseStates,
     progressText,
@@ -1488,7 +1501,7 @@ function renderQualificationActiveRun() {
   }
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
-  const statusClass = run.status === "failed" || run.status === "interrupted"
+  const statusClass = ["failed", "interrupted", "invalidated"].includes(run.status)
     ? run.status
     : run.status === "succeeded" ? "succeeded" : "running";
   container.className = `qualification-active-run ${statusClass}`;
@@ -1503,8 +1516,10 @@ function renderQualificationActiveRun() {
     .reverse()
     .find((line) => String(line).trim());
   const runError = run.error || state.qualificationActiveJob?.error || (view.failed ? latestLog : "");
-  errorBox.hidden = !view.failed;
-  errorBox.textContent = view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
+  errorBox.hidden = !view.failed && !view.invalidated;
+  errorBox.textContent = view.invalidated
+    ? `無効化理由: ${run.workVersionInvalidation?.reason || runError || "品質基準未達"}`
+    : view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
   const model = run.model || state.codexStatus?.model || "自動選択";
   const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
   $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}`;
@@ -2197,8 +2212,13 @@ async function openProgressQuestion(event) {
       content.append(section);
     }
     if (questionOutputs.length) {
+      const runStatus = displayedQualificationRun()?.status;
       content.append(progressQuestionOutputSection(
-        state.qualificationRunProgress?.verified ? "この作業で確定した出力" : "この作業での出力（完了検証前）",
+        runStatus === "invalidated"
+          ? "この作業での出力（無効化済み）"
+          : state.qualificationRunProgress?.verified
+            ? "この作業で確定した出力"
+            : "この作業での出力（完了検証前）",
         questionOutputs,
       ));
     }

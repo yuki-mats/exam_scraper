@@ -883,6 +883,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('id="qualification-active-run-model"', html)
         self.assertIn("現在実行中の作業はありません", html)
         self.assertIn("function qualificationRunViewState", javascript)
+        self.assertIn('invalidated: "無効化済み"', javascript)
+        self.assertIn('"この作業での出力（無効化済み）"', javascript)
         self.assertIn(
             "const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null",
             javascript,

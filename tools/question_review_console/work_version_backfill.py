@@ -156,10 +156,11 @@ def invalidate_work_version_run(
         else preflight_groups
     )
 
+    invalidated_at = _now()
     result = {
         "schemaVersion": "question-work-version-invalidation/v1",
         "status": "succeeded" if execute else "ready",
-        "generatedAt": _now(),
+        "generatedAt": invalidated_at,
         "receiptId": receipt_id,
         "qualification": qualification,
         "stageId": stage_id,
@@ -182,6 +183,25 @@ def invalidate_work_version_run(
         atomic_write(
             receipt_path,
             json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+        manifest.update(
+            {
+                "status": "invalidated",
+                "receiptValidated": False,
+                "updatedAt": invalidated_at,
+                "error": reason,
+                "workVersionInvalidation": {
+                    "receiptId": receipt_id,
+                    "receiptPath": result["receiptPath"],
+                    "stageId": stage_id,
+                    "reason": reason,
+                    "invalidatedAt": invalidated_at,
+                },
+            }
+        )
+        atomic_write(
+            run_path,
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         )
     return result
 

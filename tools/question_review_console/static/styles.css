@@ -348,7 +348,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run-title-row { min-width: 0; display: flex; align-items: baseline; gap: 8px; }
 .qualification-active-run-title-row strong { min-width: 0; font-size: 15px; line-height: 1.35; overflow-wrap: anywhere; }
 .qualification-active-run > p { margin: 0; color: #344b5e; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
-.qualification-active-run.failed > p, .qualification-active-run.interrupted > p { color: #672824; }
+.qualification-active-run.failed > p, .qualification-active-run.interrupted > p, .qualification-active-run.invalidated > p { color: #672824; }
 .qualification-active-run .secondary-button { flex: 0 0 auto; min-height: 34px; padding: 5px 11px; font-size: 11px; }
 .qualification-active-run-phases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
 .qualification-active-run-phases[hidden] { display: none; }
@@ -366,14 +366,14 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run-meter { height: 5px; overflow: hidden; border-radius: 999px; background: #dfe5ea; }
 .qualification-active-run-meter > span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--blue); transition: width 240ms ease; }
 .qualification-active-run.succeeded .qualification-active-run-meter > span { background: var(--green); }
-.qualification-active-run.failed .qualification-active-run-meter > span, .qualification-active-run.interrupted .qualification-active-run-meter > span { background: var(--red); }
+.qualification-active-run.failed .qualification-active-run-meter > span, .qualification-active-run.interrupted .qualification-active-run-meter > span, .qualification-active-run.invalidated .qualification-active-run-meter > span { background: var(--red); }
 .qualification-active-run-error { padding: 8px 10px; border-left: 3px solid var(--red); background: #fff; color: #672824; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
 .qualification-active-run-error[hidden] { display: none; }
 .qualification-active-run-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--text-muted); font-size: 10px; }
 .qualification-active-run-model { white-space: nowrap; }
 .run-status { color: var(--blue); font-size: 10px; font-weight: 800; }
 .run-status.idle { color: var(--text-muted); }
-.run-status.interrupted, .run-status.failed { color: var(--red); }
+.run-status.interrupted, .run-status.failed, .run-status.invalidated { color: var(--red); }
 .run-status.succeeded { color: var(--green); }
 .qualification-run-history { margin: 7px -16px -10px; border-top: 1px solid var(--line); background: #fff; }
 .qualification-run-history[hidden] { display: none; }
