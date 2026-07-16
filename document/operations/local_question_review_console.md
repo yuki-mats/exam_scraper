@@ -115,6 +115,8 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 
 工程03は、構造検証に加えて解説文体をserver側でも検証します。法令名・条文を機械的に文頭の主語へ置く旧構文又は「点が誤り」で終える表現が残る場合、成功receiptがあっても工程版を完了記録へ進めません。
 
+工程03bでは、03b promptが要求する法令根拠利用の機械検証もserver側で必須とし、失敗した場合は成功receiptがあっても工程版を記録しません。
+
 - 整備と再整備の前後で`00_source`不変検証を行う。
 - UIから起動したPython検証はrepositoryの`.venv/bin/python`へ固定する。正本指定の検証が1件でも失敗している間は独自の代替検証だけで成功扱いにせず、receiptのcommand statusは`pass`又は`fail`で記録する。
 - Codex App Serverのfile変更通知は、run専用の一時directoryとrepositoryをserver側で1回だけ切り分ける。一時directory内の補助fileは実行終了時に削除して成果物に数えず、repository内だけを実差分とreceiptで照合し、どちらにも属さないpathは停止する。

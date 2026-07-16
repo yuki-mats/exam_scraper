@@ -374,11 +374,24 @@ class LawSourceInventory(SourceOnlyInventory):
         question["isLawRelated"] = True
         question["projected"] = {
             **question["projected"],
+            "isLawRelated": True,
             "lawRevisionFacts": [
                 {
                     "auditStatus": "same_as_current",
                     "reviewState": "secondary_verified",
                 }
+            ],
+            "lawReferences": [
+                {"lawTitle": "ガス事業法", "article": "第2条"}
+            ],
+            "explanationText": [
+                "正しい。ガス事業法第2条の定義に該当する。"
+            ],
+            "suggestedQuestions": [
+                "現行法のガス事業法第2条は何を定義していますか？"
+            ],
+            "suggestedQuestionDetails": [
+                {"answer": "ガス事業法第2条が対象事業を定義しています。"}
             ],
         }
         return group
@@ -3438,6 +3451,58 @@ class QualificationRunTests(unittest.TestCase):
             "isLawRelated": False,
             "issueCodes": [],
             "projected": {"isLawRelated": False},
+        }
+
+        QualificationRunCoordinator._validate_law_audit_quality([question])
+
+    def test_law_audit_quality_rejects_unpublished_law_evidence(self):
+        question = {
+            "id": "law-question",
+            "questionLabel": "問2",
+            "isLawRelated": True,
+            "issueCodes": [],
+            "projected": {
+                "isLawRelated": True,
+                "lawRevisionFacts": [{"auditStatus": "same_as_current"}],
+                "lawReferences": [
+                    {"lawTitle": "ガス事業法", "article": "第2条"}
+                ],
+                "explanationText": ["正しい。定義に該当する。"],
+                "suggestedQuestions": ["この内容はどうなっていますか？"],
+                "suggestedQuestionDetails": [
+                    {"answer": "対象となる事業を定めたものです。"}
+                ],
+            },
+        }
+
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "law-related suggestedQuestions.*concrete law evidence anchor",
+        ):
+            QualificationRunCoordinator._validate_law_audit_quality([question])
+
+    def test_law_audit_quality_accepts_published_law_evidence(self):
+        question = {
+            "id": "law-question",
+            "questionLabel": "問2",
+            "isLawRelated": True,
+            "issueCodes": [],
+            "projected": {
+                "isLawRelated": True,
+                "lawRevisionFacts": [{"auditStatus": "same_as_current"}],
+                "lawReferences": [
+                    {"lawTitle": "ガス事業法", "article": "第2条"}
+                ],
+                "explanationText": [
+                    "正しい。ガス事業法第2条の定義に該当する。"
+                ],
+                "suggestedQuestions": [
+                    "現行法のガス事業法第2条は何を定義していますか？"
+                ],
+                "suggestedQuestionDetails": [
+                    {"answer": "ガス事業法第2条が対象事業を定義しています。"}
+                ],
+            },
         }
 
         QualificationRunCoordinator._validate_law_audit_quality([question])

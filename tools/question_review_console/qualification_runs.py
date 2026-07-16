@@ -34,6 +34,7 @@ from tools.question_review_console.failed_delta import (
 )
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
+    law_evidence_utilization_issues,
 )
 from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
@@ -3424,6 +3425,11 @@ class QualificationRunCoordinator:
                 errors.append(f"{label}: {', '.join(blocking)}")
             elif question.get("isLawRelated") is not False and not facts:
                 errors.append(f"{label}: lawRevisionFactsを確認できません。")
+            elif isinstance(projected, Mapping):
+                errors.extend(
+                    f"{label}: {issue}"
+                    for issue in law_evidence_utilization_issues(dict(projected))
+                )
         if errors:
             raise QualificationRunError(
                 "03b 現行法監査の必須メタデータ検証に失敗しました。"
