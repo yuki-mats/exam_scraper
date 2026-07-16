@@ -230,8 +230,6 @@ class QuestionWorkVersionStore:
             stage_id = str(policy.get("id") or "")
             if stage_id not in {*MAINTENANCE_STAGE_IDS, "evaluation"}:
                 continue
-            if stage_id == "law_audit" and question.get("isLawRelated") is not True:
-                continue
             recorded = recorded_stages.get(stage_id)
             recorded = dict(recorded) if isinstance(recorded, Mapping) else None
             status, detail = version_state(recorded, policy)
@@ -308,8 +306,6 @@ class QuestionWorkVersionStore:
             raise ValueError(f"作業バージョン対象外の工程です: {stage_id}")
         grouped: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
         for question in questions:
-            if stage_id == "law_audit" and question.get("isLawRelated") is not True:
-                continue
             key = (str(question["qualification"]), str(question["listGroupId"]))
             grouped.setdefault(key, []).append(question)
         recorded_count = 0

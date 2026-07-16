@@ -98,6 +98,31 @@ class WorkflowCatalogTests(unittest.TestCase):
                 "delivery",
             ],
         )
+        self.assertEqual(
+            catalog["sessionGroups"],
+            [
+                {"id": "maintenance", "label": "問題を整備"},
+                {"id": "law_audit", "label": "現行法を監査"},
+                {"id": "question_set", "label": "問題集を整備"},
+            ],
+        )
+        self.assertEqual(
+            [
+                stage["sessionGroup"]
+                for stage in catalog["stages"]
+                if stage.get("batchSelectable")
+            ],
+            [
+                "maintenance",
+                "maintenance",
+                "maintenance",
+                "maintenance",
+                "maintenance",
+                "law_audit",
+                "question_set",
+                "question_set",
+            ],
+        )
         document_paths = {
             catalog["system"]["trunkDocument"],
             *catalog["system"]["defaultDocuments"],
@@ -106,7 +131,10 @@ class WorkflowCatalogTests(unittest.TestCase):
         }
         self.assertTrue(all((ROOT / path).is_file() for path in document_paths))
         versioned = [
-            stage for stage in catalog["stages"] if stage.get("batchSelectable")
+            stage
+            for stage in catalog["stages"]
+            if stage.get("batchSelectable")
+            and stage.get("policyVersion") is not None
         ]
         self.assertTrue(versioned)
         version_by_stage = {
@@ -121,6 +149,10 @@ class WorkflowCatalogTests(unittest.TestCase):
             )
         )
         self.assertEqual(catalog["evaluation"]["policyVersion"], "2.0")
+        stage_by_id = {stage["id"]: stage for stage in catalog["stages"]}
+        self.assertFalse(stage_by_id["category_setup"]["supportsGroupScope"])
+        self.assertTrue(stage_by_id["question_set"]["supportsGroupScope"])
+        self.assertTrue(stage_by_id["delivery"]["supportsGroupScope"])
         self.assertTrue(
             all((ROOT / path).is_file() for path in catalog["evaluation"]["inputs"])
         )
@@ -153,6 +185,35 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(second["system"]["name"], "更新後の名前")
         self.assertEqual(second["stages"][0]["purpose"], "更新後の目的")
         self.assertNotEqual(first["catalogHash"], second["catalogHash"])
+
+    def test_invalid_live_catalog_keeps_last_known_good_until_restart(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = root / "config" / "question_maintenance_workflow.toml"
+            config.parent.mkdir(parents=True)
+            config.write_text(
+                catalog_text("正常な名前", "正常な目的"),
+                encoding="utf-8",
+            )
+            store = WorkflowCatalog(root)
+            first = store.load()
+
+            config.write_text("broken = [\n", encoding="utf-8")
+            fallback = store.load()
+
+            config.write_text(
+                catalog_text("復旧後の名前", "復旧後の目的"),
+                encoding="utf-8",
+            )
+            recovered = store.load()
+
+        self.assertEqual(fallback["catalogHash"], first["catalogHash"])
+        self.assertEqual(fallback["stages"], first["stages"])
+        self.assertTrue(fallback["restartRequired"])
+        self.assertIn("直前の正常な設定", fallback["catalogWarning"])
+        self.assertEqual(recovered["system"]["name"], "復旧後の名前")
+        self.assertFalse(recovered["restartRequired"])
+        self.assertEqual(recovered["catalogWarning"], "")
 
     def test_explanation_policy_uses_fact_then_choice_difference_order(self):
         prompt = (ROOT / "prompt" / "03_prompt_add_explanationText.md").read_text(

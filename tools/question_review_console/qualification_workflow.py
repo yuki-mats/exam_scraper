@@ -114,6 +114,48 @@ def _ordered_unique(values: Iterable[str]) -> list[str]:
     return list(dict.fromkeys(value for value in values if value))
 
 
+def _required_maintenance_stage_ids(
+    stages: Iterable[Mapping[str, Any]],
+) -> list[str]:
+    """Return the backend-owned stage selection for the top maintenance action."""
+
+    ordered = [dict(stage) for stage in stages]
+    selected = [
+        str(stage["id"])
+        for stage in ordered
+        if stage.get("batchSelectable")
+        and stage.get("versionTrackingActive")
+        and (
+            int(stage.get("versionOutdatedCount") or 0)
+            or int(stage.get("versionUnrecordedCount") or 0)
+            or (
+                str(stage.get("id") or "") == "law_audit"
+                and int(stage.get("issueCount") or 0)
+            )
+        )
+    ]
+    selected_ids = set(selected)
+    category = next(
+        (stage for stage in ordered if stage.get("id") == "category_setup"),
+        None,
+    )
+    if category and category.get("status") != "ready":
+        selected_ids.add("category_setup")
+        question_set = next(
+            (stage for stage in ordered if stage.get("id") == "question_set"),
+            None,
+        )
+        if question_set and question_set.get("batchSelectable"):
+            # taxonomyを作り直した後は、既存の工程版がcurrentでも
+            # questionSetIdを選択scope内で再検証する。
+            selected_ids.add("question_set")
+    return [
+        str(stage["id"])
+        for stage in ordered
+        if str(stage.get("id") or "") in selected_ids
+    ]
+
+
 def _target_record_alias_group(question: Mapping[str, Any]) -> list[str]:
     aliases: set[str] = set()
     for key in ("source", "projected"):
@@ -225,8 +267,13 @@ class QualificationWorkflow:
             "qualification": qualification or None,
             "generatedAt": _now_iso(),
             "system": system,
+            "sessionGroups": [
+                dict(value) for value in loaded.get("sessionGroups") or []
+            ],
             "catalogHash": effective_hash,
             "catalogPath": loaded["catalogPath"],
+            "catalogWarning": str(loaded.get("catalogWarning") or ""),
+            "restartRequired": bool(loaded.get("restartRequired")),
             "stages": stages,
         }
 
@@ -235,6 +282,7 @@ class QualificationWorkflow:
             str(stage["id"]): dict(stage)
             for stage in self.catalog(qualification)["stages"]
             if stage.get("policyVersion") is not None
+            and stage.get("supportsGroupScope")
         }
 
     def _selected_or_expected_patch_path(
@@ -267,6 +315,15 @@ class QualificationWorkflow:
         stages = status.get("stages") or []
         return str(stages[0].get("status") or "unrecorded") if stages else "unrecorded"
 
+    @staticmethod
+    def _require_runnable_catalog(catalog: Mapping[str, Any]) -> None:
+        if catalog.get("restartRequired"):
+            detail = str(catalog.get("catalogWarning") or "").strip()
+            raise ValueError(
+                detail
+                or "workflow設定の更新を反映するため、問題整備システムを再起動してください。"
+            )
+
     def overview(self, qualification: str) -> dict[str, Any]:
         catalog = self.catalog(qualification)
         groups, questions = self._qualification_data(qualification)
@@ -274,6 +331,7 @@ class QualificationWorkflow:
             stage
             for stage in catalog["stages"]
             if stage.get("policyVersion") is not None
+            and stage.get("supportsGroupScope")
         ]
         version_statuses = [
             (question, self.work_versions.status_for(question, versioned_definitions))
@@ -295,7 +353,15 @@ class QualificationWorkflow:
             for question in questions
             for code in question.get("issueCodes") or []
         )
-        progress = self._maintenance_progress(version_statuses)
+        category_required = any(
+            stage.get("id") == "category_setup" and stage.get("status") != "ready"
+            for stage in stages
+        )
+        progress = self._maintenance_progress(
+            version_statuses,
+            force_all_required=category_required,
+        )
+        required_stage_ids = _required_maintenance_stage_ids(stages)
         group_summaries = [
             self._group_summary(
                 group,
@@ -305,7 +371,8 @@ class QualificationWorkflow:
                         for item in version_statuses
                         if str(item[0].get("listGroupId") or "")
                         == str(group.get("listGroupId") or "")
-                    ]
+                    ],
+                    force_all_required=category_required,
                 ),
             )
             for group in groups
@@ -322,6 +389,8 @@ class QualificationWorkflow:
             "generatedAt": _now_iso(),
             "system": catalog["system"],
             "catalogHash": catalog["catalogHash"],
+            "catalogWarning": catalog.get("catalogWarning") or "",
+            "restartRequired": bool(catalog.get("restartRequired")),
             "overallStatus": overall_status,
             "nextStageId": next_stage["id"] if next_stage else None,
             "summary": {
@@ -339,6 +408,10 @@ class QualificationWorkflow:
                 "readyStageCount": ready_count,
                 "stageCount": len(stages),
                 "maintenanceProgress": progress,
+                "requiredMaintenance": {
+                    "stageIds": required_stage_ids,
+                    "mode": "outdated",
+                },
                 "issueCounts": dict(sorted(issue_counts.items())),
             },
             "stages": stages,
@@ -353,10 +426,12 @@ class QualificationWorkflow:
         *,
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
+        allow_category_pending: bool = False,
     ) -> dict[str, Any]:
         if mode not in RUN_MODES:
             raise ValueError(f"対象範囲が不正です: {mode}")
         catalog = self.catalog(qualification)
+        self._require_runnable_catalog(catalog)
         definition = next(
             (stage for stage in catalog["stages"] if stage["id"] == stage_id), None
         )
@@ -364,13 +439,17 @@ class QualificationWorkflow:
             raise ValueError(f"対象工程がありません: {stage_id}")
         if stage_id == "source":
             raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
-        if mode == "outdated" and definition.get("policyVersion") is None:
+        if (
+            mode == "outdated"
+            and definition.get("policyVersion") is None
+            and stage_id != "category_setup"
+        ):
             raise ValueError("洗い替え必要・未整備だけの選択は工程版対象でのみ使えます。")
 
         selected_group_ids, scope_provided = _group_scope(
             list_group_id, list_group_ids
         )
-        if stage_id in {"setup", "category_setup"} and scope_provided:
+        if not definition.get("supportsGroupScope") and scope_provided:
             raise ValueError(f"{definition['label']}は年度ではなく資格単位で整備します。")
         if mode == "group_refresh" and not selected_group_ids:
             raise ValueError("対象年度を一つ以上選択してください。")
@@ -426,7 +505,10 @@ class QualificationWorkflow:
             ] if target_questions else []
         elif stage_id == "category_setup":
             category = self._category_state(qualification)
-            should_run = mode == "refresh" or not category["ready"]
+            if mode == "outdated":
+                should_run = not category["ready"]
+            else:
+                should_run = mode == "refresh" or not category["ready"]
             if mode == "attention":
                 should_run = bool(category["error"])
             target_questions = questions if should_run else []
@@ -445,15 +527,26 @@ class QualificationWorkflow:
             ] if should_run else []
         elif stage_id == "law_audit":
             applicable = [
-                question for question in questions if question.get("isLawRelated") is True
+                question
+                for question in questions
+                if question.get("isLawRelated") is not False
+                or set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
             ]
             if mode in {"refresh", "group_refresh"}:
-                target_questions = applicable
+                # 全件洗い替えでは既存の法令フラグ自体も再判定する。
+                target_questions = questions
             elif mode == "outdated":
                 target_questions = [
                     question
-                    for question in applicable
+                    for question in questions
                     if self._stage_version_status(question, definition) != "current"
+                    or set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
+                    or (
+                        question.get("isLawRelated") is not False
+                        and not (question.get("projected") or {}).get(
+                            "lawRevisionFacts"
+                        )
+                    )
                 ]
             elif mode == "attention":
                 target_questions = [
@@ -466,7 +559,12 @@ class QualificationWorkflow:
                     question
                     for question in applicable
                     if set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
-                    or not (question.get("projected") or {}).get("lawRevisionFacts")
+                    or (
+                        question.get("isLawRelated") is not False
+                        and not (question.get("projected") or {}).get(
+                            "lawRevisionFacts"
+                        )
+                    )
                 ]
             source_files = _unique(
                 str(question.get("paths", {}).get("source") or "")
@@ -491,9 +589,11 @@ class QualificationWorkflow:
                 for group_id in target_group_ids
             ]
         else:
+            category_pending = False
             if stage_id == "question_set":
                 category = self._category_state(qualification)
-                if not category["ready"]:
+                category_pending = not category["ready"]
+                if not category["ready"] and not allow_category_pending:
                     detail = category["error"] or "category.jsonが未作成です。"
                     raise ValueError(f"03c カテゴリ設計を先に完了してください: {detail}")
             patch_dir = str(definition["patchDir"])
@@ -501,11 +601,15 @@ class QualificationWorkflow:
             if mode in {"refresh", "group_refresh"}:
                 target_questions = questions
             elif mode == "outdated":
-                target_questions = [
-                    question
-                    for question in questions
-                    if self._stage_version_status(question, definition) != "current"
-                ]
+                target_questions = (
+                    list(questions)
+                    if category_pending and allow_category_pending
+                    else [
+                        question
+                        for question in questions
+                        if self._stage_version_status(question, definition) != "current"
+                    ]
+                )
             elif mode == "attention":
                 target_questions = [
                     question
@@ -581,16 +685,19 @@ class QualificationWorkflow:
                 stage_id: normalize_policy_version(definition["policyVersion"])
             }
             if definition.get("policyVersion") is not None
+            and definition.get("supportsGroupScope")
             else {}
         )
         policy_fingerprints = (
             {stage_id: str(definition.get("policyFingerprint") or "")}
             if definition.get("policyVersion") is not None
+            and definition.get("supportsGroupScope")
             else {}
         )
         policy_targets = (
             {stage_id: target_question_keys}
             if definition.get("policyVersion") is not None
+            and definition.get("supportsGroupScope")
             else {}
         )
         return {
@@ -600,6 +707,8 @@ class QualificationWorkflow:
             "stageLabel": str(definition["label"]),
             "purpose": str(definition["purpose"]),
             "kind": str(definition["kind"]),
+            "sessionGroup": str(definition.get("sessionGroup") or ""),
+            "sessionLabel": str(definition.get("sessionLabel") or ""),
             "mode": mode,
             "modeLabel": mode_label,
             "targetCount": (
@@ -626,6 +735,9 @@ class QualificationWorkflow:
             "policyFingerprints": policy_fingerprints,
             "policyTargets": policy_targets,
             "force": stage_id == "delivery" and mode in {"refresh", "group_refresh"},
+            "allQuestionGate": bool(
+                stage_id == "law_audit" and mode in {"refresh", "group_refresh"}
+            ),
         }
 
     def plan_many(
@@ -638,12 +750,15 @@ class QualificationWorkflow:
         list_group_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         requested = _ordered_unique(str(stage_id) for stage_id in stage_ids)
-        scoped_group_ids = (
-            list(list_group_ids) if list_group_ids is not None else None
+        normalized_group_ids, scope_provided = _group_scope(
+            list_group_id,
+            list_group_ids,
         )
+        scoped_group_ids = normalized_group_ids if scope_provided else None
         if not requested:
             raise ValueError("工程を一つ以上選択してください。")
         catalog = self.catalog(qualification)
+        self._require_runnable_catalog(catalog)
         definitions = {str(stage["id"]): stage for stage in catalog["stages"]}
         unknown = [stage_id for stage_id in requested if stage_id not in definitions]
         if unknown:
@@ -658,7 +773,6 @@ class QualificationWorkflow:
                 qualification,
                 ordered[0],
                 mode,
-                list_group_id=list_group_id,
                 list_group_ids=scoped_group_ids,
             )
             plan["stageIds"] = ordered
@@ -682,58 +796,30 @@ class QualificationWorkflow:
                 qualification,
                 stage_id,
                 mode,
-                list_group_id=list_group_id,
-                list_group_ids=scoped_group_ids,
+                list_group_ids=(
+                    scoped_group_ids
+                    if definitions[stage_id].get("supportsGroupScope")
+                    else None
+                ),
+                allow_category_pending=(
+                    stage_id == "question_set" and "category_setup" in ordered
+                ),
             )
             for stage_id in ordered
         ]
-        if mode in {"refresh", "group_refresh"} and "law_audit" in ordered:
-            scope_plan = max(
-                (plan for plan in stage_plans if plan["stageId"] != "law_audit"),
-                key=lambda plan: int(plan["targetCount"]),
-            )
-            audit_plan = next(
-                plan for plan in stage_plans if plan["stageId"] == "law_audit"
-            )
-            audit_plan["priorLawQuestionCount"] = audit_plan["targetCount"]
-            audit_plan["targetCount"] = scope_plan["targetCount"]
-            audit_plan["targetQuestionKeys"] = list(
-                scope_plan.get("targetQuestionKeys") or []
-            )
-            audit_plan["progressTargets"] = [
-                dict(target) for target in scope_plan.get("progressTargets") or []
-            ]
-            audit_plan.setdefault("policyTargets", {})["law_audit"] = list(
-                audit_plan["targetQuestionKeys"]
-            )
-            audit_plan["targetRecordAliasGroups"] = [
-                list(aliases)
-                for aliases in scope_plan.get("targetRecordAliasGroups") or []
-            ]
-            audit_plan["targetSourceRecordScopes"] = {
-                str(path): [list(group) for group in groups]
-                for path, groups in (
-                    scope_plan.get("targetSourceRecordScopes") or {}
-                ).items()
-            }
-            audit_plan["targetGroupIds"] = list(
-                scope_plan.get("targetGroupIds") or []
-            )
-            audit_plan["sourceFiles"] = list(scope_plan.get("sourceFiles") or [])
-            audit_plan["outputFiles"] = _unique(
-                self._selected_or_expected_patch_path(
-                    source_path,
-                    {
-                        "patchDir": "21_explanationText_added",
-                        "patchSuffix": "explanationText_added",
-                    },
-                )
-                for source_path in audit_plan["sourceFiles"]
-            )
-            audit_plan["allQuestionGate"] = True
+        aggregate_plans = stage_plans
+        group_scoped_plans = [
+            plan
+            for plan in stage_plans
+            if definitions[str(plan["stageId"])].get("supportsGroupScope")
+        ]
+        if group_scoped_plans:
+            # 資格全体の前提工程は子runのphase表示だけで追跡する。親runの
+            # 問題進捗へ重複加算せず、年度指定時の最終同期も全年度へ広げない。
+            aggregate_plans = group_scoped_plans
         target_question_keys = _unique(
             key
-            for plan in stage_plans
+            for plan in aggregate_plans
             for key in plan.get("targetQuestionKeys") or []
         )
         return {
@@ -749,13 +835,13 @@ class QualificationWorkflow:
             "modeLabel": stage_plans[0]["modeLabel"],
             "targetCount": len(target_question_keys),
             "workItemCount": sum(
-                int(plan["targetCount"]) for plan in stage_plans
+                int(plan["targetCount"]) for plan in aggregate_plans
             ),
             "targetQuestionKeys": target_question_keys,
             "progressTargets": list(
                 {
                     str(target.get("id") or target.get("questionKey")): dict(target)
-                    for plan in stage_plans
+                    for plan in aggregate_plans
                     for target in plan.get("progressTargets") or []
                     if target.get("id") or target.get("questionKey")
                 }.values()
@@ -764,7 +850,7 @@ class QualificationWorkflow:
                 list(aliases)
                 for aliases in dict.fromkeys(
                     tuple(aliases)
-                    for plan in stage_plans
+                    for plan in aggregate_plans
                     for aliases in plan.get("targetRecordAliasGroups") or []
                     if aliases
                 )
@@ -774,7 +860,7 @@ class QualificationWorkflow:
                     list(group)
                     for group in dict.fromkeys(
                         tuple(group)
-                        for plan in stage_plans
+                        for plan in aggregate_plans
                         for group in (
                             plan.get("targetSourceRecordScopes") or {}
                         ).get(path, [])
@@ -783,7 +869,7 @@ class QualificationWorkflow:
                 ]
                 for path in _unique(
                     path
-                    for plan in stage_plans
+                    for plan in aggregate_plans
                     for path in (
                         plan.get("targetSourceRecordScopes") or {}
                     )
@@ -791,13 +877,15 @@ class QualificationWorkflow:
             },
             "targetGroupIds": _unique(
                 group_id
-                for plan in stage_plans
+                for plan in aggregate_plans
                 for group_id in plan.get("targetGroupIds") or []
             ),
-            "scopeListGroupId": stage_plans[0].get("scopeListGroupId"),
-            "scopeListGroupIds": list(
-                stage_plans[0].get("scopeListGroupIds") or []
+            "scopeListGroupId": (
+                scoped_group_ids[0]
+                if scoped_group_ids is not None and len(scoped_group_ids) == 1
+                else None
             ),
+            "scopeListGroupIds": list(scoped_group_ids or []),
             "sourceFiles": _unique(
                 path
                 for plan in stage_plans
@@ -1176,6 +1264,7 @@ class QualificationWorkflow:
             definition
             for definition in definitions
             if definition.get("policyVersion") is not None
+            and definition.get("supportsGroupScope")
         ]
         version_items_by_stage: dict[
             str, list[tuple[Mapping[str, Any], Mapping[str, Any]]]
@@ -1231,14 +1320,20 @@ class QualificationWorkflow:
                 target_questions = [
                     question
                     for question in questions
-                    if question.get("isLawRelated") is True
+                    if question.get("isLawRelated") is not False
+                    or set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
                 ]
                 target_count = len(target_questions)
                 incomplete = [
                     question
                     for question in target_questions
                     if set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
-                    or not (question.get("projected") or {}).get("lawRevisionFacts")
+                    or (
+                        question.get("isLawRelated") is not False
+                        and not (question.get("projected") or {}).get(
+                            "lawRevisionFacts"
+                        )
+                    )
                 ]
                 complete = target_count - len(incomplete)
                 target_questions = incomplete
@@ -1316,7 +1411,10 @@ class QualificationWorkflow:
                 if stage_id == "question_set" and not self.category_ready(qualification):
                     status = "waiting"
 
-            if stage.get("policyVersion") is not None:
+            if (
+                stage.get("policyVersion") is not None
+                and stage.get("supportsGroupScope")
+            ):
                 version_items = version_items_by_stage[stage_id]
                 current_version_count = sum(
                     item["status"] == "current" for _, item in version_items
@@ -1460,9 +1558,27 @@ class QualificationWorkflow:
     @staticmethod
     def _maintenance_progress(
         version_statuses: list[tuple[Mapping[str, Any], Mapping[str, Any]]],
+        *,
+        force_all_required: bool = False,
     ) -> dict[str, int]:
         total = len(version_statuses)
-        current = sum(bool(status.get("allCurrent")) for _, status in version_statuses)
+        if force_all_required:
+            return {
+                "totalCount": total,
+                "currentCount": 0,
+                "requiredCount": total,
+            }
+        current = sum(
+            bool(status.get("allCurrent"))
+            and not (
+                set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
+            )
+            and not (
+                question.get("isLawRelated") is not False
+                and not (question.get("projected") or {}).get("lawRevisionFacts")
+            )
+            for question, status in version_statuses
+        )
         return {
             "totalCount": total,
             "currentCount": current,

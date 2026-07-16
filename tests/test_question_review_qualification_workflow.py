@@ -88,8 +88,10 @@ class QualificationWorkflowTests(unittest.TestCase):
         current_question = question(group="2025")
         legacy_question = question(group="2026")
         with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
             workflow = QualificationWorkflow(
-                Path(directory),
+                root,
                 FakeInventory(
                     "sample",
                     [
@@ -242,6 +244,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             )
 
             with_issue = workflow.overview("sample")
+            retry_plan = workflow.plan("sample", "law_audit", "outdated")
             item["issues"] = []
             item["issueCodes"] = []
             without_issue = workflow.overview("sample")
@@ -249,7 +252,14 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(with_issue["nextStageId"], "law_audit")
         audit = next(item for item in with_issue["stages"] if item["id"] == "law_audit")
         self.assertEqual(audit["remainingCount"], 1)
+        self.assertEqual(
+            with_issue["summary"]["maintenanceProgress"]["requiredCount"], 1
+        )
+        self.assertEqual(retry_plan["targetCount"], 1)
         self.assertIn("21_explanationText_added", audit["outputPreview"][0])
+        self.assertEqual(
+            without_issue["summary"]["maintenanceProgress"]["requiredCount"], 0
+        )
         self.assertEqual(without_issue["nextStageId"], "delivery")
         delivery = next(
             item for item in without_issue["stages"] if item["id"] == "delivery"
@@ -503,12 +513,19 @@ class QualificationWorkflowTests(unittest.TestCase):
                     "correct_choice",
                     "law_context",
                     "explanation",
+                    "law_audit",
                 ],
             )
             before = workflow.overview("sample")
             category_plan = workflow.plan("sample", "category_setup", "remaining")
             with self.assertRaisesRegex(ValueError, "03c カテゴリ設計"):
                 workflow.plan("sample", "question_set", "refresh")
+            top_plan = workflow.plan_many(
+                "sample",
+                ["category_setup", "question_set"],
+                "outdated",
+                list_group_ids=["2026"],
+            )
             write_category(root)
             after = workflow.overview("sample")
 
@@ -518,11 +535,240 @@ class QualificationWorkflowTests(unittest.TestCase):
             "prompt/qualification_docs/sample/03_category_preparation.md",
             category_plan["outputFiles"],
         )
+        self.assertEqual(
+            [item["stageId"] for item in top_plan["stagePlans"]],
+            ["category_setup", "question_set"],
+        )
+        self.assertEqual(top_plan["scopeListGroupIds"], ["2026"])
         question_set = next(
             stage for stage in before["stages"] if stage["id"] == "question_set"
         )
         self.assertEqual(question_set["status"], "waiting")
         self.assertEqual(after["nextStageId"], "question_set")
+
+    def test_valid_qualification_category_is_not_a_per_question_outdated_stage(self):
+        item = question()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            current_stage_ids = list(workflow.versioned_policies("sample"))
+            mark_current(workflow, item, current_stage_ids)
+
+            overview = workflow.overview("sample")
+            plan = workflow.plan("sample", "category_setup", "outdated")
+
+        self.assertEqual(
+            overview["summary"]["maintenanceProgress"]["requiredCount"],
+            0,
+        )
+        self.assertEqual(
+            overview["summary"]["requiredMaintenance"]["stageIds"],
+            [],
+        )
+        self.assertEqual(plan["targetCount"], 0)
+        self.assertEqual(plan["targetQuestionKeys"], [])
+
+    def test_selected_group_plan_does_not_expand_to_qualification_scope(self):
+        selected = question(group="2026")
+        other = question(group="2025")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [
+                        {"listGroupId": "2025", "questions": [other]},
+                        {"listGroupId": "2026", "questions": [selected]},
+                    ],
+                ),
+            )
+            policies = list(workflow.versioned_policies("sample"))
+            mark_current(workflow, other, policies)
+            mark_current(
+                workflow,
+                selected,
+                [stage_id for stage_id in policies if stage_id != "question_type"],
+            )
+
+            overview = workflow.overview("sample")
+            required = overview["summary"]["requiredMaintenance"]
+            plan = workflow.plan_many(
+                "sample",
+                required["stageIds"],
+                required["mode"],
+                list_group_ids=["2026"],
+            )
+        self.assertEqual(required["stageIds"], ["question_type"])
+        self.assertEqual(plan["targetCount"], 1)
+        self.assertEqual(plan["targetGroupIds"], ["2026"])
+        self.assertEqual(plan["scopeListGroupIds"], ["2026"])
+
+    def test_missing_category_prerequisite_does_not_expand_selected_group(self):
+        selected = question(group="2026")
+        other = question(group="2025")
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {"listGroupId": "2025", "questions": [other]},
+                        {"listGroupId": "2026", "questions": [selected]},
+                    ],
+                ),
+            )
+            policies = list(workflow.versioned_policies("sample"))
+            mark_current(workflow, other, policies)
+            mark_current(workflow, selected, policies)
+
+            overview = workflow.overview("sample")
+            required = overview["summary"]["requiredMaintenance"]
+            plan = workflow.plan_many(
+                "sample",
+                required["stageIds"],
+                required["mode"],
+                list_group_ids=["2026"],
+            )
+            singular_plan = workflow.plan_many(
+                "sample",
+                required["stageIds"],
+                required["mode"],
+                list_group_id="2026",
+            )
+
+        self.assertEqual(required["stageIds"], ["category_setup", "question_set"])
+        self.assertEqual(plan["targetCount"], 1)
+        self.assertEqual(plan["workItemCount"], 1)
+        self.assertEqual(plan["targetQuestionKeys"], [selected["id"]])
+        self.assertEqual(plan["targetGroupIds"], ["2026"])
+        self.assertEqual(plan["scopeListGroupIds"], ["2026"])
+        category_plan = next(
+            item for item in plan["stagePlans"] if item["stageId"] == "category_setup"
+        )
+        self.assertEqual(category_plan["targetGroupIds"], ["2025", "2026"])
+        self.assertEqual(singular_plan["targetQuestionKeys"], [selected["id"]])
+        self.assertEqual(singular_plan["targetGroupIds"], ["2026"])
+        self.assertEqual(singular_plan["scopeListGroupIds"], ["2026"])
+
+    def test_non_law_blocking_issue_reopens_current_law_audit(self):
+        issue = {
+            "code": "law_audit_metadata_incomplete",
+            "fields": ["lawRevisionFacts"],
+        }
+        item = question(law_related=False, issues=[issue])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            mark_current(workflow, item, list(workflow.versioned_policies("sample")))
+
+            overview = workflow.overview("sample")
+            plan = workflow.plan("sample", "law_audit", "outdated")
+
+        self.assertEqual(
+            overview["summary"]["maintenanceProgress"]["requiredCount"], 1
+        )
+        self.assertEqual(
+            overview["summary"]["requiredMaintenance"]["stageIds"],
+            ["law_audit"],
+        )
+        self.assertEqual(plan["targetQuestionKeys"], [item["id"]])
+
+    def test_unclassified_question_without_facts_reopens_current_law_audit(self):
+        item = question(law_related=None)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            mark_current(workflow, item, list(workflow.versioned_policies("sample")))
+
+            overview = workflow.overview("sample")
+            plan = workflow.plan("sample", "law_audit", "outdated")
+
+        self.assertEqual(
+            overview["summary"]["requiredMaintenance"]["stageIds"],
+            ["law_audit"],
+        )
+        self.assertEqual(plan["targetQuestionKeys"], [item["id"]])
+
+    def test_required_non_law_audit_version_has_an_executable_outdated_plan(self):
+        item = question(law_related=False)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            current_stage_ids = [
+                stage_id
+                for stage_id in workflow.versioned_policies("sample")
+                if stage_id != "law_audit"
+            ]
+            mark_current(workflow, item, current_stage_ids)
+
+            overview = workflow.overview("sample")
+            plan = workflow.plan("sample", "law_audit", "outdated")
+
+        self.assertEqual(
+            overview["summary"]["requiredMaintenance"]["stageIds"],
+            ["law_audit"],
+        )
+        self.assertEqual(plan["targetCount"], 1)
+
+    def test_invalid_live_catalog_keeps_overview_but_blocks_new_plan(self):
+        item = question()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = root / "config" / "question_maintenance_workflow.toml"
+            config.parent.mkdir(parents=True)
+            source = (
+                Path(__file__).resolve().parents[1]
+                / "config"
+                / "question_maintenance_workflow.toml"
+            )
+            config.write_bytes(source.read_bytes())
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            workflow.catalog("sample")
+
+            config.write_text("broken = [\n", encoding="utf-8")
+            overview = workflow.overview("sample")
+
+            with self.assertRaisesRegex(ValueError, "直前の正常な設定"):
+                workflow.plan("sample", "question_type", "outdated")
+
+        self.assertTrue(overview["restartRequired"])
+        self.assertIn("直前の正常な設定", overview["catalogWarning"])
 
     def test_multiple_stages_generate_one_question_at_a_time_prompt(self):
         issue = {
@@ -571,7 +817,6 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(result["stageIds"], stage_ids)
         self.assertEqual(result["targetCount"], 2)
         self.assertEqual(result["workItemCount"], 8)
-        self.assertEqual(audit_plan["priorLawQuestionCount"], 1)
         self.assertEqual(audit_plan["targetCount"], 2)
         self.assertTrue(audit_plan["allQuestionGate"])
         self.assertIn("対象問題: `2問すべて`", result["prompt"])
@@ -580,6 +825,36 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertIn("Codex組み込みweb検索でe-Gov又は所管官庁", result["prompt"])
         self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
         self.assertNotIn("## 問題文", result["prompt"])
+
+    def test_law_audit_refresh_alone_rechecks_every_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            law_question = question(law_related=True)
+            law_question["id"] = "law-question"
+            non_law_question = question(law_related=False)
+            non_law_question["id"] = "non-law-question"
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {
+                            "listGroupId": "2026",
+                            "questions": [law_question, non_law_question],
+                        }
+                    ],
+                ),
+            )
+
+            plan = workflow.plan(
+                "sample", "law_audit", "group_refresh", list_group_id="2026"
+            )
+            result = workflow.prompt(
+                "sample", "law_audit", "group_refresh", list_group_id="2026"
+            )
+
+        self.assertEqual(plan["targetCount"], 2)
+        self.assertTrue(plan["allQuestionGate"])
+        self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
 
     def test_law_audit_prompt_is_path_only_and_requires_per_choice_research(self):
         patches = [

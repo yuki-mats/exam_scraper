@@ -10,6 +10,7 @@ from tools.question_review_console.qualification_runs import (
     QualificationRunCoordinator,
     QualificationRunError,
     QualificationRunStore,
+    _maintenance_session_phases,
 )
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 
@@ -51,6 +52,7 @@ class FakeWorkflow:
 class FakeSynchronizer:
     def __init__(self):
         self.calls = []
+        self.merge_calls = []
         self.local_ready = True
         self.can_sync = True
 
@@ -70,6 +72,15 @@ class FakeSynchronizer:
         self.local_ready = True
         emit(f"{list_group_id}: 完了")
         return {"message": "同期しました。"}
+
+    def refresh_merged_views(self, qualification, list_group_id, emit):
+        self.merge_calls.append((qualification, list_group_id))
+        emit(f"{list_group_id}: 工程間merge完了")
+        return {
+            "listGroupId": list_group_id,
+            "status": "succeeded",
+            "message": "次工程用のmergeを完了しました。",
+        }
 
 
 class SuccessfulAppServer:
@@ -160,6 +171,74 @@ class FailingAppServer:
         raise RuntimeError("turn crashed")
 
 
+class FlowAppServer:
+    configured = True
+    provider = "Codex App Server"
+
+    def __init__(
+        self,
+        *,
+        fail_on_writer=None,
+        events=None,
+        changed_files_by_work_type=None,
+        before_receipt=None,
+    ):
+        self.fail_on_writer = fail_on_writer
+        self.writer_count = 0
+        self.calls = []
+        self.events = events
+        self.changed_files_by_work_type = changed_files_by_work_type or {}
+        self.before_receipt = before_receipt
+
+    def assert_subscription_access(self, *, force=True):
+        return {"allowed": True, "planType": "pro"}
+
+    def run_turn(self, prompt, **kwargs):
+        self.calls.append((prompt, kwargs))
+        if self.events is not None:
+            self.events.append(f"session:{kwargs['work_type']}")
+        self.writer_count += 1
+        number = self.writer_count
+        kwargs["on_thread_started"](
+            f"thread-flow-{number}", f"session-flow-{number}"
+        )
+        kwargs["on_turn_started"](
+            f"thread-flow-{number}", f"turn-flow-{number}"
+        )
+        if self.fail_on_writer == number:
+            raise RuntimeError(f"phase {number} failed")
+        if self.before_receipt is not None:
+            self.before_receipt(kwargs["work_type"])
+        changed_files = list(
+            self.changed_files_by_work_type.get(kwargs["work_type"], [])
+        )
+        receipt_line = next(
+            line
+            for line in prompt.splitlines()
+            if "完了時に検証結果を次へJSONで保存" in line
+        )
+        Path(receipt_line.split("`")[1]).write_text(
+            json.dumps(
+                {
+                    "status": "succeeded",
+                    "summary": f"phase {number} completed",
+                    "commands": [{"command": "python check.py", "status": "pass"}],
+                    "changedFiles": changed_files,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        return AppServerTurnResult(
+            thread_id=f"thread-flow-{number}",
+            session_id=f"session-flow-{number}",
+            turn_id=f"turn-flow-{number}",
+            final_message=f"phase {number} completed",
+            model="gpt-test",
+            service_tier=None,
+        )
+
+
 class SourceOnlyInventory:
     def inventory(self):
         return {
@@ -211,7 +290,77 @@ class MultiGroupSourceInventory(SourceOnlyInventory):
             ]
         }
 
+
+class LawSourceInventory(SourceOnlyInventory):
+    def group(self, qualification, list_group_id):
+        group = super().group(qualification, list_group_id)
+        question = group["questions"][0]
+        question["isLawRelated"] = True
+        question["projected"] = {
+            **question["projected"],
+            "lawRevisionFacts": [
+                {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "secondary_verified",
+                }
+            ],
+        }
+        return group
+
+
+class IncompleteLawSourceInventory(LawSourceInventory):
+    def group(self, qualification, list_group_id):
+        group = super().group(qualification, list_group_id)
+        group["questions"][0]["issueCodes"] = [
+            "law_audit_metadata_incomplete"
+        ]
+        return group
+
 class QualificationRunTests(unittest.TestCase):
+    def test_every_top_maintenance_stage_has_its_own_session_phase(self):
+        stage_ids = [
+            "question_type",
+            "question_intent",
+            "correct_choice",
+            "law_context",
+            "explanation",
+            "law_audit",
+            "category_setup",
+            "question_set",
+        ]
+        plan = {
+            "stagePlans": [
+                {
+                    "stageId": stage_id,
+                    "stageLabel": stage_id,
+                    "stageCode": str(index),
+                    "sessionGroup": (
+                        "maintenance"
+                        if index <= 5
+                        else "law_audit"
+                        if index == 6
+                        else "question_set"
+                    ),
+                    "sessionLabel": (
+                        "問題を整備"
+                        if index <= 5
+                        else "現行法を監査"
+                        if index == 6
+                        else "問題集を整備"
+                    ),
+                }
+                for index, stage_id in enumerate(stage_ids, start=1)
+            ]
+        }
+
+        phases = _maintenance_session_phases(plan)
+
+        self.assertEqual([phase["id"] for phase in phases], stage_ids)
+        self.assertEqual(
+            [phase["sessionGroup"] for phase in phases],
+            ["maintenance"] * 5 + ["law_audit", "question_set", "question_set"],
+        )
+
     def test_human_run_records_validated_question_level_progress(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -945,6 +1094,31 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(
             plan["allowedWriteFiles"], sorted(plan["outputFiles"])
         )
+
+    def test_category_setup_cannot_complete_without_valid_category(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, SourceOnlyInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            run = {
+                "qualification": "new-exam",
+                "stageId": "category_setup",
+                "stageIds": ["category_setup"],
+                "targetGroupIds": ["2026"],
+                "policyVersions": {},
+            }
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "category.json",
+            ):
+                coordinator._record_work_versions(run)
 
     def test_multi_stage_contract_does_not_cross_product_sources_and_layers(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1960,7 +2134,7 @@ class QualificationRunTests(unittest.TestCase):
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertIsNone(started["prompt"])
-        self.assertEqual(job["status"], "succeeded")
+        self.assertEqual(job["status"], "succeeded", job)
         self.assertEqual(run["status"], "succeeded")
         self.assertEqual(run["workType"], "maintenance")
         self.assertEqual(run["sandbox"], "workspace-write")
@@ -2533,6 +2707,291 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(started["run"]["scopeListGroupIds"], ["2025", "2026"])
         self.assertIn("対象listGroupId: `2025`, `2026`", started["prompt"])
         self.assertIn("一問を読み、その問題について選択工程", started["prompt"])
+
+    def test_top_maintenance_uses_fresh_writer_sessions_for_separate_work(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            events = []
+            app_server = FlowAppServer(events=events)
+            jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            original_merge = synchronizer.refresh_merged_views
+
+            def refresh_merged_views(qualification, list_group_id, emit):
+                events.append("merge")
+                return original_merge(qualification, list_group_id, emit)
+
+            synchronizer.refresh_merged_views = refresh_merged_views
+            original_sync = synchronizer.run
+
+            def run_sync(qualification, list_group_id, token, emit, *, force=False):
+                events.append("final-sync")
+                return original_sync(
+                    qualification, list_group_id, token, emit, force=force
+                )
+
+            synchronizer.run = run_sync
+            workflow = QualificationWorkflow(root, LawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            stage_ids = ["question_type", "law_audit"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "outdated",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            self.assertEqual(preview["scopeListGroupIds"], ["2026"])
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )
+            deadline = time.monotonic() + 3
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.get("new-exam", started["run"]["runId"])
+            recent = coordinator.recent("new-exam")
+
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(run["workType"], "maintenance_flow")
+        self.assertEqual(
+            [item["id"] for item in run["phaseExecutions"]],
+            ["question_type", "law_audit"],
+        )
+        self.assertTrue(
+            all(item["status"] == "succeeded" for item in run["phaseExecutions"])
+        )
+        self.assertEqual(len(run["childRunIds"]), 2)
+        sessions = {item["sessionId"] for item in run["phaseExecutions"]}
+        threads = {item["threadId"] for item in run["phaseExecutions"]}
+        self.assertEqual(len(sessions), 2)
+        self.assertEqual(len(threads), 2)
+        self.assertEqual(
+            [kwargs["work_type"] for _, kwargs in app_server.calls],
+            ["maintenance_question_type", "maintenance_law_audit"],
+        )
+        self.assertEqual(synchronizer.merge_calls, [("new-exam", "2026")])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", False)])
+        self.assertEqual(
+            events,
+            [
+                "session:maintenance_question_type",
+                "merge",
+                "session:maintenance_law_audit",
+                "final-sync",
+            ],
+        )
+        self.assertEqual(recent["runs"][0]["runId"], run["runId"])
+        self.assertTrue(all(not item.get("parentRunId") for item in recent["runs"]))
+
+    def test_top_maintenance_stops_before_later_session_after_phase_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = FlowAppServer(fail_on_writer=2)
+            jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            workflow = QualificationWorkflow(root, LawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            stage_ids = ["question_type", "law_audit"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "outdated",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            self.assertEqual(preview["scopeListGroupIds"], ["2026"])
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )
+            deadline = time.monotonic() + 3
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.get("new-exam", started["run"]["runId"])
+
+        self.assertEqual(job["status"], "failed")
+        self.assertEqual(run["status"], "failed")
+        self.assertEqual(
+            [item["status"] for item in run["phaseExecutions"]],
+            ["succeeded", "failed"],
+            job,
+        )
+        self.assertEqual(len(run["childRunIds"]), 2)
+        self.assertEqual(len(app_server.calls), 2)
+        self.assertEqual(synchronizer.merge_calls, [("new-exam", "2026")])
+        self.assertEqual(synchronizer.calls, [])
+        self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
+        self.assertIn("phase 2 failed", run["error"])
+
+    def test_top_maintenance_prepares_category_then_uses_separate_question_set_session(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            category_path = Path("output/new-exam/category/category.json")
+
+            def write_category(work_type):
+                if work_type != "maintenance_category_setup":
+                    return
+                absolute = root / category_path
+                absolute.parent.mkdir(parents=True, exist_ok=True)
+                absolute.write_text(
+                    json.dumps(
+                        {
+                            "folders": [{"folderId": "folder-1"}],
+                            "questionSets": [
+                                {
+                                    "questionSetId": "set-1",
+                                    "folderId": "folder-1",
+                                }
+                            ],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+
+            app_server = FlowAppServer(
+                changed_files_by_work_type={
+                    "maintenance_category_setup": [category_path.as_posix()]
+                },
+                before_receipt=write_category,
+            )
+            jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            workflow = QualificationWorkflow(root, LawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            snapshots = iter(
+                [
+                    {},
+                    {category_path: "sha256:category"},
+                    {category_path: "sha256:category"},
+                    {category_path: "sha256:category"},
+                ]
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: next(
+                snapshots
+            )
+            stage_ids = ["category_setup", "question_set"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "outdated",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            self.assertEqual(preview["scopeListGroupIds"], ["2026"])
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )
+            deadline = time.monotonic() + 3
+            job = jobs.get(started["job"]["jobId"])
+            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.get("new-exam", started["run"]["runId"])
+
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(
+            [item["id"] for item in run["phaseExecutions"]],
+            ["category_setup", "question_set"],
+        )
+        self.assertEqual(
+            len({item["sessionId"] for item in run["phaseExecutions"]}),
+            2,
+        )
+        self.assertEqual(
+            [kwargs["work_type"] for _, kwargs in app_server.calls],
+            ["maintenance_category_setup", "maintenance_question_set"],
+        )
+        self.assertEqual(run["stageIds"], preview["stageIds"])
+        self.assertEqual(run["scopeListGroupIds"], preview["scopeListGroupIds"])
+        self.assertEqual(run["targetCount"], preview["targetCount"])
+        self.assertEqual(run["workItemCount"], preview["workItemCount"])
+        self.assertEqual(synchronizer.merge_calls, [])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", False)])
+
+    def test_law_audit_quality_accepts_explicitly_non_law_question(self):
+        question = {
+            "id": "non-law-question",
+            "questionLabel": "問1",
+            "isLawRelated": False,
+            "issueCodes": [],
+            "projected": {"isLawRelated": False},
+        }
+
+        QualificationRunCoordinator._validate_law_audit_quality([question])
+
+    def test_law_audit_version_is_not_recorded_while_quality_warning_remains(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, IncompleteLawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            plan = coordinator._plan(
+                "new-exam", "law_audit", "outdated", None
+            )
+            plan["runId"] = "law-audit-run"
+
+            with self.assertRaisesRegex(
+                QualificationRunError, "03b 現行法監査の必須メタデータ"
+            ):
+                coordinator._record_work_versions(plan)
+            status = workflow.work_versions.status_for(
+                IncompleteLawSourceInventory().group("new-exam", "2026")[
+                    "questions"
+                ][0],
+                [workflow.versioned_policies("new-exam")["law_audit"]],
+            )
+
+        self.assertEqual(status["stages"][0]["status"], "unrecorded")
 
     def test_human_run_persists_prompt_and_can_resume_after_restart(self):
         with tempfile.TemporaryDirectory() as directory:

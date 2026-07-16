@@ -245,6 +245,55 @@ class ArtifactSynchronizer:
         emit("Merge・Convert・upload-readyの一致を確認しました。")
         return {**updated, "message": "ローカル成果物を最新patchに同期しました。"}
 
+    def refresh_merged_views(
+        self,
+        qualification: str,
+        list_group_id: str,
+        emit: Callable[[str], None],
+    ) -> dict[str, Any]:
+        """Refresh merged inputs between independent maintenance sessions."""
+
+        group = self.inventory.group(qualification, list_group_id)
+        source_before = self._source_hash(qualification, list_group_id)
+        base_dir = self.repo_root / "output" / qualification / "questions_json"
+        command = [
+            sys.executable,
+            str(self.repo_root / "scripts" / "merge" / "00_merge_all.py"),
+            list_group_id,
+            "--base-dir",
+            str(base_dir),
+        ]
+        if self._allow_missing_answer_result(group):
+            command.append("--allow-missing-answer-result")
+        emit(f"{list_group_id}: 次工程の入力へ最新patchをmergeします。")
+        return_code = self.command_runner(
+            command,
+            cwd=self.repo_root,
+            env=self._environment(),
+            emit=emit,
+        )
+        if return_code != 0:
+            raise WorkflowError(f"工程間mergeに失敗しました（exit={return_code}）。")
+        if source_before != self._source_hash(qualification, list_group_id):
+            raise WorkflowError("工程間merge中に00_sourceが変更されました。")
+        self.inventory.invalidate(qualification, list_group_id)
+        updated = self.inventory.group(qualification, list_group_id)
+        stale_questions = [
+            question
+            for question in updated.get("questions") or []
+            if question.get("workflow", {}).get("merge") != "match"
+        ]
+        if stale_questions:
+            raise WorkflowError(
+                "工程間merge後もprojectedと20_merged_1が一致しません。"
+            )
+        emit(f"{list_group_id}: 次工程用の20_merged_1を更新しました。")
+        return {
+            "listGroupId": list_group_id,
+            "status": "succeeded",
+            "message": "次工程用のmerged viewを最新patchに同期しました。",
+        }
+
     def _command(
         self,
         qualification: str,

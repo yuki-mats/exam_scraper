@@ -64,6 +64,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 STATIC_ROOT = Path(__file__).resolve().parent / "static"
 MAX_REQUEST_BYTES = 2 * 1024 * 1024
 ALL_LIST_GROUPS = "__all__"
+UI_CONTRACT_VERSION = "question-review-ui/v2"
 STATIC_CONTENT_TYPES = {
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
@@ -237,6 +238,7 @@ class QuestionReviewApplication:
             app_server_status = self.app_server.public_status(refresh=False)
             return HTTPStatus.OK, {
                 "sessionToken": self.session_token,
+                "uiContractVersion": UI_CONTRACT_VERSION,
                 "projectId": PRODUCTION_PROJECT_ID,
                 "readOnlyFirestore": False,
                 "firestoreWriteEnabled": True,

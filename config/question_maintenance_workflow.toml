@@ -5,6 +5,18 @@ description = "正本ドキュメントと資格配下の実データを結び�
 trunk_document = "document/operations/exam_pipeline_manual_and_automation.md"
 human_documents = ["AGENTS.md", "prompt/README.md"]
 
+[[session_groups]]
+id = "maintenance"
+label = "問題を整備"
+
+[[session_groups]]
+id = "law_audit"
+label = "現行法を監査"
+
+[[session_groups]]
+id = "question_set"
+label = "問題集を整備"
+
 [[stages]]
 id = "source"
 code = "00"
@@ -34,6 +46,7 @@ kind = "human"
 policy_version = "1.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
+session_group = "maintenance"
 patch_dir = "10_questionType_fixed"
 patch_suffix = "questionType_fixed"
 issue_fields = ["questionType"]
@@ -48,6 +61,7 @@ kind = "human"
 policy_version = "1.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
+session_group = "maintenance"
 patch_dir = "15_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
 issue_fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
@@ -62,6 +76,7 @@ kind = "human"
 policy_version = "1.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
+session_group = "maintenance"
 patch_dir = "23_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
 issue_fields = ["correctChoiceText", "answer_result_text"]
@@ -80,6 +95,7 @@ qualification_document_patterns = [
   "*law_reference*.md",
 ]
 batch_selectable = true
+session_group = "maintenance"
 patch_dir = "18_law_context_prepared"
 patch_suffix = "lawContext_prepared"
 issue_fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences"]
@@ -99,6 +115,7 @@ qualification_document_patterns = [
   "*law_reference*.md",
 ]
 batch_selectable = true
+session_group = "maintenance"
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
 issue_fields = ["explanationText", "suggestedQuestions", "suggestedQuestionDetails"]
@@ -117,6 +134,7 @@ qualification_document_patterns = [
   "*law_reference*.md",
 ]
 batch_selectable = true
+session_group = "law_audit"
 issue_fields = ["lawReferences", "lawRevisionFacts"]
 documents = [
   "prompt/03b_prompt_audit_current_law_and_patch.md",
@@ -129,6 +147,10 @@ code = "03c"
 label = "カテゴリ設計"
 purpose = "資格全体の公式・専門家taxonomyをcategory.jsonとして確定する"
 kind = "human"
+policy_version = "1.0"
+batch_selectable = true
+session_group = "question_set"
+scope = "qualification"
 documents = [
   "prompt/03c_prompt_prepare_category_json.md",
   "prompt/qualification_docs/category_taxonomy_policy.md",
@@ -148,6 +170,7 @@ qualification_document_patterns = [
   "03_category_preparation.md",
 ]
 batch_selectable = true
+session_group = "question_set"
 patch_dir = "22_questionSetId_linked"
 patch_suffix = "questionSetId_linked"
 issue_fields = ["questionSetId"]
@@ -159,6 +182,7 @@ code = "出力"
 label = "公開準備"
 purpose = "patchをmerge・convertしupload-readyを検証する"
 kind = "machine"
+scope = "group"
 documents = [
   "document/operations/delivery_workflow.md",
   "tools/question_bank/README.md",

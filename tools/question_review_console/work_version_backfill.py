@@ -12,7 +12,6 @@ from tools.question_review_console.qualification_workflow import QualificationWo
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.work_versions import (
     LEGACY_VERSION,
-    MAINTENANCE_STAGE_IDS,
     QuestionWorkVersionStore,
     evaluation_policy,
 )
@@ -436,8 +435,8 @@ def backfill_published_work_versions(
         )
     }
     stage_receipts: list[dict[str, Any]] = []
-    for stage_id in MAINTENANCE_STAGE_IDS:
-        for qualification, policies in policies_by_qualification.items():
+    for qualification, policies in policies_by_qualification.items():
+        for stage_id, policy in policies.items():
             questions = [
                 question
                 for question in matched
@@ -445,7 +444,7 @@ def backfill_published_work_versions(
             ]
             receipt = work_versions.record_stage(
                 questions,
-                policies[stage_id],
+                policy,
                 run_id=None,
                 source="firestore_published_backfill",
                 only_missing=True,

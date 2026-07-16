@@ -14,6 +14,8 @@
 
 Codex App Serverでは、組み込みweb検索を一次情報の入口として使います。外部MCP、Lawzilla、Firestore条文検索は使いません。保存済みの`lawReferences`、`lawRevisionFacts`、evidence cacheは候補として読み、一次情報と一致した場合だけ根拠にします。
 
+問題整備システムでは、03bを通常整備とは別の新しいsessionで自動実行します。法令監査警告が残る問題は、`isLawRelated=false`でも03bの工程版が現行でもトップ整備の対象へ戻し、警告がなくなるまで完了記録を更新しません。法令に関係しないと明示確認した問題も、その判定を03bの工程版として記録します。`isLawRelated`が未確定の問題は、根拠なしで完了扱いにしません。通常の再実行はトップから行い、詳細画面で監査対象を組み直しません。
+
 ## 監査
 
 1. qualification、対象listGroupId、基準日、資格別law policyを固定する。

@@ -195,7 +195,7 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         self.assertEqual(record["invalidatedRunId"], "bad-run")
         self.assertEqual(record["history"][-1]["version"], "2.0")
 
-    def test_law_audit_version_applies_only_to_law_questions(self):
+    def test_law_audit_version_records_explicit_non_law_classification(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))
             non_law = question(law_related=False)
@@ -207,8 +207,9 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             )
             status = store.status_for(non_law, [policy("law_audit")])
 
-        self.assertEqual(receipt["recordedCount"], 0)
-        self.assertEqual(status["applicableCount"], 0)
+        self.assertEqual(receipt["recordedCount"], 1)
+        self.assertEqual(status["applicableCount"], 1)
+        self.assertTrue(status["allCurrent"])
 
     def test_corrupt_group_file_fails_closed_without_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:

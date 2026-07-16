@@ -959,8 +959,11 @@ class QuestionReviewServerTests(unittest.TestCase):
                     response.getheader("Strict-Transport-Security"),
                     "max-age=31536000",
                 )
+                session = json.loads(response.read())
+                self.assertEqual(session["sessionToken"], app.session_token)
                 self.assertEqual(
-                    json.loads(response.read())["sessionToken"], app.session_token
+                    session["uiContractVersion"],
+                    "question-review-ui/v2",
                 )
                 connection.close()
 

@@ -332,6 +332,78 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         self.assertIn("--upload-dry-run", commands[0])
         self.assertIn("--allow-missing-answer-result", commands[0])
 
+    def test_refreshes_only_merged_views_between_sessions(self):
+        class RefreshingInventory(FakeInventory):
+            def invalidate(self, qualification, list_group_id):
+                self.payload["questions"][0]["workflow"]["merge"] = "match"
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            (source_dir / "question.json").write_text("{}", encoding="utf-8")
+            group = group_payload(
+                {"merge": "stale", "convert": "stale", "upload": "missing"}
+            )
+            group["questions"][0]["projected"] = {
+                "answer_result_text": "",
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["正しい", "間違い"],
+            }
+            commands = []
+            synchronizer = ArtifactSynchronizer(
+                root,
+                RefreshingInventory(group),
+                "secret",
+                command_runner=lambda command, **_kwargs: commands.append(command) or 0,
+            )
+
+            result = synchronizer.refresh_merged_views(
+                "sample-exam", "2026", lambda _message: None
+            )
+
+        self.assertEqual(result["status"], "succeeded")
+        self.assertTrue(commands[0][1].endswith("scripts/merge/00_merge_all.py"))
+        self.assertEqual(commands[0][2], "2026")
+        self.assertIn("--base-dir", commands[0])
+        self.assertIn("--allow-missing-answer-result", commands[0])
+        self.assertNotIn("--upload-dry-run", commands[0])
+
+    def test_inter_session_merge_rejects_successful_no_op_command(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            (source_dir / "question.json").write_text("{}", encoding="utf-8")
+            group = group_payload(
+                {"merge": "stale", "convert": "stale", "upload": "missing"}
+            )
+            synchronizer = ArtifactSynchronizer(
+                root,
+                FakeInventory(group),
+                "secret",
+                command_runner=lambda _command, **_kwargs: 0,
+            )
+
+            with self.assertRaisesRegex(WorkflowError, "20_merged_1"):
+                synchronizer.refresh_merged_views(
+                    "sample-exam", "2026", lambda _message: None
+                )
+
     def test_force_refresh_runs_pipeline_even_when_artifacts_match(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -542,6 +614,58 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_top_entries_share_one_required_maintenance_flow(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        flow = javascript.split("function openRequiredMaintenance", 1)[1].split(
+            "function renderMaintenanceDashboard", 1
+        )[0]
+        selector = javascript.split("function maintenanceRunStageIds", 1)[1].split(
+            "function openRequiredMaintenance", 1
+        )[0]
+
+        self.assertIn("requiredMaintenance?.mode", flow)
+        self.assertIn("simplified: true", flow)
+        self.assertIn(
+            '$("#maintenance-start").addEventListener("click", () => openRequiredMaintenance())',
+            javascript,
+        )
+        self.assertIn(
+            "openRequiredMaintenance([group.listGroupId])",
+            javascript,
+        )
+        self.assertIn("requiredMaintenance?.stageIds", selector)
+        self.assertNotIn('"law_audit"', selector)
+        self.assertNotIn('"category_setup"', selector)
+        self.assertNotIn('"question_set"', selector)
+        self.assertIn('const UI_CONTRACT_VERSION = "question-review-ui/v2"', javascript)
+        self.assertIn("session.uiContractVersion !== UI_CONTRACT_VERSION", javascript)
+        stage_controls = javascript.split(
+            "function renderQualificationRunStages", 1
+        )[1].split("function updateQualificationRunHeading", 1)[0]
+        self.assertIn("renderQualificationRunGroups(stage, nextGroupIds)", stage_controls)
+        self.assertIn(
+            "state.qualificationRunDialog.listGroupIds = nextGroupIds",
+            stage_controls,
+        )
+
+    def test_law_audit_warning_has_no_manual_bulk_request(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        warning = javascript.split("function renderLawAuditQualityWarning", 1)[1].split(
+            "function openFindingsReview", 1
+        )[0]
+
+        self.assertIn("法令監査メタデータが不完全です", warning)
+        self.assertIn("トップ画面の整備", warning)
+        self.assertNotIn("actionWithHelp", warning)
+        self.assertNotIn("openLawAuditQualityReview", javascript)
+        self.assertNotIn("監査パッチをまとめて修正依頼", javascript)
+
     def test_mobile_dialog_uses_dynamic_viewport_and_scrollable_body(self):
         root = Path(__file__).resolve().parents[1]
         static = root / "tools" / "question_review_console" / "static"
@@ -717,7 +841,6 @@ class WorkflowUiContractTests(unittest.TestCase):
             "renderRequiredFieldWarning",
             "openRequiredFieldsReview",
             "renderLawAuditQualityWarning",
-            "openLawAuditQualityReview",
             "openFindingsReview",
             "helpIcon",
             "renderStructuredValue",
@@ -853,10 +976,8 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("selection: state.reviewSelection", javascript)
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
-        self.assertIn('"監査パッチをまとめて修正依頼"', javascript)
-        self.assertIn("Codex組み込みweb検索", javascript)
-        self.assertIn('investigationScope: "qualification"', javascript)
-        self.assertIn('requestKind: "qualification_law_audit"', javascript)
+        self.assertNotIn('"監査パッチをまとめて修正依頼"', javascript)
+        self.assertNotIn("function openLawAuditQualityReview", javascript)
         self.assertIn("requestKind: state.reviewRequestKind", javascript)
         self.assertIn('requestKind === "qualification_law_audit"', javascript)
         self.assertIn('$("#review-scope-wrap").hidden = qualificationLawAudit', javascript)
@@ -924,7 +1045,7 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("outdatedLabel.hidden = !stage.policyVersion", javascript)
         self.assertIn('value="outdated"', html)
         self.assertIn("洗い替え必要・未整備のみ", html)
-        self.assertIn('mode: "outdated"', javascript)
+        self.assertIn('workflow.summary?.requiredMaintenance?.mode || "outdated"', javascript)
         self.assertIn('simplified: true', javascript)
         self.assertIn('`未整備 ${preview.targetCount}問`', javascript)
         self.assertIn('"本番Firestoreには反映せず、ローカルで整備します。"', javascript)

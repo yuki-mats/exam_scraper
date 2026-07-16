@@ -12,7 +12,7 @@ Python serverがChatGPT app同梱binaryの`codex app-server` processを一つ管
 
 整備、評価、再整備、再評価はすべて`gpt-5.5`と推論強度`high`を明示して開始します。Codex全体configの既定値には依存せず、App Serverが別modelを返した場合はそのrunを開始しません。
 
-複数問の整備は、まず`read-only`の事前調査threadを開き、問題本文の読み取り、根拠確認、判断案の作成だけを最大2つのexplorer subagentへ重複なく分担します。その後、`multi_agent = false`の新しい`workspace-write` threadが調査結果を問題本文と正本で再確認し、patch、画面用進捗、完了receiptを保存します。並列事前調査の親threadと子threadはどちらもsandbox上でfileを変更できず、実体patchの書き込みは技術的に1threadだけです。客観評価は従来どおり、問題ごとの完全な別sessionを既定最大4件並列で実行します。merge、sync、公開は競合を避けるため引き続き1件ずつ実行します。
+トップの整備は、人間には一つのrunとして見せます。内部では、01から03、03b、04の保存を伴う各工程を順に実行し、工程ごとに新しい保存threadを使います。次工程が前工程の最新結果を読めるよう、工程間でmerged viewだけを更新し、convertとupload dry-runは最後の検証まで行いません。各保存作業の前には、必要に応じて新しい`read-only`調査threadを開き、問題本文の読み取り、根拠確認、判断案の作成だけを最大2つのexplorer subagentへ重複なく分担します。その後、`multi_agent = false`の新しい`workspace-write` threadが現在の問題と正本を再確認し、patch、画面用進捗、完了receiptを保存します。過去threadは再開しません。客観評価は問題ごとの完全な別sessionを既定最大4件並列で実行し、merge、sync、公開は1件ずつ実行します。
 
 ## サブスクリプション境界
 
@@ -34,12 +34,15 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 
 | 作業 | Codex thread | sandbox | 入力 |
 | --- | --- | --- | --- |
-| 整備 | UIで開始したrunごとに新規 | workspace-write | 現在の対象、正本文書、工程prompt |
+| 通常整備（01〜03） | トップrun内で工程ごとに新規 | workspace-write | 現在の対象、正本文書、工程prompt |
+| 現行法監査（03b） | 通常整備とは別に新規 | workspace-write | 現在の法令問題、公的一次情報、監査prompt |
+| カテゴリ設計（03c） | 未準備時だけ別に新規 | workspace-write | 資格全体の問題、taxonomy方針 |
+| 問題集整備（04） | 現行法監査とは別に新規 | workspace-write | 現在の問題、category方針、工程prompt |
 | 評価 | 元問題1問ごとに新規 | read-only | 現在の1問と根拠候補 |
 | 再整備 | 不合格問題ごとに新規 | workspace-write | 現在の問題と構造化評価結果 |
 | 再評価 | 元問題1問ごとに再び新規 | read-only | 再整備後の現在の1問 |
 
-異なる作業で`thread/resume`又は`thread/fork`を使いません。評価threadはrepo外の空の一時directoryから開始し、過去の整備prompt、review、評価結果のpathを渡しません。
+異なる作業で`thread/resume`又は`thread/fork`を使いません。失敗後の再実行も新しいrunとthreadで開始し、`resumedFrom`は追跡情報にだけ使います。評価threadはrepo外の空の一時directoryから開始し、過去の整備prompt、review、評価結果のpathを渡しません。
 
 初期実装は`approvalPolicy = "never"`です。workspace内の通常処理だけを許し、sandbox外のcommand、file変更、追加permission要求は自動承認せず拒否します。
 
@@ -67,7 +70,7 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 
 人間の役割は二つだけです。整備する資格の優先度を決めて実行することと、生成した正答・解説などのpatchが問題本文からズレていないかを監査することです。
 
-最初の画面は実行専用です。資格を一つ選び、資格全体の整備済み問数、整備が必要な問数、年度別進捗を確認します。主ボタンの`未整備を整備`は、資格全体又は選択年度にある未記録と現行MAJOR未満の工程だけを、問題ごとに工程順で開始します。実行確認には対象問数、対象年度、本番Firestoreへ反映しないことだけを表示します。
+最初の画面は実行専用です。資格を一つ選び、資格全体の整備済み問数、整備が必要な問数、年度別進捗を確認します。主ボタンの`未整備を整備`は、資格全体又は選択年度にある未記録、現行MAJOR未満、法令監査警告が残る問題を対象にします。通常整備、独立した現行法監査、必要な場合のカテゴリ設計、問題集整備、最終検証までをサーバー側で順に進めます。実行確認には対象問数、対象年度、本番Firestoreへ反映しないことだけを表示します。法令監査警告の詳細画面から一括修正依頼を作る導線は置かず、通常の再実行は必ずトップから開始します。
 
 `公開前の内容を確認`は独立した確認画面を開きます。通常は年度、検索、`反映待ち / 全問`だけを使います。一覧には問題ごとの正誤パターン、解説数、`公開用データ更新待ち`、`評価待ち`、`公開可能`、`反映済み`のいずれかを表示します。
 
@@ -75,7 +78,9 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 
 工程選択、作業履歴、評価根拠、Firestore差分、関連ファイルなどは画面末尾の`工程・評価・Firestoreなどの管理機能`へ畳み、必要な場合だけ開きます。問題一覧は確認画面を開いた時だけ最新状態へ更新し、実行専用画面では読み込みません。
 
-実行状態はbrowserではなくserver側のrun記録を正本にします。入口の`いまの作業`は待機中も常に表示し、実行時は資格・年度と`問題を整備`、`最終検証`、`完了`の3段階だけを示します。問題処理が100%でもreceiptと変更範囲の確認中は`最終検証中`とし、失敗時は直近の作業を消さず、停止した段階、未承認であること、停止理由を表示します。
+実行状態はbrowserではなくserver側のrun記録を正本にします。入口の`いまの作業`は待機中も常に表示し、実行時は通常整備、現行法監査、問題集整備、最終検証、完了の現在地を示します。通常整備の01から03は一つの表示に畳み、現在実行中の工程だけを詳細に示します。対象がない工程は自動で省略します。問題処理が100%でもreceiptと変更範囲の確認中は`最終検証中`とし、失敗時は直近の作業を消さず、停止した工程、未承認であること、停止理由を表示します。
+
+トップの未整備数、実行する工程、preview、startは、serverが返す`requiredMaintenance`と同じscopeを使います。browser側で工程を再判定しません。資格単位の`category.json`が未作成又は不正な場合は、03cを資格全体の前提工程として実行した後、04を選択年度内で再検証します。03cが参照する全年度を、親runの対象問数、進捗又は最終artifact同期の年度へ混ぜません。画面とserverの契約版が異なる場合は実行を開始せず、再起動を求めます。稼働中にworkflow設定が現在のserverで検証できない状態になった場合は、直前の正常な設定を維持し、再起動が終わるまで新しいrunを停止します。
 
 作業中は問題開始、工程完了、問題完了を`progress.jsonl`へ順次記録し、画面には現在の年度・問題番号・工程、正答や解説などの最終出力、問題単位と工程単位の件数を表示します。問題別出力は処理済みの全問を1問1項目にまとめ、同じ問題の工程完了と問題完了を重複表示しません。作業が停止した場合も記録済みの問題別出力を再取得し、原因調査と監査に使える状態を保ちます。工程数は`policyTargets`で適用対象になる問題と工程の組合せだけを数え、対象外の進捗通知は表示・集計しません。思考過程は保存しません。完了検証前は`作業中の出力`、成功receipt検証後だけ`検証済み`として扱います。
 
@@ -98,7 +103,7 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 
 ## 保存と安全境界
 
-各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ`manifest.json`、`prompt.md`、`result.json`を保存します。整備・再整備では、再起動回収用の`baseline.json`も保存し、完了receiptの`result.json`と画面用の`progress.jsonl`だけを`agent_output/`配下へ分離します。`progress.jsonl`は対象問題IDと工程IDをserver側で検証し、整備差分の`changedFiles`には含めません。manifestには`workType`、`sessionId`、`threadId`、`turnId`、実model、service tier、推論強度、対象、`stateHash`、`policyVersions`、`policyFingerprints`、sandbox、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
+各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へ`manifest.json`、`prompt.md`、`result.json`を保存します。トップ整備には人間向けの親runを一つ作り、`phaseExecutions`へ各工程の子run、thread、session、turn、工程間merge、検証状態を記録します。子runは再起動回収用の`baseline.json`を持ち、完了receiptの`result.json`と画面用の`progress.jsonl`だけを`agent_output/`配下へ分離します。`progress.jsonl`は親runで集約し、対象問題IDと工程IDをserver側で検証します。manifestには`workType`、`sessionId`、`threadId`、`turnId`、実model、service tier、推論強度、対象、`stateHash`、`policyVersions`、`policyFingerprints`、sandbox、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
 
 問題ごとの工程履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`へ保存します。各工程は最新記録と過去の`history`を持つため、洗い替え後も`v0.0`などの旧記録を追跡できます。これは運用メタデータであり、`00_source`、patch、merged、upload-ready、Firestore question documentへ複製しません。公開済み問題の一括初期化receiptは`work_version_backfills/`、`MAJOR.MINOR`形式への移行receiptは`work_version_migrations/`へ保存します。
 

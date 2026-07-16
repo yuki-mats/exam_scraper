@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import re
+import threading
 import tomllib
 from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
@@ -107,6 +109,8 @@ class WorkflowCatalog:
 
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
+        self._last_good: dict[str, Any] | None = None
+        self._lock = threading.RLock()
 
     @property
     def path(self) -> Path:
@@ -114,17 +118,63 @@ class WorkflowCatalog:
         return local if local.is_file() else DEFAULT_CATALOG_PATH
 
     def load(self) -> dict[str, Any]:
-        raw = self.path.read_bytes()
-        parsed = tomllib.loads(raw.decode("utf-8"))
-        system = self._system(parsed.get("system"))
-        stages = self._stages(parsed.get("stages"))
-        return {
-            "system": system,
-            "stages": stages,
-            "evaluation": self._evaluation(parsed.get("evaluation")),
-            "catalogHash": hashlib.sha256(raw).hexdigest(),
-            "catalogPath": str(self.path),
-        }
+        path = self.path
+        raw: bytes | None = None
+        with self._lock:
+            try:
+                raw = path.read_bytes()
+                parsed = tomllib.loads(raw.decode("utf-8"))
+                system = self._system(parsed.get("system"))
+                session_groups = self._session_groups(parsed.get("session_groups"))
+                stages = self._stages(parsed.get("stages"), session_groups)
+                loaded = {
+                    "system": system,
+                    "sessionGroups": list(session_groups.values()),
+                    "stages": stages,
+                    "evaluation": self._evaluation(parsed.get("evaluation")),
+                    "catalogHash": hashlib.sha256(raw).hexdigest(),
+                    "catalogPath": str(path),
+                    "catalogWarning": "",
+                    "restartRequired": False,
+                }
+            except (OSError, UnicodeError, ValueError, KeyError) as exc:
+                if self._last_good is None:
+                    raise
+                fallback = copy.deepcopy(self._last_good)
+                fallback["catalogWarning"] = (
+                    "workflow設定の更新を現在のサーバーで検証できないため、"
+                    f"直前の正常な設定を維持しています: {exc}"
+                )
+                fallback["restartRequired"] = True
+                fallback["pendingCatalogHash"] = (
+                    hashlib.sha256(raw).hexdigest() if raw is not None else ""
+                )
+                return fallback
+            self._last_good = copy.deepcopy(loaded)
+            return copy.deepcopy(loaded)
+
+    @staticmethod
+    def _session_groups(value: Any) -> dict[str, dict[str, str]]:
+        if value is None:
+            return {}
+        if not isinstance(value, list):
+            raise ValueError("workflow session_groupsは配列で指定してください。")
+        groups: dict[str, dict[str, str]] = {}
+        for raw in value:
+            if not isinstance(raw, Mapping):
+                raise ValueError("workflow session_groupはtableで指定してください。")
+            group_id = str(raw.get("id") or "")
+            label = str(raw.get("label") or "").strip()
+            if (
+                not re.fullmatch(r"[a-z][a-z0-9_]*", group_id)
+                or group_id in groups
+                or not label
+            ):
+                raise ValueError(
+                    f"workflow session_groupが不正又は重複しています: {group_id}"
+                )
+            groups[group_id] = {"id": group_id, "label": label}
+        return groups
 
     @staticmethod
     def _system(value: Any) -> dict[str, Any]:
@@ -157,7 +207,10 @@ class WorkflowCatalog:
         }
 
     @staticmethod
-    def _stages(value: Any) -> list[dict[str, Any]]:
+    def _stages(
+        value: Any,
+        session_groups: Mapping[str, Mapping[str, str]],
+    ) -> list[dict[str, Any]]:
         if not isinstance(value, list) or not value:
             raise ValueError("workflow catalogに[[stages]]がありません。")
         stages: list[dict[str, Any]] = []
@@ -178,17 +231,24 @@ class WorkflowCatalog:
                 raise ValueError(
                     f"workflow stage fieldが不足しています: {stage_id}: {', '.join(missing)}"
                 )
+            batch_selectable = bool(raw.get("batch_selectable", False))
+            scope = str(
+                raw.get("scope")
+                or ("group" if batch_selectable else "qualification")
+            )
             stage: dict[str, Any] = {
                 "id": stage_id,
                 "code": str(raw["code"]),
                 "label": str(raw["label"]),
                 "purpose": str(raw["purpose"]),
                 "kind": kind,
-                "batchSelectable": bool(raw.get("batch_selectable", False)),
+                "batchSelectable": batch_selectable,
+                "sessionGroup": str(raw.get("session_group") or ""),
+                "scope": scope,
                 "policyVersion": _policy_version(
                     raw.get("policy_version"),
                     f"{stage_id}.policy_version",
-                    required=bool(raw.get("batch_selectable", False)),
+                    required=batch_selectable and scope == "group",
                 ),
                 "qualificationDocumentPatterns": _document_patterns(
                     raw.get("qualification_document_patterns"),
@@ -202,6 +262,28 @@ class WorkflowCatalog:
                     raw.get("issue_fields"), f"{stage_id}.issue_fields"
                 ),
             }
+            if stage["scope"] not in {"qualification", "group"}:
+                raise ValueError(
+                    f"workflow scopeが不正です: {stage_id}={stage['scope']}"
+                )
+            stage["supportsGroupScope"] = stage["scope"] == "group"
+            if stage["batchSelectable"] and not re.fullmatch(
+                r"[a-z][a-z0-9_]*", stage["sessionGroup"]
+            ):
+                raise ValueError(
+                    f"batch工程にはsession_groupが必要です: {stage_id}"
+                )
+            if not stage["batchSelectable"] and stage["sessionGroup"]:
+                raise ValueError(
+                    f"session_groupはbatch工程だけに指定できます: {stage_id}"
+                )
+            if stage["sessionGroup"] and stage["sessionGroup"] not in session_groups:
+                raise ValueError(
+                    f"未定義のsession_groupです: {stage_id}={stage['sessionGroup']}"
+                )
+            stage["sessionLabel"] = str(
+                (session_groups.get(stage["sessionGroup"]) or {}).get("label") or ""
+            )
             patch_dir = str(raw.get("patch_dir") or "")
             patch_suffix = str(raw.get("patch_suffix") or "")
             if bool(patch_dir) != bool(patch_suffix):
@@ -253,7 +335,7 @@ class WorkflowCatalog:
             if stage.get("batchSelectable")
             and (
                 stage["kind"] != "human"
-                or stage["id"] in {"setup", "category_setup"}
+                or stage["id"] == "setup"
             )
         ]
         if invalid_batch_stages:

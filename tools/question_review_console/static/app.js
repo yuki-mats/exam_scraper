@@ -1,6 +1,7 @@
 "use strict";
 
 const ALL_LIST_GROUPS = "__all__";
+const UI_CONTRACT_VERSION = "question-review-ui/v2";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 
@@ -359,6 +360,11 @@ async function initialize() {
       api("/api/inventory"),
       api("/api/codex/status"),
     ]);
+    if (session.uiContractVersion !== UI_CONTRACT_VERSION) {
+      throw new Error(
+        "画面とサーバーの更新世代が一致しません。問題整備システムを再起動してください。",
+      );
+    }
     state.token = session.sessionToken;
     state.inventory = inventory;
     state.codexStatus = codexStatus;
@@ -712,13 +718,7 @@ function renderQualificationWorkflow() {
 function maintenanceRunStageIds() {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return [];
-  const categoryReady = workflow.stages.find((stage) => stage.id === "category_setup")?.status === "ready";
-  return workflow.stages
-    .filter((stage) => stage.batchSelectable
-      && stage.versionTrackingActive
-      && (stage.versionOutdatedCount || stage.versionUnrecordedCount)
-      && (stage.id !== "question_set" || categoryReady))
-    .map((stage) => stage.id);
+  return [...(workflow.summary?.requiredMaintenance?.stageIds || [])];
 }
 
 function openRequiredMaintenance(listGroupIds = []) {
@@ -735,7 +735,7 @@ function openRequiredMaintenance(listGroupIds = []) {
     listGroupIds: listGroupIds.length
       ? listGroupIds
       : workflow.groups.map((group) => group.listGroupId),
-    mode: "outdated",
+    mode: workflow.summary?.requiredMaintenance?.mode || "outdated",
     simplified: true,
   });
 }
@@ -770,6 +770,14 @@ function renderMaintenanceDashboard() {
   const start = $("#maintenance-start");
   start.textContent = required ? `未整備${required}問を整備` : "整備済み";
   start.disabled = required === 0 || maintenanceRunStageIds().length === 0;
+  if (workflow.restartRequired) {
+    versionLabel.textContent = "更新のため再起動が必要";
+    versionLabel.className = "workflow-overall-status attention";
+    $("#maintenance-progress-text").textContent = workflow.catalogWarning
+      || "workflow設定の更新を反映するため、問題整備システムを再起動してください。";
+    start.textContent = "再起動後に開始できます";
+    start.disabled = true;
+  }
   if (isRunning) {
     const completed = Number(liveProgress?.completedQuestionCount || 0);
     const target = Number(liveProgress?.targetQuestionCount || activeRun.targetCount || 0);
@@ -1353,6 +1361,8 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   const progressText = targetQuestions
     ? `${completedQuestions}/${targetQuestions}問・${completedWork}/${targetWork || run?.workItemCount || 0}工程`
     : "問題別進捗は未記録";
+  const flowPhase = (run?.phaseExecutions || [])
+    .find((item) => item.id === run?.currentPhaseId);
   let phase = "待機中";
   let statusLabel = QUALIFICATION_RUN_STATUS_LABELS[run?.status] || run?.status || "待機中";
   let summary = "資格・年度を選んで整備を開始できます。";
@@ -1360,11 +1370,11 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     phase = "開始待ち";
     summary = "Codex App Serverが作業を開始するのを待っています。";
   } else if (["running", "awaiting_changes"].includes(run?.status) && !workComplete) {
-    phase = "問題を整備中";
+    phase = flowPhase ? `${flowPhase.label}中` : "問題を整備中";
     const current = progress?.current;
     summary = current
-      ? `${current.listGroupId} ${current.questionLabel}・${current.stageCode || ""} ${current.stageLabel || "確認中"} / ${progressText}`
-      : "Codex App Serverが正本文書と対象問題を読み込んでいます。";
+      ? `${flowPhase ? `${flowPhase.label}・` : ""}${current.listGroupId} ${current.questionLabel}・${current.stageCode || ""} ${current.stageLabel || "確認中"} / ${progressText}`
+      : `${flowPhase ? `${flowPhase.label}の` : ""}正本文書と対象問題を読み込んでいます。`;
   } else if (["running", "validating"].includes(run?.status) && workComplete) {
     phase = "最終検証中";
     statusLabel = "最終検証中";
@@ -1422,6 +1432,88 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
 
 function renderQualificationRunPhases(run, view) {
   const container = $("#qualification-active-run-phases");
+  const flowExecutions = (run?.phaseExecutions || []).filter((item) => item?.id);
+  if (flowExecutions.length) {
+    const grouped = new Map();
+    flowExecutions.forEach((execution) => {
+      const key = execution.sessionGroup || execution.id;
+      if (!grouped.has(key)) {
+        grouped.set(key, {
+          label: execution.sessionLabel || execution.label,
+          executions: [],
+        });
+      }
+      grouped.get(key).executions.push(execution);
+    });
+    const items = [...grouped.values()].map((group) => {
+      const failedExecution = group.executions.find((item) => item.status === "failed");
+      const currentExecution = group.executions.find((item) => item.status === "running");
+      const pendingExecution = group.executions.find((item) => item.status === "pending");
+      const completedCount = group.executions.filter((item) => item.status === "succeeded").length;
+      const allFinished = group.executions.every((item) => ["succeeded", "skipped"].includes(item.status));
+      if (failedExecution) {
+        return {
+          label: group.label,
+          state: "failed",
+          detail: `${failedExecution.stageCodes?.[0] || ""} ${failedExecution.label}で停止`.trim(),
+        };
+      }
+      if (currentExecution) {
+        return {
+          label: group.label,
+          state: "current",
+          detail: `${currentExecution.stageCodes?.[0] || ""} ${currentExecution.label}を新しいsessionで実行中`.trim(),
+        };
+      }
+      if (allFinished) {
+        return {
+          label: group.label,
+          state: "complete",
+          detail: completedCount
+            ? `${completedCount}工程をそれぞれ別sessionで検証済み`
+            : "対象なし",
+        };
+      }
+      return {
+        label: group.label,
+        state: completedCount ? "current" : "pending",
+        detail: pendingExecution
+          ? `${pendingExecution.stageCodes?.[0] || ""} ${pendingExecution.label}を前工程後に実行`.trim()
+          : "前工程の完了後に実行",
+      };
+    });
+    const validationState = run.status === "succeeded"
+      ? "complete"
+      : run.executionPhase === "final_validation"
+        ? ["failed", "interrupted"].includes(run.status) ? "failed" : "current"
+        : "pending";
+    items.push({
+      label: "最終検証",
+      state: validationState,
+      detail: validationState === "complete"
+        ? "公開用データを確認済み"
+        : validationState === "failed"
+          ? "公開用データの確認で停止"
+          : validationState === "current"
+            ? "Merge・Convert・upload-readyを確認中"
+            : "全工程の完了後に実行",
+    });
+    items.push({
+      label: "完了",
+      state: run.status === "succeeded" ? "complete" : "pending",
+      detail: run.status === "succeeded" ? "結果を承認済み" : "最終検証後に確定",
+    });
+    container.replaceChildren();
+    items.forEach((item, index) => {
+      const row = element("li", `qualification-active-run-phase ${item.state}`);
+      const copy = element("span", "qualification-active-run-phase-copy");
+      copy.append(element("strong", "", item.label), element("span", "", item.detail));
+      row.append(element("span", "qualification-active-run-phase-number", String(index + 1)), copy);
+      container.append(row);
+    });
+    container.hidden = false;
+    return;
+  }
   const details = [
     view.targetQuestions ? view.progressText : "対象を準備",
     view.phaseStates[1] === "failed"
@@ -1470,7 +1562,9 @@ function renderQualificationActiveRun() {
     const row = element("div", "qualification-run-history-row");
     row.append(
       element("span", `run-status ${item.status}`, QUALIFICATION_RUN_STATUS_LABELS[item.status] || item.status),
-      element("strong", "", `${item.stageCode} ${item.stageLabel}`),
+      element("strong", "", item.workType === "maintenance_flow"
+        ? "トップ整備"
+        : `${item.stageCode} ${item.stageLabel}`),
       element("span", "", item.modeLabel),
       element("span", "", item.kind === "machine"
         ? `${item.targetCount}フォルダ`
@@ -1526,7 +1620,9 @@ function renderQualificationActiveRun() {
   const actualResearchWorkers = Number(run.researchSubagentCount || 0);
   const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
-  if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
+  if (run.workType === "maintenance_flow") {
+    parallelLabel = " ・ 工程ごとに別session";
+  } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
     parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
   } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
     parallelLabel = " ・ 並列調査失敗・単独保存中";
@@ -1550,7 +1646,7 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}${parallelLabel}`;
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
-  action.textContent = view.active ? "進捗と出力を見る" : "公開前の内容を確認";
+  action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
 }
 
 function selectedQualificationRunMode() {
@@ -1564,8 +1660,12 @@ function selectedQualificationRunStageIds() {
     .map((node) => node.value);
 }
 
-function qualificationRunSupportsGroupScope(stage) {
-  return Boolean(stage?.batchSelectable || stage?.id === "delivery");
+function qualificationRunSupportsGroupScope(stage, stageIds = []) {
+  const selectedStageIds = stageIds.length ? stageIds : [stage?.id].filter(Boolean);
+  return selectedStageIds.some((stageId) => (
+    state.qualificationWorkflow?.stages.find((item) => item.id === stageId)
+      ?.supportsGroupScope === true
+  ));
 }
 
 function qualificationRunGroupIds() {
@@ -1578,8 +1678,8 @@ function selectedQualificationRunListGroupIds() {
   return inputs.filter((node) => node.checked).map((node) => node.value);
 }
 
-function defaultQualificationRunListGroupIds(stage, options = {}) {
-  if (!qualificationRunSupportsGroupScope(stage)) return [];
+function defaultQualificationRunListGroupIds(stage, options = {}, stageIds = []) {
+  if (!qualificationRunSupportsGroupScope(stage, stageIds)) return [];
   const available = qualificationRunGroupIds();
   if (options.listGroupIds?.length) {
     return options.listGroupIds.filter((groupId) => available.includes(groupId));
@@ -1593,7 +1693,10 @@ function defaultQualificationRunListGroupIds(stage, options = {}) {
 function renderQualificationRunGroups(stage, selectedGroupIds) {
   const fieldset = $("#qualification-run-group-fieldset");
   const container = $("#qualification-run-groups");
-  const supportsScope = qualificationRunSupportsGroupScope(stage);
+  const supportsScope = qualificationRunSupportsGroupScope(
+    stage,
+    state.qualificationRunDialog.stageIds,
+  );
   fieldset.hidden = state.qualificationRunDialog.simplified || !supportsScope;
   container.replaceChildren();
   if (!supportsScope) return;
@@ -1657,7 +1760,43 @@ function renderQualificationRunStages(stage, selectedStageIds) {
     input.value = item.id;
     input.checked = selectedStageIds.includes(item.id);
     input.addEventListener("change", () => {
-      state.qualificationRunDialog.stageIds = selectedQualificationRunStageIds();
+      const previousGroupIds = selectedQualificationRunListGroupIds();
+      const nextStageIds = selectedQualificationRunStageIds();
+      state.qualificationRunDialog.stageIds = nextStageIds;
+      const nextGroupIds = defaultQualificationRunListGroupIds(
+        stage,
+        { listGroupIds: previousGroupIds },
+        nextStageIds,
+      );
+      state.qualificationRunDialog.listGroupIds = nextGroupIds;
+      renderQualificationRunGroups(stage, nextGroupIds);
+      const supportsScope = qualificationRunSupportsGroupScope(stage, nextStageIds);
+      const groupRefresh = document.querySelector(
+        'input[name="qualification-run-mode"][value="group_refresh"]',
+      );
+      const refresh = document.querySelector(
+        'input[name="qualification-run-mode"][value="refresh"]',
+      );
+      const outdated = document.querySelector(
+        'input[name="qualification-run-mode"][value="outdated"]',
+      );
+      $("#qualification-run-group-refresh").hidden = !supportsScope;
+      $("#qualification-run-refresh").hidden = supportsScope;
+      groupRefresh.disabled = !supportsScope;
+      const hasVersion = nextStageIds.some((stageId) => (
+        state.qualificationWorkflow.stages.find((value) => value.id === stageId)
+          ?.policyVersion
+      ));
+      $("#qualification-run-outdated").hidden = !hasVersion;
+      if (!supportsScope && groupRefresh.checked) {
+        (hasVersion ? outdated : refresh).checked = true;
+      }
+      const visibleModeCount = $("#qualification-run-mode-fieldset")
+        .querySelectorAll(".run-mode-options > label:not([hidden])").length;
+      $("#qualification-run-mode-fieldset").style.setProperty(
+        "--run-mode-count",
+        String(visibleModeCount),
+      );
       updateQualificationRunHeading();
       previewQualificationRun();
     });
@@ -1693,7 +1832,11 @@ function updateQualificationRunHeading() {
 function openQualificationRunDialog(stage, options = {}) {
   cancelQualificationRunPreview();
   const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
-  const selectedGroupIds = defaultQualificationRunListGroupIds(stage, options);
+  const selectedGroupIds = defaultQualificationRunListGroupIds(
+    stage,
+    options,
+    selectedStageIds,
+  );
   state.qualificationRunDialog = {
     preview: null,
     running: false,
@@ -1716,7 +1859,7 @@ function openQualificationRunDialog(stage, options = {}) {
   $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
   $("#qualification-run-guide").hidden = state.qualificationRunDialog.simplified;
   const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
-  const supportsScope = qualificationRunSupportsGroupScope(stage);
+  const supportsScope = qualificationRunSupportsGroupScope(stage, selectedStageIds);
   const groupRefreshLabel = $("#qualification-run-group-refresh");
   const outdatedLabel = $("#qualification-run-outdated");
   const refreshLabel = $("#qualification-run-refresh");
@@ -1794,7 +1937,7 @@ async function previewQualificationRun() {
     return;
   }
   const stage = qualificationWorkflowStage(stageId);
-  const supportsScope = qualificationRunSupportsGroupScope(stage);
+  const supportsScope = qualificationRunSupportsGroupScope(stage, stageIds);
   const listGroupIds = selectedQualificationRunListGroupIds();
   if (supportsScope && !listGroupIds.length) {
     setQualificationRunPreviewState("blocked", "対象年度を一つ以上選択してください。");
@@ -1969,7 +2112,11 @@ function setQualificationRunRunning(running) {
   for (const node of $("#qualification-run-dialog").querySelectorAll("input")) {
     const stage = qualificationWorkflowStage();
     node.disabled = running || (
-      node.value === "group_refresh" && !qualificationRunSupportsGroupScope(stage)
+      node.value === "group_refresh"
+        && !qualificationRunSupportsGroupScope(
+          stage,
+          state.qualificationRunDialog.stageIds,
+        )
     );
   }
   for (const node of $("#qualification-run-dialog").querySelectorAll(".run-group-actions button")) {
@@ -3090,7 +3237,7 @@ function renderLawAuditQualityWarning(question) {
     element(
       "p",
       "",
-      "トップレベルの正答は存在しますが、法令監査メタデータが不完全です。パッチ再生成は実行できますが、Firestoreへの公開は修正まで停止します。",
+      "法令監査メタデータが不完全です。トップ画面の整備に含まれる独立した現行法監査で修正します。完了するまでFirestoreへの公開は停止します。",
     ),
   );
   const list = document.createElement("ul");
@@ -3098,62 +3245,10 @@ function renderLawAuditQualityWarning(question) {
     const location = [warning.stage, warning.documentId].filter(Boolean).join(" / ");
     const field = warning.dataPath || warning.field || "lawRevisionFacts";
     const item = element("li", "", `${location} / ${field}: ${warning.detail}`);
-    installReviewTarget(item, {
-      fields: [field],
-      targetLabel: `法令監査パッチ要修正 / ${location}`,
-      dataPath: field,
-      issueType: warning.code || "law_audit_metadata_incomplete",
-    });
     list.append(item);
   }
-  node.append(
-    list,
-    actionWithHelp(
-      "監査パッチをまとめて修正依頼",
-      "primary-button",
-      () => openLawAuditQualityReview(question),
-      "監査パッチをまとめて修正依頼",
-      "対象patch一覧を作り、Codex組み込みweb検索でe-Gov又は所管官庁の一次情報を開き、全対象を一問一肢ずつ監査します。",
-    ),
-  );
+  node.append(list);
   return node;
-}
-
-function summarizedFindingsText(warnings) {
-  const fieldCounts = new Map();
-  const documentIds = [];
-  for (const warning of warnings) {
-    const field = warning.dataPath || warning.field || "lawRevisionFacts";
-    fieldCounts.set(field, (fieldCounts.get(field) || 0) + 1);
-    if (warning.documentId) documentIds.push(warning.documentId);
-  }
-  const fields = [...fieldCounts.entries()]
-    .map(([field, count]) => `${field}: ${count}件`)
-    .join(", ");
-  const uniqueDocs = [...new Set(documentIds)];
-  const examples = uniqueDocs.slice(0, 6).join(", ");
-  const more = uniqueDocs.length > 6 ? ` ほか${uniqueDocs.length - 6}件` : "";
-  return [
-    `法令監査メタデータ不備: ${warnings.length}件`,
-    fields ? `fields: ${fields}` : "",
-    examples ? `document例: ${examples}${more}` : "",
-    "各対象は条文本文を開いて一問一肢ずつ確認する。",
-  ].filter(Boolean).join("\n");
-}
-
-function openLawAuditQualityReview(question) {
-  const warnings = question.qualityWarnings || [];
-  openFindingsReview({
-    question,
-    warnings,
-    issueType: warnings[0]?.code || "law_audit_metadata_incomplete",
-    title: "法令監査パッチをまとめて修正依頼",
-    targetLabel: "法令監査メタデータの一括報告",
-    note: "資格内の法令監査不備をCodex組み込みweb検索と公的な一次情報で一問一肢ずつ監査する。",
-    investigationScope: "qualification",
-    requestKind: "qualification_law_audit",
-    selectedText: summarizedFindingsText(warnings),
-  });
 }
 
 function openFindingsReview({

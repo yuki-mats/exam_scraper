@@ -387,6 +387,44 @@ def _maintenance_writer_prompt(prompt: str, research_summary: str) -> str:
     )
 
 
+def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
+    raw_stage_plans = plan.get("stagePlans")
+    stage_plans = (
+        [dict(value) for value in raw_stage_plans if isinstance(value, Mapping)]
+        if isinstance(raw_stage_plans, list) and raw_stage_plans
+        else [dict(plan)]
+    )
+    phases: list[dict[str, Any]] = []
+    for stage_plan in stage_plans:
+        group_id = str(stage_plan.get("sessionGroup") or "maintenance")
+        group_label = str(
+            stage_plan.get("sessionLabel")
+            or stage_plan.get("stageLabel")
+            or "問題を整備"
+        )
+        stage_ids = [
+            str(value)
+            for value in stage_plan.get("stageIds")
+            or [stage_plan.get("stageId")]
+            if value and str(value) != "multi"
+        ]
+        if not stage_ids:
+            continue
+        for stage_id in stage_ids:
+            phases.append(
+                {
+                    "id": stage_id,
+                    "label": str(stage_plan.get("stageLabel") or group_label),
+                    "sessionGroup": group_id,
+                    "sessionLabel": group_label,
+                    "stageIds": [stage_id],
+                    "stageCodes": [str(stage_plan.get("stageCode") or "")],
+                    "allQuestionGate": bool(stage_plan.get("allQuestionGate")),
+                }
+            )
+    return phases
+
+
 class QualificationRunStore:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
@@ -489,6 +527,17 @@ class QualificationRunStore:
                 plan.get("workType")
                 or ("delivery" if str(plan["kind"]) == "machine" else "maintenance")
             ),
+            "parentRunId": plan.get("parentRunId"),
+            "flowPhaseId": plan.get("flowPhaseId"),
+            "phaseIndex": plan.get("phaseIndex"),
+            "maintenancePhases": copy.deepcopy(
+                list(plan.get("maintenancePhases") or [])
+            ),
+            "phaseExecutions": copy.deepcopy(
+                list(plan.get("phaseExecutions") or [])
+            ),
+            "currentPhaseId": plan.get("currentPhaseId"),
+            "childRunIds": list(plan.get("childRunIds") or []),
             "status": status,
             "targetCount": int(plan["targetCount"]),
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
@@ -690,6 +739,37 @@ class QualificationRunStore:
             progress_path = manifest_path.parent / "agent_output" / "progress.jsonl"
             raw = progress_path.read_bytes() if progress_path.is_file() else b""
         return self._parsed_progress(manifest, raw)
+
+    def combined_progress(
+        self, qualification: str, run_id: str
+    ) -> dict[str, Any]:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            chunks: list[bytes] = []
+            for child_run_id in manifest.get("childRunIds") or []:
+                child_path = self._manifest_path(qualification, str(child_run_id))
+                child = self._load_manifest(child_path)
+                if str(child.get("parentRunId") or "") != str(run_id):
+                    raise QualificationRunError(
+                        "工程別runとトップ整備runの対応が一致しません。"
+                    )
+                progress_path = child_path.parent / "agent_output" / "progress.jsonl"
+                if progress_path.is_file():
+                    chunks.append(progress_path.read_bytes())
+        payload = self._parsed_progress(manifest, b"\n".join(chunks))
+        target_work = int(manifest.get("workItemCount") or 0)
+        completed_work = int(payload.get("completedWorkItemCount") or 0)
+        if target_work:
+            payload["percent"] = min(
+                100, round((completed_work / target_work) * 100)
+            )
+        payload["status"] = manifest.get("status")
+        payload["verified"] = bool(
+            manifest.get("status") == "succeeded"
+            and manifest.get("receiptValidated") is True
+        )
+        return payload
 
     @staticmethod
     def _empty_progress(manifest: Mapping[str, Any]) -> dict[str, Any]:
@@ -1523,6 +1603,64 @@ class QualificationRunCoordinator:
                 ),
                 "writeWorkerLimit": 1,
             }
+            maintenance_phases = _maintenance_session_phases(plan)
+            if len(maintenance_phases) > 1:
+                phase_executions = [
+                    {
+                        **phase,
+                        "index": index,
+                        "status": "pending",
+                        "childRunId": None,
+                        "targetCount": None,
+                        "threadId": None,
+                        "sessionId": None,
+                        "turnId": None,
+                        "researchThreadId": None,
+                        "researchSessionId": None,
+                        "model": None,
+                        "reasoningEffort": None,
+                        "error": None,
+                    }
+                    for index, phase in enumerate(maintenance_phases, start=1)
+                ]
+                flow_plan = {
+                    **plan,
+                    "kind": "orchestration",
+                    "workType": "maintenance_flow",
+                    "maintenancePhases": maintenance_phases,
+                    "phaseExecutions": phase_executions,
+                    "currentPhaseId": None,
+                    "childRunIds": [],
+                }
+                run = self.store.create(
+                    flow_plan,
+                    status="queued",
+                    prompt=prompt,
+                    resumed_from=resumed_from,
+                    append_receipt_contract=False,
+                )
+                try:
+                    job = self.jobs.start(
+                        kind="codex-maintenance-flow",
+                        key=REPOSITORY_OPERATION_KEY,
+                        worker=lambda emit: self._run_maintenance_flow(
+                            qualification,
+                            run["runId"],
+                            emit,
+                        ),
+                    )
+                except JobConflictError:
+                    self.store.update(
+                        qualification,
+                        run["runId"],
+                        status="failed",
+                        error="この資格で別の整備処理が実行中です。",
+                    )
+                    raise
+                run = self.store.update(
+                    qualification, run["runId"], jobId=job["jobId"]
+                )
+                return {"run": run, "prompt": None, "job": job}
             run = self.store.create(
                 plan,
                 status="queued",
@@ -1582,6 +1720,7 @@ class QualificationRunCoordinator:
             run
             for run in self.store.list(qualification, limit=100)
             if run.get("workType") not in {"evaluation", "reevaluation"}
+            and not run.get("parentRunId")
         ][:8]
         return {
             "qualification": qualification,
@@ -1596,6 +1735,8 @@ class QualificationRunCoordinator:
         run = self.store.get(qualification, run_id)
         if str(run.get("qualification") or "") != qualification:
             raise QualificationRunError("対象資格と作業履歴が一致しません。")
+        if run.get("workType") == "maintenance_flow":
+            return self.store.combined_progress(qualification, run_id)
         return self.store.progress(qualification, run_id)
 
     def resume_prompt(self, qualification: str, run_id: str) -> dict[str, Any]:
@@ -2234,6 +2375,379 @@ class QualificationRunCoordinator:
                         break
         return sorted(groups)
 
+    def _flow_phase_plan_prompt(
+        self,
+        parent: Mapping[str, Any],
+        phase: Mapping[str, Any],
+    ) -> tuple[dict[str, Any], str]:
+        qualification = str(parent["qualification"])
+        stage_ids = [str(value) for value in phase.get("stageIds") or []]
+        if not stage_ids:
+            raise QualificationRunError("トップ整備の工程が空です。")
+        mode = str(parent["mode"])
+        scope: dict[str, Any] = {}
+        scope_group_ids = list(parent.get("scopeListGroupIds") or [])
+        if scope_group_ids and stage_ids != ["category_setup"]:
+            scope["list_group_ids"] = scope_group_ids
+        phase_mode = mode
+        if (
+            stage_ids == ["question_set"]
+            and "category_setup" in set(parent.get("stageIds") or [])
+        ):
+            phase_mode = "group_refresh" if scope_group_ids else "refresh"
+        plan = self._plan(
+            qualification,
+            stage_ids[0],
+            phase_mode,
+            None,
+            stage_ids=stage_ids,
+            **scope,
+        )
+        if len(stage_ids) > 1:
+            prompt = self.workflow.prompt_many(
+                qualification,
+                stage_ids,
+                phase_mode,
+                **scope,
+            )["prompt"]
+        else:
+            prompt = self.workflow.prompt(
+                qualification,
+                stage_ids[0],
+                phase_mode,
+                **scope,
+            )["prompt"]
+        plan.update(
+            {
+                "parentRunId": str(parent["runId"]),
+                "flowPhaseId": str(phase["id"]),
+                "phaseIndex": int(phase["index"]),
+                "workType": f"maintenance_{phase['id']}",
+                "sandbox": "workspace-write",
+                "provider": self.app_server.provider,
+                "parallelStrategy": "read_only_research",
+                "parallelWorkerLimit": (
+                    MAINTENANCE_RESEARCH_WORKERS
+                    if int(plan.get("targetCount") or 0) > 1
+                    else 1
+                ),
+                "writeWorkerLimit": 1,
+            }
+        )
+        return plan, prompt
+
+    def _update_flow_phase(
+        self,
+        qualification: str,
+        run_id: str,
+        phase_id: str,
+        **changes: Any,
+    ) -> dict[str, Any]:
+        parent = self.store.get(qualification, run_id)
+        executions = [
+            dict(value)
+            for value in parent.get("phaseExecutions") or []
+            if isinstance(value, Mapping)
+        ]
+        matched = False
+        for execution in executions:
+            if str(execution.get("id") or "") == phase_id:
+                execution.update(changes)
+                matched = True
+                break
+        if not matched:
+            raise QualificationRunError(
+                f"トップ整備の工程記録が見つかりません: {phase_id}"
+            )
+        return self.store.update(
+            qualification,
+            run_id,
+            phaseExecutions=executions,
+        )
+
+    def _run_maintenance_flow(
+        self,
+        qualification: str,
+        run_id: str,
+        emit: Callable[[str], None],
+    ) -> dict[str, Any]:
+        parent = self.store.update(
+            qualification,
+            run_id,
+            status="running",
+            executionPhase="preparing",
+            startedAt=_now(),
+            error=None,
+        )
+        child_run_ids: list[str] = []
+        phase_receipts: list[dict[str, Any]] = []
+        current_phase_id = ""
+        try:
+            phases = [
+                dict(value)
+                for value in parent.get("phaseExecutions") or []
+                if isinstance(value, Mapping)
+            ]
+            for phase_index, phase in enumerate(phases):
+                current_phase_id = str(phase["id"])
+                parent = self.store.get(qualification, run_id)
+                phase_plan, phase_prompt = self._flow_phase_plan_prompt(parent, phase)
+                target_count = int(phase_plan.get("targetCount") or 0)
+                if not target_count:
+                    self._update_flow_phase(
+                        qualification,
+                        run_id,
+                        current_phase_id,
+                        status="skipped",
+                        targetCount=0,
+                        finishedAt=_now(),
+                    )
+                    emit(f"{phase['label']}: 対象がないため省略します。")
+                    continue
+                emit(
+                    f"{phase['label']}: {target_count}問を新しいsessionで開始します。"
+                )
+                child = self.store.create(
+                    phase_plan,
+                    status="queued",
+                    prompt=phase_prompt,
+                )
+                child_run_ids.append(str(child["runId"]))
+                parent = self.store.update(
+                    qualification,
+                    run_id,
+                    currentPhaseId=current_phase_id,
+                    executionPhase=current_phase_id,
+                    childRunIds=list(child_run_ids),
+                )
+                self._update_flow_phase(
+                    qualification,
+                    run_id,
+                    current_phase_id,
+                    status="running",
+                    targetCount=target_count,
+                    childRunId=child["runId"],
+                    startedAt=_now(),
+                    error=None,
+                )
+                saved_prompt = self.store.prompt(qualification, child["runId"])
+                self._run_human(
+                    qualification,
+                    child["runId"],
+                    saved_prompt,
+                    str(phase_plan["workType"]),
+                    emit,
+                    sync_artifacts=False,
+                )
+                child = self.store.refresh(qualification, child["runId"])
+                if child.get("status") != "succeeded" or not child.get(
+                    "receiptValidated"
+                ):
+                    raise QualificationRunError(
+                        f"{phase['label']}の完了結果を検証できませんでした。"
+                    )
+                if child.get("allowedPatchDirs") and phase_index < len(phases) - 1:
+                    emit(
+                        f"{phase['label']}: 次の独立sessionが最新の入力を読めるようにmergeします。"
+                    )
+                    merge_groups = [
+                        self.synchronizer.refresh_merged_views(
+                            qualification,
+                            str(list_group_id),
+                            emit,
+                        )
+                        for list_group_id in child.get("targetGroupIds") or []
+                    ]
+                    merge_statuses = {
+                        str(group.get("status") or "failed")
+                        for group in merge_groups
+                    }
+                    if merge_statuses - {"succeeded", "current"}:
+                        self.store.update(
+                            qualification,
+                            child["runId"],
+                            artifactSync={
+                                "status": "failed",
+                                "groups": merge_groups,
+                                "message": "次工程用のmergeを完了できませんでした。",
+                            },
+                        )
+                        raise QualificationRunError(
+                            f"{phase['label']}後の工程間mergeを完了できませんでした。"
+                        )
+                    child = self.store.update(
+                        qualification,
+                        child["runId"],
+                        artifactSync={
+                            "status": "succeeded",
+                            "groups": merge_groups,
+                            "message": "次工程用のmerged viewを更新しました。",
+                        },
+                    )
+                receipt = child.get("workVersionReceipt")
+                if isinstance(receipt, Mapping):
+                    phase_receipts.append(dict(receipt))
+                cumulative_receipt = {
+                    "recordedCount": sum(
+                        int(value.get("recordedCount") or 0)
+                        for value in phase_receipts
+                    ),
+                    "phases": list(phase_receipts),
+                }
+                self._update_flow_phase(
+                    qualification,
+                    run_id,
+                    current_phase_id,
+                    status="succeeded",
+                    childRunId=child["runId"],
+                    threadId=child.get("threadId"),
+                    sessionId=child.get("sessionId"),
+                    turnId=child.get("turnId"),
+                    researchThreadId=child.get("researchThreadId"),
+                    researchSessionId=child.get("researchSessionId"),
+                    model=child.get("model"),
+                    reasoningEffort=child.get("reasoningEffort"),
+                    receiptValidated=True,
+                    workVersionReceipt=receipt,
+                    artifactSync=child.get("artifactSync"),
+                    finishedAt=_now(),
+                    error=None,
+                )
+                parent = self.store.update(
+                    qualification,
+                    run_id,
+                    threadId=child.get("threadId"),
+                    sessionId=child.get("sessionId"),
+                    turnId=child.get("turnId"),
+                    model=child.get("model"),
+                    serviceTier=child.get("serviceTier"),
+                    reasoningEffort=child.get("reasoningEffort"),
+                    researchThreadId=child.get("researchThreadId"),
+                    researchSessionId=child.get("researchSessionId"),
+                    researchTurnId=child.get("researchTurnId"),
+                    researchStatus=child.get("researchStatus"),
+                    researchSubagentCount=child.get("researchSubagentCount"),
+                    researchSubagentThreadIds=child.get(
+                        "researchSubagentThreadIds"
+                    ),
+                    workVersionReceipt=cumulative_receipt,
+                )
+
+            current_phase_id = ""
+            work_version_receipt = {
+                "recordedCount": sum(
+                    int(receipt.get("recordedCount") or 0)
+                    for receipt in phase_receipts
+                ),
+                "phases": phase_receipts,
+            }
+            parent = self.store.update(
+                qualification,
+                run_id,
+                status="validating",
+                executionPhase="final_validation",
+                currentPhaseId=None,
+                receiptValidated=False,
+                workVersionReceipt=work_version_receipt,
+            )
+            emit("すべての独立sessionが完了しました。公開用データを最終検証します。")
+            sync_groups = [
+                sync_after_patch_update(
+                    self.synchronizer,
+                    qualification,
+                    str(list_group_id),
+                    emit,
+                )
+                for list_group_id in parent.get("targetGroupIds") or []
+            ]
+            sync_statuses = {
+                str(group.get("status") or "failed") for group in sync_groups
+            }
+            if sync_statuses <= {"succeeded", "current"}:
+                sync_status = "succeeded"
+                sync_message = "公開用データまで最新patchへ同期しました。"
+            else:
+                sync_status = "failed" if "failed" in sync_statuses else "blocked"
+                sync_message = "公開用データの最終検証を完了できませんでした。"
+            artifact_sync = {
+                "status": sync_status,
+                "groups": sync_groups,
+                "message": sync_message,
+            }
+            if sync_status != "succeeded":
+                self.store.update(
+                    qualification,
+                    run_id,
+                    artifactSync=artifact_sync,
+                )
+                raise QualificationRunError(sync_message)
+            result = {
+                "status": "succeeded",
+                "summary": "トップ整備と最終検証を完了しました。",
+                "commands": [],
+                "changedFiles": [],
+            }
+            self.store.write_result(qualification, run_id, result)
+            self.store.update(
+                qualification,
+                run_id,
+                status="succeeded",
+                executionPhase="done",
+                currentPhaseId=None,
+                receiptValidated=True,
+                workVersionReceipt=work_version_receipt,
+                artifactSync=artifact_sync,
+                result=result,
+                error=None,
+            )
+            return {
+                "qualification": qualification,
+                "runId": run_id,
+                "childRunIds": child_run_ids,
+                "artifactSync": artifact_sync,
+                "message": result["summary"],
+            }
+        except Exception as exc:  # noqa: BLE001
+            child = None
+            if child_run_ids:
+                try:
+                    child = self.store.refresh(qualification, child_run_ids[-1])
+                except Exception:  # noqa: BLE001
+                    child = None
+            if current_phase_id:
+                self._update_flow_phase(
+                    qualification,
+                    run_id,
+                    current_phase_id,
+                    status="failed",
+                    threadId=(child or {}).get("threadId"),
+                    sessionId=(child or {}).get("sessionId"),
+                    turnId=(child or {}).get("turnId"),
+                    researchThreadId=(child or {}).get("researchThreadId"),
+                    researchSessionId=(child or {}).get("researchSessionId"),
+                    model=(child or {}).get("model"),
+                    reasoningEffort=(child or {}).get("reasoningEffort"),
+                    finishedAt=_now(),
+                    error=str(exc),
+                )
+            result = {
+                "status": "failed",
+                "summary": str(exc),
+                "commands": [],
+                "changedFiles": [],
+            }
+            self.store.write_result(qualification, run_id, result)
+            self.store.update(
+                qualification,
+                run_id,
+                status="failed",
+                currentPhaseId=current_phase_id or None,
+                receiptValidated=False,
+                result=result,
+                error=str(exc),
+            )
+            raise
+
     def _run_delivery(
         self,
         plan: Mapping[str, Any],
@@ -2294,6 +2808,8 @@ class QualificationRunCoordinator:
         prompt: str,
         work_type: str,
         emit: Callable[[str], None],
+        *,
+        sync_artifacts: bool = True,
     ) -> dict[str, Any]:
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
@@ -2532,7 +3048,7 @@ class QualificationRunCoordinator:
                 error=None,
             )
             emit("完了receipt・00_source不変・工程バージョンを確認しました。")
-            if refreshed.get("allowedPatchDirs"):
+            if refreshed.get("allowedPatchDirs") and sync_artifacts:
                 sync_groups = [
                     sync_after_patch_update(
                         self.synchronizer,
@@ -2558,6 +3074,11 @@ class QualificationRunCoordinator:
                         "問題詳細又は管理機能から再生成できます。"
                     )
                     warning = True
+            elif refreshed.get("allowedPatchDirs"):
+                sync_groups = []
+                sync_status = "deferred"
+                sync_message = "公開用データはトップ整備の最終検証で更新します。"
+                warning = False
             else:
                 sync_groups = []
                 sync_status = "not_required"
@@ -2653,6 +3174,17 @@ class QualificationRunCoordinator:
 
     def _record_work_versions(self, run: Mapping[str, Any]) -> dict[str, Any]:
         qualification = str(run["qualification"])
+        stage_ids = {
+            str(value)
+            for value in run.get("stageIds") or [run.get("stageId")]
+            if value
+        }
+        if "category_setup" in stage_ids and not self.workflow.category_ready(
+            qualification
+        ):
+            raise QualificationRunError(
+                "03c カテゴリ設計のcategory.jsonを検証できません。"
+            )
         versions = run.get("policyVersions") or {}
         if not versions:
             return {"recordedCount": 0, "stages": []}
@@ -2712,6 +3244,8 @@ class QualificationRunCoordinator:
                 )
             if stage_id == "explanation":
                 self._validate_explanation_quality(selected)
+            if stage_id == "law_audit":
+                self._validate_law_audit_quality(selected)
             policy = {
                 **policies[stage_id],
                 "policyVersion": normalize_policy_version(raw_version),
@@ -2764,6 +3298,37 @@ class QualificationRunCoordinator:
         if errors:
             raise QualificationRunError(
                 "03 解説の日本語品質検証に失敗しました。"
+                + " ".join(errors[:5])
+                + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
+            )
+
+    @staticmethod
+    def _validate_law_audit_quality(
+        questions: list[Mapping[str, Any]],
+    ) -> None:
+        errors: list[str] = []
+        for question in questions:
+            label = str(
+                question.get("questionLabel")
+                or question.get("originalQuestionId")
+                or question.get("id")
+                or "対象問題"
+            )
+            issue_codes = set(question.get("issueCodes") or [])
+            blocking = sorted(issue_codes & LAW_AUDIT_ISSUES)
+            projected = question.get("projected")
+            facts = (
+                projected.get("lawRevisionFacts")
+                if isinstance(projected, Mapping)
+                else None
+            )
+            if blocking:
+                errors.append(f"{label}: {', '.join(blocking)}")
+            elif question.get("isLawRelated") is not False and not facts:
+                errors.append(f"{label}: lawRevisionFactsを確認できません。")
+        if errors:
+            raise QualificationRunError(
+                "03b 現行法監査の必須メタデータ検証に失敗しました。"
                 + " ".join(errors[:5])
                 + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
             )
@@ -3122,6 +3687,15 @@ class QualificationRunCoordinator:
             for path in actual & allowed_record_files
             if path.suffix.lower() in {".json", ".jsonl"}
         }
+        stage_ids = {
+            str(value)
+            for value in run.get("stageIds") or [run.get("stageId")]
+            if value
+        }
+        if "category_setup" in stage_ids:
+            changed_record_files.discard(
+                Path("output", qualification, "category", "category.json")
+            )
         if not changed_record_files:
             return
         if target_aliases and not record_scopes:
