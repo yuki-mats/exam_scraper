@@ -133,6 +133,44 @@ LAW_AUDIT_ISSUES = {
     "law_basis_missing",
     "law_hold",
 }
+
+
+def _review_requests_law_audit(review: Mapping[str, Any]) -> bool:
+    issue_types = {
+        str(value) for value in review.get("issueTypes") or [] if value
+    }
+    selection = review.get("selection")
+    selection_fields = (
+        selection.get("fields")
+        if isinstance(selection, Mapping)
+        else []
+    )
+    fields = {
+        str(value).split(".", 1)[0].split("[", 1)[0]
+        for value in [
+            *(review.get("fields") or []),
+            *(selection_fields or []),
+        ]
+        if value
+    }
+    evaluation_snapshot = review.get("evaluationSnapshot")
+    rework_items = (
+        evaluation_snapshot.get("reworkItems")
+        if isinstance(evaluation_snapshot, Mapping)
+        else []
+    )
+    return bool(
+        issue_types & LAW_AUDIT_ISSUES
+        or review.get("requestKind") == "qualification_law_audit"
+        or any(field.startswith(("law", "isLawRelated")) for field in fields)
+        or any(
+            isinstance(item, Mapping)
+            and str(item.get("stage") or "") == "03b"
+            for item in rework_items or []
+        )
+    )
+
+
 ISSUE_PATCH_DIR_NAMES = {
     "answer_explanation_mismatch": {
         "21_explanationText_added",
@@ -1969,7 +2007,7 @@ class QualificationRunCoordinator:
                 for stage in selected_stages
                 if stage in REWORK_POLICY_STAGE_IDS
             }
-        elif issue_types & LAW_AUDIT_ISSUES:
+        elif _review_requests_law_audit(review):
             requested_policy_ids = {"law_audit"}
         else:
             requested_policy_ids = {
@@ -2134,16 +2172,7 @@ class QualificationRunCoordinator:
                 )
             )
         )
-        law_related = bool(
-            any(field.startswith(("law", "isLawRelated")) for field in fields)
-            or issue_types & {
-                "law_audit_metadata_incomplete",
-                "law_audit_verdict_mismatch",
-                "law_basis_missing",
-                "law_hold",
-            }
-            or review.get("requestKind") == "qualification_law_audit"
-        )
+        law_related = _review_requests_law_audit(review)
         if law_related:
             patch_dirs.update(LAW_PATCH_DIR_NAMES)
         for value in review.get("targetFiles") or []:
@@ -2157,15 +2186,7 @@ class QualificationRunCoordinator:
                 "整備責務を限定できません。修正するfieldを1つ以上選択してください。"
             )
         scope = str(review.get("investigationScope") or "current_question")
-        law_audit_requested = bool(
-            issue_types & LAW_AUDIT_ISSUES
-            or review.get("requestKind") == "qualification_law_audit"
-            or any(
-                isinstance(item, Mapping)
-                and str(item.get("stage") or "") == "03b"
-                for item in rework_items or []
-            )
-        )
+        law_audit_requested = _review_requests_law_audit(review)
         write_areas: set[str] = set()
         write_files: set[str] = set()
         if law_audit_requested:
@@ -2239,11 +2260,7 @@ class QualificationRunCoordinator:
                 for suffix in [REVIEW_FLAG_SUFFIX_BY_PATCH_DIR.get(patch_dir)]
                 if suffix
             }
-            if (
-                {str(value) for value in review.get("issueTypes") or []}
-                & LAW_AUDIT_ISSUES
-                or review.get("requestKind") == "qualification_law_audit"
-            ):
+            if _review_requests_law_audit(review):
                 review_flag_suffixes.add("lawRevision")
         scope = str(review.get("investigationScope") or "current_question")
         if (

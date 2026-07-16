@@ -951,6 +951,94 @@ class QualificationRunTests(unittest.TestCase):
             )
         )
 
+    def test_post_fix_law_fields_preserve_law_audit_contract_and_failed_delta(self):
+        class FakeAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def assert_subscription_access(self, *, force=True):
+                return {"allowed": True, "planType": "pro"}
+
+        class DeferredJobs:
+            def start(self, *, kind, key, worker):
+                self.worker = worker
+                return {"jobId": "job-deferred", "status": "queued"}
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=FakeAppServer(),
+            )
+            question = {
+                "id": "question-1",
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-1",
+                "originalQuestionId": "original-1",
+                "sourceQuestionKey": "sample:2026:q1",
+                "paths": {
+                    "source": (
+                        "output/sample/questions_json/2026/"
+                        "00_source/question_2026_1.json"
+                    ),
+                    "patches": [],
+                },
+            }
+            failed = coordinator.start_review(
+                question,
+                {
+                    "reviewId": "review-failed",
+                    "prompt": "law hold review",
+                    "investigationScope": "current_question",
+                    "issueTypes": ["law_hold"],
+                    "fields": ["lawReferences", "lawRevisionFacts"],
+                },
+                work_type="maintenance",
+            )["run"]
+            failed_path = next(
+                path
+                for path in failed["allowedWriteFiles"]
+                if path.endswith("_law_revision_audit.jsonl")
+            )
+            coordinator.store.update(
+                "sample",
+                failed["runId"],
+                status="failed",
+                result={
+                    "status": "failed",
+                    "changedFiles": [failed_path],
+                    "resolvedFailedDeltaPaths": [],
+                },
+            )
+
+            retried = coordinator.start_review(
+                question,
+                {
+                    "reviewId": "review-retry",
+                    "prompt": "post-fix law review",
+                    "investigationScope": "current_question",
+                    "issueTypes": ["post_fix_review"],
+                    "fields": ["lawReferences", "lawRevisionFacts"],
+                },
+                work_type="maintenance",
+            )["run"]
+
+        self.assertEqual(retried["policyVersions"], {"law_audit": "1.0"})
+        self.assertEqual(retried["allowedWriteAreas"], ["review"])
+        self.assertIn(failed_path, retried["allowedWriteFiles"])
+        self.assertIn(failed_path, retried["resolvableFailedDeltaPaths"])
+        self.assertTrue(
+            any(
+                "_lawRevision_needs_5_5_high_review" in path
+                for path in retried["allowedPatchFiles"]
+            )
+        )
+
     def test_question_review_contract_limits_fields_and_patch_files(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator = QualificationRunCoordinator(
