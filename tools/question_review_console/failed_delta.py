@@ -197,9 +197,7 @@ def _manifest_in_scope(
 def _success_supersedes(
     interrupted: Mapping[str, Any], succeeded: Mapping[str, Any]
 ) -> bool:
-    if str(interrupted.get("workType") or "") != str(
-        succeeded.get("workType") or ""
-    ):
+    if not _compatible_work_types(interrupted, succeeded):
         return False
     if not _responsible_stages(interrupted).issubset(
         _responsible_stages(succeeded)
@@ -327,9 +325,7 @@ def _success_supersedes_path(
     ``_success_supersedes`` because their affected path is not known.
     """
 
-    if str(failed.get("workType") or "") != str(
-        succeeded.get("workType") or ""
-    ):
+    if not _compatible_work_types(failed, succeeded):
         return False
     if not _responsible_stages(failed).issubset(
         _responsible_stages(succeeded)
@@ -388,6 +384,25 @@ def _responsible_stages(manifest: Mapping[str, Any]) -> set[str]:
         for value in manifest.get("stageIds") or [manifest.get("stageId")]
         if value
     }
+
+
+def _compatible_work_types(
+    failed: Mapping[str, Any], succeeded: Mapping[str, Any]
+) -> bool:
+    failed_type = str(failed.get("workType") or "")
+    succeeded_type = str(succeeded.get("workType") or "")
+    if failed_type == succeeded_type:
+        return True
+
+    # 問題詳細からの個別整備は ``maintenance``、年度整備の工程runは
+    # ``maintenance_<stage>`` になる。同じ責任工程・write contract・
+    # record scopeを後段で満たす限り、起動入口の違いだけで失敗差分を
+    # 相互に解消不能にしない。
+    maintenance_types = {failed_type, succeeded_type}
+    return all(
+        value == "maintenance" or value.startswith("maintenance_")
+        for value in maintenance_types
+    )
 
 
 def _path_allowed_by_contract(manifest: Mapping[str, Any], path: Path) -> bool:

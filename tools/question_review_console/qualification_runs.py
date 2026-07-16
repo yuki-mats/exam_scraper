@@ -3044,10 +3044,27 @@ class QualificationRunCoordinator:
                         transient_root=turn_workspace,
                     )
                     if receipt_completion_snapshot is not None:
-                        self._assert_receipt_completion_unchanged(
+                        validated_receipt = self._assert_receipt_completion_unchanged(
                             qualification,
                             run_id,
                             receipt_completion_snapshot,
+                        )
+                        # HTTPの進捗照会も同じmanifestへreceipt反映を行う。
+                        # receipt本体のhashが検出時から不変なら、検出時に
+                        # 正規化済みの内容をここで正本へ戻し、並行照会による
+                        # manifest更新競合だけで成功を失わないようにする。
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            status="validating",
+                            receiptValidated=False,
+                            receiptError=None,
+                            result=validated_receipt,
+                            resultReceiptHash=str(
+                                receipt_completion_snapshot["resultReceiptHash"]
+                            ),
+                            error=None,
+                            finishedAt=None,
                         )
             except Exception as exc:  # noqa: BLE001
                 turn_error = exc
@@ -4157,6 +4174,10 @@ class QualificationRunCoordinator:
             receipt_path.with_name("progress.jsonl").relative_to(self.repo_root)
         )
         return {
+            "result": copy.deepcopy(dict(result)),
+            "resultReceiptHash": hashlib.sha256(
+                receipt_path.read_bytes()
+            ).hexdigest(),
             "fileFingerprints": {
                 path.as_posix(): self._path_content_fingerprint(
                     self.repo_root / path
@@ -4170,17 +4191,10 @@ class QualificationRunCoordinator:
         qualification: str,
         run_id: str,
         snapshot: Mapping[str, Any],
-    ) -> None:
-        run = self.store.refresh(qualification, run_id)
-        result = run.get("result")
-        if (
-            run.get("receiptError")
-            or not isinstance(result, Mapping)
-            or result.get("status") != "succeeded"
-        ):
-            raise QualificationRunError(
-                "成功receiptの検出後にresult.jsonが変更されました。"
-            )
+    ) -> dict[str, Any]:
+        result = snapshot.get("result")
+        if not isinstance(result, Mapping) or result.get("status") != "succeeded":
+            raise QualificationRunError("成功receipt時点の内容がありません。")
         raw_fingerprints = snapshot.get("fileFingerprints")
         if not isinstance(raw_fingerprints, Mapping):
             raise QualificationRunError("成功receipt時点のfile hashがありません。")
@@ -4195,6 +4209,33 @@ class QualificationRunCoordinator:
                 "成功receiptの保存後にfile変更を検出しました: "
                 + ", ".join(sorted(changed_after_receipt))
             )
+        receipt_path = self.store.result_path(qualification, run_id)
+        raw = receipt_path.read_bytes()
+        expected_hash = str(snapshot.get("resultReceiptHash") or "")
+        if not expected_hash or not hmac.compare_digest(
+            hashlib.sha256(raw).hexdigest(), expected_hash
+        ):
+            raise QualificationRunError(
+                "成功receiptの保存後にresult.jsonの変更を検出しました。"
+            )
+        try:
+            current = self.store._validated_result_receipt(
+                json.loads(raw.decode("utf-8"))
+            )
+        except (
+            UnicodeDecodeError,
+            json.JSONDecodeError,
+            QualificationRunError,
+        ) as exc:
+            raise QualificationRunError(
+                "成功receiptの検出後にresult.jsonが変更されました。"
+            ) from exc
+        normalized = copy.deepcopy(dict(result))
+        if current != normalized:
+            raise QualificationRunError(
+                "成功receiptの検出後にresult.jsonが変更されました。"
+            )
+        return normalized
 
     @staticmethod
     def _path_fingerprint(path: Path) -> str:

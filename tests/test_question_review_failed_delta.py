@@ -257,6 +257,89 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(resolvable, ())
 
+    def test_group_law_audit_can_resolve_mixed_individual_and_phase_failures(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+
+            aggregate_contract = self._contract(relative)
+            aggregate_contract["targetRecordScopes"] = {
+                relative.as_posix(): [["q1"], ["q2"]]
+            }
+            aggregate = runs / "20260101-group/manifest.json"
+            aggregate.parent.mkdir(parents=True)
+            aggregate.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance_law_audit",
+                        "stageIds": ["law_audit"],
+                        "policyVersions": {"law_audit": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **aggregate_contract,
+                        "result": {"changedFiles": [relative.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            individual_contract = self._contract(relative)
+            individual = runs / "20260102-question/manifest.json"
+            individual.parent.mkdir(parents=True)
+            individual.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": ["maintenance"],
+                        "policyVersions": {"law_audit": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **individual_contract,
+                        "result": {"changedFiles": [relative.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            group_resolver = {
+                "qualification": "sample",
+                "workType": "maintenance_law_audit",
+                "stageIds": ["law_audit"],
+                "policyVersions": {"law_audit": "1.0"},
+                "targetGroupIds": ["2026"],
+                **aggregate_contract,
+            }
+            individual_resolver = {
+                "qualification": "sample",
+                "workType": "maintenance",
+                "stageIds": ["maintenance"],
+                "policyVersions": {"law_audit": "1.0"},
+                "targetGroupIds": ["2026"],
+                **individual_contract,
+            }
+
+            group_resolvable = resolvable_failed_delta_paths(
+                root,
+                "sample",
+                group_resolver,
+                "2026",
+            )
+            individual_resolvable = resolvable_failed_delta_paths(
+                root,
+                "sample",
+                individual_resolver,
+                "2026",
+            )
+
+        self.assertEqual(group_resolvable, (relative.as_posix(),))
+        self.assertEqual(individual_resolvable, ())
+
     def test_other_group_failure_does_not_block_selected_group(self):
         relative = Path(
             "output/sample/questions_json/2025/"

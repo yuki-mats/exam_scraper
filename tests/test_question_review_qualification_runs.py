@@ -162,10 +162,17 @@ class ReceiptCompletingAppServer(SuccessfulAppServer):
         "21_explanationText_added/patch.json"
     )
 
-    def __init__(self, root, *, mutate_after_probe=False):
+    def __init__(
+        self,
+        root,
+        *,
+        mutate_after_probe=False,
+        clobber_manifest_after_probe=False,
+    ):
         super().__init__()
         self.root = root
         self.mutate_after_probe = mutate_after_probe
+        self.clobber_manifest_after_probe = clobber_manifest_after_probe
 
     def run_turn(self, prompt, **kwargs):
         if kwargs["work_type"] == "maintenance_research":
@@ -198,6 +205,17 @@ class ReceiptCompletingAppServer(SuccessfulAppServer):
         )
         if not kwargs["completion_probe"]():
             raise AssertionError("成功receiptを検出できませんでした。")
+        if self.clobber_manifest_after_probe:
+            manifest_path = (
+                Path(receipt_line.split("`")[1]).parent.parent / "manifest.json"
+            )
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["status"] = "running"
+            manifest["result"] = None
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False),
+                encoding="utf-8",
+            )
         if self.mutate_after_probe:
             patch_path.write_text(
                 "[ ]\n", encoding="utf-8"
@@ -375,7 +393,12 @@ class IncompleteLawSourceInventory(LawSourceInventory):
         return group
 
 class QualificationRunTests(unittest.TestCase):
-    def _run_receipt_completion(self, *, mutate_after_probe):
+    def _run_receipt_completion(
+        self,
+        *,
+        mutate_after_probe,
+        clobber_manifest_after_probe=False,
+    ):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             jobs = JobManager()
@@ -390,6 +413,7 @@ class QualificationRunTests(unittest.TestCase):
                 app_server=ReceiptCompletingAppServer(
                     root,
                     mutate_after_probe=mutate_after_probe,
+                    clobber_manifest_after_probe=clobber_manifest_after_probe,
                 ),
             )
             snapshots = iter(
@@ -2448,6 +2472,17 @@ class QualificationRunTests(unittest.TestCase):
 
     def test_success_receipt_can_finish_writer_before_turn_final_answer(self):
         job, run = self._run_receipt_completion(mutate_after_probe=False)
+
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(run["status"], "succeeded")
+        self.assertTrue(run["receiptValidated"])
+        self.assertEqual(run["turnCompletionMode"], "receipt_interrupted")
+
+    def test_success_receipt_survives_concurrent_manifest_refresh(self):
+        job, run = self._run_receipt_completion(
+            mutate_after_probe=False,
+            clobber_manifest_after_probe=True,
+        )
 
         self.assertEqual(job["status"], "succeeded", job)
         self.assertEqual(run["status"], "succeeded")
