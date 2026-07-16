@@ -1406,6 +1406,11 @@ class QualificationRunStore:
                     else []
                 ),
                 "未完了時はstatusをfailedにし、summaryへ理由を記録する。",
+                (
+                    "全検証とprogress保存を終えてからresult.jsonを最後のfile操作として保存する。"
+                    "result.json保存後はtool、command、web、file操作を追加せず、"
+                    "直ちに最終応答を返してturnを終了する。"
+                ),
                 "",
             ]
         )
@@ -3003,6 +3008,21 @@ class QualificationRunCoordinator:
             result = None
             app_server_changed_files: tuple[str, ...] = ()
             turn_error: Exception | None = None
+            receipt_completion_snapshot: dict[str, Any] | None = None
+
+            def completion_probe() -> bool:
+                nonlocal receipt_completion_snapshot
+                if receipt_completion_snapshot is not None:
+                    return True
+                snapshot = self._success_receipt_completion_snapshot(
+                    qualification,
+                    run_id,
+                )
+                if snapshot is None:
+                    return False
+                receipt_completion_snapshot = snapshot
+                return True
+
             try:
                 with tempfile.TemporaryDirectory(
                     prefix="question-maintenance-session-"
@@ -3017,11 +3037,18 @@ class QualificationRunCoordinator:
                         on_turn_started=on_turn_started,
                         cwd=turn_workspace,
                         writable_roots=writable_roots,
+                        completion_probe=completion_probe,
                     )
                     app_server_changed_files = self._repository_change_notifications(
                         result.changed_files,
                         transient_root=turn_workspace,
                     )
+                    if receipt_completion_snapshot is not None:
+                        self._assert_receipt_completion_unchanged(
+                            qualification,
+                            run_id,
+                            receipt_completion_snapshot,
+                        )
             except Exception as exc:  # noqa: BLE001
                 turn_error = exc
             after_files = self._repository_file_fingerprints(
@@ -3057,6 +3084,7 @@ class QualificationRunCoordinator:
                 model=result.model,
                 serviceTier=result.service_tier,
                 reasoningEffort=result.reasoning_effort,
+                turnCompletionMode=result.completion_mode,
             )
             refreshed = self.store.refresh(qualification, run_id)
             if refreshed.get("receiptError"):
@@ -4103,6 +4131,70 @@ class QualificationRunCoordinator:
                     relative = hook.relative_to(self.repo_root)
                     fingerprints[relative] = self._path_content_fingerprint(hook)
         return fingerprints
+
+    def _success_receipt_completion_snapshot(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> dict[str, Any] | None:
+        run = self.store.refresh(qualification, run_id)
+        result = run.get("result")
+        if (
+            run.get("status") != "validating"
+            or run.get("receiptValidated") is True
+            or run.get("receiptError")
+            or not isinstance(result, Mapping)
+            or result.get("status") != "succeeded"
+        ):
+            return None
+        watched_paths = {
+            self._maintenance_relative_path(value)
+            for value in result.get("changedFiles") or []
+        }
+        receipt_path = self.store.result_path(qualification, run_id)
+        watched_paths.add(receipt_path.relative_to(self.repo_root))
+        watched_paths.add(
+            receipt_path.with_name("progress.jsonl").relative_to(self.repo_root)
+        )
+        return {
+            "fileFingerprints": {
+                path.as_posix(): self._path_content_fingerprint(
+                    self.repo_root / path
+                )
+                for path in sorted(watched_paths)
+            },
+        }
+
+    def _assert_receipt_completion_unchanged(
+        self,
+        qualification: str,
+        run_id: str,
+        snapshot: Mapping[str, Any],
+    ) -> None:
+        run = self.store.refresh(qualification, run_id)
+        result = run.get("result")
+        if (
+            run.get("receiptError")
+            or not isinstance(result, Mapping)
+            or result.get("status") != "succeeded"
+        ):
+            raise QualificationRunError(
+                "成功receiptの検出後にresult.jsonが変更されました。"
+            )
+        raw_fingerprints = snapshot.get("fileFingerprints")
+        if not isinstance(raw_fingerprints, Mapping):
+            raise QualificationRunError("成功receipt時点のfile hashがありません。")
+        changed_after_receipt: list[str] = []
+        for value, expected in raw_fingerprints.items():
+            relative = self._maintenance_relative_path(value)
+            actual = self._path_content_fingerprint(self.repo_root / relative)
+            if not hmac.compare_digest(actual, str(expected)):
+                changed_after_receipt.append(relative.as_posix())
+        if changed_after_receipt:
+            raise QualificationRunError(
+                "成功receiptの保存後にfile変更を検出しました: "
+                + ", ".join(sorted(changed_after_receipt))
+            )
 
     @staticmethod
     def _path_fingerprint(path: Path) -> str:

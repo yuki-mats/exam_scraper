@@ -156,6 +156,64 @@ class SuccessfulAppServer:
         )
 
 
+class ReceiptCompletingAppServer(SuccessfulAppServer):
+    changed_file = (
+        "output/sample/questions_json/2026/"
+        "21_explanationText_added/patch.json"
+    )
+
+    def __init__(self, root, *, mutate_after_probe=False):
+        super().__init__()
+        self.root = root
+        self.mutate_after_probe = mutate_after_probe
+
+    def run_turn(self, prompt, **kwargs):
+        if kwargs["work_type"] == "maintenance_research":
+            return super().run_turn(prompt, **kwargs)
+        self.calls.append((prompt, kwargs))
+        self.kwargs = kwargs
+        kwargs["on_thread_started"]("thread-receipt-1", "session-receipt-1")
+        kwargs["on_turn_started"]("thread-receipt-1", "turn-receipt-1")
+        patch_path = self.root / self.changed_file
+        patch_path.parent.mkdir(parents=True, exist_ok=True)
+        patch_path.write_text("[]\n", encoding="utf-8")
+        receipt_line = next(
+            line
+            for line in prompt.splitlines()
+            if "完了時に検証結果を次へJSONで保存" in line
+        )
+        Path(receipt_line.split("`")[1]).write_text(
+            json.dumps(
+                {
+                    "status": "succeeded",
+                    "summary": "対象工程を整備した。",
+                    "commands": [
+                        {"command": "python check.py", "status": "pass"}
+                    ],
+                    "changedFiles": [self.changed_file],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        if not kwargs["completion_probe"]():
+            raise AssertionError("成功receiptを検出できませんでした。")
+        if self.mutate_after_probe:
+            patch_path.write_text(
+                "[ ]\n", encoding="utf-8"
+            )
+        return AppServerTurnResult(
+            thread_id="thread-receipt-1",
+            session_id="session-receipt-1",
+            turn_id="turn-receipt-1",
+            final_message="",
+            model="gpt-test",
+            service_tier=None,
+            changed_files=(str(patch_path),),
+            completion_mode="receipt_interrupted",
+        )
+
+
 class FailingAppServer:
     configured = True
     provider = "Codex App Server"
@@ -317,6 +375,49 @@ class IncompleteLawSourceInventory(LawSourceInventory):
         return group
 
 class QualificationRunTests(unittest.TestCase):
+    def _run_receipt_completion(self, *, mutate_after_probe):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=ReceiptCompletingAppServer(
+                    root,
+                    mutate_after_probe=mutate_after_probe,
+                ),
+            )
+            snapshots = iter(
+                [
+                    {},
+                    {
+                        Path(ReceiptCompletingAppServer.changed_file): "sha256:after"
+                    },
+                ]
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: next(
+                snapshots
+            )
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            deadline = time.monotonic() + 5
+            job = jobs.get(started["job"]["jobId"])
+            while (
+                job["status"] in {"queued", "running"}
+                and time.monotonic() < deadline
+            ):
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.refresh("sample", started["run"]["runId"])
+        return job, run
+
     def test_every_top_maintenance_stage_has_its_own_session_phase(self):
         stage_ids = [
             "question_type",
@@ -2324,6 +2425,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn(str((root / ".venv/bin/python").resolve()), writer_prompt)
         self.assertIn("成功ならpass、失敗ならfail", writer_prompt)
         self.assertIn("独自の代替検証だけで成功扱いにせず", writer_prompt)
+        self.assertIn("result.jsonを最後のfile操作", writer_prompt)
         self.assertEqual(app_server.kwargs["work_type"], "maintenance")
         self.assertEqual(synchronizer.calls, [("sample", "2026", False)])
         self.assertEqual(run["artifactSync"]["status"], "succeeded")
@@ -2343,6 +2445,21 @@ class QualificationRunTests(unittest.TestCase):
             app_server.kwargs["writable_roots"],
         )
         self.assertNotIn(run_dir, app_server.kwargs["writable_roots"])
+
+    def test_success_receipt_can_finish_writer_before_turn_final_answer(self):
+        job, run = self._run_receipt_completion(mutate_after_probe=False)
+
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(run["status"], "succeeded")
+        self.assertTrue(run["receiptValidated"])
+        self.assertEqual(run["turnCompletionMode"], "receipt_interrupted")
+
+    def test_change_after_success_receipt_is_not_accepted(self):
+        job, run = self._run_receipt_completion(mutate_after_probe=True)
+
+        self.assertEqual(job["status"], "failed")
+        self.assertIn("成功receiptの保存後にfile変更", job["error"])
+        self.assertEqual(run["status"], "failed")
 
     def test_human_run_succeeds_with_warning_when_automatic_sync_is_blocked(self):
         with tempfile.TemporaryDirectory() as directory:

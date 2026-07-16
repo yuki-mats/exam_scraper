@@ -297,6 +297,32 @@ class ProtocolClient(CodexAppServerClient):
         self.sent.append(copy.deepcopy(dict(message)))
 
 
+class ReceiptInterruptProtocolClient(ProtocolClient):
+    def _request(self, method, params, *, timeout=None):
+        if method == "turn/start":
+            self.calls.append((method, copy.deepcopy(params)))
+            thread_id = params["threadId"]
+            return {"turn": {"id": thread_id.replace("thread", "turn")}}
+        if method == "turn/interrupt":
+            self.calls.append((method, copy.deepcopy(params)))
+            self._handle_turn_notification(
+                {
+                    "method": "turn/completed",
+                    "params": {
+                        "threadId": params["threadId"],
+                        "turn": {
+                            "id": params["turnId"],
+                            "status": "interrupted",
+                            "error": None,
+                            "items": [],
+                        },
+                    },
+                }
+            )
+            return {}
+        return super()._request(method, params, timeout=timeout)
+
+
 class AppServerTurnTests(unittest.TestCase):
     def test_runtime_home_copies_only_chatgpt_auth(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -487,6 +513,33 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(all(params["sandboxPolicy"]["networkAccess"] is False for params in turn_params))
         self.assertTrue(all(params["serviceTier"] is None for params in turn_params))
         self.assertTrue(all(params["effort"] == "high" for params in turn_params))
+
+    def test_success_receipt_probe_interrupts_writer_and_returns_terminal_result(self):
+        client = ReceiptInterruptProtocolClient()
+        probe_count = 0
+
+        def completion_probe():
+            nonlocal probe_count
+            probe_count += 1
+            return True
+
+        result = client.run_turn(
+            "maintain",
+            work_type="maintenance",
+            sandbox="workspace-write",
+            emit=lambda _line: None,
+            completion_probe=completion_probe,
+        )
+
+        self.assertGreaterEqual(probe_count, 1)
+        self.assertEqual(result.completion_mode, "receipt_interrupted")
+        self.assertEqual(
+            result.final_message,
+            "成功receipt保存後にturnを停止しました。",
+        )
+        self.assertTrue(
+            any(method == "turn/interrupt" for method, _params in client.calls)
+        )
 
     def test_read_only_research_enables_bounded_subagents_only_for_that_thread(self):
         client = ProtocolClient()

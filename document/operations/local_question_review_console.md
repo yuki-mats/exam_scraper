@@ -124,7 +124,7 @@ App Serverは専用の一時`CODEX_HOME`で起動し、元の`CODEX_HOME`からC
 - 実体patch、評価projection、readback、merge、sync、公開artifactを変更する処理は、システム全体で1件ずつ実行する。一意IDのreview・run metadataは開始前にatomic writeし、排他競合時はfailed又は`needs_review`へ戻す。
 - 評価threadはfileとFirestoreを変更しない。Python serverだけがrun receiptと最新評価projectionを保存する。
 - Firestore反映はCodex threadへ任せず、既存preflight、UIの明示確認、直後のreadbackを使う。
-- app-server停止、認証不一致、利用上限、receipt不備は安全な失敗として保存する。
+- app-server停止、認証不一致、利用上限、receipt不備は安全な失敗として保存する。保存担当が有効な成功receiptを書いた後は、それを終了シグナルとしてturnを停止し、receipt時点と停止後のresult、progress、申告変更fileのcontent hashが一致する場合だけ通常の差分・record scope・`00_source`・工程版検証へ進む。receipt後の追加変更、停止未確認、hash不一致は成功扱いにしない。
 - 失敗又は中断turnの変更と削除はfailed receiptへ残し、merge・convert・問題単位を含む公開をブロックする。再実行で変更したpath、又は内容を検証して`resolvedFailedDeltaPaths`へ明示したpathだけを解除する。解除候補は現在runの書込責務内に限定し、pathが判明している場合は工程・対象file・年度・record scope、path不明の場合はrun全体の契約一致で解除可否を判定する。
 
 ## 起動

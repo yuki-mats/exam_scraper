@@ -106,6 +106,7 @@ class AppServerTurnResult:
     subagent_thread_ids: tuple[str, ...] = ()
     subagent_models: tuple[str, ...] = ()
     subagent_reasoning_efforts: tuple[str, ...] = ()
+    completion_mode: str = "turn_completed"
 
 
 @dataclass
@@ -326,6 +327,7 @@ class CodexAppServerClient:
         on_turn_started: Callable[[str, str], None] | None = None,
         cwd: Path | None = None,
         writable_roots: Iterable[Path] = (),
+        completion_probe: Callable[[], bool] | None = None,
     ) -> AppServerTurnResult:
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError(f"unsupported sandbox: {sandbox}")
@@ -471,15 +473,39 @@ class CodexAppServerClient:
                 on_turn_started(thread_id, turn_id)
             emit(f"Codex App Server thread: {thread_id}")
 
-            if not state.event.wait(self.turn_timeout):
-                raise CodexAppServerError("Codex App Serverのturnが時間切れになりました。")
+            receipt_interrupted = False
+            deadline = time.monotonic() + self.turn_timeout
+            while not state.event.is_set():
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise CodexAppServerError(
+                        "Codex App Serverのturnが時間切れになりました。"
+                    )
+                if state.event.wait(min(0.25, remaining)):
+                    break
+                if completion_probe is None or not completion_probe():
+                    continue
+                receipt_interrupted = True
+                emit(
+                    "成功receiptを検出したため、追加操作を止めて"
+                    "最終検証へ進みます。"
+                )
+                self._interrupt_turn(thread_id, turn_id)
+                if not state.event.wait(30):
+                    raise CodexAppServerError(
+                        "成功receipt保存後のturn停止を確認できませんでした。"
+                    )
+                break
         except BaseException:
             self._interrupt_turn(thread_id, turn_id)
             raise
         finally:
             with self._state_lock:
                 self._turns.pop(key, None)
-        if state.status != "completed":
+        receipt_interrupted = bool(
+            receipt_interrupted and state.status == "interrupted"
+        )
+        if state.status != "completed" and not receipt_interrupted:
             detail = self._turn_error_message(state.error)
             raise CodexAppServerError(
                 f"Codex App Serverのturnを完了できませんでした（{state.status}）{detail}"
@@ -495,6 +521,8 @@ class CodexAppServerClient:
                 "",
             ),
         )
+        if receipt_interrupted and not final_message:
+            final_message = "成功receipt保存後にturnを停止しました。"
         if not final_message:
             raise CodexAppServerError("Codex App Serverが最終応答を返しませんでした。")
         if research_work:
@@ -536,6 +564,9 @@ class CodexAppServerClient:
             subagent_models=tuple(sorted(state.subagent_models)),
             subagent_reasoning_efforts=tuple(
                 sorted(state.subagent_reasoning_efforts)
+            ),
+            completion_mode=(
+                "receipt_interrupted" if receipt_interrupted else "turn_completed"
             ),
         )
 
