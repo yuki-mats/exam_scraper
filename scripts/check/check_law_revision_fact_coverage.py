@@ -89,6 +89,63 @@ def facts_for_record(record: dict[str, Any]) -> list[dict[str, Any]]:
     return []
 
 
+def is_law_revision_facts_for_record(
+    facts: dict[str, Any],
+    record: dict[str, Any],
+    *,
+    allow_question_level_choice_verdicts: bool,
+) -> bool:
+    """Validate Firestore facts and question-level merged facts.
+
+    Firestore records contain one scalar verdict.  Patch and merged records
+    contain every choice verdict in one question-level list.  The Firestore
+    schema validator deliberately accepts only the scalar representation, so
+    normalize a well-formed merged verdict list solely for shape validation.
+    The original list is still compared with the published verdict below by
+    ``law_revision_current_verdict_issues``.
+    """
+
+    if _is_law_revision_facts(facts):
+        return True
+    if not allow_question_level_choice_verdicts:
+        return False
+
+    expected_verdicts = record.get("correctChoiceText")
+    if (
+        not isinstance(expected_verdicts, list)
+        or not expected_verdicts
+        or any(
+            not isinstance(verdict, str) or not verdict.strip()
+            for verdict in expected_verdicts
+        )
+    ):
+        return False
+
+    normalized_facts = dict(facts)
+    normalized_any = False
+    for snapshot_key in ("examTime", "current"):
+        snapshot = facts.get(snapshot_key)
+        if not isinstance(snapshot, dict):
+            continue
+        verdicts = snapshot.get("correctChoiceText")
+        if not isinstance(verdicts, list):
+            continue
+        if (
+            len(verdicts) != len(expected_verdicts)
+            or any(
+                not isinstance(verdict, str) or not verdict.strip()
+                for verdict in verdicts
+            )
+        ):
+            return False
+        normalized_snapshot = dict(snapshot)
+        normalized_snapshot["correctChoiceText"] = verdicts[0]
+        normalized_facts[snapshot_key] = normalized_snapshot
+        normalized_any = True
+
+    return normalized_any and _is_law_revision_facts(normalized_facts)
+
+
 def record_label(record: dict[str, Any], index: int) -> str:
     for key in ("questionId", "originalQuestionId", "original_question_id", "public_question_id"):
         value = record.get(key)
@@ -105,6 +162,7 @@ def audit_records(
     require_evidence_summary: bool,
     require_law_references: bool,
     require_current_correct_choice: bool = False,
+    allow_question_level_choice_verdicts: bool = False,
 ) -> tuple[list[str], Counter[str]]:
     errors: list[str] = []
     counts: Counter[str] = Counter()
@@ -125,6 +183,22 @@ def audit_records(
                 errors.append(
                     f"{label}: lawGroundedExplanationNotNeeded cannot be true when isLawRelated=true"
                 )
+            raw_facts = record.get("lawRevisionFacts")
+            if isinstance(raw_facts, list):
+                if not allow_question_level_choice_verdicts:
+                    counts["invalid"] += 1
+                    errors.append(
+                        f"{label}: lawRevisionFacts must be an object for Firestore records"
+                    )
+                    continue
+                if not raw_facts or any(
+                    not isinstance(facts, dict) for facts in raw_facts
+                ):
+                    counts["invalid"] += 1
+                    errors.append(
+                        f"{label}: lawRevisionFacts must be a non-empty list of objects"
+                    )
+                    continue
             facts_list = facts_for_record(record)
             if not facts_list:
                 counts["missing"] += 1
@@ -133,7 +207,13 @@ def audit_records(
                 continue
             counts["with_facts"] += 1
             for facts_index, facts in enumerate(facts_list, start=1):
-                if not _is_law_revision_facts(facts):
+                if not is_law_revision_facts_for_record(
+                    facts,
+                    record,
+                    allow_question_level_choice_verdicts=(
+                        allow_question_level_choice_verdicts
+                    ),
+                ):
                     errors.append(f"{label}: lawRevisionFacts[{facts_index}] is invalid")
                     continue
                 status = facts.get("auditStatus")
@@ -205,6 +285,7 @@ def run(
         require_evidence_summary=require_evidence_summary,
         require_law_references=require_law_references,
         require_current_correct_choice=require_current_correct_choice,
+        allow_question_level_choice_verdicts=(stage == "merged"),
     )
     print(f"stage: {stage}")
     for source_file in source_files:

@@ -147,6 +147,237 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
 
         self.assertEqual(errors, [])
 
+    def test_accepts_matching_merged_question_verdicts(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["正しい", "間違い"]
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertEqual(errors, [])
+
+    def test_rejects_merged_verdict_count_mismatch(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["正しい"]
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertTrue(any("lawRevisionFacts[1] is invalid" in error for error in errors))
+
+    def test_rejects_invalid_merged_verdict_item(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["正しい", ""]
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertTrue(any("lawRevisionFacts[1] is invalid" in error for error in errors))
+
+    def test_rejects_merged_verdict_value_mismatch(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["間違い", "間違い"]
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertTrue(any("一致しません" in error for error in errors))
+
+    def test_keeps_firestore_facts_scalar_only(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["正しい"]
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": "正しい",
+                    "isLawRelated": True,
+                    "lawReferences": [{"lawId": "law1"}],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+        )
+
+        self.assertTrue(any("lawRevisionFacts[1] is invalid" in error for error in errors))
+
+    def test_keeps_firestore_law_revision_facts_as_object(self) -> None:
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": "正しい",
+                    "isLawRelated": True,
+                    "lawReferences": [{"lawId": "law1"}],
+                    "lawRevisionFacts": [valid_facts("same_as_current")],
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+        )
+
+        self.assertTrue(
+            any("must be an object for Firestore records" in error for error in errors)
+        )
+
+    def test_rejects_non_object_in_merged_facts_list(self) -> None:
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": [valid_facts("same_as_current"), "invalid"],
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=False,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertTrue(
+            any("must be a non-empty list of objects" in error for error in errors)
+        )
+
+    def test_rejects_merged_exam_time_verdict_count_mismatch(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["正しい", "間違い"]
+        facts["examTime"] = {"correctChoiceText": ["正しい"]}
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertTrue(any("lawRevisionFacts[1] is invalid" in error for error in errors))
+
+    def test_rejects_unknown_key_after_merged_normalization(self) -> None:
+        facts = valid_facts("same_as_current")
+        facts["current"]["correctChoiceText"] = ["正しい", "間違い"]
+        facts["unexpected"] = "must not be discarded"
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertTrue(any("lawRevisionFacts[1] is invalid" in error for error in errors))
+
+    def test_accepts_existing_per_choice_facts_list(self) -> None:
+        correct_facts = valid_facts("same_as_current")
+        incorrect_facts = valid_facts("same_as_current")
+        incorrect_facts["current"]["correctChoiceText"] = "間違い"
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": True,
+                    "lawReferences": [[{"lawId": "law1"}], [{"lawId": "law1"}]],
+                    "lawRevisionFacts": [correct_facts, incorrect_facts],
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            allow_question_level_choice_verdicts=True,
+        )
+
+        self.assertEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()
