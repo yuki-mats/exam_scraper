@@ -1,0 +1,177 @@
+version: 2
+
+goal:
+  title: "一問完結型の問題整備キュー"
+  slug: "question-maintenance-per-question-queue"
+  kind: existing_plan
+  tranche: "continuous execution: 一問単位の確定・失敗隔離・再開を実装し、範囲指定UIから安定運用できるまで進める"
+  status: active
+  oracle:
+    signal: "同一範囲58問のうち1問が失敗しても57問が確定し、失敗問だけを理由付きで再実行できる"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "自動テスト、再起動を挟むrun readback、デスクトップ・モバイルのブラウザwalkthrough"
+  intake:
+    original_request: "シンプルイズベスト。一問ずつ着実に整備し、開始範囲は資格や年度・回のまま維持する"
+    interpreted_outcome: "資格・年度・回で選んだ対象を一問単位の独立キューとして処理し、成功問を巻き戻さず失敗問だけを再開できる"
+    input_shape: existing_plan
+    audience: "問題整備を行う運用者"
+    authority: approved
+    proof_type: demo
+    completion_proof: "1問失敗、再起動、失敗問再実行、成果物再生成を含むend-to-end検証が成功する"
+    likely_misfire: "画面上だけ一問単位に見せ、検証・commit・rollback・再試行を年度又はrun単位のまま残す"
+    blind_spots_considered:
+      - "工程間の依存関係"
+      - "入力又は方針変更時だけ必要な再検証"
+      - "成果物再生成を一問ごとに連打する無駄"
+      - "server再起動後の二重実行"
+      - "同一patchへの複数writer"
+    existing_plan_facts:
+      - "開始範囲は資格・年度・回で指定する"
+      - "内部の処理、検証、確定、失敗、再実行は一問単位にする"
+      - "成功済み問題は入力又は評価方針が変わらない限り再検証しない"
+      - "失敗問の依存後続だけを止め、独立した問題は進め続ける"
+      - "patch保存後の自動再生成、artifactSync分離、手動再生成機能を維持する"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
+
+active_task: T001
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "現行実装の処理・検証・確定・rollback・再開・成果物同期の境界をread-onlyで特定する"
+    inputs:
+      - "現行の問題整備実装とテスト"
+      - "既存の運用正本"
+    constraints:
+      - "Read-only."
+      - "問題単位に見える進捗表示と実際の確定境界を区別する。"
+    expected_output:
+      - "現在の境界と巻き込み原因"
+      - "変更候補ファイル"
+      - "回帰検証コマンド"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Scoutの証拠と既存方針を評価し、一問完結型queueの状態契約と最初の最大安全な縦断Worker packageを確定する"
+    inputs:
+      - "T001 receipt"
+      - "goal.md"
+      - "既存question-maintenance-control-centerのreceipt"
+    constraints:
+      - "Do not implement."
+      - "範囲選択と処理単位を混同しない。"
+      - "表示上だけの一問化を承認しない。"
+      - "patch成功とartifactSyncを分離する。"
+    expected_output:
+      - "architecture decision"
+      - "work-item state and fingerprint contract"
+      - "dependency and retry policy"
+      - "exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: xhigh
+    objective: "Judgeが確定した一問完結型queueの最初の最大安全な縦断sliceを実装する"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside allowed_files."
+      - "一問のidentity又は確定境界が曖昧である。"
+      - "00_source、既存ID又は本番Firestoreの変更が必要になる。"
+      - "対象外の未コミットpatchと競合する。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt: null
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: xhigh
+    objective: "実装を1問失敗・57問成功、再起動、失敗問再実行、検証回数、成果物同期、UIのoracleで監査する"
+    inputs:
+      - "T001-T003 receipts"
+      - "focused and regression tests"
+      - "durable run readback"
+      - "desktop and mobile browser walkthrough"
+    constraints:
+      - "Do not implement."
+      - "成功問が再検証又はrollbackされる実装を拒否する。"
+      - "失敗による全run停止を拒否する。"
+      - "一問ごとのMerge・Convert実行を拒否する。"
+    expected_output:
+      - "milestone verdict"
+      - "oracle evidence map"
+      - "remaining Worker package or final-audit readiness"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: xhigh
+    objective: "全receiptと最終検証を元の依頼へ対応付け、一問完結型の仕組みが完成したか監査する"
+    inputs:
+      - "All task receipts"
+      - "最終自動テスト"
+      - "再起動を含むrun readback"
+      - "デスクトップ・モバイルbrowser walkthrough"
+      - "git diffと正本文書"
+    constraints:
+      - "Do not implement."
+      - "必要なWorker taskがqueued又はactiveなら完了を拒否する。"
+      - "単一fixtureだけでなく既存範囲選択との互換を確認する。"
+      - "本番Firestore未実行は欠陥としない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle evidence map"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "pre-existing gas-shunin output patches plus GoalBuddy control files"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
