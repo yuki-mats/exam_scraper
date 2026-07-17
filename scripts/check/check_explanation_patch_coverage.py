@@ -332,7 +332,16 @@ def compare_entries(
                     "index {}: explanationText length mismatch "
                     "(source={} patch={})".format(idx, len(choices), len(explanations))
                 )
-            for issue in explanation_style_issues(explanations):
+            require_verdict_prefix = not (
+                isinstance(choices, list)
+                and not choices
+                and source_question_type in {"fill_in_blank", "free_text"}
+            )
+            for issue in explanation_style_issues(
+                explanations,
+                src.get("correctChoiceText"),
+                require_verdict_prefix=require_verdict_prefix,
+            ):
                 errors.append(f"index {idx}: {issue}")
 
         suggested_questions = patch.get("suggestedQuestions")

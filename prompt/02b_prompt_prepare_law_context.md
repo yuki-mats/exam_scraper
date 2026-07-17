@@ -133,16 +133,8 @@ AIが最小JSONを作ったら、次で正式パッチへ補完します。
   --patch /path/to/18_law_context_prepared/question_*_merged_lawContext_prepared.json
 ```
 
-資格・年度単位で02bを必須にする場合:
-
-```bash
-.venv/bin/python tools/question_bank/question_bank.py quality-gate \
-  --qualification <qualification> \
-  --list-group-id <list_group_id> \
-  --require-law-context-stage \
-  --require-is-law-related \
-  --require-law-grounded-flag
-```
+02bの完了判定は、対象ファイルごとの`check-law-context-patch`だけで行う。
+全工程を検査する`quality-gate`は公開準備の最終検証で実行し、02bでは実行しない。
 
 ## 禁止事項
 

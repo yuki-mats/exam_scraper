@@ -303,7 +303,7 @@ def build_codex_prompt(
 - `correctChoiceText`を変更する場合は、解説先頭、根拠、`lawRevisionFacts`との整合も確認する。
 - 既存の`questionId`、`originalQuestionId`、`questionSetId`を不用意に変更しない。
 - 対象外の未コミット変更を破棄しない。
-- patch単体のschema又は対象quality-gateを実行する。merge、convert、upload-ready生成はこのsessionで行わず、問題整備システムの別工程へ残す。
+- 正本が指定する対象工程のpatch単体検証を実行する。全工程quality-gate、merge、convert、upload-ready生成はこのsessionで行わず、問題整備システムの最終工程へ残す。
 - Firestore、Storage、GitHubへ反映しない。
 - 調査範囲は「{scope_label}」とする。{scope_text}文言が似ているだけで一括置換せず、問題文と選択肢を結合した判定命題と根拠を個別に確認する。
 

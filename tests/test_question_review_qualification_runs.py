@@ -87,9 +87,16 @@ class SuccessfulAppServer:
     configured = True
     provider = "Codex App Server"
 
-    def __init__(self, changed_files=(), *, temporary_helper=False):
+    def __init__(
+        self,
+        changed_files=(),
+        *,
+        temporary_helper=False,
+        receipt=None,
+    ):
         self.changed_files = list(changed_files)
         self.temporary_helper = temporary_helper
+        self.receipt = receipt
         self.kwargs = {}
         self.calls = []
 
@@ -128,16 +135,14 @@ class SuccessfulAppServer:
             for line in prompt.splitlines()
             if "完了時に検証結果を次へJSONで保存" in line
         )
+        receipt = self.receipt or {
+            "status": "succeeded",
+            "summary": "対象工程を整備した。",
+            "commands": [{"command": "python check.py", "status": "pass"}],
+            "changedFiles": self.changed_files,
+        }
         Path(receipt_line.split("`")[1]).write_text(
-            json.dumps(
-                {
-                    "status": "succeeded",
-                    "summary": "対象工程を整備した。",
-                    "commands": [{"command": "python check.py", "status": "pass"}],
-                    "changedFiles": self.changed_files,
-                },
-                ensure_ascii=False,
-            ),
+            json.dumps(receipt, ensure_ascii=False),
             encoding="utf-8",
         )
         notifications = []
@@ -889,6 +894,27 @@ class QualificationRunTests(unittest.TestCase):
                 ]
             )
 
+    def test_explanation_version_recording_rejects_missing_or_opposite_prefix(self):
+        for explanation in (
+            "定義に一致するため正しい。",
+            "間違い。定義に一致する。",
+        ):
+            with self.subTest(explanation=explanation), self.assertRaisesRegex(
+                QualificationRunError, "03 解説の日本語品質検証"
+            ):
+                QualificationRunCoordinator._validate_explanation_quality(
+                    [
+                        {
+                            "originalQuestionId": "q1",
+                            "projected": {
+                                "choiceTextList": ["A"],
+                                "correctChoiceText": ["正しい"],
+                                "explanationText": [explanation],
+                            },
+                        }
+                    ]
+                )
+
     def test_run_policy_drift_blocks_version_recording(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1031,7 +1057,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": "2.0"})
+        self.assertEqual(run["policyVersions"], {"explanation": "2.1"})
         self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["writeWorkerLimit"], 1)
 
@@ -2572,6 +2598,56 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(job["status"], "failed")
         self.assertIn("成功receiptの保存後にfile変更", job["error"])
         self.assertEqual(run["status"], "failed")
+
+    def test_failed_receipt_keeps_summary_and_first_failed_command(self):
+        receipt = {
+            "status": "failed",
+            "summary": "工程別検証は成功したが、全体検証に失敗した。",
+            "commands": [
+                {"command": "python scoped_check.py", "status": "pass"},
+                {"command": "python quality_gate.py", "status": "fail"},
+                {"command": "python later_check.py", "status": "fail"},
+            ],
+            "changedFiles": [],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=SuccessfulAppServer(receipt=receipt),
+            )
+            snapshots = iter([{}, {}])
+            coordinator._repository_file_fingerprints = lambda *_args: next(
+                snapshots
+            )
+            preview = coordinator.preview("sample", "law_audit", "remaining")
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            deadline = time.monotonic() + 2
+            job = jobs.get(started["job"]["jobId"])
+            while (
+                job["status"] in {"queued", "running"}
+                and time.monotonic() < deadline
+            ):
+                time.sleep(0.01)
+                job = jobs.get(started["job"]["jobId"])
+            run = coordinator.store.refresh("sample", started["run"]["runId"])
+
+        self.assertEqual(job["status"], "failed")
+        self.assertEqual(run["status"], "failed")
+        self.assertIsNone(run["receiptError"])
+        self.assertEqual(run["result"]["summary"], receipt["summary"])
+        self.assertEqual(run["result"]["commands"], receipt["commands"])
+        self.assertIn(receipt["summary"], run["error"])
+        self.assertIn("python quality_gate.py", run["error"])
+        self.assertNotIn("python later_check.py", run["error"])
+        self.assertNotIn("有効な成功receipt", run["error"])
 
     def test_human_run_succeeds_with_warning_when_automatic_sync_is_blocked(self):
         with tempfile.TemporaryDirectory() as directory:

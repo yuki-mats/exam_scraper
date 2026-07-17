@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
@@ -6,6 +7,48 @@ from tools.question_review_console.explanation_quality import (
 
 
 class ExplanationQualityTests(unittest.TestCase):
+    def test_canonical_prompt_examples_follow_the_same_style_contract(self):
+        prompt = (
+            Path(__file__).resolve().parents[1]
+            / "prompt/03_prompt_add_explanationText.md"
+        ).read_text(encoding="utf-8")
+        examples = [
+            line
+            for line in prompt.splitlines()
+            if line.startswith(("正しい。", "間違い。"))
+        ]
+
+        self.assertTrue(examples)
+        self.assertEqual(explanation_style_issues(examples), [])
+
+    def test_rejects_missing_required_verdict_prefix(self):
+        issues = explanation_style_issues(["定義に一致するため正しい。"], ["正しい"])
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("正しい。", issues[0])
+
+    def test_rejects_prefix_that_disagrees_with_correct_choice(self):
+        issues = explanation_style_issues(["間違い。定義に一致する。"], ["正しい"])
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("correctChoiceText", issues[0])
+
+    def test_rejects_the_missing_prefix_and_old_closing_seen_in_2019_q12(self):
+        issues = explanation_style_issues(
+            [
+                "渦流式ガスメーターはカルマン渦の発生周波数から瞬時流量を測定する。",
+                "高圧では圧力補正が必要となる。不要としている点が誤り。",
+                "ガスが通過できない故障は不通であり、不動ではない。",
+                "使用公差を外れる故障である。検定公差としている点が誤り。",
+                "感震器には自動水平調整を行う機能がある。",
+            ],
+            ["正しい", "間違い", "間違い", "間違い", "正しい"],
+        )
+
+        self.assertEqual(len(issues), 7)
+        self.assertEqual(sum("始めてください" in issue for issue in issues), 5)
+        self.assertEqual(sum("点が誤り" in issue for issue in issues), 2)
+
     def test_rejects_law_name_as_mechanical_sentence_subject(self):
         issues = explanation_style_issues(
             [

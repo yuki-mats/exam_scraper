@@ -3090,12 +3090,18 @@ class QualificationRunCoordinator:
             if refreshed.get("receiptError"):
                 raise QualificationRunError(str(refreshed["receiptError"]))
             refreshed_result = refreshed.get("result")
+            if isinstance(refreshed_result, Mapping) and (
+                refreshed_result.get("status") == "failed"
+            ):
+                raise QualificationRunError(
+                    self._failed_receipt_message(refreshed_result)
+                )
             if (
                 not isinstance(refreshed_result, Mapping)
                 or refreshed_result.get("status") != "succeeded"
             ):
                 raise QualificationRunError(
-                    "Codex App Serverは完了しましたが、有効な成功receiptがありません。"
+                    "Codex App Serverは完了しましたが、完了receiptが見つかりません。"
                 )
             self._validate_changed_files(
                 qualification,
@@ -3192,6 +3198,10 @@ class QualificationRunCoordinator:
             current = self.store.refresh(qualification, run_id)
             current_result = current.get("result")
             current_result = current_result if isinstance(current_result, Mapping) else {}
+            preserve_failed_receipt = bool(
+                current_result.get("status") == "failed"
+                and not current.get("receiptError")
+            )
             try:
                 changed_files = self._failed_run_changed_files(
                     qualification,
@@ -3223,7 +3233,11 @@ class QualificationRunCoordinator:
                 run_id,
                 {
                     "status": "failed",
-                    "summary": str(error_to_raise),
+                    "summary": (
+                        str(current_result.get("summary") or "").strip()
+                        if preserve_failed_receipt
+                        else str(error_to_raise)
+                    ),
                     "commands": list(current_result.get("commands") or []),
                     "changedFiles": changed_files,
                 },
@@ -3248,6 +3262,26 @@ class QualificationRunCoordinator:
                     path.rmdir()
                 except OSError:
                     pass
+
+    @staticmethod
+    def _failed_receipt_message(receipt: Mapping[str, Any]) -> str:
+        summary = str(receipt.get("summary") or "").strip()
+        commands = receipt.get("commands")
+        first_failed_command = (
+            next(
+                (
+                    str(item.get("command") or "").strip()
+                    for item in commands
+                    if isinstance(item, Mapping) and item.get("status") == "fail"
+                ),
+                "",
+            )
+            if isinstance(commands, list)
+            else ""
+        )
+        if first_failed_command:
+            return f"{summary} 最初に失敗した検証: {first_failed_command}"
+        return summary
 
     def _record_work_versions(self, run: Mapping[str, Any]) -> dict[str, Any]:
         qualification = str(run["qualification"])
@@ -3372,9 +3406,19 @@ class QualificationRunCoordinator:
             if not isinstance(explanations, list) or not explanations:
                 errors.append(f"{label}: explanationTextを確認できません。")
                 continue
+            choices = projected.get("choiceTextList")
+            require_verdict_prefix = not (
+                isinstance(choices, list)
+                and not choices
+                and projected.get("questionType") in {"fill_in_blank", "free_text"}
+            )
             errors.extend(
                 f"{label} {issue}"
-                for issue in explanation_style_issues(explanations)
+                for issue in explanation_style_issues(
+                    explanations,
+                    projected.get("correctChoiceText"),
+                    require_verdict_prefix=require_verdict_prefix,
+                )
             )
         if errors:
             raise QualificationRunError(

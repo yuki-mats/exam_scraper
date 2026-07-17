@@ -50,10 +50,10 @@ class QuestionReviewProjectionTests(unittest.TestCase):
     def test_explanation_prefix_matches_normalized_verdict(self):
         self.assertTrue(explanation_prefix_matches("○", "正しい。条文の通り。"))
         self.assertTrue(explanation_prefix_matches("誤り", "間違い。文言が異なる。"))
-        self.assertTrue(
+        self.assertFalse(
             explanation_prefix_matches("正しい", "選択肢1は「正しい」です。根拠を説明する。")
         )
-        self.assertTrue(
+        self.assertFalse(
             explanation_prefix_matches("間違い", "この記述は誤りです。根拠を説明する。")
         )
         self.assertFalse(explanation_prefix_matches("正しい", "間違い。文言が異なる。"))

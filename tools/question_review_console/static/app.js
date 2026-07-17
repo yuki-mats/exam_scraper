@@ -1356,7 +1356,25 @@ function humanizeQualificationRunError(value) {
   if (message.includes("別の整備処理が実行中")) {
     return "別の整備が動いているため、この作業は開始されませんでした。";
   }
-  if (message.includes("receipt")) {
+  if (message.includes("最初に失敗した検証:")) {
+    return compactProgressText(message, 400);
+  }
+  const invalidReceiptMarkers = [
+    "完了receiptが見つかりません",
+    "有効な成功receiptがありません",
+    "完了receiptはJSON object",
+    "完了receiptのstatus",
+    "完了receiptにsummary",
+    "完了receiptのcommands",
+    "commandsの各要素はobject",
+    "commandsにはcommandとpass/fail",
+    "succeededの完了receipt",
+    "changedFilesは文字列配列",
+    "resolvedFailedDeltaPathsは文字列配列",
+    "失敗receiptでは未確定差分",
+    "完了receiptにsymlink",
+  ];
+  if (invalidReceiptMarkers.some((marker) => message.includes(marker))) {
     return "完了記録を検証できなかったため、生成結果を未承認のまま停止しました。";
   }
   return compactProgressText(message, 180);

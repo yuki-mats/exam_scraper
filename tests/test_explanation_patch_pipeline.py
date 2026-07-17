@@ -44,6 +44,35 @@ def valid_law_revision_facts(status: str = "same_as_current") -> dict:
 
 
 class ExplanationPatchPipelineTests(unittest.TestCase):
+    def test_compare_entries_rejects_missing_and_opposite_verdict_prefixes(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1", "肢2"],
+                "correctChoiceText": ["正しい", "間違い"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": [
+                    "定義に一致するため正しい。",
+                    "正しい。定義とは異なる。",
+                ],
+                "suggestedQuestions": ["なぜですか？"],
+                "suggestedQuestionDetails": [
+                    {"question": "なぜですか？", "answer": "根拠を確認する。"}
+                ],
+            }
+        ]
+
+        errors, _ = compare_entries(source_questions, patch_entries)
+
+        self.assertTrue(any("正しい。" in error for error in errors))
+        self.assertTrue(any("correctChoiceText" in error for error in errors))
+
     def test_build_expected_correct_choice_text_prefers_answer_result_text_over_bad_inferred_numbers(self) -> None:
         question = {
             "questionType": "flash_card",
@@ -130,13 +159,14 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "choiceTextList": ["肢1", "肢2"],
+                "correctChoiceText": ["正しい", "間違い"],
             }
         ]
         patch_entries = [
             {
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
-                "explanationText": ["解説1", "解説2"],
+                "explanationText": ["正しい。解説1", "間違い。解説2"],
                 "suggestedQuestions": ["なぜそうなる？", "関連知識は？", "覚え方は？"],
                 "suggestedQuestionDetails": [
                     {"question": "なぜそうなる？", "answer": "定義条文を確認すると判断できる。"},
@@ -172,13 +202,14 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "choiceTextList": ["肢1"],
+                "correctChoiceText": ["正しい"],
             }
         ]
         patch_entries = [
             {
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
-                "explanationText": ["解説1"],
+                "explanationText": ["正しい。解説1"],
                 "suggestedQuestions": ["現行法ではどう考える？"],
                 "suggestedQuestionDetails": [
                     {
@@ -228,13 +259,14 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "choiceTextList": ["肢1"],
+                "correctChoiceText": ["正しい"],
             }
         ]
         patch_entries = [
             {
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
-                "explanationText": ["解説1"],
+                "explanationText": ["正しい。解説1"],
                 "suggestedQuestions": ["現行法ではどう考える？"],
                 "suggestedQuestionDetails": [
                     {
@@ -371,13 +403,14 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "public_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "choiceTextList": ["肢1"],
+                "correctChoiceText": ["正しい"],
             }
         ]
         patch_entries = [
             {
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
-                "explanationText": ["解説1"],
+                "explanationText": ["正しい。解説1"],
                 "suggestedQuestions": ["なぜそうなる？"],
                 "suggestedQuestionDetails": [
                     {"question": "なぜそうなる？", "answer": "公開IDを正本として照合できる。"},

@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from typing import Any, Iterable
 
+from tools.question_review_console.projection import normalize_verdict
+
 
 LAW_AS_SENTENCE_SUBJECT = re.compile(
     r"^(?:正しい|間違い)。\s*"
@@ -10,6 +12,7 @@ LAW_AS_SENTENCE_SUBJECT = re.compile(
     r"第[^、。]{1,80}は[、，]"
 )
 POINT_IS_WRONG = re.compile(r"(?:点|ところ)が誤り(?:である)?(?:。|$)")
+VERDICT_PREFIX = re.compile(r"^(正しい|間違い)。")
 
 LAW_CONTEXT_KEYWORDS = (
     "現行法",
@@ -269,15 +272,34 @@ def validate_law_evidence_utilization(
     )
 
 
-def explanation_style_issues(explanations: Iterable[Any]) -> list[str]:
+def explanation_style_issues(
+    explanations: Iterable[Any],
+    correct_choices: Iterable[Any] | None = None,
+    *,
+    require_verdict_prefix: bool = True,
+) -> list[str]:
     """Return deterministic violations of the stage-03 Japanese style policy."""
 
     issues: list[str] = []
+    verdicts = list(correct_choices) if correct_choices is not None else []
     for choice_index, raw in enumerate(explanations, start=1):
         text = str(raw or "").strip()
         if not text:
             issues.append(f"選択肢{choice_index}: 解説が空です。")
             continue
+        prefix = VERDICT_PREFIX.match(text)
+        if require_verdict_prefix and prefix is None:
+            issues.append(
+                f"選択肢{choice_index}: 解説は「正しい。」又は「間違い。」で"
+                "始めてください。"
+            )
+        elif prefix is not None and choice_index <= len(verdicts):
+            expected = normalize_verdict(verdicts[choice_index - 1])
+            if expected in {"正しい", "間違い"} and prefix.group(1) != expected:
+                issues.append(
+                    f"選択肢{choice_index}: 解説冒頭の正誤がcorrectChoiceTextと"
+                    "一致しません。"
+                )
         if LAW_AS_SENTENCE_SUBJECT.search(text):
             issues.append(
                 f"選択肢{choice_index}: 法令名・条文を機械的に文頭の主語へ"

@@ -6,8 +6,10 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from tools.question_review_console.explanation_quality import (
+    explanation_style_issues,
+)
 from tools.question_review_console.projection import (
-    explanation_prefix_matches,
     normalize_verdict,
     record_aliases,
 )
@@ -131,24 +133,33 @@ class PatchEditor:
             correctness = normalized_changes["correctChoiceText"]
             if not isinstance(correctness, list) or len(correctness) != choice_count:
                 raise DirectEditError("正誤配列の数が選択肢数と一致しません。")
-            if any(normalize_verdict(value) not in {"正しい", "間違い"} for value in correctness):
+            if any(
+                normalize_verdict(value) not in {"正しい", "間違い"}
+                for value in correctness
+            ):
                 raise DirectEditError("正誤は「正しい」又は「間違い」で指定してください。")
-            explanations = normalized_changes.get("explanationText", projected.get("explanationText"))
+            explanations = normalized_changes.get(
+                "explanationText", projected.get("explanationText")
+            )
             if not isinstance(explanations, list) or len(explanations) != choice_count:
                 raise DirectEditError("正誤変更時は全選択肢の解説が必要です。")
-            mismatch = [
-                index
-                for index, (verdict, explanation) in enumerate(zip(correctness, explanations))
-                if not explanation_prefix_matches(verdict, explanation)
-            ]
-            if mismatch:
-                raise DirectEditError(
-                    "正誤と解説先頭が一致しません: "
-                    + ", ".join(str(index + 1) for index in mismatch)
-                )
 
         final_record = copy.deepcopy(dict(projected))
         final_record.update(copy.deepcopy(normalized_changes))
+        if {"correctChoiceText", "explanationText"} & normalized_changes.keys():
+            explanations = final_record.get("explanationText")
+            correctness = final_record.get("correctChoiceText")
+            if isinstance(explanations, list):
+                explanation_issues = explanation_style_issues(
+                    explanations,
+                    correctness if isinstance(correctness, list) else None,
+                    require_verdict_prefix=choice_count > 0,
+                )
+                if explanation_issues:
+                    raise DirectEditError(
+                        "解説形式を確認してください: "
+                        + " ".join(explanation_issues[:3])
+                    )
 
         return {
             "changes": normalized_changes,

@@ -846,6 +846,20 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_failed_receipt_message_is_not_hidden_as_invalid_receipt(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        humanizer = javascript.split(
+            "function humanizeQualificationRunError", 1
+        )[1].split("function artifactSyncNeedsAttention", 1)[0]
+
+        self.assertIn("invalidReceiptMarkers", humanizer)
+        self.assertIn('message.includes("最初に失敗した検証:")', humanizer)
+        self.assertIn("完了receiptが見つかりません", humanizer)
+        self.assertNotIn('message.includes("receipt")', humanizer)
+
     def test_top_entries_share_one_required_maintenance_flow(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (

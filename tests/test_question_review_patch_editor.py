@@ -125,6 +125,44 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
             [{"field": "questionType", "detail": "questionTypeがありません。"}],
         )
 
+    def test_rejects_noncanonical_explanation_only_edit(self):
+        editor = PatchEditor(Path.cwd())
+        question = {
+            "stateHash": "hash",
+            "projected": {
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。旧"],
+            },
+        }
+
+        with self.assertRaisesRegex(DirectEditError, "正しい。"):
+            editor.preview(
+                question,
+                {"explanationText": ["定義に一致するため正しい。"]},
+                "",
+                "hash",
+            )
+
+    def test_rejects_explanation_only_edit_with_opposite_verdict(self):
+        editor = PatchEditor(Path.cwd())
+        question = {
+            "stateHash": "hash",
+            "projected": {
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。旧"],
+            },
+        }
+
+        with self.assertRaisesRegex(DirectEditError, "correctChoiceText"):
+            editor.preview(
+                question,
+                {"explanationText": ["間違い。新"]},
+                "",
+                "hash",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

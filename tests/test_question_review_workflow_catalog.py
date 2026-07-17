@@ -74,6 +74,14 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_law_context_prompt_uses_only_its_stage_validator(self):
+        prompt = (ROOT / "prompt/02b_prompt_prepare_law_context.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("check-law-context-patch", prompt)
+        self.assertNotIn("question_bank.py quality-gate", prompt)
+
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()
 
@@ -140,13 +148,14 @@ class WorkflowCatalogTests(unittest.TestCase):
         version_by_stage = {
             stage["id"]: stage["policyVersion"] for stage in versioned
         }
-        self.assertEqual(version_by_stage["explanation"], "2.0")
+        self.assertEqual(version_by_stage["explanation"], "2.1")
         self.assertEqual(version_by_stage["law_audit"], "2.0")
+        self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertTrue(
             all(
                 version == "1.0"
                 for stage_id, version in version_by_stage.items()
-                if stage_id not in {"explanation", "law_audit"}
+                if stage_id not in {"explanation", "law_audit", "law_context"}
             )
         )
         self.assertEqual(catalog["evaluation"]["policyVersion"], "2.0")

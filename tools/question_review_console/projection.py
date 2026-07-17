@@ -267,13 +267,8 @@ def record_diff(
 def explanation_prefix_matches(verdict: Any, explanation: Any) -> bool:
     normalized = normalize_verdict(verdict)
     text = str(explanation or "").strip()
-    match = re.match(
-        r"^(?:(?:この)?(?:選択肢(?:\d+)?|記述)(?:の記述)?は\s*)?[「『]?"
-        r"(正しい|正解|間違い|誤り|不正解)",
-        text,
-    )
     if normalized in {"正しい", "間違い"}:
-        return bool(match and normalize_verdict(match.group(1)) == normalized)
+        return text.startswith(f"{normalized}。")
     return True
 
 
