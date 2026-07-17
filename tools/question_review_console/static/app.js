@@ -452,6 +452,7 @@ function bindControls() {
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
   $("#qualification-workflow-guide").addEventListener("click", () => openWorkflowGuide());
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
+  $("#qualification-active-run-retry").addEventListener("click", retryBlockedQualificationRun);
   $("#qualification-run-progress-current").addEventListener("click", () => {
     if (state.qualificationRunProgress?.current) {
       openProgressQuestion(state.qualificationRunProgress.current);
@@ -1414,6 +1415,10 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   const completedWork = Number(progress?.completedWorkItemCount || 0);
   const processedWork = Number(progress?.processedWorkItemCount || completedWork);
   const targetWork = Number(progress?.targetWorkItemCount || run?.workItemCount || 0);
+  const blockedQuestions = Number(
+    progress?.blockedQuestionCount || run?.blockedQuestionCount || 0,
+  );
+  const blockedWork = Number(progress?.blockedWorkItemCount || run?.blockedWorkItemCount || 0);
   const invalidated = run?.status === "invalidated";
   const verified = Boolean(
     !invalidated
@@ -1421,6 +1426,12 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
       progress?.verified === true
       || (run?.status === "succeeded" && run?.receiptValidated === true)
     )
+  );
+  const partial = Boolean(
+    run?.status === "succeeded"
+    && verified
+    && run?.queueStatus === "partial"
+    && blockedQuestions > 0
   );
   const unverified = run?.status === "succeeded" && !verified;
   const workComplete = targetWork > 0
@@ -1456,6 +1467,10 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     phase = "最終検証中";
     statusLabel = "最終検証中";
     summary = `${progressText}の問題処理が終わり、安全ガードと完了記録を確認しています。`;
+  } else if (run?.status === "succeeded" && verified && partial) {
+    phase = "一部保留";
+    statusLabel = `${blockedQuestions}問保留`;
+    summary = `${completedQuestions}/${targetQuestions}問を確定し、${blockedQuestions}問・${blockedWork}工程を理由付きで保留しました。`;
   } else if (run?.status === "succeeded" && verified) {
     phase = artifactSyncPending ? "整備完了" : "完了";
     if (artifactSyncPending) statusLabel = "公開用データ更新待ち";
@@ -1505,11 +1520,14 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   return {
     active,
     artifactSyncPending,
+    blockedQuestions,
+    blockedWork,
     completedQuestions,
     failed,
     invalidated,
     phase,
     phaseStates,
+    partial,
     progressText,
     statusLabel,
     summary,
@@ -1538,6 +1556,7 @@ function renderQualificationRunPhases(run, view) {
     });
     const items = [...grouped.values()].map((group) => {
       const failedExecution = group.executions.find((item) => item.status === "failed");
+      const partialExecution = group.executions.find((item) => item.status === "partial");
       const currentExecution = group.executions.find((item) => item.status === "running");
       const pendingExecution = group.executions.find((item) => item.status === "pending");
       const completedCount = group.executions.filter((item) => item.status === "succeeded").length;
@@ -1547,6 +1566,13 @@ function renderQualificationRunPhases(run, view) {
           label: group.label,
           state: "failed",
           detail: `${failedExecution.stageCodes?.[0] || ""} ${failedExecution.label}で停止`.trim(),
+        };
+      }
+      if (partialExecution) {
+        return {
+          label: group.label,
+          state: "failed",
+          detail: `${Number(partialExecution.blockedCount || 0)}問を保留し、他の問題は継続済み`,
         };
       }
       if (currentExecution) {
@@ -1661,12 +1687,17 @@ function renderQualificationActiveRun() {
     const row = element("div", "qualification-run-history-row");
     const itemVerified = item.status === "succeeded" && item.receiptValidated === true;
     const itemUnverified = item.status === "succeeded" && !itemVerified;
+    const itemPartial = itemVerified
+      && item.queueStatus === "partial"
+      && Number(item.blockedQuestionCount || 0) > 0;
     const artifactPending = itemVerified && artifactSyncNeedsAttention(item);
     row.append(
       element(
         "span",
-        `run-status ${artifactPending ? "artifact-pending" : itemUnverified ? "unverified" : item.status}`,
-        artifactPending
+        `run-status ${itemPartial ? "partial" : artifactPending ? "artifact-pending" : itemUnverified ? "unverified" : item.status}`,
+        itemPartial
+          ? "一部保留"
+          : artifactPending
           ? "公開用データ更新待ち"
           : itemUnverified
             ? "未承認"
@@ -1685,6 +1716,7 @@ function renderQualificationActiveRun() {
   }
   const phases = $("#qualification-active-run-phases");
   const action = $("#qualification-active-run-action");
+  const retry = $("#qualification-active-run-retry");
   const errorBox = $("#qualification-active-run-error");
   if (!run) {
     container.className = "qualification-active-run idle";
@@ -1701,11 +1733,14 @@ function renderQualificationActiveRun() {
     errorBox.hidden = true;
     errorBox.textContent = "";
     action.hidden = true;
+    retry.hidden = true;
     return;
   }
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
-  const statusClass = view.artifactSyncPending
+  const statusClass = view.partial
+    ? "partial"
+    : view.artifactSyncPending
     ? "artifact-pending"
     : view.unverified
       ? "unverified"
@@ -1724,9 +1759,13 @@ function renderQualificationActiveRun() {
     .reverse()
     .find((line) => String(line).trim());
   const runError = run.error || state.qualificationActiveJob?.error || (view.failed ? latestLog : "");
-  errorBox.hidden = !view.failed && !view.invalidated && !view.unverified;
+  errorBox.hidden = !view.partial && !view.failed && !view.invalidated && !view.unverified;
   errorBox.textContent = view.invalidated
     ? `無効化理由: ${run.workVersionInvalidation?.reason || runError || "品質基準未達"}`
+    : view.partial
+      ? run.retrySafe === false
+        ? `再開不可: ${run.retryUnsafeReason || "未確定差分の安全を確認できません。"}`
+        : `保留: ${view.blockedQuestions}問だけを理由付きで停止しました。他の問題は確定済みです。`
     : view.unverified
       ? "未承認理由: 完了検証を確認できないため、生成結果を承認していません。"
     : view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
@@ -1737,7 +1776,7 @@ function renderQualificationActiveRun() {
   const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
-    parallelLabel = " ・ 工程ごとに別session";
+    parallelLabel = " ・ 判断は問題別に並列・保存は1問ずつ";
   } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
     parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
   } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
@@ -1763,6 +1802,8 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
+  retry.hidden = !view.partial || view.active || run.retrySafe === false;
+  retry.textContent = view.blockedQuestions ? `保留${view.blockedQuestions}問を再実行` : "保留問を再実行";
 }
 
 function selectedQualificationRunMode() {
@@ -2354,7 +2395,9 @@ function renderQualificationRunProgress(progress) {
   const workProcessed = Number(progress.processedWorkItemCount || 0);
   const workTarget = Number(progress.targetWorkItemCount || 0);
   label.textContent = progress.verified
-    ? `${completed}/${target}問・${workCompleted}/${workTarget}工程を検証済み`
+    ? Number(progress.blockedQuestionCount || 0)
+      ? `${completed}/${target}問を検証済み・${progress.blockedQuestionCount}問を理由付きで保留`
+      : `${completed}/${target}問・${workCompleted}/${workTarget}工程を検証済み`
     : progress.status === "failed"
       ? `検証済み ${completed}/${target}問・${workCompleted}/${workTarget}工程 / 処理済み ${processed}問・${workProcessed}工程（最終検証は未承認）`
       : Number(progress.processedPercent || 0) >= 100
@@ -2405,7 +2448,9 @@ function renderQualificationRunProgress(progress) {
       element(
         "strong",
         "",
-        progressQuestionApproved(question)
+        question.approvalState === "blocked"
+          ? `${question.blockedStageId || "工程"}で保留`
+        : progressQuestionApproved(question)
           ? "問題の整備を完了"
           : progressApprovalState(question)
             ? "工程結果は未承認"
@@ -2413,7 +2458,15 @@ function renderQualificationRunProgress(progress) {
             ? `${question.stageCode || ""} ${question.stageLabel}`
             : "問題を確認中",
       ),
-      element("span", "", compactProgressText(progressQuestionOutputText(question))),
+      element(
+        "span",
+        "",
+        compactProgressText(
+          question.approvalState === "blocked"
+            ? question.blockedReason || "この問題だけを保留しました。"
+            : progressQuestionOutputText(question),
+        ),
+      ),
     );
     node.addEventListener("click", () => openProgressQuestion(question));
     eventsContainer.append(node);
@@ -2664,6 +2717,29 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
     toast(completionMessage, Boolean(job.result?.warning));
     return;
   }
+}
+
+function retryBlockedQualificationRun() {
+  const run = displayedQualificationRun();
+  if (
+    !run
+    || run.retrySafe === false
+    || run.queueStatus !== "partial"
+    || !Number(run.blockedQuestionCount || 0)
+  ) return;
+  const stageIds = Array.isArray(run.stageIds) ? run.stageIds.filter(Boolean) : [];
+  const firstStage = state.qualificationWorkflow?.stages?.find((stage) => stage.id === stageIds[0]);
+  if (!firstStage) {
+    toast("再実行する工程を現在のworkflowから確認できません。", true);
+    return;
+  }
+  openQualificationRunDialog(firstStage, {
+    stageIds,
+    listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
+    mode: run.mode || "outdated",
+    resumedFrom: run.runId,
+    simplified: true,
+  });
 }
 
 async function resumeQualificationRun() {

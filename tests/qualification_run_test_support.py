@@ -1,5 +1,7 @@
+import copy
 import json
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -160,6 +162,21 @@ class SuccessfulAppServer:
 
     def run_turn(self, prompt, **kwargs):
         self.calls.append((prompt, kwargs))
+        if kwargs["work_type"].startswith("maintenance_prepare_"):
+            kwargs["on_thread_started"](
+                "thread-preparation-1", "session-preparation-1"
+            )
+            kwargs["on_turn_started"](
+                "thread-preparation-1", "turn-preparation-1"
+            )
+            return AppServerTurnResult(
+                thread_id="thread-preparation-1",
+                session_id="session-preparation-1",
+                turn_id="turn-preparation-1",
+                final_message="一問の読取専用判断案",
+                model="gpt-test",
+                service_tier=None,
+            )
         if kwargs["work_type"] == "maintenance_research":
             kwargs["on_thread_started"](
                 "thread-research-1", "session-research-1"
@@ -236,7 +253,9 @@ class ReceiptCompletingAppServer(SuccessfulAppServer):
         self.clobber_manifest_after_probe = clobber_manifest_after_probe
 
     def run_turn(self, prompt, **kwargs):
-        if kwargs["work_type"] == "maintenance_research":
+        if kwargs["work_type"] == "maintenance_research" or kwargs[
+            "work_type"
+        ].startswith("maintenance_prepare_"):
             return super().run_turn(prompt, **kwargs)
         self.calls.append((prompt, kwargs))
         self.kwargs = kwargs
@@ -348,6 +367,22 @@ class FlowAppServer:
         self.calls.append((prompt, kwargs))
         if self.events is not None:
             self.events.append(f"session:{kwargs['work_type']}")
+        if kwargs["work_type"].startswith("maintenance_prepare_"):
+            number = len(self.calls)
+            kwargs["on_thread_started"](
+                f"thread-prepare-{number}", f"session-prepare-{number}"
+            )
+            kwargs["on_turn_started"](
+                f"thread-prepare-{number}", f"turn-prepare-{number}"
+            )
+            return AppServerTurnResult(
+                thread_id=f"thread-prepare-{number}",
+                session_id=f"session-prepare-{number}",
+                turn_id=f"turn-prepare-{number}",
+                final_message="一問の読取専用判断案",
+                model="gpt-test",
+                service_tier=None,
+            )
         self.writer_count += 1
         number = self.writer_count
         kwargs["on_thread_started"](
@@ -389,6 +424,108 @@ class FlowAppServer:
             model="gpt-test",
             service_tier=None,
         )
+
+
+class PerQuestionQueueAppServer:
+    configured = True
+    provider = "Codex App Server"
+
+    def __init__(self, *, failed_question_id):
+        self.failed_question_id = failed_question_id
+        self.calls = []
+        self._lock = threading.Lock()
+        self._preparation_barrier = threading.Barrier(2)
+        self.wait_for_parallel_preparations = True
+        self._active_preparations = 0
+        self.max_active_preparations = 0
+        self._active_writers = 0
+        self.max_active_writers = 0
+
+    def assert_subscription_access(self, *, force=True):
+        return {"allowed": True, "planType": "pro"}
+
+    @staticmethod
+    def _question_id(prompt):
+        line = next(
+            value for value in prompt.splitlines() if value.startswith("- 問題ID: `")
+        )
+        return line.split("`")[1]
+
+    def run_turn(self, prompt, **kwargs):
+        question_id = self._question_id(prompt)
+        work_type = kwargs["work_type"]
+        with self._lock:
+            call_number = len(self.calls) + 1
+            self.calls.append((question_id, prompt, kwargs))
+        kwargs["on_thread_started"](
+            f"thread-queue-{call_number}", f"session-queue-{call_number}"
+        )
+        kwargs["on_turn_started"](
+            f"thread-queue-{call_number}", f"turn-queue-{call_number}"
+        )
+
+        if work_type.startswith("maintenance_prepare_"):
+            with self._lock:
+                self._active_preparations += 1
+                self.max_active_preparations = max(
+                    self.max_active_preparations,
+                    self._active_preparations,
+                )
+            try:
+                if self.wait_for_parallel_preparations:
+                    self._preparation_barrier.wait(timeout=1)
+            finally:
+                with self._lock:
+                    self._active_preparations -= 1
+            return AppServerTurnResult(
+                thread_id=f"thread-queue-{call_number}",
+                session_id=f"session-queue-{call_number}",
+                turn_id=f"turn-queue-{call_number}",
+                final_message=f"{question_id}の読取専用の判断案",
+                model="gpt-test",
+                service_tier=None,
+            )
+
+        with self._lock:
+            self._active_writers += 1
+            self.max_active_writers = max(
+                self.max_active_writers,
+                self._active_writers,
+            )
+        try:
+            if question_id == self.failed_question_id:
+                raise RuntimeError(f"{question_id}のwriter検証に失敗")
+            _write_completed_progress(prompt)
+            receipt_line = next(
+                line
+                for line in prompt.splitlines()
+                if "完了時に検証結果を次へJSONで保存" in line
+            )
+            Path(receipt_line.split("`")[1]).write_text(
+                json.dumps(
+                    {
+                        "status": "succeeded",
+                        "summary": f"{question_id}の整備を完了した。",
+                        "commands": [
+                            {"command": "python check.py", "status": "pass"}
+                        ],
+                        "changedFiles": [],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            return AppServerTurnResult(
+                thread_id=f"thread-queue-{call_number}",
+                session_id=f"session-queue-{call_number}",
+                turn_id=f"turn-queue-{call_number}",
+                final_message=f"{question_id}の整備完了",
+                model="gpt-test",
+                service_tier=None,
+            )
+        finally:
+            with self._lock:
+                self._active_writers -= 1
 
 
 class SourceOnlyInventory:
@@ -444,6 +581,35 @@ class MultiGroupSourceInventory(SourceOnlyInventory):
                 {"id": "new-exam", "listGroupIds": ["2025", "2026"]}
             ]
         }
+
+
+class TwoQuestionSourceInventory(SourceOnlyInventory):
+    def group(self, qualification, list_group_id):
+        group = super().group(qualification, list_group_id)
+        first = group["questions"][0]
+        second = copy.deepcopy(first)
+        second_id = f"new-exam-{list_group_id}-q2"
+        second.update(
+            id=second_id,
+            reviewKey=(
+                f"new-exam:{list_group_id}:"
+                f"question_{list_group_id}_2:{second_id}"
+            ),
+            originalQuestionId=second_id,
+            sourceQuestionKey=f"new-exam:{list_group_id}:q2",
+            sourceRecordRef=f"question_{list_group_id}_2.json#0",
+        )
+        second["source"] = {"originalQuestionId": second_id}
+        second["projected"] = {"originalQuestionId": second_id}
+        second["paths"] = {
+            **second["paths"],
+            "source": (
+                f"output/new-exam/questions_json/{list_group_id}/"
+                f"00_source/question_{list_group_id}_2.json"
+            ),
+        }
+        group["questions"].append(second)
+        return group
 
 
 class NonLawSourceInventory(SourceOnlyInventory):

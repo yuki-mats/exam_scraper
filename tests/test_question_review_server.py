@@ -397,6 +397,22 @@ class QuestionReviewServerTests(unittest.TestCase):
             "stageIds": ["explanation"],
             "jobId": "job-1",
             "technicalLogPath": "internal/technical_log.jsonl",
+            "queueStatus": "partial",
+            "blockedQuestionCount": 1,
+            "blockedWorkItemCount": 1,
+            "validatedQuestionCount": 57,
+            "validatedWorkItemCount": 57,
+            "questionExecutionSummary": {
+                "questionCount": 58,
+                "blockedQuestionCount": 1,
+                "validatedQuestionCount": 57,
+            },
+            "questionExecutions": [
+                {
+                    "questionId": "secret-question",
+                    "stages": [{"error": "large internal reason"}],
+                }
+            ],
             "phaseExecutions": [
                 {
                     "id": "explanation",
@@ -436,6 +452,12 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(payload["activeRun"]["runId"], "run-1")
         summary = payload["runs"][0]
         self.assertEqual(summary["workItemCount"], 406)
+        self.assertEqual(summary["queueStatus"], "partial")
+        self.assertEqual(summary["blockedQuestionCount"], 1)
+        self.assertEqual(
+            summary["questionExecutionSummary"]["validatedQuestionCount"],
+            57,
+        )
         self.assertEqual(summary["phaseExecutions"][0]["stageCodes"], ["03"])
         self.assertEqual(
             summary["artifactSync"],
@@ -447,6 +469,7 @@ class QuestionReviewServerTests(unittest.TestCase):
             "allowedFiles",
             "prompt",
             "technicalLogPath",
+            "questionExecutions",
         ):
             self.assertNotIn(internal_field, summary)
         self.assertNotIn("prompt", summary["phaseExecutions"][0])

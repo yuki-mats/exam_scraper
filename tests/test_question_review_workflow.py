@@ -895,6 +895,26 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_partial_queue_exposes_failed_question_retry_without_hiding_successes(self):
+        root = Path(__file__).resolve().parents[1]
+        static = root / "tools" / "question_review_console" / "static"
+        javascript = (static / "app.js").read_text(encoding="utf-8")
+        html = (static / "index.html").read_text(encoding="utf-8")
+        view_state = javascript.split(
+            "function qualificationRunViewState", 1
+        )[1].split("function renderQualificationRunPhases", 1)[0]
+        retry = javascript.split(
+            "function retryBlockedQualificationRun", 1
+        )[1].split("async function resumeQualificationRun", 1)[0]
+
+        self.assertIn('run?.queueStatus === "partial"', view_state)
+        self.assertIn('statusLabel = `${blockedQuestions}問保留`', view_state)
+        self.assertIn("理由付きで保留", view_state)
+        self.assertIn('run.queueStatus !== "partial"', retry)
+        self.assertIn("resumedFrom: run.runId", retry)
+        self.assertIn("scopeListGroupIds", retry)
+        self.assertIn('id="qualification-active-run-retry"', html)
+
     def test_manual_artifact_regeneration_remains_reachable_when_current(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (

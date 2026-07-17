@@ -204,6 +204,7 @@ def _progress_target(question: Mapping[str, Any]) -> dict[str, Any]:
             value for value in (section_label, question_label) if value
         ),
         "bodyPreview": str(question.get("body") or "")[:240],
+        "stateHash": str(question.get("stateHash") or ""),
         "aliases": _target_record_alias_group(question),
     }
 

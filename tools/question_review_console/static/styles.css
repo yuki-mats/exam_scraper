@@ -343,6 +343,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run.failed, .qualification-active-run.interrupted { border-color: #e2aaa5; background: var(--red-bg); box-shadow: inset 4px 0 0 var(--red); }
 .qualification-active-run.succeeded { border-color: #b8dec7; background: var(--green-bg); box-shadow: inset 4px 0 0 var(--green); }
 .qualification-active-run.artifact-pending { border-color: #e2c880; background: var(--amber-bg); box-shadow: inset 4px 0 0 var(--amber); }
+.qualification-active-run.partial { border-color: #e2c880; background: var(--amber-bg); box-shadow: inset 4px 0 0 var(--amber); }
 .qualification-active-run-head { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .qualification-active-run-head > div { min-width: 0; display: grid; gap: 4px; }
 .qualification-active-run-eyebrow { color: var(--text-muted); font-size: 10px; font-weight: 800; }
@@ -351,6 +352,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run > p { margin: 0; color: #344b5e; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 .qualification-active-run.failed > p, .qualification-active-run.interrupted > p, .qualification-active-run.invalidated > p { color: #672824; }
 .qualification-active-run .secondary-button { flex: 0 0 auto; min-height: 34px; padding: 5px 11px; font-size: 11px; }
+.qualification-active-run-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .qualification-active-run-phases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
 .qualification-active-run-phases[hidden] { display: none; }
 .qualification-active-run-phase { min-width: 0; display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: center; gap: 7px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 5px; background: rgba(255, 255, 255, 0.72); }
@@ -368,6 +370,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run-meter > span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--blue); transition: width 240ms ease; }
 .qualification-active-run.succeeded .qualification-active-run-meter > span { background: var(--green); }
 .qualification-active-run.artifact-pending .qualification-active-run-meter > span { background: var(--amber); }
+.qualification-active-run.partial .qualification-active-run-meter > span { background: var(--amber); }
 .qualification-active-run.failed .qualification-active-run-meter > span, .qualification-active-run.interrupted .qualification-active-run-meter > span, .qualification-active-run.invalidated .qualification-active-run-meter > span { background: var(--red); }
 .qualification-active-run-error { padding: 8px 10px; border-left: 3px solid var(--red); background: #fff; color: #672824; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
 .qualification-active-run-error[hidden] { display: none; }
@@ -378,6 +381,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .run-status.interrupted, .run-status.failed, .run-status.invalidated, .run-status.unverified { color: var(--red); }
 .run-status.succeeded { color: var(--green); }
 .run-status.artifact-pending { color: var(--amber); }
+.run-status.partial { color: var(--amber); }
 .qualification-run-history { margin: 7px -16px -10px; border-top: 1px solid var(--line); background: #fff; }
 .qualification-run-history[hidden] { display: none; }
 .qualification-run-history > summary { padding: 7px 16px; color: #46515c; font-size: 10px; font-weight: 750; }
@@ -1001,6 +1005,7 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .qualification-active-run-head { align-items: stretch; flex-direction: column; }
   .qualification-active-run-title-row { align-items: flex-start; flex-direction: column; gap: 3px; }
   .qualification-active-run .secondary-button { width: 100%; }
+  .qualification-active-run-actions { width: 100%; }
   .qualification-active-run-phases { grid-template-columns: 1fr; }
   .qualification-active-run-meta { align-items: flex-start; flex-direction: column; gap: 3px; }
   .qualification-run-history { margin-right: -10px; margin-left: -10px; }

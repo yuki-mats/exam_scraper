@@ -8,7 +8,7 @@
 flowchart LR
   Setup["資格・取得設定"] --> Scrape["scrape"]
   Scrape --> Source["00_source"]
-  Source --> Review["01〜03 通常整備（工程ごとに新規session）"]
+  Source --> Review["01〜03 通常整備（一問queue）"]
   Review --> Audit["03b 現行法監査（別の新規session）"]
   Audit --> Category["03c category.json（未準備時の別session）"]
   Category --> QuestionSet["04 問題集（別の新規session）"]
@@ -34,7 +34,7 @@ flowchart LR
 
 1. 資格と対象回を設定し、問題・画像を取得する。
 2. `00_source`を固定し、既存ファイルは変更しない。
-3. トップの整備を一度開始すると、01から03の通常整備、03bの現行法監査、04の問題集整備を順に進める。保存を伴う各工程は新しいsessionで実行し、次工程の前にpatchをmergeする。
+3. トップで資格・年度（回）を指定し、対象を一問単位で確定しながら01から04へ進める。queueとsessionの境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を正本とする。
 4. 法令問題は02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。監査警告が残る問題は完了扱いにしない。
 5. `category.json`が未準備なら、トップ整備が03cを別sessionで自動実行し、続けて04で各問題を問題集へ紐付ける。
 6. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。

@@ -755,6 +755,30 @@ class AppServerTurnTests(unittest.TestCase):
             thread_params["developerInstructions"],
         )
 
+    def test_per_question_preparation_is_ephemeral_read_only_without_subagents(self):
+        client = ProtocolClient()
+        with tempfile.TemporaryDirectory() as directory:
+            result = client.run_turn(
+                "prepare one question",
+                work_type="maintenance_prepare_explanation",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                cwd=Path(directory),
+            )
+
+        self.assertEqual(result.subagent_thread_ids, ())
+        thread_params = next(
+            params for method, params in client.calls if method == "thread/start"
+        )
+        self.assertTrue(thread_params["ephemeral"])
+        self.assertFalse(thread_params["config"]["features"]["multi_agent"])
+        self.assertNotIn(
+            RESEARCH_AGENT_ROLE,
+            thread_params["config"]["agents"],
+        )
+        self.assertIn("一問のread-only準備専用", thread_params["developerInstructions"])
+        self.assertIn("外部状態を変更せず", thread_params["developerInstructions"])
+
     def test_research_rejects_any_project_custom_agent_before_start(self):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory) / "project"

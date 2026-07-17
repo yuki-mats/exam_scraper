@@ -369,7 +369,8 @@ class CodexAppServerClient:
         approval_policy = "never"
         evaluation_work = work_type in {"evaluation", "reevaluation"}
         research_work = work_type == "maintenance_research"
-        read_only_work = evaluation_work or research_work
+        preparation_work = work_type.startswith("maintenance_prepare_")
+        read_only_work = evaluation_work or research_work or preparation_work
         config = {
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
@@ -394,6 +395,11 @@ class CodexAppServerClient:
                 "このthreadは問題整備のread-only事前調査専用である。file又は外部状態を変更しない。"
                 f"対象問題を重複なく分け、最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagentで並列に読み取り、"
                 "根拠と問題IDごとの最終判断案を親threadで統合する。思考過程は返さない。"
+            )
+        elif preparation_work:
+            developer_instructions = (
+                "このthreadは指定された一問のread-only準備専用である。subagentは使わない。"
+                "file又は外部状態を変更せず、問題ID、最終判断案、根拠だけを簡潔に返す。"
             )
         else:
             developer_instructions = (
