@@ -1812,7 +1812,11 @@ function renderQualificationActiveRun() {
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
   retry.hidden = !qualificationRunCanRetryBlocked(run, view);
-  retry.textContent = view.blockedQuestions ? `保留${view.blockedQuestions}問を再実行` : "保留問を再実行";
+  retry.textContent = ["failed", "interrupted"].includes(run.status)
+    ? "未完了の問題を再開"
+    : view.blockedQuestions
+      ? `保留${view.blockedQuestions}問を再実行`
+      : "保留問を再実行";
 }
 
 function selectedQualificationRunMode() {

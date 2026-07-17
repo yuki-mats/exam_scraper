@@ -1077,6 +1077,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('run.queueStatus !== "partial"', retry)
         self.assertIn("resumedFrom: run.runId", retry)
         self.assertIn("scopeListGroupIds", retry)
+        self.assertIn('"未完了の問題を再開"', javascript)
         self.assertIn('id="qualification-active-run-retry"', html)
 
     def test_manual_artifact_regeneration_remains_reachable_when_current(self):
