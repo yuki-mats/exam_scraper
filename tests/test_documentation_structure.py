@@ -69,7 +69,10 @@ class DocumentationStructureTests(unittest.TestCase):
             "法令IDや条項を確認できないという理由だけで",
             gas_policy,
         )
-        self.assertIn("付臭、設備操業、防食、地震対策、換気", gas_policy)
+        self.assertIn(
+            "付臭、設備操業、防食、地震対策、換気、機器の安全装置",
+            gas_policy,
+        )
 
     def test_canonical_document_links_resolve(self):
         documents = [ROOT / "README.md", ROOT / "scripts" / "README.md"]

@@ -3348,6 +3348,10 @@ class QualificationRunCoordinator:
                 self._validate_explanation_quality(selected)
             if stage_id == "law_audit":
                 self._validate_law_audit_quality(selected)
+                self._validate_law_audit_sidecar_consistency(
+                    qualification,
+                    selected,
+                )
             policy = {
                 **policies[stage_id],
                 "policyVersion": normalize_policy_version(raw_version),
@@ -3416,69 +3420,342 @@ class QualificationRunCoordinator:
                 or question.get("id")
                 or "対象問題"
             )
-            issue_codes = set(question.get("issueCodes") or [])
-            # metadata/verdict issue codes can come from the pre-sync
-            # upload-ready snapshot.  Validate those fields from projected
-            # patches below; otherwise a correct patch can never reach the
-            # artifact sync that clears the stale warning.
-            blocking = sorted(
-                issue_codes
-                & (
-                    LAW_AUDIT_ISSUES
-                    - {
-                        "law_audit_metadata_incomplete",
-                        "law_audit_verdict_mismatch",
-                    }
-                )
-            )
+            # Every law-audit issue code can come from the pre-sync
+            # upload-ready snapshot.  Validate the projected patches here and
+            # the sidecar immediately afterwards; otherwise a corrected patch
+            # can never reach the artifact sync that clears the stale warning.
             projected = question.get("projected")
             facts = (
                 projected.get("lawRevisionFacts")
                 if isinstance(projected, Mapping)
                 else None
             )
-            if blocking:
-                errors.append(f"{label}: {', '.join(blocking)}")
-            elif question.get("isLawRelated") is not False and not facts:
+            if not isinstance(projected, Mapping):
+                if question.get("isLawRelated") is not False:
+                    errors.append(f"{label}: projectedを確認できません。")
+                continue
+            if projected.get("isLawRelated") is False:
+                continue
+            if not isinstance(facts, (Mapping, list)) or (
+                isinstance(facts, list) and not facts
+            ):
                 errors.append(f"{label}: lawRevisionFactsを確認できません。")
-            elif isinstance(projected, Mapping):
-                fact_items = (
-                    list(facts)
+                continue
+            fact_items = list(facts) if isinstance(facts, list) else [facts]
+            for fact_index, fact in enumerate(fact_items, start=1):
+                fact_label = (
+                    f"lawRevisionFacts[{fact_index}]"
                     if isinstance(facts, list)
-                    else [facts]
-                    if isinstance(facts, Mapping)
-                    else []
+                    else "lawRevisionFacts"
                 )
-                for fact_index, fact in enumerate(fact_items, start=1):
-                    fact_label = (
-                        f"lawRevisionFacts[{fact_index}]"
-                        if isinstance(facts, list)
-                        else "lawRevisionFacts"
+                if not isinstance(fact, Mapping):
+                    errors.append(f"{label}: {fact_label}を確認できません。")
+                    continue
+                if not str(fact.get("auditStatus") or "").strip():
+                    errors.append(f"{label}: {fact_label}.auditStatusがありません。")
+                summary = fact.get("evidenceSummary")
+                if not isinstance(summary, Mapping) or not summary:
+                    errors.append(
+                        f"{label}: {fact_label}.evidenceSummaryがありません。"
                     )
-                    if not isinstance(fact, Mapping):
-                        errors.append(f"{label}: {fact_label}を確認できません。")
-                        continue
-                    if not str(fact.get("auditStatus") or "").strip():
-                        errors.append(f"{label}: {fact_label}.auditStatusがありません。")
-                    summary = fact.get("evidenceSummary")
-                    if not isinstance(summary, Mapping) or not summary:
-                        errors.append(
-                            f"{label}: {fact_label}.evidenceSummaryがありません。"
-                        )
-                errors.extend(
-                    f"{label}: {issue['detail']}"
-                    for issue in law_revision_current_verdict_issues(
-                        correct_choice_text=projected.get("correctChoiceText"),
-                        law_revision_facts=facts,
-                    )
+            errors.extend(
+                f"{label}: {issue['detail']}"
+                for issue in law_revision_current_verdict_issues(
+                    correct_choice_text=projected.get("correctChoiceText"),
+                    law_revision_facts=facts,
                 )
-                errors.extend(
-                    f"{label}: {issue}"
-                    for issue in law_evidence_utilization_issues(dict(projected))
-                )
+            )
+            errors.extend(
+                f"{label}: {issue}"
+                for issue in law_evidence_utilization_issues(dict(projected))
+            )
         if errors:
             raise QualificationRunError(
                 "03b 現行法監査の必須メタデータ検証に失敗しました。"
+                + " ".join(errors[:5])
+                + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
+            )
+
+    def _validate_law_audit_sidecar_consistency(
+        self,
+        qualification: str,
+        questions: list[Mapping[str, Any]],
+    ) -> None:
+        errors: list[str] = []
+        rows_by_group: dict[
+            str, list[tuple[int, Mapping[str, Any], set[str]]]
+        ] = {}
+
+        def verified_law_bases(value: Any) -> set[tuple[str, str, str]]:
+            bases: set[tuple[str, str, str]] = set()
+            if isinstance(value, Mapping):
+                if (
+                    str(value.get("verificationStatus") or "").strip()
+                    == "verified"
+                    and str(value.get("lawTitle") or "").strip()
+                    and str(value.get("lawId") or "").strip()
+                    and str(value.get("article") or "").strip()
+                ):
+                    article = str(value["article"]).strip()
+                    if article.startswith("第"):
+                        article = article[1:]
+                    if article.endswith("条"):
+                        article = article[:-1]
+                    bases.add(
+                        (
+                            str(value["lawTitle"]).strip(),
+                            str(value["lawId"]).strip(),
+                            article,
+                        )
+                    )
+                for item in value.values():
+                    bases.update(verified_law_bases(item))
+            elif isinstance(value, list):
+                for item in value:
+                    bases.update(verified_law_bases(item))
+            return bases
+
+        def has_reference(value: Any) -> bool:
+            if isinstance(value, Mapping):
+                return bool(value)
+            if isinstance(value, list):
+                return any(has_reference(item) for item in value)
+            return bool(value)
+
+        for list_group_id in sorted(
+            {
+                str(question.get("listGroupId") or "").strip()
+                for question in questions
+            }
+        ):
+            if not list_group_id:
+                errors.append("listGroupIdを確認できない対象問題があります。")
+                continue
+            relative = self._law_review_sidecar_path(
+                qualification,
+                list_group_id,
+            )
+            path = self.repo_root / relative
+            if not path.is_file():
+                errors.append(f"{relative}: 監査sidecarがありません。")
+                continue
+            rows: list[tuple[int, Mapping[str, Any], set[str]]] = []
+            for line_number, raw_line in enumerate(
+                path.read_text(encoding="utf-8").splitlines(),
+                start=1,
+            ):
+                if not raw_line.strip():
+                    continue
+                try:
+                    value = json.loads(raw_line)
+                except json.JSONDecodeError as exc:
+                    errors.append(
+                        f"{relative}:{line_number}: JSONを読めません: {exc.msg}。"
+                    )
+                    continue
+                if not isinstance(value, Mapping):
+                    errors.append(
+                        f"{relative}:{line_number}: 監査行がobjectではありません。"
+                    )
+                    continue
+                rows.append(
+                    (line_number, value, record_identity_aliases(value))
+                )
+            rows_by_group[list_group_id] = rows
+
+        used_rows: dict[tuple[str, int], str] = {}
+        for question in questions:
+            list_group_id = str(question.get("listGroupId") or "").strip()
+            label = str(
+                question.get("questionLabel")
+                or question.get("originalQuestionId")
+                or question.get("id")
+                or "対象問題"
+            )
+            aliases = self._work_version_aliases(question)
+            matches = [
+                (line_number, row)
+                for line_number, row, row_aliases in rows_by_group.get(
+                    list_group_id,
+                    [],
+                )
+                if aliases & row_aliases
+            ]
+            if len(matches) != 1:
+                errors.append(
+                    f"{label}: 監査sidecarの対応行が{len(matches)}件です。"
+                )
+                continue
+            line_number, row = matches[0]
+            row_key = (list_group_id, line_number)
+            if row_key in used_rows:
+                errors.append(
+                    f"{label}: 監査sidecar行が{used_rows[row_key]}と重複対応しています。"
+                )
+                continue
+            used_rows[row_key] = label
+
+            if row.get("qualification") != qualification:
+                errors.append(
+                    f"{label}: 監査sidecar.qualificationが一致しません。"
+                )
+            if str(row.get("listGroupId") or "") != list_group_id:
+                errors.append(
+                    f"{label}: 監査sidecar.listGroupIdが一致しません。"
+                )
+
+            projected = question.get("projected")
+            projected_law = (
+                projected.get("isLawRelated")
+                if isinstance(projected, Mapping)
+                else None
+            )
+            if not isinstance(projected_law, bool):
+                errors.append(
+                    f"{label}: projected.isLawRelatedをboolで確認できません。"
+                )
+                continue
+            if question.get("isLawRelated") is not projected_law:
+                errors.append(
+                    f"{label}: inventoryとprojectedのisLawRelatedが一致しません。"
+                )
+            sidecar_law = row.get("isLawRelated")
+            if not isinstance(sidecar_law, bool):
+                errors.append(
+                    f"{label}: 監査sidecar.isLawRelatedがboolではありません。"
+                )
+                continue
+            if sidecar_law != projected_law:
+                errors.append(
+                    f"{label}: projectedと監査sidecarのisLawRelatedが一致しません。"
+                )
+                continue
+
+            audit_status = str(row.get("auditStatus") or "").strip()
+            review_state = str(row.get("reviewState") or "").strip()
+            source_summary_value = row.get("sourceSummary")
+            source_summary = (
+                source_summary_value.strip()
+                if isinstance(source_summary_value, str)
+                else ""
+            )
+            facts = projected.get("lawRevisionFacts")
+            if facts is None:
+                fact_items: list[Any] = []
+            elif isinstance(facts, Mapping):
+                fact_items = [facts]
+            elif isinstance(facts, list):
+                fact_items = list(facts)
+            else:
+                fact_items = []
+                errors.append(
+                    f"{label}: projected lawRevisionFactsの型が不正です。"
+                )
+            if not source_summary:
+                errors.append(
+                    f"{label}: 監査sidecar.sourceSummaryがありません。"
+                )
+
+            if not projected_law:
+                if projected.get("lawGroundedExplanationNotNeeded") is not True:
+                    errors.append(
+                        f"{label}: 非法令問題の"
+                        "lawGroundedExplanationNotNeededがtrueではありません。"
+                    )
+                if has_reference(projected.get("lawReferences")):
+                    errors.append(
+                        f"{label}: 非法令問題のprojected lawReferencesが空ではありません。"
+                    )
+                if has_reference(row.get("lawReferences")):
+                    errors.append(
+                        f"{label}: 非法令問題の監査sidecar lawReferencesが空ではありません。"
+                    )
+                if (
+                    audit_status != "not_law_related"
+                    or review_state != "secondary_verified"
+                ):
+                    errors.append(
+                        f"{label}: 非法令問題の監査sidecarは"
+                        "not_law_related/secondary_verifiedではありません。"
+                    )
+                if any(
+                    not isinstance(fact, Mapping)
+                    or str(fact.get("auditStatus") or "").strip()
+                    != "not_law_related"
+                    or str(fact.get("reviewState") or "").strip()
+                    != "secondary_verified"
+                    for fact in fact_items
+                ):
+                    errors.append(
+                        f"{label}: 非法令問題のprojected lawRevisionFactsが"
+                        "not_law_related/secondary_verifiedではありません。"
+                    )
+                continue
+
+            if projected.get("lawGroundedExplanationNotNeeded") is not False:
+                errors.append(
+                    f"{label}: 法令問題の"
+                    "lawGroundedExplanationNotNeededがfalseではありません。"
+                )
+            allowed_final_states = {
+                ("same_as_current", "secondary_verified"),
+                ("same_as_current", "tertiary_verified"),
+                ("updated_to_current_law", "tertiary_verified"),
+            }
+            if (audit_status, review_state) not in allowed_final_states:
+                errors.append(
+                    f"{label}: 法令問題の監査sidecarが公開確定状態ではありません。"
+                )
+            projected_states = {
+                (
+                    str(fact.get("auditStatus") or "").strip(),
+                    str(fact.get("reviewState") or "").strip(),
+                )
+                for fact in fact_items
+                if isinstance(fact, Mapping)
+            }
+            if not fact_items or any(
+                not isinstance(fact, Mapping) for fact in fact_items
+            ) or any(state not in allowed_final_states for state in projected_states):
+                errors.append(
+                    f"{label}: projected lawRevisionFactsが公開確定状態ではありません。"
+                )
+            expected_audit_status = (
+                "updated_to_current_law"
+                if any(
+                    state[0] == "updated_to_current_law"
+                    for state in projected_states
+                )
+                else "same_as_current"
+            )
+            if audit_status != expected_audit_status:
+                errors.append(
+                    f"{label}: projected lawRevisionFactsと監査sidecarの"
+                    "auditStatusが一致しません。"
+                )
+            projected_bases = verified_law_bases(projected.get("lawReferences"))
+            sidecar_bases = verified_law_bases(row.get("lawReferences"))
+            if not projected_bases:
+                errors.append(
+                    f"{label}: projected lawReferencesにverifiedの"
+                    "lawTitle・lawId・articleがありません。"
+                )
+            if not sidecar_bases:
+                errors.append(
+                    f"{label}: 監査sidecarにverifiedの"
+                    "lawTitle・lawId・articleがありません。"
+                )
+            if projected_bases and sidecar_bases and not (
+                projected_bases & sidecar_bases
+            ):
+                errors.append(
+                    f"{label}: projectedと監査sidecarのverified法令根拠が"
+                    "一致しません。"
+                )
+
+        if errors:
+            raise QualificationRunError(
+                "03b 現行法監査のsidecar整合検証に失敗しました。"
                 + " ".join(errors[:5])
                 + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
             )

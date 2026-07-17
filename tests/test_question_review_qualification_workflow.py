@@ -828,12 +828,13 @@ class QualificationWorkflowTests(unittest.TestCase):
 
     def test_law_audit_refresh_alone_rechecks_every_question(self):
         with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
             law_question = question(law_related=True)
             law_question["id"] = "law-question"
             non_law_question = question(law_related=False)
             non_law_question["id"] = "non-law-question"
             workflow = QualificationWorkflow(
-                Path(directory),
+                root,
                 FakeInventory(
                     "sample",
                     [
@@ -855,6 +856,27 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(plan["targetCount"], 2)
         self.assertTrue(plan["allQuestionGate"])
         self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
+        self.assertIn(
+            "法令根拠が見つからないこと自体を理由に",
+            result["prompt"],
+        )
+        self.assertIn("確認できなければ`false`を維持", result["prompt"])
+        self.assertIn("古い`hold`を残さない", result["prompt"])
+        self.assertIn("監査sidecarの`sourceSummary`", result["prompt"])
+        self.assertIn(
+            str(root / "prompt" / "03b_prompt_audit_current_law_and_patch.md"),
+            result["prompt"],
+        )
+        self.assertIn(
+            str(
+                root
+                / "prompt"
+                / "qualification_docs"
+                / "sample"
+                / "*law_reference*.md"
+            ),
+            result["prompt"],
+        )
 
     def test_law_audit_prompt_is_path_only_and_requires_per_choice_research(self):
         patches = [

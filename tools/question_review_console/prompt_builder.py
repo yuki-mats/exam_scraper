@@ -15,6 +15,37 @@ LAW_AUDIT_ISSUES = {
 QUALIFICATION_LAW_AUDIT_REQUEST = "qualification_law_audit"
 
 
+def law_audit_classification_safety_contract(
+    repo_root: Path,
+    qualification: str,
+) -> str:
+    """Return the shared law/non-law classification contract for Codex prompts."""
+
+    audit_prompt = repo_root / "prompt" / "03b_prompt_audit_current_law_and_patch.md"
+    qualification_policy_dir = (
+        repo_root / "prompt" / "qualification_docs" / qualification
+    )
+    policy_paths = sorted(qualification_policy_dir.glob("*law_reference*.md"))
+    if not policy_paths:
+        policy_paths = [qualification_policy_dir / "*law_reference*.md"]
+    canonical_lines = "\n".join(
+        f"- `{path}`" for path in [audit_prompt, *policy_paths]
+    )
+    return f"""## 法令関連性の分類安全契約
+
+次の正本を先に読み、法令関連性を法令監査より先に確定する。
+
+{canonical_lines}
+
+- 法令根拠が見つからないこと自体を理由に、技術問題を`isLawRelated=true`又は`hold`へ変更しない。
+- 既存の`18_law_context_prepared/`が`isLawRelated=false`の場合、少なくとも一つの選択肢の正誤を直接決める`verificationStatus="verified"`の法令名・`lawId`・`article`を確認できなければ`false`を維持する。
+- `false`と確定した問題は、patchを`isLawRelated=false`、`lawGroundedExplanationNotNeeded=true`、空の`lawReferences`へ揃える。`lawRevisionFacts`を残す場合と監査sidecarは`not_law_related`/`secondary_verified`へ揃え、古い`hold`を残さない。
+- `false`から`true`へ再分類する場合は、確認した法令名・`lawId`・`article`と正誤判断の接続を監査sidecarの`sourceSummary`へ記録する。
+- `hold`は、法令関連性を確定した後に、法改正差分又は適用条文だけを確定しきれない場合に限る。
+
+"""
+
+
 def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
     projected = question.get("projected") or {}
     choices = projected.get("choiceTextList")
@@ -49,17 +80,21 @@ def _is_law_audit_review(review: Mapping[str, Any]) -> bool:
         str(value) for value in selection.get("fields") or []
     } if isinstance(selection, Mapping) else set()
     return bool(issue_types & LAW_AUDIT_ISSUES) or any(
-        field.startswith(("lawRevisionFacts", "lawReferences"))
+        field.startswith(("law", "isLawRelated"))
         for field in fields | selection_fields
     )
 
 
-def _law_audit_instruction() -> str:
-    return """## 法令監査指示
+def _law_audit_instruction(repo_root: Path, qualification: str) -> str:
+    classification_contract = law_audit_classification_safety_contract(
+        repo_root,
+        qualification,
+    )
+    return f"""{classification_contract}## 法令監査指示
 
 - 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。
 - 各対象選択肢で「問題文＋選択肢」の完全命題を作り、保存済み`apiUrl`/`sourceUrl`又はe-Gov条文本文を開いて目視照合する。
-- 条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。patchでは各選択肢と同じ順序・件数で保存し、トップレベル`correctChoiceText`と一致させる。確認不能・根拠不足は`hold`/`needs_secondary_review`へ戻す。
+- 法令関連と確定した問題だけを条文監査へ進める。条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。patchでは各選択肢と同じ順序・件数で保存し、トップレベル`correctChoiceText`と一致させる。法改正差分又は適用条文の確認不能は`hold`/`needs_secondary_review`へ戻す。
 - 類似問題も一問一肢ずつ同じ手順で確認する。一括コピーや正誤ラベルだけの補完は禁止。
 - 完了時は「選択肢 / 条文 / 判定 / patch有無」の短い確認表を出す。
 
@@ -83,7 +118,12 @@ def _build_qualification_law_audit_prompt(
     question: Mapping[str, Any],
     review: Mapping[str, Any],
 ) -> str:
-    del review_path, question
+    del review_path
+    qualification = str(question.get("qualification") or "")
+    classification_contract = law_audit_classification_safety_contract(
+        repo_root,
+        qualification,
+    )
     target_paths = []
     for value in review.get("targetFiles") or []:
         relative = Path(str(value))
@@ -124,13 +164,14 @@ def _build_qualification_law_audit_prompt(
 
 {sidecar_lines or '- （対象年度を取得できないため、依頼を作り直す）'}
 
+{classification_contract}
 ## やること
 
 - 各ファイル内で`law_audit_metadata_incomplete`等の法令監査品質不備がある全questionを特定し、一問一肢ずつ「問題文＋選択肢」の完全命題を作る。
 - 各命題についてCodex組み込みweb検索を使い、e-Gov法令検索又は所管官庁の一次情報を開いて条文本文を目視レベルで照合する。主体、要件、数値、例外、委任先まで確認する。
-- 既存の正誤・解説・法令メタデータや検索要約を正本扱いしない。不一致又は根拠不足は推測せず`hold`/`needs_secondary_review`にする。
+- 既存の正誤・解説・法令メタデータや検索要約を正本扱いしない。法令関連と確定した後の不一致又は法改正差分・適用条文の根拠不足は、推測せず`hold`/`needs_secondary_review`にする。
 - 確認結果と根拠を各questionのpatchへ個別に反映する。正誤を変えない場合も`lawRevisionFacts.current.correctChoiceText`を省略せず、各選択肢と同じ順序・件数でトップレベル正誤及び解説先頭に整合させる。
-- `law_audit_metadata_incomplete`又は`law_audit_verdict_mismatch`が残るquestionをno-opで完了しない。根拠を確認できない場合は推測で補完せず`hold`にする。
+- `law_audit_metadata_incomplete`又は`law_audit_verdict_mismatch`が残る法令関連questionをno-opで完了しない。法改正差分又は適用条文を確認できない場合は推測で補完せず`hold`にする。
 - 一問ごとの判断、根拠、未確認事項を対象年度の監査sidecarへ1行1問で記録する。
 - `00_source`と既存IDは変更しない。patchを更新してpatch単体の検証を行う。merge、convert、upload-ready生成、Firestore反映はこのsessionでは行わず、問題整備システムの別工程へ残す。
 """
@@ -194,7 +235,14 @@ def build_codex_prompt(
     }
     scope_label = scope_labels.get(scope, scope_labels["current_question"])
     scope_text = scope_instruction.get(scope, scope_instruction["current_question"])
-    law_audit_section = _law_audit_instruction() if _is_law_audit_review(review) else ""
+    law_audit_section = (
+        _law_audit_instruction(
+            repo_root,
+            str(question.get("qualification") or ""),
+        )
+        if _is_law_audit_review(review)
+        else ""
+    )
     evaluation_snapshot = review.get("evaluationSnapshot")
     rework_section = ""
     if isinstance(evaluation_snapshot, Mapping):

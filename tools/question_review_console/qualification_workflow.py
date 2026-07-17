@@ -13,6 +13,9 @@ from scripts.merge.merge_utils import (
     source_stem_from_patch_filename,
 )
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
+from tools.question_review_console.prompt_builder import (
+    law_audit_classification_safety_contract,
+)
 from tools.question_review_console.projection import record_identity_aliases
 from tools.question_review_console.workflow_catalog import (
     WorkflowCatalog,
@@ -1043,6 +1046,16 @@ class QualificationWorkflow:
             "`未作業のみ`又は`要確認のみ`では、各工程の対象に該当する問題だけを更新する。",
             "同じ入力でも判断又は出力が変わり得る正本変更は、該当工程だけを+1する。",
             *(
+                law_audit_classification_safety_contract(
+                    self.repo_root,
+                    qualification,
+                )
+                .rstrip()
+                .splitlines()
+                if "law_audit" in selected_stage_ids
+                else []
+            ),
+            *(
                 ["各問題は問題文と全選択肢を結合した命題として読み、Codex組み込みweb検索でe-Gov又は所管官庁の一次情報を開き、一問一肢ずつ根拠を照合する。"]
                 if "law_audit" in selected_stage_ids
                 else []
@@ -1050,7 +1063,7 @@ class QualificationWorkflow:
             *(
                 [
                     "法令関連と確定した各問題では、正誤を変更しない場合もlawRevisionFacts.current.correctChoiceTextを省略しない。patchでは各選択肢と同じ順序・件数の判定を保存し、トップレベルcorrectChoiceText及び解説先頭と一致させる。",
-                    "law_audit_metadata_incomplete又はlaw_audit_verdict_mismatchが残る問題をno-opで完了しない。根拠を確認できない場合は推測で補完せずholdへ戻す。",
+                    "law_audit_metadata_incomplete又はlaw_audit_verdict_mismatchが残る法令関連問題をno-opで完了しない。法改正差分又は適用条文を確認できない場合は推測で補完せずholdへ戻す。",
                 ]
                 if "law_audit" in selected_stage_ids
                 else []

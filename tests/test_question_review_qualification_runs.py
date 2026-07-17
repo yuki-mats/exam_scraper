@@ -367,6 +367,27 @@ class MultiGroupSourceInventory(SourceOnlyInventory):
         }
 
 
+class NonLawSourceInventory(SourceOnlyInventory):
+    def group(self, qualification, list_group_id):
+        group = super().group(qualification, list_group_id)
+        question = group["questions"][0]
+        question["projected"] = {
+            **question["projected"],
+            "isLawRelated": False,
+            "lawGroundedExplanationNotNeeded": True,
+        }
+        return group
+
+
+class MultiGroupNonLawSourceInventory(NonLawSourceInventory):
+    def inventory(self):
+        return {
+            "qualifications": [
+                {"id": "new-exam", "listGroupIds": ["2025", "2026"]}
+            ]
+        }
+
+
 class LawSourceInventory(SourceOnlyInventory):
     def group(self, qualification, list_group_id):
         group = super().group(qualification, list_group_id)
@@ -375,6 +396,7 @@ class LawSourceInventory(SourceOnlyInventory):
         question["projected"] = {
             **question["projected"],
             "isLawRelated": True,
+            "lawGroundedExplanationNotNeeded": False,
             "correctChoiceText": ["正しい"],
             "lawRevisionFacts": [
                 {
@@ -385,7 +407,12 @@ class LawSourceInventory(SourceOnlyInventory):
                 }
             ],
             "lawReferences": [
-                {"lawTitle": "ガス事業法", "article": "第2条"}
+                {
+                    "lawTitle": "ガス事業法",
+                    "lawId": "329AC0000000051",
+                    "article": "第2条",
+                    "verificationStatus": "verified",
+                }
             ],
             "explanationText": [
                 "正しい。ガス事業法第2条の定義に該当する。"
@@ -411,7 +438,69 @@ class IncompleteLawSourceInventory(LawSourceInventory):
         ]
         return group
 
+
+class UnverifiedLawSourceInventory(LawSourceInventory):
+    def group(self, qualification, list_group_id):
+        group = super().group(qualification, list_group_id)
+        reference = group["questions"][0]["projected"]["lawReferences"][0]
+        reference.pop("lawId")
+        reference.pop("verificationStatus")
+        return group
+
 class QualificationRunTests(unittest.TestCase):
+    @staticmethod
+    def _write_law_audit_sidecar(
+        root: Path,
+        list_group_id: str,
+        rows: list[dict],
+    ) -> Path:
+        path = (
+            root
+            / "output"
+            / "new-exam"
+            / "review"
+            / "law_revision_audit"
+            / f"{list_group_id}_law_revision_audit.jsonl"
+        )
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            "".join(
+                json.dumps(
+                    {
+                        "qualification": "new-exam",
+                        "listGroupId": list_group_id,
+                        "sourceSummary": "分類と根拠を確認した。",
+                        **row,
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n"
+                for row in rows
+            ),
+            encoding="utf-8",
+        )
+        return path
+
+    @staticmethod
+    def _law_audit_policy_run(
+        workflow: QualificationWorkflow,
+        *,
+        list_group_ids: list[str] | None = None,
+    ) -> dict:
+        groups = list_group_ids or ["2026"]
+        policy = workflow.versioned_policies("new-exam")["law_audit"]
+        targets = [f"new-exam-{group}-q1" for group in groups]
+        return {
+            "runId": "law-audit-sidecar-run",
+            "qualification": "new-exam",
+            "targetGroupIds": groups,
+            "policyVersions": {"law_audit": policy["policyVersion"]},
+            "policyFingerprints": {
+                "law_audit": policy["policyFingerprint"]
+            },
+            "policyTargets": {"law_audit": targets},
+        }
+
     def _run_receipt_completion(
         self,
         *,
@@ -1003,7 +1092,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["parallelWorkerLimit"], 2)
         self.assertEqual(run["targetRecordAliases"], ["q1", "q2"])
         self.assertEqual(run["targetCount"], 2)
-        self.assertEqual(run["policyVersions"], {"law_audit": "1.0"})
+        self.assertEqual(run["policyVersions"], {"law_audit": "2.0"})
         expected_record_files = {
             path
             for path in [*run["allowedPatchFiles"], *run["allowedWriteFiles"]]
@@ -1172,7 +1261,7 @@ class QualificationRunTests(unittest.TestCase):
                 work_type="maintenance",
             )["run"]
 
-        self.assertEqual(retried["policyVersions"], {"law_audit": "1.0"})
+        self.assertEqual(retried["policyVersions"], {"law_audit": "2.0"})
         self.assertEqual(retried["allowedWriteAreas"], ["review"])
         self.assertIn(failed_path, retried["allowedWriteFiles"])
         self.assertIn(failed_path, retried["resolvableFailedDeltaPaths"])
@@ -3036,7 +3125,37 @@ class QualificationRunTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             events = []
-            app_server = FlowAppServer(events=events)
+
+            def write_law_sidecar(work_type):
+                if work_type != "maintenance_law_audit":
+                    return
+                self._write_law_audit_sidecar(
+                    root,
+                    "2026",
+                    [
+                        {
+                            "reviewQuestionId": "new-exam-2026-q1",
+                            "isLawRelated": True,
+                            "auditStatus": "same_as_current",
+                            "reviewState": "secondary_verified",
+                            "lawReferences": [
+                                [
+                                    {
+                                        "lawTitle": "ガス事業法",
+                                        "lawId": "329AC0000000051",
+                                        "article": "2",
+                                        "verificationStatus": "verified",
+                                    }
+                                ]
+                            ],
+                        }
+                    ],
+                )
+
+            app_server = FlowAppServer(
+                events=events,
+                before_receipt=write_law_sidecar,
+            )
             jobs = JobManager()
             synchronizer = FakeSynchronizer()
             synchronizer.local_ready = False
@@ -3246,7 +3365,34 @@ class QualificationRunTests(unittest.TestCase):
                 run_id="completed-question-type",
                 source="test",
             )
-            app_server = FlowAppServer()
+
+            def write_law_sidecar(work_type):
+                if work_type != "maintenance_law_audit":
+                    return
+                self._write_law_audit_sidecar(
+                    root,
+                    "2026",
+                    [
+                        {
+                            "reviewQuestionId": "new-exam-2026-q1",
+                            "isLawRelated": True,
+                            "auditStatus": "same_as_current",
+                            "reviewState": "secondary_verified",
+                            "lawReferences": [
+                                [
+                                    {
+                                        "lawTitle": "ガス事業法",
+                                        "lawId": "329AC0000000051",
+                                        "article": "2",
+                                        "verificationStatus": "verified",
+                                    }
+                                ]
+                            ],
+                        }
+                    ],
+                )
+
+            app_server = FlowAppServer(before_receipt=write_law_sidecar)
             jobs = JobManager()
             synchronizer = FakeSynchronizer()
             synchronizer.local_ready = False
@@ -3522,9 +3668,511 @@ class QualificationRunTests(unittest.TestCase):
 
     def test_law_audit_quality_uses_projected_metadata_before_artifact_sync(self):
         question = LawSourceInventory().group("new-exam", "2026")["questions"][0]
-        question["issueCodes"] = ["law_audit_metadata_incomplete"]
+        question["issueCodes"] = [
+            "law_audit_metadata_incomplete",
+            "law_audit_verdict_mismatch",
+            "law_hold",
+            "law_basis_missing",
+        ]
 
         QualificationRunCoordinator._validate_law_audit_quality([question])
+
+    def test_law_audit_quality_does_not_require_law_verdicts_for_non_law_question(self):
+        question = NonLawSourceInventory().group("new-exam", "2026")[
+            "questions"
+        ][0]
+        question["projected"].update(
+            {
+                "correctChoiceText": ["正しい"],
+                "lawRevisionFacts": {
+                    "auditStatus": "not_law_related",
+                    "reviewState": "secondary_verified",
+                },
+            }
+        )
+
+        QualificationRunCoordinator._validate_law_audit_quality([question])
+
+    def test_law_audit_version_rejects_sidecar_classification_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, NonLawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": True,
+                        "auditStatus": "hold",
+                        "reviewState": "needs_secondary_review",
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "sidecar整合.*isLawRelated",
+            ):
+                coordinator._record_work_versions(
+                    self._law_audit_policy_run(workflow)
+                )
+            question = workflow.inventory.group("new-exam", "2026")[
+                "questions"
+            ][0]
+            status = workflow.work_versions.status_for(
+                question,
+                [workflow.versioned_policies("new-exam")["law_audit"]],
+            )
+
+        self.assertEqual(status["stages"][0]["status"], "unrecorded")
+
+    def test_law_audit_version_records_matching_non_law_sidecar(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, NonLawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": False,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                    }
+                ],
+            )
+
+            receipt = coordinator._record_work_versions(
+                self._law_audit_policy_run(workflow)
+            )
+            question = workflow.inventory.group("new-exam", "2026")[
+                "questions"
+            ][0]
+            status = workflow.work_versions.status_for(
+                question,
+                [workflow.versioned_policies("new-exam")["law_audit"]],
+            )
+
+        self.assertEqual(receipt["recordedCount"], 1)
+        self.assertEqual(status["stages"][0]["status"], "current")
+
+    def test_law_audit_version_rejects_missing_or_duplicate_sidecar_row(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, NonLawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            run = self._law_audit_policy_run(workflow)
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "監査sidecarがありません",
+            ):
+                coordinator._record_work_versions(run)
+
+            row = {
+                "reviewQuestionId": "new-exam-2026-q1",
+                "isLawRelated": False,
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+            }
+            self._write_law_audit_sidecar(root, "2026", [row, row])
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "対応行が2件",
+            ):
+                coordinator._record_work_versions(run)
+
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [{**row, "sourceSummary": {"text": "文字列ではない"}}],
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "監査sidecar.sourceSummaryがありません",
+            ):
+                coordinator._record_work_versions(run)
+
+    def test_law_audit_version_validates_nested_verified_basis(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, LawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            row = {
+                "reviewQuestionId": "new-exam-2026-q1",
+                "isLawRelated": True,
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "lawReferences": [
+                    [
+                        {
+                            "lawTitle": "ガス事業法",
+                            "lawId": "329AC0000000051",
+                            "article": "2",
+                            "verificationStatus": "verified",
+                        }
+                    ]
+                ],
+            }
+            self._write_law_audit_sidecar(root, "2026", [row])
+
+            receipt = coordinator._record_work_versions(
+                self._law_audit_policy_run(workflow)
+            )
+
+        self.assertEqual(receipt["recordedCount"], 1)
+
+    def test_law_audit_version_rejects_unverified_projected_basis(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(
+                root,
+                UnverifiedLawSourceInventory(),
+            )
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": True,
+                        "auditStatus": "same_as_current",
+                        "reviewState": "secondary_verified",
+                        "lawReferences": [
+                            [
+                                {
+                                    "lawTitle": "ガス事業法",
+                                    "lawId": "329AC0000000051",
+                                    "article": "2",
+                                    "verificationStatus": "verified",
+                                }
+                            ]
+                        ],
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "projected lawReferencesにverified",
+            ):
+                coordinator._record_work_versions(
+                    self._law_audit_policy_run(workflow)
+                )
+
+    def test_law_audit_version_rejects_different_verified_basis(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, LawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": True,
+                        "auditStatus": "same_as_current",
+                        "reviewState": "secondary_verified",
+                        "lawReferences": [
+                            [
+                                {
+                                    "lawTitle": "消防法",
+                                    "lawId": "323AC1000000186",
+                                    "article": "3",
+                                    "verificationStatus": "verified",
+                                }
+                            ]
+                        ],
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "verified法令根拠が一致しません",
+            ):
+                coordinator._record_work_versions(
+                    self._law_audit_policy_run(workflow)
+                )
+
+    def test_law_audit_sidecar_rejects_unpublished_projected_facts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = LawSourceInventory().group("new-exam", "2026")[
+                "questions"
+            ][0]
+            fact = question["projected"]["lawRevisionFacts"][0]
+            fact["auditStatus"] = "hold"
+            fact["reviewState"] = "needs_secondary_review"
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, LawSourceInventory()),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": True,
+                        "auditStatus": "same_as_current",
+                        "reviewState": "secondary_verified",
+                        "lawReferences": [
+                            [
+                                {
+                                    "lawTitle": "ガス事業法",
+                                    "lawId": "329AC0000000051",
+                                    "article": "2",
+                                    "verificationStatus": "verified",
+                                }
+                            ]
+                        ],
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "projected lawRevisionFactsが公開確定状態ではありません",
+            ):
+                coordinator._validate_law_audit_sidecar_consistency(
+                    "new-exam",
+                    [question],
+                )
+
+    def test_non_law_sidecar_rejects_stale_hold_facts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = NonLawSourceInventory().group("new-exam", "2026")[
+                "questions"
+            ][0]
+            question["projected"]["lawRevisionFacts"] = [
+                {
+                    "auditStatus": "hold",
+                    "reviewState": "needs_secondary_review",
+                }
+            ]
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, NonLawSourceInventory()),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": False,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "非法令問題のprojected lawRevisionFacts",
+            ):
+                coordinator._validate_law_audit_sidecar_consistency(
+                    "new-exam",
+                    [question],
+                )
+
+    def test_non_law_sidecar_rejects_flag_or_stale_references(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = NonLawSourceInventory().group("new-exam", "2026")[
+                "questions"
+            ][0]
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, NonLawSourceInventory()),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": False,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                        "lawReferences": [],
+                    }
+                ],
+            )
+
+            question["projected"]["lawGroundedExplanationNotNeeded"] = False
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "lawGroundedExplanationNotNeededがtrueではありません",
+            ):
+                coordinator._validate_law_audit_sidecar_consistency(
+                    "new-exam",
+                    [question],
+                )
+
+            question["projected"]["lawGroundedExplanationNotNeeded"] = True
+            question["projected"]["lawReferences"] = [
+                {
+                    "lawTitle": "ガス事業法",
+                    "lawId": "329AC0000000051",
+                    "article": "2",
+                    "verificationStatus": "verified",
+                }
+            ]
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "非法令問題のprojected lawReferencesが空ではありません",
+            ):
+                coordinator._validate_law_audit_sidecar_consistency(
+                    "new-exam",
+                    [question],
+                )
+
+    def test_law_audit_rejects_scalar_law_revision_facts(self):
+        law_question = LawSourceInventory().group("new-exam", "2026")[
+            "questions"
+        ][0]
+        law_question["projected"]["lawRevisionFacts"] = "invalid"
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "lawRevisionFactsを確認できません",
+        ):
+            QualificationRunCoordinator._validate_law_audit_quality(
+                [law_question]
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            non_law_question = NonLawSourceInventory().group(
+                "new-exam",
+                "2026",
+            )["questions"][0]
+            non_law_question["projected"]["lawRevisionFacts"] = "invalid"
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, NonLawSourceInventory()),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": False,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                    }
+                ],
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "lawRevisionFactsの型が不正",
+            ):
+                coordinator._validate_law_audit_sidecar_consistency(
+                    "new-exam",
+                    [non_law_question],
+                )
+
+    def test_law_audit_version_is_atomic_when_one_group_sidecar_is_missing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = MultiGroupNonLawSourceInventory()
+            workflow = QualificationWorkflow(root, inventory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2025",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2025-q1",
+                        "isLawRelated": False,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "2026_law_revision_audit.jsonl: 監査sidecarがありません",
+            ):
+                coordinator._record_work_versions(
+                    self._law_audit_policy_run(
+                        workflow,
+                        list_group_ids=["2025", "2026"],
+                    )
+                )
+            statuses = [
+                workflow.work_versions.status_for(
+                    inventory.group("new-exam", group)["questions"][0],
+                    [workflow.versioned_policies("new-exam")["law_audit"]],
+                )["stages"][0]["status"]
+                for group in ("2025", "2026")
+            ]
+
+        self.assertEqual(statuses, ["unrecorded", "unrecorded"])
 
     def test_law_audit_version_is_not_recorded_while_quality_warning_remains(self):
         with tempfile.TemporaryDirectory() as directory:

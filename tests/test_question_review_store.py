@@ -112,6 +112,27 @@ class QuestionReviewStoreTests(unittest.TestCase):
         self.assertIn("/2026/21_explanationText_added/", created["prompt"])
         self.assertIn("Codex組み込みweb検索", created["prompt"])
         self.assertIn("一問一肢ずつ", created["prompt"])
+        self.assertIn(
+            "法令根拠が見つからないこと自体を理由に",
+            created["prompt"],
+        )
+        self.assertIn("確認できなければ`false`を維持", created["prompt"])
+        self.assertIn("古い`hold`を残さない", created["prompt"])
+        self.assertIn("監査sidecarの`sourceSummary`", created["prompt"])
+        self.assertIn(
+            str(root / "prompt" / "03b_prompt_audit_current_law_and_patch.md"),
+            created["prompt"],
+        )
+        self.assertIn(
+            str(
+                root
+                / "prompt"
+                / "qualification_docs"
+                / "sample-exam"
+                / "*law_reference*.md"
+            ),
+            created["prompt"],
+        )
         self.assertEqual(len(created["targetSourceFiles"]), 2)
         self.assertEqual(created["targetRecordAliasGroups"], [["q1"], ["q2"]])
         self.assertNotIn("## 問題文", created["prompt"])
@@ -119,6 +140,48 @@ class QuestionReviewStoreTests(unittest.TestCase):
         self.assertNotIn("## 関連ファイル", created["prompt"])
         self.assertNotIn("review JSON", created["prompt"])
         self.assertNotIn("条文上の記述A", created["prompt"])
+
+    def test_current_question_law_prompt_uses_classification_safety_contract(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = ReviewStore(root)
+            question = {
+                "id": "api-id",
+                "reviewKey": "sample:2026:file:q1",
+                "qualification": "sample-exam",
+                "listGroupId": "2026",
+                "sourceQuestionKey": "sample:2026:law:q1",
+                "originalQuestionId": "q1",
+                "stateHash": "state-1",
+                "body": "技術知識だけで正誤を判断する問題。",
+                "projected": {
+                    "choiceTextList": ["技術上の記述A"],
+                    "correctChoiceText": ["正しい"],
+                    "explanationText": ["正しい。技術上妥当である。"],
+                    "isLawRelated": False,
+                },
+                "source": {},
+                "uploadReadyDocs": [],
+                "paths": {"source": "output/source.json", "patches": []},
+            }
+            created = store.create(
+                question,
+                {
+                    "issueTypes": ["manual_review"],
+                    "fields": ["isLawRelated"],
+                    "note": "法令関連性を再確認する",
+                    "investigationScope": "current_question",
+                },
+            )
+
+        self.assertIn("## 法令関連性の分類安全契約", created["prompt"])
+        self.assertIn(
+            "法令根拠が見つからないこと自体を理由に",
+            created["prompt"],
+        )
+        self.assertIn("確認できなければ`false`を維持", created["prompt"])
+        self.assertIn("古い`hold`を残さない", created["prompt"])
+        self.assertIn("監査sidecarの`sourceSummary`", created["prompt"])
 
 
 if __name__ == "__main__":
