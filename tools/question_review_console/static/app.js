@@ -1362,6 +1362,11 @@ function humanizeQualificationRunError(value) {
   return compactProgressText(message, 180);
 }
 
+function artifactSyncNeedsAttention(run) {
+  const status = run?.artifactSync?.status;
+  return Boolean(status && !["succeeded", "current", "not_required"].includes(status));
+}
+
 function qualificationRunViewState(run, progress = state.qualificationRunProgress) {
   const completedQuestions = Number(progress?.completedQuestionCount || 0);
   const targetQuestions = Number(progress?.targetQuestionCount || run?.targetCount || 0);
@@ -1376,6 +1381,7 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     ? completedWork >= targetWork
     : targetQuestions > 0 && completedQuestions >= targetQuestions;
   const failed = ["failed", "interrupted"].includes(run?.status);
+  const artifactSyncPending = run?.status === "succeeded" && artifactSyncNeedsAttention(run);
   const active = Boolean(run && state.qualificationActiveRun?.runId === run.runId);
   const validationStarted = verified
     || run?.status === "validating"
@@ -1402,8 +1408,11 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     statusLabel = "最終検証中";
     summary = `${progressText}の問題処理が終わり、安全ガードと完了記録を確認しています。`;
   } else if (run?.status === "succeeded") {
-    phase = "完了";
-    summary = `${progressText}を検証済みです。`;
+    phase = artifactSyncPending ? "整備完了" : "完了";
+    if (artifactSyncPending) statusLabel = "公開用データ更新待ち";
+    summary = artifactSyncPending
+      ? `${progressText}を検証済みです。公開用データは更新待ちです。`
+      : `${progressText}を検証済みです。`;
   } else if (invalidated) {
     phase = "無効化済み";
     statusLabel = "無効化済み";
@@ -1422,6 +1431,7 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   const phaseStates = ["pending", "pending", "pending"];
   if (verified) {
     phaseStates.fill("complete");
+    if (artifactSyncPending) phaseStates[1] = "failed";
   } else if (invalidated) {
     phaseStates[0] = "complete";
     phaseStates[1] = "failed";
@@ -1438,6 +1448,7 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   }
   return {
     active,
+    artifactSyncPending,
     completedQuestions,
     failed,
     invalidated,
@@ -1504,18 +1515,22 @@ function renderQualificationRunPhases(run, view) {
           : "前工程の完了後に実行",
       };
     });
-    const validationState = run.status === "succeeded"
-      ? "complete"
-      : run.executionPhase === "final_validation"
-        ? ["failed", "interrupted"].includes(run.status) ? "failed" : "current"
-        : "pending";
+    const artifactSyncPending = run.status === "succeeded" && artifactSyncNeedsAttention(run);
+    let validationState = "pending";
+    if (run.status === "succeeded") {
+      validationState = artifactSyncPending ? "failed" : "complete";
+    } else if (run.executionPhase === "final_validation") {
+      validationState = ["failed", "interrupted"].includes(run.status) ? "failed" : "current";
+    }
     items.push({
       label: "最終検証",
       state: validationState,
       detail: validationState === "complete"
         ? "公開用データを確認済み"
         : validationState === "failed"
-          ? "公開用データの確認で停止"
+          ? artifactSyncPending
+            ? "公開用データ更新待ち・手動再生成可"
+            : "公開用データの確認で停止"
           : validationState === "current"
             ? "Merge・Convert・upload-readyを確認中"
             : "全工程の完了後に実行",
@@ -1523,7 +1538,7 @@ function renderQualificationRunPhases(run, view) {
     items.push({
       label: "完了",
       state: run.status === "succeeded" ? "complete" : "pending",
-      detail: run.status === "succeeded" ? "結果を承認済み" : "最終検証後に確定",
+      detail: run.status === "succeeded" ? "整備結果を承認済み" : "最終検証後に確定",
     });
     container.replaceChildren();
     items.forEach((item, index) => {
@@ -1538,14 +1553,16 @@ function renderQualificationRunPhases(run, view) {
   }
   const details = [
     view.targetQuestions ? view.progressText : "対象を準備",
-    view.phaseStates[1] === "failed"
-      ? "安全ガードで停止"
-      : view.phaseStates[1] === "complete"
-        ? "検証済み"
-        : view.phaseStates[1] === "current"
-          ? "変更範囲と完了記録を確認中"
-          : "問題整備完了後に実行",
-    view.phaseStates[2] === "complete" ? "結果を承認済み" : "検証成功後に確定",
+    view.artifactSyncPending
+      ? "公開用データ更新待ち・手動再生成可"
+      : view.phaseStates[1] === "failed"
+        ? "安全ガードで停止"
+        : view.phaseStates[1] === "complete"
+          ? "検証済み"
+          : view.phaseStates[1] === "current"
+            ? "変更範囲と完了記録を確認中"
+            : "問題整備完了後に実行",
+    view.phaseStates[2] === "complete" ? "整備結果を承認済み" : "検証成功後に確定",
   ];
   container.replaceChildren();
   ["問題を整備", "最終検証", "完了"].forEach((label, index) => {
@@ -1582,8 +1599,15 @@ function renderQualificationActiveRun() {
   historyList.replaceChildren();
   for (const item of state.qualificationRuns) {
     const row = element("div", "qualification-run-history-row");
+    const artifactPending = item.status === "succeeded" && artifactSyncNeedsAttention(item);
     row.append(
-      element("span", `run-status ${item.status}`, QUALIFICATION_RUN_STATUS_LABELS[item.status] || item.status),
+      element(
+        "span",
+        `run-status ${artifactPending ? "artifact-pending" : item.status}`,
+        artifactPending
+          ? "公開用データ更新待ち"
+          : QUALIFICATION_RUN_STATUS_LABELS[item.status] || item.status,
+      ),
       element("strong", "", item.workType === "maintenance_flow"
         ? "トップ整備"
         : `${item.stageCode} ${item.stageLabel}`),
@@ -1617,9 +1641,11 @@ function renderQualificationActiveRun() {
   }
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
-  const statusClass = ["failed", "interrupted", "invalidated"].includes(run.status)
-    ? run.status
-    : run.status === "succeeded" ? "succeeded" : "running";
+  const statusClass = view.artifactSyncPending
+    ? "artifact-pending"
+    : ["failed", "interrupted", "invalidated"].includes(run.status)
+      ? run.status
+      : run.status === "succeeded" ? "succeeded" : "running";
   container.className = `qualification-active-run ${statusClass}`;
   $("#qualification-active-run-eyebrow").textContent = view.active ? "いまの作業" : "直近の作業";
   $("#qualification-active-run-status").textContent = view.statusLabel;
@@ -3893,6 +3919,37 @@ async function openSyncDialog(autoStart = false) {
       $("#workflow-dialog-summary").append(
         summaryMetric("必須field不足", `${preview.requiredFieldWarnings.length}問`, "danger"),
       );
+      state.workflowDialog.mode = "";
+      $("#workflow-execute").textContent = "閉じる";
+      $("#workflow-execute").disabled = false;
+      return;
+    }
+    if (preview.strictValidationWarnings?.length) {
+      const warning = preview.strictValidationWarnings[0];
+      $("#workflow-dialog-message").textContent =
+        `現行法監査済み問題を再生成できません。${warning.detail || "法令監査情報を確認してください。"}`;
+      $("#workflow-dialog-summary").append(
+        summaryMetric(
+          "法令監査",
+          `${preview.strictValidationWarnings.length}件・${warning.field || "lawRevisionFacts"}`,
+          "danger",
+        ),
+      );
+      state.workflowDialog.mode = "";
+      $("#workflow-execute").textContent = "閉じる";
+      $("#workflow-execute").disabled = false;
+      return;
+    }
+    if (!preview.canSync) {
+      const failedCount = Number(preview.failedDeltaPaths?.length || 0);
+      $("#workflow-dialog-message").textContent = failedCount
+        ? "失敗した作業の未確定patchがあります。対象問題を成功runで再検証してください。"
+        : "再生成前の確認項目が残っています。問題詳細を確認してください。";
+      if (failedCount) {
+        $("#workflow-dialog-summary").append(
+          summaryMetric("未確定patch", `${failedCount}件`, "danger"),
+        );
+      }
       state.workflowDialog.mode = "";
       $("#workflow-execute").textContent = "閉じる";
       $("#workflow-execute").disabled = false;

@@ -36,6 +36,10 @@ from tools.question_review_console.jobs import (
     JobConflictError,
     JobManager,
 )
+from tools.question_review_console.law_audit_contract import (
+    LAW_AUDIT_ISSUES,
+    QUALIFICATION_LAW_AUDIT_REQUEST,
+)
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
@@ -48,8 +52,6 @@ from tools.question_review_console.qualification_runs import (
 )
 from tools.question_review_console.review_store import ReviewStore
 from tools.question_review_console.prompt_builder import (
-    LAW_AUDIT_ISSUES,
-    QUALIFICATION_LAW_AUDIT_REQUEST,
     is_qualification_law_audit,
 )
 from tools.question_review_console.workflow_runner import (
@@ -579,11 +581,13 @@ class QuestionReviewApplication:
             try:
                 if action == "sync-preview":
                     return HTTPStatus.OK, self.synchronizer.preview(
-                        qualification, list_group_id
+                        qualification, list_group_id, force=True
                     )
                 if action == "sync":
                     token = str(body.get("previewToken") or "")
-                    current = self.synchronizer.preview(qualification, list_group_id)
+                    current = self.synchronizer.preview(
+                        qualification, list_group_id, force=True
+                    )
                     if current["previewToken"] != token:
                         raise WorkflowError("確認後に対象状態が更新されました。")
                     if not current.get("canSync"):
@@ -592,6 +596,16 @@ class QuestionReviewApplication:
                             raise WorkflowError(
                                 "失敗turnの未確定patchを成功runで確定してください: "
                                 + ", ".join(str(path) for path in failed_paths[:10])
+                            )
+                        strict_warnings = current.get("strictValidationWarnings") or []
+                        if strict_warnings:
+                            details = " ".join(
+                                str(warning.get("detail") or "")
+                                for warning in strict_warnings[:3]
+                                if isinstance(warning, Mapping)
+                            )
+                            raise WorkflowError(
+                                "現行法監査済み問題を再生成できません。" + details
                             )
                         raise WorkflowError("反映前の確認項目が残っています。")
                     job = self.jobs.start(
@@ -1219,7 +1233,7 @@ class QuestionReviewApplication:
         emit: Any,
     ) -> dict[str, Any]:
         result = self.synchronizer.run(
-            qualification, list_group_id, preview_token, emit
+            qualification, list_group_id, preview_token, emit, force=True
         )
         self._clear_group_live_results(qualification, list_group_id)
         return result

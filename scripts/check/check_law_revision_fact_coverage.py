@@ -17,6 +17,9 @@ from tools.question_bank.question_bank import timestamp_sort_key
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
 )
+from tools.question_review_console.explanation_quality import (
+    law_evidence_utilization_issues,
+)
 
 
 LAW_REVISION_FACT_STATUSES = {
@@ -78,6 +81,120 @@ def has_non_empty_law_references(value: Any) -> bool:
     if isinstance(value, list):
         return any(has_non_empty_law_references(entry) for entry in value)
     return False
+
+
+def has_verified_law_reference(value: Any) -> bool:
+    if isinstance(value, dict):
+        return value.get("verificationStatus") == "verified" or any(
+            has_verified_law_reference(entry) for entry in value.values()
+        )
+    if isinstance(value, list):
+        return any(has_verified_law_reference(entry) for entry in value)
+    return False
+
+
+def original_question_id(record: dict[str, Any]) -> str:
+    for key in (
+        "originalQuestionId",
+        "original_question_id",
+        "public_question_id",
+    ):
+        value = record.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return ""
+
+
+def select_original_questions(
+    records: list[dict[str, Any]],
+    requested_ids: Iterable[str],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    requested = {
+        str(value).strip() for value in requested_ids if str(value).strip()
+    }
+    if not requested:
+        return records, []
+    selected = [
+        record
+        for record in records
+        if original_question_id(record) in requested
+    ]
+    found = {original_question_id(record) for record in selected}
+    return selected, sorted(requested - found)
+
+
+def _combined_field(records: list[dict[str, Any]], field: str) -> list[Any]:
+    values: list[Any] = []
+    for record in records:
+        value = record.get(field)
+        if isinstance(value, list):
+            values.extend(value)
+        elif value is not None:
+            values.append(value)
+    return values
+
+
+def audit_question_level_law_evidence(
+    records: list[dict[str, Any]],
+    *,
+    require_law_references: bool = False,
+    require_verified_law_references: bool = False,
+    require_public_law_evidence: bool = False,
+) -> list[str]:
+    """Apply question-level evidence rules to merged or choice-split records."""
+
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for index, record in enumerate(records, start=1):
+        key = original_question_id(record) or f"record:{index}"
+        groups.setdefault(key, []).append(record)
+
+    errors: list[str] = []
+    for key, group in groups.items():
+        law_records = [
+            record for record in group if record.get("isLawRelated") is True
+        ]
+        if not law_records:
+            continue
+        label = (
+            f"originalQuestionId={key}"
+            if not key.startswith("record:")
+            else record_label(law_records[0], int(key.removeprefix("record:")))
+        )
+        law_references = _combined_field(law_records, "lawReferences")
+        has_law_references = has_non_empty_law_references(law_references)
+        if require_law_references and not has_law_references:
+            errors.append(f"{label}: missing lawReferences for law-related question")
+        if require_verified_law_references and not has_verified_law_reference(
+            law_references
+        ):
+            errors.append(
+                f"{label}: no verified lawReferences for law-related question"
+            )
+        if require_public_law_evidence:
+            combined = {
+                "isLawRelated": True,
+                "lawReferences": law_references,
+                "lawRevisionFacts": _combined_field(
+                    law_records, "lawRevisionFacts"
+                ),
+                "explanationText": _combined_field(
+                    law_records, "explanationText"
+                ),
+                "suggestedQuestions": _combined_field(
+                    law_records, "suggestedQuestions"
+                ),
+                "suggestedQuestionDetails": _combined_field(
+                    law_records, "suggestedQuestionDetails"
+                ),
+            }
+            errors.extend(
+                f"{label}: {issue}"
+                for issue in law_evidence_utilization_issues(
+                    combined,
+                    has_law_references=has_law_references,
+                )
+            )
+    return errors
 
 
 def facts_for_record(record: dict[str, Any]) -> list[dict[str, Any]]:
@@ -260,7 +377,10 @@ def run(
     require_evidence_summary: bool,
     require_law_references: bool,
     require_current_correct_choice: bool,
-    report: Path | None,
+    require_verified_law_references: bool = False,
+    require_public_law_evidence: bool = False,
+    original_question_ids: Iterable[str] = (),
+    report: Path | None = None,
 ) -> int:
     if stage == "firestore":
         source_file = latest_firestore_file(list_group_dir)
@@ -278,14 +398,30 @@ def run(
     else:
         raise ValueError(f"unsupported stage: {stage}")
 
+    records, missing_question_ids = select_original_questions(
+        records,
+        original_question_ids,
+    )
     errors, counts = audit_records(
         records,
         require_all_law_related=require_all_law_related,
         fail_on_hold=fail_on_hold,
         require_evidence_summary=require_evidence_summary,
-        require_law_references=require_law_references,
+        require_law_references=False,
         require_current_correct_choice=require_current_correct_choice,
         allow_question_level_choice_verdicts=(stage == "merged"),
+    )
+    errors.extend(
+        audit_question_level_law_evidence(
+            records,
+            require_law_references=require_law_references,
+            require_verified_law_references=require_verified_law_references,
+            require_public_law_evidence=require_public_law_evidence,
+        )
+    )
+    errors.extend(
+        f"originalQuestionId={question_id}: record not found"
+        for question_id in missing_question_ids
     )
     print(f"stage: {stage}")
     for source_file in source_files:
@@ -326,7 +462,7 @@ def main() -> int:
     parser.add_argument(
         "--require-law-references",
         action="store_true",
-        help="Fail when isLawRelated=true records do not have lawReferences.",
+        help="Fail when an isLawRelated=true question has no lawReferences.",
     )
     parser.add_argument(
         "--require-current-correct-choice",
@@ -335,6 +471,22 @@ def main() -> int:
             "Fail when lawRevisionFacts.current.correctChoiceText is missing "
             "or differs from the published verdict."
         ),
+    )
+    parser.add_argument(
+        "--require-verified-law-references",
+        action="store_true",
+        help="Fail when scoped law-related questions have no verified lawReferences.",
+    )
+    parser.add_argument(
+        "--require-public-law-evidence",
+        action="store_true",
+        help="Fail when scoped public explanations do not use law evidence.",
+    )
+    parser.add_argument(
+        "--original-question-id",
+        action="append",
+        default=[],
+        help="Limit validation to this original question ID. Repeatable.",
     )
     parser.add_argument("--report", type=Path, help="Optional JSON report output path.")
     args = parser.parse_args()
@@ -346,6 +498,9 @@ def main() -> int:
         require_evidence_summary=args.require_evidence_summary,
         require_law_references=args.require_law_references,
         require_current_correct_choice=args.require_current_correct_choice,
+        require_verified_law_references=args.require_verified_law_references,
+        require_public_law_evidence=args.require_public_law_evidence,
+        original_question_ids=args.original_question_id,
         report=args.report,
     )
 

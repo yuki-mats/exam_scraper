@@ -45,6 +45,44 @@ class DocumentationStructureTests(unittest.TestCase):
         for relative in REMOVED_DUPLICATES:
             self.assertFalse((ROOT / relative).exists(), relative)
 
+    def test_console_contract_keeps_recovery_order_and_state_boundary_visible(self):
+        text = (
+            ROOT / "document" / "operations" / "local_question_review_console.md"
+        ).read_text(encoding="utf-8")
+        artifact_contract = (
+            ROOT / "document" / "operations" / "artifact_contract.md"
+        ).read_text(encoding="utf-8")
+
+        self.assertLess(text.index("## 手戻りを防ぐ運用順序"), text.index("## 構成"))
+        for value in (
+            "receiptValidated=true",
+            "artifactSync",
+            "パッチ変更を反映",
+            "管理機能の`出力`",
+            "run中は別作業でfile編集",
+            "法令関連問題がすべて現行03b",
+        ):
+            self.assertIn(value, text)
+        for status in (
+            "running",
+            "deferred",
+            "current",
+            "not_required",
+            "succeeded",
+            "blocked",
+            "failed",
+            "interrupted",
+        ):
+            self.assertIn(f"| `{status}` |", text)
+        for field in (
+            "stateHash",
+            "policyVersions",
+            "policyFingerprints",
+            "policyTargets",
+        ):
+            self.assertIn(f"`{field}`", artifact_contract)
+        self.assertLessEqual(max(map(len, text.splitlines())), 500)
+
     def test_law_audit_docs_do_not_turn_technical_questions_into_holds(self):
         audit_prompt = (
             ROOT / "prompt" / "03b_prompt_audit_current_law_and_patch.md"

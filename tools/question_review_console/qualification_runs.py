@@ -39,6 +39,7 @@ from tools.question_review_console.explanation_quality import (
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
 )
+from tools.question_review_console.law_audit_contract import is_law_audit_review
 from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
 )
@@ -56,6 +57,7 @@ LIVE_RUN_STATUSES = {
     "running",
     "validating",
 }
+ARTIFACT_SYNC_COMPLETE_STATUSES = {"succeeded", "current", "not_required"}
 PROGRESS_EVENT_TYPES = {"question_started", "stage_completed", "question_completed"}
 PROGRESS_RESULT_FIELDS = {
     "summary",
@@ -131,48 +133,6 @@ FIELD_PATCH_DIR_NAMES = {
 }
 NON_AUTOMATED_CORRECTION_FIELDS = {"questionBodyText", "choiceTextList"}
 LAW_PATCH_DIR_NAMES = set(STAGE_PATCH_DIR_NAMES["law_audit"])
-LAW_AUDIT_ISSUES = {
-    "law_audit_metadata_incomplete",
-    "law_audit_verdict_mismatch",
-    "law_basis_missing",
-    "law_hold",
-}
-
-
-def _review_requests_law_audit(review: Mapping[str, Any]) -> bool:
-    issue_types = {
-        str(value) for value in review.get("issueTypes") or [] if value
-    }
-    selection = review.get("selection")
-    selection_fields = (
-        selection.get("fields")
-        if isinstance(selection, Mapping)
-        else []
-    )
-    fields = {
-        str(value).split(".", 1)[0].split("[", 1)[0]
-        for value in [
-            *(review.get("fields") or []),
-            *(selection_fields or []),
-        ]
-        if value
-    }
-    evaluation_snapshot = review.get("evaluationSnapshot")
-    rework_items = (
-        evaluation_snapshot.get("reworkItems")
-        if isinstance(evaluation_snapshot, Mapping)
-        else []
-    )
-    return bool(
-        issue_types & LAW_AUDIT_ISSUES
-        or review.get("requestKind") == "qualification_law_audit"
-        or any(field.startswith(("law", "isLawRelated")) for field in fields)
-        or any(
-            isinstance(item, Mapping)
-            and str(item.get("stage") or "") == "03b"
-            for item in rework_items or []
-        )
-    )
 
 
 ISSUE_PATCH_DIR_NAMES = {
@@ -243,6 +203,24 @@ CODEX_PROTECTED_IDENTITY_FIELDS = (
     "uploadOriginalQuestionId",
     "firestoreQuestionIds",
 )
+
+
+def _artifact_sync_result(
+    groups: list[dict[str, Any]],
+    *,
+    success_message: str,
+    incomplete_message: str,
+) -> dict[str, Any]:
+    """Summarize publication sync without changing validated work state."""
+
+    statuses = {str(group.get("status") or "failed") for group in groups}
+    if statuses <= ARTIFACT_SYNC_COMPLETE_STATUSES:
+        status = "succeeded"
+        message = success_message
+    else:
+        status = "failed" if "failed" in statuses else "blocked"
+        message = incomplete_message
+    return {"status": status, "groups": groups, "message": message}
 
 
 def _now() -> str:
@@ -2016,7 +1994,7 @@ class QualificationRunCoordinator:
                 for stage in selected_stages
                 if stage in REWORK_POLICY_STAGE_IDS
             }
-        elif _review_requests_law_audit(review):
+        elif is_law_audit_review(review):
             requested_policy_ids = {"law_audit"}
         else:
             requested_policy_ids = {
@@ -2181,7 +2159,7 @@ class QualificationRunCoordinator:
                 )
             )
         )
-        law_related = _review_requests_law_audit(review)
+        law_related = is_law_audit_review(review)
         if law_related:
             patch_dirs.update(LAW_PATCH_DIR_NAMES)
         for value in review.get("targetFiles") or []:
@@ -2195,7 +2173,7 @@ class QualificationRunCoordinator:
                 "整備責務を限定できません。修正するfieldを1つ以上選択してください。"
             )
         scope = str(review.get("investigationScope") or "current_question")
-        law_audit_requested = _review_requests_law_audit(review)
+        law_audit_requested = is_law_audit_review(review)
         write_areas: set[str] = set()
         write_files: set[str] = set()
         if law_audit_requested:
@@ -2269,7 +2247,7 @@ class QualificationRunCoordinator:
                 for suffix in [REVIEW_FLAG_SUFFIX_BY_PATCH_DIR.get(patch_dir)]
                 if suffix
             }
-            if _review_requests_law_audit(review):
+            if is_law_audit_review(review):
                 review_flag_suffixes.add("lawRevision")
         scope = str(review.get("investigationScope") or "current_question")
         if (
@@ -2709,8 +2687,9 @@ class QualificationRunCoordinator:
                 status="validating",
                 executionPhase="final_validation",
                 currentPhaseId=None,
-                receiptValidated=False,
+                receiptValidated=True,
                 workVersionReceipt=work_version_receipt,
+                artifactSync={"status": "running", "groups": []},
             )
             emit("すべての独立sessionが完了しました。公開用データを最終検証します。")
             sync_groups = [
@@ -2722,31 +2701,28 @@ class QualificationRunCoordinator:
                 )
                 for list_group_id in parent.get("targetGroupIds") or []
             ]
-            sync_statuses = {
-                str(group.get("status") or "failed") for group in sync_groups
-            }
-            if sync_statuses <= {"succeeded", "current"}:
-                sync_status = "succeeded"
-                sync_message = "公開用データまで最新patchへ同期しました。"
-            else:
-                sync_status = "failed" if "failed" in sync_statuses else "blocked"
-                sync_message = "公開用データの最終検証を完了できませんでした。"
-            artifact_sync = {
-                "status": sync_status,
-                "groups": sync_groups,
-                "message": sync_message,
-            }
-            if sync_status != "succeeded":
-                self.store.update(
-                    qualification,
-                    run_id,
-                    artifactSync=artifact_sync,
-                )
-                raise QualificationRunError(sync_message)
+            artifact_sync = _artifact_sync_result(
+                sync_groups,
+                success_message="公開用データまで最新patchへ同期しました。",
+                incomplete_message=(
+                    "公開用データの自動更新は完了できませんでした。"
+                    "問題詳細又は管理機能から再生成できます。"
+                ),
+            )
+            warning = artifact_sync["status"] != "succeeded"
             result = {
                 "status": "succeeded",
-                "summary": "トップ整備と最終検証を完了しました。",
-                "commands": [],
+                "summary": (
+                    "トップ整備を完了しました。"
+                    if warning
+                    else "トップ整備と最終検証を完了しました。"
+                ),
+                "commands": [
+                    {
+                        "command": "workflow: validate child maintenance receipts",
+                        "status": "pass",
+                    }
+                ],
                 "changedFiles": [],
             }
             self.store.write_result(qualification, run_id, result)
@@ -2767,7 +2743,10 @@ class QualificationRunCoordinator:
                 "runId": run_id,
                 "childRunIds": child_run_ids,
                 "artifactSync": artifact_sync,
-                "message": result["summary"],
+                "warning": warning,
+                "message": " ".join(
+                    (result["summary"], str(artifact_sync["message"]))
+                ),
             }
         except Exception as exc:  # noqa: BLE001
             child = None
@@ -3160,22 +3139,17 @@ class QualificationRunCoordinator:
                     )
                     for list_group_id in refreshed.get("targetGroupIds") or []
                 ]
-                sync_statuses = {
-                    str(group.get("status") or "failed") for group in sync_groups
-                }
-                if sync_statuses <= {"succeeded", "current"}:
-                    sync_status = "succeeded"
-                    sync_message = "公開用データも最新patchへ同期しました。"
-                    warning = False
-                else:
-                    sync_status = (
-                        "failed" if "failed" in sync_statuses else "blocked"
-                    )
-                    sync_message = (
+                artifact_sync = _artifact_sync_result(
+                    sync_groups,
+                    success_message="公開用データも最新patchへ同期しました。",
+                    incomplete_message=(
                         "公開用データの自動更新は完了できませんでした。"
                         "問題詳細又は管理機能から再生成できます。"
-                    )
-                    warning = True
+                    ),
+                )
+                sync_status = str(artifact_sync["status"])
+                sync_message = str(artifact_sync["message"])
+                warning = sync_status != "succeeded"
             elif refreshed.get("allowedPatchDirs"):
                 sync_groups = []
                 sync_status = "deferred"
@@ -3186,11 +3160,12 @@ class QualificationRunCoordinator:
                 sync_status = "not_required"
                 sync_message = ""
                 warning = False
-            artifact_sync = {
-                "status": sync_status,
-                "groups": sync_groups,
-                "message": sync_message,
-            }
+            if not (refreshed.get("allowedPatchDirs") and sync_artifacts):
+                artifact_sync = {
+                    "status": sync_status,
+                    "groups": sync_groups,
+                    "message": sync_message,
+                }
             refreshed = self.store.update(
                 qualification,
                 run_id,

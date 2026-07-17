@@ -86,7 +86,13 @@ def law_revision_current_verdict_issues(
         return issues
 
     if not isinstance(law_revision_facts, Mapping):
-        return []
+        return [
+            issue(
+                "law_audit_metadata_incomplete",
+                "lawRevisionFacts",
+                "現行法監査スナップショットがありません。",
+            )
+        ]
 
     field = "lawRevisionFacts.current.correctChoiceText"
     current = law_revision_facts.get("current")

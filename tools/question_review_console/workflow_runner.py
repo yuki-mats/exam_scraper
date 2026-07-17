@@ -12,10 +12,31 @@ from typing import Any, Callable, Mapping
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.firestore_readback import PRODUCTION_PROJECT_ID
 from tools.question_review_console.inventory import QuestionInventory
+from tools.question_review_console.law_audit_contract import LAW_AUDIT_ISSUES
+from tools.question_review_console.law_audit_quality import (
+    law_revision_current_verdict_issues,
+)
 from tools.question_review_console.projection import normalize_verdict
+from tools.question_review_console.work_versions import QuestionWorkVersionStore
+from tools.question_review_console.workflow_catalog import (
+    WorkflowCatalog,
+    policy_version_major,
+)
 
 
 LOCAL_STAGES = ("merge", "convert", "upload")
+STRICT_LAW_VALIDATION_STAGES = ("merged", "firestore")
+# Legacy law-audit facts predate verdict snapshots.  Work-version-aware sync
+# adds verdict matching only after the current 03b MAJOR has been validated.
+STRICT_LAW_VALIDATION_FLAGS = (
+    "--require-all-law-related",
+    "--fail-on-hold",
+    "--require-evidence-summary",
+    "--require-law-references",
+    "--require-current-correct-choice",
+    "--require-verified-law-references",
+    "--require-public-law-evidence",
+)
 LOCAL_STALE_ISSUES = {
     "merge_stale",
     "convert_stale",
@@ -86,6 +107,24 @@ def sync_after_patch_update(
                 "自動更新できませんでした。"
             ),
         }
+    strict_validation_warnings = list(
+        preview.get("strictValidationWarnings") or []
+    )
+    if strict_validation_warnings:
+        warning = strict_validation_warnings[0]
+        detail = str(warning.get("detail") or "")
+        field = str(warning.get("field") or "")
+        field_note = f"（対象field: {field}）" if field else ""
+        return {
+            "listGroupId": list_group_id,
+            "status": "blocked",
+            "message": (
+                "現行法監査済み問題に検証エラーがあるため"
+                f"自動更新できません（{len(strict_validation_warnings)}件）。"
+                + detail
+                + field_note
+            ),
+        }
     if preview.get("canSync") is False:
         return {
             "listGroupId": list_group_id,
@@ -153,6 +192,8 @@ class ArtifactSynchronizer:
         self.inventory = inventory
         self.secret = secret.encode("utf-8")
         self.command_runner = command_runner or self._run_command
+        self.work_versions = QuestionWorkVersionStore(self.repo_root)
+        self.workflow_catalog = WorkflowCatalog(self.repo_root)
 
     def preview(
         self, qualification: str, list_group_id: str, *, force: bool = False
@@ -183,12 +224,39 @@ class ArtifactSynchronizer:
             list_group_id,
             allow_missing_answer_result=allow_missing_answer_result,
         )
+        _law_questions, current_law_questions = self._law_audit_version_scope(group)
+        strict_validation_warnings = self._current_law_verdict_warnings(
+            current_law_questions
+        )
+        strict_validation_question_ids = self._strict_validation_question_ids(
+            current_law_questions
+        )
+        if len(strict_validation_question_ids) != len(current_law_questions):
+            strict_validation_warnings.append(
+                {
+                    "code": "law_audit_identity_missing",
+                    "questionId": "",
+                    "sourceQuestionKey": "",
+                    "field": "originalQuestionId",
+                    "detail": "現行法監査済み問題の元問題IDを確認できません。",
+                }
+            )
+        require_current_law_verdict = bool(current_law_questions)
+        strict_validation_stages = (
+            self._strict_validation_stages(group)
+            if require_current_law_verdict and not strict_validation_warnings
+            else []
+        )
         token_payload = {
             "qualification": qualification,
             "listGroupId": list_group_id,
             "fingerprint": group["fingerprint"],
             "sourceHash": self._source_hash(qualification, list_group_id),
             "command": command,
+            "strictValidationStages": strict_validation_stages,
+            "strictValidationQuestionIds": strict_validation_question_ids,
+            "requireCurrentLawVerdict": require_current_law_verdict,
+            "strictValidationWarnings": strict_validation_warnings,
             "force": force,
         }
         return {
@@ -197,10 +265,18 @@ class ArtifactSynchronizer:
             "listGroupId": list_group_id,
             "needsSync": force or not summary["localReady"],
             "force": force,
-            "canSync": not required_field_warnings and not failed_delta_paths,
+            "canSync": not (
+                required_field_warnings
+                or failed_delta_paths
+                or strict_validation_warnings
+            ),
             "requiredFieldWarnings": required_field_warnings,
             "failedDeltaPaths": failed_delta_paths,
             "allowMissingAnswerResult": allow_missing_answer_result,
+            "strictValidationStages": strict_validation_stages,
+            "strictValidationQuestionIds": strict_validation_question_ids,
+            "requireCurrentLawVerdict": require_current_law_verdict,
+            "strictValidationWarnings": strict_validation_warnings,
             "previewToken": self._token(token_payload),
         }
 
@@ -225,6 +301,15 @@ class ArtifactSynchronizer:
                 "失敗したCodex turnの未確定patchがあるため反映できません: "
                 + ", ".join(preview["failedDeltaPaths"][:10])
             )
+        if preview["strictValidationWarnings"]:
+            details = " ".join(
+                str(warning.get("detail") or "")
+                for warning in preview["strictValidationWarnings"][:5]
+            )
+            raise WorkflowError(
+                "現行法監査済み問題の正誤整合検証に失敗しました。"
+                + details
+            )
         if not preview["needsSync"]:
             return {**preview, "message": "ローカル成果物はすでに最新です。"}
 
@@ -245,6 +330,29 @@ class ArtifactSynchronizer:
             raise WorkflowError(f"成果物の同期に失敗しました（exit={return_code}）。")
         if source_before != self._source_hash(qualification, list_group_id):
             raise WorkflowError("同期中に00_sourceが変更されたため、結果を確定できません。")
+
+        for stage in preview["strictValidationStages"]:
+            emit(f"{list_group_id}: 法令成果物を厳格検証します（{stage}）。")
+            validation_code = self.command_runner(
+                self._strict_validation_command(
+                    qualification,
+                    list_group_id,
+                    stage=stage,
+                    original_question_ids=preview[
+                        "strictValidationQuestionIds"
+                    ],
+                ),
+                cwd=self.repo_root,
+                env=self._environment(),
+                emit=emit,
+            )
+            if validation_code != 0:
+                raise WorkflowError(
+                    "法令成果物の厳格検証に失敗しました"
+                    f"（stage={stage}, exit={validation_code}）。"
+                )
+        if source_before != self._source_hash(qualification, list_group_id):
+            raise WorkflowError("厳格検証中に00_sourceが変更されたため、結果を確定できません。")
 
         self.inventory.invalidate(qualification, list_group_id)
         updated = self.preview(qualification, list_group_id)
@@ -327,6 +435,162 @@ class ArtifactSynchronizer:
         ]
         if allow_missing_answer_result:
             command.append("--allow-missing-answer-result")
+        return command
+
+    @staticmethod
+    def _strict_validation_stages(group: Mapping[str, Any]) -> list[str]:
+        has_law_audit_data = any(
+            isinstance(question, Mapping)
+            and (
+                bool(set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES)
+                or (
+                    isinstance(question.get("projected"), Mapping)
+                    and (
+                        question["projected"].get("isLawRelated") is True
+                        or bool(question["projected"].get("lawReferences"))
+                        or bool(question["projected"].get("lawRevisionFacts"))
+                    )
+                )
+            )
+            for question in group.get("questions") or []
+        )
+        return list(STRICT_LAW_VALIDATION_STAGES) if has_law_audit_data else []
+
+    @staticmethod
+    def _law_related_questions(
+        group: Mapping[str, Any],
+    ) -> list[Mapping[str, Any]]:
+        return [
+            question
+            for question in group.get("questions") or []
+            if isinstance(question, Mapping)
+            and isinstance(question.get("projected"), Mapping)
+            and question["projected"].get("isLawRelated") is True
+        ]
+
+    def _law_audit_version_scope(
+        self,
+        group: Mapping[str, Any],
+    ) -> tuple[list[Mapping[str, Any]], list[Mapping[str, Any]]]:
+        law_questions = self._law_related_questions(group)
+        if not law_questions:
+            return [], []
+        try:
+            law_policy = next(
+                stage
+                for stage in self.workflow_catalog.load()["stages"]
+                if stage.get("id") == "law_audit"
+            )
+            current_major = policy_version_major(
+                law_policy.get("policyVersion"),
+                "law_audit.policyVersion",
+            )
+            current_questions = [
+                question
+                for question in law_questions
+                if self._recorded_law_audit_major(question) >= current_major
+            ]
+            return law_questions, current_questions
+        except (KeyError, OSError, StopIteration, TypeError, ValueError) as exc:
+            raise WorkflowError(
+                f"法令監査の作業バージョンを確認できません: {exc}"
+            ) from exc
+
+    @staticmethod
+    def _current_law_verdict_warnings(
+        questions: list[Mapping[str, Any]],
+    ) -> list[dict[str, str]]:
+        warnings: list[dict[str, str]] = []
+        for question in questions:
+            projected = question.get("projected")
+            if not isinstance(projected, Mapping):
+                continue
+            label = str(
+                question.get("questionLabel")
+                or question.get("originalQuestionId")
+                or question.get("id")
+                or "対象問題"
+            )
+            for issue in law_revision_current_verdict_issues(
+                correct_choice_text=projected.get("correctChoiceText"),
+                law_revision_facts=projected.get("lawRevisionFacts"),
+            ):
+                warnings.append(
+                    {
+                        "code": str(issue.get("code") or "law_audit_verdict_mismatch"),
+                        "questionId": str(question.get("id") or ""),
+                        "sourceQuestionKey": str(
+                            question.get("sourceQuestionKey") or ""
+                        ),
+                        "field": str(issue.get("field") or "lawRevisionFacts"),
+                        "detail": f"{label}: {issue.get('detail') or ''}",
+                    }
+                )
+        return warnings
+
+    @staticmethod
+    def _strict_validation_question_ids(
+        questions: list[Mapping[str, Any]],
+    ) -> list[str]:
+        values: list[str] = []
+        for question in questions:
+            projected = question.get("projected")
+            projected = projected if isinstance(projected, Mapping) else {}
+            value = str(
+                question.get("originalQuestionId")
+                or projected.get("originalQuestionId")
+                or projected.get("original_question_id")
+                or projected.get("public_question_id")
+                or ""
+            ).strip()
+            if value and value not in values:
+                values.append(value)
+        return values
+
+    def _recorded_law_audit_major(self, question: Mapping[str, Any]) -> int:
+        record = self.work_versions.record_for(question)
+        stages = record.get("stages") if isinstance(record, Mapping) else None
+        law_audit = stages.get("law_audit") if isinstance(stages, Mapping) else None
+        if not isinstance(law_audit, Mapping):
+            return 0
+        return policy_version_major(
+            law_audit.get("version", "0.0"),
+            "recorded.law_audit.version",
+        )
+
+    def _strict_validation_command(
+        self,
+        qualification: str,
+        list_group_id: str,
+        *,
+        stage: str,
+        original_question_ids: list[str],
+    ) -> list[str]:
+        if stage not in STRICT_LAW_VALIDATION_STAGES:
+            raise WorkflowError(f"未対応の厳格検証stageです: {stage}")
+        list_group_dir = (
+            self.repo_root
+            / "output"
+            / qualification
+            / "questions_json"
+            / list_group_id
+        )
+        command = [
+            sys.executable,
+            str(
+                self.repo_root
+                / "scripts"
+                / "check"
+                / "check_law_revision_fact_coverage.py"
+            ),
+            "--list-group-dir",
+            str(list_group_dir),
+            "--stage",
+            stage,
+            *STRICT_LAW_VALIDATION_FLAGS,
+        ]
+        for question_id in original_question_ids:
+            command.extend(("--original-question-id", question_id))
         return command
 
     @staticmethod

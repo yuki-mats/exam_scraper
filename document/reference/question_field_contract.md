@@ -106,7 +106,7 @@
 | 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
 | 法令問題フラグ | `isLawRelated` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 法令・政令・省令・告示・通達・制度上の義務/定義/手続/基準が、正誤判断または学習上の主要理解に関係する場合に true。年次03b監査の抽出軸。 |
 | 法令根拠不要フラグ | `lawGroundedExplanationNotNeeded` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 旧「条文に基づき解説」導線との互換フラグ。原則 `!isLawRelated` にする。AI解説・条文確認の正本ではなく、app 側では import/read 互換フィールド扱い。 |
-| 法令根拠監査 | `lawRevisionFacts` | object | 任意 | 法令問題では03b以降に推奨/年次監査では必須 | 可 | 後述の `lawRevisionFacts` 契約に従う。 | `03b`, `21_explanationText_added`, convert | 法令関連問題の監査済み根拠・出題当時/現行法差分・AI prompt 用根拠要約。基本解説と自由質問 AI の正本。 |
+| 法令根拠監査 | `lawRevisionFacts` | object / array<object> | 任意 | 法令問題では03b以降に推奨/年次監査では必須 | 可 | patch・mergedでは選択肢単位の配列又はquestion-level object、Firestoreではobject。詳細は後述。 | `03b`, `21_explanationText_added`, convert | 法令関連問題の監査済み根拠・出題当時/現行法差分・AI prompt 用根拠要約。基本解説と自由質問 AI の正本。 |
 | 解説画像URL | `explanationImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | Storage upload / app | 解説画像がある場合だけ。 |
 | 解説画像パス | `explanationImagePaths` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / migration | 同上。 |
 | ヒント本文 | `hintText` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 公式過去問では基本解説優先。 |

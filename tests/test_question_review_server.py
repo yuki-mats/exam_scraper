@@ -17,6 +17,85 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_manual_patch_sync_forces_regeneration_even_when_current(self):
+        class Synchronizer:
+            def __init__(self):
+                self.preview_forces = []
+                self.run_forces = []
+
+            def preview(self, qualification, list_group_id, *, force=False):
+                self.preview_forces.append(force)
+                return {
+                    "previewToken": "token",
+                    "canSync": True,
+                    "failedDeltaPaths": [],
+                }
+
+            def run(
+                self, qualification, list_group_id, token, emit, *, force=False
+            ):
+                self.run_forces.append(force)
+                return {"message": "再生成しました。"}
+
+        class DeferredJobs:
+            def start(self, *, kind, key, worker):
+                self.worker = worker
+                return {"jobId": "job-1", "status": "queued"}
+
+        class Inventory:
+            def group(self, qualification, list_group_id):
+                return {"questions": []}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            synchronizer = Synchronizer()
+            jobs = DeferredJobs()
+            app.synchronizer = synchronizer
+            app.jobs = jobs
+            app.inventory = Inventory()
+
+            preview_status, preview = app.post(
+                "/api/groups/sample/2026/sync-preview", {}
+            )
+            sync_status, _job = app.post(
+                "/api/groups/sample/2026/sync",
+                {"previewToken": preview["previewToken"]},
+            )
+            jobs.worker(lambda _message: None)
+
+        self.assertEqual((preview_status, sync_status), (200, 202))
+        self.assertEqual(synchronizer.preview_forces, [True, True])
+        self.assertEqual(synchronizer.run_forces, [True])
+
+    def test_manual_sync_reports_strict_law_validation_reason(self):
+        class Synchronizer:
+            def preview(self, qualification, list_group_id, *, force=False):
+                return {
+                    "previewToken": "token",
+                    "canSync": False,
+                    "failedDeltaPaths": [],
+                    "strictValidationWarnings": [
+                        {
+                            "field": "lawRevisionFacts",
+                            "detail": "問1: 現行法監査スナップショットがありません。",
+                        }
+                    ],
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.synchronizer = Synchronizer()
+
+            with self.assertRaises(ApiError) as caught:
+                app.post(
+                    "/api/groups/sample/2026/sync",
+                    {"previewToken": "token"},
+                )
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("問1", str(caught.exception))
+        self.assertIn("現行法監査スナップショット", str(caught.exception))
+
     def test_direct_patch_edit_automatically_regenerates_publication_artifacts(self):
         class Editor:
             def apply(self, *args):

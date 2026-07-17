@@ -13,6 +13,7 @@ from scripts.merge.merge_utils import (
     source_stem_from_patch_filename,
 )
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
+from tools.question_review_console.law_audit_contract import LAW_AUDIT_ISSUES
 from tools.question_review_console.prompt_builder import (
     law_audit_classification_safety_contract,
 )
@@ -26,12 +27,6 @@ from tools.question_review_console.work_versions import (
     policy_fingerprint,
 )
 
-LAW_AUDIT_ISSUES = {
-    "law_audit_metadata_incomplete",
-    "law_audit_verdict_mismatch",
-    "law_hold",
-    "law_basis_missing",
-}
 RUN_MODES = {
     "group_refresh": "選択範囲を全件洗い替え",
     "remaining": "未作業のみ",

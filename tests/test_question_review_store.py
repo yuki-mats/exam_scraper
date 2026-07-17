@@ -20,6 +20,7 @@ class QuestionReviewStoreTests(unittest.TestCase):
         }
         reviews = [
             {"fields": ["isLawRelated"]},
+            {"selection": {"fields": ["lawRevisionFacts.current.correctChoiceText"]}},
             {"requestKind": "qualification_law_audit"},
             {
                 "requestKind": "evaluation_rework",

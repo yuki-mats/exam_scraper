@@ -4,23 +4,11 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
-
-LAW_AUDIT_ISSUES = {
-    "law_audit_metadata_incomplete",
-    "law_audit_verdict_mismatch",
-    "law_hold",
-    "law_basis_missing",
-}
-
-LAW_AUDIT_REQUIRED_REPAIR_FIELDS = (
-    "explanationText",
-    "suggestedQuestions",
-    "suggestedQuestionDetails",
-    "lawReferences",
-    "lawRevisionFacts",
+from tools.question_review_console.law_audit_contract import (
+    LAW_AUDIT_REQUIRED_REPAIR_FIELDS,
+    QUALIFICATION_LAW_AUDIT_REQUEST,
+    is_law_audit_review,
 )
-
-QUALIFICATION_LAW_AUDIT_REQUEST = "qualification_law_audit"
 
 
 def law_audit_classification_safety_contract(
@@ -78,34 +66,6 @@ def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
             )
         )
     return "\n".join(lines).strip()
-
-
-def is_law_audit_review(review: Mapping[str, Any]) -> bool:
-    if review.get("requestKind") == QUALIFICATION_LAW_AUDIT_REQUEST:
-        return True
-    issue_types = {str(value) for value in review.get("issueTypes") or []}
-    fields = {str(value) for value in review.get("fields") or []}
-    selection = review.get("selection") or {}
-    selection_fields = {
-        str(value) for value in selection.get("fields") or []
-    } if isinstance(selection, Mapping) else set()
-    evaluation_snapshot = review.get("evaluationSnapshot")
-    rework_items = (
-        evaluation_snapshot.get("reworkItems")
-        if isinstance(evaluation_snapshot, Mapping)
-        else []
-    )
-    return (
-        bool(issue_types & LAW_AUDIT_ISSUES)
-        or any(
-            field.startswith(("law", "isLawRelated"))
-            for field in fields | selection_fields
-        )
-        or any(
-            isinstance(item, Mapping) and str(item.get("stage") or "") == "03b"
-            for item in rework_items or []
-        )
-    )
 
 
 def normalize_law_audit_review_fields(

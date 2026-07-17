@@ -342,6 +342,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run.idle { border-color: var(--line); background: var(--surface-muted); box-shadow: inset 4px 0 0 #9aa4ae; }
 .qualification-active-run.failed, .qualification-active-run.interrupted { border-color: #e2aaa5; background: var(--red-bg); box-shadow: inset 4px 0 0 var(--red); }
 .qualification-active-run.succeeded { border-color: #b8dec7; background: var(--green-bg); box-shadow: inset 4px 0 0 var(--green); }
+.qualification-active-run.artifact-pending { border-color: #e2c880; background: var(--amber-bg); box-shadow: inset 4px 0 0 var(--amber); }
 .qualification-active-run-head { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .qualification-active-run-head > div { min-width: 0; display: grid; gap: 4px; }
 .qualification-active-run-eyebrow { color: var(--text-muted); font-size: 10px; font-weight: 800; }
@@ -366,6 +367,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run-meter { height: 5px; overflow: hidden; border-radius: 999px; background: #dfe5ea; }
 .qualification-active-run-meter > span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--blue); transition: width 240ms ease; }
 .qualification-active-run.succeeded .qualification-active-run-meter > span { background: var(--green); }
+.qualification-active-run.artifact-pending .qualification-active-run-meter > span { background: var(--amber); }
 .qualification-active-run.failed .qualification-active-run-meter > span, .qualification-active-run.interrupted .qualification-active-run-meter > span, .qualification-active-run.invalidated .qualification-active-run-meter > span { background: var(--red); }
 .qualification-active-run-error { padding: 8px 10px; border-left: 3px solid var(--red); background: #fff; color: #672824; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
 .qualification-active-run-error[hidden] { display: none; }
@@ -375,6 +377,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .run-status.idle { color: var(--text-muted); }
 .run-status.interrupted, .run-status.failed, .run-status.invalidated { color: var(--red); }
 .run-status.succeeded { color: var(--green); }
+.run-status.artifact-pending { color: var(--amber); }
 .qualification-run-history { margin: 7px -16px -10px; border-top: 1px solid var(--line); background: #fff; }
 .qualification-run-history[hidden] { display: none; }
 .qualification-run-history > summary { padding: 7px 16px; color: #46515c; font-size: 10px; font-weight: 750; }

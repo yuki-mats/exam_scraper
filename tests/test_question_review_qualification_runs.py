@@ -247,6 +247,20 @@ class FailingAppServer:
         raise RuntimeError("turn crashed")
 
 
+class ConfiguredAppServer:
+    configured = True
+    provider = "Codex App Server"
+
+    def assert_subscription_access(self, *, force=True):
+        return {"allowed": True, "planType": "pro"}
+
+
+class DeferredJobs:
+    def start(self, *, kind, key, worker):
+        self.worker = worker
+        return {"jobId": "job-deferred", "status": "queued"}
+
+
 class FlowAppServer:
     configured = True
     provider = "Codex App Server"
@@ -970,18 +984,6 @@ class QualificationRunTests(unittest.TestCase):
                 )
 
     def test_rework_writable_roots_follow_structured_evaluation_stages(self):
-        class FakeAppServer:
-            configured = True
-            provider = "Codex App Server"
-
-            def assert_subscription_access(self, *, force=True):
-                return {"allowed": True, "planType": "pro"}
-
-        class DeferredJobs:
-            def start(self, *, kind, key, worker):
-                self.worker = worker
-                return {"jobId": "job-deferred", "status": "queued"}
-
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
             coordinator = QualificationRunCoordinator(
@@ -990,7 +992,7 @@ class QualificationRunTests(unittest.TestCase):
                 FakeSynchronizer(),
                 DeferredJobs(),
                 "secret",
-                app_server=FakeAppServer(),
+                app_server=ConfiguredAppServer(),
             )
             started = coordinator.start_review(
                 {
@@ -1034,18 +1036,6 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(run["writeWorkerLimit"], 1)
 
     def test_qualification_law_audit_preserves_trusted_sources_and_record_scope(self):
-        class FakeAppServer:
-            configured = True
-            provider = "Codex App Server"
-
-            def assert_subscription_access(self, *, force=True):
-                return {"allowed": True, "planType": "pro"}
-
-        class DeferredJobs:
-            def start(self, *, kind, key, worker):
-                self.worker = worker
-                return {"jobId": "job-deferred", "status": "queued"}
-
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -1054,7 +1044,7 @@ class QualificationRunTests(unittest.TestCase):
                 FakeSynchronizer(),
                 DeferredJobs(),
                 "secret",
-                app_server=FakeAppServer(),
+                app_server=ConfiguredAppServer(),
             )
             source_files = [
                 "output/sample/questions_json/2026/00_source/q1.json",
@@ -1120,18 +1110,6 @@ class QualificationRunTests(unittest.TestCase):
         )
 
     def test_current_question_law_hold_scopes_every_allowed_record_file(self):
-        class FakeAppServer:
-            configured = True
-            provider = "Codex App Server"
-
-            def assert_subscription_access(self, *, force=True):
-                return {"allowed": True, "planType": "pro"}
-
-        class DeferredJobs:
-            def start(self, *, kind, key, worker):
-                self.worker = worker
-                return {"jobId": "job-deferred", "status": "queued"}
-
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -1140,7 +1118,7 @@ class QualificationRunTests(unittest.TestCase):
                 FakeSynchronizer(),
                 DeferredJobs(),
                 "secret",
-                app_server=FakeAppServer(),
+                app_server=ConfiguredAppServer(),
             )
             started = coordinator.start_review(
                 {
@@ -1188,18 +1166,6 @@ class QualificationRunTests(unittest.TestCase):
         )
 
     def test_post_fix_law_fields_preserve_law_audit_contract_and_failed_delta(self):
-        class FakeAppServer:
-            configured = True
-            provider = "Codex App Server"
-
-            def assert_subscription_access(self, *, force=True):
-                return {"allowed": True, "planType": "pro"}
-
-        class DeferredJobs:
-            def start(self, *, kind, key, worker):
-                self.worker = worker
-                return {"jobId": "job-deferred", "status": "queued"}
-
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -1208,7 +1174,7 @@ class QualificationRunTests(unittest.TestCase):
                 FakeSynchronizer(),
                 DeferredJobs(),
                 "secret",
-                app_server=FakeAppServer(),
+                app_server=ConfiguredAppServer(),
             )
             question = {
                 "id": "question-1",
@@ -3246,10 +3212,80 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(recent["runs"][0]["runId"], run["runId"])
         self.assertTrue(all(not item.get("parentRunId") for item in recent["runs"]))
 
-    def test_flow_phase_recomputes_failed_delta_after_specializing_work_type(self):
-        class FakeAppServer:
-            provider = "Codex App Server"
+    def test_top_maintenance_keeps_validated_work_when_final_sync_is_blocked(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            synchronizer = FakeSynchronizer()
+            synchronizer.local_ready = False
+            synchronizer.can_sync = False
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                synchronizer,
+                JobManager(),
+                "secret",
+            )
+            parent_plan = FakeWorkflow().plan("sample", "law_audit")
+            parent_plan.update(
+                {
+                    "stageId": "multi",
+                    "stageIds": ["law_audit"],
+                    "stageCode": "03b",
+                    "stageLabel": "トップ整備",
+                    "workType": "maintenance_flow",
+                    "phaseExecutions": [
+                        {
+                            "id": "law_audit",
+                            "index": 0,
+                            "label": "現行法監査",
+                            "stageIds": ["law_audit"],
+                            "stageCodes": ["03b"],
+                            "status": "pending",
+                        }
+                    ],
+                }
+            )
+            parent = coordinator.store.create(parent_plan, status="queued")
+            phase_plan = FakeWorkflow().plan("sample", "law_audit")
+            phase_plan.update(
+                {
+                    "workType": "maintenance_law_audit",
+                    "parentRunId": parent["runId"],
+                    "flowPhaseId": "law_audit",
+                    "phaseIndex": 0,
+                }
+            )
+            coordinator._flow_phase_plan_prompt = (
+                lambda _parent, _phase: (phase_plan, "phase prompt")
+            )
 
+            def complete_child(qualification, run_id, *_args, **_kwargs):
+                coordinator.store.update(
+                    qualification,
+                    run_id,
+                    status="succeeded",
+                    receiptValidated=True,
+                    workVersionReceipt={"recordedCount": 3},
+                    artifactSync={"status": "deferred", "groups": []},
+                )
+
+            coordinator._run_human = complete_child
+
+            result = coordinator._run_maintenance_flow(
+                "sample", parent["runId"], lambda _message: None
+            )
+            run = coordinator.store.refresh("sample", parent["runId"])
+
+        self.assertTrue(result["warning"])
+        self.assertEqual(result["artifactSync"]["status"], "blocked")
+        self.assertEqual(run["status"], "succeeded")
+        self.assertTrue(run["receiptValidated"])
+        self.assertEqual(run["artifactSync"]["status"], "blocked")
+        self.assertIsNone(run["receiptError"])
+        self.assertIsNone(run["error"])
+        self.assertEqual(synchronizer.calls, [])
+
+    def test_flow_phase_recomputes_failed_delta_after_specializing_work_type(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator = QualificationRunCoordinator(
                 Path(directory),
@@ -3257,7 +3293,7 @@ class QualificationRunTests(unittest.TestCase):
                 FakeSynchronizer(),
                 JobManager(),
                 "secret",
-                app_server=FakeAppServer(),
+                app_server=ConfiguredAppServer(),
             )
             coordinator._plan = lambda *_args, **_kwargs: {
                 "targetCount": 1,
@@ -3293,9 +3329,6 @@ class QualificationRunTests(unittest.TestCase):
         )
 
     def test_flow_phase_promotes_to_group_refresh_for_failed_aggregate_delta(self):
-        class FakeAppServer:
-            provider = "Codex App Server"
-
         class ScopedWorkflow(FakeWorkflow):
             def prompt(self, qualification, stage_id, mode="remaining", **_scope):
                 return {
@@ -3313,7 +3346,7 @@ class QualificationRunTests(unittest.TestCase):
                 FakeSynchronizer(),
                 JobManager(),
                 "secret",
-                app_server=FakeAppServer(),
+                app_server=ConfiguredAppServer(),
             )
 
             def phase_plan(_qualification, _stage_id, mode, _resumed, **_scope):

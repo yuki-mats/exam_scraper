@@ -14,6 +14,7 @@ from tools.question_review_console.workflow_runner import (
     WorkflowError,
     sync_after_patch_update,
 )
+from tools.question_review_console.work_versions import QuestionWorkVersionStore
 
 
 class FakeInventory:
@@ -79,6 +80,67 @@ def upload_document():
         "isChoiceOnly": False,
         "isGroupable": False,
     }
+
+
+def sync_group_fixture(root: Path, *, is_law_related: bool):
+    source_dir = (
+        root
+        / "output"
+        / "sample-exam"
+        / "questions_json"
+        / "2026"
+        / "00_source"
+    )
+    source_dir.mkdir(parents=True)
+    (source_dir / "question.json").write_text("{}", encoding="utf-8")
+    group = group_payload(
+        {"merge": "stale", "convert": "stale", "upload": "missing"}
+    )
+    group["questions"][0]["projected"] = {
+        "answer_result_text": "正しい",
+        "choiceTextList": ["A"],
+        "correctChoiceText": ["正しい"],
+        "isLawRelated": is_law_related,
+    }
+    if is_law_related:
+        group["questions"][0]["projected"]["lawRevisionFacts"] = [
+            {"current": {"correctChoiceText": "正しい"}}
+        ]
+    group["questions"][0].update(
+        {
+            "id": "question-1",
+            "reviewKey": "sample-exam:2026:question-1",
+            "qualification": "sample-exam",
+            "listGroupId": "2026",
+            "originalQuestionId": "source-q1",
+        }
+    )
+    return group
+
+
+def record_law_audit_version(root: Path, group, version: str, *, questions=None):
+    QuestionWorkVersionStore(root).record_stage(
+        list(questions or group["questions"]),
+        {
+            "id": "law_audit",
+            "policyVersion": "2.0",
+            "policyFingerprint": "law-audit-policy",
+        },
+        run_id="law-audit-run" if version != "0.0" else None,
+        source=(
+            "validated_run"
+            if version != "0.0"
+            else "firestore_published_backfill"
+        ),
+        version=version,
+    )
+
+
+def mark_group_synced(group):
+    for question in group["questions"]:
+        for stage in ("merge", "convert", "upload"):
+            question["workflow"][stage] = "match"
+    group["fingerprint"] = "fingerprint-2"
 
 
 class ArtifactSynchronizerTests(unittest.TestCase):
@@ -333,6 +395,174 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         self.assertIn("--skip-update-category-counts", commands[0])
         self.assertIn("--upload-dry-run", commands[0])
         self.assertIn("--allow-missing-answer-result", commands[0])
+        self.assertEqual(len(commands), 1)
+
+    def test_runs_strict_law_validation_after_upload_dry_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = sync_group_fixture(root, is_law_related=True)
+            record_law_audit_version(root, group, "2.0")
+            commands = []
+
+            def run(command, *, cwd, env, emit):
+                commands.append(command)
+                if command[1].endswith("prepare_firestore_upload.py"):
+                    mark_group_synced(group)
+                return 0
+
+            synchronizer = ArtifactSynchronizer(
+                root, FakeInventory(group), "secret", command_runner=run
+            )
+            preview = synchronizer.preview("sample-exam", "2026")
+            result = synchronizer.run(
+                "sample-exam", "2026", preview["previewToken"], lambda _: None
+            )
+
+        self.assertTrue(result["localReady"])
+        self.assertEqual(len(commands), 3)
+        self.assertTrue(commands[0][1].endswith("prepare_firestore_upload.py"))
+        self.assertTrue(
+            commands[1][1].endswith("check_law_revision_fact_coverage.py")
+        )
+        self.assertEqual(
+            [
+                commands[1][commands[1].index("--stage") + 1],
+                commands[2][commands[2].index("--stage") + 1],
+            ],
+            ["merged", "firestore"],
+        )
+        for command in commands[1:]:
+            self.assertIn("--require-all-law-related", command)
+            self.assertIn("--fail-on-hold", command)
+            self.assertIn("--require-evidence-summary", command)
+            self.assertIn("--require-law-references", command)
+            self.assertIn("--require-current-correct-choice", command)
+            self.assertIn("--require-verified-law-references", command)
+            self.assertIn("--require-public-law-evidence", command)
+            self.assertEqual(
+                command[command.index("--original-question-id") + 1],
+                "source-q1",
+            )
+
+    def test_blocks_current_law_audit_mismatch_before_artifact_sync(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = sync_group_fixture(root, is_law_related=True)
+            record_law_audit_version(root, group, "2.0")
+            projected = group["questions"][0]["projected"]
+            projected["correctChoiceText"] = ["間違い"]
+            commands = []
+
+            def run(command, *, cwd, env, emit):
+                commands.append(command)
+                return 0
+
+            synchronizer = ArtifactSynchronizer(
+                root, FakeInventory(group), "secret", command_runner=run
+            )
+
+            result = sync_after_patch_update(
+                synchronizer,
+                "sample-exam",
+                "2026",
+                lambda _: None,
+            )
+
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("一致しません", result["message"])
+        self.assertEqual(commands, [])
+
+    def test_blocks_missing_facts_for_current_law_audit_before_sync(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = sync_group_fixture(root, is_law_related=True)
+            record_law_audit_version(root, group, "2.0")
+            group["questions"][0]["projected"].pop("lawRevisionFacts")
+            synchronizer = ArtifactSynchronizer(
+                root,
+                FakeInventory(group),
+                "secret",
+                command_runner=lambda *_args, **_kwargs: 0,
+            )
+
+            result = sync_after_patch_update(
+                synchronizer,
+                "sample-exam",
+                "2026",
+                lambda _: None,
+            )
+
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("lawRevisionFacts", result["message"])
+
+    def test_legacy_law_audit_keeps_current_verdict_compatibility(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = sync_group_fixture(root, is_law_related=True)
+            record_law_audit_version(root, group, "0.0")
+            commands = []
+
+            def run(command, *, cwd, env, emit):
+                commands.append(command)
+                if command[1].endswith("prepare_firestore_upload.py"):
+                    mark_group_synced(group)
+                return 0
+
+            synchronizer = ArtifactSynchronizer(
+                root, FakeInventory(group), "secret", command_runner=run
+            )
+            preview = synchronizer.preview("sample-exam", "2026")
+            result = synchronizer.run(
+                "sample-exam", "2026", preview["previewToken"], lambda _: None
+            )
+
+        self.assertTrue(result["localReady"])
+        self.assertFalse(result["requireCurrentLawVerdict"])
+        self.assertEqual(result["strictValidationStages"], [])
+        self.assertEqual(len(commands), 1)
+
+    def test_mixed_law_audit_versions_validate_modern_without_blocking_legacy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = sync_group_fixture(root, is_law_related=True)
+            modern = group["questions"][0]
+            legacy = copy.deepcopy(modern)
+            legacy.update(
+                {
+                    "id": "question-2",
+                    "reviewKey": "sample-exam:2026:question-2",
+                    "originalQuestionId": "source-q2",
+                }
+            )
+            group["questions"].append(legacy)
+            record_law_audit_version(root, group, "2.0", questions=[modern])
+            record_law_audit_version(root, group, "0.0", questions=[legacy])
+            commands = []
+
+            def run(command, *, cwd, env, emit):
+                commands.append(command)
+                if command[1].endswith("prepare_firestore_upload.py"):
+                    mark_group_synced(group)
+                return 0
+
+            synchronizer = ArtifactSynchronizer(
+                root, FakeInventory(group), "secret", command_runner=run
+            )
+            preview = synchronizer.preview("sample-exam", "2026")
+            result = synchronizer.run(
+                "sample-exam", "2026", preview["previewToken"], lambda _: None
+            )
+
+        self.assertEqual(preview["strictValidationWarnings"], [])
+        self.assertTrue(result["requireCurrentLawVerdict"])
+        self.assertEqual(result["strictValidationStages"], ["merged", "firestore"])
+        self.assertEqual(result["strictValidationQuestionIds"], ["source-q1"])
+        self.assertTrue(result["localReady"])
+        self.assertEqual(len(commands), 3)
+        for command in commands[1:]:
+            self.assertIn("--original-question-id", command)
+            self.assertIn("source-q1", command)
+            self.assertNotIn("source-q2", command)
 
     def test_refreshes_only_merged_views_between_sessions(self):
         class RefreshingInventory(FakeInventory):
