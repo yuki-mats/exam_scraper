@@ -65,7 +65,7 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
 - GUIの開始範囲は資格・年度（回）・工程のままとし、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と工程の組へ分解する。一問だけ残る場合も同じqueueを使う。03cの分類準備だけは資格全体の前提工程とする。
-- 各問の判断案は隔離したread-only threadで上限付き並列準備する。patch、検証receipt、作業版は単一のworkspace-write threadが一問・一工程ずつ直列に確定する。
+- 各問の判断案は隔離したread-only threadで最大2問まで準備し、準備できた問から単一のworkspace-write threadが一問・一工程ずつpatch、検証receipt、作業版を確定する。
 - 一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。再計画で対象外になった工程は`not_applicable`で完了させ、未確定のまま残さない。年度別mergeの失敗も、その年度の後続だけを保留する。
 - `保留問を再実行`は同じ範囲と工程を引き継ぐ。確定済みで入力・方針fingerprintが一致するitemだけを飛ばし、保留・中断・入力変更itemを再queueする。工程間mergeが未完了なら、その年度だけを先に再mergeする。ただしrollback又は残存差分を確認できないrunは再開させない。
 

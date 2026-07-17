@@ -226,9 +226,31 @@ def _natural_parts(value: Any) -> tuple[tuple[int, Any], ...]:
     )
 
 
+def _source_logical_question_id(question: Mapping[str, Any]) -> str:
+    source = question.get("source")
+    source = source if isinstance(source, Mapping) else {}
+    projected = question.get("projected")
+    projected = projected if isinstance(projected, Mapping) else {}
+    for record in (source, question, projected):
+        for field in (
+            "originalQuestionId",
+            "original_question_id",
+            "sourceQuestionId",
+            "source_question_id",
+            "sourceQuestionKey",
+        ):
+            value = str(record.get(field) or "").strip()
+            if value:
+                return value
+    return ""
+
+
 def _progress_sort_key(question: Mapping[str, Any]) -> tuple[Any, ...]:
+    logical_id = _source_logical_question_id(question)
     return (
         _natural_parts(question.get("listGroupId")),
+        0 if logical_id else 1,
+        _natural_parts(logical_id),
         _natural_parts(question.get("sourceStem")),
         int(question.get("sourceIndex") or 0),
         _natural_parts(question.get("questionLabel")),

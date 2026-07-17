@@ -107,6 +107,43 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_plan_orders_progress_by_source_logical_id_naturally(self):
+        items = []
+        for unique_number, logical_id, label, category in (
+            (10, "sample-subject-a-10", "問10", "科目A"),
+            (101, "sample-subject-b-1", "問1", "科目B"),
+            (2, "sample-subject-a-2", "問2", "科目A"),
+            (1, "sample-subject-a-1", "問1", "科目A"),
+        ):
+            item = question(question_number=unique_number)
+            item["sourceStem"] = "source-file"
+            item["sourceIndex"] = 0
+            item["questionLabel"] = label
+            item["source"].update(
+                originalQuestionId=logical_id,
+                original_question_id=logical_id,
+                questionLabel=label,
+                category=category,
+            )
+            items.append(item)
+        group = {"listGroupId": "2026", "questions": items}
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory("sample", [group]),
+            )
+            plan = workflow.plan("sample", "question_type", "refresh")
+
+        self.assertEqual(
+            [target["displayLabel"] for target in plan["progressTargets"]],
+            ["科目A 問1", "科目A 問2", "科目A 問10", "科目B 問1"],
+        )
+        self.assertEqual(
+            [target["displayOrder"] for target in plan["progressTargets"]],
+            [1, 2, 3, 4],
+        )
+
     def test_plan_blocks_only_stage_with_unmatched_selected_artifact(self):
         item = question()
         group = {

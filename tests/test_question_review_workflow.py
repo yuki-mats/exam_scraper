@@ -1,5 +1,6 @@
 import copy
 import json
+import subprocess
 import tempfile
 import threading
 import time
@@ -895,6 +896,146 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_progress_helpers_execute_queue_priority_legacy_states_and_run_binding(self):
+        root = Path(__file__).resolve().parents[1]
+        app = root / "tools/question_review_console/static/app.js"
+        script = r"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const helpers = source.slice(
+  source.indexOf("function progressDisplayLabel"),
+  source.indexOf("function progressResultEntry"),
+);
+const viewState = source.slice(
+  source.indexOf("function qualificationRunViewState"),
+  source.indexOf("function renderQualificationRunPhases"),
+);
+const api = new Function(`
+  const state = { qualificationActiveRun: null, qualificationRunProgress: null };
+  const QUALIFICATION_RUN_STATUS_LABELS = {};
+  function artifactSyncNeedsAttention() { return false; }
+  ${helpers}
+  ${viewState}
+  return {
+    progressQuestionQueueState,
+    progressCurrentQuestion,
+    qualificationRunProgressForRun,
+    qualificationRunViewState,
+  };
+`)();
+
+const questions = [
+  { questionId: "prepared", targetIndex: 1, queueStatus: "prepared", displayLabel: "準備済み" },
+  { questionId: "preparing", targetIndex: 2, queueStatus: "preparing", displayLabel: "準備中" },
+  { questionId: "committing", targetIndex: 3, queueStatus: "committing", displayLabel: "書込対象" },
+];
+const progress = {
+  runId: "run-a",
+  questions,
+  current: { questionId: "stale", displayLabel: "古いイベント" },
+  targetQuestionCount: 3,
+  targetWorkItemCount: 3,
+};
+assert.equal(api.progressCurrentQuestion(progress).questionId, "committing");
+const view = api.qualificationRunViewState(
+  { runId: "run-a", status: "running", targetCount: 3, workItemCount: 3 },
+  progress,
+);
+assert.match(view.summary, /書込対象・書込中/);
+
+assert.deepEqual(
+  api.progressQuestionQueueState({ approvalState: "processed_unverified", stageLabel: "解説" }),
+  {
+    status: "unverified",
+    fromQueue: false,
+    label: "未承認",
+    description: "この問題の工程結果はありますが、完了検証前です。",
+  },
+);
+assert.equal(
+  api.progressQuestionQueueState({ approvalState: "failed_unapproved", stageLabel: "解説" }).status,
+  "failed",
+);
+assert.equal(
+  api.progressQuestionQueueState({ approvalState: "failed_unapproved", stageLabel: "解説" }).label,
+  "失敗・未承認",
+);
+assert.equal(
+  api.progressQuestionQueueState({ approvalState: "working", event: "question_started" }).status,
+  "preparing",
+);
+assert.equal(
+  api.progressQuestionQueueState({ approvalState: "working", stageLabel: "解説" }).label,
+  "準備中",
+);
+assert.equal(
+  api.progressCurrentQuestion({ questions: [], current: { questionId: "legacy" } }).questionId,
+  "legacy",
+);
+
+assert.equal(api.qualificationRunProgressForRun({ runId: "run-b" }, "run-a"), null);
+const matching = { runId: "run-a" };
+assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
+"""
+        subprocess.run(
+            ["node", "-e", script, str(app)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    def test_question_progress_uses_backend_queue_states_without_counting_targets_as_done(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        queue_state = javascript.split(
+            "function progressQuestionQueueState", 1
+        )[1].split("function progressResultEntry", 1)[0]
+        progress_renderer = javascript.split(
+            "function renderQualificationRunProgress", 1
+        )[1].split("function progressVerdictParts", 1)[0]
+
+        for status, label in (
+            ("queued", "待機中"),
+            ("preparing", "準備中"),
+            ("prepared", "書込待ち"),
+            ("committing", "書込中"),
+            ("validated", "完了"),
+            ("blocked", "保留"),
+        ):
+            self.assertIn(status, queue_state)
+            self.assertIn(label, queue_state)
+        self.assertIn("event?.queueStatus", queue_state)
+        self.assertIn("progressQuestionQueueState(question)", progress_renderer)
+        self.assertIn("問題ごとの進捗（対象${target}問）", progress_renderer)
+        self.assertNotIn("${visibleQuestions.length}/${target}問", progress_renderer)
+
+    def test_job_summary_loss_falls_back_to_durable_run_progress(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        poller = javascript.split(
+            "async function pollQualificationRunJob", 1
+        )[1].split("function retryBlockedQualificationRun", 1)[0]
+
+        self.assertIn("Promise.allSettled", poller)
+        self.assertIn('jobResult.status === "rejected"', poller)
+        self.assertIn("await loadQualificationRuns()", poller)
+        self.assertIn("await loadQualificationRunProgress(durableRun.runId)", poller)
+        self.assertIn(
+            "qualificationRunProgressForRun(refreshedProgress, durableRun.runId)",
+            poller,
+        )
+        self.assertIn(
+            "qualificationRunProgressForRun(state.qualificationRunProgress, durableRun.runId)",
+            poller,
+        )
+        self.assertIn("qualificationRunViewState(durableRun, progress)", poller)
+        self.assertIn("humanizeQualificationRunError(durableRun.error)", poller)
+
     def test_partial_queue_exposes_failed_question_retry_without_hiding_successes(self):
         root = Path(__file__).resolve().parents[1]
         static = root / "tools" / "question_review_console" / "static"
@@ -1391,7 +1532,7 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("state.qualificationRunProgress", javascript)
         self.assertIn("maintenance-year-row${working ? \" working\"", javascript)
         self.assertIn(".maintenance-year-row.working", css)
-        self.assertIn("問題ごとの出力", javascript)
+        self.assertIn("問題ごとの進捗", javascript)
         self.assertIn("タップして問題本文を見る", javascript)
         self.assertIn("/progress?${params}", javascript)
         self.assertIn("/summary`", javascript)
@@ -1403,7 +1544,7 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn("function progressDisplayLabel", javascript)
         self.assertIn("function progressQuestionApproved", javascript)
         self.assertIn("event?.approvalState", javascript)
-        self.assertIn('progressApprovalState(question)', javascript)
+        self.assertIn("progressQuestionQueueState(question)", javascript)
         self.assertIn("codexStatus.turnReasoningEffort", javascript)
         self.assertIn('startCodex: state.reviewMode === "awaiting_codex"', javascript)
         self.assertIn('requestKind === "evaluation_rework"', javascript)
