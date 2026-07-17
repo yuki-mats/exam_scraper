@@ -922,6 +922,7 @@ const api = new Function(`
     progressCurrentQuestion,
     qualificationRunProgressForRun,
     qualificationRunViewState,
+    qualificationRunCanRetryBlocked,
   };
 `)();
 
@@ -972,6 +973,28 @@ assert.equal(
 assert.equal(
   api.progressCurrentQuestion({ questions: [], current: { questionId: "legacy" } }).questionId,
   "legacy",
+);
+
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
+    { queueStatus: "partial", retrySafe: true },
+    { blockedQuestions: 5, active: false },
+  ),
+  true,
+);
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
+    { queueStatus: "partial", retrySafe: false },
+    { blockedQuestions: 5, active: false },
+  ),
+  false,
+);
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
+    { queueStatus: "partial", retrySafe: true },
+    { blockedQuestions: 5, active: true },
+  ),
+  false,
 );
 
 assert.equal(api.qualificationRunProgressForRun({ runId: "run-b" }, "run-a"), null);

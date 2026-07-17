@@ -1539,6 +1539,15 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   };
 }
 
+function qualificationRunCanRetryBlocked(run, view) {
+  return Boolean(
+    run?.queueStatus === "partial"
+    && Number(view?.blockedQuestions || 0) > 0
+    && !view?.active
+    && run?.retrySafe !== false
+  );
+}
+
 function renderQualificationRunPhases(run, view) {
   const container = $("#qualification-active-run-phases");
   const flowExecutions = (run?.phaseExecutions || []).filter((item) => item?.id);
@@ -1802,7 +1811,7 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
-  retry.hidden = !view.partial || view.active || run.retrySafe === false;
+  retry.hidden = !qualificationRunCanRetryBlocked(run, view);
   retry.textContent = view.blockedQuestions ? `保留${view.blockedQuestions}問を再実行` : "保留問を再実行";
 }
 
