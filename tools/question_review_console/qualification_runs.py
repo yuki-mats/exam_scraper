@@ -8068,12 +8068,17 @@ class QualificationRunCoordinator:
                             if score == best_score
                         ]
                 if (
-                    entry_source_binding.is_complete()
-                    and not matching_bindings
+                    not matching_bindings
                     and not matching_target_groups
+                    and (
+                        is_law_audit_sidecar
+                        or entry_source_binding.is_complete()
+                    )
                 ):
-                    # A complete binding that points at another source record
-                    # is non-target even when its two legacy IDs are shared.
+                    # Non-target sidecar rows can remain on the legacy v1
+                    # schema.  Target-specific binding and schema checks apply
+                    # only to this work item's row; the whole-file comparison
+                    # below still rejects any non-target change.
                     continue
                 if len(matching_target_groups) > 1:
                     raise QualificationRunError(

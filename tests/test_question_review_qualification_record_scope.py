@@ -50,6 +50,75 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 {relative},
             )
 
+    def _validate_multi_row_law_sidecar(
+        self,
+        non_target_before,
+        non_target_after,
+    ):
+        relative = Path(
+            "output/sample/review/law_revision_audit/"
+            "2026_law_revision_audit.jsonl"
+        )
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        aliases = [
+            "ui-hash-q1",
+            "source-review-q1",
+            "sample:2026:q1",
+            "q1.json#0",
+        ]
+
+        def jsonl(*rows):
+            return "".join(json.dumps(row) + "\n" for row in rows)
+
+        self._validate_record_scope_change(
+            relative,
+            jsonl(
+                {
+                    "schemaVersion": "law-revision-audit/v1",
+                    "reviewQuestionId": "ui-hash-q1",
+                },
+                non_target_before,
+            ),
+            jsonl(
+                {
+                    "schemaVersion": "law-revision-audit/v2",
+                    "reviewQuestionId": "source-review-q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "sourceRecordRef": "q1.json#0",
+                },
+                non_target_after,
+            ),
+            plan_updates={
+                "sourceFiles": [source_relative.as_posix()],
+                "targetRecordAliasGroups": [aliases],
+                "targetRecordBindings": [
+                    {
+                        "uiQuestionId": "ui-hash-q1",
+                        "reviewQuestionId": "source-review-q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": "q1.json#0",
+                        "aliases": aliases,
+                    }
+                ],
+                "allowedPatchDirs": [],
+                "allowedPatchFiles": [],
+                "allowedWriteFiles": [relative.as_posix()],
+                "targetRecordScopes": {relative.as_posix(): [aliases]},
+            },
+            source_payloads={
+                source_relative: {
+                    "question_bodies": [
+                        {
+                            "originalQuestionId": "source-review-q1",
+                            "sourceQuestionKey": "sample:2026:q1",
+                        }
+                    ]
+                }
+            },
+        )
+
     def test_record_scope_rejects_a_different_question_in_aggregate_json(self):
         relative = Path(
             "output/sample/questions_json/2026/"
@@ -676,6 +745,24 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             "既存ID fieldの変更",
         ):
             validate("law-revision-audit/v2")
+
+    def test_law_sidecar_ignores_unchanged_non_target_v1_rows(self):
+        non_target = {
+            "schemaVersion": "law-revision-audit/v1",
+            "reviewQuestionId": "ui-hash-q2",
+        }
+        self._validate_multi_row_law_sidecar(non_target, non_target)
+
+    def test_law_sidecar_still_rejects_non_target_v1_changes(self):
+        non_target = {
+            "schemaVersion": "law-revision-audit/v1",
+            "reviewQuestionId": "ui-hash-q2",
+        }
+        with self.assertRaisesRegex(QualificationRunError, "対象問題以外"):
+            self._validate_multi_row_law_sidecar(
+                non_target,
+                {**non_target, "sourceSummary": "changed"},
+            )
 
     def test_record_scope_is_file_specific_across_year_sidecars(self):
         with tempfile.TemporaryDirectory() as directory:
