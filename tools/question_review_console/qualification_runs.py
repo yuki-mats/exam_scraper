@@ -3417,6 +3417,7 @@ class QualificationRunCoordinator:
                 for issue in explanation_style_issues(
                     explanations,
                     projected.get("correctChoiceText"),
+                    choice_texts=choices,
                     require_verdict_prefix=require_verdict_prefix,
                 )
             )

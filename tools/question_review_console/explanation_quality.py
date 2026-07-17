@@ -276,12 +276,14 @@ def explanation_style_issues(
     explanations: Iterable[Any],
     correct_choices: Iterable[Any] | None = None,
     *,
+    choice_texts: Iterable[Any] | None = None,
     require_verdict_prefix: bool = True,
 ) -> list[str]:
     """Return deterministic violations of the stage-03 Japanese style policy."""
 
     issues: list[str] = []
     verdicts = list(correct_choices) if correct_choices is not None else []
+    choices = list(choice_texts) if choice_texts is not None else []
     for choice_index, raw in enumerate(explanations, start=1):
         text = str(raw or "").strip()
         if not text:
@@ -299,6 +301,17 @@ def explanation_style_issues(
                 issues.append(
                     f"選択肢{choice_index}: 解説冒頭の正誤がcorrectChoiceTextと"
                     "一致しません。"
+                )
+        if choice_index <= len(choices):
+            choice = re.sub(r"\s+", "", str(choices[choice_index - 1] or "")).rstrip(
+                "。"
+            )
+            body = text[prefix.end() :] if prefix is not None else text
+            body = re.sub(r"\s+", "", body).rstrip("。")
+            if choice and body == choice:
+                issues.append(
+                    f"選択肢{choice_index}: 解説が選択肢を繰り返すだけです。"
+                    "判断理由を説明してください。"
                 )
         if LAW_AS_SENTENCE_SUBJECT.search(text):
             issues.append(

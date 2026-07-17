@@ -340,6 +340,7 @@ def compare_entries(
             for issue in explanation_style_issues(
                 explanations,
                 src.get("correctChoiceText"),
+                choice_texts=choices,
                 require_verdict_prefix=require_verdict_prefix,
             ):
                 errors.append(f"index {idx}: {issue}")

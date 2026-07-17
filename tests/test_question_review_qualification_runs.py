@@ -898,6 +898,7 @@ class QualificationRunTests(unittest.TestCase):
         for explanation in (
             "定義に一致するため正しい。",
             "間違い。定義に一致する。",
+            "正しい。A",
         ):
             with self.subTest(explanation=explanation), self.assertRaisesRegex(
                 QualificationRunError, "03 解説の日本語品質検証"
@@ -1057,7 +1058,7 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": "2.1"})
+        self.assertEqual(run["policyVersions"], {"explanation": "2.2"})
         self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["writeWorkerLimit"], 1)
 

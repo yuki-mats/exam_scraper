@@ -33,6 +33,16 @@ class ExplanationQualityTests(unittest.TestCase):
         self.assertEqual(len(issues), 1)
         self.assertIn("correctChoiceText", issues[0])
 
+    def test_rejects_choice_repetition_without_reason(self):
+        issues = explanation_style_issues(
+            ["正しい。定義に一致する。"],
+            ["正しい"],
+            choice_texts=["定義に一致する"],
+        )
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("判断理由", issues[0])
+
     def test_rejects_the_missing_prefix_and_old_closing_seen_in_2019_q12(self):
         issues = explanation_style_issues(
             [

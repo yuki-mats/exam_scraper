@@ -136,13 +136,19 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
             },
         }
 
-        with self.assertRaisesRegex(DirectEditError, "正しい。"):
-            editor.preview(
-                question,
-                {"explanationText": ["定義に一致するため正しい。"]},
-                "",
-                "hash",
-            )
+        for explanation, error in (
+            ("定義に一致するため正しい。", "正しい。"),
+            ("正しい。A", "判断理由"),
+        ):
+            with self.subTest(explanation=explanation), self.assertRaisesRegex(
+                DirectEditError, error
+            ):
+                editor.preview(
+                    question,
+                    {"explanationText": [explanation]},
+                    "",
+                    "hash",
+                )
 
     def test_rejects_explanation_only_edit_with_opposite_verdict(self):
         editor = PatchEditor(Path.cwd())

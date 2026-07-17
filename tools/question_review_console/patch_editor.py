@@ -153,6 +153,7 @@ class PatchEditor:
                 explanation_issues = explanation_style_issues(
                     explanations,
                     correctness if isinstance(correctness, list) else None,
+                    choice_texts=final_record.get("choiceTextList"),
                     require_verdict_prefix=choice_count > 0,
                 )
                 if explanation_issues:
