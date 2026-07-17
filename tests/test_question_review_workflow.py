@@ -918,6 +918,20 @@ class WorkflowUiContractTests(unittest.TestCase):
         )[0]
         self.assertNotIn('"questionBodyText"', review_fields)
         self.assertNotIn('"choiceTextList"', review_fields)
+        self.assertIn("LAW_REVIEW_REQUIRED_FIELDS", javascript)
+        self.assertIn("syncLawReviewFields", javascript)
+        law_review_fields = javascript.split(
+            "const LAW_REVIEW_REQUIRED_FIELDS = [", 1
+        )[1].split("];", 1)[0]
+        for field in (
+            "explanationText",
+            "suggestedQuestions",
+            "suggestedQuestionDetails",
+            "lawReferences",
+            "lawRevisionFacts",
+        ):
+            self.assertIn(f'"{field}"', law_review_fields)
+        self.assertIn('field === "isLawRelated"', javascript)
         self.assertIn('"修正を依頼"', javascript)
         self.assertIn('"直接編集"', javascript)
         self.assertIn("actionWithHelp", javascript)

@@ -3,10 +3,89 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tools.question_review_console.prompt_builder import (
+    normalize_law_audit_review_fields,
+)
 from tools.question_review_console.review_store import ReviewStore
 
 
 class QuestionReviewStoreTests(unittest.TestCase):
+    def test_all_law_review_entry_points_require_public_and_metadata_fields(self):
+        required = {
+            "explanationText",
+            "suggestedQuestions",
+            "suggestedQuestionDetails",
+            "lawReferences",
+            "lawRevisionFacts",
+        }
+        reviews = [
+            {"fields": ["isLawRelated"]},
+            {"requestKind": "qualification_law_audit"},
+            {
+                "requestKind": "evaluation_rework",
+                "evaluationSnapshot": {"reworkItems": [{"stage": "03b"}]},
+            },
+        ]
+        for review in reviews:
+            with self.subTest(review=review):
+                self.assertEqual(
+                    set(normalize_law_audit_review_fields(review)["fields"]),
+                    required | set(review.get("fields") or []),
+                )
+
+    def test_law_review_always_includes_public_explanation_and_metadata_fields(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = ReviewStore(root)
+            question = {
+                "id": "api-id",
+                "reviewKey": "sample:2026:file:q1",
+                "qualification": "sample-exam",
+                "listGroupId": "2026",
+                "sourceQuestionKey": "sample:2026:law:q1",
+                "originalQuestionId": "q1",
+                "stateHash": "state-1",
+                "body": "正しいものはどれか。",
+                "projected": {
+                    "choiceTextList": ["条文上の記述A"],
+                    "correctChoiceText": ["正しい"],
+                    "explanationText": ["正しい。"],
+                },
+                "source": {},
+                "uploadReadyDocs": [],
+                "paths": {"source": "output/source.json", "patches": []},
+            }
+            created = store.create(
+                question,
+                {
+                    "issueTypes": ["law_hold"],
+                    "fields": ["lawRevisionFacts"],
+                    "note": "法令監査の保留を解消してほしい",
+                },
+            )
+
+        self.assertEqual(
+            set(created["fields"]),
+            {
+                "explanationText",
+                "suggestedQuestions",
+                "suggestedQuestionDetails",
+                "lawReferences",
+                "lawRevisionFacts",
+            },
+        )
+        self.assertIn(
+            "- fields: lawRevisionFacts, explanationText, suggestedQuestions, "
+            "suggestedQuestionDetails, lawReferences",
+            created["prompt"],
+        )
+        self.assertIn(
+            "公開用の`explanationText`、`suggestedQuestions`、"
+            "`suggestedQuestionDetails`にも",
+            created["prompt"],
+        )
+        self.assertIn("--require-law-evidence-utilization", created["prompt"])
+
     def test_detects_post_fix_and_approval_tracks_current_hash(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -10,7 +10,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
-from tools.question_review_console.prompt_builder import build_codex_prompt
+from tools.question_review_console.prompt_builder import (
+    build_codex_prompt,
+    normalize_law_audit_review_fields,
+)
 
 
 REVIEW_STATUSES = {
@@ -67,6 +70,7 @@ class ReviewStore:
     ) -> dict[str, Any]:
         if status not in REVIEW_STATUSES:
             raise ValueError(f"unsupported review status: {status}")
+        request = normalize_law_audit_review_fields(request)
         qualification = _safe_segment(str(question["qualification"]))
         list_group_id = _safe_segment(str(question["listGroupId"]))
         now = iso_now()

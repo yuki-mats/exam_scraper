@@ -1183,6 +1183,9 @@ class QualificationRunTests(unittest.TestCase):
                 for path in run["targetRecordScopes"]
             )
         )
+        self.assertTrue(
+            any("21_explanationText_added" in path for path in run["allowedPatchFiles"])
+        )
 
     def test_post_fix_law_fields_preserve_law_audit_contract_and_failed_delta(self):
         class FakeAppServer:

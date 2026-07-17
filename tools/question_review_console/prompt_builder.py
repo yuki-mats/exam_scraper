@@ -12,6 +12,14 @@ LAW_AUDIT_ISSUES = {
     "law_basis_missing",
 }
 
+LAW_AUDIT_REQUIRED_REPAIR_FIELDS = (
+    "explanationText",
+    "suggestedQuestions",
+    "suggestedQuestionDetails",
+    "lawReferences",
+    "lawRevisionFacts",
+)
+
 QUALIFICATION_LAW_AUDIT_REQUEST = "qualification_law_audit"
 
 
@@ -72,17 +80,52 @@ def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
     return "\n".join(lines).strip()
 
 
-def _is_law_audit_review(review: Mapping[str, Any]) -> bool:
+def is_law_audit_review(review: Mapping[str, Any]) -> bool:
+    if review.get("requestKind") == QUALIFICATION_LAW_AUDIT_REQUEST:
+        return True
     issue_types = {str(value) for value in review.get("issueTypes") or []}
     fields = {str(value) for value in review.get("fields") or []}
     selection = review.get("selection") or {}
     selection_fields = {
         str(value) for value in selection.get("fields") or []
     } if isinstance(selection, Mapping) else set()
-    return bool(issue_types & LAW_AUDIT_ISSUES) or any(
-        field.startswith(("law", "isLawRelated"))
-        for field in fields | selection_fields
+    evaluation_snapshot = review.get("evaluationSnapshot")
+    rework_items = (
+        evaluation_snapshot.get("reworkItems")
+        if isinstance(evaluation_snapshot, Mapping)
+        else []
     )
+    return (
+        bool(issue_types & LAW_AUDIT_ISSUES)
+        or any(
+            field.startswith(("law", "isLawRelated"))
+            for field in fields | selection_fields
+        )
+        or any(
+            isinstance(item, Mapping) and str(item.get("stage") or "") == "03b"
+            for item in rework_items or []
+        )
+    )
+
+
+def normalize_law_audit_review_fields(
+    review: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Keep legal evidence, audit facts, and the public explanation in one repair."""
+
+    normalized = dict(review)
+    if not is_law_audit_review(normalized):
+        return normalized
+    fields = list(
+        dict.fromkeys(
+            [
+                *(str(value) for value in normalized.get("fields") or [] if value),
+                *LAW_AUDIT_REQUIRED_REPAIR_FIELDS,
+            ]
+        )
+    )
+    normalized["fields"] = fields
+    return normalized
 
 
 def _law_audit_instruction(repo_root: Path, qualification: str) -> str:
@@ -95,6 +138,9 @@ def _law_audit_instruction(repo_root: Path, qualification: str) -> str:
 - 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。
 - 各対象選択肢で「問題文＋選択肢」の完全命題を作り、保存済み`apiUrl`/`sourceUrl`又はe-Gov条文本文を開いて目視照合する。
 - 法令関連と確定した問題だけを条文監査へ進める。条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。patchでは各選択肢と同じ順序・件数で保存し、トップレベル`correctChoiceText`と一致させる。法改正差分又は適用条文の確認不能は`hold`/`needs_secondary_review`へ戻す。
+- `hold`以外で法令関連と確定した問題は、公開用の`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`にも、verifiedの法令名・別名又は条番号を少なくとも一つ具体的に記載する。metadataだけを更新して公開解説から根拠を欠落させない。
+- `suggestedQuestions`には法令又は現行基準を確認する質問を少なくとも一つ含め、対応する`suggestedQuestionDetails.answer`でverifiedの根拠が正誤をどう決めるか説明する。
+- 完了前に対象問題のpatchを`check-explanation-patch --require-law-evidence-utilization`と同じ条件で確認し、公開用fieldに具体的根拠が使われていることを確かめる。
 - 類似問題も一問一肢ずつ同じ手順で確認する。一括コピーや正誤ラベルだけの補完は禁止。
 - 完了時は「選択肢 / 条文 / 判定 / patch有無」の短い確認表を出す。
 
@@ -240,7 +286,7 @@ def build_codex_prompt(
             repo_root,
             str(question.get("qualification") or ""),
         )
-        if _is_law_audit_review(review)
+        if is_law_audit_review(review)
         else ""
     )
     evaluation_snapshot = review.get("evaluationSnapshot")

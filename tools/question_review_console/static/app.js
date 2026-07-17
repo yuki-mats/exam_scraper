@@ -134,6 +134,21 @@ const REVIEW_FIELDS = [
   "lawRevisionFacts",
 ];
 
+const LAW_REVIEW_ISSUES = new Set([
+  "law_audit_metadata_incomplete",
+  "law_audit_verdict_mismatch",
+  "law_hold",
+  "law_basis_missing",
+]);
+
+const LAW_REVIEW_REQUIRED_FIELDS = [
+  "explanationText",
+  "suggestedQuestions",
+  "suggestedQuestionDetails",
+  "lawReferences",
+  "lawRevisionFacts",
+];
+
 const REVIEW_SCOPES = new Set([
   "current_question",
   "current_group",
@@ -484,6 +499,13 @@ function bindControls() {
     node.addEventListener("click", () => node.closest("dialog").close());
   }
   $("#review-form").addEventListener("submit", submitReview);
+  $("#review-issue").addEventListener("change", () => syncLawReviewFields());
+  $("#review-field-list").addEventListener("change", (event) => {
+    const field = String(event.target.value || "");
+    if (event.target.checked && (field.startsWith("law") || field === "isLawRelated")) {
+      syncLawReviewFields(true);
+    }
+  });
   $("#edit-form").addEventListener("submit", previewEdit);
   $("#confirm-form").addEventListener("submit", applyEdit);
   $("#workflow-form").addEventListener("submit", executeWorkflow);
@@ -4697,8 +4719,18 @@ function openReview(
   for (const field of [...new Set([...REVIEW_FIELDS, ...selectedFields])]) {
     fieldList.append(checkbox(`field-${field}`, field, field, selectedFields.has(field)));
   }
+  syncLawReviewFields();
   $("#review-dialog").showModal();
   $("#review-note").focus();
+}
+
+function syncLawReviewFields(force = false) {
+  if (!force && !LAW_REVIEW_ISSUES.has($("#review-issue").value)) return;
+  const inputs = [...$("#review-field-list").querySelectorAll("input")];
+  for (const field of LAW_REVIEW_REQUIRED_FIELDS) {
+    const input = inputs.find((node) => node.value === field);
+    if (input) input.checked = true;
+  }
 }
 
 function checkbox(id, label, value, checked = false) {
