@@ -3,9 +3,25 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
+from dataclasses import dataclass
 from itertools import zip_longest
 from pathlib import Path
 from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.common.question_identity import (
+    SourceIdentityBinding,
+    SourceRecordIdentity,
+    load_source_record_inventory,
+    resolve_identity_candidates,
+    source_identity_aliases,
+    workflow_identity_aliases,
+)
+from scripts.merge.merge_utils import strip_timestamp_suffix
 
 
 TASK_CHOICES = (
@@ -16,6 +32,12 @@ TASK_CHOICES = (
     "explanation",
     "question_set",
 )
+
+
+@dataclass(frozen=True)
+class SourcePatchInput:
+    question: dict[str, Any]
+    identity: SourceRecordIdentity
 
 
 def load_json(path: Path) -> Any:
@@ -32,13 +54,26 @@ def save_json(path: Path, data: Any) -> None:
 
 def extract_entries(data: Any) -> list[dict[str, Any]]:
     if isinstance(data, list):
-        return [entry for entry in data if isinstance(entry, dict)]
-    if isinstance(data, dict):
+        entries = data
+    elif isinstance(data, dict):
         for key in ("patched_questions", "question_bodies", "questions", "entries"):
             value = data.get(key)
             if isinstance(value, list):
-                return [entry for entry in value if isinstance(entry, dict)]
-    raise ValueError("JSON 配列または entries/patched_questions/question_bodies/questions を含む object を指定してください")
+                entries = value
+                break
+        else:
+            raise ValueError(
+                "JSON 配列または entries/patched_questions/"
+                "question_bodies/questions を含む object を指定してください"
+            )
+    else:
+        raise ValueError(
+            "JSON 配列または entries/patched_questions/"
+            "question_bodies/questions を含む object を指定してください"
+        )
+    if any(not isinstance(entry, dict) for entry in entries):
+        raise ValueError("raw patch entry はすべて object である必要があります")
+    return entries
 
 
 def get_source_questions(data: Any) -> list[dict[str, Any]]:
@@ -47,7 +82,9 @@ def get_source_questions(data: Any) -> list[dict[str, Any]]:
     questions = data.get("question_bodies")
     if not isinstance(questions, list):
         raise ValueError("source JSON missing question_bodies")
-    return [question for question in questions if isinstance(question, dict)]
+    if any(not isinstance(question, dict) for question in questions):
+        raise ValueError("source question はすべて object である必要があります")
+    return questions
 
 
 def resolve_original_id(question: dict[str, Any]) -> str:
@@ -57,47 +94,114 @@ def resolve_original_id(question: dict[str, Any]) -> str:
     return str(value)
 
 
-def build_source_lookup(
+def _identity_aliases(record: dict[str, Any]) -> set[str]:
+    return source_identity_aliases(record) | workflow_identity_aliases(record)
+
+
+def _source_stem(path: Path) -> str:
+    return strip_timestamp_suffix(path.stem).removesuffix("_merged")
+
+
+def bind_source_questions(
+    source_path: Path,
     source_questions: list[dict[str, Any]],
-) -> tuple[list[str], dict[str, dict[str, Any]]]:
-    ordered_ids: list[str] = []
-    lookup: dict[str, dict[str, Any]] = {}
-    for question in source_questions:
-        oid = resolve_original_id(question)
-        ordered_ids.append(oid)
-        lookup[oid] = question
-    return ordered_ids, lookup
+) -> list[SourcePatchInput]:
+    group_dir = source_path.parent.parent
+    if group_dir.parent.name != "questions_json":
+        raise ValueError(f"source path が questions_json 配下ではありません: {source_path}")
+    inventory = load_source_record_inventory(
+        group_dir / "00_source",
+        qualification=group_dir.parent.parent.name,
+        list_group_id=group_dir.name,
+    )
+    identity_by_binding = {
+        item.identity.binding: item.identity for item in inventory
+    }
+    if source_path.parent.name == "00_source":
+        source_items = [
+            item for item in inventory if item.path.resolve() == source_path.resolve()
+        ]
+        if len(source_items) != len(source_questions):
+            raise ValueError("source inventory と source question 件数が一致しません")
+        return [
+            SourcePatchInput(question=question, identity=item.identity)
+            for question, item in zip(source_questions, source_items)
+        ]
+
+    index = resolve_identity_candidates(
+        source_questions,
+        sources=(item.identity for item in inventory),
+        record_of=lambda question: question,
+        aliases_of=_identity_aliases,
+        source_stem_of=lambda _question: _source_stem(source_path),
+        label="materialize source record",
+    )
+    if index.unmatched_count:
+        raise ValueError(
+            f"source inventory に対応しない source record が{index.unmatched_count}件あります"
+        )
+    errors = {
+        message
+        for messages in index.errors_by_binding.values()
+        for message in messages
+    }
+    if errors:
+        raise ValueError(" ".join(sorted(errors)))
+    binding_by_question_id: dict[int, SourceIdentityBinding] = {}
+    for binding, candidates in index.by_binding.items():
+        if len(candidates) != 1:
+            raise ValueError(
+                "source record が同じ source identity に重複しています: "
+                + " / ".join(binding.as_tuple())
+            )
+        binding_by_question_id[id(candidates[0])] = binding
+    if len(binding_by_question_id) != len(source_questions):
+        raise ValueError("source record を全件 exact identity に対応できません")
+    return [
+        SourcePatchInput(
+            question=question,
+            identity=identity_by_binding[binding_by_question_id[id(question)]],
+        )
+        for question in source_questions
+    ]
 
 
 def order_raw_entries(
-    source_questions: list[dict[str, Any]],
+    source_inputs: list[SourcePatchInput],
     raw_entries: list[dict[str, Any]],
-) -> list[tuple[dict[str, Any], dict[str, Any]]]:
-    ordered_ids, source_lookup = build_source_lookup(source_questions)
-    raw_lookup: dict[str, dict[str, Any]] = {}
-    duplicate_ids: list[str] = []
-
-    for entry in raw_entries:
-        oid = entry.get("original_question_id")
-        if not oid:
-            raise ValueError("raw entry に original_question_id がありません")
-        oid = str(oid)
-        if oid in raw_lookup:
-            duplicate_ids.append(oid)
-            continue
-        raw_lookup[oid] = entry
-
-    if duplicate_ids:
-        raise ValueError(f"raw entry に重複した original_question_id があります: {sorted(set(duplicate_ids))}")
-
-    missing_ids = [oid for oid in ordered_ids if oid not in raw_lookup]
-    extra_ids = [oid for oid in raw_lookup if oid not in source_lookup]
-    if missing_ids:
-        raise ValueError(f"raw entry に不足があります: {missing_ids}")
-    if extra_ids:
-        raise ValueError(f"source に存在しない original_question_id が raw entry にあります: {sorted(extra_ids)}")
-
-    return [(source_lookup[oid], raw_lookup[oid]) for oid in ordered_ids]
+) -> list[tuple[SourcePatchInput, dict[str, Any]]]:
+    index = resolve_identity_candidates(
+        raw_entries,
+        sources=(source.identity for source in source_inputs),
+        record_of=lambda entry: entry,
+        aliases_of=_identity_aliases,
+        source_stem_of=lambda _entry: "",
+        label="minimal patch record",
+    )
+    if index.unmatched_count:
+        raise ValueError(
+            f"source に対応しない raw entry が{index.unmatched_count}件あります"
+        )
+    errors = {
+        message
+        for messages in index.errors_by_binding.values()
+        for message in messages
+    }
+    if errors:
+        raise ValueError(" ".join(sorted(errors)))
+    ordered: list[tuple[SourcePatchInput, dict[str, Any]]] = []
+    for source in source_inputs:
+        candidates = index.by_binding.get(source.identity.binding, ())
+        if len(candidates) != 1:
+            raise ValueError(
+                "raw entry を source record へ一意に対応できません: "
+                + " / ".join(source.identity.binding.as_tuple())
+                + f" (matches={len(candidates)})"
+            )
+        ordered.append((source, candidates[0]))
+    if len(ordered) != len(raw_entries):
+        raise ValueError("raw entry 件数と source record 件数が一致しません")
+    return ordered
 
 
 def normalize_source_snippets(source_snippets: Any) -> list[list[str]]:
@@ -249,10 +353,10 @@ def materialize_question_set(
 
 def materialize_entries(
     task: str,
-    source_questions: list[dict[str, Any]],
+    source_inputs: list[SourcePatchInput],
     raw_entries: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    ordered_pairs = order_raw_entries(source_questions, raw_entries)
+    ordered_pairs = order_raw_entries(source_inputs, raw_entries)
     materializers = {
         "question_type": materialize_question_type,
         "question_intent": materialize_question_intent,
@@ -262,7 +366,13 @@ def materialize_entries(
         "question_set": materialize_question_set,
     }
     materializer = materializers[task]
-    return [materializer(source_question, raw_entry) for source_question, raw_entry in ordered_pairs]
+    materialized: list[dict[str, Any]] = []
+    for source, raw_entry in ordered_pairs:
+        entry = materializer(source.question, raw_entry)
+        entry["original_question_id"] = source.identity.binding.review_question_id
+        entry.update(source.identity.binding.as_mapping())
+        materialized.append(entry)
+    return materialized
 
 
 def main() -> int:
@@ -275,9 +385,11 @@ def main() -> int:
     parser.add_argument("--output", required=True, help="補完後の正式パッチJSON")
     args = parser.parse_args()
 
-    source_questions = get_source_questions(load_json(Path(args.source)))
+    source_path = Path(args.source).resolve()
+    source_questions = get_source_questions(load_json(source_path))
+    source_inputs = bind_source_questions(source_path, source_questions)
     raw_entries = extract_entries(load_json(Path(args.raw)))
-    materialized = materialize_entries(args.task, source_questions, raw_entries)
+    materialized = materialize_entries(args.task, source_inputs, raw_entries)
     save_json(Path(args.output), materialized)
     print(f"[OK] materialized {len(materialized)} entries")
     print(Path(args.output).resolve())

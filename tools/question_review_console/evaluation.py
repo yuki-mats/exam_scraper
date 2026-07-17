@@ -17,6 +17,9 @@ from typing import Any, Callable, Iterable, Mapping
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_runs import QualificationRunStore
+from tools.question_review_console.run_target_identity import (
+    target_identity_aliases,
+)
 from tools.question_review_console.work_versions import (
     QuestionWorkVersionStore,
     evaluation_policy,
@@ -605,6 +608,20 @@ class QuestionEvaluationService:
         previous = self.store.load(question)
         work_type = "reevaluation" if previous is not None else "evaluation"
         prompt = self._build_prompt(question)
+        question_id = str(question["id"])
+        run_target = {
+            "id": question_id,
+            "uiQuestionId": question_id,
+            "questionKey": str(
+                question.get("sourceQuestionKey")
+                or question.get("reviewKey")
+                or question_id
+            ),
+            "reviewQuestionId": str(question.get("originalQuestionId") or ""),
+            "sourceQuestionKey": str(question.get("sourceQuestionKey") or ""),
+            "sourceRecordRef": str(question.get("sourceRecordRef") or ""),
+            "aliases": sorted(target_identity_aliases(question)),
+        }
         plan = {
             "qualification": str(question["qualification"]),
             "stageId": work_type,
@@ -624,8 +641,10 @@ class QuestionEvaluationService:
             "targetGroupIds": [str(question["listGroupId"])],
             "scopeListGroupId": str(question["listGroupId"]),
             "scopeListGroupIds": [str(question["listGroupId"])],
-            "targetQuestionIds": [str(question["id"])],
-            "targetQuestionKeys": [str(question["id"])],
+            "targetQuestionIds": [question_id],
+            "targetQuestionKeys": [question_id],
+            "progressTargets": [run_target],
+            "targetRecordBindings": [run_target],
             "stateHash": str(question["stateHash"]),
             "sandbox": "read-only",
             "provider": self.provider,
@@ -636,7 +655,7 @@ class QuestionEvaluationService:
             "policyFingerprints": {
                 "evaluation": str(run_policy["policyFingerprint"])
             },
-            "policyTargets": {"evaluation": [str(question["id"])]},
+            "policyTargets": {"evaluation": [question_id]},
         }
         run = self.run_store.create(
             plan,

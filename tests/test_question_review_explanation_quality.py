@@ -7,6 +7,15 @@ from tools.question_review_console.explanation_quality import (
 
 
 class ExplanationQualityTests(unittest.TestCase):
+    def test_explanation_count_must_match_choices(self):
+        issues = explanation_style_issues(
+            ["正しい。定義に一致する。"],
+            ["正しい", "間違い"],
+            choice_texts=["選択肢1", "選択肢2"],
+        )
+
+        self.assertIn("解説の件数が選択肢の件数と一致しません。", issues[0])
+
     def test_canonical_prompt_examples_follow_the_same_style_contract(self):
         prompt = (
             Path(__file__).resolve().parents[1]

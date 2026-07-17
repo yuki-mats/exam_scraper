@@ -3,9 +3,13 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import secrets
+import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from scripts.common.question_identity import SourceIdentityBinding
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
@@ -18,6 +22,11 @@ from tools.question_review_console.patch_validation import (
     projected_required_warnings,
 )
 from tools.question_review_console.review_store import atomic_write
+from tools.question_review_console.write_transaction import (
+    WriteTransactionError,
+    capture_write_snapshot,
+    restore_write_snapshot,
+)
 
 
 ALLOWED_FIELDS = {
@@ -50,11 +59,32 @@ def _records_container(payload: Any) -> list[dict[str, Any]]:
     raise DirectEditError("patchの問題配列を特定できません。", codex_required=True)
 
 
-def _find_entry(records: list[Any], aliases: set[str]) -> dict[str, Any]:
+def _find_entry(
+    records: list[Any],
+    aliases: set[str],
+    source_binding: SourceIdentityBinding,
+) -> dict[str, Any]:
+    if source_binding.is_complete():
+        exact_matches = [
+            record
+            for record in records
+            if isinstance(record, dict)
+            and SourceIdentityBinding.from_mapping(record) == source_binding
+        ]
+        if len(exact_matches) == 1:
+            return exact_matches[0]
+        if len(exact_matches) > 1:
+            raise DirectEditError(
+                f"完全一致するpatch entryが重複しています（{len(exact_matches)}件）。",
+                codex_required=True,
+            )
+
     matches = [
         record
         for record in records
-        if isinstance(record, dict) and record_aliases(record) & aliases
+        if isinstance(record, dict)
+        and not SourceIdentityBinding.from_mapping(record).is_complete()
+        and record_aliases(record) & aliases
     ]
     unique = {id(record): record for record in matches}
     if not unique:
@@ -83,6 +113,12 @@ def _preview_token(state_hash: str, changes: Mapping[str, Any], reason: str) -> 
 class PatchEditor:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
+        self.transactions_root = (
+            self.repo_root
+            / "output/question_review_console/direct_edit_transactions"
+        )
+        self._recovery_errors: list[str] = []
+        self._recover_pending_transactions()
 
     def preview(
         self,
@@ -178,6 +214,10 @@ class PatchEditor:
         expected_state_hash: str,
         preview_token: str,
     ) -> dict[str, Any]:
+        if self._recovery_errors:
+            raise DirectEditError(
+                "前回の直接編集を開始前状態へ復元できません。技術ログを確認してください。"
+            )
         preview = self.preview(question, changes, reason, expected_state_hash)
         if preview["previewToken"] != preview_token:
             raise DirectEditError("確認後に変更内容が変わりました。もう一度確認してください。")
@@ -186,9 +226,24 @@ class PatchEditor:
         final_record = copy.deepcopy(dict(projected))
         final_record.update(copy.deepcopy(normalized))
         original_id, question_url = self._patch_identity(question)
+        source_binding = SourceIdentityBinding.from_values(
+            question.get("sourceQuestionKey"),
+            question.get("originalQuestionId") or original_id,
+            question.get("sourceRecordRef"),
+        )
+        patch_identity = {
+            "original_question_id": original_id,
+            "question_url": question_url,
+        }
+        if source_binding.is_complete():
+            patch_identity.update(source_binding.as_mapping())
+        patch_identity = {
+            field: value for field, value in patch_identity.items() if value
+        }
         aliases = record_aliases(question.get("projected") or {}) | record_aliases(
             question.get("source") or {}
         )
+        aliases.update(patch_identity.values())
         changed_paths: list[str] = []
         pending_writes: list[tuple[Path, Any, bytes | None]] = []
 
@@ -204,7 +259,9 @@ class PatchEditor:
                 )
             original_bytes = explanation_path.read_bytes()
             payload = json.loads(original_bytes.decode("utf-8"))
-            entry = _find_entry(_records_container(payload), aliases)
+            entry = _find_entry(
+                _records_container(payload), aliases, source_binding
+            )
             entry.update(
                 {
                     "explanationText": copy.deepcopy(
@@ -216,8 +273,7 @@ class PatchEditor:
                     "suggestedQuestionDetails": copy.deepcopy(
                         final_record.get("suggestedQuestionDetails") or []
                     ),
-                    "original_question_id": original_id,
-                    "question_url": question_url,
+                    **patch_identity,
                 }
             )
             self._validate_patch_entry(
@@ -240,12 +296,9 @@ class PatchEditor:
                 payload = json.loads(original_bytes.decode("utf-8"))
             records = _records_container(payload)
             try:
-                entry = _find_entry(records, aliases)
+                entry = _find_entry(records, aliases, source_binding)
             except PatchEntryNotFound:
-                entry = {
-                    "original_question_id": original_id,
-                    "question_url": question_url,
-                }
+                entry = dict(patch_identity)
                 records.append(entry)
             entry.update(
                 {
@@ -253,8 +306,7 @@ class PatchEditor:
                     "correctChoiceText_change_detail": "問題整備システムで正誤を修正。",
                     "correctChoiceText_change_reason": reason.strip(),
                     "correctChoiceText": copy.deepcopy(normalized["correctChoiceText"]),
-                    "original_question_id": original_id,
-                    "question_url": question_url,
+                    **patch_identity,
                 }
             )
             self._validate_patch_entry(
@@ -270,17 +322,172 @@ class PatchEditor:
                 raise DirectEditError(
                     f"保存直前に{path.name}が更新されました。再読込してください。"
                 )
-        for path, payload, _ in pending_writes:
-            atomic_write(
-                path,
-                json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        try:
+            transaction_dir, snapshot = self._begin_transaction(
+                [path for path, _, _ in pending_writes],
+                changed_paths,
             )
+        except (OSError, WriteTransactionError) as exc:
+            raise DirectEditError(
+                "patch保存前の開始状態を記録できないため、変更していません。"
+            ) from exc
+        try:
+            for path, payload, _ in pending_writes:
+                self._write_patch_payload(path, payload)
+            self._finish_transaction(
+                transaction_dir,
+                snapshot,
+                status="committed",
+                changed_paths=changed_paths,
+            )
+        except Exception as exc:  # noqa: BLE001
+            try:
+                restore_write_snapshot(
+                    self.repo_root,
+                    snapshot,
+                    transaction_dir / "baseline_files",
+                )
+                self._finish_transaction(
+                    transaction_dir,
+                    snapshot,
+                    status="rolled_back",
+                    changed_paths=changed_paths,
+                    error=str(exc),
+                )
+            except Exception as rollback_error:  # noqa: BLE001
+                self._recovery_errors.append(
+                    f"{transaction_dir.relative_to(self.repo_root)}/manifest.json: "
+                    f"{rollback_error}"
+                )
+                raise DirectEditError(
+                    "patch保存に失敗し、開始前状態も復元できませんでした: "
+                    f"{rollback_error}"
+                ) from exc
+            raise DirectEditError(
+                "patch保存に失敗したため、変更を開始前状態へ戻しました。"
+            ) from exc
 
         return {
             "changedPaths": changed_paths,
             "diffs": preview["diffs"],
             "validationWarnings": preview["validationWarnings"],
         }
+
+    def _begin_transaction(
+        self,
+        paths: list[Path],
+        changed_paths: list[str],
+    ) -> tuple[Path, dict[str, Any]]:
+        now = datetime.now(timezone.utc).astimezone()
+        transaction_id = (
+            now.strftime("%Y%m%dT%H%M%S%f")
+            + "-"
+            + secrets.token_hex(4)
+        )
+        transaction_dir = self.transactions_root / transaction_id
+        transaction_dir.mkdir(parents=True, exist_ok=False)
+        try:
+            snapshot = capture_write_snapshot(
+                self.repo_root,
+                paths,
+                transaction_dir / "baseline_files",
+            )
+            self._write_transaction_manifest(
+                transaction_dir,
+                {
+                    "schemaVersion": "question-direct-edit-transaction/v1",
+                    "transactionId": transaction_id,
+                    "status": "prepared",
+                    "createdAt": now.isoformat(timespec="seconds"),
+                    "changedPaths": list(changed_paths),
+                    "writeTransaction": snapshot,
+                },
+            )
+        except Exception:
+            shutil.rmtree(transaction_dir, ignore_errors=True)
+            raise
+        return transaction_dir, snapshot
+
+    def _finish_transaction(
+        self,
+        transaction_dir: Path,
+        snapshot: Mapping[str, Any],
+        *,
+        status: str,
+        changed_paths: list[str],
+        error: str = "",
+    ) -> None:
+        manifest_path = transaction_dir / "manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest.update(
+            {
+                "status": status,
+                "finishedAt": datetime.now(timezone.utc)
+                .astimezone()
+                .isoformat(timespec="seconds"),
+                "changedPaths": list(changed_paths),
+                "error": error or None,
+                "writeTransaction": dict(snapshot),
+            }
+        )
+        self._write_transaction_manifest(transaction_dir, manifest)
+        shutil.rmtree(transaction_dir / "baseline_files", ignore_errors=True)
+
+    @staticmethod
+    def _write_patch_payload(path: Path, payload: Any) -> None:
+        atomic_write(
+            path,
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        )
+
+    @staticmethod
+    def _write_transaction_manifest(
+        transaction_dir: Path,
+        manifest: Mapping[str, Any],
+    ) -> None:
+        atomic_write(
+            transaction_dir / "manifest.json",
+            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        )
+
+    def _recover_pending_transactions(self) -> None:
+        if not self.transactions_root.is_dir():
+            return
+        for manifest_path in sorted(self.transactions_root.glob("*/manifest.json")):
+            try:
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if (
+                    not isinstance(manifest, Mapping)
+                    or manifest.get("schemaVersion")
+                    != "question-direct-edit-transaction/v1"
+                    or manifest.get("status") != "prepared"
+                ):
+                    continue
+                snapshot = manifest.get("writeTransaction")
+                if not isinstance(snapshot, Mapping):
+                    raise WriteTransactionError(
+                        "直接編集transactionのbaselineがありません。"
+                    )
+                transaction_dir = manifest_path.parent
+                restore_write_snapshot(
+                    self.repo_root,
+                    snapshot,
+                    transaction_dir / "baseline_files",
+                )
+                self._finish_transaction(
+                    transaction_dir,
+                    snapshot,
+                    status="rolled_back",
+                    changed_paths=[
+                        str(value)
+                        for value in manifest.get("changedPaths") or []
+                    ],
+                    error="ローカルUI再起動時に未確定の直接編集を復元しました。",
+                )
+            except Exception as exc:  # noqa: BLE001
+                self._recovery_errors.append(
+                    f"{manifest_path.relative_to(self.repo_root)}: {exc}"
+                )
 
     @staticmethod
     def _patch_identity(question: Mapping[str, Any]) -> tuple[str, str]:

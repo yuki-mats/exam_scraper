@@ -78,6 +78,7 @@ TURN_REASONING_EFFORT = "high"
 MAINTENANCE_RESEARCH_WORKERS = 2
 APP_SERVER_AGENT_THREAD_CAP = MAINTENANCE_RESEARCH_WORKERS + 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
+TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
 RESEARCH_AGENT_ROLE = "explorer"
 RESEARCH_AGENT_CONFIG_FILENAME = "question-maintenance-explorer.toml"
 RESEARCH_AGENT_DESCRIPTION = "問題整備のread-only事前調査担当"
@@ -146,6 +147,7 @@ class _TurnState:
     subagent_thread_ids: set[str] = field(default_factory=set)
     subagent_models: set[str] = field(default_factory=set)
     subagent_reasoning_efforts: set[str] = field(default_factory=set)
+    recorded_item_ids: set[str] = field(default_factory=set)
     status: str = "inProgress"
     error: Any = None
 
@@ -347,6 +349,7 @@ class CodexAppServerClient:
         cwd: Path | None = None,
         writable_roots: Iterable[Path] = (),
         completion_probe: Callable[[], bool] | None = None,
+        heartbeat: Callable[[], None] | None = None,
     ) -> AppServerTurnResult:
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError(f"unsupported sandbox: {sandbox}")
@@ -499,14 +502,28 @@ class CodexAppServerClient:
 
             receipt_interrupted = False
             deadline = time.monotonic() + self.turn_timeout
+            heartbeat_callback = heartbeat or getattr(emit, "heartbeat", None)
+            next_heartbeat = (
+                time.monotonic() + TURN_HEARTBEAT_INTERVAL_SECONDS
+                if callable(heartbeat_callback)
+                else math.inf
+            )
             while not state.event.is_set():
                 remaining = deadline - time.monotonic()
                 if remaining <= 0:
                     raise CodexAppServerError(
                         "Codex App Serverのturnが時間切れになりました。"
                     )
-                if state.event.wait(min(0.25, remaining)):
+                heartbeat_wait = max(0.0, next_heartbeat - time.monotonic())
+                if state.event.wait(min(0.25, remaining, heartbeat_wait)):
                     break
+                now = time.monotonic()
+                if now >= next_heartbeat:
+                    try:
+                        heartbeat_callback()
+                    except Exception:
+                        pass
+                    next_heartbeat = now + TURN_HEARTBEAT_INTERVAL_SECONDS
                 if completion_probe is None or not completion_probe():
                     continue
                 receipt_interrupted = True
@@ -1201,7 +1218,44 @@ class CodexAppServerClient:
             self._handle_turn_notification(message)
 
     @staticmethod
-    def _record_turn_item(state: _TurnState, item: Mapping[str, Any]) -> None:
+    def _failure_output_tail(value: Any) -> str:
+        text = " ".join(str(value or "").split())[-600:]
+        sensitive = re.compile(
+            r"(?i)(?:\b(?:authorization|api[_-]?key|token|secret|password|cookie)\b"
+            r"\s*[:=]|\bBearer\s+\S+|\bsk-[A-Za-z0-9_-]{8,}|"
+            r"\bgh[pousr]_[A-Za-z0-9_]{8,}|\bAKIA[A-Z0-9]{12,})"
+        )
+        return "<redacted sensitive output>" if sensitive.search(text) else text
+
+    def _display_change_path(self, value: str) -> str:
+        path = Path(value)
+        if not path.is_absolute():
+            return path.as_posix()[:300]
+        try:
+            resolved = path.resolve()
+            if resolved.is_relative_to(self.repo_root):
+                return resolved.relative_to(self.repo_root).as_posix()[:300]
+        except (OSError, RuntimeError):
+            pass
+        return (path.name or "repository外のfile")[:300]
+
+    @staticmethod
+    def _emit_turn_event(
+        state: _TurnState,
+        event: Mapping[str, Any],
+    ) -> None:
+        structured_emit = getattr(state.emit, "event", None)
+        if callable(structured_emit):
+            structured_emit(event)
+            return
+        state.emit(str(event.get("message") or "")[:1200])
+
+    def _record_turn_item(self, state: _TurnState, item: Mapping[str, Any]) -> None:
+        item_id = str(item.get("id") or "").strip()
+        if item_id:
+            if item_id in state.recorded_item_ids:
+                return
+            state.recorded_item_ids.add(item_id)
         item_type = str(item.get("type") or "")
         if item_type == "agentMessage":
             message_text = str(item.get("text") or "")
@@ -1215,20 +1269,64 @@ class CodexAppServerClient:
                     state.messages.append(value)
             return
         if item_type == "commandExecution":
-            command = " ".join(str(item.get("command") or "").split())[:240]
+            command = self._failure_output_tail(item.get("command"))[:240]
             status = str(item.get("status") or "")
-            state.emit(f"command {status}: {command}")
+            exit_code = item.get("exitCode")
+            exit_detail = (
+                f" exitCode={exit_code}"
+                if isinstance(exit_code, int) and not isinstance(exit_code, bool)
+                else ""
+            )
+            log = f"command {status}{exit_detail}: {command}"
+            failed = status == "failed" or (
+                isinstance(exit_code, int)
+                and not isinstance(exit_code, bool)
+                and exit_code != 0
+            )
+            output_tail = self._failure_output_tail(
+                item.get("aggregatedOutput") or item.get("output")
+            )
+            if failed and output_tail:
+                log += f" / output: {output_tail}"
+            self._emit_turn_event(
+                state,
+                {
+                    "level": "error" if failed else "info",
+                    "message": log[:1200],
+                    "commandStatus": status,
+                    "exitCode": exit_code,
+                    "outputTail": output_tail,
+                },
+            )
             return
         if item_type == "fileChange":
             changes = item.get("changes")
             count = len(changes) if isinstance(changes, list) else 0
+            display_paths: list[str] = []
             if isinstance(changes, list):
                 for change in changes:
                     if isinstance(change, Mapping):
                         path = str(change.get("path") or "").strip()
                         if path:
                             state.changed_files.add(path)
-            state.emit(f"file change: {count}件")
+                            display_paths.append(self._display_change_path(path))
+            visible_paths = display_paths[:5]
+            suffix = (
+                f"、ほか{len(display_paths) - len(visible_paths)}件"
+                if len(display_paths) > len(visible_paths)
+                else ""
+            )
+            path_detail = (
+                f": {', '.join(visible_paths)}{suffix}" if visible_paths else ""
+            )
+            self._emit_turn_event(
+                state,
+                {
+                    "level": "info",
+                    "message": f"file change: {count}件{path_detail}"[:1200],
+                    "changedPaths": display_paths,
+                },
+            )
             return
         if item_type != "collabAgentToolCall" or item.get("tool") != "spawnAgent":
             return

@@ -45,7 +45,7 @@ class DocumentationStructureTests(unittest.TestCase):
         for relative in REMOVED_DUPLICATES:
             self.assertFalse((ROOT / relative).exists(), relative)
 
-    def test_console_contract_keeps_recovery_order_and_state_boundary_visible(self):
+    def test_console_contract_prioritizes_operation_and_commit_boundaries(self):
         text = (
             ROOT / "document" / "operations" / "local_question_review_console.md"
         ).read_text(encoding="utf-8")
@@ -53,27 +53,17 @@ class DocumentationStructureTests(unittest.TestCase):
             ROOT / "document" / "operations" / "artifact_contract.md"
         ).read_text(encoding="utf-8")
 
-        self.assertLess(text.index("## 手戻りを防ぐ運用順序"), text.index("## 構成"))
-        for value in (
+        self.assertLess(text.index("## 手戻りを防ぐ運用順序"), text.index("## 確定、rollback、再生成"))
+        for concept in (
             "receiptValidated=true",
             "artifactSync",
+            "repository排他",
+            "direct_edit_transactions",
+            "postCommitErrors",
             "パッチ変更を反映",
             "管理機能の`出力`",
-            "run中は別作業でfile編集",
-            "法令関連問題がすべて現行03b",
         ):
-            self.assertIn(value, text)
-        for status in (
-            "running",
-            "deferred",
-            "current",
-            "not_required",
-            "succeeded",
-            "blocked",
-            "failed",
-            "interrupted",
-        ):
-            self.assertIn(f"| `{status}` |", text)
+            self.assertIn(concept, text)
         for field in (
             "stateHash",
             "policyVersions",
@@ -81,7 +71,71 @@ class DocumentationStructureTests(unittest.TestCase):
             "policyTargets",
         ):
             self.assertIn(f"`{field}`", artifact_contract)
-        self.assertLessEqual(max(map(len, text.splitlines())), 500)
+        self.assertLessEqual(len(text.splitlines()), 150)
+
+    def test_console_contract_links_transactions_progress_and_observability(self):
+        text = (
+            ROOT / "document" / "operations" / "local_question_review_console.md"
+        ).read_text(encoding="utf-8")
+        artifact_contract = (
+            ROOT / "document" / "operations" / "artifact_contract.md"
+        ).read_text(encoding="utf-8")
+
+        for concept in (
+            "開始前bytes",
+            "work_versions.json",
+            "failed delta",
+            "question_started",
+            "stage_completed",
+            "question_completed",
+            "processed",
+            "validated",
+            "15秒間隔",
+            "`heartbeatAt`",
+            "technical_log.jsonl",
+            "commandStatus",
+            "exitCode",
+            "outputTail",
+            "changedPaths",
+            "/technical-log",
+        ):
+            self.assertIn(concept, text)
+        for concept in ("baseline", "work_versions.json", "direct_edit_transactions"):
+            self.assertIn(concept, artifact_contract)
+
+    def test_law_audit_sidecar_v2_uses_source_identity(self):
+        audit_prompt = (
+            ROOT / "prompt" / "03b_prompt_audit_current_law_and_patch.md"
+        ).read_text(encoding="utf-8")
+        audit_workflow = (
+            ROOT
+            / "document"
+            / "operations"
+            / "current_law_question_maintenance_workflow.md"
+        ).read_text(encoding="utf-8")
+
+        for text in (audit_prompt, audit_workflow):
+            for concept in (
+                "law-revision-audit/v2",
+                "`reviewQuestionId`",
+                "`sourceQuestionKey`",
+                "`sourceRecordRef`",
+                "source record",
+                "UI",
+                "03b",
+                "開始",
+            ):
+                self.assertIn(concept, text)
+        self.assertNotIn("law-revision-audit/v1", audit_prompt)
+        for text in (audit_prompt, audit_workflow):
+            self.assertIn("reviewKey", text)
+            self.assertIn("exact join", text)
+            self.assertIn("fail-closed", text)
+        self.assertIn("`progressTargets[].id`", audit_prompt)
+        self.assertIn("選択肢順の`examTimeDecision`", audit_prompt)
+        for concept in ("工程03", "日本語", "必須metadata"):
+            self.assertIn(concept, audit_prompt)
+        self.assertLessEqual(len(audit_prompt.splitlines()), 140)
 
     def test_law_audit_docs_do_not_turn_technical_questions_into_holds(self):
         audit_prompt = (
@@ -164,6 +218,41 @@ class DocumentationStructureTests(unittest.TestCase):
         scraper_types = {str(preset.get("scraper_type", "kakomonn")) for preset in presets.values()}
         for scraper_type in scraper_types:
             self.assertIn(f"`{scraper_type}`", registry)
+
+    def test_explanation_prompt_is_compact_without_losing_safety_contracts(self):
+        text = (ROOT / "prompt" / "03_prompt_add_explanationText.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertLessEqual(len(text.splitlines()), 300)
+        for concept in (
+            "事実確定と文章推敲を分けます",
+            "`explanationText`の要素数は`choiceTextList`と一致",
+            "冒頭は必ず`正しい。`又は`間違い。`",
+            "`sourceQuestionKey`",
+            "`reviewQuestionId`",
+            "`sourceRecordRef`",
+            "duplicate、unmatched、ambiguous",
+            "`updated_to_current_law`",
+            "`tertiary_verified`",
+            "`hold`",
+            "21_explanationText_added/<source_stem>_merged_explanationText_added.json",
+            "materialize-patch",
+            "check-explanation-patch",
+            "question_field_contract.md",
+            "artifact_contract.md",
+            "qualification_docs/README.md",
+        ):
+            self.assertIn(concept, text)
+
+        for obsolete in (
+            "ソース間矛盾は多数一致",
+            "lawAnswerBasis",
+            "lawAnswerUpdatedFromExamTime",
+            "audit_2nd_class_kenchikushi_law_revision.py",
+            "mecnet-kokushi",
+        ):
+            self.assertNotIn(obsolete, text)
 
 
 if __name__ == "__main__":

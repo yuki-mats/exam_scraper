@@ -2,13 +2,23 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, Mapping
+from typing import Any, Callable, Dict, Iterable, Mapping, TypeVar
 
-from scripts.common.question_identity import review_question_id
+from scripts.common.question_identity import (
+    IdentityCandidateIndex,
+    SourceIdentityBinding,
+    SourceRecordIdentity,
+    resolve_identity_candidates,
+    review_question_id,
+    source_identity_aliases,
+    workflow_identity_aliases,
+)
 from scripts.merge.merge_utils import (
     build_manual_output_path,
     maybe_split_for_manual_output,
+    source_stem_from_patch_filename,
 )
 
 
@@ -116,6 +126,18 @@ NEGATIVE_PROMPT_PHRASES = (
 )
 
 
+@dataclass(frozen=True)
+class PatchArtifactEntry:
+    """One patch record together with its artifact scope."""
+
+    path: Path
+    entry: dict[str, Any]
+    source_stem: str = ""
+
+
+PatchCandidate = TypeVar("PatchCandidate")
+
+
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
@@ -153,26 +175,191 @@ def patch_target_id(question: Mapping[str, Any]) -> str:
     return review_question_id(question)
 
 
-def build_patch_map_from_paths(
+def _patch_record_aliases(record: Mapping[str, Any]) -> set[str]:
+    return source_identity_aliases(record) | workflow_identity_aliases(record)
+
+
+def _canonical_patch_record(record: Mapping[str, Any]) -> str:
+    return json.dumps(
+        record,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+
+def build_layered_patch_candidate_index(
+    candidates: Iterable[PatchCandidate],
+    *,
+    sources: Iterable[SourceRecordIdentity],
+    record_of: Callable[[PatchCandidate], Mapping[str, Any]],
+    source_stem_of: Callable[[PatchCandidate], str],
+    path_of: Callable[[PatchCandidate], Path],
+    label: str,
+) -> IdentityCandidateIndex:
+    """Resolve patch records and validate their explicit overlay layers.
+
+    A patch whose filename stem belongs to its resolved source record is
+    applied first.  Records stored outside that source artifact are aggregate
+    overlays and are applied second.  Within one layer there is deliberately
+    no filename-based precedence: identical duplicates collapse to one record
+    and competing records fail closed.
+    """
+
+    source_records = tuple(sources)
+    values = tuple(candidates)
+    source_by_binding = {
+        source.binding: source
+        for source in source_records
+    }
+    def candidate_layer(
+        candidate: PatchCandidate,
+        binding: SourceIdentityBinding,
+    ) -> str:
+        expected_stem = source_by_binding[binding].source_stem
+        return (
+            "per-source"
+            if source_stem_of(candidate)
+            in {expected_stem, f"{expected_stem}_merged"}
+            else "aggregate"
+        )
+    resolved = resolve_identity_candidates(
+        values,
+        sources=source_records,
+        record_of=record_of,
+        aliases_of=_patch_record_aliases,
+        source_stem_of=source_stem_of,
+        label=label,
+    )
+
+    errors: dict[SourceIdentityBinding, list[str]] = {
+        binding: list(messages)
+        for binding, messages in resolved.errors_by_binding.items()
+    }
+    validated: dict[SourceIdentityBinding, tuple[PatchCandidate, ...]] = {}
+    for binding, binding_candidates in resolved.by_binding.items():
+        layered: list[PatchCandidate] = []
+        binding_has_conflict = False
+        for layer in ("per-source", "aggregate"):
+            layer_candidates = [
+                candidate
+                for candidate in binding_candidates
+                if candidate_layer(candidate, binding) == layer
+            ]
+            if not layer_candidates:
+                continue
+
+            by_artifact: dict[str, list[PatchCandidate]] = {}
+            for candidate in layer_candidates:
+                by_artifact.setdefault(str(path_of(candidate).resolve()), []).append(
+                    candidate
+                )
+
+            deduplicated: list[PatchCandidate] = []
+            for artifact_path, artifact_candidates in sorted(by_artifact.items()):
+                records = {
+                    _canonical_patch_record(record_of(candidate))
+                    for candidate in artifact_candidates
+                }
+                if len(records) > 1:
+                    errors.setdefault(binding, []).append(
+                        f"{label}の同一artifact内で同じsource bindingが競合しています: "
+                        f"{artifact_path}"
+                    )
+                    binding_has_conflict = True
+                    continue
+                deduplicated.append(artifact_candidates[0])
+
+            distinct_records = {
+                _canonical_patch_record(record_of(candidate))
+                for candidate in deduplicated
+            }
+            if len(distinct_records) > 1:
+                paths = ", ".join(
+                    sorted(str(path_of(candidate)) for candidate in deduplicated)
+                )
+                errors.setdefault(binding, []).append(
+                    f"{label}の{layer} layerで同じsource bindingが競合しています: "
+                    f"{paths}"
+                )
+                binding_has_conflict = True
+                continue
+            if deduplicated:
+                layered.append(
+                    min(deduplicated, key=lambda candidate: str(path_of(candidate)))
+                )
+
+        if not binding_has_conflict:
+            validated[binding] = tuple(layered)
+
+    return IdentityCandidateIndex(
+        by_binding=validated,
+        errors_by_binding={
+            binding: tuple(dict.fromkeys(messages))
+            for binding, messages in errors.items()
+        },
+        unmatched_count=resolved.unmatched_count,
+        unmatched_candidates=resolved.unmatched_candidates,
+    )
+
+
+def build_layered_patch_index_from_paths(
     patch_paths: Iterable[Path],
     *,
-    value_key: str | None = None,
-    key_fields: Iterable[str] = ("original_question_id",),
-) -> Dict[str, Any]:
-    mapping: Dict[str, Any] = {}
+    patch_tag: str,
+    sources: Iterable[SourceRecordIdentity],
+    label: str,
+) -> IdentityCandidateIndex:
+    candidates: list[PatchArtifactEntry] = []
     for patch_path in patch_paths:
-        patch_data = load_json(patch_path)
-        for entry in extract_patch_entries(patch_data):
-            key_value = None
-            for key_field in key_fields:
-                value = entry.get(key_field)
-                if value:
-                    key_value = str(value)
-                    break
-            if key_value is None:
-                continue
-            mapping[key_value] = entry if value_key is None else entry.get(value_key)
-    return mapping
+        source_stem = source_stem_from_patch_filename(patch_path.name, patch_tag)
+        if source_stem is None:
+            continue
+        for entry in extract_patch_entries(load_json(patch_path)):
+            candidates.append(
+                PatchArtifactEntry(
+                    path=patch_path,
+                    entry=dict(entry),
+                    source_stem=source_stem,
+                )
+            )
+    return build_layered_patch_candidate_index(
+        candidates,
+        sources=sources,
+        record_of=lambda candidate: candidate.entry,
+        source_stem_of=lambda candidate: candidate.source_stem,
+        path_of=lambda candidate: candidate.path,
+        label=label,
+    )
+
+
+def ensure_identity_candidate_index_valid(
+    index: IdentityCandidateIndex,
+    *,
+    label: str,
+) -> None:
+    """Reject unresolved patch artifacts before publication output is mutated."""
+
+    messages = list(
+        dict.fromkeys(
+            message
+            for binding_messages in index.errors_by_binding.values()
+            for message in binding_messages
+        )
+    )
+    if index.unmatched_count:
+        paths = sorted(
+            {
+                str(getattr(candidate, "path", "(artifact path unavailable)"))
+                for candidate in index.unmatched_candidates
+            }
+        )
+        messages.append(
+            f"source recordへ対応できない{label}が{index.unmatched_count}件あります: "
+            + ", ".join(paths)
+        )
+    if messages:
+        raise RuntimeError(" ".join(messages))
 
 
 def apply_question_type(

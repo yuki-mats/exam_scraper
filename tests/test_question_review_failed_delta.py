@@ -210,6 +210,165 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(blocked, (relative.as_posix(),))
 
+    def test_child_stages_resolve_only_paths_they_own_from_a_broad_failure(self):
+        paths = {
+            "question_type": Path(
+                "output/sample/questions_json/2026/10_questionType_fixed/all.json"
+            ),
+            "question_intent": Path(
+                "output/sample/questions_json/2026/15_correctChoiceText_fixed/all.json"
+            ),
+            "law_context": Path(
+                "output/sample/questions_json/2026/18_law_context_prepared/all.json"
+            ),
+            "explanation": Path(
+                "output/sample/questions_json/2026/21_explanationText_added/all.json"
+            ),
+            "question_set": Path(
+                "output/sample/questions_json/2026/22_questionSetId_linked/all.json"
+            ),
+            "correct_choice": Path(
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/all.json"
+            ),
+            "law_audit_sidecar": Path(
+                "output/sample/review/law_revision_audit/"
+                "2026_law_revision_audit.jsonl"
+            ),
+        }
+        all_paths = list(paths.values())
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "20260101-broad/manifest.json"
+            )
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": [
+                            "question_type",
+                            "question_intent",
+                            "correct_choice",
+                            "law_context",
+                            "explanation",
+                            "law_audit",
+                            "question_set",
+                        ],
+                        "policyVersions": {
+                            stage: "1.0"
+                            for stage in (
+                                "question_type",
+                                "question_intent",
+                                "correct_choice",
+                                "law_context",
+                                "explanation",
+                                "law_audit",
+                                "question_set",
+                            )
+                        },
+                        "targetGroupIds": ["2026"],
+                        **self._contract_for_paths(all_paths),
+                        "result": {
+                            "changedFiles": [path.as_posix() for path in all_paths]
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            def resolvable(stage: str, owned: list[Path]) -> tuple[str, ...]:
+                return resolvable_failed_delta_paths(
+                    root,
+                    "sample",
+                    {
+                        "qualification": "sample",
+                        "workType": f"maintenance_{stage}",
+                        "stageIds": [stage],
+                        "policyVersions": {stage: "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **self._contract_for_paths(owned),
+                    },
+                    "2026",
+                )
+
+            question_type = resolvable("question_type", [paths["question_type"]])
+            question_intent = resolvable(
+                "question_intent", [paths["question_intent"]]
+            )
+            question_set = resolvable("question_set", [paths["question_set"]])
+            law_audit_paths = [
+                paths["law_context"],
+                paths["explanation"],
+                paths["correct_choice"],
+                paths["law_audit_sidecar"],
+            ]
+            law_audit = resolvable("law_audit", law_audit_paths)
+            law_context = resolvable("law_context", [paths["law_context"]])
+            explanation = resolvable("explanation", [paths["explanation"]])
+            correct_choice = resolvable(
+                "correct_choice", [paths["correct_choice"]]
+            )
+
+        self.assertEqual(question_type, (paths["question_type"].as_posix(),))
+        self.assertEqual(question_intent, (paths["question_intent"].as_posix(),))
+        self.assertEqual(question_set, (paths["question_set"].as_posix(),))
+        self.assertEqual(
+            law_audit,
+            tuple(sorted(path.as_posix() for path in law_audit_paths)),
+        )
+        self.assertEqual(law_context, ())
+        self.assertEqual(explanation, ())
+        self.assertEqual(correct_choice, ())
+
+    def test_single_stage_law_context_failure_still_converges_normally(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "18_law_context_prepared/all.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed = runs / "20260101-run/manifest.json"
+            failed.parent.mkdir(parents=True)
+            contract = self._contract(relative)
+            failed.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance_law_context",
+                        "stageIds": ["law_context"],
+                        "policyVersions": {"law_context": "1.0"},
+                        "targetGroupIds": ["2026"],
+                        **contract,
+                        "result": {"changedFiles": [relative.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            resolver = {
+                "qualification": "sample",
+                "workType": "maintenance_law_context",
+                "stageIds": ["law_context"],
+                "policyVersions": {"law_context": "1.0"},
+                "targetGroupIds": ["2026"],
+                **contract,
+            }
+
+            result = resolvable_failed_delta_paths(
+                root,
+                "sample",
+                resolver,
+                "2026",
+            )
+
+        self.assertEqual(result, (relative.as_posix(),))
+
     def test_partial_record_scope_is_not_exposed_as_resolvable(self):
         relative = Path(
             "output/sample/questions_json/2026/"
@@ -642,6 +801,29 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(blocked, ())
 
+    def test_non_law_stage_cannot_clear_a_law_audit_sidecar(self):
+        relative = Path(
+            "output/sample/review/law_revision_audit/"
+            "2026_law_revision_audit.jsonl"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            self._write_manifest(
+                runs / "20260101-run/manifest.json",
+                "failed",
+                relative,
+            )
+            self._write_manifest(
+                runs / "20260102-run/manifest.json",
+                "succeeded",
+                relative,
+            )
+
+            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(blocked, (relative.as_posix(),))
+
     def test_unknown_run_is_not_cleared_by_a_different_write_contract(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -902,6 +1084,25 @@ class FailedDeltaTests(unittest.TestCase):
             "allowedPatchFiles": [path.as_posix()] if is_patch else [],
             "allowedWriteFiles": [] if is_patch else [path.as_posix()],
             "targetRecordScopes": {path.as_posix(): [["q1"]]},
+        }
+
+    @staticmethod
+    def _contract_for_paths(paths: list[Path]) -> dict[str, object]:
+        patch_paths = [
+            path
+            for path in paths
+            if len(path.parts) > 4 and path.parts[2] == "questions_json"
+        ]
+        write_paths = [path for path in paths if path not in patch_paths]
+        return {
+            "allowedPatchDirs": sorted({path.parts[4] for path in patch_paths}),
+            "allowedWriteAreas": ["review"] if write_paths else [],
+            "allowedPatchFiles": [path.as_posix() for path in patch_paths],
+            "allowedWriteFiles": [path.as_posix() for path in write_paths],
+            "targetRecordScopes": {
+                path.as_posix(): [["q1"]]
+                for path in paths
+            },
         }
 
 

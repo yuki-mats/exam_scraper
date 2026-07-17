@@ -12,8 +12,17 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.common.question_identity import review_question_id  # noqa: E402
+from scripts.common.question_identity import (  # noqa: E402
+    SOURCE_IDENTITY_BINDING_FIELDS,
+    SourceIdentityBinding,
+    SourceRecordInventoryEntry,
+    load_source_record_inventory,
+    resolve_identity_candidates,
+    source_identity_aliases,
+    workflow_identity_aliases,
+)
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts  # noqa: E402
+from scripts.merge.merge_utils import strip_timestamp_suffix  # noqa: E402
 from scripts.merge.question_issue_corrections import (  # noqa: E402
     PATCHABLE_FIELDS,
     PATCH_ORIGIN,
@@ -47,13 +56,15 @@ TOP_LEVEL_FIELDS = {
     "createdAt",
     "entries",
 }
-ENTRY_FIELDS = {
+ENTRY_REQUIRED_FIELDS = {
     "original_question_id",
     "expectedBeforeHash",
     "changes",
     "rationale",
     "evidence",
 }
+ENTRY_IDENTITY_FIELDS = set(SOURCE_IDENTITY_BINDING_FIELDS)
+ENTRY_FIELDS = ENTRY_REQUIRED_FIELDS | ENTRY_IDENTITY_FIELDS
 EVIDENCE_FIELDS = {"sourceClass", "locator", "title", "verifiedAt", "contentHash"}
 
 
@@ -126,21 +137,110 @@ def validate_evidence(evidence: Any, *, entry_index: int) -> list[str]:
     return errors
 
 
-def current_records(path: Path | None) -> dict[str, dict[str, Any]]:
+def current_records(path: Path | None) -> list[dict[str, Any]]:
     if path is None:
-        return {}
+        return []
     payload = json.loads(path.read_text(encoding="utf-8"))
     records = payload.get("question_bodies") if isinstance(payload, dict) else None
     if not isinstance(records, list):
         raise ValueError(f"current JSON missing question_bodies: {path}")
-    result: dict[str, dict[str, Any]] = {}
-    for record in records:
-        if not isinstance(record, dict):
-            continue
-        question_id = review_question_id(record)
-        if question_id:
-            result[str(question_id)] = record
-    return result
+    if any(not isinstance(record, dict) for record in records):
+        raise ValueError(f"current JSON contains a non-object record: {path}")
+    return records
+
+
+def _merged_source_stem(path: Path) -> str:
+    return strip_timestamp_suffix(path.stem).removesuffix("_merged")
+
+
+def _source_inventory_for_current(
+    path: Path,
+) -> tuple[SourceRecordInventoryEntry, ...]:
+    group_dir = path.parent.parent
+    source_dir = group_dir / "00_source"
+    if not source_dir.is_dir():
+        return ()
+    if group_dir.parent.name != "questions_json":
+        raise ValueError(f"current JSON is outside questions_json: {path}")
+    return load_source_record_inventory(
+        source_dir,
+        qualification=group_dir.parent.parent.name,
+        list_group_id=group_dir.name,
+    )
+
+
+def _current_record_for_entry(
+    records: list[dict[str, Any]],
+    entry: dict[str, Any],
+    *,
+    current_path: Path,
+) -> dict[str, Any]:
+    inventory = _source_inventory_for_current(current_path)
+
+    def aliases_of(record: dict[str, Any]) -> set[str]:
+        return (
+            source_identity_aliases(record)
+            | workflow_identity_aliases(record)
+        )
+
+    if inventory:
+        sources = tuple(item.identity for item in inventory)
+        entry_index = resolve_identity_candidates(
+            [entry],
+            sources=sources,
+            record_of=lambda value: value,
+            aliases_of=aliases_of,
+            source_stem_of=lambda _value: "",
+            label="question issue correction",
+        )
+        target_bindings = [
+            binding
+            for binding, candidates in entry_index.by_binding.items()
+            if candidates
+        ]
+        if len(target_bindings) != 1:
+            raise ValueError("correction entry does not resolve to one source record")
+        target_binding = target_bindings[0]
+        record_index = resolve_identity_candidates(
+            records,
+            sources=sources,
+            record_of=lambda value: value,
+            aliases_of=aliases_of,
+            source_stem_of=lambda _value: _merged_source_stem(current_path),
+            label="current record",
+        )
+        errors = record_index.errors_by_binding.get(target_binding, ())
+        matches = record_index.by_binding.get(target_binding, ())
+        if errors:
+            raise ValueError(" ".join(errors))
+        if len(matches) != 1:
+            raise ValueError(
+                "current record does not resolve uniquely: "
+                f"matches={len(matches)}"
+            )
+        return matches[0]
+
+    target_binding = SourceIdentityBinding.from_mapping(entry)
+    if target_binding.is_complete():
+        exact_matches = [
+            record
+            for record in records
+            if SourceIdentityBinding.from_mapping(record) == target_binding
+        ]
+        if len(exact_matches) == 1:
+            return exact_matches[0]
+        if len(exact_matches) > 1:
+            raise ValueError("current exact binding is duplicated")
+    entry_aliases = aliases_of(entry)
+    legacy_matches = [
+        record for record in records if aliases_of(record) & entry_aliases
+    ]
+    if len(legacy_matches) != 1:
+        raise ValueError(
+            "current record does not resolve uniquely without source inventory: "
+            f"matches={len(legacy_matches)}"
+        )
+    return legacy_matches[0]
 
 
 def validate_patch(
@@ -206,7 +306,7 @@ def validate_patch(
         allowed_fields = set(category_config.get("allowedChangeFields") or [])
 
     records = current_records(current_path)
-    seen_ids: set[str] = set()
+    seen_identities: set[tuple[str, ...]] = set()
     entries = payload.get("entries")
     if not isinstance(entries, list) or not entries:
         return errors + ["entries must be non-empty"]
@@ -216,14 +316,33 @@ def validate_patch(
         if not isinstance(entry, dict):
             errors.append(f"entry {index} must be an object")
             continue
-        if set(entry) != ENTRY_FIELDS:
+        entry_fields = set(entry)
+        if (
+            not ENTRY_REQUIRED_FIELDS.issubset(entry_fields)
+            or entry_fields - ENTRY_FIELDS
+        ):
             errors.append(f"entry {index}: fields must exactly match contract")
+        provided_identity_fields = entry_fields & ENTRY_IDENTITY_FIELDS
+        if provided_identity_fields and provided_identity_fields != ENTRY_IDENTITY_FIELDS:
+            errors.append(
+                f"entry {index}: source identity fields must contain all three fields"
+            )
         original_id = str(entry.get("original_question_id") or "").strip()
+        binding = SourceIdentityBinding.from_mapping(entry)
+        identity = (
+            binding.as_tuple()
+            if binding.is_complete()
+            else (original_id,)
+        )
         if not original_id:
             errors.append(f"entry {index}: original_question_id is required")
-        elif original_id in seen_ids:
-            errors.append(f"entry {index}: duplicate original_question_id={original_id}")
-        seen_ids.add(original_id)
+        elif identity in seen_identities:
+            errors.append(f"entry {index}: duplicate source identity={identity}")
+        seen_identities.add(identity)
+        if binding.is_complete() and binding.review_question_id != original_id:
+            errors.append(
+                f"entry {index}: reviewQuestionId must match original_question_id"
+            )
         expected_hash = str(entry.get("expectedBeforeHash") or "")
         if not SHA256_RE.fullmatch(expected_hash):
             errors.append(f"entry {index}: expectedBeforeHash must be sha256")
@@ -250,10 +369,18 @@ def validate_patch(
                     "tertiary_verified lawRevisionFacts with evidenceSummary"
                 )
         if records:
-            current = records.get(original_id)
-            if current is None:
-                errors.append(f"entry {index}: current record not found: {original_id}")
-            elif question_record_hash(current) != expected_hash:
+            try:
+                current = _current_record_for_entry(
+                    records,
+                    entry,
+                    current_path=current_path,
+                )
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                errors.append(
+                    f"entry {index}: current record not found uniquely: {exc}"
+                )
+                continue
+            if question_record_hash(current) != expected_hash:
                 errors.append(f"entry {index}: expectedBeforeHash does not match current record")
             else:
                 unchanged_fields = sorted(

@@ -3,8 +3,12 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.question_review_console.codex_app_server import AppServerTurnResult
+from tools.question_review_console.failed_delta import (
+    unresolved_failed_delta_paths,
+)
 from tools.question_review_console.jobs import JobManager
 from tools.question_review_console.qualification_runs import (
     QualificationRunCoordinator,
@@ -83,6 +87,56 @@ class FakeSynchronizer:
         }
 
 
+def _write_completed_progress(prompt: str) -> None:
+    manifest_line = next(
+        (
+            line
+            for line in prompt.splitlines()
+            if "progressTargetsとprogressStages" in line
+        ),
+        "",
+    )
+    if not manifest_line:
+        return
+    manifest_path = Path(manifest_line.split("`")[1])
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    progress_path = manifest_path.parent / "agent_output" / "progress.jsonl"
+    events = []
+    policy_targets = manifest.get("policyTargets") or {}
+    for target in manifest.get("progressTargets") or []:
+        aliases = {
+            str(target.get("id") or ""),
+            str(target.get("questionKey") or ""),
+            *(str(value) for value in target.get("aliases") or []),
+        } - {""}
+        events.append(
+            {"event": "question_started", "questionId": target["id"]}
+        )
+        for stage in manifest.get("progressStages") or []:
+            stage_id = str(stage.get("id") or "")
+            planned = {
+                str(value) for value in policy_targets.get(stage_id) or []
+            }
+            if planned and not aliases & planned:
+                continue
+            events.append(
+                {
+                    "event": "stage_completed",
+                    "questionId": target["id"],
+                    "stageId": stage_id,
+                    "result": {"summary": "検証済み"},
+                }
+            )
+        events.append(
+            {"event": "question_completed", "questionId": target["id"]}
+        )
+    progress_path.write_text(
+        "".join(
+            json.dumps(event, ensure_ascii=False) + "\n" for event in events
+        ),
+        encoding="utf-8",
+    )
+
 class SuccessfulAppServer:
     configured = True
     provider = "Codex App Server"
@@ -130,6 +184,7 @@ class SuccessfulAppServer:
         kwargs["on_turn_started"](
             "thread-maintenance-1", "turn-maintenance-1"
         )
+        _write_completed_progress(prompt)
         receipt_line = next(
             line
             for line in prompt.splitlines()
@@ -304,6 +359,7 @@ class FlowAppServer:
             raise RuntimeError(f"phase {number} failed")
         if self.before_receipt is not None:
             self.before_receipt(kwargs["work_type"])
+        _write_completed_progress(prompt)
         changed_files = list(
             self.changed_files_by_work_type.get(kwargs["work_type"], [])
         )
@@ -356,6 +412,9 @@ class SourceOnlyInventory:
                     "qualification": "new-exam",
                     "listGroupId": list_group_id,
                     "originalQuestionId": original_id,
+                    "sourceQuestionKey": f"new-exam:{list_group_id}:q1",
+                    "sourceRecordRef": f"question_{list_group_id}_1.json#0",
+                    "source": {"originalQuestionId": original_id},
                     "paths": {
                         "source": (
                             f"output/new-exam/questions_json/{list_group_id}/"
@@ -392,6 +451,9 @@ class NonLawSourceInventory(SourceOnlyInventory):
         question = group["questions"][0]
         question["projected"] = {
             **question["projected"],
+            "choiceTextList": ["A"],
+            "correctChoiceText": ["正しい"],
+            "explanationText": ["正しい。法令に関係しない技術事項である。"],
             "isLawRelated": False,
             "lawGroundedExplanationNotNeeded": True,
         }
@@ -467,6 +529,28 @@ class UnverifiedLawSourceInventory(LawSourceInventory):
         return group
 
 class QualificationRunTests(unittest.TestCase):
+    def _wait_for_job(
+        self,
+        jobs: JobManager,
+        job_id: str,
+        *,
+        timeout: float = 3,
+    ) -> dict:
+        deadline = time.monotonic() + timeout
+        job = jobs.get(job_id)
+        while (
+            job["status"] in {"queued", "running"}
+            and time.monotonic() < deadline
+        ):
+            time.sleep(0.01)
+            job = jobs.get(job_id)
+        self.assertNotIn(
+            job["status"],
+            {"queued", "running"},
+            f"job did not finish within {timeout}s: {job}",
+        )
+        return job
+
     @staticmethod
     def _write_law_audit_sidecar(
         root: Path,
@@ -486,9 +570,37 @@ class QualificationRunTests(unittest.TestCase):
             "".join(
                 json.dumps(
                     {
+                        "schemaVersion": "law-revision-audit/v2",
                         "qualification": "new-exam",
                         "listGroupId": list_group_id,
+                        "sourceQuestionKey": f"new-exam:{list_group_id}:q1",
+                        "sourceRecordRef": f"question_{list_group_id}_1.json#0",
+                        "examYear": (
+                            int(list_group_id)
+                            if list_group_id.isdigit()
+                            and len(list_group_id) == 4
+                            else 2026
+                        ),
+                        "isLawRelated": False,
+                        "auditedAt": "2026-07-17T12:00:00+09:00",
+                        "nextAuditDueAt": "2027-07-17",
+                        "auditMethodVersion": "law-grounded-audit/v2",
+                        "auditInputHash": "sha256:" + "a" * 64,
+                        "auditRunId": "audit-run-1",
+                        "lawCorpusSnapshotId": "egov-2026-07-17",
+                        "primaryAuditRunId": "primary-run-1",
+                        "secondaryAuditRunId": "secondary-run-1",
+                        "tertiaryAuditRunId": None,
+                        "reconciliationStatus": "matched",
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                        "examTimeDecision": ["正しい"],
+                        "currentLawDecision": ["正しい"],
+                        "userVisibleNoticeRequired": False,
+                        "noticeReason": "",
+                        "lawReferences": [],
                         "sourceSummary": "分類と根拠を確認した。",
+                        "remainingRisk": "",
                         **row,
                     },
                     ensure_ascii=False,
@@ -558,14 +670,11 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 5
-            job = jobs.get(started["job"]["jobId"])
-            while (
-                job["status"] in {"queued", "running"}
-                and time.monotonic() < deadline
-            ):
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=5,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
         return job, run
 
@@ -612,6 +721,175 @@ class QualificationRunTests(unittest.TestCase):
             [phase["sessionGroup"] for phase in phases],
             ["maintenance"] * 5 + ["law_audit", "question_set", "question_set"],
         )
+
+    def test_technical_log_is_append_only_structured_and_redacted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+            )
+            plan = FakeWorkflow().plan("sample", "delivery")
+            run = coordinator.store.create(plan, status="queued")
+
+            def worker(emit):
+                emit("Authorization: Bearer should-not-be-saved")
+                event = {
+                    "level": "error",
+                    "message": "command failed: python verify.py",
+                    "commandStatus": "failed",
+                    "exitCode": 7,
+                    "outputTail": "token=should-not-be-saved",
+                    "changedPaths": ["output/sample/patch.json"],
+                    "thought": "never persist this",
+                }
+                getattr(emit, "event")(event)
+                getattr(emit, "event")(event)
+                return {"ok": True}
+
+            started = jobs.start(
+                kind="test-log",
+                key="test-log",
+                worker=lambda emit: coordinator._run_with_technical_log(
+                    "sample",
+                    run["runId"],
+                    emit,
+                    worker,
+                ),
+            )
+            job = self._wait_for_job(jobs, started["jobId"], timeout=2)
+            log_path = root / run["technicalLogPath"]
+            first_bytes = log_path.read_bytes()
+            coordinator.store.append_technical_log(
+                "sample", run["runId"], {"message": "last event"}
+            )
+            final_bytes = log_path.read_bytes()
+            events = [
+                json.loads(line)
+                for line in final_bytes.decode("utf-8").splitlines()
+            ]
+
+        self.assertEqual(job["status"], "succeeded")
+        self.assertTrue(final_bytes.startswith(first_bytes))
+        self.assertEqual([event["sequence"] for event in events], [1, 2, 3])
+        self.assertTrue(all(event["observedAt"] for event in events))
+        self.assertEqual(events[1]["commandStatus"], "failed")
+        self.assertEqual(events[1]["exitCode"], 7)
+        self.assertEqual(events[1]["changedPaths"], ["output/sample/patch.json"])
+        serialized = json.dumps(events, ensure_ascii=False)
+        self.assertNotIn("should-not-be-saved", serialized)
+        self.assertNotIn("thought", serialized)
+        self.assertIn("<redacted sensitive content>", serialized)
+
+    def test_technical_log_failure_does_not_fail_the_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            run = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="running",
+                prompt="work",
+            )
+            emitted: list[str] = []
+
+            with patch.object(
+                coordinator.store,
+                "append_technical_log",
+                side_effect=OSError("read only"),
+            ):
+                result = coordinator._run_with_technical_log(
+                    "sample",
+                    run["runId"],
+                    emitted.append,
+                    lambda emit: (emit("working"), {"ok": True})[1],
+                )
+
+        self.assertEqual(result, {"ok": True})
+        self.assertEqual(emitted[0], "working")
+        self.assertIn("整備処理は継続します", emitted[1])
+
+    def test_child_heartbeat_updates_parent_run_and_job_activity(self):
+        class HeartbeatAppServer(SuccessfulAppServer):
+            def run_turn(self, prompt, **kwargs):
+                kwargs["heartbeat"]()
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            touched_jobs = []
+            original_touch = jobs.touch
+
+            def observe_touch(job_id):
+                touched_jobs.append(job_id)
+                original_touch(job_id)
+
+            jobs.touch = observe_touch
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=HeartbeatAppServer(),
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            parent_plan = {
+                **FakeWorkflow().plan("sample", "law_audit"),
+                "kind": "orchestration",
+                "workType": "maintenance_flow",
+            }
+            parent = coordinator.store.create(parent_plan, status="running")
+            coordinator.store.update(
+                "sample", parent["runId"], heartbeatAt="stale-parent"
+            )
+            child_plan = {
+                **FakeWorkflow().plan("sample", "law_audit"),
+                "targetCount": 1,
+                "workItemCount": 1,
+                "parentRunId": parent["runId"],
+            }
+            child = coordinator.store.create(
+                child_plan,
+                status="queued",
+                prompt="整備する。",
+            )
+            prompt = coordinator.store.prompt("sample", child["runId"])
+            started = jobs.start(
+                kind="heartbeat-test",
+                key="heartbeat-test",
+                worker=lambda emit: coordinator._run_with_technical_log(
+                    "sample",
+                    child["runId"],
+                    emit,
+                    lambda logged_emit: coordinator._run_human(
+                        "sample",
+                        child["runId"],
+                        prompt,
+                        "maintenance",
+                        logged_emit,
+                    ),
+                ),
+            )
+            job = self._wait_for_job(jobs, started["jobId"])
+            parent_after = coordinator.store.get("sample", parent["runId"])
+            child_after = coordinator.store.get("sample", child["runId"])
+
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertIn(started["jobId"], touched_jobs)
+        self.assertNotEqual(parent_after["heartbeatAt"], "stale-parent")
+        self.assertTrue(child_after["heartbeatAt"])
+        self.assertTrue(job["lastActivityAt"])
 
     def test_human_run_records_validated_question_level_progress(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -673,7 +951,7 @@ class QualificationRunTests(unittest.TestCase):
                 "\n".join(
                     [
                         json.dumps(
-                            {"event": "question_started", "questionId": "source-q1"},
+                            {"event": "question_started", "questionId": "ui-q1"},
                             ensure_ascii=False,
                         ),
                         json.dumps(
@@ -704,28 +982,306 @@ class QualificationRunTests(unittest.TestCase):
                             {"event": "stage_completed", "questionId": "scope外", "stageId": "explanation"},
                             ensure_ascii=False,
                         ),
+                        json.dumps(
+                            {"event": "question_started", "questionId": "source-q2"},
+                            ensure_ascii=False,
+                        ),
                     ]
                 )
                 + "\n",
                 encoding="utf-8",
             )
 
+            store.update(
+                "sample",
+                run["runId"],
+                status="succeeded",
+                receiptValidated=True,
+            )
             progress = store.progress("sample", run["runId"])
             prompt = store.prompt("sample", run["runId"])
 
-        self.assertEqual(progress["completedQuestionCount"], 1)
+        self.assertEqual(progress["completedQuestionCount"], 0)
+        self.assertEqual(progress["touchedQuestionCount"], 1)
+        self.assertEqual(progress["processedQuestionCount"], 0)
         self.assertEqual(progress["completedWorkItemCount"], 1)
-        self.assertEqual(progress["percent"], 50)
+        self.assertEqual(progress["percent"], 0)
         self.assertEqual(progress["current"]["questionId"], "ui-q1")
-        self.assertEqual(progress["groups"][0]["percent"], 50)
-        self.assertEqual(progress["invalidEventCount"], 1)
+        self.assertEqual(progress["groups"][0]["percent"], 0)
+        self.assertEqual(progress["invalidEventCount"], 4)
         self.assertNotIn("privateReasoning", progress["events"][1]["result"])
         self.assertEqual(len(progress["questions"]), 1)
-        self.assertTrue(progress["questions"][0]["completed"])
+        self.assertFalse(progress["questions"][0]["completed"])
         self.assertEqual(len(progress["questions"][0]["outputs"]), 1)
         self.assertIn("画面用の問題別進捗", prompt)
         self.assertIn("progressTargets", prompt)
         self.assertIn("policyTargets", prompt)
+
+    def test_new_run_rejects_ambiguous_policy_target(self):
+        plan = FakeWorkflow().plan("sample", "explanation", "outdated")
+        plan.update(
+            {
+                "targetCount": 2,
+                "workItemCount": 2,
+                "policyTargets": {"explanation": ["shared-source-key"]},
+                "progressTargets": [
+                    {
+                        "id": f"ui-q{number}",
+                        "aliases": ["shared-source-key"],
+                    }
+                    for number in (1, 2)
+                ],
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            store = QualificationRunStore(Path(directory))
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "実行対象ID契約が不正",
+            ):
+                store.create(plan, status="running", prompt="work")
+
+    def test_progress_marks_ambiguous_old_policy_contract_invalid(self):
+        manifest = {
+            "runId": "legacy-run",
+            "status": "running",
+            "targetCount": 2,
+            "workItemCount": 2,
+            "progressStages": [
+                {"id": "explanation", "code": "03", "label": "解説"}
+            ],
+            "progressTargets": [
+                {
+                    "id": f"ui-q{number}",
+                    "uiQuestionId": f"ui-q{number}",
+                    "questionKey": "shared-source-key",
+                    "aliases": ["shared-source-key"],
+                    "listGroupId": "2026",
+                }
+                for number in (1, 2)
+            ],
+            "policyTargets": {"explanation": ["shared-source-key"]},
+        }
+
+        progress = QualificationRunStore._parsed_progress(manifest, b"\n")
+
+        self.assertEqual(progress["invalidEventCount"], 1)
+        self.assertEqual(progress["processedQuestionCount"], 0)
+
+    def test_progress_keeps_unique_legacy_policy_target_compatible(self):
+        manifest = {
+            "runId": "legacy-run",
+            "status": "running",
+            "targetCount": 1,
+            "workItemCount": 1,
+            "progressStages": [
+                {"id": "explanation", "code": "03", "label": "解説"}
+            ],
+            "progressTargets": [
+                {
+                    "id": "ui-q1",
+                    "uiQuestionId": "ui-q1",
+                    "questionKey": "legacy-source-key",
+                    "aliases": ["legacy-source-key"],
+                    "listGroupId": "2026",
+                }
+            ],
+            "policyTargets": {"explanation": ["legacy-source-key"]},
+        }
+        events = [
+            {"event": "question_started", "questionId": "ui-q1"},
+            {
+                "event": "stage_completed",
+                "questionId": "ui-q1",
+                "stageId": "explanation",
+            },
+            {"event": "question_completed", "questionId": "ui-q1"},
+        ]
+        raw = "".join(json.dumps(event) + "\n" for event in events).encode()
+
+        progress = QualificationRunStore._parsed_progress(manifest, raw)
+
+        self.assertEqual(progress["invalidEventCount"], 0)
+        self.assertEqual(progress["processedQuestionCount"], 1)
+
+    def test_progress_rejects_out_of_order_and_duplicate_events(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan = {
+                "qualification": "sample",
+                "stageId": "multi",
+                "stageIds": ["first", "second", "third"],
+                "stageCode": "01 → 02 → 03",
+                "stageLabel": "複数工程",
+                "mode": "outdated",
+                "modeLabel": "未整備のみ",
+                "kind": "human",
+                "targetCount": 1,
+                "workItemCount": 3,
+                "targetGroupIds": ["2026"],
+                "policyTargets": {
+                    "first": ["q1"],
+                    "second": ["q1"],
+                },
+                "progressTargets": [
+                    {
+                        "id": "q1",
+                        "questionKey": "sample:2026:q1",
+                        "listGroupId": "2026",
+                    }
+                ],
+                "stagePlans": [
+                    {"stageId": "first", "stageCode": "01", "stageLabel": "第一"},
+                    {"stageId": "second", "stageCode": "02", "stageLabel": "第二"},
+                ],
+                "sourceFiles": [],
+                "canonicalDocs": [],
+            }
+            run = store.create(plan, status="running", prompt="整備する。")
+            progress_path = root / run["progressReceiptPath"]
+            raw_events = [
+                {"event": "stage_completed", "questionId": "q1", "stageId": "first"},
+                {"event": "question_started", "questionId": "q1"},
+                {"event": "question_started", "questionId": "q1"},
+                {"event": "stage_completed", "questionId": "q1", "stageId": "second"},
+                {"event": "stage_completed", "questionId": "q1", "stageId": "first"},
+                {"event": "stage_completed", "questionId": "q1", "stageId": "first"},
+                {"event": "question_completed", "questionId": "q1"},
+                {"event": "stage_completed", "questionId": "q1", "stageId": "second"},
+                {"event": "question_completed", "questionId": "q1"},
+                {"event": "question_completed", "questionId": "q1"},
+            ]
+            progress_path.write_text(
+                "".join(
+                    json.dumps(event, ensure_ascii=False) + "\n"
+                    for event in raw_events
+                ),
+                encoding="utf-8",
+            )
+
+            progress = store.progress("sample", run["runId"])
+
+        self.assertEqual(progress["invalidEventCount"], 6)
+        self.assertEqual(progress["processedWorkItemCount"], 2)
+        self.assertEqual(progress["processedQuestionCount"], 1)
+        self.assertEqual(
+            [event["event"] for event in progress["events"]],
+            [
+                "question_started",
+                "stage_completed",
+                "stage_completed",
+                "question_completed",
+            ],
+        )
+
+    def test_combined_progress_separates_processed_and_validated_children(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            base_target = {
+                "id": "q1",
+                "questionKey": "sample:2026:q1",
+                "listGroupId": "2026",
+            }
+            parent_plan = {
+                "qualification": "sample",
+                "stageId": "multi",
+                "stageIds": ["first", "second"],
+                "stageCode": "01 → 02",
+                "stageLabel": "トップ整備",
+                "mode": "outdated",
+                "modeLabel": "未整備のみ",
+                "kind": "orchestration",
+                "workType": "maintenance_flow",
+                "targetCount": 1,
+                "workItemCount": 2,
+                "targetGroupIds": ["2026"],
+                "policyTargets": {
+                    "first": ["q1"],
+                    "second": ["q1"],
+                    "third": ["q1"],
+                },
+                "progressTargets": [base_target],
+                "stagePlans": [
+                    {"stageId": "first", "stageCode": "01", "stageLabel": "第一"},
+                    {"stageId": "second", "stageCode": "02", "stageLabel": "第二"},
+                    {"stageId": "third", "stageCode": "03", "stageLabel": "第三"},
+                ],
+                "sourceFiles": [],
+                "canonicalDocs": [],
+            }
+            parent = store.create(parent_plan, status="running")
+            child_ids = []
+            for stage_id, status, validated in (
+                ("first", "succeeded", True),
+                ("second", "failed", False),
+            ):
+                child_plan = {
+                    **parent_plan,
+                    "stageId": stage_id,
+                    "stageIds": [stage_id],
+                    "stageCode": "01" if stage_id == "first" else "02",
+                    "stageLabel": stage_id,
+                    "kind": "human",
+                    "workType": f"maintenance_{stage_id}",
+                    "parentRunId": parent["runId"],
+                    "workItemCount": 1,
+                    "policyTargets": {stage_id: ["q1"]},
+                    "stagePlans": [
+                        {
+                            "stageId": stage_id,
+                            "stageCode": "01" if stage_id == "first" else "02",
+                            "stageLabel": stage_id,
+                        }
+                    ],
+                }
+                child = store.create(
+                    child_plan,
+                    status="running",
+                    prompt="整備する。",
+                )
+                child_ids.append(child["runId"])
+                progress_path = root / child["progressReceiptPath"]
+                progress_path.write_text(
+                    "".join(
+                        json.dumps(event, ensure_ascii=False) + "\n"
+                        for event in (
+                            {"event": "question_started", "questionId": "q1"},
+                            {
+                                "event": "stage_completed",
+                                "questionId": "q1",
+                                "stageId": stage_id,
+                            },
+                            {"event": "question_completed", "questionId": "q1"},
+                        )
+                    ),
+                    encoding="utf-8",
+                )
+                store.update(
+                    "sample",
+                    child["runId"],
+                    status=status,
+                    receiptValidated=validated,
+                )
+            store.update(
+                "sample",
+                parent["runId"],
+                status="failed",
+                childRunIds=child_ids,
+            )
+
+            progress = store.combined_progress("sample", parent["runId"])
+
+        self.assertEqual(progress["processedWorkItemCount"], 2)
+        self.assertEqual(progress["validatedWorkItemCount"], 1)
+        self.assertEqual(progress["touchedQuestionCount"], 1)
+        self.assertEqual(progress["processedQuestionCount"], 0)
+        self.assertEqual(progress["validatedQuestionCount"], 0)
+        self.assertEqual(progress["completedQuestionCount"], 0)
+        self.assertEqual(progress["questions"][0]["approvalState"], "failed_unapproved")
+        self.assertFalse(progress["verified"])
+        self.assertEqual(progress["invalidEventCount"], 0)
 
     def test_progress_summarizes_all_58_questions_beyond_recent_event_window(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -876,6 +1432,135 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(by_id["question_type"]["status"], "current")
         self.assertEqual(by_id["question_intent"]["status"], "unrecorded")
 
+    def test_version_recording_uses_exact_binding_not_shared_legacy_alias(self):
+        class SharedIdentityInventory(SourceOnlyInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                first = group["questions"][0]
+                first.update(
+                    {
+                        "id": "ui-q1",
+                        "reviewKey": "review-key-q1",
+                        "originalQuestionId": "shared-review-id",
+                        "sourceQuestionKey": "new-exam:2026:shared",
+                        "sourceRecordRef": "question_2026_1.json#0",
+                    }
+                )
+                second = json.loads(json.dumps(first))
+                second.update(
+                    {
+                        "id": "ui-q2",
+                        "reviewKey": "review-key-q2",
+                        "sourceRecordRef": "question_2026_2.json#0",
+                    }
+                )
+                group["questions"] = [first, second]
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = SharedIdentityInventory()
+            workflow = QualificationWorkflow(root, inventory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            policy = workflow.versioned_policies("new-exam")["question_type"]
+            run = {
+                "runId": "run-exact-q2",
+                "qualification": "new-exam",
+                "targetGroupIds": ["2026"],
+                "policyVersions": {
+                    "question_type": policy["policyVersion"]
+                },
+                "policyFingerprints": {
+                    "question_type": policy["policyFingerprint"]
+                },
+                "policyTargets": {"question_type": ["ui-q2"]},
+                "targetRecordBindings": [
+                    {
+                        "uiQuestionId": "ui-q2",
+                        "reviewQuestionId": "shared-review-id",
+                        "sourceQuestionKey": "new-exam:2026:shared",
+                        "sourceRecordRef": "question_2026_2.json#0",
+                        "aliases": [
+                            "shared-review-id",
+                            "new-exam:2026:shared",
+                        ],
+                    }
+                ],
+            }
+
+            receipt = coordinator._record_work_versions(run)
+            questions = inventory.group("new-exam", "2026")["questions"]
+            statuses = [
+                workflow.work_versions.status_for(question, [policy])["status"]
+                for question in questions
+            ]
+
+        self.assertEqual(receipt["recordedCount"], 1)
+        self.assertEqual(statuses, ["unrecorded", "current"])
+
+    def test_version_recording_rejects_ambiguous_legacy_alias(self):
+        class SharedAliasInventory(SourceOnlyInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                first = group["questions"][0]
+                first.update(
+                    {
+                        "id": "ui-q1",
+                        "reviewKey": "review-key-q1",
+                        "sourceQuestionKey": "shared-source-key",
+                    }
+                )
+                second = json.loads(json.dumps(first))
+                second.update(
+                    {
+                        "id": "ui-q2",
+                        "reviewKey": "review-key-q2",
+                        "sourceRecordRef": "question_2026_2.json#0",
+                    }
+                )
+                group["questions"] = [first, second]
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = SharedAliasInventory()
+            workflow = QualificationWorkflow(root, inventory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            policy = workflow.versioned_policies("new-exam")["question_type"]
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "一意に解決できません",
+            ):
+                coordinator._record_work_versions(
+                    {
+                        "runId": "run-legacy-shared",
+                        "qualification": "new-exam",
+                        "targetGroupIds": ["2026"],
+                        "policyVersions": {
+                            "question_type": policy["policyVersion"]
+                        },
+                        "policyFingerprints": {
+                            "question_type": policy["policyFingerprint"]
+                        },
+                        "policyTargets": {
+                            "question_type": ["shared-source-key"]
+                        },
+                    }
+                )
+
     def test_explanation_version_recording_rejects_old_legal_style(self):
         with self.assertRaisesRegex(
             QualificationRunError, "03 解説の日本語品質検証"
@@ -914,6 +1599,122 @@ class QualificationRunTests(unittest.TestCase):
                             },
                         }
                     ]
+                )
+
+    def test_law_audit_version_recording_also_rejects_bad_explanation_format(self):
+        class BadLawExplanationInventory(LawSourceInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                group["questions"][0]["projected"]["explanationText"] = [
+                    "定義に一致するため正しい。"
+                ]
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(
+                root, BadLawExplanationInventory()
+            )
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError, "03 解説の日本語品質検証"
+            ):
+                coordinator._record_work_versions(
+                    self._law_audit_policy_run(workflow)
+                )
+
+    def test_law_audit_plan_preserves_ui_and_source_identities(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), LawSourceInventory()
+            )
+
+            plan = workflow.plan(
+                "new-exam", "law_audit", "group_refresh",
+                list_group_id="2026",
+            )
+
+        self.assertEqual(
+            plan["targetRecordBindings"],
+            [
+                {
+                    "uiQuestionId": "new-exam-2026-q1",
+                    "reviewQuestionId": "new-exam-2026-q1",
+                    "sourceQuestionKey": "new-exam:2026:q1",
+                    "sourceRecordRef": "question_2026_1.json#0",
+                    "aliases": plan["targetRecordBindings"][0]["aliases"],
+                }
+            ],
+        )
+
+    def test_law_audit_plan_rejects_missing_source_identity(self):
+        class MissingSourceIdentityInventory(LawSourceInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                group["questions"][0]["sourceQuestionKey"] = ""
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), MissingSourceIdentityInventory()
+            )
+
+            with self.assertRaisesRegex(ValueError, "source由来"):
+                workflow.plan(
+                    "new-exam", "law_audit", "group_refresh",
+                    list_group_id="2026",
+                )
+
+    def test_law_audit_plan_rejects_duplicate_source_identity_pair(self):
+        class DuplicateSourceIdentityInventory(LawSourceInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                duplicate = json.loads(json.dumps(group["questions"][0]))
+                duplicate["id"] = "different-ui-id"
+                duplicate["reviewKey"] = "different-review-key"
+                group["questions"].append(duplicate)
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), DuplicateSourceIdentityInventory()
+            )
+
+            with self.assertRaisesRegex(ValueError, "組が重複"):
+                workflow.plan(
+                    "new-exam", "law_audit", "group_refresh",
+                    list_group_id="2026",
+                )
+
+    def test_law_audit_plan_blocks_group_identity_issue_without_hiding_group(self):
+        class IdentityBlockedInventory(LawSourceInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                group["identityBlockers"] = [
+                    {
+                        "code": "source_identity_pair_duplicate",
+                        "message": "source identity pair duplicate",
+                    }
+                ]
+                return group
+
+        inventory = IdentityBlockedInventory()
+        visible_group = inventory.group("new-exam", "2026")
+        self.assertEqual(len(visible_group["questions"]), 1)
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(Path(directory), inventory)
+            with self.assertRaisesRegex(ValueError, "source identity"):
+                workflow.plan(
+                    "new-exam", "law_audit", "group_refresh",
+                    list_group_id="2026",
                 )
 
     def test_run_policy_drift_blocks_version_recording(self):
@@ -1093,6 +1894,22 @@ class QualificationRunTests(unittest.TestCase):
                     "issueTypes": ["law_audit_metadata_incomplete"],
                     "targetSourceFiles": source_files,
                     "targetRecordAliasGroups": [["q1"], ["q2"]],
+                    "targetRecordBindings": [
+                        {
+                            "uiQuestionId": "ui-q1",
+                            "reviewQuestionId": "q1",
+                            "sourceQuestionKey": "sample:2026:q1",
+                            "sourceRecordRef": "q1.json#0",
+                            "aliases": ["q1"],
+                        },
+                        {
+                            "uiQuestionId": "ui-q2",
+                            "reviewQuestionId": "q2",
+                            "sourceQuestionKey": "sample:2026:q2",
+                            "sourceRecordRef": "q2.json#0",
+                            "aliases": ["q2"],
+                        },
+                    ],
                     "targetSourceRecordScopes": {
                         source_files[0]: [["q1"]],
                         source_files[1]: [["q2"]],
@@ -1134,6 +1951,74 @@ class QualificationRunTests(unittest.TestCase):
         )
         self.assertTrue(
             any("_lawRevision_needs_5_5_high_review" in path for path in run["allowedPatchFiles"])
+        )
+
+    def test_supplied_binding_prefers_source_ref_over_shared_two_field_alias(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=ConfiguredAppServer(),
+            )
+            source_files = [
+                f"output/sample/questions_json/2026/00_source/q{number}.json"
+                for number in (1, 2)
+            ]
+            alias_groups = [
+                ["shared-review-id", "sample:2026:shared", f"q{number}.json#0"]
+                for number in (1, 2)
+            ]
+            started = coordinator.start_review(
+                {
+                    "id": "anchor",
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "stateHash": "state-1",
+                    "paths": {"source": source_files[0], "patches": []},
+                },
+                {
+                    "reviewId": "review-shared",
+                    "prompt": "law audit",
+                    "requestKind": "qualification_law_audit",
+                    "investigationScope": "qualification",
+                    "issueTypes": ["law_audit_metadata_incomplete"],
+                    "targetSourceFiles": source_files,
+                    "targetRecordAliasGroups": alias_groups,
+                    "targetRecordBindings": [
+                        {
+                            "uiQuestionId": f"ui-q{number}",
+                            "reviewQuestionId": "shared-review-id",
+                            "sourceQuestionKey": "sample:2026:shared",
+                            "sourceRecordRef": f"q{number}.json#0",
+                            "aliases": aliases,
+                        }
+                        for number, aliases in zip((1, 2), alias_groups)
+                    ],
+                    "targetSourceRecordScopes": {
+                        source: [aliases]
+                        for source, aliases in zip(source_files, alias_groups)
+                    },
+                },
+                work_type="maintenance",
+            )
+            run = coordinator.store.get(
+                "sample", started["run"]["runId"]
+            )
+
+        self.assertEqual(
+            [
+                binding["sourceRecordRef"]
+                for binding in run["targetRecordBindings"]
+            ],
+            ["q1.json#0", "q2.json#0"],
+        )
+        self.assertEqual(
+            run["policyTargets"]["law_audit"],
+            ["ui-q1", "ui-q2"],
         )
 
     def test_current_question_law_hold_scopes_every_allowed_record_file(self):
@@ -1805,12 +2690,151 @@ class QualificationRunTests(unittest.TestCase):
                 **plan,
                 "result": {
                     "changedFiles": [],
-                    "resolvedFailedDeltaPaths": [planned],
+                    "resolvedFailedDeltaPaths": [],
                 },
             }
             coordinator._validate_changed_files(
                 "sample", "run-1", run, (), ()
             )
+
+    def test_write_transaction_prefers_exact_files_to_whole_patch_directory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_root = (
+                root
+                / "output/sample/questions_json/2026/"
+                "21_explanationText_added"
+            )
+            agent_output = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "run-1/agent_output"
+            )
+            patch_root.mkdir(parents=True)
+            agent_output.mkdir(parents=True)
+            exact = patch_root / "target.json"
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+
+            selected = coordinator._maintenance_transaction_roots(
+                {
+                    "allowedPatchFiles": [
+                        exact.relative_to(root).as_posix()
+                    ],
+                    "allowedWriteFiles": [],
+                },
+                (patch_root, agent_output),
+            )
+
+        self.assertIn(exact.resolve(), selected)
+        self.assertIn(agent_output.resolve(), selected)
+        self.assertNotIn(patch_root.resolve(), selected)
+
+    def test_successful_run_records_failed_delta_resolution_server_side(self):
+        class FailedDeltaWorkflow(FakeWorkflow):
+            def plan(self, qualification, stage_id, mode="remaining"):
+                plan = super().plan(qualification, stage_id, mode)
+                source = (
+                    "output/sample/questions_json/2026/00_source/"
+                    "question_2026_1.json"
+                )
+                plan.update(
+                    {
+                        "sourceFiles": [source],
+                        "outputFiles": [
+                            "output/sample/questions_json/2026/"
+                            "21_explanationText_added/"
+                            "question_2026_1_merged_explanationText_added.json"
+                        ],
+                        "targetQuestionKeys": ["q1"],
+                        "targetRecordAliasGroups": [["q1"]],
+                        "targetSourceRecordScopes": {source: [["q1"]]},
+                    }
+                )
+                return plan
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            coordinator = QualificationRunCoordinator(
+                root,
+                FailedDeltaWorkflow(),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=SuccessfulAppServer(),
+            )
+            resolver = coordinator._plan(
+                "sample", "law_audit", "remaining", None
+            )
+            planned = next(
+                path
+                for path in resolver["allowedPatchFiles"]
+                if "/21_explanationText_added/" in path
+            )
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "0000-failed-run/manifest.json"
+            )
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageId": "law_audit",
+                        "stageIds": ["law_audit"],
+                        "targetGroupIds": ["2026"],
+                        **{
+                            field: resolver[field]
+                            for field in (
+                                "allowedPatchDirs",
+                                "allowedWriteAreas",
+                                "allowedPatchFiles",
+                                "allowedWriteFiles",
+                                "targetRecordScopes",
+                            )
+                        },
+                        "result": {
+                            "status": "failed",
+                            "changedFiles": [planned],
+                            "resolvedFailedDeltaPaths": [],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            preview = coordinator.preview(
+                "sample", "law_audit", "remaining"
+            )
+            started = coordinator.start(
+                "sample", "law_audit", "remaining", preview["previewToken"]
+            )
+            start_resolvable = started["run"]["resolvableFailedDeltaPaths"]
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
+            run = coordinator.store.refresh(
+                "sample", started["run"]["runId"]
+            )
+            unresolved = unresolved_failed_delta_paths(root, "sample")
+
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertIn(planned, start_resolvable)
+        self.assertEqual(
+            run["result"]["resolvedFailedDeltaPaths"], [planned]
+        )
+        self.assertEqual(unresolved, ())
 
     def test_record_scope_rejects_a_different_question_in_aggregate_json(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2224,16 +3248,327 @@ class QualificationRunTests(unittest.TestCase):
                 ],
             )
 
+    def test_record_scope_uses_source_record_ref_for_shared_two_field_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = Path("output/sample/questions_json/2026")
+            source_relatives = [
+                group / "00_source" / f"question_2026_{number}.json"
+                for number in (1, 2)
+            ]
+            for number, relative in enumerate(source_relatives, 1):
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(
+                    json.dumps(
+                        {
+                            "question_bodies": [
+                                {
+                                    "originalQuestionId": "shared-review-id",
+                                    "sourceQuestionKey": "sample:2026:shared",
+                                    "questionBodyText": f"問題文{number}",
+                                }
+                            ]
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            patch_relative = (
+                group
+                / "21_explanationText_added"
+                / "question_2026_2_explanationText_added.json"
+            )
+            patch = root / patch_relative
+            patch.parent.mkdir(parents=True)
+            non_target_record = {
+                "originalQuestionId": "shared-review-id",
+                "sourceQuestionKey": "sample:2026:shared",
+                "sourceRecordRef": "question_2026_1.json#0",
+                "explanationText": ["別問題は変更しない"],
+            }
+            patch_record = {
+                "originalQuestionId": "shared-review-id",
+                "sourceQuestionKey": "sample:2026:shared",
+                "explanationText": ["変更前"],
+            }
+            patch.write_text(
+                json.dumps(
+                    {"question_bodies": [non_target_record, patch_record]}
+                ),
+                encoding="utf-8",
+            )
+            alias_groups = [
+                [
+                    "shared-review-id",
+                    "sample:2026:shared",
+                    f"question_2026_{number}.json#0",
+                ]
+                for number in (1, 2)
+            ]
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "law_audit", "remaining")
+            plan.update(
+                {
+                    "sourceFiles": [path.as_posix() for path in source_relatives],
+                    "targetRecordAliasGroups": alias_groups,
+                    "targetRecordBindings": [
+                        {
+                            "uiQuestionId": f"ui-{number}",
+                            "reviewQuestionId": "shared-review-id",
+                            "sourceQuestionKey": "sample:2026:shared",
+                            "sourceRecordRef": f"question_2026_{number}.json#0",
+                            "aliases": aliases,
+                        }
+                        for number, aliases in zip((1, 2), alias_groups)
+                    ],
+                    "allowedPatchDirs": ["21_explanationText_added"],
+                    "allowedPatchFiles": [patch_relative.as_posix()],
+                    "targetRecordScopes": {
+                        patch_relative.as_posix(): [alias_groups[1]]
+                    },
+                }
+            )
+            run = store.create(plan, status="running", prompt="work")
+            store.write_baseline(
+                "sample",
+                run["runId"],
+                (patch.parent, (root / run["resultReceiptPath"]).parent),
+            )
+            patch_record["explanationText"] = ["変更後"]
+            patch_record["sourceRecordRef"] = "question_2026_2.json#0"
+            patch.write_text(
+                json.dumps(
+                    {"question_bodies": [non_target_record, patch_record]}
+                ),
+                encoding="utf-8",
+            )
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+                store=store,
+            )
+
+            coordinator._validate_record_scope(
+                "sample",
+                run["runId"],
+                store.get("sample", run["runId"]),
+                {patch_relative},
+            )
+
+            non_target_record["explanationText"] = ["別問題を誤変更"]
+            patch.write_text(
+                json.dumps(
+                    {"question_bodies": [non_target_record, patch_record]}
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "対象問題以外のrecord変更",
+            ):
+                coordinator._validate_record_scope(
+                    "sample",
+                    run["runId"],
+                    store.get("sample", run["runId"]),
+                    {patch_relative},
+                )
+
+    def test_existing_patch_is_blocked_only_when_source_binding_is_ambiguous(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path(
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/shared_explanationText_added.json"
+            )
+            path = root / relative
+            path.parent.mkdir(parents=True)
+            bindings = [
+                {
+                    "uiQuestionId": f"ui-{number}",
+                    "reviewQuestionId": "shared-review-id",
+                    "sourceQuestionKey": "sample:2026:shared",
+                    "sourceRecordRef": f"question_2026_1.json#{number - 1}",
+                    "aliases": [
+                        "shared-review-id",
+                        "sample:2026:shared",
+                        f"question_2026_1.json#{number - 1}",
+                        f"https://example.test/q{number}",
+                    ],
+                }
+                for number in (1, 2)
+            ]
+            scopes = {relative.as_posix(): [value["aliases"] for value in bindings]}
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            path.write_text(
+                json.dumps(
+                    [
+                        {
+                            "originalQuestionId": "shared-review-id",
+                            "sourceQuestionKey": "sample:2026:shared",
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "source recordへ一意に対応できません",
+            ):
+                coordinator._reject_ambiguous_existing_patch_rows(
+                    {relative.as_posix()},
+                    scopes,
+                    bindings,
+                )
+
+            path.write_text(
+                json.dumps(
+                    [
+                        {
+                            "originalQuestionId": "shared-review-id",
+                            "sourceQuestionKey": "sample:2026:shared",
+                            "question_url": "https://example.test/q1",
+                        },
+                        {
+                            "originalQuestionId": "shared-review-id",
+                            "sourceQuestionKey": "sample:2026:shared",
+                            "sourceRecordRef": "question_2026_1.json#1",
+                        },
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            coordinator._reject_ambiguous_existing_patch_rows(
+                {relative.as_posix()},
+                scopes,
+                bindings,
+            )
+
+    def test_law_sidecar_allows_only_exact_v1_to_v2_identity_migration(self):
+        def validate(before_schema: str) -> None:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                source_relative = Path(
+                    "output/sample/questions_json/2026/00_source/q1.json"
+                )
+                sidecar_relative = Path(
+                    "output/sample/review/law_revision_audit/"
+                    "2026_law_revision_audit.jsonl"
+                )
+                source = root / source_relative
+                sidecar = root / sidecar_relative
+                source.parent.mkdir(parents=True)
+                sidecar.parent.mkdir(parents=True)
+                source.write_text(
+                    json.dumps(
+                        {
+                            "question_bodies": [
+                                {
+                                    "originalQuestionId": "source-review-q1",
+                                    "sourceQuestionKey": "sample:2026:q1",
+                                }
+                            ]
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                sidecar.write_text(
+                    json.dumps(
+                        {
+                            "schemaVersion": before_schema,
+                            "reviewQuestionId": "ui-hash-q1",
+                        }
+                    )
+                    + "\n",
+                    encoding="utf-8",
+                )
+                store = QualificationRunStore(root)
+                plan = FakeWorkflow().plan("sample", "law_audit", "remaining")
+                aliases = [
+                    "ui-hash-q1",
+                    "source-review-q1",
+                    "sample:2026:q1",
+                    "q1.json#0",
+                ]
+                plan.update(
+                    {
+                        "sourceFiles": [source_relative.as_posix()],
+                        "targetRecordAliasGroups": [aliases],
+                        "targetRecordBindings": [
+                            {
+                                "uiQuestionId": "ui-hash-q1",
+                                "reviewQuestionId": "source-review-q1",
+                                "sourceQuestionKey": "sample:2026:q1",
+                                "sourceRecordRef": "q1.json#0",
+                                "aliases": aliases,
+                            }
+                        ],
+                        "allowedPatchDirs": [],
+                        "allowedPatchFiles": [],
+                        "allowedWriteFiles": [sidecar_relative.as_posix()],
+                        "targetRecordScopes": {
+                            sidecar_relative.as_posix(): [aliases]
+                        },
+                    }
+                )
+                run = store.create(plan, status="running", prompt="work")
+                store.write_baseline(
+                    "sample",
+                    run["runId"],
+                    (sidecar.parent, (root / run["resultReceiptPath"]).parent),
+                )
+                sidecar.write_text(
+                    json.dumps(
+                        {
+                            "schemaVersion": "law-revision-audit/v2",
+                            "reviewQuestionId": "source-review-q1",
+                            "sourceQuestionKey": "sample:2026:q1",
+                            "sourceRecordRef": "q1.json#0",
+                        }
+                    )
+                    + "\n",
+                    encoding="utf-8",
+                )
+                coordinator = QualificationRunCoordinator(
+                    root,
+                    FakeWorkflow(),
+                    FakeSynchronizer(),
+                    JobManager(),
+                    "secret",
+                    store=store,
+                )
+                coordinator._validate_record_scope(
+                    "sample",
+                    run["runId"],
+                    store.get("sample", run["runId"]),
+                    {sidecar_relative},
+                )
+
+        validate("law-revision-audit/v1")
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "既存ID fieldの変更",
+        ):
+            validate("law-revision-audit/v2")
+
     def test_record_scope_is_file_specific_across_year_sidecars(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             first_relative = Path(
-                "output/sample/review/law_revision_audit/"
-                "2025_law_revision_audit.jsonl"
+                "output/sample/review/scoped/2025.jsonl"
             )
             second_relative = Path(
-                "output/sample/review/law_revision_audit/"
-                "2026_law_revision_audit.jsonl"
+                "output/sample/review/scoped/2026.jsonl"
             )
             first = root / first_relative
             second = root / second_relative
@@ -2508,11 +3843,11 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 2
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertIsNone(started["prompt"])
@@ -2630,14 +3965,11 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 2
-            job = jobs.get(started["job"]["jobId"])
-            while (
-                job["status"] in {"queued", "running"}
-                and time.monotonic() < deadline
-            ):
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertEqual(job["status"], "failed")
@@ -2683,11 +4015,11 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 2
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertEqual(job["status"], "succeeded")
@@ -2800,11 +4132,11 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 2
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertEqual(job["status"], "failed")
@@ -2871,7 +4203,7 @@ class QualificationRunTests(unittest.TestCase):
                     (extra,),
                 )
 
-    def test_success_receipt_can_resolve_only_a_preexisting_failed_delta(self):
+    def test_success_receipt_cannot_choose_failed_delta_resolution(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator = QualificationRunCoordinator(
                 Path(directory),
@@ -2895,84 +4227,12 @@ class QualificationRunTests(unittest.TestCase):
                 },
             }
 
-            coordinator._validate_changed_files(
-                "sample", "run-1", run, (), ()
-            )
-
-            run["resolvableFailedDeltaPaths"] = []
             with self.assertRaisesRegex(
-                QualificationRunError, "未確定でなかった"
+                QualificationRunError, "serverが確定"
             ):
                 coordinator._validate_changed_files(
                     "sample", "run-1", run, (), ()
                 )
-
-    def test_success_receipt_cannot_resolve_a_path_outside_its_write_contract(self):
-        with tempfile.TemporaryDirectory() as directory:
-            coordinator = QualificationRunCoordinator(
-                Path(directory),
-                FakeWorkflow(),
-                FakeSynchronizer(),
-                JobManager(),
-                "secret",
-            )
-            planned = (
-                "output/sample/questions_json/2026/"
-                "21_explanationText_added/patch.json"
-            )
-            outside = (
-                "output/sample/questions_json/2026/"
-                "18_law_context_prepared/law.json"
-            )
-            run = {
-                "qualification": "sample",
-                "stageId": "explanation",
-                "stageIds": ["explanation"],
-                "targetGroupIds": ["2026"],
-                "allowedPatchDirs": ["21_explanationText_added"],
-                "allowedPatchFiles": [planned],
-                "resolvableFailedDeltaPaths": [outside],
-                "result": {
-                    "changedFiles": [],
-                    "resolvedFailedDeltaPaths": [outside],
-                },
-            }
-
-            with self.assertRaisesRegex(
-                QualificationRunError, "整備責務外の未確定差分"
-            ):
-                coordinator._validate_changed_files(
-                    "sample", "run-1", run, (), ()
-                )
-
-    def test_success_receipt_can_explicitly_resolve_unknown_delta_manifest(self):
-        with tempfile.TemporaryDirectory() as directory:
-            coordinator = QualificationRunCoordinator(
-                Path(directory),
-                FakeWorkflow(),
-                FakeSynchronizer(),
-                JobManager(),
-                "secret",
-            )
-            sentinel = (
-                "output/question_review_console/workflow_runs/sample/"
-                "20260101-run/manifest.json"
-            )
-            run = {
-                "qualification": "sample",
-                "stageId": "explanation",
-                "stageIds": ["explanation"],
-                "targetGroupIds": ["2026"],
-                "resolvableFailedDeltaPaths": [sentinel],
-                "result": {
-                    "changedFiles": [],
-                    "resolvedFailedDeltaPaths": [sentinel],
-                },
-            }
-
-            coordinator._validate_changed_files(
-                "sample", "run-1", run, (), ()
-            )
 
     def test_failed_turn_still_records_the_actual_repository_diff(self):
         changed_path = Path(
@@ -2998,20 +4258,28 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 2
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
+            baseline = json.loads(
+                (root / run["baselinePath"]).read_text(encoding="utf-8")
+            )
 
         self.assertEqual(job["status"], "failed")
         self.assertIn("turn crashed", job["error"])
         self.assertIn(str(changed_path), job["error"])
         self.assertEqual(run["status"], "failed")
-        self.assertEqual(run["result"]["changedFiles"], [str(changed_path)])
+        self.assertEqual(run["result"]["changedFiles"], [])
+        self.assertEqual(run["rollback"]["status"], "succeeded")
         self.assertEqual(run["threadId"], "thread-failed-1")
         self.assertEqual(run["turnId"], "turn-failed-1")
+        self.assertIn(
+            "output/question_review_console/sample/2026/work_versions.json",
+            baseline["writeTransaction"]["roots"],
+        )
 
     def test_unsafe_failed_turn_receipt_excludes_progress_file(self):
         unsafe_path = Path("tools/question_review_console/unsafe.json")
@@ -3052,11 +4320,11 @@ class QualificationRunTests(unittest.TestCase):
             started = coordinator.start(
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
-            deadline = time.monotonic() + 2
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(
+                jobs,
+                started["job"]["jobId"],
+                timeout=2,
+            )
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertEqual(job["status"], "failed")
@@ -3248,11 +4516,7 @@ class QualificationRunTests(unittest.TestCase):
                 stage_ids=preview["stageIds"],
                 list_group_ids=preview["scopeListGroupIds"],
             )
-            deadline = time.monotonic() + 3
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(jobs, started["job"]["jobId"])
             run = coordinator.store.get("new-exam", started["run"]["runId"])
             recent = coordinator.recent("new-exam")
 
@@ -3361,6 +4625,85 @@ class QualificationRunTests(unittest.TestCase):
         self.assertIsNone(run["receiptError"])
         self.assertIsNone(run["error"])
         self.assertEqual(synchronizer.calls, [])
+
+    def test_top_maintenance_keeps_validated_work_when_final_result_write_retries(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            parent_plan = FakeWorkflow().plan("sample", "law_audit")
+            parent_plan.update(
+                {
+                    "stageId": "multi",
+                    "stageIds": ["law_audit"],
+                    "stageCode": "03b",
+                    "stageLabel": "トップ整備",
+                    "workType": "maintenance_flow",
+                    "phaseExecutions": [
+                        {
+                            "id": "law_audit",
+                            "index": 0,
+                            "label": "現行法監査",
+                            "stageIds": ["law_audit"],
+                            "stageCodes": ["03b"],
+                            "status": "pending",
+                        }
+                    ],
+                }
+            )
+            parent = coordinator.store.create(parent_plan, status="queued")
+            phase_plan = FakeWorkflow().plan("sample", "law_audit")
+            phase_plan.update(
+                {
+                    "workType": "maintenance_law_audit",
+                    "parentRunId": parent["runId"],
+                    "flowPhaseId": "law_audit",
+                    "phaseIndex": 0,
+                }
+            )
+            coordinator._flow_phase_plan_prompt = (
+                lambda _parent, _phase: (phase_plan, "phase prompt")
+            )
+
+            def complete_child(qualification, run_id, *_args, **_kwargs):
+                coordinator.store.update(
+                    qualification,
+                    run_id,
+                    status="succeeded",
+                    receiptValidated=True,
+                    workVersionReceipt={"recordedCount": 3},
+                    artifactSync={"status": "deferred", "groups": []},
+                )
+
+            coordinator._run_human = complete_child
+            original_write_result = coordinator.store.write_result
+            failed_once = False
+
+            def flaky_write_result(qualification, run_id, result):
+                nonlocal failed_once
+                if run_id == parent["runId"] and not failed_once:
+                    failed_once = True
+                    raise OSError("simulated final receipt write failure")
+                return original_write_result(qualification, run_id, result)
+
+            coordinator.store.write_result = flaky_write_result
+
+            result = coordinator._run_maintenance_flow(
+                "sample", parent["runId"], lambda _message: None
+            )
+            run = coordinator.store.refresh("sample", parent["runId"])
+
+        self.assertTrue(result["warning"])
+        self.assertEqual(run["status"], "succeeded")
+        self.assertTrue(run["receiptValidated"])
+        self.assertEqual(run["artifactSync"]["status"], "failed")
+        self.assertEqual(run["result"]["status"], "succeeded")
+        self.assertIsNone(run["error"])
 
     def test_flow_phase_recomputes_failed_delta_after_specializing_work_type(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -3534,11 +4877,7 @@ class QualificationRunTests(unittest.TestCase):
                 stage_ids=preview["stageIds"],
                 list_group_ids=preview["scopeListGroupIds"],
             )
-            deadline = time.monotonic() + 3
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(jobs, started["job"]["jobId"])
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
         self.assertEqual(preview["targetCount"], 1)
@@ -3590,11 +4929,7 @@ class QualificationRunTests(unittest.TestCase):
                 stage_ids=preview["stageIds"],
                 list_group_ids=preview["scopeListGroupIds"],
             )
-            deadline = time.monotonic() + 3
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(jobs, started["job"]["jobId"])
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
         self.assertEqual(job["status"], "failed")
@@ -3682,11 +5017,7 @@ class QualificationRunTests(unittest.TestCase):
                 stage_ids=preview["stageIds"],
                 list_group_ids=preview["scopeListGroupIds"],
             )
-            deadline = time.monotonic() + 3
-            job = jobs.get(started["job"]["jobId"])
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(started["job"]["jobId"])
+            job = self._wait_for_job(jobs, started["job"]["jobId"])
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
         self.assertEqual(job["status"], "succeeded", job)
@@ -3884,6 +5215,86 @@ class QualificationRunTests(unittest.TestCase):
 
         self.assertEqual(receipt["recordedCount"], 1)
         self.assertEqual(status["stages"][0]["status"], "current")
+
+    def test_law_audit_version_rejects_missing_required_sidecar_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, NonLawSourceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "auditMethodVersion": "",
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "auditMethodVersion",
+            ):
+                coordinator._record_work_versions(
+                    self._law_audit_policy_run(workflow)
+                )
+
+    def test_law_sidecar_pair_join_allows_shared_source_key(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = NonLawSourceInventory()
+            questions = inventory.group("new-exam", "2026")["questions"]
+            first = questions[0]
+            first["sourceQuestionKey"] = "new-exam:2026:shared"
+            first["sourceRecordRef"] = "question_2026_1.json#0"
+            second = json.loads(json.dumps(first))
+            second.update(
+                {
+                    "id": "new-exam-2026-q2",
+                    "reviewKey": "new-exam:2026:q2",
+                    "originalQuestionId": "new-exam-2026-q2",
+                    "sourceRecordRef": "question_2026_2.json#0",
+                }
+            )
+            questions.append(second)
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": review_id,
+                        "sourceQuestionKey": "new-exam:2026:shared",
+                        "sourceRecordRef": (
+                            "question_2026_1.json#0"
+                            if review_id.endswith("q1")
+                            else "question_2026_2.json#0"
+                        ),
+                    }
+                    for review_id in (
+                        "new-exam-2026-q1",
+                        "new-exam-2026-q2",
+                    )
+                ],
+            )
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, inventory),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+
+            coordinator._validate_law_audit_sidecar_consistency(
+                "new-exam",
+                questions,
+            )
 
     def test_law_audit_version_rejects_missing_or_duplicate_sidecar_row(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -4382,6 +5793,7 @@ class QualificationRunTests(unittest.TestCase):
 
         self.assertIsNone(recent["activeRun"])
         self.assertEqual(recent["runs"][0]["status"], "succeeded")
+        self.assertTrue(recent["runs"][0]["receiptValidated"])
         self.assertEqual(recent["runs"][0]["result"]["summary"], "全対象を監査した。")
 
     def test_invalid_success_receipt_does_not_complete_run(self):
@@ -4483,11 +5895,7 @@ class QualificationRunTests(unittest.TestCase):
                 "sample", "delivery", "refresh", preview["previewToken"]
             )
             job_id = started["job"]["jobId"]
-            deadline = time.monotonic() + 2
-            job = jobs.get(job_id)
-            while job["status"] in {"queued", "running"} and time.monotonic() < deadline:
-                time.sleep(0.01)
-                job = jobs.get(job_id)
+            job = self._wait_for_job(jobs, job_id, timeout=2)
             recent = coordinator.recent("sample")
 
         self.assertEqual(job["status"], "succeeded")
@@ -4496,6 +5904,10 @@ class QualificationRunTests(unittest.TestCase):
             [("sample", "2025", True), ("sample", "2026", True)],
         )
         self.assertEqual(recent["runs"][0]["status"], "succeeded")
+        self.assertTrue(recent["runs"][0]["receiptValidated"])
+        self.assertEqual(
+            recent["runs"][0]["artifactSync"]["status"], "succeeded"
+        )
         self.assertEqual(recent["runs"][0]["completedGroupIds"], ["2025", "2026"])
 
     def test_running_manifest_becomes_resumable_after_restart(self):
@@ -4534,6 +5946,39 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
         self.assertIsNone(recovered["error"])
 
+    def test_validated_parent_flow_recovers_as_success_when_auto_sync_is_interrupted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "law_audit", "remaining")
+            plan["kind"] = "orchestration"
+            plan["workType"] = "maintenance_flow"
+            run = store.create(plan, status="validating")
+            store.update(
+                "sample",
+                run["runId"],
+                receiptValidated=True,
+                artifactSync={"status": "running", "groups": []},
+            )
+
+            recovered = QualificationRunStore(root).get(
+                "sample", run["runId"]
+            )
+            persisted = json.loads(
+                (
+                    root
+                    / "output/question_review_console/workflow_runs/sample"
+                    / run["runId"]
+                    / "manifest.json"
+                ).read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(recovered["status"], "succeeded")
+        self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
+        self.assertEqual(recovered["result"]["status"], "succeeded")
+        self.assertTrue(persisted["resultReceiptHash"])
+        self.assertIsNone(recovered["error"])
+
     def test_running_human_manifest_recovers_partial_delta_from_baseline(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -4562,18 +6007,49 @@ class QualificationRunTests(unittest.TestCase):
             created.write_text("partial\n", encoding="utf-8")
 
             recovered = QualificationRunStore(root).get("sample", run["runId"])
+            restored_content = deleted.read_text(encoding="utf-8")
+            created_exists = created.exists()
 
         self.assertEqual(recovered["status"], "failed")
         self.assertFalse(recovered["deltaUnknown"])
-        self.assertEqual(
-            recovered["result"]["changedFiles"],
-            sorted(
-                [
-                    str(deleted.relative_to(root)),
-                    str(created.relative_to(root)),
-                ]
-            ),
-        )
+        self.assertEqual(recovered["result"]["changedFiles"], [])
+        self.assertEqual(recovered["rollback"]["status"], "succeeded")
+        self.assertEqual(restored_content, "before\n")
+        self.assertFalse(created_exists)
+
+    def test_rollback_marks_delta_unknown_when_restore_and_resnapshot_fail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_root = (
+                root
+                / "output/sample/questions_json/2026/"
+                "21_explanationText_added"
+            )
+            patch_root.mkdir(parents=True)
+            (patch_root / "patch.json").write_text(
+                "before\n", encoding="utf-8"
+            )
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "law_audit", "remaining")
+            plan["stageIds"] = ["law_audit"]
+            plan["workType"] = "maintenance"
+            run = store.create(plan, status="running", prompt="work")
+            store.write_baseline("sample", run["runId"], (patch_root,))
+            store._recover_baseline_delta = lambda *_args: None
+
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "restore_write_snapshot",
+                side_effect=OSError("restore unavailable"),
+            ):
+                rollback = store.rollback_baseline(
+                    "sample", run["runId"]
+                )
+            recovered = store.get("sample", run["runId"])
+
+        self.assertEqual(rollback["status"], "failed")
+        self.assertTrue(rollback["deltaUnknown"])
+        self.assertTrue(recovered["deltaUnknown"])
 
     def test_running_human_without_baseline_is_unknown_and_blocked(self):
         with tempfile.TemporaryDirectory() as directory:

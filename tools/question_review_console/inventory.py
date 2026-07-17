@@ -9,11 +9,23 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
-from scripts.common.question_identity import review_question_id
+from scripts.common.question_identity import (
+    SourceIdentityBinding,
+    review_question_id,
+    source_question_key,
+    source_record_ref,
+)
 from scripts.scrape.qualification_presets import load_qualification_catalog
 from tools.question_review_console.projection import (
+    IdentityCandidateIndex,
+    IdentityResolutionError,
     PROJECTED_COMPARE_FIELDS,
+    STAGE_SPECS,
+    ProjectionResult,
+    SourceRecordIdentity,
     api_question_id,
+    build_identity_candidate_index,
+    build_question_issue_index,
     build_stage_maps,
     explanation_prefix_matches,
     extract_records,
@@ -26,7 +38,6 @@ from tools.question_review_console.projection import (
     record_diff,
     review_key,
     sha256_json,
-    source_question_key,
 )
 from tools.question_review_console.patch_validation import (
     law_audit_quality_warnings,
@@ -126,25 +137,100 @@ def _records_with_paths(paths: Iterable[Path]) -> list[tuple[dict[str, Any], Pat
     return result
 
 
-def _record_map(paths: Iterable[Path]) -> dict[str, tuple[dict[str, Any], Path]]:
-    mapping: dict[str, tuple[dict[str, Any], Path]] = {}
-    for record, path in _records_with_paths(paths):
-        for alias in record_aliases(record):
-            mapping[alias] = (record, path)
-    return mapping
+def _merged_source_stem(path: Path) -> str:
+    match = re.fullmatch(r"(.+)_merged(?:_\d{8}_\d{4})?", path.stem)
+    return match.group(1) if match else path.stem
+
+
+def _record_index(
+    paths: Iterable[Path],
+    sources: Iterable[SourceRecordIdentity],
+) -> IdentityCandidateIndex:
+    return build_identity_candidate_index(
+        _records_with_paths(paths),
+        sources=sources,
+        record_of=lambda candidate: candidate[0],
+        source_stem_of=lambda candidate: _merged_source_stem(candidate[1]),
+        label="merged record",
+    )
 
 
 def _find_record(
-    mapping: Mapping[str, tuple[dict[str, Any], Path]], aliases: Iterable[str]
+    index: IdentityCandidateIndex,
+    source_binding: SourceIdentityBinding,
 ) -> tuple[dict[str, Any], Path] | None:
-    matches = {
-        (str(mapping[alias][1]), id(mapping[alias][0])): mapping[alias]
-        for alias in aliases
-        if alias in mapping
-    }
-    if not matches:
+    errors = index.errors_by_binding.get(source_binding, ())
+    if errors:
+        raise IdentityResolutionError(" ".join(errors))
+    candidates = index.by_binding.get(source_binding, ())
+    return candidates[-1] if candidates else None
+
+
+def _optional_patch_entry(
+    mapping: Mapping[str, Any],
+    aliases: set[str],
+    source_binding: SourceIdentityBinding,
+):
+    try:
+        return find_patch_entry(mapping, aliases, source_binding)
+    except IdentityResolutionError:
         return None
-    return sorted(matches.values(), key=lambda value: str(value[1]))[-1]
+
+
+def _artifact_resolution_blockers(
+    stage: str,
+    index: IdentityCandidateIndex,
+    *,
+    patch_dir: str,
+    fallback_path: Path | None = None,
+    repo_root: Path | None = None,
+) -> list[dict[str, Any]]:
+    paths: dict[str, int] = {}
+    for candidate in index.unmatched_candidates:
+        path = getattr(candidate, "path", None)
+        if path is None and isinstance(candidate, tuple) and len(candidate) > 1:
+            path = candidate[1]
+        path = path or fallback_path
+        if path is None:
+            display = "(artifact path unavailable)"
+        else:
+            resolved = Path(path).resolve()
+            display = str(
+                resolved.relative_to(repo_root)
+                if repo_root is not None and resolved.is_relative_to(repo_root)
+                else path
+            )
+        paths[display] = paths.get(display, 0) + 1
+    blockers = [
+        {
+            "code": "artifact_identity_unmatched",
+            "stage": stage,
+            "patchDir": patch_dir,
+            "path": path,
+            "count": count,
+            "message": (
+                f"{stage}のartifact {count}件をsource recordへ対応できません: "
+                f"{path}"
+            ),
+        }
+        for path, count in sorted(paths.items())
+    ]
+    conflicts: dict[str, int] = {}
+    for messages in index.errors_by_binding.values():
+        for message in messages:
+            conflicts[message] = conflicts.get(message, 0) + 1
+    blockers.extend(
+        {
+            "code": "artifact_identity_conflict",
+            "stage": stage,
+            "patchDir": patch_dir,
+            "path": str(fallback_path or "(競合artifactはmessageを参照)"),
+            "count": count,
+            "message": f"{stage}のartifact識別が競合しています: {message}",
+        }
+        for message, count in sorted(conflicts.items())
+    )
+    return blockers
 
 
 def _json_safe(value: Any) -> Any:
@@ -448,9 +534,54 @@ class QuestionInventory:
         publication_qualification_id = self.qualification_catalog.get(
             qualification, {}
         ).get("publicationId", qualification)
-        stage_maps = build_stage_maps(group_dir)
+        source_files = _current_json_files(group_dir / SOURCE_SUBDIR)
+        source_records: list[
+            tuple[
+                Path,
+                int,
+                dict[str, Any],
+                SourceIdentityBinding,
+                set[str],
+            ]
+        ] = []
+        source_identities: list[SourceRecordIdentity] = []
+        for source_path in source_files:
+            try:
+                source_payload = load_json(source_path)
+            except (OSError, json.JSONDecodeError):
+                continue
+            for source_index, source in enumerate(extract_records(source_payload)):
+                source_binding = SourceIdentityBinding.from_values(
+                    source_question_key(qualification, list_group_id, source),
+                    review_question_id(source),
+                    source_record_ref(
+                        source_path.relative_to(
+                            group_dir / SOURCE_SUBDIR
+                        ).as_posix(),
+                        source_index,
+                    ),
+                )
+                aliases = record_aliases(
+                    {**source, **source_binding.as_mapping()}
+                )
+                source_records.append(
+                    (source_path, source_index, source, source_binding, aliases)
+                )
+                source_identities.append(
+                    SourceRecordIdentity(
+                        binding=source_binding,
+                        aliases=frozenset(aliases),
+                        source_stem=source_path.stem,
+                    )
+                )
+
+        stage_maps = build_stage_maps(group_dir, source_identities)
         issue_paths = _current_json_files(group_dir / "24_questionIssueCorrections")
-        merged_map = _record_map(_current_json_files(group_dir / "30_merged_2"))
+        issue_index = build_question_issue_index(issue_paths, source_identities)
+        merged_index = _record_index(
+            _current_json_files(group_dir / "30_merged_2"),
+            source_identities,
+        )
         converted_docs, converted_path = self._converted_docs(group_dir)
         upload_docs, upload_path = self._upload_docs(
             qualification,
@@ -458,32 +589,127 @@ class QuestionInventory:
             list_group_id,
             group_dir,
         )
+        converted_index = build_identity_candidate_index(
+            [
+                doc
+                for doc in converted_docs
+                if doc.get("qualificationId") == publication_qualification_id
+            ],
+            sources=source_identities,
+            record_of=lambda doc: doc,
+            source_stem_of=lambda _doc: "",
+            label="converted document",
+        )
+        upload_index = build_identity_candidate_index(
+            [
+                doc
+                for doc in upload_docs
+                if doc.get("qualificationId") == publication_qualification_id
+            ],
+            sources=source_identities,
+            record_of=lambda doc: doc,
+            source_stem_of=lambda _doc: "",
+            label="upload-ready document",
+        )
+        artifact_resolution_blockers: list[dict[str, Any]] = []
+        for stage, patch_dir, _tag in STAGE_SPECS:
+            artifact_resolution_blockers.extend(
+                _artifact_resolution_blockers(
+                    stage,
+                    stage_maps[stage],
+                    patch_dir=patch_dir,
+                    repo_root=self.repo_root,
+                )
+            )
+        artifact_resolution_blockers.extend(
+            _artifact_resolution_blockers(
+                "questionIssueCorrection",
+                issue_index,
+                patch_dir="24_questionIssueCorrections",
+                repo_root=self.repo_root,
+            )
+        )
+        artifact_resolution_blockers.extend(
+            _artifact_resolution_blockers(
+                "merged",
+                merged_index,
+                patch_dir="30_merged_2",
+                repo_root=self.repo_root,
+            )
+        )
+        artifact_resolution_blockers.extend(
+            _artifact_resolution_blockers(
+                "converted",
+                converted_index,
+                patch_dir="40_convert",
+                fallback_path=converted_path,
+                repo_root=self.repo_root,
+            )
+        )
+        artifact_resolution_blockers.extend(
+            _artifact_resolution_blockers(
+                "uploadReady",
+                upload_index,
+                patch_dir="upload_to_firestore",
+                fallback_path=upload_path,
+                repo_root=self.repo_root,
+            )
+        )
 
         questions: list[dict[str, Any]] = []
-        source_files = _current_json_files(group_dir / SOURCE_SUBDIR)
-        for source_path in source_files:
-            try:
-                source_payload = load_json(source_path)
-            except (OSError, json.JSONDecodeError):
-                continue
-            for source_index, source in enumerate(extract_records(source_payload)):
-                aliases = record_aliases(source)
-                merged_match = _find_record(merged_map, aliases)
+        for (
+            source_path,
+            source_index,
+            source,
+            source_binding,
+            aliases,
+        ) in source_records:
+                stable_source_ref = source_binding.source_record_ref
+                merged_error = ""
+                try:
+                    merged_match = _find_record(
+                        merged_index,
+                        source_binding,
+                    )
+                except IdentityResolutionError as exc:
+                    merged_match = None
+                    merged_error = str(exc)
                 merged = merged_match[0] if merged_match else None
                 merged_path = merged_match[1] if merged_match else None
                 projection = project_record(
                     merged or source,
                     aliases,
                     stage_maps,
-                    issue_paths,
+                    issue_index,
+                    source_binding=source_binding,
+                    initial_errors=((merged_error,) if merged_error else ()),
                 )
-                projected_aliases = aliases | record_aliases(projection.record)
-                matched_converted = self._matching_docs(
-                    converted_docs, projected_aliases, publication_qualification_id
+                matched_converted = list(
+                    converted_index.by_binding.get(source_binding, ())
                 )
-                matched_upload = self._matching_docs(
-                    upload_docs, projected_aliases, publication_qualification_id
+                matched_upload = list(
+                    upload_index.by_binding.get(source_binding, ())
                 )
+                downstream_errors = [
+                    *(
+                        f"convert: {error}"
+                        for error in converted_index.errors_by_binding.get(
+                            source_binding, ()
+                        )
+                    ),
+                    *(
+                        f"upload-ready: {error}"
+                        for error in upload_index.errors_by_binding.get(
+                            source_binding, ()
+                        )
+                    ),
+                ]
+                if downstream_errors:
+                    projection = ProjectionResult(
+                        record=projection.record,
+                        applied_files=projection.applied_files,
+                        errors=tuple([*projection.errors, *downstream_errors]),
+                    )
                 required_field_warnings = [
                     {
                         **warning,
@@ -507,7 +733,13 @@ class QuestionInventory:
                         "blocksPublish": True,
                     }
                     for stage in ("explanation", "correctChoice")
-                    for patch_entry in [find_patch_entry(stage_maps.get(stage, {}), aliases)]
+                    for patch_entry in [
+                        _optional_patch_entry(
+                            stage_maps.get(stage, {}),
+                            aliases,
+                            source_binding,
+                        )
+                    ]
                     if patch_entry is not None
                     for warning in patch_entry_required_warnings(patch_entry.entry, stage)
                 )
@@ -572,15 +804,14 @@ class QuestionInventory:
                     {
                         "id": question_id,
                         "reviewKey": stable_key,
-                        "sourceQuestionKey": source_question_key(
-                            qualification, list_group_id, projection.record
-                        ),
+                        "sourceQuestionKey": source_binding.source_question_key,
+                        "sourceRecordRef": stable_source_ref,
                         "qualification": qualification,
                         "publicationQualificationId": publication_qualification_id,
                         "listGroupId": list_group_id,
                         "sourceStem": source_stem,
                         "sourceIndex": source_index,
-                        "originalQuestionId": review_question_id(source),
+                        "originalQuestionId": source_binding.review_question_id,
                         "questionLabel": str(projection.record.get("questionLabel") or ""),
                         "examLabel": str(projection.record.get("examLabel") or ""),
                         "body": body,
@@ -635,6 +866,21 @@ class QuestionInventory:
                     }
                 )
 
+        questions_by_review_key: dict[str, list[dict[str, Any]]] = {}
+        for question in questions:
+            questions_by_review_key.setdefault(question["reviewKey"], []).append(
+                question
+            )
+        for duplicated in questions_by_review_key.values():
+            if len(duplicated) <= 1:
+                continue
+            for question in duplicated:
+                disambiguated = (
+                    f"{question['reviewKey']}:{question['sourceRecordRef']}"
+                )
+                question["reviewKey"] = disambiguated
+                question["id"] = api_question_id(disambiguated)
+
         questions.sort(
             key=lambda question: (
                 min((issue["priority"] for issue in question["issues"]), default=99),
@@ -642,6 +888,34 @@ class QuestionInventory:
                 question["sourceIndex"],
             )
         )
+        source_identity_bindings: set[SourceIdentityBinding] = set()
+        identity_blockers: list[dict[str, str]] = []
+        for question in questions:
+            binding = SourceIdentityBinding.from_mapping(question)
+            if not binding.is_complete():
+                identity_blockers.append(
+                    {
+                        "code": "source_identity_missing",
+                        "message": (
+                            "source由来のsourceQuestionKey/reviewQuestionId/"
+                            "sourceRecordRefを一意に導出できません。"
+                        ),
+                    }
+                )
+                continue
+            if binding in source_identity_bindings:
+                identity_blockers.append(
+                    {
+                        "code": "source_identity_binding_duplicate",
+                        "message": (
+                            "sourceQuestionKey/reviewQuestionId/sourceRecordRefの"
+                            "組が重複しているため03bを開始できません: "
+                            f"{' / '.join(binding.as_tuple())}"
+                        ),
+                    }
+                )
+            else:
+                source_identity_bindings.add(binding)
         return {
             "qualification": qualification,
             "publicationQualificationId": publication_qualification_id,
@@ -650,6 +924,8 @@ class QuestionInventory:
             "questionCount": len(questions),
             "issueQuestionCount": sum(bool(question["issues"]) for question in questions),
             "sourceFileCount": len(source_files),
+            "identityBlockers": identity_blockers,
+            "artifactResolutionBlockers": artifact_resolution_blockers,
             "questions": questions,
         }
 
@@ -707,15 +983,3 @@ class QuestionInventory:
             if docs:
                 return docs, path
         return [], skipped_path
-
-    @staticmethod
-    def _matching_docs(
-        docs: Iterable[dict[str, Any]], aliases: set[str], qualification: str
-    ) -> list[dict[str, Any]]:
-        result = []
-        for doc in docs:
-            if doc.get("qualificationId") != qualification:
-                continue
-            if record_aliases(doc) & aliases:
-                result.append(doc)
-        return result

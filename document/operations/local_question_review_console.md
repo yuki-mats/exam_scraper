@@ -1,172 +1,87 @@
 # 問題整備システム
 
-この文書は、ローカルGUIから整備・評価・再整備を実行する境界の正本です。全体の流れは[問題整備ワークフロー](exam_pipeline_manual_and_automation.md)、GUIの工程順とpromptは[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)、保存先は[artifact契約](artifact_contract.md)、公開処理は[merge・検証・公開](delivery_workflow.md)を参照します。
+この文書は、ローカルGUIから整備・評価・再整備を実行するときの順序と安全境界の正本です。工程順とpromptは[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)、保存先は[artifact契約](artifact_contract.md)、公開処理は[merge・検証・公開](delivery_workflow.md)を参照してください。
 
 ## 手戻りを防ぐ運用順序
 
-1. 実装、文書、設定の変更とテストを先に終え、serverを再起動する。開始前にrepositoryの既存差分を把握し、run中は別作業でfile編集、commit、pushなど、repositoryと`.git/HEAD`を変える操作を行わない。修正が必要になった場合はrunを終えてから変更し、再起動後に新しいrunを開始する。
-2. トップの`未整備を整備`から、必要な問題と工程だけを実行する。対象がない工程は省略し、保存工程ごとに新しいsessionを使う。次工程には工程間mergeで最新patchを渡し、全工程後に公開用成果物を一度だけ最終検証する。
-3. 失敗時は停止理由に挙がった問題から直す。問題固有の不備は問題詳細の`パッチを修正`又は`修正を依頼`で対象問題だけを直し、評価不合格は`再整備を開始`でその問題だけを再整備する。正常な問題を含む全件再実行を先に行わない。
-4. 単独の整備・再整備の成功receipt後、画面からの直接修正後、又はトップ整備の全工程後に、対象年度のMerge、Convert、upload-readyを最新patchから強制再生成し、upload dry-runまで自動確認する。完了できない場合は理由を解消し、問題詳細の`パッチ変更を反映`又は管理機能の`出力`から手動再実行する。どちらも最新表示のときでも強制再生成できる。
-5. 公開用成果物が最新になった後、別session評価へ進む。合格した問題だけを明示操作でFirestoreへ反映し、直後のreadback一致を確認する。
+1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は外部からfile編集、commit、pushを行わない。
+2. トップの`未整備を整備`から、必要な問題と工程だけを実行する。保存工程ごとに新しいsessionを使い、工程間mergeで次の入力を更新する。
+3. 失敗時は停止理由に挙がった問題から直す。問題詳細の`パッチを修正`、`修正を依頼`又は`再整備を開始`を使い、正常な問題を先に全件再実行しない。
+4. patch確定後は、Merge、Convert、upload-readyの再生成とupload dry-runを自動実行する。自動処理を完了できなければ、問題詳細の`パッチ変更を反映`又は管理機能の`出力`から手動再実行する。
+5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
 
-### patch・成果物・反映の状態
+## 確定、rollback、再生成
 
-`receiptValidated`はrunのpatch確定状態です。`true`は、成功receipt、変更範囲、`00_source`不変、工程バージョンをserverが検証したことを表します。公開用成果物の更新やFirestore反映の完了は表しません。
-
-| 状態 | 完了条件 | 失敗時の扱い |
+| 状態 | 完了条件 | 後続失敗時 |
 | --- | --- | --- |
-| patch確定 | 成功receiptを検証して`receiptValidated=true`になった、又は画面からの直接修正を保存できた | 未検証の変更を公開しない。新しいrunで対象問題を再検証する。 |
-| 公開用成果物 | `artifactSync`と[公開前の機械gate](delivery_workflow.md#機械品質ゲート)が成功し、生成物が現在のpatchと一致した | patch確定は取り消さない。`blocked`、`failed`、`interrupted`の理由を解消して再生成する。 |
+| patch確定 | 成功receipt、変更範囲、工程検証、`00_source`不変、作業版台帳を検証し、`receiptValidated=true`になった | 確定前ならrollbackする。 |
+| 公開用成果物 | `artifactSync`と公開前の機械gateが成功し、現在のpatchと一致した | patchは取り消さず、再生成だけをやり直す。 |
 | Firestore反映 | 現行工程版と別session評価に合格し、明示確認後のreadbackが一致した | ローカル成功だけで反映済みにしない。 |
 
-`artifactSync`はpatch確定後の公開用成果物だけを表します。完了は`succeeded`、`current`、`not_required`の3状態です。
+### 整備runのfile transaction
 
-| `artifactSync.status` | 意味 |
-| --- | --- |
-| `running` | 再生成または検証中。 |
-| `deferred` | 工程間で保留し、親runの最終検証で実行する。 |
-| `current` | 現在のpatchと一致し、再生成不要。 |
-| `not_required` | このrunに公開用成果物の更新がない。 |
-| `succeeded` | 再生成と検証に成功。 |
-| `blocked` | 必須field不足などの事前条件で未実行。 |
-| `failed` | 再生成または検証に失敗。 |
-| `interrupted` | patch確定後の再生成中にserverが停止。 |
+- GUI内のpatch、作業版、merge、sync、評価projection、readback、公開artifactを変更する処理は、共通のrepository排他で1件ずつ実行する。run中に同じrepositoryを外部から手編集すると、安全なrollbackを保証できないため禁止する。
+- serverは許可された書込fileの開始前bytesと「存在しなかった」事実をrunのbaselineへ保存する。`receiptValidated=true`前の失敗・中断・server再起動では、そのrunが変更したfileを開始前状態へ戻す。
+- patchと`work_versions.json`の更新は同じ確定処理で扱う。作業版台帳の記録又はmanifest更新に失敗した場合は、どちらも未確定とし、file transactionでrollbackする。
+- rollbackできないpathだけを未確定差分として公開処理からblockする。failed deltaの対象、責任工程、解除可否はserverがbaselineと現在bytesから決定し、Codexのreceiptや利用者入力では解除しない。
+- `receiptValidated=true`がcommit点である。以後の`artifactSync`が失敗又は中断しても、確定patchと作業版をrollbackしない。
 
-画面からpatchを直接修正した場合も、整備runと同じ再生成経路を使います。patch保存後は画面上の最新判定にかかわらず再生成し、本番Firestoreへは書き込みません。必須field不足又は未確定の失敗差分がある場合は先にその問題を直します。
+### 画面からの直接修正
 
-旧工程版と混在する年度では、現行03b済みの問題だけを再生成前と生成後の成果物で厳格検証します。旧問題は判定対象へ巻き込まないため、一括更新しなくても再生成できます。法令関連問題がすべて現行03bになった年度は、mergedとFirestore成果物の全対象を検証します。
+直接修正は、対象fileのbaselineとtransaction manifestを`output/question_review_console/direct_edit_transactions/`へ先に保存してから、全fileを更新します。途中失敗では全fileを戻し、再起動時にも未完了transactionを回収します。
 
-## 構成
+patch保存がcommit点です。その後のcache無効化、確認記録、再読込又は`artifactSync`が失敗してもpatchを戻さず、画面へ`warning`と`postCommitErrors`を返します。自動再生成は毎回試行し、手動再生成機能も残します。本番Firestoreへは書き込みません。
+
+### `artifactSync`
+
+`artifactSync`はpatch確定後のMerge、Convert、upload-ready、upload dry-runだけを表します。通常の完了状態は`succeeded`、`current`、`not_required`です。`running`、`deferred`、`blocked`、`failed`、`interrupted`では、理由を解消して自動又は手動で再実行します。
+
+旧工程版と混在する年度では、現行03b済みの問題だけを再生成前後で検証します。法令関連問題がすべて現行03bになった年度は、mergedとFirestore成果物の全対象を検証します。
+
+## 問題IDと現行法監査
+
+- `uiQuestionId`と`reviewKey`は画面表示・操作用である。03bの監査sidecarは`law-revision-audit/v2`とし、source由来の`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`の3要素が完全一致するrecordだけを結合する。`sourceRecordRef`は`00_source/`基準の相対JSON pathと0始まりのrecord indexを`<path>#<index>`で表す。
+- UIの`reviewKey`が衝突しても、`sourceRecordRef`で問題を分離して資格・年度・問題一覧を表示する。3要素を一意に確定できない場合は03bだけをfail-closedでblockし、他工程の閲覧・実行は妨げない。
+- selected artifactをsource recordへ対応できない場合は、path・工程・件数を`artifactResolutionBlockers`へ出し、その工程とdeliveryを完了扱いにしない。
+- 技術知識や計算だけで正誤を判断できる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`として03b完了を記録できる。法令根拠がないという理由だけで`hold`にしない。
+- 03bの工程版を記録する前に、工程03と同じ解説文の形式・日本語品質を検証する。加えて、`lawRevisionFacts`、正答対応、verified根拠、v2 sidecarの識別・分類・必須metadataをserverが検証する。どちらかに失敗した成功receiptは確定しない。
+
+判断内容と保存項目は[現行法監査](current_law_question_maintenance_workflow.md)と[03b prompt](../../prompt/03b_prompt_audit_current_law_and_patch.md)を正本とします。
+
+## 実行構成とsession
 
 ```text
 browser -> Python server -> Codex App Server（stdio）
 ```
 
-Python serverがChatGPT app同梱binaryの`codex app-server` processを一つ管理します。画面の`整備を開始`、`評価を開始`、`再整備を開始`は、すべて`thread/start`と`turn/start`へ変換します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへはfallbackしません。
+Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
-整備、評価、再整備、再評価はすべて`gpt-5.5`と推論強度`high`を明示して開始します。Codex全体configの既定値には依存せず、App Serverが別modelを返した場合はそのrunを開始しません。
+通常整備、03b、03c、04は保存工程ごとに新しいworkspace-write threadを使います。評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadです。異なる作業でthreadを再開・forkしません。
 
-トップの整備は一つのrunとして表示し、保存工程ごとに新しいthreadを使います。各保存作業では、必要に応じて最大2つの`read-only`調査threadへ重複しない調査を分担し、`multi_agent = false`の`workspace-write` threadが現在の問題と正本を再確認してpatch、進捗、receiptを保存します。過去threadは再開しません。評価は問題ごとの別sessionを既定最大4件並列で実行し、成果物更新と公開は1件ずつ実行します。
-
-## サブスクリプション境界
-
-接続時と各thread開始前に`account/read`と`account/rateLimits/read`を確認し、次をすべて満たす場合だけ開始します。
-
-- `account.type = "chatgpt"`で、固定枠のChatGPT planである。
-- 利用上限へ達していない。
-- `credits.hasCredits = false`である。
-- 追加支出を許す`individualLimit`がない。
-- model providerが`openai`で、service tierがStandardである。
-
-API key、usage-based plan、追加credit、判定不能な状態では開始しません。Fast modeとrate-limit reset creditは使いません。子processからAPI key環境変数も除外します。認証と課金区分の正本は[Codex authentication](https://learn.chatgpt.com/docs/auth)と[Codex pricing](https://learn.chatgpt.com/docs/pricing)です。
-
-App Serverは次の境界で隔離します。
-
-- 一時`CODEX_HOME`へ権限`0600`のChatGPT `auth.json`だけを複製し、既存config、custom agent、plugin、skill、memoryを読み込まない。
-- 実行前にconfig layer、`forced_login_method = "chatgpt"`、公式接続先、外部機能の無効化を検証する。想定外のcustom agentを検出した場合は開始しない。
-- 調査だけを`gpt-5.5`、`high`、`read-only`のsubagent最大2件で実行する。専用設定の絶対path、権限`0600`、許可fieldを開始前に照合し、`max_threads = 3`、`max_depth = 1`又は設定に不一致がある結果は保存threadへ渡さない。
-- 評価は`multi_agent = false`、整備はrepository外の一時cwdで実行し、対象patch層とrun receiptだけを書き込めるようにする。
-- commandのnetworkと親環境継承、MCP、plugin、app、hook、browser/computer操作、通知command、analytics、OpenTelemetryを無効にする。調査は組み込みweb検索で公的一次情報だけを開き、Firestore、Storage、GitHub、外部有料APIを呼ばない。
-
-## session分離
-
-| 作業 | Codex thread | sandbox | 入力 |
-| --- | --- | --- | --- |
-| 通常整備（01〜03） | トップrun内で工程ごとに新規 | workspace-write | 現在の対象、正本文書、工程prompt |
-| 現行法監査（03b） | 通常整備とは別に新規 | workspace-write | 現在の法令問題、公的一次情報、監査prompt |
-| カテゴリ設計（03c） | 未準備時だけ別に新規 | workspace-write | 資格全体の問題、taxonomy方針 |
-| 問題集整備（04） | 現行法監査とは別に新規 | workspace-write | 現在の問題、category方針、工程prompt |
-| 評価 | 元問題1問ごとに新規 | read-only | 現在の1問と根拠候補 |
-| 再整備 | 不合格問題ごとに新規 | workspace-write | 現在の問題と構造化評価結果 |
-| 再評価 | 元問題1問ごとに再び新規 | read-only | 再整備後の現在の1問 |
-
-異なる作業で`thread/resume`又は`thread/fork`を使いません。失敗後の再実行も新しいrunとthreadで開始し、`resumedFrom`は追跡情報にだけ使います。評価threadはrepo外の空の一時directoryから開始し、過去の整備prompt、review、評価結果のpathを渡しません。
-
-初期実装は`approvalPolicy = "never"`です。workspace内の通常処理だけを許し、sandbox外のcommand、file変更、追加permission要求は自動承認せず拒否します。
+開始前にChatGPT固定枠、利用上限、追加creditなし、公式provider、Standard tierを確認します。API key、従量課金、外部MCP・plugin・app・hook・browser操作は使いません。調査は隔離したread-only threadと組み込みweb検索に限り、保存は`multi_agent=false`のthreadが担当します。
 
 ## 作業バージョン
 
-工程ごとの現行版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけで`MAJOR.MINOR`形式により管理します。値は小数ではなく文字列です。全工程共通の版や、再整備専用の版は作りません。
+工程版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけを`MAJOR.MINOR`形式で管理します。洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げます。公開済みだが使用版を証明できない初期値は`v0.0`です。
 
-版を上げる判断は一つです。
+run開始時とreceipt検証時に、完全な版番号と正本文書fingerprintを照合します。成功receiptを検証した対象だけを`work_versions.json`へ記録し、履歴を残します。`stateHash`変更又は現行MAJOR未満は再整備、評価版のMAJOR変更は再評価の対象です。
 
-> 改訂時、既存問題の洗い替えが不要ならMINORを1つ上げ、洗い替えが必要ならMAJORを1つ上げてMINORを0へ戻す。
+## 進捗、heartbeat、技術ログ
 
-- `v1.0`から洗い替え不要の改訂を行う場合は`v1.1`にする。`v1.0`で整備した問題も整備済みのままとする。
-- 洗い替えが必要な改訂では`v2.0`にする。`v1.x`で整備した問題を洗い替え対象にする。
-- 影響する工程だけを上げる。再整備は修正した工程の現行版を記録し、`再整備vN`は作らない。
-- 評価の改訂も同じ規則で評価版だけを上げる。
-- 資格文書は、同configの`qualification_document_patterns`で紐づく工程だけに影響する。
+- `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
+- `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全子工程がvalidatedになった問題だけを完了とする。
+- Codex App Serverのturn待機中は15秒間隔で`heartbeatAt`を更新する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
+- runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
+- 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。
 
-洗い替え判定ではMAJORだけを比較します。現行版と同じMAJORなら整備済み、現行MAJOR未満又は未記録なら洗い替え対象です。既存公開問題の初期値`v0.0`は、過去に作業済みだが使用版を証明できない状態を表します。
+画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。
 
-各runは完全な版番号と正本文書のfingerprintを持ちます。開始時と成功receipt検証時にMINORを含む版又はfingerprintが変わったrunは失敗にし、途中でルールが入れ替わった結果を記録しません。成功receiptを検証した後だけ、対象の各問へ実施工程と版を記録します。失敗・中断・receipt不備では記録せず、法令監査版は法令問題だけに適用します。
+## 評価と公開の安全境界
 
-`stateHash`は問題内容、作業バージョンのMAJORは洗い替え要否を表します。公開には、適用対象の全整備工程が現行MAJORであること、現在内容に対する現行評価MAJORの合格、機械品質ゲートのすべてが必要です。
-
-## 画面の入口
-
-人間の役割は二つだけです。整備する資格の優先度を決めて実行することと、生成した正答・解説などのpatchが問題本文からズレていないかを監査することです。
-
-最初の画面は実行専用です。資格を一つ選ぶと、整備済み問数、残件数、年度別進捗を表示します。`未整備を整備`は、未記録、現行MAJOR未満、法令監査警告が残る問題だけを対象にし、必要な工程から最終検証までを順に進めます。通常の残件実行はトップから開始します。
-
-`公開前の内容を確認`は独立した確認画面を開きます。通常は年度、検索、`反映待ち / 全問`だけを使います。一覧には問題ごとの正誤パターン、解説数、`公開用データ更新待ち`、`評価待ち`、`公開可能`、`反映済み`のいずれかを表示します。
-
-問題詳細は、公開用成果物が最新ならFirestoreへ反映する内容を、未更新ならpatch適用後の内容と`公開用データ更新待ち`を表示します。人間は内容のズレを確認し、必要な問題だけを修正します。次に行える操作は、上の運用順序に従って一つだけ表示します。
-
-`修正後確認`など表示上のissue種別が変わっていても、依頼対象に`lawReferences`、`lawRevisionFacts`又は`isLawRelated`を含む場合は03b現行法監査の契約を維持します。監査sidecar、工程版、`lawRevision`確認フラグを通常整備へ分離せず、直前の法令監査が時間切れになった場合も同じ問題の再実行で未確定差分を解消します。
-
-工程選択、作業履歴、評価根拠、Firestore差分、関連ファイルなどは画面末尾の`工程・評価・Firestoreなどの管理機能`へ畳み、必要な場合だけ開きます。問題一覧は確認画面を開いた時だけ最新状態へ更新し、実行専用画面では読み込みません。
-
-実行状態の正本はserver側のrun記録です。`いまの作業`は通常整備、現行法監査、問題集整備、最終検証、完了の現在地を示します。問題処理が100%でもreceipt検証中は`最終検証中`とし、失敗時は停止工程、未承認、停止理由を残します。
-
-未整備数、実行工程、preview、startはserverの`requiredMaintenance`と同じscopeを使い、browser側では再判定しません。`category.json`が未作成又は不正な場合は03cを資格単位で実行し、その後04を選択年度内で再検証します。画面とserverの契約版が異なる場合は、再起動まで新しいrunを開始しません。
-
-失敗runが集約patchへ未確定差分を残した場合は、まず該当問題を再検証します。残件だけでは同じfileの全recordを保証できない場合に限り、責任工程を選択年度の`全件洗い替え`へ自動昇格します。
-
-作業中は問題開始、工程完了、問題完了を`progress.jsonl`へ順次記録し、画面には現在の年度・問題番号・工程、正答や解説などの最終出力、問題単位と工程単位の件数を表示します。問題別出力は処理済みの全問を1問1項目にまとめ、同じ問題の工程完了と問題完了を重複表示しません。作業が停止した場合も記録済みの問題別出力を再取得し、原因調査と監査に使える状態を保ちます。工程数は`policyTargets`で適用対象になる問題と工程の組合せだけを数え、対象外の進捗通知は表示・集計しません。思考過程は保存しません。完了検証前は`作業中の出力`、成功receipt検証後だけ`検証済み`として扱います。
-
-同じURLを別のSafari又は本人の別端末で開いても、選択資格の実行中カード、問題別出力、年度の作業中ハイライトと進捗バーを3秒ごとに自動更新します。問題別出力をタップすると既存の問題APIから本文、選択肢、現在保存済みの正答と解説を表示します。選択肢単位の出力は一つの長文に連結せず、選択肢番号、正誤、解説を項目ごとに分けて表示します。完了後は資格全体と年度別の件数を再取得します。技術ログは通常表示から分離し、必要な場合だけ展開します。
-
-画面には、Codex App Serverが返した実modelと問題整備システムが`turn/start`で指定した推論強度を表示します。実行後は同じ値をrunの`manifest.json`へ保存します。Codex全体configの推論強度とturn指定が異なる場合は、実作業にはturn指定を使います。
-
-## 客観評価
-
-- 問題文と全選択肢を一問ずつ確認する。
-- 現在の正答対応と公式正答は評価promptへ渡さず、全肢の独立判定後にPython serverが現在値との一致だけを計算する。
-- 現在の解説は採点対象に限定し、選択肢の正誤根拠として扱わない。
-- 一次資料、公式資料、法令本文又は独立計算で各選択肢を確認する。
-- 評価用の参照先・locatorは構造化評価結果へ記録する。非法令問題の解説本文に機関名、資料名、URLなどの参照先が明示されていないこと自体は減点又は要再整備理由にしない。
-- 解説の文章品質は[工程03の正本](../../prompt/03_prompt_add_explanationText.md)に従い、根拠と選択肢との差が自然な順序で読めるかを評価する。
-- 根拠不足は`insufficient_evidence`として不合格にする。
-- 指定JSON Schemaへ限定し、serverが全選択肢、正答対応、解説点数、重大指摘を再検証する。
-
-問題の`stateHash`又は評価版のMAJORが変わると以前の評価は自動で古くなります。評価版のMINOR改訂では再評価しません。再整備後は、新しい評価threadに合格するまで公開できません。
-
-## 保存と安全境界
-
-各sessionは`output/question_review_console/workflow_runs/<qualification>/<runId>/`へmanifest、prompt、resultを保存します。親runは工程別の子runと検証状態を追跡し、子runは`baseline.json`、`agent_output/result.json`、`progress.jsonl`を分離します。manifestには実行主体、対象、policy、sandbox、`receiptValidated`、`artifactSync`、状態と時刻を記録します。評価の最新表示だけは資格・年度配下の`evaluations/`へ投影します。
-
-問題ごとの工程履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`へ保存します。各工程は最新記録と過去の`history`を持つため、洗い替え後も`v0.0`などの旧記録を追跡できます。これは運用メタデータであり、`00_source`、patch、merged、upload-ready、Firestore question documentへ複製しません。公開済み問題の一括初期化receiptは`work_version_backfills/`、`MAJOR.MINOR`形式への移行receiptは`work_version_migrations/`へ保存します。
-
-誤ったrunを成功扱いにした場合は、`invalidate-work-version-run`で対象run・工程だけを`v0.0`へ戻します。無効化前の記録は`history`へ残し、`work_version_invalidations/`のreceiptで理由と対象を追跡します。他工程の完了記録とpatchは変更しません。
-
-工程03は、構造検証に加えて解説契約をserver側でも検証します。冒頭の`正しい。` / `間違い。`と正誤の向き、選択肢を繰り返すだけの解説、法令名を機械的な主語へ置く旧構文、「点が誤り」で終える表現のいずれかが不正なら、成功receiptがあっても工程版を記録しません。
-
-工程03bでは、03b promptが要求する法令根拠利用の機械検証もserver側で必須とし、失敗した場合は成功receiptがあっても工程版を記録しません。
-
-- 整備と再整備の前後で`00_source`不変検証を行う。
-- UIから起動したPython検証はrepositoryの`.venv/bin/python`へ固定する。正本指定の検証が1件でも失敗している間は独自の代替検証だけで成功扱いにせず、receiptのcommand statusは`pass`又は`fail`で記録する。
-- Codex App Serverのfile変更通知は、run専用の一時directoryとrepositoryをserver側で1回だけ切り分ける。一時directory内の補助fileは実行終了時に削除して成果物に数えず、repository内だけを実差分とreceiptで照合し、どちらにも属さないpathは停止する。
-- repository全体の監視では、Google Driveの実体化によるctimeだけの変化は差分とせず、pathの出現・消失、mode・size・mtime、Git差分を監視する。
-- 整備と再整備は工程又は選択fieldに対応するpatchだけを変更する。1問指定では対象patch fileとJSON/JSONL内の対象recordも限定し、App Server通知、実行前後のrepository差分、receiptの`changedFiles`を双方向で照合する。
-- `questionBodyText`と`choiceTextList`はCodex自動整備の対象外とする。両fieldはblind reviewと根拠を必須にする`24_questionIssueCorrections`専用workflowで扱う。
-- 実体patch、評価projection、readback、merge、sync、公開artifactを変更する処理は、システム全体で1件ずつ実行する。一意IDのreview・run metadataは開始前にatomic writeし、排他競合時はfailed又は`needs_review`へ戻す。
-- 評価threadはfileとFirestoreを変更しない。Python serverだけがrun receiptと最新評価projectionを保存する。
-- Firestore反映はCodex threadへ任せず、既存preflight、UIの明示確認、直後のreadbackを使う。
-- app-server停止、認証不一致、利用上限、receipt不備は安全な失敗として保存する。成功receiptを検出したらturnを停止し、receipt時点と停止後のresult、progress、変更fileのhashが一致する場合だけ検証を続ける。receipt後の追加変更、停止未確認、hash不一致は成功扱いにしない。
-- 失敗又は中断turnの差分はfailed receiptへ残し、公開用成果物とFirestore反映をブロックする。現在runの責務内で再検証したpathだけを`resolvedFailedDeltaPaths`として解除し、対象外の工程や年度へ解消範囲を広げない。
+- 評価は問題文と全選択肢を一問ずつ独立に判定する。現在の正答は先に渡さず、serverが全肢の結果、正答対応、解説品質、重大指摘を検証する。
+- 非法令問題の解説本文に機関名、資料名、URLがないことだけを減点理由にしない。根拠不足は`insufficient_evidence`として不合格にする。
+- `questionBodyText`と`choiceTextList`は自動整備せず、blind reviewを伴う`24_questionIssueCorrections`で扱う。
+- Firestore反映はCodex threadへ任せず、preflight、UIの明示確認、直後のreadbackを使う。
 
 ## 起動
 
@@ -174,4 +89,4 @@ App Serverは次の境界で隔離します。
 .venv/bin/python tools/question_bank/question_bank.py review-ui
 ```
 
-serverは`127.0.0.1`だけへbindします。本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。Codex App Server protocolの正本は[Codex App Server](https://learn.chatgpt.com/docs/app-server)と、使用中binaryから生成したschemaです。
+serverは`127.0.0.1`だけへbindします。本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。

@@ -7,9 +7,12 @@ import unittest
 from pathlib import Path
 
 from scripts.check.check_question_issue_correction_patch import validate_patch
+from scripts.common.question_identity import SourceIdentityBinding, SourceRecordIdentity
 from scripts.merge.question_issue_corrections import (
+    apply_question_issue_correction_index,
     apply_question_issue_correction_patch,
     apply_question_issue_correction_paths,
+    build_question_issue_correction_index,
     ensure_all_question_issue_corrections_applied,
     question_record_hash,
     sha256_json,
@@ -68,6 +71,74 @@ def valid_patch(record: dict) -> dict:
 
 
 class QuestionIssueCorrectionPatchTests(unittest.TestCase):
+    def test_exact_binding_is_valid_and_updates_only_its_source_record(self) -> None:
+        record = current_record()
+        first = SourceIdentityBinding.from_values(
+            "sample:2026:question-1",
+            "question-1",
+            "question_1.json#0",
+        )
+        second = SourceIdentityBinding.from_values(
+            "sample:2026:question-1",
+            "question-1",
+            "question_2.json#0",
+        )
+        patch = valid_patch(record)
+        patch["entries"][0].update(second.as_mapping())
+        sources = [
+            SourceRecordIdentity(
+                binding=binding,
+                aliases=frozenset(binding.as_tuple()),
+                source_stem=source_stem,
+            )
+            for binding, source_stem in (
+                (first, "question_1"),
+                (second, "question_2"),
+            )
+        ]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            patch_path = root / "patch.json"
+            current_path = root / "current.json"
+            patch_path.write_text(json.dumps(patch), encoding="utf-8")
+            current_path.write_text(
+                json.dumps({"question_bodies": [record]}),
+                encoding="utf-8",
+            )
+
+            self.assertEqual(
+                validate_patch(
+                    patch_path,
+                    config_path=CONFIG_PATH,
+                    current_path=current_path,
+                ),
+                [],
+            )
+            index = build_question_issue_correction_index(
+                [patch_path],
+                sources,
+            )
+            with self.assertRaisesRegex(ValueError, "source inventory index"):
+                apply_question_issue_correction_patch(
+                    {"question_bodies": [copy.deepcopy(record)]},
+                    patch_path,
+                )
+            data = {
+                "question_bodies": [
+                    copy.deepcopy(record),
+                    copy.deepcopy(record),
+                ]
+            }
+            updates = apply_question_issue_correction_index(
+                data,
+                index,
+                [first, second],
+            )
+
+        self.assertEqual(updates, 1)
+        self.assertEqual(data["question_bodies"][0]["questionBodyText"], "修正前")
+        self.assertEqual(data["question_bodies"][1]["questionBodyText"], "修正後")
+
     def test_valid_patch_applies_without_copying_provenance_into_question(self) -> None:
         record = current_record()
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -162,6 +233,36 @@ class QuestionIssueCorrectionPatchTests(unittest.TestCase):
             self.assertTrue(
                 any("changes must differ from current values" in error for error in errors)
             )
+
+    def test_validation_rejects_duplicate_current_alias_instead_of_last_write(self) -> None:
+        record = current_record()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            patch_path = root / "patch.json"
+            current_path = root / "current.json"
+            patch_path.write_text(json.dumps(valid_patch(record)), encoding="utf-8")
+            current_path.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            record,
+                            {**record, "questionBodyText": "別レコード"},
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = validate_patch(
+                patch_path,
+                config_path=CONFIG_PATH,
+                current_path=current_path,
+            )
+
+        self.assertTrue(
+            any("does not resolve uniquely" in error for error in errors),
+            errors,
+        )
 
     def test_merge_applies_chained_overlays_and_checks_all_targets(self) -> None:
         record = current_record()

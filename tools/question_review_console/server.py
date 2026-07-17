@@ -85,12 +85,110 @@ FORWARDED_HEADERS = (
 )
 LOGGER = logging.getLogger(__name__)
 
+RECENT_RUN_DISPLAY_FIELDS = (
+    "runId",
+    "qualification",
+    "status",
+    "workType",
+    "stageCode",
+    "stageLabel",
+    "modeLabel",
+    "kind",
+    "targetCount",
+    "workItemCount",
+    "stageIds",
+    "targetGroupIds",
+    "scopeListGroupId",
+    "scopeListGroupIds",
+    "jobId",
+    "receiptValidated",
+    "model",
+    "reasoningEffort",
+    "parallelWorkerLimit",
+    "researchSubagentCount",
+    "researchStatus",
+    "executionPhase",
+    "currentPhaseId",
+    "createdAt",
+    "startedAt",
+    "updatedAt",
+    "heartbeatAt",
+    "finishedAt",
+)
+RECENT_RUN_PHASE_DISPLAY_FIELDS = (
+    "id",
+    "label",
+    "sessionGroup",
+    "sessionLabel",
+    "stageCodes",
+    "status",
+    "error",
+    "startedAt",
+    "finishedAt",
+)
+
 
 class ApiError(ValueError):
     def __init__(self, status: int, message: str, **details: Any):
         super().__init__(message)
         self.status = status
         self.details = details
+
+
+def _recent_run_summary(run: Mapping[str, Any]) -> dict[str, Any]:
+    summary = {
+        field: copy.deepcopy(run[field])
+        for field in RECENT_RUN_DISPLAY_FIELDS
+        if field in run
+    }
+    if "error" in run:
+        summary["error"] = str(run.get("error") or "")[:2000] or None
+    artifact_sync = run.get("artifactSync")
+    if isinstance(artifact_sync, Mapping):
+        summary["artifactSync"] = {
+            field: str(artifact_sync.get(field) or "")[:1000]
+            for field in ("status", "message")
+            if artifact_sync.get(field) is not None
+        }
+    invalidation = run.get("workVersionInvalidation")
+    if isinstance(invalidation, Mapping):
+        summary["workVersionInvalidation"] = {
+            "reason": str(invalidation.get("reason") or "")[:1000]
+        }
+    phases = run.get("phaseExecutions")
+    if isinstance(phases, list):
+        summary["phaseExecutions"] = [
+            {
+                field: (
+                    str(phase.get(field) or "")[:1000]
+                    if field == "error"
+                    else copy.deepcopy(phase[field])
+                )
+                for field in RECENT_RUN_PHASE_DISPLAY_FIELDS
+                if field in phase
+            }
+            for phase in phases
+            if isinstance(phase, Mapping)
+        ]
+    return summary
+
+
+def _recent_runs_summary(payload: Mapping[str, Any]) -> dict[str, Any]:
+    runs = [
+        _recent_run_summary(run)
+        for run in payload.get("runs") or []
+        if isinstance(run, Mapping)
+    ]
+    active_run = payload.get("activeRun")
+    return {
+        "qualification": str(payload.get("qualification") or ""),
+        "runs": runs,
+        "activeRun": (
+            _recent_run_summary(active_run)
+            if isinstance(active_run, Mapping)
+            else None
+        ),
+    }
 
 
 @dataclass(frozen=True)
@@ -291,7 +389,28 @@ class QuestionReviewApplication:
                     HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
                 )
             try:
-                return HTTPStatus.OK, self.qualification_runs.recent(qualification)
+                return HTTPStatus.OK, _recent_runs_summary(
+                    self.qualification_runs.recent(qualification)
+                )
+            except (ValueError, QualificationRunError) as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+        if path.startswith("/api/qualification-runs/") and path.endswith(
+            "/technical-log"
+        ):
+            qualification = _query_value(query, "qualification")
+            run_id = path.removeprefix("/api/qualification-runs/").removesuffix(
+                "/technical-log"
+            )
+            if not qualification or not run_id:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "qualificationとrunIdを指定してください。",
+                )
+            try:
+                return HTTPStatus.OK, self.qualification_runs.technical_log(
+                    qualification,
+                    run_id,
+                )
             except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
         if path.startswith("/api/qualification-runs/") and path.endswith("/progress"):
@@ -327,9 +446,20 @@ class QuestionReviewApplication:
                 "kind": job["kind"],
                 "status": job["status"],
                 "logs": [str(line)[:500] for line in (job.get("logs") or [])[-5:]],
+                "logEntries": [
+                    {
+                        "sequence": entry.get("sequence"),
+                        "at": entry.get("at"),
+                        "level": entry.get("level"),
+                        "message": str(entry.get("message") or "")[:500],
+                    }
+                    for entry in (job.get("logEntries") or [])[-5:]
+                    if isinstance(entry, Mapping)
+                ],
                 "createdAt": job.get("createdAt"),
                 "startedAt": job.get("startedAt"),
                 "finishedAt": job.get("finishedAt"),
+                "lastActivityAt": job.get("lastActivityAt"),
                 "error": str(job.get("error") or "")[:1000] or None,
             }
         if path.startswith("/api/jobs/"):
@@ -651,6 +781,9 @@ class QuestionReviewApplication:
                 request["targetRecordAliasGroups"] = targets[
                     "targetRecordAliasGroups"
                 ]
+                request["targetRecordBindings"] = targets[
+                    "targetRecordBindings"
+                ]
                 request["targetSourceRecordScopes"] = targets[
                     "targetSourceRecordScopes"
                 ]
@@ -748,46 +881,95 @@ class QuestionReviewApplication:
                     str(body.get("stateHash") or ""),
                     str(body.get("previewToken") or ""),
                 )
-                self._clear_group_live_results(
-                    str(question["qualification"]),
-                    str(question["listGroupId"]),
-                )
-                self.inventory.invalidate(
-                    question["qualification"], question["listGroupId"]
-                )
+                qualification = str(question["qualification"])
+                list_group_id = str(question["listGroupId"])
+                post_commit_errors: list[str] = []
+                try:
+                    self._clear_group_live_results(
+                        qualification,
+                        list_group_id,
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    post_commit_errors.append(
+                        f"local readbackの無効化: {exc}"
+                    )
+                cache_ready = True
+                try:
+                    self.inventory.invalidate(
+                        qualification, list_group_id
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    cache_ready = False
+                    post_commit_errors.append(f"inventory更新: {exc}")
                 sync_logs: list[str] = []
-                artifact_sync = sync_after_patch_update(
-                    self.synchronizer,
-                    str(question["qualification"]),
-                    str(question["listGroupId"]),
-                    sync_logs.append,
-                )
-                updated = self._question(question["id"], {})
-                review = self.reviews.create(
-                    self._decorate(updated),
-                    {
-                        "issueTypes": ["direct_edit"],
-                        "fields": sorted(changes),
-                        "note": str(body.get("reason") or "").strip()
-                        or "ローカルレビューUIで直接編集した。",
-                    },
-                    status="post_fix_review",
-                )
+                if cache_ready:
+                    try:
+                        artifact_sync = sync_after_patch_update(
+                            self.synchronizer,
+                            qualification,
+                            list_group_id,
+                            sync_logs.append,
+                        )
+                    except Exception as exc:  # noqa: BLE001
+                        post_commit_errors.append(f"公開用データの再生成: {exc}")
+                        artifact_sync = {
+                            "status": "failed",
+                            "groups": [],
+                            "message": (
+                                "patchは保存しましたが、公開用データを再生成できませんでした。"
+                                "管理機能から再実行できます。"
+                            ),
+                        }
+                else:
+                    artifact_sync = {
+                        "status": "failed",
+                        "groups": [],
+                        "message": (
+                            "patchは保存しましたが、inventoryを更新できないため"
+                            "公開用データを再生成していません。管理機能から再実行できます。"
+                        ),
+                    }
+                try:
+                    updated = self._question(question["id"], {})
+                except Exception as exc:  # noqa: BLE001
+                    updated = dict(question)
+                    post_commit_errors.append(f"保存後の再読込: {exc}")
+                try:
+                    decorated = self._decorate(updated)
+                except Exception as exc:  # noqa: BLE001
+                    decorated = dict(updated)
+                    post_commit_errors.append(f"保存後表示の更新: {exc}")
+                review = None
+                try:
+                    review = self.reviews.create(
+                        decorated,
+                        {
+                            "issueTypes": ["direct_edit"],
+                            "fields": sorted(changes),
+                            "note": str(body.get("reason") or "").strip()
+                            or "ローカルレビューUIで直接編集した。",
+                        },
+                        status="post_fix_review",
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    post_commit_errors.append(f"確認記録の保存: {exc}")
                 sync_ok = artifact_sync["status"] in {"succeeded", "current"}
+                post_commit_ok = not post_commit_errors
                 message = (
                     "patchを保存し、公開用データも最新にしました。"
-                    if sync_ok
+                    if sync_ok and post_commit_ok
                     else (
-                        "patchは保存しましたが、公開用データを自動更新できませんでした。"
-                        "問題詳細又は管理機能から再生成できます。"
+                        "patchは保存しましたが、保存後の処理をすべて完了できませんでした。"
+                        "問題詳細又は管理機能から再生成・再確認できます。"
                     )
                 )
                 return {
                     **result,
-                    "question": self._decorate(updated),
+                    "question": decorated,
                     "review": review,
                     "artifactSync": artifact_sync,
-                    "warning": not sync_ok,
+                    "postCommitErrors": post_commit_errors,
+                    "warning": not sync_ok or not post_commit_ok,
                     "message": message,
                 }
 
@@ -828,12 +1010,14 @@ class QuestionReviewApplication:
                 "sourceFiles": [],
                 "patchFiles": [],
                 "targetRecordAliasGroups": [],
+                "targetRecordBindings": [],
                 "targetSourceRecordScopes": {},
             }
 
         target_source_files: set[str] = set()
         target_files: set[str] = set()
         target_record_alias_groups: list[list[str]] = []
+        target_record_bindings: list[dict[str, Any]] = []
         target_source_record_scopes: dict[str, list[list[str]]] = {}
         for list_group_id in qualification_info["listGroupIds"]:
             group = self.inventory.group(qualification, list_group_id)
@@ -855,6 +1039,21 @@ class QuestionReviewApplication:
                     self.qualification_runs._question_record_aliases(question)
                 )
                 target_record_alias_groups.append(aliases)
+                target_record_bindings.append(
+                    {
+                        "uiQuestionId": str(question.get("id") or ""),
+                        "reviewQuestionId": str(
+                            question.get("originalQuestionId") or ""
+                        ),
+                        "sourceQuestionKey": str(
+                            question.get("sourceQuestionKey") or ""
+                        ),
+                        "sourceRecordRef": str(
+                            question.get("sourceRecordRef") or ""
+                        ),
+                        "aliases": aliases,
+                    }
+                )
                 target_source_record_scopes.setdefault(source_path, []).append(
                     aliases
                 )
@@ -880,6 +1079,7 @@ class QuestionReviewApplication:
                     tuple(group) for group in target_record_alias_groups
                 )
             ],
+            "targetRecordBindings": target_record_bindings,
             "targetSourceRecordScopes": {
                 path: [
                     list(group)
@@ -1285,6 +1485,7 @@ class QuestionReviewApplication:
                 "id",
                 "reviewKey",
                 "sourceQuestionKey",
+                "sourceRecordRef",
                 "questionLabel",
                 "examLabel",
                 "qualification",

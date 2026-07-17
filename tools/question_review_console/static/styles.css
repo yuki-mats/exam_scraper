@@ -375,7 +375,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run-model { white-space: nowrap; }
 .run-status { color: var(--blue); font-size: 10px; font-weight: 800; }
 .run-status.idle { color: var(--text-muted); }
-.run-status.interrupted, .run-status.failed, .run-status.invalidated { color: var(--red); }
+.run-status.interrupted, .run-status.failed, .run-status.invalidated, .run-status.unverified { color: var(--red); }
 .run-status.succeeded { color: var(--green); }
 .run-status.artifact-pending { color: var(--amber); }
 .qualification-run-history { margin: 7px -16px -10px; border-top: 1px solid var(--line); background: #fff; }

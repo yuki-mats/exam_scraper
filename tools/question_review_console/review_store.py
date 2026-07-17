@@ -170,6 +170,7 @@ class ReviewStore:
             "qualification": qualification,
             "listGroupId": list_group_id,
             "sourceQuestionKey": question.get("sourceQuestionKey"),
+            "sourceRecordRef": question.get("sourceRecordRef"),
             "originalQuestionId": question.get("originalQuestionId"),
             "choiceIndexes": sorted(
                 {

@@ -15,12 +15,21 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 from scripts.check.check_question_issue_correction_patch import validate_patch
-from scripts.common.question_identity import review_question_id
+from scripts.common.question_identity import (
+    SourceIdentityBinding,
+    SourceRecordIdentity,
+    load_source_record_inventory,
+    resolve_identity_candidates,
+    source_identity_aliases,
+    workflow_identity_aliases,
+)
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from scripts.merge.merge_utils import strip_timestamp_suffix
 from scripts.merge.question_issue_corrections import (
     PATCH_ORIGIN,
     PATCH_SCHEMA_VERSION,
-    apply_question_issue_correction_patch,
+    apply_question_issue_correction_index,
+    build_question_issue_correction_index,
     question_record_hash,
     sha256_json,
 )
@@ -146,6 +155,10 @@ def without_private_report_fields(value: Any) -> Any:
 
 def _case_question_key(case: Mapping[str, Any]) -> str:
     return str(case.get("originalQuestionId") or case.get("questionId") or "").strip()
+
+
+def _record_identity_aliases(record: Mapping[str, Any]) -> set[str]:
+    return source_identity_aliases(record) | workflow_identity_aliases(record)
 
 
 def _case_sort_key(case: Mapping[str, Any]) -> tuple[str, str]:
@@ -323,36 +336,100 @@ def _current_record_files(
             key=lambda path: (path.stat().st_mtime_ns, path.name),
             reverse=True,
         )
-        candidates.extend(path for path in paths if not path.name.endswith("_invalid.json"))
+        selected: dict[str, Path] = {}
+        for path in paths:
+            if path.name.endswith("_invalid.json"):
+                continue
+            selected.setdefault(_merged_source_stem(path), path)
+        candidates.extend(selected.values())
         if paths:
             break
     return candidates
+
+
+def _merged_source_stem(path: Path) -> str:
+    return strip_timestamp_suffix(path.stem).removesuffix("_merged")
 
 
 def find_current_question_record(
     work_item: Mapping[str, Any],
     *,
     output_root: Path,
-) -> tuple[dict[str, Any], Path]:
-    target_id = str(work_item.get("originalQuestionId") or "")
+) -> tuple[dict[str, Any], Path, SourceRecordIdentity]:
+    qualification = str(work_item.get("qualificationId") or "").strip()
+    list_group_id = str(work_item.get("listGroupId") or "").strip()
+    group_dir = output_root / qualification / "questions_json" / list_group_id
+    inventory = load_source_record_inventory(
+        group_dir / "00_source",
+        qualification=qualification,
+        list_group_id=list_group_id,
+    )
+    sources = tuple(item.identity for item in inventory)
+    work_index = resolve_identity_candidates(
+        [work_item],
+        sources=sources,
+        record_of=lambda item: item,
+        aliases_of=_record_identity_aliases,
+        source_stem_of=lambda _item: "",
+        label="question issue work item",
+    )
+    target_bindings = [
+        binding
+        for binding, resolved_candidates in work_index.by_binding.items()
+        if resolved_candidates
+    ]
+    if len(target_bindings) != 1:
+        details = sorted(
+            {
+                message
+                for messages in work_index.errors_by_binding.values()
+                for message in messages
+            }
+        )
+        raise ValueError(
+            "question issue work item does not resolve to one source record"
+            + (f": {' '.join(details)}" if details else "")
+        )
+    target_binding = target_bindings[0]
+    target_identity = next(
+        source for source in sources if source.binding == target_binding
+    )
+
+    candidates: list[tuple[dict[str, Any], Path]] = []
     for path in _current_record_files(
-        str(work_item.get("qualificationId") or ""),
-        str(work_item.get("listGroupId") or ""),
+        qualification,
+        list_group_id,
         output_root=output_root,
     ):
         payload = load_json(path)
         questions = payload.get("question_bodies") if isinstance(payload, dict) else None
         if not isinstance(questions, list):
-            continue
+            raise ValueError(f"current JSON missing question_bodies: {path}")
         for question in questions:
             if not isinstance(question, dict):
-                continue
-            if str(review_question_id(question) or "") == target_id:
-                return copy.deepcopy(question), path
+                raise ValueError(f"current JSON contains a non-object record: {path}")
+            candidates.append((question, path))
+    current_index = resolve_identity_candidates(
+        candidates,
+        sources=sources,
+        record_of=lambda candidate: candidate[0],
+        aliases_of=_record_identity_aliases,
+        source_stem_of=lambda candidate: _merged_source_stem(candidate[1]),
+        label="current merged record",
+    )
+    errors = current_index.errors_by_binding.get(target_binding, ())
+    matches = current_index.by_binding.get(target_binding, ())
+    if errors:
+        raise ValueError(" ".join(errors))
+    if len(matches) == 1:
+        current_record, current_path = matches[0]
+        return copy.deepcopy(current_record), current_path, target_identity
     raise FileNotFoundError(
-        "current local question record not found: "
+        "current local question record not uniquely found: "
         f"qualification={work_item.get('qualificationId')} "
-        f"listGroupId={work_item.get('listGroupId')} originalQuestionId={target_id}"
+        f"listGroupId={work_item.get('listGroupId')} "
+        f"originalQuestionId={work_item.get('originalQuestionId')} "
+        f"matches={len(matches)}"
     )
 
 
@@ -868,6 +945,7 @@ def build_correction_patch(
     manifest: Mapping[str, Any],
     work_item: Mapping[str, Any],
     current_record: Mapping[str, Any],
+    source_binding: SourceIdentityBinding,
     blind_reviews: list[Mapping[str, Any]],
     challenge: Mapping[str, Any],
 ) -> dict[str, Any]:
@@ -889,6 +967,7 @@ def build_correction_patch(
         "entries": [
             {
                 "original_question_id": work_item["originalQuestionId"],
+                **source_binding.as_mapping(),
                 "expectedBeforeHash": question_record_hash(current_record),
                 "changes": copy.deepcopy(challenge["changes"]),
                 "rationale": (
@@ -914,10 +993,18 @@ def verify_patch_against_record(
     patch_path: Path,
     *,
     current_record: Mapping[str, Any],
+    source_identity: SourceRecordIdentity,
     config_path: Path,
 ) -> dict[str, Any]:
     current_path = patch_path.parent / f".{patch_path.stem}_current.json"
-    write_private_json(current_path, {"question_bodies": [dict(current_record)]})
+    current_for_validation = {
+        **dict(current_record),
+        **source_identity.binding.as_mapping(),
+    }
+    write_private_json(
+        current_path,
+        {"question_bodies": [current_for_validation]},
+    )
     try:
         errors = validate_patch(
             patch_path,
@@ -927,7 +1014,15 @@ def verify_patch_against_record(
         if errors:
             raise ValueError("invalid correction patch: " + "; ".join(errors))
         data = {"question_bodies": [copy.deepcopy(dict(current_record))]}
-        if apply_question_issue_correction_patch(data, patch_path) != 1:
+        index = build_question_issue_correction_index(
+            [patch_path],
+            [source_identity],
+        )
+        if apply_question_issue_correction_index(
+            data,
+            index,
+            [source_identity.binding],
+        ) != 1:
             raise ValueError("correction patch did not change exactly one local record")
         return data["question_bodies"][0]
     finally:
@@ -1493,10 +1588,11 @@ def process_batch(
                 continue
 
         try:
-            current_record, current_record_path = find_current_question_record(
-                work_item,
-                output_root=output_root,
-            )
+            (
+                current_record,
+                current_record_path,
+                source_identity,
+            ) = find_current_question_record(work_item, output_root=output_root)
             blind_a, blind_b, challenge = run_objective_review(
                 work_item,
                 category=str(manifest["category"]),
@@ -1514,6 +1610,7 @@ def process_batch(
                     manifest=manifest,
                     work_item=work_item,
                     current_record=current_record,
+                    source_binding=source_identity.binding,
                     blind_reviews=[blind_a, blind_b],
                     challenge=challenge,
                 )
@@ -1541,6 +1638,7 @@ def process_batch(
                     corrected = verify_patch_against_record(
                         patch_path,
                         current_record=current_record,
+                        source_identity=source_identity,
                         config_path=config_path,
                     )
                     write_private_json(work_dir / "corrected_preview.json", corrected)

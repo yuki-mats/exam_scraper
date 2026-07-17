@@ -1,6 +1,7 @@
 import copy
 import os
 import tempfile
+import threading
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -16,6 +17,7 @@ from tools.question_review_console.codex_app_server import (
     RESEARCH_AGENT_DESCRIPTION,
     RESEARCH_AGENT_ROLE,
     SubscriptionGateError,
+    _TurnState,
     validate_subscription_access,
 )
 
@@ -334,6 +336,125 @@ class ReceiptInterruptProtocolClient(ProtocolClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_turn_item_logs_include_safe_failure_evidence_and_relative_paths(self):
+        class StructuredEmitter:
+            def __init__(self):
+                self.lines = []
+                self.events = []
+
+            def __call__(self, line):
+                self.lines.append(line)
+
+            def event(self, value):
+                self.events.append(value)
+
+        client = ProtocolClient()
+        emit = StructuredEmitter()
+        state = _TurnState(thread_id="thread", turn_id="turn", emit=emit)
+        command_item = {
+            "id": "command-1",
+            "type": "commandExecution",
+            "command": "python verify.py",
+            "status": "failed",
+            "exitCode": 9,
+            "aggregatedOutput": "verification failed near question 12",
+        }
+        client._record_turn_item(state, command_item)
+        client._record_turn_item(state, command_item)
+
+        changed_path = str(Path.cwd() / "tools" / "sample.py")
+        file_item = {
+            "id": "change-1",
+            "type": "fileChange",
+            "changes": [{"path": changed_path}],
+        }
+        client._record_turn_item(state, file_item)
+        client._record_turn_item(state, file_item)
+
+        self.assertEqual(emit.lines, [])
+        self.assertEqual(len(emit.events), 2)
+        self.assertIn("exitCode=9", emit.events[0]["message"])
+        self.assertIn(
+            "verification failed near question 12",
+            emit.events[0]["outputTail"],
+        )
+        self.assertEqual(emit.events[0]["commandStatus"], "failed")
+        self.assertEqual(emit.events[0]["exitCode"], 9)
+        self.assertEqual(
+            client._failure_output_tail(
+                "Authorization: Bearer sensitive-token"
+            ),
+            "<redacted sensitive output>",
+        )
+        self.assertIn("tools/sample.py", emit.events[1]["message"])
+        self.assertEqual(emit.events[1]["changedPaths"], ["tools/sample.py"])
+        self.assertNotIn(str(Path.cwd()), emit.events[1]["message"])
+        self.assertEqual(state.changed_files, {changed_path})
+
+    def test_run_turn_calls_heartbeat_while_waiting(self):
+        class DelayedProtocolClient(ProtocolClient):
+            def _request(self, method, params, *, timeout=None):
+                if method != "turn/start":
+                    return super()._request(method, params, timeout=timeout)
+                self.calls.append((method, copy.deepcopy(params)))
+                thread_id = params["threadId"]
+                turn_id = thread_id.replace("thread", "turn")
+
+                def complete():
+                    self._handle_turn_notification(
+                        {
+                            "method": "item/completed",
+                            "params": {
+                                "threadId": thread_id,
+                                "turnId": turn_id,
+                                "item": {
+                                    "id": "answer-1",
+                                    "type": "agentMessage",
+                                    "phase": "final_answer",
+                                    "text": '{"status":"ok"}',
+                                },
+                            },
+                        }
+                    )
+                    self._handle_turn_notification(
+                        {
+                            "method": "turn/completed",
+                            "params": {
+                                "threadId": thread_id,
+                                "turn": {
+                                    "id": turn_id,
+                                    "status": "completed",
+                                    "error": None,
+                                    "items": [],
+                                },
+                            },
+                        }
+                    )
+
+                self.timer = threading.Timer(0.06, complete)
+                self.timer.daemon = True
+                self.timer.start()
+                return {"turn": {"id": turn_id}}
+
+        client = DelayedProtocolClient()
+        heartbeats = []
+        with patch(
+            "tools.question_review_console.codex_app_server."
+            "TURN_HEARTBEAT_INTERVAL_SECONDS",
+            0.01,
+        ):
+            result = client.run_turn(
+                "evaluate",
+                work_type="evaluation",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                heartbeat=lambda: heartbeats.append(True),
+            )
+        client.timer.join(1)
+
+        self.assertEqual(result.final_message, '{"status":"ok"}')
+        self.assertGreaterEqual(len(heartbeats), 1)
+
     def test_runtime_home_copies_only_chatgpt_auth(self):
         with tempfile.TemporaryDirectory() as directory:
             source_home = Path(directory) / "source"

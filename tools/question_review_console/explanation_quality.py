@@ -281,10 +281,16 @@ def explanation_style_issues(
 ) -> list[str]:
     """Return deterministic violations of the stage-03 Japanese style policy."""
 
+    explanation_values = list(explanations)
     issues: list[str] = []
     verdicts = list(correct_choices) if correct_choices is not None else []
     choices = list(choice_texts) if choice_texts is not None else []
-    for choice_index, raw in enumerate(explanations, start=1):
+    if choices and len(explanation_values) != len(choices):
+        issues.append(
+            "解説の件数が選択肢の件数と一致しません。"
+            f"（解説{len(explanation_values)}件／選択肢{len(choices)}件）"
+        )
+    for choice_index, raw in enumerate(explanation_values, start=1):
         text = str(raw or "").strip()
         if not text:
             issues.append(f"選択肢{choice_index}: 解説が空です。")

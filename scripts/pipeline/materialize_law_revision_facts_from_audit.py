@@ -4,7 +4,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
+import tempfile
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -13,13 +16,45 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from scripts.common.law_audit_sidecar_contract import (
+    LAW_AUDIT_REVIEW_STATES,
+    LAW_AUDIT_SCHEMA_V2,
+    LAW_AUDIT_STATUSES,
+    law_audit_sidecar_metadata_errors,
+    normalize_audit_review_state,
+)
+from scripts.merge.merge_utils import source_stem_from_patch_filename
+from scripts.common.question_identity import (
+    SourceIdentityBinding,
+    load_source_record_inventory,
+    review_question_id,
+    source_identity_aliases,
+    workflow_identity_aliases,
+)
 
 
-SOURCE_SUBDIR = "20_merged_1"
+SOURCE_SUBDIR = "00_source"
 
 
 class LawRevisionFactsMaterializeError(RuntimeError):
     pass
+
+
+@dataclass(frozen=True)
+class SourceQuestion:
+    review_id: str
+    source_key: str
+    source_ref: str
+    aliases: frozenset[str]
+    record: dict[str, Any]
+
+    @property
+    def binding(self) -> SourceIdentityBinding:
+        return SourceIdentityBinding.from_values(
+            self.source_key,
+            self.review_id,
+            self.source_ref,
+        )
 
 
 def load_json(path: Path) -> Any:
@@ -28,9 +63,25 @@ def load_json(path: Path) -> Any:
 
 
 def dump_json(path: Path, data: Any) -> None:
-    with path.open("w", encoding="utf-8") as fh:
-        json.dump(data, fh, ensure_ascii=False, indent=2)
-        fh.write("\n")
+    temporary_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as fh:
+            temporary_path = Path(fh.name)
+            json.dump(data, fh, ensure_ascii=False, indent=2)
+            fh.write("\n")
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(temporary_path, path)
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
 
 
 def extract_question_entries(data: Any) -> list[dict[str, Any]]:
@@ -43,57 +94,268 @@ def extract_question_entries(data: Any) -> list[dict[str, Any]]:
     return []
 
 
-def question_id(entry: dict[str, Any]) -> str:
-    for key in (
-        "original_question_id",
-        "originalQuestionId",
-        "reviewQuestionId",
-        "public_question_id",
-    ):
-        value = entry.get(key)
-        if value:
-            return str(value)
-    return ""
+def text(value: Any) -> str:
+    return str(value).strip() if value is not None else ""
 
 
-def read_audit_jsonl(path: Path) -> dict[str, tuple[int, dict[str, Any]]]:
-    audit_entries: dict[str, tuple[int, dict[str, Any]]] = {}
+def read_audit_jsonl(path: Path) -> list[tuple[int, dict[str, Any]]]:
+    audit_entries: list[tuple[int, dict[str, Any]]] = []
     with path.open("r", encoding="utf-8") as fh:
         for line_number, line in enumerate(fh, 1):
             stripped = line.strip()
             if not stripped:
                 continue
-            entry = json.loads(stripped)
+            try:
+                entry = json.loads(stripped)
+            except json.JSONDecodeError as exc:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}:{line_number}: invalid JSON: {exc.msg}"
+                ) from exc
             if not isinstance(entry, dict):
                 raise LawRevisionFactsMaterializeError(
                     f"{path}:{line_number}: JSONL entry must be an object"
                 )
-            key = question_id(entry)
-            if not key:
+            if not text(entry.get("reviewQuestionId")):
                 raise LawRevisionFactsMaterializeError(
                     f"{path}:{line_number}: reviewQuestionId is required"
                 )
-            audit_entries[key] = (line_number, entry)
+            audit_entries.append((line_number, entry))
+    if not audit_entries:
+        raise LawRevisionFactsMaterializeError(f"{path}: audit record is required")
     return audit_entries
 
 
-def load_source_question_map(list_group_dir: Path) -> dict[str, dict[str, Any]]:
-    source_dir = list_group_dir / SOURCE_SUBDIR
-    source_map: dict[str, dict[str, Any]] = {}
-    for source_path in sorted(source_dir.glob("*.json")):
-        for question in extract_question_entries(load_json(source_path)):
-            key = question_id(question)
-            if key:
-                source_map[key] = question
-    return source_map
+def load_source_questions(
+    list_group_dir: Path,
+    *,
+    qualification: str,
+    list_group_id: str,
+) -> tuple[
+    dict[str, list[SourceQuestion]],
+    dict[SourceIdentityBinding, SourceQuestion],
+]:
+    by_alias: dict[str, list[SourceQuestion]] = {}
+    by_binding: dict[SourceIdentityBinding, SourceQuestion] = {}
+    try:
+        inventory = load_source_record_inventory(
+            list_group_dir / SOURCE_SUBDIR,
+            qualification=qualification,
+            list_group_id=list_group_id,
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise LawRevisionFactsMaterializeError(str(exc)) from exc
+    for item in inventory:
+        binding = item.identity.binding
+        source = SourceQuestion(
+            review_id=binding.review_question_id,
+            source_key=binding.source_question_key,
+            source_ref=binding.source_record_ref,
+            aliases=item.identity.aliases,
+            record=dict(item.record),
+        )
+        by_binding[binding] = source
+        for alias in source.aliases:
+            by_alias.setdefault(alias, []).append(source)
+    return by_alias, by_binding
 
 
-def load_patch_question_map(path: Path) -> dict[str, dict[str, Any]]:
-    return {
-        key: entry
-        for entry in extract_question_entries(load_json(path))
-        if (key := question_id(entry))
-    }
+def resolve_audit_entries(
+    path: Path,
+    entries: list[tuple[int, dict[str, Any]]],
+    *,
+    source_by_alias: dict[str, list[SourceQuestion]],
+    source_by_binding: dict[SourceIdentityBinding, SourceQuestion],
+) -> dict[
+    SourceIdentityBinding,
+    tuple[int, dict[str, Any], SourceQuestion],
+]:
+    resolved: dict[
+        SourceIdentityBinding,
+        tuple[int, dict[str, Any], SourceQuestion],
+    ] = {}
+    seen_bindings: dict[SourceIdentityBinding, int] = {}
+    for line_number, entry in entries:
+        review_id = text(entry.get("reviewQuestionId"))
+        schema = text(entry.get("schemaVersion")) or "law-revision-audit/v1"
+        source_key = text(entry.get("sourceQuestionKey"))
+        source_ref = text(entry.get("sourceRecordRef"))
+
+        if schema == LAW_AUDIT_SCHEMA_V2:
+            if not source_key:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}:{line_number}: sourceQuestionKey is required for v2"
+                )
+            if not source_ref:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}:{line_number}: sourceRecordRef is required for v2"
+                )
+            requested_binding = SourceIdentityBinding.from_values(
+                source_key,
+                review_id,
+                source_ref,
+            )
+            source = source_by_binding.get(requested_binding)
+            if source is None:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}:{line_number}: source identity binding does not join "
+                    f"{SOURCE_SUBDIR}: {source_key} / {review_id} / {source_ref}"
+                )
+        elif schema == "law-revision-audit/v1":
+            candidates = source_by_alias.get(review_id, [])
+            if len(candidates) != 1:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}:{line_number}: legacy reviewQuestionId does not safely join "
+                    f"{SOURCE_SUBDIR}: {review_id}"
+                )
+            source = candidates[0]
+            if source_key and source.source_key != source_key:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}:{line_number}: sourceQuestionKey and reviewQuestionId "
+                    "resolve to different source questions"
+                )
+        else:
+            raise LawRevisionFactsMaterializeError(
+                f"{path}:{line_number}: unsupported schemaVersion: {schema}"
+            )
+
+        binding = source.binding
+        previous_line = seen_bindings.get(binding)
+        if previous_line is not None:
+            raise LawRevisionFactsMaterializeError(
+                f"{path}:{line_number}: duplicate source identity binding "
+                f"(first at line {previous_line})"
+            )
+        seen_bindings[binding] = line_number
+        resolved[binding] = (line_number, entry, source)
+    return resolved
+
+
+def load_patch_question_map(
+    path: Path,
+    *,
+    source_by_alias: dict[str, list[SourceQuestion]],
+    source_by_binding: dict[SourceIdentityBinding, SourceQuestion],
+) -> tuple[Any, dict[SourceIdentityBinding, dict[str, Any]]]:
+    data = load_json(path)
+    raw_entries: Any
+    if isinstance(data, list):
+        raw_entries = data
+    elif isinstance(data, dict):
+        raw_entries = data.get("question_bodies") or data.get("questions")
+    else:
+        raw_entries = None
+    if not isinstance(raw_entries, list):
+        raise LawRevisionFactsMaterializeError(
+            f"{path}: patch question array is required"
+        )
+    if any(not isinstance(entry, dict) for entry in raw_entries):
+        raise LawRevisionFactsMaterializeError(
+            f"{path}: every patch record must be an object"
+        )
+    resolved: dict[SourceIdentityBinding, dict[str, Any]] = {}
+    patch_tag = {
+        "21_explanationText_added": "explanationText_added",
+        "23_correctChoiceText_fixed": "correctChoiceText_fixed",
+    }.get(path.parent.name)
+    source_stem = (
+        source_stem_from_patch_filename(path.name, patch_tag)
+        if patch_tag
+        else None
+    )
+    expected_source_filename = f"{source_stem}.json" if source_stem else ""
+    for entry in raw_entries:
+        explicit_source_key = text(
+            entry.get("sourceQuestionKey") or entry.get("source_question_key")
+        )
+        source_review_id = text(review_question_id(entry))
+        explicit_source_ref = text(
+            entry.get("sourceRecordRef") or entry.get("source_record_ref")
+        )
+        explicit_binding = SourceIdentityBinding.from_values(
+            explicit_source_key,
+            source_review_id,
+            explicit_source_ref,
+        )
+        if explicit_binding.is_complete():
+            if explicit_binding not in source_by_binding:
+                raise LawRevisionFactsMaterializeError(
+                    f"{path}: source identity binding does not match source: "
+                    f"{' / '.join(explicit_binding.as_tuple())}"
+                )
+            matches = {explicit_binding}
+        elif explicit_source_key and source_review_id:
+            matches = {
+                binding
+                for binding in source_by_binding
+                if (
+                    binding.source_question_key,
+                    binding.review_question_id,
+                )
+                == (explicit_source_key, source_review_id)
+                and (
+                    not expected_source_filename
+                    or binding.source_record_ref.split("#", 1)[0]
+                    == expected_source_filename
+                )
+            }
+        else:
+            identity_values = (
+                source_identity_aliases(entry) | workflow_identity_aliases(entry)
+            )
+            candidate_pairs = {
+                (source.source_key, source.review_id)
+                for alias in identity_values
+                for source in source_by_alias.get(alias, [])
+            }
+            matches = {
+                binding
+                for binding in source_by_binding
+                if (
+                    binding.source_question_key,
+                    binding.review_question_id,
+                )
+                in candidate_pairs
+                and (
+                    not expected_source_filename
+                    or binding.source_record_ref.split("#", 1)[0]
+                    == expected_source_filename
+                )
+            }
+        if not matches:
+            identity_values = sorted(
+                source_identity_aliases(entry)
+                | workflow_identity_aliases(entry)
+            )
+            raise LawRevisionFactsMaterializeError(
+                f"{path}: patch record does not join {SOURCE_SUBDIR}: "
+                f"{identity_values or ['identity field missing']}"
+            )
+        if len(matches) != 1:
+            raise LawRevisionFactsMaterializeError(
+                f"{path}: patch identity fields resolve to multiple source questions"
+            )
+        binding = next(iter(matches))
+        source = source_by_binding[binding]
+        review_id = source.review_id
+        invalid_workflow_ids = workflow_identity_aliases(entry) - source.aliases
+        if invalid_workflow_ids:
+            raise LawRevisionFactsMaterializeError(
+                f"{path}: workflow id does not match source identity for {review_id}: "
+                f"{sorted(invalid_workflow_ids)}"
+            )
+        entry_source_key = text(
+            entry.get("sourceQuestionKey") or entry.get("source_question_key")
+        )
+        if entry_source_key and entry_source_key != source.source_key:
+            raise LawRevisionFactsMaterializeError(
+                f"{path}: sourceQuestionKey does not match source identity for {review_id}"
+            )
+        if binding in resolved:
+            raise LawRevisionFactsMaterializeError(
+                f"{path}: duplicate patch record for {source.source_key} / {review_id}"
+            )
+        resolved[binding] = entry
+    return data, resolved
 
 
 def as_list(value: Any) -> list[Any]:
@@ -199,7 +461,9 @@ def build_fact(
     audit_path: Path,
     line_number: int,
     audit: dict[str, Any],
+    source_review_id: str,
     source_question: dict[str, Any],
+    source_record_ref_value: str,
     explanation_entry: dict[str, Any],
     current_entry: dict[str, Any],
     choice_index: int,
@@ -219,6 +483,10 @@ def build_fact(
     notice_reason = first_non_empty([audit.get("noticeReason")])
     source_summary = first_non_empty([audit.get("sourceSummary")])
     remaining_risk = first_non_empty([audit.get("remainingRisk")])
+    exam_time_decision = choice_value(audit.get("examTimeDecision"), choice_index)
+    current_law_decision = choice_value(
+        audit.get("currentLawDecision"), choice_index
+    )
     current_snapshot = snapshot_from_ref(
         [ref for ref in raw_refs if isinstance(ref, dict)],
         correct_choice_text=current_correct,
@@ -233,17 +501,18 @@ def build_fact(
     binding_source = {
         "auditStatus": audit.get("auditStatus"),
         "currentCorrectChoiceText": current_correct,
-        "currentLawDecision": audit.get("currentLawDecision"),
+        "currentLawDecision": current_law_decision,
         "examTimeCorrectChoiceText": old_correct,
-        "examTimeDecision": audit.get("examTimeDecision"),
+        "examTimeDecision": exam_time_decision,
         "refs": refs,
-        "reviewQuestionId": question_id(audit),
+        "reviewQuestionId": source_review_id,
+        "sourceRecordRef": source_record_ref_value,
         "sourceEvidenceVersionId": source_evidence_version_id,
         "choiceIndex": choice_index,
     }
     fact: dict[str, Any] = {
         "auditStatus": first_non_empty([audit.get("auditStatus"), "hold"]),
-        "reviewState": "primary_verified",
+        "reviewState": normalize_audit_review_state(audit.get("reviewState")),
         "sourceEvidenceVersionId": source_evidence_version_id,
         "evidenceBindingHash": sha256_canonical(binding_source),
         "examTime": exam_time_snapshot,
@@ -261,7 +530,7 @@ def build_fact(
                         else ""
                     ]
                 ),
-                first_non_empty([audit.get("currentLawDecision")]),
+                current_law_decision,
             )
             if text
         ],
@@ -286,16 +555,32 @@ def build_fact(
         text
         for text in (
             remaining_risk,
-            first_non_empty([audit.get("examTimeDecision")]),
-            first_non_empty([audit.get("reviewedAt")]),
+            exam_time_decision,
+            first_non_empty([audit.get("auditedAt"), audit.get("reviewedAt")]),
         )
         if text
     ]
     if notes:
         fact["notes"] = notes
+    for field in (
+        "auditedAt",
+        "nextAuditDueAt",
+        "auditMethodVersion",
+        "auditInputHash",
+        "auditRunId",
+        "lawCorpusSnapshotId",
+        "primaryAuditRunId",
+        "secondaryAuditRunId",
+        "tertiaryAuditRunId",
+        "reconciliationStatus",
+    ):
+        value = audit.get(field)
+        if isinstance(value, str) and value.strip():
+            fact[field] = value.strip()
     if not _is_law_revision_facts(fact):
         raise LawRevisionFactsMaterializeError(
-            f"{question_id(audit)} choice {choice_index + 1}: generated lawRevisionFacts is invalid"
+            f"{source_review_id} choice {choice_index + 1}: "
+            "generated lawRevisionFacts is invalid"
         )
     return fact
 
@@ -327,42 +612,106 @@ def materialize_law_revision_facts(
     audit_jsonl_path: Path,
     explanation_patch_path: Path,
     correct_choice_patch_path: Path,
+    qualification: str | None = None,
+    list_group_id: str | None = None,
 ) -> int:
+    inferred_group_id = str(list_group_id or list_group_dir.name).strip()
+    inferred_qualification = str(qualification or "").strip()
     audit_entries = read_audit_jsonl(audit_jsonl_path)
-    source_map = load_source_question_map(list_group_dir)
-    current_map = load_patch_question_map(correct_choice_patch_path)
-    patch_data = load_json(explanation_patch_path)
-    patch_entries = extract_question_entries(patch_data)
-    updated = 0
-    for entry in patch_entries:
-        key = question_id(entry)
-        if not key or key not in audit_entries:
-            continue
-        line_number, audit = audit_entries[key]
-        source_question = source_map.get(key)
-        current_entry = current_map.get(key)
-        if not source_question:
-            raise LawRevisionFactsMaterializeError(f"{key}: source question not found in {SOURCE_SUBDIR}")
-        if not current_entry:
-            raise LawRevisionFactsMaterializeError(f"{key}: current correctChoiceText patch not found")
-        choice_count = choice_count_for(source_question, entry, current_entry)
+    if not inferred_qualification and list_group_dir.parent.name == "questions_json":
+        inferred_qualification = list_group_dir.parent.parent.name
+    if not inferred_qualification:
+        qualifications = {
+            text(entry.get("qualification"))
+            for _line_number, entry in audit_entries
+            if entry.get("schemaVersion") == LAW_AUDIT_SCHEMA_V2
+            and text(entry.get("qualification"))
+        }
+        if len(qualifications) == 1:
+            inferred_qualification = next(iter(qualifications))
+    if not inferred_qualification:
+        inferred_qualification = "unknown-qualification"
+    source_by_alias, source_by_binding = load_source_questions(
+        list_group_dir,
+        qualification=inferred_qualification,
+        list_group_id=inferred_group_id,
+    )
+    audits = resolve_audit_entries(
+        audit_jsonl_path,
+        audit_entries,
+        source_by_alias=source_by_alias,
+        source_by_binding=source_by_binding,
+    )
+    patch_data, explanation_map = load_patch_question_map(
+        explanation_patch_path,
+        source_by_alias=source_by_alias,
+        source_by_binding=source_by_binding,
+    )
+    _current_data, current_map = load_patch_question_map(
+        correct_choice_patch_path,
+        source_by_alias=source_by_alias,
+        source_by_binding=source_by_binding,
+    )
+    if not explanation_map:
+        raise LawRevisionFactsMaterializeError(
+            f"{explanation_patch_path}: sourceに対応するpatch recordがありません"
+        )
+    for binding, explanation_entry in explanation_map.items():
+        resolved_audit = audits.get(binding)
+        if resolved_audit is None:
+            raise LawRevisionFactsMaterializeError(
+                f"{binding.review_question_id} / {binding.source_record_ref}: "
+                "audit sidecar record not found"
+            )
+        line_number, audit, source = resolved_audit
+        review_id = source.review_id
+        current_entry = current_map.get(binding)
+        if current_entry is None:
+            raise LawRevisionFactsMaterializeError(
+                f"{review_id}: current correctChoiceText patch not found"
+            )
+        choice_count = choice_count_for(
+            source.record,
+            explanation_entry,
+            current_entry,
+        )
         if choice_count <= 0:
-            raise LawRevisionFactsMaterializeError(f"{key}: choice count could not be resolved")
-        entry["lawRevisionFacts"] = [
+            raise LawRevisionFactsMaterializeError(
+                f"{review_id}: choice count could not be resolved"
+            )
+        if audit.get("schemaVersion") == LAW_AUDIT_SCHEMA_V2:
+            metadata_errors = law_audit_sidecar_metadata_errors(
+                audit,
+                expected_choice_count=choice_count,
+                expected_qualification=inferred_qualification,
+                expected_list_group_id=inferred_group_id,
+            )
+            if metadata_errors:
+                raise LawRevisionFactsMaterializeError(
+                    f"{audit_jsonl_path}:{line_number}: invalid v2 audit metadata: "
+                    + " ".join(metadata_errors[:5])
+                    + (
+                        f" ほか{len(metadata_errors) - 5}件。"
+                        if len(metadata_errors) > 5
+                        else ""
+                    )
+                )
+        explanation_entry["lawRevisionFacts"] = [
             build_fact(
                 audit_path=audit_jsonl_path,
                 line_number=line_number,
                 audit=audit,
-                source_question=source_question,
-                explanation_entry=entry,
+                source_review_id=review_id,
+                source_record_ref_value=source.source_ref,
+                source_question=source.record,
+                explanation_entry=explanation_entry,
                 current_entry=current_entry,
                 choice_index=choice_index,
             )
             for choice_index in range(choice_count)
         ]
-        updated += 1
     dump_json(explanation_patch_path, patch_data)
-    return updated
+    return len(explanation_map)
 
 
 def parse_args() -> argparse.Namespace:

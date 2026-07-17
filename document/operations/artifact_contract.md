@@ -31,6 +31,7 @@ output/question_review_console/
     evaluations/
     reviews/
   workflow_runs/<qualification>/<runId>/
+  direct_edit_transactions/<transactionId>/
   work_version_backfills/<timestamp>/manifest.json
   work_version_invalidations/<receipt_id>/manifest.json
   publish_runs/<qualification>/<runId>/
@@ -72,15 +73,16 @@ output/question_review_console/
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
-| work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 問題ごとの工程版履歴。patch又はFirestore fieldではない。 |
-| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | 整備・評価・再整備のmanifest、prompt、receipt、進捗。トップ整備は親runと工程別の子runを持つ。 |
+| work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、prompt、receipt、進捗、baseline、append-only技術ログ。 |
+| direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正の開始前bytesとcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |
 | work version invalidation | `output/question_review_console/work_version_invalidations/<receipt_id>/manifest.json` | 誤って成功扱いにしたrun・工程を再整備対象へ戻した履歴。 |
 | work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-run directoryは再利用しません。manifestは`workType`、`sessionId`、`threadId`、`turnId`、対象、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`、sandbox、`receiptValidated`、`artifactSync`、時刻、状態を記録します。親runは`phaseExecutions`と`childRunIds`で工程別のsessionを追跡します。patch確定、成果物同期、公開条件の意味は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
+run directoryは再利用しません。manifestは対象、session、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`、sandbox、`receiptValidated`、`artifactSync`、時刻、状態を記録します。baselineは許可された書込fileの開始前bytes又はfileが存在しなかった事実を保持し、確定前のrollbackと再起動回収に使います。`work_versions.json`もpatchと同じ確定処理へ含めます。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
 
 ## 編集境界
 

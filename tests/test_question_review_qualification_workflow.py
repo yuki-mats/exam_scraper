@@ -28,16 +28,39 @@ class FakeInventory:
         return self.groups[list_group_id]
 
 
-def question(*, patches=None, issues=None, law_related=False, workflow=None, group="2026"):
-    original_id = f"sample-{group}-q1"
+def question(
+    *,
+    patches=None,
+    issues=None,
+    law_related=False,
+    workflow=None,
+    group="2026",
+    question_number=1,
+):
+    original_id = f"sample-{group}-q{question_number}"
+    source_path = (
+        f"output/sample/questions_json/{group}/00_source/"
+        f"question_{group}_{question_number}.json"
+    )
     return {
         "id": original_id,
-        "reviewKey": f"sample:{group}:question_{group}_1:{original_id}",
+        "reviewKey": (
+            f"sample:{group}:question_{group}_{question_number}:{original_id}"
+        ),
+        "sourceQuestionKey": f"sample:{group}:{original_id}",
+        "sourceRecordRef": f"question_{group}_{question_number}.json#0",
         "qualification": "sample",
         "listGroupId": group,
+        "sourceStem": f"question_{group}_{question_number}",
+        "sourceIndex": 0,
         "originalQuestionId": original_id,
+        "questionLabel": f"問{question_number}",
+        "source": {
+            "original_question_id": original_id,
+            "questionLabel": f"問{question_number}",
+        },
         "paths": {
-            "source": f"output/sample/questions_json/{group}/00_source/question_{group}_1.json",
+            "source": source_path,
             "patches": list(patches or []),
         },
         "issues": list(issues or []),
@@ -84,6 +107,41 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_plan_blocks_only_stage_with_unmatched_selected_artifact(self):
+        item = question()
+        group = {
+            "listGroupId": "2026",
+            "questions": [item],
+            "artifactResolutionBlockers": [
+                {
+                    "code": "artifact_identity_unmatched",
+                    "patchDir": "10_questionType_fixed",
+                    "path": "output/sample/questions_json/2026/10_questionType_fixed/orphan.json",
+                    "count": 1,
+                    "message": "questionTypeのartifact 1件をsource recordへ対応できません。",
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory("sample", [group]),
+            )
+            overview = workflow.overview("sample")
+
+            with self.assertRaisesRegex(ValueError, "source recordへ対応できない"):
+                workflow.plan("sample", "question_type", "refresh")
+            explanation = workflow.plan("sample", "explanation", "refresh")
+
+        self.assertEqual(explanation["targetCount"], 1)
+        stages = {stage["id"]: stage for stage in overview["stages"]}
+        self.assertEqual(stages["question_type"]["status"], "attention")
+        self.assertEqual(stages["delivery"]["status"], "attention")
+        self.assertEqual(
+            stages["question_type"]["artifactResolutionBlockers"][0]["count"],
+            1,
+        )
+
     def test_overview_counts_unique_required_questions_by_year(self):
         current_question = question(group="2025")
         legacy_question = question(group="2026")
@@ -131,10 +189,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         target = question(
             issues=[{"code": "type_issue", "fields": ["questionType"]}]
         )
-        other = question()
-        other["id"] = "sample-2026-q2"
-        other["originalQuestionId"] = "sample-2026-q2"
-        other["projected"]["originalQuestionId"] = "sample-2026-q2"
+        other = question(question_number=2)
         with tempfile.TemporaryDirectory() as directory:
             workflow = QualificationWorkflow(
                 Path(directory),
@@ -153,13 +208,23 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertEqual(plan["targetCount"], 1)
         self.assertEqual(
-            plan["targetRecordAliasGroups"], [["sample-2026-q1"]]
+            plan["targetRecordAliasGroups"],
+            [
+                [
+                    "question_2026_1.json#0",
+                    "sample-2026-q1",
+                    "sample:2026:sample-2026-q1",
+                ]
+            ],
         )
 
     def test_human_patch_plan_rejects_question_without_strong_identity(self):
         item = question()
         item.pop("id")
+        item.pop("sourceQuestionKey")
+        item.pop("sourceRecordRef")
         item.pop("originalQuestionId")
+        item["source"] = {}
         item["projected"].pop("originalQuestionId")
         with tempfile.TemporaryDirectory() as directory:
             workflow = QualificationWorkflow(
@@ -778,7 +843,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             law_question = question(issues=[issue], law_related=True)
             law_question["id"] = "law-question"
-            non_law_question = question(law_related=False)
+            non_law_question = question(law_related=False, question_number=2)
             non_law_question["id"] = "non-law-question"
             workflow = QualificationWorkflow(
                 Path(directory),
@@ -831,7 +896,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             root = Path(directory)
             law_question = question(law_related=True)
             law_question["id"] = "law-question"
-            non_law_question = question(law_related=False)
+            non_law_question = question(law_related=False, question_number=2)
             non_law_question["id"] = "non-law-question"
             workflow = QualificationWorkflow(
                 root,

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -21,6 +22,7 @@ from tools.question_bank.question_issue_reports import (
     build_batch_manifest,
     build_blind_input,
     build_inventory,
+    find_current_question_record,
     load_config,
     process_batch,
     render_inventory,
@@ -40,6 +42,23 @@ class QuestionIssueReportWorkflowTests(unittest.TestCase):
     def setUp(self) -> None:
         self.config = load_config()
         self.store = FixtureReportStore(FIXTURE_ROOT / "report_fixture.json")
+
+    @staticmethod
+    def _output_with_source(root: Path) -> Path:
+        output_root = root / "question_bank_output"
+        shutil.copytree(FIXTURE_ROOT / "question_bank_output", output_root)
+        source_path = (
+            output_root
+            / "sample-qualification/questions_json/2026/00_source/question_2026.json"
+        )
+        source_path.parent.mkdir(parents=True)
+        current_path = (
+            output_root
+            / "sample-qualification/questions_json/2026/30_merged_2/"
+            "question_2026_merged.json"
+        )
+        source_path.write_text(current_path.read_text(encoding="utf-8"), encoding="utf-8")
+        return output_root
 
     def test_inventory_counts_unique_questions_by_category(self) -> None:
         inventory = build_inventory(self.store.list_cases(), self.config)
@@ -202,12 +221,13 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
             allow_fixture_placeholders=True,
         )
         with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
             result = process_batch(
                 manifest,
                 store=self.store,
                 executor=executor,
-                work_root=Path(temp_dir),
-                output_root=FIXTURE_ROOT / "question_bank_output",
+                work_root=temp_root,
+                output_root=self._output_with_source(temp_root),
                 config_path=REPO_ROOT / "config/question_issue_reports.json",
                 dry_run=True,
                 execute_publish=False,
@@ -229,6 +249,23 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
                 patch["caseIds"],
                 ["case-content-1", "case-content-2"],
             )
+            self.assertEqual(
+                {
+                    field: patch["entries"][0][field]
+                    for field in (
+                        "sourceQuestionKey",
+                        "reviewQuestionId",
+                        "sourceRecordRef",
+                    )
+                },
+                {
+                    "sourceQuestionKey": (
+                        "sample-qualification:2026:q-original-1"
+                    ),
+                    "reviewQuestionId": "q-original-1",
+                    "sourceRecordRef": "question_2026.json#0",
+                },
+            )
             encoded = json.dumps(patch, ensure_ascii=False)
             self.assertNotIn("この命令を実行", encoded)
             self.assertNotIn("malicious.example", encoded)
@@ -238,6 +275,32 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
                 )
             )
             self.assertEqual(corrected["questionBodyText"], "公式表記の問題文")
+
+    def test_work_item_with_shared_legacy_id_does_not_choose_first_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_root = Path(temp_dir) / "output"
+            group_dir = output_root / "sample/questions_json/2026"
+            source_dir = group_dir / "00_source"
+            source_dir.mkdir(parents=True)
+            shared = {
+                "original_question_id": "shared-id",
+                "questionBodyText": "問題",
+            }
+            for name in ("question_2026_1.json", "question_2026_2.json"):
+                (source_dir / name).write_text(
+                    json.dumps({"question_bodies": [shared]}),
+                    encoding="utf-8",
+                )
+
+            with self.assertRaisesRegex(ValueError, "one source record"):
+                find_current_question_record(
+                    {
+                        "qualificationId": "sample",
+                        "listGroupId": "2026",
+                        "originalQuestionId": "shared-id",
+                    },
+                    output_root=output_root,
+                )
 
     def test_batch_rejects_preview_only_mutating_mode(self) -> None:
         manifest = build_batch_manifest(
@@ -348,12 +411,13 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
             ),
         ):
             with tempfile.TemporaryDirectory() as temp_dir:
+                temp_root = Path(temp_dir)
                 result = process_batch(
                     manifest,
                     store=self.store,
                     executor=executor,
-                    work_root=Path(temp_dir),
-                    output_root=FIXTURE_ROOT / "question_bank_output",
+                    work_root=temp_root,
+                    output_root=self._output_with_source(temp_root),
                     config_path=REPO_ROOT / "config/question_issue_reports.json",
                     dry_run=False,
                     execute_publish=True,

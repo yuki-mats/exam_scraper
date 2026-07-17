@@ -272,6 +272,7 @@ def build_codex_prompt(
 - qualification: `{question.get('qualification')}`
 - listGroupId: `{question.get('listGroupId')}`
 - sourceQuestionKey: `{question.get('sourceQuestionKey')}`
+- sourceRecordRef: `{question.get('sourceRecordRef')}`
 - reviewKey: `{question.get('reviewKey')}`
 - issue: {issue_types or '未分類'}
 - fields: {fields or '未指定'}

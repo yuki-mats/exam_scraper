@@ -73,7 +73,6 @@ MERGED_SUBDIR_NAME = "30_merged_2"
 CONVERT_SUBDIR_NAME = "40_convert"
 UPLOAD_SUBDIR_NAME = "upload_to_firestore"
 TIMESTAMP_SUFFIX_PATTERN = re.compile(r"_(\d{8}_\d{4}|\d{8}_\d{6})$")
-QUESTION_SET_PATCH_TAG = "questionSetId_linked"
 
 
 def normalize_payload_image_urls(payload: Any, qualification: str | None) -> int:
@@ -117,44 +116,6 @@ def archive_existing_entries(target_dir: Path, *, only_prefix: str | None = None
     for entry in existing:
         shutil.move(str(entry), str(archive_dir / entry.name))
     return archive_dir
-
-
-def strip_timestamp_suffix(stem: str) -> str:
-    return TIMESTAMP_SUFFIX_PATTERN.sub("", stem)
-
-
-def source_stem_from_patch_filename(filename: str, patch_tag: str) -> str | None:
-    path = Path(filename)
-    if path.suffix.lower() != ".json":
-        return None
-    stem = strip_timestamp_suffix(path.stem)
-    suffix = f"_{patch_tag}"
-    if not stem.endswith(suffix):
-        return None
-    return stem[: -len(suffix)]
-
-
-def _timestamp_sort_key(path: Path) -> tuple[int, str, str]:
-    match = TIMESTAMP_SUFFIX_PATTERN.search(path.stem)
-    if not match:
-        return (0, "", path.name)
-    return (1, match.group(1), path.name)
-
-
-def select_latest_patch_files(paths: list[Path], patch_tag: str) -> list[Path]:
-    selected: dict[str, Path] = {}
-    for path in sorted(paths, key=_timestamp_sort_key):
-        source_stem = source_stem_from_patch_filename(path.name, patch_tag)
-        if source_stem is None:
-            continue
-        selected[source_stem] = path
-    return sorted(selected.values())
-
-
-def latest_question_set_patch_files(patch_dir: Path) -> list[Path]:
-    if not patch_dir.exists():
-        return []
-    return select_latest_patch_files(sorted(patch_dir.glob("*.json")), QUESTION_SET_PATCH_TAG)
 
 
 def format_explanation_text(explanation_list: list) -> str:
@@ -1321,39 +1282,11 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
     normalize_payload_image_urls(merged_data, qualification)
     list_group_id = merged_data.get("list_group_id", "unknown")
     question_bodies = merged_data.get("question_bodies", [])
-
-    # --- questionSetId補完用: original_question_id→questionSetIdマップをパッチファイルから作成 ---
-    original_id_to_setid = {}
     merged_dir = input_path.parent
-    patch_dir = merged_dir.parent / "22_questionSetId_linked"
-    for patch_file in latest_question_set_patch_files(patch_dir):
-        try:
-            with open(patch_file, "r", encoding="utf-8") as pf:
-                patch_data = json.load(pf)
-                if isinstance(patch_data, dict) and "question_bodies" in patch_data:
-                    entries = patch_data.get("question_bodies") or []
-                elif isinstance(patch_data, list):
-                    entries = patch_data
-                else:
-                    entries = []
-                for entry in entries:
-                    if not isinstance(entry, dict):
-                        continue
-                    pid = entry.get("original_question_id")
-                    qsid = entry.get("questionSetId", "")
-                    if pid and qsid:
-                        original_id_to_setid[pid] = qsid
-        except Exception as e:
-            print(f"[WARN] パッチファイル読込失敗: {patch_file}: {e}")
 
     # 各問題を変換（複数レコードに分割されるタイプがあるため、extendで展開）
     firestore_questions = []
     for question_body in question_bodies:
-        # questionSetIdが空なら補完（original_question_id完全一致）
-        pid = original_question_id_for_upload(question_body)
-        if (not question_body.get("questionSetId")) and pid:
-            if pid in original_id_to_setid:
-                question_body["questionSetId"] = original_id_to_setid[pid]
         converted_questions = convert_question_to_firestore(question_body)
         # listGroupId を各レコードに付与
         for q in converted_questions:
@@ -1507,48 +1440,6 @@ def main(argv: list[str] | None = None):
             "total_count": len(all_firestore_questions)
         }
         normalize_payload_image_urls(output_data, qualification)
-        # --- パッチファイルから original_question_id -> questionSetId マップを作成 ---
-        original_id_to_setid = {}
-        group_dir = base_dir / args.list_group_id
-        patch_dir = group_dir / "22_questionSetId_linked"
-        for pf in latest_question_set_patch_files(patch_dir):
-            try:
-                with open(pf, "r", encoding="utf-8") as f:
-                    entries = json.load(f)
-                    if isinstance(entries, dict):
-                        entries = (
-                            entries.get("question_bodies")
-                            or entries.get("patched_questions")
-                            or []
-                        )
-                    elif not isinstance(entries, list):
-                        entries = []
-                    for e in entries:
-                        if not isinstance(e, dict):
-                            continue
-                        pid = e.get("original_question_id")
-                        qsid = e.get("questionSetId")
-                        if pid and qsid:
-                            original_id_to_setid[pid] = qsid
-            except Exception as e:
-                print(f"[WARN] パッチファイル読み込み失敗: {pf}: {e}")
-
-        # original_question_id でマッピングして questionSetId を埋める
-        fixed_count = 0
-        for q in all_firestore_questions:
-            if q.get("questionSetId"):
-                continue
-            qid = q.get("questionId", "")
-            if not qid:
-                continue
-            # true_false は "originalid_index" 形式、それ以外はそのまま original id の場合がある
-            pid = qid.split("_")[0]
-            if pid in original_id_to_setid:
-                q["questionSetId"] = original_id_to_setid[pid]
-                fixed_count += 1
-        print(f"[INFO] questionSetId を補完した件数: {fixed_count}")
-
-
         # mergedファイルのパスから「questions_json/{list_group_id}」を検出し、
         # 40_convert / upload_to_firestore へタイムスタンプ付きで保存する
         if merged_files:

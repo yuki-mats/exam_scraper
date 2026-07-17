@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
 from scripts.convert.convert_merged_to_firestore import (
+    convert_merged_to_firestore,
     get_original_question_body_text,
     original_question_id_for_upload,
     resolve_exam_name_override,
@@ -24,6 +28,73 @@ KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
 
 
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_question_set_id_comes_only_from_each_merged_record(self) -> None:
+        def record(source_key: str, question_set_id: str) -> dict:
+            return {
+                "sourceQuestionKey": source_key,
+                "sourceUniqueKeys": [f"{source_key}:choice-1"],
+                "original_question_id": "duplicate-review-id",
+                "questionBodyText": "正しいものはどれか。",
+                "choiceTextList": ["選択肢"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。確認済みです。"],
+                "questionType": "true_false",
+                "questionIntent": "select_correct",
+                "answer_result_text": "正解は1です。",
+                "questionSetId": question_set_id,
+                "examYear": 2026,
+                "questionLabel": "問1",
+            }
+
+        with tempfile.TemporaryDirectory() as directory:
+            group_dir = (
+                Path(directory)
+                / "output"
+                / "sample"
+                / "questions_json"
+                / "2026"
+            )
+            merged_dir = group_dir / "30_merged_2"
+            merged_dir.mkdir(parents=True)
+            input_path = merged_dir / "question_2026_merged.json"
+            input_path.write_text(
+                json.dumps(
+                    {
+                        "list_group_id": "2026",
+                        "question_bodies": [
+                            record("sample:first", "set-from-first-record"),
+                            record("sample:second", ""),
+                        ],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            patch_dir = group_dir / "22_questionSetId_linked"
+            patch_dir.mkdir()
+            (patch_dir / "aggregate_questionSetId_linked.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "original_question_id": "duplicate-review-id",
+                            "questionSetId": "must-not-be-read",
+                        }
+                    ],
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            output_path = group_dir / "40_convert" / "converted.json"
+            output_path.parent.mkdir()
+            output = convert_merged_to_firestore(input_path, output_path)
+
+        by_id = {question["questionId"]: question for question in output["questions"]}
+        self.assertEqual(
+            by_id["sample-first-choice-1"]["questionSetId"],
+            "set-from-first-record",
+        )
+        self.assertEqual(by_id["sample-second-choice-1"]["questionSetId"], "")
+
     def test_resolve_exam_name_override_for_kounin_shinrishi_list_groups(self) -> None:
         for list_group_id in KOUNIN_SHINRISHI_LIST_GROUP_IDS:
             with self.subTest(list_group_id=list_group_id):

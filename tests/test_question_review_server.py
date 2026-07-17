@@ -166,6 +166,62 @@ class QuestionReviewServerTests(unittest.TestCase):
             [("sample", "2026", "token")],
         )
 
+    def test_direct_patch_edit_returns_warning_after_post_commit_failure(self):
+        class Editor:
+            def __init__(self):
+                self.applied = False
+
+            def apply(self, *args):
+                self.applied = True
+                return {"changedPaths": ["patch.json"], "diffs": []}
+
+        class Inventory:
+            def invalidate(self, qualification, list_group_id):
+                raise RuntimeError("cache unavailable")
+
+        class Reviews:
+            def create(self, *args, **kwargs):
+                raise RuntimeError("review store unavailable")
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            question = {
+                "id": "question-1",
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-1",
+            }
+            app._question = lambda _question_id, _query: dict(question)
+            app._decorate = lambda value: dict(value)
+            editor = Editor()
+            app.editor = editor
+            app.inventory = Inventory()
+            app.reviews = Reviews()
+
+            status, result = app.post(
+                "/api/direct-edits/apply",
+                {
+                    "questionId": "question-1",
+                    "stateHash": "state-1",
+                    "changes": {"explanationText": ["正しい。新"]},
+                    "reason": "読みやすくした",
+                    "previewToken": "preview",
+                },
+            )
+
+        self.assertEqual(status, 200)
+        self.assertTrue(editor.applied)
+        self.assertTrue(result["warning"])
+        self.assertEqual(result["artifactSync"]["status"], "failed")
+        self.assertIsNone(result["review"])
+        self.assertTrue(
+            any(
+                "inventory更新" in error
+                for error in result["postCommitErrors"]
+            )
+        )
+        self.assertIn("patchは保存しました", result["message"])
+
     def test_question_fingerprint_includes_cross_browser_publication_state(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
@@ -258,9 +314,19 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "kind": "codex-maintenance",
                     "status": "running",
                     "logs": [f"log-{index}-" + "x" * 800 for index in range(8)],
+                    "logEntries": [
+                        {
+                            "sequence": index + 1,
+                            "at": f"time-{index}",
+                            "level": "info",
+                            "message": f"entry-{index}-" + "x" * 800,
+                        }
+                        for index in range(8)
+                    ],
                     "createdAt": "created",
                     "startedAt": "started",
                     "finishedAt": None,
+                    "lastActivityAt": "active",
                     "result": None,
                     "error": None,
                 }
@@ -274,7 +340,117 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(payload["jobId"], "job-1")
         self.assertEqual(len(payload["logs"]), 5)
         self.assertTrue(all(len(line) == 500 for line in payload["logs"]))
+        self.assertEqual(
+            [entry["sequence"] for entry in payload["logEntries"]],
+            [4, 5, 6, 7, 8],
+        )
+        self.assertTrue(
+            all(len(entry["message"]) == 500 for entry in payload["logEntries"])
+        )
+        self.assertEqual(payload["lastActivityAt"], "active")
         self.assertNotIn("result", payload)
+
+    def test_technical_log_has_explicit_endpoint_only(self):
+        class Runs:
+            def technical_log(self, qualification, run_id):
+                self.called = (qualification, run_id)
+                return {
+                    "runId": run_id,
+                    "technicalLogPath": "output/runs/run-1/technical_log.jsonl",
+                    "entries": [
+                        {
+                            "sequence": 1,
+                            "observedAt": "now",
+                            "level": "error",
+                            "message": "command failed",
+                            "commandStatus": "failed",
+                            "exitCode": 1,
+                        }
+                    ],
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            runs = Runs()
+            app.qualification_runs = runs
+            status, payload = app.get(
+                "/api/qualification-runs/run-1/technical-log",
+                {"qualification": ["sample"]},
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(runs.called, ("sample", "run-1"))
+        self.assertEqual(payload["entries"][0]["exitCode"], 1)
+
+    def test_recent_qualification_runs_return_display_fields_only(self):
+        run = {
+            "runId": "run-1",
+            "qualification": "sample",
+            "status": "running",
+            "workType": "maintenance_flow",
+            "stageCode": "03",
+            "stageLabel": "解説",
+            "modeLabel": "未整備のみ",
+            "kind": "human",
+            "targetCount": 58,
+            "workItemCount": 406,
+            "stageIds": ["explanation"],
+            "jobId": "job-1",
+            "technicalLogPath": "internal/technical_log.jsonl",
+            "phaseExecutions": [
+                {
+                    "id": "explanation",
+                    "label": "解説",
+                    "status": "running",
+                    "stageCodes": ["03"],
+                    "prompt": "large internal prompt",
+                }
+            ],
+            "artifactSync": {
+                "status": "pending",
+                "message": "待機中",
+                "commands": ["internal command"],
+            },
+            "progressTargets": [{"body": "x" * 10000}],
+            "targetRecordAliases": ["alias"],
+            "allowedFiles": ["internal-path"],
+            "prompt": "x" * 10000,
+        }
+
+        class Runs:
+            def recent(self, qualification):
+                return {
+                    "qualification": qualification,
+                    "runs": [run],
+                    "activeRun": run,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.qualification_runs = Runs()
+            status, payload = app.get(
+                "/api/qualification-runs", {"qualification": ["sample"]}
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["activeRun"]["runId"], "run-1")
+        summary = payload["runs"][0]
+        self.assertEqual(summary["workItemCount"], 406)
+        self.assertEqual(summary["phaseExecutions"][0]["stageCodes"], ["03"])
+        self.assertEqual(
+            summary["artifactSync"],
+            {"status": "pending", "message": "待機中"},
+        )
+        for internal_field in (
+            "progressTargets",
+            "targetRecordAliases",
+            "allowedFiles",
+            "prompt",
+            "technicalLogPath",
+        ):
+            self.assertNotIn(internal_field, summary)
+        self.assertNotIn("prompt", summary["phaseExecutions"][0])
+        self.assertNotIn("commands", summary["artifactSync"])
 
     def test_codex_start_conflict_returns_review_to_needs_review(self):
         class Gate:

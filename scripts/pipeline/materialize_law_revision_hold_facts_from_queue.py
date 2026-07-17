@@ -6,7 +6,7 @@ import hashlib
 import json
 import re
 import sys
-from collections import defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -14,11 +14,18 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from scripts.common.question_identity import (
+    SOURCE_IDENTITY_BINDING_FIELDS,
+    SourceIdentityBinding,
+)
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
 
 
 class LawRevisionHoldMaterializeError(RuntimeError):
     pass
+
+
+SOURCE_IDENTITY_BINDING_FIELD_SET = frozenset(SOURCE_IDENTITY_BINDING_FIELDS)
 
 
 def load_json(path: Path) -> Any:
@@ -46,13 +53,26 @@ def sha256_canonical(value: Any) -> str:
 
 def extract_patch_entries(data: Any) -> list[dict[str, Any]]:
     if isinstance(data, list):
-        return [entry for entry in data if isinstance(entry, dict)]
-    if isinstance(data, dict):
+        entries = data
+    elif isinstance(data, dict):
         for key in ("patched_questions", "question_bodies", "questions"):
             value = data.get(key)
             if isinstance(value, list):
-                return [entry for entry in value if isinstance(entry, dict)]
-    return []
+                entries = value
+                break
+        else:
+            raise LawRevisionHoldMaterializeError(
+                "explanation patch question array is required"
+            )
+    else:
+        raise LawRevisionHoldMaterializeError(
+            "explanation patch question array is required"
+        )
+    if any(not isinstance(entry, dict) for entry in entries):
+        raise LawRevisionHoldMaterializeError(
+            "every explanation patch record must be an object"
+        )
+    return entries
 
 
 def patch_question_id(entry: dict[str, Any]) -> str:
@@ -130,17 +150,144 @@ def suffix_mapped_queue_choice_index(
     return direct_queue_choice_index(record, line_number=line_number)
 
 
-def grouped_queue_records(
-    queue_records: list[tuple[int, dict[str, Any]]],
-) -> dict[str, list[tuple[int, dict[str, Any]]]]:
-    grouped: dict[str, list[tuple[int, dict[str, Any]]]] = defaultdict(list)
-    for line_number, record in queue_records:
-        original_id = text(record.get("originalQuestionId"))
+@dataclass(frozen=True)
+class PatchTarget:
+    key: str
+    original_id: str
+    binding: SourceIdentityBinding
+    entry: dict[str, Any]
+
+
+def explicit_source_binding(
+    record: dict[str, Any],
+    *,
+    label: str,
+) -> SourceIdentityBinding:
+    provided = set(record) & SOURCE_IDENTITY_BINDING_FIELD_SET
+    binding = SourceIdentityBinding.from_mapping(record)
+    if provided and (
+        provided != SOURCE_IDENTITY_BINDING_FIELD_SET
+        or not all(text(record.get(field)) for field in SOURCE_IDENTITY_BINDING_FIELDS)
+    ):
+        raise LawRevisionHoldMaterializeError(
+            f"{label}: source identity fields must contain all three non-empty values"
+        )
+    return binding
+
+
+def build_patch_targets(patch_entries: list[dict[str, Any]]) -> list[PatchTarget]:
+    targets: list[PatchTarget] = []
+    seen_exact: set[SourceIdentityBinding] = set()
+    seen_legacy: set[str] = set()
+    exact_original_ids: set[str] = set()
+    legacy_original_ids: set[str] = set()
+    for position, entry in enumerate(patch_entries, start=1):
+        original_id = patch_question_id(entry)
         if not original_id:
             raise LawRevisionHoldMaterializeError(
-                f"queue line {line_number}: originalQuestionId is required"
+                f"patch entry {position}: question identity is required"
             )
-        grouped[original_id].append((line_number, record))
+        binding = explicit_source_binding(entry, label=f"patch entry {position}")
+        if binding.is_complete():
+            if binding.review_question_id != original_id:
+                raise LawRevisionHoldMaterializeError(
+                    f"patch entry {position}: reviewQuestionId must match original question id"
+                )
+            if binding in seen_exact:
+                raise LawRevisionHoldMaterializeError(
+                    "duplicate patch source identity: "
+                    + " / ".join(binding.as_tuple())
+                )
+            seen_exact.add(binding)
+            exact_original_ids.add(original_id)
+            key = "exact:" + "|".join(binding.as_tuple())
+        else:
+            if original_id in seen_legacy:
+                raise LawRevisionHoldMaterializeError(
+                    f"duplicate legacy patch question id: {original_id}"
+                )
+            seen_legacy.add(original_id)
+            legacy_original_ids.add(original_id)
+            key = f"legacy:{original_id}"
+        targets.append(
+            PatchTarget(
+                key=key,
+                original_id=original_id,
+                binding=binding,
+                entry=entry,
+            )
+        )
+    mixed = sorted(exact_original_ids & legacy_original_ids)
+    if mixed:
+        raise LawRevisionHoldMaterializeError(
+            f"exact and legacy patch identities are mixed: {mixed}"
+        )
+    return targets
+
+
+def resolve_queue_target(
+    record: dict[str, Any],
+    targets: list[PatchTarget],
+    *,
+    line_number: int,
+) -> PatchTarget | None:
+    original_id = text(record.get("originalQuestionId"))
+    if not original_id:
+        raise LawRevisionHoldMaterializeError(
+            f"queue line {line_number}: originalQuestionId is required"
+        )
+    binding = explicit_source_binding(record, label=f"queue line {line_number}")
+    candidates = [target for target in targets if target.original_id == original_id]
+    if not candidates:
+        return None
+    if binding.is_complete():
+        if binding.review_question_id != original_id:
+            raise LawRevisionHoldMaterializeError(
+                f"queue line {line_number}: reviewQuestionId must match originalQuestionId"
+            )
+        exact_candidates = [
+            target for target in candidates if target.binding.is_complete()
+        ]
+        if exact_candidates:
+            matches = [
+                target for target in exact_candidates if target.binding == binding
+            ]
+            if len(matches) != 1:
+                raise LawRevisionHoldMaterializeError(
+                    f"queue line {line_number}: exact source identity does not match patch"
+                )
+            return matches[0]
+    if len(candidates) != 1:
+        raise LawRevisionHoldMaterializeError(
+            f"queue line {line_number}: legacy originalQuestionId is ambiguous: "
+            f"{original_id} matches={len(candidates)}"
+        )
+    return candidates[0]
+
+
+def group_queue_records_by_target(
+    queue_records: list[tuple[int, dict[str, Any]]],
+    targets: list[PatchTarget],
+    *,
+    skip_missing_patch_ids: bool,
+) -> dict[str, tuple[PatchTarget, list[tuple[int, dict[str, Any]]]]]:
+    grouped: dict[str, tuple[PatchTarget, list[tuple[int, dict[str, Any]]]]] = {}
+    for line_number, record in queue_records:
+        target = resolve_queue_target(
+            record,
+            targets,
+            line_number=line_number,
+        )
+        if target is None:
+            if skip_missing_patch_ids:
+                continue
+            raise LawRevisionHoldMaterializeError(
+                "queue originalQuestionId not found in explanation patch: "
+                f"{record.get('originalQuestionId')}"
+            )
+        grouped.setdefault(target.key, (target, []))[1].append(
+            (line_number, record)
+        )
     return grouped
 
 
@@ -374,30 +521,20 @@ def materialize_hold_facts(
     skip_missing_patch_ids: bool = False,
 ) -> tuple[int, int]:
     queue_records = load_queue(queue_jsonl_path)
-    grouped = grouped_queue_records(queue_records)
     patch_data = load_json(explanation_patch_path)
     patch_entries = extract_patch_entries(patch_data)
-    patch_map = {
-        key: entry
-        for entry in patch_entries
-        if (key := patch_question_id(entry))
-    }
-    missing = sorted(set(grouped) - set(patch_map))
-    if missing:
-        if not skip_missing_patch_ids:
-            raise LawRevisionHoldMaterializeError(
-                f"queue originalQuestionId not found in explanation patch: {missing}"
-            )
-        grouped = {
-            original_id: queue_by_choice
-            for original_id, queue_by_choice in grouped.items()
-            if original_id in patch_map
-        }
+    targets = build_patch_targets(patch_entries)
+    grouped = group_queue_records_by_target(
+        queue_records,
+        targets,
+        skip_missing_patch_ids=skip_missing_patch_ids,
+    )
 
     updated_questions = 0
     updated_choices = 0
-    for original_id, original_queue_records in grouped.items():
-        entry = patch_map[original_id]
+    for target, original_queue_records in grouped.values():
+        original_id = target.original_id
+        entry = target.entry
         if "lawRevisionFacts" in entry and not overwrite_existing:
             raise LawRevisionHoldMaterializeError(
                 f"{original_id}: lawRevisionFacts already exists; pass --overwrite-existing to replace it"

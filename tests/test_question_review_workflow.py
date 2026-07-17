@@ -813,6 +813,55 @@ class JobManagerTests(unittest.TestCase):
         self.assertEqual(result["status"], "succeeded")
         self.assertEqual(result["logs"], ["done"])
 
+    def test_structured_logs_dedupe_adjacent_messages_and_track_activity(self):
+        manager = JobManager()
+
+        def worker(emit):
+            emit("same message")
+            emit("same message")
+            getattr(emit, "heartbeat")()
+            getattr(emit, "event")(
+                {
+                    "level": "error",
+                    "message": "command failed exitCode=1: test",
+                    "commandStatus": "failed",
+                    "exitCode": 1,
+                    "outputTail": "verification failed",
+                }
+            )
+            return {"ok": True}
+
+        started = manager.start(kind="maintenance", key="sample", worker=worker)
+        deadline = time.monotonic() + 2
+        while time.monotonic() < deadline:
+            result = manager.get(started["jobId"])
+            if result["status"] == "succeeded":
+                break
+            time.sleep(0.01)
+
+        self.assertEqual(
+            result["logs"],
+            ["same message", "command failed exitCode=1: test"],
+        )
+        self.assertEqual(
+            [entry["sequence"] for entry in result["logEntries"]],
+            [1, 2],
+        )
+        self.assertEqual(
+            [entry["level"] for entry in result["logEntries"]],
+            ["info", "error"],
+        )
+        self.assertTrue(all(entry["at"] for entry in result["logEntries"]))
+        self.assertTrue(
+            all(entry["observedAt"] for entry in result["logEntries"])
+        )
+        self.assertEqual(result["logEntries"][1]["commandStatus"], "failed")
+        self.assertEqual(result["logEntries"][1]["exitCode"], 1)
+        self.assertEqual(
+            result["logEntries"][1]["outputTail"], "verification failed"
+        )
+        self.assertTrue(result["lastActivityAt"])
+
     def test_sync_exclusive_work_blocks_background_job(self):
         manager = JobManager()
         entered = threading.Event()
@@ -846,6 +895,37 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_manual_artifact_regeneration_remains_reachable_when_current(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        pipeline_actions = javascript.split(
+            "function renderPipelineActions", 1
+        )[1].split("function openEvaluationRework", 1)[0]
+
+        self.assertIn('label: "成果物を再生成"', pipeline_actions)
+        self.assertIn("if (localReady && !maintenanceBlocksPublication(question))", pipeline_actions)
+        self.assertIn("actions.append(patchSyncAction({", pipeline_actions)
+
+    def test_succeeded_run_requires_validated_receipt_for_completion_display(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        view_state = javascript.split(
+            "function qualificationRunViewState", 1
+        )[1].split("function renderQualificationRunPhases", 1)[0]
+        history = javascript.split(
+            "function renderQualificationActiveRun", 1
+        )[1].split("function renderQualificationRunStatusDetail", 1)[0]
+
+        self.assertIn('run?.status === "succeeded" && run?.receiptValidated === true', view_state)
+        self.assertIn('const unverified = run?.status === "succeeded" && !verified', view_state)
+        self.assertIn('statusLabel = "未承認"', view_state)
+        self.assertIn("item.receiptValidated === true", history)
+        self.assertIn('? "未承認"', history)
+
     def test_failed_receipt_message_is_not_hidden_as_invalid_receipt(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (
@@ -1277,6 +1357,10 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('phase = "最終検証で停止"', javascript)
         self.assertIn('progress.status === "failed"', javascript)
         self.assertIn("最終検証は未承認", javascript)
+        self.assertIn(
+            'run?.status === "succeeded" && run?.receiptValidated === true',
+            javascript,
+        )
         self.assertIn(".qualification-active-run.failed", css)
         self.assertIn(
             ".qualification-active-run-phases { grid-template-columns: 1fr; }",
@@ -1284,14 +1368,27 @@ class WorkflowUiContractTests(unittest.TestCase):
         )
         self.assertIn("function pollSharedRunProgress", javascript)
         self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", javascript)
+        self.assertIn("|| state.qualificationRunDialog.running", javascript)
+        self.assertIn("const QUALIFICATION_RUN_IDLE_POLL_MS = 30000", javascript)
+        self.assertIn("now - state.lastSharedRunPollAt < QUALIFICATION_RUN_IDLE_POLL_MS", javascript)
+        self.assertIn("loadQualificationRuns({ includeLatestProgress: false })", javascript)
         self.assertIn("state.qualificationActiveJob?.logs", javascript)
         self.assertIn("state.qualificationRunProgress", javascript)
         self.assertIn("maintenance-year-row${working ? \" working\"", javascript)
         self.assertIn(".maintenance-year-row.working", css)
-        self.assertIn("作業中の出力", javascript)
+        self.assertIn("問題ごとの出力", javascript)
         self.assertIn("タップして問題本文を見る", javascript)
         self.assertIn("/progress?${params}", javascript)
         self.assertIn("/summary`", javascript)
+        self.assertIn('$("#qualification-run-technical-log").open', javascript)
+        self.assertIn("function loadQualificationTechnicalLog", javascript)
+        self.assertIn("/technical-log?${params}", javascript)
+        self.assertIn("renderQualificationTechnicalLog(payload)", javascript)
+        self.assertIn('!("result" in job)', javascript)
+        self.assertIn("function progressDisplayLabel", javascript)
+        self.assertIn("function progressQuestionApproved", javascript)
+        self.assertIn("event?.approvalState", javascript)
+        self.assertIn('progressApprovalState(question)', javascript)
         self.assertIn("codexStatus.turnReasoningEffort", javascript)
         self.assertIn('startCodex: state.reviewMode === "awaiting_codex"', javascript)
         self.assertIn('requestKind === "evaluation_rework"', javascript)

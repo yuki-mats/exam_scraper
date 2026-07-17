@@ -93,6 +93,14 @@ def wrong_suffix_queue_record(question_id: str, basis_choice_index: int) -> dict
 
 
 class MaterializeLawRevisionHoldFactsFromQueueTests(unittest.TestCase):
+    @staticmethod
+    def _binding(source_ref: str) -> dict[str, str]:
+        return {
+            "sourceQuestionKey": "sample:2026:q1",
+            "reviewQuestionId": "q1",
+            "sourceRecordRef": source_ref,
+        }
+
     def test_materializes_hold_facts_for_complete_choice_set(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -309,6 +317,96 @@ class MaterializeLawRevisionHoldFactsFromQueueTests(unittest.TestCase):
                 ],
                 ["1号", "2号", "3号"],
             )
+
+    def test_exact_queue_binding_updates_only_matching_duplicate_id_patch(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            patch_path = root / "patch.json"
+            output_path = root / "patch_hold.json"
+            queue_path = root / "queue.jsonl"
+            first = {
+                "original_question_id": "q1",
+                **self._binding("question_2026_1.json#0"),
+                "explanationText": ["説明1"],
+            }
+            second = {
+                "original_question_id": "q1",
+                **self._binding("question_2026_2.json#0"),
+                "explanationText": ["説明2"],
+            }
+            dump_json(patch_path, [first, second])
+            queue = queue_record(0)
+            queue.update(self._binding("question_2026_2.json#0"))
+            write_queue(queue_path, [queue])
+
+            updated_questions, _ = materialize_hold_facts(
+                queue_jsonl_path=queue_path,
+                explanation_patch_path=patch_path,
+                output_path=output_path,
+            )
+
+            result = json.loads(output_path.read_text(encoding="utf-8"))
+        self.assertEqual(updated_questions, 1)
+        self.assertNotIn("lawRevisionFacts", result[0])
+        self.assertEqual(result[1]["lawRevisionFacts"][0]["auditStatus"], "hold")
+
+    def test_legacy_queue_id_does_not_guess_between_exact_patch_records(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            patch_path = root / "patch.json"
+            output_path = root / "patch_hold.json"
+            queue_path = root / "queue.jsonl"
+            dump_json(
+                patch_path,
+                [
+                    {
+                        "original_question_id": "q1",
+                        **self._binding("question_2026_1.json#0"),
+                        "explanationText": ["説明1"],
+                    },
+                    {
+                        "original_question_id": "q1",
+                        **self._binding("question_2026_2.json#0"),
+                        "explanationText": ["説明2"],
+                    },
+                ],
+            )
+            write_queue(queue_path, [queue_record(0)])
+
+            with self.assertRaisesRegex(
+                LawRevisionHoldMaterializeError,
+                "ambiguous",
+            ):
+                materialize_hold_facts(
+                    queue_jsonl_path=queue_path,
+                    explanation_patch_path=patch_path,
+                    output_path=output_path,
+                )
+
+    def test_duplicate_legacy_patch_id_fails_before_queue_join(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            patch_path = root / "patch.json"
+            output_path = root / "patch_hold.json"
+            queue_path = root / "queue.jsonl"
+            dump_json(
+                patch_path,
+                [
+                    {"original_question_id": "q1", "explanationText": ["説明1"]},
+                    {"original_question_id": "q1", "explanationText": ["説明2"]},
+                ],
+            )
+            write_queue(queue_path, [queue_record(0)])
+
+            with self.assertRaisesRegex(
+                LawRevisionHoldMaterializeError,
+                "duplicate legacy patch",
+            ):
+                materialize_hold_facts(
+                    queue_jsonl_path=queue_path,
+                    explanation_patch_path=patch_path,
+                    output_path=output_path,
+                )
 
 
 if __name__ == "__main__":

@@ -231,7 +231,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
 
         self.assertIn("正しい内容と条文位置 → 選択肢との差", prompt)
-        self.assertIn("ガス事業は、ガス事業法第2条第11項において", prompt)
+        self.assertIn("qualification_docs/README.md", prompt)
+        self.assertNotIn("ガス事業は、ガス事業法第2条第11項において", prompt)
         self.assertNotIn("誤り部分が条文説明より先", prompt)
         self.assertNotIn("誤り部分 → 正式法令名と条文位置", prompt)
 

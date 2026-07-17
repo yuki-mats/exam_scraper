@@ -300,6 +300,221 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertIn("merge_stale", question["issueCodes"])
         self.assertNotIn("convert_stale", question["issueCodes"])
 
+    def test_source_key_is_derived_from_source_not_patch_projection(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            source = {
+                "original_question_id": "q1",
+                "questionLabel": "問1",
+                "questionBodyText": "問題文",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+            }
+            write_json(
+                group / "00_source" / "question_2026_1.json",
+                {"question_bodies": [source]},
+            )
+            write_json(
+                group / "10_questionType_fixed" / "question_2026_1_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "q1",
+                        "sourceQuestionKey": "patch:injected:key",
+                        "questionType": "true_false",
+                    }
+                ],
+            )
+
+            question = QuestionInventory(root).group(
+                "sample-exam",
+                "2026",
+            )["questions"][0]
+
+        self.assertEqual(
+            question["sourceQuestionKey"],
+            "sample-exam:2026:q1",
+        )
+        self.assertEqual(
+            question["sourceRecordRef"],
+            "question_2026_1.json#0",
+        )
+
+    def test_duplicate_two_field_identity_is_disambiguated_by_source_record_ref(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            duplicate = {
+                "original_question_id": "q1",
+                "sourceQuestionKey": "sample:2026:q1",
+                "questionBodyText": "問題文",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+            }
+            write_json(
+                source_dir / "question_2026_1.json",
+                {"question_bodies": [duplicate]},
+            )
+            write_json(
+                source_dir / "question_2026_2.json",
+                {"question_bodies": [duplicate]},
+            )
+            write_json(
+                source_dir.parent
+                / "10_questionType_fixed"
+                / "shared_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": source_ref,
+                        "questionType": question_type,
+                    }
+                    for source_ref, question_type in (
+                        ("question_2026_1.json#0", "true_false"),
+                        ("question_2026_2.json#0", "flash_card"),
+                    )
+                ],
+            )
+
+            group = QuestionInventory(root).group("sample-exam", "2026")
+
+        self.assertEqual(group["questionCount"], 2)
+        self.assertEqual(group["identityBlockers"], [])
+        self.assertEqual(
+            {
+                question["sourceRecordRef"]
+                for question in group["questions"]
+            },
+            {"question_2026_1.json#0", "question_2026_2.json#0"},
+        )
+        self.assertEqual(len({q["id"] for q in group["questions"]}), 2)
+        self.assertEqual(
+            {
+                question["sourceRecordRef"]: question["projected"]["questionType"]
+                for question in group["questions"]
+            },
+            {
+                "question_2026_1.json#0": "true_false",
+                "question_2026_2.json#0": "flash_card",
+            },
+        )
+
+    def test_group_reports_unmatched_stage_and_issue_correction_artifacts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "question_2026_1.json",
+                {
+                    "question_bodies": [
+                        {
+                            "original_question_id": "q1",
+                            "questionBodyText": "問題文",
+                            "choiceTextList": ["A"],
+                            "correctChoiceText": ["正しい"],
+                        }
+                    ]
+                },
+            )
+            write_json(
+                group
+                / "10_questionType_fixed"
+                / "question_2026_1_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "orphan-stage",
+                        "questionType": "true_false",
+                    }
+                ],
+            )
+            write_json(
+                group / "24_questionIssueCorrections" / "orphan.json",
+                {
+                    "schemaVersion": "question-issue-correction/v1",
+                    "origin": "user_problem_report",
+                    "entries": [
+                        {
+                            "original_question_id": "orphan-issue",
+                            "expectedBeforeHash": "0" * 64,
+                            "changes": {"questionBodyText": "修正"},
+                        }
+                    ],
+                },
+            )
+
+            payload = QuestionInventory(root).group("sample-exam", "2026")
+
+        blockers = payload["artifactResolutionBlockers"]
+        self.assertEqual(
+            {(blocker["patchDir"], blocker["count"]) for blocker in blockers},
+            {
+                ("10_questionType_fixed", 1),
+                ("24_questionIssueCorrections", 1),
+            },
+        )
+        self.assertTrue(
+            all(blocker["code"] == "artifact_identity_unmatched" for blocker in blockers)
+        )
+        self.assertIn("question_2026_1_questionType_fixed.json", blockers[0]["path"])
+
+    def test_group_reports_same_artifact_binding_conflict_as_a_blocker(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "question_2026_1.json",
+                {
+                    "question_bodies": [
+                        {
+                            "sourceQuestionKey": "sample-exam:2026:q1",
+                            "original_question_id": "q1",
+                            "questionBodyText": "問題文",
+                            "choiceTextList": ["A"],
+                            "correctChoiceText": ["正しい"],
+                        }
+                    ]
+                },
+            )
+            binding = {
+                "sourceQuestionKey": "sample-exam:2026:q1",
+                "reviewQuestionId": "q1",
+                "sourceRecordRef": "question_2026_1.json#0",
+            }
+            write_json(
+                group
+                / "10_questionType_fixed"
+                / "question_2026_1_questionType_fixed.json",
+                [
+                    {**binding, "questionType": "true_false"},
+                    {**binding, "questionType": "flash_card"},
+                ],
+            )
+
+            payload = QuestionInventory(root).group("sample-exam", "2026")
+
+        conflicts = [
+            blocker
+            for blocker in payload["artifactResolutionBlockers"]
+            if blocker["code"] == "artifact_identity_conflict"
+            and blocker["patchDir"] == "10_questionType_fixed"
+        ]
+        self.assertEqual(len(conflicts), 1)
+        self.assertIn("同一artifact内", conflicts[0]["message"])
+        self.assertTrue(
+            any(
+                issue["code"] == "projection_error"
+                for issue in payload["questions"][0]["issues"]
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

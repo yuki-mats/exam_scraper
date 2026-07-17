@@ -70,7 +70,11 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("function artifactSyncNeedsAttention", javascript)
         self.assertIn('["succeeded", "current", "not_required"]', javascript)
         self.assertIn(
-            'run?.status === "succeeded" && artifactSyncNeedsAttention(run)',
+            "const artifactSyncPending = verified && artifactSyncNeedsAttention(run)",
+            javascript,
+        )
+        self.assertIn(
+            'const unverified = run?.status === "succeeded" && !verified',
             javascript,
         )
         self.assertIn("公開用データは更新待ちです", javascript)
@@ -78,6 +82,23 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('statusLabel = "公開用データ更新待ち"', javascript)
         self.assertIn('? "公開用データ更新待ち"', javascript)
         self.assertIn("整備結果を承認済み", javascript)
+
+    def test_partial_failed_run_uses_touched_questions_for_stop_state(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        view_state = javascript.split(
+            "function qualificationRunViewState", 1
+        )[1].split("function renderQualificationRunPhases", 1)[0]
+
+        self.assertIn("progress?.touchedQuestionCount", view_state)
+        self.assertIn(
+            'phase = touchedQuestions ? "問題整備中に停止"',
+            view_state,
+        )
+        self.assertIn("対象${targetQuestions}問のうち${touchedQuestions}問", view_state)
+        self.assertNotIn(
+            'phase = completedQuestions ? "問題整備中に停止"',
+            view_state,
+        )
 
     def test_manual_sync_preview_shows_strict_validation_reason(self):
         javascript = APP_PATH.read_text(encoding="utf-8")

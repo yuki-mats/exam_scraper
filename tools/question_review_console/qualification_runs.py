@@ -7,6 +7,7 @@ import json
 import os
 import re
 import secrets
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -19,14 +20,25 @@ from scripts.merge.merge_utils import (
     select_latest_patch_files,
     source_stem_from_patch_filename,
 )
+from scripts.common.question_identity import (
+    SourceIdentityBinding,
+    source_question_key,
+    source_record_ref,
+)
+from scripts.common.law_audit_sidecar_contract import (
+    law_audit_sidecar_metadata_errors,
+)
 from tools.question_review_console.projection import (
     extract_records,
     record_identity_aliases,
+    source_identity_aliases,
+    workflow_identity_aliases,
 )
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobConflictError,
     JobManager,
+    normalize_log_event,
 )
 from tools.question_review_console.failed_delta import (
     resolvable_failed_delta_paths,
@@ -44,11 +56,22 @@ from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
 )
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
+from tools.question_review_console.run_target_identity import (
+    RunTargetIdentityError,
+    RunTargetIdentityResolver,
+    resolve_policy_target_ids,
+    target_identity_aliases,
+)
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
 from tools.question_review_console.workflow_runner import (
     ArtifactSynchronizer,
     sync_after_patch_update,
+)
+from tools.question_review_console.write_transaction import (
+    WriteTransactionError,
+    capture_write_snapshot,
+    restore_write_snapshot,
 )
 
 
@@ -200,6 +223,8 @@ CODEX_PROTECTED_IDENTITY_FIELDS = (
     "review_question_id",
     "sourceQuestionKey",
     "source_question_key",
+    "sourceRecordRef",
+    "source_record_ref",
     "uploadOriginalQuestionId",
     "firestoreQuestionIds",
 )
@@ -341,6 +366,27 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
         ) from exc
     snapshot: list[dict[str, Any]] = []
     for index, record in enumerate(records):
+        identity_record = dict(record)
+        if "00_source" in path.parts:
+            source_root_index = len(path.parts) - 1 - tuple(
+                reversed(path.parts)
+            ).index("00_source")
+            relative_source = Path(*path.parts[source_root_index + 1 :])
+            if relative_source.parts:
+                identity_record["sourceRecordRef"] = source_record_ref(
+                    relative_source.as_posix(), index
+                )
+            if (
+                source_root_index >= 3
+                and path.parts[source_root_index - 2] == "questions_json"
+            ):
+                derived_source_key = source_question_key(
+                    path.parts[source_root_index - 3],
+                    path.parts[source_root_index - 1],
+                    record,
+                )
+                if derived_source_key:
+                    identity_record["sourceQuestionKey"] = derived_source_key
         canonical = json.dumps(
             record,
             ensure_ascii=False,
@@ -350,7 +396,13 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
         snapshot.append(
             {
                 "index": index,
-                "aliases": sorted(record_identity_aliases(record)),
+                "aliases": sorted(record_identity_aliases(identity_record)),
+                "sourceAliases": sorted(
+                    source_identity_aliases(identity_record)
+                ),
+                "workflowAliases": sorted(
+                    workflow_identity_aliases(identity_record)
+                ),
                 "hash": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
                 "protectedFields": {
                     field: copy.deepcopy(record[field])
@@ -358,8 +410,17 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
                     if field in record
                 },
                 "identityFields": {
-                    field: copy.deepcopy(record[field])
+                    field: copy.deepcopy(identity_record[field])
                     for field in CODEX_PROTECTED_IDENTITY_FIELDS
+                    if field in identity_record
+                },
+                "contractFields": {
+                    field: copy.deepcopy(record[field])
+                    for field in (
+                        "schemaVersion",
+                        "qualification",
+                        "listGroupId",
+                    )
                     if field in record
                 },
             }
@@ -450,6 +511,8 @@ class QualificationRunStore:
         self.repo_root = repo_root.resolve()
         self.root = self.repo_root / "output" / "question_review_console" / "workflow_runs"
         self._lock = threading.RLock()
+        self._technical_log_sequences: dict[Path, int] = {}
+        self._technical_log_last_signatures: dict[Path, str] = {}
         self._recover_interrupted_runs()
 
     def create(
@@ -470,6 +533,7 @@ class QualificationRunStore:
             else run_dir / "result.json"
         )
         progress_path = run_dir / "agent_output" / "progress.jsonl"
+        technical_log_path = run_dir / "technical_log.jsonl"
         now = _now()
         target_record_alias_groups = [
             sorted({str(value) for value in group if value})
@@ -505,13 +569,83 @@ class QualificationRunStore:
             progress_targets.append(
                 {
                     "id": question_id,
+                    "uiQuestionId": str(
+                        raw_target.get("uiQuestionId") or question_id
+                    )[:300],
                     "questionKey": str(raw_target.get("questionKey") or question_id)[:300],
+                    "sourceQuestionKey": str(
+                        raw_target.get("sourceQuestionKey") or ""
+                    )[:500],
+                    "sourceRecordRef": str(
+                        raw_target.get("sourceRecordRef") or ""
+                    )[:1000],
+                    "reviewQuestionId": str(
+                        raw_target.get("reviewQuestionId") or ""
+                    )[:500],
                     "listGroupId": str(raw_target.get("listGroupId") or "")[:100],
+                    "sectionLabel": str(
+                        raw_target.get("sectionLabel") or ""
+                    )[:200],
                     "questionLabel": str(raw_target.get("questionLabel") or "")[:200],
+                    "displayLabel": str(
+                        raw_target.get("displayLabel")
+                        or raw_target.get("questionLabel")
+                        or ""
+                    )[:300],
+                    "displayOrder": int(
+                        raw_target.get("displayOrder") or len(progress_targets) + 1
+                    ),
                     "bodyPreview": str(raw_target.get("bodyPreview") or "")[:240],
                     "aliases": aliases,
                 }
             )
+        target_record_bindings = [
+            {
+                "id": str(value.get("uiQuestionId") or ""),
+                "uiQuestionId": str(value.get("uiQuestionId") or ""),
+                "reviewQuestionId": str(
+                    value.get("reviewQuestionId") or ""
+                ),
+                "sourceQuestionKey": str(
+                    value.get("sourceQuestionKey") or ""
+                ),
+                "sourceRecordRef": str(
+                    value.get("sourceRecordRef") or ""
+                ),
+                "aliases": sorted(
+                    {
+                        str(alias)
+                        for alias in value.get("aliases") or []
+                        if alias
+                    }
+                ),
+            }
+            for value in plan.get("targetRecordBindings") or []
+            if isinstance(value, Mapping)
+            and str(value.get("uiQuestionId") or "")
+        ]
+        try:
+            target_resolver = RunTargetIdentityResolver.from_sources(
+                ("progressTargets", progress_targets),
+                ("targetRecordBindings", target_record_bindings),
+            )
+            policy_targets: dict[str, list[str]] = {}
+            for stage_id, raw_values in (plan.get("policyTargets") or {}).items():
+                if not isinstance(raw_values, list):
+                    raise RunTargetIdentityError(
+                        f"{stage_id}のpolicyTargetsがlistではありません。"
+                    )
+                normalized: list[str] = []
+                for raw_value in raw_values:
+                    target = target_resolver.resolve(raw_value)
+                    normalized.append(target_resolver.official_id(target))
+                policy_targets[str(stage_id)] = list(
+                    dict.fromkeys(normalized)
+                )
+        except RunTargetIdentityError as exc:
+            raise QualificationRunError(
+                f"問題別の実行対象ID契約が不正です: {exc}"
+            ) from exc
         progress_stages = [
             {
                 "id": str(stage.get("stageId") or ""),
@@ -580,15 +714,34 @@ class QualificationRunStore:
                     plan.get("policyFingerprints") or {}
                 ).items()
             },
-            "policyTargets": {
-                str(stage_id): [str(value) for value in values or []]
-                for stage_id, values in (plan.get("policyTargets") or {}).items()
-            },
+            "policyTargets": policy_targets,
             "sourceFiles": sorted(
                 {str(value) for value in plan.get("sourceFiles") or []}
             ),
             "targetRecordAliases": sorted(target_record_aliases),
             "targetRecordAliasGroups": target_record_alias_groups,
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": str(value.get("uiQuestionId") or ""),
+                    "reviewQuestionId": str(
+                        value.get("reviewQuestionId") or ""
+                    ),
+                    "sourceQuestionKey": str(
+                        value.get("sourceQuestionKey") or ""
+                    ),
+                    "sourceRecordRef": str(
+                        value.get("sourceRecordRef") or ""
+                    ),
+                    "aliases": sorted(
+                        {
+                            str(alias)
+                            for alias in value.get("aliases") or []
+                            if alias
+                        }
+                    ),
+                }
+                for value in target_record_bindings
+            ],
             "targetSourceRecordScopes": normalized_record_scopes(
                 plan.get("targetSourceRecordScopes")
             ),
@@ -625,6 +778,7 @@ class QualificationRunStore:
             "createdAt": now,
             "startedAt": None,
             "updatedAt": now,
+            "heartbeatAt": now,
             "finishedAt": None,
             "error": None,
             "result": None,
@@ -637,6 +791,9 @@ class QualificationRunStore:
                 if str(plan["kind"]) == "human"
                 else None
             ),
+            "technicalLogPath": str(
+                technical_log_path.relative_to(self.repo_root)
+            ),
             "resultReceiptHash": None,
             "receiptError": None,
             "receiptValidated": False,
@@ -644,6 +801,7 @@ class QualificationRunStore:
             "baselinePath": None,
             "baselineHash": None,
             "deltaUnknown": False,
+            "rollback": None,
             "allowedPatchDirs": sorted(
                 {str(value) for value in plan.get("allowedPatchDirs") or []}
             ),
@@ -687,6 +845,72 @@ class QualificationRunStore:
                 manifest["promptPath"] = str(prompt_path.relative_to(self.repo_root))
             self._write_manifest(run_dir / "manifest.json", manifest)
         return copy.deepcopy(manifest)
+
+    def append_technical_log(
+        self,
+        qualification: str,
+        run_id: str,
+        value: Mapping[str, Any],
+    ) -> dict[str, Any] | None:
+        """run配下の技術ログへ、許可fieldだけを一行追記する。"""
+
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            relative = str(manifest.get("technicalLogPath") or "")
+            path = (
+                (self.repo_root / relative).resolve()
+                if relative
+                else manifest_path.with_name("technical_log.jsonl")
+            )
+            run_dir = manifest_path.parent.resolve()
+            if path.parent != run_dir or path.name != "technical_log.jsonl":
+                raise QualificationRunError("技術ログの保存先がrun配下ではありません。")
+            sequence = self._technical_log_sequences.get(path)
+            if sequence is None:
+                sequence = 0
+                last_existing: Mapping[str, Any] | None = None
+                if path.is_file():
+                    for raw_line in path.read_bytes().splitlines():
+                        try:
+                            existing = json.loads(raw_line.decode("utf-8"))
+                        except (UnicodeDecodeError, json.JSONDecodeError):
+                            continue
+                        if isinstance(existing, Mapping):
+                            last_existing = existing
+                            raw_sequence = existing.get("sequence")
+                            if isinstance(raw_sequence, int):
+                                sequence = max(sequence, raw_sequence)
+                if last_existing is not None:
+                    self._technical_log_last_signatures[path] = (
+                        self._technical_log_signature(last_existing)
+                    )
+            event = normalize_log_event(value, sequence=sequence + 1)
+            if not event["message"]:
+                return None
+            # 表示API互換用のaliasは永続正本へ重複保存しない。
+            event.pop("at", None)
+            signature = self._technical_log_signature(event)
+            if self._technical_log_last_signatures.get(path) == signature:
+                return None
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(event, ensure_ascii=False) + "\n")
+            self._technical_log_sequences[path] = sequence + 1
+            self._technical_log_last_signatures[path] = signature
+            return copy.deepcopy(event)
+
+    @staticmethod
+    def _technical_log_signature(value: Mapping[str, Any]) -> str:
+        return json.dumps(
+            {
+                key: item
+                for key, item in value.items()
+                if key not in {"sequence", "observedAt", "at"}
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
 
     def update(self, qualification: str, run_id: str, **changes: Any) -> dict[str, Any]:
         path = self._manifest_path(qualification, run_id)
@@ -750,6 +974,56 @@ class QualificationRunStore:
                 raise QualificationRunError("この作業には問題単位の進捗がありません。")
             return manifest_path.parent / "agent_output" / "progress.jsonl"
 
+    def technical_log(
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        limit: int = 200,
+    ) -> dict[str, Any]:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            relative = str(manifest.get("technicalLogPath") or "")
+            path = (
+                (self.repo_root / relative).resolve()
+                if relative
+                else manifest_path.with_name("technical_log.jsonl")
+            )
+            if (
+                path.parent != manifest_path.parent.resolve()
+                or path.name != "technical_log.jsonl"
+            ):
+                raise QualificationRunError("技術ログの保存先がrun配下ではありません。")
+            raw_lines = path.read_bytes().splitlines() if path.is_file() else []
+        entries: list[dict[str, Any]] = []
+        for raw_line in raw_lines[-max(1, min(int(limit), 500)) :]:
+            try:
+                value = json.loads(raw_line.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                continue
+            if isinstance(value, Mapping):
+                raw_sequence = value.get("sequence")
+                sequence = (
+                    raw_sequence
+                    if isinstance(raw_sequence, int)
+                    and not isinstance(raw_sequence, bool)
+                    else len(entries) + 1
+                )
+                event = normalize_log_event(
+                    value,
+                    sequence=sequence,
+                    observed_at=str(value.get("observedAt") or "") or None,
+                )
+                event.pop("at", None)
+                if event["message"]:
+                    entries.append(event)
+        return {
+            "runId": run_id,
+            "technicalLogPath": str(path.relative_to(self.repo_root)),
+            "entries": entries,
+        }
+
     def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
         manifest_path = self._manifest_path(qualification, run_id)
         with self._lock:
@@ -766,7 +1040,7 @@ class QualificationRunStore:
         manifest_path = self._manifest_path(qualification, run_id)
         with self._lock:
             manifest = self._load_manifest(manifest_path)
-            chunks: list[bytes] = []
+            children: list[tuple[dict[str, Any], bytes]] = []
             for child_run_id in manifest.get("childRunIds") or []:
                 child_path = self._manifest_path(qualification, str(child_run_id))
                 child = self._load_manifest(child_path)
@@ -775,20 +1049,226 @@ class QualificationRunStore:
                         "工程別runとトップ整備runの対応が一致しません。"
                     )
                 progress_path = child_path.parent / "agent_output" / "progress.jsonl"
-                if progress_path.is_file():
-                    chunks.append(progress_path.read_bytes())
-        payload = self._parsed_progress(manifest, b"\n".join(chunks))
+                children.append(
+                    (
+                        child,
+                        progress_path.read_bytes()
+                        if progress_path.is_file()
+                        else b"",
+                    )
+                )
+        payload = self._empty_progress(manifest)
+        child_payloads = [
+            (child, self._parsed_progress(child, raw))
+            for child, raw in children
+        ]
+        events: list[dict[str, Any]] = []
+        outputs_by_question: dict[str, dict[str, dict[str, Any]]] = {}
+        display_by_question: dict[str, dict[str, Any]] = {}
+        processed_work_items: set[tuple[str, str]] = set()
+        finalized_work_items: set[tuple[str, str]] = set()
+        validated_work_items: set[tuple[str, str]] = set()
+        finalized_questions: set[str] = set()
+        validated_child_questions: set[str] = set()
+        failed_child_questions: set[str] = set()
+        invalid_count = 0
+        combined_sequence = 0
+        for child_index, (child, child_payload) in enumerate(
+            child_payloads, start=1
+        ):
+            invalid_count += int(child_payload.get("invalidEventCount") or 0)
+            for event in child_payload.get("events") or []:
+                combined_sequence += 1
+                events.append({**event, "sequence": combined_sequence})
+            child_verified = bool(
+                child.get("status") == "succeeded"
+                and child.get("receiptValidated") is True
+            )
+            for question in child_payload.get("questions") or []:
+                question_id = str(question.get("questionId") or "")
+                if not question_id:
+                    continue
+                display_by_question[question_id] = question
+                if child.get("status") == "failed":
+                    failed_child_questions.add(question_id)
+                if question.get("processed"):
+                    finalized_questions.add(question_id)
+                if child_verified and question.get("completed"):
+                    validated_child_questions.add(question_id)
+                for output in question.get("outputs") or []:
+                    stage_id = str(output.get("stageId") or "")
+                    if not stage_id:
+                        continue
+                    work_item = (question_id, stage_id)
+                    processed_work_items.add(work_item)
+                    if question.get("processed"):
+                        finalized_work_items.add(work_item)
+                    if child_verified and question.get("completed"):
+                        validated_work_items.add(work_item)
+                    outputs_by_question.setdefault(question_id, {})[
+                        stage_id
+                    ] = {
+                        **output,
+                        "sequence": child_index * MAX_PROGRESS_EVENTS
+                        + int(output.get("sequence") or 0),
+                    }
+
+        targets = [
+            target
+            for target in manifest.get("progressTargets") or []
+            if isinstance(target, Mapping) and target.get("id")
+        ]
+        touched_questions = {
+            question_id for question_id, _stage_id in processed_work_items
+        } & {str(target["id"]) for target in targets}
+        planned_by_question: dict[str, set[str]] = {}
+        for stage_id, raw_aliases in (manifest.get("policyTargets") or {}).items():
+            question_ids, contract_invalid = resolve_policy_target_ids(
+                targets, raw_aliases
+            )
+            invalid_count += contract_invalid
+            for question_id in question_ids:
+                planned_by_question.setdefault(question_id, set()).add(
+                    str(stage_id)
+                )
+        processed_questions: set[str] = set()
+        validated_questions: set[str] = set()
+        for target in targets:
+            question_id = str(target["id"])
+            planned_stages = planned_by_question.get(question_id, set())
+            finalized_stages = {
+                stage_id
+                for current_question_id, stage_id in finalized_work_items
+                if current_question_id == question_id
+            }
+            validated_stages = {
+                stage_id
+                for current_question_id, stage_id in validated_work_items
+                if current_question_id == question_id
+            }
+            if (
+                planned_stages <= finalized_stages
+                and (planned_stages or question_id in finalized_questions)
+            ):
+                processed_questions.add(question_id)
+            if (
+                planned_stages <= validated_stages
+                and (
+                    planned_stages
+                    or question_id in validated_child_questions
+                )
+            ):
+                validated_questions.add(question_id)
+        stage_order = {
+            str(stage.get("id") or ""): index
+            for index, stage in enumerate(manifest.get("progressStages") or [])
+            if isinstance(stage, Mapping)
+        }
+        questions: list[dict[str, Any]] = []
+        for target in targets:
+            question_id = str(target["id"])
+            raw_outputs = outputs_by_question.get(question_id, {})
+            base = display_by_question.get(question_id)
+            if base is None and not raw_outputs:
+                continue
+            outputs = sorted(
+                raw_outputs.values(),
+                key=lambda output: (
+                    stage_order.get(str(output.get("stageId") or ""), 10_000),
+                    int(output.get("sequence") or 0),
+                ),
+            )
+            display = outputs[-1] if outputs else dict(base or {})
+            approval_state = (
+                "validated"
+                if question_id in validated_questions
+                else "failed_unapproved"
+                if question_id in failed_child_questions
+                else "processed_unverified"
+                if question_id in processed_questions
+                else "working"
+            )
+            questions.append(
+                {
+                    **display,
+                    "questionId": question_id,
+                    "processed": question_id in processed_questions,
+                    "completed": question_id in validated_questions,
+                    "approvalState": approval_state,
+                    "outputs": outputs,
+                }
+            )
+        payload["groups"] = [
+            {
+                "listGroupId": group_id,
+                "targetQuestionCount": len(group_targets),
+                "processedQuestionCount": len(
+                    group_targets & processed_questions
+                ),
+                "completedQuestionCount": len(
+                    group_targets & validated_questions
+                ),
+                "percent": round(
+                    (
+                        len(group_targets & validated_questions)
+                        / len(group_targets)
+                    )
+                    * 100
+                )
+                if group_targets
+                else 0,
+            }
+            for group_id in dict.fromkeys(
+                str(target.get("listGroupId") or "") for target in targets
+            )
+            for group_targets in [
+                {
+                    str(target["id"])
+                    for target in targets
+                    if str(target.get("listGroupId") or "") == group_id
+                }
+            ]
+        ]
         target_work = int(manifest.get("workItemCount") or 0)
-        completed_work = int(payload.get("completedWorkItemCount") or 0)
+        payload["touchedQuestionCount"] = len(touched_questions)
+        payload["processedQuestionCount"] = len(processed_questions)
+        payload["validatedQuestionCount"] = len(validated_questions)
+        payload["completedQuestionCount"] = len(validated_questions)
+        payload["processedWorkItemCount"] = len(processed_work_items)
+        payload["validatedWorkItemCount"] = len(validated_work_items)
+        payload["completedWorkItemCount"] = len(validated_work_items)
         if target_work:
             payload["percent"] = min(
-                100, round((completed_work / target_work) * 100)
+                100,
+                round((len(validated_work_items) / target_work) * 100),
+            )
+            payload["processedPercent"] = min(
+                100,
+                round((len(processed_work_items) / target_work) * 100),
             )
         payload["status"] = manifest.get("status")
         payload["verified"] = bool(
             manifest.get("status") == "succeeded"
             and manifest.get("receiptValidated") is True
         )
+        payload["events"] = events[-40:]
+        payload["questions"] = questions
+        payload["current"] = copy.deepcopy(events[-1]) if events else None
+        if payload["current"] is not None:
+            current_question = next(
+                (
+                    question
+                    for question in questions
+                    if question.get("questionId")
+                    == payload["current"].get("questionId")
+                ),
+                None,
+            )
+            if current_question is not None:
+                payload["current"]["approvalState"] = current_question.get(
+                    "approvalState"
+                )
+        payload["invalidEventCount"] = invalid_count
         return payload
 
     @staticmethod
@@ -802,9 +1282,18 @@ class QualificationRunStore:
             ),
             "targetQuestionCount": int(manifest.get("targetCount") or 0),
             "completedQuestionCount": 0,
+            "touchedQuestionCount": 0,
+            "processedQuestionCount": 0,
+            "validatedQuestionCount": 0,
             "targetWorkItemCount": int(manifest.get("workItemCount") or 0),
             "completedWorkItemCount": 0,
+            "processedWorkItemCount": 0,
+            "validatedWorkItemCount": 0,
             "percent": 0,
+            "processedPercent": 0,
+            "heartbeatAt": manifest.get("heartbeatAt") or manifest.get("updatedAt"),
+            "executionPhase": manifest.get("executionPhase"),
+            "currentPhaseId": manifest.get("currentPhaseId"),
             "current": None,
             "events": [],
             "questions": [],
@@ -829,21 +1318,23 @@ class QualificationRunStore:
             for target in manifest.get("progressTargets") or []
             if isinstance(target, Mapping) and target.get("id")
         ]
-        target_by_alias: dict[str, dict[str, Any]] = {}
+        target_by_id: dict[str, dict[str, Any]] = {}
+        duplicate_target_ids: set[str] = set()
         for index, target in enumerate(targets, start=1):
             target["targetIndex"] = index
-            aliases = {
-                str(target.get("id") or ""),
-                str(target.get("questionKey") or ""),
-                *(str(value) for value in target.get("aliases") or []),
-            } - {""}
-            for alias in aliases:
-                target_by_alias.setdefault(alias, target)
+            target_id = str(target.get("id") or "")
+            if target_id in target_by_id:
+                duplicate_target_ids.add(target_id)
+            else:
+                target_by_id[target_id] = target
+        for target_id in duplicate_target_ids:
+            target_by_id.pop(target_id, None)
         stages = {
             str(stage.get("id")): dict(stage)
             for stage in manifest.get("progressStages") or []
             if isinstance(stage, Mapping) and stage.get("id")
         }
+        invalid_count = 0
         raw_policy_targets = manifest.get("policyTargets")
         planned_work_items: set[tuple[str, str]] | None = None
         if isinstance(raw_policy_targets, Mapping) and raw_policy_targets:
@@ -851,17 +1342,32 @@ class QualificationRunStore:
             for stage_id, raw_aliases in raw_policy_targets.items():
                 stage_id = str(stage_id)
                 if stage_id not in stages or not isinstance(raw_aliases, list):
+                    invalid_count += 1
                     continue
-                stage_aliases = {str(value) for value in raw_aliases if value}
-                for target in targets:
-                    target_aliases = {
-                        str(target.get("id") or ""),
-                        str(target.get("questionKey") or ""),
-                        *(str(value) for value in target.get("aliases") or []),
-                    } - {""}
-                    if target_aliases & stage_aliases:
-                        planned_work_items.add((str(target["id"]), stage_id))
-        invalid_count = 0
+                question_ids, contract_invalid = resolve_policy_target_ids(
+                    targets, raw_aliases
+                )
+                invalid_count += contract_invalid
+                for question_id in question_ids:
+                    planned_work_items.add((question_id, stage_id))
+        planned_stage_order_by_question: dict[str, list[str]] = {}
+        ordered_stage_ids = list(stages)
+        for target in targets:
+            question_id = str(target["id"])
+            planned_stage_order_by_question[question_id] = [
+                stage_id
+                for stage_id in ordered_stage_ids
+                if planned_work_items is None
+                or (question_id, stage_id) in planned_work_items
+            ]
+        question_states = {
+            str(target["id"]): {
+                "started": False,
+                "nextStageIndex": 0,
+                "completed": False,
+            }
+            for target in targets
+        }
         events: list[dict[str, Any]] = []
         for raw_line in raw.splitlines()[:MAX_PROGRESS_EVENTS]:
             if not raw_line.strip():
@@ -878,7 +1384,9 @@ class QualificationRunStore:
                 invalid_count += 1
                 continue
             event_type = str(value.get("event") or "")
-            target = target_by_alias.get(str(value.get("questionId") or ""))
+            # progressTargets[].id is the receipt protocol.  Display aliases
+            # must never decide ownership when two records share source IDs.
+            target = target_by_id.get(str(value.get("questionId") or ""))
             stage_id = str(value.get("stageId") or "")
             stage = stages.get(stage_id) if stage_id else None
             if (
@@ -886,14 +1394,48 @@ class QualificationRunStore:
                 or target is None
                 or (event_type == "stage_completed" and stage is None)
                 or (stage_id and stage is None)
+                or (
+                    event_type in {"question_started", "question_completed"}
+                    and bool(stage_id)
+                )
             ):
                 invalid_count += 1
                 continue
+            question_id = str(target["id"])
             if (
                 event_type == "stage_completed"
                 and planned_work_items is not None
-                and (str(target["id"]), stage_id) not in planned_work_items
+                and (question_id, stage_id) not in planned_work_items
             ):
+                invalid_count += 1
+                continue
+            state = question_states[question_id]
+            planned_stage_order = planned_stage_order_by_question[question_id]
+            if event_type == "question_started":
+                valid_order = not state["started"] and not state["completed"]
+                if valid_order:
+                    state["started"] = True
+            elif event_type == "stage_completed":
+                next_stage_index = int(state["nextStageIndex"])
+                valid_order = (
+                    bool(state["started"])
+                    and not state["completed"]
+                    and next_stage_index < len(planned_stage_order)
+                    and planned_stage_order[next_stage_index] == stage_id
+                )
+                if valid_order:
+                    state["nextStageIndex"] = next_stage_index + 1
+            else:
+                valid_order = (
+                    bool(state["started"])
+                    and not state["completed"]
+                    and int(state["nextStageIndex"])
+                    == len(planned_stage_order)
+                )
+                if valid_order:
+                    state["completed"] = True
+            if not valid_order:
+                invalid_count += 1
                 continue
             raw_result = value.get("result")
             result: dict[str, Any] = {}
@@ -915,10 +1457,19 @@ class QualificationRunStore:
                 {
                     "sequence": len(events) + 1,
                     "event": event_type,
-                    "questionId": str(target["id"]),
+                    "questionId": question_id,
                     "questionKey": str(target.get("questionKey") or ""),
                     "questionLabel": str(target.get("questionLabel") or "")
                     or f"問{target['targetIndex']}",
+                    "sectionLabel": str(target.get("sectionLabel") or ""),
+                    "displayLabel": str(
+                        target.get("displayLabel")
+                        or target.get("questionLabel")
+                        or f"問{target['targetIndex']}"
+                    ),
+                    "displayOrder": int(
+                        target.get("displayOrder") or target["targetIndex"]
+                    ),
                     "targetIndex": int(target["targetIndex"]),
                     "listGroupId": str(target.get("listGroupId") or ""),
                     "bodyPreview": str(target.get("bodyPreview") or ""),
@@ -932,16 +1483,42 @@ class QualificationRunStore:
         if len(raw.splitlines()) > MAX_PROGRESS_EVENTS:
             invalid_count += len(raw.splitlines()) - MAX_PROGRESS_EVENTS
 
-        completed_questions = {
+        declared_completed_questions = {
             event["questionId"]
             for event in events
             if event["event"] == "question_completed"
         }
-        completed_work_items = {
+        processed_work_items = {
             (event["questionId"], event["stageId"])
             for event in events
             if event["event"] == "stage_completed" and event["stageId"]
         }
+        touched_questions = {
+            question_id for question_id, _stage_id in processed_work_items
+        }
+        planned_by_question: dict[str, set[str]] = {}
+        for question_id, stage_id in planned_work_items or set():
+            planned_by_question.setdefault(question_id, set()).add(stage_id)
+        processed_questions = {
+            str(target["id"])
+            for target in targets
+            if str(target["id"]) in declared_completed_questions
+            and (
+                not planned_by_question.get(str(target["id"]))
+                or planned_by_question[str(target["id"])]
+                <= {
+                    str(stage_id)
+                    for question_id, stage_id in processed_work_items
+                    if question_id == str(target["id"])
+                }
+            )
+        }
+        verified_run = bool(
+            manifest.get("status") == "succeeded"
+            and manifest.get("receiptValidated") is True
+        )
+        validated_work_items = processed_work_items if verified_run else set()
+        validated_questions = processed_questions if verified_run else set()
         events_by_question: dict[str, list[dict[str, Any]]] = {}
         for event in events:
             events_by_question.setdefault(event["questionId"], []).append(event)
@@ -963,7 +1540,17 @@ class QualificationRunStore:
             questions.append(
                 {
                     **display_event,
-                    "completed": question_id in completed_questions,
+                    "processed": question_id in processed_questions,
+                    "completed": question_id in validated_questions,
+                    "approvalState": (
+                        "validated"
+                        if question_id in validated_questions
+                        else "failed_unapproved"
+                        if manifest.get("status") == "failed"
+                        else "processed_unverified"
+                        if question_id in processed_questions
+                        else "working"
+                    ),
                     "outputs": outputs,
                 }
             )
@@ -976,27 +1563,51 @@ class QualificationRunStore:
                 for target in targets
                 if str(target.get("listGroupId") or "") == group_id
             }
-            group_completed = group_targets & completed_questions
+            group_processed = group_targets & processed_questions
+            group_completed = group_targets & validated_questions
             groups.append(
                 {
                     "listGroupId": group_id,
                     "targetQuestionCount": len(group_targets),
                     "completedQuestionCount": len(group_completed),
+                    "processedQuestionCount": len(group_processed),
                     "percent": round(
                         (len(group_completed) / len(group_targets)) * 100
                     ) if group_targets else 0,
                 }
             )
         target_count = len(targets) or int(manifest.get("targetCount") or 0)
+        current = copy.deepcopy(events[-1]) if events else None
+        if current is not None:
+            current_question = next(
+                (
+                    question
+                    for question in questions
+                    if question.get("questionId") == current.get("questionId")
+                ),
+                None,
+            )
+            if current_question is not None:
+                current["approvalState"] = current_question.get(
+                    "approvalState"
+                )
         payload.update(
             {
                 "targetQuestionCount": target_count,
-                "completedQuestionCount": len(completed_questions),
-                "completedWorkItemCount": len(completed_work_items),
+                "completedQuestionCount": len(validated_questions),
+                "touchedQuestionCount": len(touched_questions),
+                "processedQuestionCount": len(processed_questions),
+                "validatedQuestionCount": len(validated_questions),
+                "completedWorkItemCount": len(validated_work_items),
+                "processedWorkItemCount": len(processed_work_items),
+                "validatedWorkItemCount": len(validated_work_items),
                 "percent": round(
-                    (len(completed_questions) / target_count) * 100
+                    (len(validated_questions) / target_count) * 100
                 ) if target_count else 0,
-                "current": events[-1] if events else None,
+                "processedPercent": round(
+                    (len(processed_questions) / target_count) * 100
+                ) if target_count else 0,
+                "current": current,
                 "events": events[-40:],
                 "questions": questions,
                 "groups": groups,
@@ -1043,13 +1654,26 @@ class QualificationRunStore:
                     raise QualificationRunError("source baselineのpathが不正です。")
                 if relative.suffix.lower() == ".json":
                     source_record_paths.append(relative)
+            backup_root = manifest_path.parent / "baseline_files"
+            try:
+                transaction = capture_write_snapshot(
+                    self.repo_root,
+                    tracked_roots,
+                    backup_root,
+                )
+            except (OSError, WriteTransactionError) as exc:
+                shutil.rmtree(backup_root, ignore_errors=True)
+                raise QualificationRunError(
+                    f"書込transactionのbaselineを保存できません: {exc}"
+                ) from exc
             payload = {
-                "schemaVersion": "question-maintenance-baseline/v1",
+                "schemaVersion": "question-maintenance-baseline/v2",
                 "roots": [
                     path.relative_to(self.repo_root).as_posix()
                     for path in tracked_roots
                 ],
                 "files": _snapshot_roots(self.repo_root, tracked_roots),
+                "writeTransaction": transaction,
                 "recordSnapshots": {
                     relative.as_posix(): _record_snapshot(self.repo_root / relative)
                     for relative in sorted(set(record_paths))
@@ -1067,6 +1691,13 @@ class QualificationRunStore:
             )
             manifest["baselineHash"] = baseline_hash
             manifest["deltaUnknown"] = False
+            manifest["rollback"] = {
+                "status": "available",
+                "restoredFiles": [],
+                "remainingChangedFiles": [],
+                "deltaUnknown": False,
+                "message": "検証前の失敗時に開始前の状態へ戻せます。",
+            }
             manifest["updatedAt"] = _now()
             self._write_manifest(manifest_path, manifest)
         return baseline_path
@@ -1094,7 +1725,7 @@ class QualificationRunStore:
                     continue
                 if (
                     manifest.get("status") == "validating"
-                    and manifest.get("kind") == "human"
+                    and manifest.get("kind") in {"human", "orchestration"}
                     and manifest.get("receiptValidated") is True
                 ):
                     artifact_sync = manifest.get("artifactSync")
@@ -1112,6 +1743,34 @@ class QualificationRunStore:
                             "問題詳細又は管理機能から再生成できます。"
                         ),
                     }
+                    if manifest.get("kind") == "orchestration":
+                        result = manifest.get("result")
+                        if not isinstance(result, Mapping) or result.get(
+                            "status"
+                        ) != "succeeded":
+                            result = {
+                                "status": "succeeded",
+                                "summary": (
+                                    "子工程のpatchは検証済みです。"
+                                    "公開用データの同期は再実行が必要です。"
+                                ),
+                                "commands": [
+                                    {
+                                        "command": (
+                                            "workflow: validate child maintenance receipts"
+                                        ),
+                                        "status": "pass",
+                                    }
+                                ],
+                                "changedFiles": [],
+                                "resolvedFailedDeltaPaths": [],
+                            }
+                            receipt_path = self._result_path(path, manifest)
+                            self._write_json(receipt_path, result)
+                            manifest["result"] = result
+                            manifest["resultReceiptHash"] = hashlib.sha256(
+                                receipt_path.read_bytes()
+                            ).hexdigest()
                     manifest["error"] = None
                     manifest["updatedAt"] = _now()
                     manifest["finishedAt"] = manifest["updatedAt"]
@@ -1120,7 +1779,18 @@ class QualificationRunStore:
                 was_running = manifest.get("status") in {"running", "validating"}
                 changed_files: list[str] | None = None
                 if was_running and manifest.get("kind") == "human":
-                    changed_files = self._recover_baseline_delta(path, manifest)
+                    rollback = self._rollback_baseline_delta(path, manifest)
+                    if rollback is not None:
+                        manifest["rollback"] = rollback
+                        changed_files = (
+                            None
+                            if rollback.get("deltaUnknown") is True
+                            else list(
+                                rollback.get("remainingChangedFiles") or []
+                            )
+                        )
+                    else:
+                        changed_files = self._recover_baseline_delta(path, manifest)
                 if changed_files is None:
                     manifest["status"] = "interrupted"
                     manifest["deltaUnknown"] = bool(
@@ -1178,7 +1848,11 @@ class QualificationRunStore:
             return None
         if (
             not isinstance(payload, Mapping)
-            or payload.get("schemaVersion") != "question-maintenance-baseline/v1"
+            or payload.get("schemaVersion")
+            not in {
+                "question-maintenance-baseline/v1",
+                "question-maintenance-baseline/v2",
+            }
             or not isinstance(payload.get("files"), Mapping)
             or not isinstance(payload.get("roots"), list)
         ):
@@ -1200,6 +1874,96 @@ class QualificationRunStore:
             for path in before.keys() | after.keys()
             if before.get(path) != after.get(path)
         )
+
+    def rollback_baseline(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> dict[str, Any] | None:
+        """Restore an unvalidated human run to its captured write boundary."""
+
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._load_manifest(manifest_path)
+            if manifest.get("receiptValidated") is True:
+                return None
+            rollback = self._rollback_baseline_delta(manifest_path, manifest)
+            if rollback is None:
+                return None
+            manifest["rollback"] = rollback
+            manifest["deltaUnknown"] = bool(
+                rollback.get("deltaUnknown")
+                or rollback.get("remainingChangedFiles")
+            )
+            manifest["updatedAt"] = _now()
+            self._write_manifest(manifest_path, manifest)
+            return copy.deepcopy(rollback)
+
+    def discard_baseline_backups(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> None:
+        with self._lock:
+            path = self._manifest_path(qualification, run_id).parent / "baseline_files"
+            shutil.rmtree(path, ignore_errors=True)
+
+    def _rollback_baseline_delta(
+        self,
+        manifest_path: Path,
+        manifest: Mapping[str, Any],
+    ) -> dict[str, Any] | None:
+        baseline_path = manifest_path.parent / "baseline.json"
+        expected_hash = str(manifest.get("baselineHash") or "")
+        if not baseline_path.is_file() or not expected_hash:
+            return None
+        raw = baseline_path.read_bytes()
+        if not hmac.compare_digest(hashlib.sha256(raw).hexdigest(), expected_hash):
+            return None
+        try:
+            payload = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        if (
+            not isinstance(payload, Mapping)
+            or payload.get("schemaVersion") != "question-maintenance-baseline/v2"
+            or not isinstance(payload.get("writeTransaction"), Mapping)
+        ):
+            return None
+        backup_root = manifest_path.parent / "baseline_files"
+        try:
+            restored = restore_write_snapshot(
+                self.repo_root,
+                payload["writeTransaction"],
+                backup_root,
+            )
+            remaining = self._recover_baseline_delta(manifest_path, manifest)
+            if remaining is None:
+                raise WriteTransactionError(
+                    "rollback後の差分を確認できません。"
+                )
+            status = "succeeded" if not remaining else "failed"
+            message = (
+                "検証前の変更を開始前の状態へ戻しました。"
+                if status == "succeeded"
+                else "rollback後も開始前と異なるfileが残っています。"
+            )
+        except (OSError, WriteTransactionError) as exc:
+            restored = []
+            remaining = self._recover_baseline_delta(manifest_path, manifest)
+            status = "failed"
+            message = f"検証前の変更をrollbackできませんでした: {exc}"
+        delta_unknown = remaining is None
+        rollback = {
+            "status": status,
+            "restoredFiles": restored,
+            "remainingChangedFiles": list(remaining or []),
+            "deltaUnknown": delta_unknown,
+            "message": message,
+        }
+        if status == "succeeded":
+            shutil.rmtree(backup_root, ignore_errors=True)
+        return rollback
 
     def _apply_result_receipt(
         self, manifest_path: Path, manifest: dict[str, Any]
@@ -1240,6 +2004,8 @@ class QualificationRunStore:
             and manifest.get("receiptValidated") is not True
             else receipt["status"]
         )
+        if receipt["status"] == "succeeded" and not requires_server_validation:
+            manifest["receiptValidated"] = True
         manifest["result"] = receipt
         manifest["error"] = (
             receipt["summary"] if receipt["status"] == "failed" else None
@@ -1330,7 +2096,6 @@ class QualificationRunStore:
             "summary": "対象工程と検証が完了した。",
             "commands": [{"command": "<実行した検証>", "status": "pass"}],
             "changedFiles": [],
-            "resolvedFailedDeltaPaths": [],
         }
         started_example = {
             "event": "question_started",
@@ -1359,6 +2124,7 @@ class QualificationRunStore:
                 "## 画面用の問題別進捗",
                 "",
                 f"対象IDと工程IDは `{manifest_path}` のprogressTargetsとprogressStagesを使う。",
+                "新規作成又は更新するpatch rowには、manifestのtargetRecordBindingsで対応するsourceRecordRefを保存する。uiQuestionIdをsourceRecordRefの代わりに保存しない。",
                 "stage_completedはpolicyTargetsでその工程の対象になる問題だけに追記する。",
                 f"作業中、次のJSONLへ1イベント1行で追記する: `{progress_path}`",
                 "各行は追記直後に完全なJSONと改行を保存し、既存行は変更しない。",
@@ -1380,9 +2146,9 @@ class QualificationRunStore:
                 "changedFilesには実際の最終差分だけを記載し、result.json自身は含めない。",
                 *(
                     [
-                        "次の未確定差分は内容と検証結果を確認する:",
+                        "次の未確定差分は現在工程の検証対象に含まれる:",
                         *(f"- `{path}`" for path in resolvable_failed_paths),
-                        "変更不要でも正しいと確認できたpathだけをresolvedFailedDeltaPathsへ記載する。",
+                        "解決記録は成功検証後にserverが確定するため、receiptへ申告しない。",
                     ]
                     if resolvable_failed_paths
                     else []
@@ -1452,6 +2218,83 @@ class QualificationRunCoordinator:
             or getattr(workflow, "work_versions", None)
             or QuestionWorkVersionStore(self.repo_root)
         )
+
+    def _technical_log_emitter(
+        self,
+        qualification: str,
+        run_id: str,
+        emit: Callable[[str], None],
+    ) -> Callable[[str], None]:
+        """job表示を保ったまま、指定runにも技術ログを追記する。"""
+
+        log_failure_reported = False
+
+        def append_technical_log(value: Mapping[str, Any]) -> None:
+            nonlocal log_failure_reported
+            try:
+                self.store.append_technical_log(
+                    qualification,
+                    run_id,
+                    value,
+                )
+            except Exception as exc:  # noqa: BLE001
+                if log_failure_reported:
+                    return
+                log_failure_reported = True
+                emit(
+                    "技術ログを保存できませんでした"
+                    f"（{type(exc).__name__}）。整備処理は継続します。"
+                )
+
+        def logged_emit(line: str) -> None:
+            emit(line)
+            append_technical_log({"message": line})
+
+        def logged_event(value: Mapping[str, Any]) -> None:
+            event_emit = getattr(emit, "event", None)
+            if callable(event_emit):
+                event_emit(value)
+            else:
+                emit(str(value.get("message") or ""))
+            append_technical_log(value)
+
+        heartbeat = getattr(emit, "heartbeat", None)
+        if callable(heartbeat):
+            setattr(logged_emit, "heartbeat", heartbeat)
+        setattr(logged_emit, "event", logged_event)
+        run_ids = {
+            str(value)
+            for value in getattr(emit, "technical_run_ids", set())
+            if value
+        }
+        run_ids.add(run_id)
+        setattr(logged_emit, "technical_run_ids", run_ids)
+        return logged_emit
+
+    def _run_with_technical_log(
+        self,
+        qualification: str,
+        run_id: str,
+        emit: Callable[[str], None],
+        worker: Callable[[Callable[[str], None]], dict[str, Any]],
+    ) -> dict[str, Any]:
+        """job表示とrun永続ログへ、同じ安全な技術イベントを流す。"""
+
+        logged_emit = self._technical_log_emitter(
+            qualification,
+            run_id,
+            emit,
+        )
+        try:
+            return worker(logged_emit)
+        except Exception as exc:
+            getattr(logged_emit, "event")(
+                {
+                    "level": "error",
+                    "message": f"job failed: {exc}",
+                }
+            )
+            raise
 
     def preview(
         self,
@@ -1668,10 +2511,15 @@ class QualificationRunCoordinator:
                     job = self.jobs.start(
                         kind="codex-maintenance-flow",
                         key=REPOSITORY_OPERATION_KEY,
-                        worker=lambda emit: self._run_maintenance_flow(
+                        worker=lambda emit: self._run_with_technical_log(
                             qualification,
                             run["runId"],
                             emit,
+                            lambda logged_emit: self._run_maintenance_flow(
+                                qualification,
+                                run["runId"],
+                                logged_emit,
+                            ),
                         ),
                     )
                 except JobConflictError:
@@ -1697,12 +2545,17 @@ class QualificationRunCoordinator:
                 job = self.jobs.start(
                     kind="codex-maintenance",
                     key=REPOSITORY_OPERATION_KEY,
-                    worker=lambda emit: self._run_human(
+                    worker=lambda emit: self._run_with_technical_log(
                         qualification,
                         run["runId"],
-                        saved_prompt,
-                        "maintenance",
                         emit,
+                        lambda logged_emit: self._run_human(
+                            qualification,
+                            run["runId"],
+                            saved_prompt,
+                            "maintenance",
+                            logged_emit,
+                        ),
                     ),
                 )
             except JobConflictError:
@@ -1725,7 +2578,16 @@ class QualificationRunCoordinator:
             job = self.jobs.start(
                 kind="qualification-sync",
                 key=REPOSITORY_OPERATION_KEY,
-                worker=lambda emit: self._run_delivery(plan, run["runId"], emit),
+                worker=lambda emit: self._run_with_technical_log(
+                    qualification,
+                    run["runId"],
+                    emit,
+                    lambda logged_emit: self._run_delivery(
+                        plan,
+                        run["runId"],
+                        logged_emit,
+                    ),
+                ),
             )
         except JobConflictError:
             self.store.update(
@@ -1878,6 +2740,105 @@ class QualificationRunCoordinator:
                 for value in group
             }
         )
+        supplied_bindings = [
+            dict(value)
+            for value in review.get("targetRecordBindings") or []
+            if isinstance(value, Mapping)
+        ]
+        binding_candidates: list[Mapping[str, Any]] = [question]
+        if (
+            review.get("requestKind") == "qualification_law_audit"
+            and not supplied_bindings
+        ):
+            inventory = getattr(self.workflow, "inventory", None)
+            if inventory is None:
+                raise QualificationRunError(
+                    "法令監査のID binding用inventoryがありません。"
+                )
+            binding_candidates = [
+                candidate
+                for group_id in target_group_ids
+                for candidate in (
+                    inventory.group(qualification, str(group_id)).get(
+                        "questions"
+                    )
+                    or []
+                )
+                if isinstance(candidate, Mapping)
+            ]
+        target_record_bindings: list[dict[str, Any]] = []
+        used_supplied_binding_indexes: set[int] = set()
+        for alias_group in target_record_alias_groups:
+            group_aliases = set(alias_group)
+            available = [
+                (index, binding)
+                for index, binding in enumerate(supplied_bindings)
+                if index not in used_supplied_binding_indexes
+            ]
+            exact_source_ref = [
+                (index, binding)
+                for index, binding in available
+                if SourceIdentityBinding.from_mapping(
+                    binding
+                ).source_record_ref
+                in group_aliases
+            ]
+            exact_ui = [
+                (index, binding)
+                for index, binding in available
+                if str(binding.get("uiQuestionId") or "") in group_aliases
+            ]
+            legacy = [
+                (index, binding)
+                for index, binding in available
+                if group_aliases & target_identity_aliases(binding)
+            ]
+            supplied = exact_source_ref or exact_ui or legacy
+            if supplied:
+                if len(supplied) != 1:
+                    raise QualificationRunError(
+                        "対象recordのID bindingが重複しています。"
+                    )
+                supplied_index, supplied_binding = supplied[0]
+                used_supplied_binding_indexes.add(supplied_index)
+                source_binding = SourceIdentityBinding.from_mapping(
+                    supplied_binding
+                )
+                target_record_bindings.append(
+                    {
+                        "uiQuestionId": str(
+                            supplied_binding.get("uiQuestionId") or ""
+                        ),
+                        **source_binding.as_mapping(),
+                        "aliases": list(alias_group),
+                    }
+                )
+                continue
+            matches = [
+                candidate
+                for candidate in binding_candidates
+                if set(alias_group) & self._question_record_aliases(candidate)
+            ]
+            if len(matches) != 1:
+                raise QualificationRunError(
+                    "対象recordのID bindingを一意に作成できません。"
+                )
+            candidate = matches[0]
+            source_binding = SourceIdentityBinding.from_mapping(candidate)
+            target_record_bindings.append(
+                {
+                    "uiQuestionId": str(candidate.get("id") or ""),
+                    **source_binding.as_mapping(),
+                    "aliases": list(alias_group),
+                }
+            )
+        if review.get("requestKind") == "qualification_law_audit" and any(
+            not SourceIdentityBinding.from_mapping(binding).is_complete()
+            for binding in target_record_bindings
+        ):
+            raise QualificationRunError(
+                "法令監査のsource identity 3要素を確認できません。"
+            )
         source_files = (
             sorted(
                 {
@@ -1972,6 +2933,12 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "対象file別のrecord scopeを安全に作成できません。"
             )
+        if review.get("requestKind") == "qualification_law_audit":
+            self._reject_ambiguous_existing_patch_rows(
+                allowed_patch_files,
+                target_record_scopes,
+                target_record_bindings,
+            )
         catalog_loader = getattr(self.workflow, "catalog", None)
         catalog = (
             catalog_loader(qualification)
@@ -2041,6 +3008,7 @@ class QualificationRunCoordinator:
             "sourceFiles": source_files,
             "targetRecordAliases": target_record_aliases,
             "targetRecordAliasGroups": target_record_alias_groups,
+            "targetRecordBindings": target_record_bindings,
             "targetSourceRecordScopes": target_source_record_scopes,
             "targetRecordScopes": target_record_scopes,
             "reviewId": review.get("reviewId"),
@@ -2067,7 +3035,11 @@ class QualificationRunCoordinator:
                 for stage_id in policy_stage_ids
             },
             "policyTargets": {
-                stage_id: list(target_record_aliases)
+                stage_id: [
+                    str(binding.get("uiQuestionId") or "")
+                    for binding in target_record_bindings
+                    if binding.get("uiQuestionId")
+                ]
                 for stage_id in policy_stage_ids
             },
             "allowedPatchDirs": sorted(allowed_patch_dirs),
@@ -2086,12 +3058,17 @@ class QualificationRunCoordinator:
             job = self.jobs.start(
                 kind=f"codex-{work_type}",
                 key=REPOSITORY_OPERATION_KEY,
-                worker=lambda emit: self._run_human(
+                worker=lambda emit: self._run_with_technical_log(
                     qualification,
                     run["runId"],
-                    saved_prompt,
-                    work_type,
                     emit,
+                    lambda logged_emit: self._run_human(
+                        qualification,
+                        run["runId"],
+                        saved_prompt,
+                        work_type,
+                        logged_emit,
+                    ),
                 ),
             )
         except JobConflictError:
@@ -2223,6 +3200,7 @@ class QualificationRunCoordinator:
             question.get("id"),
             question.get("originalQuestionId"),
             question.get("sourceQuestionKey"),
+            question.get("sourceRecordRef"),
         ):
             text = str(value or "").strip()
             if text and not text.startswith(("http://", "https://")):
@@ -2327,6 +3305,80 @@ class QualificationRunCoordinator:
                 "対象問題のpatch fileを安全に特定できません。"
             )
         return {path.as_posix() for path in allowed}
+
+    def _reject_ambiguous_existing_patch_rows(
+        self,
+        patch_files: set[str],
+        record_scopes: Mapping[str, list[list[str]]],
+        raw_bindings: list[Mapping[str, Any]],
+    ) -> None:
+        bindings = [
+            {
+                "identity": SourceIdentityBinding.from_mapping(value),
+                "aliases": {
+                    str(alias)
+                    for alias in [
+                        *(value.get("aliases") or []),
+                        value.get("uiQuestionId"),
+                        *SourceIdentityBinding.from_mapping(value).as_tuple(),
+                    ]
+                    if alias
+                },
+            }
+            for value in raw_bindings
+        ]
+        ambiguous: set[str] = set()
+        for relative in sorted(patch_files):
+            path = self.repo_root / self._maintenance_relative_path(relative)
+            if not path.is_file() or path.suffix.lower() != ".json":
+                continue
+            scope_aliases = {
+                str(alias)
+                for group in record_scopes.get(relative, [])
+                for alias in group
+            }
+            scoped_bindings = [
+                binding
+                for binding in bindings
+                if binding["identity"].source_record_ref in scope_aliases
+            ]
+            if len(scoped_bindings) < 2:
+                continue
+            for entry in _record_snapshot(path):
+                entry_aliases = {str(value) for value in entry.get("aliases") or []}
+                entry_identity = SourceIdentityBinding.from_mapping(
+                    entry.get("identityFields") or {}
+                )
+                candidates = [
+                    binding
+                    for binding in scoped_bindings
+                    if entry_aliases & binding["aliases"]
+                ]
+                if len(candidates) < 2:
+                    continue
+                if entry_identity.source_record_ref:
+                    exact = [
+                        binding
+                        for binding in candidates
+                        if binding["identity"].source_record_ref
+                        == entry_identity.source_record_ref
+                    ]
+                    if len(exact) == 1:
+                        continue
+                scores = [
+                    (len(entry_aliases & binding["aliases"]), binding)
+                    for binding in candidates
+                ]
+                best = max(score for score, _binding in scores)
+                if sum(score == best for score, _binding in scores) > 1:
+                    ambiguous.add(relative)
+                    break
+        if ambiguous:
+            raise QualificationRunError(
+                "既存patch行をsource recordへ一意に対応できません。"
+                "sourceRecordRefの手動確認が必要です: "
+                + ", ".join(sorted(ambiguous))
+            )
 
     def _review_target_group_ids(
         self,
@@ -2755,6 +3807,58 @@ class QualificationRunCoordinator:
                     child = self.store.refresh(qualification, child_run_ids[-1])
                 except Exception:  # noqa: BLE001
                     child = None
+            current = self.store.get(qualification, run_id)
+            if current.get("receiptValidated") is True:
+                current_sync = current.get("artifactSync")
+                current_sync = (
+                    current_sync
+                    if isinstance(current_sync, Mapping)
+                    else {}
+                )
+                artifact_sync = {
+                    "status": "failed",
+                    "groups": list(current_sync.get("groups") or []),
+                    "message": (
+                        "子工程のpatchは検証済みですが、公開用データの"
+                        "自動更新を完了できませんでした。問題詳細又は管理機能から"
+                        "再生成できます。"
+                    ),
+                }
+                result = {
+                    "status": "succeeded",
+                    "summary": "トップ整備のpatchは検証済みです。",
+                    "commands": [
+                        {
+                            "command": (
+                                "workflow: validate child maintenance receipts"
+                            ),
+                            "status": "pass",
+                        }
+                    ],
+                    "changedFiles": [],
+                    "resolvedFailedDeltaPaths": [],
+                }
+                self.store.write_result(qualification, run_id, result)
+                self.store.update(
+                    qualification,
+                    run_id,
+                    status="succeeded",
+                    executionPhase="done",
+                    currentPhaseId=None,
+                    receiptValidated=True,
+                    artifactSync=artifact_sync,
+                    result=result,
+                    error=None,
+                )
+                emit(f"warning: {artifact_sync['message']} ({exc})")
+                return {
+                    "qualification": qualification,
+                    "runId": run_id,
+                    "childRunIds": child_run_ids,
+                    "artifactSync": artifact_sync,
+                    "warning": True,
+                    "message": artifact_sync["message"],
+                }
             if current_phase_id:
                 self._update_flow_phase(
                     qualification,
@@ -2828,17 +3932,28 @@ class QualificationRunCoordinator:
             )
             raise
         message = f"{len(completed)}フォルダのMerge・Convert・upload-readyを確認しました。"
+        artifact_sync = {
+            "status": "succeeded",
+            "groups": [
+                {"listGroupId": group_id, "status": "succeeded"}
+                for group_id in completed
+            ],
+            "message": message,
+        }
         self.store.update(
             qualification,
             run_id,
             status="succeeded",
+            receiptValidated=True,
             completedGroupIds=list(completed),
             result={"message": message},
+            artifactSync=artifact_sync,
         )
         return {
             "qualification": qualification,
             "runId": run_id,
             "completedGroupIds": completed,
+            "artifactSync": artifact_sync,
             "message": message,
         }
 
@@ -2854,14 +3969,45 @@ class QualificationRunCoordinator:
     ) -> dict[str, Any]:
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
+        if run_id not in {
+            str(value)
+            for value in getattr(emit, "technical_run_ids", set())
+            if value
+        }:
+            emit = self._technical_log_emitter(
+                qualification,
+                run_id,
+                emit,
+            )
         created_writable_dirs: list[Path] = []
         filesystem_changed_files: tuple[str, ...] = ()
+        before_files: dict[Path, str] | None = None
         self.store.update(
             qualification,
             run_id,
             status="running",
             startedAt=_now(),
+            heartbeatAt=_now(),
         )
+        run_at_start = self.store.get(qualification, run_id)
+        parent_run_id = str(run_at_start.get("parentRunId") or "")
+
+        def heartbeat() -> None:
+            heartbeat_at = _now()
+            self.store.update(
+                qualification,
+                run_id,
+                heartbeatAt=heartbeat_at,
+            )
+            if parent_run_id:
+                self.store.update(
+                    qualification,
+                    parent_run_id,
+                    heartbeatAt=heartbeat_at,
+                )
+            job_heartbeat = getattr(emit, "heartbeat", None)
+            if callable(job_heartbeat):
+                job_heartbeat()
         try:
             current_run = self.store.get(qualification, run_id)
             target_count = int(current_run.get("targetCount") or 0)
@@ -2874,8 +4020,28 @@ class QualificationRunCoordinator:
             writable_roots, created_writable_dirs = self._maintenance_writable_roots(
                 qualification, run_id
             )
+            scoped_transaction_roots = self._maintenance_transaction_roots(
+                current_run,
+                writable_roots,
+            )
+            transaction_roots = tuple(
+                dict.fromkeys(
+                    [
+                        *scoped_transaction_roots,
+                        *(
+                            self.work_versions.path_for(
+                                qualification, str(list_group_id)
+                            )
+                            for list_group_id in current_run.get(
+                                "targetGroupIds"
+                            )
+                            or []
+                        ),
+                    ]
+                )
+            )
             baseline_path = self.store.write_baseline(
-                qualification, run_id, writable_roots
+                qualification, run_id, transaction_roots
             )
             emit(f"再起動回収用baselineを保存: {baseline_path.relative_to(self.repo_root)}")
             before_files = self._repository_file_fingerprints(
@@ -2921,6 +4087,7 @@ class QualificationRunCoordinator:
                             emit=emit,
                             on_thread_started=on_research_thread_started,
                             on_turn_started=on_research_turn_started,
+                            heartbeat=heartbeat,
                             cwd=Path(research_directory).resolve(),
                         )
                     if research_result.changed_files:
@@ -3018,6 +4185,7 @@ class QualificationRunCoordinator:
                         emit=emit,
                         on_thread_started=on_thread_started,
                         on_turn_started=on_turn_started,
+                        heartbeat=heartbeat,
                         cwd=turn_workspace,
                         writable_roots=writable_roots,
                         completion_probe=completion_probe,
@@ -3110,6 +4278,23 @@ class QualificationRunCoordinator:
                 app_server_changed_files,
                 filesystem_changed_files,
             )
+            self._validate_progress_receipt(qualification, run_id, refreshed)
+            server_resolved_paths = sorted(
+                {
+                    str(value)
+                    for value in refreshed.get("resolvableFailedDeltaPaths") or []
+                }
+            )
+            normalized_result = {
+                **dict(refreshed_result),
+                "resolvedFailedDeltaPaths": server_resolved_paths,
+            }
+            self.store.write_result(
+                qualification,
+                run_id,
+                normalized_result,
+            )
+            refreshed = self.store.refresh(qualification, run_id)
             refreshed = self.store.update(
                 qualification,
                 run_id,
@@ -3134,6 +4319,7 @@ class QualificationRunCoordinator:
                 },
                 error=None,
             )
+            self.store.discard_baseline_backups(qualification, run_id)
             emit("完了receipt・00_source不変・工程バージョンを確認しました。")
             if refreshed.get("allowedPatchDirs") and sync_artifacts:
                 sync_groups = [
@@ -3196,6 +4382,74 @@ class QualificationRunCoordinator:
             original_exc = exc
             error_to_raise: Exception = exc
             current = self.store.refresh(qualification, run_id)
+            if current.get("receiptValidated") is True:
+                current_sync = current.get("artifactSync")
+                current_sync = (
+                    current_sync
+                    if isinstance(current_sync, Mapping)
+                    else {}
+                )
+                artifact_sync = {
+                    "status": "failed",
+                    "groups": list(current_sync.get("groups") or []),
+                    "message": (
+                        "patchは検証済みですが、公開用データの自動更新を"
+                        "完了できませんでした。問題詳細又は管理機能から再生成できます。"
+                    ),
+                }
+                self.store.update(
+                    qualification,
+                    run_id,
+                    status="succeeded",
+                    artifactSync=artifact_sync,
+                    error=None,
+                )
+                return {
+                    "qualification": qualification,
+                    "runId": run_id,
+                    "artifactSync": artifact_sync,
+                    "warning": True,
+                    "message": artifact_sync["message"],
+                }
+
+            pre_rollback_files = filesystem_changed_files
+            rollback = self.store.rollback_baseline(qualification, run_id)
+            rollback_unknown = bool(
+                rollback is not None
+                and rollback.get("deltaUnknown") is True
+            )
+            if rollback is not None:
+                emit(str(rollback.get("message") or ""))
+                if rollback.get("status") == "failed":
+                    error_to_raise = QualificationRunError(
+                        f"{original_exc}; {rollback.get('message')}"
+                    )
+                allowed_roots = self._maintenance_root_candidates(
+                    qualification,
+                    run_id,
+                    current,
+                )
+                outside_transaction = {
+                    self._maintenance_relative_path(value).as_posix()
+                    for value in pre_rollback_files
+                    if not self._maintenance_path_allowed_for_run(
+                        self._maintenance_relative_path(value),
+                        allowed_roots,
+                        current,
+                    )
+                }
+                filesystem_changed_files = tuple(
+                    sorted(
+                        outside_transaction
+                        | {
+                            str(value)
+                            for value in rollback.get(
+                                "remainingChangedFiles"
+                            )
+                            or []
+                        }
+                    )
+                )
             current_result = current.get("result")
             current_result = current_result if isinstance(current_result, Mapping) else {}
             preserve_failed_receipt = bool(
@@ -3246,7 +4500,8 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run_id,
-                status="failed",
+                status="interrupted" if rollback_unknown else "failed",
+                deltaUnknown=rollback_unknown,
                 error=str(error_to_raise),
             )
             if error_to_raise is not original_exc:
@@ -3282,6 +4537,33 @@ class QualificationRunCoordinator:
         if first_failed_command:
             return f"{summary} 最初に失敗した検証: {first_failed_command}"
         return summary
+
+    def _validate_progress_receipt(
+        self,
+        qualification: str,
+        run_id: str,
+        run: Mapping[str, Any],
+    ) -> None:
+        if not run.get("progressTargets"):
+            return
+        progress = self.store.progress(qualification, run_id)
+        if int(progress.get("invalidEventCount") or 0):
+            raise QualificationRunError(
+                "問題別進捗に読み取れない記録があります。"
+            )
+        expected_work = int(run.get("workItemCount") or 0)
+        processed_work = int(progress.get("processedWorkItemCount") or 0)
+        expected_questions = int(run.get("targetCount") or 0)
+        processed_questions = int(progress.get("processedQuestionCount") or 0)
+        if (
+            processed_work != expected_work
+            or processed_questions != expected_questions
+        ):
+            raise QualificationRunError(
+                "問題別進捗と実行契約が一致しません: "
+                f"{processed_questions}/{expected_questions}問・"
+                f"{processed_work}/{expected_work}工程"
+            )
 
     def _record_work_versions(self, run: Mapping[str, Any]) -> dict[str, Any]:
         qualification = str(run["qualification"])
@@ -3344,16 +4626,17 @@ class QualificationRunCoordinator:
             }
             if not target_values:
                 continue
-            selected = [
-                question
-                for question in questions
-                if target_values & self._work_version_aliases(question)
-            ]
+            selected = self._resolve_policy_questions(
+                run,
+                questions,
+                stage_id,
+                target_values,
+            )
             if not selected:
                 raise QualificationRunError(
                     f"工程バージョンの対象問題を解決できません: {stage_id}"
                 )
-            if stage_id == "explanation":
+            if stage_id in {"explanation", "law_audit"}:
                 self._validate_explanation_quality(selected)
             if stage_id == "law_audit":
                 self._validate_law_audit_quality(selected)
@@ -3384,6 +4667,37 @@ class QualificationRunCoordinator:
             ),
             "stages": receipts,
         }
+
+    def _resolve_policy_questions(
+        self,
+        run: Mapping[str, Any],
+        questions: list[Mapping[str, Any]],
+        stage_id: str,
+        target_values: set[str],
+    ) -> list[Mapping[str, Any]]:
+        progress_targets = run.get("progressTargets") or []
+        target_bindings = run.get("targetRecordBindings") or []
+        try:
+            descriptor_resolver = RunTargetIdentityResolver.from_sources(
+                ("progressTargets", progress_targets),
+                ("targetRecordBindings", target_bindings),
+            )
+            question_resolver = RunTargetIdentityResolver.from_sources(
+                ("inventory questions", questions)
+            )
+            selected: dict[str, Mapping[str, Any]] = {}
+            for value in sorted(target_values):
+                query: Any = value
+                if descriptor_resolver.targets:
+                    query = descriptor_resolver.resolve(value)
+                question = question_resolver.resolve(query)
+                selected[question_resolver.official_id(question)] = question
+            return list(selected.values())
+        except RunTargetIdentityError as exc:
+            raise QualificationRunError(
+                f"工程バージョンの対象問題を一意に解決できません: "
+                f"{stage_id} / {exc}"
+            ) from exc
 
     @staticmethod
     def _validate_explanation_quality(
@@ -3593,13 +4907,37 @@ class QualificationRunCoordinator:
                 or "対象問題"
             )
             aliases = self._work_version_aliases(question)
+            expected_review_id = str(
+                question.get("originalQuestionId") or ""
+            ).strip()
+            expected_source_key = str(
+                question.get("sourceQuestionKey") or ""
+            ).strip()
+            expected_source_ref = str(
+                question.get("sourceRecordRef") or ""
+            ).strip()
+            expected_binding = SourceIdentityBinding.from_values(
+                expected_source_key,
+                expected_review_id,
+                expected_source_ref,
+            )
             matches = [
                 (line_number, row)
                 for line_number, row, row_aliases in rows_by_group.get(
                     list_group_id,
                     [],
                 )
-                if aliases & row_aliases
+                if (
+                    (
+                        row.get("schemaVersion") == "law-revision-audit/v2"
+                        and SourceIdentityBinding.from_mapping(row)
+                        == expected_binding
+                    )
+                    or (
+                        row.get("schemaVersion") != "law-revision-audit/v2"
+                        and bool(aliases & row_aliases)
+                    )
+                )
             ]
             if len(matches) != 1:
                 errors.append(
@@ -3615,6 +4953,61 @@ class QualificationRunCoordinator:
                 continue
             used_rows[row_key] = label
 
+            if row.get("schemaVersion") != "law-revision-audit/v2":
+                errors.append(
+                    f"{label}: 監査sidecar.schemaVersionがv2ではありません。"
+                )
+            projected = question.get("projected")
+            source = question.get("source")
+            projected_record = (
+                projected if isinstance(projected, Mapping) else {}
+            )
+            source_record = source if isinstance(source, Mapping) else {}
+            choice_lengths = [
+                len(value)
+                for value in (
+                    source_record.get("choiceTextList"),
+                    source_record.get("correctChoiceText"),
+                    projected_record.get("choiceTextList"),
+                    projected_record.get("correctChoiceText"),
+                )
+                if isinstance(value, list)
+            ]
+            errors.extend(
+                f"{label}: 監査sidecar.{issue}"
+                for issue in law_audit_sidecar_metadata_errors(
+                    dict(row),
+                    expected_choice_count=max(choice_lengths, default=0)
+                    or None,
+                    expected_qualification=qualification,
+                    expected_list_group_id=list_group_id,
+                )
+            )
+            if (
+                not expected_review_id
+                or str(row.get("reviewQuestionId") or "").strip()
+                != expected_review_id
+            ):
+                errors.append(
+                    f"{label}: 監査sidecar.reviewQuestionIdがsource由来IDと一致しません。"
+                )
+            if (
+                not expected_source_key
+                or str(row.get("sourceQuestionKey") or "").strip()
+                != expected_source_key
+            ):
+                errors.append(
+                    f"{label}: 監査sidecar.sourceQuestionKeyが一致しません。"
+                )
+            if (
+                not expected_source_ref
+                or str(row.get("sourceRecordRef") or "").strip()
+                != expected_source_ref
+            ):
+                errors.append(
+                    f"{label}: 監査sidecar.sourceRecordRefが一致しません。"
+                )
+
             if row.get("qualification") != qualification:
                 errors.append(
                     f"{label}: 監査sidecar.qualificationが一致しません。"
@@ -3624,7 +5017,6 @@ class QualificationRunCoordinator:
                     f"{label}: 監査sidecar.listGroupIdが一致しません。"
                 )
 
-            projected = question.get("projected")
             projected_law = (
                 projected.get("isLawRelated")
                 if isinstance(projected, Mapping)
@@ -3782,22 +5174,7 @@ class QualificationRunCoordinator:
 
     @staticmethod
     def _work_version_aliases(question: Mapping[str, Any]) -> set[str]:
-        aliases: set[str] = set()
-        for key in ("source", "projected"):
-            value = question.get(key)
-            if isinstance(value, Mapping):
-                aliases.update(record_identity_aliases(value))
-        aliases.update(
-            str(value)
-            for value in (
-                question.get("id"),
-                question.get("reviewKey"),
-                question.get("sourceQuestionKey"),
-                question.get("originalQuestionId"),
-            )
-            if value
-        )
-        return aliases
+        return target_identity_aliases(question)
 
     def _failed_run_changed_files(
         self,
@@ -3904,6 +5281,44 @@ class QualificationRunCoordinator:
             resolved_roots.append(resolved)
         return tuple(resolved_roots), created
 
+    def _maintenance_transaction_roots(
+        self,
+        run: Mapping[str, Any],
+        writable_roots: tuple[Path, ...],
+    ) -> tuple[Path, ...]:
+        """Prefer exact allowlisted files over whole writable directories."""
+
+        exact_paths = {
+            (self.repo_root / self._maintenance_relative_path(value)).resolve()
+            for value in [
+                *(run.get("allowedPatchFiles") or []),
+                *(run.get("allowedWriteFiles") or []),
+            ]
+        }
+        selected: set[Path] = set()
+        covered: set[Path] = set()
+        for root in (path.resolve() for path in writable_roots):
+            scoped = {
+                path
+                for path in exact_paths
+                if path == root or path.is_relative_to(root)
+            }
+            if scoped:
+                selected.update(scoped)
+                covered.update(scoped)
+            else:
+                selected.add(root)
+        uncovered = exact_paths - covered
+        if uncovered:
+            raise QualificationRunError(
+                "書込transactionのexact fileがwritable root外です: "
+                + ", ".join(
+                    path.relative_to(self.repo_root).as_posix()
+                    for path in sorted(uncovered)
+                )
+            )
+        return tuple(sorted(selected))
+
     def _maintenance_root_candidates(
         self,
         qualification: str,
@@ -3999,15 +5414,9 @@ class QualificationRunCoordinator:
             self._maintenance_relative_path(path)
             for path in result.get("resolvedFailedDeltaPaths") or []
         }
-        resolvable = {
-            self._maintenance_relative_path(path)
-            for path in run.get("resolvableFailedDeltaPaths") or []
-        }
-        unexpected_resolutions = resolved_failed - resolvable
-        if unexpected_resolutions:
+        if resolved_failed:
             raise QualificationRunError(
-                "このrunの開始時に未確定でなかったpathは解決済みにできません: "
-                + ", ".join(str(path) for path in sorted(unexpected_resolutions))
+                "未確定差分の解決記録はserverが確定するため、完了receiptへ指定できません。"
             )
         notified = {
             self._maintenance_relative_path(path)
@@ -4062,15 +5471,6 @@ class QualificationRunCoordinator:
             run_id,
             run,
         )
-        for path in resolved_failed:
-            if self._is_failed_delta_manifest_sentinel(path, qualification):
-                continue
-            if not self._maintenance_path_allowed_for_run(
-                path, allowed_roots, run
-            ):
-                raise QualificationRunError(
-                    f"整備責務外の未確定差分は解決済みにできません: {path}"
-                )
         for path in declared | notified | actual:
             if not self._maintenance_path_allowed_for_run(
                 path, allowed_roots, run
@@ -4111,6 +5511,26 @@ class QualificationRunCoordinator:
         target_aliases.update(
             value for group in target_alias_groups for value in group
         )
+        target_bindings: list[dict[str, Any]] = []
+        for value in run.get("targetRecordBindings") or []:
+            if not isinstance(value, Mapping):
+                continue
+            source_binding = SourceIdentityBinding.from_mapping(value)
+            target_bindings.append(
+                {
+                    "uiQuestionId": str(value.get("uiQuestionId") or ""),
+                    **source_binding.as_mapping(),
+                    "aliases": {
+                        str(alias)
+                        for alias in [
+                            *(value.get("aliases") or []),
+                            value.get("uiQuestionId"),
+                            *source_binding.as_tuple(),
+                        ]
+                        if alias
+                    },
+                }
+            )
         raw_record_scopes = run.get("targetRecordScopes")
         record_scopes = (
             {
@@ -4181,6 +5601,22 @@ class QualificationRunCoordinator:
         def aliases(entry: Mapping[str, Any]) -> set[str]:
             return {str(value) for value in entry.get("aliases") or []}
 
+        def source_aliases(entry: Mapping[str, Any]) -> set[str]:
+            value = entry.get("sourceAliases")
+            return (
+                {str(alias) for alias in value or []}
+                if isinstance(value, list)
+                else aliases(entry)
+            )
+
+        def workflow_aliases(entry: Mapping[str, Any]) -> set[str]:
+            value = entry.get("workflowAliases")
+            return (
+                {str(alias) for alias in value or []}
+                if isinstance(value, list)
+                else set()
+            )
+
         def protected(entry: Mapping[str, Any]) -> dict[str, Any]:
             value = entry.get("protectedFields")
             if not isinstance(value, Mapping):
@@ -4193,6 +5629,10 @@ class QualificationRunCoordinator:
                 raise QualificationRunError("record baselineのID field形式が不正です。")
             return dict(value)
 
+        def contract(entry: Mapping[str, Any]) -> dict[str, Any]:
+            value = entry.get("contractFields")
+            return dict(value) if isinstance(value, Mapping) else {}
+
         def matching(
             entries: list[Any], entry_aliases: set[str]
         ) -> list[Mapping[str, Any]]:
@@ -4204,6 +5644,31 @@ class QualificationRunCoordinator:
                 if isinstance(entry, Mapping)
                 and aliases(entry) & entry_aliases
             ]
+
+        def strongest_matches(
+            entries: list[Any],
+            entry_aliases: set[str],
+            source_ref: str = "",
+        ) -> list[Mapping[str, Any]]:
+            candidates = matching(entries, entry_aliases)
+            if source_ref:
+                exact = [
+                    entry
+                    for entry in candidates
+                    if SourceIdentityBinding.from_mapping(
+                        identity(entry)
+                    ).source_record_ref
+                    == source_ref
+                ]
+                # A supplied sourceRecordRef is an exact scope boundary.  A
+                # shared legacy alias must not fall back to another record.
+                return exact
+            scores = [
+                (len(aliases(entry) & entry_aliases), entry)
+                for entry in candidates
+            ]
+            best_score = max((score for score, _entry in scores), default=0)
+            return [entry for score, entry in scores if score == best_score]
 
         def unambiguous_protected(
             entries: list[Mapping[str, Any]], relative: Path
@@ -4266,13 +5731,168 @@ class QualificationRunCoordinator:
                     f"変更前recordを確認できません: {relative}"
                 )
             after = _record_snapshot(self.repo_root / relative)
+            is_law_audit_sidecar = (
+                relative.parts[:4]
+                == ("output", qualification, "review", "law_revision_audit")
+                and relative.suffix.lower() == ".jsonl"
+            )
+            file_scoped_bindings = [
+                binding
+                for binding in target_bindings
+                if (
+                    not binding.get("sourceRecordRef")
+                    or binding["sourceRecordRef"] in file_target_aliases
+                )
+            ]
 
             for after_entry in after:
                 if not isinstance(after_entry, Mapping):
                     raise QualificationRunError("record baselineの形式が不正です。")
                 entry_aliases = aliases(after_entry)
-                before_matches = matching(before, entry_aliases)
-                source_matches = matching(source_entries, entry_aliases)
+                after_identity = identity(after_entry)
+                entry_source_binding = SourceIdentityBinding.from_mapping(
+                    after_identity
+                )
+                if entry_source_binding.is_complete():
+                    matching_bindings = [
+                        binding
+                        for binding in file_scoped_bindings
+                        if SourceIdentityBinding.from_mapping(binding)
+                        == entry_source_binding
+                    ]
+                    matching_target_groups = [
+                        group
+                        for group in file_target_alias_groups
+                        if matching_bindings
+                        if all(
+                            value in group
+                            for value in entry_source_binding.as_tuple()
+                        )
+                    ]
+                else:
+                    if entry_source_binding.source_record_ref:
+                        matching_bindings = [
+                            binding
+                            for binding in file_scoped_bindings
+                            if SourceIdentityBinding.from_mapping(
+                                binding
+                            ).source_record_ref
+                            == entry_source_binding.source_record_ref
+                        ]
+                    else:
+                        binding_scores = [
+                            (len(entry_aliases & set(binding["aliases"])), binding)
+                            for binding in file_scoped_bindings
+                            if entry_aliases & set(binding["aliases"])
+                        ]
+                        best_score = max(
+                            (score for score, _binding in binding_scores),
+                            default=0,
+                        )
+                        matching_bindings = [
+                            binding
+                            for score, binding in binding_scores
+                            if score == best_score
+                        ]
+                    if len(matching_bindings) == 1 and matching_bindings[0].get(
+                        "sourceRecordRef"
+                    ):
+                        matching_target_groups = [
+                            group
+                            for group in file_target_alias_groups
+                            if matching_bindings[0]["sourceRecordRef"] in group
+                        ]
+                    else:
+                        group_scores = [
+                            (len(entry_aliases & group), group)
+                            for group in file_target_alias_groups
+                            if entry_aliases & group
+                        ]
+                        best_score = max(
+                            (score for score, _group in group_scores),
+                            default=0,
+                        )
+                        matching_target_groups = [
+                            group
+                            for score, group in group_scores
+                            if score == best_score
+                        ]
+                if (
+                    entry_source_binding.is_complete()
+                    and not matching_bindings
+                    and not matching_target_groups
+                ):
+                    # A complete binding that points at another source record
+                    # is non-target even when its two legacy IDs are shared.
+                    continue
+                if len(matching_target_groups) > 1:
+                    raise QualificationRunError(
+                        f"recordが複数の対象問題IDに一致します: {relative}"
+                    )
+                matched_target_group = (
+                    matching_target_groups[0]
+                    if len(matching_target_groups) == 1
+                    else set()
+                )
+                if len(matching_bindings) > 1:
+                    raise QualificationRunError(
+                        f"recordが複数のID bindingに一致します: {relative}"
+                    )
+                matched_binding = (
+                    matching_bindings[0]
+                    if len(matching_bindings) == 1
+                    else None
+                )
+                matched_source_binding = (
+                    SourceIdentityBinding.from_mapping(matched_binding)
+                    if matched_binding is not None
+                    else None
+                )
+                binding_aliases = (
+                    set(matched_binding["aliases"])
+                    if matched_binding is not None
+                    else matched_target_group
+                )
+                before_matches = strongest_matches(
+                    before,
+                    binding_aliases or entry_aliases,
+                    (
+                        matched_source_binding.source_record_ref
+                        if matched_source_binding is not None
+                        else ""
+                    ),
+                )
+                if (
+                    is_law_audit_sidecar
+                    and not before_matches
+                    and matched_source_binding is not None
+                ):
+                    legacy_before_matches = strongest_matches(
+                        before,
+                        binding_aliases or entry_aliases,
+                    )
+                    if len(legacy_before_matches) == 1:
+                        before_matches = legacy_before_matches
+                if matched_source_binding is not None:
+                    source_matches = [
+                        entry
+                        for entry in source_entries
+                        if str(
+                            identity(entry).get("sourceRecordRef") or ""
+                        )
+                        == matched_source_binding.source_record_ref
+                        and str(
+                            identity(entry).get("sourceQuestionKey") or ""
+                        )
+                        == matched_source_binding.source_question_key
+                        and matched_source_binding.review_question_id
+                        in source_aliases(entry)
+                    ]
+                else:
+                    source_matches = matching(
+                        source_entries,
+                        binding_aliases or entry_aliases,
+                    )
                 before_fields = unambiguous_protected(
                     before_matches, relative
                 )
@@ -4280,15 +5900,65 @@ class QualificationRunCoordinator:
                     source_matches, relative
                 )
                 after_fields = protected(after_entry)
+                record_changed = not any(
+                    str(entry.get("hash") or "")
+                    == str(after_entry.get("hash") or "")
+                    for entry in before_matches
+                )
+                if (
+                    not is_law_audit_sidecar
+                    and record_changed
+                    and matched_source_binding is not None
+                    and entry_source_binding.source_record_ref
+                    != matched_source_binding.source_record_ref
+                ):
+                    raise QualificationRunError(
+                        f"更新patch rowにsourceRecordRefがありません: {relative}"
+                    )
                 before_identity = unambiguous_identity(
                     before_matches, relative
                 )
-                after_identity = identity(after_entry)
+                before_schema_versions = {
+                    str(contract(entry).get("schemaVersion") or "")
+                    for entry in before_matches
+                }
                 if before_identity is not None:
                     if after_identity != before_identity:
-                        raise QualificationRunError(
-                            f"既存ID fieldの変更を検出しました: {relative}"
+                        allowed_patch_identity_enrichment = bool(
+                            not is_law_audit_sidecar
+                            and matched_source_binding is not None
+                            and entry_source_binding.source_record_ref
+                            == matched_source_binding.source_record_ref
+                            and (
+                                not entry_source_binding.source_question_key
+                                or entry_source_binding.source_question_key
+                                == matched_source_binding.source_question_key
+                            )
+                            and all(
+                                after_identity.get(field) == value
+                                for field, value in before_identity.items()
+                            )
+                            and set(after_identity) - set(before_identity)
+                            <= {"sourceQuestionKey", "sourceRecordRef"}
                         )
+                        allowed_sidecar_migration = bool(
+                            is_law_audit_sidecar
+                            and matched_source_binding is not None
+                            and before_schema_versions
+                            == {"law-revision-audit/v1"}
+                            and contract(after_entry).get("schemaVersion")
+                            == "law-revision-audit/v2"
+                            and after_identity
+                            == matched_source_binding.as_mapping()
+                            and matched_source_binding.is_complete()
+                        )
+                        if not (
+                            allowed_patch_identity_enrichment
+                            or allowed_sidecar_migration
+                        ):
+                            raise QualificationRunError(
+                                f"既存ID fieldの変更を検出しました: {relative}"
+                            )
                 else:
                     for field, value in after_identity.items():
                         if field == "firestoreQuestionIds":
@@ -4311,27 +5981,48 @@ class QualificationRunCoordinator:
                                 f"新規recordのID fieldが空又は不正です: "
                                 f"{relative} / {field}"
                             )
-                    source_aliases = {
+                    source_bound_aliases = {
                         alias
                         for entry in source_matches
-                        for alias in aliases(entry)
+                        for alias in source_aliases(entry)
                     }
-                    matching_target_groups = [
-                        group
-                        for group in file_target_alias_groups
-                        if entry_aliases & group
-                    ]
-                    if len(matching_target_groups) > 1:
-                        raise QualificationRunError(
-                            f"新規recordが複数の対象問題IDに一致します: {relative}"
-                        )
                     if (
                         len(matching_target_groups) != 1
                         or not source_matches
-                        or not entry_aliases.issubset(source_aliases)
+                        or not entry_aliases.issubset(matched_target_group)
+                        or (
+                            not is_law_audit_sidecar
+                            and (
+                                not source_aliases(after_entry).issubset(
+                                    source_bound_aliases
+                                )
+                                or not workflow_aliases(after_entry).issubset(
+                                    source_bound_aliases
+                                )
+                            )
+                        )
                     ):
                         raise QualificationRunError(
                             f"sourceと異なるID fieldを検出しました: {relative}"
+                        )
+                if is_law_audit_sidecar:
+                    expected_binding = (
+                        matched_source_binding
+                        if matched_source_binding is not None
+                        else SourceIdentityBinding.from_values("", "", "")
+                    )
+                    if (
+                        not expected_binding.is_complete()
+                        or after_identity != expected_binding.as_mapping()
+                    ):
+                        raise QualificationRunError(
+                            f"監査sidecarのsource ID bindingが一致しません: {relative}"
+                        )
+                    if contract(after_entry).get("schemaVersion") != (
+                        "law-revision-audit/v2"
+                    ):
+                        raise QualificationRunError(
+                            f"監査sidecarのschemaVersionがv2ではありません: {relative}"
                         )
                 if before_fields is None and source_fields is None:
                     if after_fields:
@@ -4361,11 +6052,25 @@ class QualificationRunCoordinator:
                             )
 
             def target_count(entries: list[Any], group: set[str]) -> int:
+                source_refs = {
+                    SourceIdentityBinding.from_mapping(binding).source_record_ref
+                    for binding in target_bindings
+                    if SourceIdentityBinding.from_mapping(
+                        binding
+                    ).source_record_ref
+                    in group
+                }
                 return sum(
                     1
-                    for entry in entries
-                    if isinstance(entry, Mapping)
-                    and aliases(entry) & group
+                    for entry in strongest_matches(entries, group)
+                    if not source_refs
+                    or not SourceIdentityBinding.from_mapping(
+                        identity(entry)
+                    ).source_record_ref
+                    or SourceIdentityBinding.from_mapping(
+                        identity(entry)
+                    ).source_record_ref
+                    in source_refs
                 )
 
             for group in file_target_alias_groups:
@@ -4391,7 +6096,20 @@ class QualificationRunCoordinator:
                     entry_aliases = tuple(
                         sorted(str(value) for value in entry.get("aliases") or [])
                     )
-                    if set(entry_aliases) & file_target_aliases:
+                    entry_binding = SourceIdentityBinding.from_mapping(
+                        identity(entry)
+                    )
+                    if entry_binding.is_complete():
+                        is_target = any(
+                            SourceIdentityBinding.from_mapping(binding)
+                            == entry_binding
+                            for binding in file_scoped_bindings
+                        )
+                    else:
+                        is_target = bool(
+                            set(entry_aliases) & file_target_aliases
+                        )
+                    if is_target:
                         continue
                     values.append((entry_aliases, str(entry.get("hash") or "")))
                 return sorted(values)

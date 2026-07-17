@@ -3,6 +3,7 @@ from __future__ import annotations
 import fnmatch
 import hashlib
 import json
+import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -12,6 +13,7 @@ from scripts.merge.merge_utils import (
     select_latest_patch_files,
     source_stem_from_patch_filename,
 )
+from scripts.common.question_identity import SourceIdentityBinding
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.law_audit_contract import LAW_AUDIT_ISSUES
 from tools.question_review_console.prompt_builder import (
@@ -164,6 +166,7 @@ def _target_record_alias_group(question: Mapping[str, Any]) -> list[str]:
         question.get("id"),
         question.get("originalQuestionId"),
         question.get("sourceQuestionKey"),
+        question.get("sourceRecordRef"),
     ):
         text = str(value or "").strip()
         if text and not text.startswith(("http://", "https://")):
@@ -178,14 +181,58 @@ def _progress_target(question: Mapping[str, Any]) -> dict[str, Any]:
         or question.get("reviewKey")
         or question_id
     )
+    source = question.get("source")
+    source = source if isinstance(source, Mapping) else {}
+    section_label = str(
+        source.get("category")
+        or question.get("examLabel")
+        or source.get("sourceSubject")
+        or ""
+    ).strip()
+    question_label = str(question.get("questionLabel") or "").strip()
     return {
         "id": question_id or question_key,
+        "uiQuestionId": question_id or question_key,
         "questionKey": question_key,
+        "sourceQuestionKey": str(question.get("sourceQuestionKey") or ""),
+        "sourceRecordRef": str(question.get("sourceRecordRef") or ""),
+        "reviewQuestionId": str(question.get("originalQuestionId") or ""),
         "listGroupId": str(question.get("listGroupId") or ""),
-        "questionLabel": str(question.get("questionLabel") or ""),
+        "sectionLabel": section_label,
+        "questionLabel": question_label,
+        "displayLabel": " ".join(
+            value for value in (section_label, question_label) if value
+        ),
         "bodyPreview": str(question.get("body") or "")[:240],
         "aliases": _target_record_alias_group(question),
     }
+
+
+def _target_record_binding(target: Mapping[str, Any]) -> dict[str, Any]:
+    identity = SourceIdentityBinding.from_mapping(target)
+    return {
+        "uiQuestionId": str(target.get("uiQuestionId") or ""),
+        **identity.as_mapping(),
+        "aliases": list(target.get("aliases") or []),
+    }
+
+
+def _natural_parts(value: Any) -> tuple[tuple[int, Any], ...]:
+    return tuple(
+        (0, int(part)) if part.isdigit() else (1, part.casefold())
+        for part in re.split(r"(\d+)", str(value or ""))
+        if part
+    )
+
+
+def _progress_sort_key(question: Mapping[str, Any]) -> tuple[Any, ...]:
+    return (
+        _natural_parts(question.get("listGroupId")),
+        _natural_parts(question.get("sourceStem")),
+        int(question.get("sourceIndex") or 0),
+        _natural_parts(question.get("questionLabel")),
+        str(question.get("id") or ""),
+    )
 
 
 class QualificationWorkflow:
@@ -321,6 +368,32 @@ class QualificationWorkflow:
                 detail
                 or "workflow設定の更新を反映するため、問題整備システムを再起動してください。"
             )
+
+    @staticmethod
+    def _artifact_blockers_for_stage(
+        groups: Iterable[Mapping[str, Any]],
+        stage: Mapping[str, Any],
+    ) -> list[Mapping[str, Any]]:
+        stage_id = str(stage.get("id") or "")
+        patch_dirs = {str(stage.get("patchDir") or "")}
+        if stage_id == "law_audit":
+            patch_dirs.update(
+                {
+                    "18_law_context_prepared",
+                    "21_explanationText_added",
+                    "23_correctChoiceText_fixed",
+                }
+            )
+        return [
+            blocker
+            for group in groups
+            for blocker in group.get("artifactResolutionBlockers") or []
+            if isinstance(blocker, Mapping)
+            and (
+                stage_id == "delivery"
+                or str(blocker.get("patchDir") or "") in patch_dirs
+            )
+        ]
 
     def overview(self, qualification: str) -> dict[str, Any]:
         catalog = self.catalog(qualification)
@@ -475,6 +548,35 @@ class QualificationWorkflow:
                 for question in questions
                 if str(question.get("listGroupId") or "") in selected_set
             ]
+        artifact_blockers = self._artifact_blockers_for_stage(
+            groups,
+            definition,
+        )
+        if artifact_blockers:
+            raise ValueError(
+                "source recordへ対応できないartifactがあるため、"
+                "対象工程を開始できません: "
+                + " / ".join(
+                    str(blocker.get("message") or blocker.get("path") or "")
+                    for blocker in artifact_blockers[:3]
+                )
+            )
+        if stage_id == "law_audit":
+            identity_blockers = [
+                blocker
+                for group in groups
+                for blocker in group.get("identityBlockers") or []
+                if isinstance(blocker, Mapping)
+            ]
+            if identity_blockers:
+                raise ValueError(
+                    "現行法監査のsource identityに重複又は欠損があるため、"
+                    "安全に開始できません: "
+                    + " / ".join(
+                        str(blocker.get("message") or blocker.get("code") or "")
+                        for blocker in identity_blockers[:3]
+                    )
+                )
         target_questions: list[Mapping[str, Any]] = []
         output_files: list[str] = []
         target_group_ids: list[str] = []
@@ -635,15 +737,53 @@ class QualificationWorkflow:
                 str(question.get("listGroupId") or self._group_id_from_source(question))
                 for question in target_questions
             )
+        ordered_target_questions = sorted(
+            target_questions,
+            key=_progress_sort_key,
+        )
         target_question_keys = _unique(
-            self._question_key(question) for question in target_questions
+            self._question_key(question) for question in ordered_target_questions
         )
         target_record_alias_groups = [
-            _target_record_alias_group(question) for question in target_questions
+            _target_record_alias_group(question)
+            for question in ordered_target_questions
         ]
         progress_targets = [
-            _progress_target(question) for question in target_questions
+            {
+                **_progress_target(question),
+                "displayOrder": index,
+            }
+            for index, question in enumerate(
+                ordered_target_questions,
+                start=1,
+            )
         ]
+        target_record_bindings = [
+            _target_record_binding(target)
+            for target in progress_targets
+        ]
+        if stage_id == "law_audit":
+            incomplete_bindings = [
+                binding
+                for binding in target_record_bindings
+                if not SourceIdentityBinding.from_mapping(binding).is_complete()
+            ]
+            if incomplete_bindings:
+                raise ValueError(
+                    "現行法監査の対象問題にsource由来のreviewQuestionId又は"
+                    "sourceQuestionKey又はsourceRecordRefがなく、"
+                    "安全に開始できません。"
+                )
+            identity_bindings = [
+                SourceIdentityBinding.from_mapping(binding)
+                for binding in target_record_bindings
+            ]
+            if len(identity_bindings) != len(set(identity_bindings)):
+                raise ValueError(
+                    "現行法監査のsourceQuestionKey/reviewQuestionId/"
+                    "sourceRecordRefの組が重複しているため、"
+                    "安全に開始できません。"
+                )
         if (
             str(definition["kind"]) == "human"
             and stage_id not in {"setup", "category_setup"}
@@ -656,7 +796,7 @@ class QualificationWorkflow:
             aliases for aliases in target_record_alias_groups if aliases
         ]
         target_source_record_scopes: dict[str, list[list[str]]] = {}
-        for question in target_questions:
+        for question in ordered_target_questions:
             aliases = _target_record_alias_group(question)
             source_path = str(question.get("paths", {}).get("source") or "")
             if source_path and aliases:
@@ -718,6 +858,7 @@ class QualificationWorkflow:
             ),
             "targetQuestionKeys": target_question_keys,
             "progressTargets": progress_targets,
+            "targetRecordBindings": target_record_bindings,
             "targetRecordAliasGroups": target_record_alias_groups,
             "targetSourceRecordScopes": target_source_record_scopes,
             "targetGroupIds": target_group_ids,
@@ -842,6 +983,14 @@ class QualificationWorkflow:
                     for plan in aggregate_plans
                     for target in plan.get("progressTargets") or []
                     if target.get("id") or target.get("questionKey")
+                }.values()
+            ),
+            "targetRecordBindings": list(
+                {
+                    str(binding.get("uiQuestionId") or ""): dict(binding)
+                    for plan in aggregate_plans
+                    for binding in plan.get("targetRecordBindings") or []
+                    if binding.get("uiQuestionId")
                 }.values()
             ),
             "targetRecordAliasGroups": [
@@ -1500,6 +1649,29 @@ class QualificationWorkflow:
                             else "in_progress"
                         )
 
+            artifact_blockers = self._artifact_blockers_for_stage(
+                groups,
+                stage,
+            )
+            if artifact_blockers:
+                status = "attention"
+                issue_count += sum(
+                    int(blocker.get("count") or 0)
+                    for blocker in artifact_blockers
+                )
+                output_files = _unique(
+                    [
+                        *output_files,
+                        *(
+                            str(blocker.get("path") or "")
+                            for blocker in artifact_blockers
+                        ),
+                    ]
+                )
+                stage["artifactResolutionBlockers"] = [
+                    dict(blocker) for blocker in artifact_blockers
+                ]
+
             target_files = _unique(
                 str(question.get("paths", {}).get("source") or "")
                 for question in target_questions
@@ -1614,11 +1786,16 @@ class QualificationWorkflow:
                 for stage in ("merge", "convert", "upload")
             )
             for question in questions
-        )
+        ) and not (group.get("artifactResolutionBlockers") or [])
         return {
             "listGroupId": str(group.get("listGroupId") or ""),
             "questionCount": len(questions),
             "issueQuestionCount": issue_count,
             "localReady": local_ready,
+            "artifactResolutionBlockers": [
+                dict(blocker)
+                for blocker in group.get("artifactResolutionBlockers") or []
+                if isinstance(blocker, Mapping)
+            ],
             "maintenanceProgress": dict(maintenance_progress),
         }

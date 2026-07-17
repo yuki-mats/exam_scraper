@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 from typing import Any, Mapping
 
+from tools.question_review_console.workflow_catalog import WorkflowCatalog
+
 
 def unresolved_failed_delta_paths(
     repo_root: Path,
@@ -50,6 +52,11 @@ def _failed_delta_paths(
     unknown_runs: dict[str, Mapping[str, Any]] = {}
     if not root.is_dir():
         return ()
+    patch_stage_by_dir = {
+        str(stage["patchDir"]): str(stage["id"])
+        for stage in WorkflowCatalog(repo_root).load()["stages"]
+        if stage.get("patchDir")
+    }
     for manifest_path in sorted(root.glob("*/manifest.json")):
         try:
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -115,6 +122,7 @@ def _failed_delta_paths(
                                 failed,
                                 manifest,
                                 relative,
+                                patch_stage_by_dir=patch_stage_by_dir,
                             )
                         ]
                         if remaining:
@@ -133,7 +141,12 @@ def _failed_delta_paths(
         for key, failures in states.items()
         if failures
         and all(
-            _success_supersedes_path(failed, resolver, Path(key))
+            _success_supersedes_path(
+                failed,
+                resolver,
+                Path(key),
+                patch_stage_by_dir=patch_stage_by_dir,
+            )
             for failed in failures
         )
     }
@@ -315,6 +328,8 @@ def _success_supersedes_path(
     failed: Mapping[str, Any],
     succeeded: Mapping[str, Any],
     path: Path,
+    *,
+    patch_stage_by_dir: Mapping[str, str],
 ) -> bool:
     """Return whether a success safely resolves one known failed path.
 
@@ -327,8 +342,21 @@ def _success_supersedes_path(
 
     if not _compatible_work_types(failed, succeeded):
         return False
-    if not _responsible_stages(failed).issubset(
-        _responsible_stages(succeeded)
+    if _is_law_audit_sidecar(path) and any(
+        "law_audit" not in _responsible_stages(manifest)
+        for manifest in (failed, succeeded)
+    ):
+        return False
+    if not _responsible_stages_for_path(
+        failed,
+        path,
+        patch_stage_by_dir=patch_stage_by_dir,
+    ).issubset(
+        _responsible_stages_for_path(
+            succeeded,
+            path,
+            patch_stage_by_dir=patch_stage_by_dir,
+        )
     ):
         return False
     if not _has_complete_contract(failed) or not _has_complete_contract(
@@ -384,6 +412,44 @@ def _responsible_stages(manifest: Mapping[str, Any]) -> set[str]:
         for value in manifest.get("stageIds") or [manifest.get("stageId")]
         if value
     }
+
+
+def _responsible_stages_for_path(
+    manifest: Mapping[str, Any],
+    path: Path,
+    *,
+    patch_stage_by_dir: Mapping[str, str],
+) -> set[str]:
+    """Narrow a multi-stage run to the stage that owns one known path."""
+
+    stages = _responsible_stages(manifest)
+    parts = path.parts
+    if _is_law_audit_sidecar(path):
+        return {"law_audit"}
+
+    patch_dir = next((part for part in parts if part in patch_stage_by_dir), "")
+    # 03b may update the 02b, 03, and 02a patch layers.  When a run includes
+    # law_audit, those shared paths must be reverified by law_audit rather than
+    # cleared by an unrelated child stage.
+    if patch_dir in {
+        "18_law_context_prepared",
+        "21_explanationText_added",
+        "23_correctChoiceText_fixed",
+    } and "law_audit" in stages:
+        return {"law_audit"}
+
+    owner = patch_stage_by_dir.get(patch_dir)
+    if owner and owner in stages:
+        return {owner}
+    return stages
+
+
+def _is_law_audit_sidecar(path: Path) -> bool:
+    parts = path.parts
+    return len(parts) >= 5 and parts[2:4] == (
+        "review",
+        "law_revision_audit",
+    )
 
 
 def _compatible_work_types(

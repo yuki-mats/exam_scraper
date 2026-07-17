@@ -6,13 +6,30 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
-from scripts.common.question_identity import review_question_id
+from scripts.common.question_identity import (
+    IdentityCandidateIndex,
+    SourceIdentityBinding,
+    SourceRecordIdentity,
+    review_question_id,
+    resolve_identity_candidates,
+    source_question_key,
+    source_identity_aliases,
+    workflow_identity_aliases,
+)
 from scripts.merge.merge_utils import select_latest_patch_files
-from scripts.merge.patch_views import EXPLANATION_FIELDS, extract_patch_entries
+from scripts.merge.patch_views import (
+    EXPLANATION_FIELDS,
+    PatchArtifactEntry,
+    build_layered_patch_index_from_paths,
+    extract_patch_entries,
+)
 from scripts.merge.question_issue_corrections import (
+    QuestionIssueCorrectionEntry,
+    apply_question_issue_correction_entry,
     apply_question_issue_correction_paths,
+    build_question_issue_correction_index,
 )
 
 
@@ -75,10 +92,7 @@ PROJECTED_COMPARE_FIELDS = tuple(
 )
 
 
-@dataclass(frozen=True)
-class PatchEntry:
-    path: Path
-    entry: dict[str, Any]
+PatchEntry = PatchArtifactEntry
 
 
 @dataclass(frozen=True)
@@ -86,6 +100,10 @@ class ProjectionResult:
     record: dict[str, Any]
     applied_files: tuple[str, ...]
     errors: tuple[str, ...]
+
+
+class IdentityResolutionError(ValueError):
+    pass
 
 
 def load_json(path: Path) -> Any:
@@ -128,30 +146,31 @@ def record_aliases(record: Mapping[str, Any]) -> set[str]:
 
 
 def record_identity_aliases(record: Mapping[str, Any]) -> set[str]:
-    """Return only identifiers suitable for write-scope enforcement."""
+    """Compatibility union for existing record-scope callers.
 
-    aliases: set[str] = set()
-    for field in (
-        "original_question_id",
-        "public_question_id",
-        "originalQuestionId",
-        "questionId",
-        "reviewQuestionId",
-        "review_question_id",
-        "sourceQuestionKey",
-        "source_question_key",
-        "uploadOriginalQuestionId",
-    ):
-        value = record.get(field)
-        if value:
-            aliases.add(str(value))
-    firestore_ids = record.get("firestoreQuestionIds")
-    if isinstance(firestore_ids, list):
-        values = [str(value) for value in firestore_ids if value]
-        aliases.update(values)
-        if values:
-            aliases.add("firestore:" + ",".join(values))
-    return aliases
+    New code should choose ``source_identity_aliases`` or
+    ``workflow_identity_aliases`` according to the artifact being checked.
+    """
+
+    return source_identity_aliases(record) | workflow_identity_aliases(record)
+
+
+def build_identity_candidate_index(
+    candidates: Iterable[Any],
+    *,
+    sources: Iterable[SourceRecordIdentity],
+    record_of: Callable[[Any], Mapping[str, Any]],
+    source_stem_of: Callable[[Any], str],
+    label: str,
+) -> IdentityCandidateIndex:
+    return resolve_identity_candidates(
+        candidates,
+        sources=sources,
+        record_of=record_of,
+        aliases_of=record_aliases,
+        source_stem_of=source_stem_of,
+        label=label,
+    )
 
 
 def extract_records(payload: Any) -> list[dict[str, Any]]:
@@ -165,30 +184,96 @@ def selected_patch_paths(group_dir: Path, subdir: str, tag: str) -> list[Path]:
     return select_latest_patch_files(sorted(patch_dir.glob("*.json")), tag)
 
 
-def build_stage_maps(group_dir: Path) -> dict[str, dict[str, PatchEntry]]:
-    maps: dict[str, dict[str, PatchEntry]] = {}
+def build_stage_maps(
+    group_dir: Path,
+    sources: Iterable[SourceRecordIdentity],
+) -> dict[str, IdentityCandidateIndex]:
+    source_records = tuple(sources)
+    maps: dict[str, IdentityCandidateIndex] = {}
     for stage, subdir, tag in STAGE_SPECS:
-        mapping: dict[str, PatchEntry] = {}
-        for path in selected_patch_paths(group_dir, subdir, tag):
-            for entry in extract_records(load_json(path)):
-                wrapped = PatchEntry(path=path, entry=entry)
-                for alias in record_aliases(entry):
-                    mapping[alias] = wrapped
-        maps[stage] = mapping
+        maps[stage] = build_layered_patch_index_from_paths(
+            selected_patch_paths(group_dir, subdir, tag),
+            patch_tag=tag,
+            sources=source_records,
+            label=f"{stage} patch record",
+        )
     return maps
 
 
+def build_question_issue_index(
+    paths: Iterable[Path],
+    sources: Iterable[SourceRecordIdentity],
+) -> IdentityCandidateIndex:
+    """Resolve correction entries with the same source-binding contract."""
+    return build_question_issue_correction_index(paths, sources)
+
+
 def find_patch_entry(
-    mapping: Mapping[str, PatchEntry], aliases: Iterable[str]
+    mapping: IdentityCandidateIndex | Mapping[
+        str, PatchEntry | Iterable[PatchEntry]
+    ],
+    aliases: Iterable[str],
+    source_binding: SourceIdentityBinding | None = None,
 ) -> PatchEntry | None:
+    if isinstance(mapping, IdentityCandidateIndex):
+        if source_binding is None:
+            raise IdentityResolutionError("patch source bindingがありません。")
+        errors = mapping.errors_by_binding.get(source_binding, ())
+        if errors:
+            raise IdentityResolutionError(" ".join(errors))
+        candidates = mapping.by_binding.get(source_binding, ())
+        if not candidates:
+            return None
+        effective_entry: dict[str, Any] = {}
+        for candidate in candidates:
+            effective_entry.update(
+                {
+                    field: copy.deepcopy(value)
+                    for field, value in candidate.entry.items()
+                    if value is not None
+                }
+            )
+        final_candidate = candidates[len(candidates) - 1]
+        return PatchEntry(
+            path=final_candidate.path,
+            entry=effective_entry,
+            source_stem=final_candidate.source_stem,
+        )
+
+    alias_set = set(aliases)
     matches = {
-        (str(mapping[alias].path), id(mapping[alias].entry)): mapping[alias]
-        for alias in aliases
+        (str(candidate.path), id(candidate.entry)): candidate
+        for alias in alias_set
         if alias in mapping
+        for candidate in (
+            (mapping[alias],)
+            if isinstance(mapping[alias], PatchEntry)
+            else mapping[alias]
+        )
     }
-    if not matches:
-        return None
-    return sorted(matches.values(), key=lambda value: str(value.path))[-1]
+    if len(matches) == 1:
+        return next(iter(matches.values()))
+    if matches:
+        raise IdentityResolutionError("patch recordを一意に選べません。")
+    return None
+
+
+def find_patch_entries(
+    mapping: IdentityCandidateIndex | Mapping[
+        str, PatchEntry | Iterable[PatchEntry]
+    ],
+    aliases: Iterable[str],
+    source_binding: SourceIdentityBinding | None = None,
+) -> tuple[PatchEntry, ...]:
+    if isinstance(mapping, IdentityCandidateIndex):
+        if source_binding is None:
+            raise IdentityResolutionError("patch source bindingがありません。")
+        errors = mapping.errors_by_binding.get(source_binding, ())
+        if errors:
+            raise IdentityResolutionError(" ".join(errors))
+        return tuple(mapping.by_binding.get(source_binding, ()))
+    patch = find_patch_entry(mapping, aliases, source_binding)
+    return (patch,) if patch is not None else ()
 
 
 def _copy_fields(target: dict[str, Any], source: Mapping[str, Any], fields: Iterable[str]) -> None:
@@ -200,12 +285,19 @@ def _copy_fields(target: dict[str, Any], source: Mapping[str, Any], fields: Iter
 def project_record(
     base_record: Mapping[str, Any],
     aliases: set[str],
-    stage_maps: Mapping[str, Mapping[str, PatchEntry]],
-    question_issue_paths: Iterable[Path],
+    stage_maps: Mapping[
+        str,
+        IdentityCandidateIndex
+        | Mapping[str, PatchEntry | Iterable[PatchEntry]],
+    ],
+    question_issue_patches: IdentityCandidateIndex | Iterable[Path],
+    *,
+    source_binding: SourceIdentityBinding | None = None,
+    initial_errors: Iterable[str] = (),
 ) -> ProjectionResult:
     record = copy.deepcopy(dict(base_record))
     applied: list[str] = []
-    errors: list[str] = []
+    errors = list(initial_errors)
     field_sets = {
         "questionType": QUESTION_TYPE_FIELDS,
         "questionIntent": QUESTION_INTENT_FIELDS,
@@ -215,27 +307,68 @@ def project_record(
         "correctChoice": CORRECT_CHOICE_FIELDS,
     }
     for stage, _, _ in STAGE_SPECS:
-        patch = find_patch_entry(stage_maps.get(stage, {}), aliases)
-        if patch is None:
-            continue
-        _copy_fields(record, patch.entry, field_sets[stage])
-        applied.append(str(patch.path))
-
-    wrapper = {"question_bodies": [record]}
-    for path in sorted(question_issue_paths):
         try:
-            updated = apply_question_issue_correction_paths(wrapper, [path])
-        except (RuntimeError, ValueError) as exc:
-            if aliases & _question_issue_aliases(path):
-                errors.append(str(exc))
+            patches = find_patch_entries(
+                stage_maps.get(stage, {}),
+                aliases,
+                source_binding,
+            )
+        except IdentityResolutionError as exc:
+            errors.append(f"{stage}: {exc}")
             continue
-        if updated:
-            applied.append(str(path))
+        for patch in patches:
+            _copy_fields(record, patch.entry, field_sets[stage])
+            applied.append(str(patch.path))
+
+    if isinstance(question_issue_patches, IdentityCandidateIndex):
+        if source_binding is None:
+            errors.append("question issue correction: source bindingがありません。")
+        else:
+            errors.extend(
+                f"question issue correction: {error}"
+                for error in question_issue_patches.errors_by_binding.get(
+                    source_binding, ()
+                )
+            )
+            if source_binding not in question_issue_patches.errors_by_binding:
+                for patch in question_issue_patches.by_binding.get(
+                    source_binding, ()
+                ):
+                    try:
+                        changed = _apply_question_issue_entry(record, patch)
+                    except (RuntimeError, ValueError) as exc:
+                        errors.append(str(exc))
+                        continue
+                    if changed:
+                        applied.append(str(patch.path))
+    else:
+        # Compatibility for direct callers that do not own a source inventory.
+        wrapper = {"question_bodies": [record]}
+        for path in sorted(question_issue_patches):
+            try:
+                updated = apply_question_issue_correction_paths(wrapper, [path])
+            except (RuntimeError, ValueError) as exc:
+                if aliases & _question_issue_aliases(path):
+                    errors.append(str(exc))
+                continue
+            if updated:
+                applied.append(str(path))
 
     return ProjectionResult(
         record=record,
         applied_files=tuple(dict.fromkeys(applied)),
         errors=tuple(errors),
+    )
+
+
+def _apply_question_issue_entry(
+    record: dict[str, Any],
+    patch: QuestionIssueCorrectionEntry,
+) -> bool:
+    return apply_question_issue_correction_entry(
+        record,
+        patch.entry,
+        patch.path,
     )
 
 
@@ -270,26 +403,6 @@ def explanation_prefix_matches(verdict: Any, explanation: Any) -> bool:
     if normalized in {"正しい", "間違い"}:
         return text.startswith(f"{normalized}。")
     return True
-
-
-def source_question_key(
-    qualification: str,
-    list_group_id: str,
-    record: Mapping[str, Any],
-) -> str:
-    existing = str(record.get("sourceQuestionKey") or "").strip()
-    if existing:
-        return existing
-    question_label = str(record.get("questionLabel") or "").strip()
-    number_match = re.search(r"(\d+)", question_label)
-    number = int(number_match.group(1)) if number_match else 0
-    exam_label = str(record.get("examLabel") or "")
-    if qualification in {"gas-shunin-kou", "gas-shunin-otsu"} and number:
-        grade = "kou" if qualification.endswith("-kou") else "otsu"
-        section = "law" if "法令" in exam_label else "question"
-        return f"gas-shunin:{grade}:{list_group_id}:{section}:q{number:02d}"
-    label = question_label or str(record.get("original_question_id") or "question")
-    return f"{qualification}:{list_group_id}:{label}"
 
 
 def review_key(
