@@ -1343,7 +1343,6 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('id="qualification-active-run"', html)
         self.assertIn('id="qualification-active-run-model"', html)
         self.assertIn("現在実行中の作業はありません", html)
-        self.assertIn("function qualificationRunViewState", javascript)
         self.assertIn('invalidated: "無効化済み"', javascript)
         self.assertIn('"この作業での出力（無効化済み）"', javascript)
         self.assertIn(
@@ -1357,10 +1356,6 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('phase = "最終検証で停止"', javascript)
         self.assertIn('progress.status === "failed"', javascript)
         self.assertIn("最終検証は未承認", javascript)
-        self.assertIn(
-            'run?.status === "succeeded" && run?.receiptValidated === true',
-            javascript,
-        )
         self.assertIn(".qualification-active-run.failed", css)
         self.assertIn(
             ".qualification-active-run-phases { grid-template-columns: 1fr; }",

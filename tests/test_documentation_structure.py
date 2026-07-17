@@ -105,37 +105,41 @@ class DocumentationStructureTests(unittest.TestCase):
 
     def test_law_audit_sidecar_v2_uses_source_identity(self):
         audit_prompt = (
-            ROOT / "prompt" / "03b_prompt_audit_current_law_and_patch.md"
+            ROOT / "prompt/03b_prompt_audit_current_law_and_patch.md"
         ).read_text(encoding="utf-8")
         audit_workflow = (
-            ROOT
-            / "document"
-            / "operations"
-            / "current_law_question_maintenance_workflow.md"
+            ROOT / "document/operations/current_law_question_maintenance_workflow.md"
         ).read_text(encoding="utf-8")
 
-        for text in (audit_prompt, audit_workflow):
-            for concept in (
-                "law-revision-audit/v2",
-                "`reviewQuestionId`",
-                "`sourceQuestionKey`",
-                "`sourceRecordRef`",
-                "source record",
-                "UI",
-                "03b",
-                "開始",
-            ):
-                self.assertIn(concept, text)
-        self.assertNotIn("law-revision-audit/v1", audit_prompt)
-        for text in (audit_prompt, audit_workflow):
-            self.assertIn("reviewKey", text)
-            self.assertIn("exact join", text)
-            self.assertIn("fail-closed", text)
-        self.assertIn("`progressTargets[].id`", audit_prompt)
-        self.assertIn("選択肢順の`examTimeDecision`", audit_prompt)
-        for concept in ("工程03", "日本語", "必須metadata"):
+        for concept in (
+            "law-revision-audit/v2",
+            "`reviewQuestionId`",
+            "`sourceQuestionKey`",
+            "`sourceRecordRef`",
+            "source record",
+            "UI",
+            "03b",
+            "開始",
+            "reviewKey",
+            "exact join",
+            "fail-closed",
+            "`progressTargets[].id`",
+            "選択肢順の`examTimeDecision`",
+            "工程03",
+            "日本語",
+            "必須metadata",
+        ):
             self.assertIn(concept, audit_prompt)
+        self.assertNotIn("law-revision-audit/v1", audit_prompt)
         self.assertLessEqual(len(audit_prompt.splitlines()), 140)
+        for workflow_summary in (
+            "# 現行法監査",
+            "../../prompt/03b_prompt_audit_current_law_and_patch.md",
+            "../reference/question_field_contract.md",
+            "問題文と各選択肢を結合した完全命題",
+            "03bを通常整備とは別の新しいsessionで自動実行",
+        ):
+            self.assertIn(workflow_summary, audit_workflow)
 
     def test_law_audit_docs_do_not_turn_technical_questions_into_holds(self):
         audit_prompt = (

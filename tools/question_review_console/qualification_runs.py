@@ -56,6 +56,9 @@ from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
 )
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
+from tools.question_review_console.qualification_progress import (
+    derive_progress_completion,
+)
 from tools.question_review_console.run_target_identity import (
     RunTargetIdentityError,
     RunTargetIdentityResolver,
@@ -958,6 +961,26 @@ class QualificationRunStore:
             self._write_json(path, result)
         return path
 
+    def mark_validated_artifact_sync_incomplete(
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        artifact_status: str,
+        message: str,
+        result_if_missing: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        path = self._manifest_path(qualification, run_id)
+        with self._lock:
+            manifest = self._finalize_validated_artifact_sync_incomplete(
+                path,
+                self._load_manifest(path),
+                artifact_status=artifact_status,
+                message=message,
+                result_if_missing=result_if_missing,
+            )
+            return self._public(manifest)
+
     def result_path(self, qualification: str, run_id: str) -> Path:
         manifest_path = self._manifest_path(qualification, run_id)
         with self._lock:
@@ -1118,9 +1141,6 @@ class QualificationRunStore:
             for target in manifest.get("progressTargets") or []
             if isinstance(target, Mapping) and target.get("id")
         ]
-        touched_questions = {
-            question_id for question_id, _stage_id in processed_work_items
-        } & {str(target["id"]) for target in targets}
         planned_by_question: dict[str, set[str]] = {}
         for stage_id, raw_aliases in (manifest.get("policyTargets") or {}).items():
             question_ids, contract_invalid = resolve_policy_target_ids(
@@ -1131,34 +1151,18 @@ class QualificationRunStore:
                 planned_by_question.setdefault(question_id, set()).add(
                     str(stage_id)
                 )
-        processed_questions: set[str] = set()
-        validated_questions: set[str] = set()
-        for target in targets:
-            question_id = str(target["id"])
-            planned_stages = planned_by_question.get(question_id, set())
-            finalized_stages = {
-                stage_id
-                for current_question_id, stage_id in finalized_work_items
-                if current_question_id == question_id
-            }
-            validated_stages = {
-                stage_id
-                for current_question_id, stage_id in validated_work_items
-                if current_question_id == question_id
-            }
-            if (
-                planned_stages <= finalized_stages
-                and (planned_stages or question_id in finalized_questions)
-            ):
-                processed_questions.add(question_id)
-            if (
-                planned_stages <= validated_stages
-                and (
-                    planned_stages
-                    or question_id in validated_child_questions
-                )
-            ):
-                validated_questions.add(question_id)
+        completion = derive_progress_completion(
+            {str(target["id"]) for target in targets},
+            planned_by_question,
+            processed_work_items,
+            finalized_work_items,
+            finalized_questions,
+            validated_work_items,
+            validated_child_questions,
+        )
+        touched_questions = completion.touched_questions
+        processed_questions = completion.processed_questions
+        validated_questions = completion.validated_questions
         stage_order = {
             str(stage.get("id") or ""): index
             for index, stage in enumerate(manifest.get("progressStages") or [])
@@ -1493,32 +1497,26 @@ class QualificationRunStore:
             for event in events
             if event["event"] == "stage_completed" and event["stageId"]
         }
-        touched_questions = {
-            question_id for question_id, _stage_id in processed_work_items
-        }
         planned_by_question: dict[str, set[str]] = {}
         for question_id, stage_id in planned_work_items or set():
             planned_by_question.setdefault(question_id, set()).add(stage_id)
-        processed_questions = {
-            str(target["id"])
-            for target in targets
-            if str(target["id"]) in declared_completed_questions
-            and (
-                not planned_by_question.get(str(target["id"]))
-                or planned_by_question[str(target["id"])]
-                <= {
-                    str(stage_id)
-                    for question_id, stage_id in processed_work_items
-                    if question_id == str(target["id"])
-                }
-            )
-        }
         verified_run = bool(
             manifest.get("status") == "succeeded"
             and manifest.get("receiptValidated") is True
         )
         validated_work_items = processed_work_items if verified_run else set()
-        validated_questions = processed_questions if verified_run else set()
+        completion = derive_progress_completion(
+            {str(target["id"]) for target in targets},
+            planned_by_question,
+            processed_work_items,
+            processed_work_items,
+            declared_completed_questions,
+            validated_work_items,
+            declared_completed_questions if verified_run else set(),
+        )
+        touched_questions = completion.touched_questions
+        processed_questions = completion.processed_questions
+        validated_questions = completion.validated_questions
         events_by_question: dict[str, list[dict[str, Any]]] = {}
         for event in events:
             events_by_question.setdefault(event["questionId"], []).append(event)
@@ -1715,6 +1713,66 @@ class QualificationRunStore:
     def _manifest_path(self, qualification: str, run_id: str) -> Path:
         return self.root / _safe_segment(qualification) / _safe_segment(run_id) / "manifest.json"
 
+    def _finalize_validated_artifact_sync_incomplete(
+        self,
+        manifest_path: Path,
+        manifest: dict[str, Any],
+        *,
+        artifact_status: str,
+        message: str,
+        result_if_missing: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        if manifest.get("receiptValidated") is not True:
+            raise QualificationRunError(
+                "未検証のpatchをartifactSync失敗から成功へ変更できません。"
+            )
+        if manifest.get("kind") not in {"human", "orchestration"}:
+            raise QualificationRunError(
+                "artifactSync失敗を分離できるrun種別ではありません。"
+            )
+        if artifact_status not in {"failed", "interrupted"}:
+            raise QualificationRunError(
+                "artifactSync未完了のstatusが不正です。"
+            )
+        sync_message = str(message or "").strip()
+        if not sync_message:
+            raise QualificationRunError(
+                "artifactSync未完了の説明がありません。"
+            )
+
+        result = manifest.get("result")
+        if (
+            (not isinstance(result, Mapping) or result.get("status") != "succeeded")
+            and result_if_missing is not None
+        ):
+            result = self._validated_result_receipt(result_if_missing)
+            receipt_path = self._result_path(manifest_path, manifest)
+            self._write_json(receipt_path, result)
+            manifest["result"] = result
+            manifest["resultReceiptHash"] = hashlib.sha256(
+                receipt_path.read_bytes()
+            ).hexdigest()
+
+        current_sync = manifest.get("artifactSync")
+        current_sync = current_sync if isinstance(current_sync, Mapping) else {}
+        now = _now()
+        manifest.update(
+            {
+                "status": "succeeded",
+                "receiptValidated": True,
+                "artifactSync": {
+                    "status": artifact_status,
+                    "groups": copy.deepcopy(list(current_sync.get("groups") or [])),
+                    "message": sync_message,
+                },
+                "error": None,
+                "updatedAt": now,
+                "finishedAt": now,
+            }
+        )
+        self._write_manifest(manifest_path, manifest)
+        return manifest
+
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
             return
@@ -1728,53 +1786,37 @@ class QualificationRunStore:
                     and manifest.get("kind") in {"human", "orchestration"}
                     and manifest.get("receiptValidated") is True
                 ):
-                    artifact_sync = manifest.get("artifactSync")
-                    artifact_sync = (
-                        artifact_sync
-                        if isinstance(artifact_sync, Mapping)
-                        else {}
+                    fallback_result = (
+                        {
+                            "status": "succeeded",
+                            "summary": (
+                                "子工程のpatchは検証済みです。"
+                                "公開用データの同期は再実行が必要です。"
+                            ),
+                            "commands": [
+                                {
+                                    "command": (
+                                        "workflow: validate child maintenance receipts"
+                                    ),
+                                    "status": "pass",
+                                }
+                            ],
+                            "changedFiles": [],
+                            "resolvedFailedDeltaPaths": [],
+                        }
+                        if manifest.get("kind") == "orchestration"
+                        else None
                     )
-                    manifest["status"] = "succeeded"
-                    manifest["artifactSync"] = {
-                        "status": "interrupted",
-                        "groups": list(artifact_sync.get("groups") or []),
-                        "message": (
+                    self._finalize_validated_artifact_sync_incomplete(
+                        path,
+                        manifest,
+                        artifact_status="interrupted",
+                        message=(
                             "公開用データの自動更新中にローカルUIが停止しました。"
                             "問題詳細又は管理機能から再生成できます。"
                         ),
-                    }
-                    if manifest.get("kind") == "orchestration":
-                        result = manifest.get("result")
-                        if not isinstance(result, Mapping) or result.get(
-                            "status"
-                        ) != "succeeded":
-                            result = {
-                                "status": "succeeded",
-                                "summary": (
-                                    "子工程のpatchは検証済みです。"
-                                    "公開用データの同期は再実行が必要です。"
-                                ),
-                                "commands": [
-                                    {
-                                        "command": (
-                                            "workflow: validate child maintenance receipts"
-                                        ),
-                                        "status": "pass",
-                                    }
-                                ],
-                                "changedFiles": [],
-                                "resolvedFailedDeltaPaths": [],
-                            }
-                            receipt_path = self._result_path(path, manifest)
-                            self._write_json(receipt_path, result)
-                            manifest["result"] = result
-                            manifest["resultReceiptHash"] = hashlib.sha256(
-                                receipt_path.read_bytes()
-                            ).hexdigest()
-                    manifest["error"] = None
-                    manifest["updatedAt"] = _now()
-                    manifest["finishedAt"] = manifest["updatedAt"]
-                    self._write_manifest(path, manifest)
+                        result_if_missing=fallback_result,
+                    )
                     continue
                 was_running = manifest.get("status") in {"running", "validating"}
                 changed_files: list[str] | None = None
@@ -3809,21 +3851,11 @@ class QualificationRunCoordinator:
                     child = None
             current = self.store.get(qualification, run_id)
             if current.get("receiptValidated") is True:
-                current_sync = current.get("artifactSync")
-                current_sync = (
-                    current_sync
-                    if isinstance(current_sync, Mapping)
-                    else {}
+                sync_message = (
+                    "子工程のpatchは検証済みですが、公開用データの"
+                    "自動更新を完了できませんでした。問題詳細又は管理機能から"
+                    "再生成できます。"
                 )
-                artifact_sync = {
-                    "status": "failed",
-                    "groups": list(current_sync.get("groups") or []),
-                    "message": (
-                        "子工程のpatchは検証済みですが、公開用データの"
-                        "自動更新を完了できませんでした。問題詳細又は管理機能から"
-                        "再生成できます。"
-                    ),
-                }
                 result = {
                     "status": "succeeded",
                     "summary": "トップ整備のpatchは検証済みです。",
@@ -3838,18 +3870,20 @@ class QualificationRunCoordinator:
                     "changedFiles": [],
                     "resolvedFailedDeltaPaths": [],
                 }
-                self.store.write_result(qualification, run_id, result)
                 self.store.update(
                     qualification,
                     run_id,
-                    status="succeeded",
                     executionPhase="done",
                     currentPhaseId=None,
-                    receiptValidated=True,
-                    artifactSync=artifact_sync,
-                    result=result,
-                    error=None,
                 )
+                completed = self.store.mark_validated_artifact_sync_incomplete(
+                    qualification,
+                    run_id,
+                    artifact_status="failed",
+                    message=sync_message,
+                    result_if_missing=result,
+                )
+                artifact_sync = completed["artifactSync"]
                 emit(f"warning: {artifact_sync['message']} ({exc})")
                 return {
                     "qualification": qualification,
@@ -4383,27 +4417,16 @@ class QualificationRunCoordinator:
             error_to_raise: Exception = exc
             current = self.store.refresh(qualification, run_id)
             if current.get("receiptValidated") is True:
-                current_sync = current.get("artifactSync")
-                current_sync = (
-                    current_sync
-                    if isinstance(current_sync, Mapping)
-                    else {}
-                )
-                artifact_sync = {
-                    "status": "failed",
-                    "groups": list(current_sync.get("groups") or []),
-                    "message": (
+                completed = self.store.mark_validated_artifact_sync_incomplete(
+                    qualification,
+                    run_id,
+                    artifact_status="failed",
+                    message=(
                         "patchは検証済みですが、公開用データの自動更新を"
                         "完了できませんでした。問題詳細又は管理機能から再生成できます。"
                     ),
-                }
-                self.store.update(
-                    qualification,
-                    run_id,
-                    status="succeeded",
-                    artifactSync=artifact_sync,
-                    error=None,
                 )
+                artifact_sync = completed["artifactSync"]
                 return {
                     "qualification": qualification,
                     "runId": run_id,
