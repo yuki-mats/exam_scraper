@@ -1015,6 +1015,24 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("qualificationRunViewState(durableRun, progress)", poller)
         self.assertIn("humanizeQualificationRunError(durableRun.error)", poller)
 
+    def test_running_job_refreshes_dashboard_from_the_same_run_and_progress(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        starter = javascript.split(
+            "async function startQualificationRun", 1
+        )[1].split("function setQualificationRunRunning", 1)[0]
+        poller = javascript.split(
+            "async function pollQualificationRunJob", 1
+        )[1].split("function retryBlockedQualificationRun", 1)[0]
+
+        self.assertIn("state.qualificationActiveRun = result.run", starter)
+        self.assertIn("state.qualificationRunProgress = null", starter)
+        self.assertIn("state.qualificationActiveRun = currentRun", poller)
+        self.assertIn("state.qualificationRunProgress = progress", poller)
+        self.assertIn("renderQualificationActiveRun()", poller)
+
     def test_partial_queue_exposes_failed_question_retry_without_hiding_successes(self):
         root = Path(__file__).resolve().parents[1]
         static = root / "tools" / "question_review_console" / "static"

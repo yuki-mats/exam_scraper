@@ -2308,6 +2308,14 @@ async function startQualificationRun(event) {
       },
     });
     if (!result.job) throw new Error("Codex App Serverのjobを開始できませんでした。");
+    state.qualificationActiveRun = result.run;
+    state.qualificationActiveJob = result.job;
+    state.qualificationRunProgress = null;
+    state.qualificationRuns = [
+      result.run,
+      ...state.qualificationRuns.filter((item) => item.runId !== result.run.runId),
+    ];
+    renderQualificationActiveRun();
     await pollQualificationRunJob(result.job.jobId, result.run);
   } catch (error) {
     setQualificationRunRunning(false);
@@ -2847,6 +2855,13 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
       status: job.status === "running" ? progress?.status || run?.status || "running" : job.status,
       error: job.error || run?.error || null,
     };
+    run = currentRun;
+    state.qualificationActiveRun = currentRun;
+    state.qualificationActiveJob = job;
+    if (progress?.runId === currentRun.runId) {
+      state.qualificationRunProgress = progress;
+    }
+    renderQualificationActiveRun();
     const view = qualificationRunViewState(currentRun, progress);
     $("#qualification-run-job-status").textContent = view.phase;
     setQualificationRunStatusDetail(
