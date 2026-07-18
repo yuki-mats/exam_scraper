@@ -279,13 +279,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             jobs = JobManager()
             synchronizer = FakeSynchronizer()
             synchronizer.local_ready = False
-            original_merge = synchronizer.refresh_merged_views
-
-            def refresh_merged_views(qualification, list_group_id, emit):
-                events.append("merge")
-                return original_merge(qualification, list_group_id, emit)
-
-            synchronizer.refresh_merged_views = refresh_merged_views
             original_sync = synchronizer.run
 
             def run_sync(qualification, list_group_id, token, emit, *, force=False):
@@ -350,7 +343,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 "maintenance_law_audit",
             ],
         )
-        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(
             events,
@@ -796,7 +788,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             [kwargs["work_type"] for _, kwargs in app_server.calls],
             ["maintenance_prepare_law_audit", "maintenance_law_audit"],
         )
-        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_top_maintenance_blocks_only_failed_question_stage(self):
@@ -846,7 +837,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         )
         self.assertEqual(len(run["childRunIds"]), 2)
         self.assertEqual(len(app_server.calls), 4)
-        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
         self.assertEqual(run["blockedQuestionCount"], 1)
@@ -1061,7 +1051,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         )
         self.assertEqual(app_server.max_active_preparations, 2)
         self.assertEqual(app_server.max_active_writers, 1)
-        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_child_changed_files_activate_initially_inapplicable_later_stage(self):
@@ -1352,7 +1341,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(first_summary["blockedWorkItemCount"], 1)
         self.assertEqual(first_app_server.max_active_writers, 1)
         self.assertLessEqual(first_app_server.max_active_preparations, 2)
-        self.assertEqual(first_synchronizer.merge_calls, [])
         self.assertEqual(first_synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(first_phase_plan_calls, 2)
         self.assertEqual(retry_preview["targetCount"], 1)
@@ -1361,7 +1349,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(retry_run["queueStatus"], "succeeded")
         self.assertEqual(retry_run["questionExecutionSummary"]["workItemCount"], 1)
         self.assertEqual(retry_app_server.successful_writes, [failed_item])
-        self.assertEqual(retry_synchronizer.merge_calls, [])
         self.assertEqual(retry_synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(retry_phase_plan_calls, 1)
         successful = Counter(
@@ -1465,10 +1452,9 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(run["scopeListGroupIds"], preview["scopeListGroupIds"])
         self.assertEqual(run["targetCount"], preview["targetCount"])
         self.assertEqual(run["workItemCount"], preview["workItemCount"])
-        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
-    def test_human_run_persists_prompt_and_can_resume_after_restart(self):
+    def test_human_run_persists_prompt_after_restart(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             workflow = FakeWorkflow()
@@ -1491,7 +1477,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 "secret",
             )
             recent = restarted.recent("sample")
-            resumed = restarted.resume_prompt(
+            saved_prompt = restarted.store.prompt(
                 "sample", started["run"]["runId"]
             )
 
@@ -1499,7 +1485,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertIsNone(started["job"])
         self.assertIsNone(recent["activeRun"])
         self.assertEqual(recent["runs"][0]["runId"], started["run"]["runId"])
-        self.assertIn("資格単位の問題整備", resumed["prompt"])
+        self.assertIn("資格単位の問題整備", saved_prompt)
 
     def test_human_run_converges_after_valid_result_receipt(self):
         with tempfile.TemporaryDirectory() as directory:

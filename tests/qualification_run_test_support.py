@@ -60,7 +60,6 @@ class FakeWorkflow:
 class FakeSynchronizer:
     def __init__(self):
         self.calls = []
-        self.merge_calls = []
         self.local_ready = True
         self.can_sync = True
 
@@ -80,16 +79,6 @@ class FakeSynchronizer:
         self.local_ready = True
         emit(f"{list_group_id}: 完了")
         return {"message": "同期しました。"}
-
-    def refresh_merged_views(self, qualification, list_group_id, emit):
-        self.merge_calls.append((qualification, list_group_id))
-        emit(f"{list_group_id}: 工程間merge完了")
-        return {
-            "listGroupId": list_group_id,
-            "status": "succeeded",
-            "message": "次工程用のmergeを完了しました。",
-        }
-
 
 def _write_completed_progress(prompt: str) -> None:
     manifest_line = next(

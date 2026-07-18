@@ -601,18 +601,10 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(reviews.request["evaluationSnapshot"]["resultHash"], "result-hash")
         self.assertEqual(runs.review["prompt"], "rework prompt")
 
-    def test_serves_qualification_workflow_and_stage_prompt(self):
+    def test_serves_qualification_workflow(self):
         class Workflow:
             def overview(self, qualification):
                 return {"qualification": qualification, "nextStageId": "question_type"}
-
-            def prompt(self, qualification, stage_id, mode="remaining"):
-                return {
-                    "qualification": qualification,
-                    "stageId": stage_id,
-                    "mode": mode,
-                    "prompt": "依頼",
-                }
 
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
@@ -620,17 +612,11 @@ class QuestionReviewServerTests(unittest.TestCase):
             get_status, overview = app.get(
                 "/api/qualification-workflow", {"qualification": ["sample"]}
             )
-            post_status, prompt = app.post(
-                "/api/qualification-workflow/prompt",
-                {"qualification": "sample", "stageId": "question_type"},
-            )
 
         self.assertEqual(get_status, 200)
         self.assertEqual(overview["nextStageId"], "question_type")
-        self.assertEqual(post_status, 200)
-        self.assertEqual(prompt["prompt"], "依頼")
 
-    def test_previews_starts_and_resumes_qualification_run(self):
+    def test_previews_and_starts_qualification_run(self):
         class Runs:
             def preview(
                 self,
@@ -668,9 +654,6 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "job": None,
                 }
 
-            def resume_prompt(self, qualification, run_id):
-                return {"run": {"runId": run_id}, "prompt": "依頼"}
-
             def recent(self, qualification):
                 return {"qualification": qualification, "runs": []}
 
@@ -690,7 +673,6 @@ class QuestionReviewServerTests(unittest.TestCase):
                 "/api/qualification-runs/preview",
                 {
                     "qualification": "sample",
-                    "stageId": "law_audit",
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
                     "mode": "attention",
@@ -700,16 +682,11 @@ class QuestionReviewServerTests(unittest.TestCase):
                 "/api/qualification-runs/start",
                 {
                     "qualification": "sample",
-                    "stageId": "law_audit",
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
                     "mode": "attention",
                     "previewToken": "token",
                 },
-            )
-            _, resumed = app.post(
-                "/api/qualification-runs/resume-prompt",
-                {"qualification": "sample", "runId": "run-1"},
             )
             _, recent = app.get(
                 "/api/qualification-runs", {"qualification": ["sample"]}
@@ -730,7 +707,6 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(runs.scope, ["2024", "2026"])
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
-        self.assertEqual(resumed["prompt"], "依頼")
         self.assertEqual(recent["qualification"], "sample")
         self.assertEqual(progress["runId"], "run-1")
         self.assertEqual(progress["completedQuestionCount"], 3)
@@ -738,6 +714,26 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(progress["questions"], [])
         self.assertTrue(detailed_progress["questionsIncluded"])
         self.assertEqual(detailed_progress["questions"], [{"questionId": "q1"}])
+
+    def test_qualification_run_rejects_legacy_singular_scope(self):
+        cases = (
+            {"stageId": "law_audit", "listGroupIds": ["2026"]},
+            {"stageIds": ["law_audit"], "listGroupId": "2026"},
+        )
+        for legacy_scope in cases:
+            with (
+                self.subTest(legacy_scope=legacy_scope),
+                tempfile.TemporaryDirectory() as directory,
+                self.assertRaises(ApiError) as caught,
+            ):
+                app = QuestionReviewApplication(Path(directory))
+                app.post(
+                    "/api/qualification-runs/preview",
+                    {"qualification": "sample", **legacy_scope},
+                )
+
+            self.assertEqual(caught.exception.status, 422)
+            self.assertIn("stageIdsとlistGroupIds", str(caught.exception))
 
     def test_bulk_law_audit_post_adds_all_qualification_target_files(self):
         class Inventory:

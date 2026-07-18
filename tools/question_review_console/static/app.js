@@ -2127,7 +2127,6 @@ async function previewQualificationRun() {
       signal: controller.signal,
       body: {
         qualification: workflow.qualification,
-        stageId,
         stageIds,
         mode: selectedQualificationRunMode(),
         listGroupIds: supportsScope ? listGroupIds : undefined,
@@ -2240,7 +2239,6 @@ async function startQualificationRun(event) {
       method: "POST",
       body: {
         qualification: preview.qualification,
-        stageId: preview.stageId,
         stageIds: preview.stageIds,
         mode: preview.mode,
         listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
@@ -2292,12 +2290,6 @@ function setQualificationRunRunning(running) {
   for (const node of $("#qualification-run-dialog").querySelectorAll(".run-group-actions button")) {
     node.disabled = running;
   }
-}
-
-function qualificationRunResumeGroupIds(run) {
-  if (run.scopeListGroupIds?.length) return run.scopeListGroupIds;
-  if (run.scopeListGroupId) return [run.scopeListGroupId];
-  return qualificationRunGroupIds();
 }
 
 const PROGRESS_RESULT_FIELDS = [

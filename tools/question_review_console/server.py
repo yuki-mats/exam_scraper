@@ -497,49 +497,9 @@ class QuestionReviewApplication:
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
 
     def post(self, path: str, body: Mapping[str, Any]) -> tuple[int, Any]:
-        if path == "/api/qualification-workflow/prompt":
-            qualification = str(body.get("qualification") or "")
-            stage_id = str(body.get("stageId") or "")
-            raw_stage_ids = body.get("stageIds")
-            if raw_stage_ids is not None and (
-                not isinstance(raw_stage_ids, list)
-                or not all(isinstance(value, str) and value for value in raw_stage_ids)
-            ):
-                raise ApiError(HTTPStatus.BAD_REQUEST, "stageIdsは文字列配列で指定してください。")
-            stage_ids = list(dict.fromkeys(raw_stage_ids or ([stage_id] if stage_id else [])))
-            list_group_ids = _body_string_list(body, "listGroupIds")
-            if not qualification or not stage_ids:
-                raise ApiError(
-                    HTTPStatus.BAD_REQUEST,
-                    "qualificationとstageId又はstageIdsを指定してください。",
-                )
-            try:
-                mode = str(body.get("mode") or "remaining")
-                list_group_id = str(body.get("listGroupId") or "") or None
-                scope = {}
-                if list_group_ids is not None:
-                    scope["list_group_ids"] = list_group_ids
-                elif list_group_id is not None:
-                    scope["list_group_id"] = list_group_id
-                if raw_stage_ids is None and not scope:
-                    return HTTPStatus.OK, self.qualification_workflow.prompt(
-                        qualification, stage_ids[0], mode
-                    )
-                return HTTPStatus.OK, self.qualification_workflow.prompt_many(
-                    qualification,
-                    stage_ids,
-                    mode,
-                    **scope,
-                )
-            except FileNotFoundError as exc:
-                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
-            except ValueError as exc:
-                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
-
         if path in {
             "/api/qualification-runs/preview",
             "/api/qualification-runs/start",
-            "/api/qualification-runs/resume-prompt",
         }:
             qualification = str(body.get("qualification") or "")
             if not qualification:
@@ -547,40 +507,30 @@ class QuestionReviewApplication:
                     HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
                 )
             try:
-                if path.endswith("/resume-prompt"):
-                    run_id = str(body.get("runId") or "")
-                    if not run_id:
-                        raise ValueError("runIdを指定してください。")
-                    return HTTPStatus.OK, self.qualification_runs.resume_prompt(
-                        qualification, run_id
+                if "stageId" in body or "listGroupId" in body:
+                    raise ValueError(
+                        "stageIdsとlistGroupIdsの配列で指定してください。"
                     )
-                stage_id = str(body.get("stageId") or "")
                 raw_stage_ids = body.get("stageIds")
-                if raw_stage_ids is not None and (
+                if (
                     not isinstance(raw_stage_ids, list)
                     or not all(
                         isinstance(value, str) and value for value in raw_stage_ids
                     )
                 ):
                     raise ValueError("stageIdsは文字列配列で指定してください。")
-                stage_ids = list(
-                    dict.fromkeys(raw_stage_ids or ([stage_id] if stage_id else []))
-                )
+                stage_ids = list(dict.fromkeys(raw_stage_ids))
                 list_group_ids = _body_string_list(body, "listGroupIds")
                 mode = str(body.get("mode") or "remaining")
                 if not stage_ids:
-                    raise ValueError("stageId又はstageIdsを指定してください。")
-                stage_id = stage_id or stage_ids[0]
-                list_group_id = str(body.get("listGroupId") or "") or None
+                    raise ValueError("stageIdsを一つ以上指定してください。")
+                stage_id = stage_ids[0]
                 run_options = {
+                    "stage_ids": stage_ids,
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
-                if raw_stage_ids is not None:
-                    run_options["stage_ids"] = stage_ids
                 if list_group_ids is not None:
                     run_options["list_group_ids"] = list_group_ids
-                elif list_group_id is not None:
-                    run_options["list_group_id"] = list_group_id
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, self.qualification_runs.preview(
                         qualification,

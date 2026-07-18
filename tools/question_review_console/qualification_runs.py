@@ -921,9 +921,6 @@ class QualificationRunStore:
             "parentRunId": plan.get("parentRunId"),
             "flowPhaseId": plan.get("flowPhaseId"),
             "phaseIndex": plan.get("phaseIndex"),
-            "maintenancePhases": copy.deepcopy(
-                list(plan.get("maintenancePhases") or [])
-            ),
             "phaseExecutions": copy.deepcopy(
                 list(plan.get("phaseExecutions") or [])
             ),
@@ -1025,7 +1022,6 @@ class QualificationRunStore:
             "resumeWorkItemKeys": sorted(
                 {str(value) for value in plan.get("resumeWorkItemKeys") or [] if value}
             ),
-            "resumeMergeDependencies": [],
             "parentSourceChecked": bool(plan.get("parentSourceChecked")),
             "createdAt": now,
             "startedAt": None,
@@ -3160,7 +3156,6 @@ class QualificationRunCoordinator:
         mode: str,
         *,
         stage_ids: list[str] | None = None,
-        list_group_id: str | None = None,
         list_group_ids: list[str] | None = None,
         resumed_from: str | None = None,
     ) -> dict[str, Any]:
@@ -3170,7 +3165,6 @@ class QualificationRunCoordinator:
             mode,
             resumed_from,
             stage_ids=stage_ids,
-            list_group_id=list_group_id,
             list_group_ids=list_group_ids,
         )
         group_previews: list[dict[str, Any]] = []
@@ -3240,7 +3234,6 @@ class QualificationRunCoordinator:
         preview_token: str,
         *,
         stage_ids: list[str] | None = None,
-        list_group_id: str | None = None,
         list_group_ids: list[str] | None = None,
         resumed_from: str | None = None,
     ) -> dict[str, Any]:
@@ -3249,7 +3242,6 @@ class QualificationRunCoordinator:
             stage_id,
             mode,
             stage_ids=stage_ids,
-            list_group_id=list_group_id,
             list_group_ids=list_group_ids,
             resumed_from=resumed_from,
         )
@@ -3274,7 +3266,6 @@ class QualificationRunCoordinator:
             mode,
             resumed_from,
             stage_ids=stage_ids,
-            list_group_id=list_group_id,
             list_group_ids=list_group_ids,
         )
         if plan["kind"] == "human":
@@ -3282,8 +3273,6 @@ class QualificationRunCoordinator:
             prompt_scope = {}
             if list_group_ids is not None:
                 prompt_scope["list_group_ids"] = list_group_ids
-            elif list_group_id is not None:
-                prompt_scope["list_group_id"] = list_group_id
             if len(selected_stage_ids) > 1:
                 prompt = self.workflow.prompt_many(
                     qualification,
@@ -3360,7 +3349,6 @@ class QualificationRunCoordinator:
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "parallelStrategy": "per_question_preparation",
-                    "maintenancePhases": maintenance_phases,
                     "phaseExecutions": phase_executions,
                     "currentPhaseId": None,
                     "childRunIds": [],
@@ -3499,10 +3487,6 @@ class QualificationRunCoordinator:
         if str(run.get("qualification") or "") != qualification:
             raise QualificationRunError("対象資格と作業履歴が一致しません。")
         return self.store.technical_log(qualification, run_id)
-
-    def resume_prompt(self, qualification: str, run_id: str) -> dict[str, Any]:
-        run = self.store.get(qualification, run_id)
-        return {"run": run, "prompt": self.store.prompt(qualification, run_id)}
 
     def start_review(
         self,
@@ -4788,16 +4772,30 @@ class QualificationRunCoordinator:
     ) -> bool:
         child_ids = [str(value) for value in stage.get("childRunIds") or [] if value]
         if not child_ids:
-            # Recovered legacy manifests do not always carry the child link.
-            return True
+            return False
         for child_id in child_ids:
             try:
                 child = self.store.get(qualification, child_id)
             except (FileNotFoundError, ValueError):
-                return True
+                continue
             result = child.get("result")
-            if isinstance(result, Mapping) and any(
-                str(value).strip() for value in result.get("changedFiles") or []
+            changed_files = (
+                result.get("changedFiles")
+                if isinstance(result, Mapping)
+                else None
+            )
+            if (
+                child.get("status") == "succeeded"
+                and child.get("receiptValidated") is True
+                and child.get("deltaUnknown") is not True
+                and isinstance(child.get("workVersionReceipt"), Mapping)
+                and isinstance(result, Mapping)
+                and result.get("status") == "succeeded"
+                and isinstance(changed_files, list)
+                and any(
+                    isinstance(value, str) and value.strip()
+                    for value in changed_files
+                )
             ):
                 return True
         return False
@@ -8687,15 +8685,12 @@ class QualificationRunCoordinator:
         resumed_from: str | None,
         *,
         stage_ids: list[str] | None = None,
-        list_group_id: str | None = None,
         list_group_ids: list[str] | None = None,
     ) -> dict[str, Any]:
         selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
         scope: dict[str, Any] = {}
         if list_group_ids is not None:
             scope["list_group_ids"] = list_group_ids
-        elif list_group_id is not None:
-            scope["list_group_id"] = list_group_id
         if len(selected_stage_ids) > 1:
             plan = dict(
                 self.workflow.plan_many(
@@ -8768,10 +8763,6 @@ class QualificationRunCoordinator:
                     and str(stage_plan.get("stageId") or "")
                     not in completed_scope_stage_ids
                 ]
-            # New per-question runs read the same logical source+patch projection
-            # as physical Merge, so old phase-level remerge dependencies are not
-            # part of the resume contract.
-            plan["resumeMergeDependencies"] = []
             plan["confirmedGroupIds"] = sorted(
                 {
                     str(value)
