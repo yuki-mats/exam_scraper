@@ -1008,6 +1008,17 @@
       }
     ]
   },
+  "aws-cloud-practitioner": {
+    "scraper_type": "pingt",
+    "qualification_name": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "list_first_page_url_template": "https://mondai.ping-t.com/question_subjects/{list_group_id}/questions",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "76",
+        "output_list_group_id": "ping-t-aws-clf-c02"
+      }
+    ]
+  },
   "nw": {
     "scraper_type": "sgsiken",
     "qualification_name": "ネットワークスペシャリスト",

@@ -1,0 +1,44 @@
+{
+  "result": "done",
+  "changed_files": [
+    "scrape_pingt.py",
+    "scripts/scrape/pingt.py",
+    "scripts/scrape/run_qualification_scrape.py",
+    "scripts/scrape/common.py",
+    "config/scrape_presets.json",
+    "document/sources/README.md",
+    "document/sources/ping-t/ping-t_source_contract.md",
+    "document/operations/scraping_workflow.md",
+    "tests/test_scrape_pingt.py",
+    "tests/test_scrape_presets.py",
+    "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source/",
+    "output/aws-cloud-practitioner/question_images/ping-t-aws-clf-c02/",
+    "output/aws-cloud-practitioner/reports/pingt_subject_76_scrape_result.json",
+    "document/temporary/audits/20260718_pingt_aws_clf_c02_scrape_verification.md",
+    "docs/contracts/00_source_sha256_manifest.jsonl"
+  ],
+  "commands": [
+    {
+      "cmd": "python3 -m unittest tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability",
+      "status": "pass"
+    },
+    {
+      "cmd": "python3 -m unittest tests.test_scrape_identity_keys tests.test_scrape_presets tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure",
+      "status": "pass"
+    },
+    {
+      "cmd": "python3 scripts/check/check_00_source_immutability.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "PINGT_BROWSER_EXPORT_PATH=/tmp/pingt_subject_76_browser_export.json python3 scripts/scrape/run_qualification_scrape.py aws-cloud-practitioner ping-t-aws-clf-c02",
+      "status": "pass"
+    },
+    {
+      "cmd": "547問の一覧・browser export・00_source ID集合、必須内容、正答範囲、189画像、認証field不在、examYear不在の全件監査",
+      "status": "pass"
+    }
+  ],
+  "summary": "Ping-tをpreset駆動の資格非依存site adapterとして追加し、AWS CLF-C02 subject 76の547問と189画像を1問1ファイルの00_sourceへ保存した。一覧・export・sourceのID集合一致、重複0、全件内容検査、examYear不在、再実行new=0、source hash不変を監査で証明した。",
+  "harness": "codex"
+}

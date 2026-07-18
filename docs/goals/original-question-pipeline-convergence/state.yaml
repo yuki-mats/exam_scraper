@@ -4,12 +4,12 @@ goal:
   title: "Original Question Pipeline Convergence"
   slug: "original-question-pipeline-convergence"
   kind: existing_plan
-  tranche: "既存の設計判断を維持し、独自問題の05から公開artifactまでと公式過去問回帰を連続して実装・検証する。"
+  tranche: "既存の設計判断を維持し、再利用可能なPing-t取得、独自問題の05から公開artifactまで、公式過去問回帰を連続して実装・検証する。"
   status: active
   oracle:
-    signal: "独自問題fixtureのend-to-end成功、公式過去問回帰成功、repo内SSOT・設定・READMEの意味整合監査成功"
+    signal: "Ping-t CLF-C02 547問の一覧集合一致と再実行no-op、独自問題fixtureのend-to-end成功、公式過去問回帰成功、repo内SSOT・設定・READMEの意味整合監査成功"
     cadence: "各Worker package後と最終監査時"
-    final_proof: "targeted/full test結果、独自問題upload artifact検査、公式過去問artifact回帰、semantic docs audit、最終Judge receipt"
+    final_proof: "Ping-t取得manifestと547 ID集合一致、00_source hash不変、targeted/full test結果、独自問題upload artifact検査、公式過去問artifact回帰、semantic docs audit、最終Judge receipt"
   intake:
     original_request: "全てのドキュメントや実装、仕様、仕組みを整備し、整合性をあるべき品質へそろえてほしい。"
     interpreted_outcome: "サイト取得問題を暗記プラス独自問題へ変換し、既存公式過去問と共存したままレビュー・検証・公開準備まで通せる一貫した仕組みにする。"
@@ -32,6 +32,7 @@ goal:
       - "取得元1問から原則1問を作り、source_question_idと既存listGroupIdを再利用する。"
       - "取得元原文は00_sourceだけに保持し、05_originalizedを唯一の新しいpatch層とする。"
       - "類似率閾値は設けず、完全一致のみ機械的に拒否する。"
+      - "Ping-t CLF-C02 subject 76の547問を正確に取得し、他資格subjectにも再利用できるsite adapterとして実装する。"
 
 rules:
   pm_owns_state: true
@@ -66,13 +67,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/original-question-pipeline-convergence/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/original-question-pipeline-convergence"
 
-active_task: T001
+active_task: T004
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "Map every current contract and implementation point required for the independent-question vertical slice, including contradictions and verification commands."
     inputs:
@@ -103,12 +104,36 @@ tasks:
       - "Repaso compatibility finding."
       - "Regression risks and stop conditions."
       - "Recommended largest safe Worker package with allowed_files and verify commands."
-    receipt: null
-
+    receipt:
+      result: done
+      summary: "現行の取得・05・Merge・Convert・upload・Repaso互換を地図化した。RepasoはexamYear omit対応済みだが、exam_scraperは05未接続、examYear必須、upload空文字補完が残る。Ping-tは新site adapterが必要で、CLF-C02はsubject 76、547件、22ページ、安定問題IDで列挙できる。最初のWorkerは資格非依存Ping-t adapterと547件取得・集合一致検証を担う。"
+      evidence:
+        - docs/goals/original-question-pipeline-convergence/notes/T001-pipeline-map.md
+        - document/operations/scraping_workflow.md
+        - document/operations/original_question_authoring_workflow.md
+        - scripts/merge/00_merge_all.py
+        - scripts/convert/convert_merged_to_firestore.py
+        - scripts/upload/upload_questions_to_firestore.py
+        - /Users/yuki/StudioProjects/repaso/lib/firestore/models/question_doc.dart
+      facts:
+        - "Ping-t CLF-C02は547件、22ページ、安定問題IDと詳細URLを持つ"
+        - "RepasoのexamYearはoptional"
+        - "現行Mergeは05を読まない"
+        - "現行required fieldsとconvertはexamYearを必須とする"
+      contradictions:
+        - "文書は05とexamYear omitを目標形で説明するが実装が未接続"
+        - "uploadは欠損examYearを空文字へ変換する"
+      ambiguity_requiring_judge:
+        - "最初のWorkerを実データ取得へ置き、05公開経路を次packageへ回す順序の承認"
+      commands:
+        - "python3 -m unittest tests.test_scrape_identity_keys tests.test_scrape_presets tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure"
+      note_needed: true
+      note: notes/T001-pipeline-map.md
+      harness: codex
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Validate the existing plan against Scout evidence and specify the first largest safe vertical implementation package."
     inputs:
@@ -126,31 +151,159 @@ tasks:
       - "verify commands."
       - "stop_if conditions."
       - "Deferred follow-up packages."
-    receipt: null
-
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "547件の正確な00_sourceが05以降の入力正本になるため、取得adapterと完全性検証を最初の縦切りにする。これは外部公開やFirestore書き込みを伴わず可逆で、他資格のPing-t subjectにも再利用できる。05・examYear omit・公開artifact非混入は次packageで継続する。"
+      worker_package:
+        objective: "Ping-tを資格非依存のpreset駆動site adapterとして実装し、AWS CLF-C02 subject 76の547問を不変な00_sourceへ正確に取得し、一覧集合一致・必須field・正答・解説・画像・再実行no-opを検証する。"
+        allowed_files:
+          - scrape_pingt.py
+          - scripts/scrape/pingt.py
+          - scripts/scrape/run_qualification_scrape.py
+          - scripts/scrape/qualification_presets.py
+          - scripts/scrape/common.py
+          - config/scrape_presets.json
+          - document/sources/README.md
+          - document/sources/ping-t/ping-t_source_contract.md
+          - document/operations/scraping_workflow.md
+          - tests/test_scrape_pingt.py
+          - tests/test_scrape_presets.py
+          - tests/fixtures/pingt/
+          - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source/
+          - output/aws-cloud-practitioner/question_images/ping-t-aws-clf-c02/
+          - output/aws-cloud-practitioner/reports/
+          - document/temporary/audits/
+          - document/contracts/00_source_sha256_manifest.jsonl
+        verify:
+          - "python3 -m unittest tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability"
+          - "python3 scripts/check/check_00_source_immutability.py"
+          - "547件の一覧ID集合と保存ID集合が一致し、ID・URL重複が0であること"
+          - "全問で問題文・選択肢・正答・解説があり、画像参照がローカル保存と一致すること"
+          - "再実行で新規0件かつ既存00_sourceのhashが不変であること"
+        stop_if:
+          - "既存00_sourceの変更又は削除が必要になる"
+          - "Ping-tのstable question IDを取得できない"
+          - "一覧547 IDと詳細取得IDを収束させられない"
+          - "認証情報をrepoへ保存する必要がある"
+          - "既存site scraperの動作を壊さず実装できない"
+          - "同じ検証失敗が2回続き原因を解消できない"
+      deferred_packages:
+        - "05_originalizedの工程設定・Merge・レビューprojection接続"
+        - "Convert・required fields・uploadのexamYear omitとexamSource=独自問題対応"
+        - "source原文・provenance非混入gateと独自問題/公式過去問E2E回帰"
+      evidence:
+        - docs/goals/original-question-pipeline-convergence/notes/T001-pipeline-map.md
+      harness: codex
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
-    objective: "Implement the first end-to-end vertical slice selected by Judge."
-    allowed_files: []
-    verify: []
+    objective: "Ping-tを資格非依存のpreset駆動site adapterとして実装し、AWS CLF-C02 subject 76の547問を不変な00_sourceへ正確に取得し、完全性と再実行no-opを検証する。"
+    allowed_files:
+      - "scrape_pingt.py"
+      - "scripts/scrape/pingt.py"
+      - "scripts/scrape/run_qualification_scrape.py"
+      - "scripts/scrape/qualification_presets.py"
+      - "scripts/scrape/common.py"
+      - "config/scrape_presets.json"
+      - "document/sources/README.md"
+      - "document/sources/ping-t/ping-t_source_contract.md"
+      - "document/operations/scraping_workflow.md"
+      - "tests/test_scrape_pingt.py"
+      - "tests/test_scrape_presets.py"
+      - "tests/fixtures/pingt/"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source/"
+      - "output/aws-cloud-practitioner/question_images/ping-t-aws-clf-c02/"
+      - "output/aws-cloud-practitioner/reports/"
+      - "output/aws-cloud-practitioner/reports/pingt_subject_76_scrape_result.json"
+      - "document/temporary/audits/"
+      - "document/temporary/audits/20260718_pingt_aws_clf_c02_scrape_verification.md"
+      - "docs/contracts/00_source_sha256_manifest.jsonl"
+    verify:
+      - "python3 -m unittest tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "547件の一覧ID集合と保存ID集合が一致し、ID・URL重複が0であること"
+      - "全問で問題文・選択肢・正答・解説があり、画像参照がローカル保存と一致すること"
+      - "再実行で新規0件かつ既存00_sourceのhashが不変であること"
     stop_if:
       - "Need files outside Judge-approved allowed_files."
       - "A settled public-field decision would need to change."
       - "Existing official-past-exam behavior cannot be preserved."
       - "Verification fails twice for the same unresolved cause."
-    receipt: null
-
+    receipt:
+      result: done
+      changed_files:
+        - scrape_pingt.py
+        - scripts/scrape/pingt.py
+        - scripts/scrape/run_qualification_scrape.py
+        - scripts/scrape/common.py
+        - config/scrape_presets.json
+        - document/sources/README.md
+        - document/sources/ping-t/ping-t_source_contract.md
+        - document/operations/scraping_workflow.md
+        - tests/test_scrape_pingt.py
+        - tests/test_scrape_presets.py
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source/
+        - output/aws-cloud-practitioner/question_images/ping-t-aws-clf-c02/
+        - output/aws-cloud-practitioner/reports/pingt_subject_76_scrape_result.json
+        - document/temporary/audits/20260718_pingt_aws_clf_c02_scrape_verification.md
+        - docs/contracts/00_source_sha256_manifest.jsonl
+      commands:
+        - cmd: "python3 -m unittest tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability"
+          status: pass
+        - cmd: "python3 -m unittest tests.test_scrape_identity_keys tests.test_scrape_presets tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure"
+          status: pass
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "PINGT_BROWSER_EXPORT_PATH=/tmp/pingt_subject_76_browser_export.json python3 scripts/scrape/run_qualification_scrape.py aws-cloud-practitioner ping-t-aws-clf-c02"
+          status: pass
+        - cmd: "547問の一覧・browser export・00_source ID集合、必須内容、正答範囲、189画像、認証field不在、examYear不在の全件監査"
+          status: pass
+      summary: "Ping-tをpreset駆動の資格非依存site adapterとして追加し、AWS CLF-C02 subject 76の547問と189画像を1問1ファイルの00_sourceへ保存した。一覧・export・sourceのID集合一致、重複0、全件内容検査、examYear不在、再実行new=0、source hash不変を監査で証明した。"
+      harness: codex
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
-    objective: "Complete the next safe convergence package identified after T003, including remaining docs, UI, gates, or regression coverage."
-    allowed_files: []
-    verify: []
+    objective: "05_originalizedを既存の問題整備工程、Merge、Convert、upload-ready検証へ接続し、独自問題はisOfficial=true、examSource=独自問題、examYear omit、取得元原文・provenance非混入で公開準備できる縦切りをfixtureで証明する。"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "config/requirements/required_fields.toml"
+      - "config/requirements/README.md"
+      - "prompt/05_prompt_originalize_question.md"
+      - "prompt/README.md"
+      - "scripts/common/requirements.py"
+      - "scripts/merge/00_merge_all.py"
+      - "scripts/merge/record_projection.py"
+      - "scripts/merge/patch_views.py"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "tools/question_review_console/projection.py"
+      - "tools/question_review_console/prompt_builder.py"
+      - "tools/question_bank/question_bank.py"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/original_question_authoring_workflow.md"
+      - "document/operations/artifact_contract.md"
+      - "document/reference/question_field_contract.md"
+      - "document/temporary/audits/20260718_original_question_pipeline_verification.md"
+      - "tests/test_original_question_pipeline.py"
+      - "tests/test_merge_source_identity.py"
+      - "tests/test_convert_merged_to_firestore.py"
+      - "tests/test_upload_questions_to_firestore.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_question_review_projection.py"
+      - "tests/test_documentation_structure.py"
+      - "tests/fixtures/original_question_pipeline/"
+    verify:
+      - "python3 -m unittest tests.test_original_question_pipeline tests.test_merge_source_identity tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_question_review_projection tests.test_documentation_structure"
+      - "独自問題fixtureを05、Merge、Convert、upload filterまで通し、examYearが存在せずexamSource=独自問題かつisOfficial=trueであること"
+      - "独自問題の公開artifactにsource原文、source解説、question_url、source_question_id、questionSourceSiteが存在しないこと"
+      - "05の問題文・選択肢がsourceと完全一致する場合に拒否されること"
+      - "公式過去問fixtureのexamYearとexamSourceが従来どおり維持されること"
     stop_if:
       - "Need files outside PM-approved allowed_files."
       - "Would add a public field or separate origin registry."

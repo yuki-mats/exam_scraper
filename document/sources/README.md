@@ -20,6 +20,7 @@
 | `kurohon` | `kurohon.jp` | `scrape_kurohon.py` | 1試験回のページから問題ブロックと正答表を対応付ける。公開ページ。 | `tests/test_scrape_kurohon.py`, `tests/test_scrape_presets.py` |
 | `mecnet` | `study.mecnet.jp` | `scrape_mecnet_kokushi.py` | 一覧、ページ送り、解説ページ。ログイン必須。 | `tests/test_scrape_presets.py`, `tests/test_mecnet_kokushi_category_build.py` |
 | `kougai` | `yaku-tik.com`, `qualification-text.com`, `zoron.hatenablog.com` | `scrape_kougai.py` | domainごとに一覧発見と問題parserを切り替えるmulti-source adapter。公開ページ。 | `tests/test_scrape_kougai.py`, `tests/test_scrape_identity_keys.py` |
+| `pingt` | `mondai.ping-t.com` | `scrape_pingt.py` | subjectの検索一覧と問題詳細をGET。ログイン必須、1問1ファイルで再開する。 | [抽出契約](ping-t/ping-t_source_contract.md), `tests/test_scrape_pingt.py`, `tests/test_scrape_presets.py` |
 
 ## site別の要点
 
@@ -59,6 +60,12 @@
 - `scrape_kougai.py`がdomainを判定し、yaku-tik、qualification-text、zoronのURL発見とparserを切り替える。
 - 同一年度を複数sourceから取得できるため、site provenanceとcanonical identityを分離する。
 - source別filename suffixはrunnerが付与する。既存sourceがある年度へ別sourceを追加するときも上書きしない。
+
+### mondai.ping-t.com
+
+- `question_subjects/<subject_id>/questions`の表示件数と全ページを照合し、安定した問題IDから詳細URLを列挙する。
+- 認証情報はsecure.envだけに置く。ログイン済みブラウザを使う場合もCookieを取り出さず、同一originのGET結果を一時exportして同じparserへ通す。
+- 1問1ファイルで保存し、途中停止後は既存IDをskipして未取得分だけ再開する。詳細は[Ping-t取得契約](ping-t/ping-t_source_contract.md)を正本とする。
 
 ## 更新ルール
 

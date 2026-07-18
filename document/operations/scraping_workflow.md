@@ -30,6 +30,8 @@ python3 scripts/scrape/run_qualification_scrape.py <qualification> <list_group_i
 
 site、実装、認証、既知制約の対応は[site台帳](../sources/README.md)を入口にします。site固有の抽出方針は`document/sources/<source>/`へ置き、共通ルールをsite文書へ複製しません。
 
+認証必須siteのcookie又はID・passwordは`~/.config/exam_scraper/secure.env`だけに置き、repo、`00_source`、reportへ保存しません。ログイン済みブラウザを取得経路に使う場合も、認証情報をexportせず、同一originの読み取り結果を一時入力としてsite parserへ渡します。
+
 ## IDと出典
 
 - 公式過去問のcanonical identityは資格、試験回、問番号、必要なsectionを基にし、site固有IDと分離する。

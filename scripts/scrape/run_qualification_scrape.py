@@ -110,7 +110,9 @@ def main() -> int:
             output_root=resolved_output_dir,
             filename_glob=filename_glob,
         )
-        if already_scraped and not args.force:
+        # Ping-tは1問1ファイルで未取得IDだけを追加し、全ID集合も毎回照合する。
+        # group単位でskipすると、途中停止後の再開とsite側の追加検知ができない。
+        if already_scraped and not args.force and preset.scraper_type != "pingt":
             print(f"[SKIP] list_group_id={output_list_group_id} は既に 00_source があります")
             continue
 
@@ -132,6 +134,7 @@ def main() -> int:
         "mecnet": "scrape_mecnet_kokushi.py",
         "kurohon": "scrape_kurohon.py",
         "kougai": "scrape_kougai.py",
+        "pingt": "scrape_pingt.py",
     }
     scraper_script = scraper_script_by_type.get(preset.scraper_type)
     if not scraper_script:

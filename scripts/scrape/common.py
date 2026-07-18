@@ -165,6 +165,8 @@ def source_site_from_url(url: str) -> str:
         return "kakomonn"
     if host == "yaku-tik.com" or host.endswith(".yaku-tik.com"):
         return "yaku-tik"
+    if host == "ping-t.com" or host.endswith(".ping-t.com"):
+        return "ping-t"
     return normalize_identity_token(host.replace(".", "-"))
 
 
