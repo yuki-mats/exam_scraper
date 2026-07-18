@@ -904,7 +904,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(app_server.calls, [])
         self.assertEqual(synchronizer.calls, [])
 
-    def test_resume_rejects_old_succeeded_partial_state(self):
+    def test_resume_accepts_succeeded_partial_state(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
                 Path(directory),
@@ -918,14 +918,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 queueStatus="partial",
             )
 
-            with self.assertRaisesRegex(QualificationRunError, "組合せが不正"):
-                coordinator.preview(
-                    "new-exam",
-                    "question_type",
-                    "outdated",
-                    list_group_ids=["2026"],
-                    resumed_from=parent["runId"],
-                )
+            preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                list_group_ids=["2026"],
+                resumed_from=parent["runId"],
+            )
+
+        self.assertEqual(preview["targetCount"], 1)
+        self.assertEqual(preview["workItemCount"], 1)
 
     @staticmethod
     def _mark_parent_partial(coordinator, parent):
@@ -1255,7 +1257,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for phase in run["phaseExecutions"]
             }
             self.assertEqual(result["queueStatus"], "partial")
-            self.assertEqual(run["status"], "failed")
+            self.assertEqual(run["status"], "succeeded")
             self.assertTrue(run["retrySafe"])
             self.assertEqual(stages["question_type"], "validated")
             self.assertEqual(stages["question_set"], "blocked")
@@ -1803,7 +1805,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(sibling_stages[0]["status"], "validated")
 
-    def test_non_retryable_validation_feedback_stops_pipeline_after_clean_rollback(self):
+    def test_non_retryable_validation_feedback_blocks_question_and_continues(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, synchronizer, _app_server, parent = (
@@ -1814,16 +1816,25 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 )
             )
             writer_ids = []
+            failed_id = "new-exam-2026-q1"
 
             def commit_child(qualification, child_run_id, *_args, **_kwargs):
                 writer_ids.append(child_run_id)
-                self._mark_child_failed_safely(
+                child = coordinator.store.get(qualification, child_run_id)
+                question_id = str(child["progressTargets"][0]["id"])
+                if question_id == failed_id:
+                    self._mark_child_failed_safely(
+                        coordinator,
+                        qualification,
+                        child_run_id,
+                        summary="00_source不変条件に違反しました。",
+                    )
+                    raise RuntimeError("source immutability violation")
+                self._mark_child_succeeded(
                     coordinator,
                     qualification,
                     child_run_id,
-                    summary="00_source不変条件に違反しました。",
                 )
-                raise RuntimeError("source immutability violation")
 
             coordinator._prepare_question_item = self._prepare_all_questions(
                 coordinator
@@ -1831,24 +1842,22 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             coordinator._run_human = commit_child
             with patch(
                 "tools.question_review_console.qualification_runs."
-                "sync_after_patch_update"
+                "sync_after_patch_update",
+                return_value={"status": "current", "groupId": "2026"},
             ) as artifact_sync:
-                with self.assertRaisesRegex(
-                    QuestionQueuePaused,
-                    "安全性違反",
-                ):
-                    coordinator._run_maintenance_flow(
-                        "new-exam",
-                        parent["runId"],
-                        lambda _message: None,
-                    )
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
             completed = coordinator.store.get("new-exam", parent["runId"])
             improvement_report_saved = (
                 root / completed["improvementReportPath"]
             ).is_file()
 
-        self.assertEqual(len(writer_ids), 1)
-        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(len(writer_ids), 2)
+        self.assertEqual(completed["status"], "succeeded")
         self.assertEqual(completed["queueStatus"], "partial")
         self.assertTrue(completed["retrySafe"])
         self.assertIsNone(completed["unsafeChildRunId"])
@@ -1857,15 +1866,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 question["stages"][0]["status"]
                 for question in completed["questionExecutions"]
             ],
-            ["blocked", "prepared"],
+            ["blocked", "validated"],
         )
         first_attempt = completed["questionExecutions"][0]["stages"][0][
             "validationAttempts"
         ][0]
         self.assertEqual(first_attempt["feedback"]["status"], "blocked")
-        self.assertEqual(first_attempt["status"], "paused")
+        self.assertEqual(first_attempt["status"], "blocked")
         self.assertTrue(improvement_report_saved)
-        artifact_sync.assert_not_called()
+        artifact_sync.assert_called_once()
         self.assertEqual(synchronizer.calls, [])
 
     def test_writer_subscription_gate_pauses_once_and_remains_resumable(self):
@@ -2141,7 +2150,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["pauseKind"], "external_provider")
         self.assertFalse(completed["receiptValidated"])
 
-    def test_read_only_preparation_write_notice_pauses_before_other_questions(self):
+    def test_read_only_preparation_write_notice_blocks_each_question_independently(self):
         class ReadOnlyViolationAppServer(FlowAppServer):
             def run_turn(self, prompt, **kwargs):
                 self.calls.append((prompt, kwargs))
@@ -2164,24 +2173,25 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 ["question_type"],
                 app_server=app_server,
             )
-            with self.assertRaisesRegex(QuestionQueuePaused, "read-only準備"):
-                coordinator._run_maintenance_flow(
-                    "new-exam",
-                    parent["runId"],
-                    lambda _message: None,
-                )
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
             completed = coordinator.store.get("new-exam", parent["runId"])
 
-        self.assertEqual(len(app_server.calls), 1)
-        self.assertEqual(completed["status"], "interrupted")
-        self.assertEqual(completed["pauseKind"], "read_only_violation")
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(len(app_server.calls), 2)
+        self.assertEqual(completed["status"], "succeeded")
+        self.assertIsNone(completed["pauseKind"])
         self.assertTrue(completed["retrySafe"])
+        self.assertTrue(completed["receiptValidated"])
         self.assertEqual(
             [
                 question["stages"][0]["status"]
                 for question in completed["questionExecutions"]
             ],
-            ["blocked", "queued"],
+            ["blocked", "blocked"],
         )
 
     def test_prepared_without_proposal_reference_never_reaches_writer(self):
@@ -2331,7 +2341,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             later_phase = run["phaseExecutions"][1]
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(run["status"], "failed")
+        self.assertEqual(run["status"], "succeeded")
         self.assertEqual(later_phase["status"], "partial")
         self.assertEqual(later_phase["blockedCount"], 1)
         self.assertEqual(later_phase["validatedCount"], 0)
@@ -2865,7 +2875,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             },
             "changed_files": {
                 "outcomes": [result(changed_files=("unexpected.json",))],
-                "paused": True,
+                "prepared": False,
             },
             "proposal_integrity": {
                 "outcomes": [result(summary="")],

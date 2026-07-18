@@ -504,7 +504,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             run = coordinator.store.get("sample", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(run["status"], "failed")
+        self.assertEqual(run["status"], "succeeded")
         self.assertEqual(
             [phase["status"] for phase in run["phaseExecutions"]],
             ["failed", "partial"],
@@ -828,7 +828,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
         self.assertEqual(job["status"], "succeeded", job)
-        self.assertEqual(run["status"], "failed")
+        self.assertEqual(run["status"], "succeeded")
         self.assertEqual(run["queueStatus"], "partial")
         self.assertEqual(
             [item["status"] for item in run["phaseExecutions"]],
@@ -927,7 +927,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(job["status"], "succeeded", job)
-        self.assertEqual(run["status"], "failed")
+        self.assertEqual(run["status"], "succeeded")
         self.assertEqual(run["queueStatus"], "partial")
         self.assertEqual(run["blockedQuestionCount"], 1)
         self.assertEqual(run["validatedQuestionCount"], 1)
@@ -1748,7 +1748,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             "validated",
         )
         self.assertEqual(second_stage["status"], "blocked")
-        self.assertEqual(recovered["status"], "failed")
+        self.assertEqual(recovered["status"], "succeeded")
         self.assertEqual(recovered["queueStatus"], "partial")
         self.assertEqual(recovered["phaseExecutions"][0]["status"], "partial")
         self.assertTrue(recovered["receiptValidated"])

@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T005
+active_task: T006
 tasks:
   - id: T001
     type: scout
@@ -345,7 +345,7 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: xhigh
     objective: "回復可能な一問の生成・receipt・機械検査・適用失敗を、その問題だけのbounded retry又はblockedへ閉じ込め、単一writerが次のprepared問を処理し続けるよう修正する。親runはqueueを最後まで排出し、blocked問が残る場合も再開可能な集計状態で終了させ、再開時はblocked問だけを再実行する"
     inputs:
@@ -394,11 +394,41 @@ tasks:
       - "queue継続のために複数writer又はrun全体再検証が必要になる。"
       - "00_source、既存ID、本番Firestore又は既存output patchの手作業修正が必要になる。"
       - "同じ原因で検証が二回失敗する。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_qualification_flow_recovery.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs tests.test_question_review_qualification_flow_recovery tests.test_question_review_codex_app_server tests.test_question_review_server"
+          status: pass
+          summary: "170 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "484 tests passed"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/question_work_queue.py tools/question_review_console/question_patch_proposal.py tools/question_review_console/qualification_runs.py tools/question_review_console/codex_app_server.py tools/question_review_console/server.py"
+          status: pass
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "4525 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      summary: "安全に隔離又はrollbackできた一問の生成・機械検査失敗を、その問だけのblockedへ変更した。兄弟問の準備・単一writer確定を続行し、保留付き親runはsucceeded/partialで完了する。再開はsucceeded/partialを受け入れ、失敗問だけを対象にする。provider停止、rollback不能、共有状態破損だけは親runを止める。"
+      deviations:
+        - "GoalBuddy Workerが最初の待機で変更を出さなかったため、契約どおり中断してPM fallbackで同じT005範囲を実装した。"
+      remaining_blockers:
+        - "T006でガス主任技術者甲種2019年の実UI runと再開readbackを確認する。"
+      verification_attempts: 2
+      stopped_because: null
+      harness: codex
   - id: T006
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: xhigh
     objective: "回復可能な1問失敗で親runが継続し、ほかの問題が確定し、再起動後に失敗問だけを再実行できることを自動テストとガス主任技術者甲種2019年の実UI runで再監査する"
     inputs:

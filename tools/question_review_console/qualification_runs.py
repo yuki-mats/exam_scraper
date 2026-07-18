@@ -2354,7 +2354,7 @@ class QualificationRunStore:
             )
 
         partial = str(manifest.get("queueStatus") or "") == "partial"
-        terminal_status = "failed" if partial else "succeeded"
+        terminal_status = "succeeded"
         result = manifest.get("result")
         if (
             not isinstance(result, Mapping)
@@ -2916,9 +2916,7 @@ class QualificationRunStore:
                             else "succeeded"
                         )
                         fallback_result = {
-                            "status": (
-                                "failed" if queue_status == "partial" else "succeeded"
-                            ),
+                            "status": "succeeded",
                             "summary": (
                                 "一問writerの確定receiptを再起動時に照合しました。"
                                 "公開用データの同期だけ再実行が必要です。"
@@ -5304,7 +5302,7 @@ class QualificationRunCoordinator:
             if result.changed_files:
                 reason = (
                     "read-only準備でfile変更通知を検出しました。"
-                    "書込安全性を確認後にqueueを再開してください。"
+                    "この問題だけを保留します。"
                 )
                 self.store.update_question_stage(
                     qualification,
@@ -5317,10 +5315,11 @@ class QualificationRunCoordinator:
                     finishedAt=_now(),
                     block_dependents=True,
                 )
-                raise QuestionQueuePaused(
-                    reason,
-                    pause_kind="read_only_violation",
+                emit(
+                    f"{target.get('displayLabel') or question_id}: {reason}"
+                    " 他の問題は続行します。"
                 )
+                return False
             proposal = self.question_proposals.write(
                 qualification,
                 run_id,
@@ -5883,29 +5882,26 @@ class QualificationRunCoordinator:
                     )
                     raise QualificationRunError(unsafe_reason) from exc
                 if safety_violation:
-                    pause_reason = (
+                    blocked_reason = (
                         f"{target.get('displayLabel') or question_id}: "
                         "機械検査が安全性違反を検出しました。"
-                        "原因を修正後にこのqueueを再開してください。"
+                        "この問題だけを保留しました。"
                     )
                     validation_attempts[-1].update(
-                        status="paused",
-                        pauseReason=pause_reason,
+                        status="blocked",
+                        pauseReason=None,
                     )
                     update_validation_stage(
                         status="blocked",
-                        error=pause_reason,
-                        pauseReason=pause_reason,
+                        error=blocked_reason,
+                        pauseReason=None,
                         finishedAt=_now(),
                         block_dependents=True,
                     )
-                    pipeline_stop.set()
-                    pause = QuestionQueuePaused(
-                        pause_reason,
-                        pause_kind="validation_safety",
+                    emit(
+                        f"{blocked_reason} 他の問題は続行します。"
                     )
-                    self._persist_queue_pause(qualification, run_id, pause)
-                    raise pause from exc
+                    return False
                 if attempt_number >= MAX_WRITER_VALIDATION_ATTEMPTS:
                     update_validation_stage(
                         status="blocked",
@@ -6673,7 +6669,7 @@ class QualificationRunCoordinator:
                 else "一問queueの整備と最終検証を完了しました。"
             )
             result = {
-                "status": "failed" if partial else "succeeded",
+                "status": "succeeded",
                 "summary": result_summary,
                 "commands": [
                     {
@@ -6722,7 +6718,7 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run_id,
-                status="failed" if partial else "succeeded",
+                status="succeeded",
                 queueStatus=queue_status,
                 executionPhase="done",
                 currentPhaseId=None,
@@ -9461,6 +9457,7 @@ class QualificationRunCoordinator:
                 ("failed", "partial"),
                 ("interrupted", "partial"),
                 ("interrupted", "interrupted"),
+                ("succeeded", "partial"),
                 ("succeeded", "succeeded"),
             }:
                 raise QualificationRunError(
