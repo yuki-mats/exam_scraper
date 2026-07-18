@@ -3697,6 +3697,189 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertTrue(any("最新入力で準備し直します" in value for value in messages))
 
+    def test_writer_reprepares_only_current_question_when_policy_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            original_policy_check = coordinator._phase_plan_policy_is_current
+            policy_check_count = 0
+
+            def policy_is_current(*args, **kwargs):
+                nonlocal policy_check_count
+                policy_check_count += 1
+                if policy_check_count == 2:
+                    return False
+                return original_policy_check(*args, **kwargs)
+
+            coordinator._phase_plan_policy_is_current = policy_is_current
+            messages = []
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                messages.append,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+            stage = run["questionExecutions"][0]["stages"][0]
+            work_types = [
+                kwargs["work_type"]
+                for _question, _prompt, kwargs in app_server.calls
+            ]
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(stage["status"], "validated")
+        self.assertEqual(stage["policyRefreshCount"], 1)
+        self.assertEqual(
+            work_types,
+            [
+                "maintenance_prepare_question_type",
+                "maintenance_prepare_question_type",
+                "maintenance_question_type",
+            ],
+        )
+        self.assertTrue(
+            any("この問題だけを自動再準備します" in value for value in messages)
+        )
+
+    def test_policy_change_during_writer_requeues_after_safe_rollback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, app_server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            original_policy_check = coordinator._phase_plan_policy_is_current
+            policy_changed = False
+            policy_change_reported = False
+            writer_child_ids = []
+
+            def policy_is_current(*args, **kwargs):
+                nonlocal policy_change_reported
+                if policy_changed and not policy_change_reported:
+                    policy_change_reported = True
+                    return False
+                return original_policy_check(*args, **kwargs)
+
+            def run_child(qualification, child_run_id, *_args, **_kwargs):
+                nonlocal policy_changed
+                writer_child_ids.append(child_run_id)
+                if not policy_changed:
+                    policy_changed = True
+                    summary = "writer中に共通方針が更新された。"
+                    coordinator.store.update(
+                        qualification,
+                        child_run_id,
+                        status="failed",
+                        receiptValidated=False,
+                        deltaUnknown=False,
+                        rollback={
+                            "status": "succeeded",
+                            "deltaUnknown": False,
+                            "remainingChangedFiles": [],
+                        },
+                        writeAttributionVerified=True,
+                        unsafeNotifiedChangedFiles=[],
+                        unsafeChangedFiles=[],
+                        result={
+                            "status": "failed",
+                            "summary": summary,
+                            "commands": [],
+                            "changedFiles": [],
+                        },
+                        error=summary,
+                    )
+                    raise RuntimeError(summary)
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._phase_plan_policy_is_current = policy_is_current
+            coordinator._run_human = run_child
+            messages = []
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                messages.append,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+            stage = run["questionExecutions"][0]["stages"][0]
+            work_types = [
+                kwargs["work_type"]
+                for _question, _prompt, kwargs in app_server.calls
+            ]
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(stage["status"], "validated")
+        self.assertEqual(stage["policyRefreshCount"], 1)
+        self.assertEqual(len(writer_child_ids), 2)
+        self.assertEqual(
+            stage["policyRefreshes"][0]["supersededChildRunId"],
+            writer_child_ids[0],
+        )
+        self.assertEqual(len(stage["validationAttempts"]), 1)
+        self.assertEqual(
+            work_types,
+            [
+                "maintenance_prepare_question_type",
+                "maintenance_prepare_question_type",
+            ],
+        )
+
+    def test_policy_refresh_limit_blocks_only_current_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                Path(directory),
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            question_id = parent["questionExecutions"][0]["questionId"]
+            messages = []
+
+            first = coordinator._requeue_policy_changed_question(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                messages.append,
+            )
+            second = coordinator._requeue_policy_changed_question(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                messages.append,
+            )
+            third = coordinator._requeue_policy_changed_question(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                messages.append,
+            )
+            stage = coordinator._queue_stage(
+                coordinator.store.get("new-exam", parent["runId"]),
+                question_id,
+                "question_type",
+            )
+
+        self.assertTrue(first)
+        self.assertTrue(second)
+        self.assertFalse(third)
+        self.assertEqual(stage["status"], "blocked")
+        self.assertEqual(stage["policyRefreshCount"], 2)
+        self.assertTrue(any("他の問題は続行します" in value for value in messages))
+
     def test_writer_skips_law_audit_when_latest_projection_is_not_law_related(self):
         class MutableLawAuditInventory(SourceOnlyInventory):
             def __init__(self):

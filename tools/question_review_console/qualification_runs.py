@@ -130,6 +130,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
+MAX_POLICY_REFRESH_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
     "10_questionType_fixed",
     "15_correctChoiceText_fixed",
@@ -489,6 +490,10 @@ def normalize_question_concurrency(value: Any) -> int:
 
 class QuestionItemError(QualificationRunError):
     """一問だけを保留できる対象解決エラー。"""
+
+
+class QuestionPolicyChanged(QualificationRunError):
+    """共通方針の更新後に同じ一問を準備し直すための内部通知。"""
 
 
 class QuestionQueuePaused(QualificationRunError):
@@ -4938,6 +4943,101 @@ class QualificationRunCoordinator:
                 error=None,
             )
 
+    def _phase_plan_policy_is_current(
+        self,
+        qualification: str,
+        phase_plan: Mapping[str, Any],
+        stage_id: str,
+    ) -> bool:
+        planned_versions = phase_plan.get("policyVersions") or {}
+        if stage_id not in planned_versions:
+            return True
+        current = self.workflow.versioned_policies(qualification).get(stage_id)
+        if not isinstance(current, Mapping):
+            return False
+        return bool(
+            normalize_policy_version(planned_versions[stage_id])
+            == normalize_policy_version(current.get("policyVersion"))
+            and str(
+                (phase_plan.get("policyFingerprints") or {}).get(stage_id) or ""
+            )
+            == str(current.get("policyFingerprint") or "")
+        )
+
+    def _requeue_policy_changed_question(
+        self,
+        qualification: str,
+        run_id: str,
+        question_id: str,
+        stage_id: str,
+        emit: Callable[[str], None],
+        *,
+        superseded_child_run_id: str | None = None,
+        validation_attempts: list[dict[str, Any]] | None = None,
+    ) -> bool:
+        current = self._queue_stage(
+            self.store.get(qualification, run_id), question_id, stage_id
+        )
+        if current is None:
+            return False
+        refresh_count = int(current.get("policyRefreshCount") or 0)
+        if refresh_count >= MAX_POLICY_REFRESH_ATTEMPTS:
+            reason = (
+                "共通方針が実行中に連続更新されたため、この問題だけを保留しました。"
+                "更新が落ち着いてから再開してください。"
+            )
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="blocked",
+                error=reason,
+                finishedAt=_now(),
+                block_dependents=True,
+            )
+            emit(f"{question_id}: {reason} 他の問題は続行します。")
+            return False
+        refreshed_at = _now()
+        refresh_history = [
+            dict(value)
+            for value in current.get("policyRefreshes") or []
+            if isinstance(value, Mapping)
+        ]
+        refresh_history.append(
+            {
+                "at": refreshed_at,
+                "reason": "canonical_policy_changed",
+                "supersededChildRunId": superseded_child_run_id,
+            }
+        )
+        self.store.update_question_stage(
+            qualification,
+            run_id,
+            question_id,
+            stage_id,
+            status="queued",
+            policyRefreshCount=refresh_count + 1,
+            policyRefreshes=refresh_history,
+            preparationPath=None,
+            preparationHash=None,
+            projectedInputPath=None,
+            projectedInputHash=None,
+            validationAttempts=copy.deepcopy(
+                validation_attempts
+                if validation_attempts is not None
+                else current.get("validationAttempts") or []
+            ),
+            error=None,
+            pauseReason=None,
+            finishedAt=None,
+        )
+        emit(
+            f"{question_id}: 共通方針の更新を検知したため、"
+            "古い準備を破棄してこの問題だけを自動再準備します。"
+        )
+        return True
+
     @staticmethod
     def _isolated_child_failure(child: Mapping[str, Any]) -> bool:
         return _isolated_failure_state(child)
@@ -5553,6 +5653,22 @@ class QualificationRunCoordinator:
         )
         if queue_stage is None or queue_stage.get("status") != "prepared":
             return False
+        if not self._phase_plan_policy_is_current(
+            qualification,
+            phase_plan,
+            stage_id,
+        ):
+            if self._requeue_policy_changed_question(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                emit,
+            ):
+                raise QuestionPolicyChanged(
+                    f"{question_id} / {stage_id} の共通方針を更新しました。"
+                )
+            return False
         for freshness_attempt in range(2):
             try:
                 latest_projection = self._write_projected_question_input(
@@ -5869,6 +5985,25 @@ class QualificationRunCoordinator:
                     )
                     self._persist_queue_pause(qualification, run_id, pause)
                     raise pause from exc
+                if isolated_failure and not self._phase_plan_policy_is_current(
+                    qualification,
+                    phase_plan,
+                    stage_id,
+                ):
+                    validation_attempts.pop()
+                    if self._requeue_policy_changed_question(
+                        qualification,
+                        run_id,
+                        question_id,
+                        stage_id,
+                        emit,
+                        superseded_child_run_id=child_id,
+                        validation_attempts=validation_attempts,
+                    ):
+                        raise QuestionPolicyChanged(
+                            f"{question_id} / {stage_id} の共通方針を更新しました。"
+                        ) from exc
+                    return False
                 feedback = build_child_feedback(
                     child or {},
                     attempt=attempt_number,
@@ -6295,6 +6430,22 @@ class QualificationRunCoordinator:
                 question_id = str(question.get("questionId") or "")
                 stage_id = str(phase["id"])
                 initial_plan, initial_prompt = phase_contexts[stage_id]
+                if not self._phase_plan_policy_is_current(
+                    qualification,
+                    initial_plan,
+                    stage_id,
+                ):
+                    initial_plan, initial_prompt = self._flow_phase_plan_prompt(
+                        self.store.get(qualification, run_id),
+                        phase,
+                    )
+                    phase_contexts[stage_id] = (
+                        initial_plan,
+                        initial_prompt,
+                    )
+                    emit(
+                        f"{stage_id}: 共通方針の更新をqueueへ反映しました。"
+                    )
                 try:
                     spec = self._question_major_stage_spec(
                         qualification,
@@ -6410,6 +6561,7 @@ class QualificationRunCoordinator:
                                 questions[next_index],
                             )
                     prefetched = first_entries.get(question_index)
+                    stop_question = False
                     for phase_index, phase in enumerate(segment):
                         entry = (
                             first_entries.pop(question_index)
@@ -6417,36 +6569,50 @@ class QualificationRunCoordinator:
                             and int(prefetched["phaseIndex"]) == phase_index
                             else submit_entry(executor, question, phase)
                         )
-                        spec = dict(entry["spec"])
-                        future = entry.get("future")
-                        if future is not None and not future.result():
-                            break
-                        status = str(spec.get("status") or "")
-                        if status == "blocked":
-                            break
-                        if status == "not_present":
-                            continue
-                        if status in {"validated", "not_applicable"}:
-                            continue
-                        if not self._commit_question_major_item(
-                            qualification,
-                            run_id,
-                            spec,
-                            emit,
-                            child_run_ids=child_run_ids,
-                            phase_child_ids=phase_child_ids,
-                            phase_runtime=phase_runtime,
-                            work_version_receipts=work_version_receipts,
-                            confirmed_group_ids=confirmed_group_ids,
-                            pipeline_stop=pipeline_stop,
-                        ):
-                            current = self._queue_stage(
-                                self.store.get(qualification, run_id),
-                                str(question.get("questionId") or ""),
-                                str(phase["id"]),
-                            )
-                            if current and current.get("status") == "blocked":
+                        while True:
+                            spec = dict(entry["spec"])
+                            future = entry.get("future")
+                            if future is not None and not future.result():
+                                stop_question = True
                                 break
+                            status = str(spec.get("status") or "")
+                            if status == "blocked":
+                                stop_question = True
+                                break
+                            if status in {
+                                "not_present",
+                                "validated",
+                                "not_applicable",
+                            }:
+                                break
+                            try:
+                                committed = self._commit_question_major_item(
+                                    qualification,
+                                    run_id,
+                                    spec,
+                                    emit,
+                                    child_run_ids=child_run_ids,
+                                    phase_child_ids=phase_child_ids,
+                                    phase_runtime=phase_runtime,
+                                    work_version_receipts=work_version_receipts,
+                                    confirmed_group_ids=confirmed_group_ids,
+                                    pipeline_stop=pipeline_stop,
+                                )
+                            except QuestionPolicyChanged:
+                                entry = submit_entry(executor, question, phase)
+                                continue
+                            if not committed:
+                                current = self._queue_stage(
+                                    self.store.get(qualification, run_id),
+                                    str(question.get("questionId") or ""),
+                                    str(phase["id"]),
+                                )
+                                stop_question = bool(
+                                    current and current.get("status") == "blocked"
+                                )
+                            break
+                        if stop_question:
+                            break
                 raise_pipeline_pause()
 
         segment: list[dict[str, Any]] = []

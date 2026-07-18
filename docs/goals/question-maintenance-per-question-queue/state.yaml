@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-per-question-queue"
   kind: existing_plan
   tranche: "continuous execution: 一問単位の並列整備・確定・失敗隔離・再開を実装し、範囲指定UIから安定運用できるまで進める"
-  status: done
+  status: active
   oracle:
     signal: "UIからガス主任技術者甲種2019年の58問を開始し、1問が失敗しても57問が確定し、失敗問だけを理由付きで再実行できる"
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: null
+active_task: T011
 tasks:
   - id: T001
     type: scout
@@ -759,6 +759,38 @@ tasks:
       required_board_updates:
         - "goal.statusをdone、active_taskをnullにする。"
       harness: codex
+  - id: T011
+    type: pm
+    assignee: PM
+    status: in_progress
+    reasoning_hint: high
+    objective: "実運転で判明した共通方針driftの全問反復失敗を防ぎ、古い準備だけを一問単位で自動再準備してqueueを継続する"
+    inputs:
+      - "run 20260718T221417206422-570e6f40"
+      - "問2・問3のpolicy fingerprint failure receipts"
+      - "external commit b1d731927"
+    constraints:
+      - "確定済み問題と兄弟問題を再実行しない。"
+      - "安全なrollbackを確認できない場合は自動再投入しない。"
+      - "正本文書が連続更新される場合は無限再試行しない。"
+      - "既存output patchと00_sourceを手作業で変更しない。"
+    expected_output:
+      - "writer直前とwriter中の方針drift自動再準備"
+      - "一問だけの再投入と上限付き停止"
+      - "回帰テストと2019年再開readback"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+      - "docs/goals/question-maintenance-per-question-queue/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    receipt: null
+    harness: codex
 checks:
   dirty_fingerprint: "pre-existing gas-shunin output patches plus GoalBuddy control files"
   last_verification:
