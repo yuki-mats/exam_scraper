@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T008
+active_task: T010
 tasks:
   - id: T001
     type: scout
@@ -529,7 +529,7 @@ tasks:
   - id: T008
     type: pm
     assignee: PM
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "実装を変更せず、継続中のガス主任技術者甲種2019年runを監視する。回復不能な一問がblockedになっても兄弟問がwriter確定へ進むことと、終端時の親集計・artifactSync・validated保持をreadbackする"
     inputs:
@@ -545,6 +545,115 @@ tasks:
       - "blocked question and continued sibling readback"
       - "terminal parent summary"
       - "artifactSync separation and validated preservation evidence"
+    receipt:
+      result: blocked
+      summary: "実runは問1をvalidatedにした後、問2の子runが成功receiptを作成したが、同時刻のGit HEADとGoalBuddy state変更を子run自身のscope外変更と誤認した。transaction rollback自体はsucceeded・remainingChangedFiles空・deltaUnknown=falseなのに、failed receiptのchangedFilesが非空なため非隔離扱いとなり、親run failed/partial、問2を含む残り55問が一括blockedになった。目標未達のためT009で変更帰属を分離する。"
+      evidence:
+        - "parent run 20260718T204808608521-3574e879: status=failed, queueStatus=partial, validatedQuestionCount=1, blockedQuestionCount=55"
+        - "child run 20260718T211012713023-0c19ce6c: rollback.status=succeeded, remainingChangedFiles=[], deltaUnknown=false, retrySafe=true"
+        - "child failed receipt changedFiles=[.git/HEAD, docs/goals/question-maintenance-per-question-queue/state.yaml]"
+        - "technical log sequence 296-298: 00_source unchanged, rollback completed, then parent stopped because rollback completion was misclassified"
+      blocked_reason: "外部のGit・GoalBuddy変更をwriterの変更と誤認し、安全にrollback済みの一問失敗を親停止へ昇格したため。"
+      spawned_tasks:
+        - T009
+      remaining_blockers:
+        - "T009修正後にサービスを再読込し、failed/partial runからUI再開して兄弟継続を再検証する。"
+      harness: codex
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "一問writerの実行中にGit HEADやGoalBuddy文書など整備scope外で並行変更が起きても、その外部変更を子runの変更又はrollback不明と誤認しないようにする。Codex App Serverが通知したscope外書込とtransaction内rollback不明だけは親停止を維持し、単なる外部並行変更では当該問の検証又は安全な保留後に兄弟問を続行する"
+    inputs:
+      - "run 20260718T204808608521-3574e879"
+      - "child run 20260718T211012713023-0c19ce6c"
+      - "T008 failure receipt"
+      - "sandbox writableRoots and repository fingerprint validation"
+    constraints:
+      - "00_source、既存ID、本番Firestore、既存output patchを手作業で変更しない。"
+      - "scope外変更を無条件に無視せず、App Server自身が通知したscope外書込は安全性違反として親停止を維持する。"
+      - "transaction内のrollback失敗、remainingChangedFiles、deltaUnknownは親停止を維持する。"
+      - "外部並行変更をrollback又はコミットしない。"
+      - "単一writerと5問準備の構造を変えない。"
+    expected_output:
+      - "外部並行変更とwriter書込を帰属分離するbackend修正"
+      - "Git HEAD・docs変更が並行しても兄弟問を巻き込まない回帰テスト"
+      - "App Server通知のscope外書込とrollback不明が親停止する回帰テスト"
+      - "正本文書への簡潔な安全境界反映"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_flow_recovery.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_flow_recovery tests.test_question_review_codex_app_server"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/codex_app_server.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "App ServerのfileChange通知と外部変更を区別できない。"
+      - "transaction外をrollbackする必要がある。"
+      - "安全性違反を見逃さないために複数writer又はrepo全体の排他lockが必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_flow_recovery tests.test_question_review_codex_app_server"
+          status: pass
+          summary: "127 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "488 tests passed"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/codex_app_server.py"
+          status: pass
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "4525 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      summary: "App ServerのfileChange通知、writer scope内の最終差分、同時刻のrepo差分を分離した。Git HEADが進んだ外部commitの変更はwriter receiptから除外し、transaction外をrollbackしない。通知されたscope外書込、帰属不能なscope外差分、rollback失敗・残存差分・deltaUnknownは親停止を維持する。旧runは技術ログの全fileChange通知を再検証し、安全なrollbackだけ再開可能に正規化する。"
+      deviations:
+        - "GoalBuddy Workerが最初の待機でallowed-file変更を出さなかったため中断し、契約どおりPM fallbackで同じT009範囲を実装した。"
+        - "最初の全回帰で従来のscope外安全テスト2件が失敗したため、無条件除外をやめ、Git HEADが同時に進んだcommit由来だけを外部変更として認めるよう狭めた。"
+      remaining_blockers:
+        - "T010でサービス再読込、旧runのUI再開、兄弟継続をlive readbackする。"
+      verification_attempts: 2
+      stopped_because: null
+      harness: codex
+  - id: T010
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "commit af94697faでサービスを再読込し、UIからfailed/partial run 20260718T204808608521-3574e879を再開する。問1と旧runの問4・5を再処理せず、問2以降を5問準備・単一writerで続行し、Git・GoalBuddy変更を誤帰属しないことをAPIと技術ログで確認する"
+    inputs:
+      - "T009 receipt"
+      - "commit af94697fa"
+      - "parent run 20260718T204808608521-3574e879"
+      - "child run 20260718T211012713023-0c19ce6c"
+    constraints:
+      - "本番Firestoreへ書き込まない。"
+      - "既存output差分を手作業で変更又は破棄しない。"
+      - "再開はUI又は公開APIから行う。"
+      - "実装fileを変更しない。"
+      - "問1・4・5が再実行対象なら成功扱いにしない。"
+    expected_output:
+      - "legacy child reclassification readback"
+      - "resume target and preserved validated questions"
+      - "5 preparation plus one writer evidence"
+      - "external Git or GoalBuddy change attribution evidence"
+      - "sibling continuation evidence"
     receipt: null
   - id: T999
     type: judge
