@@ -1,6 +1,9 @@
 # 公式問題の問題報告 workflow
 
-最終更新: 2026-07-10
+最終更新: 2026-07-19
+
+> [!IMPORTANT]
+> この文書は現行CLIの運用正本です。Mac常駐、自動検知、Codex App Server、スマホでの一件承認、承認後はpatchのcommit・pushまでとしてFirestore公開を既存フローへ分離する目標仕様は、[ユーザーフィードバック対応システム](user_feedback_response_system.md)で設計確定していますが、まだ実装されていません。実装完了までは、この文書の手動batch手順を使います。
 
 ## 目的と境界
 
