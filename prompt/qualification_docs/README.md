@@ -53,6 +53,7 @@
 
 ## 現在ある資格
 - `aws-cloud-practitioner`
+- `aws-solutions-architect-associate`
 - `2nd-class-kenchikushi`
 - `gas-shunin-kou`
 - `gas-shunin-otsu`

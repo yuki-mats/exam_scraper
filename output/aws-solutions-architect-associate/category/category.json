@@ -1,0 +1,1440 @@
+{
+  "metadata": {
+    "qualificationId": "aws-solutions-architect-associate",
+    "licenseName": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "examCode": "SAA-C03",
+    "taxonomySource": "AWS Certified Solutions Architect - Associate (SAA-C03) 公式試験ガイドの4コンテンツ分野、14タスクステートメント、テクノロジーと概念、対象サービス一覧",
+    "sourceUrl": "https://docs.aws.amazon.com/ja_jp/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html",
+    "sourceReviewedAt": "2026-07-18",
+    "folderCountExpected": 17,
+    "questionSetCountExpected": 64,
+    "taxonomyBasis": "公式4分野を集計軸として保持し、同じサービスでもセキュア、レジリエント、高パフォーマンス、コスト最適化のどの設計判断を問うかで分類する。学習者が進捗と苦手を把握しやすいよう、14タスクの知識・スキルとサービス用途に沿って17folder、64questionSetへ分割した。",
+    "referenceTaxonomy": {
+      "sourceName": "Ping-t（ユーザー提示のカテゴリ内訳）",
+      "sourceUrl": "https://mondai.ping-t.com/question_subjects/76",
+      "providedQuestionCount": 873,
+      "serviceKnowledgeQuestionCount": 494,
+      "wellArchitectedDesignQuestionCount": 379,
+      "usage": "公式分類を置き換えず、セキュリティ、信頼性、性能、コストや主要サービスで問題が過密になりやすい箇所を判断する補助資料として使用した。"
+    },
+    "officialCategoryMappings": [
+      {
+        "officialCategoryId": "domain_1",
+        "officialCategoryName": "分野1：セキュアなアーキテクチャの設計",
+        "weightPercent": 30,
+        "officialTaskStatementIds": [
+          "1.1",
+          "1.2",
+          "1.3"
+        ],
+        "folderIds": [
+          "aws_solutions_architect_associate_f01_identity_multi_account",
+          "aws_solutions_architect_associate_f02_secure_network_connectivity",
+          "aws_solutions_architect_associate_f03_application_threat_protection",
+          "aws_solutions_architect_associate_f04_data_protection_encryption"
+        ]
+      },
+      {
+        "officialCategoryId": "domain_2",
+        "officialCategoryName": "分野2：レジリエントなアーキテクチャの設計",
+        "weightPercent": 26,
+        "officialTaskStatementIds": [
+          "2.1",
+          "2.2"
+        ],
+        "folderIds": [
+          "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+          "aws_solutions_architect_associate_f06_decoupled_event_driven",
+          "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+          "aws_solutions_architect_associate_f08_workload_specific_managed_services"
+        ]
+      },
+      {
+        "officialCategoryId": "domain_3",
+        "officialCategoryName": "分野3：高パフォーマンスなアーキテクチャの設計",
+        "weightPercent": 24,
+        "officialTaskStatementIds": [
+          "3.1",
+          "3.2",
+          "3.3",
+          "3.4",
+          "3.5"
+        ],
+        "folderIds": [
+          "aws_solutions_architect_associate_f09_storage_performance",
+          "aws_solutions_architect_associate_f10_compute_performance",
+          "aws_solutions_architect_associate_f11_database_cache_performance",
+          "aws_solutions_architect_associate_f12_network_edge_performance",
+          "aws_solutions_architect_associate_f13_data_ingestion_analytics"
+        ]
+      },
+      {
+        "officialCategoryId": "domain_4",
+        "officialCategoryName": "分野4：コストを最適化したアーキテクチャの設計",
+        "weightPercent": 20,
+        "officialTaskStatementIds": [
+          "4.1",
+          "4.2",
+          "4.3",
+          "4.4"
+        ],
+        "folderIds": [
+          "aws_solutions_architect_associate_f14_storage_cost_optimization",
+          "aws_solutions_architect_associate_f15_compute_cost_optimization",
+          "aws_solutions_architect_associate_f16_database_cost_optimization",
+          "aws_solutions_architect_associate_f17_network_cost_governance"
+        ]
+      }
+    ],
+    "policyNotes": [
+      "永続IDには試験版SAA-C03を含めず、表示名変更や軽微な試験ガイド更新でもIDを維持する。",
+      "サービス名だけでは分類せず、設問が求める設計品質と要件を優先してquestionSetを選ぶ。",
+      "公式分野とfolderは1対1にせず、公式分野への再集計はofficialCategoryMappingsで行う。",
+      "questionCountは問題取得後の04紐付けと集計で確定するため、初期値は0、isDeletedはfalseとする。",
+      "対象サービス一覧は網羅的ではなく変更されるため、新サービス一つだけを理由にquestionSetを増やさない。"
+    ]
+  },
+  "updatedAt": "2026-07-18T17:26:37+09:00",
+  "folders": [
+    {
+      "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+      "name": "01_【分野1】ID・アクセス・マルチアカウント",
+      "description": "IAM、フェデレーション、クロスアカウントアクセス、Organizations、SCP、Control Towerなど、AWSリソースへ安全にアクセスする設計を扱う。ネットワーク境界は02、アプリケーション防御は03へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f02_secure_network_connectivity",
+      "name": "02_【分野1】セキュアなネットワーク・接続",
+      "description": "VPCのセグメンテーション、トラフィック制御、プライベートアクセス、オンプレミス接続の保護を扱う。WAFや脅威検出は03、ネットワーク性能は12へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
+      "name": "03_【分野1】アプリケーション保護・脅威検出・監査",
+      "description": "DDoSやWeb攻撃への防御、脅威・脆弱性の検出、セキュリティ態勢、監査ログを扱う。暗号鍵、証明書、データ分類は04へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f04_data_protection_encryption",
+      "name": "04_【分野1】データ保護・暗号化・鍵管理",
+      "description": "保存時・転送時の暗号化、鍵管理、証明書、シークレット、データ分類・保持・バックアップを扱う。可用性を目的とする複製とDRは07へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+      "name": "05_【分野2】スケーラブルなワークロード・配信",
+      "description": "EC2、Auto Scaling、ELB、サーバーレス、コンテナ、多層構成など、需要変動へ追随する設計を扱う。サービス間の疎結合化は06へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
+      "name": "06_【分野2】疎結合・イベント駆動・ワークフロー",
+      "description": "キュー、Pub/Sub、イベントルーティング、ワークフロー、マネージドメッセージングを使って障害を分離する設計を扱う。コンピューティング自体の伸縮は05へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "07_【分野2】高可用性・データ耐久性・DR",
+      "description": "マルチAZ・マルチリージョン、フェイルオーバー、データ複製、バックアップ、RTO・RPO、DR戦略、可観測性を扱う。単純な性能向上は09〜13へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f08_workload_specific_managed_services",
+      "name": "08_【分野2】ワークロード特化型マネージドサービス",
+      "description": "AI・機械学習、フロントエンド、モバイル、メディアなど、固有要件をマネージドサービスで満たす判断を扱う。データ基盤としての分析処理は13へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f09_storage_performance",
+      "name": "09_【分野3】高性能ストレージ",
+      "description": "オブジェクト、ブロック、ファイル、ハイブリッドストレージを、IOPS、スループット、レイテンシー、共有方式から選ぶ設計を扱う。料金最適化は14へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f10_compute_performance",
+      "name": "10_【分野3】高性能コンピューティング",
+      "description": "EC2のタイプ・サイズ、サーバーレス、コンテナ、バッチ、分散配置を性能・伸縮性要件から選ぶ設計を扱う。購入オプションと料金は15へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f11_database_cache_performance",
+      "name": "11_【分野3】高性能データベース・キャッシュ",
+      "description": "アクセスパターン、キャパシティー、レプリカ、プロキシ、キャッシュ、データモデルからデータベースを選ぶ設計を扱う。料金最適化は16へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f12_network_edge_performance",
+      "name": "12_【分野3】高性能ネットワーク・エッジ配信",
+      "description": "VPCトポロジ、ロードバランシング、DNS、CDN、グローバル配信、ハイブリッド接続を性能と拡張性から選ぶ設計を扱う。通信費最適化は17へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f13_data_ingestion_analytics",
+      "name": "13_【分野3】データ取り込み・変換・分析",
+      "description": "バッチ・ストリーミング転送、データレイク、ETL、クエリ、ウェアハウス、可視化を、量・速度・形式・鮮度から選ぶ設計を扱う。トランザクションDBは11へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f14_storage_cost_optimization",
+      "name": "14_【分野4】ストレージのコスト最適化",
+      "description": "S3ストレージクラスとライフサイクル、EBS・EFS・FSxの選択、バックアップ・アーカイブ・転送方法を費用対効果から設計する。性能優先の選択は09へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f15_compute_cost_optimization",
+      "name": "15_【分野4】コンピューティングのコスト最適化",
+      "description": "購入オプション、適正サイジング、稼働率、Auto Scaling、サーバーレス・コンテナ化を使ってコンピューティング費用を最適化する。性能優先の選択は10へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f16_database_cost_optimization",
+      "name": "16_【分野4】データベースのコスト最適化",
+      "description": "データベース種別、キャパシティー、サーバーレス、キャッシュ、レプリカ、保持・移行を費用対効果から設計する。性能優先の選択は11へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_solutions_architect_associate_f17_network_cost_governance",
+      "name": "17_【分野4】ネットワーク・横断コスト管理",
+      "description": "データ転送、NAT、接続方式、CDNなどのネットワーク費用と、Cost Explorer、Budgets、CUR、タグによる横断的なコスト可視化・統制を扱う。",
+      "questionCount": 0,
+      "isDeleted": false
+    }
+  ],
+  "questionSets": [
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs01_01_shared_responsibility_root_mfa",
+      "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+      "name": "1-1 責任共有・ルートユーザー・MFA",
+      "description": "AWS責任共有モデルと、ルートユーザーを日常利用しない設計、MFA、認証情報保護の基本を扱う。一般の権限設計は1-2へ分ける。",
+      "matchingHints": [
+        "責任共有モデル",
+        "ルートユーザー",
+        "MFA",
+        "認証情報",
+        "最小権限",
+        "アクセスキー"
+      ],
+      "officialTaskStatementIds": [
+        "1.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs01_02_iam_identities_policies",
+      "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+      "name": "1-2 IAMアイデンティティ・ロール・ポリシー",
+      "description": "IAMユーザー、グループ、ロール、アイデンティティベースポリシー、許可評価、アクセス許可境界を扱う。クロスアカウントは1-3へ分ける。",
+      "matchingHints": [
+        "IAMユーザー",
+        "IAMグループ",
+        "IAMロール",
+        "IAMポリシー",
+        "許可評価",
+        "アクセス許可境界"
+      ],
+      "officialTaskStatementIds": [
+        "1.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs01_03_sts_cross_account_resource_policies",
+      "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+      "name": "1-3 STS・クロスアカウント・リソースポリシー",
+      "description": "STSの一時的認証情報、ロールスイッチ、クロスアカウントアクセス、S3などのリソースベースポリシー、AWS RAMを扱う。",
+      "matchingHints": [
+        "AWS STS",
+        "一時的認証情報",
+        "AssumeRole",
+        "クロスアカウント",
+        "リソースポリシー",
+        "AWS RAM"
+      ],
+      "officialTaskStatementIds": [
+        "1.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs01_04_federation_identity_services",
+      "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+      "name": "1-4 フェデレーション・Identity Center・Directory・Cognito",
+      "description": "企業ディレクトリや外部IdPとのフェデレーション、IAM Identity Center、Directory Service、Cognitoの使い分けを扱う。",
+      "matchingHints": [
+        "フェデレーション",
+        "IAM Identity Center",
+        "Directory Service",
+        "SAML",
+        "OIDC",
+        "Amazon Cognito"
+      ],
+      "officialTaskStatementIds": [
+        "1.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs01_05_organizations_scp_control_tower",
+      "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+      "name": "1-5 Organizations・SCP・Control Tower",
+      "description": "AWS Organizations、組織単位、SCP、Control Towerを使ったマルチアカウントのセキュリティ統制とガードレールを扱う。",
+      "matchingHints": [
+        "AWS Organizations",
+        "組織単位",
+        "SCP",
+        "Control Tower",
+        "マルチアカウント",
+        "ガードレール"
+      ],
+      "officialTaskStatementIds": [
+        "1.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs02_01_vpc_segmentation_subnets",
+      "folderId": "aws_solutions_architect_associate_f02_secure_network_connectivity",
+      "name": "2-1 VPCセグメンテーション・パブリック／プライベートサブネット",
+      "description": "多層構成のVPC、パブリック・プライベートサブネット、ルートテーブル、インターネット到達性を安全に設計する判断を扱う。",
+      "matchingHints": [
+        "Amazon VPC",
+        "パブリックサブネット",
+        "プライベートサブネット",
+        "ルートテーブル",
+        "Internet Gateway",
+        "ネットワーク分離"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs02_02_security_groups_nacls_egress",
+      "folderId": "aws_solutions_architect_associate_f02_secure_network_connectivity",
+      "name": "2-2 Security Group・NACL・安全な送受信",
+      "description": "Security GroupとネットワークACLのステートフル／ステートレスな制御、NAT Gatewayによる送信、必要最小限のポート設計を扱う。",
+      "matchingHints": [
+        "Security Group",
+        "ネットワークACL",
+        "ステートフル",
+        "ステートレス",
+        "NAT Gateway",
+        "ポート"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs02_03_endpoints_privatelink_private_access",
+      "folderId": "aws_solutions_architect_associate_f02_secure_network_connectivity",
+      "name": "2-3 VPCエンドポイント・PrivateLink・プライベートアクセス",
+      "description": "Gateway／Interface VPCエンドポイント、AWS PrivateLinkを使い、インターネットを経由せずAWSサービスや提供サービスへ接続する設計を扱う。",
+      "matchingHints": [
+        "VPCエンドポイント",
+        "Gateway Endpoint",
+        "Interface Endpoint",
+        "AWS PrivateLink",
+        "プライベートDNS",
+        "エンドポイントポリシー"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs02_04_hybrid_connectivity_security",
+      "folderId": "aws_solutions_architect_associate_f02_secure_network_connectivity",
+      "name": "2-4 Direct Connect・VPN・ハイブリッド接続の保護",
+      "description": "Site-to-Site VPN、Client VPN、Direct Connectを使ったオンプレミス接続の暗号化、冗長化、経路保護を扱う。性能と構成選択は12-3へ分ける。",
+      "matchingHints": [
+        "Site-to-Site VPN",
+        "Client VPN",
+        "Direct Connect",
+        "IPsec",
+        "ハイブリッド接続",
+        "冗長接続"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs03_01_waf_shield_firewalls",
+      "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
+      "name": "3-1 WAF・Shield・Network Firewall・Firewall Manager",
+      "description": "DDoS、SQLインジェクション、クロスサイトスクリプティングなどからWeb・ネットワーク境界を保護し、複数アカウントへ防御ポリシーを展開する設計を扱う。",
+      "matchingHints": [
+        "AWS WAF",
+        "AWS Shield",
+        "Network Firewall",
+        "Firewall Manager",
+        "DDoS",
+        "SQLインジェクション"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs03_02_guardduty_detective_threats",
+      "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
+      "name": "3-2 GuardDuty・Detectiveによる脅威検出と調査",
+      "description": "GuardDutyによる継続的な脅威検出と、Detectiveによる関連イベントの調査・原因分析の役割を扱う。",
+      "matchingHints": [
+        "Amazon GuardDuty",
+        "Amazon Detective",
+        "脅威検出",
+        "異常行動",
+        "セキュリティ検出結果",
+        "調査"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs03_03_inspector_security_hub_posture",
+      "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
+      "name": "3-3 Inspector・Security Hubによる脆弱性・態勢管理",
+      "description": "Inspectorによるワークロードの脆弱性評価と、Security Hubによる検出結果の集約・セキュリティ態勢管理を扱う。",
+      "matchingHints": [
+        "Amazon Inspector",
+        "AWS Security Hub",
+        "脆弱性",
+        "CVE",
+        "検出結果集約",
+        "セキュリティ態勢"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs03_04_cloudtrail_config_cloudwatch_audit",
+      "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
+      "name": "3-4 CloudTrail・Config・CloudWatchによる監査",
+      "description": "API操作履歴、構成変更、メトリクス・ログ・アラームを使い、追跡可能性とコンプライアンスを確保する設計を扱う。",
+      "matchingHints": [
+        "AWS CloudTrail",
+        "AWS Config",
+        "Amazon CloudWatch",
+        "監査ログ",
+        "構成履歴",
+        "アラーム"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs03_05_secure_application_access",
+      "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
+      "name": "3-5 API・アプリケーションアクセスの保護",
+      "description": "API Gateway、Cognito、AppSync、ロードバランサー認証などを使い、利用者やクライアントからアプリケーションへの安全なアクセスを設計する。",
+      "matchingHints": [
+        "API Gateway",
+        "Amazon Cognito",
+        "AWS AppSync",
+        "OIDC",
+        "JWT",
+        "ALB認証"
+      ],
+      "officialTaskStatementIds": [
+        "1.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs04_01_kms_envelope_key_policies",
+      "folderId": "aws_solutions_architect_associate_f04_data_protection_encryption",
+      "name": "4-1 KMS・エンベロープ暗号化・キーポリシー",
+      "description": "AWS KMSのカスタマーマネージドキー、キーポリシー、エンベロープ暗号化、ローテーション、サービス統合を扱う。",
+      "matchingHints": [
+        "AWS KMS",
+        "KMSキー",
+        "キーポリシー",
+        "エンベロープ暗号化",
+        "ローテーション",
+        "データキー"
+      ],
+      "officialTaskStatementIds": [
+        "1.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs04_02_cloudhsm_key_ownership",
+      "folderId": "aws_solutions_architect_associate_f04_data_protection_encryption",
+      "name": "4-2 CloudHSM・鍵所有要件",
+      "description": "AWS CloudHSMとKMSの管理責任、専有HSM、鍵所有・コンプライアンス要件による選び分けを扱う。",
+      "matchingHints": [
+        "AWS CloudHSM",
+        "HSM",
+        "鍵所有",
+        "FIPS",
+        "シングルテナント",
+        "AWS KMS"
+      ],
+      "officialTaskStatementIds": [
+        "1.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs04_03_tls_acm_secrets",
+      "folderId": "aws_solutions_architect_associate_f04_data_protection_encryption",
+      "name": "4-3 TLS・ACM・Secrets Manager",
+      "description": "ACMによる証明書管理とTLS、Secrets Managerによる認証情報の安全な保存・自動ローテーションを扱う。",
+      "matchingHints": [
+        "AWS Certificate Manager",
+        "TLS",
+        "証明書",
+        "Secrets Manager",
+        "シークレット",
+        "自動ローテーション"
+      ],
+      "officialTaskStatementIds": [
+        "1.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs04_04_data_classification_access_backup",
+      "folderId": "aws_solutions_architect_associate_f04_data_protection_encryption",
+      "name": "4-4 データ分類・アクセス・保持・バックアップ",
+      "description": "Macieによる機密データ検出、S3アクセス制御、保持・ライフサイクル、バックアップとレプリケーションによるデータ保護を扱う。",
+      "matchingHints": [
+        "Amazon Macie",
+        "データ分類",
+        "S3 Block Public Access",
+        "保持ポリシー",
+        "AWS Backup",
+        "レプリケーション"
+      ],
+      "officialTaskStatementIds": [
+        "1.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs05_01_ec2_autoscaling_scalability",
+      "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+      "name": "5-1 EC2・Auto Scalingによる水平／垂直スケーリング",
+      "description": "EC2 Auto Scaling、起動テンプレート、スケーリングポリシー、水平・垂直スケーリングを使って需要変動へ追随する設計を扱う。",
+      "matchingHints": [
+        "Amazon EC2",
+        "EC2 Auto Scaling",
+        "起動テンプレート",
+        "水平スケーリング",
+        "垂直スケーリング",
+        "スケーリングポリシー"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs05_02_elb_routing_health_sessions",
+      "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+      "name": "5-2 ELB・ヘルスチェック・トラフィック分散",
+      "description": "ALB、NLB、GWLBのレイヤーと用途、ヘルスチェック、セッション維持、クロスゾーン負荷分散を扱う。",
+      "matchingHints": [
+        "Application Load Balancer",
+        "Network Load Balancer",
+        "Gateway Load Balancer",
+        "ヘルスチェック",
+        "スティッキーセッション",
+        "クロスゾーン"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs05_03_lambda_api_gateway_serverless",
+      "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+      "name": "5-3 Lambda・API Gatewayによるサーバーレス設計",
+      "description": "LambdaとAPI Gatewayを組み合わせたステートレスAPI、同時実行、非同期処理、スケーリング境界を扱う。",
+      "matchingHints": [
+        "AWS Lambda",
+        "Amazon API Gateway",
+        "サーバーレス",
+        "同時実行数",
+        "非同期呼び出し",
+        "ステートレス"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs05_04_ecs_eks_fargate_containers",
+      "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+      "name": "5-4 ECS・EKS・Fargateによるコンテナ設計",
+      "description": "ECS、EKS、Fargate、ECRの責任範囲と、コンテナオーケストレーション・実行基盤の選び分けを扱う。",
+      "matchingHints": [
+        "Amazon ECS",
+        "Amazon EKS",
+        "AWS Fargate",
+        "Amazon ECR",
+        "コンテナ",
+        "オーケストレーション"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs05_05_multi_tier_stateless_cache",
+      "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
+      "name": "5-5 多層・ステートレス・キャッシュ設計",
+      "description": "Web・アプリ・データ層の分離、ステートレス化、外部セッションストア、キャッシュ、CDNを使った独立スケール設計を扱う。",
+      "matchingHints": [
+        "多層アーキテクチャ",
+        "ステートレス",
+        "セッションストア",
+        "キャッシュ",
+        "Amazon ElastiCache",
+        "CloudFront"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs06_01_sqs_queues_dlq",
+      "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
+      "name": "6-1 SQS・可視性タイムアウト・DLQ",
+      "description": "SQS標準／FIFOキュー、可視性タイムアウト、ロングポーリング、デッドレターキューを使った非同期・再試行設計を扱う。",
+      "matchingHints": [
+        "Amazon SQS",
+        "FIFOキュー",
+        "可視性タイムアウト",
+        "ロングポーリング",
+        "デッドレターキュー",
+        "重複排除"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs06_02_sns_pubsub_fanout",
+      "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
+      "name": "6-2 SNS・Pub/Sub・ファンアウト",
+      "description": "SNSトピック、サブスクリプション、フィルターポリシー、SQSとのファンアウト構成を扱う。",
+      "matchingHints": [
+        "Amazon SNS",
+        "Pub/Sub",
+        "ファンアウト",
+        "サブスクリプション",
+        "フィルターポリシー",
+        "SNSからSQS"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs06_03_eventbridge_event_routing",
+      "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
+      "name": "6-3 EventBridge・イベントルーティング",
+      "description": "EventBridgeのイベントバス、ルール、スケジュール、SaaS連携を使ったイベント駆動設計を扱う。",
+      "matchingHints": [
+        "Amazon EventBridge",
+        "イベントバス",
+        "イベントルール",
+        "スケジュール",
+        "SaaS連携",
+        "イベント駆動"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs06_04_step_functions_orchestration",
+      "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
+      "name": "6-4 Step Functions・ワークフローオーケストレーション",
+      "description": "Step Functionsの状態遷移、分岐、並列処理、再試行、エラー処理を使った長時間ワークフロー設計を扱う。",
+      "matchingHints": [
+        "AWS Step Functions",
+        "ステートマシン",
+        "再試行",
+        "エラー処理",
+        "並列処理",
+        "ワークフロー"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs06_05_mq_managed_integration",
+      "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
+      "name": "6-5 Amazon MQ・既存メッセージングの移行",
+      "description": "Amazon MQを使ったActiveMQ／RabbitMQ互換のメッセージングと、既存アプリケーションを大きく変更しない統合判断を扱う。",
+      "matchingHints": [
+        "Amazon MQ",
+        "ActiveMQ",
+        "RabbitMQ",
+        "メッセージブローカー",
+        "互換性",
+        "レガシー移行"
+      ],
+      "officialTaskStatementIds": [
+        "2.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs07_01_regions_az_route53_failover",
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "7-1 リージョン・AZ・Route 53フェイルオーバー",
+      "description": "複数AZ・複数リージョン配置、Route 53のルーティングポリシーとヘルスチェックによるフェイルオーバーを扱う。",
+      "matchingHints": [
+        "AWSリージョン",
+        "アベイラビリティーゾーン",
+        "Amazon Route 53",
+        "フェイルオーバー",
+        "ヘルスチェック",
+        "マルチリージョン"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs07_02_compute_ha_quotas_health",
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "7-2 コンピューティング高可用性・クォータ・ヘルス",
+      "description": "ELBとAuto Scalingによる冗長化、サービスクォータ、スロットリング、AWS Healthを考慮した可用性設計を扱う。",
+      "matchingHints": [
+        "Elastic Load Balancing",
+        "Auto Scaling",
+        "サービスクォータ",
+        "スロットリング",
+        "AWS Health",
+        "単一障害点"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs07_03_storage_durability_replication_backup",
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "7-3 ストレージ耐久性・レプリケーション・バックアップ",
+      "description": "S3、EBS、EFSなどの耐久性・可用性、バージョニング、クロスリージョン複製、AWS Backupを扱う。",
+      "matchingHints": [
+        "耐久性",
+        "S3バージョニング",
+        "クロスリージョンレプリケーション",
+        "EBSスナップショット",
+        "AWS Backup",
+        "復元"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs07_04_database_high_availability",
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "7-4 データベース高可用性・レプリカ",
+      "description": "RDS Multi-AZ、Aurora、リードレプリカ、DynamoDB Global Tables、RDS Proxyを使った障害分離と可用性を扱う。",
+      "matchingHints": [
+        "RDS Multi-AZ",
+        "Aurora",
+        "リードレプリカ",
+        "DynamoDB Global Tables",
+        "RDS Proxy",
+        "フェイルオーバー"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs07_05_dr_rto_rpo_strategies",
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "7-5 DR戦略・RTO・RPO",
+      "description": "バックアップ＆リストア、パイロットライト、ウォームスタンバイ、マルチサイトをRTO・RPOと費用から選ぶ判断を扱う。",
+      "matchingHints": [
+        "ディザスタリカバリ",
+        "RTO",
+        "RPO",
+        "パイロットライト",
+        "ウォームスタンバイ",
+        "アクティブアクティブ"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs07_06_well_architected_observability_automation",
+      "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
+      "name": "7-6 Well-Architected・可観測性・運用自動化",
+      "description": "Well-Architectedの設計レビュー、CloudWatch・X-Rayによる可観測性、CloudFormation・Systems Managerによる再現可能な運用を扱う。",
+      "matchingHints": [
+        "Well-Architected Framework",
+        "Amazon CloudWatch",
+        "AWS X-Ray",
+        "AWS CloudFormation",
+        "AWS Systems Manager",
+        "イミュータブル"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs08_01_ai_ml_managed_services",
+      "folderId": "aws_solutions_architect_associate_f08_workload_specific_managed_services",
+      "name": "8-1 AI・機械学習マネージドサービスの選択",
+      "description": "SageMaker AIと、Comprehend、Translate、Kendra、Transcribe、Polly、Lex、Rekognition、Textractを要件から選ぶ判断を扱う。",
+      "matchingHints": [
+        "Amazon SageMaker AI",
+        "Amazon Comprehend",
+        "Amazon Transcribe",
+        "Amazon Rekognition",
+        "Amazon Textract",
+        "Amazon Lex"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs08_02_frontend_mobile_media_services",
+      "folderId": "aws_solutions_architect_associate_f08_workload_specific_managed_services",
+      "name": "8-2 フロントエンド・モバイル・メディアサービス",
+      "description": "Amplify、AppSync、Device Farm、Elastic Transcoder、Kinesis Video Streamsなど、ワークロード特化型サービスの用途を扱う。",
+      "matchingHints": [
+        "AWS Amplify",
+        "AWS AppSync",
+        "AWS Device Farm",
+        "Elastic Transcoder",
+        "Kinesis Video Streams",
+        "マネージドサービス"
+      ],
+      "officialTaskStatementIds": [
+        "2.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs09_01_s3_performance_scalability",
+      "folderId": "aws_solutions_architect_associate_f09_storage_performance",
+      "name": "9-1 S3の性能・スケーラビリティ",
+      "description": "S3のリクエスト性能、マルチパートアップロード、Transfer Acceleration、並列処理、大容量オブジェクト転送を扱う。",
+      "matchingHints": [
+        "Amazon S3",
+        "マルチパートアップロード",
+        "Transfer Acceleration",
+        "並列処理",
+        "リクエスト性能",
+        "大容量オブジェクト"
+      ],
+      "officialTaskStatementIds": [
+        "3.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs09_02_ebs_instance_store_performance",
+      "folderId": "aws_solutions_architect_associate_f09_storage_performance",
+      "name": "9-2 EBS・インスタンスストアの性能",
+      "description": "EBSのSSD／HDDボリューム、IOPS、スループット、Multi-Attach、インスタンスストアを性能要件から選ぶ判断を扱う。",
+      "matchingHints": [
+        "Amazon EBS",
+        "gp3",
+        "io2",
+        "st1",
+        "IOPS",
+        "インスタンスストア"
+      ],
+      "officialTaskStatementIds": [
+        "3.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs09_03_efs_fsx_hybrid_storage_performance",
+      "folderId": "aws_solutions_architect_associate_f09_storage_performance",
+      "name": "9-3 EFS・FSx・ハイブリッドストレージの性能",
+      "description": "EFSの性能・スループットモード、FSx各種、Storage Gatewayを共有方式、プロトコル、レイテンシーから選ぶ判断を扱う。",
+      "matchingHints": [
+        "Amazon EFS",
+        "Amazon FSx",
+        "Storage Gateway",
+        "NFS",
+        "SMB",
+        "スループットモード"
+      ],
+      "officialTaskStatementIds": [
+        "3.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs10_01_ec2_types_placement_performance",
+      "folderId": "aws_solutions_architect_associate_f10_compute_performance",
+      "name": "10-1 EC2インスタンスタイプ・サイズ・配置",
+      "description": "汎用、コンピューティング最適化、メモリ最適化、アクセラレーテッドなどのタイプと、配置グループを性能要件から選ぶ。",
+      "matchingHints": [
+        "EC2インスタンスタイプ",
+        "コンピューティング最適化",
+        "メモリ最適化",
+        "GPU",
+        "配置グループ",
+        "サイズ"
+      ],
+      "officialTaskStatementIds": [
+        "3.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs10_02_serverless_container_batch_compute",
+      "folderId": "aws_solutions_architect_associate_f10_compute_performance",
+      "name": "10-2 サーバーレス・コンテナ・Batchの性能選択",
+      "description": "Lambda、Fargate、ECS、EKS、AWS Batchを処理時間、起動特性、並列度、運用責任から選ぶ判断を扱う。",
+      "matchingHints": [
+        "AWS Lambda",
+        "AWS Fargate",
+        "Amazon ECS",
+        "Amazon EKS",
+        "AWS Batch",
+        "並列処理"
+      ],
+      "officialTaskStatementIds": [
+        "3.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs10_03_scaling_metrics_distributed_compute",
+      "folderId": "aws_solutions_architect_associate_f10_compute_performance",
+      "name": "10-3 スケーリング指標・分散コンピューティング",
+      "description": "CPU、リクエスト数、キュー長などの指標、ターゲット追跡、予測スケーリング、Outposts・Wavelengthを使う配置判断を扱う。",
+      "matchingHints": [
+        "ターゲット追跡",
+        "予測スケーリング",
+        "キュー長",
+        "AWS Outposts",
+        "AWS Wavelength",
+        "分散コンピューティング"
+      ],
+      "officialTaskStatementIds": [
+        "3.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs11_01_rds_aurora_performance",
+      "folderId": "aws_solutions_architect_associate_f11_database_cache_performance",
+      "name": "11-1 RDS・Aurora・リードレプリカ・Proxy",
+      "description": "RDSとAuroraのエンジン、リードレプリカ、Aurora Replica、RDS Proxy、接続プールを読み書き特性から設計する。",
+      "matchingHints": [
+        "Amazon RDS",
+        "Amazon Aurora",
+        "リードレプリカ",
+        "RDS Proxy",
+        "接続プール",
+        "読み取りスケーリング"
+      ],
+      "officialTaskStatementIds": [
+        "3.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs11_02_dynamodb_capacity_indexes_dax",
+      "folderId": "aws_solutions_architect_associate_f11_database_cache_performance",
+      "name": "11-2 DynamoDB・キャパシティ・インデックス・DAX",
+      "description": "DynamoDBのオンデマンド／プロビジョンド容量、パーティションキー、GSI／LSI、DAXをアクセスパターンから設計する。",
+      "matchingHints": [
+        "Amazon DynamoDB",
+        "キャパシティーモード",
+        "パーティションキー",
+        "GSI",
+        "LSI",
+        "DAX"
+      ],
+      "officialTaskStatementIds": [
+        "3.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs11_03_cache_specialized_databases",
+      "folderId": "aws_solutions_architect_associate_f11_database_cache_performance",
+      "name": "11-3 ElastiCache・特化型データベース",
+      "description": "ElastiCache、DocumentDB、Neptune、Keyspaces、Redshiftなどを、キャッシュ、ドキュメント、グラフ、ワイドカラム、分析用途から選ぶ。",
+      "matchingHints": [
+        "Amazon ElastiCache",
+        "Amazon DocumentDB",
+        "Amazon Neptune",
+        "Amazon Keyspaces",
+        "Amazon Redshift",
+        "インメモリ"
+      ],
+      "officialTaskStatementIds": [
+        "3.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs12_01_vpc_topology_addressing_routing",
+      "folderId": "aws_solutions_architect_associate_f12_network_edge_performance",
+      "name": "12-1 VPCトポロジ・IPアドレス・ルーティング",
+      "description": "CIDR、サブネット、ルートテーブル、VPC間接続を、将来の拡張とアドレス重複を避けて設計する判断を扱う。",
+      "matchingHints": [
+        "CIDR",
+        "サブネット",
+        "ルートテーブル",
+        "IPアドレス",
+        "VPCピアリング",
+        "Transit Gateway"
+      ],
+      "officialTaskStatementIds": [
+        "3.4"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs12_02_elb_route53_cloudfront_global_accelerator",
+      "folderId": "aws_solutions_architect_associate_f12_network_edge_performance",
+      "name": "12-2 ELB・Route 53・CloudFront・Global Accelerator",
+      "description": "L4／L7負荷分散、DNSルーティング、CDN、Anycastを、HTTP特性、キャッシュ、グローバル性能から選ぶ。",
+      "matchingHints": [
+        "Elastic Load Balancing",
+        "Amazon Route 53",
+        "Amazon CloudFront",
+        "Global Accelerator",
+        "Anycast",
+        "レイテンシー"
+      ],
+      "officialTaskStatementIds": [
+        "3.4"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs12_03_direct_connect_vpn_transit_privatelink",
+      "folderId": "aws_solutions_architect_associate_f12_network_edge_performance",
+      "name": "12-3 Direct Connect・VPN・Transit Gateway・PrivateLink",
+      "description": "Direct Connect、VPN、Transit Gateway、VPCピアリング、PrivateLinkを帯域、遅延、暗号化、接続規模から選ぶ。",
+      "matchingHints": [
+        "AWS Direct Connect",
+        "AWS VPN",
+        "Transit Gateway",
+        "VPCピアリング",
+        "AWS PrivateLink",
+        "ハイブリッドネットワーク"
+      ],
+      "officialTaskStatementIds": [
+        "3.4"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs13_01_data_transfer_migration",
+      "folderId": "aws_solutions_architect_associate_f13_data_ingestion_analytics",
+      "name": "13-1 DataSync・Snow・Storage Gateway・DMS・MGN",
+      "description": "DataSync、Snow Family、Storage Gateway、Transfer Family、DMS、Application Migration Serviceをデータ量、停止時間、回線条件から選ぶ。",
+      "matchingHints": [
+        "AWS DataSync",
+        "AWS Snow Family",
+        "Storage Gateway",
+        "Transfer Family",
+        "AWS DMS",
+        "Application Migration Service"
+      ],
+      "officialTaskStatementIds": [
+        "3.5"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs13_02_streaming_kinesis_firehose_msk",
+      "folderId": "aws_solutions_architect_associate_f13_data_ingestion_analytics",
+      "name": "13-2 Kinesis・Data Firehose・MSKによるストリーミング",
+      "description": "Kinesis Data Streams、Data Firehose、MSKを、保持、処理制御、配信先、Kafka互換性から選ぶ。",
+      "matchingHints": [
+        "Amazon Kinesis",
+        "Amazon Data Firehose",
+        "Amazon MSK",
+        "ストリーミング",
+        "シャード",
+        "Kafka"
+      ],
+      "officialTaskStatementIds": [
+        "3.5"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs13_03_data_lake_glue_emr_lake_formation",
+      "folderId": "aws_solutions_architect_associate_f13_data_ingestion_analytics",
+      "name": "13-3 Glue・EMR・Lake Formationによるデータ基盤",
+      "description": "Glue、EMR、Lake Formation、S3を使ったデータカタログ、ETL、分散処理、データレイクのアクセス管理を扱う。",
+      "matchingHints": [
+        "AWS Glue",
+        "Amazon EMR",
+        "AWS Lake Formation",
+        "データレイク",
+        "ETL",
+        "データカタログ"
+      ],
+      "officialTaskStatementIds": [
+        "3.5"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs13_04_athena_redshift_opensearch_visualization",
+      "folderId": "aws_solutions_architect_associate_f13_data_ingestion_analytics",
+      "name": "13-4 Athena・Redshift・OpenSearch・可視化",
+      "description": "Athena、Redshift、OpenSearch Service、Amazon Quick Suite（旧Amazon QuickSight）を、対話的SQL、DWH、検索、可視化の用途から選ぶ。",
+      "matchingHints": [
+        "Amazon Athena",
+        "Amazon Redshift",
+        "OpenSearch Service",
+        "Amazon QuickSight",
+        "Amazon Quick Suite",
+        "データ可視化"
+      ],
+      "officialTaskStatementIds": [
+        "3.5"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs14_01_s3_storage_classes_lifecycle_cost",
+      "folderId": "aws_solutions_architect_associate_f14_storage_cost_optimization",
+      "name": "14-1 S3ストレージクラス・ライフサイクル・料金",
+      "description": "Standard、Intelligent-Tiering、IA、One Zone-IA、Glacier系とライフサイクル、リクエスタ支払いをアクセス頻度と復元要件から選ぶ。",
+      "matchingHints": [
+        "S3ストレージクラス",
+        "Intelligent-Tiering",
+        "Standard-IA",
+        "One Zone-IA",
+        "S3 Glacier",
+        "ライフサイクル"
+      ],
+      "officialTaskStatementIds": [
+        "4.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs14_02_ebs_efs_fsx_cost",
+      "folderId": "aws_solutions_architect_associate_f14_storage_cost_optimization",
+      "name": "14-2 EBS・EFS・FSxの費用対効果",
+      "description": "EBSボリュームタイプと容量、EFSストレージクラス、FSx各種を、性能を満たしつつ過剰プロビジョニングを避けて選ぶ。",
+      "matchingHints": [
+        "Amazon EBS",
+        "Amazon EFS",
+        "Amazon FSx",
+        "gp3",
+        "Infrequent Access",
+        "適正容量"
+      ],
+      "officialTaskStatementIds": [
+        "4.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs14_03_backup_archive_transfer_cost",
+      "folderId": "aws_solutions_architect_associate_f14_storage_cost_optimization",
+      "name": "14-3 バックアップ・アーカイブ・データ移行コスト",
+      "description": "AWS Backup、スナップショット、Glacier、DataSync、Snow Family、Storage Gatewayを保持期間、転送量、復元時間から選ぶ。",
+      "matchingHints": [
+        "AWS Backup",
+        "スナップショット",
+        "アーカイブ",
+        "AWS DataSync",
+        "AWS Snow Family",
+        "復元時間"
+      ],
+      "officialTaskStatementIds": [
+        "4.1"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs15_01_ec2_purchase_options",
+      "folderId": "aws_solutions_architect_associate_f15_compute_cost_optimization",
+      "name": "15-1 オンデマンド・Savings Plans・RI・Spot",
+      "description": "オンデマンド、Savings Plans、リザーブドインスタンス、Spot、Dedicated Hostsを継続期間、中断許容性、ライセンス要件から選ぶ。",
+      "matchingHints": [
+        "オンデマンドインスタンス",
+        "Savings Plans",
+        "リザーブドインスタンス",
+        "Spot Instance",
+        "Dedicated Hosts",
+        "中断許容"
+      ],
+      "officialTaskStatementIds": [
+        "4.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs15_02_rightsizing_compute_optimizer",
+      "folderId": "aws_solutions_architect_associate_f15_compute_cost_optimization",
+      "name": "15-2 適正サイジング・Compute Optimizer・稼働率",
+      "description": "インスタンスファミリー・サイズ、休止・停止、Compute Optimizerの推奨を使い、性能余裕と利用率のバランスを取る。",
+      "matchingHints": [
+        "適正サイジング",
+        "AWS Compute Optimizer",
+        "インスタンスファミリー",
+        "CPU使用率",
+        "休止",
+        "利用率"
+      ],
+      "officialTaskStatementIds": [
+        "4.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs15_03_elastic_serverless_container_cost",
+      "folderId": "aws_solutions_architect_associate_f15_compute_cost_optimization",
+      "name": "15-3 Auto Scaling・サーバーレス・コンテナのコスト",
+      "description": "Auto Scaling、Lambda、Fargate、コンテナ、負荷分散を使い、アイドル容量と運用負担を減らす設計を扱う。",
+      "matchingHints": [
+        "Auto Scaling",
+        "AWS Lambda",
+        "AWS Fargate",
+        "コンテナ",
+        "アイドル容量",
+        "ロードバランサー"
+      ],
+      "officialTaskStatementIds": [
+        "4.2"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs16_01_database_type_capacity_cost",
+      "folderId": "aws_solutions_architect_associate_f16_database_cost_optimization",
+      "name": "16-1 データベース種別・キャパシティーのコスト",
+      "description": "RDS、Aurora、DynamoDB、特化型データベースを、データモデル、アクセス頻度、容量単位、ライセンスから選ぶ。",
+      "matchingHints": [
+        "Amazon RDS",
+        "Amazon Aurora",
+        "Amazon DynamoDB",
+        "キャパシティーユニット",
+        "ライセンス",
+        "データモデル"
+      ],
+      "officialTaskStatementIds": [
+        "4.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs16_02_serverless_cache_replica_cost",
+      "folderId": "aws_solutions_architect_associate_f16_database_cost_optimization",
+      "name": "16-2 サーバーレス・キャッシュ・レプリカのコスト",
+      "description": "Aurora Serverless、DynamoDBオンデマンド、ElastiCache、リードレプリカ、RDS Proxyを、変動負荷と費用対効果から選ぶ。",
+      "matchingHints": [
+        "Aurora Serverless",
+        "DynamoDBオンデマンド",
+        "Amazon ElastiCache",
+        "リードレプリカ",
+        "RDS Proxy",
+        "変動負荷"
+      ],
+      "officialTaskStatementIds": [
+        "4.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs16_03_database_backup_retention_migration_cost",
+      "folderId": "aws_solutions_architect_associate_f16_database_cost_optimization",
+      "name": "16-3 データベースの保持・バックアップ・移行コスト",
+      "description": "スナップショット、バックアップ保持、レプリケーション、DMSによる同種・異種移行を、停止時間と保管費から選ぶ。",
+      "matchingHints": [
+        "バックアップ保持",
+        "DBスナップショット",
+        "レプリケーション",
+        "AWS DMS",
+        "同種移行",
+        "異種移行"
+      ],
+      "officialTaskStatementIds": [
+        "4.3"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs17_01_data_transfer_edge_cost",
+      "folderId": "aws_solutions_architect_associate_f17_network_cost_governance",
+      "name": "17-1 データ転送・CloudFront・リージョン間通信のコスト",
+      "description": "インターネット送信、AZ間・リージョン間転送、CloudFrontやGlobal Acceleratorを、通信量と性能要件から選ぶ。",
+      "matchingHints": [
+        "データ転送料金",
+        "AZ間通信",
+        "リージョン間通信",
+        "Amazon CloudFront",
+        "Global Accelerator",
+        "インターネット送信"
+      ],
+      "officialTaskStatementIds": [
+        "4.4"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs17_02_nat_hybrid_connectivity_cost",
+      "folderId": "aws_solutions_architect_associate_f17_network_cost_governance",
+      "name": "17-2 NAT・Transit Gateway・PrivateLink・ハイブリッド接続のコスト",
+      "description": "NAT Gateway／NATインスタンス、Transit Gateway、VPCピアリング、PrivateLink、Direct Connect、VPNを接続数と転送量から比較する。",
+      "matchingHints": [
+        "NAT Gateway",
+        "NATインスタンス",
+        "Transit Gateway",
+        "VPCピアリング",
+        "AWS PrivateLink",
+        "Direct Connect"
+      ],
+      "officialTaskStatementIds": [
+        "4.4"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_solutions_architect_associate_qs17_03_cost_explorer_budgets_cur_allocation",
+      "folderId": "aws_solutions_architect_associate_f17_network_cost_governance",
+      "name": "17-3 Cost Explorer・Budgets・CUR・コスト配賦",
+      "description": "Cost Explorer、Budgets、Cost and Usage Report、コスト配分タグ、Organizationsの一括請求を使った可視化・予算・配賦を扱う。",
+      "matchingHints": [
+        "AWS Cost Explorer",
+        "AWS Budgets",
+        "Cost and Usage Report",
+        "コスト配分タグ",
+        "一括請求",
+        "AWS Organizations"
+      ],
+      "officialTaskStatementIds": [
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    }
+  ]
+}
