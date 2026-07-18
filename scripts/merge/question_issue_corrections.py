@@ -61,6 +61,18 @@ HASH_FIELDS = tuple(
 )
 
 
+def selected_question_issue_correction_paths(directory: Path) -> list[Path]:
+    """Return correction inputs shared by physical and logical projection."""
+
+    if not directory.is_dir():
+        return []
+    return sorted(
+        path
+        for path in directory.glob("*.json")
+        if path.is_file() and not path.name.endswith("_invalid.json")
+    )
+
+
 @dataclass(frozen=True)
 class QuestionIssueCorrectionEntry:
     path: Path

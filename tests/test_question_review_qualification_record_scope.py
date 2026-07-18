@@ -395,6 +395,18 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 None,
                 [
                     {
+                        "original_question_id": "q1",
+                        "public_question_id": None,
+                        "questionType": "single",
+                    }
+                ],
+            )
+        with self.assertRaisesRegex(QualificationRunError, "ID fieldが空又は不正"):
+            validate(
+                {"public_question_id": "q1"},
+                None,
+                [
+                    {
                         "originalQuestionId": "q1",
                         "firestoreQuestionIds": ["q1", None],
                         "questionType": "single",
@@ -474,6 +486,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             patch_record = {
                 "originalQuestionId": "shared-review-id",
                 "sourceQuestionKey": "sample:2026:shared",
+                "public_question_id": None,
                 "explanationText": ["変更前"],
             }
             patch.write_text(
@@ -560,6 +573,68 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     store.get("sample", run["runId"]),
                     {patch_relative},
                 )
+
+    def test_record_scope_rejects_ambiguous_unbound_legacy_rows(self):
+        patch_relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/q1_explanationText_added.json"
+        )
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        aliases = ["ui-q1", "review-q1", "sample:2026:q1", "q1.json#0"]
+        legacy_rows = [
+            {
+                "originalQuestionId": "review-q1",
+                "sourceQuestionKey": "sample:2026:q1",
+                "public_question_id": None,
+                "explanationText": [label],
+            }
+            for label in ("候補A", "候補B")
+        ]
+        after_rows = copy.deepcopy(legacy_rows)
+        after_rows[0].update(
+            sourceRecordRef="q1.json#0",
+            explanationText=["変更後"],
+        )
+
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "ID fieldが空又は不正",
+        ):
+            self._validate_record_scope_change(
+                patch_relative,
+                {"question_bodies": legacy_rows},
+                {"question_bodies": after_rows},
+                plan_updates={
+                    "sourceFiles": [source_relative.as_posix()],
+                    "targetRecordAliasGroups": [aliases],
+                    "targetRecordBindings": [
+                        {
+                            "uiQuestionId": "ui-q1",
+                            "reviewQuestionId": "review-q1",
+                            "sourceQuestionKey": "sample:2026:q1",
+                            "sourceRecordRef": "q1.json#0",
+                            "aliases": aliases,
+                        }
+                    ],
+                    "allowedPatchDirs": ["21_explanationText_added"],
+                    "allowedPatchFiles": [patch_relative.as_posix()],
+                    "targetRecordScopes": {
+                        patch_relative.as_posix(): [aliases]
+                    },
+                },
+                source_payloads={
+                    source_relative: {
+                        "question_bodies": [
+                            {
+                                "originalQuestionId": "review-q1",
+                                "sourceQuestionKey": "sample:2026:q1",
+                            }
+                        ]
+                    }
+                },
+            )
 
     def test_existing_patch_is_blocked_only_when_source_binding_is_ambiguous(self):
         with tempfile.TemporaryDirectory() as directory:

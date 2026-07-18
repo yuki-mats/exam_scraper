@@ -12,7 +12,8 @@ import subprocess
 import sys
 import tempfile
 import threading
-from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
+import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
@@ -30,8 +31,10 @@ from scripts.common.law_audit_sidecar_contract import (
     law_audit_sidecar_metadata_errors,
 )
 from tools.question_review_console.projection import (
+    PROJECTED_COMPARE_FIELDS,
     extract_records,
     record_identity_aliases,
+    sha256_json,
     source_identity_aliases,
     workflow_identity_aliases,
 )
@@ -69,7 +72,6 @@ from tools.question_review_console.question_patch_proposal import (
 from tools.question_review_console.question_work_queue import (
     WORK_ITEM_STATES,
     QuestionWorkQueueError,
-    block_group_after_stage,
     build_question_executions,
     input_fingerprint,
     queue_summary,
@@ -456,6 +458,10 @@ class QualificationRunError(RuntimeError):
     pass
 
 
+class QuestionItemError(QualificationRunError):
+    """一問だけを保留できる対象解決エラー。"""
+
+
 def _maintenance_research_prompt(prompt: str) -> str:
     base_prompt = prompt.partition("\n## 画面用の問題別進捗\n")[0].rstrip()
     return "\n".join(
@@ -497,7 +503,7 @@ def _preparation_retryable(exc: Exception) -> bool:
         exc, SubscriptionGateError
     ):
         return False
-    message = str(exc)
+    message = str(exc).casefold()
     return any(
         marker in message
         for marker in (
@@ -506,6 +512,7 @@ def _preparation_retryable(exc: Exception) -> bool:
             "送信に失敗",
             "stdio",
             "起動できません",
+            "selected model is at capacity",
         )
     )
 
@@ -595,6 +602,7 @@ def _question_scope_prompt(
             )
     else:
         source_files = []
+    projected_input_path = str(target.get("_projectedInputPath") or "").strip()
     output_files = list(
         dict.fromkeys(str(value) for value in plan.get("outputFiles") or [] if value)
     )
@@ -654,6 +662,22 @@ def _question_scope_prompt(
                 if plan
                 else []
             ),
+            *(
+                [
+                    "## この工程の現在入力",
+                    "",
+                    f"- logicalProjection: `{projected_input_path}`",
+                    "",
+                    (
+                        "これはserverが00_sourceと確定patchから生成した読取専用入力である。"
+                        "正本文書中の20_merged_1又は30_merged_2より、この一問では"
+                        "logicalProjectionを優先して読み、編集しない。"
+                    ),
+                    "",
+                ]
+                if projected_input_path
+                else []
+            ),
             action,
             "下記の対象件数とfile一覧は親範囲の説明であり、この一問へscopeを広げない。",
             "",
@@ -672,6 +696,11 @@ def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]
         if isinstance(raw_stage_plans, list) and raw_stage_plans
         else [dict(plan)]
     )
+    completed_scope_stage_ids = {
+        str(value)
+        for value in plan.get("resumeCompletedScopeStageIds") or []
+        if value
+    }
     phases: list[dict[str, Any]] = []
     for stage_plan in stage_plans:
         group_id = str(stage_plan.get("sessionGroup") or "maintenance")
@@ -689,6 +718,8 @@ def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]
         if not stage_ids:
             continue
         for stage_id in stage_ids:
+            if stage_id in completed_scope_stage_ids:
+                continue
             phases.append(
                 {
                     "id": stage_id,
@@ -701,211 +732,6 @@ def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]
                 }
             )
     return phases
-
-
-def _derive_resume_merge_dependencies(
-    previous: Mapping[str, Any],
-    plan: Mapping[str, Any],
-) -> list[dict[str, Any]]:
-    """再開対象より前で未完了だった工程間mergeを引き継ぐ。"""
-
-    stage_order = [str(value) for value in plan.get("stageIds") or [] if value]
-    stage_positions = {
-        stage_id: index for index, stage_id in enumerate(stage_order)
-    }
-    raw_stage_plans = plan.get("stagePlans")
-    stage_plans = (
-        [
-            dict(value)
-            for value in raw_stage_plans
-            if isinstance(value, Mapping)
-        ]
-        if isinstance(raw_stage_plans, list) and raw_stage_plans
-        else [dict(plan)]
-    )
-    resumed_stage_ids: set[str] = set()
-    for stage_plan in stage_plans:
-        stage_id = str(stage_plan.get("stageId") or "")
-        if not stage_id or stage_id == "multi":
-            continue
-        resumed_stage_ids.add(stage_id)
-
-    scoped_groups = {
-        str(value) for value in plan.get("targetGroupIds") or [] if value
-    }
-    dependencies: dict[tuple[str, str], dict[str, Any]] = {}
-    completed_merges: set[tuple[str, str]] = set()
-
-    for phase in previous.get("phaseExecutions") or []:
-        if not isinstance(phase, Mapping):
-            continue
-        after_stage_id = str(phase.get("id") or "")
-        artifact_sync = phase.get("artifactSync")
-        if not isinstance(artifact_sync, Mapping):
-            continue
-        completed_merges.update(
-            (after_stage_id, str(group.get("listGroupId") or ""))
-            for group in artifact_sync.get("groups") or []
-            if isinstance(group, Mapping)
-            and str(group.get("status") or "") in {"succeeded", "current"}
-            and group.get("listGroupId")
-        )
-    completed_merges.update(
-        (
-            str(dependency.get("afterStageId") or ""),
-            str(dependency.get("listGroupId") or ""),
-        )
-        for dependency in previous.get("resumeMergeDependencies") or []
-        if isinstance(dependency, Mapping)
-        and str(dependency.get("status") or "") in {"succeeded", "current"}
-        and dependency.get("afterStageId")
-        and dependency.get("listGroupId")
-    )
-
-    def add_dependency(
-        list_group_id: str,
-        after_stage_id: str,
-        *,
-        status: str,
-    ) -> None:
-        if not list_group_id or not after_stage_id:
-            return
-        if status not in {
-            "running",
-            "interrupted",
-            "failed",
-            "blocked",
-            "pending",
-        }:
-            return
-        if scoped_groups and list_group_id not in scoped_groups:
-            return
-        after_index = stage_positions.get(after_stage_id)
-        if after_index is None or not any(
-            stage_positions.get(stage_id, -1) > after_index
-            for stage_id in resumed_stage_ids
-        ):
-            return
-        dependencies[(after_stage_id, list_group_id)] = {
-            "listGroupId": list_group_id,
-            "afterStageId": after_stage_id,
-            "status": "pending",
-            "message": None,
-        }
-
-    for phase in previous.get("phaseExecutions") or []:
-        if not isinstance(phase, Mapping):
-            continue
-        after_stage_id = str(phase.get("id") or "")
-        artifact_sync = phase.get("artifactSync")
-        if not isinstance(artifact_sync, Mapping):
-            continue
-        for group in artifact_sync.get("groups") or []:
-            if not isinstance(group, Mapping):
-                continue
-            add_dependency(
-                str(group.get("listGroupId") or ""),
-                after_stage_id,
-                status=str(group.get("status") or ""),
-            )
-
-    # 再merge自体が失敗したrunから再度再開しても、依存を失わない。
-    for dependency in previous.get("resumeMergeDependencies") or []:
-        if not isinstance(dependency, Mapping):
-            continue
-        add_dependency(
-            str(dependency.get("listGroupId") or ""),
-            str(dependency.get("afterStageId") or ""),
-            status=(
-                "pending"
-                if dependency.get("remergeRequired") is True
-                else str(dependency.get("status") or "pending")
-            ),
-        )
-
-    # validated保存直後、工程merge transactionの開始前に停止した旧runでも、
-    # 成功mergeの証跡がなければ後続writer前の依存を復元する。
-    for question in previous.get("questionExecutions") or []:
-        if not isinstance(question, Mapping):
-            continue
-        list_group_id = str(question.get("listGroupId") or "")
-        for stage in question.get("stages") or []:
-            if (
-                not isinstance(stage, Mapping)
-                or str(stage.get("status") or "") != "validated"
-            ):
-                continue
-            after_stage_id = str(stage.get("stageId") or "")
-            if (after_stage_id, list_group_id) in completed_merges:
-                continue
-            add_dependency(
-                list_group_id,
-                after_stage_id,
-                status="pending",
-            )
-
-    return sorted(
-        dependencies.values(),
-        key=lambda value: (
-            stage_positions.get(str(value["afterStageId"]), len(stage_order)),
-            str(value["listGroupId"]),
-        ),
-    )
-
-
-def _upsert_pending_merge_dependency(
-    manifest: dict[str, Any],
-    list_group_id: str,
-    after_stage_id: str,
-) -> None:
-    """validated patchと後続writerの間に必要なmergeを永続化する。"""
-
-    if not list_group_id or not after_stage_id:
-        return
-    dependencies = [
-        dict(value)
-        for value in manifest.get("resumeMergeDependencies") or []
-        if isinstance(value, Mapping)
-    ]
-    dependency = next(
-        (
-            value
-            for value in dependencies
-            if str(value.get("listGroupId") or "") == list_group_id
-            and str(value.get("afterStageId") or "") == after_stage_id
-        ),
-        None,
-    )
-    if dependency is None:
-        dependency = {
-            "listGroupId": list_group_id,
-            "afterStageId": after_stage_id,
-        }
-        dependencies.append(dependency)
-    now = _now()
-    dependency.update(
-        status="pending",
-        message="確定済みpatchを後続工程の入力へ反映する必要があります。",
-        remergeRequired=True,
-        startedAt=None,
-        finishedAt=None,
-        updatedAt=now,
-    )
-    stage_positions = {
-        str(stage_id): index
-        for index, stage_id in enumerate(manifest.get("stageIds") or [])
-        if stage_id
-    }
-    manifest["resumeMergeDependencies"] = sorted(
-        dependencies,
-        key=lambda value: (
-            stage_positions.get(
-                str(value.get("afterStageId") or ""),
-                len(stage_positions),
-            ),
-            str(value.get("listGroupId") or ""),
-        ),
-    )
 
 
 class QualificationRunStore:
@@ -1106,6 +932,7 @@ class QualificationRunStore:
             "questionExecutions": question_executions,
             "questionExecutionSummary": question_execution_summary,
             "queueStatus": plan.get("queueStatus"),
+            "queueOrder": plan.get("queueOrder"),
             "retrySafe": bool(plan.get("retrySafe", True)),
             "retryUnsafeReason": plan.get("retryUnsafeReason"),
             "unsafeChildRunId": plan.get("unsafeChildRunId"),
@@ -1198,26 +1025,7 @@ class QualificationRunStore:
             "resumeWorkItemKeys": sorted(
                 {str(value) for value in plan.get("resumeWorkItemKeys") or [] if value}
             ),
-            "resumeMergeDependencies": [
-                {
-                    "listGroupId": str(value.get("listGroupId") or ""),
-                    "afterStageId": str(value.get("afterStageId") or ""),
-                    "status": str(value.get("status") or "pending"),
-                    "message": (
-                        str(value.get("message"))
-                        if value.get("message") is not None
-                        else None
-                    ),
-                    "remergeRequired": bool(value.get("remergeRequired")),
-                    "startedAt": value.get("startedAt"),
-                    "finishedAt": value.get("finishedAt"),
-                    "updatedAt": value.get("updatedAt"),
-                }
-                for value in plan.get("resumeMergeDependencies") or []
-                if isinstance(value, Mapping)
-                and value.get("listGroupId")
-                and value.get("afterStageId")
-            ],
+            "resumeMergeDependencies": [],
             "parentSourceChecked": bool(plan.get("parentSourceChecked")),
             "createdAt": now,
             "startedAt": None,
@@ -1375,7 +1183,6 @@ class QualificationRunStore:
         stage_id: str,
         *,
         block_dependents: bool = False,
-        requires_downstream_merge: bool = False,
         validated_receipt: Mapping[str, Any] | None = None,
         **changes: Any,
     ) -> dict[str, Any]:
@@ -1433,12 +1240,6 @@ class QualificationRunStore:
                             list_group_id,
                         }
                     )
-                    if requires_downstream_merge:
-                        _upsert_pending_merge_dependency(
-                            manifest,
-                            list_group_id,
-                            stage_id,
-                        )
                 if isinstance(validated_receipt, Mapping):
                     existing_receipt = manifest.get("workVersionReceipt")
                     receipt_items = [
@@ -2574,17 +2375,7 @@ class QualificationRunStore:
                     )
                     recovered_receipts.append(dict(receipt))
                     if question.get("listGroupId"):
-                        list_group_id = str(question["listGroupId"])
-                        confirmed_group_ids.add(list_group_id)
-                        if (
-                            child.get("allowedPatchDirs")
-                            and stage_index < len(question.get("stages") or []) - 1
-                        ):
-                            _upsert_pending_merge_dependency(
-                                manifest,
-                                list_group_id,
-                                expected_stage_id,
-                            )
+                        confirmed_group_ids.add(str(question["listGroupId"]))
                     refresh_question_status(question)
                     continue
                 if (
@@ -2639,42 +2430,6 @@ class QualificationRunStore:
                 break
         manifest["confirmedGroupIds"] = sorted(confirmed_group_ids)
         return executions, recovered_receipts, unsafe_child_id
-
-    @staticmethod
-    def _recover_running_merge_transactions(
-        manifest: dict[str, Any],
-        executions: list[dict[str, Any]],
-    ) -> list[dict[str, Any]]:
-        dependencies = [
-            dict(value)
-            for value in manifest.get("resumeMergeDependencies") or []
-            if isinstance(value, Mapping)
-        ]
-        for dependency in dependencies:
-            if str(dependency.get("status") or "") != "running":
-                continue
-            now = _now()
-            reason = (
-                "ローカルUIの再起動で工程間mergeの完了を確認できません。"
-                "後続writerの前に自動で再mergeします。"
-            )
-            dependency.update(
-                status="interrupted",
-                remergeRequired=True,
-                message=reason,
-                interruptedAt=now,
-                finishedAt=now,
-                updatedAt=now,
-            )
-            executions = block_group_after_stage(
-                executions,
-                str(dependency.get("listGroupId") or ""),
-                str(dependency.get("afterStageId") or ""),
-                reason,
-            )
-            manifest["queueStatus"] = "partial"
-        manifest["resumeMergeDependencies"] = dependencies
-        return executions
 
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
@@ -2738,10 +2493,6 @@ class QualificationRunStore:
                     recovered_executions = recover_interrupted_executions(
                         recovered_before_interrupt
                     )
-                    recovered_executions = self._recover_running_merge_transactions(
-                        manifest,
-                        recovered_executions,
-                    )
                     execution_summary = queue_summary(recovered_executions)
                     existing_receipt = manifest.get("workVersionReceipt")
                     existing_items = (
@@ -2797,14 +2548,6 @@ class QualificationRunStore:
                         not execution_summary["pendingWorkItemCount"]
                         and execution_summary["validatedWorkItemCount"]
                         and manifest.get("retrySafe") is not False
-                        and not any(
-                            dependency.get("remergeRequired") is True
-                            for dependency in manifest.get(
-                                "resumeMergeDependencies"
-                            )
-                            or []
-                            if isinstance(dependency, Mapping)
-                        )
                     ):
                         queue_status = (
                             "partial"
@@ -3611,6 +3354,9 @@ class QualificationRunCoordinator:
                 ]
                 flow_plan = {
                     **plan,
+                    "workItemCount": queue_summary(question_executions)[
+                        "workItemCount"
+                    ],
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "parallelStrategy": "per_question_preparation",
@@ -3620,6 +3366,7 @@ class QualificationRunCoordinator:
                     "childRunIds": [],
                     "questionExecutions": question_executions,
                     "queueStatus": "queued",
+                    "queueOrder": "question_major",
                 }
                 run = self.store.create(
                     flow_plan,
@@ -4756,7 +4503,7 @@ class QualificationRunCoordinator:
             )
             expected_key = work_item_key(target, stage_id)
             if current is None or str(current.get("workItemKey") or "") != expected_key:
-                raise QualificationRunError(
+                raise QuestionItemError(
                     f"工程開始時の一問queue識別子が一致しません: "
                     f"{question_id} / {stage_id}"
                 )
@@ -4766,6 +4513,14 @@ class QualificationRunCoordinator:
                 policy_fingerprint,
             )
             if str(current.get("inputFingerprint") or "") == expected_input:
+                if current.get("policyFingerprint") != policy_fingerprint:
+                    self.store.update_question_stage(
+                        qualification,
+                        run_id,
+                        question_id,
+                        stage_id,
+                        policyFingerprint=policy_fingerprint,
+                    )
                 continue
             if str(current.get("status") or "") != "queued":
                 reason = (
@@ -4789,54 +4544,11 @@ class QualificationRunCoordinator:
                 question_id,
                 stage_id,
                 inputFingerprint=expected_input,
+                policyFingerprint=policy_fingerprint,
                 preparationPath=None,
                 preparationHash=None,
                 error=None,
             )
-
-    def _reconcile_phase_targets(
-        self,
-        qualification: str,
-        run_id: str,
-        stage_id: str,
-        targets: list[dict[str, Any]],
-    ) -> int:
-        """再計画で対象外になったqueue itemを明示的に完了させる。"""
-
-        active_question_ids = {
-            str(target.get("id") or target.get("uiQuestionId") or "")
-            for target in targets
-        }
-        parent = self.store.get(qualification, run_id)
-        reconciled = 0
-        for question in parent.get("questionExecutions") or []:
-            if not isinstance(question, Mapping):
-                continue
-            question_id = str(question.get("questionId") or "")
-            if question_id in active_question_ids:
-                continue
-            stage = self._queue_stage(parent, question_id, stage_id)
-            if stage is None:
-                continue
-            status = str(stage.get("status") or "")
-            if status in {"validated", "not_applicable", "blocked"}:
-                continue
-            if status != "queued":
-                raise QualificationRunError(
-                    "工程再計画時に未確定の一問作業が残っています: "
-                    f"{question_id} / {stage_id} / {status}"
-                )
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                status="not_applicable",
-                error=None,
-                finishedAt=_now(),
-            )
-            reconciled += 1
-        return reconciled
 
     @staticmethod
     def _isolated_child_failure(child: Mapping[str, Any]) -> bool:
@@ -4879,240 +4591,216 @@ class QualificationRunCoordinator:
                 block_dependents=True,
             )
 
-    def _block_group_queue(
+    def _write_projected_question_input(
         self,
         qualification: str,
         run_id: str,
-        list_group_id: str,
-        reason: str,
-    ) -> None:
-        parent = self.store.get(qualification, run_id)
-        for question in parent.get("questionExecutions") or []:
-            if (
-                not isinstance(question, Mapping)
-                or str(question.get("listGroupId") or "") != list_group_id
-            ):
-                continue
-            first_pending = next(
-                (
-                    stage
-                    for stage in question.get("stages") or []
-                    if isinstance(stage, Mapping)
-                    and str(stage.get("status") or "")
-                    not in {"validated", "not_applicable"}
-                ),
-                None,
+        target: Mapping[str, Any],
+        work_key: str,
+    ) -> dict[str, Any]:
+        inventory = getattr(self.workflow, "inventory", None)
+        project = getattr(inventory, "projected_input", None)
+        if not callable(project):
+            raise QuestionItemError(
+                "一問工程に必要なlogicalProjection機能がありません。"
             )
-            if first_pending is None or str(first_pending.get("status") or "") == "blocked":
-                continue
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                str(question.get("questionId") or ""),
-                str(first_pending.get("stageId") or ""),
-                status="blocked",
-                error=reason,
-                finishedAt=_now(),
-                block_dependents=True,
+        identity = SourceIdentityBinding.from_mapping(target)
+        result = project(
+            qualification,
+            str(target.get("listGroupId") or ""),
+            identity.source_record_ref,
+        )
+        errors = tuple(str(value) for value in getattr(result, "errors", ()) if value)
+        if errors:
+            raise QuestionItemError(
+                "現在入力の論理projectionを作成できません: "
+                + " / ".join(errors)
             )
+        record = getattr(result, "record", None)
+        if not isinstance(record, Mapping):
+            raise QuestionItemError("現在入力の論理projection形式が不正です。")
+        path = (
+            self.store.root
+            / qualification
+            / run_id
+            / "projected_inputs"
+            / f"{work_key}.json"
+        )
+        payload = {
+            "schemaVersion": "question-maintenance-projection/v1",
+            "qualification": qualification,
+            "listGroupId": str(target.get("listGroupId") or ""),
+            **identity.as_mapping(),
+            "question_bodies": [copy.deepcopy(dict(record))],
+            "appliedPatchFiles": list(getattr(result, "applied_files", ())),
+        }
+        self.store._write_json(path, payload)
+        return {
+            "path": path.relative_to(self.repo_root).as_posix(),
+            "hash": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "record": copy.deepcopy(dict(record)),
+        }
 
-    def _persist_merge_transaction(
+    def _project_question_now(
         self,
         qualification: str,
-        run_id: str,
-        list_group_id: str,
-        after_stage_id: str,
-        *,
-        status: str,
-        message: str | None,
-    ) -> list[dict[str, Any]]:
-        parent = self.store.get(qualification, run_id)
-        transactions = [
-            dict(value)
-            for value in parent.get("resumeMergeDependencies") or []
-            if isinstance(value, Mapping)
-        ]
-        transaction = next(
+        target: Mapping[str, Any],
+    ) -> Any:
+        inventory = getattr(self.workflow, "inventory", None)
+        project = getattr(inventory, "projected_input", None)
+        if not callable(project):
+            raise QuestionItemError(
+                "一問工程に必要なlogicalProjection機能がありません。"
+            )
+        identity = SourceIdentityBinding.from_mapping(target)
+        result = project(
+            qualification,
+            str(target.get("listGroupId") or ""),
+            identity.source_record_ref,
+        )
+        errors = tuple(str(value) for value in getattr(result, "errors", ()) if value)
+        if errors:
+            raise QuestionItemError(
+                "現在入力の論理projectionを作成できません: "
+                + " / ".join(errors)
+            )
+        if not isinstance(getattr(result, "record", None), Mapping):
+            raise QuestionItemError("現在入力の論理projection形式が不正です。")
+        return result
+
+    @staticmethod
+    def _canonical_question_target(
+        parent: Mapping[str, Any],
+        question_id: str,
+    ) -> dict[str, Any]:
+        target = next(
             (
-                value
-                for value in transactions
-                if str(value.get("listGroupId") or "") == list_group_id
-                and str(value.get("afterStageId") or "") == after_stage_id
+                dict(value)
+                for value in parent.get("progressTargets") or []
+                if isinstance(value, Mapping)
+                and str(value.get("id") or value.get("uiQuestionId") or "")
+                == question_id
             ),
             None,
         )
-        if transaction is None:
-            transaction = {
-                "listGroupId": list_group_id,
-                "afterStageId": after_stage_id,
-            }
-            transactions.append(transaction)
-        now = _now()
-        transaction.update(
-            status=status,
-            message=message,
-            remergeRequired=status not in {"succeeded", "current"},
-            updatedAt=now,
-        )
-        if status == "running":
-            transaction.update(startedAt=now, finishedAt=None)
-        else:
-            transaction["finishedAt"] = now
-        self.store.update(
-            qualification,
-            run_id,
-            resumeMergeDependencies=transactions,
-        )
-        return transactions
+        if target is None:
+            raise QuestionItemError(
+                f"一問queueの基準targetが見つかりません: {question_id}"
+            )
+        return target
 
-    def _refresh_merged_views_transaction(
+    def _dynamic_question_phase_plan(
         self,
         qualification: str,
-        run_id: str,
-        list_group_id: str,
-        after_stage_id: str,
-        emit: Callable[[str], None],
-    ) -> dict[str, Any]:
-        self._persist_merge_transaction(
-            qualification,
-            run_id,
-            list_group_id,
-            after_stage_id,
-            status="running",
-            message="工程間mergeを実行中です。",
-        )
-        try:
-            raw_result = self.synchronizer.refresh_merged_views(
-                qualification,
-                list_group_id,
-                emit,
-            )
-        except Exception as exc:  # noqa: BLE001
-            message = str(exc) or "工程間mergeで例外が発生しました。"
-            self._persist_merge_transaction(
-                qualification,
-                run_id,
-                list_group_id,
-                after_stage_id,
-                status="failed",
-                message=message,
-            )
-            # 派生成果物の例外だけならgroup隔離できる。source境界まで
-            # 壊れている場合は例外を正規化せず、親run全体をfail-closeする。
-            self._check_source_immutability(emit)
-            return {
-                "listGroupId": list_group_id,
-                "status": "failed",
-                "message": message,
-            }
-        if not isinstance(raw_result, Mapping):
-            result = {
-                "listGroupId": list_group_id,
-                "status": "failed",
-                "message": "工程間mergeの結果形式が不正です。",
-            }
-        else:
-            result = dict(raw_result)
-            result.setdefault("listGroupId", list_group_id)
-        reported_status = str(result.get("status") or "failed")
-        status = reported_status if reported_status in {"succeeded", "current"} else "failed"
-        message = str(
-            result.get("message")
-            or (
-                "工程間mergeを完了しました。"
-                if status in {"succeeded", "current"}
-                else "工程間mergeを完了できませんでした。"
-            )
-        )
-        result.update(status=status, message=message)
-        self._persist_merge_transaction(
-            qualification,
-            run_id,
-            list_group_id,
-            after_stage_id,
-            status=status,
-            message=message,
-        )
-        return result
+        parent: Mapping[str, Any],
+        phase: Mapping[str, Any],
+        initial_plan: Mapping[str, Any],
+        question_id: str,
+    ) -> tuple[dict[str, Any], dict[str, Any] | None]:
+        """Re-evaluate one changed question without rebuilding its 57 siblings."""
 
-    def _refresh_resume_merge_dependencies(
+        stage_id = str(phase["id"])
+        target = self._canonical_question_target(parent, question_id)
+        projection = self._project_question_now(qualification, target)
+        projected = dict(projection.record)
+        if not self._projection_stage_applicable(initial_plan, stage_id, projected):
+            return dict(initial_plan), None
+
+        identity = SourceIdentityBinding.from_mapping(target)
+        aliases = sorted(
+            {
+                str(value)
+                for value in [*(target.get("aliases") or []), *identity.as_tuple()]
+                if value
+            }
+        )
+        source_name = identity.source_record_ref.rsplit("#", 1)[0]
+        source_path = (
+            Path("output")
+            / qualification
+            / "questions_json"
+            / str(target.get("listGroupId") or "")
+            / "00_source"
+            / source_name
+        ).as_posix()
+        target.update(
+            aliases=aliases,
+            stateHash=sha256_json(
+                {
+                    field: projected.get(field)
+                    for field in PROJECTED_COMPARE_FIELDS
+                }
+            ),
+        )
+        patch_files = self._review_patch_files(
+            {"paths": {"source": source_path, "patches": []}},
+            {"investigationScope": "current_question"},
+            set(STAGE_PATCH_DIR_NAMES.get(stage_id) or []),
+            set(STAGE_REVIEW_FLAG_SUFFIXES.get(stage_id) or []),
+        )
+        plan = copy.deepcopy(dict(initial_plan))
+        plan.update(
+            targetCount=1,
+            workItemCount=1,
+            targetQuestionKeys=[question_id],
+            progressTargets=[target],
+            targetRecordBindings=[
+                {
+                    "uiQuestionId": question_id,
+                    **identity.as_mapping(),
+                    "aliases": aliases,
+                }
+            ],
+            targetRecordAliasGroups=[aliases],
+            targetSourceRecordScopes={source_path: [aliases]},
+            targetGroupIds=[str(target.get("listGroupId") or "")],
+            sourceFiles=[source_path],
+            outputFiles=sorted(patch_files),
+            policyTargets={stage_id: [question_id]},
+        )
+        self._apply_plan_write_contract(plan)
+        plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
+            qualification,
+            list(plan.get("targetGroupIds") or []),
+            plan,
+        )
+        return plan, target
+
+    @staticmethod
+    def _projection_stage_applicable(
+        phase_plan: Mapping[str, Any],
+        stage_id: str,
+        projected: Mapping[str, Any],
+    ) -> bool:
+        # Other question stages apply to every question once an actual upstream
+        # patch changed.  Law audit alone has a record-level applicability gate.
+        return not (
+            stage_id == "law_audit"
+            and str(phase_plan.get("mode") or "")
+            not in {"refresh", "group_refresh"}
+            and projected.get("isLawRelated") is False
+        )
+
+    def _validated_queue_stage_changed(
         self,
         qualification: str,
-        run_id: str,
-        phase_id: str,
-        emit: Callable[[str], None],
-        sync_blocked_group_ids: set[str],
-    ) -> None:
-        parent = self.store.get(qualification, run_id)
-        dependencies = [
-            dict(value)
-            for value in parent.get("resumeMergeDependencies") or []
-            if isinstance(value, Mapping)
-        ]
-        if not dependencies:
-            return
-        stage_order = [
-            str(value) for value in parent.get("stageIds") or [] if value
-        ]
-        stage_positions = {
-            stage_id: index for index, stage_id in enumerate(stage_order)
-        }
-        current_index = stage_positions.get(phase_id)
-        if current_index is None:
-            return
-        due_by_group: dict[tuple[str, str], list[dict[str, Any]]] = {}
-        for dependency in dependencies:
-            if str(dependency.get("status") or "pending") != "pending":
-                continue
-            after_index = stage_positions.get(
-                str(dependency.get("afterStageId") or "")
-            )
-            if after_index is None or after_index >= current_index:
-                continue
-            list_group_id = str(dependency.get("listGroupId") or "")
-            after_stage_id = str(dependency.get("afterStageId") or "")
-            if list_group_id:
-                due_by_group.setdefault(
-                    (list_group_id, after_stage_id), []
-                ).append(dependency)
-
-        for (list_group_id, after_stage_id), group_dependencies in due_by_group.items():
-            emit(
-                f"{list_group_id}: 後続工程の開始前に未完了の工程間mergeを再実行します。"
-            )
-            merge_result = self._refresh_merged_views_transaction(
-                qualification,
-                run_id,
-                list_group_id,
-                after_stage_id,
-                emit,
-            )
-            reported_status = str(merge_result.get("status") or "failed")
-            succeeded = reported_status in {"succeeded", "current"}
-            status = reported_status if succeeded else "failed"
-            message = str(
-                merge_result.get("message")
-                or (
-                    "工程間mergeを完了しました。"
-                    if succeeded
-                    else "工程間mergeを完了できませんでした。"
-                )
-            )
-            if succeeded:
-                emit(f"{list_group_id}: 工程間mergeを確認し、後続工程へ進みます。")
-            else:
-                sync_blocked_group_ids.add(list_group_id)
-                reason = (
-                    f"{list_group_id}: 後続工程に必要な工程間mergeを"
-                    f"完了できなかったため、この範囲だけを保留しました: {message}"
-                )
-                self._block_group_queue(
-                    qualification,
-                    run_id,
-                    list_group_id,
-                    reason,
-                )
-                emit(reason)
+        stage: Mapping[str, Any],
+    ) -> bool:
+        child_ids = [str(value) for value in stage.get("childRunIds") or [] if value]
+        if not child_ids:
+            # Recovered legacy manifests do not always carry the child link.
+            return True
+        for child_id in child_ids:
+            try:
+                child = self.store.get(qualification, child_id)
+            except (FileNotFoundError, ValueError):
+                return True
+            result = child.get("result")
+            if isinstance(result, Mapping) and any(
+                str(value).strip() for value in result.get("changedFiles") or []
+            ):
+                return True
+        return False
 
     def _prepare_question_item(
         self,
@@ -5133,6 +4821,41 @@ class QualificationRunCoordinator:
             )
         work_key = str(initial.get("workItemKey") or "")
         input_hash = str(initial.get("inputFingerprint") or "")
+        try:
+            projected_input = self._write_projected_question_input(
+                qualification,
+                run_id,
+                target,
+                work_key,
+            )
+        except Exception as exc:  # noqa: BLE001
+            reason = str(exc)
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="blocked",
+                error=reason,
+                finishedAt=_now(),
+                block_dependents=True,
+            )
+            emit(
+                f"{target.get('displayLabel') or question_id}: "
+                f"現在入力を準備できないため保留しました: {reason}"
+            )
+            return False
+        scoped_target = dict(target)
+        if projected_input is not None:
+            scoped_target["_projectedInputPath"] = projected_input["path"]
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                projectedInputPath=projected_input["path"],
+                projectedInputHash=projected_input["hash"],
+            )
         last_error: Exception | None = None
         for retry_index in range(2):
             attempts = int(initial.get("attempts") or 0) + retry_index + 1
@@ -5185,7 +4908,7 @@ class QualificationRunCoordinator:
                     result = self.app_server.run_turn(
                         _question_scope_prompt(
                             phase_prompt,
-                            target,
+                            scoped_target,
                             repo_root=self.repo_root,
                             read_only=True,
                             scoped_plan=(
@@ -5239,6 +4962,9 @@ class QualificationRunCoordinator:
                         f"{target.get('displayLabel') or question_id}: "
                         "一時的な通信失敗のため読取専用準備を一度だけ再試行します。"
                     )
+                    heartbeat()
+                    time.sleep(5 + secrets.randbelow(1000) / 1000)
+                    heartbeat()
                     continue
                 break
         reason = str(last_error or "一問の準備を完了できませんでした。")
@@ -5254,6 +4980,858 @@ class QualificationRunCoordinator:
         )
         emit(f"{target.get('displayLabel') or question_id}: 準備を保留しました: {reason}")
         return False
+
+    def _question_major_stage_spec(
+        self,
+        qualification: str,
+        run_id: str,
+        phase: Mapping[str, Any],
+        question_id: str,
+        initial_plan: Mapping[str, Any],
+        initial_prompt: str,
+    ) -> dict[str, Any]:
+        parent = self.store.get(qualification, run_id)
+        stage_id = str(phase["id"])
+        current = self._queue_stage(parent, question_id, stage_id)
+        if current is None:
+            return {"status": "not_present", "stageId": stage_id}
+        current_status = str(current.get("status") or "queued")
+        if current_status in {"validated", "not_applicable", "blocked"}:
+            return {"status": current_status, "stageId": stage_id}
+
+        phase_plan = dict(initial_plan)
+        phase_prompt = initial_prompt
+
+        def matching_target(plan: Mapping[str, Any]) -> dict[str, Any] | None:
+            return next(
+                (
+                    dict(value)
+                    for value in plan.get("progressTargets") or []
+                    if isinstance(value, Mapping)
+                    and str(value.get("id") or value.get("uiQuestionId") or "")
+                    == question_id
+                ),
+                None,
+            )
+
+        target = matching_target(phase_plan)
+        question = next(
+            (
+                value
+                for value in parent.get("questionExecutions") or []
+                if isinstance(value, Mapping)
+                and str(value.get("questionId") or "") == question_id
+            ),
+            None,
+        )
+        prior_validated = False
+        prior_changed = False
+        for prior in (question or {}).get("stages") or []:
+            if not isinstance(prior, Mapping):
+                continue
+            if str(prior.get("stageId") or "") == stage_id:
+                break
+            if str(prior.get("status") or "") == "validated":
+                prior_validated = True
+                prior_changed = prior_changed or self._validated_queue_stage_changed(
+                    qualification,
+                    prior,
+                )
+        if prior_validated and (target is not None or prior_changed):
+            phase_plan, target = self._dynamic_question_phase_plan(
+                qualification,
+                parent,
+                phase,
+                phase_plan,
+                question_id,
+            )
+            if not phase_prompt:
+                phase_prompt = self.store.prompt(qualification, run_id)
+        if target is None:
+            if current_status != "queued":
+                raise QuestionItemError(
+                    "一問工程の対象判定中に未確定状態が残っています: "
+                    f"{question_id} / {stage_id} / {current_status}"
+                )
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="not_applicable",
+                error=None,
+                finishedAt=_now(),
+            )
+            return {"status": "not_applicable", "stageId": stage_id}
+
+        self._refresh_queued_stage_inputs(
+            qualification,
+            run_id,
+            phase_plan,
+            [target],
+            stage_id,
+        )
+        current = self._queue_stage(
+            self.store.get(qualification, run_id), question_id, stage_id
+        )
+        if current is None:
+            raise QuestionItemError(
+                f"一問queueが見つかりません: {question_id} / {stage_id}"
+            )
+        current_status = str(current.get("status") or "queued")
+        if current_status == "blocked":
+            return {"status": "blocked", "stageId": stage_id}
+        if current_status not in {"queued", "prepared"}:
+            raise QuestionItemError(
+                "一問工程を準備できない状態です: "
+                f"{question_id} / {stage_id} / {current_status}"
+            )
+        try:
+            scoped_plan = specialize_question_plan(phase_plan, question_id)
+        except QuestionWorkQueueError as exc:
+            raise QuestionItemError(str(exc)) from exc
+        return {
+            "status": current_status,
+            "stageId": stage_id,
+            "phase": dict(phase),
+            "phasePlan": phase_plan,
+            "phasePrompt": phase_prompt,
+            "target": {**target, "_scopedPlan": scoped_plan},
+        }
+
+    def _commit_question_major_item(
+        self,
+        qualification: str,
+        run_id: str,
+        spec: Mapping[str, Any],
+        emit: Callable[[str], None],
+        *,
+        child_run_ids: list[str],
+        phase_child_ids: dict[str, list[str]],
+        phase_runtime: dict[str, dict[str, Any]],
+        work_version_receipts: list[dict[str, Any]],
+        confirmed_group_ids: set[str],
+        pipeline_stop: threading.Event,
+    ) -> bool:
+        phase = dict(spec["phase"])
+        phase_plan = dict(spec["phasePlan"])
+        phase_prompt = str(spec["phasePrompt"])
+        target = dict(spec["target"])
+        stage_id = str(spec["stageId"])
+        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+        queue_stage = self._queue_stage(
+            self.store.get(qualification, run_id), question_id, stage_id
+        )
+        if queue_stage is None or queue_stage.get("status") != "prepared":
+            return False
+        for freshness_attempt in range(2):
+            try:
+                latest_projection = self._write_projected_question_input(
+                    qualification,
+                    run_id,
+                    target,
+                    str(queue_stage.get("workItemKey") or ""),
+                )
+            except Exception as exc:  # noqa: BLE001
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="blocked",
+                    error=str(exc),
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                return False
+            projection_is_current = bool(
+                latest_projection
+                and str(queue_stage.get("projectedInputPath") or "")
+                == latest_projection["path"]
+                and str(queue_stage.get("projectedInputHash") or "")
+                == latest_projection["hash"]
+            )
+            if projection_is_current:
+                break
+            latest_record = latest_projection.get("record")
+            if isinstance(latest_record, Mapping) and not self._projection_stage_applicable(
+                phase_plan,
+                stage_id,
+                latest_record,
+            ):
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="not_applicable",
+                    error=None,
+                    finishedAt=_now(),
+                )
+                emit(
+                    f"{target.get('displayLabel') or question_id}: "
+                    "最新入力では対象外になったためwriterを省略しました。"
+                )
+                return False
+            if freshness_attempt:
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="blocked",
+                    error=(
+                        "読取専用準備中にも現在入力が変化したため、"
+                        "この問題だけを保留しました。"
+                    ),
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                return False
+            emit(
+                f"{target.get('displayLabel') or question_id}: "
+                "準備後にpatchが更新されたため、最新入力で準備し直します。"
+            )
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="queued",
+                preparationPath=None,
+                preparationHash=None,
+                error=None,
+            )
+            if not self._prepare_question_item(
+                qualification,
+                run_id,
+                phase_prompt,
+                target,
+                stage_id,
+                emit,
+            ):
+                return False
+            queue_stage = self._queue_stage(
+                self.store.get(qualification, run_id), question_id, stage_id
+            )
+            if queue_stage is None or queue_stage.get("status") != "prepared":
+                return False
+        preparation_hash = str(queue_stage.get("preparationHash") or "").strip()
+        work_key = str(queue_stage.get("workItemKey") or "").strip()
+        input_hash = str(queue_stage.get("inputFingerprint") or "").strip()
+        if not all(
+            (
+                queue_stage.get("preparationPath"),
+                preparation_hash,
+                work_key,
+                input_hash,
+            )
+        ):
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="blocked",
+                error=(
+                    "一問の準備記録path/hash又はqueue identityが"
+                    "不足しているため、writerを開始しません。"
+                ),
+                finishedAt=_now(),
+                block_dependents=True,
+            )
+            return False
+        projected_input_path = str(
+            queue_stage.get("projectedInputPath") or ""
+        ).strip()
+        projected_input_hash = str(
+            queue_stage.get("projectedInputHash") or ""
+        ).strip()
+        if projected_input_path:
+            try:
+                projected_relative = self._maintenance_relative_path(
+                    projected_input_path
+                )
+                projected_absolute = self.repo_root / projected_relative
+                actual_projection_hash = hashlib.sha256(
+                    projected_absolute.read_bytes()
+                ).hexdigest()
+                if not projected_input_hash or not hmac.compare_digest(
+                    actual_projection_hash,
+                    projected_input_hash,
+                ):
+                    raise QuestionItemError(
+                        "現在入力のlogicalProjection hashが一致しません。"
+                    )
+            except (OSError, QualificationRunError) as exc:
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="blocked",
+                    error=str(exc),
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                return False
+            target["_projectedInputPath"] = projected_input_path
+        try:
+            research_summary = str(
+                self.question_proposals.read(
+                    qualification,
+                    run_id,
+                    work_item_key=work_key,
+                    expected_hash=preparation_hash,
+                    question_id=question_id,
+                    stage_id=stage_id,
+                    input_fingerprint=input_hash,
+                )["summary"]
+            )
+        except QuestionPatchProposalError as exc:
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="blocked",
+                error=str(exc),
+                finishedAt=_now(),
+                block_dependents=True,
+            )
+            return False
+
+        child_plan = specialize_question_plan(phase_plan, question_id)
+        child_plan.update(
+            parentRunId=run_id,
+            flowPhaseId=stage_id,
+            phaseIndex=int(phase["index"]),
+            workType=f"maintenance_{stage_id}",
+            sandbox="workspace-write",
+            provider=self.app_server.provider,
+            parallelStrategy="prepared_question",
+            parallelWorkerLimit=1,
+            writeWorkerLimit=1,
+            parentSourceChecked=True,
+        )
+        writer_prompt = _maintenance_writer_prompt(
+            _question_scope_prompt(
+                phase_prompt,
+                target,
+                repo_root=self.repo_root,
+                read_only=False,
+                scoped_plan=child_plan,
+            ),
+            research_summary,
+        )
+        child = self.store.create(child_plan, status="queued", prompt=writer_prompt)
+        child_id = str(child["runId"])
+        child_run_ids.append(child_id)
+        phase_child_ids.setdefault(stage_id, []).append(child_id)
+        self.store.update(
+            qualification,
+            run_id,
+            childRunIds=list(child_run_ids),
+            currentPhaseId=stage_id,
+            executionPhase=f"committing:{stage_id}",
+        )
+        self.store.update_question_stage(
+            qualification,
+            run_id,
+            question_id,
+            stage_id,
+            status="committing",
+            childRunIds=[*list(queue_stage.get("childRunIds") or []), child_id],
+            error=None,
+        )
+        try:
+            self._run_human(
+                qualification,
+                child_id,
+                self.store.prompt(qualification, child_id),
+                str(child_plan["workType"]),
+                emit,
+                sync_artifacts=False,
+            )
+            child = self.store.refresh(qualification, child_id)
+            if child.get("status") != "succeeded" or not child.get(
+                "receiptValidated"
+            ):
+                raise QualificationRunError("一問の完了結果を検証できませんでした。")
+        except Exception as exc:  # noqa: BLE001
+            try:
+                child = self.store.refresh(qualification, child_id)
+            except Exception:  # noqa: BLE001
+                pass
+            reason = str((child or {}).get("error") or exc)
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="blocked",
+                error=reason,
+                finishedAt=_now(),
+                block_dependents=True,
+            )
+            if not self._isolated_child_failure(child or {}):
+                unsafe_reason = (
+                    f"{target.get('displayLabel') or question_id}: "
+                    "失敗後のrollback完了を検証できないため、"
+                    "後続writerと成果物同期を停止しました。"
+                )
+                pipeline_stop.set()
+                self.store.update(
+                    qualification,
+                    run_id,
+                    retrySafe=False,
+                    retryUnsafeReason=unsafe_reason,
+                    unsafeChildRunId=child_id,
+                )
+                self._block_remaining_queue(qualification, run_id, unsafe_reason)
+                raise QualificationRunError(unsafe_reason) from exc
+            emit(
+                f"{target.get('displayLabel') or question_id}: "
+                f"この問題だけを保留しました: {reason}"
+            )
+            return False
+
+        receipt = child.get("workVersionReceipt")
+        if isinstance(receipt, Mapping):
+            work_version_receipts.append(dict(receipt))
+        list_group_id = str(target.get("listGroupId") or "")
+        if list_group_id:
+            confirmed_group_ids.add(list_group_id)
+            self.store.update(
+                qualification,
+                run_id,
+                confirmedGroupIds=sorted(confirmed_group_ids),
+            )
+        self.store.update_question_stage(
+            qualification,
+            run_id,
+            question_id,
+            stage_id,
+            status="validated",
+            outputFingerprint=_child_output_fingerprint(child),
+            finishedAt=_now(),
+            error=None,
+            validated_receipt=(receipt if isinstance(receipt, Mapping) else None),
+        )
+        runtime = {
+            "threadId": child.get("threadId"),
+            "sessionId": child.get("sessionId"),
+            "turnId": child.get("turnId"),
+            "model": child.get("model"),
+            "serviceTier": child.get("serviceTier"),
+            "reasoningEffort": child.get("reasoningEffort"),
+        }
+        phase_runtime[stage_id] = runtime
+        self.store.update(qualification, run_id, **runtime)
+        return True
+
+    def _run_question_major_scope_phase(
+        self,
+        qualification: str,
+        run_id: str,
+        phase: Mapping[str, Any],
+        emit: Callable[[str], None],
+        *,
+        child_run_ids: list[str],
+        work_version_receipts: list[dict[str, Any]],
+        confirmed_group_ids: set[str],
+    ) -> bool:
+        phase_id = str(phase["id"])
+        parent = self.store.get(qualification, run_id)
+        phase_plan, phase_prompt = self._flow_phase_plan_prompt(parent, phase)
+        target_count = int(phase_plan.get("targetCount") or 0)
+        if not target_count:
+            self._update_flow_phase(
+                qualification,
+                run_id,
+                phase_id,
+                status="skipped",
+                targetCount=0,
+                notApplicableCount=0,
+                artifactSync={"status": "not_required", "groups": []},
+                finishedAt=_now(),
+                error=None,
+            )
+            return True
+        self.store.update(
+            qualification,
+            run_id,
+            currentPhaseId=phase_id,
+            executionPhase=f"committing:{phase_id}",
+        )
+        self._update_flow_phase(
+            qualification,
+            run_id,
+            phase_id,
+            status="running",
+            targetCount=target_count,
+            childRunIds=[],
+            startedAt=_now(),
+            error=None,
+        )
+        child = self.store.create(phase_plan, status="queued", prompt=phase_prompt)
+        child_id = str(child["runId"])
+        child_run_ids.append(child_id)
+        self.store.update(
+            qualification,
+            run_id,
+            childRunIds=list(child_run_ids),
+        )
+        try:
+            self._run_human(
+                qualification,
+                child_id,
+                self.store.prompt(qualification, child_id),
+                str(phase_plan["workType"]),
+                emit,
+                sync_artifacts=False,
+            )
+            child = self.store.refresh(qualification, child_id)
+            if child.get("status") != "succeeded" or not child.get(
+                "receiptValidated"
+            ):
+                raise QualificationRunError(
+                    f"{phase['label']}の完了結果を検証できませんでした。"
+                )
+        except Exception as exc:  # noqa: BLE001
+            try:
+                child = self.store.refresh(qualification, child_id)
+            except Exception:  # noqa: BLE001
+                child = self.store.get(qualification, child_id)
+            reason = f"{phase['label']}で停止: {exc}"
+            self._update_flow_phase(
+                qualification,
+                run_id,
+                phase_id,
+                status="failed",
+                childRunIds=[child_id],
+                finishedAt=_now(),
+                error=reason,
+            )
+            if not self._isolated_child_failure(child):
+                unsafe_reason = (
+                    f"{phase['label']}: 失敗後のrollback完了を検証できないため、"
+                    "後続writerと成果物同期を停止しました。"
+                )
+                self.store.update(
+                    qualification,
+                    run_id,
+                    retrySafe=False,
+                    retryUnsafeReason=unsafe_reason,
+                    unsafeChildRunId=child_id,
+                )
+                self._block_remaining_queue(
+                    qualification,
+                    run_id,
+                    unsafe_reason,
+                )
+                raise QualificationRunError(unsafe_reason) from exc
+            if phase_id == "category_setup":
+                self._block_remaining_queue(qualification, run_id, reason)
+                emit(f"{reason} 後続工程だけを保留します。")
+                return False
+            self._block_remaining_queue(qualification, run_id, reason)
+            raise QualificationRunError(reason) from exc
+        receipt = child.get("workVersionReceipt")
+        if isinstance(receipt, Mapping):
+            work_version_receipts.append(dict(receipt))
+            if int(receipt.get("recordedCount") or 0):
+                confirmed_group_ids.update(
+                    str(value) for value in child.get("targetGroupIds") or [] if value
+                )
+        self._update_flow_phase(
+            qualification,
+            run_id,
+            phase_id,
+            status="succeeded",
+            childRunIds=[child_id],
+            threadId=child.get("threadId"),
+            sessionId=child.get("sessionId"),
+            turnId=child.get("turnId"),
+            model=child.get("model"),
+            serviceTier=child.get("serviceTier"),
+            reasoningEffort=child.get("reasoningEffort"),
+            receiptValidated=True,
+            workVersionReceipt=receipt,
+            artifactSync={"status": "deferred", "groups": []},
+            finishedAt=_now(),
+            error=None,
+        )
+        return True
+
+    def _finalize_question_major_phases(
+        self,
+        qualification: str,
+        run_id: str,
+        phases: list[dict[str, Any]],
+        phase_child_ids: Mapping[str, list[str]],
+        phase_runtime: Mapping[str, Mapping[str, Any]],
+    ) -> None:
+        parent = self.store.get(qualification, run_id)
+        for phase in phases:
+            stage_id = str(phase["id"])
+            if stage_id in {"setup", "category_setup"}:
+                continue
+            states = [
+                stage
+                for question in parent.get("questionExecutions") or []
+                if isinstance(question, Mapping)
+                for stage in question.get("stages") or []
+                if isinstance(stage, Mapping)
+                and str(stage.get("stageId") or "") == stage_id
+            ]
+            validated = sum(stage.get("status") == "validated" for stage in states)
+            blocked = sum(stage.get("status") == "blocked" for stage in states)
+            not_applicable = sum(
+                stage.get("status") == "not_applicable" for stage in states
+            )
+            status = (
+                "partial"
+                if blocked
+                else "skipped"
+                if not states or not_applicable == len(states)
+                else "succeeded"
+            )
+            self._update_flow_phase(
+                qualification,
+                run_id,
+                stage_id,
+                status=status,
+                targetCount=len(states),
+                validatedCount=validated,
+                notApplicableCount=not_applicable,
+                blockedCount=blocked,
+                childRunIds=list(phase_child_ids.get(stage_id, [])),
+                receiptValidated=validated > 0,
+                artifactSync={
+                    "status": "deferred" if validated else "not_required",
+                    "groups": [],
+                },
+                **dict(phase_runtime.get(stage_id, {})),
+                finishedAt=_now(),
+                error=(f"{blocked}問を理由付きで保留しました。" if blocked else None),
+            )
+
+    def _run_question_major_queue(
+        self,
+        qualification: str,
+        run_id: str,
+        phases: list[dict[str, Any]],
+        emit: Callable[[str], None],
+    ) -> dict[str, Any]:
+        child_run_ids: list[str] = []
+        work_version_receipts: list[dict[str, Any]] = []
+        parent = self.store.get(qualification, run_id)
+        confirmed_group_ids: set[str] = {
+            str(value) for value in parent.get("confirmedGroupIds") or [] if value
+        }
+        phase_child_ids: dict[str, list[str]] = {}
+        phase_runtime: dict[str, dict[str, Any]] = {}
+        pipeline_stop = threading.Event()
+
+        def run_segment(segment: list[dict[str, Any]]) -> None:
+            if not segment:
+                return
+            parent = self.store.get(qualification, run_id)
+            questions = [
+                dict(value)
+                for value in parent.get("questionExecutions") or []
+                if isinstance(value, Mapping)
+            ]
+            phase_contexts: dict[str, tuple[dict[str, Any], str]] = {}
+            for phase in segment:
+                stage_id = str(phase["id"])
+                phase_child_ids.setdefault(stage_id, [])
+                has_active_item = any(
+                    str(stage.get("status") or "queued")
+                    not in {"validated", "not_applicable", "blocked"}
+                    for question in questions
+                    for stage in question.get("stages") or []
+                    if isinstance(stage, Mapping)
+                    and str(stage.get("stageId") or "") == stage_id
+                )
+                phase_contexts[stage_id] = (
+                    self._flow_phase_plan_prompt(parent, phase)
+                    if has_active_item
+                    else ({"progressTargets": []}, "")
+                )
+                self._update_flow_phase(
+                    qualification,
+                    run_id,
+                    stage_id,
+                    status="running",
+                    targetCount=len(questions),
+                    childRunIds=[],
+                    startedAt=_now(),
+                    error=None,
+                )
+            worker_limit = max(
+                1,
+                min(2, int(parent.get("parallelWorkerLimit") or 1), len(questions) or 1),
+            )
+            emit(
+                f"{len(questions)}問を問ごとの工程順で処理します。"
+                f"読取専用準備は最大{worker_limit}問、writerは1問です。"
+            )
+
+            def submit_entry(
+                executor: ThreadPoolExecutor,
+                question: Mapping[str, Any],
+                phase: Mapping[str, Any],
+            ) -> dict[str, Any]:
+                question_id = str(question.get("questionId") or "")
+                stage_id = str(phase["id"])
+                initial_plan, initial_prompt = phase_contexts[stage_id]
+                try:
+                    spec = self._question_major_stage_spec(
+                        qualification,
+                        run_id,
+                        phase,
+                        question_id,
+                        initial_plan,
+                        initial_prompt,
+                    )
+                except QuestionItemError as exc:
+                    self.store.update_question_stage(
+                        qualification,
+                        run_id,
+                        question_id,
+                        stage_id,
+                        status="blocked",
+                        error=str(exc),
+                        finishedAt=_now(),
+                        block_dependents=True,
+                    )
+                    emit(
+                        f"{question.get('displayLabel') or question_id}: "
+                        f"この問題だけを保留しました: {exc}"
+                    )
+                    return {
+                        "spec": {"status": "blocked", "stageId": stage_id},
+                        "future": None,
+                    }
+                if spec.get("status") != "queued":
+                    return {"spec": spec, "future": None}
+
+                def prepare() -> bool:
+                    if pipeline_stop.is_set():
+                        return False
+                    prepared = self._prepare_question_item(
+                        qualification,
+                        run_id,
+                        str(spec["phasePrompt"]),
+                        dict(spec["target"]),
+                        str(spec["stageId"]),
+                        emit,
+                    )
+                    if pipeline_stop.is_set():
+                        self.store.update_question_stage(
+                            qualification,
+                            run_id,
+                            question_id,
+                            str(spec["stageId"]),
+                            status="blocked",
+                            error="writer安全性を確認できないため後続処理を停止しました。",
+                            finishedAt=_now(),
+                            block_dependents=True,
+                        )
+                        return False
+                    return prepared
+
+                return {"spec": spec, "future": executor.submit(prepare)}
+
+            with ThreadPoolExecutor(max_workers=worker_limit) as executor:
+                first_entries: dict[int, dict[str, Any]] = {}
+                if questions:
+                    first_entries[0] = submit_entry(executor, questions[0], segment[0])
+                for question_index, question in enumerate(questions):
+                    if pipeline_stop.is_set():
+                        break
+                    if worker_limit > 1 and question_index + 1 < len(questions):
+                        next_index = question_index + 1
+                        if next_index not in first_entries:
+                            first_entries[next_index] = submit_entry(
+                                executor,
+                                questions[next_index],
+                                segment[0],
+                            )
+                    for phase_index, phase in enumerate(segment):
+                        entry = (
+                            first_entries.pop(question_index)
+                            if phase_index == 0
+                            else submit_entry(executor, question, phase)
+                        )
+                        spec = dict(entry["spec"])
+                        future = entry.get("future")
+                        if future is not None and not future.result():
+                            break
+                        status = str(spec.get("status") or "")
+                        if status == "blocked":
+                            break
+                        if status == "not_present":
+                            continue
+                        if status in {"validated", "not_applicable"}:
+                            continue
+                        if not self._commit_question_major_item(
+                            qualification,
+                            run_id,
+                            spec,
+                            emit,
+                            child_run_ids=child_run_ids,
+                            phase_child_ids=phase_child_ids,
+                            phase_runtime=phase_runtime,
+                            work_version_receipts=work_version_receipts,
+                            confirmed_group_ids=confirmed_group_ids,
+                            pipeline_stop=pipeline_stop,
+                        ):
+                            current = self._queue_stage(
+                                self.store.get(qualification, run_id),
+                                str(question.get("questionId") or ""),
+                                str(phase["id"]),
+                            )
+                            if current and current.get("status") == "blocked":
+                                break
+                    if worker_limit == 1 and question_index + 1 < len(questions):
+                        first_entries[question_index + 1] = submit_entry(
+                            executor,
+                            questions[question_index + 1],
+                            segment[0],
+                        )
+
+        segment: list[dict[str, Any]] = []
+        for phase in phases:
+            if str(phase["id"]) not in {"setup", "category_setup"}:
+                segment.append(phase)
+                continue
+            run_segment(segment)
+            segment = []
+            self._run_question_major_scope_phase(
+                qualification,
+                run_id,
+                phase,
+                emit,
+                child_run_ids=child_run_ids,
+                work_version_receipts=work_version_receipts,
+                confirmed_group_ids=confirmed_group_ids,
+            )
+        run_segment(segment)
+        self._finalize_question_major_phases(
+            qualification,
+            run_id,
+            phases,
+            phase_child_ids,
+            phase_runtime,
+        )
+        return {
+            "childRunIds": child_run_ids,
+            "workVersionReceipts": work_version_receipts,
+            "confirmedGroupIds": sorted(confirmed_group_ids),
+        }
 
     def _run_maintenance_flow(
         self,
@@ -5284,8 +5862,6 @@ class QualificationRunCoordinator:
         confirmed_group_ids: set[str] = {
             str(value) for value in parent.get("confirmedGroupIds") or [] if value
         }
-        sync_blocked_group_ids: set[str] = set()
-        current_phase_id = ""
         try:
             self._check_source_immutability(emit)
             phases = [
@@ -5293,645 +5869,24 @@ class QualificationRunCoordinator:
                 for value in parent.get("phaseExecutions") or []
                 if isinstance(value, Mapping)
             ]
-            for phase_index, phase in enumerate(phases):
-                current_phase_id = str(phase["id"])
-                self._refresh_resume_merge_dependencies(
-                    qualification,
-                    run_id,
-                    current_phase_id,
-                    emit,
-                    sync_blocked_group_ids,
+            if str(parent.get("queueOrder") or "") != "question_major":
+                raise QualificationRunError(
+                    "旧形式の工程単位runは直接再開できません。"
+                    "新しいrunで対象範囲を再実行してください。"
                 )
-                parent = self.store.get(qualification, run_id)
-                phase_plan, phase_prompt = self._flow_phase_plan_prompt(parent, phase)
-                target_count = int(phase_plan.get("targetCount") or 0)
-                targets = [
-                    dict(value)
-                    for value in phase_plan.get("progressTargets") or []
-                    if isinstance(value, Mapping)
-                ]
-                phase_stage_id = str(
-                    phase_plan.get("stageId") or current_phase_id
-                )
-                scope_phase = phase_stage_id in {"setup", "category_setup"}
-                not_applicable_count = (
-                    0
-                    if scope_phase
-                    else self._reconcile_phase_targets(
-                        qualification,
-                        run_id,
-                        phase_stage_id,
-                        targets,
-                    )
-                )
-                if not target_count:
-                    self._update_flow_phase(
-                        qualification,
-                        run_id,
-                        current_phase_id,
-                        status="skipped",
-                        targetCount=0,
-                        notApplicableCount=not_applicable_count,
-                        finishedAt=_now(),
-                    )
-                    emit(
-                        f"{phase['label']}: 現在の入力では対象外のため"
-                        f"{not_applicable_count}問を完了扱いにして省略します。"
-                    )
-                    continue
-                self.store.update(
-                    qualification,
-                    run_id,
-                    currentPhaseId=current_phase_id,
-                    executionPhase=f"preparing:{current_phase_id}",
-                )
-                self._update_flow_phase(
-                    qualification,
-                    run_id,
-                    current_phase_id,
-                    status="running",
-                    targetCount=target_count,
-                    childRunIds=[],
-                    startedAt=_now(),
-                    error=None,
-                )
-                # qualification/category setup is a real scope dependency, not a
-                # question item. It stays single-run and may block its dependants.
-                if scope_phase or not targets:
-                    child = self.store.create(
-                        phase_plan,
-                        status="queued",
-                        prompt=phase_prompt,
-                    )
-                    child_run_ids.append(str(child["runId"]))
-                    self.store.update(
-                        qualification,
-                        run_id,
-                        childRunIds=list(child_run_ids),
-                    )
-                    try:
-                        self._run_human(
-                            qualification,
-                            child["runId"],
-                            self.store.prompt(qualification, child["runId"]),
-                            str(phase_plan["workType"]),
-                            emit,
-                            sync_artifacts=False,
-                        )
-                        child = self.store.refresh(qualification, child["runId"])
-                        if child.get("status") != "succeeded" or not child.get(
-                            "receiptValidated"
-                        ):
-                            raise QualificationRunError(
-                                f"{phase['label']}の完了結果を検証できませんでした。"
-                            )
-                    except Exception as exc:  # noqa: BLE001
-                        child = self.store.get(qualification, str(child["runId"]))
-                        reason = f"{phase['label']}で停止: {exc}"
-                        self._block_remaining_queue(qualification, run_id, reason)
-                        self._update_flow_phase(
-                            qualification,
-                            run_id,
-                            current_phase_id,
-                            status="failed",
-                            childRunIds=[child["runId"]],
-                            threadId=child.get("threadId"),
-                            sessionId=child.get("sessionId"),
-                            turnId=child.get("turnId"),
-                            model=child.get("model"),
-                            serviceTier=child.get("serviceTier"),
-                            reasoningEffort=child.get("reasoningEffort"),
-                            finishedAt=_now(),
-                            error=reason,
-                        )
-                        emit(reason)
-                        raise QualificationRunError(reason) from exc
-                    receipt = child.get("workVersionReceipt")
-                    if isinstance(receipt, Mapping):
-                        work_version_receipts.append(dict(receipt))
-                        if int(receipt.get("recordedCount") or 0):
-                            confirmed_group_ids.update(
-                                str(value)
-                                for value in child.get("targetGroupIds") or []
-                                if value
-                            )
-                            self.store.update(
-                                qualification,
-                                run_id,
-                                confirmedGroupIds=sorted(confirmed_group_ids),
-                            )
-                    self._update_flow_phase(
-                        qualification,
-                        run_id,
-                        current_phase_id,
-                        status="succeeded",
-                        childRunIds=[child["runId"]],
-                        threadId=child.get("threadId"),
-                        sessionId=child.get("sessionId"),
-                        turnId=child.get("turnId"),
-                        model=child.get("model"),
-                        serviceTier=child.get("serviceTier"),
-                        reasoningEffort=child.get("reasoningEffort"),
-                        receiptValidated=True,
-                        workVersionReceipt=receipt,
-                        finishedAt=_now(),
-                        error=None,
-                    )
-                    continue
-
-                stage_id = str(phase_plan["stageId"])
-                self._refresh_queued_stage_inputs(
-                    qualification,
-                    run_id,
-                    phase_plan,
-                    targets,
-                    stage_id,
-                )
-                eligible_targets = [
-                    target
-                    for target in targets
-                    if (
-                        self._queue_stage(
-                            self.store.get(qualification, run_id),
-                            str(target.get("id") or ""),
-                            stage_id,
-                        )
-                        or {}
-                    ).get("status")
-                    == "queued"
-                ]
-                self.store.update(
-                    qualification,
-                    run_id,
-                    executionPhase=f"pipelining:{current_phase_id}",
-                )
-                emit(
-                    f"{phase['label']}: {len(eligible_targets)}問を一問queueで開始します。"
-                )
-                phase_child_ids: list[str] = []
-                pipeline_stop = threading.Event()
-                pipeline_stop_reason = {
-                    "message": "writer安全性を確認できないため後続処理を停止しました。"
-                }
-
-                def commit_prepared_target(target: Mapping[str, Any]) -> None:
-                    question_id = str(target.get("id") or "")
-                    queue_stage = self._queue_stage(
-                        self.store.get(qualification, run_id), question_id, stage_id
-                    )
-                    if queue_stage is None or queue_stage.get("status") != "prepared":
-                        return
-                    preparation_path = str(
-                        queue_stage.get("preparationPath") or ""
-                    ).strip()
-                    preparation_hash = str(
-                        queue_stage.get("preparationHash") or ""
-                    ).strip()
-                    work_item_key_value = str(
-                        queue_stage.get("workItemKey") or ""
-                    ).strip()
-                    input_fingerprint_value = str(
-                        queue_stage.get("inputFingerprint") or ""
-                    ).strip()
-                    if not all(
-                        (
-                            preparation_path,
-                            preparation_hash,
-                            work_item_key_value,
-                            input_fingerprint_value,
-                        )
-                    ):
-                        self.store.update_question_stage(
-                            qualification,
-                            run_id,
-                            question_id,
-                            stage_id,
-                            status="blocked",
-                            error=(
-                                "一問の準備記録path/hash又はqueue identityが"
-                                "不足しているため、writerを開始しません。"
-                            ),
-                            finishedAt=_now(),
-                            block_dependents=True,
-                        )
-                        return
-                    try:
-                        research_summary = str(
-                            self.question_proposals.read(
-                                qualification,
-                                run_id,
-                                work_item_key=work_item_key_value,
-                                expected_hash=preparation_hash,
-                                question_id=question_id,
-                                stage_id=stage_id,
-                                input_fingerprint=input_fingerprint_value,
-                            )["summary"]
-                        )
-                    except QuestionPatchProposalError as exc:
-                        self.store.update_question_stage(
-                            qualification,
-                            run_id,
-                            question_id,
-                            stage_id,
-                            status="blocked",
-                            error=str(exc),
-                            finishedAt=_now(),
-                            block_dependents=True,
-                        )
-                        return
-                    child_plan = specialize_question_plan(phase_plan, question_id)
-                    child_plan.update(
-                        parentRunId=run_id,
-                        flowPhaseId=current_phase_id,
-                        phaseIndex=int(phase["index"]),
-                        workType=f"maintenance_{current_phase_id}",
-                        sandbox="workspace-write",
-                        provider=self.app_server.provider,
-                        parallelStrategy="prepared_question",
-                        parallelWorkerLimit=1,
-                        writeWorkerLimit=1,
-                        parentSourceChecked=True,
-                    )
-                    writer_prompt = _maintenance_writer_prompt(
-                        _question_scope_prompt(
-                            phase_prompt,
-                            target,
-                            repo_root=self.repo_root,
-                            read_only=False,
-                            scoped_plan=child_plan,
-                        ),
-                        research_summary,
-                    )
-                    child = self.store.create(
-                        child_plan,
-                        status="queued",
-                        prompt=writer_prompt,
-                    )
-                    child_id = str(child["runId"])
-                    child_run_ids.append(child_id)
-                    phase_child_ids.append(child_id)
-                    self.store.update(
-                        qualification,
-                        run_id,
-                        childRunIds=list(child_run_ids),
-                    )
-                    self.store.update_question_stage(
-                        qualification,
-                        run_id,
-                        question_id,
-                        stage_id,
-                        status="committing",
-                        childRunIds=[
-                            *list(queue_stage.get("childRunIds") or []),
-                            child_id,
-                        ],
-                        error=None,
-                    )
-                    try:
-                        self._run_human(
-                            qualification,
-                            child_id,
-                            self.store.prompt(qualification, child_id),
-                            str(child_plan["workType"]),
-                            emit,
-                            sync_artifacts=False,
-                        )
-                        child = self.store.refresh(qualification, child_id)
-                        if child.get("status") != "succeeded" or not child.get(
-                            "receiptValidated"
-                        ):
-                            raise QualificationRunError(
-                                "一問の完了結果を検証できませんでした。"
-                            )
-                    except Exception as exc:  # noqa: BLE001
-                        try:
-                            child = self.store.refresh(qualification, child_id)
-                        except Exception:  # noqa: BLE001
-                            pass
-                        reason = str((child or {}).get("error") or exc)
-                        self.store.update_question_stage(
-                            qualification,
-                            run_id,
-                            question_id,
-                            stage_id,
-                            status="blocked",
-                            error=reason,
-                            finishedAt=_now(),
-                            block_dependents=True,
-                        )
-                        if not self._isolated_child_failure(child or {}):
-                            unsafe_reason = (
-                                f"{target.get('displayLabel') or question_id}: "
-                                "失敗後のrollback完了を検証できないため、"
-                                "後続writerと成果物同期を停止しました。"
-                            )
-                            self.store.update(
-                                qualification,
-                                run_id,
-                                retrySafe=False,
-                                retryUnsafeReason=unsafe_reason,
-                                unsafeChildRunId=child_id,
-                            )
-                            pipeline_stop_reason["message"] = unsafe_reason
-                            pipeline_stop.set()
-                            self._block_remaining_queue(
-                                qualification,
-                                run_id,
-                                unsafe_reason,
-                            )
-                            raise QualificationRunError(unsafe_reason) from exc
-                        emit(
-                            f"{target.get('displayLabel') or question_id}: "
-                            f"この問題だけを保留しました: {reason}"
-                        )
-                        return
-                    receipt = child.get("workVersionReceipt")
-                    if isinstance(receipt, Mapping):
-                        work_version_receipts.append(dict(receipt))
-                    output_fingerprint = _child_output_fingerprint(child)
-                    list_group_id = str(target.get("listGroupId") or "")
-                    if list_group_id:
-                        confirmed_group_ids.add(list_group_id)
-                    self.store.update_question_stage(
-                        qualification,
-                        run_id,
-                        question_id,
-                        stage_id,
-                        status="validated",
-                        outputFingerprint=output_fingerprint,
-                        finishedAt=_now(),
-                        error=None,
-                        requires_downstream_merge=bool(
-                            list_group_id
-                            and phase_plan.get("allowedPatchDirs")
-                            and phase_index < len(phases) - 1
-                        ),
-                        validated_receipt=(
-                            receipt if isinstance(receipt, Mapping) else None
-                        ),
-                    )
-                    self.store.update(
-                        qualification,
-                        run_id,
-                        threadId=child.get("threadId"),
-                        sessionId=child.get("sessionId"),
-                        turnId=child.get("turnId"),
-                        model=child.get("model"),
-                        serviceTier=child.get("serviceTier"),
-                        reasoningEffort=child.get("reasoningEffort"),
-                    )
-
-                def prepare_target(target: Mapping[str, Any]) -> bool:
-                    question_id = str(target.get("id") or "")
-                    if pipeline_stop.is_set():
-                        self.store.update_question_stage(
-                            qualification,
-                            run_id,
-                            question_id,
-                            stage_id,
-                            status="blocked",
-                            error=pipeline_stop_reason["message"],
-                            finishedAt=_now(),
-                            block_dependents=True,
-                        )
-                        return False
-                    try:
-                        scoped_target = {
-                            **dict(target),
-                            "_scopedPlan": specialize_question_plan(
-                                phase_plan,
-                                question_id,
-                            ),
-                        }
-                        prepared = self._prepare_question_item(
-                            qualification,
-                            run_id,
-                            phase_prompt,
-                            scoped_target,
-                            stage_id,
-                            emit,
-                        )
-                        if pipeline_stop.is_set():
-                            self.store.update_question_stage(
-                                qualification,
-                                run_id,
-                                question_id,
-                                stage_id,
-                                status="blocked",
-                                error=pipeline_stop_reason["message"],
-                                finishedAt=_now(),
-                                block_dependents=True,
-                            )
-                            return False
-                        return prepared
-                    except Exception as exc:  # noqa: BLE001
-                        self.store.update_question_stage(
-                            qualification,
-                            run_id,
-                            question_id,
-                            stage_id,
-                            status="blocked",
-                            error=str(exc),
-                            finishedAt=_now(),
-                            block_dependents=True,
-                        )
-                        emit(
-                            f"{target.get('displayLabel') or question_id}: "
-                            f"準備を保留しました: {exc}"
-                        )
-                        return False
-
-                worker_limit = max(
-                    1,
-                    min(
-                        2,
-                        int(parent.get("parallelWorkerLimit") or 1),
-                        len(eligible_targets) or 1,
-                    ),
-                )
-                if len(eligible_targets) > 1:
-                    emit(
-                        f"{phase['label']}: 判断・修正案を最大{worker_limit}問並列で準備し、"
-                        "準備できた問題から一問ずつ確定します。"
-                    )
-                if worker_limit == 1:
-                    for target in eligible_targets:
-                        if prepare_target(target):
-                            commit_prepared_target(target)
-                else:
-                    target_positions = {
-                        str(target.get("id") or ""): index
-                        for index, target in enumerate(eligible_targets)
-                    }
-                    next_target_index = 0
-                    pending: dict[Future[bool], Mapping[str, Any]] = {}
-                    with ThreadPoolExecutor(max_workers=worker_limit) as executor:
-
-                        def submit_next() -> None:
-                            nonlocal next_target_index
-                            if pipeline_stop.is_set() or next_target_index >= len(
-                                eligible_targets
-                            ):
-                                return
-                            target = eligible_targets[next_target_index]
-                            next_target_index += 1
-                            pending[executor.submit(prepare_target, target)] = target
-
-                        for _ in range(worker_limit):
-                            submit_next()
-                        while pending:
-                            completed, _ = wait(
-                                pending,
-                                return_when=FIRST_COMPLETED,
-                            )
-                            # ほぼ同時の完了は10msだけまとめ、表示順を安定させる。
-                            # それ以上遅い先頭問題は待たず、準備できた後続問題を
-                            # writerへ渡す。
-                            coalesced, _ = wait(pending, timeout=0.01)
-                            completed |= coalesced
-                            ordered_completed = sorted(
-                                completed,
-                                key=lambda future: target_positions[
-                                    str(pending[future].get("id") or "")
-                                ],
-                            )
-                            for future in ordered_completed:
-                                target = pending.pop(future)
-                                prepared = future.result()
-                                # 完了futureをqueueから消費した直後に次を投入し、
-                                # 単一writerの実行中も最大2件のread-only準備を進める。
-                                # pending自体はworker_limit以下に保たれる。
-                                submit_next()
-                                if prepared:
-                                    try:
-                                        commit_prepared_target(target)
-                                    except Exception:  # noqa: BLE001
-                                        if not pipeline_stop.is_set():
-                                            pipeline_stop.set()
-                                            self._block_remaining_queue(
-                                                qualification,
-                                                run_id,
-                                                pipeline_stop_reason["message"],
-                                            )
-                                        raise
-
-                parent = self.store.get(qualification, run_id)
-                target_stage_states = [
-                    (
-                        target,
-                        self._queue_stage(
-                            parent,
-                            str(target.get("id") or ""),
-                            stage_id,
-                        ),
-                    )
-                    for target in targets
-                ]
-                validated_count = sum(
-                    bool(stage and stage.get("status") == "validated")
-                    for _target, stage in target_stage_states
-                )
-                blocked_question_ids = {
-                    str(target.get("id") or "")
-                    for target, stage in target_stage_states
-                    if stage and stage.get("status") == "blocked"
-                }
-                validated_group_ids = list(
-                    dict.fromkeys(
-                        str(target.get("listGroupId") or "")
-                        for target, stage in target_stage_states
-                        if stage
-                        and stage.get("status") == "validated"
-                        and target.get("listGroupId")
-                    )
-                )
-                merge_groups: list[dict[str, Any]] = []
-                merge_failed_groups: list[str] = []
-                if (
-                    validated_count
-                    and phase_plan.get("allowedPatchDirs")
-                    and phase_index < len(phases) - 1
-                ):
-                    emit(
-                        f"{phase['label']}: 確定済み{validated_count}問をまとめてmergeします。"
-                    )
-                    for list_group_id in validated_group_ids:
-                        merge_result = self._refresh_merged_views_transaction(
-                            qualification,
-                            run_id,
-                            list_group_id,
-                            current_phase_id,
-                            emit,
-                        )
-                        merge_groups.append(merge_result)
-                        if str(merge_result.get("status") or "failed") in {
-                            "succeeded",
-                            "current",
-                        }:
-                            continue
-                        merge_failed_groups.append(list_group_id)
-                        sync_blocked_group_ids.add(list_group_id)
-                        reason = (
-                            f"{list_group_id}: {phase['label']}後の工程間mergeを"
-                            "完了できなかったため、この範囲の後続工程だけを保留しました。"
-                        )
-                        self._block_group_queue(
-                            qualification,
-                            run_id,
-                            list_group_id,
-                            reason,
-                        )
-                        emit(reason)
-                merge_blocked_question_ids = {
-                    str(target.get("id") or "")
-                    for target in targets
-                    if str(target.get("listGroupId") or "")
-                    in merge_failed_groups
-                }
-                phase_blocked_count = len(
-                    blocked_question_ids | merge_blocked_question_ids
-                )
-                phase_status = "partial" if phase_blocked_count else "succeeded"
-                phase_runtime: dict[str, Any] = {}
-                if phase_child_ids:
-                    last_child = self.store.get(qualification, phase_child_ids[-1])
-                    phase_runtime = {
-                        "threadId": last_child.get("threadId"),
-                        "sessionId": last_child.get("sessionId"),
-                        "turnId": last_child.get("turnId"),
-                        "model": last_child.get("model"),
-                        "serviceTier": last_child.get("serviceTier"),
-                        "reasoningEffort": last_child.get("reasoningEffort"),
-                    }
-                self._update_flow_phase(
-                    qualification,
-                    run_id,
-                    current_phase_id,
-                    status=phase_status,
-                    childRunIds=phase_child_ids,
-                    validatedCount=validated_count,
-                    blockedCount=phase_blocked_count,
-                    receiptValidated=validated_count > 0,
-                    artifactSync={
-                        "status": (
-                            "failed"
-                            if merge_failed_groups
-                            else "succeeded"
-                            if merge_groups
-                            else "not_required"
-                        ),
-                        "groups": merge_groups,
-                    },
-                    **phase_runtime,
-                    finishedAt=_now(),
-                    error=(
-                        f"{phase_blocked_count}問を理由付きで保留しました。"
-                        if phase_blocked_count
-                        else None
-                    ),
-                )
-
-            current_phase_id = ""
+            question_major = self._run_question_major_queue(
+                qualification,
+                run_id,
+                phases,
+                emit,
+            )
+            child_run_ids.extend(question_major["childRunIds"])
+            work_version_receipts.extend(
+                question_major["workVersionReceipts"]
+            )
+            confirmed_group_ids.update(
+                question_major["confirmedGroupIds"]
+            )
             parent = self.store.get(qualification, run_id)
             execution_summary = queue_summary(parent.get("questionExecutions") or [])
             if execution_summary["pendingWorkItemCount"]:
@@ -5972,13 +5927,11 @@ class QualificationRunCoordinator:
                 str(value)
                 for value in parent.get("targetGroupIds") or []
                 if str(value) in confirmed_group_ids
-                and str(value) not in sync_blocked_group_ids
             ]
             if has_confirmed_work and not confirmed_group_ids:
                 sync_group_ids = [
                     str(value)
                     for value in parent.get("targetGroupIds") or []
-                    if str(value) not in sync_blocked_group_ids
                 ]
             parent = self.store.update(
                 qualification,
@@ -6011,14 +5964,6 @@ class QualificationRunCoordinator:
                     )
                     for list_group_id in sync_group_ids
                 ]
-                sync_groups.extend(
-                    {
-                        "listGroupId": list_group_id,
-                        "status": "blocked",
-                        "message": "工程間merge未完了のため自動同期を保留しました。",
-                    }
-                    for list_group_id in sorted(sync_blocked_group_ids)
-                )
                 artifact_sync = _artifact_sync_result(
                     sync_groups,
                     success_message="確定済みpatchを公開用データまで同期しました。",
@@ -6120,15 +6065,6 @@ class QualificationRunCoordinator:
                 "message": " ".join((result_summary, str(artifact_sync["message"]))),
             }
         except Exception as exc:  # noqa: BLE001
-            if current_phase_id:
-                self._update_flow_phase(
-                    qualification,
-                    run_id,
-                    current_phase_id,
-                    status="failed",
-                    finishedAt=_now(),
-                    error=str(exc),
-                )
             result = {
                 "status": "failed",
                 "summary": str(exc),
@@ -6145,7 +6081,7 @@ class QualificationRunCoordinator:
                 queueStatus=(
                     "partial" if execution_summary["validatedWorkItemCount"] else "failed"
                 ),
-                currentPhaseId=current_phase_id or None,
+                currentPhaseId=None,
                 receiptValidated=False,
                 questionExecutionSummary=execution_summary,
                 result=result,
@@ -6834,10 +6770,13 @@ class QualificationRunCoordinator:
         inventory = getattr(self.workflow, "inventory", None)
         if inventory is None:
             raise QualificationRunError("工程バージョン記録用inventoryがありません。")
-        questions: list[Mapping[str, Any]] = []
-        for list_group_id in run.get("targetGroupIds") or []:
-            group = inventory.group(qualification, str(list_group_id))
-            questions.extend(group.get("questions") or [])
+        if str(run.get("parallelStrategy") or "") == "prepared_question":
+            questions = self._projected_policy_questions(run)
+        else:
+            questions = []
+            for list_group_id in run.get("targetGroupIds") or []:
+                group = inventory.group(qualification, str(list_group_id))
+                questions.extend(group.get("questions") or [])
         policy_loader = getattr(self.workflow, "versioned_policies", None)
         policies = (
             policy_loader(qualification)
@@ -6917,6 +6856,56 @@ class QualificationRunCoordinator:
             ),
             "stages": receipts,
         }
+
+    def _projected_policy_questions(
+        self,
+        run: Mapping[str, Any],
+    ) -> list[Mapping[str, Any]]:
+        qualification = str(run["qualification"])
+        targets = [
+            dict(value)
+            for value in run.get("progressTargets") or []
+            if isinstance(value, Mapping)
+        ]
+        if len(targets) != 1:
+            raise QualificationRunError(
+                "一問writerの工程バージョン対象が1問ではありません。"
+            )
+        target = targets[0]
+        try:
+            projection = self._project_question_now(qualification, target)
+        except QuestionItemError as exc:
+            raise QualificationRunError(str(exc)) from exc
+        projected = copy.deepcopy(dict(projection.record))
+        identity = SourceIdentityBinding.from_mapping(target)
+        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+        review_key = str(target.get("reviewKey") or question_id)
+        return [
+            {
+                "id": question_id,
+                "reviewKey": review_key,
+                "qualification": qualification,
+                "publicationQualificationId": str(
+                    target.get("publicationQualificationId") or qualification
+                ),
+                "listGroupId": str(target.get("listGroupId") or ""),
+                "originalQuestionId": identity.review_question_id,
+                **identity.as_mapping(),
+                "questionLabel": str(target.get("questionLabel") or ""),
+                "isLawRelated": projected.get("isLawRelated") is True,
+                "source": {},
+                "projected": projected,
+                "paths": {
+                    "patches": list(getattr(projection, "applied_files", ())),
+                },
+                "stateHash": sha256_json(
+                    {
+                        field: projected.get(field)
+                        for field in PROJECTED_COMPARE_FIELDS
+                    }
+                ),
+            }
+        ]
 
     def _resolve_policy_questions(
         self,
@@ -7920,6 +7909,23 @@ class QualificationRunCoordinator:
             best_score = max((score for score, _entry in scores), default=0)
             return [entry for score, entry in scores if score == best_score]
 
+        def unbound_legacy_matches(
+            entries: list[Any], entry_aliases: set[str]
+        ) -> list[Mapping[str, Any]]:
+            candidates = [
+                entry
+                for entry in matching(entries, entry_aliases)
+                if not SourceIdentityBinding.from_mapping(
+                    identity(entry)
+                ).source_record_ref
+            ]
+            scores = [
+                (len(aliases(entry) & entry_aliases), entry)
+                for entry in candidates
+            ]
+            best_score = max((score for score, _entry in scores), default=0)
+            return [entry for score, entry in scores if score == best_score]
+
         def unambiguous_protected(
             entries: list[Mapping[str, Any]], relative: Path
         ) -> dict[str, Any] | None:
@@ -8117,12 +8123,8 @@ class QualificationRunCoordinator:
                         else ""
                     ),
                 )
-                if (
-                    is_law_audit_sidecar
-                    and not before_matches
-                    and matched_source_binding is not None
-                ):
-                    legacy_before_matches = strongest_matches(
+                if not before_matches and matched_source_binding is not None:
+                    legacy_before_matches = unbound_legacy_matches(
                         before,
                         binding_aliases or entry_aliases,
                     )
@@ -8747,10 +8749,29 @@ class QualificationRunCoordinator:
                 plan = resume_plan(plan, previous_executions)
             except QuestionWorkQueueError as exc:
                 raise QualificationRunError(str(exc)) from exc
-            plan["resumeMergeDependencies"] = _derive_resume_merge_dependencies(
-                previous,
-                plan,
+            completed_scope_stage_ids = {
+                str(phase.get("id") or "")
+                for phase in previous.get("phaseExecutions") or []
+                if isinstance(phase, Mapping)
+                and str(phase.get("id") or "")
+                in {"setup", "category_setup"}
+                and str(phase.get("status") or "") == "succeeded"
+            } - {""}
+            plan["resumeCompletedScopeStageIds"] = sorted(
+                completed_scope_stage_ids
             )
+            if isinstance(plan.get("stagePlans"), list):
+                plan["stagePlans"] = [
+                    stage_plan
+                    for stage_plan in plan["stagePlans"]
+                    if isinstance(stage_plan, Mapping)
+                    and str(stage_plan.get("stageId") or "")
+                    not in completed_scope_stage_ids
+                ]
+            # New per-question runs read the same logical source+patch projection
+            # as physical Merge, so old phase-level remerge dependencies are not
+            # part of the resume contract.
+            plan["resumeMergeDependencies"] = []
             plan["confirmedGroupIds"] = sorted(
                 {
                     str(value)
@@ -8762,14 +8783,24 @@ class QualificationRunCoordinator:
                 plan["workVersionReceipt"] = copy.deepcopy(
                     previous["workVersionReceipt"]
                 )
-            plan["resumeWorkItemKeys"] = sorted(
-                {
-                    str(stage.get("workItemKey") or "")
-                    for question in build_question_executions(plan)
-                    for stage in question.get("stages") or []
-                    if isinstance(stage, Mapping) and stage.get("workItemKey")
-                }
-            )
+            if not plan.get("stagePlans"):
+                plan.update(
+                    targetCount=0,
+                    workItemCount=0,
+                    targetQuestionKeys=[],
+                    progressTargets=[],
+                    targetRecordBindings=[],
+                    targetRecordAliasGroups=[],
+                    targetSourceRecordScopes={},
+                    policyTargets={},
+                    allowedPatchDirs=[],
+                    allowedWriteAreas=[],
+                    allowedPatchFiles=[],
+                    allowedWriteFiles=[],
+                    targetRecordScopes={},
+                    resolvableFailedDeltaPaths=[],
+                )
+                return plan
             self._apply_plan_write_contract(plan)
             plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
                 qualification,

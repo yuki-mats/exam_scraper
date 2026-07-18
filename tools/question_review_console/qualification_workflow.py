@@ -194,6 +194,7 @@ def _progress_target(question: Mapping[str, Any]) -> dict[str, Any]:
         "id": question_id or question_key,
         "uiQuestionId": question_id or question_key,
         "questionKey": question_key,
+        "reviewKey": str(question.get("reviewKey") or ""),
         "sourceQuestionKey": str(question.get("sourceQuestionKey") or ""),
         "sourceRecordRef": str(question.get("sourceRecordRef") or ""),
         "reviewQuestionId": str(question.get("originalQuestionId") or ""),
@@ -543,23 +544,38 @@ class QualificationWorkflow:
         selected_group_ids, scope_provided = _group_scope(
             list_group_id, list_group_ids
         )
+        requested_group_ids = list(selected_group_ids)
+        qualification_scope_stage = stage_id in {"setup", "category_setup"}
+        if qualification_scope_stage and scope_provided:
+            # 親の年度選択は後続の問題工程へ残すが、この前提工程自体は
+            # 資格全体に対して一度だけ実行する。
+            selected_group_ids = []
+            scope_provided = False
+            if mode == "group_refresh":
+                mode = "refresh"
         if not definition.get("supportsGroupScope") and scope_provided:
             raise ValueError(f"{definition['label']}は年度ではなく資格単位で整備します。")
         if mode == "group_refresh" and not selected_group_ids:
             raise ValueError("対象年度を一つ以上選択してください。")
 
         groups, questions = self._qualification_data(qualification)
-        if selected_group_ids:
+        validation_group_ids = (
+            requested_group_ids
+            if qualification_scope_stage
+            else selected_group_ids
+        )
+        if validation_group_ids:
             available_group_ids = {
                 str(group.get("listGroupId") or "") for group in groups
             }
             unknown = [
                 group_id
-                for group_id in selected_group_ids
+                for group_id in validation_group_ids
                 if group_id not in available_group_ids
             ]
             if unknown:
                 raise ValueError("対象年度がありません: " + ", ".join(unknown))
+        if selected_group_ids:
             selected_set = set(selected_group_ids)
             groups = [
                 group
@@ -947,6 +963,7 @@ class QualificationWorkflow:
             stage_id
             for stage_id in ordered
             if not definitions[stage_id].get("batchSelectable")
+            and stage_id not in {"setup", "category_setup"}
         ]
         if invalid:
             raise ValueError(
@@ -957,7 +974,12 @@ class QualificationWorkflow:
             self.plan(
                 qualification,
                 stage_id,
-                mode,
+                (
+                    "refresh"
+                    if mode == "group_refresh"
+                    and stage_id in {"setup", "category_setup"}
+                    else mode
+                ),
                 list_group_ids=(
                     scoped_group_ids
                     if definitions[stage_id].get("supportsGroupScope")
@@ -994,7 +1016,11 @@ class QualificationWorkflow:
             "purpose": "選択した工程を一問単位で順番に完了する",
             "kind": "human",
             "mode": mode,
-            "modeLabel": stage_plans[0]["modeLabel"],
+            "modeLabel": (
+                group_scoped_plans[0]
+                if group_scoped_plans
+                else stage_plans[0]
+            )["modeLabel"],
             "targetCount": len(target_question_keys),
             "workItemCount": sum(
                 int(plan["targetCount"]) for plan in aggregate_plans

@@ -541,6 +541,74 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(plan["modeLabel"], "2025を全件洗い替え")
         self.assertTrue(all("/2025/" in path for path in plan["sourceFiles"]))
 
+    def test_group_refresh_keeps_year_scope_after_qualification_prerequisite(self):
+        selected = question(group="2026")
+        other = question(group="2025")
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {"listGroupId": "2025", "questions": [other]},
+                        {"listGroupId": "2026", "questions": [selected]},
+                    ],
+                ),
+            )
+            prerequisite_plans = {
+                stage_id: workflow.plan(
+                    "sample",
+                    stage_id,
+                    "group_refresh",
+                    list_group_ids=["2026"],
+                )
+                for stage_id in ("setup", "category_setup")
+            }
+            plans = [
+                workflow.plan_many(
+                    "sample",
+                    [scope_stage, question_stage],
+                    "group_refresh",
+                    list_group_ids=["2026"],
+                )
+                for scope_stage, question_stage in (
+                    ("setup", "question_type"),
+                    ("category_setup", "question_set"),
+                )
+            ]
+
+        for stage_id, prerequisite in prerequisite_plans.items():
+            with self.subTest(prerequisite=stage_id):
+                self.assertEqual(prerequisite["mode"], "refresh")
+                self.assertEqual(prerequisite["scopeListGroupIds"], [])
+                self.assertEqual(
+                    prerequisite["targetGroupIds"], ["2025", "2026"]
+                )
+        for plan, scope_stage, question_stage in zip(
+            plans,
+            ("setup", "category_setup"),
+            ("question_type", "question_set"),
+        ):
+            with self.subTest(scope_stage=scope_stage):
+                stages = {
+                    stage["stageId"]: stage for stage in plan["stagePlans"]
+                }
+                self.assertEqual(plan["mode"], "group_refresh")
+                self.assertEqual(plan["modeLabel"], "2026を全件洗い替え")
+                self.assertEqual(plan["scopeListGroupIds"], ["2026"])
+                self.assertEqual(plan["targetGroupIds"], ["2026"])
+                self.assertEqual(plan["targetQuestionKeys"], [selected["id"]])
+                self.assertEqual(stages[scope_stage]["mode"], "refresh")
+                self.assertEqual(stages[scope_stage]["scopeListGroupIds"], [])
+                self.assertEqual(
+                    stages[scope_stage]["targetGroupIds"], ["2025", "2026"]
+                )
+                self.assertEqual(stages[question_stage]["mode"], "group_refresh")
+                self.assertEqual(
+                    stages[question_stage]["scopeListGroupIds"], ["2026"]
+                )
+                self.assertEqual(stages[question_stage]["targetGroupIds"], ["2026"])
+
     def test_selected_years_scope_all_modes_and_prompt(self):
         with tempfile.TemporaryDirectory() as directory:
             workflow = QualificationWorkflow(

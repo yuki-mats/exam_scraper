@@ -5,6 +5,7 @@ import threading
 import time
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from tools.question_review_console.codex_app_server import AppServerTurnResult
@@ -430,12 +431,24 @@ class PerQuestionQueueAppServer:
     configured = True
     provider = "Codex App Server"
 
-    def __init__(self, *, failed_question_id):
+    def __init__(
+        self,
+        *,
+        failed_question_id="",
+        failed_work_items=(),
+        changed_files_by_work_item=None,
+        before_receipt=None,
+    ):
         self.failed_question_id = failed_question_id
+        self.failed_work_items = set(failed_work_items)
+        self.changed_files_by_work_item = changed_files_by_work_item or {}
+        self.before_receipt = before_receipt
         self.calls = []
+        self.successful_writes = []
         self._lock = threading.Lock()
         self._preparation_barrier = threading.Barrier(2)
         self.wait_for_parallel_preparations = True
+        self.preparation_delay = 0.0
         self._active_preparations = 0
         self.max_active_preparations = 0
         self._active_writers = 0
@@ -474,6 +487,8 @@ class PerQuestionQueueAppServer:
             try:
                 if self.wait_for_parallel_preparations:
                     self._preparation_barrier.wait(timeout=1)
+                elif self.preparation_delay:
+                    time.sleep(self.preparation_delay)
             finally:
                 with self._lock:
                     self._active_preparations -= 1
@@ -493,8 +508,20 @@ class PerQuestionQueueAppServer:
                 self._active_writers,
             )
         try:
-            if question_id == self.failed_question_id:
+            stage_id = work_type.removeprefix("maintenance_")
+            if question_id == self.failed_question_id or (
+                question_id,
+                stage_id,
+            ) in self.failed_work_items:
                 raise RuntimeError(f"{question_id}のwriter検証に失敗")
+            changed_files = list(
+                self.changed_files_by_work_item.get(
+                    (question_id, stage_id),
+                    [],
+                )
+            )
+            if self.before_receipt is not None:
+                self.before_receipt(question_id, stage_id)
             _write_completed_progress(prompt)
             receipt_line = next(
                 line
@@ -509,12 +536,14 @@ class PerQuestionQueueAppServer:
                         "commands": [
                             {"command": "python check.py", "status": "pass"}
                         ],
-                        "changedFiles": [],
+                        "changedFiles": changed_files,
                     },
                     ensure_ascii=False,
                 ),
                 encoding="utf-8",
             )
+            with self._lock:
+                self.successful_writes.append((question_id, stage_id))
             return AppServerTurnResult(
                 thread_id=f"thread-queue-{call_number}",
                 session_id=f"session-queue-{call_number}",
@@ -563,7 +592,10 @@ class SourceOnlyInventory:
                     "issues": [],
                     "issueCodes": [],
                     "isLawRelated": False,
-                    "projected": {"originalQuestionId": original_id},
+                    "projected": {
+                        "originalQuestionId": original_id,
+                        "isLawRelated": False,
+                    },
                     "workflow": {
                         "merge": "missing",
                         "convert": "missing",
@@ -572,6 +604,18 @@ class SourceOnlyInventory:
                 }
             ],
         }
+
+    def projected_input(self, qualification, list_group_id, source_record_ref):
+        question = next(
+            value
+            for value in self.group(qualification, list_group_id)["questions"]
+            if value["sourceRecordRef"] == source_record_ref
+        )
+        return SimpleNamespace(
+            record=copy.deepcopy(question.get("projected") or question["source"]),
+            applied_files=tuple(question.get("paths", {}).get("patches") or []),
+            errors=(),
+        )
 
 
 class MultiGroupSourceInventory(SourceOnlyInventory):
@@ -609,6 +653,41 @@ class TwoQuestionSourceInventory(SourceOnlyInventory):
             ),
         }
         group["questions"].append(second)
+        return group
+
+
+class CountedSourceInventory(SourceOnlyInventory):
+    def __init__(self, question_count):
+        self.question_count = question_count
+
+    def group(self, qualification, list_group_id):
+        group = super().group(qualification, list_group_id)
+        template = group["questions"][0]
+        questions = []
+        for number in range(1, self.question_count + 1):
+            question = copy.deepcopy(template)
+            question_id = f"new-exam-{list_group_id}-q{number}"
+            question.update(
+                id=question_id,
+                reviewKey=(
+                    f"new-exam:{list_group_id}:"
+                    f"question_{list_group_id}_{number}:{question_id}"
+                ),
+                originalQuestionId=question_id,
+                sourceQuestionKey=f"new-exam:{list_group_id}:q{number}",
+                sourceRecordRef=f"question_{list_group_id}_{number}.json#0",
+            )
+            question["source"] = {"originalQuestionId": question_id}
+            question["projected"] = {"originalQuestionId": question_id}
+            question["paths"] = {
+                **question["paths"],
+                "source": (
+                    f"output/new-exam/questions_json/{list_group_id}/"
+                    f"00_source/question_{list_group_id}_{number}.json"
+                ),
+            }
+            questions.append(question)
+        group["questions"] = questions
         return group
 
 

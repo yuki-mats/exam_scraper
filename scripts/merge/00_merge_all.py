@@ -12,8 +12,7 @@ import json
 import shutil
 import sys
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
-import re
+from typing import Any, Iterable, Mapping
 
 if __package__ in {None, ""}:
     ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -27,21 +26,13 @@ if __package__ in {None, ""}:
         select_latest_patch_files,
     )
     from scripts.merge.patch_views import (
-        apply_answer_result_overrides,
-        apply_correct_choice,
-        apply_explanation_fields,
-        apply_law_context_fields,
-        apply_question_intent,
-        apply_question_set,
-        apply_question_type,
         build_layered_patch_index_from_paths,
         ensure_identity_candidate_index_valid,
-        normalize_true_false_intent_and_correct_choice,
     )
     from scripts.merge.question_issue_corrections import (
-        apply_question_issue_correction_index,
         build_question_issue_correction_index,
         ensure_all_question_issue_corrections_applied,
+        selected_question_issue_correction_paths,
     )
 else:
     from scripts.common.questions_json_paths import resolve_list_group_base_dir
@@ -52,28 +43,26 @@ else:
         select_latest_patch_files,
     )
     from .patch_views import (
-        apply_answer_result_overrides,
-        apply_correct_choice,
-        apply_explanation_fields,
-        apply_law_context_fields,
-        apply_question_intent,
-        apply_question_set,
-        apply_question_type,
         build_layered_patch_index_from_paths,
         ensure_identity_candidate_index_valid,
-        normalize_true_false_intent_and_correct_choice,
     )
     from .question_issue_corrections import (
-        apply_question_issue_correction_index,
         build_question_issue_correction_index,
         ensure_all_question_issue_corrections_applied,
+        selected_question_issue_correction_paths,
     )
 
 from scripts.common.question_identity import (
     IdentityCandidateIndex,
     SourceIdentityBinding,
     load_source_record_inventory,
-    review_question_id,
+    source_json_paths,
+)
+from scripts.merge.record_projection import (
+    backfill_correct_choice_text_from_answer_result,
+    backfill_exam_year,
+    infer_exam_year_from_label,
+    project_merge_record,
 )
 
 
@@ -99,191 +88,6 @@ PATCH_TAGS = {
 }
 
 
-JAPANESE_ERA_START_YEAR = {
-    "令和": 2019,
-    "平成": 1989,
-    "昭和": 1926,
-    "大正": 1912,
-    "明治": 1868,
-}
-
-
-FULLWIDTH_DIGIT_TRANS = str.maketrans("０１２３４５６７８９", "0123456789")
-
-
-def _normalize_digit_text(value: str) -> str:
-    return (value or "").translate(FULLWIDTH_DIGIT_TRANS)
-
-
-def _parse_japanese_era_year(era_name: str, year_token: str) -> int | None:
-    base_year = JAPANESE_ERA_START_YEAR.get(era_name)
-    if base_year is None:
-        return None
-
-    normalized_year = _normalize_digit_text(year_token).strip()
-    if normalized_year == "元":
-        era_year = 1
-    elif normalized_year.isdigit():
-        era_year = int(normalized_year)
-    else:
-        return None
-
-    if era_year <= 0:
-        return None
-
-    return base_year + era_year - 1
-
-
-def infer_exam_year_from_label(exam_label: str) -> int | None:
-    """
-    examLabel から examYear(西暦)を推定する。
-    - (2023年) のような括弧内西暦を優先
-    - 2023年度/2023年 を次に見る
-    - 令和5年度/平成25年度 などの和暦は西暦へ変換
-    """
-    if not exam_label:
-        return None
-
-    normalized_label = _normalize_digit_text(exam_label)
-
-    western_year_match = re.search(r"[（(]\s*((?:19|20)\d{2})\s*年\s*[)）]", normalized_label)
-    if western_year_match:
-        return int(western_year_match.group(1))
-
-    western_year_match = re.search(r"((?:19|20)\d{2})\s*年(?:度)?", normalized_label)
-    if western_year_match:
-        return int(western_year_match.group(1))
-
-    japanese_year_match = re.search(
-        r"(令和|平成|昭和|大正|明治)\s*(元|[0-9０-９]+)\s*年(?:度)?",
-        normalized_label,
-    )
-    if japanese_year_match:
-        return _parse_japanese_era_year(
-            japanese_year_match.group(1),
-            japanese_year_match.group(2),
-        )
-
-    return None
-
-
-def backfill_exam_year(data: dict) -> int:
-    """
-    payload 内の question_bodies[] の examYear が欠けている場合に examLabel から推定して埋める。
-    """
-    bodies = data.get("question_bodies")
-    if not isinstance(bodies, list):
-        return 0
-
-    updated = 0
-    for body in bodies:
-        if not isinstance(body, dict):
-            continue
-        if body.get("examYear") not in (None, ""):
-            continue
-        label = body.get("examLabel")
-        if not isinstance(label, str) or not label.strip():
-            continue
-        inferred = infer_exam_year_from_label(label)
-        if inferred is None:
-            continue
-        body["examYear"] = inferred
-        updated += 1
-    return updated
-
-
-ANSWER_RESULT_RE = re.compile(r"正解は\s*([1-9０-９]+(?:\s*,\s*[1-9０-９]+)*)\s*です。")
-
-
-def _parse_answer_numbers(answer_result_text: str) -> list[int]:
-    if not answer_result_text:
-        return []
-    text = _normalize_digit_text(answer_result_text)
-    match = ANSWER_RESULT_RE.search(text)
-    if not match:
-        return []
-    numbers: list[int] = []
-    for part in match.group(1).split(","):
-        part = part.strip()
-        if not part.isdigit():
-            continue
-        num = int(part)
-        if num not in numbers:
-            numbers.append(num)
-    return numbers
-
-
-def backfill_correct_choice_text_from_answer_result(data: dict) -> int:
-    """
-    correctChoiceText に None が含まれる場合に、
-    answer_result_text（優先）/ answer_result_inferred_correct_choice_numbers と questionIntent を使って補完する。
-
-    correctChoiceText は選択肢そのものの正誤なので、answer_result_text が
-    「正解は N です。」でも「正しいものはいくつあるか」などのカウント問題では
-    肢位置を特定できない。その場合は補完しない。
-    """
-    bodies = data.get("question_bodies")
-    if not isinstance(bodies, list):
-        return 0
-
-    updated = 0
-    for body in bodies:
-        if not isinstance(body, dict):
-            continue
-        cct = body.get("correctChoiceText")
-        if not (isinstance(cct, list) and any(x is None for x in cct)):
-            continue
-
-        choice_list = body.get("choiceTextList")
-        if not isinstance(choice_list, list) or not choice_list:
-            continue
-        choice_count = len(choice_list)
-
-        body_text = str(body.get("questionBodyText") or body.get("originalQuestionBodyText") or "")
-        if "いくつ" in body_text:
-            continue
-
-        answer_numbers = _parse_answer_numbers(str(body.get("answer_result_text") or ""))
-        if not answer_numbers:
-            inferred = body.get("answer_result_inferred_correct_choice_numbers")
-            if isinstance(inferred, list) and inferred:
-                answer_numbers = []
-                for v in inferred:
-                    if isinstance(v, int):
-                        answer_numbers.append(v)
-                    elif str(v).isdigit():
-                        answer_numbers.append(int(str(v)))
-                # 重複除外
-                normalized: list[int] = []
-                for num in answer_numbers:
-                    if num not in normalized:
-                        normalized.append(num)
-                answer_numbers = normalized
-        if not answer_numbers:
-            continue
-        if any(num < 1 or num > choice_count for num in answer_numbers):
-            continue
-
-        question_intent = str(body.get("questionIntent") or "").strip()
-        answer_indexes = {num - 1 for num in answer_numbers}
-
-        if question_intent == "select_incorrect":
-            labels = ["正しい"] * choice_count
-            for idx in answer_indexes:
-                labels[idx] = "間違い"
-        elif question_intent == "select_correct":
-            labels = ["間違い"] * choice_count
-            for idx in answer_indexes:
-                labels[idx] = "正しい"
-        else:
-            continue
-
-        body["correctChoiceText"] = labels
-        updated += 1
-
-    return updated
-
-
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
@@ -300,15 +104,7 @@ def is_patch_filename(name: str) -> bool:
 
 
 def iter_base_files(directory: Path) -> list[Path]:
-    files = []
-    for path in sorted(directory.glob("*.json")):
-        name = path.name
-        if name.endswith("_merged.json"):
-            continue
-        if is_patch_filename(name):
-            continue
-        files.append(path)
-    return files
+    return source_json_paths(directory)
 
 
 def resolve_base_dir(list_group_id: str, base_dir: str | None) -> Path:
@@ -420,89 +216,6 @@ def ensure_answer_result_text_present(*, data: dict, source_path: Path) -> None:
         )
 
 
-def _apply_resolved_patch_candidates(
-    data: dict,
-    source_bindings: Iterable[SourceIdentityBinding],
-    *,
-    candidates_for: Callable[[SourceIdentityBinding], Iterable[Any]],
-    apply_patch: Callable[[dict, Mapping[str, Any]], int],
-    value_key: str | None = None,
-    apply_empty_map_when_missing: bool = False,
-) -> int:
-    """Apply already-resolved patch records without writing identity metadata."""
-
-    questions = data.get("question_bodies")
-    if not isinstance(questions, list):
-        raise ValueError("question_bodies が見つかりません")
-    bindings = tuple(source_bindings)
-    if len(questions) != len(bindings):
-        raise ValueError(
-            "source binding count mismatch: "
-            f"questions={len(questions)} bindings={len(bindings)}"
-        )
-
-    updates = 0
-    for question, binding in zip(questions, bindings):
-        if not isinstance(question, dict):
-            continue
-        candidates = tuple(candidates_for(binding))
-        wrapper = {"question_bodies": [question]}
-        if not candidates and apply_empty_map_when_missing:
-            updates += apply_patch(wrapper, {})
-            continue
-        for candidate in candidates:
-            question_id = review_question_id(question)
-            if not question_id:
-                raise RuntimeError(
-                    "patch適用中にreviewQuestionIdを取得できません: "
-                    f"{binding.source_record_ref}"
-                )
-            entry = candidate.entry
-            value = entry if value_key is None else entry.get(value_key)
-            updates += apply_patch(wrapper, {question_id: value})
-    return updates
-
-
-def _apply_resolved_patch_index(
-    data: dict,
-    index: IdentityCandidateIndex,
-    source_bindings: Iterable[SourceIdentityBinding],
-    *,
-    apply_patch: Callable[[dict, Mapping[str, Any]], int],
-    value_key: str | None = None,
-    apply_empty_map_when_missing: bool = False,
-) -> int:
-    return _apply_resolved_patch_candidates(
-        data,
-        source_bindings,
-        candidates_for=lambda binding: index.by_binding.get(binding, ()),
-        apply_patch=apply_patch,
-        value_key=value_key,
-        apply_empty_map_when_missing=apply_empty_map_when_missing,
-    )
-
-
-def _apply_preferred_patch_index(
-    data: dict,
-    primary: IdentityCandidateIndex,
-    fallback: IdentityCandidateIndex,
-    source_bindings: Iterable[SourceIdentityBinding],
-    *,
-    apply_patch: Callable[[dict, Mapping[str, Any]], int],
-    value_key: str | None = None,
-) -> int:
-    return _apply_resolved_patch_candidates(
-        data,
-        source_bindings,
-        candidates_for=lambda binding: (
-            primary.by_binding.get(binding, ())
-            or fallback.by_binding.get(binding, ())
-        ),
-        apply_patch=apply_patch,
-        value_key=value_key,
-    )
-
-
 def merge_all(
     list_group_id: str,
     base_dir: Path,
@@ -582,10 +295,8 @@ def merge_all(
         PATCH_TAGS["question_set"],
     )
     question_issue_dir = list_group_dir / PATCH_DIR_QUESTION_ISSUES
-    question_issue_paths = (
-        sorted(question_issue_dir.glob("*.json"))
-        if question_issue_dir.exists()
-        else []
+    question_issue_paths = selected_question_issue_correction_paths(
+        question_issue_dir
     )
 
     def build_stage_index(
@@ -645,144 +356,80 @@ def merge_all(
     ):
         ensure_identity_candidate_index_valid(index, label=label)
 
-    qtype_updates = 0
-    intent_updates = 0
-    true_false_intent_updates = 0
-    true_false_correct_choice_updates = 0
-    exam_year_backfills = 0
-    correct_choice_backfills = 0
-    answer_result_override_updates = 0
-    strict_answer_result_override_updates = 0
-    strict_correct_updates = 0
-    law_context_updates = 0
-    prepared_merged1: list[tuple[Path, dict, Path, Path]] = []
+    update_counts: dict[str, int] = {}
+    applied_question_issue_targets: set[str] = set()
+    prepared_records: list[tuple[Path, dict, dict, Path, Path]] = []
     for base_path in base_files:
-        data = load_json(base_path)
+        source_data = load_json(base_path)
+        source_questions = source_data.get("question_bodies")
+        if not isinstance(source_questions, list):
+            raise ValueError(f"question_bodies が見つかりません: {base_path}")
         source_bindings = source_bindings_by_stem.get(base_path.stem)
         if source_bindings is None:
+            raise RuntimeError(f"source bindingがありません: {base_path}")
+        if len(source_questions) != len(source_bindings):
             raise RuntimeError(
-                f"source bindingがありません: {base_path}"
+                "source binding count mismatch: "
+                f"questions={len(source_questions)} bindings={len(source_bindings)}"
             )
-        qtype_updates += _apply_resolved_patch_index(
-            data,
-            qtype_index,
-            source_bindings,
-            apply_patch=apply_question_type,
-            apply_empty_map_when_missing=True,
-        )
-        answer_result_override_updates += _apply_resolved_patch_index(
-            data,
-            intent_index,
-            source_bindings,
-            apply_patch=apply_answer_result_overrides,
-        )
-        strict_answer_result_override_updates += _apply_resolved_patch_index(
-            data,
-            strict_correct_index,
-            source_bindings,
-            apply_patch=apply_answer_result_overrides,
-        )
-        intent_updates += _apply_resolved_patch_index(
-            data,
-            intent_index,
-            source_bindings,
-            apply_patch=apply_question_intent,
-            value_key="questionIntent",
-        )
-        law_context_updates += _apply_resolved_patch_index(
-            data,
-            law_context_index,
-            source_bindings,
-            apply_patch=apply_law_context_fields,
-        )
-        u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
-        true_false_intent_updates += u_intent
-        true_false_correct_choice_updates += u_choice
-        exam_year_backfills += backfill_exam_year(data)
-        correct_choice_backfills += backfill_correct_choice_text_from_answer_result(data)
-        strict_correct_updates += _apply_resolved_patch_index(
-            data,
-            strict_correct_index,
-            source_bindings,
-            apply_patch=apply_correct_choice,
-            value_key="correctChoiceText",
-        )
+        merged1_questions: list[dict[str, Any]] = []
+        merged2_questions: list[dict[str, Any]] = []
+        for source_record, binding in zip(source_questions, source_bindings):
+            if not isinstance(source_record, Mapping):
+                raise ValueError(f"question record形式が不正です: {base_path}")
+            projection = project_merge_record(
+                source_record,
+                question_type=qtype_index.by_binding.get(binding, ()),
+                intent_fallback=intent_index.by_binding.get(binding, ()),
+                strict_correct=strict_correct_index.by_binding.get(binding, ()),
+                law_context=law_context_index.by_binding.get(binding, ()),
+                explanation=explanation_index.by_binding.get(binding, ()),
+                question_set=question_set_index.by_binding.get(binding, ()),
+                question_issues=question_issue_index.by_binding.get(binding, ()),
+            )
+            if projection.errors:
+                raise RuntimeError(" ".join(projection.errors))
+            merged1_questions.append(projection.merged1)
+            merged2_questions.append(projection.merged2)
+            for key, value in projection.update_counts.items():
+                update_counts[key] = update_counts.get(key, 0) + int(value)
+            applied_question_issue_targets.update(
+                projection.applied_question_issue_targets
+            )
+        merged1_data = copy.deepcopy(source_data)
+        merged1_data["question_bodies"] = merged1_questions
+        merged2_data = copy.deepcopy(source_data)
+        merged2_data["question_bodies"] = merged2_questions
         if require_answer_result_text:
-            ensure_answer_result_text_present(data=data, source_path=base_path)
+            ensure_answer_result_text_present(
+                data=merged1_data,
+                source_path=base_path,
+            )
 
         qtype_view_path = merged_qtype_view_dir / output_filename_for_base(base_path)
-        out_path = merged1_dir / output_filename_for_base(base_path)
-        prepared_merged1.append((base_path, data, qtype_view_path, out_path))
-
-    expl_updates = 0
-    qset_updates = 0
-    correct_updates = 0
-    answer_result_updates = 0
-    intent_updates_merged2 = 0
-    true_false_intent_updates_merged2 = 0
-    true_false_correct_choice_updates_merged2 = 0
-    exam_year_backfills_merged2 = 0
-    correct_choice_backfills_merged2 = 0
-    question_issue_updates = 0
-    applied_question_issue_targets: set[str] = set()
+        merged1_path = merged1_dir / output_filename_for_base(base_path)
+        prepared_records.append(
+            (
+                base_path,
+                merged1_data,
+                merged2_data,
+                qtype_view_path,
+                merged1_path,
+            )
+        )
 
     prepared_merged2: list[tuple[Path, dict]] = []
     manual_paths: list[Path] = []
-    for base_path, merged1_data, _qtype_view_path, merged_path in prepared_merged1:
-        data = copy.deepcopy(merged1_data)
-        source_bindings = source_bindings_by_stem.get(base_path.stem)
-        if source_bindings is None:
-            raise RuntimeError(
-                f"merged fileに対応するsource bindingがありません: {merged_path}"
-            )
-        expl_updates += _apply_resolved_patch_index(
-            data,
-            explanation_index,
-            source_bindings,
-            apply_patch=apply_explanation_fields,
-        )
-        qset_updates += _apply_resolved_patch_index(
-            data,
-            question_set_index,
-            source_bindings,
-            apply_patch=apply_question_set,
-        )
-        answer_result_updates += _apply_preferred_patch_index(
-            data,
-            strict_correct_index,
-            intent_index,
-            source_bindings,
-            apply_patch=apply_answer_result_overrides,
-        )
-        intent_updates_merged2 += _apply_resolved_patch_index(
-            data,
-            intent_index,
-            source_bindings,
-            apply_patch=apply_question_intent,
-            value_key="questionIntent",
-        )
-        u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
-        true_false_intent_updates_merged2 += u_intent
-        true_false_correct_choice_updates_merged2 += u_choice
-        exam_year_backfills_merged2 += backfill_exam_year(data)
-        correct_choice_backfills_merged2 += backfill_correct_choice_text_from_answer_result(data)
-        correct_updates += _apply_preferred_patch_index(
-            data,
-            strict_correct_index,
-            intent_index,
-            source_bindings,
-            apply_patch=apply_correct_choice,
-            value_key="correctChoiceText",
-        )
-        question_issue_updates += apply_question_issue_correction_index(
-            data,
-            question_issue_index,
-            source_bindings,
-            applied_targets=applied_question_issue_targets,
-        )
+    for _base_path, _merged1_data, merged2_data, _qtype_path, merged1_path in prepared_records:
         # 30_merged_2 は実行時刻付きで新規出力する
-        out_path = merged2_dir / output_filename_for_base(merged_path, force_new=True)
-        valid_data, manual_data = maybe_split_for_manual_output(data, out_path)
+        out_path = merged2_dir / output_filename_for_base(
+            merged1_path,
+            force_new=True,
+        )
+        valid_data, manual_data = maybe_split_for_manual_output(
+            merged2_data,
+            out_path,
+        )
         if require_answer_result_text:
             ensure_answer_result_text_present(data=valid_data, source_path=out_path)
         prepared_merged2.append((out_path, valid_data))
@@ -799,14 +446,24 @@ def merge_all(
     archived_counts = commit_prepared_outputs(
         {
             merged_qtype_view_dir: (
-                (qtype_view_path, data)
-                for _base_path, data, qtype_view_path, _merged_path
-                in prepared_merged1
+                (qtype_view_path, merged1_data)
+                for (
+                    _base_path,
+                    merged1_data,
+                    _merged2_data,
+                    qtype_view_path,
+                    _merged1_path,
+                ) in prepared_records
             ),
             merged1_dir: (
-                (merged_path, data)
-                for _base_path, data, _qtype_view_path, merged_path
-                in prepared_merged1
+                (merged1_path, merged1_data)
+                for (
+                    _base_path,
+                    merged1_data,
+                    _merged2_data,
+                    _qtype_view_path,
+                    merged1_path,
+                ) in prepared_records
             ),
             merged2_dir: prepared_merged2,
         }
@@ -824,6 +481,39 @@ def merge_all(
             )
     for manual_path in manual_paths:
         print(f"[WARN] choiceTextList 空のため外出し: {manual_path}")
+
+    qtype_updates = update_counts.get("question_type", 0)
+    intent_updates = update_counts.get("question_intent", 0)
+    true_false_intent_updates = update_counts.get("true_false_intent", 0)
+    true_false_correct_choice_updates = update_counts.get(
+        "true_false_correct_choice", 0
+    )
+    exam_year_backfills = update_counts.get("exam_year", 0)
+    correct_choice_backfills = update_counts.get("correct_choice_backfill", 0)
+    answer_result_override_updates = update_counts.get(
+        "answer_result_override", 0
+    )
+    strict_answer_result_override_updates = update_counts.get(
+        "strict_answer_result_override", 0
+    )
+    strict_correct_updates = update_counts.get("strict_correct_choice", 0)
+    law_context_updates = update_counts.get("law_context", 0)
+    expl_updates = update_counts.get("explanation", 0)
+    qset_updates = update_counts.get("question_set", 0)
+    correct_updates = update_counts.get("correct_choice", 0)
+    answer_result_updates = update_counts.get("answer_result", 0)
+    intent_updates_merged2 = update_counts.get("question_intent_merged2", 0)
+    true_false_intent_updates_merged2 = update_counts.get(
+        "true_false_intent_merged2", 0
+    )
+    true_false_correct_choice_updates_merged2 = update_counts.get(
+        "true_false_correct_choice_merged2", 0
+    )
+    exam_year_backfills_merged2 = update_counts.get("exam_year_merged2", 0)
+    correct_choice_backfills_merged2 = update_counts.get(
+        "correct_choice_backfill_merged2", 0
+    )
+    question_issue_updates = update_counts.get("question_issue", 0)
 
     print(f"[INFO] 20_merged_1 生成完了: {merged1_dir}")
     print(f"[INFO] questionType 更新件数: {qtype_updates}")

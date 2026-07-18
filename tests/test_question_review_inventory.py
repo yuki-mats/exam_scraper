@@ -2,6 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.question_review_console.inventory import QuestionInventory, detect_issues
 from tools.question_review_console.patch_validation import (
@@ -17,6 +18,161 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_invalid_source_record_fails_closed_instead_of_reducing_count(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+                / "question.json"
+            )
+            write_json(source, {"question_bodies": ["not-an-object"]})
+
+            with self.assertRaisesRegex(ValueError, "source record must be an object"):
+                QuestionInventory(root).group("sample-exam", "2026")
+
+    def test_source_selection_matches_physical_merge_exclusions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            write_json(
+                source_dir / "question.json",
+                {
+                    "question_bodies": [
+                        {"original_question_id": "q1", "questionBodyText": "正本"}
+                    ]
+                },
+            )
+            write_json(
+                source_dir / "question_merged.json",
+                {"question_bodies": ["物理Merge入力ではない"]},
+            )
+            write_json(
+                source_dir / "question_questionType_fixed.json",
+                ["patch名のfileはsourceではない"],
+            )
+
+            group = QuestionInventory(root).group("sample-exam", "2026")
+
+        self.assertEqual(len(group["questions"]), 1)
+        self.assertEqual(group["questions"][0]["sourceRecordRef"], "question.json#0")
+
+    def test_projected_input_reads_one_record_from_source_and_current_patches(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            source = {
+                "original_question_id": "q1",
+                "questionBodyText": "問題",
+                "choiceTextList": ["A"],
+                "questionType": "multiple_choice",
+            }
+            write_json(
+                group / "00_source" / "question.json",
+                {"question_bodies": [source]},
+            )
+            write_json(
+                group / "10_questionType_fixed" / "question_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "q1",
+                        "questionType": "flash_card",
+                    }
+                ],
+            )
+
+            result = QuestionInventory(root).projected_input(
+                "sample-exam",
+                "2026",
+                "question.json#0",
+            )
+
+        self.assertEqual(result.record["questionType"], "flash_card")
+        self.assertEqual(result.errors, ())
+        self.assertEqual(len(result.applied_files), 1)
+
+    def test_projected_input_reuses_source_and_unchanged_patch_indexes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "questions.json",
+                {
+                    "question_bodies": [
+                        {"original_question_id": "q1", "questionBodyText": "一"},
+                        {"original_question_id": "q2", "questionBodyText": "二"},
+                    ]
+                },
+            )
+            from tools.question_review_console import inventory as inventory_module
+
+            with (
+                patch.object(
+                    inventory_module,
+                    "load_source_record_inventory",
+                    wraps=inventory_module.load_source_record_inventory,
+                ) as source_mock,
+                patch.object(
+                    inventory_module,
+                    "build_stage_map",
+                    wraps=inventory_module.build_stage_map,
+                ) as stage_mock,
+                patch.object(
+                    inventory_module,
+                    "build_question_issue_index",
+                    wraps=inventory_module.build_question_issue_index,
+                ) as issue_mock,
+            ):
+                inventory = QuestionInventory(root)
+                inventory.projected_input("sample-exam", "2026", "questions.json#0")
+                inventory.projected_input("sample-exam", "2026", "questions.json#1")
+
+                self.assertEqual(source_mock.call_count, 1)
+                self.assertEqual(stage_mock.call_count, 6)
+                self.assertEqual(issue_mock.call_count, 1)
+
+                write_json(
+                    group
+                    / "10_questionType_fixed"
+                    / "questions_questionType_fixed.json",
+                    [{"original_question_id": "q1", "questionType": "flash_card"}],
+                )
+                inventory.projected_input("sample-exam", "2026", "questions.json#0")
+
+                write_json(
+                    group / "00_source" / "question_3.json",
+                    {
+                        "question_bodies": [
+                            {"original_question_id": "q3", "questionBodyText": "三"}
+                        ]
+                    },
+                )
+                inventory.projected_input(
+                    "sample-exam", "2026", "question_3.json#0"
+                )
+
+            self.assertEqual(source_mock.call_count, 2)
+            self.assertEqual(
+                sum(
+                    call.kwargs["stage"] == "questionType"
+                    for call in stage_mock.call_args_list
+                ),
+                3,
+            )
+            self.assertEqual(stage_mock.call_count, 13)
+            self.assertEqual(issue_mock.call_count, 2)
+
     def test_inventory_exposes_japanese_qualification_name_and_publication_id(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
@@ -258,7 +414,10 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 "isLawRelated": False,
             }
             write_json(group / "00_source" / "question_2026_1.json", {"question_bodies": [source]})
-            write_json(group / "30_merged_2" / "question_2026_1_merged.json", {"question_bodies": [source]})
+            write_json(
+                group / "30_merged_2" / "question_2026_1_merged.json",
+                {"question_bodies": [{**source, "questionType": "stale_type"}]},
+            )
             write_json(
                 group / "21_explanationText_added" / "question_2026_1_explanationText_added.json",
                 [
@@ -296,6 +455,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertEqual(payload["questionCount"], 1)
         question = payload["questions"][0]
         self.assertEqual(question["originalQuestionId"], "q1")
+        self.assertEqual(question["projected"]["questionType"], "multiple_choice")
         self.assertEqual(question["projected"]["explanationText"], ["正しい。新", "間違い。新"])
         self.assertIn("merge_stale", question["issueCodes"])
         self.assertNotIn("convert_stale", question["issueCodes"])

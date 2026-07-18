@@ -5,8 +5,13 @@ from pathlib import Path
 
 from scripts.common.question_identity import SourceIdentityBinding
 from scripts.merge.patch_views import build_layered_patch_candidate_index
-from scripts.merge.question_issue_corrections import question_record_hash
+from scripts.merge.record_projection import project_merge_record
+from scripts.merge.question_issue_corrections import (
+    QuestionIssueCorrectionEntry,
+    question_record_hash,
+)
 from tools.question_review_console.projection import (
+    PROJECTED_COMPARE_FIELDS,
     PatchEntry,
     SourceRecordIdentity,
     build_identity_candidate_index,
@@ -61,6 +66,98 @@ def layered_candidate_index(
 
 
 class QuestionReviewProjectionTests(unittest.TestCase):
+    def test_projection_hash_covers_normalized_and_issue_image_fields(self):
+        self.assertTrue(
+            {
+                "examYear",
+                "manualQuestionIntentOverride",
+                "questionImageStorageUrls",
+                "originalQuestionChoiceImageUrls",
+                "explanationImageUrls",
+            }.issubset(PROJECTED_COMPARE_FIELDS)
+        )
+
+    def test_record_projection_matches_physical_merge_order_and_normalization(self):
+        source = {
+            "original_question_id": "q1",
+            "questionType": "true_false",
+            "questionBodyText": "正しいものを選べ。",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": [None, None],
+            "examLabel": "令和5年度",
+        }
+        intent = PatchEntry(
+            Path("15.json"),
+            {
+                "original_question_id": "q1",
+                "questionIntent": "select_correct",
+                "correctChoiceText": ["間違い", "正しい"],
+                "answer_result_text": "正解は 2 です。",
+            },
+        )
+        strict = PatchEntry(
+            Path("23.json"),
+            {
+                "original_question_id": "q1",
+                "questionIntent": "select_incorrect",
+                "answer_result_text": "正解は 1 です。",
+            },
+        )
+        before_issue = project_merge_record(
+            source,
+            intent_fallback=(intent,),
+            strict_correct=(strict,),
+        ).merged2
+        issue = QuestionIssueCorrectionEntry(
+            Path("24.json"),
+            {
+                "original_question_id": "q1",
+                "expectedBeforeHash": question_record_hash(before_issue),
+                "changes": {"questionBodyText": "最終修正版"},
+            },
+        )
+
+        projected = project_merge_record(
+            source,
+            intent_fallback=(intent,),
+            strict_correct=(strict,),
+            question_issues=(issue,),
+        )
+
+        self.assertEqual(
+            {
+                field: projected.merged2[field]
+                for field in (
+                    "questionIntent",
+                    "examYear",
+                    "correctChoiceText",
+                    "answer_result_text",
+                    "questionBodyText",
+                )
+            },
+            {
+                "questionIntent": "select_correct",
+                "examYear": 2023,
+                "correctChoiceText": ["正しい", "間違い"],
+                "answer_result_text": "正解は 1 です。",
+                "questionBodyText": "最終修正版",
+            },
+        )
+        self.assertEqual(projected.errors, ())
+
+    def test_record_projection_normalizes_without_patch_files(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "questionType": None,
+                "choiceTextList": ["", None],
+                "examLabel": "平成25年度",
+            }
+        )
+
+        self.assertEqual(projected.merged2["questionType"], "group_choice")
+        self.assertEqual(projected.merged2["examYear"], 2013)
+
     def test_exact_binding_wins_even_when_source_aliases_are_shared(self):
         first = source_identity("question_1.json#0", "question_1", "shared")
         second = source_identity("question_2.json#0", "question_2", "shared")
@@ -277,6 +374,37 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         self.assertEqual(result.record["correctChoiceText"], ["間違い", "正しい"])
         self.assertEqual(result.record["explanationText"][1], "正しい。根拠2")
         self.assertEqual(result.applied_files, (str(intent.path), str(strict.path), str(explanation.path)))
+
+    def test_question_issue_layer_rolls_back_record_when_later_hash_fails(self):
+        base = {
+            "original_question_id": "q1",
+            "questionType": "multiple_choice",
+            "questionBodyText": "修正前",
+            "choiceTextList": ["A"],
+        }
+        first = QuestionIssueCorrectionEntry(
+            Path("first.json"),
+            {
+                "original_question_id": "q1",
+                "expectedBeforeHash": question_record_hash(base),
+                "changes": {"questionBodyText": "途中の修正"},
+            },
+        )
+        second = QuestionIssueCorrectionEntry(
+            Path("second.json"),
+            {
+                "original_question_id": "q1",
+                "expectedBeforeHash": "invalid-hash",
+                "changes": {"choiceTextList": ["B"]},
+            },
+        )
+
+        result = project_merge_record(base, question_issues=(first, second))
+
+        self.assertEqual(result.merged2, base)
+        self.assertEqual(result.update_counts["question_issue"], 0)
+        self.assertTrue(result.errors)
+        self.assertEqual(result.applied_paths, ())
 
     def test_explanation_prefix_matches_normalized_verdict(self):
         self.assertTrue(explanation_prefix_matches("○", "正しい。条文の通り。"))

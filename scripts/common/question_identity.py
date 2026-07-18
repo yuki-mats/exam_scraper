@@ -20,6 +20,13 @@ _REVIEW_QUESTION_ID_FIELDS = (
     "original_question_id",
 )
 _SOURCE_RECORD_REF_FIELDS = ("sourceRecordRef", "source_record_ref")
+SOURCE_PATCH_TAGS = (
+    "questionType_fixed",
+    "lawContext_prepared",
+    "explanationText_added",
+    "questionSetId_linked",
+    "correctChoiceText_fixed",
+)
 
 
 @dataclass(frozen=True)
@@ -83,6 +90,22 @@ class SourceRecordInventoryEntry:
     record: Mapping[str, Any]
     path: Path
     record_index: int
+
+
+def source_json_paths(source_dir: Path) -> list[Path]:
+    """Select immutable source files with the same rule as physical Merge."""
+
+    from scripts.merge.merge_utils import is_patch_filename_for_tag
+
+    return [
+        path
+        for path in sorted(source_dir.glob("*.json"))
+        if not path.name.endswith("_merged.json")
+        and not any(
+            is_patch_filename_for_tag(path.name, tag)
+            for tag in SOURCE_PATCH_TAGS
+        )
+    ]
 
 
 @dataclass(frozen=True)
@@ -470,7 +493,7 @@ def load_source_record_inventory(
 
     entries: list[SourceRecordInventoryEntry] = []
     seen: set[SourceIdentityBinding] = set()
-    for source_path in sorted(source_dir.glob("*.json")):
+    for source_path in source_json_paths(source_dir):
         payload = json.loads(source_path.read_text(encoding="utf-8"))
         records = (
             payload.get("question_bodies")

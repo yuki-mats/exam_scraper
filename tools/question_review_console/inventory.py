@@ -11,11 +11,13 @@ from typing import Any, Iterable, Mapping
 
 from scripts.common.question_identity import (
     SourceIdentityBinding,
-    review_question_id,
-    source_question_key,
-    source_record_ref,
+    load_source_record_inventory,
+    source_json_paths,
 )
 from scripts.scrape.qualification_presets import load_qualification_catalog
+from scripts.merge.question_issue_corrections import (
+    selected_question_issue_correction_paths,
+)
 from tools.question_review_console.projection import (
     IdentityCandidateIndex,
     IdentityResolutionError,
@@ -26,6 +28,7 @@ from tools.question_review_console.projection import (
     api_question_id,
     build_identity_candidate_index,
     build_question_issue_index,
+    build_stage_map,
     build_stage_maps,
     explanation_prefix_matches,
     extract_records,
@@ -34,9 +37,9 @@ from tools.question_review_console.projection import (
     normalize_text,
     normalize_verdict,
     project_record,
-    record_aliases,
     record_diff,
     review_key,
+    selected_patch_paths,
     sha256_json,
 )
 from tools.question_review_console.patch_validation import (
@@ -94,6 +97,12 @@ ISSUE_PRIORITY = {
 class GroupCache:
     fingerprint: str
     payload: dict[str, Any]
+
+
+@dataclass
+class ProjectionCache:
+    fingerprint: str
+    payload: Any
 
 
 def _safe_segment(value: str) -> str:
@@ -428,6 +437,9 @@ class QuestionInventory:
             self.repo_root / "config" / "scrape_presets.json"
         )
         self._cache: dict[tuple[str, str], GroupCache] = {}
+        self._source_cache: dict[tuple[str, str], ProjectionCache] = {}
+        self._stage_index_cache: dict[tuple[str, str, str], ProjectionCache] = {}
+        self._issue_index_cache: dict[tuple[str, str], ProjectionCache] = {}
         self._id_map: dict[str, dict[str, Any]] = {}
         self._lock = threading.RLock()
 
@@ -492,6 +504,155 @@ class QuestionInventory:
             raise KeyError(f"question not loaded: {question_id}")
         return question
 
+    def projected_input(
+        self,
+        qualification: str,
+        list_group_id: str,
+        source_record_ref_value: str,
+    ) -> ProjectionResult:
+        """Project one immutable source record through the current patch layers."""
+
+        qualification = _safe_segment(qualification)
+        list_group_id = _safe_segment(list_group_id)
+        group_dir = self.output_root / qualification / "questions_json" / list_group_id
+        inventory = self._source_inventory(
+            qualification,
+            list_group_id,
+            group_dir,
+        )
+        matches = [
+            entry
+            for entry in inventory
+            if entry.identity.binding.source_record_ref == source_record_ref_value
+        ]
+        if len(matches) != 1:
+            raise ValueError(
+                "sourceRecordRefを一意に解決できません: "
+                f"{qualification}/{list_group_id}/{source_record_ref_value}"
+            )
+        entry = matches[0]
+        identities = tuple(value.identity for value in inventory)
+        stage_maps = self._projection_stage_maps(
+            qualification,
+            list_group_id,
+            group_dir,
+            identities,
+        )
+        issue_index = self._projection_issue_index(
+            qualification,
+            list_group_id,
+            group_dir,
+            identities,
+        )
+        return project_record(
+            entry.record,
+            set(entry.identity.aliases),
+            stage_maps,
+            issue_index,
+            source_binding=entry.identity.binding,
+        )
+
+    @staticmethod
+    def _paths_fingerprint(paths: Iterable[Path]) -> str:
+        parts: list[str] = []
+        for path in sorted(paths):
+            stat_result = path.stat()
+            parts.append(f"{path}:{stat_result.st_size}:{stat_result.st_mtime_ns}")
+        return hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
+
+    @staticmethod
+    def _identity_fingerprint(
+        identities: Iterable[SourceRecordIdentity],
+    ) -> str:
+        return sha256_json(
+            [
+                {
+                    **identity.binding.as_mapping(),
+                    "aliases": sorted(identity.aliases),
+                    "sourceStem": identity.source_stem,
+                }
+                for identity in identities
+            ]
+        )
+
+    def _source_inventory(
+        self,
+        qualification: str,
+        list_group_id: str,
+        group_dir: Path,
+    ) -> tuple[Any, ...]:
+        key = (qualification, list_group_id)
+        source_dir = group_dir / SOURCE_SUBDIR
+        fingerprint = self._paths_fingerprint(source_json_paths(source_dir))
+        with self._lock:
+            cached = self._source_cache.get(key)
+            if cached and cached.fingerprint == fingerprint:
+                return cached.payload
+            payload = load_source_record_inventory(
+                source_dir,
+                qualification=qualification,
+                list_group_id=list_group_id,
+            )
+            self._source_cache[key] = ProjectionCache(fingerprint, payload)
+            return payload
+
+    def _projection_stage_maps(
+        self,
+        qualification: str,
+        list_group_id: str,
+        group_dir: Path,
+        identities: tuple[SourceRecordIdentity, ...],
+    ) -> dict[str, IdentityCandidateIndex]:
+        maps: dict[str, IdentityCandidateIndex] = {}
+        identity_fingerprint = self._identity_fingerprint(identities)
+        with self._lock:
+            for stage, subdir, tag in STAGE_SPECS:
+                key = (qualification, list_group_id, stage)
+                paths = selected_patch_paths(group_dir, subdir, tag)
+                fingerprint = sha256_json(
+                    [self._paths_fingerprint(paths), identity_fingerprint]
+                )
+                cached = self._stage_index_cache.get(key)
+                if not cached or cached.fingerprint != fingerprint:
+                    cached = ProjectionCache(
+                        fingerprint,
+                        build_stage_map(
+                            group_dir,
+                            identities,
+                            stage=stage,
+                            subdir=subdir,
+                            tag=tag,
+                        ),
+                    )
+                    self._stage_index_cache[key] = cached
+                maps[stage] = cached.payload
+        return maps
+
+    def _projection_issue_index(
+        self,
+        qualification: str,
+        list_group_id: str,
+        group_dir: Path,
+        identities: tuple[SourceRecordIdentity, ...],
+    ) -> IdentityCandidateIndex:
+        key = (qualification, list_group_id)
+        paths = selected_question_issue_correction_paths(
+            group_dir / "24_questionIssueCorrections"
+        )
+        identity_fingerprint = self._identity_fingerprint(identities)
+        fingerprint = sha256_json(
+            [self._paths_fingerprint(paths), identity_fingerprint]
+        )
+        with self._lock:
+            cached = self._issue_index_cache.get(key)
+            if not cached or cached.fingerprint != fingerprint:
+                cached = ProjectionCache(
+                    fingerprint,
+                    build_question_issue_index(paths, identities),
+                )
+                self._issue_index_cache[key] = cached
+            return cached.payload
+
     def invalidate(self, qualification: str, list_group_id: str) -> None:
         with self._lock:
             cached = self._cache.pop((qualification, list_group_id), None)
@@ -534,7 +695,12 @@ class QuestionInventory:
         publication_qualification_id = self.qualification_catalog.get(
             qualification, {}
         ).get("publicationId", qualification)
-        source_files = _current_json_files(group_dir / SOURCE_SUBDIR)
+        source_inventory = self._source_inventory(
+            qualification,
+            list_group_id,
+            group_dir,
+        )
+        source_files = sorted({entry.path for entry in source_inventory})
         source_records: list[
             tuple[
                 Path,
@@ -545,38 +711,25 @@ class QuestionInventory:
             ]
         ] = []
         source_identities: list[SourceRecordIdentity] = []
-        for source_path in source_files:
-            try:
-                source_payload = load_json(source_path)
-            except (OSError, json.JSONDecodeError):
-                continue
-            for source_index, source in enumerate(extract_records(source_payload)):
-                source_binding = SourceIdentityBinding.from_values(
-                    source_question_key(qualification, list_group_id, source),
-                    review_question_id(source),
-                    source_record_ref(
-                        source_path.relative_to(
-                            group_dir / SOURCE_SUBDIR
-                        ).as_posix(),
-                        source_index,
-                    ),
+        for entry in source_inventory:
+            source = dict(entry.record)
+            source_binding = entry.identity.binding
+            aliases = set(entry.identity.aliases)
+            source_records.append(
+                (
+                    entry.path,
+                    entry.record_index,
+                    source,
+                    source_binding,
+                    aliases,
                 )
-                aliases = record_aliases(
-                    {**source, **source_binding.as_mapping()}
-                )
-                source_records.append(
-                    (source_path, source_index, source, source_binding, aliases)
-                )
-                source_identities.append(
-                    SourceRecordIdentity(
-                        binding=source_binding,
-                        aliases=frozenset(aliases),
-                        source_stem=source_path.stem,
-                    )
-                )
+            )
+            source_identities.append(entry.identity)
 
         stage_maps = build_stage_maps(group_dir, source_identities)
-        issue_paths = _current_json_files(group_dir / "24_questionIssueCorrections")
+        issue_paths = selected_question_issue_correction_paths(
+            group_dir / "24_questionIssueCorrections"
+        )
         issue_index = build_question_issue_index(issue_paths, source_identities)
         merged_index = _record_index(
             _current_json_files(group_dir / "30_merged_2"),
@@ -677,7 +830,7 @@ class QuestionInventory:
                 merged = merged_match[0] if merged_match else None
                 merged_path = merged_match[1] if merged_match else None
                 projection = project_record(
-                    merged or source,
+                    source,
                     aliases,
                     stage_maps,
                     issue_index,

@@ -118,61 +118,95 @@ def refresh_question_status(execution: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
-    executions: dict[str, dict[str, Any]] = {}
-    seen_work_items: set[str] = set()
-    for stage_plan in _stage_plans(plan):
-        stage_id = str(stage_plan.get("stageId") or "").strip()
-        if not stage_id or stage_id in {"multi", "category_setup", "setup"}:
-            continue
-        policy_fingerprint = str(
-            (stage_plan.get("policyFingerprints") or {}).get(stage_id) or ""
-        )
-        for target in stage_plan.get("progressTargets") or []:
-            if not isinstance(target, Mapping):
+    stage_plans = [
+        stage_plan
+        for stage_plan in _stage_plans(plan)
+        if str(stage_plan.get("stageId") or "").strip()
+        not in {"", "multi", "category_setup", "setup"}
+    ]
+    canonical_targets: dict[str, dict[str, Any]] = {}
+    targets_by_stage: dict[str, dict[str, dict[str, Any]]] = {}
+    for stage_plan in stage_plans:
+        stage_id = str(stage_plan["stageId"])
+        stage_targets = targets_by_stage.setdefault(stage_id, {})
+        for raw_target in stage_plan.get("progressTargets") or []:
+            if not isinstance(raw_target, Mapping):
                 continue
+            target = dict(raw_target)
             question_id = _target_id(target)
             if not question_id:
                 raise QuestionWorkQueueError("一問work itemの問題IDがありません。")
+            existing = canonical_targets.setdefault(question_id, target)
+            if SourceIdentityBinding.from_mapping(
+                existing
+            ) != SourceIdentityBinding.from_mapping(target):
+                raise QuestionWorkQueueError(
+                    f"問題IDに複数のsource identityがあります: {question_id}"
+                )
+            if question_id in stage_targets:
+                raise QuestionWorkQueueError(
+                    f"一問work itemが重複しています: {question_id} / {stage_id}"
+                )
+            stage_targets[question_id] = target
+
+    executions: list[dict[str, Any]] = []
+    seen_work_items: set[str] = set()
+    resume_work_item_keys = {
+        str(value)
+        for value in plan.get("resumeWorkItemKeys") or []
+        if value
+    }
+    ordered_targets = sorted(
+        canonical_targets.items(),
+        key=lambda item: (
+            int(item[1].get("displayOrder") or 0),
+            item[0],
+        ),
+    )
+    for question_id, canonical_target in ordered_targets:
+        identity = SourceIdentityBinding.from_mapping(canonical_target)
+        execution = {
+            "questionId": question_id,
+            "questionKey": str(
+                canonical_target.get("questionKey") or question_id
+            ),
+            "sourceQuestionKey": identity.source_question_key,
+            "reviewQuestionId": identity.review_question_id,
+            "sourceRecordRef": identity.source_record_ref,
+            "listGroupId": str(canonical_target.get("listGroupId") or ""),
+            "displayLabel": str(
+                canonical_target.get("displayLabel")
+                or canonical_target.get("questionLabel")
+                or question_id
+            ),
+            "displayOrder": int(canonical_target.get("displayOrder") or 0),
+            "status": "queued",
+            "stages": [],
+        }
+        for stage_plan in stage_plans:
+            stage_id = str(stage_plan["stageId"])
+            target = targets_by_stage.get(stage_id, {}).get(
+                question_id,
+                canonical_target,
+            )
             item_key = work_item_key(target, stage_id)
+            if resume_work_item_keys and item_key not in resume_work_item_keys:
+                continue
             if item_key in seen_work_items:
                 raise QuestionWorkQueueError(
                     f"一問work itemが重複しています: {question_id} / {stage_id}"
                 )
             seen_work_items.add(item_key)
-            execution = executions.setdefault(
-                question_id,
-                {
-                    "questionId": question_id,
-                    "questionKey": str(target.get("questionKey") or question_id),
-                    "sourceQuestionKey": str(
-                        target.get("sourceQuestionKey") or ""
-                    ),
-                    "reviewQuestionId": str(
-                        target.get("reviewQuestionId") or ""
-                    ),
-                    "sourceRecordRef": str(target.get("sourceRecordRef") or ""),
-                    "listGroupId": str(target.get("listGroupId") or ""),
-                    "displayLabel": str(
-                        target.get("displayLabel")
-                        or target.get("questionLabel")
-                        or question_id
-                    ),
-                    "displayOrder": int(target.get("displayOrder") or 0),
-                    "status": "queued",
-                    "stages": [],
-                },
+            policy_fingerprint = str(
+                (stage_plan.get("policyFingerprints") or {}).get(stage_id) or ""
             )
-            identity = SourceIdentityBinding.from_mapping(target)
-            if SourceIdentityBinding.from_mapping(execution) != identity:
-                raise QuestionWorkQueueError(
-                    f"問題IDに複数のsource identityがあります: {question_id}"
-                )
             execution["stages"].append(
                 {
                     "workItemKey": item_key,
                     "stageId": stage_id,
                     "stageCode": str(stage_plan.get("stageCode") or ""),
                     "stageLabel": str(stage_plan.get("stageLabel") or stage_id),
+                    "policyFingerprint": policy_fingerprint,
                     "status": "queued",
                     "attempts": 0,
                     "inputFingerprint": input_fingerprint(
@@ -186,20 +220,17 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                     "preparationThreadId": None,
                     "preparationSessionId": None,
                     "preparationTurnId": None,
+                    "projectedInputPath": None,
+                    "projectedInputHash": None,
                     "childRunIds": [],
                     "error": None,
                     "startedAt": None,
                     "finishedAt": None,
                 }
             )
-    values = [refresh_question_status(value) for value in executions.values()]
-    return sorted(
-        values,
-        key=lambda value: (
-            int(value.get("displayOrder") or 0),
-            str(value.get("questionId") or ""),
-        ),
-    )
+        if execution["stages"]:
+            executions.append(refresh_question_status(execution))
+    return executions
 
 
 def queue_summary(executions: Iterable[Mapping[str, Any]]) -> dict[str, int]:
@@ -301,42 +332,6 @@ def recover_interrupted_executions(
     return recovered
 
 
-def block_group_after_stage(
-    executions: Iterable[Mapping[str, Any]],
-    list_group_id: str,
-    after_stage_id: str,
-    reason: str,
-) -> list[dict[str, Any]]:
-    """Block only the first downstream item while a derivative merge is stale."""
-
-    recovered = copy.deepcopy(list(executions))
-    for question in recovered:
-        if str(question.get("listGroupId") or "") != str(list_group_id):
-            continue
-        stages = question.get("stages") or []
-        after_index = next(
-            (
-                index
-                for index, stage in enumerate(stages)
-                if isinstance(stage, Mapping)
-                and str(stage.get("stageId") or "") == str(after_stage_id)
-            ),
-            -1,
-        )
-        dependent = next(
-            (
-                stage
-                for stage in stages[after_index + 1 :]
-                if isinstance(stage, dict)
-                and str(stage.get("status") or "")
-                not in {"validated", "not_applicable"}
-            ),
-            None,
-        )
-        if dependent is not None:
-            dependent.update(status="blocked", error=reason)
-        refresh_question_status(question)
-    return recovered
 
 
 def _matching_alias_group(
@@ -504,69 +499,166 @@ def resume_plan(
     if not previous_items:
         raise QuestionWorkQueueError("再実行元の一問work itemがありません。")
 
-    def should_resume(
-        stage_plan: Mapping[str, Any], target: Mapping[str, Any]
-    ) -> bool:
+    raw_stage_plans = _stage_plans(plan)
+    question_stage_plans = [
+        stage_plan
+        for stage_plan in raw_stage_plans
+        if str(stage_plan.get("stageId") or "").strip()
+        not in {"", "multi", "category_setup", "setup"}
+    ]
+    targets_by_stage: dict[str, dict[str, dict[str, Any]]] = {}
+    canonical_targets: dict[str, dict[str, Any]] = {}
+    for stage_plan in question_stage_plans:
         stage_id = str(stage_plan.get("stageId") or "")
-        key = work_item_key(target, stage_id)
-        previous = previous_items.get(key)
-        if previous is None or str(previous.get("status") or "") != "validated":
-            return True
-        policy_fingerprint = str(
-            (stage_plan.get("policyFingerprints") or {}).get(stage_id) or ""
-        )
-        current_input = input_fingerprint(
-            target,
-            stage_id,
-            policy_fingerprint,
-        )
-        return str(previous.get("inputFingerprint") or "") != current_input
+        stage_targets = targets_by_stage.setdefault(stage_id, {})
+        for raw_target in stage_plan.get("progressTargets") or []:
+            if not isinstance(raw_target, Mapping):
+                continue
+            target = dict(raw_target)
+            question_id = _target_id(target)
+            if not question_id:
+                continue
+            stage_targets[question_id] = target
+            existing = canonical_targets.setdefault(question_id, target)
+            if SourceIdentityBinding.from_mapping(
+                existing
+            ) != SourceIdentityBinding.from_mapping(target):
+                raise QuestionWorkQueueError(
+                    f"問題IDに複数のsource identityがあります: {question_id}"
+                )
+
+    resume_start_by_question: dict[str, int] = {}
+    for question_id, canonical_target in canonical_targets.items():
+        for stage_index, stage_plan in enumerate(question_stage_plans):
+            stage_id = str(stage_plan.get("stageId") or "")
+            target = targets_by_stage.get(stage_id, {}).get(
+                question_id,
+                canonical_target,
+            )
+            previous = previous_items.get(work_item_key(target, stage_id))
+            current_target_exists = question_id in targets_by_stage.get(stage_id, {})
+            if previous is None:
+                needs_resume = current_target_exists
+            else:
+                previous_status = str(previous.get("status") or "")
+                if previous_status == "validated":
+                    previous_policy = previous.get("policyFingerprint")
+                    if previous_policy is None:
+                        # Legacy manifests predate per-item policy fingerprints.
+                        # Their validated status remains authoritative; comparing
+                        # the pre-write state hash would mistake the stage's own
+                        # patch for a new input and rerun successful work.
+                        needs_resume = False
+                    else:
+                        current_policy = str(
+                            (stage_plan.get("policyFingerprints") or {}).get(
+                                stage_id
+                            )
+                            or ""
+                        )
+                        needs_resume = (
+                            current_target_exists
+                            and str(previous_policy) != current_policy
+                        )
+                elif previous_status == "not_applicable":
+                    needs_resume = current_target_exists
+                else:
+                    needs_resume = True
+            if needs_resume:
+                resume_start_by_question[question_id] = stage_index
+                break
+
+    explicit_question_keys: set[str] = set()
+    targets_for_stage: dict[str, list[str]] = {}
+    question_stage_indexes = {
+        str(stage_plan.get("stageId") or ""): stage_index
+        for stage_index, stage_plan in enumerate(question_stage_plans)
+    }
+    for question_id, first_stage_index in resume_start_by_question.items():
+        canonical_target = canonical_targets[question_id]
+        for stage_plan in question_stage_plans[first_stage_index:]:
+            stage_id = str(stage_plan.get("stageId") or "")
+            target = targets_by_stage.get(stage_id, {}).get(
+                question_id,
+                canonical_target,
+            )
+            explicit_question_keys.add(work_item_key(target, stage_id))
+            if question_id in targets_by_stage.get(stage_id, {}):
+                targets_for_stage.setdefault(stage_id, []).append(question_id)
 
     filtered_stage_plans: list[dict[str, Any]] = []
-    resume_needed = False
-    for stage_plan in _stage_plans(plan):
+    scope_resume_keys: set[str] = set()
+    scope_question_ids: list[str] = []
+    scope_resume_needed = False
+    for stage_plan in raw_stage_plans:
         stage_id = str(stage_plan.get("stageId") or "")
-        targets = []
-        for target in stage_plan.get("progressTargets") or []:
-            if not isinstance(target, Mapping) or not should_resume(
-                stage_plan, target
-            ):
-                continue
-            resume_needed = True
-            targets.append(target)
-        if targets:
-            filtered_stage_plans.append(
-                subset_question_plan(
-                    stage_plan,
-                    [_target_id(target) for target in targets],
+        if stage_id in {"", "multi"}:
+            continue
+        if stage_id in {"setup", "category_setup"}:
+            scope_targets = [
+                dict(target)
+                for target in stage_plan.get("progressTargets") or []
+                if isinstance(target, Mapping)
+            ]
+            if scope_targets:
+                filtered_stage_plans.append(copy.deepcopy(dict(stage_plan)))
+                scope_resume_keys.update(
+                    work_item_key(target, stage_id) for target in scope_targets
                 )
+                scope_question_ids.extend(_target_id(target) for target in scope_targets)
+                scope_resume_needed = True
+            else:
+                filtered_stage_plans.append(copy.deepcopy(dict(stage_plan)))
+            continue
+        selected_ids = list(dict.fromkeys(targets_for_stage.get(stage_id, [])))
+        if selected_ids:
+            filtered_stage_plans.append(
+                subset_question_plan(stage_plan, selected_ids)
             )
-        elif not stage_plan.get("progressTargets"):
-            filtered_stage_plans.append(copy.deepcopy(dict(stage_plan)))
-    if not resume_needed:
+        elif any(
+            first_stage_index <= question_stage_indexes[stage_id]
+            for first_stage_index in resume_start_by_question.values()
+        ):
+            empty_stage = copy.deepcopy(dict(stage_plan))
+            empty_stage.update(
+                targetCount=0,
+                workItemCount=0,
+                targetQuestionKeys=[],
+                progressTargets=[],
+                targetRecordBindings=[],
+                targetRecordAliasGroups=[],
+                targetRecordScopes={},
+                targetSourceRecordScopes={},
+                policyTargets={},
+            )
+            filtered_stage_plans.append(empty_stage)
+    if not resume_start_by_question and not scope_resume_needed:
         raise QuestionWorkQueueError("再実行が必要な問題はありません。")
     candidate = copy.deepcopy(dict(plan))
+    # Scope phases keep their own full stage plan and resume keys.  When a
+    # question item also needs retrying, the parent question contract must not
+    # be widened back to every question covered by that scope phase.  The
+    # scope-only fallback is still needed when the scope phase itself is the
+    # sole remaining work item.
     pending_ids = list(
         dict.fromkeys(
-            _target_id(target)
-            for stage_plan in filtered_stage_plans
-            for target in stage_plan.get("progressTargets") or []
-            if isinstance(target, Mapping)
+            resume_start_by_question
+            if resume_start_by_question
+            else scope_question_ids
         )
     )
     if not pending_ids:
         raise QuestionWorkQueueError("再実行が必要な問題を現在の入力から解決できません。")
     candidate = subset_question_plan(candidate, pending_ids)
     candidate["stagePlans"] = filtered_stage_plans
-    candidate["workItemCount"] = sum(
-        int(stage_plan.get("targetCount") or 0)
-        for stage_plan in filtered_stage_plans
-        if stage_plan.get("progressTargets")
-    )
+    candidate["workItemCount"] = len(explicit_question_keys)
     candidate["policyTargets"] = {
         str(stage_id): list(targets)
         for stage_plan in filtered_stage_plans
         for stage_id, targets in (stage_plan.get("policyTargets") or {}).items()
         if targets
     }
+    candidate["resumeWorkItemKeys"] = sorted(
+        explicit_question_keys | scope_resume_keys
+    )
     return candidate

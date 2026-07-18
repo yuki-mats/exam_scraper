@@ -25,9 +25,10 @@ from scripts.merge.patch_views import (
     build_layered_patch_index_from_paths,
     extract_patch_entries,
 )
+from scripts.merge.record_projection import project_merge_record
 from scripts.merge.question_issue_corrections import (
+    PATCHABLE_FIELDS,
     QuestionIssueCorrectionEntry,
-    apply_question_issue_correction_entry,
     apply_question_issue_correction_paths,
     build_question_issue_correction_index,
 )
@@ -87,6 +88,9 @@ PROJECTED_COMPARE_FIELDS = tuple(
             *EXPLANATION_FIELDS,
             *QUESTION_SET_FIELDS,
             *CORRECT_CHOICE_FIELDS,
+            *sorted(PATCHABLE_FIELDS),
+            "examYear",
+            "manualQuestionIntentOverride",
         )
     )
 )
@@ -189,15 +193,34 @@ def build_stage_maps(
     sources: Iterable[SourceRecordIdentity],
 ) -> dict[str, IdentityCandidateIndex]:
     source_records = tuple(sources)
-    maps: dict[str, IdentityCandidateIndex] = {}
-    for stage, subdir, tag in STAGE_SPECS:
-        maps[stage] = build_layered_patch_index_from_paths(
-            selected_patch_paths(group_dir, subdir, tag),
-            patch_tag=tag,
-            sources=source_records,
-            label=f"{stage} patch record",
+    return {
+        stage: build_stage_map(
+            group_dir,
+            source_records,
+            stage=stage,
+            subdir=subdir,
+            tag=tag,
         )
-    return maps
+        for stage, subdir, tag in STAGE_SPECS
+    }
+
+
+def build_stage_map(
+    group_dir: Path,
+    sources: Iterable[SourceRecordIdentity],
+    *,
+    stage: str,
+    subdir: str,
+    tag: str,
+) -> IdentityCandidateIndex:
+    """Build one patch-layer index for a run-local logical projection."""
+
+    return build_layered_patch_index_from_paths(
+        selected_patch_paths(group_dir, subdir, tag),
+        patch_tag=tag,
+        sources=tuple(sources),
+        label=f"{stage} patch record",
+    )
 
 
 def build_question_issue_index(
@@ -276,12 +299,6 @@ def find_patch_entries(
     return (patch,) if patch is not None else ()
 
 
-def _copy_fields(target: dict[str, Any], source: Mapping[str, Any], fields: Iterable[str]) -> None:
-    for field in fields:
-        if field in source and source[field] is not None:
-            target[field] = copy.deepcopy(source[field])
-
-
 def project_record(
     base_record: Mapping[str, Any],
     aliases: set[str],
@@ -295,53 +312,56 @@ def project_record(
     source_binding: SourceIdentityBinding | None = None,
     initial_errors: Iterable[str] = (),
 ) -> ProjectionResult:
-    record = copy.deepcopy(dict(base_record))
-    applied: list[str] = []
     errors = list(initial_errors)
-    field_sets = {
-        "questionType": QUESTION_TYPE_FIELDS,
-        "questionIntent": QUESTION_INTENT_FIELDS,
-        "lawContext": LAW_CONTEXT_FIELDS,
-        "explanation": EXPLANATION_FIELDS,
-        "questionSet": QUESTION_SET_FIELDS,
-        "correctChoice": CORRECT_CHOICE_FIELDS,
-    }
+    resolved: dict[str, tuple[PatchEntry, ...]] = {}
     for stage, _, _ in STAGE_SPECS:
         try:
-            patches = find_patch_entries(
+            resolved[stage] = find_patch_entries(
                 stage_maps.get(stage, {}),
                 aliases,
                 source_binding,
             )
         except IdentityResolutionError as exc:
             errors.append(f"{stage}: {exc}")
-            continue
-        for patch in patches:
-            _copy_fields(record, patch.entry, field_sets[stage])
-            applied.append(str(patch.path))
+            resolved[stage] = ()
 
+    issue_candidates: tuple[QuestionIssueCorrectionEntry, ...] = ()
     if isinstance(question_issue_patches, IdentityCandidateIndex):
         if source_binding is None:
             errors.append("question issue correction: source bindingがありません。")
         else:
+            issue_resolution_errors = (
+                question_issue_patches.errors_by_binding.get(source_binding, ())
+            )
             errors.extend(
                 f"question issue correction: {error}"
-                for error in question_issue_patches.errors_by_binding.get(
-                    source_binding, ()
-                )
+                for error in issue_resolution_errors
             )
-            if source_binding not in question_issue_patches.errors_by_binding:
-                for patch in question_issue_patches.by_binding.get(
-                    source_binding, ()
-                ):
-                    try:
-                        changed = _apply_question_issue_entry(record, patch)
-                    except (RuntimeError, ValueError) as exc:
-                        errors.append(str(exc))
-                        continue
-                    if changed:
-                        applied.append(str(patch.path))
-    else:
+            if not issue_resolution_errors:
+                issue_candidates = tuple(
+                    question_issue_patches.by_binding.get(source_binding, ())
+                )
+
+    try:
+        projection = project_merge_record(
+            base_record,
+            question_type=resolved.get("questionType", ()),
+            intent_fallback=resolved.get("questionIntent", ()),
+            strict_correct=resolved.get("correctChoice", ()),
+            law_context=resolved.get("lawContext", ()),
+            explanation=resolved.get("explanation", ()),
+            question_set=resolved.get("questionSet", ()),
+            question_issues=issue_candidates,
+        )
+        record = projection.merged2
+        applied = [str(path) for path in projection.applied_paths]
+        errors.extend(projection.errors)
+    except (RuntimeError, ValueError) as exc:
+        record = copy.deepcopy(dict(base_record))
+        applied = []
+        errors.append(str(exc))
+
+    if not isinstance(question_issue_patches, IdentityCandidateIndex):
         # Compatibility for direct callers that do not own a source inventory.
         wrapper = {"question_bodies": [record]}
         for path in sorted(question_issue_patches):
@@ -358,17 +378,6 @@ def project_record(
         record=record,
         applied_files=tuple(dict.fromkeys(applied)),
         errors=tuple(errors),
-    )
-
-
-def _apply_question_issue_entry(
-    record: dict[str, Any],
-    patch: QuestionIssueCorrectionEntry,
-) -> bool:
-    return apply_question_issue_correction_entry(
-        record,
-        patch.entry,
-        patch.path,
     )
 
 

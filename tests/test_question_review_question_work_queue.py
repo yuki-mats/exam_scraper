@@ -1,3 +1,4 @@
+import copy
 import unittest
 
 from tools.question_review_console.question_work_queue import (
@@ -98,6 +99,20 @@ class QuestionWorkQueueTests(unittest.TestCase):
         self.assertEqual(len({stage["workItemKey"] for item in executions for stage in item["stages"]}), 4)
         self.assertEqual(queue_summary(executions)["workItemCount"], 4)
 
+    def test_builds_placeholder_for_later_dynamic_stage(self) -> None:
+        later = stage_plan("law_audit", [self.targets[1]])
+        plan = {
+            **self.plan,
+            "stagePlans": [self.first, later],
+            "workItemCount": 3,
+        }
+
+        executions = build_question_executions(plan)
+
+        self.assertEqual(queue_summary(executions)["workItemCount"], 4)
+        self.assertEqual(executions[0]["stages"][1]["stageId"], "law_audit")
+        self.assertEqual(executions[1]["stages"][1]["stageId"], "law_audit")
+
     def test_specializes_writable_record_scope_to_one_question(self) -> None:
         plan = specialize_question_plan(self.first, "q2")
 
@@ -158,19 +173,138 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["policyTargets"], {"law_audit": ["q2"]})
 
-    def test_resume_plan_requeues_validated_item_when_input_changed(self) -> None:
+    def test_resume_plan_requeues_validated_item_when_policy_changed(self) -> None:
         executions = build_question_executions(self.plan)
         for question in executions:
             for stage in question["stages"]:
                 stage["status"] = "validated"
         changed = {**self.first, "progressTargets": [dict(self.targets[0])]}
-        changed["progressTargets"][0]["stateHash"] = "changed-state"
+        changed["policyFingerprints"] = {"explanation": "changed-policy"}
         changed["targetCount"] = 1
 
         resumed = resume_plan(changed, executions)
 
         self.assertEqual(resumed["targetCount"], 1)
         self.assertEqual(resumed["progressTargets"][0]["id"], "q1")
+
+    def test_resume_queue_does_not_cross_product_other_question_stages(self) -> None:
+        executions = build_question_executions(self.plan)
+        executions[0]["stages"][0]["status"] = "blocked"
+        executions[0]["stages"][1]["status"] = "blocked"
+        executions[1]["stages"][0]["status"] = "validated"
+        executions[1]["stages"][1]["status"] = "blocked"
+
+        resumed = resume_plan(self.plan, executions)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [
+                ("q1", "explanation"),
+                ("q1", "law_audit"),
+                ("q2", "law_audit"),
+            ],
+        )
+
+    def test_resume_keeps_downstream_placeholder_for_same_question(self) -> None:
+        later = stage_plan("law_audit", [self.targets[1]])
+        plan = {
+            **self.plan,
+            "stagePlans": [self.first, later],
+            "workItemCount": 3,
+        }
+        executions = build_question_executions(plan)
+        for stage in executions[0]["stages"]:
+            stage["status"] = "blocked"
+        for stage in executions[1]["stages"]:
+            stage["status"] = "validated"
+
+        resumed = resume_plan(plan, executions)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [
+                ("q1", "explanation"),
+                ("q1", "law_audit"),
+            ],
+        )
+        self.assertEqual(resumed["workItemCount"], 2)
+
+    def test_resume_scope_plan_does_not_widen_pending_question_targets(self) -> None:
+        scope = stage_plan("category_setup", self.targets)
+        scope.update(
+            policyVersions={},
+            policyFingerprints={},
+            policyTargets={},
+        )
+        plan = {
+            **self.plan,
+            "stageIds": ["category_setup", "explanation"],
+            "stagePlans": [scope, self.first],
+            "workItemCount": 2,
+            "policyTargets": {"explanation": ["q1", "q2"]},
+        }
+        executions = build_question_executions(plan)
+        executions[0]["stages"][0]["status"] = "blocked"
+        executions[1]["stages"][0]["status"] = "validated"
+
+        resumed = resume_plan(plan, executions)
+        rebuilt = build_question_executions(resumed)
+        resumed_scope = next(
+            stage
+            for stage in resumed["stagePlans"]
+            if stage["stageId"] == "category_setup"
+        )
+
+        self.assertEqual(resumed["targetCount"], 1)
+        self.assertEqual(
+            [value["id"] for value in resumed["progressTargets"]],
+            ["q1"],
+        )
+        self.assertEqual(
+            [value["id"] for value in resumed_scope["progressTargets"]],
+            ["q1", "q2"],
+        )
+        self.assertEqual(
+            [value["questionId"] for value in rebuilt],
+            ["q1"],
+        )
+
+    def test_resume_trusts_legacy_validated_item_without_policy_fingerprint(
+        self,
+    ) -> None:
+        executions = build_question_executions(self.plan)
+        for stage in executions[0]["stages"]:
+            stage["status"] = "validated"
+            stage.pop("policyFingerprint", None)
+        executions[1]["stages"][0]["status"] = "validated"
+        executions[1]["stages"][1]["status"] = "blocked"
+        changed = copy.deepcopy(self.plan)
+        for stage_plan_value in changed["stagePlans"]:
+            for current_target in stage_plan_value["progressTargets"]:
+                if current_target["id"] == "q1":
+                    current_target["stateHash"] = "changed-after-legacy-run"
+
+        resumed = resume_plan(changed, executions)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [("q2", "law_audit")],
+        )
 
 
 if __name__ == "__main__":

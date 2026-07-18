@@ -5,7 +5,7 @@
 ## 手戻りを防ぐ運用順序
 
 1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は外部からfile編集、commit、pushを行わない。
-2. トップの`未整備を整備`から資格・年度（回）・工程を指定する。serverが対象を一問queueへ分解し、確定済みpatchだけを次工程へmergeする。
+2. トップの`未整備を整備`から資格・年度（回）・工程を指定する。serverは範囲を一問queueへ分解し、`00_source`と確定patchの論理projectionを次工程へ渡す。
 3. 失敗時は停止理由に挙がった問題から直す。問題詳細の`パッチを修正`、`修正を依頼`又は`保留問を再実行`を使い、確定済み問題はやり直さない。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を更新する。更新待ちになった場合だけ手動再実行する。
 5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
@@ -65,9 +65,10 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
 - GUIの開始範囲は資格・年度（回）・工程のままとし、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と工程の組へ分解する。一問だけ残る場合も同じqueueを使う。03cの分類準備だけは資格全体の前提工程とする。
-- 各問の判断案は隔離したread-only threadで最大2問まで準備し、準備できた問から単一のworkspace-write threadが一問・一工程ずつpatch、検証receipt、作業版を確定する。
-- 一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。再計画で対象外になった工程は`not_applicable`で完了させ、未確定のまま残さない。年度別mergeの失敗も、その年度の後続だけを保留する。
-- `保留問を再実行`は同じ範囲と工程を引き継ぐ。確定済みで入力・方針fingerprintが一致するitemだけを飛ばし、保留・中断・入力変更itemを再queueする。工程間mergeが未完了なら、その年度だけを先に再mergeする。ただしrollback又は残存差分を確認できないrunは再開させない。
+- 各問は選択工程を順に完了してから次問のwriterへ進む。次問の判断案だけは隔離したread-only threadで先行できるが最大2問、workspace-writeは常に1問である。
+- writerが確定したpatchは、物理Mergeを挟まず共通projectionで同じ問の次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
+- `保留問を再実行`は保留・未実行itemだけをqueueへ戻し、確定済みitemは方針版が変わらない限り再実行しない。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
+- 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定年度ごと1回だけ実行する。失敗してもpatchは保持し、画面の手動再生成から再試行できる。
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
 

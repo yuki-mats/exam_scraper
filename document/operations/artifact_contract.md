@@ -74,7 +74,7 @@ output/question_review_console/
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
-| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、prompt、receipt、進捗、baseline、一問ごとのread-only準備結果、append-only技術ログ。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、receipt、baseline、技術ログと、一問工程の`projected_inputs/<workItemKey>.json`・read-only準備結果。 |
 | direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正の開始前bytesとcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |

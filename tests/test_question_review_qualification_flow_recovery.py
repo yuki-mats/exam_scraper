@@ -1,7 +1,6 @@
+from collections import Counter
+
 from tests.qualification_run_test_support import *  # noqa: F403
-from tools.question_review_console.qualification_runs import (
-    _derive_resume_merge_dependencies,
-)
 
 
 class QualificationFlowRecoveryTests(QualificationRunTestSupport):
@@ -351,14 +350,13 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 "maintenance_law_audit",
             ],
         )
-        self.assertEqual(synchronizer.merge_calls, [("new-exam", "2026")])
+        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(
             events,
             [
                 "session:maintenance_prepare_question_type",
                 "session:maintenance_question_type",
-                "merge",
                 "session:maintenance_prepare_law_audit",
                 "session:maintenance_law_audit",
                 "final-sync",
@@ -388,6 +386,12 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageCode": "03b",
                     "stageLabel": "トップ整備",
                     "workType": "maintenance_flow",
+                    "queueOrder": "question_major",
+                    "confirmedGroupIds": ["2026"],
+                    "workVersionReceipt": {
+                        "recordedCount": 3,
+                        "items": [{"recordedCount": 3}],
+                    },
                     "phaseExecutions": [
                         {
                             "id": "law_audit",
@@ -440,7 +444,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertIsNone(run["error"])
         self.assertEqual(synchronizer.calls, [])
 
-    def test_scope_phase_failure_fails_parent_before_question_queue(self):
+    def test_scope_phase_failure_blocks_question_queue_without_sync(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             synchronizer = FakeSynchronizer()
@@ -455,11 +459,17 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             )
             coordinator._repository_file_fingerprints = lambda *_args: {}
             parent_plan = FakeWorkflow().plan("sample", "category_setup")
+            queued_plan, _identity = self._queue_recovery_plan(
+                stage_status="queued",
+                stage_ids=["question_set"],
+            )
             parent_plan.update(
                 {
                     "stageId": "multi",
-                    "stageIds": ["category_setup"],
+                    "stageIds": ["category_setup", "question_set"],
                     "workType": "maintenance_flow",
+                    "queueOrder": "question_major",
+                    "questionExecutions": queued_plan["questionExecutions"],
                     "phaseExecutions": [
                         {
                             "id": "category_setup",
@@ -468,7 +478,15 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                             "stageIds": ["category_setup"],
                             "stageCodes": ["03c"],
                             "status": "pending",
-                        }
+                        },
+                        {
+                            "id": "question_set",
+                            "index": 1,
+                            "label": "問題集",
+                            "stageIds": ["question_set"],
+                            "stageCodes": ["04"],
+                            "status": "pending",
+                        },
                     ],
                 }
             )
@@ -477,6 +495,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             phase_plan.update(
                 {
                     "workType": "maintenance_category_setup",
+                    "targetCount": 1,
+                    "workItemCount": 1,
                     "parentRunId": parent["runId"],
                     "flowPhaseId": "category_setup",
                     "phaseIndex": 0,
@@ -486,14 +506,22 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 lambda _parent, _phase: (phase_plan, "phase prompt")
             )
 
-            with self.assertRaisesRegex(QualificationRunError, "カテゴリ準備で停止"):
-                coordinator._run_maintenance_flow(
-                    "sample", parent["runId"], lambda _message: None
-                )
+            result = coordinator._run_maintenance_flow(
+                "sample", parent["runId"], lambda _message: None
+            )
             run = coordinator.store.get("sample", parent["runId"])
 
-        self.assertEqual(run["status"], "failed")
-        self.assertEqual(run["phaseExecutions"][0]["status"], "failed")
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(
+            [phase["status"] for phase in run["phaseExecutions"]],
+            ["failed", "partial"],
+        )
+        self.assertEqual(
+            run["questionExecutions"][0]["stages"][0]["status"],
+            "blocked",
+        )
+        self.assertEqual(app_server.writer_count, 1)
         self.assertEqual(synchronizer.calls, [])
 
     def test_top_maintenance_keeps_validated_work_when_final_result_write_retries(self):
@@ -514,6 +542,12 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageCode": "03b",
                     "stageLabel": "トップ整備",
                     "workType": "maintenance_flow",
+                    "queueOrder": "question_major",
+                    "confirmedGroupIds": ["2026"],
+                    "workVersionReceipt": {
+                        "recordedCount": 3,
+                        "items": [{"recordedCount": 3}],
+                    },
                     "phaseExecutions": [
                         {
                             "id": "law_audit",
@@ -812,7 +846,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         )
         self.assertEqual(len(run["childRunIds"]), 2)
         self.assertEqual(len(app_server.calls), 4)
-        self.assertEqual(synchronizer.merge_calls, [("new-exam", "2026")])
+        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
         self.assertEqual(run["blockedQuestionCount"], 1)
@@ -972,6 +1006,369 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 (failed_question_id, "maintenance_question_type"),
             ],
         )
+
+    def test_question_major_pipeline_finishes_each_question_before_the_next(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jobs = JobManager()
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            app_server.preparation_delay = 0.1
+            synchronizer = FakeSynchronizer()
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, TwoQuestionSourceInventory()),
+                synchronizer,
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            stage_ids = ["question_type", "question_intent"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "group_refresh",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "group_refresh",
+                preview["previewToken"],
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            job = self._wait_for_job(jobs, started["job"]["jobId"], timeout=10)
+            run = coordinator.store.get("new-exam", started["run"]["runId"])
+
+        writers = [
+            (question_id, kwargs["work_type"].removeprefix("maintenance_"))
+            for question_id, _prompt, kwargs in app_server.calls
+            if not kwargs["work_type"].startswith("maintenance_prepare_")
+        ]
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(run["queueOrder"], "question_major")
+        self.assertEqual(
+            writers,
+            [
+                ("new-exam-2026-q1", "question_type"),
+                ("new-exam-2026-q1", "question_intent"),
+                ("new-exam-2026-q2", "question_type"),
+                ("new-exam-2026-q2", "question_intent"),
+            ],
+        )
+        self.assertEqual(app_server.max_active_preparations, 2)
+        self.assertEqual(app_server.max_active_writers, 1)
+        self.assertEqual(synchronizer.merge_calls, [])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+
+    def test_child_changed_files_activate_initially_inapplicable_later_stage(self):
+        class MutableLawInventory(LawSourceInventory):
+            def __init__(self):
+                self.law_related = False
+
+            def group(self, qualification, list_group_id):
+                group = (
+                    super().group(qualification, list_group_id)
+                    if self.law_related
+                    else SourceOnlyInventory.group(
+                        self,
+                        qualification,
+                        list_group_id,
+                    )
+                )
+                question = group["questions"][0]
+                question["isLawRelated"] = self.law_related
+                question["projected"] = {
+                    **question["projected"],
+                    "isLawRelated": self.law_related,
+                }
+                return group
+
+        question_id = "new-exam-2026-q1"
+        changed_path = Path(
+            "output/new-exam/questions_json/2026/18_law_context_prepared/"
+            "question_2026_1_merged_lawContext_prepared.json"
+        )
+        source_path = Path(
+            "output/new-exam/questions_json/2026/00_source/"
+            "question_2026_1.json"
+        )
+        audit_path = Path(
+            "output/new-exam/review/law_revision_audit/"
+            "2026_law_revision_audit.jsonl"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = MutableLawInventory()
+            absolute_source = root / source_path
+            absolute_source.parent.mkdir(parents=True, exist_ok=True)
+            absolute_source.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                "originalQuestionId": question_id,
+                                "sourceQuestionKey": "new-exam:2026:q1",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            def write_stage_artifact(_question_id, stage_id):
+                if stage_id == "law_audit":
+                    self._write_law_audit_sidecar(
+                        root,
+                        "2026",
+                        [
+                            {
+                                "reviewQuestionId": question_id,
+                                "isLawRelated": True,
+                                "auditStatus": "same_as_current",
+                                "reviewState": "secondary_verified",
+                                "lawReferences": [
+                                    [
+                                        {
+                                            "lawTitle": "ガス事業法",
+                                            "lawId": "329AC0000000051",
+                                            "article": "2",
+                                            "verificationStatus": "verified",
+                                        }
+                                    ]
+                                ],
+                            }
+                        ],
+                    )
+                    return
+                if stage_id != "law_context":
+                    return
+                absolute = root / changed_path
+                absolute.parent.mkdir(parents=True, exist_ok=True)
+                absolute.write_text(
+                    json.dumps(
+                        [
+                            {
+                                "originalQuestionId": question_id,
+                                "sourceQuestionKey": "new-exam:2026:q1",
+                                "sourceRecordRef": "question_2026_1.json#0",
+                                "isLawRelated": True,
+                                "lawGroundedExplanationNotNeeded": False,
+                                "lawReferences": [],
+                            }
+                        ],
+                        ensure_ascii=False,
+                    ),
+                    encoding="utf-8",
+                )
+                inventory.law_related = True
+
+            app_server = PerQuestionQueueAppServer(
+                changed_files_by_work_item={
+                    (question_id, "law_context"): [changed_path.as_posix()],
+                    (question_id, "law_audit"): [audit_path.as_posix()],
+                },
+                before_receipt=write_stage_artifact,
+            )
+            app_server.wait_for_parallel_preparations = False
+            jobs = DeferredJobs()
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, inventory),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {
+                relative: (root / relative).read_text(encoding="utf-8")
+                for relative in (changed_path, audit_path)
+                if (root / relative).is_file()
+            }
+            stage_ids = ["law_context", "law_audit"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "remaining",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "remaining",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )
+            parent_before = coordinator.store.get(
+                "new-exam",
+                started["run"]["runId"],
+            )
+            result = jobs.worker(lambda _message: None)
+            run = coordinator.store.get(
+                "new-exam",
+                started["run"]["runId"],
+            )
+            stages = run["questionExecutions"][0]["stages"]
+            first_stage_children = [
+                coordinator.store.get("new-exam", child_run_id)
+                for child_run_id in stages[0]["childRunIds"]
+            ]
+
+        self.assertEqual(parent_before["policyTargets"]["law_audit"], [])
+        self.assertTrue(
+            any(
+                child.get("result", {}).get("changedFiles")
+                == [changed_path.as_posix()]
+                for child in first_stage_children
+            ),
+            first_stage_children,
+        )
+        self.assertEqual(
+            result["queueStatus"],
+            "succeeded",
+            (result, stages, app_server.successful_writes),
+        )
+        self.assertEqual(
+            [stage["status"] for stage in stages],
+            ["validated", "validated"],
+        )
+        self.assertEqual(
+            app_server.successful_writes,
+            [
+                (question_id, "law_context"),
+                (question_id, "law_audit"),
+            ],
+        )
+
+    def test_question_queue_resumes_only_failed_stage_after_store_restart(self):
+        failed_item = ("new-exam-2026-q2", "question_intent")
+        stage_ids = ["question_type", "question_intent"]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first_jobs = DeferredJobs()
+            first_app_server = PerQuestionQueueAppServer(
+                failed_work_items={failed_item}
+            )
+            first_app_server.wait_for_parallel_preparations = False
+            first_synchronizer = FakeSynchronizer()
+            first = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, CountedSourceInventory(3)),
+                first_synchronizer,
+                first_jobs,
+                "secret",
+                app_server=first_app_server,
+            )
+            first._repository_file_fingerprints = lambda *_args: {}
+            first_phase_plan_calls = 0
+            original_first_phase_plan = first._flow_phase_plan_prompt
+
+            def count_first_phase_plan(*args, **kwargs):
+                nonlocal first_phase_plan_calls
+                first_phase_plan_calls += 1
+                return original_first_phase_plan(*args, **kwargs)
+
+            first._flow_phase_plan_prompt = count_first_phase_plan
+            preview = first.preview(
+                "new-exam",
+                stage_ids[0],
+                "group_refresh",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            started = first.start(
+                "new-exam",
+                preview["stageId"],
+                "group_refresh",
+                preview["previewToken"],
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+            )
+            first_result = first_jobs.worker(lambda _message: None)
+            first_run = first.store.get(
+                "new-exam",
+                started["run"]["runId"],
+            )
+
+            restarted_store = QualificationRunStore(root)
+            retry_jobs = DeferredJobs()
+            retry_app_server = PerQuestionQueueAppServer()
+            retry_app_server.wait_for_parallel_preparations = False
+            retry_synchronizer = FakeSynchronizer()
+            restarted = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, CountedSourceInventory(3)),
+                retry_synchronizer,
+                retry_jobs,
+                "secret",
+                store=restarted_store,
+                app_server=retry_app_server,
+            )
+            restarted._repository_file_fingerprints = lambda *_args: {}
+            retry_phase_plan_calls = 0
+            original_retry_phase_plan = restarted._flow_phase_plan_prompt
+
+            def count_retry_phase_plan(*args, **kwargs):
+                nonlocal retry_phase_plan_calls
+                retry_phase_plan_calls += 1
+                return original_retry_phase_plan(*args, **kwargs)
+
+            restarted._flow_phase_plan_prompt = count_retry_phase_plan
+            retry_preview = restarted.preview(
+                "new-exam",
+                stage_ids[0],
+                "group_refresh",
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+                resumed_from=first_run["runId"],
+            )
+            retried = restarted.start(
+                "new-exam",
+                retry_preview["stageId"],
+                "group_refresh",
+                retry_preview["previewToken"],
+                stage_ids=stage_ids,
+                list_group_ids=["2026"],
+                resumed_from=first_run["runId"],
+            )
+            retry_result = retry_jobs.worker(lambda _message: None)
+            retry_run = restarted.store.get(
+                "new-exam",
+                retried["run"]["runId"],
+            )
+
+        first_summary = first_run["questionExecutionSummary"]
+        self.assertEqual(first_result["queueStatus"], "partial")
+        self.assertEqual(first_run["queueStatus"], "partial")
+        self.assertEqual(first_summary["validatedQuestionCount"], 2)
+        self.assertEqual(first_summary["blockedQuestionCount"], 1)
+        self.assertEqual(first_summary["validatedWorkItemCount"], 5)
+        self.assertEqual(first_summary["blockedWorkItemCount"], 1)
+        self.assertEqual(first_app_server.max_active_writers, 1)
+        self.assertLessEqual(first_app_server.max_active_preparations, 2)
+        self.assertEqual(first_synchronizer.merge_calls, [])
+        self.assertEqual(first_synchronizer.calls, [("new-exam", "2026", True)])
+        self.assertEqual(first_phase_plan_calls, 2)
+        self.assertEqual(retry_preview["targetCount"], 1)
+        self.assertEqual(retry_preview["workItemCount"], 1)
+        self.assertEqual(retry_result["queueStatus"], "succeeded")
+        self.assertEqual(retry_run["queueStatus"], "succeeded")
+        self.assertEqual(retry_run["questionExecutionSummary"]["workItemCount"], 1)
+        self.assertEqual(retry_app_server.successful_writes, [failed_item])
+        self.assertEqual(retry_synchronizer.merge_calls, [])
+        self.assertEqual(retry_synchronizer.calls, [("new-exam", "2026", True)])
+        self.assertEqual(retry_phase_plan_calls, 1)
+        successful = Counter(
+            [*first_app_server.successful_writes, *retry_app_server.successful_writes]
+        )
+        self.assertEqual(len(successful), 6)
+        self.assertTrue(all(count == 1 for count in successful.values()))
 
     def test_top_maintenance_prepares_category_then_uses_separate_question_set_session(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1268,136 +1665,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(recovered[0]["status"], "interrupted")
         self.assertIn("再開", recovered[0]["error"])
 
-    def test_merge_exception_isolated_only_after_source_immutability_passes(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            synchronizer = FakeSynchronizer()
-            coordinator = QualificationRunCoordinator(
-                root,
-                FakeWorkflow(),
-                synchronizer,
-                JobManager(),
-                "secret",
-            )
-            plan, _identity = self._queue_recovery_plan(stage_status="queued")
-            parent = coordinator.store.create(plan, status="running")
-            synchronizer.refresh_merged_views = (
-                lambda *_args, **_kwargs: (_ for _ in ()).throw(
-                    RuntimeError("merge crash")
-                )
-            )
-            coordinator._check_source_immutability = lambda _emit: None
-
-            result = coordinator._refresh_merged_views_transaction(
-                "sample",
-                parent["runId"],
-                "2026",
-                "question_type",
-                lambda _message: None,
-            )
-            recovered = coordinator.store.get("sample", parent["runId"])
-
-            self.assertEqual(result["status"], "failed")
-            self.assertEqual(
-                recovered["resumeMergeDependencies"][0]["status"], "failed"
-            )
-
-            coordinator._check_source_immutability = (
-                lambda _emit: (_ for _ in ()).throw(
-                    QualificationRunError("00_source不変検証に失敗")
-                )
-            )
-            with self.assertRaisesRegex(QualificationRunError, "00_source"):
-                coordinator._refresh_merged_views_transaction(
-                    "sample",
-                    parent["runId"],
-                    "2026",
-                    "question_type",
-                    lambda _message: None,
-                )
-
-    def test_running_merge_restart_requires_remerge_before_resumed_writer(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = QualificationRunStore(root)
-            plan, identity = self._queue_recovery_plan(
-                stage_status="queued",
-                stage_ids=["question_type", "explanation"],
-            )
-            plan["resumeMergeDependencies"] = [
-                {
-                    "listGroupId": "2026",
-                    "afterStageId": "question_type",
-                    "status": "running",
-                    "message": "merge中",
-                }
-            ]
-            parent = store.create(plan, status="running")
-
-            recovered_store = QualificationRunStore(root)
-            recovered = recovered_store.get("sample", parent["runId"])
-            recovered_stage = recovered["questionExecutions"][0]["stages"][1]
-            self.assertEqual(recovered["status"], "interrupted")
-            self.assertEqual(recovered["queueStatus"], "partial")
-            self.assertTrue(recovered["retrySafe"])
-            self.assertEqual(recovered_stage["status"], "blocked")
-            self.assertEqual(
-                recovered["resumeMergeDependencies"][0]["status"],
-                "interrupted",
-            )
-            self.assertTrue(
-                recovered["resumeMergeDependencies"][0]["remergeRequired"]
-            )
-
-            resume_plan = {
-                "stageIds": ["question_type", "explanation"],
-                "targetGroupIds": ["2026"],
-                "stagePlans": [
-                    {
-                        "stageId": "explanation",
-                        "progressTargets": [identity],
-                    }
-                ],
-            }
-            dependencies = _derive_resume_merge_dependencies(
-                recovered,
-                resume_plan,
-            )
-            self.assertEqual(dependencies[0]["status"], "pending")
-
-            resumed_plan, _ = self._queue_recovery_plan(
-                stage_status="queued",
-                stage_ids=["question_type", "explanation"],
-            )
-            resumed_plan["resumeMergeDependencies"] = dependencies
-            resumed = recovered_store.create(
-                resumed_plan,
-                status="running",
-                resumed_from=parent["runId"],
-            )
-            synchronizer = FakeSynchronizer()
-            coordinator = QualificationRunCoordinator(
-                root,
-                FakeWorkflow(),
-                synchronizer,
-                JobManager(),
-                "secret",
-            )
-            coordinator._refresh_resume_merge_dependencies(
-                "sample",
-                resumed["runId"],
-                "explanation",
-                lambda _message: None,
-                set(),
-            )
-            after_remerge = coordinator.store.get("sample", resumed["runId"])
-
-        self.assertEqual(synchronizer.merge_calls, [("sample", "2026")])
-        self.assertEqual(
-            after_remerge["resumeMergeDependencies"][0]["status"],
-            "succeeded",
-        )
-
     def test_committing_stage_recovers_from_completed_bound_child(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1455,6 +1722,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             plan.update(
                 kind="orchestration",
                 workType="maintenance_flow",
+                queueOrder="question_major",
                 stageId="multi",
                 stageIds=[],
                 phaseExecutions=[],

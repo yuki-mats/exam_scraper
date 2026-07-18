@@ -1,9 +1,15 @@
+from types import SimpleNamespace
+
 from tests.qualification_run_test_support import *  # noqa: F403
-from tools.question_review_console.codex_app_server import CodexAppServerError
+from tools.question_review_console.codex_app_server import (
+    CodexAppServerError,
+    SubscriptionGateError,
+)
 from tools.question_review_console.question_work_queue import (
     input_fingerprint,
     specialize_question_plan,
 )
+from tools.question_review_console.qualification_runs import QuestionItemError
 
 
 class QualificationProgressObservabilityTests(QualificationRunTestSupport):
@@ -718,6 +724,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             session_id="session-prepare-test",
             turn_id="turn-prepare-test",
         )
+        projection = coordinator._write_projected_question_input(
+            qualification,
+            run_id,
+            target,
+            str(stage["workItemKey"]),
+        )
         coordinator.store.update_question_stage(
             qualification,
             run_id,
@@ -726,6 +738,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             status="prepared",
             preparationPath=proposal["path"],
             preparationHash=proposal["hash"],
+            projectedInputPath=projection["path"],
+            projectedInputHash=projection["hash"],
             error=None,
         )
 
@@ -765,6 +779,56 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(started["run"]["workType"], "maintenance_flow")
         return coordinator, synchronizer, app_server, started["run"]
+
+    @staticmethod
+    def _write_valid_category(root):
+        category_path = (
+            root / "output" / "new-exam" / "category" / "category.json"
+        )
+        category_path.parent.mkdir(parents=True, exist_ok=True)
+        category_path.write_text(
+            json.dumps(
+                {
+                    "folders": [{"folderId": "f1"}],
+                    "questionSets": [{"questionSetId": "s1", "folderId": "f1"}],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+
+    def test_legacy_stage_major_run_fails_with_retry_instruction(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator, synchronizer, app_server, parent = (
+                self._start_deferred_flow(
+                    Path(directory),
+                    SourceOnlyInventory(),
+                    ["question_type"],
+                )
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                queueOrder=None,
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "新しいrunで対象範囲を再実行",
+            ):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            run = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(run["status"], "failed")
+        self.assertEqual(run["queueStatus"], "failed")
+        self.assertIn("旧形式の工程単位run", run["error"])
+        self.assertEqual(app_server.calls, [])
+        self.assertEqual(synchronizer.merge_calls, [])
+        self.assertEqual(synchronizer.calls, [])
 
     @staticmethod
     def _mark_parent_partial(coordinator, parent):
@@ -1015,7 +1079,127 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 self.assertEqual(synchronizer.merge_calls, [])
                 self.assertEqual(synchronizer.calls, [])
 
-    def test_bounded_pipeline_commits_ready_question_while_sibling_is_preparing(self):
+    def test_unsafe_category_setup_stops_dependent_queue_and_sync(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    LawSourceInventory(),
+                    ["category_setup", "question_set"],
+                )
+            )
+            writer_calls = []
+
+            def fail_unsafe_scope(
+                qualification,
+                child_run_id,
+                *_args,
+                **_kwargs,
+            ):
+                writer_calls.append(child_run_id)
+                coordinator.store.update(
+                    qualification,
+                    child_run_id,
+                    status="failed",
+                    receiptValidated=False,
+                    deltaUnknown=True,
+                    rollback={
+                        "status": "failed",
+                        "deltaUnknown": True,
+                        "remainingChangedFiles": [],
+                    },
+                    result={
+                        "status": "failed",
+                        "summary": "category setup failed",
+                        "commands": [],
+                        "changedFiles": [],
+                    },
+                    error="category setup failed",
+                )
+                raise RuntimeError("category setup failed")
+
+            coordinator._run_human = fail_unsafe_scope
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "sync_after_patch_update"
+            ) as artifact_sync:
+                with self.assertRaisesRegex(
+                    QualificationRunError,
+                    "rollback完了を検証できない",
+                ):
+                    coordinator._run_maintenance_flow(
+                        "new-exam",
+                        parent["runId"],
+                        lambda _message: None,
+                    )
+
+            run = coordinator.store.get("new-exam", parent["runId"])
+            self.assertEqual(run["status"], "failed")
+            self.assertFalse(run["retrySafe"])
+            self.assertEqual(run["unsafeChildRunId"], writer_calls[0])
+            self.assertEqual(len(writer_calls), 1)
+            self.assertTrue(
+                all(
+                    stage["status"] == "blocked"
+                    for question in run["questionExecutions"]
+                    for stage in question["stages"]
+                )
+            )
+            artifact_sync.assert_not_called()
+            self.assertEqual(synchronizer.merge_calls, [])
+            self.assertEqual(synchronizer.calls, [])
+
+    def test_safe_category_setup_failure_blocks_only_dependent_segment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = FlowAppServer(fail_on_writer=2)
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    LawSourceInventory(),
+                    ["question_type", "category_setup", "question_set"],
+                    app_server=app_server,
+                )
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+            run = coordinator.store.get("new-exam", parent["runId"])
+            stages = {
+                stage["stageId"]: stage["status"]
+                for question in run["questionExecutions"]
+                for stage in question["stages"]
+            }
+            phase_statuses = {
+                phase["id"]: phase["status"]
+                for phase in run["phaseExecutions"]
+            }
+            self.assertEqual(result["queueStatus"], "partial")
+            self.assertEqual(run["status"], "succeeded")
+            self.assertTrue(run["retrySafe"])
+            self.assertEqual(stages["question_type"], "validated")
+            self.assertEqual(stages["question_set"], "blocked")
+            self.assertEqual(phase_statuses["question_type"], "succeeded")
+            self.assertEqual(phase_statuses["category_setup"], "failed")
+            self.assertEqual(phase_statuses["question_set"], "partial")
+            self.assertEqual(
+                [kwargs["work_type"] for _prompt, kwargs in app_server.calls],
+                [
+                    "maintenance_prepare_question_type",
+                    "maintenance_question_type",
+                    "maintenance_category_setup",
+                ],
+            )
+            self.assertEqual(synchronizer.merge_calls, [])
+            self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+
+    def test_bounded_pipeline_prefetches_sibling_without_reordering_writer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
@@ -1026,7 +1210,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             first_id = "new-exam-2026-q1"
             second_id = "new-exam-2026-q2"
             slow_started = threading.Event()
-            second_writer_started = threading.Event()
+            second_prepared = threading.Event()
             slow_finished = threading.Event()
             lock = threading.Lock()
             active_preparations = 0
@@ -1034,7 +1218,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             active_writers = 0
             max_writers = 0
             writer_order = []
-            writer_overlapped_slow_prepare = []
 
             def prepare_item(
                 qualification,
@@ -1052,7 +1235,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 try:
                     if question_id == first_id:
                         slow_started.set()
-                        second_writer_started.wait(timeout=2)
+                        self.assertTrue(second_prepared.wait(timeout=2))
                         slow_finished.set()
                     else:
                         self.assertTrue(slow_started.wait(timeout=1))
@@ -1063,6 +1246,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         target,
                         stage_id,
                     )
+                    if question_id == second_id:
+                        second_prepared.set()
                     return True
                 finally:
                     with lock:
@@ -1077,11 +1262,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     max_writers = max(max_writers, active_writers)
                 try:
                     writer_order.append(question_id)
-                    if question_id == second_id:
-                        writer_overlapped_slow_prepare.append(
-                            not slow_finished.is_set()
-                        )
-                        second_writer_started.set()
+                    self.assertTrue(slow_finished.is_set())
                     self._mark_child_succeeded(
                         coordinator,
                         qualification,
@@ -1100,8 +1281,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(writer_order, [second_id, first_id])
-        self.assertEqual(writer_overlapped_slow_prepare, [True])
+        self.assertEqual(writer_order, [first_id, second_id])
         self.assertLessEqual(max_preparations, 2)
         self.assertEqual(max_preparations, 2)
         self.assertEqual(max_writers, 1)
@@ -1333,7 +1513,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [])
 
-    def test_resume_remerges_failed_dependency_before_any_writer(self):
+    def test_resume_ignores_old_failed_merge_dependencies(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             events = []
@@ -1366,35 +1546,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             run = coordinator.store.get("new-exam", resumed["runId"])
 
-        first_session = next(
-            index
-            for index, event in enumerate(events)
-            if event.startswith("session:")
-        )
-        self.assertEqual(
-            {
-                (value["listGroupId"], value["afterStageId"], value["status"])
-                for value in initial_dependencies
-            },
-            {
-                ("2025", "question_type", "pending"),
-                ("2026", "question_type", "pending"),
-            },
-        )
-        self.assertTrue(
-            all(
-                events.index(f"resume-merge:{list_group_id}") < first_session
-                for list_group_id in ("2025", "2026")
-            )
-        )
+        self.assertEqual(initial_dependencies, [])
+        self.assertFalse(any(event.startswith("resume-merge:") for event in events))
+        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(app_server.writer_count, 2)
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(
-            {value["status"] for value in run["resumeMergeDependencies"]},
-            {"succeeded"},
-        )
+        self.assertEqual(run["resumeMergeDependencies"], [])
 
-    def test_restart_after_validated_save_remerges_before_resumed_writer(self):
+    def test_restart_after_validated_save_resumes_from_logical_projection(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
@@ -1501,23 +1660,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(saved_receipt["recordedCount"], 1)
         self.assertEqual(len(saved_receipt["items"]), 1)
         self.assertEqual(inherited_receipt, saved_receipt)
-        self.assertEqual(
-            [
-                (
-                    value["listGroupId"],
-                    value["afterStageId"],
-                    value["status"],
-                )
-                for value in initial_dependencies
-            ],
-            [("2026", "question_type", "pending")],
-        )
+        self.assertEqual(initial_dependencies, [])
         writer_event = "session:maintenance_question_intent"
-        self.assertLess(events.index("remerge:2026"), events.index(writer_event))
+        self.assertIn(writer_event, events)
+        self.assertNotIn("remerge:2026", events)
+        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(app_server.writer_count, 1)
         self.assertGreaterEqual(completed["workVersionReceipt"]["recordedCount"], 1)
 
-    def test_resume_keeps_merge_pending_while_preceding_stage_is_retried(self):
+    def test_resume_drops_obsolete_merge_dependency_when_stage_is_retried(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, previous = (
@@ -1573,19 +1724,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [phase["id"] for phase in resumed["phaseExecutions"]],
             ["question_type", "question_intent"],
         )
-        self.assertEqual(
-            [
-                (
-                    value["listGroupId"],
-                    value["afterStageId"],
-                    value["status"],
-                )
-                for value in resumed["resumeMergeDependencies"]
-            ],
-            [("2026", "question_type", "pending")],
-        )
+        self.assertEqual(resumed["resumeMergeDependencies"], [])
 
-    def test_failed_partial_retry_remerges_before_validated_sibling_downstream(self):
+    def test_failed_partial_retry_uses_logical_projection_without_remerge(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, synchronizer, _app_server, previous = (
@@ -1713,17 +1854,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         downstream_writer = f"writer:question_intent:{validated_id}"
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertLess(events.index("remerge:2026"), events.index(downstream_writer))
-        self.assertEqual(
-            synchronizer.merge_calls,
-            [("new-exam", "2026")],
-        )
-        self.assertEqual(
-            completed["resumeMergeDependencies"][0]["status"],
-            "succeeded",
-        )
+        self.assertIn(downstream_writer, events)
+        self.assertEqual(synchronizer.merge_calls, [])
+        self.assertEqual(completed["resumeMergeDependencies"], [])
 
-    def test_resume_merge_exception_blocks_only_its_group_and_excludes_sync(self):
+    def test_resume_does_not_call_obsolete_phase_merge_hook(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = FlowAppServer()
@@ -1769,44 +1904,35 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 if not kwargs["work_type"].startswith("maintenance_prepare_")
             ]
 
-        self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(app_server.writer_count, 1)
-        self.assertFalse(
-            any("new-exam-2025-q1" in prompt for prompt in writer_prompts)
-        )
-        self.assertTrue(
-            any("new-exam-2026-q1" in prompt for prompt in writer_prompts)
-        )
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(app_server.writer_count, 2)
+        self.assertTrue(any("new-exam-2025-q1" in prompt for prompt in writer_prompts))
+        self.assertTrue(any("new-exam-2026-q1" in prompt for prompt in writer_prompts))
         self.assertEqual(
             [stage["status"] for stage in questions["2025"]["stages"]],
-            ["blocked"],
+            ["validated"],
         )
         self.assertEqual(
             [stage["status"] for stage in questions["2026"]["stages"]],
             ["validated"],
         )
-        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
-        self.assertEqual(artifact_groups["2025"], "blocked")
-        self.assertEqual(artifact_groups["2026"], "succeeded")
+        self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(
-            {
-                value["listGroupId"]: value["status"]
-                for value in run["resumeMergeDependencies"]
-            },
-            {"2025": "failed", "2026": "current"},
+            synchronizer.calls,
+            [("new-exam", "2025", True), ("new-exam", "2026", True)],
         )
+        self.assertEqual(artifact_groups["2025"], "succeeded")
+        self.assertEqual(artifact_groups["2026"], "succeeded")
+        self.assertEqual(run["resumeMergeDependencies"], [])
 
-    def test_queue_block_helpers_preserve_not_applicable_stage(self):
+    def test_queue_block_preserves_not_applicable_stage(self):
         cases = (
-            ("_block_remaining_queue", "question_type", ["not_applicable", "blocked"]),
-            ("_block_group_queue", "question_type", ["not_applicable", "blocked"]),
-            ("_block_remaining_queue", "question_intent", ["blocked", "not_applicable"]),
-            ("_block_group_queue", "question_intent", ["blocked", "not_applicable"]),
+            ("question_type", ["not_applicable", "blocked"]),
+            ("question_intent", ["blocked", "not_applicable"]),
         )
-        for helper_name, terminal_stage_id, expected_statuses in cases:
+        for terminal_stage_id, expected_statuses in cases:
             with (
                 self.subTest(
-                    helper=helper_name,
                     terminal_stage_id=terminal_stage_id,
                 ),
                 tempfile.TemporaryDirectory() as directory,
@@ -1828,11 +1954,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     status="not_applicable",
                     error=None,
                 )
-                helper = getattr(coordinator, helper_name)
-                if helper_name == "_block_group_queue":
-                    helper("new-exam", parent["runId"], "2026", "停止理由")
-                else:
-                    helper("new-exam", parent["runId"], "停止理由")
+                coordinator._block_remaining_queue(
+                    "new-exam", parent["runId"], "停止理由"
+                )
                 updated = coordinator.store.get("new-exam", parent["runId"])
 
             self.assertEqual(
@@ -2103,6 +2227,32 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "calls": 2,
                 "attempts": 2,
             },
+            "model_capacity": {
+                "outcomes": [
+                    CodexAppServerError(
+                        "Selected model is at capacity. Please try a different model."
+                    ),
+                    result(),
+                ],
+                "prepared": True,
+                "calls": 2,
+                "attempts": 2,
+            },
+            "model_capacity_twice": {
+                "outcomes": [
+                    CodexAppServerError("Selected model is at capacity."),
+                    CodexAppServerError("Selected model is at capacity."),
+                ],
+                "prepared": False,
+                "calls": 2,
+                "attempts": 2,
+            },
+            "subscription_gate": {
+                "outcomes": [SubscriptionGateError("利用上限を確認できません。")],
+                "prepared": False,
+                "calls": 1,
+                "attempts": 1,
+            },
             "changed_files": {
                 "outcomes": [result(changed_files=("unexpected.json",))],
                 "prepared": False,
@@ -2144,14 +2294,17 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 target = phase_plan["progressTargets"][0]
                 emitted = []
 
-                prepared = coordinator._prepare_question_item(
-                    "new-exam",
-                    parent["runId"],
-                    phase_prompt,
-                    target,
-                    "question_type",
-                    emitted.append,
-                )
+                with patch(
+                    "tools.question_review_console.qualification_runs.time.sleep"
+                ) as retry_sleep:
+                    prepared = coordinator._prepare_question_item(
+                        "new-exam",
+                        parent["runId"],
+                        phase_prompt,
+                        target,
+                        "question_type",
+                        emitted.append,
+                    )
                 stage = coordinator._queue_stage(
                     coordinator.store.get("new-exam", parent["runId"]),
                     str(target["id"]),
@@ -2168,9 +2321,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 retry_messages = [
                     message for message in emitted if "再試行" in message
                 ]
+                retry_expected = case_name in {
+                    "transient_app_server_error",
+                    "model_capacity",
+                    "model_capacity_twice",
+                }
+                self.assertEqual(len(retry_messages), int(retry_expected))
                 self.assertEqual(
-                    len(retry_messages),
-                    1 if case_name == "transient_app_server_error" else 0,
+                    retry_sleep.call_count, int(retry_expected)
                 )
 
     def test_replanned_out_of_scope_items_become_not_applicable(self):
@@ -2228,112 +2386,722 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(synchronizer.merge_calls, [])
         self.assertEqual(synchronizer.calls, [])
 
-    def test_multi_group_merge_and_sync_isolate_blocked_group(self):
-        scenarios = ("preblocked", "merge_failed")
-        for scenario in scenarios:
-            with (
-                self.subTest(scenario=scenario),
-                tempfile.TemporaryDirectory() as directory,
+    def test_multi_group_final_sync_excludes_preblocked_group(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    MultiGroupSourceInventory(),
+                    ["question_type", "question_intent"],
+                    app_server=FlowAppServer(),
+                    group_ids=["2025", "2026"],
+                )
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            blocked_question = next(
+                question
+                for question in parent["questionExecutions"]
+                if question["listGroupId"] == "2025"
+            )
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                blocked_question["questionId"],
+                "question_type",
+                status="blocked",
+                error="2025は事前条件で保留した。",
+                block_dependents=True,
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+            questions = {
+                question["listGroupId"]: question
+                for question in run["questionExecutions"]
+            }
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(synchronizer.merge_calls, [])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+        self.assertEqual(
+            [stage["status"] for stage in questions["2025"]["stages"]],
+            ["blocked", "blocked"],
+        )
+        self.assertEqual(
+            {
+                group["listGroupId"]: group["status"]
+                for group in run["artifactSync"]["groups"]
+            },
+            {"2026": "succeeded"},
+        )
+
+    def test_next_question_scope_error_does_not_stop_current_writer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    TwoQuestionSourceInventory(),
+                    ["question_type"],
+                    app_server=app_server,
+                )
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            original_stage_spec = coordinator._question_major_stage_spec
+
+            def stage_spec(*args, **kwargs):
+                question_id = str(args[3])
+                if question_id == "new-exam-2026-q2":
+                    raise QuestionItemError("q2のrecord scopeを解決できません。")
+                return original_stage_spec(*args, **kwargs)
+
+            coordinator._question_major_stage_spec = stage_spec
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+            run = coordinator.store.get("new-exam", parent["runId"])
+            states = {
+                question["questionId"]: question["stages"][0]["status"]
+                for question in run["questionExecutions"]
+            }
+            self.assertEqual(result["queueStatus"], "partial")
+            self.assertEqual(states["new-exam-2026-q1"], "validated")
+            self.assertEqual(states["new-exam-2026-q2"], "blocked")
+            self.assertEqual(
+                app_server.successful_writes,
+                [("new-exam-2026-q1", "question_type")],
+            )
+            self.assertEqual(synchronizer.merge_calls, [])
+            self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+
+    def test_later_stage_rechecks_only_question_changed_by_prior_stage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    TwoQuestionSourceInventory(),
+                    ["question_type", "question_intent"],
+                    app_server=app_server,
+                )
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            coordinator._validated_queue_stage_changed = lambda *_args: True
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                "new-exam-2026-q2",
+                "question_type",
+                status="blocked",
+                error="fixtureで対象外",
+                block_dependents=True,
+            )
+            original_phase_plan = coordinator._flow_phase_plan_prompt
+            intent_plan_calls = 0
+
+            def phase_plan(parent_run, phase):
+                nonlocal intent_plan_calls
+                plan, prompt = original_phase_plan(parent_run, phase)
+                if phase["id"] != "question_intent":
+                    return plan, prompt
+                intent_plan_calls += 1
+                if intent_plan_calls > 1:
+                    return plan, prompt
+                plan = copy.deepcopy(plan)
+                plan.update(
+                    targetCount=0,
+                    workItemCount=0,
+                    progressTargets=[],
+                    policyTargets={"question_intent": []},
+                )
+                return plan, prompt
+
+            coordinator._flow_phase_plan_prompt = phase_plan
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+            run = coordinator.store.get("new-exam", parent["runId"])
+            q1 = next(
+                question
+                for question in run["questionExecutions"]
+                if question["questionId"] == "new-exam-2026-q1"
+            )
+            self.assertEqual(result["queueStatus"], "partial")
+            self.assertEqual(
+                [stage["status"] for stage in q1["stages"]],
+                ["validated", "validated"],
+            )
+            self.assertEqual(intent_plan_calls, 1)
+            self.assertEqual(
+                app_server.successful_writes,
+                [
+                    ("new-exam-2026-q1", "question_type"),
+                    ("new-exam-2026-q1", "question_intent"),
+                ],
+            )
+            self.assertEqual(synchronizer.merge_calls, [])
+            self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+
+    def test_unchanged_prior_stage_does_not_activate_general_placeholder(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type", "question_intent"],
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            original_phase_plan = coordinator._flow_phase_plan_prompt
+
+            def phase_plan(parent_run, phase):
+                plan, prompt = original_phase_plan(parent_run, phase)
+                if phase["id"] != "question_intent":
+                    return plan, prompt
+                plan = copy.deepcopy(plan)
+                plan.update(
+                    targetCount=0,
+                    workItemCount=0,
+                    progressTargets=[],
+                    policyTargets={"question_intent": []},
+                )
+                return plan, prompt
+
+            coordinator._flow_phase_plan_prompt = phase_plan
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            stages = coordinator.store.get(
+                "new-exam", parent["runId"]
+            )["questionExecutions"][0]["stages"]
+
+        self.assertEqual(
+            [stage["status"] for stage in stages],
+            ["validated", "not_applicable"],
+        )
+        self.assertEqual(
+            app_server.successful_writes,
+            [("new-exam-2026-q1", "question_type")],
+        )
+
+    def test_changed_question_can_make_later_law_stage_not_applicable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["law_context", "law_audit"],
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(
+            [stage["status"] for stage in run["questionExecutions"][0]["stages"]],
+            ["validated", "not_applicable"],
+        )
+        self.assertEqual(
+            app_server.successful_writes,
+            [("new-exam-2026-q1", "law_context")],
+        )
+
+    def test_changed_question_can_make_placeholder_stage_applicable(self):
+        class MutableLawInventory(LawSourceInventory):
+            def __init__(self):
+                self.law_related = False
+
+            def group(self, qualification, list_group_id):
+                group = (
+                    super().group(qualification, list_group_id)
+                    if self.law_related
+                    else SourceOnlyInventory.group(
+                        self, qualification, list_group_id
+                    )
+                )
+                question = group["questions"][0]
+                question["isLawRelated"] = self.law_related
+                question["projected"] = {
+                    **question["projected"],
+                    "isLawRelated": self.law_related,
+                }
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = MutableLawInventory()
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, inventory),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=app_server,
+            )
+            preview = coordinator.preview(
+                "new-exam",
+                "law_context",
+                "remaining",
+                stage_ids=["law_context", "law_audit"],
+                list_group_ids=["2026"],
+            )
+            parent = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "remaining",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )["run"]
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            coordinator._validated_queue_stage_changed = lambda *_args: True
+            original_commit = coordinator._commit_question_major_item
+            writer_stages = []
+
+            def mark_child_succeeded(qualification, child_run_id, *_args, **_kwargs):
+                child = coordinator.store.get(qualification, child_run_id)
+                writer_stages.append(str(child["stageId"]))
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._run_human = mark_child_succeeded
+
+            def commit_then_flip(*args, **kwargs):
+                committed = original_commit(*args, **kwargs)
+                spec = args[2]
+                if committed and spec["stageId"] == "law_context":
+                    inventory.law_related = True
+                return committed
+
+            coordinator._commit_question_major_item = commit_then_flip
+
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(
+            [stage["status"] for stage in run["questionExecutions"][0]["stages"]],
+            ["validated", "validated"],
+        )
+        self.assertEqual(writer_stages, ["law_context", "law_audit"])
+
+    def test_writer_reprepares_when_projection_changes_after_read_only_step(self):
+        class MutableProjectionInventory(SourceOnlyInventory):
+            def __init__(self):
+                self.body = "準備前"
+
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                group["questions"][0]["projected"] = {
+                    **group["questions"][0]["projected"],
+                    "questionBodyText": self.body,
+                }
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = MutableProjectionInventory()
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                inventory,
+                ["question_type"],
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            original_prepare = coordinator._prepare_question_item
+            prepare_count = 0
+
+            def prepare_then_change(*args, **kwargs):
+                nonlocal prepare_count
+                prepared = original_prepare(*args, **kwargs)
+                prepare_count += 1
+                if prepare_count == 1:
+                    inventory.body = "手動patch更新後"
+                return prepared
+
+            coordinator._prepare_question_item = prepare_then_change
+            messages = []
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                messages.append,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(prepare_count, 2)
+        self.assertEqual(
+            [kwargs["work_type"] for _question, _prompt, kwargs in app_server.calls],
+            [
+                "maintenance_prepare_question_type",
+                "maintenance_prepare_question_type",
+                "maintenance_question_type",
+            ],
+        )
+        self.assertEqual(
+            run["questionExecutions"][0]["stages"][0]["status"],
+            "validated",
+        )
+        self.assertTrue(any("最新入力で準備し直します" in value for value in messages))
+
+    def test_writer_skips_law_audit_when_latest_projection_is_not_law_related(self):
+        class MutableLawAuditInventory(SourceOnlyInventory):
+            def __init__(self):
+                self.law_related = True
+
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                question = group["questions"][0]
+                question["isLawRelated"] = self.law_related
+                question["projected"] = {
+                    **question["projected"],
+                    "isLawRelated": self.law_related,
+                    "lawGroundedExplanationNotNeeded": not self.law_related,
+                }
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = MutableLawAuditInventory()
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, inventory),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=app_server,
+            )
+            preview = coordinator.preview(
+                "new-exam",
+                "law_audit",
+                "remaining",
+                list_group_ids=["2026"],
+            )
+            parent = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "remaining",
+                preview["previewToken"],
+                list_group_ids=preview["scopeListGroupIds"],
+            )["run"]
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            original_prepare = coordinator._prepare_question_item
+
+            def prepare_then_reclassify(*args, **kwargs):
+                prepared = original_prepare(*args, **kwargs)
+                inventory.law_related = False
+                return prepared
+
+            coordinator._prepare_question_item = prepare_then_reclassify
+            messages = []
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                messages.append,
+            )
+            stage = coordinator.store.get(
+                "new-exam", parent["runId"]
+            )["questionExecutions"][0]["stages"][0]
+
+        self.assertEqual(stage["status"], "not_applicable")
+        self.assertEqual(
+            [kwargs["work_type"] for _question, _prompt, kwargs in app_server.calls],
+            ["maintenance_prepare_law_audit"],
+        )
+        self.assertTrue(any("writerを省略" in value for value in messages))
+
+    def test_explicit_group_refresh_keeps_non_law_question_in_law_audit(self):
+        self.assertTrue(
+            QualificationRunCoordinator._projection_stage_applicable(
+                {"mode": "group_refresh"},
+                "law_audit",
+                {"isLawRelated": False},
+            )
+        )
+        self.assertFalse(
+            QualificationRunCoordinator._projection_stage_applicable(
+                {"mode": "remaining"},
+                "law_audit",
+                {"isLawRelated": False},
+            )
+        )
+
+    def test_dynamic_replan_uses_promoted_phase_mode_for_law_audit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, NonLawSourceInventory()),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=ConfiguredAppServer(),
+            )
+            phase_plan = coordinator._plan(
+                "new-exam",
+                "law_audit",
+                "group_refresh",
+                None,
+                list_group_ids=["2026"],
+            )
+            parent = {**phase_plan, "mode": "outdated"}
+
+            _plan, target = coordinator._dynamic_question_phase_plan(
+                "new-exam",
+                parent,
+                {"id": "law_audit"},
+                phase_plan,
+                "new-exam-2026-q1",
+            )
+
+        self.assertIsNotNone(target)
+
+    def test_missing_logical_projection_blocks_only_that_question(self):
+        class MissingProjectionInventory(SourceOnlyInventory):
+            projected_input = None
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                MissingProjectionInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            stage = coordinator.store.get(
+                "new-exam", parent["runId"]
+            )["questionExecutions"][0]["stages"][0]
+
+        self.assertEqual(stage["status"], "blocked")
+        self.assertIn("logicalProjection", stage["error"])
+        self.assertEqual(app_server.calls, [])
+
+    def test_resume_does_not_repeat_succeeded_category_scope_stage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, _sync, _server, previous = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["category_setup", "question_set"],
+                app_server=app_server,
+            )
+            question = previous["questionExecutions"][0]
+            coordinator.store.update_question_stage(
+                "new-exam",
+                previous["runId"],
+                question["questionId"],
+                "question_set",
+                status="blocked",
+                error="question_setだけ再開する。",
+            )
+            phases = copy.deepcopy(previous["phaseExecutions"])
+            phases[0]["status"] = "succeeded"
+            phases[1]["status"] = "partial"
+            previous = coordinator.store.update(
+                "new-exam",
+                previous["runId"],
+                status="succeeded",
+                queueStatus="partial",
+                phaseExecutions=phases,
+            )
+            self._write_valid_category(root)
+            preview = coordinator.preview(
+                "new-exam",
+                "category_setup",
+                "outdated",
+                stage_ids=["category_setup", "question_set"],
+                list_group_ids=["2026"],
+                resumed_from=previous["runId"],
+            )
+            resumed = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+                resumed_from=previous["runId"],
+            )["run"]
+
+        self.assertEqual(
+            [phase["id"] for phase in resumed["phaseExecutions"]],
+            ["question_set"],
+        )
+
+    def test_fully_succeeded_scope_flow_has_nothing_to_resume(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, previous = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["category_setup", "question_set"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            question = previous["questionExecutions"][0]
+            coordinator.store.update_question_stage(
+                "new-exam",
+                previous["runId"],
+                question["questionId"],
+                "question_set",
+                status="validated",
+                error=None,
+            )
+            phases = copy.deepcopy(previous["phaseExecutions"])
+            for phase in phases:
+                phase["status"] = "succeeded"
+            previous = coordinator.store.update(
+                "new-exam",
+                previous["runId"],
+                status="succeeded",
+                queueStatus="succeeded",
+                phaseExecutions=phases,
+            )
+            self._write_valid_category(root)
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "再実行が必要な問題はありません",
             ):
-                root = Path(directory)
-                app_server = FlowAppServer()
-                coordinator, synchronizer, _app_server, parent = (
-                    self._start_deferred_flow(
-                        root,
-                        MultiGroupSourceInventory(),
-                        ["question_type", "question_intent"],
-                        app_server=app_server,
-                        group_ids=["2025", "2026"],
-                    )
-                )
-                coordinator._repository_file_fingerprints = lambda *_args: {}
-                synchronizer.local_ready = False
-                if scenario == "preblocked":
-                    blocked_question = next(
-                        question
-                        for question in parent["questionExecutions"]
-                        if question["listGroupId"] == "2025"
-                    )
-                    coordinator.store.update_question_stage(
-                        "new-exam",
-                        parent["runId"],
-                        blocked_question["questionId"],
-                        "question_type",
-                        status="blocked",
-                        error="2025は事前条件で保留した。",
-                        block_dependents=True,
-                    )
-                else:
-                    def refresh_group(qualification, list_group_id, emit):
-                        synchronizer.merge_calls.append(
-                            (qualification, list_group_id)
-                        )
-                        status = (
-                            "failed" if list_group_id == "2025" else "succeeded"
-                        )
-                        emit(f"{list_group_id}: merge {status}")
-                        return {
-                            "listGroupId": list_group_id,
-                            "status": status,
-                            "message": f"merge {status}",
-                        }
-
-                    synchronizer.refresh_merged_views = refresh_group
-
-                result = coordinator._run_maintenance_flow(
+                coordinator.preview(
                     "new-exam",
-                    parent["runId"],
-                    lambda _message: None,
+                    "category_setup",
+                    "outdated",
+                    stage_ids=["category_setup", "question_set"],
+                    list_group_ids=["2026"],
+                    resumed_from=previous["runId"],
                 )
-                run = coordinator.store.get("new-exam", parent["runId"])
-                questions = {
-                    question["listGroupId"]: question
-                    for question in run["questionExecutions"]
-                }
-                artifact_groups = {
-                    group["listGroupId"]: group["status"]
-                    for group in run["artifactSync"]["groups"]
-                }
 
-                self.assertEqual(result["queueStatus"], "partial")
-                self.assertEqual(
-                    synchronizer.calls,
-                    [("new-exam", "2026", True)],
+    def test_each_writer_reads_run_local_logical_projection(self):
+        class ProjectingInventory(TwoQuestionSourceInventory):
+            def __init__(self):
+                self.projected_calls = []
+
+            def projected_input(
+                self,
+                qualification,
+                list_group_id,
+                source_record_ref,
+            ):
+                self.projected_calls.append(source_record_ref)
+                return SimpleNamespace(
+                    record={
+                        "original_question_id": source_record_ref,
+                        "questionBodyText": "現在の論理入力",
+                    },
+                    applied_files=("output/new-exam/current-patch.json",),
+                    errors=(),
                 )
-                if scenario == "preblocked":
-                    self.assertEqual(
-                        synchronizer.merge_calls,
-                        [("new-exam", "2026")],
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = ProjectingInventory()
+            app_server = PerQuestionQueueAppServer()
+            app_server.wait_for_parallel_preparations = False
+            coordinator, _synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    inventory,
+                    ["question_type"],
+                    app_server=app_server,
+                )
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+
+            original_record_versions = coordinator._record_work_versions
+
+            def record_versions_without_group_scan(run):
+                original_group = inventory.group
+
+                def reject_group_scan(*_args, **_kwargs):
+                    raise AssertionError(
+                        "一問writerの工程版記録で年度全体を再構築しました。"
                     )
-                    self.assertEqual(artifact_groups, {"2026": "succeeded"})
-                    self.assertEqual(
-                        [
-                            stage["status"]
-                            for stage in questions["2025"]["stages"]
-                        ],
-                        ["blocked", "blocked"],
-                    )
-                else:
-                    self.assertEqual(
-                        set(synchronizer.merge_calls),
-                        {("new-exam", "2025"), ("new-exam", "2026")},
-                    )
-                    self.assertEqual(
-                        [
-                            stage["status"]
-                            for stage in questions["2025"]["stages"]
-                        ],
-                        ["validated", "blocked"],
-                    )
-                    self.assertEqual(
-                        [
-                            stage["status"]
-                            for stage in questions["2026"]["stages"]
-                        ],
-                        ["validated", "validated"],
-                    )
-                    self.assertEqual(artifact_groups["2025"], "blocked")
-                    self.assertEqual(artifact_groups["2026"], "succeeded")
+
+                inventory.group = reject_group_scan
+                try:
+                    return original_record_versions(run)
+                finally:
+                    inventory.group = original_group
+
+            coordinator._record_work_versions = record_versions_without_group_scan
+
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+            run = coordinator.store.get("new-exam", parent["runId"])
+            projected_paths = [
+                stage["projectedInputPath"]
+                for question in run["questionExecutions"]
+                for stage in question["stages"]
+            ]
+            payloads = [
+                json.loads((root / path).read_text(encoding="utf-8"))
+                for path in projected_paths
+            ]
+
+            self.assertEqual(len(inventory.projected_calls), 6)
+        self.assertEqual(len(set(projected_paths)), 2)
+        self.assertTrue(
+            all("logicalProjection:" in prompt for _question, prompt, _ in app_server.calls)
+        )
+        self.assertTrue(
+            all(
+                payload["schemaVersion"] == "question-maintenance-projection/v1"
+                for payload in payloads
+            )
+        )
 
     def test_coordinator_technical_log_proxies_to_store(self):
         with tempfile.TemporaryDirectory() as directory:
