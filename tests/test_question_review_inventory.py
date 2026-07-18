@@ -1,4 +1,5 @@
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -101,6 +102,97 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertEqual(result.record["questionType"], "flash_card")
         self.assertEqual(result.errors, ())
         self.assertEqual(len(result.applied_files), 1)
+
+    def test_projected_input_rejects_an_unmatched_patch_like_physical_merge(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "question.json",
+                {
+                    "question_bodies": [
+                        {"original_question_id": "q1", "questionBodyText": "問題"}
+                    ]
+                },
+            )
+            write_json(
+                group / "10_questionType_fixed" / "orphan_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "orphan",
+                        "questionType": "flash_card",
+                    }
+                ],
+            )
+
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "source recordへ対応できないquestionType patch",
+            ):
+                QuestionInventory(root).projected_input(
+                    "sample-exam",
+                    "2026",
+                    "question.json#0",
+                )
+
+    def test_invalidate_clears_projection_caches_with_an_unchanged_fingerprint(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "question.json",
+                {
+                    "question_bodies": [
+                        {"original_question_id": "q1", "questionBodyText": "問題"}
+                    ]
+                },
+            )
+            patch_path = (
+                group
+                / "10_questionType_fixed"
+                / "question_questionType_fixed.json"
+            )
+            write_json(
+                patch_path,
+                [{"original_question_id": "q1", "questionType": "flash_card"}],
+            )
+            original_stat = patch_path.stat()
+            inventory = QuestionInventory(root)
+            self.assertEqual(
+                inventory.projected_input(
+                    "sample-exam", "2026", "question.json#0"
+                ).record["questionType"],
+                "flash_card",
+            )
+            cache_key = ("sample-exam", "2026")
+            self.assertIn(cache_key, inventory._source_cache)
+            self.assertIn(cache_key, inventory._issue_index_cache)
+            self.assertTrue(
+                any(key[:2] == cache_key for key in inventory._stage_index_cache)
+            )
+
+            write_json(
+                patch_path,
+                [{"original_question_id": "q1", "questionType": "true_false"}],
+            )
+            self.assertEqual(patch_path.stat().st_size, original_stat.st_size)
+            os.utime(
+                patch_path,
+                ns=(original_stat.st_atime_ns, original_stat.st_mtime_ns),
+            )
+            inventory.invalidate("sample-exam", "2026")
+            self.assertNotIn(cache_key, inventory._source_cache)
+            self.assertNotIn(cache_key, inventory._issue_index_cache)
+            self.assertFalse(
+                any(key[:2] == cache_key for key in inventory._stage_index_cache)
+            )
+
+            self.assertEqual(
+                inventory.projected_input(
+                    "sample-exam", "2026", "question.json#0"
+                ).record["questionType"],
+                "true_false",
+            )
 
     def test_projected_input_reuses_source_and_unchanged_patch_indexes(self):
         with tempfile.TemporaryDirectory() as directory:

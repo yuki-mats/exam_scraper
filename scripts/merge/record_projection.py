@@ -6,7 +6,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-from scripts.common.question_identity import review_question_id
+from scripts.common.question_identity import (
+    IdentityCandidateIndex,
+    review_question_id,
+)
 from scripts.merge.patch_views import (
     PatchArtifactEntry,
     apply_answer_result_overrides,
@@ -16,6 +19,7 @@ from scripts.merge.patch_views import (
     apply_question_intent,
     apply_question_set,
     apply_question_type,
+    ensure_identity_candidate_index_valid,
     normalize_true_false_intent_and_correct_choice,
 )
 from scripts.merge.question_issue_corrections import (
@@ -46,6 +50,15 @@ class RecordMergeProjection:
     update_counts: Mapping[str, int]
     applied_question_issue_targets: tuple[str, ...] = ()
     errors: tuple[str, ...] = ()
+
+
+def ensure_projection_indexes_valid(
+    indexes: Sequence[tuple[str, IdentityCandidateIndex]],
+) -> None:
+    """Apply physical Merge's fail-closed artifact checks to a projection."""
+
+    for label, index in indexes:
+        ensure_identity_candidate_index_valid(index, label=label)
 
 
 def _normalize_digit_text(value: str) -> str:

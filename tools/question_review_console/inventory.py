@@ -18,6 +18,7 @@ from scripts.scrape.qualification_presets import load_qualification_catalog
 from scripts.merge.question_issue_corrections import (
     selected_question_issue_correction_paths,
 )
+from scripts.merge.record_projection import ensure_projection_indexes_valid
 from tools.question_review_console.projection import (
     IdentityCandidateIndex,
     IdentityResolutionError,
@@ -544,6 +545,13 @@ class QuestionInventory:
             group_dir,
             identities,
         )
+        ensure_projection_indexes_valid(
+            tuple(
+                (f"{stage} patch", stage_maps[stage])
+                for stage, _subdir, _tag in STAGE_SPECS
+            )
+            + (("question issue correction", issue_index),)
+        )
         return project_record(
             entry.record,
             set(entry.identity.aliases),
@@ -655,11 +663,19 @@ class QuestionInventory:
 
     def invalidate(self, qualification: str, list_group_id: str) -> None:
         with self._lock:
-            cached = self._cache.pop((qualification, list_group_id), None)
+            cache_key = (qualification, list_group_id)
+            cached = self._cache.pop(cache_key, None)
             if cached:
                 for question in cached.payload["questions"]:
                     if self._id_map.get(question["id"]) is question:
                         self._id_map.pop(question["id"], None)
+            self._source_cache.pop(cache_key, None)
+            self._issue_index_cache.pop(cache_key, None)
+            stale_stage_keys = [
+                key for key in self._stage_index_cache if key[:2] == cache_key
+            ]
+            for key in stale_stage_keys:
+                self._stage_index_cache.pop(key, None)
 
     def _group_fingerprint(self, group_dir: Path) -> str:
         parts = []
