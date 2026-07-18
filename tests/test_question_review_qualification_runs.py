@@ -1418,6 +1418,75 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(parent["parallelWorkerLimit"], 5)
         self.assertEqual(max_active, 5)
 
+    def test_prefetches_first_pending_stage_for_each_question_in_parallel(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(6),
+                ["question_type", "question_intent"],
+            )
+            probe_id = parent["questionExecutions"][0]["questionId"]
+            for question in parent["questionExecutions"][1:]:
+                coordinator.store.update_question_stage(
+                    "new-exam",
+                    parent["runId"],
+                    question["questionId"],
+                    "question_type",
+                    status="validated",
+                )
+
+            concurrent = threading.Barrier(5)
+            lock = threading.Lock()
+            active = 0
+            max_active = 0
+
+            def prepare_item(
+                qualification,
+                run_id,
+                _phase_prompt,
+                target,
+                stage_id,
+                _emit,
+            ):
+                nonlocal active, max_active
+                question_id = str(target["id"])
+                with lock:
+                    active += 1
+                    max_active = max(max_active, active)
+                try:
+                    if question_id != probe_id and stage_id == "question_intent":
+                        concurrent.wait(timeout=2)
+                    self._mark_question_prepared(
+                        coordinator,
+                        qualification,
+                        run_id,
+                        target,
+                        stage_id,
+                    )
+                    return True
+                finally:
+                    with lock:
+                        active -= 1
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._prepare_question_item = prepare_item
+            coordinator._run_human = commit_child
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(max_active, 5)
+
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

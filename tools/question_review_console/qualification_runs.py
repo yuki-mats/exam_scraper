@@ -6341,11 +6341,29 @@ class QualificationRunCoordinator:
 
                 return {"spec": spec, "future": executor.submit(prepare)}
 
+            def submit_first_pending_entry(
+                executor: ThreadPoolExecutor,
+                question: Mapping[str, Any],
+            ) -> dict[str, Any] | None:
+                for phase_index, phase in enumerate(segment):
+                    entry = submit_entry(executor, question, phase)
+                    entry["phaseIndex"] = phase_index
+                    status = str(entry["spec"].get("status") or "")
+                    if entry.get("future") is not None or status not in {
+                        "validated",
+                        "not_applicable",
+                        "not_present",
+                    }:
+                        return entry
+                return None
+
             with ThreadPoolExecutor(max_workers=worker_limit) as executor:
-                first_entries: dict[int, dict[str, Any]] = {}
+                first_entries: dict[int, dict[str, Any] | None] = {}
                 for probe_index, question in enumerate(questions):
-                    entry = submit_entry(executor, question, segment[0])
+                    entry = submit_first_pending_entry(executor, question)
                     first_entries[probe_index] = entry
+                    if entry is None:
+                        continue
                     first_future = entry.get("future")
                     if first_future is None:
                         continue
@@ -6365,15 +6383,16 @@ class QualificationRunCoordinator:
                         ),
                     ):
                         if next_index not in first_entries:
-                            first_entries[next_index] = submit_entry(
+                            first_entries[next_index] = submit_first_pending_entry(
                                 executor,
                                 questions[next_index],
-                                segment[0],
                             )
+                    prefetched = first_entries.get(question_index)
                     for phase_index, phase in enumerate(segment):
                         entry = (
                             first_entries.pop(question_index)
-                            if phase_index == 0
+                            if prefetched is not None
+                            and int(prefetched["phaseIndex"]) == phase_index
                             else submit_entry(executor, question, phase)
                         )
                         spec = dict(entry["spec"])
