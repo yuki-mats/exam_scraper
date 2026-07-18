@@ -1019,6 +1019,18 @@
       }
     ]
   },
+  "aws-cloud-practitioner_keepitup": {
+    "qualification_code": "aws-cloud-practitioner",
+    "scraper_type": "keepitup",
+    "qualification_name": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "list_first_page_url_template": "https://aws.keepitup.jp/{list_group_id}/",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "CL00",
+        "output_list_group_id": "keepitup-aws-clf-c02"
+      }
+    ]
+  },
   "nw": {
     "scraper_type": "sgsiken",
     "qualification_name": "ネットワークスペシャリスト",

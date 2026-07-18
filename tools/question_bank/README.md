@@ -10,7 +10,7 @@ python3 tools/question_bank/question_bank.py quality-gate \
   --list-group-id <list_group_id>
 ```
 
-部分確認は`--mode required`、`--mode patches`、`--mode firestore`を使います。法令工程を必須にする場合は、必要に応じて次を追加します。
+取得直後の`00_source`だけを確認する場合は`--mode source`、sourceとmergedの必須fieldを確認する場合は`--mode required`、その他の部分確認は`--mode patches`、`--mode firestore`を使います。法令工程を必須にする場合は、必要に応じて次を追加します。
 
 ```text
 --require-law-context-stage

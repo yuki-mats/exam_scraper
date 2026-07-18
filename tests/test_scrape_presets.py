@@ -28,6 +28,18 @@ class ScrapePresetTests(unittest.TestCase):
             "https://mondai.ping-t.com/question_subjects/76/questions",
         )
 
+    def test_load_scrape_preset_for_aws_cloud_practitioner_keepitup(self) -> None:
+        preset = load_scrape_preset("aws-cloud-practitioner_keepitup")
+
+        self.assertEqual(preset.qualification_code, "aws-cloud-practitioner")
+        self.assertEqual(preset.qualification_name, "AWS Certified Cloud Practitioner (CLF-C02)")
+        self.assertEqual(preset.scraper_type, "keepitup")
+        self.assertEqual(preset.list_group_ids, ["keepitup-aws-clf-c02"])
+        self.assertEqual(
+            build_list_first_page_url(preset, "keepitup-aws-clf-c02"),
+            "https://aws.keepitup.jp/CL00/",
+        )
+
     def test_load_scrape_preset_for_kaigofukushi(self) -> None:
         preset = load_scrape_preset("kaigofukushi")
 

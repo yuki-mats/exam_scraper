@@ -683,7 +683,7 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--category", help="category.json path. Defaults to output/<qualification>/category/category.json.")
     parser.add_argument(
         "--mode",
-        choices=("full", "required", "patches", "firestore"),
+        choices=("full", "source", "required", "patches", "firestore"),
         default="full",
         help="Which gate subset to run.",
     )
@@ -1034,8 +1034,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"category: {category_path or '(not found)'}", flush=True)
 
     failures = 0
-    if args.mode in ("full", "required"):
-        stages = ("source", "merged", "firestore") if args.mode == "full" else ("source", "merged")
+    if args.mode in ("full", "source", "required"):
+        if args.mode == "full":
+            stages = ("source", "merged", "firestore")
+        elif args.mode == "source":
+            stages = ("source",)
+        else:
+            stages = ("source", "merged")
         failures += run_required_checks(
             base_dir=base_dir,
             list_group_dirs=list_group_dirs,

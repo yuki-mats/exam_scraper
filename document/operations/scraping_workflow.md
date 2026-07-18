@@ -75,7 +75,7 @@ python3 scripts/check/check_00_source_immutability.py --record-new
 python3 tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id> \
-  --mode required
+  --mode source
 ```
 
 patch coverageや`questionSetId`は後工程の責務なので、取得直後の不足と混同しません。
