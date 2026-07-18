@@ -19,6 +19,10 @@ from typing import Any, Callable, Iterable, Mapping, TextIO
 
 
 DEFAULT_CODEX_PATH = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
+SAFE_SHELL_PATH = (
+    "/usr/bin:/bin:/usr/sbin:/sbin:"
+    "/Applications/ChatGPT.app/Contents/Resources"
+)
 API_CREDENTIAL_ENV_VARS = {
     "ANTHROPIC_API_KEY",
     "AZURE_OPENAI_API_KEY",
@@ -797,6 +801,8 @@ class CodexAppServerClient:
             "-c",
             'shell_environment_policy.inherit="none"',
             "-c",
+            f'shell_environment_policy.set={{PATH="{SAFE_SHELL_PATH}"}}',
+            "-c",
             'forced_login_method="chatgpt"',
             "-c",
             "notify=[]",
@@ -922,6 +928,19 @@ class CodexAppServerClient:
                 + ", ".join(sorted(custom_roles))
             )
 
+    @staticmethod
+    def _assert_safe_shell_environment(config: Mapping[str, Any]) -> None:
+        shell_environment = _as_mapping(
+            config.get("shell_environment_policy"),
+            "shell environment設定",
+        )
+        if (
+            shell_environment.get("inherit") != "none"
+            or shell_environment.get("set") != {"PATH": SAFE_SHELL_PATH}
+            or shell_environment.get("experimental_use_profile") not in {None, False}
+        ):
+            raise SubscriptionGateError("shell環境変数の遮断を確認できません。")
+
     def _assert_official_chatgpt_endpoint(self) -> None:
         response = _as_mapping(
             self._request(
@@ -970,23 +989,7 @@ class CodexAppServerClient:
             raise SubscriptionGateError("外部作用機能の無効化を確認できません。")
         if features.get("multi_agent") is not True:
             raise SubscriptionGateError("整備判断の並列機能を確認できません。")
-        shell_environment = _as_mapping(
-            config.get("shell_environment_policy"),
-            "shell environment設定",
-        )
-        explicit_environment = shell_environment.get("set")
-        if (
-            shell_environment.get("inherit") != "none"
-            or (
-                explicit_environment is not None
-                and (
-                    not isinstance(explicit_environment, Mapping)
-                    or bool(explicit_environment)
-                )
-            )
-            or shell_environment.get("experimental_use_profile") not in {None, False}
-        ):
-            raise SubscriptionGateError("shell環境変数の遮断を確認できません。")
+        self._assert_safe_shell_environment(config)
         servers = _as_mapping(config.get("mcp_servers"), "MCP設定")
         expected_names = set(self._configured_mcp_names())
         if set(str(name) for name in servers) != expected_names:

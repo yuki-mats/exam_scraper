@@ -16,6 +16,7 @@ from tools.question_review_console.codex_app_server import (
     RESEARCH_AGENT_CONFIG_FILENAME,
     RESEARCH_AGENT_DESCRIPTION,
     RESEARCH_AGENT_ROLE,
+    SAFE_SHELL_PATH,
     SubscriptionGateError,
     _TurnState,
     validate_subscription_access,
@@ -562,6 +563,10 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertIn('shell_environment_policy.inherit="none"', command)
         self.assertIn(
+            f'shell_environment_policy.set={{PATH="{SAFE_SHELL_PATH}"}}',
+            command,
+        )
+        self.assertIn(
             'mcp_servers.lawzilla={command="/usr/bin/false",enabled=false}',
             command,
         )
@@ -580,6 +585,28 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertIn("otel.log_user_prompt=false", command)
         self.assertNotIn("openai_base_url=null", command)
         self.assertNotIn("chatgpt_base_url=null", command)
+
+    def test_shell_environment_allows_only_fixed_path(self):
+        safe = {
+            "shell_environment_policy": {
+                "inherit": "none",
+                "set": {"PATH": SAFE_SHELL_PATH},
+            }
+        }
+
+        CodexAppServerClient._assert_safe_shell_environment(safe)
+
+        for explicit_path in ("/usr/bin", f"{SAFE_SHELL_PATH}:/tmp/bin"):
+            with self.subTest(path=explicit_path):
+                with self.assertRaises(SubscriptionGateError):
+                    CodexAppServerClient._assert_safe_shell_environment(
+                        {
+                            "shell_environment_policy": {
+                                "inherit": "none",
+                                "set": {"PATH": explicit_path},
+                            }
+                        }
+                    )
 
     def test_each_run_starts_a_fresh_thread_with_explicit_sandbox(self):
         client = ProtocolClient()
