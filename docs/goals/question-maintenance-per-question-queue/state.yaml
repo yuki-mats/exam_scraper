@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-per-question-queue"
   kind: existing_plan
   tranche: "continuous execution: 一問単位の並列整備・確定・失敗隔離・再開を実装し、範囲指定UIから安定運用できるまで進める"
-  status: active
+  status: done
   oracle:
     signal: "UIからガス主任技術者甲種2019年の58問を開始し、1問が失敗しても57問が確定し、失敗問だけを理由付きで再実行できる"
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T011
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -762,7 +762,7 @@ tasks:
   - id: T011
     type: pm
     assignee: PM
-    status: in_progress
+    status: done
     reasoning_hint: high
     objective: "実運転で判明した共通方針driftの全問反復失敗を防ぎ、古い準備だけを一問単位で自動再準備してqueueを継続する"
     inputs:
@@ -787,7 +787,9 @@ tasks:
       - "tools/question_review_console/static/index.html"
       - "tools/question_review_console/static/app.js"
       - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_write_safety.py"
       - "tests/test_question_review_progress_output_ui.py"
+      - "tests/test_question_review_workflow.py"
       - "document/operations/local_question_review_console.md"
       - "docs/goals/question-maintenance-per-question-queue/state.yaml"
     verify:
@@ -796,15 +798,45 @@ tasks:
       - "node --check tools/question_review_console/static/app.js"
       - ".venv/bin/python scripts/check/check_00_source_immutability.py"
       - "git diff --check"
-    receipt: null
+    receipt:
+      result: done
+      summary: "方針driftは安全な一問rollback後に同じ問題だけを最大2回再準備し、5問設定はwriterを含む総同時数へ統一した。安全停止したfailed queueは未完了問だけUIから再開でき、範囲外の無通知変更をwriterへ帰属させない。2019年甲種の実UI再開で、問2の機械検査・receipt確定後に問3へwriterが移り、常時writer 1問と準備4問以下で継続することを確認した。"
+      evidence:
+        - "commits cc75dadb3, e63f9ea2e, 59830f662, 90590d204"
+        - "live parent run 20260718T234110211872-3b705c43: resumedFrom 20260718T230751926930-89d476c7, target 55, questionConcurrency 5"
+        - "live window: 製造 問2 writer + 問3・問6・問7・問8 prepare = total 5"
+        - "child 20260718T234250540255-1627e5e8: status=succeeded, receiptValidated=true, machine check pass"
+        - "child 20260718T235003899467-a7031471: status=succeeded, receiptValidated=true。実行中の.git/HEAD・UI・test変更はexternalConcurrentChangedFilesへ分離し、unsafeNotifiedChangedFiles=[]"
+        - "問2確定後: 問3 writer、問6・問7・問8・問9 prepare/preparedへ自動補充"
+        - "実行中にUI・testを変更してもparentはstatus=running、retrySafe=trueを維持"
+        - "問題整備系495 tests OK"
+        - "00_source 4525 files unchanged"
+      commands:
+        - cmd: "python3 -m unittest discover -s tests -p 'test_question_review*.py'"
+          status: pass
+          summary: "495 tests OK"
+        - cmd: "python3 -m py_compile tools/question_review_console/qualification_runs.py"
+          status: pass
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "4525 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      remaining_blockers: []
+      live_run:
+        run_id: "20260718T234110211872-3b705c43"
+        status_at_receipt: running
+        note: "仕組みの検証完了後も2019年55問の整備を停止せず継続中。"
     harness: codex
 checks:
   dirty_fingerprint: "pre-existing gas-shunin output patches plus GoalBuddy control files"
   last_verification:
     result: pass
-    task: T003
+    task: T011
     commands:
-      - "test_question_review_*.py: 400 tests OK"
+      - "test_question_review*.py: 495 tests OK"
       - "py_compile: OK"
       - "node --check: OK"
       - "00_source: 4525 files OK"
