@@ -1429,6 +1429,25 @@ class QualificationRunStore:
             raw = progress_path.read_bytes() if progress_path.is_file() else b""
         return self._parsed_progress(manifest, raw)
 
+    @staticmethod
+    def _order_parent_questions(
+        questions: list[dict[str, Any]],
+        executions: Iterable[Mapping[str, Any]],
+    ) -> None:
+        positions = {
+            str(execution.get("questionId") or ""): index
+            for index, execution in enumerate(executions)
+            if execution.get("questionId")
+        }
+        questions.sort(
+            key=lambda value: (
+                positions.get(str(value.get("questionId") or ""), len(positions)),
+                str(value.get("questionId") or ""),
+            )
+        )
+        for target_index, question in enumerate(questions, start=1):
+            question["targetIndex"] = target_index
+
     def combined_progress(
         self, qualification: str, run_id: str
     ) -> dict[str, Any]:
@@ -1685,17 +1704,18 @@ class QualificationRunStore:
                     blocked_stage.get("stageId") or ""
                 )
                 display["blockedReason"] = str(blocked_stage.get("error") or "")
-        questions.sort(
-            key=lambda value: (
-                int(
-                    (execution_by_question.get(str(value.get("questionId") or "")) or {}).get(
-                        "displayOrder"
-                    )
-                    or 0
-                ),
-                str(value.get("questionId") or ""),
-            )
+        self._order_parent_questions(
+            questions,
+            manifest.get("questionExecutions") or [],
         )
+        if payload["current"] is not None:
+            current_question = question_by_id.get(
+                str(payload["current"].get("questionId") or "")
+            )
+            if current_question is not None:
+                payload["current"]["targetIndex"] = current_question[
+                    "targetIndex"
+                ]
         execution_summary = manifest.get("questionExecutionSummary")
         if not isinstance(execution_summary, Mapping):
             execution_summary = queue_summary(

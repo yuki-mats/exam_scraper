@@ -113,6 +113,40 @@ class QuestionWorkQueueTests(unittest.TestCase):
         self.assertEqual(executions[0]["stages"][1]["stageId"], "law_audit")
         self.assertEqual(executions[1]["stages"][1]["stageId"], "law_audit")
 
+    def test_omits_leading_stages_that_cannot_become_applicable(self) -> None:
+        first = stage_plan("question_type", [self.targets[1]])
+        later = stage_plan("explanation", self.targets)
+        plan = {
+            **self.plan,
+            "stageIds": ["question_type", "explanation"],
+            "stagePlans": [first, later],
+        }
+
+        executions = build_question_executions(plan)
+
+        self.assertEqual(
+            [stage["stageId"] for stage in executions[0]["stages"]],
+            ["explanation"],
+        )
+        self.assertEqual(
+            [stage["stageId"] for stage in executions[1]["stages"]],
+            ["question_type", "explanation"],
+        )
+        self.assertEqual(queue_summary(executions)["workItemCount"], 3)
+
+    def test_orders_questions_by_source_record(self) -> None:
+        q4 = target("q4", 4)
+        q4["displayOrder"] = 2
+        q2 = target("q2", 2)
+        plan = stage_plan("explanation", [q4, q2])
+
+        executions = build_question_executions(plan)
+
+        self.assertEqual(
+            [(value["questionId"], value["displayOrder"]) for value in executions],
+            [("q2", 1), ("q4", 2)],
+        )
+
     def test_specializes_writable_record_scope_to_one_question(self) -> None:
         plan = specialize_question_plan(self.first, "q2")
 

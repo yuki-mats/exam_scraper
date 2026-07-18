@@ -575,6 +575,23 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
         self.assertFalse(progress["verified"])
         self.assertEqual(progress["invalidEventCount"], 0)
 
+    def test_combined_progress_uses_parent_queue_position(self):
+        questions = [
+            {"questionId": "q2", "targetIndex": 1},
+            {"questionId": "q1", "targetIndex": 1},
+        ]
+        executions = [
+            {"questionId": "q1", "displayOrder": 1},
+            {"questionId": "q2", "displayOrder": 1},
+        ]
+
+        QualificationRunStore._order_parent_questions(questions, executions)
+
+        self.assertEqual(
+            [(question["questionId"], question["targetIndex"]) for question in questions],
+            [("q1", 1), ("q2", 2)],
+        )
+
     def test_progress_summarizes_all_58_questions_beyond_recent_event_window(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

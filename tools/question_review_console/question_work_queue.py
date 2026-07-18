@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import re
 from collections.abc import Iterable, Mapping
 from typing import Any
 
@@ -55,6 +56,14 @@ def _target_aliases(target: Mapping[str, Any]) -> set[str]:
         ]
         if str(value or "").strip()
     }
+
+
+def _natural_key(value: str) -> tuple[tuple[int, int | str], ...]:
+    return tuple(
+        (0, int(part)) if part.isdigit() else (1, part.casefold())
+        for part in re.split(r"(\d+)", value)
+        if part
+    )
 
 
 def work_item_key(target: Mapping[str, Any], stage_id: str) -> str:
@@ -125,10 +134,15 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
         not in {"", "multi", "category_setup", "setup"}
     ]
     canonical_targets: dict[str, dict[str, Any]] = {}
+    canonical_priorities: dict[str, tuple[int, int]] = {}
     targets_by_stage: dict[str, dict[str, dict[str, Any]]] = {}
-    for stage_plan in stage_plans:
+    for stage_index, stage_plan in enumerate(stage_plans):
         stage_id = str(stage_plan["stageId"])
         stage_targets = targets_by_stage.setdefault(stage_id, {})
+        target_priority = (
+            len(stage_plan.get("progressTargets") or []),
+            stage_index,
+        )
         for raw_target in stage_plan.get("progressTargets") or []:
             if not isinstance(raw_target, Mapping):
                 continue
@@ -136,13 +150,16 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
             question_id = _target_id(target)
             if not question_id:
                 raise QuestionWorkQueueError("一問work itemの問題IDがありません。")
-            existing = canonical_targets.setdefault(question_id, target)
-            if SourceIdentityBinding.from_mapping(
+            existing = canonical_targets.get(question_id)
+            if existing is not None and SourceIdentityBinding.from_mapping(
                 existing
             ) != SourceIdentityBinding.from_mapping(target):
                 raise QuestionWorkQueueError(
                     f"問題IDに複数のsource identityがあります: {question_id}"
                 )
+            if target_priority >= canonical_priorities.get(question_id, (-1, -1)):
+                canonical_targets[question_id] = target
+                canonical_priorities[question_id] = target_priority
             if question_id in stage_targets:
                 raise QuestionWorkQueueError(
                     f"一問work itemが重複しています: {question_id} / {stage_id}"
@@ -156,15 +173,32 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
         for value in plan.get("resumeWorkItemKeys") or []
         if value
     }
+    group_order = {
+        str(group_id): index
+        for index, group_id in enumerate(plan.get("scopeListGroupIds") or [])
+    }
     ordered_targets = sorted(
         canonical_targets.items(),
         key=lambda item: (
+            group_order.get(str(item[1].get("listGroupId") or ""), len(group_order)),
             int(item[1].get("displayOrder") or 0),
+            _natural_key(
+                SourceIdentityBinding.from_mapping(item[1]).source_record_ref
+            ),
             item[0],
         ),
     )
-    for question_id, canonical_target in ordered_targets:
+    for display_order, (question_id, canonical_target) in enumerate(
+        ordered_targets,
+        start=1,
+    ):
         identity = SourceIdentityBinding.from_mapping(canonical_target)
+        first_targeted_stage = next(
+            index
+            for index, stage_plan in enumerate(stage_plans)
+            if question_id
+            in targets_by_stage.get(str(stage_plan["stageId"]), {})
+        )
         execution = {
             "questionId": question_id,
             "questionKey": str(
@@ -179,11 +213,11 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                 or canonical_target.get("questionLabel")
                 or question_id
             ),
-            "displayOrder": int(canonical_target.get("displayOrder") or 0),
+            "displayOrder": display_order,
             "status": "queued",
             "stages": [],
         }
-        for stage_plan in stage_plans:
+        for stage_plan in stage_plans[first_targeted_stage:]:
             stage_id = str(stage_plan["stageId"])
             target = targets_by_stage.get(stage_id, {}).get(
                 question_id,
