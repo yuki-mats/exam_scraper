@@ -3847,7 +3847,7 @@ class QualificationRunCoordinator:
 
     def recent(self, qualification: str) -> dict[str, Any]:
         runs = [
-            run
+            self._refresh_retry_safety(qualification, run)
             for run in self.store.list(qualification, limit=100)
             if run.get("workType") not in {"evaluation", "reevaluation"}
             and not run.get("parentRunId")
@@ -3860,6 +3860,23 @@ class QualificationRunCoordinator:
                 None,
             ),
         }
+
+    def _refresh_retry_safety(
+        self,
+        qualification: str,
+        run: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        if (
+            run.get("workType") != "maintenance_flow"
+            or run.get("status") not in {"failed", "interrupted"}
+            or run.get("retrySafe") is not False
+        ):
+            return dict(run)
+        try:
+            self._assert_resume_safe(qualification, run)
+        except QualificationRunError:
+            return dict(run)
+        return self.store.get(qualification, str(run["runId"]))
 
     def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
         run = self.store.get(qualification, run_id)

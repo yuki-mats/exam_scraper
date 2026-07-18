@@ -1287,7 +1287,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
-    def test_resume_reclassifies_legacy_external_only_child_failure(self):
+    def test_recent_reclassifies_legacy_external_only_child_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
@@ -1352,6 +1352,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 childRunIds=[child["runId"]],
             )
 
+            recent = coordinator.recent("new-exam")
             preview = coordinator.preview(
                 "new-exam",
                 "question_type",
@@ -1368,6 +1369,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 child["runId"],
             )
 
+        self.assertTrue(recent["runs"][0]["retrySafe"])
         self.assertEqual(preview["targetCount"], 1)
         self.assertTrue(recovered_parent["retrySafe"])
         self.assertIsNone(recovered_parent["unsafeChildRunId"])
