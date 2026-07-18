@@ -522,10 +522,16 @@ class QualificationWorkflow:
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
         allow_category_pending: bool = False,
+        _catalog: Mapping[str, Any] | None = None,
+        _qualification_data: tuple[
+            list[Mapping[str, Any]],
+            list[Mapping[str, Any]],
+        ]
+        | None = None,
     ) -> dict[str, Any]:
         if mode not in RUN_MODES:
             raise ValueError(f"対象範囲が不正です: {mode}")
-        catalog = self.catalog(qualification)
+        catalog = _catalog or self.catalog(qualification)
         self._require_runnable_catalog(catalog)
         definition = next(
             (stage for stage in catalog["stages"] if stage["id"] == stage_id), None
@@ -558,7 +564,11 @@ class QualificationWorkflow:
         if mode == "group_refresh" and not selected_group_ids:
             raise ValueError("対象年度を一つ以上選択してください。")
 
-        groups, questions = self._qualification_data(qualification)
+        if _qualification_data is None:
+            groups, questions = self._qualification_data(qualification)
+        else:
+            groups = list(_qualification_data[0])
+            questions = list(_qualification_data[1])
         validation_group_ids = (
             requested_group_ids
             if qualification_scope_stage
@@ -952,6 +962,7 @@ class QualificationWorkflow:
                 ordered[0],
                 mode,
                 list_group_ids=scoped_group_ids,
+                _catalog=catalog,
             )
             plan["stageIds"] = ordered
             plan["stageCount"] = 1
@@ -970,6 +981,7 @@ class QualificationWorkflow:
                 "一問ずつまとめて実行できない工程が含まれています: "
                 + ", ".join(invalid)
             )
+        qualification_data = self._qualification_data(qualification)
         stage_plans = [
             self.plan(
                 qualification,
@@ -988,6 +1000,8 @@ class QualificationWorkflow:
                 allow_category_pending=(
                     stage_id == "question_set" and "category_setup" in ordered
                 ),
+                _catalog=catalog,
+                _qualification_data=qualification_data,
             )
             for stage_id in ordered
         ]

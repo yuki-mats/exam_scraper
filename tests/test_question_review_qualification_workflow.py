@@ -996,6 +996,39 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
         self.assertNotIn("## 問題文", result["prompt"])
 
+    def test_multiple_stage_plan_reuses_catalog_and_qualification_data(self):
+        class CountingWorkflow(QualificationWorkflow):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.catalog_calls = 0
+                self.qualification_data_calls = 0
+
+            def catalog(self, qualification=""):
+                self.catalog_calls += 1
+                return super().catalog(qualification)
+
+            def _qualification_data(self, qualification):
+                self.qualification_data_calls += 1
+                return super()._qualification_data(qualification)
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = CountingWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [question()]}],
+                ),
+            )
+            workflow.plan_many(
+                "sample",
+                ["question_type", "law_context", "explanation", "law_audit"],
+                "group_refresh",
+                list_group_ids=["2026"],
+            )
+
+        self.assertEqual(workflow.catalog_calls, 1)
+        self.assertEqual(workflow.qualification_data_calls, 1)
+
     def test_law_audit_refresh_alone_rechecks_every_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
