@@ -538,7 +538,7 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertEqual(plan["targetCount"], 1)
         self.assertEqual(plan["targetGroupIds"], ["2025"])
-        self.assertEqual(plan["modeLabel"], "2025を全件洗い替え")
+        self.assertEqual(plan["modeLabel"], "2025の全問題を再整備")
         self.assertTrue(all("/2025/" in path for path in plan["sourceFiles"]))
 
     def test_group_refresh_keeps_year_scope_after_qualification_prerequisite(self):
@@ -594,7 +594,7 @@ class QualificationWorkflowTests(unittest.TestCase):
                     stage["stageId"]: stage for stage in plan["stagePlans"]
                 }
                 self.assertEqual(plan["mode"], "group_refresh")
-                self.assertEqual(plan["modeLabel"], "2026を全件洗い替え")
+                self.assertEqual(plan["modeLabel"], "2026の全問題を再整備")
                 self.assertEqual(plan["scopeListGroupIds"], ["2026"])
                 self.assertEqual(plan["targetGroupIds"], ["2026"])
                 self.assertEqual(plan["targetQuestionKeys"], [selected["id"]])
@@ -646,7 +646,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(remaining["targetGroupIds"], selected)
         self.assertEqual(remaining["scopeListGroupIds"], selected)
         self.assertEqual(remaining["modeLabel"], "2024・2026の未作業のみ")
-        self.assertEqual(refresh["modeLabel"], "2024・2026を全件洗い替え")
+        self.assertEqual(refresh["modeLabel"], "2024・2026の全問題を再整備")
         self.assertNotIn("/2025/", "\n".join(remaining["sourceFiles"]))
         self.assertIn("# 選択年度・フォルダの問題整備", prompt)
         self.assertIn("対象listGroupId: `2024`, `2026`", prompt)

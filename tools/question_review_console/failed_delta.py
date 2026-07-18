@@ -292,8 +292,8 @@ def _success_supersedes(
             interrupted.get("targetQuestionIds")
             or interrupted.get("allowedPatchDirs")
         ):
-            # 問題単位の旧manifest又は不完全contractは、anchor一致だけで
-            # 解決済みにせず、明示的なfile別record scopeを必須にする。
+            # 不完全contractはanchor一致だけで解決済みにせず、
+            # 明示的なfile別record scopeを必須にする。
             return False
         interrupted_questions = {
             str(value) for value in interrupted.get("targetQuestionIds") or []

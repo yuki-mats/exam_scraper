@@ -39,19 +39,19 @@ class RunTargetIdentityResolverTests(unittest.TestCase):
             "ui-q2",
         )
 
-    def test_legacy_alias_must_be_unique(self) -> None:
+    def test_record_alias_must_be_unique(self) -> None:
         unique = RunTargetIdentityResolver.from_sources(
-            ("targets", [_target(1, "legacy-q1")])
+            ("targets", [_target(1, "source-q1")])
         )
         ambiguous = RunTargetIdentityResolver.from_sources(
             (
                 "targets",
-                [_target(1, "shared-legacy"), _target(2, "shared-legacy")],
+                [_target(1, "shared-alias"), _target(2, "shared-alias")],
             )
         )
 
-        self.assertEqual(unique.resolve("legacy-q1")["id"], "ui-q1")
-        for value in ("shared-legacy", "missing"):
+        self.assertEqual(unique.resolve("source-q1")["id"], "ui-q1")
+        for value in ("shared-alias", "missing"):
             with self.subTest(value=value):
                 with self.assertRaises(RunTargetIdentityError):
                     ambiguous.resolve(value)
@@ -85,7 +85,7 @@ class RunTargetIdentityResolverTests(unittest.TestCase):
                 }
             )
 
-    def test_policy_adapter_counts_invalid_old_aliases(self) -> None:
+    def test_policy_contract_counts_noncurrent_ids(self) -> None:
         targets = [_target(1, "shared"), _target(2, "shared")]
 
         resolved, invalid = resolve_policy_target_ids(

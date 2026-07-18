@@ -398,6 +398,7 @@ class QuestionReviewServerTests(unittest.TestCase):
             "jobId": "job-1",
             "technicalLogPath": "internal/technical_log.jsonl",
             "queueStatus": "partial",
+            "pauseKind": "external_provider",
             "blockedQuestionCount": 1,
             "blockedWorkItemCount": 1,
             "validatedQuestionCount": 57,
@@ -453,6 +454,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         summary = payload["runs"][0]
         self.assertEqual(summary["workItemCount"], 406)
         self.assertEqual(summary["queueStatus"], "partial")
+        self.assertEqual(summary["pauseKind"], "external_provider")
         self.assertEqual(summary["blockedQuestionCount"], 1)
         self.assertEqual(
             summary["questionExecutionSummary"]["validatedQuestionCount"],

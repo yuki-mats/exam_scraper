@@ -578,11 +578,7 @@ def resume_plan(
                 if previous_status == "validated":
                     previous_policy = previous.get("policyFingerprint")
                     if previous_policy is None:
-                        # Legacy manifests predate per-item policy fingerprints.
-                        # Their validated status remains authoritative; comparing
-                        # the pre-write state hash would mistake the stage's own
-                        # patch for a new input and rerun successful work.
-                        needs_resume = False
+                        needs_resume = current_target_exists
                     else:
                         current_policy = str(
                             (stage_plan.get("policyFingerprints") or {}).get(

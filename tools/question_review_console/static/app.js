@@ -447,6 +447,7 @@ function bindControls() {
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
     renderQueue();
+    if (state.detail) renderDetail();
   });
   $("#maintenance-start").addEventListener("click", () => openRequiredMaintenance());
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
@@ -1419,17 +1420,24 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     progress?.blockedQuestionCount || run?.blockedQuestionCount || 0,
   );
   const blockedWork = Number(progress?.blockedWorkItemCount || run?.blockedWorkItemCount || 0);
+  const pendingWork = Number(
+    progress?.questionExecutionSummary?.pendingWorkItemCount
+    ?? run?.questionExecutionSummary?.pendingWorkItemCount
+    ?? Math.max(0, targetWork - processedWork),
+  );
   const invalidated = run?.status === "invalidated";
   const verified = Boolean(
     !invalidated
-    && (
-      progress?.verified === true
-      || (run?.status === "succeeded" && run?.receiptValidated === true)
-    )
+    && (progress?.verified === true || (
+      run?.receiptValidated === true
+      && (
+        run?.status === "succeeded"
+        || (run?.status === "failed" && run?.queueStatus === "partial")
+      )
+    ))
   );
   const partial = Boolean(
-    run?.status === "succeeded"
-    && verified
+    verified
     && run?.queueStatus === "partial"
     && blockedQuestions > 0
   );
@@ -1467,7 +1475,7 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     phase = "最終検証中";
     statusLabel = "最終検証中";
     summary = `${progressText}の問題処理が終わり、安全ガードと完了記録を確認しています。`;
-  } else if (run?.status === "succeeded" && verified && partial) {
+  } else if (verified && partial) {
     phase = "一部保留";
     statusLabel = `${blockedQuestions}問保留`;
     summary = `${completedQuestions}/${targetQuestions}問を確定し、${blockedQuestions}問・${blockedWork}工程を理由付きで保留しました。`;
@@ -1528,6 +1536,7 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
     phase,
     phaseStates,
     partial,
+    pendingWork,
     progressText,
     statusLabel,
     summary,
@@ -1540,9 +1549,13 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
 }
 
 function qualificationRunCanRetryBlocked(run, view) {
+  const hasBlockedWork = run?.queueStatus === "partial"
+    && Number(view?.blockedQuestions || 0) > 0;
+  const hasInterruptedWork = run?.status === "interrupted"
+    && run?.queueStatus === "interrupted"
+    && Number(view?.pendingWork || 0) > 0;
   return Boolean(
-    run?.queueStatus === "partial"
-    && Number(view?.blockedQuestions || 0) > 0
+    (hasBlockedWork || hasInterruptedWork)
     && !view?.active
     && run?.retrySafe !== false
   );
@@ -1694,7 +1707,10 @@ function renderQualificationActiveRun() {
   historyList.replaceChildren();
   for (const item of state.qualificationRuns) {
     const row = element("div", "qualification-run-history-row");
-    const itemVerified = item.status === "succeeded" && item.receiptValidated === true;
+    const itemVerified = item.receiptValidated === true && (
+      item.status === "succeeded"
+      || (item.status === "failed" && item.queueStatus === "partial")
+    );
     const itemUnverified = item.status === "succeeded" && !itemVerified;
     const itemPartial = itemVerified
       && item.queueStatus === "partial"
@@ -1873,7 +1889,7 @@ function renderQualificationRunGroups(stage, selectedGroupIds) {
   const groups = state.qualificationWorkflow.groups || [];
   const scopeName = scopeLabelForGroups(groups.map((group) => group.listGroupId));
   $("#qualification-run-group-legend").textContent = `対象${scopeName}（複数選択可）`;
-  $("#qualification-run-group-refresh-label").textContent = `選択${scopeName}を全件洗い替え`;
+  $("#qualification-run-group-refresh-label").textContent = `選択${scopeName}の全問題を再整備`;
   for (const group of groups) {
     const label = element("label", "");
     const input = document.createElement("input");
@@ -2827,12 +2843,15 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
 
 function retryBlockedQualificationRun() {
   const run = displayedQualificationRun();
-  if (
-    !run
-    || run.retrySafe === false
-    || run.queueStatus !== "partial"
-    || !Number(run.blockedQuestionCount || 0)
-  ) return;
+  if (!run) return;
+  const progress = qualificationRunProgressForRun(
+    state.qualificationRunProgress,
+    run.runId,
+  );
+  if (!qualificationRunCanRetryBlocked(
+    run,
+    qualificationRunViewState(run, progress),
+  )) return;
   const stageIds = Array.isArray(run.stageIds) ? run.stageIds.filter(Boolean) : [];
   const firstStage = state.qualificationWorkflow?.stages?.find((stage) => stage.id === stageIds[0]);
   if (!firstStage) {
@@ -3730,19 +3749,21 @@ function questionReadbackTime(question) {
 function patchSyncAction({
   label = "パッチ変更を反映",
   className = "primary-button",
+  emergency = false,
 } = {}) {
   return actionWithHelp(
     label,
     className,
     () => openSyncDialog(true),
     "パッチ変更を反映",
-    "現在の資格・フォルダだけを対象に、最新patchからMerge、Convert、upload-readyを再生成し、upload dry-runまで自動で検証します。成果物が一致済みでも再実行できます。Firestoreへの書き込みは行いません。必須field不足がある場合は開始しません。",
+    `${emergency ? "非常用の操作です。" : ""}現在の資格・フォルダだけを対象に、最新patchからMerge、Convert、upload-readyを再生成し、upload dry-runまで自動で検証します。${emergency ? "成果物が一致済みでも、必要な場合に限り強制再実行できます。" : ""}Firestoreへの書き込みは行いません。必須field不足がある場合は開始しません。`,
   );
 }
 
 function renderPipelineActions(question) {
   const workflow = question.workflow || {};
   const localReady = ["merge", "convert", "upload"].every((stage) => workflow[stage] === "match");
+  const adminToolsOpen = $("#audit-admin-tools").open;
   const evaluation = question.evaluation || {};
   const node = element(
     "div",
@@ -3828,10 +3849,11 @@ function renderPipelineActions(question) {
       element("span", "", "安全のため本番反映を停止しています。再読込後も続く場合は管理詳細を確認してください。"),
     );
   }
-  if (localReady && !maintenanceBlocksPublication(question)) {
+  if (adminToolsOpen && localReady && !maintenanceBlocksPublication(question)) {
     actions.append(patchSyncAction({
       label: "成果物を再生成",
       className: "secondary-button",
+      emergency: true,
     }));
   }
   node.append(status, actions);

@@ -156,16 +156,16 @@ class RunTargetIdentityResolver:
         query_aliases = (
             target_identity_aliases(query) if query is not None else {raw_value}
         )
-        legacy = [
+        alias_matches = [
             target
             for target in self.targets
             if query_aliases & target_identity_aliases(target)
         ]
-        if len(legacy) == 1:
-            return legacy[0]
-        if len(legacy) > 1:
+        if len(alias_matches) == 1:
+            return alias_matches[0]
+        if len(alias_matches) > 1:
             raise RunTargetIdentityError(
-                "旧IDが複数targetに一致するため"
+                "aliasが複数targetに一致するため"
                 "一意に解決できません。"
             )
         raise RunTargetIdentityError("policy targetを解決できません。")
@@ -196,7 +196,7 @@ def resolve_policy_target_ids(
     targets: list[Mapping[str, Any]],
     raw_values: Any,
 ) -> tuple[set[str], int]:
-    """Resolve old policy aliases only when they identify one run target."""
+    """Accept only current run target IDs in the policy contract."""
 
     resolved: set[str] = set()
     if not isinstance(raw_values, list):
@@ -207,14 +207,17 @@ def resolve_policy_target_ids(
         )
     except RunTargetIdentityError:
         return resolved, max(1, len(raw_values))
+    official_ids = {
+        resolver.official_id(target)
+        for target in resolver.targets
+    }
     invalid_count = 0
     for raw_value in raw_values:
-        try:
-            target = resolver.resolve(raw_value)
-        except RunTargetIdentityError:
+        target_id = str(raw_value).strip() if isinstance(raw_value, str) else ""
+        if target_id not in official_ids:
             invalid_count += 1
             continue
-        resolved.add(resolver.official_id(target))
+        resolved.add(target_id)
     return resolved, invalid_count
 
 

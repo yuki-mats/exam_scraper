@@ -41,7 +41,7 @@ def stage_plan(stage_id: str, targets: list[dict]) -> dict:
         "stageLabel": stage_id,
         "kind": "human",
         "mode": "group_refresh",
-        "modeLabel": "2026を全件洗い替え",
+        "modeLabel": "2026の全問題を再整備",
         "targetCount": len(targets),
         "targetGroupIds": ["2026"],
         "scopeListGroupIds": ["2026"],
@@ -313,7 +313,7 @@ class QuestionWorkQueueTests(unittest.TestCase):
             ["q1"],
         )
 
-    def test_resume_trusts_legacy_validated_item_without_policy_fingerprint(
+    def test_resume_requeues_validated_item_without_policy_fingerprint(
         self,
     ) -> None:
         executions = build_question_executions(self.plan)
@@ -326,7 +326,7 @@ class QuestionWorkQueueTests(unittest.TestCase):
         for stage_plan_value in changed["stagePlans"]:
             for current_target in stage_plan_value["progressTargets"]:
                 if current_target["id"] == "q1":
-                    current_target["stateHash"] = "changed-after-legacy-run"
+                    current_target["stateHash"] = "changed-after-previous-run"
 
         resumed = resume_plan(changed, executions)
         rebuilt = build_question_executions(resumed)
@@ -337,7 +337,11 @@ class QuestionWorkQueueTests(unittest.TestCase):
                 for question in rebuilt
                 for stage in question["stages"]
             ],
-            [("q2", "law_audit")],
+            [
+                ("q1", "explanation"),
+                ("q1", "law_audit"),
+                ("q2", "law_audit"),
+            ],
         )
 
 

@@ -111,6 +111,7 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "executionPhase",
     "currentPhaseId",
     "queueStatus",
+    "pauseKind",
     "retrySafe",
     "retryUnsafeReason",
     "blockedQuestionCount",

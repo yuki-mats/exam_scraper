@@ -88,6 +88,12 @@ from tools.question_review_console.run_target_identity import (
     resolve_policy_target_ids,
     target_identity_aliases,
 )
+from tools.question_review_console.validation_feedback import (
+    build_child_feedback,
+    build_improvement_report,
+    feedback_prompt,
+    write_improvement_report,
+)
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
 from tools.question_review_console.workflow_runner import (
@@ -121,6 +127,7 @@ PROGRESS_RESULT_FIELDS = {
 MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
+MAX_WRITER_VALIDATION_ATTEMPTS = 3
 ALLOWED_MAINTENANCE_DIR_NAMES = {
     "10_questionType_fixed",
     "15_correctChoiceText_fixed",
@@ -462,6 +469,14 @@ class QuestionItemError(QualificationRunError):
     """一問だけを保留できる対象解決エラー。"""
 
 
+class QuestionQueuePaused(QualificationRunError):
+    """再開可能な外部停止又は安全条件の停止。"""
+
+    def __init__(self, message: str, *, pause_kind: str) -> None:
+        super().__init__(message)
+        self.pause_kind = pause_kind
+
+
 def _maintenance_research_prompt(prompt: str) -> str:
     base_prompt = prompt.partition("\n## 画面用の問題別進捗\n")[0].rstrip()
     return "\n".join(
@@ -498,23 +513,27 @@ def _maintenance_writer_prompt(prompt: str, research_summary: str) -> str:
     )
 
 
-def _preparation_retryable(exc: Exception) -> bool:
-    if not isinstance(exc, CodexAppServerError) or isinstance(
-        exc, SubscriptionGateError
-    ):
-        return False
-    message = str(exc).casefold()
-    return any(
-        marker in message
-        for marker in (
-            "時間切れ",
-            "停止しています",
-            "送信に失敗",
-            "stdio",
-            "起動できません",
-            "selected model is at capacity",
-        )
-    )
+def _writer_retry_prompt(
+    writer_prompt: str,
+    feedback_history: list[Mapping[str, Any]],
+) -> str:
+    sections = [writer_prompt]
+    for feedback in feedback_history:
+        section = feedback_prompt(feedback).strip()
+        if section:
+            sections.append(section)
+    return "\n\n".join(sections)
+
+
+def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None:
+    current: BaseException | None = exc
+    seen: set[int] = set()
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        if isinstance(current, (SubscriptionGateError, CodexAppServerError)):
+            return current
+        current = current.__cause__ or current.__context__
+    return None
 
 
 def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
@@ -542,6 +561,19 @@ def _child_retry_safe(child: Mapping[str, Any]) -> bool:
         result = child.get("result")
         return not isinstance(result, Mapping) or not result.get("changedFiles")
     return _isolated_failure_state(child)
+
+
+def _terminal_receipt_validated(run: Mapping[str, Any]) -> bool:
+    return bool(
+        run.get("receiptValidated") is True
+        and (
+            run.get("status") == "succeeded"
+            or (
+                run.get("status") == "failed"
+                and run.get("queueStatus") == "partial"
+            )
+        )
+    )
 
 
 def _child_output_fingerprint(child: Mapping[str, Any]) -> str:
@@ -734,6 +766,49 @@ def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]
     return phases
 
 
+def _question_phase_completion(
+    executions: Iterable[Mapping[str, Any]],
+    stage_id: str,
+) -> dict[str, Any]:
+    states = [
+        stage
+        for question in executions
+        if isinstance(question, Mapping)
+        for stage in question.get("stages") or []
+        if isinstance(stage, Mapping)
+        and str(stage.get("stageId") or "") == stage_id
+    ]
+    validated = sum(stage.get("status") == "validated" for stage in states)
+    blocked = sum(stage.get("status") == "blocked" for stage in states)
+    not_applicable = sum(
+        stage.get("status") == "not_applicable" for stage in states
+    )
+    pending = len(states) - validated - blocked - not_applicable
+    status = (
+        "pending"
+        if pending
+        else "partial"
+        if blocked
+        else "skipped"
+        if not states or not_applicable == len(states)
+        else "succeeded"
+    )
+    return {
+        "status": status,
+        "targetCount": len(states),
+        "validatedCount": validated,
+        "notApplicableCount": not_applicable,
+        "blockedCount": blocked,
+        "pendingCount": pending,
+        "receiptValidated": validated > 0,
+        "artifactSync": {
+            "status": "deferred" if validated else "not_required",
+            "groups": [],
+        },
+        "error": f"{blocked}問を理由付きで保留しました。" if blocked else None,
+    }
+
+
 class QualificationRunStore:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
@@ -858,6 +933,10 @@ class QualificationRunStore:
                 ("progressTargets", progress_targets),
                 ("targetRecordBindings", target_record_bindings),
             )
+            official_target_ids = {
+                target_resolver.official_id(target)
+                for target in target_resolver.targets
+            }
             policy_targets: dict[str, list[str]] = {}
             for stage_id, raw_values in (plan.get("policyTargets") or {}).items():
                 if not isinstance(raw_values, list):
@@ -866,8 +945,16 @@ class QualificationRunStore:
                     )
                 normalized: list[str] = []
                 for raw_value in raw_values:
-                    target = target_resolver.resolve(raw_value)
-                    normalized.append(target_resolver.official_id(target))
+                    target_id = (
+                        str(raw_value).strip()
+                        if isinstance(raw_value, str)
+                        else ""
+                    )
+                    if target_id not in official_target_ids:
+                        raise RunTargetIdentityError(
+                            f"{stage_id}のpolicy targetが現在の問題IDではありません。"
+                        )
+                    normalized.append(target_id)
                 policy_targets[str(stage_id)] = list(
                     dict.fromkeys(normalized)
                 )
@@ -1642,10 +1729,7 @@ class QualificationRunStore:
                 round((len(processed_work_items) / target_work) * 100),
             )
         payload["status"] = manifest.get("status")
-        payload["verified"] = bool(
-            manifest.get("status") == "succeeded"
-            and manifest.get("receiptValidated") is True
-        )
+        payload["verified"] = _terminal_receipt_validated(manifest)
         payload["events"] = events[-40:]
         payload["questions"] = questions
         payload["current"] = copy.deepcopy(events[-1]) if events else None
@@ -1778,10 +1862,7 @@ class QualificationRunStore:
         return {
             "runId": manifest.get("runId"),
             "status": manifest.get("status"),
-            "verified": bool(
-                manifest.get("status") == "succeeded"
-                and manifest.get("receiptValidated") is True
-            ),
+            "verified": _terminal_receipt_validated(manifest),
             "targetQuestionCount": int(manifest.get("targetCount") or 0),
             "completedQuestionCount": 0,
             "touchedQuestionCount": 0,
@@ -2008,10 +2089,7 @@ class QualificationRunStore:
         planned_by_question: dict[str, set[str]] = {}
         for question_id, stage_id in planned_work_items or set():
             planned_by_question.setdefault(question_id, set()).add(stage_id)
-        verified_run = bool(
-            manifest.get("status") == "succeeded"
-            and manifest.get("receiptValidated") is True
-        )
+        verified_run = _terminal_receipt_validated(manifest)
         validated_work_items = processed_work_items if verified_run else set()
         completion = derive_progress_completion(
             {str(target["id"]) for target in targets},
@@ -2248,11 +2326,13 @@ class QualificationRunStore:
                 "artifactSync未完了の説明がありません。"
             )
 
+        partial = str(manifest.get("queueStatus") or "") == "partial"
+        terminal_status = "failed" if partial else "succeeded"
         result = manifest.get("result")
         if (
-            (not isinstance(result, Mapping) or result.get("status") != "succeeded")
-            and result_if_missing is not None
-        ):
+            not isinstance(result, Mapping)
+            or result.get("status") != terminal_status
+        ) and result_if_missing is not None:
             result = self._validated_result_receipt(result_if_missing)
             receipt_path = self._result_path(manifest_path, manifest)
             self._write_json(receipt_path, result)
@@ -2266,14 +2346,18 @@ class QualificationRunStore:
         now = _now()
         manifest.update(
             {
-                "status": "succeeded",
+                "status": terminal_status,
                 "receiptValidated": True,
                 "artifactSync": {
                     "status": artifact_status,
                     "groups": copy.deepcopy(list(current_sync.get("groups") or [])),
                     "message": sync_message,
                 },
-                "error": None,
+                "error": (
+                    str(result.get("summary") or "")
+                    if partial and isinstance(result, Mapping)
+                    else None
+                ),
                 "updatedAt": now,
                 "finishedAt": now,
             }
@@ -2322,6 +2406,173 @@ class QualificationRunStore:
         expected = SourceIdentityBinding.from_mapping(question)
         actual = SourceIdentityBinding.from_mapping(targets[0])
         return expected.is_complete() and expected == actual
+
+    def _recover_parent_shared_prerequisites(
+        self,
+        manifest: dict[str, Any],
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str | None]:
+        phases = [
+            dict(value)
+            for value in manifest.get("phaseExecutions") or []
+            if isinstance(value, Mapping)
+        ]
+        recovered_receipts: list[dict[str, Any]] = []
+        confirmed_group_ids = {
+            str(value) for value in manifest.get("confirmedGroupIds") or [] if value
+        }
+        qualification = str(manifest.get("qualification") or "")
+        parent_run_id = str(manifest.get("runId") or "")
+        child_ids = [
+            str(value) for value in manifest.get("childRunIds") or [] if value
+        ]
+        children: dict[str, tuple[Path, dict[str, Any]]] = {}
+        missing_child_ids: list[str] = []
+        for child_id in child_ids:
+            try:
+                child_path = self._manifest_path(qualification, child_id)
+                children[child_id] = (child_path, self._load_manifest(child_path))
+            except (OSError, QualificationRunError, ValueError):
+                missing_child_ids.append(child_id)
+
+        unsafe_child_id: str | None = None
+        for phase in phases:
+            phase_id = str(phase.get("id") or "")
+            if (
+                phase_id not in {"setup", "category_setup"}
+                or str(phase.get("status") or "") != "running"
+            ):
+                continue
+            matches = [
+                (child_id, child_path, child)
+                for child_id, (child_path, child) in children.items()
+                if str(child.get("parentRunId") or "") == parent_run_id
+                and str(child.get("flowPhaseId") or "") == phase_id
+            ]
+            if not matches and not missing_child_ids:
+                phase.update(
+                    status="pending",
+                    childRunIds=[],
+                    receiptValidated=False,
+                    artifactSync={"status": "not_required", "groups": []},
+                    finishedAt=None,
+                    error="共有前提のwriter開始前に停止したため再実行できます。",
+                )
+                continue
+            if len(matches) != 1 or missing_child_ids:
+                unsafe_child_id = (
+                    missing_child_ids[0]
+                    if missing_child_ids
+                    else matches[0][0]
+                    if matches
+                    else "unknown"
+                )
+                reason = (
+                    "再起動前の共有前提childを親runと一意に照合できないため、"
+                    "安全側で後続writerを停止しました。"
+                )
+                phase.update(status="failed", error=reason, finishedAt=_now())
+                manifest.update(
+                    retrySafe=False,
+                    retryUnsafeReason=reason,
+                    unsafeChildRunId=unsafe_child_id,
+                )
+                break
+
+            child_id, child_path, child = matches[0]
+            if (
+                child.get("status") == "validating"
+                and child.get("receiptValidated") is True
+            ):
+                child.update(
+                    status="succeeded",
+                    error=None,
+                    finishedAt=child.get("finishedAt") or _now(),
+                    updatedAt=_now(),
+                )
+                self._write_manifest(child_path, child)
+            receipt = child.get("workVersionReceipt")
+            result = child.get("result")
+            child_succeeded = bool(
+                child.get("status") == "succeeded"
+                and child.get("receiptValidated") is True
+                and isinstance(result, Mapping)
+                and result.get("status") == "succeeded"
+                and child.get("deltaUnknown") is not True
+                and isinstance(receipt, Mapping)
+            )
+            if child_succeeded:
+                phase.update(
+                    status="succeeded",
+                    childRunIds=[child_id],
+                    threadId=child.get("threadId"),
+                    sessionId=child.get("sessionId"),
+                    turnId=child.get("turnId"),
+                    model=child.get("model"),
+                    serviceTier=child.get("serviceTier"),
+                    reasoningEffort=child.get("reasoningEffort"),
+                    receiptValidated=True,
+                    workVersionReceipt=receipt,
+                    artifactSync={"status": "deferred", "groups": []},
+                    finishedAt=_now(),
+                    error=None,
+                )
+                recovered_receipts.append(dict(receipt))
+                if int(receipt.get("recordedCount") or 0):
+                    confirmed_group_ids.update(
+                        str(value)
+                        for value in child.get("targetGroupIds") or []
+                        if value
+                    )
+                continue
+
+            if (
+                (not child.get("startedAt") and _child_retry_safe(child))
+                or _isolated_failure_state(child)
+            ):
+                phase.update(
+                    status="pending",
+                    childRunIds=[child_id],
+                    receiptValidated=False,
+                    artifactSync={"status": "not_required", "groups": []},
+                    finishedAt=None,
+                    error=(
+                        str(child.get("error") or "")
+                        or "共有前提を再実行できます。"
+                    ),
+                )
+                continue
+
+            unsafe_child_id = child_id
+            reason = (
+                "再起動前の共有前提childでrollback又は確定receiptを"
+                "確認できないため、安全側で後続writerを停止しました。"
+            )
+            phase.update(status="failed", error=reason, finishedAt=_now())
+            manifest.update(
+                retrySafe=False,
+                retryUnsafeReason=reason,
+                unsafeChildRunId=unsafe_child_id,
+            )
+            break
+
+        if unsafe_child_id:
+            reason = str(manifest.get("retryUnsafeReason") or "再開できません。")
+            executions = copy.deepcopy(list(manifest.get("questionExecutions") or []))
+            for question in executions:
+                if not isinstance(question, dict):
+                    continue
+                for stage_index, stage in enumerate(question.get("stages") or []):
+                    if str(stage.get("status") or "") in {
+                        "validated",
+                        "not_applicable",
+                        "blocked",
+                    }:
+                        continue
+                    self._block_execution_from(question, stage_index, reason)
+                    break
+            manifest["questionExecutions"] = executions
+        manifest["confirmedGroupIds"] = sorted(confirmed_group_ids)
+        return phases, recovered_receipts, unsafe_child_id
 
     def _recover_parent_committing_executions(
         self,
@@ -2383,6 +2634,29 @@ class QualificationRunStore:
                     and isinstance(receipt, Mapping)
                 )
                 if child_succeeded:
+                    validation_attempts = [
+                        dict(value)
+                        for value in stage.get("validationAttempts") or []
+                        if isinstance(value, Mapping)
+                    ]
+                    for attempt in reversed(validation_attempts):
+                        if str(attempt.get("childRunId") or "") != child_id:
+                            continue
+                        attempt_number = int(
+                            attempt.get("attempt") or len(validation_attempts) or 1
+                        )
+                        attempt.update(
+                            status="validated",
+                            feedback=build_child_feedback(
+                                child,
+                                attempt=attempt_number,
+                                question_id=str(question.get("questionId") or ""),
+                                stage_id=expected_stage_id,
+                            ),
+                            finishedAt=attempt.get("finishedAt") or _now(),
+                        )
+                        stage["validationAttempts"] = validation_attempts
+                        break
                     stage.update(
                         status="validated",
                         outputFingerprint=_child_output_fingerprint(child),
@@ -2460,7 +2734,30 @@ class QualificationRunStore:
             )
             for path in paths:
                 manifest = self._load_manifest(path)
-                if manifest.get("status") not in {"queued", "running", "validating"}:
+                status = str(manifest.get("status") or "")
+                recoverable_paused_parent = bool(
+                    status == "interrupted"
+                    and manifest.get("kind") == "orchestration"
+                    and isinstance(manifest.get("questionExecutions"), list)
+                    and (
+                        any(
+                            str(stage.get("status") or "")
+                            in {"preparing", "prepared", "committing"}
+                            for question in manifest["questionExecutions"]
+                            if isinstance(question, Mapping)
+                            for stage in question.get("stages") or []
+                            if isinstance(stage, Mapping)
+                        )
+                        or any(
+                            str(phase.get("status") or "") == "running"
+                            for phase in manifest.get("phaseExecutions") or []
+                            if isinstance(phase, Mapping)
+                        )
+                    )
+                )
+                if status not in {"queued", "running", "validating"} and not (
+                    recoverable_paused_parent
+                ):
                     continue
                 if (
                     manifest.get("status") == "validating"
@@ -2503,13 +2800,33 @@ class QualificationRunStore:
                     manifest.get("kind") == "orchestration"
                     and isinstance(manifest.get("questionExecutions"), list)
                 ):
-                    recovered_before_interrupt, recovered_receipts, _unsafe = (
+                    phase_executions, shared_receipts, _shared_unsafe = (
+                        self._recover_parent_shared_prerequisites(manifest)
+                    )
+                    recovered_before_interrupt, question_receipts, _unsafe = (
                         self._recover_parent_committing_executions(manifest)
                     )
+                    recovered_receipts = [*shared_receipts, *question_receipts]
                     recovered_executions = recover_interrupted_executions(
                         recovered_before_interrupt
                     )
                     execution_summary = queue_summary(recovered_executions)
+                    for phase in phase_executions:
+                        stage_id = str(phase.get("id") or "")
+                        if stage_id in {"", "setup", "category_setup"}:
+                            continue
+                        completion = _question_phase_completion(
+                            recovered_executions,
+                            stage_id,
+                        )
+                        phase.update(
+                            **completion,
+                            finishedAt=(
+                                None
+                                if completion["status"] == "pending"
+                                else phase.get("finishedAt") or _now()
+                            ),
+                        )
                     existing_receipt = manifest.get("workVersionReceipt")
                     existing_items = (
                         list(existing_receipt.get("items") or [])
@@ -2540,6 +2857,7 @@ class QualificationRunStore:
                     }
                     manifest.update(
                         questionExecutions=recovered_executions,
+                        phaseExecutions=phase_executions,
                         questionExecutionSummary=execution_summary,
                         workVersionReceipt=work_version_receipt,
                         blockedQuestionCount=execution_summary[
@@ -2571,7 +2889,9 @@ class QualificationRunStore:
                             else "succeeded"
                         )
                         fallback_result = {
-                            "status": "succeeded",
+                            "status": (
+                                "failed" if queue_status == "partial" else "succeeded"
+                            ),
                             "summary": (
                                 "一問writerの確定receiptを再起動時に照合しました。"
                                 "公開用データの同期だけ再実行が必要です。"
@@ -4874,118 +5194,144 @@ class QualificationRunCoordinator:
                 projectedInputPath=projected_input["path"],
                 projectedInputHash=projected_input["hash"],
             )
-        last_error: Exception | None = None
-        for retry_index in range(2):
-            attempts = int(initial.get("attempts") or 0) + retry_index + 1
+        attempts = int(initial.get("attempts") or 0) + 1
+        self.store.update_question_stage(
+            qualification,
+            run_id,
+            question_id,
+            stage_id,
+            status="preparing",
+            attempts=attempts,
+            startedAt=_now(),
+            finishedAt=None,
+            error=None,
+        )
+
+        def on_thread_started(thread_id: str, session_id: str) -> None:
             self.store.update_question_stage(
                 qualification,
                 run_id,
                 question_id,
                 stage_id,
-                status="preparing",
-                attempts=attempts,
-                startedAt=_now(),
-                finishedAt=None,
-                error=None,
+                preparationThreadId=thread_id,
+                preparationSessionId=session_id,
             )
 
-            def on_thread_started(thread_id: str, session_id: str) -> None:
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    preparationThreadId=thread_id,
-                    preparationSessionId=session_id,
-                )
+        def on_turn_started(_thread_id: str, turn_id: str) -> None:
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                preparationTurnId=turn_id,
+            )
 
-            def on_turn_started(_thread_id: str, turn_id: str) -> None:
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    preparationTurnId=turn_id,
-                )
+        def heartbeat() -> None:
+            heartbeat_at = _now()
+            self.store.update(
+                qualification,
+                run_id,
+                heartbeatAt=heartbeat_at,
+            )
+            job_heartbeat = getattr(emit, "heartbeat", None)
+            if callable(job_heartbeat):
+                job_heartbeat()
 
-            def heartbeat() -> None:
-                heartbeat_at = _now()
-                self.store.update(
-                    qualification,
-                    run_id,
-                    heartbeatAt=heartbeat_at,
-                )
-                job_heartbeat = getattr(emit, "heartbeat", None)
-                if callable(job_heartbeat):
-                    job_heartbeat()
-
-            try:
-                with tempfile.TemporaryDirectory(
-                    prefix=f"question-preparation-{work_key}-"
-                ) as directory:
-                    result = self.app_server.run_turn(
-                        _question_scope_prompt(
-                            phase_prompt,
-                            scoped_target,
-                            repo_root=self.repo_root,
-                            read_only=True,
-                            scoped_plan=(
-                                target.get("_scopedPlan")
-                                if isinstance(target.get("_scopedPlan"), Mapping)
-                                else None
-                            ),
+        try:
+            with tempfile.TemporaryDirectory(
+                prefix=f"question-preparation-{work_key}-"
+            ) as directory:
+                result = self.app_server.run_turn(
+                    _question_scope_prompt(
+                        phase_prompt,
+                        scoped_target,
+                        repo_root=self.repo_root,
+                        read_only=True,
+                        scoped_plan=(
+                            target.get("_scopedPlan")
+                            if isinstance(target.get("_scopedPlan"), Mapping)
+                            else None
                         ),
-                        work_type=f"maintenance_prepare_{stage_id}",
-                        sandbox="read-only",
-                        emit=emit,
-                        on_thread_started=on_thread_started,
-                        on_turn_started=on_turn_started,
-                        heartbeat=heartbeat,
-                        cwd=Path(directory).resolve(),
-                    )
-                if result.changed_files:
-                    raise QualificationRunError(
-                        "一問のread-only準備でfile変更通知を検出しました。"
-                    )
-                proposal = self.question_proposals.write(
-                    qualification,
-                    run_id,
-                    work_item_key=work_key,
-                    question_id=question_id,
-                    stage_id=stage_id,
-                    input_fingerprint=input_hash,
-                    summary=result.final_message,
-                    thread_id=result.thread_id,
-                    session_id=result.session_id,
-                    turn_id=result.turn_id,
+                    ),
+                    work_type=f"maintenance_prepare_{stage_id}",
+                    sandbox="read-only",
+                    emit=emit,
+                    on_thread_started=on_thread_started,
+                    on_turn_started=on_turn_started,
+                    heartbeat=heartbeat,
+                    cwd=Path(directory).resolve(),
+                )
+            if result.changed_files:
+                reason = (
+                    "read-only準備でfile変更通知を検出しました。"
+                    "書込安全性を確認後にqueueを再開してください。"
                 )
                 self.store.update_question_stage(
                     qualification,
                     run_id,
                     question_id,
                     stage_id,
-                    status="prepared",
-                    preparationPath=proposal["path"],
-                    preparationHash=proposal["hash"],
-                    preparationThreadId=result.thread_id,
-                    preparationSessionId=result.session_id,
-                    preparationTurnId=result.turn_id,
-                    error=None,
+                    status="blocked",
+                    error=reason,
+                    pauseReason=reason,
+                    finishedAt=_now(),
+                    block_dependents=True,
                 )
-                return True
-            except Exception as exc:  # noqa: BLE001
-                last_error = exc
-                if retry_index == 0 and _preparation_retryable(exc):
-                    emit(
-                        f"{target.get('displayLabel') or question_id}: "
-                        "一時的な通信失敗のため読取専用準備を一度だけ再試行します。"
-                    )
-                    heartbeat()
-                    time.sleep(5 + secrets.randbelow(1000) / 1000)
-                    heartbeat()
-                    continue
-                break
-        reason = str(last_error or "一問の準備を完了できませんでした。")
+                raise QuestionQueuePaused(
+                    reason,
+                    pause_kind="read_only_violation",
+                )
+            proposal = self.question_proposals.write(
+                qualification,
+                run_id,
+                work_item_key=work_key,
+                question_id=question_id,
+                stage_id=stage_id,
+                input_fingerprint=input_hash,
+                summary=result.final_message,
+                thread_id=result.thread_id,
+                session_id=result.session_id,
+                turn_id=result.turn_id,
+            )
+            self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                status="prepared",
+                preparationPath=proposal["path"],
+                preparationHash=proposal["hash"],
+                preparationThreadId=result.thread_id,
+                preparationSessionId=result.session_id,
+                preparationTurnId=result.turn_id,
+                error=None,
+            )
+            return True
+        except QuestionQueuePaused:
+            raise
+        except Exception as exc:  # noqa: BLE001
+            provider_failure = _external_provider_failure(exc)
+            if provider_failure is not None:
+                reason = (
+                    "Codex App Serverの利用可否を回復後に再開してください: "
+                    f"{provider_failure}"
+                )
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="blocked",
+                    error=reason,
+                    pauseReason=reason,
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                raise QuestionQueuePaused(
+                    reason,
+                    pause_kind="external_provider",
+                ) from exc
+            reason = str(exc or "一問の準備を完了できませんでした。")
         self.store.update_question_stage(
             qualification,
             run_id,
@@ -5332,7 +5678,7 @@ class QualificationRunCoordinator:
             writeWorkerLimit=1,
             parentSourceChecked=True,
         )
-        writer_prompt = _maintenance_writer_prompt(
+        base_writer_prompt = _maintenance_writer_prompt(
             _question_scope_prompt(
                 phase_prompt,
                 target,
@@ -5342,75 +5688,234 @@ class QualificationRunCoordinator:
             ),
             research_summary,
         )
-        child = self.store.create(child_plan, status="queued", prompt=writer_prompt)
-        child_id = str(child["runId"])
-        child_run_ids.append(child_id)
-        phase_child_ids.setdefault(stage_id, []).append(child_id)
-        self.store.update(
-            qualification,
-            run_id,
-            childRunIds=list(child_run_ids),
-            currentPhaseId=stage_id,
-            executionPhase=f"committing:{stage_id}",
-        )
-        self.store.update_question_stage(
-            qualification,
-            run_id,
-            question_id,
-            stage_id,
-            status="committing",
-            childRunIds=[*list(queue_stage.get("childRunIds") or []), child_id],
-            error=None,
-        )
-        try:
-            self._run_human(
-                qualification,
-                child_id,
-                self.store.prompt(qualification, child_id),
-                str(child_plan["workType"]),
-                emit,
-                sync_artifacts=False,
-            )
-            child = self.store.refresh(qualification, child_id)
-            if child.get("status") != "succeeded" or not child.get(
-                "receiptValidated"
-            ):
-                raise QualificationRunError("一問の完了結果を検証できませんでした。")
-        except Exception as exc:  # noqa: BLE001
-            try:
-                child = self.store.refresh(qualification, child_id)
-            except Exception:  # noqa: BLE001
-                pass
-            reason = str((child or {}).get("error") or exc)
+        stage_child_ids = [
+            str(value) for value in queue_stage.get("childRunIds") or [] if value
+        ]
+        validation_attempts = [
+            dict(value)
+            for value in queue_stage.get("validationAttempts") or []
+            if isinstance(value, Mapping)
+        ]
+        feedback_history = [
+            dict(value["feedback"])
+            for value in validation_attempts
+            if isinstance(value.get("feedback"), Mapping)
+        ]
+
+        def update_validation_stage(
+            *,
+            block_dependents: bool = False,
+            **changes: Any,
+        ) -> None:
             self.store.update_question_stage(
                 qualification,
                 run_id,
                 question_id,
                 stage_id,
+                childRunIds=list(stage_child_ids),
+                validationAttempts=copy.deepcopy(validation_attempts),
+                block_dependents=block_dependents,
+                **changes,
+            )
+
+        child: dict[str, Any] = {}
+        while len(validation_attempts) < MAX_WRITER_VALIDATION_ATTEMPTS:
+            attempt_number = len(validation_attempts) + 1
+            writer_prompt = _writer_retry_prompt(
+                base_writer_prompt,
+                feedback_history,
+            )
+            child = self.store.create(
+                child_plan,
+                status="queued",
+                prompt=writer_prompt,
+            )
+            child_id = str(child["runId"])
+            child_run_ids.append(child_id)
+            phase_child_ids.setdefault(stage_id, []).append(child_id)
+            stage_child_ids.append(child_id)
+            validation_attempts.append(
+                {
+                    "attempt": attempt_number,
+                    "childRunId": child_id,
+                    "status": "running",
+                    "feedback": None,
+                    "startedAt": _now(),
+                    "finishedAt": None,
+                }
+            )
+            self.store.update(
+                qualification,
+                run_id,
+                childRunIds=list(child_run_ids),
+                currentPhaseId=stage_id,
+                executionPhase=f"committing:{stage_id}",
+            )
+            update_validation_stage(
+                status="committing",
+                error=None,
+            )
+            try:
+                self._run_human(
+                    qualification,
+                    child_id,
+                    self.store.prompt(qualification, child_id),
+                    str(child_plan["workType"]),
+                    emit,
+                    sync_artifacts=False,
+                )
+                child = self.store.refresh(qualification, child_id)
+                if child.get("status") != "succeeded" or not child.get(
+                    "receiptValidated"
+                ):
+                    raise QualificationRunError(
+                        "一問の完了結果を検証できませんでした。"
+                    )
+            except Exception as exc:  # noqa: BLE001
+                try:
+                    child = self.store.refresh(qualification, child_id)
+                except Exception:  # noqa: BLE001
+                    pass
+                reason = str((child or {}).get("error") or exc)
+                isolated_failure = self._isolated_child_failure(child or {})
+                provider_failure = _external_provider_failure(exc)
+                if provider_failure is not None and isolated_failure:
+                    pause_reason = (
+                        "Codex App Serverの利用可否を回復後に再開してください: "
+                        f"{provider_failure}"
+                    )
+                    validation_attempts[-1].update(
+                        status="interrupted",
+                        feedback=None,
+                        pauseReason=pause_reason,
+                        finishedAt=_now(),
+                    )
+                    update_validation_stage(
+                        status="blocked",
+                        error=pause_reason,
+                        pauseReason=pause_reason,
+                        finishedAt=_now(),
+                        block_dependents=True,
+                    )
+                    pipeline_stop.set()
+                    pause = QuestionQueuePaused(
+                        pause_reason,
+                        pause_kind="external_provider",
+                    )
+                    self._persist_queue_pause(qualification, run_id, pause)
+                    raise pause from exc
+                feedback = build_child_feedback(
+                    child or {},
+                    attempt=attempt_number,
+                    question_id=question_id,
+                    stage_id=stage_id,
+                )
+                validation_attempts[-1].update(
+                    status="failed",
+                    feedback=feedback,
+                    finishedAt=_now(),
+                )
+                safety_violation = feedback.get("status") == "blocked"
+                if not isolated_failure:
+                    unsafe_reason = (
+                        f"{target.get('displayLabel') or question_id}: "
+                        "失敗後のrollback完了を検証できないため、"
+                        "後続writerと成果物同期を停止しました。"
+                    )
+                    update_validation_stage(
+                        status="blocked",
+                        error=unsafe_reason,
+                        finishedAt=_now(),
+                        block_dependents=True,
+                    )
+                    pipeline_stop.set()
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        retrySafe=False,
+                        retryUnsafeReason=unsafe_reason,
+                        unsafeChildRunId=child_id,
+                    )
+                    self._block_remaining_queue(
+                        qualification,
+                        run_id,
+                        unsafe_reason,
+                    )
+                    raise QualificationRunError(unsafe_reason) from exc
+                if safety_violation:
+                    pause_reason = (
+                        f"{target.get('displayLabel') or question_id}: "
+                        "機械検査が安全性違反を検出しました。"
+                        "原因を修正後にこのqueueを再開してください。"
+                    )
+                    validation_attempts[-1].update(
+                        status="paused",
+                        pauseReason=pause_reason,
+                    )
+                    update_validation_stage(
+                        status="blocked",
+                        error=pause_reason,
+                        pauseReason=pause_reason,
+                        finishedAt=_now(),
+                        block_dependents=True,
+                    )
+                    pipeline_stop.set()
+                    pause = QuestionQueuePaused(
+                        pause_reason,
+                        pause_kind="validation_safety",
+                    )
+                    self._persist_queue_pause(qualification, run_id, pause)
+                    raise pause from exc
+                if attempt_number >= MAX_WRITER_VALIDATION_ATTEMPTS:
+                    update_validation_stage(
+                        status="blocked",
+                        error=reason,
+                        finishedAt=_now(),
+                        block_dependents=True,
+                    )
+                    emit(
+                        f"{target.get('displayLabel') or question_id}: "
+                        f"{attempt_number}回の機械検査で合格しないため、"
+                        f"この問題だけを保留しました: {reason}"
+                    )
+                    return False
+                feedback_history.append(feedback)
+                update_validation_stage(
+                    status="committing",
+                    error=reason,
+                    finishedAt=None,
+                )
+                emit(
+                    f"{target.get('displayLabel') or question_id}: "
+                    f"機械検査の不備をfeedbackし、"
+                    f"writerを再実行します（{attempt_number + 1}/"
+                    f"{MAX_WRITER_VALIDATION_ATTEMPTS}）: {reason}"
+                )
+                continue
+
+            validation_attempts[-1].update(
+                status="validated",
+                feedback=build_child_feedback(
+                    child,
+                    attempt=attempt_number,
+                    question_id=question_id,
+                    stage_id=stage_id,
+                ),
+                finishedAt=_now(),
+            )
+            update_validation_stage(
+                status="committing",
+                error=None,
+            )
+            break
+
+        if not child:
+            reason = "一問writerの機械検査回数が上限に達しています。"
+            update_validation_stage(
                 status="blocked",
                 error=reason,
                 finishedAt=_now(),
                 block_dependents=True,
-            )
-            if not self._isolated_child_failure(child or {}):
-                unsafe_reason = (
-                    f"{target.get('displayLabel') or question_id}: "
-                    "失敗後のrollback完了を検証できないため、"
-                    "後続writerと成果物同期を停止しました。"
-                )
-                pipeline_stop.set()
-                self.store.update(
-                    qualification,
-                    run_id,
-                    retrySafe=False,
-                    retryUnsafeReason=unsafe_reason,
-                    unsafeChildRunId=child_id,
-                )
-                self._block_remaining_queue(qualification, run_id, unsafe_reason)
-                raise QualificationRunError(unsafe_reason) from exc
-            emit(
-                f"{target.get('displayLabel') or question_id}: "
-                f"この問題だけを保留しました: {reason}"
             )
             return False
 
@@ -5448,7 +5953,7 @@ class QualificationRunCoordinator:
         self.store.update(qualification, run_id, **runtime)
         return True
 
-    def _run_question_major_scope_phase(
+    def _run_shared_prerequisite(
         self,
         qualification: str,
         run_id: str,
@@ -5549,12 +6054,39 @@ class QualificationRunCoordinator:
                     unsafe_reason,
                 )
                 raise QualificationRunError(unsafe_reason) from exc
-            if phase_id == "category_setup":
-                self._block_remaining_queue(qualification, run_id, reason)
-                emit(f"{reason} 後続工程だけを保留します。")
-                return False
+            provider_failure = _external_provider_failure(exc)
+            feedback = build_child_feedback(
+                child,
+                attempt=1,
+                question_id=f"scope:{phase_id}",
+                stage_id=phase_id,
+            )
+            if provider_failure is not None or feedback.get("status") == "blocked":
+                pause_kind = (
+                    "external_provider"
+                    if provider_failure is not None
+                    else "safety_violation"
+                )
+                pause_reason = (
+                    "Codex App Serverの利用可否を回復後に再開してください: "
+                    f"{provider_failure}"
+                    if provider_failure is not None
+                    else f"{phase['label']}の安全性違反を解消後に再開してください。"
+                )
+                self._block_remaining_queue(
+                    qualification,
+                    run_id,
+                    pause_reason,
+                )
+                pause = QuestionQueuePaused(
+                    pause_reason,
+                    pause_kind=pause_kind,
+                )
+                self._persist_queue_pause(qualification, run_id, pause)
+                raise pause from exc
             self._block_remaining_queue(qualification, run_id, reason)
-            raise QualificationRunError(reason) from exc
+            emit(f"{reason} 依存する後続だけを保留します。")
+            return False
         receipt = child.get("workVersionReceipt")
         if isinstance(receipt, Mapping):
             work_version_receipts.append(dict(receipt))
@@ -5595,44 +6127,18 @@ class QualificationRunCoordinator:
             stage_id = str(phase["id"])
             if stage_id in {"setup", "category_setup"}:
                 continue
-            states = [
-                stage
-                for question in parent.get("questionExecutions") or []
-                if isinstance(question, Mapping)
-                for stage in question.get("stages") or []
-                if isinstance(stage, Mapping)
-                and str(stage.get("stageId") or "") == stage_id
-            ]
-            validated = sum(stage.get("status") == "validated" for stage in states)
-            blocked = sum(stage.get("status") == "blocked" for stage in states)
-            not_applicable = sum(
-                stage.get("status") == "not_applicable" for stage in states
-            )
-            status = (
-                "partial"
-                if blocked
-                else "skipped"
-                if not states or not_applicable == len(states)
-                else "succeeded"
+            completion = _question_phase_completion(
+                parent.get("questionExecutions") or [],
+                stage_id,
             )
             self._update_flow_phase(
                 qualification,
                 run_id,
                 stage_id,
-                status=status,
-                targetCount=len(states),
-                validatedCount=validated,
-                notApplicableCount=not_applicable,
-                blockedCount=blocked,
+                **completion,
                 childRunIds=list(phase_child_ids.get(stage_id, [])),
-                receiptValidated=validated > 0,
-                artifactSync={
-                    "status": "deferred" if validated else "not_required",
-                    "groups": [],
-                },
                 **dict(phase_runtime.get(stage_id, {})),
                 finishedAt=_now(),
-                error=(f"{blocked}問を理由付きで保留しました。" if blocked else None),
             )
 
     def _run_question_major_queue(
@@ -5651,6 +6157,19 @@ class QualificationRunCoordinator:
         phase_child_ids: dict[str, list[str]] = {}
         phase_runtime: dict[str, dict[str, Any]] = {}
         pipeline_stop = threading.Event()
+        pipeline_pause_lock = threading.Lock()
+        pipeline_pauses: list[QuestionQueuePaused] = []
+
+        def record_pipeline_pause(pause: QuestionQueuePaused) -> None:
+            with pipeline_pause_lock:
+                if not pipeline_pauses:
+                    pipeline_pauses.append(pause)
+
+        def raise_pipeline_pause() -> None:
+            with pipeline_pause_lock:
+                pause = pipeline_pauses[0] if pipeline_pauses else None
+            if pause is not None:
+                raise pause
 
         def run_segment(segment: list[dict[str, Any]]) -> None:
             if not segment:
@@ -5739,14 +6258,24 @@ class QualificationRunCoordinator:
                 def prepare() -> bool:
                     if pipeline_stop.is_set():
                         return False
-                    prepared = self._prepare_question_item(
-                        qualification,
-                        run_id,
-                        str(spec["phasePrompt"]),
-                        dict(spec["target"]),
-                        str(spec["stageId"]),
-                        emit,
-                    )
+                    try:
+                        prepared = self._prepare_question_item(
+                            qualification,
+                            run_id,
+                            str(spec["phasePrompt"]),
+                            dict(spec["target"]),
+                            str(spec["stageId"]),
+                            emit,
+                        )
+                    except QuestionQueuePaused as pause:
+                        pipeline_stop.set()
+                        record_pipeline_pause(pause)
+                        self._persist_queue_pause(
+                            qualification,
+                            run_id,
+                            pause,
+                        )
+                        raise
                     if pipeline_stop.is_set():
                         self.store.update_question_stage(
                             qualification,
@@ -5765,13 +6294,27 @@ class QualificationRunCoordinator:
 
             with ThreadPoolExecutor(max_workers=worker_limit) as executor:
                 first_entries: dict[int, dict[str, Any]] = {}
-                if questions:
-                    first_entries[0] = submit_entry(executor, questions[0], segment[0])
+                for probe_index, question in enumerate(questions):
+                    entry = submit_entry(executor, question, segment[0])
+                    first_entries[probe_index] = entry
+                    first_future = entry.get("future")
+                    if first_future is None:
+                        continue
+                    # 最初の実準備をprovider probeにする。利用不可のまま
+                    # 複数問を同時送信せず、応答後だけ先読みを開放する。
+                    first_future.result()
+                    break
                 for question_index, question in enumerate(questions):
                     if pipeline_stop.is_set():
+                        raise_pipeline_pause()
                         break
-                    if worker_limit > 1 and question_index + 1 < len(questions):
-                        next_index = question_index + 1
+                    for next_index in range(
+                        question_index + 1,
+                        min(
+                            len(questions),
+                            question_index + worker_limit + 1,
+                        ),
+                    ):
                         if next_index not in first_entries:
                             first_entries[next_index] = submit_entry(
                                 executor,
@@ -5814,12 +6357,7 @@ class QualificationRunCoordinator:
                             )
                             if current and current.get("status") == "blocked":
                                 break
-                    if worker_limit == 1 and question_index + 1 < len(questions):
-                        first_entries[question_index + 1] = submit_entry(
-                            executor,
-                            questions[question_index + 1],
-                            segment[0],
-                        )
+                raise_pipeline_pause()
 
         segment: list[dict[str, Any]] = []
         for phase in phases:
@@ -5828,7 +6366,7 @@ class QualificationRunCoordinator:
                 continue
             run_segment(segment)
             segment = []
-            self._run_question_major_scope_phase(
+            self._run_shared_prerequisite(
                 qualification,
                 run_id,
                 phase,
@@ -5851,6 +6389,56 @@ class QualificationRunCoordinator:
             "confirmedGroupIds": sorted(confirmed_group_ids),
         }
 
+    def _record_improvement_report(
+        self,
+        qualification: str,
+        run_id: str,
+        emit: Callable[[str], None],
+    ) -> str | None:
+        current = self.store.get(qualification, run_id)
+        try:
+            report_path = write_improvement_report(
+                self.store.root / qualification / run_id,
+                build_improvement_report(current.get("questionExecutions") or []),
+            )
+            self.store.update(
+                qualification,
+                run_id,
+                improvementReportPath=str(report_path.relative_to(self.repo_root)),
+                improvementReportWarning=None,
+            )
+            return None
+        except Exception as exc:  # noqa: BLE001
+            warning = (
+                "改善候補reportを保存できませんでした。"
+                f"元の処理結果は維持します: {exc}"
+            )
+            self.store.update(
+                qualification,
+                run_id,
+                improvementReportPath=None,
+                improvementReportWarning=warning,
+            )
+            emit(warning)
+            return warning
+
+    def _persist_queue_pause(
+        self,
+        qualification: str,
+        run_id: str,
+        pause: QuestionQueuePaused,
+    ) -> None:
+        self.store.update(
+            qualification,
+            run_id,
+            status="interrupted",
+            queueStatus="partial",
+            pauseKind=pause.pause_kind,
+            retrySafe=True,
+            retryUnsafeReason=None,
+            error=str(pause),
+        )
+
     def _run_maintenance_flow(
         self,
         qualification: str,
@@ -5865,6 +6453,7 @@ class QualificationRunCoordinator:
             executionPhase="preparing",
             startedAt=_now(),
             error=None,
+            pauseKind=None,
         )
         child_run_ids: list[str] = []
         existing_work_version_receipt = parent.get("workVersionReceipt")
@@ -5889,8 +6478,7 @@ class QualificationRunCoordinator:
             ]
             if str(parent.get("queueOrder") or "") != "question_major":
                 raise QualificationRunError(
-                    "旧形式の工程単位runは直接再開できません。"
-                    "新しいrunで対象範囲を再実行してください。"
+                    "一問queue契約が不正です。対象範囲から新規開始してください。"
                 )
             question_major = self._run_question_major_queue(
                 qualification,
@@ -5916,6 +6504,12 @@ class QualificationRunCoordinator:
             queue_status = (
                 "partial" if execution_summary["blockedQuestionCount"] else "succeeded"
             )
+            improvement_report_warning = self._record_improvement_report(
+                qualification,
+                run_id,
+                emit,
+            )
+            parent = self.store.get(qualification, run_id)
             unique_work_version_receipts: list[dict[str, Any]] = []
             seen_work_version_receipts: set[str] = set()
             for receipt in work_version_receipts:
@@ -6001,11 +6595,9 @@ class QualificationRunCoordinator:
                     "message": "確定済みの変更がないため再生成は不要です。",
                 }
             partial = queue_status == "partial"
-            warning = partial or artifact_sync["status"] not in {
-                "succeeded",
-                "current",
-                "not_required",
-            }
+            warning = bool(improvement_report_warning) or partial or artifact_sync[
+                "status"
+            ] not in {"succeeded", "current", "not_required"}
             result_summary = (
                 f"{execution_summary['validatedQuestionCount']}問を確定し、"
                 f"{execution_summary['blockedQuestionCount']}問を理由付きで保留しました。"
@@ -6013,7 +6605,7 @@ class QualificationRunCoordinator:
                 else "一問queueの整備と最終検証を完了しました。"
             )
             result = {
-                "status": "succeeded",
+                "status": "failed" if partial else "succeeded",
                 "summary": result_summary,
                 "commands": [
                     {
@@ -6062,7 +6654,7 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run_id,
-                status="succeeded",
+                status="failed" if partial else "succeeded",
                 queueStatus=queue_status,
                 executionPhase="done",
                 currentPhaseId=None,
@@ -6070,7 +6662,7 @@ class QualificationRunCoordinator:
                 workVersionReceipt=work_version_receipt,
                 artifactSync=artifact_sync,
                 result=result,
-                error=None,
+                error=(result_summary if partial else None),
             )
             return {
                 "qualification": qualification,
@@ -6080,8 +6672,44 @@ class QualificationRunCoordinator:
                 "questionExecutionSummary": execution_summary,
                 "artifactSync": artifact_sync,
                 "warning": warning,
-                "message": " ".join((result_summary, str(artifact_sync["message"]))),
+                "message": " ".join(
+                    value
+                    for value in (
+                        result_summary,
+                        improvement_report_warning,
+                        str(artifact_sync["message"]),
+                    )
+                    if value
+                ),
             }
+        except QuestionQueuePaused as exc:
+            result = {
+                "status": "failed",
+                "summary": str(exc),
+                "commands": [],
+                "changedFiles": [],
+            }
+            self.store.write_result(qualification, run_id, result)
+            current = self.store.get(qualification, run_id)
+            execution_summary = queue_summary(
+                current.get("questionExecutions") or []
+            )
+            self._record_improvement_report(qualification, run_id, emit)
+            self._persist_queue_pause(qualification, run_id, exc)
+            self.store.update(
+                qualification,
+                run_id,
+                currentPhaseId=None,
+                receiptValidated=False,
+                questionExecutionSummary=execution_summary,
+                blockedQuestionCount=execution_summary["blockedQuestionCount"],
+                blockedWorkItemCount=execution_summary["blockedWorkItemCount"],
+                validatedQuestionCount=execution_summary["validatedQuestionCount"],
+                validatedWorkItemCount=execution_summary["validatedWorkItemCount"],
+                result=result,
+                error=str(exc),
+            )
+            raise
         except Exception as exc:  # noqa: BLE001
             result = {
                 "status": "failed",
@@ -6092,6 +6720,7 @@ class QualificationRunCoordinator:
             self.store.write_result(qualification, run_id, result)
             current = self.store.get(qualification, run_id)
             execution_summary = queue_summary(current.get("questionExecutions") or [])
+            self._record_improvement_report(qualification, run_id, emit)
             self.store.update(
                 qualification,
                 run_id,
@@ -8755,6 +9384,19 @@ class QualificationRunCoordinator:
             ):
                 raise QualificationRunError(
                     "再開元と工程、実行方式又は対象範囲が一致しません。"
+                )
+            resume_state = (
+                str(previous.get("status") or ""),
+                str(previous.get("queueStatus") or ""),
+            )
+            if resume_state not in {
+                ("failed", "partial"),
+                ("interrupted", "partial"),
+                ("interrupted", "interrupted"),
+                ("succeeded", "succeeded"),
+            }:
+                raise QualificationRunError(
+                    "再開元のrun状態とqueue状態の組合せが不正です。"
                 )
             self._assert_resume_safe(qualification, previous)
             previous_executions = previous.get("questionExecutions")

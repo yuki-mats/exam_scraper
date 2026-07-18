@@ -30,11 +30,11 @@ from tools.question_review_console.work_versions import (
 )
 
 RUN_MODES = {
-    "group_refresh": "選択範囲を全件洗い替え",
+    "group_refresh": "選択範囲の全問題を再整備",
     "remaining": "未作業のみ",
     "attention": "要確認のみ",
     "outdated": "洗い替え必要・未整備のみ",
-    "refresh": "資格全体を全件洗い替え",
+    "refresh": "資格全体の全問題を再整備",
 }
 
 
@@ -672,7 +672,7 @@ class QualificationWorkflow:
                 or set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
             ]
             if mode in {"refresh", "group_refresh"}:
-                # 全件洗い替えでは既存の法令フラグ自体も再判定する。
+                # 全問題再整備では既存の法令フラグ自体も再判定する。
                 target_questions = questions
             elif mode == "outdated":
                 target_questions = [
@@ -849,8 +849,8 @@ class QualificationWorkflow:
         )
         if selected_group_ids:
             mode_label = {
-                "group_refresh": f"{scope_label}を全件洗い替え",
-                "refresh": f"{scope_label}を全件洗い替え",
+                "group_refresh": f"{scope_label}の全問題を再整備",
+                "refresh": f"{scope_label}の全問題を再整備",
                 "remaining": f"{scope_label}の未作業のみ",
                 "attention": f"{scope_label}の要確認のみ",
                 "outdated": f"{scope_label}の洗い替え必要・未整備のみ",
@@ -1262,7 +1262,7 @@ class QualificationWorkflow:
                 else []
             ),
             *(
-                ["全件洗い替えの現行法監査は、既存のisLawRelatedだけで対象を絞らず、各問題で法令該当性を再確認する。非該当なら確認結果を確定して次工程へ進む。"]
+                ["全問題再整備の現行法監査は、既存のisLawRelatedだけで対象を絞らず、各問題で法令該当性を再確認する。非該当なら確認結果を確定して次工程へ進む。"]
                 if any(
                     item.get("allQuestionGate")
                     for item in stage_plans

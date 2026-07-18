@@ -9,7 +9,10 @@ from tools.question_review_console.question_work_queue import (
     input_fingerprint,
     specialize_question_plan,
 )
-from tools.question_review_console.qualification_runs import QuestionItemError
+from tools.question_review_console.qualification_runs import (
+    QuestionItemError,
+    QuestionQueuePaused,
+)
 
 
 class QualificationProgressObservabilityTests(QualificationRunTestSupport):
@@ -201,8 +204,8 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                 "targetGroupIds": ["2026"],
                 "targetQuestionKeys": ["sample:2026:q01", "sample:2026:q02"],
                 "policyTargets": {
-                    "correct_choice": ["source-q1"],
-                    "explanation": ["source-q1", "source-q2"],
+                    "correct_choice": ["ui-q1"],
+                    "explanation": ["ui-q1", "ui-q2"],
                 },
                 "progressTargets": [
                     {
@@ -333,9 +336,9 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             ):
                 store.create(plan, status="running", prompt="work")
 
-    def test_progress_marks_ambiguous_old_policy_contract_invalid(self):
+    def test_progress_rejects_alias_policy_contract(self):
         manifest = {
-            "runId": "legacy-run",
+            "runId": "stored-run",
             "status": "running",
             "targetCount": 2,
             "workItemCount": 2,
@@ -360,9 +363,9 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
         self.assertEqual(progress["invalidEventCount"], 1)
         self.assertEqual(progress["processedQuestionCount"], 0)
 
-    def test_progress_keeps_unique_legacy_policy_target_compatible(self):
+    def test_progress_rejects_unique_alias_policy_target(self):
         manifest = {
-            "runId": "legacy-run",
+            "runId": "stored-run",
             "status": "running",
             "targetCount": 1,
             "workItemCount": 1,
@@ -373,12 +376,12 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                 {
                     "id": "ui-q1",
                     "uiQuestionId": "ui-q1",
-                    "questionKey": "legacy-source-key",
-                    "aliases": ["legacy-source-key"],
+                    "questionKey": "source-key",
+                    "aliases": ["source-key"],
                     "listGroupId": "2026",
                 }
             ],
-            "policyTargets": {"explanation": ["legacy-source-key"]},
+            "policyTargets": {"explanation": ["source-key"]},
         }
         events = [
             {"event": "question_started", "questionId": "ui-q1"},
@@ -393,8 +396,9 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
         progress = QualificationRunStore._parsed_progress(manifest, raw)
 
-        self.assertEqual(progress["invalidEventCount"], 0)
+        self.assertEqual(progress["invalidEventCount"], 2)
         self.assertEqual(progress["processedQuestionCount"], 1)
+        self.assertEqual(progress["validatedQuestionCount"], 0)
 
     def test_progress_rejects_out_of_order_and_duplicate_events(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -716,6 +720,37 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
 
     @staticmethod
+    def _mark_child_failed_safely(
+        coordinator,
+        qualification,
+        child_run_id,
+        *,
+        summary="patch contract failed",
+    ):
+        coordinator.store.update(
+            qualification,
+            child_run_id,
+            status="failed",
+            receiptValidated=False,
+            receiptError="server patch validation rejected the receipt",
+            deltaUnknown=False,
+            rollback={
+                "status": "succeeded",
+                "deltaUnknown": False,
+                "remainingChangedFiles": [],
+            },
+            result={
+                "status": "failed",
+                "summary": summary,
+                "commands": [
+                    {"command": "python check_patch.py", "status": "fail"}
+                ],
+                "changedFiles": [],
+            },
+            error=summary,
+        )
+
+    @staticmethod
     def _mark_question_prepared(
         coordinator,
         qualification,
@@ -759,6 +794,26 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             projectedInputHash=projection["hash"],
             error=None,
         )
+
+    def _prepare_all_questions(self, coordinator):
+        def prepare(
+            qualification,
+            run_id,
+            _phase_prompt,
+            target,
+            stage_id,
+            _emit,
+        ):
+            self._mark_question_prepared(
+                coordinator,
+                qualification,
+                run_id,
+                target,
+                stage_id,
+            )
+            return True
+
+        return prepare
 
     def _start_deferred_flow(
         self,
@@ -814,7 +869,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             encoding="utf-8",
         )
 
-    def test_legacy_stage_major_run_fails_with_retry_instruction(self):
+    def test_invalid_queue_contract_fails_before_model_call(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator, synchronizer, app_server, parent = (
                 self._start_deferred_flow(
@@ -831,7 +886,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
             with self.assertRaisesRegex(
                 QualificationRunError,
-                "新しいrunで対象範囲を再実行",
+                "一問queue契約が不正",
             ):
                 coordinator._run_maintenance_flow(
                     "new-exam",
@@ -842,9 +897,32 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(run["status"], "failed")
         self.assertEqual(run["queueStatus"], "failed")
-        self.assertIn("旧形式の工程単位run", run["error"])
+        self.assertIn("一問queue契約が不正", run["error"])
         self.assertEqual(app_server.calls, [])
         self.assertEqual(synchronizer.calls, [])
+
+    def test_resume_rejects_old_succeeded_partial_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                Path(directory),
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                status="succeeded",
+                queueStatus="partial",
+            )
+
+            with self.assertRaisesRegex(QualificationRunError, "組合せが不正"):
+                coordinator.preview(
+                    "new-exam",
+                    "question_type",
+                    "outdated",
+                    list_group_ids=["2026"],
+                    resumed_from=parent["runId"],
+                )
 
     @staticmethod
     def _mark_parent_partial(coordinator, parent):
@@ -862,7 +940,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         return coordinator.store.update(
             "new-exam",
             parent["runId"],
-            status="succeeded",
+            status="failed",
             queueStatus="partial",
         )
 
@@ -1077,6 +1155,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             run = coordinator.store.get("new-exam", parent["runId"])
             self.assertEqual(run["status"], "failed")
             self.assertFalse(run["retrySafe"])
+            self.assertTrue((root / run["improvementReportPath"]).is_file())
             self.assertEqual(run["unsafeChildRunId"], writer_calls[0])
             self.assertEqual(len(writer_calls), 1)
             self.assertTrue(
@@ -1088,6 +1167,59 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             artifact_sync.assert_not_called()
             self.assertEqual(synchronizer.calls, [])
+
+    def test_category_setup_provider_gate_pauses_parent_once(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    LawSourceInventory(),
+                    ["category_setup", "question_set"],
+                )
+            )
+            writer_ids = []
+
+            def gated_scope(qualification, child_run_id, *_args, **_kwargs):
+                writer_ids.append(child_run_id)
+                self._mark_child_failed_safely(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                    summary="利用上限を確認できません。",
+                )
+                try:
+                    raise SubscriptionGateError("利用上限を確認できません。")
+                except SubscriptionGateError as cause:
+                    raise QualificationRunError("scope writerを開始できません。") from cause
+
+            coordinator._run_human = gated_scope
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "sync_after_patch_update"
+            ) as artifact_sync:
+                with self.assertRaisesRegex(QuestionQueuePaused, "利用上限"):
+                    coordinator._run_maintenance_flow(
+                        "new-exam",
+                        parent["runId"],
+                        lambda _message: None,
+                    )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(len(writer_ids), 1)
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(completed["queueStatus"], "partial")
+        self.assertEqual(completed["pauseKind"], "external_provider")
+        self.assertTrue(completed["retrySafe"])
+        self.assertTrue(
+            all(
+                stage["status"] == "blocked"
+                for question in completed["questionExecutions"]
+                for stage in question["stages"]
+            )
+        )
+        artifact_sync.assert_not_called()
+        self.assertEqual(synchronizer.calls, [])
 
     def test_safe_category_setup_failure_blocks_only_dependent_segment(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1120,7 +1252,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for phase in run["phaseExecutions"]
             }
             self.assertEqual(result["queueStatus"], "partial")
-            self.assertEqual(run["status"], "succeeded")
+            self.assertEqual(run["status"], "failed")
             self.assertTrue(run["retrySafe"])
             self.assertEqual(stages["question_type"], "validated")
             self.assertEqual(stages["question_set"], "blocked")
@@ -1137,7 +1269,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
-    def test_bounded_pipeline_prefetches_sibling_without_reordering_writer(self):
+    def test_pipeline_warms_up_then_prefetches_without_reordering_writer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
@@ -1147,9 +1279,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             first_id = "new-exam-2026-q1"
             second_id = "new-exam-2026-q2"
-            slow_started = threading.Event()
+            writer_started = threading.Event()
             second_prepared = threading.Event()
-            slow_finished = threading.Event()
             lock = threading.Lock()
             active_preparations = 0
             max_preparations = 0
@@ -1171,12 +1302,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     active_preparations += 1
                     max_preparations = max(max_preparations, active_preparations)
                 try:
-                    if question_id == first_id:
-                        slow_started.set()
-                        self.assertTrue(second_prepared.wait(timeout=2))
-                        slow_finished.set()
-                    else:
-                        self.assertTrue(slow_started.wait(timeout=1))
+                    if question_id == second_id:
+                        self.assertTrue(writer_started.wait(timeout=2))
                     self._mark_question_prepared(
                         coordinator,
                         qualification,
@@ -1200,7 +1327,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     max_writers = max(max_writers, active_writers)
                 try:
                     writer_order.append(question_id)
-                    self.assertTrue(slow_finished.is_set())
+                    if question_id == first_id:
+                        writer_started.set()
+                        self.assertTrue(second_prepared.wait(timeout=2))
                     self._mark_child_succeeded(
                         coordinator,
                         qualification,
@@ -1221,8 +1350,68 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertEqual(writer_order, [first_id, second_id])
         self.assertLessEqual(max_preparations, 2)
-        self.assertEqual(max_preparations, 2)
+        self.assertEqual(max_preparations, 1)
         self.assertEqual(max_writers, 1)
+
+    def test_prefetch_window_uses_two_read_only_workers_after_probe(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(3),
+                ["question_type"],
+            )
+            probe_id = parent["questionExecutions"][0]["questionId"]
+            concurrent = threading.Barrier(2)
+            lock = threading.Lock()
+            active = 0
+            max_active = 0
+
+            def prepare_item(
+                qualification,
+                run_id,
+                _phase_prompt,
+                target,
+                stage_id,
+                _emit,
+            ):
+                nonlocal active, max_active
+                question_id = str(target["id"])
+                with lock:
+                    active += 1
+                    max_active = max(max_active, active)
+                try:
+                    if question_id != probe_id:
+                        concurrent.wait(timeout=2)
+                    self._mark_question_prepared(
+                        coordinator,
+                        qualification,
+                        run_id,
+                        target,
+                        stage_id,
+                    )
+                    return True
+                finally:
+                    with lock:
+                        active -= 1
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._prepare_question_item = prepare_item
+            coordinator._run_human = commit_child
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(max_active, 2)
 
     def test_prepare_failure_blocks_only_that_question_and_commits_sibling(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1292,6 +1481,592 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(writer_ids, [succeeded_id])
         self.assertEqual(statuses[failed_id], "blocked")
         self.assertEqual(statuses[succeeded_id], "validated")
+
+    def test_safe_validation_feedback_retries_with_new_children_until_validated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            prompts = []
+            child_ids = []
+
+            def commit_child(
+                qualification,
+                child_run_id,
+                prompt,
+                *_args,
+                **_kwargs,
+            ):
+                child_ids.append(child_run_id)
+                prompts.append(prompt)
+                if len(child_ids) < 3:
+                    self._mark_child_failed_safely(
+                        coordinator,
+                        qualification,
+                        child_run_id,
+                        summary=f"attempt {len(child_ids)} failed",
+                    )
+                    raise RuntimeError("machine validation failed")
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            coordinator._run_human = commit_child
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            stage = completed["questionExecutions"][0]["stages"][0]
+            improvement_report = json.loads(
+                (root / completed["improvementReportPath"]).read_text(
+                    encoding="utf-8"
+                )
+            )
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(stage["status"], "validated")
+        self.assertEqual(stage["childRunIds"], child_ids)
+        self.assertEqual(completed["childRunIds"], child_ids)
+        self.assertEqual(len(set(child_ids)), 3)
+        self.assertEqual(
+            [attempt["status"] for attempt in stage["validationAttempts"]],
+            ["failed", "failed", "validated"],
+        )
+        self.assertEqual(
+            [
+                attempt["feedback"]["status"]
+                for attempt in stage["validationAttempts"]
+            ],
+            ["retryable", "retryable", "accepted"],
+        )
+        self.assertEqual(
+            [
+                attempt["feedback"]["childRunId"]
+                for attempt in stage["validationAttempts"][:2]
+            ],
+            child_ids[:2],
+        )
+        first_feedback = stage["validationAttempts"][0]["feedback"]
+        self.assertEqual(first_feedback["reason"], "attempt 1 failed")
+        self.assertEqual(first_feedback["resultSummary"], "attempt 1 failed")
+        self.assertIn("server patch validation", first_feedback["receiptError"])
+        self.assertEqual(
+            first_feedback["failedChecks"][0]["command"],
+            "python check_patch.py",
+        )
+        self.assertNotIn("検査フィードバック", prompts[0])
+        self.assertIn('"attempt": 1', prompts[1])
+        self.assertIn("python check_patch.py", prompts[1])
+        self.assertIn('"attempt": 1', prompts[2])
+        self.assertIn('"attempt": 2', prompts[2])
+        self.assertEqual(improvement_report["attemptCount"], 3)
+        self.assertEqual(improvement_report["distinctQuestionCount"], 1)
+
+    def test_improvement_report_failure_warns_without_rejecting_validated_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    SourceOnlyInventory(),
+                    ["question_type"],
+                )
+            )
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            coordinator._run_human = commit_child
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "write_improvement_report",
+                side_effect=OSError("report storage unavailable"),
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(completed["status"], "succeeded")
+        self.assertTrue(completed["receiptValidated"])
+        self.assertEqual(completed["queueStatus"], "succeeded")
+        self.assertIsNone(completed["improvementReportPath"])
+        self.assertIn(
+            "report storage unavailable",
+            completed["improvementReportWarning"],
+        )
+        self.assertTrue(result["warning"])
+        self.assertIn("改善候補reportを保存できませんでした", result["message"])
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+
+    def test_three_safe_rejections_block_only_that_question_and_continue_sibling(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type", "question_intent"],
+            )
+            failed_id = "new-exam-2026-q1"
+            sibling_id = "new-exam-2026-q2"
+            writer_calls = []
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                child = coordinator.store.get(qualification, child_run_id)
+                question_id = str(child["progressTargets"][0]["id"])
+                stage_id = str(child["flowPhaseId"])
+                writer_calls.append((question_id, stage_id, child_run_id))
+                if question_id == failed_id:
+                    self._mark_child_failed_safely(
+                        coordinator,
+                        qualification,
+                        child_run_id,
+                    )
+                    raise RuntimeError("machine validation failed")
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            coordinator._run_human = commit_child
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            executions = {
+                question["questionId"]: question
+                for question in completed["questionExecutions"]
+            }
+
+        failed_stages = executions[failed_id]["stages"]
+        sibling_stages = executions[sibling_id]["stages"]
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertTrue(completed["retrySafe"])
+        self.assertEqual(
+            [stage["status"] for stage in failed_stages],
+            ["blocked", "blocked"],
+        )
+        self.assertEqual(len(failed_stages[0]["validationAttempts"]), 3)
+        self.assertTrue(
+            all(
+                attempt["feedback"]["status"] == "retryable"
+                for attempt in failed_stages[0]["validationAttempts"]
+            )
+        )
+        self.assertEqual(
+            [question_id for question_id, _stage_id, _child_id in writer_calls[:3]],
+            [failed_id, failed_id, failed_id],
+        )
+        self.assertTrue(
+            any(question_id == sibling_id for question_id, *_rest in writer_calls)
+        )
+        self.assertEqual(sibling_stages[0]["status"], "validated")
+
+    def test_non_retryable_validation_feedback_stops_pipeline_after_clean_rollback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    TwoQuestionSourceInventory(),
+                    ["question_type"],
+                )
+            )
+            writer_ids = []
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                writer_ids.append(child_run_id)
+                self._mark_child_failed_safely(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                    summary="00_source不変条件に違反しました。",
+                )
+                raise RuntimeError("source immutability violation")
+
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            coordinator._run_human = commit_child
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "sync_after_patch_update"
+            ) as artifact_sync:
+                with self.assertRaisesRegex(
+                    QuestionQueuePaused,
+                    "安全性違反",
+                ):
+                    coordinator._run_maintenance_flow(
+                        "new-exam",
+                        parent["runId"],
+                        lambda _message: None,
+                    )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            improvement_report_saved = (
+                root / completed["improvementReportPath"]
+            ).is_file()
+
+        self.assertEqual(len(writer_ids), 1)
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(completed["queueStatus"], "partial")
+        self.assertTrue(completed["retrySafe"])
+        self.assertIsNone(completed["unsafeChildRunId"])
+        self.assertEqual(
+            [
+                question["stages"][0]["status"]
+                for question in completed["questionExecutions"]
+            ],
+            ["blocked", "prepared"],
+        )
+        first_attempt = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ][0]
+        self.assertEqual(first_attempt["feedback"]["status"], "blocked")
+        self.assertEqual(first_attempt["status"], "paused")
+        self.assertTrue(improvement_report_saved)
+        artifact_sync.assert_not_called()
+        self.assertEqual(synchronizer.calls, [])
+
+    def test_writer_subscription_gate_pauses_once_and_remains_resumable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            writer_ids = []
+
+            def gated_writer(qualification, child_run_id, *_args, **_kwargs):
+                writer_ids.append(child_run_id)
+                self._mark_child_failed_safely(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                    summary="利用上限を確認できません。",
+                )
+                try:
+                    raise SubscriptionGateError("利用上限を確認できません。")
+                except SubscriptionGateError as cause:
+                    raise QualificationRunError("writerを開始できません。") from cause
+
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            coordinator._run_human = gated_writer
+            with self.assertRaisesRegex(QuestionQueuePaused, "利用上限"):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            retry_preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                list_group_ids=["2026"],
+                resumed_from=parent["runId"],
+            )
+
+        stage = completed["questionExecutions"][0]["stages"][0]
+        self.assertEqual(len(writer_ids), 1)
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(completed["queueStatus"], "partial")
+        self.assertTrue(completed["retrySafe"])
+        self.assertEqual(stage["status"], "blocked")
+        self.assertEqual(stage["validationAttempts"][0]["status"], "interrupted")
+        self.assertIsNone(stage["validationAttempts"][0]["feedback"])
+        self.assertEqual(retry_preview["targetCount"], 1)
+
+    def test_writer_pause_is_persisted_before_slow_prefetch_finishes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(3),
+                ["question_type"],
+            )
+            probe_id = parent["questionExecutions"][0]["questionId"]
+            prefetch_started = [threading.Event(), threading.Event()]
+            prefetch_lock = threading.Lock()
+            prefetch_count = 0
+            release_prefetch = threading.Event()
+            outcome = []
+
+            def prepare_item(
+                qualification,
+                run_id,
+                _phase_prompt,
+                target,
+                stage_id,
+                _emit,
+            ):
+                nonlocal prefetch_count
+                question_id = str(target["id"])
+                if question_id != probe_id:
+                    with prefetch_lock:
+                        index = prefetch_count
+                        prefetch_count += 1
+                    prefetch_started[index].set()
+                    release_prefetch.wait(timeout=5)
+                self._mark_question_prepared(
+                    coordinator,
+                    qualification,
+                    run_id,
+                    target,
+                    stage_id,
+                )
+                return True
+
+            def gated_writer(qualification, child_run_id, *_args, **_kwargs):
+                self._mark_child_failed_safely(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                    summary="利用上限を確認できません。",
+                )
+                try:
+                    raise SubscriptionGateError("利用上限を確認できません。")
+                except SubscriptionGateError as cause:
+                    raise QualificationRunError("writerを開始できません。") from cause
+
+            def run_flow():
+                try:
+                    coordinator._run_maintenance_flow(
+                        "new-exam",
+                        parent["runId"],
+                        lambda _message: None,
+                    )
+                except QuestionQueuePaused as exc:
+                    outcome.append(exc)
+
+            coordinator._prepare_question_item = prepare_item
+            coordinator._run_human = gated_writer
+            runner = threading.Thread(target=run_flow)
+            runner.start()
+            self.assertTrue(prefetch_started[0].wait(timeout=2))
+            self.assertTrue(prefetch_started[1].wait(timeout=2))
+            deadline = time.monotonic() + 2
+            paused = coordinator.store.get("new-exam", parent["runId"])
+            while paused["status"] != "interrupted" and time.monotonic() < deadline:
+                time.sleep(0.01)
+                paused = coordinator.store.get("new-exam", parent["runId"])
+            self.assertEqual(paused["status"], "interrupted")
+            self.assertEqual(paused["pauseKind"], "external_provider")
+            self.assertTrue(runner.is_alive())
+            release_prefetch.set()
+            runner.join(timeout=5)
+
+        self.assertFalse(runner.is_alive())
+        self.assertEqual(len(outcome), 1)
+
+    def test_preparation_subscription_gate_stops_before_other_questions(self):
+        class PreparationGateAppServer(FlowAppServer):
+            def run_turn(self, prompt, **kwargs):
+                self.calls.append((prompt, kwargs))
+                raise SubscriptionGateError("利用上限に達しています。")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PreparationGateAppServer()
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            with self.assertRaisesRegex(QuestionQueuePaused, "利用上限"):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            report_saved = (root / completed["improvementReportPath"]).is_file()
+
+        self.assertEqual(len(app_server.calls), 1)
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(completed["queueStatus"], "partial")
+        self.assertTrue(completed["retrySafe"])
+        self.assertEqual(completed["blockedQuestionCount"], 1)
+        self.assertEqual(
+            [
+                question["stages"][0]["status"]
+                for question in completed["questionExecutions"]
+            ],
+            ["blocked", "queued"],
+        )
+        self.assertEqual(completed["pauseKind"], "external_provider")
+        self.assertTrue(report_saved)
+
+    def test_provider_probe_skips_preblocked_question_before_prefetch(self):
+        class PreparationGateAppServer(FlowAppServer):
+            def run_turn(self, prompt, **kwargs):
+                self.calls.append((prompt, kwargs))
+                raise SubscriptionGateError("利用上限に達しています。")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PreparationGateAppServer()
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(3),
+                ["question_type"],
+                app_server=app_server,
+            )
+            first_question = parent["questionExecutions"][0]
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                first_question["questionId"],
+                "question_type",
+                status="blocked",
+                error="事前保留",
+                block_dependents=True,
+            )
+
+            with self.assertRaisesRegex(QuestionQueuePaused, "利用上限"):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(len(app_server.calls), 1)
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(
+            [
+                question["stages"][0]["status"]
+                for question in completed["questionExecutions"]
+            ],
+            ["blocked", "blocked", "queued"],
+        )
+
+    def test_prefetch_provider_pause_is_not_overwritten_by_partial_terminal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+            )
+            first_id = parent["questionExecutions"][0]["questionId"]
+            pause_started = threading.Event()
+
+            def prepare_item(
+                qualification,
+                run_id,
+                _phase_prompt,
+                target,
+                stage_id,
+                _emit,
+            ):
+                if str(target["id"]) != first_id:
+                    pause_started.set()
+                    raise QuestionQueuePaused(
+                        "provider停止",
+                        pause_kind="external_provider",
+                    )
+                self._mark_question_prepared(
+                    coordinator,
+                    qualification,
+                    run_id,
+                    target,
+                    stage_id,
+                )
+                return True
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                self.assertTrue(pause_started.wait(timeout=2))
+                self._mark_child_succeeded(
+                    coordinator,
+                    qualification,
+                    child_run_id,
+                )
+
+            coordinator._prepare_question_item = prepare_item
+            coordinator._run_human = commit_child
+            with self.assertRaisesRegex(QuestionQueuePaused, "provider停止"):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(completed["pauseKind"], "external_provider")
+        self.assertFalse(completed["receiptValidated"])
+
+    def test_read_only_preparation_write_notice_pauses_before_other_questions(self):
+        class ReadOnlyViolationAppServer(FlowAppServer):
+            def run_turn(self, prompt, **kwargs):
+                self.calls.append((prompt, kwargs))
+                return AppServerTurnResult(
+                    thread_id="thread-read-only-violation",
+                    session_id="session-read-only-violation",
+                    turn_id="turn-read-only-violation",
+                    final_message="proposal",
+                    model="gpt-test",
+                    service_tier=None,
+                    changed_files=("unexpected.json",),
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = ReadOnlyViolationAppServer()
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            with self.assertRaisesRegex(QuestionQueuePaused, "read-only準備"):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(len(app_server.calls), 1)
+        self.assertEqual(completed["status"], "interrupted")
+        self.assertEqual(completed["pauseKind"], "read_only_violation")
+        self.assertTrue(completed["retrySafe"])
+        self.assertEqual(
+            [
+                question["stages"][0]["status"]
+                for question in completed["questionExecutions"]
+            ],
+            ["blocked", "queued"],
+        )
 
     def test_prepared_without_proposal_reference_never_reaches_writer(self):
         for missing_field in ("preparationPath", "preparationHash"):
@@ -1440,7 +2215,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             later_phase = run["phaseExecutions"][1]
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(run["status"], "failed")
         self.assertEqual(later_phase["status"], "partial")
         self.assertEqual(later_phase["blockedCount"], 1)
         self.assertEqual(later_phase["validatedCount"], 0)
@@ -1593,7 +2368,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             previous = coordinator.store.update(
                 "new-exam",
                 previous["runId"],
-                status="succeeded",
+                status="failed",
                 queueStatus="partial",
                 phaseExecutions=phase_executions,
             )
@@ -1921,7 +2696,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(preview["canStart"])
         self.assertEqual(preview["targetCount"], 2)
 
-    def test_read_only_preparation_retries_only_transient_app_server_error(self):
+    def test_read_only_preparation_pauses_once_on_app_server_unavailability(self):
         class PreparationAppServer:
             configured = True
             provider = "Codex App Server"
@@ -1953,57 +2728,36 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         cases = {
             "transient_app_server_error": {
-                "outcomes": [
-                    CodexAppServerError("stdio送信に失敗しました。"),
-                    result(),
-                ],
-                "prepared": True,
-                "calls": 2,
-                "attempts": 2,
+                "outcomes": [CodexAppServerError("stdio送信に失敗しました。")],
+                "paused": True,
             },
             "model_capacity": {
                 "outcomes": [
                     CodexAppServerError(
                         "Selected model is at capacity. Please try a different model."
                     ),
-                    result(),
                 ],
-                "prepared": True,
-                "calls": 2,
-                "attempts": 2,
-            },
-            "model_capacity_twice": {
-                "outcomes": [
-                    CodexAppServerError("Selected model is at capacity."),
-                    CodexAppServerError("Selected model is at capacity."),
-                ],
-                "prepared": False,
-                "calls": 2,
-                "attempts": 2,
+                "paused": True,
             },
             "subscription_gate": {
                 "outcomes": [SubscriptionGateError("利用上限を確認できません。")],
-                "prepared": False,
-                "calls": 1,
-                "attempts": 1,
+                "paused": True,
+            },
+            "success": {
+                "outcomes": [result()],
+                "prepared": True,
             },
             "changed_files": {
                 "outcomes": [result(changed_files=("unexpected.json",))],
-                "prepared": False,
-                "calls": 1,
-                "attempts": 1,
+                "paused": True,
             },
             "proposal_integrity": {
                 "outcomes": [result(summary="")],
                 "prepared": False,
-                "calls": 1,
-                "attempts": 1,
             },
             "ordinary_runtime_error": {
                 "outcomes": [RuntimeError("ordinary preparation failure")],
                 "prepared": False,
-                "calls": 1,
-                "attempts": 1,
             },
         }
         for case_name, expected in cases.items():
@@ -2028,9 +2782,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 target = phase_plan["progressTargets"][0]
                 emitted = []
 
-                with patch(
-                    "tools.question_review_console.qualification_runs.time.sleep"
-                ) as retry_sleep:
+                if expected.get("paused"):
+                    with self.assertRaises(QuestionQueuePaused):
+                        coordinator._prepare_question_item(
+                            "new-exam",
+                            parent["runId"],
+                            phase_prompt,
+                            target,
+                            "question_type",
+                            emitted.append,
+                        )
+                    prepared = False
+                else:
                     prepared = coordinator._prepare_question_item(
                         "new-exam",
                         parent["runId"],
@@ -2045,25 +2808,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "question_type",
                 )
 
-                self.assertEqual(prepared, expected["prepared"])
-                self.assertEqual(len(app_server.calls), expected["calls"])
-                self.assertEqual(stage["attempts"], expected["attempts"])
+                self.assertEqual(prepared, expected.get("prepared", False))
+                self.assertEqual(len(app_server.calls), 1)
+                self.assertEqual(stage["attempts"], 1)
                 self.assertEqual(
                     stage["status"],
-                    "prepared" if expected["prepared"] else "blocked",
+                    "prepared" if expected.get("prepared") else "blocked",
                 )
-                retry_messages = [
-                    message for message in emitted if "再試行" in message
-                ]
-                retry_expected = case_name in {
-                    "transient_app_server_error",
-                    "model_capacity",
-                    "model_capacity_twice",
-                }
-                self.assertEqual(len(retry_messages), int(retry_expected))
-                self.assertEqual(
-                    retry_sleep.call_count, int(retry_expected)
-                )
+                self.assertFalse(any("再試行" in message for message in emitted))
 
     def test_replanned_out_of_scope_items_become_not_applicable(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2176,7 +2928,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, synchronizer, _app_server, parent = (
                 self._start_deferred_flow(
                     root,
@@ -2220,7 +2971,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, synchronizer, _app_server, parent = (
                 self._start_deferred_flow(
                     root,
@@ -2297,7 +3047,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ):
                 root = Path(directory)
                 app_server = PerQuestionQueueAppServer()
-                app_server.wait_for_parallel_preparations = False
                 coordinator, _sync, _server, parent = self._start_deferred_flow(
                     root,
                     SourceOnlyInventory(),
@@ -2375,7 +3124,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
                 SourceOnlyInventory(),
@@ -2425,7 +3173,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             root = Path(directory)
             inventory = MutableLawInventory()
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator = QualificationRunCoordinator(
                 root,
                 QualificationWorkflow(root, inventory),
@@ -2504,7 +3251,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             root = Path(directory)
             inventory = MutableProjectionInventory()
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
                 inventory,
@@ -2567,7 +3313,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             root = Path(directory)
             inventory = MutableLawAuditInventory()
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator = QualificationRunCoordinator(
                 root,
                 QualificationWorkflow(root, inventory),
@@ -2668,7 +3413,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
                 MissingProjectionInventory(),
@@ -2693,7 +3437,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, _sync, _server, previous = self._start_deferred_flow(
                 root,
                 SourceOnlyInventory(),
@@ -2715,7 +3458,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             previous = coordinator.store.update(
                 "new-exam",
                 previous["runId"],
-                status="succeeded",
+                status="failed",
                 queueStatus="partial",
                 phaseExecutions=phases,
             )
@@ -2811,7 +3554,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             root = Path(directory)
             inventory = ProjectingInventory()
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             coordinator, _synchronizer, _app_server, parent = (
                 self._start_deferred_flow(
                     root,

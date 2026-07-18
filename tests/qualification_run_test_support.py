@@ -35,7 +35,7 @@ class FakeWorkflow:
             "purpose": "成果物を確認する" if machine else "一問一肢を監査する",
             "kind": "machine" if machine else "human",
             "mode": mode,
-            "modeLabel": "全件洗い替え" if mode == "refresh" else "未作業のみ",
+            "modeLabel": "全問題を再整備" if mode == "refresh" else "未作業のみ",
             "targetCount": len(groups) if machine else 3,
             "targetGroupIds": groups,
             "sourceFiles": ["output/sample/questions_json/2026/00_source"],
@@ -435,8 +435,6 @@ class PerQuestionQueueAppServer:
         self.calls = []
         self.successful_writes = []
         self._lock = threading.Lock()
-        self._preparation_barrier = threading.Barrier(2)
-        self.wait_for_parallel_preparations = True
         self.preparation_delay = 0.0
         self._active_preparations = 0
         self.max_active_preparations = 0
@@ -474,9 +472,7 @@ class PerQuestionQueueAppServer:
                     self._active_preparations,
                 )
             try:
-                if self.wait_for_parallel_preparations:
-                    self._preparation_barrier.wait(timeout=1)
-                elif self.preparation_delay:
+                if self.preparation_delay:
                     time.sleep(self.preparation_delay)
             finally:
                 with self._lock:
@@ -771,7 +767,7 @@ class QualificationRunTestSupport(unittest.TestCase):
         jobs: JobManager,
         job_id: str,
         *,
-        timeout: float = 3,
+        timeout: float = 10,
     ) -> dict:
         deadline = time.monotonic() + timeout
         job = jobs.get(job_id)

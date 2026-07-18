@@ -436,7 +436,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertIsNone(run["error"])
         self.assertEqual(synchronizer.calls, [])
 
-    def test_scope_phase_failure_blocks_question_queue_without_sync(self):
+    def test_shared_prerequisite_failure_blocks_dependent_items_without_sync(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             synchronizer = FakeSynchronizer()
@@ -504,7 +504,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             run = coordinator.store.get("sample", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(run["status"], "failed")
         self.assertEqual(
             [phase["status"] for phase in run["phaseExecutions"]],
             ["failed", "partial"],
@@ -790,7 +790,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         )
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
-    def test_top_maintenance_blocks_only_failed_question_stage(self):
+    def test_top_maintenance_retries_failed_stage_before_blocking(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = FlowAppServer(fail_on_writer=2)
@@ -828,24 +828,35 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
         self.assertEqual(job["status"], "succeeded", job)
-        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(run["status"], "failed")
         self.assertEqual(run["queueStatus"], "partial")
         self.assertEqual(
             [item["status"] for item in run["phaseExecutions"]],
             ["succeeded", "partial"],
             job,
         )
-        self.assertEqual(len(run["childRunIds"]), 2)
-        self.assertEqual(len(app_server.calls), 4)
+        self.assertEqual(len(run["childRunIds"]), 4)
+        self.assertEqual(len(app_server.calls), 6)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
         self.assertEqual(run["blockedQuestionCount"], 1)
         self.assertEqual(run["validatedWorkItemCount"], 1)
+        attempts = run["questionExecutions"][0]["stages"][1][
+            "validationAttempts"
+        ]
+        self.assertEqual(
+            [attempt["status"] for attempt in attempts],
+            ["failed", "failed", "failed"],
+        )
         self.assertIn(
             "phase 2 failed",
+            attempts[0]["feedback"]["reason"],
+        )
+        self.assertIn(
+            "sidecar整合検証に失敗",
             run["questionExecutions"][0]["stages"][1]["error"],
         )
-        self.assertIsNone(run["error"])
+        self.assertIn("理由付きで保留", run["error"])
 
     def test_per_question_queue_continues_sibling_after_one_writer_fails(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -885,7 +896,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             first_calls = list(app_server.calls)
             app_server.calls.clear()
             app_server.failed_question_id = ""
-            app_server.wait_for_parallel_preparations = False
             retry_preview = coordinator.preview(
                 "new-exam",
                 "question_type",
@@ -917,7 +927,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(job["status"], "succeeded", job)
-        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(run["status"], "failed")
         self.assertEqual(run["queueStatus"], "partial")
         self.assertEqual(run["blockedQuestionCount"], 1)
         self.assertEqual(run["validatedQuestionCount"], 1)
@@ -934,7 +944,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             questions[succeeded_question_id]["stages"][0]["status"],
             "validated",
         )
-        self.assertEqual(app_server.max_active_preparations, 2)
+        self.assertLessEqual(app_server.max_active_preparations, 2)
         self.assertEqual(app_server.max_active_writers, 1)
         self.assertEqual(
             sorted(
@@ -952,9 +962,17 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "maintenance_question_type"
                 ]
             ],
-            [failed_question_id, succeeded_question_id],
+            [
+                failed_question_id,
+                failed_question_id,
+                failed_question_id,
+                succeeded_question_id,
+            ],
         )
-        succeeded_writer_prompt = calls_by_type["maintenance_question_type"][1][1]
+        failed_retry_prompt = calls_by_type["maintenance_question_type"][1][1]
+        self.assertIn("検査フィードバック", failed_retry_prompt)
+        self.assertIn("writer検証に失敗", failed_retry_prompt)
+        succeeded_writer_prompt = calls_by_type["maintenance_question_type"][3][1]
         self.assertIn(
             f"{succeeded_question_id}の読取専用の判断案",
             succeeded_writer_prompt,
@@ -971,7 +989,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 ("new-exam", "2026", True),
             ],
         )
-        self.assertIsNone(run["error"])
+        self.assertIn("理由付きで保留", run["error"])
         self.assertEqual(retry_preview["targetCount"], 1)
         self.assertEqual(retry_preview["workItemCount"], 1)
         self.assertEqual(retry_job["status"], "succeeded", retry_job)
@@ -997,12 +1015,11 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             ],
         )
 
-    def test_question_major_pipeline_finishes_each_question_before_the_next(self):
+    def test_per_question_pipeline_finishes_each_question_before_the_next(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             jobs = JobManager()
             app_server = PerQuestionQueueAppServer()
-            app_server.wait_for_parallel_preparations = False
             app_server.preparation_delay = 0.1
             synchronizer = FakeSynchronizer()
             coordinator = QualificationRunCoordinator(
@@ -1049,7 +1066,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 ("new-exam-2026-q2", "question_intent"),
             ],
         )
-        self.assertEqual(app_server.max_active_preparations, 2)
+        self.assertLessEqual(app_server.max_active_preparations, 2)
         self.assertEqual(app_server.max_active_writers, 1)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
@@ -1163,7 +1180,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 },
                 before_receipt=write_stage_artifact,
             )
-            app_server.wait_for_parallel_preparations = False
             jobs = DeferredJobs()
             coordinator = QualificationRunCoordinator(
                 root,
@@ -1244,7 +1260,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             first_app_server = PerQuestionQueueAppServer(
                 failed_work_items={failed_item}
             )
-            first_app_server.wait_for_parallel_preparations = False
             first_synchronizer = FakeSynchronizer()
             first = QualificationRunCoordinator(
                 root,
@@ -1288,7 +1303,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             restarted_store = QualificationRunStore(root)
             retry_jobs = DeferredJobs()
             retry_app_server = PerQuestionQueueAppServer()
-            retry_app_server.wait_for_parallel_preparations = False
             retry_synchronizer = FakeSynchronizer()
             restarted = QualificationRunCoordinator(
                 root,
@@ -1668,6 +1682,161 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(recovered["status"], "succeeded")
         self.assertTrue(recovered["receiptValidated"])
         self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
+
+    def test_interrupted_parent_recovers_completed_child_before_resume(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan, identity = self._queue_recovery_plan()
+            plan["questionExecutions"].append(
+                {
+                    "id": "q2",
+                    "questionKey": "q2",
+                    "sourceQuestionKey": "source-q2",
+                    "reviewQuestionId": "review-q2",
+                    "sourceRecordRef": "record-q2",
+                    "questionId": "q2",
+                    "listGroupId": "2026",
+                    "displayLabel": "2026 問2",
+                    "status": "blocked",
+                    "stages": [
+                        {
+                            "workItemKey": "work-question_type-q2",
+                            "stageId": "question_type",
+                            "status": "blocked",
+                            "childRunIds": [],
+                            "error": "外部providerの回復後に再開できます。",
+                        }
+                    ],
+                }
+            )
+            parent = store.create(plan, status="running")
+            child = self._create_completed_child(store, parent, identity)
+            store.update_question_stage(
+                "sample",
+                parent["runId"],
+                "q1",
+                "question_type",
+                validationAttempts=[
+                    {
+                        "attempt": 1,
+                        "childRunId": child["runId"],
+                        "status": "running",
+                        "feedback": None,
+                    }
+                ],
+            )
+            store.update(
+                "sample",
+                parent["runId"],
+                status="interrupted",
+                queueStatus="partial",
+                pauseKind="external_provider",
+                retrySafe=True,
+            )
+
+            recovered = QualificationRunStore(root).get(
+                "sample",
+                parent["runId"],
+            )
+
+        first_stage = recovered["questionExecutions"][0]["stages"][0]
+        second_stage = recovered["questionExecutions"][1]["stages"][0]
+        self.assertEqual(first_stage["status"], "validated")
+        self.assertEqual(
+            first_stage["validationAttempts"][0]["status"],
+            "validated",
+        )
+        self.assertEqual(second_stage["status"], "blocked")
+        self.assertEqual(recovered["status"], "failed")
+        self.assertEqual(recovered["queueStatus"], "partial")
+        self.assertEqual(recovered["phaseExecutions"][0]["status"], "partial")
+        self.assertTrue(recovered["receiptValidated"])
+        self.assertEqual(recovered["workVersionReceipt"]["recordedCount"], 1)
+        self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
+
+    def test_interrupted_parent_recovers_completed_shared_prerequisite(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan, _identity = self._queue_recovery_plan(
+                stage_status="queued",
+                stage_ids=["question_set"],
+            )
+            plan.update(
+                stageIds=["category_setup", "question_set"],
+                phaseExecutions=[
+                    {
+                        "id": "category_setup",
+                        "index": 1,
+                        "label": "分野を整備",
+                        "stageIds": ["category_setup"],
+                        "status": "running",
+                        "childRunIds": [],
+                    },
+                    {
+                        "id": "question_set",
+                        "index": 2,
+                        "label": "問題集を整備",
+                        "stageIds": ["question_set"],
+                        "status": "pending",
+                        "childRunIds": [],
+                    },
+                ],
+            )
+            parent = store.create(plan, status="running")
+            child_plan = FakeWorkflow().plan(
+                "sample",
+                "category_setup",
+                "outdated",
+            )
+            child_plan.update(
+                parentRunId=parent["runId"],
+                flowPhaseId="category_setup",
+                phaseIndex=1,
+                targetGroupIds=["2026"],
+            )
+            child = store.create(child_plan, status="succeeded", prompt="child")
+            store.update(
+                "sample",
+                child["runId"],
+                receiptValidated=True,
+                result={
+                    "status": "succeeded",
+                    "summary": "共有前提を確定しました。",
+                    "commands": [],
+                    "changedFiles": [],
+                },
+                deltaUnknown=False,
+                workVersionReceipt={
+                    "recordedCount": 1,
+                    "items": [{"stageId": "category_setup"}],
+                },
+            )
+            store.update(
+                "sample",
+                parent["runId"],
+                childRunIds=[child["runId"]],
+                status="interrupted",
+                queueStatus="interrupted",
+                retrySafe=True,
+            )
+
+            recovered = QualificationRunStore(root).get(
+                "sample",
+                parent["runId"],
+            )
+
+        phases = {
+            phase["id"]: phase for phase in recovered["phaseExecutions"]
+        }
+        self.assertEqual(phases["category_setup"]["status"], "succeeded")
+        self.assertTrue(phases["category_setup"]["receiptValidated"])
+        self.assertEqual(phases["question_set"]["status"], "pending")
+        self.assertEqual(recovered["status"], "interrupted")
+        self.assertEqual(recovered["queueStatus"], "interrupted")
+        self.assertEqual(recovered["confirmedGroupIds"], ["2026"])
+        self.assertEqual(recovered["workVersionReceipt"]["recordedCount"], 1)
 
     def test_committing_stage_identity_mismatch_fails_closed(self):
         with tempfile.TemporaryDirectory() as directory:

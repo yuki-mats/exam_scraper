@@ -824,7 +824,7 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
-    def test_progress_helpers_execute_queue_priority_legacy_states_and_run_binding(self):
+    def test_progress_helpers_execute_queue_priority_and_run_binding(self):
         root = Path(__file__).resolve().parents[1]
         app = root / "tools/question_review_console/static/app.js"
         script = r"""
@@ -919,6 +919,20 @@ assert.equal(
 );
 assert.equal(
   api.qualificationRunCanRetryBlocked(
+    { status: "interrupted", queueStatus: "interrupted", retrySafe: true },
+    { blockedQuestions: 0, pendingWork: 2, active: false },
+  ),
+  true,
+);
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
+    { status: "interrupted", queueStatus: "interrupted", retrySafe: false },
+    { blockedQuestions: 0, pendingWork: 2, active: false },
+  ),
+  false,
+);
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
     { queueStatus: "partial", retrySafe: true },
     { blockedQuestions: 5, active: true },
   ),
@@ -1002,13 +1016,14 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('run?.queueStatus === "partial"', view_state)
         self.assertIn('statusLabel = `${blockedQuestions}問保留`', view_state)
         self.assertIn("理由付きで保留", view_state)
-        self.assertIn('run.queueStatus !== "partial"', retry)
+        self.assertIn("qualificationRunCanRetryBlocked(", retry)
+        self.assertIn("qualificationRunViewState(run, progress)", retry)
         self.assertIn("resumedFrom: run.runId", retry)
         self.assertIn("scopeListGroupIds", retry)
         self.assertIn('"未完了の問題を再開"', javascript)
         self.assertIn('id="qualification-active-run-retry"', html)
 
-    def test_manual_artifact_regeneration_remains_reachable_when_current(self):
+    def test_manual_artifact_regeneration_is_emergency_admin_action_when_current(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (
             root / "tools/question_review_console/static/app.js"
@@ -1016,12 +1031,26 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         pipeline_actions = javascript.split(
             "function renderPipelineActions", 1
         )[1].split("function openEvaluationRework", 1)[0]
+        sync_action = javascript.split(
+            "function patchSyncAction", 1
+        )[1].split("function renderPipelineActions", 1)[0]
 
         self.assertIn('label: "成果物を再生成"', pipeline_actions)
-        self.assertIn("if (localReady && !maintenanceBlocksPublication(question))", pipeline_actions)
+        self.assertIn('const adminToolsOpen = $("#audit-admin-tools").open', pipeline_actions)
+        self.assertIn(
+            "if (adminToolsOpen && localReady && !maintenanceBlocksPublication(question))",
+            pipeline_actions,
+        )
         self.assertIn("actions.append(patchSyncAction({", pipeline_actions)
+        self.assertIn("emergency: true", pipeline_actions)
+        self.assertIn("非常用の操作です。", sync_action)
+        self.assertIn("成果物が一致済みでも、必要な場合に限り強制再実行できます。", sync_action)
+        admin_toggle = javascript.split(
+            '$("#audit-admin-tools").addEventListener("toggle"', 1
+        )[1].split('$("#maintenance-start")', 1)[0]
+        self.assertIn("if (state.detail) renderDetail();", admin_toggle)
 
-    def test_succeeded_run_requires_validated_receipt_for_completion_display(self):
+    def test_completed_run_requires_validated_receipt_for_completion_display(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (
             root / "tools/question_review_console/static/app.js"
@@ -1033,7 +1062,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "function renderQualificationActiveRun", 1
         )[1].split("function renderQualificationRunStatusDetail", 1)[0]
 
-        self.assertIn('run?.status === "succeeded" && run?.receiptValidated === true', view_state)
+        self.assertIn('run?.receiptValidated === true', view_state)
+        self.assertIn('run?.status === "failed" && run?.queueStatus === "partial"', view_state)
         self.assertIn('const unverified = run?.status === "succeeded" && !verified', view_state)
         self.assertIn('statusLabel = "未承認"', view_state)
         self.assertIn("item.receiptValidated === true", history)
