@@ -566,13 +566,22 @@ def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
         if isinstance(result, Mapping)
         else []
     )
+    unsafe_notified = bool(
+        child.get("unsafeChangedFiles")
+        or child.get("unsafeNotifiedChangedFiles")
+    )
+    attribution_verified = bool(
+        child.get("writeAttributionVerified") is True
+        and not unsafe_notified
+    )
     return bool(
         isinstance(rollback, Mapping)
         and rollback.get("status") == "succeeded"
         and rollback.get("deltaUnknown") is not True
         and not rollback.get("remainingChangedFiles")
         and child.get("deltaUnknown") is not True
-        and not changed_files
+        and not unsafe_notified
+        and (not changed_files or attribution_verified)
     )
 
 
@@ -7102,6 +7111,11 @@ class QualificationRunCoordinator:
                         result.changed_files,
                         transient_root=turn_workspace,
                     )
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        appServerChangedFiles=list(app_server_changed_files),
+                    )
                     if receipt_completion_snapshot is not None:
                         validated_receipt = self._assert_receipt_completion_unchanged(
                             qualification,
@@ -7179,12 +7193,25 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     "Codex App Serverは完了しましたが、完了receiptが見つかりません。"
                 )
-            self._validate_changed_files(
+            change_attribution = self._validate_changed_files(
                 qualification,
                 run_id,
                 refreshed,
                 app_server_changed_files,
                 filesystem_changed_files,
+            )
+            self.store.update(
+                qualification,
+                run_id,
+                writeAttributionVerified=True,
+                externalConcurrentChangedFiles=change_attribution[
+                    "externalConcurrentChangedFiles"
+                ],
+                ignoredReceiptChangedFiles=change_attribution[
+                    "ignoredReceiptChangedFiles"
+                ],
+                unsafeNotifiedChangedFiles=[],
+                unsafeChangedFiles=[],
             )
             self._validate_progress_receipt(qualification, run_id, refreshed)
             server_resolved_paths = sorted(
@@ -7195,6 +7222,7 @@ class QualificationRunCoordinator:
             )
             normalized_result = {
                 **dict(refreshed_result),
+                "changedFiles": change_attribution["changedFiles"],
                 "resolvedFailedDeltaPaths": server_resolved_paths,
             }
             self.store.write_result(
@@ -7310,6 +7338,29 @@ class QualificationRunCoordinator:
                 }
 
             pre_rollback_files = filesystem_changed_files
+            current_result = current.get("result")
+            current_result = (
+                current_result if isinstance(current_result, Mapping) else {}
+            )
+            attribution = self._attribute_repository_changes(
+                qualification,
+                run_id,
+                current,
+                declared_files=[
+                    str(value) for value in current_result.get("changedFiles") or []
+                ],
+                notified_files=app_server_changed_files,
+                actual_files=pre_rollback_files,
+            )
+            unsafe_notified = (
+                attribution["unsafeNotified"]
+                | attribution["extraAgentOutput"]
+            )
+            unsafe_changes = (
+                unsafe_notified
+                | attribution["unsafeActual"]
+                | attribution["unsafeDeclared"]
+            )
             rollback = self.store.rollback_baseline(qualification, run_id)
             rollback_unknown = bool(
                 rollback is not None
@@ -7321,23 +7372,9 @@ class QualificationRunCoordinator:
                     error_to_raise = QualificationRunError(
                         f"{original_exc}; {rollback.get('message')}"
                     )
-                allowed_roots = self._maintenance_root_candidates(
-                    qualification,
-                    run_id,
-                    current,
-                )
-                outside_transaction = {
-                    self._maintenance_relative_path(value).as_posix()
-                    for value in pre_rollback_files
-                    if not self._maintenance_path_allowed_for_run(
-                        self._maintenance_relative_path(value),
-                        allowed_roots,
-                        current,
-                    )
-                }
                 filesystem_changed_files = tuple(
                     sorted(
-                        outside_transaction
+                        {str(value) for value in unsafe_changes}
                         | {
                             str(value)
                             for value in rollback.get(
@@ -7347,8 +7384,6 @@ class QualificationRunCoordinator:
                         }
                     )
                 )
-            current_result = current.get("result")
-            current_result = current_result if isinstance(current_result, Mapping) else {}
             preserve_failed_receipt = bool(
                 current_result.get("status") == "failed"
                 and not current.get("receiptError")
@@ -7399,6 +7434,20 @@ class QualificationRunCoordinator:
                 run_id,
                 status="interrupted" if rollback_unknown else "failed",
                 deltaUnknown=rollback_unknown,
+                appServerChangedFiles=list(app_server_changed_files),
+                writeAttributionVerified=True,
+                unsafeNotifiedChangedFiles=sorted(
+                    str(path) for path in unsafe_notified
+                ),
+                unsafeChangedFiles=sorted(
+                    str(path) for path in unsafe_changes
+                ),
+                externalConcurrentChangedFiles=sorted(
+                    str(path) for path in attribution["externalActual"]
+                ),
+                ignoredReceiptChangedFiles=sorted(
+                    str(path) for path in attribution["externalDeclared"]
+                ),
                 error=str(error_to_raise),
             )
             if error_to_raise is not original_exc:
@@ -8126,6 +8175,195 @@ class QualificationRunCoordinator:
     def _work_version_aliases(question: Mapping[str, Any]) -> set[str]:
         return target_identity_aliases(question)
 
+    def _attribute_repository_changes(
+        self,
+        qualification: str,
+        run_id: str,
+        run: Mapping[str, Any],
+        *,
+        declared_files: tuple[str, ...] | list[str] = (),
+        notified_files: tuple[str, ...] | list[str] = (),
+        actual_files: tuple[str, ...] | list[str] = (),
+        allow_declared_commit_marker: bool = False,
+    ) -> dict[str, set[Path]]:
+        """writer通知と、同時刻にrepoで起きた外部変更を分離する。"""
+
+        def relative_paths(values: tuple[str, ...] | list[str]) -> set[Path]:
+            return {
+                self._maintenance_relative_path(value)
+                for value in values
+                if str(value).strip()
+            }
+
+        declared = relative_paths(declared_files)
+        notified = relative_paths(notified_files)
+        actual = relative_paths(actual_files)
+        receipt_path = Path(
+            "output",
+            "question_review_console",
+            "workflow_runs",
+            qualification,
+            run_id,
+            "agent_output",
+            "result.json",
+        )
+        progress_path = receipt_path.with_name("progress.jsonl")
+        for values in (declared, notified, actual):
+            values.discard(receipt_path)
+            values.discard(progress_path)
+
+        agent_output_root = receipt_path.parent
+        extra_agent_output = {
+            path
+            for path in declared | notified | actual
+            if path == agent_output_root or path.is_relative_to(agent_output_root)
+        }
+        allowed_roots = self._maintenance_root_candidates(
+            qualification,
+            run_id,
+            run,
+        )
+
+        def is_scoped(path: Path) -> bool:
+            return self._maintenance_path_allowed_for_run(
+                path,
+                allowed_roots,
+                run,
+            )
+
+        scoped_declared = {path for path in declared if is_scoped(path)}
+        scoped_notified = {path for path in notified if is_scoped(path)}
+        scoped_actual = {path for path in actual if is_scoped(path)}
+        unsafe_notified = notified - scoped_notified - extra_agent_output
+        outside_actual = actual - scoped_actual - extra_agent_output
+        outside_declared = declared - scoped_declared - extra_agent_output
+        concurrent_commit = bool(
+            Path(".git", "HEAD") in outside_actual
+            or allow_declared_commit_marker
+            and Path(".git", "HEAD") in outside_declared
+        )
+        external_actual = outside_actual if concurrent_commit else set()
+        unsafe_actual = outside_actual - external_actual
+        external_declared = outside_declared if concurrent_commit else set()
+        unsafe_declared = outside_declared - external_declared
+        return {
+            "scopedDeclared": scoped_declared,
+            "scopedNotified": scoped_notified,
+            "scopedActual": scoped_actual,
+            "unsafeNotified": unsafe_notified,
+            "unsafeActual": unsafe_actual,
+            "unsafeDeclared": unsafe_declared,
+            "externalDeclared": external_declared,
+            "externalActual": external_actual,
+            "extraAgentOutput": extra_agent_output,
+        }
+
+    def _stored_app_server_changed_files(
+        self,
+        qualification: str,
+        child: Mapping[str, Any],
+    ) -> tuple[str, ...] | None:
+        stored = child.get("appServerChangedFiles")
+        if isinstance(stored, list):
+            return tuple(str(value) for value in stored if str(value).strip())
+        run_id = str(child.get("runId") or "")
+        if not run_id:
+            return None
+        try:
+            relative = str(child.get("technicalLogPath") or "")
+            path = (self.repo_root / relative).resolve()
+            run_dir = self.store.result_path(
+                qualification,
+                run_id,
+            ).parent.parent.resolve()
+            if path.parent != run_dir or path.name != "technical_log.jsonl":
+                return None
+            raw_lines = path.read_bytes().splitlines() if path.is_file() else []
+        except (OSError, QualificationRunError, ValueError):
+            return None
+        changed: list[str] = []
+        for raw_line in raw_lines:
+            try:
+                entry = json.loads(raw_line.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                continue
+            if not isinstance(entry, Mapping):
+                continue
+            changed.extend(
+                str(value)
+                for value in entry.get("changedPaths") or []
+                if str(value).strip()
+            )
+        return tuple(changed)
+
+    def _reclassify_external_only_child_failure(
+        self,
+        qualification: str,
+        child: Mapping[str, Any],
+    ) -> dict[str, Any] | None:
+        """旧runの安全なrollbackを、永続file通知から再判定する。"""
+
+        if _isolated_failure_state(child):
+            return dict(child)
+        rollback = child.get("rollback")
+        if not (
+            child.get("sandbox") == "workspace-write"
+            and isinstance(rollback, Mapping)
+            and rollback.get("status") == "succeeded"
+            and rollback.get("deltaUnknown") is not True
+            and not rollback.get("remainingChangedFiles")
+            and child.get("deltaUnknown") is not True
+        ):
+            return None
+        notified = self._stored_app_server_changed_files(qualification, child)
+        if notified is None:
+            return None
+        result = child.get("result")
+        result = dict(result) if isinstance(result, Mapping) else {}
+        declared = [str(value) for value in result.get("changedFiles") or []]
+        attribution = self._attribute_repository_changes(
+            qualification,
+            str(child["runId"]),
+            child,
+            declared_files=declared,
+            notified_files=notified,
+            allow_declared_commit_marker=True,
+        )
+        if (
+            attribution["unsafeNotified"]
+            or attribution["unsafeActual"]
+            or attribution["unsafeDeclared"]
+            or attribution["extraAgentOutput"]
+        ):
+            return None
+        normalized_result = {
+            **result,
+            "changedFiles": [],
+        }
+        self.store.write_result(
+            qualification,
+            str(child["runId"]),
+            normalized_result,
+        )
+        self.store.refresh(qualification, str(child["runId"]))
+        refreshed = self.store.update(
+            qualification,
+            str(child["runId"]),
+            appServerChangedFiles=sorted(notified),
+            writeAttributionVerified=True,
+            unsafeNotifiedChangedFiles=[],
+            unsafeChangedFiles=[],
+            externalConcurrentChangedFiles=sorted(
+                str(path) for path in attribution["externalDeclared"]
+            ),
+            ignoredReceiptChangedFiles=sorted(
+                str(path) for path in attribution["externalDeclared"]
+            ),
+            retrySafe=True,
+            retryUnsafeReason=None,
+        )
+        return refreshed if _isolated_failure_state(refreshed) else None
+
     def _failed_run_changed_files(
         self,
         qualification: str,
@@ -8353,13 +8591,9 @@ class QualificationRunCoordinator:
         run: Mapping[str, Any],
         app_server_changed_files: tuple[str, ...],
         filesystem_changed_files: tuple[str, ...] = (),
-    ) -> None:
+    ) -> dict[str, list[str]]:
         result = run.get("result")
         result = result if isinstance(result, Mapping) else {}
-        declared = {
-            self._maintenance_relative_path(path)
-            for path in result.get("changedFiles") or []
-        }
         resolved_failed = {
             self._maintenance_relative_path(path)
             for path in result.get("resolvedFailedDeltaPaths") or []
@@ -8368,40 +8602,37 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "未確定差分の解決記録はserverが確定するため、完了receiptへ指定できません。"
             )
-        notified = {
-            self._maintenance_relative_path(path)
-            for path in app_server_changed_files
-        }
-        actual = {
-            self._maintenance_relative_path(path)
-            for path in filesystem_changed_files
-        }
-        receipt_path = Path(
-            "output",
-            "question_review_console",
-            "workflow_runs",
+        attribution = self._attribute_repository_changes(
             qualification,
             run_id,
-            "agent_output",
-            "result.json",
+            run,
+            declared_files=[str(value) for value in result.get("changedFiles") or []],
+            notified_files=app_server_changed_files,
+            actual_files=filesystem_changed_files,
         )
-        progress_path = receipt_path.with_name("progress.jsonl")
-        notified.discard(receipt_path)
-        actual.discard(receipt_path)
-        notified.discard(progress_path)
-        actual.discard(progress_path)
-        declared.discard(progress_path)
-        agent_output_root = receipt_path.parent
-        extra_agent_output = {
-            path
-            for path in declared | notified | actual
-            if path == agent_output_root or path.is_relative_to(agent_output_root)
-        }
+        extra_agent_output = attribution["extraAgentOutput"]
         if extra_agent_output:
             raise QualificationRunError(
                 "agent_outputにはresult.json以外（画面用progress.jsonlを除く）を保存できません: "
                 + ", ".join(str(path) for path in sorted(extra_agent_output))
             )
+        unsafe_notified = attribution["unsafeNotified"]
+        if unsafe_notified:
+            raise QualificationRunError(
+                "Codex App Serverが整備責務外のfile変更を通知しました: "
+                + ", ".join(str(path) for path in sorted(unsafe_notified))
+            )
+        unsafe_unattributed = (
+            attribution["unsafeActual"] | attribution["unsafeDeclared"]
+        )
+        if unsafe_unattributed:
+            raise QualificationRunError(
+                "整備責務外のfile変更を検出しました: "
+                + ", ".join(str(path) for path in sorted(unsafe_unattributed))
+            )
+        declared = attribution["scopedDeclared"]
+        notified = attribution["scopedNotified"]
+        actual = attribution["scopedActual"]
         symlinks = {
             path for path in actual if (self.repo_root / path).is_symlink()
         }
@@ -8416,18 +8647,6 @@ class QualificationRunCoordinator:
             run,
             actual,
         )
-        allowed_roots = self._maintenance_root_candidates(
-            qualification,
-            run_id,
-            run,
-        )
-        for path in declared | notified | actual:
-            if not self._maintenance_path_allowed_for_run(
-                path, allowed_roots, run
-            ):
-                raise QualificationRunError(
-                    f"整備責務外のfile変更を検出しました: {path}"
-                )
         undeclared = (notified | actual) - declared
         if undeclared:
             raise QualificationRunError(
@@ -8440,6 +8659,16 @@ class QualificationRunCoordinator:
                 "完了receiptに記載されたが実際の最終差分にないfileがあります: "
                 + ", ".join(str(path) for path in sorted(missing))
             )
+        return {
+            "changedFiles": [str(path) for path in sorted(actual)],
+            "externalConcurrentChangedFiles": [
+                str(path) for path in sorted(attribution["externalActual"])
+            ],
+            "ignoredReceiptChangedFiles": [
+                str(path) for path in sorted(attribution["externalDeclared"])
+            ],
+            "unsafeNotifiedChangedFiles": [],
+        }
 
     def _validate_record_scope(
         self,
@@ -9563,10 +9792,35 @@ class QualificationRunCoordinator:
         previous: Mapping[str, Any],
     ) -> None:
         if previous.get("retrySafe") is False:
-            raise QualificationRunError(
-                str(previous.get("retryUnsafeReason") or "").strip()
-                or "未確定差分の安全を確認できないため、この作業は再開できません。"
+            unsafe_child_id = str(previous.get("unsafeChildRunId") or "")
+            reclassified = None
+            if unsafe_child_id:
+                try:
+                    child = self.store.get(qualification, unsafe_child_id)
+                    reclassified = self._reclassify_external_only_child_failure(
+                        qualification,
+                        child,
+                    )
+                except Exception:  # noqa: BLE001
+                    reclassified = None
+            if reclassified is None:
+                raise QualificationRunError(
+                    str(previous.get("retryUnsafeReason") or "").strip()
+                    or "未確定差分の安全を確認できないため、この作業は再開できません。"
+                )
+            self.store.update(
+                qualification,
+                str(previous["runId"]),
+                retrySafe=True,
+                retryUnsafeReason=None,
+                unsafeChildRunId=None,
             )
+            if isinstance(previous, dict):
+                previous.update(
+                    retrySafe=True,
+                    retryUnsafeReason=None,
+                    unsafeChildRunId=None,
+                )
         for child_run_id in previous.get("childRunIds") or []:
             try:
                 child = self.store.get(qualification, str(child_run_id))
@@ -9581,6 +9835,12 @@ class QualificationRunCoordinator:
                 )
                 raise QualificationRunError(reason) from exc
             if _child_retry_safe(child):
+                continue
+            reclassified = self._reclassify_external_only_child_failure(
+                qualification,
+                child,
+            )
+            if reclassified is not None and _child_retry_safe(reclassified):
                 continue
             reason = (
                 "失敗した子作業のrollback又は残存差分を確認できないため、"

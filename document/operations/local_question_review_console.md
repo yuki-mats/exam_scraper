@@ -4,7 +4,7 @@
 
 ## 手戻りを防ぐ運用順序
 
-1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は外部からfile編集、commit、pushを行わない。
+1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は現在確定中のpatchと作業版台帳を外部から変更しない。
 2. トップの`未整備を整備`から資格・年度（回）・工程を指定する。serverは範囲を一問queueへ分解し、`00_source`と確定patchの論理projectionを次工程へ渡す。
 3. patchの機械検査不備は、serverがfeedbackを付けて同じ一問・工程を最大3回まで自動再実行する。解消しなかった問題だけを保留し、確定済み問題はやり直さない。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
@@ -20,7 +20,7 @@
 
 ### 整備runのfile transaction
 
-- GUI内のpatch、作業版、merge、sync、評価projection、readback、公開artifactを変更する処理は、共通のrepository排他で1件ずつ実行する。run中に同じrepositoryを外部から手編集すると、安全なrollbackを保証できないため禁止する。
+- GUI内のpatch、作業版、merge、sync、評価projection、readback、公開artifactを変更する処理は、共通のrepository排他で1件ずつ実行する。serverはApp Serverのfile通知とrepo全体の並行差分を分離し、対象外のGit・文書変更をwriterへ帰属させず、そのfileをrollbackしない。同じtransaction pathの競合、scope外のwriter通知、rollback不能だけは親queueを止める。
 - serverは許可された書込fileの開始前bytesと「存在しなかった」事実をrunのbaselineへ保存する。`receiptValidated=true`前の失敗・中断・server再起動では、そのrunが変更したfileを開始前状態へ戻す。
 - patchと`work_versions.json`の更新は同じ確定処理で扱う。作業版台帳の記録又はmanifest更新に失敗した場合は、どちらも未確定とし、file transactionでrollbackする。
 - rollbackできないpathだけを未確定差分として公開処理からblockする。failed deltaの対象、責任工程、解除可否はserverがbaselineと現在bytesから決定し、Codexのreceiptや利用者入力では解除しない。

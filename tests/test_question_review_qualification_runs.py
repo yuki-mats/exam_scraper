@@ -699,6 +699,92 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                 (progress_relative,),
             )
 
+    def test_external_concurrent_change_is_not_attributed_to_writer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            run = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="running",
+                prompt="整備する。",
+            )
+            external = [
+                ".git/HEAD",
+                "docs/goals/question-maintenance/state.yaml",
+            ]
+            coordinator.store.update(
+                "sample",
+                run["runId"],
+                result={
+                    "status": "succeeded",
+                    "commands": [],
+                    "changedFiles": external,
+                },
+            )
+            current = coordinator.store.get("sample", run["runId"])
+
+            attribution = coordinator._validate_changed_files(
+                "sample",
+                run["runId"],
+                current,
+                (),
+                tuple(external),
+            )
+
+        self.assertEqual(attribution["changedFiles"], [])
+        self.assertEqual(
+            attribution["externalConcurrentChangedFiles"],
+            external,
+        )
+        self.assertEqual(
+            attribution["ignoredReceiptChangedFiles"],
+            external,
+        )
+
+    def test_app_server_scope_violation_is_not_treated_as_external_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            run = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="running",
+                prompt="整備する。",
+            )
+            outside = "docs/unsafe.md"
+            coordinator.store.update(
+                "sample",
+                run["runId"],
+                result={
+                    "status": "succeeded",
+                    "commands": [],
+                    "changedFiles": [outside],
+                },
+            )
+
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "App Serverが整備責務外",
+            ):
+                coordinator._validate_changed_files(
+                    "sample",
+                    run["runId"],
+                    coordinator.store.get("sample", run["runId"]),
+                    (outside,),
+                    (outside,),
+                )
+
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
@@ -1017,6 +1103,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "remainingChangedFiles": ["output/new-exam/unsafe.json"],
                 },
             },
+            "scope_violation_notification": {
+                "deltaUnknown": False,
+                "rollback": {
+                    "status": "succeeded",
+                    "deltaUnknown": False,
+                    "remainingChangedFiles": [],
+                },
+                "writeAttributionVerified": True,
+                "unsafeNotifiedChangedFiles": ["docs/unsafe.md"],
+            },
         }
         for case_name, unsafe_state in unsafe_children.items():
             with (
@@ -1101,6 +1197,186 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 artifact_sync.assert_not_called()
                 self.assertIsNone(run.get("artifactSync"))
                 self.assertEqual(synchronizer.calls, [])
+
+    def test_external_concurrent_change_blocks_only_its_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            failed_question_id = "new-exam-2026-q1"
+            coordinator, synchronizer, _app_server, parent = (
+                self._start_deferred_flow(
+                    root,
+                    TwoQuestionSourceInventory(),
+                    ["question_type"],
+                )
+            )
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            writer_question_ids = []
+
+            def run_child(qualification, child_run_id, *_args, **_kwargs):
+                child = coordinator.store.get(qualification, child_run_id)
+                target = (child.get("progressTargets") or [{}])[0]
+                question_id = str(target.get("id") or "")
+                writer_question_ids.append(question_id)
+                if question_id != failed_question_id:
+                    self._mark_child_succeeded(
+                        coordinator,
+                        qualification,
+                        child_run_id,
+                    )
+                    return
+                summary = "同時刻のGoalBuddy更新をreceiptへ含めた。"
+                coordinator.store.update(
+                    qualification,
+                    child_run_id,
+                    status="failed",
+                    receiptValidated=False,
+                    deltaUnknown=False,
+                    rollback={
+                        "status": "succeeded",
+                        "deltaUnknown": False,
+                        "remainingChangedFiles": [],
+                    },
+                    writeAttributionVerified=True,
+                    unsafeNotifiedChangedFiles=[],
+                    externalConcurrentChangedFiles=[
+                        ".git/HEAD",
+                        "docs/goals/question-maintenance/state.yaml",
+                    ],
+                    result={
+                        "status": "failed",
+                        "summary": summary,
+                        "commands": [],
+                        "changedFiles": [
+                            ".git/HEAD",
+                            "docs/goals/question-maintenance/state.yaml",
+                        ],
+                    },
+                    error=summary,
+                )
+                raise RuntimeError(summary)
+
+            coordinator._run_human = run_child
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+
+        questions = {
+            question["questionId"]: question
+            for question in run["questionExecutions"]
+        }
+        self.assertEqual(run["status"], "succeeded")
+        self.assertEqual(run["queueStatus"], "partial")
+        self.assertEqual(run["blockedQuestionCount"], 1)
+        self.assertEqual(run["validatedQuestionCount"], 1)
+        self.assertEqual(
+            questions[failed_question_id]["stages"][0]["status"],
+            "blocked",
+        )
+        self.assertEqual(
+            questions["new-exam-2026-q2"]["stages"][0]["status"],
+            "validated",
+        )
+        self.assertEqual(
+            writer_question_ids,
+            [failed_question_id] * 3 + ["new-exam-2026-q2"],
+        )
+        self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
+
+    def test_resume_reclassifies_legacy_external_only_child_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            parent = self._mark_parent_partial(coordinator, parent)
+            child_plan = FakeWorkflow().plan(
+                "new-exam",
+                "question_type",
+                "outdated",
+            )
+            child_plan.update(
+                parentRunId=parent["runId"],
+                flowPhaseId="question_type",
+                sandbox="workspace-write",
+            )
+            child = coordinator.store.create(
+                child_plan,
+                status="failed",
+                prompt="legacy child",
+            )
+            external = [
+                ".git/HEAD",
+                "docs/goals/question-maintenance/state.yaml",
+            ]
+            coordinator.store.update(
+                "new-exam",
+                child["runId"],
+                startedAt="started",
+                deltaUnknown=False,
+                rollback={
+                    "status": "succeeded",
+                    "deltaUnknown": False,
+                    "remainingChangedFiles": [],
+                },
+                result={
+                    "status": "failed",
+                    "summary": "scope外の並行変更を誤検出した。",
+                    "commands": [],
+                    "changedFiles": external,
+                },
+                error="scope外の並行変更を誤検出した。",
+            )
+            coordinator.store.append_technical_log(
+                "new-exam",
+                child["runId"],
+                {
+                    "changedPaths": [
+                        child["progressReceiptPath"],
+                        child["resultReceiptPath"],
+                    ]
+                },
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                retrySafe=False,
+                retryUnsafeReason="rollbackを確認できない。",
+                unsafeChildRunId=child["runId"],
+                childRunIds=[child["runId"]],
+            )
+
+            preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                list_group_ids=["2026"],
+                resumed_from=parent["runId"],
+            )
+            recovered_parent = coordinator.store.get(
+                "new-exam",
+                parent["runId"],
+            )
+            recovered_child = coordinator.store.get(
+                "new-exam",
+                child["runId"],
+            )
+
+        self.assertEqual(preview["targetCount"], 1)
+        self.assertTrue(recovered_parent["retrySafe"])
+        self.assertIsNone(recovered_parent["unsafeChildRunId"])
+        self.assertTrue(recovered_child["writeAttributionVerified"])
+        self.assertEqual(recovered_child["result"]["changedFiles"], [])
+        self.assertEqual(
+            recovered_child["externalConcurrentChangedFiles"],
+            external,
+        )
 
     def test_unsafe_category_setup_stops_dependent_queue_and_sync(self):
         with tempfile.TemporaryDirectory() as directory:
