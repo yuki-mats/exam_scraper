@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T006
+active_task: T007
 tasks:
   - id: T001
     type: scout
@@ -428,7 +428,7 @@ tasks:
   - id: T006
     type: judge
     assignee: Judge
-    status: active
+    status: queued
     reasoning_hint: xhigh
     objective: "回復可能な1問失敗で親runが継続し、ほかの問題が確定し、再起動後に失敗問だけを再実行できることを自動テストとガス主任技術者甲種2019年の実UI runで再監査する"
     inputs:
@@ -446,6 +446,30 @@ tasks:
       - "failure isolation evidence"
       - "resume-only-blocked evidence"
       - "remaining Worker package or final-audit readiness"
+    receipt: null
+  - id: T007
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "mainの実装で問題整備サービスを再読込し、UIからガス主任技術者甲種2019年を5問並列で開始する。既知の一問不合格がその問だけを保留し、次の問題がwriter確定へ進むことをrun API・技術ログ・成果物で確認する"
+    inputs:
+      - "T005 receipt"
+      - "commit 5da409236"
+      - "既存run 20260718T184536852386-54a43657"
+      - "問題整備UI http://127.0.0.1:8765/?qualification=gas-shunin-kou"
+    constraints:
+      - "本番Firestoreへ書き込まない。"
+      - "既存の未コミットoutput差分を手作業で変更又は破棄しない。"
+      - "UI又は公開APIから問題整備runを開始し、内部fileを直接編集しない。"
+      - "一問の保留後に別問題が進まなければ成功扱いにしない。"
+      - "実装fileは変更しない。"
+    expected_output:
+      - "service reload evidence"
+      - "UI start evidence and run id"
+      - "blocked question and continued sibling evidence"
+      - "validated questions remain preserved"
+      - "artifactSync separation evidence when terminal"
     receipt: null
   - id: T999
     type: judge
