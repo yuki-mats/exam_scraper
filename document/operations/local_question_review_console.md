@@ -65,7 +65,7 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
 - GUIの開始範囲は資格・年度（回）・工程のままとし、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と工程の組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- 各問は選択工程を順に完了してから次問のwriterへ進む。最初のread-only準備でCodex App Serverが利用可能だと確認してから、次問の判断案を最大2問まで先行する。workspace-writeは常に1問である。
+- 各問は選択工程を順に完了してから次問のwriterへ進む。最初のread-only準備でCodex App Serverが利用可能だと確認してから、UIで選んだ問題数の判断案を並列に準備する。既定は5問、選択肢は1・5・10問で、10問は5問運用の検証後に使う。patchの確定保存と機械検査は競合を避けるため常に1問ずつ行う。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 通常の一問保留は`status=failed`、`queueStatus=partial`、検証済みpatchは`receiptValidated=true`で記録する。利用上限、provider停止、read-only書込通知、安全規約違反は`status=interrupted`と`pauseKind`で親queueを直ちに止め、他問へ同じ失敗を繰り返さない。
 - `未完了の問題を再開`は保留・未実行itemだけをqueueへ戻す。再起動時は子runの確定receiptを先に親queueへ回収し、確定済みitemを再実行しない。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。

@@ -107,6 +107,8 @@ from tools.question_review_console.write_transaction import (
 )
 
 
+QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10)
+DEFAULT_QUESTION_CONCURRENCY = 5
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -463,6 +465,26 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
 
 class QualificationRunError(RuntimeError):
     pass
+
+
+def normalize_question_concurrency(value: Any) -> int:
+    if isinstance(value, bool):
+        raise QualificationRunError(
+            "同時に準備する問題数は1、5、10から選択してください。"
+        )
+    try:
+        concurrency = int(value)
+    except (TypeError, ValueError) as exc:
+        raise QualificationRunError(
+            "同時に準備する問題数は1、5、10から選択してください。"
+        ) from exc
+    if (
+        isinstance(value, float) and value != concurrency
+    ) or concurrency not in QUESTION_CONCURRENCY_OPTIONS:
+        raise QualificationRunError(
+            "同時に準備する問題数は1、5、10から選択してください。"
+        )
+    return concurrency
 
 
 class QuestionItemError(QualificationRunError):
@@ -1081,6 +1103,11 @@ class QualificationRunStore:
             "sandbox": plan.get("sandbox"),
             "provider": plan.get("provider"),
             "parallelStrategy": plan.get("parallelStrategy"),
+            "questionConcurrency": (
+                int(plan["questionConcurrency"])
+                if plan.get("questionConcurrency") is not None
+                else None
+            ),
             "parallelWorkerLimit": int(plan.get("parallelWorkerLimit") or 1),
             "writeWorkerLimit": int(plan.get("writeWorkerLimit") or 1),
             "executionPhase": "queued",
@@ -3498,7 +3525,9 @@ class QualificationRunCoordinator:
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
         resumed_from: str | None = None,
+        question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
     ) -> dict[str, Any]:
+        question_concurrency = normalize_question_concurrency(question_concurrency)
         plan = self._plan(
             qualification,
             stage_id,
@@ -3531,6 +3560,8 @@ class QualificationRunCoordinator:
                     }
                     for path in preview.get("failedDeltaPaths") or []
                 )
+        # 並列数は対象範囲を変えない実行設定であり、許可値はstart時にも
+        # serverが検証する。切替のたびに高コストな対象計算をやり直さない。
         token_payload = {"plan": plan, "groupPreviews": group_previews}
         return {
             "qualification": qualification,
@@ -3543,6 +3574,7 @@ class QualificationRunCoordinator:
             "mode": mode,
             "modeLabel": plan["modeLabel"],
             "resumedFrom": resumed_from,
+            "questionConcurrency": question_concurrency,
             "targetCount": plan["targetCount"],
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "stageCount": int(
@@ -3576,7 +3608,9 @@ class QualificationRunCoordinator:
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
         resumed_from: str | None = None,
+        question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
     ) -> dict[str, Any]:
+        question_concurrency = normalize_question_concurrency(question_concurrency)
         preview = self.preview(
             qualification,
             stage_id,
@@ -3584,6 +3618,7 @@ class QualificationRunCoordinator:
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
             resumed_from=resumed_from,
+            question_concurrency=question_concurrency,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -3688,7 +3723,12 @@ class QualificationRunCoordinator:
                     ],
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
+                    "questionConcurrency": question_concurrency,
                     "parallelStrategy": "per_question_preparation",
+                    "parallelWorkerLimit": min(
+                        question_concurrency,
+                        int(plan.get("targetCount") or 1),
+                    ),
                     "phaseExecutions": phase_executions,
                     "currentPhaseId": None,
                     "childRunIds": [],
@@ -6207,13 +6247,22 @@ class QualificationRunCoordinator:
                     startedAt=_now(),
                     error=None,
                 )
+            requested_concurrency = (
+                normalize_question_concurrency(parent["questionConcurrency"])
+                if parent.get("questionConcurrency") is not None
+                else max(1, int(parent.get("parallelWorkerLimit") or 1))
+            )
             worker_limit = max(
                 1,
-                min(2, int(parent.get("parallelWorkerLimit") or 1), len(questions) or 1),
+                min(
+                    requested_concurrency,
+                    len(questions) or 1,
+                ),
             )
             emit(
                 f"{len(questions)}問を問ごとの工程順で処理します。"
-                f"読取専用準備は最大{worker_limit}問、writerは1問です。"
+                f"判断案の準備は最大{worker_limit}問を並列化し、"
+                "patch確定と機械検査は1問ずつ行います。"
             )
 
             def submit_entry(

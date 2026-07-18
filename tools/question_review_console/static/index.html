@@ -250,6 +250,15 @@
               <label id="qualification-run-refresh"><input type="radio" name="qualification-run-mode" value="refresh"><span>資格全体の全問題を再整備</span></label>
             </div>
           </fieldset>
+          <fieldset id="qualification-run-concurrency-fieldset">
+            <legend>同時に準備する問題数</legend>
+            <div class="run-concurrency-options">
+              <label><input type="radio" name="qualification-run-concurrency" value="1"><span>1問</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="5" checked><span>5問（安定運用）</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="10"><span>10問（検証後）</span></label>
+            </div>
+            <small class="run-concurrency-note">各問の判断案を並列に準備し、patchの確定保存と機械検査は1問ずつ行います。</small>
+          </fieldset>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
           <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>
           <div id="qualification-run-job" class="qualification-run-job" hidden>

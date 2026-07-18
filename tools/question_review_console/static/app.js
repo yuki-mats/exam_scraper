@@ -5,6 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v2";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
+const QUESTION_CONCURRENCY_OPTIONS = [1, 5, 10];
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -188,6 +189,7 @@ const state = {
     resumedFrom: "",
     stageIds: [],
     listGroupIds: [],
+    questionConcurrency: 5,
     previewController: null,
   },
   workflowGuide: {
@@ -474,6 +476,17 @@ function bindControls() {
   $("#qualification-run-dialog").addEventListener("close", cancelQualificationRunPreview);
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.addEventListener("change", previewQualificationRun);
+  }
+  for (const node of document.querySelectorAll('input[name="qualification-run-concurrency"]')) {
+    node.addEventListener("change", () => {
+      state.qualificationRunDialog.questionConcurrency = selectedQualificationRunConcurrency();
+      if (state.qualificationRunDialog.preview) {
+        state.qualificationRunDialog.preview.questionConcurrency = (
+          state.qualificationRunDialog.questionConcurrency
+        );
+        renderQualificationRunPreview(state.qualificationRunDialog.preview);
+      }
+    });
   }
   $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
@@ -1801,7 +1814,7 @@ function renderQualificationActiveRun() {
   const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
-    parallelLabel = " ・ 判断は問題別に並列・保存は1問ずつ";
+    parallelLabel = ` ・ 判断案は最大${parallelWorkers}問を並列準備・保存と検査は1問ずつ`;
   } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
     parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
   } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
@@ -1837,6 +1850,14 @@ function renderQualificationActiveRun() {
 
 function selectedQualificationRunMode() {
   return document.querySelector('input[name="qualification-run-mode"]:checked')?.value || "remaining";
+}
+
+function selectedQualificationRunConcurrency() {
+  return Number(
+    document.querySelector('input[name="qualification-run-concurrency"]:checked')?.value
+      || state.qualificationRunDialog.questionConcurrency
+      || 5,
+  );
 }
 
 function selectedQualificationRunStageIds() {
@@ -2017,6 +2038,7 @@ function updateQualificationRunHeading() {
 
 function openQualificationRunDialog(stage, options = {}) {
   cancelQualificationRunPreview();
+  const requestedConcurrency = Number(options.questionConcurrency || 5);
   const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
   const selectedGroupIds = defaultQualificationRunListGroupIds(
     stage,
@@ -2030,6 +2052,9 @@ function openQualificationRunDialog(stage, options = {}) {
     resumedFrom: options.resumedFrom || "",
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
+    questionConcurrency: QUESTION_CONCURRENCY_OPTIONS.includes(requestedConcurrency)
+      ? requestedConcurrency
+      : 5,
     previewController: null,
     simplified: options.simplified === true,
   };
@@ -2068,6 +2093,14 @@ function openQualificationRunDialog(stage, options = {}) {
         : "remaining");
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.checked = node.value === defaultMode;
+  }
+  const supportsConcurrency = selectedStageIds.some((selectedStageId) => (
+    state.qualificationWorkflow?.stages?.find((item) => item.id === selectedStageId)
+      ?.kind === "human"
+  ));
+  $("#qualification-run-concurrency-fieldset").hidden = !supportsConcurrency;
+  for (const node of document.querySelectorAll('input[name="qualification-run-concurrency"]')) {
+    node.checked = Number(node.value) === state.qualificationRunDialog.questionConcurrency;
   }
   if (state.qualificationRunDialog.simplified) {
     $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
@@ -2145,11 +2178,13 @@ async function previewQualificationRun() {
         qualification: workflow.qualification,
         stageIds,
         mode: selectedQualificationRunMode(),
+        questionConcurrency: selectedQualificationRunConcurrency(),
         listGroupIds: supportsScope ? listGroupIds : undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
     if (sequence !== state.qualificationRunDialog.previewSequence) return;
+    preview.questionConcurrency = selectedQualificationRunConcurrency();
     state.qualificationRunDialog.preview = preview;
     renderQualificationRunPreview(preview);
   } catch (error) {
@@ -2209,6 +2244,15 @@ function renderQualificationRunPreview(preview) {
         );
       }
     }
+    if (preview.kind === "human") {
+      container.append(
+        element(
+          "span",
+          "run-preview-concurrency",
+          `判断案は最大${preview.questionConcurrency}問を並列準備・patch確定と機械検査は1問ずつ`,
+        ),
+      );
+    }
     if (preview.scopeListGroupIds?.length) {
       const scopeName = scopeLabelForGroups(preview.scopeListGroupIds);
       const targetSuffix = preview.targetGroupIds?.length
@@ -2257,6 +2301,7 @@ async function startQualificationRun(event) {
         qualification: preview.qualification,
         stageIds: preview.stageIds,
         mode: preview.mode,
+        questionConcurrency: selectedQualificationRunConcurrency(),
         listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
@@ -2687,6 +2732,7 @@ function enterQualificationProgressView(run) {
   $("#qualification-run-stage-fieldset").hidden = true;
   $("#qualification-run-group-fieldset").hidden = true;
   $("#qualification-run-mode-fieldset").hidden = true;
+  $("#qualification-run-concurrency-fieldset").hidden = true;
   $("#qualification-run-preview").hidden = true;
   $("#qualification-run-start").hidden = true;
   $("#qualification-run-cancel").hidden = false;
@@ -2862,6 +2908,7 @@ function retryBlockedQualificationRun() {
     stageIds,
     listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
     mode: run.mode || "outdated",
+    questionConcurrency: run.questionConcurrency || 5,
     resumedFrom: run.runId,
     simplified: true,
   });

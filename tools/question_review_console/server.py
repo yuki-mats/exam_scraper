@@ -105,6 +105,7 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "receiptValidated",
     "model",
     "reasoningEffort",
+    "questionConcurrency",
     "parallelWorkerLimit",
     "researchSubagentCount",
     "researchStatus",
@@ -530,6 +531,10 @@ class QuestionReviewApplication:
                     "stage_ids": stage_ids,
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
+                if "questionConcurrency" in body:
+                    run_options["question_concurrency"] = body.get(
+                        "questionConcurrency"
+                    )
                 if list_group_ids is not None:
                     run_options["list_group_ids"] = list_group_ids
                 if path.endswith("/preview"):

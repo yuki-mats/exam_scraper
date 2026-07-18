@@ -63,6 +63,10 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("判断${actualResearchWorkers}並列完了（保存は1件ずつ）", javascript)
         self.assertIn("並列調査実績0・単独処理", javascript)
         self.assertIn("判断最大${parallelWorkers}並列（保存は1件ずつ）", javascript)
+        self.assertIn(
+            "判断案は最大${parallelWorkers}問を並列準備・保存と検査は1問ずつ",
+            javascript,
+        )
 
     def test_validated_work_and_artifact_sync_have_separate_ui_states(self):
         javascript = APP_PATH.read_text(encoding="utf-8")

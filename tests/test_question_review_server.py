@@ -629,8 +629,10 @@ class QuestionReviewServerTests(unittest.TestCase):
                 stage_ids=None,
                 list_group_ids=None,
                 resumed_from=None,
+                question_concurrency=None,
             ):
                 self.scope = list_group_ids
+                self.question_concurrency = question_concurrency
                 return {
                     "qualification": qualification,
                     "stageId": stage_id,
@@ -648,8 +650,10 @@ class QuestionReviewServerTests(unittest.TestCase):
                 stage_ids=None,
                 list_group_ids=None,
                 resumed_from=None,
+                question_concurrency=None,
             ):
                 self.scope = list_group_ids
+                self.question_concurrency = question_concurrency
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
                     "prompt": "依頼",
@@ -678,6 +682,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
                     "mode": "attention",
+                    "questionConcurrency": 10,
                 },
             )
             start_status, started = app.post(
@@ -687,6 +692,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
                     "mode": "attention",
+                    "questionConcurrency": 10,
                     "previewToken": "token",
                 },
             )
@@ -707,6 +713,7 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         self.assertEqual(preview["mode"], "attention")
         self.assertEqual(runs.scope, ["2024", "2026"])
+        self.assertEqual(runs.question_concurrency, 10)
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
         self.assertEqual(recent["qualification"], "sample")
@@ -716,6 +723,24 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(progress["questions"], [])
         self.assertTrue(detailed_progress["questionsIncluded"])
         self.assertEqual(detailed_progress["questions"], [{"questionId": "q1"}])
+
+    def test_qualification_run_rejects_unsupported_question_concurrency(self):
+        with tempfile.TemporaryDirectory() as directory, self.assertRaises(
+            ApiError
+        ) as caught:
+            app = QuestionReviewApplication(Path(directory))
+            app.post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["question_type"],
+                    "mode": "remaining",
+                    "questionConcurrency": 50,
+                },
+            )
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("1、5、10", str(caught.exception))
 
     def test_qualification_run_rejects_legacy_singular_scope(self):
         cases = (

@@ -822,6 +822,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         stage_ids,
         app_server=None,
         group_ids=None,
+        question_concurrency=5,
     ):
         selected_groups = list(group_ids or ["2026"])
         synchronizer = FakeSynchronizer()
@@ -840,6 +841,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "outdated",
             stage_ids=stage_ids,
             list_group_ids=selected_groups,
+            question_concurrency=question_concurrency,
         )
         started = coordinator.start(
             "new-exam",
@@ -848,6 +850,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             preview["previewToken"],
             stage_ids=preview["stageIds"],
             list_group_ids=preview["scopeListGroupIds"],
+            question_concurrency=preview["questionConcurrency"],
         )
         self.assertEqual(started["run"]["workType"], "maintenance_flow")
         return coordinator, synchronizer, app_server, started["run"]
@@ -1353,16 +1356,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(max_preparations, 1)
         self.assertEqual(max_writers, 1)
 
-    def test_prefetch_window_uses_two_read_only_workers_after_probe(self):
+    def test_prefetch_window_uses_five_read_only_workers_after_probe(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
                 root,
-                CountedSourceInventory(3),
+                CountedSourceInventory(6),
                 ["question_type"],
             )
             probe_id = parent["questionExecutions"][0]["questionId"]
-            concurrent = threading.Barrier(2)
+            concurrent = threading.Barrier(5)
             lock = threading.Lock()
             active = 0
             max_active = 0
@@ -1411,7 +1414,51 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(max_active, 2)
+        self.assertEqual(parent["questionConcurrency"], 5)
+        self.assertEqual(parent["parallelWorkerLimit"], 5)
+        self.assertEqual(max_active, 5)
+
+    def test_question_concurrency_can_be_raised_to_ten(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, CountedSourceInventory(11)),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=FlowAppServer(),
+            )
+            preview_five = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                question_concurrency=5,
+            )
+            preview_ten = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                question_concurrency=10,
+            )
+            started = coordinator.start(
+                "new-exam",
+                "question_type",
+                "outdated",
+                preview_five["previewToken"],
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                question_concurrency=10,
+            )
+            parent = started["run"]
+
+        self.assertEqual(preview_five["previewToken"], preview_ten["previewToken"])
+        self.assertEqual(parent["questionConcurrency"], 10)
+        self.assertEqual(parent["parallelWorkerLimit"], 10)
 
     def test_prepare_failure_blocks_only_that_question_and_commits_sibling(self):
         with tempfile.TemporaryDirectory() as directory:
