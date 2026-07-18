@@ -1814,7 +1814,7 @@ function renderQualificationActiveRun() {
   const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
-    parallelLabel = ` ・ 最大${parallelWorkers}問を同時処理・保存と検査は1問ずつ`;
+    parallelLabel = ` ・ 生成・機械検査を最大${parallelWorkers}問並列・正本反映のみ1問ずつ`;
   } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
     parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
   } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
@@ -2249,7 +2249,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `最大${preview.questionConcurrency}問を同時処理・patch確定と機械検査は1問ずつ`,
+          `一問ずつ生成・機械検査を最大${preview.questionConcurrency}問並列`,
         ),
       );
     }

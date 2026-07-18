@@ -65,7 +65,8 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
 - GUIの開始範囲は資格・年度（回）・工程のままとし、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と工程の組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- 各問は選択工程を順に完了してから次問のwriterへ進む。最初のread-only準備でCodex App Serverが利用可能だと確認してから、UIで選んだ問題数を上限に処理し、writer中は残りの枠で判断案を先行準備する。既定は5問、選択肢は1・5・10問で、10問は5問運用の検証後に使う。patchの確定保存と機械検査は競合を避けるため常に1問ずつ行う。
+- 各問は選択工程を順に完了する独立pipelineとし、一つのmodel sessionへ複数問を詰め込まない。最初のread-only準備でCodex App Serverが利用可能だと確認した後、生成と問題ごとの機械検査をUIで選んだ問題数まで並列実行する。既定は5問、選択肢は1・5・10問で、10問は5問運用の検証後に使う。
+- writerは正本を直接編集せず、問ごとの隔離workspaceでpatch候補を生成・検査する。合格後、完全なsource identityで対象recordだけを現在の正本へrebaseし、この短い反映処理だけを直列化する。同じfileの別recordを処理するwriter、失敗時の破棄、手動修正が互いの成功差分を消してはならない。`00_source`不変検証も現在queueの対象sourceに限定し、他資格の新規scrapeでqueueを止めない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、writer開始前に古い判断案を破棄して同じ一問だけを自動再準備する。writer中の変更も安全なrollback後に再投入し、連続2回を超えた場合だけその問を理由付きで保留する。
 - 一問を安全に隔離又はrollbackできた失敗は、その問だけを`blocked`にして残りを続行する。全item走査後の親runは`status=succeeded`、保留があれば`queueStatus=partial`とし、確定済みpatchは`receiptValidated=true`で記録する。provider停止、rollback不能又は共有状態の破損だけは`status=interrupted`又は`failed`として親queueを止める。

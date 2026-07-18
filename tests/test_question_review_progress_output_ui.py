@@ -64,7 +64,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("並列調査実績0・単独処理", javascript)
         self.assertIn("判断最大${parallelWorkers}並列（保存は1件ずつ）", javascript)
         self.assertIn(
-            "最大${parallelWorkers}問を同時処理・保存と検査は1問ずつ",
+            "生成・機械検査を最大${parallelWorkers}問並列・正本反映のみ1問ずつ",
             javascript,
         )
 

@@ -945,7 +945,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             "validated",
         )
         self.assertLessEqual(app_server.max_active_preparations, 2)
-        self.assertEqual(app_server.max_active_writers, 1)
+        self.assertLessEqual(app_server.max_active_writers, 2)
         self.assertEqual(
             sorted(
                 question_id
@@ -955,24 +955,26 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             ),
             [failed_question_id, succeeded_question_id],
         )
-        self.assertEqual(
-            [
-                question_id
-                for question_id, _prompt in calls_by_type[
-                    "maintenance_question_type"
-                ]
-            ],
-            [
-                failed_question_id,
-                failed_question_id,
-                failed_question_id,
-                succeeded_question_id,
-            ],
-        )
-        failed_retry_prompt = calls_by_type["maintenance_question_type"][1][1]
+        writer_question_ids = [
+            question_id
+            for question_id, _prompt in calls_by_type[
+                "maintenance_question_type"
+            ]
+        ]
+        self.assertEqual(writer_question_ids.count(failed_question_id), 3)
+        self.assertEqual(writer_question_ids.count(succeeded_question_id), 1)
+        failed_retry_prompt = [
+            prompt
+            for question_id, prompt in calls_by_type["maintenance_question_type"]
+            if question_id == failed_question_id
+        ][1]
         self.assertIn("検査フィードバック", failed_retry_prompt)
         self.assertIn("writer検証に失敗", failed_retry_prompt)
-        succeeded_writer_prompt = calls_by_type["maintenance_question_type"][3][1]
+        succeeded_writer_prompt = next(
+            prompt
+            for question_id, prompt in calls_by_type["maintenance_question_type"]
+            if question_id == succeeded_question_id
+        )
         self.assertIn(
             f"{succeeded_question_id}の読取専用の判断案",
             succeeded_writer_prompt,
@@ -1058,16 +1060,15 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(job["status"], "succeeded", job)
         self.assertEqual(run["queueOrder"], "question_major")
         self.assertEqual(
-            writers,
-            [
-                ("new-exam-2026-q1", "question_type"),
-                ("new-exam-2026-q1", "question_intent"),
-                ("new-exam-2026-q2", "question_type"),
-                ("new-exam-2026-q2", "question_intent"),
-            ],
+            [stage for question, stage in writers if question == "new-exam-2026-q1"],
+            ["question_type", "question_intent"],
+        )
+        self.assertEqual(
+            [stage for question, stage in writers if question == "new-exam-2026-q2"],
+            ["question_type", "question_intent"],
         )
         self.assertLessEqual(app_server.max_active_preparations, 2)
-        self.assertEqual(app_server.max_active_writers, 1)
+        self.assertLessEqual(app_server.max_active_writers, 2)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_child_changed_files_activate_initially_inapplicable_later_stage(self):
@@ -1126,10 +1127,10 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 encoding="utf-8",
             )
 
-            def write_stage_artifact(_question_id, stage_id):
+            def write_stage_artifact(_question_id, stage_id, workspace_root):
                 if stage_id == "law_audit":
                     self._write_law_audit_sidecar(
-                        root,
+                        workspace_root,
                         "2026",
                         [
                             {
@@ -1153,7 +1154,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     return
                 if stage_id != "law_context":
                     return
-                absolute = root / changed_path
+                absolute = workspace_root / changed_path
                 absolute.parent.mkdir(parents=True, exist_ok=True)
                 absolute.write_text(
                     json.dumps(

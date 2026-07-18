@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-per-question-queue"
   kind: existing_plan
   tranche: "continuous execution: 一問単位の並列整備・確定・失敗隔離・再開を実装し、範囲指定UIから安定運用できるまで進める"
-  status: done
+  status: active
   oracle:
     signal: "UIからガス主任技術者甲種2019年の58問を開始し、1問が失敗しても57問が確定し、失敗問だけを理由付きで再実行できる"
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: null
+active_task: T013
 tasks:
   - id: T001
     type: scout
@@ -829,6 +829,114 @@ tasks:
         run_id: "20260718T234110211872-3b705c43"
         status_at_receipt: running
         note: "仕組みの検証完了後も2019年55問の整備を停止せず継続中。"
+    harness: codex
+  - id: T012
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "一問ごとのモデル生成と機械検査をquestionConcurrency件まで独立並列化し、共有patchへの最終反映だけを短時間の原子的マージにして5/10並列の実効速度を上げる"
+    inputs:
+      - "live run 20260718T234110211872-3b705c43"
+      - "writer 1件、prepared 4件で停滞している実測"
+      - "既存の一問proposal、rollback、receipt、artifactSync契約"
+    constraints:
+      - "一問ごとの判断prompt、機械検査、receipt検証を省略しない。"
+      - "複数モデルから共有patch JSONへ直接書き込まない。"
+      - "共有patch反映はexact identity単位の原子的マージとし、更新消失を防ぐ。"
+      - "1問の失敗又はrollbackが他問を巻き込まない。"
+      - "5/10は準備数でなく、生成・検査中を含む総同時問題数とする。"
+      - "00_source、既存ID、本番Firestoreを変更しない。"
+      - "既存の無関係な未コミット変更を変更、stage、rollbackしない。"
+      - "稼働中2019 runは新実装の検証・deploy準備が整うまで止めない。"
+    expected_output:
+      - "最大5/10件の独立writerと一問機械検査"
+      - "共有patchの原子的反映と競合検知"
+      - "失敗隔離、再試行、再起動復旧の維持"
+      - "UI表示と実際の同時処理数の一致"
+      - "回帰テストと2019年runの安全な再開readback"
+    allowed_files:
+      - "tools/question_review_console/question_work_queue.py"
+      - "tools/question_review_console/question_patch_proposal.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/patch_editor.py"
+      - "tools/question_review_console/write_transaction.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/styles.css"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_question_work_queue.py"
+      - "tests/test_question_review_question_patch_proposal.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_write_safety.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+      - "docs/goals/question-maintenance-per-question-queue/state.yaml"
+    verify:
+      - "python3 -m unittest discover -s tests -p 'test_question_review*.py'"
+      - "python3 -m py_compile tools/question_review_console/question_work_queue.py tools/question_review_console/question_patch_proposal.py tools/question_review_console/qualification_runs.py tools/question_review_console/patch_editor.py tools/question_review_console/write_transaction.py tools/question_review_console/server.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "問題単位のwrite scopeをexact identityへ狭められない。"
+      - "モデルworkerが共有patchへ直接書く必要がある。"
+      - "検証の品質又は範囲を減らす必要がある。"
+      - "既存の未コミット変更と責務が競合する。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      summary: "一問一sessionの品質境界を維持したまま、生成・機械検査を最大5/10問並列化した。各writerはrun固有の隔離workspaceだけを書き、合格後にsource identity完全一致の1recordだけをcommit lock内で正本へrebaseする。"
+      evidence:
+        - "tests.test_question_review_question_patch_proposalほか180 tests OK"
+        - "20260719T014918844712-9af5e53f: isolated_question_pipeline / questionConcurrency=5"
+        - "2026-07-19 01:52:24-26: 5 preparation sessions started"
+        - "2026-07-19 01:57: 5 child runs simultaneously isolated_writing"
+        - "first child succeeded with receiptValidated=true while four siblings remained active"
+      changed_files:
+        - "tools/question_review_console/question_patch_proposal.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/static/index.html"
+        - "tools/question_review_console/static/app.js"
+        - "tests/qualification_run_test_support.py"
+        - "tests/test_question_review_question_patch_proposal.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tests/test_question_review_qualification_flow_recovery.py"
+        - "tests/test_question_review_progress_output_ui.py"
+        - "document/operations/local_question_review_console.md"
+      facts:
+        - "複数問題を一つのmodel sessionへ束ねず、一問の判断promptと検査範囲を維持した。"
+        - "同一patch fileを扱う兄弟workerはprivate copyを持ち、正本反映時に対象recordだけを再baseする。"
+        - "同じ対象recordが準備後に変わった場合は競合として拒否し、兄弟recordの更新は保持する。"
+        - "00_source検査は実行対象sourceだけに限定し、無関係資格を巻き込まない。"
+        - "artifactSyncの最終集約と手動再生成導線は変更していない。"
+      commands:
+        - ".venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs tests.test_question_review_qualification_flow_recovery tests.test_question_review_progress_output_ui tests.test_question_review_server tests.test_question_review_workflow"
+        - "node --check tools/question_review_console/static/app.js"
+        - ".venv/bin/python -m py_compile tools/question_review_console/question_patch_proposal.py tools/question_review_console/qualification_runs.py"
+        - "git diff --check"
+      harness: codex
+    harness: codex
+  - id: T013
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "5/10並列writerの回帰・実UI・共有patch整合性を最終監査し、元の速度改善と品質維持を満たすか判定する"
+    inputs:
+      - "T012 receipt"
+      - "full regression"
+      - "2019年甲種の実UI run readback"
+    constraints:
+      - "計画又はmockだけで完了にしない。"
+      - "品質検査の省略と共有patchの更新消失を許容しない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "実測同時writer数と失敗隔離証拠"
+      - "missing evidence"
+    receipt: null
     harness: codex
 checks:
   dirty_fingerprint: "pre-existing gas-shunin output patches plus GoalBuddy control files"

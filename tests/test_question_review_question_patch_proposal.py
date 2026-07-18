@@ -1,8 +1,11 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
 
+from scripts.common.question_identity import SourceIdentityBinding
 from tools.question_review_console.question_patch_proposal import (
+    IsolatedQuestionPatchWorkspace,
     QuestionPatchProposalError,
     QuestionPatchProposalStore,
 )
@@ -100,6 +103,101 @@ class QuestionPatchProposalStoreTests(unittest.TestCase):
                         session_id="session-1",
                         turn_id="turn-1",
                     )
+
+
+class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
+    @staticmethod
+    def _record(question: str, explanation: str) -> dict[str, str]:
+        return {
+            "sourceQuestionKey": f"sample:2026:{question}",
+            "reviewQuestionId": f"review-{question}",
+            "sourceRecordRef": f"source.json#{question.removeprefix('q')}",
+            "explanationText": explanation,
+        }
+
+    def test_rebases_one_record_without_losing_sibling_commit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_relative = Path(
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+            )
+            patch_path = root / patch_relative
+            patch_path.parent.mkdir(parents=True)
+            q1 = self._record("q1", "before-1")
+            q2 = self._record("q2", "before-2")
+            patch_path.write_text(
+                json.dumps([q1, q2], ensure_ascii=False),
+                encoding="utf-8",
+            )
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root,
+                root / "output/question_review_console/run/isolated_workspace",
+                qualification="sample",
+                mutable_paths=[patch_relative.as_posix()],
+            )
+            isolated_patch = workspace.root / patch_relative
+            candidate = json.loads(isolated_patch.read_text(encoding="utf-8"))
+            candidate[0]["explanationText"] = "candidate-1"
+            isolated_patch.write_text(
+                json.dumps(candidate, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            canonical = json.loads(patch_path.read_text(encoding="utf-8"))
+            canonical[1]["explanationText"] = "committed-by-sibling"
+            patch_path.write_text(
+                json.dumps(canonical, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            binding = SourceIdentityBinding.from_mapping(q1)
+            changed = workspace.rebase_into_canonical(
+                workspace.changed_paths(),
+                binding=binding,
+                aliases_by_path={
+                    patch_relative.as_posix(): [list(binding.as_tuple())]
+                },
+            )
+            result = json.loads(patch_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(changed, [patch_relative.as_posix()])
+        self.assertEqual(result[0]["explanationText"], "candidate-1")
+        self.assertEqual(result[1]["explanationText"], "committed-by-sibling")
+
+    def test_rejects_same_record_changed_after_workspace_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_relative = Path(
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+            )
+            patch_path = root / patch_relative
+            patch_path.parent.mkdir(parents=True)
+            q1 = self._record("q1", "before")
+            patch_path.write_text(json.dumps([q1]), encoding="utf-8")
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root,
+                root / "output/question_review_console/run/isolated_workspace",
+                qualification="sample",
+                mutable_paths=[patch_relative.as_posix()],
+            )
+            isolated_patch = workspace.root / patch_relative
+            candidate = json.loads(isolated_patch.read_text(encoding="utf-8"))
+            candidate[0]["explanationText"] = "candidate"
+            isolated_patch.write_text(json.dumps(candidate), encoding="utf-8")
+            canonical = [self._record("q1", "manual-update")]
+            patch_path.write_text(json.dumps(canonical), encoding="utf-8")
+            binding = SourceIdentityBinding.from_mapping(q1)
+
+            with self.assertRaisesRegex(
+                QuestionPatchProposalError,
+                "準備後に対象recordが更新",
+            ):
+                workspace.rebase_into_canonical(
+                    workspace.changed_paths(),
+                    binding=binding,
+                    aliases_by_path={
+                        patch_relative.as_posix(): [list(binding.as_tuple())]
+                    },
+                )
 
 
 if __name__ == "__main__":

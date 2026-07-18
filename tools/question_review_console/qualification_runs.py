@@ -66,9 +66,11 @@ from tools.question_review_console.qualification_progress import (
     derive_progress_completion,
 )
 from tools.question_review_console.question_patch_proposal import (
+    IsolatedQuestionPatchWorkspace,
     QuestionPatchProposalError,
     QuestionPatchProposalStore,
 )
+from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.question_work_queue import (
     WORK_ITEM_STATES,
     QuestionWorkQueueError,
@@ -3450,6 +3452,9 @@ class QualificationRunCoordinator:
             self.repo_root,
             self.store.root,
         )
+        # Model turns run concurrently in private workspaces.  Only the short
+        # exact-record rebase into canonical patch files is serialized.
+        self._question_patch_commit_lock = threading.RLock()
 
     def _technical_log_emitter(
         self,
@@ -3736,7 +3741,7 @@ class QualificationRunCoordinator:
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "questionConcurrency": question_concurrency,
-                    "parallelStrategy": "per_question_preparation",
+                    "parallelStrategy": "isolated_question_pipeline",
                     "parallelWorkerLimit": min(
                         question_concurrency,
                         int(plan.get("targetCount") or 1),
@@ -5641,6 +5646,7 @@ class QualificationRunCoordinator:
         work_version_receipts: list[dict[str, Any]],
         confirmed_group_ids: set[str],
         pipeline_stop: threading.Event,
+        aggregation_lock: threading.Lock,
     ) -> bool:
         phase = dict(spec["phase"])
         phase_plan = dict(spec["phasePlan"])
@@ -5854,7 +5860,7 @@ class QualificationRunCoordinator:
             workType=f"maintenance_{stage_id}",
             sandbox="workspace-write",
             provider=self.app_server.provider,
-            parallelStrategy="prepared_question",
+            parallelStrategy="isolated_question",
             parallelWorkerLimit=1,
             writeWorkerLimit=1,
             parentSourceChecked=True,
@@ -5912,8 +5918,10 @@ class QualificationRunCoordinator:
                 prompt=writer_prompt,
             )
             child_id = str(child["runId"])
-            child_run_ids.append(child_id)
-            phase_child_ids.setdefault(stage_id, []).append(child_id)
+            with aggregation_lock:
+                child_run_ids.append(child_id)
+                phase_child_ids.setdefault(stage_id, []).append(child_id)
+                all_child_ids = list(child_run_ids)
             stage_child_ids.append(child_id)
             validation_attempts.append(
                 {
@@ -5928,7 +5936,7 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run_id,
-                childRunIds=list(child_run_ids),
+                childRunIds=all_child_ids,
                 currentPhaseId=stage_id,
                 executionPhase=f"committing:{stage_id}",
             )
@@ -5937,14 +5945,29 @@ class QualificationRunCoordinator:
                 error=None,
             )
             try:
-                self._run_human(
-                    qualification,
-                    child_id,
-                    self.store.prompt(qualification, child_id),
-                    str(child_plan["workType"]),
-                    emit,
-                    sync_artifacts=False,
-                )
+                if "_run_human" in self.__dict__:
+                    # Existing harnesses replace the legacy writer at the
+                    # instance boundary.  Keep that seam while production uses
+                    # the isolated implementation below.
+                    self._run_human(
+                        qualification,
+                        child_id,
+                        self.store.prompt(qualification, child_id),
+                        str(child_plan["workType"]),
+                        emit,
+                        sync_artifacts=False,
+                    )
+                else:
+                    self._run_isolated_question_human(
+                        qualification,
+                        child_id,
+                        self.store.prompt(qualification, child_id),
+                        str(child_plan["workType"]),
+                        emit,
+                        phase_plan=phase_plan,
+                        stage_id=stage_id,
+                        pipeline_stop=pipeline_stop,
+                    )
                 child = self.store.refresh(qualification, child_id)
                 if child.get("status") != "succeeded" or not child.get(
                     "receiptValidated"
@@ -6117,15 +6140,18 @@ class QualificationRunCoordinator:
             return False
 
         receipt = child.get("workVersionReceipt")
-        if isinstance(receipt, Mapping):
-            work_version_receipts.append(dict(receipt))
         list_group_id = str(target.get("listGroupId") or "")
+        with aggregation_lock:
+            if isinstance(receipt, Mapping):
+                work_version_receipts.append(dict(receipt))
+            if list_group_id:
+                confirmed_group_ids.add(list_group_id)
+            confirmed_snapshot = sorted(confirmed_group_ids)
         if list_group_id:
-            confirmed_group_ids.add(list_group_id)
             self.store.update(
                 qualification,
                 run_id,
-                confirmedGroupIds=sorted(confirmed_group_ids),
+                confirmedGroupIds=confirmed_snapshot,
             )
         self.store.update_question_stage(
             qualification,
@@ -6146,7 +6172,8 @@ class QualificationRunCoordinator:
             "serviceTier": child.get("serviceTier"),
             "reasoningEffort": child.get("reasoningEffort"),
         }
-        phase_runtime[stage_id] = runtime
+        with aggregation_lock:
+            phase_runtime[stage_id] = runtime
         self.store.update(qualification, run_id, **runtime)
         return True
 
@@ -6356,6 +6383,7 @@ class QualificationRunCoordinator:
         pipeline_stop = threading.Event()
         pipeline_pause_lock = threading.Lock()
         pipeline_pauses: list[QuestionQueuePaused] = []
+        aggregation_lock = threading.Lock()
 
         def record_pipeline_pause(pause: QuestionQueuePaused) -> None:
             with pipeline_pause_lock:
@@ -6418,31 +6446,40 @@ class QualificationRunCoordinator:
             )
             emit(
                 f"{len(questions)}問を問ごとの工程順で処理します。"
-                f"同時に進めるのは最大{worker_limit}問とし、"
-                "そのうちpatch確定と機械検査は1問ずつ行います。"
+                f"一問ごとの生成と機械検査を最大{worker_limit}問並列で行い、"
+                "合格したrecordの正本反映だけを短時間ずつ直列化します。"
             )
 
-            def submit_entry(
-                executor: ThreadPoolExecutor,
+            def resolve_spec(
                 question: Mapping[str, Any],
                 phase: Mapping[str, Any],
             ) -> dict[str, Any]:
                 question_id = str(question.get("questionId") or "")
                 stage_id = str(phase["id"])
-                initial_plan, initial_prompt = phase_contexts[stage_id]
-                if not self._phase_plan_policy_is_current(
+                with aggregation_lock:
+                    initial_plan, initial_prompt = phase_contexts[stage_id]
+                queue_stage = self._queue_stage(
+                    self.store.get(qualification, run_id),
+                    question_id,
+                    stage_id,
+                )
+                if (
+                    str((queue_stage or {}).get("status") or "queued") == "queued"
+                    and not self._phase_plan_policy_is_current(
                     qualification,
                     initial_plan,
                     stage_id,
+                    )
                 ):
                     initial_plan, initial_prompt = self._flow_phase_plan_prompt(
                         self.store.get(qualification, run_id),
                         phase,
                     )
-                    phase_contexts[stage_id] = (
-                        initial_plan,
-                        initial_prompt,
-                    )
+                    with aggregation_lock:
+                        phase_contexts[stage_id] = (
+                            initial_plan,
+                            initial_prompt,
+                        )
                     emit(
                         f"{stage_id}: 共通方針の更新をqueueへ反映しました。"
                     )
@@ -6470,150 +6507,134 @@ class QualificationRunCoordinator:
                         f"{question.get('displayLabel') or question_id}: "
                         f"この問題だけを保留しました: {exc}"
                     )
-                    return {
-                        "spec": {"status": "blocked", "stageId": stage_id},
-                        "future": None,
-                    }
-                if spec.get("status") != "queued":
-                    return {"spec": spec, "future": None}
+                    return {"status": "blocked", "stageId": stage_id}
+                return spec
 
-                def prepare() -> bool:
-                    if pipeline_stop.is_set():
-                        return False
+            def prepare_spec(
+                question: Mapping[str, Any],
+                spec: Mapping[str, Any],
+            ) -> bool:
+                if pipeline_stop.is_set():
+                    return False
+                question_id = str(question.get("questionId") or "")
+                try:
+                    prepared = self._prepare_question_item(
+                        qualification,
+                        run_id,
+                        str(spec["phasePrompt"]),
+                        dict(spec["target"]),
+                        str(spec["stageId"]),
+                        emit,
+                    )
+                except QuestionQueuePaused as pause:
+                    pipeline_stop.set()
+                    record_pipeline_pause(pause)
+                    self._persist_queue_pause(
+                        qualification,
+                        run_id,
+                        pause,
+                    )
+                    raise
+                if pipeline_stop.is_set():
+                    self.store.update_question_stage(
+                        qualification,
+                        run_id,
+                        question_id,
+                        str(spec["stageId"]),
+                        status="blocked",
+                        error="writer安全性を確認できないため後続処理を停止しました。",
+                        finishedAt=_now(),
+                        block_dependents=True,
+                    )
+                    return False
+                return prepared
+
+            # Probe the provider with one read-only preparation before opening
+            # the selected 5/10-question window.
+            probe_complete = False
+            for question in questions:
+                for phase in segment:
+                    spec = resolve_spec(question, phase)
+                    status = str(spec.get("status") or "")
+                    if status == "queued":
+                        prepare_spec(question, spec)
+                        probe_complete = True
+                        break
+                    if status == "prepared":
+                        probe_complete = True
+                        break
+                    if status == "blocked":
+                        break
+                if probe_complete:
+                    break
+
+            def process_question(question: Mapping[str, Any]) -> None:
+                question_id = str(question.get("questionId") or "")
+                for phase in segment:
+                    while not pipeline_stop.is_set():
+                        spec = resolve_spec(question, phase)
+                        status = str(spec.get("status") or "")
+                        if status == "blocked":
+                            return
+                        if status in {
+                            "not_present",
+                            "validated",
+                            "not_applicable",
+                        }:
+                            break
+                        if status == "queued" and not prepare_spec(question, spec):
+                            return
+                        if status == "queued":
+                            spec = resolve_spec(question, phase)
+                            status = str(spec.get("status") or "")
+                        if status != "prepared":
+                            if status == "blocked":
+                                return
+                            continue
+                        try:
+                            committed = self._commit_question_major_item(
+                                qualification,
+                                run_id,
+                                spec,
+                                emit,
+                                child_run_ids=child_run_ids,
+                                phase_child_ids=phase_child_ids,
+                                phase_runtime=phase_runtime,
+                                work_version_receipts=work_version_receipts,
+                                confirmed_group_ids=confirmed_group_ids,
+                                pipeline_stop=pipeline_stop,
+                                aggregation_lock=aggregation_lock,
+                            )
+                        except QuestionPolicyChanged:
+                            continue
+                        if not committed:
+                            current = self._queue_stage(
+                                self.store.get(qualification, run_id),
+                                question_id,
+                                str(phase["id"]),
+                            )
+                            if current and current.get("status") == "blocked":
+                                return
+                        break
+
+            errors: list[BaseException] = []
+            with ThreadPoolExecutor(max_workers=worker_limit) as executor:
+                futures = [
+                    executor.submit(process_question, question)
+                    for question in questions
+                ]
+                for future in futures:
                     try:
-                        prepared = self._prepare_question_item(
-                            qualification,
-                            run_id,
-                            str(spec["phasePrompt"]),
-                            dict(spec["target"]),
-                            str(spec["stageId"]),
-                            emit,
-                        )
+                        future.result()
                     except QuestionQueuePaused as pause:
                         pipeline_stop.set()
                         record_pipeline_pause(pause)
-                        self._persist_queue_pause(
-                            qualification,
-                            run_id,
-                            pause,
-                        )
-                        raise
-                    if pipeline_stop.is_set():
-                        self.store.update_question_stage(
-                            qualification,
-                            run_id,
-                            question_id,
-                            str(spec["stageId"]),
-                            status="blocked",
-                            error="writer安全性を確認できないため後続処理を停止しました。",
-                            finishedAt=_now(),
-                            block_dependents=True,
-                        )
-                        return False
-                    return prepared
-
-                return {"spec": spec, "future": executor.submit(prepare)}
-
-            def submit_first_pending_entry(
-                executor: ThreadPoolExecutor,
-                question: Mapping[str, Any],
-            ) -> dict[str, Any] | None:
-                for phase_index, phase in enumerate(segment):
-                    entry = submit_entry(executor, question, phase)
-                    entry["phaseIndex"] = phase_index
-                    status = str(entry["spec"].get("status") or "")
-                    if entry.get("future") is not None or status not in {
-                        "validated",
-                        "not_applicable",
-                        "not_present",
-                    }:
-                        return entry
-                return None
-
-            with ThreadPoolExecutor(max_workers=worker_limit) as executor:
-                first_entries: dict[int, dict[str, Any] | None] = {}
-                for probe_index, question in enumerate(questions):
-                    entry = submit_first_pending_entry(executor, question)
-                    first_entries[probe_index] = entry
-                    if entry is None:
-                        continue
-                    first_future = entry.get("future")
-                    if first_future is None:
-                        continue
-                    # 最初の実準備をprovider probeにする。利用不可のまま
-                    # 複数問を同時送信せず、応答後だけ先読みを開放する。
-                    first_future.result()
-                    break
-                for question_index, question in enumerate(questions):
-                    if pipeline_stop.is_set():
-                        raise_pipeline_pause()
-                        break
-                    for next_index in range(
-                        question_index + 1,
-                        min(
-                            len(questions),
-                            question_index + worker_limit,
-                        ),
-                    ):
-                        if next_index not in first_entries:
-                            first_entries[next_index] = submit_first_pending_entry(
-                                executor,
-                                questions[next_index],
-                            )
-                    prefetched = first_entries.get(question_index)
-                    stop_question = False
-                    for phase_index, phase in enumerate(segment):
-                        entry = (
-                            first_entries.pop(question_index)
-                            if prefetched is not None
-                            and int(prefetched["phaseIndex"]) == phase_index
-                            else submit_entry(executor, question, phase)
-                        )
-                        while True:
-                            spec = dict(entry["spec"])
-                            future = entry.get("future")
-                            if future is not None and not future.result():
-                                stop_question = True
-                                break
-                            status = str(spec.get("status") or "")
-                            if status == "blocked":
-                                stop_question = True
-                                break
-                            if status in {
-                                "not_present",
-                                "validated",
-                                "not_applicable",
-                            }:
-                                break
-                            try:
-                                committed = self._commit_question_major_item(
-                                    qualification,
-                                    run_id,
-                                    spec,
-                                    emit,
-                                    child_run_ids=child_run_ids,
-                                    phase_child_ids=phase_child_ids,
-                                    phase_runtime=phase_runtime,
-                                    work_version_receipts=work_version_receipts,
-                                    confirmed_group_ids=confirmed_group_ids,
-                                    pipeline_stop=pipeline_stop,
-                                )
-                            except QuestionPolicyChanged:
-                                entry = submit_entry(executor, question, phase)
-                                continue
-                            if not committed:
-                                current = self._queue_stage(
-                                    self.store.get(qualification, run_id),
-                                    str(question.get("questionId") or ""),
-                                    str(phase["id"]),
-                                )
-                                stop_question = bool(
-                                    current and current.get("status") == "blocked"
-                                )
-                            break
-                        if stop_question:
-                            break
-                raise_pipeline_pause()
+                    except BaseException as exc:  # noqa: BLE001
+                        pipeline_stop.set()
+                        errors.append(exc)
+            raise_pipeline_pause()
+            if errors:
+                raise errors[0]
 
         segment: list[dict[str, Any]] = []
         for phase in phases:
@@ -6726,7 +6747,10 @@ class QualificationRunCoordinator:
             str(value) for value in parent.get("confirmedGroupIds") or [] if value
         }
         try:
-            self._check_source_immutability(emit)
+            self._check_source_immutability(
+                emit,
+                source_files=[str(value) for value in parent.get("sourceFiles") or []],
+            )
             phases = [
                 dict(value)
                 for value in parent.get("phaseExecutions") or []
@@ -7056,6 +7080,428 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
+    def _run_isolated_question_human(
+        self,
+        qualification: str,
+        run_id: str,
+        prompt: str,
+        work_type: str,
+        emit: Callable[[str], None],
+        *,
+        phase_plan: Mapping[str, Any],
+        stage_id: str,
+        pipeline_stop: threading.Event,
+    ) -> dict[str, Any]:
+        """Run a one-question writer privately and atomically rebase its row."""
+
+        if self.app_server is None:
+            raise QualificationRunError("Codex App Serverが設定されていません。")
+        if run_id not in {
+            str(value)
+            for value in getattr(emit, "technical_run_ids", set())
+            if value
+        }:
+            emit = self._technical_log_emitter(qualification, run_id, emit)
+        child = self.store.update(
+            qualification,
+            run_id,
+            status="running",
+            executionPhase="isolated_writing",
+            startedAt=_now(),
+            heartbeatAt=_now(),
+            error=None,
+        )
+        run_dir = self.store.root / qualification / run_id
+        mutable_paths = list(
+            dict.fromkeys(
+                [
+                    *(
+                        str(value)
+                        for value in child.get("allowedPatchFiles") or []
+                    ),
+                    *(
+                        str(value)
+                        for value in child.get("allowedWriteFiles") or []
+                    ),
+                ]
+            )
+        )
+        if not mutable_paths:
+            raise QualificationRunError("一問writerの可変patch fileがありません。")
+        receipt_relative = self._maintenance_relative_path(
+            child["resultReceiptPath"]
+        )
+        progress_relative = self._maintenance_relative_path(
+            child["progressReceiptPath"]
+        )
+        manifest_relative = (run_dir / "manifest.json").relative_to(self.repo_root)
+        copied_paths = [manifest_relative.as_posix()]
+        projected_paths = [
+            str(value.get("projectedInputPath") or "")
+            for value in child.get("progressTargets") or []
+            if isinstance(value, Mapping) and value.get("projectedInputPath")
+        ]
+        # projectedInputPath is queue-stage state, not a child manifest field.
+        projected_paths.extend(
+            str(value)
+            for value in re.findall(
+                r"`(output/question_review_console/[^`]+/projected_inputs/[^`]+\.json)`",
+                prompt,
+            )
+        )
+        copied_paths.extend(projected_paths)
+        workspace = IsolatedQuestionPatchWorkspace.create(
+            self.repo_root,
+            run_dir / "isolated_workspace",
+            qualification=qualification,
+            mutable_paths=mutable_paths,
+            readonly_paths=copied_paths,
+        )
+        isolated_receipt = workspace.root / receipt_relative
+        isolated_progress = workspace.root / progress_relative
+        isolated_receipt.parent.mkdir(parents=True, exist_ok=True)
+        isolated_progress.parent.mkdir(parents=True, exist_ok=True)
+        isolated_progress.touch(exist_ok=True)
+        isolated_prompt = prompt.replace(str(self.repo_root), str(workspace.root))
+        initial_record_payload = {
+            "recordSnapshots": {
+                relative.as_posix(): _record_snapshot(workspace.root / relative)
+                for relative in workspace.mutable_paths
+            },
+            "sourceRecordSnapshots": {
+                str(value): _record_snapshot(
+                    workspace.root / self._maintenance_relative_path(value)
+                )
+                for value in child.get("sourceFiles") or []
+            },
+        }
+        baseline_written = False
+        result = None
+
+        def heartbeat() -> None:
+            heartbeat_at = _now()
+            self.store.update(
+                qualification,
+                run_id,
+                heartbeatAt=heartbeat_at,
+            )
+            parent_run_id = str(child.get("parentRunId") or "")
+            if parent_run_id:
+                self.store.update(
+                    qualification,
+                    parent_run_id,
+                    heartbeatAt=heartbeat_at,
+                )
+            job_heartbeat = getattr(emit, "heartbeat", None)
+            if callable(job_heartbeat):
+                job_heartbeat()
+
+        def on_thread_started(thread_id: str, session_id: str) -> None:
+            self.store.update(
+                qualification,
+                run_id,
+                threadId=thread_id,
+                sessionId=session_id,
+            )
+
+        def on_turn_started(thread_id: str, turn_id: str) -> None:
+            self.store.update(
+                qualification,
+                run_id,
+                threadId=thread_id,
+                turnId=turn_id,
+            )
+
+        def completion_probe() -> bool:
+            if not isolated_receipt.is_file():
+                return False
+            try:
+                payload = json.loads(isolated_receipt.read_text(encoding="utf-8"))
+                self.store._validated_result_receipt(payload)
+                return True
+            except Exception:  # noqa: BLE001
+                return False
+
+        try:
+            result = self.app_server.run_turn(
+                isolated_prompt,
+                work_type=work_type,
+                sandbox="workspace-write",
+                emit=emit,
+                on_thread_started=on_thread_started,
+                on_turn_started=on_turn_started,
+                heartbeat=heartbeat,
+                cwd=workspace.root,
+                writable_roots=(workspace.root,),
+                completion_probe=completion_probe,
+            )
+            notified_outside = []
+            for value in result.changed_files:
+                raw = Path(str(value))
+                candidate = (
+                    raw if raw.is_absolute() else workspace.root / raw
+                ).resolve(strict=False)
+                if not (
+                    candidate == workspace.root
+                    or candidate.is_relative_to(workspace.root)
+                ):
+                    notified_outside.append(str(value))
+            if notified_outside:
+                raise QualificationRunError(
+                    "隔離workspace外のfile変更通知を検出しました: "
+                    + ", ".join(sorted(notified_outside))
+                )
+            if not isolated_receipt.is_file():
+                raise QualificationRunError(
+                    "Codex App Serverは完了しましたが、完了receiptが見つかりません。"
+                )
+            candidate_result = self.store._validated_result_receipt(
+                json.loads(isolated_receipt.read_text(encoding="utf-8"))
+            )
+            if candidate_result["status"] == "failed":
+                raise QualificationRunError(
+                    self._failed_receipt_message(candidate_result)
+                )
+
+            def candidate_relative(value: str) -> Path:
+                raw = Path(value)
+                if raw.is_absolute():
+                    absolute = raw.resolve(strict=False)
+                    if absolute.is_relative_to(workspace.root):
+                        return absolute.relative_to(workspace.root)
+                return self._maintenance_relative_path(value)
+
+            declared = {
+                candidate_relative(str(value))
+                for value in candidate_result.get("changedFiles") or []
+            }
+            actual_candidate = set(workspace.changed_paths())
+            if declared != actual_candidate:
+                missing = sorted(str(value) for value in actual_candidate - declared)
+                extra = sorted(str(value) for value in declared - actual_candidate)
+                details = []
+                if missing:
+                    details.append("未申告: " + ", ".join(missing))
+                if extra:
+                    details.append("差分なし: " + ", ".join(extra))
+                raise QualificationRunError(
+                    "隔離patch差分とreceiptが一致しません。" + " ".join(details)
+                )
+            unknown = actual_candidate - set(workspace.mutable_paths)
+            if unknown:
+                raise QualificationRunError(
+                    "隔離workspaceの可変範囲外にpatch差分があります。"
+                )
+            self._validate_record_scope(
+                qualification,
+                run_id,
+                child,
+                actual_candidate,
+                validation_root=workspace.root,
+                baseline_payload=initial_record_payload,
+            )
+
+            progress_text = isolated_progress.read_text(encoding="utf-8")
+            atomic_write(
+                self.repo_root / progress_relative,
+                progress_text,
+            )
+            normalized_candidate_result = {
+                **candidate_result,
+                "changedFiles": [
+                    value.as_posix() for value in sorted(actual_candidate)
+                ],
+                "resolvedFailedDeltaPaths": [],
+            }
+            self.store.write_result(
+                qualification,
+                run_id,
+                normalized_candidate_result,
+            )
+            refreshed = self.store.refresh(qualification, run_id)
+            self._validate_progress_receipt(qualification, run_id, refreshed)
+            if pipeline_stop.is_set():
+                raise QualificationRunError(
+                    "別の一問で安全停止したため、この候補patchは正本へ反映しません。"
+                )
+
+            with self._question_patch_commit_lock:
+                if pipeline_stop.is_set():
+                    raise QualificationRunError(
+                        "別の一問で安全停止したため、この候補patchは正本へ反映しません。"
+                    )
+                if not self._phase_plan_policy_is_current(
+                    qualification,
+                    phase_plan,
+                    stage_id,
+                ):
+                    raise QuestionPolicyChanged(
+                        f"{stage_id}の共通方針がwriter中に更新されました。"
+                    )
+                canonical_roots = tuple(
+                    self.repo_root / relative for relative in workspace.mutable_paths
+                )
+                self.store.write_baseline(
+                    qualification,
+                    run_id,
+                    canonical_roots,
+                )
+                baseline_written = True
+                try:
+                    bindings = [
+                        SourceIdentityBinding.from_mapping(value)
+                        for value in child.get("targetRecordBindings") or []
+                        if isinstance(value, Mapping)
+                    ]
+                    if len(bindings) != 1 or not bindings[0].is_complete():
+                        raise QualificationRunError(
+                            "一問の完全なsource identityを確認できません。"
+                        )
+                    committed_paths = workspace.rebase_into_canonical(
+                        sorted(actual_candidate),
+                        binding=bindings[0],
+                        aliases_by_path=(child.get("targetRecordScopes") or {}),
+                    )
+                    committed = {Path(value) for value in committed_paths}
+                    self._validate_record_scope(
+                        qualification,
+                        run_id,
+                        self.store.get(qualification, run_id),
+                        committed,
+                    )
+                    self._check_source_immutability(
+                        emit,
+                        source_files=[
+                            str(value) for value in child.get("sourceFiles") or []
+                        ],
+                    )
+                    normalized_result = {
+                        **normalized_candidate_result,
+                        "changedFiles": [
+                            value.as_posix() for value in sorted(committed)
+                        ],
+                    }
+                    self.store.write_result(
+                        qualification,
+                        run_id,
+                        normalized_result,
+                    )
+                    self.store.refresh(qualification, run_id)
+                    refreshed = self.store.update(
+                        qualification,
+                        run_id,
+                        status="validating",
+                        receiptValidated=False,
+                        model=result.model,
+                        serviceTier=result.service_tier,
+                        reasoningEffort=result.reasoning_effort,
+                        turnCompletionMode=result.completion_mode,
+                        appServerChangedFiles=[
+                            value.as_posix() for value in sorted(actual_candidate)
+                        ],
+                        writeAttributionVerified=True,
+                        unsafeNotifiedChangedFiles=[],
+                        unsafeChangedFiles=[],
+                        externalConcurrentChangedFiles=[],
+                        ignoredReceiptChangedFiles=[],
+                        error=None,
+                    )
+                    work_version_receipt = self._record_work_versions(refreshed)
+                    refreshed = self.store.update(
+                        qualification,
+                        run_id,
+                        status="succeeded",
+                        receiptValidated=True,
+                        workVersionReceipt=work_version_receipt,
+                        artifactSync={
+                            "status": "deferred",
+                            "groups": [],
+                            "message": (
+                                "公開用データはトップ整備の最終検証で更新します。"
+                            ),
+                        },
+                        rollback={
+                            "status": "not_required",
+                            "restoredFiles": [],
+                            "remainingChangedFiles": [],
+                            "deltaUnknown": False,
+                            "message": "一問の正本反映と検証を完了しました。",
+                        },
+                        deltaUnknown=False,
+                        error=None,
+                        finishedAt=_now(),
+                    )
+                    self.store.discard_baseline_backups(qualification, run_id)
+                except Exception:
+                    rollback = self.store.rollback_baseline(qualification, run_id)
+                    if not rollback or rollback.get("status") != "succeeded":
+                        pipeline_stop.set()
+                    raise
+            emit("一問の生成・機械検査・正本反映を完了しました。")
+            return {
+                "qualification": qualification,
+                "runId": run_id,
+                "threadId": result.thread_id,
+                "turnId": result.turn_id,
+                "artifactSync": refreshed["artifactSync"],
+                "warning": False,
+                "message": str(normalized_result.get("summary") or "整備を完了しました。"),
+            }
+        except Exception as exc:  # noqa: BLE001
+            try:
+                current = self.store.refresh(qualification, run_id)
+            except Exception:  # noqa: BLE001
+                current = child
+            rollback = current.get("rollback")
+            if not (
+                baseline_written
+                and isinstance(rollback, Mapping)
+                and rollback.get("status") == "succeeded"
+            ):
+                rollback = {
+                    "status": "succeeded",
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                    "message": "隔離候補を破棄し、正本patchは変更していません。",
+                }
+            candidate_commands: list[dict[str, str]] = []
+            if isolated_receipt.is_file():
+                try:
+                    failed_payload = self.store._validated_result_receipt(
+                        json.loads(isolated_receipt.read_text(encoding="utf-8"))
+                    )
+                    candidate_commands = list(failed_payload.get("commands") or [])
+                except Exception:  # noqa: BLE001
+                    pass
+            self.store.write_result(
+                qualification,
+                run_id,
+                {
+                    "status": "failed",
+                    "summary": str(exc),
+                    "commands": candidate_commands,
+                    "changedFiles": [],
+                },
+            )
+            self.store.refresh(qualification, run_id)
+            self.store.update(
+                qualification,
+                run_id,
+                status="failed",
+                receiptValidated=False,
+                rollback=rollback,
+                deltaUnknown=False,
+                writeAttributionVerified=True,
+                unsafeNotifiedChangedFiles=[],
+                unsafeChangedFiles=[],
+                error=str(exc),
+                finishedAt=_now(),
+            )
+            raise
+        finally:
+            workspace.cleanup()
+
     def _run_human(
         self,
         qualification: str,
@@ -7080,6 +7526,7 @@ class QualificationRunCoordinator:
             )
         created_writable_dirs: list[Path] = []
         filesystem_changed_files: tuple[str, ...] = ()
+        app_server_changed_files: tuple[str, ...] = ()
         before_files: dict[Path, str] | None = None
         self.store.update(
             qualification,
@@ -7116,7 +7563,12 @@ class QualificationRunCoordinator:
                     "patch・進捗・receiptの保存は1担当で実行します。"
                 )
             if not current_run.get("parentSourceChecked"):
-                self._check_source_immutability(emit)
+                self._check_source_immutability(
+                    emit,
+                    source_files=[
+                        str(value) for value in current_run.get("sourceFiles") or []
+                    ],
+                )
             writable_roots, created_writable_dirs = self._maintenance_writable_roots(
                 qualification, run_id
             )
@@ -7256,7 +7708,6 @@ class QualificationRunCoordinator:
                 )
 
             result = None
-            app_server_changed_files: tuple[str, ...] = ()
             turn_error: Exception | None = None
             receipt_completion_snapshot: dict[str, Any] | None = None
 
@@ -7332,7 +7783,12 @@ class QualificationRunCoordinator:
                 for path in sorted(before_files.keys() | after_files.keys())
                 if before_files.get(path) != after_files.get(path)
             )
-            self._check_source_immutability(emit)
+            self._check_source_immutability(
+                emit,
+                source_files=[
+                    str(value) for value in current_run.get("sourceFiles") or []
+                ],
+            )
             if turn_error is not None:
                 failed_attribution = self._attribute_repository_changes(
                     qualification,
@@ -7724,7 +8180,10 @@ class QualificationRunCoordinator:
         inventory = getattr(self.workflow, "inventory", None)
         if inventory is None:
             raise QualificationRunError("工程バージョン記録用inventoryがありません。")
-        if str(run.get("parallelStrategy") or "") == "prepared_question":
+        if str(run.get("parallelStrategy") or "") in {
+            "prepared_question",
+            "isolated_question",
+        }:
             questions = self._projected_policy_questions(run)
         else:
             questions = []
@@ -8617,7 +9076,82 @@ class QualificationRunCoordinator:
             )
         return [str(path) for path in sorted(paths)]
 
-    def _check_source_immutability(self, emit: Callable[[str], None]) -> None:
+    def _check_source_immutability(
+        self,
+        emit: Callable[[str], None],
+        *,
+        source_files: list[str] | tuple[str, ...] = (),
+    ) -> None:
+        scoped_files = list(dict.fromkeys(str(value) for value in source_files if value))
+        manifest_path = (
+            self.repo_root / "docs/contracts/00_source_sha256_manifest.jsonl"
+        )
+        if scoped_files and manifest_path.is_file():
+            try:
+                manifest: dict[str, str] = {}
+                for line_number, raw_line in enumerate(
+                    manifest_path.read_text(encoding="utf-8").splitlines(), 1
+                ):
+                    if not raw_line.strip():
+                        continue
+                    row = json.loads(raw_line)
+                    path = row.get("path") if isinstance(row, Mapping) else None
+                    digest = row.get("sha256") if isinstance(row, Mapping) else None
+                    if (
+                        not isinstance(path, str)
+                        or not isinstance(digest, str)
+                        or len(digest) != 64
+                        or path in manifest
+                    ):
+                        raise QualificationRunError(
+                            f"00_source manifestの{line_number}行目が不正です。"
+                        )
+                    manifest[path] = digest
+                checked: list[str] = []
+                for value in scoped_files:
+                    relative = self._maintenance_relative_path(value)
+                    if "00_source" not in relative.parts:
+                        raise QualificationRunError(
+                            f"sourceFilesが00_source配下ではありません: {relative}"
+                        )
+                    path = self.repo_root / relative
+                    candidates = (
+                        [
+                            candidate
+                            for candidate in manifest
+                            if Path(candidate).is_relative_to(relative)
+                        ]
+                        if path.is_dir()
+                        else [relative.as_posix()]
+                    )
+                    if not candidates:
+                        raise QualificationRunError(
+                            f"00_sourceの登録済み正本を確認できません: {relative}"
+                        )
+                    for candidate in candidates:
+                        expected = manifest.get(candidate)
+                        candidate_path = self.repo_root / candidate
+                        if (
+                            not expected
+                            or not candidate_path.is_file()
+                            or candidate_path.is_symlink()
+                        ):
+                            raise QualificationRunError(
+                                "00_sourceの登録済み正本を確認できません: "
+                                f"{candidate}"
+                            )
+                        actual = hashlib.sha256(candidate_path.read_bytes()).hexdigest()
+                        if not hmac.compare_digest(actual, expected):
+                            raise QualificationRunError(
+                                f"00_sourceの改変を検出しました: {candidate}"
+                            )
+                        checked.append(candidate)
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                raise QualificationRunError(
+                    "00_source manifestを確認できません。"
+                ) from exc
+            emit(f"対象{len(checked)}fileの00_source不変を確認しました。")
+            return
         checker = self.repo_root / "scripts" / "check" / "check_00_source_immutability.py"
         if not checker.is_file():
             return
@@ -8877,7 +9411,11 @@ class QualificationRunCoordinator:
         run_id: str,
         run: Mapping[str, Any],
         actual: set[Path],
+        *,
+        validation_root: Path | None = None,
+        baseline_payload: Mapping[str, Any] | None = None,
     ) -> None:
+        record_root = (validation_root or self.repo_root).resolve()
         target_aliases = {
             str(value) for value in run.get("targetRecordAliases") or []
         }
@@ -8949,23 +9487,26 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "file別の対象record scopeを確認できません。"
             )
-        baseline_path = (
-            self.store.root / qualification / run_id / "baseline.json"
-        )
-        try:
-            raw = baseline_path.read_bytes()
-            if not hmac.compare_digest(
-                hashlib.sha256(raw).hexdigest(),
-                str(run.get("baselineHash") or ""),
-            ):
-                raise QualificationRunError("record baselineのhashが一致しません。")
-            payload = json.loads(raw.decode("utf-8"))
-            snapshots = payload.get("recordSnapshots")
-            source_snapshots = payload.get("sourceRecordSnapshots")
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-            raise QualificationRunError(
-                "record baselineを確認できません。"
-            ) from exc
+        if baseline_payload is None:
+            baseline_path = (
+                self.store.root / qualification / run_id / "baseline.json"
+            )
+            try:
+                raw = baseline_path.read_bytes()
+                if not hmac.compare_digest(
+                    hashlib.sha256(raw).hexdigest(),
+                    str(run.get("baselineHash") or ""),
+                ):
+                    raise QualificationRunError("record baselineのhashが一致しません。")
+                payload = json.loads(raw.decode("utf-8"))
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                raise QualificationRunError(
+                    "record baselineを確認できません。"
+                ) from exc
+        else:
+            payload = baseline_payload
+        snapshots = payload.get("recordSnapshots")
+        source_snapshots = payload.get("sourceRecordSnapshots")
         if not isinstance(snapshots, Mapping):
             raise QualificationRunError("record baselineがありません。")
         if not isinstance(source_snapshots, Mapping):
@@ -9127,7 +9668,7 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     f"変更前recordを確認できません: {relative}"
                 )
-            after = _record_snapshot(self.repo_root / relative)
+            after = _record_snapshot(record_root / relative)
             is_law_audit_sidecar = (
                 relative.parts[:4]
                 == ("output", qualification, "review", "law_revision_audit")

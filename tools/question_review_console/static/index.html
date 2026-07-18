@@ -257,7 +257,7 @@
               <label><input type="radio" name="qualification-run-concurrency" value="5" checked><span>5問（安定運用）</span></label>
               <label><input type="radio" name="qualification-run-concurrency" value="10"><span>10問（検証後）</span></label>
             </div>
-            <small class="run-concurrency-note">選択数の中で判断案を先行準備し、patchの確定保存と機械検査は常に1問ずつ行います。</small>
+            <small class="run-concurrency-note">一問ずつ独立した生成・機械検査を選択数まで並列実行し、合格recordの正本反映だけを短時間ずつ直列化します。</small>
           </fieldset>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
           <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>

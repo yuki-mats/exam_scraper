@@ -1228,16 +1228,19 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
                 self.assertEqual(run["status"], "failed")
                 self.assertFalse(run["receiptValidated"])
-                self.assertEqual(len(writer_calls), 1)
-                self.assertEqual(len(run["childRunIds"]), 1)
-                self.assertEqual(
-                    [
-                        stage["status"]
-                        for question in run["questionExecutions"]
-                        for stage in question["stages"]
-                    ],
-                    ["blocked", "blocked"],
-                )
+                # Both isolated writers may already be running when one reports
+                # an unsafe rollback.  No later canonical commit or artifact
+                # sync may start after the stop signal.
+                self.assertGreaterEqual(len(writer_calls), 1)
+                self.assertLessEqual(len(writer_calls), 2)
+                self.assertEqual(len(run["childRunIds"]), len(writer_calls))
+                statuses = [
+                    stage["status"]
+                    for question in run["questionExecutions"]
+                    for stage in question["stages"]
+                ]
+                self.assertEqual(statuses[0], "blocked")
+                self.assertIn(statuses[1], {"blocked", "validated"})
                 artifact_sync.assert_not_called()
                 self.assertIsNone(run.get("artifactSync"))
                 self.assertEqual(synchronizer.calls, [])
@@ -1326,9 +1329,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "validated",
         )
         self.assertEqual(
-            writer_question_ids,
-            [failed_question_id] * 3 + ["new-exam-2026-q2"],
+            writer_question_ids.count(failed_question_id),
+            3,
         )
+        self.assertEqual(writer_question_ids.count("new-exam-2026-q2"), 1)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_recent_reclassifies_legacy_external_only_child_failure(self):
@@ -1841,6 +1845,158 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertEqual(max_active, 4)
 
+    def test_five_question_window_runs_five_isolated_writers_in_parallel(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(5),
+                ["question_type"],
+            )
+            barrier = threading.Barrier(5)
+            lock = threading.Lock()
+            active_writers = 0
+            max_active_writers = 0
+
+            def commit_child(qualification, child_run_id, *_args, **_kwargs):
+                nonlocal active_writers, max_active_writers
+                with lock:
+                    active_writers += 1
+                    max_active_writers = max(
+                        max_active_writers,
+                        active_writers,
+                    )
+                try:
+                    barrier.wait(timeout=3)
+                    self._mark_child_succeeded(
+                        coordinator,
+                        qualification,
+                        child_run_id,
+                    )
+                finally:
+                    with lock:
+                        active_writers -= 1
+
+            coordinator._prepare_question_item = self._prepare_all_questions(
+                coordinator
+            )
+            coordinator._run_human = commit_child
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(max_active_writers, 5)
+
+    def test_isolated_writer_rebases_validated_record_into_canonical_patch(self):
+        class MutatingWorkspaceAppServer(PerQuestionQueueAppServer):
+            def run_turn(self, prompt, **kwargs):
+                work_type = kwargs["work_type"]
+                if not work_type.startswith("maintenance_prepare_"):
+                    manifest_line = next(
+                        line
+                        for line in prompt.splitlines()
+                        if "progressTargetsとprogressStages" in line
+                    )
+                    manifest_path = Path(manifest_line.split("`")[1])
+                    manifest = json.loads(
+                        manifest_path.read_text(encoding="utf-8")
+                    )
+                    patch_relative = next(
+                        value
+                        for value in manifest["allowedPatchFiles"]
+                        if "99_model_review_flags" not in value
+                    )
+                    binding = dict(manifest["targetRecordBindings"][0])
+                    patch_path = kwargs["cwd"] / patch_relative
+                    patch_path.parent.mkdir(parents=True, exist_ok=True)
+                    patch_path.write_text(
+                        json.dumps(
+                            [
+                                {
+                                    "sourceQuestionKey": binding[
+                                        "sourceQuestionKey"
+                                    ],
+                                    "reviewQuestionId": binding[
+                                        "reviewQuestionId"
+                                    ],
+                                    "sourceRecordRef": binding[
+                                        "sourceRecordRef"
+                                    ],
+                                    "original_question_id": binding[
+                                        "reviewQuestionId"
+                                    ],
+                                    "questionType": "single_choice",
+                                }
+                            ],
+                            ensure_ascii=False,
+                        ),
+                        encoding="utf-8",
+                    )
+                    question_id = self._question_id(prompt)
+                    stage_id = work_type.removeprefix("maintenance_")
+                    self.changed_files_by_work_item[(question_id, stage_id)] = [
+                        patch_relative
+                    ]
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = MutatingWorkspaceAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            source_path = (
+                root
+                / "output/new-exam/questions_json/2026/00_source/"
+                "question_2026_1.json"
+            )
+            source_path.parent.mkdir(parents=True, exist_ok=True)
+            source_path.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                "original_question_id": "new-exam-2026-q1",
+                                "sourceQuestionKey": "new-exam:2026:q1",
+                                "reviewQuestionId": "new-exam-2026-q1",
+                                "sourceRecordRef": "question_2026_1.json#0",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            child = coordinator.store.get(
+                "new-exam",
+                completed["childRunIds"][0],
+            )
+            patch_path = root / child["result"]["changedFiles"][0]
+            records = json.loads(patch_path.read_text(encoding="utf-8"))
+            workspace_exists = (
+                root
+                / "output/question_review_console/workflow_runs/new-exam"
+                / child["runId"]
+                / "isolated_workspace"
+            ).exists()
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertTrue(child["receiptValidated"])
+        self.assertEqual(records[0]["questionType"], "single_choice")
+        self.assertFalse(workspace_exists)
+
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -2149,8 +2305,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         )
         self.assertEqual(
-            [question_id for question_id, _stage_id, _child_id in writer_calls[:3]],
-            [failed_id, failed_id, failed_id],
+            sum(question_id == failed_id for question_id, *_rest in writer_calls),
+            3,
         )
         self.assertTrue(
             any(question_id == sibling_id for question_id, *_rest in writer_calls)

@@ -1,4 +1,5 @@
 import copy
+import inspect
 import json
 import tempfile
 import threading
@@ -506,7 +507,11 @@ class PerQuestionQueueAppServer:
                 )
             )
             if self.before_receipt is not None:
-                self.before_receipt(question_id, stage_id)
+                parameters = inspect.signature(self.before_receipt).parameters
+                if len(parameters) >= 3:
+                    self.before_receipt(question_id, stage_id, kwargs["cwd"])
+                else:
+                    self.before_receipt(question_id, stage_id)
             _write_completed_progress(prompt)
             receipt_line = next(
                 line
