@@ -471,19 +471,19 @@ class QualificationRunError(RuntimeError):
 def normalize_question_concurrency(value: Any) -> int:
     if isinstance(value, bool):
         raise QualificationRunError(
-            "同時に準備する問題数は1、5、10から選択してください。"
+            "同時に進める問題数は1、5、10から選択してください。"
         )
     try:
         concurrency = int(value)
     except (TypeError, ValueError) as exc:
         raise QualificationRunError(
-            "同時に準備する問題数は1、5、10から選択してください。"
+            "同時に進める問題数は1、5、10から選択してください。"
         ) from exc
     if (
         isinstance(value, float) and value != concurrency
     ) or concurrency not in QUESTION_CONCURRENCY_OPTIONS:
         raise QualificationRunError(
-            "同時に準備する問題数は1、5、10から選択してください。"
+            "同時に進める問題数は1、5、10から選択してください。"
         )
     return concurrency
 
@@ -6418,8 +6418,8 @@ class QualificationRunCoordinator:
             )
             emit(
                 f"{len(questions)}問を問ごとの工程順で処理します。"
-                f"判断案の準備は最大{worker_limit}問を並列化し、"
-                "patch確定と機械検査は1問ずつ行います。"
+                f"同時に進めるのは最大{worker_limit}問とし、"
+                "そのうちpatch確定と機械検査は1問ずつ行います。"
             )
 
             def submit_entry(
@@ -6552,7 +6552,7 @@ class QualificationRunCoordinator:
                         question_index + 1,
                         min(
                             len(questions),
-                            question_index + worker_limit + 1,
+                            question_index + worker_limit,
                         ),
                     ):
                         if next_index not in first_entries:
@@ -7334,10 +7334,21 @@ class QualificationRunCoordinator:
             )
             self._check_source_immutability(emit)
             if turn_error is not None:
-                changed = self._failed_run_changed_files(
+                failed_attribution = self._attribute_repository_changes(
                     qualification,
                     run_id,
-                    filesystem_changed_files,
+                    current_run,
+                    notified_files=app_server_changed_files,
+                    actual_files=filesystem_changed_files,
+                )
+                changed = sorted(
+                    str(path)
+                    for path in (
+                        failed_attribution["scopedActual"]
+                        | failed_attribution["unsafeNotified"]
+                        | failed_attribution["unsafeActual"]
+                        | failed_attribution["extraAgentOutput"]
+                    )
                 )
                 suffix = (
                     " 失敗前のfile変更: " + ", ".join(changed)
@@ -8367,9 +8378,8 @@ class QualificationRunCoordinator:
         declared_files: tuple[str, ...] | list[str] = (),
         notified_files: tuple[str, ...] | list[str] = (),
         actual_files: tuple[str, ...] | list[str] = (),
-        allow_declared_commit_marker: bool = False,
     ) -> dict[str, set[Path]]:
-        """writer通知と、同時刻にrepoで起きた外部変更を分離する。"""
+        """sandbox内のwriter通知と、repoの外部変更を分離する。"""
 
         def relative_paths(values: tuple[str, ...] | list[str]) -> set[Path]:
             return {
@@ -8422,13 +8432,22 @@ class QualificationRunCoordinator:
         outside_declared = declared - scoped_declared - extra_agent_output
         concurrent_commit = bool(
             Path(".git", "HEAD") in outside_actual
-            or allow_declared_commit_marker
-            and Path(".git", "HEAD") in outside_declared
+            or Path(".git", "HEAD") in outside_declared
         )
-        external_actual = outside_actual if concurrent_commit else set()
-        unsafe_actual = outside_actual - external_actual
-        external_declared = outside_declared if concurrent_commit else set()
-        unsafe_declared = outside_declared - external_declared
+        sandbox_isolated = str(run.get("sandbox") or "") == "workspace-write"
+        # workspace-write threadはserver確定のwritable_roots内だけを書ける。
+        # したがって、その外側でApp Server通知のない差分は別作業の変更であり、
+        # receiptに混入してもwriterへ帰属させず、rollbackもしない。
+        if concurrent_commit or sandbox_isolated:
+            external_actual = outside_actual - unsafe_notified
+            unsafe_actual = outside_actual & unsafe_notified
+            external_declared = outside_declared - unsafe_notified
+            unsafe_declared = outside_declared & unsafe_notified
+        else:
+            external_actual = set()
+            unsafe_actual = outside_actual
+            external_declared = set()
+            unsafe_declared = outside_declared
         return {
             "scopedDeclared": scoped_declared,
             "scopedNotified": scoped_notified,
@@ -8510,7 +8529,6 @@ class QualificationRunCoordinator:
             child,
             declared_files=declared,
             notified_files=notified,
-            allow_declared_commit_marker=True,
         )
         if (
             attribution["unsafeNotified"]

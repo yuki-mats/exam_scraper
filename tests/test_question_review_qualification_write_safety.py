@@ -640,7 +640,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
             baseline["writeTransaction"]["roots"],
         )
 
-    def test_unsafe_failed_turn_receipt_excludes_progress_file(self):
+    def test_failed_turn_excludes_unnotified_external_and_progress_files(self):
         unsafe_path = Path("tools/question_review_console/unsafe.json")
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -687,8 +687,12 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
             run = coordinator.store.refresh("sample", started["run"]["runId"])
 
         self.assertEqual(job["status"], "failed")
-        self.assertIn("整備責務外", job["error"])
-        self.assertEqual(run["result"]["changedFiles"], [str(unsafe_path)])
+        self.assertIn("turn crashed", job["error"])
+        self.assertEqual(run["result"]["changedFiles"], [])
+        self.assertEqual(
+            run["externalConcurrentChangedFiles"],
+            [str(unsafe_path)],
+        )
 
 
 if __name__ == "__main__":

@@ -747,6 +747,50 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             external,
         )
 
+    def test_uncommitted_external_change_is_not_attributed_to_writer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            plan = FakeWorkflow().plan("sample", "law_audit")
+            plan["sandbox"] = "workspace-write"
+            run = coordinator.store.create(
+                plan, status="running", prompt="整備する。"
+            )
+            outside = "scripts/unrelated_work.py"
+            coordinator.store.update(
+                "sample",
+                run["runId"],
+                result={
+                    "status": "succeeded",
+                    "commands": [],
+                    "changedFiles": [outside],
+                },
+            )
+
+            attribution = coordinator._validate_changed_files(
+                "sample",
+                run["runId"],
+                coordinator.store.get("sample", run["runId"]),
+                (),
+                (outside,),
+            )
+
+        self.assertEqual(attribution["changedFiles"], [])
+        self.assertEqual(
+            attribution["externalConcurrentChangedFiles"],
+            [outside],
+        )
+        self.assertEqual(
+            attribution["ignoredReceiptChangedFiles"],
+            [outside],
+        )
+
     def test_app_server_scope_violation_is_not_treated_as_external_change(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1311,10 +1355,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 status="failed",
                 prompt="legacy child",
             )
-            external = [
-                ".git/HEAD",
-                "docs/goals/question-maintenance/state.yaml",
-            ]
+            external = ["docs/goals/question-maintenance/state.yaml"]
             coordinator.store.update(
                 "new-exam",
                 child["runId"],
@@ -1636,7 +1677,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(max_preparations, 1)
         self.assertEqual(max_writers, 1)
 
-    def test_prefetch_window_uses_five_read_only_workers_after_probe(self):
+    def test_five_question_window_reserves_one_slot_for_writer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
@@ -1644,11 +1685,17 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 CountedSourceInventory(6),
                 ["question_type"],
             )
-            probe_id = parent["questionExecutions"][0]["questionId"]
-            concurrent = threading.Barrier(5)
+            prefetched_ids = {
+                question["questionId"]
+                for question in parent["questionExecutions"][1:5]
+            }
+            concurrent = threading.Barrier(4)
+            writer_started = threading.Event()
             lock = threading.Lock()
-            active = 0
-            max_active = 0
+            active_preparations = 0
+            active_writers = 0
+            max_preparations = 0
+            max_total = 0
 
             def prepare_item(
                 qualification,
@@ -1658,14 +1705,22 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 stage_id,
                 _emit,
             ):
-                nonlocal active, max_active
+                nonlocal active_preparations, max_preparations, max_total
                 question_id = str(target["id"])
                 with lock:
-                    active += 1
-                    max_active = max(max_active, active)
+                    active_preparations += 1
+                    max_preparations = max(
+                        max_preparations,
+                        active_preparations,
+                    )
+                    max_total = max(
+                        max_total,
+                        active_preparations + active_writers,
+                    )
                 try:
-                    if question_id != probe_id:
+                    if question_id in prefetched_ids:
                         concurrent.wait(timeout=2)
+                        self.assertTrue(writer_started.wait(timeout=2))
                     self._mark_question_prepared(
                         coordinator,
                         qualification,
@@ -1676,14 +1731,26 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     return True
                 finally:
                     with lock:
-                        active -= 1
+                        active_preparations -= 1
 
             def commit_child(qualification, child_run_id, *_args, **_kwargs):
-                self._mark_child_succeeded(
-                    coordinator,
-                    qualification,
-                    child_run_id,
-                )
+                nonlocal active_writers, max_total
+                with lock:
+                    active_writers += 1
+                    max_total = max(
+                        max_total,
+                        active_preparations + active_writers,
+                    )
+                writer_started.set()
+                try:
+                    self._mark_child_succeeded(
+                        coordinator,
+                        qualification,
+                        child_run_id,
+                    )
+                finally:
+                    with lock:
+                        active_writers -= 1
 
             coordinator._prepare_question_item = prepare_item
             coordinator._run_human = commit_child
@@ -1696,7 +1763,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertEqual(parent["questionConcurrency"], 5)
         self.assertEqual(parent["parallelWorkerLimit"], 5)
-        self.assertEqual(max_active, 5)
+        self.assertEqual(max_preparations, 4)
+        self.assertEqual(max_total, 5)
 
     def test_prefetches_first_pending_stage_for_each_question_in_parallel(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1706,7 +1774,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 CountedSourceInventory(6),
                 ["question_type", "question_intent"],
             )
-            probe_id = parent["questionExecutions"][0]["questionId"]
+            prefetched_ids = {
+                question["questionId"]
+                for question in parent["questionExecutions"][1:5]
+            }
             for question in parent["questionExecutions"][1:]:
                 coordinator.store.update_question_stage(
                     "new-exam",
@@ -1716,7 +1787,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     status="validated",
                 )
 
-            concurrent = threading.Barrier(5)
+            concurrent = threading.Barrier(4)
             lock = threading.Lock()
             active = 0
             max_active = 0
@@ -1735,7 +1806,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     active += 1
                     max_active = max(max_active, active)
                 try:
-                    if question_id != probe_id and stage_id == "question_intent":
+                    if (
+                        question_id in prefetched_ids
+                        and stage_id == "question_intent"
+                    ):
                         concurrent.wait(timeout=2)
                     self._mark_question_prepared(
                         coordinator,
@@ -1765,7 +1839,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(max_active, 5)
+        self.assertEqual(max_active, 4)
 
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
