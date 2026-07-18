@@ -1,6 +1,6 @@
-# 過去問フィールド契約
+# 問題フィールド契約
 
-この文書は、過去問データを整備するときに人間が最初に見る統合仕様書です。
+この文書は、公式過去問と暗記プラス独自問題を整備するときに人間が最初に見る統合仕様書です。
 資格ごとの出題形式や法令範囲は変わってよい一方で、共通フィールドの意味、型、必須性、更新主体は資格ごとに揺らさないでください。
 
 ## この文書の位置づけ
@@ -29,8 +29,8 @@
    - upload 時に document ID として使い、ドキュメント本体には入れない。
 3. `DB必須` と `整備必須` を分ける。
    - `DB必須`: Firestore rules / typed model 上、`questions` document として必須。
-   - `整備必須`: 過去問品質・出典管理・公式データ更新のため、`exam_scraper` の工程では必須。
-   - 例: `examYear` は DB 上は optional だが、過去問整備では必須。
+   - `整備必須`: 公開品質・出典管理・運営データ更新のため、`exam_scraper` の工程では必須。
+   - 例: `examYear` は DB 上は optional であり、公式過去問では必須、独自問題ではomitとする。
 4. `null` と未定義は同じ意味ではない。
    - 可能なら optional field は未定義にする。
    - 明示的に `null` を許すのは、既存互換または rules / schema が許容している場合に限る。
@@ -52,17 +52,18 @@
 
 | 工程 | 対象 | 必須/準必須 | 目的 |
 | --- | --- | --- | --- |
-| `00_source` | `question_bodies[]` | `question_url`, `answer_result_text`, `examYear`, `examLabel`, `public_question_id` または `original_question_id` | 元サイトからの出典、年度、正答根拠を保持する。 |
+| `00_source` | `question_bodies[]` | `question_url`, `answer_result_text`, `public_question_id` または `original_question_id`。公式過去問では`examYear`, `examLabel`も必須 | 元サイトからの出典、正答根拠、公式過去問の年度を保持する。 |
+| `05_originalized` | patch | `original_question_id`, 独自問題化した問題文・選択肢・正答 | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
 | `10_questionType_fixed` | patch | `questionType` | 回答体験を確定する。ここで `true_false` / `flash_card` / `group_choice` などを決める。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent`、必要時のみanswer result補正 | 設問が正しいもの・誤っているもののどちらを選ばせるか確定する。 |
 | `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。 |
-| `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `answer_result_text`, `correctChoiceText`, `examYear`, `examLabel` | Firestore 変換前の最低限の品質を担保する。 |
+| `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
 | `21_explanationText_added` | patch | `explanationText`, `suggestedQuestions`, `suggestedQuestionDetails`, `original_question_id`, `question_url` | 解説と想定質問を事前データとして持ち、画面表示時に AI を自動起動しない。 |
 | `21_explanationText_added` | 法令判定の最終反映 | `isLawRelated`, `lawGroundedExplanationNotNeeded` | 02bの判定を引き継ぎ、解説文作成中に矛盾を見つけた場合だけ修正する。 |
 | `22_questionSetId_linked` | patch | `questionSetId` | アプリ内カテゴリ/問題集へ紐付ける。 |
-| `40_convert` | `questions[]` | `questionId`, `questionSetId`, `questionText`, `questionType`, `qualificationId`, `questionTags`, `isOfficial`, `isDeleted`, `isChoiceOnly`, `isGroupable`, `originalQuestionBodyText`, `correctChoiceText`, `examYear`, `examSource` | upload 直前の Firestore 相当データ。 |
+| `40_convert` | `questions[]` | `questionId`, `questionSetId`, `questionText`, `questionType`, `qualificationId`, `questionTags`, `isOfficial`, `isDeleted`, `isChoiceOnly`, `isGroupable`, `originalQuestionBodyText`, `correctChoiceText`, `examSource`。`examYear`は公式過去問だけ必須 | upload 直前の Firestore 相当データ。 |
 | upload | Firestore doc | `createdById`, `updatedById`, `createdAt`, `updatedAt` | upload script が付与する監査フィールド。人手で中間 JSON に書かない。 |
 
 ## `questions` フィールド契約
@@ -70,7 +71,7 @@
 凡例:
 
 - `DB必須`: Firestore 上の `questions/{questionId}` document として必須。
-- `整備必須`: 公式過去問データとして `exam_scraper` で必須または実質必須。
+- `整備必須`: 暗記プラス運営が公開する問題として `exam_scraper` で必須または実質必須。
 - `nullable`: `null` を明示してよい。`原則omit` は、値がないなら field 自体を作らない。
 - `作成主体`: 主にどの工程/実装が作るか。
 
@@ -80,10 +81,10 @@
 | 問題集ID | `questionSetId` | string | 必須 | 必須 | 不可 | 空文字不可。 | `22_questionSetId_linked`, `40_convert` | 未分類のまま upload しない。 |
 | 問題集参照 | `questionSetRef` | reference/path | 任意 | 任意 | 原則omit | Firestore rules では path/reference 系。 | app / migration | `exam_scraper` の通常 upload では作らない。 |
 | フォルダID | `folderId` | string | 任意 | 任意 | 原則omit | string。 | app / migration | 通常は `questionSetId` からたどる。 |
-| 年度/回グループID | `listGroupId` | string | 任意 | 推奨 | 原則omit | string。 | upload | 年度や回単位の追跡に使う。upload script は空文字既定値を入れることがある。 |
+| 問題グループID | `listGroupId` | string | 任意 | 推奨 | 原則omit | string。 | upload | 公式過去問は年度・回、独自問題は取得元の講座・問題集を表す安定名を使う。 |
 | 元問題ID | `originalQuestionId` | string | 任意 | 必須相当 | 原則omit | `00_source` では `public_question_id` または `original_question_id` が必須。 | scraper / convert | grouped choice、既存 ID 維持、source conflict 監査の軸。 |
-| 元設問本文 | `originalQuestionBodyText` | string | 任意 | 必須 | 原則omit | upload 前に空白不可。 | scraper / convert | 公式過去問では必須。現行法更新後も元設問本文は保持する。 |
-| 元選択肢本文 | `originalQuestionChoiceText` | string | 任意 | 条件付き必須 | 原則omit | `true_false` の表示対象では本文または画像が必須。 | convert | DB 契約は string。中間・legacy では配列由来が残ることがあるため、最終 upload 形を確認する。 |
+| 元設問本文 | `originalQuestionBodyText` | string | 任意 | 必須 | 原則omit | upload 前に空白不可。 | scraper / convert | Firestore上で分割する前の基礎問題。公式過去問は元設問を保持し、独自問題は`05_originalized`の本文を入れて取得元の原文を入れない。 |
+| 元選択肢本文 | `originalQuestionChoiceText` | string | 任意 | 条件付き必須 | 原則omit | `true_false` の表示対象では本文または画像が必須。 | convert | 独自問題では`05_originalized`の選択肢を使う。DB契約はstring。中間・legacyでは配列由来が残るため、最終upload形を確認する。 |
 | 画面用設問本文 | `questionBodyText` | string | 任意 | 推奨 | 原則omit | string。 | convert | `questionText` 生成の元。改行除去されることがある。 |
 | 問題文 | `questionText` | string | 必須 | 必須 | 不可 | 空文字不可。 | convert | アプリで実際に表示・検索する主文。 |
 | 問題タイプ | `questionType` | string enum | 必須 | 必須 | 不可 | `single_choice`, `true_false`, `flash_card`, `fill_in_blank`, `group_choice` | `10_questionType_fixed` | 回答体験の分類。資格ごとに別の意味を持たせない。 |
@@ -112,10 +113,10 @@
 | ヒント本文 | `hintText` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 公式過去問では基本解説優先。 |
 | ヒント画像URL | `hintImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / user content | 同上。 |
 | ヒント画像パス | `hintImagePaths` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / user content | 同上。 |
-| 試験年 | `examYear` | number/int | 任意 | 必須 | 可だが整備では不可 | 1900-2100 の整数。和暦/ラベルから推定できなければ停止。 | scraper / convert | DB optional でも過去問整備では必須。 |
-| 出典表示 | `examSource` | string | 任意 | 必須 | 可だが整備では不可 | 空文字不可。 | convert | 例: `資格名, 2024年, 問1, 設問2`。 |
+| 試験年 | `examYear` | number/int | 任意 | 条件付き必須 | 原則omit | 公式過去問は1900-2100の整数。独自問題はfield自体を保存しない。 | scraper / convert | 独自問題で空文字や`null`を保存しない。 |
+| 出典表示 | `examSource` | string | 任意 | 必須 | 可だが整備では不可 | 空文字不可。独自問題は`独自問題`。 | convert | 公式過去問は例: `資格名, 2024年, 問1, 設問2`。 |
 | タグ | `questionTags` | array<string> | 必須 | 必須 | 不可 | list[str]。空配列可。 | convert / upload | required field。カテゴリそのものではない。 |
-| 公式データ | `isOfficial` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 公式過去問 upload は true。ユーザー作成問題と混同しない。 |
+| 運営データ | `isOfficial` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 暗記プラス運営が公開する公式過去問と独自問題は`true`、ユーザー投稿は`false`。 |
 | 論理削除 | `isDeleted` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 削除・差し替え時も物理削除を避ける。 |
 | 選択肢専用doc | `isChoiceOnly` | boolean | 必須 | 必須 | 不可 | bool。 | convert | `group_choice` / `flash_card` の誤答選択肢など、統計本体ではない表示用 doc。 |
 | グループ化可能 | `isGroupable` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 同一 `originalQuestionId` に複数選択肢がある true_false 等で true。 |
@@ -129,6 +130,18 @@
 | 共有元問題集ID | `sourceSharedQuestionSetId` | string | 任意 | 任意 | 原則omit | app では admin only / immutable。 | app / migration | `exam_scraper` が通常更新しない。 |
 | 共有元問題ID | `sourceSharedQuestionId` | string | 任意 | 任意 | 原則omit | app では admin only / immutable。 | app / migration | 同上。 |
 | メモ件数 | `memoCount` | number/int | 任意 | 任意 | 原則omit | non-negative int。app では admin only / immutable。 | app | `exam_scraper` が更新しない。 |
+
+## 公開区分の組合せ
+
+公開区分を表すfieldは`isOfficial`だけです。`contentOriginType`は追加しません。公式過去問と独自問題は、既存の`examYear`と`examSource`の組合せで扱います。
+
+| 問題 | `isOfficial` | `examYear` | `examSource` |
+| --- | --- | --- | --- |
+| 公式過去問 | `true` | 必須 | 資格名・年度・問番号などの既存表示 |
+| 暗記プラス独自問題 | `true` | omit | `独自問題` |
+| ユーザー投稿 | `false` | app側の既存契約に従う | app側の既存契約に従う |
+
+独自問題では、取得元の`question_url`、`source_question_id`、原文、解説原文をFirestoreへ入れません。取得元の原文は`00_source`だけに保持し、公開用の問題文・選択肢は`05_originalized`の内容を使います。詳細は[独自問題作成ワークフロー](../operations/original_question_authoring_workflow.md)を正本とします。
 
 ## `questionType` 契約
 

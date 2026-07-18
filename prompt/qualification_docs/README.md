@@ -45,6 +45,7 @@
 
 ## 運用ルール
 - まず `03` のために `01_exam_profile.md` と `02_explanation_strategy.md` を整備する。
+- 問題サイトや公式サンプルを参考にする場合は、最初の複数問から一般化できる出題傾向を`01_exam_profile.md`、解説の判断軸と情報順序を`02_explanation_strategy.md`へ反映する。取得元ごとの文章例や専用ナレッジファイルは作らず、本当に新しい傾向が見つかった場合だけ更新する。
 - 法令問題を扱う資格では、解説作成前に法令スコープ文書を整備する。未整備なら簡易版を作ってから `03_prompt_add_explanationText.md` を実行する。
 - `category.json` の設計や見直しが必要になった段階で、`03_category_preparation.md` を追加・更新する。
 - `03_category_preparation.md`は、共通方針として[category taxonomy policy](category_taxonomy_policy.md)を踏まえ、資格固有の専門家資料・目次・境界ルールだけを書く。

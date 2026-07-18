@@ -8,7 +8,10 @@
 flowchart LR
   Setup["資格・取得設定"] --> Scrape["scrape"]
   Scrape --> Source["00_source"]
-  Source --> Review["01〜03 通常整備（一問queue）"]
+  Source --> Route{"取得元URLの確認結果"}
+  Route -->|公式過去問| Review["01〜03 通常整備（一問queue）"]
+  Route -->|それ以外・混在| Originalize["05 独自問題化"]
+  Originalize --> Review
   Review --> Audit["03b 現行法監査（別の新規session）"]
   Audit --> Category["03c category.json（未準備時の別session）"]
   Category --> QuestionSet["04 問題集（別の新規session）"]
@@ -32,20 +35,22 @@ flowchart LR
 
 通常の順序は次のとおりです。
 
-1. 資格と対象回を設定し、問題・画像を取得する。
+1. 資格と取得元URLを確認し、問題・画像を取得する。公式過去問以外又は混在する取得元は、全問を独自問題化する。
 2. `00_source`を固定し、既存ファイルは変更しない。
-3. トップで資格・年度（回）を指定し、対象を一問単位で確定しながら01から04へ進める。queueとsessionの境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を正本とする。
-4. 法令問題は02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。監査警告が残る問題は完了扱いにしない。
-5. `category.json`が未準備なら、トップ整備が03cを別sessionで自動実行し、続けて04で各問題を問題集へ紐付ける。
-6. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
-7. 適用対象の整備工程がすべて現行MAJORになった問題を評価待ちへ蓄積し、任意の問題を選んで、問題ごとの新しい評価sessionで客観的に確認する。
-8. 不合格は新しい再整備sessionへ送り、再生成後にさらに新しい評価sessionで確認する。合格した問題だけを明示操作でFirestoreへ反映し、直後にreadbackする。
+3. 独自問題は05で問題文・選択肢を整えてから、公式過去問と同じ01以降へ進める。詳細は[独自問題作成ワークフロー](original_question_authoring_workflow.md)を正本とする。
+4. トップで資格と`listGroupId`を指定し、対象を一問単位で確定しながら01から04へ進める。queueとsessionの境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を正本とする。
+5. 法令問題は02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。監査警告が残る問題は完了扱いにしない。
+6. `category.json`が未準備なら、トップ整備が03cを別sessionで自動実行し、続けて04で各問題を問題集へ紐付ける。
+7. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
+8. 適用対象の整備工程がすべて現行MAJORになった問題を評価待ちへ蓄積し、任意の問題を選んで、問題ごとの新しい評価sessionで客観的に確認する。
+9. 不合格は新しい再整備sessionへ送り、再生成後にさらに新しい評価sessionで確認する。合格した問題だけを明示操作でFirestoreへ反映し、直後にreadbackする。
 
 ## 正本マップ
 
 | 関心事 | 正本 | 要旨 |
 | --- | --- | --- |
 | 資格追加・スクレイピング | [scraping_workflow.md](scraping_workflow.md) | preset、scraper実装、ID、画像、`00_source`不変条件を定義する。 |
+| 独自問題化 | [original_question_authoring_workflow.md](original_question_authoring_workflow.md) | 取得元URLの確認、05、独自問題化、資格別ナレッジ、公開条件を定義する。 |
 | 工程順・名称・正本文書 | [../../config/question_maintenance_workflow.toml](../../config/question_maintenance_workflow.toml) | 問題整備システムの工程カタログを一元管理する。 |
 | 人間判断prompt | [../../prompt/README.md](../../prompt/README.md) | 各promptが所有する判断方法と実行境界への入口。 |
 | 資格固有方針 | [../../prompt/qualification_docs/README.md](../../prompt/qualification_docs/README.md) | 出題範囲、解説、分類、法令スコープを資格単位で定義する。 |

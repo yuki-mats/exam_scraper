@@ -6,9 +6,10 @@
 
 ```text
 output/<qualification>/
-  question_images/<exam_occurrence_id>/
-  questions_json/<exam_occurrence_id>/
+  question_images/<list_group_id>/
+  questions_json/<list_group_id>/
     00_source/
+    05_originalized/
     10_questionType_fixed/
     12_merged_questionType/
     15_correctChoiceText_fixed/
@@ -23,7 +24,7 @@ output/<qualification>/
     99_model_review_flags/
   questions_json/upload_to_firestore/
   category/category.json
-  law_evidence/<exam_occurrence_id>/
+  law_evidence/<list_group_id>/
   reports/
 output/question_review_console/
   <qualification>/<listGroupId>/
@@ -39,7 +40,7 @@ output/question_review_console/
 
 `<qualification>`は人が読めるkebab-caseのローカル資格コードとします。本番Firestoreで既存`qualificationId`を維持する必要がある場合は、`config/scrape_presets.json`の`publication_qualification_id`へ分離します。
 
-`<exam_occurrence_id>`は過去問年度を表します。年度内に試験区分が1つなら`YYYY`、複数ある資格では`YYYY01`を前期、`YYYY02`を後期として保存します。取得元siteのgroup IDは`source_list_group_id`にだけ保持し、ディレクトリ名へ流用しません。
+`<list_group_id>`は既存工程が扱う問題グループです。公式過去問では、年度内に試験区分が1つなら`YYYY`、複数ある資格では`YYYY01`を前期、`YYYY02`を後期として保存します。独自問題では、取得元の講座又は問題集を識別できる安定名を使います。例: `udemy-ok-aws-e`。取得元site内の一時的なgroup IDは`source_list_group_id`にだけ保持します。
 
 ## 所有工程
 
@@ -48,7 +49,8 @@ output/question_review_console/
 | 工程 | 保存先 | ファイル名 | 責務 |
 | --- | --- | --- | --- |
 | scrape | `00_source/` | `question_<source又はexam occurrence ID>_<n>.json` | 取得した原本。既存ファイルの内容と名前は不変。 |
-| scrape | `question_images/<exam_occurrence_id>/` | source由来名 | ローカル画像。 |
+| scrape | `question_images/<list_group_id>/` | source由来名 | ローカル画像。 |
+| 05 | `05_originalized/` | `<source_stem>_originalized.json` | 独自問題化した問題文・選択肢・正答のpatch。公式過去問では作らない。 |
 | 01 | `10_questionType_fixed/` | `<source_stem>_questionType_fixed.json` | 問題形式。 |
 | merge | `12_merged_questionType/` | `<source_stem>_merged.json` | 01反映確認用の生成view。 |
 | 02 | `15_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 互換名を維持した`questionIntent` patch。 |
