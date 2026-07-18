@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T007
+active_task: T008
 tasks:
   - id: T001
     type: scout
@@ -428,7 +428,7 @@ tasks:
   - id: T006
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: xhigh
     objective: "回復可能な1問失敗で親runが継続し、ほかの問題が確定し、再起動後に失敗問だけを再実行できることを自動テストとガス主任技術者甲種2019年の実UI runで再監査する"
     inputs:
@@ -446,11 +446,42 @@ tasks:
       - "failure isolation evidence"
       - "resume-only-blocked evidence"
       - "remaining Worker package or final-audit readiness"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "一問失敗をblockedへ隔離して兄弟を確定し、親をsucceeded/partialで排出し、再開対象を失敗問だけにする決定的回帰が通過した。live UI runでも5問並列準備、単一writer、同一問への検査フィードバック、問1確定後の問2開始と準備枠補充を確認した。実装マイルストーンは合格。ただし旧停止問6とrun終端artifactSyncは未到達のため、全体完了ではない。"
+      worker_package:
+        objective: "実装は変更せず、継続中の2019年runを監視し、回復不能な一問がblockedになっても兄弟が進むことと終端集計を記録する"
+        allowed_files:
+          - docs/goals/question-maintenance-per-question-queue/state.yaml
+        verify:
+          - "run 20260718T204808608521-3574e879 のprogress API readback"
+          - "製造 問6がblockedの場合に問7以降がcommitting又はvalidatedへ進むこと"
+          - "terminal時のstatus/queueStatus/artifactSyncとvalidated保持"
+        stop_if:
+          - "親runがprovider停止、rollback不能又は共有状態破損で停止した場合"
+          - "一問blocked後にprepared兄弟が進まない場合"
+      evidence:
+        - "commit 5da409236"
+        - "170 focused tests and 484 question-review regression tests passed"
+        - "test_per_question_queue_continues_sibling_after_one_writer_fails: parent succeeded/partial, 1 blocked, 1 validated, retry target 1"
+        - "live run 20260718T204808608521-3574e879: concurrency 5, writer 1, q1 machine-check retry then validated, q2 committing, q9 replenished"
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks: []
+      missing_evidence:
+        - "live runで旧停止問6へ到達した後の兄弟継続readback"
+        - "live runのterminal artifactSync readback"
+      required_board_updates:
+        - "T008を実装変更なしの運転監視taskとして追加し、終端証拠を取得後にT999最終監査へ進む"
+      deviations:
+        - "GoalBuddy Judgeが最初の待機で判定を返さなかったため中断し、契約どおりPM fallbackで同じ証拠を保守的に監査した。"
+      harness: codex
   - id: T007
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "mainの実装で問題整備サービスを再読込し、UIからガス主任技術者甲種2019年を5問並列で開始する。既知の一問不合格がその問だけを保留し、次の問題がwriter確定へ進むことをrun API・技術ログ・成果物で確認する"
     inputs:
@@ -470,6 +501,50 @@ tasks:
       - "blocked question and continued sibling evidence"
       - "validated questions remain preserved"
       - "artifactSync separation evidence when terminal"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "launchctl kickstart -k gui/$(id -u)/com.yuki.question-review-console"
+          status: pass
+          summary: "main commit 5da409236を読むサービスPID 11817へ再起動"
+        - cmd: "問題整備UIからガス主任技術者甲種・2019・未整備のみ・5問並列を開始"
+          status: pass
+          summary: "run 20260718T204808608521-3574e879、56問・99工程、questionConcurrency=5、parallelWorkerLimit=5"
+        - cmd: "run progress APIとtechnical-log APIを継続readback"
+          status: pass
+          summary: "問1の問題集工程で機械検査exitCode=1を検出後、同一問が修正して再検査exitCode=0。問1は2/2工程validated、問2がcommitting、問3・6・7・8がprepared、問9を新規preparingへ補充"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "484 tests passed。回復不能な一問をblockedにし、兄弟問をvalidatedへ進め、再開対象を失敗問だけに限定する回帰を含む"
+      summary: "UI実運転で5問の独立準備と単一writerを確認した。問1の機械検査失敗は同一問へのフィードバックで回復し、問1確定後に問2へ進み、空いた準備枠には問9が補充された。回復不能時のblocked隔離、兄弟継続、失敗問だけの再開は決定的回帰テストで確認済み。runは本番Firestoreへ書き込まず継続中。"
+      deviations:
+        - "旧runで停止原因だった製造 問6は新runの処理順で問1・2・3の後ろにあり、監査時点では未到達。実runでは回復可能な機械検査失敗と後続継続を確認し、回復不能なblocked分岐は失敗注入テストで補完した。"
+        - "UIの再開操作は旧run IDをresumedFromへ持つのではなく、既存validated問を除外した新runとして開始された。旧runの製造 問4・5はvalidatedのまま保持され、新run対象は残り56問だった。"
+      remaining_blockers:
+        - "長時間の2019年runは継続中で、terminal artifactSync readbackは未到達。"
+      verification_attempts: 1
+      stopped_because: null
+      harness: codex
+  - id: T008
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: low
+    objective: "実装を変更せず、継続中のガス主任技術者甲種2019年runを監視する。回復不能な一問がblockedになっても兄弟問がwriter確定へ進むことと、終端時の親集計・artifactSync・validated保持をreadbackする"
+    inputs:
+      - "T006 milestone receipt"
+      - "run 20260718T204808608521-3574e879"
+      - "run progress API and technical log API"
+    constraints:
+      - "実装fileを変更しない。"
+      - "本番Firestoreへ書き込まない。"
+      - "既存output差分を手作業で変更又は破棄しない。"
+      - "一問のblocked後に兄弟が進まなければ成功扱いにしない。"
+    expected_output:
+      - "blocked question and continued sibling readback"
+      - "terminal parent summary"
+      - "artifactSync separation and validated preservation evidence"
     receipt: null
   - id: T999
     type: judge
