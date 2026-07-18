@@ -7,6 +7,13 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+from scripts.common.question_identity import load_source_record_inventory
+from tools.question_review_console.projection import (
+    build_question_issue_index,
+    build_stage_maps,
+    project_record,
+)
+
 
 MERGE_MODULE = importlib.import_module("scripts.merge.00_merge_all")
 merge_all = MERGE_MODULE.merge_all
@@ -223,7 +230,7 @@ class MergeSourceIdentityTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "同一artifact内"):
                 merge_all("2026", base_dir, require_answer_result_text=False)
 
-    def test_all_publication_patch_layers_keep_their_field_semantics(self):
+    def test_physical_merge_and_logical_projection_match_all_patch_layers(self):
         with tempfile.TemporaryDirectory() as directory:
             base_dir = Path(directory)
             group_dir = base_dir / "2026"
@@ -299,6 +306,19 @@ class MergeSourceIdentityTests(unittest.TestCase):
             )["question_bodies"][0]
             merged2_path = next((group_dir / "30_merged_2").glob("*.json"))
             merged2 = json.loads(merged2_path.read_text())["question_bodies"][0]
+            source = load_source_record_inventory(
+                source_dir,
+                qualification="sample",
+                list_group_id="2026",
+            )[0]
+            identities = (source.identity,)
+            projected = project_record(
+                source.record,
+                set(source.identity.aliases),
+                build_stage_maps(group_dir, identities),
+                build_question_issue_index((), identities),
+                source_binding=source.identity.binding,
+            )
 
         self.assertEqual(merged1["questionType"], "fill_in_blank")
         self.assertEqual(merged1["questionBodyText"], "patched body")
@@ -314,6 +334,8 @@ class MergeSourceIdentityTests(unittest.TestCase):
         self.assertEqual(merged2["questionSetIds"], ["set-1"])
         self.assertEqual(merged2["answer_result_text"], "strict result")
         self.assertEqual(merged2["correctChoiceText"], ["strict"])
+        self.assertEqual(projected.errors, ())
+        self.assertEqual(projected.record, merged2)
 
     def test_question_issue_hash_failure_leaves_all_existing_outputs_unchanged(self):
         with tempfile.TemporaryDirectory() as directory:
