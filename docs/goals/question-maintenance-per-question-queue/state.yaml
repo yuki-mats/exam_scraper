@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T010
+active_task: T999
 tasks:
   - id: T001
     type: scout
@@ -634,7 +634,7 @@ tasks:
   - id: T010
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "commit af94697faでサービスを再読込し、UIからfailed/partial run 20260718T204808608521-3574e879を再開する。問1と旧runの問4・5を再処理せず、問2以降を5問準備・単一writerで続行し、Git・GoalBuddy変更を誤帰属しないことをAPIと技術ログで確認する"
     inputs:
@@ -654,11 +654,45 @@ tasks:
       - "5 preparation plus one writer evidence"
       - "external Git or GoalBuddy change attribution evidence"
       - "sibling continuation evidence"
-    receipt: null
+    receipt:
+      result: done
+      summary: "旧failed/partial runをUIから5並列で再開し、元runの対象集合から検証済み問1だけを除いた55問に限定した。元runの対象外だった問4・5も再追加していない。新runは問2を単一writerへ送り、問3・6・7・8・9を最大5問で並列準備した。実行中に別作業が正本文書を変更・commitしたため問2・問3は方針fingerprint不一致で各問だけを安全にrollback・保留したが、親runはretrySafe=trueのまま問3、続いて問6へ進んだ。外部commitのGit・文書差分はwriter変更と分離され、unsafeChangedFilesは空だった。"
+      evidence:
+        - output/question_review_console/workflow_runs/gas-shunin-kou/20260718T204808608521-3574e879/manifest.json
+        - output/question_review_console/workflow_runs/gas-shunin-kou/20260718T211012713023-0c19ce6c/manifest.json
+        - output/question_review_console/workflow_runs/gas-shunin-kou/20260718T221417206422-570e6f40/manifest.json
+        - output/question_review_console/workflow_runs/gas-shunin-kou/20260718T221417206422-570e6f40/technical_log.jsonl
+        - output/question_review_console/workflow_runs/gas-shunin-kou/20260718T221614396144-6da08963/manifest.json
+        - output/question_review_console/workflow_runs/gas-shunin-kou/20260718T222807072978-2743610a/manifest.json
+        - "commit af94697fa"
+        - "commit fcc839622"
+        - "commit 348113ca4"
+        - "external commit b1d731927"
+      commands:
+        - cmd: "UI: 未完了の問題を再開 -> 整備を開始"
+          status: pass
+          summary: "未整備55問、5問安定運用を確認して開始"
+        - cmd: "GET /api/qualification-runs/<run>/progress?includeQuestions=true"
+          status: pass
+          summary: "先頭は問2・3・6・7・8で、問1・4・5なし。5準備と単一writerを確認"
+        - cmd: "child manifest readback"
+          status: pass
+          summary: "rollback succeeded、writeAttributionVerified=true、unsafeChangedFiles=[]、外部Git差分を分離"
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_qualification_runs tests.test_question_review_qualification_flow_recovery tests.test_question_review_codex_app_server"
+          status: pass
+          summary: "141 tests OK"
+      deviations:
+        - "T010の実運転で旧runの再開ボタン非表示と対象集合の再拡大を検出したため、PM判断で実装・回帰テスト・commit・pushまで閉じた。"
+        - "別作業の正本文書commitが実運転中に入ったため、問2・問3は正当な方針fingerprint不一致として保留された。これはwriter差分の誤帰属ではなく、古い方針で確定しない安全ガードである。"
+      remaining_blockers:
+        - "T999で全回帰、00_source不変、最新Git、live run readbackを最終監査する。"
+      verification_attempts: 2
+      stopped_because: null
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: xhigh
     objective: "全receiptと最終検証を元の依頼へ対応付け、一問完結型の仕組みが完成したか監査する"
     inputs:
