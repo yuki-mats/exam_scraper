@@ -522,16 +522,27 @@ def resume_plan(
     plan: Mapping[str, Any],
     previous_executions: Iterable[Mapping[str, Any]],
 ) -> dict[str, Any]:
-    previous_items = {
-        str(stage.get("workItemKey") or ""): dict(stage)
+    previous_execution_list = [
+        dict(question)
         for question in previous_executions
         if isinstance(question, Mapping)
+    ]
+    previous_items = {
+        str(stage.get("workItemKey") or ""): dict(stage)
+        for question in previous_execution_list
         for stage in question.get("stages") or []
         if isinstance(stage, Mapping)
         and stage.get("workItemKey")
     }
     if not previous_items:
         raise QuestionWorkQueueError("再実行元の一問work itemがありません。")
+    previous_question_ids = {
+        str(question.get("questionId") or "").strip()
+        for question in previous_execution_list
+        if str(question.get("questionId") or "").strip()
+    }
+    if not previous_question_ids:
+        raise QuestionWorkQueueError("再実行元の対象問題IDがありません。")
 
     raw_stage_plans = _stage_plans(plan)
     question_stage_plans = [
@@ -550,7 +561,7 @@ def resume_plan(
                 continue
             target = dict(raw_target)
             question_id = _target_id(target)
-            if not question_id:
+            if not question_id or question_id not in previous_question_ids:
                 continue
             stage_targets[question_id] = target
             existing = canonical_targets.setdefault(question_id, target)

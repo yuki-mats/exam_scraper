@@ -207,6 +207,23 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["policyTargets"], {"law_audit": ["q2"]})
 
+    def test_resume_never_adds_questions_outside_previous_run(self) -> None:
+        current_targets = [*self.targets, target("q3", 3)]
+        current = stage_plan("explanation", current_targets)
+        previous = stage_plan("explanation", current_targets[1:])
+        executions = build_question_executions(previous)
+        executions[0]["stages"][0]["status"] = "validated"
+        executions[1]["stages"][0]["status"] = "blocked"
+
+        resumed = resume_plan(current, executions)
+
+        self.assertEqual(resumed["targetCount"], 1)
+        self.assertEqual(resumed["workItemCount"], 1)
+        self.assertEqual(
+            [value["id"] for value in resumed["progressTargets"]],
+            ["q3"],
+        )
+
     def test_resume_plan_requeues_validated_item_when_policy_changed(self) -> None:
         executions = build_question_executions(self.plan)
         for question in executions:
