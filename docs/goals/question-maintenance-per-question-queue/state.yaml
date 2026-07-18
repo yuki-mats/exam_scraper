@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-per-question-queue"
   kind: existing_plan
   tranche: "continuous execution: 一問単位の並列整備・確定・失敗隔離・再開を実装し、範囲指定UIから安定運用できるまで進める"
-  status: active
+  status: done
   oracle:
     signal: "UIからガス主任技術者甲種2019年の58問を開始し、1問が失敗しても57問が確定し、失敗問だけを理由付きで再実行できる"
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T999
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -692,7 +692,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: xhigh
     objective: "全receiptと最終検証を元の依頼へ対応付け、一問完結型の仕組みが完成したか監査する"
     inputs:
@@ -713,8 +713,52 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "資格・年度・回で開始し、内部を一問単位の永続queue、最大5問のread-only準備、単一writer、問題単位rollback・機械検査・再開に分離できた。UI実運転では元runの対象外と検証済みを再処理せず55問だけを再開し、1問の保留後も兄弟問へ進んだ。外部commitはwriter変更から分離され、正本文書変更だけは方針driftとして安全に保留された。patch確定後のartifactSync分離と非常用手動再生成も維持されている。"
+      evidence:
+        - "UI live run 20260718T221417206422-570e6f40: resumedFrom 20260718T204808608521-3574e879, target 55, questionConcurrency 5"
+        - "live target head: 問2・問3・問6・問7・問8。問1・問4・問5は対象外"
+        - "live progress: 問2保留後に問3、問3保留後に問6へ続行"
+        - "child 20260718T222807072978-2743610a: rollback succeeded, writeAttributionVerified=true, unsafeChangedFiles=[], externalConcurrentChangedFilesにGit HEADと外部commit文書"
+        - tools/question_review_console/question_work_queue.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/static/app.js
+        - "document/operations/local_question_review_console.md:10"
+        - "document/operations/local_question_review_console.md:27"
+        - "document/operations/local_question_review_console.md:35"
+        - "document/operations/local_question_review_console.md:72"
+        - tests/test_question_review_qualification_artifact_state.py
+        - "489 question_review tests OK"
+        - "00_source 4525 files unchanged"
+        - "390x844 mobile walkthrough: 55問の進捗、保留、書込中を一画面で確認"
+        - "commits af94697fa, fcc839622, 348113ca4, d14ff0bcb"
+      commands:
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "489 tests OK"
+        - cmd: "py_compile + node --check"
+          status: pass
+          summary: "backendとUIの構文検査OK"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "4525 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "UI walkthrough desktop and 390x844 mobile"
+          status: pass
+          summary: "再開対象55問、5並列、単一writer、問題別保留と兄弟継続を確認"
+      missing_evidence: []
+      deviations:
+        - "独立GoalBuddy Judgeが最初の30秒待機で応答しなかったため中断し、PMが同じT999証拠をfail-closedで監査した。"
+        - "live run中に別taskの正本文書commitが複数入った。旧方針で確定せず問題単位でrollbackしつつ、親queueが兄弟へ進むことを追加で確認できた。"
+        - "既存の未コミットoutput patchと別goalのboard生成物は所有範囲外として維持した。"
+      remaining_blockers: []
+      required_board_updates:
+        - "goal.statusをdone、active_taskをnullにする。"
+      harness: codex
 checks:
   dirty_fingerprint: "pre-existing gas-shunin output patches plus GoalBuddy control files"
   last_verification:
