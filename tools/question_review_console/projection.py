@@ -21,6 +21,7 @@ from scripts.common.question_identity import (
 from scripts.merge.merge_utils import select_latest_patch_files
 from scripts.merge.patch_views import (
     EXPLANATION_FIELDS,
+    ORIGINALIZED_FIELDS,
     PatchArtifactEntry,
     build_layered_patch_index_from_paths,
     extract_patch_entries,
@@ -35,6 +36,7 @@ from scripts.merge.question_issue_corrections import (
 
 
 STAGE_SPECS: tuple[tuple[str, str, str], ...] = (
+    ("originalized", "05_originalized", "originalized"),
     ("questionType", "10_questionType_fixed", "questionType_fixed"),
     ("questionIntent", "15_correctChoiceText_fixed", "correctChoiceText_fixed"),
     ("correctChoice", "23_correctChoiceText_fixed", "correctChoiceText_fixed"),
@@ -82,6 +84,7 @@ CORRECT_CHOICE_FIELDS = (
 PROJECTED_COMPARE_FIELDS = tuple(
     dict.fromkeys(
         (
+            *ORIGINALIZED_FIELDS,
             *QUESTION_TYPE_FIELDS,
             *QUESTION_INTENT_FIELDS,
             *LAW_CONTEXT_FIELDS,
@@ -345,6 +348,7 @@ def project_record(
     try:
         projection = project_merge_record(
             base_record,
+            originalized=resolved.get("originalized", ()),
             question_type=resolved.get("questionType", ()),
             intent_fallback=resolved.get("questionIntent", ()),
             strict_correct=resolved.get("correctChoice", ()),

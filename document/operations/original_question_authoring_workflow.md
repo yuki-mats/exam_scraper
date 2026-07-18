@@ -33,7 +33,7 @@ flowchart LR
 - 原則として、取得元の1問から独自問題を1問作る。重複又は問題として成立しないものは作成せず、一つの問題から複数の類題を量産しない。分割が不可欠な問題だけを例外とする。
 - 取得元の問題IDは既存の`source_question_id`へ保存する。サイトが持つ不変IDを優先し、なければ問題固有の安定URLを使う。
 - 表示順、問題番号の並び、問題文ハッシュは恒久IDにしない。安定した問題IDも問題固有URLも得られない取得元は保留する。
-- 公開用IDは既存方式で`source_question_id`から生成し、別の対応表を作らない。取得元のIDやURLはFirestoreへ登録しない。
+- 公開用IDは既存方式で`source_question_id`から生成する取得元非表示の`public_question_id`を使い、別の対応表を作らない。選択肢単位の公開IDもMerge時に`public_question_id`から再生成する。取得元のIDやURLはFirestoreへ登録しない。
 - 再取得時に同じ`source_question_id`が見つかった場合は重複としてスキップし、`00_source`や公開済み問題を自動更新しない。新しいIDの問題だけを追加する。
 
 ## `05_originalized`の責務
@@ -100,11 +100,11 @@ flowchart LR
 - 問題数をそろえるために誤ったカテゴリへ入れたり、一つの取得問題から類題を量産したりしない。
 - 問題数の偏りは既存データから集計し、不足する問題集を後続の独自問題作成で補う。不足数を保存するfieldは追加しない。
 
-## 初回公開前の実装条件
+## 実装済みの公開ゲート
 
-独自問題を初めて公開する前に、次を既存実装へ接続します。接続が完了するまでは、公式過去問の既存工程だけを公開対象とします。
+次の条件は既存のMerge、logical projection、convert、upload、requirementsへ接続済みです。独自問題はこれらの検証を通ったものだけを公開対象とします。
 
 1. `05_originalized`を01より前のpatchとしてMergeへ反映する。
 2. 独自問題では`examYear`を生成・uploadせず、`examSource="独自問題"`を設定する。
-3. `05_originalized`以降の公開artifactに取得元の原文とprovenanceが混入しないことを検証する。
+3. Firestore相当の`40_convert`とupload dataに、取得元の原文、解説、画像、URL、site IDが混入しないことを検証する。
 4. 完全一致チェックと既存のquality gate、評価、readbackを通す。

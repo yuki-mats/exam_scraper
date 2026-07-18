@@ -16,9 +16,11 @@ from scripts.merge.patch_views import (
     apply_correct_choice,
     apply_explanation_fields,
     apply_law_context_fields,
+    apply_originalized_fields,
     apply_question_intent,
     apply_question_set,
     apply_question_type,
+    ensure_originalized_explanation_is_distinct,
     ensure_identity_candidate_index_valid,
     normalize_true_false_intent_and_correct_choice,
 )
@@ -205,6 +207,7 @@ def _apply_candidates(
 def project_merge_record(
     source_record: Mapping[str, Any],
     *,
+    originalized: Sequence[PatchArtifactEntry] = (),
     question_type: Sequence[PatchArtifactEntry] = (),
     intent_fallback: Sequence[PatchArtifactEntry] = (),
     strict_correct: Sequence[PatchArtifactEntry] = (),
@@ -213,8 +216,18 @@ def project_merge_record(
     question_set: Sequence[PatchArtifactEntry] = (),
     question_issues: Sequence[QuestionIssueCorrectionEntry] = (),
 ) -> RecordMergeProjection:
+    if originalized and explanation:
+        ensure_originalized_explanation_is_distinct(
+            source_record,
+            explanation,
+        )
     merged1 = {"question_bodies": [copy.deepcopy(dict(source_record))]}
     counts: dict[str, int] = {}
+    counts["originalized"] = _apply_candidates(
+        merged1,
+        originalized,
+        apply_originalized_fields,
+    )
     counts["question_type"] = _apply_candidates(
         merged1,
         question_type,
@@ -305,6 +318,7 @@ def project_merge_record(
     counts["question_issue"] = issue_updates
 
     used_candidates = (
+        *originalized,
         *question_type,
         *intent_fallback,
         *strict_correct,

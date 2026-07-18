@@ -11,14 +11,19 @@ description = "All-qualifications baseline requirements"
 
 [default.stages.source]
 # output/*/questions_json/*/00_source/*.json の question_bodies[] を対象
-question_bodies_required_keys = ["question_url", "answer_result_text", "examYear", "examLabel"]
-question_bodies_required_non_empty_keys = ["question_url", "answer_result_text", "examLabel"]
+question_bodies_required_keys = ["question_url", "answer_result_text"]
+question_bodies_required_non_empty_keys = ["question_url", "answer_result_text"]
 question_bodies_required_any_of = [["public_question_id", "original_question_id"]]
 
 [default.stages.merged]
 # output/*/questions_json/*/(20_merged_1|30_merged_2)/*.json の question_bodies[] を対象
-question_bodies_required_keys = ["questionType", "answer_result_text", "correctChoiceText", "examYear", "examLabel"]
-question_bodies_required_non_empty_keys = ["questionType", "answer_result_text", "examLabel"]
+question_bodies_required_keys = ["questionType", "answer_result_text", "correctChoiceText"]
+question_bodies_required_non_empty_keys = ["questionType", "answer_result_text"]
+
+[[default.stages.merged.question_bodies_conditional]]
+when_not = { examSource = "独自問題" }
+required_keys = ["examYear", "examLabel"]
+required_non_empty_keys = ["examLabel"]
 
 [[default.stages.merged.question_bodies_conditional]]
 when = { questionType = "true_false" }
@@ -40,7 +45,6 @@ questions_required_keys = [
   "isGroupable",
   "originalQuestionBodyText",
   "correctChoiceText",
-  "examYear",
   "examSource",
 ]
 questions_required_non_empty_keys = [
@@ -52,3 +56,7 @@ questions_required_non_empty_keys = [
   "originalQuestionBodyText",
   "examSource",
 ]
+
+[[default.stages.firestore.questions_conditional]]
+when_not = { examSource = "独自問題" }
+required_keys = ["examYear"]

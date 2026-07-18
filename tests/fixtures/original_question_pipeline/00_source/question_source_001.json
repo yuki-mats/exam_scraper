@@ -1,0 +1,34 @@
+{
+  "list_group_id": "synthetic-source",
+  "question_bodies": [
+    {
+      "question_url": "https://source.example.invalid/questions/39893",
+      "source_question_id": "synthetic:source-site:question:39893",
+      "public_question_id": "a1b2c3d4e5f60718",
+      "original_question_id": "a1b2c3d4e5f60718",
+      "sourceUniqueKeys": [
+        "synthetic:source-site:question:39893:s01",
+        "synthetic:source-site:question:39893:s02",
+        "synthetic:source-site:question:39893:s03",
+        "synthetic:source-site:question:39893:s04"
+      ],
+      "questionBodyText": "架空会社が経費の月額上限を超えずに、AWSリソースのコスト超過を通知するにはどのサービスを使いますか。",
+      "choiceTextList": [
+        "AWS Budgets",
+        "AWS Config",
+        "Amazon Inspector",
+        "AWS Artifact"
+      ],
+      "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は1です。",
+      "questionImageStorageUrls": ["https://source.example.invalid/source-only.png"],
+      "explanationText": [
+        "SOURCE_EXPLANATION_SHOULD_NOT_PUBLISH",
+        "SOURCE_EXPLANATION_SHOULD_NOT_PUBLISH",
+        "SOURCE_EXPLANATION_SHOULD_NOT_PUBLISH",
+        "SOURCE_EXPLANATION_SHOULD_NOT_PUBLISH"
+      ]
+    }
+  ]
+}

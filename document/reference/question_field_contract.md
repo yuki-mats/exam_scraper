@@ -53,7 +53,7 @@
 | 工程 | 対象 | 必須/準必須 | 目的 |
 | --- | --- | --- | --- |
 | `00_source` | `question_bodies[]` | `question_url`, `answer_result_text`, `public_question_id` または `original_question_id`。公式過去問では`examYear`, `examLabel`も必須 | 元サイトからの出典、正答根拠、公式過去問の年度を保持する。 |
-| `05_originalized` | patch | `original_question_id`, 独自問題化した問題文・選択肢・正答 | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
+| `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
 | `10_questionType_fixed` | patch | `questionType` | 回答体験を確定する。ここで `true_false` / `flash_card` / `group_choice` などを決める。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent`、必要時のみanswer result補正 | 設問が正しいもの・誤っているもののどちらを選ばせるか確定する。 |
 | `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。 |
@@ -141,7 +141,7 @@
 | 暗記プラス独自問題 | `true` | omit | `独自問題` |
 | ユーザー投稿 | `false` | app側の既存契約に従う | app側の既存契約に従う |
 
-独自問題では、取得元の`question_url`、`source_question_id`、原文、解説原文をFirestoreへ入れません。取得元の原文は`00_source`だけに保持し、公開用の問題文・選択肢は`05_originalized`の内容を使います。詳細は[独自問題作成ワークフロー](../operations/original_question_authoring_workflow.md)を正本とします。
+独自問題では、取得元の`question_url`、`source_question_id`、原文、解説原文、取得元画像をFirestoreへ入れません。取得元の原文は`00_source`だけに保持し、公開用の問題文・選択肢は`05_originalized`の内容を使います。選択肢単位の公開IDは`public_question_id`から再生成し、取得元site名やIDを含めません。詳細は[独自問題作成ワークフロー](../operations/original_question_authoring_workflow.md)を正本とします。
 
 ## `questionType` 契約
 

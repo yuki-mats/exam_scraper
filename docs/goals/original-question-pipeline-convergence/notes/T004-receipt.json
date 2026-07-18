@@ -1,0 +1,40 @@
+{
+  "result": "done",
+  "changed_files": [
+    "config/question_maintenance_workflow.toml",
+    "config/requirements/required_fields.toml",
+    "config/requirements/README.md",
+    "prompt/05_prompt_originalize_question.md",
+    "scripts/common/requirements.py",
+    "scripts/merge/00_merge_all.py",
+    "scripts/merge/record_projection.py",
+    "scripts/merge/patch_views.py",
+    "scripts/convert/convert_merged_to_firestore.py",
+    "scripts/upload/upload_questions_to_firestore.py",
+    "tools/question_review_console/projection.py",
+    "document/operations/original_question_authoring_workflow.md",
+    "document/operations/artifact_contract.md",
+    "document/reference/question_field_contract.md",
+    "document/temporary/audits/20260719_original_question_pipeline_verification.md",
+    "tests/test_original_question_pipeline.py",
+    "tests/test_question_review_workflow_catalog.py",
+    "tests/fixtures/original_question_pipeline/"
+  ],
+  "commands": [
+    {
+      "cmd": "python3 -m unittest tests.test_original_question_pipeline tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure",
+      "status": "pass",
+      "result": "125 tests OK"
+    },
+    {
+      "cmd": "python3 -m py_compile scripts/common/requirements.py scripts/merge/patch_views.py scripts/merge/record_projection.py scripts/merge/00_merge_all.py scripts/convert/convert_merged_to_firestore.py scripts/upload/upload_questions_to_firestore.py tools/question_review_console/projection.py tools/question_review_console/workflow_catalog.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "git diff --check -- <T004 scope>",
+      "status": "pass"
+    }
+  ],
+  "summary": "05_originalizedを問題整備workflow、物理Merge、logical projectionの01前に接続した。独自問題はisOfficial=true、examSource=独自問題、examYear omitでconvert・uploadできる。取得元の問題文、選択肢一式の完全一致を拒否し、取得元解説・画像を引き継がず、公開用選択肢IDをpublic_question_idから再生成する。人工fixtureでsourceからupload projectionまでの非混入と、公式過去問の年度契約を同時検証した。",
+  "harness": "codex"
+}

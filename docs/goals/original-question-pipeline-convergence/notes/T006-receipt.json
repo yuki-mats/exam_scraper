@@ -1,0 +1,27 @@
+{
+  "result": "done",
+  "changed_files": [
+    "scripts/merge/patch_views.py",
+    "scripts/merge/record_projection.py",
+    "tests/test_original_question_pipeline.py",
+    "document/temporary/audits/20260719_original_question_pipeline_verification.md"
+  ],
+  "commands": [
+    {
+      "cmd": "python3 -m unittest tests.test_original_question_pipeline tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore",
+      "status": "pass",
+      "result": "36 tests OK"
+    },
+    {
+      "cmd": "git diff --check -- <T006 scope>",
+      "status": "pass"
+    },
+    {
+      "cmd": "python3 -m unittest tests.test_original_question_pipeline tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure && python3 scripts/check/check_00_source_immutability.py && git diff --check",
+      "status": "pass",
+      "result": "126 tests OK, 00_source差分なし 5072 files"
+    }
+  ],
+  "summary": "05_originalizedが存在する問題だけで、Merge適用前のsource recordと03 explanation patchを直接比較し、空白・全半角差を除いた解説の完全一致を拒否するようにした。比較用の取得元解説fieldはmergedやFirestoreへ追加しない。05なしの公式過去問にはこの独自問題用ゲートを適用しないことも回帰testで確認した。",
+  "harness": "codex"
+}

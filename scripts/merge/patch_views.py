@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, Mapping, TypeVar
@@ -36,6 +37,32 @@ EXPLANATION_FIELDS = [
     "explanation_choice_snippets",
     "explanation_choice_correctness",
 ]
+ORIGINALIZED_FIELDS = [
+    "questionBodyText",
+    "choiceTextList",
+    "correctChoiceText",
+    "questionIntent",
+    "answer_result_text",
+    "questionImageStorageUrls",
+    "originalQuestionChoiceImageUrls",
+]
+ORIGINALIZED_REQUIRED_FIELDS = (
+    "questionBodyText",
+    "choiceTextList",
+    "correctChoiceText",
+    "questionIntent",
+    "answer_result_text",
+)
+INDEPENDENT_QUESTION_EXAM_SOURCE = "独自問題"
+SOURCE_EXPLANATION_FIELDS = tuple(
+    dict.fromkeys(
+        (
+            *EXPLANATION_FIELDS,
+            "knowledgeText",
+            "explanationImageStorageUrls",
+        )
+    )
+)
 LAW_CONTEXT_FIELDS = [
     "isLawRelated",
     "lawGroundedExplanationNotNeeded",
@@ -418,6 +445,188 @@ def apply_question_type(
             question["questionType"] = "group_choice"
             updated += 1
             continue
+    return updated
+
+
+def _normalized_originalized_text(value: Any) -> str:
+    return re.sub(
+        r"\s+",
+        "",
+        unicodedata.normalize("NFKC", str(value or "")),
+    )
+
+
+def _normalized_originalized_choices(value: Any) -> tuple[str, ...]:
+    if not isinstance(value, list):
+        return ()
+    return tuple(sorted(_normalized_originalized_text(item) for item in value))
+
+
+def _normalized_explanation_fragments(value: Any) -> set[str]:
+    if isinstance(value, str):
+        normalized = _normalized_originalized_text(value)
+        return {normalized} if normalized else set()
+    if isinstance(value, Mapping):
+        fragments: set[str] = set()
+        for nested in value.values():
+            fragments.update(_normalized_explanation_fragments(nested))
+        return fragments
+    if isinstance(value, (list, tuple)):
+        fragments = set()
+        for nested in value:
+            fragments.update(_normalized_explanation_fragments(nested))
+        return fragments
+    return set()
+
+
+def ensure_originalized_explanation_is_distinct(
+    source: Mapping[str, Any],
+    explanation_candidates: Iterable[PatchArtifactEntry],
+) -> None:
+    """Reject verbatim source explanations without copying them into merged data."""
+
+    source_fragments: set[str] = set()
+    for field in (
+        "explanationText",
+        "explanation_common_prefix",
+        "explanation_common_summary",
+        "explanation_choice_snippets",
+    ):
+        source_fragments.update(_normalized_explanation_fragments(source.get(field)))
+    if not source_fragments:
+        return
+
+    for candidate in explanation_candidates:
+        published_fragments = _normalized_explanation_fragments(
+            candidate.entry.get("explanationText")
+        )
+        if source_fragments & published_fragments:
+            raise ValueError(
+                "03の解説が00_sourceの解説原文と完全一致しています: "
+                f"{candidate.path}"
+            )
+
+
+def normalize_correct_choice_label(value: Any) -> str:
+    text = str(value or "").strip()
+    return {
+        "正解": "正しい",
+        "不正解": "間違い",
+        "誤り": "間違い",
+    }.get(text, text)
+
+
+def _validate_originalized_entry(
+    source: Mapping[str, Any],
+    entry: Mapping[str, Any],
+) -> None:
+    missing = [
+        field
+        for field in ORIGINALIZED_REQUIRED_FIELDS
+        if field not in entry or entry.get(field) in (None, "", [])
+    ]
+    if missing:
+        raise ValueError(
+            "05_originalizedの必須fieldが不足しています: "
+            + ", ".join(missing)
+        )
+
+    body = entry.get("questionBodyText")
+    choices = entry.get("choiceTextList")
+    verdicts = entry.get("correctChoiceText")
+    if not isinstance(body, str) or not body.strip():
+        raise ValueError("05_originalized.questionBodyTextは空でない文字列が必要です。")
+    if not isinstance(choices, list) or not choices or any(
+        not isinstance(choice, str) or not choice.strip() for choice in choices
+    ):
+        raise ValueError("05_originalized.choiceTextListは空でない文字列配列が必要です。")
+    if not isinstance(verdicts, list) or len(verdicts) != len(choices):
+        raise ValueError(
+            "05_originalized.correctChoiceTextはchoiceTextListと同じ件数の配列が必要です。"
+        )
+    if any(normalize_correct_choice_label(value) not in {"正しい", "間違い"} for value in verdicts):
+        raise ValueError(
+            "05_originalized.correctChoiceTextは「正しい」「間違い」のみを使います。"
+        )
+    if str(entry.get("questionIntent") or "").strip() not in {
+        "select_correct",
+        "select_incorrect",
+    }:
+        raise ValueError(
+            "05_originalized.questionIntentはselect_correctまたはselect_incorrectが必要です。"
+        )
+
+    source_body = source.get("questionBodyText") or source.get(
+        "originalQuestionBodyText"
+    )
+    if _normalized_originalized_text(body) == _normalized_originalized_text(source_body):
+        raise ValueError(
+            "05_originalizedの問題文全体が00_sourceと完全一致しています。"
+        )
+    if _normalized_originalized_choices(choices) == _normalized_originalized_choices(
+        source.get("choiceTextList")
+    ):
+        raise ValueError(
+            "05_originalizedの選択肢一式が00_sourceと完全一致しています。"
+        )
+
+
+def apply_originalized_fields(
+    data: dict,
+    originalized_map: Mapping[str, dict],
+) -> int:
+    """Apply the publication-safe independent-question base before stage 01."""
+
+    normalize_question_ids(data)
+    updated = 0
+    questions = data.get("question_bodies")
+    if not isinstance(questions, list):
+        raise ValueError("question_bodies が見つかりません")
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        question_id = patch_target_id(question)
+        if not question_id:
+            continue
+        entry = originalized_map.get(str(question_id))
+        if not isinstance(entry, Mapping):
+            continue
+        _validate_originalized_entry(question, entry)
+
+        for field in ORIGINALIZED_FIELDS:
+            if field in entry and entry[field] is not None:
+                question[field] = entry[field]
+        question["correctChoiceText"] = [
+            normalize_correct_choice_label(value)
+            for value in question["correctChoiceText"]
+        ]
+        question["examSource"] = INDEPENDENT_QUESTION_EXAM_SOURCE
+        question.pop("examYear", None)
+        question["originalQuestionBodyText"] = question["questionBodyText"]
+        question.pop("original_question_body_text", None)
+        question.pop("originalQuestionChoiceText", None)
+        public_id = str(
+            question.get("public_question_id")
+            or question.get("original_question_id")
+            or ""
+        ).strip()
+        if not public_id:
+            raise ValueError(
+                "05_originalizedの公開用IDを生成できません。"
+            )
+        question["sourceUniqueKeys"] = [
+            f"{public_id}:choice:{index + 1}"
+            for index in range(len(question["choiceTextList"]))
+        ]
+
+        # 取得元の画像や解説を公開系路へ暗黙に流さない。
+        if "questionImageStorageUrls" not in entry:
+            question.pop("questionImageStorageUrls", None)
+        if "originalQuestionChoiceImageUrls" not in entry:
+            question.pop("originalQuestionChoiceImageUrls", None)
+        for field in SOURCE_EXPLANATION_FIELDS:
+            question.pop(field, None)
+        updated += 1
     return updated
 
 

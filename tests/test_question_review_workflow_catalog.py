@@ -95,6 +95,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             [
                 "source",
                 "setup",
+                "originalize",
                 "question_type",
                 "question_intent",
                 "correct_choice",
@@ -121,6 +122,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 if stage.get("batchSelectable")
             ],
             [
+                "maintenance",
                 "maintenance",
                 "maintenance",
                 "maintenance",

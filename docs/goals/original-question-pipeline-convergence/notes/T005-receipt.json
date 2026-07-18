@@ -1,0 +1,44 @@
+{
+  "result": "done",
+  "commands": [
+    {
+      "cmd": "PINGT_BROWSER_EXPORT_PATH=/tmp/pingt_subject_76_browser_export.json python3 scripts/scrape/run_qualification_scrape.py aws-cloud-practitioner ping-t-aws-clf-c02",
+      "status": "pass",
+      "result": "persisted=547 new=0 images=189"
+    },
+    {
+      "cmd": "python3 scripts/check/check_00_source_immutability.py",
+      "status": "pass",
+      "result": "00_source差分なし: 5072 files"
+    },
+    {
+      "cmd": "Ping-t browser index・detail export・00_source・report・image・547 source hashの全件照合",
+      "status": "pass",
+      "result": "547/547/547、URL・public ID重複0、missing/unexpected 0、189画像、51カテゴリ、ID digest一致"
+    },
+    {
+      "cmd": "python3 -m unittest tests.test_original_question_pipeline tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure",
+      "status": "pass",
+      "result": "125 tests OK"
+    },
+    {
+      "cmd": "output/mecnet-kokushi/questions_json/95の公式過去問artifactを一時ディレクトリへ実変換してフィールド照合",
+      "status": "pass",
+      "result": "1233 questions全件 examYear=2001、examSource!=独自問題、isOfficial=true"
+    },
+    {
+      "cmd": "workflow TOML・requirements TOML・正本ドキュメント・実装定数のsemantic auditとgit diff --check",
+      "status": "pass",
+      "result": "05は01前、公式問だけexamYear必須、新公開origin fieldなし、文書は実装済み状態と一致"
+    }
+  ],
+  "facts": [
+    "Ping-t CLF-C02の一覧ID集合、詳細ID集合、00_source ID集合は547件で完全一致する。",
+    "標準runnerの再実行は新規0件で、全既存source hashとimmutability manifestを維持する。",
+    "独自問題fixtureはsource原文・解説・URL・site ID・画像を公開artifactへ混入させない。",
+    "公式過去問は従来どおりexamYearとexamSourceを保持する。",
+    "ドキュメント、workflow SSOT、requirements、Merge、projection、convert、uploadの意味が一致する。"
+  ],
+  "summary": "実データ547件の再取得no-opとhash照合、人工独自問題fixtureのend-to-end、既存公式過去問1,233件の実変換、125回帰test、semantic docs auditをすべて通した。本番Firestoreへの書き込みは行っていない。",
+  "harness": "codex"
+}

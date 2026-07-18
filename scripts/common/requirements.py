@@ -18,6 +18,7 @@ class RequirementsError(RuntimeError):
 @dataclasses.dataclass(frozen=True)
 class ConditionalRule:
     when: dict[str, Any]
+    when_not: dict[str, Any]
     required_keys: list[str]
     required_non_empty_keys: list[str]
 
@@ -85,11 +86,15 @@ def _parse_stage_rules(raw: dict[str, Any], *, array_name: str) -> StageRules:
             if not isinstance(item, dict):
                 continue
             when = item.get("when")
-            if not isinstance(when, dict) or not when:
+            when_not = item.get("when_not")
+            when = dict(when) if isinstance(when, dict) else {}
+            when_not = dict(when_not) if isinstance(when_not, dict) else {}
+            if not when and not when_not:
                 continue
             conditional.append(
                 ConditionalRule(
-                    when=dict(when),
+                    when=when,
+                    when_not=when_not,
                     required_keys=_as_list_of_str(item.get("required_keys")),
                     required_non_empty_keys=_as_list_of_str(item.get("required_non_empty_keys")),
                 )
@@ -177,17 +182,26 @@ def validate_records(
                 errors.append(f"{source_path}: id={record_id} required_any_of_missing=({joined})")
 
         for cond in rules.conditional:
-            if all(record.get(k) == v for k, v in cond.when.items()):
+            matches_when = not cond.when or all(
+                record.get(k) == v for k, v in cond.when.items()
+            )
+            matches_when_not = not cond.when_not or not all(
+                record.get(k) == v for k, v in cond.when_not.items()
+            )
+            if matches_when and matches_when_not:
+                condition = {
+                    **({"when": cond.when} if cond.when else {}),
+                    **({"when_not": cond.when_not} if cond.when_not else {}),
+                }
                 for key in cond.required_keys:
                     if key not in record or record.get(key) is None:
                         errors.append(
-                            f"{source_path}: id={record_id} when={cond.when} missing_required_key={key}"
+                            f"{source_path}: id={record_id} condition={condition} missing_required_key={key}"
                         )
                 for key in cond.required_non_empty_keys:
                     if key not in record or not _is_non_empty(record.get(key)):
                         errors.append(
-                            f"{source_path}: id={record_id} when={cond.when} empty_required_key={key}"
+                            f"{source_path}: id={record_id} condition={condition} empty_required_key={key}"
                         )
 
     return errors
-

@@ -5,7 +5,7 @@ goal:
   slug: "original-question-pipeline-convergence"
   kind: existing_plan
   tranche: "既存の設計判断を維持し、再利用可能なPing-t取得、独自問題の05から公開artifactまで、公式過去問回帰を連続して実装・検証する。"
-  status: active
+  status: done
   oracle:
     signal: "Ping-t CLF-C02 547問の一覧集合一致と再実行no-op、独自問題fixtureのend-to-end成功、公式過去問回帰成功、repo内SSOT・設定・READMEの意味整合監査成功"
     cadence: "各Worker package後と最終監査時"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/original-question-pipeline-convergence/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/original-question-pipeline-convergence"
 
-active_task: T004
+active_task: null
 
 tasks:
   - id: T001
@@ -267,7 +267,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "05_originalizedを既存の問題整備工程、Merge、Convert、upload-ready検証へ接続し、独自問題はisOfficial=true、examSource=独自問題、examYear omit、取得元原文・provenance非混入で公開準備できる縦切りをfixtureで証明する。"
     allowed_files:
@@ -289,7 +289,7 @@ tasks:
       - "document/operations/original_question_authoring_workflow.md"
       - "document/operations/artifact_contract.md"
       - "document/reference/question_field_contract.md"
-      - "document/temporary/audits/20260718_original_question_pipeline_verification.md"
+      - "document/temporary/audits/20260719_original_question_pipeline_verification.md"
       - "tests/test_original_question_pipeline.py"
       - "tests/test_merge_source_identity.py"
       - "tests/test_convert_merged_to_firestore.py"
@@ -308,12 +308,41 @@ tasks:
       - "Need files outside PM-approved allowed_files."
       - "Would add a public field or separate origin registry."
       - "Verification fails twice for the same unresolved cause."
-    receipt: null
-
+    receipt:
+      result: done
+      changed_files:
+        - config/question_maintenance_workflow.toml
+        - config/requirements/required_fields.toml
+        - config/requirements/README.md
+        - prompt/05_prompt_originalize_question.md
+        - scripts/common/requirements.py
+        - scripts/merge/00_merge_all.py
+        - scripts/merge/record_projection.py
+        - scripts/merge/patch_views.py
+        - scripts/convert/convert_merged_to_firestore.py
+        - scripts/upload/upload_questions_to_firestore.py
+        - tools/question_review_console/projection.py
+        - document/operations/original_question_authoring_workflow.md
+        - document/operations/artifact_contract.md
+        - document/reference/question_field_contract.md
+        - document/temporary/audits/20260719_original_question_pipeline_verification.md
+        - tests/test_original_question_pipeline.py
+        - tests/test_question_review_workflow_catalog.py
+        - tests/fixtures/original_question_pipeline/
+      commands:
+        - cmd: "python3 -m unittest tests.test_original_question_pipeline tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure"
+          status: pass
+          result: "125 tests OK"
+        - cmd: "python3 -m py_compile scripts/common/requirements.py scripts/merge/patch_views.py scripts/merge/record_projection.py scripts/merge/00_merge_all.py scripts/convert/convert_merged_to_firestore.py scripts/upload/upload_questions_to_firestore.py tools/question_review_console/projection.py tools/question_review_console/workflow_catalog.py"
+          status: pass
+        - cmd: "git diff --check -- <T004 scope>"
+          status: pass
+      summary: "05_originalizedを問題整備workflow、物理Merge、logical projectionの01前に接続した。独自問題はisOfficial=true、examSource=独自問題、examYear omitでconvert・uploadできる。取得元の問題文、選択肢一式の完全一致を拒否し、取得元解説・画像を引き継がず、公開用選択肢IDをpublic_question_idから再生成する。人工fixtureでsourceからupload projectionまでの非混入と、公式過去問の年度契約を同時検証した。"
+      harness: codex
   - id: T005
     type: pm
     assignee: PM
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Run the goal oracle: independent-question end-to-end fixture, official-past regression, semantic docs audit, and full relevant tests."
     inputs:
@@ -328,12 +357,76 @@ tasks:
       - "Oracle command results."
       - "Generated artifact assertions."
       - "Remaining gaps or final-audit readiness."
-    receipt: null
-
+    receipt:
+      result: done
+      commands:
+        - cmd: "PINGT_BROWSER_EXPORT_PATH=/tmp/pingt_subject_76_browser_export.json python3 scripts/scrape/run_qualification_scrape.py aws-cloud-practitioner ping-t-aws-clf-c02"
+          status: pass
+          result: "persisted=547 new=0 images=189"
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: pass
+          result: "00_source差分なし: 5072 files"
+        - cmd: "Ping-t browser index・detail export・00_source・report・image・547 source hashの全件照合"
+          status: pass
+          result: "547/547/547、URL・public ID重複0、missing/unexpected 0、189画像、51カテゴリ、ID digest一致"
+        - cmd: "python3 -m unittest tests.test_original_question_pipeline tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure"
+          status: pass
+          result: "125 tests OK"
+        - cmd: "output/mecnet-kokushi/questions_json/95の公式過去問artifactを一時ディレクトリへ実変換してフィールド照合"
+          status: pass
+          result: "1233 questions全件 examYear=2001、examSource!=独自問題、isOfficial=true"
+        - cmd: "workflow TOML・requirements TOML・正本ドキュメント・実装定数のsemantic auditとgit diff --check"
+          status: pass
+          result: "05は01前、公式問だけexamYear必須、新公開origin fieldなし、文書は実装済み状態と一致"
+      facts:
+        - "Ping-t CLF-C02の一覧ID集合、詳細ID集合、00_source ID集合は547件で完全一致する。"
+        - "標準runnerの再実行は新規0件で、全既存source hashとimmutability manifestを維持する。"
+        - "独自問題fixtureはsource原文・解説・URL・site ID・画像を公開artifactへ混入させない。"
+        - "公式過去問は従来どおりexamYearとexamSourceを保持する。"
+        - "ドキュメント、workflow SSOT、requirements、Merge、projection、convert、uploadの意味が一致する。"
+      summary: "実データ547件の再取得no-opとhash照合、人工独自問題fixtureのend-to-end、既存公式過去問1,233件の実変換、125回帰test、semantic docs auditをすべて通した。本番Firestoreへの書き込みは行っていない。"
+      harness: codex
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "05_originalizedを通る問題の03解説が取得元解説と完全一致する場合を、取得元文を中間・公開fieldへ複製せずMerge時に拒否する。"
+    allowed_files:
+      - "scripts/merge/patch_views.py"
+      - "scripts/merge/record_projection.py"
+      - "tests/test_original_question_pipeline.py"
+      - "document/temporary/audits/20260719_original_question_pipeline_verification.md"
+    verify:
+      - "python3 -m unittest tests.test_original_question_pipeline tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore"
+      - "05なしの公式過去問に同検査を適用しないこと"
+      - "取得元解説をmerged・Firestore fieldへ比較用に複製しないこと"
+    stop_if:
+      - "Need files outside PM-approved allowed_files."
+      - "Would add a source-explanation public or intermediate field."
+      - "Official-past-exam behavior regresses."
+    receipt:
+      result: done
+      changed_files:
+        - scripts/merge/patch_views.py
+        - scripts/merge/record_projection.py
+        - tests/test_original_question_pipeline.py
+        - document/temporary/audits/20260719_original_question_pipeline_verification.md
+      commands:
+        - cmd: "python3 -m unittest tests.test_original_question_pipeline tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore"
+          status: pass
+          result: "36 tests OK"
+        - cmd: "git diff --check -- <T006 scope>"
+          status: pass
+        - cmd: "python3 -m unittest tests.test_original_question_pipeline tests.test_scrape_pingt tests.test_scrape_presets tests.test_scrape_identity_keys tests.test_check_00_source_immutability tests.test_merge_source_identity tests.test_question_review_projection tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_question_review_workflow_catalog tests.test_documentation_structure && python3 scripts/check/check_00_source_immutability.py && git diff --check"
+          status: pass
+          result: "126 tests OK, 00_source差分なし 5072 files"
+      summary: "05_originalizedが存在する問題だけで、Merge適用前のsource recordと03 explanation patchを直接比較し、空白・全半角差を除いた解説の完全一致を拒否するようにした。比較用の取得元解説fieldはmergedやFirestoreへ追加しない。05なしの公式過去問にはこの独自問題用ゲートを適用しないことも回帰testで確認した。"
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Audit whether all documentation, specifications, implementation, workflow, and proof satisfy the original owner outcome."
     inputs:
@@ -351,8 +444,37 @@ tasks:
       - "full_outcome_complete: true | false"
       - "Evidence mapped to each original decision."
       - "Missing work and next task when not complete."
-    receipt: null
-
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      evidence:
+        - decision: "Ping-t CLF-C02の547問を正確に取得した"
+          proof: "browser index 547、detail export 547、00_source 547のID集合が完全一致。URL・source ID・public ID重複0、missing/unexpected 0、189画像、547 source hash一致。"
+        - decision: "他資格に再利用でき、従来の過去問scrapeと自然に共存する"
+          proof: "Ping-t adapterは資格preset・subject ID・list groupを入力とし、共通run_qualification_scrape.pyから00_source・画像・reportを生成。再実行は547件全てSKIP、新規0。"
+        - decision: "新しい公開区分fieldを増やさない"
+          proof: "contentOriginTypeは実装に追加せず、独自問題はisOfficial=true、examSource=独自問題、examYear omitだけで表現する。"
+        - decision: "05_originalizedを既存workflowへ接続する"
+          proof: "workflow SSOTはsource、setup、05、01の順。物理Mergeとlogical projectionが同じ順で05を適用し、既存01〜04、convert、uploadを再利用する。"
+        - decision: "独自性基準を過度に厳しくしない"
+          proof: "類似率閾値は導入せず、問題文全体、選択肢一式、解説原文の完全一致だけを機械的に拒否する。"
+        - decision: "取得元の原文とprovenanceを公開しない"
+          proof: "人工fixtureのend-to-endでsource問題文、解説、画像、URL、site IDが40_convert・upload projectionに存在しない。公開選択肢IDもpublic IDから再生成。"
+        - decision: "公式過去問を回帰させない"
+          proof: "公式過去問artifact 1,233件の実変換でexamYear=2001、従来examSource、isOfficial=trueを全件維持。独自問題用の解説一致ゲートは05がない問題に適用しない。"
+        - decision: "仕様・ドキュメント・実装の意味を一致させる"
+          proof: "workflow TOML、requirements TOML、artifact契約、field契約、独自問題作成ワークフロー、prompt、Merge、projection、convert、uploadのsemantic auditが成功。"
+      verification:
+        - "126 relevant tests OK"
+        - "00_source差分なし: 5072 files"
+        - "Ping-t標準runner再実行: persisted=547, new=0, images=189"
+        - "公式過去問1,233件実変換成功"
+        - "git diff --check OK"
+        - "GoalBuddy state checker OK"
+      remaining_gaps: []
+      safety: "本番Firestoreへの書き込みは行っていない。無関係なgas-shunin成果物、question-maintenance goal、qualification_runs.py、question_patch_proposal.pyの未コミット変更は未変更・未ステージで保護する。"
+      harness: codex
 checks:
   dirty_fingerprint: "pre-existing gas-shunin output modifications; exact baseline to be captured by T001"
   last_verification:

@@ -1,0 +1,50 @@
+{
+  "result": "done",
+  "decision": "complete",
+  "full_outcome_complete": true,
+  "evidence": [
+    {
+      "decision": "Ping-t CLF-C02の547問を正確に取得した",
+      "proof": "browser index 547、detail export 547、00_source 547のID集合が完全一致。URL・source ID・public ID重複0、missing/unexpected 0、189画像、547 source hash一致。"
+    },
+    {
+      "decision": "他資格に再利用でき、従来の過去問scrapeと自然に共存する",
+      "proof": "Ping-t adapterは資格preset・subject ID・list groupを入力とし、共通run_qualification_scrape.pyから00_source・画像・reportを生成。再実行は547件全てSKIP、新規0。"
+    },
+    {
+      "decision": "新しい公開区分fieldを増やさない",
+      "proof": "contentOriginTypeは実装に追加せず、独自問題はisOfficial=true、examSource=独自問題、examYear omitだけで表現する。"
+    },
+    {
+      "decision": "05_originalizedを既存workflowへ接続する",
+      "proof": "workflow SSOTはsource、setup、05、01の順。物理Mergeとlogical projectionが同じ順で05を適用し、既存01〜04、convert、uploadを再利用する。"
+    },
+    {
+      "decision": "独自性基準を過度に厳しくしない",
+      "proof": "類似率閾値は導入せず、問題文全体、選択肢一式、解説原文の完全一致だけを機械的に拒否する。"
+    },
+    {
+      "decision": "取得元の原文とprovenanceを公開しない",
+      "proof": "人工fixtureのend-to-endでsource問題文、解説、画像、URL、site IDが40_convert・upload projectionに存在しない。公開選択肢IDもpublic IDから再生成。"
+    },
+    {
+      "decision": "公式過去問を回帰させない",
+      "proof": "公式過去問artifact 1,233件の実変換でexamYear=2001、従来examSource、isOfficial=trueを全件維持。独自問題用の解説一致ゲートは05がない問題に適用しない。"
+    },
+    {
+      "decision": "仕様・ドキュメント・実装の意味を一致させる",
+      "proof": "workflow TOML、requirements TOML、artifact契約、field契約、独自問題作成ワークフロー、prompt、Merge、projection、convert、uploadのsemantic auditが成功。"
+    }
+  ],
+  "verification": [
+    "126 relevant tests OK",
+    "00_source差分なし: 5072 files",
+    "Ping-t標準runner再実行: persisted=547, new=0, images=189",
+    "公式過去問1,233件実変換成功",
+    "git diff --check OK",
+    "GoalBuddy state checker OK"
+  ],
+  "remaining_gaps": [],
+  "safety": "本番Firestoreへの書き込みは行っていない。無関係なgas-shunin成果物、question-maintenance goal、qualification_runs.py、question_patch_proposal.pyの未コミット変更は未変更・未ステージで保護する。",
+  "harness": "codex"
+}

@@ -72,6 +72,7 @@ MERGED1_SUBDIR = "20_merged_1"
 MERGED2_SUBDIR = "30_merged_2"
 
 PATCH_DIR_QTYPE = "10_questionType_fixed"
+PATCH_DIR_ORIGINALIZED = "05_originalized"
 PATCH_DIR_LAW_CONTEXT = "18_law_context_prepared"
 PATCH_DIR_EXPLANATION = "21_explanationText_added"
 PATCH_DIR_QSET = "22_questionSetId_linked"
@@ -80,6 +81,7 @@ PATCH_DIR_QUESTION_ISSUES = "24_questionIssueCorrections"
 PATCH_DIR_INTENT_AND_CORRECT_FALLBACK = "15_correctChoiceText_fixed"
 
 PATCH_TAGS = {
+    "originalized": "originalized",
     "question_type": "questionType_fixed",
     "law_context": "lawContext_prepared",
     "explanation": "explanationText_added",
@@ -270,6 +272,10 @@ def merge_all(
             patch_tag,
         )
 
+    originalized_paths = selected_paths(
+        PATCH_DIR_ORIGINALIZED,
+        PATCH_TAGS["originalized"],
+    )
     qtype_paths = selected_paths(
         PATCH_DIR_QTYPE,
         PATCH_TAGS["question_type"],
@@ -311,6 +317,11 @@ def merge_all(
             label=label,
         )
 
+    originalized_index = build_stage_index(
+        originalized_paths,
+        PATCH_TAGS["originalized"],
+        "originalized patch",
+    )
     qtype_index = build_stage_index(
         qtype_paths,
         PATCH_TAGS["question_type"],
@@ -346,6 +357,7 @@ def merge_all(
         source_identities,
     )
     for label, index in (
+        ("originalized patch", originalized_index),
         ("questionType patch", qtype_index),
         ("questionIntent patch", intent_index),
         ("correctChoice patch", strict_correct_index),
@@ -379,6 +391,7 @@ def merge_all(
                 raise ValueError(f"question record形式が不正です: {base_path}")
             projection = project_merge_record(
                 source_record,
+                originalized=originalized_index.by_binding.get(binding, ()),
                 question_type=qtype_index.by_binding.get(binding, ()),
                 intent_fallback=intent_index.by_binding.get(binding, ()),
                 strict_correct=strict_correct_index.by_binding.get(binding, ()),
@@ -482,6 +495,7 @@ def merge_all(
     for manual_path in manual_paths:
         print(f"[WARN] choiceTextList 空のため外出し: {manual_path}")
 
+    originalized_updates = update_counts.get("originalized", 0)
     qtype_updates = update_counts.get("question_type", 0)
     intent_updates = update_counts.get("question_intent", 0)
     true_false_intent_updates = update_counts.get("true_false_intent", 0)
@@ -516,6 +530,8 @@ def merge_all(
     question_issue_updates = update_counts.get("question_issue", 0)
 
     print(f"[INFO] 20_merged_1 生成完了: {merged1_dir}")
+    if originalized_updates:
+        print(f"[INFO] 05_originalized 更新件数: {originalized_updates}")
     print(f"[INFO] questionType 更新件数: {qtype_updates}")
     print(f"[INFO] questionIntent 更新件数: {intent_updates}")
     print(f"[INFO] true_false questionIntent 正規化件数: {true_false_intent_updates}")

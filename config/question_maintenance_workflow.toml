@@ -37,6 +37,30 @@ documents = [
 ]
 
 [[stages]]
+id = "originalize"
+code = "05"
+label = "独自問題化"
+purpose = "取得問題の論点と試験らしさを保ち、公開用の問題文・選択肢・正答を作る"
+kind = "human"
+policy_version = "1.0"
+qualification_document_patterns = ["README.md", "01_exam_profile.md"]
+batch_selectable = true
+session_group = "maintenance"
+patch_dir = "05_originalized"
+patch_suffix = "originalized"
+issue_fields = [
+  "questionBodyText",
+  "choiceTextList",
+  "correctChoiceText",
+  "questionIntent",
+  "answer_result_text",
+]
+documents = [
+  "prompt/05_prompt_originalize_question.md",
+  "document/operations/original_question_authoring_workflow.md",
+]
+
+[[stages]]
 id = "question_type"
 code = "01"
 label = "問題形式"

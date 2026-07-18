@@ -178,7 +178,6 @@ def build_doc_data_base(question: dict) -> dict:
         "qualificationId": question.get("qualificationId", ""),
         "correctChoiceText": str(question.get("correctChoiceText", "")),
         "explanationText": question.get("explanationText", ""),
-        "examYear": question.get("examYear", ""),
         "examSource": question.get("examSource", ""),
         "questionTags": question.get("questionTags", []),
         "isOfficial": question.get("isOfficial", False),
@@ -186,6 +185,8 @@ def build_doc_data_base(question: dict) -> dict:
         "isChoiceOnly": question.get("isChoiceOnly", False),
         "isGroupable": question.get("isGroupable", False),
     }
+    if question.get("examYear") not in (None, ""):
+        doc_data["examYear"] = question["examYear"]
     # オプションフィールド
     for opt_key in (
         "knowledgeText",

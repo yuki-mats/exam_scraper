@@ -73,6 +73,14 @@ MERGED_SUBDIR_NAME = "30_merged_2"
 CONVERT_SUBDIR_NAME = "40_convert"
 UPLOAD_SUBDIR_NAME = "upload_to_firestore"
 TIMESTAMP_SUFFIX_PATTERN = re.compile(r"_(\d{8}_\d{4}|\d{8}_\d{6})$")
+INDEPENDENT_QUESTION_EXAM_SOURCE = "独自問題"
+
+
+def is_independent_question(question_body: dict) -> bool:
+    return (
+        str(question_body.get("examSource") or "").strip()
+        == INDEPENDENT_QUESTION_EXAM_SOURCE
+    )
 
 
 def normalize_payload_image_urls(payload: Any, qualification: str | None) -> int:
@@ -876,11 +884,16 @@ def create_firestore_question_base(
         "questionType": question_type,
         "correctChoiceText": correct_choice_text,
         "explanationText": explanation_text,
-        "examYear": get_exam_year(question_body),
-        "examSource": exam_source,
+        "examSource": (
+            INDEPENDENT_QUESTION_EXAM_SOURCE
+            if is_independent_question(question_body)
+            else exam_source
+        ),
         "isOfficial": True,
         "isDeleted": False,
     })
+    if not is_independent_question(question_body):
+        firestore_question["examYear"] = get_exam_year(question_body)
     suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
     if suggested_questions:
         firestore_question["suggestedQuestions"] = suggested_questions
@@ -1199,15 +1212,19 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         # questionText: questionBodyTextのみ（改行除去）
         question_text = question_body.get("questionBodyText", "").replace('\n', '')
         
-        # examSource: 試験名（question_body由来）, examYear年, 問x
-        exam_year = get_exam_year(question_body)
-        question_label = question_body.get("questionLabel", "")
-        exam_name = get_exam_name(question_body)
-        session = get_exam_session(question_body)
-        if session:
-            exam_source = f"{exam_name}, {exam_year}年 {session}, {question_label}"
+        # 独自問題は年度と取得元を公開せず、表示を一定にする。
+        if is_independent_question(question_body):
+            exam_year = None
+            exam_source = INDEPENDENT_QUESTION_EXAM_SOURCE
         else:
-            exam_source = f"{exam_name}, {exam_year}年, {question_label}"
+            exam_year = get_exam_year(question_body)
+            question_label = question_body.get("questionLabel", "")
+            exam_name = get_exam_name(question_body)
+            session = get_exam_session(question_body)
+            if session:
+                exam_source = f"{exam_name}, {exam_year}年 {session}, {question_label}"
+            else:
+                exam_source = f"{exam_name}, {exam_year}年, {question_label}"
         
         original_question_body_text = get_original_question_body_text(question_body)
         firestore_question = {
@@ -1223,11 +1240,12 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             "questionType": question_type,
             "correctChoiceText": question_body.get("correctChoiceText", []),
             "explanationText": format_explanation_text(question_body.get("explanationText", [])),
-            "examYear": exam_year,
             "examSource": exam_source,
             "isOfficial": True,
             "isDeleted": False,
         }
+        if exam_year is not None:
+            firestore_question["examYear"] = exam_year
         suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
         if suggested_questions:
             firestore_question["suggestedQuestions"] = suggested_questions
