@@ -1,0 +1,208 @@
+version: 2
+
+goal:
+  title: "Original Question Pipeline Convergence"
+  slug: "original-question-pipeline-convergence"
+  kind: existing_plan
+  tranche: "既存の設計判断を維持し、独自問題の05から公開artifactまでと公式過去問回帰を連続して実装・検証する。"
+  status: active
+  oracle:
+    signal: "独自問題fixtureのend-to-end成功、公式過去問回帰成功、repo内SSOT・設定・READMEの意味整合監査成功"
+    cadence: "各Worker package後と最終監査時"
+    final_proof: "targeted/full test結果、独自問題upload artifact検査、公式過去問artifact回帰、semantic docs audit、最終Judge receipt"
+  intake:
+    original_request: "全てのドキュメントや実装、仕様、仕組みを整備し、整合性をあるべき品質へそろえてほしい。"
+    interpreted_outcome: "サイト取得問題を暗記プラス独自問題へ変換し、既存公式過去問と共存したままレビュー・検証・公開準備まで通せる一貫した仕組みにする。"
+    input_shape: existing_plan
+    audience: "repository owner、問題整備エージェント、暗記プラス利用者"
+    authority: requested
+    proof_type: test
+    completion_proof: "独自問題と公式過去問の代表fixtureが同じpipelineで期待どおりのartifactを生成し、全SSOT・設定・実装がその動作を正確に説明している。"
+    likely_misfire: "文書だけ又は一部実装だけを完了し、公式過去問回帰や公開field非混入を検証しないこと。"
+    blind_spots_considered:
+      - "現行required fieldsとconverterはexamYearを実質必須としている。"
+      - "工程SSOT、Merge、レビューUIに05が未接続である。"
+      - "取得元原文とprovenanceの公開artifact非混入を自動検証する必要がある。"
+      - "repaso側のQuestionDocとFirestore rulesを現在形で確認する必要がある。"
+      - "未コミットのガス主任技術者成果物を保護する必要がある。"
+    existing_plan_facts:
+      - "取得元URLは松田さんが事前確認し、別のapproval fieldは作らない。"
+      - "公開区分はisOfficialのみで、contentOriginTypeは使わない。"
+      - "独自問題はisOfficial=true、examYear omit、examSource=独自問題とする。"
+      - "取得元1問から原則1問を作り、source_question_idと既存listGroupIdを再利用する。"
+      - "取得元原文は00_sourceだけに保持し、05_originalizedを唯一の新しいpatch層とする。"
+      - "類似率閾値は設けず、完全一致のみ機械的に拒否する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/original-question-pipeline-convergence/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/original-question-pipeline-convergence"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "Map every current contract and implementation point required for the independent-question vertical slice, including contradictions and verification commands."
+    inputs:
+      - "AGENTS.md"
+      - "document/operations/"
+      - "document/reference/question_field_contract.md"
+      - "prompt/"
+      - "config/question_maintenance_workflow.toml"
+      - "config/requirements/required_fields.toml"
+      - "scripts/scrape/common.py"
+      - "scripts/merge/"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "tools/question_review_console/"
+      - "tools/question_bank/"
+      - "tests/"
+      - "/Users/yuki/StudioProjects/repaso/firestore.rules"
+      - "/Users/yuki/StudioProjects/repaso/lib/firestore/models/question_doc.dart"
+    constraints:
+      - "Read-only."
+      - "Do not edit implementation or product files."
+      - "Separate current behavior, target contract, and implementation gap."
+      - "Do not inspect or modify unrelated gas-shunin output content beyond identifying dirty paths."
+      - "Use concrete file and test evidence."
+    expected_output:
+      - "Current-to-target pipeline map."
+      - "Exact files for 05 contract, projection, merge, convert, upload, gates, UI, docs, and tests."
+      - "Repaso compatibility finding."
+      - "Regression risks and stop conditions."
+      - "Recommended largest safe Worker package with allowed_files and verify commands."
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Validate the existing plan against Scout evidence and specify the first largest safe vertical implementation package."
+    inputs:
+      - "T001 receipt"
+      - "goal.md existing plan facts"
+    constraints:
+      - "Do not implement."
+      - "Preserve all settled user decisions."
+      - "Reject unnecessary fields, registries, or parallel workflow trees."
+      - "Provide exact allowed_files, verify, and stop_if."
+    expected_output:
+      - "Decision."
+      - "Exact Worker objective."
+      - "allowed_files."
+      - "verify commands."
+      - "stop_if conditions."
+      - "Deferred follow-up packages."
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Implement the first end-to-end vertical slice selected by Judge."
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "A settled public-field decision would need to change."
+      - "Existing official-past-exam behavior cannot be preserved."
+      - "Verification fails twice for the same unresolved cause."
+    receipt: null
+
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Complete the next safe convergence package identified after T003, including remaining docs, UI, gates, or regression coverage."
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside PM-approved allowed_files."
+      - "Would add a public field or separate origin registry."
+      - "Verification fails twice for the same unresolved cause."
+    receipt: null
+
+  - id: T005
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: "Run the goal oracle: independent-question end-to-end fixture, official-past regression, semantic docs audit, and full relevant tests."
+    inputs:
+      - "All Worker receipts"
+      - "Current diff"
+      - "Target and regression fixtures"
+    constraints:
+      - "Do not write to production Firestore."
+      - "Do not use external authenticated source data as a test fixture."
+      - "Do not declare success on unit tests alone."
+    expected_output:
+      - "Oracle command results."
+      - "Generated artifact assertions."
+      - "Remaining gaps or final-audit readiness."
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Audit whether all documentation, specifications, implementation, workflow, and proof satisfy the original owner outcome."
+    inputs:
+      - "All done task receipts"
+      - "Last oracle verification"
+      - "Current dirty diff"
+      - "Original user decisions"
+    constraints:
+      - "Do not implement."
+      - "Reject completion if any required Worker or oracle task remains queued, active, or blocked without a safe resolution."
+      - "Reject completion if docs describe target behavior that current implementation cannot execute."
+      - "Reject completion if official past exams regress or source text can reach public artifacts."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Evidence mapped to each original decision."
+      - "Missing work and next task when not complete."
+    receipt: null
+
+checks:
+  dirty_fingerprint: "pre-existing gas-shunin output modifications; exact baseline to be captured by T001"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
