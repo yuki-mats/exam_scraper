@@ -9884,6 +9884,7 @@ class QualificationRunCoordinator:
                 str(previous.get("queueStatus") or ""),
             )
             if resume_state not in {
+                ("failed", "failed"),
                 ("failed", "partial"),
                 ("interrupted", "partial"),
                 ("interrupted", "interrupted"),

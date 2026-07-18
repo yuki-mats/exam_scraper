@@ -1562,13 +1562,13 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
 }
 
 function qualificationRunCanRetryBlocked(run, view) {
-  const hasBlockedWork = run?.queueStatus === "partial"
-    && Number(view?.blockedQuestions || 0) > 0;
-  const hasInterruptedWork = run?.status === "interrupted"
-    && run?.queueStatus === "interrupted"
-    && Number(view?.pendingWork || 0) > 0;
+  const hasRetryableWork = Number(view?.blockedQuestions || 0) > 0
+    || Number(view?.pendingWork || 0) > 0;
+  const stopped = ["failed", "interrupted"].includes(run?.status);
+  const partiallyCompleted = run?.queueStatus === "partial";
   return Boolean(
-    (hasBlockedWork || hasInterruptedWork)
+    hasRetryableWork
+    && (stopped || partiallyCompleted)
     && !view?.active
     && run?.retrySafe !== false
   );

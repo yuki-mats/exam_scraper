@@ -2802,6 +2802,44 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(app_server.writer_count, 1)
         self.assertGreaterEqual(completed["workVersionReceipt"]["recordedCount"], 1)
 
+    def test_retry_safe_failed_queue_can_resume_blocked_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator, _sync, _app_server, previous = (
+                self._start_deferred_flow(
+                    Path(directory),
+                    SourceOnlyInventory(),
+                    ["question_type"],
+                    app_server=FlowAppServer(),
+                )
+            )
+            question_id = previous["questionExecutions"][0]["questionId"]
+            coordinator.store.update_question_stage(
+                "new-exam",
+                previous["runId"],
+                question_id,
+                "question_type",
+                status="blocked",
+                error="安全停止後にこの問題だけ再開する。",
+            )
+            previous = coordinator.store.update(
+                "new-exam",
+                previous["runId"],
+                status="failed",
+                queueStatus="failed",
+                retrySafe=True,
+            )
+
+            preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                list_group_ids=["2026"],
+                resumed_from=previous["runId"],
+            )
+
+        self.assertEqual(preview["targetCount"], 1)
+        self.assertEqual(preview["workItemCount"], 1)
+
     def test_failed_partial_retry_uses_logical_projection(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

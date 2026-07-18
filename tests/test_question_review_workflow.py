@@ -933,6 +933,20 @@ assert.equal(
 );
 assert.equal(
   api.qualificationRunCanRetryBlocked(
+    { status: "failed", queueStatus: "failed", retrySafe: true },
+    { blockedQuestions: 55, pendingWork: 0, active: false },
+  ),
+  true,
+);
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
+    { status: "failed", queueStatus: "failed", retrySafe: true },
+    { blockedQuestions: 0, pendingWork: 0, active: false },
+  ),
+  false,
+);
+assert.equal(
+  api.qualificationRunCanRetryBlocked(
     { queueStatus: "partial", retrySafe: true },
     { blockedQuestions: 5, active: true },
   ),
