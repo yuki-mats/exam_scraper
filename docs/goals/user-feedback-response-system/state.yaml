@@ -1,0 +1,278 @@
+version: 2
+
+goal:
+  title: "ユーザーフィードバック対応システムを実装・常設する"
+  slug: "user-feedback-response-system"
+  kind: existing_plan
+  tranche: "既存計画を検証し、最大安全単位の実装・検証・常設化を連続して完了する"
+  status: active
+  oracle:
+    signal: "fixture全系統、スマホ承認、patch昇格、scoped push、service復旧、全資格・全報告scope、live-safe readbackがinstallation receiptでpass"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "Tailscaleスマホwalkthrough、全test、launchd/Codex/Firestore/Git readback、output/user_feedback_response_system/installation/result.json"
+  intake:
+    original_request: "実装コードも含めて変更する。古い実装の互換性は考えなくて良い。"
+    interpreted_outcome: "合意済み仕様の新システムへ置換し、全資格・全報告を常設運用できる状態にする"
+    input_shape: existing_plan
+    audience: "松田とRepaso運用"
+    authority: approved
+    proof_type: demo
+    completion_proof: "専用clean cloneの常駐systemをスマホから操作し、全gateとlive-safe readbackが成功する"
+    likely_misfire: "旧互換を残す、UIだけで止める、又は承認時にFirestoreへ公開する"
+    blind_spots_considered:
+      - "dirty worktreeとの衝突"
+      - "旧statusと旧CLIの削除範囲"
+      - "Codex App Server停止、Mac sleep、Git競合"
+      - "PII、prompt injection、5秒undo、訂正patch"
+      - "全資格・全報告の一括有効化"
+    existing_plan_facts:
+      - "document/operations/user_feedback_response_system.md"
+      - "document/temporary/2026-07-19_user_feedback_response_system_implementation_plan.md"
+      - "旧実装互換とmigrationは不要という最新指示を優先"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/user-feedback-response-system/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/user-feedback-response-system"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "現行実装、合意仕様、専用clean clone、dirty ownership、verification gateをread-onlyで対応付ける。"
+    inputs:
+      - "document/operations/user_feedback_response_system.md"
+      - "document/temporary/2026-07-19_user_feedback_response_system_implementation_plan.md"
+      - "document/operations/question_issue_report_workflow.md"
+      - "config/question_issue_reports.json"
+      - "tools/question_bank/question_issue_reports.py"
+      - "tools/question_bank/question_issue_report_store.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tests/test_question_issue_reports.py"
+    constraints:
+      - "Read-only。"
+      - "旧実装互換は非目標とし、置換・削除できる入口と残す安全契約を分ける。"
+      - "Drive候補の他作業差分を変更しない。"
+      - "実装は専用clean cloneで行う前提を検証する。"
+    expected_output:
+      - "現行と目標のfile-level map"
+      - "削除又は置換する旧入口・status"
+      - "再利用する安全契約"
+      - "gate suiteとpre-existing dirty/redの区別"
+      - "最初の最大安全vertical slice候補"
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Scoutの根拠と既存計画を監査し、旧互換を残さない最初の最大安全vertical sliceを確定する。"
+    inputs:
+      - "T001 receipt"
+      - "docs/goals/user-feedback-response-system/goal.md"
+      - "document/operations/user_feedback_response_system.md"
+      - "document/temporary/2026-07-19_user_feedback_response_system_implementation_plan.md"
+    constraints:
+      - "旧CLI、旧status、migration、adapterを完成条件へ含めない。"
+      - "既存問題ID、00_source、公開境界、一次情報限定、PII非表示は維持する。"
+      - "Workerのallowed_files、verify、stop_ifを具体化してからhandoffする。"
+    expected_output:
+      - "go又はreplan判定"
+      - "T003の最大安全slice"
+      - "T003のexact allowed_files、verify、stop_if"
+      - "pre-existing dirty/redの分離基準"
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: low
+    objective: "公式問題の誤り報告をfixtureから取り込み、一次情報で再判定し、correction unitの固定案とmerge previewを生成するコア縦断sliceを実装する。"
+    inputs:
+      - "T002 receipt"
+      - "docs/goals/user-feedback-response-system/goal.md"
+    constraints:
+      - "T002が確定したallowed_files、verify、stop_ifだけに従う。"
+      - "専用clean cloneのmainで実装し、Drive候補の他作業差分へ触れない。"
+      - "旧実装互換を追加しない。"
+      - "00_sourceを変更しない。"
+    allowed_files: []
+    verify: []
+    expected_output:
+      - "全判断branchを含むfixture-drivenコア実装"
+      - "一次情報citationとAI判断理由"
+      - "固定案、correction unit、merge preview、事前gate receipt"
+      - "scope限定commitとorigin/main push"
+    receipt: null
+
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "コア縦断sliceが合意仕様、旧互換不要、全資格・全報告scopeへ安全に拡張できるか監査する。"
+    inputs:
+      - "T003 receipt"
+      - "T003 diff and test evidence"
+    constraints:
+      - "UI又はfixtureだけの成功を完成扱いしない。"
+      - "不正な報告、重複、アプリ不具合振分け、修正不要、差戻し再提示を監査する。"
+    expected_output:
+      - "pass、rework又はreplan判定"
+      - "T005のexact allowed_files、verify、stop_if"
+      - "残存リスクと回帰gate"
+    receipt: null
+
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: low
+    objective: "Tailscale専用のスマホ承認画面、一覧と集中モード、5秒undo、差戻し再提示、正式patch昇格とGit反映を実装する。"
+    inputs:
+      - "T004 receipt"
+      - "docs/goals/user-feedback-response-system/goal.md"
+    constraints:
+      - "承認時にFirestoreへ書き込まない。"
+      - "報告本文と同一報告数だけ表示し、個人情報、AI思考過程、通知を表示しない。"
+      - "Tailscale private HTTPS以外へbindしない。追加ログインを設けない。"
+      - "同一内容なら承認を維持し、原因別に最大3回自動再試行する。"
+      - "旧承認画面又は旧statusとの互換を作らない。"
+    allowed_files: []
+    verify: []
+    expected_output:
+      - "スマホ操作可能なresponsive UI"
+      - "一tap受付と5秒undo"
+      - "差戻し理由を使う再生成loop"
+      - "固定案から正式correction patchへの昇格"
+      - "scoped commit/pushとfailure receipts"
+    receipt: null
+
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "スマホ承認からpatch昇格、Git反映までの安全境界と失敗回復を監査する。"
+    inputs:
+      - "T005 receipt"
+      - "T005 diff, UI walkthrough, test evidence"
+    constraints:
+      - "5秒undo競合、二重tap、stale正本、Git競合、Codex停止を故障注入で確認する。"
+      - "旧互換が紛れ込んでいないことを確認する。"
+    expected_output:
+      - "pass、rework又はreplan判定"
+      - "T007のexact allowed_files、verify、stop_if"
+      - "live-safe installation gate"
+    receipt: null
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: low
+    objective: "Mac login自動起動・再起動、全資格・全報告の自動検知、公開追跡、処理済みarchive、精度指標を実装し、旧実装を撤去する。"
+    inputs:
+      - "T006 receipt"
+      - "docs/goals/user-feedback-response-system/goal.md"
+    constraints:
+      - "専用clean cloneと既存Codex App Serverを使う。"
+      - "最新正本とFirestoreを基準に毎回最初から再判定する。"
+      - "削除せず処理済み一覧へarchiveし、訂正は打消しcorrection patchで残す。"
+      - "精度指標からは改善案だけを別表示し、自動でpromptやpolicyを変更しない。"
+      - "互換adapterを残さず、置換対象の旧CLI、旧status、旧workflow入口を撤去する。"
+    allowed_files: []
+    verify: []
+    expected_output:
+      - "launchd plistとinstall/uninstall/status script"
+      - "sleep、再起動、Codex停止、Git競合からの回復"
+      - "全資格・全報告scopeとimpact desc/oldest first queue"
+      - "公開時archiveとmetrics/improvement proposal"
+      - "旧入口撤去、更新済みSSOT、scoped commit/push"
+    receipt: null
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: low
+    objective: "専用clean cloneへ常設インストールし、Tailscaleスマホ実機相当walkthroughと全live-safe readbackを完了する。"
+    inputs:
+      - "T007 receipt"
+      - "docs/goals/user-feedback-response-system/goal.md"
+    constraints:
+      - "本番Firestoreへの変更書込みはしない。"
+      - "報告者への返信又は通知を送らない。"
+      - "全gate通過前の案件を承認画面へ表示しない。"
+      - "credential又は外部状態が不足してもfixtureとread-only proofを先に完了し、exact blocker receiptを残す。"
+    allowed_files: []
+    verify: []
+    expected_output:
+      - "launchd loaded/running readback"
+      - "Tailscale private HTTPS exposure readback"
+      - "全branchのスマホwalkthrough"
+      - "Git、Firestore read-only、Codex、archive、metrics readback"
+      - "output/user_feedback_response_system/installation/result.json"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "goal oracle全項目、旧互換撤去、documentation、test、常設状態、live-safe readbackを最終監査する。"
+    inputs:
+      - "T001-T008 receipts"
+      - "output/user_feedback_response_system/installation/result.json"
+      - "final diff and commit history"
+    constraints:
+      - "queued Workerが残る場合はcompleteにしない。"
+      - "弱いproof、未追跡fixture、UIだけの確認を受け入れない。"
+      - "承認時Firestore非公開、00_source不変、ID維持、一次情報限定を再確認する。"
+    expected_output:
+      - "complete又はexact rework tasks"
+      - "oracle-by-oracle evidence matrix"
+      - "常設状態とrollback手順のreadback"
+      - "最終commit/push確認"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "Drive候補に別作業の未コミット差分あり。新goal filesだけを所有する。"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
