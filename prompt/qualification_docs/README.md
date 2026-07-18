@@ -52,6 +52,7 @@
 - 資格別の指針を参照する作業では、各資格ディレクトリの内容を正本とみなし、prompt 本体は共通ルールの置き場として扱う。
 
 ## 現在ある資格
+- `aws-cloud-practitioner`
 - `2nd-class-kenchikushi`
 - `gas-shunin-kou`
 - `gas-shunin-otsu`

@@ -1,0 +1,488 @@
+{
+  "metadata": {
+    "qualificationId": "aws-cloud-practitioner",
+    "licenseName": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "examCode": "CLF-C02",
+    "taxonomySource": "AWS Certified Cloud Practitioner (CLF-C02) 公式試験ガイドの4コンテンツ分野、19タスクステートメント、対象サービス一覧",
+    "sourceUrl": "https://docs.aws.amazon.com/ja_jp/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html",
+    "sourceReviewedAt": "2026-07-18",
+    "folderCountExpected": 10,
+    "questionSetCountExpected": 35,
+    "taxonomyBasis": "公式4分野を集計軸として保持しつつ、questionSetが一つのfolderへ集中して進捗や苦手分野を把握しにくくならないよう、公式タスクと対象サービスの用途に沿って10folderへ分割した。questionSetはサービス名の暗記だけでなく、類似サービスを選び分ける復習単元として35件に整理した。",
+    "officialCategoryMappings": [
+      {
+        "officialCategoryId": "domain_1",
+        "officialCategoryName": "分野1：クラウドのコンセプト",
+        "weightPercent": 24,
+        "officialTaskStatementIds": ["1.1", "1.2", "1.3", "1.4"],
+        "folderIds": [
+          "aws_cloud_practitioner_f01_cloud_value_design",
+          "aws_cloud_practitioner_f02_adoption_migration_economics"
+        ]
+      },
+      {
+        "officialCategoryId": "domain_2",
+        "officialCategoryName": "分野2：セキュリティとコンプライアンス",
+        "weightPercent": 30,
+        "officialTaskStatementIds": ["2.1", "2.2", "2.3", "2.4"],
+        "folderIds": [
+          "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
+          "aws_cloud_practitioner_f04_security_governance_compliance"
+        ]
+      },
+      {
+        "officialCategoryId": "domain_3",
+        "officialCategoryName": "分野3：クラウドテクノロジーとサービス",
+        "weightPercent": 34,
+        "officialTaskStatementIds": ["3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8"],
+        "folderIds": [
+          "aws_cloud_practitioner_f05_infrastructure_compute",
+          "aws_cloud_practitioner_f06_network_content_delivery",
+          "aws_cloud_practitioner_f07_database_storage",
+          "aws_cloud_practitioner_f08_ai_analytics_application_services"
+        ]
+      },
+      {
+        "officialCategoryId": "domain_4",
+        "officialCategoryName": "分野4：請求、料金、サポート",
+        "weightPercent": 12,
+        "officialTaskStatementIds": ["4.1", "4.2", "4.3"],
+        "folderIds": [
+          "aws_cloud_practitioner_f09_pricing_billing_cost",
+          "aws_cloud_practitioner_f10_support_resources_partners"
+        ]
+      }
+    ],
+    "policyNotes": [
+      "永続IDには試験版CLF-C02を含めず、将来の表示名変更や軽微な出題範囲改訂でもIDを維持する。",
+      "公式分野とfolderは1対1にせず、公式分野への再集計はofficialCategoryMappingsで行う。",
+      "questionCountは問題取得後の04紐付けと集計で確定するため、初期値は0、isDeletedはfalseとする。",
+      "対象サービス一覧は変更される可能性があるため、分類境界はサービス名だけでなく用途と判断軸で定義する。"
+    ]
+  },
+  "updatedAt": "2026-07-18T17:02:49+09:00",
+  "folders": [
+    {
+      "folderId": "aws_cloud_practitioner_f01_cloud_value_design",
+      "name": "01_【分野1】クラウドの価値と設計",
+      "description": "AWSクラウドの価値、高可用性・伸縮性・俊敏性の利点、AWS Well-Architectedフレームワークを扱う。移行の進め方とクラウドエコノミクスは02へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f02_adoption_migration_economics",
+      "name": "02_【分野1】導入・移行・クラウドエコノミクス",
+      "description": "AWS CAF、クラウド導入・移行戦略、移行支援リソース、固定費と変動費、適正サイジングなどクラウド移行の判断を扱う。個別の料金モデルと請求ツールは09へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
+      "name": "03_【分野2】責任共有・ID・アクセス管理",
+      "description": "AWS責任共有モデル、IAM、ルートユーザー、認証、認可、最小権限、認証情報とシークレットの管理を扱う。暗号化、監査、脅威検出などのセキュリティサービスは04へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
+      "name": "04_【分野2】セキュリティ・ガバナンス・コンプライアンス",
+      "description": "暗号化、コンプライアンス情報、モニタリングと監査、脅威検出、セキュリティ態勢、ネットワーク・アプリケーション保護を扱う。IAMによる利用者・権限管理は03へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
+      "name": "05_【分野3】クラウド運用・グローバル基盤・コンピューティング",
+      "description": "AWSへのアクセス方法、デプロイモデル、IaC、リージョンとアベイラビリティーゾーン、EC2、Auto Scaling、ロードバランシング、コンテナ、サーバーレスを扱う。ネットワーク接続は06、料金上の購入オプションは09へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f06_network_content_delivery",
+      "name": "06_【分野3】ネットワーク・コンテンツ配信",
+      "description": "Amazon VPCの構成と保護、DNS、コンテンツ配信、エッジ配信、AWSへのハイブリッド接続を扱う。リージョンとアベイラビリティーゾーンの基本構造は05へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f07_database_storage",
+      "name": "07_【分野3】データベース・ストレージ",
+      "description": "リレーショナル・NoSQL・インメモリデータベース、データベース移行、オブジェクト・ブロック・ファイル・ハイブリッドストレージ、バックアップを扱う。分析サービスは08へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f08_ai_analytics_application_services",
+      "name": "08_【分野3】AI・分析・アプリケーションサービス",
+      "description": "AI・機械学習、データ分析、アプリケーション統合、開発者ツール、ビジネスアプリケーション、エンドユーザーコンピューティング、フロントエンド・モバイル、IoTを扱う。主要なコンピューティング、ネットワーク、データベース、ストレージは05〜07へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f09_pricing_billing_cost",
+      "name": "09_【分野4】料金・請求・コスト管理",
+      "description": "コンピューティング購入オプション、ストレージとデータ転送料金、料金見積り、予算、コスト分析、一括請求、コスト配分を扱う。固定費と変動費などクラウドエコノミクスの原則は02へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "aws_cloud_practitioner_f10_support_resources_partners",
+      "name": "10_【分野4】サポート・技術リソース・パートナー",
+      "description": "AWSサポートプラン、Support Center、AWS Health、Trusted Advisor、公式ドキュメント、技術支援、AWSパートナー、AWS Marketplaceを扱う。Marketplace上のセキュリティ製品そのものは04へ分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    }
+  ],
+  "questionSets": [
+    {
+      "questionSetId": "aws_cloud_practitioner_qs01_01_cloud_value",
+      "folderId": "aws_cloud_practitioner_f01_cloud_value_design",
+      "name": "1-1 AWSクラウドの価値とグローバル展開",
+      "description": "AWSクラウドの価値提案、迅速なデプロイ、グローバルリーチなど、クラウドを選ぶ事業上・運用上の利点を扱う。リージョン等の構造や配置判断は5-2へ分ける。",
+      "matchingHints": ["価値提案", "デプロイのスピード", "グローバルリーチ", "市場投入時間", "オンデマンド", "セルフサービス"],
+      "officialTaskStatementIds": ["1.1"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs01_02_availability_elasticity_agility",
+      "folderId": "aws_cloud_practitioner_f01_cloud_value_design",
+      "name": "1-2 高可用性・伸縮性・俊敏性",
+      "description": "高可用性、伸縮性、弾力性、俊敏性がもたらす利点と用語の違いを扱う。Auto Scalingやロードバランサーなど具体的な実現サービスは5-4へ分ける。",
+      "matchingHints": ["高可用性", "伸縮性", "弾力性", "俊敏性", "耐障害性", "需要変動"],
+      "officialTaskStatementIds": ["1.1"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs01_03_well_architected",
+      "folderId": "aws_cloud_practitioner_f01_cloud_value_design",
+      "name": "1-3 AWS Well-Architectedフレームワーク",
+      "description": "Well-Architectedフレームワークの6本の柱、その目的と相違点を扱う。個別サービスの選択や具体的な料金管理は各サービス分野へ分ける。",
+      "matchingHints": ["Well-Architected", "運用上の優秀性", "セキュリティ", "信頼性", "パフォーマンス効率", "コスト最適化", "持続可能性"],
+      "officialTaskStatementIds": ["1.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs02_01_cloud_adoption_caf",
+      "folderId": "aws_cloud_practitioner_f02_adoption_migration_economics",
+      "name": "2-1 クラウド導入とAWS CAF",
+      "description": "クラウド導入戦略、AWS Cloud Adoption Frameworkの観点と成果、導入による事業リスク・運用効率・ESG・収益への効果を扱う。具体的な移行方式は2-2へ分ける。",
+      "matchingHints": ["AWS CAF", "クラウド導入", "ビジネスリスク", "ESG", "収益", "運用効率", "変革"],
+      "officialTaskStatementIds": ["1.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs02_02_migration_strategies",
+      "folderId": "aws_cloud_practitioner_f02_adoption_migration_economics",
+      "name": "2-2 移行戦略と移行支援サービス",
+      "description": "クラウド移行ジャーニー、移行戦略、データ・サーバー・データベースの移行に使う支援サービスを扱う。移行後のデータベース種別の選択は7-1へ分ける。",
+      "matchingHints": ["移行戦略", "Migration Hub", "Application Migration Service", "Snow Family", "Database Migration Service", "Schema Conversion Tool", "Migration Evaluator"],
+      "officialTaskStatementIds": ["1.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs02_03_cloud_economics",
+      "folderId": "aws_cloud_practitioner_f02_adoption_migration_economics",
+      "name": "2-3 クラウドエコノミクスと適正化",
+      "description": "固定費と変動費、オンプレミス費用、規模の経済、適正サイジング、オートメーション、BYOLとライセンス込みの違いを扱う。具体的な購入オプションと料金計算は09へ分ける。",
+      "matchingHints": ["固定費", "変動費", "オンプレミスコスト", "規模の経済", "適正サイジング", "自動化", "BYOL", "ライセンス込み"],
+      "officialTaskStatementIds": ["1.4"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs03_01_shared_responsibility",
+      "folderId": "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
+      "name": "3-1 AWS責任共有モデル",
+      "description": "クラウドのセキュリティを担うAWSと、クラウド内のセキュリティを担う顧客の責任を扱う。EC2、RDS、Lambdaなどサービス形態による責任範囲の違いも含む。",
+      "matchingHints": ["責任共有モデル", "AWSの責任", "顧客の責任", "クラウドのセキュリティ", "クラウド内のセキュリティ", "EC2", "RDS", "Lambda"],
+      "officialTaskStatementIds": ["2.1"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs03_02_iam_permissions",
+      "folderId": "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
+      "name": "3-2 IAMアイデンティティ・ポリシー・最小権限",
+      "description": "IAMユーザー、グループ、ロール、カスタム・マネージドポリシー、許可と拒否、最小権限の原則を扱う。MFAやフェデレーションなど認証方式は3-3へ分ける。",
+      "matchingHints": ["IAMユーザー", "IAMグループ", "IAMロール", "IAMポリシー", "マネージドポリシー", "カスタムポリシー", "最小権限", "許可", "明示的拒否"],
+      "officialTaskStatementIds": ["2.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs03_03_authentication_root_federation",
+      "folderId": "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
+      "name": "3-3 認証・ルートユーザー・フェデレーション",
+      "description": "ルートユーザーの保護と専用タスク、MFA、IAM Identity Center、フェデレーテッドアイデンティティ、クロスアカウントロールなど認証方法を扱う。権限ポリシーの設計は3-2へ分ける。",
+      "matchingHints": ["ルートユーザー", "MFA", "IAM Identity Center", "フェデレーション", "シングルサインオン", "クロスアカウントロール", "一時的認証情報"],
+      "officialTaskStatementIds": ["2.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs03_04_credentials_secrets",
+      "folderId": "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
+      "name": "3-4 認証情報・アクセスキー・シークレット管理",
+      "description": "アクセスキー、パスワードポリシー、認証情報の安全な保管とローテーション、AWS Secrets ManagerやAWS Systems Managerによるシークレット管理を扱う。暗号鍵の管理は4-1へ分ける。",
+      "matchingHints": ["アクセスキー", "パスワードポリシー", "認証情報", "Secrets Manager", "Systems Manager", "Parameter Store", "ローテーション", "ハードコーディング"],
+      "officialTaskStatementIds": ["2.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs04_01_encryption_data_protection",
+      "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
+      "name": "4-1 暗号化・鍵・証明書によるデータ保護",
+      "description": "保管時と転送時の暗号化、AWS KMS、AWS CloudHSM、AWS Certificate Managerなど、鍵と証明書によるデータ保護を扱う。アクセス権限は03、ネットワーク攻撃への防御は4-5へ分ける。",
+      "matchingHints": ["保管時の暗号化", "転送時の暗号化", "KMS", "CloudHSM", "Certificate Manager", "暗号鍵", "TLS証明書"],
+      "officialTaskStatementIds": ["2.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs04_02_compliance_artifact",
+      "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
+      "name": "4-2 コンプライアンスとAWS Artifact",
+      "description": "AWSコンプライアンス、地理・業界別の要件、サービスごとの適合性、AWS Artifactで取得する監査・契約文書を扱う。運用状況の継続的な監査は4-3へ分ける。",
+      "matchingHints": ["コンプライアンス", "AWS Artifact", "監査レポート", "契約書", "認証", "業界要件", "地理的要件", "データ主権"],
+      "officialTaskStatementIds": ["2.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs04_03_governance_monitoring_audit",
+      "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
+      "name": "4-3 ガバナンス・モニタリング・監査ログ",
+      "description": "Amazon CloudWatchによるモニタリング、AWS CloudTrailのAPI操作履歴、AWS Configの構成評価、AWS Audit Manager、アクセスレポートなどガバナンスと監査を扱う。脅威や脆弱性の検出は4-4へ分ける。",
+      "matchingHints": ["CloudWatch", "CloudTrail", "AWS Config", "Audit Manager", "監査ログ", "API操作履歴", "構成変更", "アクセスレポート", "Control Tower"],
+      "officialTaskStatementIds": ["2.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs04_04_threat_detection_security_posture",
+      "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
+      "name": "4-4 脅威検出・脆弱性・セキュリティ態勢",
+      "description": "Amazon GuardDuty、Amazon Inspector、AWS Security Hub、Amazon Detective、Amazon Macieなどによる脅威・脆弱性・機密データ・態勢の検出を扱う。Trusted Advisorはセキュリティチェックが主題ならここ、サポートやコスト最適化が主題なら10-1へ置く。",
+      "matchingHints": ["GuardDuty", "Inspector", "Security Hub", "Detective", "Macie", "脅威検出", "脆弱性", "セキュリティ態勢", "機密データ"],
+      "officialTaskStatementIds": ["2.2", "2.4"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs04_05_network_application_protection",
+      "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
+      "name": "4-5 ネットワーク・アプリケーション保護",
+      "description": "AWS WAF、AWS Shield、AWS Firewall ManagerなどによるWeb、DDoS、ファイアウォールの保護と、AWS Marketplaceで入手する第三者セキュリティ製品を扱う。VPC内部のSecurity GroupとネットワークACLは6-1へ分ける。",
+      "matchingHints": ["AWS WAF", "AWS Shield", "Firewall Manager", "DDoS", "Web ACL", "ファイアウォール", "AWS Marketplace", "セキュリティ製品"],
+      "officialTaskStatementIds": ["2.4"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs05_01_access_provisioning_iac",
+      "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
+      "name": "5-1 AWSへのアクセス・プロビジョニング・IaC",
+      "description": "AWSマネジメントコンソール、CLI、SDK、API、Infrastructure as Code、AWS CloudFormation、1回限りの操作と反復可能なプロセス、クラウド・ハイブリッド・オンプレミスのデプロイモデルを扱う。IAM権限は3-2へ分ける。",
+      "matchingHints": ["マネジメントコンソール", "AWS CLI", "SDK", "API", "Infrastructure as Code", "CloudFormation", "プロビジョニング", "ハイブリッドクラウド", "デプロイモデル"],
+      "officialTaskStatementIds": ["3.1"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs05_02_global_infrastructure",
+      "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
+      "name": "5-2 リージョン・AZ・エッジと高可用性",
+      "description": "AWSリージョン、アベイラビリティーゾーン、エッジロケーションの関係、複数AZ・複数リージョン、高可用性、災害復旧、低レイテンシー、データ主権を扱う。クラウド全般の利点は1-1と1-2へ分ける。",
+      "matchingHints": ["リージョン", "アベイラビリティーゾーン", "エッジロケーション", "複数AZ", "複数リージョン", "高可用性", "災害復旧", "データ主権", "低レイテンシー"],
+      "officialTaskStatementIds": ["3.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs05_03_ec2_instance_types",
+      "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
+      "name": "5-3 EC2とコンピューティングサービス",
+      "description": "Amazon EC2のインスタンスタイプとワークロード適性、AWS Batch、Elastic Beanstalk、Lightsail、Outpostsなどコンピューティングサービスの用途を扱う。オンデマンド・リザーブド・スポット等の購入方法は9-1へ分ける。",
+      "matchingHints": ["Amazon EC2", "インスタンスタイプ", "汎用", "コンピューティング最適化", "メモリ最適化", "ストレージ最適化", "AWS Batch", "Elastic Beanstalk", "Lightsail", "Outposts"],
+      "officialTaskStatementIds": ["3.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs05_04_auto_scaling_load_balancing",
+      "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
+      "name": "5-4 Auto Scalingとロードバランシング",
+      "description": "AWS Auto Scalingによる需要に応じた増減、ロードバランサーによるトラフィック分散と可用性向上を扱う。伸縮性・高可用性という概念上の利点は1-2へ分ける。",
+      "matchingHints": ["Auto Scaling", "スケーリング", "ロードバランサー", "Elastic Load Balancing", "トラフィック分散", "需要変動", "可用性"],
+      "officialTaskStatementIds": ["3.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs05_05_containers_serverless",
+      "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
+      "name": "5-5 コンテナとサーバーレス",
+      "description": "Amazon ECS、Amazon EKS、Amazon ECR、AWS Fargate、AWS Lambdaなど、コンテナ管理とサーバーレス実行環境の用途を扱う。仮想マシンとしてのEC2は5-3へ分ける。",
+      "matchingHints": ["ECS", "EKS", "ECR", "Fargate", "Lambda", "コンテナ", "Kubernetes", "サーバーレス", "イベント駆動"],
+      "officialTaskStatementIds": ["3.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs06_01_vpc_network_security",
+      "folderId": "aws_cloud_practitioner_f06_network_content_delivery",
+      "name": "6-1 VPC・サブネット・ネットワーク保護",
+      "description": "Amazon VPC、サブネット、ゲートウェイ、ルート、Security Group、ネットワークACLなど、VPCの構成要素と内部の通信保護を扱う。WAF、Shield、Firewall Managerは4-5へ分ける。",
+      "matchingHints": ["Amazon VPC", "サブネット", "インターネットゲートウェイ", "ルートテーブル", "Security Group", "ネットワークACL", "ステートフル", "ステートレス"],
+      "officialTaskStatementIds": ["3.5"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs06_02_dns_content_delivery_connectivity",
+      "folderId": "aws_cloud_practitioner_f06_network_content_delivery",
+      "name": "6-2 DNS・コンテンツ配信・ハイブリッド接続",
+      "description": "Amazon Route 53、Amazon CloudFront、AWS Global Accelerator、API Gateway、AWS Direct Connect、VPN、PrivateLink、Transit Gatewayなど、名前解決、配信高速化、AWSとの接続を扱う。VPC内のアクセス制御は6-1へ分ける。",
+      "matchingHints": ["Route 53", "CloudFront", "Global Accelerator", "API Gateway", "Direct Connect", "AWS VPN", "PrivateLink", "Transit Gateway", "DNS", "CDN"],
+      "officialTaskStatementIds": ["3.2", "3.5"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs07_01_databases_cache_migration",
+      "folderId": "aws_cloud_practitioner_f07_database_storage",
+      "name": "7-1 データベース・キャッシュ・移行",
+      "description": "EC2上のデータベースとマネージドデータベースの違い、RDS・Aurora、DynamoDB、ElastiCache、DocumentDB、Neptuneの用途、DMSとSCTによる移行を扱う。分析用データ処理は8-2へ分ける。",
+      "matchingHints": ["Amazon RDS", "Amazon Aurora", "DynamoDB", "ElastiCache", "DocumentDB", "Neptune", "リレーショナル", "NoSQL", "インメモリ", "DMS", "SCT"],
+      "officialTaskStatementIds": ["3.4"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs07_02_s3_object_storage",
+      "folderId": "aws_cloud_practitioner_f07_database_storage",
+      "name": "7-2 Amazon S3とオブジェクトストレージ",
+      "description": "Amazon S3のオブジェクトストレージ、ストレージクラス、S3 Glacier、ライフサイクルポリシーと利用場面を扱う。料金比較が主題なら9-2、ブロック・ファイルストレージは7-3へ置く。",
+      "matchingHints": ["Amazon S3", "オブジェクトストレージ", "ストレージクラス", "S3 Glacier", "ライフサイクルポリシー", "アーカイブ", "耐久性"],
+      "officialTaskStatementIds": ["3.6"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs07_03_block_file_hybrid_backup",
+      "folderId": "aws_cloud_practitioner_f07_database_storage",
+      "name": "7-3 ブロック・ファイル・ハイブリッドストレージとバックアップ",
+      "description": "Amazon EBSとインスタンスストア、Amazon EFS、Amazon FSx、AWS Storage Gateway、AWS Backup、Elastic Disaster Recoveryの用途を扱う。S3のオブジェクトストレージは7-2へ分ける。",
+      "matchingHints": ["Amazon EBS", "インスタンスストア", "Amazon EFS", "Amazon FSx", "Storage Gateway", "AWS Backup", "Elastic Disaster Recovery", "ブロックストレージ", "ファイルストレージ"],
+      "officialTaskStatementIds": ["3.6"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs08_01_ai_ml_services",
+      "folderId": "aws_cloud_practitioner_f08_ai_analytics_application_services",
+      "name": "8-1 AI・機械学習サービス",
+      "description": "Amazon SageMaker AI、Amazon Q、Lex、Kendra、Comprehend、Polly、Rekognition、Textract、Transcribe、Translateなど、AI・機械学習サービスと処理内容の対応を扱う。分析基盤は8-2へ分ける。",
+      "matchingHints": ["SageMaker AI", "Amazon Q", "Lex", "Kendra", "Comprehend", "Polly", "Rekognition", "Textract", "Transcribe", "Translate", "機械学習"],
+      "officialTaskStatementIds": ["3.7"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs08_02_analytics_data_processing",
+      "folderId": "aws_cloud_practitioner_f08_ai_analytics_application_services",
+      "name": "8-2 分析・データ処理・可視化サービス",
+      "description": "Amazon Athena、EMR、Kinesis、Redshift、OpenSearch Service、AWS Glue、Amazon QuickSightなど、収集・処理・検索・分析・可視化の用途を扱う。トランザクション用データベースは7-1へ分ける。",
+      "matchingHints": ["Athena", "EMR", "Kinesis", "Redshift", "OpenSearch Service", "AWS Glue", "QuickSight", "データレイク", "ストリーミング", "BI"],
+      "officialTaskStatementIds": ["3.7"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs08_03_app_integration_developer_tools",
+      "folderId": "aws_cloud_practitioner_f08_ai_analytics_application_services",
+      "name": "8-3 アプリケーション統合・メッセージング・開発者ツール",
+      "description": "EventBridge、SNS、SQS、Step Functionsによるイベント・通知・キュー・ワークフローと、CodeBuild、CodePipeline、X-Rayによるビルド・デプロイ・トレースを扱う。コンピューティング実行環境は05へ分ける。",
+      "matchingHints": ["EventBridge", "SNS", "SQS", "Step Functions", "イベントバス", "Pub/Sub", "メッセージキュー", "CodeBuild", "CodePipeline", "X-Ray"],
+      "officialTaskStatementIds": ["3.8"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs08_04_business_euc_frontend_iot",
+      "folderId": "aws_cloud_practitioner_f08_ai_analytics_application_services",
+      "name": "8-4 ビジネス・EUC・フロントエンド・IoTサービス",
+      "description": "Amazon Connect、SES、AppStream 2.0、WorkSpaces、Amplify、AppSync、AWS IoT Coreなど、ビジネスアプリケーション、仮想デスクトップ、フロントエンド・モバイル、IoTの用途を扱う。AWSサポートプランは10-1へ分ける。",
+      "matchingHints": ["Amazon Connect", "Amazon SES", "AppStream 2.0", "WorkSpaces", "WorkSpaces Secure Browser", "AWS Amplify", "AWS AppSync", "AWS IoT Core", "仮想デスクトップ", "IoT"],
+      "officialTaskStatementIds": ["3.8"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs09_01_compute_purchasing",
+      "folderId": "aws_cloud_practitioner_f09_pricing_billing_cost",
+      "name": "9-1 コンピューティング購入オプション",
+      "description": "オンデマンド、リザーブドインスタンス、スポットインスタンス、Savings Plans、専有ホスト、ハードウェア専有インスタンス、キャパシティー予約の用途と違いを扱う。EC2の性能タイプは5-3へ分ける。",
+      "matchingHints": ["オンデマンド", "リザーブドインスタンス", "スポットインスタンス", "Savings Plans", "専有ホスト", "ハードウェア専有インスタンス", "キャパシティー予約", "OrganizationsでのRI共有"],
+      "officialTaskStatementIds": ["4.1"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs09_02_storage_data_transfer_pricing",
+      "folderId": "aws_cloud_practitioner_f09_pricing_billing_cost",
+      "name": "9-2 ストレージ・データ転送の料金",
+      "description": "ストレージ種別・階層の料金、受信・送信データ転送、リージョン間・同一リージョン内の転送料金を扱う。ストレージ機能や用途の選択は07へ分ける。",
+      "matchingHints": ["ストレージ料金", "データ転送料金", "受信データ", "送信データ", "リージョン間転送", "S3ストレージクラス", "料金階層"],
+      "officialTaskStatementIds": ["4.1"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs09_03_estimates_budgets_cost_analysis",
+      "folderId": "aws_cloud_practitioner_f09_pricing_billing_cost",
+      "name": "9-3 料金見積り・予算・コスト分析",
+      "description": "AWS Pricing Calculatorによる事前見積り、AWS Budgetsによるしきい値と通知、AWS Cost Explorerによる実績分析・予測など、目的に応じたコスト管理ツールの選択を扱う。請求統合と配賦は9-4へ分ける。",
+      "matchingHints": ["AWS Pricing Calculator", "AWS Budgets", "Cost Explorer", "料金見積り", "予算アラート", "コスト予測", "使用状況分析"],
+      "officialTaskStatementIds": ["4.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs09_04_billing_organizations_reports",
+      "folderId": "aws_cloud_practitioner_f09_pricing_billing_cost",
+      "name": "9-4 請求・Organizations・コスト配分",
+      "description": "AWS Organizationsの一括請求、複数アカウントのコスト集約、コスト配分タグ、Cost and Usage Reports、請求情報を扱う。購入オプションそのものは9-1へ分ける。",
+      "matchingHints": ["AWS Organizations", "一括請求", "コンソリデーティッドビリング", "コスト配分タグ", "Cost and Usage Reports", "CUR", "請求レポート", "複数アカウント"],
+      "officialTaskStatementIds": ["4.2"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs10_01_support_health_trusted_advisor",
+      "folderId": "aws_cloud_practitioner_f10_support_resources_partners",
+      "name": "10-1 AWSサポート・Health・Trusted Advisor",
+      "description": "AWSサポートプラン、Support Center、カスタマーサービスとコミュニティ、AWS Health Dashboard・Health API、Trusted Advisor、Trust & Safetyを扱う。Trusted Advisorのセキュリティチェックだけが主題なら4-4へ置く。",
+      "matchingHints": ["AWS Support", "Developer Support", "Business Support", "Enterprise On-Ramp", "Enterprise Support", "Support Center", "AWS Health Dashboard", "Health API", "Trusted Advisor", "Trust & Safety"],
+      "officialTaskStatementIds": ["4.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "aws_cloud_practitioner_qs10_02_docs_experts_partners_marketplace",
+      "folderId": "aws_cloud_practitioner_f10_support_resources_partners",
+      "name": "10-2 公式情報・技術支援・パートナー・Marketplace",
+      "description": "AWSドキュメント、ホワイトペーパー、ブログ、規範ガイダンス、ナレッジセンター、re:Post、プロフェッショナルサービス、ソリューションアーキテクト、AWSパートナーとMarketplaceの役割を扱う。Marketplaceのセキュリティ製品選択は4-5へ分ける。",
+      "matchingHints": ["AWSドキュメント", "ホワイトペーパー", "AWSブログ", "規範ガイダンス", "ナレッジセンター", "AWS re:Post", "プロフェッショナルサービス", "ソリューションアーキテクト", "AWS Partner Network", "AWS Marketplace", "ISV", "システムインテグレーター"],
+      "officialTaskStatementIds": ["4.3"],
+      "questionCount": 0,
+      "isDeleted": false
+    }
+  ]
+}
