@@ -19,17 +19,6 @@ from tools.question_review_console.workflow_catalog import (
 SCHEMA_VERSION = "question-work-versions/v2"
 READABLE_SCHEMA_VERSIONS = {"question-work-versions/v1", SCHEMA_VERSION}
 LEGACY_VERSION = "0.0"
-MAINTENANCE_STAGE_IDS = (
-    "question_type",
-    "question_intent",
-    "correct_choice",
-    "law_context",
-    "explanation",
-    "law_audit",
-    "question_set",
-)
-
-
 def _now() -> str:
     return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
 
@@ -228,7 +217,9 @@ class QuestionWorkVersionStore:
         for raw_policy in policies:
             policy = dict(raw_policy)
             stage_id = str(policy.get("id") or "")
-            if stage_id not in {*MAINTENANCE_STAGE_IDS, "evaluation"}:
+            if not stage_id or (
+                stage_id != "evaluation" and policy.get("policyVersion") is None
+            ):
                 continue
             recorded = recorded_stages.get(stage_id)
             recorded = dict(recorded) if isinstance(recorded, Mapping) else None
@@ -262,9 +253,7 @@ class QuestionWorkVersionStore:
                     ),
                 }
             )
-        maintenance = [
-            stage for stage in stages if stage["id"] in MAINTENANCE_STAGE_IDS
-        ]
+        maintenance = [stage for stage in stages if stage["id"] != "evaluation"]
         noncurrent = [stage for stage in maintenance if stage["status"] != "current"]
         if not maintenance:
             overall = "unrecorded"
@@ -302,7 +291,9 @@ class QuestionWorkVersionStore:
         policy_fingerprint_override: str | None = None,
     ) -> dict[str, Any]:
         stage_id = str(policy.get("id") or "")
-        if stage_id not in {*MAINTENANCE_STAGE_IDS, "evaluation"}:
+        if not stage_id or (
+            stage_id != "evaluation" and policy.get("policyVersion") is None
+        ):
             raise ValueError(f"作業バージョン対象外の工程です: {stage_id}")
         grouped: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
         for question in questions:
@@ -412,7 +403,7 @@ class QuestionWorkVersionStore:
     ) -> dict[str, Any]:
         """Invalidate one validated run without deleting its audit history."""
 
-        if stage_id not in MAINTENANCE_STAGE_IDS:
+        if not stage_id or stage_id == "evaluation":
             raise ValueError(f"作業バージョン対象外の工程です: {stage_id}")
         target_ids = {str(value).strip() for value in question_ids if str(value).strip()}
         if not target_ids:

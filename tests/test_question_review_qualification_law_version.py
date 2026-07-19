@@ -631,6 +631,36 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
                 questions,
             )
 
+    def test_law_sidecar_v2_join_preserves_existing_review_id_alias(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = NonLawSourceInventory()
+            questions = inventory.group("new-exam", "2026")["questions"]
+            questions[0]["id"] = "legacy-ui-review-id"
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "legacy-ui-review-id",
+                        "sourceQuestionKey": "new-exam:2026:q1",
+                        "sourceRecordRef": "question_2026_1.json#0",
+                    }
+                ],
+            )
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, inventory),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+
+            coordinator._validate_law_audit_sidecar_consistency(
+                "new-exam",
+                questions,
+            )
+
     def test_law_audit_version_rejects_missing_or_duplicate_sidecar_row(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

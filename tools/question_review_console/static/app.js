@@ -5,7 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v2";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
-const QUESTION_CONCURRENCY_OPTIONS = [1, 5, 10];
+const AUTO_QUESTION_CONCURRENCY = 32;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -189,7 +189,7 @@ const state = {
     resumedFrom: "",
     stageIds: [],
     listGroupIds: [],
-    questionConcurrency: 5,
+    questionConcurrency: 32,
     previewController: null,
   },
   workflowGuide: {
@@ -476,17 +476,6 @@ function bindControls() {
   $("#qualification-run-dialog").addEventListener("close", cancelQualificationRunPreview);
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.addEventListener("change", previewQualificationRun);
-  }
-  for (const node of document.querySelectorAll('input[name="qualification-run-concurrency"]')) {
-    node.addEventListener("change", () => {
-      state.qualificationRunDialog.questionConcurrency = selectedQualificationRunConcurrency();
-      if (state.qualificationRunDialog.preview) {
-        state.qualificationRunDialog.preview.questionConcurrency = (
-          state.qualificationRunDialog.questionConcurrency
-        );
-        renderQualificationRunPreview(state.qualificationRunDialog.preview);
-      }
-    });
   }
   $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
@@ -1814,9 +1803,9 @@ function renderQualificationActiveRun() {
   const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
-    const modelBatchSize = Number(run.modelBatchSize || 5);
+    const modelBatchSize = Number(run.modelBatchSize || 1);
     const questionConcurrency = Number(run.questionConcurrency || parallelWorkers || 1);
-    parallelLabel = ` ・ 1回最大${modelBatchSize}問・同時${questionConcurrency}問・検査と確定は1問ずつ`;
+    parallelLabel = ` ・ 入力別に最大${modelBatchSize}問・最大${questionConcurrency}turn・検査と確定は1問ずつ`;
   } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
     parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
   } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
@@ -1855,11 +1844,7 @@ function selectedQualificationRunMode() {
 }
 
 function selectedQualificationRunConcurrency() {
-  return Number(
-    document.querySelector('input[name="qualification-run-concurrency"]:checked')?.value
-      || state.qualificationRunDialog.questionConcurrency
-      || 5,
-  );
+  return AUTO_QUESTION_CONCURRENCY;
 }
 
 function selectedQualificationRunStageIds() {
@@ -2040,7 +2025,6 @@ function updateQualificationRunHeading() {
 
 function openQualificationRunDialog(stage, options = {}) {
   cancelQualificationRunPreview();
-  const requestedConcurrency = Number(options.questionConcurrency || 5);
   const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
   const selectedGroupIds = defaultQualificationRunListGroupIds(
     stage,
@@ -2054,9 +2038,7 @@ function openQualificationRunDialog(stage, options = {}) {
     resumedFrom: options.resumedFrom || "",
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
-    questionConcurrency: QUESTION_CONCURRENCY_OPTIONS.includes(requestedConcurrency)
-      ? requestedConcurrency
-      : 5,
+    questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     previewController: null,
     simplified: options.simplified === true,
   };
@@ -2101,13 +2083,10 @@ function openQualificationRunDialog(stage, options = {}) {
       ?.kind === "human"
   ));
   $("#qualification-run-concurrency-fieldset").hidden = !supportsConcurrency;
-  for (const node of document.querySelectorAll('input[name="qualification-run-concurrency"]')) {
-    node.checked = Number(node.value) === state.qualificationRunDialog.questionConcurrency;
-  }
   if (state.qualificationRunDialog.simplified) {
     $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
     $("#qualification-run-title").textContent = `${qualificationDisplayName()}の未整備を整備`;
-    $("#qualification-run-purpose").textContent = "現行メジャー未満又は未記録の工程を最大5問ずつ生成し、結果は問題単位で確定します。";
+    $("#qualification-run-purpose").textContent = "必要な工程を入力token量で自動分割し、結果は問題単位で検査・確定します。";
     $("#qualification-run-safety").textContent = "本番Firestoreには反映せず、ローカルで整備します。";
   } else {
     $("#qualification-run-scope-eyebrow").textContent = "整備範囲を指定";
@@ -2251,7 +2230,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `1回最大5問・同時${preview.questionConcurrency}問（検査と確定は1問ずつ）`,
+          `入力別の自動batch・最大${preview.questionConcurrency}turn（検査と確定は1問ずつ）`,
         ),
       );
     }
@@ -2925,7 +2904,7 @@ function retryBlockedQualificationRun() {
     stageIds,
     listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
     mode: run.mode || "outdated",
-    questionConcurrency: run.questionConcurrency || 5,
+    questionConcurrency: run.questionConcurrency || 32,
     resumedFrom: run.runId,
     simplified: true,
   });

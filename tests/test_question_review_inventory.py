@@ -231,7 +231,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 inventory.projected_input("sample-exam", "2026", "questions.json#1")
 
                 self.assertEqual(source_mock.call_count, 1)
-                self.assertEqual(stage_mock.call_count, 6)
+                self.assertEqual(stage_mock.call_count, 7)
                 self.assertEqual(issue_mock.call_count, 1)
 
                 write_json(
@@ -262,7 +262,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 ),
                 3,
             )
-            self.assertEqual(stage_mock.call_count, 13)
+            self.assertEqual(stage_mock.call_count, 15)
             self.assertEqual(issue_mock.call_count, 2)
 
     def test_inventory_exposes_japanese_qualification_name_and_publication_id(self):

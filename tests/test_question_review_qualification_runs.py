@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+from dataclasses import replace
 
 from tests.qualification_run_test_support import *  # noqa: F403
 from tools.question_review_console.codex_app_server import (
@@ -12,7 +13,39 @@ from tools.question_review_console.question_work_queue import (
 from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
+    _source_binding_accepts_identity,
 )
+
+
+class SourceBindingAliasTests(unittest.TestCase):
+    def test_existing_review_id_alias_keeps_stable_source_binding(self):
+        binding = {
+            "sourceQuestionKey": "sample:2026:q1",
+            "reviewQuestionId": "firestore:q1-a,q1-b",
+            "sourceRecordRef": "source.json#1",
+            "aliases": ["legacy-ui-id"],
+        }
+
+        self.assertTrue(
+            _source_binding_accepts_identity(
+                binding,
+                {
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "reviewQuestionId": "legacy-ui-id",
+                    "sourceRecordRef": "source.json#1",
+                },
+            )
+        )
+        self.assertFalse(
+            _source_binding_accepts_identity(
+                binding,
+                {
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "reviewQuestionId": "other-id",
+                    "sourceRecordRef": "source.json#1",
+                },
+            )
+        )
 
 
 class QualificationProgressObservabilityTests(QualificationRunTestSupport):
@@ -578,6 +611,97 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
         self.assertEqual(progress["questions"][0]["approvalState"], "failed_unapproved")
         self.assertFalse(progress["verified"])
         self.assertEqual(progress["invalidEventCount"], 0)
+
+    def test_parent_progress_does_not_double_count_validated_then_blocked_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            targets = [
+                {
+                    "id": question_id,
+                    "questionId": question_id,
+                    "questionKey": question_id,
+                    "sourceQuestionKey": f"source-{question_id}",
+                    "reviewQuestionId": f"review-{question_id}",
+                    "sourceRecordRef": f"source.json#{index}",
+                    "listGroupId": "2026",
+                }
+                for index, question_id in enumerate(("q1", "q2"), start=1)
+            ]
+            parent_plan = {
+                **FakeWorkflow().plan("sample", "question_type", "remaining"),
+                "kind": "orchestration",
+                "workType": "maintenance_flow",
+                "targetCount": 2,
+                "workItemCount": 2,
+                "progressTargets": targets,
+                "policyTargets": {"question_type": ["q1", "q2"]},
+                "questionExecutions": [
+                    {
+                        **target,
+                        "status": "blocked",
+                        "stages": [
+                            {
+                                "stageId": "question_type",
+                                "status": "blocked",
+                            }
+                        ],
+                    }
+                    for target in targets
+                ],
+            }
+            parent = store.create(parent_plan, status="running")
+            child_plan = {
+                **FakeWorkflow().plan("sample", "question_type", "remaining"),
+                "parentRunId": parent["runId"],
+                "progressTargets": [targets[0]],
+                "policyTargets": {"question_type": ["q1"]},
+            }
+            child = store.create(child_plan, status="running", prompt="work")
+            (root / child["progressReceiptPath"]).write_text(
+                "\n".join(
+                    json.dumps(event)
+                    for event in (
+                        {"event": "question_started", "questionId": "q1"},
+                        {
+                            "event": "stage_completed",
+                            "questionId": "q1",
+                            "stageId": "question_type",
+                        },
+                        {"event": "question_completed", "questionId": "q1"},
+                    )
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            store.update(
+                "sample",
+                child["runId"],
+                status="succeeded",
+                receiptValidated=True,
+            )
+            store.update(
+                "sample",
+                parent["runId"],
+                status="interrupted",
+                childRunIds=[child["runId"]],
+                questionExecutionSummary={
+                    "validatedQuestionCount": 0,
+                    "blockedQuestionCount": 2,
+                    "completedWorkItemCount": 0,
+                    "blockedWorkItemCount": 2,
+                    "pendingWorkItemCount": 0,
+                },
+            )
+
+            progress = store.combined_progress("sample", parent["runId"])
+
+        self.assertEqual(progress["processedQuestionCount"], 2)
+        self.assertEqual(progress["targetQuestionCount"], 2)
+        self.assertLessEqual(
+            progress["processedQuestionCount"],
+            progress["targetQuestionCount"],
+        )
 
     def test_combined_progress_uses_parent_queue_position(self):
         questions = [
@@ -1312,7 +1436,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self.assertEqual(
                 [kwargs["work_type"] for _prompt, kwargs in app_server.calls],
                 [
-                    "maintenance_question_type_batch",
+                    "maintenance_question_type_candidate",
                     "maintenance_category_setup",
                 ],
             )
@@ -1398,8 +1522,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(
             app_server.batch_calls,
             [
-                tuple(f"new-exam-2026-q{number}" for number in range(1, 6)),
-                ("new-exam-2026-q6",),
+                tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
                 ("new-exam-2026-q1",),
                 ("new-exam-2026-q1",),
             ],
@@ -1407,32 +1530,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["validatedQuestionCount"], 5)
         self.assertEqual(completed["blockedQuestionCount"], 1)
 
-    def test_malformed_result_blocks_only_that_question(self):
-        class MalformedResultAppServer(PerQuestionQueueAppServer):
-            def run_turn(self, prompt, **kwargs):
-                result = super().run_turn(prompt, **kwargs)
-                receipt_line = next(
-                    line
-                    for line in prompt.splitlines()
-                    if "完了時に検証結果を次へJSONで保存" in line
-                )
-                receipt_path = Path(receipt_line.split("`")[1])
-                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-                malformed = next(
-                    value
-                    for value in receipt["questionResults"]
-                    if value["questionId"] == "new-exam-2026-q2"
-                )
-                malformed["commands"] = []
-                receipt_path.write_text(
-                    json.dumps(receipt, ensure_ascii=False),
-                    encoding="utf-8",
-                )
-                return result
-
+    def test_blocked_candidate_stops_only_that_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = MalformedResultAppServer()
+            app_server = PerQuestionQueueAppServer(
+                failed_question_id="new-exam-2026-q2"
+            )
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
                 TwoQuestionSourceInventory(),
@@ -1459,7 +1562,46 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ["validated", "blocked"],
         )
 
-    def test_ten_questions_use_two_parallel_model_turns(self):
+    def test_ambiguous_target_is_blocked_before_model_without_stopping_sibling(self):
+        def assert_resolvable(_root, _path, *, binding, aliases):
+            del aliases
+            if "question_2026_2.json" in binding.source_record_ref:
+                raise ValueError("対象レコードが複数あります")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 2)
+
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "assert_target_resolvable",
+                side_effect=assert_resolvable,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(app_server.batch_calls, [("new-exam-2026-q1",)])
+        self.assertEqual(
+            [
+                question["stages"][0]["status"]
+                for question in completed["questionExecutions"]
+            ],
+            ["validated", "blocked"],
+        )
+
+    def test_small_ten_question_input_uses_one_token_aware_turn(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
@@ -1480,10 +1622,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(app_server.max_active_writers, 2)
-        self.assertEqual(len(app_server.batch_calls), 2)
-        self.assertTrue(all(len(values) == 5 for values in app_server.batch_calls))
-        self.assertEqual(parent["modelWorkerLimit"], 2)
+        self.assertEqual(app_server.max_active_writers, 1)
+        self.assertEqual(len(app_server.batch_calls), 1)
+        self.assertEqual(len(app_server.batch_calls[0]), 10)
 
     def test_one_provider_timeout_is_retried_after_other_questions(self):
         class TimeoutOnceAppServer(PerQuestionQueueAppServer):
@@ -1523,69 +1664,40 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(
             app_server.batch_calls,
             [
-                tuple(f"new-exam-2026-q{number}" for number in range(1, 6)),
-                ("new-exam-2026-q6",),
-                tuple(f"new-exam-2026-q{number}" for number in range(1, 6)),
+                tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
+                tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
             ],
         )
 
-    def test_isolated_writer_rebases_validated_record_into_canonical_patch(self):
-        class MutatingWorkspaceAppServer(PerQuestionQueueAppServer):
+    def test_server_rebases_validated_candidate_into_canonical_patch(self):
+        class ServerCandidateAppServer(PerQuestionQueueAppServer):
             def run_turn(self, prompt, **kwargs):
                 work_type = kwargs["work_type"]
-                if work_type == "maintenance_question_type_batch":
-                    manifest_line = next(
-                        line
-                        for line in prompt.splitlines()
-                        if "progressTargetsとprogressStages" in line
-                    )
-                    manifest_path = Path(manifest_line.split("`")[1])
-                    manifest = json.loads(
-                        manifest_path.read_text(encoding="utf-8")
-                    )
-                    patch_relative = next(
-                        value
-                        for value in manifest["allowedPatchFiles"]
-                        if "99_model_review_flags" not in value
-                    )
-                    binding = dict(manifest["targetRecordBindings"][0])
-                    patch_path = kwargs["cwd"] / patch_relative
-                    patch_path.parent.mkdir(parents=True, exist_ok=True)
-                    patch_path.write_text(
-                        json.dumps(
-                            [
-                                {
-                                    "sourceQuestionKey": binding[
-                                        "sourceQuestionKey"
-                                    ],
-                                    "reviewQuestionId": binding[
-                                        "reviewQuestionId"
-                                    ],
-                                    "sourceRecordRef": binding[
-                                        "sourceRecordRef"
-                                    ],
-                                    "original_question_id": binding[
-                                        "reviewQuestionId"
-                                    ],
-                                    "questionType": "single_choice",
-                                }
-                            ],
-                            ensure_ascii=False,
-                        ),
-                        encoding="utf-8",
-                    )
-                    question_id = self._question_id(prompt)
-                    stage_id = work_type.removeprefix("maintenance_").removesuffix(
-                        "_batch"
+                if work_type == "maintenance_question_type_candidate":
+                    question_id = str(self._candidate_questions(prompt)[0]["questionId"])
+                    stage_id = "question_type"
+                    patch_relative = (
+                        "output/new-exam/questions_json/2026/10_questionType_fixed/"
+                        "question_2026_1_questionType_fixed.json"
                     )
                     self.changed_files_by_work_item[(question_id, stage_id)] = [
                         patch_relative
                     ]
-                return super().run_turn(prompt, **kwargs)
+                result = super().run_turn(prompt, **kwargs)
+                if work_type != "maintenance_question_type_candidate":
+                    return result
+                payload = json.loads(result.final_message)
+                payload["questionResults"][0]["updates"][0]["setFields"] = [
+                    {"field": "questionType", "valueJson": '"single_choice"'}
+                ]
+                return replace(
+                    result,
+                    final_message=json.dumps(payload, ensure_ascii=False),
+                )
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = MutatingWorkspaceAppServer()
+            app_server = ServerCandidateAppServer()
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
                 SourceOnlyInventory(),
@@ -1630,13 +1742,104 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 root
                 / "output/question_review_console/workflow_runs/new-exam"
                 / child["runId"]
-                / "isolated_workspace"
+                / "candidate_workspaces"
             ).exists()
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(child["receiptValidated"])
         self.assertEqual(records[0]["questionType"], "single_choice")
         self.assertFalse(workspace_exists)
+
+    def test_checkpoint_write_failure_rolls_back_before_question_retry(self):
+        patch_relative = (
+            "output/new-exam/questions_json/2026/10_questionType_fixed/"
+            "question_2026_1_questionType_fixed.json"
+        )
+        question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            changed_files_by_work_item={
+                (question_id, "question_type"): [patch_relative]
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            source_path = (
+                root
+                / "output/new-exam/questions_json/2026/00_source/"
+                "question_2026_1.json"
+            )
+            source_path.parent.mkdir(parents=True, exist_ok=True)
+            source_path.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                "original_question_id": question_id,
+                                "sourceQuestionKey": "new-exam:2026:q1",
+                                "reviewQuestionId": question_id,
+                                "sourceRecordRef": "question_2026_1.json#0",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            original_update = coordinator.store.update
+            failed_checkpoints = 0
+
+            def fail_first_success_checkpoint(qualification, run_id, **changes):
+                nonlocal failed_checkpoints
+                results = changes.get("batchQuestionResults") or []
+                if (
+                    failed_checkpoints == 0
+                    and changes.get("executionPhase")
+                    == "server_candidate_checkpoint"
+                    and results
+                    and results[-1].get("status") == "succeeded"
+                ):
+                    failed_checkpoints += 1
+                    raise OSError("checkpoint unavailable")
+                return original_update(qualification, run_id, **changes)
+
+            with patch.object(
+                coordinator.store,
+                "update",
+                side_effect=fail_first_success_checkpoint,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            children = [
+                coordinator.store.get("new-exam", child_id)
+                for child_id in completed["childRunIds"]
+            ]
+            patch_records = json.loads(
+                (root / patch_relative).read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(failed_checkpoints, 1)
+        self.assertEqual(len(app_server.batch_calls), 2)
+        self.assertEqual(
+            [
+                value["status"]
+                for child in children
+                for value in child["batchQuestionResults"]
+            ],
+            ["failed", "succeeded"],
+        )
+        self.assertEqual(children[0]["result"]["changedFiles"], [])
+        self.assertEqual(patch_records[0]["questionType"], "true_false")
 
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1866,17 +2069,17 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             batch_prompts = [
                 prompt
                 for prompt, kwargs in app_server.calls
-                if kwargs["work_type"] == "maintenance_question_type_batch"
+                if kwargs["work_type"] == "maintenance_question_type_candidate"
             ]
 
         self.assertEqual(len(batch_prompts), 1)
         prompt = batch_prompts[0]
-        self.assertIn("- 問題ID: `new-exam-2026-q1`", prompt)
-        self.assertIn("- 問題ID: `new-exam-2026-q2`", prompt)
-        self.assertIn("sourceRecordRef: `question_2026_1.json#0`", prompt)
-        self.assertIn("sourceRecordRef: `question_2026_2.json#0`", prompt)
-        self.assertEqual(prompt.count("logicalProjection: `"), 2)
-        self.assertIn("許可fileとsource identityはmanifestだけを正本", prompt)
+        self.assertIn('"questionId":"new-exam-2026-q1"', prompt)
+        self.assertIn('"questionId":"new-exam-2026-q2"', prompt)
+        self.assertIn('"sourceRecordRef":"question_2026_1.json#0"', prompt)
+        self.assertIn('"sourceRecordRef":"question_2026_2.json#0"', prompt)
+        self.assertEqual(prompt.count('"currentRecord":'), 2)
+        self.assertIn("file、shell、progress、receipt、git、外部状態は変更しない", prompt)
 
     def test_dependency_blocked_item_counts_in_later_phase_and_skips_sync(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2009,7 +2212,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(saved_receipt["recordedCount"], 1)
         self.assertEqual(len(saved_receipt["items"]), 1)
         self.assertEqual(inherited_receipt, saved_receipt)
-        writer_event = "session:maintenance_question_intent_batch"
+        writer_event = "session:maintenance_question_intent_candidate"
         self.assertIn(writer_event, events)
         self.assertEqual(app_server.writer_count, 1)
         self.assertGreaterEqual(completed["workVersionReceipt"]["recordedCount"], 1)
@@ -2441,7 +2644,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "remaining",
             )
             child_plan.update(
-                parallelStrategy="isolated_question_batch",
+                parallelStrategy="structured_candidate_batch",
                 progressTargets=[{"id": "q1"}, {"id": "q2"}],
             )
             child = coordinator.store.create(child_plan, status="succeeded")
@@ -2626,8 +2829,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(
             work_types,
             [
-                "maintenance_question_type_batch",
-                "maintenance_question_type_batch",
+                "maintenance_question_type_candidate",
+                "maintenance_question_type_candidate",
             ],
         )
         self.assertTrue(
@@ -2922,7 +3125,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self.assertEqual(len(inventory.projected_calls), 4)
         self.assertEqual(len(set(projected_paths)), 2)
         self.assertTrue(
-            all("logicalProjection:" in prompt for _question, prompt, _ in app_server.calls)
+            all('"currentRecord":' in prompt for _question, prompt, _ in app_server.calls)
         )
         self.assertTrue(
             all(

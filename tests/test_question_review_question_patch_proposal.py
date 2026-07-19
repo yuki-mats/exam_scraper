@@ -199,6 +199,96 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
                     },
                 )
 
+    def test_server_adds_complete_identity_to_existing_legacy_record(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_relative = Path(
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json"
+            )
+            patch_path = root / patch_relative
+            patch_path.parent.mkdir(parents=True)
+            patch_path.write_text(
+                json.dumps(
+                    [{"original_question_id": "review-q1", "isLawRelated": True}]
+                ),
+                encoding="utf-8",
+            )
+            binding = SourceIdentityBinding.from_values(
+                "sample:2026:q1",
+                "review-q1",
+                "source.json#1",
+            )
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root,
+                root / "output/question_review_console/run/isolated_workspace",
+                qualification="sample",
+                mutable_paths=[patch_relative.as_posix()],
+            )
+
+            workspace.apply_record_update(
+                patch_relative,
+                binding=binding,
+                aliases={"review-q1"},
+                set_fields={"isLawRelated": False},
+                base_record={},
+            )
+            record = json.loads(
+                (workspace.root / patch_relative).read_text(encoding="utf-8")
+            )[0]
+
+        self.assertEqual(
+            {field: record[field] for field in binding.as_mapping()},
+            binding.as_mapping(),
+        )
+        self.assertFalse(record["isLawRelated"])
+
+    def test_server_preserves_existing_review_id_when_adding_source_refs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_relative = Path(
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            )
+            patch_path = root / patch_relative
+            patch_path.parent.mkdir(parents=True)
+            patch_path.write_text(
+                json.dumps(
+                    {
+                        "schemaVersion": "law-revision-audit/v1",
+                        "reviewQuestionId": "legacy-ui-id",
+                        "auditStatus": "same_as_current",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            binding = SourceIdentityBinding.from_values(
+                "sample:2026:q1",
+                "firestore:q1-a,q1-b",
+                "source.json#1",
+            )
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root,
+                root / "output/question_review_console/run/isolated_workspace",
+                qualification="sample",
+                mutable_paths=[patch_relative.as_posix()],
+            )
+
+            workspace.apply_record_update(
+                patch_relative,
+                binding=binding,
+                aliases={"legacy-ui-id"},
+                set_fields={"schemaVersion": "law-revision-audit/v2"},
+                base_record={},
+            )
+            record = json.loads(
+                (workspace.root / patch_relative).read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(record["reviewQuestionId"], "legacy-ui-id")
+        self.assertEqual(record["sourceQuestionKey"], binding.source_question_key)
+        self.assertEqual(record["sourceRecordRef"], binding.source_record_ref)
+        self.assertEqual(record["schemaVersion"], "law-revision-audit/v2")
+
 
 if __name__ == "__main__":
     unittest.main()

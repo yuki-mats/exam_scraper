@@ -265,6 +265,7 @@ class CodexAppServerClient:
         self._write_lock = threading.RLock()
         self._lifecycle_lock = threading.RLock()
         self._state_lock = threading.RLock()
+        self._status_refresh_lock = threading.Lock()
         self._next_id = 1
         self._pending: dict[int | str, _PendingResponse] = {}
         self._turns: dict[tuple[str, str], _TurnState] = {}
@@ -312,33 +313,48 @@ class CodexAppServerClient:
             }
 
     def assert_subscription_access(self, *, force: bool = True) -> dict[str, Any]:
-        now = time.monotonic()
+        requested_at = time.monotonic()
         with self._state_lock:
             if (
                 not force
                 and self._last_status is not None
-                and now - self._last_status_at <= self.status_cache_seconds
+                and requested_at - self._last_status_at <= self.status_cache_seconds
             ):
                 return copy.deepcopy(self._last_status)
-        self._ensure_started()
-        account = self._request("account/read", {"refreshToken": False})
-        rate_limits = self._request("account/rateLimits/read", None)
-        status = validate_subscription_access(
-            _as_mapping(account, "Codex account response"),
-            _as_mapping(rate_limits, "Codex rate limit response"),
-        )
-        status.update(
-            {
-                "model": QUESTION_MAINTENANCE_MODEL,
-                "configuredModel": self._effective_model,
-                "configuredReasoningEffort": self._configured_reasoning_effort,
-                "turnReasoningEffort": TURN_REASONING_EFFORT,
-            }
-        )
-        with self._state_lock:
-            self._last_status = dict(status)
-            self._last_status_at = time.monotonic()
-        return status
+        # 同時に始まるturnは、最初の1本が取得した直近値を共有する。
+        # account/readを一斉に重複実行してtimeoutさせない。
+        with self._status_refresh_lock:
+            with self._state_lock:
+                refreshed_after_request = (
+                    self._last_status is not None
+                    and self._last_status_at >= requested_at
+                )
+                cache_is_fresh = (
+                    self._last_status is not None
+                    and time.monotonic() - self._last_status_at
+                    <= self.status_cache_seconds
+                )
+                if refreshed_after_request or (not force and cache_is_fresh):
+                    return copy.deepcopy(self._last_status)
+            self._ensure_started()
+            account = self._request("account/read", {"refreshToken": False})
+            rate_limits = self._request("account/rateLimits/read", None)
+            status = validate_subscription_access(
+                _as_mapping(account, "Codex account response"),
+                _as_mapping(rate_limits, "Codex rate limit response"),
+            )
+            status.update(
+                {
+                    "model": QUESTION_MAINTENANCE_MODEL,
+                    "configuredModel": self._effective_model,
+                    "configuredReasoningEffort": self._configured_reasoning_effort,
+                    "turnReasoningEffort": TURN_REASONING_EFFORT,
+                }
+            )
+            with self._state_lock:
+                self._last_status = dict(status)
+                self._last_status_at = time.monotonic()
+            return status
 
     def run_turn(
         self,
@@ -373,7 +389,10 @@ class CodexAppServerClient:
         approval_policy = "never"
         evaluation_work = work_type in {"evaluation", "reevaluation"}
         research_work = work_type == "maintenance_research"
-        read_only_work = evaluation_work or research_work
+        candidate_work = work_type.startswith("maintenance_") and work_type.endswith(
+            "_candidate"
+        )
+        read_only_work = evaluation_work or research_work or candidate_work
         config = {
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
@@ -398,6 +417,13 @@ class CodexAppServerClient:
                 "このthreadは問題整備のread-only事前調査専用である。file又は外部状態を変更しない。"
                 f"対象問題を重複なく分け、最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagentで並列に読み取り、"
                 "根拠と問題IDごとの最終判断案を親threadで統合する。思考過程は返さない。"
+            )
+        elif candidate_work:
+            developer_instructions = (
+                "このthreadは問題整備の構造化候補生成専用である。subagentは使わない。"
+                "file、command、外部状態を変更せず、入力された各問題を独立に判断する。"
+                "許可fieldだけを使い、指定されたJSON Schemaに一致する最終objectだけを返す。"
+                "識別、検証、patch反映、progress、receiptはserverが行う。思考過程は返さない。"
             )
         else:
             developer_instructions = (

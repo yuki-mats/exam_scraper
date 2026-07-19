@@ -84,7 +84,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             jsonl(
                 {
                     "schemaVersion": "law-revision-audit/v2",
-                    "reviewQuestionId": "source-review-q1",
+                    "reviewQuestionId": "ui-hash-q1",
                     "sourceQuestionKey": "sample:2026:q1",
                     "sourceRecordRef": "q1.json#0",
                 },
@@ -791,7 +791,8 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     json.dumps(
                         {
                             "schemaVersion": "law-revision-audit/v2",
-                            "reviewQuestionId": "source-review-q1",
+                            # v2へ移行しても既存のreview IDは変更しない。
+                            "reviewQuestionId": "ui-hash-q1",
                             "sourceQuestionKey": "sample:2026:q1",
                             "sourceRecordRef": "q1.json#0",
                         }

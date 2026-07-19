@@ -76,7 +76,7 @@ output/question_review_console/
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
-| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、receipt、baseline、技術ログ、問題別projection、batchの`questionResults`、親runの`validationAttempts`と終端時の`improvement_report.json`。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、server生成のresult・receipt、技術ログ、問題別projection、構造化候補、`validationAttempts`、終端時の`improvement_report.json`。modelはここへ書き込まない。 |
 | direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正の開始前bytesとcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |
@@ -84,7 +84,7 @@ output/question_review_console/
 | work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-run directoryは再利用しません。manifestは対象、session、`stateHash`、`policyVersions`、`policyFingerprints`、現在runの正式問題IDだけを持つ`policyTargets`、sandbox、検証・同期状態、時刻を記録します。一問queueの`questionExecutions`にはsource identity、工程、状態、停止理由、子run ID、入出力fingerprint、`validationAttempts`を保存します。親queue全体の再開条件は`retrySafe`、`pauseKind`、`unsafeChildRunId`で区別します。再起動時は親が`interrupted`でも`preparing`、`prepared`、`committing`のitemを回収し、子runの確定receiptだけを`validated`へ収束してから未完了itemを決めます。資格共有の前提工程も`parentRunId`と`flowPhaseId`で子runを照合し、成功receiptを回収します。`phaseExecutions`は同じ回収結果から再計算し、終了済みrunを実行中と表示しません。方針fingerprintが欠けるitemは再検査します。baselineは許可された書込fileの開始前bytes又はfileが存在しなかった事実を保持し、確定前のrollbackと再起動回収に使います。`work_versions.json`もpatchと同じ確定処理へ含めます。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
+run directoryは再利用しません。manifestは対象、source identity、工程版、sandbox、検証・同期状態を記録します。model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが問題別のresult、progress、receiptを保存します。`questionExecutions`には工程状態、停止理由、子run、fingerprint、`validationAttempts`を持たせます。再起動時はserver生成receiptを回収して確定済みの問を除外し、未完了だけを再開します。patch開始前bytesと`work_versions.json`は一問のtransactionに含めます。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
 
 ## 編集境界
 

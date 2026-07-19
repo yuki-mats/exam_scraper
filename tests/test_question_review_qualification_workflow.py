@@ -296,6 +296,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             write_category(root)
             prepared = workflow.overview("sample")
             prompt = workflow.prompt("sample", "question_type")["prompt"]
+            originalize = workflow.plan("sample", "originalize", "refresh")
 
         self.assertEqual(initial["nextStageId"], "setup")
         self.assertEqual(prepared["nextStageId"], "question_type")
@@ -306,6 +307,32 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertIn("prompt/01_prompt_fix_questionType.md", prompt)
         self.assertIn("question_2026_1.json", prompt)
         self.assertNotIn("## 問題文", prompt)
+        self.assertEqual(originalize["targetCount"], 1)
+        self.assertIn("05_originalized", originalize["outputFiles"][0])
+
+    def test_existing_originalized_patch_opts_question_into_version_tracking(self):
+        item = question(
+            patches=[
+                "output/sample/questions_json/2026/05_originalized/"
+                "question_2026_1_originalized.json"
+            ]
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            policy_dir = root / "prompt" / "qualification_docs" / "sample"
+            policy_dir.mkdir(parents=True)
+            (policy_dir / "README.md").write_text("# sample\n", encoding="utf-8")
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory("sample", [{"listGroupId": "2026", "questions": [item]}]),
+            )
+
+            overview = workflow.overview("sample")
+
+        self.assertEqual(overview["nextStageId"], "originalize")
+        stage = next(item for item in overview["stages"] if item["id"] == "originalize")
+        self.assertEqual(stage["versionUnrecordedCount"], 1)
 
     def test_law_issue_precedes_delivery_and_clears_to_delivery(self):
         patches = [

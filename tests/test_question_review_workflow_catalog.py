@@ -107,6 +107,11 @@ class WorkflowCatalogTests(unittest.TestCase):
                 "delivery",
             ],
         )
+        self.assertFalse(
+            next(
+                stage for stage in catalog["stages"] if stage["id"] == "originalize"
+            )["automatic"]
+        )
         self.assertEqual(
             catalog["sessionGroups"],
             [

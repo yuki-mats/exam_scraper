@@ -429,7 +429,21 @@ class QualificationWorkflow:
             and stage.get("supportsGroupScope")
         ]
         version_statuses = [
-            (question, self.work_versions.status_for(question, versioned_definitions))
+            (
+                question,
+                self.work_versions.status_for(
+                    question,
+                    [
+                        definition
+                        for definition in versioned_definitions
+                        if definition.get("automatic", True)
+                        or _has_patch(
+                            question,
+                            str(definition.get("patchDir") or ""),
+                        )
+                    ],
+                ),
+            )
             for question in questions
         ]
         stages = self._build_stages(
@@ -1603,16 +1617,29 @@ class QualificationWorkflow:
                 stage["targetGroupIds"] = target_groups
             else:
                 patch_dir = str(stage["patchDir"])
-                complete = coverage.get(stage_id, 0)
-                target_count = total
+                automatic = bool(stage.get("automatic", True))
+                tracked_questions = (
+                    questions
+                    if automatic
+                    else [
+                        question
+                        for question in questions
+                        if _has_patch(question, patch_dir)
+                    ]
+                )
+                complete = sum(
+                    _has_patch(question, patch_dir)
+                    for question in tracked_questions
+                )
+                target_count = len(tracked_questions)
                 target_questions = [
                     question
-                    for question in questions
+                    for question in tracked_questions
                     if not _has_patch(question, patch_dir)
                 ]
                 issue_count = sum(
                     _issue_count(question, set(stage.get("issueFields") or []))
-                    for question in questions
+                    for question in tracked_questions
                     if _has_patch(question, patch_dir)
                 )
                 downstream_count = max(
@@ -1629,6 +1656,8 @@ class QualificationWorkflow:
                     issue_count=issue_count,
                     downstream_count=downstream_count,
                 )
+                if not automatic and target_count == 0:
+                    status = "ready"
                 output_files = _unique(
                     self._selected_or_expected_patch_path(
                         str(question.get("paths", {}).get("source") or ""), stage

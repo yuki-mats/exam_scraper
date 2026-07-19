@@ -442,6 +442,16 @@ def backfill_published_work_versions(
                 for question in matched
                 if question["qualification"] == qualification
             ]
+            if not policy.get("automatic", True):
+                patch_dir = str(policy.get("patchDir") or "")
+                questions = [
+                    question
+                    for question in questions
+                    if any(
+                        f"/{patch_dir}/" in str(path)
+                        for path in question.get("paths", {}).get("patches") or []
+                    )
+                ]
             receipt = work_versions.record_stage(
                 questions,
                 policy,

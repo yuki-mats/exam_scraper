@@ -243,6 +243,7 @@ class WorkflowCatalog:
                 "purpose": str(raw["purpose"]),
                 "kind": kind,
                 "batchSelectable": batch_selectable,
+                "automatic": bool(raw.get("automatic", True)),
                 "sessionGroup": str(raw.get("session_group") or ""),
                 "scope": scope,
                 "policyVersion": _policy_version(

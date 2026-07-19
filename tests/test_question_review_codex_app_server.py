@@ -2,7 +2,9 @@ import copy
 import os
 import tempfile
 import threading
+import time
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import patch
 
@@ -85,6 +87,34 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(status["configuredReasoningEffort"], "xhigh")
         self.assertEqual(status["model"], "gpt-5.5")
         self.assertEqual(status["turnReasoningEffort"], "high")
+
+    def test_concurrent_forced_status_checks_share_one_fresh_read(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._ensure_started = lambda: None
+        calls = []
+
+        def request(method, _params):
+            calls.append(method)
+            time.sleep(0.02)
+            return (
+                account_response()
+                if method == "account/read"
+                else rate_limit_response()
+            )
+
+        client._request = request
+        barrier = threading.Barrier(8)
+
+        def check():
+            barrier.wait()
+            return client.assert_subscription_access(force=True)
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            statuses = list(executor.map(lambda _index: check(), range(8)))
+
+        self.assertTrue(all(status["allowed"] for status in statuses))
+        self.assertEqual(calls.count("account/read"), 1)
+        self.assertEqual(calls.count("account/rateLimits/read"), 1)
 
     def test_rejects_non_subscription_accounts(self):
         for account in (

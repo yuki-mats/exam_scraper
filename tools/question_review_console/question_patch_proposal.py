@@ -122,6 +122,27 @@ def _target_index(
     return matches[0] if matches else None
 
 
+def assert_target_resolvable(
+    repo_root: Path,
+    relative_path: str | Path,
+    *,
+    binding: SourceIdentityBinding,
+    aliases: set[str],
+) -> None:
+    """Fail before model work when an existing patch target is ambiguous."""
+
+    relative = _safe_relative(repo_root.resolve(), relative_path)
+    path = repo_root.resolve() / relative
+    if not path.exists():
+        return
+    if path.is_symlink() or not path.is_file():
+        raise QuestionPatchProposalError(f"候補反映先が通常fileではありません: {relative}")
+    _payload, records = _load_record_payload(path)
+    record_aliases = {str(value) for value in aliases if str(value).strip()}
+    record_aliases.update(binding.as_tuple())
+    _target_index(records, binding, record_aliases)
+
+
 @dataclass
 class IsolatedQuestionPatchWorkspace:
     """Run one model against private patch copies, then rebase one record."""
@@ -244,6 +265,66 @@ class IsolatedQuestionPatchWorkspace:
             if current != self.initial_bytes[relative]:
                 changed.append(relative)
         return tuple(changed)
+
+    def apply_record_update(
+        self,
+        relative_path: str | Path,
+        *,
+        binding: SourceIdentityBinding,
+        aliases: set[str],
+        set_fields: Mapping[str, Any],
+        unset_fields: tuple[str, ...] = (),
+        base_record: Mapping[str, Any],
+    ) -> Path:
+        """Materialize a validated structured candidate in this private copy."""
+
+        relative = _safe_relative(self.repo_root, relative_path)
+        if relative not in self.mutable_paths:
+            raise QuestionPatchProposalError("可変範囲外の候補は反映できません。")
+        if not binding.is_complete():
+            raise QuestionPatchProposalError("候補反映に完全なsource identityが必要です。")
+        path = self.root / relative
+        if path.is_file() and not path.is_symlink():
+            payload, records = _load_record_payload(path)
+        elif relative.suffix.lower() == ".jsonl":
+            payload = []
+            records = payload
+        else:
+            payload = []
+            records = payload
+
+        record_aliases = {str(value) for value in aliases if str(value).strip()}
+        record_aliases.update(binding.as_tuple())
+        index = _target_index(records, binding, record_aliases)
+        if index is None:
+            record = json.loads(json.dumps(dict(base_record), ensure_ascii=False))
+            for field, value in binding.as_mapping().items():
+                record.setdefault(field, value)
+            if _single_record_payload(payload):
+                if payload:
+                    raise QuestionPatchProposalError(
+                        f"単一record fileへ別recordを追加できません: {relative}"
+                    )
+                payload = record
+                records = [payload]
+            else:
+                records.append(record)
+                index = len(records) - 1
+        else:
+            record = records[index]
+
+        # source identityはmodel出力ではなくserverが管理する。既存rowのIDは
+        # そのまま保持し、欠けている安定参照だけを補う。新規rowは上で完全な
+        # bindingを設定済みである。
+        for field, value in binding.as_mapping().items():
+            record.setdefault(field, value)
+        for field, value in set_fields.items():
+            record[str(field)] = json.loads(json.dumps(value, ensure_ascii=False))
+        for field in unset_fields:
+            record.pop(str(field), None)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        atomic_write(path, _dump_record_payload(path, payload))
+        return relative
 
     def rebase_into_canonical(
         self,

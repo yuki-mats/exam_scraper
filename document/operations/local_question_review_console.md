@@ -6,7 +6,7 @@
 
 1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は現在確定中のpatchと作業版台帳を外部から変更しない。
 2. トップの`未整備を整備`から資格・年度（回）・工程を指定する。serverは範囲を一問queueへ分解し、`00_source`と確定patchの論理projectionを次工程へ渡す。
-3. 同じ工程を最大5問ずつmodelへ渡し、結果は一問ずつ検査・確定する。不合格は通常対象の処理後にqueue末尾で最大2回再実行し、解消しなかった問題だけを保留する。
+3. serverは入力token量で複数問をまとめ、複数のmodel turnを自動並列化する。modelはread-onlyで候補だけを返し、serverが一問ずつ検査・確定する。不合格はqueue末尾で最大2回再実行する。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
 5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
 
@@ -20,11 +20,9 @@
 
 ### 整備runのfile transaction
 
-- GUI内のpatch、作業版、merge、sync、評価projection、readback、公開artifactを変更する処理は、共通のrepository排他で1件ずつ実行する。serverはApp Serverのfile通知とrepo全体の並行差分を分離し、writable root外で通知のない同時変更をwriterへ帰属させず、そのfileをrollbackしない。同じtransaction pathの競合、scope外のwriter通知、rollback不能だけは親queueを止める。
-- serverは許可された書込fileの開始前bytesと「存在しなかった」事実をrunのbaselineへ保存する。`receiptValidated=true`前の失敗・中断・server再起動では、そのrunが変更したfileを開始前状態へ戻す。
-- patchと`work_versions.json`の更新は同じ確定処理で扱う。作業版台帳の記録又はmanifest更新に失敗した場合は、どちらも未確定とし、file transactionでrollbackする。
-- rollbackできないpathだけを未確定差分として公開処理からblockする。failed deltaの対象、責任工程、解除可否はserverがbaselineと現在bytesから決定し、Codexのreceiptや利用者入力では解除しない。
-- `receiptValidated=true`がcommit点である。以後の`artifactSync`が失敗又は中断しても、確定patchと作業版をrollbackしない。
+- modelはfile、progress、receiptを変更せず、JSON Schemaに合う問題別候補だけを返す。source identityの解決、field制限、工程検査、patch・作業版・progress・receiptの保存はserverが所有する。
+- serverは候補を問題別の一時workspaceへ反映して検査する。合格した一問だけを短いrepository排他内で最新patchへ反映し、失敗時はその問だけを戻す。対象を一意に解決できない問題もmodelへ渡さず、その問だけを保留する。
+- patchと`work_versions.json`を同じcommit点で確定する。`receiptValidated=true`後の`artifactSync`失敗ではpatchを戻さず、成果物の再生成だけを再試行する。rollback不能又は共有状態の破損だけが親queueの停止理由である。
 
 ### 画面からの直接修正
 
@@ -65,12 +63,12 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
 - GUIの開始範囲は資格・年度（回）・工程のままとし、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と工程の組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- 同じ工程の問題を最大5問ずつ一つのmodel turnへ渡す。UIの1・5・10問は同時処理する総問題数であり、5問は1 turn、10問は最大2 turnで処理する。read-only準備用のmodel turnは設けない。
-- modelは問題別の結果と検査commandを返す。serverは一問ずつsource identity、変更file、工程検査を確認し、合格recordだけを正本へrebaseする。この短い反映だけを直列化し、同じfileの別record、失敗候補、手動修正を巻き込まない。`00_source`不変検証も現在queueの対象sourceに限定する。
+- serverは問題の現在projectionをtoken量で束ねる。1 turnは最大50問、同時turnは最大32本を安全上限とするが固定値ではない。provider又はschema失敗時は自動で束と並列数を縮小し、安定時だけ拡大する。UIはこの自動設定だけを表示する。
+- modelは問題別の構造化候補を返すだけで、検査commandや成功receiptを自己申告しない。serverは候補ごとにsource identity、許可field、工程品質、`00_source`不変を検査し、合格recordだけを確定patchへ反映する。同じturn内の他問題の不合格や曖昧さは波及しない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
-- 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。provider失敗も通常対象を先に進め、対象batchを末尾で再試行する。再試行後もproviderを利用できない場合は`interrupted`で再開待ちにし、rollback不能又は共有状態の破損だけを再開不可の全体停止にする。
-- `未完了の問題を再開`は保留・未実行itemだけをqueueへ戻す。再起動時は子runの確定receiptを先に親queueへ回収し、確定済みitemを再実行しない。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
+- 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。候補内容の不備はその問だけ、turn全体のprovider・schema失敗はその束だけをqueue末尾へ戻す。回復しなければ`interrupted`として再開を待つ。
+- 複数問turnでも一問の確定ごとにcheckpointを保存する。`未完了の問題を再開`はそのcheckpointを親queueへ回収し、未確定の問だけを戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定年度ごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
@@ -95,7 +93,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 ## 検査feedbackと改善記録
 
-各工程は通常queueを一巡してから、不合格問題だけをfeedback付きで最大2回再整備します。検査と確定は常に一問単位です。各attemptの子run、指摘、再試行可否、検査結果は`validationAttempts`と技術ログへ保存し、長大な出力や秘密情報を次のturnへ渡しません。
+各工程は通常queueを一巡してから、不合格問題だけをserverの検査feedback付きで最大2回再整備します。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成には該当問題のfeedbackだけを渡します。
 
 queueがterminalになった後、`improvement_report.json`へ工程・指摘code・fieldごとの発生問数とattempt数を集計します。3問以上で同じ指摘が出た場合、又はモデル側の検査は通ったのにserverが拒否した場合を改善候補とします。正本文書、prompt、checker、testの変更はactive run中に行わず、別の改善jobで候補を確認して実施します。checkerを変える場合は、該当工程の正本・検査契約と[`policy_version`](../../config/question_maintenance_workflow.toml)を同時に更新します。既存問題の洗い替えが必要ならMAJOR、今後の作業だけに適用できる変更ならMINORを上げます。
 

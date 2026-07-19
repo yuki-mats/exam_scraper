@@ -14,6 +14,7 @@ import tempfile
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
@@ -67,15 +68,23 @@ from tools.question_review_console.qualification_progress import (
 )
 from tools.question_review_console.question_patch_proposal import (
     IsolatedQuestionPatchWorkspace,
+    assert_target_resolvable,
 )
-from tools.question_review_console.question_batch_queue import (
-    MODEL_BATCH_SIZE,
-    BatchQuestionResult,
-    batch_size as question_batch_size,
-    chunks as question_batches,
-    model_worker_limit,
-    normalize_batch_question_results,
-    validate_changed_file_attribution,
+from tools.question_review_console.question_candidate import (
+    CandidateTarget,
+    QuestionCandidateError,
+    candidate_targets,
+    output_schema as candidate_output_schema,
+    parse_candidates,
+    validate_candidate_content,
+)
+from tools.question_review_console.adaptive_scheduler import (
+    DEFAULT_MAX_PARALLEL_TURNS,
+    DEFAULT_MAX_QUESTIONS_PER_TURN,
+    AdaptiveLimits,
+    estimated_tokens,
+    pack_by_token_budget,
+    scheduler_status,
 )
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.question_work_queue import (
@@ -116,8 +125,17 @@ from tools.question_review_console.write_transaction import (
 )
 
 
-QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10)
-DEFAULT_QUESTION_CONCURRENCY = 5
+@dataclass(frozen=True)
+class QuestionValidationResult:
+    question_id: str
+    status: str
+    summary: str
+    commands: tuple[dict[str, str], ...]
+    changed_files: tuple[str, ...]
+
+
+QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, DEFAULT_MAX_PARALLEL_TURNS)
+DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -304,6 +322,25 @@ def _safe_segment(value: str) -> str:
     return value
 
 
+def _source_binding_accepts_identity(
+    binding: Mapping[str, Any], identity: Mapping[str, Any]
+) -> bool:
+    expected = SourceIdentityBinding.from_mapping(binding)
+    actual = SourceIdentityBinding.from_mapping(identity)
+    aliases = {
+        str(value)
+        for value in [*(binding.get("aliases") or []), *expected.as_tuple()]
+        if value
+    }
+    return bool(
+        expected.is_complete()
+        and actual.is_complete()
+        and actual.source_question_key == expected.source_question_key
+        and actual.source_record_ref == expected.source_record_ref
+        and actual.review_question_id in aliases
+    )
+
+
 def _normalized_alias_groups(value: Any) -> list[list[str]]:
     if not isinstance(value, (list, tuple)):
         return []
@@ -481,19 +518,19 @@ class QualificationRunError(RuntimeError):
 def normalize_question_concurrency(value: Any) -> int:
     if isinstance(value, bool):
         raise QualificationRunError(
-            "同時に進める問題数は1、5、10から選択してください。"
+            "同時model turn上限は1〜32で指定してください。"
         )
     try:
         concurrency = int(value)
     except (TypeError, ValueError) as exc:
         raise QualificationRunError(
-            "同時に進める問題数は1、5、10から選択してください。"
+            "同時model turn上限は1〜32で指定してください。"
         ) from exc
     if (
         isinstance(value, float) and value != concurrency
     ) or concurrency not in QUESTION_CONCURRENCY_OPTIONS:
         raise QualificationRunError(
-            "同時に進める問題数は1、5、10から選択してください。"
+            "同時model turn上限は1、5、10、32から選択してください。"
         )
     return concurrency
 
@@ -597,6 +634,26 @@ def _child_retry_safe(child: Mapping[str, Any]) -> bool:
     return _isolated_failure_state(child)
 
 
+def _is_structured_candidate_batch(child: Mapping[str, Any]) -> bool:
+    return bool(
+        child.get("parallelStrategy") == "structured_candidate_batch"
+        and child.get("sandbox") == "read-only"
+        and str(child.get("workType") or "").endswith("_candidate")
+    )
+
+
+def _batch_question_result(
+    child: Mapping[str, Any], question_id: str
+) -> Mapping[str, Any] | None:
+    matches = [
+        value
+        for value in child.get("batchQuestionResults") or []
+        if isinstance(value, Mapping)
+        and str(value.get("questionId") or "") == question_id
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
 def _terminal_receipt_validated(run: Mapping[str, Any]) -> bool:
     return bool(
         run.get("receiptValidated") is True
@@ -624,91 +681,113 @@ def _child_output_fingerprint(child: Mapping[str, Any]) -> str:
     ).hexdigest()
 
 
-def _question_batch_scope_prompt(
-    prompt: str,
+def _structured_candidate_prompt(
+    stage_prompt: str,
     targets: list[Mapping[str, Any]],
     *,
-    repo_root: Path,
-    scoped_plan: Mapping[str, Any],
+    records_by_question: Mapping[str, Mapping[str, Any]],
+    candidate_targets_by_question: Mapping[str, tuple[CandidateTarget, ...]],
     feedback_by_question: Mapping[str, list[Mapping[str, Any]]],
 ) -> str:
-    target_ids = [
-        str(target.get("id") or target.get("uiQuestionId") or "")
-        for target in targets
-    ]
-    if not target_ids or len(target_ids) > MODEL_BATCH_SIZE:
-        raise QualificationRunError(
-            f"一度のmodel turnは最大{MODEL_BATCH_SIZE}問です。"
-        )
-    bindings = [SourceIdentityBinding.from_mapping(target) for target in targets]
-    if any(not binding.is_complete() for binding in bindings):
-        raise QualificationRunError("batchのsource identityを確定できません。")
-    manifest_targets = {
-        str(value.get("id") or value.get("uiQuestionId") or "")
-        for value in scoped_plan.get("progressTargets") or []
-        if isinstance(value, Mapping)
-    }
-    if set(target_ids) != manifest_targets:
-        raise QualificationRunError("batch対象とmanifest対象が一致しません。")
-
-    question_lines: list[str] = []
-    for target, binding in zip(targets, bindings, strict=True):
+    questions: list[dict[str, Any]] = []
+    for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-        question_lines.extend(
-            [
-                f"### {target.get('displayLabel') or question_id}",
-                f"- 問題ID: `{question_id}`",
-                f"- sourceQuestionKey: `{binding.source_question_key}`",
-                f"- reviewQuestionId: `{binding.review_question_id}`",
-                f"- sourceRecordRef: `{binding.source_record_ref}`",
-                f"- logicalProjection: `{target.get('_projectedInputPath') or ''}`",
-            ]
+        binding = SourceIdentityBinding.from_mapping(target)
+        questions.append(
+            {
+                "questionId": question_id,
+                "displayLabel": str(target.get("displayLabel") or question_id),
+                "sourceIdentity": binding.as_mapping(),
+                "currentRecord": records_by_question[question_id],
+                "candidateTargets": [
+                    value.prompt_value()
+                    for value in candidate_targets_by_question[question_id]
+                ],
+                "previousValidationFeedback": list(
+                    feedback_by_question.get(question_id) or []
+                ),
+            }
         )
-        feedbacks = feedback_by_question.get(question_id) or []
-        if feedbacks:
-            question_lines.append("- 前回の機械検査feedback:")
-            question_lines.extend(
-                "  - "
-                + json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-                for value in feedbacks
-            )
-        question_lines.append("")
-
-    question_result_example = {
-        "questionId": target_ids[0],
-        "status": "succeeded",
-        "summary": "この問題の整備と検証を完了した。",
-        "commands": [{"command": "<この問題の検証>", "status": "pass"}],
-        "changedFiles": ["<この問題の候補を含むrepository相対path>"],
-    }
     return "\n".join(
         [
-            "# 最大5問の独立batch（この指定を最優先する）",
+            "# 工程の品質規則",
             "",
-            f"- repository: `{repo_root}`",
-            f"- 対象: {len(target_ids)}問",
+            stage_prompt.rstrip(),
             "",
-            *question_lines,
-            "各問題を独立に整備する。一問の不備を理由に他問を中断しない。",
-            "各問題はlogicalProjectionを現在入力として使い、別問題へ判断を流用しない。",
-            "許可fileとsource identityはmanifestだけを正本とし、別fileへfallbackしない。",
-            "候補patchは隔離workspaceだけで編集し、正本への反映はserverへ任せる。",
-            "検証は問題ごとに実行し、失敗した問題も理由と失敗commandを記録する。",
+            "# 構造化候補V2（この契約を最優先する）",
             "",
-            "## batch完了receiptの追加契約",
+            "各問題を独立に判断し、指定されたallowedFieldsだけの更新候補を返す。",
+            "file、shell、progress、receipt、git、外部状態は変更しない。",
+            "対象を特定できない場合や根拠が足りない場合は、その問題だけblockedにする。",
+            "setFieldsはfieldとvalueJsonの配列とし、valueJsonには値をJSON文字列化して入れる。",
+            "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
+            "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
+            "別問題の内容や判断を流用しない。思考過程は返さない。",
+            "出力は指定されたJSON Schemaに一致するobjectだけとする。",
             "",
-            "通常のresult.json fieldにquestionResultsを追加し、対象順で全問題を1件ずつ記録する。",
-            "batch自体を処理できた場合、問題別失敗があってもresult.jsonのstatusはsucceededとする。",
-            "aggregate changedFilesはquestionResults[].changedFilesの和集合と一致させる。",
-            "questionResults例:",
-            f"`{json.dumps(question_result_example, ensure_ascii=False, separators=(',', ':'))}`",
-            "",
-            "# 工程prompt",
-            "",
-            prompt.rstrip(),
+            json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
             "",
         ]
     )
+
+
+def _structured_candidate_inputs(
+    repo_root: Path,
+    stage_id: str,
+    batch_plan: Mapping[str, Any],
+) -> tuple[
+    dict[str, Mapping[str, Any]],
+    dict[str, tuple[CandidateTarget, ...]],
+]:
+    records: dict[str, Mapping[str, Any]] = {}
+    targets: dict[str, tuple[CandidateTarget, ...]] = {}
+    for raw_target in batch_plan.get("progressTargets") or []:
+        if not isinstance(raw_target, Mapping):
+            continue
+        question_id = str(
+            raw_target.get("id") or raw_target.get("uiQuestionId") or ""
+        )
+        projected_path = repo_root / str(raw_target.get("_projectedInputPath") or "")
+        try:
+            payload = json.loads(projected_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise QualificationRunError(
+                f"現在入力を読み取れません: {question_id}"
+            ) from exc
+        projected = payload.get("question_bodies") if isinstance(payload, Mapping) else None
+        if (
+            not isinstance(projected, list)
+            or len(projected) != 1
+            or not isinstance(projected[0], Mapping)
+        ):
+            raise QualificationRunError(
+                f"現在入力は一問だけでなければなりません: {question_id}"
+            )
+        question_plan = subset_question_plan(batch_plan, [question_id])
+        records[question_id] = copy.deepcopy(dict(projected[0]))
+        targets[question_id] = candidate_targets(
+            question_id,
+            stage_id,
+            question_plan,
+        )
+        binding = SourceIdentityBinding.from_mapping(raw_target)
+        scopes = question_plan.get("targetRecordScopes") or {}
+        for candidate_target in targets[question_id]:
+            aliases = {
+                str(alias)
+                for group in scopes.get(candidate_target.path, [])
+                for alias in group
+                if alias
+            }
+            assert_target_resolvable(
+                repo_root,
+                candidate_target.path,
+                binding=binding,
+                aliases=aliases,
+            )
+    if not records or set(records) != set(targets):
+        raise QualificationRunError("構造化候補の対象を準備できません。")
+    return records, targets
 
 
 def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -1071,6 +1150,8 @@ class QualificationRunStore:
             "sandbox": plan.get("sandbox"),
             "provider": plan.get("provider"),
             "parallelStrategy": plan.get("parallelStrategy"),
+            "throughputMode": plan.get("throughputMode"),
+            "adaptiveScheduler": copy.deepcopy(plan.get("adaptiveScheduler")),
             "modelBatchSize": (
                 int(plan["modelBatchSize"])
                 if plan.get("modelBatchSize") is not None
@@ -1827,25 +1908,44 @@ class QualificationRunStore:
         processed_work_items_count = completed_work_items + int(
             execution_summary.get("blockedWorkItemCount") or 0
         )
-        payload["completedWorkItemCount"] = max(
+        target_work_items = int(payload.get("targetWorkItemCount") or 0)
+        completed_work_items_count = max(
             int(payload.get("completedWorkItemCount") or 0),
             completed_work_items,
         )
-        payload["processedWorkItemCount"] = max(
+        processed_work_items_count = max(
             int(payload.get("processedWorkItemCount") or 0),
             processed_work_items_count,
         )
-        payload["completedQuestionCount"] = max(
+        if target_work_items:
+            completed_work_items_count = min(
+                target_work_items, completed_work_items_count
+            )
+            processed_work_items_count = min(
+                target_work_items, processed_work_items_count
+            )
+        payload["completedWorkItemCount"] = completed_work_items_count
+        payload["processedWorkItemCount"] = processed_work_items_count
+        completed_question_count = max(
             int(payload.get("completedQuestionCount") or 0),
             int(execution_summary.get("validatedQuestionCount") or 0),
         )
-        payload["validatedQuestionCount"] = payload["completedQuestionCount"]
-        payload["processedQuestionCount"] = max(
+        processed_question_count = max(
             int(payload.get("processedQuestionCount") or 0),
-            payload["completedQuestionCount"]
+            int(execution_summary.get("validatedQuestionCount") or 0)
             + int(execution_summary.get("blockedQuestionCount") or 0),
         )
-        target_work_items = int(payload.get("targetWorkItemCount") or 0)
+        target_question_count = int(payload.get("targetQuestionCount") or 0)
+        if target_question_count:
+            completed_question_count = min(
+                target_question_count, completed_question_count
+            )
+            processed_question_count = min(
+                target_question_count, processed_question_count
+            )
+        payload["completedQuestionCount"] = completed_question_count
+        payload["validatedQuestionCount"] = completed_question_count
+        payload["processedQuestionCount"] = processed_question_count
         if target_work_items:
             payload["percent"] = min(
                 100,
@@ -2406,11 +2506,13 @@ class QualificationRunStore:
             for value in child.get("progressTargets") or []
             if isinstance(value, Mapping)
         ]
-        if len(targets) != 1:
-            return False
         expected = SourceIdentityBinding.from_mapping(question)
-        actual = SourceIdentityBinding.from_mapping(targets[0])
-        return expected.is_complete() and expected == actual
+        matches = [
+            target
+            for target in targets
+            if SourceIdentityBinding.from_mapping(target) == expected
+        ]
+        return expected.is_complete() and len(matches) == 1
 
     def _recover_parent_shared_prerequisites(
         self,
@@ -2627,16 +2729,32 @@ class QualificationRunStore:
                         updatedAt=_now(),
                     )
                     self._write_manifest(child_path, child)
-                receipt = child.get("workVersionReceipt")
+                question_id = str(question.get("questionId") or "")
+                batch_result = _batch_question_result(child, question_id)
                 result = child.get("result")
-                child_succeeded = bool(
+                receipt = (
+                    batch_result.get("workVersionReceipt")
+                    if isinstance(batch_result, Mapping)
+                    else child.get("workVersionReceipt")
+                )
+                checkpoint_succeeded = bool(
                     binding_matches
-                    and child.get("status") == "succeeded"
-                    and child.get("receiptValidated") is True
-                    and isinstance(result, Mapping)
-                    and result.get("status") == "succeeded"
-                    and child.get("deltaUnknown") is not True
+                    and isinstance(batch_result, Mapping)
+                    and batch_result.get("status") == "succeeded"
                     and isinstance(receipt, Mapping)
+                    and child.get("deltaUnknown") is not True
+                )
+                child_succeeded = bool(
+                    checkpoint_succeeded
+                    or (
+                        binding_matches
+                        and child.get("status") == "succeeded"
+                        and child.get("receiptValidated") is True
+                        and isinstance(result, Mapping)
+                        and result.get("status") == "succeeded"
+                        and child.get("deltaUnknown") is not True
+                        and isinstance(receipt, Mapping)
+                    )
                 )
                 if child_succeeded:
                     validation_attempts = [
@@ -2672,6 +2790,29 @@ class QualificationRunStore:
                     if question.get("listGroupId"):
                         confirmed_group_ids.add(str(question["listGroupId"]))
                     refresh_question_status(question)
+                    continue
+                if (
+                    binding_matches
+                    and isinstance(batch_result, Mapping)
+                    and batch_result.get("status") == "failed"
+                ):
+                    self._block_execution_from(
+                        question,
+                        stage_index,
+                        str(batch_result.get("summary") or "問題別検査に失敗しました。"),
+                    )
+                    continue
+                if (
+                    binding_matches
+                    and _is_structured_candidate_batch(child)
+                    and _child_retry_safe(child)
+                ):
+                    self._block_execution_from(
+                        question,
+                        stage_index,
+                        "read-only候補生成が再起動で中断されました。"
+                        "この問題だけを再実行できます。",
+                    )
                     continue
                 if (
                     binding_matches
@@ -2726,6 +2867,82 @@ class QualificationRunStore:
         manifest["confirmedGroupIds"] = sorted(confirmed_group_ids)
         return executions, recovered_receipts, unsafe_child_id
 
+    def _recover_interrupted_structured_candidate(
+        self,
+        manifest_path: Path,
+        manifest: dict[str, Any],
+    ) -> bool:
+        if (
+            manifest.get("status") not in {"running", "validating"}
+            or not _is_structured_candidate_batch(manifest)
+        ):
+            return False
+        qualification = str(manifest.get("qualification") or "")
+        run_id = str(manifest.get("runId") or "")
+        active_question_id = str(
+            manifest.get("activeCandidateQuestionId") or ""
+        )
+        active_checkpoint = (
+            _batch_question_result(manifest, active_question_id)
+            if active_question_id
+            else None
+        )
+        rollback: dict[str, Any] = {
+            "status": "succeeded",
+            "restoredFiles": [],
+            "remainingChangedFiles": [],
+            "deltaUnknown": False,
+            "message": "read-only候補生成の未確定結果を破棄しました。",
+        }
+        if (
+            manifest.get("candidateTransactionOpen") is True
+            and active_checkpoint is None
+        ):
+            recovered = self._rollback_baseline_delta(
+                manifest_path,
+                manifest,
+            )
+            if recovered is None:
+                recovered = {
+                    "status": "failed",
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": True,
+                    "message": "問題別transactionを確認できません。",
+                }
+            rollback = dict(recovered)
+        else:
+            self.discard_baseline_backups(qualification, run_id)
+
+        safe = bool(
+            rollback.get("status") == "succeeded"
+            and rollback.get("deltaUnknown") is not True
+            and not rollback.get("remainingChangedFiles")
+        )
+        now = _now()
+        manifest.update(
+            status="interrupted",
+            receiptValidated=False,
+            rollback=rollback,
+            deltaUnknown=not safe,
+            retrySafe=safe,
+            retryUnsafeReason=(
+                None
+                if safe
+                else "再起動時に問題別transactionをrollbackできませんでした。"
+            ),
+            candidateTransactionOpen=False,
+            error=(
+                "read-only候補生成が中断されました。未確定の問題だけ再開できます。"
+                if safe
+                else "問題別transactionを安全に復元できません。"
+            ),
+            updatedAt=now,
+            finishedAt=now,
+        )
+        self._write_manifest(manifest_path, manifest)
+        return True
+
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
             return
@@ -2763,6 +2980,8 @@ class QualificationRunStore:
                 if status not in {"queued", "running", "validating"} and not (
                     recoverable_paused_parent
                 ):
+                    continue
+                if self._recover_interrupted_structured_candidate(path, manifest):
                     continue
                 if (
                     manifest.get("status") == "validating"
@@ -3699,9 +3918,10 @@ class QualificationRunCoordinator:
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "questionConcurrency": question_concurrency,
-                    "parallelStrategy": "isolated_question_batch",
-                    "modelBatchSize": min(MODEL_BATCH_SIZE, question_concurrency),
-                    "modelWorkerLimit": model_worker_limit(question_concurrency),
+                    "parallelStrategy": "adaptive_structured_candidate",
+                    "throughputMode": "auto_max",
+                    "modelBatchSize": DEFAULT_MAX_QUESTIONS_PER_TURN,
+                    "modelWorkerLimit": question_concurrency,
                     "parallelWorkerLimit": min(
                         question_concurrency,
                         int(plan.get("targetCount") or 1),
@@ -5249,7 +5469,10 @@ class QualificationRunCoordinator:
             except (FileNotFoundError, ValueError):
                 continue
             result = child.get("result")
-            if child.get("parallelStrategy") == "isolated_question_batch":
+            if child.get("parallelStrategy") in {
+                "isolated_question_batch",
+                "structured_candidate_batch",
+            }:
                 question_result = next(
                     (
                         value
@@ -5419,7 +5642,7 @@ class QualificationRunCoordinator:
         *,
         parent_run_id: str,
     ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-        if not specs or len(specs) > MODEL_BATCH_SIZE:
+        if not specs or len(specs) > DEFAULT_MAX_QUESTIONS_PER_TURN:
             raise QualificationRunError("model batchの対象件数が不正です。")
         scoped: list[dict[str, Any]] = []
         targets: list[dict[str, Any]] = []
@@ -5478,10 +5701,10 @@ class QualificationRunCoordinator:
             policyTargets={stage_id: question_ids},
             parentRunId=parent_run_id,
             flowPhaseId=stage_id,
-            workType=f"maintenance_{stage_id}_batch",
-            sandbox="workspace-write",
+            workType=f"maintenance_{stage_id}_candidate",
+            sandbox="read-only",
             provider=self.app_server.provider,
-            parallelStrategy="isolated_question_batch",
+            parallelStrategy="structured_candidate_batch",
             parallelWorkerLimit=1,
             writeWorkerLimit=1,
             parentSourceChecked=True,
@@ -5494,7 +5717,7 @@ class QualificationRunCoordinator:
     @staticmethod
     def _batch_feedback(
         child: Mapping[str, Any],
-        result: BatchQuestionResult,
+        result: QuestionValidationResult,
         *,
         attempt: int,
         stage_id: str,
@@ -5716,7 +5939,7 @@ class QualificationRunCoordinator:
             )
 
 
-    def _run_question_batch_queue(
+    def _run_question_queue(
         self,
         qualification: str,
         run_id: str,
@@ -5740,11 +5963,13 @@ class QualificationRunCoordinator:
             if parent.get("questionConcurrency") is not None
             else DEFAULT_QUESTION_CONCURRENCY
         )
-        model_batch_size = question_batch_size(question_concurrency)
-        worker_limit = model_worker_limit(question_concurrency)
+        scheduler_limits = AdaptiveLimits.initial(
+            pending_batches=question_concurrency,
+            max_parallel_turns=question_concurrency,
+        )
         emit(
-            f"最大{model_batch_size}問を1回のmodel turnへまとめ、"
-            f"同時{question_concurrency}問（model turn最大{worker_limit}本）で処理します。"
+            "入力token量でmodel turnを自動分割し、"
+            f"最大{question_concurrency}本を同時実行します。検査と確定は1問ずつです。"
         )
 
         def question_stage(question_id: str, stage_id: str) -> dict[str, Any] | None:
@@ -5829,7 +6054,50 @@ class QualificationRunCoordinator:
                     projectedInputPath=projection["path"],
                     projectedInputHash=projection["hash"],
                 )
-            return {**spec, "target": target}
+            try:
+                scoped_plan = target.get("_scopedPlan") or specialize_question_plan(
+                    spec["phasePlan"],
+                    question_id,
+                )
+                prepared_targets = candidate_targets(
+                    question_id,
+                    stage_id,
+                    scoped_plan,
+                )
+                binding = SourceIdentityBinding.from_mapping(target)
+                scopes = scoped_plan.get("targetRecordScopes") or {}
+                for candidate_target in prepared_targets:
+                    aliases = {
+                        str(alias)
+                        for group in scopes.get(candidate_target.path, [])
+                        for alias in group
+                        if alias
+                    }
+                    assert_target_resolvable(
+                        self.repo_root,
+                        candidate_target.path,
+                        binding=binding,
+                        aliases=aliases,
+                    )
+            except Exception as exc:  # noqa: BLE001
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="blocked",
+                    error=str(exc),
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                emit(f"{question_id}: 対象を一意に確定できないため保留しました: {exc}")
+                return None
+            return {
+                **spec,
+                "target": target,
+                "candidateRecord": projection["record"],
+                "candidateTargets": prepared_targets,
+            }
 
         def run_batch(
             specs: list[Mapping[str, Any]],
@@ -5851,17 +6119,28 @@ class QualificationRunCoordinator:
                     if isinstance(value, Mapping)
                     and isinstance(value.get("feedback"), Mapping)
                 ]
-            batch_prompt = _question_batch_scope_prompt(
+            records_by_question = {
+                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+                copy.deepcopy(dict(spec["candidateRecord"]))
+                for spec in specs
+            }
+            candidate_targets_by_question = {
+                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+                tuple(spec["candidateTargets"])
+                for spec in specs
+            }
+            batch_prompt = _structured_candidate_prompt(
                 phase_prompt,
                 targets,
-                repo_root=self.repo_root,
-                scoped_plan=batch_plan,
+                records_by_question=records_by_question,
+                candidate_targets_by_question=candidate_targets_by_question,
                 feedback_by_question=feedback_by_question,
             )
             child = self.store.create(
                 batch_plan,
                 status="queued",
                 prompt=batch_prompt,
+                append_receipt_contract=False,
             )
             child_id = str(child["runId"])
             with aggregation_lock:
@@ -5873,7 +6152,7 @@ class QualificationRunCoordinator:
                 run_id,
                 childRunIds=all_child_ids,
                 currentPhaseId=stage_id,
-                executionPhase=f"batch:{stage_id}",
+                executionPhase=f"candidate:{stage_id}",
             )
             for target in targets:
                 question_id = str(target.get("id") or target.get("uiQuestionId") or "")
@@ -5911,7 +6190,7 @@ class QualificationRunCoordinator:
                     error=None,
                 )
             try:
-                outcome = self._run_isolated_question_batch(
+                outcome = self._run_structured_question_batch(
                     qualification,
                     child_id,
                     self.store.prompt(qualification, child_id),
@@ -5919,16 +6198,23 @@ class QualificationRunCoordinator:
                     batch_plan=batch_plan,
                     stage_id=stage_id,
                     pipeline_stop=pipeline_stop,
+                    prepared_records=records_by_question,
+                    prepared_targets=candidate_targets_by_question,
                 )
                 return {
                     "childId": child_id,
                     "child": outcome["child"],
                     "questionResults": outcome["questionResults"],
                     "providerFailure": False,
+                    "schemaFailure": False,
                 }
             except Exception as exc:  # noqa: BLE001
                 child = self.store.refresh(qualification, child_id)
                 provider_failure = _external_provider_failure(exc)
+                schema_failure = isinstance(exc, QuestionCandidateError) or (
+                    "構造化候補" in str(exc)
+                    or "JSON Schema" in str(exc)
+                )
                 return {
                     "childId": child_id,
                     "child": child,
@@ -5945,6 +6231,7 @@ class QualificationRunCoordinator:
                         for target in targets
                     ],
                     "providerFailure": provider_failure is not None,
+                    "schemaFailure": schema_failure,
                     "providerError": str(provider_failure or ""),
                 }
 
@@ -6096,7 +6383,7 @@ class QualificationRunCoordinator:
                         next_ids.append(question_id)
                     continue
 
-                normalized = BatchQuestionResult(
+                normalized = QuestionValidationResult(
                     question_id=question_id,
                     status="failed",
                     summary=str(raw_result.get("summary") or "機械検査に失敗しました。"),
@@ -6213,8 +6500,39 @@ class QualificationRunCoordinator:
                 ]
                 if not specs:
                     break
-                batches = question_batches(specs, model_batch_size)
-                with ThreadPoolExecutor(max_workers=worker_limit) as executor:
+                prompt_tokens = estimated_tokens(phase_prompt)
+                batches = pack_by_token_budget(
+                    specs,
+                    payload=lambda spec: {
+                        "target": spec["target"],
+                        "projectedInput": (
+                            self.repo_root
+                            / str(spec["target"].get("_projectedInputPath") or "")
+                        ).read_text(encoding="utf-8"),
+                    },
+                    token_budget=max(
+                        8_000,
+                        scheduler_limits.batch_token_budget - prompt_tokens,
+                    ),
+                    max_questions=DEFAULT_MAX_QUESTIONS_PER_TURN,
+                )
+                active_workers = min(
+                    len(batches),
+                    scheduler_limits.parallel_turns,
+                    question_concurrency,
+                )
+                self.store.update(
+                    qualification,
+                    run_id,
+                    adaptiveScheduler=scheduler_status(
+                        scheduler_limits,
+                        batch_count=len(batches),
+                        in_flight_questions=len(specs),
+                    ),
+                    modelBatchSize=max(len(batch) for batch in batches),
+                    modelWorkerLimit=active_workers,
+                )
+                with ThreadPoolExecutor(max_workers=active_workers) as executor:
                     outcomes = list(
                         executor.map(
                             lambda batch: run_batch(batch, phase, phase_prompt),
@@ -6223,6 +6541,12 @@ class QualificationRunCoordinator:
                     )
                 next_ids: list[str] = []
                 for outcome in outcomes:
+                    scheduler_limits.observe(
+                        provider_failure=bool(outcome.get("providerFailure")),
+                        schema_failure=bool(outcome.get("schemaFailure")),
+                        pending_batches=len(batches),
+                        max_parallel_turns=question_concurrency,
+                    )
                     apply_batch_outcome(
                         outcome,
                         stage_id,
@@ -6351,7 +6675,7 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     "一問queue契約が不正です。対象範囲から新規開始してください。"
                 )
-            queue_result = self._run_question_batch_queue(
+            queue_result = self._run_question_queue(
                 qualification,
                 run_id,
                 phases,
@@ -6671,7 +6995,7 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
-    def _run_isolated_question_batch(
+    def _run_structured_question_batch(
         self,
         qualification: str,
         run_id: str,
@@ -6681,8 +7005,10 @@ class QualificationRunCoordinator:
         batch_plan: Mapping[str, Any],
         stage_id: str,
         pipeline_stop: threading.Event,
+        prepared_records: Mapping[str, Mapping[str, Any]] | None = None,
+        prepared_targets: Mapping[str, tuple[CandidateTarget, ...]] | None = None,
     ) -> dict[str, Any]:
-        """Run at most five questions in one private model turn."""
+        """Generate read-only candidates, then validate and commit each question."""
 
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
@@ -6696,52 +7022,35 @@ class QualificationRunCoordinator:
             qualification,
             run_id,
             status="running",
-            executionPhase="isolated_batch_writing",
+            executionPhase="structured_candidate_generation",
             startedAt=_now(),
             heartbeatAt=_now(),
             error=None,
         )
-        question_ids = [
-            str(value.get("id") or value.get("uiQuestionId") or "")
+        raw_targets = [
+            dict(value)
             for value in batch_plan.get("progressTargets") or []
             if isinstance(value, Mapping)
         ]
-        if not question_ids or len(question_ids) > MODEL_BATCH_SIZE:
-            raise QualificationRunError("model batchの問題数が不正です。")
-        mutable_paths = list(
-            dict.fromkeys(
-                [
-                    *(str(value) for value in child.get("allowedPatchFiles") or []),
-                    *(str(value) for value in child.get("allowedWriteFiles") or []),
-                ]
-            )
-        )
-        if not mutable_paths:
-            raise QualificationRunError("batch writerの可変patch fileがありません。")
-
-        run_dir = self.store.root / qualification / run_id
-        receipt_relative = self._maintenance_relative_path(child["resultReceiptPath"])
-        progress_relative = self._maintenance_relative_path(child["progressReceiptPath"])
-        manifest_relative = (run_dir / "manifest.json").relative_to(self.repo_root)
-        projected_paths = [
-            str(target.get("_projectedInputPath") or "")
-            for target in batch_plan.get("progressTargets") or []
-            if isinstance(target, Mapping) and target.get("_projectedInputPath")
+        question_ids = [
+            str(value.get("id") or value.get("uiQuestionId") or "")
+            for value in raw_targets
         ]
-        workspace = IsolatedQuestionPatchWorkspace.create(
-            self.repo_root,
-            run_dir / "isolated_workspace",
-            qualification=qualification,
-            mutable_paths=mutable_paths,
-            readonly_paths=[manifest_relative.as_posix(), *projected_paths],
-        )
-        isolated_receipt = workspace.root / receipt_relative
-        isolated_progress = workspace.root / progress_relative
-        isolated_receipt.parent.mkdir(parents=True, exist_ok=True)
-        isolated_progress.parent.mkdir(parents=True, exist_ok=True)
-        isolated_progress.touch(exist_ok=True)
-        isolated_prompt = prompt.replace(str(self.repo_root), str(workspace.root))
-        result = None
+        if (
+            not question_ids
+            or len(question_ids) > DEFAULT_MAX_QUESTIONS_PER_TURN
+            or len(set(question_ids)) != len(question_ids)
+        ):
+            raise QualificationRunError("構造化候補batchの問題数が不正です。")
+        if prepared_records is None or prepared_targets is None:
+            records_by_question, targets_by_question = _structured_candidate_inputs(
+                self.repo_root,
+                stage_id,
+                batch_plan,
+            )
+        else:
+            records_by_question = dict(prepared_records)
+            targets_by_question = dict(prepared_targets)
 
         def heartbeat() -> None:
             heartbeat_at = _now()
@@ -6753,9 +7062,9 @@ class QualificationRunCoordinator:
                     parent_run_id,
                     heartbeatAt=heartbeat_at,
                 )
-            job_heartbeat = getattr(emit, "heartbeat", None)
-            if callable(job_heartbeat):
-                job_heartbeat()
+            callback = getattr(emit, "heartbeat", None)
+            if callable(callback):
+                callback()
 
         def on_thread_started(thread_id: str, session_id: str) -> None:
             self.store.update(
@@ -6773,183 +7082,228 @@ class QualificationRunCoordinator:
                 turnId=turn_id,
             )
 
-        def completion_probe() -> bool:
-            if not isolated_receipt.is_file():
-                return False
-            try:
-                raw = json.loads(isolated_receipt.read_text(encoding="utf-8"))
-                self.store._validated_result_receipt(raw)
-                normalize_batch_question_results(raw, question_ids)
-                return True
-            except Exception:  # noqa: BLE001
-                return False
-
+        result = None
         try:
             result = self.app_server.run_turn(
-                isolated_prompt,
-                work_type=f"maintenance_{stage_id}_batch",
-                sandbox="workspace-write",
+                prompt,
+                work_type=f"maintenance_{stage_id}_candidate",
+                sandbox="read-only",
                 emit=emit,
+                output_schema=candidate_output_schema(
+                    question_ids,
+                    targets_by_question,
+                ),
                 on_thread_started=on_thread_started,
                 on_turn_started=on_turn_started,
                 heartbeat=heartbeat,
-                cwd=workspace.root,
-                writable_roots=(workspace.root,),
-                completion_probe=completion_probe,
+                cwd=self.repo_root,
             )
-            notified_outside = []
-            for value in result.changed_files:
-                raw = Path(str(value))
-                candidate = (
-                    raw if raw.is_absolute() else workspace.root / raw
-                ).resolve(strict=False)
-                if not (
-                    candidate == workspace.root
-                    or candidate.is_relative_to(workspace.root)
-                ):
-                    notified_outside.append(str(value))
-            if notified_outside:
+            if result.changed_files:
                 raise QualificationRunError(
-                    "隔離workspace外のfile変更通知を検出しました: "
-                    + ", ".join(sorted(notified_outside))
+                    "read-only候補生成でfile変更通知を検出しました。"
                 )
-            if not isolated_receipt.is_file():
-                raise QualificationRunError(
-                    "Codex App Serverは完了しましたが、batch receiptがありません。"
-                )
-            raw_receipt = json.loads(isolated_receipt.read_text(encoding="utf-8"))
-            aggregate_receipt = self.store._validated_result_receipt(raw_receipt)
-            if aggregate_receipt["status"] == "failed":
-                raise QualificationRunError(
-                    self._failed_receipt_message(aggregate_receipt)
-                )
-
-            def candidate_relative(value: str) -> Path:
-                raw = Path(value)
-                if raw.is_absolute():
-                    absolute = raw.resolve(strict=False)
-                    if absolute.is_relative_to(workspace.root):
-                        return absolute.relative_to(workspace.root)
-                return self._maintenance_relative_path(value)
-
-            raw_question_results = normalize_batch_question_results(
-                raw_receipt,
+            candidates = parse_candidates(
+                result.final_message,
                 question_ids,
+                targets_by_question,
             )
-            question_results = tuple(
-                BatchQuestionResult(
-                    question_id=value.question_id,
-                    status=value.status,
-                    summary=value.summary,
-                    commands=value.commands,
-                    changed_files=tuple(
-                        candidate_relative(path).as_posix()
-                        for path in value.changed_files
-                    ),
-                )
-                for value in raw_question_results
-            )
-            aggregate_declared = {
-                candidate_relative(str(value)).as_posix()
-                for value in aggregate_receipt.get("changedFiles") or []
+            bindings = {
+                str(value.get("id") or value.get("uiQuestionId") or ""):
+                SourceIdentityBinding.from_mapping(value)
+                for value in raw_targets
             }
-            validate_changed_file_attribution(
-                question_results,
-                aggregate_declared,
-            )
-            actual_candidate = set(workspace.changed_paths())
-            if aggregate_declared != {
-                value.as_posix() for value in actual_candidate
-            }:
-                raise QualificationRunError(
-                    "隔離batch差分とaggregate receiptが一致しません。"
-                )
-            unknown = actual_candidate - set(workspace.mutable_paths)
-            if unknown:
-                raise QualificationRunError(
-                    "隔離workspaceの可変範囲外にbatch差分があります。"
-                )
-
-            atomic_write(
-                self.repo_root / progress_relative,
-                isolated_progress.read_text(encoding="utf-8"),
-            )
-            self.store.write_result(
-                qualification,
-                run_id,
-                {
-                    **aggregate_receipt,
-                    "changedFiles": sorted(aggregate_declared),
-                    "resolvedFailedDeltaPaths": [],
-                },
-            )
-            refreshed = self.store.refresh(qualification, run_id)
-            self._validate_progress_receipt(qualification, run_id, refreshed)
-
             committed_results: list[dict[str, Any]] = []
             committed_files: set[str] = set()
             work_version_receipts: list[dict[str, Any]] = []
-            bindings = {
-                str(value.get("uiQuestionId") or ""): SourceIdentityBinding.from_mapping(value)
-                for value in batch_plan.get("targetRecordBindings") or []
-                if isinstance(value, Mapping)
-            }
-            for question_result in question_results:
-                if question_result.status != "succeeded":
-                    committed_results.append(
+            run_dir = self.store.root / qualification / run_id
+
+            def checkpoint_question(
+                question_result: dict[str, Any],
+                work_version_receipt: dict[str, Any] | None = None,
+            ) -> None:
+                next_results = [*committed_results, question_result]
+                next_receipts = [*work_version_receipts]
+                if work_version_receipt is not None:
+                    next_receipts.append(work_version_receipt)
+                self.store.update(
+                    qualification,
+                    run_id,
+                    executionPhase="server_candidate_checkpoint",
+                    activeCandidateQuestionId=None,
+                    candidateTransactionOpen=False,
+                    batchQuestionResults=copy.deepcopy(next_results),
+                    workVersionReceipt={
+                        "recordedCount": sum(
+                            int(value.get("recordedCount") or 0)
+                            for value in next_receipts
+                        ),
+                        "items": copy.deepcopy(next_receipts),
+                    },
+                    deltaUnknown=False,
+                )
+                committed_results[:] = next_results
+                work_version_receipts[:] = next_receipts
+
+            self.store.update(
+                qualification,
+                run_id,
+                executionPhase="server_candidate_validation",
+                activeCandidateQuestionId=None,
+                candidateTransactionOpen=False,
+                batchQuestionResults=[],
+                workVersionReceipt={"recordedCount": 0, "items": []},
+                deltaUnknown=False,
+            )
+
+            for candidate in candidates:
+                question_id = candidate.question_id
+                self.store.update(
+                    qualification,
+                    run_id,
+                    executionPhase="server_candidate_commit",
+                    activeCandidateQuestionId=question_id,
+                    candidateTransactionOpen=False,
+                )
+                commands = [
+                    {"command": "structured candidate schema", "status": "pass"}
+                ]
+                if candidate.status == "blocked":
+                    checkpoint_question(
                         {
-                            "questionId": question_result.question_id,
+                            "questionId": question_id,
                             "status": "failed",
-                            "summary": question_result.summary,
-                            "commands": list(question_result.commands),
+                            "summary": candidate.summary,
+                            "commands": commands,
                             "changedFiles": [],
                         }
                     )
                     continue
+                content_errors = validate_candidate_content(
+                    candidate,
+                    targets_by_question[question_id],
+                    records_by_question[question_id],
+                )
+                if content_errors:
+                    commands.append(
+                        {"command": "question content", "status": "fail"}
+                    )
+                    checkpoint_question(
+                        {
+                            "questionId": question_id,
+                            "status": "failed",
+                            "summary": " / ".join(content_errors),
+                            "commands": commands,
+                            "changedFiles": [],
+                        }
+                    )
+                    continue
+                commands.append({"command": "question content", "status": "pass"})
                 if pipeline_stop.is_set():
                     raise QualificationRunError(
-                        "正本の安全性を確認できないためbatch反映を停止しました。"
+                        "正本の安全性を確認できないため候補反映を停止しました。"
                     )
-                question_plan = subset_question_plan(
-                    batch_plan,
-                    [question_result.question_id],
-                )
+                question_plan = subset_question_plan(batch_plan, [question_id])
                 question_plan.update(
                     runId=run_id,
                     stageId=stage_id,
                     stageIds=[stage_id],
-                    parallelStrategy="isolated_question",
+                    parallelStrategy="structured_candidate",
                 )
                 if not self._phase_plan_policy_is_current(
                     qualification,
                     question_plan,
                     stage_id,
                 ):
-                    committed_results.append(
+                    checkpoint_question(
                         {
-                            "questionId": question_result.question_id,
+                            "questionId": question_id,
                             "status": "failed",
                             "summary": "実行中に共通方針が更新されました。",
-                            "commands": list(question_result.commands),
+                            "commands": commands,
                             "changedFiles": [],
                             "policyChanged": True,
                         }
                     )
                     continue
-                binding = bindings.get(question_result.question_id)
-                if binding is None or not binding.is_complete():
-                    raise QualificationRunError(
-                        f"batchのsource identityが不足しています: {question_result.question_id}"
-                    )
-                candidate_paths = {
-                    self._maintenance_relative_path(value)
-                    for value in question_result.changed_files
+                binding = bindings[question_id]
+                target_by_id = {
+                    value.target_id: value
+                    for value in targets_by_question[question_id]
                 }
-                if not candidate_paths.issubset(actual_candidate):
-                    raise QualificationRunError(
-                        f"問題別receiptに実在しない差分があります: {question_result.question_id}"
-                    )
+                mutable_paths = [value.path for value in target_by_id.values()]
+                workspace = IsolatedQuestionPatchWorkspace.create(
+                    self.repo_root,
+                    run_dir
+                    / "candidate_workspaces"
+                    / hashlib.sha256(question_id.encode("utf-8")).hexdigest()[:16],
+                    qualification=qualification,
+                    mutable_paths=mutable_paths,
+                )
+                transaction_open = False
                 try:
+                    scopes = question_plan.get("targetRecordScopes") or {}
+                    for update in candidate.updates:
+                        target = target_by_id[update.target_id]
+                        aliases = {
+                            str(alias)
+                            for group in scopes.get(target.path, [])
+                            for alias in group
+                            if alias
+                        }
+                        base_record: Mapping[str, Any]
+                        if target.role == "law_audit":
+                            projected = records_by_question[question_id]
+                            base_record = {
+                                **binding.as_mapping(),
+                                "schemaVersion": "law-revision-audit/v2",
+                                "examYear": projected.get("examYear"),
+                            }
+                        else:
+                            base_record = records_by_question[question_id]
+                        server_set_fields = dict(update.set_fields)
+                        if target.role == "law_audit":
+                            server_set_fields["schemaVersion"] = (
+                                "law-revision-audit/v2"
+                            )
+                        workspace.apply_record_update(
+                            target.path,
+                            binding=binding,
+                            aliases=aliases,
+                            set_fields=server_set_fields,
+                            unset_fields=update.unset_fields,
+                            base_record=base_record,
+                        )
+                    candidate_paths = set(workspace.changed_paths())
+                    if not candidate_paths:
+                        with self._question_patch_commit_lock:
+                            self._check_source_immutability(
+                                emit,
+                                source_files=[
+                                    str(value)
+                                    for value in question_plan.get("sourceFiles") or []
+                                ],
+                            )
+                            work_version_receipt = self._record_work_versions(
+                                question_plan
+                            )
+                        commands.extend(
+                            [
+                                {"command": "record scope", "status": "pass"},
+                                {"command": "00_source immutability", "status": "pass"},
+                            ]
+                        )
+                        checkpoint_question(
+                            {
+                                "questionId": question_id,
+                                "status": "succeeded",
+                                "summary": candidate.summary,
+                                "commands": commands,
+                                "changedFiles": [],
+                                "workVersionReceipt": work_version_receipt,
+                            },
+                            work_version_receipt,
+                        )
+                        continue
                     with self._question_patch_commit_lock:
                         transaction_roots = [
                             *(self.repo_root / value for value in candidate_paths),
@@ -6966,70 +7320,129 @@ class QualificationRunCoordinator:
                             run_id,
                             tuple(dict.fromkeys(transaction_roots)),
                         )
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            candidateTransactionOpen=True,
+                        )
+                        transaction_open = True
                         baseline_payload = json.loads(
                             baseline_path.read_text(encoding="utf-8")
                         )
-                        committed = set(
-                            workspace.rebase_into_canonical(
-                                sorted(candidate_paths),
-                                binding=binding,
-                                aliases_by_path=(
-                                    batch_plan.get("targetRecordScopes") or {}
-                                ),
+                        try:
+                            committed = set(
+                                workspace.rebase_into_canonical(
+                                    sorted(candidate_paths),
+                                    binding=binding,
+                                    aliases_by_path=scopes,
+                                )
                             )
-                        )
-                        committed_paths = {Path(value) for value in committed}
-                        self._validate_record_scope(
-                            qualification,
-                            run_id,
-                            question_plan,
-                            committed_paths,
-                            baseline_payload=baseline_payload,
-                        )
-                        self._check_source_immutability(
-                            emit,
-                            source_files=[
-                                str(value)
-                                for value in question_plan.get("sourceFiles") or []
-                            ],
-                        )
-                        work_version_receipt = self._record_work_versions(
-                            question_plan
-                        )
-                        self.store.discard_baseline_backups(
-                            qualification,
-                            run_id,
-                        )
-                except Exception as exc:  # noqa: BLE001
-                    rollback = self.store.rollback_baseline(qualification, run_id)
-                    if not rollback or rollback.get("status") != "succeeded":
-                        pipeline_stop.set()
-                        raise QualificationRunError(
-                            "問題別反映のrollbackを確認できません。"
-                        ) from exc
-                    committed_results.append(
+                            committed_paths = {Path(value) for value in committed}
+                            self._validate_record_scope(
+                                qualification,
+                                run_id,
+                                question_plan,
+                                committed_paths,
+                                baseline_payload=baseline_payload,
+                            )
+                            commands.append(
+                                {"command": "record scope", "status": "pass"}
+                            )
+                            self._check_source_immutability(
+                                emit,
+                                source_files=[
+                                    str(value)
+                                    for value in question_plan.get("sourceFiles") or []
+                                ],
+                            )
+                            commands.append(
+                                {
+                                    "command": "00_source immutability",
+                                    "status": "pass",
+                                }
+                            )
+                            work_version_receipt = self._record_work_versions(
+                                question_plan
+                            )
+                        except Exception:
+                            rollback = self.store.rollback_baseline(
+                                qualification,
+                                run_id,
+                            )
+                            if not rollback or rollback.get("status") != "succeeded":
+                                pipeline_stop.set()
+                                raise QualificationRunError(
+                                    "問題別反映のrollbackを確認できません。"
+                                )
+                            raise
+                    checkpoint_question(
                         {
-                            "questionId": question_result.question_id,
+                            "questionId": question_id,
+                            "status": "succeeded",
+                            "summary": candidate.summary,
+                            "commands": commands,
+                            "changedFiles": sorted(committed),
+                            "workVersionReceipt": work_version_receipt,
+                        },
+                        work_version_receipt,
+                    )
+                    committed_files.update(committed)
+                    transaction_open = False
+                    self.store.discard_baseline_backups(
+                        qualification,
+                        run_id,
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    if transaction_open:
+                        rollback = self.store.rollback_baseline(
+                            qualification,
+                            run_id,
+                        )
+                        if not rollback or rollback.get("status") != "succeeded":
+                            pipeline_stop.set()
+                            raise QualificationRunError(
+                                "問題別checkpoint失敗後のrollbackを確認できません。"
+                            ) from exc
+                        transaction_open = False
+                    checkpoint_question(
+                        {
+                            "questionId": question_id,
                             "status": "failed",
                             "summary": str(exc),
-                            "commands": list(question_result.commands),
+                            "commands": [
+                                *commands,
+                                {"command": "server commit", "status": "fail"},
+                            ],
                             "changedFiles": [],
                         }
                     )
-                    continue
-                committed_files.update(committed)
-                work_version_receipts.append(work_version_receipt)
-                committed_results.append(
-                    {
-                        "questionId": question_result.question_id,
-                        "status": "succeeded",
-                        "summary": question_result.summary,
-                        "commands": list(question_result.commands),
-                        "changedFiles": sorted(committed),
-                        "workVersionReceipt": work_version_receipt,
-                    }
-                )
+                finally:
+                    workspace.cleanup()
 
+            shutil.rmtree(run_dir / "candidate_workspaces", ignore_errors=True)
+            progress_lines: list[str] = []
+            for value in committed_results:
+                event_result = {"summary": str(value["summary"])}
+                progress_lines.extend(
+                    json.dumps(event, ensure_ascii=False, separators=(",", ":"))
+                    for event in (
+                        {"event": "question_started", "questionId": value["questionId"]},
+                        {
+                            "event": "stage_completed",
+                            "questionId": value["questionId"],
+                            "stageId": stage_id,
+                            "result": event_result,
+                        },
+                        {"event": "question_completed", "questionId": value["questionId"]},
+                    )
+                )
+            progress_relative = self._maintenance_relative_path(
+                child["progressReceiptPath"]
+            )
+            atomic_write(
+                self.repo_root / progress_relative,
+                "\n".join(progress_lines) + "\n",
+            )
             work_version_receipt = {
                 "recordedCount": sum(
                     int(value.get("recordedCount") or 0)
@@ -7037,12 +7450,47 @@ class QualificationRunCoordinator:
                 ),
                 "items": work_version_receipts,
             }
-            normalized_result = {
-                **aggregate_receipt,
+            aggregate_receipt = {
+                "status": "succeeded",
+                "summary": (
+                    f"{len(question_ids)}問を検査し、"
+                    f"{sum(value['status'] == 'succeeded' for value in committed_results)}問を確定しました。"
+                ),
+                "commands": [
+                    {"command": "server-owned candidate validation", "status": "pass"}
+                ],
                 "changedFiles": sorted(committed_files),
                 "resolvedFailedDeltaPaths": [],
             }
-            self.store.write_result(qualification, run_id, normalized_result)
+            self.store.update(
+                qualification,
+                run_id,
+                status="validating",
+                receiptValidated=False,
+                executionPhase="structured_candidate_finalize",
+                activeCandidateQuestionId=None,
+                candidateTransactionOpen=False,
+                batchQuestionResults=copy.deepcopy(committed_results),
+                workVersionReceipt=copy.deepcopy(work_version_receipt),
+                model=result.model,
+                serviceTier=result.service_tier,
+                reasoningEffort=result.reasoning_effort,
+                turnCompletionMode=result.completion_mode,
+                writeAttributionVerified=True,
+                unsafeNotifiedChangedFiles=[],
+                unsafeChangedFiles=[],
+                rollback={
+                    "status": "not_required",
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                    "message": "問題別checkpointを保存しました。",
+                },
+                deltaUnknown=False,
+                error=None,
+            )
+            self.store.write_result(qualification, run_id, aggregate_receipt)
+            self.store.refresh(qualification, run_id)
             refreshed = self.store.update(
                 qualification,
                 run_id,
@@ -7062,10 +7510,10 @@ class QualificationRunCoordinator:
                     "restoredFiles": [],
                     "remainingChangedFiles": [],
                     "deltaUnknown": False,
-                    "message": "問題別に検証し、合格recordだけを反映しました。",
+                    "message": "候補を問題別に検査し、合格recordだけを反映しました。",
                 },
                 deltaUnknown=False,
-                result=normalized_result,
+                result=aggregate_receipt,
                 artifactSync={
                     "status": "deferred",
                     "groups": [],
@@ -7074,10 +7522,8 @@ class QualificationRunCoordinator:
                 error=None,
                 finishedAt=_now(),
             )
-            emit(
-                f"{len(question_ids)}問のbatchを検査し、"
-                f"{sum(value['status'] == 'succeeded' for value in committed_results)}問を確定しました。"
-            )
+            self._validate_progress_receipt(qualification, run_id, refreshed)
+            emit(aggregate_receipt["summary"])
             return {
                 "qualification": qualification,
                 "runId": run_id,
@@ -7086,13 +7532,6 @@ class QualificationRunCoordinator:
                 "child": refreshed,
             }
         except Exception as exc:  # noqa: BLE001
-            rollback = {
-                "status": "succeeded",
-                "restoredFiles": [],
-                "remainingChangedFiles": [],
-                "deltaUnknown": False,
-                "message": "隔離batch候補を破棄し、正本patchは変更していません。",
-            }
             self.store.write_result(
                 qualification,
                 run_id,
@@ -7109,7 +7548,13 @@ class QualificationRunCoordinator:
                 run_id,
                 status="failed",
                 receiptValidated=False,
-                rollback=rollback,
+                rollback={
+                    "status": "succeeded",
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                    "message": "構造化候補を破棄し、未確定patchは残していません。",
+                },
                 deltaUnknown=False,
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
@@ -7118,9 +7563,6 @@ class QualificationRunCoordinator:
                 finishedAt=_now(),
             )
             raise
-        finally:
-            workspace.cleanup()
-
 
     def _run_human(
         self,
@@ -7803,6 +8245,7 @@ class QualificationRunCoordinator:
         if str(run.get("parallelStrategy") or "") in {
             "prepared_question",
             "isolated_question",
+            "structured_candidate",
         }:
             questions = self._projected_policy_questions(run)
         else:
@@ -8193,6 +8636,10 @@ class QualificationRunCoordinator:
                 expected_review_id,
                 expected_source_ref,
             )
+            expected_binding_payload = {
+                **expected_binding.as_mapping(),
+                "aliases": sorted(aliases),
+            }
             matches = [
                 (line_number, row)
                 for line_number, row, row_aliases in rows_by_group.get(
@@ -8202,8 +8649,9 @@ class QualificationRunCoordinator:
                 if (
                     (
                         row.get("schemaVersion") == "law-revision-audit/v2"
-                        and SourceIdentityBinding.from_mapping(row)
-                        == expected_binding
+                        and _source_binding_accepts_identity(
+                            expected_binding_payload, row
+                        )
                     )
                     or (
                         row.get("schemaVersion") != "law-revision-audit/v2"
@@ -8258,7 +8706,7 @@ class QualificationRunCoordinator:
             if (
                 not expected_review_id
                 or str(row.get("reviewQuestionId") or "").strip()
-                != expected_review_id
+                not in aliases | {expected_review_id}
             ):
                 errors.append(
                     f"{label}: 監査sidecar.reviewQuestionIdがsource由来IDと一致しません。"
@@ -9315,8 +9763,9 @@ class QualificationRunCoordinator:
                     matching_bindings = [
                         binding
                         for binding in file_scoped_bindings
-                        if SourceIdentityBinding.from_mapping(binding)
-                        == entry_source_binding
+                        if _source_binding_accepts_identity(
+                            binding, after_identity
+                        )
                     ]
                     matching_target_groups = [
                         group
@@ -9493,12 +9942,18 @@ class QualificationRunCoordinator:
                                 or entry_source_binding.source_question_key
                                 == matched_source_binding.source_question_key
                             )
+                            and entry_source_binding.review_question_id
+                            == matched_source_binding.review_question_id
                             and all(
                                 after_identity.get(field) == value
                                 for field, value in before_identity.items()
                             )
                             and set(after_identity) - set(before_identity)
-                            <= {"sourceQuestionKey", "sourceRecordRef"}
+                            <= {
+                                "sourceQuestionKey",
+                                "reviewQuestionId",
+                                "sourceRecordRef",
+                            }
                         )
                         allowed_sidecar_migration = bool(
                             is_law_audit_sidecar
@@ -9507,9 +9962,25 @@ class QualificationRunCoordinator:
                             == {"law-revision-audit/v1"}
                             and contract(after_entry).get("schemaVersion")
                             == "law-revision-audit/v2"
-                            and after_identity
-                            == matched_source_binding.as_mapping()
                             and matched_source_binding.is_complete()
+                            and all(
+                                after_identity.get(field) == value
+                                for field, value in before_identity.items()
+                            )
+                            and after_identity.get("sourceQuestionKey")
+                            == matched_source_binding.source_question_key
+                            and after_identity.get("sourceRecordRef")
+                            == matched_source_binding.source_record_ref
+                            and str(
+                                after_identity.get("reviewQuestionId") or ""
+                            )
+                            in binding_aliases
+                            and set(after_identity) - set(before_identity)
+                            <= {
+                                "sourceQuestionKey",
+                                "reviewQuestionId",
+                                "sourceRecordRef",
+                            }
                         )
                         if not (
                             allowed_patch_identity_enrichment
@@ -9565,14 +10036,11 @@ class QualificationRunCoordinator:
                             f"sourceと異なるID fieldを検出しました: {relative}"
                         )
                 if is_law_audit_sidecar:
-                    expected_binding = (
-                        matched_source_binding
-                        if matched_source_binding is not None
-                        else SourceIdentityBinding.from_values("", "", "")
-                    )
                     if (
-                        not expected_binding.is_complete()
-                        or after_identity != expected_binding.as_mapping()
+                        matched_binding is None
+                        or not _source_binding_accepts_identity(
+                            matched_binding, after_identity
+                        )
                     ):
                         raise QualificationRunError(
                             f"監査sidecarのsource ID bindingが一致しません: {relative}"
@@ -9660,8 +10128,9 @@ class QualificationRunCoordinator:
                     )
                     if entry_binding.is_complete():
                         is_target = any(
-                            SourceIdentityBinding.from_mapping(binding)
-                            == entry_binding
+                            _source_binding_accepts_identity(
+                                binding, identity(entry)
+                            )
                             for binding in file_scoped_bindings
                         )
                     else:

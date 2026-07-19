@@ -1512,16 +1512,15 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
-        concurrency_listener = javascript.split(
-            "input[name=\"qualification-run-concurrency\"]", 1
-        )[1].split("#workflow-guide-close", 1)[0]
-        self.assertNotIn("previewQualificationRun()", concurrency_listener)
-        self.assertIn('value="1"', html)
-        self.assertIn('value="5" checked', html)
-        self.assertIn('value="10"', html)
+        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 32", javascript)
+        self.assertIn("return AUTO_QUESTION_CONCURRENCY", javascript)
+        self.assertIn(
+            'name="qualification-run-concurrency" value="32"',
+            html,
+        )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
-        self.assertIn("5問（安定運用）", html)
-        self.assertIn("10問（検証後）", html)
+        self.assertIn("自動・最大性能", html)
+        self.assertIn("入力token量と失敗率", html)
         self.assertIn("複数選択可", javascript)
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
         self.assertIn("${preview.targetCount}${questionUnit} × ${preview.stageCount}工程", javascript)

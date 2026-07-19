@@ -376,7 +376,9 @@ class FlowAppServer:
             self.events.append(f"session:{kwargs['work_type']}")
         self.writer_count += 1
         number = self.writer_count
-        logical_work_type = kwargs["work_type"].removesuffix("_batch")
+        logical_work_type = kwargs["work_type"].removesuffix("_batch").removesuffix(
+            "_candidate"
+        )
         kwargs["on_thread_started"](
             f"thread-flow-{number}", f"session-flow-{number}"
         )
@@ -392,6 +394,31 @@ class FlowAppServer:
             raise RuntimeError(f"phase {number} failed")
         if self.before_receipt is not None:
             self.before_receipt(logical_work_type)
+        candidate_questions = PerQuestionQueueAppServer._candidate_questions(prompt)
+        if candidate_questions:
+            stage_id = logical_work_type.removeprefix("maintenance_")
+            return AppServerTurnResult(
+                thread_id=f"thread-flow-{number}",
+                session_id=f"session-flow-{number}",
+                turn_id=f"turn-flow-{number}",
+                final_message=json.dumps(
+                    {
+                        "schemaVersion": "question-maintenance-candidates/v2",
+                        "questionResults": [
+                            {
+                                "questionId": str(question["questionId"]),
+                                "status": "candidate",
+                                "summary": f"phase {number} candidate",
+                                "updates": [],
+                            }
+                            for question in candidate_questions
+                        ],
+                    },
+                    ensure_ascii=False,
+                ),
+                model="gpt-test",
+                service_tier=None,
+            )
         _write_completed_progress(prompt)
         changed_files = list(
             self.changed_files_by_work_type.get(
@@ -467,6 +494,9 @@ class PerQuestionQueueAppServer:
 
     @staticmethod
     def _question_ids(prompt):
+        questions = PerQuestionQueueAppServer._candidate_questions(prompt)
+        if questions:
+            return [str(value["questionId"]) for value in questions]
         manifest = _batch_manifest(prompt)
         if manifest and manifest.get("parallelStrategy") == "isolated_question_batch":
             return [
@@ -474,6 +504,65 @@ class PerQuestionQueueAppServer:
                 for target in manifest.get("progressTargets") or []
             ]
         return [PerQuestionQueueAppServer._question_id(prompt)]
+
+    @staticmethod
+    def _candidate_questions(prompt):
+        for line in reversed(prompt.splitlines()):
+            if not line.startswith('[{"questionId":'):
+                continue
+            value = json.loads(line)
+            if isinstance(value, list):
+                return value
+        return []
+
+    @staticmethod
+    def _candidate_update(question, stage_id):
+        targets = list(question.get("candidateTargets") or [])
+        if not targets:
+            return []
+        target = next(
+            (
+                value
+                for value in targets
+                if str(value.get("role") or "") == stage_id
+            ),
+            targets[0],
+        )
+        role = str(target.get("role") or "")
+        current = question.get("currentRecord") or {}
+        choices = list(current.get("choiceTextList") or [])
+        fields = {
+            "originalized": {"questionBodyText": current.get("questionBodyText", "")},
+            "question_type": {"questionType": "true_false"},
+            "question_intent": {"questionIntent": "select_correct"},
+            "correct_choice": {
+                "correctChoiceText": list(current.get("correctChoiceText") or ["正しい"] * len(choices))
+            },
+            "law_context": {"isLawRelated": bool(current.get("isLawRelated", False))},
+            "explanation": {
+                "explanationText": list(
+                    current.get("explanationText")
+                    or ["正しい。理由を確認した。"] * len(choices)
+                )
+            },
+            "question_set": {"questionSetId": "test-question-set"},
+            "law_audit": {
+                "auditStatus": "same_as_current",
+            },
+        }.get(role, {})
+        return [
+            {
+                "targetId": target["targetId"],
+                "setFields": [
+                    {
+                        "field": field,
+                        "valueJson": json.dumps(value, ensure_ascii=False),
+                    }
+                    for field, value in fields.items()
+                ],
+                "unsetFields": [],
+            }
+        ]
 
     def run_turn(self, prompt, **kwargs):
         question_ids = self._question_ids(prompt)
@@ -499,7 +588,8 @@ class PerQuestionQueueAppServer:
         try:
             if self.writer_delay:
                 time.sleep(self.writer_delay)
-            stage_id = work_type.removeprefix("maintenance_").removesuffix("_batch")
+            stage_id = work_type.removeprefix("maintenance_")
+            stage_id = stage_id.removesuffix("_batch").removesuffix("_candidate")
             changed_by_question = {
                 value: list(
                     self.changed_files_by_work_item.get((value, stage_id), [])
@@ -519,6 +609,57 @@ class PerQuestionQueueAppServer:
                         self.before_receipt(value, stage_id, kwargs["cwd"])
                     else:
                         self.before_receipt(value, stage_id)
+            candidate_questions = self._candidate_questions(prompt)
+            if candidate_questions:
+                question_results = []
+                for question in candidate_questions:
+                    value = str(question["questionId"])
+                    failed = value == self.failed_question_id or (
+                        value,
+                        stage_id,
+                    ) in self.failed_work_items
+                    question_results.append(
+                        {
+                            "questionId": value,
+                            "status": "blocked" if failed else "candidate",
+                            "summary": (
+                                f"{value}のwriter検証に失敗"
+                                if failed
+                                else f"{value}の整備候補を作成した。"
+                            ),
+                            "updates": (
+                                []
+                                if failed
+                                else (
+                                    self._candidate_update(question, stage_id)
+                                    if changed_by_question[value]
+                                    else []
+                                )
+                            ),
+                        }
+                    )
+                with self._lock:
+                    self.successful_writes.extend(
+                        (value, stage_id)
+                        for value in question_ids
+                        if value != self.failed_question_id
+                        and (value, stage_id) not in self.failed_work_items
+                    )
+                return AppServerTurnResult(
+                    thread_id=f"thread-queue-{call_number}",
+                    session_id=f"session-queue-{call_number}",
+                    turn_id=f"turn-queue-{call_number}",
+                    final_message=json.dumps(
+                        {
+                            "schemaVersion": "question-maintenance-candidates/v2",
+                            "questionResults": question_results,
+                        },
+                        ensure_ascii=False,
+                    ),
+                    model="gpt-test",
+                    service_tier=None,
+                )
+
             _write_completed_progress(prompt)
             receipt_line = next(
                 line

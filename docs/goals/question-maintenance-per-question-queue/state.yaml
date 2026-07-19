@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-per-question-queue"
   kind: existing_plan
   tranche: "continuous execution: 一問単位の並列整備・確定・失敗隔離・再開を実装し、範囲指定UIから安定運用できるまで進める"
-  status: active
+  status: done
   oracle:
     signal: "UIからガス主任技術者甲種2019年の58問を開始し、1問が失敗しても57問が確定し、失敗問だけを理由付きで再実行できる"
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-per-question-queue/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-per-question-queue"
 
-active_task: T013
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -921,7 +921,7 @@ tasks:
   - id: T013
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "5/10並列writerの回帰・実UI・共有patch整合性を最終監査し、元の速度改善と品質維持を満たすか判定する"
     inputs:
@@ -936,16 +936,130 @@ tasks:
       - "full_outcome_complete: true | false"
       - "実測同時writer数と失敗隔離証拠"
       - "missing evidence"
-    receipt: null
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      summary: "2019年甲種を5問batchで実走したが、停止時点の9子runで確定できた問題は1問だけだった。共有patchを一つのmodel workspaceで編集した後に問題別rebaseする構造、実行後のalias解決、model所有のprogress/receipt、問題処理中の広域検査が競合と再実行を生み、速度改善と品質維持のoracleを満たさなかった。"
+      evidence:
+        - "parent run 20260719T102619437126-55a991c1"
+        - "child 20260719T103859420594-739fcadc: 5問中1問確定、4問は対象外record変更又は準備後更新"
+        - "children 20260719T111324419229-5afbcaa9 through 20260719T120934147242-0e7e6f6e: 対象recordを一意に特定できず全問失敗"
+        - "children 20260719T102624174593-856655b6 and 20260719T105714784124-cd1ed4ed: receipt又はprogress契約でbatch全体失敗"
+        - "review-ui PID 65594をSIGTERMで通常終了し、V1の追加patch更新を停止"
+      missing_evidence:
+        - "modelをread-only候補生成へ限定したV2の実装"
+        - "問題数とmodel turn並列数を実測で自動最大化するscheduler"
+        - "server所有の問題別検査・進捗・receipt・一問transaction"
+        - "V2による2019年58問の実UI run readback"
+      harness: codex
+    harness: codex
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "問題整備V2を縦断実装する。modelをread-onlyの構造化QuestionCandidate生成へ限定し、serverがidentity事前解決、問題別機械検査、進捗・receipt、exact-record transactionを所有する。問題をtoken量で自動batch化し、model turn並列数を成功率・遅延・provider制限から自動最大化し、失敗問だけをqueue末尾で縮小再試行する。queue終了後のartifactSyncと手動再生成を維持し、旧共有可変workspace経路を削除する"
+    inputs:
+      - "T013 not_complete receipt"
+      - "20260719T102619437126-55a991c1 live failure evidence"
+      - "ユーザー承認済みの問題整備V2改修方針"
+      - "既存QuestionEnvelope相当のprojected_inputsとCodex App Server outputSchema対応"
+    constraints:
+      - "開始範囲は資格・年度・回・工程のまま維持する。"
+      - "modelは正本patch、progress、receiptを直接書かない。"
+      - "一問の失敗で兄弟問題又は確定済みpatchを巻き戻さない。"
+      - "正本反映はsource identity完全一致の一問transactionだけにする。"
+      - "問題処理中に年度全体のquality-gateを実行しない。"
+      - "patch確定とartifactSyncを分離し、手動再生成を残す。"
+      - "00_source、既存ID、本番Firestore、無関係な未コミットoutputを変更しない。"
+      - "固定5問又は固定10並列を性能上限にしない。"
+      - "同じ原因で検証が二回失敗した場合は原因を再評価する。"
+    expected_output:
+      - "read-only outputSchemaによる問題別QuestionCandidate"
+      - "server所有の問題別validator・event・receipt"
+      - "exact identityの一問patch transaction"
+      - "token量による自動batchとfeedback制御付き自動並列scheduler"
+      - "失敗問末尾再試行と再起動時の冪等回収"
+      - "queue終了後に一度だけ行うartifactSync"
+      - "実態と一致するUI進捗・性能表示"
+      - "旧共有workspace・model bookkeeping経路の削除"
+      - "回帰、負荷、00_source不変の検証"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/adaptive_scheduler.py"
+      - "tools/question_review_console/question_batch_queue.py"
+      - "tools/question_review_console/question_patch_proposal.py"
+      - "tools/question_review_console/question_work_queue.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/patch_editor.py"
+      - "tools/question_review_console/projection.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/styles.css"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_adaptive_scheduler.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_question_batch_queue.py"
+      - "tests/test_question_review_question_patch_proposal.py"
+      - "tests/test_question_review_question_work_queue.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_flow_recovery.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_progress_output_ui.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/artifact_contract.md"
+      - "docs/goals/question-maintenance-per-question-queue/goal.md"
+      - "docs/goals/question-maintenance-per-question-queue/state.yaml"
+      - "docs/goals/question-maintenance-per-question-queue/notes/T014-v2-implementation.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_adaptive_scheduler tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs tests.test_question_review_qualification_flow_recovery tests.test_question_review_codex_app_server tests.test_question_review_server tests.test_question_review_workflow"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/*.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "modelに正本又は共有patchへのwrite権限が必要になる。"
+      - "source identityをmodel実行前に一意確定できない問題を推測適用する必要がある。"
+      - "正本安全性のために成功済み兄弟問題をrollbackする必要がある。"
+      - "無関係な未コミットoutput patchを変更又は破棄する必要がある。"
+      - "00_source、既存ID又は本番Firestoreの変更が必要になる。"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "modelをread-onlyの複数問QuestionCandidate生成へ限定し、server所有のidentity事前解決、問題別検査、exact-record transaction、工程版、checkpoint、receiptへ置き換えた。入力token量で最大50問/turnへ束ね、最大32 turnを自動調整する。失敗問だけをqueue末尾へ戻し、独立問と後続可能工程を継続する。artifactSync分離と手動再生成を維持し、旧共有可変workspace経路を削除した。"
+      evidence:
+        - "docs/goals/question-maintenance-per-question-queue/notes/T014-v2-implementation.md"
+        - "live run 20260719T150723625245-effe24f2: law_audit 40問を9 turnへ分割、初回37問確定、失敗3問だけを2回再試行"
+        - "同run: 3問保留後も独立55問のquestion_setを11 turnで開始"
+        - "複数問turnの再起動回収と未確定一問transaction rollbackを回帰テスト化"
+        - "最新版UIの2019年58問preview: 自動batch、最大32 turn、一問単位検査、開始可能"
+        - "test_question_review*.py: 503 tests OK"
+        - "00_source: 5799 files OK"
+      safety:
+        - "本番Firestoreへ未反映"
+        - "00_source未変更"
+        - "既存output patch差分は分離して未commit"
+      harness: codex
     harness: codex
 checks:
   dirty_fingerprint: "pre-existing gas-shunin output patches plus GoalBuddy control files"
   last_verification:
     result: pass
-    task: T011
+    task: T014
     commands:
-      - "test_question_review*.py: 495 tests OK"
+      - "test_question_review*.py: 503 tests OK"
       - "py_compile: OK"
       - "node --check: OK"
-      - "00_source: 4525 files OK"
+      - "00_source: 5799 files OK"
       - "git diff --check: OK"

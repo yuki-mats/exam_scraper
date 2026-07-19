@@ -449,13 +449,14 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         active = 0
         max_active = 0
         lock = threading.Lock()
+        pair_started = threading.Barrier(2)
 
         def runner(_prompt):
             nonlocal active, max_active
             with lock:
                 active += 1
                 max_active = max(max_active, active)
-            time.sleep(0.03)
+            pair_started.wait(timeout=2)
             with lock:
                 active -= 1
             return evaluation_result()

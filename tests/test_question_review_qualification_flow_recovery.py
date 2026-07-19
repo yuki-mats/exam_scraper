@@ -337,16 +337,16 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(
             [kwargs["work_type"] for _, kwargs in app_server.calls],
             [
-                "maintenance_question_type_batch",
-                "maintenance_law_audit_batch",
+                "maintenance_question_type_candidate",
+                "maintenance_law_audit_candidate",
             ],
         )
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(
             events,
             [
-                "session:maintenance_question_type_batch",
-                "session:maintenance_law_audit_batch",
+                "session:maintenance_question_type_candidate",
+                "session:maintenance_law_audit_candidate",
                 "final-sync",
             ],
         )
@@ -782,7 +782,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(len(run["childRunIds"]), 1)
         self.assertEqual(
             [kwargs["work_type"] for _, kwargs in app_server.calls],
-            ["maintenance_law_audit_batch"],
+            ["maintenance_law_audit_candidate"],
         )
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
@@ -941,12 +941,11 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             "validated",
         )
         self.assertLessEqual(app_server.max_active_writers, 2)
-        writer_calls = calls_by_type["maintenance_question_type_batch"]
+        writer_calls = calls_by_type["maintenance_question_type_candidate"]
         writer_batches = [
             [
-                line.split("`")[1]
-                for line in prompt.splitlines()
-                if line.startswith("- 問題ID: `")
+                str(value["questionId"])
+                for value in PerQuestionQueueAppServer._candidate_questions(prompt)
             ]
             for _question_id, prompt in writer_calls
         ]
@@ -963,9 +962,9 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             for question_id, prompt in writer_calls
             if question_id == failed_question_id
         ][1]
-        self.assertIn("前回の機械検査feedback", failed_retry_prompt)
+        self.assertIn("previousValidationFeedback", failed_retry_prompt)
         self.assertIn("writer検証に失敗", failed_retry_prompt)
-        self.assertIn("logicalProjection", writer_calls[0][1])
+        self.assertIn("currentRecord", writer_calls[0][1])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
         self.assertEqual(
             synchronizer.calls,
@@ -995,7 +994,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 for question_id, _prompt, kwargs in retry_calls
             ],
             [
-                (failed_question_id, "maintenance_question_type_batch"),
+                (failed_question_id, "maintenance_question_type_candidate"),
             ],
         )
 
@@ -1037,7 +1036,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(run["queueOrder"], "question_batch")
         self.assertEqual(
             [kwargs["work_type"] for _question, _prompt, kwargs in app_server.calls],
-            ["maintenance_question_type_batch", "maintenance_question_intent_batch"],
+            ["maintenance_question_type_candidate", "maintenance_question_intent_candidate"],
         )
         self.assertEqual(
             app_server.batch_calls,
@@ -1436,7 +1435,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             [kwargs["work_type"] for _, kwargs in app_server.calls],
             [
                 "maintenance_category_setup",
-                "maintenance_question_set_batch",
+                "maintenance_question_set_candidate",
             ],
         )
         self.assertEqual(run["stageIds"], preview["stageIds"])
@@ -1659,6 +1658,139 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(recovered["status"], "succeeded")
         self.assertTrue(recovered["receiptValidated"])
         self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
+
+    def test_structured_batch_restart_keeps_checkpoint_and_retries_only_missing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan, first = self._queue_recovery_plan()
+            second = {
+                **first,
+                "id": "q2",
+                "questionId": "q2",
+                "questionKey": "q2",
+                "sourceQuestionKey": "source-q2",
+                "reviewQuestionId": "review-q2",
+                "sourceRecordRef": "record-q2",
+                "displayLabel": "2026 問2",
+            }
+            plan["questionExecutions"].append(
+                {
+                    **second,
+                    "status": "committing",
+                    "stages": [
+                        {
+                            "workItemKey": "work-question_type-q2",
+                            "stageId": "question_type",
+                            "status": "committing",
+                            "childRunIds": [],
+                            "error": None,
+                        }
+                    ],
+                }
+            )
+            parent = store.create(plan, status="running")
+            child_plan = FakeWorkflow().plan(
+                "sample", "question_type", "remaining"
+            )
+            child_plan.update(
+                parentRunId=parent["runId"],
+                flowPhaseId="question_type",
+                stageId="question_type",
+                stageIds=["question_type"],
+                workType="maintenance_question_type_candidate",
+                sandbox="read-only",
+                parallelStrategy="structured_candidate_batch",
+                progressTargets=[first, second],
+            )
+            child = store.create(child_plan, status="running", prompt="child")
+            store.update(
+                "sample",
+                child["runId"],
+                startedAt="2026-01-01T00:00:00+09:00",
+                executionPhase="server_candidate_commit",
+                activeCandidateQuestionId="q2",
+                candidateTransactionOpen=False,
+                batchQuestionResults=[
+                    {
+                        "questionId": "q1",
+                        "status": "succeeded",
+                        "summary": "q1を確定した。",
+                        "changedFiles": ["patch.json"],
+                        "workVersionReceipt": {
+                            "recordedCount": 1,
+                            "items": ["q1"],
+                        },
+                    }
+                ],
+                deltaUnknown=False,
+            )
+            for question_id in ("q1", "q2"):
+                store.update_question_stage(
+                    "sample",
+                    parent["runId"],
+                    question_id,
+                    "question_type",
+                    status="committing",
+                    childRunIds=[child["runId"]],
+                )
+
+            restarted = QualificationRunStore(root)
+            recovered = restarted.get("sample", parent["runId"])
+            recovered_child = restarted.get("sample", child["runId"])
+
+        stages = {
+            question["questionId"]: question["stages"][0]
+            for question in recovered["questionExecutions"]
+        }
+        self.assertEqual(stages["q1"]["status"], "validated")
+        self.assertEqual(stages["q2"]["status"], "blocked")
+        self.assertIn("再実行", stages["q2"]["error"])
+        self.assertTrue(recovered["retrySafe"])
+        self.assertIsNone(recovered["unsafeChildRunId"])
+        self.assertEqual(recovered_child["status"], "interrupted")
+        self.assertFalse(recovered_child["deltaUnknown"])
+        self.assertTrue(recovered_child["retrySafe"])
+
+    def test_structured_batch_restart_rolls_back_only_open_question_transaction(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path(
+                "output/sample/questions_json/2026/10_questionType_fixed/q.json"
+            )
+            patch = root / relative
+            patch.parent.mkdir(parents=True)
+            patch.write_text('{"value":"before"}', encoding="utf-8")
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "question_type", "remaining")
+            plan.update(
+                workType="maintenance_question_type_candidate",
+                sandbox="read-only",
+                parallelStrategy="structured_candidate_batch",
+                allowedPatchFiles=[relative.as_posix()],
+                progressTargets=[{"id": "q1"}],
+            )
+            child = store.create(plan, status="running", prompt="child")
+            store.write_baseline("sample", child["runId"], (patch,))
+            patch.write_text('{"value":"after"}', encoding="utf-8")
+            store.update(
+                "sample",
+                child["runId"],
+                startedAt="2026-01-01T00:00:00+09:00",
+                executionPhase="server_candidate_commit",
+                activeCandidateQuestionId="q1",
+                candidateTransactionOpen=True,
+                batchQuestionResults=[],
+            )
+
+            restarted = QualificationRunStore(root)
+            recovered = restarted.get("sample", child["runId"])
+            restored_text = patch.read_text(encoding="utf-8")
+
+        self.assertEqual(restored_text, '{"value":"before"}')
+        self.assertEqual(recovered["rollback"]["status"], "succeeded")
+        self.assertFalse(recovered["deltaUnknown"])
+        self.assertTrue(recovered["retrySafe"])
 
     def test_interrupted_parent_recovers_completed_child_before_resume(self):
         with tempfile.TemporaryDirectory() as directory:
