@@ -418,6 +418,22 @@ class QuestionReviewInventoryTests(unittest.TestCase):
 
         self.assertEqual(warnings, [])
 
+    def test_firestore_snapshot_explanation_patch_does_not_require_question_url(self):
+        warnings = patch_entry_required_warnings(
+            {
+                "original_question_id": "q1",
+                "explanationText": ["正しい。根拠"],
+                "suggestedQuestions": ["確認事項"],
+                "suggestedQuestionDetails": [
+                    {"question": "確認事項", "answer": "回答"}
+                ],
+            },
+            "explanation",
+            require_question_url=False,
+        )
+
+        self.assertEqual(warnings, [])
+
     def test_reports_all_projected_required_field_warnings(self):
         projected = {
             "questionBodyText": "",

@@ -47,6 +47,120 @@ class FailedDeltaTests(unittest.TestCase):
         self.assertEqual(blocked, (relative.as_posix(),))
         self.assertEqual(resolved, ())
 
+    def test_per_question_successes_collectively_resolve_failed_file(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed_contract = self._contract(relative)
+            failed_contract["targetRecordScopes"] = {
+                relative.as_posix(): [["q1"], ["q2"]]
+            }
+            failed = runs / "20260101-run/manifest.json"
+            failed.parent.mkdir(parents=True)
+            failed.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "failed",
+                        "workType": "maintenance",
+                        "stageIds": ["explanation"],
+                        "targetGroupIds": ["2026"],
+                        **failed_contract,
+                        "result": {"changedFiles": [relative.as_posix()]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            for number, question_id in enumerate(("q1", "q2"), 2):
+                contract = self._contract(relative)
+                contract["targetRecordScopes"] = {
+                    relative.as_posix(): [[question_id]]
+                }
+                success = runs / f"2026010{number}-run/manifest.json"
+                success.parent.mkdir(parents=True, exist_ok=True)
+                success.write_text(
+                    json.dumps(
+                        {
+                            "qualification": "sample",
+                            "status": "succeeded",
+                            "workType": "maintenance",
+                            "stageIds": ["explanation"],
+                            "targetGroupIds": ["2026"],
+                            **contract,
+                            "result": {
+                                "changedFiles": [],
+                                "resolvedFailedDeltaPaths": [relative.as_posix()],
+                            },
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+
+            resolved = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(resolved, ())
+
+    def test_interrupted_isolated_child_does_not_create_unknown_delta(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "20260101-run/manifest.json"
+            )
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "qualification": "sample",
+                        "status": "interrupted",
+                        "deltaUnknown": True,
+                        "retrySafe": True,
+                        "parentRunId": "parent-run",
+                        "parallelStrategy": "structured_candidate_batch",
+                        "sandbox": "read-only",
+                        "workType": "maintenance_explanation_candidate",
+                        "stageIds": ["explanation"],
+                        "targetGroupIds": ["2026"],
+                        **self.UNKNOWN_CONTRACT,
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(blocked, ())
+
+    def test_successful_rollback_does_not_leave_failed_delta(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/partial.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "20260101-run/manifest.json"
+            )
+            self._write_manifest(manifest, "failed", relative)
+            payload = json.loads(manifest.read_text(encoding="utf-8"))
+            payload["rollback"] = {
+                "status": "succeeded",
+                "deltaUnknown": False,
+                "remainingChangedFiles": [],
+            }
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+
+            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(blocked, ())
+
     def test_validated_run_resolves_failed_delta_while_artifacts_are_syncing(self):
         relative = Path(
             "output/sample/questions_json/2026/"
@@ -369,7 +483,7 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(result, (relative.as_posix(),))
 
-    def test_partial_record_scope_is_not_exposed_as_resolvable(self):
+    def test_partial_record_scope_is_recorded_for_cumulative_resolution(self):
         relative = Path(
             "output/sample/questions_json/2026/"
             "21_explanationText_added/aggregate.json"
@@ -414,7 +528,7 @@ class FailedDeltaTests(unittest.TestCase):
                 "2026",
             )
 
-        self.assertEqual(resolvable, ())
+        self.assertEqual(resolvable, (relative.as_posix(),))
 
     def test_group_law_audit_can_resolve_mixed_individual_and_phase_failures(self):
         relative = Path(
@@ -497,7 +611,7 @@ class FailedDeltaTests(unittest.TestCase):
             )
 
         self.assertEqual(group_resolvable, (relative.as_posix(),))
-        self.assertEqual(individual_resolvable, ())
+        self.assertEqual(individual_resolvable, (relative.as_posix(),))
 
     def test_other_group_failure_does_not_block_selected_group(self):
         relative = Path(

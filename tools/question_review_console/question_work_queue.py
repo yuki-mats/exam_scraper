@@ -521,6 +521,8 @@ def specialize_question_plan(
 def resume_plan(
     plan: Mapping[str, Any],
     previous_executions: Iterable[Mapping[str, Any]],
+    *,
+    unfinished_only: bool = False,
 ) -> dict[str, Any]:
     previous_execution_list = [
         dict(question)
@@ -583,10 +585,17 @@ def resume_plan(
             previous = previous_items.get(work_item_key(target, stage_id))
             current_target_exists = question_id in targets_by_stage.get(stage_id, {})
             if previous is None:
-                needs_resume = current_target_exists
+                # 再開は直前runに実在した未完了itemだけを対象にする。
+                # 新たに検出された対象は通常runで扱い、再開範囲を広げない。
+                needs_resume = False
             else:
                 previous_status = str(previous.get("status") or "")
-                if previous_status == "validated":
+                if unfinished_only and previous_status in {
+                    "validated",
+                    "not_applicable",
+                }:
+                    needs_resume = False
+                elif previous_status == "validated":
                     previous_policy = previous.get("policyFingerprint")
                     if previous_policy is None:
                         needs_resume = current_target_exists

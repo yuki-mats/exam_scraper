@@ -52,7 +52,7 @@
 
 | 工程 | 対象 | 必須/準必須 | 目的 |
 | --- | --- | --- | --- |
-| `00_source` | `question_bodies[]` | `question_url`, `answer_result_text`, `public_question_id` または `original_question_id`。公式過去問では`examYear`, `examLabel`も必須 | 元サイトからの出典、正答根拠、公式過去問の年度を保持する。 |
+| `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
 | `10_questionType_fixed` | patch | `questionType` | 回答体験を確定する。ここで `true_false` / `flash_card` / `group_choice` などを決める。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent`、必要時のみanswer result補正 | 設問が正しいもの・誤っているもののどちらを選ばせるか確定する。 |
@@ -60,7 +60,7 @@
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
-| `21_explanationText_added` | patch | `explanationText`, `suggestedQuestions`, `suggestedQuestionDetails`, `original_question_id`, `question_url` | 解説と想定質問を事前データとして持ち、画面表示時に AI を自動起動しない。 |
+| `21_explanationText_added` | patch | `explanationText`, `suggestedQuestions`, `suggestedQuestionDetails`, `original_question_id`。元データにURLがある場合は`question_url`も必須 | 解説と想定質問を事前データとして持ち、画面表示時に AI を自動起動しない。 |
 | `21_explanationText_added` | 法令判定の最終反映 | `isLawRelated`, `lawGroundedExplanationNotNeeded` | 02bの判定を引き継ぎ、解説文作成中に矛盾を見つけた場合だけ修正する。 |
 | `22_questionSetId_linked` | patch | `questionSetId` | アプリ内カテゴリ/問題集へ紐付ける。 |
 | `40_convert` | `questions[]` | `questionId`, `questionSetId`, `questionText`, `questionType`, `qualificationId`, `questionTags`, `isOfficial`, `isDeleted`, `isChoiceOnly`, `isGroupable`, `originalQuestionBodyText`, `correctChoiceText`, `examSource`。`examYear`は公式過去問だけ必須 | upload 直前の Firestore 相当データ。 |

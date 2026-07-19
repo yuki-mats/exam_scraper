@@ -132,8 +132,61 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "needs_tertiary_review",
             ],
         },
+        "tertiaryAuditRunId": {
+            "type": ["string", "null"],
+            "emptyStringAllowed": False,
+        },
     }
 }
+
+_FALLBACK_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
+    # 03bでは正誤patchと監査sidecarの同じ値を同時に確定する。
+    "correctChoiceText": ("correct_choice", "law_audit"),
+}
+
+
+def _normalized_candidate_value(field: str, value: Any) -> Any:
+    if field != "tertiaryAuditRunId":
+        return value
+    if value is None:
+        return None
+    if isinstance(value, str):
+        stripped = value.strip()
+        return stripped or None
+    if isinstance(value, (list, dict)) and not value:
+        return None
+    raise QuestionCandidateError(
+        "tertiaryAuditRunIdはnull又は非空stringで指定してください。"
+    )
+
+
+def _field_destinations(
+    question_id: str,
+    field: str,
+    requested_target: CandidateTarget,
+    allowed_targets: Mapping[str, CandidateTarget],
+) -> tuple[CandidateTarget, ...]:
+    if field in requested_target.allowed_fields:
+        return (requested_target,)
+    candidates = tuple(
+        target
+        for target in allowed_targets.values()
+        if field in target.allowed_fields
+    )
+    preferred_roles = _FALLBACK_ROLES_BY_FIELD.get(field, ())
+    preferred = tuple(
+        target for target in candidates if target.role in preferred_roles
+    )
+    if preferred:
+        return preferred
+    if len(candidates) == 1:
+        return candidates
+    raise QuestionCandidateError(
+        "候補に許可されていないfieldがあります: "
+        f"{question_id} / {requested_target.target_id} / {field}。"
+        "このtargetのallowedFields: "
+        + ", ".join(requested_target.allowed_fields)
+    )
 
 
 @dataclass(frozen=True)
@@ -358,7 +411,10 @@ def parse_candidates(
                 target.target_id: target
                 for target in targets_by_question.get(question_id, ())
             }
-            updates: list[CandidateUpdate] = []
+            routed_fields: dict[str, dict[str, Any]] = {
+                target_id: {"set": {}, "unset": []}
+                for target_id in allowed_targets
+            }
             seen_targets: set[str] = set()
             raw_updates = raw.get("updates")
             if not isinstance(raw_updates, list):
@@ -401,8 +457,9 @@ def parse_candidates(
                             f"{question_id}"
                         )
                     try:
-                        parsed_fields[field] = json.loads(
-                            str(item.get("valueJson") or "")
+                        parsed_fields[field] = _normalized_candidate_value(
+                            field,
+                            json.loads(str(item.get("valueJson") or "")),
                         )
                     except json.JSONDecodeError as exc:
                         raise QuestionCandidateError(
@@ -410,25 +467,56 @@ def parse_candidates(
                             f"{question_id} / {field}"
                         ) from exc
                 unset = tuple(dict.fromkeys(str(field) for field in unset_fields))
-                requested = set(parsed_fields) | set(unset)
-                disallowed = requested - set(target.allowed_fields)
                 overlap = set(parsed_fields) & set(unset)
-                if disallowed or overlap:
-                    reason = disallowed or overlap
+                if overlap:
                     raise QuestionCandidateError(
                         "候補に許可されていないfieldがあります: "
                         f"{question_id} / {target_id} / "
-                        + ", ".join(sorted(reason))
+                        + ", ".join(sorted(overlap))
                         + "。このtargetのallowedFields: "
                         + ", ".join(target.allowed_fields)
                     )
-                updates.append(
-                    CandidateUpdate(
-                        target_id=target_id,
-                        set_fields=parsed_fields,
-                        unset_fields=unset,
-                    )
+                for field, field_value in parsed_fields.items():
+                    for destination in _field_destinations(
+                        question_id,
+                        field,
+                        target,
+                        allowed_targets,
+                    ):
+                        routed = routed_fields[destination.target_id]
+                        if field in routed["unset"]:
+                            raise QuestionCandidateError(
+                                f"同じfieldに設定と削除があります: {question_id} / {field}"
+                            )
+                        existing = routed["set"].get(field, field_value)
+                        if existing != field_value:
+                            raise QuestionCandidateError(
+                                f"同じfieldに異なる候補値があります: {question_id} / {field}"
+                            )
+                        routed["set"][field] = field_value
+                for field in unset:
+                    for destination in _field_destinations(
+                        question_id,
+                        field,
+                        target,
+                        allowed_targets,
+                    ):
+                        routed = routed_fields[destination.target_id]
+                        if field in routed["set"]:
+                            raise QuestionCandidateError(
+                                f"同じfieldに設定と削除があります: {question_id} / {field}"
+                            )
+                        if field not in routed["unset"]:
+                            routed["unset"].append(field)
+            updates = tuple(
+                CandidateUpdate(
+                    target_id=target_id,
+                    set_fields=dict(routed["set"]),
+                    unset_fields=tuple(routed["unset"]),
                 )
+                for target_id, routed in routed_fields.items()
+                if routed["set"] or routed["unset"]
+            )
             if status == "blocked" and updates:
                 raise QuestionCandidateError(
                     f"blocked候補はpatch更新を返せません: {question_id}"
@@ -438,7 +526,7 @@ def parse_candidates(
                     question_id=question_id,
                     status=status,
                     summary=summary[:4000],
-                    updates=tuple(updates),
+                    updates=updates,
                 )
             )
         except QuestionCandidateError as exc:

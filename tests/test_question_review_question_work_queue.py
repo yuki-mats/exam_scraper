@@ -207,6 +207,27 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["policyTargets"], {"law_audit": ["q2"]})
 
+    def test_resume_does_not_restore_item_absent_from_previous_run(self) -> None:
+        executions = build_question_executions(self.plan)
+        executions[0]["stages"] = [executions[0]["stages"][1]]
+        executions[0]["stages"][0]["status"] = "validated"
+        executions[1]["stages"][0]["status"] = "blocked"
+        executions[1]["stages"][1]["status"] = "blocked"
+
+        resumed = resume_plan(self.plan, executions)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(resumed["targetCount"], 1)
+        self.assertEqual(resumed["workItemCount"], 2)
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [("q2", "explanation"), ("q2", "law_audit")],
+        )
+
     def test_resume_never_adds_questions_outside_previous_run(self) -> None:
         current_targets = [*self.targets, target("q3", 3)]
         current = stage_plan("explanation", current_targets)
@@ -237,6 +258,27 @@ class QuestionWorkQueueTests(unittest.TestCase):
 
         self.assertEqual(resumed["targetCount"], 1)
         self.assertEqual(resumed["progressTargets"][0]["id"], "q1")
+
+    def test_partial_completion_retry_keeps_validated_items_out(self) -> None:
+        executions = build_question_executions(self.plan)
+        for stage in executions[0]["stages"]:
+            stage["status"] = "validated"
+        executions[1]["stages"][0]["status"] = "validated"
+        executions[1]["stages"][1]["status"] = "blocked"
+        changed = copy.deepcopy(self.plan)
+        changed["policyFingerprints"]["explanation"] = "changed-policy"
+
+        resumed = resume_plan(changed, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [("q2", "law_audit")],
+        )
 
     def test_resume_queue_does_not_cross_product_other_question_stages(self) -> None:
         executions = build_question_executions(self.plan)

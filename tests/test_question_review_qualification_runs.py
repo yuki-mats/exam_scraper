@@ -1118,6 +1118,61 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(preview["targetCount"], 1)
         self.assertEqual(preview["workItemCount"], 1)
 
+    def test_succeeded_partial_resume_does_not_requeue_validated_policy_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                Path(directory),
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+            )
+            first, second = parent["questionExecutions"]
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                first["questionId"],
+                "question_type",
+                status="validated",
+                policyFingerprint="previous-policy",
+            )
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                second["questionId"],
+                "question_type",
+                status="blocked",
+                error="この問題だけ再実行する。",
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                status="succeeded",
+                queueStatus="partial",
+            )
+
+            preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                list_group_ids=["2026"],
+                resumed_from=parent["runId"],
+            )
+            resumed = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+                resumed_from=parent["runId"],
+            )["run"]
+
+        self.assertEqual(preview["targetCount"], 1)
+        self.assertEqual(preview["workItemCount"], 1)
+        self.assertEqual(
+            [question["questionId"] for question in resumed["questionExecutions"]],
+            [second["questionId"]],
+        )
+
     @staticmethod
     def _mark_parent_partial(coordinator, parent):
         question = parent["questionExecutions"][0]

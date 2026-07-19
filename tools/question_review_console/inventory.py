@@ -910,7 +910,15 @@ class QuestionInventory:
                         )
                     ]
                     if patch_entry is not None
-                    for warning in patch_entry_required_warnings(patch_entry.entry, stage)
+                    for warning in patch_entry_required_warnings(
+                        patch_entry.entry,
+                        stage,
+                        require_question_url=not (
+                            source.get("sourceOrigin") == "firestore_snapshot"
+                            or source.get("sourceAcquisitionMethod")
+                            == "firestore_snapshot"
+                        ),
+                    )
                 )
                 required_field_warnings.extend(
                     {

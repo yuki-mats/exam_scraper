@@ -47,9 +47,14 @@ UPLOAD_REQUIRED_BOOLEAN_FIELDS = (
 
 
 def patch_entry_required_warnings(
-    entry: Mapping[str, Any], stage: str
+    entry: Mapping[str, Any],
+    stage: str,
+    *,
+    require_question_url: bool = True,
 ) -> list[dict[str, str]]:
-    required = PATCH_REQUIRED_FIELDS.get(stage, set())
+    required = set(PATCH_REQUIRED_FIELDS.get(stage, set()))
+    if not require_question_url:
+        required.discard("question_url")
     warnings = []
     for field in sorted(required):
         if field not in entry or entry.get(field) is None:

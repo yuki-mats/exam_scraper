@@ -10530,7 +10530,11 @@ class QualificationRunCoordinator:
             if not isinstance(previous_executions, list):
                 raise QualificationRunError("再開元に一問queueの記録がありません。")
             try:
-                plan = resume_plan(plan, previous_executions)
+                plan = resume_plan(
+                    plan,
+                    previous_executions,
+                    unfinished_only=resume_state == ("succeeded", "partial"),
+                )
             except QuestionWorkQueueError as exc:
                 raise QualificationRunError(str(exc)) from exc
             completed_scope_stage_ids = {

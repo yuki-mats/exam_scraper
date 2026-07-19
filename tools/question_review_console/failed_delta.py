@@ -49,6 +49,7 @@ def _failed_delta_paths(
         / qualification
     )
     states: dict[str, list[Mapping[str, Any]]] = {}
+    record_scope_coverage: dict[tuple[str, int], set[tuple[str, ...]]] = {}
     unknown_runs: dict[str, Mapping[str, Any]] = {}
     if not root.is_dir():
         return ()
@@ -82,12 +83,16 @@ def _failed_delta_paths(
             )
         ):
             if _manifest_in_scope(manifest, qualification, list_group_id):
+                if _isolated_interrupted_run_is_clean(manifest):
+                    continue
                 unknown_runs[
                     manifest_path.relative_to(repo_root.resolve()).as_posix()
                 ] = manifest
             continue
         effective_status = "succeeded" if validated_success else status
         if effective_status not in {"failed", "succeeded"}:
+            continue
+        if effective_status == "failed" and _rollback_restored_run(manifest):
             continue
         result = manifest.get("result")
         if not isinstance(result, Mapping):
@@ -125,6 +130,23 @@ def _failed_delta_paths(
                                 patch_stage_by_dir=patch_stage_by_dir,
                             )
                         ]
+                        for failed in list(remaining):
+                            scopes = _compatible_path_record_scopes(
+                                failed,
+                                manifest,
+                                relative,
+                                patch_stage_by_dir=patch_stage_by_dir,
+                            )
+                            if scopes is None:
+                                continue
+                            failed_scopes, succeeded_scopes = scopes
+                            coverage = record_scope_coverage.setdefault(
+                                (key, id(failed)),
+                                set(),
+                            )
+                            coverage.update(succeeded_scopes)
+                            if failed_scopes.issubset(coverage):
+                                remaining.remove(failed)
                         if remaining:
                             states[key] = remaining
                         else:
@@ -140,8 +162,8 @@ def _failed_delta_paths(
         key
         for key, failures in states.items()
         if failures
-        and all(
-            _success_supersedes_path(
+        and any(
+            _success_contributes_to_path(
                 failed,
                 resolver,
                 Path(key),
@@ -156,6 +178,25 @@ def _failed_delta_paths(
         if _success_supersedes(interrupted, resolver)
     )
     return tuple(sorted(resolvable))
+
+
+def _success_contributes_to_path(
+    failed: Mapping[str, Any],
+    succeeded: Mapping[str, Any],
+    path: Path,
+    *,
+    patch_stage_by_dir: Mapping[str, str],
+) -> bool:
+    scopes = _compatible_path_record_scopes(
+        failed,
+        succeeded,
+        path,
+        patch_stage_by_dir=patch_stage_by_dir,
+    )
+    if scopes is None:
+        return False
+    failed_scopes, succeeded_scopes = scopes
+    return not failed_scopes or bool(failed_scopes & succeeded_scopes)
 
 
 def _safe_relative_path(repo_root: Path, raw: Any) -> Path | None:
@@ -340,13 +381,31 @@ def _success_supersedes_path(
     ``_success_supersedes`` because their affected path is not known.
     """
 
+    scopes = _compatible_path_record_scopes(
+        failed,
+        succeeded,
+        path,
+        patch_stage_by_dir=patch_stage_by_dir,
+    )
+    return scopes is not None and scopes[0].issubset(scopes[1])
+
+
+def _compatible_path_record_scopes(
+    failed: Mapping[str, Any],
+    succeeded: Mapping[str, Any],
+    path: Path,
+    *,
+    patch_stage_by_dir: Mapping[str, str],
+) -> tuple[set[tuple[str, ...]], set[tuple[str, ...]]] | None:
+    """Return compatible failed/success record scopes for one explicit path."""
+
     if not _compatible_work_types(failed, succeeded):
-        return False
+        return None
     if _is_law_audit_sidecar(path) and any(
         "law_audit" not in _responsible_stages(manifest)
         for manifest in (failed, succeeded)
     ):
-        return False
+        return None
     if not _responsible_stages_for_path(
         failed,
         path,
@@ -358,19 +417,19 @@ def _success_supersedes_path(
             patch_stage_by_dir=patch_stage_by_dir,
         )
     ):
-        return False
+        return None
     if not _has_complete_contract(failed) or not _has_complete_contract(
         succeeded
     ):
-        return False
+        return None
     if not _path_allowed_by_contract(failed, path) or not _path_allowed_by_contract(
         succeeded, path
     ):
-        return False
+        return None
 
     qualification = str(failed.get("qualification") or "")
     if qualification != str(succeeded.get("qualification") or ""):
-        return False
+        return None
     group_id = _path_group_id(path, qualification)
     if group_id is not None:
         failed_groups = {str(value) for value in failed.get("targetGroupIds") or []}
@@ -378,16 +437,38 @@ def _success_supersedes_path(
             str(value) for value in succeeded.get("targetGroupIds") or []
         }
         if group_id not in failed_groups or group_id not in succeeded_groups:
-            return False
+            return None
 
     if _requires_record_scope(path, qualification):
         failed_groups = _record_scope_groups(failed, path)
         succeeded_groups = _record_scope_groups(succeeded, path)
         if failed_groups is None or succeeded_groups is None:
-            return False
-        if not failed_groups.issubset(succeeded_groups):
-            return False
-    return True
+            return None
+        return failed_groups, succeeded_groups
+    return set(), set()
+
+
+def _isolated_interrupted_run_is_clean(manifest: Mapping[str, Any]) -> bool:
+    """An interrupted child sandbox has no canonical delta before server commit."""
+
+    return bool(
+        manifest.get("parentRunId")
+        and manifest.get("retrySafe") is True
+        and manifest.get("candidateTransactionOpen") is not True
+        and manifest.get("parallelStrategy")
+        in {"isolated_question_batch", "structured_candidate_batch"}
+        and manifest.get("sandbox") in {"workspace-write", "read-only"}
+    )
+
+
+def _rollback_restored_run(manifest: Mapping[str, Any]) -> bool:
+    rollback = manifest.get("rollback")
+    return bool(
+        isinstance(rollback, Mapping)
+        and rollback.get("status") == "succeeded"
+        and rollback.get("deltaUnknown") is not True
+        and not rollback.get("remainingChangedFiles")
+    )
 
 
 def _has_complete_contract(manifest: Mapping[str, Any]) -> bool:

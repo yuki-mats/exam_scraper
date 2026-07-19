@@ -216,6 +216,118 @@ class QuestionCandidateTest(unittest.TestCase):
             (),
         )
 
+    def test_law_audit_routes_misplaced_fields_to_server_owned_targets(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        explanation = next(
+            target for target in targets if target.role == "explanation"
+        )
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "監査結果を確定した。",
+                        "updates": [
+                            {
+                                "targetId": explanation.target_id,
+                                "setFields": [
+                                    {
+                                        "field": "correctChoiceText",
+                                        "valueJson": '["正しい"]',
+                                    },
+                                    {
+                                        "field": "holdReason",
+                                        "valueJson": '"根拠不足"',
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        fields_by_role = {
+            next(
+                target.role
+                for target in targets
+                if target.target_id == update.target_id
+            ): update.set_fields
+            for update in candidate.updates
+        }
+
+        self.assertEqual(candidate.status, "candidate")
+        self.assertNotIn("explanation", fields_by_role)
+        self.assertEqual(
+            fields_by_role["correct_choice"]["correctChoiceText"],
+            ["正しい"],
+        )
+        self.assertEqual(
+            fields_by_role["law_audit"],
+            {
+                "correctChoiceText": ["正しい"],
+                "holdReason": "根拠不足",
+            },
+        )
+
+    def test_law_audit_normalizes_empty_tertiary_run_id(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "二次監査で維持した。",
+                        "updates": [
+                            {
+                                "targetId": audit.target_id,
+                                "setFields": [
+                                    {
+                                        "field": "tertiaryAuditRunId",
+                                        "valueJson": "[]",
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
+        self.assertEqual(
+            audit.prompt_value()["fieldRules"]["tertiaryAuditRunId"]["type"],
+            ["string", "null"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
