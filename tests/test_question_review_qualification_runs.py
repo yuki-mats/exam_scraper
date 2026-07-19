@@ -1841,6 +1841,71 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(children[0]["result"]["changedFiles"], [])
         self.assertEqual(patch_records[0]["questionType"], "true_false")
 
+    def test_commit_validation_failure_rolls_back_once_and_retries_question(self):
+        patch_relative = (
+            "output/new-exam/questions_json/2026/10_questionType_fixed/"
+            "question_2026_1_questionType_fixed.json"
+        )
+        question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            changed_files_by_work_item={
+                (question_id, "question_type"): [patch_relative]
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 1)
+            original_validate = coordinator._validate_record_scope
+            original_rollback = coordinator.store.rollback_baseline
+            validation_calls = 0
+
+            def fail_first_validation(*args, **kwargs):
+                nonlocal validation_calls
+                validation_calls += 1
+                if validation_calls == 1:
+                    raise OSError("record scope unavailable")
+                return original_validate(*args, **kwargs)
+
+            with patch.object(
+                coordinator,
+                "_validate_record_scope",
+                side_effect=fail_first_validation,
+            ), patch.object(
+                coordinator.store,
+                "rollback_baseline",
+                wraps=original_rollback,
+            ) as rollback:
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            children = [
+                coordinator.store.get("new-exam", child_id)
+                for child_id in completed["childRunIds"]
+            ]
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(validation_calls, 2)
+        self.assertEqual(rollback.call_count, 1)
+        self.assertEqual(len(app_server.batch_calls), 2)
+        self.assertEqual(
+            [
+                value["summary"]
+                for child in children
+                for value in child["batchQuestionResults"]
+            ],
+            ["record scope unavailable", f"{question_id}の整備候補を作成した。"],
+        )
+        self.assertTrue(all(child["retrySafe"] for child in children))
+
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

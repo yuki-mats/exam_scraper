@@ -7374,6 +7374,7 @@ class QualificationRunCoordinator:
                                 raise QualificationRunError(
                                     "問題別反映のrollbackを確認できません。"
                                 )
+                            transaction_open = False
                             raise
                     checkpoint_question(
                         {
