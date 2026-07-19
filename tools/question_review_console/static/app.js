@@ -1814,7 +1814,9 @@ function renderQualificationActiveRun() {
   const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
-    parallelLabel = ` ・ 生成・機械検査を最大${parallelWorkers}問並列・正本反映のみ1問ずつ`;
+    const modelBatchSize = Number(run.modelBatchSize || 5);
+    const questionConcurrency = Number(run.questionConcurrency || parallelWorkers || 1);
+    parallelLabel = ` ・ 1回最大${modelBatchSize}問・同時${questionConcurrency}問・検査と確定は1問ずつ`;
   } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
     parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
   } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
@@ -2033,7 +2035,7 @@ function updateQualificationRunHeading() {
     : `${stages[0].code}から${stages[stages.length - 1].code}まで`;
   $("#qualification-run-purpose").textContent = stages.length === 1
     ? stages[0].purpose
-    : "一問について選択工程を順に完了してから、次の問題へ進みます。";
+    : "選択工程を順に進め、各問題の結果は独立して検査・確定します。";
 }
 
 function openQualificationRunDialog(stage, options = {}) {
@@ -2105,7 +2107,7 @@ function openQualificationRunDialog(stage, options = {}) {
   if (state.qualificationRunDialog.simplified) {
     $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
     $("#qualification-run-title").textContent = `${qualificationDisplayName()}の未整備を整備`;
-    $("#qualification-run-purpose").textContent = "現行メジャー未満又は未記録の工程だけを、問題ごとに順番に整備します。";
+    $("#qualification-run-purpose").textContent = "現行メジャー未満又は未記録の工程を最大5問ずつ生成し、結果は問題単位で確定します。";
     $("#qualification-run-safety").textContent = "本番Firestoreには反映せず、ローカルで整備します。";
   } else {
     $("#qualification-run-scope-eyebrow").textContent = "整備範囲を指定";
@@ -2249,7 +2251,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `一問ずつ生成・機械検査を最大${preview.questionConcurrency}問並列`,
+          `1回最大5問・同時${preview.questionConcurrency}問（検査と確定は1問ずつ）`,
         ),
       );
     }
@@ -2421,11 +2423,11 @@ function progressQuestionQueueState(event) {
     },
     preparing: {
       label: "準備中",
-      description: `${stage ? `${stage}の` : ""}書き込み内容を準備しています。`,
+      description: `${stage ? `${stage}の` : ""}batch生成又は問題別検査を進めています。`,
     },
     prepared: {
       label: "書込待ち",
-      description: "準備が完了し、1問ずつ書き込む順番を待っています。",
+      description: "検査済みrecordの確定順を待っています。",
     },
     committing: {
       label: "書込中",
@@ -2534,7 +2536,7 @@ function renderQualificationRunProgress(progress) {
     currentButton.replaceChildren();
     progressTitle.textContent = "問題ごとの進捗";
     eventsContainer.replaceChildren(
-      element("p", "qualification-run-progress-empty", "開始後、各問題の待機・準備・書込・完了・保留をここに表示します。"),
+      element("p", "qualification-run-progress-empty", "開始後、各問題の待機・処理中・完了・保留をここに表示します。"),
     );
     return;
   }
@@ -2735,7 +2737,7 @@ async function openProgressQuestion(event) {
 function enterQualificationProgressView(run) {
   $("#qualification-run-scope-eyebrow").textContent = "問題ごとの作業状況";
   $("#qualification-run-title").textContent = `${qualificationDisplayName(run?.qualification)}の整備進捗`;
-  $("#qualification-run-purpose").textContent = "対象問題ごとに、待機・準備・書込・完了・保留の状態を表示します。";
+  $("#qualification-run-purpose").textContent = "対象問題ごとに、待機・処理中・完了・保留の状態を表示します。";
   $("#qualification-run-guide").hidden = true;
   $("#qualification-run-stage-fieldset").hidden = true;
   $("#qualification-run-group-fieldset").hidden = true;
@@ -3485,7 +3487,7 @@ function renderWorkVersionPanel(question) {
     node.append(element(
       "p",
       "work-version-summary",
-      "現行メジャー未満又は未記録の工程だけを選び、一問ずつ整備します。",
+      "現行メジャー未満又は未記録の工程だけを選び、結果は問題単位で確定します。",
     ));
   }
   return node;

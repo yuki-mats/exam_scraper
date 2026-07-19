@@ -67,8 +67,15 @@ from tools.question_review_console.qualification_progress import (
 )
 from tools.question_review_console.question_patch_proposal import (
     IsolatedQuestionPatchWorkspace,
-    QuestionPatchProposalError,
-    QuestionPatchProposalStore,
+)
+from tools.question_review_console.question_batch_queue import (
+    MODEL_BATCH_SIZE,
+    BatchQuestionResult,
+    batch_size as question_batch_size,
+    chunks as question_batches,
+    model_worker_limit,
+    normalize_batch_question_results,
+    validate_changed_file_attribution,
 )
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.question_work_queue import (
@@ -133,6 +140,7 @@ MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
 MAX_POLICY_REFRESH_ATTEMPTS = 2
+MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
     "10_questionType_fixed",
     "15_correctChoiceText_fixed",
@@ -542,18 +550,6 @@ def _maintenance_writer_prompt(prompt: str, research_summary: str) -> str:
     )
 
 
-def _writer_retry_prompt(
-    writer_prompt: str,
-    feedback_history: list[Mapping[str, Any]],
-) -> str:
-    sections = [writer_prompt]
-    for feedback in feedback_history:
-        section = feedback_prompt(feedback).strip()
-        if section:
-            sections.append(section)
-    return "\n\n".join(sections)
-
-
 def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None:
     current: BaseException | None = exc
     seen: set[int] = set()
@@ -628,130 +624,86 @@ def _child_output_fingerprint(child: Mapping[str, Any]) -> str:
     ).hexdigest()
 
 
-def _question_scope_prompt(
+def _question_batch_scope_prompt(
     prompt: str,
-    target: Mapping[str, Any],
+    targets: list[Mapping[str, Any]],
     *,
     repo_root: Path,
-    read_only: bool,
-    scoped_plan: Mapping[str, Any] | None = None,
+    scoped_plan: Mapping[str, Any],
+    feedback_by_question: Mapping[str, list[Mapping[str, Any]]],
 ) -> str:
-    question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-    identity = SourceIdentityBinding.from_mapping(target)
-    plan = scoped_plan if isinstance(scoped_plan, Mapping) else {}
-    if plan:
-        scoped_targets = [
-            value
-            for value in plan.get("progressTargets") or []
-            if isinstance(value, Mapping)
-        ]
-        bindings = [
-            value
-            for value in plan.get("targetRecordBindings") or []
-            if isinstance(value, Mapping)
-        ]
-        source_files = list(
-            dict.fromkeys(
-                str(value) for value in plan.get("sourceFiles") or [] if value
+    target_ids = [
+        str(target.get("id") or target.get("uiQuestionId") or "")
+        for target in targets
+    ]
+    if not target_ids or len(target_ids) > MODEL_BATCH_SIZE:
+        raise QualificationRunError(
+            f"一度のmodel turnは最大{MODEL_BATCH_SIZE}問です。"
+        )
+    bindings = [SourceIdentityBinding.from_mapping(target) for target in targets]
+    if any(not binding.is_complete() for binding in bindings):
+        raise QualificationRunError("batchのsource identityを確定できません。")
+    manifest_targets = {
+        str(value.get("id") or value.get("uiQuestionId") or "")
+        for value in scoped_plan.get("progressTargets") or []
+        if isinstance(value, Mapping)
+    }
+    if set(target_ids) != manifest_targets:
+        raise QualificationRunError("batch対象とmanifest対象が一致しません。")
+
+    question_lines: list[str] = []
+    for target, binding in zip(targets, bindings, strict=True):
+        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+        question_lines.extend(
+            [
+                f"### {target.get('displayLabel') or question_id}",
+                f"- 問題ID: `{question_id}`",
+                f"- sourceQuestionKey: `{binding.source_question_key}`",
+                f"- reviewQuestionId: `{binding.review_question_id}`",
+                f"- sourceRecordRef: `{binding.source_record_ref}`",
+                f"- logicalProjection: `{target.get('_projectedInputPath') or ''}`",
+            ]
+        )
+        feedbacks = feedback_by_question.get(question_id) or []
+        if feedbacks:
+            question_lines.append("- 前回の機械検査feedback:")
+            question_lines.extend(
+                "  - "
+                + json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+                for value in feedbacks
             )
-        )
-        if (
-            len(scoped_targets) != 1
-            or str(
-                scoped_targets[0].get("id")
-                or scoped_targets[0].get("uiQuestionId")
-                or ""
-            )
-            != question_id
-            or len(bindings) != 1
-            or not source_files
-            or not re.fullmatch(r".+#[0-9]+", identity.source_record_ref)
-        ):
-            raise QualificationRunError(
-                f"一問のsource recordとfile scopeを一意に確定できません: {question_id}"
-            )
-    else:
-        source_files = []
-    projected_input_path = str(target.get("_projectedInputPath") or "").strip()
-    output_files = list(
-        dict.fromkeys(str(value) for value in plan.get("outputFiles") or [] if value)
-    )
-    allowed_write_files = list(
-        dict.fromkeys(
-            str(value) for value in plan.get("allowedWriteFiles") or [] if value
-        )
-    )
-    allowed_patch_files = list(
-        dict.fromkeys(
-            str(value) for value in plan.get("allowedPatchFiles") or [] if value
-        )
-    )
-    action = (
-        "この問題の判断・修正案と根拠を返す。fileは一切変更しない。"
-        if read_only
-        else (
-            "この問題だけをpatchへ反映し、検証、progress、result receiptまで完了する。"
-            "他の問題は変更も検証も行わない。"
-        )
-    )
+        question_lines.append("")
+
+    question_result_example = {
+        "questionId": target_ids[0],
+        "status": "succeeded",
+        "summary": "この問題の整備と検証を完了した。",
+        "commands": [{"command": "<この問題の検証>", "status": "pass"}],
+        "changedFiles": ["<この問題の候補を含むrepository相対path>"],
+    }
     return "\n".join(
         [
-            "# 一問work item（この指定を最優先する）",
+            "# 最大5問の独立batch（この指定を最優先する）",
             "",
             f"- repository: `{repo_root}`",
-            f"- 問題ID: `{question_id}`",
-            f"- 表示: `{target.get('displayLabel') or question_id}`",
-            f"- sourceQuestionKey: `{identity.source_question_key}`",
-            f"- reviewQuestionId: `{identity.review_question_id}`",
-            f"- sourceRecordRef: `{identity.source_record_ref}`",
+            f"- 対象: {len(target_ids)}問",
             "",
-            *(
-                [
-                    "## 決定済みの一問file scope",
-                    "",
-                    "以下はrepositoryからの相対pathであり、先頭のrepositoryと結合して読む。",
-                    "- sourceFiles:",
-                    *(f"  - `{path}`" for path in source_files),
-                    "- outputFiles:",
-                    *(f"  - `{path}`" for path in output_files),
-                    "- allowedWriteFiles:",
-                    *(f"  - `{path}`" for path in allowed_write_files),
-                    "- allowedPatchFiles:",
-                    *(f"  - `{path}`" for path in allowed_patch_files),
-                    "",
-                    (
-                        "sourceRecordRefの`#`以降を0始まりrecord indexとして、"
-                        "このrecordだけを対象にする。"
-                    ),
-                    (
-                        "上記scopeはserverが一意に確定済みである。repo全体を探索して"
-                        "別file又は別recordへfallbackしない。"
-                    ),
-                    "",
-                ]
-                if plan
-                else []
-            ),
-            *(
-                [
-                    "## この工程の現在入力",
-                    "",
-                    f"- logicalProjection: `{projected_input_path}`",
-                    "",
-                    (
-                        "これはserverが00_sourceと確定patchから生成した読取専用入力である。"
-                        "正本文書中の20_merged_1又は30_merged_2より、この一問では"
-                        "logicalProjectionを優先して読み、編集しない。"
-                    ),
-                    "",
-                ]
-                if projected_input_path
-                else []
-            ),
-            action,
-            "下記の対象件数とfile一覧は親範囲の説明であり、この一問へscopeを広げない。",
+            *question_lines,
+            "各問題を独立に整備する。一問の不備を理由に他問を中断しない。",
+            "各問題はlogicalProjectionを現在入力として使い、別問題へ判断を流用しない。",
+            "許可fileとsource identityはmanifestだけを正本とし、別fileへfallbackしない。",
+            "候補patchは隔離workspaceだけで編集し、正本への反映はserverへ任せる。",
+            "検証は問題ごとに実行し、失敗した問題も理由と失敗commandを記録する。",
             "",
-            "# 親範囲の整備prompt",
+            "## batch完了receiptの追加契約",
+            "",
+            "通常のresult.json fieldにquestionResultsを追加し、対象順で全問題を1件ずつ記録する。",
+            "batch自体を処理できた場合、問題別失敗があってもresult.jsonのstatusはsucceededとする。",
+            "aggregate changedFilesはquestionResults[].changedFilesの和集合と一致させる。",
+            "questionResults例:",
+            f"`{json.dumps(question_result_example, ensure_ascii=False, separators=(',', ':'))}`",
+            "",
+            "# 工程prompt",
             "",
             prompt.rstrip(),
             "",
@@ -1119,6 +1071,16 @@ class QualificationRunStore:
             "sandbox": plan.get("sandbox"),
             "provider": plan.get("provider"),
             "parallelStrategy": plan.get("parallelStrategy"),
+            "modelBatchSize": (
+                int(plan["modelBatchSize"])
+                if plan.get("modelBatchSize") is not None
+                else None
+            ),
+            "modelWorkerLimit": (
+                int(plan["modelWorkerLimit"])
+                if plan.get("modelWorkerLimit") is not None
+                else None
+            ),
             "questionConcurrency": (
                 int(plan["questionConcurrency"])
                 if plan.get("questionConcurrency") is not None
@@ -3448,10 +3410,6 @@ class QualificationRunCoordinator:
             or getattr(workflow, "work_versions", None)
             or QuestionWorkVersionStore(self.repo_root)
         )
-        self.question_proposals = QuestionPatchProposalStore(
-            self.repo_root,
-            self.store.root,
-        )
         # Model turns run concurrently in private workspaces.  Only the short
         # exact-record rebase into canonical patch files is serialized.
         self._question_patch_commit_lock = threading.RLock()
@@ -3741,7 +3699,9 @@ class QualificationRunCoordinator:
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "questionConcurrency": question_concurrency,
-                    "parallelStrategy": "isolated_question_pipeline",
+                    "parallelStrategy": "isolated_question_batch",
+                    "modelBatchSize": min(MODEL_BATCH_SIZE, question_concurrency),
+                    "modelWorkerLimit": model_worker_limit(question_concurrency),
                     "parallelWorkerLimit": min(
                         question_concurrency,
                         int(plan.get("targetCount") or 1),
@@ -3751,7 +3711,7 @@ class QualificationRunCoordinator:
                     "childRunIds": [],
                     "questionExecutions": question_executions,
                     "queueStatus": "queued",
-                    "queueOrder": "question_major",
+                    "queueOrder": "question_batch",
                 }
                 run = self.store.create(
                     flow_plan,
@@ -5278,6 +5238,7 @@ class QualificationRunCoordinator:
         self,
         qualification: str,
         stage: Mapping[str, Any],
+        question_id: str,
     ) -> bool:
         child_ids = [str(value) for value in stage.get("childRunIds") or [] if value]
         if not child_ids:
@@ -5288,6 +5249,29 @@ class QualificationRunCoordinator:
             except (FileNotFoundError, ValueError):
                 continue
             result = child.get("result")
+            if child.get("parallelStrategy") == "isolated_question_batch":
+                question_result = next(
+                    (
+                        value
+                        for value in child.get("batchQuestionResults") or []
+                        if isinstance(value, Mapping)
+                        and str(value.get("questionId") or "") == question_id
+                    ),
+                    None,
+                )
+                if not isinstance(question_result, Mapping):
+                    continue
+                changed_files = question_result.get("changedFiles")
+                if (
+                    question_result.get("status") == "succeeded"
+                    and isinstance(changed_files, list)
+                    and any(
+                        isinstance(value, str) and value.strip()
+                        for value in changed_files
+                    )
+                ):
+                    return True
+                continue
             changed_files = (
                 result.get("changedFiles")
                 if isinstance(result, Mapping)
@@ -5309,213 +5293,8 @@ class QualificationRunCoordinator:
                 return True
         return False
 
-    def _prepare_question_item(
-        self,
-        qualification: str,
-        run_id: str,
-        phase_prompt: str,
-        target: Mapping[str, Any],
-        stage_id: str,
-        emit: Callable[[str], None],
-    ) -> bool:
-        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-        initial = self._queue_stage(
-            self.store.get(qualification, run_id), question_id, stage_id
-        )
-        if initial is None:
-            raise QualificationRunError(
-                f"一問queueの準備対象がありません: {question_id} / {stage_id}"
-            )
-        work_key = str(initial.get("workItemKey") or "")
-        input_hash = str(initial.get("inputFingerprint") or "")
-        try:
-            projected_input = self._write_projected_question_input(
-                qualification,
-                run_id,
-                target,
-                work_key,
-            )
-        except Exception as exc:  # noqa: BLE001
-            reason = str(exc)
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                status="blocked",
-                error=reason,
-                finishedAt=_now(),
-                block_dependents=True,
-            )
-            emit(
-                f"{target.get('displayLabel') or question_id}: "
-                f"現在入力を準備できないため保留しました: {reason}"
-            )
-            return False
-        scoped_target = dict(target)
-        if projected_input is not None:
-            scoped_target["_projectedInputPath"] = projected_input["path"]
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                projectedInputPath=projected_input["path"],
-                projectedInputHash=projected_input["hash"],
-            )
-        attempts = int(initial.get("attempts") or 0) + 1
-        self.store.update_question_stage(
-            qualification,
-            run_id,
-            question_id,
-            stage_id,
-            status="preparing",
-            attempts=attempts,
-            startedAt=_now(),
-            finishedAt=None,
-            error=None,
-        )
 
-        def on_thread_started(thread_id: str, session_id: str) -> None:
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                preparationThreadId=thread_id,
-                preparationSessionId=session_id,
-            )
-
-        def on_turn_started(_thread_id: str, turn_id: str) -> None:
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                preparationTurnId=turn_id,
-            )
-
-        def heartbeat() -> None:
-            heartbeat_at = _now()
-            self.store.update(
-                qualification,
-                run_id,
-                heartbeatAt=heartbeat_at,
-            )
-            job_heartbeat = getattr(emit, "heartbeat", None)
-            if callable(job_heartbeat):
-                job_heartbeat()
-
-        try:
-            with tempfile.TemporaryDirectory(
-                prefix=f"question-preparation-{work_key}-"
-            ) as directory:
-                result = self.app_server.run_turn(
-                    _question_scope_prompt(
-                        phase_prompt,
-                        scoped_target,
-                        repo_root=self.repo_root,
-                        read_only=True,
-                        scoped_plan=(
-                            target.get("_scopedPlan")
-                            if isinstance(target.get("_scopedPlan"), Mapping)
-                            else None
-                        ),
-                    ),
-                    work_type=f"maintenance_prepare_{stage_id}",
-                    sandbox="read-only",
-                    emit=emit,
-                    on_thread_started=on_thread_started,
-                    on_turn_started=on_turn_started,
-                    heartbeat=heartbeat,
-                    cwd=Path(directory).resolve(),
-                )
-            if result.changed_files:
-                reason = (
-                    "read-only準備でfile変更通知を検出しました。"
-                    "この問題だけを保留します。"
-                )
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    status="blocked",
-                    error=reason,
-                    pauseReason=reason,
-                    finishedAt=_now(),
-                    block_dependents=True,
-                )
-                emit(
-                    f"{target.get('displayLabel') or question_id}: {reason}"
-                    " 他の問題は続行します。"
-                )
-                return False
-            proposal = self.question_proposals.write(
-                qualification,
-                run_id,
-                work_item_key=work_key,
-                question_id=question_id,
-                stage_id=stage_id,
-                input_fingerprint=input_hash,
-                summary=result.final_message,
-                thread_id=result.thread_id,
-                session_id=result.session_id,
-                turn_id=result.turn_id,
-            )
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                status="prepared",
-                preparationPath=proposal["path"],
-                preparationHash=proposal["hash"],
-                preparationThreadId=result.thread_id,
-                preparationSessionId=result.session_id,
-                preparationTurnId=result.turn_id,
-                error=None,
-            )
-            return True
-        except QuestionQueuePaused:
-            raise
-        except Exception as exc:  # noqa: BLE001
-            provider_failure = _external_provider_failure(exc)
-            if provider_failure is not None:
-                reason = (
-                    "Codex App Serverの利用可否を回復後に再開してください: "
-                    f"{provider_failure}"
-                )
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    status="blocked",
-                    error=reason,
-                    pauseReason=reason,
-                    finishedAt=_now(),
-                    block_dependents=True,
-                )
-                raise QuestionQueuePaused(
-                    reason,
-                    pause_kind="external_provider",
-                ) from exc
-            reason = str(exc or "一問の準備を完了できませんでした。")
-        self.store.update_question_stage(
-            qualification,
-            run_id,
-            question_id,
-            stage_id,
-            status="blocked",
-            error=reason,
-            finishedAt=_now(),
-            block_dependents=True,
-        )
-        emit(f"{target.get('displayLabel') or question_id}: 準備を保留しました: {reason}")
-        return False
-
-    def _question_major_stage_spec(
+    def _question_stage_spec(
         self,
         qualification: str,
         run_id: str,
@@ -5570,6 +5349,7 @@ class QualificationRunCoordinator:
                 prior_changed = prior_changed or self._validated_queue_stage_changed(
                     qualification,
                     prior,
+                    question_id,
                 )
         if prior_validated and (target is not None or prior_changed):
             phase_plan, target = self._dynamic_question_phase_plan(
@@ -5633,549 +5413,119 @@ class QualificationRunCoordinator:
             "target": {**target, "_scopedPlan": scoped_plan},
         }
 
-    def _commit_question_major_item(
+    def _batch_plan_for_specs(
         self,
-        qualification: str,
-        run_id: str,
-        spec: Mapping[str, Any],
-        emit: Callable[[str], None],
+        specs: list[Mapping[str, Any]],
         *,
-        child_run_ids: list[str],
-        phase_child_ids: dict[str, list[str]],
-        phase_runtime: dict[str, dict[str, Any]],
-        work_version_receipts: list[dict[str, Any]],
-        confirmed_group_ids: set[str],
-        pipeline_stop: threading.Event,
-        aggregation_lock: threading.Lock,
-    ) -> bool:
-        phase = dict(spec["phase"])
-        phase_plan = dict(spec["phasePlan"])
-        phase_prompt = str(spec["phasePrompt"])
-        target = dict(spec["target"])
-        stage_id = str(spec["stageId"])
-        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-        queue_stage = self._queue_stage(
-            self.store.get(qualification, run_id), question_id, stage_id
-        )
-        if queue_stage is None or queue_stage.get("status") != "prepared":
-            return False
-        if not self._phase_plan_policy_is_current(
-            qualification,
-            phase_plan,
-            stage_id,
-        ):
-            if self._requeue_policy_changed_question(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                emit,
-            ):
-                raise QuestionPolicyChanged(
-                    f"{question_id} / {stage_id} の共通方針を更新しました。"
-                )
-            return False
-        for freshness_attempt in range(2):
-            try:
-                latest_projection = self._write_projected_question_input(
-                    qualification,
-                    run_id,
-                    target,
-                    str(queue_stage.get("workItemKey") or ""),
-                )
-            except Exception as exc:  # noqa: BLE001
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    status="blocked",
-                    error=str(exc),
-                    finishedAt=_now(),
-                    block_dependents=True,
-                )
-                return False
-            projection_is_current = bool(
-                latest_projection
-                and str(queue_stage.get("projectedInputPath") or "")
-                == latest_projection["path"]
-                and str(queue_stage.get("projectedInputHash") or "")
-                == latest_projection["hash"]
-            )
-            if projection_is_current:
-                break
-            latest_record = latest_projection.get("record")
-            if isinstance(latest_record, Mapping) and not self._projection_stage_applicable(
-                phase_plan,
-                stage_id,
-                latest_record,
-            ):
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    status="not_applicable",
-                    error=None,
-                    finishedAt=_now(),
-                )
-                emit(
-                    f"{target.get('displayLabel') or question_id}: "
-                    "最新入力では対象外になったためwriterを省略しました。"
-                )
-                return False
-            if freshness_attempt:
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    status="blocked",
-                    error=(
-                        "読取専用準備中にも現在入力が変化したため、"
-                        "この問題だけを保留しました。"
-                    ),
-                    finishedAt=_now(),
-                    block_dependents=True,
-                )
-                return False
-            emit(
-                f"{target.get('displayLabel') or question_id}: "
-                "準備後にpatchが更新されたため、最新入力で準備し直します。"
-            )
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                status="queued",
-                preparationPath=None,
-                preparationHash=None,
-                error=None,
-            )
-            if not self._prepare_question_item(
-                qualification,
-                run_id,
-                phase_prompt,
-                target,
-                stage_id,
-                emit,
-            ):
-                return False
-            queue_stage = self._queue_stage(
-                self.store.get(qualification, run_id), question_id, stage_id
-            )
-            if queue_stage is None or queue_stage.get("status") != "prepared":
-                return False
-        preparation_hash = str(queue_stage.get("preparationHash") or "").strip()
-        work_key = str(queue_stage.get("workItemKey") or "").strip()
-        input_hash = str(queue_stage.get("inputFingerprint") or "").strip()
-        if not all(
-            (
-                queue_stage.get("preparationPath"),
-                preparation_hash,
-                work_key,
-                input_hash,
-            )
-        ):
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                status="blocked",
-                error=(
-                    "一問の準備記録path/hash又はqueue identityが"
-                    "不足しているため、writerを開始しません。"
-                ),
-                finishedAt=_now(),
-                block_dependents=True,
-            )
-            return False
-        projected_input_path = str(
-            queue_stage.get("projectedInputPath") or ""
-        ).strip()
-        projected_input_hash = str(
-            queue_stage.get("projectedInputHash") or ""
-        ).strip()
-        if projected_input_path:
-            try:
-                projected_relative = self._maintenance_relative_path(
-                    projected_input_path
-                )
-                projected_absolute = self.repo_root / projected_relative
-                actual_projection_hash = hashlib.sha256(
-                    projected_absolute.read_bytes()
-                ).hexdigest()
-                if not projected_input_hash or not hmac.compare_digest(
-                    actual_projection_hash,
-                    projected_input_hash,
-                ):
-                    raise QuestionItemError(
-                        "現在入力のlogicalProjection hashが一致しません。"
-                    )
-            except (OSError, QualificationRunError) as exc:
-                self.store.update_question_stage(
-                    qualification,
-                    run_id,
-                    question_id,
-                    stage_id,
-                    status="blocked",
-                    error=str(exc),
-                    finishedAt=_now(),
-                    block_dependents=True,
-                )
-                return False
-            target["_projectedInputPath"] = projected_input_path
-        try:
-            research_summary = str(
-                self.question_proposals.read(
-                    qualification,
-                    run_id,
-                    work_item_key=work_key,
-                    expected_hash=preparation_hash,
-                    question_id=question_id,
-                    stage_id=stage_id,
-                    input_fingerprint=input_hash,
-                )["summary"]
-            )
-        except QuestionPatchProposalError as exc:
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                status="blocked",
-                error=str(exc),
-                finishedAt=_now(),
-                block_dependents=True,
-            )
-            return False
+        parent_run_id: str,
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        if not specs or len(specs) > MODEL_BATCH_SIZE:
+            raise QualificationRunError("model batchの対象件数が不正です。")
+        scoped: list[dict[str, Any]] = []
+        targets: list[dict[str, Any]] = []
+        for spec in specs:
+            target = dict(spec["target"])
+            question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+            plan = specialize_question_plan(spec["phasePlan"], question_id)
+            plan["progressTargets"] = [target]
+            scoped.append(plan)
+            targets.append(target)
 
-        child_plan = specialize_question_plan(phase_plan, question_id)
-        child_plan.update(
-            parentRunId=run_id,
+        combined = copy.deepcopy(scoped[0])
+        list_fields = {
+            "targetGroupIds",
+            "targetQuestionKeys",
+            "progressTargets",
+            "targetRecordBindings",
+            "targetRecordAliasGroups",
+            "targetRecordAliases",
+            "sourceFiles",
+            "outputFiles",
+            "allowedPatchFiles",
+            "allowedWriteFiles",
+            "resolvableFailedDeltaPaths",
+        }
+        for field in list_fields:
+            values: list[Any] = []
+            for plan in scoped:
+                values.extend(copy.deepcopy(list(plan.get(field) or [])))
+            if field in {"progressTargets", "targetRecordBindings", "targetRecordAliasGroups"}:
+                combined[field] = values
+            else:
+                combined[field] = list(dict.fromkeys(values))
+
+        for field in ("targetSourceRecordScopes", "targetRecordScopes"):
+            merged: dict[str, list[list[str]]] = {}
+            for plan in scoped:
+                for path, groups in (plan.get(field) or {}).items():
+                    bucket = merged.setdefault(str(path), [])
+                    for group in groups or []:
+                        normalized = sorted({str(value) for value in group if value})
+                        if normalized and normalized not in bucket:
+                            bucket.append(normalized)
+            combined[field] = merged
+
+        stage_id = str(specs[0]["stageId"])
+        question_ids = [
+            str(target.get("id") or target.get("uiQuestionId") or "")
+            for target in targets
+        ]
+        combined.update(
+            targetCount=len(targets),
+            workItemCount=len(targets),
+            stageId=stage_id,
+            stageIds=[stage_id],
+            policyTargets={stage_id: question_ids},
+            parentRunId=parent_run_id,
             flowPhaseId=stage_id,
-            phaseIndex=int(phase["index"]),
-            workType=f"maintenance_{stage_id}",
+            workType=f"maintenance_{stage_id}_batch",
             sandbox="workspace-write",
             provider=self.app_server.provider,
-            parallelStrategy="isolated_question",
+            parallelStrategy="isolated_question_batch",
             parallelWorkerLimit=1,
             writeWorkerLimit=1,
             parentSourceChecked=True,
+            modelBatchSize=len(targets),
         )
-        base_writer_prompt = _maintenance_writer_prompt(
-            _question_scope_prompt(
-                phase_prompt,
-                target,
-                repo_root=self.repo_root,
-                read_only=False,
-                scoped_plan=child_plan,
-            ),
-            research_summary,
-        )
-        stage_child_ids = [
-            str(value) for value in queue_stage.get("childRunIds") or [] if value
-        ]
-        validation_attempts = [
-            dict(value)
-            for value in queue_stage.get("validationAttempts") or []
-            if isinstance(value, Mapping)
-        ]
-        feedback_history = [
-            dict(value["feedback"])
-            for value in validation_attempts
-            if isinstance(value.get("feedback"), Mapping)
-        ]
+        combined.pop("stagePlans", None)
+        self._apply_plan_write_contract(combined)
+        return combined, targets
 
-        def update_validation_stage(
-            *,
-            block_dependents: bool = False,
-            **changes: Any,
-        ) -> None:
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                childRunIds=list(stage_child_ids),
-                validationAttempts=copy.deepcopy(validation_attempts),
-                block_dependents=block_dependents,
-                **changes,
-            )
-
-        child: dict[str, Any] = {}
-        while len(validation_attempts) < MAX_WRITER_VALIDATION_ATTEMPTS:
-            attempt_number = len(validation_attempts) + 1
-            writer_prompt = _writer_retry_prompt(
-                base_writer_prompt,
-                feedback_history,
-            )
-            child = self.store.create(
-                child_plan,
-                status="queued",
-                prompt=writer_prompt,
-            )
-            child_id = str(child["runId"])
-            with aggregation_lock:
-                child_run_ids.append(child_id)
-                phase_child_ids.setdefault(stage_id, []).append(child_id)
-                all_child_ids = list(child_run_ids)
-            stage_child_ids.append(child_id)
-            validation_attempts.append(
-                {
-                    "attempt": attempt_number,
-                    "childRunId": child_id,
-                    "status": "running",
-                    "feedback": None,
-                    "startedAt": _now(),
-                    "finishedAt": None,
-                }
-            )
-            self.store.update(
-                qualification,
-                run_id,
-                childRunIds=all_child_ids,
-                currentPhaseId=stage_id,
-                executionPhase=f"committing:{stage_id}",
-            )
-            update_validation_stage(
-                status="committing",
-                error=None,
-            )
-            try:
-                if "_run_human" in self.__dict__:
-                    # Existing harnesses replace the legacy writer at the
-                    # instance boundary.  Keep that seam while production uses
-                    # the isolated implementation below.
-                    self._run_human(
-                        qualification,
-                        child_id,
-                        self.store.prompt(qualification, child_id),
-                        str(child_plan["workType"]),
-                        emit,
-                        sync_artifacts=False,
-                    )
-                else:
-                    self._run_isolated_question_human(
-                        qualification,
-                        child_id,
-                        self.store.prompt(qualification, child_id),
-                        str(child_plan["workType"]),
-                        emit,
-                        phase_plan=phase_plan,
-                        stage_id=stage_id,
-                        pipeline_stop=pipeline_stop,
-                    )
-                child = self.store.refresh(qualification, child_id)
-                if child.get("status") != "succeeded" or not child.get(
-                    "receiptValidated"
-                ):
-                    raise QualificationRunError(
-                        "一問の完了結果を検証できませんでした。"
-                    )
-            except Exception as exc:  # noqa: BLE001
-                try:
-                    child = self.store.refresh(qualification, child_id)
-                except Exception:  # noqa: BLE001
-                    pass
-                reason = str((child or {}).get("error") or exc)
-                isolated_failure = self._isolated_child_failure(child or {})
-                provider_failure = _external_provider_failure(exc)
-                if provider_failure is not None and isolated_failure:
-                    pause_reason = (
-                        "Codex App Serverの利用可否を回復後に再開してください: "
-                        f"{provider_failure}"
-                    )
-                    validation_attempts[-1].update(
-                        status="interrupted",
-                        feedback=None,
-                        pauseReason=pause_reason,
-                        finishedAt=_now(),
-                    )
-                    update_validation_stage(
-                        status="blocked",
-                        error=pause_reason,
-                        pauseReason=pause_reason,
-                        finishedAt=_now(),
-                        block_dependents=True,
-                    )
-                    pipeline_stop.set()
-                    pause = QuestionQueuePaused(
-                        pause_reason,
-                        pause_kind="external_provider",
-                    )
-                    self._persist_queue_pause(qualification, run_id, pause)
-                    raise pause from exc
-                if isolated_failure and not self._phase_plan_policy_is_current(
-                    qualification,
-                    phase_plan,
-                    stage_id,
-                ):
-                    validation_attempts.pop()
-                    if self._requeue_policy_changed_question(
-                        qualification,
-                        run_id,
-                        question_id,
-                        stage_id,
-                        emit,
-                        superseded_child_run_id=child_id,
-                        validation_attempts=validation_attempts,
-                    ):
-                        raise QuestionPolicyChanged(
-                            f"{question_id} / {stage_id} の共通方針を更新しました。"
-                        ) from exc
-                    return False
-                feedback = build_child_feedback(
-                    child or {},
-                    attempt=attempt_number,
-                    question_id=question_id,
-                    stage_id=stage_id,
-                )
-                validation_attempts[-1].update(
-                    status="failed",
-                    feedback=feedback,
-                    finishedAt=_now(),
-                )
-                safety_violation = feedback.get("status") == "blocked"
-                if not isolated_failure:
-                    unsafe_reason = (
-                        f"{target.get('displayLabel') or question_id}: "
-                        "失敗後のrollback完了を検証できないため、"
-                        "後続writerと成果物同期を停止しました。"
-                    )
-                    update_validation_stage(
-                        status="blocked",
-                        error=unsafe_reason,
-                        finishedAt=_now(),
-                        block_dependents=True,
-                    )
-                    pipeline_stop.set()
-                    self.store.update(
-                        qualification,
-                        run_id,
-                        retrySafe=False,
-                        retryUnsafeReason=unsafe_reason,
-                        unsafeChildRunId=child_id,
-                    )
-                    self._block_remaining_queue(
-                        qualification,
-                        run_id,
-                        unsafe_reason,
-                    )
-                    raise QualificationRunError(unsafe_reason) from exc
-                if safety_violation:
-                    blocked_reason = (
-                        f"{target.get('displayLabel') or question_id}: "
-                        "機械検査が安全性違反を検出しました。"
-                        "この問題だけを保留しました。"
-                    )
-                    validation_attempts[-1].update(
-                        status="blocked",
-                        pauseReason=None,
-                    )
-                    update_validation_stage(
-                        status="blocked",
-                        error=blocked_reason,
-                        pauseReason=None,
-                        finishedAt=_now(),
-                        block_dependents=True,
-                    )
-                    emit(
-                        f"{blocked_reason} 他の問題は続行します。"
-                    )
-                    return False
-                if attempt_number >= MAX_WRITER_VALIDATION_ATTEMPTS:
-                    update_validation_stage(
-                        status="blocked",
-                        error=reason,
-                        finishedAt=_now(),
-                        block_dependents=True,
-                    )
-                    emit(
-                        f"{target.get('displayLabel') or question_id}: "
-                        f"{attempt_number}回の機械検査で合格しないため、"
-                        f"この問題だけを保留しました: {reason}"
-                    )
-                    return False
-                feedback_history.append(feedback)
-                update_validation_stage(
-                    status="committing",
-                    error=reason,
-                    finishedAt=None,
-                )
-                emit(
-                    f"{target.get('displayLabel') or question_id}: "
-                    f"機械検査の不備をfeedbackし、"
-                    f"writerを再実行します（{attempt_number + 1}/"
-                    f"{MAX_WRITER_VALIDATION_ATTEMPTS}）: {reason}"
-                )
-                continue
-
-            validation_attempts[-1].update(
-                status="validated",
-                feedback=build_child_feedback(
-                    child,
-                    attempt=attempt_number,
-                    question_id=question_id,
-                    stage_id=stage_id,
-                ),
-                finishedAt=_now(),
-            )
-            update_validation_stage(
-                status="committing",
-                error=None,
-            )
-            break
-
-        if not child:
-            reason = "一問writerの機械検査回数が上限に達しています。"
-            update_validation_stage(
-                status="blocked",
-                error=reason,
-                finishedAt=_now(),
-                block_dependents=True,
-            )
-            return False
-
-        receipt = child.get("workVersionReceipt")
-        list_group_id = str(target.get("listGroupId") or "")
-        with aggregation_lock:
-            if isinstance(receipt, Mapping):
-                work_version_receipts.append(dict(receipt))
-            if list_group_id:
-                confirmed_group_ids.add(list_group_id)
-            confirmed_snapshot = sorted(confirmed_group_ids)
-        if list_group_id:
-            self.store.update(
-                qualification,
-                run_id,
-                confirmedGroupIds=confirmed_snapshot,
-            )
-        self.store.update_question_stage(
-            qualification,
-            run_id,
-            question_id,
-            stage_id,
-            status="validated",
-            outputFingerprint=_child_output_fingerprint(child),
-            finishedAt=_now(),
-            error=None,
-            validated_receipt=(receipt if isinstance(receipt, Mapping) else None),
-        )
-        runtime = {
-            "threadId": child.get("threadId"),
-            "sessionId": child.get("sessionId"),
-            "turnId": child.get("turnId"),
-            "model": child.get("model"),
-            "serviceTier": child.get("serviceTier"),
-            "reasoningEffort": child.get("reasoningEffort"),
+    @staticmethod
+    def _batch_feedback(
+        child: Mapping[str, Any],
+        result: BatchQuestionResult,
+        *,
+        attempt: int,
+        stage_id: str,
+    ) -> dict[str, Any]:
+        pseudo_child = {
+            **dict(child),
+            "status": "failed",
+            "error": result.summary,
+            "result": {
+                "status": "failed",
+                "summary": result.summary,
+                "commands": list(result.commands),
+                "changedFiles": [],
+            },
+            "rollback": {
+                "status": "succeeded",
+                "remainingChangedFiles": [],
+                "deltaUnknown": False,
+            },
+            "deltaUnknown": False,
+            "writeAttributionVerified": True,
+            "unsafeChangedFiles": [],
+            "unsafeNotifiedChangedFiles": [],
         }
-        with aggregation_lock:
-            phase_runtime[stage_id] = runtime
-        self.store.update(qualification, run_id, **runtime)
-        return True
+        return build_child_feedback(
+            pseudo_child,
+            attempt=attempt,
+            question_id=result.question_id,
+            stage_id=stage_id,
+        )
+
 
     def _run_shared_prerequisite(
         self,
@@ -6338,7 +5688,7 @@ class QualificationRunCoordinator:
         )
         return True
 
-    def _finalize_question_major_phases(
+    def _finalize_question_phases(
         self,
         qualification: str,
         run_id: str,
@@ -6365,13 +5715,16 @@ class QualificationRunCoordinator:
                 finishedAt=_now(),
             )
 
-    def _run_question_major_queue(
+
+    def _run_question_batch_queue(
         self,
         qualification: str,
         run_id: str,
         phases: list[dict[str, Any]],
         emit: Callable[[str], None],
     ) -> dict[str, Any]:
+        """Process normal work first and retry rejected questions at the end."""
+
         child_run_ids: list[str] = []
         work_version_receipts: list[dict[str, Any]] = []
         parent = self.store.get(qualification, run_id)
@@ -6381,279 +5734,517 @@ class QualificationRunCoordinator:
         phase_child_ids: dict[str, list[str]] = {}
         phase_runtime: dict[str, dict[str, Any]] = {}
         pipeline_stop = threading.Event()
-        pipeline_pause_lock = threading.Lock()
-        pipeline_pauses: list[QuestionQueuePaused] = []
         aggregation_lock = threading.Lock()
+        question_concurrency = (
+            normalize_question_concurrency(parent["questionConcurrency"])
+            if parent.get("questionConcurrency") is not None
+            else DEFAULT_QUESTION_CONCURRENCY
+        )
+        model_batch_size = question_batch_size(question_concurrency)
+        worker_limit = model_worker_limit(question_concurrency)
+        emit(
+            f"最大{model_batch_size}問を1回のmodel turnへまとめ、"
+            f"同時{question_concurrency}問（model turn最大{worker_limit}本）で処理します。"
+        )
 
-        def record_pipeline_pause(pause: QuestionQueuePaused) -> None:
-            with pipeline_pause_lock:
-                if not pipeline_pauses:
-                    pipeline_pauses.append(pause)
+        def question_stage(question_id: str, stage_id: str) -> dict[str, Any] | None:
+            return self._queue_stage(
+                self.store.get(qualification, run_id),
+                question_id,
+                stage_id,
+            )
 
-        def raise_pipeline_pause() -> None:
-            with pipeline_pause_lock:
-                pause = pipeline_pauses[0] if pipeline_pauses else None
-            if pause is not None:
-                raise pause
-
-        def run_segment(segment: list[dict[str, Any]]) -> None:
-            if not segment:
-                return
-            parent = self.store.get(qualification, run_id)
-            questions = [
-                dict(value)
-                for value in parent.get("questionExecutions") or []
-                if isinstance(value, Mapping)
-            ]
-            phase_contexts: dict[str, tuple[dict[str, Any], str]] = {}
-            for phase in segment:
-                stage_id = str(phase["id"])
-                phase_child_ids.setdefault(stage_id, [])
-                has_active_item = any(
-                    str(stage.get("status") or "queued")
-                    not in {"validated", "not_applicable", "blocked"}
-                    for question in questions
-                    for stage in question.get("stages") or []
-                    if isinstance(stage, Mapping)
-                    and str(stage.get("stageId") or "") == stage_id
+        def prepare_spec(
+            phase: Mapping[str, Any],
+            phase_plan: Mapping[str, Any],
+            phase_prompt: str,
+            question_id: str,
+        ) -> dict[str, Any] | None:
+            stage_id = str(phase["id"])
+            if not self._phase_plan_policy_is_current(
+                qualification,
+                phase_plan,
+                stage_id,
+            ):
+                phase_plan, phase_prompt = self._flow_phase_plan_prompt(
+                    self.store.get(qualification, run_id),
+                    phase,
                 )
-                phase_contexts[stage_id] = (
-                    self._flow_phase_plan_prompt(parent, phase)
-                    if has_active_item
-                    else ({"progressTargets": []}, "")
-                )
-                self._update_flow_phase(
+            try:
+                spec = self._question_stage_spec(
                     qualification,
                     run_id,
-                    stage_id,
-                    status="running",
-                    targetCount=len(questions),
-                    childRunIds=[],
-                    startedAt=_now(),
-                    error=None,
+                    phase,
+                    question_id,
+                    phase_plan,
+                    phase_prompt,
                 )
-            requested_concurrency = (
-                normalize_question_concurrency(parent["questionConcurrency"])
-                if parent.get("questionConcurrency") is not None
-                else max(1, int(parent.get("parallelWorkerLimit") or 1))
+            except QuestionItemError as exc:
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    str(phase["id"]),
+                    status="blocked",
+                    error=str(exc),
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                emit(f"{question_id}: この問題だけを保留しました: {exc}")
+                return None
+            if str(spec.get("status") or "") not in {"queued", "prepared"}:
+                return None
+            target = dict(spec["target"])
+            stage_id = str(spec["stageId"])
+            work_key = str(
+                (question_stage(question_id, stage_id) or {}).get("workItemKey")
+                or ""
             )
-            worker_limit = max(
-                1,
-                min(
-                    requested_concurrency,
-                    len(questions) or 1,
-                ),
-            )
-            emit(
-                f"{len(questions)}問を問ごとの工程順で処理します。"
-                f"一問ごとの生成と機械検査を最大{worker_limit}問並列で行い、"
-                "合格したrecordの正本反映だけを短時間ずつ直列化します。"
-            )
-
-            def resolve_spec(
-                question: Mapping[str, Any],
-                phase: Mapping[str, Any],
-            ) -> dict[str, Any]:
-                question_id = str(question.get("questionId") or "")
-                stage_id = str(phase["id"])
-                with aggregation_lock:
-                    initial_plan, initial_prompt = phase_contexts[stage_id]
-                queue_stage = self._queue_stage(
-                    self.store.get(qualification, run_id),
+            try:
+                projection = self._write_projected_question_input(
+                    qualification,
+                    run_id,
+                    target,
+                    work_key,
+                )
+            except Exception as exc:  # noqa: BLE001
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
                     question_id,
                     stage_id,
+                    status="blocked",
+                    error=str(exc),
+                    finishedAt=_now(),
+                    block_dependents=True,
                 )
-                if (
-                    str((queue_stage or {}).get("status") or "queued") == "queued"
-                    and not self._phase_plan_policy_is_current(
+                return None
+            if projection is not None:
+                target["_projectedInputPath"] = projection["path"]
+                self.store.update_question_stage(
                     qualification,
-                    initial_plan,
+                    run_id,
+                    question_id,
                     stage_id,
+                    projectedInputPath=projection["path"],
+                    projectedInputHash=projection["hash"],
+                )
+            return {**spec, "target": target}
+
+        def run_batch(
+            specs: list[Mapping[str, Any]],
+            phase: Mapping[str, Any],
+            phase_prompt: str,
+        ) -> dict[str, Any]:
+            stage_id = str(phase["id"])
+            batch_plan, targets = self._batch_plan_for_specs(
+                specs,
+                parent_run_id=run_id,
+            )
+            feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
+            for target in targets:
+                question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+                current = question_stage(question_id, stage_id) or {}
+                feedback_by_question[question_id] = [
+                    dict(value["feedback"])
+                    for value in current.get("validationAttempts") or []
+                    if isinstance(value, Mapping)
+                    and isinstance(value.get("feedback"), Mapping)
+                ]
+            batch_prompt = _question_batch_scope_prompt(
+                phase_prompt,
+                targets,
+                repo_root=self.repo_root,
+                scoped_plan=batch_plan,
+                feedback_by_question=feedback_by_question,
+            )
+            child = self.store.create(
+                batch_plan,
+                status="queued",
+                prompt=batch_prompt,
+            )
+            child_id = str(child["runId"])
+            with aggregation_lock:
+                child_run_ids.append(child_id)
+                phase_child_ids.setdefault(stage_id, []).append(child_id)
+                all_child_ids = list(child_run_ids)
+            self.store.update(
+                qualification,
+                run_id,
+                childRunIds=all_child_ids,
+                currentPhaseId=stage_id,
+                executionPhase=f"batch:{stage_id}",
+            )
+            for target in targets:
+                question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+                current = question_stage(question_id, stage_id) or {}
+                attempts = [
+                    dict(value)
+                    for value in current.get("validationAttempts") or []
+                    if isinstance(value, Mapping)
+                ]
+                attempts.append(
+                    {
+                        "attempt": len(attempts) + 1,
+                        "childRunId": child_id,
+                        "status": "running",
+                        "feedback": None,
+                        "startedAt": _now(),
+                        "finishedAt": None,
+                    }
+                )
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="committing",
+                    childRunIds=[
+                        *(
+                            str(value)
+                            for value in current.get("childRunIds") or []
+                            if value
+                        ),
+                        child_id,
+                    ],
+                    validationAttempts=attempts,
+                    error=None,
+                )
+            try:
+                outcome = self._run_isolated_question_batch(
+                    qualification,
+                    child_id,
+                    self.store.prompt(qualification, child_id),
+                    emit,
+                    batch_plan=batch_plan,
+                    stage_id=stage_id,
+                    pipeline_stop=pipeline_stop,
+                )
+                return {
+                    "childId": child_id,
+                    "child": outcome["child"],
+                    "questionResults": outcome["questionResults"],
+                    "providerFailure": False,
+                }
+            except Exception as exc:  # noqa: BLE001
+                child = self.store.refresh(qualification, child_id)
+                provider_failure = _external_provider_failure(exc)
+                return {
+                    "childId": child_id,
+                    "child": child,
+                    "questionResults": [
+                        {
+                            "questionId": str(
+                                target.get("id") or target.get("uiQuestionId") or ""
+                            ),
+                            "status": "failed",
+                            "summary": str(child.get("error") or exc),
+                            "commands": [],
+                            "changedFiles": [],
+                        }
+                        for target in targets
+                    ],
+                    "providerFailure": provider_failure is not None,
+                    "providerError": str(provider_failure or ""),
+                }
+
+        def apply_batch_outcome(
+            outcome: Mapping[str, Any],
+            stage_id: str,
+            *,
+            next_ids: list[str],
+            provider_waiting: set[str],
+        ) -> None:
+            child = dict(outcome["child"])
+            child_id = str(outcome["childId"])
+            provider_failure = bool(outcome.get("providerFailure"))
+            with aggregation_lock:
+                phase_runtime[stage_id] = {
+                    "threadId": child.get("threadId"),
+                    "sessionId": child.get("sessionId"),
+                    "turnId": child.get("turnId"),
+                    "model": child.get("model"),
+                    "serviceTier": child.get("serviceTier"),
+                    "reasoningEffort": child.get("reasoningEffort"),
+                }
+            for raw_result in outcome.get("questionResults") or []:
+                question_id = str(raw_result.get("questionId") or "")
+                current = question_stage(question_id, stage_id) or {}
+                attempts = [
+                    dict(value)
+                    for value in current.get("validationAttempts") or []
+                    if isinstance(value, Mapping)
+                ]
+                attempt_index = next(
+                    (
+                        index
+                        for index in range(len(attempts) - 1, -1, -1)
+                        if str(attempts[index].get("childRunId") or "") == child_id
+                    ),
+                    None,
+                )
+                if attempt_index is None:
+                    raise QualificationRunError(
+                        f"batch attemptを親queueで確認できません: {question_id}"
                     )
-                ):
-                    initial_plan, initial_prompt = self._flow_phase_plan_prompt(
-                        self.store.get(qualification, run_id),
-                        phase,
+                if str(raw_result.get("status") or "") == "succeeded":
+                    accepted = {
+                        "status": "accepted",
+                        "reason": str(raw_result.get("summary") or "検証済み"),
+                        "questionId": question_id,
+                        "stageId": stage_id,
+                        "childRunId": child_id,
+                        "attempt": attempt_index + 1,
+                        "failedChecks": [],
+                    }
+                    attempts[attempt_index].update(
+                        status="validated",
+                        feedback=accepted,
+                        finishedAt=_now(),
                     )
-                    with aggregation_lock:
-                        phase_contexts[stage_id] = (
-                            initial_plan,
-                            initial_prompt,
-                        )
-                    emit(
-                        f"{stage_id}: 共通方針の更新をqueueへ反映しました。"
+                    work_version_receipt = raw_result.get("workVersionReceipt")
+                    if isinstance(work_version_receipt, Mapping):
+                        with aggregation_lock:
+                            work_version_receipts.append(
+                                dict(work_version_receipt)
+                            )
+                    target = next(
+                        (
+                            value
+                            for value in child.get("progressTargets") or []
+                            if isinstance(value, Mapping)
+                            and str(value.get("id") or "") == question_id
+                        ),
+                        {},
                     )
-                try:
-                    spec = self._question_major_stage_spec(
-                        qualification,
-                        run_id,
-                        phase,
-                        question_id,
-                        initial_plan,
-                        initial_prompt,
-                    )
-                except QuestionItemError as exc:
+                    list_group_id = str(target.get("listGroupId") or "")
+                    if list_group_id:
+                        with aggregation_lock:
+                            confirmed_group_ids.add(list_group_id)
                     self.store.update_question_stage(
                         qualification,
                         run_id,
                         question_id,
                         stage_id,
-                        status="blocked",
-                        error=str(exc),
+                        status="validated",
+                        validationAttempts=attempts,
+                        outputFingerprint=hashlib.sha256(
+                            json.dumps(
+                                raw_result,
+                                ensure_ascii=False,
+                                sort_keys=True,
+                            ).encode("utf-8")
+                        ).hexdigest(),
+                        validated_receipt=(
+                            dict(work_version_receipt)
+                            if isinstance(work_version_receipt, Mapping)
+                            else None
+                        ),
+                        retryDeferred=False,
+                        error=None,
                         finishedAt=_now(),
-                        block_dependents=True,
                     )
-                    emit(
-                        f"{question.get('displayLabel') or question_id}: "
-                        f"この問題だけを保留しました: {exc}"
-                    )
-                    return {"status": "blocked", "stageId": stage_id}
-                return spec
+                    continue
 
-            def prepare_spec(
-                question: Mapping[str, Any],
-                spec: Mapping[str, Any],
-            ) -> bool:
-                if pipeline_stop.is_set():
-                    return False
-                question_id = str(question.get("questionId") or "")
-                try:
-                    prepared = self._prepare_question_item(
-                        qualification,
-                        run_id,
-                        str(spec["phasePrompt"]),
-                        dict(spec["target"]),
-                        str(spec["stageId"]),
-                        emit,
+                if provider_failure:
+                    attempts[attempt_index].update(
+                        status="interrupted",
+                        feedback=None,
+                        pauseReason=str(
+                            outcome.get("providerError")
+                            or raw_result.get("summary")
+                            or "Codex App Serverを利用できません。"
+                        ),
+                        finishedAt=_now(),
                     )
-                except QuestionQueuePaused as pause:
-                    pipeline_stop.set()
-                    record_pipeline_pause(pause)
-                    self._persist_queue_pause(
-                        qualification,
-                        run_id,
-                        pause,
+                    provider_attempts = sum(
+                        str(value.get("status") or "") == "interrupted"
+                        for value in attempts
                     )
-                    raise
-                if pipeline_stop.is_set():
                     self.store.update_question_stage(
                         qualification,
                         run_id,
                         question_id,
-                        str(spec["stageId"]),
-                        status="blocked",
-                        error="writer安全性を確認できないため後続処理を停止しました。",
-                        finishedAt=_now(),
-                        block_dependents=True,
+                        stage_id,
+                        status="queued",
+                        validationAttempts=attempts,
+                        retryDeferred=True,
+                        error=str(raw_result.get("summary") or ""),
+                        finishedAt=None,
                     )
-                    return False
-                return prepared
+                    if provider_attempts < MAX_PROVIDER_ATTEMPTS:
+                        next_ids.append(question_id)
+                    else:
+                        provider_waiting.add(question_id)
+                    continue
 
-            # Probe the provider with one read-only preparation before opening
-            # the selected 5/10-question window.
-            probe_complete = False
-            for question in questions:
-                for phase in segment:
-                    spec = resolve_spec(question, phase)
-                    status = str(spec.get("status") or "")
-                    if status == "queued":
-                        prepare_spec(question, spec)
-                        probe_complete = True
-                        break
-                    if status == "prepared":
-                        probe_complete = True
-                        break
-                    if status == "blocked":
-                        break
-                if probe_complete:
-                    break
+                if raw_result.get("policyChanged") is True:
+                    attempts[attempt_index].update(
+                        status="superseded",
+                        feedback=None,
+                        finishedAt=_now(),
+                    )
+                    if self._requeue_policy_changed_question(
+                        qualification,
+                        run_id,
+                        question_id,
+                        stage_id,
+                        emit,
+                        superseded_child_run_id=child_id,
+                        validation_attempts=attempts,
+                    ):
+                        next_ids.append(question_id)
+                    continue
 
-            def process_question(question: Mapping[str, Any]) -> None:
-                question_id = str(question.get("questionId") or "")
-                for phase in segment:
-                    while not pipeline_stop.is_set():
-                        spec = resolve_spec(question, phase)
-                        status = str(spec.get("status") or "")
-                        if status == "blocked":
-                            return
-                        if status in {
-                            "not_present",
-                            "validated",
-                            "not_applicable",
-                        }:
-                            break
-                        if status == "queued" and not prepare_spec(question, spec):
-                            return
-                        if status == "queued":
-                            spec = resolve_spec(question, phase)
-                            status = str(spec.get("status") or "")
-                        if status != "prepared":
-                            if status == "blocked":
-                                return
-                            continue
-                        try:
-                            committed = self._commit_question_major_item(
-                                qualification,
-                                run_id,
-                                spec,
-                                emit,
-                                child_run_ids=child_run_ids,
-                                phase_child_ids=phase_child_ids,
-                                phase_runtime=phase_runtime,
-                                work_version_receipts=work_version_receipts,
-                                confirmed_group_ids=confirmed_group_ids,
-                                pipeline_stop=pipeline_stop,
-                                aggregation_lock=aggregation_lock,
-                            )
-                        except QuestionPolicyChanged:
-                            continue
-                        if not committed:
-                            current = self._queue_stage(
-                                self.store.get(qualification, run_id),
-                                question_id,
-                                str(phase["id"]),
-                            )
-                            if current and current.get("status") == "blocked":
-                                return
-                        break
+                normalized = BatchQuestionResult(
+                    question_id=question_id,
+                    status="failed",
+                    summary=str(raw_result.get("summary") or "機械検査に失敗しました。"),
+                    commands=tuple(
+                        dict(value)
+                        for value in raw_result.get("commands") or []
+                        if isinstance(value, Mapping)
+                    ),
+                    changed_files=(),
+                )
+                quality_attempt = 1 + sum(
+                    str(value.get("status") or "") in {"failed", "blocked"}
+                    for value in attempts[:attempt_index]
+                )
+                feedback = self._batch_feedback(
+                    child,
+                    normalized,
+                    attempt=quality_attempt,
+                    stage_id=stage_id,
+                )
+                blocked = feedback.get("status") == "blocked" or quality_attempt >= 3
+                attempts[attempt_index].update(
+                    status="blocked" if blocked else "failed",
+                    feedback=feedback,
+                    finishedAt=_now(),
+                )
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    status="blocked" if blocked else "queued",
+                    validationAttempts=attempts,
+                    retryDeferred=not blocked,
+                    error=normalized.summary,
+                    finishedAt=_now() if blocked else None,
+                    block_dependents=blocked,
+                )
+                if not blocked:
+                    next_ids.append(question_id)
 
-            errors: list[BaseException] = []
-            with ThreadPoolExecutor(max_workers=worker_limit) as executor:
-                futures = [
-                    executor.submit(process_question, question)
-                    for question in questions
-                ]
-                for future in futures:
-                    try:
-                        future.result()
-                    except QuestionQueuePaused as pause:
-                        pipeline_stop.set()
-                        record_pipeline_pause(pause)
-                    except BaseException as exc:  # noqa: BLE001
-                        pipeline_stop.set()
-                        errors.append(exc)
-            raise_pipeline_pause()
-            if errors:
-                raise errors[0]
-
-        segment: list[dict[str, Any]] = []
         for phase in phases:
-            if str(phase["id"]) not in {"setup", "category_setup"}:
-                segment.append(phase)
+            stage_id = str(phase["id"])
+            if stage_id in {"setup", "category_setup"}:
+                self._run_shared_prerequisite(
+                    qualification,
+                    run_id,
+                    phase,
+                    emit,
+                    child_run_ids=child_run_ids,
+                    work_version_receipts=work_version_receipts,
+                    confirmed_group_ids=confirmed_group_ids,
+                )
                 continue
-            run_segment(segment)
-            segment = []
-            self._run_shared_prerequisite(
+            parent = self.store.get(qualification, run_id)
+            question_ids = [
+                str(value.get("questionId") or "")
+                for value in parent.get("questionExecutions") or []
+                if isinstance(value, Mapping)
+                and any(
+                    isinstance(stage, Mapping)
+                    and str(stage.get("stageId") or "") == stage_id
+                    and str(stage.get("status") or "queued")
+                    not in {"validated", "not_applicable", "blocked"}
+                    for stage in value.get("stages") or []
+                )
+            ]
+            if not question_ids:
+                continue
+            phase_child_ids.setdefault(stage_id, [])
+            self._update_flow_phase(
                 qualification,
                 run_id,
-                phase,
-                emit,
-                child_run_ids=child_run_ids,
-                work_version_receipts=work_version_receipts,
-                confirmed_group_ids=confirmed_group_ids,
+                stage_id,
+                status="running",
+                targetCount=len(question_ids),
+                childRunIds=[],
+                startedAt=_now(),
+                error=None,
             )
-        run_segment(segment)
-        self._finalize_question_major_phases(
+            provider_waiting: set[str] = set()
+            pending_ids = question_ids
+            phase_plan: dict[str, Any] | None = None
+            phase_prompt = ""
+            max_rounds = (
+                MAX_WRITER_VALIDATION_ATTEMPTS
+                + MAX_POLICY_REFRESH_ATTEMPTS
+                + MAX_PROVIDER_ATTEMPTS
+            )
+            for _round_number in range(1, max_rounds + 1):
+                if not pending_ids:
+                    break
+                if phase_plan is None or not self._phase_plan_policy_is_current(
+                    qualification,
+                    phase_plan,
+                    stage_id,
+                ):
+                    phase_plan, phase_prompt = self._flow_phase_plan_prompt(
+                        self.store.get(qualification, run_id),
+                        phase,
+                    )
+                specs = [
+                    spec
+                    for question_id in pending_ids
+                    if (
+                        spec := prepare_spec(
+                            phase,
+                            phase_plan,
+                            phase_prompt,
+                            question_id,
+                        )
+                    )
+                    is not None
+                ]
+                if not specs:
+                    break
+                batches = question_batches(specs, model_batch_size)
+                with ThreadPoolExecutor(max_workers=worker_limit) as executor:
+                    outcomes = list(
+                        executor.map(
+                            lambda batch: run_batch(batch, phase, phase_prompt),
+                            batches,
+                        )
+                    )
+                next_ids: list[str] = []
+                for outcome in outcomes:
+                    apply_batch_outcome(
+                        outcome,
+                        stage_id,
+                        next_ids=next_ids,
+                        provider_waiting=provider_waiting,
+                    )
+                pending_ids = list(dict.fromkeys(next_ids))
+                if pending_ids:
+                    emit(
+                        f"{stage_id}: 通常対象を一巡したため、"
+                        f"不合格{len(pending_ids)}問をqueue末尾で再確認します。"
+                    )
+            if provider_waiting:
+                reason = (
+                    "通常問題の処理後もCodex App Serverを利用できない問題が"
+                    f"{len(provider_waiting)}問残りました。回復後に再開してください。"
+                )
+                pause = QuestionQueuePaused(reason, pause_kind="external_provider")
+                self._persist_queue_pause(qualification, run_id, pause)
+                raise pause
+
+        self._finalize_question_phases(
             qualification,
             run_id,
             phases,
@@ -6756,22 +6347,22 @@ class QualificationRunCoordinator:
                 for value in parent.get("phaseExecutions") or []
                 if isinstance(value, Mapping)
             ]
-            if str(parent.get("queueOrder") or "") != "question_major":
+            if str(parent.get("queueOrder") or "") != "question_batch":
                 raise QualificationRunError(
                     "一問queue契約が不正です。対象範囲から新規開始してください。"
                 )
-            question_major = self._run_question_major_queue(
+            queue_result = self._run_question_batch_queue(
                 qualification,
                 run_id,
                 phases,
                 emit,
             )
-            child_run_ids.extend(question_major["childRunIds"])
+            child_run_ids.extend(queue_result["childRunIds"])
             work_version_receipts.extend(
-                question_major["workVersionReceipts"]
+                queue_result["workVersionReceipts"]
             )
             confirmed_group_ids.update(
-                question_major["confirmedGroupIds"]
+                queue_result["confirmedGroupIds"]
             )
             parent = self.store.get(qualification, run_id)
             execution_summary = queue_summary(parent.get("questionExecutions") or [])
@@ -7080,19 +6671,18 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
-    def _run_isolated_question_human(
+    def _run_isolated_question_batch(
         self,
         qualification: str,
         run_id: str,
         prompt: str,
-        work_type: str,
         emit: Callable[[str], None],
         *,
-        phase_plan: Mapping[str, Any],
+        batch_plan: Mapping[str, Any],
         stage_id: str,
         pipeline_stop: threading.Event,
     ) -> dict[str, Any]:
-        """Run a one-question writer privately and atomically rebase its row."""
+        """Run at most five questions in one private model turn."""
 
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
@@ -7106,56 +6696,44 @@ class QualificationRunCoordinator:
             qualification,
             run_id,
             status="running",
-            executionPhase="isolated_writing",
+            executionPhase="isolated_batch_writing",
             startedAt=_now(),
             heartbeatAt=_now(),
             error=None,
         )
-        run_dir = self.store.root / qualification / run_id
+        question_ids = [
+            str(value.get("id") or value.get("uiQuestionId") or "")
+            for value in batch_plan.get("progressTargets") or []
+            if isinstance(value, Mapping)
+        ]
+        if not question_ids or len(question_ids) > MODEL_BATCH_SIZE:
+            raise QualificationRunError("model batchの問題数が不正です。")
         mutable_paths = list(
             dict.fromkeys(
                 [
-                    *(
-                        str(value)
-                        for value in child.get("allowedPatchFiles") or []
-                    ),
-                    *(
-                        str(value)
-                        for value in child.get("allowedWriteFiles") or []
-                    ),
+                    *(str(value) for value in child.get("allowedPatchFiles") or []),
+                    *(str(value) for value in child.get("allowedWriteFiles") or []),
                 ]
             )
         )
         if not mutable_paths:
-            raise QualificationRunError("一問writerの可変patch fileがありません。")
-        receipt_relative = self._maintenance_relative_path(
-            child["resultReceiptPath"]
-        )
-        progress_relative = self._maintenance_relative_path(
-            child["progressReceiptPath"]
-        )
+            raise QualificationRunError("batch writerの可変patch fileがありません。")
+
+        run_dir = self.store.root / qualification / run_id
+        receipt_relative = self._maintenance_relative_path(child["resultReceiptPath"])
+        progress_relative = self._maintenance_relative_path(child["progressReceiptPath"])
         manifest_relative = (run_dir / "manifest.json").relative_to(self.repo_root)
-        copied_paths = [manifest_relative.as_posix()]
         projected_paths = [
-            str(value.get("projectedInputPath") or "")
-            for value in child.get("progressTargets") or []
-            if isinstance(value, Mapping) and value.get("projectedInputPath")
+            str(target.get("_projectedInputPath") or "")
+            for target in batch_plan.get("progressTargets") or []
+            if isinstance(target, Mapping) and target.get("_projectedInputPath")
         ]
-        # projectedInputPath is queue-stage state, not a child manifest field.
-        projected_paths.extend(
-            str(value)
-            for value in re.findall(
-                r"`(output/question_review_console/[^`]+/projected_inputs/[^`]+\.json)`",
-                prompt,
-            )
-        )
-        copied_paths.extend(projected_paths)
         workspace = IsolatedQuestionPatchWorkspace.create(
             self.repo_root,
             run_dir / "isolated_workspace",
             qualification=qualification,
             mutable_paths=mutable_paths,
-            readonly_paths=copied_paths,
+            readonly_paths=[manifest_relative.as_posix(), *projected_paths],
         )
         isolated_receipt = workspace.root / receipt_relative
         isolated_progress = workspace.root / progress_relative
@@ -7163,28 +6741,11 @@ class QualificationRunCoordinator:
         isolated_progress.parent.mkdir(parents=True, exist_ok=True)
         isolated_progress.touch(exist_ok=True)
         isolated_prompt = prompt.replace(str(self.repo_root), str(workspace.root))
-        initial_record_payload = {
-            "recordSnapshots": {
-                relative.as_posix(): _record_snapshot(workspace.root / relative)
-                for relative in workspace.mutable_paths
-            },
-            "sourceRecordSnapshots": {
-                str(value): _record_snapshot(
-                    workspace.root / self._maintenance_relative_path(value)
-                )
-                for value in child.get("sourceFiles") or []
-            },
-        }
-        baseline_written = False
         result = None
 
         def heartbeat() -> None:
             heartbeat_at = _now()
-            self.store.update(
-                qualification,
-                run_id,
-                heartbeatAt=heartbeat_at,
-            )
+            self.store.update(qualification, run_id, heartbeatAt=heartbeat_at)
             parent_run_id = str(child.get("parentRunId") or "")
             if parent_run_id:
                 self.store.update(
@@ -7216,8 +6777,9 @@ class QualificationRunCoordinator:
             if not isolated_receipt.is_file():
                 return False
             try:
-                payload = json.loads(isolated_receipt.read_text(encoding="utf-8"))
-                self.store._validated_result_receipt(payload)
+                raw = json.loads(isolated_receipt.read_text(encoding="utf-8"))
+                self.store._validated_result_receipt(raw)
+                normalize_batch_question_results(raw, question_ids)
                 return True
             except Exception:  # noqa: BLE001
                 return False
@@ -7225,7 +6787,7 @@ class QualificationRunCoordinator:
         try:
             result = self.app_server.run_turn(
                 isolated_prompt,
-                work_type=work_type,
+                work_type=f"maintenance_{stage_id}_batch",
                 sandbox="workspace-write",
                 emit=emit,
                 on_thread_started=on_thread_started,
@@ -7253,14 +6815,13 @@ class QualificationRunCoordinator:
                 )
             if not isolated_receipt.is_file():
                 raise QualificationRunError(
-                    "Codex App Serverは完了しましたが、完了receiptが見つかりません。"
+                    "Codex App Serverは完了しましたが、batch receiptがありません。"
                 )
-            candidate_result = self.store._validated_result_receipt(
-                json.loads(isolated_receipt.read_text(encoding="utf-8"))
-            )
-            if candidate_result["status"] == "failed":
+            raw_receipt = json.loads(isolated_receipt.read_text(encoding="utf-8"))
+            aggregate_receipt = self.store._validated_result_receipt(raw_receipt)
+            if aggregate_receipt["status"] == "failed":
                 raise QualificationRunError(
-                    self._failed_receipt_message(candidate_result)
+                    self._failed_receipt_message(aggregate_receipt)
                 )
 
             def candidate_relative(value: str) -> Path:
@@ -7271,216 +6832,274 @@ class QualificationRunCoordinator:
                         return absolute.relative_to(workspace.root)
                 return self._maintenance_relative_path(value)
 
-            declared = {
-                candidate_relative(str(value))
-                for value in candidate_result.get("changedFiles") or []
+            raw_question_results = normalize_batch_question_results(
+                raw_receipt,
+                question_ids,
+            )
+            question_results = tuple(
+                BatchQuestionResult(
+                    question_id=value.question_id,
+                    status=value.status,
+                    summary=value.summary,
+                    commands=value.commands,
+                    changed_files=tuple(
+                        candidate_relative(path).as_posix()
+                        for path in value.changed_files
+                    ),
+                )
+                for value in raw_question_results
+            )
+            aggregate_declared = {
+                candidate_relative(str(value)).as_posix()
+                for value in aggregate_receipt.get("changedFiles") or []
             }
+            validate_changed_file_attribution(
+                question_results,
+                aggregate_declared,
+            )
             actual_candidate = set(workspace.changed_paths())
-            if declared != actual_candidate:
-                missing = sorted(str(value) for value in actual_candidate - declared)
-                extra = sorted(str(value) for value in declared - actual_candidate)
-                details = []
-                if missing:
-                    details.append("未申告: " + ", ".join(missing))
-                if extra:
-                    details.append("差分なし: " + ", ".join(extra))
+            if aggregate_declared != {
+                value.as_posix() for value in actual_candidate
+            }:
                 raise QualificationRunError(
-                    "隔離patch差分とreceiptが一致しません。" + " ".join(details)
+                    "隔離batch差分とaggregate receiptが一致しません。"
                 )
             unknown = actual_candidate - set(workspace.mutable_paths)
             if unknown:
                 raise QualificationRunError(
-                    "隔離workspaceの可変範囲外にpatch差分があります。"
+                    "隔離workspaceの可変範囲外にbatch差分があります。"
                 )
-            self._validate_record_scope(
-                qualification,
-                run_id,
-                child,
-                actual_candidate,
-                validation_root=workspace.root,
-                baseline_payload=initial_record_payload,
-            )
 
-            progress_text = isolated_progress.read_text(encoding="utf-8")
             atomic_write(
                 self.repo_root / progress_relative,
-                progress_text,
+                isolated_progress.read_text(encoding="utf-8"),
             )
-            normalized_candidate_result = {
-                **candidate_result,
-                "changedFiles": [
-                    value.as_posix() for value in sorted(actual_candidate)
-                ],
-                "resolvedFailedDeltaPaths": [],
-            }
             self.store.write_result(
                 qualification,
                 run_id,
-                normalized_candidate_result,
+                {
+                    **aggregate_receipt,
+                    "changedFiles": sorted(aggregate_declared),
+                    "resolvedFailedDeltaPaths": [],
+                },
             )
             refreshed = self.store.refresh(qualification, run_id)
             self._validate_progress_receipt(qualification, run_id, refreshed)
-            if pipeline_stop.is_set():
-                raise QualificationRunError(
-                    "別の一問で安全停止したため、この候補patchは正本へ反映しません。"
-                )
 
-            with self._question_patch_commit_lock:
+            committed_results: list[dict[str, Any]] = []
+            committed_files: set[str] = set()
+            work_version_receipts: list[dict[str, Any]] = []
+            bindings = {
+                str(value.get("uiQuestionId") or ""): SourceIdentityBinding.from_mapping(value)
+                for value in batch_plan.get("targetRecordBindings") or []
+                if isinstance(value, Mapping)
+            }
+            for question_result in question_results:
+                if question_result.status != "succeeded":
+                    committed_results.append(
+                        {
+                            "questionId": question_result.question_id,
+                            "status": "failed",
+                            "summary": question_result.summary,
+                            "commands": list(question_result.commands),
+                            "changedFiles": [],
+                        }
+                    )
+                    continue
                 if pipeline_stop.is_set():
                     raise QualificationRunError(
-                        "別の一問で安全停止したため、この候補patchは正本へ反映しません。"
+                        "正本の安全性を確認できないためbatch反映を停止しました。"
                     )
+                question_plan = subset_question_plan(
+                    batch_plan,
+                    [question_result.question_id],
+                )
+                question_plan.update(
+                    runId=run_id,
+                    stageId=stage_id,
+                    stageIds=[stage_id],
+                    parallelStrategy="isolated_question",
+                )
                 if not self._phase_plan_policy_is_current(
                     qualification,
-                    phase_plan,
+                    question_plan,
                     stage_id,
                 ):
-                    raise QuestionPolicyChanged(
-                        f"{stage_id}の共通方針がwriter中に更新されました。"
+                    committed_results.append(
+                        {
+                            "questionId": question_result.question_id,
+                            "status": "failed",
+                            "summary": "実行中に共通方針が更新されました。",
+                            "commands": list(question_result.commands),
+                            "changedFiles": [],
+                            "policyChanged": True,
+                        }
                     )
-                canonical_roots = tuple(
-                    self.repo_root / relative for relative in workspace.mutable_paths
-                )
-                self.store.write_baseline(
-                    qualification,
-                    run_id,
-                    canonical_roots,
-                )
-                baseline_written = True
+                    continue
+                binding = bindings.get(question_result.question_id)
+                if binding is None or not binding.is_complete():
+                    raise QualificationRunError(
+                        f"batchのsource identityが不足しています: {question_result.question_id}"
+                    )
+                candidate_paths = {
+                    self._maintenance_relative_path(value)
+                    for value in question_result.changed_files
+                }
+                if not candidate_paths.issubset(actual_candidate):
+                    raise QualificationRunError(
+                        f"問題別receiptに実在しない差分があります: {question_result.question_id}"
+                    )
                 try:
-                    bindings = [
-                        SourceIdentityBinding.from_mapping(value)
-                        for value in child.get("targetRecordBindings") or []
-                        if isinstance(value, Mapping)
-                    ]
-                    if len(bindings) != 1 or not bindings[0].is_complete():
-                        raise QualificationRunError(
-                            "一問の完全なsource identityを確認できません。"
-                        )
-                    committed_paths = workspace.rebase_into_canonical(
-                        sorted(actual_candidate),
-                        binding=bindings[0],
-                        aliases_by_path=(child.get("targetRecordScopes") or {}),
-                    )
-                    committed = {Path(value) for value in committed_paths}
-                    self._validate_record_scope(
-                        qualification,
-                        run_id,
-                        self.store.get(qualification, run_id),
-                        committed,
-                    )
-                    self._check_source_immutability(
-                        emit,
-                        source_files=[
-                            str(value) for value in child.get("sourceFiles") or []
-                        ],
-                    )
-                    normalized_result = {
-                        **normalized_candidate_result,
-                        "changedFiles": [
-                            value.as_posix() for value in sorted(committed)
-                        ],
-                    }
-                    self.store.write_result(
-                        qualification,
-                        run_id,
-                        normalized_result,
-                    )
-                    self.store.refresh(qualification, run_id)
-                    refreshed = self.store.update(
-                        qualification,
-                        run_id,
-                        status="validating",
-                        receiptValidated=False,
-                        model=result.model,
-                        serviceTier=result.service_tier,
-                        reasoningEffort=result.reasoning_effort,
-                        turnCompletionMode=result.completion_mode,
-                        appServerChangedFiles=[
-                            value.as_posix() for value in sorted(actual_candidate)
-                        ],
-                        writeAttributionVerified=True,
-                        unsafeNotifiedChangedFiles=[],
-                        unsafeChangedFiles=[],
-                        externalConcurrentChangedFiles=[],
-                        ignoredReceiptChangedFiles=[],
-                        error=None,
-                    )
-                    work_version_receipt = self._record_work_versions(refreshed)
-                    refreshed = self.store.update(
-                        qualification,
-                        run_id,
-                        status="succeeded",
-                        receiptValidated=True,
-                        workVersionReceipt=work_version_receipt,
-                        artifactSync={
-                            "status": "deferred",
-                            "groups": [],
-                            "message": (
-                                "公開用データはトップ整備の最終検証で更新します。"
+                    with self._question_patch_commit_lock:
+                        transaction_roots = [
+                            *(self.repo_root / value for value in candidate_paths),
+                            *(
+                                self.work_versions.path_for(
+                                    qualification,
+                                    str(group_id),
+                                )
+                                for group_id in question_plan.get("targetGroupIds") or []
                             ),
-                        },
-                        rollback={
-                            "status": "not_required",
-                            "restoredFiles": [],
-                            "remainingChangedFiles": [],
-                            "deltaUnknown": False,
-                            "message": "一問の正本反映と検証を完了しました。",
-                        },
-                        deltaUnknown=False,
-                        error=None,
-                        finishedAt=_now(),
-                    )
-                    self.store.discard_baseline_backups(qualification, run_id)
-                except Exception:
+                        ]
+                        baseline_path = self.store.write_baseline(
+                            qualification,
+                            run_id,
+                            tuple(dict.fromkeys(transaction_roots)),
+                        )
+                        baseline_payload = json.loads(
+                            baseline_path.read_text(encoding="utf-8")
+                        )
+                        committed = set(
+                            workspace.rebase_into_canonical(
+                                sorted(candidate_paths),
+                                binding=binding,
+                                aliases_by_path=(
+                                    batch_plan.get("targetRecordScopes") or {}
+                                ),
+                            )
+                        )
+                        committed_paths = {Path(value) for value in committed}
+                        self._validate_record_scope(
+                            qualification,
+                            run_id,
+                            question_plan,
+                            committed_paths,
+                            baseline_payload=baseline_payload,
+                        )
+                        self._check_source_immutability(
+                            emit,
+                            source_files=[
+                                str(value)
+                                for value in question_plan.get("sourceFiles") or []
+                            ],
+                        )
+                        work_version_receipt = self._record_work_versions(
+                            question_plan
+                        )
+                        self.store.discard_baseline_backups(
+                            qualification,
+                            run_id,
+                        )
+                except Exception as exc:  # noqa: BLE001
                     rollback = self.store.rollback_baseline(qualification, run_id)
                     if not rollback or rollback.get("status") != "succeeded":
                         pipeline_stop.set()
-                    raise
-            emit("一問の生成・機械検査・正本反映を完了しました。")
-            return {
-                "qualification": qualification,
-                "runId": run_id,
-                "threadId": result.thread_id,
-                "turnId": result.turn_id,
-                "artifactSync": refreshed["artifactSync"],
-                "warning": False,
-                "message": str(normalized_result.get("summary") or "整備を完了しました。"),
+                        raise QualificationRunError(
+                            "問題別反映のrollbackを確認できません。"
+                        ) from exc
+                    committed_results.append(
+                        {
+                            "questionId": question_result.question_id,
+                            "status": "failed",
+                            "summary": str(exc),
+                            "commands": list(question_result.commands),
+                            "changedFiles": [],
+                        }
+                    )
+                    continue
+                committed_files.update(committed)
+                work_version_receipts.append(work_version_receipt)
+                committed_results.append(
+                    {
+                        "questionId": question_result.question_id,
+                        "status": "succeeded",
+                        "summary": question_result.summary,
+                        "commands": list(question_result.commands),
+                        "changedFiles": sorted(committed),
+                        "workVersionReceipt": work_version_receipt,
+                    }
+                )
+
+            work_version_receipt = {
+                "recordedCount": sum(
+                    int(value.get("recordedCount") or 0)
+                    for value in work_version_receipts
+                ),
+                "items": work_version_receipts,
             }
-        except Exception as exc:  # noqa: BLE001
-            try:
-                current = self.store.refresh(qualification, run_id)
-            except Exception:  # noqa: BLE001
-                current = child
-            rollback = current.get("rollback")
-            if not (
-                baseline_written
-                and isinstance(rollback, Mapping)
-                and rollback.get("status") == "succeeded"
-            ):
-                rollback = {
-                    "status": "succeeded",
+            normalized_result = {
+                **aggregate_receipt,
+                "changedFiles": sorted(committed_files),
+                "resolvedFailedDeltaPaths": [],
+            }
+            self.store.write_result(qualification, run_id, normalized_result)
+            refreshed = self.store.update(
+                qualification,
+                run_id,
+                status="succeeded",
+                receiptValidated=True,
+                batchQuestionResults=committed_results,
+                workVersionReceipt=work_version_receipt,
+                model=result.model,
+                serviceTier=result.service_tier,
+                reasoningEffort=result.reasoning_effort,
+                turnCompletionMode=result.completion_mode,
+                writeAttributionVerified=True,
+                unsafeNotifiedChangedFiles=[],
+                unsafeChangedFiles=[],
+                rollback={
+                    "status": "not_required",
                     "restoredFiles": [],
                     "remainingChangedFiles": [],
                     "deltaUnknown": False,
-                    "message": "隔離候補を破棄し、正本patchは変更していません。",
-                }
-            candidate_commands: list[dict[str, str]] = []
-            if isolated_receipt.is_file():
-                try:
-                    failed_payload = self.store._validated_result_receipt(
-                        json.loads(isolated_receipt.read_text(encoding="utf-8"))
-                    )
-                    candidate_commands = list(failed_payload.get("commands") or [])
-                except Exception:  # noqa: BLE001
-                    pass
+                    "message": "問題別に検証し、合格recordだけを反映しました。",
+                },
+                deltaUnknown=False,
+                result=normalized_result,
+                artifactSync={
+                    "status": "deferred",
+                    "groups": [],
+                    "message": "公開用データはqueue終了時に更新します。",
+                },
+                error=None,
+                finishedAt=_now(),
+            )
+            emit(
+                f"{len(question_ids)}問のbatchを検査し、"
+                f"{sum(value['status'] == 'succeeded' for value in committed_results)}問を確定しました。"
+            )
+            return {
+                "qualification": qualification,
+                "runId": run_id,
+                "questionResults": committed_results,
+                "workVersionReceipt": work_version_receipt,
+                "child": refreshed,
+            }
+        except Exception as exc:  # noqa: BLE001
+            rollback = {
+                "status": "succeeded",
+                "restoredFiles": [],
+                "remainingChangedFiles": [],
+                "deltaUnknown": False,
+                "message": "隔離batch候補を破棄し、正本patchは変更していません。",
+            }
             self.store.write_result(
                 qualification,
                 run_id,
                 {
                     "status": "failed",
                     "summary": str(exc),
-                    "commands": candidate_commands,
+                    "commands": [],
                     "changedFiles": [],
                 },
             )
@@ -7501,6 +7120,7 @@ class QualificationRunCoordinator:
             raise
         finally:
             workspace.cleanup()
+
 
     def _run_human(
         self,

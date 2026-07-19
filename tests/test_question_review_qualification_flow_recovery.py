@@ -337,20 +337,16 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(
             [kwargs["work_type"] for _, kwargs in app_server.calls],
             [
-                "maintenance_prepare_question_type",
-                "maintenance_question_type",
-                "maintenance_prepare_law_audit",
-                "maintenance_law_audit",
+                "maintenance_question_type_batch",
+                "maintenance_law_audit_batch",
             ],
         )
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(
             events,
             [
-                "session:maintenance_prepare_question_type",
-                "session:maintenance_question_type",
-                "session:maintenance_prepare_law_audit",
-                "session:maintenance_law_audit",
+                "session:maintenance_question_type_batch",
+                "session:maintenance_law_audit_batch",
                 "final-sync",
             ],
         )
@@ -378,7 +374,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageCode": "03b",
                     "stageLabel": "トップ整備",
                     "workType": "maintenance_flow",
-                    "queueOrder": "question_major",
+                    "queueOrder": "question_batch",
                     "confirmedGroupIds": ["2026"],
                     "workVersionReceipt": {
                         "recordedCount": 3,
@@ -460,7 +456,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageId": "multi",
                     "stageIds": ["category_setup", "question_set"],
                     "workType": "maintenance_flow",
-                    "queueOrder": "question_major",
+                    "queueOrder": "question_batch",
                     "questionExecutions": queued_plan["questionExecutions"],
                     "phaseExecutions": [
                         {
@@ -534,7 +530,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageCode": "03b",
                     "stageLabel": "トップ整備",
                     "workType": "maintenance_flow",
-                    "queueOrder": "question_major",
+                    "queueOrder": "question_batch",
                     "confirmedGroupIds": ["2026"],
                     "workVersionReceipt": {
                         "recordedCount": 3,
@@ -786,14 +782,14 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(len(run["childRunIds"]), 1)
         self.assertEqual(
             [kwargs["work_type"] for _, kwargs in app_server.calls],
-            ["maintenance_prepare_law_audit", "maintenance_law_audit"],
+            ["maintenance_law_audit_batch"],
         )
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
     def test_top_maintenance_retries_failed_stage_before_blocking(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = FlowAppServer(fail_on_writer=2)
+            app_server = FlowAppServer(fail_on_writer={2, 3, 4})
             jobs = JobManager()
             synchronizer = FakeSynchronizer()
             synchronizer.local_ready = False
@@ -836,7 +832,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             job,
         )
         self.assertEqual(len(run["childRunIds"]), 4)
-        self.assertEqual(len(app_server.calls), 6)
+        self.assertEqual(len(app_server.calls), 4)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
         self.assertEqual(run["blockedQuestionCount"], 1)
@@ -846,14 +842,14 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         ]
         self.assertEqual(
             [attempt["status"] for attempt in attempts],
-            ["failed", "failed", "failed"],
+            ["failed", "failed", "blocked"],
         )
         self.assertIn(
             "phase 2 failed",
             attempts[0]["feedback"]["reason"],
         )
         self.assertIn(
-            "sidecar整合検証に失敗",
+            "phase 4 failed",
             run["questionExecutions"][0]["stages"][1]["error"],
         )
         self.assertIn("理由付きで保留", run["error"])
@@ -944,45 +940,32 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             questions[succeeded_question_id]["stages"][0]["status"],
             "validated",
         )
-        self.assertLessEqual(app_server.max_active_preparations, 2)
         self.assertLessEqual(app_server.max_active_writers, 2)
-        self.assertEqual(
-            sorted(
-                question_id
-                for question_id, _prompt in calls_by_type[
-                    "maintenance_prepare_question_type"
-                ]
-            ),
-            [failed_question_id, succeeded_question_id],
-        )
-        writer_question_ids = [
-            question_id
-            for question_id, _prompt in calls_by_type[
-                "maintenance_question_type"
+        writer_calls = calls_by_type["maintenance_question_type_batch"]
+        writer_batches = [
+            [
+                line.split("`")[1]
+                for line in prompt.splitlines()
+                if line.startswith("- 問題ID: `")
             ]
+            for _question_id, prompt in writer_calls
         ]
-        self.assertEqual(writer_question_ids.count(failed_question_id), 3)
-        self.assertEqual(writer_question_ids.count(succeeded_question_id), 1)
+        self.assertEqual(
+            writer_batches,
+            [
+                [failed_question_id, succeeded_question_id],
+                [failed_question_id],
+                [failed_question_id],
+            ],
+        )
         failed_retry_prompt = [
             prompt
-            for question_id, prompt in calls_by_type["maintenance_question_type"]
+            for question_id, prompt in writer_calls
             if question_id == failed_question_id
         ][1]
-        self.assertIn("検査フィードバック", failed_retry_prompt)
+        self.assertIn("前回の機械検査feedback", failed_retry_prompt)
         self.assertIn("writer検証に失敗", failed_retry_prompt)
-        succeeded_writer_prompt = next(
-            prompt
-            for question_id, prompt in calls_by_type["maintenance_question_type"]
-            if question_id == succeeded_question_id
-        )
-        self.assertIn(
-            f"{succeeded_question_id}の読取専用の判断案",
-            succeeded_writer_prompt,
-        )
-        self.assertNotIn(
-            f"{failed_question_id}の読取専用の判断案",
-            succeeded_writer_prompt,
-        )
+        self.assertIn("logicalProjection", writer_calls[0][1])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
         self.assertEqual(
             synchronizer.calls,
@@ -1012,8 +995,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 for question_id, _prompt, kwargs in retry_calls
             ],
             [
-                (failed_question_id, "maintenance_prepare_question_type"),
-                (failed_question_id, "maintenance_question_type"),
+                (failed_question_id, "maintenance_question_type_batch"),
             ],
         )
 
@@ -1022,7 +1004,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             root = Path(directory)
             jobs = JobManager()
             app_server = PerQuestionQueueAppServer()
-            app_server.preparation_delay = 0.1
             synchronizer = FakeSynchronizer()
             coordinator = QualificationRunCoordinator(
                 root,
@@ -1052,22 +1033,19 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             job = self._wait_for_job(jobs, started["job"]["jobId"], timeout=10)
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
-        writers = [
-            (question_id, kwargs["work_type"].removeprefix("maintenance_"))
-            for question_id, _prompt, kwargs in app_server.calls
-            if not kwargs["work_type"].startswith("maintenance_prepare_")
-        ]
         self.assertEqual(job["status"], "succeeded", job)
-        self.assertEqual(run["queueOrder"], "question_major")
+        self.assertEqual(run["queueOrder"], "question_batch")
         self.assertEqual(
-            [stage for question, stage in writers if question == "new-exam-2026-q1"],
-            ["question_type", "question_intent"],
+            [kwargs["work_type"] for _question, _prompt, kwargs in app_server.calls],
+            ["maintenance_question_type_batch", "maintenance_question_intent_batch"],
         )
         self.assertEqual(
-            [stage for question, stage in writers if question == "new-exam-2026-q2"],
-            ["question_type", "question_intent"],
+            app_server.batch_calls,
+            [
+                ("new-exam-2026-q1", "new-exam-2026-q2"),
+                ("new-exam-2026-q1", "new-exam-2026-q2"),
+            ],
         )
-        self.assertLessEqual(app_server.max_active_preparations, 2)
         self.assertLessEqual(app_server.max_active_writers, 2)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
 
@@ -1355,7 +1333,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(first_summary["validatedWorkItemCount"], 5)
         self.assertEqual(first_summary["blockedWorkItemCount"], 1)
         self.assertEqual(first_app_server.max_active_writers, 1)
-        self.assertLessEqual(first_app_server.max_active_preparations, 2)
         self.assertEqual(first_synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(first_phase_plan_calls, 2)
         self.assertEqual(retry_preview["targetCount"], 1)
@@ -1459,8 +1436,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             [kwargs["work_type"] for _, kwargs in app_server.calls],
             [
                 "maintenance_category_setup",
-                "maintenance_prepare_question_set",
-                "maintenance_question_set",
+                "maintenance_question_set_batch",
             ],
         )
         self.assertEqual(run["stageIds"], preview["stageIds"])
@@ -1878,7 +1854,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             plan.update(
                 kind="orchestration",
                 workType="maintenance_flow",
-                queueOrder="question_major",
+                queueOrder="question_batch",
                 stageId="multi",
                 stageIds=[],
                 phaseExecutions=[],

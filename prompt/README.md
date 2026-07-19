@@ -14,7 +14,7 @@
 
 - 人間向け日本語の共通品質は[`AGENTS.md`](../AGENTS.md#日本語の品質)を正本とし、すべての人間工程へ渡す。解説固有の構成は`03_prompt_add_explanationText.md`だけで定義する。
 - 工程版の改訂と洗い替え要否は[問題整備システム](../document/operations/local_question_review_console.md#作業バージョン)だけを正本とする。
-- 問題整備システムが一問工程へ渡す`logicalProjection`は、`00_source`と確定patchを物理Mergeと同じ順で重ねた現在入力である。各promptの`20_merged_1`又は`30_merged_2`より優先し、物理成果物はqueue終了時だけ再生成する。
+- 問題整備システムが各問題へ渡す`logicalProjection`は、`00_source`と確定patchを物理Mergeと同じ順で重ねた現在入力である。同じ工程を最大5問まとめる場合も判断・検査・結果は一問ごとに分離する。各promptの`20_merged_1`又は`30_merged_2`より優先し、物理成果物はqueue終了時だけ再生成する。
 - 判断本文は一問ずつ読み、scriptで量産しない。
 - scriptはarchive、materialize、merge、convert、validation、upload dry-runに使う。
 - 既存patchを洗い替える場合も、各promptに指定された一次情報から再判定する。

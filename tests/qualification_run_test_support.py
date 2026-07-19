@@ -131,6 +131,36 @@ def _write_completed_progress(prompt: str) -> None:
         encoding="utf-8",
     )
 
+
+def _batch_manifest(prompt: str):
+    manifest_line = next(
+        (
+            line
+            for line in prompt.splitlines()
+            if "progressTargetsとprogressStages" in line
+        ),
+        "",
+    )
+    if not manifest_line:
+        return None
+    return json.loads(Path(manifest_line.split("`")[1]).read_text(encoding="utf-8"))
+
+
+def _batch_question_results(prompt: str, changed_files=()):
+    manifest = _batch_manifest(prompt)
+    if not manifest or manifest.get("parallelStrategy") != "isolated_question_batch":
+        return None
+    return [
+        {
+            "questionId": target["id"],
+            "status": "succeeded",
+            "summary": f"{target['id']}の整備を完了した。",
+            "commands": [{"command": "python check.py", "status": "pass"}],
+            "changedFiles": list(changed_files),
+        }
+        for target in manifest.get("progressTargets") or []
+    ]
+
 class SuccessfulAppServer:
     configured = True
     provider = "Codex App Server"
@@ -153,21 +183,6 @@ class SuccessfulAppServer:
 
     def run_turn(self, prompt, **kwargs):
         self.calls.append((prompt, kwargs))
-        if kwargs["work_type"].startswith("maintenance_prepare_"):
-            kwargs["on_thread_started"](
-                "thread-preparation-1", "session-preparation-1"
-            )
-            kwargs["on_turn_started"](
-                "thread-preparation-1", "turn-preparation-1"
-            )
-            return AppServerTurnResult(
-                thread_id="thread-preparation-1",
-                session_id="session-preparation-1",
-                turn_id="turn-preparation-1",
-                final_message="一問の読取専用判断案",
-                model="gpt-test",
-                service_tier=None,
-            )
         if kwargs["work_type"] == "maintenance_research":
             kwargs["on_thread_started"](
                 "thread-research-1", "session-research-1"
@@ -205,6 +220,9 @@ class SuccessfulAppServer:
             "commands": [{"command": "python check.py", "status": "pass"}],
             "changedFiles": self.changed_files,
         }
+        question_results = _batch_question_results(prompt, self.changed_files)
+        if question_results is not None:
+            receipt = {**receipt, "questionResults": question_results}
         Path(receipt_line.split("`")[1]).write_text(
             json.dumps(receipt, ensure_ascii=False),
             encoding="utf-8",
@@ -244,9 +262,7 @@ class ReceiptCompletingAppServer(SuccessfulAppServer):
         self.clobber_manifest_after_probe = clobber_manifest_after_probe
 
     def run_turn(self, prompt, **kwargs):
-        if kwargs["work_type"] == "maintenance_research" or kwargs[
-            "work_type"
-        ].startswith("maintenance_prepare_"):
+        if kwargs["work_type"] == "maintenance_research":
             return super().run_turn(prompt, **kwargs)
         self.calls.append((prompt, kwargs))
         self.kwargs = kwargs
@@ -358,37 +374,30 @@ class FlowAppServer:
         self.calls.append((prompt, kwargs))
         if self.events is not None:
             self.events.append(f"session:{kwargs['work_type']}")
-        if kwargs["work_type"].startswith("maintenance_prepare_"):
-            number = len(self.calls)
-            kwargs["on_thread_started"](
-                f"thread-prepare-{number}", f"session-prepare-{number}"
-            )
-            kwargs["on_turn_started"](
-                f"thread-prepare-{number}", f"turn-prepare-{number}"
-            )
-            return AppServerTurnResult(
-                thread_id=f"thread-prepare-{number}",
-                session_id=f"session-prepare-{number}",
-                turn_id=f"turn-prepare-{number}",
-                final_message="一問の読取専用判断案",
-                model="gpt-test",
-                service_tier=None,
-            )
         self.writer_count += 1
         number = self.writer_count
+        logical_work_type = kwargs["work_type"].removesuffix("_batch")
         kwargs["on_thread_started"](
             f"thread-flow-{number}", f"session-flow-{number}"
         )
         kwargs["on_turn_started"](
             f"thread-flow-{number}", f"turn-flow-{number}"
         )
-        if self.fail_on_writer == number:
+        should_fail = (
+            number in self.fail_on_writer
+            if isinstance(self.fail_on_writer, (set, frozenset, tuple, list))
+            else self.fail_on_writer == number
+        )
+        if should_fail:
             raise RuntimeError(f"phase {number} failed")
         if self.before_receipt is not None:
-            self.before_receipt(kwargs["work_type"])
+            self.before_receipt(logical_work_type)
         _write_completed_progress(prompt)
         changed_files = list(
-            self.changed_files_by_work_type.get(kwargs["work_type"], [])
+            self.changed_files_by_work_type.get(
+                kwargs["work_type"],
+                self.changed_files_by_work_type.get(logical_work_type, []),
+            )
         )
         receipt_line = next(
             line
@@ -402,6 +411,11 @@ class FlowAppServer:
                     "summary": f"phase {number} completed",
                     "commands": [{"command": "python check.py", "status": "pass"}],
                     "changedFiles": changed_files,
+                    **(
+                        {"questionResults": _batch_question_results(prompt, changed_files)}
+                        if _batch_question_results(prompt, changed_files) is not None
+                        else {}
+                    ),
                 },
                 ensure_ascii=False,
             ),
@@ -434,13 +448,12 @@ class PerQuestionQueueAppServer:
         self.changed_files_by_work_item = changed_files_by_work_item or {}
         self.before_receipt = before_receipt
         self.calls = []
+        self.batch_calls = []
         self.successful_writes = []
         self._lock = threading.Lock()
-        self.preparation_delay = 0.0
-        self._active_preparations = 0
-        self.max_active_preparations = 0
         self._active_writers = 0
         self.max_active_writers = 0
+        self.writer_delay = 0.0
 
     def assert_subscription_access(self, *, force=True):
         return {"allowed": True, "planType": "pro"}
@@ -452,40 +465,30 @@ class PerQuestionQueueAppServer:
         )
         return line.split("`")[1]
 
+    @staticmethod
+    def _question_ids(prompt):
+        manifest = _batch_manifest(prompt)
+        if manifest and manifest.get("parallelStrategy") == "isolated_question_batch":
+            return [
+                str(target["id"])
+                for target in manifest.get("progressTargets") or []
+            ]
+        return [PerQuestionQueueAppServer._question_id(prompt)]
+
     def run_turn(self, prompt, **kwargs):
-        question_id = self._question_id(prompt)
+        question_ids = self._question_ids(prompt)
+        question_id = question_ids[0]
         work_type = kwargs["work_type"]
         with self._lock:
             call_number = len(self.calls) + 1
             self.calls.append((question_id, prompt, kwargs))
+            self.batch_calls.append(tuple(question_ids))
         kwargs["on_thread_started"](
             f"thread-queue-{call_number}", f"session-queue-{call_number}"
         )
         kwargs["on_turn_started"](
             f"thread-queue-{call_number}", f"turn-queue-{call_number}"
         )
-
-        if work_type.startswith("maintenance_prepare_"):
-            with self._lock:
-                self._active_preparations += 1
-                self.max_active_preparations = max(
-                    self.max_active_preparations,
-                    self._active_preparations,
-                )
-            try:
-                if self.preparation_delay:
-                    time.sleep(self.preparation_delay)
-            finally:
-                with self._lock:
-                    self._active_preparations -= 1
-            return AppServerTurnResult(
-                thread_id=f"thread-queue-{call_number}",
-                session_id=f"session-queue-{call_number}",
-                turn_id=f"turn-queue-{call_number}",
-                final_message=f"{question_id}の読取専用の判断案",
-                model="gpt-test",
-                service_tier=None,
-            )
 
         with self._lock:
             self._active_writers += 1
@@ -494,51 +497,92 @@ class PerQuestionQueueAppServer:
                 self._active_writers,
             )
         try:
-            stage_id = work_type.removeprefix("maintenance_")
-            if question_id == self.failed_question_id or (
-                question_id,
-                stage_id,
-            ) in self.failed_work_items:
-                raise RuntimeError(f"{question_id}のwriter検証に失敗")
-            changed_files = list(
-                self.changed_files_by_work_item.get(
-                    (question_id, stage_id),
-                    [],
+            if self.writer_delay:
+                time.sleep(self.writer_delay)
+            stage_id = work_type.removeprefix("maintenance_").removesuffix("_batch")
+            changed_by_question = {
+                value: list(
+                    self.changed_files_by_work_item.get((value, stage_id), [])
                 )
-            )
-            if self.before_receipt is not None:
-                parameters = inspect.signature(self.before_receipt).parameters
-                if len(parameters) >= 3:
-                    self.before_receipt(question_id, stage_id, kwargs["cwd"])
-                else:
-                    self.before_receipt(question_id, stage_id)
+                for value in question_ids
+            }
+            for value in question_ids:
+                failed = value == self.failed_question_id or (
+                    value,
+                    stage_id,
+                ) in self.failed_work_items
+                if failed:
+                    continue
+                if self.before_receipt is not None:
+                    parameters = inspect.signature(self.before_receipt).parameters
+                    if len(parameters) >= 3:
+                        self.before_receipt(value, stage_id, kwargs["cwd"])
+                    else:
+                        self.before_receipt(value, stage_id)
             _write_completed_progress(prompt)
             receipt_line = next(
                 line
                 for line in prompt.splitlines()
                 if "完了時に検証結果を次へJSONで保存" in line
             )
+            changed_files = list(
+                dict.fromkeys(
+                    path
+                    for paths in changed_by_question.values()
+                    for path in paths
+                )
+            )
+            question_results = []
+            for value in question_ids:
+                failed = value == self.failed_question_id or (
+                    value,
+                    stage_id,
+                ) in self.failed_work_items
+                question_results.append(
+                    {
+                        "questionId": value,
+                        "status": "failed" if failed else "succeeded",
+                        "summary": (
+                            f"{value}のwriter検証に失敗"
+                            if failed
+                            else f"{value}の整備を完了した。"
+                        ),
+                        "commands": [
+                            {
+                                "command": "python check.py",
+                                "status": "fail" if failed else "pass",
+                            }
+                        ],
+                        "changedFiles": changed_by_question[value],
+                    }
+                )
             Path(receipt_line.split("`")[1]).write_text(
                 json.dumps(
                     {
                         "status": "succeeded",
-                        "summary": f"{question_id}の整備を完了した。",
+                        "summary": f"{len(question_ids)}問のbatchを完了した。",
                         "commands": [
                             {"command": "python check.py", "status": "pass"}
                         ],
                         "changedFiles": changed_files,
+                        "questionResults": question_results,
                     },
                     ensure_ascii=False,
                 ),
                 encoding="utf-8",
             )
             with self._lock:
-                self.successful_writes.append((question_id, stage_id))
+                self.successful_writes.extend(
+                    (value, stage_id)
+                    for value in question_ids
+                    if value != self.failed_question_id
+                    and (value, stage_id) not in self.failed_work_items
+                )
             return AppServerTurnResult(
                 thread_id=f"thread-queue-{call_number}",
                 session_id=f"session-queue-{call_number}",
                 turn_id=f"turn-queue-{call_number}",
-                final_message=f"{question_id}の整備完了",
+                final_message=f"{len(question_ids)}問のbatch整備完了",
                 model="gpt-test",
                 service_tier=None,
             )

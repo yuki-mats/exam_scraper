@@ -6,7 +6,7 @@
 
 1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は現在確定中のpatchと作業版台帳を外部から変更しない。
 2. トップの`未整備を整備`から資格・年度（回）・工程を指定する。serverは範囲を一問queueへ分解し、`00_source`と確定patchの論理projectionを次工程へ渡す。
-3. patchの機械検査不備は、serverがfeedbackを付けて同じ一問・工程を最大3回まで自動再実行する。解消しなかった問題だけを保留し、確定済み問題はやり直さない。
+3. 同じ工程を最大5問ずつmodelへ渡し、結果は一問ずつ検査・確定する。不合格は通常対象の処理後にqueue末尾で最大2回再実行し、解消しなかった問題だけを保留する。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
 5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
 
@@ -65,11 +65,11 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備、評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定し、返された実modelとともにmanifestへ保存します。
 
 - GUIの開始範囲は資格・年度（回）・工程のままとし、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と工程の組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- 各問は選択工程を順に完了する独立pipelineとし、一つのmodel sessionへ複数問を詰め込まない。最初のread-only準備でCodex App Serverが利用可能だと確認した後、生成と問題ごとの機械検査をUIで選んだ問題数まで並列実行する。既定は5問、選択肢は1・5・10問で、10問は5問運用の検証後に使う。
-- writerは正本を直接編集せず、問ごとの隔離workspaceでpatch候補を生成・検査する。合格後、完全なsource identityで対象recordだけを現在の正本へrebaseし、この短い反映処理だけを直列化する。同じfileの別recordを処理するwriter、失敗時の破棄、手動修正が互いの成功差分を消してはならない。`00_source`不変検証も現在queueの対象sourceに限定し、他資格の新規scrapeでqueueを止めない。
+- 同じ工程の問題を最大5問ずつ一つのmodel turnへ渡す。UIの1・5・10問は同時処理する総問題数であり、5問は1 turn、10問は最大2 turnで処理する。read-only準備用のmodel turnは設けない。
+- modelは問題別の結果と検査commandを返す。serverは一問ずつsource identity、変更file、工程検査を確認し、合格recordだけを正本へrebaseする。この短い反映だけを直列化し、同じfileの別record、失敗候補、手動修正を巻き込まない。`00_source`不変検証も現在queueの対象sourceに限定する。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
-- 正本文書又は工程版がrun中に変わった場合は、writer開始前に古い判断案を破棄して同じ一問だけを自動再準備する。writer中の変更も安全なrollback後に再投入し、連続2回を超えた場合だけその問を理由付きで保留する。
-- 一問を安全に隔離又はrollbackできた失敗は、その問だけを`blocked`にして残りを続行する。全item走査後の親runは`status=succeeded`、保留があれば`queueStatus=partial`とし、確定済みpatchは`receiptValidated=true`で記録する。provider停止、rollback不能又は共有状態の破損だけは`status=interrupted`又は`failed`として親queueを止める。
+- 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
+- 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。provider失敗も通常対象を先に進め、対象batchを末尾で再試行する。再試行後もproviderを利用できない場合は`interrupted`で再開待ちにし、rollback不能又は共有状態の破損だけを再開不可の全体停止にする。
 - `未完了の問題を再開`は保留・未実行itemだけをqueueへ戻す。再起動時は子runの確定receiptを先に親queueへ回収し、確定済みitemを再実行しない。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定年度ごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
 
@@ -95,7 +95,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 ## 検査feedbackと改善記録
 
-各工程は、一問のpatch生成、正本に定義した機械検査、検査feedbackによる再整備を最大3attemptまで繰り返します。不備が解消しなければ当該問の依存後続だけを保留し、他問は進めます。各attemptの子run、正規化した指摘、再試行可否、検査結果は`validationAttempts`と既存の技術ログへ保存し、長大な出力や秘密情報を次のturnへ渡しません。
+各工程は通常queueを一巡してから、不合格問題だけをfeedback付きで最大2回再整備します。検査と確定は常に一問単位です。各attemptの子run、指摘、再試行可否、検査結果は`validationAttempts`と技術ログへ保存し、長大な出力や秘密情報を次のturnへ渡しません。
 
 queueがterminalになった後、`improvement_report.json`へ工程・指摘code・fieldごとの発生問数とattempt数を集計します。3問以上で同じ指摘が出た場合、又はモデル側の検査は通ったのにserverが拒否した場合を改善候補とします。正本文書、prompt、checker、testの変更はactive run中に行わず、別の改善jobで候補を確認して実施します。checkerを変える場合は、該当工程の正本・検査契約と[`policy_version`](../../config/question_maintenance_workflow.toml)を同時に更新します。既存問題の洗い替えが必要ならMAJOR、今後の作業だけに適用できる変更ならMINORを上げます。
 
