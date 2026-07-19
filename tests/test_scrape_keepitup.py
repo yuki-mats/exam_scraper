@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
 from scripts.scrape.common import make_url_source_question_id, source_site_from_url
 from scripts.scrape.keepitup import (
@@ -10,7 +13,9 @@ from scripts.scrape.keepitup import (
     parse_answer_page,
     parse_declared_question_count,
     parse_list_page,
+    save_source_record,
     source_filename,
+    synchronize_staged_images,
 )
 
 
@@ -165,6 +170,53 @@ class ScrapeKeepItUpTests(unittest.TestCase):
             "aws-cloud-practitioner:aws-keepitup-jp:CLF202C069Q",
         )
         self.assertEqual(source_filename("CLF202C069"), "question_keepitup-CLF202C069.json")
+
+    def test_source_refresh_replaces_same_stable_id_in_same_file(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_dir:
+            source_dir = Path(temporary_dir)
+            original = {
+                "question_url": "https://aws.keepitup.jp/CLF202C069Q/",
+                "questionBodyText": "更新前",
+            }
+            updated = {**original, "questionBodyText": "更新後"}
+
+            path = save_source_record(
+                source_dir=source_dir,
+                output_list_group_id="keepitup-aws-clf-c02",
+                source_list_group_id="CL00",
+                record=original,
+            )
+            refreshed_path = save_source_record(
+                source_dir=source_dir,
+                output_list_group_id="keepitup-aws-clf-c02",
+                source_list_group_id="CL00",
+                record=updated,
+                replace_existing=True,
+            )
+
+            self.assertEqual(refreshed_path, path)
+            self.assertEqual(path.name, "question_keepitup-CLF202C069.json")
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(payload["question_bodies"][0]["questionBodyText"], "更新後")
+
+    def test_image_refresh_reports_question_id_for_changed_binary(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_dir:
+            root = Path(temporary_dir)
+            staged = root / "staged"
+            current = root / "current"
+            staged.mkdir()
+            current.mkdir()
+            filename = "keepitup_clf202c069_0123456789abcdef.png"
+            (staged / filename).write_bytes(b"updated")
+            (current / filename).write_bytes(b"original")
+
+            result = synchronize_staged_images(
+                staged_image_dir=staged,
+                image_output_dir=current,
+            )
+
+            self.assertEqual(result, (0, 1, 0, ["CLF202C069"]))
+            self.assertEqual((current / filename).read_bytes(), b"updated")
 
 
 if __name__ == "__main__":

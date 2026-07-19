@@ -48,7 +48,7 @@ output/question_review_console/
 
 | 工程 | 保存先 | ファイル名 | 責務 |
 | --- | --- | --- | --- |
-| scrape | `00_source/` | `question_<source又はexam occurrence ID>_<n>.json` | 取得した原本。既存ファイルの内容と名前は不変。 |
+| scrape | `00_source/` | `question_<source又はexam occurrence ID>_<n>.json` | 取得元の現在スナップショット。手作業では不変。同じ安定IDの取得元更新だけ標準scraperが同じ名前へ反映する。 |
 | scrape | `question_images/<list_group_id>/` | source由来名 | ローカル画像。 |
 | 05 | `05_originalized/` | `<source_stem>_originalized.json` | 独自問題化した`questionBodyText`、`choiceTextList`、`correctChoiceText`、`questionIntent`、`answer_result_text`のpatch。公式過去問では作らない。 |
 | 01 | `10_questionType_fixed/` | `<source_stem>_questionType_fixed.json` | 問題形式。 |

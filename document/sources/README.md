@@ -21,7 +21,7 @@
 | `mecnet` | `study.mecnet.jp` | `scrape_mecnet_kokushi.py` | 一覧、ページ送り、解説ページ。ログイン必須。 | `tests/test_scrape_presets.py`, `tests/test_mecnet_kokushi_category_build.py` |
 | `kougai` | `yaku-tik.com`, `qualification-text.com`, `zoron.hatenablog.com` | `scrape_kougai.py` | domainごとに一覧発見と問題parserを切り替えるmulti-source adapter。公開ページ。 | `tests/test_scrape_kougai.py`, `tests/test_scrape_identity_keys.py` |
 | `pingt` | `mondai.ping-t.com` | `scrape_pingt.py` | subjectの検索一覧と問題詳細をGET。ログイン必須、1問1ファイルで再開する。 | [抽出契約](ping-t/ping-t_source_contract.md), `tests/test_scrape_pingt.py`, `tests/test_scrape_presets.py` |
-| `keepitup` | `aws.keepitup.jp` | `scrape_keepitup.py` | course topから問題系列と一覧ページを発見し、問題IDごとの解答・解説ページをGET。公開ページ、1問1ファイルで再開・内容照合する。 | [抽出契約](keepitup/keepitup_source_contract.md), `tests/test_scrape_keepitup.py`, `tests/test_scrape_presets.py` |
+| `keepitup` | `aws.keepitup.jp` | `scrape_keepitup.py` | course topから問題系列と一覧ページを発見し、問題IDごとの解答・解説ページをGET。公開ページ、1問1ファイルで再開・内容更新する。 | [抽出契約](keepitup/keepitup_source_contract.md), `tests/test_scrape_keepitup.py`, `tests/test_scrape_presets.py` |
 
 ## site別の要点
 

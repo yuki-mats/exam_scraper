@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""00_source の内容を固定し、新規追加と明示的な親ディレクトリ移動を管理する。"""
+"""00_sourceの手作業改変を防ぎ、scraperによる追加・更新を管理する。"""
 
 from __future__ import annotations
 
@@ -98,6 +98,49 @@ def record_parent_moves(
     return updated
 
 
+def normalize_source_scope(scope: str) -> str:
+    """repo相対の00_source directoryを正規化する。"""
+    normalized = str(scope or "").strip().replace("\\", "/").strip("/")
+    parts = normalized.split("/") if normalized else []
+    if (
+        not parts
+        or parts[-1] != "00_source"
+        or any(part in {"", ".", ".."} for part in parts)
+        or parts[0] != "output"
+    ):
+        raise ValueError(
+            "--scopeはoutput/配下の00_source directoryをrepo相対pathで指定してください"
+        )
+    return "/".join(parts)
+
+
+def record_scrape_refresh(
+    manifest: dict[str, str],
+    current: dict[str, str],
+    diff: dict[str, list[str]],
+    *,
+    scope: str,
+) -> dict[str, str]:
+    """scraper成功後、対象groupの新規・更新hashだけを登録する。"""
+    normalized_scope = normalize_source_scope(scope)
+    scope_prefix = normalized_scope + "/"
+    if diff["消失"]:
+        raise ValueError("00_sourceの消失があるためscrape更新を登録できません")
+    changed_paths = [*diff["改変"], *diff["未登録"]]
+    outside_scope = [
+        path for path in changed_paths if not path.startswith(scope_prefix)
+    ]
+    if outside_scope:
+        raise ValueError(
+            "scrape対象外の00_source差分があるため登録できません: "
+            + ", ".join(outside_scope[:10])
+        )
+    updated = dict(manifest)
+    for path in changed_paths:
+        updated[path] = current[path]
+    return updated
+
+
 def staged_source_changes(root: Path) -> list[tuple[str, ...]]:
     """index上の00_source変更をname-statusのtupleとして返す。"""
     result = subprocess.run(
@@ -159,14 +202,20 @@ def show_differences(diff: dict[str, list[str]]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="既存00_sourceが変更されていないか確認する")
+    parser = argparse.ArgumentParser(description="00_sourceの保護manifestを確認・更新する")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--initialize", action="store_true")
     action.add_argument("--record-new", action="store_true")
+    action.add_argument("--record-scrape-refresh", action="store_true")
     action.add_argument("--record-moves", action="store_true")
     action.add_argument("--check-staged", action="store_true")
+    parser.add_argument(
+        "--scope",
+        default="",
+        help="--record-scrape-refreshの対象00_source directory。repo相対pathで指定する",
+    )
     args = parser.parse_args(argv)
 
     root = args.root.resolve()
@@ -194,6 +243,21 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             save_manifest(manifest_path, {**manifest, **{path: current[path] for path in diff["未登録"]}})
             print(f"[OK] 新規scrape登録: {len(diff['未登録'])} files")
+            return 0
+        if args.record_scrape_refresh:
+            if not args.scope:
+                raise ValueError("--record-scrape-refreshには--scopeが必要です")
+            updated = record_scrape_refresh(
+                manifest,
+                current,
+                diff,
+                scope=args.scope,
+            )
+            save_manifest(manifest_path, updated)
+            print(
+                "[OK] scrape更新登録: "
+                f"更新={len(diff['改変'])} 新規={len(diff['未登録'])} files"
+            )
             return 0
 
         if any(diff.values()):

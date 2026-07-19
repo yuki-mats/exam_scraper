@@ -6,6 +6,7 @@ import json
 import os
 import random
 import re
+import tempfile
 import time
 from collections import Counter, deque
 from dataclasses import dataclass
@@ -622,6 +623,7 @@ def save_source_record(
     output_list_group_id: str,
     source_list_group_id: str,
     record: dict[str, Any],
+    replace_existing: bool = False,
 ) -> Path:
     question_id = _question_id_from_record(record)
     if not question_id:
@@ -632,10 +634,62 @@ def save_source_record(
         "source_list_group_id": source_list_group_id,
         "question_bodies": [record],
     }
-    with path.open("x", encoding="utf-8") as output:
-        json.dump(payload, output, ensure_ascii=False, indent=2)
-        output.write("\n")
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if not replace_existing:
+        with path.open("x", encoding="utf-8") as output:
+            output.write(serialized)
+        return path
+
+    temporary_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as output:
+            output.write(serialized)
+            output.flush()
+            os.fsync(output.fileno())
+            temporary_path = Path(output.name)
+        os.replace(temporary_path, path)
+    finally:
+        if temporary_path is not None and temporary_path.exists():
+            temporary_path.unlink()
     return path
+
+
+def synchronize_staged_images(
+    *,
+    staged_image_dir: Path,
+    image_output_dir: Path,
+) -> tuple[int, int, int, list[str]]:
+    """liveから再取得した画像を成功後だけ現在snapshotへ反映する。"""
+    newly_saved = 0
+    updated = 0
+    verified = 0
+    updated_question_ids: set[str] = set()
+    for staged_path in sorted(staged_image_dir.glob("*")):
+        if not staged_path.is_file():
+            continue
+        target_path = image_output_dir / staged_path.name
+        staged_hash = hashlib.sha256(staged_path.read_bytes()).hexdigest()
+        if not target_path.is_file():
+            os.replace(staged_path, target_path)
+            newly_saved += 1
+            continue
+        target_hash = hashlib.sha256(target_path.read_bytes()).hexdigest()
+        if target_hash == staged_hash:
+            verified += 1
+            continue
+        os.replace(staged_path, target_path)
+        updated += 1
+        filename_parts = staged_path.name.split("_", 2)
+        if len(filename_parts) == 3:
+            updated_question_ids.add(filename_parts[1].upper())
+    return newly_saved, updated, verified, sorted(updated_question_ids)
 
 
 def validate_record(record: dict[str, Any]) -> list[str]:
@@ -685,7 +739,14 @@ def write_result_report(
     expected_ids: set[str],
     persisted_records: dict[str, tuple[Path, dict[str, Any]]],
     newly_saved: int,
+    updated_existing: int,
+    updated_source_record_count: int,
+    updated_question_ids: Iterable[str],
+    updated_image_question_ids: Iterable[str],
     verified_existing: int,
+    newly_saved_images: int,
+    updated_images: int,
+    verified_images: int,
     errors: list[dict[str, str]],
     image_output_dir: Path,
 ) -> dict[str, Any]:
@@ -714,7 +775,16 @@ def write_result_report(
         "expectedCount": len(expected_ids),
         "persistedCount": len(persisted_ids),
         "newlySavedCount": newly_saved,
+        "updatedExistingCount": updated_existing,
+        "updatedSourceRecordCount": updated_source_record_count,
+        "updatedQuestionIds": sorted(str(value) for value in updated_question_ids),
+        "updatedImageQuestionIds": sorted(
+            str(value) for value in updated_image_question_ids
+        ),
         "verifiedExistingCount": verified_existing,
+        "newlySavedImageCount": newly_saved_images,
+        "updatedImageCount": updated_images,
+        "verifiedImageCount": verified_images,
         "missingIds": sorted(expected_ids - persisted_ids),
         "unexpectedIds": sorted(persisted_ids - expected_ids),
         "duplicateSourceQuestionIdCount": len(persisted_records) - len(
@@ -791,71 +861,135 @@ def main(argv: list[str] | None = None) -> int:
     source_dir = Path(json_output_dir)
     image_output_dir = Path(image_output_dir_raw)
     existing_records = load_existing_records(source_dir)
-    preexisting_hashes = {
-        path: hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in {path for path, _ in existing_records.values()}
-    }
     errors: list[dict[str, str]] = []
     newly_saved = 0
+    updated_existing = 0
+    updated_question_ids: list[str] = []
+    updated_source_record_ids: list[str] = []
+    updated_image_question_ids: list[str] = []
     verified_existing = 0
+    newly_saved_images = 0
+    updated_images = 0
+    verified_images = 0
+    candidate_records: dict[str, tuple[Path, dict[str, Any]]] = {}
+    candidate_actions: dict[str, str] = {}
 
-    for position, item in enumerate(selected_questions, start=1):
-        try:
-            parsed = parse_answer_page(
-                fetch_html(http_session, item.answer_url),
-                page_url=item.answer_url,
-                expected_question_id=item.question_id,
-            )
-            record = build_source_record(
-                parsed,
-                item,
-                qualification_code=args.qualification_code,
-                qualification_name=args.qualification_name,
-                output_list_group_id=args.output_list_group_id,
-                source_list_group_id=source_list_group_id,
-                http_session=http_session,
-                image_output_dir=image_output_dir,
-            )
-            validation_errors = validate_record(record)
-            if validation_errors:
-                raise ValueError(" / ".join(validation_errors))
-            existing = existing_records.get(item.question_id)
-            if existing is not None:
-                if existing[1] != record:
-                    raise ValueError("取得元の内容が既存00_sourceと競合しています")
-                verified_existing += 1
-                print(f"[VERIFY] ({position}/{len(selected_questions)}) id={item.question_id}")
-                continue
-            path = save_source_record(
-                source_dir=source_dir,
-                output_list_group_id=args.output_list_group_id,
-                source_list_group_id=source_list_group_id,
-                record=record,
-            )
-            existing_records[item.question_id] = (path, record)
-            newly_saved += 1
-            print(f"[SAVE] ({position}/{len(selected_questions)}) id={item.question_id}")
-        except Exception as exc:  # noqa: BLE001
-            errors.append(
-                {
-                    "questionId": item.question_id,
-                    "url": item.answer_url,
-                    "error": str(exc),
-                }
-            )
-            print(f"[ERROR] ({position}/{len(selected_questions)}) id={item.question_id}: {exc}")
+    with tempfile.TemporaryDirectory(
+        prefix=".keepitup-refresh-",
+        dir=image_output_dir.parent,
+    ) as temporary_image_dir:
+        staged_image_dir = Path(temporary_image_dir)
+        for position, item in enumerate(selected_questions, start=1):
+            try:
+                parsed = parse_answer_page(
+                    fetch_html(http_session, item.answer_url),
+                    page_url=item.answer_url,
+                    expected_question_id=item.question_id,
+                )
+                record = build_source_record(
+                    parsed,
+                    item,
+                    qualification_code=args.qualification_code,
+                    qualification_name=args.qualification_name,
+                    output_list_group_id=args.output_list_group_id,
+                    source_list_group_id=source_list_group_id,
+                    http_session=http_session,
+                    image_output_dir=staged_image_dir,
+                )
+                validation_errors = validate_record(record)
+                if validation_errors:
+                    raise ValueError(" / ".join(validation_errors))
+                existing = existing_records.get(item.question_id)
+                expected_path = source_dir / source_filename(item.question_id)
+                if existing is None:
+                    action = "new"
+                else:
+                    if existing[0] != expected_path:
+                        raise ValueError(
+                            "安定問題IDに対応する00_sourceファイル名が一致しません"
+                        )
+                    action = "unchanged" if existing[1] == record else "updated"
+                candidate_records[item.question_id] = (expected_path, record)
+                candidate_actions[item.question_id] = action
+                print(
+                    f"[STAGE-{action.upper()}] "
+                    f"({position}/{len(selected_questions)}) id={item.question_id}"
+                )
+            except Exception as exc:  # noqa: BLE001
+                errors.append(
+                    {
+                        "questionId": item.question_id,
+                        "url": item.answer_url,
+                        "error": str(exc),
+                    }
+                )
+                print(f"[ERROR] ({position}/{len(selected_questions)}) id={item.question_id}: {exc}")
+
+        unexpected_existing_ids = set(existing_records) - expected_ids
+        if args.max_questions is None and unexpected_existing_ids:
+            for question_id in sorted(unexpected_existing_ids):
+                errors.append(
+                    {
+                        "questionId": question_id,
+                        "url": str(existing_records[question_id][1].get("question_url") or ""),
+                        "error": "site一覧に存在しない既存00_sourceです",
+                    }
+                )
+
+        if set(candidate_records) != expected_ids:
+            for question_id in sorted(expected_ids - set(candidate_records)):
+                if not any(error["questionId"] == question_id for error in errors):
+                    errors.append(
+                        {
+                            "questionId": question_id,
+                            "url": "",
+                            "error": "live取得結果がありません",
+                        }
+                    )
+
+        if not errors:
+            try:
+                for question_id in sorted(candidate_records):
+                    _path, record = candidate_records[question_id]
+                    action = candidate_actions[question_id]
+                    if action == "unchanged":
+                        verified_existing += 1
+                        continue
+                    save_source_record(
+                        source_dir=source_dir,
+                        output_list_group_id=args.output_list_group_id,
+                        source_list_group_id=source_list_group_id,
+                        record=record,
+                        replace_existing=action == "updated",
+                    )
+                    if action == "updated":
+                        updated_source_record_ids.append(question_id)
+                    else:
+                        newly_saved += 1
+                (
+                    newly_saved_images,
+                    updated_images,
+                    verified_images,
+                    updated_image_question_ids,
+                ) = synchronize_staged_images(
+                    staged_image_dir=staged_image_dir,
+                    image_output_dir=image_output_dir,
+                )
+                updated_question_ids = sorted(
+                    set(updated_source_record_ids)
+                    | (set(updated_image_question_ids) & set(existing_records))
+                )
+                updated_existing = len(updated_question_ids)
+            except Exception as exc:  # noqa: BLE001
+                errors.append(
+                    {
+                        "questionId": "",
+                        "url": str(source_dir),
+                        "error": f"source snapshotの反映に失敗しました: {exc}",
+                    }
+                )
 
     after_records = load_existing_records(source_dir)
-    for path, before_hash in preexisting_hashes.items():
-        after_hash = hashlib.sha256(path.read_bytes()).hexdigest()
-        if after_hash != before_hash:
-            errors.append(
-                {
-                    "questionId": "",
-                    "url": str(path),
-                    "error": "既存00_sourceのhashが変化しました",
-                }
-            )
 
     relevant_records = {
         question_id: value
@@ -873,16 +1007,6 @@ def main(argv: list[str] | None = None) -> int:
             )
 
     persisted_ids = set(relevant_records)
-    unexpected_existing_ids = set(after_records) - expected_ids
-    if args.max_questions is None and unexpected_existing_ids:
-        for question_id in sorted(unexpected_existing_ids):
-            errors.append(
-                {
-                    "questionId": question_id,
-                    "url": str(after_records[question_id][1].get("question_url") or ""),
-                    "error": "site一覧に存在しない既存00_sourceです",
-                }
-            )
     complete = (
         not errors
         and persisted_ids == expected_ids
@@ -904,7 +1028,14 @@ def main(argv: list[str] | None = None) -> int:
         expected_ids=expected_ids,
         persisted_records=relevant_records,
         newly_saved=newly_saved,
+        updated_existing=updated_existing,
+        updated_source_record_count=len(updated_source_record_ids),
+        updated_question_ids=updated_question_ids,
+        updated_image_question_ids=updated_image_question_ids,
         verified_existing=verified_existing,
+        newly_saved_images=newly_saved_images,
+        updated_images=updated_images,
+        verified_images=verified_images,
         errors=errors,
         image_output_dir=image_output_dir,
     )
@@ -916,7 +1047,8 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     print(
         f"[DONE] persisted={report['persistedCount']} new={newly_saved} "
-        f"verified={verified_existing} images={len(report['imageFileSha256'])} report={report_path}"
+        f"updated={updated_existing} verified={verified_existing} "
+        f"images={len(report['imageFileSha256'])} report={report_path}"
     )
     return 0
 

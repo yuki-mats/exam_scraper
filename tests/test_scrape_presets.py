@@ -12,10 +12,16 @@ from scripts.scrape.qualification_presets import (
     load_scrape_preset,
     resolve_target_list_group_ids,
 )
-from scripts.scrape.run_qualification_scrape import source_filename_suffix_for_kougai_url
+from scripts.scrape.run_qualification_scrape import (
+    SOURCE_REFRESH_SCRAPER_TYPES,
+    source_filename_suffix_for_kougai_url,
+)
 
 
 class ScrapePresetTests(unittest.TestCase):
+    def test_keepitup_is_registered_as_source_refresh_capable(self) -> None:
+        self.assertIn("keepitup", SOURCE_REFRESH_SCRAPER_TYPES)
+
     def test_load_scrape_preset_for_aws_cloud_practitioner_pingt(self) -> None:
         preset = load_scrape_preset("aws-cloud-practitioner")
 

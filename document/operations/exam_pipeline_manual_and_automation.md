@@ -36,7 +36,7 @@ flowchart LR
 通常の順序は次のとおりです。
 
 1. 資格と取得元URLを確認し、問題・画像を取得する。公式過去問以外又は混在する取得元は、全問を独自問題化する。
-2. `00_source`を固定し、既存ファイルは変更しない。
+2. `00_source`を取得元の現在スナップショットとして保護する。手作業では変更せず、取得元が更新された場合だけ標準scraperで更新する。
 3. 独自問題は05で問題文・選択肢を整えてから、公式過去問と同じ01以降へ進める。詳細は[独自問題作成ワークフロー](original_question_authoring_workflow.md)を正本とする。
 4. トップで資格と`listGroupId`を指定し、対象を一問単位で確定しながら01から04へ進める。queueとsessionの境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を正本とする。
 5. 法令問題は02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。監査警告が残る問題は完了扱いにしない。
@@ -49,7 +49,7 @@ flowchart LR
 
 | 関心事 | 正本 | 要旨 |
 | --- | --- | --- |
-| 資格追加・スクレイピング | [scraping_workflow.md](scraping_workflow.md) | preset、scraper実装、ID、画像、`00_source`不変条件を定義する。 |
+| 資格追加・スクレイピング | [scraping_workflow.md](scraping_workflow.md) | preset、scraper実装、ID、画像、`00_source`の取得・更新・保護条件を定義する。 |
 | 独自問題化 | [original_question_authoring_workflow.md](original_question_authoring_workflow.md) | 取得元URLの確認、05、独自問題化、資格別ナレッジ、公開条件を定義する。 |
 | 工程順・名称・正本文書 | [../../config/question_maintenance_workflow.toml](../../config/question_maintenance_workflow.toml) | 問題整備システムの工程カタログを一元管理する。 |
 | 人間判断prompt | [../../prompt/README.md](../../prompt/README.md) | 各promptが所有する判断方法と実行境界への入口。 |
@@ -69,7 +69,7 @@ flowchart LR
 
 ## 全工程に共通する境界
 
-- `00_source`は新規scrapeでのみ作成し、既存ファイルを編集・削除・改名しない。
+- `00_source`は手作業・AI・後工程で編集・削除・改名しない。取得元の更新は、標準scraperが安定IDを維持し、成功reportに変更IDを残す場合だけ反映する。
 - 人間・AIの判断結果は責務に合うpatchへ保存する。merged、convert、upload-readyを直接編集しない。
 - 問題文と選択肢を結合した完全な命題を一問ずつ確認し、類似文言だけで一括判断しない。
 - `questionId`、`originalQuestionId`、`questionSetId`を理由なく変更しない。

@@ -33,10 +33,11 @@
 
 ## `00_source`
 
-- スクレイピングでの新規作成だけ許可し、既存ファイルの内容・ファイル名は変更・削除しない。
+- 取得元の現在スナップショットを保持する。手作業、AI、fix script、patch工程では内容・ファイル名を変更・削除しない。
+- 標準scraperの全件取得と検証が成功し、同じ安定`source_question_id`の取得元内容が変わった場合だけ、既存ファイルの内容を更新できる。IDとファイル名は維持し、変更IDをscrape reportへ残す。
 - 資格コード又は年度・試験区分を整理する親ディレクトリ移動は、内容と`00_source/`以下の相対名を保持し、`python scripts/check/check_00_source_immutability.py --record-moves`で明示登録する場合だけ許可する。
 - 修正は責務に応じて `10` / `15` / `18` / `21` / `22` / `23` / `24` のpatch層へ入れる。
-- 新規scrape後のみ `python scripts/check/check_00_source_immutability.py --record-new` を実行する。
+- 標準runnerは成功したscrapeの新規・更新source hashをmanifestへ登録する。scraperを直接実行する場合は、責務に応じて`--record-new`又は`--record-scrape-refresh --scope <00_sourceの相対path>`を実行する。
 
 ## ドキュメント
 

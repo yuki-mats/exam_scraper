@@ -34,11 +34,11 @@ flowchart LR
 - 取得元の問題IDは既存の`source_question_id`へ保存する。サイトが持つ不変IDを優先し、なければ問題固有の安定URLを使う。
 - 表示順、問題番号の並び、問題文ハッシュは恒久IDにしない。安定した問題IDも問題固有URLも得られない取得元は保留する。
 - 公開用IDは既存方式で`source_question_id`から生成する取得元非表示の`public_question_id`を使い、別の対応表を作らない。選択肢単位の公開IDもMerge時に`public_question_id`から再生成する。取得元のIDやURLはFirestoreへ登録しない。
-- 再取得時に同じ`source_question_id`が見つかった場合は重複としてスキップし、`00_source`や公開済み問題を自動更新しない。新しいIDの問題だけを追加する。
+- 再取得時に同じ`source_question_id`が見つかった場合は、標準scraperが取得元の現在内容を`00_source`へ反映する。公開済み問題は自動更新せず、scrape reportの変更IDだけを05以降の再整備・再評価へ回す。新しいIDは新規問題として追加する。
 
 ## `05_originalized`の責務
 
-`00_source`には、取得した問題文、選択肢、正答、解説を原文のまま保存します。既存ファイルは変更しません。
+`00_source`には、取得した問題文、選択肢、正答、解説を原文のまま保存します。手作業や独自問題化では変更せず、取得元が更新されたときだけ標準scraperが再取得します。
 
 `05_originalized`には、公開の基礎となる次の既存fieldを保存します。
 

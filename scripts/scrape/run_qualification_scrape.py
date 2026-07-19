@@ -8,6 +8,7 @@ from pathlib import Path
 
 CURRENT_FILE = Path(__file__).resolve()
 REPO_ROOT = CURRENT_FILE.parents[2]
+SOURCE_REFRESH_SCRAPER_TYPES = {"keepitup"}
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -90,6 +91,11 @@ def main() -> int:
         args.qualification_code,
         config_path=Path(args.config).expanduser().resolve(),
     )
+    manifest_managed_refresh = (
+        preset.scraper_type in SOURCE_REFRESH_SCRAPER_TYPES
+        and resolved_output_dir == REPO_ROOT / "output"
+        and not args.dry_run
+    )
 
     target_group_ids = resolve_target_list_group_ids(preset, args.list_group_ids)
     if args.max_groups is not None:
@@ -122,6 +128,16 @@ def main() -> int:
     if not run_targets:
         print("[DONE] 実行対象はありません")
         return 0
+
+    source_manifest_checker = (
+        REPO_ROOT / "scripts" / "check" / "check_00_source_immutability.py"
+    )
+    if manifest_managed_refresh:
+        subprocess.run(
+            [args.python_executable, str(source_manifest_checker)],
+            cwd=REPO_ROOT,
+            check=True,
+        )
 
     print(
         f"[PLAN] qualification={preset.qualification_code} "
@@ -164,6 +180,25 @@ def main() -> int:
             env=env,
             check=True,
         )
+        if manifest_managed_refresh:
+            source_scope = (
+                Path("output")
+                / preset.qualification_code
+                / "questions_json"
+                / list_group_id
+                / "00_source"
+            ).as_posix()
+            subprocess.run(
+                [
+                    args.python_executable,
+                    str(source_manifest_checker),
+                    "--record-scrape-refresh",
+                    "--scope",
+                    source_scope,
+                ],
+                cwd=REPO_ROOT,
+                check=True,
+            )
 
     return 0
 

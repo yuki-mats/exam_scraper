@@ -8,6 +8,8 @@ from scripts.check.check_00_source_immutability import (
     differences,
     load_manifest,
     main,
+    record_scrape_refresh,
+    source_hashes,
     staged_source_change_violations,
 )
 
@@ -130,6 +132,59 @@ class SourceImmutabilityTest(unittest.TestCase):
         self.source.with_name("question_2.json").write_text('{"value":"new"}\n', encoding="utf-8")
         self.assertEqual(main(["--root", str(self.root), "--manifest", str(self.manifest), "--record-new"]), 1)
         self.assertEqual(len(load_manifest(self.manifest)), 1)
+
+    def test_scrape_refresh_records_existing_change_and_new_file_in_scope(self) -> None:
+        self.source.write_text('{"value":"changed"}\n', encoding="utf-8")
+        added = self.source.with_name("question_2.json")
+        added.write_text('{"value":"new"}\n', encoding="utf-8")
+
+        self.assertEqual(
+            main(
+                [
+                    "--root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--record-scrape-refresh",
+                    "--scope",
+                    "output/sample/00_source",
+                ]
+            ),
+            0,
+        )
+        self.assertEqual(load_manifest(self.manifest), source_hashes(self.root))
+
+    def test_scrape_refresh_rejects_difference_outside_scope(self) -> None:
+        other = self.root / "output/other/00_source/question_1.json"
+        other.parent.mkdir(parents=True)
+        other.write_text('{"value":"other"}\n', encoding="utf-8")
+
+        self.assertEqual(
+            main(
+                [
+                    "--root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--record-scrape-refresh",
+                    "--scope",
+                    "output/sample/00_source",
+                ]
+            ),
+            1,
+        )
+        self.assertEqual(len(load_manifest(self.manifest)), 1)
+
+    def test_scrape_refresh_rejects_deleted_source(self) -> None:
+        self.source.unlink()
+
+        with self.assertRaisesRegex(ValueError, "消失"):
+            record_scrape_refresh(
+                {"output/sample/00_source/question_1.json": "before"},
+                {},
+                {"改変": [], "消失": ["output/sample/00_source/question_1.json"], "未登録": []},
+                scope="output/sample/00_source",
+            )
 
     def test_difference_names_are_simple(self) -> None:
         self.assertEqual(
