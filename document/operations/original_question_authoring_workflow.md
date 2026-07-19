@@ -89,7 +89,15 @@ flowchart LR
 - 解説だけにある画像は、公開問題の成立に必要な画像とは判定しない。03の独自解説で図が必要な場合は、別途新しい解説画像を作る。
 - 独自生成画像は`output/<qualification>/question_images/<listGroupId>/05_originalized/`へ保存する。ファイル名は`originalized_<public_question_id>_<用途>_<連番>.<拡張子>`とし、05 patchの`questionImageStorageUrls`又は`originalQuestionChoiceImageUrls`に公開用Storage URLを設定する。
 
-Mergeは`00_source`の画像有無から内部field`_independentImageRequired`を生成する。このfieldはupload-readyまでの公開停止判定にだけ使い、Firestore documentへ保存しない。画像が必要なのに独自生成画像がない場合、取得元画像と同じURLを指定した場合、又は公開用画像のファイル名が`originalized_`で始まらない場合は公開準備を停止する。
+画像が必要な独自問題は、次の順序で整備する。
+
+1. 05 patchへ問題文・設問・選択肢・正答を保存し、その内容を先に確定する。この時点では画像URLを省略できる。
+2. 05の論理projectionを基に、確定した問題を解くために必要な情報、ラベル、数値、位置関係を画像仕様として整理する。
+3. 画像仕様から独自画像を作り、問題文・選択肢・正答との整合を確認する。
+4. Storageへ保存し、公開用URLを同じ05 patchへ追記する。
+5. 05を再投影し、画像を含む完成状態で01以降へ進める。
+
+Mergeは`00_source`の画像有無から内部field`_independentImageRequired`を生成する。このfieldは公開停止判定にだけ使い、Firestore documentへ保存しない。画像なしの中間状態は論理projectionとして確認できるが、artifact同期、upload-ready生成、Firestore uploadはできない。取得元画像と同じURLを指定した場合、又は公開用画像のファイル名が`originalized_`で始まらない場合も公開準備を停止する。
 
 ## 公開契約
 

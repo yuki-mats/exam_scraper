@@ -143,7 +143,7 @@
 
 独自問題では、取得元の`question_url`、`source_question_id`、原文、解説原文、取得元画像をFirestoreへ入れません。取得元の原文は`00_source`だけに保持し、公開用の問題文・選択肢は`05_originalized`の内容を使います。選択肢単位の公開IDは`public_question_id`から再生成し、取得元site名やIDを含めません。詳細は[独自問題作成ワークフロー](../operations/original_question_authoring_workflow.md)を正本とします。
 
-独自問題の画像要否は、Mergeが`00_source`の問題画像・選択肢画像から内部field`_independentImageRequired`へ記録します。このfieldはupload-readyの停止判定にだけ使い、UploaderがFirestore documentから除外します。公式過去問には適用しません。
+独自問題の画像要否は、Mergeが`00_source`の問題画像・選択肢画像から内部field`_independentImageRequired`へ記録します。問題文・選択肢・正答を先に確定した中間projectionにもこのfieldを持たせ、画像が揃うまで公開準備を停止します。UploaderはFirestore documentからこのfieldを除外します。公式過去問には適用しません。
 
 ## `questionType` 契約
 

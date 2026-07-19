@@ -115,13 +115,19 @@ def validate_originalized_image_entry(
     source: Mapping[str, Any],
     entry: Mapping[str, Any],
 ) -> bool:
-    """独自問題用画像が必要な位置に生成画像が指定されているか検証する。"""
+    """独自問題用画像の中間状態又は完成状態を検証する。"""
 
     question_required, source_choice_indices = source_image_requirements(source)
     published_question_urls = _urls_for_fields(
         entry, PUBLISHED_QUESTION_IMAGE_FIELDS
     )
     published_choice_by_index = _choice_image_urls_by_index(entry)
+    published_urls = published_image_urls(entry)
+
+    # 問題文・設問を先に確定し、その内容から画像を生成できるようにする。
+    # 画像なしの中間状態はMergeで投影できるが、公開準備gateで停止する。
+    if not published_urls:
+        return question_required or bool(source_choice_indices)
 
     if question_required and not published_question_urls:
         raise ValueError(
@@ -140,7 +146,6 @@ def validate_originalized_image_entry(
             + ", ".join(f"選択肢{index}" for index in missing_choice_indices)
         )
 
-    published_urls = published_image_urls(entry)
     source_urls = set(
         _urls_for_fields(
             source,

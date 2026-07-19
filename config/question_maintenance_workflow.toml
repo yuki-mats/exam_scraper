@@ -42,8 +42,8 @@ code = "05"
 label = "独自問題化"
 purpose = "取得問題の論点と試験らしさを保ち、公開用の問題文・選択肢・正答・必要画像を作る"
 kind = "human"
-# 2.0: 独自問題の問題画像・選択肢画像を再生成必須とし、既存05成果物も再判定する。
-policy_version = "2.0"
+# 2.1: 問題文・選択肢・正答を先に確定し、その確定内容から画像を作る順序へ変更する。
+policy_version = "2.1"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 automatic = false

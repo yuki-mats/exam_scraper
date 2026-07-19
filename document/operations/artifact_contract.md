@@ -51,7 +51,7 @@ output/question_review_console/
 | scrape | `00_source/` | `question_<source又はexam occurrence ID>_<n>.json` | 取得元の現在スナップショット。手作業では不変。同じ安定IDの取得元更新だけ標準scraperが同じ名前へ反映する。 |
 | scrape | `question_images/<list_group_id>/` | source由来名 | 取得元の現在スナップショットに属するローカル画像。 |
 | 05 image | `question_images/<list_group_id>/05_originalized/` | `originalized_<public_question_id>_<用途>_<連番>.<拡張子>` | 独自問題用に新規生成した公開画像。取得元画像を上書きしない。 |
-| 05 | `05_originalized/` | `<source_stem>_originalized.json` | 独自問題化した`questionBodyText`、`choiceTextList`、`correctChoiceText`、`questionIntent`、`answer_result_text`と、必要な公開画像URLのpatch。公式過去問では作らない。 |
+| 05 | `05_originalized/` | `<source_stem>_originalized.json` | 独自問題化した文章と正答を先に確定し、画像生成後に必要な公開画像URLを同じrecordへ追記するpatch。公式過去問では作らない。 |
 | 01 | `10_questionType_fixed/` | `<source_stem>_questionType_fixed.json` | 問題形式。 |
 | merge | `12_merged_questionType/` | `<source_stem>_merged.json` | 01反映確認用の生成view。 |
 | 02 | `15_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 互換名を維持した`questionIntent` patch。 |

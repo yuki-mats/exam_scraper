@@ -21,6 +21,9 @@ from scripts.merge.patch_views import apply_originalized_fields
 from scripts.merge.patch_views import PatchArtifactEntry
 from scripts.merge.record_projection import project_merge_record
 from scripts.upload.upload_questions_to_firestore import build_doc_data_base
+from tools.question_review_console.patch_validation import (
+    projected_required_warnings,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -177,7 +180,7 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
                 {"public-1": patch},
             )
 
-    def test_image_required_source_is_rejected_without_generated_image(self) -> None:
+    def test_image_required_source_allows_text_to_be_finalized_before_image(self) -> None:
         source = {
             "public_question_id": "public-1",
             "original_question_id": "public-1",
@@ -193,11 +196,23 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
             "answer_result_text": "正解は1です。",
         }
 
-        with self.assertRaisesRegex(ValueError, "独自生成画像がありません"):
-            apply_originalized_fields(
-                {"question_bodies": [source]},
-                {"public-1": patch},
+        payload = {"question_bodies": [source]}
+
+        apply_originalized_fields(payload, {"public-1": patch})
+
+        projected = payload["question_bodies"][0]
+        self.assertEqual(
+            projected["questionBodyText"],
+            "条件と情報順序を組み直した問題文",
+        )
+        self.assertTrue(projected[INDEPENDENT_IMAGE_REQUIRED_FIELD])
+        self.assertNotIn("questionImageStorageUrls", projected)
+        self.assertTrue(
+            any(
+                warning["field"] == "questionImageStorageUrls"
+                for warning in projected_required_warnings(projected)
             )
+        )
 
     def test_generated_image_is_distinct_and_marks_internal_requirement(self) -> None:
         source_url = build_public_storage_url(
