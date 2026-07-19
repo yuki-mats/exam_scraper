@@ -104,6 +104,77 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(resolved, ())
 
+    def test_alias_enrichment_still_resolves_the_same_record(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed_contract = self._contract(relative)
+            failed_contract["targetRecordScopes"] = {
+                relative.as_posix(): [["legacy-q1"]]
+            }
+            self._write_contract_manifest(
+                runs / "20260101-failed/manifest.json",
+                status="failed",
+                relative=relative,
+                contract=failed_contract,
+            )
+            succeeded_contract = self._contract(relative)
+            succeeded_contract["targetRecordScopes"] = {
+                relative.as_posix(): [
+                    ["legacy-q1", "source:q1", "source.json#0"]
+                ]
+            }
+            self._write_contract_manifest(
+                runs / "20260102-succeeded/manifest.json",
+                status="succeeded",
+                relative=relative,
+                contract=succeeded_contract,
+            )
+
+            resolved = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(resolved, ())
+
+    def test_ambiguous_alias_enrichment_does_not_resolve_records(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed_contract = self._contract(relative)
+            failed_contract["targetRecordScopes"] = {
+                relative.as_posix(): [
+                    ["shared", "legacy-q1"],
+                    ["shared", "legacy-q2"],
+                ]
+            }
+            self._write_contract_manifest(
+                runs / "20260101-failed/manifest.json",
+                status="failed",
+                relative=relative,
+                contract=failed_contract,
+            )
+            succeeded_contract = self._contract(relative)
+            succeeded_contract["targetRecordScopes"] = {
+                relative.as_posix(): [["shared", "new-id"]]
+            }
+            self._write_contract_manifest(
+                runs / "20260102-succeeded/manifest.json",
+                status="succeeded",
+                relative=relative,
+                contract=succeeded_contract,
+            )
+
+            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(blocked, (relative.as_posix(),))
+
     def test_interrupted_isolated_child_does_not_create_unknown_delta(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1155,6 +1226,39 @@ class FailedDeltaTests(unittest.TestCase):
             blocked = unresolved_failed_delta_paths(root, "sample", "2026")
 
         self.assertEqual(blocked, (relative.as_posix(),))
+
+    @staticmethod
+    def _write_contract_manifest(
+        path: Path,
+        *,
+        status: str,
+        relative: Path,
+        contract: dict[str, object],
+    ) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps(
+                {
+                    "qualification": "sample",
+                    "status": status,
+                    "workType": "maintenance",
+                    "stageIds": ["explanation"],
+                    "targetGroupIds": ["2026"],
+                    **contract,
+                    "result": {
+                        "changedFiles": (
+                            [relative.as_posix()] if status == "failed" else []
+                        ),
+                        "resolvedFailedDeltaPaths": (
+                            [relative.as_posix()]
+                            if status == "succeeded"
+                            else []
+                        ),
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
 
     @staticmethod
     def _write_manifest(path: Path, status: str, changed_path: Path) -> None:

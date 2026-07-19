@@ -373,6 +373,33 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             [{"originalQuestionId": "q1", "questionType": "multiple"}],
         )
         validate(
+            {"originalQuestionId": "q1"},
+            [
+                {
+                    "originalQuestionId": "q1",
+                    "public_question_id": None,
+                    "questionType": "single",
+                }
+            ],
+            [{"originalQuestionId": "q1", "questionType": "single"}],
+        )
+        validate(
+            {
+                "originalQuestionId": "q1",
+                "questionBodyText": "問題文",
+                "choiceTextList": ["A", "B"],
+            },
+            [
+                {
+                    "originalQuestionId": "q1",
+                    "questionBodyText": "問題文",
+                    "choiceTextList": ["A", "B"],
+                    "questionType": "single",
+                }
+            ],
+            [{"originalQuestionId": "q1", "questionType": "single"}],
+        )
+        validate(
             {"public_question_id": "q1"},
             None,
             [{"original_question_id": "q1", "questionType": "single"}],
@@ -444,6 +471,56 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     }
                 ],
             )
+
+    def test_legacy_reconciliation_can_verify_an_unbound_existing_patch(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/q1_explanationText_added.json"
+        )
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        aliases = ["ui-q1", "review-q1", "sample:2026:q1", "q1.json#0"]
+        self._validate_record_scope_change(
+            relative,
+            {
+                "question_bodies": [
+                    {"originalQuestionId": "review-q1", "value": "before"}
+                ]
+            },
+            {
+                "question_bodies": [
+                    {"originalQuestionId": "review-q1", "value": "after"}
+                ]
+            },
+            plan_updates={
+                "legacyFailedDeltaReconciliation": True,
+                "sourceFiles": [source_relative.as_posix()],
+                "targetRecordAliasGroups": [aliases],
+                "targetRecordBindings": [
+                    {
+                        "uiQuestionId": "ui-q1",
+                        "reviewQuestionId": "review-q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": "q1.json#0",
+                        "aliases": aliases,
+                    }
+                ],
+                "allowedPatchDirs": ["21_explanationText_added"],
+                "allowedPatchFiles": [relative.as_posix()],
+                "targetRecordScopes": {relative.as_posix(): [aliases]},
+            },
+            source_payloads={
+                source_relative: {
+                    "question_bodies": [
+                        {
+                            "originalQuestionId": "review-q1",
+                            "sourceQuestionKey": "sample:2026:q1",
+                        }
+                    ]
+                }
+            },
+        )
 
     def test_record_scope_uses_source_record_ref_for_shared_two_field_identity(self):
         with tempfile.TemporaryDirectory() as directory:

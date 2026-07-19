@@ -676,6 +676,23 @@ def add_work_version_invalidation_parser(
     )
 
 
+def add_failed_delta_reconciliation_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "reconcile-failed-deltas",
+        help="Verify and close old failed-run deltas without rewriting history.",
+    )
+    parser.set_defaults(command="reconcile-failed-deltas")
+    parser.add_argument("--qualification", required=True)
+    parser.add_argument("--list-group-id", required=True)
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Write the validated reconciliation receipt. Without this flag, dry-run.",
+    )
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -774,6 +791,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_work_version_backfill_parser(subparsers)
     add_work_version_migration_parser(subparsers)
     add_work_version_invalidation_parser(subparsers)
+    add_failed_delta_reconciliation_parser(subparsers)
     add_question_issue_report_parsers(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
@@ -983,6 +1001,19 @@ def main(argv: list[str] | None = None) -> int:
             run_id=args.run_id,
             stage_id=args.stage,
             reason=args.reason,
+            execute=bool(args.execute),
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0
+    if args.command == "reconcile-failed-deltas":
+        from tools.question_review_console.failed_delta_reconciliation import (
+            reconcile_failed_deltas,
+        )
+
+        result = reconcile_failed_deltas(
+            REPO_ROOT,
+            qualification=args.qualification,
+            list_group_id=args.list_group_id,
             execute=bool(args.execute),
         )
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))

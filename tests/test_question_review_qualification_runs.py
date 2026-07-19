@@ -1326,6 +1326,39 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             external,
         )
 
+    def test_recent_hides_failed_delta_reconciliation_receipts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            visible = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="succeeded",
+                prompt="visible",
+            )
+            receipt = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="succeeded",
+                prompt="receipt",
+            )
+            coordinator.store.update(
+                "sample",
+                receipt["runId"],
+                schemaVersion="failed-delta-reconciliation/v1",
+            )
+
+            recent = coordinator.recent("sample")
+
+        self.assertEqual(
+            [run["runId"] for run in recent["runs"]],
+            [visible["runId"]],
+        )
+
     def test_unsafe_category_setup_stops_dependent_queue_and_sync(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

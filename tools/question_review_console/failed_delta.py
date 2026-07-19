@@ -444,8 +444,41 @@ def _compatible_path_record_scopes(
         succeeded_groups = _record_scope_groups(succeeded, path)
         if failed_groups is None or succeeded_groups is None:
             return None
-        return failed_groups, succeeded_groups
+        return failed_groups, _aligned_scope_coverage(
+            failed_groups,
+            succeeded_groups,
+        )
     return set(), set()
+
+
+def _aligned_scope_coverage(
+    failed_groups: set[tuple[str, ...]],
+    succeeded_groups: set[tuple[str, ...]],
+) -> set[tuple[str, ...]]:
+    """Map later alias-enriched scopes back to one failed scope safely.
+
+    Record identity aliases are enriched as the workflow learns stable source
+    bindings.  Requiring byte-identical alias sets would leave an old failure
+    unresolved even after the same record was verified.  A later scope counts
+    only when its aliases intersect exactly one failed scope; shared aliases
+    that could refer to several records remain unresolved.
+    """
+
+    failed_aliases = {
+        group: set(group)
+        for group in failed_groups
+    }
+    covered: set[tuple[str, ...]] = set()
+    for succeeded_group in succeeded_groups:
+        aliases = set(succeeded_group)
+        matches = [
+            failed_group
+            for failed_group, values in failed_aliases.items()
+            if aliases & values
+        ]
+        if len(matches) == 1:
+            covered.add(matches[0])
+    return covered
 
 
 def _isolated_interrupted_run_is_clean(manifest: Mapping[str, Any]) -> bool:
@@ -502,6 +535,14 @@ def _responsible_stages_for_path(
     patch_stage_by_dir: Mapping[str, str],
 ) -> set[str]:
     """Narrow a multi-stage run to the stage that owns one known path."""
+
+    verified_by_path = manifest.get("verifiedStageIdsByPath")
+    if isinstance(verified_by_path, Mapping):
+        values = verified_by_path.get(path.as_posix())
+        if isinstance(values, list):
+            verified = {str(value) for value in values if value}
+            if verified:
+                return verified
 
     stages = _responsible_stages(manifest)
     parts = path.parts

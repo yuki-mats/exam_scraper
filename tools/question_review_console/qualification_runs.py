@@ -1199,6 +1199,9 @@ class QualificationRunStore:
                 {str(value) for value in plan.get("resumeWorkItemKeys") or [] if value}
             ),
             "parentSourceChecked": bool(plan.get("parentSourceChecked")),
+            "legacyFailedDeltaReconciliation": bool(
+                plan.get("legacyFailedDeltaReconciliation")
+            ),
             "createdAt": now,
             "startedAt": None,
             "updatedAt": now,
@@ -4044,6 +4047,7 @@ class QualificationRunCoordinator:
             for run in self.store.list(qualification, limit=100)
             if run.get("workType") not in {"evaluation", "reevaluation"}
             and not run.get("parentRunId")
+            and run.get("schemaVersion") != "failed-delta-reconciliation/v1"
         ][:8]
         return {
             "qualification": qualification,
@@ -9975,6 +9979,14 @@ class QualificationRunCoordinator:
                         and matched_source_binding.review_question_id
                         in source_aliases(entry)
                     ]
+                    if (
+                        not source_matches
+                        and run.get("legacyFailedDeltaReconciliation") is True
+                    ):
+                        source_matches = unbound_legacy_matches(
+                            source_entries,
+                            binding_aliases or entry_aliases,
+                        )
                 else:
                     source_matches = matching(
                         source_entries,
@@ -9998,6 +10010,7 @@ class QualificationRunCoordinator:
                     and matched_source_binding is not None
                     and entry_source_binding.source_record_ref
                     != matched_source_binding.source_record_ref
+                    and run.get("legacyFailedDeltaReconciliation") is not True
                 ):
                     raise QualificationRunError(
                         f"更新patch rowにsourceRecordRefがありません: {relative}"
@@ -10011,6 +10024,14 @@ class QualificationRunCoordinator:
                 }
                 if before_identity is not None:
                     if after_identity != before_identity:
+                        allowed_empty_identity_cleanup = bool(
+                            after_identity
+                            == {
+                                field: value
+                                for field, value in before_identity.items()
+                                if value not in {None, ""}
+                            }
+                        )
                         allowed_patch_identity_enrichment = bool(
                             not is_law_audit_sidecar
                             and matched_source_binding is not None
@@ -10062,7 +10083,8 @@ class QualificationRunCoordinator:
                             }
                         )
                         if not (
-                            allowed_patch_identity_enrichment
+                            allowed_empty_identity_cleanup
+                            or allowed_patch_identity_enrichment
                             or allowed_sidecar_migration
                         ):
                             raise QualificationRunError(
@@ -10095,6 +10117,13 @@ class QualificationRunCoordinator:
                         for entry in source_matches
                         for alias in source_aliases(entry)
                     }
+                    if (
+                        matched_source_binding is not None
+                        and run.get("legacyFailedDeltaReconciliation") is True
+                    ):
+                        source_bound_aliases.update(
+                            matched_source_binding.as_tuple()
+                        )
                     if (
                         len(matching_target_groups) != 1
                         or not source_matches
@@ -10138,7 +10167,12 @@ class QualificationRunCoordinator:
                     continue
                 for field in CODEX_PROTECTED_CONTENT_FIELDS:
                     if before_fields is not None and field in before_fields:
-                        if (
+                        removed_redundant_source_copy = bool(
+                            field not in after_fields
+                            and source_fields is not None
+                            and source_fields.get(field) == before_fields[field]
+                        )
+                        if not removed_redundant_source_copy and (
                             field not in after_fields
                             or after_fields[field] != before_fields[field]
                         ):
