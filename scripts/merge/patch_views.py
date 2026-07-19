@@ -16,6 +16,10 @@ from scripts.common.question_identity import (
     source_identity_aliases,
     workflow_identity_aliases,
 )
+from scripts.common.independent_question_images import (
+    INDEPENDENT_IMAGE_REQUIRED_FIELD,
+    validate_originalized_image_entry,
+)
 from scripts.merge.merge_utils import (
     build_manual_output_path,
     maybe_split_for_manual_output,
@@ -519,7 +523,7 @@ def normalize_correct_choice_label(value: Any) -> str:
 def _validate_originalized_entry(
     source: Mapping[str, Any],
     entry: Mapping[str, Any],
-) -> None:
+) -> bool:
     missing = [
         field
         for field in ORIGINALIZED_REQUIRED_FIELDS
@@ -569,6 +573,7 @@ def _validate_originalized_entry(
         raise ValueError(
             "05_originalizedの選択肢一式が00_sourceと完全一致しています。"
         )
+    return validate_originalized_image_entry(source, entry)
 
 
 def apply_originalized_fields(
@@ -591,7 +596,7 @@ def apply_originalized_fields(
         entry = originalized_map.get(str(question_id))
         if not isinstance(entry, Mapping):
             continue
-        _validate_originalized_entry(question, entry)
+        image_required = _validate_originalized_entry(question, entry)
 
         for field in ORIGINALIZED_FIELDS:
             if field in entry and entry[field] is not None:
@@ -618,6 +623,7 @@ def apply_originalized_fields(
             f"{public_id}:choice:{index + 1}"
             for index in range(len(question["choiceTextList"]))
         ]
+        question[INDEPENDENT_IMAGE_REQUIRED_FIELD] = image_required
 
         # 取得元の画像や解説を公開系路へ暗黙に流さない。
         if "questionImageStorageUrls" not in entry:

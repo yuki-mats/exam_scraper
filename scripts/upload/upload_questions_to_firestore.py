@@ -18,6 +18,9 @@ from scripts.upload.firebase_credentials import (  # noqa: E402
     initialize_firebase_app,
 )
 from scripts.common.repaso_firestore_schema import validate_question_doc
+from scripts.common.independent_question_images import (
+    validate_independent_upload_image_gate,
+)
 
 PROJECT_ID = DEFAULT_PROJECT_ID
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
@@ -160,6 +163,8 @@ def validate_required_question_fields(questions: list[dict], source_label: str) 
         should_group = len(group) >= 2
         for q in group:
             q["isGroupable"] = should_group
+
+    validate_independent_upload_image_gate(questions, source_label)
 
 
 def build_doc_data_base(question: dict) -> dict:

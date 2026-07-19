@@ -49,8 +49,9 @@ output/question_review_console/
 | 工程 | 保存先 | ファイル名 | 責務 |
 | --- | --- | --- | --- |
 | scrape | `00_source/` | `question_<source又はexam occurrence ID>_<n>.json` | 取得元の現在スナップショット。手作業では不変。同じ安定IDの取得元更新だけ標準scraperが同じ名前へ反映する。 |
-| scrape | `question_images/<list_group_id>/` | source由来名 | ローカル画像。 |
-| 05 | `05_originalized/` | `<source_stem>_originalized.json` | 独自問題化した`questionBodyText`、`choiceTextList`、`correctChoiceText`、`questionIntent`、`answer_result_text`のpatch。公式過去問では作らない。 |
+| scrape | `question_images/<list_group_id>/` | source由来名 | 取得元の現在スナップショットに属するローカル画像。 |
+| 05 image | `question_images/<list_group_id>/05_originalized/` | `originalized_<public_question_id>_<用途>_<連番>.<拡張子>` | 独自問題用に新規生成した公開画像。取得元画像を上書きしない。 |
+| 05 | `05_originalized/` | `<source_stem>_originalized.json` | 独自問題化した`questionBodyText`、`choiceTextList`、`correctChoiceText`、`questionIntent`、`answer_result_text`と、必要な公開画像URLのpatch。公式過去問では作らない。 |
 | 01 | `10_questionType_fixed/` | `<source_stem>_questionType_fixed.json` | 問題形式。 |
 | merge | `12_merged_questionType/` | `<source_stem>_merged.json` | 01反映確認用の生成view。 |
 | 02 | `15_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 互換名を維持した`questionIntent` patch。 |
@@ -77,14 +78,14 @@ output/question_review_console/
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
 | session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、server生成のresult・receipt、技術ログ、問題別projection、構造化候補、`validationAttempts`、終端時の`improvement_report.json`。modelはここへ書き込まない。 |
-| direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正の開始前bytesとcommit・rollback結果。 |
+| direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正のbaseline（開始前bytes）とcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |
 | work version invalidation | `output/question_review_console/work_version_invalidations/<receipt_id>/manifest.json` | 誤って成功扱いにしたrun・工程を再整備対象へ戻した履歴。 |
 | work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-run directoryは再利用しません。manifestは対象、source identity、工程版、sandbox、検証・同期状態を記録します。model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが問題別のresult、progress、receiptを保存します。`questionExecutions`には工程状態、停止理由、子run、fingerprint、`validationAttempts`を持たせます。再起動時はserver生成receiptを回収して確定済みの問を除外し、未完了だけを再開します。patch開始前bytesと`work_versions.json`は一問のtransactionに含めます。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
+run directoryは再利用しません。manifestは対象、source identity、工程版、sandbox、検証・同期状態に加え、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`を記録します。model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが問題別のresult、progress、receiptを保存します。`questionExecutions`には工程状態、停止理由、子run、fingerprint、`validationAttempts`を持たせます。再起動時はserver生成receiptを回収して確定済みの問を除外し、未完了だけを再開します。patch開始前bytesと`work_versions.json`は一問のtransactionに含めます。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
 
 ## 編集境界
 

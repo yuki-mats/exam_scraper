@@ -40,9 +40,10 @@ documents = [
 id = "originalize"
 code = "05"
 label = "独自問題化"
-purpose = "取得問題の論点と試験らしさを保ち、公開用の問題文・選択肢・正答を作る"
+purpose = "取得問題の論点と試験らしさを保ち、公開用の問題文・選択肢・正答・必要画像を作る"
 kind = "human"
-policy_version = "1.0"
+# 2.0: 独自問題の問題画像・選択肢画像を再生成必須とし、既存05成果物も再判定する。
+policy_version = "2.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 automatic = false
@@ -55,6 +56,8 @@ issue_fields = [
   "correctChoiceText",
   "questionIntent",
   "answer_result_text",
+  "questionImageStorageUrls",
+  "originalQuestionChoiceImageUrls",
 ]
 documents = [
   "prompt/05_prompt_originalize_question.md",

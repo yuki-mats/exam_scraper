@@ -14,6 +14,7 @@
 2. 技術的な事実と正答を、作成時点の公式試験ガイド、公式仕様、法令等で確認する。取得元の解説は論点を知るための参考であり、根拠の正本にしない。
 3. 問題文と選択肢を、その資格で自然な設問として書き直す。必要な専門用語は保ちつつ、取得元固有の場面、数値、条件、情報順序は自然な独自問題に組み直す。
 4. `questionIntent`、`correctChoiceText`、`answer_result_text`を新しい問題文と選択肢に合わせる。正答の根拠と難易度は変えない。
+5. `00_source`に問題画像又は選択肢画像がある場合は、正答に必要な情報を保った新しい画像を生成する。取得元画像そのもの、取得元と同じURL、単なる切り抜き・色変更は使わない。生成できない場合はpatchを完成させず`hold`へ送る。
 
 ## 完了基準
 
@@ -21,7 +22,8 @@
 - 選択肢一式は、順番を除いて`00_source`と一致しない。
 - 単語の置換だけではなく、一問として自然な情報順序と条件になっている。
 - `correctChoiceText`は`choiceTextList`と同じ件数で、値は`正しい`または`間違い`である。
-- 取得元の問題画像、選択肢画像、解説は引き継がない。新規に作った公開用画像を使う場合だけ、05 patchにURLを明示する。
+- 取得元の問題画像、選択肢画像、解説は引き継がない。取得元に問題画像又は選択肢画像がある場合は、対応する独自生成画像と公開用Storage URLが必須である。
+- 独自生成画像は`question_images/<listGroupId>/05_originalized/`へ保存し、ファイル名を`originalized_<public_question_id>_<用途>_<連番>.<拡張子>`とする。
 - 判断できないときはpatchを完了せず、既存のreview sidecarへ送る。
 
 ## patch形式
@@ -37,10 +39,14 @@
       "choiceTextList": ["選択肢1", "選択肢2"],
       "correctChoiceText": ["正しい", "間違い"],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は1です。"
+      "answer_result_text": "正解は1です。",
+      "questionImageStorageUrls": [
+        "独自生成した問題画像のFirebase Storage URL"
+      ],
+      "originalQuestionChoiceImageUrls": [[], []]
     }
   ]
 }
 ```
 
-`examSource="独自問題"`の設定、`examYear`の除去、取得元を表さない選択肢IDの再生成、取得元画像と解説の除外はMergeが一律に行います。解説は03工程で新しく作成します。
+画像が不要な問題では、2つの画像fieldをpatchから省略します。`examSource="独自問題"`の設定、`examYear`の除去、取得元を表さない選択肢IDの再生成、取得元画像と解説の除外、画像要否の内部判定はMergeが一律に行います。解説は03工程で新しく作成します。

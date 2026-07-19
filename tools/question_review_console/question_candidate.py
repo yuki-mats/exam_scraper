@@ -32,6 +32,8 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "correctChoiceText",
             "questionIntent",
             "answer_result_text",
+            "questionImageStorageUrls",
+            "originalQuestionChoiceImageUrls",
         }
     ),
     "question_type": frozenset({"questionType"}),

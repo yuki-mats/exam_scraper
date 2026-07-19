@@ -81,6 +81,16 @@ flowchart LR
 - 複数問から一般化できた出題傾向は`prompt/qualification_docs/<qualification>/01_exam_profile.md`、解説方針は`02_explanation_strategy.md`へ反映する。
 - 取得元ごとの文章例や専用ナレッジファイルは作らない。最初の複数問から共通傾向をまとめ、その後は新しい傾向が見つかった場合だけ資格別資料を更新する。
 
+## 画像の扱い
+
+- 公式過去問は、松田さんが取得元全体を公式過去問と確認した場合に限り、取得した問題画像と選択肢画像を従来の公式過去問工程で使用できる。権利関係を表す追加fieldは作らず、本プロジェクトの運用判断として取得設定への登録で確定する。
+- 独自問題では、取得元の問題画像と選択肢画像をそのまま公開しない。画像内の関係、数値、ラベルなど、正答に必要な情報だけを基に新しい画像を作る。取得元のロゴ、透かし、装飾、配置を表面的に模倣しない。
+- `00_source`に問題画像又は選択肢画像がある問題は、初期運用では画像添付が必要な問題と判定する。独自問題化で画像を使わない設問へ作り替えた場合も、この自動判定を個別に解除せず、独自生成画像を用意するか`hold`へ送る。
+- 解説だけにある画像は、公開問題の成立に必要な画像とは判定しない。03の独自解説で図が必要な場合は、別途新しい解説画像を作る。
+- 独自生成画像は`output/<qualification>/question_images/<listGroupId>/05_originalized/`へ保存する。ファイル名は`originalized_<public_question_id>_<用途>_<連番>.<拡張子>`とし、05 patchの`questionImageStorageUrls`又は`originalQuestionChoiceImageUrls`に公開用Storage URLを設定する。
+
+Mergeは`00_source`の画像有無から内部field`_independentImageRequired`を生成する。このfieldはupload-readyまでの公開停止判定にだけ使い、Firestore documentへ保存しない。画像が必要なのに独自生成画像がない場合、取得元画像と同じURLを指定した場合、又は公開用画像のファイル名が`originalized_`で始まらない場合は公開準備を停止する。
+
 ## 公開契約
 
 公開区分は既存の`isOfficial`だけで表します。
@@ -109,4 +119,5 @@ flowchart LR
 1. `05_originalized`を01より前のpatchとしてMergeへ反映する。
 2. 独自問題では`examYear`を生成・uploadせず、`examSource="独自問題"`を設定する。
 3. Firestore相当の`40_convert`とupload dataに、取得元の原文、解説、画像、URL、site IDが混入しないことを検証する。
-4. 完全一致チェックと既存のquality gate、評価、readbackを通す。
+4. 問題画像又は選択肢画像が必要な独自問題は、独自生成画像がある場合だけupload-readyとする。
+5. 完全一致チェックと既存のquality gate、評価、readbackを通す。

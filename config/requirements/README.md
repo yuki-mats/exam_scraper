@@ -16,4 +16,6 @@
 
 `when = { field = "value" }`は指定値と一致するレコードだけに、`when_not = { field = "value" }`は指定値と一致しないレコードにルールを適用します。現在は公式過去問の`examYear`を必須に保ちながら、`examSource = "独自問題"`ではfield自体の省略を許可するために使います。
 
+独自問題のFirestore変換結果では、画像要否をMergeで確認済みであることを示す内部field`_independentImageRequired`も必須です。このfieldはUploaderの公開停止判定に使った後、Firestore documentへ保存しません。
+
 `00_source`の全資格共通ルールは取得元の種類を推測しません。公式過去問の年度は、各scraperと資格別検証で確定します。

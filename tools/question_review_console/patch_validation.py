@@ -6,6 +6,11 @@ from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
 )
 from tools.question_review_console.projection import normalize_verdict
+from scripts.common.independent_question_images import (
+    INDEPENDENT_IMAGE_REQUIRED_FIELD,
+    INDEPENDENT_QUESTION_EXAM_SOURCE,
+    published_image_urls,
+)
 
 
 PATCH_REQUIRED_FIELDS = {
@@ -95,6 +100,19 @@ def projected_required_warnings(record: Mapping[str, Any]) -> list[dict[str, str
     elif any(not str(value or "").strip() for value in explanations):
         add("explanationText", "空の解説があります。")
 
+    if str(record.get("examSource") or "").strip() == INDEPENDENT_QUESTION_EXAM_SOURCE:
+        image_required = record.get(INDEPENDENT_IMAGE_REQUIRED_FIELD)
+        if not isinstance(image_required, bool):
+            add(
+                INDEPENDENT_IMAGE_REQUIRED_FIELD,
+                "独自問題の画像要否が未検証です。05独自問題化を再実行してください。",
+            )
+        elif image_required and not published_image_urls(record):
+            add(
+                "questionImageStorageUrls",
+                "画像が必要な独自問題に独自生成画像がありません。",
+            )
+
     return warnings
 
 
@@ -151,6 +169,17 @@ def upload_document_required_warnings(
                 "originalQuestionChoiceText",
                 "true_falseのupload-ready documentに選択肢文字列又は選択肢画像がありません。",
             )
+
+    if (
+        document.get("isOfficial") is True
+        and str(document.get("examSource") or "").strip()
+        == INDEPENDENT_QUESTION_EXAM_SOURCE
+        and not isinstance(document.get(INDEPENDENT_IMAGE_REQUIRED_FIELD), bool)
+    ):
+        add(
+            INDEPENDENT_IMAGE_REQUIRED_FIELD,
+            "独自問題の画像要否が未検証です。05独自問題化から再生成してください。",
+        )
 
     return warnings
 

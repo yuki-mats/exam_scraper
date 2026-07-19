@@ -26,7 +26,7 @@
 
 ### 画面からの直接修正
 
-直接修正は、対象fileのbaselineとtransaction manifestを`output/question_review_console/direct_edit_transactions/`へ先に保存してから、全fileを更新します。途中失敗では全fileを戻し、再起動時にも未完了transactionを回収します。
+直接修正は、対象fileのbaseline（開始前bytes）とtransaction manifestを`output/question_review_console/direct_edit_transactions/`へ先に保存してから、全fileを更新します。途中失敗では全fileを戻し、再起動時にも未完了transactionを回収します。rollback後に開始前bytesとの差分（failed delta）が残る場合は成功扱いにしません。
 
 patch保存がcommit点です。その後のcache無効化、確認記録又は再読込に失敗してもpatchを戻さず、画面へ`warning`と`postCommitErrors`を返します。本番Firestoreへは書き込みません。
 

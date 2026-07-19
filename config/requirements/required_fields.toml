@@ -60,3 +60,7 @@ questions_required_non_empty_keys = [
 [[default.stages.firestore.questions_conditional]]
 when_not = { examSource = "独自問題" }
 required_keys = ["examYear"]
+
+[[default.stages.firestore.questions_conditional]]
+when = { examSource = "独自問題" }
+required_keys = ["_independentImageRequired"]

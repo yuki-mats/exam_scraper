@@ -12,6 +12,10 @@ from scripts.common.requirements import (
     load_requirements,
     validate_records,
 )
+from scripts.common.image_storage_urls import build_public_storage_url
+from scripts.common.independent_question_images import (
+    INDEPENDENT_IMAGE_REQUIRED_FIELD,
+)
 from scripts.convert.convert_merged_to_firestore import convert_merged_to_firestore
 from scripts.merge.patch_views import apply_originalized_fields
 from scripts.merge.patch_views import PatchArtifactEntry
@@ -53,7 +57,17 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
             merged_question = merged["question_bodies"][0]
             self.assertEqual(merged_question["examSource"], "独自問題")
             self.assertNotIn("examYear", merged_question)
-            self.assertNotIn("questionImageStorageUrls", merged_question)
+            generated_image_url = build_public_storage_url(
+                "synthetic-qualification",
+                "originalized_a1b2c3d4e5f60718_question_01.png",
+            )
+            self.assertEqual(
+                merged_question["questionImageStorageUrls"],
+                [generated_image_url],
+            )
+            self.assertTrue(
+                merged_question[INDEPENDENT_IMAGE_REQUIRED_FIELD]
+            )
             self.assertNotIn("SOURCE_EXPLANATION_SHOULD_NOT_PUBLISH", json.dumps(merged, ensure_ascii=False))
             self.assertEqual(
                 merged_question["sourceUniqueKeys"],
@@ -97,10 +111,13 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
             self.assertEqual(question["examSource"], "独自問題")
             self.assertTrue(question["isOfficial"])
             self.assertNotIn("examYear", question)
+            self.assertTrue(question[INDEPENDENT_IMAGE_REQUIRED_FIELD])
+            self.assertEqual(question["questionImageUrls"], [generated_image_url])
             self.assertEqual(question["questionSetId"], "aws-cost-management")
             self.assertNotIn("ping-t", question["questionId"])
             upload_doc = build_doc_data_base(question)
             self.assertNotIn("examYear", upload_doc)
+            self.assertNotIn(INDEPENDENT_IMAGE_REQUIRED_FIELD, upload_doc)
             self.assertEqual(upload_doc["examSource"], "独自問題")
 
         firestore_rules = get_stage_rules(
@@ -155,6 +172,142 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
         }
 
         with self.assertRaisesRegex(ValueError, "選択肢一式.*完全一致"):
+            apply_originalized_fields(
+                {"question_bodies": [source]},
+                {"public-1": patch},
+            )
+
+    def test_image_required_source_is_rejected_without_generated_image(self) -> None:
+        source = {
+            "public_question_id": "public-1",
+            "original_question_id": "public-1",
+            "questionBodyText": "元の問題文",
+            "choiceTextList": ["A", "B"],
+            "questionImageStorageUrls": ["https://source.example/image.png"],
+        }
+        patch = {
+            "questionBodyText": "条件と情報順序を組み直した問題文",
+            "choiceTextList": ["Aの機能", "Bの機能"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+        }
+
+        with self.assertRaisesRegex(ValueError, "独自生成画像がありません"):
+            apply_originalized_fields(
+                {"question_bodies": [source]},
+                {"public-1": patch},
+            )
+
+    def test_generated_image_is_distinct_and_marks_internal_requirement(self) -> None:
+        source_url = build_public_storage_url(
+            "sample", "source_question_01.png"
+        )
+        generated_url = build_public_storage_url(
+            "sample", "originalized_public-1_question_01.png"
+        )
+        source = {
+            "public_question_id": "public-1",
+            "original_question_id": "public-1",
+            "questionBodyText": "元の問題文",
+            "choiceTextList": ["A", "B"],
+            "questionImageStorageUrls": [source_url],
+        }
+        patch = {
+            "questionBodyText": "条件と情報順序を組み直した問題文",
+            "choiceTextList": ["Aの機能", "Bの機能"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+            "questionImageStorageUrls": [generated_url],
+        }
+        payload = {"question_bodies": [source]}
+
+        apply_originalized_fields(payload, {"public-1": patch})
+
+        merged = payload["question_bodies"][0]
+        self.assertEqual(merged["questionImageStorageUrls"], [generated_url])
+        self.assertTrue(merged[INDEPENDENT_IMAGE_REQUIRED_FIELD])
+
+    def test_source_image_url_cannot_be_reused_as_originalized_image(self) -> None:
+        source_url = build_public_storage_url(
+            "sample", "originalized_source_question_01.png"
+        )
+        source = {
+            "public_question_id": "public-1",
+            "original_question_id": "public-1",
+            "questionBodyText": "元の問題文",
+            "choiceTextList": ["A", "B"],
+            "questionImageStorageUrls": [source_url],
+        }
+        patch = {
+            "questionBodyText": "条件と情報順序を組み直した問題文",
+            "choiceTextList": ["Aの機能", "Bの機能"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+            "questionImageStorageUrls": [source_url],
+        }
+
+        with self.assertRaisesRegex(ValueError, "取得元画像と同じURL"):
+            apply_originalized_fields(
+                {"question_bodies": [source]},
+                {"public-1": patch},
+            )
+
+    def test_explanation_only_image_does_not_require_generated_question_image(self) -> None:
+        source = {
+            "public_question_id": "public-1",
+            "original_question_id": "public-1",
+            "questionBodyText": "元の問題文",
+            "choiceTextList": ["A", "B"],
+            "explanationImageStorageUrls": [
+                "https://source.example/explanation.png"
+            ],
+        }
+        patch = {
+            "questionBodyText": "条件と情報順序を組み直した問題文",
+            "choiceTextList": ["Aの機能", "Bの機能"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+        }
+        payload = {"question_bodies": [source]}
+
+        apply_originalized_fields(payload, {"public-1": patch})
+
+        merged = payload["question_bodies"][0]
+        self.assertFalse(merged[INDEPENDENT_IMAGE_REQUIRED_FIELD])
+        self.assertNotIn("questionImageStorageUrls", merged)
+
+    def test_choice_image_requires_generated_image_at_same_choice_index(self) -> None:
+        source = {
+            "public_question_id": "public-1",
+            "original_question_id": "public-1",
+            "questionBodyText": "元の問題文",
+            "choiceTextList": ["A", "B"],
+            "originalQuestionChoiceImageUrls": [
+                [],
+                ["https://source.example/choice-b.png"],
+            ],
+        }
+        patch = {
+            "questionBodyText": "条件と情報順序を組み直した問題文",
+            "choiceTextList": ["Aの機能", "Bの機能"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+            "originalQuestionChoiceImageUrls": [
+                [
+                    build_public_storage_url(
+                        "sample", "originalized_public-1_choice-a_01.png"
+                    )
+                ],
+                [],
+            ],
+        }
+
+        with self.assertRaisesRegex(ValueError, "選択肢2"):
             apply_originalized_fields(
                 {"question_bodies": [source]},
                 {"public-1": patch},

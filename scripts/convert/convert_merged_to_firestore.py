@@ -47,6 +47,9 @@ else:
     )
 
 from scripts.scrape.qualification_presets import publication_qualification_id_for_code
+from scripts.common.independent_question_images import (
+    INDEPENDENT_IMAGE_REQUIRED_FIELD,
+)
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
@@ -892,6 +895,12 @@ def create_firestore_question_base(
         "isOfficial": True,
         "isDeleted": False,
     })
+    if is_independent_question(question_body) and isinstance(
+        question_body.get(INDEPENDENT_IMAGE_REQUIRED_FIELD), bool
+    ):
+        firestore_question[INDEPENDENT_IMAGE_REQUIRED_FIELD] = question_body[
+            INDEPENDENT_IMAGE_REQUIRED_FIELD
+        ]
     if not is_independent_question(question_body):
         firestore_question["examYear"] = get_exam_year(question_body)
     suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
@@ -1244,6 +1253,12 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             "isOfficial": True,
             "isDeleted": False,
         }
+        if is_independent_question(question_body) and isinstance(
+            question_body.get(INDEPENDENT_IMAGE_REQUIRED_FIELD), bool
+        ):
+            firestore_question[INDEPENDENT_IMAGE_REQUIRED_FIELD] = question_body[
+                INDEPENDENT_IMAGE_REQUIRED_FIELD
+            ]
         if exam_year is not None:
             firestore_question["examYear"] = exam_year
         suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))

@@ -4,9 +4,34 @@ import unittest
 from datetime import datetime
 
 from scripts.upload import upload_questions_to_firestore as module
+from scripts.common.image_storage_urls import build_public_storage_url
+from scripts.common.independent_question_images import (
+    INDEPENDENT_IMAGE_REQUIRED_FIELD,
+)
 
 
 class UploadQuestionsToFirestoreTests(unittest.TestCase):
+    @staticmethod
+    def independent_question(**overrides):
+        question = {
+            "questionId": "qsample",
+            "questionSetId": "qs1",
+            "questionText": "本文",
+            "questionType": "single_choice",
+            "qualificationId": "sample-qualification",
+            "questionTags": [],
+            "isOfficial": True,
+            "isDeleted": False,
+            "isChoiceOnly": False,
+            "isGroupable": False,
+            "originalQuestionId": "original-1",
+            "originalQuestionBodyText": "元問題文",
+            "correctChoiceText": "正しい",
+            "examSource": "独自問題",
+        }
+        question.update(overrides)
+        return question
+
     def test_top_level_merge_fields_replaces_nested_maps_as_one_field(self) -> None:
         doc_data = {
             "questionId": "q1",
@@ -137,6 +162,66 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
 
         self.assertTrue(all(q["isGroupable"] for q in questions))
         self.assertEqual([q["correctChoiceText"] for q in questions], ["正しい", "間違い"])
+
+    def test_independent_question_requires_image_gate_marker(self) -> None:
+        with self.assertRaisesRegex(ValueError, INDEPENDENT_IMAGE_REQUIRED_FIELD):
+            module.validate_required_question_fields(
+                [self.independent_question()], "sample.json"
+            )
+
+    def test_image_required_independent_question_is_blocked_without_generated_image(self) -> None:
+        with self.assertRaisesRegex(ValueError, "独自生成画像がありません"):
+            module.validate_required_question_fields(
+                [
+                    self.independent_question(
+                        **{INDEPENDENT_IMAGE_REQUIRED_FIELD: True}
+                    )
+                ],
+                "sample.json",
+            )
+
+    def test_independent_question_accepts_generated_image_and_internal_marker_is_not_uploaded(self) -> None:
+        generated_url = build_public_storage_url(
+            "sample-qualification",
+            "originalized_original-1_question_01.png",
+        )
+        question = self.independent_question(
+            **{
+                INDEPENDENT_IMAGE_REQUIRED_FIELD: True,
+                "questionImageUrls": [generated_url],
+            }
+        )
+
+        module.validate_required_question_fields([question], "sample.json")
+
+        self.assertNotIn(
+            INDEPENDENT_IMAGE_REQUIRED_FIELD,
+            module.build_doc_data_base(question),
+        )
+
+    def test_independent_question_rejects_public_image_without_originalized_filename(self) -> None:
+        source_like_url = build_public_storage_url(
+            "sample-qualification",
+            "source_question_01.png",
+        )
+        question = self.independent_question(
+            **{
+                INDEPENDENT_IMAGE_REQUIRED_FIELD: True,
+                "questionImageUrls": [source_like_url],
+            }
+        )
+
+        with self.assertRaisesRegex(ValueError, "originalized_"):
+            module.validate_required_question_fields([question], "sample.json")
+
+    def test_official_past_exam_image_does_not_use_independent_image_gate(self) -> None:
+        question = self.independent_question(
+            examSource="サンプル資格, 2025年, 問1",
+            examYear=2025,
+            questionImageUrls=["https://example.test/source-image.png"],
+        )
+
+        module.validate_required_question_fields([question], "sample.json")
 
     def test_build_doc_data_keeps_required_original_question_body_text(self) -> None:
         doc_data = module.build_doc_data(

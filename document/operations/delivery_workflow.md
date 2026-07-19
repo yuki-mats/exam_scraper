@@ -49,6 +49,8 @@ python3 tools/question_bank/question_bank.py quality-gate \
 
 ## 画像Storage
 
+独自問題では、`00_source`に問題画像又は選択肢画像がある場合、05で作成した独自生成画像が揃うまでMergeとuploadを停止します。取得元画像の再利用を許可するのは、取得元全体を公式過去問と確認して通常工程へ進めた問題だけです。判定とファイル名の詳細は[独自問題作成ワークフロー](original_question_authoring_workflow.md#画像の扱い)を正本とします。
+
 最初にdry-runします。
 
 ```bash
