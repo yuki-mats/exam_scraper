@@ -22,6 +22,9 @@ class ScrapePresetTests(unittest.TestCase):
     def test_keepitup_is_registered_as_source_refresh_capable(self) -> None:
         self.assertIn("keepitup", SOURCE_REFRESH_SCRAPER_TYPES)
 
+    def test_udemy_is_registered_as_source_refresh_capable(self) -> None:
+        self.assertIn("udemy", SOURCE_REFRESH_SCRAPER_TYPES)
+
     def test_load_scrape_preset_for_aws_cloud_practitioner_pingt(self) -> None:
         preset = load_scrape_preset("aws-cloud-practitioner")
 
@@ -44,6 +47,21 @@ class ScrapePresetTests(unittest.TestCase):
         self.assertEqual(
             build_list_first_page_url(preset, "keepitup-aws-clf-c02"),
             "https://aws.keepitup.jp/CL00/",
+        )
+
+    def test_load_scrape_preset_for_aws_saa_c03_udemy(self) -> None:
+        preset = load_scrape_preset("aws-solutions-architect-associate_udemy")
+
+        self.assertEqual(preset.qualification_code, "aws-solutions-architect-associate")
+        self.assertEqual(
+            preset.qualification_name,
+            "AWS Certified Solutions Architect - Associate (SAA-C03)",
+        )
+        self.assertEqual(preset.scraper_type, "udemy")
+        self.assertEqual(preset.list_group_ids, ["udemy-aws-saa-c03"])
+        self.assertEqual(
+            build_list_first_page_url(preset, "udemy-aws-saa-c03"),
+            "https://tokyo-gas-dx.udemy.com/course/aws-knan/",
         )
 
     def test_load_scrape_preset_for_kaigofukushi(self) -> None:

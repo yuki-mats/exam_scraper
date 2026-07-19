@@ -1031,6 +1031,18 @@
       }
     ]
   },
+  "aws-solutions-architect-associate_udemy": {
+    "qualification_code": "aws-solutions-architect-associate",
+    "scraper_type": "udemy",
+    "qualification_name": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+    "list_first_page_url_template": "https://tokyo-gas-dx.udemy.com/course/{list_group_id}/",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "aws-knan",
+        "output_list_group_id": "udemy-aws-saa-c03"
+      }
+    ]
+  },
   "nw": {
     "scraper_type": "sgsiken",
     "qualification_name": "ネットワークスペシャリスト",

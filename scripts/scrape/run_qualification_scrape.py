@@ -8,7 +8,7 @@ from pathlib import Path
 
 CURRENT_FILE = Path(__file__).resolve()
 REPO_ROOT = CURRENT_FILE.parents[2]
-SOURCE_REFRESH_SCRAPER_TYPES = {"keepitup"}
+SOURCE_REFRESH_SCRAPER_TYPES = {"keepitup", "udemy"}
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -118,7 +118,7 @@ def main() -> int:
         )
         # 1問1ファイル型は未取得IDの追加、全ID集合、既存内容を毎回照合する。
         # group単位でskipすると、途中停止後の再開とsite側の追加・変更検知ができない。
-        resumable_scraper_types = {"pingt", "keepitup"}
+        resumable_scraper_types = {"pingt", "keepitup", "udemy"}
         if already_scraped and not args.force and preset.scraper_type not in resumable_scraper_types:
             print(f"[SKIP] list_group_id={output_list_group_id} は既に 00_source があります")
             continue
@@ -153,6 +153,7 @@ def main() -> int:
         "kougai": "scrape_kougai.py",
         "pingt": "scrape_pingt.py",
         "keepitup": "scrape_keepitup.py",
+        "udemy": "scrape_udemy.py",
     }
     scraper_script = scraper_script_by_type.get(preset.scraper_type)
     if not scraper_script:

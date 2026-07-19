@@ -22,6 +22,7 @@
 | `kougai` | `yaku-tik.com`, `qualification-text.com`, `zoron.hatenablog.com` | `scrape_kougai.py` | domainごとに一覧発見と問題parserを切り替えるmulti-source adapter。公開ページ。 | `tests/test_scrape_kougai.py`, `tests/test_scrape_identity_keys.py` |
 | `pingt` | `mondai.ping-t.com` | `scrape_pingt.py` | subjectの検索一覧と問題詳細をGET。ログイン必須、1問1ファイルで再開する。 | [抽出契約](ping-t/ping-t_source_contract.md), `tests/test_scrape_pingt.py`, `tests/test_scrape_presets.py` |
 | `keepitup` | `aws.keepitup.jp` | `scrape_keepitup.py` | course topから問題系列と一覧ページを発見し、問題IDごとの解答・解説ページをGET。公開ページ、1問1ファイルで再開・内容更新する。 | [抽出契約](keepitup/keepitup_source_contract.md), `tests/test_scrape_keepitup.py`, `tests/test_scrape_presets.py` |
+| `udemy` | `*.udemy.com` | `scrape_udemy.py` | ログイン済みブラウザの演習テストreviewを一時exportし、quiz IDと問題番号ごとに保存・再照合する。 | [抽出契約](udemy/udemy_source_contract.md), `tests/test_scrape_udemy.py`, `tests/test_scrape_presets.py` |
 
 ## site別の要点
 
@@ -73,6 +74,11 @@
 - course topのformから問題系列を発見し、各系列の問題一覧をページ送りして全問題IDを列挙する。ランダム出題の表示件数と一意なID数を毎回照合する。
 - 問題IDごとの解答・解説ページは問題文、選択肢、正答、解説を一体で取得できるため、演習sessionや回答送信を使わない。
 - 1問1ファイルで保存し、再実行時は既存IDもlive内容と照合する。詳細は[KeepItUp取得契約](keepitup/keepitup_source_contract.md)を正本とする。
+
+### Udemy Business
+
+- ログイン済みブラウザで演習テストのreviewを開き、問題文、選択肢、正答、解説、分野、画像参照を一時JSONへexportする。認証情報と試行IDはexportしない。
+- Python parserは一時exportだけを入力にして、quiz IDと演習テスト内の問題番号から安定キーを作る。詳細は[Udemy Business取得契約](udemy/udemy_source_contract.md)を正本とする。
 
 ## 更新ルール
 
