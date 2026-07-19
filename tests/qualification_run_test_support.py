@@ -656,8 +656,9 @@ class PerQuestionQueueAppServer:
                         },
                         ensure_ascii=False,
                     ),
-                    model="gpt-test",
+                    model=kwargs.get("model", "gpt-test"),
                     service_tier=None,
+                    reasoning_effort=kwargs.get("reasoning_effort", "high"),
                 )
 
             _write_completed_progress(prompt)
@@ -724,8 +725,9 @@ class PerQuestionQueueAppServer:
                 session_id=f"session-queue-{call_number}",
                 turn_id=f"turn-queue-{call_number}",
                 final_message=f"{len(question_ids)}問のbatch整備完了",
-                model="gpt-test",
+                model=kwargs.get("model", "gpt-test"),
                 service_tier=None,
+                reasoning_effort=kwargs.get("reasoning_effort", "high"),
             )
         finally:
             with self._lock:

@@ -14,6 +14,7 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     CodexAppServerClient,
     MAINTENANCE_RESEARCH_WORKERS,
+    QUESTION_MAINTENANCE_RETRY_MODEL,
     RESEARCH_AGENT_CONFIG,
     RESEARCH_AGENT_CONFIG_FILENAME,
     RESEARCH_AGENT_DESCRIPTION,
@@ -86,6 +87,7 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(status["configuredModel"], "gpt-5.6-sol")
         self.assertEqual(status["configuredReasoningEffort"], "xhigh")
         self.assertEqual(status["model"], "gpt-5.5")
+        self.assertEqual(status["retryModel"], "gpt-5.6-sol")
         self.assertEqual(status["turnReasoningEffort"], "high")
 
     def test_concurrent_forced_status_checks_share_one_fresh_read(self):
@@ -250,7 +252,7 @@ class ProtocolClient(CodexAppServerClient):
             sandbox_type = "readOnly" if params["sandbox"] == "read-only" else "workspaceWrite"
             return {
                 "thread": {"id": thread_id, "sessionId": f"session-{self.turn_number}"},
-                "model": "gpt-5.5",
+                "model": params["model"],
                 "modelProvider": "openai",
                 "serviceTier": None,
                 "sandbox": {"type": sandbox_type, "networkAccess": False},
@@ -741,6 +743,29 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(all(params["sandboxPolicy"]["networkAccess"] is False for params in turn_params))
         self.assertTrue(all(params["serviceTier"] is None for params in turn_params))
         self.assertTrue(all(params["effort"] == "high" for params in turn_params))
+
+    def test_retry_model_is_applied_to_thread_and_high_effort_turn(self):
+        client = ProtocolClient()
+
+        result = client.run_turn(
+            "retry failed question",
+            work_type="maintenance_question_type_candidate",
+            sandbox="read-only",
+            emit=lambda _line: None,
+            model=QUESTION_MAINTENANCE_RETRY_MODEL,
+            reasoning_effort="high",
+        )
+
+        thread_params = next(
+            params for method, params in client.calls if method == "thread/start"
+        )
+        turn_params = next(
+            params for method, params in client.calls if method == "turn/start"
+        )
+        self.assertEqual(thread_params["model"], "gpt-5.6-sol")
+        self.assertEqual(turn_params["effort"], "high")
+        self.assertEqual(result.model, "gpt-5.6-sol")
+        self.assertEqual(result.reasoning_effort, "high")
 
     def test_success_receipt_probe_interrupts_writer_and_returns_terminal_result(self):
         client = ReceiptInterruptProtocolClient()

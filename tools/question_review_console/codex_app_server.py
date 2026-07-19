@@ -78,6 +78,10 @@ DISABLED_EXTERNAL_FEATURES = (
 )
 
 QUESTION_MAINTENANCE_MODEL = "gpt-5.5"
+QUESTION_MAINTENANCE_RETRY_MODEL = "gpt-5.6-sol"
+QUESTION_MAINTENANCE_MODELS = frozenset(
+    {QUESTION_MAINTENANCE_MODEL, QUESTION_MAINTENANCE_RETRY_MODEL}
+)
 TURN_REASONING_EFFORT = "high"
 MAINTENANCE_RESEARCH_WORKERS = 2
 APP_SERVER_AGENT_THREAD_CAP = MAINTENANCE_RESEARCH_WORKERS + 1
@@ -346,6 +350,7 @@ class CodexAppServerClient:
             status.update(
                 {
                     "model": QUESTION_MAINTENANCE_MODEL,
+                    "retryModel": QUESTION_MAINTENANCE_RETRY_MODEL,
                     "configuredModel": self._effective_model,
                     "configuredReasoningEffort": self._configured_reasoning_effort,
                     "turnReasoningEffort": TURN_REASONING_EFFORT,
@@ -370,9 +375,17 @@ class CodexAppServerClient:
         writable_roots: Iterable[Path] = (),
         completion_probe: Callable[[], bool] | None = None,
         heartbeat: Callable[[], None] | None = None,
+        model: str = QUESTION_MAINTENANCE_MODEL,
+        reasoning_effort: str = TURN_REASONING_EFFORT,
     ) -> AppServerTurnResult:
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError(f"unsupported sandbox: {sandbox}")
+        if model not in QUESTION_MAINTENANCE_MODELS:
+            raise ValueError(f"unsupported maintenance model: {model}")
+        if reasoning_effort != TURN_REASONING_EFFORT:
+            raise ValueError(
+                f"unsupported maintenance reasoning effort: {reasoning_effort}"
+            )
         # UIの事前表示とは別に、thread/start直前の実値を必ず確認する。
         self.assert_subscription_access(force=True)
         turn_cwd = (cwd or self.repo_root).resolve()
@@ -444,7 +457,7 @@ class CodexAppServerClient:
             "thread/start",
             {
                 "cwd": str(turn_cwd),
-                "model": QUESTION_MAINTENANCE_MODEL,
+                "model": model,
                 "modelProvider": "openai",
                 "approvalPolicy": approval_policy,
                 "approvalsReviewer": "user",
@@ -471,9 +484,9 @@ class CodexAppServerClient:
         if model_provider != "openai":
             raise SubscriptionGateError("外部model providerでは実行しません。")
         actual_model = str(thread_response.get("model") or "")
-        if actual_model != QUESTION_MAINTENANCE_MODEL:
+        if actual_model != model:
             raise SubscriptionGateError(
-                f"指定model {QUESTION_MAINTENANCE_MODEL}が適用されませんでした。"
+                f"指定model {model}が適用されませんでした。"
             )
         sandbox_response = _as_mapping(thread_response.get("sandbox"), "sandbox response")
         expected_sandbox = "readOnly" if sandbox == "read-only" else "workspaceWrite"
@@ -502,7 +515,7 @@ class CodexAppServerClient:
             "approvalsReviewer": "user",
             "sandboxPolicy": sandbox_policy,
             "serviceTier": None,
-            "effort": TURN_REASONING_EFFORT,
+            "effort": reasoning_effort,
         }
         if output_schema is not None:
             params["outputSchema"] = copy.deepcopy(dict(output_schema))
@@ -608,14 +621,14 @@ class CodexAppServerClient:
                 raise SubscriptionGateError(
                     "read-only調査subagentのmodel又は推論強度を確認できません。"
                 )
-            unexpected_models = state.subagent_models - {QUESTION_MAINTENANCE_MODEL}
+            unexpected_models = state.subagent_models - {model}
             if unexpected_models:
                 raise SubscriptionGateError(
                     "read-only調査subagentで指定外modelを検出しました: "
                     + ", ".join(sorted(unexpected_models))
                 )
             unexpected_efforts = state.subagent_reasoning_efforts - {
-                TURN_REASONING_EFFORT
+                reasoning_effort
             }
             if unexpected_efforts:
                 raise SubscriptionGateError(
@@ -629,7 +642,7 @@ class CodexAppServerClient:
             final_message=final_message,
             model=actual_model,
             service_tier=service_tier if isinstance(service_tier, str) else None,
-            reasoning_effort=TURN_REASONING_EFFORT,
+            reasoning_effort=reasoning_effort,
             changed_files=tuple(sorted(state.changed_files)),
             subagent_thread_ids=tuple(sorted(state.subagent_thread_ids)),
             subagent_models=tuple(sorted(state.subagent_models)),

@@ -207,6 +207,41 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["policyTargets"], {"law_audit": ["q2"]})
 
+    def test_resume_marks_only_previously_failed_item_for_retry_model(self) -> None:
+        executions = build_question_executions(self.plan)
+        for question in executions:
+            for stage in question["stages"]:
+                stage["status"] = "validated"
+        failed_stage = executions[0]["stages"][1]
+        failed_stage.update(
+            status="blocked",
+            validationAttempts=[
+                {
+                    "attempt": 1,
+                    "status": "failed",
+                    "feedback": {"reason": "最初の指摘"},
+                },
+                {
+                    "attempt": 2,
+                    "status": "blocked",
+                    "feedback": {"reason": "最後の指摘"},
+                },
+            ],
+        )
+
+        resumed = resume_plan(self.plan, executions)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            resumed["retryModelWorkItemKeys"],
+            [failed_stage["workItemKey"]],
+        )
+        self.assertTrue(rebuilt[0]["stages"][0]["retryModelRequired"])
+        self.assertEqual(
+            rebuilt[0]["stages"][0]["priorValidationFeedback"],
+            [{"reason": "最後の指摘"}],
+        )
+
     def test_resume_does_not_restore_item_absent_from_previous_run(self) -> None:
         executions = build_question_executions(self.plan)
         executions[0]["stages"] = [executions[0]["stages"][1]]

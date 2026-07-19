@@ -389,12 +389,13 @@ async function initialize() {
     state.codexStatus = codexStatus;
     state.evaluationEnabled = session.evaluationEnabled === true && codexStatus.allowed === true;
     const modelLabel = codexStatus.model || "自動選択";
+    const retryModelLabel = codexStatus.retryModel || modelLabel;
     const effortLabel = codexStatus.turnReasoningEffort || "標準";
     $("#project-status").textContent = state.evaluationEnabled
-      ? `Codex: ${modelLabel} / 推論 ${effortLabel} ・ ChatGPT ${codexStatus.planType} Standard ・ Firestore: ${session.projectId}`
+      ? `Codex: 初回 ${modelLabel}・再試行 ${retryModelLabel} / 推論 ${effortLabel} ・ ChatGPT ${codexStatus.planType} Standard ・ Firestore: ${session.projectId}`
       : `Codex App Server: 開始不可 ・ ${codexStatus.reason || "状態を確認できません"}`;
     $("#project-status").title = codexStatus.configuredReasoningEffort
-      ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: ${modelLabel} / 推論 ${effortLabel}`
+      ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: 初回 ${modelLabel}・再試行 ${retryModelLabel} / 推論 ${effortLabel}`
       : "";
     initializeSelectors();
     await loadQualificationWorkflow(false);

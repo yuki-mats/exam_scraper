@@ -1571,6 +1571,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("event?.approvalState", javascript)
         self.assertIn("progressQuestionQueueState(question)", javascript)
         self.assertIn("codexStatus.turnReasoningEffort", javascript)
+        self.assertIn("codexStatus.retryModel", javascript)
         self.assertIn('startCodex: state.reviewMode === "awaiting_codex"', javascript)
         self.assertIn('requestKind === "evaluation_rework"', javascript)
         self.assertIn("Codex App Server:", javascript)

@@ -1584,6 +1584,78 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(completed["validatedQuestionCount"], 5)
         self.assertEqual(completed["blockedQuestionCount"], 1)
+        self.assertEqual(
+            [kwargs["model"] for _question_id, _prompt, kwargs in app_server.calls],
+            ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
+        )
+        failed_stage = completed["questionExecutions"][0]["stages"][0]
+        self.assertEqual(
+            [attempt["requestedModel"] for attempt in failed_stage["validationAttempts"]],
+            ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
+        )
+        self.assertTrue(
+            all(
+                attempt["requestedReasoningEffort"] == "high"
+                and attempt["reasoningEffort"] == "high"
+                for attempt in failed_stage["validationAttempts"]
+            )
+        )
+        successful_stage = completed["questionExecutions"][1]["stages"][0]
+        self.assertEqual(len(successful_stage["validationAttempts"]), 1)
+        self.assertEqual(
+            successful_stage["validationAttempts"][0]["requestedModel"],
+            "gpt-5.5",
+        )
+
+    def test_resumed_fresh_and_failed_questions_use_separate_models(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 2)
+            failed_question_id = parent["questionExecutions"][0]["questionId"]
+            fresh_question_id = parent["questionExecutions"][1]["questionId"]
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                failed_question_id,
+                "question_type",
+                validationAttempts=[
+                    {
+                        "attempt": 1,
+                        "status": "failed",
+                        "feedback": {"reason": "機械検査に失敗"},
+                    }
+                ],
+            )
+
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+        models_by_batch = {
+            batch: kwargs["model"]
+            for batch, (_question_id, _prompt, kwargs) in zip(
+                app_server.batch_calls,
+                app_server.calls,
+                strict=True,
+            )
+        }
+        self.assertEqual(
+            models_by_batch[(fresh_question_id,)],
+            "gpt-5.5",
+        )
+        self.assertEqual(
+            models_by_batch[(failed_question_id,)],
+            "gpt-5.6-sol",
+        )
 
     def test_blocked_candidate_stops_only_that_question(self):
         with tempfile.TemporaryDirectory() as directory:

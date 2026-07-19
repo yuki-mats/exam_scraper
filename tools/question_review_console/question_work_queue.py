@@ -173,6 +173,20 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
         for value in plan.get("resumeWorkItemKeys") or []
         if value
     }
+    retry_model_work_item_keys = {
+        str(value)
+        for value in plan.get("retryModelWorkItemKeys") or []
+        if value
+    }
+    retry_feedback_by_work_item = {
+        str(key): [
+            dict(feedback)
+            for feedback in value
+            if isinstance(feedback, Mapping)
+        ]
+        for key, value in (plan.get("retryFeedbackByWorkItem") or {}).items()
+        if isinstance(value, list)
+    }
     group_order = {
         str(group_id): index
         for index, group_id in enumerate(plan.get("scopeListGroupIds") or [])
@@ -242,6 +256,10 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                     "stageLabel": str(stage_plan.get("stageLabel") or stage_id),
                     "policyFingerprint": policy_fingerprint,
                     "status": "queued",
+                    "retryModelRequired": item_key in retry_model_work_item_keys,
+                    "priorValidationFeedback": copy.deepcopy(
+                        retry_feedback_by_work_item.get(item_key, [])
+                    ),
                     "attempts": 0,
                     "inputFingerprint": input_fingerprint(
                         target,
@@ -711,4 +729,27 @@ def resume_plan(
     candidate["resumeWorkItemKeys"] = sorted(
         explicit_question_keys | scope_resume_keys
     )
+    retry_keys: list[str] = []
+    retry_feedback: dict[str, list[dict[str, Any]]] = {}
+    for work_item_key_value in sorted(explicit_question_keys):
+        failed_attempts = [
+            attempt
+            for attempt in (
+                previous_items.get(work_item_key_value, {}).get(
+                    "validationAttempts"
+                )
+                or []
+            )
+            if isinstance(attempt, Mapping)
+            and str(attempt.get("status") or "")
+            in {"failed", "blocked", "interrupted"}
+        ]
+        if not failed_attempts:
+            continue
+        retry_keys.append(work_item_key_value)
+        latest_feedback = failed_attempts[-1].get("feedback")
+        if isinstance(latest_feedback, Mapping):
+            retry_feedback[work_item_key_value] = [dict(latest_feedback)]
+    candidate["retryModelWorkItemKeys"] = retry_keys
+    candidate["retryFeedbackByWorkItem"] = retry_feedback
     return candidate

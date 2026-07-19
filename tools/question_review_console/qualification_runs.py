@@ -59,6 +59,9 @@ from tools.question_review_console.law_audit_quality import (
 from tools.question_review_console.law_audit_contract import is_law_audit_review
 from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
+    QUESTION_MAINTENANCE_MODEL,
+    QUESTION_MAINTENANCE_RETRY_MODEL,
+    TURN_REASONING_EFFORT,
     CodexAppServerError,
     SubscriptionGateError,
 )
@@ -6099,25 +6102,68 @@ class QualificationRunCoordinator:
                 "candidateTargets": prepared_targets,
             }
 
+        def spec_requires_retry_model(
+            spec: Mapping[str, Any],
+            stage_id: str,
+        ) -> bool:
+            target = spec["target"]
+            question_id = str(
+                target.get("id") or target.get("uiQuestionId") or ""
+            )
+            stage = question_stage(question_id, stage_id) or {}
+            return bool(stage.get("retryModelRequired")) or any(
+                isinstance(attempt, Mapping)
+                and str(attempt.get("status") or "")
+                in {"failed", "blocked", "interrupted"}
+                for attempt in stage.get("validationAttempts") or []
+            )
+
         def run_batch(
             specs: list[Mapping[str, Any]],
             phase: Mapping[str, Any],
             phase_prompt: str,
         ) -> dict[str, Any]:
             stage_id = str(phase["id"])
+            retry_flags = {
+                spec_requires_retry_model(spec, stage_id) for spec in specs
+            }
+            if len(retry_flags) != 1:
+                raise QualificationRunError(
+                    "初回問題と再試行問題を同じmodel turnへ混在できません。"
+                )
+            retrying = retry_flags.pop()
+            requested_model = (
+                QUESTION_MAINTENANCE_RETRY_MODEL
+                if retrying
+                else QUESTION_MAINTENANCE_MODEL
+            )
             batch_plan, targets = self._batch_plan_for_specs(
                 specs,
                 parent_run_id=run_id,
+            )
+            batch_plan.update(
+                requestedModel=requested_model,
+                requestedReasoningEffort=TURN_REASONING_EFFORT,
+                retryModelFallback=retrying,
             )
             feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
             for target in targets:
                 question_id = str(target.get("id") or target.get("uiQuestionId") or "")
                 current = question_stage(question_id, stage_id) or {}
-                feedback_by_question[question_id] = [
+                prior_feedback = [
+                    dict(value)
+                    for value in current.get("priorValidationFeedback") or []
+                    if isinstance(value, Mapping)
+                ]
+                current_feedback = [
                     dict(value["feedback"])
                     for value in current.get("validationAttempts") or []
                     if isinstance(value, Mapping)
                     and isinstance(value.get("feedback"), Mapping)
+                ]
+                feedback_by_question[question_id] = [
+                    *prior_feedback,
+                    *current_feedback,
                 ]
             records_by_question = {
                 str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
@@ -6143,6 +6189,12 @@ class QualificationRunCoordinator:
                 append_receipt_contract=False,
             )
             child_id = str(child["runId"])
+            if retrying:
+                emit(
+                    f"{stage_id}: 失敗済み{len(targets)}問だけを"
+                    f"{QUESTION_MAINTENANCE_RETRY_MODEL} / 推論 "
+                    f"{TURN_REASONING_EFFORT}で再試行します。"
+                )
             with aggregation_lock:
                 child_run_ids.append(child_id)
                 phase_child_ids.setdefault(stage_id, []).append(child_id)
@@ -6168,6 +6220,8 @@ class QualificationRunCoordinator:
                         "childRunId": child_id,
                         "status": "running",
                         "feedback": None,
+                        "requestedModel": requested_model,
+                        "requestedReasoningEffort": TURN_REASONING_EFFORT,
                         "startedAt": _now(),
                         "finishedAt": None,
                     }
@@ -6200,6 +6254,8 @@ class QualificationRunCoordinator:
                     pipeline_stop=pipeline_stop,
                     prepared_records=records_by_question,
                     prepared_targets=candidate_targets_by_question,
+                    model=requested_model,
+                    reasoning_effort=TURN_REASONING_EFFORT,
                 )
                 return {
                     "childId": child_id,
@@ -6274,6 +6330,10 @@ class QualificationRunCoordinator:
                     raise QualificationRunError(
                         f"batch attemptを親queueで確認できません: {question_id}"
                     )
+                attempts[attempt_index].update(
+                    model=child.get("model"),
+                    reasoningEffort=child.get("reasoningEffort"),
+                )
                 if str(raw_result.get("status") or "") == "succeeded":
                     accepted = {
                         "status": "accepted",
@@ -6501,21 +6561,35 @@ class QualificationRunCoordinator:
                 if not specs:
                     break
                 prompt_tokens = estimated_tokens(phase_prompt)
-                batches = pack_by_token_budget(
-                    specs,
-                    payload=lambda spec: {
-                        "target": spec["target"],
-                        "projectedInput": (
-                            self.repo_root
-                            / str(spec["target"].get("_projectedInputPath") or "")
-                        ).read_text(encoding="utf-8"),
-                    },
-                    token_budget=max(
-                        8_000,
-                        scheduler_limits.batch_token_budget - prompt_tokens,
-                    ),
-                    max_questions=DEFAULT_MAX_QUESTIONS_PER_TURN,
-                )
+                batches: list[list[Mapping[str, Any]]] = []
+                for retrying in (False, True):
+                    model_specs = [
+                        spec
+                        for spec in specs
+                        if spec_requires_retry_model(spec, stage_id) is retrying
+                    ]
+                    if not model_specs:
+                        continue
+                    batches.extend(
+                        pack_by_token_budget(
+                            model_specs,
+                            payload=lambda spec: {
+                                "target": spec["target"],
+                                "projectedInput": (
+                                    self.repo_root
+                                    / str(
+                                        spec["target"].get("_projectedInputPath")
+                                        or ""
+                                    )
+                                ).read_text(encoding="utf-8"),
+                            },
+                            token_budget=max(
+                                8_000,
+                                scheduler_limits.batch_token_budget - prompt_tokens,
+                            ),
+                            max_questions=DEFAULT_MAX_QUESTIONS_PER_TURN,
+                        )
+                    )
                 active_workers = min(
                     len(batches),
                     scheduler_limits.parallel_turns,
@@ -7007,6 +7081,8 @@ class QualificationRunCoordinator:
         pipeline_stop: threading.Event,
         prepared_records: Mapping[str, Mapping[str, Any]] | None = None,
         prepared_targets: Mapping[str, tuple[CandidateTarget, ...]] | None = None,
+        model: str = QUESTION_MAINTENANCE_MODEL,
+        reasoning_effort: str = TURN_REASONING_EFFORT,
     ) -> dict[str, Any]:
         """Generate read-only candidates, then validate and commit each question."""
 
@@ -7097,6 +7173,8 @@ class QualificationRunCoordinator:
                 on_turn_started=on_turn_started,
                 heartbeat=heartbeat,
                 cwd=self.repo_root,
+                model=model,
+                reasoning_effort=reasoning_effort,
             )
             if result.changed_files:
                 raise QualificationRunError(
