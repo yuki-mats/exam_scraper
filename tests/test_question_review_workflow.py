@@ -1221,7 +1221,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         )[0]
 
         self.assertIn("listGroupIds: [listGroupId]", flow)
-        self.assertIn("updateTargetIds: []", flow)
+        self.assertNotIn("updateTargetIds", flow)
+        self.assertIn('mode: "needed"', flow)
         self.assertIn("fieldFirst: true", flow)
         self.assertNotIn('$("#maintenance-start")', javascript)
         self.assertIn("openListGroupMaintenance(group.listGroupId)", javascript)
@@ -1365,7 +1366,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "qualification-run-groups",
             "qualification-run-groups-all",
             "qualification-run-groups-clear",
-            "qualification-run-update-needed",
+            "qualification-run-update-all",
             "qualification-run-update-clear",
             "qualification-run-start",
             "qualification-run-progress-current",
@@ -1394,7 +1395,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "help-dialog-title",
             "help-dialog-content",
             "confirm-validation",
-            "qualification-run-outdated",
+            "qualification-run-needed",
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (
@@ -1601,7 +1602,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("function setQualificationRunPreviewState", javascript)
         self.assertIn('setQualificationRunPreviewState("error", message)', javascript)
         self.assertIn("await previewQualificationRun()", javascript)
-        self.assertIn('value="group_refresh" checked', html)
+        self.assertIn('value="needed" checked', html)
         self.assertIn("selectedQualificationRunStageIds", javascript)
         self.assertIn("stageIds,", javascript)
         self.assertIn("selectedQualificationRunListGroupIds", javascript)
@@ -1677,9 +1678,10 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('params.set("workStageId", state.qualificationWorkflowStageId)', javascript)
         self.assertIn('params.set("workVersionStatus", workVersionStatus)', javascript)
         self.assertIn("workVersionSelect.disabled = !selectedStage?.policyVersion", javascript)
-        self.assertIn("outdatedLabel.hidden = !fieldFirst && !stage.policyVersion", javascript)
-        self.assertIn('value="outdated"', html)
-        self.assertIn("洗い替え必要・未整備のみ", html)
+        self.assertIn('value="needed" checked', html)
+        self.assertIn("整備が必要な問題だけ", html)
+        self.assertIn("未整備・基準更新・要確認をまとめて判定", html)
+        self.assertIn("選択年度の全問題を洗い替える", html)
         self.assertIn('simplified: true', javascript)
         self.assertIn('`未整備 ${preview.targetCount}問`', javascript)
         self.assertIn('"本番Firestoreには反映せず、ローカルで整備します。"', javascript)
@@ -1687,7 +1689,6 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('openListGroupMaintenance(group.listGroupId)', javascript)
         self.assertIn(".maintenance-entry-guidance { width: 100%; min-height: 48px; }", css)
         self.assertIn(".maintenance-year-progress { grid-template-columns: 1fr; }", css)
-        self.assertIn('stage.completeCount === stage.targetCount && stage.issueCount > 0', javascript)
         self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
         self.assertIn('`すべて（${groups.length}件）`', javascript)
         self.assertIn('"パッチ適用後データ"', javascript)

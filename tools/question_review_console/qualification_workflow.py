@@ -30,6 +30,7 @@ from tools.question_review_console.work_versions import (
 )
 
 RUN_MODES = {
+    "needed": "整備が必要な問題だけ",
     "group_refresh": "選択範囲の全問題を再整備",
     "remaining": "未作業のみ",
     "attention": "要確認のみ",
@@ -740,7 +741,7 @@ class QualificationWorkflow:
             policy_exists = (self.repo_root / policy_dir).is_dir()
             if mode == "attention":
                 target_questions = questions if not policy_exists else []
-            elif mode == "remaining":
+            elif mode in {"needed", "remaining"}:
                 target_questions = questions if not policy_exists else []
             else:
                 target_questions = questions
@@ -789,7 +790,7 @@ class QualificationWorkflow:
             if mode in {"refresh", "group_refresh"}:
                 # 全問題再整備では既存の法令フラグ自体も再判定する。
                 target_questions = questions
-            elif mode == "outdated":
+            elif mode in {"needed", "outdated"}:
                 target_questions = [
                     question
                     for question in questions
@@ -857,6 +858,21 @@ class QualificationWorkflow:
             issue_fields = set(definition.get("issueFields") or [])
             if mode in {"refresh", "group_refresh"}:
                 target_questions = questions
+            elif mode == "needed":
+                target_questions = (
+                    list(questions)
+                    if category_pending and allow_category_pending
+                    else [
+                        question
+                        for question in questions
+                        if not _has_patch(question, patch_dir)
+                        or self._stage_version_status(
+                            question, definition, selected_update_target_ids
+                        )
+                        != "current"
+                        or _issue_count(question, issue_fields)
+                    ]
+                )
             elif mode == "outdated":
                 target_questions = (
                     list(questions)
@@ -975,6 +991,7 @@ class QualificationWorkflow:
                 "remaining": f"{scope_label}の未作業のみ",
                 "attention": f"{scope_label}の要確認のみ",
                 "outdated": f"{scope_label}の洗い替え必要・未整備のみ",
+                "needed": f"{scope_label}の整備が必要な問題だけ",
             }[mode]
         else:
             mode_label = RUN_MODES[mode]

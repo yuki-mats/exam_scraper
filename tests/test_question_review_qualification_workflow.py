@@ -612,6 +612,43 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(attention["targetCount"], 1)
         self.assertEqual(refresh["targetCount"], 1)
 
+    def test_needed_mode_combines_missing_outdated_and_attention(self):
+        patch = (
+            "output/sample/questions_json/2026/10_questionType_fixed/"
+            "question_2026_1_questionType_fixed.json"
+        )
+        missing = question(question_number=1)
+        current = question(patches=[patch], question_number=2)
+        attention = question(
+            patches=[patch],
+            issues=[{"code": "required_field_missing", "fields": ["questionType"]}],
+            question_number=3,
+        )
+        outdated = question(patches=[patch], question_number=4)
+        items = [missing, current, attention, outdated]
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample", [{"listGroupId": "2026", "questions": items}]
+                ),
+            )
+            for item in (missing, current, attention):
+                mark_current(workflow, item, ["question_type"])
+            needed = workflow.plan(
+                "sample",
+                "question_type",
+                "needed",
+                list_group_ids=["2026"],
+            )
+
+        self.assertEqual(needed["targetCount"], 3)
+        self.assertEqual(
+            [target["questionLabel"] for target in needed["progressTargets"]],
+            ["問1", "問3", "問4"],
+        )
+        self.assertEqual(needed["modeLabel"], "2026の整備が必要な問題だけ")
+
     def test_outdated_mode_selects_only_questions_below_current_stage_version(self):
         item = question()
         item.update(

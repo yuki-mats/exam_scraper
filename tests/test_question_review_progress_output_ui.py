@@ -9,19 +9,22 @@ INDEX_PATH = ROOT / "tools/question_review_console/static/index.html"
 
 
 class ProgressOutputUiContractTests(unittest.TestCase):
-    def test_partial_refresh_ui_sends_targets_and_list_group_range(self):
+    def test_partial_refresh_ui_uses_year_fields_and_two_simple_modes(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = INDEX_PATH.read_text(encoding="utf-8")
         css = STYLE_PATH.read_text(encoding="utf-8")
 
         self.assertIn('id="qualification-run-update-fieldset"', html)
-        self.assertIn('id="qualification-run-question-start"', html)
-        self.assertIn('id="qualification-run-question-end"', html)
+        self.assertNotIn('id="qualification-run-question-start"', html)
+        self.assertNotIn('id="qualification-run-question-end"', html)
         self.assertIn('id="maintenance-group-progress-title"', html)
         self.assertIn('id="maintenance-entry-guidance"', html)
         self.assertNotIn('id="maintenance-start"', html)
-        self.assertIn('id="qualification-run-update-needed"', html)
+        self.assertIn('id="qualification-run-update-all"', html)
         self.assertIn('id="qualification-run-update-clear"', html)
+        self.assertIn('value="needed" checked', html)
+        self.assertIn("整備が必要な問題だけ", html)
+        self.assertIn("選択年度の全問題を洗い替える", html)
         self.assertIn("function openListGroupMaintenance", javascript)
         self.assertIn('fieldFirst: true', javascript)
         self.assertIn(
@@ -36,27 +39,26 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('"整備・洗い替え"', javascript)
         self.assertIn("function returnToMaintenanceGroupList", javascript)
         self.assertIn("function qualificationRunUpdateTargets", javascript)
-        self.assertIn("function selectedQualificationRunQuestionRange", javascript)
-        self.assertIn('node.addEventListener("input"', javascript)
+        self.assertNotIn("function selectedQualificationRunQuestionRange", javascript)
+        self.assertIn("function selectAllQualificationRunUpdateTargets", javascript)
         self.assertIn("scopeLabelForGroups(groupIds)", javascript)
-        self.assertIn("updateTargetIds: availableUpdateTargets.length", javascript)
+        self.assertIn(": selectableTargetIds", javascript)
         self.assertIn("questionRange: questionRange || undefined", javascript)
         self.assertIn("preview.selectedUpdateTargets", javascript)
-        self.assertIn("各選択範囲", javascript)
         self.assertNotIn("examYear", javascript[
-            javascript.index("function selectedQualificationRunQuestionRange") :
+            javascript.index("function qualificationRunSelectableUpdateTargets") :
             javascript.index("function qualificationRunSupportsGroupScope")
         ])
         self.assertIn(".run-update-options", css)
         self.assertIn(".run-update-actions", css)
-        self.assertIn(".run-question-range", css)
+        self.assertNotIn(".run-question-range", css)
 
     def test_list_group_entry_derives_stages_from_selected_update_targets(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
 
         target_section = javascript[
             javascript.index("function qualificationRunSelectableUpdateTargets") :
-            javascript.index("function selectedQualificationRunQuestionRange")
+            javascript.index("function qualificationRunSupportsGroupScope")
         ]
         dialog_section = javascript[
             javascript.index("function openQualificationRunDialog") :
@@ -68,7 +70,12 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("stage.supportsGroupScope", target_section)
         self.assertIn("selected.has(target.selectionId)", target_section)
         self.assertIn("qualificationRunStageIdsForUpdateTargetIds", dialog_section)
-        self.assertIn("updateTargetIds: []", javascript)
+        list_group_section = javascript[
+            javascript.index("function openListGroupMaintenance") :
+            javascript.index("function returnToMaintenanceGroupList")
+        ]
+        self.assertNotIn("updateTargetIds", list_group_section)
+        self.assertIn('mode: "needed"', list_group_section)
         self.assertIn("更新する項目を一つ以上選択してください。", javascript)
         self.assertNotIn("examYear", target_section)
 

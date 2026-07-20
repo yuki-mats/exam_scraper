@@ -31,7 +31,7 @@
         </div>
         <div id="maintenance-entry-guidance" class="maintenance-entry-guidance">
           <strong>下の年度・フォルダから開始</strong>
-          <span>対象、更新項目、問題番号を確認して整備します。</span>
+          <span>年度、整備する項目、処理する問題を選びます。</span>
         </div>
       </div>
       <section id="qualification-active-run" class="qualification-active-run idle" aria-live="polite" aria-labelledby="qualification-active-run-title">
@@ -236,31 +236,23 @@
             <div id="qualification-run-groups" class="run-group-options"></div>
           </fieldset>
           <fieldset id="qualification-run-update-fieldset">
-            <legend>更新する項目</legend>
-            <p class="fieldset-note">選択した項目だけを書き換えます。参照するだけの項目は変更しません。</p>
+            <legend>整備する項目</legend>
+            <p class="fieldset-note">初期状態では、整備できる項目をすべて選択しています。</p>
             <div class="run-update-actions">
-              <button id="qualification-run-update-needed" class="document-link-button" type="button">整備が必要な項目を選択</button>
+              <button id="qualification-run-update-all" class="document-link-button" type="button">すべて選択</button>
               <button id="qualification-run-update-clear" class="document-link-button" type="button">選択解除</button>
             </div>
             <div id="qualification-run-update-targets" class="run-update-options"></div>
           </fieldset>
-          <fieldset id="qualification-run-question-range-fieldset">
-            <legend>問題番号（各選択範囲共通）</legend>
-            <div class="run-question-range">
-              <label>開始<input id="qualification-run-question-start" type="number" min="1" step="1" inputmode="numeric" placeholder="1"></label>
-              <span>〜</span>
-              <label>終了<input id="qualification-run-question-end" type="number" min="1" step="1" inputmode="numeric" placeholder="20"></label>
-              <small>空欄なら、選択した年度・フォルダの全問題が対象です。</small>
-            </div>
-          </fieldset>
           <fieldset id="qualification-run-mode-fieldset">
-            <legend>対象範囲</legend>
+            <legend>処理する問題</legend>
             <div class="run-mode-options">
-              <label id="qualification-run-group-refresh"><input type="radio" name="qualification-run-mode" value="group_refresh" checked><span id="qualification-run-group-refresh-label">選択年度の全問題を再整備</span></label>
-              <label><input type="radio" name="qualification-run-mode" value="remaining"><span>未作業のみ</span></label>
-              <label><input type="radio" name="qualification-run-mode" value="attention"><span>要確認のみ</span></label>
-              <label id="qualification-run-outdated"><input type="radio" name="qualification-run-mode" value="outdated"><span>洗い替え必要・未整備のみ</span></label>
-              <label id="qualification-run-refresh"><input type="radio" name="qualification-run-mode" value="refresh"><span>資格全体の全問題を再整備</span></label>
+              <label id="qualification-run-needed"><input type="radio" name="qualification-run-mode" value="needed" checked><span><strong>整備が必要な問題だけ</strong><small>未整備・基準更新・要確認をまとめて判定</small></span></label>
+              <label id="qualification-run-group-refresh"><input type="radio" name="qualification-run-mode" value="group_refresh"><span><strong id="qualification-run-group-refresh-label">選択年度の全問題を洗い替える</strong><small>整備済みの問題もすべて再処理</small></span></label>
+              <label id="qualification-run-refresh" hidden><input type="radio" name="qualification-run-mode" value="refresh"><span><strong>資格全体の全問題を洗い替える</strong><small>整備済みの問題もすべて再処理</small></span></label>
+              <input type="radio" name="qualification-run-mode" value="remaining" hidden>
+              <input type="radio" name="qualification-run-mode" value="attention" hidden>
+              <input type="radio" name="qualification-run-mode" value="outdated" hidden>
             </div>
           </fieldset>
           <fieldset id="qualification-run-concurrency-fieldset">

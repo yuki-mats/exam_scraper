@@ -4,8 +4,8 @@ goal:
   title: "選択肢別・保存済み補足質問"
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
-  tranche: "follow-up: listGroupId一覧を問題整備・洗い替えの統一入口にし、2017年の補足質問のみをUI実行して監視する"
-  status: done
+  tranche: "follow-up: 洗い替え画面を年度・項目・処理対象の三指定へ簡素化する"
+  status: active
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: null
+active_task: T033
 tasks:
   - id: T001
     type: scout
@@ -1843,6 +1843,91 @@ tasks:
         - "保護: 00_source 5,799 files unchanged、既存dirty outputは未stage。"
       missing_evidence: []
       harness: codex
+  - id: T032
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "listGroupIdから開く洗い替え画面を年度・項目・処理対象の三指定へ簡素化し、整備必要判定を未整備・基準更新・要確認の和集合へ統合する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/server.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_server.py"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md"
+    verify:
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_progress_output_ui tests.test_question_review_workflow tests.test_question_review_server"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "既存run又はAPIの読込互換を壊す必要がある。"
+      - "Need files outside allowed_files."
+      - "既存output patchと同じhunkを変更する必要がある。"
+      - "00_source又はFirestore書込が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py
+        - /Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md
+        - /Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md
+      commands:
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_progress_output_ui tests.test_question_review_workflow tests.test_question_review_server"
+          status: pass
+          summary: "110 tests"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,019 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      evidence:
+        - "2017の実画面で表示入力欄は対象年度・整備する項目・処理する問題の三つだけ。"
+        - "整備項目は13/13件が初期選択され、すべて選択と選択解除を表示。"
+        - "処理する問題はneededとgroup_refreshの二択だけを表示し、neededを初期選択。"
+        - "needed previewは58問・13項目で開始可能。問題番号欄なし、browser console error 0件。"
+        - "旧run modeとquestionRangeはAPI・run読込互換として保持し、新規画面からは指定させない。"
+      summary: "listGroupIdの整備画面を年度・項目・処理対象の三指定へ簡素化した。項目は初期全選択、対象は整備必要又は年度全件の二択とし、neededは未整備・基準更新・要確認の和集合を抽出する。問題番号と技術的な工程・速度指定は主画面から外した。"
+      remaining_blockers: []
+      harness: codex
+  - id: T033
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "T032の変更をscoped commit/pushし、実画面・全回帰・00_source保護・origin readbackを元に今回の簡素化が完全に成立したか最終監査する"
+    inputs:
+      - "T032 receipt"
+      - "2017 browser readback"
+      - "full regression result"
+    constraints:
+      - "既存output patchをstageしない。"
+      - "main以外へcommit/pushしない。"
+      - "force pushしない。"
+      - "三つ以外の入力欄、選択外field変更、00_source変更があればcompleteにしない。"
+    expected_output:
+      - "feature commit and origin/main readback"
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle mapping and missing evidence"
+    receipt: null
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
