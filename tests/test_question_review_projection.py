@@ -158,6 +158,36 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         self.assertEqual(projected.merged2["questionType"], "group_choice")
         self.assertEqual(projected.merged2["examYear"], 2013)
 
+    def test_record_projection_backfills_snapshot_exam_label_without_mutating_source(self):
+        source = {
+            "original_question_id": "q1",
+            "sourceOrigin": "firestore_snapshot",
+            "sourceGrade": "kou",
+            "category": "製造",
+            "examYear": 2019,
+            "choiceTextList": ["肢1"],
+            "correctChoiceText": ["正しい"],
+        }
+
+        projected = project_merge_record(source)
+
+        self.assertNotIn("examLabel", source)
+        self.assertEqual(projected.merged1["examLabel"], "2019年（令和元年）甲種 製造")
+        self.assertEqual(projected.merged2["examLabel"], "2019年（令和元年）甲種 製造")
+
+    def test_record_projection_does_not_guess_exam_label_for_site_source(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "sourceOrigin": "gassyunin_site",
+                "sourceGrade": "kou",
+                "category": "製造",
+                "examYear": 2019,
+            }
+        )
+
+        self.assertNotIn("examLabel", projected.merged2)
+
     def test_exact_binding_wins_even_when_source_aliases_are_shared(self):
         first = source_identity("question_1.json#0", "question_1", "shared")
         second = source_identity("question_2.json#0", "question_2", "shared")

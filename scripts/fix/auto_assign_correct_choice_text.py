@@ -133,13 +133,17 @@ def detect_choice_count(question_body: dict) -> int:
     return 0
 
 
-def build_expected_correct_choice_text(question_body: dict) -> tuple[list[str] | None, str | None]:
+def build_expected_correct_choice_text(
+    question_body: dict,
+    *,
+    allow_existing_without_answer: bool = False,
+) -> tuple[list[str] | None, str | None]:
     if question_body.get("questionType") == "fill_in_blank":
         return None, None
 
     answer_numbers = get_inferred_answer_numbers(question_body)
     if not answer_numbers:
-        if has_trusted_unparseable_answer_text(question_body):
+        if allow_existing_without_answer or has_trusted_unparseable_answer_text(question_body):
             existing = existing_correct_choice_labels(question_body)
             if existing is not None:
                 return existing, None
@@ -179,7 +183,12 @@ def build_expected_correct_choice_text(question_body: dict) -> tuple[list[str] |
     return labels, None
 
 
-def process_file(path: Path, *, apply: bool) -> tuple[int, list[UnresolvedRecord]]:
+def process_file(
+    path: Path,
+    *,
+    apply: bool,
+    allow_existing_without_answer: bool = False,
+) -> tuple[int, list[UnresolvedRecord]]:
     data = load_json(path)
     if not isinstance(data, dict):
         return 0, []
@@ -195,7 +204,10 @@ def process_file(path: Path, *, apply: bool) -> tuple[int, list[UnresolvedRecord
         if not isinstance(question_body, dict):
             continue
 
-        expected, reason = build_expected_correct_choice_text(question_body)
+        expected, reason = build_expected_correct_choice_text(
+            question_body,
+            allow_existing_without_answer=allow_existing_without_answer,
+        )
         if expected is None:
             if reason is None:
                 continue
@@ -256,6 +268,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="questionIntent 未確定などで自動割当できないレコードがあれば異常終了する",
     )
+    parser.add_argument(
+        "--allow-existing-without-answer-result",
+        action="store_true",
+        help="answer_result_text欠損時も、全選択肢分の精査済み正誤を維持する",
+    )
     args = parser.parse_args(argv)
 
     group_dir = (args.base_dir / args.list_group_id).resolve()
@@ -272,7 +289,11 @@ def main(argv: list[str] | None = None) -> int:
     unresolved_all: list[UnresolvedRecord] = []
 
     for path in target_files:
-        updated, unresolved = process_file(path, apply=args.apply)
+        updated, unresolved = process_file(
+            path,
+            apply=args.apply,
+            allow_existing_without_answer=args.allow_existing_without_answer_result,
+        )
         total_updated += updated
         unresolved_all.extend(unresolved)
         if updated:

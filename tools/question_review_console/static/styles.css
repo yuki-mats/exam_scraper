@@ -655,6 +655,16 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .issue-panel { margin-top: 12px; display: grid; gap: 6px; }
 .issue-line { padding: 8px 10px; border-left: 3px solid var(--red); background: var(--red-bg); font-size: 12px; }
 
+.app-display-settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; }
+.app-display-setting { min-width: 0; padding: 11px 13px; display: grid; gap: 3px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.app-display-setting-label { color: var(--text-muted); font-size: 10px; font-weight: 750; }
+.app-display-setting-value { overflow-wrap: anywhere; font-size: 13px; }
+.app-display-setting-description { color: var(--text-muted); font-size: 11px; line-height: 1.45; }
+.knowledge-note-list { display: grid; gap: 8px; }
+.knowledge-note { padding: 11px 13px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+.knowledge-note strong { display: block; margin-bottom: 4px; color: var(--text-muted); font-size: 11px; }
+.knowledge-note p { margin: 0; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+
 .choices { display: grid; gap: 10px; }
 .choice-card { display: grid; grid-template-columns: 52px minmax(180px, 0.85fr) minmax(280px, 1.35fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; }
 .choice-index { padding: 12px 8px; display: grid; place-content: start center; gap: 7px; background: #f0f3f5; border-right: 1px solid var(--line); font-weight: 750; }

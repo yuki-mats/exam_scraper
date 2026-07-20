@@ -38,6 +38,10 @@ JAPANESE_ERA_START_YEAR = {
     "大正": 1912,
     "明治": 1868,
 }
+GAS_SHUNIN_GRADE_LABELS = {
+    "kou": "甲種",
+    "otsu": "乙種",
+}
 FULLWIDTH_DIGIT_TRANS = str.maketrans("０１２３４５６７８９", "0123456789")
 ANSWER_RESULT_RE = re.compile(
     r"正解は\s*([1-9０-９]+(?:\s*,\s*[1-9０-９]+)*)\s*です。"
@@ -111,6 +115,40 @@ def backfill_exam_year(data: dict[str, Any]) -> int:
         if inferred is not None:
             body["examYear"] = inferred
             updated += 1
+    return updated
+
+
+def _japanese_era_label(year: int) -> str:
+    for era_name, start_year in JAPANESE_ERA_START_YEAR.items():
+        if year >= start_year:
+            era_year = year - start_year + 1
+            return f"{era_name}{'元' if era_year == 1 else era_year}年"
+    return ""
+
+
+def backfill_firestore_snapshot_exam_label(data: dict[str, Any]) -> int:
+    """Firestore由来のガス主任過去問だけ、公開用projectionへ試験名を補う。"""
+
+    updated = 0
+    for body in data.get("question_bodies") or []:
+        if not isinstance(body, dict) or str(body.get("examLabel") or "").strip():
+            continue
+        if body.get("sourceOrigin") != "firestore_snapshot":
+            continue
+        source_key_parts = body.get("sourceKeyParts")
+        source_key_parts = source_key_parts if isinstance(source_key_parts, Mapping) else {}
+        grade = str(body.get("sourceGrade") or source_key_parts.get("grade") or "").strip()
+        grade_label = GAS_SHUNIN_GRADE_LABELS.get(grade)
+        category = str(body.get("category") or "").strip()
+        try:
+            year = int(body.get("examYear"))
+        except (TypeError, ValueError):
+            continue
+        era_label = _japanese_era_label(year)
+        if not grade_label or not category or not era_label:
+            continue
+        body["examLabel"] = f"{year}年（{era_label}）{grade_label} {category}"
+        updated += 1
     return updated
 
 
@@ -254,6 +292,7 @@ def project_merge_record(
         counts["true_false_correct_choice"],
     ) = normalize_true_false_intent_and_correct_choice(merged1)
     counts["exam_year"] = backfill_exam_year(merged1)
+    counts["exam_label"] = backfill_firestore_snapshot_exam_label(merged1)
     counts["correct_choice_backfill"] = (
         backfill_correct_choice_text_from_answer_result(merged1)
     )
@@ -286,6 +325,7 @@ def project_merge_record(
         counts["true_false_correct_choice_merged2"],
     ) = normalize_true_false_intent_and_correct_choice(merged2)
     counts["exam_year_merged2"] = backfill_exam_year(merged2)
+    counts["exam_label_merged2"] = backfill_firestore_snapshot_exam_label(merged2)
     counts["correct_choice_backfill_merged2"] = (
         backfill_correct_choice_text_from_answer_result(merged2)
     )

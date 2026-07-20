@@ -89,6 +89,24 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(actual.count("正しい"), 1)
         self.assertEqual(actual[0], "間違い")
 
+    def test_snapshot_compatibility_accepts_complete_existing_labels_without_answer(self) -> None:
+        question = {
+            "questionType": "true_false",
+            "choiceTextList": ["肢1", "肢2"],
+            "correctChoiceText": ["正しい", "間違い"],
+        }
+
+        strict, strict_reason = build_expected_correct_choice_text(question)
+        compatible, compatible_reason = build_expected_correct_choice_text(
+            question,
+            allow_existing_without_answer=True,
+        )
+
+        self.assertIsNone(strict)
+        self.assertEqual(strict_reason, "answer_result_text_unparseable")
+        self.assertEqual(compatible, ["正しい", "間違い"])
+        self.assertIsNone(compatible_reason)
+
     def test_tsukanshi_patch_builder_preserves_existing_audited_choice_labels(self) -> None:
         question = {
             "public_question_id": "q123",

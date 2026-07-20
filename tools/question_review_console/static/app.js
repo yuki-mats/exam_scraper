@@ -3277,6 +3277,92 @@ function renderEmpty(message) {
   pane.append(empty);
 }
 
+const QUESTION_TYPE_DESCRIPTIONS = {
+  single_choice: "単一選択",
+  true_false: "選択肢ごとの正誤",
+  flash_card: "想起カード",
+  fill_in_blank: "穴埋め",
+  group_choice: "選択肢をまとめて選択",
+};
+
+const QUESTION_INTENT_DESCRIPTIONS = {
+  select_correct: "正しいものを選ぶ",
+  select_incorrect: "誤っているものを選ぶ",
+};
+
+function displaySetting(label, value, description = "") {
+  const row = element("div", "app-display-setting");
+  row.append(
+    element("span", "app-display-setting-label", label),
+    element("strong", "app-display-setting-value", value || "未設定"),
+  );
+  if (description) row.append(element("span", "app-display-setting-description", description));
+  return row;
+}
+
+function renderAppDisplaySettings(question, record) {
+  const node = section("暗記プラス表示設定");
+  const grid = element("div", "app-display-settings");
+  const questionType = String(record.questionType || "");
+  const questionIntent = String(record.questionIntent || "");
+  const officialAnswer = String(record.answer_result_text || "").trim();
+  const documents = Array.isArray(question.uploadReadyDocs) ? question.uploadReadyDocs : [];
+  const questionSetIds = [...new Set(
+    [record.questionSetId, ...documents.map((document) => document.questionSetId)]
+      .map((value) => String(value || "").trim())
+      .filter(Boolean),
+  )];
+  grid.append(
+    displaySetting(
+      "questionType",
+      questionType,
+      QUESTION_TYPE_DESCRIPTIONS[questionType] || "回答画面の形式",
+    ),
+    displaySetting(
+      "questionIntent",
+      questionIntent,
+      QUESTION_INTENT_DESCRIPTIONS[questionIntent] || "設問が求める選択",
+    ),
+    displaySetting(
+      "公式解答",
+      officialAnswer || "選択肢ごとの正誤を使用",
+      officialAnswer ? "取得元に保存された解答" : "correctChoiceTextを回答判定に使います",
+    ),
+    displaySetting("questionSetId", questionSetIds.join(" / "), "暗記プラス上の問題集"),
+  );
+  if (documents.length) {
+    const choiceOnlyCount = documents.filter((document) => document.isChoiceOnly === true).length;
+    grid.append(
+      displaySetting("Firestore document", `${documents.length}件`, "公開時に作成する問題document数"),
+      displaySetting(
+        "回答対象",
+        `${documents.length - choiceOnlyCount}件`,
+        choiceOnlyCount ? `選択肢専用 ${choiceOnlyCount}件` : "選択肢専用documentなし",
+      ),
+    );
+  }
+  node.append(grid);
+  return node;
+}
+
+function renderKnowledgeNotes(record) {
+  const raw = Array.isArray(record.knowledgeText) ? record.knowledgeText : [record.knowledgeText];
+  const notes = raw
+    .map((value, index) => ({ index, text: String(value || "").trim() }))
+    .filter((item) => item.text);
+  if (!notes.length) return null;
+  const node = section("知識メモ・補足解説");
+  const list = element("div", "knowledge-note-list");
+  for (const note of notes) {
+    const item = element("article", "knowledge-note");
+    if (raw.length > 1) item.append(element("strong", "", `選択肢${note.index + 1}`));
+    item.append(element("p", "", note.text));
+    list.append(item);
+  }
+  node.append(list);
+  return node;
+}
+
 function renderDetail() {
   const question = state.detail;
   if (!question) return;
@@ -3336,6 +3422,7 @@ function renderDetail() {
     questionSection.append(issues);
   }
   pane.append(questionSection);
+  pane.append(renderAppDisplaySettings(question, publication.record));
 
   const choicesSection = section(
     publication.ready ? "Firestoreへ反映する内容" : "patch適用後の内容",
@@ -3351,9 +3438,12 @@ function renderDetail() {
   const qualityWarning = renderLawAuditQualityWarning(question);
   if (qualityWarning) pane.append(qualityWarning);
 
+  const knowledgeNotes = renderKnowledgeNotes(publication.record);
+  if (knowledgeNotes) pane.append(knowledgeNotes);
+
   const suggested = renderSuggestions(publication.record);
   if (suggested) {
-    const suggestionSection = section("補足質問");
+    const suggestionSection = section("補足質問と回答");
     suggestionSection.append(suggested);
     pane.append(suggestionSection);
   }

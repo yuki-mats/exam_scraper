@@ -175,7 +175,13 @@ def partition_requirement_errors(
     allowed = [
         error
         for error in errors
-        if "empty_required_key=answer_result_text" in error
+        if any(
+            marker in error
+            for marker in (
+                "empty_required_key=answer_result_text",
+                "missing_required_key=answer_result_text",
+            )
+        )
     ]
     blocked = [error for error in errors if error not in allowed]
     return allowed, blocked
@@ -263,6 +269,8 @@ def process_list_group(
     ]
     if not allow_missing_answer_result:
         auto_assign_command.append("--fail-on-unresolved")
+    else:
+        auto_assign_command.append("--allow-existing-without-answer-result")
     run_step(
         f"auto assign correctChoiceText ({list_group_id})",
         auto_assign_command,

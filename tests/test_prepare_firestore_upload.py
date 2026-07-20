@@ -168,6 +168,10 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
             by_name["auto assign correctChoiceText (85010)"],
         )
         self.assertIn(
+            "--allow-existing-without-answer-result",
+            by_name["auto assign correctChoiceText (85010)"],
+        )
+        self.assertIn(
             "--skip-intent-correct-choice-check",
             by_name["convert (85010)"],
         )
@@ -176,13 +180,14 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
         allowed, blocked = module.partition_requirement_errors(
             [
                 "sample.json: id=q1 empty_required_key=answer_result_text",
+                "sample.json: id=q2 missing_required_key=answer_result_text",
                 "sample.json: id=q1 empty_required_key=questionSetId",
             ],
             allow_missing_answer_result=True,
         )
 
-        self.assertEqual(len(allowed), 1)
-        self.assertIn("answer_result_text", allowed[0])
+        self.assertEqual(len(allowed), 2)
+        self.assertTrue(all("answer_result_text" in error for error in allowed))
         self.assertEqual(len(blocked), 1)
         self.assertIn("questionSetId", blocked[0])
 
