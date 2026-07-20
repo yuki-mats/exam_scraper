@@ -1161,6 +1161,26 @@ class QualificationRunStore:
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
+            "questionRange": copy.deepcopy(plan.get("questionRange")),
+            "updateTargets": copy.deepcopy(list(plan.get("updateTargets") or [])),
+            "selectedUpdateTargets": copy.deepcopy(
+                list(plan.get("selectedUpdateTargets") or [])
+            ),
+            "selectedUpdateTargetIds": list(
+                plan.get("selectedUpdateTargetIds") or []
+            ),
+            "selectedFieldsByStage": {
+                str(stage_id): list(fields)
+                for stage_id, fields in (
+                    plan.get("selectedFieldsByStage") or {}
+                ).items()
+            },
+            "readFieldsByStage": {
+                str(stage_id): list(fields)
+                for stage_id, fields in (
+                    plan.get("readFieldsByStage") or {}
+                ).items()
+            },
             "targetQuestionIds": list(plan.get("targetQuestionIds") or []),
             "targetQuestionKeys": list(plan.get("targetQuestionKeys") or []),
             "progressTargets": progress_targets,

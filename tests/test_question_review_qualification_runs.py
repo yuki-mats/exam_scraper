@@ -106,6 +106,61 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
 
 class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
+    def test_run_manifest_preserves_partial_refresh_contract(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "explanation", "group_refresh")
+            plan.update(
+                questionRange={"start": 2, "end": 3},
+                updateTargets=[
+                    {
+                        "id": "supplementary_questions",
+                        "selectionId": "explanation.supplementary_questions",
+                        "label": "補足質問と回答",
+                        "fields": ["suggestedQuestionDetailsByChoice"],
+                    }
+                ],
+                selectedUpdateTargets=[
+                    {
+                        "id": "supplementary_questions",
+                        "selectionId": "explanation.supplementary_questions",
+                        "label": "補足質問と回答",
+                        "fields": ["suggestedQuestionDetailsByChoice"],
+                    }
+                ],
+                selectedUpdateTargetIds=[
+                    "explanation.supplementary_questions"
+                ],
+                selectedFieldsByStage={
+                    "explanation": ["suggestedQuestionDetailsByChoice"]
+                },
+                readFieldsByStage={
+                    "explanation": ["explanationText", "questionBodyText"]
+                },
+            )
+
+            run = store.create(plan, status="queued", prompt="work")
+            saved = store.get("sample", run["runId"])
+
+        self.assertEqual(saved["questionRange"], {"start": 2, "end": 3})
+        self.assertEqual(
+            saved["selectedUpdateTargetIds"],
+            ["explanation.supplementary_questions"],
+        )
+        self.assertEqual(
+            saved["selectedFieldsByStage"],
+            {"explanation": ["suggestedQuestionDetailsByChoice"]},
+        )
+        self.assertEqual(
+            saved["readFieldsByStage"],
+            {"explanation": ["explanationText", "questionBodyText"]},
+        )
+        self.assertEqual(
+            saved["selectedUpdateTargets"][0]["label"],
+            "補足質問と回答",
+        )
+
     def test_technical_log_is_append_only_structured_and_redacted(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
