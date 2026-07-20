@@ -1345,7 +1345,6 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "maintenance-progress-text",
             "maintenance-entry-guidance",
             "maintenance-year-progress",
-            "audit-view-open",
             "audit-view",
             "audit-view-close",
             "audit-view-loading",
@@ -1537,11 +1536,12 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('id="advanced-tools-toggle"', html)
         self.assertNotIn('id="audit-details-dialog"', html)
         self.assertIn("公開前の内容を確認", html)
-        self.assertIn("patch適用後の正答・解説とFirestore反映状態を見る", html)
+        self.assertNotIn("生成内容を監査", html)
+        self.assertNotIn('id="audit-view-open"', html)
         self.assertIn('id="exceptions-button" class="active" type="button">反映待ち</button>', html)
         self.assertIn("工程・評価・Firestoreなどの管理機能", html)
         self.assertNotIn('id="audit-admin-tools" class="audit-admin-tools" open', html)
-        self.assertIn('$("#audit-view-open").addEventListener("click", openAuditView)', javascript)
+        self.assertNotIn('$("#audit-view-open")', javascript)
         self.assertIn('$("#audit-view-close").addEventListener("click", closeAuditView)', javascript)
         self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
         self.assertIn('.audit-view:not(.admin-tools-open) .queue-select { display: none; }', css)

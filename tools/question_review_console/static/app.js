@@ -370,7 +370,6 @@ function closeAuditView(options = {}) {
   $("#maintenance-dashboard").removeAttribute("aria-hidden");
   document.documentElement.classList.remove("audit-view-open");
   document.body.classList.remove("audit-view-open");
-  if (options.restoreFocus !== false) $("#audit-view-open").focus();
 }
 
 async function initialize() {
@@ -457,7 +456,6 @@ function bindControls() {
       invalidateAuditView();
     }
   });
-  $("#audit-view-open").addEventListener("click", openAuditView);
   $("#audit-view-close").addEventListener("click", closeAuditView);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);

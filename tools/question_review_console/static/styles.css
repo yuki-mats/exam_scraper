@@ -175,27 +175,6 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   transition: width 240ms ease;
 }
 
-.maintenance-audit-entry { grid-column: 1 / -1; }
-.audit-view-open-button {
-  width: 100%;
-  min-height: 54px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 13px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: #26313b;
-  background: #fff;
-  text-align: left;
-}
-.audit-view-open-button:hover { border-color: #8fa2b3; background: #f8fafb; }
-.audit-view-open-button > span:first-child { min-width: 0; display: grid; gap: 2px; }
-.audit-view-open-button strong { color: var(--blue-dark); font-size: 13px; }
-.audit-view-open-button small { color: var(--text-muted); font-size: 10px; line-height: 1.4; }
-.audit-view-open-button > span:last-child { color: var(--blue); font-size: 11px; font-weight: 750; white-space: nowrap; }
-
 html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .audit-view {
   position: fixed;
@@ -1052,7 +1031,6 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .maintenance-year-progress { grid-template-columns: 1fr; }
   .maintenance-year-row { padding: 9px; }
   .maintenance-year-row button { min-height: 44px; font-size: 12px; }
-  .audit-view-open-button { min-height: 60px; }
   .audit-view-header { min-height: 72px; gap: 10px; padding: max(8px, env(safe-area-inset-top)) 10px 8px; }
   .audit-view-back { min-height: 44px; padding: 7px 10px; font-size: 12px; }
   .audit-view-header h2 { font-size: 17px; }
