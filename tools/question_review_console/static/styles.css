@@ -674,7 +674,9 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .knowledge-note p { margin: 0; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 .choices { display: grid; gap: 10px; }
-.choice-card { display: grid; grid-template-columns: 52px minmax(180px, 0.85fr) minmax(280px, 1.35fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; }
+.choice-card { display: grid; grid-template-columns: 58px minmax(180px, 0.85fr) minmax(280px, 1.35fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; cursor: pointer; transition: border-color 120ms ease, box-shadow 120ms ease; }
+.choice-card:hover { border-color: #9eb9cd; }
+.choice-card.choice-card-selected { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
 .choice-index { padding: 12px 8px; display: grid; place-content: start center; gap: 7px; background: #f0f3f5; border-right: 1px solid var(--line); font-weight: 750; }
 .choice-text, .choice-explanation { padding: 12px 14px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
 .choice-text { border-right: 1px solid var(--line); }
@@ -682,6 +684,13 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .verdict { display: inline-flex; justify-content: center; min-width: 38px; border-radius: 3px; padding: 2px 4px; font-size: 11px; }
 .verdict.correct { color: var(--green); background: var(--green-bg); }
 .verdict.incorrect { color: var(--red); background: var(--red-bg); }
+.choice-suggestion-toggle { width: 42px; padding: 4px 2px; border: 1px solid var(--line-strong); border-radius: 4px; color: var(--blue-dark); background: #fff; font-size: 9px; font-weight: 800; line-height: 1.25; white-space: normal; }
+.choice-suggestion-toggle:hover, .choice-suggestion-toggle[aria-expanded="true"] { border-color: var(--blue); background: #eaf4fb; }
+.choice-suggestions-panel { grid-column: 1 / -1; padding: 13px 14px 15px; border-top: 1px solid var(--line); background: #f8fbfd; cursor: default; }
+.choice-suggestions-panel[hidden] { display: none; }
+.choice-suggestions-title { display: block; margin-bottom: 9px; color: #263c4c; font-size: 12px; }
+.choice-suggestions-empty { margin: 0; color: var(--text-muted); font-size: 12px; line-height: 1.55; }
+.choice-suggestion-hint { margin-top: -6px; }
 
 .suggestion-table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; }
 .suggestion-table th, .suggestion-table td { padding: 9px 11px; border: 1px solid var(--line); text-align: left; vertical-align: top; line-height: 1.55; overflow-wrap: anywhere; }
@@ -1003,7 +1012,7 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .firestore-diff-document-heading { grid-template-columns: 1fr auto; }
   .firestore-diff-document-heading code { grid-column: 1 / -1; grid-row: 2; }
   .workflow { grid-template-columns: repeat(5, minmax(82px, 1fr)); overflow-x: auto; }
-  .choice-card { grid-template-columns: 48px minmax(0, 1fr); }
+  .choice-card { grid-template-columns: 58px minmax(0, 1fr); }
   .choice-explanation { grid-column: 2; border-top: 1px solid var(--line); }
   .choice-text { border-right: 0; }
 }

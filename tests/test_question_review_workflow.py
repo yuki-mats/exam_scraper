@@ -839,6 +839,66 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_detail_choice_tap_reveals_only_that_choices_saved_suggestions(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        css = (
+            root / "tools/question_review_console/static/styles.css"
+        ).read_text(encoding="utf-8")
+        operations = (
+            root / "document/operations/local_question_review_console.md"
+        ).read_text(encoding="utf-8")
+
+        detail_source = javascript[
+            javascript.index("function renderDetail") :
+            javascript.index("function publicationContent")
+        ]
+        choices_source = javascript[
+            javascript.index("function renderChoices") :
+            javascript.index("function appendSuggestionRows")
+        ]
+        panel_source = javascript[
+            javascript.index("function renderChoiceSuggestionPanel") :
+            javascript.index("function renderSuggestions")
+        ]
+        legacy_source = javascript[
+            javascript.index("function renderSuggestions") :
+            javascript.index("function fieldLabel")
+        ]
+
+        self.assertIn("選択肢をタップすると", detail_source)
+        self.assertIn(
+            "suggestionGroups(projected, { includeLegacy: false })",
+            choices_source,
+        )
+        self.assertIn("const groupsByChoice = new Map", choices_source)
+        self.assertIn("let expandedChoiceIndex = null", choices_source)
+        self.assertIn(
+            "expandedChoiceIndex === choiceIndex ? null : choiceIndex",
+            choices_source,
+        )
+        self.assertIn("nodes.panel.hidden = !expanded", choices_source)
+        self.assertIn('nodes.toggle.setAttribute("aria-expanded"', choices_source)
+        self.assertIn('card.addEventListener("click"', choices_source)
+        self.assertIn("renderChoiceSuggestionPanel(", choices_source)
+        self.assertIn("group?.items.length", panel_source)
+        self.assertIn("この選択肢に保存された補足質問と回答はありません", panel_source)
+        self.assertIn("appendSuggestionRows(table, group)", panel_source)
+        self.assertIn(".filter((group) => group.legacy)", legacy_source)
+        for selector in (
+            ".choice-card.choice-card-selected",
+            ".choice-suggestion-toggle",
+            ".choice-suggestions-panel",
+            ".choice-suggestions-panel[hidden]",
+        ):
+            self.assertIn(selector, css)
+        self.assertIn(
+            "選択肢をタップすると、その選択肢の`suggestedQuestionDetails`に相当する質問と回答だけ",
+            operations,
+        )
+
     def test_progress_helpers_execute_queue_priority_and_run_binding(self):
         root = Path(__file__).resolve().parents[1]
         app = root / "tools/question_review_console/static/app.js"
@@ -1443,8 +1503,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         )[1].split("];", 1)[0]
         for field in (
             "explanationText",
-            "suggestedQuestions",
-            "suggestedQuestionDetails",
+            "suggestedQuestionDetailsByChoice",
             "lawReferences",
             "lawRevisionFacts",
         ):

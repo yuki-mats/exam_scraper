@@ -3554,6 +3554,11 @@ function renderDetail() {
   );
   choicesSection.append(
     element("p", "audit-compare-hint", publication.description),
+    element(
+      "p",
+      "audit-compare-hint choice-suggestion-hint",
+      "選択肢をタップすると、その選択肢に保存された補足質問と回答を確認できます。",
+    ),
     renderChoices(publication.record),
   );
   pane.append(choicesSection);
@@ -4906,11 +4911,30 @@ function renderChoices(projected) {
   const choices = Array.isArray(projected.choiceTextList) ? projected.choiceTextList : [];
   const correctness = Array.isArray(projected.correctChoiceText) ? projected.correctChoiceText : [];
   const explanations = Array.isArray(projected.explanationText) ? projected.explanationText : [];
+  const groups = suggestionGroups(projected, { includeLegacy: false });
+  const groupsByChoice = new Map(groups.map((group) => [group.choiceIndex, group]));
+  const hasLegacySuggestions = suggestionGroups(projected).some((group) => group.legacy);
   const node = element("div", "choices");
+  const choiceNodes = new Map();
+  let expandedChoiceIndex = null;
+
+  function toggleChoiceSuggestions(choiceIndex) {
+    expandedChoiceIndex = expandedChoiceIndex === choiceIndex ? null : choiceIndex;
+    for (const [index, nodes] of choiceNodes) {
+      const expanded = index === expandedChoiceIndex;
+      nodes.card.classList.toggle("choice-card-selected", expanded);
+      nodes.panel.hidden = !expanded;
+      nodes.toggle.setAttribute("aria-expanded", String(expanded));
+    }
+  }
+
   choices.forEach((choice, index) => {
     const rawVerdict = correctness[index] || "未設定";
     const verdictValue = normalizeVerdict(rawVerdict);
     const card = element("article", "choice-card");
+    const group = groupsByChoice.get(index) || null;
+    const suggestionCount = group?.items.length || 0;
+    const panelId = `choice-suggestions-${index}`;
     const indexNode = element("div", "choice-index");
     const verdict = element("span", `verdict ${verdictValue === "正しい" ? "correct" : "incorrect"}`, rawVerdict);
     installReviewTarget(verdict, {
@@ -4919,9 +4943,21 @@ function renderChoices(projected) {
       targetLabel: `選択肢${index + 1}の正誤`,
       dataPath: `correctChoiceText[${index}]`,
     });
+    const suggestionToggle = button(
+      `補足 ${suggestionCount}件`,
+      "choice-suggestion-toggle",
+      (event) => {
+        event.stopPropagation();
+        toggleChoiceSuggestions(index);
+      },
+      `選択肢${index + 1}の補足質問と回答を確認`,
+    );
+    suggestionToggle.setAttribute("aria-expanded", "false");
+    suggestionToggle.setAttribute("aria-controls", panelId);
     indexNode.append(
       element("span", "", String(index + 1)),
       verdict,
+      suggestionToggle,
     );
     const choiceText = element("div", "choice-text", choice);
     const explanation = element("div", "choice-explanation", explanations[index] || "（解説なし）");
@@ -4931,20 +4967,89 @@ function renderChoices(projected) {
       targetLabel: `選択肢${index + 1}の基本解説`,
       dataPath: `explanationText[${index}]`,
     });
+    const suggestionPanel = renderChoiceSuggestionPanel(
+      group,
+      index,
+      hasLegacySuggestions,
+    );
+    suggestionPanel.id = panelId;
+    suggestionPanel.hidden = true;
     card.append(
       indexNode,
       choiceText,
       explanation,
+      suggestionPanel,
     );
+    card.addEventListener("click", (event) => {
+      if (event.target.closest?.("button, a, input, select, textarea, summary")) return;
+      if (String(window.getSelection?.() || "").trim()) return;
+      toggleChoiceSuggestions(index);
+    });
+    card.title = `選択肢${index + 1}をタップして補足質問と回答を確認`;
+    choiceNodes.set(index, { card, panel: suggestionPanel, toggle: suggestionToggle });
     node.append(card);
   });
   if (!choices.length) node.append(element("p", "", "選択肢がありません。"));
   return node;
 }
 
+function appendSuggestionRows(table, group) {
+  for (let index = 0; index < group.items.length; index += 1) {
+    const detail = group.items[index];
+    const row = document.createElement("tr");
+    const question = element("th", "", detail.question || "（質問なし）");
+    const answer = element("td", "", detail.answer || "（回答なし）");
+    if (!group.legacy) {
+      installReviewTarget(question, {
+        fields: ["suggestedQuestionDetailsByChoice"],
+        choiceIndexes: [group.choiceIndex],
+        targetLabel: `選択肢${group.choiceIndex + 1}の補足質問${index + 1}`,
+        dataPath: `suggestedQuestionDetailsByChoice[${group.sourceIndex}].items[${index}].question`,
+      });
+      installReviewTarget(answer, {
+        fields: ["suggestedQuestionDetailsByChoice"],
+        choiceIndexes: [group.choiceIndex],
+        targetLabel: `選択肢${group.choiceIndex + 1}の補足回答${index + 1}`,
+        dataPath: `suggestedQuestionDetailsByChoice[${group.sourceIndex}].items[${index}].answer`,
+      });
+    }
+    row.append(question, answer);
+    table.append(row);
+  }
+}
+
+function renderChoiceSuggestionPanel(group, choiceIndex, hasLegacySuggestions) {
+  const panel = element("div", "choice-suggestions-panel");
+  panel.append(element(
+    "strong",
+    "choice-suggestions-title",
+    `選択肢${choiceIndex + 1}の補足質問と回答`,
+  ));
+  if (!group?.items.length) {
+    panel.append(element(
+      "p",
+      "choice-suggestions-empty",
+      hasLegacySuggestions
+        ? "旧形式の補足質問は選択肢に未割当です。下の補足欄で確認してください。"
+        : "この選択肢に保存された補足質問と回答はありません。",
+    ));
+    return panel;
+  }
+  const table = element("table", "suggestion-table");
+  appendSuggestionRows(table, group);
+  panel.append(table);
+  return panel;
+}
+
 function renderSuggestions(projected) {
-  const groups = suggestionGroups(projected);
+  const groups = suggestionGroups(projected).filter((group) => group.legacy);
   if (!groups.length) return null;
+  const node = element("div", "legacy-suggestions");
+  node.append(element(
+    "p",
+    "audit-compare-hint",
+    "旧形式の補足質問は選択肢へ推測で割り当てず、再生成が必要なデータとして表示します。",
+  ));
   const table = element("table", "suggestion-table");
   for (const group of groups) {
     const groupRow = document.createElement("tr");
@@ -4956,30 +5061,10 @@ function renderSuggestions(projected) {
     groupCell.colSpan = 2;
     groupRow.append(groupCell);
     table.append(groupRow);
-    for (let index = 0; index < group.items.length; index += 1) {
-      const detail = group.items[index];
-      const row = document.createElement("tr");
-      const question = element("th", "", detail.question || "（質問なし）");
-      const answer = element("td", "", detail.answer || "（回答なし）");
-      if (!group.legacy) {
-        installReviewTarget(question, {
-          fields: ["suggestedQuestionDetailsByChoice"],
-          choiceIndexes: [group.choiceIndex],
-          targetLabel: `選択肢${group.choiceIndex + 1}の補足質問${index + 1}`,
-          dataPath: `suggestedQuestionDetailsByChoice[${group.sourceIndex}].items[${index}].question`,
-        });
-        installReviewTarget(answer, {
-          fields: ["suggestedQuestionDetailsByChoice"],
-          choiceIndexes: [group.choiceIndex],
-          targetLabel: `選択肢${group.choiceIndex + 1}の補足回答${index + 1}`,
-          dataPath: `suggestedQuestionDetailsByChoice[${group.sourceIndex}].items[${index}].answer`,
-        });
-      }
-      row.append(question, answer);
-      table.append(row);
-    }
+    appendSuggestionRows(table, group);
   }
-  return table;
+  node.append(table);
+  return node;
 }
 
 function fieldLabel(key) {
