@@ -115,14 +115,14 @@ batch_selectable = true
 session_group = "maintenance"
 patch_dir = "15_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
-issue_fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
+issue_fields = ["questionIntent"]
 documents = ["prompt/02_prompt_fix_questionIntent.md"]
 
 [[stages.update_targets]]
-id = "intent_and_answer"
-label = "設問意図・正答"
-fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
-read_fields = ["questionBodyText", "choiceTextList"]
+id = "intent"
+label = "設問意図"
+fields = ["questionIntent"]
+read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "answer_result_text"]
 
 [[stages]]
 id = "correct_choice"

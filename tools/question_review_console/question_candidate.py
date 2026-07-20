@@ -43,9 +43,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
         }
     ),
     "question_type": frozenset({"questionType", "isCalculationQuestion"}),
-    "question_intent": frozenset(
-        {"questionIntent", "correctChoiceText", "answer_result_text"}
-    ),
+    "question_intent": frozenset({"questionIntent"}),
     "correct_choice": frozenset({"correctChoiceText", "answer_result_text"}),
     "law_context": frozenset(
         {
@@ -170,12 +168,14 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
 _CORRECT_CHOICE_TEXT_RULE: dict[str, Any] = {
     "type": "array",
     "description": (
-        "choiceTextListと必ず同じ件数にし、選択肢順に正解又は不正解を入れる。"
-        "flash_cardとgroup_choiceでも正答だけへ縮めず、全選択肢分を保持する。"
+        "questionTypeにかかわらずchoiceTextListと必ず同じ件数にし、"
+        "選択肢順に正しい又は間違いを入れる。正解、不正解、誤り等の"
+        "表記ゆれは使わない。flash_cardとgroup_choiceでも正答だけへ縮めず、"
+        "全選択肢分を保持する。"
     ),
     "items": {
         "type": "string",
-        "allowedValues": ["正解", "不正解"],
+        "allowedValues": ["正しい", "間違い"],
     },
 }
 
@@ -215,7 +215,6 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
 }
 
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
-    "question_intent": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
     "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
     "explanation": _EXPLANATION_FIELD_RULES,
     "law_audit": {

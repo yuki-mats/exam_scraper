@@ -92,7 +92,7 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertFalse(item_rule["additionalProperties"])
         self.assertEqual(item_rule["required"], ["question", "answer"])
 
-    def test_correct_choice_target_keeps_all_choice_markers(self):
+    def test_correct_choice_target_requires_canonical_full_choice_markers(self):
         plan = {
             "allowedPatchFiles": [
                 "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json"
@@ -103,7 +103,20 @@ class QuestionCandidateTest(unittest.TestCase):
         rule = target.prompt_value()["fieldRules"]["correctChoiceText"]
 
         self.assertIn("choiceTextListと必ず同じ件数", rule["description"])
-        self.assertEqual(rule["items"]["allowedValues"], ["正解", "不正解"])
+        self.assertIn("表記ゆれは使わない", rule["description"])
+        self.assertEqual(rule["items"]["allowedValues"], ["正しい", "間違い"])
+
+    def test_question_intent_target_cannot_update_correct_choice(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/15_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        target = candidate_targets("q1", "question_intent", plan)[0]
+
+        self.assertEqual(target.allowed_fields, ("questionIntent",))
+        self.assertNotIn("fieldRules", target.prompt_value())
 
     def test_law_audit_target_exposes_required_choice_arrays(self):
         plan = {

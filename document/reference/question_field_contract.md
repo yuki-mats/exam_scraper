@@ -55,8 +55,8 @@
 | `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
 | `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion` | 回答体験と計算問題分類を別々に確定する。新規又は更新するstage 01出力では`isCalculationQuestion`をbooleanで必須とし、既存の未分類patchは移行期間だけ読取互換を保つ。 |
-| `15_correctChoiceText_fixed` | patch | `questionIntent`、必要時のみanswer result補正 | 設問が正しいもの・誤っているもののどちらを選ばせるか確定する。 |
-| `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。 |
+| `15_correctChoiceText_fixed` | patch | `questionIntent` | 設問が正しいもの・誤っているもののどちらを選ばせるかだけを確定し、正答は変更しない。 |
+| `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText`。必要時のみ`answer_result_text`補正 | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。中間配列も新規更新時は`正しい` / `間違い`へ正規化する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
@@ -93,7 +93,7 @@
 | 問題画像URL | `questionImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | Storage upload / convert | Storage URL 変換後の値。 |
 | 問題画像パス | `questionImagePaths` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / migration | URL ではなく storage path を使う場合。 |
 | 元選択肢画像URL | `originalQuestionChoiceImageUrls` | array<string> | 任意 | 条件付き | 可 | list[str]。中間では choice index 単位の nested array も扱う。 | Storage upload / convert | 選択肢本文がない画像問題では実質必須。 |
-| 正答ラベル | `correctChoiceText` | string | 任意 | 必須 | 原則不可 | 最終 upload では原則 `正しい` / `間違い`。表記ゆれ `正解` / `不正解` / `誤り` は正規化。 | `23_correctChoiceText_fixed`, convert | 中間では選択肢数分の配列になり得る。Firestore 1 document では string として扱う。 |
+| 正答ラベル | `correctChoiceText` | string | 任意 | 必須 | 原則不可 | `正しい` / `間違い`。取得元の表記ゆれ `正解` / `不正解` / `誤り` は読取時に同じ判定として扱い、新規patchと最終uploadでは正規化する。 | `23_correctChoiceText_fixed`, convert | 中間では選択肢数分の配列になり得る。Firestore 1 document では string として扱う。 |
 | 正答画像URL | `correctChoiceImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / migration | 現行の公式過去問 upload では主経路ではない。 |
 | 正答画像パス | `correctChoiceImagePaths` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / migration | 同上。 |
 | 誤答1 | `incorrectChoice1Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 公式 split 運用ではあまり使わない。 |

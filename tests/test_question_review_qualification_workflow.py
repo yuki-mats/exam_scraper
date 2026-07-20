@@ -212,6 +212,37 @@ class QualificationWorkflowTests(unittest.TestCase):
             all("examYear" not in target for target in plan["progressTargets"])
         )
 
+    def test_question_intent_stage_updates_only_question_intent(self):
+        group = {"listGroupId": "original", "questions": [question(group="original")]}
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", [group])
+            )
+            plan = workflow.plan(
+                "sample",
+                "question_intent",
+                "group_refresh",
+                list_group_ids=["original"],
+            )
+
+        self.assertEqual(
+            plan["selectedUpdateTargetIds"],
+            ["question_intent.intent"],
+        )
+        self.assertEqual(
+            plan["selectedFieldsByStage"],
+            {"question_intent": ["questionIntent"]},
+        )
+        self.assertEqual(
+            plan["readFieldsByStage"]["question_intent"],
+            [
+                "questionBodyText",
+                "choiceTextList",
+                "correctChoiceText",
+                "answer_result_text",
+            ],
+        )
+
     def test_plan_orders_progress_by_source_logical_id_naturally(self):
         items = []
         for unique_number, logical_id, label, category in (

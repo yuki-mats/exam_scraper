@@ -224,7 +224,7 @@ FIELD_PATCH_DIR_NAMES = {
     "questionType": {"10_questionType_fixed", "99_model_review_flags"},
     "isCalculationQuestion": {"10_questionType_fixed", "99_model_review_flags"},
     "questionIntent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
-    "answer_result_text": {"15_correctChoiceText_fixed", "99_model_review_flags"},
+    "answer_result_text": {"23_correctChoiceText_fixed", "99_model_review_flags"},
     "correctChoiceText": {"23_correctChoiceText_fixed", "99_model_review_flags"},
     "explanationText": {"21_explanationText_added", "99_model_review_flags"},
     "suggestedQuestionDetailsByChoice": {

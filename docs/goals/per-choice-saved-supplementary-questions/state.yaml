@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T036
+active_task: T038
 tasks:
   - id: T001
     type: scout
@@ -2036,9 +2036,96 @@ tasks:
   - id: T036
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "更新済みUIから2017年ガス主任技術者甲種を全13項目・全58問で再実行し、全工程と最終検証を完了させる"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2017"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/review/law_revision_audit"
+      - "/Users/yuki/development/exam_scraper/output/question_review_console/workflow_runs/gas-shunin-kou"
+      - "/Users/yuki/development/exam_scraper/output/question_review_console/work_versions/gas-shunin-kou"
+    verify:
+      - "UI final readback: 58/58 questions validated and 0 blocked"
+      - "run manifest and child receipts readback"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "2017以外の問題成果物へ新規差分が出る。"
+      - "00_source又は本番Firestoreの変更が必要になる。"
+      - "選択fieldが13項目から広がる。"
+      - "同じ原因で二回保留又は失敗する。"
+    receipt:
+      result: blocked
+      summary: "UI run 20260721T081613763640-04d9706cは公式過去問の05非適用後に406工程で開始し、問題形式58/58は確定したが、設問意図工程で正答表現の候補規則と検証規則が矛盾して全58問が保留になった。2017成果物への確定差分はなく、次のWorkerで工程責務とquestionType別正答表現を整合させる。"
+      evidence:
+        - "run 20260721T081613763640-04d9706c: question_type 58 validated"
+        - "run manifest: validatedQuestionCount=0, blockedQuestionCount=58"
+        - "technical log: correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。"
+        - "prompt/02_prompt_fix_questionIntent.md: correctChoiceTextは変更しない"
+        - "config/question_maintenance_workflow.toml: question_intent targetにcorrectChoiceTextを重複指定"
+        - "question_candidate.py: promptは正解/不正解、validatorは正しい/間違い/誤りだけを許可"
+      commands:
+        - cmd: "2017 UI full-field/full-question run 20260721T081613763640-04d9706c"
+          status: blocked
+          summary: "58 questions blocked after question_type succeeded"
+      harness: codex
+  - id: T037
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "工程02を設問意図だけ、工程02aを正答だけへ分離し、correctChoiceTextの候補規則と検証を共通の正答表現へ整合させる"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "既存のquestionType別正答表現と両立できない問題形式が見つかる。"
+      - "00_source又は本番Firestoreの変更が必要になる。"
+      - "既存output patchと同じhunkを変更する必要がある。"
+      - "Need files outside allowed_files."
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      summary: "工程02の更新対象をquestionIntentだけへ限定し、正答とanswer_result_textは工程02aへ集約した。correctChoiceTextの新規候補は全questionType共通で選択肢数と同数の正しい/間違いだけを許可し、取得元の正解/不正解等は読取互換に限定する契約へ整合した。"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py
+        - /Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md
+        - /Users/yuki/development/exam_scraper/document/reference/question_field_contract.md
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "115 tests"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,023 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      harness: codex
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "更新済みUIから2017年ガス主任技術者甲種を全13項目・全58問で再実行し、全工程、成果物同期、最終検証を完了させる"
     allowed_files:
       - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2017"
       - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore"
