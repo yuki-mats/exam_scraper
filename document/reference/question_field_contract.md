@@ -330,13 +330,15 @@ AI解説を画面表示時に自動起動しない方針のため、想定質問
 
 patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`です。基本解説で正誤理由を完結させた上で、公開対象の選択肢にだけ0〜3件の補足を保存します。
 
-`flash_card`の`explanationText`は、選択肢数にかかわらず問題単位の1要素だけです。選択肢ごとの基本解説は作りません。`true_false`と`group_choice`は従来どおり選択肢indexと同数の解説を持ちます。計算`flash_card`は詳細な計算過程をこの1本へ含め、補足質問は原則0件とします。非計算`flash_card`の補足質問はnested fieldを受け入れられる状態だけ用意し、資格横断の詳細な作成基準は後日この契約とpromptへ追加します。
+`flash_card`の`explanationText`は、選択肢数にかかわらず問題単位の1要素だけです。選択肢ごとの基本解説は作りません。用語を選ぶ問題では、選択肢にある各用語の意味と見分け方をこの1本に含めます。計算`flash_card`は詳細な計算過程をこの1本へ含め、補足質問は原則0件とします。`true_false`と`group_choice`は従来どおり選択肢indexと同数の解説を持ちます。
+
+非計算`flash_card`の補足は、類似概念の違い、適用範囲・例外、判断条件、理由・仕組み又は条件変更時の扱いなど、基本解説後に残る問題全体の疑問だけを扱います。誤答選択肢ごとの理由、選択肢番号に依存する質問、基本解説の言い換えは作りません。0〜3件を許容し、通常は0〜2件、重複しない重要な疑問が3件ある場合だけ3件とします。
 
 | field | 型 | ルール |
 | --- | --- | --- |
 | `suggestedQuestionDetailsByChoice` | array<object> | `choiceIndex`は0始まりで重複不可。0件の選択肢は要素を省略する。 |
 | `suggestedQuestionDetailsByChoice[].items` | array<object> | 1〜3件。各要素は`question`と`answer`だけを持つ。 |
-| `items[].question` | string | 基本解説後に生じる、その選択肢固有の短い疑問。選択肢内で重複不可。 |
+| `items[].question` | string | 基本解説後に生じる短い疑問。`flash_card`では問題全体の疑問、それ以外では対象選択肢の疑問とする。選択肢内で重複不可。 |
 | `items[].answer` | string | タップ後にAPIを使わず表示する事前回答。 |
 
 公開変換では、対応する`isChoiceOnly=false` documentだけに問題形式に合う`explanationText`と、既存互換の`suggestedQuestionDetails`を投影し、`suggestedQuestions`をその`question`から派生します。`isChoiceOnly=true`には基本解説と両補足fieldを保存しません。既存documentに残る場合はuploadで削除します。旧flat patchを切り詰めたり、質問文の類似で選択肢へ推測配分したりせず、新形式で再生成します。
