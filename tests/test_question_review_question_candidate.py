@@ -81,6 +81,9 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertIn("問題共通の1本", rules["explanationText"]["description"])
         supplement = rules["suggestedQuestionDetailsByChoice"]
+        self.assertIn("基本解説に答えがある", supplement["description"])
+        self.assertIn("追加情報がなければ必ず空配列", supplement["description"])
+        self.assertIn("計算方法、式、代入、途中計算又は答え", supplement["description"])
         self.assertFalse(supplement["items"]["additionalProperties"])
         self.assertEqual(
             supplement["items"]["required"], ["choiceIndex", "items"]

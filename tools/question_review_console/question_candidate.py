@@ -122,6 +122,11 @@ _SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE: dict[str, Any] = {
     "description": (
         "各要素はchoiceIndexとitemsだけを持つ。itemsの各要素はquestionとanswerだけを持つ。"
         "choiceIndexは0始まりで重複不可、itemsは1件以上3件以下。補足が不要なら空配列にする。"
+        "最初に現在のexplanationTextと質問・回答の両方を照合し、基本解説に答えがある"
+        "質問は一件も残さない。基本解説にない追加情報を具体的に回答できる場合だけ保存し、"
+        "追加情報がなければ必ず空配列にする。全選択肢へ一律に作らない。"
+        "計算方法、式、代入、途中計算又は答えを尋ねる補足は、詳細計算を基本解説へ置くため"
+        "保存しない。"
         "flash_cardとgroup_choiceは公開対象の正答選択肢だけを対象にし、"
         "誤答選択肢ごとの補足を作らない。"
     ),
