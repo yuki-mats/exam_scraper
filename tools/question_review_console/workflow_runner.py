@@ -488,10 +488,10 @@ class ArtifactSynchronizer:
             projected = question.get("projected")
             projected = projected if isinstance(projected, Mapping) else {}
             value = str(
-                question.get("originalQuestionId")
-                or projected.get("originalQuestionId")
+                projected.get("originalQuestionId")
                 or projected.get("original_question_id")
                 or projected.get("public_question_id")
+                or question.get("originalQuestionId")
                 or ""
             ).strip()
             if value and value not in values:

@@ -565,6 +565,21 @@ class ArtifactSynchronizerTests(unittest.TestCase):
             self.assertIn("source-q1", command)
             self.assertNotIn("source-q2", command)
 
+    def test_strict_validation_uses_artifact_id_instead_of_review_identity(self):
+        questions = [
+            {
+                "originalQuestionId": "firestore:doc-1,doc-2",
+                "projected": {
+                    "originalQuestionId": "published-question-1",
+                },
+            }
+        ]
+
+        self.assertEqual(
+            ArtifactSynchronizer._strict_validation_question_ids(questions),
+            ["published-question-1"],
+        )
+
     def test_force_refresh_runs_pipeline_even_when_artifacts_match(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
