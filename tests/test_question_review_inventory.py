@@ -568,6 +568,100 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertIn("merge_stale", question["issueCodes"])
         self.assertNotIn("convert_stale", question["issueCodes"])
 
+    def test_stale_upload_warnings_do_not_block_regeneration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            source = {
+                "original_question_id": "q1",
+                "questionLabel": "問1",
+                "questionBodyText": "正しいものはどれか。",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。現行の根拠。"],
+                "questionType": "true_false",
+                "questionIntent": "select_correct",
+                "questionSetId": "set1",
+                "isLawRelated": True,
+                "lawReferences": [
+                    {"lawId": "law1", "verificationStatus": "verified"}
+                ],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "current": {"correctChoiceText": ["正しい"]},
+                    "evidenceSummary": {"verdict": "correct"},
+                },
+            }
+            write_json(
+                group / "00_source" / "question_2026_1.json",
+                {"question_bodies": [source]},
+            )
+            write_json(
+                group / "30_merged_2" / "question_2026_1_merged.json",
+                {"question_bodies": [source]},
+            )
+            document = {
+                "questionId": "doc1",
+                "qualificationId": "sample-exam",
+                "listGroupId": "2026",
+                "originalQuestionId": "q1",
+                "originalQuestionBodyText": source["questionBodyText"],
+                "originalQuestionChoiceText": "A",
+                "questionSetId": "set1",
+                "questionText": f'{source["questionBodyText"]} [quote]A[/quote]',
+                "questionType": "true_false",
+                "correctChoiceText": "正しい",
+                "explanationText": "正しい。古い根拠。",
+                "isOfficial": True,
+                "isDeleted": False,
+                "isChoiceOnly": False,
+                "isGroupable": True,
+                "questionTags": [],
+                "isLawRelated": True,
+                "lawReferences": source["lawReferences"],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "current": {"lawId": "law1"},
+                    "evidenceSummary": {"verdict": "correct"},
+                },
+            }
+            convert_path = (
+                group / "40_convert" / "question_2026_firestore_20260720.json"
+            )
+            upload_path = (
+                group.parent
+                / "upload_to_firestore"
+                / "2026_firestore_20260720.json"
+            )
+            write_json(convert_path, {"questions": [document]})
+            write_json(upload_path, {"questions": [document]})
+
+            stale = QuestionInventory(root).group("sample-exam", "2026")[
+                "questions"
+            ][0]
+
+            self.assertEqual(stale["workflow"]["convert"], "stale")
+            self.assertEqual(stale["workflow"]["upload"], "match")
+            self.assertEqual(stale["qualityWarnings"], [])
+            self.assertNotIn(
+                "law_audit_metadata_incomplete", stale["issueCodes"]
+            )
+
+            current_document = {
+                **document,
+                "explanationText": source["explanationText"][0],
+            }
+            write_json(convert_path, {"questions": [current_document]})
+            write_json(upload_path, {"questions": [current_document]})
+            current = QuestionInventory(root).group("sample-exam", "2026")[
+                "questions"
+            ][0]
+
+        self.assertEqual(current["workflow"]["convert"], "match")
+        self.assertEqual(current["workflow"]["upload"], "match")
+        self.assertEqual(len(current["qualityWarnings"]), 1)
+        self.assertIn("law_audit_metadata_incomplete", current["issueCodes"])
+
     def test_source_key_is_derived_from_source_not_patch_projection(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

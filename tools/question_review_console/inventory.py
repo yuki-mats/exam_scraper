@@ -920,7 +920,7 @@ class QuestionInventory:
                         ),
                     )
                 )
-                required_field_warnings.extend(
+                upload_required_warnings = [
                     {
                         **warning,
                         "code": "required_field_missing",
@@ -930,8 +930,8 @@ class QuestionInventory:
                     }
                     for document in matched_upload
                     for warning in upload_document_required_warnings(document)
-                )
-                quality_warnings = [
+                ]
+                upload_quality_warnings = [
                     warning
                     for document in matched_upload
                     for warning in law_audit_quality_warnings(document)
@@ -947,8 +947,32 @@ class QuestionInventory:
                         for warning in required_field_warnings
                         if warning.get("stage") != "projected"
                     ],
-                    quality_warnings,
+                    (),
                 )
+                local_artifacts_current = not {
+                    "merge_stale",
+                    "convert_stale",
+                    "upload_stale",
+                    "upload_missing",
+                }.intersection(issue["code"] for issue in issues)
+                quality_warnings = (
+                    upload_quality_warnings if local_artifacts_current else []
+                )
+                if local_artifacts_current:
+                    required_field_warnings.extend(upload_required_warnings)
+                    issues = detect_issues(
+                        projection.record,
+                        merged,
+                        matched_converted,
+                        matched_upload,
+                        projection.errors,
+                        [
+                            warning
+                            for warning in required_field_warnings
+                            if warning.get("stage") != "projected"
+                        ],
+                        quality_warnings,
+                    )
                 source_stem = source_path.stem
                 stable_key = review_key(qualification, list_group_id, source_stem, source)
                 question_id = api_question_id(stable_key)
