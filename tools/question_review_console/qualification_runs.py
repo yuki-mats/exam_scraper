@@ -169,6 +169,7 @@ MAX_WRITER_VALIDATION_ATTEMPTS = 3
 MAX_POLICY_REFRESH_ATTEMPTS = 2
 MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
+    "05_originalized",
     "10_questionType_fixed",
     "15_correctChoiceText_fixed",
     "18_law_context_prepared",
@@ -179,6 +180,7 @@ ALLOWED_MAINTENANCE_DIR_NAMES = {
     "99_model_review_flags",
 }
 STAGE_PATCH_DIR_NAMES = {
+    "originalize": {"05_originalized"},
     "question_type": {"10_questionType_fixed", "99_model_review_flags"},
     "question_intent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
     "correct_choice": {"23_correctChoiceText_fixed", "99_model_review_flags"},
@@ -193,6 +195,7 @@ STAGE_PATCH_DIR_NAMES = {
     "question_set": {"22_questionSetId_linked", "99_model_review_flags"},
 }
 PATCH_SUFFIX_BY_DIR = {
+    "05_originalized": "originalized",
     "10_questionType_fixed": "questionType_fixed",
     "15_correctChoiceText_fixed": "correctChoiceText_fixed",
     "18_law_context_prepared": "lawContext_prepared",
@@ -264,6 +267,7 @@ REWORK_POLICY_STAGE_IDS = {
     "04": "question_set",
 }
 POLICY_STAGE_BY_PATCH_DIR = {
+    "05_originalized": "originalize",
     "10_questionType_fixed": "question_type",
     "15_correctChoiceText_fixed": "question_intent",
     "23_correctChoiceText_fixed": "correct_choice",

@@ -104,6 +104,48 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         )
 
 
+class OriginalizeWriteContractTests(unittest.TestCase):
+    def test_new_originalized_patch_keeps_exact_record_scope(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            source_path = (
+                "output/sample/questions_json/independent/00_source/"
+                "question_independent_1.json"
+            )
+            patch_path = (
+                "output/sample/questions_json/independent/05_originalized/"
+                "question_independent_1_originalized.json"
+            )
+            aliases = ["sample:independent:q1", "question_independent_1.json#0"]
+            plan = {
+                "qualification": "sample",
+                "stageId": "originalize",
+                "stageIds": ["originalize"],
+                "targetGroupIds": ["independent"],
+                "targetRecordAliasGroups": [aliases],
+                "targetSourceRecordScopes": {source_path: [aliases]},
+                "sourceFiles": [source_path],
+                "outputFiles": [patch_path],
+            }
+
+            coordinator._apply_plan_write_contract(plan)
+
+        self.assertEqual(plan["allowedPatchDirs"], ["05_originalized"])
+        self.assertEqual(plan["allowedPatchFiles"], [patch_path])
+        self.assertEqual(plan["allowedWriteFiles"], [])
+        self.assertEqual(
+            plan["targetRecordScopes"],
+            {patch_path: [sorted(aliases)]},
+        )
+
+
 class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
     def test_run_manifest_preserves_partial_refresh_contract(self):

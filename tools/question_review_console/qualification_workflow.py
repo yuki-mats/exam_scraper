@@ -132,6 +132,15 @@ def _has_patch(question: Mapping[str, Any], patch_dir: str) -> bool:
     )
 
 
+def _originalization_applicable(question: Mapping[str, Any]) -> bool:
+    """Only sources without examYear enter the independent-question stage."""
+
+    source = question.get("source")
+    if not isinstance(source, Mapping):
+        return False
+    return source.get("examYear") in {None, ""}
+
+
 def _issue_count(question: Mapping[str, Any], fields: set[str]) -> int:
     count = 0
     for issue in question.get("issues") or []:
@@ -701,6 +710,12 @@ class QualificationWorkflow:
                 question
                 for question in questions
                 if str(question.get("listGroupId") or "") in selected_set
+            ]
+        if stage_id == "originalize":
+            questions = [
+                question
+                for question in questions
+                if _originalization_applicable(question)
             ]
         questions = _filter_question_range(questions, normalized_question_range)
         artifact_blockers = self._artifact_blockers_for_stage(

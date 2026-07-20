@@ -439,6 +439,31 @@ class QualificationWorkflowTests(unittest.TestCase):
         stage = next(item for item in overview["stages"] if item["id"] == "originalize")
         self.assertEqual(stage["versionUnrecordedCount"], 1)
 
+    def test_official_exam_question_does_not_enter_originalization(self):
+        item = question(group="2017")
+        item["source"]["examYear"] = 2017
+        item["projected"]["examYear"] = 2017
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2017", "questions": [item]}],
+                ),
+            )
+
+            plan = workflow.plan(
+                "sample",
+                "originalize",
+                "group_refresh",
+                list_group_ids=["2017"],
+            )
+
+        self.assertEqual(plan["targetCount"], 0)
+        self.assertEqual(plan["sourceFiles"], [])
+        self.assertEqual(plan["outputFiles"], [])
+
     def test_law_issue_precedes_delivery_and_clears_to_delivery(self):
         patches = [
             "output/sample/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json",
