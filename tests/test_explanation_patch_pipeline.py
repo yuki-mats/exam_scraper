@@ -3,7 +3,10 @@ from __future__ import annotations
 import unittest
 
 from scripts.check.check_explanation_patch_coverage import compare_entries
-from scripts.convert.convert_merged_to_firestore import convert_true_false_to_firestore
+from scripts.convert.convert_merged_to_firestore import (
+    convert_flash_card_to_firestore,
+    convert_true_false_to_firestore,
+)
 from scripts.fix.auto_assign_correct_choice_text import build_expected_correct_choice_text
 from scripts.fix.materialize_minimal_patch import materialize_explanation
 from scripts.pipeline.build_tsukanshi_upload_artifacts import build_explanation_patch, build_intent_patch
@@ -685,6 +688,108 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             actual[1]["suggestedQuestionDetails"][0]["answer"],
             "施行規則の適用条件を確認する。",
         )
+
+    def test_convert_five_choice_true_false_projects_only_each_choices_saved_details(self) -> None:
+        question_body = {
+            "original_question_id": "q-five-true-false",
+            "questionBodyText": "各記述の正誤を答えよ。",
+            "choiceTextList": [f"肢{i}" for i in range(1, 6)],
+            "correctChoiceText": ["正しい", "間違い", "正しい", "間違い", "正しい"],
+            "explanationText": [f"解説{i}" for i in range(1, 6)],
+            "examYear": 2025,
+            "questionLabel": "問5",
+            "qualificationName": "試験資格",
+            "questionSetId": "set-five",
+            "suggestedQuestionDetailsByChoice": [
+                {
+                    "choiceIndex": 1,
+                    "items": [{"question": "肢2の疑問1", "answer": "肢2の回答1"}],
+                },
+                {
+                    "choiceIndex": 2,
+                    "items": [
+                        {"question": "肢3の疑問1", "answer": "肢3の回答1"},
+                        {"question": "肢3の疑問2", "answer": "肢3の回答2"},
+                    ],
+                },
+                {
+                    "choiceIndex": 3,
+                    "items": [
+                        {"question": "肢4の疑問1", "answer": "肢4の回答1"},
+                        {"question": "肢4の疑問2", "answer": "肢4の回答2"},
+                        {"question": "肢4の疑問3", "answer": "肢4の回答3"},
+                    ],
+                },
+                {
+                    "choiceIndex": 4,
+                    "items": [{"question": "肢5の疑問1", "answer": "肢5の回答1"}],
+                },
+            ],
+        }
+
+        actual = convert_true_false_to_firestore(question_body)
+
+        self.assertEqual(len(actual), 5)
+        self.assertTrue(all(document["isChoiceOnly"] is False for document in actual))
+        self.assertNotIn("suggestedQuestions", actual[0])
+        self.assertNotIn("suggestedQuestionDetails", actual[0])
+        for choice_index, expected_count in enumerate((0, 1, 2, 3, 1)):
+            details = actual[choice_index].get("suggestedQuestionDetails", [])
+            self.assertLessEqual(len(details), 3)
+            self.assertEqual(len(details), expected_count)
+            self.assertEqual(
+                actual[choice_index].get("suggestedQuestions", []),
+                [detail["question"] for detail in details],
+            )
+            self.assertTrue(
+                all(
+                    detail["question"].startswith(f"肢{choice_index + 1}の")
+                    and detail["answer"].startswith(f"肢{choice_index + 1}の")
+                    for detail in details
+                )
+            )
+
+    def test_convert_five_choice_flash_card_omits_saved_details_from_choice_only_documents(self) -> None:
+        question_body = {
+            "original_question_id": "q-five-flash-card",
+            "questionBodyText": "正しいものを選べ。",
+            "choiceTextList": [f"肢{i}" for i in range(1, 6)],
+            "correctChoiceText": ["間違い", "間違い", "正しい", "間違い", "間違い"],
+            "explanationText": [f"解説{i}" for i in range(1, 6)],
+            "examYear": 2025,
+            "questionLabel": "問6",
+            "qualificationName": "試験資格",
+            "questionSetId": "set-five",
+            "suggestedQuestionDetailsByChoice": [
+                {
+                    "choiceIndex": choice_index,
+                    "items": [
+                        {
+                            "question": f"肢{choice_index + 1}の疑問",
+                            "answer": f"肢{choice_index + 1}の回答",
+                        }
+                    ],
+                }
+                for choice_index in range(5)
+            ],
+        }
+
+        actual = convert_flash_card_to_firestore(question_body)
+
+        self.assertEqual(len(actual), 5)
+        public_documents = [document for document in actual if not document["isChoiceOnly"]]
+        choice_only_documents = [document for document in actual if document["isChoiceOnly"]]
+        self.assertEqual(len(public_documents), 1)
+        self.assertEqual(len(choice_only_documents), 4)
+        self.assertEqual(public_documents[0]["originalQuestionChoiceText"], "肢3")
+        self.assertEqual(public_documents[0]["suggestedQuestions"], ["肢3の疑問"])
+        self.assertEqual(
+            public_documents[0]["suggestedQuestionDetails"],
+            [{"question": "肢3の疑問", "answer": "肢3の回答"}],
+        )
+        for document in choice_only_documents:
+            self.assertNotIn("suggestedQuestions", document)
+            self.assertNotIn("suggestedQuestionDetails", document)
 
 
 if __name__ == "__main__":

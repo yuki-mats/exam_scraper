@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T004
+active_task: T007
 tasks:
   - id: T001
     type: scout
@@ -294,7 +294,7 @@ tasks:
   - id: T004
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T003の変更とGoalBuddy control filesだけを既存dirty差分から分離し、exam_scraper mainとrepaso masterへ別々にcommit/pushしてreadbackする"
     inputs:
@@ -309,11 +309,76 @@ tasks:
       - "exam_scraper commit hash and origin/main readback"
       - "repaso commit hash and origin/master readback"
       - "remaining dirty files are pre-existing and unstaged"
+    receipt:
+      result: done
+      summary: "T003の変更だけを既存dirty差分から分離した。exam_scraperはmainへ3e2551f6d、repasoはmasterへb1fed2fbをcommit/pushし、ls-remoteでorigin hash一致を確認した。年度別patch、repasoの別docs・ios・onboarding差分は未stageのまま保持した。"
+      commands:
+        - cmd: "cd /Users/yuki/development/exam_scraper && git commit -m 'feat: save supplementary answers per choice'"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && git commit -m 'feat: use saved supplementary answers'"
+          status: pass
+        - cmd: "cd /Users/yuki/development/exam_scraper && git push origin main"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && git push origin master"
+          status: pass
+        - cmd: "git rev-parse HEAD and git ls-remote origin refs/heads/main|master"
+          status: pass
+      evidence:
+        - "exam_scraper HEAD=origin/main=3e2551f6d71552f16c41c9c7405a9b9b4aabd0bc"
+        - "repaso HEAD=origin/master=b1fed2fbf7138b3b567b906d74d5fb48fe1ca6f2"
+        - "git diff --cached --name-only was empty in both repositories after commit"
+        - "remaining git status matched the pre-existing dirty fingerprint"
+      harness: codex
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "最終oracleの不足証拠として、5選択肢のtrue_falseとsplit型代表fixtureで選択肢別投影・最大3件・isChoiceOnly gatingを直接readbackする回帰テストを追加する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_patch_pipeline"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+    stop_if:
+      - "Need production files outside allowed_files."
+      - "The fixture would require semantic guessing of legacy flat data."
+      - "The same verification failure repeats twice."
+    receipt:
+      result: done
+      changed_files:
+        - /Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py
+      commands:
+        - cmd: "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_patch_pipeline"
+          status: pass
+        - cmd: "cd /Users/yuki/development/exam_scraper && git diff --check"
+          status: pass
+      summary: "5肢true_falseで各isChoiceOnly=false documentが自分専用の0〜3件だけを保持するreadbackと、5肢flash_cardでisChoiceOnly=true documentに補足質問・回答が保存されないreadbackを追加した。旧flat schemaは使用していない。初回検証では0件choiceを空entryで表して失敗したが、schemaどおりentry省略へ修正し、2回目は全20テストが成功した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T007
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "T005の5選択肢oracle testと更新済みGoalBuddy stateだけをexam_scraper mainへcommit/pushし、origin hashをreadbackする"
+    inputs:
+      - "T005 receipt"
+      - "Current exam_scraper dirty fingerprint"
+    constraints:
+      - "年度別patchをstageしない。"
+      - "main以外へcommit/pushしない。"
+      - "force pushしない。"
+    expected_output:
+      - "commit hash and origin/main readback"
+      - "remaining dirty files are pre-existing and unstaged"
     receipt: null
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "両repoのreceiptとoracleを突き合わせ、選択肢別最大3件・保存回答・isChoiceOnly gating・チップAPI非呼出しが完全に成立したか監査する"
     inputs:
@@ -330,8 +395,57 @@ tasks:
       - "full_outcome_complete: true | false"
       - "oracle mapping"
       - "missing evidence and next task if not complete"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "実装、既存回帰、commit/push scopeはoracleの大半を満たす。しかしFirestore変換の新規回帰は2選択肢fixtureで、goal.mdが要求する代表5選択肢のcross-repo readbackを直接証明していない。弱い証拠で完了にせず、5選択肢の選択肢別投影とisChoiceOnly gatingを明示fixtureで追加検証する。専用goal_judgeは1回のwait timeout内にreceiptを返さなかったため中断し、PM fallbackで監査した。"
+      worker_package:
+        objective: "5選択肢のtrue_falseとsplit型代表fixtureで選択肢別投影・最大3件・isChoiceOnly gatingを直接readbackする回帰テストを追加する"
+        allowed_files:
+          - /Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py
+        verify:
+          - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_patch_pipeline"
+          - "cd /Users/yuki/development/exam_scraper && git diff --check"
+        stop_if:
+          - "Need production files outside allowed_files."
+          - "The fixture would require semantic guessing of legacy flat data."
+          - "The same verification failure repeats twice."
+      evidence:
+        - "T003 receipt: exam_scraper 79 tests, 00_source 5,799 hashes, repaso 64 widget tests, analyze and architecture checks passed"
+        - "exam_scraper commit 3e2551f6d and repaso commit b1fed2fb match their origin branches"
+        - "repaso tests directly prove saved chip requests=0, legacy answerless chip hidden, fourth chip hidden, free input requests=1"
+        - "tests/test_explanation_patch_pipeline.py currently reads back per-choice Firestore projection with a 2-choice fixture only"
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks: []
+      missing_evidence:
+        - "Representative five-choice Firestore conversion fixture readback"
+      required_board_updates:
+        - "Activate T005"
+        - "After T005 passes, rerun the full oracle and final audit"
+      harness: codex
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T005の5選択肢readbackを含む全receiptとorigin readbackをoracleへ再対応付けし、full_outcome_completeを最終判定する"
+    inputs:
+      - "T003, T004, T005 receipts"
+      - "T999 not_complete receipt"
+      - "Both repository commit and origin readback"
+      - "Current dirty scope"
+    constraints:
+      - "Do not implement."
+      - "5選択肢fixture、isChoiceOnly gating、チップAPI非呼出し、自由入力API維持の一つでも証拠が欠ければrejectする。"
+      - "T005とfinal stateのcommit/push前はfull outcome completeとしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle mapping"
+      - "missing evidence and next task if not complete"
     receipt: null
-
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
