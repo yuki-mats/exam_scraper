@@ -172,12 +172,32 @@ _CORRECT_CHOICE_TEXT_RULE: dict[str, Any] = {
     },
 }
 
+_LAW_AUDIT_EXPLANATION_TEXT_RULE: dict[str, Any] = {
+    **_EXPLANATION_FIELD_RULES["explanationText"],
+    "description": (
+        _EXPLANATION_FIELD_RULES["explanationText"]["description"]
+        + " isLawRelated=trueでは、検証済みlawReferencesと対応する具体的な法令名、"
+        "条項又は別表等の根拠位置を公開文面にも明記する。"
+    ),
+}
+
+_LAW_AUDIT_SUGGESTED_QUESTION_RULE: dict[str, Any] = {
+    **_SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE,
+    "description": (
+        _SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE["description"]
+        + " isLawRelated=trueでは少なくとも1件を作り、question又はanswerに"
+        "検証済みlawReferencesと対応する具体的な法令名、条項、別表又は基準を入れる。"
+    ),
+}
+
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
     "question_intent": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
     "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
     "explanation": _EXPLANATION_FIELD_RULES,
     "law_audit": {
         **_EXPLANATION_FIELD_RULES,
+        "explanationText": _LAW_AUDIT_EXPLANATION_TEXT_RULE,
+        "suggestedQuestionDetailsByChoice": _LAW_AUDIT_SUGGESTED_QUESTION_RULE,
         "correctChoiceText": _CORRECT_CHOICE_TEXT_RULE,
         "auditStatus": {
             "type": "string",

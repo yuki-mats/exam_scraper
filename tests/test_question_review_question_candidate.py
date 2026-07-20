@@ -263,6 +263,15 @@ class QuestionCandidateTest(unittest.TestCase):
                 "not_law_related",
             ],
         )
+        audit_rules = audit_target.prompt_value()["fieldRules"]
+        self.assertIn(
+            "少なくとも1件",
+            audit_rules["suggestedQuestionDetailsByChoice"]["description"],
+        )
+        self.assertIn(
+            "具体的な法令名",
+            audit_rules["explanationText"]["description"],
+        )
         candidate = parse_candidates(
             {
                 "schemaVersion": SCHEMA_VERSION,
