@@ -458,8 +458,8 @@ def add_explanation_patch_parser(
         "--require-law-evidence-utilization",
         action="store_true",
         help=(
-            "Require law-related explanationText/suggestedQuestions/"
-            "suggestedQuestionDetails to reflect existing law evidence."
+            "Require law-related explanationText/"
+            "suggestedQuestionDetailsByChoice to reflect existing law evidence."
         ),
     )
 
@@ -738,7 +738,7 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
         action="store_true",
         help=(
             "Require law-related explanation patches to use existing law evidence "
-            "in explanationText/suggestedQuestions/suggestedQuestionDetails."
+            "in explanationText/suggestedQuestionDetailsByChoice."
         ),
     )
     parser.add_argument(

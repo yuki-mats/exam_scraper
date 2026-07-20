@@ -217,8 +217,10 @@ FIELD_PATCH_DIR_NAMES = {
     "answer_result_text": {"15_correctChoiceText_fixed", "99_model_review_flags"},
     "correctChoiceText": {"23_correctChoiceText_fixed", "99_model_review_flags"},
     "explanationText": {"21_explanationText_added", "99_model_review_flags"},
-    "suggestedQuestions": {"21_explanationText_added", "99_model_review_flags"},
-    "suggestedQuestionDetails": {"21_explanationText_added", "99_model_review_flags"},
+    "suggestedQuestionDetailsByChoice": {
+        "21_explanationText_added",
+        "99_model_review_flags",
+    },
     "questionSetId": {"22_questionSetId_linked", "99_model_review_flags"},
 }
 NON_AUTOMATED_CORRECTION_FIELDS = {"questionBodyText", "choiceTextList"}

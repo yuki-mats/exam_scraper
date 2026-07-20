@@ -555,5 +555,27 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
         )
     if "suggestedQuestionDetails" in doc and doc["suggestedQuestionDetails"] is not None and not _is_suggested_question_detail_list(doc["suggestedQuestionDetails"]):
         raise ValueError(f"questions:{doc_id} suggestedQuestionDetails must be list<object>|null")
+    suggested_questions = doc.get("suggestedQuestions")
+    suggested_details = doc.get("suggestedQuestionDetails")
+    if suggested_questions is not None or suggested_details is not None:
+        if doc.get("isChoiceOnly") is True and (suggested_questions or suggested_details):
+            raise ValueError(
+                f"questions:{doc_id} isChoiceOnly documents must not contain suggested questions"
+            )
+        if not isinstance(suggested_questions, list) or not isinstance(
+            suggested_details, list
+        ):
+            raise ValueError(
+                f"questions:{doc_id} suggestedQuestions and suggestedQuestionDetails must be stored together"
+            )
+        if len(suggested_details) > 3:
+            raise ValueError(
+                f"questions:{doc_id} suggestedQuestionDetails must contain at most 3 entries"
+            )
+        detail_questions = [detail["question"] for detail in suggested_details]
+        if suggested_questions != detail_questions:
+            raise ValueError(
+                f"questions:{doc_id} suggestedQuestions must be derived from suggestedQuestionDetails"
+            )
     if "deletedAt" in doc and doc["deletedAt"] is not None and not _is_timestamp_like(doc["deletedAt"]):
         raise ValueError(f"questions:{doc_id} deletedAt must be datetime|null")

@@ -10,6 +10,10 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from scripts.common.question_identity import SourceIdentityBinding
+from scripts.common.suggested_question_contract import (
+    public_choice_indexes,
+    validation_errors as suggested_question_validation_errors,
+)
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
@@ -32,8 +36,7 @@ from tools.question_review_console.write_transaction import (
 ALLOWED_FIELDS = {
     "correctChoiceText",
     "explanationText",
-    "suggestedQuestions",
-    "suggestedQuestionDetails",
+    "suggestedQuestionDetailsByChoice",
 }
 EXPLANATION_FIELDS = ALLOWED_FIELDS - {"correctChoiceText"}
 
@@ -267,15 +270,14 @@ class PatchEditor:
                     "explanationText": copy.deepcopy(
                         final_record.get("explanationText")
                     ),
-                    "suggestedQuestions": copy.deepcopy(
-                        final_record.get("suggestedQuestions") or []
-                    ),
-                    "suggestedQuestionDetails": copy.deepcopy(
-                        final_record.get("suggestedQuestionDetails") or []
+                    "suggestedQuestionDetailsByChoice": copy.deepcopy(
+                        final_record.get("suggestedQuestionDetailsByChoice") or []
                     ),
                     **patch_identity,
                 }
             )
+            entry.pop("suggestedQuestions", None)
+            entry.pop("suggestedQuestionDetails", None)
             self._validate_patch_entry(
                 entry,
                 "explanation",
@@ -534,27 +536,25 @@ class PatchEditor:
                 raise DirectEditError("解説数が選択肢数と一致しません。")
             if any(not str(value or "").strip() for value in explanations):
                 raise DirectEditError("空の解説は保存できません。")
-        questions = changes.get("suggestedQuestions")
-        details = changes.get("suggestedQuestionDetails")
-        final_questions = questions if questions is not None else projected.get("suggestedQuestions")
-        final_details = details if details is not None else projected.get("suggestedQuestionDetails")
-        if questions is not None and (
-            not isinstance(questions, list) or any(not str(value or "").strip() for value in questions)
-        ):
-            raise DirectEditError("補足質問は空でない文字列の配列にしてください。")
-        if details is not None:
-            if not isinstance(details, list) or any(
-                not isinstance(item, dict)
-                or set(item) != {"question", "answer"}
-                or not str(item.get("question") or "").strip()
-                or not str(item.get("answer") or "").strip()
-                for item in details
-            ):
-                raise DirectEditError("補足回答はquestionとanswerだけを持つ配列にしてください。")
-        if isinstance(final_questions, list) and isinstance(final_details, list):
-            detail_questions = [str(item.get("question") or "") for item in final_details if isinstance(item, dict)]
-            if [str(value) for value in final_questions] != detail_questions:
-                raise DirectEditError("補足質問と補足回答のquestionが一致しません。")
+        details_by_choice = changes.get("suggestedQuestionDetailsByChoice")
+        if details_by_choice is not None:
+            final_correct = changes.get(
+                "correctChoiceText", projected.get("correctChoiceText")
+            )
+            errors = suggested_question_validation_errors(
+                details_by_choice,
+                choice_count=choice_count,
+                allowed_choice_indexes=public_choice_indexes(
+                    projected.get("questionType"),
+                    final_correct,
+                    choice_count,
+                ),
+            )
+            if errors:
+                raise DirectEditError(
+                    "補足質問は公開対象の選択肢ごとに回答付きで最大3件です: "
+                    + " / ".join(errors)
+                )
 
     def _path_for_stage(self, question: Mapping[str, Any], stage: str) -> Path | None:
         for value in question.get("paths", {}).get("patches") or []:

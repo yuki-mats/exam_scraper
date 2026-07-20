@@ -16,6 +16,10 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from scripts.common.question_identity import review_question_id  # noqa: E402
+from scripts.common.suggested_question_contract import (  # noqa: E402
+    public_choice_indexes,
+    validation_errors as suggested_question_validation_errors,
+)
 
 
 PLAN_PATH = (
@@ -637,31 +641,27 @@ def check_patch_invariants(plan_rows: list[dict[str, Any]], issues: list[dict[st
                     )
             if stage == "explanation" and row.get("executionStatus") == "done":
                 choice_count = int(row.get("choiceCount") or row.get("sourceStatementCount") or 0)
-                suggested = patch_row.get("suggestedQuestions")
-                details = patch_row.get("suggestedQuestionDetails")
-                if not isinstance(suggested, list) or len(suggested) != choice_count:
+                suggestion_errors = suggested_question_validation_errors(
+                    patch_row.get("suggestedQuestionDetailsByChoice"),
+                    choice_count=choice_count,
+                    allowed_choice_indexes=public_choice_indexes(
+                        row.get("questionType") or patch_row.get("questionType"),
+                        row.get("correctChoiceText") or patch_row.get("correctChoiceText"),
+                        choice_count,
+                    ),
+                )
+                if suggestion_errors:
                     add_issue(
                         issues,
                         severity="error",
-                        code="suggested_questions_count_mismatch",
-                        detail="Done explanation patches must keep suggestedQuestions per choice",
+                        code="suggested_question_details_by_choice_invalid",
+                        detail=(
+                            "Done explanation patches must keep 0 to 3 saved question/answer "
+                            "pairs for each public choice: " + " / ".join(suggestion_errors)
+                        ),
                         row=row,
                         stage=stage,
                         patchFile=rel(patch_path),
-                        expected=choice_count,
-                        actual=len(suggested) if isinstance(suggested, list) else None,
-                    )
-                if not isinstance(details, list) or len(details) != choice_count:
-                    add_issue(
-                        issues,
-                        severity="error",
-                        code="suggested_question_details_count_mismatch",
-                        detail="Done explanation patches must keep suggestedQuestionDetails per choice",
-                        row=row,
-                        stage=stage,
-                        patchFile=rel(patch_path),
-                        expected=choice_count,
-                        actual=len(details) if isinstance(details, list) else None,
                     )
     return {
         "patchFileCount": len(cache),

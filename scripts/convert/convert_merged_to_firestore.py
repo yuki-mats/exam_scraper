@@ -50,6 +50,7 @@ from scripts.scrape.qualification_presets import publication_qualification_id_fo
 from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
 )
+from scripts.common.suggested_question_contract import details_for_choice
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
@@ -858,6 +859,7 @@ def create_firestore_question_base(
     original_question_choice_text: str = None,
     original_question_choice_image_urls: list[str] | None = None,
     question_set_id: str | None = None,
+    suggested_choice_index: int | None = None,
     **additional_fields
 ) -> dict:
     """
@@ -903,14 +905,19 @@ def create_firestore_question_base(
         ]
     if not is_independent_question(question_body):
         firestore_question["examYear"] = get_exam_year(question_body)
-    suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
-    if suggested_questions:
-        firestore_question["suggestedQuestions"] = suggested_questions
-    suggested_question_details = format_suggested_question_details(
-        question_body.get("suggestedQuestionDetails", [])
+    suggested_question_details = (
+        details_for_choice(
+            question_body.get("suggestedQuestionDetailsByChoice"),
+            suggested_choice_index,
+        )
+        if suggested_choice_index is not None
+        else []
     )
     if suggested_question_details:
         firestore_question["suggestedQuestionDetails"] = suggested_question_details
+        firestore_question["suggestedQuestions"] = [
+            detail["question"] for detail in suggested_question_details
+        ]
     law_references = format_flat_law_references(question_body.get("lawReferences", []))
     if law_references:
         firestore_question["lawReferences"] = law_references
@@ -1020,6 +1027,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             original_question_choice_text=choice_text,
             original_question_choice_image_urls=choice_images,
             question_set_id=question_set_id_for_choice(question_body, i),
+            suggested_choice_index=i,
             originalQuestionBodyText=upload_question_body,
             isLawRelated=is_law_related,
             lawReferences=format_choice_law_references_with_group_fallback(
@@ -1109,6 +1117,7 @@ def convert_group_select_to_firestore(
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
                 question_set_id=question_set_id_for_choice(question_body, i),
+                suggested_choice_index=i,
                 isLawRelated=is_law_related,
                 lawReferences=law_references,
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
@@ -1169,6 +1178,7 @@ def convert_group_select_to_firestore(
                 else []
             ),
             question_set_id=question_set_id_for_choice(question_body, 0),
+            suggested_choice_index=0,
             isLawRelated=resolve_is_law_related(question_body, 0),
             lawReferences=format_choice_law_references_with_group_fallback(
                 question_body.get("lawReferences", []),

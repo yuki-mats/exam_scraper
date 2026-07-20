@@ -3,7 +3,7 @@
 
 あなたの役割は、03の解説文作成に入る前に、各設問が法令・制度論点かどうかを `isLawRelated` で厳密に判定し、必要な現行法根拠候補を `lawReferences` として整理することです。
 
-この工程では、解説本文そのものは書きません。目的は、03が `explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` を作るときに、法令フラグと現行法根拠を迷わず使える状態にすることです。
+この工程では、解説本文そのものは書きません。目的は、03が `explanationText` / `suggestedQuestionDetailsByChoice` を作るときに、法令フラグと現行法根拠を迷わず使える状態にすることです。
 
 ## 位置づけ
 

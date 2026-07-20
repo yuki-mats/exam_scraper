@@ -98,8 +98,8 @@ def _law_audit_instruction(repo_root: Path, qualification: str) -> str:
 - 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。
 - 各対象選択肢で「問題文＋選択肢」の完全命題を作り、保存済み`apiUrl`/`sourceUrl`又はe-Gov条文本文を開いて目視照合する。
 - 法令関連と確定した問題だけを条文監査へ進める。条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。patchでは各選択肢と同じ順序・件数で保存し、トップレベル`correctChoiceText`と一致させる。法改正差分又は適用条文の確認不能は`hold`/`needs_secondary_review`へ戻す。
-- `hold`以外で法令関連と確定した問題は、公開用の`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`にも、verifiedの法令名・別名又は条番号を少なくとも一つ具体的に記載する。metadataだけを更新して公開解説から根拠を欠落させない。
-- `suggestedQuestions`には法令又は現行基準を確認する質問を少なくとも一つ含め、対応する`suggestedQuestionDetails.answer`でverifiedの根拠が正誤をどう決めるか説明する。
+- `hold`以外で法令関連と確定した問題は、公開用の`explanationText`と`suggestedQuestionDetailsByChoice`にも、verifiedの法令名・別名又は条番号を少なくとも一つ具体的に記載する。metadataだけを更新して公開解説から根拠を欠落させない。
+- `suggestedQuestionDetailsByChoice`には法令又は現行基準を確認する質問を少なくとも一つ含め、その`answer`でverifiedの根拠が正誤をどう決めるか説明する。
 - 完了前に対象問題のpatchを`check-explanation-patch --require-law-evidence-utilization`と同じ条件で確認し、公開用fieldに具体的根拠が使われていることを確かめる。
 - 類似問題も一問一肢ずつ同じ手順で確認する。一括コピーや正誤ラベルだけの補完は禁止。
 - 完了時は「選択肢 / 条文 / 判定 / patch有無」の短い確認表を出す。

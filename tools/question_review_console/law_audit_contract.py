@@ -13,8 +13,7 @@ LAW_AUDIT_ISSUES = frozenset(
 )
 LAW_AUDIT_REQUIRED_REPAIR_FIELDS = (
     "explanationText",
-    "suggestedQuestions",
-    "suggestedQuestionDetails",
+    "suggestedQuestionDetailsByChoice",
     "lawReferences",
     "lawRevisionFacts",
 )

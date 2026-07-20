@@ -43,6 +43,18 @@ def valid_law_revision_facts(status: str = "same_as_current") -> dict:
     }
 
 
+def saved_details(*items: tuple[str, str], choice_index: int = 0) -> list[dict]:
+    return [
+        {
+            "choiceIndex": choice_index,
+            "items": [
+                {"question": question, "answer": answer}
+                for question, answer in items
+            ],
+        }
+    ]
+
+
 class ExplanationPatchPipelineTests(unittest.TestCase):
     def test_compare_entries_rejects_missing_and_opposite_verdict_prefixes(self) -> None:
         source_questions = [
@@ -61,10 +73,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                     "定義に一致するため正しい。",
                     "正しい。定義とは異なる。",
                 ],
-                "suggestedQuestions": ["なぜですか？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜですか？", "answer": "根拠を確認する。"}
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("なぜですか？", "根拠を確認する。")
+                ),
             }
         ]
 
@@ -133,18 +144,27 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertIn("選択肢1は「正しい」です。", explanation_patch["explanationText"][0])
         self.assertIn("選択肢11は「間違い」です。", explanation_patch["explanationText"][10])
 
-    def test_materialize_explanation_preserves_suggested_questions_and_law_references(self) -> None:
+    def test_materialize_explanation_preserves_per_choice_details_and_law_references(self) -> None:
         source_question = {
             "public_question_id": "q123",
             "question_url": "https://example.com/q123",
         }
         raw_entry = {
             "explanationText": ["選択肢1の解説", "選択肢2の解説"],
-            "suggestedQuestions": ["なぜそうなる？", "関連知識は？", "覚え方は？"],
-            "suggestedQuestionDetails": [
-                {"question": "なぜそうなる？", "answer": "定義の基準条文を確認すると判断できる。"},
-                {"question": "関連知識は？", "answer": "似た定義との境界を合わせて覚える。"},
-                {"question": "覚え方は？", "answer": "数値と対象範囲をセットで押さえる。"},
+            "suggestedQuestionDetailsByChoice": [
+                {
+                    "choiceIndex": 0,
+                    "items": [
+                        {"question": "なぜそうなる？", "answer": "定義の基準条文を確認すると判断できる。"},
+                        {"question": "関連知識は？", "answer": "似た定義との境界を合わせて覚える。"},
+                    ],
+                },
+                {
+                    "choiceIndex": 1,
+                    "items": [
+                        {"question": "覚え方は？", "answer": "数値と対象範囲をセットで押さえる。"},
+                    ],
+                },
             ],
             "lawReferences": [
                 [
@@ -167,8 +187,12 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
 
         self.assertEqual(actual["original_question_id"], "q123")
         self.assertEqual(actual["question_url"], "https://example.com/q123")
-        self.assertEqual(actual["suggestedQuestions"], raw_entry["suggestedQuestions"])
-        self.assertEqual(actual["suggestedQuestionDetails"], raw_entry["suggestedQuestionDetails"])
+        self.assertEqual(
+            actual["suggestedQuestionDetailsByChoice"],
+            raw_entry["suggestedQuestionDetailsByChoice"],
+        )
+        self.assertNotIn("suggestedQuestions", actual)
+        self.assertNotIn("suggestedQuestionDetails", actual)
         self.assertEqual(actual["lawReferences"], raw_entry["lawReferences"])
 
     def test_compare_entries_accepts_valid_law_references(self) -> None:
@@ -185,12 +209,11 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。解説1", "間違い。解説2"],
-                "suggestedQuestions": ["なぜそうなる？", "関連知識は？", "覚え方は？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜそうなる？", "answer": "定義条文を確認すると判断できる。"},
-                    {"question": "関連知識は？", "answer": "近接概念との境界で整理する。"},
-                    {"question": "覚え方は？", "answer": "数値と主体をセットで覚える。"},
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("なぜそうなる？", "定義条文を確認すると判断できる。"),
+                    ("関連知識は？", "近接概念との境界で整理する。"),
+                    ("覚え方は？", "数値と主体をセットで覚える。"),
+                ),
                 "lawReferences": [
                     [
                         {
@@ -228,13 +251,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。解説1"],
-                "suggestedQuestions": ["現行法ではどう考える？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "現行法ではどう考える？",
-                        "answer": "監査済みの現行法根拠では正しいです。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("現行法ではどう考える？", "監査済みの現行法根拠では正しいです。")
+                ),
                 "lawRevisionFacts": {
                     "auditStatus": "same_as_current",
                     "reviewState": "secondary_verified",
@@ -285,13 +304,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。解説1"],
-                "suggestedQuestions": ["現行法ではどう考える？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "現行法ではどう考える？",
-                        "answer": "監査済みの現行法根拠では正しいです。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("現行法ではどう考える？", "監査済みの現行法根拠では正しいです。")
+                ),
                 "lawRevisionFacts": {"auditStatus": "maybe"},
             }
         ]
@@ -315,13 +330,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["解説1"],
-                "suggestedQuestions": ["現行法ではどう考える？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "現行法ではどう考える？",
-                        "answer": "監査済みの現行法根拠では正しいです。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("現行法ではどう考える？", "監査済みの現行法根拠では正しいです。")
+                ),
                 "isLawRelated": True,
             }
         ]
@@ -352,13 +363,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。根拠がある。", "間違い。根拠がある。"],
-                "suggestedQuestions": ["現行法ではどう考える？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "現行法ではどう考える？",
-                        "answer": "現行法の根拠に従って判断する。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("現行法ではどう考える？", "現行法の根拠に従って判断する。")
+                ),
                 "isLawRelated": True,
                 "lawRevisionFacts": facts,
             }
@@ -395,13 +402,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。根拠がある。", "間違い。根拠がある。"],
-                "suggestedQuestions": ["現行法ではどう考える？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "現行法ではどう考える？",
-                        "answer": "現行法の根拠に従って判断する。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("現行法ではどう考える？", "現行法の根拠に従って判断する。")
+                ),
                 "isLawRelated": True,
                 "lawRevisionFacts": [first, second],
             }
@@ -429,10 +432,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。解説1"],
-                "suggestedQuestions": ["なぜそうなる？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜそうなる？", "answer": "公開IDを正本として照合できる。"},
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("なぜそうなる？", "公開IDを正本として照合できる。")
+                ),
             }
         ]
 
@@ -454,10 +456,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["解説1"],
-                "suggestedQuestions": ["なぜそうなる？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜそうなる？", "answer": "定義条文を確認すると判断できる。"},
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("なぜそうなる？", "定義条文を確認すると判断できる。")
+                ),
                 "lawReferences": [
                     [
                         {
@@ -493,9 +494,11 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["解説1"],
-                "suggestedQuestions": ["なぜそうなる？"],
-                "suggestedQuestionDetails": [
-                    {"question": "別の質問", "answer": "回答"},
+                "suggestedQuestionDetailsByChoice": [
+                    {
+                        "choiceIndex": 0,
+                        "items": [{"question": "", "answer": "回答"}],
+                    }
                 ],
             }
         ]
@@ -503,7 +506,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         errors, _ = compare_entries(source_questions, patch_entries)
 
         self.assertTrue(
-            any("suggestedQuestionDetails[0].question must match suggestedQuestions[0]" in error for error in errors)
+            any(".question must be non-empty" in error for error in errors)
         )
 
     def test_compare_entries_accepts_law_evidence_utilization_when_public_fields_use_facts(self) -> None:
@@ -521,13 +524,12 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "explanationText": [
                     "正しい。\n\n建築基準法第6条の確認申請の要件に沿って判断する。"
                 ],
-                "suggestedQuestions": ["建築基準法第6条では何を確認しますか？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "建築基準法第6条では何を確認しますか？",
-                        "answer": "建築基準法第6条は確認申請の対象を判断する根拠になる。問題では対象建築物に当たるかを条文の要件で見る。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    (
+                        "建築基準法第6条では何を確認しますか？",
+                        "建築基準法第6条は確認申請の対象を判断する根拠になる。問題では対象建築物に当たるかを条文の要件で見る。",
+                    )
+                ),
                 "isLawRelated": True,
                 "lawGroundedExplanationNotNeeded": False,
                 "lawRevisionFacts": valid_law_revision_facts(),
@@ -556,13 +558,12 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["正しい。\n\n条件に合うため正しい。"],
-                "suggestedQuestions": ["正誤を判断するポイントはどこですか？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "正誤を判断するポイントはどこですか？",
-                        "answer": "問題文の条件、数値、対象、例外の有無を確認します。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    (
+                        "正誤を判断するポイントはどこですか？",
+                        "問題文の条件、数値、対象、例外の有無を確認します。",
+                    )
+                ),
                 "isLawRelated": True,
                 "lawGroundedExplanationNotNeeded": False,
                 "lawRevisionFacts": valid_law_revision_facts(),
@@ -576,7 +577,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         )
 
         self.assertTrue(
-            any("suggestedQuestions must include" in error for error in errors)
+            any("suggestedQuestionDetailsByChoice must include" in error for error in errors)
         )
         self.assertTrue(
             any("do not mention any concrete law evidence anchor" in error for error in errors)
@@ -595,13 +596,12 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["間違い。\n\n建築基準法第6条の要件とは異なる。"],
-                "suggestedQuestions": ["建築基準法第6条では何を確認しますか？"],
-                "suggestedQuestionDetails": [
-                    {
-                        "question": "建築基準法第6条では何を確認しますか？",
-                        "answer": "建築基準法第6条の要件に当たるかを確認する。",
-                    }
-                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    (
+                        "建築基準法第6条では何を確認しますか？",
+                        "建築基準法第6条の要件に当たるかを確認する。",
+                    )
+                ),
                 "isLawRelated": True,
                 "lawGroundedExplanationNotNeeded": False,
                 "lawRevisionFacts": valid_law_revision_facts("updated_to_current_law"),
@@ -658,8 +658,19 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             "questionLabel": "問1",
             "qualificationName": "ガス主任技術者乙種",
             "questionSetId": "set1",
-            "suggestedQuestionDetails": [
-                {"question": "なぜそうなる？", "answer": "定義条文を見ると判断できる。"},
+            "suggestedQuestionDetailsByChoice": [
+                {
+                    "choiceIndex": 0,
+                    "items": [
+                        {"question": "なぜそうなる？", "answer": "定義条文を見ると判断できる。"},
+                    ],
+                },
+                {
+                    "choiceIndex": 1,
+                    "items": [
+                        {"question": "例外はある？", "answer": "施行規則の適用条件を確認する。"},
+                    ],
+                },
             ],
         }
 
@@ -668,6 +679,12 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(actual[0]["lawReferences"][0]["lawTitle"], "ガス事業法")
         self.assertEqual(actual[1]["lawReferences"][0]["lawTitle"], "ガス事業法施行規則")
         self.assertEqual(actual[0]["suggestedQuestionDetails"][0]["question"], "なぜそうなる？")
+        self.assertEqual(actual[0]["suggestedQuestions"], ["なぜそうなる？"])
+        self.assertEqual(actual[1]["suggestedQuestions"], ["例外はある？"])
+        self.assertEqual(
+            actual[1]["suggestedQuestionDetails"][0]["answer"],
+            "施行規則の適用条件を確認する。",
+        )
 
 
 if __name__ == "__main__":

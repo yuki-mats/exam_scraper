@@ -1,6 +1,6 @@
 # [システムプロンプト] 03 解説と想定質問の作成
 
-あなたの役割は、02a・02bを反映した`20_merged_1`を読み、各選択肢の`explanationText`と、解説画面で使う`suggestedQuestions` / `suggestedQuestionDetails`を一問ずつ作ることです。`00_source`、merged、convert、upload-readyは編集せず、`21_explanationText_added`の固定名patchだけを更新します。
+あなたの役割は、02a・02bを反映した`20_merged_1`を読み、各選択肢の`explanationText`と、解説画面で使う`suggestedQuestionDetailsByChoice`を一問ずつ作ることです。`00_source`、merged、convert、upload-readyは編集せず、`21_explanationText_added`の固定名patchだけを更新します。
 
 ## 正本
 
@@ -114,19 +114,19 @@ Pythonは件数確認、正式patch化、構造検証にだけ使います。説
 | `flash_card` | 正答の並び、組合せ、対応関係、数値を実値で示し、空欄の引用符を残さない。 |
 | `group_choice` | 比較する各要素と、正答・誤答を分ける基準を示す。 |
 
-計算問題では、式、代入、単位換算、途中計算、最終値と選択肢の対応を`explanationText`に書きます。導出の本体を`suggestedQuestionDetails`だけへ移しません。
+計算問題では、式、代入、単位換算、途中計算、最終値と選択肢の対応を`explanationText`に書きます。導出の本体を補足質問だけへ移しません。
 
 ## 想定質問
 
-`suggestedQuestions`は、解説直後に受験者が抱く具体的な疑問です。3件を基本とし、最大5件にします。
+`suggestedQuestionDetailsByChoice`には、基本解説を読んだ受験者が次に抱きそうな疑問と回答を、公開対象の選択肢ごとに最大3件保存します。基本解説だけで正誤理由を完結させ、補足は本当に追加価値がある場合だけ作ります。0件でも構いません。
 
 - 判断を分ける条件、ひっかけ、類似論点との差、数値境界、例外など、問題固有の短い疑問文にする。
 - `なぜ？`、`覚え方`、`関連知識`のような固定文言だけにしない。
 - 質問文で答えを長く説明しない。
 
-`suggestedQuestionDetails`は同じ件数・順序にし、各要素を`{"question", "answer"}`だけで構成します。
+各要素は`{"choiceIndex", "items"}`だけ、`items`の各要素は`{"question", "answer"}`だけで構成します。`choiceIndex`は0始まりです。`true_false`は各選択肢、`flash_card`と`group_choice`は`isChoiceOnly=false`になる正答選択肢だけを対象にし、0件の選択肢は要素自体を省略します。
 
-- `question`は対応する`suggestedQuestions[i]`と完全一致させる。
+- 同じ選択肢内で質問を重複させない。
 - `answer`は質問へ直接答え、2〜5文程度を目安にする。
 - `explanationText`をなぞるだけでなく、例外、見分け方、周辺知識などの追加価値を出す。
 - URL、空欄、プレースホルダーを入れない。
@@ -160,7 +160,8 @@ output/<qualification>/questions_json/<list_group_id>/
 - 出力順は入力`question_bodies`と一致させる。
 - 各正式patch entryへ`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`を保存する。
 - `original_question_id`は`reviewQuestionId`と一致させる。
-- `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`を必須とする。
+- `explanationText`、`suggestedQuestionDetailsByChoice`を必須とする。
+- `suggestedQuestions`と`suggestedQuestionDetails`は公開変換で回答から派生するため、patchへ保存しない。
 - `isLawRelated`と`lawGroundedExplanationNotNeeded`は02bのbooleanを引き継ぐ。
 - 資格別方針と監査状態に応じて、`lawReferences`と`lawRevisionFacts`を含める。
 - 全体解説だけの別entryや、未定義fieldを追加しない。
@@ -181,13 +182,15 @@ output/<qualification>/questions_json/<list_group_id>/
     "explanationText": [
       "正しい。基準は10以上であり、値10も範囲に含まれる。"
     ],
-    "suggestedQuestions": [
-      "「10以上」に10は含まれますか？"
-    ],
-    "suggestedQuestionDetails": [
+    "suggestedQuestionDetailsByChoice": [
       {
-        "question": "「10以上」に10は含まれますか？",
-        "answer": "含まれる。「以上」は基準値と同じ値を範囲に含み、「超える」は同じ値を含まない。"
+        "choiceIndex": 0,
+        "items": [
+          {
+            "question": "「10以上」に10は含まれますか？",
+            "answer": "含まれる。「以上」は基準値と同じ値を範囲に含み、「超える」は同じ値を含まない。"
+          }
+        ]
       }
     ],
     "isLawRelated": false,
@@ -224,7 +227,7 @@ output/<qualification>/questions_json/<list_group_id>/
 2. 入力件数、出力件数、source identityの集合が一致する。
 3. 各`explanationText`の要素数が`choiceTextList`と一致する。
 4. 各要素が同じindexの正誤に対応する`正しい。`又は`間違い。`で始まる。
-5. `suggestedQuestions`と`suggestedQuestionDetails`の件数、順序、質問文が一致する。
+5. `suggestedQuestionDetailsByChoice`が公開対象の選択肢だけを指し、各選択肢0〜3件の質問と回答を持つ。
 6. 法令問題に`hold`、未完了review state、根拠不一致がない。
 7. 資格別方針が要求する追加監査を通過した。
 

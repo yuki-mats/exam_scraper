@@ -165,9 +165,23 @@ def _law_evidence_anchors(patch: dict[str, Any]) -> list[str]:
 def _public_text_for_patch(patch: dict[str, Any]) -> str:
     parts: list[str] = []
     parts.extend(_iter_nested_strings(patch.get("explanationText")))
-    parts.extend(_iter_nested_strings(patch.get("suggestedQuestions")))
-    parts.extend(_iter_nested_strings(patch.get("suggestedQuestionDetails")))
+    parts.extend(
+        _iter_nested_strings(patch.get("suggestedQuestionDetailsByChoice"))
+    )
     return "\n".join(parts)
+
+
+def _suggested_question_items(patch: dict[str, Any]) -> list[dict[str, Any]]:
+    groups = patch.get("suggestedQuestionDetailsByChoice")
+    if not isinstance(groups, list):
+        return []
+    return [
+        item
+        for group in groups
+        if isinstance(group, dict) and isinstance(group.get("items"), list)
+        for item in group["items"]
+        if isinstance(item, dict)
+    ]
 
 
 def _contains_any(text: str, terms: tuple[str, ...] | list[str]) -> bool:
@@ -194,33 +208,28 @@ def law_evidence_utilization_issues(
     if statuses == {"hold"}:
         return errors
 
-    questions = patch.get("suggestedQuestions")
-    details = patch.get("suggestedQuestionDetails")
-    question_text = (
-        "\n".join(q for q in questions if isinstance(q, str))
-        if isinstance(questions, list)
-        else ""
+    details = _suggested_question_items(patch)
+    question_text = "\n".join(
+        detail.get("question", "")
+        for detail in details
+        if isinstance(detail.get("question"), str)
     )
-    answer_text = (
-        "\n".join(
-            detail.get("answer", "")
-            for detail in details
-            if isinstance(detail, dict) and isinstance(detail.get("answer"), str)
-        )
-        if isinstance(details, list)
-        else ""
+    answer_text = "\n".join(
+        detail.get("answer", "")
+        for detail in details
+        if isinstance(detail.get("answer"), str)
     )
     public_text = _public_text_for_patch(patch)
 
     if not _contains_any(question_text, LAW_CONTEXT_KEYWORDS):
         errors.append(
-            "law-related suggestedQuestions must include at least one "
+            "law-related suggestedQuestionDetailsByChoice must include at least one "
             "law/context-specific question"
         )
 
     if not _contains_any(answer_text, LAW_CONTEXT_KEYWORDS):
         errors.append(
-            "law-related suggestedQuestionDetails answers must use "
+            "law-related suggestedQuestionDetailsByChoice answers must use "
             "law/context evidence"
         )
 
@@ -248,7 +257,7 @@ def law_evidence_utilization_issues(
             and _contains_any(question_text, EXAM_TIME_TERMS)
         ):
             errors.append(
-                "updated_to_current_law suggestedQuestions must ask about "
+                "updated_to_current_law suggestedQuestionDetailsByChoice must ask about "
                 "current law and exam-time difference"
             )
     return errors

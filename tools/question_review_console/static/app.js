@@ -126,8 +126,7 @@ const FIELD_LABELS = {
 const EDITABLE_FIELDS = [
   "correctChoiceText",
   "explanationText",
-  "suggestedQuestions",
-  "suggestedQuestionDetails",
+  "suggestedQuestionDetailsByChoice",
 ];
 
 const REVIEW_FIELDS = [
@@ -145,8 +144,7 @@ const LAW_REVIEW_ISSUES = new Set([
 
 const LAW_REVIEW_REQUIRED_FIELDS = [
   "explanationText",
-  "suggestedQuestions",
-  "suggestedQuestionDetails",
+  "suggestedQuestionDetailsByChoice",
   "lawReferences",
   "lawRevisionFacts",
 ];
@@ -208,7 +206,7 @@ const state = {
   reviewSelection: null,
   selectionCandidate: null,
   pendingEdit: null,
-  editBaselinePairs: [],
+  editBaselineSuggestionsByChoice: [],
   workflowDialog: { mode: "", preview: null, running: false },
   readbackDialog: { preview: null, running: false, requestSequence: 0 },
   selectedQuestionIds: new Set(),
@@ -538,7 +536,7 @@ function bindControls() {
   $("#readback-dialog").addEventListener("cancel", (event) => {
     if (state.readbackDialog.running) event.preventDefault();
   });
-  $("#add-suggestion").addEventListener("click", () => addSuggestionRow("", ""));
+  $("#add-suggestion").addEventListener("click", () => addSuggestionRow(null, "", ""));
   $("#selection-review-current").addEventListener("click", () => openSelectionReview("current_question"));
   $("#selection-review-similar").addEventListener("click", () => openSelectionReview("qualification"));
   $("#selection-toolbar-close").addEventListener("click", () => clearSelectionToolbar(true));
@@ -2650,45 +2648,60 @@ function progressQuestionSection(title, content, className = "", indexLabel = "�
   return section;
 }
 
-function progressQuestionSuggestionsSection(projected) {
+function suggestionGroups(projected, { includeLegacy = true } = {}) {
+  const byChoice = Array.isArray(projected.suggestedQuestionDetailsByChoice)
+    ? projected.suggestedQuestionDetailsByChoice
+    : [];
+  const groups = byChoice
+    .filter((entry) => entry && Number.isInteger(entry.choiceIndex) && Array.isArray(entry.items))
+    .map((entry, sourceIndex) => ({
+      sourceIndex,
+      choiceIndex: entry.choiceIndex,
+      items: entry.items.filter((item) => item && item.question && item.answer).slice(0, 3),
+    }))
+    .filter((entry) => entry.items.length);
+  if (groups.length || !includeLegacy) return groups;
   const questions = Array.isArray(projected.suggestedQuestions) ? projected.suggestedQuestions : [];
   const details = Array.isArray(projected.suggestedQuestionDetails)
     ? projected.suggestedQuestionDetails
     : [];
+  const count = Math.max(questions.length, details.length);
+  if (!count) return [];
+  return [{
+    choiceIndex: null,
+    legacy: true,
+    items: Array.from({ length: count }, (_, index) => ({
+      question: String(details[index]?.question || questions[index] || "").trim(),
+      answer: String(details[index]?.answer || "").trim(),
+    })).filter((item) => item.question || item.answer),
+  }];
+}
+
+function progressQuestionSuggestionsSection(projected) {
+  const groups = suggestionGroups(projected);
   const section = element("section", "progress-question-section progress-suggestions");
   section.append(
     element("h3", "", "補足質問と回答"),
-    element("p", "progress-suggestion-fields", "suggestedQuestions・suggestedQuestionDetails"),
+    element("p", "progress-suggestion-fields", "選択肢ごとの保存済み質問・回答（最大3件）"),
   );
-  const count = Math.max(questions.length, details.length);
-  if (!count) {
+  if (!groups.length) {
     section.append(element("p", "", "（記録なし）"));
     return section;
   }
   const list = element("div", "progress-suggestion-list");
-  for (let index = 0; index < count; index += 1) {
-    const detail = details[index] && typeof details[index] === "object" ? details[index] : {};
-    const listedQuestion = String(questions[index] || "").trim();
-    const detailedQuestion = String(detail.question || "").trim();
-    const question = detailedQuestion || listedQuestion || "（質問なし）";
-    const answer = String(detail.answer || "").trim() || "（回答なし）";
-    const card = element("article", "progress-suggestion-card");
-    card.append(
-      element("span", "progress-suggestion-index", `補足${index + 1}`),
-      element("strong", "progress-suggestion-question", question),
-      element("span", "progress-suggestion-answer-label", "回答"),
-      element("p", "progress-suggestion-answer", answer),
-    );
-    const questionsMatch = listedQuestion.replace(/\s+/g, "")
-      === detailedQuestion.replace(/\s+/g, "");
-    if (listedQuestion && detailedQuestion && !questionsMatch) {
-      card.append(element(
-        "p",
-        "progress-suggestion-mismatch",
-        `suggestedQuestions側: ${listedQuestion}`,
-      ));
+  for (const group of groups) {
+    const choiceLabel = group.legacy ? "旧形式（選択肢未割当）" : `選択肢${group.choiceIndex + 1}`;
+    for (let index = 0; index < group.items.length; index += 1) {
+      const detail = group.items[index];
+      const card = element("article", "progress-suggestion-card");
+      card.append(
+        element("span", "progress-suggestion-index", `${choiceLabel}・補足${index + 1}`),
+        element("strong", "progress-suggestion-question", detail.question || "（質問なし）"),
+        element("span", "progress-suggestion-answer-label", "回答"),
+        element("p", "progress-suggestion-answer", detail.answer || "（回答なし）"),
+      );
+      list.append(card);
     }
-    list.append(card);
   }
   section.append(list);
   return section;
@@ -3592,8 +3605,12 @@ function publicationContent(question) {
       ),
       correctChoiceText: documents.map((document) => document.correctChoiceText || ""),
       explanationText: documents.map((document) => document.explanationText || ""),
-      suggestedQuestions: shared.suggestedQuestions || [],
-      suggestedQuestionDetails: shared.suggestedQuestionDetails || [],
+      suggestedQuestionDetailsByChoice: documents.flatMap((document, index) => {
+        const items = Array.isArray(document.suggestedQuestionDetails)
+          ? document.suggestedQuestionDetails
+          : [];
+        return items.length ? [{ choiceIndex: index, items }] : [];
+      }),
       lawReferences: documents.map((document) => document.lawReferences || []),
       lawRevisionFacts: documents.map((document) => document.lawRevisionFacts || null),
       knowledgeText: documents.map((document) => document.knowledgeText || ""),
@@ -4926,32 +4943,41 @@ function renderChoices(projected) {
 }
 
 function renderSuggestions(projected) {
-  const questions = Array.isArray(projected.suggestedQuestions) ? projected.suggestedQuestions : [];
-  const details = Array.isArray(projected.suggestedQuestionDetails) ? projected.suggestedQuestionDetails : [];
-  if (!questions.length && !details.length) return null;
+  const groups = suggestionGroups(projected);
+  if (!groups.length) return null;
   const table = element("table", "suggestion-table");
-  const count = Math.max(questions.length, details.length);
-  for (let index = 0; index < count; index += 1) {
-    const detail = details[index] || {};
-    const row = document.createElement("tr");
-    const question = element("th", "", detail.question || questions[index] || "");
-    const questionField = detail.question ? "suggestedQuestionDetails" : "suggestedQuestions";
-    const questionPath = detail.question
-      ? `suggestedQuestionDetails[${index}].question`
-      : `suggestedQuestions[${index}]`;
-    installReviewTarget(question, {
-      fields: [questionField],
-      targetLabel: `補足質問${index + 1}`,
-      dataPath: questionPath,
-    });
-    const answer = element("td", "", detail.answer || "（回答なし）");
-    installReviewTarget(answer, {
-      fields: ["suggestedQuestionDetails"],
-      targetLabel: `補足質問${index + 1}の回答`,
-      dataPath: `suggestedQuestionDetails[${index}].answer`,
-    });
-    row.append(question, answer);
-    table.append(row);
+  for (const group of groups) {
+    const groupRow = document.createElement("tr");
+    const groupCell = element(
+      "th",
+      "suggestion-choice-heading",
+      group.legacy ? "旧形式（選択肢未割当・再生成が必要）" : `選択肢${group.choiceIndex + 1}`,
+    );
+    groupCell.colSpan = 2;
+    groupRow.append(groupCell);
+    table.append(groupRow);
+    for (let index = 0; index < group.items.length; index += 1) {
+      const detail = group.items[index];
+      const row = document.createElement("tr");
+      const question = element("th", "", detail.question || "（質問なし）");
+      const answer = element("td", "", detail.answer || "（回答なし）");
+      if (!group.legacy) {
+        installReviewTarget(question, {
+          fields: ["suggestedQuestionDetailsByChoice"],
+          choiceIndexes: [group.choiceIndex],
+          targetLabel: `選択肢${group.choiceIndex + 1}の補足質問${index + 1}`,
+          dataPath: `suggestedQuestionDetailsByChoice[${group.sourceIndex}].items[${index}].question`,
+        });
+        installReviewTarget(answer, {
+          fields: ["suggestedQuestionDetailsByChoice"],
+          choiceIndexes: [group.choiceIndex],
+          targetLabel: `選択肢${group.choiceIndex + 1}の補足回答${index + 1}`,
+          dataPath: `suggestedQuestionDetailsByChoice[${group.sourceIndex}].items[${index}].answer`,
+        });
+      }
+      row.append(question, answer);
+      table.append(row);
+    }
   }
   return table;
 }
@@ -5487,21 +5513,47 @@ function openEdit() {
     list.append(row);
   });
 
-  const questions = Array.isArray(projected.suggestedQuestions) ? projected.suggestedQuestions : [];
-  const details = Array.isArray(projected.suggestedQuestionDetails) ? projected.suggestedQuestionDetails : [];
-  state.editBaselinePairs = Array.from({ length: Math.max(questions.length, details.length) }, (_, index) => ({
-    question: details[index]?.question || questions[index] || "",
-    answer: details[index]?.answer || "",
-  }));
+  state.editBaselineSuggestionsByChoice = suggestionGroups(projected, { includeLegacy: false })
+    .map((group) => ({
+      choiceIndex: group.choiceIndex,
+      items: group.items.map((item) => ({ question: item.question, answer: item.answer })),
+    }))
+    .sort((left, right) => left.choiceIndex - right.choiceIndex);
   const suggestions = $("#suggestion-edit-list");
   suggestions.replaceChildren();
-  for (const pair of state.editBaselinePairs) addSuggestionRow(pair.question, pair.answer);
+  for (const group of state.editBaselineSuggestionsByChoice) {
+    for (const item of group.items) {
+      addSuggestionRow(group.choiceIndex, item.question, item.answer);
+    }
+  }
   $("#edit-reason").value = "";
   $("#edit-dialog").showModal();
 }
 
-function addSuggestionRow(question, answer) {
+function editableSuggestionChoiceIndexes(projected) {
+  const choices = Array.isArray(projected.choiceTextList) ? projected.choiceTextList : [];
+  const indexes = choices.map((_, index) => index);
+  if (!["flash_card", "group_choice"].includes(projected.questionType)) return indexes;
+  const correct = Array.isArray(projected.correctChoiceText) ? projected.correctChoiceText : [];
+  const correctIndex = correct.findIndex((value) => normalizeVerdict(value) === "正しい");
+  return [correctIndex >= 0 ? correctIndex : 0].filter((index) => index < choices.length);
+}
+
+function addSuggestionRow(choiceIndex, question, answer) {
   const row = element("div", "suggestion-edit-row");
+  const projected = state.detail?.projected || {};
+  const choices = Array.isArray(projected.choiceTextList) ? projected.choiceTextList : [];
+  const allowedIndexes = editableSuggestionChoiceIndexes(projected);
+  const choiceSelect = document.createElement("select");
+  choiceSelect.className = "suggestion-choice-index";
+  for (const index of allowedIndexes) {
+    const choice = String(choices[index] || "").trim();
+    const option = element("option", "", `選択肢${index + 1}${choice ? `: ${choice}` : ""}`);
+    option.value = String(index);
+    choiceSelect.append(option);
+  }
+  const selectedIndex = allowedIndexes.includes(choiceIndex) ? choiceIndex : allowedIndexes[0];
+  choiceSelect.value = String(selectedIndex ?? "");
   const questionInput = document.createElement("textarea");
   questionInput.className = "suggestion-question";
   questionInput.placeholder = "質問";
@@ -5511,7 +5563,7 @@ function addSuggestionRow(question, answer) {
   answerInput.placeholder = "回答";
   answerInput.value = answer;
   const remove = button("×", "icon-button", () => row.remove(), "補足質問を削除");
-  row.append(questionInput, answerInput, remove);
+  row.append(choiceSelect, questionInput, answerInput, remove);
   $("#suggestion-edit-list").append(row);
 }
 
@@ -5521,6 +5573,7 @@ function collectEditChanges() {
   const explanations = [...document.querySelectorAll(".edit-explanation")].map((node) => node.value.trim());
   const pairs = [...document.querySelectorAll(".suggestion-edit-row")]
     .map((row) => ({
+      choiceIndex: Number(row.querySelector(".suggestion-choice-index").value),
       question: row.querySelector(".suggestion-question").value.trim(),
       answer: row.querySelector(".suggestion-answer").value.trim(),
     }))
@@ -5528,15 +5581,29 @@ function collectEditChanges() {
   if (pairs.some((pair) => !pair.question || !pair.answer)) {
     throw new Error("補足質問は質問と回答を両方入力してください。");
   }
+  const byChoice = new Map();
+  for (const pair of pairs) {
+    const items = byChoice.get(pair.choiceIndex) || [];
+    items.push({ question: pair.question, answer: pair.answer });
+    byChoice.set(pair.choiceIndex, items);
+  }
+  if ([...byChoice.values()].some((items) => items.length > 3)) {
+    throw new Error("補足質問は選択肢ごとに最大3件です。");
+  }
+  if ([...byChoice.values()].some((items) => new Set(items.map((item) => item.question)).size !== items.length)) {
+    throw new Error("同じ選択肢に同じ補足質問を重複して保存できません。");
+  }
+  const suggestionsByChoice = [...byChoice.entries()]
+    .map(([choiceIndex, items]) => ({ choiceIndex, items }))
+    .sort((left, right) => left.choiceIndex - right.choiceIndex);
   const changes = {};
   const currentVerdicts = (projected.correctChoiceText || []).map(normalizeVerdict);
   if (!state.detail.isLawRelated && !same(verdicts, currentVerdicts)) {
     changes.correctChoiceText = verdicts;
   }
   if (!same(explanations, projected.explanationText || [])) changes.explanationText = explanations;
-  if (!same(pairs, state.editBaselinePairs)) {
-    changes.suggestedQuestions = pairs.map((pair) => pair.question);
-    changes.suggestedQuestionDetails = pairs;
+  if (!same(suggestionsByChoice, state.editBaselineSuggestionsByChoice)) {
+    changes.suggestedQuestionDetailsByChoice = suggestionsByChoice;
   }
   return changes;
 }

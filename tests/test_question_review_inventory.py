@@ -423,7 +423,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
 
         self.assertEqual(
             {warning["field"] for warning in warnings},
-            {"question_url", "suggestedQuestions", "suggestedQuestionDetails"},
+            {"question_url", "suggestedQuestionDetailsByChoice"},
         )
 
     def test_correct_choice_patch_does_not_require_question_url(self):
@@ -442,9 +442,11 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             {
                 "original_question_id": "q1",
                 "explanationText": ["正しい。根拠"],
-                "suggestedQuestions": ["確認事項"],
-                "suggestedQuestionDetails": [
-                    {"question": "確認事項", "answer": "回答"}
+                "suggestedQuestionDetailsByChoice": [
+                    {
+                        "choiceIndex": 0,
+                        "items": [{"question": "確認事項", "answer": "回答"}],
+                    }
                 ],
             },
             "explanation",

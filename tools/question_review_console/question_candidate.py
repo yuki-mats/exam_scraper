@@ -6,6 +6,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from scripts.common.suggested_question_contract import (
+    public_choice_indexes,
+    validation_errors as suggested_question_validation_errors,
+)
+
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
 
@@ -52,8 +57,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
     "explanation": frozenset(
         {
             "explanationText",
-            "suggestedQuestions",
-            "suggestedQuestionDetails",
+            "suggestedQuestionDetailsByChoice",
             "isLawRelated",
             "lawGroundedExplanationNotNeeded",
             "lawReferences",
@@ -82,8 +86,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "lawGroundedExplanationNotNeeded",
             "correctChoiceText",
             "explanationText",
-            "suggestedQuestions",
-            "suggestedQuestionDetails",
+            "suggestedQuestionDetailsByChoice",
             "holdReason",
             "reviewNotes",
             "evidenceSummary",
@@ -592,20 +595,21 @@ def validate_candidate_content(
         or any(not isinstance(value, list) for value in law_references)
     ):
         errors.append("lawReferencesが選択肢と同じ件数の配列ではありません。")
-    suggested = logical.get("suggestedQuestions")
-    details = logical.get("suggestedQuestionDetails")
-    if "suggestedQuestions" in changed_fields and suggested is not None and (
-        not isinstance(suggested, list)
-        or not 3 <= len(suggested) <= 5
-        or any(not isinstance(value, str) or not value.strip() for value in suggested)
-    ):
-        errors.append("suggestedQuestionsが3〜5件の非空文字列ではありません。")
-    if changed_fields & {"suggestedQuestions", "suggestedQuestionDetails"} and details is not None and (
-        not isinstance(details, list)
-        or not isinstance(suggested, list)
-        or len(details) != len(suggested)
-    ):
-        errors.append("suggestedQuestionDetailsがsuggestedQuestionsと対応していません。")
+    if "suggestedQuestionDetailsByChoice" in changed_fields:
+        suggestion_errors = suggested_question_validation_errors(
+            logical.get("suggestedQuestionDetailsByChoice"),
+            choice_count=len(choices),
+            allowed_choice_indexes=public_choice_indexes(
+                logical.get("questionType"),
+                correct,
+                len(choices),
+            ),
+        )
+        if suggestion_errors:
+            errors.append(
+                "suggestedQuestionDetailsByChoiceが選択肢別・最大3件の契約を満たしません: "
+                + " / ".join(suggestion_errors)
+            )
     facts = logical.get("lawRevisionFacts")
     if "lawRevisionFacts" in changed_fields and facts is not None and not isinstance(facts, Mapping):
         errors.append("lawRevisionFactsがobjectではありません。")

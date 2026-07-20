@@ -321,8 +321,9 @@ def materialize_explanation(
 ) -> dict[str, Any]:
     materialized = {
         "explanationText": raw_entry.get("explanationText", []),
-        "suggestedQuestions": raw_entry.get("suggestedQuestions", []),
-        "suggestedQuestionDetails": raw_entry.get("suggestedQuestionDetails", []),
+        "suggestedQuestionDetailsByChoice": raw_entry.get(
+            "suggestedQuestionDetailsByChoice", []
+        ),
         "original_question_id": resolve_original_id(source_question),
         "question_url": source_question.get("question_url", ""),
     }

@@ -16,8 +16,7 @@ from scripts.common.independent_question_images import (
 PATCH_REQUIRED_FIELDS = {
     "explanation": {
         "explanationText",
-        "suggestedQuestions",
-        "suggestedQuestionDetails",
+        "suggestedQuestionDetailsByChoice",
         "original_question_id",
         "question_url",
     },

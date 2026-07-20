@@ -1,0 +1,340 @@
+version: 2
+
+goal:
+  title: "選択肢別・保存済み補足質問"
+  slug: "per-choice-saved-supplementary-questions"
+  kind: specific
+  tranche: "continuous execution: exam_scraperの選択肢別patch生成からrepasoの保存回答表示までを一つの契約へ収束させる"
+  status: active
+  oracle:
+    signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "両repoの契約テスト、Firestore変換fixture readback、repaso widget test、今回変更だけのcommit/push"
+  intake:
+    original_request: "AIが基本解説後の疑問を選択肢ごとに最大3件予測し、回答付き更新patchとして事前保存する仕組みをexam_scraperとrepasoに整備したい"
+    interpreted_outcome: "補足質問を元問題単位のflat配列から選択肢単位の保存済みquestion/answerへ改め、公開変換とアプリ表示で生成AI不要を保証する"
+    input_shape: specific
+    audience: "暗記プラスの受験者と問題整備の運用者"
+    authority: requested
+    proof_type: test
+    completion_proof: "選択肢別最大3件、isChoiceOnly gating、質問回答対応、チップAPI非呼出し、自由入力API維持を自動テストで証明する"
+    likely_misfire: "flat配列を3件へ切るだけで、他選択肢への複製とAI fallbackを残す"
+    blind_spots_considered:
+      - "旧patch schemaとの互換と移行判定"
+      - "suggestedQuestionsとsuggestedQuestionDetailsの二重正本"
+      - "questionType別のisChoiceOnly判定"
+      - "法令問題の追加疑問による上限超過"
+      - "両repoの既存dirty差分"
+    existing_plan_facts:
+      - "基本解説で完結する"
+      - "基本解説を踏まえたユーザーの追加疑問を選択肢ごとに最大3件用意する"
+      - "質問と回答を更新用patchへ事前保存する"
+      - "チップ押下は保存回答を表示し生成AI APIを呼ばない"
+      - "自由入力だけ生成AI APIを使用する"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
+
+active_task: T004
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "両repoの現行schema、生成prompt、validator、Firestore変換、typed model、チップAPI経路、既存dirty重複をread-onlyで一つの契約図へ確定する"
+    inputs:
+      - "/Users/yuki/development/exam_scraper"
+      - "/Users/yuki/StudioProjects/repaso"
+      - "前ターンの2019年upload-ready監査結果"
+    constraints:
+      - "Read-only."
+      - "00_sourceと本番Firestoreへ触れない。"
+      - "既存dirty差分の所有範囲を区別する。"
+      - "質問件数制限だけでなく、選択肢所有権とAPI fallbackまで追う。"
+    expected_output:
+      - "current contract map"
+      - "schema migration options and compatibility risks"
+      - "exact candidate files in both repositories"
+      - "verification commands and dirty-overlap map"
+    receipt:
+      result: done
+      summary: "PM fallbackで両repoをread-only確認した。現行patchは元問題単位のflat質問/回答、converterは全split docへ複製、validatorは3〜5件と選択肢数一致を別々に強制する。repasoは質問のみ・既定チップを表示し、保存回答がなければVertex AIへfallbackする。新契約はpatchで選択肢indexと0〜3件のquestion/answerを一体管理し、FirestoreではisChoiceOnly=falseだけへflat互換projection、repasoは有効な保存回答だけを表示する必要がある。"
+      evidence:
+        - "prompt/03_prompt_add_explanationText.md:119"
+        - "document/reference/question_field_contract.md:317"
+        - "tools/question_review_console/question_candidate.py:52"
+        - "tools/question_review_console/question_candidate.py:544"
+        - "tools/question_review_console/patch_editor.py:250"
+        - "scripts/merge/patch_views.py:30"
+        - "scripts/check/audit_gas_shunin_goal_readiness.py:638"
+        - "scripts/convert/convert_merged_to_firestore.py:849"
+        - "scripts/common/repaso_firestore_schema.py:218"
+        - "/Users/yuki/StudioProjects/repaso/lib/features/answer/application/answer_explanation_prompt_suggestions.dart:3"
+        - "/Users/yuki/StudioProjects/repaso/lib/features/answer/presentation/answer_explanation_page.dart:342"
+        - "/Users/yuki/StudioProjects/repaso/test/features/answer/answer_explanation_page_fake_ui_test.dart:38"
+      facts:
+        - "2019 upload-readyは58 groups/290 docsで、isChoiceOnly=false 250件の補足質問数は全件5又は6、isChoiceOnly=true 40件にも同じ補足データがある。"
+        - "patchのsuggestedQuestionsとsuggestedQuestionDetailsは元問題単位のflat配列で、選択肢所有権を表現できない。"
+        - "structured candidateのvalueJsonは新しいnested fieldを運べるが、allowed field、validation、patch writer、merge fieldの更新が必要。"
+        - "Firestoreの公開互換fieldはsuggestedQuestions list[str]とsuggestedQuestionDetails list<{question,answer}>のまま維持できる。"
+        - "repaso typed modelは公開互換fieldを既に読めるため、主変更はprompt selectionとchip tap fallbackの除去で足りる。"
+        - "exam_scraperの対象code/prompt/docsは既存output dirtyと重ならない。repasoの対象codeとanswer explanation正本文書はcleanだが、datamodel.mdとlaw_grounded_explanation.mdは既存dirtyのため今回の直接編集を避ける。"
+        - "専用goal_scoutは一回のwait timeout内にreceiptを返さなかったため中断し、GoalBuddy契約に従ってPM fallbackした。"
+      contradictions:
+        - "promptとcandidate validatorは3〜5件、readiness auditは選択肢数と同数、owner要件は選択肢ごと最大3件で一致しない。"
+        - "repaso文書は保存回答利用を記す一方、実装とテストは回答なしチップのVertex AI fallbackを正規動作としている。"
+        - "workflowは選択肢単位を掲げるが、patch schemaは元問題単位flatである。"
+      ambiguity_requiring_judge:
+        - "新patch fieldをsuggestedQuestionDetailsByChoiceとして追加するか、既存suggestedQuestionDetailsをnestedへ破壊的変更するか。"
+        - "旧flat patchをsplit変換時に明示拒否するか、安全に補足fieldをomitするか、明示legacy flagでのみ許容するか。"
+        - "single_choice/fill_in_blankなど非split documentを今回の選択肢別契約へ含めるか。"
+      commands:
+        - "git status --short (both repos)"
+        - "rg/nlによるprompt、validator、patch writer、merge、convert、typed model、UI、testのread-only確認"
+      note_needed: false
+      harness: codex
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Scout証拠を評価し、質問回答の単一正本、選択肢別patch形、旧schema互換、最大安全なcross-repo Worker packageを確定する"
+    inputs:
+      - "T001 receipt"
+      - "goal.md"
+    constraints:
+      - "Do not implement."
+      - "先頭3件切詰めやquestion text matchingなどの脆い推測変換を承認しない。"
+      - "repasoのチップAPI fallbackを残した設計を承認しない。"
+      - "既存dirty差分を混在commitしない。"
+    expected_output:
+      - "architecture decision"
+      - "old/new schema and migration policy"
+      - "exact Worker objective"
+      - "allowed_files across both repos"
+      - "verify and stop_if"
+    receipt:
+      result: done
+      summary: "PM Judge fallbackで、patch/mergedの単一正本をsuggestedQuestionDetailsByChoiceに固定した。各entryは0-based choiceIndexと0〜3件のquestion/answerを持ち、0件はentry省略で表す。Firestore公開ではisChoiceOnly=falseの対象docだけへ既存flat suggestedQuestionDetailsと派生suggestedQuestionsを投影し、isChoiceOnly=trueには保存しない。旧flat patchはsplit docへ推測移行せず補足fieldをomitし、新規保存時は旧flat二重正本を除去する。repasoは保存済みdetailだけを最大3件表示し、チップに回答がなければAPIへfallbackしない。自由入力のAPI送信は維持する。"
+      decision: approve
+      evidence:
+        - "T001 receipt"
+        - docs/goals/per-choice-saved-supplementary-questions/goal.md
+        - /Users/yuki/StudioProjects/repaso/docs/architecture/e2e_test_policy.md
+        - /Users/yuki/StudioProjects/repaso/docs/architecture/e2e_test_requirements_matrix.md
+      architecture_decision:
+        - "patch and merged SSOT: suggestedQuestionDetailsByChoice = [{choiceIndex, items:[{question, answer}]}]"
+        - "choiceIndex is zero-based and unique; items are non-empty, unique by question, and at most 3; missing entry means 0"
+        - "suggestedQuestions is derived output only, never an authored patch SSOT"
+        - "split conversion resolves public choices deterministically from questionType/correct and only projects the matching entry into isChoiceOnly=false docs"
+        - "legacy flat data is never copied, truncated, or question-text matched into choices; split output safely omits it until explicit regeneration"
+        - "repaso displays only valid saved details and chip taps are local readback only; free input remains the sole Vertex AI path"
+      scope:
+        - "true_false, flash_card, group_choice split publication paths"
+        - "candidate generation, patch saving, merge/minimal materialization, readiness/schema validation, conversion, review UI, repaso display"
+        - "existing non-split publication behavior is not heuristically remapped in this tranche"
+      worker_objective: "Implement one vertical slice across exam_scraper and repaso: generate and validate per-choice saved supplementary Q&A, save it as the only patch authority, project only matching non-choice-only documents at Firestore conversion, make review UI legible, and ensure repaso chips never call Vertex AI while free input still does."
+      stop_if:
+        - "A required source file is outside allowed_files"
+        - "An existing dirty hunk overlaps the required change"
+        - "A legacy flat record would need semantic guessing to migrate"
+        - "00_source or production Firestore mutation is required"
+        - "The same verification failure repeats twice"
+      note_needed: false
+      harness: codex
+      fallback: "Dedicated goal_judge timed out once and was interrupted; PM used the Scout evidence and project E2E policy to make this bounded architecture decision."
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "Judgeが確定した最大安全な縦断sliceとして、選択肢別保存回答をexam_scraperからrepasoまで実装・検証する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/prompt/02b_prompt_prepare_law_context.md"
+      - "/Users/yuki/development/exam_scraper/prompt/03b_prompt_audit_current_law_and_patch.md"
+      - "/Users/yuki/development/exam_scraper/scripts/common/suggested_question_contract.py"
+      - "/Users/yuki/development/exam_scraper/scripts/common/repaso_firestore_schema.py"
+      - "/Users/yuki/development/exam_scraper/scripts/merge/patch_views.py"
+      - "/Users/yuki/development/exam_scraper/scripts/fix/materialize_minimal_patch.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/audit_gas_shunin_goal_readiness.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/check_explanation_patch_coverage.py"
+      - "/Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/explanation_quality.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/law_audit_contract.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/prompt_builder.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_bank/question_bank.py"
+      - "/Users/yuki/development/exam_scraper/tests/qualification_run_test_support.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_explanation_quality.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_law_audit_sidecar_contract.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_upload_questions_to_firestore.py"
+      - "/Users/yuki/StudioProjects/repaso/lib/features/answer/application/answer_explanation_prompt_suggestions.dart"
+      - "/Users/yuki/StudioProjects/repaso/lib/features/answer/application/answer_explanation_prompt_view_state.dart"
+      - "/Users/yuki/StudioProjects/repaso/lib/features/answer/presentation/answer_explanation_page.dart"
+      - "/Users/yuki/StudioProjects/repaso/test/features/answer/answer_explanation_page_fake_ui_test.dart"
+      - "/Users/yuki/StudioProjects/repaso/docs/features/answer_explanation_reimplementation.md"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_progress_output_ui tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+      - "cd /Users/yuki/StudioProjects/repaso && dart format --output=none --set-exit-if-changed lib/features/answer/application/answer_explanation_prompt_suggestions.dart lib/features/answer/application/answer_explanation_prompt_view_state.dart lib/features/answer/presentation/answer_explanation_page.dart test/features/answer/answer_explanation_page_fake_ui_test.dart"
+      - "cd /Users/yuki/StudioProjects/repaso && flutter test test/features/answer/answer_explanation_page_fake_ui_test.dart"
+      - "cd /Users/yuki/StudioProjects/repaso && flutter analyze --no-pub"
+      - "cd /Users/yuki/StudioProjects/repaso && npm run check:flutter-architecture-boundaries"
+      - "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "00_source、既存questionId又は本番Firestoreの変更が必要になる。"
+      - "旧schemaを内容推測で誤変換する必要がある。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - /Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md
+        - /Users/yuki/development/exam_scraper/document/reference/question_field_contract.md
+        - /Users/yuki/development/exam_scraper/prompt/02b_prompt_prepare_law_context.md
+        - /Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md
+        - /Users/yuki/development/exam_scraper/prompt/03b_prompt_audit_current_law_and_patch.md
+        - /Users/yuki/development/exam_scraper/scripts/check/audit_gas_shunin_goal_readiness.py
+        - /Users/yuki/development/exam_scraper/scripts/check/check_explanation_patch_coverage.py
+        - /Users/yuki/development/exam_scraper/scripts/common/repaso_firestore_schema.py
+        - /Users/yuki/development/exam_scraper/scripts/common/suggested_question_contract.py
+        - /Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py
+        - /Users/yuki/development/exam_scraper/scripts/fix/materialize_minimal_patch.py
+        - /Users/yuki/development/exam_scraper/scripts/merge/patch_views.py
+        - /Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_patch_editor.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py
+        - /Users/yuki/development/exam_scraper/tools/question_bank/question_bank.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/explanation_quality.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/law_audit_contract.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/prompt_builder.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js
+        - /Users/yuki/StudioProjects/repaso/docs/features/answer_explanation_reimplementation.md
+        - /Users/yuki/StudioProjects/repaso/lib/features/answer/application/answer_explanation_prompt_suggestions.dart
+        - /Users/yuki/StudioProjects/repaso/lib/features/answer/application/answer_explanation_prompt_view_state.dart
+        - /Users/yuki/StudioProjects/repaso/lib/features/answer/presentation/answer_explanation_page.dart
+        - /Users/yuki/StudioProjects/repaso/test/features/answer/answer_explanation_page_fake_ui_test.dart
+      commands:
+        - cmd: "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_progress_output_ui tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore"
+          status: pass
+        - cmd: "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "cd /Users/yuki/development/exam_scraper && git diff --check"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && dart format --output=none --set-exit-if-changed lib/features/answer/application/answer_explanation_prompt_suggestions.dart lib/features/answer/application/answer_explanation_prompt_view_state.dart lib/features/answer/presentation/answer_explanation_page.dart test/features/answer/answer_explanation_page_fake_ui_test.dart"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && flutter test test/features/answer/answer_explanation_page_fake_ui_test.dart"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && flutter analyze --no-pub"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && npm run check:flutter-architecture-boundaries"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+          status: pass
+      summary: "既存のT003途中実装を継承して検証した。exam_scraperの対象79テスト、00_source不変性5,799件、両repoのdiff check、repasoの整形、64件のUIテスト、analyze、architecture boundary監査がすべて初回通過。追加編集、state.yaml変更、commit、push、本番Firestore変更は行っていない。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T004
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "T003の変更とGoalBuddy control filesだけを既存dirty差分から分離し、exam_scraper mainとrepaso masterへ別々にcommit/pushしてreadbackする"
+    inputs:
+      - "T003 receipt"
+      - "両repoのgit statusとdirty fingerprint"
+    constraints:
+      - "既存年度別patch、repasoの既存docs・ios・release/onboarding差分をstageしない。"
+      - "exam_scraperはmain、repasoはmaster以外へcommit/pushしない。"
+      - "force pushや履歴上書きを行わない。"
+      - "push後にoriginのcommit hashをreadbackする。"
+    expected_output:
+      - "exam_scraper commit hash and origin/main readback"
+      - "repaso commit hash and origin/master readback"
+      - "remaining dirty files are pre-existing and unstaged"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "両repoのreceiptとoracleを突き合わせ、選択肢別最大3件・保存回答・isChoiceOnly gating・チップAPI非呼出しが完全に成立したか監査する"
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Both repository diffs and commit/push results"
+    constraints:
+      - "Do not implement."
+      - "片方のrepoだけ、docsだけ、又はtest fixtureだけの成功を完了としない。"
+      - "回答欠落時のチップ又は既定チップが生成AIを呼ぶならrejectする。"
+      - "既存dirty差分が今回commitへ混入していたらrejectする。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle mapping"
+      - "missing evidence and next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

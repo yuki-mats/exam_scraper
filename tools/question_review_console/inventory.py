@@ -67,6 +67,7 @@ WATCH_SUBDIRS = (
 FIRESTORE_COMPARE_FIELDS = (
     "correctChoiceText",
     "explanationText",
+    "suggestedQuestionDetailsByChoice",
     "suggestedQuestions",
     "suggestedQuestionDetails",
     "lawReferences",

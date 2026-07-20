@@ -159,8 +159,9 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
 
         self.assertEqual(source_before, source_after)
         self.assertEqual(explanation[0]["explanationText"], ["間違い。新", "正しい。新"])
-        self.assertEqual(explanation[0]["suggestedQuestions"], [])
-        self.assertEqual(explanation[0]["suggestedQuestionDetails"], [])
+        self.assertEqual(explanation[0]["suggestedQuestionDetailsByChoice"], [])
+        self.assertNotIn("suggestedQuestions", explanation[0])
+        self.assertNotIn("suggestedQuestionDetails", explanation[0])
         self.assertEqual(explanation[0]["question_url"], "https://example.test/q1")
         self.assertEqual(explanation[0]["sourceQuestionKey"], "sample:2026:q1")
         self.assertEqual(
@@ -191,6 +192,34 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
                 "hash",
             )
         self.assertTrue(context.exception.codex_required)
+
+    def test_rejects_more_than_three_saved_answers_for_one_choice(self):
+        editor = PatchEditor(Path.cwd())
+        question = {
+            "stateHash": "hash",
+            "projected": {
+                "questionType": "true_false",
+                "choiceTextList": ["A"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。旧"],
+            },
+        }
+        items = [
+            {"question": f"質問{index}", "answer": f"回答{index}"}
+            for index in range(4)
+        ]
+
+        with self.assertRaisesRegex(DirectEditError, "最大3件"):
+            editor.preview(
+                question,
+                {
+                    "suggestedQuestionDetailsByChoice": [
+                        {"choiceIndex": 0, "items": items}
+                    ]
+                },
+                "",
+                "hash",
+            )
 
     def test_multi_file_save_rolls_back_every_patch_when_second_write_fails(self):
         with tempfile.TemporaryDirectory() as directory:

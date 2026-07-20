@@ -17,6 +17,10 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.question_identity import review_question_id
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from scripts.common.suggested_question_contract import (
+    public_choice_indexes,
+    validation_errors as suggested_question_validation_errors,
+)
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
     has_non_empty_law_references,
@@ -29,8 +33,7 @@ from tools.question_review_console.law_audit_quality import (
 
 REQUIRED_FIELDS = [
     "explanationText",
-    "suggestedQuestions",
-    "suggestedQuestionDetails",
+    "suggestedQuestionDetailsByChoice",
     "original_question_id",
     "question_url",
 ]
@@ -70,49 +73,25 @@ def get_question_identity(question: Dict[str, Any]) -> Any:
 
 def validate_suggested_question_details(
     *,
-    suggested_questions: Any,
-    suggested_question_details: Any,
+    suggested_question_details_by_choice: Any,
+    question_type: Any,
+    correct_choices: Any,
+    choice_count: int,
     index: int,
     errors: List[str],
 ) -> None:
-    if not isinstance(suggested_question_details, list):
-        errors.append(f"index {index}: suggestedQuestionDetails must be list[object]")
-        return
-    if not isinstance(suggested_questions, list):
-        errors.append(
-            f"index {index}: suggestedQuestionDetails requires suggestedQuestions to be list[str]"
+    errors.extend(
+        f"index {index}: {issue}"
+        for issue in suggested_question_validation_errors(
+            suggested_question_details_by_choice,
+            choice_count=choice_count,
+            allowed_choice_indexes=public_choice_indexes(
+                question_type,
+                correct_choices,
+                choice_count,
+            ),
         )
-        return
-    if len(suggested_question_details) != len(suggested_questions):
-        errors.append(
-            "index {}: suggestedQuestionDetails length mismatch (questions={} details={})".format(
-                index,
-                len(suggested_questions),
-                len(suggested_question_details),
-            )
-        )
-        return
-
-    for detail_index, detail in enumerate(suggested_question_details):
-        if not isinstance(detail, dict):
-            errors.append(
-                f"index {index}: suggestedQuestionDetails[{detail_index}] must be object"
-            )
-            continue
-        question = detail.get("question")
-        answer = detail.get("answer")
-        if not isinstance(question, str) or not question.strip():
-            errors.append(
-                f"index {index}: suggestedQuestionDetails[{detail_index}].question must be non-empty string"
-            )
-        elif question != suggested_questions[detail_index]:
-            errors.append(
-                f"index {index}: suggestedQuestionDetails[{detail_index}].question must match suggestedQuestions[{detail_index}]"
-            )
-        if not isinstance(answer, str) or not answer.strip():
-            errors.append(
-                f"index {index}: suggestedQuestionDetails[{detail_index}].answer must be non-empty string"
-            )
+    )
 
 
 def validate_law_references_shape(
@@ -345,16 +324,13 @@ def compare_entries(
             ):
                 errors.append(f"index {idx}: {issue}")
 
-        suggested_questions = patch.get("suggestedQuestions")
-        if not isinstance(suggested_questions, list) or any(
-            not isinstance(question, str) or not question.strip()
-            for question in suggested_questions
-        ):
-            errors.append(f"index {idx}: suggestedQuestions must be non-empty list[str]")
-
         validate_suggested_question_details(
-            suggested_questions=suggested_questions,
-            suggested_question_details=patch.get("suggestedQuestionDetails"),
+            suggested_question_details_by_choice=patch.get(
+                "suggestedQuestionDetailsByChoice"
+            ),
+            question_type=source_question_type,
+            correct_choices=src.get("correctChoiceText"),
+            choice_count=len(choices) if isinstance(choices, list) else 0,
             index=idx,
             errors=errors,
         )

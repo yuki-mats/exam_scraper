@@ -26,6 +26,8 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertEqual(len(targets), 1)
         self.assertEqual(targets[0].target_id, "q1:explanation")
         self.assertIn("explanationText", targets[0].allowed_fields)
+        self.assertIn("suggestedQuestionDetailsByChoice", targets[0].allowed_fields)
+        self.assertNotIn("suggestedQuestions", targets[0].allowed_fields)
         self.assertNotIn("questionBodyText", targets[0].allowed_fields)
 
     def test_parses_only_allowed_problem_fields(self):
@@ -154,6 +156,60 @@ class QuestionCandidateTest(unittest.TestCase):
         )
 
         self.assertEqual(errors, ())
+
+    def test_content_validator_rejects_choice_only_suggestions(self):
+        targets = candidate_targets("q1", "explanation", self.plan())
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "補足を作成した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:explanation",
+                                "setFields": [
+                                    {
+                                        "field": "suggestedQuestionDetailsByChoice",
+                                        "valueJson": json.dumps(
+                                            [
+                                                {
+                                                    "choiceIndex": 1,
+                                                    "items": [
+                                                        {
+                                                            "question": "なぜ？",
+                                                            "answer": "根拠。",
+                                                        }
+                                                    ],
+                                                }
+                                            ],
+                                            ensure_ascii=False,
+                                        ),
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "flash_card",
+                "choiceTextList": ["正答", "誤答"],
+                "correctChoiceText": ["正しい", "間違い"],
+            },
+        )
+
+        self.assertIn("isChoiceOnly", errors[0])
 
     def test_law_audit_schema_version_is_not_exposed_to_model(self):
         plan = {
