@@ -5,7 +5,7 @@ goal:
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
   tranche: "continuous execution: exam_scraperの選択肢別patch生成からrepasoの保存回答表示までを一つの契約へ収束させる"
-  status: active
+  status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T007
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -361,7 +361,7 @@ tasks:
   - id: T007
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T005の5選択肢oracle testと更新済みGoalBuddy stateだけをexam_scraper mainへcommit/pushし、origin hashをreadbackする"
     inputs:
@@ -374,7 +374,22 @@ tasks:
     expected_output:
       - "commit hash and origin/main readback"
       - "remaining dirty files are pre-existing and unstaged"
-    receipt: null
+    receipt:
+      result: done
+      summary: "T005の5選択肢oracle testと更新済みstate.yamlだけをexam_scraper mainへ7ae50b61bとしてcommit/pushした。ls-remoteでorigin/mainとの完全一致を確認し、年度別patchは未stageのまま保持した。"
+      commands:
+        - cmd: "git commit -m 'test: prove five-choice supplementary projection'"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git rev-parse HEAD and git ls-remote origin refs/heads/main"
+          status: pass
+      evidence:
+        - "exam_scraper HEAD=origin/main=7ae50b61b73f700f5420c2bca27c1dfad8027293"
+        - "commit scope: state.yaml and tests/test_explanation_patch_pipeline.py only"
+        - "git diff --cached --name-only is empty"
+        - "remaining status contains only the pre-existing gas-shunin output patches"
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
@@ -428,7 +443,7 @@ tasks:
   - id: T006
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "T005の5選択肢readbackを含む全receiptとorigin readbackをoracleへ再対応付けし、full_outcome_completeを最終判定する"
     inputs:
@@ -439,16 +454,62 @@ tasks:
     constraints:
       - "Do not implement."
       - "5選択肢fixture、isChoiceOnly gating、チップAPI非呼出し、自由入力API維持の一つでも証拠が欠ければrejectする。"
-      - "T005とfinal stateのcommit/push前はfull outcome completeとしない。"
+      - "T005のcommit/push前はfull outcome completeとしない。最終receiptを反映したstate.yamlは完了処理で別途commit/pushする。"
     expected_output:
       - "complete | not_complete"
       - "full_outcome_complete: true | false"
       - "oracle mapping"
       - "missing evidence and next task if not complete"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      rationale: "patchの選択肢別question/answer正本、validator、merge、Firestore投影、レビューUI、repasoの保存回答チップを一つの契約へ収束させた。5肢fixtureは各true_false documentの専用0〜3件とflash_cardのisChoiceOnly=true除外を直接readbackし、repasoは保存チップ0 request・自由入力1 requestを証明する。全oracle suite、00_source不変性、両repoの分離commit/pushとorigin readbackが現在時点で通り、元依頼の未完了要件はない。"
+      worker_package: null
+      evidence:
+        - "exam_scraper current oracle: 81 tests passed; five-choice true_false counts 0,1,2,3,1 and five-choice flash_card choice-only omission are asserted"
+        - "00_source immutability: 5,799 files unchanged"
+        - "repaso current oracle: 64 widget tests passed; saved chip requests=0, answerless legacy and fourth chip hidden, free input requests=1"
+        - "repaso format: 4 files, 0 changed; flutter analyze: no issues; architecture boundary audit: baseline preserved"
+        - "git diff --check passed in both repositories"
+        - "exam_scraper implementation commit 3e2551f6d and oracle-proof commit 7ae50b61b were pushed; origin/main=7ae50b61b73f700f5420c2bca27c1dfad8027293"
+        - "repaso implementation commit b1fed2fb was pushed; origin/master=b1fed2fbf7138b3b567b906d74d5fb48fe1ca6f2"
+        - "commit scopes exclude the pre-existing gas-shunin output patches and repaso docs/ios/onboarding changes"
+        - "00_source, existing questionId and production Firestore were not modified"
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks: []
+      missing_evidence: []
+      required_board_updates:
+        - "Set goal.status to done and active_task to null"
+        - "Commit and push the final state.yaml receipt"
+      harness: codex
+      fallback: "Dedicated goal_judge timed out once and was interrupted; PM reran the complete oracle suite and performed the final read-only audit."
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass
+    task: T006
+    commands:
+      - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_progress_output_ui tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore"
+        status: pass
+        summary: "81 tests, including five-choice projection readback"
+      - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+        status: pass
+        summary: "5,799 source files unchanged"
+      - cmd: "flutter test test/features/answer/answer_explanation_page_fake_ui_test.dart"
+        status: pass
+        summary: "64 widget tests"
+      - cmd: "dart format --output=none --set-exit-if-changed <four scoped Dart files>"
+        status: pass
+        summary: "4 files, 0 changed"
+      - cmd: "flutter analyze --no-pub"
+        status: pass
+        summary: "No issues found"
+      - cmd: "npm run check:flutter-architecture-boundaries"
+        status: pass
+        summary: "All boundary counts match baseline"
+      - cmd: "git diff --check in both repositories"
+        status: pass
+      - cmd: "check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
+        status: pass
