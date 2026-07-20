@@ -14,6 +14,7 @@ from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
     _source_binding_accepts_identity,
+    _structured_candidate_stage_context,
 )
 
 
@@ -45,6 +46,61 @@ class SourceBindingAliasTests(unittest.TestCase):
                     "sourceRecordRef": "source.json#1",
                 },
             )
+        )
+
+
+class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_question_set_context_includes_options_and_no_op_rule(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            category = root / "output" / "sample" / "category" / "category.json"
+            category.parent.mkdir(parents=True)
+            category.write_text(
+                json.dumps(
+                    {
+                        "questionSets": [
+                            {
+                                "questionSetId": "set-1",
+                                "name": "基礎理論",
+                                "folderId": "folder-1",
+                                "isDeleted": False,
+                            },
+                            {
+                                "questionSetId": "set-old",
+                                "name": "旧分類",
+                                "folderId": "folder-1",
+                                "isDeleted": True,
+                            },
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            context = _structured_candidate_stage_context(
+                root, "sample", "question_set"
+            )
+
+        self.assertEqual(
+            context["allowedQuestionSets"],
+            [
+                {
+                    "questionSetId": "set-1",
+                    "name": "基礎理論",
+                    "folderId": "folder-1",
+                }
+            ],
+        )
+        self.assertTrue(any("updates=[]" in rule for rule in context["rules"]))
+        self.assertTrue(
+            any("choiceQuestionSetIds" in rule for rule in context["rules"])
+        )
+
+    def test_other_stage_context_is_empty(self):
+        self.assertEqual(
+            _structured_candidate_stage_context(Path("."), "sample", "explanation"),
+            {},
         )
 
 

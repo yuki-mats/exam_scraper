@@ -513,6 +513,23 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertIn("correctChoiceText", required["fields"])
         self.assertNotIn("convert_stale", {issue["code"] for issue in issues})
 
+    def test_question_level_explanation_is_not_compared_with_first_choice_verdict(self):
+        projected = {
+            "questionBodyText": "最も近い値はどれか。",
+            "choiceTextList": ["10", "20"],
+            "correctChoiceText": ["不正解", "正解"],
+            "explanationText": ["正解は20である。計算式から求める。"],
+            "questionType": "group_choice",
+            "isLawRelated": False,
+        }
+
+        issues = detect_issues(projected, projected, [], [], [])
+
+        self.assertNotIn(
+            "answer_explanation_mismatch",
+            {issue["code"] for issue in issues},
+        )
+
     def test_merge_comparison_treats_verdict_synonyms_as_equal(self):
         projected = {
             "questionBodyText": "正しいものはどれか。",

@@ -696,6 +696,7 @@ def _structured_candidate_prompt(
     records_by_question: Mapping[str, Mapping[str, Any]],
     candidate_targets_by_question: Mapping[str, tuple[CandidateTarget, ...]],
     feedback_by_question: Mapping[str, list[Mapping[str, Any]]],
+    stage_context: Mapping[str, Any] | None = None,
 ) -> str:
     questions: list[dict[str, Any]] = []
     for target in targets:
@@ -716,12 +717,23 @@ def _structured_candidate_prompt(
                 ),
             }
         )
+    context_lines = (
+        [
+            "# 工程固有コンテキスト",
+            "",
+            json.dumps(stage_context, ensure_ascii=False, separators=(",", ":")),
+            "",
+        ]
+        if stage_context
+        else []
+    )
     return "\n".join(
         [
             "# 工程の品質規則",
             "",
             stage_prompt.rstrip(),
             "",
+            *context_lines,
             "# 構造化候補V2（この契約を最優先する）",
             "",
             "各問題を独立に判断し、指定されたallowedFieldsだけの更新候補を返す。",
@@ -737,6 +749,48 @@ def _structured_candidate_prompt(
             "",
         ]
     )
+
+
+def _structured_candidate_stage_context(
+    repo_root: Path,
+    qualification: str,
+    stage_id: str,
+) -> dict[str, Any]:
+    if stage_id != "question_set":
+        return {}
+    category_path = (
+        repo_root / "output" / qualification / "category" / "category.json"
+    )
+    try:
+        payload = json.loads(category_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise QualificationRunError(
+            f"04 問題集のcategory.jsonを読み込めません: {exc}"
+        ) from exc
+    question_sets = payload.get("questionSets") if isinstance(payload, Mapping) else None
+    if not isinstance(question_sets, list):
+        raise QualificationRunError(
+            "04 問題集のcategory.jsonにquestionSetsがありません。"
+        )
+    options = [
+        {
+            "questionSetId": str(item.get("questionSetId") or ""),
+            "name": str(item.get("name") or ""),
+            "folderId": str(item.get("folderId") or ""),
+        }
+        for item in question_sets
+        if isinstance(item, Mapping)
+        and str(item.get("questionSetId") or "")
+        and item.get("isDeleted") is not True
+    ]
+    return {
+        "rules": [
+            "questionSetIdだけを判定対象とし、questionSetIdListとchoiceQuestionSetIdsの新規生成は要求しない。",
+            "現在のquestionSetIdが問題の主題に最適で変更不要なら、status=candidate、updates=[]で完了する。",
+            "変更する場合はallowedQuestionSetsにあるquestionSetIdだけを設定する。",
+        ],
+        "allowedQuestionSets": options,
+    }
 
 
 def _structured_candidate_inputs(
@@ -6190,6 +6244,11 @@ class QualificationRunCoordinator:
                 records_by_question=records_by_question,
                 candidate_targets_by_question=candidate_targets_by_question,
                 feedback_by_question=feedback_by_question,
+                stage_context=_structured_candidate_stage_context(
+                    self.repo_root,
+                    qualification,
+                    stage_id,
+                ),
             )
             child = self.store.create(
                 batch_plan,

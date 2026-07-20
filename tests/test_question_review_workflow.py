@@ -124,7 +124,7 @@ def record_law_audit_version(root: Path, group, version: str, *, questions=None)
         list(questions or group["questions"]),
         {
             "id": "law_audit",
-            "policyVersion": "2.0",
+            "policyVersion": "3.0",
             "policyFingerprint": "law-audit-policy",
         },
         run_id="law-audit-run" if version != "0.0" else None,
@@ -402,7 +402,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "2.0")
+            record_law_audit_version(root, group, "3.0")
             commands = []
 
             def run(command, *, cwd, env, emit):
@@ -449,7 +449,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "2.0")
+            record_law_audit_version(root, group, "3.0")
             projected = group["questions"][0]["projected"]
             projected["correctChoiceText"] = ["間違い"]
             commands = []
@@ -477,7 +477,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "2.0")
+            record_law_audit_version(root, group, "3.0")
             group["questions"][0]["projected"].pop("lawRevisionFacts")
             synchronizer = ArtifactSynchronizer(
                 root,
@@ -536,7 +536,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
                 }
             )
             group["questions"].append(legacy)
-            record_law_audit_version(root, group, "2.0", questions=[modern])
+            record_law_audit_version(root, group, "3.0", questions=[modern])
             record_law_audit_version(root, group, "0.0", questions=[legacy])
             commands = []
 
@@ -839,6 +839,20 @@ class JobManagerTests(unittest.TestCase):
 
 
 class WorkflowUiContractTests(unittest.TestCase):
+    def test_publication_uses_one_nonempty_common_explanation(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        publication = javascript[
+            javascript.index("function publicationContent") :
+            javascript.index("function renderPublicationStatus")
+        ]
+
+        self.assertIn("usesQuestionLevelExplanation(projected.questionType)", publication)
+        self.assertIn("documentExplanations.find((value) => value)", publication)
+        self.assertIn("projected.explanationText?.[0]", publication)
+
     def test_detail_choice_tap_reveals_only_that_choices_saved_suggestions(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (

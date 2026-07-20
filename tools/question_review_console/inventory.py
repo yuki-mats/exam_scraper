@@ -49,7 +49,10 @@ from tools.question_review_console.patch_validation import (
     projected_required_warnings,
     upload_document_required_warnings,
 )
-from scripts.common.explanation_contract import public_explanation_text
+from scripts.common.explanation_contract import (
+    public_explanation_text,
+    uses_question_level_explanation,
+)
 
 
 SOURCE_SUBDIR = "00_source"
@@ -386,7 +389,11 @@ def detect_issues(
             [str(warning.get("field") or "lawRevisionFacts")],
         )
 
-    if isinstance(correctness, list) and isinstance(explanations, list):
+    if (
+        isinstance(correctness, list)
+        and isinstance(explanations, list)
+        and not uses_question_level_explanation(projected.get("questionType"))
+    ):
         mismatch_indexes = [
             index
             for index, (verdict, explanation) in enumerate(zip(correctness, explanations))

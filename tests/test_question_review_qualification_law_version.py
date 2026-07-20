@@ -408,7 +408,7 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
 
         with self.assertRaisesRegex(
             QualificationRunError,
-            "law-related suggestedQuestions.*concrete law evidence anchor",
+            "concrete law evidence anchor",
         ):
             QualificationRunCoordinator._validate_law_audit_quality([question])
 

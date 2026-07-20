@@ -3226,7 +3226,9 @@ function renderQueuePublicationSummary(question) {
     element(
       "span",
       "",
-      `解説 ${Number(summary.explanationCount || 0)}/${Number(summary.choiceCount || question.choiceCount || 0)}`,
+      `解説 ${Number(summary.explanationCount || 0)}/${Number(
+        summary.explanationExpectedCount ?? summary.choiceCount ?? question.choiceCount ?? 0
+      )}`,
     ),
   );
   return node;
@@ -3624,6 +3626,15 @@ function publicationContent(question) {
   }
   const documents = question.uploadReadyDocs;
   const shared = documents[0] || {};
+  const documentExplanations = documents.map(
+    (document) => String(document.explanationText || "").trim(),
+  );
+  const explanationText = usesQuestionLevelExplanation(projected.questionType)
+    ? [
+        documentExplanations.find((value) => value)
+          || String(projected.explanationText?.[0] || "").trim(),
+      ]
+    : documentExplanations;
   return {
     ready: true,
     record: {
@@ -3636,7 +3647,7 @@ function publicationContent(question) {
           || "",
       ),
       correctChoiceText: documents.map((document) => document.correctChoiceText || ""),
-      explanationText: documents.map((document) => document.explanationText || ""),
+      explanationText,
       suggestedQuestionDetailsByChoice: documents.flatMap((document, index) => {
         const items = Array.isArray(document.suggestedQuestionDetails)
           ? document.suggestedQuestionDetails

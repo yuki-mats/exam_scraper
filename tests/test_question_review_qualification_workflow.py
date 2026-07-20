@@ -541,7 +541,10 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertEqual(unrecorded["targetCount"], 1)
         self.assertEqual(legacy["targetCount"], 1)
-        self.assertEqual(legacy["policyVersions"], {"question_type": "1.0"})
+        self.assertEqual(
+            legacy["policyVersions"],
+            {"question_type": stage["policyVersion"]},
+        )
         self.assertEqual(current["targetCount"], 0)
 
     def test_group_refresh_targets_only_the_selected_year(self):
@@ -1141,6 +1144,9 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertIn("Codex組み込みweb検索でe-Gov又は所管官庁", prompt)
         self.assertIn("21_explanationText_added", prompt)
+        self.assertIn("suggestedQuestionDetailsByChoiceは0〜3件", prompt)
+        self.assertIn("法令名・条文を機械的に文頭の主語にしない", prompt)
+        self.assertIn("examTimeDecisionとcurrentLawDecision", prompt)
         self.assertNotIn("## 問題文", prompt)
 
 

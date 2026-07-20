@@ -57,6 +57,25 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertIn("choiceTextListと必ず同じ件数", rule["description"])
         self.assertEqual(rule["items"]["allowedValues"], ["正解", "不正解"])
 
+    def test_law_audit_target_exposes_required_choice_arrays(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026_law_revision_audit.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        rules = audit.prompt_value()["fieldRules"]
+
+        self.assertIn("examTimeDecision", audit.allowed_fields)
+        self.assertIn("currentLawDecision", audit.allowed_fields)
+        self.assertIn("choiceTextListと必ず同じ件数", rules["lawReferences"]["description"])
+        self.assertIn("choiceTextListと必ず同じ件数", rules["examTimeDecision"]["description"])
+        self.assertIn("choiceTextListと必ず同じ件数", rules["currentLawDecision"]["description"])
+
     def test_parses_only_allowed_problem_fields(self):
         targets = candidate_targets("q1", "explanation", self.plan())
         payload = {
@@ -265,7 +284,7 @@ class QuestionCandidateTest(unittest.TestCase):
         )
         audit_rules = audit_target.prompt_value()["fieldRules"]
         self.assertIn(
-            "少なくとも1件",
+            "件数を満たすために作らない",
             audit_rules["suggestedQuestionDetailsByChoice"]["description"],
         )
         self.assertIn(

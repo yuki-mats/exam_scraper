@@ -549,7 +549,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(errors, [])
         self.assertEqual(warnings, [])
 
-    def test_compare_entries_rejects_generic_law_related_suggestions_when_utilization_required(self) -> None:
+    def test_compare_entries_rejects_law_content_without_public_anchor(self) -> None:
         source_questions = [
             {
                 "original_question_id": "q123",
@@ -581,10 +581,104 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         )
 
         self.assertTrue(
-            any("suggestedQuestionDetailsByChoice must include" in error for error in errors)
-        )
-        self.assertTrue(
             any("do not mention any concrete law evidence anchor" in error for error in errors)
+        )
+
+    def test_compare_entries_accepts_natural_law_follow_up_when_explanation_has_anchor(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。建築基準法第6条の要件に該当する。"],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("確認申請が必要なのはどのような場合ですか？", "対象建築物の用途や規模などの要件に該当する場合です。")
+                ),
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts(),
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertEqual(errors, [])
+
+    def test_compare_entries_accepts_named_public_standard_as_anchor(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。道路橋示方書に準拠して耐震性を評価する。"],
+                "suggestedQuestionDetailsByChoice": [],
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts(),
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertEqual(errors, [])
+
+    def test_nested_suggestions_do_not_fall_back_to_legacy_flat_law_text(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。条件に合う。"],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    ("何を確認しますか？", "対象条件を確認します。")
+                ),
+                "suggestedQuestions": ["建築基準法第6条では何を確認しますか？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "建築基準法第6条では何を確認しますか？",
+                        "answer": "建築基準法第6条の要件を確認します。",
+                    }
+                ],
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts(),
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertTrue(
+            any("concrete law evidence anchor" in error for error in errors)
         )
 
     def test_compare_entries_requires_current_and_exam_time_words_for_current_law_update(self) -> None:
@@ -620,9 +714,6 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
 
         self.assertTrue(
             any("must distinguish current law from exam-time handling" in error for error in errors)
-        )
-        self.assertTrue(
-            any("must ask about current law and exam-time difference" in error for error in errors)
         )
 
     def test_convert_true_false_to_firestore_attaches_choice_law_references(self) -> None:

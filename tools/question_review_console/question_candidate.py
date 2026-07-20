@@ -91,6 +91,8 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "holdReason",
             "reviewNotes",
             "evidenceSummary",
+            "examTimeDecision",
+            "currentLawDecision",
         }
     ),
 }
@@ -185,9 +187,26 @@ _LAW_AUDIT_SUGGESTED_QUESTION_RULE: dict[str, Any] = {
     **_SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE,
     "description": (
         _SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE["description"]
-        + " isLawRelated=trueでは少なくとも1件を作り、question又はanswerに"
-        "検証済みlawReferencesと対応する具体的な法令名、条項、別表又は基準を入れる。"
+        + " isLawRelated=trueでも件数を満たすために作らない。作る場合は、"
+        "検証済みlawReferencesの事実だけを使い、基本解説で示した根拠と矛盾させない。"
     ),
+}
+
+_CHOICE_DECISION_RULE: dict[str, Any] = {
+    "type": "array",
+    "description": (
+        "choiceTextListと必ず同じ件数にし、選択肢順の非空stringを入れる。"
+    ),
+    "items": {"type": "string", "minLength": 1},
+}
+
+_LAW_REFERENCES_RULE: dict[str, Any] = {
+    "type": "array",
+    "description": (
+        "choiceTextListと必ず同じ件数にし、各要素をその選択肢の根拠配列にする。"
+        "変更不要な選択肢の検証済み根拠は保持する。"
+    ),
+    "items": {"type": "array"},
 }
 
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
@@ -199,6 +218,9 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         "explanationText": _LAW_AUDIT_EXPLANATION_TEXT_RULE,
         "suggestedQuestionDetailsByChoice": _LAW_AUDIT_SUGGESTED_QUESTION_RULE,
         "correctChoiceText": _CORRECT_CHOICE_TEXT_RULE,
+        "lawReferences": _LAW_REFERENCES_RULE,
+        "examTimeDecision": _CHOICE_DECISION_RULE,
+        "currentLawDecision": _CHOICE_DECISION_RULE,
         "auditStatus": {
             "type": "string",
             "allowedValues": [

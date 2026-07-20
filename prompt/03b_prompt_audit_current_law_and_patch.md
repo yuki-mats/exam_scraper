@@ -102,7 +102,8 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - 複数選択肢では`lawRevisionFacts`を選択肢順の配列とし、各`current.correctChoiceText`をトップレベルの同じ選択肢と一致させる。
 - `lawReferences`の`verified`は、法令名、`lawId`、条番号まで確認できた場合だけ使う。現行法は`current_basis`、確認済みの出題時法令は`exam_time_basis`とする。
 - 長い条文本文を保存せず、locatorとhashを残す。
-- 正誤を変更した場合は、現行法に合わせたことと出題時正答との関係を`explanationText`で受験者へ明示し、対応する`suggestedQuestionDetailsByChoice`も更新する。
+- `isLawRelated=true`では、正誤変更の有無にかかわらず、`explanationText`に検証済みの法令名、条項、別表又は公的基準名を明記する。正誤を変更した場合は、現行法に合わせたことと出題時正答との関係も受験者へ明示する。
+- `suggestedQuestionDetailsByChoice`は0〜3件とし、件数を満たすために作らない。保存する場合は検証済み根拠の事実だけを使い、正誤変更又は根拠との不整合があれば同時に更新する。
 - 既存の02b・03成果物と競合する場合は、03bで確認した根拠、基準日、差分事実を優先する。
 
 ## 完了条件

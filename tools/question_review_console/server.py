@@ -15,6 +15,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from scripts.common.explanation_contract import expected_explanation_count
 from tools.question_review_console.firestore_readback import (
     PRODUCTION_PROJECT_ID,
     FirestoreReadback,
@@ -1549,11 +1550,19 @@ class QuestionReviewApplication:
                 list(raw_explanations) if isinstance(raw_explanations, list) else []
             )
             content_source = "projected"
+        choice_count = int(question.get("choiceCount") or len(verdicts))
+        question_type = projected.get("questionType")
+        if not question_type and upload_documents:
+            question_type = upload_documents[0].get("questionType")
         summary["publicationSummary"] = {
             "contentSource": content_source,
             "verdicts": [str(value or "") for value in verdicts],
             "explanationCount": sum(bool(str(value or "").strip()) for value in explanations),
-            "choiceCount": int(question.get("choiceCount") or len(verdicts)),
+            "explanationExpectedCount": expected_explanation_count(
+                question_type,
+                choice_count,
+            ),
+            "choiceCount": choice_count,
         }
         body = str(summary.get("body") or "")
         summary["body"] = body if len(body) <= 280 else body[:279] + "…"

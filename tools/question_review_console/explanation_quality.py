@@ -17,31 +17,11 @@ LAW_AS_SENTENCE_SUBJECT = re.compile(
 )
 POINT_IS_WRONG = re.compile(r"(?:点|ところ)が誤り(?:である)?(?:。|$)")
 VERDICT_PREFIX = re.compile(r"^(正しい|間違い)。")
-
-LAW_CONTEXT_KEYWORDS = (
-    "現行法",
-    "出題当時",
-    "当時",
-    "現在",
-    "法",
-    "条",
-    "項",
-    "号",
-    "政令",
-    "省令",
-    "規則",
-    "告示",
-    "基準",
-    "制度",
-    "定義",
-    "要件",
-    "義務",
-    "手続",
-    "届出",
-    "許可",
-    "確認",
-    "改正",
+PUBLIC_EVIDENCE_TITLE = re.compile(
+    r"[一-龥ぁ-んァ-ヶA-Za-z0-9・（）()]{2,40}"
+    r"(?:法|省令|規則|告示|示方書|指針|要領)"
 )
+
 CURRENT_LAW_TERMS = ("現行法", "現在", "現行")
 EXAM_TIME_TERMS = (
     "出題当時",
@@ -169,23 +149,15 @@ def _law_evidence_anchors(patch: dict[str, Any]) -> list[str]:
 def _public_text_for_patch(patch: dict[str, Any]) -> str:
     parts: list[str] = []
     parts.extend(_iter_nested_strings(patch.get("explanationText")))
-    parts.extend(
-        _iter_nested_strings(patch.get("suggestedQuestionDetailsByChoice"))
-    )
+    if "suggestedQuestionDetailsByChoice" in patch:
+        parts.extend(
+            _iter_nested_strings(patch.get("suggestedQuestionDetailsByChoice"))
+        )
+    else:
+        # Firestore records expose only the derived flat compatibility fields.
+        parts.extend(_iter_nested_strings(patch.get("suggestedQuestions")))
+        parts.extend(_iter_nested_strings(patch.get("suggestedQuestionDetails")))
     return "\n".join(parts)
-
-
-def _suggested_question_items(patch: dict[str, Any]) -> list[dict[str, Any]]:
-    groups = patch.get("suggestedQuestionDetailsByChoice")
-    if not isinstance(groups, list):
-        return []
-    return [
-        item
-        for group in groups
-        if isinstance(group, dict) and isinstance(group.get("items"), list)
-        for item in group["items"]
-        if isinstance(item, dict)
-    ]
 
 
 def _contains_any(text: str, terms: tuple[str, ...] | list[str]) -> bool:
@@ -212,37 +184,16 @@ def law_evidence_utilization_issues(
     if statuses == {"hold"}:
         return errors
 
-    details = _suggested_question_items(patch)
-    question_text = "\n".join(
-        detail.get("question", "")
-        for detail in details
-        if isinstance(detail.get("question"), str)
-    )
-    answer_text = "\n".join(
-        detail.get("answer", "")
-        for detail in details
-        if isinstance(detail.get("answer"), str)
-    )
     public_text = _public_text_for_patch(patch)
-
-    if not _contains_any(question_text, LAW_CONTEXT_KEYWORDS):
-        errors.append(
-            "law-related suggestedQuestionDetailsByChoice must include at least one "
-            "law/context-specific question"
-        )
-
-    if not _contains_any(answer_text, LAW_CONTEXT_KEYWORDS):
-        errors.append(
-            "law-related suggestedQuestionDetailsByChoice answers must use "
-            "law/context evidence"
-        )
 
     anchors = _law_evidence_anchors(patch)
     normalized_public_text = _normalize_for_anchor_match(public_text)
-    if anchors and not any(
+    mentions_known_anchor = any(
         _normalize_for_anchor_match(anchor) in normalized_public_text
         for anchor in anchors
-    ):
+    )
+    mentions_named_public_source = bool(PUBLIC_EVIDENCE_TITLE.search(public_text))
+    if anchors and not (mentions_known_anchor or mentions_named_public_source):
         errors.append(
             "public explanation fields do not mention any concrete law "
             "evidence anchor"
@@ -255,14 +206,6 @@ def law_evidence_utilization_issues(
             errors.append(
                 "updated_to_current_law explanation must distinguish current "
                 "law from exam-time handling"
-            )
-        if not (
-            _contains_any(question_text, CURRENT_LAW_TERMS)
-            and _contains_any(question_text, EXAM_TIME_TERMS)
-        ):
-            errors.append(
-                "updated_to_current_law suggestedQuestionDetailsByChoice must ask about "
-                "current law and exam-time difference"
             )
     return errors
 

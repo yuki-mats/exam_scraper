@@ -288,9 +288,29 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(current["contentSource"], "upload_ready")
         self.assertEqual(current["verdicts"], ["正しい", "間違い"])
         self.assertEqual(current["explanationCount"], 1)
+        self.assertEqual(current["explanationExpectedCount"], 2)
         self.assertEqual(stale["contentSource"], "projected")
         self.assertEqual(stale["verdicts"], ["間違い", "間違い"])
         self.assertEqual(stale["explanationCount"], 2)
+        self.assertEqual(stale["explanationExpectedCount"], 2)
+
+    def test_question_summary_expects_one_common_group_choice_explanation(self):
+        question = {
+            "id": "question-1",
+            "body": "最も近い値はどれか。",
+            "choiceCount": 5,
+            "workflow": {"merge": "stale", "convert": "stale", "upload": "match"},
+            "projected": {
+                "questionType": "group_choice",
+                "correctChoiceText": ["不正解", "不正解", "不正解", "正解", "不正解"],
+                "explanationText": ["正解は80である。計算式から求める。"],
+            },
+        }
+
+        publication = QuestionReviewApplication._summary(question)["publicationSummary"]
+
+        self.assertEqual(publication["explanationCount"], 1)
+        self.assertEqual(publication["explanationExpectedCount"], 1)
 
     def test_question_summary_exposes_failed_delta_count_without_repeating_paths(self):
         question = {

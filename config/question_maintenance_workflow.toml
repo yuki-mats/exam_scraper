@@ -157,7 +157,8 @@ code = "03b"
 label = "現行法監査"
 purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定する"
 kind = "human"
-policy_version = "2.0"
+# 3.0: 選択肢別補足を正本として再監査し、公開解説の具体的な根拠表示を必須化する。
+policy_version = "3.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -165,7 +166,12 @@ qualification_document_patterns = [
 ]
 batch_selectable = true
 session_group = "law_audit"
-issue_fields = ["lawReferences", "lawRevisionFacts"]
+issue_fields = [
+  "lawReferences",
+  "lawRevisionFacts",
+  "explanationText",
+  "suggestedQuestionDetailsByChoice",
+]
 documents = [
   "prompt/03b_prompt_audit_current_law_and_patch.md",
   "document/operations/current_law_question_maintenance_workflow.md",

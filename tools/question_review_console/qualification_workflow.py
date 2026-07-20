@@ -1285,6 +1285,9 @@ class QualificationWorkflow:
                 [
                     "法令関連と確定した各問題では、正誤を変更しない場合もlawRevisionFacts.current.correctChoiceTextを省略しない。patchでは各選択肢と同じ順序・件数の判定を保存し、トップレベルcorrectChoiceText及び解説先頭と一致させる。",
                     "law_audit_metadata_incomplete又はlaw_audit_verdict_mismatchが残る法令関連問題をno-opで完了しない。法改正差分又は適用条文を確認できない場合は推測で補完せずholdへ戻す。",
+                    "hold以外の法令関連問題は、公開用explanationTextに検証済みlawReferencesと対応する具体的な法令名、条項又は別表を記載する。「正しい。燃焼器は……。この基準はガス事業法施行規則第202条に定められている。」のように、結論と内容を先に示し、法令名・条文を機械的に文頭の主語にしない。",
+                    "suggestedQuestionDetailsByChoiceは0〜3件とし、法令関連でも件数合わせのために作らない。必要な場合だけ、検証済み根拠と基本解説に整合する内容を作る。",
+                    "監査sidecarのexamTimeDecisionとcurrentLawDecisionは選択肢と同じ順序・件数の非空string配列とし、lawReferencesも選択肢と同じ件数の配列にする。",
                 ]
                 if "law_audit" in selected_stage_ids
                 else []
