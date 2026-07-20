@@ -30,6 +30,20 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertNotIn("suggestedQuestions", targets[0].allowed_fields)
         self.assertNotIn("questionBodyText", targets[0].allowed_fields)
 
+    def test_explanation_target_exposes_nested_supplement_contract(self):
+        target = candidate_targets("q1", "explanation", self.plan())[0]
+        rules = target.prompt_value()["fieldRules"]
+
+        self.assertIn("問題共通の1本", rules["explanationText"]["description"])
+        supplement = rules["suggestedQuestionDetailsByChoice"]
+        self.assertFalse(supplement["items"]["additionalProperties"])
+        self.assertEqual(
+            supplement["items"]["required"], ["choiceIndex", "items"]
+        )
+        item_rule = supplement["items"]["properties"]["items"]["items"]
+        self.assertFalse(item_rule["additionalProperties"])
+        self.assertEqual(item_rule["required"], ["question", "answer"])
+
     def test_parses_only_allowed_problem_fields(self):
         targets = candidate_targets("q1", "explanation", self.plan())
         payload = {

@@ -115,8 +115,55 @@ _REQUIRED_STAGE_ROLES: dict[str, frozenset[str]] = {
     "law_audit": frozenset({"explanation", "law_audit"}),
 }
 
+_SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE: dict[str, Any] = {
+    "type": "array",
+    "description": (
+        "各要素はchoiceIndexとitemsだけを持つ。itemsの各要素はquestionとanswerだけを持つ。"
+        "choiceIndexは0始まりで重複不可、itemsは1件以上3件以下。補足が不要なら空配列にする。"
+        "flash_cardとgroup_choiceは公開対象の正答選択肢だけを対象にし、"
+        "誤答選択肢ごとの補足を作らない。"
+    ),
+    "items": {
+        "type": "object",
+        "required": ["choiceIndex", "items"],
+        "additionalProperties": False,
+        "properties": {
+            "choiceIndex": {"type": "integer", "minimum": 0},
+            "items": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 3,
+                "items": {
+                    "type": "object",
+                    "required": ["question", "answer"],
+                    "additionalProperties": False,
+                    "properties": {
+                        "question": {"type": "string", "minLength": 1},
+                        "answer": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+        },
+    },
+}
+
+_EXPLANATION_FIELD_RULES: dict[str, Any] = {
+    "explanationText": {
+        "type": "array",
+        "items": {"type": "string", "minLength": 1},
+        "description": (
+            "true_falseは選択肢数と同数。flash_cardとgroup_choiceは問題共通の1本だけ。"
+        ),
+    },
+    "suggestedQuestionDetailsByChoice": (
+        _SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE
+    ),
+}
+
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
+    "explanation": _EXPLANATION_FIELD_RULES,
     "law_audit": {
+        **_EXPLANATION_FIELD_RULES,
         "auditStatus": {
             "type": "string",
             "allowedValues": [
