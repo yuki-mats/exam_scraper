@@ -1090,8 +1090,14 @@ class QuestionReviewApplication:
         exceptions_only = _query_bool(query, "exceptionsOnly", default=True)
         law_only = _query_bool(query, "lawOnly", default=False)
         firestore_mismatch = _query_bool(query, "firestoreMismatch", default=False)
+        source_answer_difference = _query_bool(
+            query,
+            "sourceAnswerDifference",
+            default=False,
+        )
         summaries = []
         decorated_issue_count = 0
+        source_answer_difference_count = 0
         evaluation_counts = {
             "maintenance": 0,
             "unreviewed": 0,
@@ -1120,6 +1126,15 @@ class QuestionReviewApplication:
                     else decorator(raw)
                 )
                 decorated_issue_count += bool(question["issues"])
+                answer_comparison = question.get("sourceCorrectChoiceComparison")
+                answer_comparison = (
+                    answer_comparison
+                    if isinstance(answer_comparison, Mapping)
+                    else {}
+                )
+                source_answer_difference_count += bool(
+                    answer_comparison.get("different")
+                )
                 quality_bucket = self._quality_bucket(question)
                 evaluation_counts[quality_bucket] += 1
                 selected_work_stage = next(
@@ -1170,6 +1185,8 @@ class QuestionReviewApplication:
                     "upstream_stale",
                 }:
                     continue
+                if source_answer_difference and not answer_comparison.get("different"):
+                    continue
                 if exceptions_only and quality_bucket == "published":
                     continue
                 summaries.append(self._summary(question))
@@ -1182,6 +1199,7 @@ class QuestionReviewApplication:
             "listGroupId": list_group_id,
             "questionCount": sum(group["questionCount"] for group in groups),
             "issueQuestionCount": decorated_issue_count,
+            "sourceAnswerDifferenceCount": source_answer_difference_count,
             "evaluationCounts": evaluation_counts,
             "workVersionCounts": work_version_counts,
             "filteredCount": filtered_count,
@@ -1467,6 +1485,7 @@ class QuestionReviewApplication:
                 "stateHash",
                 "publishReady",
                 "nextAction",
+                "sourceCorrectChoiceComparison",
             )
         }
         evaluation = question.get("evaluation")

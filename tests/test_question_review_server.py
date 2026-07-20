@@ -1029,6 +1029,52 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         self.assertEqual([item["id"] for item in result["questions"]], ["pending"])
 
+    def test_source_answer_difference_filter_includes_only_changed_questions(self):
+        class Inventory:
+            def inventory(self):
+                return {"qualifications": [{"id": "sample", "listGroupIds": ["2026"]}]}
+
+            def group(self, qualification, list_group_id):
+                def question(question_id, different):
+                    return {
+                        "id": question_id,
+                        "listGroupId": list_group_id,
+                        "body": question_id,
+                        "issues": [],
+                        "issueCodes": [],
+                        "reviewStatus": "approved",
+                        "isLawRelated": False,
+                        "workflow": {"firestore": "match"},
+                        "evaluation": {"machineReady": True, "status": "passed"},
+                        "sourceCorrectChoiceComparison": {"different": different},
+                    }
+
+                questions = [question("changed", True), question("same", False)]
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": "fingerprint",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            result = app._questions(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                    "exceptionsOnly": ["false"],
+                    "sourceAnswerDifference": ["true"],
+                }
+            )
+
+        self.assertEqual(result["sourceAnswerDifferenceCount"], 1)
+        self.assertEqual([item["id"] for item in result["questions"]], ["changed"])
+
     def test_question_list_resolves_failed_deltas_once_per_group(self):
         class Inventory:
             def inventory(self):

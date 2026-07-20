@@ -660,6 +660,14 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .app-display-setting-label { color: var(--text-muted); font-size: 10px; font-weight: 750; }
 .app-display-setting-value { overflow-wrap: anywhere; font-size: 13px; }
 .app-display-setting-description { color: var(--text-muted); font-size: 11px; line-height: 1.45; }
+.source-answer-difference-badge { padding: 3px 6px; border-radius: 3px; color: #7a4f00; background: var(--amber-bg); font-size: 9px; font-weight: 800; white-space: nowrap; }
+.source-answer-comparison-list { display: grid; gap: 9px; }
+.source-answer-comparison-card { display: grid; gap: 8px; padding: 11px 13px; border: 1px solid #ead394; border-radius: 6px; background: var(--amber-bg); }
+.source-answer-comparison-card > strong { color: #614710; font-size: 12px; }
+.source-answer-choice-text { margin: 0; color: #3d4954; font-size: 12px; line-height: 1.55; }
+.source-answer-values { display: grid; grid-template-columns: minmax(130px, auto) minmax(0, 1fr); gap: 5px 10px; margin: 0; padding-top: 8px; border-top: 1px solid #ead394; }
+.source-answer-values dt { color: var(--text-muted); font-size: 10px; font-weight: 800; }
+.source-answer-values dd { margin: 0; font-size: 12px; font-weight: 750; }
 .knowledge-note-list { display: grid; gap: 8px; }
 .knowledge-note { padding: 11px 13px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
 .knowledge-note strong { display: block; margin-bottom: 4px; color: var(--text-muted); font-size: 11px; }
@@ -825,6 +833,13 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .progress-value-object dd { margin: 0; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
 .progress-question-choice-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .progress-question-choice-list li { padding: 8px 9px; border-left: 3px solid #c7d0d8; background: var(--surface-muted); font-size: 12px; line-height: 1.5; }
+.progress-suggestion-fields { color: var(--text-muted); font-size: 10px; }
+.progress-suggestion-list { display: grid; gap: 9px; }
+.progress-suggestion-card { display: grid; gap: 6px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-muted); }
+.progress-suggestion-index, .progress-suggestion-answer-label { color: var(--text-muted); font-size: 10px; font-weight: 800; }
+.progress-suggestion-question { color: #253746; font-size: 14px; line-height: 1.55; }
+.progress-suggestion-answer { padding-top: 7px; border-top: 1px solid var(--line); color: #344b5e; font-size: 13px; }
+.progress-suggestion-mismatch { padding: 7px 8px; border-left: 3px solid var(--amber); background: var(--amber-bg); color: #614710; font-size: 11px; }
 .edit-choice-list { display: grid; gap: 10px; }
 .edit-choice { display: grid; grid-template-columns: 80px 1fr; gap: 8px 10px; padding: 10px; border: 1px solid var(--line); border-radius: 6px; }
 .edit-choice strong { grid-column: 1 / -1; font-size: 12px; }

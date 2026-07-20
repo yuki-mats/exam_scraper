@@ -5,6 +5,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 APP_PATH = ROOT / "tools/question_review_console/static/app.js"
 STYLE_PATH = ROOT / "tools/question_review_console/static/styles.css"
+INDEX_PATH = ROOT / "tools/question_review_console/static/index.html"
 
 
 class ProgressOutputUiContractTests(unittest.TestCase):
@@ -36,21 +37,39 @@ class ProgressOutputUiContractTests(unittest.TestCase):
 
     def test_question_dialog_shows_anki_plus_display_fields(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
+        css = STYLE_PATH.read_text(encoding="utf-8")
+        suggestions = javascript[
+            javascript.index("function progressQuestionSuggestionsSection") :
+            javascript.index("function progressQuestionOutputSection")
+        ]
         question_dialog = javascript[
             javascript.index("async function openProgressQuestion") :
             javascript.index("function enterQualificationProgressView")
         ]
 
-        for field, label in (
-            ("questionType", "questionType（問題形式）"),
-            ("suggestedQuestions", "suggestedQuestions（補足質問）"),
-            (
-                "suggestedQuestionDetails",
-                "suggestedQuestionDetails（補足質問と回答）",
-            ),
-        ):
-            self.assertIn(f"projected.{field}", question_dialog)
-            self.assertIn(label, question_dialog)
+        self.assertIn("projected.questionType", question_dialog)
+        self.assertIn("questionType（問題形式）", question_dialog)
+        self.assertIn("progressQuestionSuggestionsSection(projected)", question_dialog)
+        self.assertNotIn("suggestedQuestions（補足質問）", question_dialog)
+        self.assertNotIn("suggestedQuestionDetails（補足質問と回答）", question_dialog)
+        self.assertIn("projected.suggestedQuestions", suggestions)
+        self.assertIn("projected.suggestedQuestionDetails", suggestions)
+        self.assertIn("補足質問と回答", suggestions)
+        self.assertIn("detail.answer", suggestions)
+        self.assertIn("progress-suggestion-card", suggestions)
+        self.assertIn(".progress-suggestion-card", css)
+
+    def test_source_answer_difference_has_filter_badge_and_comparison(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
+        css = STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('id="source-answer-difference"', html)
+        self.assertIn("sourceAnswerDifference", javascript)
+        self.assertIn("sourceCorrectChoiceComparison", javascript)
+        self.assertIn("00_sourceと現在の正答", javascript)
+        self.assertIn("現在のcorrectChoiceText", javascript)
+        self.assertIn(".source-answer-comparison-card", css)
 
     def test_choice_results_have_mobile_readable_cards_and_verdict_labels(self):
         javascript = APP_PATH.read_text(encoding="utf-8")

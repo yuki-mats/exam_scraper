@@ -5,7 +5,11 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from tools.question_review_console.inventory import QuestionInventory, detect_issues
+from tools.question_review_console.inventory import (
+    QuestionInventory,
+    correct_choice_comparison,
+    detect_issues,
+)
 from tools.question_review_console.patch_validation import (
     law_audit_quality_warnings,
     patch_entry_required_warnings,
@@ -19,6 +23,21 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_correct_choice_comparison_ignores_verdict_synonyms(self):
+        same = correct_choice_comparison(
+            {"correctChoiceText": ["○", "×"]},
+            {"correctChoiceText": ["正しい", "間違い"]},
+        )
+        changed = correct_choice_comparison(
+            {"correctChoiceText": ["正しい", "間違い"]},
+            {"correctChoiceText": ["間違い", "間違い"]},
+        )
+
+        self.assertTrue(same["comparable"])
+        self.assertFalse(same["different"])
+        self.assertTrue(changed["different"])
+        self.assertEqual(changed["changedChoiceIndexes"], [0])
+
     def test_invalid_source_record_fails_closed_instead_of_reducing_count(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

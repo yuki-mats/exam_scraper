@@ -435,6 +435,15 @@ function bindControls() {
   });
   $("#exceptions-button").addEventListener("click", () => setListMode(true));
   $("#all-button").addEventListener("click", () => setListMode(false));
+  $("#source-answer-difference").addEventListener("change", async (event) => {
+    clearEvaluationSelection();
+    if (event.target.checked) {
+      state.exceptionsOnly = false;
+      $("#exceptions-button").classList.remove("active");
+      $("#all-button").classList.add("active");
+    }
+    await loadQuestions(false);
+  });
   $("#refresh-button").addEventListener("click", async () => {
     clearEvaluationSelection();
     await loadQualificationWorkflow(true);
@@ -2641,6 +2650,50 @@ function progressQuestionSection(title, content, className = "", indexLabel = "�
   return section;
 }
 
+function progressQuestionSuggestionsSection(projected) {
+  const questions = Array.isArray(projected.suggestedQuestions) ? projected.suggestedQuestions : [];
+  const details = Array.isArray(projected.suggestedQuestionDetails)
+    ? projected.suggestedQuestionDetails
+    : [];
+  const section = element("section", "progress-question-section progress-suggestions");
+  section.append(
+    element("h3", "", "補足質問と回答"),
+    element("p", "progress-suggestion-fields", "suggestedQuestions・suggestedQuestionDetails"),
+  );
+  const count = Math.max(questions.length, details.length);
+  if (!count) {
+    section.append(element("p", "", "（記録なし）"));
+    return section;
+  }
+  const list = element("div", "progress-suggestion-list");
+  for (let index = 0; index < count; index += 1) {
+    const detail = details[index] && typeof details[index] === "object" ? details[index] : {};
+    const listedQuestion = String(questions[index] || "").trim();
+    const detailedQuestion = String(detail.question || "").trim();
+    const question = detailedQuestion || listedQuestion || "（質問なし）";
+    const answer = String(detail.answer || "").trim() || "（回答なし）";
+    const card = element("article", "progress-suggestion-card");
+    card.append(
+      element("span", "progress-suggestion-index", `補足${index + 1}`),
+      element("strong", "progress-suggestion-question", question),
+      element("span", "progress-suggestion-answer-label", "回答"),
+      element("p", "progress-suggestion-answer", answer),
+    );
+    const questionsMatch = listedQuestion.replace(/\s+/g, "")
+      === detailedQuestion.replace(/\s+/g, "");
+    if (listedQuestion && detailedQuestion && !questionsMatch) {
+      card.append(element(
+        "p",
+        "progress-suggestion-mismatch",
+        `suggestedQuestions側: ${listedQuestion}`,
+      ));
+    }
+    list.append(card);
+  }
+  section.append(list);
+  return section;
+}
+
 function progressQuestionOutputSection(title, outputs) {
   const section = element("section", "progress-question-section output");
   section.append(element("h3", "", title));
@@ -2696,16 +2749,7 @@ async function openProgressQuestion(event) {
     }
     content.append(
       progressQuestionSection("questionType（問題形式）", projected.questionType),
-      progressQuestionSection(
-        "suggestedQuestions（補足質問）",
-        projected.suggestedQuestions,
-        "",
-        "質問",
-      ),
-      progressQuestionSection(
-        "suggestedQuestionDetails（補足質問と回答）",
-        projected.suggestedQuestionDetails,
-      ),
+      progressQuestionSuggestionsSection(projected),
     );
     if (questionOutputs.length) {
       const runStatus = displayedQualificationRun()?.status;
@@ -2985,6 +3029,7 @@ function listQuery(offset = 0) {
     exceptionsOnly: String(state.exceptionsOnly),
     lawOnly: String($("#law-only").checked),
     firestoreMismatch: String($("#firestore-mismatch").checked),
+    sourceAnswerDifference: String($("#source-answer-difference").checked),
     offset: String(offset),
     limit: String(state.questionPage.limit),
   });
@@ -3039,6 +3084,9 @@ async function loadQuestions(preserveSelection, append = false) {
       `反映待ち${pendingCount}`,
       `公開可能${counts.publishReady || 0}`,
       `反映済み${counts.published || 0}`,
+      ...($("#source-answer-difference").checked
+        ? [`00_sourceとの差分${payload.sourceAnswerDifferenceCount || 0}問`]
+        : []),
       ...($("#work-version-select").value
         ? [`整備済み${workCounts.current || 0}・洗い替え必要${workCounts.outdated || 0}・未記録${workCounts.unrecorded || 0}`]
         : []),
@@ -3119,6 +3167,9 @@ function renderQueue() {
         : []),
       ...(adminToolsOpen ? [workVersionBadge(question)] : []),
       evaluationBadge(question),
+      ...(question.sourceCorrectChoiceComparison?.different
+        ? [element("span", "source-answer-difference-badge", "元正答との差分")]
+        : []),
     );
     const body = element("p", "queue-body", question.body || "（問題文なし）");
     const publicationSummary = renderQueuePublicationSummary(question);
@@ -3358,6 +3409,52 @@ function renderAppDisplaySettings(question, record) {
   return node;
 }
 
+function sourceAnswerDisplay(value) {
+  const normalized = normalizeVerdict(value);
+  if (normalized === "正しい") return "○ 正しい";
+  if (normalized === "間違い") return "× 間違い";
+  return String(value || "未設定");
+}
+
+function renderSourceCorrectChoiceComparison(question) {
+  const comparison = question.sourceCorrectChoiceComparison || {};
+  if (!comparison.different) return null;
+  const source = Array.isArray(comparison.source) ? comparison.source : [];
+  const current = Array.isArray(comparison.current) ? comparison.current : [];
+  const changedIndexes = Array.isArray(comparison.changedChoiceIndexes)
+    ? comparison.changedChoiceIndexes
+    : [];
+  const choices = Array.isArray(question.projected?.choiceTextList)
+    ? question.projected.choiceTextList
+    : [];
+  const node = section("00_sourceと現在の正答");
+  node.classList.add("source-answer-comparison");
+  node.append(element(
+    "p",
+    "audit-compare-hint",
+    "表記の違いを除いて比較しています。正答が変わった選択肢だけを表示します。",
+  ));
+  const list = element("div", "source-answer-comparison-list");
+  for (const index of changedIndexes) {
+    const card = element("article", "source-answer-comparison-card");
+    card.append(
+      element("strong", "", `選択肢${index + 1}`),
+      element("p", "source-answer-choice-text", choices[index] || "（選択肢本文なし）"),
+    );
+    const values = element("dl", "source-answer-values");
+    values.append(
+      element("dt", "", "00_source"),
+      element("dd", "", sourceAnswerDisplay(source[index])),
+      element("dt", "", "現在のcorrectChoiceText"),
+      element("dd", "", sourceAnswerDisplay(current[index])),
+    );
+    card.append(values);
+    list.append(card);
+  }
+  node.append(list);
+  return node;
+}
+
 function renderKnowledgeNotes(record) {
   const raw = Array.isArray(record.knowledgeText) ? record.knowledgeText : [record.knowledgeText];
   const notes = raw
@@ -3435,6 +3532,8 @@ function renderDetail() {
     questionSection.append(issues);
   }
   pane.append(questionSection);
+  const sourceAnswerComparison = renderSourceCorrectChoiceComparison(question);
+  if (sourceAnswerComparison) pane.append(sourceAnswerComparison);
   pane.append(renderAppDisplaySettings(question, publication.record));
 
   const choicesSection = section(

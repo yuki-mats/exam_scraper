@@ -277,6 +277,39 @@ def _aligned_choice_values(value: Any, choices: list[Any]) -> list[Any] | None:
     return value
 
 
+def correct_choice_comparison(
+    source: Mapping[str, Any],
+    projected: Mapping[str, Any],
+) -> dict[str, Any]:
+    source_raw = source.get("correctChoiceText")
+    current_raw = projected.get("correctChoiceText")
+    source_values = list(source_raw) if isinstance(source_raw, list) else []
+    current_values = list(current_raw) if isinstance(current_raw, list) else []
+    comparable = (
+        isinstance(source_raw, list)
+        and isinstance(current_raw, list)
+        and bool(source_values or current_values)
+    )
+    source_normalized = [normalize_verdict(value) for value in source_values]
+    current_normalized = [normalize_verdict(value) for value in current_values]
+    changed_indexes = [
+        index
+        for index in range(max(len(source_normalized), len(current_normalized)))
+        if (
+            source_normalized[index] if index < len(source_normalized) else None
+        ) != (
+            current_normalized[index] if index < len(current_normalized) else None
+        )
+    ]
+    return {
+        "comparable": comparable,
+        "different": comparable and bool(changed_indexes),
+        "source": source_values,
+        "current": current_values,
+        "changedChoiceIndexes": changed_indexes if comparable else [],
+    }
+
+
 def _contains_hold(value: Any) -> bool:
     if isinstance(value, dict):
         return any(
@@ -1001,6 +1034,10 @@ class QuestionInventory:
                 state_hash = sha256_json(
                     {field: projection.record.get(field) for field in PROJECTED_COMPARE_FIELDS}
                 )
+                source_correct_choice_comparison = correct_choice_comparison(
+                    source,
+                    projection.record,
+                )
                 questions.append(
                     {
                         "id": question_id,
@@ -1020,6 +1057,9 @@ class QuestionInventory:
                         "isLawRelated": projection.record.get("isLawRelated") is True,
                         "source": _json_safe(source),
                         "projected": _json_safe(projection.record),
+                        "sourceCorrectChoiceComparison": _json_safe(
+                            source_correct_choice_comparison
+                        ),
                         "merged": _json_safe(merged),
                         "convertedDocs": _json_safe(
                             _ordered_choice_docs(matched_converted, choices)
