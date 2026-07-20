@@ -51,6 +51,7 @@ from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
 )
 from scripts.common.suggested_question_contract import details_for_choice
+from scripts.common.explanation_contract import public_explanation_text
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
@@ -842,6 +843,10 @@ def is_groupable_question(question: dict) -> bool:
 def finalize_firestore_question(question: dict) -> dict:
     """共通フィールドの補正（isChoiceOnly/isGroupableなど）"""
     question.setdefault("isChoiceOnly", False)
+    if question["isChoiceOnly"]:
+        question.pop("explanationText", None)
+        question.pop("suggestedQuestions", None)
+        question.pop("suggestedQuestionDetails", None)
     question["correctChoiceText"] = normalize_correct_choice_text(question.get("correctChoiceText"))
     question["isGroupable"] = is_groupable_question(question)
     return question
@@ -854,7 +859,7 @@ def create_firestore_question_base(
     question_type: str,
     question_text: str,
     correct_choice_text: str,
-    explanation_text: str,
+    explanation_text: str | None,
     exam_source: str,
     original_question_choice_text: str = None,
     original_question_choice_image_urls: list[str] | None = None,
@@ -1000,8 +1005,13 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
         # correctChoiceText: その選択肢に対する正誤
         correct_text = correct_choices[i] if i < len(correct_choices) else ""
 
-        # explanationText: 対応する解説（あれば）
-        explanation_text = explanation_list[i] if i < len(explanation_list) else ""
+        # explanationText: true_falseは選択肢ごとの解説を使う。
+        explanation_text = public_explanation_text(
+            explanation_list,
+            question_type="true_false",
+            choice_index=i,
+            is_choice_only=False,
+        )
         is_law_related = resolve_is_law_related(question_body, i)
 
         # examSource: 試験名（question_body由来）, examYear年, 問x, 設問x
@@ -1088,7 +1098,6 @@ def convert_group_select_to_firestore(
     for i in range(split_count):
         correctness = correct_choice_list[i] if i < len(correct_choice_list) else ""
         choice_text = choice_text_list[i] if i < len(choice_text_list) else ""
-        explanation_text = explanation_list[i] if i < len(explanation_list) else ""
         is_law_related = resolve_is_law_related(question_body, i)
         law_references = format_choice_law_references_with_group_fallback(
             question_body.get("lawReferences", []),
@@ -1112,7 +1121,12 @@ def convert_group_select_to_firestore(
                 question_type=question_type,
                 question_text=question_text,
                 correct_choice_text="正しい",
-                explanation_text=explanation_text,
+                explanation_text=public_explanation_text(
+                    explanation_list,
+                    question_type=question_type,
+                    choice_index=i,
+                    is_choice_only=False,
+                ),
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
@@ -1144,7 +1158,12 @@ def convert_group_select_to_firestore(
                 question_type=question_type,
                 question_text=question_text,
                 correct_choice_text="間違い",
-                explanation_text=explanation_text,
+                explanation_text=public_explanation_text(
+                    explanation_list,
+                    question_type=question_type,
+                    choice_index=i,
+                    is_choice_only=True,
+                ),
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
@@ -1169,7 +1188,12 @@ def convert_group_select_to_firestore(
             question_type=question_type,
             question_text=question_text,
             correct_choice_text="正しい",
-            explanation_text=explanation_list[0] if explanation_list else "",
+            explanation_text=public_explanation_text(
+                explanation_list,
+                question_type=question_type,
+                choice_index=0,
+                is_choice_only=False,
+            ),
             exam_source=exam_source,
             original_question_choice_text=choice_text_list[0] if choice_text_list else "",
             original_question_choice_image_urls=(

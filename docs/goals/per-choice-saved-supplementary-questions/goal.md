@@ -36,6 +36,18 @@ PMは各receiptをこのoracleへ対応付ける。promptだけの修正、UIだ
 
 両repoの現行契約を一つに揃え、patch authoringの選択肢別正本、機械検査、Firestore projection、repasoのtyped read/UI動作、回帰テスト、必要最小限の正本文書を一つの縦断機能として完成させる。既存データの一括再生成や本番Firestore更新は別の明示作業とし、このtrancheでは安全に再生成できる仕組みと移行判定を完成させる。
 
+## Follow-up Tranche: flash_card共通解説と計算問題分類
+
+2026-07-20の利用者合意に基づき、次の契約を問題整備とrepasoで一貫させる。
+
+- `isChoiceOnly`はFirestore documentの役割だけを表し、計算問題判定へ流用しない。
+- 問題整備patchへ`isCalculationQuestion: boolean`を追加し、計算問題か否かを明示する。
+- すべての`flash_card`は問題単位の基本解説を1本だけ持つ。`isChoiceOnly=true` documentには基本解説、補足質問、補足回答を公開しない。
+- 計算`flash_card`の基本解説は、使用する式、代入、単位換算、中間計算、最終値、正しい選択肢との対応まで本文内で完結させ、選択肢別の基本解説を作らない。
+- 非計算`flash_card`も基本解説は1本とする。補足質問の詳細な作成基準は後日の別trancheで詰めるため、今回は0〜3件を扱える契約と将来の基準追加位置だけを用意する。
+- `true_false`等の非`flash_card`型の既存解説契約は、この追補で不要に変更しない。
+- 代表データ`gas-shunin-kou / 2019 / gas-shunin:kou:2019:kyokyu:q10`を計算`flash_card`のreadback対象とし、詳細な計算過程を持つ基本解説1本・補足質問0件へ修正する。
+
 ## Non-Negotiable Constraints
 
 - 基本解説だけで正誤理由と学習上の核心が完結し、補足回答へ核心を退避しない。
@@ -43,6 +55,8 @@ PMは各receiptをこのoracleへ対応付ける。promptだけの修正、UIだ
 - 更新用patchでは質問と回答を一体の正本として保存し、質問文だけの独立編集による二重管理を避ける。
 - Firestore互換上`suggestedQuestions`が必要なら、保存済みquestion/answerから機械的に導出し、独立した正本にしない。
 - `isChoiceOnly=true`のdocumentには補足質問・回答を公開しない。
+- `isChoiceOnly`を問題内容の分類に使わず、計算問題は問題整備側の`isCalculationQuestion`で判定する。
+- すべての`flash_card`は基本解説1本とし、選択肢別の基本解説を作らない。
 - repasoは保存済み回答が有効なチップだけを表示し、チップ押下では生成AI APIを呼ばない。自由入力の生成AI導線は維持する。
 - `true_false`、`flash_card`、`group_choice`の公開document差を同じ変換契約で明示的に扱う。
 - `00_source`、既存questionId、本番Firestoreを変更しない。

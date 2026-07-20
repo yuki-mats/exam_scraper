@@ -416,6 +416,13 @@ def apply_question_type(
             if new_type is not None and question.get("questionType") != new_type:
                 question["questionType"] = new_type
                 changed = True
+            if "isCalculationQuestion" in patch_entry:
+                new_calculation_flag = patch_entry.get("isCalculationQuestion")
+                if not isinstance(new_calculation_flag, bool):
+                    raise ValueError("isCalculationQuestion must be boolean")
+                if question.get("isCalculationQuestion") != new_calculation_flag:
+                    question["isCalculationQuestion"] = new_calculation_flag
+                    changed = True
             new_body = patch_entry.get("questionBodyText")
             if new_body is not None and question.get("questionBodyText") != new_body:
                 question["questionBodyText"] = new_body

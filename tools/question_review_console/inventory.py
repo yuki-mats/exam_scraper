@@ -49,6 +49,7 @@ from tools.question_review_console.patch_validation import (
     projected_required_warnings,
     upload_document_required_warnings,
 )
+from scripts.common.explanation_contract import public_explanation_text
 
 
 SOURCE_SUBDIR = "00_source"
@@ -419,7 +420,6 @@ def detect_issues(
         else:
             ordered = _ordered_choice_docs(converted_docs, choices)
             aligned_correctness = _aligned_choice_values(correctness, choices)
-            aligned_explanations = _aligned_choice_values(explanations, choices)
             stale_fields: list[str] = []
             for index, doc in enumerate(ordered):
                 if (
@@ -428,10 +428,16 @@ def detect_issues(
                     != normalize_verdict(aligned_correctness[index])
                 ):
                     stale_fields.append(f"correctChoiceText[{index}]")
-                if (
-                    aligned_explanations is not None
-                    and doc.get("explanationText") != aligned_explanations[index]
-                ):
+                expected_explanation = public_explanation_text(
+                    explanations,
+                    question_type=projected.get("questionType"),
+                    choice_index=index,
+                    is_choice_only=doc.get("isChoiceOnly") is True,
+                )
+                if expected_explanation is None:
+                    if "explanationText" in doc:
+                        stale_fields.append(f"explanationText[{index}]")
+                elif doc.get("explanationText") != expected_explanation:
                     stale_fields.append(f"explanationText[{index}]")
             if stale_fields:
                 add("convert_stale", "patch合成後と40_convertが一致しません。", stale_fields)

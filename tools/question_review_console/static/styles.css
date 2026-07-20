@@ -674,7 +674,11 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .knowledge-note p { margin: 0; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 .choices { display: grid; gap: 10px; }
+.choice-common-explanation { padding: 14px 16px; border: 1px solid var(--line); border-radius: 6px; background: #f8fbfd; color: #263c4c; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.choice-common-explanation h3 { margin: 0 0 8px; font-size: 13px; }
 .choice-card { display: grid; grid-template-columns: 58px minmax(180px, 0.85fr) minmax(280px, 1.35fr); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; cursor: pointer; transition: border-color 120ms ease, box-shadow 120ms ease; }
+.choice-card.choice-card-flash { grid-template-columns: 58px minmax(0, 1fr); }
+.choice-card-flash .choice-text { border-right: 0; }
 .choice-card:hover { border-color: #9eb9cd; }
 .choice-card.choice-card-selected { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
 .choice-index { padding: 12px 8px; display: grid; place-content: start center; gap: 7px; background: #f0f3f5; border-right: 1px solid var(--line); font-weight: 750; }

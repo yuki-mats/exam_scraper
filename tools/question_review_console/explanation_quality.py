@@ -4,6 +4,10 @@ import re
 from typing import Any, Iterable
 
 from tools.question_review_console.projection import normalize_verdict
+from scripts.common.explanation_contract import (
+    expected_explanation_count,
+    uses_question_level_explanation,
+)
 
 
 LAW_AS_SENTENCE_SUBJECT = re.compile(
@@ -287,6 +291,7 @@ def explanation_style_issues(
     *,
     choice_texts: Iterable[Any] | None = None,
     require_verdict_prefix: bool = True,
+    question_type: object = None,
 ) -> list[str]:
     """Return deterministic violations of the stage-03 Japanese style policy."""
 
@@ -294,30 +299,39 @@ def explanation_style_issues(
     issues: list[str] = []
     verdicts = list(correct_choices) if correct_choices is not None else []
     choices = list(choice_texts) if choice_texts is not None else []
-    if choices and len(explanation_values) != len(choices):
-        issues.append(
-            "解説の件数が選択肢の件数と一致しません。"
-            f"（解説{len(explanation_values)}件／選択肢{len(choices)}件）"
-        )
+    expected_count = expected_explanation_count(question_type, len(choices))
+    if choices and len(explanation_values) != expected_count:
+        if uses_question_level_explanation(question_type):
+            issues.append(
+                "flash_cardの解説は問題単位の1件にしてください。"
+                f"（解説{len(explanation_values)}件／選択肢{len(choices)}件）"
+            )
+        else:
+            issues.append(
+                "解説の件数が選択肢の件数と一致しません。"
+                f"（解説{len(explanation_values)}件／選択肢{len(choices)}件）"
+            )
+    question_level = uses_question_level_explanation(question_type)
     for choice_index, raw in enumerate(explanation_values, start=1):
+        item_label = "基本解説" if question_level else f"選択肢{choice_index}"
         text = str(raw or "").strip()
         if not text:
-            issues.append(f"選択肢{choice_index}: 解説が空です。")
+            issues.append(f"{item_label}: 解説が空です。")
             continue
         prefix = VERDICT_PREFIX.match(text)
         if require_verdict_prefix and prefix is None:
             issues.append(
-                f"選択肢{choice_index}: 解説は「正しい。」又は「間違い。」で"
+                f"{item_label}: 解説は「正しい。」又は「間違い。」で"
                 "始めてください。"
             )
         elif prefix is not None and choice_index <= len(verdicts):
             expected = normalize_verdict(verdicts[choice_index - 1])
             if expected in {"正しい", "間違い"} and prefix.group(1) != expected:
                 issues.append(
-                    f"選択肢{choice_index}: 解説冒頭の正誤がcorrectChoiceTextと"
+                    f"{item_label}: 解説冒頭の正誤がcorrectChoiceTextと"
                     "一致しません。"
                 )
-        if choice_index <= len(choices):
+        if not question_level and choice_index <= len(choices):
             choice = re.sub(r"\s+", "", str(choices[choice_index - 1] or "")).rstrip(
                 "。"
             )
@@ -325,17 +339,17 @@ def explanation_style_issues(
             body = re.sub(r"\s+", "", body).rstrip("。")
             if choice and body == choice:
                 issues.append(
-                    f"選択肢{choice_index}: 解説が選択肢を繰り返すだけです。"
+                    f"{item_label}: 解説が選択肢を繰り返すだけです。"
                     "判断理由を説明してください。"
                 )
         if LAW_AS_SENTENCE_SUBJECT.search(text):
             issues.append(
-                f"選択肢{choice_index}: 法令名・条文を機械的に文頭の主語へ"
+                f"{item_label}: 法令名・条文を機械的に文頭の主語へ"
                 "置かず、正しい内容を主語にしてください。"
             )
         if POINT_IS_WRONG.search(text):
             issues.append(
-                f"選択肢{choice_index}: 「点が誤り」ではなく、正しい内容と"
+                f"{item_label}: 「点が誤り」ではなく、正しい内容と"
                 "選択肢との差を示して「ため誤りである」と説明してください。"
             )
     return issues

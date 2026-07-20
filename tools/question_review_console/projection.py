@@ -47,6 +47,7 @@ STAGE_SPECS: tuple[tuple[str, str, str], ...] = (
 
 QUESTION_TYPE_FIELDS = (
     "questionType",
+    "isCalculationQuestion",
     "questionBodyText",
     "choiceTextList",
     "sourceUniqueKeys",

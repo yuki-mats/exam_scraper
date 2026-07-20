@@ -85,6 +85,7 @@ const FIELD_LABELS = {
   correctChoiceText: "正誤",
   explanationText: "基本解説",
   questionType: "問題形式",
+  isCalculationQuestion: "計算問題",
   questionIntent: "出題意図",
   questionSetId: "問題セットID",
   originalQuestionId: "元問題ID",
@@ -2762,6 +2763,14 @@ async function openProgressQuestion(event) {
     }
     content.append(
       progressQuestionSection("questionType（問題形式）", projected.questionType),
+      progressQuestionSection(
+        "isCalculationQuestion（計算問題）",
+        projected.isCalculationQuestion === true
+          ? "はい"
+          : projected.isCalculationQuestion === false
+            ? "いいえ"
+            : "未判定",
+      ),
       progressQuestionSuggestionsSection(projected),
     );
     if (questionOutputs.length) {
@@ -2777,7 +2786,12 @@ async function openProgressQuestion(event) {
     }
     content.append(
       progressQuestionSection("現在保存されている正答", projected.correctChoiceText, "", "選択肢"),
-      progressQuestionSection("現在保存されている解説", projected.explanationText, "", "選択肢"),
+      progressQuestionSection(
+        "現在保存されている解説",
+        projected.explanationText,
+        "",
+        projected.questionType === "flash_card" ? "基本解説" : "選択肢",
+      ),
     );
   } catch (error) {
     content.replaceChildren(element("p", "qualification-run-progress-empty", error.message));
@@ -3394,6 +3408,15 @@ function renderAppDisplaySettings(question, record) {
       "questionType",
       questionType,
       QUESTION_TYPE_DESCRIPTIONS[questionType] || "回答画面の形式",
+    ),
+    displaySetting(
+      "isCalculationQuestion",
+      record.isCalculationQuestion === true
+        ? "はい"
+        : record.isCalculationQuestion === false
+          ? "いいえ"
+          : "未判定",
+      "問題整備で使う計算問題分類（アプリには公開しません）",
     ),
     displaySetting(
       "questionIntent",
@@ -4136,7 +4159,7 @@ function openEvaluationRework(question) {
     if (stage === "02a") return ["correctChoiceText"];
     if (stage === "02b" || stage === "03b") return ["lawReferences", "lawRevisionFacts"];
     if (stage === "03") return ["explanationText"];
-    if (stage === "01") return ["questionType"];
+    if (stage === "01") return ["questionType", "isCalculationQuestion"];
     if (stage === "02") return ["questionIntent"];
     return [];
   });
@@ -4918,6 +4941,22 @@ function renderChoices(projected) {
   const choiceNodes = new Map();
   let expandedChoiceIndex = null;
 
+  if (projected.questionType === "flash_card") {
+    const common = element(
+      "section",
+      "choice-common-explanation",
+      explanations[0] || "（基本解説なし）",
+    );
+    common.prepend(element("h3", "", "基本解説（問題共通）"));
+    installReviewTarget(common, {
+      fields: ["explanationText"],
+      choiceIndexes: [],
+      targetLabel: "問題共通の基本解説",
+      dataPath: "explanationText[0]",
+    });
+    node.append(common);
+  }
+
   function toggleChoiceSuggestions(choiceIndex) {
     expandedChoiceIndex = expandedChoiceIndex === choiceIndex ? null : choiceIndex;
     for (const [index, nodes] of choiceNodes) {
@@ -4931,7 +4970,10 @@ function renderChoices(projected) {
   choices.forEach((choice, index) => {
     const rawVerdict = correctness[index] || "未設定";
     const verdictValue = normalizeVerdict(rawVerdict);
-    const card = element("article", "choice-card");
+    const card = element(
+      "article",
+      projected.questionType === "flash_card" ? "choice-card choice-card-flash" : "choice-card",
+    );
     const group = groupsByChoice.get(index) || null;
     const suggestionCount = group?.items.length || 0;
     const panelId = `choice-suggestions-${index}`;
@@ -4960,13 +5002,17 @@ function renderChoices(projected) {
       suggestionToggle,
     );
     const choiceText = element("div", "choice-text", choice);
-    const explanation = element("div", "choice-explanation", explanations[index] || "（解説なし）");
-    installReviewTarget(explanation, {
-      fields: ["explanationText"],
-      choiceIndexes: [index],
-      targetLabel: `選択肢${index + 1}の基本解説`,
-      dataPath: `explanationText[${index}]`,
-    });
+    const explanation = projected.questionType === "flash_card"
+      ? null
+      : element("div", "choice-explanation", explanations[index] || "（解説なし）");
+    if (explanation) {
+      installReviewTarget(explanation, {
+        fields: ["explanationText"],
+        choiceIndexes: [index],
+        targetLabel: `選択肢${index + 1}の基本解説`,
+        dataPath: `explanationText[${index}]`,
+      });
+    }
     const suggestionPanel = renderChoiceSuggestionPanel(
       group,
       index,
@@ -4977,7 +5023,7 @@ function renderChoices(projected) {
     card.append(
       indexNode,
       choiceText,
-      explanation,
+      ...(explanation ? [explanation] : []),
       suggestionPanel,
     );
     card.addEventListener("click", (event) => {
@@ -5571,6 +5617,18 @@ function openEdit() {
     : "保存先は21_explanationText_addedと23_correctChoiceText_fixedです。00_sourceは変更しません。";
   const list = $("#edit-choice-list");
   list.replaceChildren();
+  if (projected.questionType === "flash_card") {
+    const commonRow = element("div", "edit-choice edit-common-explanation");
+    const explanationLabel = document.createElement("label");
+    explanationLabel.append(element("span", "", "基本解説（問題共通）"));
+    const textarea = document.createElement("textarea");
+    textarea.className = "edit-explanation";
+    textarea.rows = 8;
+    textarea.value = explanations[0] || "";
+    explanationLabel.append(textarea);
+    commonRow.append(explanationLabel);
+    list.append(commonRow);
+  }
   choices.forEach((choice, index) => {
     const row = element("div", "edit-choice");
     row.dataset.index = String(index);
@@ -5587,14 +5645,17 @@ function openEdit() {
     select.value = normalizeVerdict(correctness[index]) || "間違い";
     select.disabled = state.detail.isLawRelated;
     selectLabel.append(select);
-    const explanationLabel = document.createElement("label");
-    explanationLabel.append(element("span", "", "基本解説"));
-    const textarea = document.createElement("textarea");
-    textarea.className = "edit-explanation";
-    textarea.rows = 4;
-    textarea.value = explanations[index] || "";
-    explanationLabel.append(textarea);
-    row.append(selectLabel, explanationLabel);
+    row.append(selectLabel);
+    if (projected.questionType !== "flash_card") {
+      const explanationLabel = document.createElement("label");
+      explanationLabel.append(element("span", "", "基本解説"));
+      const textarea = document.createElement("textarea");
+      textarea.className = "edit-explanation";
+      textarea.rows = 4;
+      textarea.value = explanations[index] || "";
+      explanationLabel.append(textarea);
+      row.append(explanationLabel);
+    }
     list.append(row);
   });
 

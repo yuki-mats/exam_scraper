@@ -9,6 +9,7 @@ from scripts.fix.materialize_minimal_patch import (
     bind_source_questions,
     get_source_questions,
     materialize_entries,
+    materialize_question_type,
 )
 
 
@@ -33,6 +34,27 @@ def explanation_entry(identity: dict[str, str] | None = None) -> dict[str, objec
 
 
 class MaterializeMinimalPatchIdentityTests(unittest.TestCase):
+    def test_question_type_materialization_keeps_calculation_flag(self) -> None:
+        source = {
+            "questionBodyText": "計算する。",
+            "choiceTextList": ["1", "2"],
+            "original_question_id": "q1",
+            "question_url": "https://example.test/q1",
+        }
+
+        actual = materialize_question_type(
+            source,
+            {"questionType": "flash_card", "isCalculationQuestion": True},
+        )
+
+        self.assertIs(actual["isCalculationQuestion"], True)
+
+    def test_question_type_materialization_requires_boolean_calculation_flag(self) -> None:
+        source = {"original_question_id": "q1"}
+
+        with self.assertRaisesRegex(ValueError, "isCalculationQuestion"):
+            materialize_question_type(source, {"questionType": "flash_card"})
+
     def _source_file(self, root: Path, records: list[dict]) -> Path:
         source_path = (
             root

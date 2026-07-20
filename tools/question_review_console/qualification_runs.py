@@ -151,6 +151,7 @@ PROGRESS_RESULT_FIELDS = {
     "correctChoiceText",
     "explanationText",
     "questionType",
+    "isCalculationQuestion",
     "questionIntent",
     "lawContext",
     "lawAudit",
@@ -203,7 +204,7 @@ REVIEW_FLAG_SUFFIX_BY_PATCH_DIR = {
     "23_correctChoiceText_fixed": "correctChoiceText",
 }
 STAGE_REVIEW_FLAG_SUFFIXES = {
-    "question_type": {"questionType"},
+    "question_type": {"questionType", "isCalculationQuestion"},
     "question_intent": {"questionIntent"},
     "correct_choice": {"correctChoiceText"},
     "law_context": {"lawContext"},
@@ -213,6 +214,7 @@ STAGE_REVIEW_FLAG_SUFFIXES = {
 }
 FIELD_PATCH_DIR_NAMES = {
     "questionType": {"10_questionType_fixed", "99_model_review_flags"},
+    "isCalculationQuestion": {"10_questionType_fixed", "99_model_review_flags"},
     "questionIntent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
     "answer_result_text": {"15_correctChoiceText_fixed", "99_model_review_flags"},
     "correctChoiceText": {"23_correctChoiceText_fixed", "99_model_review_flags"},
@@ -8532,7 +8534,11 @@ class QualificationRunCoordinator:
                     explanations,
                     projected.get("correctChoiceText"),
                     choice_texts=choices,
-                    require_verdict_prefix=require_verdict_prefix,
+                    require_verdict_prefix=(
+                        require_verdict_prefix
+                        and projected.get("questionType") != "flash_card"
+                    ),
+                    question_type=projected.get("questionType"),
                 )
             )
         if errors:

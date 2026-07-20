@@ -234,10 +234,16 @@ def materialize_question_type(
     source_question: dict[str, Any],
     raw_entry: dict[str, Any],
 ) -> dict[str, Any]:
+    calculation_flag = raw_entry.get("isCalculationQuestion")
+    if not isinstance(calculation_flag, bool):
+        raise ValueError(
+            "question_type raw patch requires boolean isCalculationQuestion"
+        )
     return {
         "questionBodyText": source_question.get("questionBodyText", ""),
         "choiceTextList": source_question.get("choiceTextList", []),
         "questionType": raw_entry.get("questionType", ""),
+        "isCalculationQuestion": calculation_flag,
         "original_question_id": resolve_original_id(source_question),
         "question_url": source_question.get("question_url", ""),
     }

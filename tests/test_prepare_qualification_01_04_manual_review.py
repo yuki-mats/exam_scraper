@@ -8,6 +8,31 @@ from scripts.merge.patch_views import apply_question_type
 
 
 class PrepareQualification0104ManualReviewTest(unittest.TestCase):
+    def test_flash_card_review_uses_one_question_level_explanation(self) -> None:
+        row = module.build_review_row(
+            qualification="sample",
+            qualification_name="サンプル",
+            source_path=Path(
+                "output/sample/questions_json/2026/00_source/question_2026_1.json"
+            ),
+            source_file_index=1,
+            question_index_in_file=1,
+            global_index=1,
+            question={
+                "original_question_id": "q1",
+                "questionBodyText": "計算する。",
+                "choiceTextList": ["1", "2"],
+                "questionType": "flash_card",
+                "isCalculationQuestion": True,
+                "explanationText": ["式を示して2と求める。"],
+            },
+            category_path=Path("output/sample/category/category.json"),
+        )
+
+        self.assertIs(row["isCalculationQuestion"], True)
+        self.assertTrue(row["autoAudit"]["isCalculationQuestionPresent"])
+        self.assertTrue(row["autoAudit"]["explanationLengthMatchesQuestionType"])
+
     def test_question_intent_and_strict_answer_use_separate_patch_layers(self) -> None:
         source = Path("output/sample/questions_json/2026/00_source/question_2026_1.json")
 

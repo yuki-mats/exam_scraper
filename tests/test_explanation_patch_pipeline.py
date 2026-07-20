@@ -695,7 +695,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             "questionBodyText": "各記述の正誤を答えよ。",
             "choiceTextList": [f"肢{i}" for i in range(1, 6)],
             "correctChoiceText": ["正しい", "間違い", "正しい", "間違い", "正しい"],
-            "explanationText": [f"解説{i}" for i in range(1, 6)],
+            "explanationText": ["問題全体の基本解説"],
             "examYear": 2025,
             "questionLabel": "問5",
             "qualificationName": "試験資格",
@@ -755,22 +755,16 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             "questionBodyText": "正しいものを選べ。",
             "choiceTextList": [f"肢{i}" for i in range(1, 6)],
             "correctChoiceText": ["間違い", "間違い", "正しい", "間違い", "間違い"],
-            "explanationText": [f"解説{i}" for i in range(1, 6)],
+            "explanationText": ["問題全体の基本解説"],
             "examYear": 2025,
             "questionLabel": "問6",
             "qualificationName": "試験資格",
             "questionSetId": "set-five",
             "suggestedQuestionDetailsByChoice": [
                 {
-                    "choiceIndex": choice_index,
-                    "items": [
-                        {
-                            "question": f"肢{choice_index + 1}の疑問",
-                            "answer": f"肢{choice_index + 1}の回答",
-                        }
-                    ],
+                    "choiceIndex": 2,
+                    "items": [{"question": "肢3の疑問", "answer": "肢3の回答"}],
                 }
-                for choice_index in range(5)
             ],
         }
 
@@ -782,12 +776,14 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(len(public_documents), 1)
         self.assertEqual(len(choice_only_documents), 4)
         self.assertEqual(public_documents[0]["originalQuestionChoiceText"], "肢3")
+        self.assertEqual(public_documents[0]["explanationText"], "問題全体の基本解説")
         self.assertEqual(public_documents[0]["suggestedQuestions"], ["肢3の疑問"])
         self.assertEqual(
             public_documents[0]["suggestedQuestionDetails"],
             [{"question": "肢3の疑問", "answer": "肢3の回答"}],
         )
         for document in choice_only_documents:
+            self.assertNotIn("explanationText", document)
             self.assertNotIn("suggestedQuestions", document)
             self.assertNotIn("suggestedQuestionDetails", document)
 

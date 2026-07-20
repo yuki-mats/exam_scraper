@@ -231,8 +231,10 @@ class DocumentationStructureTests(unittest.TestCase):
         self.assertLessEqual(len(text.splitlines()), 300)
         for concept in (
             "事実確定と文章推敲を分けます",
-            "`explanationText`の要素数は`choiceTextList`と一致",
-            "冒頭は必ず`正しい。`又は`間違い。`",
+            "`flash_card`は、選択肢数にかかわらず問題全体の基本解説",
+            "`flash_card`以外は、`explanationText`の要素数を`choiceTextList`と一致",
+            "`isCalculationQuestion=true`では、使用する式、数値の代入",
+            "非計算`flash_card`の補足質問について、資格横断の詳細な作成基準は未確定",
             "`sourceQuestionKey`",
             "`reviewQuestionId`",
             "`sourceRecordRef`",

@@ -14,6 +14,7 @@ from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
 )
+from scripts.common.explanation_contract import explanation_shape_errors
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
@@ -180,8 +181,12 @@ class PatchEditor:
             explanations = normalized_changes.get(
                 "explanationText", projected.get("explanationText")
             )
-            if not isinstance(explanations, list) or len(explanations) != choice_count:
-                raise DirectEditError("正誤変更時は全選択肢の解説が必要です。")
+            if explanation_shape_errors(
+                explanations,
+                question_type=projected.get("questionType"),
+                choice_count=choice_count,
+            ):
+                raise DirectEditError("正誤変更時は問題形式に合う基本解説が必要です。")
 
         final_record = copy.deepcopy(dict(projected))
         final_record.update(copy.deepcopy(normalized_changes))
@@ -193,7 +198,11 @@ class PatchEditor:
                     explanations,
                     correctness if isinstance(correctness, list) else None,
                     choice_texts=final_record.get("choiceTextList"),
-                    require_verdict_prefix=choice_count > 0,
+                    require_verdict_prefix=(
+                        choice_count > 0
+                        and final_record.get("questionType") != "flash_card"
+                    ),
+                    question_type=final_record.get("questionType"),
                 )
                 if explanation_issues:
                     raise DirectEditError(
@@ -532,10 +541,13 @@ class PatchEditor:
     ) -> None:
         explanations = changes.get("explanationText")
         if explanations is not None:
-            if not isinstance(explanations, list) or len(explanations) != choice_count:
-                raise DirectEditError("解説数が選択肢数と一致しません。")
-            if any(not str(value or "").strip() for value in explanations):
-                raise DirectEditError("空の解説は保存できません。")
+            errors = explanation_shape_errors(
+                explanations,
+                question_type=projected.get("questionType"),
+                choice_count=choice_count,
+            )
+            if errors:
+                raise DirectEditError("解説形式が問題形式と一致しません: " + " / ".join(errors))
         details_by_choice = changes.get("suggestedQuestionDetailsByChoice")
         if details_by_choice is not None:
             final_correct = changes.get(

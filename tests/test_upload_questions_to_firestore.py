@@ -297,6 +297,55 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             set(module.DOC_COMPARE_KEYS),
         )
 
+    def test_choice_only_doc_omits_explanation_and_saved_suggestions(self) -> None:
+        question = {
+            "questionId": "q-choice-only",
+            "questionSetId": "qs1",
+            "listGroupId": "2026",
+            "originalQuestionId": "original-1",
+            "originalQuestionBodyText": "元問題文",
+            "questionBodyText": "問題文",
+            "originalQuestionChoiceText": "誤答肢",
+            "questionText": "本文",
+            "questionType": "flash_card",
+            "qualificationId": "sample-qualification",
+            "correctChoiceText": "間違い",
+            "explanationText": "古い選択肢別解説",
+            "suggestedQuestions": ["古い質問"],
+            "suggestedQuestionDetails": [
+                {"question": "古い質問", "answer": "古い回答"}
+            ],
+            "examSource": "サンプル試験",
+            "questionTags": [],
+            "isOfficial": True,
+            "isDeleted": False,
+            "isChoiceOnly": True,
+            "isGroupable": False,
+        }
+
+        actual = module.build_doc_data_base(question)
+
+        self.assertNotIn("explanationText", actual)
+        self.assertNotIn("suggestedQuestions", actual)
+        self.assertNotIn("suggestedQuestionDetails", actual)
+        self.assertEqual(
+            module.choice_only_delete_fields(
+                actual,
+                {
+                    "explanationText": "古い選択肢別解説",
+                    "suggestedQuestions": ["古い質問"],
+                    "suggestedQuestionDetails": [
+                        {"question": "古い質問", "answer": "古い回答"}
+                    ],
+                },
+            ),
+            (
+                "explanationText",
+                "suggestedQuestions",
+                "suggestedQuestionDetails",
+            ),
+        )
+
     def test_build_doc_data_sets_meta_fields(self) -> None:
         now = datetime(2026, 4, 13, 12, 0, 0)
         doc_data = module.build_doc_data(

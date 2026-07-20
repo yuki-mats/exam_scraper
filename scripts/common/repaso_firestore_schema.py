@@ -499,6 +499,21 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     for key in ("isOfficial", "isDeleted", "isChoiceOnly", "isGroupable"):
         if not isinstance(doc.get(key), bool):
             raise ValueError(f"questions:{doc_id} {key} must be bool")
+    if doc.get("isChoiceOnly") is True:
+        forbidden = [
+            key
+            for key in (
+                "explanationText",
+                "suggestedQuestions",
+                "suggestedQuestionDetails",
+            )
+            if key in doc
+        ]
+        if forbidden:
+            raise ValueError(
+                f"questions:{doc_id} isChoiceOnly documents must omit "
+                + ", ".join(forbidden)
+            )
     if not _is_list_of_str(doc.get("questionTags")):
         raise ValueError(f"questions:{doc_id} questionTags must be list[str]")
     for key in ("createdById", "updatedById"):
@@ -558,10 +573,6 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     suggested_questions = doc.get("suggestedQuestions")
     suggested_details = doc.get("suggestedQuestionDetails")
     if suggested_questions is not None or suggested_details is not None:
-        if doc.get("isChoiceOnly") is True and (suggested_questions or suggested_details):
-            raise ValueError(
-                f"questions:{doc_id} isChoiceOnly documents must not contain suggested questions"
-            )
         if not isinstance(suggested_questions, list) or not isinstance(
             suggested_details, list
         ):

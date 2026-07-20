@@ -21,6 +21,7 @@ from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
 )
+from scripts.common.explanation_contract import explanation_shape_errors
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
     has_non_empty_law_references,
@@ -306,12 +307,16 @@ def compare_entries(
                     errors.append(
                         f"index {idx}: fill_in_blank explanationText must be non-empty list[str]"
                     )
-            elif isinstance(choices, list) and len(explanations) != len(choices):
-                errors.append(
-                    "index {}: explanationText length mismatch "
-                    "(source={} patch={})".format(idx, len(choices), len(explanations))
+            elif isinstance(choices, list):
+                errors.extend(
+                    f"index {idx}: {error}"
+                    for error in explanation_shape_errors(
+                        explanations,
+                        question_type=source_question_type,
+                        choice_count=len(choices),
+                    )
                 )
-            require_verdict_prefix = not (
+            require_verdict_prefix = source_question_type != "flash_card" and not (
                 isinstance(choices, list)
                 and not choices
                 and source_question_type in {"fill_in_blank", "free_text"}
@@ -321,6 +326,7 @@ def compare_entries(
                 src.get("correctChoiceText"),
                 choice_texts=choices,
                 require_verdict_prefix=require_verdict_prefix,
+                question_type=source_question_type,
             ):
                 errors.append(f"index {idx}: {issue}")
 

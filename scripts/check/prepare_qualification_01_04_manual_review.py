@@ -13,6 +13,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+from scripts.common.explanation_contract import expected_explanation_count
 from scripts.common.question_identity import review_question_id
 from scripts.fix.auto_assign_correct_choice_text import build_expected_correct_choice_text
 
@@ -247,6 +248,7 @@ def build_review_row(
         "answerResultText": str(question.get("answer_result_text") or ""),
         "sourceCategory": question.get("category"),
         "questionType": str(question.get("questionType") or ""),
+        "isCalculationQuestion": question.get("isCalculationQuestion"),
         "questionIntent": str(question.get("questionIntent") or ""),
         "correctChoiceText": correct_choice_text,
         "expectedCorrectChoiceText": expected_correct_choice_text or [],
@@ -256,6 +258,9 @@ def build_review_row(
         "autoAudit": {
             "choiceCount": len(choice_text_list),
             "questionTypePresent": bool(question.get("questionType")),
+            "isCalculationQuestionPresent": isinstance(
+                question.get("isCalculationQuestion"), bool
+            ),
             "questionIntentPresent": question.get("questionIntent") in {"select_correct", "select_incorrect"},
             "answerResultTextPresent": bool(str(question.get("answer_result_text") or "").strip()),
             "correctChoiceReason": correct_choice_reason or "",
@@ -263,15 +268,18 @@ def build_review_row(
                 expected_correct_choice_text is not None and correct_choice_text == expected_correct_choice_text
             ),
             "explanationTextPresent": isinstance(explanation_text, list) and len(explanation_text) > 0,
-            "explanationLengthMatchesChoices": isinstance(explanation_text, list)
-            and len(explanation_text) == len(choice_text_list),
+            "explanationLengthMatchesQuestionType": isinstance(explanation_text, list)
+            and len(explanation_text)
+            == expected_explanation_count(
+                question.get("questionType"), len(choice_text_list)
+            ),
             "questionSetIdPresent": bool(question_set_id),
         },
         "requiredManualChecks": [
             "01: questionType が設問形式と選択肢構造に合っているか確認する",
             "02: questionIntent が『正しいもの/誤っているもの』の設問要求に合っているか確認する",
             "02a: correctChoiceText が answer_result_text と選択肢位置に合っているか確認する",
-            "03: explanationText が各選択肢の正誤理由を誤学習なく説明しているか確認する",
+            "03: explanationText が問題形式に合う単位で正答理由を誤学習なく説明しているか確認する",
             "04: questionSetId が公式出題基準ベースの category.json に合っているか確認する",
         ],
         "review01QuestionType": "pending",
@@ -300,6 +308,7 @@ def build_rows(
     stage_counts: Counter[str] = Counter()
     source_files = iter_source_files(questions_root)
     question_type_counts: Counter[str] = Counter()
+    calculation_question_counts: Counter[str] = Counter()
     question_intent_counts: Counter[str] = Counter()
     source_category_counts: Counter[str] = Counter()
     year_counts: Counter[str] = Counter()
@@ -326,6 +335,14 @@ def build_rows(
         for question_index_in_file, question in enumerate(question_dicts, start=1):
             global_index += 1
             question_type_counts[str(question.get("questionType"))] += 1
+            calculation_flag = question.get("isCalculationQuestion")
+            calculation_question_counts[
+                "true"
+                if calculation_flag is True
+                else "false"
+                if calculation_flag is False
+                else "missing"
+            ] += 1
             question_intent_counts[str(question.get("questionIntent"))] += 1
             source_category_counts[str(question.get("category"))] += 1
             year_counts[source_year(source_path)] += 1
@@ -353,6 +370,9 @@ def build_rows(
         "questionCount": len(rows),
         "yearCounts": dict(sorted(year_counts.items())),
         "questionTypeCounts": dict(sorted(question_type_counts.items())),
+        "isCalculationQuestionCounts": dict(
+            sorted(calculation_question_counts.items())
+        ),
         "questionIntentCounts": dict(sorted(question_intent_counts.items())),
         "sourceCategoryCounts": dict(sorted(source_category_counts.items())),
         "stageSkeletonCounts": dict(sorted(stage_counts.items())),

@@ -10,6 +10,7 @@ from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
 )
+from scripts.common.explanation_contract import explanation_shape_errors
 
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
@@ -41,7 +42,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "originalQuestionChoiceImageUrls",
         }
     ),
-    "question_type": frozenset({"questionType"}),
+    "question_type": frozenset({"questionType", "isCalculationQuestion"}),
     "question_intent": frozenset(
         {"questionIntent", "correctChoiceText", "answer_result_text"}
     ),
@@ -578,12 +579,18 @@ def validate_candidate_content(
     ):
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
     explanations = logical.get("explanationText")
-    if "explanationText" in changed_fields and explanations is not None and (
-        not isinstance(explanations, list)
-        or len(explanations) != len(choices)
-        or any(not isinstance(value, str) or not value.strip() for value in explanations)
+    if "explanationText" in changed_fields and explanations is not None:
+        errors.extend(
+            explanation_shape_errors(
+                explanations,
+                question_type=logical.get("questionType"),
+                choice_count=len(choices),
+            )
+        )
+    if "isCalculationQuestion" in changed_fields and not isinstance(
+        logical.get("isCalculationQuestion"), bool
     ):
-        errors.append("explanationTextが選択肢と同じ件数の非空文字列ではありません。")
+        errors.append("isCalculationQuestionがbooleanではありません。")
     if "isLawRelated" in changed_fields and not isinstance(
         logical.get("isLawRelated"), bool
     ):

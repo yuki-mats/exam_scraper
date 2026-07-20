@@ -11,6 +11,7 @@ from scripts.common.independent_question_images import (
     INDEPENDENT_QUESTION_EXAM_SOURCE,
     published_image_urls,
 )
+from scripts.common.explanation_contract import explanation_shape_errors
 
 
 PATCH_REQUIRED_FIELDS = {
@@ -99,10 +100,13 @@ def projected_required_warnings(record: Mapping[str, Any]) -> list[dict[str, str
         add("correctChoiceText", "未確定又は不正な正誤があります。")
 
     explanations = record.get("explanationText")
-    if not isinstance(explanations, list) or len(explanations) != choice_count:
-        add("explanationText", "解説数が選択肢数と一致しません。")
-    elif any(not str(value or "").strip() for value in explanations):
-        add("explanationText", "空の解説があります。")
+    explanation_errors = explanation_shape_errors(
+        explanations,
+        question_type=record.get("questionType"),
+        choice_count=choice_count,
+    )
+    if explanation_errors:
+        add("explanationText", " / ".join(explanation_errors))
 
     if str(record.get("examSource") or "").strip() == INDEPENDENT_QUESTION_EXAM_SOURCE:
         image_required = record.get(INDEPENDENT_IMAGE_REQUIRED_FIELD)
@@ -138,11 +142,17 @@ def upload_document_required_warnings(
             }
         )
 
+    is_choice_only = document.get("isChoiceOnly") is True
     for field in UPLOAD_REQUIRED_STRING_FIELDS:
+        if field == "explanationText" and is_choice_only:
+            continue
         if field not in document:
             add(field, f"upload-ready documentに{field}がありません。")
         elif not str(document.get(field) or "").strip():
             add(field, f"upload-ready documentの{field}が空です。")
+
+    if is_choice_only and "explanationText" in document:
+        add("explanationText", "isChoiceOnly=true documentにはexplanationTextを保存しません。")
 
     if "correctChoiceText" in document and normalize_verdict(
         document.get("correctChoiceText")

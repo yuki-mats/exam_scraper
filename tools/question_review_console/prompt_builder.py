@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from scripts.common.explanation_contract import public_explanation_text
+
 from tools.question_review_console.law_audit_contract import (
     LAW_AUDIT_REQUIRED_REPAIR_FIELDS,
     QUALIFICATION_LAW_AUDIT_REQUEST,
@@ -55,7 +57,12 @@ def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
         if index < 0 or index >= len(choices):
             continue
         verdict = correctness[index] if isinstance(correctness, list) and index < len(correctness) else ""
-        explanation = explanations[index] if isinstance(explanations, list) and index < len(explanations) else ""
+        explanation = public_explanation_text(
+            explanations,
+            question_type=projected.get("questionType"),
+            choice_index=index,
+            is_choice_only=False,
+        ) or ""
         lines.extend(
             (
                 f"### 選択肢{index + 1}",

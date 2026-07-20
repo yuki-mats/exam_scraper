@@ -54,10 +54,10 @@
 | --- | --- | --- | --- |
 | `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
-| `10_questionType_fixed` | patch | `questionType` | 回答体験を確定する。ここで `true_false` / `flash_card` / `group_choice` などを決める。 |
+| `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion` | 回答体験と計算問題分類を別々に確定する。新規又は更新するstage 01出力では`isCalculationQuestion`をbooleanで必須とし、既存の未分類patchは移行期間だけ読取互換を保つ。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent`、必要時のみanswer result補正 | 設問が正しいもの・誤っているもののどちらを選ばせるか確定する。 |
 | `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。 |
-| `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。 |
+| `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
 | `21_explanationText_added` | patch | `explanationText`, `suggestedQuestionDetailsByChoice`, `original_question_id`。元データにURLがある場合は`question_url`も必須 | 解説と選択肢別の想定質問・回答を事前データとして持ち、画面表示時に AI を自動起動しない。 |
@@ -101,9 +101,9 @@
 | 誤答3 | `incorrectChoice3Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 誤答4 | `incorrectChoice4Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 知識メモ | `knowledgeText` | string | 任意 | 任意 | 原則omit | string。 | explanation / manual | 解説本文と分ける補足知識。 |
-| 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。 | `21_explanationText_added` | AI自動起動を避けるため事前データとして持つ。法令差分注記もここに含める。 |
-| 想定質問 | `suggestedQuestions` | array<string> | 任意 | 条件付き | 可 | Firestore公開時に`suggestedQuestionDetails[].question`から派生する。最大3件。 | convert | 解説画面に即時表示する質問候補。patchでは手書きしない。 |
-| 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 条件付き | 可 | 各要素は `{question, answer}` のみ。最大3件。 | convert | 対応する`isChoiceOnly=false` documentだけへ選択肢別正本から投影する。 |
+| 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。`isChoiceOnly=true`ではfield自体を禁止する。 | `21_explanationText_added`, convert | AI自動起動を避けるため事前データとして持つ。`flash_card`は問題単位の1本だけを正答documentへ投影する。法令差分注記もここに含める。 |
+| 想定質問 | `suggestedQuestions` | array<string> | 任意 | 条件付き | 原則omit | Firestore公開時に`suggestedQuestionDetails[].question`から派生する。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 解説画面に即時表示する質問候補。patchでは手書きしない。 |
+| 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 条件付き | 原則omit | 各要素は `{question, answer}` のみ。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 対応する`isChoiceOnly=false` documentだけへ選択肢別正本から投影する。 |
 | 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
 | 法令問題フラグ | `isLawRelated` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 法令・政令・省令・告示・通達・制度上の義務/定義/手続/基準が、正誤判断または学習上の主要理解に関係する場合に true。年次03b監査の抽出軸。 |
 | 法令根拠不要フラグ | `lawGroundedExplanationNotNeeded` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 旧「条文に基づき解説」導線との互換フラグ。原則 `!isLawRelated` にする。AI解説・条文確認の正本ではなく、app 側では import/read 互換フィールド扱い。 |
@@ -118,7 +118,7 @@
 | タグ | `questionTags` | array<string> | 必須 | 必須 | 不可 | list[str]。空配列可。 | convert / upload | required field。カテゴリそのものではない。 |
 | 運営データ | `isOfficial` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 暗記プラス運営が公開する公式過去問と独自問題は`true`、ユーザー投稿は`false`。 |
 | 論理削除 | `isDeleted` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 削除・差し替え時も物理削除を避ける。 |
-| 選択肢専用doc | `isChoiceOnly` | boolean | 必須 | 必須 | 不可 | bool。 | convert | `group_choice` / `flash_card` の誤答選択肢など、統計本体ではない表示用 doc。 |
+| 選択肢専用doc | `isChoiceOnly` | boolean | 必須 | 必須 | 不可 | bool。 | convert | Firestore documentの役割field。`true`のdocは`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`をfieldごと持たない。問題内容や計算問題の分類には使わない。 |
 | グループ化可能 | `isGroupable` | boolean | 必須 | 必須 | 不可 | bool。 | convert / upload | 同一 `originalQuestionId` に複数選択肢がある true_false 等で true。 |
 | import 元キー | `importKey` | string | 任意 | 任意 | 原則omit | string。 | import / migration | ファイル由来の元キーを残す場合だけ。 |
 | 穴埋め定義 | `fillInBlanks` | array<object> | 任意 | `fill_in_blank` では必須相当 | 原則omit | `blankIndex`, `correctChoiceText`, optional incorrect choices。 | app / import | `questionType=fill_in_blank` のみ使う。 |
@@ -156,6 +156,16 @@
 | `group_choice` | 同一設問の選択肢群を並べ、比較して1つだけ選ぶグループ出題専用。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作る。単体出題不可。 |
 
 資格固有の都合で新しい値を作らないでください。新しい回答体験が必要な場合は、`repaso` の enum / rules / app UI / tests / `exam_scraper` schema を同時に更新します。
+
+### `isCalculationQuestion`（問題整備専用）
+
+`isCalculationQuestion`は`10_questionType_fixed`で管理するbooleanで、正答へ至るために与条件を式へ代入し、演算、比、換算などの計算を行う問題を`true`とします。選択肢が数値であるだけの問題や、式・基準値を知識として選ぶだけの問題は`false`です。
+
+- `questionType`は回答体験、`isCalculationQuestion`は解説作成方針を表す。相互に代用しない。
+- `isChoiceOnly`はFirestore documentの役割を表すため、計算問題判定に使わない。
+- `isCalculationQuestion=true`の基本解説には、式、代入、必要な単位換算、途中計算、最終値、正答選択肢との対応を含める。この方針は全資格共通とする。
+- このfieldは問題整備patchとmerged/auditだけに保持し、`40_convert`、Firestore、Repasoへ公開しない。
+- legacyでfieldがない問題は監査用heuristicで候補抽出できるが、その結果を保存済み分類とみなさない。新規又は更新するstage 01出力はbooleanを明示する。
 
 `正解は 1, 3 です。`のような複数番号は、sourceの公式表示として保持します。`true_false`、`group_choice`などの変換後表現は各型の契約に従いますが、一般則として単一番号へ書き換えません。
 
@@ -320,6 +330,8 @@ AI解説を画面表示時に自動起動しない方針のため、想定質問
 
 patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`です。基本解説で正誤理由を完結させた上で、公開対象の選択肢にだけ0〜3件の補足を保存します。
 
+`flash_card`の`explanationText`は、選択肢数にかかわらず問題単位の1要素だけです。選択肢ごとの基本解説は作りません。`true_false`と`group_choice`は従来どおり選択肢indexと同数の解説を持ちます。計算`flash_card`は詳細な計算過程をこの1本へ含め、補足質問は原則0件とします。非計算`flash_card`の補足質問はnested fieldを受け入れられる状態だけ用意し、資格横断の詳細な作成基準は後日この契約とpromptへ追加します。
+
 | field | 型 | ルール |
 | --- | --- | --- |
 | `suggestedQuestionDetailsByChoice` | array<object> | `choiceIndex`は0始まりで重複不可。0件の選択肢は要素を省略する。 |
@@ -327,7 +339,7 @@ patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`
 | `items[].question` | string | 基本解説後に生じる、その選択肢固有の短い疑問。選択肢内で重複不可。 |
 | `items[].answer` | string | タップ後にAPIを使わず表示する事前回答。 |
 
-公開変換では、対応する`isChoiceOnly=false` documentだけに既存互換の`suggestedQuestionDetails`を平坦化し、`suggestedQuestions`をその`question`から派生します。`isChoiceOnly=true`には両fieldを保存しません。旧flat patchを切り詰めたり、質問文の類似で選択肢へ推測配分したりせず、新形式で再生成します。
+公開変換では、対応する`isChoiceOnly=false` documentだけに問題形式に合う`explanationText`と、既存互換の`suggestedQuestionDetails`を投影し、`suggestedQuestions`をその`question`から派生します。`isChoiceOnly=true`には基本解説と両補足fieldを保存しません。既存documentに残る場合はuploadで削除します。旧flat patchを切り詰めたり、質問文の類似で選択肢へ推測配分したりせず、新形式で再生成します。
 
 追加キーを入れないでください。出典や監査メモは `lawReferences` または review sidecar に分けます。
 

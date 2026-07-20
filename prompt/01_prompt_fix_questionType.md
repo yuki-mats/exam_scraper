@@ -27,7 +27,7 @@
 - `questionBodyText`、`choiceTextList`、`original_question_id`、`question_url` の正本は `00_source` とし、出力時はその値を機械的に転記すること。
 
 【省トークン運用（推奨）】
-- 生成AIが直接出力する JSON は、**`original_question_id` と `questionType` の 2フィールドだけ**を持つ最小形式にすること。
+- 生成AIが直接出力する JSON は、**`original_question_id`、`questionType`、`isCalculationQuestion`の3フィールドだけ**を持つ最小形式にすること。
 - `questionBodyText`、`choiceTextList`、`question_url` は AI が再出力せず、ローカル補完スクリプト
   `python3 tools/question_bank/question_bank.py materialize-patch --task question_type ...`
   で `00_source` から付与すること。
@@ -44,7 +44,7 @@
 - ただし判定の基準ファイルは、常に同一 `list_group_id/00_source/` 配下の対応元ファイルとする。
 
 [書き込み（生成）してよいファイル]
-- まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id` と `questionType` だけ**を持つ最小JSONを作成してよい。
+- まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id`、`questionType`、`isCalculationQuestion`だけ**を持つ最小JSONを作成してよい。
 - その後、`tools/question_bank/question_bank.py materialize-patch` で正式パッチJSONを生成すること。
 - **必ず `list_group_id` のディレクトリ配下に `10_questionType_fixed/` フォルダを作成（存在しなければ作成）し、その中に保存すること。**
 - **出力は固定ファイル名にし、既存の同名パッチがある場合は上書きすること。** 作業のたびにタイムスタンプ付きファイルを増やさない。
@@ -63,18 +63,20 @@
 
 [AI生出力JSONの構造]
 - 1ファイルにつき1つの JSON 配列のみを出力する。
-- 配列の各要素は以下の **2フィールドのみ** をこの順序で持つ：
+- 配列の各要素は以下の **3フィールドのみ** をこの順序で持つ：
   - `original_question_id`
   - `questionType`
+  - `isCalculationQuestion`
 - `original_question_id` が元データに存在しない場合は、**必ず `public_question_id` を `original_question_id` として出力する**。
 - それ以外のフィールド（`questionBodyText`、`choiceTextList`、`question_url`、`source_filepath` など）は AI が直接出力しない。
 - JSON はプレーンな JSON とし、`//` や `/* */` などのコメントを一切入れない。
 
 [正式パッチJSONの構造]
-- `tools/question_bank/question_bank.py materialize-patch` 実行後の正式パッチJSONは、以下の **5フィールドのみ** をこの順序で持つ：
+- `tools/question_bank/question_bank.py materialize-patch` 実行後の正式パッチJSONは、以下の **6フィールドのみ** をこの順序で持つ：
   - `questionBodyText`
   - `choiceTextList`
   - `questionType`
+  - `isCalculationQuestion`
   - `original_question_id`
   - `question_url`
 
@@ -82,7 +84,7 @@
 - 以下は **正式パッチJSON** に対するルールであり、`questionBodyText` / `choiceTextList` / `question_url` は補完スクリプトで `00_source` から機械的に複写すること。
 - `questionBodyText` は **元ファイルの文字列値を1文字も変えずに** そのまま出力すること。
 - `choiceTextList` の各要素も **元ファイルの文字列値を1文字も変えずに** そのまま出力すること。
-- `questionType` 以外の4フィールドは、**値の正規化・言い換え・表記統一・句読点修正・空白修正・記号置換・改行整形を一切してはいけない。**
+- `questionType`と`isCalculationQuestion`以外の4フィールドは、**値の正規化・言い換え・表記統一・句読点修正・空白修正・記号置換・改行整形を一切してはいけない。**
 - 元データ中に改行が含まれる場合、**JSON文字列として有効な `\n` エスケープで保存すること。文字列リテラル内に生の改行文字を入れてはいけない。**
 - JSON の文字列中では、必要に応じて `"` や `\` も正しくエスケープすること。
 - 生成後は、**必ず JSON パーサで読み込める有効な JSON であることを確認すること。**
@@ -94,7 +96,8 @@ AI生出力の例:
 [
   {
     "original_question_id": "e0b892ab33c1e80e",
-    "questionType": "flash_card"
+    "questionType": "flash_card",
+    "isCalculationQuestion": true
   }
 ]
 ```
@@ -126,7 +129,7 @@ PY
 - `--source`/`--patch` をファイル単位で実行すること。
 
 [5.5 high 再確認フラグ sidecar]
-- 判定に不安がある問題がある場合でも、正式パッチJSONには `needs55HighReview` などのメタフィールドを入れてはいけない。正式パッチJSONは上記5フィールドだけにする。
+- 判定に不安がある問題がある場合でも、正式パッチJSONには `needs55HighReview` などのメタフィールドを入れてはいけない。正式パッチJSONは上記6フィールドだけにする。
 - 5.5 high で後から再確認したい問題だけ、同じ `list_group_id` 直下に `99_model_review_flags/` を作り、固定名の JSONL sidecar として保存してよい。
   - 例: `questions_json/85010/99_model_review_flags/question_85010_2_questionType_needs_5_5_high_review.jsonl`
 - sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
@@ -163,9 +166,17 @@ PY
 - 公式問題の出題方針として、`flash_card` / `group_choice` はアプリ上でデフォルト表示時に選択肢を表示する想定。
 - ただし `group_choice` は、**他の選択肢が表示されていないと回答できない問題に限定**して割り当てる。
 - 計算問題・並び替え問題・候補比較問題であっても、問題文だけで答えを導けるなら `flash_card` とする（自動的に `group_choice` にしない）。
+- `questionType`とは別に、全問題へ`isCalculationQuestion`をbooleanで付ける。`questionType`は回答体験、`isCalculationQuestion`は解説作成方針を表し、相互に代用しない。
 - アプリ側の表示仕様:
   - デフォルトでは `flash_card` と `group_choice` の両方で選択肢を表示する想定。
   - 設定で「選択肢を表示しないモード」を有効化した場合でも、`group_choice` は常に選択肢表示を前提とする。
+
+### `isCalculationQuestion`の判定
+
+- 数値条件を式へ代入し、四則演算、比、換算、平方根、対数等の計算を行って答えを確定する問題は`true`とする。
+- 計算式そのもの、用語の定義、大小関係、既知の基準値を知識として選ぶだけで、与条件から数値を算出しない問題は`false`とする。
+- 選択肢が数値であることだけを理由に`true`にせず、正答へ至る過程に計算が必要かで判定する。
+- `flash_card`、`true_false`、`group_choice`のいずれにも`true`又は`false`があり得る。
 
 ### 判定前の根拠確認（必須）
 
@@ -432,10 +443,11 @@ PY
    上記 1-1〜1-4 の判定ルールに従って判定する。
 
 3. **全ての問題**について、
-   - 次の5フィールド **のみ** を持つ新規オブジェクトを作成する:
+   - 次の6フィールド **のみ** を持つ新規オブジェクトを作成する:
      - `questionBodyText`（元の値をそのまま）
      - `choiceTextList`（元の配列をそのまま）
      - `questionType`（判定結果。変更不要なら元の値をそのまま）
+     - `isCalculationQuestion`（計算問題なら`true`、それ以外は`false`）
      - `original_question_id`（元の値をそのまま）
      - `question_url`（元の値をそのまま）
 
@@ -461,12 +473,13 @@ PY
 出力完了後、**必ず最終結果を全件確認**し、誤りがないことを確認できるまで完了扱いにしてはいけない。
 
 1. すべての出力パッチJSONについて、`questionType` の件数内訳（`true_false` / `flash_card` / `group_choice`）を確認する。
-2. `true_false` 判定の全件を対象に、少なくとも次の観点で再点検する。  
+2. `isCalculationQuestion`が全件booleanであり、`true` / `false`の件数内訳を確認する。
+3. `true_false` 判定の全件を対象に、少なくとも次の観点で再点検する。
    - 選択肢が完結した記述文か。  
    - 選択肢が記号ラベル（`A/B/C...`、`ア/イ/...`）や数値候補のみなら、`flash_card` にすべきでないか。
-3. `true_false` の中に、図中ラベル選択・大小関係・計算結果候補の問題が残っていた場合は、必ず修正して再出力する。
-4. 各ファイルで `tools/question_bank/question_bank.py check-question-type-patch --source ... --patch ...` を再実行し、全件 `[OK]` を確認する。
-5. 上記 1〜4 が完了してはじめて「作業完了」とする。
+4. `true_false` の中に、図中ラベル選択・大小関係・計算結果候補の問題が残っていた場合は、必ず修正して再出力する。
+5. 各ファイルで `tools/question_bank/question_bank.py check-question-type-patch --source ... --patch ...` を再実行し、全件 `[OK]` を確認する。
+6. 上記 1〜5 が完了してはじめて「作業完了」とする。
 
 
 ==================================================
@@ -480,12 +493,12 @@ PY
   `10_questionType_fixed/question_85010_1_questionType_fixed.json`  
   のような固定名パッチファイルが存在し、再実行時は同じファイルを上書きする。
 - パッチファイルは JSON 配列で、各要素は
-  `questionBodyText`, `choiceTextList`, `questionType`, `original_question_id`, `question_url`
+  `questionBodyText`, `choiceTextList`, `questionType`, `isCalculationQuestion`, `original_question_id`, `question_url`
   だけを持つ。
 - 後続のバッチ処理では `original_question_id` で該当問題を特定し、
-  `questionType` を上書きする。
+  `questionType`と`isCalculationQuestion`を上書きする。
 
 あなたは上記ルールに厳密に従い、
 元の question_*.json には一切触れず、
-`questionType` を全件出力する形で、上記5フィールドのみの形で
+`questionType`と`isCalculationQuestion`を全件出力する形で、上記6フィールドのみの形で
 パッチJSONとして安全に出力してください。

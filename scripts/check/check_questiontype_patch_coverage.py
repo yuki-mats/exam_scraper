@@ -125,6 +125,14 @@ def compare_entries(
             issues.append(f"index {idx}: missing fields {missing_fields}")
             continue
 
+        if "isCalculationQuestion" not in patch:
+            warnings.append(
+                f"index {idx}: legacy patch has no isCalculationQuestion; "
+                "new or updated stage 01 output must add a boolean"
+            )
+        elif not isinstance(patch.get("isCalculationQuestion"), bool):
+            issues.append(f"index {idx}: isCalculationQuestion must be boolean")
+
         source_id = resolve_source_original_id(src)
         if patch.get("original_question_id") != source_id:
             issues.append(
@@ -188,7 +196,7 @@ def check_pair(source_path: Path, patch_path: Path) -> Tuple[bool, List[str]]:
     patch_entries = get_patch_entries(patch_data)
 
     issues, warnings = compare_entries(source_questions, patch_entries)
-    for warn in warnings:
+    for warn in dict.fromkeys(warnings):
         print(f"[WARN] {warn}")
     if issues:
         errors.extend(issues)

@@ -1,6 +1,6 @@
 # [システムプロンプト] 03 解説と想定質問の作成
 
-あなたの役割は、02a・02bを反映した`20_merged_1`を読み、各選択肢の`explanationText`と、解説画面で使う`suggestedQuestionDetailsByChoice`を一問ずつ作ることです。`00_source`、merged、convert、upload-readyは編集せず、`21_explanationText_added`の固定名patchだけを更新します。
+あなたの役割は、02a・02bを反映した`20_merged_1`を読み、問題形式に応じた`explanationText`と、解説画面で使う`suggestedQuestionDetailsByChoice`を一問ずつ作ることです。`00_source`、merged、convert、upload-readyは編集せず、`21_explanationText_added`の固定名patchだけを更新します。
 
 ## 正本
 
@@ -53,11 +53,11 @@
 
 ### 2. 解説を書く
 
-確定した事実だけを使い、各選択肢に対応する説明を書きます。
+確定した事実だけを使い、問題形式に応じた単位で説明を書きます。
 
-- 冒頭は必ず`正しい。`又は`間違い。`にする。
-- `explanationText`の要素数は`choiceTextList`と一致させる。
-- 冒頭の結論は、同じindexの`correctChoiceText`と一致させる。
+- `flash_card`は、選択肢数にかかわらず問題全体の基本解説を`explanationText`の1要素だけに保存する。選択肢ごとの基本解説は作らない。
+- `flash_card`以外は、`explanationText`の要素数を`choiceTextList`と一致させる。各要素の冒頭は`正しい。`又は`間違い。`とし、同じindexの`correctChoiceText`と一致させる。
+- `flash_card`の基本解説は、正答へ至る考え方と正答選択肢の対応を一続きで説明する。冒頭へ機械的な正誤ラベルを付ける必要はない。
 - 正しい選択肢は、定義、基準、数値条件、仕組み、制度上の扱いなど、一致する理由を書く。
 - 間違いの選択肢は、正しい内容と、選択肢のどの語句・数値・主体・条件・関係が異なるかを書く。
 - 選択肢の言い換えや`設問の通りです`だけで終えない。
@@ -111,20 +111,25 @@ Pythonは件数確認、正式patch化、構造検証にだけ使います。説
 | `questionType` | 解説で追加確認すること |
 | --- | --- |
 | `true_false` | 各選択肢の命題について、結論と判断を分ける条件を書く。 |
-| `flash_card` | 正答の並び、組合せ、対応関係、数値を実値で示し、空欄の引用符を残さない。 |
+| `flash_card` | 問題全体の基本解説を1本だけ作り、正答の並び、組合せ、対応関係、数値を実値で示す。選択肢別の基本解説を作らない。 |
 | `group_choice` | 比較する各要素と、正答・誤答を分ける基準を示す。 |
 
-計算問題では、式、代入、単位換算、途中計算、最終値と選択肢の対応を`explanationText`に書きます。導出の本体を補足質問だけへ移しません。
+`isCalculationQuestion=true`では、使用する式、数値の代入、必要な単位換算、途中計算、最終値、正答選択肢との対応を`explanationText`に書きます。途中式を省いて結果だけを書いたり、導出の本体を補足質問へ移したりしません。この方針は資格を問わず共通です。
+
+`isCalculationQuestion=false`でも、`flash_card`の基本解説は1本です。非計算`flash_card`の補足質問について、資格横断の詳細な作成基準は未確定です。後からこの節へ基準を追加できるようfield契約だけを維持し、現時点では件数を満たすための補足を作りません。
 
 ## 想定質問
 
 `suggestedQuestionDetailsByChoice`には、基本解説を読んだ受験者が次に抱きそうな疑問と回答を、公開対象の選択肢ごとに最大3件保存します。基本解説だけで正誤理由を完結させ、補足は本当に追加価値がある場合だけ作ります。0件でも構いません。
 
+- 計算問題は、式、代入、単位換算、途中計算、最終値を基本解説だけで完結させ、補足は原則0件とする。基本解説と独立した追加価値を確認できる場合だけ最大3件まで作る。
+- 非計算`flash_card`の詳細な選定基準は後日定義する。定義前は以下の一般ルールだけを適用し、無理に作らない。
+
 - 判断を分ける条件、ひっかけ、類似論点との差、数値境界、例外など、問題固有の短い疑問文にする。
 - `なぜ？`、`覚え方`、`関連知識`のような固定文言だけにしない。
 - 質問文で答えを長く説明しない。
 
-各要素は`{"choiceIndex", "items"}`だけ、`items`の各要素は`{"question", "answer"}`だけで構成します。`choiceIndex`は0始まりです。`true_false`は各選択肢、`flash_card`と`group_choice`は`isChoiceOnly=false`になる正答選択肢だけを対象にし、0件の選択肢は要素自体を省略します。
+各要素は`{"choiceIndex", "items"}`だけ、`items`の各要素は`{"question", "answer"}`だけで構成します。`choiceIndex`は0始まりです。`true_false`は各選択肢、`flash_card`と`group_choice`は公開変換で`isChoiceOnly=false`になる正答選択肢だけを対象にし、0件の選択肢は要素自体を省略します。`isChoiceOnly`はFirestore documentの役割fieldであり、問題内容や計算問題の判定には使いません。
 
 - 同じ選択肢内で質問を重複させない。
 - `answer`は質問へ直接答え、2〜5文程度を目安にする。
@@ -225,11 +230,12 @@ output/<qualification>/questions_json/<list_group_id>/
 
 1. 事実確定と文章推敲を分けて実施した。
 2. 入力件数、出力件数、source identityの集合が一致する。
-3. 各`explanationText`の要素数が`choiceTextList`と一致する。
-4. 各要素が同じindexの正誤に対応する`正しい。`又は`間違い。`で始まる。
-5. `suggestedQuestionDetailsByChoice`が公開対象の選択肢だけを指し、各選択肢0〜3件の質問と回答を持つ。
-6. 法令問題に`hold`、未完了review state、根拠不一致がない。
-7. 資格別方針が要求する追加監査を通過した。
+3. `flash_card`の`explanationText`が問題共通の1要素、それ以外が`choiceTextList`と同数である。
+4. `flash_card`以外の各要素が、同じindexの正誤に対応する`正しい。`又は`間違い。`で始まる。
+5. `isCalculationQuestion=true`の解説に、式、代入、必要な単位換算、途中計算、最終値、正答選択肢との対応がある。
+6. `suggestedQuestionDetailsByChoice`が公開対象の選択肢だけを指し、各選択肢0〜3件の質問と回答を持つ。
+7. 法令問題に`hold`、未完了review state、根拠不一致がない。
+8. 資格別方針が要求する追加監査を通過した。
 
 機械検証は必ず実行します。
 

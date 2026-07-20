@@ -4,8 +4,8 @@ goal:
   title: "選択肢別・保存済み補足質問"
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
-  tranche: "continuous execution: exam_scraperの選択肢別patch生成からrepasoの保存回答表示までを一つの契約へ収束させる"
-  status: done
+  tranche: "follow-up: flash_cardの基本解説1本化、isCalculationQuestion分類、代表計算問題の修復を両repoで整合させる"
+  status: active
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: null
+active_task: T012
 tasks:
   - id: T001
     type: scout
@@ -577,6 +577,487 @@ tasks:
         - "Keep goal.status done and active_task null"
         - "Commit and push this durable receipt"
       harness: codex
+  - id: T010
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "利用者が確定したflash_card共通解説と計算問題分類を既存実装へ安全に統合する内部schema、公開境界、最大安全なWorker packageを決定する"
+    inputs:
+      - "goal.md Follow-up Tranche"
+      - "既存suggestedQuestionDetailsByChoice契約"
+      - "gas-shunin-kou / 2019 / gas-shunin:kou:2019:kyokyu:q10"
+      - "exam_scraperとrepasoの現行実装・既存dirty fingerprint"
+    constraints:
+      - "Read-only. Do not implement."
+      - "isChoiceOnlyを計算問題判定へ流用しない。"
+      - "flash_cardの選択肢別基本解説を正本として残さない。"
+      - "非計算flash_cardの補足質問内容基準を今回作り込まない。"
+      - "00_source、本番Firestore、既存questionIdを変更しない。"
+      - "既存dirty差分と今回のcommitを混在させない。"
+    expected_output:
+      - "flash_cardの問題単位基本解説を表す内部schema decision"
+      - "isCalculationQuestionのauthoring・merge・validation・Firestore公開境界"
+      - "repasoの必要変更又は既存挙動で十分な根拠"
+      - "target q10の修復経路"
+      - "exact Worker objective, allowed_files, verify, stop_if"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "PM Judge fallbackで現行patch、merge、converter、問題詳細UI、Repaso grouped metadataを確認した。explanationTextは型を増やさず、flash_cardだけ要素数1の問題単位配列を正本とする。converterはその1本をisChoiceOnly=falseへ投影し、isChoiceOnly=trueでは基本解説と補足fieldをomitする。isCalculationQuestionは10 patchからmerged・監査までの整備用booleanとし、Firestore/Repasoへ公開しない。旧recordは未判定/移行対象として読めるが、新規・更新する01出力ではbooleanを必須とする。Repasoはroot documentを既にgroup metadataへ採用するため新fieldは不要だが、stale choice-only内容をbuilderで破棄する防御を追加する。"
+      worker_package:
+        objective: "flash_cardの基本解説1本契約、isCalculationQuestion整備分類、choice-only公開除外を問題整備からRepasoまで実装し、gas-shunin-kou 2019 q10を詳細計算解説1本・補足0件へ修復してupload dry-runまでreadbackする。"
+        allowed_files:
+          - /Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml
+          - /Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md
+          - /Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md
+          - /Users/yuki/development/exam_scraper/document/reference/question_field_contract.md
+          - /Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md
+          - /Users/yuki/development/exam_scraper/scripts/common/explanation_contract.py
+          - /Users/yuki/development/exam_scraper/scripts/merge/patch_views.py
+          - /Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py
+          - /Users/yuki/development/exam_scraper/scripts/check/audit_calculation_explanations.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/projection.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js
+          - /Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css
+          - /Users/yuki/development/exam_scraper/tests/test_explanation_contract.py
+          - /Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py
+          - /Users/yuki/development/exam_scraper/tests/test_convert_merged_to_firestore.py
+          - /Users/yuki/development/exam_scraper/tests/test_audit_calculation_explanations.py
+          - /Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py
+          - /Users/yuki/development/exam_scraper/tests/test_question_review_patch_editor.py
+          - /Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py
+          - /Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py
+          - /Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py
+          - /Users/yuki/development/exam_scraper/tests/test_merge_source_identity.py
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/12_merged_questionType
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/20_merged_1
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/30_merged_2
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/40_convert
+          - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore
+          - /Users/yuki/StudioProjects/repaso/docs/features/answer_explanation_reimplementation.md
+          - /Users/yuki/StudioProjects/repaso/lib/shared/application/session_multi_choice_answer_builder.dart
+          - /Users/yuki/StudioProjects/repaso/test/shared/application/session_multi_choice_answer_builder_test.dart
+        verify:
+          - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_contract tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_audit_calculation_explanations tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_inventory tests.test_question_review_workflow tests.test_question_review_qualification_runs tests.test_merge_source_identity"
+          - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/pipeline/prepare_firestore_upload.py 2019 -b output/gas-shunin-kou/questions_json --category-json output/gas-shunin-kou/category/category.json --allow-missing-answer-result --upload-dry-run --skip-update-category-counts"
+          - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+          - "cd /Users/yuki/development/exam_scraper && git diff --check"
+          - "cd /Users/yuki/StudioProjects/repaso && dart format --output=none --set-exit-if-changed lib/shared/application/session_multi_choice_answer_builder.dart test/shared/application/session_multi_choice_answer_builder_test.dart"
+          - "cd /Users/yuki/StudioProjects/repaso && flutter test test/shared/application/session_multi_choice_answer_builder_test.dart"
+          - "cd /Users/yuki/StudioProjects/repaso && flutter analyze --no-pub"
+          - "cd /Users/yuki/StudioProjects/repaso && npm run check:flutter-architecture-boundaries"
+          - "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+        stop_if:
+          - "Need files outside allowed_files."
+          - "既存dirty差分と同じhunkを変更する必要がある。"
+          - "00_source、既存questionId又は本番Firestoreの変更が必要になる。"
+          - "非計算flash_cardの補足質問内容基準を決める必要がある。"
+          - "旧flash_card全件を意味推測で一括移行する必要がある。"
+          - "同じ原因で検証が二回失敗する。"
+      evidence:
+        - "prompt/03_prompt_add_explanationText.md currently requires one explanation per choice"
+        - "scripts/convert/convert_merged_to_firestore.py currently copies each flash_card choice explanation"
+        - "tools/question_review_console/patch_validation.py currently requires explanation count equal to choice count"
+        - "gas-shunin-kou 2019 q10 currently has five repeated explanations and five legacy supplemental questions"
+        - "Repaso QuestionGroup metadata is built from correctQuestion and flash_card choice footers are already hidden"
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks: []
+      missing_evidence: []
+      required_board_updates:
+        - "Copy worker_package to T011 and activate it"
+        - "Keep T012 commit/push and T013 final audit queued"
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "flash_cardの基本解説1本契約、isCalculationQuestion整備分類、choice-only公開除外を問題整備からRepasoまで実装し、gas-shunin-kou 2019 q10を詳細計算解説1本・補足0件へ修復してupload dry-runまでreadbackする。"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+      - "/Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md"
+      - "/Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/scripts/common/explanation_contract.py"
+      - "/Users/yuki/development/exam_scraper/scripts/merge/patch_views.py"
+      - "/Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/audit_calculation_explanations.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/projection.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_contract.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_audit_calculation_explanations.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_merge_source_identity.py"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/12_merged_questionType"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/20_merged_1"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/30_merged_2"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/40_convert"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore"
+      - "/Users/yuki/StudioProjects/repaso/docs/features/answer_explanation_reimplementation.md"
+      - "/Users/yuki/StudioProjects/repaso/lib/shared/application/session_multi_choice_answer_builder.dart"
+      - "/Users/yuki/StudioProjects/repaso/test/shared/application/session_multi_choice_answer_builder_test.dart"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_contract tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_audit_calculation_explanations tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_inventory tests.test_question_review_workflow tests.test_question_review_qualification_runs tests.test_merge_source_identity"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/pipeline/prepare_firestore_upload.py 2019 -b output/gas-shunin-kou/questions_json --category-json output/gas-shunin-kou/category/category.json --allow-missing-answer-result --upload-dry-run --skip-update-category-counts"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+      - "cd /Users/yuki/StudioProjects/repaso && dart format --output=none --set-exit-if-changed lib/shared/application/session_multi_choice_answer_builder.dart test/shared/application/session_multi_choice_answer_builder_test.dart"
+      - "cd /Users/yuki/StudioProjects/repaso && flutter test test/shared/application/session_multi_choice_answer_builder_test.dart"
+      - "cd /Users/yuki/StudioProjects/repaso && flutter analyze --no-pub"
+      - "cd /Users/yuki/StudioProjects/repaso && npm run check:flutter-architecture-boundaries"
+      - "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "00_source、既存questionId又は本番Firestoreの変更が必要になる。"
+      - "非計算flash_cardの補足質問内容基準を決める必要がある。"
+      - "旧flash_card全件を意味推測で一括移行する必要がある。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: blocked
+      blocked_reason: "Dedicated goal_worker timed out once without allowed-file changes. PM fallback then found required validation and upload-schema files outside T011 allowed_files, so the task was not widened mid-flight."
+      changed_files: []
+      commands: []
+      summary: "T011は変更なしで停止した。flash_card解説数契約はexplanation_quality、coverage checker、upload schemaにも存在し、T011のscopeでは安全に収束できない。exam_scraperをT014、RepasoをT015へ分けて明示scopeで継続する。"
+      spawned_tasks:
+        - T014
+        - T015
+      verification_attempts: 0
+      stopped_because: "Need files outside allowed_files."
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "exam_scraperでflash_cardの問題単位基本解説1本、isCalculationQuestion整備分類、choice-onlyの解説・補足omitを全検査・変換経路へ統合し、2019 q10を修復してupload dry-runまでreadbackする"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+      - "/Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md"
+      - "/Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/scripts/common/explanation_contract.py"
+      - "/Users/yuki/development/exam_scraper/scripts/common/repaso_firestore_schema.py"
+      - "/Users/yuki/development/exam_scraper/scripts/merge/patch_views.py"
+      - "/Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/scripts/upload/upload_questions_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/audit_calculation_explanations.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/check_explanation_patch_coverage.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/prepare_qualification_01_04_manual_review.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/explanation_quality.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/prompt_builder.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/projection.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_contract.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_upload_questions_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_audit_calculation_explanations.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_explanation_quality.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_merge_source_identity.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_documentation_structure.py"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/12_merged_questionType"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/20_merged_1"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/30_merged_2"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/40_convert"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_contract tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_audit_calculation_explanations tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_inventory tests.test_question_review_workflow tests.test_question_review_progress_output_ui tests.test_question_review_qualification_runs tests.test_question_review_explanation_quality tests.test_merge_source_identity tests.test_documentation_structure"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/pipeline/prepare_firestore_upload.py 2019 -b output/gas-shunin-kou/questions_json --category-json output/gas-shunin-kou/category/category.json --allow-missing-answer-result --upload-dry-run --skip-update-category-counts"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "cd /Users/yuki/development/exam_scraper && node --check tools/question_review_console/static/app.js"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "00_source、既存questionId又は本番Firestoreの変更が必要になる。"
+      - "非計算flash_cardの補足質問内容基準を決める必要がある。"
+      - "旧flash_card全件を意味推測で一括移行する必要がある。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: blocked
+      blocked_reason: "isCalculationQuestionをraw outputから正式な10_questionType_fixed patchへ残すため、T014のallowed_files外にあるmaterialize_minimal_patch.pyとquestionType checkerの更新が必要と判明した。"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml
+        - /Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md
+        - /Users/yuki/development/exam_scraper/scripts/common/explanation_contract.py
+        - /Users/yuki/development/exam_scraper/scripts/common/repaso_firestore_schema.py
+        - /Users/yuki/development/exam_scraper/scripts/merge/patch_views.py
+        - /Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py
+        - /Users/yuki/development/exam_scraper/scripts/upload/upload_questions_to_firestore.py
+        - /Users/yuki/development/exam_scraper/scripts/check/audit_calculation_explanations.py
+        - /Users/yuki/development/exam_scraper/scripts/check/check_explanation_patch_coverage.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/explanation_quality.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/prompt_builder.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/projection.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css
+        - /Users/yuki/development/exam_scraper/tests/test_explanation_contract.py
+        - /Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py
+        - /Users/yuki/development/exam_scraper/tests/test_upload_questions_to_firestore.py
+        - /Users/yuki/development/exam_scraper/tests/test_audit_calculation_explanations.py
+      commands: []
+      summary: "許可済み範囲の契約・検査・変換・upload sanitize・問題整備UIの実装は保持した。必要な追加経路をT016へ明示し、scopeを途中拡張せず継続する。"
+      spawned_tasks:
+        - T016
+      verification_attempts: 0
+      stopped_because: "Need files outside allowed_files."
+  - id: T016
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "T014の実装を引き継ぎ、isCalculationQuestionのmaterialize/check経路、flash_card共通解説文書・レビュー帳票、2019 q10修復、upload dry-runを追加scope内で完了する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+      - "/Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md"
+      - "/Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/scripts/common/explanation_contract.py"
+      - "/Users/yuki/development/exam_scraper/scripts/common/repaso_firestore_schema.py"
+      - "/Users/yuki/development/exam_scraper/scripts/merge/patch_views.py"
+      - "/Users/yuki/development/exam_scraper/scripts/fix/materialize_minimal_patch.py"
+      - "/Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/scripts/upload/upload_questions_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/audit_calculation_explanations.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/check_explanation_patch_coverage.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/check_questiontype_patch_coverage.py"
+      - "/Users/yuki/development/exam_scraper/scripts/check/prepare_qualification_01_04_manual_review.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/explanation_quality.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/prompt_builder.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/projection.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_contract.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_convert_merged_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_upload_questions_to_firestore.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_audit_calculation_explanations.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_materialize_minimal_patch_identity.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_prepare_qualification_01_04_manual_review.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_patch_editor.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_explanation_quality.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_merge_source_identity.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_merge_questiontype_compat.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_documentation_structure.py"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/12_merged_questionType"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/20_merged_1"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/30_merged_2"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/40_convert"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_explanation_contract tests.test_explanation_patch_pipeline tests.test_convert_merged_to_firestore tests.test_upload_questions_to_firestore tests.test_audit_calculation_explanations tests.test_materialize_minimal_patch_identity tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_question_candidate tests.test_question_review_patch_editor tests.test_question_review_inventory tests.test_question_review_workflow tests.test_question_review_progress_output_ui tests.test_question_review_qualification_runs tests.test_question_review_explanation_quality tests.test_merge_source_identity tests.test_merge_questiontype_compat tests.test_documentation_structure"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/pipeline/prepare_firestore_upload.py 2019 -b output/gas-shunin-kou/questions_json --category-json output/gas-shunin-kou/category/category.json --allow-missing-answer-result --upload-dry-run --skip-update-category-counts"
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "cd /Users/yuki/development/exam_scraper && node --check tools/question_review_console/static/app.js"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "00_source、既存questionId又は本番Firestoreの変更が必要になる。"
+      - "非計算flash_cardの補足質問内容基準を決める必要がある。"
+      - "旧flash_card全件を意味推測で一括移行する必要がある。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      summary: "flash_card共通解説1本、isCalculationQuestionのstage 01分類、choice-onlyの解説・補足field禁止をprompt、契約、materialize、merge、validator、review UI、convert、uploadへ統合した。2019 q10は計算flag=true、詳細計算解説1本、補足0件へ修復し、290 documentsのupload dry-runを完了した。"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml
+        - /Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md
+        - /Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md
+        - /Users/yuki/development/exam_scraper/document/reference/question_field_contract.md
+        - /Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md
+        - /Users/yuki/development/exam_scraper/scripts/common/explanation_contract.py
+        - /Users/yuki/development/exam_scraper/scripts/common/repaso_firestore_schema.py
+        - /Users/yuki/development/exam_scraper/scripts/merge/patch_views.py
+        - /Users/yuki/development/exam_scraper/scripts/fix/materialize_minimal_patch.py
+        - /Users/yuki/development/exam_scraper/scripts/convert/convert_merged_to_firestore.py
+        - /Users/yuki/development/exam_scraper/scripts/upload/upload_questions_to_firestore.py
+        - /Users/yuki/development/exam_scraper/scripts/check/audit_calculation_explanations.py
+        - /Users/yuki/development/exam_scraper/scripts/check/check_explanation_patch_coverage.py
+        - /Users/yuki/development/exam_scraper/scripts/check/check_questiontype_patch_coverage.py
+        - /Users/yuki/development/exam_scraper/scripts/check/prepare_qualification_01_04_manual_review.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_editor.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/explanation_quality.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/prompt_builder.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/inventory.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/projection.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css
+        - /Users/yuki/development/exam_scraper/tests/test_explanation_contract.py
+        - /Users/yuki/development/exam_scraper/tests/test_explanation_patch_pipeline.py
+        - /Users/yuki/development/exam_scraper/tests/test_upload_questions_to_firestore.py
+        - /Users/yuki/development/exam_scraper/tests/test_audit_calculation_explanations.py
+        - /Users/yuki/development/exam_scraper/tests/test_materialize_minimal_patch_identity.py
+        - /Users/yuki/development/exam_scraper/tests/test_prepare_qualification_01_04_manual_review.py
+        - /Users/yuki/development/exam_scraper/tests/test_documentation_structure.py
+        - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json
+        - /Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json
+      commands:
+        - cmd: ".venv/bin/python -m unittest ... (251 tests)"
+          status: pass
+        - cmd: ".venv/bin/python scripts/pipeline/prepare_firestore_upload.py 2019 ... --upload-dry-run"
+          status: pass
+        - cmd: ".venv/bin/python tools/question_bank/question_bank.py check-question-type-patch ..."
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      verification:
+        unit_tests: "pass: 251"
+        upload_dry_run: "pass: 290 documents; production writes 0"
+        source_immutability: "pass: 5799 files"
+        q10_readback: "root explanation 1; supplements 0; four choice-only docs omit all three fields"
+        syntax_and_diff: pass
+      verification_attempts: 2
+      stopped_because: null
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "RepasoでisChoiceOnly documentのstaleな基本解説・補足をsession modelへ渡さず、flash_cardがroot documentの基本解説1本だけを使う契約を文書とtestで固定する"
+    allowed_files:
+      - "/Users/yuki/StudioProjects/repaso/docs/features/answer_explanation_reimplementation.md"
+      - "/Users/yuki/StudioProjects/repaso/lib/shared/application/session_multi_choice_answer_builder.dart"
+      - "/Users/yuki/StudioProjects/repaso/test/shared/application/session_multi_choice_answer_builder_test.dart"
+    verify:
+      - "cd /Users/yuki/StudioProjects/repaso && dart format --output=none --set-exit-if-changed lib/shared/application/session_multi_choice_answer_builder.dart test/shared/application/session_multi_choice_answer_builder_test.dart"
+      - "cd /Users/yuki/StudioProjects/repaso && flutter test test/shared/application/session_multi_choice_answer_builder_test.dart"
+      - "cd /Users/yuki/StudioProjects/repaso && flutter analyze --no-pub"
+      - "cd /Users/yuki/StudioProjects/repaso && npm run check:flutter-architecture-boundaries"
+      - "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "RepasoへisCalculationQuestionを公開する必要が生じる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      summary: "Repasoのsession builderでisChoiceOnly=true documentに残る旧explanation/suggestion fieldを無視する防御を追加した。flash_cardはroot documentの問題共通解説1本を使い、isCalculationQuestionはアプリへ公開しない契約を正本文書へ固定した。"
+      changed_files:
+        - /Users/yuki/StudioProjects/repaso/docs/features/answer_explanation_reimplementation.md
+        - /Users/yuki/StudioProjects/repaso/lib/shared/application/session_multi_choice_answer_builder.dart
+        - /Users/yuki/StudioProjects/repaso/test/shared/application/session_multi_choice_answer_builder_test.dart
+      commands:
+        - cmd: "dart format --output=none --set-exit-if-changed ..."
+          status: pass
+        - cmd: "flutter test test/shared/application/session_multi_choice_answer_builder_test.dart"
+          status: pass
+        - cmd: "flutter analyze --no-pub"
+          status: pass
+        - cmd: "npm run check:flutter-architecture-boundaries"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      verification:
+        widget_unit_tests: "pass: 6"
+        flutter_analyze: "pass: no issues"
+        architecture_boundaries: pass
+      verification_attempts: 1
+      stopped_because: null
+  - id: T012
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "T011の変更だけを両repoの既存dirty差分から分離し、各既定branchへcommit/pushしてorigin readbackする"
+    inputs:
+      - "T011 receipt"
+      - "両repoのcurrent dirty fingerprint"
+    constraints:
+      - "既存未コミット差分をstageしない。"
+      - "exam_scraperはmain、repasoはmasterだけへpushする。"
+      - "force pushしない。"
+    expected_output:
+      - "scoped commit hashes"
+      - "origin branch readback"
+      - "pre-existing dirty files remain unstaged"
+    receipt: null
+  - id: T013
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "追補契約、代表q10 readback、両repoのテストとorigin readbackを監査し、full_outcome_completeを判定する"
+    inputs:
+      - "T010-T012 receipts"
+      - "Goal oracle and Follow-up Tranche"
+      - "Current repository and generated artifact readback"
+    constraints:
+      - "Read-only. Do not implement."
+      - "isChoiceOnlyとisCalculationQuestionの責務が混ざればrejectする。"
+      - "flash_cardのchoice-only documentに基本解説又は補足が残ればrejectする。"
+      - "q10に詳細計算過程又は0件補足の証拠がなければrejectする。"
+      - "非計算flash_cardの詳細基準作成を完了条件に加えない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle mapping"
+      - "missing evidence and next task if not complete"
+    receipt: null
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:

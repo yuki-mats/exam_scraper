@@ -154,7 +154,7 @@ def is_excluded(path: Path, excluded_dirs: set[str]) -> bool:
     return any(part in excluded_dirs for part in path.parts)
 
 
-def is_calculation_candidate(question: dict[str, Any]) -> bool:
+def is_calculation_candidate_by_heuristic(question: dict[str, Any]) -> bool:
     stem = text_of(
         question.get("questionBodyText")
         or question.get("questionText")
@@ -212,6 +212,15 @@ def is_calculation_candidate(question: dict[str, Any]) -> bool:
     )
 
 
+def is_calculation_candidate(question: dict[str, Any]) -> bool:
+    """Use the maintenance classification when present; keep legacy fallback readable."""
+
+    explicit = question.get("isCalculationQuestion")
+    if isinstance(explicit, bool):
+        return explicit
+    return is_calculation_candidate_by_heuristic(question)
+
+
 def derivation_status(explanation: str) -> tuple[bool, list[str]]:
     reasons: list[str] = []
     has_marker = bool(DERIVATION_MARKER_RE.search(explanation))
@@ -264,6 +273,11 @@ def audit_roots(roots: list[Path], excluded_dirs: set[str]) -> tuple[list[dict[s
                     or "",
                     "questionSetId": question.get("questionSetId") or "",
                     "derivationOk": ok,
+                    "classificationSource": (
+                        "isCalculationQuestion"
+                        if isinstance(question.get("isCalculationQuestion"), bool)
+                        else "legacy_heuristic"
+                    ),
                     "issueReasons": reasons,
                     "questionBodySample": compact(
                         text_of(
@@ -279,6 +293,12 @@ def audit_roots(roots: list[Path], excluded_dirs: set[str]) -> tuple[list[dict[s
     summary = {
         "candidateCount": len(rows),
         "issueCount": sum(1 for row in rows if not row["derivationOk"]),
+        "explicitFlagCount": sum(
+            1 for row in rows if row["classificationSource"] == "isCalculationQuestion"
+        ),
+        "legacyHeuristicCount": sum(
+            1 for row in rows if row["classificationSource"] == "legacy_heuristic"
+        ),
         "candidateCountByQualification": dict(
             sorted(Counter(row["qualification"] for row in rows).items())
         ),

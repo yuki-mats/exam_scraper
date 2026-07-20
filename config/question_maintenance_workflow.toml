@@ -77,7 +77,7 @@ batch_selectable = true
 session_group = "maintenance"
 patch_dir = "10_questionType_fixed"
 patch_suffix = "questionType_fixed"
-issue_fields = ["questionType"]
+issue_fields = ["questionType", "isCalculationQuestion"]
 documents = ["prompt/01_prompt_fix_questionType.md"]
 
 [[stages]]
