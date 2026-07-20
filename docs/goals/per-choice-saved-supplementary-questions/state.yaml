@@ -5,7 +5,7 @@ goal:
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
   tranche: "follow-up: listGroupId一覧を問題整備・洗い替えの統一入口にし、2017年の補足質問のみをUI実行して監視する"
-  status: active
+  status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T029
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -1741,7 +1741,7 @@ tasks:
   - id: T029
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T028のUI変更だけをmainへcommit/pushし、既存output dirtyを混入させずorigin/mainをreadbackする"
     inputs:
@@ -1753,11 +1753,28 @@ tasks:
     expected_output:
       - "commit hash and origin/main readback"
       - "remaining dirty files are pre-existing output only"
-    receipt: null
+    receipt:
+      result: done
+      summary: "統一導線の実装、正本文書、契約テスト、GoalBuddy control filesだけをmainへcommit/pushした。既存output patchはstageせず、全回帰とorigin readbackを確認した。"
+      commands:
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,017 tests passed; 7 skipped"
+        - cmd: "git commit -m 'feat: unify question maintenance entry flow'"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git rev-parse HEAD and git ls-remote origin refs/heads/main"
+          status: pass
+      evidence:
+        - "HEAD=origin/main=ed41d1c1c1e4d15c6175c2cefb9ce9f91f4f8625"
+        - "commit scope: 9 non-output files"
+        - "remaining status contains only pre-existing output patches plus the post-commit board receipt"
+      harness: codex
   - id: T030
     type: pm
     assignee: PM
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "問題整備システムを再起動し、トップの2017行から補足質問と回答だけをUI実行してterminalまで進捗・出力・技術ログ・field境界を監視する"
     inputs:
@@ -1773,11 +1790,34 @@ tasks:
       - "run id and terminal status"
       - "question/output/log summary"
       - "selected field readback"
-    receipt: null
+    receipt:
+      result: done
+      summary: "トップの2017行から補足質問と回答だけを3回UI実行し、監視で見つけた2件の不具合も修正した。初回はrun manifestがfield選択を保持せず子promptが全解説fieldへ広がったためd9133b419でfail-closed契約を保存した。2回目はfield境界は成立したが、基本解説の言い換え補足が58問すべてに残ったため0408a00f3で候補field規則へ基本解説との照合と計算補足禁止を直接追加した。最終runは58/58問、保留0件、補足0件、artifact sync成功、upload dry-run不能0件で完了した。利用者指摘のトップ監査カードも6e1cdca9bで削除し、ブラウザで非表示を確認した。"
+      runs:
+        - runId: "20260721T001000723739-94b78143"
+          result: "field scope leak detected"
+        - runId: "20260721T002039009301-b1641258"
+          result: "field boundary passed; redundant content detected"
+        - runId: "20260721T003002896126-8d9d3fb4"
+          result: "succeeded"
+      evidence:
+        - "最終run manifest: status=succeeded, validatedQuestionCount=58, blockedQuestionCount=0, receiptValidated=true"
+        - "9 child manifests: selectedUpdateTargetIds=[explanation.supplementary_questions]"
+        - "9 child prompts: 更新許可field=explanation=suggestedQuestionDetailsByChoice"
+        - "2017 explanation patch: records=58, withSupplement=0, withoutSupplement=58, items=0"
+        - "3 explanation patch coverage checks passed"
+        - "technical log: Firestore upload --dry-run, upload不能0件, Merge・Convert・upload-ready一致"
+        - "browser: 58/58問・58/58工程、最終検証成功、生成内容を監査card count=0"
+        - "00_source 5,799 files unchanged"
+      commits:
+        - "d9133b4192cb91445fe5fe6e99f9ec67ab8a580e"
+        - "6e1cdca9b79a9daa372fbe06b8444f8095dde334"
+        - "0408a00f36bb30c45d1e25129ec39383121f8bd4"
+      harness: codex
   - id: T031
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "統一導線、回帰、scoped push、2017年UI実行とログを監査し、今回の利用者要望が完全に成立したか判定する"
     inputs:
@@ -1789,18 +1829,46 @@ tasks:
       - "complete | not_complete"
       - "full_outcome_complete: true | false"
       - "oracle mapping and missing evidence"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "PM最終監査で、listGroupId一覧だけを主入口とするトップUI、独立監査カードの削除、部分洗い替えscopeの親子run保持、2017年最終run、全回帰、00_source保護、main pushを照合し完全達成と判定した。最終runはsuggestedQuestionDetailsByChoiceだけを書込み可能とし、本番Firestoreへ書かず、基本解説と重複する補足を58問すべて0件へ洗い替えた。"
+      oracle_mapping:
+        - "統一導線: 各年度行の整備・洗い替えbuttonからfield-first dialogを開き、独立監査cardは表示しない。"
+        - "field境界: 親子manifestと全child promptがsuggestedQuestionDetailsByChoiceだけを許可する。"
+        - "2017成果: 58/58問、保留0、coverage 3/3、補足0件、artifact sync成功。"
+        - "公開安全: uploadはdry-runだけで、不能0件。本番Firestore書込なし。"
+        - "回帰: 1,018 tests passed, 7 skipped。"
+        - "保護: 00_source 5,799 files unchanged、既存dirty outputは未stage。"
+      missing_evidence: []
+      harness: codex
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
     result: pass
-    task: T009
+    task: T031
     commands:
       - cmd: "node --check tools/question_review_console/static/app.js"
         status: pass
       - cmd: ".venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_progress_output_ui"
         status: pass
-        summary: "41 related UI and workflow tests"
+        summary: "44 related UI and workflow tests"
+      - cmd: ".venv/bin/python -m unittest discover -s tests"
+        status: pass
+        summary: "1,018 tests passed; 7 skipped"
+      - cmd: "2017 UI run 20260721T003002896126-8d9d3fb4"
+        status: pass
+        summary: "58/58 questions validated, 0 blocked, artifact sync succeeded"
+      - cmd: "all child manifest and prompt field-boundary readback"
+        status: pass
+        summary: "9/9 children allowed only suggestedQuestionDetailsByChoice"
+      - cmd: "check_explanation_patch_coverage.py for 2017 source/patch files 1-3"
+        status: pass
+        summary: "3/3 passed; all 58 records have 0 redundant supplementary items"
+      - cmd: "browser readback of maintenance home"
+        status: pass
+        summary: "2017 row entry present; 生成内容を監査 card absent"
       - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
         status: pass
         summary: "5,799 source files unchanged"
