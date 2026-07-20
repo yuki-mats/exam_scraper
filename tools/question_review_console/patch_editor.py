@@ -14,7 +14,10 @@ from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
 )
-from scripts.common.explanation_contract import explanation_shape_errors
+from scripts.common.explanation_contract import (
+    explanation_shape_errors,
+    uses_question_level_explanation,
+)
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
@@ -200,7 +203,9 @@ class PatchEditor:
                     choice_texts=final_record.get("choiceTextList"),
                     require_verdict_prefix=(
                         choice_count > 0
-                        and final_record.get("questionType") != "flash_card"
+                        and not uses_question_level_explanation(
+                            final_record.get("questionType")
+                        )
                     ),
                     question_type=final_record.get("questionType"),
                 )

@@ -133,9 +133,10 @@ documents = ["prompt/02b_prompt_prepare_law_context.md"]
 id = "explanation"
 code = "03"
 label = "解説"
-purpose = "正誤理由と学習用の補足質問を選択肢単位で整える"
+purpose = "正誤理由と学習用の補足質問を問題形式に応じた単位で整える"
 kind = "human"
-policy_version = "2.2"
+# 3.0: flash_cardとgroup_choiceを問題共通の基本解説1本へ統一し、既存問題を洗い替える。
+policy_version = "3.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

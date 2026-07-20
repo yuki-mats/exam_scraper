@@ -16,6 +16,17 @@ class ExplanationQualityTests(unittest.TestCase):
 
         self.assertIn("解説の件数が選択肢の件数と一致しません。", issues[0])
 
+    def test_group_choice_accepts_one_question_level_explanation_without_verdict_prefix(self):
+        issues = explanation_style_issues(
+            ["各組合せを比較すると、条件をすべて満たすのは選択肢3である。"],
+            ["間違い", "間違い", "正しい", "間違い"],
+            choice_texts=["組合せ1", "組合せ2", "組合せ3", "組合せ4"],
+            require_verdict_prefix=False,
+            question_type="group_choice",
+        )
+
+        self.assertEqual(issues, [])
+
     def test_canonical_prompt_examples_follow_the_same_style_contract(self):
         prompt = (
             Path(__file__).resolve().parents[1]

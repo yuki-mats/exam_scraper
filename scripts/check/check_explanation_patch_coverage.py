@@ -21,7 +21,10 @@ from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
 )
-from scripts.common.explanation_contract import explanation_shape_errors
+from scripts.common.explanation_contract import (
+    explanation_shape_errors,
+    uses_question_level_explanation,
+)
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
     has_non_empty_law_references,
@@ -316,7 +319,9 @@ def compare_entries(
                         choice_count=len(choices),
                     )
                 )
-            require_verdict_prefix = source_question_type != "flash_card" and not (
+            require_verdict_prefix = not uses_question_level_explanation(
+                source_question_type
+            ) and not (
                 isinstance(choices, list)
                 and not choices
                 and source_question_type in {"fill_in_blank", "free_text"}

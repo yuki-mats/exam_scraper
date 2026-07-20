@@ -5,6 +5,7 @@ import unittest
 from scripts.check.check_explanation_patch_coverage import compare_entries
 from scripts.convert.convert_merged_to_firestore import (
     convert_flash_card_to_firestore,
+    convert_group_choice_to_firestore,
     convert_true_false_to_firestore,
 )
 from scripts.fix.auto_assign_correct_choice_text import build_expected_correct_choice_text
@@ -781,6 +782,35 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(
             public_documents[0]["suggestedQuestionDetails"],
             [{"question": "肢3の疑問", "answer": "肢3の回答"}],
+        )
+        for document in choice_only_documents:
+            self.assertNotIn("explanationText", document)
+            self.assertNotIn("suggestedQuestions", document)
+            self.assertNotIn("suggestedQuestionDetails", document)
+
+    def test_convert_group_choice_publishes_one_common_explanation_on_root_only(self) -> None:
+        question_body = {
+            "original_question_id": "q-group-choice",
+            "questionBodyText": "正しい組合せを選べ。",
+            "choiceTextList": ["組合せ1", "組合せ2", "組合せ3", "組合せ4"],
+            "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+            "explanationText": ["比較基準を順に当てはめると、組合せ2が正答となる。"],
+            "examYear": 2025,
+            "questionLabel": "問7",
+            "qualificationName": "試験資格",
+            "questionSetId": "set-group",
+            "suggestedQuestionDetailsByChoice": [],
+        }
+
+        actual = convert_group_choice_to_firestore(question_body)
+
+        public_documents = [document for document in actual if not document["isChoiceOnly"]]
+        choice_only_documents = [document for document in actual if document["isChoiceOnly"]]
+        self.assertEqual(len(public_documents), 1)
+        self.assertEqual(len(choice_only_documents), 3)
+        self.assertEqual(
+            public_documents[0]["explanationText"],
+            "比較基準を順に当てはめると、組合せ2が正答となる。",
         )
         for document in choice_only_documents:
             self.assertNotIn("explanationText", document)

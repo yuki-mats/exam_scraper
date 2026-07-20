@@ -2790,7 +2790,7 @@ async function openProgressQuestion(event) {
         "現在保存されている解説",
         projected.explanationText,
         "",
-        projected.questionType === "flash_card" ? "基本解説" : "選択肢",
+        usesQuestionLevelExplanation(projected.questionType) ? "基本解説" : "選択肢",
       ),
     );
   } catch (error) {
@@ -3375,6 +3375,10 @@ const QUESTION_TYPE_DESCRIPTIONS = {
   fill_in_blank: "穴埋め",
   group_choice: "選択肢をまとめて選択",
 };
+
+function usesQuestionLevelExplanation(questionType) {
+  return ["flash_card", "group_choice"].includes(questionType);
+}
 
 const QUESTION_INTENT_DESCRIPTIONS = {
   select_correct: "正しいものを選ぶ",
@@ -4941,7 +4945,7 @@ function renderChoices(projected) {
   const choiceNodes = new Map();
   let expandedChoiceIndex = null;
 
-  if (projected.questionType === "flash_card") {
+  if (usesQuestionLevelExplanation(projected.questionType)) {
     const common = element(
       "section",
       "choice-common-explanation",
@@ -5002,7 +5006,7 @@ function renderChoices(projected) {
       suggestionToggle,
     );
     const choiceText = element("div", "choice-text", choice);
-    const explanation = projected.questionType === "flash_card"
+    const explanation = usesQuestionLevelExplanation(projected.questionType)
       ? null
       : element("div", "choice-explanation", explanations[index] || "（解説なし）");
     if (explanation) {
@@ -5617,7 +5621,7 @@ function openEdit() {
     : "保存先は21_explanationText_addedと23_correctChoiceText_fixedです。00_sourceは変更しません。";
   const list = $("#edit-choice-list");
   list.replaceChildren();
-  if (projected.questionType === "flash_card") {
+  if (usesQuestionLevelExplanation(projected.questionType)) {
     const commonRow = element("div", "edit-choice edit-common-explanation");
     const explanationLabel = document.createElement("label");
     explanationLabel.append(element("span", "", "基本解説（問題共通）"));
@@ -5646,7 +5650,7 @@ function openEdit() {
     select.disabled = state.detail.isLawRelated;
     selectLabel.append(select);
     row.append(selectLabel);
-    if (projected.questionType !== "flash_card") {
+    if (!usesQuestionLevelExplanation(projected.questionType)) {
       const explanationLabel = document.createElement("label");
       explanationLabel.append(element("span", "", "基本解説"));
       const textarea = document.createElement("textarea");

@@ -303,7 +303,7 @@ def explanation_style_issues(
     if choices and len(explanation_values) != expected_count:
         if uses_question_level_explanation(question_type):
             issues.append(
-                "flash_cardの解説は問題単位の1件にしてください。"
+                "flash_cardとgroup_choiceの解説は問題単位の1件にしてください。"
                 f"（解説{len(explanation_values)}件／選択肢{len(choices)}件）"
             )
         else:

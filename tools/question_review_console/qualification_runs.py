@@ -39,6 +39,7 @@ from tools.question_review_console.projection import (
     source_identity_aliases,
     workflow_identity_aliases,
 )
+from scripts.common.explanation_contract import uses_question_level_explanation
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobConflictError,
@@ -8536,7 +8537,9 @@ class QualificationRunCoordinator:
                     choice_texts=choices,
                     require_verdict_prefix=(
                         require_verdict_prefix
-                        and projected.get("questionType") != "flash_card"
+                        and not uses_question_level_explanation(
+                            projected.get("questionType")
+                        )
                     ),
                     question_type=projected.get("questionType"),
                 )
