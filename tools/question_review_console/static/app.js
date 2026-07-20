@@ -3906,7 +3906,15 @@ function renderPipelineActions(question) {
   const status = element("div", "pipeline-message");
   const actions = element("div", "pipeline-buttons");
 
-  if (maintenanceBlocksPublication(question)) {
+  if (!localReady) {
+    status.append(
+      element("strong", "", "最新patchが後続成果物へ未反映です"),
+      element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
+    );
+    actions.append(patchSyncAction());
+    const readbackTime = questionReadbackTime(question);
+    if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
+  } else if (maintenanceBlocksPublication(question)) {
     status.append(
       element("strong", "", "公開前の修正が残っています"),
       element("span", "", "表示中の要確認項目をパッチで直すか、別threadへ修正を依頼します。"),
@@ -3918,14 +3926,6 @@ function renderPipelineActions(question) {
       "修正を依頼",
       "現在の要確認項目を、正本と対象pathを含むCodex依頼として作成します。",
     ));
-  } else if (!localReady) {
-    status.append(
-      element("strong", "", "最新patchが後続成果物へ未反映です"),
-      element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
-    );
-    actions.append(patchSyncAction());
-    const readbackTime = questionReadbackTime(question);
-    if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
   } else if (["not_started", "stale"].includes(evaluation.status)) {
     status.append(
       element("strong", "", evaluation.status === "stale" ? "再評価が必要です" : "評価待ちです"),

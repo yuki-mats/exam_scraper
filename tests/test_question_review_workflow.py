@@ -1075,6 +1075,10 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         )
         self.assertIn("actions.append(patchSyncAction({", pipeline_actions)
         self.assertIn("emergency: true", pipeline_actions)
+        self.assertLess(
+            pipeline_actions.index("if (!localReady)"),
+            pipeline_actions.index("else if (maintenanceBlocksPublication(question))"),
+        )
         self.assertIn("非常用の操作です。", sync_action)
         self.assertIn("成果物が一致済みでも、必要な場合に限り強制再実行できます。", sync_action)
         admin_toggle = javascript.split(
