@@ -5,7 +5,7 @@ goal:
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
   tranche: "follow-up: 洗い替え画面を年度・項目・処理対象の三指定へ簡素化する"
-  status: active
+  status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T033
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -1910,7 +1910,7 @@ tasks:
   - id: T033
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T032の変更をscoped commit/pushし、実画面・全回帰・00_source保護・origin readbackを元に今回の簡素化が完全に成立したか最終監査する"
     inputs:
@@ -1927,21 +1927,55 @@ tasks:
       - "complete | not_complete"
       - "full_outcome_complete: true | false"
       - "oracle mapping and missing evidence"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "PM最終監査で、listGroupIdから開く画面が対象年度・整備する項目・処理する問題の三指定だけになり、初期全項目、needed初期値、二択の処理対象、問題番号欄なしを2017の実画面で確認した。neededの和集合抽出、旧run互換、全回帰、00_source保護、scoped pushも成立したため今回の簡素化は完全達成と判定した。"
+      commands:
+        - cmd: "2017 browser walkthrough and DOM readback"
+          status: pass
+          summary: "3 visible fieldsets; 13/13 update targets checked; 2 visible modes; no question range; preview start enabled; 0 console errors"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,019 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git commit -m 'feat: simplify question maintenance scope'"
+          status: pass
+          summary: "1673e51e1ae0e4f91fbbd8c9159d18567cab84ff"
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git rev-parse HEAD and git ls-remote origin refs/heads/main"
+          status: pass
+          summary: "HEAD=origin/main=1673e51e1ae0e4f91fbbd8c9159d18567cab84ff"
+      evidence:
+        - "実画面の入力欄は対象年度、整備する項目、処理する問題だけ。工程正本と処理速度は主画面で非表示。"
+        - "2017は13/13項目が初期選択され、すべて選択と選択解除が利用可能。"
+        - "処理対象は整備が必要な問題だけと選択年度の全問題を洗い替えるの二択。"
+        - "neededは未整備、工程版が現行でない問題、要確認の和集合を抽出する自動testが合格。"
+        - "questionRangeと旧modeは既存run/API互換の内部契約として保持し、新規UIには表示しない。"
+        - "今回の11ファイルだけをmainへpushし、既存output dirtyは未stageのまま保持。"
+      missing_evidence: []
+      harness: codex
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
     result: pass
-    task: T031
+    task: T033
     commands:
       - cmd: "node --check tools/question_review_console/static/app.js"
         status: pass
-      - cmd: ".venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_progress_output_ui"
+      - cmd: ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_progress_output_ui tests.test_question_review_workflow tests.test_question_review_server"
         status: pass
-        summary: "44 related UI and workflow tests"
+        summary: "110 related UI, workflow and API tests"
       - cmd: ".venv/bin/python -m unittest discover -s tests"
         status: pass
-        summary: "1,018 tests passed; 7 skipped"
+        summary: "1,019 tests passed; 7 skipped"
+      - cmd: "2017 browser walkthrough of simplified maintenance dialog"
+        status: pass
+        summary: "3 visible fieldsets, 13/13 fields selected, 2 modes, no question range, 0 console errors"
       - cmd: "2017 UI run 20260721T003002896126-8d9d3fb4"
         status: pass
         summary: "58/58 questions validated, 0 blocked, artifact sync succeeded"
