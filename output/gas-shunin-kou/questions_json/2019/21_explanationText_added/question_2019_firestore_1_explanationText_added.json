@@ -74,7 +74,14 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-gizyutu-koushu-2019-10-1,chiefgasengineerlicense-gizyutu-koushu-2019-10-2,chiefgasengineerlicense-gizyutu-koushu-2019-10-3,chiefgasengineerlicense-gizyutu-koushu-2019-10-4,chiefgasengineerlicense-gizyutu-koushu-2019-10-5",
@@ -145,7 +152,14 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1541,chiefgasengineerlicense-A-80-1542,chiefgasengineerlicense-A-80-1543,chiefgasengineerlicense-A-80-1544,chiefgasengineerlicense-A-80-1545",
@@ -222,7 +236,14 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1546,chiefgasengineerlicense-A-80-1547,chiefgasengineerlicense-A-80-1548,chiefgasengineerlicense-A-80-1549,chiefgasengineerlicense-A-80-1550",
@@ -299,7 +320,40 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kyokyu:q12",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1546,chiefgasengineerlicense-A-80-1547,chiefgasengineerlicense-A-80-1548,chiefgasengineerlicense-A-80-1549,chiefgasengineerlicense-A-80-1550",
+    "sourceRecordRef": "question_2019_firestore_1.json#3",
+    "lawContextForExplanation": "法令条文を主要根拠としないガスメーターの構造・機能・故障分類に関する技術問題。第4肢に計量法という語は出るが、正誤は使用中メーターの故障分類における使用公差と検定公差の区別で判断する。",
+    "lawRevisionFacts": {
+      "auditStatus": "not_law_related",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-19",
+      "auditMethodVersion": "law_audit=v2.0",
+      "current": {
+        "referenceDate": "2026-07-19",
+        "verificationStatus": "not_law_related",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      "evidenceSummary": {
+        "verdict": "not_law_related",
+        "explanationText": "渦流式、タービン式、膜式、マイコンメーターの構造・機能・故障分類を問う技術問題である。少なくとも一つの選択肢の正誤を直接決めるverifiedの法令名・lawId・articleを確認できないため、isLawRelated=falseを維持する。",
+        "differenceSummary": "法令監査による正誤変更なし。"
+      }
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-gizyutu-koushu-2019-13-1,chiefgasengineerlicense-gizyutu-koushu-2019-13-2,chiefgasengineerlicense-gizyutu-koushu-2019-13-3,chiefgasengineerlicense-gizyutu-koushu-2019-13-4,chiefgasengineerlicense-gizyutu-koushu-2019-13-5",
@@ -370,7 +424,14 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1552,chiefgasengineerlicense-A-80-1553,chiefgasengineerlicense-A-80-1554,chiefgasengineerlicense-A-80-1555,chiefgasengineerlicense-A-80-1556",
@@ -443,7 +504,14 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1557,chiefgasengineerlicense-A-80-1558,chiefgasengineerlicense-A-80-1559,chiefgasengineerlicense-A-80-1560,chiefgasengineerlicense-A-80-1561",
@@ -522,11 +590,24 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kyokyu:q15",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1557,chiefgasengineerlicense-A-80-1558,chiefgasengineerlicense-A-80-1559,chiefgasengineerlicense-A-80-1560,chiefgasengineerlicense-A-80-1561",
+    "sourceRecordRef": "question_2019_firestore_1.json#6",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・施工問題。"
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1562,chiefgasengineerlicense-A-80-1563,chiefgasengineerlicense-A-80-1564,chiefgasengineerlicense-A-80-1565,chiefgasengineerlicense-A-80-1566",
     "source_original_question_id": "gasushunin-koushu-gizyutsu-2019-16",
+    "sourceQuestionKey": "gas-shunin:kou:2019:kyokyu:q16",
+    "sourceRecordRef": "question_2019_firestore_1.json#7",
     "public_question_id": null,
     "question_url": null,
     "questionLabel": "問16",
@@ -597,7 +678,15 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。"
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1567,chiefgasengineerlicense-A-80-1568,chiefgasengineerlicense-A-80-1569,chiefgasengineerlicense-A-80-1570,chiefgasengineerlicense-A-80-1571",
@@ -678,7 +767,14 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1572,chiefgasengineerlicense-A-80-1573,chiefgasengineerlicense-A-80-1574,chiefgasengineerlicense-A-80-1575,chiefgasengineerlicense-A-80-1576",
@@ -753,7 +849,14 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1577,chiefgasengineerlicense-A-60-1578,chiefgasengineerlicense-A-60-1579,chiefgasengineerlicense-A-60-1580,chiefgasengineerlicense-A-60-1581",
@@ -832,7 +935,14 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1500,chiefgasengineerlicense-A-40-1501,chiefgasengineerlicense-A-40-1502,chiefgasengineerlicense-A-40-1503,chiefgasengineerlicense-A-40-1504",
@@ -913,7 +1023,14 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1582,chiefgasengineerlicense-A-60-1583,chiefgasengineerlicense-A-60-1584,chiefgasengineerlicense-A-60-1585,chiefgasengineerlicense-A-60-1586",
@@ -984,7 +1101,14 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1587,chiefgasengineerlicense-A-60-1588,chiefgasengineerlicense-A-60-1589,chiefgasengineerlicense-A-60-1590,chiefgasengineerlicense-A-60-1591",
@@ -1061,7 +1185,18 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:shohi:q21",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1587,chiefgasengineerlicense-A-60-1588,chiefgasengineerlicense-A-60-1589,chiefgasengineerlicense-A-60-1590,chiefgasengineerlicense-A-60-1591",
+    "sourceRecordRef": "question_2019_firestore_1.json#13",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。"
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1592,chiefgasengineerlicense-A-60-1593,chiefgasengineerlicense-A-60-1594,chiefgasengineerlicense-A-60-1595,chiefgasengineerlicense-A-60-1596",
@@ -1136,7 +1271,18 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:shohi:q22",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1592,chiefgasengineerlicense-A-60-1593,chiefgasengineerlicense-A-60-1594,chiefgasengineerlicense-A-60-1595,chiefgasengineerlicense-A-60-1596",
+    "sourceRecordRef": "question_2019_firestore_1.json#14",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。"
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1597,chiefgasengineerlicense-A-60-1598,chiefgasengineerlicense-A-60-1599,chiefgasengineerlicense-A-60-1600,chiefgasengineerlicense-A-60-1601",
@@ -1209,7 +1355,14 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1602,chiefgasengineerlicense-A-60-1603,chiefgasengineerlicense-A-60-1604,chiefgasengineerlicense-A-60-1605,chiefgasengineerlicense-A-60-1606",
@@ -1228,42 +1381,42 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "間違い。自然排気式機器の排気筒の横引き部分はなるべく短くし、排気が円滑に流れるよう先上がり勾配とする。選択肢は先下がり勾配としているため誤りである。",
-      "正しい。自然給排気式機器には、燃焼用空気の取り入れと排ガスの排出を室内空気から分離し、給排気部を共用給排気ダクトへ接続する方式のものがある。",
-      "間違い。強制排気式機器を設置する室には、燃焼に必要な空気を確保するため、専用の給気口を設ける。選択肢は専用の給気口が不要としているため誤りである。",
-      "正しい。強制給排気式機器の給排気筒が壁を貫通する箇所には、燃焼排ガスが屋内に流入する隙間があってはならない。",
-      "間違い。屋外式機器にはパイプシャフトの扉部へ設置できるものがあるが、内部へ設置する機器にはFF式などの適切な給排気方式が必要である。選択肢は屋外式機器をパイプシャフト内部へ設置できるとしているため誤りである。"
+      "間違い。自然排気式燃焼器の排気筒形状については、ガス事業法施行規則第202条の消費機器技術基準が基準を置いている。自然排気式機器の排気筒の横引き部分はなるべく短くし、先下がり勾配にしない。選択肢は先下がり勾配としているため誤りである。",
+      "正しい。給排気部や排気筒の構造・接続については、ガス事業法施行規則第202条の消費機器技術基準が基準を置いている。自然給排気式機器には、給排気部を共用給排気ダクトへ接続する方式のものがある。",
+      "間違い。強制排気式を含む燃焼器の排気・給気については、ガス事業法施行規則第202条の消費機器技術基準が基準を置いている。強制排気式機器を設置する室には、燃焼に必要な空気を確保するため専用の給気口を設ける。",
+      "正しい。給排気部の壁貫通部については、ガス事業法施行規則第202条の消費機器技術基準が、燃焼排ガスが屋内へ流入しない構造を求めている。強制給排気式機器の給排気筒が壁を貫通する箇所に、燃焼排ガスが屋内に流れ込む隙間があってはならない。",
+      "間違い。屋外式機器の設置については、ガス事業法施行規則第202条の消費機器技術基準の下でも、給排気に支障がないことが前提となる。屋外式機器にはパイプシャフトの扉部へ設置できるものがあるが、内部へ設置するにはFF式などの適切な給排気方式が必要である。"
     ],
     "suggestedQuestions": [
-      "自然排気式機器の排気筒横引き部は先下がり勾配にする？",
+      "ガス事業法施行規則では自然排気式の排気筒勾配をどう扱う？",
       "自然給排気式機器には共用給排気ダクトへ接続できるものがある？",
-      "強制排気式機器の設置室に専用給気口は不要？",
-      "強制給排気式機器の給排気筒貫通部に排ガスが屋内へ入る隙間があってよい？",
-      "屋外式機器は開放廊下側パイプシャフト内部に設置できる？"
+      "強制排気式機器の設置室に専用給気口は必要？",
+      "強制給排気式機器の壁貫通部に隙間があってよい？",
+      "屋外式機器はパイプシャフト内部にそのまま設置できる？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "自然排気式機器の排気筒横引き部は先下がり勾配にする？",
-        "answer": "しない。横引き部分はなるべく短くし、先下がり勾配にしない設置が必要である。"
+        "question": "ガス事業法施行規則では自然排気式の排気筒勾配をどう扱う？",
+        "answer": "間違い。自然排気式燃焼器の排気筒形状については、ガス事業法施行規則第202条の消費機器技術基準が基準を置いている。自然排気式機器の排気筒の横引き部分はなるべく短くし、先下がり勾配にしない。選択肢は先下がり勾配としているため誤りである。"
       },
       {
         "question": "自然給排気式機器には共用給排気ダクトへ接続できるものがある？",
-        "answer": "ある。自然給排気式機器には、給排気部を共用給排気ダクトに接続できる方式のものがある。"
+        "answer": "正しい。給排気部や排気筒の構造・接続については、ガス事業法施行規則第202条の消費機器技術基準が基準を置いている。自然給排気式機器には、給排気部を共用給排気ダクトへ接続する方式のものがある。"
       },
       {
-        "question": "強制排気式機器の設置室に専用給気口は不要？",
-        "answer": "不要ではない。強制排気式機器を設置する室には、燃焼に必要な空気を確保するため専用の給気口が必要である。"
+        "question": "強制排気式機器の設置室に専用給気口は必要？",
+        "answer": "間違い。強制排気式を含む燃焼器の排気・給気については、ガス事業法施行規則第202条の消費機器技術基準が基準を置いている。強制排気式機器を設置する室には、燃焼に必要な空気を確保するため専用の給気口を設ける。"
       },
       {
-        "question": "強制給排気式機器の給排気筒貫通部に排ガスが屋内へ入る隙間があってよい？",
-        "answer": "あってはならない。壁貫通部は燃焼排ガスが屋内へ流入しないよう隙間をなくす必要がある。"
+        "question": "強制給排気式機器の壁貫通部に隙間があってよい？",
+        "answer": "正しい。給排気部の壁貫通部については、ガス事業法施行規則第202条の消費機器技術基準が、燃焼排ガスが屋内へ流入しない構造を求めている。強制給排気式機器の給排気筒が壁を貫通する箇所に、燃焼排ガスが屋内に流れ込む隙間があってはならない。"
       },
       {
-        "question": "屋外式機器は開放廊下側パイプシャフト内部に設置できる？",
-        "answer": "屋外式機器として内部に設置できるわけではない。屋外式機器で設置できるものがあるのは扉部であり、内部設置にはFF式機器などの措置が必要である。"
+        "question": "屋外式機器はパイプシャフト内部にそのまま設置できる？",
+        "answer": "間違い。屋外式機器の設置については、ガス事業法施行規則第202条の消費機器技術基準の下でも、給排気に支障がないことが前提となる。屋外式機器にはパイプシャフトの扉部へ設置できるものがあるが、内部へ設置するにはFF式などの適切な給排気方式が必要である。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1286,7 +1439,215 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": true,
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "202",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api",
+          "reason": "間違い。ガス事業法施行規則第202条の消費機器技術基準では、自然排気式燃焼器の排気筒形状等が定められている。自然排気式機器の横引き排気筒を先下がり勾配とする記述は基準に反する。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "202",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api",
+          "reason": "正しい。ガス事業法施行規則第202条の消費機器技術基準は、給排気部や排気筒の構造・接続に関する基準を置いている。自然給排気式機器には共用給排気ダクトへ接続する方式のものがある。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "202",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api",
+          "reason": "間違い。ガス事業法施行規則第202条の消費機器技術基準では、強制排気式を含む燃焼器の排気・給気の基準が定められている。強制排気式機器を設置する室では専用給気口が必要である。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "202",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api",
+          "reason": "正しい。ガス事業法施行規則第202条の消費機器技術基準は、給排気部の壁貫通部について燃焼排ガスが屋内へ流入しない構造を求めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "202",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api",
+          "reason": "間違い。ガス事業法施行規則第202条の消費機器技術基準では、屋外式機器でも給排気に支障がない設置が前提となる。パイプシャフト内部へ屋外式機器を設置できるとする記述は誤りである。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-17T17:14:15+09:00",
+      "nextAuditDueAt": "2027-07-17",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:b55ceb263506c45e1acc6e1d21a3cdab253f58d628d4d2db56a6d40bcdb3991c",
+      "auditRunId": "law-audit-gas-shunin-kou-2019-78f96aa834d15661",
+      "lawCorpusSnapshotId": "egov-current-2026-07-17",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2019-78f96aa834d15661",
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2019-78f96aa834d15661",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "正しい",
+          "間違い"
+        ],
+        "referenceDate": "2019",
+        "verificationStatus": "from_original_answer"
+      },
+      "current": {
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "正しい",
+          "間違い"
+        ],
+        "referenceDate": "2026-07-17",
+        "verificationStatus": "verified",
+        "lawId": "345M50000400097",
+        "lawTitle": "ガス事業法施行規則",
+        "article": "202"
+      },
+      "differenceFacts": [
+        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "間違い。ガス事業法施行規則第202条の消費機器技術基準では、自然排気式燃焼器の排気筒形状等が定められている。自然排気式機器の横引き排気筒を先下がり勾配とする記述は基準に反する。 正しい。ガス事業法施行規則第202条の消費機器技術基準は、給排気部や排気筒の構造・接続に関する基準を置いている。自然給排気式機器には共用給排気ダクトへ接続する方式のものがある。 間違い。ガス事業法施行規則第202条の消費機器技術基準では、強制排気式を含む燃焼器の排気・給気の基準が定められている。強制排気式機器を設置する室では専用給気口が必要である。 正しい。ガス事業法施行規則第202条の消費機器技術基準は、給排気部の壁貫通部について燃焼排ガスが屋内へ流入しない構造を求めている。 間違い。ガス事業法施行規則第202条の消費機器技術基準では、屋外式機器でも給排気に支障がない設置が前提となる。パイプシャフト内部へ屋外式機器を設置できるとする記述は誤りである。",
+        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-0-ref-1",
+          "choice-1-ref-2",
+          "choice-2-ref-3",
+          "choice-3-ref-4",
+          "choice-4-ref-5"
+        ],
+        "refs": [
+          {
+            "refId": "choice-0-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202"
+          },
+          {
+            "refId": "choice-1-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202"
+          },
+          {
+            "refId": "choice-2-ref-3",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202"
+          },
+          {
+            "refId": "choice-3-ref-4",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202"
+          },
+          {
+            "refId": "choice-4-ref-5",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202"
+          }
+        ]
+      }
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1607,chiefgasengineerlicense-A-60-1608,chiefgasengineerlicense-A-60-1609,chiefgasengineerlicense-A-60-1610,chiefgasengineerlicense-A-60-1611",
@@ -1365,7 +1726,14 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1612,chiefgasengineerlicense-A-60-1613,chiefgasengineerlicense-A-60-1614,chiefgasengineerlicense-A-60-1615,chiefgasengineerlicense-A-60-1616",
@@ -1436,7 +1804,14 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1617,chiefgasengineerlicense-A-60-1618,chiefgasengineerlicense-A-60-1619,chiefgasengineerlicense-A-60-1620,chiefgasengineerlicense-A-60-1621",
@@ -1511,7 +1886,18 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:shohi:q27",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1617,chiefgasengineerlicense-A-60-1618,chiefgasengineerlicense-A-60-1619,chiefgasengineerlicense-A-60-1620,chiefgasengineerlicense-A-60-1621",
+    "sourceRecordRef": "question_2019_firestore_1.json#19",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。"
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1505,chiefgasengineerlicense-A-40-1506,chiefgasengineerlicense-A-40-1507,chiefgasengineerlicense-A-40-1508,chiefgasengineerlicense-A-40-1509",
@@ -1590,11 +1976,20 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1510,chiefgasengineerlicense-A-40-1511,chiefgasengineerlicense-A-40-1512,chiefgasengineerlicense-A-40-1513,chiefgasengineerlicense-A-40-1514",
     "source_original_question_id": "gasushunin-koushu-gizyutsu-2019-4",
+    "sourceQuestionKey": "gas-shunin:kou:2019:seizo:q04",
+    "sourceRecordRef": "question_2019_firestore_1.json#21",
     "public_question_id": null,
     "question_url": null,
     "questionLabel": "問4",
@@ -1609,42 +2004,42 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "正しい。ガスの熱量を求める方法には、ガスクロマトグラフ法で得た成分組成から計算する方法と、ユンカース式流水形ガス熱量計で測定する方法があり、いずれもガス事業法に基づく方法である。",
+      "正しい。熱量測定方法については、ガス事業法施行規則第17条が熱量、圧力及び燃焼性の測定を所定の方法で行う枠組みを定め、具体的な方法は告示で示されている。ガスクロマトグラフ法で得た成分組成から計算する方法と、ユンカース式流水形ガス熱量計で測定する方法はいずれも法令に基づく方法である。",
       "間違い。水素炎イオン化検出器（FID）は、有機化合物が水素炎中で燃焼してイオン化するときに電極間を流れる電流を検出する。選択肢は電圧を検出するとしているため誤りである。",
       "正しい。ユンカース式流水形ガス熱量計では、試料ガスを完全燃焼させ、燃焼排ガスを冷却して生成水蒸気を凝縮させ、流水量と入口・出口の温度差から総発熱量を求める。",
-      "正しい。ガスの使用者へ専用導管で大口供給する場合は、ガス事業法に基づき、すべての特殊成分検査の免除が認められる。",
+      "正しい。成分検査については、ガス事業法施行規則第22条第1項第2号が、ガスの使用者に専用導管で大口供給を行う場合には当該ガスの成分検査を要しない旨を定めている。特殊成分検査の免除が認められるため、記述は正しい。",
       "正しい。全硫黄の分析方法には、過塩素酸バリウム沈殿滴定法、ジメチルスルホナゾⅢ吸光光度法、イオンクロマトグラフ法などがある。"
     ],
     "suggestedQuestions": [
-      "ガスの熱量は成分組成から計算する方法と熱量計で測定する方法がある？",
-      "FIDは電極間に流れる電流を検出する？",
-      "ユンカース式流水形ガス熱量計は流水量と温度差から総発熱量を求める？",
-      "専用導管による大口供給では特殊成分検査が免除される？",
-      "全硫黄の分析方法には沈殿滴定法や吸光光度法などがある？"
+      "ガス事業法施行規則では熱量測定方法をどう扱う？",
+      "FIDは電流と電圧のどちらを検出する？",
+      "ユンカース式流水形ガス熱量計はどう総発熱量を求める？",
+      "専用導管による大口供給では成分検査は必要？",
+      "全硫黄の分析方法にはどのようなものがある？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ガスの熱量は成分組成から計算する方法と熱量計で測定する方法がある？",
-        "answer": "ガスの熱量は、ガスクロマトグラフ法で得た成分組成から計算する方法と、ユンカース式流水形ガス熱量計で測定する方法が規定されている。記述は正しい。"
+        "question": "ガス事業法施行規則では熱量測定方法をどう扱う？",
+        "answer": "正しい。熱量測定方法については、ガス事業法施行規則第17条が熱量、圧力及び燃焼性の測定を所定の方法で行う枠組みを定め、具体的な方法は告示で示されている。ガスクロマトグラフ法で得た成分組成から計算する方法と、ユンカース式流水形ガス熱量計で測定する方法はいずれも法令に基づく方法である。"
       },
       {
-        "question": "FIDは電極間に流れる電流を検出する？",
-        "answer": "水素炎イオン化検出器（FID）は、有機化合物成分が水素炎中で燃焼してイオン化するときに電極間を流れる電流を検出する。電圧を検出するとしている点が誤り。"
+        "question": "FIDは電流と電圧のどちらを検出する？",
+        "answer": "間違い。水素炎イオン化検出器（FID）は、有機化合物が水素炎中で燃焼してイオン化するときに電極間を流れる電流を検出する。選択肢は電圧を検出するとしているため誤りである。"
       },
       {
-        "question": "ユンカース式流水形ガス熱量計は流水量と温度差から総発熱量を求める？",
-        "answer": "ユンカース式流水形ガス熱量計では、試料ガスを完全燃焼させ、燃焼排ガスを冷却して生成水蒸気を凝縮させ、流水量と入口・出口の温度差から総発熱量を求める。記述は正しい。"
+        "question": "ユンカース式流水形ガス熱量計はどう総発熱量を求める？",
+        "answer": "正しい。ユンカース式流水形ガス熱量計では、試料ガスを完全燃焼させ、燃焼排ガスを冷却して生成水蒸気を凝縮させ、流水量と入口・出口の温度差から総発熱量を求める。"
       },
       {
-        "question": "専用導管による大口供給では特殊成分検査が免除される？",
-        "answer": "ガスの使用者に専用の導管で大口供給を行う場合、特殊成分検査の免除が認められる。記述は正しい。"
+        "question": "専用導管による大口供給では成分検査は必要？",
+        "answer": "正しい。成分検査については、ガス事業法施行規則第22条第1項第2号が、ガスの使用者に専用導管で大口供給を行う場合には当該ガスの成分検査を要しない旨を定めている。特殊成分検査の免除が認められるため、記述は正しい。"
       },
       {
-        "question": "全硫黄の分析方法には沈殿滴定法や吸光光度法などがある？",
-        "answer": "全硫黄の分析方法には、過塩素酸バリウム沈殿滴定法、ジメチルスルホナゾⅢ吸光光度法、イオンクロマトグラフ法などがある。記述は正しい。"
+        "question": "全硫黄の分析方法にはどのようなものがある？",
+        "answer": "正しい。全硫黄の分析方法には、過塩素酸バリウム沈殿滴定法、ジメチルスルホナゾⅢ吸光光度法、イオンクロマトグラフ法などがある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1663,7 +2058,7 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "lawzillaWorkflowReview": {
       "schemaVersion": "gas-shunin-lawzilla-workflow-review/v1",
       "reviewedAt": "2026-07-10T08:15:00+09:00",
@@ -1671,6 +2066,134 @@
       "practicalFinding": "技術科目の知識問題として扱い、Lawzilla候補は検索改善フィードバックに留めた。",
       "lawReferenceTotalCount": 0,
       "boundary": "00_source unchanged; existing Firestore IDs preserved; no Lawzilla endpoint or API key stored."
+    },
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "17",
+          "referenceDate": "2026-07-18",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+          "appLinkMode": "egov_api",
+          "reason": "正しい。ガス事業法施行規則第17条は、熱量、圧力及び燃焼性の測定を所定の方法で行う枠組みを定め、熱量測定方法は告示で具体化されている。選択肢の測定方法はこの法令根拠と整合する。"
+        }
+      ],
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "規則",
+          "lawId": "345M50000400097",
+          "article": "22",
+          "referenceDate": "2026-07-18",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "appLinkMode": "egov_api",
+          "reason": "正しい。ガス事業法施行規則第22条第1項第2号は、ガスの使用者に対し専用導管により大口供給を行う場合には当該ガスの成分検査を要しない旨を定めている。",
+          "paragraph": "1",
+          "item": "2"
+        }
+      ],
+      []
+    ],
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-18T18:53:06+09:00",
+      "nextAuditDueAt": "2027-07-18",
+      "auditMethodVersion": "law-grounded-audit-v2.0",
+      "auditInputHash": "sha256:195ef4c52346156213e2b01e5126a81de817a171c8d59a2e3974703edf6fe288",
+      "auditRunId": "law-audit-gas-shunin-kou-2019-195ef4c523461562",
+      "lawCorpusSnapshotId": "egov-current-2026-07-18",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2019-195ef4c523461562",
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2019-195ef4c523461562",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ],
+        "referenceDate": "2019",
+        "verificationStatus": "from_original_answer"
+      },
+      "current": {
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ],
+        "referenceDate": "2026-07-18",
+        "verificationStatus": "verified",
+        "lawId": "345M50000400097",
+        "lawTitle": "ガス事業法施行規則",
+        "article": "17"
+      },
+      "differenceFacts": [
+        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "正しい。ガス事業法施行規則第17条は、熱量、圧力及び燃焼性の測定を所定の方法で行う枠組みを定め、熱量測定方法は告示で具体化されている。選択肢の測定方法はこの法令根拠と整合する。 正しい。ガス事業法施行規則第22条第1項第2号は、ガスの使用者に対し専用導管により大口供給を行う場合には当該ガスの成分検査を要しない旨を定めている。",
+        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-0-ref-1",
+          "choice-3-ref-2"
+        ],
+        "refs": [
+          {
+            "refId": "choice-0-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "17"
+          },
+          {
+            "refId": "choice-3-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "22",
+            "paragraph": "1",
+            "item": "2"
+          }
+        ]
+      }
     }
   },
   {
@@ -1748,7 +2271,14 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1520,chiefgasengineerlicense-A-40-1521,chiefgasengineerlicense-A-40-1522,chiefgasengineerlicense-A-40-1523,chiefgasengineerlicense-A-40-1524",
@@ -1767,42 +2297,42 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "間違い。気化装置には、液化ガスが液体のまま先へ流出することを防ぐ流出防止措置を設ける。選択肢は液体の流出を防ぐ措置を逆流防止装置としているため誤りである。",
+      "間違い。気化装置の流出防止措置については、ガス工作物の技術上の基準を定める省令第31条第3項が、気化装置又は接続配管等に液化ガスの流出防止措置を講じることを求めている。選択肢は液体の流出を防ぐ措置を逆流防止装置としているため誤りである。",
       "間違い。保安電源用の自家発電設備には、液体燃料で起動した後にガス燃料へ切り替えられるデュアルフューエル型も使用できる。選択肢はデュアルフューエル型を使用してはならないとしているため誤りである。",
       "正しい。製造設備の運転・監視に用いる制御システムには、サイバー攻撃などのリスクを判断した上で、適切なセキュリティ対策を講ずる。",
-      "正しい。ベントスタックなどの放散処理設備には、放出したガスが周囲に障害を与えないよう、適切な措置を講ずる。",
-      "正しい。遮断装置には、誤操作を防止し、かつ確実に操作できる措置を講ずる。"
+      "正しい。ベントスタックについては、ガス工作物の技術上の基準を定める省令第13条第2項が、放出したガスが周囲に障害を与えないよう適切な措置を講じることを求めている。",
+      "正しい。遮断装置については、ガス工作物の技術上の基準を定める省令第20条第1項が、誤操作を防止し、かつ確実に操作できる措置を講じることを求めている。"
     ],
     "suggestedQuestions": [
-      "気化装置には流出防止措置が必要？",
-      "保安電源の自家発電設備にデュアルフューエル型を使用できる？",
-      "制御システムにはサイバー攻撃等へのセキュリティ対策が必要？",
-      "ベントスタックには放出ガスが周囲に障害を与えない措置が必要？",
-      "遮断装置には誤操作防止と確実な操作のための措置が必要？"
+      "技省令では気化装置の液化ガス流出をどう防ぐ？",
+      "保安電源の自家発電設備にデュアルフューエル型を使える？",
+      "制御システムにはサイバー攻撃等への対策が必要？",
+      "技省令ではベントスタックにどのような措置を求める？",
+      "技省令では遮断装置にどのような措置を求める？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "気化装置には流出防止措置が必要？",
-        "answer": "気化装置には、液化ガスが液体のまま先へ流出することを防止する流出防止措置が必要である。逆流防止装置の設置としている点が誤り。"
+        "question": "技省令では気化装置の液化ガス流出をどう防ぐ？",
+        "answer": "間違い。気化装置の流出防止措置については、ガス工作物の技術上の基準を定める省令第31条第3項が、気化装置又は接続配管等に液化ガスの流出防止措置を講じることを求めている。選択肢は液体の流出を防ぐ措置を逆流防止装置としているため誤りである。"
       },
       {
-        "question": "保安電源の自家発電設備にデュアルフューエル型を使用できる？",
-        "answer": "保安電源として確保する自家発電設備には、液体燃料で起動後にガス燃料へ切り替えられるデュアルフューエル型も使用できる。使用してはならないとしている点が誤り。"
+        "question": "保安電源の自家発電設備にデュアルフューエル型を使える？",
+        "answer": "間違い。保安電源用の自家発電設備には、液体燃料で起動した後にガス燃料へ切り替えられるデュアルフューエル型も使用できる。選択肢はデュアルフューエル型を使用してはならないとしているため誤りである。"
       },
       {
-        "question": "制御システムにはサイバー攻撃等へのセキュリティ対策が必要？",
-        "answer": "製造設備の運転・監視に係る制御システムには、サイバー攻撃などのリスクを判断した上で、適切なセキュリティ対策を講ずる必要がある。記述は正しい。"
+        "question": "制御システムにはサイバー攻撃等への対策が必要？",
+        "answer": "正しい。製造設備の運転・監視に用いる制御システムには、サイバー攻撃などのリスクを判断した上で、適切なセキュリティ対策を講ずる。"
       },
       {
-        "question": "ベントスタックには放出ガスが周囲に障害を与えない措置が必要？",
-        "answer": "ベントスタックなどの放散処理設備には、放出したガスが周囲に障害を与えないよう適切な措置を講ずる必要がある。記述は正しい。"
+        "question": "技省令ではベントスタックにどのような措置を求める？",
+        "answer": "正しい。ベントスタックについては、ガス工作物の技術上の基準を定める省令第13条第2項が、放出したガスが周囲に障害を与えないよう適切な措置を講じることを求めている。"
       },
       {
-        "question": "遮断装置には誤操作防止と確実な操作のための措置が必要？",
-        "answer": "遮断装置には、誤操作を防止し、かつ確実に操作できる措置を講ずることが求められる。記述は正しい。"
+        "question": "技省令では遮断装置にどのような措置を求める？",
+        "answer": "正しい。遮断装置については、ガス工作物の技術上の基準を定める省令第20条第1項が、誤操作を防止し、かつ確実に操作できる措置を講じることを求めている。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1823,7 +2353,166 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": true,
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "lawId": "412M50000400111",
+          "article": "31",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "appLinkMode": "egov_api",
+          "reason": "間違い。ガス工作物の技術上の基準を定める省令第31条第3項は、気化装置又は接続配管等に液化ガスの流出防止措置を講じることを求めている。選択肢はこれを逆流防止装置としているため誤りである。",
+          "paragraph": "3"
+        }
+      ],
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "lawId": "412M50000400111",
+          "article": "13",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13",
+          "appLinkMode": "egov_api",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第13条第2項は、ベントスタックについて放出ガスが周囲に障害を与えないよう適切な措置を講じることを求めている。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "lawId": "412M50000400111",
+          "article": "20",
+          "referenceDate": "2026-07-17",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=20",
+          "appLinkMode": "egov_api",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、遮断装置に誤操作防止と確実な操作のための措置を講じることを求めている。",
+          "paragraph": "1"
+        }
+      ]
+    ],
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-17T17:14:15+09:00",
+      "nextAuditDueAt": "2027-07-17",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:b77c2e5acd8e5159d819b1a3155dbd0b7f79e14fda23d05f1b1930e761869f95",
+      "auditRunId": "law-audit-gas-shunin-kou-2019-d0543ee459cfb4f8",
+      "lawCorpusSnapshotId": "egov-current-2026-07-17",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2019-d0543ee459cfb4f8",
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2019-d0543ee459cfb4f8",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ],
+        "referenceDate": "2019",
+        "verificationStatus": "from_original_answer"
+      },
+      "current": {
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ],
+        "referenceDate": "2026-07-17",
+        "verificationStatus": "verified",
+        "lawId": "412M50000400111",
+        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+        "article": "31",
+        "paragraph": "3"
+      },
+      "differenceFacts": [
+        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "間違い。ガス工作物の技術上の基準を定める省令第31条第3項は、気化装置又は接続配管等に液化ガスの流出防止措置を講じることを求めている。選択肢はこれを逆流防止装置としているため誤りである。 正しい。ガス工作物の技術上の基準を定める省令第13条第2項は、ベントスタックについて放出ガスが周囲に障害を与えないよう適切な措置を講じることを求めている。 正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、遮断装置に誤操作防止と確実な操作のための措置を講じることを求めている。",
+        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-0-ref-1",
+          "choice-3-ref-2",
+          "choice-4-ref-3"
+        ],
+        "refs": [
+          {
+            "refId": "choice-0-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412M50000400111",
+            "lawTitle": "ガス工作物の技術上の基準を定める省令",
+            "article": "31",
+            "paragraph": "3"
+          },
+          {
+            "refId": "choice-3-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412M50000400111",
+            "lawTitle": "ガス工作物の技術上の基準を定める省令",
+            "article": "13",
+            "paragraph": "2"
+          },
+          {
+            "refId": "choice-4-ref-3",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412M50000400111",
+            "lawTitle": "ガス工作物の技術上の基準を定める省令",
+            "article": "20",
+            "paragraph": "1"
+          }
+        ]
+      }
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1525,chiefgasengineerlicense-A-40-1526,chiefgasengineerlicense-A-40-1527,chiefgasengineerlicense-A-40-1528,chiefgasengineerlicense-A-40-1529",
@@ -1908,6 +2597,13 @@
       "practicalFinding": "技術科目の知識問題として扱い、Lawzilla候補は検索改善フィードバックに留めた。",
       "lawReferenceTotalCount": 0,
       "boundary": "00_source unchanged; existing Firestore IDs preserved; no Lawzilla endpoint or API key stored."
-    }
+    },
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
   }
 ]
