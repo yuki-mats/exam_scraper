@@ -227,14 +227,18 @@ class DocumentationStructureTests(unittest.TestCase):
         text = (ROOT / "prompt" / "03_prompt_add_explanationText.md").read_text(
             encoding="utf-8"
         )
+        field_contract = (
+            ROOT / "document" / "reference" / "question_field_contract.md"
+        ).read_text(encoding="utf-8")
 
         self.assertLessEqual(len(text.splitlines()), 300)
         for concept in (
             "事実確定と文章推敲を分けます",
-            "`flash_card`は、選択肢数にかかわらず問題全体の基本解説",
-            "`flash_card`以外は、`explanationText`の要素数を`choiceTextList`と一致",
+            "`flash_card`と`group_choice`は、選択肢数にかかわらず問題共通の基本解説",
+            "`group_choice`は、正答と、比較・組合せ・対応関係を判断する基準",
+            "`true_false`は、`explanationText`の要素数を`choiceTextList`と一致",
             "`isCalculationQuestion=true`では、使用する式、数値の代入",
-            "用語を選ぶ`flash_card`は、選択肢にある各用語の意味と見分け方",
+            "用語を選ぶ問題は、選択肢にある各用語の意味と見分け方",
             "非計算`flash_card`では、誤答選択肢ごとの「なぜ違うのか」",
             "通常は0〜2件、重複しない重要な疑問が3件ある場合だけ3件",
             "`sourceQuestionKey`",
@@ -261,6 +265,15 @@ class DocumentationStructureTests(unittest.TestCase):
             "mecnet-kokushi",
         ):
             self.assertNotIn(obsolete, text)
+
+        self.assertIn(
+            "`flash_card`と`group_choice`の`explanationText`は、選択肢数にかかわらず問題単位の1要素",
+            field_contract,
+        )
+        self.assertIn(
+            "`true_false`だけが選択肢indexと同数の解説",
+            field_contract,
+        )
 
 
 if __name__ == "__main__":

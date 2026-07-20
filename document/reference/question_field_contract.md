@@ -101,7 +101,7 @@
 | 誤答3 | `incorrectChoice3Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 誤答4 | `incorrectChoice4Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 知識メモ | `knowledgeText` | string | 任意 | 任意 | 原則omit | string。 | explanation / manual | 解説本文と分ける補足知識。 |
-| 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。`isChoiceOnly=true`ではfield自体を禁止する。 | `21_explanationText_added`, convert | AI自動起動を避けるため事前データとして持つ。`flash_card`は問題単位の1本だけを正答documentへ投影する。法令差分注記もここに含める。 |
+| 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。`isChoiceOnly=true`ではfield自体を禁止する。 | `21_explanationText_added`, convert | AI自動起動を避けるため事前データとして持つ。`flash_card`と`group_choice`は問題単位の1本だけを正答documentへ投影する。法令差分注記もここに含める。 |
 | 想定質問 | `suggestedQuestions` | array<string> | 任意 | 条件付き | 原則omit | Firestore公開時に`suggestedQuestionDetails[].question`から派生する。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 解説画面に即時表示する質問候補。patchでは手書きしない。 |
 | 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 条件付き | 原則omit | 各要素は `{question, answer}` のみ。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 対応する`isChoiceOnly=false` documentだけへ選択肢別正本から投影する。 |
 | 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
@@ -330,7 +330,9 @@ AI解説を画面表示時に自動起動しない方針のため、想定質問
 
 patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`です。基本解説で正誤理由を完結させた上で、公開対象の選択肢にだけ0〜3件の補足を保存します。
 
-`flash_card`の`explanationText`は、選択肢数にかかわらず問題単位の1要素だけです。選択肢ごとの基本解説は作りません。用語を選ぶ問題では、選択肢にある各用語の意味と見分け方をこの1本に含めます。計算`flash_card`は詳細な計算過程をこの1本へ含め、補足質問は原則0件とします。`true_false`と`group_choice`は従来どおり選択肢indexと同数の解説を持ちます。
+`flash_card`と`group_choice`の`explanationText`は、選択肢数にかかわらず問題単位の1要素だけです。選択肢ごとの基本解説は作りません。`flash_card`は正答へ至る考え方を、`group_choice`は正答と比較・組合せ・対応関係の判断基準を、この1本で完結させます。
+
+用語を選ぶ問題では、各用語の意味と見分け方も同じ基本解説に含めます。計算問題は詳細な計算過程をこの1本へ含め、補足質問は原則0件とします。`true_false`だけが選択肢indexと同数の解説を持ちます。
 
 非計算`flash_card`の補足は、類似概念の違い、適用範囲・例外、判断条件、理由・仕組み又は条件変更時の扱いなど、基本解説後に残る問題全体の疑問だけを扱います。誤答選択肢ごとの理由、選択肢番号に依存する質問、基本解説の言い換えは作りません。0〜3件を許容し、通常は0〜2件、重複しない重要な疑問が3件ある場合だけ3件とします。
 
@@ -338,7 +340,7 @@ patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`
 | --- | --- | --- |
 | `suggestedQuestionDetailsByChoice` | array<object> | `choiceIndex`は0始まりで重複不可。0件の選択肢は要素を省略する。 |
 | `suggestedQuestionDetailsByChoice[].items` | array<object> | 1〜3件。各要素は`question`と`answer`だけを持つ。 |
-| `items[].question` | string | 基本解説後に生じる短い疑問。`flash_card`では問題全体の疑問、それ以外では対象選択肢の疑問とする。選択肢内で重複不可。 |
+| `items[].question` | string | 基本解説後に生じる短い疑問。`flash_card`と`group_choice`では問題全体の疑問、`true_false`では対象選択肢の疑問とする。選択肢内で重複不可。 |
 | `items[].answer` | string | タップ後にAPIを使わず表示する事前回答。 |
 
 公開変換では、対応する`isChoiceOnly=false` documentだけに問題形式に合う`explanationText`と、既存互換の`suggestedQuestionDetails`を投影し、`suggestedQuestions`をその`question`から派生します。`isChoiceOnly=true`には基本解説と両補足fieldを保存しません。既存documentに残る場合はuploadで削除します。旧flat patchを切り詰めたり、質問文の類似で選択肢へ推測配分したりせず、新形式で再生成します。
