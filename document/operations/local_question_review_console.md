@@ -89,7 +89,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。
 
-画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。
+画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。進捗から問題を開く「作業対象を確認」には、問題文・選択肢・正答・解説に加え、patch適用後の`questionType`、`suggestedQuestions`、`suggestedQuestionDetails`を表示します。
 
 ## 検査feedbackと改善記録
 

@@ -2694,6 +2694,19 @@ async function openProgressQuestion(event) {
       section.append(list);
       content.append(section);
     }
+    content.append(
+      progressQuestionSection("questionType（問題形式）", projected.questionType),
+      progressQuestionSection(
+        "suggestedQuestions（補足質問）",
+        projected.suggestedQuestions,
+        "",
+        "質問",
+      ),
+      progressQuestionSection(
+        "suggestedQuestionDetails（補足質問と回答）",
+        projected.suggestedQuestionDetails,
+      ),
+    );
     if (questionOutputs.length) {
       const runStatus = displayedQualificationRun()?.status;
       content.append(progressQuestionOutputSection(

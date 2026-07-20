@@ -34,6 +34,24 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("const entry = progressResultEntry(event);", list_preview)
         self.assertNotIn("progressResultText(event)", list_preview)
 
+    def test_question_dialog_shows_anki_plus_display_fields(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        question_dialog = javascript[
+            javascript.index("async function openProgressQuestion") :
+            javascript.index("function enterQualificationProgressView")
+        ]
+
+        for field, label in (
+            ("questionType", "questionType（問題形式）"),
+            ("suggestedQuestions", "suggestedQuestions（補足質問）"),
+            (
+                "suggestedQuestionDetails",
+                "suggestedQuestionDetails（補足質問と回答）",
+            ),
+        ):
+            self.assertIn(f"projected.{field}", question_dialog)
+            self.assertIn(label, question_dialog)
+
     def test_choice_results_have_mobile_readable_cards_and_verdict_labels(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         css = STYLE_PATH.read_text(encoding="utf-8")
