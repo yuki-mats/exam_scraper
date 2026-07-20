@@ -88,6 +88,7 @@ def input_fingerprint(
     target: Mapping[str, Any],
     stage_id: str,
     policy_fingerprint: str,
+    update_target_ids: Iterable[str] = (),
 ) -> str:
     identity = SourceIdentityBinding.from_mapping(target)
     return _canonical_hash(
@@ -96,6 +97,11 @@ def input_fingerprint(
             "stageId": str(stage_id),
             "stateHash": str(target.get("stateHash") or ""),
             "policyFingerprint": str(policy_fingerprint or ""),
+            "updateTargetIds": sorted(
+                str(value)
+                for value in update_target_ids
+                if str(value).startswith(f"{stage_id}.")
+            ),
         }
     )
 
@@ -265,6 +271,7 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                         target,
                         stage_id,
                         policy_fingerprint,
+                        stage_plan.get("selectedUpdateTargetIds") or [],
                     ),
                     "outputFingerprint": None,
                     "preparationPath": None,

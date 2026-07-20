@@ -1,5 +1,6 @@
 import json
 import re
+import tomllib
 import unittest
 from pathlib import Path
 
@@ -239,8 +240,8 @@ class DocumentationStructureTests(unittest.TestCase):
             "`true_false`は、`explanationText`の要素数を`choiceTextList`と一致",
             "`isCalculationQuestion=true`では、使用する式、数値の代入",
             "用語を選ぶ問題は、選択肢にある各用語の意味と見分け方",
-            "非計算`flash_card`では、誤答選択肢ごとの「なぜ違うのか」",
-            "通常は0〜2件、重複しない重要な疑問が3件ある場合だけ3件",
+            "`flash_card`と`group_choice`では問題全体の補足だけを対象とし",
+            "重複する1件を置くより、0件を正しい結果",
             "`sourceQuestionKey`",
             "`reviewQuestionId`",
             "`sourceRecordRef`",
@@ -274,6 +275,46 @@ class DocumentationStructureTests(unittest.TestCase):
             "`true_false`だけが選択肢indexと同数の解説",
             field_contract,
         )
+
+    def test_supplement_contract_requires_new_learning_value(self):
+        prompt = (ROOT / "prompt" / "03_prompt_add_explanationText.md").read_text(
+            encoding="utf-8"
+        )
+        field_contract = (
+            ROOT / "document" / "reference" / "question_field_contract.md"
+        ).read_text(encoding="utf-8")
+        law_prompt = (
+            ROOT / "prompt" / "03b_prompt_audit_current_law_and_patch.md"
+        ).read_text(encoding="utf-8")
+        console_contract = (
+            ROOT / "document" / "operations" / "local_question_review_console.md"
+        ).read_text(encoding="utf-8")
+
+        for text in (prompt, field_contract, law_prompt):
+            self.assertIn("同じ結論・理由・根拠", text)
+            self.assertIn("0件", text)
+        self.assertIn("基本解説にない追加情報", prompt)
+        self.assertIn("基本解説にない追加情報", field_contract)
+        self.assertIn("補足0件は不備ではなく", console_contract)
+        self.assertNotIn("「10以上」に10は含まれますか？", prompt)
+
+        qualification_text = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in (ROOT / "prompt" / "qualification_docs").glob("**/*.md")
+        )
+        self.assertNotRegex(
+            qualification_text,
+            r"`suggestedQuestions`|`suggestedQuestionDetails`",
+        )
+
+        workflow = tomllib.loads(
+            (ROOT / "config" / "question_maintenance_workflow.toml").read_text(
+                encoding="utf-8"
+            )
+        )
+        stages = {stage["id"]: stage for stage in workflow["stages"]}
+        self.assertEqual(stages["explanation"]["policy_version"], "4.0")
+        self.assertEqual(stages["law_audit"]["policy_version"], "4.0")
 
 
 if __name__ == "__main__":

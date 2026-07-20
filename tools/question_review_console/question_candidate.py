@@ -312,7 +312,11 @@ class CandidateTarget:
         }
         field_rules = _FIELD_RULES_BY_ROLE.get(self.role)
         if field_rules:
-            value["fieldRules"] = field_rules
+            value["fieldRules"] = {
+                field: rule
+                for field, rule in field_rules.items()
+                if field in self.allowed_fields
+            }
         return value
 
 
@@ -349,6 +353,26 @@ def candidate_targets(
     stage_roles = _STAGE_ROLES.get(str(stage_id), frozenset())
     if not stage_roles:
         raise QuestionCandidateError(f"候補生成に未対応の工程です: {stage_id}")
+    selected_fields_by_stage = plan.get("selectedFieldsByStage")
+    if isinstance(selected_fields_by_stage, Mapping) and stage_id in selected_fields_by_stage:
+        selected_fields = {
+            str(value)
+            for value in selected_fields_by_stage.get(stage_id) or []
+            if value
+        }
+    else:
+        selected_fields = set().union(
+            *(_FIELDS_BY_ROLE[role] for role in stage_roles)
+        )
+    supported_fields = set().union(*(_FIELDS_BY_ROLE[role] for role in stage_roles))
+    unsupported_fields = selected_fields - supported_fields
+    if unsupported_fields:
+        raise QuestionCandidateError(
+            "更新項目に候補生成未対応のfieldがあります: "
+            + ", ".join(sorted(unsupported_fields))
+        )
+    if not selected_fields:
+        raise QuestionCandidateError(f"更新fieldが選択されていません: {stage_id}")
     targets: list[CandidateTarget] = []
     seen_roles: set[str] = set()
     for raw_path in [
@@ -359,16 +383,24 @@ def candidate_targets(
         role = _path_role(path)
         if role not in stage_roles or role in seen_roles:
             continue
+        allowed_fields = tuple(sorted(_FIELDS_BY_ROLE[role] & selected_fields))
+        if not allowed_fields:
+            continue
         seen_roles.add(role)
         targets.append(
             CandidateTarget(
                 target_id=f"{question_id}:{role}",
                 role=role,
                 path=path,
-                allowed_fields=tuple(sorted(_FIELDS_BY_ROLE[role])),
+                allowed_fields=allowed_fields,
             )
         )
-    missing = _REQUIRED_STAGE_ROLES[stage_id] - seen_roles
+    required_roles = {
+        role
+        for role in _REQUIRED_STAGE_ROLES[stage_id]
+        if _FIELDS_BY_ROLE[role] & selected_fields
+    }
+    missing = required_roles - seen_roles
     if missing:
         raise QuestionCandidateError(
             "候補反映先を解決できません: " + ", ".join(sorted(missing))

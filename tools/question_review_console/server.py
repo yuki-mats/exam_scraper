@@ -102,6 +102,9 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "targetGroupIds",
     "scopeListGroupId",
     "scopeListGroupIds",
+    "questionRange",
+    "selectedUpdateTargetIds",
+    "selectedFieldsByStage",
     "jobId",
     "receiptValidated",
     "model",
@@ -524,6 +527,8 @@ class QuestionReviewApplication:
                     raise ValueError("stageIdsは文字列配列で指定してください。")
                 stage_ids = list(dict.fromkeys(raw_stage_ids))
                 list_group_ids = _body_string_list(body, "listGroupIds")
+                update_target_ids = _body_string_list(body, "updateTargetIds")
+                question_range = _body_question_range(body)
                 mode = str(body.get("mode") or "remaining")
                 if not stage_ids:
                     raise ValueError("stageIdsを一つ以上指定してください。")
@@ -538,6 +543,10 @@ class QuestionReviewApplication:
                     )
                 if list_group_ids is not None:
                     run_options["list_group_ids"] = list_group_ids
+                if update_target_ids is not None:
+                    run_options["update_target_ids"] = update_target_ids
+                if question_range is not None:
+                    run_options["question_range"] = question_range
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, self.qualification_runs.preview(
                         qualification,
@@ -1795,6 +1804,32 @@ def _body_string_list(
             HTTPStatus.BAD_REQUEST, f"{key}は空でない文字列配列で指定してください。"
         )
     return list(dict.fromkeys(item.strip() for item in value))
+
+
+def _body_question_range(body: Mapping[str, Any]) -> dict[str, int] | None:
+    value = body.get("questionRange")
+    if value is None:
+        return None
+    if not isinstance(value, Mapping) or set(value) != {"start", "end"}:
+        raise ApiError(
+            HTTPStatus.BAD_REQUEST,
+            "questionRangeはstartとendを持つobjectで指定してください。",
+        )
+    start = value.get("start")
+    end = value.get("end")
+    if (
+        isinstance(start, bool)
+        or isinstance(end, bool)
+        or not isinstance(start, int)
+        or not isinstance(end, int)
+        or start < 1
+        or end < start
+    ):
+        raise ApiError(
+            HTTPStatus.BAD_REQUEST,
+            "questionRangeは1以上かつstart以下でないendを指定してください。",
+        )
+    return {"start": start, "end": end}
 
 
 def _query_bool(

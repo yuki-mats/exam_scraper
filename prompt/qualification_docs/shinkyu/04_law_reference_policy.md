@@ -8,7 +8,7 @@
 - 法令条文が正誤判断に直接関わる場合は、`isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
 - 医学知識や東洋医学知識だけで判断できる問題では、無理に法令参照を作らない。
 - 現行法と出題当時法令を突き合わせ、現行法で正誤が明らかに変わる場合は現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
-- 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残す。
+- 更新した場合の保存先と補足質問の採否は、上位READMEが示す共通field契約と工程03に従う。鍼灸師だけの補足質問必須ルールは設けない。
 
 ## 優先して確認する法令・制度
 

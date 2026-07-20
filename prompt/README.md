@@ -13,6 +13,7 @@
 ## 実行境界
 
 - 人間向け日本語の共通品質は[`AGENTS.md`](../AGENTS.md#日本語の品質)を正本とし、すべての人間工程へ渡す。解説固有の構成は`03_prompt_add_explanationText.md`だけで定義する。
+- 補足質問の意味、0件を含む件数、field形は[question field契約](../document/reference/question_field_contract.md#選択肢別の補足質問契約)を正本とする。各工程promptは、その共通契約を実行する手順だけを持つ。
 - 工程版の改訂と洗い替え要否は[問題整備システム](../document/operations/local_question_review_console.md#作業バージョン)だけを正本とする。
 - 問題整備システムが各問題へ渡す`logicalProjection`は、`00_source`と確定patchを物理Mergeと同じ順で重ねた現在入力である。serverがtoken量に応じて複数問をまとめても、model候補とserver検査・確定は一問ごとに分離する。各promptの`20_merged_1`又は`30_merged_2`より優先し、物理成果物はqueue終了時だけ再生成する。
 - 判断本文は一問ずつ読み、scriptで量産しない。

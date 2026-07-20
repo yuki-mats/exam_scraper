@@ -4,8 +4,8 @@ goal:
   title: "選択肢別・保存済み補足質問"
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
-  tranche: "follow-up: flash_cardの基本解説1本化、isCalculationQuestion分類、代表計算問題の修復を両repoで整合させる"
-  status: done
+  tranche: "follow-up: 年度・問題範囲・更新fieldを選び、選択fieldだけを再整備できる汎用UIとfail-closed実行経路を追加する"
+  status: active
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: null
+active_task: T026
 tasks:
   - id: T001
     type: scout
@@ -1097,6 +1097,554 @@ tasks:
         production_safety: "Firestore production writes=0; dry-run only"
       missing_evidence: []
       next_task: null
+  - id: T017
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "補足質問の生成・評価・法令監査・問題整備UIに関する正本と重複記述を読み取り専用で特定し、最小の共通原則へ揃える更新範囲を確定する"
+    inputs:
+      - "利用者スクリーンショットの重複例"
+      - "docs/goals/per-choice-saved-supplementary-questions/goal.md"
+      - "document/operations/exam_pipeline_manual_and_automation.mdの正本マップ"
+    constraints:
+      - "Read-only. Do not implement."
+      - "資格別・問題別の個別ルールを増やさない。"
+      - "仕様正本と実行promptの責務を混ぜない。"
+      - "既存dirty outputへ触れない。"
+    expected_output:
+      - "canonical documents and responsibility map"
+      - "contradictions and redundant wording"
+      - "exact Worker allowed_files and verify commands"
+      - "simple shared rule wording"
+    receipt:
+      result: done
+      summary: "共通規則には既に『基本解説の言い換えを作らない』とある一方、工程03のJSON例が基本解説の境界値説明を同じ補足Q/Aで反復しており、スクリーンショットと同型の誤学習を誘発していた。現行法差分を補足へ必ず保存する記述と、資格文書の旧flat field名・独自候補列挙も、補足0件を正規状態とする共通契約に反する。field契約を意味の正本、工程03を比較・削除手順の正本とし、03b・UI・資格文書は参照へ縮約するのが最小である。"
+      evidence:
+        - "prompt/03_prompt_add_explanationText.md:120-139"
+        - "prompt/03_prompt_add_explanationText.md:184-204"
+        - "document/reference/question_field_contract.md:314-346"
+        - "prompt/03b_prompt_audit_current_law_and_patch.md:100-107"
+        - "document/operations/local_question_review_console.md:92"
+        - "prompt/qualification_docs/_template/01_law_reference_policy.md:29-35"
+        - "prompt/qualification_docs/*/*law_reference*.mdの旧flat field記述"
+        - "prompt/qualification_docs/{mecnet-kokushi,nw,shinkyu}/*explanation_strategy.mdの補足候補列挙"
+      facts:
+        - "03 promptのsampleは、基本解説『10以上は10を含む』に対し補足『10以上に10は含まれるか』を置いている。"
+        - "field契約は言い換え禁止を記すが、基本解説と候補Q/Aを比較して削除する判定手順がない。"
+        - "lawRevisionFactsと基本解説で必須差分を保持できるため、現行法差分を補足へ必須保存する必要はない。"
+        - "資格固有文書は共通field契約を所有せず、資格固有の論点だけを補助すべきである。"
+      contradictions:
+        - "言い換え禁止規則と、言い換えそのものになっている03 promptのJSON例が矛盾する。"
+        - "補足0件を許容する共通契約と、現行法更新時に補足fieldへ必ず残す資格文書が矛盾する。"
+        - "nested patch正本と、複数資格文書に残るsuggestedQuestions/suggestedQuestionDetailsの旧flat表記が矛盾する。"
+      ambiguity_requiring_judge:
+        - "追加価値の判定をどの一文へ集約し、promptではどこまで具体的な確認手順を残すか。"
+        - "既存データの洗い替えを示すため工程03・03bのMAJORを上げるか。"
+      commands:
+        - "rgによるdocument/prompt/config内の補足質問・field参照の横断確認"
+        - "関連正本、工程03、03b、資格別方針、documentation testのread-only確認"
+      note_needed: false
+      harness: codex
+      fallback: "専用goal_scoutは一回のwait timeoutでreceipt未着のため中断し、GoalBuddy契約に従ってPM fallbackした。"
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T017の証拠を評価し、補足質問の存在条件・0件条件・重複判定を一つの簡潔な契約として確定する"
+    inputs:
+      - "T017 receipt"
+      - "goal.md"
+    constraints:
+      - "Read-only. Do not implement."
+      - "個別最適な例外一覧を承認しない。"
+      - "基本解説へ必要事項を退避せず、補足回答へ核心を退避する設計も承認しない。"
+    expected_output:
+      - "approved shared wording"
+      - "exact Worker package"
+      - "document ownership decision"
+    receipt:
+      result: done
+      decision: approve
+      full_outcome_complete: false
+      summary: "共通契約を『基本解説にない追加情報を返せる場合だけ補足を作り、質問と回答を基本解説と比較して同じ結論・理由・根拠の言い換えなら削除し、残らなければ0件を正とする』に固定した。意味はfield契約、実行手順は03、現行法の再確認は03b、表示はUI文書が所有する。資格文書は固有論点だけを残し、共通field名・件数・必須性を重複定義しない。旧整備済みデータの適合性が変わるため03と03bは4.0へMAJOR更新する。"
+      rationale: "禁止語や問題別例外を追加するだけでは、現在の矛盾したsampleと必須扱いが残る。候補Q/Aと基本解説の比較、0件の正規化、所有文書の整理を一つのpackageで行う必要がある。"
+      document_ownership:
+        meaning: "document/reference/question_field_contract.md"
+        authoring: "prompt/03_prompt_add_explanationText.md"
+        current_law_recheck: "prompt/03b_prompt_audit_current_law_and_patch.md"
+        ui: "document/operations/local_question_review_console.md"
+        qualification_docs: "資格固有の論点だけを保持し、共通契約へリンクする"
+      worker_package:
+        objective: "補足質問の追加価値・重複削除・0件を一つの共通原則として正本、03/03b、UI、資格補助文書へ整合させ、誤誘導sampleと旧flat field記述を除去し、工程版を4.0へ上げる"
+        allowed_files:
+          - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+          - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+          - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+          - "/Users/yuki/development/exam_scraper/prompt/README.md"
+          - "/Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md"
+          - "/Users/yuki/development/exam_scraper/prompt/03b_prompt_audit_current_law_and_patch.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/README.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/_template/01_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-doboku-sekou/04_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-kenchikushi/README.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-kou/01_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-kou/README.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-otsu/01_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-otsu/README.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/01_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/03_explanation_strategy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/nw/02_explanation_strategy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/shinkyu/02_explanation_strategy.md"
+          - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/shinkyu/04_law_reference_policy.md"
+          - "/Users/yuki/development/exam_scraper/tests/test_documentation_structure.py"
+        verify:
+          - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_documentation_structure"
+          - "cd /Users/yuki/development/exam_scraper && node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
+          - "cd /Users/yuki/development/exam_scraper && git diff --check"
+        stop_if:
+          - "Need production code or data changes."
+          - "既存dirty差分と同じhunkを変更する必要がある。"
+          - "資格固有の新しい補足ルールを決める必要がある。"
+          - "同じ原因で検証が二回失敗する。"
+      harness: codex
+      fallback: "専用goal_judgeは一回のwait timeoutでreceipt未着のため中断し、GoalBuddy契約に従ってPM fallbackした。"
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Judgeが確定した共通原則を恒久正本と関連prompt・検証文書へ簡潔に反映し、全文書の整合を検証する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/prompt/README.md"
+      - "/Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md"
+      - "/Users/yuki/development/exam_scraper/prompt/03b_prompt_audit_current_law_and_patch.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/README.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/_template/01_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-doboku-sekou/04_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-kenchikushi/README.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-kou/01_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-kou/README.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-otsu/01_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-otsu/README.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/01_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/03_explanation_strategy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/nw/02_explanation_strategy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/shinkyu/02_explanation_strategy.md"
+      - "/Users/yuki/development/exam_scraper/prompt/qualification_docs/shinkyu/04_law_reference_policy.md"
+      - "/Users/yuki/development/exam_scraper/tests/test_documentation_structure.py"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_documentation_structure"
+      - "cd /Users/yuki/development/exam_scraper && node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "コード又は既存問題データの変更が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      summary: "補足質問の意味をfield契約へ集約し、工程03には基本解説完成後の候補作成・比較・重複削除・0件確定の手順を追加した。重複を誘発していた『10以上に10は含まれるか』のsampleを追加比較の例へ差し替えた。03b、UI、資格別README・法令方針・解説戦略は共通契約参照へ揃え、旧flat field表記を除去した。既存整備済みデータを再判定するため03/03bを4.0へ上げ、文書契約testを追加した。"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml
+        - /Users/yuki/development/exam_scraper/document/reference/question_field_contract.md
+        - /Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md
+        - /Users/yuki/development/exam_scraper/prompt/README.md
+        - /Users/yuki/development/exam_scraper/prompt/03_prompt_add_explanationText.md
+        - /Users/yuki/development/exam_scraper/prompt/03b_prompt_audit_current_law_and_patch.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/README.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/_template/01_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-doboku-sekou/04_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/2nd-class-kenchikushi/README.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-kou/01_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-kou/README.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-otsu/01_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/gas-shunin-otsu/README.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/01_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/03_explanation_strategy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/nw/02_explanation_strategy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/shinkyu/02_explanation_strategy.md
+        - /Users/yuki/development/exam_scraper/prompt/qualification_docs/shinkyu/04_law_reference_policy.md
+        - /Users/yuki/development/exam_scraper/tests/test_documentation_structure.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_documentation_structure"
+          status: pass
+        - cmd: "node .../check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      verification:
+        documentation_tests: "pass: 11"
+        old_flat_fields_in_qualification_docs: "0"
+        board_check: pass
+        diff_check: pass
+      verification_attempts: 1
+      stopped_because: null
+      harness: codex
+      fallback: "専用goal_workerは一回のwait timeoutで変更・receipt未着のため中断し、GoalBuddy契約に従ってPM fallbackした。"
+  - id: T020
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "更新文書を横断監査し、基本解説の言い換え補足が禁止され、追加価値がなければ0件となる単純な契約へ整合したか判定する"
+    inputs:
+      - "T017-T019 receipts"
+      - "current documentation diff"
+    constraints:
+      - "Read-only. Do not implement."
+      - "一つの例だけ直した状態や重複規則の増加をcompleteとしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "remaining contradictions"
+    receipt:
+      result: done
+      decision: complete_for_document_tranche
+      full_outcome_complete: false
+      summary: "共通field契約、工程03、03b、UI、資格別補助文書、悪いsample、工程版を横断監査した。補足質問は基本解説にない追加情報がある場合だけ作り、同じ結論・理由・根拠なら削除し、0件を正規状態とする一つの契約へ整合した。資格文書の旧flat field名と補足必須表現も残っていない。文書trancheは完了したが、利用者が追加したfield単位部分洗い替え機能は未実装のためgoal全体は継続する。"
+      evidence:
+        - "documentation tests: 11 pass"
+        - "qualification docs exact old flat field references: 0"
+        - "misleading boundary-value sample removed"
+        - "explanation and law_audit policy versions: 4.0"
+        - "git diff --check: pass"
+      remaining_contradictions: []
+      next_task: T021
+      harness: codex
+  - id: T021
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "問題整備システムの現行UI・run API・workflow stage・prompt構築・candidate検証・patch保存・作業版を追い、年度・問題範囲・field選択による部分洗い替えの安全な実装境界を確定する"
+    inputs:
+      - "Follow-up Tranche: field単位の部分洗い替え"
+      - "config/question_maintenance_workflow.toml"
+      - "document/operations/local_question_review_console.md"
+      - "tools/question_review_console"
+    constraints:
+      - "Read-only. Do not implement."
+      - "補足質問専用の個別APIを前提にしない。"
+      - "選択外fieldの変更を許容しない。"
+      - "既存dirty outputへ触れない。"
+      - "本番Firestoreを書き換えない。"
+    expected_output:
+      - "current end-to-end request and save path"
+      - "generic field catalog and dependency model options"
+      - "exact UI/API/backend/test files"
+      - "risks, migration, and browser oracle"
+    receipt:
+      result: done
+      summary: "現行UIは複数年度と工程・実行modeを選べるが、問題番号範囲と更新fieldを指定できない。preview/startはstageIds・listGroupIds・modeをplanへ渡し、structured candidateのallowedFieldsが保存前の最終field境界になる。workflow TOMLのissue_fieldsは表示用で実書込fieldと一致しないため、工程ごとの安全なupdate_targetsを新設し、UI・API・prompt・candidate・作業版が同じ定義を使う必要がある。"
+      evidence:
+        - "tools/question_review_console/static/index.html:220"
+        - "tools/question_review_console/static/app.js:1850"
+        - "tools/question_review_console/server.py:504"
+        - "tools/question_review_console/qualification_workflow.py:530"
+        - "tools/question_review_console/qualification_runs.py:3778"
+        - "tools/question_review_console/question_candidate.py:344"
+        - "tools/question_review_console/work_versions.py:208"
+        - "config/question_maintenance_workflow.toml"
+      current_path:
+        - "UI selection -> POST qualification-runs/preview -> QualificationWorkflow.plan_many"
+        - "preview token hashes the complete plan; start recomputes and compares the token"
+        - "human run -> per-question structured candidate -> allowedFields schema -> CandidateWorkspace patch update"
+        - "validated run -> stage-level work version record"
+      findings:
+        - "年度はlistGroupIdsとして複数選択済みで、同じUIへ問題番号範囲を追加できる。"
+        - "問題範囲はexamYearではなくlistGroupIdごとの1始まり連番として、mode判定より前に絞ると独自問題にも適用できる。"
+        - "補足質問だけの実行はsuggestedQuestionDetailsByChoiceだけを書込許可し、explanationTextはread-only参照にする。"
+        - "選択外fieldをcandidateTargets.allowedFieldsから除けばmodel出力はschema/parseでfail-closedに拒否できる。"
+        - "部分実行を工程全体の現行版として記録すると未選択fieldを誤ってcurrentにするため、update target単位の作業版が必要。"
+        - "再開時も工程・年度・modeに加え、update targetと問題範囲の一致を検査する必要がある。"
+      candidate_files:
+        - "config/question_maintenance_workflow.toml"
+        - "tools/question_review_console/workflow_catalog.py"
+        - "tools/question_review_console/qualification_workflow.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/question_candidate.py"
+        - "tools/question_review_console/work_versions.py"
+        - "tools/question_review_console/server.py"
+        - "tools/question_review_console/static/index.html"
+        - "tools/question_review_console/static/app.js"
+        - "tools/question_review_console/static/styles.css"
+        - "document/operations/local_question_review_console.md"
+        - "関連tests"
+      risks:
+        - "issue_fieldsを流用するとsuggestedQuestionsなど派生fieldを編集対象に誤表示する。"
+        - "law_auditのfieldは複数patchとsidecarに跨るため、細分化せず一つの原子的update targetにする必要がある。"
+        - "説明品質の完了検証は補足質問だけの実行で基本解説の再生成を要求してはならない。"
+      browser_oracle: "解説工程で補足質問だけを選び、年度と問題番号範囲を指定したpreviewに選択内容が表示され、開始requestにも同じ契約が入る。別fieldの代表例でも同じUIを使える。"
+      harness: codex
+      fallback: "専用goal_scoutは一回のwait timeoutでreceipt未着のため中断し、GoalBuddy契約に従ってPM fallbackした。"
+  - id: T022
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T021の証拠を評価し、field選択、範囲選択、依存field、fail-closed保存、作業版の契約と最大安全なWorker packageを確定する"
+    inputs:
+      - "T021 receipt"
+      - "goal.md"
+    constraints:
+      - "Read-only. Do not implement."
+      - "補足質問だけの個別最適実装を承認しない。"
+      - "選択field以外をmodel出力又はpatch writerが変更できる設計を承認しない。"
+      - "workflow設定と別のfield一覧正本を増やさない。"
+    expected_output:
+      - "architecture decision"
+      - "request and receipt schema"
+      - "field dependency and version policy"
+      - "exact Worker package"
+    receipt:
+      result: done
+      decision: approve
+      full_outcome_complete: false
+      summary: "workflow TOMLを更新項目の唯一の正本とし、各工程へ原子的update targetを定義する。APIはstageId付きupdateTargetIdsと各年度共通の1始まり問題番号rangeを受け、plan/token/prompt/receiptへ保持する。候補生成では選択targetのfieldsだけをallowedFieldsへ残し、readFieldsは参照専用と明記する。部分実行の作業版はtarget単位で記録し、未選択targetをcurrent扱いにしない。"
+      architecture_decision:
+        - "update targetはstage内で一意のid・表示名・重複しないfields・任意のreadFieldsを持ち、API識別子はstageId.targetIdとする。"
+        - "既存実行はupdateTargetIds省略で全targetを選択し、従来の書込可能field集合を維持する。"
+        - "補足質問targetはsuggestedQuestionDetailsByChoiceだけを書き、explanationTextをreadFieldsとして参照する。"
+        - "依存性が強いquestionIntent/正答、law audit、question set等は複数fieldを一つの原子的targetにまとめる。"
+        - "問題番号rangeはstart/end必須の1始まり包含範囲とし、選択した各listGroup内の自然順へ同じ範囲を適用してからmode判定する。"
+        - "preview tokenはrange・target・selected fieldsを含むplan全体をhashし、startで再計算する。再開も同じrange・targetだけを許可する。"
+        - "candidate parserとallowedFieldsをfield書込境界とし、選択外fieldをset/unsetした候補は問題単位で拒否する。"
+        - "work_versions v3はstage配下にtarget別記録を持てる。部分実行は選択targetだけを更新し、全target実行は従来どおりstage全体を記録する。stage状態は全targetの集約とする。"
+        - "補足質問だけの完了検証は補足schemaと基本解説との参照整合を確認し、基本解説の再生成を要求しない。"
+      request_schema:
+        updateTargetIds: "string[]; e.g. ['explanation.supplementary_questions']; omitted means every target of selected stages"
+        questionRange: "null or {start: positive integer, end: integer >= start}; applied per selected listGroupId without requiring examYear"
+      receipt_schema:
+        - "selectedUpdateTargetIds"
+        - "selectedFieldsByStage"
+        - "readFieldsByStage"
+        - "questionRange"
+        - "target-level workVersionReceipt"
+      worker_package:
+        objective: "workflow設定から年度・各年度内問題番号範囲・更新項目を選べるUIを追加し、preview/start/prompt/structured candidate/patch保存/作業版の全経路で選択field以外をfail-closedに保つ。補足質問だけと別工程の代表targetを自動testし、ブラウザでpreview契約を確認する。"
+        allowed_files:
+          - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+          - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/workflow_catalog.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_work_queue.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/work_versions.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/server.py"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+          - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow_catalog.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_work_queue.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_server.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_work_versions.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+          - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+      verify:
+        - ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_question_work_queue tests.test_question_review_server tests.test_question_review_work_versions tests.test_question_review_progress_output_ui tests.test_question_review_workflow"
+        - "node --check tools/question_review_console/static/app.js"
+        - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+        - "git diff --check"
+        - "browser walkthrough of explanation.supplementary_questions and one non-explanation target"
+      stop_if:
+        - "A required source file is outside allowed_files."
+        - "既存dirty outputと同じfileを変更する必要がある。"
+        - "選択外fieldをcandidate schema又はwriterで拒否できない。"
+        - "00_source又はFirestore書込が必要になる。"
+        - "同じ原因で検証が二回失敗する。"
+      harness: codex
+      fallback: "専用goal_judgeは前taskで一回timeoutし中断済みのため、GoalBuddy契約に従ってPM Judge fallbackした。"
+  - id: T023
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "Judgeが確定した最大安全なsliceとして、年度・問題範囲・fieldを選ぶUIと選択fieldだけを更新するfail-closed実行経路を実装・検証する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+      - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/workflow_catalog.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_work_queue.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/work_versions.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/server.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow_catalog.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_work_queue.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_server.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_work_versions.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_question_work_queue tests.test_question_review_server tests.test_question_review_work_versions tests.test_question_review_progress_output_ui tests.test_question_review_workflow"
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "00_source、既存questionId又は本番Firestoreの変更が必要になる。"
+      - "選択外fieldの変更を安全に拒否できない。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      summary: "workflow TOMLを更新項目の正本として、年度又はフォルダ・各listGroup内の問題番号範囲・更新項目を選ぶ汎用UI/APIを実装した。plan、preview token、prompt、candidate allowedFields、run receipt、resume、work_versions v3まで同じ選択契約を保持する。補足質問だけの実行はsuggestedQuestionDetailsByChoiceだけを書込可能とし、explanationTextは参照専用である。"
+      changed_files:
+        - "/Users/yuki/development/exam_scraper/config/question_maintenance_workflow.toml"
+        - "/Users/yuki/development/exam_scraper/document/operations/local_question_review_console.md"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/workflow_catalog.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_work_queue.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/work_versions.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/server.py"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+        - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/styles.css"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow_catalog.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_server.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_work_versions.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py"
+      evidence:
+        - "補足質問のみ・2017・第1問〜第3問のbrowser previewは3問、更新項目は補足質問と回答だけと表示した。"
+        - "browser console error 0件。Firestore書込とrun開始は実施していない。"
+        - "独自問題相当のlistGroupId=originalに対し、examYearなしで範囲選択とquestion_type.calculation_flag選択を自動testした。"
+        - "candidate testは選択外のexplanationText出力をfail-closedで拒否する。"
+        - "work_versions v3 testは部分実行で選択targetだけがcurrentになることを確認する。"
+        - "00_source immutability: 5,799 files unchanged。"
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_question_work_queue tests.test_question_review_server tests.test_question_review_work_versions tests.test_question_review_progress_output_ui tests.test_question_review_workflow tests.test_documentation_structure"
+          status: pass
+          summary: "233 tests"
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      note_needed: false
+      harness: codex
+  - id: T024
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "補足質問だけの部分洗い替えと別fieldの代表例をUIから実行し、選択field以外が不変であることをAPI・patch diff・browserで監査する"
+    inputs:
+      - "T021-T023 receipts"
+      - "automated tests"
+      - "browser walkthrough and patch diff"
+    constraints:
+      - "Read-only final audit."
+      - "実データを使う場合もFirestoreはdry-runまでとする。"
+      - "選択外fieldの変更が1件でもあればcompleteにしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle mapping and missing evidence"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      summary: "対象機能の233件、browser preview、00_source保護は合格したが、全1,016件の回帰で旧policy版、旧flat補足field期待値、テスト用law_audit候補の新schema欠落に由来する15件の失敗を検出した。弱い証拠で完了せず、旧fixtureと期待値を現行正本へ同期して全suiteを再実行する。"
+      evidence:
+        - "targeted 233 tests: pass"
+        - "browser: 2017, question 1-3, supplementary-only preview = 3 questions; 0 console errors"
+        - "full unittest discover: 1,016 tests, 15 failures, 7 skipped"
+        - "failures group into law audit policy 4.0 expectations, suggestedQuestionDetailsByChoice fixture, and old flat review fields"
+      next_task: T025
+      harness: codex
+  - id: T025
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "最終監査で検出した旧fixtureと旧期待値を現行policy 4.0・suggestedQuestionDetailsByChoice契約へ同期し、全回帰suiteを成功させる"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/tests/qualification_run_test_support.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_law_grounded_explanation_not_needed_pipeline.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_identity.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_law_version.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_write_safety.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_store.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_law_grounded_explanation_not_needed_pipeline tests.test_question_review_qualification_flow_recovery tests.test_question_review_qualification_identity tests.test_question_review_qualification_law_version tests.test_question_review_qualification_write_safety tests.test_question_review_store"
+      - ".venv/bin/python -m unittest discover -s tests"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "A production behavior change is required rather than a fixture or current-policy expectation update."
+      - "Need files outside allowed_files."
+      - "The same failure repeats twice after a fixture fix."
+    receipt:
+      result: done
+      changed_files:
+        - "/Users/yuki/development/exam_scraper/tests/qualification_run_test_support.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_law_grounded_explanation_not_needed_pipeline.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_identity.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_write_safety.py"
+        - "/Users/yuki/development/exam_scraper/tests/test_question_review_store.py"
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_law_grounded_explanation_not_needed_pipeline tests.test_question_review_qualification_flow_recovery tests.test_question_review_qualification_identity tests.test_question_review_qualification_law_version tests.test_question_review_qualification_write_safety tests.test_question_review_store"
+          status: pass
+          summary: "122 tests"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,016 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      summary: "旧flat補足fieldと旧policy版のfixture/期待値を現行契約へ同期し、law_auditのテスト候補も選択fieldだけを出すようにした。production behaviorは変更せず、全1,016件の回帰を成功させた。"
+      remaining_blockers: []
+      needs_judge: true
+      harness: codex
+  - id: T026
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "今回の文書整合・部分洗い替え実装・回帰fixtureだけをmainへscoped commit/pushし、既存output dirtyを混入させずorigin/mainをreadbackする"
+    inputs:
+      - "T017-T025 receipts"
+      - "current non-output diff"
+    constraints:
+      - "pre-existing output patchesをstageしない。"
+      - "main以外へcommit/pushしない。"
+      - "force pushしない。"
+    expected_output:
+      - "commit hash and origin/main readback"
+      - "remaining dirty files are pre-existing output only"
+    receipt: null
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:

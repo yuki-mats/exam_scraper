@@ -6,6 +6,8 @@
 
 過去問データの共通field、Firestoreキー、型、必須性、`questionType`、`lawReferences`は[question field契約](../../document/reference/question_field_contract.md)を正本とする。資格別資料では共通fieldの意味を上書きせず、法令スコープ、カテゴリ粒度、出題傾向、解説方針だけを書く。
 
+補足質問の採否と0件の扱いも共通field契約に従う。資格別資料には、この資格で理解を深める論点だけを書き、補足質問の必須化、件数、field形を重複定義しない。
+
 ## 役割の優先順位
 - 主用途は `03_prompt_add_explanationText.md`
   - 資格ごとの傾向に合わせて、解説文をより学習効果の高い内容にするために使う

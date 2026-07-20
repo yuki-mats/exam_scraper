@@ -104,7 +104,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": "2.2"})
+        self.assertEqual(run["policyVersions"], {"explanation": "4.0"})
         self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["writeWorkerLimit"], 1)
 

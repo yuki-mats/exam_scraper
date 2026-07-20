@@ -1,6 +1,6 @@
 # 二級建築士 補助ドキュメント
 
-このディレクトリは、`2nd-class-kenchikushi` の `explanationText` / `suggestedQuestions` / `lawReferences` を作る際の補助資料である。
+このディレクトリは、`2nd-class-kenchikushi` の解説と法令根拠を作る際の資格固有の補助資料である。
 
 ## 使い分け
 

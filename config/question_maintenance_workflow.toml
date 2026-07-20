@@ -64,6 +64,17 @@ documents = [
   "document/operations/original_question_authoring_workflow.md",
 ]
 
+[[stages.update_targets]]
+id = "content"
+label = "問題文・選択肢・正答"
+fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionIntent", "answer_result_text"]
+
+[[stages.update_targets]]
+id = "images"
+label = "問題画像"
+fields = ["questionImageStorageUrls", "originalQuestionChoiceImageUrls"]
+read_fields = ["questionBodyText", "choiceTextList"]
+
 [[stages]]
 id = "question_type"
 code = "01"
@@ -81,6 +92,17 @@ patch_suffix = "questionType_fixed"
 issue_fields = ["questionType", "isCalculationQuestion"]
 documents = ["prompt/01_prompt_fix_questionType.md"]
 
+[[stages.update_targets]]
+id = "question_type"
+label = "問題形式"
+fields = ["questionType"]
+
+[[stages.update_targets]]
+id = "calculation_flag"
+label = "計算問題フラグ"
+fields = ["isCalculationQuestion"]
+read_fields = ["questionType", "questionBodyText", "choiceTextList"]
+
 [[stages]]
 id = "question_intent"
 code = "02"
@@ -96,6 +118,12 @@ patch_suffix = "correctChoiceText_fixed"
 issue_fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
 documents = ["prompt/02_prompt_fix_questionIntent.md"]
 
+[[stages.update_targets]]
+id = "intent_and_answer"
+label = "設問意図・正答"
+fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
+read_fields = ["questionBodyText", "choiceTextList"]
+
 [[stages]]
 id = "correct_choice"
 code = "02a"
@@ -110,6 +138,12 @@ patch_dir = "23_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
 issue_fields = ["correctChoiceText", "answer_result_text"]
 documents = ["prompt/02a_prompt_review_correctChoiceText.md"]
+
+[[stages.update_targets]]
+id = "correct_answer"
+label = "正答"
+fields = ["correctChoiceText", "answer_result_text"]
+read_fields = ["questionBodyText", "choiceTextList", "questionIntent"]
 
 [[stages]]
 id = "law_context"
@@ -130,14 +164,26 @@ patch_suffix = "lawContext_prepared"
 issue_fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences"]
 documents = ["prompt/02b_prompt_prepare_law_context.md"]
 
+[[stages.update_targets]]
+id = "law_classification"
+label = "法令関連性"
+fields = ["isLawRelated", "lawGroundedExplanationNotNeeded"]
+read_fields = ["questionBodyText", "choiceTextList"]
+
+[[stages.update_targets]]
+id = "law_grounding"
+label = "法令根拠候補"
+fields = ["lawReferences", "lawContextForExplanation"]
+read_fields = ["isLawRelated", "questionBodyText", "choiceTextList", "correctChoiceText"]
+
 [[stages]]
 id = "explanation"
 code = "03"
 label = "解説"
-purpose = "正誤理由と学習用の補足質問を問題形式に応じた単位で整える"
+purpose = "正誤理由を整え、追加の学習価値がある場合だけ補足質問を作る"
 kind = "human"
-# 3.0: flash_cardとgroup_choiceを問題共通の基本解説1本へ統一し、既存問題を洗い替える。
-policy_version = "3.0"
+# 4.0: 基本解説の言い換え補足を不適合とし、追加価値がなければ0件へ洗い替える。
+policy_version = "4.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -148,8 +194,26 @@ batch_selectable = true
 session_group = "maintenance"
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
-issue_fields = ["explanationText", "suggestedQuestions", "suggestedQuestionDetails"]
+issue_fields = ["explanationText", "suggestedQuestionDetailsByChoice"]
 documents = ["prompt/03_prompt_add_explanationText.md"]
+
+[[stages.update_targets]]
+id = "basic_explanation"
+label = "基本解説"
+fields = ["explanationText"]
+read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion", "isLawRelated", "lawReferences", "lawContextForExplanation"]
+
+[[stages.update_targets]]
+id = "supplementary_questions"
+label = "補足質問と回答"
+fields = ["suggestedQuestionDetailsByChoice"]
+read_fields = ["explanationText", "questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion"]
+
+[[stages.update_targets]]
+id = "law_support"
+label = "解説用の法令情報"
+fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences", "lawContextForExplanation", "lawRevisionFacts"]
+read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText"]
 
 [[stages]]
 id = "law_audit"
@@ -157,8 +221,8 @@ code = "03b"
 label = "現行法監査"
 purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定する"
 kind = "human"
-# 3.0: 選択肢別補足を正本として再監査し、公開解説の具体的な根拠表示を必須化する。
-policy_version = "3.0"
+# 4.0: 現行法監査でも基本解説との重複補足を除き、追加価値がなければ0件へ洗い替える。
+policy_version = "4.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -176,6 +240,37 @@ documents = [
   "prompt/03b_prompt_audit_current_law_and_patch.md",
   "document/operations/current_law_question_maintenance_workflow.md",
 ]
+
+[[stages.update_targets]]
+id = "law_audit"
+label = "現行法監査一式"
+fields = [
+  "auditStatus",
+  "reviewState",
+  "sourceSummary",
+  "verificationSummary",
+  "reconciliationStatus",
+  "primaryAuditRunId",
+  "secondaryAuditRunId",
+  "tertiaryAuditRunId",
+  "auditInputHash",
+  "evidenceBindingHash",
+  "lawRevisionFacts",
+  "lawReferences",
+  "isLawRelated",
+  "lawGroundedExplanationNotNeeded",
+  "lawContextForExplanation",
+  "correctChoiceText",
+  "answer_result_text",
+  "explanationText",
+  "suggestedQuestionDetailsByChoice",
+  "holdReason",
+  "reviewNotes",
+  "evidenceSummary",
+  "examTimeDecision",
+  "currentLawDecision",
+]
+read_fields = ["questionBodyText", "choiceTextList", "questionIntent"]
 
 [[stages]]
 id = "category_setup"
@@ -211,6 +306,12 @@ patch_dir = "22_questionSetId_linked"
 patch_suffix = "questionSetId_linked"
 issue_fields = ["questionSetId"]
 documents = ["prompt/04_prompt_link_questionSetId.md"]
+
+[[stages.update_targets]]
+id = "question_set"
+label = "問題集割当"
+fields = ["questionSetId", "questionSetIdList", "choiceQuestionSetIds"]
+read_fields = ["questionBodyText", "choiceTextList"]
 
 [[stages]]
 id = "delivery"

@@ -8,7 +8,7 @@
 
 ## `03_prompt_add_explanationText.md` との関係
 
-この手順は、`prompt/03_prompt_add_explanationText.md` で作成した `explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / `lawReferences` の QA 工程である。
+この手順は、`prompt/03_prompt_add_explanationText.md` で作成した解説・補足質問と`lawReferences`のうち、法令根拠を確認するQA工程である。補足質問の採否とfield形は共通契約に従う。
 
 単独の別作業として扱わない。必ず次の流れで使う。
 

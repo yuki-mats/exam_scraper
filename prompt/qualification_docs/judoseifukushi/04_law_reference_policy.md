@@ -8,7 +8,7 @@
 - 法令名、制度名、届出先、免許主体、広告可否、罰則、業務範囲の境界が正誤判断に直結するなら、`isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
 - 純粋な解剖、生理、病理、整形外科、リハビリテーションの問題は、原則 `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` に倒してよい。
 - 現行法と出題当時法令を突き合わせ、現行法で正誤が明らかに変わる場合は現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
-- 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠制度・条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、review sidecar に残す。
+- 更新した場合の保存先と補足質問の採否は、上位READMEが示す共通field契約と工程03に従う。柔道整復師だけの補足質問必須ルールは設けない。
 - `question_url` や民間解説サイトは、法令根拠の代替にしない。
 
 ## 優先して確認する法令・制度

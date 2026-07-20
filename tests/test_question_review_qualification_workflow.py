@@ -107,6 +107,111 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_plan_filters_same_question_range_per_year_and_selected_fields(self):
+        groups = [
+            {
+                "listGroupId": year,
+                "questions": [
+                    question(group=year, question_number=number)
+                    for number in range(1, 6)
+                ],
+            }
+            for year in ("original", "2026")
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", groups)
+            )
+            plan = workflow.plan(
+                "sample",
+                "explanation",
+                "group_refresh",
+                list_group_ids=["original", "2026"],
+                update_target_ids=["explanation.supplementary_questions"],
+                question_range={"start": 2, "end": 3},
+            )
+            prompt = workflow.prompt(
+                "sample",
+                "explanation",
+                "group_refresh",
+                list_group_ids=["original", "2026"],
+                update_target_ids=["explanation.supplementary_questions"],
+                question_range={"start": 2, "end": 3},
+            )["prompt"]
+
+        self.assertEqual(plan["targetCount"], 4)
+        labels_by_group = {}
+        for target in plan["progressTargets"]:
+            labels_by_group.setdefault(target["listGroupId"], []).append(
+                target["questionLabel"]
+            )
+        self.assertEqual(
+            labels_by_group,
+            {"2026": ["問2", "問3"], "original": ["問2", "問3"]},
+        )
+        self.assertTrue(
+            all("examYear" not in target for target in plan["progressTargets"])
+        )
+        self.assertEqual(
+            plan["selectedFieldsByStage"],
+            {"explanation": ["suggestedQuestionDetailsByChoice"]},
+        )
+        self.assertIn("explanationText", plan["readFieldsByStage"]["explanation"])
+        self.assertEqual(plan["questionRange"], {"start": 2, "end": 3})
+        self.assertIn("補足質問と回答", prompt)
+        self.assertIn("参照用field", prompt)
+        self.assertIn("第2問〜第3問", prompt)
+
+    def test_plan_rejects_update_target_from_another_stage(self):
+        group = {"listGroupId": "2026", "questions": [question()]}
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", [group])
+            )
+            with self.assertRaisesRegex(ValueError, "更新項目がありません"):
+                workflow.plan(
+                    "sample",
+                    "question_type",
+                    "refresh",
+                    update_target_ids=["explanation.supplementary_questions"],
+                )
+
+    def test_plan_selects_non_explanation_update_target_generically(self):
+        group = {"listGroupId": "original", "questions": [question(group="original")]}
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", [group])
+            )
+            plan = workflow.plan(
+                "sample",
+                "question_type",
+                "group_refresh",
+                list_group_ids=["original"],
+                update_target_ids=["question_type.calculation_flag"],
+            )
+
+        self.assertEqual(
+            plan["selectedUpdateTargetIds"],
+            ["question_type.calculation_flag"],
+        )
+        self.assertEqual(
+            plan["selectedFieldsByStage"],
+            {"question_type": ["isCalculationQuestion"]},
+        )
+        self.assertEqual(
+            plan["readFieldsByStage"],
+            {
+                "question_type": [
+                    "questionType",
+                    "questionBodyText",
+                    "choiceTextList",
+                ]
+            },
+        )
+        self.assertTrue(
+            all("examYear" not in target for target in plan["progressTargets"])
+        )
+
     def test_plan_orders_progress_by_source_logical_id_naturally(self):
         items = []
         for unique_number, logical_id, label, category in (

@@ -2633,6 +2633,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 target,
                 stage_id,
                 "current-policy-fingerprint",
+                phase_plan.get("selectedUpdateTargetIds") or [],
             )
 
         self.assertNotEqual(before["inputFingerprint"], expected)

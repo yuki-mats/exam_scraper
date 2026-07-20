@@ -1,6 +1,6 @@
 # ガス主任技術者甲種 補助ドキュメント
 
-このディレクトリは、`gas-shunin-kou` の `explanationText` / `suggestedQuestions` / `lawReferences` を作る際の補助資料である。
+このディレクトリは、`gas-shunin-kou` の解説と法令根拠を作る際の資格固有の補助資料である。
 
 ## 使い分け
 

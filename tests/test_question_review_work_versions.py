@@ -116,7 +116,7 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
 
         self.assertEqual(dry_run["changedFileCount"], 1)
         self.assertEqual(migrated["stageRecordCount"], 1)
-        self.assertEqual(saved["schemaVersion"], "question-work-versions/v2")
+        self.assertEqual(saved["schemaVersion"], "question-work-versions/v3")
         saved_stage = next(iter(saved["questions"].values()))["stages"]["question_type"]
         self.assertEqual(saved_stage["version"], "1.0")
         self.assertEqual(saved_stage["history"][0]["version"], "0.0")
@@ -228,6 +228,86 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             unchanged = path.read_text(encoding="utf-8")
 
         self.assertEqual(unchanged, "{broken")
+
+    def test_partial_update_records_only_selected_target(self):
+        target_policy = {
+            **policy("explanation"),
+            "code": "03",
+            "label": "解説",
+            "policyVersion": "4.0",
+            "updateTargets": [
+                {
+                    "id": "basic_explanation",
+                    "selectionId": "explanation.basic_explanation",
+                    "label": "基本解説",
+                    "fields": ["explanationText"],
+                },
+                {
+                    "id": "supplementary_questions",
+                    "selectionId": "explanation.supplementary_questions",
+                    "label": "補足質問と回答",
+                    "fields": ["suggestedQuestionDetailsByChoice"],
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            item = question()
+            receipt = store.record_stage(
+                [item],
+                target_policy,
+                run_id="supplement-run",
+                source="validated_run",
+                target_ids=["explanation.supplementary_questions"],
+            )
+            full_status = store.status_for(item, [target_policy])
+            supplement_status = store.status_for(
+                item,
+                [
+                    {
+                        **target_policy,
+                        "selectedUpdateTargetIds": [
+                            "explanation.supplementary_questions"
+                        ],
+                    }
+                ],
+            )
+            store.record_stage(
+                [item],
+                target_policy,
+                run_id="basic-run",
+                source="validated_run",
+                target_ids=["explanation.basic_explanation"],
+            )
+            complete = store.status_for(item, [target_policy])
+            saved = json.loads(
+                store.path_for("sample", "2026").read_text(encoding="utf-8")
+            )
+
+        self.assertTrue(receipt["partial"])
+        self.assertEqual(
+            receipt["targetIds"], ["explanation.supplementary_questions"]
+        )
+        self.assertEqual(full_status["status"], "unrecorded")
+        target_states = {
+            target["id"]: target["status"]
+            for target in full_status["stages"][0]["targets"]
+        }
+        self.assertEqual(target_states["explanation.basic_explanation"], "unrecorded")
+        self.assertEqual(
+            target_states["explanation.supplementary_questions"], "current"
+        )
+        self.assertTrue(supplement_status["allCurrent"])
+        self.assertTrue(complete["allCurrent"])
+        stage = next(iter(saved["questions"].values()))["stages"]["explanation"]
+        self.assertNotIn("version", stage)
+        self.assertEqual(
+            set(stage["targets"]),
+            {
+                "explanation.basic_explanation",
+                "explanation.supplementary_questions",
+            },
+        )
 
 
 if __name__ == "__main__":

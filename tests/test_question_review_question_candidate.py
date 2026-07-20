@@ -30,6 +30,51 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertNotIn("suggestedQuestions", targets[0].allowed_fields)
         self.assertNotIn("questionBodyText", targets[0].allowed_fields)
 
+    def test_partial_target_allows_only_supplementary_questions(self):
+        plan = {
+            **self.plan(),
+            "selectedFieldsByStage": {
+                "explanation": ["suggestedQuestionDetailsByChoice"]
+            },
+        }
+        target = candidate_targets("q1", "explanation", plan)[0]
+
+        self.assertEqual(
+            target.allowed_fields,
+            ("suggestedQuestionDetailsByChoice",),
+        )
+        self.assertNotIn("explanationText", target.prompt_value()["fieldRules"])
+
+        result = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "選択外fieldを含む候補",
+                        "updates": [
+                            {
+                                "targetId": "q1:explanation",
+                                "setFields": [
+                                    {
+                                        "field": "explanationText",
+                                        "valueJson": '["変更してはならない"]',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": (target,)},
+        )
+
+        self.assertEqual(result[0].status, "blocked")
+        self.assertIn("許可されていないfield", result[0].summary)
+
     def test_explanation_target_exposes_nested_supplement_contract(self):
         target = candidate_targets("q1", "explanation", self.plan())[0]
         rules = target.prompt_value()["fieldRules"]

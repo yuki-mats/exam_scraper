@@ -23,7 +23,7 @@
 
 - ガス主任甲種の法令問題は、出題当時の正誤と現行法の正誤を分けて確認する。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
-- 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残す。
+- 更新した場合の保存先と補足質問の採否は、上位READMEが示す共通field契約と工程03に従う。ガス主任甲種だけの補足質問必須ルールは設けない。
 - まず `current_basis` を作り、現行法での更新後の正誤根拠を説明する。
 - `exam_time_basis` は、出題当時法令を確認でき、かつ現行法との差分が過去問の元正答理解に関係する場合だけ追加する。
 - 現行法と出題当時法令が同じ判断になる場合は、`exam_time_basis` を無理に増やさなくてよい。

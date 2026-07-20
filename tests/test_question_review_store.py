@@ -13,8 +13,7 @@ class QuestionReviewStoreTests(unittest.TestCase):
     def test_all_law_review_entry_points_require_public_and_metadata_fields(self):
         required = {
             "explanationText",
-            "suggestedQuestions",
-            "suggestedQuestionDetails",
+            "suggestedQuestionDetailsByChoice",
             "lawReferences",
             "lawRevisionFacts",
         }
@@ -69,22 +68,21 @@ class QuestionReviewStoreTests(unittest.TestCase):
             set(created["fields"]),
             {
                 "explanationText",
-                "suggestedQuestions",
-                "suggestedQuestionDetails",
+                "suggestedQuestionDetailsByChoice",
                 "lawReferences",
                 "lawRevisionFacts",
             },
         )
         self.assertIn(
-            "- fields: lawRevisionFacts, explanationText, suggestedQuestions, "
-            "suggestedQuestionDetails, lawReferences",
+            "- fields: lawRevisionFacts, explanationText, "
+            "suggestedQuestionDetailsByChoice, lawReferences",
             created["prompt"],
         )
         self.assertIn(
-            "公開用の`explanationText`、`suggestedQuestions`、"
-            "`suggestedQuestionDetails`にも",
+            "公開用の`explanationText`にverifiedの法令名",
             created["prompt"],
         )
+        self.assertIn("`suggestedQuestionDetailsByChoice`は0〜3件", created["prompt"])
         self.assertIn("--require-law-evidence-utilization", created["prompt"])
 
     def test_detects_post_fix_and_approval_tracks_current_hash(self):

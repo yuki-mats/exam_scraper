@@ -29,7 +29,7 @@
 - 法令・制度論点ではない問題では、原則 `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` とする。
 - 法令問題は、出題当時の正誤と現行法の正誤を分けて確認する。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
-- 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残す。
+- 更新した場合の保存先と補足質問の採否は、上位READMEが示す共通field契約と工程03に従う。この文書では補足質問を必須にしない。
 - `current_basis` は現行法に基づく更新後の根拠として作る。
 - `exam_time_basis` は、出題当時法令を確認でき、かつ現行法との差分が過去問の元正答理解に関係する場合に追加する。
 - 現行法と出題当時法令が同じ判断になる場合、`exam_time_basis` を無理に増やさない。

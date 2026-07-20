@@ -16,8 +16,12 @@ from tools.question_review_console.workflow_catalog import (
 )
 
 
-SCHEMA_VERSION = "question-work-versions/v2"
-READABLE_SCHEMA_VERSIONS = {"question-work-versions/v1", SCHEMA_VERSION}
+SCHEMA_VERSION = "question-work-versions/v3"
+READABLE_SCHEMA_VERSIONS = {
+    "question-work-versions/v1",
+    "question-work-versions/v2",
+    SCHEMA_VERSION,
+}
 LEGACY_VERSION = "0.0"
 def _now() -> str:
     return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
@@ -201,7 +205,6 @@ class QuestionWorkVersionStore:
         if isinstance(stages, dict):
             for stage in stages.values():
                 if isinstance(stage, dict):
-                    stage.setdefault("history", [])
                     self._normalize_stage_versions(stage)
         return normalized
 
@@ -223,7 +226,89 @@ class QuestionWorkVersionStore:
                 continue
             recorded = recorded_stages.get(stage_id)
             recorded = dict(recorded) if isinstance(recorded, Mapping) else None
-            status, detail = version_state(recorded, policy)
+            update_targets = [
+                dict(value)
+                for value in policy.get("updateTargets") or []
+                if isinstance(value, Mapping) and value.get("selectionId")
+            ]
+            selected_target_ids = {
+                str(value)
+                for value in policy.get("selectedUpdateTargetIds") or []
+                if value
+            }
+            if selected_target_ids:
+                update_targets = [
+                    value
+                    for value in update_targets
+                    if str(value.get("selectionId") or "") in selected_target_ids
+                ]
+            target_statuses: list[dict[str, Any]] = []
+            if update_targets:
+                recorded_targets = (
+                    recorded.get("targets")
+                    if isinstance(recorded, Mapping)
+                    and isinstance(recorded.get("targets"), Mapping)
+                    else {}
+                )
+                base_record = (
+                    recorded
+                    if isinstance(recorded, Mapping) and recorded.get("version") is not None
+                    else None
+                )
+                for target in update_targets:
+                    target_id = str(target["selectionId"])
+                    target_record = recorded_targets.get(target_id)
+                    target_record = (
+                        dict(target_record)
+                        if isinstance(target_record, Mapping)
+                        else base_record
+                    )
+                    target_status, target_detail = version_state(target_record, policy)
+                    target_statuses.append(
+                        {
+                            "id": target_id,
+                            "label": str(target.get("label") or target_id),
+                            "fields": list(target.get("fields") or []),
+                            "status": target_status,
+                            "detail": target_detail,
+                            "recordedVersion": (
+                                normalize_policy_version(
+                                    target_record.get("version", LEGACY_VERSION),
+                                    "recorded.version",
+                                )
+                                if target_record
+                                else None
+                            ),
+                            "recordedAt": (
+                                target_record.get("recordedAt")
+                                if target_record
+                                else None
+                            ),
+                            "runId": target_record.get("runId") if target_record else None,
+                        }
+                    )
+                if all(value["status"] == "current" for value in target_statuses):
+                    status = "current"
+                elif any(
+                    value["status"] in {"outdated", "future"}
+                    for value in target_statuses
+                ):
+                    status = "outdated"
+                else:
+                    status = "unrecorded"
+                detail = (
+                    f"更新項目 {sum(value['status'] == 'current' for value in target_statuses)}"
+                    f"/{len(target_statuses)}件が現行です。"
+                )
+                recorded_values = [
+                    value for value in target_statuses if value["recordedVersion"]
+                ]
+                display_recorded = (
+                    recorded_values[0] if len(recorded_values) == 1 else None
+                )
+            else:
+                status, detail = version_state(recorded, policy)
+                display_recorded = None
             stages.append(
                 {
                     "id": stage_id,
@@ -233,11 +318,13 @@ class QuestionWorkVersionStore:
                         policy.get("policyVersion"), "policy.policyVersion"
                     ),
                     "recordedVersion": (
-                        normalize_policy_version(
+                        display_recorded["recordedVersion"]
+                        if display_recorded
+                        else normalize_policy_version(
                             recorded.get("version", LEGACY_VERSION),
                             "recorded.version",
                         )
-                        if recorded
+                        if recorded and recorded.get("version") is not None
                         else None
                     ),
                     "status": status,
@@ -251,6 +338,7 @@ class QuestionWorkVersionStore:
                         and recorded.get("policyFingerprint")
                         == policy.get("policyFingerprint")
                     ),
+                    "targets": target_statuses,
                 }
             )
         maintenance = [stage for stage in stages if stage["id"] != "evaluation"]
@@ -289,12 +377,33 @@ class QuestionWorkVersionStore:
         only_missing: bool = False,
         version: str | int | None = None,
         policy_fingerprint_override: str | None = None,
+        target_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         stage_id = str(policy.get("id") or "")
         if not stage_id or (
             stage_id != "evaluation" and policy.get("policyVersion") is None
         ):
             raise ValueError(f"作業バージョン対象外の工程です: {stage_id}")
+        available_target_ids = {
+            str(value.get("selectionId") or "")
+            for value in policy.get("updateTargets") or []
+            if isinstance(value, Mapping) and value.get("selectionId")
+        }
+        selected_target_ids = (
+            {str(value) for value in target_ids if str(value)}
+            if target_ids is not None
+            else set()
+        )
+        if selected_target_ids and not selected_target_ids <= available_target_ids:
+            raise ValueError(
+                "作業バージョンの更新項目が不正です: "
+                + ", ".join(sorted(selected_target_ids - available_target_ids))
+            )
+        partial_target_ids = (
+            selected_target_ids
+            if selected_target_ids and selected_target_ids != available_target_ids
+            else set()
+        )
         grouped: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
         for question in questions:
             key = (str(question["qualification"]), str(question["listGroupId"]))
@@ -331,38 +440,77 @@ class QuestionWorkVersionStore:
                     if not isinstance(stages, dict):
                         stages = {}
                         existing["stages"] = stages
-                    if only_missing and stage_id in stages:
+                    previous = stages.get(stage_id)
+                    previous_targets = (
+                        previous.get("targets")
+                        if isinstance(previous, Mapping)
+                        and isinstance(previous.get("targets"), Mapping)
+                        else {}
+                    )
+                    if only_missing and (
+                        stage_id in stages
+                        if not partial_target_ids
+                        else all(
+                            target_id in previous_targets
+                            for target_id in partial_target_ids
+                        )
+                    ):
                         skipped_count += 1
                         continue
-                    previous = stages.get(stage_id)
-                    history = (
-                        list(previous.get("history") or [])
-                        if isinstance(previous, Mapping)
-                        else []
-                    )
-                    if isinstance(previous, Mapping):
-                        history.append(
-                            {
-                                str(key): copy.deepcopy(value)
-                                for key, value in previous.items()
-                                if key != "history"
-                            }
+
+                    def version_record(
+                        old: Mapping[str, Any] | None,
+                    ) -> dict[str, Any]:
+                        history = (
+                            list(old.get("history") or [])
+                            if isinstance(old, Mapping)
+                            else []
                         )
-                    stages[stage_id] = {
-                        "version": normalize_policy_version(
-                            policy.get("policyVersion") if version is None else version,
-                            f"{stage_id}.version",
-                        ),
-                        "policyFingerprint": str(
-                            policy_fingerprint_override
-                            if policy_fingerprint_override is not None
-                            else policy.get("policyFingerprint") or ""
-                        ),
-                        "runId": run_id,
-                        "source": source,
-                        "recordedAt": _now(),
-                        "history": history,
-                    }
+                        if isinstance(old, Mapping) and old.get("version") is not None:
+                            history.append(
+                                {
+                                    str(history_key): copy.deepcopy(history_value)
+                                    for history_key, history_value in old.items()
+                                    if history_key not in {"history", "targets"}
+                                }
+                            )
+                        return {
+                            "version": normalize_policy_version(
+                                policy.get("policyVersion")
+                                if version is None
+                                else version,
+                                f"{stage_id}.version",
+                            ),
+                            "policyFingerprint": str(
+                                policy_fingerprint_override
+                                if policy_fingerprint_override is not None
+                                else policy.get("policyFingerprint") or ""
+                            ),
+                            "runId": run_id,
+                            "source": source,
+                            "recordedAt": _now(),
+                            "history": history,
+                        }
+                    if partial_target_ids:
+                        stage_record = (
+                            copy.deepcopy(dict(previous))
+                            if isinstance(previous, Mapping)
+                            else {"targets": {}}
+                        )
+                        targets = stage_record.get("targets")
+                        if not isinstance(targets, dict):
+                            targets = {}
+                            stage_record["targets"] = targets
+                        for target_id in sorted(partial_target_ids):
+                            old_target = targets.get(target_id)
+                            targets[target_id] = version_record(
+                                old_target if isinstance(old_target, Mapping) else None
+                            )
+                        stages[stage_id] = stage_record
+                    else:
+                        stages[stage_id] = version_record(
+                            previous if isinstance(previous, Mapping) else None
+                        )
                     payload["questions"][key] = existing
                     recorded_count += 1
                     changed = True
@@ -387,6 +535,8 @@ class QuestionWorkVersionStore:
             "recordedCount": recorded_count,
             "skippedCount": skipped_count,
             "paths": paths,
+            "targetIds": sorted(partial_target_ids),
+            "partial": bool(partial_target_ids),
         }
 
     def invalidate_stage_run(
@@ -418,7 +568,7 @@ class QuestionWorkVersionStore:
         with self._lock:
             payload = self.load_group(qualification, list_group_id)
             self._normalize_payload_versions(payload)
-            matched: list[tuple[str, dict[str, Any]]] = []
+            matched: list[tuple[str, dict[str, Any], list[str] | None]] = []
             skipped_ids: list[str] = []
             for record in payload["questions"].values():
                 if not isinstance(record, dict):
@@ -428,16 +578,49 @@ class QuestionWorkVersionStore:
                     continue
                 stages = record.get("stages")
                 current = stages.get(stage_id) if isinstance(stages, dict) else None
-                if not isinstance(current, dict) or current.get("runId") != run_id:
+                if not isinstance(current, dict):
                     skipped_ids.append(question_id)
                     continue
-                matched.append((question_id, record))
+                matching_target_ids = [
+                    str(target_id)
+                    for target_id, target in (current.get("targets") or {}).items()
+                    if isinstance(target, Mapping) and target.get("runId") == run_id
+                ]
+                if current.get("runId") == run_id:
+                    matched.append((question_id, record, None))
+                elif matching_target_ids:
+                    matched.append((question_id, record, matching_target_ids))
+                else:
+                    skipped_ids.append(question_id)
 
             if execute and matched:
                 recorded_at = _now()
-                for _, record in matched:
+                for _, record, matching_target_ids in matched:
                     stages = record["stages"]
                     previous = stages[stage_id]
+                    if matching_target_ids is not None:
+                        targets = previous["targets"]
+                        for target_id in matching_target_ids:
+                            previous_target = targets[target_id]
+                            history = list(previous_target.get("history") or [])
+                            history.append(
+                                {
+                                    str(key): copy.deepcopy(value)
+                                    for key, value in previous_target.items()
+                                    if key != "history"
+                                }
+                            )
+                            targets[target_id] = {
+                                "version": LEGACY_VERSION,
+                                "policyFingerprint": "invalidated",
+                                "runId": receipt_id,
+                                "source": "invalidated_run",
+                                "recordedAt": recorded_at,
+                                "invalidatedRunId": run_id,
+                                "reason": str(reason).strip(),
+                                "history": history,
+                            }
+                        continue
                     history = list(previous.get("history") or [])
                     history.append(
                         {
@@ -474,7 +657,9 @@ class QuestionWorkVersionStore:
             "executed": execute,
             "targetCount": len(target_ids),
             "invalidatedCount": len(matched),
-            "invalidatedQuestionIds": sorted(question_id for question_id, _ in matched),
+            "invalidatedQuestionIds": sorted(
+                question_id for question_id, _, _ in matched
+            ),
             "skippedQuestionIds": sorted(skipped_ids),
             "path": str(self.path_for(qualification, list_group_id).relative_to(self.repo_root)),
         }
@@ -538,22 +723,37 @@ class QuestionWorkVersionStore:
 
     @staticmethod
     def _normalize_stage_versions(stage: dict[str, Any]) -> None:
-        if "version" not in stage:
-            raise ValueError("作業バージョン記録にversionがありません。")
-        stage["version"] = normalize_policy_version(
-            stage["version"], "recorded.version"
-        )
-        history = stage.get("history")
-        if history is None:
-            return
-        if not isinstance(history, list):
-            raise ValueError("作業バージョン履歴の形式が不正です。")
-        for entry in history:
-            if not isinstance(entry, dict) or "version" not in entry:
-                raise ValueError("作業バージョン履歴の形式が不正です。")
-            entry["version"] = normalize_policy_version(
-                entry["version"], "recorded.history.version"
+        def normalize_record(record: dict[str, Any], field: str) -> None:
+            if "version" not in record:
+                raise ValueError("作業バージョン記録にversionがありません。")
+            record["version"] = normalize_policy_version(
+                record["version"], f"{field}.version"
             )
+            history = record.get("history")
+            if history is None:
+                record["history"] = []
+                return
+            if not isinstance(history, list):
+                raise ValueError("作業バージョン履歴の形式が不正です。")
+            for entry in history:
+                if not isinstance(entry, dict) or "version" not in entry:
+                    raise ValueError("作業バージョン履歴の形式が不正です。")
+                entry["version"] = normalize_policy_version(
+                    entry["version"], f"{field}.history.version"
+                )
+
+        if "version" in stage:
+            normalize_record(stage, "recorded")
+        targets = stage.get("targets")
+        if targets is not None:
+            if not isinstance(targets, dict) or not targets:
+                raise ValueError("作業バージョン更新項目の形式が不正です。")
+            for target_id, target in targets.items():
+                if not isinstance(target_id, str) or not isinstance(target, dict):
+                    raise ValueError("作業バージョン更新項目の形式が不正です。")
+                normalize_record(target, f"recorded.targets.{target_id}")
+        if "version" not in stage and not targets:
+            raise ValueError("作業バージョン記録にversion又はtargetsがありません。")
 
     @staticmethod
     def _empty_group(qualification: str, list_group_id: str) -> dict[str, Any]:

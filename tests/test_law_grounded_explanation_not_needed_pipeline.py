@@ -112,9 +112,13 @@ class LawGroundedExplanationNotNeededPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["解説1"],
-                "suggestedQuestions": ["なぜそうなる？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜそうなる？", "answer": "医学知識で判断する。"},
+                "suggestedQuestionDetailsByChoice": [
+                    {
+                        "choiceIndex": 0,
+                        "items": [
+                            {"question": "なぜそうなる？", "answer": "医学知識で判断する。"}
+                        ],
+                    },
                 ],
                 "lawGroundedExplanationNotNeeded": "true",
             }
@@ -139,9 +143,13 @@ class LawGroundedExplanationNotNeededPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["解説1"],
-                "suggestedQuestions": ["なぜそうなる？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜそうなる？", "answer": "医学知識で判断する。"},
+                "suggestedQuestionDetailsByChoice": [
+                    {
+                        "choiceIndex": 0,
+                        "items": [
+                            {"question": "なぜそうなる？", "answer": "医学知識で判断する。"}
+                        ],
+                    },
                 ],
             }
         ]
@@ -169,9 +177,13 @@ class LawGroundedExplanationNotNeededPipelineTests(unittest.TestCase):
                 "original_question_id": "q123",
                 "question_url": "https://example.com/q123",
                 "explanationText": ["解説1"],
-                "suggestedQuestions": ["なぜそうなる？"],
-                "suggestedQuestionDetails": [
-                    {"question": "なぜそうなる？", "answer": "条文で確認できる。"},
+                "suggestedQuestionDetailsByChoice": [
+                    {
+                        "choiceIndex": 0,
+                        "items": [
+                            {"question": "なぜそうなる？", "answer": "条文で確認できる。"}
+                        ],
+                    },
                 ],
                 "lawReferences": [
                     [

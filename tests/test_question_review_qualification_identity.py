@@ -66,7 +66,7 @@ class QualificationIdentityContractTests(QualificationRunTestSupport):
         self.assertEqual(run["parallelWorkerLimit"], 2)
         self.assertEqual(run["targetRecordAliases"], ["q1", "q2"])
         self.assertEqual(run["targetCount"], 2)
-        self.assertEqual(run["policyVersions"], {"law_audit": "2.0"})
+        self.assertEqual(run["policyVersions"], {"law_audit": "4.0"})
         expected_record_files = {
             path
             for path in [*run["allowedPatchFiles"], *run["allowedWriteFiles"]]
@@ -282,7 +282,7 @@ class QualificationIdentityContractTests(QualificationRunTestSupport):
                 work_type="maintenance",
             )["run"]
 
-        self.assertEqual(retried["policyVersions"], {"law_audit": "2.0"})
+        self.assertEqual(retried["policyVersions"], {"law_audit": "4.0"})
         self.assertEqual(retried["allowedWriteAreas"], ["review"])
         self.assertIn(failed_path, retried["allowedWriteFiles"])
         self.assertIn(failed_path, retried["resolvableFailedDeltaPaths"])

@@ -38,5 +38,5 @@
 ## 注意点
 - 現行法と出題当時法の差分が判定に影響しそうな場合は、断定を避けて保留し、必要なら追加確認対象とする。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
-- 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残す。
+- 更新した場合の保存先と補足質問の採否は、上位READMEが示す共通field契約と工程03に従う。この資格だけの補足質問必須ルールは設けない。
 - 条文を長く引用せず、設問の正誤判断に必要な要点だけを書く。

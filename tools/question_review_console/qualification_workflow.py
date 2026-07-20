@@ -54,6 +54,68 @@ def _group_scope(
     return selected, provided
 
 
+def _question_range(value: Mapping[str, Any] | None) -> dict[str, int] | None:
+    if value is None:
+        return None
+    if not isinstance(value, Mapping) or set(value) != {"start", "end"}:
+        raise ValueError("問題番号範囲はstartとendで指定してください。")
+    start = value.get("start")
+    end = value.get("end")
+    if (
+        isinstance(start, bool)
+        or isinstance(end, bool)
+        or not isinstance(start, int)
+        or not isinstance(end, int)
+        or start < 1
+        or end < start
+    ):
+        raise ValueError("問題番号範囲は1以上かつstart以下でないendを指定してください。")
+    return {"start": start, "end": end}
+
+
+def _select_update_targets(
+    definition: Mapping[str, Any],
+    update_target_ids: Iterable[str] | None,
+) -> list[dict[str, Any]]:
+    available = [
+        dict(value)
+        for value in definition.get("updateTargets") or []
+        if isinstance(value, Mapping)
+    ]
+    if update_target_ids is None:
+        return available
+    requested = _ordered_unique(str(value).strip() for value in update_target_ids)
+    available_by_id = {
+        str(value.get("selectionId") or ""): value for value in available
+    }
+    unknown = [value for value in requested if value not in available_by_id]
+    if unknown:
+        raise ValueError("更新項目がありません: " + ", ".join(unknown))
+    if available and not requested:
+        raise ValueError(f"{definition['label']}の更新項目を一つ以上選択してください。")
+    return [available_by_id[value] for value in requested]
+
+
+def _filter_question_range(
+    questions: Iterable[Mapping[str, Any]],
+    question_range: Mapping[str, int] | None,
+) -> list[Mapping[str, Any]]:
+    values = list(questions)
+    if question_range is None:
+        return values
+    by_group: dict[str, list[Mapping[str, Any]]] = {}
+    for question in values:
+        by_group.setdefault(str(question.get("listGroupId") or ""), []).append(
+            question
+        )
+    selected: list[Mapping[str, Any]] = []
+    start = int(question_range["start"]) - 1
+    end = int(question_range["end"])
+    for group_id in sorted(by_group):
+        selected.extend(sorted(by_group[group_id], key=_progress_sort_key)[start:end])
+    return selected
+
+
 def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
 
@@ -379,8 +441,12 @@ class QualificationWorkflow:
         self,
         question: Mapping[str, Any],
         stage: Mapping[str, Any],
+        selected_update_target_ids: Iterable[str] | None = None,
     ) -> str:
-        status = self.work_versions.status_for(question, [stage])
+        policy = dict(stage)
+        if selected_update_target_ids is not None:
+            policy["selectedUpdateTargetIds"] = list(selected_update_target_ids)
+        status = self.work_versions.status_for(question, [policy])
         stages = status.get("stages") or []
         return str(stages[0].get("status") or "unrecorded") if stages else "unrecorded"
 
@@ -535,6 +601,8 @@ class QualificationWorkflow:
         *,
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
+        update_target_ids: Iterable[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
         allow_category_pending: bool = False,
         _catalog: Mapping[str, Any] | None = None,
         _qualification_data: tuple[
@@ -552,6 +620,23 @@ class QualificationWorkflow:
         )
         if definition is None:
             raise ValueError(f"対象工程がありません: {stage_id}")
+        normalized_question_range = _question_range(question_range)
+        selected_update_targets = _select_update_targets(
+            definition, update_target_ids
+        )
+        selected_update_target_ids = [
+            str(value["selectionId"]) for value in selected_update_targets
+        ]
+        selected_fields = _ordered_unique(
+            field
+            for target in selected_update_targets
+            for field in target.get("fields") or []
+        )
+        read_fields = _ordered_unique(
+            field
+            for target in selected_update_targets
+            for field in target.get("readFields") or []
+        )
         if stage_id == "source":
             raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
         if (
@@ -575,6 +660,11 @@ class QualificationWorkflow:
                 mode = "refresh"
         if not definition.get("supportsGroupScope") and scope_provided:
             raise ValueError(f"{definition['label']}は年度ではなく資格単位で整備します。")
+        if normalized_question_range and (
+            not definition.get("supportsGroupScope")
+            or definition.get("kind") != "human"
+        ):
+            raise ValueError(f"{definition['label']}は問題番号範囲を指定できません。")
         if mode == "group_refresh" and not selected_group_ids:
             raise ValueError("対象年度を一つ以上選択してください。")
 
@@ -611,6 +701,7 @@ class QualificationWorkflow:
                 for question in questions
                 if str(question.get("listGroupId") or "") in selected_set
             ]
+        questions = _filter_question_range(questions, normalized_question_range)
         artifact_blockers = self._artifact_blockers_for_stage(
             groups,
             definition,
@@ -702,7 +793,10 @@ class QualificationWorkflow:
                 target_questions = [
                     question
                     for question in questions
-                    if self._stage_version_status(question, definition) != "current"
+                    if self._stage_version_status(
+                        question, definition, selected_update_target_ids
+                    )
+                    != "current"
                     or set(question.get("issueCodes") or []) & LAW_AUDIT_ISSUES
                     or (
                         question.get("isLawRelated") is not False
@@ -770,7 +864,10 @@ class QualificationWorkflow:
                     else [
                         question
                         for question in questions
-                        if self._stage_version_status(question, definition) != "current"
+                        if self._stage_version_status(
+                            question, definition, selected_update_target_ids
+                        )
+                        != "current"
                     ]
                 )
             elif mode == "attention":
@@ -881,6 +978,11 @@ class QualificationWorkflow:
             }[mode]
         else:
             mode_label = RUN_MODES[mode]
+        if normalized_question_range:
+            mode_label += (
+                f"（各選択範囲の第{normalized_question_range['start']}問〜"
+                f"第{normalized_question_range['end']}問）"
+            )
         policy_versions = (
             {
                 stage_id: normalize_policy_version(definition["policyVersion"])
@@ -929,6 +1031,16 @@ class QualificationWorkflow:
                 selected_group_ids[0] if len(selected_group_ids) == 1 else None
             ),
             "scopeListGroupIds": selected_group_ids,
+            "questionRange": normalized_question_range,
+            "updateTargets": [dict(value) for value in definition.get("updateTargets") or []],
+            "selectedUpdateTargets": selected_update_targets,
+            "selectedUpdateTargetIds": selected_update_target_ids,
+            "selectedFieldsByStage": (
+                {stage_id: selected_fields} if selected_update_targets else {}
+            ),
+            "readFieldsByStage": (
+                {stage_id: read_fields} if selected_update_targets else {}
+            ),
             "sourceFiles": source_files,
             "outputFiles": output_files,
             "canonicalDocs": list(definition.get("canonicalDocs") or []),
@@ -950,6 +1062,8 @@ class QualificationWorkflow:
         *,
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
+        update_target_ids: Iterable[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         requested = _ordered_unique(str(stage_id) for stage_id in stage_ids)
         normalized_group_ids, scope_provided = _group_scope(
@@ -970,12 +1084,55 @@ class QualificationWorkflow:
             for stage in catalog["stages"]
             if str(stage["id"]) in requested
         ]
+        normalized_question_range = _question_range(question_range)
+        if normalized_question_range and not any(
+            definitions[stage_id].get("supportsGroupScope")
+            and definitions[stage_id].get("kind") == "human"
+            for stage_id in ordered
+        ):
+            raise ValueError("選択工程は問題番号範囲を指定できません。")
+        requested_update_target_ids = (
+            _ordered_unique(str(value).strip() for value in update_target_ids)
+            if update_target_ids is not None
+            else None
+        )
+        available_update_target_ids = {
+            str(target.get("selectionId") or "")
+            for stage_id in ordered
+            for target in definitions[stage_id].get("updateTargets") or []
+        }
+        if requested_update_target_ids is not None:
+            unknown_targets = [
+                value
+                for value in requested_update_target_ids
+                if value not in available_update_target_ids
+            ]
+            if unknown_targets:
+                raise ValueError(
+                    "更新項目がありません: " + ", ".join(unknown_targets)
+                )
+            missing_target_stages = [
+                definitions[stage_id]["label"]
+                for stage_id in ordered
+                if definitions[stage_id].get("updateTargets")
+                and not any(
+                    value.startswith(f"{stage_id}.")
+                    for value in requested_update_target_ids
+                )
+            ]
+            if missing_target_stages:
+                raise ValueError(
+                    "更新項目を一つ以上選択してください: "
+                    + ", ".join(missing_target_stages)
+                )
         if len(ordered) == 1:
             plan = self.plan(
                 qualification,
                 ordered[0],
                 mode,
                 list_group_ids=scoped_group_ids,
+                update_target_ids=requested_update_target_ids,
+                question_range=normalized_question_range,
                 _catalog=catalog,
             )
             plan["stageIds"] = ordered
@@ -1008,6 +1165,21 @@ class QualificationWorkflow:
                 ),
                 list_group_ids=(
                     scoped_group_ids
+                    if definitions[stage_id].get("supportsGroupScope")
+                    and definitions[stage_id].get("kind") == "human"
+                    else None
+                ),
+                update_target_ids=(
+                    None
+                    if requested_update_target_ids is None
+                    else [
+                        value
+                        for value in requested_update_target_ids
+                        if value.startswith(f"{stage_id}.")
+                    ]
+                ),
+                question_range=(
+                    normalized_question_range
                     if definitions[stage_id].get("supportsGroupScope")
                     else None
                 ),
@@ -1110,6 +1282,34 @@ class QualificationWorkflow:
                 else None
             ),
             "scopeListGroupIds": list(scoped_group_ids or []),
+            "questionRange": normalized_question_range,
+            "updateTargets": [
+                dict(target)
+                for stage_id in ordered
+                for target in definitions[stage_id].get("updateTargets") or []
+            ],
+            "selectedUpdateTargets": [
+                dict(target)
+                for plan in stage_plans
+                for target in plan.get("selectedUpdateTargets") or []
+            ],
+            "selectedUpdateTargetIds": _ordered_unique(
+                value
+                for plan in stage_plans
+                for value in plan.get("selectedUpdateTargetIds") or []
+            ),
+            "selectedFieldsByStage": {
+                str(stage_id): list(fields)
+                for plan in stage_plans
+                for stage_id, fields in (
+                    plan.get("selectedFieldsByStage") or {}
+                ).items()
+            },
+            "readFieldsByStage": {
+                str(stage_id): list(fields)
+                for plan in stage_plans
+                for stage_id, fields in (plan.get("readFieldsByStage") or {}).items()
+            },
             "sourceFiles": _unique(
                 path
                 for plan in stage_plans
@@ -1155,6 +1355,8 @@ class QualificationWorkflow:
         *,
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
+        update_target_ids: Iterable[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         return self.prompt_many(
             qualification,
@@ -1162,6 +1364,8 @@ class QualificationWorkflow:
             mode,
             list_group_id=list_group_id,
             list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_range=question_range,
         )
 
     def prompt_many(
@@ -1172,6 +1376,8 @@ class QualificationWorkflow:
         *,
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
+        update_target_ids: Iterable[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         plan = self.plan_many(
             qualification,
@@ -1179,6 +1385,8 @@ class QualificationWorkflow:
             mode,
             list_group_id=list_group_id,
             list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_range=question_range,
         )
         if plan["kind"] != "human":
             raise ValueError("この工程はCodex依頼ではなく既存の実行導線を使います。")
@@ -1224,6 +1432,34 @@ class QualificationWorkflow:
                 if plan.get("scopeListGroupIds")
                 else []
             ),
+            *(
+                [
+                    f"- 問題番号: `各listGroupIdの第{plan['questionRange']['start']}問〜"
+                    f"第{plan['questionRange']['end']}問`"
+                ]
+                if plan.get("questionRange")
+                else []
+            ),
+            *(
+                [
+                    "- 更新項目: `"
+                    + " / ".join(
+                        str(target.get("label") or target.get("selectionId") or "")
+                        for target in plan.get("selectedUpdateTargets") or []
+                    )
+                    + "`",
+                    "- 更新許可field: `"
+                    + " / ".join(
+                        f"{stage_id}=" + ",".join(fields)
+                        for stage_id, fields in (
+                            plan.get("selectedFieldsByStage") or {}
+                        ).items()
+                    )
+                    + "`",
+                ]
+                if plan.get("selectedUpdateTargets")
+                else []
+            ),
             f"- 対象問題: `{target_label}`",
             f"- 工程判定: `延べ{plan.get('workItemCount', plan['targetCount'])}件`",
             *(
@@ -1265,6 +1501,22 @@ class QualificationWorkflow:
                 else "対象を一問ずつ読み、判断とpatch更新を完了してから次の問題へ進む。"
             ),
             "`未作業のみ`又は`要確認のみ`では、各工程の対象に該当する問題だけを更新する。",
+            *(
+                [
+                    "更新許可fieldだけをset又はunsetし、参照用fieldと選択外fieldは変更しない。",
+                    "参照用field: `"
+                    + " / ".join(
+                        f"{stage_id}=" + ",".join(fields)
+                        for stage_id, fields in (
+                            plan.get("readFieldsByStage") or {}
+                        ).items()
+                        if fields
+                    )
+                    + "`",
+                ]
+                if plan.get("selectedUpdateTargets")
+                else []
+            ),
             "同じ入力でも判断又は出力が変わり得る正本変更は、該当工程だけを+1する。",
             *(
                 law_audit_classification_safety_contract(
@@ -1311,6 +1563,11 @@ class QualificationWorkflow:
             "mode": mode,
             "targetCount": plan["targetCount"],
             "workItemCount": plan.get("workItemCount", plan["targetCount"]),
+            "questionRange": plan.get("questionRange"),
+            "selectedUpdateTargetIds": list(
+                plan.get("selectedUpdateTargetIds") or []
+            ),
+            "selectedFieldsByStage": dict(plan.get("selectedFieldsByStage") or {}),
             "prompt": "\n".join(lines).strip() + "\n",
         }
 

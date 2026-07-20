@@ -548,8 +548,15 @@ class PerQuestionQueueAppServer:
             "question_set": {"questionSetId": "test-question-set"},
             "law_audit": {
                 "auditStatus": "same_as_current",
+                "suggestedQuestionDetailsByChoice": list(
+                    current.get("suggestedQuestionDetailsByChoice") or []
+                ),
             },
         }.get(role, {})
+        allowed_fields = set(target.get("allowedFields") or fields)
+        fields = {
+            field: value for field, value in fields.items() if field in allowed_fields
+        }
         return [
             {
                 "targetId": target["targetId"],
@@ -772,6 +779,7 @@ class SourceOnlyInventory:
                     "projected": {
                         "originalQuestionId": original_id,
                         "isLawRelated": False,
+                        "suggestedQuestionDetailsByChoice": [],
                     },
                     "workflow": {
                         "merge": "missing",
@@ -821,7 +829,10 @@ class TwoQuestionSourceInventory(SourceOnlyInventory):
             sourceRecordRef=f"question_{list_group_id}_2.json#0",
         )
         second["source"] = {"originalQuestionId": second_id}
-        second["projected"] = {"originalQuestionId": second_id}
+        second["projected"] = {
+            "originalQuestionId": second_id,
+            "suggestedQuestionDetailsByChoice": [],
+        }
         second["paths"] = {
             **second["paths"],
             "source": (
@@ -855,7 +866,10 @@ class CountedSourceInventory(SourceOnlyInventory):
                 sourceRecordRef=f"question_{list_group_id}_{number}.json#0",
             )
             question["source"] = {"originalQuestionId": question_id}
-            question["projected"] = {"originalQuestionId": question_id}
+            question["projected"] = {
+                "originalQuestionId": question_id,
+                "suggestedQuestionDetailsByChoice": [],
+            }
             question["paths"] = {
                 **question["paths"],
                 "source": (
@@ -901,6 +915,8 @@ class LawSourceInventory(SourceOnlyInventory):
             **question["projected"],
             "isLawRelated": True,
             "lawGroundedExplanationNotNeeded": False,
+            "questionType": "true_false",
+            "choiceTextList": ["法令上の記述"],
             "correctChoiceText": ["正しい"],
             "lawRevisionFacts": [
                 {
@@ -921,11 +937,16 @@ class LawSourceInventory(SourceOnlyInventory):
             "explanationText": [
                 "正しい。ガス事業法第2条の定義に該当する。"
             ],
-            "suggestedQuestions": [
-                "現行法のガス事業法第2条は何を定義していますか？"
-            ],
-            "suggestedQuestionDetails": [
-                {"answer": "ガス事業法第2条が対象事業を定義しています。"}
+            "suggestedQuestionDetailsByChoice": [
+                {
+                    "choiceIndex": 0,
+                    "items": [
+                        {
+                            "question": "現行法のガス事業法第2条は何を定義していますか？",
+                            "answer": "ガス事業法第2条が対象事業を定義しています。",
+                        }
+                    ],
+                }
             ],
         }
         return group

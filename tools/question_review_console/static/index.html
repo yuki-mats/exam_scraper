@@ -57,7 +57,7 @@
         </footer>
       </section>
       <div class="maintenance-year-section">
-        <h3>年度別の進捗</h3>
+        <h3 id="maintenance-group-progress-title">範囲別の進捗</h3>
         <div id="maintenance-year-progress" class="maintenance-year-progress" aria-live="polite"></div>
       </div>
       <div class="maintenance-audit-entry">
@@ -240,6 +240,20 @@
               <button id="qualification-run-groups-clear" class="document-link-button" type="button">選択解除</button>
             </div>
             <div id="qualification-run-groups" class="run-group-options"></div>
+          </fieldset>
+          <fieldset id="qualification-run-update-fieldset">
+            <legend>更新する項目</legend>
+            <p class="fieldset-note">選択した項目だけを書き換えます。参照するだけの項目は変更しません。</p>
+            <div id="qualification-run-update-targets" class="run-update-options"></div>
+          </fieldset>
+          <fieldset id="qualification-run-question-range-fieldset">
+            <legend>問題番号（各選択範囲共通）</legend>
+            <div class="run-question-range">
+              <label>開始<input id="qualification-run-question-start" type="number" min="1" step="1" inputmode="numeric" placeholder="1"></label>
+              <span>〜</span>
+              <label>終了<input id="qualification-run-question-end" type="number" min="1" step="1" inputmode="numeric" placeholder="20"></label>
+              <small>空欄なら、選択した年度・フォルダの全問題が対象です。</small>
+            </div>
           </fieldset>
           <fieldset id="qualification-run-mode-fieldset">
             <legend>対象範囲</legend>

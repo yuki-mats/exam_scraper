@@ -104,6 +104,64 @@ def _string_list(value: Any, field: str) -> list[str]:
     return list(value)
 
 
+def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
+    if value is None:
+        return []
+    if not isinstance(value, list):
+        raise ValueError(f"{stage_id}.update_targetsは配列で指定してください。")
+    targets: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    writable_fields: set[str] = set()
+    for raw in value:
+        if not isinstance(raw, Mapping):
+            raise ValueError(f"{stage_id}.update_targetsはtableで指定してください。")
+        target_id = str(raw.get("id") or "")
+        label = str(raw.get("label") or "").strip()
+        fields = _string_list(raw.get("fields"), f"{stage_id}.{target_id}.fields")
+        read_fields = _string_list(
+            raw.get("read_fields"), f"{stage_id}.{target_id}.read_fields"
+        )
+        if (
+            not re.fullmatch(r"[a-z][a-z0-9_]*", target_id)
+            or target_id in seen_ids
+            or not label
+            or not fields
+        ):
+            raise ValueError(
+                f"{stage_id}.update_targetが不正又は重複しています: {target_id}"
+            )
+        invalid_fields = [
+            field
+            for field in [*fields, *read_fields]
+            if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", field)
+        ]
+        if invalid_fields:
+            raise ValueError(
+                f"{stage_id}.{target_id}のfield名が不正です: "
+                + ", ".join(invalid_fields)
+            )
+        if len(fields) != len(set(fields)) or len(read_fields) != len(set(read_fields)):
+            raise ValueError(f"{stage_id}.{target_id}のfieldが重複しています。")
+        overlap = writable_fields & set(fields)
+        if overlap:
+            raise ValueError(
+                f"{stage_id}のupdate target間でfieldが重複しています: "
+                + ", ".join(sorted(overlap))
+            )
+        writable_fields.update(fields)
+        seen_ids.add(target_id)
+        targets.append(
+            {
+                "id": target_id,
+                "selectionId": f"{stage_id}.{target_id}",
+                "label": label,
+                "fields": fields,
+                "readFields": read_fields,
+            }
+        )
+    return targets
+
+
 class WorkflowCatalog:
     """Loads the GUI workflow structure from its machine-readable SSOT."""
 
@@ -261,6 +319,9 @@ class WorkflowCatalog:
                 ],
                 "issueFields": _string_list(
                     raw.get("issue_fields"), f"{stage_id}.issue_fields"
+                ),
+                "updateTargets": _update_targets(
+                    raw.get("update_targets"), stage_id
                 ),
             }
             if stage["scope"] not in {"qualification", "group"}:

@@ -188,6 +188,8 @@ const state = {
     resumedFrom: "",
     stageIds: [],
     listGroupIds: [],
+    updateTargetIds: [],
+    questionRange: null,
     questionConcurrency: 32,
     previewController: null,
   },
@@ -479,6 +481,16 @@ function bindControls() {
   $("#qualification-run-guide").addEventListener("click", openQualificationRunGuide);
   $("#qualification-run-groups-all").addEventListener("click", () => setQualificationRunGroupSelection(true));
   $("#qualification-run-groups-clear").addEventListener("click", () => setQualificationRunGroupSelection(false));
+  for (const node of [$("#qualification-run-question-start"), $("#qualification-run-question-end")]) {
+    node.addEventListener("input", () => {
+      try {
+        state.qualificationRunDialog.questionRange = selectedQualificationRunQuestionRange();
+      } catch (_error) {
+        // previewQualificationRunが同じ入力を利用者向けmessageとして表示する。
+      }
+      previewQualificationRun();
+    });
+  }
   $("#qualification-run-dialog").addEventListener("cancel", (event) => {
     if (state.qualificationRunDialog.running) event.preventDefault();
   });
@@ -842,6 +854,8 @@ function renderMaintenanceDashboard() {
 
   const years = $("#maintenance-year-progress");
   years.replaceChildren();
+  const groupIds = (workflow.groups || []).map((group) => group.listGroupId);
+  $("#maintenance-group-progress-title").textContent = `${scopeLabelForGroups(groupIds)}別の進捗`;
   for (const group of workflow.groups || []) {
     const groupProgress = group.maintenanceProgress || {};
     const groupTotal = Number(groupProgress.totalCount || 0);
@@ -1863,6 +1877,84 @@ function selectedQualificationRunStageIds() {
     .map((node) => node.value);
 }
 
+function qualificationRunUpdateTargets(stageIds = []) {
+  const selected = new Set(stageIds);
+  return (state.qualificationWorkflow?.stages || [])
+    .filter((stage) => selected.has(stage.id))
+    .flatMap((stage) => stage.updateTargets || []);
+}
+
+function selectedQualificationRunUpdateTargetIds() {
+  const inputs = [...document.querySelectorAll('input[name="qualification-run-update-target"]')];
+  if (!inputs.length) return [...state.qualificationRunDialog.updateTargetIds];
+  return inputs.filter((node) => node.checked).map((node) => node.value);
+}
+
+function defaultQualificationRunUpdateTargetIds(stageIds, options = {}) {
+  const available = qualificationRunUpdateTargets(stageIds)
+    .map((target) => target.selectionId);
+  if (options.updateTargetIds) {
+    return options.updateTargetIds.filter((targetId) => available.includes(targetId));
+  }
+  return available;
+}
+
+function qualificationRunSupportsQuestionRange(stageIds = []) {
+  return stageIds.some((stageId) => {
+    const stage = state.qualificationWorkflow?.stages.find((item) => item.id === stageId);
+    return stage?.supportsGroupScope === true && stage?.kind === "human";
+  });
+}
+
+function selectedQualificationRunQuestionRange() {
+  if (!qualificationRunSupportsQuestionRange(selectedQualificationRunStageIds())) return null;
+  const startValue = $("#qualification-run-question-start").value.trim();
+  const endValue = $("#qualification-run-question-end").value.trim();
+  if (!startValue && !endValue) return null;
+  const start = Number(startValue);
+  const end = Number(endValue);
+  if (!startValue || !endValue || !Number.isInteger(start) || !Number.isInteger(end)
+    || start < 1 || end < start) {
+    throw new Error("問題番号は開始・終了を1以上の整数で指定し、終了を開始以上にしてください。");
+  }
+  return { start, end };
+}
+
+function renderQualificationRunUpdateTargets(stageIds, selectedTargetIds) {
+  const fieldset = $("#qualification-run-update-fieldset");
+  const container = $("#qualification-run-update-targets");
+  const targets = qualificationRunUpdateTargets(stageIds);
+  fieldset.hidden = state.qualificationRunDialog.simplified || !targets.length;
+  container.replaceChildren();
+  for (const target of targets) {
+    const label = element("label", "");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "qualification-run-update-target";
+    input.value = target.selectionId;
+    input.checked = selectedTargetIds.includes(target.selectionId);
+    input.addEventListener("change", () => {
+      state.qualificationRunDialog.updateTargetIds = selectedQualificationRunUpdateTargetIds();
+      previewQualificationRun();
+    });
+    const content = element("span", "");
+    content.append(
+      element("strong", "", target.label),
+      element("small", "", (target.fields || []).join("・")),
+    );
+    label.append(input, content);
+    container.append(label);
+  }
+}
+
+function renderQualificationRunQuestionRange(stageIds, questionRange) {
+  const fieldset = $("#qualification-run-question-range-fieldset");
+  fieldset.hidden = state.qualificationRunDialog.simplified
+    || !qualificationRunSupportsQuestionRange(stageIds);
+  $("#qualification-run-question-start").value = questionRange?.start || "";
+  $("#qualification-run-question-end").value = questionRange?.end || "";
+}
+
 function qualificationRunSupportsGroupScope(stage, stageIds = []) {
   const selectedStageIds = stageIds.length ? stageIds : [stage?.id].filter(Boolean);
   return selectedStageIds.some((stageId) => (
@@ -1964,8 +2056,23 @@ function renderQualificationRunStages(stage, selectedStageIds) {
     input.checked = selectedStageIds.includes(item.id);
     input.addEventListener("change", () => {
       const previousGroupIds = selectedQualificationRunListGroupIds();
+      const previousUpdateTargetIds = selectedQualificationRunUpdateTargetIds();
+      const previousAvailableTargetIds = new Set(
+        qualificationRunUpdateTargets(state.qualificationRunDialog.stageIds)
+          .map((target) => target.selectionId),
+      );
       const nextStageIds = selectedQualificationRunStageIds();
       state.qualificationRunDialog.stageIds = nextStageIds;
+      const nextUpdateTargetIds = qualificationRunUpdateTargets(nextStageIds)
+        .map((target) => target.selectionId)
+        .filter((targetId) => previousUpdateTargetIds.includes(targetId)
+          || !previousAvailableTargetIds.has(targetId));
+      state.qualificationRunDialog.updateTargetIds = nextUpdateTargetIds;
+      renderQualificationRunUpdateTargets(nextStageIds, nextUpdateTargetIds);
+      renderQualificationRunQuestionRange(
+        nextStageIds,
+        state.qualificationRunDialog.questionRange,
+      );
       const nextGroupIds = defaultQualificationRunListGroupIds(
         stage,
         { listGroupIds: previousGroupIds },
@@ -2040,6 +2147,11 @@ function openQualificationRunDialog(stage, options = {}) {
     options,
     selectedStageIds,
   );
+  const selectedUpdateTargetIds = defaultQualificationRunUpdateTargetIds(
+    selectedStageIds,
+    options,
+  );
+  const selectedQuestionRange = options.questionRange || null;
   state.qualificationRunDialog = {
     preview: null,
     running: false,
@@ -2047,6 +2159,8 @@ function openQualificationRunDialog(stage, options = {}) {
     resumedFrom: options.resumedFrom || "",
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
+    updateTargetIds: selectedUpdateTargetIds,
+    questionRange: selectedQuestionRange,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     previewController: null,
     simplified: options.simplified === true,
@@ -2059,6 +2173,8 @@ function openQualificationRunDialog(stage, options = {}) {
   $("#qualification-run-cancel").textContent = "キャンセル";
   renderQualificationRunStages(stage, selectedStageIds);
   renderQualificationRunGroups(stage, selectedGroupIds);
+  renderQualificationRunUpdateTargets(selectedStageIds, selectedUpdateTargetIds);
+  renderQualificationRunQuestionRange(selectedStageIds, selectedQuestionRange);
   updateQualificationRunHeading();
   $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
   $("#qualification-run-guide").hidden = state.qualificationRunDialog.simplified;
@@ -2145,6 +2261,30 @@ async function previewQualificationRun() {
     setQualificationRunPreviewState("blocked", "工程を一つ以上選択してください。");
     return;
   }
+  const availableUpdateTargets = qualificationRunUpdateTargets(stageIds);
+  const updateTargetIds = selectedQualificationRunUpdateTargetIds();
+  if (availableUpdateTargets.length && !updateTargetIds.length) {
+    setQualificationRunPreviewState("blocked", "更新する項目を一つ以上選択してください。");
+    return;
+  }
+  const missingUpdateStage = stageIds.find((selectedStageId) => {
+    const targets = qualificationRunUpdateTargets([selectedStageId]);
+    return targets.length && !targets.some((target) => updateTargetIds.includes(target.selectionId));
+  });
+  if (missingUpdateStage) {
+    const label = workflow.stages.find((item) => item.id === missingUpdateStage)?.label || missingUpdateStage;
+    setQualificationRunPreviewState("blocked", `${label}の更新項目を一つ以上選択してください。`);
+    return;
+  }
+  let questionRange = null;
+  try {
+    questionRange = selectedQualificationRunQuestionRange();
+  } catch (error) {
+    setQualificationRunPreviewState("blocked", error.message);
+    return;
+  }
+  state.qualificationRunDialog.updateTargetIds = updateTargetIds;
+  state.qualificationRunDialog.questionRange = questionRange;
   const stage = qualificationWorkflowStage(stageId);
   const supportsScope = qualificationRunSupportsGroupScope(stage, stageIds);
   const listGroupIds = selectedQualificationRunListGroupIds();
@@ -2170,6 +2310,8 @@ async function previewQualificationRun() {
         mode: selectedQualificationRunMode(),
         questionConcurrency: selectedQualificationRunConcurrency(),
         listGroupIds: supportsScope ? listGroupIds : undefined,
+        updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
+        questionRange: questionRange || undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
@@ -2257,6 +2399,24 @@ function renderQualificationRunPreview(preview) {
         ),
       );
     }
+    if (preview.questionRange) {
+      container.append(
+        element(
+          "span",
+          "run-preview-range",
+          `問題番号 各選択範囲の第${preview.questionRange.start}問〜第${preview.questionRange.end}問`,
+        ),
+      );
+    }
+    if (preview.selectedUpdateTargets?.length) {
+      container.append(
+        element(
+          "span",
+          "run-preview-update-targets",
+          `更新項目 ${preview.selectedUpdateTargets.map((target) => target.label).join("・")}`,
+        ),
+      );
+    }
   }
   if (!simplified) {
     container.append(
@@ -2293,6 +2453,10 @@ async function startQualificationRun(event) {
         mode: preview.mode,
         questionConcurrency: selectedQualificationRunConcurrency(),
         listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
+        updateTargetIds: preview.selectedUpdateTargetIds?.length
+          ? preview.selectedUpdateTargetIds
+          : undefined,
+        questionRange: preview.questionRange || undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
@@ -2988,6 +3152,8 @@ function retryBlockedQualificationRun() {
   openQualificationRunDialog(firstStage, {
     stageIds,
     listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
+    updateTargetIds: run.selectedUpdateTargetIds,
+    questionRange: run.questionRange || null,
     mode: run.mode || "outdated",
     questionConcurrency: run.questionConcurrency || 32,
     resumedFrom: run.runId,

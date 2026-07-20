@@ -31,6 +31,10 @@ from scripts.common.question_identity import (
 from scripts.common.law_audit_sidecar_contract import (
     law_audit_sidecar_metadata_errors,
 )
+from scripts.common.suggested_question_contract import (
+    public_choice_indexes,
+    validation_errors as suggested_question_validation_errors,
+)
 from tools.question_review_console.projection import (
     PROJECTED_COMPARE_FIELDS,
     extract_records,
@@ -3783,6 +3787,8 @@ class QualificationRunCoordinator:
         *,
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
+        update_target_ids: list[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
     ) -> dict[str, Any]:
@@ -3794,6 +3800,8 @@ class QualificationRunCoordinator:
             resumed_from,
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_range=question_range,
         )
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
@@ -3842,6 +3850,18 @@ class QualificationRunCoordinator:
             "targetGroupIds": plan["targetGroupIds"],
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
+            "questionRange": plan.get("questionRange"),
+            "updateTargets": list(plan.get("updateTargets") or []),
+            "selectedUpdateTargets": list(
+                plan.get("selectedUpdateTargets") or []
+            ),
+            "selectedUpdateTargetIds": list(
+                plan.get("selectedUpdateTargetIds") or []
+            ),
+            "selectedFieldsByStage": dict(
+                plan.get("selectedFieldsByStage") or {}
+            ),
+            "readFieldsByStage": dict(plan.get("readFieldsByStage") or {}),
             "canonicalDocs": list(plan.get("canonicalDocs") or []),
             "sourceFileCount": len(plan.get("sourceFiles") or []),
             "outputFileCount": len(plan.get("outputFiles") or []),
@@ -3866,6 +3886,8 @@ class QualificationRunCoordinator:
         *,
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
+        update_target_ids: list[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
     ) -> dict[str, Any]:
@@ -3876,6 +3898,8 @@ class QualificationRunCoordinator:
             mode,
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_range=question_range,
             resumed_from=resumed_from,
             question_concurrency=question_concurrency,
         )
@@ -3901,12 +3925,18 @@ class QualificationRunCoordinator:
             resumed_from,
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_range=question_range,
         )
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
             prompt_scope = {}
             if list_group_ids is not None:
                 prompt_scope["list_group_ids"] = list_group_ids
+            if update_target_ids is not None:
+                prompt_scope["update_target_ids"] = update_target_ids
+            if question_range is not None:
+                prompt_scope["question_range"] = question_range
             if len(selected_stage_ids) > 1:
                 prompt = self.workflow.prompt_many(
                     qualification,
@@ -4967,6 +4997,15 @@ class QualificationRunCoordinator:
         scope_group_ids = list(parent.get("scopeListGroupIds") or [])
         if scope_group_ids and stage_ids != ["category_setup"]:
             scope["list_group_ids"] = scope_group_ids
+        phase_update_target_ids = [
+            str(value)
+            for value in parent.get("selectedUpdateTargetIds") or []
+            if any(str(value).startswith(f"{stage_id}.") for stage_id in stage_ids)
+        ]
+        if phase_update_target_ids:
+            scope["update_target_ids"] = phase_update_target_ids
+            if parent.get("questionRange") is not None:
+                scope["question_range"] = parent["questionRange"]
         phase_mode = mode
         if (
             stage_ids == ["question_set"]
@@ -5155,6 +5194,7 @@ class QualificationRunCoordinator:
                 target,
                 stage_id,
                 policy_fingerprint,
+                phase_plan.get("selectedUpdateTargetIds") or [],
             )
             if str(current.get("inputFingerprint") or "") == expected_input:
                 if current.get("policyFingerprint") != policy_fingerprint:
@@ -8410,7 +8450,15 @@ class QualificationRunCoordinator:
         )
         fingerprints = run.get("policyFingerprints") or {}
         targets = run.get("policyTargets") or {}
-        planned: list[tuple[list[Mapping[str, Any]], dict[str, Any]]] = []
+        selected_fields_by_stage = run.get("selectedFieldsByStage") or {}
+        selected_update_target_ids = {
+            str(value)
+            for value in run.get("selectedUpdateTargetIds") or []
+            if value
+        }
+        planned: list[
+            tuple[list[Mapping[str, Any]], dict[str, Any], list[str] | None]
+        ] = []
         for stage_id, raw_version in versions.items():
             stage_id = str(stage_id)
             if stage_id not in policies:
@@ -8448,8 +8496,17 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     f"工程バージョンの対象問題を解決できません: {stage_id}"
                 )
-            if stage_id in {"explanation", "law_audit"}:
+            selected_fields = {
+                str(value)
+                for value in selected_fields_by_stage.get(stage_id) or []
+                if value
+            }
+            if stage_id in {"explanation", "law_audit"} and (
+                not selected_fields or "explanationText" in selected_fields
+            ):
                 self._validate_explanation_quality(selected)
+            if "suggestedQuestionDetailsByChoice" in selected_fields:
+                self._validate_supplementary_questions(selected)
             if stage_id == "law_audit":
                 self._validate_law_audit_quality(selected)
                 self._validate_law_audit_sidecar_consistency(
@@ -8461,7 +8518,22 @@ class QualificationRunCoordinator:
                 "policyVersion": normalize_policy_version(raw_version),
                 "policyFingerprint": run_fingerprint,
             }
-            planned.append((selected, policy))
+            available_target_ids = {
+                str(value.get("selectionId") or "")
+                for value in policy.get("updateTargets") or []
+                if isinstance(value, Mapping) and value.get("selectionId")
+            }
+            stage_target_ids = sorted(
+                value
+                for value in selected_update_target_ids
+                if value in available_target_ids
+            )
+            partial_target_ids = (
+                stage_target_ids
+                if stage_target_ids and set(stage_target_ids) != available_target_ids
+                else None
+            )
+            planned.append((selected, policy, partial_target_ids))
         for list_group_id in run.get("targetGroupIds") or []:
             self.work_versions.load_group(qualification, str(list_group_id))
         receipts = [
@@ -8470,8 +8542,9 @@ class QualificationRunCoordinator:
                 policy,
                 run_id=str(run["runId"]),
                 source="validated_run",
+                target_ids=target_ids,
             )
-            for selected, policy in planned
+            for selected, policy, target_ids in planned
         ]
         return {
             "recordedCount": sum(
@@ -8606,6 +8679,42 @@ class QualificationRunCoordinator:
         if errors:
             raise QualificationRunError(
                 "03 解説の日本語品質検証に失敗しました。"
+                + " ".join(errors[:5])
+                + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
+            )
+
+    @staticmethod
+    def _validate_supplementary_questions(
+        questions: list[Mapping[str, Any]],
+    ) -> None:
+        errors: list[str] = []
+        for question in questions:
+            projected = question.get("projected")
+            if not isinstance(projected, Mapping):
+                errors.append("対象問題: projected recordを確認できません。")
+                continue
+            choices = projected.get("choiceTextList")
+            choices = choices if isinstance(choices, list) else []
+            issues = suggested_question_validation_errors(
+                projected.get("suggestedQuestionDetailsByChoice"),
+                choice_count=len(choices),
+                allowed_choice_indexes=public_choice_indexes(
+                    projected.get("questionType"),
+                    projected.get("correctChoiceText"),
+                    len(choices),
+                ),
+            )
+            if issues:
+                label = str(
+                    question.get("questionLabel")
+                    or question.get("originalQuestionId")
+                    or question.get("id")
+                    or "対象問題"
+                )
+                errors.append(f"{label}: " + " / ".join(issues))
+        if errors:
+            raise QualificationRunError(
+                "03 補足質問の品質検証に失敗しました。"
                 + " ".join(errors[:5])
                 + (f" ほか{len(errors) - 5}件。" if len(errors) > 5 else "")
             )
@@ -10642,11 +10751,17 @@ class QualificationRunCoordinator:
         *,
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
+        update_target_ids: list[str] | None = None,
+        question_range: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
         scope: dict[str, Any] = {}
         if list_group_ids is not None:
             scope["list_group_ids"] = list_group_ids
+        if update_target_ids is not None:
+            scope["update_target_ids"] = update_target_ids
+        if question_range is not None:
+            scope["question_range"] = question_range
         if len(selected_stage_ids) > 1:
             plan = dict(
                 self.workflow.plan_many(
@@ -10688,6 +10803,15 @@ class QualificationRunCoordinator:
                 or list(previous.get("stageIds") or []) != selected_stage_ids
                 or str(previous.get("mode") or "") != mode
                 or previous_scope != list(plan.get("scopeListGroupIds") or [])
+                or (
+                    ("selectedUpdateTargetIds" in previous or update_target_ids is not None)
+                    and list(previous.get("selectedUpdateTargetIds") or [])
+                    != list(plan.get("selectedUpdateTargetIds") or [])
+                )
+                or (
+                    ("questionRange" in previous or question_range is not None)
+                    and previous.get("questionRange") != plan.get("questionRange")
+                )
             ):
                 raise QualificationRunError(
                     "再開元と工程、実行方式又は対象範囲が一致しません。"
@@ -10787,6 +10911,15 @@ class QualificationRunCoordinator:
         if (
             previous.get("stageId") != stage_id
             or previous.get("mode") != mode
+            or (
+                ("selectedUpdateTargetIds" in previous or update_target_ids is not None)
+                and list(previous.get("selectedUpdateTargetIds") or [])
+                != list(plan.get("selectedUpdateTargetIds") or [])
+            )
+            or (
+                ("questionRange" in previous or question_range is not None)
+                and previous.get("questionRange") != plan.get("questionRange")
+            )
             or previous_scope is not None
             and previous_scope != list(plan.get("scopeListGroupIds") or [])
         ):

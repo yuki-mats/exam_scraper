@@ -9,6 +9,30 @@ INDEX_PATH = ROOT / "tools/question_review_console/static/index.html"
 
 
 class ProgressOutputUiContractTests(unittest.TestCase):
+    def test_partial_refresh_ui_sends_targets_and_list_group_range(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
+        css = STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('id="qualification-run-update-fieldset"', html)
+        self.assertIn('id="qualification-run-question-start"', html)
+        self.assertIn('id="qualification-run-question-end"', html)
+        self.assertIn('id="maintenance-group-progress-title"', html)
+        self.assertIn("function qualificationRunUpdateTargets", javascript)
+        self.assertIn("function selectedQualificationRunQuestionRange", javascript)
+        self.assertIn('node.addEventListener("input"', javascript)
+        self.assertIn("scopeLabelForGroups(groupIds)", javascript)
+        self.assertIn("updateTargetIds: availableUpdateTargets.length", javascript)
+        self.assertIn("questionRange: questionRange || undefined", javascript)
+        self.assertIn("preview.selectedUpdateTargets", javascript)
+        self.assertIn("各選択範囲", javascript)
+        self.assertNotIn("examYear", javascript[
+            javascript.index("function selectedQualificationRunQuestionRange") :
+            javascript.index("function qualificationRunSupportsGroupScope")
+        ])
+        self.assertIn(".run-update-options", css)
+        self.assertIn(".run-question-range", css)
+
     def test_question_output_uses_structured_stage_and_value_nodes(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         output_section = javascript[

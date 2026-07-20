@@ -155,10 +155,11 @@ class WorkflowCatalogTests(unittest.TestCase):
         version_by_stage = {
             stage["id"]: stage["policyVersion"] for stage in versioned
         }
-        self.assertEqual(version_by_stage["explanation"], "2.2")
-        self.assertEqual(version_by_stage["law_audit"], "2.0")
+        self.assertEqual(version_by_stage["explanation"], "4.0")
+        self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertEqual(version_by_stage["originalize"], "2.1")
+        self.assertEqual(version_by_stage["question_type"], "2.0")
         self.assertTrue(
             all(
                 version == "1.0"
@@ -169,11 +170,31 @@ class WorkflowCatalogTests(unittest.TestCase):
                     "explanation",
                     "law_audit",
                     "law_context",
+                    "question_type",
                 }
             )
         )
         self.assertEqual(catalog["evaluation"]["policyVersion"], "2.0")
         stage_by_id = {stage["id"]: stage for stage in catalog["stages"]}
+        explanation_targets = {
+            target["selectionId"]: target
+            for target in stage_by_id["explanation"]["updateTargets"]
+        }
+        self.assertEqual(
+            explanation_targets["explanation.supplementary_questions"]["fields"],
+            ["suggestedQuestionDetailsByChoice"],
+        )
+        self.assertIn(
+            "explanationText",
+            explanation_targets["explanation.supplementary_questions"]["readFields"],
+        )
+        writable_fields = [
+            field
+            for stage in catalog["stages"]
+            for target in stage["updateTargets"]
+            for field in target["fields"]
+        ]
+        self.assertNotIn("suggestedQuestions", writable_fields)
         self.assertFalse(stage_by_id["category_setup"]["supportsGroupScope"])
         self.assertTrue(stage_by_id["question_set"]["supportsGroupScope"])
         self.assertTrue(stage_by_id["delivery"]["supportsGroupScope"])

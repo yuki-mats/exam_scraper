@@ -648,10 +648,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 *,
                 stage_ids=None,
                 list_group_ids=None,
+                update_target_ids=None,
+                question_range=None,
                 resumed_from=None,
                 question_concurrency=None,
             ):
                 self.scope = list_group_ids
+                self.update_target_ids = update_target_ids
+                self.question_range = question_range
                 self.question_concurrency = question_concurrency
                 return {
                     "qualification": qualification,
@@ -669,10 +673,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 *,
                 stage_ids=None,
                 list_group_ids=None,
+                update_target_ids=None,
+                question_range=None,
                 resumed_from=None,
                 question_concurrency=None,
             ):
                 self.scope = list_group_ids
+                self.update_target_ids = update_target_ids
+                self.question_range = question_range
                 self.question_concurrency = question_concurrency
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
@@ -701,6 +709,8 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "qualification": "sample",
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
+                    "updateTargetIds": ["explanation.supplementary_questions"],
+                    "questionRange": {"start": 2, "end": 10},
                     "mode": "attention",
                     "questionConcurrency": 10,
                 },
@@ -711,6 +721,8 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "qualification": "sample",
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
+                    "updateTargetIds": ["explanation.supplementary_questions"],
+                    "questionRange": {"start": 2, "end": 10},
                     "mode": "attention",
                     "questionConcurrency": 10,
                     "previewToken": "token",
@@ -733,6 +745,10 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         self.assertEqual(preview["mode"], "attention")
         self.assertEqual(runs.scope, ["2024", "2026"])
+        self.assertEqual(
+            runs.update_target_ids, ["explanation.supplementary_questions"]
+        )
+        self.assertEqual(runs.question_range, {"start": 2, "end": 10})
         self.assertEqual(runs.question_concurrency, 10)
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
@@ -761,6 +777,23 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         self.assertEqual(caught.exception.status, 422)
         self.assertIn("1、5、10", str(caught.exception))
+
+    def test_qualification_run_rejects_invalid_question_range(self):
+        with tempfile.TemporaryDirectory() as directory, self.assertRaises(
+            ApiError
+        ) as caught:
+            app = QuestionReviewApplication(Path(directory))
+            app.post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["explanation"],
+                    "questionRange": {"start": 5, "end": 2},
+                },
+            )
+
+        self.assertEqual(caught.exception.status, 400)
+        self.assertIn("questionRange", str(caught.exception))
 
     def test_qualification_run_rejects_legacy_singular_scope(self):
         cases = (

@@ -1,6 +1,6 @@
 # ガス主任技術者乙種 補助ドキュメント
 
-このディレクトリは、`gas-shunin-otsu` の `explanationText` / `suggestedQuestions` / `lawReferences` を作る際の補助資料である。
+このディレクトリは、`gas-shunin-otsu` の解説と法令根拠を作る際の資格固有の補助資料である。
 
 ## 使い分け
 
