@@ -5,7 +5,7 @@ goal:
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
   tranche: "follow-up: flash_cardの基本解説1本化、isCalculationQuestion分類、代表計算問題の修復を両repoで整合させる"
-  status: active
+  status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T012
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -1021,7 +1021,7 @@ tasks:
   - id: T012
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T011の変更だけを両repoの既存dirty差分から分離し、各既定branchへcommit/pushしてorigin readbackする"
     inputs:
@@ -1035,11 +1035,28 @@ tasks:
       - "scoped commit hashes"
       - "origin branch readback"
       - "pre-existing dirty files remain unstaged"
-    receipt: null
+    receipt:
+      result: done
+      summary: "今回の変更だけを既存dirty差分から分離し、exam_scraper mainとRepaso masterへcommit/pushした。両originのhash一致を読み戻し、既存dirtyファイルはunstagedのまま保持した。"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions/state.yaml
+      commands:
+        - cmd: "git commit -m 'feat: align flash card explanation contracts' && git push origin main"
+          status: pass
+        - cmd: "git commit -m 'fix: enforce flash card explanation ownership' && git push origin master"
+          status: pass
+        - cmd: "git rev-parse HEAD && git rev-parse origin/<branch>"
+          status: pass
+      verification:
+        exam_scraper_commit: 4adafa49e37be251661449b28550bb5d47064d9a
+        exam_scraper_origin_main: 4adafa49e37be251661449b28550bb5d47064d9a
+        repaso_commit: 7e1dd0ed31e654d0e17423d1efc7b45383293d50
+        repaso_origin_master: 7e1dd0ed31e654d0e17423d1efc7b45383293d50
+        preexisting_dirty_preserved: true
   - id: T013
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "追補契約、代表q10 readback、両repoのテストとorigin readbackを監査し、full_outcome_completeを判定する"
     inputs:
@@ -1057,7 +1074,29 @@ tasks:
       - "full_outcome_complete: true | false"
       - "oracle mapping"
       - "missing evidence and next task if not complete"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "PM最終監査で追補契約、q10生成物、両repoの検証、origin readbackを照合し、完全達成と判定した。isChoiceOnlyと計算分類は分離され、flash_cardはroot基本解説1本、choice-onlyは解説・補足0 field、q10は詳細計算解説1本・補足0件である。非計算flash_cardの詳細な補足基準は合意どおり未定義の拡張点として残した。"
+      evidence:
+        - "upload-ready 2019: total=290, isChoiceOnly=true=40, forbidden field violations=0"
+        - "q10: root=chiefgasengineerlicense-gizyutu-koushu-2019-10-4, explanation=1, supplements=0"
+        - "q10: four choice-only documents omit explanationText/suggestedQuestions/suggestedQuestionDetails"
+        - "upload-ready documents containing isCalculationQuestion=0"
+        - "exam_scraper unit tests=251 pass, 00_source=5799 unchanged, upload dry-run pass"
+        - "Repaso builder tests=6 pass, flutter analyze pass, architecture boundary pass"
+        - "origin/main contains 4adafa49e37be251661449b28550bb5d47064d9a"
+        - "origin/master contains 7e1dd0ed31e654d0e17423d1efc7b45383293d50"
+      oracle_mapping:
+        document_role: "isChoiceOnly is only a Firestore document-role flag and forbids all explanation/supplement fields when true"
+        calculation_classification: "isCalculationQuestion is authored and audited in maintenance only; it is absent from Firestore and Repaso"
+        flash_card_explanation: "canonical patch length is one and Repaso reads root metadata while discarding stale choice-only metadata"
+        q10_repair: "formula, substitution, unit handling, intermediate calculation, result and 4.0Q mapping are all in the one basic explanation"
+        non_calculation_extension: "0-3 nested contract exists; detailed cross-qualification selection criteria intentionally deferred"
+        production_safety: "Firestore production writes=0; dry-run only"
+      missing_evidence: []
+      next_task: null
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
