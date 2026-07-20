@@ -160,10 +160,25 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
     ),
 }
 
+_CORRECT_CHOICE_TEXT_RULE: dict[str, Any] = {
+    "type": "array",
+    "description": (
+        "choiceTextListと必ず同じ件数にし、選択肢順に正解又は不正解を入れる。"
+        "flash_cardとgroup_choiceでも正答だけへ縮めず、全選択肢分を保持する。"
+    ),
+    "items": {
+        "type": "string",
+        "allowedValues": ["正解", "不正解"],
+    },
+}
+
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
+    "question_intent": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
+    "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
     "explanation": _EXPLANATION_FIELD_RULES,
     "law_audit": {
         **_EXPLANATION_FIELD_RULES,
+        "correctChoiceText": _CORRECT_CHOICE_TEXT_RULE,
         "auditStatus": {
             "type": "string",
             "allowedValues": [
