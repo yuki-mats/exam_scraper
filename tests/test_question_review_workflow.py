@@ -1085,7 +1085,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('label: "成果物を再生成"', pipeline_actions)
         self.assertIn('const adminToolsOpen = $("#audit-admin-tools").open', pipeline_actions)
         self.assertIn(
-            "if (adminToolsOpen && localReady && !maintenanceBlocksPublication(question))",
+            "if (adminToolsOpen && localReady)",
             pipeline_actions,
         )
         self.assertIn("actions.append(patchSyncAction({", pipeline_actions)

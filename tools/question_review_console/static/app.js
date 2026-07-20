@@ -3983,7 +3983,7 @@ function renderPipelineActions(question) {
       element("span", "", "安全のため本番反映を停止しています。再読込後も続く場合は管理詳細を確認してください。"),
     );
   }
-  if (adminToolsOpen && localReady && !maintenanceBlocksPublication(question)) {
+  if (adminToolsOpen && localReady) {
     actions.append(patchSyncAction({
       label: "成果物を再生成",
       className: "secondary-button",
