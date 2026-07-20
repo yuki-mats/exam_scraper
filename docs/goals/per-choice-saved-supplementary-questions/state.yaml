@@ -5,7 +5,7 @@ goal:
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
   tranche: "follow-up: 年度・問題範囲・更新fieldを選び、選択fieldだけを再整備できる汎用UIとfail-closed実行経路を追加する"
-  status: active
+  status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T026
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -1626,12 +1626,11 @@ tasks:
           status: pass
       summary: "旧flat補足fieldと旧policy版のfixture/期待値を現行契約へ同期し、law_auditのテスト候補も選択fieldだけを出すようにした。production behaviorは変更せず、全1,016件の回帰を成功させた。"
       remaining_blockers: []
-      needs_judge: true
       harness: codex
   - id: T026
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "今回の文書整合・部分洗い替え実装・回帰fixtureだけをmainへscoped commit/pushし、既存output dirtyを混入させずorigin/mainをreadbackする"
     inputs:
@@ -1644,7 +1643,53 @@ tasks:
     expected_output:
       - "commit hash and origin/main readback"
       - "remaining dirty files are pre-existing output only"
-    receipt: null
+    receipt:
+      result: done
+      summary: "文書整合、汎用部分洗い替えUI/backend、全回帰fixtureを47 filesのscoped commitとしてmainへpushした。既存の年度別output patchは一件もstageせず、push後も未commitのまま保持した。"
+      commands:
+        - cmd: "git commit -m 'feat: add scoped question maintenance refresh'"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git rev-parse HEAD and git ls-remote origin refs/heads/main"
+          status: pass
+      evidence:
+        - "HEAD=origin/main=ababd5b8e029a315d3f6726add8d503f02143e23"
+        - "commit scope: 47 non-output files"
+        - "remaining status contains only pre-existing gas-shunin output patches"
+      harness: codex
+  - id: T027
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T021-T026の契約、browser、全回帰、00_source保護、commit/push readbackを突き合わせ、補足質問だけを含む汎用部分洗い替えが完全に成立したか最終監査する"
+    inputs:
+      - "T021-T026 receipts"
+      - "origin/main ababd5b8e"
+    constraints:
+      - "Read-only final audit."
+      - "examYear依存、選択外field書込、Firestore書込、output混入があればcompleteにしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle mapping and missing evidence"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "補足質問だけの部分洗い替えを、年度又はフォルダ、listGroup内問題番号範囲、更新項目を選ぶ汎用機能として実装した。examYearを使わずlistGroupIdと自然順で対象を決め、選択外fieldはcandidate allowedFieldsで拒否し、部分実行の作業版もtarget単位で記録する。browser、別field代表test、全回帰、00_source、scoped pushの全oracleが成立した。"
+      oracle_mapping:
+        - "補足質問のみ: browserで2017・第1〜3問・suggestedQuestionDetailsByChoiceだけを選び3問previewを確認。"
+        - "汎用性: question_type.calculation_flagだけを選ぶ自動testがisCalculationQuestionだけを書込fieldにする。"
+        - "独自問題: listGroupId=originalのtestはexamYearなしで範囲選択し、progress targetにもexamYearを含めない。"
+        - "fail-closed: selected-out explanationTextをcandidate parserが拒否するtestと、preview/start/resume token契約testが合格。"
+        - "作業版: work_versions v3のtarget別記録testにより未選択targetをcurrentにしない。"
+        - "回帰: 1,016 tests pass, 7 skipped; browser console errors 0。"
+        - "安全性: 00_source 5,799 files unchanged、Firestore run/startなし、既存output dirtyはcommit外。"
+        - "公開: implementation commit ababd5b8e029a315d3f6726add8d503f02143e23 equals origin/main at audit time。"
+      missing_evidence: []
+      harness: codex
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
