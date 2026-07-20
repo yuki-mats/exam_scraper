@@ -29,7 +29,10 @@
           <strong id="maintenance-required-count" class="maintenance-required-count">確認中</strong>
           <p id="maintenance-progress-text">資格全体の状態を確認しています。</p>
         </div>
-        <button id="maintenance-start" class="primary-button maintenance-start" type="button" disabled>整備を開始</button>
+        <div id="maintenance-entry-guidance" class="maintenance-entry-guidance">
+          <strong>下の年度・フォルダから開始</strong>
+          <span>対象、更新項目、問題番号を確認して整備します。</span>
+        </div>
       </div>
       <section id="qualification-active-run" class="qualification-active-run idle" aria-live="polite" aria-labelledby="qualification-active-run-title">
         <div class="qualification-active-run-head">
@@ -244,6 +247,10 @@
           <fieldset id="qualification-run-update-fieldset">
             <legend>更新する項目</legend>
             <p class="fieldset-note">選択した項目だけを書き換えます。参照するだけの項目は変更しません。</p>
+            <div class="run-update-actions">
+              <button id="qualification-run-update-needed" class="document-link-button" type="button">整備が必要な項目を選択</button>
+              <button id="qualification-run-update-clear" class="document-link-button" type="button">選択解除</button>
+            </div>
             <div id="qualification-run-update-targets" class="run-update-options"></div>
           </fieldset>
           <fieldset id="qualification-run-question-range-fieldset">

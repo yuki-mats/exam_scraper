@@ -192,6 +192,8 @@ const state = {
     questionRange: null,
     questionConcurrency: 32,
     previewController: null,
+    fieldFirst: false,
+    entryStageId: "",
   },
   workflowGuide: {
     open: false,
@@ -462,7 +464,6 @@ function bindControls() {
     renderQueue();
     if (state.detail) renderDetail();
   });
-  $("#maintenance-start").addEventListener("click", () => openRequiredMaintenance());
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
   $("#qualification-workflow-guide").addEventListener("click", () => openWorkflowGuide());
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
@@ -481,6 +482,8 @@ function bindControls() {
   $("#qualification-run-guide").addEventListener("click", openQualificationRunGuide);
   $("#qualification-run-groups-all").addEventListener("click", () => setQualificationRunGroupSelection(true));
   $("#qualification-run-groups-clear").addEventListener("click", () => setQualificationRunGroupSelection(false));
+  $("#qualification-run-update-needed").addEventListener("click", selectRequiredMaintenanceUpdateTargets);
+  $("#qualification-run-update-clear").addEventListener("click", () => setQualificationRunUpdateTargetSelection([]));
   for (const node of [$("#qualification-run-question-start"), $("#qualification-run-question-end")]) {
     node.addEventListener("input", () => {
       try {
@@ -664,7 +667,10 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     $("#qualification-workflow-detail").hidden = true;
     $("#maintenance-required-count").textContent = "取得失敗";
     $("#maintenance-progress-text").textContent = error.message;
-    $("#maintenance-start").disabled = true;
+    $("#maintenance-entry-guidance").replaceChildren(
+      element("strong", "", "範囲を読み込めません"),
+      element("span", "", "再読込してから年度・フォルダを選択してください。"),
+    );
     $("#maintenance-year-progress").replaceChildren();
   }
 }
@@ -763,7 +769,9 @@ function renderQualificationWorkflow() {
   guide.disabled = !selectedStage.canonicalDocs?.length;
   guide.dataset.stageId = selectedStage.id;
   const action = $("#qualification-workflow-action");
-  action.textContent = selectedStage.action.label;
+  action.textContent = selectedStage.kind === "human" && selectedStage.action.type === "open_run"
+    ? "対象範囲を一覧から選ぶ"
+    : selectedStage.action.label;
   action.disabled = selectedStage.action.type === "none";
   action.dataset.action = selectedStage.action.type;
   action.dataset.stageId = selectedStage.id;
@@ -775,23 +783,40 @@ function maintenanceRunStageIds() {
   return [...(workflow.summary?.requiredMaintenance?.stageIds || [])];
 }
 
-function openRequiredMaintenance(listGroupIds = []) {
+function qualificationMaintenanceEntryStage() {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow) return null;
+  return workflow.stages.find((stage) => (
+    stage.kind === "human"
+    && stage.batchSelectable
+    && stage.supportsGroupScope
+    && stage.updateTargets?.length
+  )) || null;
+}
+
+function openListGroupMaintenance(listGroupId) {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return;
-  const stageIds = maintenanceRunStageIds();
-  const firstStage = workflow.stages.find((stage) => stage.id === stageIds[0]);
+  const firstStage = qualificationMaintenanceEntryStage();
   if (!firstStage) {
-    toast("現在の基準で整備が必要な問題はありません。");
+    toast("更新項目を選べる問題整備工程がありません。", true);
     return;
   }
   openQualificationRunDialog(firstStage, {
-    stageIds,
-    listGroupIds: listGroupIds.length
-      ? listGroupIds
-      : workflow.groups.map((group) => group.listGroupId),
-    mode: workflow.summary?.requiredMaintenance?.mode || "outdated",
-    simplified: true,
+    listGroupIds: [listGroupId],
+    updateTargetIds: [],
+    mode: "group_refresh",
+    fieldFirst: true,
   });
+}
+
+function returnToMaintenanceGroupList() {
+  closeWorkflowGuide({ reopenRun: false });
+  closeAuditView({ restoreFocus: false });
+  const list = $("#maintenance-year-progress");
+  list.scrollIntoView({ behavior: "smooth", block: "center" });
+  list.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
+  toast("年度・フォルダの「整備・洗い替え」から開始してください。");
 }
 
 function renderMaintenanceDashboard() {
@@ -821,16 +846,20 @@ function renderMaintenanceDashboard() {
   $("#maintenance-progress-text").textContent = required
     ? `全${total}問のうち${current}問が整備済みです。`
     : `全${total}問が現在の基準で整備済みです。`;
-  const start = $("#maintenance-start");
-  start.textContent = required ? `未整備${required}問を整備` : "整備済み";
-  start.disabled = required === 0 || maintenanceRunStageIds().length === 0;
+  const guidance = $("#maintenance-entry-guidance");
+  guidance.replaceChildren(
+    element("strong", "", "下の年度・フォルダから開始"),
+    element("span", "", "対象、更新項目、問題番号を確認して整備します。"),
+  );
   if (workflow.restartRequired) {
     versionLabel.textContent = "更新のため再起動が必要";
     versionLabel.className = "workflow-overall-status attention";
     $("#maintenance-progress-text").textContent = workflow.catalogWarning
       || "workflow設定の更新を反映するため、問題整備システムを再起動してください。";
-    start.textContent = "再起動後に開始できます";
-    start.disabled = true;
+    guidance.replaceChildren(
+      element("strong", "", "再起動後に開始できます"),
+      element("span", "", "workflow設定と画面を同じ世代へ更新してください。"),
+    );
   }
   if (isRunning) {
     const completed = Number(liveProgress?.completedQuestionCount || 0);
@@ -848,8 +877,10 @@ function renderMaintenanceDashboard() {
     $("#maintenance-progress-text").textContent = checkingResult
       ? `${completed}/${target}問の整備完了・最終検証中`
       : `${location}${stage} / ${completed}/${target}問完了`;
-    start.textContent = checkingResult ? "最終検証中" : "整備を実行中";
-    start.disabled = true;
+    guidance.replaceChildren(
+      element("strong", "", checkingResult ? "最終検証中" : "整備を実行中"),
+      element("span", "", "完了後に別の年度・フォルダを開始できます。"),
+    );
   }
 
   const years = $("#maintenance-year-progress");
@@ -890,14 +921,15 @@ function renderMaintenanceDashboard() {
     meter.append(meterValue);
     const action = element(
       "button",
-      groupRequired ? "secondary-button" : "secondary-button complete",
+      "secondary-button",
       working
         ? liveGroup?.percent >= 100 ? "最終検証中" : "作業中"
-        : groupRequired ? `${groupRequired}問を整備` : "整備済み",
+        : "整備・洗い替え",
     );
     action.type = "button";
-    action.disabled = groupRequired === 0 || isRunning;
-    action.addEventListener("click", () => openRequiredMaintenance([group.listGroupId]));
+    action.disabled = isRunning || workflow.restartRequired;
+    action.setAttribute("aria-label", `${group.listGroupId}を整備・洗い替え`);
+    action.addEventListener("click", () => openListGroupMaintenance(group.listGroupId));
     row.append(copy, meter, action);
     years.append(row);
   }
@@ -970,7 +1002,9 @@ function renderWorkflowGuideContext() {
   $("#workflow-guide-purpose").textContent = stage.purpose;
   $("#workflow-guide-missing").textContent = stage.missingSummary;
   const action = $("#workflow-guide-action");
-  action.textContent = stage.action.label;
+  action.textContent = stage.kind === "human" && stage.action.type === "open_run"
+    ? "対象範囲を一覧から選ぶ"
+    : stage.action.label;
   action.disabled = stage.action.type === "none";
 }
 
@@ -1114,6 +1148,10 @@ function openQualificationRunGuide() {
 function executeWorkflowGuideAction() {
   const stage = qualificationWorkflowStage(state.workflowGuide.stageId);
   if (!stage || stage.action.type !== "open_run") return;
+  if (stage.kind === "human") {
+    returnToMaintenanceGroupList();
+    return;
+  }
   closeWorkflowGuide({ reopenRun: false });
   openQualificationRunDialog(stage);
 }
@@ -1308,6 +1346,10 @@ async function executeQualificationWorkflowAction() {
   const stageId = $("#qualification-workflow-action").dataset.stageId;
   const stage = workflow.stages.find((item) => item.id === stageId);
   if (!stage || stage.action.type !== "open_run") return;
+  if (stage.kind === "human") {
+    returnToMaintenanceGroupList();
+    return;
+  }
   openQualificationRunDialog(stage);
 }
 
@@ -1871,17 +1913,54 @@ function selectedQualificationRunConcurrency() {
 }
 
 function selectedQualificationRunStageIds() {
+  if (state.qualificationRunDialog.fieldFirst) {
+    return qualificationRunStageIdsForUpdateTargetIds(
+      selectedQualificationRunUpdateTargetIds(),
+    );
+  }
   const inputs = [...document.querySelectorAll('input[name="qualification-run-stage"]')];
   if (!inputs.length) return [...state.qualificationRunDialog.stageIds];
   return inputs.filter((node) => node.checked)
     .map((node) => node.value);
 }
 
+function qualificationRunSelectableUpdateTargets() {
+  return (state.qualificationWorkflow?.stages || [])
+    .filter((stage) => (
+      stage.kind === "human"
+      && stage.batchSelectable
+      && stage.supportsGroupScope
+    ))
+    .flatMap((stage) => (stage.updateTargets || []).map((target) => ({
+      ...target,
+      stageId: stage.id,
+      stageCode: stage.code,
+      stageLabel: stage.label,
+    })));
+}
+
 function qualificationRunUpdateTargets(stageIds = []) {
+  if (state.qualificationRunDialog.fieldFirst) {
+    return qualificationRunSelectableUpdateTargets();
+  }
   const selected = new Set(stageIds);
   return (state.qualificationWorkflow?.stages || [])
     .filter((stage) => selected.has(stage.id))
-    .flatMap((stage) => stage.updateTargets || []);
+    .flatMap((stage) => (stage.updateTargets || []).map((target) => ({
+      ...target,
+      stageId: stage.id,
+      stageCode: stage.code,
+      stageLabel: stage.label,
+    })));
+}
+
+function qualificationRunStageIdsForUpdateTargetIds(targetIds = []) {
+  const selected = new Set(targetIds);
+  return (state.qualificationWorkflow?.stages || [])
+    .filter((stage) => (stage.updateTargets || []).some(
+      (target) => selected.has(target.selectionId),
+    ))
+    .map((stage) => stage.id);
 }
 
 function selectedQualificationRunUpdateTargetIds() {
@@ -1891,15 +1970,19 @@ function selectedQualificationRunUpdateTargetIds() {
 }
 
 function defaultQualificationRunUpdateTargetIds(stageIds, options = {}) {
-  const available = qualificationRunUpdateTargets(stageIds)
+  const selectedStages = new Set(stageIds);
+  const available = (state.qualificationWorkflow?.stages || [])
+    .filter((stage) => selectedStages.has(stage.id))
+    .flatMap((stage) => stage.updateTargets || [])
     .map((target) => target.selectionId);
-  if (options.updateTargetIds) {
+  if (Object.prototype.hasOwnProperty.call(options, "updateTargetIds")) {
     return options.updateTargetIds.filter((targetId) => available.includes(targetId));
   }
   return available;
 }
 
 function qualificationRunSupportsQuestionRange(stageIds = []) {
+  if (state.qualificationRunDialog.fieldFirst) return true;
   return stageIds.some((stageId) => {
     const stage = state.qualificationWorkflow?.stages.find((item) => item.id === stageId);
     return stage?.supportsGroupScope === true && stage?.kind === "human";
@@ -1933,18 +2016,59 @@ function renderQualificationRunUpdateTargets(stageIds, selectedTargetIds) {
     input.name = "qualification-run-update-target";
     input.value = target.selectionId;
     input.checked = selectedTargetIds.includes(target.selectionId);
-    input.addEventListener("change", () => {
-      state.qualificationRunDialog.updateTargetIds = selectedQualificationRunUpdateTargetIds();
-      previewQualificationRun();
-    });
+    input.addEventListener("change", syncQualificationRunStagesFromUpdateTargets);
     const content = element("span", "");
     content.append(
       element("strong", "", target.label),
-      element("small", "", (target.fields || []).join("・")),
+      element(
+        "small",
+        "",
+        `${target.stageCode || ""} ${target.stageLabel || ""}・${(target.fields || []).join("・")}`,
+      ),
     );
     label.append(input, content);
     container.append(label);
   }
+}
+
+function syncQualificationRunStagesFromUpdateTargets() {
+  const updateTargetIds = selectedQualificationRunUpdateTargetIds();
+  state.qualificationRunDialog.updateTargetIds = updateTargetIds;
+  if (state.qualificationRunDialog.fieldFirst) {
+    const stageIds = qualificationRunStageIdsForUpdateTargetIds(updateTargetIds);
+    state.qualificationRunDialog.stageIds = stageIds;
+    state.qualificationWorkflowStageId = stageIds[0]
+      || state.qualificationRunDialog.entryStageId
+      || state.qualificationWorkflowStageId;
+    renderQualificationRunQuestionRange(
+      stageIds,
+      state.qualificationRunDialog.questionRange,
+    );
+    updateQualificationRunHeading();
+    const stage = qualificationWorkflowStage(state.qualificationWorkflowStageId);
+    $("#qualification-run-guide").disabled = !stage?.canonicalDocs?.length;
+  }
+  previewQualificationRun();
+}
+
+function setQualificationRunUpdateTargetSelection(targetIds) {
+  const selected = new Set(targetIds);
+  for (const input of document.querySelectorAll('input[name="qualification-run-update-target"]')) {
+    input.checked = selected.has(input.value);
+  }
+  syncQualificationRunStagesFromUpdateTargets();
+}
+
+function selectRequiredMaintenanceUpdateTargets() {
+  const requiredStageIds = new Set(maintenanceRunStageIds());
+  const targetIds = qualificationRunSelectableUpdateTargets()
+    .filter((target) => requiredStageIds.has(target.stageId))
+    .map((target) => target.selectionId);
+  if (!targetIds.length) {
+    toast("現在の基準で整備が必要な更新項目はありません。");
+    return;
+  }
+  setQualificationRunUpdateTargetSelection(targetIds);
 }
 
 function renderQualificationRunQuestionRange(stageIds, questionRange) {
@@ -1956,6 +2080,7 @@ function renderQualificationRunQuestionRange(stageIds, questionRange) {
 }
 
 function qualificationRunSupportsGroupScope(stage, stageIds = []) {
+  if (state.qualificationRunDialog.fieldFirst) return true;
   const selectedStageIds = stageIds.length ? stageIds : [stage?.id].filter(Boolean);
   return selectedStageIds.some((stageId) => (
     state.qualificationWorkflow?.stages.find((item) => item.id === stageId)
@@ -2008,6 +2133,7 @@ function renderQualificationRunGroups(stage, selectedGroupIds) {
     input.checked = selectedGroupIds.includes(group.listGroupId);
     input.addEventListener("change", () => {
       state.qualificationRunDialog.listGroupIds = selectedQualificationRunListGroupIds();
+      updateQualificationRunHeading();
       previewQualificationRun();
     });
     const content = element("span", "");
@@ -2026,6 +2152,7 @@ function setQualificationRunGroupSelection(selectAll) {
     input.checked = selectAll;
   }
   state.qualificationRunDialog.listGroupIds = selectedQualificationRunListGroupIds();
+  updateQualificationRunHeading();
   previewQualificationRun();
 }
 
@@ -2044,7 +2171,9 @@ function renderQualificationRunStages(stage, selectedStageIds) {
   const fieldset = $("#qualification-run-stage-fieldset");
   const container = $("#qualification-run-stages");
   const selectable = state.qualificationWorkflow.stages.filter((item) => item.batchSelectable);
-  fieldset.hidden = state.qualificationRunDialog.simplified || !stage.batchSelectable;
+  fieldset.hidden = state.qualificationRunDialog.simplified
+    || state.qualificationRunDialog.fieldFirst
+    || !stage.batchSelectable;
   container.replaceChildren();
   if (!stage.batchSelectable) return;
   for (const item of selectable) {
@@ -2123,6 +2252,16 @@ function renderQualificationRunStages(stage, selectedStageIds) {
 function updateQualificationRunHeading() {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return;
+  if (state.qualificationRunDialog.fieldFirst) {
+    const groupIds = selectedQualificationRunListGroupIds();
+    const scope = groupIds.length ? groupIds.join("・") : "対象範囲";
+    const targetCount = selectedQualificationRunUpdateTargetIds().length;
+    $("#qualification-run-title").textContent = `${scope}を整備・洗い替え`;
+    $("#qualification-run-purpose").textContent = targetCount
+      ? "選択した項目から必要工程を自動で決め、workflow順に一問ずつ検査・確定します。"
+      : "更新する項目を選択してください。必要な工程は自動で決まります。";
+    return;
+  }
   const stages = selectedQualificationRunStageIds()
     .map((stageId) => workflow.stages.find((item) => item.id === stageId))
     .filter(Boolean);
@@ -2141,16 +2280,22 @@ function updateQualificationRunHeading() {
 
 function openQualificationRunDialog(stage, options = {}) {
   cancelQualificationRunPreview();
-  const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
-  const selectedGroupIds = defaultQualificationRunListGroupIds(
-    stage,
-    options,
-    selectedStageIds,
-  );
-  const selectedUpdateTargetIds = defaultQualificationRunUpdateTargetIds(
-    selectedStageIds,
-    options,
-  );
+  const fieldFirst = options.fieldFirst === true;
+  const selectableTargetIds = qualificationRunSelectableUpdateTargets()
+    .map((target) => target.selectionId);
+  const selectedUpdateTargetIds = fieldFirst
+    ? (options.updateTargetIds || []).filter((targetId) => selectableTargetIds.includes(targetId))
+    : defaultQualificationRunUpdateTargetIds(
+      options.stageIds || defaultQualificationRunStageIds(stage),
+      options,
+    );
+  const selectedStageIds = fieldFirst
+    ? qualificationRunStageIdsForUpdateTargetIds(selectedUpdateTargetIds)
+    : options.stageIds || defaultQualificationRunStageIds(stage);
+  const availableGroupIds = qualificationRunGroupIds();
+  const selectedGroupIds = fieldFirst
+    ? (options.listGroupIds || []).filter((groupId) => availableGroupIds.includes(groupId))
+    : defaultQualificationRunListGroupIds(stage, options, selectedStageIds);
   const selectedQuestionRange = options.questionRange || null;
   state.qualificationRunDialog = {
     preview: null,
@@ -2164,6 +2309,8 @@ function openQualificationRunDialog(stage, options = {}) {
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     previewController: null,
     simplified: options.simplified === true,
+    fieldFirst,
+    entryStageId: stage.id,
   };
   state.qualificationWorkflowStageId = stage.id;
   $("#qualification-run-preview").hidden = false;
@@ -2176,7 +2323,7 @@ function openQualificationRunDialog(stage, options = {}) {
   renderQualificationRunUpdateTargets(selectedStageIds, selectedUpdateTargetIds);
   renderQualificationRunQuestionRange(selectedStageIds, selectedQuestionRange);
   updateQualificationRunHeading();
-  $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
+  $("#qualification-run-guide").disabled = fieldFirst || !stage.canonicalDocs?.length;
   $("#qualification-run-guide").hidden = state.qualificationRunDialog.simplified;
   const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
   const supportsScope = qualificationRunSupportsGroupScope(stage, selectedStageIds);
@@ -2186,7 +2333,7 @@ function openQualificationRunDialog(stage, options = {}) {
   $("#qualification-run-mode-fieldset").hidden = state.qualificationRunDialog.simplified;
   groupRefreshLabel.hidden = !supportsScope;
   refreshLabel.hidden = supportsScope && options.mode !== "refresh";
-  outdatedLabel.hidden = !stage.policyVersion;
+  outdatedLabel.hidden = !fieldFirst && !stage.policyVersion;
   groupRefresh.disabled = !supportsScope;
   const visibleModeCount = $("#qualification-run-mode-fieldset").querySelectorAll(".run-mode-options > label:not([hidden])").length;
   $("#qualification-run-mode-fieldset").style.setProperty("--run-mode-count", String(visibleModeCount));
@@ -2203,7 +2350,7 @@ function openQualificationRunDialog(stage, options = {}) {
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.checked = node.value === defaultMode;
   }
-  const supportsConcurrency = selectedStageIds.some((selectedStageId) => (
+  const supportsConcurrency = fieldFirst || selectedStageIds.some((selectedStageId) => (
     state.qualificationWorkflow?.stages?.find((item) => item.id === selectedStageId)
       ?.kind === "human"
   ));
@@ -2214,7 +2361,9 @@ function openQualificationRunDialog(stage, options = {}) {
     $("#qualification-run-purpose").textContent = "必要な工程を入力token量で自動分割し、結果は問題単位で検査・確定します。";
     $("#qualification-run-safety").textContent = "本番Firestoreには反映せず、ローカルで整備します。";
   } else {
-    $("#qualification-run-scope-eyebrow").textContent = "整備範囲を指定";
+    $("#qualification-run-scope-eyebrow").textContent = fieldFirst
+      ? "年度・フォルダから整備"
+      : "整備範囲を指定";
     $("#qualification-run-safety").textContent = "ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。";
   }
   $("#qualification-run-job").hidden = true;
@@ -2257,14 +2406,14 @@ async function previewQualificationRun() {
   state.qualificationRunDialog.previewController?.abort();
   state.qualificationRunDialog.previewController = null;
   const stageIds = selectedQualificationRunStageIds();
-  if (!stageIds.length) {
-    setQualificationRunPreviewState("blocked", "工程を一つ以上選択してください。");
-    return;
-  }
   const availableUpdateTargets = qualificationRunUpdateTargets(stageIds);
   const updateTargetIds = selectedQualificationRunUpdateTargetIds();
   if (availableUpdateTargets.length && !updateTargetIds.length) {
     setQualificationRunPreviewState("blocked", "更新する項目を一つ以上選択してください。");
+    return;
+  }
+  if (!stageIds.length) {
+    setQualificationRunPreviewState("blocked", "工程を一つ以上選択してください。");
     return;
   }
   const missingUpdateStage = stageIds.find((selectedStageId) => {

@@ -18,6 +18,23 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('id="qualification-run-question-start"', html)
         self.assertIn('id="qualification-run-question-end"', html)
         self.assertIn('id="maintenance-group-progress-title"', html)
+        self.assertIn('id="maintenance-entry-guidance"', html)
+        self.assertNotIn('id="maintenance-start"', html)
+        self.assertIn('id="qualification-run-update-needed"', html)
+        self.assertIn('id="qualification-run-update-clear"', html)
+        self.assertIn("function openListGroupMaintenance", javascript)
+        self.assertIn('fieldFirst: true', javascript)
+        self.assertIn(
+            "function qualificationRunStageIdsForUpdateTargetIds",
+            javascript,
+        )
+        self.assertIn(
+            'action.addEventListener("click", () => openListGroupMaintenance(group.listGroupId))',
+            javascript,
+        )
+        self.assertIn('action.disabled = isRunning || workflow.restartRequired', javascript)
+        self.assertIn('"整備・洗い替え"', javascript)
+        self.assertIn("function returnToMaintenanceGroupList", javascript)
         self.assertIn("function qualificationRunUpdateTargets", javascript)
         self.assertIn("function selectedQualificationRunQuestionRange", javascript)
         self.assertIn('node.addEventListener("input"', javascript)
@@ -31,7 +48,29 @@ class ProgressOutputUiContractTests(unittest.TestCase):
             javascript.index("function qualificationRunSupportsGroupScope")
         ])
         self.assertIn(".run-update-options", css)
+        self.assertIn(".run-update-actions", css)
         self.assertIn(".run-question-range", css)
+
+    def test_list_group_entry_derives_stages_from_selected_update_targets(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+
+        target_section = javascript[
+            javascript.index("function qualificationRunSelectableUpdateTargets") :
+            javascript.index("function selectedQualificationRunQuestionRange")
+        ]
+        dialog_section = javascript[
+            javascript.index("function openQualificationRunDialog") :
+            javascript.index("function cancelQualificationRunPreview")
+        ]
+
+        self.assertIn('stage.kind === "human"', target_section)
+        self.assertIn("stage.batchSelectable", target_section)
+        self.assertIn("stage.supportsGroupScope", target_section)
+        self.assertIn("selected.has(target.selectionId)", target_section)
+        self.assertIn("qualificationRunStageIdsForUpdateTargetIds", dialog_section)
+        self.assertIn("updateTargetIds: []", javascript)
+        self.assertIn("更新する項目を一つ以上選択してください。", javascript)
+        self.assertNotIn("examYear", target_section)
 
     def test_question_output_uses_structured_stage_and_value_nodes(self):
         javascript = APP_PATH.read_text(encoding="utf-8")

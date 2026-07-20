@@ -1208,28 +1208,24 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("完了receiptが見つかりません", humanizer)
         self.assertNotIn('message.includes("receipt")', humanizer)
 
-    def test_top_entries_share_one_required_maintenance_flow(self):
+    def test_list_group_entries_are_the_single_human_maintenance_flow(self):
         root = Path(__file__).resolve().parents[1]
         javascript = (
             root / "tools/question_review_console/static/app.js"
         ).read_text(encoding="utf-8")
-        flow = javascript.split("function openRequiredMaintenance", 1)[1].split(
+        flow = javascript.split("function openListGroupMaintenance", 1)[1].split(
             "function renderMaintenanceDashboard", 1
         )[0]
         selector = javascript.split("function maintenanceRunStageIds", 1)[1].split(
-            "function openRequiredMaintenance", 1
+            "function qualificationMaintenanceEntryStage", 1
         )[0]
 
-        self.assertIn("requiredMaintenance?.mode", flow)
-        self.assertIn("simplified: true", flow)
-        self.assertIn(
-            '$("#maintenance-start").addEventListener("click", () => openRequiredMaintenance())',
-            javascript,
-        )
-        self.assertIn(
-            "openRequiredMaintenance([group.listGroupId])",
-            javascript,
-        )
+        self.assertIn("listGroupIds: [listGroupId]", flow)
+        self.assertIn("updateTargetIds: []", flow)
+        self.assertIn("fieldFirst: true", flow)
+        self.assertNotIn('$("#maintenance-start")', javascript)
+        self.assertIn("openListGroupMaintenance(group.listGroupId)", javascript)
+        self.assertIn("returnToMaintenanceGroupList", javascript)
         self.assertIn("requiredMaintenance?.stageIds", selector)
         self.assertNotIn('"law_audit"', selector)
         self.assertNotIn('"category_setup"', selector)
@@ -1347,7 +1343,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "maintenance-dashboard",
             "maintenance-required-count",
             "maintenance-progress-text",
-            "maintenance-start",
+            "maintenance-entry-guidance",
             "maintenance-year-progress",
             "audit-view-open",
             "audit-view",
@@ -1370,6 +1366,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "qualification-run-groups",
             "qualification-run-groups-all",
             "qualification-run-groups-clear",
+            "qualification-run-update-needed",
+            "qualification-run-update-clear",
             "qualification-run-start",
             "qualification-run-progress-current",
             "qualification-run-progress-title",
@@ -1409,7 +1407,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "openAuditView",
             "closeAuditView",
             "maintenanceRunStageIds",
-            "openRequiredMaintenance",
+            "openListGroupMaintenance",
+            "returnToMaintenanceGroupList",
             "revealSelectedQualificationStage",
             "executeQualificationWorkflowAction",
             "loadQualificationRuns",
@@ -1678,16 +1677,15 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('params.set("workStageId", state.qualificationWorkflowStageId)', javascript)
         self.assertIn('params.set("workVersionStatus", workVersionStatus)', javascript)
         self.assertIn("workVersionSelect.disabled = !selectedStage?.policyVersion", javascript)
-        self.assertIn("outdatedLabel.hidden = !stage.policyVersion", javascript)
+        self.assertIn("outdatedLabel.hidden = !fieldFirst && !stage.policyVersion", javascript)
         self.assertIn('value="outdated"', html)
         self.assertIn("洗い替え必要・未整備のみ", html)
-        self.assertIn('workflow.summary?.requiredMaintenance?.mode || "outdated"', javascript)
         self.assertIn('simplified: true', javascript)
         self.assertIn('`未整備 ${preview.targetCount}問`', javascript)
         self.assertIn('"本番Firestoreには反映せず、ローカルで整備します。"', javascript)
-        self.assertIn('workflow.groups.map((group) => group.listGroupId)', javascript)
-        self.assertIn('openRequiredMaintenance([group.listGroupId])', javascript)
-        self.assertIn(".maintenance-start { width: 100%; min-height: 48px; }", css)
+        self.assertIn('listGroupIds: [listGroupId]', javascript)
+        self.assertIn('openListGroupMaintenance(group.listGroupId)', javascript)
+        self.assertIn(".maintenance-entry-guidance { width: 100%; min-height: 48px; }", css)
         self.assertIn(".maintenance-year-progress { grid-template-columns: 1fr; }", css)
         self.assertIn('stage.completeCount === stage.targetCount && stage.issueCount > 0', javascript)
         self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
