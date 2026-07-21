@@ -86,6 +86,7 @@ from tools.question_review_console.qualification_progress import (
     derive_progress_completion,
 )
 from tools.question_review_console.question_patch_proposal import (
+    CanonicalPatchCommitError,
     IsolatedQuestionPatchWorkspace,
     assert_target_resolvable,
 )
@@ -555,10 +556,6 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
 
 
 class QualificationRunError(RuntimeError):
-    pass
-
-
-class CanonicalTransactionRollbackError(QualificationRunError):
     pass
 
 
@@ -8211,6 +8208,7 @@ class QualificationRunCoordinator:
         result = None
         aggregate_consensus: dict[str, dict[str, Any]] = {}
         aggregate_review_pairs: dict[str, list[dict[str, Any]]] = {}
+        committed_files: set[str] = set()
         try:
             aggregate_review_enabled = stage_id == "question_type"
             checkpoint_mismatches: set[str] = set()
@@ -8688,7 +8686,6 @@ class QualificationRunCoordinator:
                 for value in raw_targets
             }
             committed_results: list[dict[str, Any]] = []
-            committed_files: set[str] = set()
             work_version_receipts: list[dict[str, Any]] = []
             run_dir = self.store.root / qualification / run_id
 
@@ -8879,7 +8876,7 @@ class QualificationRunCoordinator:
                     qualification=qualification,
                     mutable_paths=mutable_paths,
                 )
-                transaction_open = False
+                committed_for_question: set[str] = set()
                 try:
                     scopes = question_plan.get("targetRecordScopes") or {}
                     effective_updates = list(candidate.updates)
@@ -9011,137 +9008,94 @@ class QualificationRunCoordinator:
                                     or []
                                 ),
                             ]
-                            expected_baseline_states = {}
-                            for path in candidate_paths:
-                                canonical_path = self.repo_root / path
-                                if not canonical_path.exists():
-                                    expected_baseline_states[path.as_posix()] = {
-                                        "kind": "missing"
-                                    }
-                                elif (
-                                    canonical_path.is_file()
-                                    and not canonical_path.is_symlink()
-                                ):
-                                    expected_baseline_states[path.as_posix()] = {
-                                        "kind": "file",
-                                        "sha256": hashlib.sha256(
-                                            canonical_path.read_bytes()
-                                        ).hexdigest(),
-                                    }
-                                else:
-                                    raise QualificationRunError(
-                                        "canonical transaction対象が通常fileでは"
-                                        f"ありません: {path}"
-                                    )
-                            try:
-                                baseline_path = self.store.write_baseline(
-                                    qualification,
-                                    run_id,
-                                    tuple(dict.fromkeys(transaction_roots)),
-                                )
-                                self.store.update(
-                                    qualification,
-                                    run_id,
-                                    candidateTransactionOpen=True,
-                                )
-                                transaction_open = True
-                                baseline_payload = json.loads(
-                                    baseline_path.read_text(encoding="utf-8")
-                                )
-                                committed = set(
-                                    canonical_transaction.rebase(
-                                        binding=binding,
-                                        aliases_by_path=scopes,
-                                    )
-                                )
-                                committed_paths = {
-                                    Path(value) for value in committed
+                            baseline_path = self.store.write_baseline(
+                                qualification,
+                                run_id,
+                                tuple(dict.fromkeys(transaction_roots)),
+                            )
+                            self.store.update(
+                                qualification,
+                                run_id,
+                                candidateTransactionOpen=True,
+                            )
+                            baseline_payload = json.loads(
+                                baseline_path.read_text(encoding="utf-8")
+                            )
+                            prepared = canonical_transaction.prepare(
+                                binding=binding,
+                                aliases_by_path=scopes,
+                            )
+                            validation_paths = {
+                                Path(value) for value in candidate_paths
+                            }
+                            self._validate_record_scope(
+                                qualification,
+                                run_id,
+                                question_plan,
+                                validation_paths,
+                                validation_root=workspace.root,
+                                baseline_payload=baseline_payload,
+                            )
+                            commands.append(
+                                {"command": "record scope", "status": "pass"}
+                            )
+                            self._check_source_immutability(
+                                emit,
+                                source_files=[
+                                    str(value)
+                                    for value in question_plan.get("sourceFiles")
+                                    or []
+                                ],
+                            )
+                            commands.append(
+                                {
+                                    "command": "00_source immutability",
+                                    "status": "pass",
                                 }
-                                self._validate_record_scope(
-                                    qualification,
-                                    run_id,
-                                    question_plan,
-                                    committed_paths,
-                                    baseline_payload=baseline_payload,
-                                )
-                                commands.append(
-                                    {"command": "record scope", "status": "pass"}
-                                )
-                                self._check_source_immutability(
-                                    emit,
-                                    source_files=[
-                                        str(value)
-                                        for value in question_plan.get("sourceFiles")
-                                        or []
-                                    ],
-                                )
-                                commands.append(
-                                    {
-                                        "command": "00_source immutability",
-                                        "status": "pass",
-                                    }
-                                )
-                                work_version_receipt = self._record_work_versions(
-                                    question_plan
-                                )
-                                checkpoint_question(
-                                    {
-                                        "questionId": question_id,
-                                        "status": "succeeded",
-                                        "summary": candidate.summary,
-                                        "aggregateAnswerReview": (
-                                            aggregate_review_evidence
-                                        ),
-                                        "commands": commands,
-                                        "changedFiles": sorted(committed),
-                                        "workVersionReceipt": work_version_receipt,
-                                    },
-                                    work_version_receipt,
-                                )
-                                committed_files.update(committed)
-                                self.store.discard_baseline_backups(
-                                    qualification,
-                                    run_id,
-                                )
-                                transaction_open = False
-                            except Exception as transaction_exc:
-                                rollback_succeeded = not transaction_open
-                                if transaction_open:
-                                    for _attempt in range(2):
-                                        try:
-                                            rollback = self.store.rollback_baseline(
-                                                qualification,
-                                                run_id,
-                                            )
-                                        except Exception:  # noqa: BLE001
-                                            rollback = None
-                                        if (
-                                            rollback
-                                            and rollback.get("status") == "succeeded"
-                                        ):
-                                            rollback_succeeded = True
-                                            break
-                                transaction_open = False
-                                if not rollback_succeeded:
-                                    canonical_transaction.mark_poisoned(
-                                        "rollback verification failed",
-                                        expected_baseline_states,
-                                    )
-                                    pipeline_stop.set()
-                                    raise CanonicalTransactionRollbackError(
-                                        "canonical lock内で問題別反映のrollbackを"
-                                        "確認できません。"
-                                    ) from transaction_exc
-                                raise
-                except CanonicalTransactionRollbackError:
-                    raise
+                            )
+                            committed_for_question.update(prepared.commit())
+                            committed_files.update(committed_for_question)
+                            commands.append(
+                                {"command": "atomic commit", "status": "pass"}
+                            )
+                            work_version_receipt = self._record_work_versions(
+                                question_plan
+                            )
+                            checkpoint_question(
+                                {
+                                    "questionId": question_id,
+                                    "status": "succeeded",
+                                    "summary": candidate.summary,
+                                    "aggregateAnswerReview": (
+                                        aggregate_review_evidence
+                                    ),
+                                    "commands": commands,
+                                    "changedFiles": sorted(committed_for_question),
+                                    "workVersionReceipt": work_version_receipt,
+                                },
+                                work_version_receipt,
+                            )
+                            self.store.discard_baseline_backups(
+                                qualification,
+                                run_id,
+                            )
+                except CanonicalPatchCommitError as exc:
+                    committed_for_question.update(exc.committed_files)
+                    committed_files.update(exc.committed_files)
+                    self.store.discard_baseline_backups(
+                        qualification,
+                        run_id,
+                    )
+                    pipeline_stop.set()
+                    raise QualificationRunError(
+                        "検証済みpatchのatomic commitを完了できません: "
+                        + ", ".join(exc.pending_files)
+                    ) from exc
                 except Exception as exc:  # noqa: BLE001
-                    if transaction_open:
-                        transaction_open = False
-                        pipeline_stop.set()
-                        raise QualificationRunError(
-                            "canonical lock外へ未完了transactionが漏れました。"
-                        ) from exc
+                    self.store.discard_baseline_backups(
+                        qualification,
+                        run_id,
+                    )
                     checkpoint_question(
                         {
                             "questionId": question_id,
@@ -9152,7 +9106,7 @@ class QualificationRunCoordinator:
                                 *commands,
                                 {"command": "server commit", "status": "fail"},
                             ],
-                            "changedFiles": [],
+                            "changedFiles": sorted(committed_for_question),
                         }
                     )
                 finally:
@@ -9284,10 +9238,6 @@ class QualificationRunCoordinator:
                 "child": refreshed,
             }
         except Exception as exc:  # noqa: BLE001
-            rollback_failed = isinstance(
-                exc,
-                CanonicalTransactionRollbackError,
-            )
             self.store.write_result(
                 qualification,
                 run_id,
@@ -9295,7 +9245,7 @@ class QualificationRunCoordinator:
                     "status": "failed",
                     "summary": str(exc),
                     "commands": [],
-                    "changedFiles": [],
+                    "changedFiles": sorted(committed_files),
                 },
             )
             self.store.refresh(qualification, run_id)
@@ -9304,18 +9254,18 @@ class QualificationRunCoordinator:
                 run_id,
                 status="failed",
                 receiptValidated=False,
+                candidateTransactionOpen=False,
                 rollback={
-                    "status": "failed" if rollback_failed else "succeeded",
+                    "status": "not_attempted",
                     "restoredFiles": [],
                     "remainingChangedFiles": [],
-                    "deltaUnknown": rollback_failed,
+                    "deltaUnknown": False,
                     "message": (
-                        "canonical lock内のrollbackを完了できないため停止しました。"
-                        if rollback_failed
-                        else "構造化候補を破棄し、未確定patchは残していません。"
+                        "正本は書込み前検証方式のためrollbackせず、"
+                        "親runの公開を停止しました。"
                     ),
                 },
-                deltaUnknown=rollback_failed,
+                deltaUnknown=False,
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
                 unsafeChangedFiles=[],

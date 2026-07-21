@@ -30,14 +30,25 @@ class QuestionPatchProposalError(ValueError):
     pass
 
 
+class CanonicalPatchCommitError(QuestionPatchProposalError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        committed_files: list[str],
+        pending_files: list[str],
+    ):
+        super().__init__(message)
+        self.committed_files = tuple(committed_files)
+        self.pending_files = tuple(pending_files)
+
+
 @contextmanager
 def _canonical_file_locks(
     repo_root: Path,
-    paths: list[Path],
-    *,
-    allow_poisoned: bool = False,
+    relative_paths: list[Path],
 ):
-    """Serialize canonical record rebases across coordinators and processes."""
+    """Serialize short, write-after-validation commits across processes."""
 
     resolved_repo = repo_root.resolve()
     git_metadata = resolved_repo / ".git"
@@ -56,24 +67,34 @@ def _canonical_file_locks(
         if git_metadata.is_dir()
         else Path(tempfile.gettempdir()) / "exam-scraper-question-patch-locks"
     )
-    lock_root.mkdir(mode=0o700, parents=True, exist_ok=True)
-    handles = []
-    poison_paths = []
     try:
-        for path in sorted(set(paths), key=lambda value: value.as_posix()):
-            lock_id = hashlib.sha256(
-                f"{repo_root.resolve()}\0{path.resolve()}".encode("utf-8")
-            ).hexdigest()
-            handle = (lock_root / f"{lock_id}.lock").open("a+b")
-            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
-            handles.append(handle)
-            poison_paths.append(lock_root / f"{lock_id}.poison.json")
-        poisoned = [path for path in poison_paths if path.is_file()]
-        if poisoned and not allow_poisoned:
+        lock_root.mkdir(mode=0o700, parents=True, exist_ok=True)
+    except OSError as exc:
+        raise QuestionPatchProposalError(
+            "canonical transaction lock領域を作成できません。"
+        ) from exc
+    handles = []
+    try:
+        normalized_paths = tuple(
+            sorted(set(relative_paths), key=lambda value: value.as_posix())
+        )
+        if not normalized_paths:
             raise QuestionPatchProposalError(
-                "canonical transactionはrollback未確認のため停止中です。"
+                "canonical transactionの対象fileがありません。"
             )
-        yield tuple(poison_paths)
+        for relative in normalized_paths:
+            lock_id = hashlib.sha256(
+                f"{resolved_repo}\0{relative.as_posix()}".encode("utf-8")
+            ).hexdigest()
+            try:
+                handle = (lock_root / f"{lock_id}.lock").open("a+b")
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+            except OSError as exc:
+                raise QuestionPatchProposalError(
+                    "canonical transaction lockを取得できません。"
+                ) from exc
+            handles.append(handle)
+        yield
     finally:
         for handle in reversed(handles):
             fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
@@ -82,10 +103,18 @@ def _canonical_file_locks(
 
 def _safe_relative(repo_root: Path, value: str | Path) -> Path:
     relative = Path(str(value))
-    absolute = (repo_root / relative).resolve()
-    if relative.is_absolute() or not absolute.is_relative_to(repo_root):
+    if (
+        relative.is_absolute()
+        or not relative.parts
+        or any(part == ".." for part in relative.parts)
+    ):
         raise QuestionPatchProposalError("一問workspaceのpathがrepository外です。")
-    return relative
+    lexical = Path(*(part for part in relative.parts if part not in {"", "."}))
+    resolved_repo = repo_root.resolve()
+    resolved_parent = (resolved_repo / lexical.parent).resolve()
+    if not resolved_parent.is_relative_to(resolved_repo):
+        raise QuestionPatchProposalError("一問workspaceのpathがrepository外です。")
+    return lexical
 
 
 def _payload_records(payload: Any) -> list[dict[str, Any]]:
@@ -414,77 +443,16 @@ class IsolatedQuestionPatchWorkspace:
         )
         if any(path not in self.mutable_paths for path in relative_paths):
             raise QuestionPatchProposalError("可変範囲外のfileは反映できません。")
-        canonical_paths = [self.repo_root / value for value in relative_paths]
-        with _canonical_file_locks(
-            self.repo_root,
-            canonical_paths,
-        ) as poison_paths:
-            yield LockedCanonicalPatchTransaction(
-                self,
-                relative_paths,
-                poison_paths,
-            )
+        with _canonical_file_locks(self.repo_root, list(relative_paths)):
+            yield LockedCanonicalPatchTransaction(self, relative_paths)
 
-    def clear_poison_after_verified_repair(
-        self,
-        changed_paths: list[Path] | tuple[Path, ...] | set[Path],
-    ) -> None:
-        """Clear poison only when canonical files match recorded baselines."""
-
-        relative_paths = tuple(
-            sorted(
-                {
-                    _safe_relative(self.repo_root, value)
-                    for value in changed_paths
-                },
-                key=lambda value: value.as_posix(),
-            )
-        )
-        canonical_paths = [self.repo_root / value for value in relative_paths]
-        with _canonical_file_locks(
-            self.repo_root,
-            canonical_paths,
-            allow_poisoned=True,
-        ) as poison_paths:
-            poison_payloads = []
-            for relative, poison_path in zip(relative_paths, poison_paths):
-                try:
-                    payload = json.loads(poison_path.read_text(encoding="utf-8"))
-                except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-                    raise QuestionPatchProposalError(
-                        "canonical transaction poisonを確認できません。"
-                    ) from exc
-                expected = payload.get("expectedBaselineState")
-                if (
-                    payload.get("schemaVersion")
-                    != "question-patch-canonical-poison/v1"
-                    or not isinstance(expected, Mapping)
-                ):
-                    raise QuestionPatchProposalError(
-                        "canonical transaction poisonの復旧条件が不正です。"
-                    )
-                canonical = self.repo_root / relative
-                kind = str(expected.get("kind") or "")
-                repaired = kind == "missing" and not canonical.exists()
-                if kind == "file" and canonical.is_file() and not canonical.is_symlink():
-                    repaired = hashlib.sha256(canonical.read_bytes()).hexdigest() == str(
-                        expected.get("sha256") or ""
-                    )
-                if not repaired:
-                    raise QuestionPatchProposalError(
-                        "canonical fileのbaseline復旧を確認できません。"
-                    )
-                poison_payloads.append(poison_path)
-            for poison_path in poison_payloads:
-                poison_path.unlink()
-
-    def _rebase_locked(
+    def _prepare_rebase_locked(
         self,
         changed_paths: list[Path],
         *,
         binding: SourceIdentityBinding,
         aliases_by_path: Mapping[str, list[list[str]]],
-    ) -> list[str]:
+    ) -> "PreparedCanonicalPatch":
         pending: list[tuple[Path, str]] = []
         for relative in changed_paths:
             if relative not in self.mutable_paths:
@@ -567,15 +535,16 @@ class IsolatedQuestionPatchWorkspace:
                 else:
                     canonical_records[canonical_index] = candidate_record
             content = _dump_record_payload(canonical_path, canonical_payload)
-            current = canonical_path.read_text(encoding="utf-8") if canonical_path.is_file() else None
+            atomic_write(candidate_path, content)
+            current = (
+                canonical_path.read_text(encoding="utf-8")
+                if canonical_path.is_file()
+                else None
+            )
             if content != current:
-                pending.append((canonical_path, content))
+                pending.append((relative, content))
 
-        for path, content in pending:
-            atomic_write(path, content)
-        return [
-            path.relative_to(self.repo_root).as_posix() for path, _content in pending
-        ]
+        return PreparedCanonicalPatch(self.repo_root, tuple(pending))
 
     def cleanup(self) -> None:
         if self.root.is_relative_to(self.repo_root):
@@ -599,7 +568,18 @@ def copy_payload_shape(payload: Any) -> Any:
 class LockedCanonicalPatchTransaction:
     workspace: IsolatedQuestionPatchWorkspace
     changed_paths: tuple[Path, ...]
-    poison_paths: tuple[Path, ...]
+
+    def prepare(
+        self,
+        *,
+        binding: SourceIdentityBinding,
+        aliases_by_path: Mapping[str, list[list[str]]],
+    ) -> "PreparedCanonicalPatch":
+        return self.workspace._prepare_rebase_locked(
+            list(self.changed_paths),
+            binding=binding,
+            aliases_by_path=aliases_by_path,
+        )
 
     def rebase(
         self,
@@ -607,34 +587,37 @@ class LockedCanonicalPatchTransaction:
         binding: SourceIdentityBinding,
         aliases_by_path: Mapping[str, list[list[str]]],
     ) -> list[str]:
-        return self.workspace._rebase_locked(
-            list(self.changed_paths),
+        return self.prepare(
             binding=binding,
             aliases_by_path=aliases_by_path,
-        )
+        ).commit()
 
-    def mark_poisoned(
-        self,
-        reason: str,
-        expected_baseline_states: Mapping[str, Mapping[str, Any]],
-    ) -> None:
-        for relative, poison_path in zip(self.changed_paths, self.poison_paths):
-            expected = expected_baseline_states.get(relative.as_posix())
-            if not isinstance(expected, Mapping):
-                raise QuestionPatchProposalError(
-                    "canonical poisonのbaseline復旧条件がありません。"
-                )
-            payload = json.dumps(
-                {
-                    "schemaVersion": "question-patch-canonical-poison/v1",
-                    "reason": str(reason),
-                    "changedPath": relative.as_posix(),
-                    "expectedBaselineState": dict(expected),
-                },
-                ensure_ascii=False,
-                indent=2,
-            ) + "\n"
-            atomic_write(poison_path, payload)
+
+@dataclass(frozen=True)
+class PreparedCanonicalPatch:
+    repo_root: Path
+    pending: tuple[tuple[Path, str], ...]
+
+    @property
+    def changed_files(self) -> tuple[str, ...]:
+        return tuple(relative.as_posix() for relative, _content in self.pending)
+
+    def commit(self) -> list[str]:
+        committed: list[str] = []
+        for index, (relative, content) in enumerate(self.pending):
+            try:
+                atomic_write(self.repo_root / relative, content)
+            except Exception as exc:  # noqa: BLE001
+                raise CanonicalPatchCommitError(
+                    "検証済みcanonical patchのatomic writeに失敗しました。",
+                    committed_files=committed,
+                    pending_files=[
+                        value.as_posix()
+                        for value, _pending_content in self.pending[index:]
+                    ],
+                ) from exc
+            committed.append(relative.as_posix())
+        return committed
 
 
 def _canonical_bytes(value: Mapping[str, Any]) -> bytes:
