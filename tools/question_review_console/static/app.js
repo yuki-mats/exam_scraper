@@ -180,6 +180,7 @@ const state = {
     open: false,
     loadedQualification: "",
     loading: false,
+    readOnly: true,
   },
   qualificationRunDialog: {
     preview: null,
@@ -312,7 +313,8 @@ function auditViewIsOpen() {
 }
 
 function renderAuditViewHeading() {
-  $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・patch適用後の内容とFirestore反映状態を確認します。`;
+  const scope = state.listGroupId === ALL_LIST_GROUPS ? "すべて" : state.listGroupId;
+  $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・${scope}の問題内容を確認します。`;
 }
 
 function invalidateAuditView() {
@@ -328,12 +330,20 @@ function invalidateAuditView() {
   clearSelectionToolbar(true);
   $("#queue").replaceChildren();
   $("#queue-pagination").hidden = true;
-  renderEmpty("公開前確認を開くと、問題本文と反映予定の内容を読み込みます。");
-  setLoading("公開前確認を開くと読み込みます");
+  renderEmpty("状況確認を開くと、問題本文と現在の整備内容を読み込みます。");
+  setLoading("状況確認を開くと読み込みます");
 }
 
-async function openAuditView() {
+async function openAuditView(listGroupId = "") {
   const qualification = state.qualification;
+  if (listGroupId) populateGroups(listGroupId);
+  state.exceptionsOnly = false;
+  $("#exceptions-button").classList.remove("active");
+  $("#all-button").classList.add("active");
+  $("#search-input").value = "";
+  $("#source-answer-difference").checked = false;
+  $("#calculation-only").checked = false;
+  $("#law-only").checked = false;
   state.auditView.open = true;
   $("#audit-view").hidden = false;
   $(".app-header").inert = true;
@@ -343,6 +353,7 @@ async function openAuditView() {
   document.documentElement.classList.add("audit-view-open");
   document.body.classList.add("audit-view-open");
   renderAuditViewHeading();
+  updateUrl();
   $("#audit-view-close").focus();
   const preserveSelection = state.auditView.loadedQualification === qualification;
   state.auditView.loading = true;
@@ -444,6 +455,10 @@ function bindControls() {
       $("#exceptions-button").classList.remove("active");
       $("#all-button").classList.add("active");
     }
+    await loadQuestions(false);
+  });
+  $("#calculation-only").addEventListener("change", async () => {
+    clearEvaluationSelection();
     await loadQuestions(false);
   });
   $("#refresh-button").addEventListener("click", async () => {
@@ -798,6 +813,10 @@ function openListGroupMaintenance(listGroupId) {
   });
 }
 
+function openListGroupStatus(listGroupId) {
+  openAuditView(listGroupId);
+}
+
 function returnToMaintenanceGroupList() {
   closeWorkflowGuide({ reopenRun: false });
   closeAuditView({ restoreFocus: false });
@@ -907,6 +926,11 @@ function renderMaintenanceDashboard() {
         ? Math.round((groupCurrent / groupTotal) * 100)
         : 100}%`;
     meter.append(meterValue);
+    const actions = element("div", "maintenance-year-actions");
+    const statusAction = element("button", "secondary-button", "状況を確認");
+    statusAction.type = "button";
+    statusAction.setAttribute("aria-label", `${group.listGroupId}の状況を確認`);
+    statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId));
     const action = element(
       "button",
       "secondary-button",
@@ -918,7 +942,8 @@ function renderMaintenanceDashboard() {
     action.disabled = isRunning || workflow.restartRequired;
     action.setAttribute("aria-label", `${group.listGroupId}を整備・洗い替え`);
     action.addEventListener("click", () => openListGroupMaintenance(group.listGroupId));
-    row.append(copy, meter, action);
+    actions.append(statusAction, action);
+    row.append(copy, meter, actions);
     years.append(row);
   }
 }
@@ -3326,6 +3351,7 @@ function listQuery(offset = 0) {
     listGroupId: state.listGroupId,
     exceptionsOnly: String(state.exceptionsOnly),
     lawOnly: String($("#law-only").checked),
+    calculationOnly: String($("#calculation-only").checked),
     firestoreMismatch: String($("#firestore-mismatch").checked),
     sourceAnswerDifference: String($("#source-answer-difference").checked),
     offset: String(offset),
@@ -3371,7 +3397,6 @@ async function loadQuestions(preserveSelection, append = false) {
     state.questionPage.hasMore = payload.hasMore;
     renderQueue();
     const counts = payload.evaluationCounts || {};
-    const workCounts = payload.workVersionCounts || {};
     const pendingCount = Number(counts.maintenance || 0)
       + Number(counts.unreviewed || 0)
       + Number(counts.needsRework || 0)
@@ -3380,13 +3405,9 @@ async function loadQuestions(preserveSelection, append = false) {
       `${state.questions.length}/${payload.filteredCount}問表示`,
       `全${payload.questionCount}問`,
       `反映待ち${pendingCount}`,
-      `公開可能${counts.publishReady || 0}`,
       `反映済み${counts.published || 0}`,
       ...($("#source-answer-difference").checked
         ? [`00_sourceとの差分${payload.sourceAnswerDifferenceCount || 0}問`]
-        : []),
-      ...($("#work-version-select").value
-        ? [`整備済み${workCounts.current || 0}・洗い替え必要${workCounts.outdated || 0}・未記録${workCounts.unrecorded || 0}`]
         : []),
     ].join(" / ");
     updateEvaluationSelectionControls();
@@ -3467,6 +3488,12 @@ function renderQueue() {
       evaluationBadge(question),
       ...(question.sourceCorrectChoiceComparison?.different
         ? [element("span", "source-answer-difference-badge", "元正答との差分")]
+        : []),
+      ...(question.isCalculationQuestion
+        ? [element("span", "question-kind-badge", "計算")]
+        : []),
+      ...(question.isLawRelated
+        ? [element("span", "question-kind-badge", "法令")]
         : []),
     );
     const body = element("p", "queue-body", question.body || "（問題文なし）");
@@ -3800,15 +3827,17 @@ function renderDetail() {
     element("div", "detail-meta", `${question.qualification} / ${question.listGroupId} / ${question.sourceQuestionKey}`),
   );
   const actions = element("div", "detail-actions");
-  actions.append(
-    actionWithHelp(
-      "パッチを修正",
-      "secondary-button",
-      openEdit,
-      "パッチを直接修正",
-      "正誤・解説・補足質問のpatchを確認後に更新します。法令問題の正誤など根拠監査が必要な変更は、Codex App Serverの別threadによる修正依頼へ切り替えます。",
-    ),
-  );
+  if (!state.auditView.readOnly) {
+    actions.append(
+      actionWithHelp(
+        "パッチを修正",
+        "secondary-button",
+        openEdit,
+        "パッチを直接修正",
+        "正誤・解説・補足質問のpatchを確認後に更新します。法令問題の正誤など根拠監査が必要な変更は、Codex App Serverの別threadによる修正依頼へ切り替えます。",
+      ),
+    );
+  }
   titleRow.append(titleBlock, actions);
   header.append(titleRow);
   pane.append(header);
@@ -3850,10 +3879,20 @@ function renderDetail() {
   pane.append(renderAppDisplaySettings(question, publication.record));
 
   const choicesSection = section(
-    publication.ready ? "Firestoreへ反映する内容" : "patch適用後の内容",
+    state.auditView.readOnly
+      ? "現在の整備内容"
+      : publication.ready
+        ? "Firestoreへ反映する内容"
+        : "patch適用後の内容",
   );
   choicesSection.append(
-    element("p", "audit-compare-hint", publication.description),
+    element(
+      "p",
+      "audit-compare-hint",
+      state.auditView.readOnly
+        ? "現在保存されている正誤・解説です。"
+        : publication.description,
+    ),
     element(
       "p",
       "audit-compare-hint choice-suggestion-hint",
@@ -3879,7 +3918,7 @@ function renderDetail() {
   }
 
   if (question.isLawRelated) pane.append(renderLawSection(publication.record));
-  pane.append(renderQuestionAdminDetails(question));
+  if (!state.auditView.readOnly) pane.append(renderQuestionAdminDetails(question));
 }
 
 function publicationContent(question) {
@@ -3935,14 +3974,21 @@ function publicationContent(question) {
 }
 
 function renderPublicationStatus(question, publication) {
-  const node = section("公開前の状態");
+  const node = section(state.auditView.readOnly ? "現在の状態" : "公開前の状態");
   node.classList.add("publication-status-section");
   const source = element(
     "span",
     `publication-source ${publication.ready ? "ready" : "pending"}`,
-    publication.ready ? "公開用データ反映済み" : "公開用データ更新待ち",
+    state.auditView.readOnly
+      ? publication.ready
+        ? "公開用データあり"
+        : "公開用データ更新待ち"
+      : publication.ready
+        ? "公開用データ反映済み"
+        : "公開用データ更新待ち",
   );
-  node.append(source, renderPipelineActions(question));
+  node.append(source);
+  if (!state.auditView.readOnly) node.append(renderPipelineActions(question));
   return node;
 }
 
@@ -5725,6 +5771,10 @@ function selectionCandidate() {
 }
 
 function scheduleSelectionToolbar() {
+  if (state.auditView.readOnly && auditViewIsOpen()) {
+    clearSelectionToolbar();
+    return;
+  }
   window.clearTimeout(selectionToolbarTimer);
   selectionToolbarTimer = window.setTimeout(renderSelectionToolbar, 120);
 }

@@ -66,20 +66,20 @@
       </div>
     </section>
 
-    <section id="audit-view" class="audit-view" aria-labelledby="audit-view-title" hidden>
+    <section id="audit-view" class="audit-view simple-inspection" aria-labelledby="audit-view-title" hidden>
       <header class="audit-view-header">
-        <button id="audit-view-close" class="secondary-button audit-view-back" type="button">← 整備へ戻る</button>
+        <button id="audit-view-close" class="secondary-button audit-view-back" type="button">← 一覧へ戻る</button>
         <div>
-          <span class="dialog-eyebrow">Firestoreへ反映する前に確認</span>
-          <h2 id="audit-view-title">公開前の内容を確認</h2>
-          <p id="audit-view-qualification">patch適用後の正答・解説とFirestore反映状態を確認します。</p>
+          <span class="dialog-eyebrow">現在の整備内容</span>
+          <h2 id="audit-view-title">問題の状況を確認</h2>
+          <p id="audit-view-qualification">問題ごとの正答・解説・補足質問を確認します。</p>
         </div>
       </header>
       <div id="audit-view-content" class="audit-view-content">
-        <div id="audit-view-loading" class="audit-view-loading" hidden>問題と生成内容を読み込んでいます。</div>
+        <div id="audit-view-loading" class="audit-view-loading" hidden>問題の状況を読み込んでいます。</div>
 
         <div class="toolbar advanced-toolbar" aria-label="問題一覧の表示条件">
-          <label>
+          <label class="audit-group-selector">
             <span id="group-select-label">年度</span>
             <select id="group-select"></select>
           </label>
@@ -87,16 +87,17 @@
             <span>問題を検索</span>
             <input id="search-input" type="search" placeholder="問題文・問番" autocomplete="off">
           </label>
-          <div class="segmented" aria-label="一覧範囲">
+          <div class="segmented" aria-label="一覧範囲" hidden>
             <button id="exceptions-button" class="active" type="button">反映待ち</button>
             <button id="all-button" type="button">全問</button>
           </div>
         </div>
 
         <section class="filter-bar audit-primary-filter" aria-label="監査フィルター">
-          <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
           <label class="check-control"><input id="source-answer-difference" type="checkbox"> 00_sourceと正答が異なる</label>
-          <span id="list-summary" class="list-summary">監査を開くと読み込みます</span>
+          <label class="check-control"><input id="calculation-only" type="checkbox"> 計算問題</label>
+          <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
+          <span id="list-summary" class="list-summary">状況確認を開くと読み込みます</span>
         </section>
 
         <main class="workspace audit-workspace">
@@ -109,12 +110,12 @@
           <section id="detail-pane" class="detail-pane" aria-live="polite">
             <div class="empty-state">
               <strong>問題を選択してください</strong>
-              <span>Firestoreへ反映する正答・解説と、現在の公開状態を確認できます。</span>
+              <span>現在の正答・解説・補足質問を確認できます。</span>
             </div>
           </section>
         </main>
 
-        <details id="audit-admin-tools" class="audit-admin-tools">
+        <details id="audit-admin-tools" class="audit-admin-tools" aria-label="公開前の内容を確認する管理機能" hidden>
           <summary>工程・評価・Firestoreなどの管理機能</summary>
           <div class="audit-admin-content">
             <section id="qualification-workflow" class="qualification-workflow" aria-labelledby="qualification-workflow-title">

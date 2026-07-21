@@ -1099,6 +1099,7 @@ class QuestionReviewApplication:
         work_version_status = _query_value(query, "workVersionStatus")
         exceptions_only = _query_bool(query, "exceptionsOnly", default=True)
         law_only = _query_bool(query, "lawOnly", default=False)
+        calculation_only = _query_bool(query, "calculationOnly", default=False)
         firestore_mismatch = _query_bool(query, "firestoreMismatch", default=False)
         source_answer_difference = _query_bool(
             query,
@@ -1187,6 +1188,10 @@ class QuestionReviewApplication:
                     elif selected_status != work_version_status:
                         continue
                 if law_only and not question["isLawRelated"]:
+                    continue
+                projected = question.get("projected")
+                projected = projected if isinstance(projected, Mapping) else {}
+                if calculation_only and projected.get("isCalculationQuestion") is not True:
                     continue
                 if firestore_mismatch and question["workflow"]["firestore"] not in {
                     "mismatch",
@@ -1554,6 +1559,9 @@ class QuestionReviewApplication:
                 "sourceCorrectChoiceComparison",
             )
         }
+        projected = question.get("projected")
+        projected = projected if isinstance(projected, Mapping) else {}
+        summary["isCalculationQuestion"] = projected.get("isCalculationQuestion") is True
         evaluation = question.get("evaluation")
         evaluation = evaluation if isinstance(evaluation, Mapping) else {}
         summary["evaluation"] = {

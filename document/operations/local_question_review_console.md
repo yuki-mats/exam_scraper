@@ -102,7 +102,9 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。進捗から問題を開く「作業対象を確認」には、問題文・選択肢・正答・解説とpatch適用後の`questionType`、問題整備専用の`isCalculationQuestion`を表示します。`flash_card`と`group_choice`の基本解説は問題共通の1本として選択肢一覧の上に表示し、選択肢カードへ繰り返しません。問題の詳細画面では、選択肢をタップすると、その選択肢の`suggestedQuestionDetails`に相当する質問と回答だけをカード内に表示します。`suggestedQuestionDetailsByChoice`が0件の選択肢も、保存済み補足がないことを明示します。補足0件は不備ではなく、基本解説と重複する候補を保存しない正規状態です。旧flat fieldしかない場合は「選択肢未割当・再生成が必要」と表示し、推測で割り当てません。
 
-監査画面の「00_sourceと正答が異なる」は、`00_source.correctChoiceText`とpatch適用後の`correctChoiceText`を問題単位で比較して絞り込みます。`○`と`正しい`、`×`と`間違い`は同じ判定として扱い、実質的に変わった選択肢だけを詳細画面へ表示します。この差分は確認対象であり、それだけで整備失敗又は公開不可とは判定しません。
+トップの各年度・フォルダには、`整備・洗い替え`の左に読取専用の`状況を確認`を置きます。タップした`listGroupId`の全問題を開き、問題検索と、`00_source`と正答が異なる問題、計算問題、法令問題の絞り込みを利用できます。条件は併用できます。この画面では人間監査結果を保存せず、編集、評価、Firestore反映の操作を主画面へ出しません。
+
+「00_sourceと正答が異なる」は、`00_source.correctChoiceText`とpatch適用後の`correctChoiceText`を問題単位で比較して絞り込みます。`○`と`正しい`、`×`と`間違い`は同じ判定として扱い、実質的に変わった選択肢だけを詳細画面へ表示します。この差分は確認対象であり、それだけで整備失敗又は公開不可とは判定しません。計算問題はpatch適用後の`isCalculationQuestion: true`、法令問題は`isLawRelated: true`を使って絞り込みます。
 
 ## 検査feedbackと改善記録
 

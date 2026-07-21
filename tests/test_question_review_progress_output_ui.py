@@ -141,6 +141,25 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("現在のcorrectChoiceText", javascript)
         self.assertIn(".source-answer-comparison-card", css)
 
+    def test_list_group_status_view_is_read_only_and_has_three_filters(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
+        css = STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("function openListGroupStatus", javascript)
+        self.assertIn('statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId))', javascript)
+        self.assertIn("状況を確認", javascript)
+        self.assertIn('id="source-answer-difference"', html)
+        self.assertIn('id="calculation-only"', html)
+        self.assertIn('id="law-only"', html)
+        self.assertIn("calculationOnly", javascript)
+        self.assertIn("state.auditView.readOnly", javascript)
+        self.assertIn(".maintenance-year-actions", css)
+        self.assertIn(".simple-inspection .question-admin-details", css)
+        self.assertIn(".simple-inspection .audit-group-selector", css)
+        self.assertIn(".advanced-toolbar .segmented[hidden]", css)
+        self.assertIn('state.auditView.readOnly ? "現在の状態"', javascript)
+
     def test_choice_results_have_mobile_readable_cards_and_verdict_labels(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         css = STYLE_PATH.read_text(encoding="utf-8")

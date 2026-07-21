@@ -141,7 +141,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .maintenance-year-section h3 { margin: 0 0 6px; font-size: 12px; }
 .maintenance-year-progress {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 6px;
   max-height: 132px;
   overflow-y: auto;
@@ -168,6 +168,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .maintenance-year-copy strong { font-size: 12px; }
 .maintenance-year-copy span { color: var(--text-muted); font-size: 9px; }
 .maintenance-year-row button { min-height: 30px; padding: 4px 7px; font-size: 10px; white-space: nowrap; }
+.maintenance-year-actions { display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
 .maintenance-year-meter { grid-column: 1 / -1; height: 3px; overflow: hidden; border-radius: 2px; background: #dfe4e8; }
 .maintenance-year-meter-value { display: block; height: 100%; background: var(--green); }
 .maintenance-year-row.working .maintenance-year-meter-value {
@@ -229,6 +230,12 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .audit-admin-filter { flex-wrap: wrap; }
 .audit-primary-filter { min-height: 42px; }
 .audit-primary-filter .list-summary { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.simple-inspection .detail-actions,
+.simple-inspection .pipeline-buttons,
+.simple-inspection .question-admin-details { display: none; }
+.simple-inspection .audit-group-selector,
+.advanced-toolbar .segmented[hidden],
+.audit-admin-tools[hidden] { display: none; }
 .audit-view:not(.admin-tools-open) .queue-item { grid-template-columns: minmax(0, 1fr); }
 .audit-view:not(.admin-tools-open) .queue-select { display: none; }
 .audit-view:not(.admin-tools-open) .queue-open { padding-left: 14px; }
@@ -650,6 +657,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .app-display-setting-value { overflow-wrap: anywhere; font-size: 13px; }
 .app-display-setting-description { color: var(--text-muted); font-size: 11px; line-height: 1.45; }
 .source-answer-difference-badge { padding: 3px 6px; border-radius: 3px; color: #7a4f00; background: var(--amber-bg); font-size: 9px; font-weight: 800; white-space: nowrap; }
+.question-kind-badge { padding: 3px 6px; border-radius: 3px; color: var(--blue-dark); background: #e9f2fa; font-size: 9px; font-weight: 800; white-space: nowrap; }
 .source-answer-comparison-list { display: grid; gap: 9px; }
 .source-answer-comparison-card { display: grid; gap: 8px; padding: 11px 13px; border: 1px solid #ead394; border-radius: 6px; background: var(--amber-bg); }
 .source-answer-comparison-card > strong { color: #614710; font-size: 12px; }
@@ -1029,6 +1037,8 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .maintenance-year-progress { grid-template-columns: 1fr; }
   .maintenance-year-row { padding: 9px; }
   .maintenance-year-row button { min-height: 44px; font-size: 12px; }
+  .maintenance-year-actions { grid-column: 1 / -1; }
+  .maintenance-year-actions button { flex: 1; }
   .audit-view-header { min-height: 72px; gap: 10px; padding: max(8px, env(safe-area-inset-top)) 10px 8px; }
   .audit-view-back { min-height: 44px; padding: 7px 10px; font-size: 12px; }
   .audit-view-header h2 { font-size: 17px; }
