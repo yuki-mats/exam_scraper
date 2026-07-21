@@ -1,0 +1,80 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T049",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "require_generic_fix。1044問のcoverageと安全契約は確認できたが、invalid 25件はデータ由来の保留ではない。23件は共有patch fileの別record更新をquestion単位transactionが競合変更と判定し、2件は既存recordの正当なserver-derived choiceTextListをprotected-field guardが拒否した。資格共通のtransaction・検証契約を修正し、fresh rerunでinvalid 0を証明するまで下流を承認しない。",
+    "evidence": [
+      "Parent 20260722T045949999874-4ac65e8eはquestion_typeのみ、qualification-wide 1044問、questionIds/listGroupIds空、questionRange/resumedFromなしでsucceededした。",
+      "Parentに1044 checkpoint、95 child manifestがあり、全childは同parent、succeeded、receiptValidated=trueだった。",
+      "2088 review payloadは全てcandidateId, classification, decision, issueCodes, schemaVersion, sourceHashの六fieldだけで、各問slot 1/2 resolved、gpt-5.5/high、prompt v3、別threadだった。",
+      "Child集計のaggregateReviewReusedCountは0。各1044問のvalidationAttemptsは最小1、最大1、合計1044だった。",
+      "最終排他分類はtarget 44、non_target 536、hold 439、invalid 25、pending 0。hold理由はreview_disagreement 333、missing_statement 86、invalid_review 20だった。",
+      "validated target 44件は二者が同じ非null candidateIdを選び、consensus spanは合計169件。T048再計算receiptは全169件のsource slice、stable key、true_false、boolean calculation flag一致を記録する。",
+      "invalid 25件は23件の対象問題以外のrecord変更と2件のchoiceTextList protected-field guardで、全件changedFiles空、誤確定なしだった。",
+      "23件は複数question transactionが同じ10_questionType_fixed JSONを共有し、別recordの正当な更新を各question baselineに対するnon-target差分として検出した。現在のthread-local commit lockだけでは共有fileを全writer境界で安全に調停する契約が不足する。",
+      "既存record経路ではallowed_derived_fieldsが空のままprotected-field比較へ進む。一方、新規record経路だけがsource text、approved decomposition、stable parent identityからchoiceTextList/sourceUniqueKeysを再計算して例外許可するため、既存aggregate target 2件が不整合により拒否された。",
+      "T048 receiptではfocused 114 testsと5799件の00_source immutabilityがpass。parent artifactSyncは必須field不足でblockedし、Firestoreは呼び出されていない。"
+    ],
+    "next_allowed_task": {
+      "type": "worker",
+      "objective": "資格共通のquestion transactionを、同一patch fileへ異なるrecordを反映する並列batch間でも安全に直列化又は原子的rebase・再検証できるよう修正する。既存aggregate targetについても、sourceHash固定のquestionBodyText、approved decomposition、stable parent identityからserverが再計算したchoiceTextListとsourceUniqueKeysだけをderived fieldとして許可し、それ以外のprotected field変更は引き続き拒否する。",
+      "allowed_files": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_patch_proposal.py",
+        "tests/test_question_review_qualification_runs.py",
+        "tests/test_question_review_qualification_record_scope.py",
+        "tests/test_question_review_question_patch_proposal.py"
+      ],
+      "required_regression_tests": [
+        "同一JSON内の異なるrecordを、別batchで同時準備して逆順commitしても両更新を保持し、non-target collisionを発生させない。",
+        "同一recordが準備後に変更された場合は引き続きfail closedとし、lost updateを許可しない。",
+        "対象file単位のcommit直列化又はrebase後readbackが、別process・別child run相当のwriter境界でも成立する。",
+        "既存aggregate recordのchoiceTextList/sourceUniqueKeys変更は、sourceHash、approved decomposition、source slice、stable keyの完全再計算一致時だけ許可する。",
+        "既存aggregate recordへの任意choiceTextList、任意sourceUniqueKeys、questionBodyText又は他protected field変更は拒否する。",
+        "新規recordのserver-derived field契約、rollback、00_source immutability、二者ID-only review、one-attempt契約を退行させない。",
+        "資格コード、年度、question ID、source文言、特定filenameを条件にする分岐が存在しない。"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "git diff --check"
+      ],
+      "stop_if": [
+        "allowed_files外のproduction codeが必要になる。",
+        "資格、年度、question ID、source phrase又は特定patch filenameへの例外が必要になる。",
+        "共有fileのwriter境界を全child/processで保証できず、in-memory lockだけに依存する。",
+        "source sliceとstable keyの再計算なしに既存protected fieldを許可する必要がある。",
+        "同一recordの競合又はrollback/readback不一致をfail closedにできない。",
+        "00_source又はFirestoreを変更・呼出しする必要がある。",
+        "同じ未解決原因で検証が2回失敗する。"
+      ]
+    },
+    "parallel_safety": {
+      "safe": false,
+      "reason": "transactionとrecord-scope検証を同時に変更するため単独writerとし、別Worker又はlive rerunを並行させない。"
+    },
+    "blocked_tasks": [
+      "下流の正誤確定",
+      "解説整備",
+      "questionSet割当",
+      "公開前gate",
+      "Firestore公開",
+      "T999 final audit"
+    ],
+    "missing_evidence": [
+      "資格共通修正のfocused regression pass",
+      "共有fileと既存record guardを含むfresh canary",
+      "修正後fresh 1044-question trialのinvalid 0証拠",
+      "公開前dry-runと限定公開readback"
+    ],
+    "required_board_updates": [
+      "T049をdoneとして本receiptを記録する。",
+      "next_allowed_taskを変更せず資格共通Workerとして新規activateする。",
+      "Worker完了後はfresh canary Judge gate、その後fresh 1044-question rerunをqueueする。",
+      "invalid 0のfull rerun receiptまで下流taskとT999をblocked又はqueuedのまま保持する。"
+    ]
+  }
+}
