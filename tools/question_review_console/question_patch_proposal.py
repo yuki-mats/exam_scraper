@@ -362,16 +362,27 @@ class IsolatedQuestionPatchWorkspace:
             raise QuestionPatchProposalError(
                 "正本反映に完全なsource identityが必要です。"
             )
-        relative_paths = [
-            _safe_relative(self.repo_root, value) for value in changed_paths
-        ]
-        canonical_paths = [self.repo_root / value for value in relative_paths]
-        with _canonical_file_locks(self.repo_root, canonical_paths):
-            return self._rebase_locked(
-                relative_paths,
+        with self.canonical_transaction(changed_paths) as transaction:
+            return transaction.rebase(
                 binding=binding,
                 aliases_by_path=aliases_by_path,
             )
+
+    @contextmanager
+    def canonical_transaction(
+        self,
+        changed_paths: list[Path] | tuple[Path, ...] | set[Path],
+    ):
+        """Hold canonical file locks for the caller's complete transaction."""
+
+        relative_paths = tuple(
+            _safe_relative(self.repo_root, value) for value in changed_paths
+        )
+        if any(path not in self.mutable_paths for path in relative_paths):
+            raise QuestionPatchProposalError("可変範囲外のfileは反映できません。")
+        canonical_paths = [self.repo_root / value for value in relative_paths]
+        with _canonical_file_locks(self.repo_root, canonical_paths):
+            yield LockedCanonicalPatchTransaction(self, relative_paths)
 
     def _rebase_locked(
         self,
@@ -488,6 +499,24 @@ def copy_payload_shape(payload: Any) -> Any:
                 return shaped
         return {}
     raise QuestionPatchProposalError("patchの形式を引き継げません。")
+
+
+@dataclass(frozen=True)
+class LockedCanonicalPatchTransaction:
+    workspace: IsolatedQuestionPatchWorkspace
+    changed_paths: tuple[Path, ...]
+
+    def rebase(
+        self,
+        *,
+        binding: SourceIdentityBinding,
+        aliases_by_path: Mapping[str, list[list[str]]],
+    ) -> list[str]:
+        return self.workspace._rebase_locked(
+            list(self.changed_paths),
+            binding=binding,
+            aliases_by_path=aliases_by_path,
+        )
 
 
 def _canonical_bytes(value: Mapping[str, Any]) -> bytes:

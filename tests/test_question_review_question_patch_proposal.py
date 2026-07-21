@@ -1,4 +1,5 @@
 import json
+import multiprocessing
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,62 @@ from tools.question_review_console.question_patch_proposal import (
     QuestionPatchProposalError,
     QuestionPatchProposalStore,
 )
+
+
+def _process_rebase_with_validation_barrier(
+    workspace,
+    binding_payload,
+    aliases_by_path,
+    attempting,
+    post_write,
+    release_validation,
+    results,
+):
+    attempting.set()
+    binding = SourceIdentityBinding.from_mapping(binding_payload)
+    try:
+        with workspace.canonical_transaction(
+            workspace.changed_paths()
+        ) as transaction:
+            changed = transaction.rebase(
+                binding=binding,
+                aliases_by_path=aliases_by_path,
+            )
+            post_write.set()
+            if not release_validation.wait(10):
+                raise RuntimeError("validation barrier timeout")
+        results.put(("done", changed))
+    except Exception as exc:  # noqa: BLE001
+        results.put(("error", str(exc)))
+
+
+def _process_rebase_then_rollback_at_validation_barrier(
+    workspace,
+    binding_payload,
+    aliases_by_path,
+    attempting,
+    post_write,
+    release_validation,
+    rollback_bytes,
+    results,
+):
+    attempting.set()
+    binding = SourceIdentityBinding.from_mapping(binding_payload)
+    try:
+        with workspace.canonical_transaction(
+            workspace.changed_paths()
+        ) as transaction:
+            changed = transaction.rebase(
+                binding=binding,
+                aliases_by_path=aliases_by_path,
+            )
+            post_write.set()
+            if not release_validation.wait(10):
+                raise RuntimeError("validation barrier timeout")
+            (workspace.repo_root / changed[0]).write_bytes(rollback_bytes)
+        results.put(("rolled_back", changed))
+    except Exception as exc:  # noqa: BLE001
+        results.put(("error", str(exc)))
 
 
 class QuestionPatchProposalStoreTests(unittest.TestCase):
@@ -201,6 +258,210 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
         self.assertEqual(
             [record["explanationText"] for record in result],
             ["candidate-1", "candidate-2"],
+        )
+
+    def test_process_transactions_serialize_through_validation_barrier(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("output/sample/questions_json/group/patch.json")
+            canonical = root / relative
+            canonical.parent.mkdir(parents=True)
+            records = [
+                self._record("q1", "before-1"),
+                self._record("q2", "before-2"),
+            ]
+            canonical.write_text(json.dumps(records), encoding="utf-8")
+            workspaces = []
+            for index in range(2):
+                workspace = IsolatedQuestionPatchWorkspace.create(
+                    root,
+                    root / f"output/question_review_console/process-{index}",
+                    qualification="sample",
+                    mutable_paths=[relative.as_posix()],
+                )
+                candidate_path = workspace.root / relative
+                candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+                candidate[index]["explanationText"] = f"process-{index + 1}"
+                candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+                workspaces.append(workspace)
+
+            context = multiprocessing.get_context("spawn")
+            results = context.Queue()
+            attempting = [context.Event(), context.Event()]
+            post_write = [context.Event(), context.Event()]
+            releases = [context.Event(), context.Event()]
+            processes = []
+            for index in range(2):
+                binding = SourceIdentityBinding.from_mapping(records[index])
+                process = context.Process(
+                    target=_process_rebase_with_validation_barrier,
+                    args=(
+                        workspaces[index],
+                        records[index],
+                        {relative.as_posix(): [list(binding.as_tuple())]},
+                        attempting[index],
+                        post_write[index],
+                        releases[index],
+                        results,
+                    ),
+                )
+                processes.append(process)
+
+            processes[0].start()
+            self.assertTrue(post_write[0].wait(10))
+            processes[1].start()
+            self.assertTrue(attempting[1].wait(10))
+            self.assertFalse(post_write[1].wait(0.3))
+            releases[0].set()
+            self.assertTrue(post_write[1].wait(10))
+            releases[1].set()
+            for process in processes:
+                process.join(10)
+                self.assertEqual(process.exitcode, 0)
+            outcomes = sorted(results.get(timeout=2) for _ in processes)
+            final_records = json.loads(canonical.read_text(encoding="utf-8"))
+
+        self.assertEqual([outcome[0] for outcome in outcomes], ["done", "done"])
+        self.assertEqual(
+            [record["explanationText"] for record in final_records],
+            ["process-1", "process-2"],
+        )
+
+    def test_process_transactions_fail_closed_on_same_record_conflict(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("output/sample/questions_json/group/patch.json")
+            canonical = root / relative
+            canonical.parent.mkdir(parents=True)
+            record = self._record("q1", "before")
+            canonical.write_text(json.dumps([record]), encoding="utf-8")
+            workspaces = []
+            for index in range(2):
+                workspace = IsolatedQuestionPatchWorkspace.create(
+                    root,
+                    root / f"output/question_review_console/conflict-{index}",
+                    qualification="sample",
+                    mutable_paths=[relative.as_posix()],
+                )
+                candidate_path = workspace.root / relative
+                candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+                candidate[0]["explanationText"] = f"process-{index + 1}"
+                candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+                workspaces.append(workspace)
+
+            context = multiprocessing.get_context("spawn")
+            results = context.Queue()
+            binding = SourceIdentityBinding.from_mapping(record)
+            aliases = {relative.as_posix(): [list(binding.as_tuple())]}
+            events = [
+                (context.Event(), context.Event(), context.Event())
+                for _ in range(2)
+            ]
+            processes = [
+                context.Process(
+                    target=_process_rebase_with_validation_barrier,
+                    args=(
+                        workspaces[index],
+                        record,
+                        aliases,
+                        *events[index],
+                        results,
+                    ),
+                )
+                for index in range(2)
+            ]
+            processes[0].start()
+            self.assertTrue(events[0][1].wait(10))
+            processes[1].start()
+            self.assertTrue(events[1][0].wait(10))
+            self.assertFalse(events[1][1].wait(0.3))
+            events[0][2].set()
+            for process in processes:
+                process.join(10)
+                self.assertEqual(process.exitcode, 0)
+            outcomes = [results.get(timeout=2) for _ in processes]
+            final_record = json.loads(canonical.read_text(encoding="utf-8"))[0]
+
+        self.assertEqual(sorted(outcome[0] for outcome in outcomes), ["done", "error"])
+        self.assertTrue(
+            any("準備後に対象recordが更新" in outcome[1] for outcome in outcomes)
+        )
+        self.assertEqual(final_record["explanationText"], "process-1")
+
+    def test_process_rollback_finishes_before_another_record_can_commit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("output/sample/questions_json/group/patch.json")
+            canonical = root / relative
+            canonical.parent.mkdir(parents=True)
+            records = [
+                self._record("q1", "before-1"),
+                self._record("q2", "before-2"),
+            ]
+            canonical.write_text(json.dumps(records), encoding="utf-8")
+            baseline_bytes = canonical.read_bytes()
+            workspaces = []
+            for index in range(2):
+                workspace = IsolatedQuestionPatchWorkspace.create(
+                    root,
+                    root / f"output/question_review_console/rollback-{index}",
+                    qualification="sample",
+                    mutable_paths=[relative.as_posix()],
+                )
+                candidate_path = workspace.root / relative
+                candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+                candidate[index]["explanationText"] = f"process-{index + 1}"
+                candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+                workspaces.append(workspace)
+
+            context = multiprocessing.get_context("spawn")
+            results = context.Queue()
+            events = [
+                (context.Event(), context.Event(), context.Event())
+                for _ in range(2)
+            ]
+            bindings = [
+                SourceIdentityBinding.from_mapping(record) for record in records
+            ]
+            first = context.Process(
+                target=_process_rebase_then_rollback_at_validation_barrier,
+                args=(
+                    workspaces[0],
+                    records[0],
+                    {relative.as_posix(): [list(bindings[0].as_tuple())]},
+                    *events[0],
+                    baseline_bytes,
+                    results,
+                ),
+            )
+            second = context.Process(
+                target=_process_rebase_with_validation_barrier,
+                args=(
+                    workspaces[1],
+                    records[1],
+                    {relative.as_posix(): [list(bindings[1].as_tuple())]},
+                    *events[1],
+                    results,
+                ),
+            )
+            first.start()
+            self.assertTrue(events[0][1].wait(10))
+            second.start()
+            self.assertTrue(events[1][0].wait(10))
+            self.assertFalse(events[1][1].wait(0.3))
+            events[0][2].set()
+            self.assertTrue(events[1][1].wait(10))
+            events[1][2].set()
+            for process in (first, second):
+                process.join(10)
+                self.assertEqual(process.exitcode, 0)
+            outcomes = sorted(results.get(timeout=2)[0] for _ in range(2))
+            final_records = json.loads(canonical.read_text(encoding="utf-8"))
+
+        self.assertEqual(outcomes, ["done", "rolled_back"])
+        self.assertEqual(
+            [record["explanationText"] for record in final_records],
+            ["before-1", "process-2"],
         )
 
     def test_rejects_same_record_changed_after_workspace_snapshot(self) -> None:

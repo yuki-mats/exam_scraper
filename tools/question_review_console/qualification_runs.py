@@ -8993,95 +8993,106 @@ class QualificationRunCoordinator:
                         )
                         continue
                     with self._question_patch_commit_lock:
-                        transaction_roots = [
-                            *(self.repo_root / value for value in candidate_paths),
-                            *(
-                                self.work_versions.path_for(
-                                    qualification,
-                                    str(group_id),
-                                )
-                                for group_id in question_plan.get("targetGroupIds") or []
-                            ),
-                        ]
-                        baseline_path = self.store.write_baseline(
-                            qualification,
-                            run_id,
-                            tuple(dict.fromkeys(transaction_roots)),
-                        )
-                        self.store.update(
-                            qualification,
-                            run_id,
-                            candidateTransactionOpen=True,
-                        )
-                        transaction_open = True
-                        baseline_payload = json.loads(
-                            baseline_path.read_text(encoding="utf-8")
-                        )
-                        try:
-                            committed = set(
-                                workspace.rebase_into_canonical(
-                                    sorted(candidate_paths),
-                                    binding=binding,
-                                    aliases_by_path=scopes,
-                                )
-                            )
-                            committed_paths = {Path(value) for value in committed}
-                            self._validate_record_scope(
+                        with workspace.canonical_transaction(
+                            sorted(candidate_paths)
+                        ) as canonical_transaction:
+                            transaction_roots = [
+                                *(self.repo_root / value for value in candidate_paths),
+                                *(
+                                    self.work_versions.path_for(
+                                        qualification,
+                                        str(group_id),
+                                    )
+                                    for group_id in question_plan.get("targetGroupIds")
+                                    or []
+                                ),
+                            ]
+                            baseline_path = self.store.write_baseline(
                                 qualification,
                                 run_id,
-                                question_plan,
-                                committed_paths,
-                                baseline_payload=baseline_payload,
+                                tuple(dict.fromkeys(transaction_roots)),
                             )
-                            commands.append(
-                                {"command": "record scope", "status": "pass"}
+                            self.store.update(
+                                qualification,
+                                run_id,
+                                candidateTransactionOpen=True,
                             )
-                            self._check_source_immutability(
-                                emit,
-                                source_files=[
-                                    str(value)
-                                    for value in question_plan.get("sourceFiles") or []
-                                ],
+                            transaction_open = True
+                            baseline_payload = json.loads(
+                                baseline_path.read_text(encoding="utf-8")
                             )
-                            commands.append(
-                                {
-                                    "command": "00_source immutability",
-                                    "status": "pass",
+                            try:
+                                committed = set(
+                                    canonical_transaction.rebase(
+                                        binding=binding,
+                                        aliases_by_path=scopes,
+                                    )
+                                )
+                                committed_paths = {
+                                    Path(value) for value in committed
                                 }
-                            )
-                            work_version_receipt = self._record_work_versions(
-                                question_plan
-                            )
-                        except Exception:
-                            rollback = self.store.rollback_baseline(
-                                qualification,
-                                run_id,
-                            )
-                            if not rollback or rollback.get("status") != "succeeded":
-                                pipeline_stop.set()
-                                raise QualificationRunError(
-                                    "問題別反映のrollbackを確認できません。"
+                                self._validate_record_scope(
+                                    qualification,
+                                    run_id,
+                                    question_plan,
+                                    committed_paths,
+                                    baseline_payload=baseline_payload,
                                 )
-                            transaction_open = False
-                            raise
-                    checkpoint_question(
-                        {
-                            "questionId": question_id,
-                            "status": "succeeded",
-                            "summary": candidate.summary,
-                            "aggregateAnswerReview": aggregate_review_evidence,
-                            "commands": commands,
-                            "changedFiles": sorted(committed),
-                            "workVersionReceipt": work_version_receipt,
-                        },
-                        work_version_receipt,
-                    )
-                    committed_files.update(committed)
-                    transaction_open = False
-                    self.store.discard_baseline_backups(
-                        qualification,
-                        run_id,
-                    )
+                                commands.append(
+                                    {"command": "record scope", "status": "pass"}
+                                )
+                                self._check_source_immutability(
+                                    emit,
+                                    source_files=[
+                                        str(value)
+                                        for value in question_plan.get("sourceFiles")
+                                        or []
+                                    ],
+                                )
+                                commands.append(
+                                    {
+                                        "command": "00_source immutability",
+                                        "status": "pass",
+                                    }
+                                )
+                                work_version_receipt = self._record_work_versions(
+                                    question_plan
+                                )
+                                checkpoint_question(
+                                    {
+                                        "questionId": question_id,
+                                        "status": "succeeded",
+                                        "summary": candidate.summary,
+                                        "aggregateAnswerReview": (
+                                            aggregate_review_evidence
+                                        ),
+                                        "commands": commands,
+                                        "changedFiles": sorted(committed),
+                                        "workVersionReceipt": work_version_receipt,
+                                    },
+                                    work_version_receipt,
+                                )
+                                committed_files.update(committed)
+                                self.store.discard_baseline_backups(
+                                    qualification,
+                                    run_id,
+                                )
+                                transaction_open = False
+                            except Exception:
+                                rollback = self.store.rollback_baseline(
+                                    qualification,
+                                    run_id,
+                                )
+                                if (
+                                    not rollback
+                                    or rollback.get("status") != "succeeded"
+                                ):
+                                    pipeline_stop.set()
+                                    raise QualificationRunError(
+                                        "問題別反映のrollbackを確認できません。"
+                                    )
+                                transaction_open = False
+                                raise
                 except Exception as exc:  # noqa: BLE001
                     if transaction_open:
                         rollback = self.store.rollback_baseline(
@@ -11736,9 +11747,7 @@ class QualificationRunCoordinator:
                     )
                     and is_approved_target(decomposition, source_text)
                 ):
-                    derived_aliases = set(
-                        after_fields.get("sourceUniqueKeys") or []
-                    )
+                    derived_keys = after_fields.get("sourceUniqueKeys")
                     source_parent_identities = {
                         json.dumps(
                             contract(entry).get(
@@ -11760,14 +11769,12 @@ class QualificationRunCoordinator:
                     source_parent_identity = json.loads(
                         next(iter(source_parent_identities))
                     )
-                    expected_derived_aliases = set(
-                        derived_source_unique_keys_for_parent(
-                            str(source_parent_identity["value"]),
-                            source_text,
-                            decomposition,
-                        )
+                    expected_derived_keys = derived_source_unique_keys_for_parent(
+                        str(source_parent_identity["value"]),
+                        source_text,
+                        decomposition,
                     )
-                    if derived_aliases != expected_derived_aliases:
+                    if derived_keys != expected_derived_keys:
                         raise QualificationRunError(
                             f"派生sourceUniqueKeysを再現できません: {relative}"
                         )
@@ -11776,9 +11783,7 @@ class QualificationRunCoordinator:
                             source_text,
                             decomposition,
                         ),
-                        "sourceUniqueKeys": list(
-                            after_fields.get("sourceUniqueKeys") or []
-                        ),
+                        "sourceUniqueKeys": expected_derived_keys,
                     }
                 if before_identity is not None:
                     if after_identity != before_identity:

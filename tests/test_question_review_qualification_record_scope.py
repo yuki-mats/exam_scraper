@@ -251,14 +251,18 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             stage_id="question_type",
         )
 
-        for field, arbitrary in (
-            ("choiceTextList", ["generated text"]),
-            ("sourceUniqueKeys", ["arbitrary-key"]),
-            ("questionBodyText", "changed source"),
+        expected_keys = derived["sourceUniqueKeys"]
+        for label, field, arbitrary in (
+            ("choice", "choiceTextList", ["generated text"]),
+            ("keys-reversed", "sourceUniqueKeys", list(reversed(expected_keys))),
+            ("keys-duplicated", "sourceUniqueKeys", [*expected_keys, expected_keys[0]]),
+            ("keys-missing", "sourceUniqueKeys", expected_keys[:-1]),
+            ("keys-added", "sourceUniqueKeys", [*expected_keys, "arbitrary-key"]),
+            ("body", "questionBodyText", "changed source"),
         ):
             invalid = dict(after_record)
             invalid[field] = arbitrary
-            with self.subTest(field=field), self.assertRaises(QualificationRunError):
+            with self.subTest(case=label), self.assertRaises(QualificationRunError):
                 self._validate_record_scope_change(
                     patch_relative,
                     before,
