@@ -3522,6 +3522,115 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [issue["code"] for issue in feedback["issues"]],
         )
 
+    def test_failed_rollback_retries_only_inside_canonical_transaction(self):
+        patch_relative = (
+            "output/new-exam/questions_json/2026/10_questionType_fixed/"
+            "question_2026_1_questionType_fixed.json"
+        )
+        question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            changed_files_by_work_item={
+                (question_id, "question_type"): [patch_relative]
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 1)
+            original_rollback = coordinator.store.rollback_baseline
+            rollback_calls = 0
+
+            def failed_then_succeeded(*args, **kwargs):
+                nonlocal rollback_calls
+                rollback_calls += 1
+                if rollback_calls == 1:
+                    return {
+                        "status": "failed",
+                        "remainingChangedFiles": [patch_relative],
+                        "deltaUnknown": False,
+                    }
+                return original_rollback(*args, **kwargs)
+
+            with patch.object(
+                coordinator,
+                "_validate_record_scope",
+                side_effect=OSError("record scope unavailable"),
+            ), patch.object(
+                coordinator.store,
+                "rollback_baseline",
+                side_effect=failed_then_succeeded,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(rollback_calls, 2)
+        self.assertFalse((root / patch_relative).exists())
+
+    def test_terminal_rollback_failure_never_retries_outside_lock(self):
+        patch_relative = (
+            "output/new-exam/questions_json/2026/10_questionType_fixed/"
+            "question_2026_1_questionType_fixed.json"
+        )
+        question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            changed_files_by_work_item={
+                (question_id, "question_type"): [patch_relative]
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 1)
+            rollback_calls = 0
+
+            def failed_rollback(*_args, **_kwargs):
+                nonlocal rollback_calls
+                rollback_calls += 1
+                return {
+                    "status": "failed",
+                    "remainingChangedFiles": [patch_relative],
+                    "deltaUnknown": False,
+                }
+
+            with patch.object(
+                coordinator,
+                "_validate_record_scope",
+                side_effect=OSError("record scope unavailable"),
+            ), patch.object(
+                coordinator.store,
+                "rollback_baseline",
+                side_effect=failed_rollback,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            child = coordinator.store.get(
+                "new-exam",
+                completed["childRunIds"][0],
+            )
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(rollback_calls, 2)
+        self.assertEqual(child["status"], "failed")
+        self.assertEqual(child["rollback"]["status"], "failed")
+        self.assertTrue(child["deltaUnknown"])
+
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

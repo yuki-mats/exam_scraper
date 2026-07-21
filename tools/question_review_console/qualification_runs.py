@@ -558,6 +558,10 @@ class QualificationRunError(RuntimeError):
     pass
 
 
+class CanonicalTransactionRollbackError(QualificationRunError):
+    pass
+
+
 def normalize_question_concurrency(value: Any) -> int:
     if isinstance(value, bool):
         raise QualificationRunError(
@@ -9007,21 +9011,43 @@ class QualificationRunCoordinator:
                                     or []
                                 ),
                             ]
-                            baseline_path = self.store.write_baseline(
-                                qualification,
-                                run_id,
-                                tuple(dict.fromkeys(transaction_roots)),
-                            )
-                            self.store.update(
-                                qualification,
-                                run_id,
-                                candidateTransactionOpen=True,
-                            )
-                            transaction_open = True
-                            baseline_payload = json.loads(
-                                baseline_path.read_text(encoding="utf-8")
-                            )
+                            expected_baseline_states = {}
+                            for path in candidate_paths:
+                                canonical_path = self.repo_root / path
+                                if not canonical_path.exists():
+                                    expected_baseline_states[path.as_posix()] = {
+                                        "kind": "missing"
+                                    }
+                                elif (
+                                    canonical_path.is_file()
+                                    and not canonical_path.is_symlink()
+                                ):
+                                    expected_baseline_states[path.as_posix()] = {
+                                        "kind": "file",
+                                        "sha256": hashlib.sha256(
+                                            canonical_path.read_bytes()
+                                        ).hexdigest(),
+                                    }
+                                else:
+                                    raise QualificationRunError(
+                                        "canonical transaction対象が通常fileでは"
+                                        f"ありません: {path}"
+                                    )
                             try:
+                                baseline_path = self.store.write_baseline(
+                                    qualification,
+                                    run_id,
+                                    tuple(dict.fromkeys(transaction_roots)),
+                                )
+                                self.store.update(
+                                    qualification,
+                                    run_id,
+                                    candidateTransactionOpen=True,
+                                )
+                                transaction_open = True
+                                baseline_payload = json.loads(
+                                    baseline_path.read_text(encoding="utf-8")
+                                )
                                 committed = set(
                                     canonical_transaction.rebase(
                                         binding=binding,
@@ -9078,33 +9104,44 @@ class QualificationRunCoordinator:
                                     run_id,
                                 )
                                 transaction_open = False
-                            except Exception:
-                                rollback = self.store.rollback_baseline(
-                                    qualification,
-                                    run_id,
-                                )
-                                if (
-                                    not rollback
-                                    or rollback.get("status") != "succeeded"
-                                ):
-                                    pipeline_stop.set()
-                                    raise QualificationRunError(
-                                        "問題別反映のrollbackを確認できません。"
-                                    )
+                            except Exception as transaction_exc:
+                                rollback_succeeded = not transaction_open
+                                if transaction_open:
+                                    for _attempt in range(2):
+                                        try:
+                                            rollback = self.store.rollback_baseline(
+                                                qualification,
+                                                run_id,
+                                            )
+                                        except Exception:  # noqa: BLE001
+                                            rollback = None
+                                        if (
+                                            rollback
+                                            and rollback.get("status") == "succeeded"
+                                        ):
+                                            rollback_succeeded = True
+                                            break
                                 transaction_open = False
+                                if not rollback_succeeded:
+                                    canonical_transaction.mark_poisoned(
+                                        "rollback verification failed",
+                                        expected_baseline_states,
+                                    )
+                                    pipeline_stop.set()
+                                    raise CanonicalTransactionRollbackError(
+                                        "canonical lock内で問題別反映のrollbackを"
+                                        "確認できません。"
+                                    ) from transaction_exc
                                 raise
+                except CanonicalTransactionRollbackError:
+                    raise
                 except Exception as exc:  # noqa: BLE001
                     if transaction_open:
-                        rollback = self.store.rollback_baseline(
-                            qualification,
-                            run_id,
-                        )
-                        if not rollback or rollback.get("status") != "succeeded":
-                            pipeline_stop.set()
-                            raise QualificationRunError(
-                                "問題別checkpoint失敗後のrollbackを確認できません。"
-                            ) from exc
                         transaction_open = False
+                        pipeline_stop.set()
+                        raise QualificationRunError(
+                            "canonical lock外へ未完了transactionが漏れました。"
+                        ) from exc
                     checkpoint_question(
                         {
                             "questionId": question_id,
@@ -9247,6 +9284,10 @@ class QualificationRunCoordinator:
                 "child": refreshed,
             }
         except Exception as exc:  # noqa: BLE001
+            rollback_failed = isinstance(
+                exc,
+                CanonicalTransactionRollbackError,
+            )
             self.store.write_result(
                 qualification,
                 run_id,
@@ -9264,13 +9305,17 @@ class QualificationRunCoordinator:
                 status="failed",
                 receiptValidated=False,
                 rollback={
-                    "status": "succeeded",
+                    "status": "failed" if rollback_failed else "succeeded",
                     "restoredFiles": [],
                     "remainingChangedFiles": [],
-                    "deltaUnknown": False,
-                    "message": "構造化候補を破棄し、未確定patchは残していません。",
+                    "deltaUnknown": rollback_failed,
+                    "message": (
+                        "canonical lock内のrollbackを完了できないため停止しました。"
+                        if rollback_failed
+                        else "構造化候補を破棄し、未確定patchは残していません。"
+                    ),
                 },
-                deltaUnknown=False,
+                deltaUnknown=rollback_failed,
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
                 unsafeChangedFiles=[],

@@ -1,3 +1,4 @@
+import hashlib
 import json
 import multiprocessing
 import tempfile
@@ -45,6 +46,7 @@ def _process_rebase_then_rollback_at_validation_barrier(
     aliases_by_path,
     attempting,
     post_write,
+    first_rollback_failed,
     release_validation,
     rollback_bytes,
     results,
@@ -60,10 +62,57 @@ def _process_rebase_then_rollback_at_validation_barrier(
                 aliases_by_path=aliases_by_path,
             )
             post_write.set()
+            first_rollback_failed.set()
             if not release_validation.wait(10):
                 raise RuntimeError("validation barrier timeout")
             (workspace.repo_root / changed[0]).write_bytes(rollback_bytes)
         results.put(("rolled_back", changed))
+    except Exception as exc:  # noqa: BLE001
+        results.put(("error", str(exc)))
+
+
+def _process_rebase_with_terminal_rollback_failure(
+    workspace,
+    binding_payload,
+    aliases_by_path,
+    attempting,
+    post_write,
+    terminal_failure_confirmed,
+    release_lock,
+    results,
+):
+    attempting.set()
+    binding = SourceIdentityBinding.from_mapping(binding_payload)
+    try:
+        with workspace.canonical_transaction(
+            workspace.changed_paths()
+        ) as transaction:
+            changed = transaction.rebase(
+                binding=binding,
+                aliases_by_path=aliases_by_path,
+            )
+            post_write.set()
+            terminal_failure_confirmed.set()
+            if not release_lock.wait(10):
+                raise RuntimeError("terminal rollback barrier timeout")
+            expected_states = {
+                path.as_posix(): (
+                    {"kind": "missing"}
+                    if workspace.initial_bytes[path] is None
+                    else {
+                        "kind": "file",
+                        "sha256": hashlib.sha256(
+                            workspace.initial_bytes[path]
+                        ).hexdigest(),
+                    }
+                )
+                for path in transaction.changed_paths
+            }
+            transaction.mark_poisoned(
+                "rollback verification failed",
+                expected_states,
+            )
+        results.put(("terminal", changed))
     except Exception as exc:  # noqa: BLE001
         results.put(("error", str(exc)))
 
@@ -416,10 +465,8 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
 
             context = multiprocessing.get_context("spawn")
             results = context.Queue()
-            events = [
-                (context.Event(), context.Event(), context.Event())
-                for _ in range(2)
-            ]
+            first_events = tuple(context.Event() for _ in range(4))
+            second_events = tuple(context.Event() for _ in range(3))
             bindings = [
                 SourceIdentityBinding.from_mapping(record) for record in records
             ]
@@ -429,7 +476,7 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
                     workspaces[0],
                     records[0],
                     {relative.as_posix(): [list(bindings[0].as_tuple())]},
-                    *events[0],
+                    *first_events,
                     baseline_bytes,
                     results,
                 ),
@@ -440,18 +487,19 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
                     workspaces[1],
                     records[1],
                     {relative.as_posix(): [list(bindings[1].as_tuple())]},
-                    *events[1],
+                    *second_events,
                     results,
                 ),
             )
             first.start()
-            self.assertTrue(events[0][1].wait(10))
+            self.assertTrue(first_events[1].wait(10))
+            self.assertTrue(first_events[2].wait(10))
             second.start()
-            self.assertTrue(events[1][0].wait(10))
-            self.assertFalse(events[1][1].wait(0.3))
-            events[0][2].set()
-            self.assertTrue(events[1][1].wait(10))
-            events[1][2].set()
+            self.assertTrue(second_events[0].wait(10))
+            self.assertFalse(second_events[1].wait(0.3))
+            first_events[3].set()
+            self.assertTrue(second_events[1].wait(10))
+            second_events[2].set()
             for process in (first, second):
                 process.join(10)
                 self.assertEqual(process.exitcode, 0)
@@ -463,6 +511,147 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
             [record["explanationText"] for record in final_records],
             ["before-1", "process-2"],
         )
+
+    def test_process_terminal_rollback_failure_has_no_late_restore(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("output/sample/questions_json/group/patch.json")
+            canonical = root / relative
+            canonical.parent.mkdir(parents=True)
+            records = [
+                self._record("q1", "before-1"),
+                self._record("q2", "committed-before"),
+            ]
+            canonical.write_text(json.dumps(records), encoding="utf-8")
+            workspaces = []
+            for index in range(2):
+                workspace = IsolatedQuestionPatchWorkspace.create(
+                    root,
+                    root / f"output/question_review_console/terminal-{index}",
+                    qualification="sample",
+                    mutable_paths=[relative.as_posix()],
+                )
+                candidate_path = workspace.root / relative
+                candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+                candidate[index]["explanationText"] = f"process-{index + 1}"
+                candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+                workspaces.append(workspace)
+
+            context = multiprocessing.get_context("spawn")
+            results = context.Queue()
+            first_events = tuple(context.Event() for _ in range(4))
+            second_events = tuple(context.Event() for _ in range(3))
+            bindings = [
+                SourceIdentityBinding.from_mapping(record) for record in records
+            ]
+            first = context.Process(
+                target=_process_rebase_with_terminal_rollback_failure,
+                args=(
+                    workspaces[0],
+                    records[0],
+                    {relative.as_posix(): [list(bindings[0].as_tuple())]},
+                    *first_events,
+                    results,
+                ),
+            )
+            second = context.Process(
+                target=_process_rebase_with_validation_barrier,
+                args=(
+                    workspaces[1],
+                    records[1],
+                    {relative.as_posix(): [list(bindings[1].as_tuple())]},
+                    *second_events,
+                    results,
+                ),
+            )
+            first.start()
+            self.assertTrue(first_events[1].wait(10))
+            self.assertTrue(first_events[2].wait(10))
+            second.start()
+            self.assertTrue(second_events[0].wait(10))
+            self.assertFalse(second_events[1].wait(0.3))
+            first_events[3].set()
+            for process in (first, second):
+                process.join(10)
+                self.assertEqual(process.exitcode, 0)
+            outcomes = [results.get(timeout=2) for _ in range(2)]
+            final_records = json.loads(canonical.read_text(encoding="utf-8"))
+
+        self.assertEqual(sorted(outcome[0] for outcome in outcomes), ["error", "terminal"])
+        self.assertTrue(
+            any("rollback未確認" in outcome[1] for outcome in outcomes)
+        )
+        self.assertEqual(
+            [record["explanationText"] for record in final_records],
+            ["process-1", "committed-before"],
+        )
+
+    def test_poison_clears_only_after_verified_baseline_repair(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            git_metadata = root / "git-metadata"
+            git_metadata.mkdir()
+            (root / ".git").write_text("gitdir: git-metadata\n", encoding="utf-8")
+            relative = Path("output/sample/questions_json/group/patch.json")
+            canonical = root / relative
+            canonical.parent.mkdir(parents=True)
+            record = self._record("q1", "before")
+            canonical.write_text(json.dumps([record]), encoding="utf-8")
+            baseline_bytes = canonical.read_bytes()
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root,
+                root / "output/question_review_console/poison-repair",
+                qualification="sample",
+                mutable_paths=[relative.as_posix()],
+            )
+            candidate_path = workspace.root / relative
+            candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+            candidate[0]["explanationText"] = "candidate"
+            candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+            binding = SourceIdentityBinding.from_mapping(record)
+            aliases = {relative.as_posix(): [list(binding.as_tuple())]}
+            expected_states = {
+                relative.as_posix(): {
+                    "kind": "file",
+                    "sha256": hashlib.sha256(baseline_bytes).hexdigest(),
+                }
+            }
+            with workspace.canonical_transaction(
+                workspace.changed_paths()
+            ) as transaction:
+                transaction.rebase(binding=binding, aliases_by_path=aliases)
+                transaction.mark_poisoned(
+                    "rollback verification failed",
+                    expected_states,
+                )
+            self.assertEqual(
+                len(list((git_metadata / "question-patch-locks").glob("*.poison.json"))),
+                1,
+            )
+
+            with self.assertRaisesRegex(
+                QuestionPatchProposalError,
+                "rollback未確認",
+            ):
+                with workspace.canonical_transaction(workspace.changed_paths()):
+                    pass
+            with self.assertRaisesRegex(
+                QuestionPatchProposalError,
+                "baseline復旧",
+            ):
+                workspace.clear_poison_after_verified_repair(
+                    workspace.changed_paths()
+                )
+
+            canonical.write_bytes(baseline_bytes)
+            workspace.clear_poison_after_verified_repair(
+                workspace.changed_paths()
+            )
+            self.assertFalse(
+                list((git_metadata / "question-patch-locks").glob("*.poison.json"))
+            )
+            with workspace.canonical_transaction(workspace.changed_paths()):
+                pass
 
     def test_rejects_same_record_changed_after_workspace_snapshot(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
