@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T051
+active_task: T052
 
 tasks:
   - id: T001
@@ -2684,7 +2684,7 @@ tasks:
   - id: T051
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T050の共通transaction・既存record派生field修正を監査し、資格固有例外なしでT048 invalid 25の両原因を解消する設計か判定する。承認時は、共有patch file内の異なるrecordと既存aggregate recordを同時に実証する最小fresh canary契約を確定する。"
     inputs:
@@ -2703,6 +2703,61 @@ tasks:
       - "Genericity and concurrency audit"
       - "Protected-field derivation audit"
       - "Exact fresh canary Worker package if approved"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "require_fix。資格固有分岐はないが、canonical file lockがrecord-scope検証とrollbackまで届かず、別process更新とのcollision又はlost updateが残る。sourceUniqueKeysもset比較のため順序変更と重複を拒否できない。fresh canaryは未承認とする。"
+      evidence:
+        - "rebaseのread、競合判定、atomic writeはOS flock内だが、その後のrecord-scope検証、00_source確認、work-version記録、rollbackはlock外にある。"
+        - "別processの別record更新がpost-write/pre-validation windowへ入ると、non-target collision又はsnapshot rollbackによる更新消失が可能である。"
+        - "追加試験は同一process内の逐次逆順commitであり、実processの競合windowを証明しない。"
+        - "sourceUniqueKeysはset比較のため逆順と重複が受理される。"
+        - "source snapshot、approved decomposition、exact source slice、stable parent identityによる再計算経路と、同一record fail-closed自体は確認した。"
+      blocked_tasks:
+        - "fresh canary"
+        - "fresh 1044-question full rerun"
+        - "下流工程、公開前gate、Firestore公開、T999 final audit"
+  - id: T052
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "資格共通のcanonical patch file lockをbaseline取得前からrebase、record-scope検証、00_source確認、work-version記録、成功確定又はrollback完了まで保持し、別processの異なるrecord更新を両方保持する。同一record競合はfail closedを維持する。既存aggregate recordのsourceUniqueKeysはstable parent identity、source snapshot、sourceHash付きapproved decomposition、exact source slicesから再計算した順序付きlistとの完全一致だけを許可し、並べ替え・重複も拒否する。"
+    inputs:
+      - "T051 require_fix receipt"
+      - "T050 commit ab6874450"
+      - "Current qualification-common transaction and record-scope code"
+    constraints:
+      - "Qualification-common implementation only; no qualification, year, question ID, source phrase, or filename exceptions."
+      - "Hold the same OS file locks across the complete canonical transaction, including validation and rollback."
+      - "Prove process-boundary behavior with actual separate processes, not sequential or thread-only tests."
+      - "Preserve 00_source immutability, no-Firestore, two-review ID-only, and one-attempt contracts."
+    expected_output:
+      - "Full transaction-scoped cross-process file locking"
+      - "Rollback that cannot erase another committed transaction"
+      - "Ordered exact sourceUniqueKeys guard"
+      - "Actual multi-process regression tests and focused verification receipt"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_patch_proposal.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_record_scope.py"
+      - "tests/test_question_review_question_patch_proposal.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "An allowed-files expansion is required."
+      - "A validation or rollback window remains outside the OS file lock."
+      - "Cross-process proof must be replaced by sequential or thread-only tests."
+      - "Rollback can overwrite another transaction's committed record."
+      - "sourceUniqueKeys values other than the ordered fully recomputed list must be allowed."
+      - "A qualification, year, question ID, source phrase, or filename exception is required."
+      - "00_source or Firestore would be changed or invoked."
+      - "The same unresolved verification cause fails twice."
     receipt: null
   - id: T999
     type: judge

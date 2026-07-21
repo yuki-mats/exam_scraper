@@ -1,0 +1,59 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T051",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "require_fix。資格固有分岐はなく107件・138件の現行suiteも通るが、canonical file lockはrebase完了時に解放され、record-scope検証とrollbackを保護しない。別processの別record更新がこの間に入るとcollision再発又はrollbackによるlost updateが可能である。またsourceUniqueKeysをset比較するため、順序変更と重複を完全再計算不一致として拒否できない。fresh canaryは未承認とする。",
+    "evidence": [
+      "commit ab6874450は指定4ファイルだけを変更し、対象production diffに資格、年度、question ID、source phrase、特定filenameの条件分岐はない。",
+      "OS flockはrebase_into_canonical内部だけを囲み、read、対象record競合判定、atomic write後に解放される。",
+      "baseline取得、record-scope検証、00_source確認、work-version記録、rollbackは同一processのthread lock内だがcanonical fileのOS flock外にある。",
+      "別processがrebase後・検証前に同じfileの別recordを更新するとnon-target差分になり得る。失敗時rollbackはfile snapshotを復元するため、その別processの確定更新を失う危険も残る。",
+      "追加試験は二workspaceを同一process内で逐次逆順commitするだけで、post-write/pre-validationのprocess競合windowを検証しない。",
+      "同一recordのworkspace snapshot後変更はfail closedを維持している。",
+      "sourceUniqueKeysは期待値とset比較し、許可値にafter側listを使うため、順序変更と重複を拒否できない。read-only診断でも双方が受理された。",
+      "source snapshot本文、sourceHash付きapproved decomposition、exact source slice、stable parent identityによるchoiceTextList再計算経路自体は確認できた。",
+      "focused 107 tests、expanded 138 tests、git diff --checkはpassした。"
+    ],
+    "next_allowed_task": {
+      "type": "worker",
+      "objective": "資格共通のcanonical patch file lockをbaseline取得前からrebase、record-scope検証、00_source確認、work-version記録、成功確定又はrollback完了まで保持し、別processの異なるrecord更新を両方保持する。同一record競合はfail closedを維持する。既存aggregate recordのsourceUniqueKeysはstable parent identity、source snapshot、sourceHash付きapproved decomposition、exact source slicesから再計算した順序付きlistとの完全一致だけを許可し、並べ替え・重複も拒否する。",
+      "allowed_files": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_patch_proposal.py",
+        "tests/test_question_review_qualification_runs.py",
+        "tests/test_question_review_qualification_record_scope.py",
+        "tests/test_question_review_question_patch_proposal.py"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py",
+        "git diff --check"
+      ],
+      "required_regression_tests": [
+        "別processの二transactionをbarrierでpost-write/pre-validation競合windowへ進入させ、同じcanonical fileの異なるrecord更新が双方成功して保持され、rollbackも発生しない。",
+        "別processが同一recordを競合更新した場合は一方をfail closedとし、確定済み更新をrollbackで失わない。",
+        "sourceUniqueKeysの逆順、重複、欠落、追加をすべて拒否し、完全再計算された順序付きlistだけを許可する。",
+        "choiceTextList、sourceHash、approved decomposition、exact source slice、stable parent identityの既存guardを維持する。"
+      ],
+      "stop_if": [
+        "allowed_files外のproduction codeが必要になる。",
+        "OS file lockをtransaction全体へ保持できず、検証又はrollbackに非保護windowが残る。",
+        "cross-process証明を逐次又はthread-only試験で代用する必要がある。",
+        "rollbackが別transactionの確定済みrecordを上書きし得る。",
+        "sourceUniqueKeysを順序付き完全再計算値以外で許可する必要がある。",
+        "資格、年度、question ID、source phrase又は特定filenameへの例外が必要になる。",
+        "00_source又はFirestoreを変更・呼出しする必要がある。",
+        "同じ未解決原因で検証が2回失敗する。"
+      ]
+    },
+    "blocked_tasks": [
+      "fresh canary",
+      "fresh 1044-question full rerun",
+      "下流工程、公開前gate、Firestore公開、T999 final audit"
+    ]
+  }
+}
