@@ -394,6 +394,50 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertFalse(quality_warnings[0]["blocksSync"])
         self.assertTrue(quality_warnings[0]["blocksPublish"])
 
+    def test_allows_single_choice_upload_ready_verdict_list(self):
+        document = {
+            "questionId": "doc1",
+            "originalQuestionBodyText": "問題文",
+            "questionSetId": "set1",
+            "questionText": "問題文",
+            "questionType": "single_choice",
+            "qualificationId": "sample",
+            "correctChoiceText": ["間違い", "正しい", "間違い"],
+            "explanationText": "基本解説",
+            "isOfficial": True,
+            "isDeleted": False,
+            "isChoiceOnly": False,
+            "isGroupable": False,
+            "questionTags": [],
+            "originalQuestionChoiceText": ["A", "B", "C"],
+        }
+
+        self.assertEqual(upload_document_required_warnings(document), [])
+
+    def test_rejects_single_choice_upload_ready_verdict_count_mismatch(self):
+        document = {
+            "questionId": "doc1",
+            "originalQuestionBodyText": "問題文",
+            "questionSetId": "set1",
+            "questionText": "問題文",
+            "questionType": "single_choice",
+            "qualificationId": "sample",
+            "correctChoiceText": ["正しい"],
+            "explanationText": "基本解説",
+            "isOfficial": True,
+            "isDeleted": False,
+            "isChoiceOnly": False,
+            "isGroupable": False,
+            "questionTags": [],
+            "originalQuestionChoiceText": ["A", "B", "C"],
+        }
+
+        warnings = upload_document_required_warnings(document)
+
+        self.assertEqual(
+            [warning["field"] for warning in warnings], ["correctChoiceText"]
+        )
+
     def test_reports_law_snapshot_verdict_mismatch_separately(self):
         warnings = law_audit_quality_warnings(
             {

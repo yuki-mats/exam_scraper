@@ -154,9 +154,23 @@ def upload_document_required_warnings(
     if is_choice_only and "explanationText" in document:
         add("explanationText", "isChoiceOnly=true documentにはexplanationTextを保存しません。")
 
-    if "correctChoiceText" in document and normalize_verdict(
-        document.get("correctChoiceText")
-    ) not in {"正しい", "間違い"}:
+    verdict = document.get("correctChoiceText")
+    original_choices = document.get("originalQuestionChoiceText")
+    if isinstance(verdict, list):
+        valid_verdict = bool(
+            verdict
+            and all(
+                normalize_verdict(value) in {"正しい", "間違い"}
+                for value in verdict
+            )
+            and (
+                not isinstance(original_choices, list)
+                or len(verdict) == len(original_choices)
+            )
+        )
+    else:
+        valid_verdict = normalize_verdict(verdict) in {"正しい", "間違い"}
+    if "correctChoiceText" in document and not valid_verdict:
         if not any(warning["field"] == "correctChoiceText" for warning in warnings):
             add("correctChoiceText", "upload-ready documentの正誤が不正です。")
 
