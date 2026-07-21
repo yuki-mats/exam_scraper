@@ -1,0 +1,53 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T054",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_patch_proposal.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_question_patch_proposal.py"
+    ],
+    "commands": [
+      {
+        "command": "Focused qualification transaction suite",
+        "status": "pass",
+        "summary": "114 tests passed"
+      },
+      {
+        "command": "Expanded aggregate review regression suite",
+        "status": "pass",
+        "summary": "145 tests passed"
+      },
+      {
+        "command": "Process transaction and qualification suites repeated three times",
+        "status": "pass",
+        "summary": "98 tests passed per completed run"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      },
+      {
+        "command": "Commit and push origin/main",
+        "status": "pass",
+        "summary": "49082ff92 fix(review): fail closed on rollback uncertainty"
+      }
+    ],
+    "summary": "rollbackは同一OS canonical file lock内で最大2回確認し、outer handlerからlock外rollback writeを除去した。2回とも復元を確認できない場合はchildをfailed、deltaUnknownとして停止し、対象fileごとのpoisonをrepoのGit metadata配下へ記録する。通常checkoutとworktreeのgitdir参照を解決し、process、再起動、temp cleanupを越えて保持する。poison中の後続transactionは拒否し、記録済みbaselineのmissing状態又はSHA-256へ明示復元したことを同じlock内で確認した場合だけ解除できる。spawn+barrierで初回rollback失敗中の待機、再試行復元後の異record保持、terminal時の後続拒否と既存確定record保持を証明した。資格、年度、question ID、source文言、特定filenameの例外は追加していない。",
+    "remaining_blockers": [
+      "Judgeによるlock外write除去、poison、復旧APIの再監査",
+      "共有patch fileと既存aggregate guardを同時に通すfresh canary",
+      "fresh 1044-question rerunのinvalid 0",
+      "下流工程、公開前gate、限定公開readback"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}
