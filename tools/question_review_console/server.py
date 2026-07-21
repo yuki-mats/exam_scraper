@@ -103,6 +103,7 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "scopeListGroupId",
     "scopeListGroupIds",
     "questionRange",
+    "questionIds",
     "selectedUpdateTargetIds",
     "selectedFieldsByStage",
     "jobId",
@@ -528,7 +529,12 @@ class QuestionReviewApplication:
                 stage_ids = list(dict.fromkeys(raw_stage_ids))
                 list_group_ids = _body_string_list(body, "listGroupIds")
                 update_target_ids = _body_string_list(body, "updateTargetIds")
+                question_ids = _body_string_list(body, "questionIds")
                 question_range = _body_question_range(body)
+                if question_ids is not None and question_range is not None:
+                    raise ValueError(
+                        "questionIdsとquestionRangeは同時に指定できません。"
+                    )
                 mode = str(body.get("mode") or "remaining")
                 if not stage_ids:
                     raise ValueError("stageIdsを一つ以上指定してください。")
@@ -545,6 +551,8 @@ class QuestionReviewApplication:
                     run_options["list_group_ids"] = list_group_ids
                 if update_target_ids is not None:
                     run_options["update_target_ids"] = update_target_ids
+                if question_ids is not None:
+                    run_options["question_ids"] = question_ids
                 if question_range is not None:
                     run_options["question_range"] = question_range
                 if path.endswith("/preview"):

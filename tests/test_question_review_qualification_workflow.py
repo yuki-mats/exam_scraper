@@ -107,6 +107,69 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_plan_selects_exact_question_ids_and_normalizes_order(self):
+        groups = [
+            {
+                "listGroupId": year,
+                "questions": [question(group=year, question_number=number) for number in (1, 2)],
+            }
+            for year in ("2025", "2026")
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", groups)
+            )
+            plan = workflow.plan(
+                "sample",
+                "question_type",
+                "group_refresh",
+                list_group_ids=["2025", "2026"],
+                question_ids=["sample-2026-q2", "sample-2025-q1", "sample-2026-q2"],
+            )
+
+        self.assertEqual(plan["questionIds"], ["sample-2026-q2", "sample-2025-q1"])
+        self.assertEqual(
+            {target["id"] for target in plan["progressTargets"]},
+            {"sample-2026-q2", "sample-2025-q1"},
+        )
+
+    def test_plan_rejects_unknown_or_cross_group_question_id(self):
+        groups = [
+            {"listGroupId": year, "questions": [question(group=year)]}
+            for year in ("2025", "2026")
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", groups)
+            )
+            for question_id in ("missing", "sample-2025-q1"):
+                with self.subTest(question_id=question_id), self.assertRaisesRegex(
+                    ValueError, "選択したlistGroupIds"
+                ):
+                    workflow.plan(
+                        "sample",
+                        "question_type",
+                        "group_refresh",
+                        list_group_ids=["2026"],
+                        question_ids=[question_id],
+                    )
+
+    def test_plan_rejects_question_ids_with_question_range(self):
+        group = {"listGroupId": "2026", "questions": [question()]}
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", [group])
+            )
+            with self.assertRaisesRegex(ValueError, "同時に指定"):
+                workflow.plan(
+                    "sample",
+                    "question_type",
+                    "group_refresh",
+                    list_group_ids=["2026"],
+                    question_ids=["sample-2026-q1"],
+                    question_range={"start": 1, "end": 1},
+                )
+
     def test_plan_filters_same_question_range_per_year_and_selected_fields(self):
         groups = [
             {

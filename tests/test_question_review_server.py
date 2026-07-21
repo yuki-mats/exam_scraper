@@ -470,6 +470,7 @@ class QuestionReviewServerTests(unittest.TestCase):
             "targetCount": 58,
             "workItemCount": 406,
             "stageIds": ["explanation"],
+            "questionIds": ["q2", "q1"],
             "jobId": "job-1",
             "technicalLogPath": "internal/technical_log.jsonl",
             "queueStatus": "partial",
@@ -530,6 +531,8 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(summary["workItemCount"], 406)
         self.assertEqual(summary["queueStatus"], "partial")
         self.assertEqual(summary["pauseKind"], "external_provider")
+        self.assertEqual(summary["questionIds"], ["q2", "q1"])
+        self.assertEqual(payload["activeRun"]["questionIds"], ["q2", "q1"])
         self.assertEqual(summary["blockedQuestionCount"], 1)
         self.assertEqual(
             summary["questionExecutionSummary"]["validatedQuestionCount"],
@@ -705,12 +708,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 list_group_ids=None,
                 update_target_ids=None,
                 question_range=None,
+                question_ids=None,
                 resumed_from=None,
                 question_concurrency=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_range = question_range
+                self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 return {
                     "qualification": qualification,
@@ -730,12 +735,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 list_group_ids=None,
                 update_target_ids=None,
                 question_range=None,
+                question_ids=None,
                 resumed_from=None,
                 question_concurrency=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_range = question_range
+                self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
@@ -814,6 +821,42 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(progress["questions"], [])
         self.assertTrue(detailed_progress["questionsIncluded"])
         self.assertEqual(detailed_progress["questions"], [{"questionId": "q1"}])
+
+    def test_qualification_run_passes_normalized_question_ids(self):
+        class Runs:
+            def preview(self, qualification, stage_id, mode, **options):
+                self.options = options
+                return {"previewToken": "token"}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            runs = Runs()
+            app.qualification_runs = runs
+            app.post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["question_type"],
+                    "listGroupIds": ["2026"],
+                    "questionIds": ["q2", "q1", "q2"],
+                },
+            )
+
+        self.assertEqual(runs.options["question_ids"], ["q2", "q1"])
+
+    def test_qualification_run_rejects_question_ids_range_conflict(self):
+        with tempfile.TemporaryDirectory() as directory, self.assertRaises(ApiError) as caught:
+            QuestionReviewApplication(Path(directory)).post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["question_type"],
+                    "questionIds": ["q1"],
+                    "questionRange": {"start": 1, "end": 1},
+                },
+            )
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("同時に指定", str(caught.exception))
 
     def test_qualification_run_rejects_unsupported_question_concurrency(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(

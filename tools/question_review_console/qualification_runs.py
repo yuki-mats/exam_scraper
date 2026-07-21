@@ -1228,6 +1228,7 @@ class QualificationRunStore:
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "questionRange": copy.deepcopy(plan.get("questionRange")),
+            "questionIds": list(plan.get("questionIds") or []),
             "updateTargets": copy.deepcopy(list(plan.get("updateTargets") or [])),
             "selectedUpdateTargets": copy.deepcopy(
                 list(plan.get("selectedUpdateTargets") or [])
@@ -3875,6 +3876,7 @@ class QualificationRunCoordinator:
         list_group_ids: list[str] | None = None,
         update_target_ids: list[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: list[str] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
     ) -> dict[str, Any]:
@@ -3888,6 +3890,7 @@ class QualificationRunCoordinator:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_range=question_range,
+            question_ids=question_ids,
         )
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
@@ -3937,6 +3940,7 @@ class QualificationRunCoordinator:
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "questionRange": plan.get("questionRange"),
+            "questionIds": list(plan.get("questionIds") or []),
             "updateTargets": list(plan.get("updateTargets") or []),
             "selectedUpdateTargets": list(
                 plan.get("selectedUpdateTargets") or []
@@ -3974,6 +3978,7 @@ class QualificationRunCoordinator:
         list_group_ids: list[str] | None = None,
         update_target_ids: list[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: list[str] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
     ) -> dict[str, Any]:
@@ -3986,6 +3991,7 @@ class QualificationRunCoordinator:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_range=question_range,
+            question_ids=question_ids,
             resumed_from=resumed_from,
             question_concurrency=question_concurrency,
         )
@@ -4013,6 +4019,7 @@ class QualificationRunCoordinator:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_range=question_range,
+            question_ids=question_ids,
         )
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
@@ -4023,6 +4030,8 @@ class QualificationRunCoordinator:
                 prompt_scope["update_target_ids"] = update_target_ids
             if question_range is not None:
                 prompt_scope["question_range"] = question_range
+            if question_ids is not None:
+                prompt_scope["question_ids"] = question_ids
             if len(selected_stage_ids) > 1:
                 prompt = self.workflow.prompt_many(
                     qualification,
@@ -11122,6 +11131,7 @@ class QualificationRunCoordinator:
         list_group_ids: list[str] | None = None,
         update_target_ids: list[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: list[str] | None = None,
     ) -> dict[str, Any]:
         selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
         scope: dict[str, Any] = {}
@@ -11131,6 +11141,8 @@ class QualificationRunCoordinator:
             scope["update_target_ids"] = update_target_ids
         if question_range is not None:
             scope["question_range"] = question_range
+        if question_ids is not None:
+            scope["question_ids"] = question_ids
         if len(selected_stage_ids) > 1:
             plan = dict(
                 self.workflow.plan_many(
@@ -11180,6 +11192,11 @@ class QualificationRunCoordinator:
                 or (
                     ("questionRange" in previous or question_range is not None)
                     and previous.get("questionRange") != plan.get("questionRange")
+                )
+                or (
+                    ("questionIds" in previous or question_ids is not None)
+                    and list(previous.get("questionIds") or [])
+                    != list(plan.get("questionIds") or [])
                 )
             ):
                 raise QualificationRunError(
@@ -11288,6 +11305,11 @@ class QualificationRunCoordinator:
             or (
                 ("questionRange" in previous or question_range is not None)
                 and previous.get("questionRange") != plan.get("questionRange")
+            )
+            or (
+                ("questionIds" in previous or question_ids is not None)
+                and list(previous.get("questionIds") or [])
+                != list(plan.get("questionIds") or [])
             )
             or previous_scope is not None
             and previous_scope != list(plan.get("scopeListGroupIds") or [])

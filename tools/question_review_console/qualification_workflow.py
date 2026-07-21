@@ -117,6 +117,24 @@ def _filter_question_range(
     return selected
 
 
+def _filter_question_ids(
+    questions: Iterable[Mapping[str, Any]],
+    question_ids: Iterable[str] | None,
+) -> tuple[list[Mapping[str, Any]], list[str] | None]:
+    if question_ids is None:
+        return list(questions), None
+    requested = _ordered_unique(str(value).strip() for value in question_ids)
+    if not requested:
+        raise ValueError("対象問題を一つ以上指定してください。")
+    by_id = {str(question.get("id") or ""): question for question in questions}
+    unknown = [question_id for question_id in requested if question_id not in by_id]
+    if unknown:
+        raise ValueError(
+            "選択したlistGroupIdsに対象問題がありません: " + ", ".join(unknown)
+        )
+    return [by_id[question_id] for question_id in requested], requested
+
+
 def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
 
@@ -619,6 +637,7 @@ class QualificationWorkflow:
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: Iterable[str] | None = None,
         allow_category_pending: bool = False,
         _catalog: Mapping[str, Any] | None = None,
         _qualification_data: tuple[
@@ -637,6 +656,8 @@ class QualificationWorkflow:
         if definition is None:
             raise ValueError(f"対象工程がありません: {stage_id}")
         normalized_question_range = _question_range(question_range)
+        if normalized_question_range is not None and question_ids is not None:
+            raise ValueError("questionIdsとquestionRangeは同時に指定できません。")
         selected_update_targets = _select_update_targets(
             definition, update_target_ids
         )
@@ -681,6 +702,11 @@ class QualificationWorkflow:
             or definition.get("kind") != "human"
         ):
             raise ValueError(f"{definition['label']}は問題番号範囲を指定できません。")
+        if question_ids is not None and (
+            not definition.get("supportsGroupScope")
+            or definition.get("kind") != "human"
+        ):
+            raise ValueError(f"{definition['label']}はquestionIdsを指定できません。")
         if mode == "group_refresh" and not selected_group_ids:
             raise ValueError("対象年度を一つ以上選択してください。")
 
@@ -723,6 +749,9 @@ class QualificationWorkflow:
                 for question in questions
                 if _originalization_applicable(question)
             ]
+        questions, normalized_question_ids = _filter_question_ids(
+            questions, question_ids
+        )
         questions = _filter_question_range(questions, normalized_question_range)
         artifact_blockers = self._artifact_blockers_for_stage(
             groups,
@@ -1070,6 +1099,7 @@ class QualificationWorkflow:
             ),
             "scopeListGroupIds": selected_group_ids,
             "questionRange": normalized_question_range,
+            "questionIds": normalized_question_ids,
             "updateTargets": [dict(value) for value in definition.get("updateTargets") or []],
             "selectedUpdateTargets": selected_update_targets,
             "selectedUpdateTargetIds": selected_update_target_ids,
@@ -1102,6 +1132,7 @@ class QualificationWorkflow:
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         requested = _ordered_unique(str(stage_id) for stage_id in stage_ids)
         normalized_group_ids, scope_provided = _group_scope(
@@ -1123,6 +1154,8 @@ class QualificationWorkflow:
             if str(stage["id"]) in requested
         ]
         normalized_question_range = _question_range(question_range)
+        if normalized_question_range is not None and question_ids is not None:
+            raise ValueError("questionIdsとquestionRangeは同時に指定できません。")
         if normalized_question_range and not any(
             definitions[stage_id].get("supportsGroupScope")
             and definitions[stage_id].get("kind") == "human"
@@ -1171,6 +1204,7 @@ class QualificationWorkflow:
                 list_group_ids=scoped_group_ids,
                 update_target_ids=requested_update_target_ids,
                 question_range=normalized_question_range,
+                question_ids=question_ids,
                 _catalog=catalog,
             )
             plan["stageIds"] = ordered
@@ -1219,6 +1253,12 @@ class QualificationWorkflow:
                 question_range=(
                     normalized_question_range
                     if definitions[stage_id].get("supportsGroupScope")
+                    else None
+                ),
+                question_ids=(
+                    question_ids
+                    if definitions[stage_id].get("supportsGroupScope")
+                    and definitions[stage_id].get("kind") == "human"
                     else None
                 ),
                 allow_category_pending=(
@@ -1321,6 +1361,11 @@ class QualificationWorkflow:
             ),
             "scopeListGroupIds": list(scoped_group_ids or []),
             "questionRange": normalized_question_range,
+            "questionIds": (
+                _ordered_unique(str(value).strip() for value in question_ids)
+                if question_ids is not None
+                else None
+            ),
             "updateTargets": [
                 dict(target)
                 for stage_id in ordered
@@ -1395,6 +1440,7 @@ class QualificationWorkflow:
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         return self.prompt_many(
             qualification,
@@ -1404,6 +1450,7 @@ class QualificationWorkflow:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_range=question_range,
+            question_ids=question_ids,
         )
 
     def prompt_many(
@@ -1416,6 +1463,7 @@ class QualificationWorkflow:
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
+        question_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         plan = self.plan_many(
             qualification,
@@ -1425,6 +1473,7 @@ class QualificationWorkflow:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_range=question_range,
+            question_ids=question_ids,
         )
         if plan["kind"] != "human":
             raise ValueError("この工程はCodex依頼ではなく既存の実行導線を使います。")
@@ -1602,6 +1651,7 @@ class QualificationWorkflow:
             "targetCount": plan["targetCount"],
             "workItemCount": plan.get("workItemCount", plan["targetCount"]),
             "questionRange": plan.get("questionRange"),
+            "questionIds": list(plan.get("questionIds") or []),
             "selectedUpdateTargetIds": list(
                 plan.get("selectedUpdateTargetIds") or []
             ),

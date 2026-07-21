@@ -168,6 +168,54 @@ class OriginalizeWriteContractTests(unittest.TestCase):
 
 class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
+    def test_question_ids_are_bound_to_preview_token_and_resume_scope(self):
+        class ScopedWorkflow(FakeWorkflow):
+            def plan(self, qualification, stage_id, mode="remaining", **scope):
+                plan = super().plan(qualification, stage_id, mode)
+                plan["questionIds"] = list(scope.get("question_ids") or [])
+                plan["scopeListGroupIds"] = list(scope.get("list_group_ids") or [])
+                return plan
+
+            def prompt(self, qualification, stage_id, mode="remaining", **scope):
+                return super().prompt(qualification, stage_id, mode)
+
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), ScopedWorkflow(), FakeSynchronizer(), JobManager(), "secret"
+            )
+            preview = coordinator.preview(
+                "sample", "explanation", "refresh", question_ids=["q2", "q1"]
+            )
+            with self.assertRaisesRegex(QualificationRunError, "対象が更新"):
+                coordinator.start(
+                    "sample",
+                    "explanation",
+                    "refresh",
+                    preview["previewToken"],
+                    question_ids=["q1", "q2"],
+                )
+            previous = coordinator.store.create(
+                {
+                    **ScopedWorkflow().plan(
+                        "sample", "explanation", "refresh", question_ids=["q2", "q1"]
+                    ),
+                    "kind": "orchestration",
+                    "stageIds": ["explanation"],
+                    "questionExecutions": [],
+                    "queueStatus": "failed",
+                },
+                status="failed",
+                prompt="work",
+            )
+            with self.assertRaisesRegex(QualificationRunError, "対象範囲"):
+                coordinator._plan(
+                    "sample",
+                    "explanation",
+                    "refresh",
+                    previous["runId"],
+                    question_ids=["q1", "q2"],
+                )
+
     def test_run_manifest_preserves_partial_refresh_contract(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -175,6 +223,7 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             plan = FakeWorkflow().plan("sample", "explanation", "group_refresh")
             plan.update(
                 questionRange={"start": 2, "end": 3},
+                questionIds=["q2", "q1"],
                 updateTargets=[
                     {
                         "id": "supplementary_questions",
@@ -206,6 +255,7 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             saved = store.get("sample", run["runId"])
 
         self.assertEqual(saved["questionRange"], {"start": 2, "end": 3})
+        self.assertEqual(saved["questionIds"], ["q2", "q1"])
         self.assertEqual(
             saved["selectedUpdateTargetIds"],
             ["explanation.supplementary_questions"],
