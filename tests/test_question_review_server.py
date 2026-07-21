@@ -67,6 +67,52 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(synchronizer.preview_forces, [True, True])
         self.assertEqual(synchronizer.run_forces, [True])
 
+    def test_manual_patch_sync_marks_matching_validated_run_current(self):
+        class Synchronizer:
+            def run(self, qualification, list_group_id, token, emit, *, force=False):
+                return {"message": "ローカル成果物を最新patchに同期しました。"}
+
+        class Inventory:
+            def group(self, qualification, list_group_id):
+                return {"questions": []}
+
+        class RunStore:
+            def __init__(self):
+                self.updated = None
+
+            def list(self, qualification, *, limit):
+                return [
+                    {
+                        "runId": "run-1",
+                        "status": "succeeded",
+                        "receiptValidated": True,
+                        "scopeListGroupIds": ["2026"],
+                        "artifactSync": {"status": "blocked"},
+                    }
+                ]
+
+            def update(self, qualification, run_id, **changes):
+                self.updated = (qualification, run_id, changes)
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.synchronizer = Synchronizer()
+            app.inventory = Inventory()
+            run_store = RunStore()
+            app.run_store = run_store
+            logs = []
+
+            result = app._run_sync_job("sample", "2026", "token", logs.append)
+
+        self.assertEqual(
+            result["message"], "ローカル成果物を最新patchに同期しました。"
+        )
+        self.assertEqual(run_store.updated[:2], ("sample", "run-1"))
+        artifact_sync = run_store.updated[2]["artifactSync"]
+        self.assertEqual(artifact_sync["status"], "succeeded")
+        self.assertEqual(artifact_sync["groups"][0]["listGroupId"], "2026")
+        self.assertIn("直近の整備記録", logs[-1])
+
     def test_manual_sync_reports_strict_law_validation_reason(self):
         class Synchronizer:
             def preview(self, qualification, list_group_id, *, force=False):

@@ -1430,8 +1430,62 @@ class QuestionReviewApplication:
         result = self.synchronizer.run(
             qualification, list_group_id, preview_token, emit, force=True
         )
+        self._mark_recent_run_artifact_synced(
+            qualification, list_group_id, result, emit
+        )
         self._clear_group_live_results(qualification, list_group_id)
         return result
+
+    def _mark_recent_run_artifact_synced(
+        self,
+        qualification: str,
+        list_group_id: str,
+        result: Mapping[str, Any],
+        emit: Any,
+    ) -> None:
+        for run in self.run_store.list(qualification, limit=20):
+            scope = [
+                str(value)
+                for value in (
+                    run.get("scopeListGroupIds")
+                    or run.get("targetGroupIds")
+                    or []
+                )
+                if value
+            ]
+            artifact_sync = run.get("artifactSync")
+            artifact_status = str(
+                artifact_sync.get("status")
+                if isinstance(artifact_sync, Mapping)
+                else ""
+            )
+            if (
+                run.get("receiptValidated") is not True
+                or str(run.get("status") or "") != "succeeded"
+                or scope != [list_group_id]
+                or artifact_status in {"succeeded", "current", "not_required"}
+            ):
+                continue
+            message = str(
+                result.get("message") or "公開用データを最新patchに同期しました。"
+            )
+            self.run_store.update(
+                qualification,
+                str(run["runId"]),
+                artifactSync={
+                    "status": "succeeded",
+                    "groups": [
+                        {
+                            "listGroupId": list_group_id,
+                            "status": "succeeded",
+                            "message": message,
+                        }
+                    ],
+                    "message": "手動再生成で公開用データを最新にしました。",
+                },
+            )
+            emit("直近の整備記録も公開用データ更新済みにしました。")
+            return
 
     def _run_readback_job(
         self,
