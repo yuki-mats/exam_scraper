@@ -1,0 +1,53 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T052",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_patch_proposal.py",
+      "tests/test_question_review_qualification_record_scope.py",
+      "tests/test_question_review_question_patch_proposal.py"
+    ],
+    "commands": [
+      {
+        "command": "Focused qualification transaction suite",
+        "status": "pass",
+        "summary": "110 tests passed"
+      },
+      {
+        "command": "Expanded aggregate review regression suite",
+        "status": "pass",
+        "summary": "141 tests passed"
+      },
+      {
+        "command": "Process transaction regression repeated three times",
+        "status": "pass",
+        "summary": "11 tests passed on each run"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      },
+      {
+        "command": "Commit and push origin/main",
+        "status": "pass",
+        "summary": "3b4c8ae21 fix(review): hold patch locks through validation"
+      }
+    ],
+    "summary": "canonical patch fileのOS lockをbaseline取得前からrebase、record-scope検証、00_source確認、work-version記録、checkpoint、backup破棄又はrollback完了まで保持する資格共通transactionへ変更した。spawnした別processとbarrierで、同一fileの異なるrecord更新が双方残ること、同一record競合がfail closedになること、rollback後に別transactionの確定更新が保持されることを実証した。sourceUniqueKeysはstable parent identity、source snapshot、sourceHash付きapproved decomposition、exact source slicesから再計算した順序付きlistとの完全一致だけを許可し、逆順、重複、欠落、追加を拒否する。資格、年度、question ID、source文言、特定filenameの分岐は追加していない。",
+    "remaining_blockers": [
+      "Judgeによるtransaction全体と実process regressionの再監査",
+      "共有patch fileと既存aggregate record guardを実データで通すfresh canary",
+      "修正後fresh 1044-question trialのinvalid 0証拠",
+      "下流工程、公開前gate、限定公開readback"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

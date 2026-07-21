@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T052
+active_task: T053
 
 tasks:
   - id: T001
@@ -2721,7 +2721,7 @@ tasks:
   - id: T052
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "資格共通のcanonical patch file lockをbaseline取得前からrebase、record-scope検証、00_source確認、work-version記録、成功確定又はrollback完了まで保持し、別processの異なるrecord更新を両方保持する。同一record競合はfail closedを維持する。既存aggregate recordのsourceUniqueKeysはstable parent identity、source snapshot、sourceHash付きapproved decomposition、exact source slicesから再計算した順序付きlistとの完全一致だけを許可し、並べ替え・重複も拒否する。"
     inputs:
@@ -2758,6 +2758,58 @@ tasks:
       - "A qualification, year, question ID, source phrase, or filename exception is required."
       - "00_source or Firestore would be changed or invoked."
       - "The same unresolved verification cause fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/question_patch_proposal.py"
+        - "tests/test_question_review_qualification_record_scope.py"
+        - "tests/test_question_review_question_patch_proposal.py"
+      commands:
+        - command: "Focused qualification transaction suite"
+          status: pass
+          summary: "110 tests passed"
+        - command: "Expanded aggregate review regression suite"
+          status: pass
+          summary: "141 tests passed"
+        - command: "Process transaction regression repeated three times"
+          status: pass
+          summary: "11 tests passed on each run"
+        - command: "00_source immutability"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "Commit and push"
+          status: pass
+          summary: "3b4c8ae21 on origin/main"
+      summary: "canonical patch fileのOS lockをbaseline前から成功確定又はrollback完了まで保持する資格共通transactionへ変更した。実processとbarrierで異record保持、同record競合拒否、rollback後の別transaction更新保持を実証した。sourceUniqueKeysは順序付き完全再計算listとの一致だけを許可する。資格等の個別例外は追加していない。"
+      remaining_blockers:
+        - "Judgeによる再監査"
+        - "fresh canaryとfresh 1044-question rerun"
+        - "下流工程、公開前gate、限定公開readback"
+      verification_attempts: 1
+      stopped_because: null
+  - id: T053
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T052をT051の全指摘へ対応付けて再監査し、transaction全体のcross-process安全性、rollbackの非破壊性、sourceUniqueKeys順序付き完全一致、資格共通性を判定する。承認時は、共有patch file内の異なるrecordと既存aggregate record guardを実データで同時に証明する最小fresh canary契約を確定する。"
+    inputs:
+      - "T051 require_fix receipt"
+      - "T052 implementation commit 3b4c8ae21"
+      - "T052 actual multi-process regression and verification receipts"
+      - "Current qualification-common implementation"
+    constraints:
+      - "Read-only."
+      - "Do not accept qualification, year, question ID, source phrase, or filename-specific implementation branches."
+      - "Require the same OS file lock to cover baseline through success finalization or rollback completion."
+      - "Require actual process-boundary evidence for different-record preservation, same-record fail-closed, and rollback safety."
+      - "Do not approve downstream work before fresh full rerun invalid 0."
+    expected_output:
+      - "approve_canary or require_fix"
+      - "T051 finding-to-fix evidence map"
+      - "Genericity and process-safety audit"
+      - "Exact minimal fresh canary Worker package if approved"
     receipt: null
   - id: T999
     type: judge
