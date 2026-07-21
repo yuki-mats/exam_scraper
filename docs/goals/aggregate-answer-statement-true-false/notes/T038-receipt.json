@@ -1,0 +1,36 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T038",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "live_hold",
+    "full_outcome_complete": false,
+    "changed_files": [
+      "Commit b2541f322ad21c5917cbc8cc293d0d3f4c11fc7c",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T013101101593-26c0e65b/**"
+    ],
+    "commands": [
+      {
+        "command": "Scoped six-file commit and push",
+        "status": "pass",
+        "summary": "HEAD and origin/main are b2541f322ad21c5917cbc8cc293d0d3f4c11fc7c"
+      },
+      {
+        "command": "Fresh exact questionIds live smoke",
+        "status": "blocked",
+        "summary": "Two distinct gpt-5.5/high reviews completed once each; consensus held for review_disagreement and no patch was written"
+      },
+      {
+        "command": "python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      }
+    ],
+    "summary": "fresh parentはexact questionIds、no range/updateTargetIds/resumeで実行した。二者reviewは2件だけで追加retryなくholdし、candidate patch、artifact sync、Firestore公開は発生しなかった。review 1はA-Dを句読点なし境界で返し、review 2はA/Cだけを返したため、全項目抽出と境界の共通promptが曖昧と判明した。",
+    "remaining_blockers": [
+      "全列挙項目を内容の正誤にかかわらず返すことをreview contractへ明示する。",
+      "spanは項目ラベル先頭から当該項目の文末記号までとする共通境界を明示する。",
+      "修正後の別source question又はfresh runでmaterialization成功を証明する。"
+    ]
+  }
+}

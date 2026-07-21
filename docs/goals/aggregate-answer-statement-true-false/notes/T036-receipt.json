@@ -1,0 +1,33 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T036",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/validation_feedback.py",
+      "tests/test_question_review_validation_feedback.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "102 tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "174 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "aggregate review checkpointの構造、execution、予約、確定、consensusに関するsignature・slot・readback失敗を専用integrity codeで初回non-retryableに分類する。reserve、resolve、consensus各flowは1 attemptでblocked、追加modelなし、checkpoint不変。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

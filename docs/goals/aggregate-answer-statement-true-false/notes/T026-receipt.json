@@ -1,0 +1,37 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T026",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/validation_feedback.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_validation_feedback.py"
+    ],
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback",
+        "status": "pass",
+        "summary": "96 tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "168 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "保存時と再利用時で共通のexecution evidence validatorを使い、review番号、actual model/effort、thread/session/turnをfail closedで照合する。stable parent identity欠落は外部review/candidate modelの前に一度でblockedとし、provider/schema/content retryは維持した。",
+    "deviations": [
+      "Workerはfixtureがqueue identityも欠くため停止した。PMがqueue identityを保ち、projected current inputだけからstable identityを欠くfixtureへ修正し、外部model call 0件と初回blockedを検証した。"
+    ],
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 3,
+    "stopped_because": null
+  }
+}

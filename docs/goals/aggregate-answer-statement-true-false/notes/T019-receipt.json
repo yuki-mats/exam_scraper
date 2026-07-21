@@ -1,0 +1,26 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T019",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/server.py",
+      "tests/test_question_review_server.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow",
+        "status": "pass",
+        "summary": "144 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "RECENT_RUN_DISPLAY_FIELDSへquestionIdsだけを追加し、recent runsとactiveRunが正規化済みquestionIdsを順序どおり返す回帰テストを追加した。既存公開fieldと選択意味は変更していない。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

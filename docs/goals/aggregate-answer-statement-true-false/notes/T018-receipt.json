@@ -1,0 +1,32 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T018",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "changes_required",
+    "full_outcome_complete": false,
+    "commands": [
+      {
+        "command": "Read-only propagation audit of T017 diff and tests",
+        "status": "pass"
+      }
+    ],
+    "rationale": "questionIdsはAPI、workflow、preview/start token、prompt、manifest、resumeへ安全に伝播し、listGroup escapeとquestionRange競合を拒否する。ただしrecent-run public summaryのfield allowlistにquestionIdsがなく、一覧readbackではexact scopeが消えるためsmoke前に補う。",
+    "evidence": [
+      "qualification workflow validates exact IDs only after selected listGroup filtering.",
+      "preview and start include question_ids in token-bound plan generation.",
+      "run manifest and resume comparison preserve normalized questionIds.",
+      "RECENT_RUN_DISPLAY_FIELDS omits questionIds."
+    ],
+    "missing_evidence": [
+      "recent-run API readback of questionIds",
+      "live exact-ID smoke"
+    ],
+    "summary": "汎用scope自体は妥当だが、public recent receiptへquestionIdsを残す小修正が必要。Judge応答待ちを打ち切り、PMが同じread-only証拠から判定した。",
+    "remaining_blockers": [
+      "Add questionIds to recent-run public summary and regression test it."
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

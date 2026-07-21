@@ -1,0 +1,31 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T017",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "document/operations/local_question_review_console.md",
+      "tools/question_review_console/server.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/qualification_workflow.py",
+      "tests/test_question_review_server.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_qualification_workflow.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow",
+        "status": "pass",
+        "summary": "144 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "汎用questionIds scopeを追加した。指定順を保って重複を除去し、選択listGroupIds内のinventory question.idだけを許可する。未知ID・選択外group ID・questionRange併用を実行前に拒否し、正規化済みscopeをpreview token、start、prompt、plan、run receipt、resume条件へ伝播した。updateTargetIdsの意味は変更していない。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

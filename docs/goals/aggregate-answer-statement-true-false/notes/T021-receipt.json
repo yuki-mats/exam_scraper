@@ -1,0 +1,32 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T021",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "commands": [
+      {
+        "command": "Read-only live receipt, identity path, validator, rollback, and retry-classification audit",
+        "status": "pass"
+      }
+    ],
+    "rationale": "T020失敗は資格固有データではなく、materializerとvalidatorのstable parent identity不一致、およびserver-owned deterministic failureをretryableへ分類する汎用実装欠陥である。ID/source/scope検証とrollbackを弱めず、parent単位で二者review consensusを固定・再利用する必要がある。",
+    "evidence": [
+      "Attempt 1 stored two distinct gpt-5.5/high target approvals with the same four spans.",
+      "Materializer prioritizes source canonical_question_key/source_question_id while validator reconstructed only from patch identity aliases.",
+      "Deterministic server commit failure was marked retryable and launched two additional reviews.",
+      "Both attempts rolled back without candidate changes."
+    ],
+    "missing_evidence": [
+      "Shared stable-parent identity tests.",
+      "Candidate retry with exactly two cumulative reviews and reused consensus.",
+      "Non-retryable server validation classification.",
+      "Fresh-parent successful live smoke."
+    ],
+    "summary": "共通identity・review reuse・retry boundaryを一つの修正packageで直すことを承認した。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

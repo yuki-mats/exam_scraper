@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T029",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "on_thread_started前は意味的review未開始として予約取消と既存retryを許可でき、通知後は実施可能性を否定できないためstartedを保持して追加reviewを禁止する境界が安全。取消は同一batchのquestion/slot/signatureを単一lock・単一writeで全件照合する。",
+    "evidence": [
+      "thread callbackはthread ID確定後、turn/start前に呼ばれる。",
+      "既存provider回帰はcallback前失敗後の予約残存が原因。",
+      "callback後timeoutは既存回帰で一度のholdを確認済み。"
+    ]
+  }
+}

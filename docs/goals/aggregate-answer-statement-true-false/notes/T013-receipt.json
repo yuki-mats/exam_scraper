@@ -1,0 +1,53 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T013",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "Aggregate-answer implementation/test/doc/control files committed as 28f1408e66782eed3ef32844c0e68dd2b6c246e9",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T225345231896-a55d6834/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T225345489680-4136fe69/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T225349047920-3ac91456/**"
+    ],
+    "commands": [
+      {
+        "command": "git diff --cached --check and cached-name audit",
+        "status": "pass",
+        "summary": "No output/gas paths were staged"
+      },
+      {
+        "command": "git commit and git push origin main",
+        "status": "pass",
+        "summary": "HEAD and origin/main are 28f1408e66782eed3ef32844c0e68dd2b6c246e9"
+      },
+      {
+        "command": "Question review console session and Codex status readback",
+        "status": "pass",
+        "summary": "configuredModel gpt-5.5, configuredReasoningEffort high, turnReasoningEffort high"
+      },
+      {
+        "command": "Live question_type smoke run 20260721T225345231896-a55d6834",
+        "status": "failed",
+        "summary": "Codex App Server rejected response schema issueCodes.uniqueItems with HTTP 400"
+      },
+      {
+        "command": "python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "1eiseikanrisha 00_source tree hash",
+        "status": "pass",
+        "summary": "38dc4d9284a85f7cc172e2487a80d08bdb3cd561ad17af56cd11f35ff077fe11"
+      }
+    ],
+    "summary": "共通実装のcommit/pushは成功した。live smokeは内容判定前に、Codex App Server非対応のJSON Schema uniqueItemsで拒否された。初回gpt-5.5/high失敗後に一般retry経路がgpt-5.6-sol/highを要求したため停止した。両childのchangedFilesは空で、Firestore公開もない。",
+    "remaining_blockers": [
+      "Codex App Server対応schemaからissueCodes.uniqueItemsを除き、重複拒否は既存server parserで維持する。",
+      "question_type retryでも二つのreviewをgpt-5.5/highに固定する。",
+      "4 spans、source slice、stable keys、boolean calculation flag、artifact syncを再smokeで証明する。"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": "Response schema incompatibility and retry-model mismatch met the live smoke stop conditions."
+  }
+}

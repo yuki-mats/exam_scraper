@@ -1,0 +1,14 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T031",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "予約取消は単一write後の関数内再読検証がなく、無反映又は誤反映をその場で検出できない。fresh smoke前に期待checkpoint全体とのreadbackを追加する。",
+    "evidence": [
+      "共通identity、原文slice、二者上限、slot原子更新、不正混在分離、provider境界、server nonretry、171件回帰は確認済み。",
+      "reserve、resolve、consensusにはreadbackがあるがcancelだけ欠ける。"
+    ]
+  }
+}

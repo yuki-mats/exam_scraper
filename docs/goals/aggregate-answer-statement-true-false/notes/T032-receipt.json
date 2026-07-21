@@ -1,0 +1,32 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T032",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "Atomic cancellation and no-op write readback focused regressions",
+        "status": "pass",
+        "summary": "2 tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "172 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "取消の単一write後、同一lock内でmanifestを再読しaggregateReviewCheckpoints全体を期待値と照合する。無反映又は誤反映はfail closedとし、外部modelを再呼出ししない。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

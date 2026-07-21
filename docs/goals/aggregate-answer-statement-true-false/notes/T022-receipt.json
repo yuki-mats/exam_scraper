@@ -1,0 +1,31 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T022",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "scripts/common/aggregate_answer_decomposition.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/validation_feedback.py",
+      "tests/test_aggregate_answer_decomposition.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_validation_feedback.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "96 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "source record由来stable-parent identityをmaterializerとscope validatorで共通化した。親runへ二者reviewの構造結果、sourceHash、identity、model/effort、execution、consensusをslot別checkpointし、candidate retryでは一致済み結果を再利用する。不一致は第三reviewなしでholdする。server commit失敗はrollback後non-retryableとし、provider/schema/content retryは維持した。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

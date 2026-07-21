@@ -1,0 +1,48 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T020",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "Seven questionIds implementation/doc/test files committed as 7c964a368114f1292534872bea5a9e1b9d839fc4",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T232958664161-b3d786d2/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T232958955190-e1069f44/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T233735815893-6c75a88c/**"
+    ],
+    "commands": [
+      {
+        "command": "144 focused tests, cached audit, commit and push",
+        "status": "pass",
+        "summary": "HEAD and origin/main are 7c964a368114f1292534872bea5a9e1b9d839fc4"
+      },
+      {
+        "command": "Exact questionIds preview/start",
+        "status": "pass",
+        "summary": "Resolved expected originalQuestionId and sourceRecordRef #0"
+      },
+      {
+        "command": "Live attempt 1 child 20260721T232958955190-e1069f44",
+        "status": "failed",
+        "summary": "Two distinct gpt-5.5/high reviews agreed on target and four spans, then server scope validation rejected derived sourceUniqueKeys"
+      },
+      {
+        "command": "Stop server during automatic attempt 2 child 20260721T233735815893-6c75a88c",
+        "status": "failed",
+        "summary": "The retry had already completed two additional reviews; candidate was interrupted and rolled back"
+      },
+      {
+        "command": "00_source manifest and tree hash",
+        "status": "pass",
+        "summary": "5799 files unchanged and tree hash matched"
+      }
+    ],
+    "summary": "exact-ID live startと最初の二者reviewは成功し、target・4 spansで一致した。保存時にsourceのstable identityで生成した派生keyをvalidatorが別identity候補だけで再現して拒否した。さらにdeterministic server failureが通常model retryへ流れ、二者reviewを再実行したため停止した。全candidate変更はrollbackされ、Firestore公開とsource変更はない。",
+    "remaining_blockers": [
+      "Derived-key validator must use the same stable source identity contract as the materializer.",
+      "Exactly two review results must be immutable/reused and deterministic server validation failures must not trigger fresh reviews.",
+      "Successful patch, artifact sync, and downstream proof remain."
+    ],
+    "verification_attempts": 1,
+    "stopped_because": "Deterministic server validation failure and automatic extra reviews violated the live smoke stop conditions."
+  }
+}

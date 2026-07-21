@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T013
+active_task: T042
 
 tasks:
   - id: T001
@@ -706,7 +706,7 @@ tasks:
   - id: T013
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "検証済み共通実装をmainへ限定commit/pushし、gpt-5.5 highで第一種衛生管理者20035の第1問だけをquestion_type refresh smokeする。二者一致、4つの原文span、tool生成文字列、新規派生key、計算flag、artifact sync、00_source不変をreadbackする。"
     inputs:
@@ -748,6 +748,1390 @@ tasks:
       - "Any extracted string cannot be reproduced by a source slice."
       - "00_source changes or the run attempts Firestore publication."
       - "Unexpected paths outside the allowed smoke scope change."
+    receipt:
+      result: blocked
+      changed_files:
+        - "Aggregate-answer implementation/test/doc/control files committed as 28f1408e66782eed3ef32844c0e68dd2b6c246e9"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T225345231896-a55d6834/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T225345489680-4136fe69/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T225349047920-3ac91456/**"
+      commands:
+        - command: "git diff --cached --check and cached-name audit"
+          status: pass
+          summary: "No output/gas paths were staged"
+        - command: "git commit and git push origin main"
+          status: pass
+          summary: "HEAD and origin/main are 28f1408e66782eed3ef32844c0e68dd2b6c246e9"
+        - command: "Question review console session and Codex status readback"
+          status: pass
+          summary: "configuredModel gpt-5.5, configuredReasoningEffort high, turnReasoningEffort high"
+        - command: "Live question_type smoke run 20260721T225345231896-a55d6834"
+          status: failed
+          summary: "Codex App Server rejected response schema issueCodes.uniqueItems with HTTP 400"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "1eiseikanrisha 00_source tree hash"
+          status: pass
+          summary: 38dc4d9284a85f7cc172e2487a80d08bdb3cd561ad17af56cd11f35ff077fe11
+      summary: "共通実装のcommit/pushは成功した。live smokeは内容判定前に、Codex App Server非対応のJSON Schema uniqueItemsで拒否された。初回gpt-5.5/high失敗後に一般retry経路がgpt-5.6-sol/highを要求したため停止した。両childのchangedFilesは空で、Firestore公開もない。"
+      remaining_blockers:
+        - "Codex App Server対応schemaからissueCodes.uniqueItemsを除き、重複拒否は既存server parserで維持する。"
+        - "question_type retryでも二つのreviewをgpt-5.5/highに固定する。"
+        - "4 spans、source slice、stable keys、boolean calculation flag、artifact syncを再smokeで証明する。"
+      verification_attempts: 1
+      stopped_because: "Response schema incompatibility and retry-model mismatch met the live smoke stop conditions."
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "live smokeで判明した問題を共通境界で修正する。全構造化出力schemaをCodex App Server対応dialectへ非破壊変換するadapterを設け、除外した制約は既存のserver-side parserで必ず再検証する。モデルは工程ごとのagent policyとしてcatalogに宣言し、独立reviewと通常candidate・retryの役割別モデルをhardcodeなしで解決・記録する。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T013 blocked receipt and three live run manifests"
+      - "Codex App Server invalid_json_schema error for issueCodes.uniqueItems"
+    constraints:
+      - "Do not implement a question_type-only model conditional."
+      - "Do not patch only aggregate_answer_review_schema; schema adaptation belongs at the Codex App Server boundary."
+      - "Do not loosen parse_aggregate_answer_reviews, normalize_review, candidate, or evaluation post-validation."
+      - "Do not allow duplicate issueCodes or any prose/text field."
+      - "Keep existing default candidate and retry models for stages without an explicit agent policy."
+      - "Do not touch output data or 00_source."
+    expected_output:
+      - "Reusable App Server output-schema dialect adapter"
+      - "Validated per-stage role-based agent policy loaded from the workflow catalog"
+      - "Aggregate review calls remain gpt-5.5/high even when the normal candidate uses its configured retry model"
+      - "Review model/effort evidence is persisted with the run"
+      - "Focused regressions passing"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "document/operations/local_question_review_console.md"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/workflow_catalog.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+    verify:
+      - "Adapter tests prove nested unsupported keywords are removed from the copy sent to App Server without mutating the source schema or dropping supported constraints"
+      - "Parser tests prove duplicate issueCodes and prose fields are still rejected after schema adaptation"
+      - "Catalog tests prove valid/invalid role-based agent policies and backward-compatible defaults"
+      - "Run tests prove aggregate reviews use their declared model/high on initial and retry batches, while normal candidate retry keeps its declared fallback"
+      - "python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The change weakens duplicate/prose/span validation."
+      - "Any stage without explicit policy changes its existing initial/retry behavior."
+      - "The adapter silently removes a constraint that no server-side parser revalidates."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - config/question_maintenance_workflow.toml
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/workflow_catalog.py
+        - tests/test_question_review_codex_app_server.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_workflow_catalog.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "139 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "全output schema向け非破壊App Server dialect adapter、parser側のissueCodes重複再検証、catalog駆動の役割別agent policyを実装した。未指定工程の既存candidate/retry既定値を維持し、question_typeの独立reviewは初回・retryともgpt-5.5/highを使用する。各review成功直後にactual model、effort、thread/session/turnをcheckpointし、model allowlist drift検知も追加した。"
+      remaining_blockers: []
+      verification_attempts: 2
+      stopped_because: null
+  - id: T015
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T014が一時的なaggregate-answer個別修正ではなく、共通App Server境界とcatalog駆動agent policyとして成立しているか監査する。制約のserver-side再検証、既存工程の後方互換、review実行証拠、次のexact-ID smoke可否を判定する。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T013 blocked and T014 done receipts"
+      - "Current T014 diff and 139-test evidence"
+      - "Exact smoke target UI id 7d2e09ab78d9a0f22a0742f3 for originalQuestionId a6bea45a937c2c6e"
+    constraints:
+      - "Read-only."
+      - "Reject question_type-only hardcoded model selection."
+      - "Reject schema keyword removal if application validation no longer enforces the removed constraint."
+      - "Do not start a live run, edit, commit, or publish."
+    expected_output:
+      - "approved | rejected"
+      - "Genericity and backward-compatibility evidence"
+      - "Exact smoke scope and proof checks"
+      - "Next worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      commands:
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "139 tests passed in 7.093s"
+      rationale: "T014は共通App Server境界でschemaを非破壊変換し、除外したuniqueItemsをparserとreconcileで再検証する。モデル選択はcatalogのrole別policyで解決され、未指定工程の既定値、retry reviewのgpt-5.5/high、成功review直後のactual実行記録、allowlist drift検知も確認した。exact-ID smokeへ進める。"
+      evidence:
+        - "全outputSchema送信境界でdeep-copy adapterを適用し、supported constraintsを保持する。"
+        - "issueCodesの型、allowlist、重複はserver parserとdecomposition normalizationが拒否する。"
+        - "model選択にquestion_type固有条件分岐はなく、catalog agentPolicyと後方互換defaultから解決する。"
+        - "各独立review成功直後にactual model、effort、thread/session/turnをcheckpointする。"
+      missing_evidence:
+        - "App Server実環境でadapter後schemaが受理されること。"
+        - "exact-ID smokeで4つのsource spanと派生問題が生成されること。"
+        - "第一種衛生管理者1044問の全件trialと後続工程・限定公開readback。"
+      summary: "汎用性と後方互換を承認し、exact-ID smokeへ進める。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T016
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "T014の共通修正だけをmainへcommit/pushし、questionRangeを使わずupdateTargetIds=[7d2e09ab78d9a0f22a0742f3]でoriginalQuestionId=a6bea45a937c2c6eのquestion_type refresh smokeを1回実行する。二者review、4 span、source slice、派生key、計算flag、artifact sync、00_source不変をreadbackする。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T015 approved receipt"
+      - "Exact UI question id 7d2e09ab78d9a0f22a0742f3"
+      - "Expected originalQuestionId a6bea45a937c2c6e"
+    constraints:
+      - "Do not use questionRange."
+      - "Commit only T014 implementation/tests; never stage GoalBuddy control, live output, or gas-shunin files."
+      - "Both independent reviews must use actual gpt-5.5/high in distinct threads."
+      - "Do not write 00_source or publish Firestore."
+    expected_output:
+      - "Scoped implementation commit pushed to origin/main"
+      - "Exact-ID smoke run receipt"
+      - "Four exact source slices and four new stable keys"
+      - "Artifact sync and source immutability readback"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/workflow_catalog.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "output/question_review_console/1eiseikanrisha/20035/**"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20035/** except 00_source/**"
+    verify:
+      - "139 focused tests, git cached audit, commit/push readback"
+      - "Run request contains only the exact updateTargetId and no questionRange"
+      - "Resolved record originalQuestionId is a6bea45a937c2c6e"
+      - "Two review executions are gpt-5.5/high in distinct threads"
+      - "Exactly four choices equal questionBodyText source slices and four stable aggregate-statement keys exist"
+      - "isCalculationQuestion is boolean and artifact sync stays in 20035"
+      - "00_source tree hash remains 38dc4d9284a85f7cc172e2487a80d08bdb3cd561ad17af56cd11f35ff077fe11"
+    stop_if:
+      - "Request contains questionRange or another updateTargetId."
+      - "Selected record does not resolve the expected originalQuestionId."
+      - "Either review is not gpt-5.5/high or threads are not distinct."
+      - "Result is hold/non_target or not exactly four reproducible spans."
+      - "00_source changes, Firestore publication is attempted, or unexpected paths change."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: blocked
+      changed_files:
+        - config/question_maintenance_workflow.toml
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/workflow_catalog.py
+        - tests/test_question_review_codex_app_server.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_workflow_catalog.py
+      commands:
+        - command: "139 focused tests and exact cached audit"
+          status: pass
+        - command: "git commit and git push origin main"
+          status: pass
+          summary: "HEAD and origin/main are f8abac669d615569cafc5cbeb0dbfeb68f22244f"
+        - command: "GET /api/codex/status"
+          status: pass
+          summary: "gpt-5.5/high configured"
+        - command: "POST qualification run preview with updateTargetIds=[7d2e09ab78d9a0f22a0742f3]"
+          status: failed
+          summary: "HTTP 422 because updateTargetIds denotes field-selection IDs, not question IDs"
+        - command: "Exact question GET and 00_source verification"
+          status: pass
+          summary: "UI ID resolves originalQuestionId a6bea45a937c2c6e; 5799 source files and tree hash unchanged"
+      summary: "汎用schema/model修正のcommit/pushは完了した。exact UI IDは期待する原問題へ解決したが、既存APIのupdateTargetIdsは更新field selectionId用であり問題IDを指定できないためpreview前に安全停止した。live run、Firestore公開、source変更はない。"
+      remaining_blockers:
+        - "問題IDを直接指定する汎用qualification-run scope契約が必要。"
+        - "live review、4 spans/keys、計算flag、artifact syncは未検証。"
+      verification_attempts: 1
+      stopped_because: "The existing API has no exact question-ID scope and updateTargetIds must not be overloaded."
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "資格一括処理APIへ汎用のexact question scope `questionIds`を追加する。更新field選択のupdateTargetIdsや位置依存のquestionRangeと混同せず、preview/start/resume/token/plan/receiptを通して同じ問題集合を保持し、未知ID・他group ID・questionRange併用を開始前に拒否する。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T016 blocked receipt"
+      - "Existing listGroupIds, updateTargetIds, and questionRange scope contracts"
+      - "Exact target id 7d2e09ab78d9a0f22a0742f3"
+    constraints:
+      - "Do not overload or rename updateTargetIds."
+      - "Do not implement a qualification-specific or aggregate-answer-specific selector."
+      - "questionIds and questionRange are mutually exclusive."
+      - "Validate IDs against the selected listGroup scope before model execution."
+      - "Do not touch output data or 00_source."
+    expected_output:
+      - "Generic questionIds API and workflow scope"
+      - "Preview/start/resume/token parity"
+      - "Unknown/cross-group/conflicting scope rejection"
+      - "Focused regression tests and documentation"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_workflow.py"
+    verify:
+      - "API tests for questionIds preview/start and questionRange conflict"
+      - "Workflow tests for exact selection, unknown ID, cross-group ID, and order normalization"
+      - "Run tests for preview-token/start parity and resume scope parity"
+      - "python -m unittest tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Existing updateTargetIds or questionRange behavior changes incompatibly."
+      - "A requested question can escape selected listGroupIds."
+      - "Preview and start can resolve different question sets."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - document/operations/local_question_review_console.md
+        - tools/question_review_console/server.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/qualification_workflow.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_qualification_workflow.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+          status: pass
+          summary: "144 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "汎用questionIds scopeを追加した。指定順を保って重複を除去し、選択listGroupIds内のinventory question.idだけを許可する。未知ID・選択外group ID・questionRange併用を実行前に拒否し、正規化済みscopeをpreview token、start、prompt、plan、run receipt、resume条件へ伝播した。updateTargetIdsの意味は変更していない。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T017のquestionIdsが資格・工程に依存しない安全なexact scopeとして成立し、preview/start/token/prompt/manifest/recent/resumeで観測可能か、listGroup escapeや既存scope互換性がないか読み取り専用で監査する。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T016 blocked and T017 done receipts"
+      - "Current T017 diff and 144-test evidence"
+    constraints:
+      - "Read-only."
+      - "Reject qualification-specific selection logic."
+      - "Reject if exact scope can disappear from a public run receipt or resume comparison."
+      - "Do not edit, commit, or start a live run."
+    expected_output:
+      - "approved | changes_required"
+      - "Scope propagation evidence"
+      - "Any small pre-smoke fix"
+      - "Exact next smoke contract"
+    receipt:
+      result: done
+      decision: changes_required
+      full_outcome_complete: false
+      commands:
+        - command: "Read-only propagation audit of T017 diff and tests"
+          status: pass
+      rationale: "questionIdsはAPI、workflow、preview/start token、prompt、manifest、resumeへ安全に伝播し、listGroup escapeとquestionRange競合を拒否する。ただしrecent-run public summaryのfield allowlistにquestionIdsがなく、一覧readbackではexact scopeが消えるためsmoke前に補う。"
+      evidence:
+        - "qualification workflow validates exact IDs only after selected listGroup filtering."
+        - "preview and start include question_ids in token-bound plan generation."
+        - "run manifest and resume comparison preserve normalized questionIds."
+        - "RECENT_RUN_DISPLAY_FIELDS omits questionIds."
+      missing_evidence:
+        - "recent-run API readback of questionIds"
+        - "live exact-ID smoke"
+      summary: "汎用scope自体は妥当だが、public recent receiptへquestionIdsを残す小修正が必要。Judge応答待ちを打ち切り、PMが同じread-only証拠から判定した。"
+      remaining_blockers:
+        - "Add questionIds to recent-run public summary and regression test it."
+      verification_attempts: 1
+      stopped_because: null
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "recent qualification-run public summaryへ正規化済みquestionIdsを含め、exact question scopeが履歴readbackから消えないことを回帰テストする。T017の他契約は変更しない。"
+    inputs:
+      - "T018 changes_required receipt"
+      - "Current T017 implementation"
+    constraints:
+      - "Do not change questionIds selection semantics."
+      - "Do not expose unrelated internal run fields."
+      - "Do not touch output or 00_source."
+    expected_output:
+      - "Public recent-run questionIds readback"
+      - "Focused test"
+    allowed_files:
+      - "tools/question_review_console/server.py"
+      - "tests/test_question_review_server.py"
+    verify:
+      - "python -m unittest tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Existing recent-run fields change beyond adding questionIds."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/server.py
+        - tests/test_question_review_server.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow"
+          status: pass
+          summary: "144 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "RECENT_RUN_DISPLAY_FIELDSへquestionIdsだけを追加し、recent runsとactiveRunが正規化済みquestionIdsを順序どおり返す回帰テストを追加した。既存公開fieldと選択意味は変更していない。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T020
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "T017/T019の汎用questionIds scopeをmainへ限定commit/pushし、questionIds=[7d2e09ab78d9a0f22a0742f3]だけで代表問題a6bea45a937c2c6eのquestion_type refresh smokeを実行・readbackする。"
+    inputs:
+      - "T017 and T019 receipts"
+      - "Exact question id 7d2e09ab78d9a0f22a0742f3"
+      - "Expected originalQuestionId a6bea45a937c2c6e"
+    constraints:
+      - "Commit only the seven questionIds implementation/doc/test files."
+      - "Request must use questionIds and no questionRange/updateTargetIds."
+      - "Both independent reviews must be actual gpt-5.5/high in distinct threads."
+      - "Do not publish Firestore or write 00_source."
+      - "Do not stage or touch GoalBuddy control, live receipts, or gas-shunin files."
+    expected_output:
+      - "Scoped commit/push"
+      - "Successful exact-ID live run"
+      - "Four reproducible statement slices and stable keys"
+      - "Boolean calculation flag, 20035 artifact sync, source immutability"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "output/question_review_console/1eiseikanrisha/20035/**"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20035/** except 00_source/**"
+    verify:
+      - "144 focused tests, cached audit, commit/push readback"
+      - "Preview/run receipt questionIds exact and originalQuestionId match"
+      - "Two distinct gpt-5.5/high review executions"
+      - "Target decision with exactly four source spans"
+      - "Four choices reproduce source slices and four stable aggregate keys"
+      - "isCalculationQuestion boolean and artifact sync scoped to 20035"
+      - "00_source hash remains 38dc4d9284a85f7cc172e2487a80d08bdb3cd561ad17af56cd11f35ff077fe11"
+    stop_if:
+      - "Preview selects any other question or drops questionIds."
+      - "Either review differs in model/effort/thread independence."
+      - "Result is hold/non_target or not four exact source spans."
+      - "00_source, Firestore, or unexpected paths change."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: blocked
+      changed_files:
+        - "Seven questionIds implementation/doc/test files committed as 7c964a368114f1292534872bea5a9e1b9d839fc4"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T232958664161-b3d786d2/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T232958955190-e1069f44/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260721T233735815893-6c75a88c/**"
+      commands:
+        - command: "144 focused tests, cached audit, commit and push"
+          status: pass
+          summary: "HEAD and origin/main are 7c964a368114f1292534872bea5a9e1b9d839fc4"
+        - command: "Exact questionIds preview/start"
+          status: pass
+          summary: "Resolved expected originalQuestionId and sourceRecordRef #0"
+        - command: "Live attempt 1 child 20260721T232958955190-e1069f44"
+          status: failed
+          summary: "Two distinct gpt-5.5/high reviews agreed on target and four spans, then server scope validation rejected derived sourceUniqueKeys"
+        - command: "Stop server during automatic attempt 2 child 20260721T233735815893-6c75a88c"
+          status: failed
+          summary: "The retry had already completed two additional reviews; candidate was interrupted and rolled back"
+        - command: "00_source manifest and tree hash"
+          status: pass
+          summary: "5799 files unchanged and tree hash matched"
+      summary: "exact-ID live startと最初の二者reviewは成功し、target・4 spansで一致した。保存時にsourceのstable identityで生成した派生keyをvalidatorが別identity候補だけで再現して拒否した。さらにdeterministic server failureが通常model retryへ流れ、二者reviewを再実行したため停止した。全candidate変更はrollbackされ、Firestore公開とsource変更はない。"
+      remaining_blockers:
+        - "Derived-key validator must use the same stable source identity contract as the materializer."
+        - "Exactly two review results must be immutable/reused and deterministic server validation failures must not trigger fresh reviews."
+        - "Successful patch, artifact sync, and downstream proof remain."
+      verification_attempts: 1
+      stopped_because: "Deterministic server validation failure and automatic extra reviews violated the live smoke stop conditions."
+  - id: T021
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T020 live evidenceから、派生key再現失敗とexactly-two違反のroot causeを読み取り専用で確定し、identity契約を一元化しreview結果をparent runで再利用する汎用修正packageを定義する。deterministic server validation failureをmodel retryへ送らない境界も監査する。"
+    inputs:
+      - "T020 blocked receipt and three live run manifests"
+      - "aggregate_answer_decomposition stable_parent_key/materialize path"
+      - "qualification_runs record-scope validation and retry classification"
+      - "validation_feedback retry semantics"
+    constraints:
+      - "Read-only."
+      - "Do not fix only the specific 1eiseikanrisha identity."
+      - "Do not permit more than two independent semantic reviews per source question in one parent flow."
+      - "Do not weaken ID/source/scope validation."
+    expected_output:
+      - "Root-cause evidence"
+      - "Generic repair package with allowed files and tests"
+      - "Rules for immutable review consensus reuse and non-retryable deterministic failures"
+      - "Next live smoke contract"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      commands:
+        - command: "Read-only live receipt, identity path, validator, rollback, and retry-classification audit"
+          status: pass
+      rationale: "T020失敗は資格固有データではなく、materializerとvalidatorのstable parent identity不一致、およびserver-owned deterministic failureをretryableへ分類する汎用実装欠陥である。ID/source/scope検証とrollbackを弱めず、parent単位で二者review consensusを固定・再利用する必要がある。"
+      evidence:
+        - "Attempt 1 stored two distinct gpt-5.5/high target approvals with the same four spans."
+        - "Materializer prioritizes source canonical_question_key/source_question_id while validator reconstructed only from patch identity aliases."
+        - "Deterministic server commit failure was marked retryable and launched two additional reviews."
+        - "Both attempts rolled back without candidate changes."
+      missing_evidence:
+        - "Shared stable-parent identity tests."
+        - "Candidate retry with exactly two cumulative reviews and reused consensus."
+        - "Non-retryable server validation classification."
+        - "Fresh-parent successful live smoke."
+      summary: "共通identity・review reuse・retry boundaryを一つの修正packageで直すことを承認した。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T022
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "source recordから決定したstable parent identityをmaterializerとrecord-scope validatorで共有し、parent run内のsource questionごとに二者review結果とconsensusを一度だけ固定保存してcandidate retryで再利用する。deterministic server-owned ID/source/scope/transaction検証失敗はrollback後にblockedとして停止し、provider/schema/model candidate failureだけを既存上限内で再試行する。"
+    inputs:
+      - "T020 live receipts"
+      - "T021 approved root-cause audit"
+      - "Current stable_parent_key and record snapshot contracts"
+    constraints:
+      - "Do not weaken ID/source/scope or rollback validation."
+      - "Never start a third semantic review for the same parent/source question."
+      - "Reuse only when sourceHash, stable parent identity, review model/effort, and two-review consensus match current input."
+      - "Do not make all model/content failures non-retryable."
+      - "Do not touch output or 00_source."
+    expected_output:
+      - "Shared stable-parent derivation contract"
+      - "Parent-level exactly-two review checkpoint and retry reuse"
+      - "Structured deterministic server-failure classification"
+      - "Focused regression suite"
+    allowed_files:
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/validation_feedback.py"
+      - "tests/test_aggregate_answer_decomposition.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_validation_feedback.py"
+    verify:
+      - "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+      - "git diff --check"
+    stop_if:
+      - "ID/source/scope validation must be loosened."
+      - "A third semantic review can start for one parent/source question."
+      - "Stored consensus can be reused across a sourceHash/identity/model policy mismatch."
+      - "Deterministic server validation failure reaches candidate model retry."
+      - "Rollback failure or residual delta is detected."
+      - "Need files outside allowed_files."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - scripts/common/aggregate_answer_decomposition.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/validation_feedback.py
+        - tests/test_aggregate_answer_decomposition.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_validation_feedback.py
+      commands:
+        - command: "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "96 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "source record由来stable-parent identityをmaterializerとscope validatorで共通化した。親runへ二者reviewの構造結果、sourceHash、identity、model/effort、execution、consensusをslot別checkpointし、candidate retryでは一致済み結果を再利用する。不一致は第三reviewなしでholdする。server commit失敗はrollback後non-retryableとし、provider/schema/content retryは維持した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T023
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T022の共通identity、親run単位review checkpoint、retry境界を読み取り専用で監査する。特に並列batchが同じparent manifestを更新してもcheckpointを失わず、一問題につき二者を超えないか確認し、fresh-parent live smokeへ進める最大の安全なpackageを定義する。"
+    inputs:
+      - "T022 receipt and changed files"
+      - "QualificationRunStore update semantics"
+      - "Parallel question batch orchestration"
+      - "T020 live failure evidence"
+    constraints:
+      - "Read-only."
+      - "Do not accept qualification-specific or question-specific branches."
+      - "Do not weaken ID/source/scope validation or rollback."
+      - "Reject any path that can start a third semantic review for one parent/source question."
+    expected_output:
+      - "approve_smoke or repair_required"
+      - "Genericity and concurrency evidence"
+      - "Next Worker package with allowed_files, verify, and stop_if"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "repair_required。Storeのlockはmanifest書込み単位にしか効かず、各並列batchは取得済みのaggregateReviewCheckpoints全体を置換する。二batchが空の親状態を読むと後勝ちで一方が消え、消えた問題のcandidate retryが新たな二者reviewを実行して累計4件になり得る。"
+      evidence:
+        - "QualificationRunStore.updateはaggregateReviewCheckpointsを入れ子mergeせず全体置換する。"
+        - "ThreadPoolExecutor配下の各batchが親checkpoint全体をcopyして複数回書き戻す。"
+        - "既存テストは複数batchのread-copy-replace競合を再現していない。"
+      missing_evidence:
+        - "二つ以上の並列batchで全問題のcheckpointが保持される証拠"
+        - "candidate retryでも一問題のreviewが累計2件を超えない証拠"
+        - "途中失敗又はresume時のreview slot不変性"
+  - id: T024
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "親runのaggregate review checkpointを問題ID・review slot単位でlock内に原子的にmergeし、signature、slot、execution、consensusを追記後に再読検証する。並列batch、candidate retry、resume、途中失敗でも保存済みentryを失わず、一問題につき開始済みreview slotを最大2件に固定する。"
+    inputs:
+      - "T023 repair_required receipt"
+      - "QualificationRunStore lock and update semantics"
+      - "Parallel question batch orchestration"
+    constraints:
+      - "Do not use qualification-specific or question-specific branches."
+      - "Do not weaken stable identity, ID/source/scope, rollback, or non-retryable server validation."
+      - "Never start or store more than two review slots for one parent/source question."
+    expected_output:
+      - "Atomic per-question and per-slot review checkpoint API"
+      - "Parallel barrier regression test"
+      - "Retry and resume exactly-two evidence"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_parallel_batches_preserve_all_review_checkpoints_and_never_exceed_two_reviews"
+      - "python -m unittest tests.test_question_review_qualification_runs"
+      - "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+      - "git diff --check"
+    stop_if:
+      - "Parallel paths still replace aggregateReviewCheckpoints from a previously read whole-map copy."
+      - "A review slot cannot be reserved atomically before starting an external review."
+      - "A started but unresolved slot must be rerun unconditionally."
+      - "A signature mismatch can be overwritten or reused."
+      - "One question can have more than two review slots or executions."
+      - "Need qualification-specific logic or files outside allowed_files."
+      - "ID/source/scope or rollback validation must be weakened."
+      - "A two-batch barrier regression cannot be implemented."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_parallel_batches_preserve_all_review_checkpoints_and_never_exceed_two_reviews"
+          status: pass
+          summary: "1 test passed"
+        - command: "python -m unittest tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "73 tests passed"
+        - command: "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "99 tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "165 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "集約レビューのslot予約、解決、合意保存を親manifest lock内の問題ID単位更新へ変更した。開始済み未確定slot、signature不一致、未知・過剰・重複slot、actual実行証跡不一致は既存記録を保持してfail closedとする。並列barrier回帰と周辺165件の回帰が成功した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T025
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T022とT024の共通identity、厳格checkpoint、並列安全性、retry停止境界を読み取り専用で再監査し、新規parent exact-question smokeへ進めるか判定する。"
+    inputs:
+      - "T022 and T024 receipts and diffs"
+      - "Parallel barrier, corrupt checkpoint, unresolved slot, retry regression tests"
+      - "T020 failed live evidence"
+    constraints:
+      - "Read-only."
+      - "Reject qualification-specific or question-specific repair logic."
+      - "Do not approve if a third semantic review, lost checkpoint, or deterministic server retry path remains."
+    expected_output:
+      - "approve_smoke or repair_required"
+      - "Evidence map for genericity, exactly-two, source slicing, and retry boundaries"
+      - "Fresh-parent smoke package with exact scope and verification"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "保存済みresolved slotの再利用時にreviewNumberとsessionId/turnIdを検証せず、不正なactual execution evidenceを受理できる。またstable parent identity欠落は外部review前に止まるがdeterministic failureがretryable扱いで子runを反復するため、fresh smoke前に汎用修正が必要。"
+      evidence:
+        - "共通identity、原文span限定、slot原子更新、parallel lost update防止、累計二者維持、server commit nonretryは確認済み。"
+        - "resolved slotの再利用検証がmodel/effortとthreadId差だけで、reviewNumber/sessionId/turnIdを完全照合していない。"
+        - "stable parent identity欠落はcommandsなしexecution_failureとしてretryableになる。"
+  - id: T026
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "保存済みresolved aggregate review slotのexecution evidenceを確定時と再利用時の共通検証でslot番号、model、reasoningEffort、非空threadId/sessionId/turnIdまで照合し、不一致を既存checkpointを変更せずfail closedにする。stable parent identity欠落などreview開始前のdeterministic identity failureも外部review・candidate retryへ流さずblockedにし、未使用importを除去する。"
+    inputs:
+      - "T025 blocked receipt"
+      - "Current atomic checkpoint implementation"
+      - "Validation feedback retry classifier"
+    constraints:
+      - "Do not overwrite invalid stored execution evidence or recover it with another review."
+      - "Do not make provider/schema/content failure non-retryable."
+      - "Do not use qualification-specific or question-specific logic."
+    expected_output:
+      - "Shared strict execution evidence validator"
+      - "Pre-review deterministic identity failure blocking"
+      - "Focused and surrounding regressions"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/validation_feedback.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_validation_feedback.py"
+    verify:
+      - "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Invalid stored execution evidence must be overwritten or re-reviewed."
+      - "Stable identity failure can reach aggregate review or candidate model turn."
+      - "Provider/schema/content failures become non-retryable."
+      - "Qualification-specific logic or files outside allowed_files are needed."
+      - "ID/source/scope, two-review limit, or rollback validation must be weakened."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/validation_feedback.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_validation_feedback.py
+      commands:
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback"
+          status: pass
+          summary: "96 tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "168 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "保存時と再利用時で共通のexecution evidence validatorを使い、review番号、actual model/effort、thread/session/turnをfail closedで照合する。stable parent identity欠落は外部review/candidate modelの前に一度でblockedとし、provider/schema/content retryは維持した。"
+      deviations:
+        - "Workerはfixtureがqueue identityも欠くため停止した。PMがqueue identityを保ち、projected current inputだけからstable identityを欠くfixtureへ修正し、外部model call 0件と初回blockedを検証した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 3
+      stopped_because: null
+  - id: T027
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T026を含む共通実装を読み取り専用で最終監査し、scoped commit/pushと新規parent exact-question live smokeを承認できるか判定する。"
+    inputs:
+      - "T022, T024, T026 receipts and current diff"
+      - "96 focused and 168 surrounding test results"
+      - "T020 failed live evidence"
+    constraints:
+      - "Read-only."
+      - "Do not approve qualification-specific repair logic."
+      - "Do not approve if invalid saved evidence, missing stable identity, lost checkpoint, or deterministic server failure can trigger extra model turns."
+    expected_output:
+      - "approve_smoke or repair_required"
+      - "Exact scoped commit and live smoke contract"
+      - "Evidence requirements for exactly two reviews, four source slices, stable keys, sync, and 00_source"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "保存済みexecution evidenceが不正な場合、aggregate reviewは0回でもcandidate modelが1回呼ばれる。invalid checkpointはすべての外部model turn前に除外し、混在batchでは正常問題だけ継続する汎用修正が必要。"
+      evidence:
+        - "168件の回帰、共通identity、原文span、slot原子更新、二者上限、server validation nonretryは確認済み。"
+        - "破損checkpointの再現結果はaggregate review 0回、candidate model 1回、初回blockedだった。"
+  - id: T028
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "保存済みaggregate review checkpointのsignature、slot、execution、consensusが不正又は未解決の問題をcandidate生成前に汎用的に除外し、checkpointを変更せず初回non-retryable holdへ確定する。全対象が不正なら外部model turnを0回とし、混在batchでは不正問題をreview/candidate promptとschemaから除外して正常問題だけ継続する。"
+    inputs:
+      - "T027 blocked receipt"
+      - "Current aggregate review reconciliation and candidate batch generation"
+    constraints:
+      - "Do not overwrite, delete, or re-review an invalid checkpoint."
+      - "Do not block healthy sibling questions in a mixed batch."
+      - "Do not use qualification-specific or question-specific logic."
+    expected_output:
+      - "Pre-candidate invalid-question filter"
+      - "Zero model calls when all questions are invalid"
+      - "Mixed-batch isolation regression"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_invalid_persisted_execution_evidence_blocks_before_any_model_turn_and_is_preserved"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_invalid_checkpoint_is_excluded_while_valid_question_continues"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "An invalid question enters aggregate review or candidate prompt/schema."
+      - "An existing checkpoint must be overwritten, deleted, or re-reviewed."
+      - "A third semantic review can start."
+      - "A healthy sibling is held because another question is invalid."
+      - "Qualification-specific logic or files outside allowed_files are needed."
+      - "ID/source/scope, rollback, or server validation nonretry must be weakened."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: blocked
+      decision: repair_required
+      full_outcome_complete: false
+      rationale: "全不正時model call 0と混在batch分離は成功したが、aggregate review中のprovider failureがstarted-unresolvedとなり、既存provider pause/retryへ到達しない。thread開始前と開始後の失敗境界を整理する必要がある。"
+      evidence:
+        - "指定focused 2件は成功した。"
+        - "provider retry周辺回帰2件が同じ原因で2回失敗した。"
+  - id: T029
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "aggregate review slot予約後のprovider failureについて、thread開始前なら予約取消と既存retryを許可し、thread開始後なら二者上限保護のため未解決holdとする境界が共通契約として安全か読み取り専用で判定する。"
+    inputs:
+      - "T028 blocked receipt and current diff"
+      - "Provider retry regressions"
+      - "App Server thread/turn callbacks"
+    constraints:
+      - "Read-only."
+      - "Do not allow reservation cancellation after review thread starts."
+      - "Do not block healthy siblings or weaken two-review limit."
+    expected_output:
+      - "approve repair boundary or request user decision"
+      - "Atomic cancellation/retry Worker package if approved"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "on_thread_started前は意味的review未開始として予約取消と既存retryを許可でき、通知後は実施可能性を否定できないためstartedを保持して追加reviewを禁止する境界が安全。取消は同一batchのquestion/slot/signatureを単一lock・単一writeで全件照合する。"
+      evidence:
+        - "thread callbackはthread ID確定後、turn/start前に呼ばれる。"
+        - "既存provider回帰はcallback前失敗後の予約残存が原因。"
+        - "callback後timeoutは既存回帰で一度のholdを確認済み。"
+  - id: T030
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "aggregate review batchの外部provider又はschema transport失敗がon_thread_started前なら、そのbatchで新規予約したslotだけを原子的に取消して既存provider retry/pauseへ戻す。callback後は取消さずstarted-unresolvedとして次roundでholdし、追加reviewを行わない。"
+    inputs:
+      - "T029 approved boundary"
+      - "T028 mixed-batch filter"
+      - "Current provider retry regressions"
+    constraints:
+      - "Cancel only the current batch's newly reserved question/slot/signature entries."
+      - "Validate all cancellation targets in one lock before one write."
+      - "Never cancel after on_thread_started."
+    expected_output:
+      - "Atomic pre-thread reservation cancellation"
+      - "Provider retry and post-thread hold regressions"
+      - "Mixed-batch preservation"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_provider_gate_retries_batch_then_waits_without_blocking_questions tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_provider_retry_skips_preblocked_question"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_started_unresolved_review_slot_blocks_without_rerun"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_invalid_persisted_execution_evidence_blocks_before_any_model_turn_and_is_preserved tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_invalid_checkpoint_is_excluded_while_valid_question_continues"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Cancellation targets cannot all be verified in one lock before one write."
+      - "Partial cancellation can occur."
+      - "A slot must be cancelled after the thread callback."
+      - "Cancellation failure or deterministic server failure becomes provider-retryable."
+      - "A resolved, consensus, other-batch, or invalid checkpoint changes."
+      - "A third semantic review can start."
+      - "A healthy sibling is blocked by an invalid sibling."
+      - "Qualification-specific logic or files outside allowed_files are needed."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "T030 focused provider, post-thread hold, invalid/mixed, atomic cancellation regressions"
+          status: pass
+          summary: "6 focused tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback"
+          status: pass
+          summary: "99 tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "171 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "thread開始前のprovider failureだけ、現在batchの新規予約を全件照合後に単一writeで原子的に取消す。callback後はstartedを保持してholdする。invalid checkpoint分離、resolved/consensus/他slot保持、二者上限を維持し、周辺171件が成功した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T031
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T022からT030までの共通実装を最終読み取り監査し、scoped commit/pushとfresh-parent exact-question live smokeを承認する。原子的取消のreadback、invalid混在分離、exactly-two、nonretry境界を確認する。"
+    inputs:
+      - "T022-T030 receipts and current diff"
+      - "171 surrounding tests"
+      - "T020 live failure evidence"
+    constraints:
+      - "Read-only."
+      - "Reject any qualification-specific repair."
+      - "Reject any extra model turn for invalid or post-thread unresolved checkpoints."
+    expected_output:
+      - "approve_smoke or repair_required"
+      - "Exact commit file list"
+      - "Fresh-parent smoke request and readback contract"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "予約取消は単一write後の関数内再読検証がなく、無反映又は誤反映をその場で検出できない。fresh smoke前に期待checkpoint全体とのreadbackを追加する。"
+      evidence:
+        - "共通identity、原文slice、二者上限、slot原子更新、不正混在分離、provider境界、server nonretry、171件回帰は確認済み。"
+        - "reserve、resolve、consensusにはreadbackがあるがcancelだけ欠ける。"
+  - id: T032
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "thread開始前のaggregate review slot一括取消について、単一lock・単一write後にmanifestを再読し、取消対象の消滅、保持対象の不変、checkpoint全体が計算済み期待値と一致することを検証する。無反映又は誤反映はfail closedにする。"
+    inputs:
+      - "T031 blocked receipt"
+      - "Current atomic cancellation implementation"
+    constraints:
+      - "Keep pre-write full validation, one lock, and one write."
+      - "Do not modify resolved, consensus, sibling question, or sibling slot data."
+      - "Do not retry a model turn after readback mismatch."
+    expected_output:
+      - "In-function cancellation readback"
+      - "No-op or corrupted write injection regression"
+      - "Full surrounding regression"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_prethread_reservation_cancellation_is_atomic_and_preserves_other_slots"
+      - "Focused regression injecting a no-op or corrupted cancellation write and requiring the cancellation function itself to fail"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Qualification-specific logic or files outside allowed_files are needed."
+      - "Pre-write full validation, one lock, or one write is weakened."
+      - "Resolved, consensus, sibling question, or sibling slot data changes."
+      - "Readback mismatch can reach an external model retry."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "Atomic cancellation and no-op write readback focused regressions"
+          status: pass
+          summary: "2 tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "172 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "取消の単一write後、同一lock内でmanifestを再読しaggregateReviewCheckpoints全体を期待値と照合する。無反映又は誤反映はfail closedとし、外部modelを再呼出ししない。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T033
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T022-T032の共通実装をcommit前に最終監査し、取消readback不一致を含むdeterministic failureが余分な外部model又は不要なqueue retryへ進まないことを確認してfresh smokeを承認する。"
+    inputs:
+      - "T022-T032 receipts and current diff"
+      - "172 surrounding tests"
+      - "T020 live failure evidence"
+    constraints:
+      - "Read-only."
+      - "Reject qualification-specific logic and any third semantic review path."
+      - "Reject unnecessary retry after cancellation readback mismatch."
+    expected_output:
+      - "approve_smoke or one exact repair"
+      - "Exact scoped commit list and fresh-parent smoke contract"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "取消readback不一致は外部modelを再呼出ししないが、初回deterministic failureがretryableとなりvalidationAttemptsがfailed、blockedの2件になる。checkpoint整合性failureとして初回blockが必要。"
+      evidence:
+        - "no-op取消write再現で外部model 1回、validationAttempts 2件。"
+        - "通常provider retryと区別できる構造化エラーメッセージがある。"
+  - id: T034
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "aggregate review予約取消の原子的readback不一致を、初回の子run feedbackで非再試行のaggregate_review_checkpoint_integrityとして分類する。通常provider failureはretryableのまま維持する。"
+    inputs:
+      - "T033 blocked receipt"
+      - "Current cancellation integrity error"
+    constraints:
+      - "Do not make normal provider failures non-retryable."
+      - "Do not modify checkpoint data to recover."
+    expected_output:
+      - "Structured non-retryable checkpoint-integrity feedback"
+      - "Exactly one validation attempt regression"
+      - "Full surrounding regression"
+    allowed_files:
+      - "tools/question_review_console/validation_feedback.py"
+      - "tests/test_question_review_validation_feedback.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "Focused validation feedback checkpoint-integrity regression"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_cancellation_readback_failure_does_not_retry_external_model"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Normal provider failure becomes non-retryable."
+      - "Cancellation failure has two or more validation attempts or model calls."
+      - "Checkpoint data must be changed or deleted."
+      - "Files outside allowed_files are needed."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/validation_feedback.py
+        - tests/test_question_review_validation_feedback.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "Focused checkpoint-integrity and normal-provider regressions"
+          status: pass
+          summary: "3 focused tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "173 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "取消readback不一致と原子的取消不能だけをaggregate_review_checkpoint_integrityとして初回non-retryableに分類する。通常provider retryは維持し、no-op取消はvalidationAttempts 1件でblocked、checkpoint保持となる。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T035
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T022-T034の共通実装を最終監査し、scoped commit/pushとfresh-parent exact-question live smokeを承認する。"
+    inputs:
+      - "All repair receipts T022-T034"
+      - "Current six-file implementation and test diff"
+      - "173 surrounding tests and T020 live evidence"
+    constraints:
+      - "Read-only."
+      - "Return approve only if no known extra review/model/queue retry path remains."
+    expected_output:
+      - "approve_smoke or precise remaining defect"
+      - "Exact commit list and live smoke contract"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "予約・確定・consensusのcheckpoint再読検証失敗が取消と同じnon-retryable分類に未統合で、deterministic integrity failureがqueue retryへ進み得る。"
+      evidence:
+        - "周辺173件、資格共通化、二者上限、invalid分離は確認済み。"
+        - "checkpoint integrity分類が取消メッセージだけを対象にしている。"
+  - id: T036
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "aggregate review checkpointの予約・確定・consensus保存に関するsignature、slot、再読検証失敗を、予約取消と同じaggregate_review_checkpoint_integrityとして初回non-retryableに分類する。通常provider、schema、content failureはretryableのまま維持する。"
+    inputs:
+      - "T035 blocked receipt"
+      - "All aggregate review checkpoint integrity messages"
+    constraints:
+      - "Do not broaden to provider, schema, or content failures."
+      - "Do not recover by deleting or overwriting checkpoints."
+    expected_output:
+      - "Complete checkpoint-integrity classifier coverage"
+      - "One-attempt blocked regressions for reserve, resolve, and consensus failures"
+      - "Full surrounding regression"
+    allowed_files:
+      - "tools/question_review_console/validation_feedback.py"
+      - "tests/test_question_review_validation_feedback.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Provider, schema, or content failure becomes non-retryable."
+      - "An integrity failure starts another aggregate review or candidate model."
+      - "Checkpoint deletion or overwrite is needed."
+      - "Files outside allowed_files are needed."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/validation_feedback.py
+        - tests/test_question_review_validation_feedback.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "102 tests passed"
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "174 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "aggregate review checkpointの構造、execution、予約、確定、consensusに関するsignature・slot・readback失敗を専用integrity codeで初回non-retryableに分類する。reserve、resolve、consensus各flowは1 attemptでblocked、追加modelなし、checkpoint不変。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T037
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T036がT035の唯一の既知欠陥を閉じたか確認し、scoped commit/pushとfresh-parent live smokeを承認する。"
+    inputs:
+      - "T035 defect and T036 receipt"
+      - "Current diff and 174 tests"
+    constraints:
+      - "Read-only."
+      - "Judge the approved goal contract and known stop conditions; do not add speculative hardening unrelated to them."
+    expected_output:
+      - "approve_smoke or evidence that the known defect remains"
+      - "Exact commit and live smoke package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "reserve、resolve、consensusのcheckpoint integrity失敗は各1 attemptでnon-retryable blocked、追加candidate model 0、checkpoint不変。通常provider retryを維持し174 testsが成功したため、六ファイルのcommit/pushとfresh smokeを承認する。"
+      evidence:
+        - "reserve failureはreview 0、resolveは1、consensusは2で停止する。"
+        - "通常provider gateのretry/pause回帰を維持する。"
+        - "指定六ファイルのdiff checkと174件回帰が成功した。"
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "指定六ファイルだけをmainへcommitしてorigin/mainへpushし、そのコミットから新規parent runを作成して第一種衛生管理者の代表一問をexact questionIdsでlive smokeする。"
+    inputs:
+      - "T037 approved receipt"
+      - "Current six-file implementation diff"
+      - "Exact smoke target 7d2e09ab78d9a0f22a0742f3"
+    constraints:
+      - "Do not stage gas-shunin changes or GoalBuddy state/notes in the implementation commit."
+      - "Use main and origin/main only."
+      - "Use a fresh parent; do not resume T020."
+      - "Do not publish Firestore."
+    expected_output:
+      - "Scoped commit and remote readback"
+      - "Fresh-parent live smoke receipt"
+      - "Exactly two gpt-5.5/high reviews and four source slices"
+      - "00_source immutability proof"
+    allowed_files:
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/validation_feedback.py"
+      - "tests/test_aggregate_answer_decomposition.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_validation_feedback.py"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20035/** except 00_source/**"
+    verify:
+      - "174 surrounding tests and scoped diff check"
+      - "Exact staged six-file audit"
+      - "HEAD and origin/main readback after push"
+      - "Fresh request contains questionIds only and no questionRange/updateTargetIds/resume"
+      - "Two distinct gpt-5.5/high reviews, four exact slices, stable keys, boolean flag"
+      - "Group 20035 sync, Firestore disabled, 00_source hash unchanged"
+    stop_if:
+      - "Any unrelated file is staged."
+      - "A non-main branch or non-origin/main push is needed."
+      - "The smoke resumes an old parent."
+      - "Review count exceeds two or policy differs from gpt-5.5/high."
+      - "Server integrity failure retries, 00_source changes, or Firestore publication is attempted."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: blocked
+      decision: live_hold
+      full_outcome_complete: false
+      changed_files:
+        - "Commit b2541f322ad21c5917cbc8cc293d0d3f4c11fc7c"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T013101101593-26c0e65b/**"
+      commands:
+        - command: "Scoped six-file commit and push"
+          status: pass
+          summary: "HEAD and origin/main are b2541f322ad21c5917cbc8cc293d0d3f4c11fc7c"
+        - command: "Fresh exact questionIds live smoke"
+          status: blocked
+          summary: "Two distinct gpt-5.5/high reviews completed once each; consensus held for review_disagreement and no patch was written"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+      summary: "fresh parentはexact questionIds、no range/updateTargetIds/resumeで実行した。二者reviewは2件だけで追加retryなくholdし、candidate patch、artifact sync、Firestore公開は発生しなかった。review 1はA-Dを句読点なし境界で返し、review 2はA/Cだけを返したため、全項目抽出と境界の共通promptが曖昧と判明した。"
+      remaining_blockers:
+        - "全列挙項目を内容の正誤にかかわらず返すことをreview contractへ明示する。"
+        - "spanは項目ラベル先頭から当該項目の文末記号までとする共通境界を明示する。"
+        - "修正後の別source question又はfresh runでmaterialization成功を証明する。"
+  - id: T039
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T038のlive disagreementを読み取り専用で監査し、正誤判定と全項目抽出の混同、項目ラベル・句読点境界の曖昧さを資格共通prompt contractとして修正するpackageを定義する。"
+    inputs:
+      - "T038 parent and child manifests"
+      - "Both structured review outputs"
+      - "Current aggregate review prompt and user-approved all-statements intent"
+    constraints:
+      - "Read-only."
+      - "Do not add representative-question span constants or qualification-specific examples."
+      - "Do not weaken exact agreement or permit a third review."
+    expected_output:
+      - "Root cause and generic prompt contract"
+      - "Worker package with prompt tests and next live proof"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "現行promptは全項目必須、正誤判定禁止、labelと句読点を含むspan境界を定義していない。資格共通promptと契約versionを更新し、生span完全一致は維持する。"
+      evidence:
+        - "Review1はA-Dを返したが改行を含み句点を除外した。"
+        - "Review2は境界が整うA/Cだけを返した。"
+        - "既存issue codeでhold理由を表現でき、normalizationやschema追加は不要。"
+  - id: T040
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "資格共通aggregate review promptへ、正誤を解かず全列挙項目を順番どおり返す契約と、項目ラベル先頭から末尾句読点までをspanとし前後の改行・区切り空白を含めない境界契約を追加する。prompt契約versionをcheckpoint signatureとreceiptへ保存し、旧versionを再利用不能にする。テスト、二ファイルのcommit/push後、同じ代表問題をfresh parentでlive smokeする。"
+    inputs:
+      - "T038 live disagreement"
+      - "T039 approved prompt contract"
+      - "Current aggregate review checkpoint signature"
+    constraints:
+      - "Do not add prose output fields, issue codes, normalization, qualification examples, exact spans, or answers."
+      - "Do not resume old parent or reuse old checkpoint."
+      - "Do not run more than two reviews in the new parent."
+    expected_output:
+      - "Versioned generic prompt contract"
+      - "Prompt and checkpoint reuse regressions"
+      - "Scoped commit/push"
+      - "Fresh live materialization proof"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20035/10_questionType_fixed/question_20035_1_questionType_fixed.json"
+    verify:
+      - "Prompt test covers all items, no truth solving, order, label start, terminal punctuation exclusive end, delimiter exclusion, existing hold codes."
+      - "Checkpoint contract-version match and mismatch fail-closed tests."
+      - "python -m unittest tests.test_question_review_question_candidate tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+      - "git diff --check"
+      - "Only two source/test files committed to main and pushed to origin/main."
+      - "Fresh exact questionIds parent with no resume/range/updateTargetIds."
+      - "Exactly two distinct gpt-5.5/high reviews and complete raw-span agreement."
+      - "Tool slices, stable derived IDs, boolean flag, group sync, no Firestore, 00_source unchanged."
+    stop_if:
+      - "A prose schema field, new issue code, span normalization, qualification-specific example, exact span, or answer is required."
+      - "An old parent/checkpoint is resumed or reused."
+      - "The new parent starts more than two reviews."
+      - "The reviewers disagree, omit items, or violate boundaries."
+      - "00_source, Firestore, or files outside allowed scope change."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T014705060870-2bfc40ee/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T014705995222-4d1c32c2/**"
+        - output/1eiseikanrisha/questions_json/20035/10_questionType_fixed/question_20035_1_questionType_fixed.json
+      commands:
+        - command: "Versioned prompt tests and surrounding regression"
+          status: pass
+          summary: "176 tests passed"
+        - command: "Two-file scoped commit and push"
+          status: pass
+          summary: "HEAD and origin/main are 949e6dea6cc2e5683abe98dc9d09d6f09f196fa7"
+        - command: "Fresh exact questionIds live smoke"
+          status: pass
+          summary: "Two distinct gpt-5.5/high reviews agreed on four complete source spans and one question patch was validated"
+        - command: "Tool slice, stable key, boolean flag, and 00_source readback"
+          status: pass
+          summary: "All four slices and keys reproduced; isCalculationQuestion=false bool; 5799 source files unchanged"
+      summary: "資格共通prompt v2で全列挙項目、非正誤判定、labelから句読点までの境界を明示した。fresh parentは二者2件だけで376-406、407-458、459-488、489-540に一致し、tool-only slice、安定派生ID、boolean flag、server scope検証を通してpatchを確定した。Firestore公開はしていない。"
+      remaining_blockers:
+        - "group 20035 artifact syncは既存43問の必須field不足でblocked。"
+        - "第一種衛生管理者1044問の全件question_type trialが未実施。"
+        - "対象派生問題のcorrect choice、explanation、question set、公開前gate、限定公開readbackが未実施。"
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T041
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T040 live successを読み取り専用で監査し、第一種衛生管理者1044問の全件question_type trialへ進む実行packageを定義する。hold/non-target/target集計、並列二者上限、artifact sync保留の扱いを明確にする。"
+    inputs:
+      - "T040 parent, child, patch, commit, and source readback"
+      - "Goal oracle and all-years 1044-question scope"
+      - "Current server scheduler and resume behavior"
+    constraints:
+      - "Read-only."
+      - "Do not publish Firestore in the question_type trial."
+      - "Do not treat hold as extraction success or rerun it within the same parent."
+      - "Do not require artifact sync success before downstream fields exist."
+    expected_output:
+      - "approve_full_trial or missing smoke evidence"
+      - "Exact full-trial request, monitoring, aggregation, and stop conditions"
+      - "Next downstream package after trial"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "approve_full_trial。T040はfresh parent、独立したgpt-5.5/high二者、prompt v2、完全一致span、source slice、安定key、boolean flag、00_source不変、Firestore非公開を満たした。全件trialはqualification全体を指定し、個別group列挙を行わない。"
+      evidence:
+        - "T040 parent=20260722T014705060870-2bfc40ee、child=20260722T014705995222-4d1c32c2、HEAD=origin/main=949e6dea6cc2e5683abe98dc9d09d6f09f196fa7。"
+        - "T040 checkpointはprompt v2、異なる2 thread、各gpt-5.5/high、sourceHash・分類・span完全一致。"
+        - "現行scopeは24 group、合計1044問。全件previewは1044問、Firestore未開始。"
+        - "00_source immutabilityは5799 files差分なし。"
+      next_allowed_task: T042
+      missing_evidence:
+        - "1044問trialの実行receiptと四分類集計。"
+        - "target派生問題の正誤・解説・questionSet・公開前gate・限定公開readback。"
+  - id: T042
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "第一種衛生管理者1044問をqualification全体指定のfresh parentでquestion_type trialし、各問をtarget/non_target/hold/invalidへ排他的に集計する。targetだけsource slice、span完全性、stable keys、boolean flagを検証し、hold/invalidは同一parentで再実行しない。"
+    inputs:
+      - "T040 live smoke"
+      - "T041 approve_full_trial"
+      - "Current 1eiseikanrisha inventory"
+    constraints:
+      - "Requestはqualification=1eiseikanrisha、stageIds=[question_type]、mode=refresh、questionConcurrency=32だけを指定する。"
+      - "listGroupIds、questionIds、questionRange、updateTargetIds、resumedFromを送らない。"
+      - "Each valid checkpoint uses at most two distinct gpt-5.5/high review threads with prompt v2."
+      - "Do not rerun hold/invalid in the same parent."
+      - "Do not publish Firestore."
+      - "Artifact sync blocked is allowed only for missing downstream required fields."
+    expected_output:
+      - "Fresh 1044-question parent and child runs"
+      - "Exclusive target/non_target/hold/invalid coverage"
+      - "Target source-slice and derived-key audit"
+      - "No-Firestore and 00_source immutability proof"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/99_model_review_flags/**"
+    verify:
+      - "Preview targetCount=1044 with qualification-wide scope and forbidden request fields absent."
+      - "target/non_target/hold/invalid sum equals 1044."
+      - "All valid checkpoints use prompt v2, at most two distinct gpt-5.5/high threads."
+      - "Every target has exact source slices, ordered non-overlapping spans, recomputable stable keys, and boolean isCalculationQuestion."
+      - "Hold/invalid have no committed patch and no retry within the same parent."
+      - "python -m unittest tests.test_question_review_question_candidate tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "No Firestore publication."
+    stop_if:
+      - "Preview is not qualification-wide 1044 questions or a forbidden request field is sent."
+      - "An old parent/checkpoint is reused, a third review starts, or model/effort/thread evidence violates the contract."
+      - "Hold/invalid is rerun in the same parent."
+      - "00_source, Firestore, or a file outside allowed scope changes."
+      - "Rollback is incomplete, unsafe child appears, or checkpoint/sourceHash integrity breaks."
+      - "External provider stops; preserve a partial receipt and return to Judge without resume."
+    receipt: null
+  - id: T043
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T042の1044問coverage、四分類、target生成物、hold/invalid、00_source不変、Firestore非公開を読み取り専用で監査し、下流整備へ進めるか判定する。"
+    inputs:
+      - "T042 parent, child runs, patches, flags, and receipt"
+      - "T041 full-trial contract"
+    constraints:
+      - "Read-only."
+      - "Do not accept partial coverage or hold/invalid as extraction success."
+      - "Do not approve Firestore publication."
+    expected_output:
+      - "approve_downstream or reject"
+      - "1044-question evidence map"
+      - "Exact downstream Worker package"
     receipt: null
   - id: T999
     type: judge

@@ -1,0 +1,14 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T033",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "取消readback不一致は外部modelを再呼出ししないが、初回deterministic failureがretryableとなりvalidationAttemptsがfailed、blockedの2件になる。checkpoint整合性failureとして初回blockが必要。",
+    "evidence": [
+      "no-op取消write再現で外部model 1回、validationAttempts 2件。",
+      "通常provider retryと区別できる構造化エラーメッセージがある。"
+    ]
+  }
+}

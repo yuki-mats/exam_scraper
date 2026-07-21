@@ -1,0 +1,14 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T028",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "repair_required",
+    "full_outcome_complete": false,
+    "rationale": "全不正時model call 0と混在batch分離は成功したが、aggregate review中のprovider failureがstarted-unresolvedとなり、既存provider pause/retryへ到達しない。thread開始前と開始後の失敗境界を整理する必要がある。",
+    "evidence": [
+      "指定focused 2件は成功した。",
+      "provider retry周辺回帰2件が同じ原因で2回失敗した。"
+    ]
+  }
+}

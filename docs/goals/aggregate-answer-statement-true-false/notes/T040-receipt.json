@@ -1,0 +1,45 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T040",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_question_review_qualification_runs.py",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T014705060870-2bfc40ee/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T014705995222-4d1c32c2/**",
+      "output/1eiseikanrisha/questions_json/20035/10_questionType_fixed/question_20035_1_questionType_fixed.json"
+    ],
+    "commands": [
+      {
+        "command": "Versioned prompt tests and surrounding regression",
+        "status": "pass",
+        "summary": "176 tests passed"
+      },
+      {
+        "command": "Two-file scoped commit and push",
+        "status": "pass",
+        "summary": "HEAD and origin/main are 949e6dea6cc2e5683abe98dc9d09d6f09f196fa7"
+      },
+      {
+        "command": "Fresh exact questionIds live smoke",
+        "status": "pass",
+        "summary": "Two distinct gpt-5.5/high reviews agreed on four complete source spans and one question patch was validated"
+      },
+      {
+        "command": "Tool slice, stable key, boolean flag, and 00_source readback",
+        "status": "pass",
+        "summary": "All four slices and keys reproduced; isCalculationQuestion=false bool; 5799 source files unchanged"
+      }
+    ],
+    "summary": "資格共通prompt v2で全列挙項目、非正誤判定、labelから句読点までの境界を明示した。fresh parentは二者2件だけで376-406、407-458、459-488、489-540に一致し、tool-only slice、安定派生ID、boolean flag、server scope検証を通してpatchを確定した。Firestore公開はしていない。",
+    "remaining_blockers": [
+      "group 20035 artifact syncは既存43問の必須field不足でblocked。",
+      "第一種衛生管理者1044問の全件question_type trialが未実施。",
+      "対象派生問題のcorrect choice、explanation、question set、公開前gate、限定公開readbackが未実施。"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

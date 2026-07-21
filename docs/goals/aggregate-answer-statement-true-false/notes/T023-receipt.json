@@ -1,0 +1,20 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T023",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "repair_required。Storeのlockはmanifest書込み単位にしか効かず、各並列batchは取得済みのaggregateReviewCheckpoints全体を置換する。二batchが空の親状態を読むと後勝ちで一方が消え、消えた問題のcandidate retryが新たな二者reviewを実行して累計4件になり得る。",
+    "evidence": [
+      "QualificationRunStore.updateはaggregateReviewCheckpointsを入れ子mergeせず全体置換する。",
+      "ThreadPoolExecutor配下の各batchが親checkpoint全体をcopyして複数回書き戻す。",
+      "既存テストは複数batchのread-copy-replace競合を再現していない。"
+    ],
+    "missing_evidence": [
+      "二つ以上の並列batchで全問題のcheckpointが保持される証拠",
+      "candidate retryでも一問題のreviewが累計2件を超えない証拠",
+      "途中失敗又はresume時のreview slot不変性"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T014",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "config/question_maintenance_workflow.toml",
+      "tools/question_review_console/codex_app_server.py",
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/workflow_catalog.py",
+      "tests/test_question_review_codex_app_server.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_workflow_catalog.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "139 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "全output schema向け非破壊App Server dialect adapter、parser側のissueCodes重複再検証、catalog駆動の役割別agent policyを実装した。未指定工程の既存candidate/retry既定値を維持し、question_typeの独立reviewは初回・retryともgpt-5.5/highを使用する。各review成功直後にactual model、effort、thread/session/turnをcheckpointし、model allowlist drift検知も追加した。",
+    "remaining_blockers": [],
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

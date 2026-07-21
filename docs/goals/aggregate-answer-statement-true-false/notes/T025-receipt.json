@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T025",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "保存済みresolved slotの再利用時にreviewNumberとsessionId/turnIdを検証せず、不正なactual execution evidenceを受理できる。またstable parent identity欠落は外部review前に止まるがdeterministic failureがretryable扱いで子runを反復するため、fresh smoke前に汎用修正が必要。",
+    "evidence": [
+      "共通identity、原文span限定、slot原子更新、parallel lost update防止、累計二者維持、server commit nonretryは確認済み。",
+      "resolved slotの再利用検証がmodel/effortとthreadId差だけで、reviewNumber/sessionId/turnIdを完全照合していない。",
+      "stable parent identity欠落はcommandsなしexecution_failureとしてretryableになる。"
+    ]
+  }
+}

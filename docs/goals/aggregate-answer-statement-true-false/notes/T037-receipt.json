@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T037",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "reserve、resolve、consensusのcheckpoint integrity失敗は各1 attemptでnon-retryable blocked、追加candidate model 0、checkpoint不変。通常provider retryを維持し174 testsが成功したため、六ファイルのcommit/pushとfresh smokeを承認する。",
+    "evidence": [
+      "reserve failureはreview 0、resolveは1、consensusは2で停止する。",
+      "通常provider gateのretry/pause回帰を維持する。",
+      "指定六ファイルのdiff checkと174件回帰が成功した。"
+    ]
+  }
+}

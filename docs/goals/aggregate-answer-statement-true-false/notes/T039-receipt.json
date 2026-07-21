@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T039",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "現行promptは全項目必須、正誤判定禁止、labelと句読点を含むspan境界を定義していない。資格共通promptと契約versionを更新し、生span完全一致は維持する。",
+    "evidence": [
+      "Review1はA-Dを返したが改行を含み句点を除外した。",
+      "Review2は境界が整うA/Cだけを返した。",
+      "既存issue codeでhold理由を表現でき、normalizationやschema追加は不要。"
+    ]
+  }
+}

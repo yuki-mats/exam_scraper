@@ -1,0 +1,32 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T015",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "139 tests passed in 7.093s"
+      }
+    ],
+    "rationale": "T014は共通App Server境界でschemaを非破壊変換し、除外したuniqueItemsをparserとreconcileで再検証する。モデル選択はcatalogのrole別policyで解決され、未指定工程の既定値、retry reviewのgpt-5.5/high、成功review直後のactual実行記録、allowlist drift検知も確認した。exact-ID smokeへ進める。",
+    "evidence": [
+      "全outputSchema送信境界でdeep-copy adapterを適用し、supported constraintsを保持する。",
+      "issueCodesの型、allowlist、重複はserver parserとdecomposition normalizationが拒否する。",
+      "model選択にquestion_type固有条件分岐はなく、catalog agentPolicyと後方互換defaultから解決する。",
+      "各独立review成功直後にactual model、effort、thread/session/turnをcheckpointする。"
+    ],
+    "missing_evidence": [
+      "App Server実環境でadapter後schemaが受理されること。",
+      "exact-ID smokeで4つのsource spanと派生問題が生成されること。",
+      "第一種衛生管理者1044問の全件trialと後続工程・限定公開readback。"
+    ],
+    "summary": "汎用性と後方互換を承認し、exact-ID smokeへ進める。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

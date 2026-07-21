@@ -1,0 +1,14 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T027",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "保存済みexecution evidenceが不正な場合、aggregate reviewは0回でもcandidate modelが1回呼ばれる。invalid checkpointはすべての外部model turn前に除外し、混在batchでは正常問題だけ継続する汎用修正が必要。",
+    "evidence": [
+      "168件の回帰、共通identity、原文span、slot原子更新、二者上限、server validation nonretryは確認済み。",
+      "破損checkpointの再現結果はaggregate review 0回、candidate model 1回、初回blockedだった。"
+    ]
+  }
+}

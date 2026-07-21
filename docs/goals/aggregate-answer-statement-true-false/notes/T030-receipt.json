@@ -1,0 +1,37 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T030",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "T030 focused provider, post-thread hold, invalid/mixed, atomic cancellation regressions",
+        "status": "pass",
+        "summary": "6 focused tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback",
+        "status": "pass",
+        "summary": "99 tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "171 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "thread開始前のprovider failureだけ、現在batchの新規予約を全件照合後に単一writeで原子的に取消す。callback後はstartedを保持してholdする。invalid checkpoint分離、resolved/consensus/他slot保持、二者上限を維持し、周辺171件が成功した。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

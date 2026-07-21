@@ -1,0 +1,21 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T041",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "approve_full_trial。T040はfresh parent、独立したgpt-5.5/high二者、prompt v2、完全一致span、source slice、安定key、boolean flag、00_source不変、Firestore非公開を満たした。全件trialはqualification全体を指定し、個別group列挙を行わない。",
+    "evidence": [
+      "T040 parent=20260722T014705060870-2bfc40ee、child=20260722T014705995222-4d1c32c2、HEAD=origin/main=949e6dea6cc2e5683abe98dc9d09d6f09f196fa7。",
+      "T040 checkpointはprompt v2、異なる2 thread、各gpt-5.5/high、sourceHash・分類・span完全一致。",
+      "現行scopeは24 group、合計1044問。全件previewは1044問、Firestore未開始。",
+      "00_source immutabilityは5799 files差分なし。"
+    ],
+    "next_allowed_task": "T042",
+    "missing_evidence": [
+      "1044問trialの実行receiptと四分類集計。",
+      "target派生問題の正誤・解説・questionSet・公開前gate・限定公開readback。"
+    ]
+  }
+}

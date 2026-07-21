@@ -1,0 +1,51 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T016",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "config/question_maintenance_workflow.toml",
+      "tools/question_review_console/codex_app_server.py",
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/workflow_catalog.py",
+      "tests/test_question_review_codex_app_server.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_workflow_catalog.py"
+    ],
+    "commands": [
+      {
+        "command": "139 focused tests and exact cached audit",
+        "status": "pass"
+      },
+      {
+        "command": "git commit and git push origin main",
+        "status": "pass",
+        "summary": "HEAD and origin/main are f8abac669d615569cafc5cbeb0dbfeb68f22244f"
+      },
+      {
+        "command": "GET /api/codex/status",
+        "status": "pass",
+        "summary": "gpt-5.5/high configured"
+      },
+      {
+        "command": "POST qualification run preview with updateTargetIds=[7d2e09ab78d9a0f22a0742f3]",
+        "status": "failed",
+        "summary": "HTTP 422 because updateTargetIds denotes field-selection IDs, not question IDs"
+      },
+      {
+        "command": "Exact question GET and 00_source verification",
+        "status": "pass",
+        "summary": "UI ID resolves originalQuestionId a6bea45a937c2c6e; 5799 source files and tree hash unchanged"
+      }
+    ],
+    "summary": "汎用schema/model修正のcommit/pushは完了した。exact UI IDは期待する原問題へ解決したが、既存APIのupdateTargetIdsは更新field selectionId用であり問題IDを指定できないためpreview前に安全停止した。live run、Firestore公開、source変更はない。",
+    "remaining_blockers": [
+      "問題IDを直接指定する汎用qualification-run scope契約が必要。",
+      "live review、4 spans/keys、計算flag、artifact syncは未検証。"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": "The existing API has no exact question-ID scope and updateTargetIds must not be overloaded."
+  }
+}

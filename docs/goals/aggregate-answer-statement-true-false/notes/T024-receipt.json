@@ -1,0 +1,42 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T024",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_parallel_batches_preserve_all_review_checkpoints_and_never_exceed_two_reviews",
+        "status": "pass",
+        "summary": "1 test passed"
+      },
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "73 tests passed"
+      },
+      {
+        "command": "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_validation_feedback tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "99 tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "165 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "集約レビューのslot予約、解決、合意保存を親manifest lock内の問題ID単位更新へ変更した。開始済み未確定slot、signature不一致、未知・過剰・重複slot、actual実行証跡不一致は既存記録を保持してfail closedとする。並列barrier回帰と周辺165件の回帰が成功した。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

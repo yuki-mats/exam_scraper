@@ -1,0 +1,14 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T035",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "予約・確定・consensusのcheckpoint再読検証失敗が取消と同じnon-retryable分類に未統合で、deterministic integrity failureがqueue retryへ進み得る。",
+    "evidence": [
+      "周辺173件、資格共通化、二者上限、invalid分離は確認済み。",
+      "checkpoint integrity分類が取消メッセージだけを対象にしている。"
+    ]
+  }
+}
