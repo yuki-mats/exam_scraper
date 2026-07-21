@@ -1,0 +1,165 @@
+version: 2
+
+goal:
+  title: "集約回答型過去問の記述単位正誤化"
+  slug: "aggregate-answer-statement-true-false"
+  kind: existing_plan
+  tranche: "合意済み仕様を正本へ反映し、資格共通の抽出・二重レビュー・検証・変換を実装し、第一種衛生管理者の全件試行を本番公開可能な状態まで完了する"
+  status: active
+  oracle:
+    signal: "第一種衛生管理者の全年度・全問題を対象に、対象判定、原文span抽出、二者一致、正誤確定、派生ID生成、公開前gateが再現可能に完走し、00_source不変と出力readbackが確認できる"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "正本仕様、テスト、全件trial receipt、対象/対象外/保留集計、生成物照合、00_source immutability、公開前dry-runと最終Judge監査"
+  intake:
+    original_request: "問題文中の複数記述を機械的に抜き出し、各記述を独立した正誤問題として学べるようにしたい"
+    interpreted_outcome: "集約回答では理解不足箇所が分からない過去問を、原文を生成・改変せず記述単位の正誤問題へ安全に変換する"
+    input_shape: existing_plan
+    audience: "過去問を記述単位で復習する学習者"
+    authority: approved
+    proof_type: test
+    completion_proof: "共通実装と第一種衛生管理者の全件trialが検証を通り、限定本番公開の直前又は承認済み公開後のreadbackまで証明される"
+    likely_misfire: "A-Dなど特定表記だけに限定する、エージェント生成文を抽出結果に混ぜる、元問題を別の学習問題として残す、一部記述だけを公開する、又は00_sourceを変更する"
+    blind_spots_considered:
+      - "記号、番号、箇条書き、改行、表など抽出形式の揺れ"
+      - "集約回答から個別正誤を確定できない問題"
+      - "二者不一致、対象見落とし、原文hash変化"
+      - "既存公開IDと学習履歴を意味の異なる派生問題へ流用する危険"
+      - "一次開発で表示非表示や注釈UIまで広げるscope creep"
+    existing_plan_facts:
+      - "対象は意味で定義し、A-D等の表記には限定しない"
+      - "元問題で一項目の範囲を1記述とし、内部を細分化しない"
+      - "抽出文字列はツールだけが原文spanから作る。エージェントは文章を出力しない"
+      - "2エージェントが独立に位置と判定を返し、完全一致と機械検証を通った場合だけ確定する"
+      - "対象外又は不一致は保留し、同じ元問題の全記述が確定した場合だけ公開する"
+      - "正誤と解説は既存の問題整備工程を使う"
+      - "派生問題には新しい安定IDを付け、originalQuestionIdで元問題へ関連付ける"
+      - "元の集約回答問題は単独出題せず、一次開発では派生問題内に元の問題文、解答指示、全記述を残す"
+      - "注釈、ハイライト、解答指示や重複記述の非表示は一次開発の対象外。ハイライトは二次開発でも不要"
+      - "既存の問題報告機能を利用し、新しい報告機能は作らない"
+      - "実装は資格共通とし、第一種衛生管理者の全年度・全問題を試行対象にする"
+      - "機械候補だけでなく全問題を同じ2エージェントが対象、対象外、保留に分類する"
+      - "検証後は第一種衛生管理者だけを本番公開対象にする"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "合意済み計画を現行repo、正本、dirty worktree、既存検証基盤に照らし、最初の安全な実装sliceを確定する。"
+    inputs:
+      - "User-approved existing plan facts in goal.intake"
+      - "Current repo and canonical documentation"
+      - "Current dirty worktree"
+    constraints:
+      - "Read-only."
+      - "Do not edit implementation or user-owned dirty files."
+      - "Preserve 00_source immutability and existing Firestore IDs."
+    expected_output:
+      - "Validated plan and repo evidence"
+      - "Canonical SSOT target"
+      - "Largest safe Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt: null
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T001が確定した最大の安全な実装sliceを、許可範囲内で実装・検証する。"
+    inputs:
+      - "T001 receipt"
+      - "User-approved existing plan facts in goal.intake"
+    constraints:
+      - "T001がallowed_files、verify、stop_ifを具体化するまで着手しない。"
+      - "Do not touch 00_source."
+      - "Do not include agent-authored extracted text in any artifact."
+      - "Do not stage or revert pre-existing gas-shunin dirty changes."
+    expected_output:
+      - "Working vertical slice"
+      - "Focused tests"
+      - "Verification receipt"
+      - "Changed-file list"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Existing dirty changes overlap the selected files and ownership cannot be isolated."
+      - "The implementation would write or rename 00_source."
+      - "The extraction path would accept agent-authored text."
+      - "Verification fails twice for the same unresolved reason."
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全receiptと検証をoracleへ対応付け、共通実装、第一種衛生管理者全件trial、公開前gate、限定公開readbackまで完了したか監査する。"
+    inputs:
+      - "All completed task receipts"
+      - "Current goal oracle"
+      - "Final verification outputs"
+      - "Current dirty diff"
+    constraints:
+      - "Read-only."
+      - "Do not accept samples as proof of full-trial completion."
+      - "Reject completion if required Worker work remains queued or active."
+      - "Reject completion if any saved extracted text came from agent output rather than source slicing."
+      - "Reject completion if 00_source changed outside an authorized successful scrape refresh."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Oracle evidence map"
+      - "Missing evidence"
+      - "Next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "sha256:c585f6db68b60a6d06fa5369694d46a56598ce32d8febfd3ed0a7b824a3b682c; pre-existing gas-shunin patch edits present at prep; do not touch or stage"
+  verify_inventory:
+    tests_files: 118
+    check_scripts: 35
+    review_console_files: 39
+    goal_gate_suites: "T001 must classify exact focused suites before T002 starts"
+    pre_existing_repo_health: unknown
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
