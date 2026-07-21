@@ -31,6 +31,7 @@ class QuestionCandidateError(ValueError):
 
 def aggregate_answer_review_schema(
     expected_question_ids: Iterable[str],
+    candidate_ids_by_question: Mapping[str, Iterable[str]] | None = None,
 ) -> dict[str, Any]:
     """Schema for a prose-free, read-only aggregate-answer review turn."""
 
@@ -42,7 +43,7 @@ def aggregate_answer_review_schema(
         "properties": {
             "schemaVersion": {
                 "type": "string",
-                "const": "aggregate-answer-review-batch/v1",
+                "const": "aggregate-answer-review-batch/v2",
             },
             "questionReviews": {
                 "type": "array",
@@ -56,7 +57,7 @@ def aggregate_answer_review_schema(
                         "schemaVersion",
                         "sourceHash",
                         "classification",
-                        "spans",
+                        "candidateId",
                         "decision",
                         "issueCodes",
                     ],
@@ -74,17 +75,20 @@ def aggregate_answer_review_schema(
                             "type": "string",
                             "enum": ["target", "non_target", "hold"],
                         },
-                        "spans": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "additionalProperties": False,
-                                "required": ["start", "end"],
-                                "properties": {
-                                    "start": {"type": "integer", "minimum": 0},
-                                    "end": {"type": "integer", "minimum": 1},
-                                },
-                            },
+                        "candidateId": {
+                            "type": ["string", "null"],
+                            "enum": [
+                                None,
+                                *sorted(
+                                    {
+                                        str(candidate_id)
+                                        for values in (
+                                            candidate_ids_by_question or {}
+                                        ).values()
+                                        for candidate_id in values
+                                    }
+                                ),
+                            ],
                         },
                         "decision": {
                             "type": "string",
@@ -108,6 +112,7 @@ def aggregate_answer_review_schema(
 def parse_aggregate_answer_reviews(
     value: str | Mapping[str, Any],
     expected_question_ids: Iterable[str],
+    candidate_ids_by_question: Mapping[str, Iterable[str]] | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Parse only structural review data; prose and extracted text are rejected."""
 
@@ -117,7 +122,7 @@ def parse_aggregate_answer_reviews(
         raise QuestionCandidateError("集約回答レビューをJSONとして読み取れません。") from exc
     if set(payload) != {"schemaVersion", "questionReviews"} or payload.get(
         "schemaVersion"
-    ) != "aggregate-answer-review-batch/v1":
+    ) != "aggregate-answer-review-batch/v2":
         raise QuestionCandidateError("集約回答レビューbatch schemaが一致しません。")
     rows = payload.get("questionReviews")
     if not isinstance(rows, list):
@@ -129,7 +134,7 @@ def parse_aggregate_answer_reviews(
         "schemaVersion",
         "sourceHash",
         "classification",
-        "spans",
+        "candidateId",
         "decision",
         "issueCodes",
     }
@@ -139,6 +144,23 @@ def parse_aggregate_answer_reviews(
         question_id = str(raw.get("questionId") or "")
         if question_id not in expected or question_id in result:
             raise QuestionCandidateError("集約回答レビューのquestionIdが対象外又は重複です。")
+        candidate_id = raw.get("candidateId")
+        allowed_candidate_ids = {
+            str(value)
+            for value in (candidate_ids_by_question or {}).get(question_id, ())
+        }
+        if candidate_id is not None and (
+            not isinstance(candidate_id, str)
+            or candidate_id not in allowed_candidate_ids
+        ):
+            raise QuestionCandidateError("集約回答レビューのcandidateIdが対象外です。")
+        classification = raw.get("classification")
+        decision = raw.get("decision")
+        if classification == "target" and decision == "approve":
+            if candidate_id is None:
+                raise QuestionCandidateError("target承認にはcandidateIdが必要です。")
+        elif candidate_id is not None:
+            raise QuestionCandidateError("target承認以外はcandidateIdを選択できません。")
         issue_codes = raw.get("issueCodes")
         if (
             not isinstance(issue_codes, list)

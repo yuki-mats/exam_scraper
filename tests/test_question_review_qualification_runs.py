@@ -20,10 +20,55 @@ from tools.question_review_console.qualification_runs import (
     _structured_candidate_stage_context,
 )
 from tools.question_review_console.question_candidate import CandidateTarget
-from scripts.common.aggregate_answer_decomposition import source_text_hash
+from scripts.common.aggregate_answer_decomposition import (
+    candidate_set_hash,
+    generate_statement_candidates,
+    source_text_hash,
+)
 
 
 _BaseFlowAppServer = FlowAppServer
+_BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+def _v2_aggregate_review_result(result, prompt):
+    payload = json.loads(result.final_message)
+    questions = {
+        str(value["questionId"]): value
+        for value in _BasePerQuestionQueueAppServer._candidate_questions(prompt)
+    }
+    reviews = []
+    for review in payload["questionReviews"]:
+        question = questions[str(review["questionId"])]
+        candidates = list(question.get("candidateSets") or [])
+        candidate_id = (
+            candidates[0]["candidateId"]
+            if review.get("classification") == "target"
+            and review.get("decision") == "approve"
+            and candidates
+            else None
+        )
+        reviews.append(
+            {
+                "questionId": review["questionId"],
+                "schemaVersion": "aggregate-answer-review/v2",
+                "sourceHash": review["sourceHash"],
+                "classification": review["classification"],
+                "candidateId": candidate_id,
+                "decision": review["decision"],
+                "issueCodes": review["issueCodes"],
+            }
+        )
+    return replace(
+        result,
+        final_message=json.dumps(
+            {
+                "schemaVersion": "aggregate-answer-review-batch/v2",
+                "questionReviews": reviews,
+            },
+            ensure_ascii=False,
+        ),
+    )
 
 
 class FlowAppServer(_BaseFlowAppServer):
@@ -34,10 +79,18 @@ class FlowAppServer(_BaseFlowAppServer):
         if "_aggregate_review_" not in kwargs["work_type"]:
             return result
         return replace(
-            result,
+            _v2_aggregate_review_result(result, prompt),
             model=kwargs["model"],
             reasoning_effort=kwargs["reasoning_effort"],
         )
+
+
+class PerQuestionQueueAppServer(_BasePerQuestionQueueAppServer):
+    def run_turn(self, prompt, **kwargs):
+        result = super().run_turn(prompt, **kwargs)
+        if "_aggregate_review_" not in kwargs["work_type"]:
+            return result
+        return _v2_aggregate_review_result(result, prompt)
 
 
 class SourceBindingAliasTests(unittest.TestCase):
@@ -1207,8 +1260,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
     @staticmethod
     def _invalid_resolved_aggregate_checkpoint(question_id, source_text):
+        candidates = generate_statement_candidates(source_text)
         signature = {
             "sourceHash": source_text_hash(source_text),
+            "candidateSetHash": candidate_set_hash(candidates),
             "stableParentIdentity": {
                 "field": "sourceQuestionKey",
                 "value": question_id.replace("new-exam-2026-q", "new-exam:2026:q"),
@@ -1241,8 +1296,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "consensus": None,
         }
 
-    def test_aggregate_review_prompt_requires_all_source_ordered_item_spans(self):
-        source_text = "ア　最初の項目。\n  イ　次の項目。"
+    def test_aggregate_review_prompt_requires_candidate_id_without_raw_offsets(self):
+        source_text = "ア　　最初の項目。\n  イ　　次の項目。"
+        candidate_set = generate_statement_candidates(source_text)
         prompt = _aggregate_answer_review_prompt(
             [{"id": "question-1"}],
             {
@@ -1251,17 +1307,17 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "choiceTextList": [],
                 }
             },
+            {"question-1": candidate_set},
         )
 
-        self.assertIn("内容の正誤に関係なく必ずすべて", prompt)
-        self.assertIn("sourceの順番どおり", prompt)
+        self.assertIn("serverが原文から機械生成", prompt)
+        self.assertIn("candidateIdを一つだけ選ぶ", prompt)
         self.assertIn("正誤を解かず", prompt)
         self.assertIn("正しい項目だけを選ばない", prompt)
-        self.assertIn("項目ラベルの最初の文字", prompt)
-        self.assertIn("末尾句読点を含めた直後をexclusive end", prompt)
-        self.assertIn("前後の改行", prompt)
-        self.assertIn("区切りの空白", prompt)
-        self.assertIn("次の項目を含めない", prompt)
+        self.assertIn(candidate_set["candidates"][0]["candidateId"], prompt)
+        self.assertIn("sourceSlice", prompt)
+        self.assertNotIn('"start":', prompt)
+        self.assertNotIn('"end":', prompt)
         self.assertIn("ambiguous_boundary", prompt)
         self.assertIn("missing_statement", prompt)
         self.assertNotIn("正解", prompt)
@@ -2220,6 +2276,161 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self.assertEqual(len(checkpoint["executions"]), 2)
         self.assertEqual(repeated_statuses, ["resolved"] * 4)
 
+    def test_checkpoint_batches_use_one_load_write_readback_and_fail_atomically(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            question_ids = [
+                value["questionId"] for value in parent["questionExecutions"]
+            ]
+
+            def signature(question_id):
+                return {
+                    "sourceHash": "sha256:" + "7" * 64,
+                    "stableParentIdentity": {
+                        "field": "sourceQuestionKey",
+                        "value": f"source:{question_id}",
+                    },
+                    "model": "gpt-5.5",
+                    "reasoningEffort": "high",
+                    "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
+                }
+
+            signatures = {value: signature(value) for value in question_ids}
+            with patch.object(
+                coordinator.store,
+                "_load_manifest",
+                wraps=coordinator.store._load_manifest,
+            ) as loads, patch.object(
+                coordinator.store,
+                "_write_manifest",
+                wraps=coordinator.store._write_manifest,
+            ) as writes:
+                coordinator.store.reserve_aggregate_review_slots(
+                    "new-exam",
+                    parent["runId"],
+                    [(value, signatures[value], 1) for value in question_ids],
+                )
+            self.assertEqual(loads.call_count, 2)
+            self.assertEqual(writes.call_count, 1)
+
+            def execution(question_id):
+                return {
+                    "reviewNumber": 1,
+                    "threadId": f"thread-{question_id}",
+                    "sessionId": f"session-{question_id}",
+                    "turnId": f"turn-{question_id}",
+                    "model": "gpt-5.5",
+                    "reasoningEffort": "high",
+                }
+
+            before = coordinator.store.get("new-exam", parent["runId"])[
+                "aggregateReviewCheckpoints"
+            ]
+            invalid_execution = execution(question_ids[1])
+            invalid_execution["threadId"] = ""
+            with self.assertRaisesRegex(Exception, "execution evidence"):
+                coordinator.store.resolve_aggregate_review_slots(
+                    "new-exam",
+                    parent["runId"],
+                    [
+                        (
+                            question_ids[0],
+                            signatures[question_ids[0]],
+                            1,
+                            {"review": 1},
+                            execution(question_ids[0]),
+                        ),
+                        (
+                            question_ids[1],
+                            signatures[question_ids[1]],
+                            1,
+                            {"review": 1},
+                            invalid_execution,
+                        ),
+                    ],
+                )
+            self.assertEqual(
+                coordinator.store.get("new-exam", parent["runId"])[
+                    "aggregateReviewCheckpoints"
+                ],
+                before,
+            )
+
+            with patch.object(
+                coordinator.store,
+                "_load_manifest",
+                wraps=coordinator.store._load_manifest,
+            ) as loads, patch.object(
+                coordinator.store,
+                "_write_manifest",
+                wraps=coordinator.store._write_manifest,
+            ) as writes:
+                coordinator.store.resolve_aggregate_review_slots(
+                    "new-exam",
+                    parent["runId"],
+                    [
+                        (
+                            value,
+                            signatures[value],
+                            1,
+                            {"review": 1},
+                            execution(value),
+                        )
+                        for value in question_ids
+                    ],
+                )
+            self.assertEqual(loads.call_count, 2)
+            self.assertEqual(writes.call_count, 1)
+
+            coordinator.store.reserve_aggregate_review_slots(
+                "new-exam",
+                parent["runId"],
+                [(value, signatures[value], 2) for value in question_ids],
+            )
+            coordinator.store.resolve_aggregate_review_slots(
+                "new-exam",
+                parent["runId"],
+                [
+                    (
+                        value,
+                        signatures[value],
+                        2,
+                        {"review": 2},
+                        {
+                            **execution(value),
+                            "reviewNumber": 2,
+                            "threadId": f"thread-2-{value}",
+                        },
+                    )
+                    for value in question_ids
+                ],
+            )
+            with patch.object(
+                coordinator.store,
+                "_load_manifest",
+                wraps=coordinator.store._load_manifest,
+            ) as loads, patch.object(
+                coordinator.store,
+                "_write_manifest",
+                wraps=coordinator.store._write_manifest,
+            ) as writes:
+                coordinator.store.store_aggregate_review_consensuses(
+                    "new-exam",
+                    parent["runId"],
+                    [
+                        (value, signatures[value], {"decision": "approve"})
+                        for value in question_ids
+                    ],
+                )
+            self.assertEqual(loads.call_count, 2)
+            self.assertEqual(writes.call_count, 1)
+
     def test_prethread_reservation_cancellation_is_atomic_and_preserves_other_slots(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -2423,7 +2634,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ),
             (
                 "consensus",
-                "store_aggregate_review_consensus",
+                "store_aggregate_review_consensuses",
                 "aggregate review consensusを再読検証できません。",
                 2,
             ),
@@ -4524,6 +4735,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 )
 
     def test_each_writer_reads_run_local_logical_projection(self):
+        listed_source_text = "A  最初の記述。\nB  次の記述。"
+
         class ProjectingInventory(TwoQuestionSourceInventory):
             def __init__(self):
                 self.projected_calls = []
@@ -4546,7 +4759,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         "sourceQuestionKey": (
                             f"{qualification}:{list_group_id}:q{question_number}"
                         ),
-                        "questionBodyText": "現在の論理入力",
+                        "questionBodyText": listed_source_text,
                         "choiceTextList": ["選択肢A", "選択肢B"],
                         "isCalculationQuestion": True,
                     },
@@ -4582,7 +4795,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self._write_counted_sources(
                 root,
                 2,
-                question_body_text="現在の論理入力",
+                question_body_text=listed_source_text,
             )
             coordinator._repository_file_fingerprints = lambda *_args: {}
 

@@ -18,16 +18,25 @@ class QuestionCandidateTest(unittest.TestCase):
         schema = aggregate_answer_review_schema(["q1"])
         item = schema["properties"]["questionReviews"]["items"]
         self.assertFalse(item["additionalProperties"])
-        self.assertNotIn("summary", item["properties"])
+        for forbidden in (
+            "summary",
+            "questionBodyText",
+            "spans",
+            "start",
+            "end",
+            "truthAnswer",
+        ):
+            self.assertNotIn(forbidden, item["properties"])
+        self.assertIn("candidateId", item["required"])
         payload = {
-            "schemaVersion": "aggregate-answer-review-batch/v1",
+            "schemaVersion": "aggregate-answer-review-batch/v2",
             "questionReviews": [
                 {
                     "questionId": "q1",
-                    "schemaVersion": "aggregate-answer-review/v1",
+                    "schemaVersion": "aggregate-answer-review/v2",
                     "sourceHash": "sha256:" + "0" * 64,
                     "classification": "non_target",
-                    "spans": [],
+                    "candidateId": None,
                     "decision": "approve",
                     "issueCodes": [],
                     "reason": "文章は禁止",
@@ -39,19 +48,47 @@ class QuestionCandidateTest(unittest.TestCase):
 
     def test_aggregate_review_parser_rejects_duplicate_issue_codes(self):
         payload = {
-            "schemaVersion": "aggregate-answer-review-batch/v1",
+            "schemaVersion": "aggregate-answer-review-batch/v2",
             "questionReviews": [{
                 "questionId": "q1",
-                "schemaVersion": "aggregate-answer-review/v1",
+                "schemaVersion": "aggregate-answer-review/v2",
                 "sourceHash": "sha256:" + "0" * 64,
                 "classification": "hold",
-                "spans": [],
+                "candidateId": None,
                 "decision": "hold",
                 "issueCodes": ["ambiguous_target", "ambiguous_target"],
             }],
         }
         with self.assertRaisesRegex(QuestionCandidateError, "重複"):
             parse_aggregate_answer_reviews(payload, ["q1"])
+
+    def test_aggregate_review_parser_accepts_only_question_candidate_id(self):
+        payload = {
+            "schemaVersion": "aggregate-answer-review-batch/v2",
+            "questionReviews": [{
+                "questionId": "q1",
+                "schemaVersion": "aggregate-answer-review/v2",
+                "sourceHash": "sha256:" + "0" * 64,
+                "classification": "target",
+                "candidateId": "candidate:allowed",
+                "decision": "approve",
+                "issueCodes": [],
+            }],
+        }
+        parsed = parse_aggregate_answer_reviews(
+            payload,
+            ["q1"],
+            {"q1": ["candidate:allowed"]},
+        )
+        self.assertEqual(parsed["q1"]["candidateId"], "candidate:allowed")
+
+        payload["questionReviews"][0]["candidateId"] = "candidate:other"
+        with self.assertRaisesRegex(QuestionCandidateError, "対象外"):
+            parse_aggregate_answer_reviews(
+                payload,
+                ["q1"],
+                {"q1": ["candidate:allowed"]},
+            )
 
     def plan(self):
         return {

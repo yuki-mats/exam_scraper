@@ -54,7 +54,7 @@
 | --- | --- | --- | --- |
 | `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
-| `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion`。集約回答型レビュー時は`aggregateAnswerDecomposition`、対象確定時はツール生成の`choiceTextList`, `sourceUniqueKeys` | 回答体験と計算問題分類を別々に確定する。集約回答型は二者一致した原文spanだけを記述単位へ投影する。 |
+| `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion`。集約回答型レビュー時は`aggregateAnswerDecomposition`、対象確定時はツール生成の`choiceTextList`, `sourceUniqueKeys` | 回答体験と計算問題分類を別々に確定する。集約回答型は二者一致したcandidate IDをserverが原文spanへ解決して記述単位へ投影する。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent` | 設問が正しいもの・誤っているもののどちらを選ばせるかだけを確定し、正答は変更しない。 |
 | `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText`。必要時のみ`answer_result_text`補正 | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。中間配列も新規更新時は`正しい` / `間違い`へ正規化する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
@@ -163,9 +163,11 @@
 
 ### 集約回答型の記述単位変換
 
-`aggregateAnswerDecomposition`はpatchとmergedだけに保持する内部fieldです。`schemaVersion`、`sourceHash`、`classification`、`spans`、`decision`、`issueCodes`以外を認めません。`spans`は`questionBodyText`上の0始まり・end-exclusive位置です。
+`aggregateAnswerDecomposition`はpatchとmergedだけに保持する内部fieldです。`schemaVersion`、`sourceHash`、`classification`、`spans`、`decision`、`issueCodes`以外を認めません。ここにある`spans`はserverが合意済みcandidate IDから解決した`questionBodyText`上の0始まり・end-exclusive位置であり、レビュー出力ではありません。
 
-独立した2レビューが同じsource hash、対象分類、span、判断、issue codeを返し、機械検証を通った場合だけ`target/approve`になります。抽出文はレビュー結果に含めず、toolが`questionBodyText[start:end]`から作ります。不一致、hash不一致、対象又は境界を確定できない問題は`hold`とし、一部の記述だけを公開しません。
+serverはsource hashを固定し、資格に依存しない列挙境界の規則から候補span、boundary ID、candidate IDを決定的に生成します。独立した2レビューは`classification`、`candidateId`、`decision`、`issueCodes`だけを返し、同じsource hashとcandidate IDで完全一致した場合だけ`target/approve`になります。レビューschemaは本文、要約、理由、正誤回答、`start`、`end`を受け付けません。
+
+serverは合意したcandidate IDを元の候補spanへ解決し、順序、非重複、範囲、boundary IDを再検証してから`questionBodyText[start:end]`を切り出します。不一致、hash不一致、候補不足又は境界を確定できない問題は第三レビューやoffset fallbackを行わず`hold`とし、一部の記述だけを公開しません。review slotの予約、確定、consensus保存はbatchごとに同じlock内の1回のload、write、readbackで確定します。
 
 対象確定時は、元問題全文を`questionBodyText`と`originalQuestionBodyText`に残したまま、抽出した各記述を`choiceTextList`へ置き、`true_false`として分割します。派生IDは元問題の安定識別子、記述順、抽出文字列hashから新しく作り、旧集約回答documentのIDを再利用しません。旧正答・解説・選択肢別fieldも引き継がず、後続の既存工程で全記述分が揃った場合だけ公開対象にします。この内部field自体はFirestoreへ公開しません。
 

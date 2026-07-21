@@ -45,8 +45,10 @@ from tools.question_review_console.projection import (
 )
 from scripts.common.explanation_contract import uses_question_level_explanation
 from scripts.common.aggregate_answer_decomposition import (
+    candidate_set_hash,
     derived_source_unique_keys_for_parent,
     extract_source_statements,
+    generate_statement_candidates,
     is_approved_target,
     materialize_decomposition,
     reconcile_reviews,
@@ -178,7 +180,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
-AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v2"
+AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v3"
 MAX_POLICY_REFRESH_ATTEMPTS = 2
 MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
@@ -841,31 +843,56 @@ def _filter_structured_candidate_prompt(
 def _aggregate_answer_review_prompt(
     targets: list[Mapping[str, Any]],
     records_by_question: Mapping[str, Mapping[str, Any]],
+    candidate_sets_by_question: Mapping[str, Mapping[str, Any]],
 ) -> str:
     questions = []
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         record = records_by_question[question_id]
         source_text = str(record.get("questionBodyText") or "")
+        candidate_set = candidate_sets_by_question[question_id]
+        candidate_views = []
+        for candidate in candidate_set.get("candidates") or []:
+            if not isinstance(candidate, Mapping):
+                continue
+            boundaries = []
+            for span in candidate.get("spans") or []:
+                if not isinstance(span, Mapping):
+                    continue
+                start = span.get("start")
+                end = span.get("end")
+                if not isinstance(start, int) or not isinstance(end, int):
+                    continue
+                boundaries.append(
+                    {
+                        "boundaryId": span.get("boundaryId"),
+                        "sourceSlice": source_text[start:end],
+                    }
+                )
+            candidate_views.append(
+                {
+                    "candidateId": candidate.get("candidateId"),
+                    "boundaries": boundaries,
+                }
+            )
         questions.append(
             {
                 "questionId": question_id,
                 "sourceHash": source_text_hash(source_text),
                 "questionBodyText": source_text,
                 "choiceTextList": copy.deepcopy(record.get("choiceTextList") or []),
+                "candidateSets": candidate_views,
             }
         )
     return "\n".join(
         [
             "# 集約回答問題の独立レビュー",
             "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
-            "問題文に列挙された項目は、内容の正誤に関係なく必ずすべてをsourceの順番どおりに扱う。",
+            "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
+            "targetとして承認できる場合は、原文中の全記述を過不足なく含むcandidateIdを一つだけ選ぶ。",
             "正誤を解かず、正しい項目だけを選ばない。",
-            "targetでは元問題の一項目を一記述とし、原文のstart/endだけを返す。",
-            "各spanは項目ラベルの最初の文字をstartとし、項目本文を閉じる末尾句読点を含めた直後をexclusive endとする。",
-            "spanに前後の改行、区切りの空白、次の項目を含めない。",
-            "境界を確定できない場合はambiguous_boundary、列挙項目を欠く場合はmissing_statementでholdにする。",
-            "記述本文、理由、summary、説明その他の文章は出力しない。",
+            "適切なcandidateIdがない場合はambiguous_boundary又はmissing_statementでholdにする。",
+            "記述本文、理由、summary、説明、start/endその他の文字位置は出力しない。",
             "file、shell、外部状態を変更しない。指定JSON Schemaのobjectだけを返す。",
             json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
         ]
@@ -1684,11 +1711,13 @@ class QualificationRunStore:
             field: copy.deepcopy(checkpoint.get(field))
             for field in (
                 "sourceHash",
+                "candidateSetHash",
                 "stableParentIdentity",
                 "model",
                 "reasoningEffort",
                 "promptContractVersion",
             )
+            if field in checkpoint
         }
 
     def aggregate_review_checkpoint(
@@ -1707,6 +1736,34 @@ class QualificationRunStore:
                 if isinstance(checkpoint, Mapping)
                 else None
             )
+
+    def aggregate_review_checkpoints(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_ids: list[str],
+    ) -> dict[str, dict[str, Any] | None]:
+        """Read a qualification batch from one immutable manifest snapshot."""
+
+        if len(question_ids) != len(set(question_ids)):
+            raise QualificationRunError(
+                "同じ問題のaggregate review checkpointを重複取得できません。"
+            )
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = manifest.get("aggregateReviewCheckpoints") or {}
+            return {
+                question_id: (
+                    copy.deepcopy(dict(checkpoint))
+                    if isinstance(
+                        checkpoint := checkpoints.get(question_id),
+                        Mapping,
+                    )
+                    else None
+                )
+                for question_id in question_ids
+            }
 
     def reserve_aggregate_review_slot(
         self,
@@ -1795,17 +1852,104 @@ class QualificationRunStore:
             )
         if any(slot not in {1, 2} for _question_id, _signature, slot in requests):
             raise QualificationRunError("aggregate review slotは1又は2です。")
+        path = self._manifest_path(qualification, parent_run_id)
         with self._lock:
-            return {
-                question_id: self.reserve_aggregate_review_slot(
-                    qualification,
-                    parent_run_id,
-                    question_id,
-                    signature,
-                    slot,
-                )
-                for question_id, signature, slot in requests
-            }
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            results: dict[str, dict[str, Any]] = {}
+            changed: dict[str, str] = {}
+            for question_id, signature, slot in requests:
+                current = checkpoints.get(question_id)
+                if current is None:
+                    current = {
+                        **copy.deepcopy(dict(signature)),
+                        "slots": {},
+                        "reviews": [],
+                        "executions": [],
+                        "consensus": None,
+                    }
+                elif not isinstance(current, Mapping):
+                    results[question_id] = {
+                        "status": "mismatch",
+                        "checkpoint": None,
+                    }
+                    continue
+                else:
+                    current = copy.deepcopy(dict(current))
+                if self._aggregate_checkpoint_signature(current) != dict(signature):
+                    results[question_id] = {
+                        "status": "mismatch",
+                        "checkpoint": current,
+                    }
+                    continue
+                try:
+                    slots = self._aggregate_checkpoint_slots(current)
+                except QualificationRunError:
+                    results[question_id] = {
+                        "status": "mismatch",
+                        "checkpoint": current,
+                    }
+                    continue
+                key = str(slot)
+                existing = slots.get(key)
+                if existing is not None:
+                    status = str(existing.get("status") or "")
+                    results[question_id] = {
+                        "status": (
+                            "resolved" if status == "resolved" else "unresolved"
+                        ),
+                        "checkpoint": current,
+                        "slot": copy.deepcopy(existing),
+                    }
+                    continue
+                if len(slots) >= 2:
+                    results[question_id] = {
+                        "status": "limit",
+                        "checkpoint": current,
+                    }
+                    continue
+                slots[key] = {
+                    "slot": slot,
+                    "status": "started",
+                    "reservedAt": _now(),
+                }
+                current["slots"] = slots
+                checkpoints[question_id] = current
+                changed[question_id] = key
+                results[question_id] = {
+                    "status": "reserved",
+                    "checkpoint": current,
+                    "slot": copy.deepcopy(slots[key]),
+                }
+            if not changed:
+                return results
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted_checkpoints = self._load_manifest(path).get(
+                "aggregateReviewCheckpoints"
+            ) or {}
+            for question_id, key in changed.items():
+                persisted = persisted_checkpoints.get(question_id)
+                if not isinstance(persisted, Mapping):
+                    raise QualificationRunError(
+                        "aggregate review slot予約を再読検証できません。"
+                    )
+                persisted_slot = self._aggregate_checkpoint_slots(persisted).get(key)
+                if not isinstance(persisted_slot, Mapping) or (
+                    persisted_slot.get("status") != "started"
+                ):
+                    raise QualificationRunError(
+                        "aggregate review slot予約を再読検証できません。"
+                    )
+                results[question_id] = {
+                    "status": "reserved",
+                    "checkpoint": copy.deepcopy(dict(persisted)),
+                    "slot": copy.deepcopy(dict(persisted_slot)),
+                }
+            return results
 
     def cancel_unstarted_aggregate_review_slots(
         self,
@@ -1971,19 +2115,112 @@ class QualificationRunStore:
             raise QualificationRunError(
                 "同じ問題のaggregate review結果をbatch内で重複確定できません。"
             )
+        path = self._manifest_path(qualification, parent_run_id)
         with self._lock:
-            return {
-                question_id: self.resolve_aggregate_review_slot(
-                    qualification,
-                    parent_run_id,
-                    question_id,
-                    signature,
-                    slot,
-                    review=review,
-                    execution=execution,
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            prepared: list[
+                tuple[
+                    str,
+                    dict[str, Any],
+                    dict[str, dict[str, Any]],
+                    str,
+                    Mapping[str, Any],
+                    Mapping[str, Any],
+                ]
+            ] = []
+            for (
+                question_id,
+                signature,
+                slot,
+                review,
+                execution,
+            ) in resolutions:
+                current = checkpoints.get(question_id)
+                if not isinstance(current, Mapping) or (
+                    self._aggregate_checkpoint_signature(current) != dict(signature)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review checkpoint signatureが一致しません。"
+                    )
+                current_copy = copy.deepcopy(dict(current))
+                slots = self._aggregate_checkpoint_slots(current_copy)
+                key = str(slot)
+                reserved = slots.get(key)
+                if not isinstance(reserved, Mapping) or (
+                    reserved.get("status") != "started"
+                ):
+                    raise QualificationRunError(
+                        "開始済みaggregate review slotを確認できません。"
+                    )
+                self._validate_aggregate_review_execution(
+                    execution,
+                    slot=slot,
+                    signature=signature,
                 )
-                for question_id, signature, slot, review, execution in resolutions
-            }
+                prepared.append(
+                    (
+                        question_id,
+                        current_copy,
+                        slots,
+                        key,
+                        review,
+                        execution,
+                    )
+                )
+            for question_id, current, slots, key, review, execution in prepared:
+                reserved = slots[key]
+                slots[key] = {
+                    **copy.deepcopy(dict(reserved)),
+                    "status": "resolved",
+                    "review": copy.deepcopy(dict(review)),
+                    "execution": copy.deepcopy(dict(execution)),
+                    "resolvedAt": _now(),
+                }
+                ordered = [slots[value] for value in ("1", "2") if value in slots]
+                current.update(
+                    slots=slots,
+                    reviews=[
+                        copy.deepcopy(value["review"])
+                        for value in ordered
+                        if value.get("status") == "resolved"
+                    ],
+                    executions=[
+                        copy.deepcopy(value["execution"])
+                        for value in ordered
+                        if value.get("status") == "resolved"
+                    ],
+                )
+                checkpoints[question_id] = current
+            if not prepared:
+                return {}
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted_checkpoints = self._load_manifest(path).get(
+                "aggregateReviewCheckpoints"
+            ) or {}
+            results: dict[str, dict[str, Any]] = {}
+            for question_id, _current, _slots, key, review, execution in prepared:
+                persisted = persisted_checkpoints.get(question_id)
+                if not isinstance(persisted, Mapping):
+                    raise QualificationRunError(
+                        "aggregate review slot確定を再読検証できません。"
+                    )
+                persisted_slot = self._aggregate_checkpoint_slots(persisted).get(key)
+                if (
+                    not isinstance(persisted_slot, Mapping)
+                    or persisted_slot.get("status") != "resolved"
+                    or persisted_slot.get("review") != dict(review)
+                    or persisted_slot.get("execution") != dict(execution)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review slot確定を再読検証できません。"
+                    )
+                results[question_id] = copy.deepcopy(dict(persisted))
+            return results
 
     def store_aggregate_review_consensus(
         self,
@@ -2027,6 +2264,69 @@ class QualificationRunStore:
                     "aggregate review consensusを再読検証できません。"
                 )
             return copy.deepcopy(dict(persisted))
+
+    def store_aggregate_review_consensuses(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        values: list[
+            tuple[str, Mapping[str, Any], Mapping[str, Any]]
+        ],
+    ) -> dict[str, dict[str, Any]]:
+        """Persist a whole reconciliation batch with one write and one readback."""
+
+        question_ids = [question_id for question_id, _signature, _value in values]
+        if len(question_ids) != len(set(question_ids)):
+            raise QualificationRunError(
+                "同じ問題のaggregate review consensusを重複保存できません。"
+            )
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            prepared: list[tuple[str, dict[str, Any], Mapping[str, Any]]] = []
+            for question_id, signature, consensus in values:
+                current = checkpoints.get(question_id)
+                if not isinstance(current, Mapping) or (
+                    self._aggregate_checkpoint_signature(current) != dict(signature)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review consensus signatureが一致しません。"
+                    )
+                current_copy = copy.deepcopy(dict(current))
+                slots = self._aggregate_checkpoint_slots(current_copy)
+                if set(slots) != {"1", "2"} or any(
+                    value.get("status") != "resolved" for value in slots.values()
+                ):
+                    raise QualificationRunError(
+                        "二つのaggregate review slot確定前にconsensusを保存できません。"
+                    )
+                prepared.append((question_id, current_copy, consensus))
+            for question_id, current, consensus in prepared:
+                current["consensus"] = copy.deepcopy(dict(consensus))
+                checkpoints[question_id] = current
+            if not prepared:
+                return {}
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted_checkpoints = self._load_manifest(path).get(
+                "aggregateReviewCheckpoints"
+            ) or {}
+            results: dict[str, dict[str, Any]] = {}
+            for question_id, _current, consensus in prepared:
+                persisted = persisted_checkpoints.get(question_id)
+                if (
+                    not isinstance(persisted, Mapping)
+                    or persisted.get("consensus") != dict(consensus)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review consensusを再読検証できません。"
+                    )
+                results[question_id] = copy.deepcopy(dict(persisted))
+            return results
 
     def update_question_stage(
         self,
@@ -7921,13 +8221,26 @@ class QualificationRunCoordinator:
                 parent_run_id = str(batch_plan.get("parentRunId") or "")
                 reused_question_ids: list[str] = []
                 signatures: dict[str, dict[str, Any]] = {}
+                candidate_sets_by_question: dict[str, dict[str, Any]] = {}
                 reviews_by_question: dict[str, list[dict[str, Any]]] = {}
                 executions_by_question: dict[str, list[dict[str, Any]]] = {}
+                stored_checkpoints = (
+                    self.store.aggregate_review_checkpoints(
+                        qualification,
+                        parent_run_id,
+                        question_ids,
+                    )
+                    if parent_run_id
+                    else {question_id: None for question_id in question_ids}
+                )
                 for question_id in question_ids:
                     record = records_by_question[question_id]
                     source_text = str(record.get("questionBodyText") or "")
+                    candidate_set = generate_statement_candidates(source_text)
+                    candidate_sets_by_question[question_id] = candidate_set
                     signature = {
                         "sourceHash": source_text_hash(source_text),
+                        "candidateSetHash": candidate_set_hash(candidate_set),
                         "stableParentIdentity": stable_parent_identity(record),
                         "model": review_model,
                         "reasoningEffort": review_effort,
@@ -7936,15 +8249,7 @@ class QualificationRunCoordinator:
                         ),
                     }
                     signatures[question_id] = signature
-                    checkpoint = (
-                        self.store.aggregate_review_checkpoint(
-                            qualification,
-                            parent_run_id,
-                            question_id,
-                        )
-                        if parent_run_id
-                        else None
-                    )
+                    checkpoint = stored_checkpoints[question_id]
                     if checkpoint is None:
                         reviews_by_question[question_id] = []
                         executions_by_question[question_id] = []
@@ -8085,6 +8390,7 @@ class QualificationRunCoordinator:
                     review_prompt = _aggregate_answer_review_prompt(
                         pending_targets,
                         records_by_question,
+                        candidate_sets_by_question,
                     )
                     started_threads: list[str] = []
 
@@ -8128,7 +8434,21 @@ class QualificationRunCoordinator:
                             ),
                             sandbox="read-only",
                             emit=emit,
-                            output_schema=aggregate_answer_review_schema(pending_ids),
+                            output_schema=aggregate_answer_review_schema(
+                                pending_ids,
+                                {
+                                    question_id: [
+                                        str(candidate.get("candidateId") or "")
+                                        for candidate in candidate_sets_by_question[
+                                            question_id
+                                        ].get("candidates")
+                                        or []
+                                        if isinstance(candidate, Mapping)
+                                        and candidate.get("candidateId")
+                                    ]
+                                    for question_id in pending_ids
+                                },
+                            ),
                             on_thread_started=on_review_thread_started,
                             on_turn_started=on_review_turn_started,
                             heartbeat=heartbeat,
@@ -8166,6 +8486,18 @@ class QualificationRunCoordinator:
                     parsed_batch = parse_aggregate_answer_reviews(
                         review_result.final_message,
                         pending_ids,
+                        {
+                            question_id: [
+                                str(candidate.get("candidateId") or "")
+                                for candidate in candidate_sets_by_question[
+                                    question_id
+                                ].get("candidates")
+                                or []
+                                if isinstance(candidate, Mapping)
+                                and candidate.get("candidateId")
+                            ]
+                            for question_id in pending_ids
+                        },
                     )
                     if len(started_threads) != 1:
                         raise QualificationRunError(
@@ -8221,6 +8553,9 @@ class QualificationRunCoordinator:
                             ]
                         ),
                     )
+                consensus_values: list[
+                    tuple[str, Mapping[str, Any], Mapping[str, Any]]
+                ] = []
                 for question_id in question_ids:
                     source_text = str(
                         records_by_question[question_id].get("questionBodyText") or ""
@@ -8251,6 +8586,7 @@ class QualificationRunCoordinator:
                         aggregate_consensus[question_id] = reconcile_reviews(
                             source_text,
                             aggregate_review_pairs[question_id],
+                            candidate_sets_by_question[question_id],
                         )
                     except ValueError:
                         aggregate_consensus[question_id] = {
@@ -8261,12 +8597,18 @@ class QualificationRunCoordinator:
                             "decision": "hold",
                             "issueCodes": ["invalid_review"],
                         }
-                    self.store.store_aggregate_review_consensus(
+                    consensus_values.append(
+                        (
+                            question_id,
+                            signatures[question_id],
+                            aggregate_consensus[question_id],
+                        )
+                    )
+                if consensus_values:
+                    self.store.store_aggregate_review_consensuses(
                         qualification,
                         parent_run_id,
-                        question_id,
-                        signatures[question_id],
-                        aggregate_consensus[question_id],
+                        consensus_values,
                     )
                 all_review_receipts = list(
                     {

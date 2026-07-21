@@ -4,12 +4,16 @@ import unittest
 
 from scripts.common.aggregate_answer_decomposition import (
     REVIEW_SCHEMA_VERSION,
+    candidate_set_hash,
     derived_source_unique_keys,
     extract_source_statements,
+    generate_statement_candidates,
     materialize_decomposition,
     reconcile_reviews,
     stable_parent_identity,
     source_text_hash,
+    statement_boundary_id,
+    statement_candidate_id,
 )
 
 
@@ -23,16 +27,13 @@ SECOND = "B  二番目の記述である。"
 
 
 def approved_review() -> dict[str, object]:
-    first_start = SOURCE_TEXT.index(FIRST)
-    second_start = SOURCE_TEXT.index(SECOND)
+    candidate_set = generate_statement_candidates(SOURCE_TEXT)
+    candidate = candidate_set["candidates"][0]
     return {
         "schemaVersion": REVIEW_SCHEMA_VERSION,
         "sourceHash": source_text_hash(SOURCE_TEXT),
         "classification": "target",
-        "spans": [
-            {"start": first_start, "end": first_start + len(FIRST)},
-            {"start": second_start, "end": second_start + len(SECOND)},
-        ],
+        "candidateId": candidate["candidateId"],
         "decision": "approve",
         "issueCodes": [],
     }
@@ -59,14 +60,8 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
     def test_review_disagreement_becomes_hold_without_third_adjudication(self) -> None:
         first = approved_review()
         second = approved_review()
-        second["spans"] = list(reversed(second["spans"]))
-
-        with self.assertRaisesRegex(ValueError, "ordered"):
-            reconcile_reviews(SOURCE_TEXT, [first, second])
-
-        second = approved_review()
         second["classification"] = "non_target"
-        second["spans"] = []
+        second["candidateId"] = None
         held = reconcile_reviews(SOURCE_TEXT, [first, second])
         self.assertEqual(held["decision"], "hold")
         self.assertEqual(held["issueCodes"], ["review_disagreement"])
@@ -79,6 +74,62 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
 
         self.assertEqual(held["classification"], "hold")
         self.assertEqual(held["issueCodes"], ["source_hash_mismatch"])
+
+    def test_candidate_and_boundary_ids_are_source_offset_owned(self) -> None:
+        candidate_set = generate_statement_candidates(SOURCE_TEXT)
+        candidate = candidate_set["candidates"][0]
+        spans = candidate["spans"]
+        source_hash = source_text_hash(SOURCE_TEXT)
+
+        self.assertEqual(
+            [span["boundaryId"] for span in spans],
+            [
+                statement_boundary_id(source_hash, span["start"], span["end"])
+                for span in spans
+            ],
+        )
+        self.assertEqual(
+            candidate["candidateId"],
+            statement_candidate_id(source_hash, spans),
+        )
+        self.assertEqual(candidate_set_hash(candidate_set), candidate_set_hash(
+            generate_statement_candidates(SOURCE_TEXT)
+        ))
+
+    def test_raw_offsets_and_unknown_candidate_ids_are_rejected(self) -> None:
+        review = approved_review()
+        review["spans"] = [{"start": 0, "end": 1}]
+        with self.assertRaisesRegex(ValueError, "only"):
+            reconcile_reviews(SOURCE_TEXT, [review, review])
+
+        review = approved_review()
+        review["candidateId"] = "candidate:" + "0" * 24
+        with self.assertRaisesRegex(ValueError, "not present"):
+            reconcile_reviews(SOURCE_TEXT, [review, review])
+
+    def test_nested_marker_family_does_not_split_outer_candidate(self) -> None:
+        source_text = (
+            "A  第一の記述。\n"
+            "① 補足一。\n"
+            "② 補足二。\n"
+            "B  第二の記述。"
+        )
+        candidate_set = generate_statement_candidates(source_text)
+        outer = next(
+            candidate
+            for candidate in candidate_set["candidates"]
+            if len(candidate["spans"]) == 2
+            and source_text[candidate["spans"][0]["start"]] == "A"
+        )
+
+        first = outer["spans"][0]
+        self.assertIn("① 補足一。", source_text[first["start"] : first["end"]])
+        self.assertEqual(
+            source_text[
+                outer["spans"][1]["start"] : outer["spans"][1]["end"]
+            ],
+            "B  第二の記述。",
+        )
 
     def test_materializer_generates_new_stable_statement_keys(self) -> None:
         source = {
