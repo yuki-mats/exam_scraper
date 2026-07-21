@@ -177,6 +177,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
 
     def test_validated_work_and_artifact_sync_have_separate_ui_states(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
+        html = APP_PATH.with_name("index.html").read_text(encoding="utf-8")
 
         self.assertIn("function artifactSyncNeedsAttention", javascript)
         self.assertIn('["succeeded", "current", "not_required"]', javascript)
@@ -193,6 +194,13 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('statusLabel = "公開用データ更新待ち"', javascript)
         self.assertIn('? "公開用データ更新待ち"', javascript)
         self.assertIn("整備結果を承認済み", javascript)
+        self.assertIn('id="qualification-active-run-sync"', html)
+        self.assertIn("function openQualificationRunArtifactSync", javascript)
+        self.assertIn("openSyncDialog(false, listGroupId)", javascript)
+        self.assertIn(
+            "sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupId(run)",
+            javascript,
+        )
 
     def test_partial_failed_run_uses_touched_questions_for_stop_state(self):
         javascript = APP_PATH.read_text(encoding="utf-8")

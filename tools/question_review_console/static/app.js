@@ -465,6 +465,7 @@ function bindControls() {
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
   $("#qualification-workflow-guide").addEventListener("click", () => openWorkflowGuide());
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
+  $("#qualification-active-run-sync").addEventListener("click", openQualificationRunArtifactSync);
   $("#qualification-active-run-retry").addEventListener("click", retryBlockedQualificationRun);
   $("#qualification-run-progress-current").addEventListener("click", (event) => {
     if (event.currentTarget.progressQuestion) {
@@ -1615,6 +1616,23 @@ function qualificationRunCanRetryBlocked(run, view) {
   );
 }
 
+function qualificationRunArtifactGroupId(run) {
+  const groupIds = [...new Set(
+    (run?.scopeListGroupIds || run?.targetGroupIds || []).filter(Boolean),
+  )];
+  return groupIds.length === 1 ? groupIds[0] : "";
+}
+
+function openQualificationRunArtifactSync() {
+  const run = displayedQualificationRun();
+  const listGroupId = qualificationRunArtifactGroupId(run);
+  if (!listGroupId) {
+    toast("再生成する年度を一つに特定できません。年度の問題詳細から再生成してください。", true);
+    return;
+  }
+  openSyncDialog(false, listGroupId);
+}
+
 function renderQualificationRunPhases(run, view) {
   const container = $("#qualification-active-run-phases");
   const flowExecutions = (run?.phaseExecutions || []).filter((item) => item?.id);
@@ -1795,6 +1813,7 @@ function renderQualificationActiveRun() {
   }
   const phases = $("#qualification-active-run-phases");
   const action = $("#qualification-active-run-action");
+  const sync = $("#qualification-active-run-sync");
   const retry = $("#qualification-active-run-retry");
   const errorBox = $("#qualification-active-run-error");
   if (!run) {
@@ -1812,6 +1831,7 @@ function renderQualificationActiveRun() {
     errorBox.hidden = true;
     errorBox.textContent = "";
     action.hidden = true;
+    sync.hidden = true;
     retry.hidden = true;
     return;
   }
@@ -1883,6 +1903,7 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
+  sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupId(run);
   retry.hidden = !qualificationRunCanRetryBlocked(run, view);
   retry.textContent = ["failed", "interrupted"].includes(run.status)
     ? "未完了の問題を再開"
@@ -4752,8 +4773,8 @@ function renderFirestoreDiff(question) {
   return node;
 }
 
-function groupApiPath(action) {
-  const listGroupId = state.detail?.listGroupId || state.listGroupId;
+function groupApiPath(action, listGroupIdOverride = "") {
+  const listGroupId = listGroupIdOverride || state.detail?.listGroupId || state.listGroupId;
   return `/api/groups/${encodeURIComponent(state.qualification)}/${encodeURIComponent(listGroupId)}/${action}`;
 }
 
@@ -4795,10 +4816,10 @@ function stageSummary(preview, stage, label) {
   return summaryMetric(label, value, data.status === "match" ? "good" : "warning");
 }
 
-async function openSyncDialog(autoStart = false) {
+async function openSyncDialog(autoStart = false, listGroupId = "") {
   resetWorkflowDialog("sync", "パッチ変更を反映");
   try {
-    const preview = await api(groupApiPath("sync-preview"), { method: "POST", body: {} });
+    const preview = await api(groupApiPath("sync-preview", listGroupId), { method: "POST", body: {} });
     state.workflowDialog.preview = preview;
     $("#workflow-dialog-message").textContent = preview.needsSync
       ? preview.allowMissingAnswerResult
@@ -4970,7 +4991,7 @@ async function startWorkflowExecution() {
     let path;
     let body;
     if (mode === "sync") {
-      path = groupApiPath("sync");
+      path = groupApiPath("sync", preview.listGroupId);
       body = { previewToken: preview.previewToken };
     } else if (mode === "evaluation") {
       path = "/api/evaluations/start";
