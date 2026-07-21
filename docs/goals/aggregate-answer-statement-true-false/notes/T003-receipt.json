@@ -1,0 +1,26 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T003",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "scripts/common/aggregate_answer_decomposition.py",
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition",
+      "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_each_writer_reads_run_local_logical_projection",
+      "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition && git diff --check",
+      "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+    ],
+    "summary": "二重review、文章禁止schema、server照合、問題単位hold、consensus evidence、tool生成を実装したが、回帰テストでaggregateReviewThreadIdsを取得できず停止した。",
+    "remaining_blockers": [
+      "test_each_writer_reads_run_local_logical_projection が StopIteration で失敗する。既存fake実行ではaggregateReviewThreadIdsを持つchildを確認できない。"
+    ],
+    "verification_attempts": 3,
+    "stopped_because": "Verification still failed after two fix attempts."
+  }
+}

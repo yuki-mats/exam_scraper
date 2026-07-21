@@ -27,7 +27,7 @@
 - `questionBodyText`、`choiceTextList`、`original_question_id`、`question_url` の正本は `00_source` とし、出力時はその値を機械的に転記すること。
 
 【省トークン運用（推奨）】
-- 生成AIが直接出力する JSON は、**`original_question_id`、`questionType`、`isCalculationQuestion`の3フィールドだけ**を持つ最小形式にすること。
+- 通常分類では、生成AIが直接出力する JSON は、**`original_question_id`、`questionType`、`isCalculationQuestion`の3フィールドだけ**を持つ最小形式にすること。
 - `questionBodyText`、`choiceTextList`、`question_url` は AI が再出力せず、ローカル補完スクリプト
   `python3 tools/question_bank/question_bank.py materialize-patch --task question_type ...`
   で `00_source` から付与すること。
@@ -44,7 +44,7 @@
 - ただし判定の基準ファイルは、常に同一 `list_group_id/00_source/` 配下の対応元ファイルとする。
 
 [書き込み（生成）してよいファイル]
-- まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id`、`questionType`、`isCalculationQuestion`だけ**を持つ最小JSONを作成してよい。
+- 通常分類では、まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id`、`questionType`、`isCalculationQuestion`だけ**を持つ最小JSONを作成してよい。集約回答型レビューは後述の専用契約を使う。
 - その後、`tools/question_bank/question_bank.py materialize-patch` で正式パッチJSONを生成すること。
 - **必ず `list_group_id` のディレクトリ配下に `10_questionType_fixed/` フォルダを作成（存在しなければ作成）し、その中に保存すること。**
 - **出力は固定ファイル名にし、既存の同名パッチがある場合は上書きすること。** 作業のたびにタイムスタンプ付きファイルを増やさない。
@@ -72,18 +72,28 @@
 - JSON はプレーンな JSON とし、`//` や `/* */` などのコメントを一切入れない。
 
 [正式パッチJSONの構造]
-- `tools/question_bank/question_bank.py materialize-patch` 実行後の正式パッチJSONは、以下の **6フィールドのみ** をこの順序で持つ：
+- 通常分類の正式パッチJSONは、以下の **6フィールドのみ** をこの順序で持つ：
   - `questionBodyText`
   - `choiceTextList`
   - `questionType`
   - `isCalculationQuestion`
   - `original_question_id`
   - `question_url`
+- 集約回答型レビューを行った問題では、ツールが`aggregateAnswerDecomposition`を追加する。対象確定時だけ、同じツールが原文spanから作った`choiceTextList`と新しい`sourceUniqueKeys`を持つ。
+
+[集約回答型レビュー]
+- 対象は、元の回答が個数又は組合せなどに集約され、どの記述を誤ったか分からない問題とする。記号、番号、改行など特定表記の有無では決めない。
+- 第01工程では、全問題に同じsource snapshotを渡して、別々のread-only threadで専用レビューを2回実行する。serverが二者の結果を照合した後に、通常の問題形式候補を別のturnで生成する。
+- 専用レビューはproductionのJSON Schemaに厳密に従い、問題別結果には`questionId`、`schemaVersion`、`sourceHash`、`classification`、`spans`、`decision`、`issueCodes`だけを返す。記述本文、要約、理由その他の文章を返さない。
+- `spans`は`questionBodyText`上の0始まり・end-exclusiveの`start`/`end`だけを持つ。元問題で一項目になっている範囲を1spanとし、内部を分割しない。
+- serverは2結果の完全一致とsource hashを検証する。一致した`target`かつ`approve`だけを合意済みにし、不一致、hash不一致、判定不能又は境界不明は問題単位の`hold`にする。materialize toolはserverの合意済み結果だけを変換する。
+- 抽出文字列は必ずツールが`questionBodyText[start:end]`から作る。エージェント出力から文字列を保存する経路を設けない。
+- 対象確定時は`questionType=true_false`とし、旧集約回答のFirestore ID、正答、解説、選択肢別メタデータを派生記述へ流用しない。正誤と解説は後続の既存工程で全記述分を確定する。
 
 [文字列値の保持ルール（最重要）]
 - 以下は **正式パッチJSON** に対するルールであり、`questionBodyText` / `choiceTextList` / `question_url` は補完スクリプトで `00_source` から機械的に複写すること。
 - `questionBodyText` は **元ファイルの文字列値を1文字も変えずに** そのまま出力すること。
-- `choiceTextList` の各要素も **元ファイルの文字列値を1文字も変えずに** そのまま出力すること。
+- 通常分類の`choiceTextList`は、元ファイルの配列を1文字も変えずに出力する。集約回答型の対象確定時だけ、ツールが合意済みspanを原文から切り出した配列へ置き換える。
 - `questionType`と`isCalculationQuestion`以外の4フィールドは、**値の正規化・言い換え・表記統一・句読点修正・空白修正・記号置換・改行整形を一切してはいけない。**
 - 元データ中に改行が含まれる場合、**JSON文字列として有効な `\n` エスケープで保存すること。文字列リテラル内に生の改行文字を入れてはいけない。**
 - JSON の文字列中では、必要に応じて `"` や `\` も正しくエスケープすること。

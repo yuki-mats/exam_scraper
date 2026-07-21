@@ -8,10 +8,35 @@ from tools.question_review_console.question_candidate import (
     output_schema,
     parse_candidates,
     validate_candidate_content,
+    aggregate_answer_review_schema,
+    parse_aggregate_answer_reviews,
 )
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_aggregate_review_contract_has_no_prose_fields(self):
+        schema = aggregate_answer_review_schema(["q1"])
+        item = schema["properties"]["questionReviews"]["items"]
+        self.assertFalse(item["additionalProperties"])
+        self.assertNotIn("summary", item["properties"])
+        payload = {
+            "schemaVersion": "aggregate-answer-review-batch/v1",
+            "questionReviews": [
+                {
+                    "questionId": "q1",
+                    "schemaVersion": "aggregate-answer-review/v1",
+                    "sourceHash": "sha256:" + "0" * 64,
+                    "classification": "non_target",
+                    "spans": [],
+                    "decision": "approve",
+                    "issueCodes": [],
+                    "reason": "文章は禁止",
+                }
+            ],
+        }
+        with self.assertRaisesRegex(QuestionCandidateError, "文章"):
+            parse_aggregate_answer_reviews(payload, ["q1"])
+
     def plan(self):
         return {
             "allowedPatchFiles": [

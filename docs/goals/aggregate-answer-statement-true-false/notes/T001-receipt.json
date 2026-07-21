@@ -1,0 +1,61 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T001",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approved",
+    "full_outcome_complete": false,
+    "rationale": "既存の第01工程が回答体験を所有し、true_false変換器は元問題全文と抽出記述を併記できる。安全な最初のsliceは、二者一致したspanだけをツールで切り出す契約、patch投影、新規派生ID、旧集約回答データの再利用防止を同時に実装すること。",
+    "worker_package": {
+      "objective": "第01工程に、二者の構造化レビューを完全一致で照合し、原文spanだけから記述を切り出してtrue_false用patchへ投影する資格共通の中核を実装する。派生問題では既存Firestore IDと旧集約回答由来の正答・解説を再利用しない。",
+      "allowed_files": [
+        "config/question_maintenance_workflow.toml",
+        "prompt/01_prompt_fix_questionType.md",
+        "document/reference/question_field_contract.md",
+        "scripts/common/aggregate_answer_decomposition.py",
+        "scripts/fix/materialize_minimal_patch.py",
+        "scripts/check/check_questiontype_patch_coverage.py",
+        "scripts/merge/patch_views.py",
+        "scripts/merge/record_projection.py",
+        "tools/question_review_console/question_candidate.py",
+        "tests/test_aggregate_answer_decomposition.py",
+        "tests/test_materialize_minimal_patch_identity.py",
+        "tests/test_questiontype_patch_coverage.py",
+        "tests/test_prepare_qualification_01_04_manual_review.py",
+        "tests/test_question_review_question_candidate.py",
+        "tests/test_convert_merged_to_firestore.py"
+      ],
+      "verify": [
+        "python -m unittest tests.test_aggregate_answer_decomposition tests.test_materialize_minimal_patch_identity tests.test_questiontype_patch_coverage tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_question_candidate tests.test_convert_merged_to_firestore",
+        "python scripts/check/check_questiontype_patch_coverage.py --source <fixture source> --patch <fixture patch>"
+      ],
+      "stop_if": [
+        "Need files outside allowed_files.",
+        "Existing dirty changes overlap the selected files and ownership cannot be isolated.",
+        "The implementation would write or rename 00_source.",
+        "The extraction path would accept agent-authored text.",
+        "Verification fails twice for the same unresolved reason.",
+        "The existing converter cannot guarantee new document IDs for derived statements without changing files outside allowed_files."
+      ]
+    },
+    "evidence": [
+      "config/question_maintenance_workflow.toml: question_type stage owns answer experience and currently updates questionType/isCalculationQuestion",
+      "scripts/fix/materialize_minimal_patch.py: current materializer copies source body and choices and is the correct tool-owned boundary",
+      "scripts/merge/patch_views.py: apply_question_type already projects choiceTextList and sourceUniqueKeys",
+      "scripts/convert/convert_merged_to_firestore.py: true_false already retains original body and appends exactly one extracted choice",
+      "scripts/convert/convert_merged_to_firestore.py: firestoreQuestionIds currently take precedence and must be cleared for semantic derivatives",
+      "scripts/merge/record_projection.py: legacy answer backfill must be disabled for decomposed aggregate-answer questions",
+      "scripts/check/check_questiontype_patch_coverage.py: current exact-choice check must become decomposition-aware and fail closed",
+      "pre-existing dirty files are limited to output/gas-shunin-* and do not overlap the Worker package"
+    ],
+    "missing_evidence": [
+      "Two independent agent-run orchestration is not implemented in this slice.",
+      "First-class health supervisor full trial and publication proof remain after the core slice."
+    ],
+    "required_board_updates": [
+      "Activate T002 with the worker_package unchanged.",
+      "After T002, queue orchestration and full-trial work instead of final audit."
+    ],
+    "blocked_tasks": []
+  }
+}

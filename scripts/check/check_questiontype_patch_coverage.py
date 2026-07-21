@@ -18,6 +18,12 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.question_identity import review_question_id
 from scripts.common.questions_json_paths import resolve_list_group_base_dir
+from scripts.common.aggregate_answer_decomposition import (
+    derived_source_unique_keys,
+    extract_source_statements,
+    is_approved_target,
+    normalize_decomposition,
+)
 
 
 REQUIRED_FIELDS = [
@@ -178,7 +184,40 @@ def compare_entries(
 
         src_ctl = src.get("choiceTextList")
         patch_ctl = patch.get("choiceTextList")
-        if src_ctl != patch_ctl:
+        decomposition = patch.get("aggregateAnswerDecomposition")
+        if decomposition is not None:
+            try:
+                normalized = normalize_decomposition(
+                    decomposition,
+                    str(src_qb_text or ""),
+                )
+                if is_approved_target(normalized, str(src_qb_text or "")):
+                    expected_choices = extract_source_statements(
+                        str(src_qb_text or ""),
+                        normalized,
+                    )
+                    if patch_ctl != expected_choices:
+                        issues.append(
+                            f"index {idx}: choiceTextList is not exact source span extraction"
+                        )
+                    if patch.get("questionType") != "true_false":
+                        issues.append(
+                            f"index {idx}: approved target must use true_false"
+                        )
+                    expected_keys = derived_source_unique_keys(src, normalized)
+                    if patch.get("sourceUniqueKeys") != expected_keys:
+                        issues.append(
+                            f"index {idx}: sourceUniqueKeys mismatch for derived statements"
+                        )
+                elif src_ctl != patch_ctl:
+                    issues.append(
+                        f"index {idx}: held/non-target choiceTextList mismatch"
+                    )
+            except ValueError as exc:
+                issues.append(
+                    f"index {idx}: invalid aggregateAnswerDecomposition: {exc}"
+                )
+        elif src_ctl != patch_ctl:
             print(f"DEBUG (check script): index {idx}: choiceTextList mismatch detected.")
             print(f"DEBUG (check script): Source repr: {repr(src_ctl)}")
             print(f"DEBUG (check script): Patch repr:  {repr(patch_ctl)}")

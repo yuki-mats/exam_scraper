@@ -1,0 +1,36 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T009",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "failed",
+        "attempt": 1,
+        "summary": "Five qualification-run regressions failed"
+      },
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "failed",
+        "attempt": 2,
+        "summary": "The same five qualification-run regressions failed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "Fake aggregate reviewの既定値をnon_targetへ戻し、専用回帰だけtargetとholdを明示した。production targetではcandidateのisCalculationQuestionを優先し、欠落時だけ同じcurrent recordの既存booleanを保存し、双方にない場合は停止する契約にした。集中回帰に同じ5件が残ったため停止した。",
+    "remaining_blockers": [
+      "既存question_type一括処理のテスト用App Server呼出し順と、追加した2回のread-only review呼出しの整合が取れておらず、5件がblockedになる。"
+    ],
+    "verification_attempts": 2,
+    "stopped_because": "Verification failed twice for the same unresolved cause."
+  }
+}

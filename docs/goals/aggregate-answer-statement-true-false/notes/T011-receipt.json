@@ -1,0 +1,29 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T011",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tests/qualification_run_test_support.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_safe_category_setup_failure_blocks_only_dependent_segment tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_improvement_report_failure_warns_without_rejecting_validated_patch tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_batch_prompt_contains_deterministic_question_identity_and_projection tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_restart_after_validated_save_resumes_from_logical_projection tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_multi_group_final_sync_excludes_preblocked_group",
+        "status": "pass"
+      },
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "107 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "FlowAppServerのaggregate review呼出しを通常writer経路から分離し、別記録・別thread IDで文章を含まないvalid non_target review batchを返すよう修正した。production契約は変更せず、指定5回帰とfocused suite 107件が通過した。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

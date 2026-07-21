@@ -363,6 +363,7 @@ class FlowAppServer:
         self.fail_on_writer = fail_on_writer
         self.writer_count = 0
         self.calls = []
+        self.aggregate_review_calls = []
         self.events = events
         self.changed_files_by_work_type = changed_files_by_work_type or {}
         self.before_receipt = before_receipt
@@ -371,6 +372,42 @@ class FlowAppServer:
         return {"allowed": True, "planType": "pro"}
 
     def run_turn(self, prompt, **kwargs):
+        if "_aggregate_review_" in kwargs["work_type"]:
+            review_number = len(self.aggregate_review_calls) + 1
+            self.aggregate_review_calls.append((prompt, kwargs))
+            thread_id = f"thread-flow-review-{review_number}"
+            session_id = f"session-flow-review-{review_number}"
+            turn_id = f"turn-flow-review-{review_number}"
+            kwargs["on_thread_started"](thread_id, session_id)
+            kwargs["on_turn_started"](thread_id, turn_id)
+            candidate_questions = PerQuestionQueueAppServer._candidate_questions(
+                prompt
+            )
+            return AppServerTurnResult(
+                thread_id=thread_id,
+                session_id=session_id,
+                turn_id=turn_id,
+                final_message=json.dumps(
+                    {
+                        "schemaVersion": "aggregate-answer-review-batch/v1",
+                        "questionReviews": [
+                            {
+                                "questionId": str(question["questionId"]),
+                                "schemaVersion": "aggregate-answer-review/v1",
+                                "sourceHash": question["sourceHash"],
+                                "classification": "non_target",
+                                "spans": [],
+                                "decision": "approve",
+                                "issueCodes": [],
+                            }
+                            for question in candidate_questions
+                        ],
+                    },
+                    ensure_ascii=False,
+                ),
+                model="gpt-test",
+                service_tier=None,
+            )
         self.calls.append((prompt, kwargs))
         if self.events is not None:
             self.events.append(f"session:{kwargs['work_type']}")
@@ -469,12 +506,15 @@ class PerQuestionQueueAppServer:
         failed_work_items=(),
         changed_files_by_work_item=None,
         before_receipt=None,
+        aggregate_review_overrides=None,
     ):
         self.failed_question_id = failed_question_id
         self.failed_work_items = set(failed_work_items)
         self.changed_files_by_work_item = changed_files_by_work_item or {}
         self.before_receipt = before_receipt
+        self.aggregate_review_overrides = aggregate_review_overrides or {}
         self.calls = []
+        self.aggregate_review_calls = []
         self.batch_calls = []
         self.successful_writes = []
         self._lock = threading.Lock()
@@ -533,7 +573,14 @@ class PerQuestionQueueAppServer:
         choices = list(current.get("choiceTextList") or [])
         fields = {
             "originalized": {"questionBodyText": current.get("questionBodyText", "")},
-            "question_type": {"questionType": "true_false"},
+            "question_type": {
+                "questionType": "true_false",
+                "isCalculationQuestion": (
+                    current["isCalculationQuestion"]
+                    if isinstance(current.get("isCalculationQuestion"), bool)
+                    else False
+                ),
+            },
             "question_intent": {"questionIntent": "select_correct"},
             "correct_choice": {
                 "correctChoiceText": list(current.get("correctChoiceText") or ["正しい"] * len(choices))
@@ -576,15 +623,71 @@ class PerQuestionQueueAppServer:
         question_id = question_ids[0]
         work_type = kwargs["work_type"]
         with self._lock:
-            call_number = len(self.calls) + 1
-            self.calls.append((question_id, prompt, kwargs))
-            self.batch_calls.append(tuple(question_ids))
+            call_number = len(self.calls) + len(self.aggregate_review_calls) + 1
+            if "_aggregate_review_" in work_type:
+                self.aggregate_review_calls.append((question_id, prompt, kwargs))
+            else:
+                self.calls.append((question_id, prompt, kwargs))
+                self.batch_calls.append(tuple(question_ids))
         kwargs["on_thread_started"](
             f"thread-queue-{call_number}", f"session-queue-{call_number}"
         )
         kwargs["on_turn_started"](
             f"thread-queue-{call_number}", f"turn-queue-{call_number}"
         )
+
+        if "_aggregate_review_" in work_type:
+            review_number = int(work_type.split("_aggregate_review_", 1)[1][0])
+            question_reviews = []
+            for question in self._candidate_questions(prompt):
+                value = str(question["questionId"])
+                source_text = str(question["questionBodyText"])
+                override = self.aggregate_review_overrides.get(
+                    (value, review_number),
+                    self.aggregate_review_overrides.get(value),
+                )
+                review = dict(override or {})
+                classification = str(
+                    review.get("classification") or "non_target"
+                )
+                decision = str(review.get("decision") or "approve")
+                spans = review.get("spans")
+                if spans is None:
+                    midpoint = max(1, len(source_text) // 2)
+                    spans = (
+                        [
+                            {"start": 0, "end": midpoint},
+                            {"start": midpoint, "end": len(source_text)},
+                        ]
+                        if classification == "target"
+                        else []
+                    )
+                question_reviews.append(
+                    {
+                        "questionId": value,
+                        "schemaVersion": "aggregate-answer-review/v1",
+                        "sourceHash": question["sourceHash"],
+                        "classification": classification,
+                        "spans": spans,
+                        "decision": decision,
+                        "issueCodes": list(review.get("issueCodes") or []),
+                    }
+                )
+            return AppServerTurnResult(
+                thread_id=f"thread-queue-{call_number}",
+                session_id=f"session-queue-{call_number}",
+                turn_id=f"turn-queue-{call_number}",
+                final_message=json.dumps(
+                    {
+                        "schemaVersion": "aggregate-answer-review-batch/v1",
+                        "questionReviews": question_reviews,
+                    },
+                    ensure_ascii=False,
+                ),
+                model=kwargs.get("model", "gpt-test"),
+                service_tier=None,
+                reasoning_effort=kwargs.get("reasoning_effort", "high"),
+            )
 
         with self._lock:
             self._active_writers += 1

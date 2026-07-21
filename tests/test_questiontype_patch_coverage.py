@@ -1,9 +1,65 @@
 import unittest
 
 from scripts.check.check_questiontype_patch_coverage import compare_entries
+from scripts.common.aggregate_answer_decomposition import (
+    REVIEW_SCHEMA_VERSION,
+    materialize_decomposition,
+    source_text_hash,
+)
 
 
 class QuestionTypePatchCoverageTest(unittest.TestCase):
+    def test_allows_tool_sliced_aggregate_answer_choices(self):
+        source = self.source()
+        source["canonical_question_key"] = "sample:2026:q001"
+        source["questionBodyText"] = "組合せを選べ。\nA 原文一。\nB 原文二。"
+        body = source["questionBodyText"]
+        spans = []
+        for statement in ("A 原文一。", "B 原文二。"):
+            start = body.index(statement)
+            spans.append({"start": start, "end": start + len(statement)})
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(body),
+            "classification": "target",
+            "spans": spans,
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        patch = self.patch("true_false")
+        patch["questionBodyText"] = body
+        patch.update(materialize_decomposition(source, [review, dict(review)]))
+
+        issues, _warnings = compare_entries([source], [patch])
+
+        self.assertEqual(issues, [])
+
+    def test_rejects_agent_supplied_choice_not_matching_spans(self):
+        source = self.source()
+        source["canonical_question_key"] = "sample:2026:q001"
+        source["questionBodyText"] = "組合せを選べ。\nA 原文一。\nB 原文二。"
+        body = source["questionBodyText"]
+        spans = []
+        for statement in ("A 原文一。", "B 原文二。"):
+            start = body.index(statement)
+            spans.append({"start": start, "end": start + len(statement)})
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(body),
+            "classification": "target",
+            "spans": spans,
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        patch = self.patch("true_false")
+        patch["questionBodyText"] = body
+        patch.update(materialize_decomposition(source, [review, dict(review)]))
+        patch["choiceTextList"] = ["生成文一", "生成文二"]
+
+        issues, _warnings = compare_entries([source], [patch])
+
+        self.assertTrue(any("exact source span" in issue for issue in issues))
+
     def source(self, question_type="group_choice"):
         return {
             "original_question_id": "q1",

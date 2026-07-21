@@ -73,13 +73,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T001
+active_task: T013
 
 tasks:
   - id: T001
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "合意済み計画を現行repo、正本、dirty worktree、既存検証基盤に照らし、最初の安全な実装sliceを確定する。"
     inputs:
@@ -97,13 +97,61 @@ tasks:
       - "allowed_files"
       - "verify"
       - "stop_if"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "既存の第01工程が回答体験を所有し、true_false変換器は元問題全文と抽出記述を併記できる。安全な最初のsliceは、二者一致したspanだけをツールで切り出す契約、patch投影、新規派生ID、旧集約回答データの再利用防止を同時に実装すること。"
+      worker_package:
+        objective: "第01工程に、二者の構造化レビューを完全一致で照合し、原文spanだけから記述を切り出してtrue_false用patchへ投影する資格共通の中核を実装する。派生問題では既存Firestore IDと旧集約回答由来の正答・解説を再利用しない。"
+        allowed_files:
+          - config/question_maintenance_workflow.toml
+          - prompt/01_prompt_fix_questionType.md
+          - document/reference/question_field_contract.md
+          - scripts/common/aggregate_answer_decomposition.py
+          - scripts/fix/materialize_minimal_patch.py
+          - scripts/check/check_questiontype_patch_coverage.py
+          - scripts/merge/patch_views.py
+          - scripts/merge/record_projection.py
+          - tools/question_review_console/question_candidate.py
+          - tests/test_aggregate_answer_decomposition.py
+          - tests/test_materialize_minimal_patch_identity.py
+          - tests/test_questiontype_patch_coverage.py
+          - tests/test_prepare_qualification_01_04_manual_review.py
+          - tests/test_question_review_question_candidate.py
+          - tests/test_convert_merged_to_firestore.py
+        verify:
+          - "python -m unittest tests.test_aggregate_answer_decomposition tests.test_materialize_minimal_patch_identity tests.test_questiontype_patch_coverage tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_question_candidate tests.test_convert_merged_to_firestore"
+          - "python scripts/check/check_questiontype_patch_coverage.py --source <fixture source> --patch <fixture patch>"
+        stop_if:
+          - "Need files outside allowed_files."
+          - "Existing dirty changes overlap the selected files and ownership cannot be isolated."
+          - "The implementation would write or rename 00_source."
+          - "The extraction path would accept agent-authored text."
+          - "Verification fails twice for the same unresolved reason."
+          - "The existing converter cannot guarantee new document IDs for derived statements without changing files outside allowed_files."
+      evidence:
+        - "config/question_maintenance_workflow.toml: question_type stage owns answer experience and currently updates questionType/isCalculationQuestion"
+        - "scripts/fix/materialize_minimal_patch.py: current materializer copies source body and choices and is the correct tool-owned boundary"
+        - "scripts/merge/patch_views.py: apply_question_type already projects choiceTextList and sourceUniqueKeys"
+        - "scripts/convert/convert_merged_to_firestore.py: true_false already retains original body and appends exactly one extracted choice"
+        - "scripts/convert/convert_merged_to_firestore.py: firestoreQuestionIds currently take precedence and must be cleared for semantic derivatives"
+        - "scripts/merge/record_projection.py: legacy answer backfill must be disabled for decomposed aggregate-answer questions"
+        - "scripts/check/check_questiontype_patch_coverage.py: current exact-choice check must become decomposition-aware and fail closed"
+        - "pre-existing dirty files are limited to output/gas-shunin-* and do not overlap the Worker package"
+      missing_evidence:
+        - "Two independent agent-run orchestration is not implemented in this slice."
+        - "First-class health supervisor full trial and publication proof remain after the core slice."
+      required_board_updates:
+        - "Activate T002 with the worker_package unchanged."
+        - "After T002, queue orchestration and full-trial work instead of final audit."
+      blocked_tasks: []
   - id: T002
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
-    objective: "T001が確定した最大の安全な実装sliceを、許可範囲内で実装・検証する。"
+    objective: "第01工程に、二者の構造化レビューを完全一致で照合し、原文spanだけから記述を切り出してtrue_false用patchへ投影する資格共通の中核を実装する。派生問題では既存Firestore IDと旧集約回答由来の正答・解説を再利用しない。"
     inputs:
       - "T001 receipt"
       - "User-approved existing plan facts in goal.intake"
@@ -117,14 +165,589 @@ tasks:
       - "Focused tests"
       - "Verification receipt"
       - "Changed-file list"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "document/reference/question_field_contract.md"
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "scripts/fix/materialize_minimal_patch.py"
+      - "scripts/check/check_questiontype_patch_coverage.py"
+      - "scripts/merge/patch_views.py"
+      - "scripts/merge/record_projection.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tests/test_aggregate_answer_decomposition.py"
+      - "tests/test_materialize_minimal_patch_identity.py"
+      - "tests/test_questiontype_patch_coverage.py"
+      - "tests/test_prepare_qualification_01_04_manual_review.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_convert_merged_to_firestore.py"
+    verify:
+      - "python -m unittest tests.test_aggregate_answer_decomposition tests.test_materialize_minimal_patch_identity tests.test_questiontype_patch_coverage tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_question_candidate tests.test_convert_merged_to_firestore"
+      - "python scripts/check/check_questiontype_patch_coverage.py --source <fixture source> --patch <fixture patch>"
     stop_if:
       - "Need files outside allowed_files."
       - "Existing dirty changes overlap the selected files and ownership cannot be isolated."
       - "The implementation would write or rename 00_source."
       - "The extraction path would accept agent-authored text."
       - "Verification fails twice for the same unresolved reason."
+      - "The existing converter cannot guarantee new document IDs for derived statements without changing files outside allowed_files."
+    receipt:
+      result: done
+      changed_files:
+        - document/reference/question_field_contract.md
+        - prompt/01_prompt_fix_questionType.md
+        - scripts/check/check_questiontype_patch_coverage.py
+        - scripts/common/aggregate_answer_decomposition.py
+        - scripts/fix/materialize_minimal_patch.py
+        - scripts/merge/patch_views.py
+        - scripts/merge/record_projection.py
+        - tests/test_aggregate_answer_decomposition.py
+        - tests/test_convert_merged_to_firestore.py
+        - tests/test_materialize_minimal_patch_identity.py
+        - tests/test_prepare_qualification_01_04_manual_review.py
+        - tests/test_questiontype_patch_coverage.py
+      commands:
+        - command: "python -m unittest tests.test_aggregate_answer_decomposition tests.test_materialize_minimal_patch_identity tests.test_questiontype_patch_coverage tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_question_candidate tests.test_convert_merged_to_firestore"
+          status: pass
+          summary: "54 tests passed"
+        - command: "python -m compileall -q scripts/common/aggregate_answer_decomposition.py scripts/fix/materialize_minimal_patch.py scripts/check/check_questiontype_patch_coverage.py scripts/merge/patch_views.py scripts/merge/record_projection.py"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+      summary: "二者レビューの厳格schema、完全一致又はhold、source hashとspan検証、tool-only原文切出し、安定した新規派生key、旧Firestore ID・旧正答・旧解説の除去を第01patchからconvertまで接続した。一次開発の元問題全文と抽出記述の併記も回帰テストで確認した。"
+      deviations:
+        - "Goal Workerが無変更のまま待機期限を超えたため、同じallowed_filesでPM fallbackした。"
+        - "T001のfixture指定がplaceholderだったため、同じchecker関数を実fixture相当で通すunit testとcompileallへ置き換えた。"
+      remaining_blockers:
+        - "既存コンソールで2つの独立したモデルturnを実行し、server側で合意を作る接続は未実装。"
+        - "第一種衛生管理者1044問の全件trial、後続正誤・解説、公開gate、限定公開readbackは未実施。"
+      verification_attempts: 2
+      stopped_because: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "問題形式工程の全対象問題でgpt-5.5 highの独立したread-only turnを2回実行し、各turnには文章を返せないreview schemaを課す。serverが二者結果を照合してdecompositionをtool生成し、不一致・hash不一致・判定不能を問題単位holdとしてreceiptへ残す。"
+    inputs:
+      - "T002 receipt and aggregate_answer_decomposition contract"
+      - "Existing structured candidate batch pipeline"
+    constraints:
+      - "Do not let either model output extracted statement text, summaries, reasons, or prose inside aggregateAnswerReview."
+      - "The two reviews must run in separate ephemeral threads with the same source snapshot."
+      - "Do not commit a first review before the second review and reconciliation succeed."
+      - "Do not touch 00_source or existing gas-shunin dirty files."
+    expected_output:
+      - "Two-turn question_type candidate orchestration"
+      - "Server-owned consensus materialization"
+      - "Per-question hold evidence"
+      - "Focused regression tests"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "document/operations/local_question_review_console.md"
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+    verify:
+      - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Either reviewer output would contain extracted text or free-form prose in the review payload."
+      - "The first reviewer result would be committed before exact reconciliation."
+      - "Existing dirty changes overlap allowed_files and cannot be isolated."
+      - "Verification fails twice for the same unresolved reason."
+    receipt:
+      result: blocked
+      changed_files:
+        - scripts/common/aggregate_answer_decomposition.py
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+        - "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_each_writer_reads_run_local_logical_projection"
+        - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition && git diff --check"
+        - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+      summary: "二重review、文章禁止schema、server照合、問題単位hold、consensus evidence、tool生成を実装したが、回帰テストでaggregateReviewThreadIdsを取得できず停止した。"
+      remaining_blockers:
+        - "test_each_writer_reads_run_local_logical_projection が StopIteration で失敗する。既存fake実行ではaggregateReviewThreadIdsを持つchildを確認できない。"
+      verification_attempts: 3
+      stopped_because: "Verification still failed after two fix attempts."
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "T003の実装を保持し、既存fake App Serverが専用aggregate review schemaを返せるようテスト基盤を整合させる。全回帰を通し、別ephemeral thread、同一prompt、全件consensus evidence、targetのtool生成、holdの非commitを証明する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "Current T003 implementation diff"
+      - "Failing test traceback"
+    constraints:
+      - "Do not weaken production dual-review checks to satisfy the fake."
+      - "Do not remove per-question consensus evidence."
+      - "Do not touch 00_source or gas-shunin dirty files."
+    expected_output:
+      - "Passing dedicated and full regression tests"
+      - "Production behavior unchanged or strengthened"
+    allowed_files:
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+    verify:
+      - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+      - "git diff --check"
+    stop_if:
+      - "Need production files outside allowed_files."
+      - "The fix would make one review sufficient or persist first-review output."
+      - "The fix would allow prose or extracted text in aggregate review output."
+      - "Verification fails twice for the same unresolved production cause."
+    receipt:
+      result: blocked
+      changed_files:
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+        - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition"
+        - "git diff --check"
+      summary: "fake App Serverを専用aggregate review schema、別thread、同一prompt、問題別overrideに対応させた。hold非commitの検証を追加したが、target統合ケースはfixtureにcommit可能なsource/patch条件がなく失敗した。production安全条件は変更していない。"
+      remaining_blockers:
+        - "test_each_writer_reads_run_local_logical_projectionでtarget結果がfailed。commit可能なfixture整備または期待証拠の再設計が必要。"
+      verification_attempts: 2
+      stopped_because: "Verification failed after two fix attempts; further changes would exceed the Worker task limit."
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "T004のtarget失敗理由をreceipt内容まで可視化し、fixture又はproductionのfield/write contractを最小修正して二重レビュー回帰を完走させる。"
+    inputs:
+      - "T004 blocked receipt"
+      - "Current failed target_result"
+    constraints:
+      - "Do not weaken exact dual-review or tool-only extraction."
+      - "Do not hide a production contract failure by asserting only evidence."
+      - "Do not touch 00_source or unrelated dirty files."
+    expected_output:
+      - "Root cause"
+      - "Passing focused and full regression suites"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "scripts/check/check_questiontype_patch_coverage.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+    verify:
+      - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The fix would accept agent-authored extracted text."
+      - "The fix would reuse old Firestore IDs for target derivatives."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "106 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "失敗receiptを可視化し、fixtureのsource欠落とID誤用、本番validatorによる正当な派生fieldの一律拒否を特定した。fixtureをsource契約へ合わせ、承認済みdecompositionから原文spanと安定親IDを使って再現できるchoiceTextList/sourceUniqueKeysだけを許可した。二者一致、tool-only抽出、新規派生IDの条件は維持した。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "二重レビューを第01工程の現行方針として正本・workflow catalogへ確定し、洗い替え用MAJOR versionと運用説明を更新する。productionコードの専用schema、3-turn構成、hold、tool-only切出しと矛盾しない回帰を追加する。"
+    inputs:
+      - "T002-T005 receipts"
+      - "Current dual-review implementation"
+    constraints:
+      - "Do not duplicate detailed contracts across documents."
+      - "Do not add UI, annotation, or highlighting scope."
+      - "Do not touch output data or 00_source."
+    expected_output:
+      - "Stage 01 policy MAJOR bump"
+      - "Canonical operational note"
+      - "Catalog and prompt consistency tests"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_aggregate_answer_decomposition"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The documentation would conflict with the implemented schema."
+      - "Verification fails twice for the same unresolved reason."
+    receipt:
+      result: done
+      changed_files:
+        - config/question_maintenance_workflow.toml
+        - prompt/01_prompt_fix_questionType.md
+        - document/operations/local_question_review_console.md
+        - tests/test_question_review_workflow_catalog.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_aggregate_answer_decomposition"
+          status: pass
+          summary: "103 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "第01工程を洗い替え対象のpolicy 3.0へ更新した。運用正本には詳細schemaを複製せず、独立read-onlyレビュー2回、server合意、通常候補生成、問題単位hold、tool-only切出しの順序を明記した。promptをproductionの3-turn構成と専用schemaに整合させ、catalog・文書・promptの回帰を追加した。103 tests passed。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T007
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T002-T006の累積実装をread-only監査し、第一種衛生管理者1044問の実モデル全件trialへ進めるか判定する。特に文章禁止schema、二者独立、原文span再現、新規ID、旧データ除去、hold非commit、既存dirty分離を確認する。"
+    inputs:
+      - "T002-T006 receipts"
+      - "Current cumulative diff and tests"
+      - "First-class health supervisor source inventory"
+    constraints:
+      - "Read-only."
+      - "Do not edit product files or output data."
+      - "Reject live trial if a first review can be committed alone or if derived text is not reproducible from source spans."
+    expected_output:
+      - "approved or rejected"
+      - "Live trial Worker/PM package with exact commands and stop_if"
+      - "Missing evidence"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "137件の回帰で二者別thread、文章禁止schema、consensus後commit、span再現、新規派生key、旧ID・旧正答・旧解説除去、hold非commitを確認した。実モデル全件trial前に、対象判定へ元選択肢も渡し、targetの計算フラグを通常候補から必須取得する小修正が必要。"
+      worker_package:
+        objective: "aggregate review入力へsourceのchoiceTextListを読み取り専用で追加し、question_type全問題で必ず二重レビューを実行する。targetでは通常candidateのisCalculationQuestion booleanを保持・必須化し、一律falseを廃止する。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tests/qualification_run_test_support.py
+          - tests/test_question_review_qualification_runs.py
+        verify:
+          - "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          - "git diff --check"
+        stop_if:
+          - "Need files outside allowed_files."
+          - "Review output schema would gain a text field."
+          - "Target could commit without a boolean isCalculationQuestion."
+          - "Verification fails twice for the same unresolved reason."
+      evidence:
+        - "137 focused tests passed in PM verification."
+        - "No 00_source path appears in git diff."
+        - "Two aggregate review work types end in _candidate and therefore use read-only ephemeral Codex threads."
+        - "Formal derived choices and sourceUniqueKeys are recomputed from source spans before commit."
+      missing_evidence:
+        - "Real gpt-5.5 high smoke and 1044-question run have not yet executed."
+        - "Downstream correctness, explanation, delivery, publish, and readback remain."
+      blocked_tasks: []
+      required_board_updates:
+        - "Activate T008, then run a small live smoke before the full refresh."
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "aggregate review入力へsourceのchoiceTextListを読み取り専用で追加し、question_type全問題で必ず二重レビューを実行する。targetでは通常candidateのisCalculationQuestion booleanを保持・必須化し、一律falseを廃止する。"
+    inputs:
+      - "T007 audit receipt"
+      - "Current dual-review implementation"
+    constraints:
+      - "Do not add text fields to review output."
+      - "Do not make choiceTextList part of sourceHash or span coordinate space."
+      - "Do not touch output data or 00_source."
+    expected_output:
+      - "Choice-aware semantic classification input"
+      - "All-question dual review"
+      - "Correct calculation flag handling"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Review output schema would gain a text field."
+      - "Target could commit without a boolean isCalculationQuestion."
+      - "Verification fails twice for the same unresolved reason."
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: failed
+          attempt: 1
+          summary: "107 tests: 16 failures, 2 errors"
+        - command: "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: failed
+          attempt: 2
+          summary: "107 tests: 6 failures"
+        - command: "git diff --check"
+          status: pass
+      summary: "choiceTextListをレビュー入力へ追加し、本文だけのhash/spanを維持した。空本文を含むquestion_type全問題の二重レビューを有効化し、targetではcandidate由来のboolean isCalculationQuestionを必須化して一律falseを削除した。fixtureも更新したが、指定テストに6件の回帰失敗が残ったため停止した。"
+      remaining_blockers:
+        - "Fake App Serverの既定target分類が無関係な既存question_typeテストにもtarget専用契約を適用している。"
+      verification_attempts: 2
+      stopped_because: "Verification failed twice; T008 stop_if requires immediate stop."
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Fake App Serverのaggregate review既定値をnon_targetへ戻し、専用回帰だけq1=target、q2=holdを明示する。target計算フラグはcandidate set値又は同じcurrent source snapshotの既存booleanをformal patchへ必ず保存する。"
+    inputs:
+      - "T008 blocked receipt"
+      - "Six named regression failures"
+    constraints:
+      - "Do not weaken production dual review."
+      - "Do not silently default isCalculationQuestion to false."
+      - "Do not touch output or 00_source."
+    expected_output:
+      - "All focused regressions passing"
+      - "Explicit target/hold fixture"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The fix would default a missing calculation flag."
+      - "Verification fails twice for the same unresolved production cause."
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: failed
+          attempt: 1
+          summary: "Five qualification-run regressions failed"
+        - command: "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: failed
+          attempt: 2
+          summary: "The same five qualification-run regressions failed"
+        - command: "git diff --check"
+          status: pass
+      summary: "Fake aggregate reviewの既定値をnon_targetへ戻し、専用回帰だけtargetとholdを明示した。production targetではcandidateのisCalculationQuestionを優先し、欠落時だけ同じcurrent recordの既存booleanを保存し、双方にない場合は停止する契約にした。集中回帰に同じ5件が残ったため停止した。"
+      remaining_blockers:
+        - "既存question_type一括処理のテスト用App Server呼出し順と、追加した2回のread-only review呼出しの整合が取れておらず、5件がblockedになる。"
+      verification_attempts: 2
+      stopped_because: "Verification failed twice for the same unresolved cause."
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "追加した2回のread-only aggregate reviewを前提に、既存question_type一括処理のFake App Server応答順と呼出し回数を整合させる。productionの二重レビュー、source span、計算フラグ必須契約は変更しない。"
+    inputs:
+      - "T009 blocked receipt"
+      - "Five named qualification-run regression failures"
+    constraints:
+      - "Do not weaken production dual review or hold behavior."
+      - "Do not add agent-authored extracted text."
+      - "Do not default a missing calculation flag."
+      - "Do not touch output or 00_source."
+    expected_output:
+      - "Five named regressions passing"
+      - "Full focused suite passing"
+      - "Production contracts unchanged"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The fix changes production review semantics instead of test orchestration."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: blocked
+      changed_files: []
+      commands: []
+      summary: "Worker taskへboard_pathが渡されていなかったため、編集・検証前に停止した。"
+      remaining_blockers:
+        - "WorkerへGoalBuddy board_pathを明示して再実行する必要がある。"
+      verification_attempts: 0
+      stopped_because: "Required board_path was missing from the delegated task."
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "T010をboard_path付きで再実行し、FlowAppServerのread-only aggregate review応答と通常writer計数を分離して、既存5回帰と全focused suiteを通す。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T009 and T010 blocked receipts"
+      - "Five named qualification-run regression failures"
+    constraints:
+      - "Do not weaken production dual review or hold behavior."
+      - "Do not add agent-authored extracted text."
+      - "Do not default a missing calculation flag."
+      - "Do not touch output or 00_source."
+    expected_output:
+      - "Five named regressions passing"
+      - "Full focused suite passing"
+      - "Production contracts unchanged"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+      - "git diff --check"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "The fix changes production review semantics instead of test orchestration."
+      - "Verification fails twice for the same unresolved cause."
+    receipt:
+      result: done
+      changed_files:
+        - tests/qualification_run_test_support.py
+      commands:
+        - command: "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_safe_category_setup_failure_blocks_only_dependent_segment tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_improvement_report_failure_warns_without_rejecting_validated_patch tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_batch_prompt_contains_deterministic_question_identity_and_projection tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_restart_after_validated_save_resumes_from_logical_projection tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_multi_group_final_sync_excludes_preblocked_group"
+          status: pass
+        - command: "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "107 tests passed"
+        - command: "git diff --check"
+          status: pass
+      summary: "FlowAppServerのaggregate review呼出しを通常writer経路から分離し、別記録・別thread IDで文章を含まないvalid non_target review batchを返すよう修正した。production契約は変更せず、指定5回帰とfocused suite 107件が通過した。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "第一種衛生管理者の実データsmoke前に、累積diff、107件の集中回帰、二者独立性、agent文章禁止、span/ID/計算フラグ契約、00_source不変境界を読み取り専用で監査し、smoke実行可否と具体的scopeを判定する。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T001-T011 receipts"
+      - "Current cumulative git diff"
+      - "Focused test evidence"
+    constraints:
+      - "Read-only."
+      - "Do not edit, commit, publish, or start a live model run."
+      - "Reject if production review semantics were weakened for tests."
+      - "Reject if extracted text can originate from a model field."
+    expected_output:
+      - "approved | rejected"
+      - "Smoke target and exact proof checks"
+      - "Allowed files for the live-run receipt"
+      - "Remaining risks before the full 1044-question run"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      commands:
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "107 tests passed in 7.021s"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files matched the manifest"
+        - command: "git diff --check"
+          status: pass
+      rationale: "二者は別ephemeral read-only threadで同じsource snapshotを受け、文章fieldを持たない厳格schemaだけを返す。serverだけが一致spanから文字列と新規派生keyを作り、targetの計算flagもboolean必須である。test fixtureの回復はproduction処理を変更していないため、限定smokeへ進める。"
+      evidence:
+        - "107件の集中回帰が同じ作業ツリーで成功した。"
+        - "00_source manifest 5799件に差分がない。"
+        - "指定source a6bea45a937c2c6eのbody hashはsha256:12af2055...7f427で、A-Dの4記述と組合せ5件を持つ。"
+        - "sourceのisCalculationQuestionは未設定であり、通常candidateがbooleanを明示しなければtargetをcommitできない。"
+      missing_evidence:
+        - "実gpt-5.5 high二者が指定1問で完全一致すること。"
+        - "smoke後のpatch、派生key、artifact sync、00_source不変のreadback。"
+        - "第一種衛生管理者1044問の全件結果と後続工程・限定公開readback。"
+      summary: "実データsmokeへ進むことを承認した。Judgeは検証と主要契約確認を完了後、最終receipt整形中にPMが監査内容を同じ証拠から確定した。"
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "検証済み共通実装をmainへ限定commit/pushし、gpt-5.5 highで第一種衛生管理者20035の第1問だけをquestion_type refresh smokeする。二者一致、4つの原文span、tool生成文字列、新規派生key、計算flag、artifact sync、00_source不変をreadbackする。"
+    inputs:
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      - "T012 approved receipt"
+      - "Qualification 1eiseikanrisha, listGroup 20035, questionRange 1..1"
+      - "Original question a6bea45a937c2c6e"
+    constraints:
+      - "Commit only aggregate-answer feature/control files; never stage user-owned output/gas-shunin changes."
+      - "Use model gpt-5.5 with reasoning high for both independent reviews and the normal candidate."
+      - "Do not write, rename, or delete 00_source."
+      - "Do not publish Firestore in this task."
+      - "Do not continue to full run if the target is held, spans differ, extracted strings are not exact source slices, or artifact sync escapes listGroup 20035."
+    expected_output:
+      - "Scoped main commit and origin/main push receipt"
+      - "One-question live run ID and result"
+      - "Two distinct review thread IDs"
+      - "Four exact extracted statements and stable derived keys"
+      - "00_source before/after hash equality"
+    allowed_files:
+      - "Approved aggregate-answer implementation, tests, docs, and GoalBuddy control files"
+      - "output/question_review_console/1eiseikanrisha/20035/**"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20035/** except 00_source/**"
+    verify:
+      - "git diff --cached --check and exact staged file audit before commit"
+      - "origin/main contains the scoped implementation commit"
+      - "Live run result and child batchQuestionResults are succeeded for a6bea45a937c2c6e"
+      - "aggregate review thread IDs are two distinct values and both model receipts are gpt-5.5/high"
+      - "choiceTextList equals questionBodyText[start:end] for all four agreed spans"
+      - "sourceUniqueKeys are four new stable aggregate-statement keys"
+      - "isCalculationQuestion is boolean"
+      - "listGroup 20035 artifact sync succeeds or reports an explicit safe block"
+      - "Full first-class-health 00_source tree hash remains 38dc4d9284a85f7cc172e2487a80d08bdb3cd561ad17af56cd11f35ff077fe11"
+    stop_if:
+      - "Codex App Server is not configured for gpt-5.5/high."
+      - "The two reviews do not use distinct threads or exact sourceHash."
+      - "The smoke question is classified hold/non_target or does not produce exactly four statements."
+      - "Any extracted string cannot be reproduced by a source slice."
+      - "00_source changes or the run attempts Firestore publication."
+      - "Unexpected paths outside the allowed smoke scope change."
     receipt: null
   - id: T999
     type: judge

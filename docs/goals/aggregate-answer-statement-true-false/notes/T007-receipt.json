@@ -1,0 +1,42 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T007",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approved",
+    "full_outcome_complete": false,
+    "rationale": "137件の回帰で二者別thread、文章禁止schema、consensus後commit、span再現、新規派生key、旧ID・旧正答・旧解説除去、hold非commitを確認した。実モデル全件trial前に、対象判定へ元選択肢も渡し、targetの計算フラグを通常候補から必須取得する小修正が必要。",
+    "worker_package": {
+      "objective": "aggregate review入力へsourceのchoiceTextListを読み取り専用で追加し、question_type全問題で必ず二重レビューを実行する。targetでは通常candidateのisCalculationQuestion booleanを保持・必須化し、一律falseを廃止する。",
+      "allowed_files": [
+        "tools/question_review_console/qualification_runs.py",
+        "tests/qualification_run_test_support.py",
+        "tests/test_question_review_qualification_runs.py"
+      ],
+      "verify": [
+        "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "git diff --check"
+      ],
+      "stop_if": [
+        "Need files outside allowed_files.",
+        "Review output schema would gain a text field.",
+        "Target could commit without a boolean isCalculationQuestion.",
+        "Verification fails twice for the same unresolved reason."
+      ]
+    },
+    "evidence": [
+      "137 focused tests passed in PM verification.",
+      "No 00_source path appears in git diff.",
+      "Two aggregate review work types end in _candidate and therefore use read-only ephemeral Codex threads.",
+      "Formal derived choices and sourceUniqueKeys are recomputed from source spans before commit."
+    ],
+    "missing_evidence": [
+      "Real gpt-5.5 high smoke and 1044-question run have not yet executed.",
+      "Downstream correctness, explanation, delivery, publish, and readback remain."
+    ],
+    "blocked_tasks": [],
+    "required_board_updates": [
+      "Activate T008, then run a small live smoke before the full refresh."
+    ]
+  }
+}

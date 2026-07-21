@@ -1,0 +1,22 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T004",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition",
+      "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition",
+      "git diff --check"
+    ],
+    "summary": "fake App Serverを専用aggregate review schema、別thread、同一prompt、問題別overrideに対応させた。hold非commitの検証を追加したが、target統合ケースはfixtureにcommit可能なsource/patch条件がなく失敗した。production安全条件は変更していない。",
+    "remaining_blockers": [
+      "test_each_writer_reads_run_local_logical_projectionでtarget結果がfailed。commit可能なfixture整備または期待証拠の再設計が必要。"
+    ],
+    "verification_attempts": 2,
+    "stopped_because": "Verification failed after two fix attempts; further changes would exceed the Worker task limit."
+  }
+}

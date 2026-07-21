@@ -16,6 +16,12 @@ from scripts.common.question_identity import (
     source_identity_aliases,
     workflow_identity_aliases,
 )
+from scripts.common.aggregate_answer_decomposition import (
+    derived_source_unique_keys,
+    extract_source_statements,
+    is_approved_target,
+    normalize_decomposition,
+)
 from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
     validate_originalized_image_entry,
@@ -83,6 +89,30 @@ QUESTION_SOURCE_PRESERVATION_FIELDS = [
     "sourceConflictReviewDecision",
     "sourceContentConflictPolicy",
 ]
+AGGREGATE_DERIVATIVE_STALE_FIELDS = (
+    "correctChoiceText",
+    "explanationText",
+    "suggestedQuestionDetailsByChoice",
+    "suggestedQuestions",
+    "suggestedQuestionDetails",
+    "lawReferences",
+    "lawRevisionFacts",
+    "isLawRelated",
+    "lawGroundedExplanationNotNeeded",
+    "explanation_common_prefix",
+    "explanation_common_prefix_inferred_correct_choice",
+    "explanation_common_summary",
+    "explanation_choice_snippets",
+    "explanation_choice_correctness",
+    "answer_result_inferred_correct_choice_numbers",
+    "choiceQuestionSetIds",
+    "questionSetIds",
+    "originalQuestionChoiceImageUrls",
+)
+AGGREGATE_DERIVATIVE_OLD_ID_FIELDS = (
+    "firestoreQuestionIds",
+    "firestoreSourceQuestions",
+)
 NEGATIVE_PROMPT_PHRASES = (
     "最も不適当なもの",
     "最も不適当",
@@ -412,6 +442,57 @@ def apply_question_type(
         patch_entry = qtype_map.get(str(question_id))
         if isinstance(patch_entry, dict):
             changed = False
+            approved_aggregate_target = False
+            decomposition = patch_entry.get("aggregateAnswerDecomposition")
+            if decomposition is not None:
+                source_text = question.get("questionBodyText")
+                if not isinstance(source_text, str):
+                    raise ValueError("questionBodyText must be string")
+                normalized_decomposition = normalize_decomposition(
+                    decomposition,
+                    source_text,
+                )
+                approved_aggregate_target = is_approved_target(
+                    normalized_decomposition,
+                    source_text,
+                )
+                if approved_aggregate_target:
+                    extracted_choices = extract_source_statements(
+                        source_text,
+                        normalized_decomposition,
+                    )
+                    expected_keys = derived_source_unique_keys(
+                        question,
+                        normalized_decomposition,
+                    )
+                    if patch_entry.get("choiceTextList") != extracted_choices:
+                        raise ValueError(
+                            "aggregate answer choiceTextList must be exact source spans"
+                        )
+                    if patch_entry.get("sourceUniqueKeys") != expected_keys:
+                        raise ValueError(
+                            "aggregate answer sourceUniqueKeys do not match source spans"
+                        )
+                    if patch_entry.get("questionType") != "true_false":
+                        raise ValueError(
+                            "approved aggregate answer target must use true_false"
+                        )
+                    if question.get("choiceTextList") != extracted_choices:
+                        question["choiceTextList"] = extracted_choices
+                        changed = True
+                    if question.get("sourceUniqueKeys") != expected_keys:
+                        question["sourceUniqueKeys"] = expected_keys
+                        changed = True
+                    for field in (
+                        *AGGREGATE_DERIVATIVE_STALE_FIELDS,
+                        *AGGREGATE_DERIVATIVE_OLD_ID_FIELDS,
+                    ):
+                        if field in question:
+                            question.pop(field, None)
+                            changed = True
+                if question.get("aggregateAnswerDecomposition") != normalized_decomposition:
+                    question["aggregateAnswerDecomposition"] = normalized_decomposition
+                    changed = True
             new_type = patch_entry.get("questionType")
             if new_type is not None and question.get("questionType") != new_type:
                 question["questionType"] = new_type
@@ -428,17 +509,25 @@ def apply_question_type(
                 question["questionBodyText"] = new_body
                 changed = True
             new_choices = patch_entry.get("choiceTextList")
-            if new_choices is not None and question.get("choiceTextList") != new_choices:
+            if (
+                not approved_aggregate_target
+                and new_choices is not None
+                and question.get("choiceTextList") != new_choices
+            ):
                 question["choiceTextList"] = new_choices
                 changed = True
             new_source_unique_keys = patch_entry.get("sourceUniqueKeys")
             if (
+                not approved_aggregate_target
+                and
                 isinstance(new_source_unique_keys, list)
                 and question.get("sourceUniqueKeys") != new_source_unique_keys
             ):
                 question["sourceUniqueKeys"] = new_source_unique_keys
                 changed = True
             for field in QUESTION_SOURCE_PRESERVATION_FIELDS:
+                if approved_aggregate_target and field in AGGREGATE_DERIVATIVE_OLD_ID_FIELDS:
+                    continue
                 if field in patch_entry and patch_entry[field] is not None and question.get(field) != patch_entry[field]:
                     question[field] = patch_entry[field]
                     changed = True
@@ -903,6 +992,18 @@ def normalize_true_false_intent_and_correct_choice(
         if question_type == "fill_in_blank":
             continue
         if question_type != "true_false":
+            continue
+
+        source_text = str(
+            question.get("questionBodyText")
+            or question.get("originalQuestionBodyText")
+            or ""
+        )
+        decomposition = question.get("aggregateAnswerDecomposition")
+        if decomposition is not None and is_approved_target(
+            decomposition,
+            source_text,
+        ):
             continue
 
         manual_intent_override = question.get("manualQuestionIntentOverride") is True

@@ -1,0 +1,28 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T006",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "config/question_maintenance_workflow.toml",
+      "prompt/01_prompt_fix_questionType.md",
+      "document/operations/local_question_review_console.md",
+      "tests/test_question_review_workflow_catalog.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_aggregate_answer_decomposition",
+        "status": "pass",
+        "summary": "103 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "第01工程を洗い替え対象のpolicy 3.0へ更新した。運用正本には詳細schemaを複製せず、独立read-onlyレビュー2回、server合意、通常候補生成、問題単位hold、tool-only切出しの順序を明記した。promptをproductionの3-turn構成と専用schemaに整合させ、catalog・文書・promptの回帰を追加した。103 tests passed。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

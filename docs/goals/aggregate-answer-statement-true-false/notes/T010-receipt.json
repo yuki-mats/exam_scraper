@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T010",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [],
+    "commands": [],
+    "summary": "Worker taskへboard_pathが渡されていなかったため、編集・検証前に停止した。",
+    "remaining_blockers": [
+      "WorkerへGoalBuddy board_pathを明示して再実行する必要がある。"
+    ],
+    "verification_attempts": 0,
+    "stopped_because": "Required board_path was missing from the delegated task."
+  }
+}

@@ -10,6 +10,7 @@ from scripts.common.question_identity import (
     IdentityCandidateIndex,
     review_question_id,
 )
+from scripts.common.aggregate_answer_decomposition import is_approved_target
 from scripts.merge.patch_views import (
     PatchArtifactEntry,
     apply_answer_result_overrides,
@@ -169,6 +170,17 @@ def backfill_correct_choice_text_from_answer_result(data: dict[str, Any]) -> int
     updated = 0
     for body in data.get("question_bodies") or []:
         if not isinstance(body, dict):
+            continue
+        source_text = str(
+            body.get("questionBodyText")
+            or body.get("originalQuestionBodyText")
+            or ""
+        )
+        decomposition = body.get("aggregateAnswerDecomposition")
+        if decomposition is not None and is_approved_target(
+            decomposition,
+            source_text,
+        ):
             continue
         current = body.get("correctChoiceText")
         choices = body.get("choiceTextList")

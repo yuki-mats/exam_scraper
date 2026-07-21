@@ -11,6 +11,10 @@ from scripts.fix.materialize_minimal_patch import (
     materialize_entries,
     materialize_question_type,
 )
+from scripts.common.aggregate_answer_decomposition import (
+    REVIEW_SCHEMA_VERSION,
+    source_text_hash,
+)
 
 
 def write_json(path: Path, payload: object) -> None:
@@ -34,6 +38,42 @@ def explanation_entry(identity: dict[str, str] | None = None) -> dict[str, objec
 
 
 class MaterializeMinimalPatchIdentityTests(unittest.TestCase):
+    def test_question_type_materializes_consensus_spans_from_source(self) -> None:
+        body = "組合せを選べ。\nA 原文一。\nB 原文二。"
+        first_start = body.index("A 原文一。")
+        second_start = body.index("B 原文二。")
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(body),
+            "classification": "target",
+            "spans": [
+                {"start": first_start, "end": first_start + len("A 原文一。")},
+                {"start": second_start, "end": second_start + len("B 原文二。")},
+            ],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        source = {
+            "canonical_question_key": "sample:2026:q001",
+            "questionBodyText": body,
+            "choiceTextList": ["A、B"],
+            "original_question_id": "q1",
+            "question_url": "https://example.test/q1",
+        }
+
+        actual = materialize_question_type(
+            source,
+            {
+                "questionType": "flash_card",
+                "isCalculationQuestion": False,
+                "aggregateAnswerReviews": [review, dict(review)],
+            },
+        )
+
+        self.assertEqual(actual["questionType"], "true_false")
+        self.assertEqual(actual["choiceTextList"], ["A 原文一。", "B 原文二。"])
+        self.assertNotIn("aggregateAnswerReviews", actual)
+
     def test_question_type_materialization_keeps_calculation_flag(self) -> None:
         source = {
             "questionBodyText": "計算する。",

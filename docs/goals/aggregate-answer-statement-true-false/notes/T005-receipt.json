@@ -1,0 +1,26 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T005",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "106 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "失敗receiptを可視化し、fixtureのsource欠落とID誤用、本番validatorによる正当な派生fieldの一律拒否を特定した。fixtureをsource契約へ合わせ、承認済みdecompositionから原文spanと安定親IDを使って再現できるchoiceTextList/sourceUniqueKeysだけを許可した。二者一致、tool-only抽出、新規派生IDの条件は維持した。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

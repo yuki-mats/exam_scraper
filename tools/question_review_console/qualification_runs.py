@@ -44,6 +44,14 @@ from tools.question_review_console.projection import (
     workflow_identity_aliases,
 )
 from scripts.common.explanation_contract import uses_question_level_explanation
+from scripts.common.aggregate_answer_decomposition import (
+    derived_source_unique_keys,
+    extract_source_statements,
+    is_approved_target,
+    materialize_decomposition,
+    reconcile_reviews,
+    source_text_hash,
+)
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobConflictError,
@@ -79,12 +87,15 @@ from tools.question_review_console.question_patch_proposal import (
     assert_target_resolvable,
 )
 from tools.question_review_console.question_candidate import (
+    CandidateUpdate,
     CandidateTarget,
     QuestionCandidateError,
     candidate_targets,
     output_schema as candidate_output_schema,
     parse_candidates,
     validate_candidate_content,
+    aggregate_answer_review_schema,
+    parse_aggregate_answer_reviews,
 )
 from tools.question_review_console.adaptive_scheduler import (
     DEFAULT_MAX_PARALLEL_TURNS,
@@ -520,6 +531,7 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
                 "contractFields": {
                     field: copy.deepcopy(record[field])
                     for field in (
+                        "aggregateAnswerDecomposition",
                         "schemaVersion",
                         "qualification",
                         "listGroupId",
@@ -775,6 +787,35 @@ def _structured_candidate_prompt(
             "",
             json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
             "",
+        ]
+    )
+
+
+def _aggregate_answer_review_prompt(
+    targets: list[Mapping[str, Any]],
+    records_by_question: Mapping[str, Mapping[str, Any]],
+) -> str:
+    questions = []
+    for target in targets:
+        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+        record = records_by_question[question_id]
+        source_text = str(record.get("questionBodyText") or "")
+        questions.append(
+            {
+                "questionId": question_id,
+                "sourceHash": source_text_hash(source_text),
+                "questionBodyText": source_text,
+                "choiceTextList": copy.deepcopy(record.get("choiceTextList") or []),
+            }
+        )
+    return "\n".join(
+        [
+            "# 集約回答問題の独立レビュー",
+            "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
+            "targetでは元問題の一項目を一記述とし、原文のstart/endだけを返す。",
+            "記述本文、理由、summary、説明その他の文章は出力しない。",
+            "file、shell、外部状態を変更しない。指定JSON Schemaのobjectだけを返す。",
+            json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
         ]
     )
 
@@ -7312,7 +7353,106 @@ class QualificationRunCoordinator:
             )
 
         result = None
+        aggregate_consensus: dict[str, dict[str, Any]] = {}
+        aggregate_review_pairs: dict[str, list[dict[str, Any]]] = {}
         try:
+            aggregate_review_enabled = stage_id == "question_type"
+            if aggregate_review_enabled:
+                review_prompt = _aggregate_answer_review_prompt(
+                    raw_targets,
+                    records_by_question,
+                )
+                review_batches: list[dict[str, dict[str, Any]]] = []
+                review_thread_ids: list[str] = []
+                for review_number in (1, 2):
+                    def on_review_thread_started(
+                        thread_id: str,
+                        session_id: str,
+                        *,
+                        number: int = review_number,
+                    ) -> None:
+                        review_thread_ids.append(thread_id)
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            **{
+                                f"aggregateReviewThreadId{number}": thread_id,
+                                f"aggregateReviewSessionId{number}": session_id,
+                            },
+                        )
+
+                    def on_review_turn_started(
+                        thread_id: str,
+                        turn_id: str,
+                        *,
+                        number: int = review_number,
+                    ) -> None:
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            **{
+                                f"aggregateReviewThreadId{number}": thread_id,
+                                f"aggregateReviewTurnId{number}": turn_id,
+                            },
+                        )
+
+                    review_result = self.app_server.run_turn(
+                        review_prompt,
+                        work_type=(
+                            f"maintenance_{stage_id}_aggregate_review_"
+                            f"{review_number}_candidate"
+                        ),
+                        sandbox="read-only",
+                        emit=emit,
+                        output_schema=aggregate_answer_review_schema(question_ids),
+                        on_thread_started=on_review_thread_started,
+                        on_turn_started=on_review_turn_started,
+                        heartbeat=heartbeat,
+                        cwd=self.repo_root,
+                        model=model,
+                        reasoning_effort=reasoning_effort,
+                    )
+                    if review_result.changed_files:
+                        raise QualificationRunError(
+                            "read-only集約回答レビューでfile変更通知を検出しました。"
+                        )
+                    review_batches.append(
+                        parse_aggregate_answer_reviews(
+                            review_result.final_message,
+                            question_ids,
+                        )
+                    )
+                if len(review_thread_ids) != 2 or len(set(review_thread_ids)) != 2:
+                    raise QualificationRunError(
+                        "集約回答レビューを別々のephemeral threadで実行できませんでした。"
+                    )
+                for question_id in question_ids:
+                    source_text = str(
+                        records_by_question[question_id].get("questionBodyText") or ""
+                    )
+                    aggregate_review_pairs[question_id] = [
+                        batch[question_id] for batch in review_batches
+                    ]
+                    try:
+                        aggregate_consensus[question_id] = reconcile_reviews(
+                            source_text,
+                            aggregate_review_pairs[question_id],
+                        )
+                    except ValueError:
+                        aggregate_consensus[question_id] = {
+                            "schemaVersion": "aggregate-answer-decomposition/v1",
+                            "sourceHash": source_text_hash(source_text),
+                            "classification": "hold",
+                            "spans": [],
+                            "decision": "hold",
+                            "issueCodes": ["invalid_review"],
+                        }
+                self.store.update(
+                    qualification,
+                    run_id,
+                    executionPhase="server_aggregate_review_reconciliation",
+                    aggregateReviewThreadIds=list(review_thread_ids),
+                )
             result = self.app_server.run_turn(
                 prompt,
                 work_type=f"maintenance_{stage_id}_candidate",
@@ -7398,12 +7538,47 @@ class QualificationRunCoordinator:
                 commands = [
                     {"command": "structured candidate schema", "status": "pass"}
                 ]
+                consensus = aggregate_consensus.get(question_id)
+                aggregate_review_evidence = (
+                    {
+                        "classification": consensus["classification"],
+                        "decision": consensus["decision"],
+                        "sourceHash": consensus["sourceHash"],
+                        "issueCodes": list(consensus["issueCodes"]),
+                        "decomposition": copy.deepcopy(consensus),
+                    }
+                    if consensus is not None
+                    else None
+                )
+                if consensus is not None:
+                    commands.append(
+                        {"command": "dual aggregate review", "status": "pass"}
+                    )
+                    if consensus["decision"] == "hold":
+                        issue_codes = list(consensus["issueCodes"])
+                        checkpoint_question(
+                            {
+                                "questionId": question_id,
+                                "status": "failed",
+                                "summary": "集約回答レビューを保留しました。",
+                                "holdEvidence": {
+                                    "classification": consensus["classification"],
+                                    "issueCodes": issue_codes,
+                                    "sourceHash": consensus["sourceHash"],
+                                },
+                                "aggregateAnswerReview": aggregate_review_evidence,
+                                "commands": commands,
+                                "changedFiles": [],
+                            }
+                        )
+                        continue
                 if candidate.status == "blocked":
                     checkpoint_question(
                         {
                             "questionId": question_id,
                             "status": "failed",
                             "summary": candidate.summary,
+                            "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": commands,
                             "changedFiles": [],
                         }
@@ -7423,6 +7598,7 @@ class QualificationRunCoordinator:
                             "questionId": question_id,
                             "status": "failed",
                             "summary": " / ".join(content_errors),
+                            "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": commands,
                             "changedFiles": [],
                         }
@@ -7449,7 +7625,8 @@ class QualificationRunCoordinator:
                         {
                             "questionId": question_id,
                             "status": "failed",
-                            "summary": "実行中に共通方針が更新されました。",
+                                "summary": "実行中に共通方針が更新されました。",
+                                "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": commands,
                             "changedFiles": [],
                             "policyChanged": True,
@@ -7473,7 +7650,28 @@ class QualificationRunCoordinator:
                 transaction_open = False
                 try:
                     scopes = question_plan.get("targetRecordScopes") or {}
-                    for update in candidate.updates:
+                    effective_updates = list(candidate.updates)
+                    if (
+                        consensus is not None
+                        and consensus["classification"] == "target"
+                        and not any(
+                            target_by_id[update.target_id].role == "question_type"
+                            for update in effective_updates
+                        )
+                    ):
+                        question_type_target = next(
+                            value
+                            for value in targets_by_question[question_id]
+                            if value.role == "question_type"
+                        )
+                        effective_updates.append(
+                            CandidateUpdate(
+                                target_id=question_type_target.target_id,
+                                set_fields={},
+                                unset_fields=(),
+                            )
+                        )
+                    for update in effective_updates:
                         target = target_by_id[update.target_id]
                         aliases = {
                             str(alias)
@@ -7492,6 +7690,32 @@ class QualificationRunCoordinator:
                         else:
                             base_record = records_by_question[question_id]
                         server_set_fields = dict(update.set_fields)
+                        if (
+                            consensus is not None
+                            and consensus["classification"] == "target"
+                            and target.role == "question_type"
+                        ):
+                            calculation_flag = server_set_fields.get(
+                                "isCalculationQuestion"
+                            )
+                            if not isinstance(calculation_flag, bool):
+                                calculation_flag = records_by_question[
+                                    question_id
+                                ].get("isCalculationQuestion")
+                            if not isinstance(calculation_flag, bool):
+                                raise QualificationRunError(
+                                    "集約回答targetのisCalculationQuestionを候補又は"
+                                    "current recordのbooleanから確定できません。"
+                                )
+                            server_set_fields["isCalculationQuestion"] = (
+                                calculation_flag
+                            )
+                            server_set_fields.update(
+                                materialize_decomposition(
+                                    records_by_question[question_id],
+                                    aggregate_review_pairs[question_id],
+                                )
+                            )
                         if target.role == "law_audit":
                             server_set_fields["schemaVersion"] = (
                                 "law-revision-audit/v2"
@@ -7532,6 +7756,7 @@ class QualificationRunCoordinator:
                                 "questionId": question_id,
                                 "status": "succeeded",
                                 "summary": candidate.summary,
+                                "aggregateAnswerReview": aggregate_review_evidence,
                                 "commands": commands,
                                 "changedFiles": [],
                                 "workVersionReceipt": work_version_receipt,
@@ -7616,6 +7841,7 @@ class QualificationRunCoordinator:
                             "questionId": question_id,
                             "status": "succeeded",
                             "summary": candidate.summary,
+                            "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": commands,
                             "changedFiles": sorted(committed),
                             "workVersionReceipt": work_version_receipt,
@@ -7645,6 +7871,7 @@ class QualificationRunCoordinator:
                             "questionId": question_id,
                             "status": "failed",
                             "summary": str(exc),
+                            "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": [
                                 *commands,
                                 {"command": "server commit", "status": "fail"},
@@ -10250,6 +10477,7 @@ class QualificationRunCoordinator:
                     str(contract(entry).get("schemaVersion") or "")
                     for entry in before_matches
                 }
+                allowed_derived_fields: dict[str, Any] = {}
                 if before_identity is not None:
                     if after_identity != before_identity:
                         allowed_empty_identity_cleanup = bool(
@@ -10340,6 +10568,52 @@ class QualificationRunCoordinator:
                                 f"新規recordのID fieldが空又は不正です: "
                                 f"{relative} / {field}"
                             )
+                    derived_aliases: set[str] = set()
+                    decomposition = contract(after_entry).get(
+                        "aggregateAnswerDecomposition"
+                    )
+                    source_text = after_fields.get("questionBodyText")
+                    if (
+                        isinstance(source_text, str)
+                        and is_approved_target(decomposition, source_text)
+                    ):
+                        derived_aliases = set(
+                            after_fields.get("sourceUniqueKeys") or []
+                        )
+                        reproducible_derived_aliases = {
+                            frozenset(
+                                derived_source_unique_keys(
+                                    {
+                                        "questionBodyText": source_text,
+                                        field: value,
+                                    },
+                                    decomposition,
+                                )
+                            )
+                            for field in (
+                                "sourceQuestionKey",
+                                "original_question_id",
+                                "originalQuestionId",
+                                "public_question_id",
+                            )
+                            if (value := after_identity.get(field))
+                            and str(value) in matched_target_group
+                        }
+                        if frozenset(derived_aliases) not in (
+                            reproducible_derived_aliases
+                        ):
+                            raise QualificationRunError(
+                                f"派生sourceUniqueKeysを再現できません: {relative}"
+                            )
+                        allowed_derived_fields = {
+                            "choiceTextList": extract_source_statements(
+                                source_text,
+                                decomposition,
+                            ),
+                            "sourceUniqueKeys": list(
+                                after_fields.get("sourceUniqueKeys") or []
+                            ),
+                        }
                     source_bound_aliases = {
                         alias
                         for entry in source_matches
@@ -10355,13 +10629,15 @@ class QualificationRunCoordinator:
                     if (
                         len(matching_target_groups) != 1
                         or not source_matches
-                        or not entry_aliases.issubset(matched_target_group)
+                        or not (entry_aliases - derived_aliases).issubset(
+                            matched_target_group
+                        )
                         or (
                             not is_law_audit_sidecar
                             and (
-                                not source_aliases(after_entry).issubset(
-                                    source_bound_aliases
-                                )
+                                not (
+                                    source_aliases(after_entry) - derived_aliases
+                                ).issubset(source_bound_aliases)
                                 or not workflow_aliases(after_entry).issubset(
                                     source_bound_aliases
                                 )
@@ -10409,6 +10685,11 @@ class QualificationRunCoordinator:
                                 f"{relative} / {field}"
                             )
                     elif field in after_fields:
+                        if (
+                            field in allowed_derived_fields
+                            and after_fields[field] == allowed_derived_fields[field]
+                        ):
+                            continue
                         if (
                             source_fields is None
                             or field not in source_fields

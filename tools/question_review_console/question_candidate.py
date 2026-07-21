@@ -11,14 +11,138 @@ from scripts.common.suggested_question_contract import (
     validation_errors as suggested_question_validation_errors,
 )
 from scripts.common.explanation_contract import explanation_shape_errors
+from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
 
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
 OFFICIAL_QUESTION_TYPES = ("true_false", "flash_card", "group_choice")
+AGGREGATE_REVIEW_ISSUE_CODES = (
+    "ambiguous_target",
+    "ambiguous_boundary",
+    "missing_statement",
+    "not_self_contained",
+    "source_hash_mismatch",
+)
 
 
 class QuestionCandidateError(ValueError):
     pass
+
+
+def aggregate_answer_review_schema(
+    expected_question_ids: Iterable[str],
+) -> dict[str, Any]:
+    """Schema for a prose-free, read-only aggregate-answer review turn."""
+
+    question_ids = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["schemaVersion", "questionReviews"],
+        "properties": {
+            "schemaVersion": {
+                "type": "string",
+                "const": "aggregate-answer-review-batch/v1",
+            },
+            "questionReviews": {
+                "type": "array",
+                "minItems": len(question_ids),
+                "maxItems": len(question_ids),
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "questionId",
+                        "schemaVersion",
+                        "sourceHash",
+                        "classification",
+                        "spans",
+                        "decision",
+                        "issueCodes",
+                    ],
+                    "properties": {
+                        "questionId": {"type": "string", "enum": list(question_ids)},
+                        "schemaVersion": {
+                            "type": "string",
+                            "const": REVIEW_SCHEMA_VERSION,
+                        },
+                        "sourceHash": {
+                            "type": "string",
+                            "pattern": "^sha256:[0-9a-f]{64}$",
+                        },
+                        "classification": {
+                            "type": "string",
+                            "enum": ["target", "non_target", "hold"],
+                        },
+                        "spans": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["start", "end"],
+                                "properties": {
+                                    "start": {"type": "integer", "minimum": 0},
+                                    "end": {"type": "integer", "minimum": 1},
+                                },
+                            },
+                        },
+                        "decision": {
+                            "type": "string",
+                            "enum": ["approve", "hold"],
+                        },
+                        "issueCodes": {
+                            "type": "array",
+                            "uniqueItems": True,
+                            "items": {
+                                "type": "string",
+                                "enum": list(AGGREGATE_REVIEW_ISSUE_CODES),
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    }
+
+
+def parse_aggregate_answer_reviews(
+    value: str | Mapping[str, Any],
+    expected_question_ids: Iterable[str],
+) -> dict[str, dict[str, Any]]:
+    """Parse only structural review data; prose and extracted text are rejected."""
+
+    try:
+        payload = json.loads(value) if isinstance(value, str) else dict(value)
+    except (TypeError, json.JSONDecodeError) as exc:
+        raise QuestionCandidateError("集約回答レビューをJSONとして読み取れません。") from exc
+    if set(payload) != {"schemaVersion", "questionReviews"} or payload.get(
+        "schemaVersion"
+    ) != "aggregate-answer-review-batch/v1":
+        raise QuestionCandidateError("集約回答レビューbatch schemaが一致しません。")
+    rows = payload.get("questionReviews")
+    if not isinstance(rows, list):
+        raise QuestionCandidateError("集約回答レビューにquestionReviewsがありません。")
+    expected = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
+    result: dict[str, dict[str, Any]] = {}
+    allowed = {
+        "questionId",
+        "schemaVersion",
+        "sourceHash",
+        "classification",
+        "spans",
+        "decision",
+        "issueCodes",
+    }
+    for raw in rows:
+        if not isinstance(raw, Mapping) or set(raw) != allowed:
+            raise QuestionCandidateError("集約回答レビューに文章又は未許可fieldがあります。")
+        question_id = str(raw.get("questionId") or "")
+        if question_id not in expected or question_id in result:
+            raise QuestionCandidateError("集約回答レビューのquestionIdが対象外又は重複です。")
+        result[question_id] = {key: raw[key] for key in allowed if key != "questionId"}
+    if set(result) != set(expected):
+        raise QuestionCandidateError("集約回答レビューが全対象問題を含んでいません。")
+    return result
 
 
 _ROLE_BY_PATH_PART = {

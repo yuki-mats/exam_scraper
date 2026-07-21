@@ -1,0 +1,36 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T008",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "failed",
+        "attempt": 1,
+        "summary": "107 tests: 16 failures, 2 errors"
+      },
+      {
+        "command": "python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "failed",
+        "attempt": 2,
+        "summary": "107 tests: 6 failures"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "choiceTextListをレビュー入力へ追加し、本文だけのhash/spanを維持した。空本文を含むquestion_type全問題の二重レビューを有効化し、targetではcandidate由来のboolean isCalculationQuestionを必須化して一律falseを削除した。fixtureも更新したが、指定テストに6件の回帰失敗が残ったため停止した。",
+    "remaining_blockers": [
+      "Fake App Serverの既定target分類が無関係な既存question_typeテストにもtarget専用契約を適用している。"
+    ],
+    "verification_attempts": 2,
+    "stopped_because": "Verification failed twice; T008 stop_if requires immediate stop."
+  }
+}

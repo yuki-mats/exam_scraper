@@ -21,6 +21,7 @@ from scripts.common.question_identity import (
     source_identity_aliases,
     workflow_identity_aliases,
 )
+from scripts.common.aggregate_answer_decomposition import materialize_decomposition
 from scripts.merge.merge_utils import strip_timestamp_suffix
 
 
@@ -239,7 +240,7 @@ def materialize_question_type(
         raise ValueError(
             "question_type raw patch requires boolean isCalculationQuestion"
         )
-    return {
+    materialized = {
         "questionBodyText": source_question.get("questionBodyText", ""),
         "choiceTextList": source_question.get("choiceTextList", []),
         "questionType": raw_entry.get("questionType", ""),
@@ -247,6 +248,14 @@ def materialize_question_type(
         "original_question_id": resolve_original_id(source_question),
         "question_url": source_question.get("question_url", ""),
     }
+    if "aggregateAnswerReviews" in raw_entry:
+        materialized.update(
+            materialize_decomposition(
+                source_question,
+                raw_entry.get("aggregateAnswerReviews"),
+            )
+        )
+    return materialized
 
 
 def materialize_correct_choice(

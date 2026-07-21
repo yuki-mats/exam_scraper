@@ -1,0 +1,41 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T012",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approved",
+    "full_outcome_complete": false,
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_question_review_qualification_runs tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_aggregate_answer_decomposition tests.test_questiontype_patch_coverage",
+        "status": "pass",
+        "summary": "107 tests passed in 7.021s"
+      },
+      {
+        "command": "python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files matched the manifest"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "rationale": "二者は別ephemeral read-only threadで同じsource snapshotを受け、文章fieldを持たない厳格schemaだけを返す。serverだけが一致spanから文字列と新規派生keyを作り、targetの計算flagもboolean必須である。test fixtureの回復はproduction処理を変更していないため、限定smokeへ進める。",
+    "evidence": [
+      "107件の集中回帰が同じ作業ツリーで成功した。",
+      "00_source manifest 5799件に差分がない。",
+      "指定source a6bea45a937c2c6eのbody hashはsha256:12af2055...7f427で、A-Dの4記述と組合せ5件を持つ。",
+      "sourceのisCalculationQuestionは未設定であり、通常candidateがbooleanを明示しなければtargetをcommitできない。"
+    ],
+    "missing_evidence": [
+      "実gpt-5.5 high二者が指定1問で完全一致すること。",
+      "smoke後のpatch、派生key、artifact sync、00_source不変のreadback。",
+      "第一種衛生管理者1044問の全件結果と後続工程・限定公開readback。"
+    ],
+    "summary": "実データsmokeへ進むことを承認した。Judgeは検証と主要契約確認を完了後、最終receipt整形中にPMが監査内容を同じ証拠から確定した。",
+    "remaining_blockers": [],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

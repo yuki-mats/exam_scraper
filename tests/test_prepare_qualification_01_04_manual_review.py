@@ -5,9 +5,56 @@ import unittest
 
 from scripts.check import prepare_qualification_01_04_manual_review as module
 from scripts.merge.patch_views import apply_question_type
+from scripts.common.aggregate_answer_decomposition import (
+    REVIEW_SCHEMA_VERSION,
+    materialize_decomposition,
+    source_text_hash,
+)
 
 
 class PrepareQualification0104ManualReviewTest(unittest.TestCase):
+    def test_aggregate_answer_projection_discards_old_ids_and_choice_data(self) -> None:
+        body = "組合せを選べ。\nA 原文一。\nB 原文二。"
+        source = {
+            "canonical_question_key": "sample:2026:q001",
+            "original_question_id": "q1",
+            "questionBodyText": body,
+            "choiceTextList": ["A、B", "A、C"],
+            "questionType": "flash_card",
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["旧解説"],
+            "firestoreQuestionIds": ["old-1", "old-2"],
+            "firestoreSourceQuestions": [{"questionId": "old-1"}],
+        }
+        spans = []
+        for statement in ("A 原文一。", "B 原文二。"):
+            start = body.index(statement)
+            spans.append({"start": start, "end": start + len(statement)})
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(body),
+            "classification": "target",
+            "spans": spans,
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        patch = {
+            "questionType": "true_false",
+            "isCalculationQuestion": False,
+            **materialize_decomposition(source, [review, dict(review)]),
+        }
+        payload = {"question_bodies": [source]}
+
+        updated = apply_question_type(payload, {"firestore:old-1,old-2": patch})
+
+        projected = payload["question_bodies"][0]
+        self.assertEqual(updated, 1)
+        self.assertEqual(projected["choiceTextList"], ["A 原文一。", "B 原文二。"])
+        self.assertNotIn("firestoreQuestionIds", projected)
+        self.assertNotIn("firestoreSourceQuestions", projected)
+        self.assertNotIn("correctChoiceText", projected)
+        self.assertNotIn("explanationText", projected)
+
     def test_flash_card_review_uses_one_question_level_explanation(self) -> None:
         row = module.build_review_row(
             qualification="sample",

@@ -74,6 +74,24 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_question_type_policy_describes_dual_review_before_candidate(self):
+        prompt = (ROOT / "prompt/01_prompt_fix_questionType.md").read_text(
+            encoding="utf-8"
+        )
+        operations = (
+            ROOT / "document/operations/local_question_review_console.md"
+        ).read_text(encoding="utf-8")
+
+        first_review = prompt.index("専用レビューを2回実行")
+        consensus = prompt.index("serverが二者の結果を照合", first_review)
+        candidate = prompt.index("通常の問題形式候補", consensus)
+        self.assertLess(first_review, consensus)
+        self.assertLess(consensus, candidate)
+        self.assertIn("問題単位の`hold`", prompt)
+        self.assertIn("詳細schemaはproductionコードを正本", operations)
+        self.assertIn("通常の問題形式候補を生成", operations)
+        self.assertIn("問題単位の`hold`", operations)
+
     def test_law_context_prompt_uses_only_its_stage_validator(self):
         prompt = (ROOT / "prompt/02b_prompt_prepare_law_context.md").read_text(
             encoding="utf-8"
@@ -159,7 +177,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertEqual(version_by_stage["originalize"], "2.1")
-        self.assertEqual(version_by_stage["question_type"], "2.0")
+        self.assertEqual(version_by_stage["question_type"], "3.0")
         self.assertTrue(
             all(
                 version == "1.0"

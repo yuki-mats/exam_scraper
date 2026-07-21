@@ -54,7 +54,7 @@
 | --- | --- | --- | --- |
 | `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
-| `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion` | 回答体験と計算問題分類を別々に確定する。新規又は更新するstage 01出力では`isCalculationQuestion`をbooleanで必須とし、既存の未分類patchは移行期間だけ読取互換を保つ。 |
+| `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion`。集約回答型レビュー時は`aggregateAnswerDecomposition`、対象確定時はツール生成の`choiceTextList`, `sourceUniqueKeys` | 回答体験と計算問題分類を別々に確定する。集約回答型は二者一致した原文spanだけを記述単位へ投影する。 |
 | `15_correctChoiceText_fixed` | patch | `questionIntent` | 設問が正しいもの・誤っているもののどちらを選ばせるかだけを確定し、正答は変更しない。 |
 | `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText`。必要時のみ`answer_result_text`補正 | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。中間配列も新規更新時は`正しい` / `間違い`へ正規化する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
@@ -160,6 +160,14 @@
 `single_choice`と`fill_in_blank`を新たに利用できるのは、ユーザーがアプリで作成する`isOfficial=false`の問題だけです。`examYear`は出典年度であり、公式問題かユーザー作成問題かの判定には使いません。既存データの読取互換は保ちますが、公式問題の新規整備又は洗い替えでこの2形式を候補にしません。
 
 資格固有の都合で新しい値を作らないでください。新しい回答体験が必要な場合は、`repaso` の enum / rules / app UI / tests / `exam_scraper` schema を同時に更新します。
+
+### 集約回答型の記述単位変換
+
+`aggregateAnswerDecomposition`はpatchとmergedだけに保持する内部fieldです。`schemaVersion`、`sourceHash`、`classification`、`spans`、`decision`、`issueCodes`以外を認めません。`spans`は`questionBodyText`上の0始まり・end-exclusive位置です。
+
+独立した2レビューが同じsource hash、対象分類、span、判断、issue codeを返し、機械検証を通った場合だけ`target/approve`になります。抽出文はレビュー結果に含めず、toolが`questionBodyText[start:end]`から作ります。不一致、hash不一致、対象又は境界を確定できない問題は`hold`とし、一部の記述だけを公開しません。
+
+対象確定時は、元問題全文を`questionBodyText`と`originalQuestionBodyText`に残したまま、抽出した各記述を`choiceTextList`へ置き、`true_false`として分割します。派生IDは元問題の安定識別子、記述順、抽出文字列hashから新しく作り、旧集約回答documentのIDを再利用しません。旧正答・解説・選択肢別fieldも引き継がず、後続の既存工程で全記述分が揃った場合だけ公開対象にします。この内部field自体はFirestoreへ公開しません。
 
 ### `isCalculationQuestion`（問題整備専用）
 

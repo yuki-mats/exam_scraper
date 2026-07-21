@@ -18,6 +18,7 @@ from tools.question_review_console.qualification_runs import (
     _structured_candidate_stage_context,
 )
 from tools.question_review_console.question_candidate import CandidateTarget
+from scripts.common.aggregate_answer_decomposition import source_text_hash
 
 
 class SourceBindingAliasTests(unittest.TestCase):
@@ -1711,7 +1712,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
 
     @staticmethod
-    def _write_counted_sources(root, count):
+    def _write_counted_sources(root, count, *, question_body_text=None):
         source_dir = (
             root
             / "output/new-exam/questions_json/2026/00_source"
@@ -1728,6 +1729,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                                 "sourceQuestionKey": f"new-exam:2026:q{number}",
                                 "reviewQuestionId": question_id,
                                 "sourceRecordRef": f"question_2026_{number}.json#0",
+                                **(
+                                    {"questionBodyText": question_body_text}
+                                    if question_body_text is not None
+                                    else {}
+                                ),
                             }
                         ]
                     },
@@ -3469,10 +3475,17 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 source_record_ref,
             ):
                 self.projected_calls.append(source_record_ref)
+                question_number = Path(
+                    source_record_ref.split("#", 1)[0]
+                ).stem.rsplit("_", 1)[1]
                 return SimpleNamespace(
                     record={
-                        "original_question_id": source_record_ref,
+                        "original_question_id": (
+                            f"{qualification}-{list_group_id}-q{question_number}"
+                        ),
                         "questionBodyText": "現在の論理入力",
+                        "choiceTextList": ["選択肢A", "選択肢B"],
+                        "isCalculationQuestion": True,
                     },
                     applied_files=("output/new-exam/current-patch.json",),
                     errors=(),
@@ -3481,7 +3494,20 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             inventory = ProjectingInventory()
-            app_server = PerQuestionQueueAppServer()
+            held_question_id = "new-exam-2026-q2"
+            app_server = PerQuestionQueueAppServer(
+                aggregate_review_overrides={
+                    "new-exam-2026-q1": {
+                        "classification": "target",
+                        "decision": "approve",
+                    },
+                    held_question_id: {
+                        "classification": "hold",
+                        "decision": "hold",
+                        "issueCodes": ["ambiguous_target"],
+                    }
+                }
+            )
             coordinator, _synchronizer, _app_server, parent = (
                 self._start_deferred_flow(
                     root,
@@ -3489,6 +3515,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     ["question_type"],
                     app_server=app_server,
                 )
+            )
+            self._write_counted_sources(
+                root,
+                2,
+                question_body_text="現在の論理入力",
             )
             coordinator._repository_file_fingerprints = lambda *_args: {}
 
@@ -3517,6 +3548,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
             run = coordinator.store.get("new-exam", parent["runId"])
+            children = [
+                coordinator.store.get("new-exam", child_id)
+                for child_id in run["childRunIds"]
+            ]
+            child = next(
+                value for value in children if value.get("aggregateReviewThreadIds")
+            )
             projected_paths = [
                 stage["projectedInputPath"]
                 for question in run["questionExecutions"]
@@ -3527,10 +3565,64 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for path in projected_paths
             ]
 
-            self.assertEqual(len(inventory.projected_calls), 4)
+            self.assertEqual(len(inventory.projected_calls), 5)
         self.assertEqual(len(set(projected_paths)), 2)
+        review_calls = [
+            (prompt, kwargs)
+            for _question, prompt, kwargs in app_server.aggregate_review_calls
+        ]
+        self.assertGreaterEqual(len(review_calls), 2)
+        self.assertEqual(review_calls[0][0], review_calls[1][0])
+        review_questions = PerQuestionQueueAppServer._candidate_questions(
+            review_calls[0][0]
+        )
+        self.assertEqual(
+            review_questions[0]["choiceTextList"],
+            ["選択肢A", "選択肢B"],
+        )
+        self.assertNotEqual(
+            review_questions[0]["sourceHash"],
+            source_text_hash(
+                review_questions[0]["questionBodyText"]
+                + "".join(review_questions[0]["choiceTextList"])
+            ),
+        )
+        self.assertEqual(len(set(child["aggregateReviewThreadIds"])), 2)
         self.assertTrue(
-            all('"currentRecord":' in prompt for _question, prompt, _ in app_server.calls)
+            all(
+                result["aggregateAnswerReview"]["sourceHash"].startswith("sha256:")
+                for result in child["batchQuestionResults"]
+            )
+        )
+        results_by_id = {
+            result["questionId"]: result for result in child["batchQuestionResults"]
+        }
+        target_result = results_by_id["new-exam-2026-q1"]
+        self.assertEqual(
+            target_result["status"],
+            "succeeded",
+            msg={
+                "summary": target_result.get("summary"),
+                "commands": target_result.get("commands"),
+            },
+        )
+        self.assertEqual(
+            target_result["aggregateAnswerReview"]["decomposition"]["classification"],
+            "target",
+        )
+        held_result = results_by_id[held_question_id]
+        self.assertEqual(held_result["status"], "failed")
+        self.assertEqual(held_result["changedFiles"], [])
+        self.assertEqual(
+            held_result["aggregateAnswerReview"]["decomposition"]["decision"],
+            "hold",
+        )
+        self.assertTrue(
+            all(
+                '"currentRecord":' in prompt
+                for _question, prompt, kwargs in app_server.calls
+                if kwargs["work_type"] == "maintenance_question_type_candidate"
+            )
         )
         self.assertTrue(
             all(

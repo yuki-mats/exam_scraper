@@ -1,0 +1,47 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T002",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "document/reference/question_field_contract.md",
+      "prompt/01_prompt_fix_questionType.md",
+      "scripts/check/check_questiontype_patch_coverage.py",
+      "scripts/common/aggregate_answer_decomposition.py",
+      "scripts/fix/materialize_minimal_patch.py",
+      "scripts/merge/patch_views.py",
+      "scripts/merge/record_projection.py",
+      "tests/test_aggregate_answer_decomposition.py",
+      "tests/test_convert_merged_to_firestore.py",
+      "tests/test_materialize_minimal_patch_identity.py",
+      "tests/test_prepare_qualification_01_04_manual_review.py",
+      "tests/test_questiontype_patch_coverage.py"
+    ],
+    "commands": [
+      {
+        "command": "python -m unittest tests.test_aggregate_answer_decomposition tests.test_materialize_minimal_patch_identity tests.test_questiontype_patch_coverage tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_question_candidate tests.test_convert_merged_to_firestore",
+        "status": "pass",
+        "summary": "54 tests passed"
+      },
+      {
+        "command": "python -m compileall -q scripts/common/aggregate_answer_decomposition.py scripts/fix/materialize_minimal_patch.py scripts/check/check_questiontype_patch_coverage.py scripts/merge/patch_views.py scripts/merge/record_projection.py",
+        "status": "pass"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "二者レビューの厳格schema、完全一致又はhold、source hashとspan検証、tool-only原文切出し、安定した新規派生key、旧Firestore ID・旧正答・旧解説の除去を第01patchからconvertまで接続した。一次開発の元問題全文と抽出記述の併記も回帰テストで確認した。",
+    "deviations": [
+      "Goal Workerが無変更のまま待機期限を超えたため、同じallowed_filesでPM fallbackした。",
+      "T001のfixture指定がplaceholderだったため、同じchecker関数を実fixture相当で通すunit testとcompileallへ置き換えた。"
+    ],
+    "remaining_blockers": [
+      "既存コンソールで2つの独立したモデルturnを実行し、server側で合意を作る接続は未実装。",
+      "第一種衛生管理者1044問の全件trial、後続正誤・解説、公開gate、限定公開readbackは未実施。"
+    ],
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

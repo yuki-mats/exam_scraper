@@ -29,6 +29,32 @@ KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
 
 
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_derived_statement_ids_are_new_and_original_body_remains_visible(self) -> None:
+        body = "組合せを選べ。\nA 原文一。\nB 原文二。"
+        question = {
+            "original_question_id": "original-q1",
+            "questionBodyText": body,
+            "sourceUniqueKeys": [
+                "sample:2026:q001:aggregate-statement:1:aaaaaaaaaaaaaaaa",
+                "sample:2026:q001:aggregate-statement:2:bbbbbbbbbbbbbbbb",
+            ],
+            "choiceTextList": ["A 原文一。", "B 原文二。"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。", "間違い。"],
+            "questionType": "true_false",
+            "examYear": 2026,
+            "questionLabel": "問1",
+        }
+
+        converted = convert_question_to_firestore(question)
+
+        self.assertEqual(len(converted), 2)
+        self.assertEqual(converted[0]["originalQuestionId"], "original-q1")
+        self.assertNotEqual(converted[0]["questionId"], "original-q1")
+        self.assertEqual(converted[0]["originalQuestionBodyText"], body)
+        self.assertIn(body.replace("\n", ""), converted[0]["questionText"])
+        self.assertIn("[quote]A 原文一。[/quote]", converted[0]["questionText"])
+
     def test_single_choice_new_empty_suggestions_do_not_republish_legacy_flat_data(
         self,
     ) -> None:
