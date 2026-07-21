@@ -249,6 +249,10 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         "tertiaryAuditRunId": {
             "type": ["string", "null"],
             "emptyStringAllowed": False,
+            "description": (
+                "三次監査を実施していない場合もunsetFieldsへ入れず、"
+                "valueJsonをnullにする。"
+            ),
         },
     }
 }
@@ -613,6 +617,14 @@ def parse_candidates(
                             f"{question_id} / {field}"
                         ) from exc
                 unset = tuple(dict.fromkeys(str(field) for field in unset_fields))
+                if "tertiaryAuditRunId" in unset:
+                    # 監査sidecarは三次監査が不要な場合もfield自体を必須とし、
+                    # 値をnullで保持する。modelが「不要」をunsetで表した場合は
+                    # server側で契約上のnullへ正規化する。
+                    parsed_fields.setdefault("tertiaryAuditRunId", None)
+                    unset = tuple(
+                        field for field in unset if field != "tertiaryAuditRunId"
+                    )
                 overlap = set(parsed_fields) & set(unset)
                 if overlap:
                     raise QuestionCandidateError(

@@ -502,6 +502,50 @@ class QuestionCandidateTest(unittest.TestCase):
             ["string", "null"],
         )
 
+    def test_law_audit_normalizes_unset_tertiary_run_id_to_null(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "三次監査は不要と判断した。",
+                        "updates": [
+                            {
+                                "targetId": audit.target_id,
+                                "setFields": [],
+                                "unsetFields": ["tertiaryAuditRunId"],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
+        self.assertNotIn(
+            "tertiaryAuditRunId", candidate.updates[0].unset_fields
+        )
+        self.assertIn(
+            "unsetFieldsへ入れず",
+            audit.prompt_value()["fieldRules"]["tertiaryAuditRunId"][
+                "description"
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
