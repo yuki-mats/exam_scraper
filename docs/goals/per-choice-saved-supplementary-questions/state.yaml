@@ -4,7 +4,7 @@ goal:
   title: "選択肢別・保存済み補足質問"
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
-  tranche: "follow-up: 公式過去問の回答体験と状況表示を整合する"
+  tranche: "follow-up: 公式問題とユーザー作成問題のquestionType境界"
   status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
@@ -2561,32 +2561,93 @@ tasks:
           status: pass
           summary: "flash_card, calculation flag, one common explanation and five separate choice cards verified"
       harness: codex
+  - id: T045
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "questionTypeの利用範囲をexamYearではなく公式問題とユーザー作成問題で分け、両repoの正本・候補検証・テストを整合させる"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions/goal.md"
+      - "/Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions/state.yaml"
+      - "/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md"
+      - "/Users/yuki/development/exam_scraper/document/operations/original_question_authoring_workflow.md"
+      - "/Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/StudioProjects/repaso/docs/architecture/datamodel.md"
+      - "/Users/yuki/StudioProjects/repaso/docs/architecture/firestore_semantic_contract_audit.md"
+    verify:
+      - "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_questiontype_patch_coverage"
+      - "cd /Users/yuki/development/exam_scraper && rgによるquestionType境界の文書横断確認"
+      - "cd /Users/yuki/development/exam_scraper && git diff --check"
+      - "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+      - "check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
+    stop_if:
+      - "ユーザー作成問題の判定にisOfficial以外の新しいfield追加が必要になる。"
+      - "既存dirty差分と同じhunkを変更する必要がある。"
+      - "00_source又は本番Firestoreの変更が必要になる。"
+    receipt:
+      result: done
+      summary: "questionTypeの利用範囲をexamYearではなく公式問題かユーザー作成問題かで分けた。公式過去問とexamYearのない暗記プラス独自問題は3形式、ユーザー作成問題だけはsingle_choiceとfill_in_blankも利用できる契約へ、両repoの正本、問題整備候補、回帰テストを整合させた。"
+      full_outcome_complete: true
+      changed_files:
+        - /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions/goal.md
+        - /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions/state.yaml
+        - /Users/yuki/development/exam_scraper/document/reference/question_field_contract.md
+        - /Users/yuki/development/exam_scraper/document/operations/original_question_authoring_workflow.md
+        - /Users/yuki/development/exam_scraper/prompt/01_prompt_fix_questionType.md
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py
+        - /Users/yuki/StudioProjects/repaso/docs/architecture/datamodel.md
+        - /Users/yuki/StudioProjects/repaso/docs/architecture/firestore_semantic_contract_audit.md
+      commands:
+        - cmd: "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_questiontype_patch_coverage"
+          status: pass
+          summary: "21 tests passed"
+        - cmd: "cd /Users/yuki/development/exam_scraper && .venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,039 tests passed; 7 skipped"
+        - cmd: "cd /Users/yuki/development/exam_scraper && .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "questionType境界の正本文書横断確認"
+          status: pass
+          summary: "公式問題は3形式、ユーザー作成だけ2形式も利用可、examYearは判定に使わない記載を確認"
+        - cmd: "cd /Users/yuki/development/exam_scraper && git diff --check"
+          status: pass
+        - cmd: "cd /Users/yuki/StudioProjects/repaso && git diff --check"
+          status: pass
+        - cmd: "repaso commit/push/readback"
+          status: pass
+          summary: "origin/master=024c90e60e44ba18abdf10aa04fac745ab4d5b36"
+        - cmd: "exam_scraper commit/push/readback"
+          status: pass
+          summary: "origin/main=472d54a9b25da425031f3e16f55d59d78d07ed14"
+        - cmd: "check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
+          status: pass
+          summary: "goal done, active_task null, 0 errors, 0 warnings"
+      evidence:
+        - "candidate fieldRules expose only true_false, flash_card, group_choice"
+        - "no-examYear official original question rejects single_choice and fill_in_blank"
+        - "no-examYear official original question accepts flash_card"
+        - "repaso DB enum remains five values; authoring boundary is documented by isOfficial"
+      harness: codex
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
     result: pass
-    task: T044
+    task: T045
     commands:
-      - cmd: "UI run 20260721T160830430801-7acc050b"
-        status: pass
-        summary: "58/58 questions and 116/116 work items validated; 0 blocked"
-      - cmd: "UI run 20260721T163059240456-a5fba916"
-        status: pass
-        summary: "58/58 questions and 58/58 work items validated; artifacts synchronized"
-      - cmd: "2017 questionType and explanation patch validation"
-        status: pass
-        summary: "3/3 source parts passed"
       - cmd: ".venv/bin/python -m unittest discover -s tests"
         status: pass
-        summary: "1,037 tests passed; 7 skipped"
-      - cmd: "node --check tools/question_review_console/static/app.js"
-        status: pass
+        summary: "1,039 tests passed; 7 skipped"
       - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
         status: pass
         summary: "5,799 source files unchanged"
-      - cmd: "browser readback for gas-shunin-kou 2017 q11"
+      - cmd: "questionType boundary canonical docs readback"
         status: pass
-        summary: "flash_card, calculation flag, one common explanation and five separate choice cards verified"
+        summary: "isOfficial boundary and examYear non-boundary verified across both repositories"
       - cmd: "git diff --check"
         status: pass
       - cmd: "check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
