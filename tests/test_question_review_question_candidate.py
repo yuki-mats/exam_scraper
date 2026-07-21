@@ -131,6 +131,8 @@ class QuestionCandidateTest(unittest.TestCase):
         audit = next(target for target in targets if target.role == "law_audit")
         rules = audit.prompt_value()["fieldRules"]
 
+        self.assertIn("lawContextForExplanation", audit.allowed_fields)
+        self.assertIn("answer_result_text", audit.allowed_fields)
         self.assertIn("examTimeDecision", audit.allowed_fields)
         self.assertIn("currentLawDecision", audit.allowed_fields)
         self.assertIn("choiceTextListと必ず同じ件数", rules["lawReferences"]["description"])

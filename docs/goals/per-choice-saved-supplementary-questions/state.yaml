@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T038
+active_task: T040
 tasks:
   - id: T001
     type: scout
@@ -2123,7 +2123,7 @@ tasks:
   - id: T038
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "更新済みUIから2017年ガス主任技術者甲種を全13項目・全58問で再実行し、全工程、成果物同期、最終検証を完了させる"
     allowed_files:
@@ -2141,6 +2141,80 @@ tasks:
       - "2017以外の問題成果物へ新規差分が出る。"
       - "00_source又は本番Firestoreの変更が必要になる。"
       - "選択fieldが13項目から広がる。"
+      - "同じ原因で二回保留又は失敗する。"
+    receipt:
+      result: blocked
+      summary: "UI run 20260721T083419886559-41a3b6b2は2017年58問・全13項目で403/406工程と57/58問を確定し、成果物同期も成功した。供給問12だけが解説の日本語品質検証で保留となった。また現行法監査初回でUI選択fieldと候補許可fieldの不一致が判明したため、共通契約修正後に保留1問だけをUI再実行する。"
+      evidence:
+        - "run 20260721T083419886559-41a3b6b2: status=succeeded, queueStatus=partial"
+        - "validatedQuestionCount=57, blockedQuestionCount=1"
+        - "validatedWorkItemCount=403, blockedWorkItemCount=3"
+        - "artifactSync.status=succeeded for 2017"
+        - "upload-ready dry run: 284 documents, blocked records 0"
+        - "blocked question: gas-shunin:kou:2017:kyokyu:q12"
+        - "law audit initial failures: lawContextForExplanation is selected in config but absent from law_audit candidate allowedFields"
+      commands:
+        - cmd: "2017 UI full-field/full-question run 20260721T083419886559-41a3b6b2"
+          status: blocked
+          summary: "57/58 questions validated; one question held for retry"
+      harness: codex
+  - id: T039
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "現行法監査一式でUIが選択できるlawContextForExplanationとanswer_result_textを構造化候補の監査targetでも許可し、設定と保存契約を一致させる"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_candidate"
+      - ".venv/bin/python -m unittest discover -s tests"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "law audit sidecarで当該fieldを保存できない別契約が見つかる。"
+      - "00_source又は本番Firestoreの変更が必要になる。"
+      - "Need files outside allowed_files."
+    receipt:
+      result: done
+      summary: "現行法監査一式のUI選択対象に含まれるlawContextForExplanationとanswer_result_textをlaw_audit構造化候補targetでも許可し、設定と保存契約の不一致を解消した。"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_candidate"
+          status: pass
+          summary: "14 tests"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,023 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      harness: codex
+  - id: T040
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "更新済みUIから2017年runの保留1問だけを再実行し、58/58問、406/406工程、成果物同期成功を確認する"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/2017"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/questions_json/upload_to_firestore"
+      - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/review/law_revision_audit"
+      - "/Users/yuki/development/exam_scraper/output/question_review_console/workflow_runs/gas-shunin-kou"
+      - "/Users/yuki/development/exam_scraper/output/question_review_console/work_versions/gas-shunin-kou"
+    verify:
+      - "UI final readback: 58/58 questions validated and 0 blocked"
+      - "retry run and parent run manifest readback"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "2017以外の問題成果物へ新規差分が出る。"
+      - "00_source又は本番Firestoreの変更が必要になる。"
       - "同じ原因で二回保留又は失敗する。"
     receipt: null
 checks:
