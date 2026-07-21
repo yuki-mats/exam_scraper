@@ -13,9 +13,11 @@ from tools.question_review_console.question_work_queue import (
 from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
+    _candidate_unset_fields,
     _source_binding_accepts_identity,
     _structured_candidate_stage_context,
 )
+from tools.question_review_console.question_candidate import CandidateTarget
 
 
 class SourceBindingAliasTests(unittest.TestCase):
@@ -50,6 +52,23 @@ class SourceBindingAliasTests(unittest.TestCase):
 
 
 class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_per_choice_suggestions_remove_legacy_flat_patch_fields(self):
+        target = CandidateTarget(
+            target_id="q1:explanation",
+            role="explanation",
+            path="output/sample/21_explanationText_added/q1.json",
+            allowed_fields=("suggestedQuestionDetailsByChoice",),
+        )
+
+        self.assertEqual(
+            _candidate_unset_fields(
+                target,
+                {"suggestedQuestionDetailsByChoice": []},
+                (),
+            ),
+            ("suggestedQuestionDetails", "suggestedQuestions"),
+        )
+
     def test_question_set_context_includes_options_and_no_op_rule(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -235,6 +235,10 @@ FIELD_PATCH_DIR_NAMES = {
 }
 NON_AUTOMATED_CORRECTION_FIELDS = {"questionBodyText", "choiceTextList"}
 LAW_PATCH_DIR_NAMES = set(STAGE_PATCH_DIR_NAMES["law_audit"])
+LEGACY_SUGGESTED_QUESTION_FIELDS = {
+    "suggestedQuestions",
+    "suggestedQuestionDetails",
+}
 
 
 ISSUE_PATCH_DIR_NAMES = {
@@ -656,6 +660,22 @@ def _is_structured_candidate_batch(child: Mapping[str, Any]) -> bool:
         and child.get("sandbox") == "read-only"
         and str(child.get("workType") or "").endswith("_candidate")
     )
+
+
+def _candidate_unset_fields(
+    target: CandidateTarget,
+    set_fields: Mapping[str, Any],
+    requested_unset_fields: tuple[str, ...],
+) -> tuple[str, ...]:
+    """Keep the per-choice field as the sole explanation-patch authority."""
+
+    unset_fields = set(requested_unset_fields)
+    if (
+        target.role == "explanation"
+        and "suggestedQuestionDetailsByChoice" in set_fields
+    ):
+        unset_fields.update(LEGACY_SUGGESTED_QUESTION_FIELDS)
+    return tuple(sorted(unset_fields))
 
 
 def _batch_question_result(
@@ -7480,7 +7500,11 @@ class QualificationRunCoordinator:
                             binding=binding,
                             aliases=aliases,
                             set_fields=server_set_fields,
-                            unset_fields=update.unset_fields,
+                            unset_fields=_candidate_unset_fields(
+                                target,
+                                server_set_fields,
+                                update.unset_fields,
+                            ),
                             base_record=base_record,
                         )
                     candidate_paths = set(workspace.changed_paths())

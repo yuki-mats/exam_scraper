@@ -1295,14 +1295,22 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             ]
         if exam_year is not None:
             firestore_question["examYear"] = exam_year
-        suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
-        if suggested_questions:
-            firestore_question["suggestedQuestions"] = suggested_questions
-        suggested_question_details = format_suggested_question_details(
-            question_body.get("suggestedQuestionDetails", [])
-        )
-        if suggested_question_details:
-            firestore_question["suggestedQuestionDetails"] = suggested_question_details
+        # 新しい選択肢別fieldが存在するrecordでは、空配列も含めてその値が正本である。
+        # single_choice等の非分割docへ選択肢別データを推測投影せず、旧flat fieldも
+        # 再公開しない。新fieldがまだない旧recordだけは読取互換を維持する。
+        if "suggestedQuestionDetailsByChoice" not in question_body:
+            suggested_questions = format_suggested_questions(
+                question_body.get("suggestedQuestions", [])
+            )
+            if suggested_questions:
+                firestore_question["suggestedQuestions"] = suggested_questions
+            suggested_question_details = format_suggested_question_details(
+                question_body.get("suggestedQuestionDetails", [])
+            )
+            if suggested_question_details:
+                firestore_question["suggestedQuestionDetails"] = (
+                    suggested_question_details
+                )
         law_references = format_flat_law_references(question_body.get("lawReferences", []))
         if law_references:
             firestore_question["lawReferences"] = law_references

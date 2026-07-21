@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 from scripts.convert.convert_merged_to_firestore import (
+    convert_question_to_firestore,
     convert_merged_to_firestore,
     get_original_question_body_text,
     original_question_id_for_upload,
@@ -28,6 +29,41 @@ KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
 
 
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_single_choice_new_empty_suggestions_do_not_republish_legacy_flat_data(
+        self,
+    ) -> None:
+        legacy_details = [
+            {"question": f"旧質問{i}", "answer": f"旧回答{i}"}
+            for i in range(5)
+        ]
+        question = {
+            "sourceQuestionKey": "sample:2026:q1",
+            "original_question_id": "q1",
+            "questionBodyText": "最も近い値を選べ。",
+            "choiceTextList": ["1", "2", "3", "4", "5"],
+            "correctChoiceText": [
+                "間違い",
+                "間違い",
+                "間違い",
+                "正しい",
+                "間違い",
+            ],
+            "explanationText": ["計算すると4となる。"],
+            "questionType": "single_choice",
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は4です。",
+            "suggestedQuestions": [item["question"] for item in legacy_details],
+            "suggestedQuestionDetails": legacy_details,
+            "suggestedQuestionDetailsByChoice": [],
+            "examYear": 2026,
+            "questionLabel": "問1",
+        }
+
+        converted = convert_question_to_firestore(question)[0]
+
+        self.assertNotIn("suggestedQuestions", converted)
+        self.assertNotIn("suggestedQuestionDetails", converted)
+
     def test_question_set_id_comes_only_from_each_merged_record(self) -> None:
         def record(source_key: str, question_set_id: str) -> dict:
             return {
