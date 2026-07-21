@@ -5,7 +5,7 @@ goal:
   slug: "per-choice-saved-supplementary-questions"
   kind: specific
   tranche: "follow-up: 2017年ガス主任技術者甲種を全項目・全問題でUI洗い替えする"
-  status: active
+  status: done
   oracle:
     signal: "代表問題の各isChoiceOnly=false documentに選択肢専用の最大3件の保存回答が入り、チップ押下時のVertex AI requestが0件になる"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/per-choice-saved-supplementary-questions/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/per-choice-saved-supplementary-questions"
 
-active_task: T040
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -2198,7 +2198,7 @@ tasks:
   - id: T040
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "更新済みUIから2017年runの保留1問だけを再実行し、58/58問、406/406工程、成果物同期成功を確認する"
     allowed_files:
@@ -2207,6 +2207,15 @@ tasks:
       - "/Users/yuki/development/exam_scraper/output/gas-shunin-kou/review/law_revision_audit"
       - "/Users/yuki/development/exam_scraper/output/question_review_console/workflow_runs/gas-shunin-kou"
       - "/Users/yuki/development/exam_scraper/output/question_review_console/work_versions/gas-shunin-kou"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/server.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_server.py"
     verify:
       - "UI final readback: 58/58 questions validated and 0 blocked"
       - "retry run and parent run manifest readback"
@@ -2216,42 +2225,80 @@ tasks:
       - "2017以外の問題成果物へ新規差分が出る。"
       - "00_source又は本番Firestoreの変更が必要になる。"
       - "同じ原因で二回保留又は失敗する。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "2017年ガス主任技術者甲種の全58問・全406工程を、UIの親runと保留問再試行で全件検証した。最終の公開用データ再生成もUIから実行し、Merge・Convert・upload-readyの58/58一致、284 documents、警告0件、Firestore非書込みを確認した。直近runカードは完了・公開用データ確認済みに収束した。"
+      full_outcome_complete: true
+      evidence:
+        - "parent UI run 20260721T083419886559-41a3b6b2: 57/58 questions and 403/406 work items validated"
+        - "first retry UI run 20260721T092027364267-7c7c8f04: explanation work item validated"
+        - "final retry UI run 20260721T093819235642-95fc796b: remaining question and 2 work items validated, queueStatus=succeeded"
+        - "retry-chain overlay readback: 58 questions, 406 work items, 58 validated questions, 406 validated work items, 0 blocked work items"
+        - "UI artifact regeneration: gas-shunin-kou / 2017 / 58 questions, Merge 58 match, Convert 58 match, upload-ready 58 match"
+        - "latest upload-ready: 284 documents, missingQuestionIds=0"
+        - "artifact preview readback: localReady=true, needsSync=false, canSync=true, warnings=0"
+        - "UI final card: 完了 / 公開用データを確認済み / 整備結果を承認済み"
+        - "Firestore write was not executed because the UI workflow used --upload-dry-run"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/question_candidate.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/patch_validation.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/server.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/app.js
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/static/index.html
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_inventory.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_question_candidate.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_progress_output_ui.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_server.py
+      commands:
+        - cmd: "2017 UI full run plus two UI retries"
+          status: pass
+          summary: "58/58 questions and 406/406 work items validated; 0 blocked"
+        - cmd: "2017 UI public artifact regeneration"
+          status: pass
+          summary: "Merge, Convert and upload-ready all 58/58 match; upload dry-run only"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,027 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git rev-parse HEAD && git rev-parse origin/main"
+          status: pass
+          summary: 52d8e7aca4e0f6d1638063487d3bcf9596f377e1
+      commits:
+        - 09cc12b8c
+        - e2081e150
+        - dc197b870
+        - 092daa167
+        - 613571e61
+        - 0befb976c
+        - a86e980c1
+        - 52d8e7aca
+      harness: codex
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
     result: pass
-    task: T033
+    task: T040
     commands:
-      - cmd: "node --check tools/question_review_console/static/app.js"
+      - cmd: "2017 UI full run plus two UI retries"
         status: pass
-      - cmd: ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_progress_output_ui tests.test_question_review_workflow tests.test_question_review_server"
+        summary: "58/58 questions and 406/406 work items validated; 0 blocked"
+      - cmd: "2017 UI public artifact regeneration"
         status: pass
-        summary: "110 related UI, workflow and API tests"
+        summary: "Merge, Convert and upload-ready all 58/58 match; 284 documents; upload dry-run only"
       - cmd: ".venv/bin/python -m unittest discover -s tests"
         status: pass
-        summary: "1,019 tests passed; 7 skipped"
-      - cmd: "2017 browser walkthrough of simplified maintenance dialog"
+        summary: "1,027 tests passed; 7 skipped"
+      - cmd: "node --check tools/question_review_console/static/app.js"
         status: pass
-        summary: "3 visible fieldsets, 13/13 fields selected, 2 modes, no question range, 0 console errors"
-      - cmd: "2017 UI run 20260721T003002896126-8d9d3fb4"
-        status: pass
-        summary: "58/58 questions validated, 0 blocked, artifact sync succeeded"
-      - cmd: "all child manifest and prompt field-boundary readback"
-        status: pass
-        summary: "9/9 children allowed only suggestedQuestionDetailsByChoice"
-      - cmd: "check_explanation_patch_coverage.py for 2017 source/patch files 1-3"
-        status: pass
-        summary: "3/3 passed; all 58 records have 0 redundant supplementary items"
-      - cmd: "browser readback of maintenance home"
-        status: pass
-        summary: "2017 row entry present; 生成内容を監査 card absent"
       - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
         status: pass
         summary: "5,799 source files unchanged"
-      - cmd: "browser walkthrough: choice 1 open, choice 2 open and choice 1 close, console errors"
-        status: pass
-        summary: "single expanded choice and 0 console errors"
       - cmd: "git diff --check"
         status: pass
       - cmd: "check-goal-state.mjs docs/goals/per-choice-saved-supplementary-questions"
