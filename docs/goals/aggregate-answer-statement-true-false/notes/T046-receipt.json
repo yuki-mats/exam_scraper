@@ -1,0 +1,52 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T046",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T044110482130-95800adb/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T044120419665-bbe2efbd/**",
+      "output/question_review_console/1eiseikanrisha/20048/work_versions.json"
+    ],
+    "commands": [
+      {
+        "command": "Fresh exact-questionIds preview and start",
+        "status": "pass",
+        "summary": "Parent 20260722T044110482130-95800adb contains exactly two questionIds, question_type only, empty listGroup scope, and no range or resume"
+      },
+      {
+        "command": "Canary parent and child readback",
+        "status": "pass",
+        "summary": "One target validated and one structural premise question held by review_disagreement; no pending work"
+      },
+      {
+        "command": "Prompt-v3 dual review audit",
+        "status": "pass",
+        "summary": "Each question has exactly two resolved distinct-thread gpt-5.5/high v2 payloads with candidateId and no raw spans or prose fields; reused count is zero"
+      },
+      {
+        "command": "Target candidate and patch source-slice readback",
+        "status": "pass",
+        "summary": "candidate:559e5bb0036c94a4c502b641 resolved to four exact source slices and reproducible stable keys"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "114 tests passed"
+      },
+      {
+        "command": "python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged; no Firestore endpoint was invoked"
+      }
+    ],
+    "summary": "fresh 2問canaryはparent succeeded/queue partialで終了した。集約対象は二者が同じcandidate IDを選び、serverが4 source spanへ解決して既存patchの原文sliceと派生keyを再現した。共通前提の①〜③はnon_targetとtargetに割れ、第三レビューなしでreview_disagreement holdになった。両問ともvalidation attemptは1回、reviewは2回、prompt v3、gpt-5.5/high、別threadで、旧checkpoint再利用は0件だった。",
+    "deviations": [],
+    "remaining_blockers": [
+      "Judge approval and fresh 1044-question rerun under prompt v3",
+      "Downstream correctness, explanation, question set, publish gate, and Firestore publication"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}
