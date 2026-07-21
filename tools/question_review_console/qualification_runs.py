@@ -178,6 +178,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
+AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v2"
 MAX_POLICY_REFRESH_ATTEMPTS = 2
 MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
@@ -858,7 +859,12 @@ def _aggregate_answer_review_prompt(
         [
             "# 集約回答問題の独立レビュー",
             "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
+            "問題文に列挙された項目は、内容の正誤に関係なく必ずすべてをsourceの順番どおりに扱う。",
+            "正誤を解かず、正しい項目だけを選ばない。",
             "targetでは元問題の一項目を一記述とし、原文のstart/endだけを返す。",
+            "各spanは項目ラベルの最初の文字をstartとし、項目本文を閉じる末尾句読点を含めた直後をexclusive endとする。",
+            "spanに前後の改行、区切りの空白、次の項目を含めない。",
+            "境界を確定できない場合はambiguous_boundary、列挙項目を欠く場合はmissing_statementでholdにする。",
             "記述本文、理由、summary、説明その他の文章は出力しない。",
             "file、shell、外部状態を変更しない。指定JSON Schemaのobjectだけを返す。",
             json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
@@ -1681,6 +1687,7 @@ class QualificationRunStore:
                 "stableParentIdentity",
                 "model",
                 "reasoningEffort",
+                "promptContractVersion",
             )
         }
 
@@ -7924,6 +7931,9 @@ class QualificationRunCoordinator:
                         "stableParentIdentity": stable_parent_identity(record),
                         "model": review_model,
                         "reasoningEffort": review_effort,
+                        "promptContractVersion": (
+                            AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION
+                        ),
                     }
                     signatures[question_id] = signature
                     checkpoint = (
@@ -8283,6 +8293,9 @@ class QualificationRunCoordinator:
                     aggregateReviewReusedCount=len(reused_question_ids),
                     aggregateReviewReused=(
                         len(reused_question_ids) == len(question_ids)
+                    ),
+                    aggregateReviewPromptContractVersion=(
+                        AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION
                     ),
                 )
             invalid_question_ids = set(checkpoint_mismatches)
@@ -8797,6 +8810,15 @@ class QualificationRunCoordinator:
                 ],
                 "changedFiles": sorted(committed_files),
                 "resolvedFailedDeltaPaths": [],
+                **(
+                    {
+                        "aggregateReviewPromptContractVersion": (
+                            AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION
+                        )
+                    }
+                    if aggregate_review_enabled
+                    else {}
+                ),
             }
             execution_metadata = (
                 {

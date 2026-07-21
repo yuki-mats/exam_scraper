@@ -11,8 +11,10 @@ from tools.question_review_console.question_work_queue import (
     specialize_question_plan,
 )
 from tools.question_review_console.qualification_runs import (
+    AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
     QuestionItemError,
     QuestionQueuePaused,
+    _aggregate_answer_review_prompt,
     _candidate_unset_fields,
     _source_binding_accepts_identity,
     _structured_candidate_stage_context,
@@ -1213,6 +1215,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             },
             "model": "gpt-5.5",
             "reasoningEffort": "high",
+            "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
         }
         review = {"preserved": True}
         execution = {
@@ -1237,6 +1240,114 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "executions": [copy.deepcopy(execution)],
             "consensus": None,
         }
+
+    def test_aggregate_review_prompt_requires_all_source_ordered_item_spans(self):
+        source_text = "ア　最初の項目。\n  イ　次の項目。"
+        prompt = _aggregate_answer_review_prompt(
+            [{"id": "question-1"}],
+            {
+                "question-1": {
+                    "questionBodyText": source_text,
+                    "choiceTextList": [],
+                }
+            },
+        )
+
+        self.assertIn("内容の正誤に関係なく必ずすべて", prompt)
+        self.assertIn("sourceの順番どおり", prompt)
+        self.assertIn("正誤を解かず", prompt)
+        self.assertIn("正しい項目だけを選ばない", prompt)
+        self.assertIn("項目ラベルの最初の文字", prompt)
+        self.assertIn("末尾句読点を含めた直後をexclusive end", prompt)
+        self.assertIn("前後の改行", prompt)
+        self.assertIn("区切りの空白", prompt)
+        self.assertIn("次の項目を含めない", prompt)
+        self.assertIn("ambiguous_boundary", prompt)
+        self.assertIn("missing_statement", prompt)
+        self.assertNotIn("正解", prompt)
+        self.assertNotIn("answer", prompt.casefold())
+
+    def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
+        source_text = "ア　最初の項目。\nイ　次の項目。"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first_app_server = PerQuestionQueueAppServer()
+            first_coordinator, _sync, _server, first_parent = (
+                self._start_deferred_flow(
+                    root,
+                    SourceOnlyInventory(),
+                    ["question_type"],
+                    app_server=first_app_server,
+                )
+            )
+            self._write_counted_sources(
+                root, 1, question_body_text=source_text
+            )
+            first_coordinator._run_maintenance_flow(
+                "new-exam", first_parent["runId"], lambda _message: None
+            )
+            first_completed = first_coordinator.store.get(
+                "new-exam", first_parent["runId"]
+            )
+            question_id = first_completed["questionExecutions"][0]["questionId"]
+            checkpoint = copy.deepcopy(
+                first_completed["aggregateReviewCheckpoints"][question_id]
+            )
+            first_child = first_coordinator.store.get(
+                "new-exam", first_completed["childRunIds"][0]
+            )
+
+            self.assertEqual(
+                checkpoint["promptContractVersion"],
+                AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
+            )
+            self.assertEqual(
+                first_child["aggregateReviewPromptContractVersion"],
+                AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
+            )
+            self.assertEqual(
+                first_child["result"]["aggregateReviewPromptContractVersion"],
+                AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
+            )
+
+            checkpoint.pop("promptContractVersion")
+            second_app_server = PerQuestionQueueAppServer()
+            second_root = root / "fresh"
+            second_coordinator, _sync, _server, second_parent = (
+                self._start_deferred_flow(
+                    second_root,
+                    SourceOnlyInventory(),
+                    ["question_type"],
+                    app_server=second_app_server,
+                )
+            )
+            self._write_counted_sources(
+                second_root, 1, question_body_text=source_text
+            )
+            second_coordinator.store.update(
+                "new-exam",
+                second_parent["runId"],
+                aggregateReviewCheckpoints={question_id: copy.deepcopy(checkpoint)},
+            )
+
+            result = second_coordinator._run_maintenance_flow(
+                "new-exam", second_parent["runId"], lambda _message: None
+            )
+            second_completed = second_coordinator.store.get(
+                "new-exam", second_parent["runId"]
+            )
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(second_app_server.aggregate_review_calls, [])
+        self.assertEqual(second_app_server.calls, [])
+        self.assertEqual(
+            second_completed["aggregateReviewCheckpoints"][question_id], checkpoint
+        )
+        attempts = second_completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(attempts[0]["status"], "blocked")
 
     @staticmethod
     def _mark_child_succeeded(coordinator, qualification, child_run_id):
@@ -2027,6 +2138,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     },
                     "model": "gpt-5.5",
                     "reasoningEffort": "high",
+                    "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
                 }
                 try:
                     barrier.wait()
@@ -2092,6 +2204,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                             },
                             "model": "gpt-5.5",
                             "reasoningEffort": "high",
+                            "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
                         },
                         slot,
                     )
@@ -2131,6 +2244,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     },
                     "model": "gpt-5.5",
                     "reasoningEffort": "high",
+                    "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
                 }
 
             first_signature = signature(first_id)
@@ -2388,6 +2502,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     },
                     "model": "gpt-5.5",
                     "reasoningEffort": "high",
+                    "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
                 }
 
             corrupt = {
@@ -2507,6 +2622,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 },
                 "model": "gpt-5.5",
                 "reasoningEffort": "high",
+                "promptContractVersion": AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
             }
             valid_execution = {
                 "reviewNumber": 1,
