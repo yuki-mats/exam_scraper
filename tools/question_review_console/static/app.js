@@ -3936,10 +3936,19 @@ function publicationContent(question) {
   }
   const documents = question.uploadReadyDocs;
   const shared = documents[0] || {};
+  const embeddedChoiceList = Array.isArray(shared.originalQuestionChoiceText)
+    ? shared.originalQuestionChoiceText
+    : null;
+  const embeddedCorrectChoiceList = Array.isArray(shared.correctChoiceText)
+    ? shared.correctChoiceText
+    : null;
+  const hasEmbeddedChoiceArrays = Boolean(embeddedChoiceList);
   const documentExplanations = documents.map(
     (document) => String(document.explanationText || "").trim(),
   );
-  const explanationText = usesQuestionLevelExplanation(projected.questionType)
+  const explanationText = hasEmbeddedChoiceArrays && Array.isArray(projected.explanationText)
+    ? projected.explanationText
+    : usesQuestionLevelExplanation(projected.questionType)
     ? [
         documentExplanations.find((value) => value)
           || String(projected.explanationText?.[0] || "").trim(),
@@ -3950,15 +3959,18 @@ function publicationContent(question) {
     record: {
       ...projected,
       questionBodyText: shared.questionBodyText || projected.questionBodyText,
-      choiceTextList: documents.map(
+      choiceTextList: embeddedChoiceList || documents.map(
         (document, index) => document.originalQuestionChoiceText
           || projected.choiceTextList?.[index]
           || document.questionText
           || "",
       ),
-      correctChoiceText: documents.map((document) => document.correctChoiceText || ""),
+      correctChoiceText: embeddedCorrectChoiceList
+        || documents.map((document) => document.correctChoiceText || ""),
       explanationText,
-      suggestedQuestionDetailsByChoice: documents.flatMap((document, index) => {
+      suggestedQuestionDetailsByChoice: hasEmbeddedChoiceArrays
+        ? projected.suggestedQuestionDetailsByChoice || []
+        : documents.flatMap((document, index) => {
         const items = Array.isArray(document.suggestedQuestionDetails)
           ? document.suggestedQuestionDetails
           : [];

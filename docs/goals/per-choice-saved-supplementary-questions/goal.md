@@ -102,6 +102,15 @@ PMは各receiptをこのoracleへ対応付ける。promptだけの修正、UIだ
 - この導線では人間監査の結果を保存せず、編集、評価、Firestore反映などの操作を主画面へ出さない。
 - `00_source`との正答差分は確認対象であり、それだけで誤り又は公開不可とは判定しない。`00_source`は変更しない。
 
+## Follow-up Tranche: 公式過去問の回答体験と状況表示を整合する
+
+`gas-shunin-kou / 2017 / gas-shunin:kou:2017:kiso:q11`を、問題文から計算して答えを導く学習体験と、選択肢ごとの確認に適した状況表示へ整える。
+
+- 問題文の条件だけで計算結果を導ける公式過去問は`flash_card`とし、基本解説は計算式、代入、途中計算、最終値、正答選択肢までを含む問題共通の1本とする。
+- 同じ2017年に残る同原因の問題も、回答体験に合う`flash_card`へ揃える。問題整備候補は、公式過去問を`true_false`・`flash_card`・`group_choice`のいずれかへ確定する。
+- 互換データが1 documentに選択肢配列を保持する場合も、状況確認画面では各選択肢と正誤を個別に対応させて表示する。
+- `00_source`と本番Firestoreは変更せず、patch、merge、convert、upload-readyの再生成とUI readbackまでを行う。
+
 ## Non-Negotiable Constraints
 
 - 基本解説だけで正誤理由と学習上の核心が完結し、補足回答へ核心を退避しない。

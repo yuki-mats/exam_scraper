@@ -2027,7 +2027,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     return result
                 payload = json.loads(result.final_message)
                 payload["questionResults"][0]["updates"][0]["setFields"] = [
-                    {"field": "questionType", "valueJson": '"single_choice"'}
+                    {"field": "questionType", "valueJson": '"flash_card"'}
                 ]
                 return replace(
                     result,
@@ -2086,7 +2086,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(child["receiptValidated"])
-        self.assertEqual(records[0]["questionType"], "single_choice")
+        self.assertEqual(records[0]["questionType"], "flash_card")
         self.assertFalse(workspace_exists)
 
     def test_checkpoint_write_failure_rolls_back_before_question_retry(self):

@@ -14,6 +14,12 @@ from scripts.common.explanation_contract import explanation_shape_errors
 
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
+OFFICIAL_QUESTION_TYPES = ("true_false", "flash_card", "group_choice")
+SUPPORTED_QUESTION_TYPES = (
+    *OFFICIAL_QUESTION_TYPES,
+    "single_choice",
+    "fill_in_blank",
+)
 
 
 class QuestionCandidateError(ValueError):
@@ -217,6 +223,18 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
 }
 
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
+    "question_type": {
+        "questionType": {
+            "type": "string",
+            "allowedValues": list(SUPPORTED_QUESTION_TYPES),
+            "description": (
+                "公式過去問の問題整備ではtrue_false、flash_card、group_choiceの"
+                "3分類で回答体験を表す。問題文の条件だけで答えを導ける計算問題は"
+                "選択肢を答え合わせに使うflash_cardとする。"
+            ),
+        },
+        "isCalculationQuestion": {"type": "boolean"},
+    },
     "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
     "explanation": _EXPLANATION_FIELD_RULES,
     "law_audit": {
@@ -726,6 +744,18 @@ def validate_candidate_content(
     errors: list[str] = []
     choices = logical.get("choiceTextList") or []
     correct = logical.get("correctChoiceText")
+    if "questionType" in changed_fields:
+        question_type = logical.get("questionType")
+        if question_type not in SUPPORTED_QUESTION_TYPES:
+            errors.append("questionTypeが対応済みの回答形式ではありません。")
+        elif (
+            logical.get("examYear") not in {None, ""}
+            and question_type not in OFFICIAL_QUESTION_TYPES
+        ):
+            errors.append(
+                "公式過去問は回答体験に応じてtrue_false、flash_card、group_choiceの"
+                "いずれかに分類してください。"
+            )
     if "correctChoiceText" in changed_fields and correct is not None and (
         not isinstance(correct, list)
         or len(correct) != len(choices)

@@ -27,6 +27,7 @@ REQUIRED_FIELDS = [
     "original_question_id",
     "question_url",
 ]
+MAINTENANCE_QUESTION_TYPES = {"true_false", "flash_card", "group_choice"}
 
 SOURCE_SUBDIR = "00_source"
 PATCH_SUBDIR = "10_questionType_fixed"
@@ -132,6 +133,23 @@ def compare_entries(
             )
         elif not isinstance(patch.get("isCalculationQuestion"), bool):
             issues.append(f"index {idx}: isCalculationQuestion must be boolean")
+
+        question_type = patch.get("questionType")
+        if question_type not in MAINTENANCE_QUESTION_TYPES:
+            if question_type == src.get("questionType"):
+                warnings.append(
+                    f"index {idx}: legacy questionType preserved: {question_type}"
+                )
+            else:
+                issues.append(
+                    "index {}: questionType must be one of {} for a new or updated "
+                    "maintenance patch (source={} patch={})".format(
+                        idx,
+                        sorted(MAINTENANCE_QUESTION_TYPES),
+                        src.get("questionType"),
+                        question_type,
+                    )
+                )
 
         source_id = resolve_source_original_id(src)
         if patch.get("original_question_id") != source_id:

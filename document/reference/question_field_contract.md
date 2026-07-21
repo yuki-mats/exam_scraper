@@ -150,10 +150,14 @@
 | 値 | 意味 | Firestore 変換 |
 | --- | --- | --- |
 | `true_false` | 1つの肢・文に対して正誤を答える。選択肢は `正しい` / `間違い`。 | 選択肢ごとに `questions` doc へ分割する。 |
-| `single_choice` | 複数選択肢から1つを選ぶ。主にユーザー作成や legacy 互換。 | 原則1 doc。公式過去問で使う場合は最終 `correctChoiceText` の型を確認する。 |
+| `single_choice` | ユーザー作成問題又はlegacyデータを1 documentで読むための互換形式。 | 原則1 doc。公式過去問の通常整備は、回答体験に応じて下記3形式へ確定する。 |
 | `flash_card` | 問題文だけでも解答可能な想起型。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作ることがある。 |
 | `fill_in_blank` | 本文の空欄を埋める。 | `fillInBlanks` が必要。 |
 | `group_choice` | 同一設問の選択肢群を並べ、比較して1つだけ選ぶグループ出題専用。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作る。単体出題不可。 |
+
+公式過去問の通常整備では、各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。
+
+`examYear`を持たない独自問題は、作成時に選んだ回答体験を保ち、`single_choice`又は`fill_in_blank`も利用できます。公式過去問の3分類を独自問題へ機械的に適用しません。
 
 資格固有の都合で新しい値を作らないでください。新しい回答体験が必要な場合は、`repaso` の enum / rules / app UI / tests / `exam_scraper` schema を同時に更新します。
 

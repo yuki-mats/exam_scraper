@@ -160,6 +160,21 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn(".advanced-toolbar .segmented[hidden]", css)
         self.assertIn('state.auditView.readOnly ? "現在の状態"', javascript)
 
+    def test_status_view_expands_legacy_embedded_choice_arrays(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("const embeddedChoiceList = Array.isArray", javascript)
+        self.assertIn("const embeddedCorrectChoiceList = Array.isArray", javascript)
+        self.assertIn("choiceTextList: embeddedChoiceList || documents.map", javascript)
+        self.assertIn(
+            "correctChoiceText: embeddedCorrectChoiceList",
+            javascript,
+        )
+        self.assertIn(
+            "hasEmbeddedChoiceArrays && Array.isArray(projected.explanationText)",
+            javascript,
+        )
+
     def test_choice_results_have_mobile_readable_cards_and_verdict_labels(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         css = STYLE_PATH.read_text(encoding="utf-8")
