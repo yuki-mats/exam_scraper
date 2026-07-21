@@ -163,6 +163,46 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
         self.assertEqual(result[0]["explanationText"], "candidate-1")
         self.assertEqual(result[1]["explanationText"], "committed-by-sibling")
 
+    def test_independent_workspaces_commit_distinct_records_in_reverse_order(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path("output/sample/questions_json/group/patch.json")
+            canonical = root / relative
+            canonical.parent.mkdir(parents=True)
+            records = [
+                self._record("q1", "before-1"),
+                self._record("q2", "before-2"),
+            ]
+            canonical.write_text(json.dumps(records), encoding="utf-8")
+            workspaces = [
+                IsolatedQuestionPatchWorkspace.create(
+                    root,
+                    root / f"output/question_review_console/run-{number}",
+                    qualification="sample",
+                    mutable_paths=[relative.as_posix()],
+                )
+                for number in (1, 2)
+            ]
+            for workspace, index in zip(workspaces, (0, 1)):
+                candidate_path = workspace.root / relative
+                candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+                candidate[index]["explanationText"] = f"candidate-{index + 1}"
+                candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+
+            for workspace, record in reversed(list(zip(workspaces, records))):
+                binding = SourceIdentityBinding.from_mapping(record)
+                workspace.rebase_into_canonical(
+                    workspace.changed_paths(),
+                    binding=binding,
+                    aliases_by_path={relative.as_posix(): [list(binding.as_tuple())]},
+                )
+            result = json.loads(canonical.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            [record["explanationText"] for record in result],
+            ["candidate-1", "candidate-2"],
+        )
+
     def test_rejects_same_record_changed_after_workspace_snapshot(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

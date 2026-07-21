@@ -1,7 +1,27 @@
 from tests.qualification_run_test_support import *  # noqa: F403
+from scripts.common.aggregate_answer_decomposition import (
+    REVIEW_SCHEMA_VERSION,
+    generate_statement_candidates,
+    materialize_decomposition,
+    source_text_hash,
+)
 
 
 class QualificationRecordScopeTests(QualificationRunTestSupport):
+    @staticmethod
+    def _derived_aggregate_fields(source_record):
+        source_text = source_record["questionBodyText"]
+        candidate = generate_statement_candidates(source_text)["candidates"][0]
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(source_text),
+            "classification": "target",
+            "candidateId": candidate["candidateId"],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        return materialize_decomposition(source_record, [review, dict(review)])
+
     def _validate_record_scope_change(
         self,
         relative,
@@ -173,6 +193,80 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 "targetRecordScopes": {relative.as_posix(): [["q1"]]},
             },
         )
+
+    def test_existing_record_allows_only_exact_server_derived_fields(self):
+        source_relative = Path(
+            "output/sample/questions_json/group/00_source/source.json"
+        )
+        patch_relative = Path(
+            "output/sample/questions_json/group/10_questionType_fixed/patch.json"
+        )
+        source = {
+            "originalQuestionId": "review-parent",
+            "canonical_question_key": "sample:group:parent",
+            "sourceQuestionKey": "sample:group:parent",
+            "questionBodyText": "A  第一の記述。\nB  第二の記述。",
+            "choiceTextList": ["AとB"],
+        }
+        derived = self._derived_aggregate_fields(source)
+        aliases = [
+            "review-parent",
+            "sample:group:parent",
+            "source.json#0",
+        ]
+        before = {
+            "question_bodies": [
+                {
+                    "originalQuestionId": "review-parent",
+                    "sourceQuestionKey": "sample:group:parent",
+                    "sourceRecordRef": "source.json#0",
+                    "choiceTextList": ["old aggregate answer"],
+                    "sourceUniqueKeys": ["old-key"],
+                }
+            ]
+        }
+        after_record = dict(before["question_bodies"][0])
+        after_record.update(derived)
+        common_plan = {
+            "sourceFiles": [source_relative.as_posix()],
+            "targetRecordAliasGroups": [aliases],
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": "review-parent",
+                    "reviewQuestionId": "review-parent",
+                    "sourceQuestionKey": "sample:group:parent",
+                    "sourceRecordRef": "source.json#0",
+                    "aliases": aliases,
+                }
+            ],
+            "allowedPatchFiles": [patch_relative.as_posix()],
+            "targetRecordScopes": {patch_relative.as_posix(): [aliases]},
+        }
+        self._validate_record_scope_change(
+            patch_relative,
+            before,
+            {"question_bodies": [after_record]},
+            plan_updates=common_plan,
+            source_payloads={source_relative: {"question_bodies": [source]}},
+            stage_id="question_type",
+        )
+
+        for field, arbitrary in (
+            ("choiceTextList", ["generated text"]),
+            ("sourceUniqueKeys", ["arbitrary-key"]),
+            ("questionBodyText", "changed source"),
+        ):
+            invalid = dict(after_record)
+            invalid[field] = arbitrary
+            with self.subTest(field=field), self.assertRaises(QualificationRunError):
+                self._validate_record_scope_change(
+                    patch_relative,
+                    before,
+                    {"question_bodies": [invalid]},
+                    plan_updates=common_plan,
+                    source_payloads={source_relative: {"question_bodies": [source]}},
+                    stage_id="question_type",
+                )
 
     def test_record_scope_rejects_target_record_deletion(self):
         relative = Path(

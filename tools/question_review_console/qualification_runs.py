@@ -11719,6 +11719,67 @@ class QualificationRunCoordinator:
                     for entry in before_matches
                 }
                 allowed_derived_fields: dict[str, Any] = {}
+                decomposition = contract(after_entry).get(
+                    "aggregateAnswerDecomposition"
+                )
+                source_text = (
+                    source_fields.get("questionBodyText")
+                    if source_fields is not None
+                    else None
+                )
+                after_source_text = after_fields.get("questionBodyText")
+                if (
+                    isinstance(source_text, str)
+                    and (
+                        after_source_text is None
+                        or after_source_text == source_text
+                    )
+                    and is_approved_target(decomposition, source_text)
+                ):
+                    derived_aliases = set(
+                        after_fields.get("sourceUniqueKeys") or []
+                    )
+                    source_parent_identities = {
+                        json.dumps(
+                            contract(entry).get(
+                                "aggregateStableParentIdentity"
+                            ),
+                            ensure_ascii=False,
+                            sort_keys=True,
+                        )
+                        for entry in source_matches
+                        if contract(entry).get(
+                            "aggregateStableParentIdentity"
+                        )
+                    }
+                    if len(source_parent_identities) != 1:
+                        raise QualificationRunError(
+                            f"sourceのstable parent identityを一意に確認できません: "
+                            f"{relative}"
+                        )
+                    source_parent_identity = json.loads(
+                        next(iter(source_parent_identities))
+                    )
+                    expected_derived_aliases = set(
+                        derived_source_unique_keys_for_parent(
+                            str(source_parent_identity["value"]),
+                            source_text,
+                            decomposition,
+                        )
+                    )
+                    if derived_aliases != expected_derived_aliases:
+                        raise QualificationRunError(
+                            f"派生sourceUniqueKeysを再現できません: {relative}"
+                        )
+                    allowed_derived_fields = {
+                        "choiceTextList": extract_source_statements(
+                            source_text,
+                            decomposition,
+                        ),
+                        "sourceUniqueKeys": list(
+                            after_fields.get("sourceUniqueKeys") or []
+                        ),
+                    }
                 if before_identity is not None:
                     if after_identity != before_identity:
                         allowed_empty_identity_cleanup = bool(
@@ -11809,59 +11870,9 @@ class QualificationRunCoordinator:
                                 f"新規recordのID fieldが空又は不正です: "
                                 f"{relative} / {field}"
                             )
-                    derived_aliases: set[str] = set()
-                    decomposition = contract(after_entry).get(
-                        "aggregateAnswerDecomposition"
+                    derived_aliases = set(
+                        allowed_derived_fields.get("sourceUniqueKeys") or []
                     )
-                    source_text = after_fields.get("questionBodyText")
-                    if (
-                        isinstance(source_text, str)
-                        and is_approved_target(decomposition, source_text)
-                    ):
-                        derived_aliases = set(
-                            after_fields.get("sourceUniqueKeys") or []
-                        )
-                        source_parent_identities = {
-                            json.dumps(
-                                contract(entry).get(
-                                    "aggregateStableParentIdentity"
-                                ),
-                                ensure_ascii=False,
-                                sort_keys=True,
-                            )
-                            for entry in source_matches
-                            if contract(entry).get(
-                                "aggregateStableParentIdentity"
-                            )
-                        }
-                        if len(source_parent_identities) != 1:
-                            raise QualificationRunError(
-                                f"sourceのstable parent identityを一意に確認できません: "
-                                f"{relative}"
-                            )
-                        source_parent_identity = json.loads(
-                            next(iter(source_parent_identities))
-                        )
-                        expected_derived_aliases = set(
-                            derived_source_unique_keys_for_parent(
-                                str(source_parent_identity["value"]),
-                                source_text,
-                                decomposition,
-                            )
-                        )
-                        if derived_aliases != expected_derived_aliases:
-                            raise QualificationRunError(
-                                f"派生sourceUniqueKeysを再現できません: {relative}"
-                            )
-                        allowed_derived_fields = {
-                            "choiceTextList": extract_source_statements(
-                                source_text,
-                                decomposition,
-                            ),
-                            "sourceUniqueKeys": list(
-                                after_fields.get("sourceUniqueKeys") or []
-                            ),
-                        }
                     source_bound_aliases = {
                         alias
                         for entry in source_matches
@@ -11919,14 +11930,23 @@ class QualificationRunCoordinator:
                     continue
                 for field in CODEX_PROTECTED_CONTENT_FIELDS:
                     if before_fields is not None and field in before_fields:
+                        exact_server_derived_change = bool(
+                            field in allowed_derived_fields
+                            and after_fields.get(field)
+                            == allowed_derived_fields[field]
+                        )
                         removed_redundant_source_copy = bool(
                             field not in after_fields
                             and source_fields is not None
                             and source_fields.get(field) == before_fields[field]
                         )
-                        if not removed_redundant_source_copy and (
+                        if (
+                            not exact_server_derived_change
+                            and not removed_redundant_source_copy
+                            and (
                             field not in after_fields
                             or after_fields[field] != before_fields[field]
+                            )
                         ):
                             raise QualificationRunError(
                                 f"Codex自動整備対象外fieldの変更を検出しました: "

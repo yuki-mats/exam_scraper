@@ -3,8 +3,11 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import tempfile
 from collections.abc import Mapping
+from contextlib import contextmanager
 from dataclasses import dataclass
+import fcntl
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +28,28 @@ _RECORD_CONTAINER_KEYS = (
 
 class QuestionPatchProposalError(ValueError):
     pass
+
+
+@contextmanager
+def _canonical_file_locks(repo_root: Path, paths: list[Path]):
+    """Serialize canonical record rebases across coordinators and processes."""
+
+    lock_root = Path(tempfile.gettempdir()) / "exam-scraper-question-patch-locks"
+    lock_root.mkdir(mode=0o700, parents=True, exist_ok=True)
+    handles = []
+    try:
+        for path in sorted(set(paths), key=lambda value: value.as_posix()):
+            lock_id = hashlib.sha256(
+                f"{repo_root.resolve()}\0{path.resolve()}".encode("utf-8")
+            ).hexdigest()
+            handle = (lock_root / f"{lock_id}.lock").open("a+b")
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+            handles.append(handle)
+        yield
+    finally:
+        for handle in reversed(handles):
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            handle.close()
 
 
 def _safe_relative(repo_root: Path, value: str | Path) -> Path:
@@ -337,9 +362,26 @@ class IsolatedQuestionPatchWorkspace:
             raise QuestionPatchProposalError(
                 "正本反映に完全なsource identityが必要です。"
             )
+        relative_paths = [
+            _safe_relative(self.repo_root, value) for value in changed_paths
+        ]
+        canonical_paths = [self.repo_root / value for value in relative_paths]
+        with _canonical_file_locks(self.repo_root, canonical_paths):
+            return self._rebase_locked(
+                relative_paths,
+                binding=binding,
+                aliases_by_path=aliases_by_path,
+            )
+
+    def _rebase_locked(
+        self,
+        changed_paths: list[Path],
+        *,
+        binding: SourceIdentityBinding,
+        aliases_by_path: Mapping[str, list[list[str]]],
+    ) -> list[str]:
         pending: list[tuple[Path, str]] = []
-        for raw_relative in changed_paths:
-            relative = _safe_relative(self.repo_root, raw_relative)
+        for relative in changed_paths:
             if relative not in self.mutable_paths:
                 raise QuestionPatchProposalError("可変範囲外のfileは反映できません。")
             groups = aliases_by_path.get(relative.as_posix()) or []
