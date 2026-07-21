@@ -512,10 +512,16 @@ class QualificationWorkflow:
                     [
                         definition
                         for definition in versioned_definitions
-                        if definition.get("automatic", True)
-                        or _has_patch(
-                            question,
-                            str(definition.get("patchDir") or ""),
+                        if (
+                            str(definition.get("id") or "") != "originalize"
+                            or _originalization_applicable(question)
+                        )
+                        and (
+                            definition.get("automatic", True)
+                            or _has_patch(
+                                question,
+                                str(definition.get("patchDir") or ""),
+                            )
                         )
                     ],
                 ),

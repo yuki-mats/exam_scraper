@@ -415,6 +415,7 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                 "progressTargets": [
                     {
                         "id": "ui-q1",
+                        "reviewKey": "sample:2026:question_1:source-q1",
                         "questionKey": "sample:2026:q01",
                         "listGroupId": "2026",
                         "questionLabel": "問1",
@@ -423,6 +424,7 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                     },
                     {
                         "id": "ui-q2",
+                        "reviewKey": "sample:2026:question_2:source-q2",
                         "questionKey": "sample:2026:q02",
                         "listGroupId": "2026",
                         "questionLabel": "問2",
@@ -446,6 +448,7 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                 "canonicalDocs": [],
             }
             run = store.create(plan, status="running", prompt="整備する。")
+            saved_run = store.get("sample", run["runId"])
             progress_path = root / run["progressReceiptPath"]
             progress_path.write_text(
                 "\n".join(
@@ -502,6 +505,10 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             prompt = store.prompt("sample", run["runId"])
 
         self.assertEqual(progress["completedQuestionCount"], 0)
+        self.assertEqual(
+            saved_run["progressTargets"][0]["reviewKey"],
+            "sample:2026:question_1:source-q1",
+        )
         self.assertEqual(progress["touchedQuestionCount"], 1)
         self.assertEqual(progress["processedQuestionCount"], 0)
         self.assertEqual(progress["completedWorkItemCount"], 1)

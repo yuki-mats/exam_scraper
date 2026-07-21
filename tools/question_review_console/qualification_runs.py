@@ -1035,6 +1035,7 @@ class QualificationRunStore:
                         raw_target.get("uiQuestionId") or question_id
                     )[:300],
                     "questionKey": str(raw_target.get("questionKey") or question_id)[:300],
+                    "reviewKey": str(raw_target.get("reviewKey") or "")[:1000],
                     "sourceQuestionKey": str(
                         raw_target.get("sourceQuestionKey") or ""
                     )[:500],

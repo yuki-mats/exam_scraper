@@ -309,6 +309,44 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             },
         )
 
+    def test_record_stage_reconciles_legacy_ui_id_with_canonical_review_key(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            canonical = question()
+            legacy = {**canonical, "reviewKey": canonical["id"]}
+            store.record_stage(
+                [canonical],
+                {**policy("question_type"), "policyVersion": "2.0"},
+                run_id="question-type-run",
+                source="validated_run",
+            )
+            store.record_stage(
+                [legacy],
+                {**policy("law_audit"), "policyVersion": "4.0"},
+                run_id="law-audit-run",
+                source="validated_run",
+            )
+
+            receipt = store.record_stage(
+                [canonical],
+                {**policy("explanation"), "policyVersion": "4.0"},
+                run_id="explanation-run",
+                source="validated_run",
+            )
+            saved = json.loads(
+                store.path_for("sample", "2026").read_text(encoding="utf-8")
+            )
+            record = store.record_for(canonical)
+
+        self.assertEqual(receipt["reconciledCount"], 1)
+        self.assertEqual(len(saved["questions"]), 1)
+        self.assertEqual(record["reviewKey"], canonical["reviewKey"])
+        self.assertEqual(
+            set(record["stages"]),
+            {"question_type", "law_audit", "explanation"},
+        )
+        self.assertEqual(record["stages"]["law_audit"]["version"], "4.0")
+
 
 if __name__ == "__main__":
     unittest.main()

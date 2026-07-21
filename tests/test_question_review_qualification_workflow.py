@@ -471,7 +471,13 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(stage["versionUnrecordedCount"], 1)
 
     def test_official_exam_question_does_not_enter_originalization(self):
-        item = question(group="2017")
+        item = question(
+            group="2017",
+            patches=[
+                "output/sample/questions_json/2017/05_originalized/"
+                "question_2017_1_originalized.json"
+            ],
+        )
         item["source"]["examYear"] = 2017
         item["projected"]["examYear"] = 2017
         with tempfile.TemporaryDirectory() as directory:
@@ -483,6 +489,16 @@ class QualificationWorkflowTests(unittest.TestCase):
                     [{"listGroupId": "2017", "questions": [item]}],
                 ),
             )
+            write_category(root)
+            policies = workflow.versioned_policies("sample")
+            for stage_id, current_policy in policies.items():
+                if stage_id != "originalize":
+                    workflow.work_versions.record_stage(
+                        [item],
+                        current_policy,
+                        run_id=f"run-{stage_id}",
+                        source="validated_run",
+                    )
 
             plan = workflow.plan(
                 "sample",
@@ -490,10 +506,15 @@ class QualificationWorkflowTests(unittest.TestCase):
                 "group_refresh",
                 list_group_ids=["2017"],
             )
+            overview = workflow.overview("sample")
 
         self.assertEqual(plan["targetCount"], 0)
         self.assertEqual(plan["sourceFiles"], [])
         self.assertEqual(plan["outputFiles"], [])
+        self.assertEqual(
+            overview["summary"]["maintenanceProgress"],
+            {"totalCount": 1, "currentCount": 1, "requiredCount": 0},
+        )
 
     def test_law_issue_precedes_delivery_and_clears_to_delivery(self):
         patches = [

@@ -42,6 +42,138 @@ def _question_key_hash(question: Mapping[str, Any]) -> str:
     return hashlib.sha256(review_key.encode("utf-8")).hexdigest()[:24]
 
 
+def _identity_hash(identity: str) -> str:
+    return hashlib.sha256(identity.encode("utf-8")).hexdigest()[:24]
+
+
+def _version_record_snapshot(record: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        str(key): copy.deepcopy(value)
+        for key, value in record.items()
+        if key not in {"history", "targets"}
+    }
+
+
+def _merge_version_records(
+    primary: Mapping[str, Any],
+    alias: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Merge records written under two identities without losing target history."""
+
+    primary_at = str(primary.get("recordedAt") or "")
+    alias_at = str(alias.get("recordedAt") or "")
+    current = alias if alias_at > primary_at else primary
+    other = primary if current is alias else alias
+    merged = copy.deepcopy(dict(current))
+
+    current_snapshot = _version_record_snapshot(current)
+    history_candidates = [
+        *(
+            copy.deepcopy(list(primary.get("history") or []))
+            if isinstance(primary.get("history"), list)
+            else []
+        ),
+        *(
+            copy.deepcopy(list(alias.get("history") or []))
+            if isinstance(alias.get("history"), list)
+            else []
+        ),
+    ]
+    other_snapshot = _version_record_snapshot(other)
+    if other_snapshot and other_snapshot != current_snapshot:
+        history_candidates.append(other_snapshot)
+    deduplicated_history: dict[str, dict[str, Any]] = {}
+    for value in history_candidates:
+        if not isinstance(value, Mapping):
+            continue
+        normalized = copy.deepcopy(dict(value))
+        key = json.dumps(
+            normalized,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        deduplicated_history[key] = normalized
+    merged["history"] = sorted(
+        deduplicated_history.values(),
+        key=lambda value: (
+            str(value.get("recordedAt") or ""),
+            str(value.get("runId") or ""),
+        ),
+    )
+
+    primary_targets = (
+        primary.get("targets")
+        if isinstance(primary.get("targets"), Mapping)
+        else {}
+    )
+    alias_targets = (
+        alias.get("targets")
+        if isinstance(alias.get("targets"), Mapping)
+        else {}
+    )
+    target_ids = set(primary_targets) | set(alias_targets)
+    if target_ids:
+        merged_targets: dict[str, Any] = {}
+        for target_id in sorted(target_ids):
+            primary_target = primary_targets.get(target_id)
+            alias_target = alias_targets.get(target_id)
+            if isinstance(primary_target, Mapping) and isinstance(
+                alias_target, Mapping
+            ):
+                merged_targets[target_id] = _merge_version_records(
+                    primary_target,
+                    alias_target,
+                )
+            elif isinstance(primary_target, Mapping):
+                merged_targets[target_id] = copy.deepcopy(dict(primary_target))
+            elif isinstance(alias_target, Mapping):
+                merged_targets[target_id] = copy.deepcopy(dict(alias_target))
+        merged["targets"] = merged_targets
+    else:
+        merged.pop("targets", None)
+    return merged
+
+
+def _merge_question_records(
+    canonical: Mapping[str, Any],
+    alias: Mapping[str, Any],
+) -> dict[str, Any]:
+    merged = copy.deepcopy(dict(canonical))
+    for field in (
+        "questionId",
+        "originalQuestionId",
+        "publicationQualificationId",
+    ):
+        if not merged.get(field) and alias.get(field):
+            merged[field] = copy.deepcopy(alias[field])
+    canonical_stages = (
+        canonical.get("stages")
+        if isinstance(canonical.get("stages"), Mapping)
+        else {}
+    )
+    alias_stages = (
+        alias.get("stages")
+        if isinstance(alias.get("stages"), Mapping)
+        else {}
+    )
+    stages: dict[str, Any] = {}
+    for stage_id in sorted(set(canonical_stages) | set(alias_stages)):
+        canonical_stage = canonical_stages.get(stage_id)
+        alias_stage = alias_stages.get(stage_id)
+        if isinstance(canonical_stage, Mapping) and isinstance(alias_stage, Mapping):
+            stages[stage_id] = _merge_version_records(
+                canonical_stage,
+                alias_stage,
+            )
+        elif isinstance(canonical_stage, Mapping):
+            stages[stage_id] = copy.deepcopy(dict(canonical_stage))
+        elif isinstance(alias_stage, Mapping):
+            stages[stage_id] = copy.deepcopy(dict(alias_stage))
+    merged["stages"] = stages
+    return merged
+
+
 def _content_hash(path: Path) -> str:
     try:
         return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -410,6 +542,7 @@ class QuestionWorkVersionStore:
             grouped.setdefault(key, []).append(question)
         recorded_count = 0
         skipped_count = 0
+        reconciled_count = 0
         paths: list[str] = []
         with self._lock:
             prepared: list[tuple[Path, dict[str, Any]]] = []
@@ -424,18 +557,56 @@ class QuestionWorkVersionStore:
                     identity = str(
                         question.get("reviewKey") or question.get("id") or ""
                     )
+                    question_id = str(question.get("id") or "")
+                    alias_key = _identity_hash(question_id) if question_id else ""
+                    alias = (
+                        payload["questions"].get(alias_key)
+                        if alias_key and alias_key != key
+                        else None
+                    )
+                    original_question_id = str(
+                        question.get("originalQuestionId") or ""
+                    )
+                    publication_qualification_id = str(
+                        question.get("publicationQualificationId")
+                        or question.get("qualification")
+                        or ""
+                    )
+                    alias_matches = bool(
+                        isinstance(alias, Mapping)
+                        and str(alias.get("reviewKey") or "") == question_id
+                        and (
+                            not original_question_id
+                            or not alias.get("originalQuestionId")
+                            or str(alias.get("originalQuestionId"))
+                            == original_question_id
+                        )
+                        and (
+                            not publication_qualification_id
+                            or not alias.get("publicationQualificationId")
+                            or str(alias.get("publicationQualificationId"))
+                            == publication_qualification_id
+                        )
+                    )
                     if not isinstance(existing, dict) or existing.get("reviewKey") != identity:
                         existing = {
                             "reviewKey": identity,
-                            "questionId": str(question.get("id") or ""),
-                            "originalQuestionId": str(question.get("originalQuestionId") or ""),
-                            "publicationQualificationId": str(
-                                question.get("publicationQualificationId")
-                                or question.get("qualification")
-                                or ""
-                            ),
+                            "questionId": question_id,
+                            "originalQuestionId": original_question_id,
+                            "publicationQualificationId": publication_qualification_id,
                             "stages": {},
                         }
+                    if alias_matches:
+                        existing = _merge_question_records(existing, alias)
+                        del payload["questions"][alias_key]
+                        reconciled_count += 1
+                        changed = True
+                    existing.update(
+                        reviewKey=identity,
+                        questionId=question_id,
+                        originalQuestionId=original_question_id,
+                        publicationQualificationId=publication_qualification_id,
+                    )
                     stages = existing.get("stages")
                     if not isinstance(stages, dict):
                         stages = {}
@@ -534,6 +705,7 @@ class QuestionWorkVersionStore:
             ),
             "recordedCount": recorded_count,
             "skippedCount": skipped_count,
+            "reconciledCount": reconciled_count,
             "paths": paths,
             "targetIds": sorted(partial_target_ids),
             "partial": bool(partial_target_ids),
