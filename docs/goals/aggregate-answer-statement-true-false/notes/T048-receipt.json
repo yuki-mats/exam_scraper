@@ -1,0 +1,63 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T048",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T045949999874-4ac65e8e/**",
+      "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T051800169874-3429f9ac..20260722T054031942226-8ae5df86/**",
+      "output/question_review_console/1eiseikanrisha/*/work_versions.json",
+      "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+    ],
+    "commands": [
+      {
+        "command": "Qualification-wide preview and fresh start",
+        "status": "pass",
+        "summary": "Preview and parent cover exactly 1044 questions, question_type only, empty listGroupIds/questionIds, no range, updateTargetIds, or resume scope"
+      },
+      {
+        "command": "Parent, 95 child receipts, and 1044 checkpoint audit",
+        "status": "pass",
+        "summary": "All children succeeded with validated receipts; every question has two resolved distinct-thread gpt-5.5/high prompt-v3 reviews, exact six-field payloads, candidateSetHash, and zero legacy reuse"
+      },
+      {
+        "command": "Exclusive classification and one-attempt audit",
+        "status": "pass",
+        "summary": "target 44, non_target 536, hold 439, invalid 25, pending 0; every question has exactly one validation attempt and no third review"
+      },
+      {
+        "command": "Target candidate, source-slice, and patch recomputation",
+        "status": "pass",
+        "summary": "All 44 targets exact-agree on a candidate ID and reproduce server spans, 169 exact source slices, stable keys, true_false, and a boolean calculation flag"
+      },
+      {
+        "command": "Hold and invalid no-materialization audit",
+        "status": "pass",
+        "summary": "All 439 holds and 25 invalid results have empty changedFiles and no target materialization; hold reasons are review_disagreement 333, missing_statement 86, invalid_review 20"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "114 tests passed"
+      },
+      {
+        "command": ".venv/bin/python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged; no Firestore endpoint was invoked and artifact sync stopped as blocked"
+      }
+    ],
+    "summary": "fresh parent 20260722T045949999874-4ac65e8eは第一種衛生管理者1044問をqualification全体指定で処理し、95 childとparent receiptが成功した。2088 review payloadは六fieldだけを持ち、各問2 slot、別thread、gpt-5.5/high、prompt v3、旧checkpoint再利用0だった。排他的集計はtarget 44、non_target 536、hold 439、invalid 25で、target 44問からserver source slicingだけで169記述を生成し、候補ID、境界、source slice、stable key、最終patchを全件再計算した。hold/invalidは変更を確定せず、validation attemptは全問1回だった。",
+    "deviations": [
+      "専用Workerが実行開始前のまま応答しなかったため、成果物変更がないことを確認して停止し、PM fallbackで同じT048契約を実行した。",
+      "invalid 25件のうち23件は別batchが同じpatch file内の別recordを更新したことを競合として検出し、2件は既存choiceTextListをサーバー所有fieldとして収束できずguardで停止した。いずれも誤確定せずchangedFilesは空である。",
+      "target 1件はfresh reviewで再承認されたが、canaryの既存source sliceと一致したため物理差分はなかった。",
+      "公開用artifact syncは下流field不足でblockedになり、Firestoreへは進まなかった。"
+    ],
+    "remaining_blockers": [
+      "Judge must decide whether the 23 shared-file concurrency collisions and two server-owned field guard failures require a qualification-common fix and rerun.",
+      "Downstream correctness, explanation, question set, publish gate, and Firestore publication remain blocked."
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}
