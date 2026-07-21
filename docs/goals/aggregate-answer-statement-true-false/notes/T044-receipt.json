@@ -1,0 +1,50 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T044",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "prompt/01_prompt_fix_questionType.md",
+      "document/reference/question_field_contract.md",
+      "scripts/common/aggregate_answer_decomposition.py",
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tests/test_aggregate_answer_decomposition.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "114 tests passed"
+      },
+      {
+        "command": "First-class health supervisor mechanical candidate audit",
+        "status": "pass",
+        "summary": "1044 questions scanned; 58 candidate sets and 222 boundaries had deterministic IDs, ordered in-range spans, and non-empty exact source slices"
+      },
+      {
+        "command": "python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "git diff --check and scoped commit/push",
+        "status": "pass",
+        "summary": "8a94099e92e9a248d1f8e8103c0cacd8d1793789 pushed to origin/main"
+      }
+    ],
+    "summary": "資格共通の列挙境界検出からsourceHash依存のboundary/candidate IDを生成し、レビュー出力をclassification、candidateId、decision、issueCodesだけへ変更した。本文、要約、正誤回答、raw offset、未知fieldは拒否する。二者完全ID一致後だけserverがspanへ解決して原文をsliceする。checkpointのbatch取得、予約、確定、consensusは同じlock内の単一load/write/readbackへ集約し、検証失敗時の無変更もテストした。",
+    "deviations": [
+      "Dedicated Worker left no allowed-file evidence within the GoalBuddy timeout; PM fallback completed the same bounded task without widening scope."
+    ],
+    "remaining_blockers": [
+      "T045 Judge approval for a fresh candidate-ID canary",
+      "Fresh 1044-question rerun under prompt v3",
+      "Downstream correctness, explanation, question set, publish gate, and Firestore readback"
+    ],
+    "verification_attempts": 4,
+    "stopped_because": null
+  }
+}

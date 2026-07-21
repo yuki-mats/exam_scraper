@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T044
+active_task: T045
 
 tasks:
   - id: T001
@@ -2189,7 +2189,7 @@ tasks:
   - id: T044
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sourceHash固定の原文からserverが決定的な候補span・boundary IDを生成し、二者reviewはclassification、issue code、選択IDだけを返す契約へ変更する。完全ID一致後だけserverがoffsetへ解決して原文sliceを保存する。併せてreview slot予約・解決・consensus保存をbatch単位の単一load/write/readbackへ集約する。"
     inputs:
@@ -2230,6 +2230,57 @@ tasks:
       - "00_source, Firestore, or an allowed-files-external change is required."
       - "Atomic batch update cannot be guaranteed under the existing lock."
       - "The same unresolved verification cause fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - prompt/01_prompt_fix_questionType.md
+        - document/reference/question_field_contract.md
+        - scripts/common/aggregate_answer_decomposition.py
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_aggregate_answer_decomposition.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - command: "PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "114 tests passed"
+        - command: "First-class health supervisor mechanical candidate audit"
+          status: pass
+          summary: "1044 questions scanned; 58 candidate sets and 222 boundaries had deterministic IDs, ordered in-range spans, and non-empty exact source slices"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check and scoped commit/push"
+          status: pass
+          summary: "8a94099e92e9a248d1f8e8103c0cacd8d1793789 pushed to origin/main"
+      summary: "資格共通の列挙境界検出からsourceHash依存のboundary/candidate IDを生成し、レビュー出力をclassification、candidateId、decision、issueCodesだけへ変更した。本文、要約、正誤回答、raw offset、未知fieldは拒否する。二者完全ID一致後だけserverがspanへ解決して原文をsliceする。checkpointのbatch取得、予約、確定、consensusは同じlock内の単一load/write/readbackへ集約し、検証失敗時の無変更もテストした。"
+      deviations:
+        - "Dedicated Worker left no allowed-file evidence within the GoalBuddy timeout; PM fallback completed the same bounded task without widening scope."
+      remaining_blockers:
+        - "T045 Judge approval for a fresh candidate-ID canary"
+        - "Fresh 1044-question rerun under prompt v3"
+        - "Downstream correctness, explanation, question set, publish gate, and Firestore readback"
+      verification_attempts: 4
+      stopped_because: null
+  - id: T045
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T044の資格共通candidate/boundary ID契約、ID-only schema、tool-owned slice、batch checkpoint原子性、実装scope、1044問機械監査を読み取り専用で監査し、fresh canaryへ進めるか判定する。"
+    inputs:
+      - "T043 reject_downstream receipt"
+      - "T044 implementation commit and receipt"
+      - "Focused tests and 1044-question mechanical candidate audit"
+    constraints:
+      - "Read-only."
+      - "Reject qualification-specific conditions, known answers, raw offset fallback, agent-authored extracted text, weakened exact agreement, or more than two reviews."
+      - "Do not approve full rerun, downstream correctness work, or Firestore publication before a fresh canary."
+    expected_output:
+      - "approve_canary or reject"
+      - "Contract and atomicity evidence map"
+      - "Exact fresh canary Worker package with allowed_files, verify, and stop_if"
     receipt: null
   - id: T999
     type: judge
