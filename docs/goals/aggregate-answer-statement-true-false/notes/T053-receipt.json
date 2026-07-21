@@ -1,0 +1,53 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T053",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "require_fix。通常成功経路、通常rollback、実process直列化、同一record fail-closed、sourceUniqueKeys順序付き完全一致は確認した。しかしlock内rollbackが失敗するとtransaction_open=trueのままlockを解放し、outer exception handlerがrollbackを再実行する。このlock外retryは、待機processの後続commitをbaseline復元で失わせ得る。試験は成功rollbackだけを扱うため、fresh canaryは未承認とする。",
+    "evidence": [
+      "commit 3b4c8ae21は指定4ファイルを変更し、origin/mainへpush済みである。",
+      "同じcanonical_transaction内でbaseline取得、rebase、record-scope、00_source確認、work-version記録、checkpoint、backup破棄、通常rollbackを実行する。",
+      "lock内rollbackがfailed又は確認不能ならtransaction_openをfalseにせず例外送出し、context終了後のouter handlerがlock外でrollback_baselineを再度呼ぶ。",
+      "lock外retry前に待機中の別processがcommitできるため、古いbaseline復元によるlost updateが残る。",
+      "spawn+barrier試験は異record双方保持、同record一方拒否、成功rollback後の後続更新保持を証明するが、failed又はpartial rollbackを扱わない。",
+      "sourceUniqueKeysは順序付き完全再計算listとの直接比較へ修正され、逆順、重複、欠落、追加を拒否する。",
+      "production diffに資格、年度、question ID、source phrase、特定filenameの条件分岐はない。",
+      "focused 110 tests、expanded 141 tests、process suite 3反復がpassした。"
+    ],
+    "next_allowed_task": {
+      "type": "worker",
+      "objective": "canonical transaction内のrollbackが一度失敗又はpartialになっても、同じOS canonical file lockを保持したまま安全な再確認・再試行又はterminal fail-closed処理を完了し、lock解放後にrollback writeを一切行わないよう資格共通transaction制御を修正する。spawn processとbarrierで、最初のrollback失敗中から最終復元完了まで後続writerが待機し、その後の異record更新が保持されることを証明する。",
+      "allowed_files": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_patch_proposal.py",
+        "tests/test_question_review_qualification_runs.py",
+        "tests/test_question_review_question_patch_proposal.py"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "for iteration in 1 2 3; do PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs || exit 1; done",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py",
+        "git diff --check"
+      ],
+      "required_regression_tests": [
+        "最初のrollback_baselineがfailed又はpartialを返す経路で、後続rollback writeがcanonical lock外で呼ばれない。",
+        "別spawn processは最初のrollback失敗後も同file lock取得を待機し、最終rollback完了後だけcommitできる。",
+        "rollback後に後続processが更新した異recordは保持される。",
+        "rollback不能時は別processの確定済み更新を上書きせずterminal fail-closedになる。",
+        "異record双方保持、同record競合拒否、順序付きsourceUniqueKeys guardを退行させない。"
+      ],
+      "stop_if": [
+        "allowed_files外のproduction codeが必要になる。",
+        "rollback write又はretryがOS canonical file lock外に残る。",
+        "rollback失敗中に別processが同じcanonical fileへcommitできる。",
+        "cross-process証明を逐次又はthread-only試験で代用する必要がある。",
+        "資格、年度、question ID、source phrase又は特定filenameへの例外が必要になる。",
+        "00_source又はFirestoreを変更・呼出しする必要がある。",
+        "同じ未解決原因で検証が2回失敗する。"
+      ]
+    }
+  }
+}

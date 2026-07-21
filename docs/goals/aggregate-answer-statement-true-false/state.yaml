@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T053
+active_task: T054
 
 tasks:
   - id: T001
@@ -2791,7 +2791,7 @@ tasks:
   - id: T053
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T052をT051の全指摘へ対応付けて再監査し、transaction全体のcross-process安全性、rollbackの非破壊性、sourceUniqueKeys順序付き完全一致、資格共通性を判定する。承認時は、共有patch file内の異なるrecordと既存aggregate record guardを実データで同時に証明する最小fresh canary契約を確定する。"
     inputs:
@@ -2810,6 +2810,58 @@ tasks:
       - "T051 finding-to-fix evidence map"
       - "Genericity and process-safety audit"
       - "Exact minimal fresh canary Worker package if approved"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "require_fix。通常経路は直ったが、lock内rollback失敗後にouter handlerがOS lock外でrollbackを再試行し、待機processの後続commitを古いbaselineで消す可能性が残る。fresh canaryは未承認とする。"
+      evidence:
+        - "baselineから通常成功確定又は通常rollback完了までは同じcanonical transaction lock内にある。"
+        - "lock内rollbackがfailed又は確認不能の場合、transaction_openがtrueのままcontextを抜け、outer handlerがlock外でrollbackを再実行する。"
+        - "現行process testsは成功rollbackだけを扱い、failed又はpartial rollback経路を証明しない。"
+        - "順序付きsourceUniqueKeys guardと資格共通性は確認した。"
+      blocked_tasks:
+        - "fresh canary"
+        - "fresh full rerun、下流工程、公開前gate、Firestore公開、T999 final audit"
+  - id: T054
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "canonical transaction内のrollbackが一度失敗又はpartialになっても、同じOS canonical file lockを保持したまま安全な再確認・再試行又はterminal fail-closed処理を完了し、lock解放後にrollback writeを一切行わないよう資格共通transaction制御を修正する。spawn processとbarrierで、最初のrollback失敗中から最終復元完了まで後続writerが待機し、その後の異record更新が保持されることを証明する。"
+    inputs:
+      - "T053 require_fix receipt"
+      - "T052 implementation commit 3b4c8ae21"
+      - "Current qualification-common rollback and canonical transaction code"
+    constraints:
+      - "Qualification-common implementation only; no qualification, year, question ID, source phrase, or filename exceptions."
+      - "No rollback write or retry may occur after releasing the canonical OS file lock."
+      - "Use actual spawn processes and barriers for failed/partial rollback concurrency proof."
+      - "Preserve normal success, normal rollback, same-record fail-closed, ordered sourceUniqueKeys, 00_source, and no-Firestore contracts."
+    expected_output:
+      - "Lock-contained rollback retry or terminal fail-closed control"
+      - "No outer lock-free rollback writes"
+      - "Actual process regression for first rollback failure and later writer preservation"
+      - "Focused verification receipt"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_patch_proposal.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_question_patch_proposal.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs"
+      - "for iteration in 1 2 3; do PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs || exit 1; done"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "An allowed-files expansion is required."
+      - "Any rollback write or retry remains outside the canonical OS file lock."
+      - "Another process can commit to the same file while rollback failure handling is incomplete."
+      - "Cross-process proof must be replaced by sequential or thread-only tests."
+      - "A qualification, year, question ID, source phrase, or filename exception is required."
+      - "00_source or Firestore would be changed or invoked."
+      - "The same unresolved verification cause fails twice."
     receipt: null
   - id: T999
     type: judge
