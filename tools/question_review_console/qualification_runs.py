@@ -45,11 +45,12 @@ from tools.question_review_console.projection import (
 )
 from scripts.common.explanation_contract import uses_question_level_explanation
 from scripts.common.aggregate_answer_decomposition import (
-    derived_source_unique_keys,
+    derived_source_unique_keys_for_parent,
     extract_source_statements,
     is_approved_target,
     materialize_decomposition,
     reconcile_reviews,
+    stable_parent_identity,
     source_text_hash,
 )
 from tools.question_review_console.jobs import (
@@ -507,6 +508,22 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
             sort_keys=True,
             separators=(",", ":"),
         )
+        contract_fields = {
+            field: copy.deepcopy(record[field])
+            for field in (
+                "aggregateAnswerDecomposition",
+                "schemaVersion",
+                "qualification",
+                "listGroupId",
+            )
+            if field in record
+        }
+        try:
+            contract_fields["aggregateStableParentIdentity"] = (
+                stable_parent_identity(record)
+            )
+        except ValueError:
+            pass
         snapshot.append(
             {
                 "index": index,
@@ -528,16 +545,7 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
                     for field in CODEX_PROTECTED_IDENTITY_FIELDS
                     if field in identity_record
                 },
-                "contractFields": {
-                    field: copy.deepcopy(record[field])
-                    for field in (
-                        "aggregateAnswerDecomposition",
-                        "schemaVersion",
-                        "qualification",
-                        "listGroupId",
-                    )
-                    if field in record
-                },
+                "contractFields": contract_fields,
             }
         )
     return snapshot
@@ -626,7 +634,13 @@ def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None
         seen.add(id(current))
         if isinstance(current, (SubscriptionGateError, CodexAppServerError)):
             return current
-        current = current.__cause__ or current.__context__
+        current = (
+            current.__cause__
+            if current.__cause__ is not None
+            else None
+            if current.__suppress_context__
+            else current.__context__
+        )
     return None
 
 
@@ -789,6 +803,38 @@ def _structured_candidate_prompt(
             "",
         ]
     )
+
+
+def _filter_structured_candidate_prompt(
+    prompt: str,
+    question_ids: set[str],
+) -> str:
+    """Keep only selected questions in an already-built structured prompt."""
+
+    lines = prompt.splitlines()
+    for index in range(len(lines) - 1, -1, -1):
+        try:
+            value = json.loads(lines[index])
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(value, list) or not all(
+            isinstance(item, Mapping) and "questionId" in item for item in value
+        ):
+            continue
+        filtered = [
+            item for item in value if str(item.get("questionId") or "") in question_ids
+        ]
+        if len(filtered) != len(question_ids):
+            raise QualificationRunError(
+                "構造化候補promptから対象問題を一意に抽出できません。"
+            )
+        lines[index] = json.dumps(
+            filtered,
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        return "\n".join(lines)
+    raise QualificationRunError("構造化候補promptの問題一覧を確認できません。")
 
 
 def _aggregate_answer_review_prompt(
@@ -1499,6 +1545,481 @@ class QualificationRunStore:
                 manifest["finishedAt"] = manifest.get("finishedAt") or manifest["updatedAt"]
             self._write_manifest(path, manifest)
         return copy.deepcopy(manifest)
+
+    @staticmethod
+    def _validate_aggregate_review_execution(
+        execution: Mapping[str, Any],
+        *,
+        slot: int,
+        signature: Mapping[str, Any],
+    ) -> None:
+        if (
+            execution.get("reviewNumber") != slot
+            or str(execution.get("model") or "")
+            != str(signature.get("model") or "")
+            or str(execution.get("reasoningEffort") or "")
+            != str(signature.get("reasoningEffort") or "")
+            or any(
+                not isinstance(execution.get(field), str)
+                or not str(execution.get(field) or "").strip()
+                for field in ("threadId", "sessionId", "turnId")
+            )
+        ):
+            raise QualificationRunError(
+                "aggregate review execution evidenceが予約契約と一致しません。"
+            )
+
+    @staticmethod
+    def _aggregate_checkpoint_slots(
+        checkpoint: Mapping[str, Any],
+    ) -> dict[str, dict[str, Any]]:
+        raw_slots = checkpoint.get("slots")
+        if isinstance(raw_slots, Mapping):
+            if any(str(key) not in {"1", "2"} for key in raw_slots):
+                raise QualificationRunError(
+                    "aggregate review checkpointに未知のslotがあります。"
+                )
+            slots: dict[str, dict[str, Any]] = {}
+            for raw_key, raw_value in raw_slots.items():
+                key = str(raw_key)
+                if not isinstance(raw_value, Mapping):
+                    raise QualificationRunError(
+                        "aggregate review slotの形式が不正です。"
+                    )
+                value = copy.deepcopy(dict(raw_value))
+                if value.get("slot") != int(key) or value.get("status") not in {
+                    "started",
+                    "resolved",
+                }:
+                    raise QualificationRunError(
+                        "aggregate review slotの番号又は状態が不正です。"
+                    )
+                if value["status"] == "resolved" and (
+                    not isinstance(value.get("review"), Mapping)
+                    or not isinstance(value.get("execution"), Mapping)
+                ):
+                    raise QualificationRunError(
+                        "確定済みaggregate review slotの証拠が不正です。"
+                    )
+                if value["status"] == "resolved":
+                    QualificationRunStore._validate_aggregate_review_execution(
+                        value["execution"],
+                        slot=int(key),
+                        signature=checkpoint,
+                    )
+                slots[key] = value
+            resolved = [
+                slots[key]
+                for key in ("1", "2")
+                if key in slots and slots[key]["status"] == "resolved"
+            ]
+            legacy_reviews = checkpoint.get("reviews")
+            legacy_executions = checkpoint.get("executions")
+            if legacy_reviews is not None or legacy_executions is not None:
+                if (
+                    not isinstance(legacy_reviews, list)
+                    or not isinstance(legacy_executions, list)
+                    or len(legacy_reviews) != len(legacy_executions)
+                    or len(legacy_reviews) > 2
+                    or legacy_reviews != [value["review"] for value in resolved]
+                    or legacy_executions
+                    != [value["execution"] for value in resolved]
+                ):
+                    raise QualificationRunError(
+                        "aggregate review slotとlegacy配列が一致しません。"
+                    )
+            return slots
+        if raw_slots is not None:
+            raise QualificationRunError(
+                "aggregate review checkpoint slotsの形式が不正です。"
+            )
+        reviews = checkpoint.get("reviews") or []
+        executions = checkpoint.get("executions") or []
+        if (
+            not isinstance(reviews, list)
+            or not isinstance(executions, list)
+            or len(reviews) != len(executions)
+            or len(reviews) > 2
+            or any(not isinstance(value, Mapping) for value in reviews)
+            or any(not isinstance(value, Mapping) for value in executions)
+        ):
+            raise QualificationRunError(
+                "legacy aggregate review checkpointの形式が不正です。"
+            )
+        if any(
+            execution.get("reviewNumber") != index
+            for index, execution in enumerate(executions, start=1)
+        ):
+            raise QualificationRunError(
+                "legacy aggregate review executionの順序が不正です。"
+            )
+        slots = {
+            str(index): {
+                "slot": index,
+                "status": "resolved",
+                "review": copy.deepcopy(review),
+                "execution": copy.deepcopy(executions[index - 1]),
+            }
+            for index, review in enumerate(reviews, start=1)
+        }
+        for key, value in slots.items():
+            QualificationRunStore._validate_aggregate_review_execution(
+                value["execution"],
+                slot=int(key),
+                signature=checkpoint,
+            )
+        return slots
+
+    @staticmethod
+    def _aggregate_checkpoint_signature(
+        checkpoint: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return {
+            field: copy.deepcopy(checkpoint.get(field))
+            for field in (
+                "sourceHash",
+                "stableParentIdentity",
+                "model",
+                "reasoningEffort",
+            )
+        }
+
+    def aggregate_review_checkpoint(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+    ) -> dict[str, Any] | None:
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = manifest.get("aggregateReviewCheckpoints") or {}
+            checkpoint = checkpoints.get(question_id)
+            return (
+                copy.deepcopy(dict(checkpoint))
+                if isinstance(checkpoint, Mapping)
+                else None
+            )
+
+    def reserve_aggregate_review_slot(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+        signature: Mapping[str, Any],
+        slot: int,
+    ) -> dict[str, Any]:
+        if slot not in {1, 2}:
+            raise QualificationRunError("aggregate review slotは1又は2です。")
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            current = checkpoints.get(question_id)
+            if current is None:
+                current = {
+                    **copy.deepcopy(dict(signature)),
+                    "slots": {},
+                    "reviews": [],
+                    "executions": [],
+                    "consensus": None,
+                }
+            elif not isinstance(current, Mapping):
+                return {"status": "mismatch", "checkpoint": None}
+            else:
+                current = copy.deepcopy(dict(current))
+            if self._aggregate_checkpoint_signature(current) != dict(signature):
+                return {"status": "mismatch", "checkpoint": current}
+            try:
+                slots = self._aggregate_checkpoint_slots(current)
+            except QualificationRunError:
+                return {"status": "mismatch", "checkpoint": current}
+            key = str(slot)
+            existing = slots.get(key)
+            if existing is not None:
+                status = str(existing.get("status") or "")
+                return {
+                    "status": "resolved" if status == "resolved" else "unresolved",
+                    "checkpoint": current,
+                    "slot": copy.deepcopy(existing),
+                }
+            if len(slots) >= 2:
+                return {"status": "limit", "checkpoint": current}
+            slots[key] = {
+                "slot": slot,
+                "status": "started",
+                "reservedAt": _now(),
+            }
+            current["slots"] = slots
+            checkpoints[question_id] = current
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted = self._load_manifest(path)["aggregateReviewCheckpoints"][
+                question_id
+            ]
+            persisted_slot = self._aggregate_checkpoint_slots(persisted).get(key)
+            if not isinstance(persisted_slot, Mapping) or (
+                persisted_slot.get("status") != "started"
+            ):
+                raise QualificationRunError(
+                    "aggregate review slot予約を再読検証できません。"
+                )
+            return {
+                "status": "reserved",
+                "checkpoint": copy.deepcopy(persisted),
+                "slot": copy.deepcopy(dict(persisted_slot)),
+            }
+
+    def reserve_aggregate_review_slots(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        requests: list[tuple[str, Mapping[str, Any], int]],
+    ) -> dict[str, dict[str, Any]]:
+        """Reserve one slot per question without allowing another batch to interleave."""
+
+        question_ids = [question_id for question_id, _signature, _slot in requests]
+        if len(question_ids) != len(set(question_ids)):
+            raise QualificationRunError(
+                "同じ問題のaggregate review slotをbatch内で重複予約できません。"
+            )
+        if any(slot not in {1, 2} for _question_id, _signature, slot in requests):
+            raise QualificationRunError("aggregate review slotは1又は2です。")
+        with self._lock:
+            return {
+                question_id: self.reserve_aggregate_review_slot(
+                    qualification,
+                    parent_run_id,
+                    question_id,
+                    signature,
+                    slot,
+                )
+                for question_id, signature, slot in requests
+            }
+
+    def cancel_unstarted_aggregate_review_slots(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        cancellations: list[
+            tuple[str, Mapping[str, Any], int, Mapping[str, Any]]
+        ],
+    ) -> None:
+        """Atomically cancel only slots reserved before a thread was started."""
+
+        question_ids = [value[0] for value in cancellations]
+        if len(question_ids) != len(set(question_ids)):
+            raise QualificationRunError(
+                "同じ問題のaggregate review予約を重複取消できません。"
+            )
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            prepared: list[tuple[str, dict[str, Any], dict[str, dict[str, Any]], str]] = []
+            for question_id, signature, slot, expected_slot in cancellations:
+                if slot not in {1, 2}:
+                    raise QualificationRunError(
+                        "aggregate review取消slotは1又は2です。"
+                    )
+                current = checkpoints.get(question_id)
+                if not isinstance(current, Mapping) or (
+                    self._aggregate_checkpoint_signature(current) != dict(signature)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review予約取消signatureが一致しません。"
+                    )
+                current_copy = copy.deepcopy(dict(current))
+                slots = self._aggregate_checkpoint_slots(current_copy)
+                key = str(slot)
+                actual_slot = slots.get(key)
+                if (
+                    not isinstance(actual_slot, Mapping)
+                    or actual_slot.get("status") != "started"
+                    or dict(actual_slot) != dict(expected_slot)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review予約取消対象が現在の予約と一致しません。"
+                    )
+                prepared.append((question_id, current_copy, slots, key))
+
+            for question_id, current, slots, key in prepared:
+                del slots[key]
+                if (
+                    not slots
+                    and not current.get("reviews")
+                    and not current.get("executions")
+                    and current.get("consensus") is None
+                ):
+                    del checkpoints[question_id]
+                    continue
+                current["slots"] = slots
+                checkpoints[question_id] = current
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted_manifest = self._load_manifest(path)
+            persisted_checkpoints = persisted_manifest.get(
+                "aggregateReviewCheckpoints"
+            )
+            if persisted_checkpoints != checkpoints:
+                raise QualificationRunError(
+                    "aggregate review予約取消を再読検証できません。"
+                )
+
+    def resolve_aggregate_review_slot(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+        signature: Mapping[str, Any],
+        slot: int,
+        *,
+        review: Mapping[str, Any],
+        execution: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            current = checkpoints.get(question_id)
+            if not isinstance(current, Mapping) or (
+                self._aggregate_checkpoint_signature(current) != dict(signature)
+            ):
+                raise QualificationRunError(
+                    "aggregate review checkpoint signatureが一致しません。"
+                )
+            current = copy.deepcopy(dict(current))
+            slots = self._aggregate_checkpoint_slots(current)
+            key = str(slot)
+            reserved = slots.get(key)
+            if not isinstance(reserved, Mapping) or (
+                reserved.get("status") != "started"
+            ):
+                raise QualificationRunError(
+                    "開始済みaggregate review slotを確認できません。"
+                )
+            self._validate_aggregate_review_execution(
+                execution,
+                slot=slot,
+                signature=signature,
+            )
+            slots[key] = {
+                **copy.deepcopy(dict(reserved)),
+                "status": "resolved",
+                "review": copy.deepcopy(dict(review)),
+                "execution": copy.deepcopy(dict(execution)),
+                "resolvedAt": _now(),
+            }
+            ordered = [slots[key] for key in ("1", "2") if key in slots]
+            current.update(
+                slots=slots,
+                reviews=[copy.deepcopy(value["review"]) for value in ordered if value.get("status") == "resolved"],
+                executions=[copy.deepcopy(value["execution"]) for value in ordered if value.get("status") == "resolved"],
+            )
+            checkpoints[question_id] = current
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted = self._load_manifest(path)["aggregateReviewCheckpoints"][
+                question_id
+            ]
+            persisted_slot = self._aggregate_checkpoint_slots(persisted).get(key)
+            if (
+                not isinstance(persisted_slot, Mapping)
+                or persisted_slot.get("status") != "resolved"
+                or persisted_slot.get("review") != dict(review)
+                or persisted_slot.get("execution") != dict(execution)
+            ):
+                raise QualificationRunError(
+                    "aggregate review slot確定を再読検証できません。"
+                )
+            return copy.deepcopy(dict(persisted))
+
+    def resolve_aggregate_review_slots(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        resolutions: list[
+            tuple[
+                str,
+                Mapping[str, Any],
+                int,
+                Mapping[str, Any],
+                Mapping[str, Any],
+            ]
+        ],
+    ) -> dict[str, dict[str, Any]]:
+        """Resolve a review batch while excluding concurrent checkpoint writers."""
+
+        question_ids = [value[0] for value in resolutions]
+        if len(question_ids) != len(set(question_ids)):
+            raise QualificationRunError(
+                "同じ問題のaggregate review結果をbatch内で重複確定できません。"
+            )
+        with self._lock:
+            return {
+                question_id: self.resolve_aggregate_review_slot(
+                    qualification,
+                    parent_run_id,
+                    question_id,
+                    signature,
+                    slot,
+                    review=review,
+                    execution=execution,
+                )
+                for question_id, signature, slot, review, execution in resolutions
+            }
+
+    def store_aggregate_review_consensus(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+        signature: Mapping[str, Any],
+        consensus: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        path = self._manifest_path(qualification, parent_run_id)
+        with self._lock:
+            manifest = self._load_manifest(path)
+            checkpoints = copy.deepcopy(
+                manifest.get("aggregateReviewCheckpoints") or {}
+            )
+            current = checkpoints.get(question_id)
+            if not isinstance(current, Mapping) or (
+                self._aggregate_checkpoint_signature(current) != dict(signature)
+            ):
+                raise QualificationRunError(
+                    "aggregate review consensus signatureが一致しません。"
+                )
+            current = copy.deepcopy(dict(current))
+            slots = self._aggregate_checkpoint_slots(current)
+            if set(slots) != {"1", "2"} or any(
+                value.get("status") != "resolved" for value in slots.values()
+            ):
+                raise QualificationRunError(
+                    "二つのaggregate review slot確定前にconsensusを保存できません。"
+                )
+            current["consensus"] = copy.deepcopy(dict(consensus))
+            checkpoints[question_id] = current
+            manifest["aggregateReviewCheckpoints"] = checkpoints
+            manifest["updatedAt"] = _now()
+            self._write_manifest(path, manifest)
+            persisted = self._load_manifest(path)["aggregateReviewCheckpoints"][
+                question_id
+            ]
+            if persisted.get("consensus") != dict(consensus):
+                raise QualificationRunError(
+                    "aggregate review consensusを再読検証できません。"
+                )
+            return copy.deepcopy(dict(persisted))
 
     def update_question_stage(
         self,
@@ -7381,14 +7902,8 @@ class QualificationRunCoordinator:
         aggregate_review_pairs: dict[str, list[dict[str, Any]]] = {}
         try:
             aggregate_review_enabled = stage_id == "question_type"
+            checkpoint_mismatches: set[str] = set()
             if aggregate_review_enabled:
-                review_prompt = _aggregate_answer_review_prompt(
-                    raw_targets,
-                    records_by_question,
-                )
-                review_batches: list[dict[str, dict[str, Any]]] = []
-                review_thread_ids: list[str] = []
-                review_receipts: list[dict[str, Any]] = []
                 review_policy = dict(
                     (batch_plan.get("agentPolicy") or {}).get("independent_review") or {}
                 )
@@ -7396,14 +7911,180 @@ class QualificationRunCoordinator:
                 review_effort = str(
                     review_policy.get("reasoningEffort") or reasoning_effort
                 )
+                parent_run_id = str(batch_plan.get("parentRunId") or "")
+                reused_question_ids: list[str] = []
+                signatures: dict[str, dict[str, Any]] = {}
+                reviews_by_question: dict[str, list[dict[str, Any]]] = {}
+                executions_by_question: dict[str, list[dict[str, Any]]] = {}
+                for question_id in question_ids:
+                    record = records_by_question[question_id]
+                    source_text = str(record.get("questionBodyText") or "")
+                    signature = {
+                        "sourceHash": source_text_hash(source_text),
+                        "stableParentIdentity": stable_parent_identity(record),
+                        "model": review_model,
+                        "reasoningEffort": review_effort,
+                    }
+                    signatures[question_id] = signature
+                    checkpoint = (
+                        self.store.aggregate_review_checkpoint(
+                            qualification,
+                            parent_run_id,
+                            question_id,
+                        )
+                        if parent_run_id
+                        else None
+                    )
+                    if checkpoint is None:
+                        reviews_by_question[question_id] = []
+                        executions_by_question[question_id] = []
+                        continue
+                    checkpoint_signature = {
+                        field: checkpoint.get(field)
+                        for field in signature
+                    }
+                    try:
+                        stored_slots = self.store._aggregate_checkpoint_slots(
+                            checkpoint
+                        )
+                    except QualificationRunError:
+                        checkpoint_mismatches.add(question_id)
+                        reviews_by_question[question_id] = []
+                        executions_by_question[question_id] = []
+                        continue
+                    if any(
+                        value.get("status") != "resolved"
+                        for value in stored_slots.values()
+                    ):
+                        checkpoint_mismatches.add(question_id)
+                        reviews_by_question[question_id] = []
+                        executions_by_question[question_id] = []
+                        continue
+                    ordered_slots = [
+                        stored_slots[key]
+                        for key in ("1", "2")
+                        if key in stored_slots
+                    ]
+                    stored_reviews = [
+                        copy.deepcopy(value.get("review"))
+                        for value in ordered_slots
+                    ]
+                    stored_executions = [
+                        copy.deepcopy(value.get("execution"))
+                        for value in ordered_slots
+                    ]
+                    stored_consensus_matches = True
+                    if isinstance(stored_reviews, list) and len(stored_reviews) == 2:
+                        try:
+                            stored_consensus_matches = (
+                                checkpoint.get("consensus")
+                                == reconcile_reviews(source_text, stored_reviews)
+                            )
+                        except ValueError:
+                            stored_consensus_matches = False
+                    if (
+                        checkpoint_signature != signature
+                        or not isinstance(stored_reviews, list)
+                        or not isinstance(stored_executions, list)
+                        or len(stored_reviews) != len(stored_executions)
+                        or len(stored_reviews) > 2
+                        or not stored_consensus_matches
+                        or any(
+                            not isinstance(value, Mapping)
+                            for value in stored_executions
+                        )
+                        or any(
+                            str(value.get("model") or "") != review_model
+                            or str(value.get("reasoningEffort") or "")
+                            != review_effort
+                            for value in stored_executions
+                            if isinstance(value, Mapping)
+                        )
+                    ):
+                        checkpoint_mismatches.add(question_id)
+                        reviews_by_question[question_id] = []
+                        executions_by_question[question_id] = []
+                        continue
+                    reviews_by_question[question_id] = copy.deepcopy(stored_reviews)
+                    executions_by_question[question_id] = copy.deepcopy(
+                        stored_executions
+                    )
+                    if len(stored_reviews) == 2:
+                        reused_question_ids.append(question_id)
+
                 for review_number in (1, 2):
+                    reservation_ids = [
+                        question_id
+                        for question_id in question_ids
+                        if question_id not in checkpoint_mismatches
+                        and len(reviews_by_question[question_id]) < review_number
+                    ]
+                    pending_ids: list[str] = []
+                    reservations = (
+                        self.store.reserve_aggregate_review_slots(
+                            qualification,
+                            parent_run_id,
+                            [
+                                (
+                                    question_id,
+                                    signatures[question_id],
+                                    review_number,
+                                )
+                                for question_id in reservation_ids
+                            ],
+                        )
+                        if parent_run_id
+                        else {}
+                    )
+                    for question_id in reservation_ids:
+                        if not parent_run_id:
+                            checkpoint_mismatches.add(question_id)
+                            continue
+                        reservation = reservations[question_id]
+                        reservation_status = str(reservation.get("status") or "")
+                        if reservation_status == "reserved":
+                            pending_ids.append(question_id)
+                            continue
+                        if reservation_status == "resolved":
+                            checkpoint = reservation.get("checkpoint") or {}
+                            slots = self.store._aggregate_checkpoint_slots(checkpoint)
+                            ordered = [
+                                slots[key]
+                                for key in ("1", "2")
+                                if key in slots
+                                and slots[key].get("status") == "resolved"
+                            ]
+                            reviews_by_question[question_id] = [
+                                copy.deepcopy(value["review"])
+                                for value in ordered
+                            ]
+                            executions_by_question[question_id] = [
+                                copy.deepcopy(value["execution"])
+                                for value in ordered
+                            ]
+                            continue
+                        checkpoint_mismatches.add(question_id)
+                    if not pending_ids:
+                        continue
+                    pending_targets = [
+                        target
+                        for target in raw_targets
+                        if str(target.get("id") or target.get("uiQuestionId") or "")
+                        in pending_ids
+                    ]
+                    review_prompt = _aggregate_answer_review_prompt(
+                        pending_targets,
+                        records_by_question,
+                    )
+                    started_threads: list[str] = []
+
                     def on_review_thread_started(
                         thread_id: str,
                         session_id: str,
                         *,
                         number: int = review_number,
                     ) -> None:
-                        review_thread_ids.append(thread_id)
+                        started_threads.append(thread_id)
                         self.store.update(
                             qualification,
                             run_id,
@@ -7428,58 +8109,134 @@ class QualificationRunCoordinator:
                             },
                         )
 
-                    review_result = self.app_server.run_turn(
-                        review_prompt,
-                        work_type=(
-                            f"maintenance_{stage_id}_aggregate_review_"
-                            f"{review_number}_candidate"
-                        ),
-                        sandbox="read-only",
-                        emit=emit,
-                        output_schema=aggregate_answer_review_schema(question_ids),
-                        on_thread_started=on_review_thread_started,
-                        on_turn_started=on_review_turn_started,
-                        heartbeat=heartbeat,
-                        cwd=self.repo_root,
-                        model=review_model,
-                        reasoning_effort=review_effort,
-                    )
+                    try:
+                        review_result = self.app_server.run_turn(
+                            review_prompt,
+                            work_type=(
+                                f"maintenance_{stage_id}_aggregate_review_"
+                                f"{review_number}_candidate"
+                            ),
+                            sandbox="read-only",
+                            emit=emit,
+                            output_schema=aggregate_answer_review_schema(pending_ids),
+                            on_thread_started=on_review_thread_started,
+                            on_turn_started=on_review_turn_started,
+                            heartbeat=heartbeat,
+                            cwd=self.repo_root,
+                            model=review_model,
+                            reasoning_effort=review_effort,
+                        )
+                    except Exception as exc:  # noqa: BLE001
+                        if not started_threads and _external_provider_failure(exc):
+                            try:
+                                self.store.cancel_unstarted_aggregate_review_slots(
+                                    qualification,
+                                    parent_run_id,
+                                    [
+                                        (
+                                            question_id,
+                                            signatures[question_id],
+                                            review_number,
+                                            reservations[question_id]["slot"],
+                                        )
+                                        for question_id in pending_ids
+                                    ],
+                                )
+                            except QualificationRunError as cancellation_error:
+                                deterministic_error = QualificationRunError(
+                                    "aggregate review予約を原子的に取消できません。"
+                                )
+                                deterministic_error.add_note(str(cancellation_error))
+                                raise deterministic_error from None
+                        raise
                     if review_result.changed_files:
                         raise QualificationRunError(
                             "read-only集約回答レビューでfile変更通知を検出しました。"
                         )
-                    review_batches.append(
-                        parse_aggregate_answer_reviews(
-                            review_result.final_message,
-                            question_ids,
-                        )
+                    parsed_batch = parse_aggregate_answer_reviews(
+                        review_result.final_message,
+                        pending_ids,
                     )
-                    review_receipts.append(
-                        {
+                    if len(started_threads) != 1:
+                        raise QualificationRunError(
+                            "集約回答レビューthreadを一意に確認できませんでした。"
+                        )
+                    execution = {
                             "reviewNumber": review_number,
                             "threadId": review_result.thread_id,
                             "sessionId": review_result.session_id,
                             "turnId": review_result.turn_id,
                             "model": review_result.model,
                             "reasoningEffort": review_result.reasoning_effort,
-                        }
+                    }
+                    resolved_checkpoints = self.store.resolve_aggregate_review_slots(
+                        qualification,
+                        parent_run_id,
+                        [
+                            (
+                                question_id,
+                                signatures[question_id],
+                                review_number,
+                                parsed_batch[question_id],
+                                execution,
+                            )
+                            for question_id in pending_ids
+                        ],
                     )
+                    for question_id in pending_ids:
+                        checkpoint = resolved_checkpoints[question_id]
+                        slots = self.store._aggregate_checkpoint_slots(checkpoint)
+                        ordered = [
+                            slots[key]
+                            for key in ("1", "2")
+                            if key in slots
+                            and slots[key].get("status") == "resolved"
+                        ]
+                        reviews_by_question[question_id] = [
+                            copy.deepcopy(value["review"])
+                            for value in ordered
+                        ]
+                        executions_by_question[question_id] = [
+                            copy.deepcopy(value["execution"])
+                            for value in ordered
+                        ]
                     self.store.update(
                         qualification,
                         run_id,
-                        aggregateReviewExecutions=copy.deepcopy(review_receipts),
-                    )
-                if len(review_thread_ids) != 2 or len(set(review_thread_ids)) != 2:
-                    raise QualificationRunError(
-                        "集約回答レビューを別々のephemeral threadで実行できませんでした。"
+                        aggregateReviewExecutions=copy.deepcopy(
+                            [
+                                value
+                                for question_id in question_ids
+                                for value in executions_by_question[question_id]
+                            ]
+                        ),
                     )
                 for question_id in question_ids:
                     source_text = str(
                         records_by_question[question_id].get("questionBodyText") or ""
                     )
-                    aggregate_review_pairs[question_id] = [
-                        batch[question_id] for batch in review_batches
+                    aggregate_review_pairs[question_id] = copy.deepcopy(
+                        reviews_by_question[question_id]
+                    )
+                    thread_ids = [
+                        str(value.get("threadId") or "")
+                        for value in executions_by_question[question_id]
                     ]
+                    if (
+                        question_id in checkpoint_mismatches
+                        or len(aggregate_review_pairs[question_id]) != 2
+                        or len(thread_ids) != 2
+                        or len(set(thread_ids)) != 2
+                    ):
+                        aggregate_consensus[question_id] = {
+                            "schemaVersion": "aggregate-answer-decomposition/v1",
+                            "sourceHash": source_text_hash(source_text),
+                            "classification": "hold",
+                            "spans": [],
+                            "decision": "hold",
+                            "issueCodes": ["invalid_review"],
+                        }
+                        continue
                     try:
                         aggregate_consensus[question_id] = reconcile_reviews(
                             source_text,
@@ -7494,38 +8251,78 @@ class QualificationRunCoordinator:
                             "decision": "hold",
                             "issueCodes": ["invalid_review"],
                         }
+                    self.store.store_aggregate_review_consensus(
+                        qualification,
+                        parent_run_id,
+                        question_id,
+                        signatures[question_id],
+                        aggregate_consensus[question_id],
+                    )
+                all_review_receipts = list(
+                    {
+                        str(value.get("threadId") or ""): value
+                        for question_id in question_ids
+                        for value in executions_by_question[question_id]
+                        if value.get("threadId")
+                    }.values()
+                )
+                all_thread_ids = list(
+                    dict.fromkeys(
+                        str(value.get("threadId") or "")
+                        for value in all_review_receipts
+                        if value.get("threadId")
+                    )
+                )
                 self.store.update(
                     qualification,
                     run_id,
                     executionPhase="server_aggregate_review_reconciliation",
-                    aggregateReviewThreadIds=list(review_thread_ids),
-                    aggregateReviewExecutions=review_receipts,
+                    aggregateReviewThreadIds=all_thread_ids,
+                    aggregateReviewExecutions=all_review_receipts,
+                    aggregateReviewReusedQuestionIds=reused_question_ids,
+                    aggregateReviewReusedCount=len(reused_question_ids),
+                    aggregateReviewReused=(
+                        len(reused_question_ids) == len(question_ids)
+                    ),
                 )
-            result = self.app_server.run_turn(
-                prompt,
-                work_type=f"maintenance_{stage_id}_candidate",
-                sandbox="read-only",
-                emit=emit,
-                output_schema=candidate_output_schema(
-                    question_ids,
+            invalid_question_ids = set(checkpoint_mismatches)
+            candidate_question_ids = [
+                question_id
+                for question_id in question_ids
+                if question_id not in invalid_question_ids
+            ]
+            if candidate_question_ids:
+                candidate_prompt = _filter_structured_candidate_prompt(
+                    prompt,
+                    set(candidate_question_ids),
+                )
+                result = self.app_server.run_turn(
+                    candidate_prompt,
+                    work_type=f"maintenance_{stage_id}_candidate",
+                    sandbox="read-only",
+                    emit=emit,
+                    output_schema=candidate_output_schema(
+                        candidate_question_ids,
+                        targets_by_question,
+                    ),
+                    on_thread_started=on_thread_started,
+                    on_turn_started=on_turn_started,
+                    heartbeat=heartbeat,
+                    cwd=self.repo_root,
+                    model=model,
+                    reasoning_effort=reasoning_effort,
+                )
+                if result.changed_files:
+                    raise QualificationRunError(
+                        "read-only候補生成でfile変更通知を検出しました。"
+                    )
+                candidates = parse_candidates(
+                    result.final_message,
+                    candidate_question_ids,
                     targets_by_question,
-                ),
-                on_thread_started=on_thread_started,
-                on_turn_started=on_turn_started,
-                heartbeat=heartbeat,
-                cwd=self.repo_root,
-                model=model,
-                reasoning_effort=reasoning_effort,
-            )
-            if result.changed_files:
-                raise QualificationRunError(
-                    "read-only候補生成でfile変更通知を検出しました。"
                 )
-            candidates = parse_candidates(
-                result.final_message,
-                question_ids,
-                targets_by_question,
-            )
+            else:
+                candidates = []
             bindings = {
                 str(value.get("id") or value.get("uiQuestionId") or ""):
                 SourceIdentityBinding.from_mapping(value)
@@ -7573,6 +8370,34 @@ class QualificationRunCoordinator:
                 workVersionReceipt={"recordedCount": 0, "items": []},
                 deltaUnknown=False,
             )
+
+            for question_id in question_ids:
+                if question_id not in invalid_question_ids:
+                    continue
+                consensus = aggregate_consensus[question_id]
+                checkpoint_question(
+                    {
+                        "questionId": question_id,
+                        "status": "failed",
+                        "summary": "集約回答レビューを保留しました。",
+                        "holdEvidence": {
+                            "classification": consensus["classification"],
+                            "issueCodes": list(consensus["issueCodes"]),
+                            "sourceHash": consensus["sourceHash"],
+                        },
+                        "aggregateAnswerReview": {
+                            "classification": consensus["classification"],
+                            "decision": consensus["decision"],
+                            "sourceHash": consensus["sourceHash"],
+                            "issueCodes": list(consensus["issueCodes"]),
+                            "decomposition": copy.deepcopy(consensus),
+                        },
+                        "commands": [
+                            {"command": "dual aggregate review", "status": "fail"}
+                        ],
+                        "changedFiles": [],
+                    }
+                )
 
             for candidate in candidates:
                 question_id = candidate.question_id
@@ -7973,6 +8798,16 @@ class QualificationRunCoordinator:
                 "changedFiles": sorted(committed_files),
                 "resolvedFailedDeltaPaths": [],
             }
+            execution_metadata = (
+                {
+                    "model": result.model,
+                    "serviceTier": result.service_tier,
+                    "reasoningEffort": result.reasoning_effort,
+                    "turnCompletionMode": result.completion_mode,
+                }
+                if result is not None
+                else {}
+            )
             self.store.update(
                 qualification,
                 run_id,
@@ -7983,10 +8818,7 @@ class QualificationRunCoordinator:
                 candidateTransactionOpen=False,
                 batchQuestionResults=copy.deepcopy(committed_results),
                 workVersionReceipt=copy.deepcopy(work_version_receipt),
-                model=result.model,
-                serviceTier=result.service_tier,
-                reasoningEffort=result.reasoning_effort,
-                turnCompletionMode=result.completion_mode,
+                **execution_metadata,
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
                 unsafeChangedFiles=[],
@@ -8009,10 +8841,7 @@ class QualificationRunCoordinator:
                 receiptValidated=True,
                 batchQuestionResults=committed_results,
                 workVersionReceipt=work_version_receipt,
-                model=result.model,
-                serviceTier=result.service_tier,
-                reasoningEffort=result.reasoning_effort,
-                turnCompletionMode=result.completion_mode,
+                **execution_metadata,
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
                 unsafeChangedFiles=[],
@@ -10628,28 +11457,35 @@ class QualificationRunCoordinator:
                         derived_aliases = set(
                             after_fields.get("sourceUniqueKeys") or []
                         )
-                        reproducible_derived_aliases = {
-                            frozenset(
-                                derived_source_unique_keys(
-                                    {
-                                        "questionBodyText": source_text,
-                                        field: value,
-                                    },
-                                    decomposition,
-                                )
+                        source_parent_identities = {
+                            json.dumps(
+                                contract(entry).get(
+                                    "aggregateStableParentIdentity"
+                                ),
+                                ensure_ascii=False,
+                                sort_keys=True,
                             )
-                            for field in (
-                                "sourceQuestionKey",
-                                "original_question_id",
-                                "originalQuestionId",
-                                "public_question_id",
+                            for entry in source_matches
+                            if contract(entry).get(
+                                "aggregateStableParentIdentity"
                             )
-                            if (value := after_identity.get(field))
-                            and str(value) in matched_target_group
                         }
-                        if frozenset(derived_aliases) not in (
-                            reproducible_derived_aliases
-                        ):
+                        if len(source_parent_identities) != 1:
+                            raise QualificationRunError(
+                                f"sourceのstable parent identityを一意に確認できません: "
+                                f"{relative}"
+                            )
+                        source_parent_identity = json.loads(
+                            next(iter(source_parent_identities))
+                        )
+                        expected_derived_aliases = set(
+                            derived_source_unique_keys_for_parent(
+                                str(source_parent_identity["value"]),
+                                source_text,
+                                decomposition,
+                            )
+                        )
+                        if derived_aliases != expected_derived_aliases:
                             raise QualificationRunError(
                                 f"派生sourceUniqueKeysを再現できません: {relative}"
                             )

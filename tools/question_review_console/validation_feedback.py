@@ -93,6 +93,16 @@ def build_child_feedback(
         )
 
     if failed_commands:
+        if any(
+            str(value.get("command") or "").strip() == "server commit"
+            for value in failed_commands
+        ):
+            add(
+                "server_validation",
+                "server.commit",
+                "server-owned ID/source/scope/transaction検証に失敗しました。",
+                False,
+            )
         add(
             "machine_validation",
             "result.commands",
@@ -313,6 +323,41 @@ def write_improvement_report(
 def _classify_message(message: str) -> tuple[str, str, bool]:
     folded = message.casefold()
     categories = (
+        (
+            (
+                "aggregate review execution evidenceが予約契約と一致しません",
+                "aggregate review checkpointに未知のslotがあります",
+                "aggregate review slotの形式が不正です",
+                "aggregate review slotの番号又は状態が不正です",
+                "確定済みaggregate review slotの証拠が不正です",
+                "aggregate review slotとlegacy配列が一致しません",
+                "aggregate review checkpoint slotsの形式が不正です",
+                "legacy aggregate review checkpointの形式が不正です",
+                "legacy aggregate review executionの順序が不正です",
+                "aggregate review slot予約を再読検証できません",
+                "aggregate review予約取消を再読検証できません",
+                "aggregate review予約を原子的に取消できません",
+                "aggregate review checkpoint signatureが一致しません",
+                "開始済みaggregate review slotを確認できません",
+                "aggregate review slot確定を再読検証できません",
+                "aggregate review consensus signatureが一致しません",
+                "二つのaggregate review slot確定前にconsensusを保存できません",
+                "aggregate review consensusを再読検証できません",
+            ),
+            (
+                "aggregate_review_checkpoint_integrity",
+                "aggregateAnswerReview.checkpoint",
+                False,
+            ),
+        ),
+        (
+            ("stable source identity", "stable parent identity"),
+            ("stable_parent_identity", "record.stableParentIdentity", False),
+        ),
+        (
+            ("集約回答レビューを保留", "aggregate review checkpoint mismatch"),
+            ("aggregate_review_hold", "aggregateAnswerReview", False),
+        ),
         (
             ("00_source", "source immut", "source不変"),
             ("source_immutability", "00_source", False),

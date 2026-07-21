@@ -21,6 +21,23 @@ from tools.question_review_console.question_candidate import CandidateTarget
 from scripts.common.aggregate_answer_decomposition import source_text_hash
 
 
+_BaseFlowAppServer = FlowAppServer
+
+
+class FlowAppServer(_BaseFlowAppServer):
+    """Keep the shared fake's aggregate execution evidence policy-accurate."""
+
+    def run_turn(self, prompt, **kwargs):
+        result = super().run_turn(prompt, **kwargs)
+        if "_aggregate_review_" not in kwargs["work_type"]:
+            return result
+        return replace(
+            result,
+            model=kwargs["model"],
+            reasoning_effort=kwargs["reasoning_effort"],
+        )
+
+
 class SourceBindingAliasTests(unittest.TestCase):
     def test_existing_review_id_alias_keeps_stable_source_binding(self):
         binding = {
@@ -1187,6 +1204,41 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
     @staticmethod
+    def _invalid_resolved_aggregate_checkpoint(question_id, source_text):
+        signature = {
+            "sourceHash": source_text_hash(source_text),
+            "stableParentIdentity": {
+                "field": "sourceQuestionKey",
+                "value": question_id.replace("new-exam-2026-q", "new-exam:2026:q"),
+            },
+            "model": "gpt-5.5",
+            "reasoningEffort": "high",
+        }
+        review = {"preserved": True}
+        execution = {
+            "reviewNumber": 1,
+            "threadId": "",
+            "sessionId": "session-invalid",
+            "turnId": "turn-invalid",
+            "model": "gpt-5.5",
+            "reasoningEffort": "high",
+        }
+        return {
+            **signature,
+            "slots": {
+                "1": {
+                    "slot": 1,
+                    "status": "resolved",
+                    "review": copy.deepcopy(review),
+                    "execution": copy.deepcopy(execution),
+                }
+            },
+            "reviews": [copy.deepcopy(review)],
+            "executions": [copy.deepcopy(execution)],
+            "consensus": None,
+        }
+
+    @staticmethod
     def _mark_child_succeeded(coordinator, qualification, child_run_id):
         coordinator.store.update(
             qualification,
@@ -1856,7 +1908,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [kwargs["model"] for _question_id, _prompt, kwargs in app_server.calls],
             ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
         )
-        self.assertEqual(len(app_server.aggregate_review_calls), 6)
+        self.assertEqual(len(app_server.aggregate_review_calls), 2)
         self.assertTrue(
             all(
                 kwargs["model"] == "gpt-5.5"
@@ -1865,6 +1917,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         )
         failed_stage = completed["questionExecutions"][0]["stages"][0]
+        checkpoint = completed["aggregateReviewCheckpoints"][
+            "new-exam-2026-q1"
+        ]
+        self.assertEqual(len(checkpoint["reviews"]), 2)
+        self.assertEqual(len(checkpoint["executions"]), 2)
         self.assertEqual(
             [attempt["requestedModel"] for attempt in failed_stage["validationAttempts"]],
             ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
@@ -1881,6 +1938,774 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(
             successful_stage["validationAttempts"][0]["requestedModel"],
             "gpt-5.5",
+        )
+
+    def test_review_checkpoint_mismatch_blocks_without_third_review(self):
+        class MismatchingCheckpointAppServer(PerQuestionQueueAppServer):
+            coordinator = None
+            parent_run_id = ""
+            checkpoint_changed = False
+
+            def run_turn(self, prompt, **kwargs):
+                result = super().run_turn(prompt, **kwargs)
+                if (
+                    kwargs["work_type"] == "maintenance_question_type_candidate"
+                    and not self.checkpoint_changed
+                ):
+                    parent = self.coordinator.store.get(
+                        "new-exam",
+                        self.parent_run_id,
+                    )
+                    checkpoints = copy.deepcopy(
+                        parent["aggregateReviewCheckpoints"]
+                    )
+                    checkpoints["new-exam-2026-q1"]["sourceHash"] = (
+                        "sha256:" + "0" * 64
+                    )
+                    self.coordinator.store.update(
+                        "new-exam",
+                        self.parent_run_id,
+                        aggregateReviewCheckpoints=checkpoints,
+                    )
+                    self.checkpoint_changed = True
+                return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = MismatchingCheckpointAppServer(
+                failed_question_id="new-exam-2026-q1"
+            )
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            app_server.coordinator = coordinator
+            app_server.parent_run_id = parent["runId"]
+            self._write_counted_sources(root, 1)
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(len(app_server.aggregate_review_calls), 2)
+        attempts = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual([value["status"] for value in attempts], ["failed", "blocked"])
+        self.assertEqual(
+            attempts[-1]["feedback"]["issues"][0]["code"],
+            "aggregate_review_hold",
+        )
+
+    def test_parallel_batches_preserve_all_review_checkpoints_and_never_exceed_two_reviews(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            question_ids = [
+                value["questionId"] for value in parent["questionExecutions"]
+            ]
+            barrier = threading.Barrier(len(question_ids))
+            errors = []
+
+            def write_batch(question_id):
+                signature = {
+                    "sourceHash": "sha256:" + "1" * 64,
+                    "stableParentIdentity": {
+                        "field": "sourceQuestionKey",
+                        "value": f"source:{question_id}",
+                    },
+                    "model": "gpt-5.5",
+                    "reasoningEffort": "high",
+                }
+                try:
+                    barrier.wait()
+                    for slot in (1, 2):
+                        reserved = coordinator.store.reserve_aggregate_review_slots(
+                            "new-exam",
+                            parent["runId"],
+                            [(question_id, signature, slot)],
+                        )[question_id]
+                        self.assertEqual(reserved["status"], "reserved")
+                        coordinator.store.resolve_aggregate_review_slots(
+                            "new-exam",
+                            parent["runId"],
+                            [
+                                (
+                                    question_id,
+                                    signature,
+                                    slot,
+                                    {"slot": slot},
+                                    {
+                                        "reviewNumber": slot,
+                                        "threadId": f"thread-{question_id}-{slot}",
+                                        "sessionId": f"session-{question_id}-{slot}",
+                                        "turnId": f"turn-{question_id}-{slot}",
+                                        "model": "gpt-5.5",
+                                        "reasoningEffort": "high",
+                                    },
+                                )
+                            ],
+                        )
+                    coordinator.store.store_aggregate_review_consensus(
+                        "new-exam",
+                        parent["runId"],
+                        question_id,
+                        signature,
+                        {"decision": "approve"},
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    errors.append(exc)
+
+            threads = [
+                threading.Thread(target=write_batch, args=(question_id,))
+                for question_id in question_ids
+            ]
+            for thread in threads:
+                thread.start()
+            for thread in threads:
+                thread.join()
+
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            repeated_statuses = []
+            for question_id in question_ids:
+                for slot in (1, 2):
+                    repeated = coordinator.store.reserve_aggregate_review_slot(
+                        "new-exam",
+                        parent["runId"],
+                        question_id,
+                        {
+                            "sourceHash": "sha256:" + "1" * 64,
+                            "stableParentIdentity": {
+                                "field": "sourceQuestionKey",
+                                "value": f"source:{question_id}",
+                            },
+                            "model": "gpt-5.5",
+                            "reasoningEffort": "high",
+                        },
+                        slot,
+                    )
+                    repeated_statuses.append(repeated["status"])
+
+        self.assertEqual(errors, [])
+        checkpoints = completed["aggregateReviewCheckpoints"]
+        self.assertEqual(set(checkpoints), set(question_ids))
+        for question_id in question_ids:
+            checkpoint = checkpoints[question_id]
+            self.assertEqual(set(checkpoint["slots"]), {"1", "2"})
+            self.assertEqual(len(checkpoint["reviews"]), 2)
+            self.assertEqual(len(checkpoint["executions"]), 2)
+        self.assertEqual(repeated_statuses, ["resolved"] * 4)
+
+    def test_prethread_reservation_cancellation_is_atomic_and_preserves_other_slots(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            first_id, second_id = [
+                value["questionId"] for value in parent["questionExecutions"]
+            ]
+
+            def signature(question_id):
+                return {
+                    "sourceHash": "sha256:" + "4" * 64,
+                    "stableParentIdentity": {
+                        "field": "sourceQuestionKey",
+                        "value": question_id.replace(
+                            "new-exam-2026-q", "new-exam:2026:q"
+                        ),
+                    },
+                    "model": "gpt-5.5",
+                    "reasoningEffort": "high",
+                }
+
+            first_signature = signature(first_id)
+            second_signature = signature(second_id)
+            coordinator.store.reserve_aggregate_review_slot(
+                "new-exam", parent["runId"], first_id, first_signature, 1
+            )
+            coordinator.store.resolve_aggregate_review_slot(
+                "new-exam",
+                parent["runId"],
+                first_id,
+                first_signature,
+                1,
+                review={"slot": 1},
+                execution={
+                    "reviewNumber": 1,
+                    "threadId": "thread-existing",
+                    "sessionId": "session-existing",
+                    "turnId": "turn-existing",
+                    "model": "gpt-5.5",
+                    "reasoningEffort": "high",
+                },
+            )
+            reservations = coordinator.store.reserve_aggregate_review_slots(
+                "new-exam",
+                parent["runId"],
+                [
+                    (first_id, first_signature, 2),
+                    (second_id, second_signature, 1),
+                ],
+            )
+            before = coordinator.store.get("new-exam", parent["runId"])[
+                "aggregateReviewCheckpoints"
+            ]
+            invalid_second = copy.deepcopy(reservations[second_id]["slot"])
+            invalid_second["reservedAt"] = "different"
+
+            with self.assertRaisesRegex(Exception, "取消対象"):
+                coordinator.store.cancel_unstarted_aggregate_review_slots(
+                    "new-exam",
+                    parent["runId"],
+                    [
+                        (
+                            first_id,
+                            first_signature,
+                            2,
+                            reservations[first_id]["slot"],
+                        ),
+                        (second_id, second_signature, 1, invalid_second),
+                    ],
+                )
+            unchanged = coordinator.store.get("new-exam", parent["runId"])[
+                "aggregateReviewCheckpoints"
+            ]
+            self.assertEqual(unchanged, before)
+
+            original_write = coordinator.store._write_manifest
+
+            def ignore_cancellation_write(_path, _manifest):
+                return None
+
+            coordinator.store._write_manifest = ignore_cancellation_write
+            try:
+                with self.assertRaisesRegex(Exception, "再読検証"):
+                    coordinator.store.cancel_unstarted_aggregate_review_slots(
+                        "new-exam",
+                        parent["runId"],
+                        [
+                            (
+                                first_id,
+                                first_signature,
+                                2,
+                                reservations[first_id]["slot"],
+                            ),
+                            (
+                                second_id,
+                                second_signature,
+                                1,
+                                reservations[second_id]["slot"],
+                            ),
+                        ],
+                    )
+            finally:
+                coordinator.store._write_manifest = original_write
+            after_noop = coordinator.store.get("new-exam", parent["runId"])[
+                "aggregateReviewCheckpoints"
+            ]
+            self.assertEqual(after_noop, before)
+
+            coordinator.store.cancel_unstarted_aggregate_review_slots(
+                "new-exam",
+                parent["runId"],
+                [
+                    (
+                        first_id,
+                        first_signature,
+                        2,
+                        reservations[first_id]["slot"],
+                    ),
+                    (
+                        second_id,
+                        second_signature,
+                        1,
+                        reservations[second_id]["slot"],
+                    ),
+                ],
+            )
+            after = coordinator.store.get("new-exam", parent["runId"])[
+                "aggregateReviewCheckpoints"
+            ]
+
+        self.assertEqual(set(after), {first_id})
+        self.assertEqual(set(after[first_id]["slots"]), {"1"})
+        self.assertEqual(after[first_id]["slots"]["1"]["status"], "resolved")
+
+    def test_cancellation_readback_failure_does_not_retry_external_model(self):
+        class NoOpCancellationWriteAppServer(FlowAppServer):
+            coordinator = None
+
+            def run_turn(self, prompt, **kwargs):
+                self.calls.append((prompt, kwargs))
+                original_write = self.coordinator.store._write_manifest
+
+                def ignore_once(_path, _manifest):
+                    self.coordinator.store._write_manifest = original_write
+
+                self.coordinator.store._write_manifest = ignore_once
+                raise SubscriptionGateError("利用上限に達しています。")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = NoOpCancellationWriteAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            app_server.coordinator = coordinator
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam", parent["runId"], lambda _message: None
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(len(app_server.calls), 1)
+        self.assertIsNone(completed["pauseKind"])
+        attempts = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(attempts[0]["status"], "blocked")
+        self.assertEqual(
+            attempts[0]["feedback"]["issues"][0]["code"],
+            "aggregate_review_checkpoint_integrity",
+        )
+        checkpoint = completed["aggregateReviewCheckpoints"][
+            "new-exam-2026-q1"
+        ]
+        self.assertEqual(checkpoint["slots"]["1"]["status"], "started")
+
+    def test_checkpoint_integrity_failures_block_once_without_more_model_turns(self):
+        cases = (
+            (
+                "reserve",
+                "reserve_aggregate_review_slots",
+                "aggregate review slot予約を再読検証できません。",
+                0,
+            ),
+            (
+                "resolve",
+                "resolve_aggregate_review_slots",
+                "aggregate review slot確定を再読検証できません。",
+                1,
+            ),
+            (
+                "consensus",
+                "store_aggregate_review_consensus",
+                "aggregate review consensusを再読検証できません。",
+                2,
+            ),
+        )
+        for label, method_name, message, expected_review_calls in cases:
+            with self.subTest(failure=label), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                app_server = PerQuestionQueueAppServer()
+                coordinator, _sync, _server, parent = self._start_deferred_flow(
+                    root,
+                    SourceOnlyInventory(),
+                    ["question_type"],
+                    app_server=app_server,
+                )
+                self._write_counted_sources(
+                    root, 1, question_body_text="Aであり、Bである。"
+                )
+                checkpoint_at_failure = []
+
+                def fail_integrity(*_args, **_kwargs):
+                    checkpoint_at_failure.append(
+                        copy.deepcopy(
+                            coordinator.store.get("new-exam", parent["runId"]).get(
+                                "aggregateReviewCheckpoints"
+                            )
+                            or {}
+                        )
+                    )
+                    raise QualificationRunError(message)
+
+                setattr(coordinator.store, method_name, fail_integrity)
+                result = coordinator._run_maintenance_flow(
+                    "new-exam", parent["runId"], lambda _message: None
+                )
+                completed = coordinator.store.get("new-exam", parent["runId"])
+
+                self.assertEqual(result["queueStatus"], "partial")
+                self.assertEqual(
+                    len(app_server.aggregate_review_calls), expected_review_calls
+                )
+                self.assertEqual(app_server.calls, [])
+                attempts = completed["questionExecutions"][0]["stages"][0][
+                    "validationAttempts"
+                ]
+                self.assertEqual(len(attempts), 1)
+                self.assertEqual(attempts[0]["status"], "blocked")
+                self.assertEqual(
+                    attempts[0]["feedback"]["issues"][0]["code"],
+                    "aggregate_review_checkpoint_integrity",
+                )
+                self.assertEqual(len(checkpoint_at_failure), 1)
+                self.assertEqual(
+                    completed.get("aggregateReviewCheckpoints") or {},
+                    checkpoint_at_failure[0],
+                )
+
+    def test_corrupt_review_checkpoint_and_execution_evidence_fail_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            first_id, second_id = [
+                value["questionId"] for value in parent["questionExecutions"]
+            ]
+
+            def signature(question_id):
+                return {
+                    "sourceHash": "sha256:" + "2" * 64,
+                    "stableParentIdentity": {
+                        "field": "sourceQuestionKey",
+                        "value": f"source:{question_id}",
+                    },
+                    "model": "gpt-5.5",
+                    "reasoningEffort": "high",
+                }
+
+            corrupt = {
+                **signature(first_id),
+                "slots": {
+                    "3": {"slot": 3, "status": "started"},
+                },
+                "reviews": [],
+                "executions": [],
+                "consensus": None,
+            }
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                aggregateReviewCheckpoints={first_id: corrupt},
+            )
+            mismatch = coordinator.store.reserve_aggregate_review_slot(
+                "new-exam",
+                parent["runId"],
+                first_id,
+                signature(first_id),
+                1,
+            )
+            persisted_unknown = coordinator.store.get(
+                "new-exam",
+                parent["runId"],
+            )["aggregateReviewCheckpoints"][first_id]
+
+            legacy_overflow = {
+                **signature(first_id),
+                "reviews": [{"slot": value} for value in (1, 2, 3)],
+                "executions": [
+                    {"reviewNumber": value} for value in (1, 2, 3)
+                ],
+                "consensus": None,
+            }
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                aggregateReviewCheckpoints={first_id: legacy_overflow},
+            )
+            overflow = coordinator.store.reserve_aggregate_review_slot(
+                "new-exam",
+                parent["runId"],
+                first_id,
+                signature(first_id),
+                1,
+            )
+            persisted_overflow = coordinator.store.get(
+                "new-exam",
+                parent["runId"],
+            )["aggregateReviewCheckpoints"][first_id]
+
+            coordinator.store.reserve_aggregate_review_slot(
+                "new-exam",
+                parent["runId"],
+                second_id,
+                signature(second_id),
+                1,
+            )
+            with self.assertRaisesRegex(
+                Exception,
+                "execution evidence",
+            ):
+                coordinator.store.resolve_aggregate_review_slot(
+                    "new-exam",
+                    parent["runId"],
+                    second_id,
+                    signature(second_id),
+                    1,
+                    review={"slot": 1},
+                    execution={
+                        "reviewNumber": 1,
+                        "threadId": "thread-1",
+                        "sessionId": "session-1",
+                        "turnId": "turn-1",
+                        "model": "wrong-model",
+                        "reasoningEffort": "high",
+                    },
+                )
+            unresolved = coordinator.store.aggregate_review_checkpoint(
+                "new-exam",
+                parent["runId"],
+                second_id,
+            )
+            with self.assertRaisesRegex(Exception, "重複予約"):
+                coordinator.store.reserve_aggregate_review_slots(
+                    "new-exam",
+                    parent["runId"],
+                    [
+                        (second_id, signature(second_id), 1),
+                        (second_id, signature(second_id), 2),
+                    ],
+                )
+
+        self.assertEqual(mismatch["status"], "mismatch")
+        self.assertIn("3", persisted_unknown["slots"])
+        self.assertEqual(overflow["status"], "mismatch")
+        self.assertEqual(len(persisted_overflow["reviews"]), 3)
+        self.assertEqual(unresolved["slots"]["1"]["status"], "started")
+
+    def test_invalid_resolved_execution_evidence_is_preserved_and_not_rereviewed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+            )
+            question_id = parent["questionExecutions"][0]["questionId"]
+            signature = {
+                "sourceHash": "sha256:" + "3" * 64,
+                "stableParentIdentity": {
+                    "field": "sourceQuestionKey",
+                    "value": "new-exam:2026:q1",
+                },
+                "model": "gpt-5.5",
+                "reasoningEffort": "high",
+            }
+            valid_execution = {
+                "reviewNumber": 1,
+                "threadId": "thread-1",
+                "sessionId": "session-1",
+                "turnId": "turn-1",
+                "model": "gpt-5.5",
+                "reasoningEffort": "high",
+            }
+            coordinator.store.reserve_aggregate_review_slot(
+                "new-exam", parent["runId"], question_id, signature, 1
+            )
+            coordinator.store.resolve_aggregate_review_slot(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                signature,
+                1,
+                review={"slot": 1},
+                execution=valid_execution,
+            )
+            original = coordinator.store.get("new-exam", parent["runId"])[
+                "aggregateReviewCheckpoints"
+            ][question_id]
+
+            for field, invalid in (
+                ("reviewNumber", 2),
+                ("model", "wrong-model"),
+                ("reasoningEffort", "low"),
+                ("threadId", ""),
+                ("sessionId", ""),
+                ("turnId", ""),
+            ):
+                with self.subTest(field=field):
+                    corrupt = copy.deepcopy(original)
+                    corrupt["slots"]["1"]["execution"][field] = invalid
+                    corrupt["executions"][0][field] = invalid
+                    coordinator.store.update(
+                        "new-exam",
+                        parent["runId"],
+                        aggregateReviewCheckpoints={question_id: corrupt},
+                    )
+                    result = coordinator.store.reserve_aggregate_review_slot(
+                        "new-exam", parent["runId"], question_id, signature, 1
+                    )
+                    persisted = coordinator.store.get(
+                        "new-exam", parent["runId"]
+                    )["aggregateReviewCheckpoints"][question_id]
+                    self.assertEqual(result["status"], "mismatch")
+                    self.assertEqual(persisted, corrupt)
+
+    def test_invalid_persisted_execution_evidence_blocks_before_any_model_turn_and_is_preserved(self):
+        source_text = "Aであり、Bである。"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 1, question_body_text=source_text)
+            question_id = parent["questionExecutions"][0]["questionId"]
+            invalid = self._invalid_resolved_aggregate_checkpoint(
+                question_id, source_text
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                aggregateReviewCheckpoints={question_id: copy.deepcopy(invalid)},
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam", parent["runId"], lambda _message: None
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(app_server.aggregate_review_calls, [])
+        self.assertEqual(app_server.calls, [])
+        self.assertEqual(
+            completed["aggregateReviewCheckpoints"][question_id], invalid
+        )
+        attempts = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual(len(attempts), 1, attempts)
+        self.assertEqual(attempts[0]["status"], "blocked")
+
+    def test_invalid_checkpoint_is_excluded_while_valid_question_continues(self):
+        source_text = "Aであり、Bである。"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 2, question_body_text=source_text)
+            invalid_id, valid_id = [
+                value["questionId"] for value in parent["questionExecutions"]
+            ]
+            invalid = self._invalid_resolved_aggregate_checkpoint(
+                invalid_id, source_text
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                aggregateReviewCheckpoints={invalid_id: copy.deepcopy(invalid)},
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam", parent["runId"], lambda _message: None
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(len(app_server.aggregate_review_calls), 2)
+        self.assertEqual(app_server.batch_calls, [(valid_id,)])
+        self.assertEqual(
+            completed["aggregateReviewCheckpoints"][invalid_id], invalid
+        )
+        stages = {
+            value["questionId"]: value["stages"][0]
+            for value in completed["questionExecutions"]
+        }
+        self.assertEqual(stages[invalid_id]["status"], "blocked")
+        self.assertEqual(stages[valid_id]["status"], "validated")
+
+    def test_missing_stable_parent_identity_blocks_before_any_model_turn(self):
+        class MissingStableIdentityInventory(SourceOnlyInventory):
+            def projected_input(
+                self,
+                qualification,
+                list_group_id,
+                source_record_ref,
+            ):
+                projected = super().projected_input(
+                    qualification,
+                    list_group_id,
+                    source_record_ref,
+                )
+                record = copy.deepcopy(projected.record)
+                record.pop("originalQuestionId", None)
+                return SimpleNamespace(
+                    record=record,
+                    applied_files=projected.applied_files,
+                    errors=projected.errors,
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                MissingStableIdentityInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            source = (
+                root
+                / "output/new-exam/questions_json/2026/00_source/question_2026_1.json"
+            )
+            source.parent.mkdir(parents=True, exist_ok=True)
+            source.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                "reviewQuestionId": "new-exam-2026-q1",
+                                "sourceRecordRef": "question_2026_1.json#0",
+                                "questionBodyText": "Aであり、Bである。",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam", parent["runId"], lambda _message: None
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(app_server.aggregate_review_calls, [])
+        self.assertEqual(app_server.calls, [])
+        attempts = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(attempts[0]["status"], "blocked")
+        self.assertEqual(
+            attempts[0]["feedback"]["issues"][0]["code"],
+            "stable_parent_identity",
         )
 
     def test_resumed_fresh_and_failed_questions_use_separate_models(self):
@@ -2036,7 +2861,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 self.timed_out = False
 
             def run_turn(self, prompt, **kwargs):
-                if not self.timed_out:
+                if (
+                    not self.timed_out
+                    and kwargs["work_type"]
+                    == "maintenance_question_type_candidate"
+                ):
                     self.timed_out = True
                     question_ids = self._question_ids(prompt)
                     with self._lock:
@@ -2071,6 +2900,59 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
             ],
         )
+
+    def test_started_unresolved_review_slot_blocks_without_rerun(self):
+        class ReviewTimeoutAppServer(PerQuestionQueueAppServer):
+            review_starts = 0
+
+            def run_turn(self, prompt, **kwargs):
+                if (
+                    self.review_starts == 0
+                    and "_aggregate_review_" in kwargs["work_type"]
+                ):
+                    self.review_starts += 1
+                    kwargs["on_thread_started"](
+                        "thread-review-timeout",
+                        "session-review-timeout",
+                    )
+                    kwargs["on_turn_started"](
+                        "thread-review-timeout",
+                        "turn-review-timeout",
+                    )
+                    raise CodexAppServerError("review turnが時間切れになりました。")
+                if "_aggregate_review_" in kwargs["work_type"]:
+                    self.review_starts += 1
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = ReviewTimeoutAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 1)
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(app_server.review_starts, 1)
+        checkpoint = completed["aggregateReviewCheckpoints"][
+            "new-exam-2026-q1"
+        ]
+        self.assertEqual(set(checkpoint["slots"]), {"1"})
+        self.assertEqual(checkpoint["slots"]["1"]["status"], "started")
+        attempts = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual([value["status"] for value in attempts], ["interrupted", "blocked"])
 
     def test_server_rebases_validated_candidate_into_canonical_patch(self):
         class ServerCandidateAppServer(PerQuestionQueueAppServer):
@@ -2153,7 +3035,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(records[0]["questionType"], "flash_card")
         self.assertFalse(workspace_exists)
 
-    def test_checkpoint_write_failure_rolls_back_before_question_retry(self):
+    def test_checkpoint_write_failure_rolls_back_and_blocks_without_retry(self):
         patch_relative = (
             "output/new-exam/questions_json/2026/10_questionType_fixed/"
             "question_2026_1_questionType_fixed.json"
@@ -2226,25 +3108,22 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 coordinator.store.get("new-exam", child_id)
                 for child_id in completed["childRunIds"]
             ]
-            patch_records = json.loads(
-                (root / patch_relative).read_text(encoding="utf-8")
-            )
 
-        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(result["queueStatus"], "partial")
         self.assertEqual(failed_checkpoints, 1)
-        self.assertEqual(len(app_server.batch_calls), 2)
+        self.assertEqual(len(app_server.batch_calls), 1)
         self.assertEqual(
             [
                 value["status"]
                 for child in children
                 for value in child["batchQuestionResults"]
             ],
-            ["failed", "succeeded"],
+            ["failed"],
         )
         self.assertEqual(children[0]["result"]["changedFiles"], [])
-        self.assertEqual(patch_records[0]["questionType"], "true_false")
+        self.assertFalse((root / patch_relative).exists())
 
-    def test_commit_validation_failure_rolls_back_once_and_retries_question(self):
+    def test_commit_validation_failure_rolls_back_once_without_retry(self):
         patch_relative = (
             "output/new-exam/questions_json/2026/10_questionType_fixed/"
             "question_2026_1_questionType_fixed.json"
@@ -2295,19 +3174,26 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for child_id in completed["childRunIds"]
             ]
 
-        self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(validation_calls, 2)
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(validation_calls, 1)
         self.assertEqual(rollback.call_count, 1)
-        self.assertEqual(len(app_server.batch_calls), 2)
+        self.assertEqual(len(app_server.batch_calls), 1)
         self.assertEqual(
             [
                 value["summary"]
                 for child in children
                 for value in child["batchQuestionResults"]
             ],
-            ["record scope unavailable", f"{question_id}の整備候補を作成した。"],
+            ["record scope unavailable"],
         )
-        self.assertTrue(all(child["retrySafe"] for child in children))
+        feedback = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ][0]["feedback"]
+        self.assertEqual(feedback["status"], "blocked")
+        self.assertIn(
+            "server_validation",
+            [issue["code"] for issue in feedback["issues"]],
+        )
 
     def test_question_concurrency_can_be_raised_to_ten(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2504,7 +3390,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(len(app_server.calls), 3)
+        self.assertEqual(len(app_server.calls), 1)
         self.assertEqual(completed["status"], "succeeded")
         self.assertIsNone(completed["pauseKind"])
         self.assertTrue(completed["retrySafe"])
@@ -3541,6 +4427,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         "original_question_id": (
                             f"{qualification}-{list_group_id}-q{question_number}"
                         ),
+                        "sourceQuestionKey": (
+                            f"{qualification}:{list_group_id}:q{question_number}"
+                        ),
                         "questionBodyText": "現在の論理入力",
                         "choiceTextList": ["選択肢A", "選択肢B"],
                         "isCalculationQuestion": True,
@@ -3623,7 +4512,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for path in projected_paths
             ]
 
-            self.assertEqual(len(inventory.projected_calls), 5)
+            self.assertEqual(
+                set(inventory.projected_calls),
+                {"question_2026_1.json#0", "question_2026_2.json#0"},
+            )
         self.assertEqual(len(set(projected_paths)), 2)
         review_calls = [
             (prompt, kwargs)

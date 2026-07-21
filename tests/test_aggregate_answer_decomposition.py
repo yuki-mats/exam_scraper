@@ -8,6 +8,7 @@ from scripts.common.aggregate_answer_decomposition import (
     extract_source_statements,
     materialize_decomposition,
     reconcile_reviews,
+    stable_parent_identity,
     source_text_hash,
 )
 
@@ -101,6 +102,25 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
         self.assertTrue(
             all("aggregate-statement" in key for key in materialized["sourceUniqueKeys"])
         )
+
+    def test_stable_parent_identity_uses_source_priority(self) -> None:
+        cases = (
+            ("canonical_question_key", "canonical-snake"),
+            ("canonicalQuestionKey", "canonical-camel"),
+            ("source_question_id", "source-id"),
+            ("sourceQuestionKey", "source-question-key"),
+            ("public_question_id", "public-id"),
+            ("original_question_id", "original-snake"),
+            ("originalQuestionId", "original-camel"),
+        )
+
+        for index, (field, value) in enumerate(cases):
+            with self.subTest(field=field):
+                record = dict(cases[index:])
+                self.assertEqual(
+                    stable_parent_identity(record),
+                    {"field": field, "value": value},
+                )
 
 
 if __name__ == "__main__":

@@ -239,6 +239,96 @@ class ChildFeedbackTests(unittest.TestCase):
 
         self.assertTrue(feedback["modelPassServerReject"])
 
+    def test_server_commit_failure_is_non_retryable(self):
+        feedback = _feedback(
+            {
+                "status": "failed",
+                "error": "派生sourceUniqueKeysを再現できません。",
+                "result": {
+                    "status": "failed",
+                    "commands": [
+                        {"command": "question content", "status": "pass"},
+                        {"command": "server commit", "status": "fail"},
+                    ],
+                },
+                "rollback": {
+                    "status": "succeeded",
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                },
+            }
+        )
+
+        self.assertEqual(feedback["status"], "blocked")
+        self.assertIn(
+            "server_validation",
+            [issue["code"] for issue in feedback["issues"]],
+        )
+
+    def test_aggregate_review_hold_is_non_retryable(self):
+        feedback = _feedback(
+            {
+                "status": "failed",
+                "error": "集約回答レビューを保留しました。",
+                "result": {"status": "failed", "commands": []},
+            }
+        )
+
+        self.assertEqual(feedback["status"], "blocked")
+
+    def test_aggregate_review_checkpoint_integrity_is_non_retryable(self):
+        for message in (
+            "aggregate review execution evidenceが予約契約と一致しません。",
+            "aggregate review checkpointに未知のslotがあります。",
+            "aggregate review slotの形式が不正です。",
+            "aggregate review slotの番号又は状態が不正です。",
+            "確定済みaggregate review slotの証拠が不正です。",
+            "aggregate review slotとlegacy配列が一致しません。",
+            "aggregate review checkpoint slotsの形式が不正です。",
+            "legacy aggregate review checkpointの形式が不正です。",
+            "legacy aggregate review executionの順序が不正です。",
+            "aggregate review slot予約を再読検証できません。",
+            "aggregate review予約取消を再読検証できません。",
+            "aggregate review予約を原子的に取消できません。",
+            "aggregate review checkpoint signatureが一致しません。",
+            "開始済みaggregate review slotを確認できません。",
+            "aggregate review slot確定を再読検証できません。",
+            "aggregate review consensus signatureが一致しません。",
+            "二つのaggregate review slot確定前にconsensusを保存できません。",
+            "aggregate review consensusを再読検証できません。",
+        ):
+            with self.subTest(message=message):
+                feedback = _feedback(
+                    {
+                        "status": "failed",
+                        "error": message,
+                        "result": {"status": "failed", "commands": []},
+                    }
+                )
+
+                self.assertEqual(feedback["status"], "blocked")
+                self.assertEqual(
+                    feedback["issues"][0]["code"],
+                    "aggregate_review_checkpoint_integrity",
+                )
+                self.assertFalse(feedback["issues"][0]["retryable"])
+
+    def test_missing_stable_parent_identity_is_non_retryable(self):
+        feedback = _feedback(
+            {
+                "status": "failed",
+                "error": "stable source identity is required for derived statement IDs",
+                "result": {"status": "failed", "commands": []},
+            }
+        )
+
+        self.assertEqual(feedback["status"], "blocked")
+        self.assertEqual(
+            feedback["issues"][0]["code"],
+            "stable_parent_identity",
+        )
+        self.assertFalse(feedback["issues"][0]["retryable"])
+
     def test_feedback_prompt_contains_only_bounded_correction_contract(self):
         feedback = _feedback(
             {"status": "failed", "error": "record identityが一致しません。"},

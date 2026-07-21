@@ -226,20 +226,47 @@ def extract_source_statements(source_text: str, decomposition: Any) -> list[str]
     return statements
 
 
-def stable_parent_key(question: Mapping[str, Any]) -> str:
-    for field in (
-        "canonical_question_key",
-        "canonicalQuestionKey",
-        "source_question_id",
-        "sourceQuestionKey",
-        "public_question_id",
-        "original_question_id",
-        "originalQuestionId",
-    ):
+STABLE_PARENT_IDENTITY_FIELDS = (
+    "canonical_question_key",
+    "canonicalQuestionKey",
+    "source_question_id",
+    "sourceQuestionKey",
+    "public_question_id",
+    "original_question_id",
+    "originalQuestionId",
+)
+
+
+def stable_parent_identity(question: Mapping[str, Any]) -> dict[str, str]:
+    """Return the one source-owned identity used for every derived key check."""
+
+    for field in STABLE_PARENT_IDENTITY_FIELDS:
         value = str(question.get(field) or "").strip()
         if value:
-            return value
+            return {"field": field, "value": value}
     raise ValueError("stable source identity is required for derived statement IDs")
+
+
+def stable_parent_key(question: Mapping[str, Any]) -> str:
+    return stable_parent_identity(question)["value"]
+
+
+def derived_source_unique_keys_for_parent(
+    parent_key: str,
+    source_text: str,
+    decomposition: Any,
+) -> list[str]:
+    if not isinstance(parent_key, str) or not parent_key.strip():
+        raise ValueError("stable source identity is required for derived statement IDs")
+    normalized = normalize_decomposition(decomposition, source_text)
+    statements = extract_source_statements(source_text, normalized)
+    keys: list[str] = []
+    for index, statement in enumerate(statements, start=1):
+        statement_hash = hashlib.sha256(statement.encode("utf-8")).hexdigest()[:16]
+        keys.append(
+            f"{parent_key.strip()}:aggregate-statement:{index}:{statement_hash}"
+        )
+    return keys
 
 
 def derived_source_unique_keys(
@@ -249,14 +276,11 @@ def derived_source_unique_keys(
     source_text = question.get("questionBodyText")
     if not isinstance(source_text, str):
         raise ValueError("questionBodyText must be string")
-    normalized = normalize_decomposition(decomposition, source_text)
-    statements = extract_source_statements(source_text, normalized)
-    parent = stable_parent_key(question)
-    keys: list[str] = []
-    for index, statement in enumerate(statements, start=1):
-        statement_hash = hashlib.sha256(statement.encode("utf-8")).hexdigest()[:16]
-        keys.append(f"{parent}:aggregate-statement:{index}:{statement_hash}")
-    return keys
+    return derived_source_unique_keys_for_parent(
+        stable_parent_key(question),
+        source_text,
+        decomposition,
+    )
 
 
 def materialize_decomposition(
