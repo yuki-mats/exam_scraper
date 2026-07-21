@@ -1,0 +1,58 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T042",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "output/question_review_console/workflow_runs/1eiseikanrisha/**",
+      "output/question_review_console/1eiseikanrisha/**",
+      "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+    ],
+    "commands": [
+      {
+        "command": "Qualification-wide preview and fresh start",
+        "status": "pass",
+        "summary": "1044 questions; no listGroupIds, questionIds, questionRange, updateTargetIds, or resumedFrom"
+      },
+      {
+        "command": "Full question_type trial 20260722T020410463780-fbbaff93",
+        "status": "pass",
+        "summary": "95/95 children succeeded; 310 validated and 734 blocked with no pending work"
+      },
+      {
+        "command": "Exclusive four-way audit",
+        "status": "pass",
+        "summary": "target=1, non_target=309, hold=390, invalid=344; total=1044"
+      },
+      {
+        "command": "Dual-review checkpoint audit",
+        "status": "pass",
+        "summary": "1044 questions each had exactly two resolved reviews, distinct threads, gpt-5.5/high, prompt v2; no third review"
+      },
+      {
+        "command": "Target source-slice and stable-key readback",
+        "status": "pass",
+        "summary": "Question 5c0b87569ecfd60b3d195d5d yielded four exact source slices and four reproducible keys with boolean calculation flag"
+      },
+      {
+        "command": "Child receipt and retry audit",
+        "status": "pass",
+        "summary": "95 receipts validated, retrySafe, no unsafe child, rollback not required; every question had exactly one validation attempt"
+      },
+      {
+        "command": "Focused regression and source immutability",
+        "status": "pass",
+        "summary": "131 tests passed; 5799 source files unchanged; HEAD and origin/main are edd1dd95b238887e9a6fc4a81a7af1bb7c60a171"
+      }
+    ],
+    "summary": "第一種衛生管理者1044問を資格全体指定で一巡した。semantic consensusはtarget 1、non_target 313、hold 730。証拠不全のinvalid_review 339件、source_hash_mismatch 1件と、候補検証で対象外record変更を検出した4件をinvalidへ分離すると、target 1、non_target 309、hold 390、invalid 344で1044問を排他的に覆う。target 1件は4 source span、tool-only slice、stable keys、boolean flagを再現した。Firestoreは未実行。artifact syncは24 groupすべて下流必須field不足で安全にblocked。",
+    "remaining_blockers": [
+      "T043 Judgeによる全件trialと低い採用率の監査。",
+      "採用率1/1044のため、精度を緩めず再現性を上げる資格共通改善の要否判断。",
+      "採用targetのcorrect choice、law context/explanation、question set、公開前gate、限定公開readback。"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 3,
+    "stopped_because": null
+  }
+}

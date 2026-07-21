@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T042
+active_task: T044
 
 tasks:
   - id: T001
@@ -2074,7 +2074,7 @@ tasks:
   - id: T042
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "第一種衛生管理者1044問をqualification全体指定のfresh parentでquestion_type trialし、各問をtarget/non_target/hold/invalidへ排他的に集計する。targetだけsource slice、span完全性、stable keys、boolean flagを検証し、hold/invalidは同一parentで再実行しない。"
     inputs:
@@ -2114,11 +2114,46 @@ tasks:
       - "00_source, Firestore, or a file outside allowed scope changes."
       - "Rollback is incomplete, unsafe child appears, or checkpoint/sourceHash integrity breaks."
       - "External provider stops; preserve a partial receipt and return to Judge without resume."
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+        - "output/question_review_console/1eiseikanrisha/**"
+        - "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+      commands:
+        - command: "Qualification-wide preview and fresh start"
+          status: pass
+          summary: "1044 questions; no listGroupIds, questionIds, questionRange, updateTargetIds, or resumedFrom"
+        - command: "Full question_type trial 20260722T020410463780-fbbaff93"
+          status: pass
+          summary: "95/95 children succeeded; 310 validated and 734 blocked with no pending work"
+        - command: "Exclusive four-way audit"
+          status: pass
+          summary: "target=1, non_target=309, hold=390, invalid=344; total=1044"
+        - command: "Dual-review checkpoint audit"
+          status: pass
+          summary: "1044 questions each had exactly two resolved reviews, distinct threads, gpt-5.5/high, prompt v2; no third review"
+        - command: "Target source-slice and stable-key readback"
+          status: pass
+          summary: "Question 5c0b87569ecfd60b3d195d5d yielded four exact source slices and four reproducible keys with boolean calculation flag"
+        - command: "Child receipt and retry audit"
+          status: pass
+          summary: "95 receipts validated, retrySafe, no unsafe child, rollback not required; every question had exactly one validation attempt"
+        - command: "Focused regression and source immutability"
+          status: pass
+          summary: "131 tests passed; 5799 source files unchanged; HEAD and origin/main are edd1dd95b238887e9a6fc4a81a7af1bb7c60a171"
+      summary: "第一種衛生管理者1044問を資格全体指定で一巡した。semantic consensusはtarget 1、non_target 313、hold 730。証拠不全のinvalid_review 339件、source_hash_mismatch 1件と、候補検証で対象外record変更を検出した4件をinvalidへ分離すると、target 1、non_target 309、hold 390、invalid 344で1044問を排他的に覆う。target 1件は4 source span、tool-only slice、stable keys、boolean flagを再現した。Firestoreは未実行。artifact syncは24 groupすべて下流必須field不足で安全にblocked。"
+      remaining_blockers:
+        - "T043 Judgeによる全件trialと低い採用率の監査。"
+        - "採用率1/1044のため、精度を緩めず再現性を上げる資格共通改善の要否判断。"
+        - "採用targetのcorrect choice、law context/explanation、question set、公開前gate、限定公開readback。"
+      needs_judge: true
+      verification_attempts: 3
+      stopped_because: null
   - id: T043
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "T042の1044問coverage、四分類、target生成物、hold/invalid、00_source不変、Firestore非公開を読み取り専用で監査し、下流整備へ進めるか判定する。"
     inputs:
@@ -2132,6 +2167,69 @@ tasks:
       - "approve_downstream or reject"
       - "1044-question evidence map"
       - "Exact downstream Worker package"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "reject_downstream。1044問のcoverageと安全性は妥当だが、二者ともtargetの151問中exact一致は1問だけだった。意味判定と数値offset計算をGPTへ同時要求する現方式をやめ、serverが候補span・boundary IDを機械生成し、二者はIDだけを選ぶ資格共通方式へ先に変更する。"
+      evidence:
+        - "Four-way coverage is target 1, non_target 309, hold 390, invalid 344 for all 1044 questions."
+        - "All 1044 checkpoints have exactly two resolved distinct-thread gpt-5.5/high prompt-v2 reviews and one validation attempt."
+        - "Target plus target occurred for 151 questions: invalid_review 125, span disagreement 25, exact target 1."
+        - "Invalid review failures were dominated by outside-range offsets and ordered/non-overlapping violations."
+        - "The one target is an exact four-span source slice with reproducible keys and boolean calculation flag."
+        - "00_source remained unchanged and Firestore was not invoked."
+      next_allowed_task: T044
+      blocked_tasks:
+        - "Downstream correctness, explanation, question set, publish gate, and Firestore publication"
+      missing_evidence:
+        - "Candidate and boundary ID contract canary"
+        - "Atomic batch checkpoint persistence proof"
+        - "Fresh 1044-question rerun under the new contract"
+  - id: T044
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sourceHash固定の原文からserverが決定的な候補span・boundary IDを生成し、二者reviewはclassification、issue code、選択IDだけを返す契約へ変更する。完全ID一致後だけserverがoffsetへ解決して原文sliceを保存する。併せてreview slot予約・解決・consensus保存をbatch単位の単一load/write/readbackへ集約する。"
+    inputs:
+      - "T042 full-trial evidence"
+      - "T043 reject_downstream"
+      - "Current aggregate prompt v2 and checkpoint contract"
+    constraints:
+      - "No qualification-specific examples, known spans, answers, agent-authored extracted text, or raw numeric offset fallback."
+      - "Do not weaken exact agreement, two-review cap, fresh checkpoint, or sourceHash gate."
+      - "Do not write 00_source or Firestore."
+      - "Candidate-ID accuracy work precedes persistence optimization within the same Worker."
+    expected_output:
+      - "Deterministic candidate and boundary IDs"
+      - "ID-only independent review schema and reconciliation"
+      - "Tool-owned source slicing after exact agreement"
+      - "Atomic batch checkpoint persistence"
+      - "Focused regression and scoped commit/push"
+    allowed_files:
+      - "prompt/01_prompt_fix_questionType.md"
+      - "document/reference/question_field_contract.md"
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_aggregate_answer_decomposition.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_qualification_runs"
+      - "Candidate and boundary IDs are deterministically recomputable from sourceHash and offsets."
+      - "Review schema rejects body text, summaries, raw offsets, truth answers, and unsupported fields."
+      - "Only exact two-review ID agreement with sourceHash, order, non-overlap, and in-range checks produces tool-owned slices."
+      - "Missing candidates or disagreement becomes hold."
+      - "Batch reservation, resolution, and consensus use one load/write/readback per batch under one lock and remain intact on partial failure."
+      - "git diff --check and scoped commit/push to origin/main."
+    stop_if:
+      - "A qualification-specific example, known span, answer, agent-authored text, or raw offset fallback is required."
+      - "Exact agreement, two-review cap, fresh checkpoint, or sourceHash gate must be weakened."
+      - "00_source, Firestore, or an allowed-files-external change is required."
+      - "Atomic batch update cannot be guaranteed under the existing lock."
+      - "The same unresolved verification cause fails twice."
     receipt: null
   - id: T999
     type: judge
