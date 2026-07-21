@@ -5054,6 +5054,7 @@ async function refreshAfterWorkflow(mode) {
   }
   if (mode === "evaluation") clearEvaluationSelection();
   await loadQualificationWorkflow(true);
+  if (mode === "sync") await loadQualificationRuns();
   await loadQuestions(true);
 }
 

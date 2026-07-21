@@ -1462,6 +1462,8 @@ class QuestionReviewApplication:
             if (
                 run.get("receiptValidated") is not True
                 or str(run.get("status") or "") != "succeeded"
+                or str(run.get("workType") or "") != "maintenance_flow"
+                or run.get("parentRunId")
                 or scope != [list_group_id]
                 or artifact_status in {"succeeded", "current", "not_required"}
             ):

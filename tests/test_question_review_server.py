@@ -83,9 +83,18 @@ class QuestionReviewServerTests(unittest.TestCase):
             def list(self, qualification, *, limit):
                 return [
                     {
+                        "runId": "unrelated-system-run",
+                        "status": "succeeded",
+                        "receiptValidated": True,
+                        "workType": "maintenance",
+                        "scopeListGroupIds": ["2026"],
+                        "artifactSync": {"status": "blocked"},
+                    },
+                    {
                         "runId": "run-1",
                         "status": "succeeded",
                         "receiptValidated": True,
+                        "workType": "maintenance_flow",
                         "scopeListGroupIds": ["2026"],
                         "artifactSync": {"status": "blocked"},
                     }
