@@ -15,11 +15,6 @@ from scripts.common.explanation_contract import explanation_shape_errors
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
 OFFICIAL_QUESTION_TYPES = ("true_false", "flash_card", "group_choice")
-SUPPORTED_QUESTION_TYPES = (
-    *OFFICIAL_QUESTION_TYPES,
-    "single_choice",
-    "fill_in_blank",
-)
 
 
 class QuestionCandidateError(ValueError):
@@ -226,11 +221,13 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
     "question_type": {
         "questionType": {
             "type": "string",
-            "allowedValues": list(SUPPORTED_QUESTION_TYPES),
+            "allowedValues": list(OFFICIAL_QUESTION_TYPES),
             "description": (
-                "公式過去問の問題整備ではtrue_false、flash_card、group_choiceの"
-                "3分類で回答体験を表す。問題文の条件だけで答えを導ける計算問題は"
-                "選択肢を答え合わせに使うflash_cardとする。"
+                "公式過去問とexamYearのない暗記プラス独自問題は、いずれも"
+                "true_false、flash_card、group_choiceの3分類で回答体験を表す。"
+                "single_choiceとfill_in_blankはユーザー作成問題だけに使う。"
+                "問題文の条件だけで答えを導ける計算問題は、選択肢を答え合わせに"
+                "使うflash_cardとする。"
             ),
         },
         "isCalculationQuestion": {"type": "boolean"},
@@ -746,15 +743,10 @@ def validate_candidate_content(
     correct = logical.get("correctChoiceText")
     if "questionType" in changed_fields:
         question_type = logical.get("questionType")
-        if question_type not in SUPPORTED_QUESTION_TYPES:
-            errors.append("questionTypeが対応済みの回答形式ではありません。")
-        elif (
-            logical.get("examYear") not in {None, ""}
-            and question_type not in OFFICIAL_QUESTION_TYPES
-        ):
+        if question_type not in OFFICIAL_QUESTION_TYPES:
             errors.append(
-                "公式過去問は回答体験に応じてtrue_false、flash_card、group_choiceの"
-                "いずれかに分類してください。"
+                "公式問題はexamYearの有無にかかわらず、回答体験に応じて"
+                "true_false、flash_card、group_choiceのいずれかに分類してください。"
             )
     if "correctChoiceText" in changed_fields and correct is not None and (
         not isinstance(correct, list)

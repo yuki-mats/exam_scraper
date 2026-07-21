@@ -133,8 +133,6 @@ class QuestionCandidateTest(unittest.TestCase):
                 "true_false",
                 "flash_card",
                 "group_choice",
-                "single_choice",
-                "fill_in_blank",
             ],
         )
         candidate = parse_candidates(
@@ -178,9 +176,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         )
 
-        self.assertIn("公式過去問", errors[0])
+        self.assertIn("公式問題", errors[0])
 
-    def test_question_type_target_allows_single_choice_without_exam_year(self):
+    def test_question_type_target_rejects_single_choice_without_exam_year(self):
         plan = {
             "allowedPatchFiles": [
                 "output/sample/questions_json/custom/10_questionType_fixed/patch.json"
@@ -195,7 +193,7 @@ class QuestionCandidateTest(unittest.TestCase):
                     {
                         "questionId": "q1",
                         "status": "candidate",
-                        "summary": "独自問題を単一選択形式にする。",
+                        "summary": "公式の独自問題を単一選択形式にする。",
                         "updates": [
                             {
                                 "targetId": "q1:question_type",
@@ -223,6 +221,106 @@ class QuestionCandidateTest(unittest.TestCase):
             candidate,
             targets,
             {"choiceTextList": ["A", "B"], "correctChoiceText": ["正しい", "間違い"]},
+        )
+
+        self.assertIn("examYearの有無にかかわらず", errors[0])
+
+    def test_question_type_target_rejects_fill_in_blank_without_exam_year(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/custom/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_type", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "公式の独自問題を穴埋め形式にする。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_type",
+                                "setFields": [
+                                    {
+                                        "field": "questionType",
+                                        "valueJson": '"fill_in_blank"',
+                                    },
+                                    {
+                                        "field": "isCalculationQuestion",
+                                        "valueJson": "false",
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["正しい", "間違い"],
+            },
+        )
+
+        self.assertIn("examYearの有無にかかわらず", errors[0])
+
+    def test_question_type_target_allows_flash_card_without_exam_year(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/custom/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_type", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "公式の独自問題を想起型にする。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_type",
+                                "setFields": [
+                                    {
+                                        "field": "questionType",
+                                        "valueJson": '"flash_card"',
+                                    },
+                                    {
+                                        "field": "isCalculationQuestion",
+                                        "valueJson": "false",
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["正しい", "間違い"],
+            },
         )
 
         self.assertEqual(errors, ())

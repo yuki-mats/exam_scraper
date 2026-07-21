@@ -87,7 +87,7 @@
 | 元選択肢本文 | `originalQuestionChoiceText` | string | 任意 | 条件付き必須 | 原則omit | `true_false` の表示対象では本文または画像が必須。 | convert | 独自問題では`05_originalized`の選択肢を使う。DB契約はstring。中間・legacyでは配列由来が残るため、最終upload形を確認する。 |
 | 画面用設問本文 | `questionBodyText` | string | 任意 | 推奨 | 原則omit | string。 | convert | `questionText` 生成の元。改行除去されることがある。 |
 | 問題文 | `questionText` | string | 必須 | 必須 | 不可 | 空文字不可。 | convert | アプリで実際に表示・検索する主文。 |
-| 問題タイプ | `questionType` | string enum | 必須 | 必須 | 不可 | `single_choice`, `true_false`, `flash_card`, `fill_in_blank`, `group_choice` | `10_questionType_fixed` | 回答体験の分類。資格ごとに別の意味を持たせない。 |
+| 問題タイプ | `questionType` | string enum | 必須 | 必須 | 不可 | DBは`single_choice`, `true_false`, `flash_card`, `fill_in_blank`, `group_choice`。公式問題の整備は`true_false`, `flash_card`, `group_choice`だけ。 | `10_questionType_fixed` | 回答体験の分類。資格ごとに別の意味を持たせない。 |
 | 資格ID | `qualificationId` | string | 必須 | 必須 | 不可 | 空文字不可。 | convert / upload | 資格横断集計・カテゴリ管理の軸。 |
 | 試験日 | `examDate` | timestamp | 任意 | 任意 | 可 | app rules では timestamp/null。 | future / app | 出題当時法令を厳密に解くための候補。現行 upload では通常使わない。string で入れない。 |
 | 問題画像URL | `questionImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | Storage upload / convert | Storage URL 変換後の値。 |
@@ -150,14 +150,14 @@
 | 値 | 意味 | Firestore 変換 |
 | --- | --- | --- |
 | `true_false` | 1つの肢・文に対して正誤を答える。選択肢は `正しい` / `間違い`。 | 選択肢ごとに `questions` doc へ分割する。 |
-| `single_choice` | ユーザー作成問題又はlegacyデータを1 documentで読むための互換形式。 | 原則1 doc。公式過去問の通常整備は、回答体験に応じて下記3形式へ確定する。 |
+| `single_choice` | ユーザー作成問題の単一選択形式。公式問題ではlegacyデータの読取互換に限る。 | 原則1 doc。公式問題の新規整備又は洗い替えでは使わない。 |
 | `flash_card` | 問題文だけでも解答可能な想起型。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作ることがある。 |
-| `fill_in_blank` | 本文の空欄を埋める。 | `fillInBlanks` が必要。 |
+| `fill_in_blank` | ユーザー作成問題で本文の空欄を埋める。公式問題ではlegacyデータの読取互換に限る。 | `fillInBlanks` が必要。公式問題の新規整備又は洗い替えでは使わない。 |
 | `group_choice` | 同一設問の選択肢群を並べ、比較して1つだけ選ぶグループ出題専用。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作る。単体出題不可。 |
 
-公式過去問の通常整備では、各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。
+公式問題には、公式過去問と暗記プラス運営が整備する独自問題を含みます。`isOfficial=true`である公式問題は`examYear`の有無にかかわらず、`true_false`、`flash_card`、`group_choice`の3形式だけを使います。各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。
 
-`examYear`を持たない独自問題は、作成時に選んだ回答体験を保ち、`single_choice`又は`fill_in_blank`も利用できます。公式過去問の3分類を独自問題へ機械的に適用しません。
+`single_choice`と`fill_in_blank`を新たに利用できるのは、ユーザーがアプリで作成する`isOfficial=false`の問題だけです。`examYear`は出典年度であり、公式問題かユーザー作成問題かの判定には使いません。既存データの読取互換は保ちますが、公式問題の新規整備又は洗い替えでこの2形式を候補にしません。
 
 資格固有の都合で新しい値を作らないでください。新しい回答体験が必要な場合は、`repaso` の enum / rules / app UI / tests / `exam_scraper` schema を同時に更新します。
 

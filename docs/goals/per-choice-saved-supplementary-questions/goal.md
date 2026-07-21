@@ -111,6 +111,16 @@ PMは各receiptをこのoracleへ対応付ける。promptだけの修正、UIだ
 - 互換データが1 documentに選択肢配列を保持する場合も、状況確認画面では各選択肢と正誤を個別に対応させて表示する。
 - `00_source`と本番Firestoreは変更せず、patch、merge、convert、upload-readyの再生成とUI readbackまでを行う。
 
+## Follow-up Tranche: 公式問題とユーザー作成問題のquestionType境界
+
+`questionType`の利用範囲は`examYear`の有無ではなく、公式問題かユーザー作成問題かで分ける。
+
+- 公式問題には、公式過去問と、暗記プラス運営が整備する`examYear`のない独自問題を含む。いずれも`true_false`、`flash_card`、`group_choice`の3形式だけを使う。
+- `single_choice`と`fill_in_blank`は、ユーザーがアプリで作成する問題だけに使える。問題整備システムでは新規分類先として提示又は保存しない。
+- Firestore上の区分は`isOfficial`を正本とし、`examYear`は出典年度だけを表す。`examYear`がないことをユーザー作成問題の判定に使わない。
+- 既存データを読み取るためのlegacy互換は維持できるが、公式問題の新規整備又は洗い替えでは5形式を混在させない。
+- `exam_scraper`のfield契約、独自問題ワークフロー、questionType prompt、候補検証、回帰テストと、`repaso`のデータモデル正本を同じ境界へ揃える。
+
 ## Non-Negotiable Constraints
 
 - 基本解説だけで正誤理由と学習上の核心が完結し、補足回答へ核心を退避しない。
