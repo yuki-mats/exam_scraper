@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T056
+active_task: T057
 
 tasks:
   - id: T001
@@ -2930,7 +2930,7 @@ tasks:
   - id: T056
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "multi-file rollback不明を、Git metadata内のtransaction単位poison又は同等の全path fail-closed方式で原子的に永続化する。個別poison writeの途中失敗又はexceptionでも全対象pathの後続writerを拒否し、pipelineをterminal停止させる。lock/poison identityはleafのsymlink解決結果ではなく安定したrepo-relative canonical pathから生成し、missing復旧はfilesystem entry自体の不存在を同一lock内で確認する。"
     inputs:
@@ -2970,6 +2970,76 @@ tasks:
       - "A qualification, year, question ID, source phrase, or filename exception is required."
       - "00_source or Firestore would be changed or invoked."
       - "The same unresolved verification cause fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/question_patch_proposal.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tests/test_question_review_question_patch_proposal.py"
+      commands:
+        - command: "Focused qualification transaction suite"
+          status: pass
+          summary: "110 tests passed"
+        - command: "Expanded aggregate review regression suite"
+          status: pass
+          summary: "141 tests passed"
+        - command: "Process and qualification suites repeated three times"
+          status: pass
+          summary: "94 tests per run"
+        - command: "00_source immutability"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "Commit and push"
+          status: pass
+          summary: "31c50a06b on origin/main"
+      summary: "ユーザー指示により局所的なrollback・poison追加を中止し、資格共通transactionをwrite-after-validationへ単純化した。最新canonicalへstaging rebaseし、record scope、source slice、identity、00_sourceを検証後、合格内容だけatomic writeする。検証失敗では正本未変更、後続記録失敗では検証済み正本を巻き戻さず親runを公開停止する。guard、poison、rollback retryを削除し、現行HEAD比421行を純減した。"
+      deviations:
+        - "T055のpoison追加ではなくwrite-before-validation構造自体を置換した。"
+        - "追加エージェントを止め、PMが実装と監査を完了した。"
+      remaining_blockers:
+        - "fresh 3-question canary"
+        - "fresh full rerun invalid 0"
+        - "下流工程、公開前gate、限定公開readback"
+  - id: T057
+    type: worker
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "T048で共有file collisionとなった2問と既存aggregate derived-field guardとなった1問を、fresh question_type canaryで再実行し、write-after-validationのsource slice、二者一致、正本反映、partial/publication gate、00_source不変をreadbackする。"
+    inputs:
+      - "T048 invalid evidence"
+      - "T056 write-after-validation commit 31c50a06b"
+      - "Exact question IDs c1f8e91b29b17943dc6e7b91, 99a37ae3e340548e4839dd6f, a5016be8b9bc9d2e459e1659"
+    constraints:
+      - "First-class health supervisor, question_type only, list groups 20031 and 20053."
+      - "Fresh parent; no resume or review checkpoint reuse."
+      - "Exactly two gpt-5.5/high distinct-thread prompt-v3 reviews per question; no third review."
+      - "No Firestore publication and no 00_source write."
+      - "Do not start additional sub-agents."
+    expected_output:
+      - "Fresh exact-3-question parent/child receipts"
+      - "Shared-file questions no longer produce non-target collision"
+      - "Existing aggregate record accepts only server-recomputed derived fields"
+      - "Source-slice, stable-key, no-reuse, one-attempt, no-Firestore readback"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/20031/**"
+      - "output/question_review_console/1eiseikanrisha/20053/**"
+      - "output/1eiseikanrisha/questions_json/20031/10_questionType_fixed/**"
+      - "output/1eiseikanrisha/questions_json/20053/10_questionType_fixed/**"
+    verify:
+      - "Preview resolves exactly the three requested question IDs and question_type only."
+      - "Every question has exactly two distinct-thread gpt-5.5/high prompt-v3 reviews, exact six-field payloads, candidateSetHash, zero reuse, and one validation attempt."
+      - "Both shared-file questions avoid non-target collision and preserve the other record."
+      - "The existing aggregate record accepts only exact source slices and ordered stable keys."
+      - "141 focused/expanded tests, 00_source immutability, no Firestore, and scoped output readback pass."
+    stop_if:
+      - "Preview does not resolve exactly the three requested questions."
+      - "A third review, checkpoint reuse, raw offset fallback, agent-authored extracted text, or partial statement publication appears."
+      - "Any question receives more than one validation attempt."
+      - "00_source, Firestore, or a path outside allowed_files would change."
+      - "Provider failure occurs; preserve the receipt and do not resume the same parent."
     receipt: null
   - id: T999
     type: judge

@@ -1,0 +1,52 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T056",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_patch_proposal.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_question_patch_proposal.py"
+    ],
+    "commands": [
+      {
+        "command": "Focused qualification transaction suite",
+        "status": "pass",
+        "summary": "110 tests passed"
+      },
+      {
+        "command": "Expanded aggregate review regression suite",
+        "status": "pass",
+        "summary": "141 tests passed"
+      },
+      {
+        "command": "Process and qualification suites repeated three times",
+        "status": "pass",
+        "summary": "94 tests passed per run"
+      },
+      {
+        "command": "00_source immutability",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "Commit and push origin/main",
+        "status": "pass",
+        "summary": "31c50a06b refactor(review): validate before canonical write"
+      }
+    ],
+    "summary": "ユーザー指示により局所的なrollback・poison追加を中止し、資格共通transaction全体をwrite-after-validationへ単純化した。OS file lock内で最新canonicalへcandidate recordだけをstaging rebaseし、record scope、source slice、stable identity、00_sourceをstaging上で検証した後、合格内容だけをatomic writeする。検証失敗ではcanonicalを変更せず、checkpoint又はwork-version失敗では既に検証済みのcanonicalを巻き戻さず親runをpartialとして公開を止め、fresh rerunで収束させる。異recordの並列更新保持と同record競合拒否を維持し、guard、poison、rollback retryを削除した。現行HEAD比で421行の純減となり、資格、年度、question ID、source文言、特定filenameの例外はない。",
+    "deviations": [
+      "T055が指定したtransaction poisonの追加ではなく、その原因であるwrite-before-validation構造をユーザー指示に従って置換した。",
+      "前Workerの応答停止後、追加エージェントを起動せずPMが同じ4ファイル内で実装・検証を完了した。"
+    ],
+    "remaining_blockers": [
+      "T048 invalid実績3問のfresh canary",
+      "fresh 1044-question rerunのinvalid 0",
+      "下流工程、公開前gate、限定公開readback"
+    ],
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}
