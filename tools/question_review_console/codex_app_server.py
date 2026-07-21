@@ -111,6 +111,24 @@ GLOBAL_AGENT_CONFIG_KEYS = {
     "max_depth",
     "max_threads",
 }
+APP_SERVER_UNSUPPORTED_OUTPUT_SCHEMA_KEYWORDS = frozenset({"uniqueItems"})
+
+
+def adapt_output_schema_for_app_server(schema: Mapping[str, Any]) -> dict[str, Any]:
+    """Return an App Server-compatible deep copy of an output schema."""
+
+    def adapt(value: Any) -> Any:
+        if isinstance(value, Mapping):
+            return {
+                str(key): adapt(item)
+                for key, item in value.items()
+                if key not in APP_SERVER_UNSUPPORTED_OUTPUT_SCHEMA_KEYWORDS
+            }
+        if isinstance(value, list):
+            return [adapt(item) for item in value]
+        return copy.deepcopy(value)
+
+    return adapt(schema)
 
 
 class CodexAppServerError(RuntimeError):
@@ -518,7 +536,7 @@ class CodexAppServerClient:
             "effort": reasoning_effort,
         }
         if output_schema is not None:
-            params["outputSchema"] = copy.deepcopy(dict(output_schema))
+            params["outputSchema"] = adapt_output_schema_for_app_server(output_schema)
         try:
             turn_response = self._request("turn/start", params)
             turn_response = _as_mapping(turn_response, "turn/start response")

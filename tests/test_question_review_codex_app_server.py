@@ -22,8 +22,42 @@ from tools.question_review_console.codex_app_server import (
     SAFE_SHELL_PATH,
     SubscriptionGateError,
     _TurnState,
+    adapt_output_schema_for_app_server,
     validate_subscription_access,
 )
+
+
+class OutputSchemaAdapterTests(unittest.TestCase):
+    def test_removes_nested_unsupported_keywords_without_mutating_source(self):
+        source = {
+            "type": "object",
+            "required": ["values"],
+            "properties": {
+                "values": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": True,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "codes": {"type": "array", "uniqueItems": True}
+                        },
+                    },
+                }
+            },
+        }
+        original = copy.deepcopy(source)
+
+        adapted = adapt_output_schema_for_app_server(source)
+
+        self.assertEqual(source, original)
+        self.assertNotIn("uniqueItems", adapted["properties"]["values"])
+        self.assertNotIn(
+            "uniqueItems",
+            adapted["properties"]["values"]["items"]["properties"]["codes"],
+        )
+        self.assertEqual(adapted["required"], ["values"])
+        self.assertEqual(adapted["properties"]["values"]["minItems"], 1)
 
 
 def account_response(plan="pro"):

@@ -37,6 +37,22 @@ class QuestionCandidateTest(unittest.TestCase):
         with self.assertRaisesRegex(QuestionCandidateError, "文章"):
             parse_aggregate_answer_reviews(payload, ["q1"])
 
+    def test_aggregate_review_parser_rejects_duplicate_issue_codes(self):
+        payload = {
+            "schemaVersion": "aggregate-answer-review-batch/v1",
+            "questionReviews": [{
+                "questionId": "q1",
+                "schemaVersion": "aggregate-answer-review/v1",
+                "sourceHash": "sha256:" + "0" * 64,
+                "classification": "hold",
+                "spans": [],
+                "decision": "hold",
+                "issueCodes": ["ambiguous_target", "ambiguous_target"],
+            }],
+        }
+        with self.assertRaisesRegex(QuestionCandidateError, "重複"):
+            parse_aggregate_answer_reviews(payload, ["q1"])
+
     def plan(self):
         return {
             "allowedPatchFiles": [

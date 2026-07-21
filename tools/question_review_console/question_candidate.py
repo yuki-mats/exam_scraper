@@ -139,6 +139,13 @@ def parse_aggregate_answer_reviews(
         question_id = str(raw.get("questionId") or "")
         if question_id not in expected or question_id in result:
             raise QuestionCandidateError("集約回答レビューのquestionIdが対象外又は重複です。")
+        issue_codes = raw.get("issueCodes")
+        if (
+            not isinstance(issue_codes, list)
+            or not all(code in AGGREGATE_REVIEW_ISSUE_CODES for code in issue_codes)
+            or len(issue_codes) != len(set(issue_codes))
+        ):
+            raise QuestionCandidateError("集約回答レビューのissueCodesが不正又は重複です。")
         result[question_id] = {key: raw[key] for key in allowed if key != "questionId"}
     if set(result) != set(expected):
         raise QuestionCandidateError("集約回答レビューが全対象問題を含んでいません。")

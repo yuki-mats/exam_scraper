@@ -5,8 +5,14 @@ from pathlib import Path
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
 from tools.question_review_console.server import ApiError, QuestionReviewApplication
 from tools.question_review_console.workflow_catalog import (
+    AGENT_POLICY_MODELS,
+    AGENT_POLICY_REASONING_EFFORTS,
     WorkflowCatalog,
     normalize_policy_version,
+)
+from tools.question_review_console.codex_app_server import (
+    QUESTION_MAINTENANCE_MODELS,
+    TURN_REASONING_EFFORT,
 )
 
 
@@ -74,6 +80,10 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_agent_policy_allowlists_match_app_server_turn_contract(self):
+        self.assertEqual(AGENT_POLICY_MODELS, set(QUESTION_MAINTENANCE_MODELS))
+        self.assertEqual(AGENT_POLICY_REASONING_EFFORTS, {TURN_REASONING_EFFORT})
+
     def test_question_type_policy_describes_dual_review_before_candidate(self):
         prompt = (ROOT / "prompt/01_prompt_fix_questionType.md").read_text(
             encoding="utf-8"
@@ -173,11 +183,16 @@ class WorkflowCatalogTests(unittest.TestCase):
         version_by_stage = {
             stage["id"]: stage["policyVersion"] for stage in versioned
         }
+        stage_by_id = {stage["id"]: stage for stage in catalog["stages"]}
         self.assertEqual(version_by_stage["explanation"], "4.0")
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertEqual(version_by_stage["originalize"], "2.1")
         self.assertEqual(version_by_stage["question_type"], "3.0")
+        self.assertEqual(
+            stage_by_id["question_type"]["agentPolicy"]["independent_review"],
+            {"model": "gpt-5.5", "reasoningEffort": "high"},
+        )
         self.assertTrue(
             all(
                 version == "1.0"
@@ -193,7 +208,6 @@ class WorkflowCatalogTests(unittest.TestCase):
             )
         )
         self.assertEqual(catalog["evaluation"]["policyVersion"], "2.0")
-        stage_by_id = {stage["id"]: stage for stage in catalog["stages"]}
         explanation_targets = {
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]
@@ -231,6 +245,27 @@ class WorkflowCatalogTests(unittest.TestCase):
             with self.subTest(invalid=invalid):
                 with self.assertRaises(ValueError):
                     normalize_policy_version(invalid)
+
+    def test_agent_policy_rejects_unknown_roles_and_incomplete_settings(self):
+        invalid_policies = (
+            'agent_policy = { writer = { model = "gpt-5.5", reasoning_effort = "high" } }',
+            'agent_policy = { independent_review = { model = "gpt-5.5" } }',
+        )
+        for policy in invalid_policies:
+            with self.subTest(policy=policy), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                config = root / "config/question_maintenance_workflow.toml"
+                config.parent.mkdir(parents=True)
+                config.write_text(
+                    catalog_text("test", "取得").replace(
+                        'documents = ["document/operations/guide.md"]',
+                        'documents = ["document/operations/guide.md"]\n' + policy,
+                        1,
+                    ),
+                    encoding="utf-8",
+                )
+                with self.assertRaises(ValueError):
+                    WorkflowCatalog(root).load()
 
     def test_catalog_changes_are_loaded_without_process_restart(self):
         with tempfile.TemporaryDirectory() as directory:

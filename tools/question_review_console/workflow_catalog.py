@@ -15,6 +15,9 @@ DEFAULT_CATALOG_PATH = (
     / "question_maintenance_workflow.toml"
 )
 STAGE_KINDS = {"source", "human", "machine"}
+AGENT_POLICY_ROLES = {"candidate_initial", "candidate_retry", "independent_review"}
+AGENT_POLICY_MODELS = {"gpt-5.5", "gpt-5.6-sol"}
+AGENT_POLICY_REASONING_EFFORTS = {"high"}
 POLICY_VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)")
 
 
@@ -102,6 +105,34 @@ def _string_list(value: Any, field: str) -> list[str]:
     if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
         raise ValueError(f"{field}は文字列配列で指定してください。")
     return list(value)
+
+
+def _agent_policy(value: Any, stage_id: str) -> dict[str, dict[str, str]]:
+    if value is None:
+        return {}
+    if not isinstance(value, Mapping):
+        raise ValueError(f"{stage_id}.agent_policyはtableで指定してください。")
+    unknown = set(value) - AGENT_POLICY_ROLES
+    if unknown:
+        raise ValueError(
+            f"{stage_id}.agent_policyのroleが不正です: " + ", ".join(sorted(unknown))
+        )
+    policy: dict[str, dict[str, str]] = {}
+    for role, raw in value.items():
+        if not isinstance(raw, Mapping) or set(raw) != {"model", "reasoning_effort"}:
+            raise ValueError(
+                f"{stage_id}.agent_policy.{role}にはmodelとreasoning_effortが必要です。"
+            )
+        model = str(raw.get("model") or "")
+        effort = str(raw.get("reasoning_effort") or "")
+        if model not in AGENT_POLICY_MODELS:
+            raise ValueError(f"{stage_id}.agent_policy.{role}.modelが不正です: {model}")
+        if effort not in AGENT_POLICY_REASONING_EFFORTS:
+            raise ValueError(
+                f"{stage_id}.agent_policy.{role}.reasoning_effortが不正です: {effort}"
+            )
+        policy[str(role)] = {"model": model, "reasoningEffort": effort}
+    return policy
 
 
 def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
@@ -323,6 +354,7 @@ class WorkflowCatalog:
                 "updateTargets": _update_targets(
                     raw.get("update_targets"), stage_id
                 ),
+                "agentPolicy": _agent_policy(raw.get("agent_policy"), stage_id),
             }
             if stage["scope"] not in {"qualification", "group"}:
                 raise ValueError(

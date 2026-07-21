@@ -1806,6 +1806,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [kwargs["model"] for _question_id, _prompt, kwargs in app_server.calls],
             ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
         )
+        self.assertEqual(len(app_server.aggregate_review_calls), 6)
+        self.assertTrue(
+            all(
+                kwargs["model"] == "gpt-5.5"
+                and kwargs["reasoning_effort"] == "high"
+                for _question_id, _prompt, kwargs in app_server.aggregate_review_calls
+            )
+        )
         failed_stage = completed["questionExecutions"][0]["stages"][0]
         self.assertEqual(
             [attempt["requestedModel"] for attempt in failed_stage["validationAttempts"]],
@@ -3588,6 +3596,24 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ),
         )
         self.assertEqual(len(set(child["aggregateReviewThreadIds"])), 2)
+        self.assertEqual(
+            [kwargs["model"] for _prompt, kwargs in review_calls[:2]],
+            ["gpt-5.5", "gpt-5.5"],
+        )
+        self.assertTrue(
+            all(kwargs["reasoning_effort"] == "high" for _prompt, kwargs in review_calls[:2])
+        )
+        self.assertEqual(
+            [entry["model"] for entry in child["aggregateReviewExecutions"]],
+            ["gpt-5.5", "gpt-5.5"],
+        )
+        self.assertTrue(
+            all(entry["reasoningEffort"] == "high" for entry in child["aggregateReviewExecutions"])
+        )
+        self.assertEqual(
+            len({entry["threadId"] for entry in child["aggregateReviewExecutions"]}),
+            2,
+        )
         self.assertTrue(
             all(
                 result["aggregateAnswerReview"]["sourceHash"].startswith("sha256:")

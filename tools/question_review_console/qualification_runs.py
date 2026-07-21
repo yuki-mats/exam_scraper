@@ -6321,10 +6321,24 @@ class QualificationRunCoordinator:
                     "初回問題と再試行問題を同じmodel turnへ混在できません。"
                 )
             retrying = retry_flags.pop()
-            requested_model = (
-                QUESTION_MAINTENANCE_RETRY_MODEL
-                if retrying
-                else QUESTION_MAINTENANCE_MODEL
+            catalog_loader = getattr(self.workflow, "catalog", None)
+            catalog = catalog_loader(qualification) if callable(catalog_loader) else {}
+            definition = next(
+                (
+                    value for value in catalog.get("stages") or []
+                    if isinstance(value, Mapping) and str(value.get("id") or "") == stage_id
+                ),
+                {},
+            )
+            agent_policy = dict(definition.get("agentPolicy") or {})
+            candidate_role = "candidate_retry" if retrying else "candidate_initial"
+            candidate_policy = dict(agent_policy.get(candidate_role) or {})
+            requested_model = str(
+                candidate_policy.get("model")
+                or (QUESTION_MAINTENANCE_RETRY_MODEL if retrying else QUESTION_MAINTENANCE_MODEL)
+            )
+            requested_effort = str(
+                candidate_policy.get("reasoningEffort") or TURN_REASONING_EFFORT
             )
             batch_plan, targets = self._batch_plan_for_specs(
                 specs,
@@ -6332,8 +6346,9 @@ class QualificationRunCoordinator:
             )
             batch_plan.update(
                 requestedModel=requested_model,
-                requestedReasoningEffort=TURN_REASONING_EFFORT,
+                requestedReasoningEffort=requested_effort,
                 retryModelFallback=retrying,
+                agentPolicy=agent_policy,
             )
             feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
             for target in targets:
@@ -6415,7 +6430,7 @@ class QualificationRunCoordinator:
                         "status": "running",
                         "feedback": None,
                         "requestedModel": requested_model,
-                        "requestedReasoningEffort": TURN_REASONING_EFFORT,
+                        "requestedReasoningEffort": requested_effort,
                         "startedAt": _now(),
                         "finishedAt": None,
                     }
@@ -6449,7 +6464,7 @@ class QualificationRunCoordinator:
                     prepared_records=records_by_question,
                     prepared_targets=candidate_targets_by_question,
                     model=requested_model,
-                    reasoning_effort=TURN_REASONING_EFFORT,
+                    reasoning_effort=requested_effort,
                 )
                 return {
                     "childId": child_id,
@@ -7364,6 +7379,14 @@ class QualificationRunCoordinator:
                 )
                 review_batches: list[dict[str, dict[str, Any]]] = []
                 review_thread_ids: list[str] = []
+                review_receipts: list[dict[str, Any]] = []
+                review_policy = dict(
+                    (batch_plan.get("agentPolicy") or {}).get("independent_review") or {}
+                )
+                review_model = str(review_policy.get("model") or model)
+                review_effort = str(
+                    review_policy.get("reasoningEffort") or reasoning_effort
+                )
                 for review_number in (1, 2):
                     def on_review_thread_started(
                         thread_id: str,
@@ -7409,8 +7432,8 @@ class QualificationRunCoordinator:
                         on_turn_started=on_review_turn_started,
                         heartbeat=heartbeat,
                         cwd=self.repo_root,
-                        model=model,
-                        reasoning_effort=reasoning_effort,
+                        model=review_model,
+                        reasoning_effort=review_effort,
                     )
                     if review_result.changed_files:
                         raise QualificationRunError(
@@ -7421,6 +7444,21 @@ class QualificationRunCoordinator:
                             review_result.final_message,
                             question_ids,
                         )
+                    )
+                    review_receipts.append(
+                        {
+                            "reviewNumber": review_number,
+                            "threadId": review_result.thread_id,
+                            "sessionId": review_result.session_id,
+                            "turnId": review_result.turn_id,
+                            "model": review_result.model,
+                            "reasoningEffort": review_result.reasoning_effort,
+                        }
+                    )
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        aggregateReviewExecutions=copy.deepcopy(review_receipts),
                     )
                 if len(review_thread_ids) != 2 or len(set(review_thread_ids)) != 2:
                     raise QualificationRunError(
@@ -7452,6 +7490,7 @@ class QualificationRunCoordinator:
                     run_id,
                     executionPhase="server_aggregate_review_reconciliation",
                     aggregateReviewThreadIds=list(review_thread_ids),
+                    aggregateReviewExecutions=review_receipts,
                 )
             result = self.app_server.run_turn(
                 prompt,

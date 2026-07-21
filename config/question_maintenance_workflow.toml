@@ -92,6 +92,7 @@ patch_dir = "10_questionType_fixed"
 patch_suffix = "questionType_fixed"
 issue_fields = ["questionType", "isCalculationQuestion"]
 documents = ["prompt/01_prompt_fix_questionType.md"]
+agent_policy = { independent_review = { model = "gpt-5.5", reasoning_effort = "high" } }
 
 [[stages.update_targets]]
 id = "question_type"
