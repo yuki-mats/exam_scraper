@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T050
+active_task: T051
 
 tasks:
   - id: T001
@@ -2617,7 +2617,7 @@ tasks:
   - id: T050
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "資格共通のquestion transactionを、同一patch fileへ異なるrecordを反映する並列batch間でも安全に直列化又は原子的rebase・再検証できるよう修正する。既存aggregate targetについても、sourceHash固定のquestionBodyText、approved decomposition、stable parent identityからserverが再計算したchoiceTextListとsourceUniqueKeysだけをderived fieldとして許可し、それ以外のprotected field変更は引き続き拒否する。"
     inputs:
@@ -2652,6 +2652,57 @@ tasks:
       - "Same-record conflict, rollback, or readback cannot remain fail closed."
       - "00_source or Firestore would be changed or invoked."
       - "The same unresolved verification cause fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/question_patch_proposal.py"
+        - "tests/test_question_review_qualification_record_scope.py"
+        - "tests/test_question_review_question_patch_proposal.py"
+      commands:
+        - command: "Focused qualification transaction suite"
+          status: pass
+          summary: "107 tests passed"
+        - command: "Expanded aggregate review regression suite"
+          status: pass
+          summary: "138 tests passed"
+        - command: "git diff --check"
+          status: pass
+        - command: "00_source immutability"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "Commit and push"
+          status: pass
+          summary: "ab6874450 on origin/main"
+      summary: "資格共通のcanonical file単位OS flockでread、競合判定、rebase、atomic writeをprocess間直列化した。異なるrecordの逆順commitは両更新を保持し、同一recordのsnapshot後変更はfail closedを維持する。既存aggregate recordの派生2fieldはsource snapshot、承認decomposition、source slice、stable parent identityからserverが完全再計算できる場合だけ許可する。資格、年度、question ID、source文言、特定filenameの分岐は追加していない。"
+      remaining_blockers:
+        - "共有fileと既存record guardを実データで通すfresh canary"
+        - "修正後fresh 1044-question trialのinvalid 0証拠"
+        - "下流工程、公開前gate、限定公開readback"
+      verification_attempts: 1
+      stopped_because: null
+  - id: T051
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T050の共通transaction・既存record派生field修正を監査し、資格固有例外なしでT048 invalid 25の両原因を解消する設計か判定する。承認時は、共有patch file内の異なるrecordと既存aggregate recordを同時に実証する最小fresh canary契約を確定する。"
+    inputs:
+      - "T049 require_generic_fix decision"
+      - "T050 implementation commit ab6874450"
+      - "T050 focused and expanded test receipts"
+      - "Current qualification-common transaction and record-scope implementation"
+    constraints:
+      - "Read-only."
+      - "Do not accept qualification IDs, years, question IDs, source phrases, or filename-specific branches as implementation fixes."
+      - "Require process-boundary shared-file safety and same-record fail-closed behavior."
+      - "Require existing-record protected-field exceptions to be fully server-recomputed from exact source slices and stable identity."
+      - "Do not approve downstream correctness, explanation, publication, or Firestore work before a fresh full rerun proves invalid 0."
+    expected_output:
+      - "approve_canary or require_fix"
+      - "Genericity and concurrency audit"
+      - "Protected-field derivation audit"
+      - "Exact fresh canary Worker package if approved"
     receipt: null
   - id: T999
     type: judge

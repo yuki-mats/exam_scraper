@@ -1,0 +1,47 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T050",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_patch_proposal.py",
+      "tests/test_question_review_qualification_record_scope.py",
+      "tests/test_question_review_question_patch_proposal.py"
+    ],
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "107 tests passed"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "138 tests passed"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass"
+      },
+      {
+        "command": ".venv/bin/python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "git commit and push origin/main",
+        "status": "pass",
+        "summary": "ab6874450 fix(review): serialize shared question patch rebases"
+      }
+    ],
+    "summary": "資格共通のcanonical file単位OS flockで、read、競合判定、rebase、atomic writeをprocess間直列化した。異なるrecordの逆順commitは両方を保持し、同一recordのsnapshot後変更は引き続きfail closedとする。既存aggregate recordのchoiceTextListとsourceUniqueKeysは、source snapshot本文、sourceHash付き承認decomposition、source slice、stable parent identityからserverが完全再計算できる場合だけ更新を許可し、任意値やquestionBodyText等のprotected field変更は拒否する。資格、年度、question ID、source文言、特定filenameの分岐は追加していない。",
+    "remaining_blockers": [
+      "共有fileと既存record guardを実データで通すfresh canary",
+      "修正後fresh 1044-question trialのinvalid 0証拠",
+      "下流の正誤確定、解説整備、questionSet割当、公開前gate、限定公開readback"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}
