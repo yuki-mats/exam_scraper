@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T045
+active_task: T046
 
 tasks:
   - id: T001
@@ -2266,7 +2266,7 @@ tasks:
   - id: T045
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T044の資格共通candidate/boundary ID契約、ID-only schema、tool-owned slice、batch checkpoint原子性、実装scope、1044問機械監査を読み取り専用で監査し、fresh canaryへ進めるか判定する。"
     inputs:
@@ -2281,6 +2281,86 @@ tasks:
       - "approve_canary or reject"
       - "Contract and atomicity evidence map"
       - "Exact fresh canary Worker package with allowed_files, verify, and stop_if"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "approve_canary。T044は資格名・既知問題・正答を実装条件に持たず、sourceHashと機械検出offsetからboundary/candidate IDを決定する。review v2はIDと分類情報以外を拒否し、二者完全一致後だけserverがIDを順序・非重複・範囲・boundary IDまで再検証して原文sliceへ解決する。prompt v3で旧checkpointを再利用せず、batch予約・確定・consensusは単一load/write/readbackかつ同一lockで原子的に扱う。"
+      worker_package:
+        objective: "第一種衛生管理者のexact 2 questionIdsをfresh question_type parentでcanaryし、target候補と構造的non-target候補について二者ID-only review、prompt v3、tool-owned slice、checkpoint batch証拠をreadbackする。"
+        allowed_files:
+          - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+          - "output/question_review_console/1eiseikanrisha/**"
+          - output/1eiseikanrisha/questions_json/20031/10_questionType_fixed/question_20031_1_questionType_fixed.json
+          - output/1eiseikanrisha/questions_json/20048/10_questionType_fixed/question_20048_2_questionType_fixed.json
+          - "output/1eiseikanrisha/work_versions/**"
+        verify:
+          - "Preview and parent manifest contain exactly questionIds 5c0b87569ecfd60b3d195d5d and a5016be8b9bc9d2e459e1659, question_type only, no listGroupIds/range/resume."
+          - "Each question has exactly two resolved distinct-thread gpt-5.5/high prompt-v3 reviews and no third review."
+          - "Review payloads contain candidateId and no spans, body, summary, raw offsets, truth answer, or unsupported field."
+          - "The aggregate target, if exact-approved, resolves the server-generated candidate ID to exact source slices and reproducible derived keys; the structural premise candidate remains non_target or hold without decomposition publication."
+          - "No same-parent retry; disagreement, missing candidate, invalid review, source mismatch, or semantic ambiguity holds the question."
+          - "114 focused tests pass; 00_source immutability and no Firestore invocation are confirmed."
+        stop_if:
+          - "Either canary question cannot be bound uniquely to its source record."
+          - "A third review, raw offset fallback, agent-authored extracted text, or prompt-v2 checkpoint reuse is attempted."
+          - "Provider failure occurs; preserve a partial receipt and do not resume the same parent."
+          - "00_source, Firestore, or a path outside allowed_files would change."
+          - "The target does not reach exact agreement; return to Judge without weakening the contract."
+      evidence:
+        - "Commit 8a94099e92e9a248d1f8e8103c0cacd8d1793789 contains only eight approved qualification-common implementation, contract, and test files."
+        - "114 focused tests passed, including forbidden output fields, exact candidate-ID agreement, nested marker handling, deterministic boundary IDs, atomic batch failure, and one load/write/readback counts."
+        - "The 1044-question mechanical audit generated 58 candidate sets and 222 boundaries; every ID, ordering, range, and exact source slice was recomputed successfully."
+        - "00_source immutability passed for 5799 files and no Firestore action was invoked."
+      blocked_tasks:
+        - "Fresh 1044-question rerun"
+        - "Downstream correctness, explanation, question set, publish gate, and Firestore publication"
+      missing_evidence:
+        - "Fresh two-question prompt-v3 canary receipt"
+        - "Fresh 1044-question rerun under the approved contract"
+      required_board_updates:
+        - "Activate T046 canary Worker; keep full rerun and downstream blocked."
+  - id: T046
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "第一種衛生管理者のexact 2 questionIdsをfresh question_type parentでcanaryし、target候補と構造的non-target候補について二者ID-only review、prompt v3、tool-owned slice、checkpoint batch証拠をreadbackする。"
+    inputs:
+      - "T044 implementation and receipt"
+      - "T045 approve_canary"
+      - "questionIds: 5c0b87569ecfd60b3d195d5d, a5016be8b9bc9d2e459e1659"
+    constraints:
+      - "Fresh parent, question_type only, exact questionIds; no listGroupIds, questionRange, updateTargetIds, or resumedFrom."
+      - "Exactly two gpt-5.5/high distinct-thread reviews per question; no third review or same-parent retry."
+      - "Do not write 00_source or invoke Firestore."
+      - "Do not feed expected classification, candidate ID, span, or answer to reviewers."
+    expected_output:
+      - "Fresh parent/child receipts and exact scope proof"
+      - "Prompt-v3 ID-only review payload readback"
+      - "Target source-slice and stable-key proof"
+      - "Structural non-target/hold proof"
+      - "No Firestore and 00_source immutability proof"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20031/10_questionType_fixed/question_20031_1_questionType_fixed.json"
+      - "output/1eiseikanrisha/questions_json/20048/10_questionType_fixed/question_20048_2_questionType_fixed.json"
+      - "output/1eiseikanrisha/work_versions/**"
+    verify:
+      - "Preview and parent manifest contain exactly the two requested questionIds and question_type only."
+      - "Each checkpoint has exactly two resolved distinct-thread gpt-5.5/high prompt-v3 reviews and no third review."
+      - "Review payloads contain candidateId and no spans, body, summary, raw offsets, truth answer, or unsupported field."
+      - "Exact-approved target resolves a server-generated candidate ID to exact source slices and reproducible derived keys."
+      - "Structural premise candidate is non_target or hold and does not publish a decomposition."
+      - "No same-parent retry; failure or disagreement is held."
+      - "Focused 114 tests, 00_source immutability, no Firestore, and scoped output readback pass."
+    stop_if:
+      - "Either question cannot be bound uniquely to its source record."
+      - "A third review, raw offset fallback, agent-authored text, or prompt-v2 checkpoint reuse is attempted."
+      - "Provider failure occurs; preserve a partial receipt and do not resume the same parent."
+      - "00_source, Firestore, or a path outside allowed_files would change."
+      - "The target does not reach exact agreement; return to Judge without weakening the contract."
     receipt: null
   - id: T999
     type: judge
