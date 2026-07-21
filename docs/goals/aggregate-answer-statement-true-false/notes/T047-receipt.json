@@ -1,0 +1,51 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T047",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "approved",
+    "full_outcome_complete": false,
+    "rationale": "approve_full_trial。fresh parentはexact 2 questionIds、question_typeのみ、no range/resumeで、旧checkpoint再利用0だった。各問はgpt-5.5/highの別thread 2件だけを持ち、review payloadはcandidateIdと分類情報だけである。対象は同一candidate IDから4 source sliceとstable keysを再現し、構造的前提は二者不一致を第三reviewなしでholdにした。各問のvalidation attemptは1回、00_source不変、Firestore非実行を確認した。",
+    "worker_package": {
+      "objective": "第一種衛生管理者1044問をqualification全体指定のfresh question_type parentで再実行し、prompt v3のtarget/non_target/hold/invalidを排他的に集計してtarget全件のcandidate ID、source slice、stable keysをreadbackする。",
+      "allowed_files": [
+        "output/question_review_console/workflow_runs/1eiseikanrisha/**",
+        "output/question_review_console/1eiseikanrisha/**",
+        "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+      ],
+      "verify": [
+        "Preview and parent manifest cover all 1044 questions with question_type only and no listGroupIds, questionIds, range, updateTargetIds, or resume scope.",
+        "Every question has exactly two resolved distinct-thread gpt-5.5/high prompt-v3 reviews, candidateSetHash, and no third review or legacy reuse.",
+        "Review payloads have exactly schemaVersion, sourceHash, classification, candidateId, decision, and issueCodes.",
+        "All 1044 questions fall into exclusive target, non_target, hold, or invalid buckets with reasons and no pending work.",
+        "Every target uses exact two-review candidate-ID agreement, server-resolved boundaries, exact source slices, reproducible stable keys, and boolean calculation flag; no partial target is accepted.",
+        "Every hold/invalid question has no target materialization and exactly one same-parent validation attempt.",
+        "Focused 114 tests, 00_source immutability, child receipt safety, no Firestore, and scoped output readback pass."
+      ],
+      "stop_if": [
+        "Qualification-wide preview does not resolve exactly 1044 questions or adds a narrower scope field.",
+        "A third review, legacy checkpoint reuse, raw offset fallback, agent-authored extracted text, or partial statement publication appears.",
+        "Provider failure occurs; preserve a partial receipt and do not resume the same parent.",
+        "Any question receives more than one validation attempt in the fresh parent.",
+        "00_source, Firestore, or a path outside allowed_files would change.",
+        "Rollback, receipt validation, checkpoint signature, or sourceHash safety fails."
+      ]
+    },
+    "evidence": [
+      "Parent 20260722T044110482130-95800adb succeeded with one validated target and one held structural premise question, no pending work.",
+      "Both checkpoints contain exactly slots 1 and 2, prompt v3, gpt-5.5/high, distinct threads, and zero reused questions.",
+      "Target candidate:559e5bb0036c94a4c502b641 recomputed four boundaries, exact source slices, and derived stable keys.",
+      "The held question has review_disagreement, empty spans, no changed files, and no third review.",
+      "114 tests and 5799-file source immutability passed; Firestore was not invoked."
+    ],
+    "blocked_tasks": [
+      "Downstream correctness, explanation, question set, publish gate, and Firestore publication"
+    ],
+    "missing_evidence": [
+      "Fresh prompt-v3 qualification-wide 1044-question receipt"
+    ],
+    "required_board_updates": [
+      "Activate T048 full-trial Worker; keep downstream and publication blocked."
+    ]
+  }
+}
