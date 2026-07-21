@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T055
+active_task: T056
 
 tasks:
   - id: T001
@@ -2895,7 +2895,7 @@ tasks:
   - id: T055
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T054をT053の指摘へ対応付けて監査し、rollback writeがOS lock外に残らないこと、再試行成功とterminal rollback不明の双方がfail closedであること、poisonの永続性・後続拒否・検証付き解除が資格共通に成立することを判定する。承認時はT048実績から共有patch file内の異なるrecordと既存aggregate guardを同時に証明する最小fresh canary契約を確定する。"
     inputs:
@@ -2914,6 +2914,62 @@ tasks:
       - "T053 finding-to-fix evidence map"
       - "Rollback uncertainty and poison recovery audit"
       - "Exact minimal fresh canary Worker package if approved"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "require_fix。multi-file poisonがpathごとの逐次writeで、途中失敗時に未poison fileへ後続writerが進める。poison例外のterminal制御、stable path identity、missing entry判定も不足するためfresh canaryは未承認とする。"
+      evidence:
+        - "rollback retryとouter lock-free write除去、単一file poison、worktree gitdir、SHA guardは確認した。"
+        - "2-file poisonの2件目write失敗時にpoisonが1件だけ残り、未poison fileの後続transactionが通ることを再現した。"
+        - "mark_poisoned例外がpipeline_stop前にgeneric failureへ落ち得る。"
+        - "leaf resolve依存のlock identityとexists依存のmissing判定はsymlinkで迂回可能である。"
+      blocked_tasks:
+        - "fresh canary"
+        - "fresh full rerun、下流工程、公開前gate、Firestore公開、T999 final audit"
+  - id: T056
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "multi-file rollback不明を、Git metadata内のtransaction単位poison又は同等の全path fail-closed方式で原子的に永続化する。個別poison writeの途中失敗又はexceptionでも全対象pathの後続writerを拒否し、pipelineをterminal停止させる。lock/poison identityはleafのsymlink解決結果ではなく安定したrepo-relative canonical pathから生成し、missing復旧はfilesystem entry自体の不存在を同一lock内で確認する。"
+    inputs:
+      - "T055 require_fix receipt"
+      - "T054 implementation commit 49082ff92"
+      - "Current canonical transaction lock, poison, and rollback code"
+    constraints:
+      - "Qualification-common implementation only; no qualification, year, question ID, source phrase, or filename exceptions."
+      - "Prefer a transaction write-ahead guard created atomically before canonical mutation so later poison persistence cannot fail open."
+      - "All paths in one transaction must share one fail-closed recovery record or an equivalent atomic registry update."
+      - "Use lexical repo-relative path identity while still rejecting parent traversal and symlink escapes."
+      - "Missing recovery requires lstat-level absence; dangling symlink is not missing."
+      - "Preserve same-lock rollback retry, ordered sourceUniqueKeys, 00_source, and no-Firestore contracts."
+    expected_output:
+      - "Atomic multi-path transaction guard or poison registry"
+      - "Poison persistence exception terminal handling"
+      - "Stable lexical lock and poison identity"
+      - "Strict missing-entry recovery and spawn regressions"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_patch_proposal.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_question_patch_proposal.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs"
+      - "for iteration in 1 2 3; do PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs || exit 1; done"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "An allowed-files expansion is required."
+      - "Any multi-file partial guard write can leave a target path writable."
+      - "Poison persistence failure can fall through as a generic non-terminal failure."
+      - "Lock or poison identity changes when the leaf symlink target changes."
+      - "A dangling symlink or other filesystem entry is accepted as a missing baseline repair."
+      - "Cross-process proof must be replaced by sequential or thread-only tests."
+      - "A qualification, year, question ID, source phrase, or filename exception is required."
+      - "00_source or Firestore would be changed or invoked."
+      - "The same unresolved verification cause fails twice."
     receipt: null
   - id: T999
     type: judge

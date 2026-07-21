@@ -1,0 +1,37 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T055",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "require_fix。rollback retryと通常terminal制御は同一OS lock内へ収束したが、multi-file poisonはpathごとの逐次writeである。途中失敗すると一部fileだけがpoisonされ、未poison fileの後続writerが通る。mark_poisoned例外はpipeline stop前にgeneric failureへ落ちる。またlock IDがleafのresolve結果依存のため、dangling symlinkでpoison identityを迂回できる。fresh canaryは未承認とする。",
+    "evidence": [
+      "rollback_baselineは最大2回、同じcanonical_transactionのOS lock内で実行され、outer handlerにrollback writeは残っていない。",
+      "通常checkoutとworktree gitdir markerをGit metadata rootへ解決し、単一file poisonの永続化、後続拒否、SHA-256又はmissing復旧後の解除は確認した。",
+      "multi-file mark_poisonedはpathごとの逐次atomic writeで、途中失敗時のtransaction poison又は全path fallbackがない。",
+      "read-only診断で2-file poisonの2件目writeを失敗させるとpoisonCount=1となり、未poison file単独transactionが成功した。",
+      "mark_poisoned例外時はpipeline_stopとCanonicalTransactionRollbackErrorへ到達せずgeneric failureへ落ち得る。",
+      "lock IDがleaf path.resolveに依存し、dangling symlink又はretargetで元poison identityを迂回できる。missing解除判定もfilesystem entry自体の不存在を要求していない。",
+      "production diffに資格、年度、question ID、source phrase、特定filename分岐はない。",
+      "focused 114 tests、expanded 145 tests、git diff --checkはpassした。"
+    ],
+    "next_allowed_task": {
+      "type": "worker",
+      "objective": "multi-file rollback不明を、Git metadata内のtransaction単位poison又は同等の全path fail-closed方式で原子的に永続化する。個別poison writeの途中失敗又はexceptionでも全対象pathの後続writerを拒否し、pipelineをterminal停止させる。lock/poison identityはleafのsymlink解決結果ではなく安定したrepo-relative canonical pathから生成し、missing復旧はfilesystem entry自体の不存在を同一lock内で確認する。",
+      "allowed_files": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_patch_proposal.py",
+        "tests/test_question_review_qualification_runs.py",
+        "tests/test_question_review_question_patch_proposal.py"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_question_candidate tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_record_scope tests.test_question_review_qualification_runs",
+        "for iteration in 1 2 3; do PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_qualification_runs || exit 1; done",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py",
+        "git diff --check"
+      ]
+    }
+  }
+}
