@@ -2337,21 +2337,82 @@ tasks:
       commits:
         - adf18e9f8
       harness: codex
+  - id: T042
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "2017年runが58/58完了しているのに年度別進捗が1/58となる不整合を修正し、UI表示を58/58へ収束させる"
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tools/question_review_console/work_versions.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py"
+      - "/Users/yuki/development/exam_scraper/tests/test_question_review_work_versions.py"
+      - "/Users/yuki/development/exam_scraper/output/question_review_console/gas-shunin-kou/2017/work_versions.json"
+      - "/Users/yuki/development/exam_scraper/output/question_review_console/workflow_runs/gas-shunin-kou"
+    verify:
+      - "UI final readback: 2017 = 58/58問 整備済み"
+      - "qualification workflow API: currentCount=58, requiredCount=0 for 2017"
+      - ".venv/bin/python -m unittest discover -s tests"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "検証済みでない工程版をcurrentへ昇格する必要がある。"
+      - "異なるoriginalQuestionId又は資格の記録を統合する必要がある。"
+      - "00_source又は本番Firestoreの変更が必要になる。"
+    receipt:
+      result: done
+      summary: "一問queueのmanifest保存時にreviewKeyが欠落し、検証済み工程版が一時UI ID側へ記録されていた。manifestで正規reviewKeyを保持し、同一問題の一時ID記録だけを正規記録へ履歴付きで統合するよう修正した。また、公式過去問に残る05 patchが独自問題化を進捗対象へ戻さないよう適用条件を統一した。修正版で補足質問のみをUIから全58問再実行し、年度別進捗58/58を確認した。"
+      full_outcome_complete: true
+      evidence:
+        - "root cause: QualificationRunStore.create dropped progressTargets[].reviewKey"
+        - "before repair: 2017 work_versions had 116 records, split into 58 canonical and 58 temporary UI identities"
+        - "UI run 20260721T132103679567-683680d0: status=succeeded, queueStatus=succeeded"
+        - "58 questions, 58 work items, 58 validated questions, 58 validated work items, 0 blocked"
+        - "artifactSync.status=succeeded for 2017"
+        - "after repair: work_versions has 58 canonical records, 0 temporary identities, law_audit v4.0 on all 58"
+        - "qualification workflow API: 2017 currentCount=58, requiredCount=0"
+        - "UI final readback: 2017 / 58/58問 整備済み"
+        - "Firestore write was not executed; artifact synchronization used upload dry-run"
+      changed_files:
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_runs.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/qualification_workflow.py
+        - /Users/yuki/development/exam_scraper/tools/question_review_console/work_versions.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_qualification_runs.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_qualification_workflow.py
+        - /Users/yuki/development/exam_scraper/tests/test_question_review_work_versions.py
+      commands:
+        - cmd: "2017 UI supplement-only full run 20260721T132103679567-683680d0"
+          status: pass
+          summary: "58/58 questions and work items validated; 0 blocked; artifact sync succeeded"
+        - cmd: ".venv/bin/python -m unittest discover -s tests"
+          status: pass
+          summary: "1,030 tests passed; 7 skipped"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5,799 source files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      commits:
+        - ef874f455
+      harness: codex
 checks:
   dirty_fingerprint: "exam_scraper: pre-existing gas-shunin-kou 2020-2025 and gas-shunin-otsu 2017 output patches; repaso: pre-existing docs/architecture/datamodel.md, docs/features/law_grounded_explanation.md, ios submodule and release/onboarding changes"
   last_verification:
     result: pass
-    task: T041
+    task: T042
     commands:
-      - cmd: "2017 UI supplement-only full run 20260721T115704888054-1e67071a"
+      - cmd: "2017 UI supplement-only full run 20260721T132103679567-683680d0"
         status: pass
         summary: "58/58 questions and 58/58 work items validated; 0 blocked"
-      - cmd: "2017 UI artifact synchronization"
+      - cmd: "2017 UI and workflow progress readback"
         status: pass
-        summary: "Merge, Convert and upload-ready match; 272 documents; upload dry-run only"
+        summary: "2017 shows 58/58 maintained; currentCount=58 and requiredCount=0"
       - cmd: ".venv/bin/python -m unittest discover -s tests"
         status: pass
-        summary: "1,029 tests passed; 7 skipped"
+        summary: "1,030 tests passed; 7 skipped"
       - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
         status: pass
         summary: "5,799 source files unchanged"
