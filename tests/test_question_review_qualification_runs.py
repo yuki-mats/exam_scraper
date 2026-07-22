@@ -3529,7 +3529,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertFalse(patch_exists)
 
-    def test_question_concurrency_can_be_raised_to_ten(self):
+    def test_question_concurrency_defaults_to_ten_and_allows_explicit_thirty_two(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -3540,13 +3540,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "secret",
                 app_server=FlowAppServer(),
             )
-            preview_five = coordinator.preview(
+            preview_default = coordinator.preview(
                 "new-exam",
                 "question_type",
                 "outdated",
                 stage_ids=["question_type"],
                 list_group_ids=["2026"],
-                question_concurrency=5,
             )
             preview_ten = coordinator.preview(
                 "new-exam",
@@ -3556,18 +3555,28 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 list_group_ids=["2026"],
                 question_concurrency=10,
             )
+            preview_thirty_two = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                question_concurrency=32,
+            )
             started = coordinator.start(
                 "new-exam",
                 "question_type",
                 "outdated",
-                preview_five["previewToken"],
+                preview_default["previewToken"],
                 stage_ids=["question_type"],
                 list_group_ids=["2026"],
                 question_concurrency=10,
             )
             parent = started["run"]
 
-        self.assertEqual(preview_five["previewToken"], preview_ten["previewToken"])
+        self.assertEqual(preview_default["questionConcurrency"], 10)
+        self.assertEqual(preview_thirty_two["questionConcurrency"], 32)
+        self.assertEqual(preview_default["previewToken"], preview_ten["previewToken"])
         self.assertEqual(parent["questionConcurrency"], 10)
         self.assertEqual(parent["parallelWorkerLimit"], 10)
 

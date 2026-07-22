@@ -259,9 +259,9 @@
           </fieldset>
           <fieldset id="qualification-run-concurrency-fieldset">
             <legend>処理速度</legend>
-            <input type="hidden" name="qualification-run-concurrency" value="32">
-            <strong>自動・最大性能</strong>
-            <small class="run-concurrency-note">入力token量と失敗率に合わせてbatchと同時実行数を自動調整します。検査と確定は常に一問単位です。</small>
+            <input type="hidden" name="qualification-run-concurrency" value="10">
+            <strong>自動・安定優先</strong>
+            <small class="run-concurrency-note">同時実行は最大10件に抑え、入力token量と失敗率に合わせてbatchを自動調整します。検査と確定は常に一問単位です。</small>
           </fieldset>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
           <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>

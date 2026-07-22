@@ -3146,6 +3146,68 @@ tasks:
       remaining_blockers:
         - "承認済み記述の正誤・解説工程"
         - "公開前gateと第一種衛生管理者限定readback"
+  - id: T059
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "資格整備runの通常時の同時model turn数を全資格共通で10に抑え、32は明示指定時だけ使えるようにする。backend既定値、UI自動値、再実行fallbackを同じ定数へ揃え、通常操作で過剰な並列へ戻らないことを検証する。"
+    inputs:
+      - "T058 full-run receipt"
+      - "User concern about excessive agent concurrency and stalled responses"
+    constraints:
+      - "Do not add qualification-specific conditions."
+      - "Keep 32 available only as an explicit API option for exceptional runs."
+      - "Do not start additional sub-agents."
+      - "Do not touch 00_source, Firestore, or pre-existing gas-shunin dirty files."
+    expected_output:
+      - "Backend default concurrency 10"
+      - "UI automatic concurrency 10"
+      - "Retry fallback uses the shared UI constant"
+      - "Regression tests and 00_source readback"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+    verify:
+      - "python -m unittest -q tests.test_question_review_qualification_runs tests.test_question_review_workflow"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "The change requires qualification-specific behavior."
+      - "32 can no longer be selected explicitly through the supported API contract."
+      - "00_source, Firestore, or a path outside allowed_files would change."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/static/app.js"
+        - "tools/question_review_console/static/index.html"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tests/test_question_review_workflow.py"
+      commands:
+        - command: "Backend and UI default concurrency contract"
+          status: pass
+          summary: "normal qualification runs, UI automatic runs, and retry fallback now use 10 concurrent model turns"
+        - command: "Explicit high-concurrency compatibility"
+          status: pass
+          summary: "the supported API still accepts an explicit concurrency value of 32"
+        - command: "Focused regression suite"
+          status: pass
+          summary: "117 qualification-run and workflow tests passed"
+        - command: "Expanded aggregate extraction regression suite"
+          status: pass
+          summary: "176 tests passed"
+        - command: "00_source immutability and diff validation"
+          status: pass
+          summary: "5799 source files unchanged; git diff --check passed"
+      summary: "全資格共通の通常並列数を32から10へ下げ、backend既定値、UI自動値、画面初期状態、再実行fallbackを揃えた。資格別条件や追加エージェントは導入していない。例外的な高速実行に必要な32並列は明示API指定時だけ互換性を維持する。"
+      deviations: []
+      remaining_blockers:
+        - "承認済み記述の正誤・解説工程"
+        - "公開前gateと第一種衛生管理者限定readback"
   - id: T999
     type: judge
     assignee: Judge

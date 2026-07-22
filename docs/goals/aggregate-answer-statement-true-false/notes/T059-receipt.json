@@ -1,0 +1,49 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T059",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/static/app.js",
+      "tools/question_review_console/static/index.html",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_workflow.py"
+    ],
+    "commands": [
+      {
+        "command": "Backend and UI default concurrency contract",
+        "status": "pass",
+        "summary": "normal qualification runs, UI automatic runs, and retry fallback now use 10 concurrent model turns"
+      },
+      {
+        "command": "Explicit high-concurrency compatibility",
+        "status": "pass",
+        "summary": "the supported API still accepts an explicit concurrency value of 32"
+      },
+      {
+        "command": "Focused regression suite",
+        "status": "pass",
+        "summary": "117 qualification-run and workflow tests passed"
+      },
+      {
+        "command": "Expanded aggregate extraction regression suite",
+        "status": "pass",
+        "summary": "176 tests passed"
+      },
+      {
+        "command": "00_source immutability and diff validation",
+        "status": "pass",
+        "summary": "5799 source files unchanged; git diff --check passed"
+      }
+    ],
+    "summary": "全資格共通の通常並列数を32から10へ下げ、backend既定値、UI自動値、画面初期状態、再実行fallbackを揃えた。資格別条件や追加エージェントは導入していない。例外的な高速実行に必要な32並列は明示API指定時だけ互換性を維持する。",
+    "deviations": [],
+    "remaining_blockers": [
+      "承認済み記述の正誤・解説工程",
+      "公開前gateと第一種衛生管理者限定readback"
+    ],
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

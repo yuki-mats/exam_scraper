@@ -1609,14 +1609,15 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
-        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 32", javascript)
+        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 10", javascript)
         self.assertIn("return AUTO_QUESTION_CONCURRENCY", javascript)
         self.assertIn(
-            'name="qualification-run-concurrency" value="32"',
+            'name="qualification-run-concurrency" value="10"',
             html,
         )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
-        self.assertIn("自動・最大性能", html)
+        self.assertIn("自動・安定優先", html)
+        self.assertIn("同時実行は最大10件", html)
         self.assertIn("入力token量と失敗率", html)
         self.assertIn("複数選択可", javascript)
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)

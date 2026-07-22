@@ -5,7 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v2";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
-const AUTO_QUESTION_CONCURRENCY = 32;
+const AUTO_QUESTION_CONCURRENCY = 10;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -191,7 +191,7 @@ const state = {
     listGroupIds: [],
     updateTargetIds: [],
     questionRange: null,
-    questionConcurrency: 32,
+    questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     previewController: null,
     fieldFirst: false,
     entryStageId: "",
@@ -3285,7 +3285,7 @@ function retryBlockedQualificationRun() {
     updateTargetIds: run.selectedUpdateTargetIds,
     questionRange: run.questionRange || null,
     mode: run.mode || "outdated",
-    questionConcurrency: run.questionConcurrency || 32,
+    questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
     resumedFrom: run.runId,
     simplified: true,
   });
