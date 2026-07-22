@@ -158,6 +158,10 @@ class QuestionCandidateTest(unittest.TestCase):
         rules = target.prompt_value()["fieldRules"]
 
         self.assertIn("問題共通の1本", rules["explanationText"]["description"])
+        self.assertIn(
+            "「正しい。」又は「間違い。」で始める",
+            rules["explanationText"]["description"],
+        )
         supplement = rules["suggestedQuestionDetailsByChoice"]
         self.assertIn("基本解説に答えがある", supplement["description"])
         self.assertIn("追加情報がなければ必ず空配列", supplement["description"])
@@ -169,6 +173,57 @@ class QuestionCandidateTest(unittest.TestCase):
         item_rule = supplement["items"]["properties"]["items"]["items"]
         self.assertFalse(item_rule["additionalProperties"])
         self.assertEqual(item_rule["required"], ["question", "answer"])
+
+    def test_all_law_field_roles_expose_shared_choice_aligned_contract(self):
+        law_context = candidate_targets(
+            "q1",
+            "law_context",
+            {
+                "allowedPatchFiles": [
+                    "output/sample/questions_json/2026/18_law_context_prepared/patch.json"
+                ],
+                "allowedWriteFiles": [],
+            },
+        )[0]
+        explanation = candidate_targets("q1", "explanation", self.plan())[0]
+        audit_targets = candidate_targets(
+            "q1",
+            "law_audit",
+            {
+                "allowedPatchFiles": [
+                    "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+                ],
+                "allowedWriteFiles": [
+                    "output/sample/review/law_revision_audit/2026_law_revision_audit.jsonl"
+                ],
+            },
+        )
+        audit = next(target for target in audit_targets if target.role == "law_audit")
+
+        role_rules = [
+            target.prompt_value()["fieldRules"]
+            for target in (law_context, explanation, audit)
+        ]
+        for rules in role_rules:
+            self.assertEqual(rules["isLawRelated"]["type"], "boolean")
+            self.assertEqual(
+                rules["lawGroundedExplanationNotNeeded"]["type"],
+                "boolean",
+            )
+            self.assertIn(
+                "choiceTextListと必ず同じ件数",
+                rules["lawReferences"]["description"],
+            )
+            self.assertEqual(rules["lawReferences"]["items"]["type"], "array")
+            self.assertEqual(rules["lawContextForExplanation"]["type"], "string")
+        self.assertEqual(
+            role_rules[0]["lawReferences"],
+            role_rules[1]["lawReferences"],
+        )
+        self.assertEqual(
+            role_rules[1]["lawReferences"],
+            role_rules[2]["lawReferences"],
+        )
 
     def test_correct_choice_target_requires_canonical_full_choice_markers(self):
         plan = {
@@ -550,6 +605,50 @@ class QuestionCandidateTest(unittest.TestCase):
         )
 
         self.assertEqual(errors, ())
+
+    def test_content_validator_rejects_bad_explanation_style_before_write(self):
+        targets = candidate_targets("q1", "explanation", self.plan())
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "解説を整えた。",
+                        "updates": [
+                            {
+                                "targetId": "q1:explanation",
+                                "setFields": [
+                                    {
+                                        "field": "explanationText",
+                                        "valueJson": '["理由から正しい。"]',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "true_false",
+                "choiceTextList": ["選択肢"],
+                "correctChoiceText": ["正しい"],
+            },
+        )
+
+        self.assertEqual(
+            errors,
+            ("選択肢1: 解説は「正しい。」又は「間違い。」で始めてください。",),
+        )
 
     def test_content_validator_rejects_choice_only_suggestions(self):
         targets = candidate_targets("q1", "explanation", self.plan())

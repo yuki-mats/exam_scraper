@@ -10,8 +10,14 @@ from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
 )
-from scripts.common.explanation_contract import explanation_shape_errors
+from scripts.common.explanation_contract import (
+    explanation_shape_errors,
+    uses_question_level_explanation,
+)
 from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
+from tools.question_review_console.explanation_quality import (
+    explanation_style_issues,
+)
 
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
@@ -314,6 +320,8 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
         "items": {"type": "string", "minLength": 1},
         "description": (
             "true_falseは選択肢数と同数。flash_cardとgroup_choiceは問題共通の1本だけ。"
+            "true_falseの各解説は対応するcorrectChoiceTextに合わせて、"
+            "「正しい。」又は「間違い。」で始める。"
         ),
     },
     "suggestedQuestionDetailsByChoice": (
@@ -370,6 +378,17 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
     "items": {"type": "array"},
 }
 
+_SHARED_LAW_FIELD_RULES: dict[str, Any] = {
+    "isLawRelated": {"type": "boolean"},
+    "lawGroundedExplanationNotNeeded": {"type": "boolean"},
+    "lawReferences": _LAW_REFERENCES_RULE,
+    "lawContextForExplanation": {
+        "type": "string",
+        "minLength": 1,
+        "description": "解説工程へ渡す短い根拠メモ。法令本文や長文引用は入れない。",
+    },
+}
+
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
     "question_type": {
         "questionType": {
@@ -386,13 +405,17 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         "isCalculationQuestion": {"type": "boolean"},
     },
     "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
-    "explanation": _EXPLANATION_FIELD_RULES,
+    "law_context": _SHARED_LAW_FIELD_RULES,
+    "explanation": {
+        **_EXPLANATION_FIELD_RULES,
+        **_SHARED_LAW_FIELD_RULES,
+    },
     "law_audit": {
         **_EXPLANATION_FIELD_RULES,
+        **_SHARED_LAW_FIELD_RULES,
         "explanationText": _LAW_AUDIT_EXPLANATION_TEXT_RULE,
         "suggestedQuestionDetailsByChoice": _LAW_AUDIT_SUGGESTED_QUESTION_RULE,
         "correctChoiceText": _CORRECT_CHOICE_TEXT_RULE,
-        "lawReferences": _LAW_REFERENCES_RULE,
         "examTimeDecision": _CHOICE_DECISION_RULE,
         "currentLawDecision": _CHOICE_DECISION_RULE,
         "auditStatus": {
@@ -909,13 +932,24 @@ def validate_candidate_content(
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
     explanations = logical.get("explanationText")
     if "explanationText" in changed_fields and explanations is not None:
-        errors.extend(
-            explanation_shape_errors(
-                explanations,
-                question_type=logical.get("questionType"),
-                choice_count=len(choices),
-            )
+        explanation_shape = explanation_shape_errors(
+            explanations,
+            question_type=logical.get("questionType"),
+            choice_count=len(choices),
         )
+        errors.extend(explanation_shape)
+        if not explanation_shape and isinstance(explanations, list):
+            errors.extend(
+                explanation_style_issues(
+                    explanations,
+                    correct,
+                    choice_texts=choices,
+                    require_verdict_prefix=not uses_question_level_explanation(
+                        logical.get("questionType")
+                    ),
+                    question_type=logical.get("questionType"),
+                )
+            )
     if "isCalculationQuestion" in changed_fields and not isinstance(
         logical.get("isCalculationQuestion"), bool
     ):

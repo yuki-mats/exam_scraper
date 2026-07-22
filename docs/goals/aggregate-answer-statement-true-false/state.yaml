@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T999
+active_task: T062
 
 tasks:
   - id: T001
@@ -3208,10 +3208,216 @@ tasks:
       remaining_blockers:
         - "承認済み記述の正誤・解説工程"
         - "公開前gateと第一種衛生管理者限定readback"
+  - id: T060
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: high
+    objective: "承認済みaggregate targetの代表1問を、既存のquestion_intent、correct_choice、law_context、explanation工程へexact questionId指定で通し、4つの原文記述を変更せず、記述単位の正誤・法令判定・解説が既存patch層へ一貫して保存されることを実データで証明する。"
+    inputs:
+      - "T999 not_complete audit"
+      - "T058 full-run parent 20260722T092813561293-1c734f65"
+      - "Approved target questionId 25c5f9888a5c5edd190b6839 in list group 20031"
+    constraints:
+      - "Use one fresh parent, exact questionIds scope, stages question_intent/correct_choice/law_context/explanation, and question concurrency 1."
+      - "Use only existing maintenance stages; do not add an aggregate-specific correctness or explanation pipeline."
+      - "Do not allow downstream model output to update questionBodyText, choiceTextList, sourceUniqueKeys, or aggregateAnswerDecomposition."
+      - "Do not start additional sub-agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or pre-existing gas-shunin dirty files."
+    expected_output:
+      - "Fresh parent and child receipts for the four existing stages"
+      - "Four correctChoiceText values matching four extracted statements"
+      - "Four choice-level explanations and internally consistent law fields"
+      - "Unchanged source spans, extracted text, stable keys, and aggregate parent identity"
+      - "No Firestore and 00_source immutability readback"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/20031/**"
+      - "output/1eiseikanrisha/questions_json/20031/15_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/20031/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/20031/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/20031/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/20031/99_model_review_flags/**"
+    verify:
+      - "Preview resolves exactly questionId 25c5f9888a5c5edd190b6839 and the four requested existing stages."
+      - "The qtype projection still has four exact source slices and four unchanged sourceUniqueKeys before and after the run."
+      - "correctChoiceText and explanationText each contain exactly four values aligned to the extracted choices."
+      - "Law fields satisfy the existing law-context and explanation contracts; uncertainty remains blocked rather than guessed."
+      - "Every stage has at most one validation attempt; no unrelated record is changed."
+      - "Focused downstream and aggregate regression tests pass."
+      - "python scripts/check/check_00_source_immutability.py"
+      - "No Firestore publication."
+    stop_if:
+      - "Preview selects another question, stage, or list group."
+      - "Any stage attempts to rewrite extracted statement text, source spans, stable keys, or parent identity."
+      - "Correctness or explanation count differs from four, or a statement cannot be determined safely."
+      - "A stage retries more than once, requires a new aggregate-specific pipeline, or changes a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: blocked
+      blocked_reason: "law_contextの構造化候補にlawReferencesの選択肢別配列規則が提示されず、初回候補が4記述と同数のnested arrayにならなかった。機械検証は正しく拒否し、法令patchと解説patchは未作成。"
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T110435749410-2fb3858f/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T110439711951-eaed042f/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T110456611672-0f737ed3/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T110530676311-f7c0e23d/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T110559146540-366f7ce4/**"
+        - "output/1eiseikanrisha/questions_json/20031/15_correctChoiceText_fixed/question_20031_1_correctChoiceText_fixed.json"
+        - "output/1eiseikanrisha/questions_json/20031/23_correctChoiceText_fixed/question_20031_1_correctChoiceText_fixed.json"
+      commands:
+        - command: "Exact-one four-stage preview"
+          status: pass
+          summary: "questionId 25c5f9888a5c5edd190b6839 only; 4 stages; list group 20031; concurrency 1; no production write"
+        - command: "question_intent attempt 1"
+          status: pass
+          summary: "select_correct was validated and written once"
+        - command: "correct_choice attempt 1"
+          status: pass
+          summary: "four verdicts were validated as 正しい, 間違い, 正しい, 間違い"
+        - command: "law_context attempt 1"
+          status: fail
+          summary: "server rejected lawReferences because it was not a four-element choice-aligned nested array"
+        - command: "Stop automatic retry"
+          status: pass
+          summary: "temporary server was stopped; retry child made no canonical changes"
+        - command: "Source-slice and identity readback"
+          status: pass
+          summary: "qtype file and selected record hashes were unchanged; four exact statements and stable keys were preserved"
+      summary: "既存02と02aはaggregate targetをそのまま処理でき、4記述の正誤まで一回で確定した。02bは候補schema自体は通ったが、law_context roleに既存のLAW_REFERENCES_RULEが公開されていないためcontent検証で停止した。問題固有データは修正せず、法令・解説patchを作らないfail-closed状態を保持した。"
+      spawned_tasks:
+        - T061
+      verification_attempts: 1
+      stopped_because: "law_context candidate contract omitted the shared choice-aligned lawReferences rule"
+  - id: T061
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "law_contextとexplanationが共有する法令field規則を構造化候補へ資格共通で公開し、lawReferencesをchoiceTextListと同じ件数のnested arrayとして初回から生成させる。回帰テスト後、同じ1問をfresh law_context→explanation runで確定し、T060の正誤と結合した縦sliceを完了する。"
+    inputs:
+      - "T060 blocked receipt"
+      - "Existing _LAW_REFERENCES_RULE and validate_candidate_content"
+      - "Validated question_intent and correct_choice patches for sourceRecordRef question_20031_1.json#2"
+    constraints:
+      - "Reuse one shared law field rule mapping; do not add qualification, year, question, or aggregate-target conditions."
+      - "Do not normalize or invent legal references server-side; model output must satisfy the explicit shared contract and validation."
+      - "Use fresh exact-one law_context/explanation parent with concurrency 1 after tests pass."
+      - "Do not start additional sub-agents."
+      - "Do not touch 00_source, question_type, confirmed question_intent/correct_choice patches, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "Shared law field rules for law_context, explanation, and law_audit"
+      - "Regression proving lawReferences rule is present on every role that can update it"
+      - "Fresh exact-one law_context and explanation receipts without retry"
+      - "Four aligned law-reference arrays and four explanations"
+      - "Unchanged extracted statements, keys, verdicts, and parent identity"
+    allowed_files:
+      - "tools/question_review_console/question_candidate.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/20031/**"
+      - "output/1eiseikanrisha/questions_json/20031/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/20031/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/20031/99_model_review_flags/**"
+    verify:
+      - "python -m unittest -q tests.test_question_review_question_candidate"
+      - "Every candidate role that allows lawReferences exposes the same choice-aligned nested-array rule."
+      - "Fresh preview resolves exact questionId 25c5f9888a5c5edd190b6839, stages law_context/explanation only, concurrency 1, no production write."
+      - "Both stages validate on attempt 1; lawReferences and explanationText each align to four extracted choices."
+      - "T060 qtype record hash, four sourceUniqueKeys, and four correctChoiceText values remain unchanged."
+      - "Expanded aggregate/downstream tests and python scripts/check/check_00_source_immutability.py pass."
+      - "No Firestore publication."
+    stop_if:
+      - "The fix requires a qualification-specific branch, server-authored legal content, or relaxing content validation."
+      - "The fresh preview includes another question or stage."
+      - "Either stage needs a second validation attempt or rewrites upstream fields."
+      - "A path outside allowed_files, 00_source, or Firestore would change."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/question_candidate.py"
+        - "tests/test_question_review_question_candidate.py"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T111051306978-b82369bf/**"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T111733868712-ea8ec8fd/**"
+        - "output/1eiseikanrisha/questions_json/20031/18_law_context_prepared/question_20031_1_merged_lawContext_prepared.json"
+        - "output/1eiseikanrisha/questions_json/20031/21_explanationText_added/question_20031_1_merged_explanationText_added.json"
+      commands:
+        - command: "Shared law candidate contract"
+          status: pass
+          summary: "law_context, explanation, and law_audit expose the same boolean, choice-aligned nested lawReferences, and lawContextForExplanation rules"
+        - command: "Pre-write explanation quality validation"
+          status: pass
+          summary: "true_false explanation count, verdict prefix, verdict agreement, and style are now rejected in validate_candidate_content before canonical commit"
+        - command: "Fresh law_context attempt 1"
+          status: pass
+          summary: "parent 20260722T111051306978-b82369bf validated four choice-aligned law reference arrays without rewriting upstream fields"
+        - command: "Fresh explanation attempt 1 after generic guard fix"
+          status: pass
+          summary: "parent 20260722T111733868712-ea8ec8fd validated exactly one question and four verdict-aligned explanations with concurrency 1"
+        - command: "Source slice and downstream alignment readback"
+          status: pass
+          summary: "all four choices exactly equal source spans; stable keys and qtype file hash are unchanged; verdicts and explanation prefixes align 1:1"
+        - command: "Expanded regression suite"
+          status: pass
+          summary: "178 aggregate and downstream tests passed"
+        - command: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged; artifact sync remained blocked on 41 incomplete records and Firestore was not invoked"
+      summary: "法令field規則をroleごとの重複定義ではなく共有mappingへまとめ、law_context、explanation、law_auditの構造化候補へ同じ契約を公開した。途中で解説の日本語品質検査がcanonical commit後にしか走らず、不正候補が一時保存される共通欠陥を検出したため、既存explanation_style_issuesを候補content検証へ移して保存前fail-closedにした。問題固有分岐やサーバー生成文は追加していない。代表1問は4原文記述、4stable key、4正誤を維持したまま、4法令配列と4解説を確定した。"
+      deviations:
+        - "最初のlaw_context→explanation parentではlaw_contextが初回成功した後、explanationが判定語で始まらず日本語品質検査で停止した。自動retryは行わず、不正な一時patchを除去して共通の保存前検証を追加し、fresh explanation parentの初回候補で確定した。"
+      remaining_blockers:
+        - "承認済み56対象問全件の正誤・法令・解説工程"
+        - "category、questionSet、公開前gate、第一種衛生管理者限定readback"
+  - id: T062
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "T058で承認済みの第一種衛生管理者56対象問をexact questionIdsで既存question_intent、correct_choice、law_context、explanation工程へ通し、215の原文記述を変更せず、記述単位の正誤・法令情報・解説を全件確定する。"
+    inputs:
+      - "T058 parent 20260722T092813561293-1c734f65 and its 56 approved target question IDs"
+      - "T061 shared law contract and pre-write explanation validation"
+      - "T061 exact-one vertical slice"
+    constraints:
+      - "Use one fresh exact-questionIds parent, only the four existing stages, and question concurrency 5."
+      - "Do not create an aggregate-specific downstream pipeline, qualification-specific branch, or new sub-agent."
+      - "Models may assign verdicts and write explanations but may not update questionBodyText, choiceTextList, sourceUniqueKeys, aggregateAnswerDecomposition, or parent identity."
+      - "Do not touch 00_source, Firestore, category, question sets, or pre-existing gas-shunin dirty files."
+      - "Keep uncertainty blocked; do not guess or silently omit a target."
+    expected_output:
+      - "Fresh parent and child receipts covering exactly the 56 approved targets"
+      - "Exactly 215 verdicts and 215 verdict-aligned explanations"
+      - "Choice-aligned law fields for every processed target"
+      - "All 215 source slices and stable keys unchanged"
+      - "Exclusive validated, blocked, and pending counts with no hidden partial completion"
+      - "No Firestore and 00_source immutability readback"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/15_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/*/99_model_review_flags/**"
+    verify:
+      - "Preview resolves exactly the 56 T058 target question IDs, four existing stages, and concurrency 5."
+      - "Parent and child receipts account for every question-stage work item with no pending work."
+      - "Every validated record preserves exact source slices, stable keys, decomposition, and parent identity."
+      - "correctChoiceText, lawReferences, and explanationText counts equal choiceTextList counts; explanation verdict prefixes agree with correctChoiceText."
+      - "Blocked questions make no invalid canonical change and remain explicitly queued for review."
+      - "Expanded aggregate/downstream tests, 00_source immutability, and git diff validation pass."
+      - "No Firestore publication."
+    stop_if:
+      - "Preview includes a non-target, omits a target, changes stage scope, or exceeds concurrency 5."
+      - "A model attempts to rewrite any source-derived or identity field."
+      - "A qualification-specific exception, duplicate pipeline, or server-authored statement/explanation is required."
+      - "A path outside allowed_files, 00_source, category, question sets, or Firestore would change."
+      - "A shared failure pattern appears; stop the affected work and fix only the common contract before resuming."
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "全receiptと検証をoracleへ対応付け、共通実装、第一種衛生管理者全件trial、公開前gate、限定公開readbackまで完了したか監査する。"
     inputs:
@@ -3231,7 +3437,42 @@ tasks:
       - "Oracle evidence map"
       - "Missing evidence"
       - "Next task if not complete"
-    receipt: null
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "資格共通の対象分類、二者一致、原文span抽出、新規stable key、第一種衛生管理者1044問の全件trialは証明済みだが、56対象問の記述単位正誤・解説・questionSet・公開前gate・限定公開readbackが未実施であり、goal oracleを満たさない。"
+      evidence:
+        - "T058 parent 20260722T092813561293-1c734f65は1044問をtarget 56、non_target 640、hold 348、implementation invalid 0へ排他的に分類した。"
+        - "56 targetの215記述は全て原文spanから再現でき、215 sourceUniqueKeysは一意、agent-authored statementは0件だった。"
+        - "現在の56 target patchにstatement-level verdict又はexplanationは0件で、下流patch directory、category、questionSet、merged、convert成果物は存在しない。"
+        - "T058 artifact syncは24 groupすべて下流必須field不足でblocked、Firestoreは未実行だった。"
+        - "00_source 5799 filesは不変、HEADとorigin/mainは065e66bcaで一致している。"
+      missing_evidence:
+        - "既存02〜03工程で抽出記述ごとの正誤、法令判定、解説を確定できる実データ証拠。"
+        - "56対象問全件のall-or-nothing downstream completion。"
+        - "category、questionSet、merge、convert、quality-gate、upload dry-run。"
+        - "別session評価、第一種衛生管理者限定Firestore反映、直後のreadback。"
+      worker_package:
+        objective: "承認済みaggregate targetの代表1問を、既存のquestion_intent、correct_choice、law_context、explanation工程へexact questionId指定で通し、4つの原文記述を変更せず、記述単位の正誤・法令判定・解説が既存patch層へ一貫して保存されることを実データで証明する。"
+        allowed_files:
+          - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+          - "output/question_review_console/1eiseikanrisha/20031/**"
+          - "output/1eiseikanrisha/questions_json/20031/15_correctChoiceText_fixed/**"
+          - "output/1eiseikanrisha/questions_json/20031/23_correctChoiceText_fixed/**"
+          - "output/1eiseikanrisha/questions_json/20031/18_law_context_prepared/**"
+          - "output/1eiseikanrisha/questions_json/20031/21_explanationText_added/**"
+          - "output/1eiseikanrisha/questions_json/20031/99_model_review_flags/**"
+        verify:
+          - "Exact-one preview and four-stage receipt readback."
+          - "Four exact source slices, four verdicts, four explanations, unchanged stable keys and identity."
+          - "Focused regression, 00_source immutability, and no Firestore."
+        stop_if:
+          - "Need an aggregate-specific duplicate downstream pipeline or a path outside allowed_files."
+          - "The model rewrites extracted statements or cannot safely determine every statement."
+          - "00_source or Firestore would change."
+      next_allowed_task: T060
+      blocked_tasks: []
 
 checks:
   dirty_fingerprint: "sha256:c585f6db68b60a6d06fa5369694d46a56598ce32d8febfd3ed0a7b824a3b682c; pre-existing gas-shunin patch edits present at prep; do not touch or stage"
