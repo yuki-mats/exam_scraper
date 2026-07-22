@@ -988,7 +988,18 @@ def validate_candidate_content(
             logical.pop(field, None)
 
     errors: list[str] = []
+    question_body = logical.get("questionBodyText")
+    if "questionBodyText" in changed_fields and (
+        not isinstance(question_body, str) or not question_body.strip()
+    ):
+        errors.append("questionBodyTextが非空stringではありません。")
     choices = logical.get("choiceTextList") or []
+    if "choiceTextList" in changed_fields and (
+        not isinstance(choices, list)
+        or not choices
+        or any(not isinstance(value, str) or not value.strip() for value in choices)
+    ):
+        errors.append("choiceTextListが非空stringの配列ではありません。")
     correct = logical.get("correctChoiceText")
     if "questionType" in changed_fields:
         question_type = logical.get("questionType")

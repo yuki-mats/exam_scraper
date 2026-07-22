@@ -19,6 +19,7 @@ from tools.question_review_console.codex_app_server import (
     RESEARCH_AGENT_CONFIG_FILENAME,
     RESEARCH_AGENT_ROLE,
     SAFE_SHELL_PATH,
+    SUBSCRIPTION_STATUS_READ_ATTEMPTS,
     SubscriptionGateError,
     _TurnState,
     adapt_output_schema_for_app_server,
@@ -150,6 +151,53 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertTrue(all(status["allowed"] for status in statuses))
         self.assertEqual(calls.count("account/read"), 1)
         self.assertEqual(calls.count("account/rateLimits/read"), 1)
+
+    def test_transient_status_read_is_retried_without_weakening_gate(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._ensure_started = lambda: None
+        rate_limit_calls = 0
+
+        def request(method, _params):
+            nonlocal rate_limit_calls
+            if method == "account/read":
+                return account_response()
+            rate_limit_calls += 1
+            if rate_limit_calls < SUBSCRIPTION_STATUS_READ_ATTEMPTS:
+                raise CodexAppServerError("temporary rate limit read failure")
+            return rate_limit_response()
+
+        client._request = request
+        with patch(
+            "tools.question_review_console.codex_app_server.time.sleep"
+        ) as sleep:
+            status = client.assert_subscription_access(force=True)
+
+        self.assertTrue(status["allowed"])
+        self.assertEqual(rate_limit_calls, SUBSCRIPTION_STATUS_READ_ATTEMPTS)
+        self.assertEqual(sleep.call_count, SUBSCRIPTION_STATUS_READ_ATTEMPTS - 1)
+
+    def test_persistent_status_read_failure_remains_fail_closed(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._ensure_started = lambda: None
+        client._last_status = validate_subscription_access(
+            account_response(), rate_limit_response()
+        )
+        client._last_status_at = time.monotonic()
+        calls = 0
+
+        def request(_method, _params):
+            nonlocal calls
+            calls += 1
+            raise CodexAppServerError("persistent status read failure")
+
+        client._request = request
+        with patch("tools.question_review_console.codex_app_server.time.sleep"):
+            with self.assertRaisesRegex(
+                CodexAppServerError, "persistent status read failure"
+            ):
+                client.assert_subscription_access(force=True)
+
+        self.assertEqual(calls, SUBSCRIPTION_STATUS_READ_ATTEMPTS)
 
     def test_rejects_non_subscription_accounts(self):
         for account in (

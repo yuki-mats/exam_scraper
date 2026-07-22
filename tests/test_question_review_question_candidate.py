@@ -108,6 +108,54 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertNotIn("suggestedQuestions", targets[0].allowed_fields)
         self.assertNotIn("questionBodyText", targets[0].allowed_fields)
 
+    def test_originalize_candidate_requires_non_empty_public_content(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/independent/"
+                "05_originalized/q1.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "originalize": ["questionBodyText", "choiceTextList"]
+            },
+        }
+        targets = candidate_targets("q1", "originalize", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "空の公開本文と選択肢を返した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:originalized",
+                                "setFields": [
+                                    {
+                                        "field": "questionBodyText",
+                                        "valueJson": '""',
+                                    },
+                                    {
+                                        "field": "choiceTextList",
+                                        "valueJson": '["A", ""]',
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(candidate, targets, {})
+
+        self.assertIn("questionBodyTextが非空stringではありません。", errors)
+        self.assertIn("choiceTextListが非空stringの配列ではありません。", errors)
+
     def test_partial_target_allows_only_supplementary_questions(self):
         plan = {
             **self.plan(),

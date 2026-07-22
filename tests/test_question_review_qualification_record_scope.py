@@ -467,6 +467,68 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     {patch_relative},
                 )
 
+    def test_originalize_scope_allows_only_selected_public_content_fields(self):
+        source_relative = Path(
+            "output/sample/questions_json/independent/00_source/q1.json"
+        )
+        patch_relative = Path(
+            "output/sample/questions_json/independent/05_originalized/q1.json"
+        )
+        source_record = {
+            "originalQuestionId": "q1",
+            "questionBodyText": "取得元の問題文",
+            "choiceTextList": ["取得元A", "取得元B"],
+        }
+        before = {"question_bodies": [{"originalQuestionId": "q1"}]}
+        rewritten = {
+            "originalQuestionId": "q1",
+            "questionBodyText": "独自問題として書き直した問題文",
+            "choiceTextList": ["独自選択肢A", "独自選択肢B"],
+        }
+        common_plan = {
+            "stageIds": ["originalize"],
+            "sourceFiles": [source_relative.as_posix()],
+            "targetRecordAliasGroups": [["q1"]],
+            "allowedPatchDirs": ["05_originalized"],
+            "allowedPatchFiles": [patch_relative.as_posix()],
+            "targetRecordScopes": {patch_relative.as_posix(): [["q1"]]},
+        }
+
+        self._validate_record_scope_change(
+            patch_relative,
+            before,
+            {"question_bodies": [rewritten]},
+            plan_updates={
+                **common_plan,
+                "selectedFieldsByStage": {
+                    "originalize": ["questionBodyText", "choiceTextList"]
+                },
+            },
+            source_payloads={
+                source_relative: {"question_bodies": [source_record]}
+            },
+            stage_id="originalize",
+        )
+
+        with self.assertRaisesRegex(
+            QualificationRunError, "自動整備対象外field"
+        ):
+            self._validate_record_scope_change(
+                patch_relative,
+                before,
+                {"question_bodies": [rewritten]},
+                plan_updates={
+                    **common_plan,
+                    "selectedFieldsByStage": {
+                        "originalize": ["questionBodyText"]
+                    },
+                },
+                source_payloads={
+                    source_relative: {"question_bodies": [source_record]}
+                },
+                stage_id="originalize",
+            )
+
     def test_record_scope_allows_sparse_patch_and_rejects_identity_injection(self):
         def validate(
             source_record,

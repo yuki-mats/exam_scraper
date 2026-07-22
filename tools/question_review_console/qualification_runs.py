@@ -11753,6 +11753,17 @@ class QualificationRunCoordinator:
             for value in run.get("stageIds") or [run.get("stageId")]
             if value
         }
+        raw_selected_fields_by_stage = run.get("selectedFieldsByStage")
+        selected_originalize_content_fields = (
+            {
+                str(value)
+                for value in raw_selected_fields_by_stage.get("originalize") or []
+                if value
+            }
+            & {"questionBodyText", "choiceTextList"}
+            if isinstance(raw_selected_fields_by_stage, Mapping)
+            else set()
+        )
         if "category_setup" in stage_ids:
             changed_record_files.discard(
                 Path("output", qualification, "category", "category.json")
@@ -11927,6 +11938,12 @@ class QualificationRunCoordinator:
             return values[0]
 
         for relative in sorted(changed_record_files):
+            is_originalized_patch = bool(
+                "originalize" in stage_ids
+                and "05_originalized" in relative.parts
+                and relative.parts[:3]
+                == ("output", qualification, "questions_json")
+            )
             file_target_alias_groups = [
                 set(group) for group in record_scopes.get(relative, [])
             ]
@@ -12401,6 +12418,13 @@ class QualificationRunCoordinator:
                         )
                     continue
                 for field in CODEX_PROTECTED_CONTENT_FIELDS:
+                    selected_originalize_change = bool(
+                        is_originalized_patch
+                        and field in selected_originalize_content_fields
+                        and field in after_fields
+                    )
+                    if selected_originalize_change:
+                        continue
                     if before_fields is not None and field in before_fields:
                         exact_server_derived_change = bool(
                             field in allowed_derived_fields

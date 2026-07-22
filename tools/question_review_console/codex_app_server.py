@@ -88,6 +88,9 @@ APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
 TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
 DEFAULT_TURN_TIMEOUT_SECONDS = 900
+SUBSCRIPTION_STATUS_CACHE_SECONDS = 60.0
+SUBSCRIPTION_STATUS_READ_ATTEMPTS = 3
+SUBSCRIPTION_STATUS_READ_RETRY_DELAY_SECONDS = 0.2
 RESEARCH_AGENT_ROLE = "explorer"
 RESEARCH_AGENT_CONFIG_FILENAME = "question-maintenance-explorer.toml"
 RESEARCH_AGENT_DESCRIPTION = "問題整備のread-only事前調査担当"
@@ -272,7 +275,7 @@ class CodexAppServerClient:
         binary_path: Path | None = None,
         request_timeout: int = 30,
         turn_timeout: int = DEFAULT_TURN_TIMEOUT_SECONDS,
-        status_cache_seconds: float = 3.0,
+        status_cache_seconds: float = SUBSCRIPTION_STATUS_CACHE_SECONDS,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.binary_path = self._resolve_binary(binary_path)
@@ -360,8 +363,24 @@ class CodexAppServerClient:
                 if refreshed_after_request or (not force and cache_is_fresh):
                     return copy.deepcopy(self._last_status)
             self._ensure_started()
-            account = self._request("account/read", {"refreshToken": False})
-            rate_limits = self._request("account/rateLimits/read", None)
+
+            def read_status(method: str, params: Mapping[str, Any] | None) -> Any:
+                last_error: CodexAppServerError | None = None
+                for attempt in range(SUBSCRIPTION_STATUS_READ_ATTEMPTS):
+                    try:
+                        return self._request(method, params)
+                    except CodexAppServerError as exc:
+                        last_error = exc
+                        if attempt + 1 < SUBSCRIPTION_STATUS_READ_ATTEMPTS:
+                            time.sleep(
+                                SUBSCRIPTION_STATUS_READ_RETRY_DELAY_SECONDS
+                                * (2**attempt)
+                            )
+                assert last_error is not None
+                raise last_error
+
+            account = read_status("account/read", {"refreshToken": False})
+            rate_limits = read_status("account/rateLimits/read", None)
             status = validate_subscription_access(
                 _as_mapping(account, "Codex account response"),
                 _as_mapping(rate_limits, "Codex rate limit response"),
