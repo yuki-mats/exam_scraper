@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T072
+active_task: T081
 
 tasks:
   - id: T001
@@ -4062,7 +4062,7 @@ tasks:
   - id: T072
     type: worker
     assignee: Worker
-    status: active
+    status: queued
     reasoning_hint: high
     objective: "現行法監査後の40 targetを既存03工程で再確定して工程版を最新化し、資格共通の03c・04・deliveryでcategory、questionSet、merge、convert、upload dry-runを第一種衛生管理者の公開候補へ整える。"
     inputs:
@@ -4525,6 +4525,149 @@ tasks:
       remaining_blockers: []
       verification_attempts: 1
       stopped_because: null
+  - id: T079
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: "問題文から選択肢を機械抽出した事実を既存成果物から判定・保存できる資格共通のprovenance位置と、問題整備画面で後から絞り込める最小の既存filter拡張点を特定し、第二種衛生管理者57001をUI実行する前提を確認する。"
+    inputs:
+      - "User request to flag choices extracted from question body and filter them later"
+      - "Second-class health supervisor 2014-10 group 57001"
+      - "Existing aggregate-answer source span and projection artifacts"
+    constraints:
+      - "Read-only except GoalBuddy control files."
+      - "Do not invent or regenerate extracted choice text."
+      - "Prefer an existing provenance fact over text comparison or model inference."
+      - "Do not touch 00_source, Firestore, or gas-shunin dirty files."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "Canonical field and artifact owner for question-body choice provenance"
+      - "Exact shared backend and UI filter integration points"
+      - "Bounded Worker package with allowed_files and verification"
+      - "57001 UI run readiness and safe execution order"
+    receipt:
+      result: done
+      summary: "問題文由来の選択肢は、10_questionType_fixed以降に保持されるaggregateAnswerDecompositionのtarget/approveとsourceHash・span検証で既に一意に証明できる。重複fieldを成果物へ保存せず、inventory/APIでchoicesExtractedFromQuestionBodyを算出し、状況確認のquery filterとbadgeへ渡す構成を選定した。57001は28問、現行作業版0問で、UIの通常整備対象として実行可能である。"
+      evidence:
+        - "scripts/common/aggregate_answer_decomposition.py: is_approved_target and exact source span materialization"
+        - "tools/question_review_console/inventory.py: projected record is the shared question summary source"
+        - "tools/question_review_console/server.py: shared question list filters"
+        - "tools/question_review_console/static/index.html and static/app.js: existing primary filters and queue badges"
+        - "GET /api/qualification-workflow?qualification=2eiseikanrisha: 57001 has 28 questions and currentCount 0"
+      spawned_tasks:
+        - T080
+        - T081
+  - id: T080
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "aggregateAnswerDecompositionの検証済みtarget/approveから問題文由来選択肢フラグを資格共通で算出し、状況確認画面の絞り込み、件数表示、一覧badgeへ追加する。"
+    inputs:
+      - "T079 provenance and filter integration findings"
+      - "Existing aggregate answer decomposition validation"
+      - "Existing read-only status filters"
+    constraints:
+      - "Do not create a second persisted provenance field or infer from text similarity."
+      - "The flag must be true only for a valid approved target decomposition against the projected questionBodyText."
+      - "Keep aggregateAnswerDecomposition internal and do not add it to Firestore documents."
+      - "Do not touch 00_source, Firestore, generated question text, or gas-shunin dirty files."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "choicesExtractedFromQuestionBody on inventory and question summaries"
+      - "questionBodyChoicesOnly API filter and matching count"
+      - "Primary UI checkbox, count summary, and queue badge"
+      - "Focused backend, UI, and documentation regression coverage"
+    allowed_files:
+      - "tools/question_review_console/inventory.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_inventory.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_progress_output_ui.py"
+      - "document/operations/local_question_review_console.md"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest -q tests.test_question_review_inventory tests.test_question_review_server tests.test_question_review_progress_output_ui"
+      - "Existing approved aggregate target returns the flag and is selected by the API filter"
+      - "Invalid, held, or ordinary choice questions never receive the flag"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "The flag would require model inference or comparing generated text."
+      - "The change would add a Firestore field or rewrite existing patches."
+      - "Need qualification-specific or question-ID logic."
+      - "Need a path outside allowed_files."
+    receipt:
+      result: done
+      summary: "検証済みaggregateAnswerDecompositionからchoicesExtractedFromQuestionBodyを算出し、questionBodyChoicesOnly filter、対象件数、一覧badgeを状況確認画面へ追加した。第二の永続fieldや文字列類似判定は追加していない。"
+      changed_files:
+        - "tools/question_review_console/inventory.py"
+        - "tools/question_review_console/server.py"
+        - "tools/question_review_console/static/index.html"
+        - "tools/question_review_console/static/app.js"
+        - "tests/test_question_review_inventory.py"
+        - "tests/test_question_review_server.py"
+        - "tests/test_question_review_progress_output_ui.py"
+        - "document/operations/local_question_review_console.md"
+        - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      commands:
+        - command: ".venv/bin/python -m unittest -q tests.test_question_review_inventory tests.test_question_review_server tests.test_question_review_progress_output_ui"
+          status: pass
+          summary: "86 tests passed"
+        - command: ".venv/bin/python -m unittest -q tests.test_question_review_qualification_workflow tests.test_question_review_workflow tests.test_documentation_structure"
+          status: pass
+          summary: "83 tests passed"
+        - command: "current first-class health inventory provenance readback"
+          status: pass
+          summary: "既存の検証済み40問だけがflaggedとなり、各groupの集計と一致した"
+        - command: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+  - id: T081
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "公開UIで第二種衛生管理者2014年10月の57001を通常の整備・洗い替えとして実行し、28問の結果、問題文由来選択肢フラグ、抽出文字列のsource span一致、00_source不変をreadbackする。"
+    inputs:
+      - "T080 deployed provenance filter"
+      - "Public review UI for 2eiseikanrisha group 57001"
+    constraints:
+      - "Start from the public UI, not a direct start API call."
+      - "Use the standard selected stages and questionConcurrency 1."
+      - "Do not manually author extracted statements or edit generated artifacts."
+      - "Do not write Firestore."
+      - "Do not touch gas-shunin dirty files or spawn agents."
+    expected_output:
+      - "Completed 57001 qualification run receipt"
+      - "Question-body choice filter readback for the run result"
+      - "Every flagged choice equals its recorded source span"
+      - "No Firestore write and 00_source unchanged"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/2eiseikanrisha/**"
+      - "output/question_review_console/2eiseikanrisha/**"
+      - "output/2eiseikanrisha/**"
+      - "prompt/qualification_docs/2eiseikanrisha/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "Public browser UI run and progress readback for listGroupId 57001"
+      - "All flagged records pass exact aggregate source span validation"
+      - "Firestore upload remains unexecuted"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "The UI selection includes another qualification or list group."
+      - "The run requires a qualification-specific runtime branch."
+      - "An extracted statement is not an exact source span."
+      - "Firestore would be written."
   - id: T999
     type: judge
     assignee: Judge

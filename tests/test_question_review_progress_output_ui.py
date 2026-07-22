@@ -164,6 +164,16 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("現在のcorrectChoiceText", javascript)
         self.assertIn(".source-answer-comparison-card", css)
 
+    def test_question_body_choice_provenance_has_filter_count_and_badge(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('id="question-body-choices-only"', html)
+        self.assertIn("questionBodyChoicesOnly", javascript)
+        self.assertIn("questionBodyChoicesCount", javascript)
+        self.assertIn("choicesExtractedFromQuestionBody", javascript)
+        self.assertIn("問題文から選択肢", javascript)
+
     def test_list_group_status_view_is_read_only_and_has_three_filters(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = INDEX_PATH.read_text(encoding="utf-8")

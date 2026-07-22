@@ -1308,6 +1308,59 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual([item["id"] for item in result["questions"]], ["calculation"])
         self.assertTrue(result["questions"][0]["isCalculationQuestion"])
 
+    def test_question_list_filters_choices_extracted_from_question_body(self):
+        class Inventory:
+            def inventory(self):
+                return {"qualifications": [{"id": "sample", "listGroupIds": ["2026"]}]}
+
+            def group(self, qualification, list_group_id):
+                def question(question_id, extracted):
+                    return {
+                        "id": question_id,
+                        "listGroupId": list_group_id,
+                        "body": question_id,
+                        "issues": [],
+                        "issueCodes": [],
+                        "reviewStatus": "approved",
+                        "isLawRelated": False,
+                        "choicesExtractedFromQuestionBody": extracted,
+                        "workflow": {"firestore": "match"},
+                        "evaluation": {"machineReady": True, "status": "passed"},
+                    }
+
+                questions = [
+                    question("question-body", True),
+                    question("ordinary-choices", False),
+                ]
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": "fingerprint",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            result = app._questions(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                    "exceptionsOnly": ["false"],
+                    "questionBodyChoicesOnly": ["true"],
+                }
+            )
+
+        self.assertEqual(result["questionBodyChoicesCount"], 1)
+        self.assertEqual(result["filteredCount"], 1)
+        self.assertEqual(
+            [item["id"] for item in result["questions"]],
+            ["question-body"],
+        )
+        self.assertTrue(result["questions"][0]["choicesExtractedFromQuestionBody"])
+
     def test_question_list_resolves_failed_deltas_once_per_group(self):
         class Inventory:
             def inventory(self):

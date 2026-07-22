@@ -14,6 +14,7 @@ from scripts.common.question_identity import (
     load_source_record_inventory,
     source_json_paths,
 )
+from scripts.common.aggregate_answer_decomposition import is_approved_target
 from scripts.scrape.qualification_presets import load_qualification_catalog
 from scripts.merge.question_issue_corrections import (
     selected_question_issue_correction_paths,
@@ -390,6 +391,18 @@ def correct_choice_comparison(
         "current": current_values,
         "changedChoiceIndexes": changed_indexes if comparable else [],
     }
+
+
+def choices_extracted_from_question_body(projected: Mapping[str, Any]) -> bool:
+    """Return whether choices are verified exact spans of questionBodyText."""
+
+    source_text = projected.get("questionBodyText")
+    if not isinstance(source_text, str):
+        return False
+    return is_approved_target(
+        projected.get("aggregateAnswerDecomposition"),
+        source_text,
+    )
 
 
 def _contains_hold(value: Any) -> bool:
@@ -1196,6 +1209,9 @@ class QuestionInventory:
                         "examLabel": str(projection.record.get("examLabel") or ""),
                         "body": body,
                         "choiceCount": len(choices),
+                        "choicesExtractedFromQuestionBody": (
+                            choices_extracted_from_question_body(projection.record)
+                        ),
                         "isLawRelated": projection.record.get("isLawRelated") is True,
                         "source": _json_safe(source),
                         "projected": _json_safe(projection.record),

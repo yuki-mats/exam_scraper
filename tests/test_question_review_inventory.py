@@ -11,6 +11,7 @@ from scripts.common.aggregate_answer_decomposition import (
 )
 from tools.question_review_console.inventory import (
     QuestionInventory,
+    choices_extracted_from_question_body,
     correct_choice_comparison,
     detect_issues,
     list_group_display_name,
@@ -29,6 +30,42 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_question_body_choice_flag_requires_a_valid_approved_decomposition(self):
+        source_text = "A　原文一。\nB　原文二。"
+        decomposition = {
+            "schemaVersion": "aggregate-answer-decomposition/v1",
+            "sourceHash": source_text_hash(source_text),
+            "classification": "target",
+            "spans": [
+                {"start": 0, "end": source_text.index("\n")},
+                {"start": source_text.index("\n") + 1, "end": len(source_text)},
+            ],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+
+        self.assertTrue(
+            choices_extracted_from_question_body(
+                {
+                    "questionBodyText": source_text,
+                    "aggregateAnswerDecomposition": decomposition,
+                }
+            )
+        )
+        self.assertFalse(
+            choices_extracted_from_question_body(
+                {
+                    "questionBodyText": source_text + "変更",
+                    "aggregateAnswerDecomposition": decomposition,
+                }
+            )
+        )
+        self.assertFalse(
+            choices_extracted_from_question_body(
+                {"questionBodyText": source_text}
+            )
+        )
+
     def test_correct_choice_comparison_ignores_verdict_synonyms(self):
         same = correct_choice_comparison(
             {"correctChoiceText": ["○", "×"]},

@@ -344,6 +344,7 @@ async function openAuditView(listGroupId = "") {
   $("#all-button").classList.add("active");
   $("#search-input").value = "";
   $("#source-answer-difference").checked = false;
+  $("#question-body-choices-only").checked = false;
   $("#calculation-only").checked = false;
   $("#law-only").checked = false;
   state.auditView.open = true;
@@ -460,6 +461,10 @@ function bindControls() {
     await loadQuestions(false);
   });
   $("#calculation-only").addEventListener("change", async () => {
+    clearEvaluationSelection();
+    await loadQuestions(false);
+  });
+  $("#question-body-choices-only").addEventListener("change", async () => {
     clearEvaluationSelection();
     await loadQuestions(false);
   });
@@ -3349,6 +3354,7 @@ function listQuery(offset = 0) {
     exceptionsOnly: String(state.exceptionsOnly),
     lawOnly: String($("#law-only").checked),
     calculationOnly: String($("#calculation-only").checked),
+    questionBodyChoicesOnly: String($("#question-body-choices-only").checked),
     firestoreMismatch: String($("#firestore-mismatch").checked),
     sourceAnswerDifference: String($("#source-answer-difference").checked),
     offset: String(offset),
@@ -3405,6 +3411,9 @@ async function loadQuestions(preserveSelection, append = false) {
       `反映済み${counts.published || 0}`,
       ...($("#source-answer-difference").checked
         ? [`00_sourceとの差分${payload.sourceAnswerDifferenceCount || 0}問`]
+        : []),
+      ...($("#question-body-choices-only").checked
+        ? [`問題文から選択肢を取得${payload.questionBodyChoicesCount || 0}問`]
         : []),
     ].join(" / ");
     updateEvaluationSelectionControls();
@@ -3485,6 +3494,9 @@ function renderQueue() {
       evaluationBadge(question),
       ...(question.sourceCorrectChoiceComparison?.different
         ? [element("span", "source-answer-difference-badge", "元正答との差分")]
+        : []),
+      ...(question.choicesExtractedFromQuestionBody
+        ? [element("span", "question-kind-badge", "問題文から選択肢")]
         : []),
       ...(question.isCalculationQuestion
         ? [element("span", "question-kind-badge", "計算")]

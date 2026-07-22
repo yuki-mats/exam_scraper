@@ -1108,6 +1108,11 @@ class QuestionReviewApplication:
         exceptions_only = _query_bool(query, "exceptionsOnly", default=True)
         law_only = _query_bool(query, "lawOnly", default=False)
         calculation_only = _query_bool(query, "calculationOnly", default=False)
+        question_body_choices_only = _query_bool(
+            query,
+            "questionBodyChoicesOnly",
+            default=False,
+        )
         firestore_mismatch = _query_bool(query, "firestoreMismatch", default=False)
         source_answer_difference = _query_bool(
             query,
@@ -1117,6 +1122,7 @@ class QuestionReviewApplication:
         summaries = []
         decorated_issue_count = 0
         source_answer_difference_count = 0
+        question_body_choices_count = 0
         evaluation_counts = {
             "maintenance": 0,
             "unreviewed": 0,
@@ -1153,6 +1159,9 @@ class QuestionReviewApplication:
                 )
                 source_answer_difference_count += bool(
                     answer_comparison.get("different")
+                )
+                question_body_choices_count += bool(
+                    question.get("choicesExtractedFromQuestionBody")
                 )
                 quality_bucket = self._quality_bucket(question)
                 evaluation_counts[quality_bucket] += 1
@@ -1201,6 +1210,11 @@ class QuestionReviewApplication:
                 projected = projected if isinstance(projected, Mapping) else {}
                 if calculation_only and projected.get("isCalculationQuestion") is not True:
                     continue
+                if (
+                    question_body_choices_only
+                    and question.get("choicesExtractedFromQuestionBody") is not True
+                ):
+                    continue
                 if firestore_mismatch and question["workflow"]["firestore"] not in {
                     "mismatch",
                     "missing",
@@ -1223,6 +1237,7 @@ class QuestionReviewApplication:
             "questionCount": sum(group["questionCount"] for group in groups),
             "issueQuestionCount": decorated_issue_count,
             "sourceAnswerDifferenceCount": source_answer_difference_count,
+            "questionBodyChoicesCount": question_body_choices_count,
             "evaluationCounts": evaluation_counts,
             "workVersionCounts": work_version_counts,
             "filteredCount": filtered_count,
@@ -1561,6 +1576,7 @@ class QuestionReviewApplication:
                 "listGroupId",
                 "body",
                 "choiceCount",
+                "choicesExtractedFromQuestionBody",
                 "isLawRelated",
                 "issues",
                 "issueCodes",
