@@ -3903,7 +3903,7 @@ tasks:
   - id: T070
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "既存の資格別補助資料契約に従って第一種衛生管理者の法令参照スコープを整備し、現在の25法令対象から1問だけを新しい03b共通経路へ通してpatch・sidecar・原文不変を実動確認する。"
     inputs:
@@ -3943,6 +3943,83 @@ tasks:
     stop_if:
       - "Official primary sources cannot substantiate the representative question."
       - "Candidate still writes only the sidecar or fails to update a canonical patch role."
+      - "Need qualification-specific code or a question-ID exception."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      harness: codex
+      changed_files:
+        - "prompt/qualification_docs/1eiseikanrisha/README.md"
+        - "prompt/qualification_docs/1eiseikanrisha/01_law_reference_policy.md"
+        - "output/1eiseikanrisha/questions_json/20035/18_law_context_prepared/question_20035_1_merged_lawContext_prepared.json"
+        - "output/1eiseikanrisha/questions_json/20035/21_explanationText_added/question_20035_1_merged_explanationText_added.json"
+        - "output/1eiseikanrisha/review/law_revision_audit/20035_law_revision_audit.jsonl"
+        - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      commands:
+        - command: "derive normalized law titles from current approved target and isLawRelated scope"
+          status: pass
+          summary: "25問から19の正規化タイトルを得て、資格別policyの未収載0件を確認した"
+        - command: "qualification-runs exact-one preview/start 20260722T152414687204-2ef3a2ad"
+          status: pass
+          summary: "代表1問、law_audit 1 work item、questionConcurrency 1、researchSubagentCount 0で実行した"
+        - command: "server-owned candidate validation 20260722T152454127435-59f5512b"
+          status: pass
+          summary: "1問を確定し、18/21とv2 sidecarを更新した。23は同じ正誤配列だったため対象scope内のno-opとなった"
+        - command: "python -m unittest -q tests.test_question_review_question_candidate tests.test_question_review_store tests.test_question_review_qualification_runs tests.test_question_review_qualification_law_version"
+          status: pass
+          summary: "150 tests passed"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      summary: "25問全体から資格固有の法令・指針・告示スコープを一度だけ整理し、個別問題向け分岐を作らず共通03bへ代表1問を通した。構造化済みverified lawReferences、出題時と現行の正誤を持つlawRevisionFacts、server所有hash・run ID・期限を含むv2 sidecarが同じ原子transactionで確定した。40 target・172 source slices/keysのdigestは実行前後ともf4f253085613b83a9c827899ec424f6ffc2893c3b50a70b191e2e3940fcb2611である。"
+      deviations:
+        - "23 patchはtransaction対象だったが、既存の正誤配列と監査結果が同一のためbyte変更を発生させなかった"
+      spawned_tasks:
+        - T071
+      verification_attempts: 1
+      stopped_because: null
+  - id: T071
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "代表1問で実証した共通03b経路を、現在の第一種衛生管理者25法令対象すべてへ低並列で適用し、各問のpatch・v2 sidecar・原文不変を一件単位で確定する。"
+    inputs:
+      - "T070 exact-one successful receipt"
+      - "Current dynamic 25-question law scope"
+      - "prompt/qualification_docs/1eiseikanrisha/01_law_reference_policy.md"
+    constraints:
+      - "Use one existing workflow and one per-question atomic transaction; do not add another pipeline."
+      - "Use questionConcurrency 2 or less and do not spawn additional agents."
+      - "Use only e-Gov or competent ministry primary sources."
+      - "Do not add qualification-specific code or question-ID exceptions."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+      - "Keep indeterminate legal conclusions on hold instead of guessing."
+    expected_output:
+      - "One full-scope 03b run for all current 25 law targets"
+      - "Structured verified lawReferences and current-law facts for every validated question"
+      - "Per-question v2 sidecar with server-owned binding metadata"
+      - "No drift in the 40 targets or 172 extracted source statements"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/review/law_revision_audit/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "Preview contains exactly the current 25 approved target and law-related questions with questionConcurrency 2."
+      - "Every completed question passes the existing server-owned candidate and law-audit quality validators."
+      - "Every non-hold question has structured verified lawReferences, aligned current verdicts, and exactly one v2 sidecar row."
+      - "All 40 targets and 172 source slices/keys retain the pre-run digest."
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "The same generic validation error recurs after one bounded prompt or contract correction."
       - "Need qualification-specific code or a question-ID exception."
       - "Need a path outside allowed_files."
       - "00_source or Firestore would change."
