@@ -1304,7 +1304,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             {
                 "question-1": {
                     "questionBodyText": source_text,
-                    "choiceTextList": [],
+                    "choiceTextList": ["アとイ", "アのみ"],
                 }
             },
             {"question-1": candidate_set},
@@ -1312,6 +1312,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertIn("serverが原文から機械生成", prompt)
         self.assertIn("candidateIdを一つだけ選ぶ", prompt)
+        self.assertIn("個別の正誤判定を求める命題そのもの", prompt)
+        self.assertIn("設例条件や共通前提", prompt)
+        self.assertIn("並べ替える項目", prompt)
+        self.assertIn("空欄へ入れる語句又は数値", prompt)
+        self.assertIn("choiceTextListに受験者が選ぶ個別の命題", prompt)
+        self.assertIn('"choiceTextList":["アとイ","アのみ"]', prompt)
+        self.assertIn("前提や入力を含まないcandidateId", prompt)
         self.assertIn("正誤を解かず", prompt)
         self.assertIn("正しい項目だけを選ばない", prompt)
         self.assertIn(candidate_set["candidates"][0]["candidateId"], prompt)
@@ -1319,6 +1326,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertNotIn('"start":', prompt)
         self.assertNotIn('"end":', prompt)
         self.assertIn("ambiguous_boundary", prompt)
+        self.assertIn("ambiguous_target", prompt)
         self.assertIn("missing_statement", prompt)
         self.assertNotIn("正解", prompt)
         self.assertNotIn("answer", prompt.casefold())

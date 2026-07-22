@@ -167,6 +167,8 @@
 
 serverはsource hashを固定し、資格に依存しない列挙境界の規則から候補span、boundary ID、candidate IDを決定的に生成します。独立した2レビューは`classification`、`candidateId`、`decision`、`issueCodes`だけを返し、同じsource hashとcandidate IDで完全一致した場合だけ`target/approve`になります。レビューschemaは本文、要約、理由、正誤回答、`start`、`end`を受け付けません。
 
+`target`にできるのは、元の回答が複数記述の正誤を一つの回答へ集約し、候補spanの各記述が受験者に個別の正誤判定を求める命題そのものである問題だけです。設例の条件や共通前提、並べ替え項目、穴埋め語句・数値、計算入力は対象にしません。元の`choiceTextList`に個別の命題が既に並ぶ通常問題も変換せず、命題と前提を区別できない問題は`hold`にします。
+
 serverは合意したcandidate IDを元の候補spanへ解決し、順序、非重複、範囲、boundary IDを再検証してから`questionBodyText[start:end]`を切り出します。不一致、hash不一致、候補不足又は境界を確定できない問題は第三レビューやoffset fallbackを行わず`hold`とし、一部の記述だけを公開しません。review slotの予約、確定、consensus保存はbatchごとに同じlock内の1回のload、write、readbackで確定します。
 
 対象確定時は、元問題全文を`questionBodyText`と`originalQuestionBodyText`に残したまま、抽出した各記述を`choiceTextList`へ置き、`true_false`として分割します。派生IDは元問題の安定識別子、記述順、抽出文字列hashから新しく作り、旧集約回答documentのIDを再利用しません。旧正答・解説・選択肢別fieldも引き継がず、後続の既存工程で全記述分が揃った場合だけ公開対象にします。この内部field自体はFirestoreへ公開しません。

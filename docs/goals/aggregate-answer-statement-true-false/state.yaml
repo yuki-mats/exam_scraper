@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T062
+active_task: T063
 
 tasks:
   - id: T001
@@ -3371,7 +3371,7 @@ tasks:
   - id: T062
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "T058で承認済みの第一種衛生管理者56対象問をexact questionIdsで既存question_intent、correct_choice、law_context、explanation工程へ通し、215の原文記述を変更せず、記述単位の正誤・法令情報・解説を全件確定する。"
     inputs:
@@ -3413,6 +3413,84 @@ tasks:
       - "A qualification-specific exception, duplicate pipeline, or server-authored statement/explanation is required."
       - "A path outside allowed_files, 00_source, category, question sets, or Firestore would change."
       - "A shared failure pattern appears; stop the affected work and fix only the common contract before resuming."
+    receipt:
+      result: blocked
+      blocked_reason: "T058でtarget承認された56問のうち9問は、候補spanが受験者に正誤判定させる記述ではなく、設例の前提条件、並べ替え対象又は穴埋め対象だった。correct_choiceは2モデル・3回の確認でも同じ理由で確定を拒否し、不正な正誤を保存しなかった。"
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T112501139071-defc9236/**"
+        - "output/question_review_console/1eiseikanrisha/**"
+        - "output/1eiseikanrisha/questions_json/*/15_correctChoiceText_fixed/**"
+        - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+      commands:
+        - command: "Exact 56-target four-stage preview"
+          status: pass
+          summary: "56 T058 validated target IDs, 224 work items, four existing stages, 22 groups, concurrency 5, no blocking warnings, no production write"
+        - command: "question_intent full phase"
+          status: pass
+          summary: "all 56 question intents were validated with zero blocked items"
+        - command: "correct_choice initial and bounded fallback review"
+          status: fail
+          summary: "47 questions validated; 9 questions were consistently rejected because extracted spans were premises or ordering/fill-in inputs rather than independently judgeable answer statements"
+        - command: "Stop downstream execution on shared failure"
+          status: pass
+          summary: "temporary server stopped before law/explanation processing continued; the 9 blocked questions made no correct-choice canonical change"
+      summary: "全件処理を5並列で開始し、設問意図56件と正誤47件を既存工程で確定した。残る9件はモデル性能ではなく上流分類の誤りで、元sourceのchoiceTextListには本来の選択肢がある一方、抽出候補は設例の条件、並べ替え対象又は穴埋め対象だった。これらを正誤問題として扱うと目的から外れるため、個別ID除外や推測回答は行わず全件処理を停止した。"
+      deviations:
+        - "既存queue policyにより9件はgpt-5.5初回後、gpt-5.6-solで2回再確認された。3回とも同じ意味上の不足を報告し、正答patchは作られなかった。"
+        - "停止時点のparentはrunning receiptのまま保全され、law_contextとexplanationは未完了である。"
+      spawned_tasks:
+        - T063
+      verification_attempts: 1
+      stopped_because: "shared semantic false-positive in aggregate target review"
+  - id: T063
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "集約回答targetを『問題が受験者に個別の正誤判定を求める記述群』へ限定する資格共通の意味契約を二者レビューpromptへ追加し、設例の前提、並べ替え項目、穴埋め語句、通常の個別選択肢をtargetにしない。prompt版を更新して回帰テスト後、第一種衛生管理者1044問をfresh再分類し、正誤工程へ進めるtarget集合を再確定する。"
+    inputs:
+      - "T062 blocked parent 20260722T112501139071-defc9236"
+      - "Nine consistent downstream answerability failures"
+      - "Current aggregate-answer-review prompt v3 and dual-review contract"
+      - "Original source choiceTextList provided to every aggregate review"
+    constraints:
+      - "Use semantic rules based on the role of text in the question; do not add qualification, year, question ID, source phrase, label-pattern, or filename exceptions."
+      - "Keep two independent ID-only reviews, source slicing, stable keys, no agent-authored statements, and one final server consensus."
+      - "Do not solve correctness during question_type review."
+      - "Do not start additional sub-agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "Prompt v4 defining independently judgeable answer statements and excluding premises, ordering/fill-in inputs, and ordinary choice propositions"
+      - "Regression tests proving the shared semantic contract and original choiceTextList are present without exposing offsets"
+      - "Fresh 1044-question dual-review receipt under prompt v4"
+      - "Exclusive target/non_target/hold/invalid counts and a target set with no T062-style premise false positives"
+      - "Exact source-slice and stable-key readback for every approved target"
+      - "No Firestore and 00_source immutability"
+    allowed_files:
+      - "prompt/01_prompt_fix_questionType.md"
+      - "document/reference/question_field_contract.md"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/99_model_review_flags/**"
+    verify:
+      - "Prompt contract version changes and legacy v3 checkpoints cannot be reused."
+      - "Prompt states that target boundaries must be the propositions the examinee is asked to judge individually."
+      - "Prompt excludes given facts/premises, ordering items, fill-in terms, and ordinary answer choices whose propositions already live in source choiceTextList."
+      - "Prompt still prohibits correctness solving, statement authoring, and raw offsets."
+      - "Focused aggregate and qualification-run regression tests pass."
+      - "Fresh preview and parent cover exactly 1044 first-class health supervisor questions with bounded concurrency 5."
+      - "Fresh result has no implementation invalid, no pending work, exact source slices, and no agent-authored statements."
+      - "The nine T062 false positives are no longer approved target materializations; any genuine ambiguity is held."
+      - "00_source immutability and no Firestore pass."
+    stop_if:
+      - "A data-specific exception, regex tied to one notation, or server-authored semantic classification is required."
+      - "The prompt no longer receives original choiceTextList or exposes raw offsets to reviewers."
+      - "A third review, stale checkpoint reuse, partial target materialization, or agent-authored statement appears."
+      - "Any T062 premise/order/fill-in false positive remains approved after fresh dual review."
+      - "00_source, Firestore, or a path outside allowed_files would change."
     receipt: null
   - id: T999
     type: judge

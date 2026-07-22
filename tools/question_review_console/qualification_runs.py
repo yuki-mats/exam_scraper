@@ -181,7 +181,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
-AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v3"
+AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v4"
 MAX_POLICY_REFRESH_ATTEMPTS = 2
 MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
@@ -890,9 +890,12 @@ def _aggregate_answer_review_prompt(
             "# 集約回答問題の独立レビュー",
             "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
             "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
-            "targetとして承認できる場合は、原文中の全記述を過不足なく含むcandidateIdを一つだけ選ぶ。",
+            "targetは、元の回答が複数記述の正誤を個数、組合せその他の一つの回答へ集約し、candidateSetsの各境界が受験者に個別の正誤判定を求める命題そのものである場合に限る。",
+            "問題が事実として与える設例条件や共通前提、並べ替える項目、空欄へ入れる語句又は数値、計算の入力は、列挙されていても個別の正誤判定対象ではないためtargetにしない。",
+            "choiceTextListに受験者が選ぶ個別の命題が既に並ぶ通常問題もtargetにしない。choiceTextListが個数又は組合せ等の集約回答で、個別に判定する全命題がquestionBodyText内にあるかを確認する。",
+            "targetとして承認できる場合は、個別に判定する全命題を過不足なく含み、前提や入力を含まないcandidateIdを一つだけ選ぶ。",
             "正誤を解かず、正しい項目だけを選ばない。",
-            "適切なcandidateIdがない場合はambiguous_boundary又はmissing_statementでholdにする。",
+            "命題と前提を区別できない場合又は適切なcandidateIdがない場合はambiguous_target、ambiguous_boundary又はmissing_statementでholdにする。",
             "記述本文、理由、summary、説明、start/endその他の文字位置は出力しない。",
             "file、shell、外部状態を変更しない。指定JSON Schemaのobjectだけを返す。",
             json.dumps(questions, ensure_ascii=False, separators=(",", ":")),

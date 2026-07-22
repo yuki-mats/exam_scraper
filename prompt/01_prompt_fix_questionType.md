@@ -83,10 +83,12 @@
 
 [集約回答型レビュー]
 - 対象は、元の回答が個数又は組合せなどに集約され、どの記述を誤ったか分からない問題とする。記号、番号、改行など特定表記の有無では決めない。
+- 抽出候補の各記述が、受験者に個別の正誤判定を求める命題そのものである場合だけ対象にする。問題が事実として与える設例条件や共通前提、並べ替える項目、空欄へ入れる語句又は数値、計算の入力は、列挙されていても対象にしない。
+- 元の`choiceTextList`に受験者が選ぶ個別の命題が既に並ぶ通常問題も対象にしない。`choiceTextList`が個数又は組合せなどの集約回答で、個別に判定する全命題が`questionBodyText`内にあることを確認する。
 - 第01工程では、全問題に同じsource snapshotを渡して、別々のread-only threadで専用レビューを2回実行する。serverが二者の結果を照合した後に、通常の問題形式候補を別のturnで生成する。
 - serverはsource hashを固定して原文中の連続した列挙境界を検出し、候補span、boundary ID、candidate IDを決定的に作る。資格名、既知の問題文又は正答を検出条件に使わない。
 - 専用レビューはproductionのJSON Schemaに厳密に従い、問題別結果には`questionId`、`schemaVersion`、`sourceHash`、`classification`、`candidateId`、`decision`、`issueCodes`だけを返す。記述本文、要約、理由、`start`、`end`その他の文字位置を返さない。
-- serverは2結果の完全一致、source hash、candidate ID、boundary ID、順序、重複及び範囲を検証する。一致した`target`かつ`approve`だけを合意済みにし、不一致、hash不一致、候補不足、判定不能又は境界不明は問題単位の`hold`にする。第三レビューや数値offsetへのfallbackは行わない。
+- serverは2結果の完全一致、source hash、candidate ID、boundary ID、順序、重複及び範囲を検証する。一致した`target`かつ`approve`だけを合意済みにし、命題と前提を区別できない場合、不一致、hash不一致、候補不足、判定不能又は境界不明は問題単位の`hold`にする。第三レビューや数値offsetへのfallbackは行わない。
 - 抽出文字列は必ずツールが合意済みcandidate IDをspanへ解決し、`questionBodyText[start:end]`から作る。エージェント出力から文字列を保存する経路を設けない。
 - 対象確定時は`questionType=true_false`とし、旧集約回答のFirestore ID、正答、解説、選択肢別メタデータを派生記述へ流用しない。正誤と解説は後続の既存工程で全記述分を確定する。
 
