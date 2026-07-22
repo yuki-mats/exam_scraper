@@ -1,0 +1,69 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T057",
+    "board_path": "docs/goals/aggregate-answer-statement-true-false/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/question_patch_proposal.py",
+      "tests/test_question_review_question_patch_proposal.py",
+      "output/1eiseikanrisha/questions_json/20031/10_questionType_fixed/question_20031_1_questionType_fixed.json",
+      "output/1eiseikanrisha/questions_json/20053/10_questionType_fixed/question_20053_1_questionType_fixed.json"
+    ],
+    "commands": [
+      {
+        "command": "Fresh exact-three canary before common identity fix",
+        "status": "pass",
+        "summary": "parent 20260722T085002919634-26a5d5c5 completed without canonical changes; one review disagreement and two shared legacy-ID collisions were preserved as holds"
+      },
+      {
+        "command": "Qualification-common sourceRecordRef boundary fix",
+        "status": "pass",
+        "summary": "legacy alias fallback can no longer target a row bound to another sourceRecordRef"
+      },
+      {
+        "command": "Fresh exact-three canary after fix",
+        "status": "pass",
+        "summary": "parent 20260722T090156769255-840fe43c and child 20260722T090202471696-f8aef4e4 validated 3 of 3 questions"
+      },
+      {
+        "command": "Dual review contract readback",
+        "status": "pass",
+        "summary": "6 gpt-5.5 high reviews, 2 distinct threads, prompt v3, exact agreement for 3 questions, zero reuse, one validation attempt per question"
+      },
+      {
+        "command": "Source-slice and shared-file readback",
+        "status": "pass",
+        "summary": "13 exact source slices with unique stable keys; all 21 pre-existing non-target records preserved exactly"
+      },
+      {
+        "command": "Expanded aggregate review regression suite",
+        "status": "pass",
+        "summary": "142 tests passed"
+      },
+      {
+        "command": "00_source immutability",
+        "status": "pass",
+        "summary": "5799 source files unchanged"
+      },
+      {
+        "command": "Commit and push",
+        "status": "pass",
+        "summary": "1802a8502 on origin/main"
+      }
+    ],
+    "summary": "追加エージェントを使わず、共有ID衝突を資格共通のrecord特定規則で解消した。完全なsourceRecordRefを正本境界として優先し、異なる取得元位置へ既に結び付いたrowは古い共通IDが一致しても更新対象にしない。write-after-validation構造は維持し、fresh canaryで3問すべてを一回の検証で確定した。抽出13件は全て原文spanの機械切出しで、既存非対象record、00_source、Firestoreを変更していない。",
+    "deviations": [
+      "最初のfresh canaryでT048と同じ2件のcollisionを再現したため、問題別例外ではなくsourceRecordRef境界を共通ロジックへ追加し、fresh parentで再検証した。",
+      "検証数は新規回帰テスト追加により予定141件から142件になった。",
+      "ユーザーの応答停止懸念に従い、PM以外のsub-agentは起動していない。"
+    ],
+    "remaining_blockers": [
+      "fresh 1044-question rerunのinvalid 0",
+      "下流正誤・解説工程",
+      "公開前gateと第一種衛生管理者限定readback"
+    ],
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}
+

@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T057
+active_task: T058
 
 tasks:
   - id: T001
@@ -3003,8 +3003,8 @@ tasks:
         - "下流工程、公開前gate、限定公開readback"
   - id: T057
     type: worker
-    assignee: PM
-    status: active
+    assignee: Worker
+    status: done
     reasoning_hint: high
     objective: "T048で共有file collisionとなった2問と既存aggregate derived-field guardとなった1問を、fresh question_type canaryで再実行し、write-after-validationのsource slice、二者一致、正本反映、partial/publication gate、00_source不変をreadbackする。"
     inputs:
@@ -3023,6 +3023,8 @@ tasks:
       - "Existing aggregate record accepts only server-recomputed derived fields"
       - "Source-slice, stable-key, no-reuse, one-attempt, no-Firestore readback"
     allowed_files:
+      - "tools/question_review_console/question_patch_proposal.py"
+      - "tests/test_question_review_question_patch_proposal.py"
       - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
       - "output/question_review_console/1eiseikanrisha/20031/**"
       - "output/question_review_console/1eiseikanrisha/20053/**"
@@ -3038,6 +3040,74 @@ tasks:
       - "Preview does not resolve exactly the three requested questions."
       - "A third review, checkpoint reuse, raw offset fallback, agent-authored extracted text, or partial statement publication appears."
       - "Any question receives more than one validation attempt."
+      - "00_source, Firestore, or a path outside allowed_files would change."
+      - "Provider failure occurs; preserve the receipt and do not resume the same parent."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/question_patch_proposal.py"
+        - "tests/test_question_review_question_patch_proposal.py"
+        - "output/1eiseikanrisha/questions_json/20031/10_questionType_fixed/question_20031_1_questionType_fixed.json"
+        - "output/1eiseikanrisha/questions_json/20053/10_questionType_fixed/question_20053_1_questionType_fixed.json"
+      commands:
+        - command: "Fresh exact-three canary after common source binding fix"
+          status: pass
+          summary: "parent 20260722T090156769255-840fe43c validated 3 of 3 questions"
+        - command: "Dual review and source-slice readback"
+          status: pass
+          summary: "6 gpt-5.5/high reviews, exact agreement, zero reuse, one attempt, 13 exact source slices"
+        - command: "Shared-file preservation"
+          status: pass
+          summary: "all 21 pre-existing non-target records preserved exactly"
+        - command: "Expanded regression and 00_source immutability"
+          status: pass
+          summary: "142 tests passed; 5799 source files unchanged"
+        - command: "Commit and push"
+          status: pass
+          summary: "1802a8502 on origin/main"
+      summary: "追加エージェントを使わず、古いIDが重複しても完全なsourceRecordRefを正本境界として扱う資格共通修正を行った。fresh canaryは3問すべてを一回で確定し、agentは抽出文を書かず、toolが原文spanから13記述を切り出した。Firestoreは未実行。"
+      deviations:
+        - "最初のfresh canaryで2件の共有ID collisionを再現したため、個別例外ではなく共通のrecord特定規則を修正してfresh parentで再検証した。"
+        - "新規回帰テストにより予定141件から142件になった。"
+      remaining_blockers:
+        - "fresh 1044-question rerunのinvalid 0"
+        - "下流正誤・解説工程"
+        - "公開前gateと第一種衛生管理者限定readback"
+  - id: T058
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "第一種衛生管理者の全1044問をfresh question_type runで再実行し、全問題の二重対象判定、原文span抽出、共有file更新、保留分類が資格共通実装で完走し、implementation invalidが0件であることをreadbackする。"
+    inputs:
+      - "T057 fresh canary receipt"
+      - "qualification-common sourceRecordRef fix 1802a8502"
+      - "T048 full-run baseline and invalid classification"
+    constraints:
+      - "First-class health supervisor, all list groups, question_type only."
+      - "Fresh parent; no resume, no review checkpoint reuse, and no third review."
+      - "Exactly two gpt-5.5/high prompt-v3 reviews per question."
+      - "No Firestore publication and no 00_source write."
+      - "Do not start additional sub-agents; use one parent run and bounded built-in concurrency only."
+    expected_output:
+      - "Fresh 1044-question parent and child receipts"
+      - "target, non_target, hold, and invalid counts with invalid zero"
+      - "Exact source-slice and stable-key audit for every approved target"
+      - "No review reuse, no third review, and no partial statement publication"
+      - "00_source, no-Firestore, shared-file, and regression readback"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+    verify:
+      - "Preview resolves question_type only and exactly 1044 questions across all 24 list groups."
+      - "Every reviewed question has exactly two gpt-5.5/high prompt-v3 reviews, zero reuse, and no third review."
+      - "Every approved target has exact source slices, ordered stable keys, and all-or-nothing publication eligibility."
+      - "Implementation invalid is zero; model disagreement remains hold rather than adjudication."
+      - "142 focused/expanded tests, 00_source immutability, no Firestore, and scoped output readback pass."
+    stop_if:
+      - "Preview does not resolve exactly 1044 questions or includes another stage."
+      - "A third review, checkpoint reuse, raw offset fallback, agent-authored extracted text, or partial statement publication appears."
       - "00_source, Firestore, or a path outside allowed_files would change."
       - "Provider failure occurs; preserve the receipt and do not resume the same parent."
     receipt: null
