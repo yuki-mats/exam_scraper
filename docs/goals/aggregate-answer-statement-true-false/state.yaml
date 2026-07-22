@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T070
+active_task: T072
 
 tasks:
   - id: T001
@@ -4106,6 +4106,88 @@ tasks:
       - "Need a path outside allowed_files."
       - "00_source or Firestore would change."
     receipt: null
+  - id: T073
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "資格単位のhuman工程を問題別進捗から分離し、1資格1作業として実行する共通修正と、03cで後工程成果物を要求しないschema-only検証順序を整備してcategory_setupを再実行する。"
+    inputs:
+      - "Failed category_setup run 20260722T165649990769-05311d0b"
+      - "category_setup is declared with scope=qualification"
+      - "Failed run 20260722T171322627888-255e0725 requiring 04 output during 03c"
+    constraints:
+      - "Use the shared stage scope contract; do not add a qualification, stage, question ID, or count exception."
+      - "Keep the existing one-model, one-writer execution and do not spawn agents."
+      - "Keep question-scoped progress validation unchanged."
+      - "Do not touch 00_source, Firestore, or gas-shunin dirty files."
+    expected_output:
+      - "No per-question progress contract for qualification-scoped work"
+      - "All source record bindings remain available as read/write context"
+      - "03c schema-only validation separated from post-04 count validation"
+      - "Fresh successful category_setup run"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "prompt/03c_prompt_prepare_category_json.md"
+      - "prompt/qualification_docs/category_taxonomy_policy.md"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/category/**"
+      - "prompt/qualification_docs/1eiseikanrisha/03_category_preparation.md"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "python -m unittest -q tests.test_question_review_qualification_runs"
+      - "Fresh category_setup has zero progressTargets, one work item, and all source record bindings."
+      - "03c schema-only dry-run succeeds without upload-ready output."
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "The fix would special-case 1eiseikanrisha, category_setup, 1044, or a run ID."
+      - "Question-scoped progress validation would be weakened."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      summary: "scope=qualificationの工程を問題別進捗から分離し、03cを1資格1作業として実行する共通修正へ整理した。第一種衛生管理者1044問のsource bindingを保持したままprogressTargetsを0件にし、5 folder・35 questionSetのcategory.jsonをschema-only dry-runまで完了した。"
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/qualification_workflow.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_qualification_workflow.py
+        - prompt/03c_prompt_prepare_category_json.md
+        - prompt/qualification_docs/category_taxonomy_policy.md
+        - prompt/qualification_docs/1eiseikanrisha/03_category_preparation.md
+        - output/1eiseikanrisha/category/category.json
+        - docs/goals/aggregate-answer-statement-true-false/state.yaml
+      commands:
+        - command: ".venv/bin/python -m unittest -q tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow tests.test_question_review_qualification_identity"
+          status: pass
+          summary: "145 tests passed"
+        - command: ".venv/bin/python scripts/upload/upload_category_to_firestore.py output/1eiseikanrisha/category/category.json"
+          status: pass
+          summary: "5 folders and 35 questionSets passed schema-only dry-run"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      run_id: "20260722T173059960567-69890f52"
+      run_contract:
+        target_count: 1
+        work_item_count: 1
+        progress_target_count: 0
+        source_binding_count: 1044
+        source_file_count: 48
+        receipt_validated: true
+      artifacts:
+        category_json: "output/1eiseikanrisha/category/category.json"
+        category_preparation: "prompt/qualification_docs/1eiseikanrisha/03_category_preparation.md"
+      spawned_tasks:
+        - T072
+      verification_attempts: 1
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge

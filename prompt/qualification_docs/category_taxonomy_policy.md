@@ -241,30 +241,37 @@ questionSetId:          <qualification_id>_qsNN_MM_<ascii_slug>
 4. 既存 `category.json` がある場合は、IDを維持できるものと新規追加が必要なものを分ける。
 5. 近い論点の境界を `03_category_preparation.md` に書く。
 6. `category.json` を作成・更新する。
-7. dry-run で Firestore schema と count 更新の挙動を確認する。
-8. 問題データに `questionSetId` を付与し、coverage check を通す。
-9. questions と category を Firestore に反映する。
+7. 03cではschema-only dry-runを通す。
+8. 問題データに`questionSetId`を付与してupload-readyを生成し、coverageとcount集計のdry-runを通す。
+9. questionsとcategoryをFirestoreに反映する。
 
 ## 検証コマンド
 
-`category.json` の作成・更新後は、少なくとも dry-run を通す。
+03cで`category.json`を作成・更新した直後は、問題側の04成果物を要求しないschema-only dry-runを通す。
 
 ```bash
 cd /Users/yuki/development/exam_scraper
 
 .venv/bin/python scripts/upload/upload_category_to_firestore.py \
-  output/<qualification>/category/category.json \
-  --all-list-groups \
-  --questions-json-dir output/<qualification>/questions_json
+  output/<qualification>/category/category.json
 ```
 
-問題側の `questionSetId` を整備した後は、資格単位または list_group_id 単位で `prepare_firestore_upload.py` を通す。
+問題側の`questionSetId`を整備した後は、資格単位またはlist_group_id単位で`prepare_firestore_upload.py`を通す。
 
 ```bash
 .venv/bin/python scripts/pipeline/prepare_firestore_upload.py <qualification> \
   --exam-name <表示する資格名> \
   --category-json output/<qualification>/category/category.json \
   --questionset-only
+```
+
+upload-ready生成後に、全list groupの参照とcount集計をdry-runで検証する。
+
+```bash
+.venv/bin/python scripts/upload/upload_category_to_firestore.py \
+  output/<qualification>/category/category.json \
+  --all-list-groups \
+  --questions-json-dir output/<qualification>/questions_json
 ```
 
 Firestore へ反映する場合は、questions の upload と category の upload を分けて確認する。

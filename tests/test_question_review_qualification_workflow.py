@@ -1017,6 +1017,8 @@ class QualificationWorkflowTests(unittest.TestCase):
             "prompt/qualification_docs/sample/03_category_preparation.md",
             category_plan["outputFiles"],
         )
+        self.assertEqual(category_plan["progressTargets"], [])
+        self.assertEqual(len(category_plan["targetRecordBindings"]), 1)
         self.assertEqual(
             [item["stageId"] for item in top_plan["stagePlans"]],
             ["category_setup", "question_set"],

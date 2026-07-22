@@ -974,7 +974,7 @@ class QualificationWorkflow:
             _target_record_alias_group(question)
             for question in ordered_target_questions
         ]
-        progress_targets = [
+        all_progress_targets = [
             {
                 **_progress_target(question),
                 "displayOrder": index,
@@ -986,8 +986,13 @@ class QualificationWorkflow:
         ]
         target_record_bindings = [
             _target_record_binding(target)
-            for target in progress_targets
+            for target in all_progress_targets
         ]
+        progress_targets = (
+            []
+            if str(definition.get("scope") or "") == "qualification"
+            else all_progress_targets
+        )
         if stage_id == "law_audit":
             incomplete_bindings = [
                 binding

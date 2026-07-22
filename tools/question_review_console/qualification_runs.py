@@ -1738,6 +1738,7 @@ class QualificationRunStore:
                             progress_path,
                             run_dir / "manifest.json",
                             manifest["resolvableFailedDeltaPaths"],
+                            include_progress=bool(manifest["progressTargets"]),
                         )
                         if append_receipt_contract
                         else prompt.rstrip() + "\n"
@@ -4730,6 +4731,8 @@ class QualificationRunStore:
         progress_path: Path,
         manifest_path: Path,
         resolvable_failed_paths: list[str],
+        *,
+        include_progress: bool = True,
     ) -> str:
         python_executable = (self.repo_root / ".venv" / "bin" / "python").resolve()
         example = {
@@ -4758,9 +4761,8 @@ class QualificationRunStore:
             "questionId": "<progressTargets[].id>",
             "at": "<ISO 8601>",
         }
-        return "\n".join(
+        progress_section = (
             [
-                prompt.rstrip(),
                 "",
                 "## 画面用の問題別進捗",
                 "",
@@ -4776,6 +4778,14 @@ class QualificationRunStore:
                 f"問題完了例: `{json.dumps(completed_example, ensure_ascii=False, separators=(',', ':'))}`",
                 "正答工程ではcorrectChoiceText、解説工程ではexplanationTextのように、該当工程の確定出力だけをresultへ入れる。該当しないfieldは省略する。",
                 "progress.jsonl自身はchangedFilesへ含めない。",
+            ]
+            if include_progress
+            else []
+        )
+        return "\n".join(
+            [
+                prompt.rstrip(),
+                *progress_section,
                 "",
                 "## 完了記録",
                 "",

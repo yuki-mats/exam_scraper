@@ -704,6 +704,39 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
         self.assertIn("progressTargets", prompt)
         self.assertIn("policyTargets", prompt)
 
+    def test_qualification_scope_run_omits_question_progress_instructions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QualificationRunStore(Path(directory))
+            plan = {
+                "qualification": "sample",
+                "stageId": "category_setup",
+                "stageCode": "03c",
+                "stageLabel": "カテゴリ設計",
+                "mode": "refresh",
+                "modeLabel": "全体を再整備",
+                "kind": "human",
+                "targetCount": 1,
+                "workItemCount": 1,
+                "targetGroupIds": ["2026"],
+                "progressTargets": [],
+                "stagePlans": [
+                    {
+                        "stageId": "category_setup",
+                        "stageCode": "03c",
+                        "stageLabel": "カテゴリ設計",
+                    }
+                ],
+                "sourceFiles": [],
+                "canonicalDocs": [],
+            }
+
+            run = store.create(plan, status="running", prompt="分類を整備する。")
+            prompt = store.prompt("sample", run["runId"])
+
+        self.assertNotIn("画面用の問題別進捗", prompt)
+        self.assertNotIn("progressTargetsとprogressStages", prompt)
+        self.assertIn("## 完了記録", prompt)
+
     def test_new_run_rejects_ambiguous_policy_target(self):
         plan = FakeWorkflow().plan("sample", "explanation", "outdated")
         plan.update(
