@@ -755,26 +755,34 @@ def _structured_candidate_prompt(
     candidate_targets_by_question: Mapping[str, tuple[CandidateTarget, ...]],
     feedback_by_question: Mapping[str, list[Mapping[str, Any]]],
     stage_context: Mapping[str, Any] | None = None,
+    original_aggregate_evidence_by_question: Mapping[
+        str, Mapping[str, Any]
+    ] | None = None,
 ) -> str:
     questions: list[dict[str, Any]] = []
+    evidence_by_question = original_aggregate_evidence_by_question or {}
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
-        questions.append(
-            {
-                "questionId": question_id,
-                "displayLabel": str(target.get("displayLabel") or question_id),
-                "sourceIdentity": binding.as_mapping(),
-                "currentRecord": records_by_question[question_id],
-                "candidateTargets": [
-                    value.prompt_value()
-                    for value in candidate_targets_by_question[question_id]
-                ],
-                "previousValidationFeedback": list(
-                    feedback_by_question.get(question_id) or []
-                ),
-            }
-        )
+        question = {
+            "questionId": question_id,
+            "displayLabel": str(target.get("displayLabel") or question_id),
+            "sourceIdentity": binding.as_mapping(),
+            "currentRecord": records_by_question[question_id],
+            "candidateTargets": [
+                value.prompt_value()
+                for value in candidate_targets_by_question[question_id]
+            ],
+            "previousValidationFeedback": list(
+                feedback_by_question.get(question_id) or []
+            ),
+        }
+        evidence = evidence_by_question.get(question_id)
+        if evidence is not None:
+            question["originalAggregateAnswerEvidence"] = copy.deepcopy(
+                dict(evidence)
+            )
+        questions.append(question)
     context_lines = (
         [
             "# 工程固有コンテキスト",
@@ -800,6 +808,8 @@ def _structured_candidate_prompt(
             "setFieldsはfieldとvalueJsonの配列とし、valueJsonには値をJSON文字列化して入れる。",
             "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
+            "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
+            "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "別問題の内容や判断を流用しない。思考過程は返さない。",
             "出力は指定されたJSON Schemaに一致するobjectだけとする。",
             "",
@@ -1098,12 +1108,69 @@ def _aggregate_review_source_records(
             )
         else:
             review_record["_aggregateSourceUniqueKeys"] = None
+        review_record["_aggregateSourceCorrectChoiceText"] = copy.deepcopy(
+            source_record.get("correctChoiceText")
+        )
+        review_record["_aggregateSourceAnswerResultText"] = copy.deepcopy(
+            source_record.get("answer_result_text")
+        )
         source_records[question_id] = review_record
     if set(source_records) != set(current_records):
         raise QualificationRunError(
             "集約回答レビューのsource recordを全問分確認できません。"
         )
     return source_records
+
+
+def _aggregate_downstream_source_evidence(
+    repo_root: Path,
+    qualification: str,
+    batch_plan: Mapping[str, Any],
+    raw_targets: list[Mapping[str, Any]],
+    current_records: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Mapping[str, Any]]:
+    """Expose immutable aggregate answers as prompt-only downstream evidence."""
+
+    aggregate_ids = {
+        question_id
+        for question_id, record in current_records.items()
+        if is_approved_target(
+            record.get("aggregateAnswerDecomposition"),
+            str(record.get("questionBodyText") or ""),
+        )
+    }
+    if not aggregate_ids:
+        return {}
+    source_records = _aggregate_review_source_records(
+        repo_root,
+        qualification,
+        batch_plan,
+        raw_targets,
+        current_records,
+    )
+    evidence: dict[str, Mapping[str, Any]] = {}
+    for question_id in aggregate_ids:
+        source = source_records[question_id]
+        evidence[question_id] = {
+            "sourceRecordRef": SourceIdentityBinding.from_mapping(
+                next(
+                    target
+                    for target in raw_targets
+                    if str(target.get("id") or target.get("uiQuestionId") or "")
+                    == question_id
+                )
+            ).source_record_ref,
+            "choiceTextList": copy.deepcopy(
+                source.get("_aggregateSourceChoiceTextList")
+            ),
+            "correctChoiceText": copy.deepcopy(
+                source.get("_aggregateSourceCorrectChoiceText")
+            ),
+            "answerResultText": copy.deepcopy(
+                source.get("_aggregateSourceAnswerResultText")
+            ),
+        }
+    return evidence
 
 
 def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -7343,6 +7410,17 @@ class QualificationRunCoordinator:
                 tuple(spec["candidateTargets"])
                 for spec in specs
             }
+            original_aggregate_evidence = (
+                _aggregate_downstream_source_evidence(
+                    self.repo_root,
+                    qualification,
+                    batch_plan,
+                    targets,
+                    records_by_question,
+                )
+                if stage_id in {"correct_choice", "law_context", "explanation"}
+                else {}
+            )
             batch_prompt = _structured_candidate_prompt(
                 phase_prompt,
                 targets,
@@ -7353,6 +7431,9 @@ class QualificationRunCoordinator:
                     self.repo_root,
                     qualification,
                     stage_id,
+                ),
+                original_aggregate_evidence_by_question=(
+                    original_aggregate_evidence
                 ),
             )
             child = self.store.create(

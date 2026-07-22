@@ -15,10 +15,12 @@ from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
     _aggregate_answer_review_prompt,
+    _aggregate_downstream_source_evidence,
     _aggregate_review_source_records,
     _candidate_unset_fields,
     _source_binding_accepts_identity,
     _structured_candidate_stage_context,
+    _structured_candidate_prompt,
 )
 from tools.question_review_console.question_candidate import CandidateTarget
 from scripts.common.aggregate_answer_decomposition import (
@@ -1347,6 +1349,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                             {
                                 "questionBodyText": "A  第一の記述。\nB  第二の記述。",
                                 "choiceTextList": ["AとB", "Aのみ"],
+                                "correctChoiceText": ["正しい", "間違い"],
+                                "answer_result_text": "正解は 1 です。",
                             }
                         ]
                     },
@@ -1380,7 +1384,120 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 records["question-1"]["choiceTextList"],
                 ["AとB", "Aのみ"],
             )
+            self.assertEqual(
+                records["question-1"]["_aggregateSourceCorrectChoiceText"],
+                ["正しい", "間違い"],
+            )
+            self.assertEqual(
+                records["question-1"]["_aggregateSourceAnswerResultText"],
+                "正解は 1 です。",
+            )
             self.assertEqual(current["question-1"]["choiceTextList"][0], "A  第一の記述。")
+
+    def test_downstream_prompt_adds_prompt_only_immutable_aggregate_evidence(self):
+        body = "A  第一の記述。\nB  第二の記述。"
+        decomposition = {
+            "schemaVersion": "aggregate-answer-decomposition/v1",
+            "sourceHash": source_text_hash(body),
+            "classification": "target",
+            "spans": [{"start": 0, "end": 10}, {"start": 11, "end": len(body)}],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_relative = Path(
+                "output/sample/questions_json/group/00_source/source.json"
+            )
+            source_path = root / source_relative
+            source_path.parent.mkdir(parents=True)
+            source_path.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                "questionBodyText": body,
+                                "choiceTextList": ["A、B", "Aのみ"],
+                                "correctChoiceText": ["正しい", "間違い"],
+                                "answer_result_text": "正解は 1 です。",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            target = {
+                "id": "question-1",
+                "listGroupId": "group",
+                "reviewQuestionId": "review-1",
+                "sourceQuestionKey": "sample:group:q1",
+                "sourceRecordRef": "source.json#0",
+            }
+            current = {
+                "question-1": {
+                    "questionBodyText": body,
+                    "choiceTextList": ["A  第一の記述。", "B  第二の記述。"],
+                    "aggregateAnswerDecomposition": decomposition,
+                }
+            }
+            evidence = _aggregate_downstream_source_evidence(
+                root,
+                "sample",
+                {"sourceFiles": [source_relative.as_posix()]},
+                [target],
+                current,
+            )
+            candidate_target = CandidateTarget(
+                target_id="correct_choice.correct_answer",
+                role="correct_choice",
+                path="output/sample/correct.json",
+                allowed_fields=("correctChoiceText",),
+            )
+            prompt = _structured_candidate_prompt(
+                "正答を判定する。",
+                [target],
+                records_by_question=current,
+                candidate_targets_by_question={"question-1": (candidate_target,)},
+                feedback_by_question={},
+                original_aggregate_evidence_by_question=evidence,
+            )
+
+        questions = PerQuestionQueueAppServer._candidate_questions(prompt)
+        prompt_evidence = questions[0]["originalAggregateAnswerEvidence"]
+        self.assertEqual(prompt_evidence["choiceTextList"], ["A、B", "Aのみ"])
+        self.assertEqual(prompt_evidence["correctChoiceText"], ["正しい", "間違い"])
+        self.assertEqual(prompt_evidence["answerResultText"], "正解は 1 です。")
+        self.assertEqual(
+            questions[0]["candidateTargets"][0]["allowedFields"],
+            ["correctChoiceText"],
+        )
+        self.assertIn("更新不能な参照証拠", prompt)
+        self.assertIn("抽出記述へ同じ配列を転記しない", prompt)
+
+    def test_downstream_prompt_omits_aggregate_evidence_for_ordinary_question(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        current = {
+            "question-1": {
+                "questionBodyText": "正しいものを選ぶ。",
+                "choiceTextList": ["第一", "第二"],
+            }
+        }
+        evidence = _aggregate_downstream_source_evidence(
+            Path("."),
+            "sample",
+            {"sourceFiles": []},
+            [target],
+            current,
+        )
+
+        self.assertEqual(evidence, {})
 
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"

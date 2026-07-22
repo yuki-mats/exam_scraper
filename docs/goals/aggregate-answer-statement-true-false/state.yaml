@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T065
+active_task: T067
 
 tasks:
   - id: T001
@@ -3598,7 +3598,7 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "T063で再確定した第一種衛生管理者40 targetをexact source scopeで既存question_intent、correct_choice、law_context、explanation工程へ通し、172の原文記述を変更せず、全記述の正誤・法令情報・解説を確定する。"
     inputs:
@@ -3636,6 +3636,150 @@ tasks:
       - "A stage attempts to rewrite choiceTextList, sourceUniqueKeys, or aggregate decomposition."
       - "A shared validator rejects a current target for a semantic reason that requires changing question_type scope."
       - "Need an aggregate-specific downstream pipeline or a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T135831382242-9668ffca/**"
+        - "output/1eiseikanrisha/questions_json/*/15_correctChoiceText_fixed/**"
+        - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+        - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+        - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      commands:
+        - command: "Exact current-target preview"
+          status: pass
+          summary: "40 current targets, 160 work items, four existing stages, concurrency 5, blocking warnings 0, no production write"
+        - command: "Qualification parent 20260722T135831382242-9668ffca"
+          status: fail
+          summary: "question_intent 40/40, correct_choice 40/40, law_context 40/40, explanation 39/40; one explanation blocked on a shared legal contradiction"
+        - command: "Lawzilla primary article readback: Industrial Safety and Health Ordinance Article 7 items 4 and 5"
+          status: pass
+          summary: "A workplace with 1,800 workers needs at least four health officers and at least one full-time health officer, so statements A and C are true"
+      summary: "40 targetだけを既存4工程へ流し、39問は全工程を確定した。残る1問は原文又は抽出境界の問題ではなく、元過去問の正答選択肢A・Cに対して正答工程がAのみと判定し、解説工程が法令矛盾を検出して停止した。個別上書きは行わず、immutable sourceの元組合せ選択肢と正答を下流promptへ提示する共通改善へ切り替える。"
+      deviations:
+        - "既存queueは解説不合格をgpt-5.6-sol/highまで再確認したが、矛盾を正しく保留し、解説patchを確定しなかった。"
+      remaining_blockers:
+        - "Approved aggregate targetの下流promptには抽出後choiceTextListしかなく、元の組合せ選択肢A・Cと正解1を同時に参照できない。"
+      spawned_tasks:
+        - T066
+      verification_attempts: 1
+      stopped_because: "immutable aggregate answer evidence is missing from downstream prompt"
+  - id: T066
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "approved aggregate targetの下流候補promptへ、immutable sourceの元選択肢、元正答配列、元answer_resultを更新不能な参照証拠として資格共通で添付する。正答工程は抽出後の各記述判定を元集約正答と照合し、法令・解説工程も同じ証拠と先行結果の矛盾を検出できるようにする。"
+    inputs:
+      - "T065 one-question legal contradiction"
+      - "Existing immutable source resolver used by aggregate question_type review"
+      - "Lawzilla readback for Industrial Safety and Health Ordinance Article 7"
+    constraints:
+      - "Evidence is prompt-only and cannot be emitted as an update field."
+      - "Do not copy the original aggregate option-level correctChoiceText directly onto extracted statements."
+      - "Do not add question ID, qualification, law article, answer, phrase, or notation exceptions."
+      - "Keep extracted choiceTextList and sourceUniqueKeys tool-owned and unchanged."
+      - "Do not start additional sub-agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "One shared immutable aggregate-answer evidence block in structured downstream prompts"
+      - "Tests proving source choices and answers are present only for approved aggregate targets and cannot become candidate updates"
+      - "Fresh exact-one correct_choice, law_context, explanation rerun resolving the contradiction"
+      - "Final current-target readback of 40 questions and 172 aligned verdict/law/explanation entries"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/20035/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/20035/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/20035/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/20035/99_model_review_flags/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "Structured prompt includes originalAggregateAnswerEvidence only when currentRecord is an approved aggregate target."
+      - "Evidence comes from the sourceRecordRef-bound 00_source record and includes original choiceTextList, correctChoiceText, and answer_result_text without replacing currentRecord."
+      - "Candidate schema still permits updates only to existing stage allowedFields."
+      - "Exact-one preview covers only question 7d2e09ab78d9a0f22a0742f3 and three stages."
+      - "Fresh result sets A and C true, B and D false, law context and four explanations agree, and source slices/keys remain unchanged."
+      - "Final 40-target/172-statement projection audit, focused tests, 00_source immutability, and no Firestore pass."
+    stop_if:
+      - "Source evidence cannot be bound uniquely through sourceRecordRef."
+      - "Evidence would be persisted into a patch or accepted as an update field."
+      - "The legal contradiction remains after fresh evidence-aware review."
+      - "Need a data-specific exception or path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T141937552834-73d6fa4f/**"
+        - "output/1eiseikanrisha/questions_json/20035/23_correctChoiceText_fixed/**"
+        - "output/1eiseikanrisha/questions_json/20035/18_law_context_prepared/**"
+        - "output/1eiseikanrisha/questions_json/20035/21_explanationText_added/**"
+      commands:
+        - command: "python -m unittest -q tests.test_question_review_inventory tests.test_question_review_projection tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_qualification_runs tests.test_question_review_qualification_record_scope tests.test_aggregate_answer_decomposition tests.test_question_review_workflow tests.test_question_review_question_candidate tests.test_original_question_pipeline"
+          status: pass
+          summary: "233 tests passed"
+        - command: "Exact-one parent 20260722T141937552834-73d6fa4f"
+          status: pass
+          summary: "question 7d2e09ab78d9a0f22a0742f3; correct_choice, law_context, explanation; 3/3 validated, blocked 0, concurrency 1"
+        - command: "Final current-target projection audit"
+          status: pass
+          summary: "40 targets, 172 exact source slices, 172 stable keys, and aligned verdict, nested law-reference, and explanation arrays; errors 0"
+        - command: "Prompt-only evidence leak check"
+          status: pass
+          summary: "All three child prompts contained originalAggregateAnswerEvidence; no evidence-only field appeared in any patch file"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+      summary: "immutable sourceから元の集約選択肢、選択肢単位正答、answer_resultをsourceRecordRefで読み、approved aggregate targetの下流promptだけへ更新不能な証拠として添付した。候補schemaとallowedFieldsは変更せず、元正答配列の転記を禁止した。矛盾した1問はA・Cが正しい、B・Dが間違いへ修正され、法令情報と4解説も一致した。最終40問・172記述は全件完成した。"
+      deviations: []
+      spawned_tasks:
+        - T067
+      verification_attempts: 1
+      stopped_because: null
+  - id: T067
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "現在の40 targetのうち法令関連問題だけを既存law_audit工程へexact dynamic scopeで通し、現行法との関係、根拠locator、監査状態を確定する。集約回答専用の監査処理は作らず、172の原文記述・正誤・解説を既存phase境界のまま検証する。"
+    inputs:
+      - "T066 final 40-target projection"
+      - "Existing law_audit stage and current-law phase contract"
+      - "Current target records with isLawRelated=true"
+    constraints:
+      - "Build exact scope from current approved targets with isLawRelated=true; do not maintain a handwritten ID list."
+      - "Keep primary, secondary, and tertiary audit phases separate and preserve hold when evidence is insufficient."
+      - "Use existing law audit workflow; do not create aggregate-specific law logic."
+      - "Keep concurrency at 5 or lower and do not start additional sub-agents."
+      - "Do not rewrite extracted statements or sourceUniqueKeys."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "Fresh exact-law-target law_audit parent and child receipts"
+      - "Verified or explicit hold status for every law-related current target"
+      - "No text/key drift across 40 targets and 172 statements"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/99_model_review_flags/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "Preview question IDs exactly equal current approved targets where isLawRelated is true."
+      - "No non-target or non-law target enters the run."
+      - "Every scoped question ends verified or with a specific hold reason; no implementation invalid or pending work."
+      - "All 40 targets and 172 source slices/keys/verdicts/explanations remain unchanged except law-audit-owned fields."
+      - "00_source immutability, no Firestore, and git diff check pass."
+    stop_if:
+      - "Preview scope differs from the current law-related target set."
+      - "An audit phase would be skipped or mixed with another phase."
+      - "A stage attempts to rewrite choiceTextList, sourceUniqueKeys, or aggregate decomposition."
+      - "Need aggregate-specific law logic or a path outside allowed_files."
       - "00_source or Firestore would change."
     receipt: null
   - id: T999
