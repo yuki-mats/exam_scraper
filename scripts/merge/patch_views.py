@@ -427,6 +427,8 @@ def ensure_identity_candidate_index_valid(
 def apply_question_type(
     data: dict,
     qtype_map: Mapping[str, Any],
+    *,
+    validate_aggregate_target: bool = True,
 ) -> int:
     normalize_question_ids(data)
     updated = 0
@@ -465,15 +467,24 @@ def apply_question_type(
                         question,
                         normalized_decomposition,
                     )
-                    if patch_entry.get("choiceTextList") != extracted_choices:
+                    if (
+                        validate_aggregate_target
+                        and patch_entry.get("choiceTextList") != extracted_choices
+                    ):
                         raise ValueError(
                             "aggregate answer choiceTextList must be exact source spans"
                         )
-                    if patch_entry.get("sourceUniqueKeys") != expected_keys:
+                    if (
+                        validate_aggregate_target
+                        and patch_entry.get("sourceUniqueKeys") != expected_keys
+                    ):
                         raise ValueError(
                             "aggregate answer sourceUniqueKeys do not match source spans"
                         )
-                    if patch_entry.get("questionType") != "true_false":
+                    if (
+                        validate_aggregate_target
+                        and patch_entry.get("questionType") != "true_false"
+                    ):
                         raise ValueError(
                             "approved aggregate answer target must use true_false"
                         )

@@ -272,6 +272,80 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     stage_id="question_type",
                 )
 
+    def test_existing_aggregate_target_can_only_restore_exact_source_fields(self):
+        source_relative = Path(
+            "output/sample/questions_json/group/00_source/source.json"
+        )
+        patch_relative = Path(
+            "output/sample/questions_json/group/10_questionType_fixed/patch.json"
+        )
+        source = {
+            "originalQuestionId": "review-parent",
+            "canonical_question_key": "sample:group:parent",
+            "sourceQuestionKey": "sample:group:parent",
+            "questionBodyText": "A  第一の記述。\nB  第二の記述。",
+            "choiceTextList": ["AとB", "Aのみ"],
+            "sourceUniqueKeys": ["sample:group:parent:s01", "sample:group:parent:s02"],
+        }
+        aliases = [
+            "review-parent",
+            "sample:group:parent",
+            "source.json#0",
+        ]
+        before_record = {
+            "originalQuestionId": "review-parent",
+            "sourceQuestionKey": "sample:group:parent",
+            "sourceRecordRef": "source.json#0",
+            **self._derived_aggregate_fields(source),
+        }
+        after_record = dict(before_record)
+        after_record.pop("aggregateAnswerDecomposition")
+        after_record.update(
+            questionType="group_choice",
+            choiceTextList=source["choiceTextList"],
+            sourceUniqueKeys=source["sourceUniqueKeys"],
+        )
+        common_plan = {
+            "sourceFiles": [source_relative.as_posix()],
+            "targetRecordAliasGroups": [aliases],
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": "review-parent",
+                    "reviewQuestionId": "review-parent",
+                    "sourceQuestionKey": "sample:group:parent",
+                    "sourceRecordRef": "source.json#0",
+                    "aliases": aliases,
+                }
+            ],
+            "allowedPatchFiles": [patch_relative.as_posix()],
+            "targetRecordScopes": {patch_relative.as_posix(): [aliases]},
+        }
+
+        self._validate_record_scope_change(
+            patch_relative,
+            {"question_bodies": [before_record]},
+            {"question_bodies": [after_record]},
+            plan_updates=common_plan,
+            source_payloads={source_relative: {"question_bodies": [source]}},
+            stage_id="question_type",
+        )
+
+        for field, value in (
+            ("choiceTextList", ["rewritten choice"]),
+            ("sourceUniqueKeys", ["rewritten-key"]),
+        ):
+            invalid = dict(after_record)
+            invalid[field] = value
+            with self.subTest(field=field), self.assertRaises(QualificationRunError):
+                self._validate_record_scope_change(
+                    patch_relative,
+                    {"question_bodies": [before_record]},
+                    {"question_bodies": [invalid]},
+                    plan_updates=common_plan,
+                    source_payloads={source_relative: {"question_bodies": [source]}},
+                    stage_id="question_type",
+                )
+
     def test_record_scope_rejects_target_record_deletion(self):
         relative = Path(
             "output/sample/questions_json/2026/"

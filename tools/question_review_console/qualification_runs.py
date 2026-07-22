@@ -1004,6 +1004,108 @@ def _structured_candidate_inputs(
     return records, targets
 
 
+def _aggregate_review_source_records(
+    repo_root: Path,
+    qualification: str,
+    batch_plan: Mapping[str, Any],
+    raw_targets: list[Mapping[str, Any]],
+    current_records: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Mapping[str, Any]]:
+    """Read review text and choices from the immutable source snapshot."""
+
+    resolved_root = repo_root.resolve()
+    allowed_source_paths = {
+        (repo_root / str(value)).resolve()
+        for value in batch_plan.get("sourceFiles") or []
+        if str(value)
+    }
+    cached_records: dict[Path, list[dict[str, Any]]] = {}
+    source_records: dict[str, Mapping[str, Any]] = {}
+    for raw_target in raw_targets:
+        question_id = str(
+            raw_target.get("id") or raw_target.get("uiQuestionId") or ""
+        )
+        binding = SourceIdentityBinding.from_mapping(raw_target)
+        try:
+            source_name, raw_index = binding.source_record_ref.rsplit("#", 1)
+            source_index = int(raw_index)
+        except (ValueError, AttributeError) as exc:
+            raise QualificationRunError(
+                f"集約回答レビューのsourceRecordRefが不正です: {question_id}"
+            ) from exc
+        relative_source = Path(source_name)
+        if (
+            relative_source.is_absolute()
+            or ".." in relative_source.parts
+            or source_index < 0
+        ):
+            raise QualificationRunError(
+                f"集約回答レビューのsourceRecordRefが不正です: {question_id}"
+            )
+        source_path = (
+            repo_root
+            / "output"
+            / qualification
+            / "questions_json"
+            / str(raw_target.get("listGroupId") or "")
+            / "00_source"
+            / relative_source
+        ).resolve()
+        if (
+            not source_path.is_relative_to(resolved_root)
+            or not any(
+                source_path == allowed
+                or (allowed.is_dir() and source_path.is_relative_to(allowed))
+                for allowed in allowed_source_paths
+            )
+        ):
+            raise QualificationRunError(
+                f"集約回答レビューのsource fileが実行scope外です: {question_id}"
+            )
+        if source_path not in cached_records:
+            try:
+                cached_records[source_path] = _snapshot_records(source_path)
+            except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                raise QualificationRunError(
+                    f"集約回答レビューのsourceを読み取れません: {question_id}"
+                ) from exc
+        records = cached_records[source_path]
+        if source_index >= len(records):
+            raise QualificationRunError(
+                f"集約回答レビューのsource recordが見つかりません: {question_id}"
+            )
+        current_record = current_records.get(question_id)
+        if not isinstance(current_record, Mapping):
+            raise QualificationRunError(
+                f"集約回答レビューの現在入力が見つかりません: {question_id}"
+            )
+        source_record = copy.deepcopy(records[source_index])
+        review_record = copy.deepcopy(dict(current_record))
+        if isinstance(source_record.get("questionBodyText"), str):
+            review_record["questionBodyText"] = source_record["questionBodyText"]
+        if isinstance(source_record.get("choiceTextList"), list):
+            review_record["choiceTextList"] = copy.deepcopy(
+                source_record["choiceTextList"]
+            )
+            review_record["_aggregateSourceChoiceTextList"] = copy.deepcopy(
+                source_record["choiceTextList"]
+            )
+        else:
+            review_record["_aggregateSourceChoiceTextList"] = None
+        if isinstance(source_record.get("sourceUniqueKeys"), list):
+            review_record["_aggregateSourceUniqueKeys"] = copy.deepcopy(
+                source_record["sourceUniqueKeys"]
+            )
+        else:
+            review_record["_aggregateSourceUniqueKeys"] = None
+        source_records[question_id] = review_record
+    if set(source_records) != set(current_records):
+        raise QualificationRunError(
+            "集約回答レビューのsource recordを全問分確認できません。"
+        )
+    return source_records
+
+
 def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
     raw_stage_plans = plan.get("stagePlans")
     stage_plans = (
@@ -6303,19 +6405,25 @@ class QualificationRunCoordinator:
         run_id: str,
         target: Mapping[str, Any],
         work_key: str,
+        stage_id: str,
     ) -> dict[str, Any]:
         inventory = getattr(self.workflow, "inventory", None)
-        project = getattr(inventory, "projected_input", None)
-        if not callable(project):
-            raise QuestionItemError(
-                "一問工程に必要なlogicalProjection機能がありません。"
-            )
-        identity = SourceIdentityBinding.from_mapping(target)
-        result = project(
+        project = getattr(inventory, "projected_input_for_stage", None)
+        project_args = (
             qualification,
             str(target.get("listGroupId") or ""),
-            identity.source_record_ref,
+            SourceIdentityBinding.from_mapping(target).source_record_ref,
         )
+        if callable(project):
+            result = project(*project_args, stage_id)
+        else:
+            project = getattr(inventory, "projected_input", None)
+            if not callable(project):
+                raise QuestionItemError(
+                    "一問工程に必要なlogicalProjection機能がありません。"
+                )
+            result = project(*project_args)
+        identity = SourceIdentityBinding.from_mapping(target)
         errors = tuple(str(value) for value in getattr(result, "errors", ()) if value)
         if errors:
             raise QuestionItemError(
@@ -6351,19 +6459,29 @@ class QualificationRunCoordinator:
         self,
         qualification: str,
         target: Mapping[str, Any],
+        stage_id: str | None = None,
     ) -> Any:
         inventory = getattr(self.workflow, "inventory", None)
-        project = getattr(inventory, "projected_input", None)
-        if not callable(project):
-            raise QuestionItemError(
-                "一問工程に必要なlogicalProjection機能がありません。"
-            )
         identity = SourceIdentityBinding.from_mapping(target)
-        result = project(
+        project_args = (
             qualification,
             str(target.get("listGroupId") or ""),
             identity.source_record_ref,
         )
+        project = (
+            getattr(inventory, "projected_input_for_stage", None)
+            if stage_id
+            else None
+        )
+        if callable(project):
+            result = project(*project_args, stage_id)
+        else:
+            project = getattr(inventory, "projected_input", None)
+            if not callable(project):
+                raise QuestionItemError(
+                    "一問工程に必要なlogicalProjection機能がありません。"
+                )
+            result = project(*project_args)
         errors = tuple(str(value) for value in getattr(result, "errors", ()) if value)
         if errors:
             raise QuestionItemError(
@@ -6407,7 +6525,11 @@ class QualificationRunCoordinator:
 
         stage_id = str(phase["id"])
         target = self._canonical_question_target(parent, question_id)
-        projection = self._project_question_now(qualification, target)
+        projection = self._project_question_now(
+            qualification,
+            target,
+            stage_id,
+        )
         projected = dict(projection.record)
         if not self._projection_stage_applicable(initial_plan, stage_id, projected):
             return dict(initial_plan), None
@@ -7064,6 +7186,7 @@ class QualificationRunCoordinator:
                     run_id,
                     target,
                     work_key,
+                    stage_id,
                 )
             except Exception as exc:  # noqa: BLE001
                 self.store.update_question_stage(
@@ -8211,11 +8334,19 @@ class QualificationRunCoordinator:
         result = None
         aggregate_consensus: dict[str, dict[str, Any]] = {}
         aggregate_review_pairs: dict[str, list[dict[str, Any]]] = {}
+        aggregate_source_records: dict[str, Mapping[str, Any]] = {}
         committed_files: set[str] = set()
         try:
             aggregate_review_enabled = stage_id == "question_type"
             checkpoint_mismatches: set[str] = set()
             if aggregate_review_enabled:
+                aggregate_source_records = _aggregate_review_source_records(
+                    self.repo_root,
+                    qualification,
+                    batch_plan,
+                    raw_targets,
+                    records_by_question,
+                )
                 review_policy = dict(
                     (batch_plan.get("agentPolicy") or {}).get("independent_review") or {}
                 )
@@ -8239,7 +8370,7 @@ class QualificationRunCoordinator:
                     else {question_id: None for question_id in question_ids}
                 )
                 for question_id in question_ids:
-                    record = records_by_question[question_id]
+                    record = aggregate_source_records[question_id]
                     source_text = str(record.get("questionBodyText") or "")
                     candidate_set = generate_statement_candidates(source_text)
                     candidate_sets_by_question[question_id] = candidate_set
@@ -8394,7 +8525,7 @@ class QualificationRunCoordinator:
                     ]
                     review_prompt = _aggregate_answer_review_prompt(
                         pending_targets,
-                        records_by_question,
+                        aggregate_source_records,
                         candidate_sets_by_question,
                     )
                     started_threads: list[str] = []
@@ -8563,7 +8694,8 @@ class QualificationRunCoordinator:
                 ] = []
                 for question_id in question_ids:
                     source_text = str(
-                        records_by_question[question_id].get("questionBodyText") or ""
+                        aggregate_source_records[question_id].get("questionBodyText")
+                        or ""
                     )
                     aggregate_review_pairs[question_id] = copy.deepcopy(
                         reviews_by_question[question_id]
@@ -8782,11 +8914,28 @@ class QualificationRunCoordinator:
                     if consensus is not None
                     else None
                 )
+                current_record = records_by_question[question_id]
+                current_source_text = current_record.get("questionBodyText")
+                current_is_aggregate_target = bool(
+                    isinstance(current_source_text, str)
+                    and is_approved_target(
+                        current_record.get("aggregateAnswerDecomposition"),
+                        current_source_text,
+                    )
+                )
+                hold_cleanup_required = bool(
+                    consensus is not None
+                    and consensus["decision"] == "hold"
+                    and current_is_aggregate_target
+                )
                 if consensus is not None:
                     commands.append(
                         {"command": "dual aggregate review", "status": "pass"}
                     )
-                    if consensus["decision"] == "hold":
+                    if (
+                        consensus["decision"] == "hold"
+                        and not hold_cleanup_required
+                    ):
                         issue_codes = list(consensus["issueCodes"])
                         checkpoint_question(
                             {
@@ -8804,7 +8953,7 @@ class QualificationRunCoordinator:
                             }
                         )
                         continue
-                if candidate.status == "blocked":
+                if not hold_cleanup_required and candidate.status == "blocked":
                     checkpoint_question(
                         {
                             "questionId": question_id,
@@ -8816,10 +8965,14 @@ class QualificationRunCoordinator:
                         }
                     )
                     continue
-                content_errors = validate_candidate_content(
-                    candidate,
-                    targets_by_question[question_id],
-                    records_by_question[question_id],
+                content_errors = (
+                    []
+                    if hold_cleanup_required
+                    else validate_candidate_content(
+                        candidate,
+                        targets_by_question[question_id],
+                        records_by_question[question_id],
+                    )
                 )
                 if content_errors:
                     commands.append(
@@ -8837,6 +8990,13 @@ class QualificationRunCoordinator:
                     )
                     continue
                 commands.append({"command": "question content", "status": "pass"})
+                if hold_cleanup_required:
+                    commands.append(
+                        {
+                            "command": "deactivate stale aggregate target",
+                            "status": "pass",
+                        }
+                    )
                 if pipeline_stop.is_set():
                     raise QualificationRunError(
                         "正本の安全性を確認できないため候補反映を停止しました。"
@@ -8882,10 +9042,21 @@ class QualificationRunCoordinator:
                 committed_for_question: set[str] = set()
                 try:
                     scopes = question_plan.get("targetRecordScopes") or {}
-                    effective_updates = list(candidate.updates)
+                    effective_updates = (
+                        [] if hold_cleanup_required else list(candidate.updates)
+                    )
                     if (
                         consensus is not None
-                        and consensus["classification"] == "target"
+                        and (
+                            (
+                                consensus["decision"] == "approve"
+                                and (
+                                    consensus["classification"] == "target"
+                                    or current_is_aggregate_target
+                                )
+                            )
+                            or hold_cleanup_required
+                        )
                         and not any(
                             target_by_id[update.target_id].role == "question_type"
                             for update in effective_updates
@@ -8922,6 +9093,7 @@ class QualificationRunCoordinator:
                         else:
                             base_record = records_by_question[question_id]
                         server_set_fields = dict(update.set_fields)
+                        server_unset_fields = set(update.unset_fields)
                         if (
                             consensus is not None
                             and consensus["classification"] == "target"
@@ -8944,9 +9116,45 @@ class QualificationRunCoordinator:
                             )
                             server_set_fields.update(
                                 materialize_decomposition(
-                                    records_by_question[question_id],
+                                    aggregate_source_records[question_id],
                                     aggregate_review_pairs[question_id],
                                 )
+                            )
+                        elif (
+                            consensus is not None
+                            and (
+                                (
+                                    consensus["classification"] == "non_target"
+                                    and consensus["decision"] == "approve"
+                                )
+                                or consensus["decision"] == "hold"
+                            )
+                            and current_is_aggregate_target
+                            and target.role == "question_type"
+                        ):
+                            source_record = aggregate_source_records[question_id]
+                            source_choices = source_record.get(
+                                "_aggregateSourceChoiceTextList"
+                            )
+                            if not isinstance(source_choices, list):
+                                raise QualificationRunError(
+                                    "集約回答の解除に必要なsource choiceTextListを"
+                                    "配列として確認できません。"
+                                )
+                            server_set_fields["choiceTextList"] = copy.deepcopy(
+                                source_choices
+                            )
+                            source_keys = source_record.get(
+                                "_aggregateSourceUniqueKeys"
+                            )
+                            if isinstance(source_keys, list):
+                                server_set_fields["sourceUniqueKeys"] = copy.deepcopy(
+                                    source_keys
+                                )
+                            else:
+                                server_unset_fields.add("sourceUniqueKeys")
+                            server_unset_fields.add(
+                                "aggregateAnswerDecomposition"
                             )
                         if target.role == "law_audit":
                             server_set_fields["schemaVersion"] = (
@@ -8960,7 +9168,7 @@ class QualificationRunCoordinator:
                             unset_fields=_candidate_unset_fields(
                                 target,
                                 server_set_fields,
-                                update.unset_fields,
+                                tuple(server_unset_fields),
                             ),
                             base_record=base_record,
                         )
@@ -8974,8 +9182,10 @@ class QualificationRunCoordinator:
                                     for value in question_plan.get("sourceFiles") or []
                                 ],
                             )
-                            work_version_receipt = self._record_work_versions(
-                                question_plan
+                            work_version_receipt = (
+                                None
+                                if hold_cleanup_required
+                                else self._record_work_versions(question_plan)
                             )
                         commands.extend(
                             [
@@ -8986,12 +9196,24 @@ class QualificationRunCoordinator:
                         checkpoint_question(
                             {
                                 "questionId": question_id,
-                                "status": "succeeded",
-                                "summary": candidate.summary,
+                                "status": (
+                                    "failed"
+                                    if hold_cleanup_required
+                                    else "succeeded"
+                                ),
+                                "summary": (
+                                    "集約回答レビューを保留し、旧targetを解除しました。"
+                                    if hold_cleanup_required
+                                    else candidate.summary
+                                ),
                                 "aggregateAnswerReview": aggregate_review_evidence,
                                 "commands": commands,
                                 "changedFiles": [],
-                                "workVersionReceipt": work_version_receipt,
+                                **(
+                                    {"workVersionReceipt": work_version_receipt}
+                                    if work_version_receipt is not None
+                                    else {}
+                                ),
                             },
                             work_version_receipt,
                         )
@@ -9061,20 +9283,34 @@ class QualificationRunCoordinator:
                             commands.append(
                                 {"command": "atomic commit", "status": "pass"}
                             )
-                            work_version_receipt = self._record_work_versions(
-                                question_plan
+                            work_version_receipt = (
+                                None
+                                if hold_cleanup_required
+                                else self._record_work_versions(question_plan)
                             )
                             checkpoint_question(
                                 {
                                     "questionId": question_id,
-                                    "status": "succeeded",
-                                    "summary": candidate.summary,
+                                    "status": (
+                                        "failed"
+                                        if hold_cleanup_required
+                                        else "succeeded"
+                                    ),
+                                    "summary": (
+                                        "集約回答レビューを保留し、旧targetを解除しました。"
+                                        if hold_cleanup_required
+                                        else candidate.summary
+                                    ),
                                     "aggregateAnswerReview": (
                                         aggregate_review_evidence
                                     ),
                                     "commands": commands,
                                     "changedFiles": sorted(committed_for_question),
-                                    "workVersionReceipt": work_version_receipt,
+                                    **(
+                                        {"workVersionReceipt": work_version_receipt}
+                                        if work_version_receipt is not None
+                                        else {}
+                                    ),
                                 },
                                 work_version_receipt,
                             )
@@ -11728,6 +11964,7 @@ class QualificationRunCoordinator:
                     for entry in before_matches
                 }
                 allowed_derived_fields: dict[str, Any] = {}
+                allowed_server_removed_fields: set[str] = set()
                 decomposition = contract(after_entry).get(
                     "aggregateAnswerDecomposition"
                 )
@@ -11783,6 +12020,33 @@ class QualificationRunCoordinator:
                         ),
                         "sourceUniqueKeys": expected_derived_keys,
                     }
+                elif (
+                    isinstance(source_text, str)
+                    and decomposition is None
+                    and "question_type"
+                    in {
+                        str(run.get("stageId") or ""),
+                        *(
+                            str(value)
+                            for value in run.get("stageIds") or []
+                        ),
+                    }
+                    and any(
+                        is_approved_target(
+                            contract(entry).get("aggregateAnswerDecomposition"),
+                            source_text,
+                        )
+                        for entry in before_matches
+                    )
+                    and source_fields is not None
+                ):
+                    for field in ("choiceTextList", "sourceUniqueKeys"):
+                        if field in source_fields:
+                            allowed_derived_fields[field] = copy.deepcopy(
+                                source_fields[field]
+                            )
+                        else:
+                            allowed_server_removed_fields.add(field)
                 if before_identity is not None:
                     if after_identity != before_identity:
                         allowed_empty_identity_cleanup = bool(
@@ -11938,6 +12202,10 @@ class QualificationRunCoordinator:
                             and after_fields.get(field)
                             == allowed_derived_fields[field]
                         )
+                        exact_server_derived_removal = bool(
+                            field in allowed_server_removed_fields
+                            and field not in after_fields
+                        )
                         removed_redundant_source_copy = bool(
                             field not in after_fields
                             and source_fields is not None
@@ -11945,6 +12213,7 @@ class QualificationRunCoordinator:
                         )
                         if (
                             not exact_server_derived_change
+                            and not exact_server_derived_removal
                             and not removed_redundant_source_copy
                             and (
                             field not in after_fields

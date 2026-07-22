@@ -5,6 +5,10 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from scripts.common.aggregate_answer_decomposition import (
+    derived_source_unique_keys,
+    source_text_hash,
+)
 from tools.question_review_console.inventory import (
     QuestionInventory,
     correct_choice_comparison,
@@ -121,6 +125,78 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertEqual(result.record["questionType"], "flash_card")
         self.assertEqual(result.errors, ())
         self.assertEqual(len(result.applied_files), 1)
+
+    def test_question_type_stage_can_project_and_repair_its_own_invalid_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            source_text = "A　原文一。\nB　原文二。"
+            spans = [
+                {"start": 0, "end": source_text.index("\n")},
+                {"start": source_text.index("\n") + 1, "end": len(source_text)},
+            ]
+            source = {
+                "original_question_id": "q1",
+                "canonical_question_key": "sample-exam:2026:q001",
+                "questionBodyText": source_text,
+                "choiceTextList": ["組合せ1", "組合せ2"],
+                "questionType": "group_choice",
+            }
+            decomposition = {
+                "schemaVersion": "aggregate-answer-decomposition/v1",
+                "sourceHash": source_text_hash(source_text),
+                "classification": "target",
+                "spans": spans,
+                "decision": "approve",
+                "issueCodes": [],
+            }
+            write_json(
+                group / "00_source" / "question.json",
+                {"question_bodies": [source]},
+            )
+            write_json(
+                group / "10_questionType_fixed" / "question_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "q1",
+                        "questionType": "group_choice",
+                        "choiceTextList": ["A　原文一。", "B　原文二。"],
+                        "sourceUniqueKeys": derived_source_unique_keys(
+                            source,
+                            decomposition,
+                        ),
+                        "aggregateAnswerDecomposition": decomposition,
+                    }
+                ],
+            )
+            inventory = QuestionInventory(root)
+
+            strict = inventory.projected_input(
+                "sample-exam",
+                "2026",
+                "question.json#0",
+            )
+            repair = inventory.projected_input_for_stage(
+                "sample-exam",
+                "2026",
+                "question.json#0",
+                "question_type",
+            )
+
+        self.assertIn(
+            "approved aggregate answer target must use true_false",
+            " ".join(strict.errors),
+        )
+        self.assertEqual(repair.errors, ())
+        self.assertEqual(repair.record["questionType"], "group_choice")
+        self.assertEqual(
+            repair.record["choiceTextList"],
+            ["A　原文一。", "B　原文二。"],
+        )
+        self.assertEqual(
+            repair.record["aggregateAnswerDecomposition"],
+            decomposition,
+        )
 
     def test_projected_input_rejects_an_unmatched_patch_like_physical_merge(self):
         with tempfile.TemporaryDirectory() as directory:

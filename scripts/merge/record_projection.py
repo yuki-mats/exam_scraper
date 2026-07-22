@@ -265,6 +265,7 @@ def project_merge_record(
     explanation: Sequence[PatchArtifactEntry] = (),
     question_set: Sequence[PatchArtifactEntry] = (),
     question_issues: Sequence[QuestionIssueCorrectionEntry] = (),
+    validate_aggregate_question_type: bool = True,
 ) -> RecordMergeProjection:
     if originalized and explanation:
         ensure_originalized_explanation_is_distinct(
@@ -278,10 +279,20 @@ def project_merge_record(
         originalized,
         apply_originalized_fields,
     )
+    def apply_question_type_for_projection(
+        data: dict[str, Any],
+        values: Mapping[str, Any],
+    ) -> int:
+        return apply_question_type(
+            data,
+            values,
+            validate_aggregate_target=validate_aggregate_question_type,
+        )
+
     counts["question_type"] = _apply_candidates(
         merged1,
         question_type,
-        apply_question_type,
+        apply_question_type_for_projection,
         apply_empty_map_when_missing=True,
     )
     counts["answer_result_override"] = _apply_candidates(

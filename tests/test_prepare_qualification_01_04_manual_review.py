@@ -7,6 +7,7 @@ from scripts.check import prepare_qualification_01_04_manual_review as module
 from scripts.merge.patch_views import apply_question_type
 from scripts.common.aggregate_answer_decomposition import (
     REVIEW_SCHEMA_VERSION,
+    generate_statement_candidates,
     materialize_decomposition,
     source_text_hash,
 )
@@ -26,15 +27,12 @@ class PrepareQualification0104ManualReviewTest(unittest.TestCase):
             "firestoreQuestionIds": ["old-1", "old-2"],
             "firestoreSourceQuestions": [{"questionId": "old-1"}],
         }
-        spans = []
-        for statement in ("A 原文一。", "B 原文二。"):
-            start = body.index(statement)
-            spans.append({"start": start, "end": start + len(statement)})
+        candidate = generate_statement_candidates(body)["candidates"][0]
         review = {
             "schemaVersion": REVIEW_SCHEMA_VERSION,
             "sourceHash": source_text_hash(body),
             "classification": "target",
-            "spans": spans,
+            "candidateId": candidate["candidateId"],
             "decision": "approve",
             "issueCodes": [],
         }

@@ -15,6 +15,7 @@ from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
     _aggregate_answer_review_prompt,
+    _aggregate_review_source_records,
     _candidate_unset_fields,
     _source_binding_accepts_identity,
     _structured_candidate_stage_context,
@@ -1331,6 +1332,56 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertNotIn("正解", prompt)
         self.assertNotIn("answer", prompt.casefold())
 
+    def test_aggregate_review_reread_uses_immutable_source_choices(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_relative = Path(
+                "output/sample/questions_json/group/00_source/source.json"
+            )
+            source_path = root / source_relative
+            source_path.parent.mkdir(parents=True)
+            source_path.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                "questionBodyText": "A  第一の記述。\nB  第二の記述。",
+                                "choiceTextList": ["AとB", "Aのみ"],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            raw_target = {
+                "id": "question-1",
+                "listGroupId": "group",
+                "reviewQuestionId": "review-1",
+                "sourceQuestionKey": "sample:group:q1",
+                "sourceRecordRef": "source.json#0",
+            }
+            current = {
+                "question-1": {
+                    "questionBodyText": "A  第一の記述。\nB  第二の記述。",
+                    "choiceTextList": ["A  第一の記述。", "B  第二の記述。"],
+                }
+            }
+
+            records = _aggregate_review_source_records(
+                root,
+                "sample",
+                {"sourceFiles": [source_relative.as_posix()]},
+                [raw_target],
+                current,
+            )
+
+            self.assertEqual(
+                records["question-1"]["choiceTextList"],
+                ["AとB", "Aのみ"],
+            )
+            self.assertEqual(current["question-1"]["choiceTextList"][0], "A  第一の記述。")
+
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"
         with tempfile.TemporaryDirectory() as directory:
@@ -1471,6 +1522,28 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         question_concurrency=5,
     ):
         selected_groups = list(group_ids or ["2026"])
+        for group_id in selected_groups:
+            group = inventory.group("new-exam", group_id)
+            for question in group.get("questions") or []:
+                source_relative = Path(question["paths"]["source"])
+                source_path = root / source_relative
+                if source_path.exists():
+                    continue
+                source_path.parent.mkdir(parents=True, exist_ok=True)
+                source_record = {
+                    **copy.deepcopy(question.get("projected") or {}),
+                    **copy.deepcopy(question.get("source") or {}),
+                    "sourceQuestionKey": question.get("sourceQuestionKey"),
+                    "reviewQuestionId": question.get("originalQuestionId"),
+                    "sourceRecordRef": question.get("sourceRecordRef"),
+                }
+                source_path.write_text(
+                    json.dumps(
+                        {"question_bodies": [source_record]},
+                        ensure_ascii=False,
+                    ),
+                    encoding="utf-8",
+                )
         synchronizer = FakeSynchronizer()
         app_server = app_server or FlowAppServer()
         coordinator = QualificationRunCoordinator(
@@ -4951,6 +5024,119 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for payload in payloads
             )
         )
+
+    def test_hold_deactivates_a_stale_aggregate_target_without_validating_stage(self):
+        source_text = "A　原文一。\nB　原文二。"
+        newline = source_text.index("\n")
+        decomposition = {
+            "schemaVersion": "aggregate-answer-decomposition/v1",
+            "sourceHash": source_text_hash(source_text),
+            "classification": "target",
+            "spans": [
+                {"start": 0, "end": newline},
+                {"start": newline + 1, "end": len(source_text)},
+            ],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+
+        class StaleTargetInventory(SourceOnlyInventory):
+            def group(self, qualification, list_group_id):
+                question_id = f"new-exam-{list_group_id}-q1"
+                source = {
+                    "original_question_id": question_id,
+                    "canonical_question_key": "new-exam:2026:q001",
+                    "questionBodyText": source_text,
+                    "choiceTextList": ["組合せ1", "組合せ2"],
+                    "sourceUniqueKeys": ["source-choice-1", "source-choice-2"],
+                    "questionType": "group_choice",
+                    "isCalculationQuestion": False,
+                }
+                projected = {
+                    **source,
+                    "choiceTextList": ["A　原文一。", "B　原文二。"],
+                    "sourceUniqueKeys": ["derived-1", "derived-2"],
+                    "aggregateAnswerDecomposition": decomposition,
+                }
+                return {
+                    "listGroupId": list_group_id,
+                    "questions": [
+                        {
+                            "id": question_id,
+                            "reviewKey": (
+                                f"new-exam:{list_group_id}:"
+                                f"question_{list_group_id}_1:{question_id}"
+                            ),
+                            "qualification": qualification,
+                            "listGroupId": list_group_id,
+                            "originalQuestionId": question_id,
+                            "sourceQuestionKey": "new-exam:2026:q1",
+                            "sourceRecordRef": "question_2026_1.json#0",
+                            "source": source,
+                            "projected": projected,
+                            "paths": {
+                                "source": (
+                                    "output/new-exam/questions_json/2026/00_source/"
+                                    "question_2026_1.json"
+                                ),
+                                "patches": [],
+                            },
+                            "issues": [],
+                            "issueCodes": [],
+                            "isLawRelated": False,
+                            "workflow": {
+                                "merge": "missing",
+                                "convert": "missing",
+                                "upload": "missing",
+                            },
+                        }
+                    ],
+                }
+
+        question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            aggregate_review_overrides={
+                question_id: {
+                    "classification": "hold",
+                    "decision": "hold",
+                    "issueCodes": ["ambiguous_target"],
+                }
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                StaleTargetInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            child = coordinator.store.get(
+                "new-exam",
+                completed["childRunIds"][0],
+            )
+            held = child["batchQuestionResults"][0]
+            patch_path = root / held["changedFiles"][0]
+            patch_record = json.loads(patch_path.read_text(encoding="utf-8"))[0]
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(completed["validatedQuestionCount"], 0)
+        self.assertEqual(completed["blockedQuestionCount"], 1)
+        self.assertEqual(held["status"], "failed")
+        self.assertNotIn("workVersionReceipt", held)
+        self.assertEqual(patch_record["choiceTextList"], ["組合せ1", "組合せ2"])
+        self.assertEqual(
+            patch_record["sourceUniqueKeys"],
+            ["source-choice-1", "source-choice-2"],
+        )
+        self.assertNotIn("aggregateAnswerDecomposition", patch_record)
 
     def test_coordinator_technical_log_proxies_to_store(self):
         with tempfile.TemporaryDirectory() as directory:

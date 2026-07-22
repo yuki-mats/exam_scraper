@@ -315,6 +315,7 @@ def project_record(
     *,
     source_binding: SourceIdentityBinding | None = None,
     initial_errors: Iterable[str] = (),
+    validate_aggregate_question_type: bool = True,
 ) -> ProjectionResult:
     errors = list(initial_errors)
     resolved: dict[str, tuple[PatchEntry, ...]] = {}
@@ -357,6 +358,9 @@ def project_record(
             explanation=resolved.get("explanation", ()),
             question_set=resolved.get("questionSet", ()),
             question_issues=issue_candidates,
+            validate_aggregate_question_type=(
+                validate_aggregate_question_type
+            ),
         )
         record = projection.merged2
         applied = [str(path) for path in projection.applied_paths]

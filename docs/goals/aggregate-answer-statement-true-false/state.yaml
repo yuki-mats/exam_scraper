@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T063
+active_task: T064
 
 tasks:
   - id: T001
@@ -1351,6 +1351,7 @@ tasks:
     allowed_files:
       - "tools/question_review_console/qualification_runs.py"
       - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_record_scope.py"
     verify:
       - "python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_parallel_batches_preserve_all_review_checkpoints_and_never_exceed_two_reviews"
       - "python -m unittest tests.test_question_review_qualification_runs"
@@ -3445,7 +3446,7 @@ tasks:
   - id: T063
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "集約回答targetを『問題が受験者に個別の正誤判定を求める記述群』へ限定する資格共通の意味契約を二者レビューpromptへ追加し、設例の前提、並べ替え項目、穴埋め語句、通常の個別選択肢をtargetにしない。prompt版を更新して回帰テスト後、第一種衛生管理者1044問をfresh再分類し、正誤工程へ進めるtarget集合を再確定する。"
     inputs:
@@ -3469,7 +3470,14 @@ tasks:
     allowed_files:
       - "prompt/01_prompt_fix_questionType.md"
       - "document/reference/question_field_contract.md"
+      - "scripts/merge/patch_views.py"
+      - "scripts/merge/record_projection.py"
+      - "tools/question_review_console/inventory.py"
+      - "tools/question_review_console/projection.py"
       - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_inventory.py"
+      - "tests/test_prepare_qualification_01_04_manual_review.py"
+      - "tests/test_question_review_qualification_record_scope.py"
       - "tests/test_question_review_qualification_runs.py"
       - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
       - "output/question_review_console/1eiseikanrisha/**"
@@ -3480,6 +3488,7 @@ tasks:
       - "Prompt states that target boundaries must be the propositions the examinee is asked to judge individually."
       - "Prompt excludes given facts/premises, ordering items, fill-in terms, and ordinary answer choices whose propositions already live in source choiceTextList."
       - "Prompt still prohibits correctness solving, statement authoring, and raw offsets."
+      - "A non_target consensus restores choiceTextList and sourceUniqueKeys only from the immutable source record and removes the stale aggregate decomposition before projection validation."
       - "Focused aggregate and qualification-run regression tests pass."
       - "Fresh preview and parent cover exactly 1044 first-class health supervisor questions with bounded concurrency 5."
       - "Fresh result has no implementation invalid, no pending work, exact source slices, and no agent-authored statements."
@@ -3491,6 +3500,78 @@ tasks:
       - "A third review, stale checkpoint reuse, partial target materialization, or agent-authored statement appears."
       - "Any T062 premise/order/fill-in false positive remains approved after fresh dual review."
       - "00_source, Firestore, or a path outside allowed_files would change."
+    receipt:
+      result: done
+      changed_files:
+        - "prompt/01_prompt_fix_questionType.md"
+        - "document/reference/question_field_contract.md"
+        - "scripts/merge/patch_views.py"
+        - "scripts/merge/record_projection.py"
+        - "tools/question_review_console/inventory.py"
+        - "tools/question_review_console/projection.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tests/test_question_review_inventory.py"
+        - "tests/test_prepare_qualification_01_04_manual_review.py"
+        - "tests/test_question_review_qualification_record_scope.py"
+        - "tests/test_question_review_qualification_runs.py"
+      commands:
+        - command: "Fresh qualification-wide prompt-v4 parent 20260722T122229049006-f1776c2b and two exact technical-hold replacement parents 20260722T133730923167-428a74a4, 20260722T134110770093-604d5f38"
+          status: pass
+          summary: "Effective coverage: target=40, non_target=1004, hold=0, invalid=0, total=1044; every effective question has exactly two distinct gpt-5.5/high v4 reviews and no reused review"
+        - command: "Effective aggregate materialization readback"
+          status: pass
+          summary: "40 targets, 172 ordered source spans, 172 unique stable keys, every stored statement equals its immutable questionBodyText slice, agent-authored statements=0"
+        - command: "python -m unittest -q tests.test_question_review_inventory tests.test_question_review_projection tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_qualification_runs tests.test_question_review_qualification_record_scope tests.test_aggregate_answer_decomposition tests.test_question_review_workflow tests.test_question_review_question_candidate"
+          status: pass
+          summary: "218 tests passed"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      summary: "targetの意味を表記ではなく受験者が個別に正誤判定する命題かで限定し、全reviewをimmutable sourceから組み立てる共通経路へ統一した。question_type工程だけは古い誤分類patchを修復可能にし、non_targetはsourceのchoiceTextListとsourceUniqueKeysを正確に復元してdecompositionを除去する。第一種衛生管理者1044問は最終的にtarget 40、non_target 1004、保留・実装不正0へ収束した。"
+      deviations:
+        - "最初の1044問parentで6件がsource hash又は二者不一致により技術保留となったため、同じv4契約でその6件だけをfresh parent二本に分けて再実行し、最新二者結果で置換した。"
+        - "T062で停止した9件のうち8件はnon_targetへ復元され、1件は修正後のsource-level reviewで共通述語に対する4個の個別判定命題を持つ真正targetとして確定した。"
+      spawned_tasks:
+        - T064
+      verification_attempts: 1
+      stopped_because: null
+  - id: T064
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "question_type再分類後も古い下流patchが残る場合、下流patchが保持するaggregate decomposition、choiceTextList、sourceUniqueKeysを現在のquestion_type投影と照合し、一致しない下流patchを資格共通で自動的に適用対象外とする。個別recordの削除又は例外一覧を作らず、現在の40 targetだけが後続工程の正本になることを証明する。"
+    inputs:
+      - "T063 final 40-target question_type projection"
+      - "T062 partially completed question_intent and correct_choice patches"
+      - "Existing shared record projection pipeline"
+    constraints:
+      - "Do not delete or hand-edit individual downstream records."
+      - "Do not add qualification, year, source phrase, question ID, or filename exceptions."
+      - "Do not weaken ordinary non-aggregate downstream patch application."
+      - "Do not start additional sub-agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "A single shared cross-stage compatibility guard"
+      - "Regression tests for unchanged target, reclassified non-target, and ordinary non-aggregate records"
+      - "Current-data readback proving stale aggregate downstream patches cannot override restored source choices"
+    allowed_files:
+      - "scripts/merge/record_projection.py"
+      - "tests/test_prepare_qualification_01_04_manual_review.py"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "An aggregate-derived downstream patch applies only when decomposition, choiceTextList, and sourceUniqueKeys exactly match the current question_type projection."
+      - "A reclassified non_target ignores stale question_intent, correct_choice, law_context, explanation, and question_set aggregate-derived patches without editing their files."
+      - "Ordinary non-aggregate patches continue to apply."
+      - "All current 40 targets remain target and the eight stale T062 correct-choice records cannot alter current non-target projections."
+      - "Focused projection tests, 00_source immutability, and git diff check pass."
+    stop_if:
+      - "Compatibility cannot be decided from existing patch content and current projection without adding per-record metadata or exceptions."
+      - "A valid ordinary patch would be skipped."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
     receipt: null
   - id: T999
     type: judge

@@ -560,6 +560,38 @@ class QuestionInventory:
     ) -> ProjectionResult:
         """Project one immutable source record through the current patch layers."""
 
+        return self._projected_input(
+            qualification,
+            list_group_id,
+            source_record_ref_value,
+            validate_aggregate_question_type=True,
+        )
+
+    def projected_input_for_stage(
+        self,
+        qualification: str,
+        list_group_id: str,
+        source_record_ref_value: str,
+        stage_id: str,
+    ) -> ProjectionResult:
+        """Project current data while allowing a stage to repair its own fields."""
+
+        return self._projected_input(
+            qualification,
+            list_group_id,
+            source_record_ref_value,
+            validate_aggregate_question_type=stage_id != "question_type",
+        )
+
+    def _projected_input(
+        self,
+        qualification: str,
+        list_group_id: str,
+        source_record_ref_value: str,
+        *,
+        validate_aggregate_question_type: bool,
+    ) -> ProjectionResult:
+
         qualification = _safe_segment(qualification)
         list_group_id = _safe_segment(list_group_id)
         group_dir = self.output_root / qualification / "questions_json" / list_group_id
@@ -605,6 +637,7 @@ class QuestionInventory:
             stage_maps,
             issue_index,
             source_binding=entry.identity.binding,
+            validate_aggregate_question_type=validate_aggregate_question_type,
         )
 
     @staticmethod
