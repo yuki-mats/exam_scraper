@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T067
+active_task: T068
 
 tasks:
   - id: T001
@@ -3743,7 +3743,7 @@ tasks:
   - id: T067
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "現在の40 targetのうち法令関連問題だけを既存law_audit工程へexact dynamic scopeで通し、現行法との関係、根拠locator、監査状態を確定する。集約回答専用の監査処理は作らず、172の原文記述・正誤・解説を既存phase境界のまま検証する。"
     inputs:
@@ -3781,6 +3781,42 @@ tasks:
       - "A stage attempts to rewrite choiceTextList, sourceUniqueKeys, or aggregate decomposition."
       - "Need aggregate-specific law logic or a path outside allowed_files."
       - "00_source or Firestore would change."
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T142754061174-0719ddc4/**"
+        - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      commands:
+        - command: "law_audit preview for current approved targets where isLawRelated=true"
+          status: pass
+          summary: "現在の40 targetから法令関連25問を動的に選択し、25 work items、警告0、concurrency 5を確認した"
+        - command: "law_audit parent 20260722T142754061174-0719ddc4"
+          status: blocked
+          summary: "24問はlawRevisionFacts未準備で同じ検証エラーとなり、残る1問は長時間再試行を止めるため中断した。確定した法令監査変更は0問"
+      summary: "抽出・正誤化とは独立した資格別の現行法根拠が未準備だった。既存law_auditを再試行しても精度は上がらず応答停止を招くため、個別例外を加えず処理を中断した。T066で完成した40問・172記述には変更を加えていない。"
+      deviations:
+        - "全25問の監査完了には、第一種衛生管理者の法令根拠を既存phase契約に沿って準備する別工程が必要"
+      verification_attempts: 1
+      stopped_because: "qualification-level lawRevisionFacts are not prepared"
+  - id: T068
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "抽出・正誤化の共通基盤を完成成果として固定し、資格別の現行法監査と公開準備を別フェーズに分離したうえで、次に進める範囲をユーザーと確定する。"
+    inputs:
+      - "T066 final 40-target/172-statement projection"
+      - "T067 blocked law-audit receipt"
+      - "User request to avoid excessive agents and long-running stalls"
+    constraints:
+      - "Do not start another law-audit run before qualification-level evidence is prepared."
+      - "Do not add per-question exceptions or aggregate-specific law logic."
+      - "Do not spawn additional agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "Core extraction result and verification handoff"
+      - "Explicit boundary between generic extraction and qualification-specific publication readiness"
+      - "User decision on whether to start the separate current-law/publication phase"
     receipt: null
   - id: T999
     type: judge
