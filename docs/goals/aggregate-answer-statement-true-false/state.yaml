@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T081
+active_task: T082
 
 tasks:
   - id: T001
@@ -4634,7 +4634,7 @@ tasks:
   - id: T081
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "公開UIで第二種衛生管理者2014年10月の57001を通常の整備・洗い替えとして実行し、28問の結果、問題文由来選択肢フラグ、抽出文字列のsource span一致、00_source不変をreadbackする。"
     inputs:
@@ -4668,6 +4668,94 @@ tasks:
       - "The run requires a qualification-specific runtime branch."
       - "An extracted statement is not an exact source span."
       - "Firestore would be written."
+    receipt:
+      result: done
+      changed_files:
+        - "output/question_review_console/workflow_runs/2eiseikanrisha/20260722T213909250223-987cd340/**"
+        - "output/question_review_console/2eiseikanrisha/**"
+        - "output/2eiseikanrisha/**"
+      commands:
+        - command: "Public UI parent-run readback for 20260722T213909250223-987cd340"
+          status: pass
+          summary: "listGroupId 57001, 28 questions, 168 work items, questionConcurrency 1, succeeded with 26 confirmed and 2 held"
+        - command: "QuestionInventory aggregate source-span readback for 2eiseikanrisha/57001"
+          status: pass
+          summary: "28 questions; choicesExtractedFromQuestionBody=0, so no non-source extraction was materialized"
+        - command: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+        - command: "Firestore execution readback"
+          status: pass
+          summary: "No Firestore write field or production write was executed"
+      summary: "公開UIから第二種衛生管理者2014年10月の57001を通常整備として28問一巡し、26問を確定、2問を理由付き保留にした。問題文由来選択肢フラグは0問で、誤った抽出文字列は保存されていない。00_sourceは5799ファイル不変、Firestoreは未実行だった。"
+      deviations:
+        - "検証用Goal Workerは一度の待機でreceiptを返さなかったため中断し、PMが既存runと成果物を同じ受入条件でreadbackした。"
+      remaining_blockers:
+        - "2問は理由付き保留で、公開用artifact syncは必須field不足1問によりblocked。独立分割工程の実装には影響しない。"
+      verification_attempts: 1
+      stopped_because: null
+  - id: T082
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "集約回答の対象判定・二者レビュー・原文span分割を01 問題形式から切り離し、01より前の資格共通な独立工程として実行・進捗管理できるようにする。UIでは初期非チェックとし、明示チェック時だけこの工程を先頭にして開始する。01は分割済みprojectionだけを入力として問題形式を判定し、分割レビューを再実行しない。"
+    inputs:
+      - "Current aggregate review and tool-owned materialization implementation"
+      - "User-approved independent pre-01 phase requirement"
+      - "User requirement: the split stage is unchecked by default and becomes the run start when checked"
+      - "T081 run evidence"
+    constraints:
+      - "Do not let any model output extracted statement text, summaries, reasons, or prose in the split review."
+      - "The tool alone must materialize exact source spans after two independent matching reviews."
+      - "Non-target questions continue to 01 unchanged; hold questions stop before 01."
+      - "The public UI must not select the split stage by default; an explicit check prepends it to the selected workflow stages."
+      - "Keep the implementation qualification-neutral and reuse the existing 10_questionType_fixed patch layer."
+      - "Do not touch 00_source, Firestore, or gas-shunin dirty files."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "Independent workflow stage immediately before 01"
+      - "Opt-in UI checkbox that is off by default and starts the selected run from the split stage when enabled"
+      - "Split-only execution path with no normal candidate-authoring turn"
+      - "01 execution path without aggregate review calls"
+      - "Separate work-version and progress receipts"
+      - "UI order and focused regression proof"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "document/operations/local_question_review_console.md"
+      - "document/reference/question_field_contract.md"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/workflow_catalog.py"
+      - "tools/question_review_console/work_versions.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_question_review_work_versions.py"
+      - "tests/test_question_review_progress_output_ui.py"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "A split-only run performs exactly two independent prose-free reviews and no normal candidate-authoring turn."
+      - "A following 01 run performs question-type candidate generation and zero aggregate reviews."
+      - "Target text equals exact source spans; non-target remains unchanged; hold blocks 01."
+      - "Workflow catalog and public UI show the split phase immediately before 01."
+      - "The run dialog leaves the split stage unchecked by default and prepends it only after the user checks it."
+      - ".venv/bin/python -m unittest -q tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow tests.test_question_review_workflow_catalog tests.test_question_review_work_versions tests.test_question_review_progress_output_ui"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "A model-authored string can enter choiceTextList or aggregateAnswerDecomposition."
+      - "The change requires a new patch layer or qualification-specific branch."
+      - "01 still invokes aggregate review or the split phase invokes the normal candidate writer."
+      - "The split stage is selected without explicit user action or checking it does not make it the first selected stage."
+      - "Need a path outside allowed_files."
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
