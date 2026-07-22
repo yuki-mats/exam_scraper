@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T058
+active_task: T999
 
 tasks:
   - id: T001
@@ -3076,7 +3076,7 @@ tasks:
   - id: T058
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "第一種衛生管理者の全1044問をfresh question_type runで再実行し、全問題の二重対象判定、原文span抽出、共有file更新、保留分類が資格共通実装で完走し、implementation invalidが0件であることをreadbackする。"
     inputs:
@@ -3110,11 +3110,46 @@ tasks:
       - "A third review, checkpoint reuse, raw offset fallback, agent-authored extracted text, or partial statement publication appears."
       - "00_source, Firestore, or a path outside allowed_files would change."
       - "Provider failure occurs; preserve the receipt and do not resume the same parent."
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+        - "output/question_review_console/1eiseikanrisha/**"
+        - "output/1eiseikanrisha/questions_json/*/10_questionType_fixed/**"
+      commands:
+        - command: "Qualification-wide preview with bounded concurrency"
+          status: pass
+          summary: "question_type only; 1044 questions across 24 list groups; questionConcurrency=10; no question IDs or production write"
+        - command: "Fresh full run 20260722T092813561293-1c734f65"
+          status: pass
+          summary: "96 child runs completed; 696 questions validated, 348 held, and no pending work"
+        - command: "Exclusive classification audit"
+          status: pass
+          summary: "target=56, non_target=640, hold=348, implementation invalid=0; total=1044"
+        - command: "Dual-review contract audit"
+          status: pass
+          summary: "2088 gpt-5.5/high prompt-v3 reviews; exactly two distinct executions per question, zero reuse, no third review, and one validation attempt per question"
+        - command: "Approved target source-slice and stable-key readback"
+          status: pass
+          summary: "56 approved targets yielded 215 exact source slices and 215 globally unique reproducible keys; agent-authored statement count was zero"
+        - command: "Hold and partial-publication audit"
+          status: pass
+          summary: "all 348 holds remained blocked; no hold decomposition was materialized into canonical patch records"
+        - command: "Regression, source immutability, and publication audit"
+          status: pass
+          summary: "142 tests passed; 5799 source files unchanged; phase artifact sync was deferred and no Firestore write ran"
+      summary: "追加の共同作業エージェントを起動せず、組込み並列数を固定10に抑えて第一種衛生管理者1044問を一巡した。資格固有の例外を追加せず、完全なsourceRecordRefを境界とする共通実装でimplementation invalidを0件にした。承認した56問の215記述は全てtoolが原文spanから切り出し、保留348問は正本へ部分反映していない。"
+      deviations:
+        - "応答停止への懸念に合わせ、組込みquestion concurrencyを過去の32から固定10へ下げ、共同作業sub-agentは0体のまま実行した。"
+        - "96 child batchで合計192個の一時review threadを順次使用したが、同時実行は最大10 batchに制限した。"
+        - "最終artifact syncは下流必須field不足により24 groupすべて安全にblockedとなり、Firestore更新は行っていない。"
+      remaining_blockers:
+        - "承認済み記述の正誤・解説工程"
+        - "公開前gateと第一種衛生管理者限定readback"
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "全receiptと検証をoracleへ対応付け、共通実装、第一種衛生管理者全件trial、公開前gate、限定公開readbackまで完了したか監査する。"
     inputs:
