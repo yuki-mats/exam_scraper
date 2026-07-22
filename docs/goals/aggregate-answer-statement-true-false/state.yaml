@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T068
+active_task: T070
 
 tasks:
   - id: T001
@@ -3801,7 +3801,7 @@ tasks:
   - id: T068
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "抽出・正誤化の共通基盤を完成成果として固定し、資格別の現行法監査と公開準備を別フェーズに分離したうえで、次に進める範囲をユーザーと確定する。"
     inputs:
@@ -3817,6 +3817,135 @@ tasks:
       - "Core extraction result and verification handoff"
       - "Explicit boundary between generic extraction and qualification-specific publication readiness"
       - "User decision on whether to start the separate current-law/publication phase"
+    receipt:
+      result: done
+      harness: codex
+      summary: "正本の残要件は現行法監査、公開前gate、限定公開readbackである。T067の失敗は資格別資料不足だけでなく、law_audit targetへ返された共通fieldが監査sidecarだけへ書かれ、18/21/23 patchへ配送されない共通routing不備と、lawRevisionFacts及びverified lawReferencesの候補契約がfield正本より弱いことが原因と確認した。資格固有例外や再試行ではなく、03b候補の共通原子反映を先に修正する。"
+      evidence:
+        - "tools/question_review_console/question_candidate.py:_field_destinations"
+        - "tools/question_review_console/qualification_runs.py:_validate_law_audit_quality"
+        - "document/reference/question_field_contract.md:lawRevisionFacts contract"
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T142754061174-0719ddc4"
+      spawned_tasks:
+        - T069
+  - id: T069
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "03bの一つの構造化候補から、監査sidecarとfield責務に対応する18/21/23 patchを同じ原子transactionで更新し、lawRevisionFactsのobject/list両表現とverified lawReferencesの必須形を候補生成時点で検証する資格共通修正を実装する。"
+    inputs:
+      - "T068 root-cause receipt"
+      - "question field contract lawRevisionFacts invariants"
+      - "Current law audit sidecar v2 contract"
+      - "Failed first-class-health parent 20260722T142754061174-0719ddc4"
+    constraints:
+      - "Do not add qualification-specific branches or question-ID exceptions."
+      - "Keep one candidate and one atomic per-question transaction; do not add another review pipeline."
+      - "Route each field only to its existing canonical patch role and mirror the audit-owned values required by sidecar."
+      - "Reject incomplete facts, non-structured verified references, or choice-count drift before canonical commit."
+      - "Do not spawn additional agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "Generic deterministic law-audit field routing"
+      - "Candidate field rules aligned with the current field contract"
+      - "Regression tests proving patch plus sidecar atomic writes and fail-closed validation"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/law_audit_contract.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_store.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_law_version.py"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "python -m unittest -q tests.test_question_review_question_candidate tests.test_question_review_qualification_runs tests.test_question_review_qualification_law_version"
+      - "python -m unittest -q tests.test_question_review_inventory tests.test_question_review_projection tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_qualification_record_scope tests.test_aggregate_answer_decomposition tests.test_original_question_pipeline"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "Need a qualification-specific or question-specific exception."
+      - "Canonical patch ownership cannot be derived from existing target roles."
+      - "The fix would persist unverified legal conclusions without 03b review."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      harness: codex
+      changed_files:
+        - "tools/question_review_console/law_audit_contract.py"
+        - "tools/question_review_console/question_candidate.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tests/test_question_review_store.py"
+        - "tests/test_question_review_question_candidate.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      commands:
+        - command: "python -m unittest -q tests.test_question_review_question_candidate tests.test_question_review_store tests.test_question_review_qualification_runs tests.test_question_review_qualification_law_version"
+          status: pass
+          summary: "150 tests passed"
+        - command: "python -m unittest -q tests.test_question_review_inventory tests.test_question_review_projection tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_qualification_record_scope tests.test_aggregate_answer_decomposition tests.test_original_question_pipeline"
+          status: pass
+          summary: "88 tests passed"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      summary: "law_audit targetへ返された共通fieldを既存責務に沿って18/21/23 patchとsidecarへfan-outする決定的routingを追加した。true_falseのlawRevisionFacts object/list契約とchoice-aligned verified lawReferencesを候補promptと保存前検証へ反映し、sidecarの日時、run ID、input/evidence hash等はserver所有値として再現可能に生成する。個別資格・問題ID分岐は追加していない。"
+      deviations: []
+      spawned_tasks:
+        - T070
+      verification_attempts: 1
+      stopped_because: null
+  - id: T070
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "既存の資格別補助資料契約に従って第一種衛生管理者の法令参照スコープを整備し、現在の25法令対象から1問だけを新しい03b共通経路へ通してpatch・sidecar・原文不変を実動確認する。"
+    inputs:
+      - "T069 generic atomic law-audit routing"
+      - "Current 25 law-related aggregate targets"
+      - "prompt/qualification_docs/_template/01_law_reference_policy.md"
+      - "Official current-law source requirement"
+    constraints:
+      - "Qualification docs may define scope only; do not add qualification-specific code."
+      - "Derive the law scope from all current law-related targets, not one question."
+      - "Run exactly one representative question with concurrency 1 before any full audit."
+      - "Use only e-Gov or competent ministry primary sources in 03b; do not use Lawzilla or private summaries."
+      - "Do not spawn additional agents."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "First-class health supervisor law-reference policy in the canonical qualification-doc directory"
+      - "One fresh exact-one 03b run"
+      - "Atomic update evidence for 18/21/23 patch and v2 sidecar"
+      - "No drift in the 40 targets or 172 extracted source statements"
+    allowed_files:
+      - "prompt/qualification_docs/1eiseikanrisha/**"
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/review/law_revision_audit/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "Qualification policy lists every law title currently referenced by the 25-question dynamic scope or documents why a title is excluded."
+      - "Exact-one preview contains one current approved target and one law_audit work item with concurrency 1."
+      - "Fresh result validates one question and atomically changes the owning patch files plus one v2 sidecar row."
+      - "Projected lawReferences are structured verified objects and lawRevisionFacts satisfy current verdict and evidence contracts."
+      - "All 40 targets and 172 source slices/keys remain unchanged except law-audit-owned fields."
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "Official primary sources cannot substantiate the representative question."
+      - "Candidate still writes only the sidecar or fails to update a canonical patch role."
+      - "Need qualification-specific code or a question-ID exception."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
     receipt: null
   - id: T999
     type: judge

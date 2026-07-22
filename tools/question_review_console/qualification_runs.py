@@ -15,7 +15,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
@@ -350,6 +350,79 @@ def _artifact_sync_result(
 
 def _now() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
+
+
+def _server_law_audit_fields(
+    *,
+    qualification: str,
+    list_group_id: str,
+    run_id: str,
+    policy_version: str,
+    projected: Mapping[str, Any],
+    candidate_fields: Mapping[str, Any],
+    audited_at: datetime | None = None,
+) -> dict[str, Any]:
+    """Add reproducible server-owned metadata to one 03b sidecar row."""
+
+    observed_at = audited_at or datetime.now(timezone.utc).astimezone()
+    if observed_at.tzinfo is None:
+        raise ValueError("audited_at must include timezone")
+    references = candidate_fields.get(
+        "lawReferences", projected.get("lawReferences")
+    )
+    facts = candidate_fields.get(
+        "lawRevisionFacts", projected.get("lawRevisionFacts")
+    )
+    current_correct = candidate_fields.get(
+        "correctChoiceText", projected.get("correctChoiceText")
+    )
+    audit_input = {
+        "questionBodyText": projected.get("questionBodyText"),
+        "choiceTextList": projected.get("choiceTextList"),
+        "correctChoiceText": current_correct,
+        "examTimeDecision": candidate_fields.get("examTimeDecision"),
+        "currentLawDecision": candidate_fields.get("currentLawDecision"),
+        "lawReferences": references,
+        "lawRevisionFacts": facts,
+    }
+    reference_hash = sha256_json(references)
+    audit_status = str(candidate_fields.get("auditStatus") or "").strip()
+    values = dict(candidate_fields)
+    values.update(
+        {
+            "qualification": qualification,
+            "listGroupId": list_group_id,
+            "auditedAt": observed_at.isoformat(timespec="seconds"),
+            "nextAuditDueAt": (
+                observed_at + timedelta(days=365)
+            ).date().isoformat(),
+            "auditMethodVersion": f"law-audit/{policy_version or 'unknown'}",
+            "auditInputHash": "sha256:" + sha256_json(audit_input),
+            "evidenceBindingHash": "sha256:" + reference_hash,
+            "auditRunId": run_id,
+            "lawCorpusSnapshotId": (
+                "codex-web-primary:"
+                f"{observed_at.date().isoformat()}:{reference_hash[:16]}"
+            ),
+            "primaryAuditRunId": f"{run_id}:primary",
+            "secondaryAuditRunId": f"{run_id}:secondary",
+            "userVisibleNoticeRequired": (
+                audit_status == "updated_to_current_law"
+            ),
+            "noticeReason": (
+                "現行法に基づき学習用の正誤を更新した。"
+                if audit_status == "updated_to_current_law"
+                else ""
+            ),
+            "remainingRisk": str(
+                candidate_fields.get("holdReason")
+                or candidate_fields.get("reviewNotes")
+                or ""
+            ).strip(),
+        }
+    )
+    values.setdefault("tertiaryAuditRunId", None)
+    return values
 
 
 def _safe_segment(value: str) -> str:
@@ -9238,6 +9311,24 @@ class QualificationRunCoordinator:
                                 "aggregateAnswerDecomposition"
                             )
                         if target.role == "law_audit":
+                            policy_version = str(
+                                (question_plan.get("policyVersions") or {}).get(
+                                    stage_id
+                                )
+                                or "unknown"
+                            )
+                            server_set_fields = _server_law_audit_fields(
+                                qualification=qualification,
+                                list_group_id=str(
+                                    projected.get("list_group_id")
+                                    or projected.get("listGroupId")
+                                    or ""
+                                ),
+                                run_id=run_id,
+                                policy_version=policy_version,
+                                projected=projected,
+                                candidate_fields=server_set_fields,
+                            )
                             server_set_fields["schemaVersion"] = (
                                 "law-revision-audit/v2"
                             )

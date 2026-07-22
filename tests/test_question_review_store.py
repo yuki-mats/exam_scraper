@@ -12,10 +12,26 @@ from tools.question_review_console.review_store import ReviewStore
 class QuestionReviewStoreTests(unittest.TestCase):
     def test_all_law_review_entry_points_require_public_and_metadata_fields(self):
         required = {
+            "auditStatus",
+            "reviewState",
+            "sourceSummary",
+            "verificationSummary",
+            "reconciliationStatus",
+            "tertiaryAuditRunId",
             "explanationText",
             "suggestedQuestionDetailsByChoice",
             "lawReferences",
             "lawRevisionFacts",
+            "isLawRelated",
+            "lawGroundedExplanationNotNeeded",
+            "lawContextForExplanation",
+            "correctChoiceText",
+            "answer_result_text",
+            "holdReason",
+            "reviewNotes",
+            "evidenceSummary",
+            "examTimeDecision",
+            "currentLawDecision",
         }
         reviews = [
             {"fields": ["isLawRelated"]},
@@ -67,17 +83,30 @@ class QuestionReviewStoreTests(unittest.TestCase):
         self.assertEqual(
             set(created["fields"]),
             {
+                "auditStatus",
+                "reviewState",
+                "sourceSummary",
+                "verificationSummary",
+                "reconciliationStatus",
+                "tertiaryAuditRunId",
                 "explanationText",
                 "suggestedQuestionDetailsByChoice",
                 "lawReferences",
                 "lawRevisionFacts",
+                "isLawRelated",
+                "lawGroundedExplanationNotNeeded",
+                "lawContextForExplanation",
+                "correctChoiceText",
+                "answer_result_text",
+                "holdReason",
+                "reviewNotes",
+                "evidenceSummary",
+                "examTimeDecision",
+                "currentLawDecision",
             },
         )
-        self.assertIn(
-            "- fields: lawRevisionFacts, explanationText, "
-            "suggestedQuestionDetailsByChoice, lawReferences",
-            created["prompt"],
-        )
+        self.assertIn("lawRevisionFacts", created["prompt"])
+        self.assertIn("currentLawDecision", created["prompt"])
         self.assertIn(
             "公開用の`explanationText`にverifiedの法令名",
             created["prompt"],

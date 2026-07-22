@@ -1,5 +1,6 @@
 from types import SimpleNamespace
 from dataclasses import replace
+from datetime import datetime, timezone
 
 from tests.qualification_run_test_support import *  # noqa: F403
 from tools.question_review_console.codex_app_server import (
@@ -19,6 +20,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_review_source_records,
     _candidate_unset_fields,
     _source_binding_accepts_identity,
+    _server_law_audit_fields,
     _structured_candidate_stage_context,
     _structured_candidate_prompt,
 )
@@ -32,6 +34,58 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class ServerLawAuditFieldsTests(unittest.TestCase):
+    def test_server_owns_reproducible_sidecar_metadata(self):
+        observed_at = datetime(2026, 7, 22, 5, 0, tzinfo=timezone.utc)
+        projected = {
+            "questionBodyText": "問題文",
+            "choiceTextList": ["記述A"],
+            "correctChoiceText": ["正しい"],
+        }
+        candidate = {
+            "auditStatus": "same_as_current",
+            "reviewState": "secondary_verified",
+            "examTimeDecision": ["正しい"],
+            "currentLawDecision": ["正しい"],
+            "lawReferences": [[{"lawId": "123AC0000000001"}]],
+            "lawRevisionFacts": [
+                {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "secondary_verified",
+                }
+            ],
+        }
+
+        fields = _server_law_audit_fields(
+            qualification="sample-exam",
+            list_group_id="2026",
+            run_id="run-1",
+            policy_version="4.0",
+            projected=projected,
+            candidate_fields=candidate,
+            audited_at=observed_at,
+        )
+
+        self.assertEqual(fields["qualification"], "sample-exam")
+        self.assertEqual(fields["listGroupId"], "2026")
+        self.assertEqual(fields["auditedAt"], "2026-07-22T05:00:00+00:00")
+        self.assertEqual(fields["nextAuditDueAt"], "2027-07-22")
+        self.assertEqual(fields["auditMethodVersion"], "law-audit/4.0")
+        self.assertEqual(fields["auditRunId"], "run-1")
+        self.assertEqual(fields["primaryAuditRunId"], "run-1:primary")
+        self.assertEqual(fields["secondaryAuditRunId"], "run-1:secondary")
+        self.assertIsNone(fields["tertiaryAuditRunId"])
+        self.assertRegex(fields["auditInputHash"], r"^sha256:[0-9a-f]{64}$")
+        self.assertRegex(fields["evidenceBindingHash"], r"^sha256:[0-9a-f]{64}$")
+        self.assertRegex(
+            fields["lawCorpusSnapshotId"],
+            r"^codex-web-primary:2026-07-22:[0-9a-f]{16}$",
+        )
+        self.assertFalse(fields["userVisibleNoticeRequired"])
+        self.assertEqual(fields["noticeReason"], "")
+        self.assertEqual(fields["remainingRisk"], "")
 
 
 def _v2_aggregate_review_result(result, prompt):

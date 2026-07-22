@@ -12,10 +12,26 @@ LAW_AUDIT_ISSUES = frozenset(
     }
 )
 LAW_AUDIT_REQUIRED_REPAIR_FIELDS = (
+    "auditStatus",
+    "reviewState",
+    "sourceSummary",
+    "verificationSummary",
+    "reconciliationStatus",
+    "tertiaryAuditRunId",
     "explanationText",
     "suggestedQuestionDetailsByChoice",
     "lawReferences",
     "lawRevisionFacts",
+    "isLawRelated",
+    "lawGroundedExplanationNotNeeded",
+    "lawContextForExplanation",
+    "correctChoiceText",
+    "answer_result_text",
+    "holdReason",
+    "reviewNotes",
+    "evidenceSummary",
+    "examTimeDecision",
+    "currentLawDecision",
 )
 QUALIFICATION_LAW_AUDIT_REQUEST = "qualification_law_audit"
 

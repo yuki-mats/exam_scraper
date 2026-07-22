@@ -738,6 +738,40 @@ class QuestionCandidateTest(unittest.TestCase):
             "具体的な法令名",
             audit_rules["explanationText"]["description"],
         )
+        self.assertEqual(
+            audit_rules["lawRevisionFacts"]["type"],
+            ["object", "array"],
+        )
+        law_reference_item = audit_rules["lawReferences"]["items"]["items"]
+        self.assertIn("lawId", law_reference_item["required"])
+        self.assertIn("verificationStatus", law_reference_item["required"])
+        law_references = [
+            [
+                {
+                    "role": "current_basis",
+                    "scope": "choice",
+                    "choiceIndex": 0,
+                    "lawId": "123AC0000000001",
+                    "lawTitle": "試験法",
+                    "referenceDate": "2026-07-22",
+                    "article": "1",
+                    "verificationStatus": "verified",
+                    "source": "egov_xml",
+                }
+            ]
+        ]
+        law_revision_facts = [
+            {
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "examTime": {"correctChoiceText": "正しい"},
+                "current": {"correctChoiceText": "正しい"},
+                "evidenceSummary": {
+                    "verdict": "same_as_current",
+                    "explanationText": "試験法第1条を確認した。",
+                },
+            }
+        ]
         candidate = parse_candidates(
             {
                 "schemaVersion": SCHEMA_VERSION,
@@ -752,8 +786,56 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "auditStatus",
-                                        "valueJson": '"not_law_related"',
-                                    }
+                                        "valueJson": '"same_as_current"',
+                                    },
+                                    {
+                                        "field": "reviewState",
+                                        "valueJson": '"secondary_verified"',
+                                    },
+                                    {
+                                        "field": "sourceSummary",
+                                        "valueJson": '"e-Govの試験法第1条を確認した。"',
+                                    },
+                                    {
+                                        "field": "verificationSummary",
+                                        "valueJson": '"条文本文と正誤が一致した。"',
+                                    },
+                                    {
+                                        "field": "reconciliationStatus",
+                                        "valueJson": '"matched"',
+                                    },
+                                    {
+                                        "field": "examTimeDecision",
+                                        "valueJson": '["正しい"]',
+                                    },
+                                    {
+                                        "field": "currentLawDecision",
+                                        "valueJson": '["正しい"]',
+                                    },
+                                    {
+                                        "field": "isLawRelated",
+                                        "valueJson": "true",
+                                    },
+                                    {
+                                        "field": "lawGroundedExplanationNotNeeded",
+                                        "valueJson": "false",
+                                    },
+                                    {
+                                        "field": "lawReferences",
+                                        "valueJson": json.dumps(law_references, ensure_ascii=False),
+                                    },
+                                    {
+                                        "field": "lawRevisionFacts",
+                                        "valueJson": json.dumps(law_revision_facts, ensure_ascii=False),
+                                    },
+                                    {
+                                        "field": "correctChoiceText",
+                                        "valueJson": '["正しい"]',
+                                    },
+                                    {
+                                        "field": "explanationText",
+                                        "valueJson": '["正しい。試験法第1条に定められている。"]',
+                                    },
                                 ],
                                 "unsetFields": [],
                             }
@@ -769,9 +851,153 @@ class QuestionCandidateTest(unittest.TestCase):
             validate_candidate_content(
                 candidate,
                 targets,
-                {"choiceTextList": [], "correctChoiceText": []},
+                {
+                    "questionType": "true_false",
+                    "choiceTextList": ["条文上の記述"],
+                    "correctChoiceText": ["正しい"],
+                },
             ),
             (),
+        )
+
+    def test_law_audit_target_fans_out_shared_fields_to_canonical_patches(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "監査結果を各正本へ反映する。",
+                        "updates": [
+                            {
+                                "targetId": audit.target_id,
+                                "setFields": [
+                                    {"field": "isLawRelated", "valueJson": "true"},
+                                    {"field": "lawReferences", "valueJson": "[[{\"lawId\":\"x\"}]]"},
+                                    {"field": "lawRevisionFacts", "valueJson": "[{\"auditStatus\":\"same_as_current\"}]"},
+                                    {"field": "correctChoiceText", "valueJson": '["正しい"]'},
+                                    {"field": "explanationText", "valueJson": '["正しい。根拠。"]'},
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        fields_by_role = {
+            next(
+                target.role
+                for target in targets
+                if target.target_id == update.target_id
+            ): update.set_fields
+            for update in candidate.updates
+        }
+
+        self.assertEqual(candidate.status, "candidate")
+        self.assertEqual(
+            set(fields_by_role),
+            {"law_context", "explanation", "correct_choice", "law_audit"},
+        )
+        self.assertIn("lawReferences", fields_by_role["law_context"])
+        self.assertIn("lawReferences", fields_by_role["explanation"])
+        self.assertIn("lawRevisionFacts", fields_by_role["explanation"])
+        self.assertEqual(
+            fields_by_role["correct_choice"]["correctChoiceText"],
+            ["正しい"],
+        )
+        self.assertIn("explanationText", fields_by_role["law_audit"])
+
+    def test_law_audit_rejects_legacy_string_references_and_weak_facts(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        values = {
+            "auditStatus": "same_as_current",
+            "reviewState": "secondary_verified",
+            "sourceSummary": "法令を確認した。",
+            "verificationSummary": "正誤を照合した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["正しい"],
+            "currentLawDecision": ["正しい"],
+            "isLawRelated": True,
+            "lawReferences": [["試験法第1条"]],
+            "lawRevisionFacts": {
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "current": {"correctChoiceText": ["正しい"]},
+                "evidenceSummary": "文字列の要約",
+            },
+        }
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "旧形式の候補",
+                        "updates": [
+                            {
+                                "targetId": audit.target_id,
+                                "setFields": [
+                                    {
+                                        "field": field,
+                                        "valueJson": json.dumps(
+                                            value, ensure_ascii=False
+                                        ),
+                                    }
+                                    for field, value in values.items()
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "true_false",
+                "choiceTextList": ["条文上の記述"],
+                "correctChoiceText": ["正しい"],
+            },
+        )
+
+        self.assertTrue(
+            any("evidenceSummaryが非空object" in error for error in errors)
+        )
+        self.assertTrue(
+            any("lawReferences[0][0]がobject" in error for error in errors)
         )
 
     def test_law_audit_routes_misplaced_fields_to_server_owned_targets(self):

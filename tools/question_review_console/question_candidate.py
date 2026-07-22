@@ -18,6 +18,9 @@ from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
+from tools.question_review_console.law_audit_quality import (
+    law_revision_current_verdict_issues,
+)
 
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
@@ -373,9 +376,58 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
     "type": "array",
     "description": (
         "choiceTextListと必ず同じ件数にし、各要素をその選択肢の根拠配列にする。"
-        "変更不要な選択肢の検証済み根拠は保持する。"
+        "03bでは各根拠をobjectで返し、verificationStatus=verified、正式法令名、"
+        "lawId、条番号、基準日、一次情報sourceを省略しない。変更不要な選択肢の"
+        "検証済み根拠は保持する。"
     ),
-    "items": {"type": "array"},
+    "items": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "required": [
+                "role",
+                "scope",
+                "lawId",
+                "lawTitle",
+                "referenceDate",
+                "article",
+                "verificationStatus",
+                "source",
+            ],
+            "properties": {
+                "role": {
+                    "type": "string",
+                    "allowedValues": ["current_basis", "exam_time_basis"],
+                },
+                "scope": {
+                    "type": "string",
+                    "allowedValues": ["question", "choice"],
+                },
+                "choiceIndex": {"type": "integer", "minimum": 0},
+                "lawId": {"type": "string", "minLength": 1},
+                "lawTitle": {"type": "string", "minLength": 1},
+                "referenceDate": {"type": "string", "minLength": 1},
+                "article": {"type": "string", "minLength": 1},
+                "verificationStatus": {
+                    "type": "string",
+                    "allowedValues": ["verified"],
+                },
+                "source": {"type": "string", "minLength": 1},
+            },
+        },
+    },
+}
+
+_LAW_REVISION_FACTS_RULE: dict[str, Any] = {
+    "type": ["object", "array"],
+    "description": (
+        "question field契約に従う。true_false等の複数選択肢patchでは"
+        "choiceTextListと同じ件数のobject配列を使い、各objectにauditStatus、"
+        "reviewState、current.correctChoiceTextのscalar、examTime.correctChoiceTextの"
+        "scalar、非空objectのevidenceSummaryを入れる。互換のquestion-level objectを"
+        "使う場合はcurrent/examTime.correctChoiceTextを選択肢順の配列にする。"
+        "auditStatus=updated_to_current_lawはreviewState=tertiary_verifiedに限る。"
+    ),
 }
 
 _SHARED_LAW_FIELD_RULES: dict[str, Any] = {
@@ -409,6 +461,7 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
     "explanation": {
         **_EXPLANATION_FIELD_RULES,
         **_SHARED_LAW_FIELD_RULES,
+        "lawRevisionFacts": _LAW_REVISION_FACTS_RULE,
     },
     "law_audit": {
         **_EXPLANATION_FIELD_RULES,
@@ -418,6 +471,7 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         "correctChoiceText": _CORRECT_CHOICE_TEXT_RULE,
         "examTimeDecision": _CHOICE_DECISION_RULE,
         "currentLawDecision": _CHOICE_DECISION_RULE,
+        "lawRevisionFacts": _LAW_REVISION_FACTS_RULE,
         "auditStatus": {
             "type": "string",
             "allowedValues": [
@@ -448,9 +502,25 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
     }
 }
 
-_FALLBACK_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
-    # 03bでは正誤patchと監査sidecarの同じ値を同時に確定する。
+_CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
+    # 03bの一つの候補を、既存patch責務と監査sidecarへ同時に配送する。
     "correctChoiceText": ("correct_choice", "law_audit"),
+    "answer_result_text": ("correct_choice", "law_audit"),
+    "explanationText": ("explanation", "law_audit"),
+    "suggestedQuestionDetailsByChoice": ("explanation", "law_audit"),
+    "lawRevisionFacts": ("explanation", "law_audit"),
+    "isLawRelated": ("law_context", "explanation", "law_audit"),
+    "lawGroundedExplanationNotNeeded": (
+        "law_context",
+        "explanation",
+        "law_audit",
+    ),
+    "lawReferences": ("law_context", "explanation", "law_audit"),
+    "lawContextForExplanation": (
+        "law_context",
+        "explanation",
+        "law_audit",
+    ),
 }
 
 
@@ -475,19 +545,20 @@ def _field_destinations(
     requested_target: CandidateTarget,
     allowed_targets: Mapping[str, CandidateTarget],
 ) -> tuple[CandidateTarget, ...]:
-    if field in requested_target.allowed_fields:
-        return (requested_target,)
     candidates = tuple(
         target
         for target in allowed_targets.values()
         if field in target.allowed_fields
     )
-    preferred_roles = _FALLBACK_ROLES_BY_FIELD.get(field, ())
+    preferred_roles = _CANONICAL_ROLES_BY_FIELD.get(field, ())
+    by_role = {target.role: target for target in candidates}
     preferred = tuple(
-        target for target in candidates if target.role in preferred_roles
+        by_role[role] for role in preferred_roles if role in by_role
     )
     if preferred:
         return preferred
+    if field in requested_target.allowed_fields:
+        return (requested_target,)
     if len(candidates) == 1:
         return candidates
     raise QuestionCandidateError(
@@ -899,9 +970,11 @@ def validate_candidate_content(
 
     if candidate.status == "blocked":
         return ()
-    target_by_id = {target.target_id: target for target in targets}
+    target_values = tuple(targets)
+    target_by_id = {target.target_id: target for target in target_values}
     logical = json.loads(json.dumps(dict(projected_record), ensure_ascii=False))
     audit_payloads: list[Mapping[str, Any]] = []
+    has_law_audit_target = any(target.role == "law_audit" for target in target_values)
     changed_fields: set[str] = set()
     for update in candidate.updates:
         target = target_by_id[update.target_id]
@@ -981,17 +1054,121 @@ def validate_candidate_content(
                 + " / ".join(suggestion_errors)
             )
     facts = logical.get("lawRevisionFacts")
-    if "lawRevisionFacts" in changed_fields and facts is not None and not isinstance(facts, Mapping):
-        errors.append("lawRevisionFactsがobjectではありません。")
-    if changed_fields & {"lawRevisionFacts", "correctChoiceText"} and isinstance(facts, Mapping) and isinstance(correct, list):
-        current = facts.get("current")
-        current_correct = (
-            current.get("correctChoiceText")
-            if isinstance(current, Mapping)
-            else None
+    if "lawRevisionFacts" in changed_fields and facts is not None and not isinstance(
+        facts, (Mapping, list)
+    ):
+        errors.append("lawRevisionFactsがobject又はobject配列ではありません。")
+    if has_law_audit_target:
+        if not audit_payloads:
+            errors.append("監査sidecarの更新候補がありません。")
+        audit = dict(audit_payloads[-1]) if audit_payloads else {}
+        for field in (
+            "auditStatus",
+            "reviewState",
+            "sourceSummary",
+            "verificationSummary",
+            "reconciliationStatus",
+            "examTimeDecision",
+            "currentLawDecision",
+        ):
+            value = audit.get(field)
+            if value in (None, "", []):
+                errors.append(f"監査sidecarの{field}がありません。")
+        if audit.get("auditStatus") == "updated_to_current_law" and (
+            audit.get("reviewState") != "tertiary_verified"
+            or not str(audit.get("tertiaryAuditRunId") or "").strip()
+        ):
+            errors.append(
+                "updated_to_current_lawにはtertiary_verifiedとtertiaryAuditRunIdが必要です。"
+            )
+        fact_items = (
+            list(facts)
+            if isinstance(facts, list)
+            else [facts]
+            if isinstance(facts, Mapping)
+            else []
         )
-        if current_correct is not None and current_correct != correct:
-            errors.append("lawRevisionFacts.currentとトップレベル正答が一致しません。")
+        if not fact_items:
+            errors.append("lawRevisionFactsを確認できません。")
+        if isinstance(facts, list) and len(facts) != len(choices):
+            errors.append("lawRevisionFactsが選択肢と同じ件数ではありません。")
+        for index, fact in enumerate(fact_items, start=1):
+            if not isinstance(fact, Mapping):
+                errors.append(f"lawRevisionFacts[{index}]がobjectではありません。")
+                continue
+            if fact.get("auditStatus") not in {
+                "same_as_current",
+                "updated_to_current_law",
+                "hold",
+                "not_law_related",
+            }:
+                errors.append(f"lawRevisionFacts[{index}].auditStatusが不正です。")
+            if not str(fact.get("reviewState") or "").strip():
+                errors.append(f"lawRevisionFacts[{index}].reviewStateがありません。")
+            if not isinstance(fact.get("evidenceSummary"), Mapping) or not fact.get(
+                "evidenceSummary"
+            ):
+                errors.append(
+                    f"lawRevisionFacts[{index}].evidenceSummaryが非空objectではありません。"
+                )
+        errors.extend(
+            issue["detail"]
+            for issue in law_revision_current_verdict_issues(
+                correct_choice_text=correct,
+                law_revision_facts=facts,
+            )
+        )
+        if logical.get("isLawRelated") is True:
+            if not isinstance(law_references, list) or len(law_references) != len(
+                choices
+            ):
+                errors.append("lawReferencesが選択肢と同じ件数ではありません。")
+            else:
+                for choice_index, references in enumerate(law_references):
+                    if not isinstance(references, list) or not references:
+                        errors.append(
+                            f"lawReferences[{choice_index}]にverified根拠がありません。"
+                        )
+                        continue
+                    for reference_index, reference in enumerate(references):
+                        if not isinstance(reference, Mapping):
+                            errors.append(
+                                "lawReferences"
+                                f"[{choice_index}][{reference_index}]がobjectではありません。"
+                            )
+                            continue
+                        missing = [
+                            field
+                            for field in (
+                                "role",
+                                "scope",
+                                "lawId",
+                                "lawTitle",
+                                "referenceDate",
+                                "article",
+                                "verificationStatus",
+                                "source",
+                            )
+                            if not str(reference.get(field) or "").strip()
+                        ]
+                        if missing:
+                            errors.append(
+                                "lawReferences"
+                                f"[{choice_index}][{reference_index}]の必須fieldがありません: "
+                                + ", ".join(missing)
+                            )
+                        if reference.get("verificationStatus") != "verified":
+                            errors.append(
+                                "lawReferences"
+                                f"[{choice_index}][{reference_index}]がverifiedではありません。"
+                            )
+                        if reference.get("scope") == "choice" and reference.get(
+                            "choiceIndex"
+                        ) != choice_index:
+                            errors.append(
+                                "lawReferences"
+                                f"[{choice_index}][{reference_index}].choiceIndexが一致しません。"
+                            )
     for audit in audit_payloads:
         if audit.get("auditStatus") not in {
             "same_as_current",
