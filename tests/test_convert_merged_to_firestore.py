@@ -271,6 +271,28 @@ class ConvertMergedToFirestoreTests(unittest.TestCase):
             },
         )
 
+    def test_resolve_law_revision_facts_maps_audit_summary_aliases(self) -> None:
+        question_body = {
+            "lawRevisionFacts": {
+                "auditStatus": "same_as_current",
+                "evidenceSummary": {
+                    "summary": "現行法の根拠を確認した。",
+                    "revisionImpact": "正誤の変更はない。",
+                },
+            }
+        }
+
+        self.assertEqual(
+            resolve_law_revision_facts(question_body),
+            {
+                "auditStatus": "same_as_current",
+                "evidenceSummary": {
+                    "verdict": "現行法の根拠を確認した。",
+                    "differenceSummary": "正誤の変更はない。",
+                },
+            },
+        )
+
     def test_resolve_law_revision_facts_selects_choice_snapshot_verdicts(self) -> None:
         question_body = {
             "lawRevisionFacts": {

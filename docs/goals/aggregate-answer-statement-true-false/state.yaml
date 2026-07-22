@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T072
+active_task: T075
 
 tasks:
   - id: T001
@@ -4062,7 +4062,7 @@ tasks:
   - id: T072
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "現行法監査後の40 targetを既存03工程で再確定して工程版を最新化し、資格共通の03c・04・deliveryでcategory、questionSet、merge、convert、upload dry-runを第一種衛生管理者の公開候補へ整える。"
     inputs:
@@ -4188,6 +4188,99 @@ tasks:
         - T072
       verification_attempts: 1
       stopped_because: null
+  - id: T074
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "法令監査のevidenceSummaryがFirestore変換時に失われないよう、監査側の互換キーを公開schemaの正式キーへ正規化する共通修正を行う。"
+    inputs:
+      - "20031 generated upload-ready law_audit_metadata_incomplete warnings"
+      - "repaso_firestore_schema LAW_REVISION_EVIDENCE_SUMMARY_KEYS"
+      - "Existing law audit output keys summary and revisionImpact"
+    constraints:
+      - "Fix the shared converter; do not special-case a qualification, question, law, or run."
+      - "Preserve canonical Firestore keys when both canonical and compatibility keys exist."
+      - "Do not touch 00_source, Firestore, or gas-shunin dirty files."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "Compatibility keys map to verdict and differenceSummary"
+      - "Canonical evidenceSummary survives derived statement conversion"
+      - "Focused regression tests"
+      - "Regenerated target upload-ready documents without metadata warnings"
+    allowed_files:
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "tests/test_convert_merged_to_firestore.py"
+      - "output/1eiseikanrisha/questions_json/*/20_merged_1/**"
+      - "output/1eiseikanrisha/questions_json/*/30_merged_2/**"
+      - "output/1eiseikanrisha/questions_json/*/40_convert/**"
+      - "output/1eiseikanrisha/questions_json/upload_to_firestore/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest -q tests.test_convert_merged_to_firestore"
+      - "Generated target documents retain non-empty lawRevisionFacts.evidenceSummary"
+      - "Target question API has no law_audit_metadata_incomplete"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "The fix would loosen Firestore schema validation."
+      - "Canonical evidenceSummary values would be overwritten by compatibility aliases."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      summary: "監査sidecarのsummaryとrevisionImpactを、既存のFirestore schemaが受け付けるverdictとdifferenceSummaryへ共通converterで正規化した。正式キーが既にある場合は上書きしない。"
+      changed_files:
+        - "scripts/convert/convert_merged_to_firestore.py"
+        - "tests/test_convert_merged_to_firestore.py"
+      verification:
+        - command: ".venv/bin/python -m unittest -q tests.test_convert_merged_to_firestore"
+          status: pass
+          summary: "13 tests passed"
+        - command: "question API readback for 20031 target"
+          status: pass
+          summary: "4 derived documents retain verdict and differenceSummary; law_audit_metadata_incomplete is absent"
+      remaining_blockers:
+        - "任意工程automatic=falseを作業版判定が必須扱いする共通不整合を解消する必要がある。"
+      verification_attempts: 1
+      stopped_because: null
+  - id: T075
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "automatic=falseの任意工程を、対象patchが存在する問題だけ作業版判定へ含める共通ルールに統一し、公式過去問へ独自問題化を要求しない。"
+    inputs:
+      - "config/question_maintenance_workflow.toml automatic field"
+      - "QualificationWorkflow overview already treats manual stages as opt-in"
+      - "Evaluation and question detail use QuestionWorkVersionStore directly"
+    constraints:
+      - "Fix policy applicability in the shared work-version layer; do not special-case a qualification or question ID."
+      - "Keep explicitly created manual-stage patches version-tracked."
+      - "Do not alter source data, generated question text, Firestore, or gas-shunin dirty files."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "All consumers share the same opt-in version-policy behavior"
+      - "Official past questions without 05 patches are evaluation-ready"
+      - "Manual-stage questions with existing patches remain tracked"
+      - "Focused regression tests"
+    allowed_files:
+      - "tools/question_review_console/work_versions.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tests/test_question_review_work_versions.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest -q tests.test_question_review_work_versions tests.test_question_review_qualification_workflow tests.test_question_review_evaluation tests.test_question_review_server"
+      - "Target question API has no work_policy_unrecorded for originalize"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "An automatic stage would become optional."
+      - "A manual stage with an existing patch would stop being version-tracked."
+      - "Need qualification-specific conditions."
+      - "00_source or Firestore would change."
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge

@@ -342,8 +342,11 @@ def sanitize_optional_string_map(
 def sanitize_law_revision_evidence_summary(value: Any) -> dict:
     if not isinstance(value, dict):
         return {}
+    normalized = dict(value)
+    normalized.setdefault("verdict", value.get("summary"))
+    normalized.setdefault("differenceSummary", value.get("revisionImpact"))
     sanitized: dict[str, Any] = {}
-    for key, item in value.items():
+    for key, item in normalized.items():
         if key not in LAW_REVISION_EVIDENCE_SUMMARY_KEYS or item is None:
             continue
         if key == "displayRefIds":
