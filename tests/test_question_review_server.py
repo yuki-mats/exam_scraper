@@ -17,6 +17,42 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_question_lookup_skips_unrelated_invalid_group(self):
+        class Inventory:
+            def __init__(self):
+                self.loaded = False
+
+            def question(self, question_id):
+                if self.loaded and question_id == "target-question":
+                    return {
+                        "id": question_id,
+                        "qualification": "valid",
+                        "listGroupId": "2026",
+                    }
+                raise KeyError(question_id)
+
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "broken", "listGroupIds": ["empty"]},
+                        {"id": "valid", "listGroupIds": ["2026"]},
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                if qualification == "broken":
+                    raise ValueError("source records not found")
+                self.loaded = True
+                return {"questions": []}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+
+            question = app._question("target-question", {})
+
+        self.assertEqual(question["qualification"], "valid")
+
     def test_manual_patch_sync_forces_regeneration_even_when_current(self):
         class Synchronizer:
             def __init__(self):

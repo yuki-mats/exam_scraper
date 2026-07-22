@@ -1274,7 +1274,12 @@ class QuestionReviewApplication:
 
         for qualification_info in self.inventory.inventory()["qualifications"]:
             for group_id in qualification_info["listGroupIds"]:
-                self.inventory.group(qualification_info["id"], group_id)
+                try:
+                    self.inventory.group(qualification_info["id"], group_id)
+                except (FileNotFoundError, ValueError):
+                    # ID未読込時の全体探索では、対象外の不完全なgroupを
+                    # 一つ見つけても他資格の有効な問題検索を止めない。
+                    continue
                 try:
                     return self.inventory.question(question_id)
                 except KeyError:
