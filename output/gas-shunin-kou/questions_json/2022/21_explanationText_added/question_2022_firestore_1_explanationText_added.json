@@ -191,7 +191,8 @@
       "間違い",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1174,chiefgasengineerlicense-A-80-1175,chiefgasengineerlicense-A-80-1176,chiefgasengineerlicense-A-80-1177,chiefgasengineerlicense-A-80-1178",
@@ -267,7 +268,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1179,chiefgasengineerlicense-A-80-1180,chiefgasengineerlicense-A-80-1181,chiefgasengineerlicense-A-80-1182,chiefgasengineerlicense-A-80-1183",
@@ -341,7 +343,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2022-13-1,gasushunin-koushu-gizyutsu-2022-13-2,gasushunin-koushu-gizyutsu-2022-13-3,gasushunin-koushu-gizyutsu-2022-13-4,gasushunin-koushu-gizyutsu-2022-13-5",
@@ -411,7 +414,8 @@
       "正しい",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1185,chiefgasengineerlicense-A-80-1186,chiefgasengineerlicense-A-80-1187,chiefgasengineerlicense-A-80-1188,chiefgasengineerlicense-A-80-1189",
@@ -487,7 +491,8 @@
       "正しい",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
@@ -725,281 +730,119 @@
         }
       ]
     ],
-    "lawRevisionFacts": [
-      {
-        "choiceIndex": 1,
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T11:01:46+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_000500_q15",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
-        "reconciliationStatus": "lawzilla_candidate_misdirected_to_gas_pipeline_excavation_replaced_with_construction_recycling_law",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412AC0000000104",
-          "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-          "article": "2",
-          "paragraph": "5・6・8",
-          "item": null,
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=2"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-09T11:01:46+09:00",
+      "nextAuditDueAt": "2027-07-09",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:b10ccc765708977c0e51986cb0378bb110341782c7d0287164fdc6802ef28a40",
+      "auditRunId": "law-audit-gas-shunin-kou-2022-b10ccc765708977c",
+      "lawCorpusSnapshotId": "egov-current-2026-07-09",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2022-b10ccc765708977c",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "referenceDate": "2022",
+        "verificationStatus": "from_original_answer"
+      },
+      "current": {
+        "lawId": "412AC0000000104",
+        "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+        "article": "2",
+        "referenceDate": "2026-07-10",
+        "verificationStatus": "verified",
+        "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20"
+      },
+      "differenceFacts": [
+        "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "正しい。建設リサイクル法では、アスファルト・コンクリートは特定建設資材に含まれ、対象建設工事では発注者等の事前届出と、対象建設工事受注者による特定建設資材廃棄物の再資源化等が求められる。 間違い。ガス工作物技術基準省令第15条第2項は耐圧部分等の耐圧試験を定めるが、同項ただし書には非破壊試験に合格した溶接導管や、延長15m未満の高圧・中圧導管等の例外がある。「最高使用圧力が中圧以上のすべての導管」と断定する点が誤りである。 間違い。ガス検知器による気密試験では、METIのガス工作物技術基準の解釈例第51条第2項第2号で、試験に用いるガスの濃度が0.2%以下で作動するガス検知器を用いる方法が示されている。0.5%以下で作動する検知器とする記述は誤りである。",
+        "differenceSummary": "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-1-ref-1",
+          "choice-1-ref-2",
+          "choice-1-ref-3",
+          "choice-1-ref-4",
+          "choice-3-ref-1",
+          "choice-4-ref-1"
         ],
-        "notes": [
-          "Lawzilla候補はガス工作物技術基準省令第54条・第55条の導管掘削へ寄ったが、選択肢の「アスファルト・コンクリート等」「事前届出」「再資源化義務」は建設リサイクル法第10条・第16条及び同施行令第1条を直接根拠とする。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 318-319は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。建設リサイクル法では、アスファルト・コンクリートは特定建設資材に含まれ、対象建設工事では発注者等の事前届出と、対象建設工事受注者による特定建設資材廃棄物の再資源化等が求められる。",
-          "differenceSummary": "出題当時条文は未固定。現行法令・補完技術資料では既存正誤と一致。",
-          "promptContext": "q15は法令・施工実務・土木工法が混在するため、条文に直接載る事項と補助技術資料で確認する事項を分離した。",
-          "displayRefIds": [
-            "current:412AC0000000104:2:5・6・8::",
-            "current:412CO0000000495:1:::",
-            "current:412AC0000000104:10:1::",
-            "current:412AC0000000104:16:1::"
-          ],
-          "refs": [
-            {
-              "refId": "current:412AC0000000104:2:5・6・8::",
-              "lawTimeScope": "current",
-              "relation": "definition",
-              "primaryBasis": false,
-              "lawId": "412AC0000000104",
-              "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-              "article": "2",
-              "paragraph": "5・6・8",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20",
-              "textHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20"
-            },
-            {
-              "refId": "current:412CO0000000495:1:::",
-              "lawTimeScope": "current",
-              "relation": "definition_detail",
-              "primaryBasis": false,
-              "lawId": "412CO0000000495",
-              "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
-              "article": "1",
-              "paragraph": null,
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "6b757048a31f6282947e1f8286ad35e62a2b22ac12cb0beaba8f53be9ba6e013",
-              "textHash": "6b757048a31f6282947e1f8286ad35e62a2b22ac12cb0beaba8f53be9ba6e013"
-            },
-            {
-              "refId": "current:412AC0000000104:10:1::",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "412AC0000000104",
-              "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-              "article": "10",
-              "paragraph": "1",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "2dcda17b97cb9459459485626150360ec596e8aa1efc80160ff9d46029a9f10c",
-              "textHash": "2dcda17b97cb9459459485626150360ec596e8aa1efc80160ff9d46029a9f10c"
-            },
-            {
-              "refId": "current:412AC0000000104:16:1::",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "412AC0000000104",
-              "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-              "article": "16",
-              "paragraph": "1",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "f5f9722e8b48eded4ea4202f830ee2d6d89e85ef9e5bcd51e96a330ea87f4240",
-              "textHash": "f5f9722e8b48eded4ea4202f830ee2d6d89e85ef9e5bcd51e96a330ea87f4240"
-            }
-          ]
-        },
-        "supplementalTechnicalEvidence": [
+        "refs": [
           {
-            "choiceIndex": 1,
-            "sourceLabel": "日本ガス協会 供給管・内管指針（工事編）関連資料",
-            "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20170301_03.pdf",
-            "use": "建設リサイクル法に基づく一定規模以上工事の事前届出と再資源化等義務を実務資料でも補完確認。",
-            "authority": "industry_guideline_public_material",
-            "lineRange": "L251-L258"
+            "refId": "choice-1-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412AC0000000104",
+            "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+            "article": "2",
+            "paragraph": "5・6・8",
+            "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20"
+          },
+          {
+            "refId": "choice-1-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "412CO0000000495",
+            "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
+            "article": "1",
+            "articleTextHash": "6b757048a31f6282947e1f8286ad35e62a2b22ac12cb0beaba8f53be9ba6e013"
+          },
+          {
+            "refId": "choice-1-ref-3",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "412AC0000000104",
+            "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+            "article": "10",
+            "paragraph": "1",
+            "articleTextHash": "2dcda17b97cb9459459485626150360ec596e8aa1efc80160ff9d46029a9f10c"
+          },
+          {
+            "refId": "choice-1-ref-4",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "412AC0000000104",
+            "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+            "article": "16",
+            "paragraph": "1",
+            "articleTextHash": "f5f9722e8b48eded4ea4202f830ee2d6d89e85ef9e5bcd51e96a330ea87f4240"
+          },
+          {
+            "refId": "choice-3-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412M50000400111",
+            "lawTitle": "ガス工作物の技術上の基準を定める省令",
+            "article": "15",
+            "paragraph": "2",
+            "item": "1・2",
+            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
+          },
+          {
+            "refId": "choice-4-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412M50000400111",
+            "lawTitle": "ガス工作物の技術上の基準を定める省令",
+            "article": "15",
+            "paragraph": "3",
+            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
           }
         ]
       },
-      {
-        "choiceIndex": 3,
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T11:01:46+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_000500_q15",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
-        "reconciliationStatus": "lawzilla_broad_pressure_hits_needed_article15_exception_review",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "paragraph": "2",
-          "item": "1・2",
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "notes": [
-          "Lawzilla候補は施行規則の圧力定義など広いヒットに寄ったため、ガス工作物技術基準省令第15条第2項ただし書とMETI解釈例第50条で例外構造を確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 318-319は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス工作物技術基準省令第15条第2項は耐圧部分等の耐圧試験を定めるが、同項ただし書には非破壊試験に合格した溶接導管や、延長15m未満の高圧・中圧導管等の例外がある。「最高使用圧力が中圧以上のすべての導管」と断定する点が誤りである。",
-          "differenceSummary": "出題当時条文は未固定。現行法令・補完技術資料では既存正誤と一致。",
-          "promptContext": "q15は法令・施工実務・土木工法が混在するため、条文に直接載る事項と補助技術資料で確認する事項を分離した。",
-          "displayRefIds": [
-            "current:412M50000400111:15:2:1・2:"
-          ],
-          "refs": [
-            {
-              "refId": "current:412M50000400111:15:2:1・2:",
-              "lawTimeScope": "current",
-              "relation": "direct_basis_with_exceptions",
-              "primaryBasis": true,
-              "lawId": "412M50000400111",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "15",
-              "paragraph": "2",
-              "item": "1・2",
-              "subitem": null,
-              "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-              "textHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-            }
-          ]
-        },
-        "supplementalTechnicalEvidence": [
-          {
-            "choiceIndex": 3,
-            "sourceLabel": "ガス工作物技術基準の解釈例（METI、令和5年2月8日改正）",
-            "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-            "use": "解釈例第50条で耐圧試験の具体方法及び構造上困難な場合の非破壊試験等を補完確認。",
-            "authority": "official_meti_technical_interpretation",
-            "lineRange": "L1520-L1560"
-          }
-        ]
-      },
-      {
-        "choiceIndex": 4,
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T11:01:46+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_000500_q15",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
-        "reconciliationStatus": "lawzilla_found_article15_framework_but_needed_meti_interpretation_for_0_2_percent",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "paragraph": "3",
-          "item": null,
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "notes": [
-          "Lawzilla候補のガス工作物技術基準省令第15条第3項は気密試験の法令枠として有用。ただし、0.2%以下のガス検知器条件はe-Gov省令本文ではなくMETI解釈例第51条第2項第2号で補完確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 318-319は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス検知器による気密試験では、METIのガス工作物技術基準の解釈例第51条第2項第2号で、試験に用いるガスの濃度が0.2%以下で作動するガス検知器を用いる方法が示されている。0.5%以下で作動する検知器とする記述は誤りである。",
-          "differenceSummary": "出題当時条文は未固定。現行法令・補完技術資料では既存正誤と一致。",
-          "promptContext": "q15は法令・施工実務・土木工法が混在するため、条文に直接載る事項と補助技術資料で確認する事項を分離した。",
-          "displayRefIds": [
-            "current:412M50000400111:15:3::"
-          ],
-          "refs": [
-            {
-              "refId": "current:412M50000400111:15:3::",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": true,
-              "lawId": "412M50000400111",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "15",
-              "paragraph": "3",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-              "textHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-            }
-          ]
-        },
-        "supplementalTechnicalEvidence": [
-          {
-            "choiceIndex": 4,
-            "sourceLabel": "ガス工作物技術基準の解釈例（METI、令和5年2月8日改正）",
-            "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-            "use": "解釈例第51条第2項第2号で、試験ガス濃度0.2%以下で作動するガス検知器を用いることを補完確認。",
-            "authority": "official_meti_technical_interpretation",
-            "lineRange": "L1561-L1606"
-          }
-        ]
-      }
-    ],
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2022-b10ccc765708977c"
+    },
     "supplementalTechnicalEvidence": [
       {
         "choiceIndex": 0,
@@ -1989,7 +1832,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1225,chiefgasengineerlicense-A-60-1226,chiefgasengineerlicense-A-60-1227,chiefgasengineerlicense-A-60-1228,chiefgasengineerlicense-A-60-1229",
@@ -2195,7 +2039,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
@@ -2449,365 +2294,125 @@
         }
       ]
     ],
-    "lawRevisionFacts": [
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:59:59+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_235959_q24",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "reconciliationStatus": "rejected_false_positive_lawzilla_candidate",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "6",
-          "subitem": "ホ・ヘ・ヌ",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法条文・補完技術資料と既存の正誤・解説は矛盾しない。"
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-09T23:59:59+09:00",
+      "nextAuditDueAt": "2027-07-09",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:0b7149fb5216ef6e74077b2c2eb1032401d0b3c15d4666544f519d0f3197f8ca",
+      "auditRunId": "law-audit-gas-shunin-kou-2022-0b7149fb5216ef6e",
+      "lawCorpusSnapshotId": "egov-current-2026-07-09",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2022-0b7149fb5216ef6e",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "referenceDate": "2022",
+        "verificationStatus": "from_original_answer"
+      },
+      "current": {
+        "lawId": "345M50000400097",
+        "lawTitle": "ガス事業法施行規則",
+        "article": "202",
+        "referenceDate": "2026-07-09",
+        "verificationStatus": "verified",
+        "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+      },
+      "differenceFacts": [
+        "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "現行法条文・補完技術資料と既存の正誤・解説は矛盾しない。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "正しい。BF-D式（バランスダクト式）のUダクト式では、共用給排気ダクト内で排気を確実に導くため、機器の排気口をダクト内へ40～50㎜程度突き出す必要がある。 正しい。CF式機器の排気筒に排気用送風機を取り付けて強制的に排気するものは強制排気システムであり、自然排気式の排気筒に排気扇を接続するものとして、強制排気式（FE式）と同様の排気筒基準で扱う。 正しい。BF-C式機器のチャンバーは外気に開放された廊下で、給排気口は外気の流れや風圧差等によって給排気が妨げられず、逆流が生じない位置及び構造とする必要がある。 間違い。CF式機器の排気筒トップは、トップから水平方向1m以内に軒のある建物が隣接する場合、隣接建物の軒から600㎜以上高くする必要がある。300㎜以上としている点が誤り。 正しい。FE式機器は送風機で強制的に排気する方式であり、現行の消費機器技術基準では、自然排気式の排気筒に置かれている横引き長さと高さの関係式は、強制排気式の排気筒には準用されていない。したがって、排気筒の横引き長さと高さとの関係に関する規定はない。",
+        "differenceSummary": "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-0-ref-1",
+          "choice-1-ref-1",
+          "choice-1-ref-2",
+          "choice-2-ref-1",
+          "choice-3-ref-1",
+          "choice-4-ref-1"
         ],
-        "notes": [
-          "Lawzilla候補のガス事業法施行令第21条第4項は数値語に反応したもので、BF-D式Uダクトの直接根拠ではない。施行規則第202条第1項第6号を法令上の基準枠として確認し、40～50㎜寸法は設置実務資料で補完確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 374-375は表記差・文言差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。BF-D式（バランスダクト式）のUダクト式では、共用給排気ダクト内で排気を確実に導くため、機器の排気口をダクト内へ40～50㎜程度突き出す必要がある。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文及び補完技術資料では既存正誤と一致。",
-          "promptContext": "選択肢ごとの法令上の基準枠をガス事業法施行規則第202条の現行e-Gov XMLで確認し、条文に現れない施工寸法は補完技術資料と既存レビューで分離確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:6:ホ・ヘ・ヌ"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:202:1:6:ホ・ヘ・ヌ",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202",
-              "paragraph": "1",
-              "item": "6",
-              "subitem": "ホ・ヘ・ヌ",
-              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-            }
-          ]
-        },
-        "supplementalTechnicalEvidence": [
+        "refs": [
           {
-            "choiceIndex": 0,
-            "sourceLabel": "酒田地区広域行政組合火災予防条例運用基準",
-            "sourceUrl": "https://www.city.sakata.lg.jp/bousai/syobokyukyu/jigyosya/fire-reiki.files/r7unnyoukijyunn.pdf",
-            "use": "BF-D式Uダクトの排気口40～50㎜突出を補完確認。",
-            "authority": "local_fire_prevention_operational_standard"
+            "refId": "choice-0-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202",
+            "paragraph": "1",
+            "item": "6",
+            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+          },
+          {
+            "refId": "choice-1-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202",
+            "paragraph": "1",
+            "item": "2",
+            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+          },
+          {
+            "refId": "choice-1-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202",
+            "paragraph": "1",
+            "item": "3",
+            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+          },
+          {
+            "refId": "choice-2-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202",
+            "paragraph": "1",
+            "item": "6",
+            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+          },
+          {
+            "refId": "choice-3-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202",
+            "paragraph": "1",
+            "item": "2",
+            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+          },
+          {
+            "refId": "choice-4-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "202",
+            "paragraph": "1",
+            "item": "2",
+            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
           }
         ]
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:59:59+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_235959_q24",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "reconciliationStatus": "reconciled_to_direct_basis",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "2",
-          "subitem": "ロ",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法条文・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "notes": [
-          "Lawzilla候補は施行規則第197条・第200条の周知/調査条文にも寄ったが、排気筒基準としては第202条第1項第2号ロ及び第3号を直接根拠にした。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 374-375は表記差・文言差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。CF式機器の排気筒に排気用送風機を取り付けて強制的に排気するものは強制排気システムであり、自然排気式の排気筒に排気扇を接続するものとして、強制排気式（FE式）と同様の排気筒基準で扱う。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文及び補完技術資料では既存正誤と一致。",
-          "promptContext": "選択肢ごとの法令上の基準枠をガス事業法施行規則第202条の現行e-Gov XMLで確認し、条文に現れない施工寸法は補完技術資料と既存レビューで分離確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:2:ロ"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:202:1:2:ロ",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202",
-              "paragraph": "1",
-              "item": "2",
-              "subitem": "ロ",
-              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-            },
-            {
-              "refId": "current:345M50000400097:202:1:3:",
-              "lawTimeScope": "current",
-              "relation": "direct_basis_detail",
-              "primaryBasis": false,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202",
-              "paragraph": "1",
-              "item": "3",
-              "subitem": null,
-              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-            }
-          ]
-        }
-      },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:59:59+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_235959_q24",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "reconciliationStatus": "reconciled_no_hit_to_framework",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "6",
-          "subitem": "ホ・ヘ・ヌ",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法条文・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "notes": [
-          "Lawzilla候補は0件だったため、BF-C式の給排気部基準として施行規則第202条第1項第6号ホ・ヘ・ヌを直接確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 374-375は表記差・文言差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。BF-C式機器のチャンバーは外気に開放された廊下で、給排気口は外気の流れや風圧差等によって給排気が妨げられず、逆流が生じない位置及び構造とする必要がある。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文及び補完技術資料では既存正誤と一致。",
-          "promptContext": "選択肢ごとの法令上の基準枠をガス事業法施行規則第202条の現行e-Gov XMLで確認し、条文に現れない施工寸法は補完技術資料と既存レビューで分離確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:6:ホ・ヘ・ヌ"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:202:1:6:ホ・ヘ・ヌ",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202",
-              "paragraph": "1",
-              "item": "6",
-              "subitem": "ホ・ヘ・ヌ",
-              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-            }
-          ]
-        }
-      },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:59:59+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_235959_q24",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "reconciliationStatus": "reconciled_to_technical_standard_with_supplement",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "2",
-          "subitem": "イ（5）・イ（7）",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法条文・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "notes": [
-          "Lawzilla候補は施行規則第197条・第200条及び第202条周辺に寄った。e-Gov上は第202条第1項第2号イの自然排気式排気筒基準を法令枠として確認し、600㎜寸法は消防庁通知等の設置基準で補完確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 374-375は表記差・文言差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。CF式機器の排気筒トップは、トップから水平方向1m以内に軒のある建物が隣接する場合、隣接建物の軒から600㎜以上高くする必要がある。300㎜以上としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文及び補完技術資料では既存正誤と一致。",
-          "promptContext": "選択肢ごとの法令上の基準枠をガス事業法施行規則第202条の現行e-Gov XMLで確認し、条文に現れない施工寸法は補完技術資料と既存レビューで分離確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:2:イ（5）・イ（7）"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:202:1:2:イ（5）・イ（7）",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202",
-              "paragraph": "1",
-              "item": "2",
-              "subitem": "イ（5）・イ（7）",
-              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-            }
-          ]
-        },
-        "supplementalTechnicalEvidence": [
-          {
-            "choiceIndex": 3,
-            "sourceLabel": "消防庁通知 業務用ガス機器の設置基準の改正について",
-            "sourceUrl": "https://www.fdma.go.jp/laws/tutatsu/assets/070731yo167.pdf",
-            "use": "排気筒トップと軒との関係で60cm以上高くする基準を補完確認。",
-            "authority": "official_fire_and_disaster_management_agency_notice"
-          }
-        ]
-      },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:59:59+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_235959_q24",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q24_secondary_review",
-        "reconciliationStatus": "matched_but_needed_locator_detail",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "2",
-          "subitem": "ロ（1）",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
-        },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法条文・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "notes": [
-          "Lawzilla候補の第202条第1項第2号ロを確認し、強制排気式には自然排気式の高さ計算式イ（7）が準用されないことを条項構造で確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 374-375は表記差・文言差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。FE式機器は送風機で強制的に排気する方式であり、現行の消費機器技術基準では、自然排気式の排気筒に置かれている横引き長さと高さの関係式は、強制排気式の排気筒には準用されていない。したがって、排気筒の横引き長さと高さとの関係に関する規定はない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文及び補完技術資料では既存正誤と一致。",
-          "promptContext": "選択肢ごとの法令上の基準枠をガス事業法施行規則第202条の現行e-Gov XMLで確認し、条文に現れない施工寸法は補完技術資料と既存レビューで分離確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:2:ロ（1）"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:202:1:2:ロ（1）",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202",
-              "paragraph": "1",
-              "item": "2",
-              "subitem": "ロ（1）",
-              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-            }
-          ]
-        }
-      }
-    ]
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2022-0b7149fb5216ef6e"
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1240,chiefgasengineerlicense-A-60-1241,chiefgasengineerlicense-A-60-1242,chiefgasengineerlicense-A-60-1243,chiefgasengineerlicense-A-60-1244",
@@ -3626,325 +3231,123 @@
         }
       ]
     ],
-    "lawRevisionFacts": [
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:20:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "reconciliationStatus": "lawzilla_related_articles_reweighted_to_gas_manufacturing_articles91_144",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "144",
-          "paragraph": "1",
-          "item": "3",
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144"
-        },
-        "notes": [
-          "Lawzilla候補はガス事業法第18条・第52条・第78条等の供給側測定義務を上位に出したが、本問はガス製造・熱量調整文脈のため、ガス事業法第91条及びガス事業法施行規則第144条を優先した。",
-          "施行規則第144条第1項第3号により、燃焼性は燃焼速度及びウォッベ指数について測定することを確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第91条第1項はガス製造事業者に熱量・圧力・燃焼性の測定を求め、ガス事業法施行規則第144条第1項第3号は燃焼性を燃焼速度及びウォッベ指数について告示で定める方法により測定すると定める。燃焼性指標はウォッベ指数（WI）と最大燃焼速度（MCP）であり、「最小燃焼速度」としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:91:1::",
-            "current:345M50000400097:144:1:3:"
-          ],
-          "refs": [
-            {
-              "refId": "current:329AC0000000051:91:1::",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": false,
-              "lawId": "329AC0000000051",
-              "lawTitle": "ガス事業法",
-              "article": "91",
-              "paragraph": "1",
-              "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
-              "textHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
-            },
-            {
-              "refId": "current:345M50000400097:144:1:3:",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "144",
-              "paragraph": "1",
-              "item": "3",
-              "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
-              "textHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
-            }
-          ]
-        }
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-10T00:20:00+09:00",
+      "nextAuditDueAt": "2027-07-10",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:488de05680ad2ebb21e11a8cc4e31dae0cfb91640d9b7a26adb2cc6a7a9a409d",
+      "auditRunId": "law-audit-gas-shunin-kou-2022-488de05680ad2ebb",
+      "lawCorpusSnapshotId": "egov-current-2026-07-10",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2022-488de05680ad2ebb",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "referenceDate": "2022",
+        "verificationStatus": "from_original_answer"
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:20:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "reconciliationStatus": "lawzilla_measurement_method_delegation_plus_wobbe_technical_source",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "144",
-          "paragraph": "1",
-          "item": "3",
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144"
-        },
-        "notes": [
-          "施行規則第144条第1項第3号はウォッベ指数を測定対象とし、算出式は告示・技術資料で補完確認した。",
-          "source conflict line 357 は「指標/指数」及び表記差であり、正誤に影響しない。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ウォッベ指数（WI）は、ガスの総発熱量を空気に対する比重の平方根で除して求める指標である。ガス事業法施行規則第144条第1項第3号はウォッベ指数の測定を告示で定める方法に委任しており、「密度」の平方根としている点が誤り。source conflict は「指標/指数」等の表記差で、正誤には影響しない。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:144:1:3:"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:144:1:3:",
-              "lawTimeScope": "current",
-              "relation": "measurement_method_delegation",
-              "primaryBasis": false,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "144",
-              "paragraph": "1",
-              "item": "3",
-              "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
-              "textHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
-            }
-          ]
-        }
+      "current": {
+        "lawId": "329AC0000000051",
+        "lawTitle": "ガス事業法",
+        "article": "91",
+        "referenceDate": "2026-07-10",
+        "verificationStatus": "verified",
+        "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:20:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      "differenceFacts": [
+        "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "間違い。ガス事業法第91条第1項はガス製造事業者に熱量・圧力・燃焼性の測定を求め、ガス事業法施行規則第144条第1項第3号は燃焼性を燃焼速度及びウォッベ指数について告示で定める方法により測定すると定める。燃焼性指標はウォッベ指数（WI）と最大燃焼速度（MCP）であり、「最小燃焼速度」としている点が誤り。 間違い。ウォッベ指数（WI）は、ガスの総発熱量を空気に対する比重の平方根で除して求める指標である。ガス事業法施行規則第144条第1項第3号はウォッベ指数の測定を告示で定める方法に委任しており、「密度」の平方根としている点が誤り。source conflict は「指標/指数」等の表記差で、正誤には影響しない。 正しい。ガス事業法第91条第1項及びガス事業法施行規則第144条第1項は、製造ガスの熱量・燃焼性を測定管理する枠組みを定める。JOGMECの熱量調整解説でも、増熱では混合ガスの熱量・燃焼性とLPガス等の露点に注意が必要とされており、記述は正しい。 間違い。JOGMECの熱量調整解説では、ガス－ガス方式はLPガス気化設備・高温熱源が必要で、液－ガス方式や液－液方式はガス－ガス方式に比べランニングコストを低減できるとされる。最も高い方式を液－ガス方式としている点が誤り。 間違い。空気により高圧の供給ガスを希釈する場合、一般高圧ガス保安規則第6条第2項第1号ハは、可燃性ガス中の酸素容量が全容量の4%以上のものを圧縮しないことを定める。したがって酸素濃度が4%以上にならないよう管理する必要があり、8%以下とならないようにしている点が誤り。",
+        "differenceSummary": "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-0-ref-1",
+          "choice-0-ref-2",
+          "choice-1-ref-1",
+          "choice-2-ref-1",
+          "choice-2-ref-2",
+          "choice-4-ref-1"
         ],
-        "reconciliationStatus": "measurement_framework_plus_jogmec_calorific_adjustment_source",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "article": "91",
-          "paragraph": "1",
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91"
-        },
-        "notes": [
-          "増熱時の熱量・燃焼性・露点管理は、条文の測定管理枠組みとJOGMEC熱量調整解説で補完確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第91条第1項及びガス事業法施行規則第144条第1項は、製造ガスの熱量・燃焼性を測定管理する枠組みを定める。JOGMECの熱量調整解説でも、増熱では混合ガスの熱量・燃焼性とLPガス等の露点に注意が必要とされており、記述は正しい。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:91:1::",
-            "current:345M50000400097:144:1:1・3:"
-          ],
-          "refs": [
-            {
-              "refId": "current:329AC0000000051:91:1::",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": false,
-              "lawId": "329AC0000000051",
-              "lawTitle": "ガス事業法",
-              "article": "91",
-              "paragraph": "1",
-              "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
-              "textHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
-            },
-            {
-              "refId": "current:345M50000400097:144:1:1・3:",
-              "lawTimeScope": "current",
-              "relation": "measurement_framework",
-              "primaryBasis": false,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "144",
-              "paragraph": "1",
-              "item": "1・3",
-              "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
-              "textHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
-            }
-          ]
-        }
+        "refs": [
+          {
+            "refId": "choice-0-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "article": "91",
+            "paragraph": "1",
+            "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
+          },
+          {
+            "refId": "choice-0-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "144",
+            "paragraph": "1",
+            "item": "3",
+            "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
+          },
+          {
+            "refId": "choice-1-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "144",
+            "paragraph": "1",
+            "item": "3",
+            "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
+          },
+          {
+            "refId": "choice-2-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "article": "91",
+            "paragraph": "1",
+            "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
+          },
+          {
+            "refId": "choice-2-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "144",
+            "paragraph": "1",
+            "item": "1・3",
+            "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
+          },
+          {
+            "refId": "choice-4-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "341M50000400053",
+            "lawTitle": "一般高圧ガス保安規則",
+            "article": "6",
+            "paragraph": "2",
+            "item": "1",
+            "articleTextHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b"
+          }
+        ]
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:20:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "reconciliationStatus": "technical_source_required_no_direct_statute_basis",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified_with_supplemental_technical_source",
-          "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/naninuneno/calorific-adjust.html"
-        },
-        "notes": [
-          "熱量調整3方式のランニングコスト比較は、e-Gov条文だけでは確定しにくいため、JOGMECの技術解説で補完確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。JOGMECの熱量調整解説では、ガス－ガス方式はLPガス気化設備・高温熱源が必要で、液－ガス方式や液－液方式はガス－ガス方式に比べランニングコストを低減できるとされる。最も高い方式を液－ガス方式としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
-          "displayRefIds": [
-            "supplemental:3:technical_source"
-          ],
-          "refs": [
-            {
-              "refId": "supplemental:3:technical_source",
-              "lawTimeScope": "current",
-              "relation": "supplemental_technical_basis",
-              "primaryBasis": true,
-              "lawTitle": "JOGMEC JOURNAL 用語辞典「熱量調整（カロリー調整）」"
-            }
-          ]
-        }
-      },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:20:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "reconciliationStatus": "high_pressure_gas_rules_article6_plus_jogmec_calorific_adjustment_source",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "341M50000400053",
-          "lawTitle": "一般高圧ガス保安規則",
-          "article": "6",
-          "paragraph": "2",
-          "item": "1",
-          "subitem": "ハ(イ)",
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=341M50000400053;article=6"
-        },
-        "notes": [
-          "空気希釈時の酸素濃度4%管理は、一般高圧ガス保安規則第6条第2項第1号ハ及びJOGMEC熱量調整解説で確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。空気により高圧の供給ガスを希釈する場合、一般高圧ガス保安規則第6条第2項第1号ハは、可燃性ガス中の酸素容量が全容量の4%以上のものを圧縮しないことを定める。したがって酸素濃度が4%以上にならないよう管理する必要があり、8%以下とならないようにしている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
-          "displayRefIds": [
-            "current:341M50000400053:6:2:1:ハ(イ)"
-          ],
-          "refs": [
-            {
-              "refId": "current:341M50000400053:6:2:1:ハ(イ)",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "341M50000400053",
-              "lawTitle": "一般高圧ガス保安規則",
-              "article": "6",
-              "paragraph": "2",
-              "item": "1",
-              "subitem": "ハ(イ)",
-              "articleTextHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b",
-              "textHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b"
-            }
-          ]
-        }
-      }
-    ],
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2022-488de05680ad2ebb"
+    },
     "supplementalTechnicalEvidence": [
       {
         "choiceIndex": 0,
@@ -4086,7 +3489,8 @@
       "間違い",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
@@ -4271,221 +3675,97 @@
       ],
       []
     ],
-    "lawRevisionFacts": [
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:15:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q6_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_001500_q6",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q6_secondary_review",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "choiceIndex": 0,
-        "reconciliationStatus": "lawzilla_retail_article24_replaced_with_gas_manufacturing_articles97_148",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "148",
-          "paragraph": "1",
-          "item": "1・3・10",
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=148"
-        },
-        "notes": [
-          "Lawzilla候補はガス事業法第24条（ガス小売事業者の保安規程）に寄ったが、本問はガス製造事業者の製造設備保安であるため、ガス事業法第97条及びガス事業法施行規則第148条で確認した。",
-          "施行規則第148条第1項第1号・第3号・第10号により、職務・組織、保安教育、災害その他非常時の措置を保安規程事項として確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス製造事業者の保安規程は、ガス事業法第97条第1項及びガス事業法施行規則第148条第1項により、保安業務を管理する者の職務・組織、保安教育、災害その他非常時の措置等を定める必要がある。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "保安規程の記載事項は、小売側条文ではなくガス製造事業者側のガス事業法第97条と施行規則第148条で確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:97:1::",
-            "current:345M50000400097:148:1:1・3・10:"
-          ],
-          "refs": [
-            {
-              "refId": "current:329AC0000000051:97:1::",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": false,
-              "lawId": "329AC0000000051",
-              "lawTitle": "ガス事業法",
-              "article": "97",
-              "paragraph": "1",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "83f9de2629167800fd9bc32126b8936e3fcc23d0877fde6bfa2fa9ea754faf87",
-              "textHash": "83f9de2629167800fd9bc32126b8936e3fcc23d0877fde6bfa2fa9ea754faf87"
-            },
-            {
-              "refId": "current:345M50000400097:148:1:1・3・10:",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "148",
-              "paragraph": "1",
-              "item": "1・3・10",
-              "subitem": null,
-              "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
-              "textHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05"
-            }
-          ]
-        }
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-10T00:15:00+09:00",
+      "nextAuditDueAt": "2027-07-10",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:b570a2a11e949643d02e0363230d988937dbf47d13b0c144c006f6a69b4e8bc8",
+      "auditRunId": "law-audit-gas-shunin-kou-2022-b570a2a11e949643",
+      "lawCorpusSnapshotId": "egov-current-2026-07-10",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2022-b570a2a11e949643",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "referenceDate": "2022",
+        "verificationStatus": "from_original_answer"
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:15:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q6_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_001500_q6",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q6_secondary_review",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "choiceIndex": 1,
-        "reconciliationStatus": "source_conflict_expression_difference_no_answer_impact",
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "148",
-          "paragraph": "1",
-          "item": "1",
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=148"
-        },
-        "notes": [
-          "source conflict ledger line 358は、Firestore「相互の疎通」とサイト側「相互の意思の疎通」の表現差として確認した。",
-          "既存Firestore snapshot/sourcePriority=1及びstatement-level document IDsを維持し、サイト側文言は適用しない。",
-          "施行規則第148条第1項第1号は保安管理組織の職務・組織を定める法令上の土台として扱い、運用実務の詳細は補助確認領域とする。"
-        ],
-        "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。保安管理組織を適正に運用するには、各役職者の責任権限と、縦横の情報連絡・意思疎通のルートを明確にしておく必要がある。source conflict は「相互の疎通」と「相互の意思の疎通」の表現差で、正誤には影響しない。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "保安管理組織の運用記述は、法令上の職務・組織項目と、source conflict の文言差を分けて確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:148:1:1:"
-          ],
-          "refs": [
-            {
-              "refId": "current:345M50000400097:148:1:1:",
-              "lawTimeScope": "current",
-              "relation": "legal_framework",
-              "primaryBasis": false,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "148",
-              "paragraph": "1",
-              "item": "1",
-              "subitem": null,
-              "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
-              "textHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05"
-            }
-          ]
-        }
+      "current": {
+        "lawId": "329AC0000000051",
+        "lawTitle": "ガス事業法",
+        "article": "97",
+        "referenceDate": "2026-07-10",
+        "verificationStatus": "verified",
+        "articleTextHash": "83f9de2629167800fd9bc32126b8936e3fcc23d0877fde6bfa2fa9ea754faf87"
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:15:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q6_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_001500_q6",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q6_secondary_review",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      "differenceFacts": [
+        "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "正しい。ガス製造事業者の保安規程は、ガス事業法第97条第1項及びガス事業法施行規則第148条第1項により、保安業務を管理する者の職務・組織、保安教育、災害その他非常時の措置等を定める必要がある。 正しい。保安管理組織を適正に運用するには、各役職者の責任権限と、縦横の情報連絡・意思疎通のルートを明確にしておく必要がある。source conflict は「相互の疎通」と「相互の意思の疎通」の表現差で、正誤には影響しない。 間違い。ガス工作物技術基準省令第9条第1項は、製造所・供給所に存するガス工作物設置室について、漏えい時にガスが滞留しない構造を求める。METI解釈例第6条は十分な面積を持った2方向以上の開口部を例示しており、1方向の開口部としている点が誤り。",
+        "differenceSummary": "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-0-ref-1",
+          "choice-0-ref-2",
+          "choice-1-ref-1",
+          "choice-3-ref-1"
         ],
-        "choiceIndex": 3,
-        "reconciliationStatus": "lawzilla_high_pressure_gas_hits_replaced_with_technical_standard_article9_and_meti_interpretation",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "article": "9",
-          "paragraph": "1",
-          "item": null,
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9"
-        },
-        "notes": [
-          "Lawzilla候補は高圧ガス保安法等の語句一致に寄ったが、ガスが滞留しない構造の直接根拠はガス工作物技術基準省令第9条第1項で確認した。",
-          "METI解釈例第6条で、十分な面積を持った2方向以上の開口部が滞留しない構造の具体例として示されるため、1方向としている選択肢を誤りと判断した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス工作物技術基準省令第9条第1項は、製造所・供給所に存するガス工作物設置室について、漏えい時にガスが滞留しない構造を求める。METI解釈例第6条は十分な面積を持った2方向以上の開口部を例示しており、1方向の開口部としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
-          "promptContext": "滞留防止はガス工作物技術基準省令第9条を直接根拠とし、2方向以上の開口部はMETI解釈例第6条で補完確認する。",
-          "displayRefIds": [
-            "current:412M50000400111:9:1::"
-          ],
-          "refs": [
-            {
-              "refId": "current:412M50000400111:9:1::",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "412M50000400111",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "9",
-              "paragraph": "1",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
-              "textHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3"
-            }
-          ]
-        }
-      }
-    ],
+        "refs": [
+          {
+            "refId": "choice-0-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "article": "97",
+            "paragraph": "1",
+            "articleTextHash": "83f9de2629167800fd9bc32126b8936e3fcc23d0877fde6bfa2fa9ea754faf87"
+          },
+          {
+            "refId": "choice-0-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "148",
+            "paragraph": "1",
+            "item": "1・3・10",
+            "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05"
+          },
+          {
+            "refId": "choice-1-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "article": "148",
+            "paragraph": "1",
+            "item": "1",
+            "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05"
+          },
+          {
+            "refId": "choice-3-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "412M50000400111",
+            "lawTitle": "ガス工作物の技術上の基準を定める省令",
+            "article": "9",
+            "paragraph": "1",
+            "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3"
+          }
+        ]
+      },
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2022-b570a2a11e949643"
+    },
     "supplementalTechnicalEvidence": [
       {
         "choiceIndex": 1,
@@ -4735,155 +4015,84 @@
         "authority": "secondary_exam_study_material"
       }
     ],
-    "lawRevisionFacts": [
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:10:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_001000_q7",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
-        ],
-        "choiceIndex": 1,
-        "reconciliationStatus": "lawzilla_broad_enforcement_rule_hits_replaced_with_gas_business_act_articles101_102",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "article": "102",
-          "paragraph": "1",
-          "item": null,
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=102"
-        },
-        "notes": [
-          "Lawzilla候補はガス事業法施行規則第5条・第39条などに寄ったが、ガス製造事業者の工事計画及び使用前検査の直接根拠はガス事業法第101条・第102条で確認した。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
-          "source conflict ledger lines 359-360は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第101条はガス製造事業者の工事計画届出を定め、第102条第1項は届出対象のガス工作物について自主検査に加え、経済産業大臣の登録を受けた者が行う使用前検査を受け、これに合格した後でなければ使用してはならないと定めている。自主検査に合格すれば使用できるとしている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法令では既存正誤と一致。",
-          "promptContext": "ガス製造事業者の工事計画届出と使用前検査は、施行規則の候補だけで閉じず、ガス事業法本文の直接条文で確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:101:1::",
-            "current:329AC0000000051:102:1::"
-          ],
-          "refs": [
-            {
-              "refId": "current:329AC0000000051:101:1::",
-              "lawTimeScope": "current",
-              "relation": "construction_plan_context",
-              "primaryBasis": false,
-              "lawId": "329AC0000000051",
-              "lawTitle": "ガス事業法",
-              "article": "101",
-              "paragraph": "1",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-            },
-            {
-              "refId": "current:329AC0000000051:102:1::",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawId": "329AC0000000051",
-              "lawTitle": "ガス事業法",
-              "article": "102",
-              "paragraph": "1",
-              "item": null,
-              "subitem": null,
-              "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-            }
-          ]
-        }
+    "lawRevisionFacts": {
+      "auditStatus": "same_as_current",
+      "reviewState": "secondary_verified",
+      "auditedAt": "2026-07-10T00:10:00+09:00",
+      "nextAuditDueAt": "2027-07-10",
+      "auditMethodVersion": "law-grounded-audit-v1",
+      "auditInputHash": "sha256:c22d2f4004ea3e2396f911fedba84ab7f31c7e0170fabce4c02039cc322742dd",
+      "auditRunId": "law-audit-gas-shunin-kou-2022-c22d2f4004ea3e23",
+      "lawCorpusSnapshotId": "egov-current-2026-07-10",
+      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2022-c22d2f4004ea3e23",
+      "reconciliationStatus": "matched",
+      "examTime": {
+        "referenceDate": "2022",
+        "verificationStatus": "from_original_answer"
       },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:10:00+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_001000_q7",
-        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
-        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
-        "sourceVariant": "firestore_statement_set",
-        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      "current": {
+        "lawId": "329AC0000000051",
+        "lawTitle": "ガス事業法",
+        "article": "101",
+        "referenceDate": "2026-07-10",
+        "verificationStatus": "verified",
+        "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "differenceFacts": [
+        "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。"
+      ],
+      "answerImpactFacts": [
+        "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+      ],
+      "evidenceSummary": {
+        "verdict": "same_as_current",
+        "explanationText": "間違い。ガス事業法第101条はガス製造事業者の工事計画届出を定め、第102条第1項は届出対象のガス工作物について自主検査に加え、経済産業大臣の登録を受けた者が行う使用前検査を受け、これに合格した後でなければ使用してはならないと定めている。自主検査に合格すれば使用できるとしている点が誤り。 間違い。ガス関係報告規則第4条は、ガス製造事業者について製造支障事故等が発生した場合の報告を定めている。製造設備停止が製造支障事故に該当する場合には報告義務が生じるため、報告義務がないと断定する点が誤り。",
+        "differenceSummary": "現行法の一次根拠と照合し、正答に影響する差異は確認されなかった。",
+        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
+        "displayRefIds": [
+          "choice-1-ref-1",
+          "choice-1-ref-2",
+          "choice-3-ref-1"
         ],
-        "choiceIndex": 3,
-        "reconciliationStatus": "lawzilla_appendix_construction_plan_hit_replaced_with_gas_relation_reporting_rules_article4",
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_original_answer"
-        },
-        "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "429M60000400016",
-          "lawTitle": "ガス関係報告規則",
-          "article": "4",
-          "paragraph": "1",
-          "item": "表第4号・第8号",
-          "subitem": null,
-          "referenceDate": "2026-07-10",
-          "verificationStatus": "verified",
-          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
-        },
-        "notes": [
-          "Lawzilla候補は施行規則別表第一の工事計画対象に寄ったが、選択肢の「報告義務がない」はガス関係報告規則第4条の事故報告で確認する。",
-          "第4条第1項はガス製造事業者について同表第1号から第14号までの事故を報告対象とし、同表第4号・第8号に製造支障事故を掲げる。",
-          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス関係報告規則第4条は、ガス製造事業者について製造支障事故等が発生した場合の報告を定めている。製造設備停止が製造支障事故に該当する場合には報告義務が生じるため、報告義務がないと断定する点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法令では既存正誤と一致。",
-          "promptContext": "製造設備停止が常に報告対象とは限らないため、製造支障事故等に該当する場合という条件付きで解説する。",
-          "displayRefIds": [
-            "current:429M60000400016:4:1:表第4号・第8号:"
-          ],
-          "refs": [
-            {
-              "refId": "current:429M60000400016:4:1:表第4号・第8号:",
-              "lawTimeScope": "current",
-              "relation": "direct_basis_with_conditions",
-              "primaryBasis": true,
-              "lawId": "429M60000400016",
-              "lawTitle": "ガス関係報告規則",
-              "article": "4",
-              "paragraph": "1",
-              "item": "表第4号・第8号",
-              "subitem": null,
-              "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-            }
-          ]
-        }
-      }
-    ],
+        "refs": [
+          {
+            "refId": "choice-1-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "article": "101",
+            "paragraph": "1",
+            "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "refId": "choice-1-ref-2",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": false,
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "article": "102",
+            "paragraph": "1",
+            "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "refId": "choice-3-ref-1",
+            "lawTimeScope": "current",
+            "relation": "basis",
+            "primaryBasis": true,
+            "lawId": "429M60000400016",
+            "lawTitle": "ガス関係報告規則",
+            "article": "4",
+            "paragraph": "1",
+            "item": "表第4号・第8号",
+            "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2022-c22d2f4004ea3e23"
+    },
     "lawzillaMcpReview": {
       "reviewedAt": "2026-07-10T00:10:00+09:00",
       "reviewStatus": "secondary_verified_with_primary_and_supplemental_sources",
