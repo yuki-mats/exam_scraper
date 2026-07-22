@@ -480,6 +480,53 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
         )
         self.assertFalse(record["isLawRelated"])
 
+    def test_shared_legacy_id_does_not_target_another_source_record(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_relative = Path(
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            )
+            patch_path = root / patch_relative
+            patch_path.parent.mkdir(parents=True)
+            existing = {
+                "original_question_id": "shared-review-id",
+                "sourceQuestionKey": "sample:2026:existing",
+                "reviewQuestionId": "shared-review-id",
+                "sourceRecordRef": "source.json#13",
+                "questionType": "multiple_choice",
+            }
+            patch_path.write_text(
+                json.dumps([existing], ensure_ascii=False),
+                encoding="utf-8",
+            )
+            binding = SourceIdentityBinding.from_values(
+                "sample:2026:target",
+                "shared-review-id",
+                "source.json#3",
+            )
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root,
+                root / "output/question_review_console/run/isolated_workspace",
+                qualification="sample",
+                mutable_paths=[patch_relative.as_posix()],
+            )
+
+            workspace.apply_record_update(
+                patch_relative,
+                binding=binding,
+                aliases={"shared-review-id"},
+                set_fields={"questionType": "true_false"},
+                base_record={"original_question_id": "shared-review-id"},
+            )
+            records = json.loads(
+                (workspace.root / patch_relative).read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records[0], existing)
+        self.assertEqual(records[1]["sourceRecordRef"], "source.json#3")
+        self.assertEqual(records[1]["questionType"], "true_false")
+
     def test_server_preserves_existing_review_id_when_adding_source_refs(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

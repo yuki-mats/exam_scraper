@@ -192,10 +192,24 @@ def _target_index(
         raise QuestionPatchProposalError("完全一致する対象recordが重複しています。")
     if exact:
         return exact[0]
+
+    # sourceRecordRef is the record boundary.  Legacy IDs can repeat in a
+    # source file, so an alias match must never redirect an update to another
+    # bound row.  Rows without a sourceRecordRef remain eligible for the
+    # existing legacy-enrichment path.
+    def eligible_legacy_match(record: Mapping[str, Any]) -> bool:
+        record_ref = SourceIdentityBinding.from_mapping(record).source_record_ref
+        return not (
+            binding.source_record_ref
+            and record_ref
+            and record_ref != binding.source_record_ref
+        )
+
     scored = [
         (len(record_identity_aliases(record) & aliases), index)
         for index, record in enumerate(records)
-        if record_identity_aliases(record) & aliases
+        if eligible_legacy_match(record)
+        and record_identity_aliases(record) & aliases
     ]
     best = max((score for score, _index in scored), default=0)
     matches = [index for score, index in scored if score == best and score]
