@@ -29,6 +29,69 @@ def policy(stage_id="question_type", *, fingerprint="fingerprint-1"):
 
 
 class QuestionWorkVersionStoreTests(unittest.TestCase):
+    def test_manual_policy_is_tracked_only_after_its_patch_exists(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            item = question()
+            required_policy = policy()
+            manual_policy = {
+                **policy("originalize"),
+                "automatic": False,
+                "patchDir": "05_originalized",
+            }
+            store.record_stage(
+                [item], required_policy, run_id="run-1", source="validated_run"
+            )
+
+            before_patch = store.status_for(
+                item, [manual_policy, required_policy]
+            )
+            item["paths"] = {
+                "patches": [
+                    "output/sample/questions_json/independent/05_originalized/"
+                    "question_originalized.json"
+                ]
+            }
+            after_patch = store.status_for(
+                item, [manual_policy, required_policy]
+            )
+
+        self.assertTrue(before_patch["allCurrent"])
+        self.assertEqual(before_patch["applicableCount"], 1)
+        self.assertEqual(
+            [stage["id"] for stage in before_patch["stages"]],
+            ["question_type"],
+        )
+        self.assertFalse(after_patch["allCurrent"])
+        self.assertEqual(after_patch["applicableCount"], 2)
+        self.assertEqual(after_patch["unrecordedStageIds"], ["originalize"])
+
+    def test_failed_manual_patch_does_not_opt_question_into_version_tracking(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            patch_path = (
+                "output/sample/questions_json/independent/05_originalized/"
+                "question_originalized.json"
+            )
+            item = {
+                **question(),
+                "paths": {"patches": [patch_path]},
+                "failedRunChangedPaths": [patch_path],
+            }
+            status = store.status_for(
+                item,
+                [
+                    {
+                        **policy("originalize"),
+                        "automatic": False,
+                        "patchDir": "05_originalized",
+                    }
+                ],
+            )
+
+        self.assertEqual(status["applicableCount"], 0)
+        self.assertEqual(status["stages"], [])
+
     def test_store_rejects_parent_path_segments(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))

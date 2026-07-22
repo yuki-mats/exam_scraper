@@ -181,6 +181,28 @@ def _content_hash(path: Path) -> str:
         return "missing"
 
 
+def _manual_policy_is_selected(
+    question: Mapping[str, Any], policy: Mapping[str, Any]
+) -> bool:
+    """Return whether an opt-in stage already has a committed patch."""
+
+    if policy.get("automatic", True):
+        return True
+    patch_dir = str(policy.get("patchDir") or "").strip()
+    if not patch_dir:
+        return False
+    marker = f"/{patch_dir}/"
+    failed_paths = {
+        str(path) for path in question.get("failedRunChangedPaths") or []
+    }
+    paths = question.get("paths")
+    patch_paths = paths.get("patches") if isinstance(paths, Mapping) else []
+    return any(
+        marker in str(path) and str(path) not in failed_paths
+        for path in patch_paths or []
+    )
+
+
 def _catalog_repo_root(catalog_path: str) -> Path:
     path = Path(catalog_path).resolve()
     return path.parent.parent if path.parent.name == "config" else path.parent
@@ -355,6 +377,8 @@ class QuestionWorkVersionStore:
             if not stage_id or (
                 stage_id != "evaluation" and policy.get("policyVersion") is None
             ):
+                continue
+            if not _manual_policy_is_selected(question, policy):
                 continue
             recorded = recorded_stages.get(stage_id)
             recorded = dict(recorded) if isinstance(recorded, Mapping) else None
