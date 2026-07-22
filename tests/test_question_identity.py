@@ -8,6 +8,7 @@ from pathlib import Path
 from scripts.common.question_identity import (
     SourceIdentityBinding,
     load_source_record_inventory,
+    question_id_from_source_unique_key,
     source_question_key,
     source_record_ref,
     source_identity_aliases,
@@ -17,6 +18,18 @@ from tools.question_review_console.projection import record_identity_aliases
 
 
 class QuestionIdentityTests(unittest.TestCase):
+    def test_source_unique_key_aliases_include_public_document_id(self) -> None:
+        source_key = "sample:2026:q001:aggregate-statement:1:abc123"
+
+        aliases = source_identity_aliases({"sourceUniqueKeys": [source_key]})
+
+        self.assertIn(source_key, aliases)
+        self.assertIn("sample-2026-q001-aggregate-statement-1-abc123", aliases)
+        self.assertEqual(
+            question_id_from_source_unique_key(source_key),
+            "sample-2026-q001-aggregate-statement-1-abc123",
+        )
+
     def test_source_inventory_builds_exact_binding_once(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             source_dir = Path(temp_dir) / "00_source"

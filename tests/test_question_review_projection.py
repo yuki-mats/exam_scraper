@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.common.question_identity import SourceIdentityBinding
+from scripts.common.question_identity import IdentityCandidateIndex, SourceIdentityBinding
 from scripts.merge.patch_views import build_layered_patch_candidate_index
 from scripts.merge.record_projection import project_merge_record
 from scripts.merge.question_issue_corrections import (
@@ -18,6 +18,7 @@ from tools.question_review_console.projection import (
     build_question_issue_index,
     explanation_prefix_matches,
     project_record,
+    source_identities_with_bound_artifact_aliases,
 )
 
 
@@ -66,6 +67,71 @@ def layered_candidate_index(
 
 
 class QuestionReviewProjectionTests(unittest.TestCase):
+    def test_exact_bound_output_keys_isolate_shared_legacy_ids(self):
+        first = source_identity("first.json#0", "first", "legacy-id")
+        second = source_identity("second.json#0", "second", "legacy-id")
+        question_type_index = IdentityCandidateIndex(
+            by_binding={
+                first.binding: (
+                    PatchEntry(
+                        Path("first.json"),
+                        {
+                            "original_question_id": "legacy-id",
+                            "sourceUniqueKeys": ["sample:first:choice:1"],
+                        },
+                    ),
+                ),
+                second.binding: (
+                    PatchEntry(
+                        Path("second.json"),
+                        {
+                            "original_question_id": "legacy-id",
+                            "sourceUniqueKeys": ["sample:second:choice:1"],
+                        },
+                    ),
+                ),
+            },
+            errors_by_binding={},
+        )
+
+        downstream_sources = source_identities_with_bound_artifact_aliases(
+            [first, second],
+            {"questionType": question_type_index},
+        )
+        downstream = build_identity_candidate_index(
+            [
+                {
+                    "questionId": "sample-first-choice-1",
+                    "originalQuestionId": "legacy-id",
+                },
+                {
+                    "questionId": "sample-second-choice-1",
+                    "originalQuestionId": "legacy-id",
+                },
+                {
+                    "questionId": "unresolved-legacy-document",
+                    "originalQuestionId": "legacy-id",
+                },
+            ],
+            sources=downstream_sources,
+            record_of=lambda document: document,
+            source_stem_of=lambda _document: "",
+            label="converted document",
+        )
+
+        self.assertNotIn("legacy-id", downstream_sources[0].aliases)
+        self.assertNotIn("legacy-id", downstream_sources[1].aliases)
+        self.assertEqual(
+            [item["questionId"] for item in downstream.by_binding[first.binding]],
+            ["sample-first-choice-1"],
+        )
+        self.assertEqual(
+            [item["questionId"] for item in downstream.by_binding[second.binding]],
+            ["sample-second-choice-1"],
+        )
+        self.assertEqual(downstream.unmatched_count, 1)
+        self.assertEqual(downstream.errors_by_binding, {})
+
     def test_projection_hash_covers_normalized_and_issue_image_fields(self):
         self.assertTrue(
             {

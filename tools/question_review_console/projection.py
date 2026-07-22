@@ -181,6 +181,52 @@ def build_identity_candidate_index(
     )
 
 
+def source_identities_with_bound_artifact_aliases(
+    sources: Iterable[SourceRecordIdentity],
+    stage_maps: Mapping[str, IdentityCandidateIndex],
+) -> list[SourceRecordIdentity]:
+    """Bridge exact-bound patch identities to downstream public documents."""
+
+    source_records = list(sources)
+    bound_aliases: dict[SourceIdentityBinding, set[str]] = {}
+    for source in source_records:
+        aliases: set[str] = set()
+        for stage_map in stage_maps.values():
+            if stage_map.errors_by_binding.get(source.binding):
+                continue
+            for candidate in stage_map.by_binding.get(source.binding, ()):
+                entry = getattr(candidate, "entry", None)
+                if isinstance(entry, Mapping):
+                    aliases.update(source_identity_aliases(entry))
+        bound_aliases[source.binding] = aliases
+
+    alias_owners: dict[str, set[SourceIdentityBinding]] = {}
+    for binding, aliases in bound_aliases.items():
+        for alias in aliases:
+            alias_owners.setdefault(alias, set()).add(binding)
+
+    expanded: list[SourceRecordIdentity] = []
+    for source in source_records:
+        unique_bound_aliases = {
+            alias
+            for alias in bound_aliases[source.binding]
+            if alias_owners.get(alias) == {source.binding}
+        }
+        # Once an exact-bound patch supplies an output identity unique within
+        # the group, shared legacy IDs must not let unrelated documents poison
+        # that source record. Sources without a unique output identity retain
+        # the existing fail-closed legacy resolver.
+        aliases = unique_bound_aliases or set(source.aliases)
+        expanded.append(
+            SourceRecordIdentity(
+                binding=source.binding,
+                aliases=frozenset(aliases),
+                source_stem=source.source_stem,
+            )
+        )
+    return expanded
+
+
 def extract_records(payload: Any) -> list[dict[str, Any]]:
     return [dict(record) for record in extract_patch_entries(payload)]
 

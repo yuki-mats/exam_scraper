@@ -447,6 +447,14 @@ def source_record_ref(
     return f"{relative.as_posix()}#{record_index}"
 
 
+def question_id_from_source_unique_key(source_unique_key: str) -> str:
+    """Build the deterministic Firestore document ID for a source choice key."""
+
+    return re.sub(
+        r"[^A-Za-z0-9_-]+", "-", str(source_unique_key or "").strip()
+    ).strip("-")
+
+
 def source_identity_aliases(record: Mapping[str, Any]) -> set[str]:
     """Return identifiers carried by, or deterministically derived from, source."""
 
@@ -463,10 +471,21 @@ def source_identity_aliases(record: Mapping[str, Any]) -> set[str]:
             aliases.add("firestore:" + ",".join(values))
     source_unique_keys = record.get("sourceUniqueKeys")
     if isinstance(source_unique_keys, list):
-        aliases.update(str(value) for value in source_unique_keys if value)
+        for value in source_unique_keys:
+            if not value:
+                continue
+            source_key = str(value)
+            aliases.add(source_key)
+            document_id = question_id_from_source_unique_key(source_key)
+            if document_id:
+                aliases.add(document_id)
     source_unique_key = record.get("sourceUniqueKey")
     if source_unique_key:
-        aliases.add(str(source_unique_key))
+        source_key = str(source_unique_key)
+        aliases.add(source_key)
+        document_id = question_id_from_source_unique_key(source_key)
+        if document_id:
+            aliases.add(document_id)
     stable = review_question_id(record)
     if stable and not stable.startswith(("http://", "https://")):
         aliases.add(stable)

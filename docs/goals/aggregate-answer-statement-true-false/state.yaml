@@ -4300,6 +4300,75 @@ tasks:
       remaining_blockers: []
       verification_attempts: 1
       stopped_because: null
+  - id: T076
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "同一試験回で問題番号やlegacy originalQuestionIdが重複しても、exact-bound patchが確定した派生source keyからconvert・upload-ready documentを元source recordへ一意に対応できる共通identity bridgeを実装する。"
+    inputs:
+      - "20048-20053 converted documents with duplicated legacy originalQuestionId"
+      - "Question type patches with exact-bound sourceUniqueKeys"
+      - "Existing fail-closed SourceIdentityBinding resolution"
+    constraints:
+      - "Do not rewrite 00_source, existing Firestore IDs, or source text."
+      - "Do not accept ambiguous legacy aliases; only extend aliases from artifacts already exact-bound to one source record."
+      - "Keep collisions fail-closed when derived keys are not unique."
+      - "Fix shared identity resolution; do not special-case a qualification, year, file, or question."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "Firestore-safe IDs derived from sourceUniqueKeys are reusable identity aliases"
+      - "Exact-bound patch identities bridge to downstream converted and upload-ready docs"
+      - "All 40 trial questions resolve to their exact derived docs"
+      - "Regression tests for duplicate legacy IDs"
+    allowed_files:
+      - "scripts/common/question_identity.py"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "tools/question_review_console/projection.py"
+      - "tools/question_review_console/inventory.py"
+      - "tests/test_question_identity.py"
+      - "tests/test_convert_merged_to_firestore.py"
+      - "tests/test_question_review_inventory.py"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest -q tests.test_question_identity tests.test_convert_merged_to_firestore tests.test_question_review_inventory tests.test_question_review_projection"
+      - "40 target APIs: 40 resolved questions, 172 upload-ready docs, zero identity/projection issues"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "Resolution would rely on question text similarity or positional guessing."
+      - "A candidate without an exact-bound upstream patch would become accepted."
+      - "Existing public Firestore IDs would be rewritten."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      summary: "exact-bound patchが持つsourceUniqueKeysをFirestore-safe document ID aliasへ変換し、資格内で一意なaliasだけをdownstream resolverへ渡す共通identity bridgeを追加した。共有legacy IDだけの文書は引き続きfail-closedであり、対象40問は172派生文書へ一意に解決した。監査成果物に存在するevidenceSummary互換キーsummary・basis・revisionImpactも正式schemaへ損失なく正規化した。"
+      changed_files:
+        - "scripts/common/question_identity.py"
+        - "scripts/convert/convert_merged_to_firestore.py"
+        - "tools/question_review_console/projection.py"
+        - "tools/question_review_console/inventory.py"
+        - "tests/test_question_identity.py"
+        - "tests/test_convert_merged_to_firestore.py"
+        - "tests/test_question_review_projection.py"
+      verification:
+        - command: ".venv/bin/python -m unittest -q tests.test_question_identity tests.test_convert_merged_to_firestore tests.test_question_review_inventory tests.test_question_review_projection"
+          status: pass
+          summary: "65 tests passed"
+        - command: "exact 40 target API readback"
+          status: pass
+          summary: "40 unique source questions, 172 upload-ready documents, zero issues, zero workflow mismatches, 40 machine-ready"
+        - command: "category and law evidence validation"
+          status: pass
+          summary: "invalid questionSet documents 0; law-related documents without evidence verdict 0"
+        - command: "sequential regeneration of 20052 and 20053 with Firestore upload declined"
+          status: pass
+          summary: "basis compatibility evidence is retained as verdict"
+      deviations:
+        - "2023以降の科目別sourceでlegacy originalQuestionIdが重複していたため、sourceを変更せずexact-bound派生keyでdownstream identityを補強した。"
+      remaining_blockers: []
+      verification_attempts: 2
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge

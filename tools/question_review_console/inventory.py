@@ -42,6 +42,7 @@ from tools.question_review_console.projection import (
     review_key,
     selected_patch_paths,
     sha256_json,
+    source_identities_with_bound_artifact_aliases,
 )
 from tools.question_review_console.patch_validation import (
     law_audit_quality_warnings,
@@ -823,6 +824,10 @@ class QuestionInventory:
             source_identities.append(entry.identity)
 
         stage_maps = build_stage_maps(group_dir, source_identities)
+        downstream_source_identities = source_identities_with_bound_artifact_aliases(
+            source_identities,
+            stage_maps,
+        )
         issue_paths = selected_question_issue_correction_paths(
             group_dir / "24_questionIssueCorrections"
         )
@@ -844,7 +849,7 @@ class QuestionInventory:
                 for doc in converted_docs
                 if doc.get("qualificationId") == publication_qualification_id
             ],
-            sources=source_identities,
+            sources=downstream_source_identities,
             record_of=lambda doc: doc,
             source_stem_of=lambda _doc: "",
             label="converted document",
@@ -855,7 +860,7 @@ class QuestionInventory:
                 for doc in upload_docs
                 if doc.get("qualificationId") == publication_qualification_id
             ],
-            sources=source_identities,
+            sources=downstream_source_identities,
             record_of=lambda doc: doc,
             source_stem_of=lambda _doc: "",
             label="upload-ready document",

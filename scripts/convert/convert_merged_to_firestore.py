@@ -50,6 +50,7 @@ from scripts.scrape.qualification_presets import publication_qualification_id_fo
 from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
 )
+from scripts.common.question_identity import question_id_from_source_unique_key
 from scripts.common.suggested_question_contract import details_for_choice
 from scripts.common.explanation_contract import public_explanation_text
 
@@ -343,7 +344,7 @@ def sanitize_law_revision_evidence_summary(value: Any) -> dict:
     if not isinstance(value, dict):
         return {}
     normalized = dict(value)
-    normalized.setdefault("verdict", value.get("summary"))
+    normalized.setdefault("verdict", value.get("summary") or value.get("basis"))
     normalized.setdefault("differenceSummary", value.get("revisionImpact"))
     sanitized: dict[str, Any] = {}
     for key, item in normalized.items():
@@ -812,11 +813,6 @@ def source_unique_key_for_choice(question_body: dict, choice_index: int) -> str 
         return None
     text = str(value).strip()
     return text or None
-
-
-def question_id_from_source_unique_key(source_unique_key: str) -> str:
-    """Build a Firestore-safe deterministic new document id from sourceUniqueKey."""
-    return re.sub(r"[^A-Za-z0-9_-]+", "-", source_unique_key.strip()).strip("-")
 
 
 def new_question_id_for_choice(
