@@ -986,6 +986,17 @@ class QuestionEvaluationService:
 10. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
 11. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
 
+## 再整備stageの責務
+
+- 01: questionType又はisCalculationQuestionの分類
+- 02: questionIntentだけ
+- 02a: 正誤対応又はcorrectChoiceText
+- 02b: 解説生成前のlawContext
+- 03: explanationTextだけ。法令監査結果が正しく、解説の引用条文、表現又は説明だけを直す場合も含む
+- 03b: lawReferences、lawRevisionFacts、出題時法令と現行法の判定又は法令監査結果。これに連動する解説修正も含める
+
+法令の根拠、改正、現行法判定の問題を02へ入れないでください。複数責務にまたがる場合だけreworkItemsを分けてください。
+
 内部思考過程は出力せず、指定JSON schemaに一致する結果だけを返してください。choiceIndexは0始まりで、0から{max(int(question.get('choiceCount') or 0) - 1, 0)}までを重複なく全件返してください。
 
 ## 評価input

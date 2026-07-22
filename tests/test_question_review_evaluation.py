@@ -289,6 +289,10 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("減点又は要再整備理由にしない", prompt)
         self.assertIn("正しい定義・基準と条文位置", prompt)
         self.assertIn("その後に選択肢との差", prompt)
+        self.assertIn("02: questionIntentだけ", prompt)
+        self.assertIn("03: explanationTextだけ", prompt)
+        self.assertIn("03b: lawReferences、lawRevisionFacts", prompt)
+        self.assertIn("法令の根拠、改正、現行法判定の問題を02へ入れない", prompt)
         self.assertNotIn("currentCorrectChoiceText", prompt)
         self.assertNotIn("officialAnswer", prompt)
 
