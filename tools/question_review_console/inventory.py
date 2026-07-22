@@ -57,6 +57,10 @@ from scripts.common.explanation_contract import (
 
 
 SOURCE_SUBDIR = "00_source"
+QUALIFICATION_DISPLAY_CATALOG = Path("config/qualification_display_catalog.json")
+YEAR_MONTH_OCCURRENCE_RE = re.compile(r"^((?:19|20)\d{2})-(0?[1-9]|1[0-2])$")
+YEAR_GROUP_RE = re.compile(r"^((?:19|20)\d{2})$")
+YEAR_SECTION_GROUP_RE = re.compile(r"^((?:19|20)\d{2})(01|02)$")
 WATCH_SUBDIRS = (
     "00_source",
     "10_questionType_fixed",
@@ -98,6 +102,78 @@ ISSUE_PRIORITY = {
     "explanation_missing": 11,
     "projection_error": 12,
 }
+
+
+def load_qualification_display_catalog(path: Path) -> dict[str, str]:
+    """問題整備画面専用の資格表示名を読み込む。公開IDには影響させない。"""
+    if not path.is_file():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError(f"資格表示カタログを読み込めません: {exc}") from exc
+    if not isinstance(payload, Mapping) or payload.get("schemaVersion") != 1:
+        raise ValueError("資格表示カタログのschemaVersionは1である必要があります。")
+    qualifications = payload.get("qualifications")
+    if not isinstance(qualifications, Mapping):
+        raise ValueError("資格表示カタログにqualificationsがありません。")
+    result: dict[str, str] = {}
+    for raw_code, raw_metadata in qualifications.items():
+        code = str(raw_code).strip()
+        if not code or not isinstance(raw_metadata, Mapping):
+            raise ValueError("資格表示カタログの資格定義が不正です。")
+        display_name = str(raw_metadata.get("displayName") or "").strip()
+        if not display_name:
+            raise ValueError(f"資格表示名が空です: {code}")
+        result[code] = display_name
+    return result
+
+
+def _question_metadata_values(
+    questions: Iterable[Mapping[str, Any]],
+    field: str,
+) -> list[str]:
+    values: set[str] = set()
+    for question in questions:
+        candidates: list[Mapping[str, Any]] = [question]
+        for key in ("projected", "source"):
+            nested = question.get(key)
+            if isinstance(nested, Mapping):
+                candidates.append(nested)
+        for candidate in candidates:
+            value = str(candidate.get(field) or "").strip()
+            if value:
+                values.add(value)
+    return sorted(values)
+
+
+def list_group_display_name(
+    list_group_id: str,
+    questions: Iterable[Mapping[str, Any]],
+) -> str:
+    """保存済み試験メタデータから年度・実施回の表示名を決める。"""
+    question_list = list(questions)
+    occurrences = _question_metadata_values(question_list, "examOccurrenceId")
+    if len(occurrences) == 1:
+        matched = YEAR_MONTH_OCCURRENCE_RE.fullmatch(occurrences[0])
+        if matched:
+            return f"{matched.group(1)}年{int(matched.group(2))}月"
+
+    exam_labels = _question_metadata_values(question_list, "examLabel")
+    if len(exam_labels) == 1:
+        return exam_labels[0]
+
+    years = _question_metadata_values(question_list, "examYear")
+    if len(years) == 1 and re.fullmatch(r"(?:19|20)\d{2}", years[0]):
+        return f"{years[0]}年度"
+
+    matched = YEAR_GROUP_RE.fullmatch(list_group_id)
+    if matched:
+        return f"{matched.group(1)}年度"
+    matched = YEAR_SECTION_GROUP_RE.fullmatch(list_group_id)
+    if matched:
+        return f"{matched.group(1)}年度・区分{int(matched.group(2))}"
+    return list_group_id
 
 
 @dataclass
@@ -485,6 +561,9 @@ class QuestionInventory:
         self.qualification_catalog = load_qualification_catalog(
             self.repo_root / "config" / "scrape_presets.json"
         )
+        self.qualification_display_catalog = load_qualification_display_catalog(
+            self.repo_root / QUALIFICATION_DISPLAY_CATALOG
+        )
         self._cache: dict[tuple[str, str], GroupCache] = {}
         self._source_cache: dict[tuple[str, str], ProjectionCache] = {}
         self._stage_index_cache: dict[tuple[str, str, str], ProjectionCache] = {}
@@ -508,15 +587,26 @@ class QuestionInventory:
             if not groups:
                 continue
             metadata = self.qualification_catalog.get(qualification_dir.name, {})
+            display_name = self.qualification_display_catalog.get(
+                qualification_dir.name,
+                str(metadata.get("displayName") or qualification_dir.name),
+            )
             qualifications.append(
                 {
                     "id": qualification_dir.name,
-                    "displayName": metadata.get("displayName", qualification_dir.name),
+                    "displayName": display_name,
                     "publicationId": metadata.get("publicationId", qualification_dir.name),
                     "listGroupIds": groups,
                     "listGroupCount": len(groups),
                 }
             )
+        display_name_counts: dict[str, int] = {}
+        for item in qualifications:
+            name = str(item["displayName"])
+            display_name_counts[name] = display_name_counts.get(name, 0) + 1
+        for item in qualifications:
+            if display_name_counts[str(item["displayName"])] > 1:
+                item["displayName"] = f"{item['displayName']}［{item['id']}］"
         qualifications.sort(key=lambda item: (item["displayName"], item["id"]))
         ids = {item["id"] for item in qualifications}
         default = "gas-shunin-otsu" if "gas-shunin-otsu" in ids else (
@@ -1213,6 +1303,7 @@ class QuestionInventory:
             "qualification": qualification,
             "publicationQualificationId": publication_qualification_id,
             "listGroupId": list_group_id,
+            "displayName": list_group_display_name(list_group_id, questions),
             "fingerprint": fingerprint,
             "questionCount": len(questions),
             "issueQuestionCount": sum(bool(question["issues"]) for question in questions),

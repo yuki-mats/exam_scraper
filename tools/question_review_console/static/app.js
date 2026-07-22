@@ -313,7 +313,9 @@ function auditViewIsOpen() {
 }
 
 function renderAuditViewHeading() {
-  const scope = state.listGroupId === ALL_LIST_GROUPS ? "すべて" : state.listGroupId;
+  const scope = state.listGroupId === ALL_LIST_GROUPS
+    ? "すべて"
+    : listGroupDisplayName(state.listGroupId);
   $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・${scope}の問題内容を確認します。`;
 }
 
@@ -600,6 +602,14 @@ function qualificationDisplayName(qualificationId = state.qualification) {
     || "";
 }
 
+function listGroupDisplayName(listGroupId) {
+  const workflow = state.qualificationWorkflow;
+  if (workflow?.qualification !== state.qualification) return listGroupId || "";
+  return workflow.groups?.find((item) => item.listGroupId === listGroupId)?.displayName
+    || listGroupId
+    || "";
+}
+
 function populateGroups(requested = null) {
   const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
   const groups = qualification?.listGroupIds || [];
@@ -617,14 +627,18 @@ function populateGroups(requested = null) {
   allOption.value = ALL_LIST_GROUPS;
   select.append(allOption);
   for (const group of groups) {
-    const option = element("option", "", group);
+    const option = element("option", "", listGroupDisplayName(group));
     option.value = group;
+    option.title = group;
     select.append(option);
   }
   select.value = state.listGroupId;
 }
 
 function scopeLabelForGroups(groupIds) {
+  if (groupIds.length && groupIds.every((value) => listGroupDisplayName(value) !== value)) {
+    return "年度・実施回";
+  }
   if (groupIds.length && groupIds.every((value) => /^(?:19|20)\d{2}$/.test(value))) {
     return "年度";
   }
@@ -652,6 +666,7 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     const params = new URLSearchParams({ qualification: state.qualification });
     const workflow = await api(`/api/qualification-workflow?${params}`);
     state.qualificationWorkflow = workflow;
+    populateGroups(state.listGroupId);
     const selectionExists = workflow.stages.some(
       (stage) => stage.id === state.qualificationWorkflowStageId,
     );
@@ -907,7 +922,7 @@ function renderMaintenanceDashboard() {
     );
     const copy = element("div", "maintenance-year-copy");
     copy.append(
-      element("strong", "", group.listGroupId),
+      element("strong", "", group.displayName || group.listGroupId),
       element(
         "span",
         "",
@@ -929,7 +944,7 @@ function renderMaintenanceDashboard() {
     const actions = element("div", "maintenance-year-actions");
     const statusAction = element("button", "secondary-button", "状況を確認");
     statusAction.type = "button";
-    statusAction.setAttribute("aria-label", `${group.listGroupId}の状況を確認`);
+    statusAction.setAttribute("aria-label", `${group.displayName || group.listGroupId}の状況を確認`);
     statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId));
     const action = element(
       "button",
@@ -940,7 +955,7 @@ function renderMaintenanceDashboard() {
     );
     action.type = "button";
     action.disabled = isRunning || workflow.restartRequired;
-    action.setAttribute("aria-label", `${group.listGroupId}を整備・洗い替え`);
+    action.setAttribute("aria-label", `${group.displayName || group.listGroupId}を整備・洗い替え`);
     action.addEventListener("click", () => openListGroupMaintenance(group.listGroupId));
     actions.append(statusAction, action);
     row.append(copy, meter, actions);
@@ -2117,7 +2132,7 @@ function renderQualificationRunGroups(stage, selectedGroupIds) {
     });
     const content = element("span", "");
     content.append(
-      element("strong", "", group.listGroupId),
+      element("strong", "", group.displayName || group.listGroupId),
       element("small", "", `${group.questionCount}問`),
     );
     label.append(input, content);
@@ -3464,7 +3479,7 @@ function renderQueue() {
     head.append(
       element("span", "queue-label", question.questionLabel || question.sourceQuestionKey || question.sourceStem),
       ...(state.listGroupId === ALL_LIST_GROUPS
-        ? [element("span", "queue-group", question.listGroupId)]
+        ? [element("span", "queue-group", listGroupDisplayName(question.listGroupId))]
         : []),
       ...(adminToolsOpen ? [workVersionBadge(question)] : []),
       evaluationBadge(question),
@@ -3806,7 +3821,7 @@ function renderDetail() {
   const titleBlock = element("div", "");
   titleBlock.append(
     element("h2", "", question.questionLabel || question.sourceQuestionKey || "問題詳細"),
-    element("div", "detail-meta", `${question.qualification} / ${question.listGroupId} / ${question.sourceQuestionKey}`),
+    element("div", "detail-meta", `${qualificationDisplayName(question.qualification)} / ${listGroupDisplayName(question.listGroupId)} / ${question.sourceQuestionKey}`),
   );
   const actions = element("div", "detail-actions");
   if (!state.auditView.readOnly) {
@@ -4867,7 +4882,7 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
         : "既存workflowを対象フォルダだけで実行し、upload dry-runまで検証します。00_sourceは変更しません。"
       : "Merge、Convert、upload-readyはすでに最新です。";
     $("#workflow-dialog-summary").append(
-      summaryMetric("対象", `${qualificationDisplayName(preview.qualification)} / ${preview.listGroupId}`),
+      summaryMetric("対象", `${qualificationDisplayName(preview.qualification)} / ${listGroupDisplayName(preview.listGroupId)}`),
       summaryMetric("問題", `${preview.questionCount}問`),
       stageSummary(preview, "merge", "Merge"),
       stageSummary(preview, "convert", "Convert"),
@@ -4969,7 +4984,7 @@ async function openPublishDialog() {
     const summary = $("#workflow-dialog-summary");
     summary.append(
       summaryMetric("対象問題", preview.questionLabel || preview.originalQuestionId),
-      summaryMetric("対象年度", preview.listGroupId),
+      summaryMetric("対象年度", listGroupDisplayName(preview.listGroupId)),
       summaryMetric("本番project", preview.projectId),
     );
     if (!preview.publishReady) {

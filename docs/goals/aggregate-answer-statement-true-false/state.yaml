@@ -4450,6 +4450,81 @@ tasks:
         - "ユーザーが追加エージェントを避けるよう求めたため、同じ許可範囲をPM fallbackで実行した。"
       verification_attempts: 2
       stopped_because: null
+  - id: T078
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "問題整備画面で内部資格IDではなく全資格の名称を表示し、listGroupIdではなくsourceのexamYear・examOccurrenceId・examLabelから年度・実施回を表示する資格共通改善を行う。内部ID、ディレクトリ名、00_sourceは変更しない。"
+    inputs:
+      - "User-confirmed display-only change"
+      - "Current 79 qualifications exposed by the review console"
+      - "Existing immutable exam metadata in source projection"
+    constraints:
+      - "Keep qualification IDs and listGroupIds unchanged as internal values."
+      - "Use one display catalog instead of qualification-specific UI branches."
+      - "Derive group labels from existing exam metadata and fail back to the internal ID when metadata is unavailable."
+      - "Do not touch 00_source, Firestore, or gas-shunin dirty files."
+      - "Do not spawn additional agents."
+    expected_output:
+      - "Human-readable names for every qualification currently exposed by the console"
+      - "Duplicate human names disambiguated without changing internal IDs"
+      - "Year or exam-occurrence labels throughout the folder UI"
+      - "Focused backend and UI regression tests"
+      - "Runtime API and browser-visible readback"
+    allowed_files:
+      - "config/qualification_display_catalog.json"
+      - "tools/question_review_console/inventory.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_inventory.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_progress_output_ui.py"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest -q tests.test_question_review_inventory tests.test_question_review_qualification_workflow tests.test_question_review_progress_output_ui"
+      - "Inventory readback has zero raw qualification display names for current console qualifications."
+      - "First- and second-class health supervisor group readback uses year/month labels while retaining 200xx and 570xx internal IDs."
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "A display change would require renaming a qualification or list-group directory."
+      - "A qualification name cannot be confirmed from existing repository evidence."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      summary: "全79資格の表示名を単一catalogへ集約し、内部qualification IDとlistGroupIdを維持したまま、source metadataから年度・実施回名を表示する共通改善を実装した。重複する表示名は内部IDを補助表示して区別し、metadata不足時だけ従来IDへfallbackする。"
+      changed_files:
+        - "config/qualification_display_catalog.json"
+        - "tools/question_review_console/inventory.py"
+        - "tools/question_review_console/qualification_workflow.py"
+        - "tools/question_review_console/static/app.js"
+        - "tests/test_question_review_inventory.py"
+        - "tests/test_question_review_qualification_workflow.py"
+        - "tests/test_question_review_progress_output_ui.py"
+        - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      commands:
+        - command: ".venv/bin/python -m unittest -q tests.test_question_review_inventory tests.test_question_review_qualification_workflow tests.test_question_review_progress_output_ui"
+          status: pass
+          summary: "82 tests passed"
+        - command: ".venv/bin/python -m unittest -q tests.test_question_review_server tests.test_question_review_qualification_runs tests.test_question_review_workflow"
+          status: pass
+          summary: "162 tests passed"
+        - command: "runtime inventory and API readback"
+          status: pass
+          summary: "79資格のraw display nameは0件。第一種・第二種衛生管理者は2014年10月などの表示名を返し、内部値20031・57001を維持した"
+        - command: "in-app browser readback"
+          status: pass
+          summary: "資格選択は第一種衛生管理者・第二種衛生管理者、年度候補と進捗カードは年度・実施回名を表示し、option valueは既存IDのままだった"
+        - command: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge

@@ -13,6 +13,8 @@ from tools.question_review_console.inventory import (
     QuestionInventory,
     correct_choice_comparison,
     detect_issues,
+    list_group_display_name,
+    load_qualification_display_catalog,
 )
 from tools.question_review_console.patch_validation import (
     law_audit_quality_warnings,
@@ -396,6 +398,104 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 }
             ],
         )
+
+    def test_display_catalog_overrides_ui_name_without_changing_publication_id(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            write_json(
+                root / "config" / "scrape_presets.json",
+                {
+                    "internal-code": {
+                        "qualification_name": "旧表示名",
+                        "publication_qualification_id": "stable-public-id",
+                    }
+                },
+            )
+            write_json(
+                root / "config" / "qualification_display_catalog.json",
+                {
+                    "schemaVersion": 1,
+                    "qualifications": {
+                        "internal-code": {"displayName": "正式な資格名"}
+                    },
+                },
+            )
+            source_dir = (
+                root
+                / "output"
+                / "internal-code"
+                / "questions_json"
+                / "90001"
+                / "00_source"
+            )
+            write_json(source_dir / "question.json", {"question_bodies": []})
+
+            qualification = QuestionInventory(root).inventory()["qualifications"][0]
+
+        self.assertEqual(qualification["id"], "internal-code")
+        self.assertEqual(qualification["displayName"], "正式な資格名")
+        self.assertEqual(qualification["publicationId"], "stable-public-id")
+
+    def test_duplicate_display_names_are_disambiguated_by_unchanged_internal_id(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            write_json(
+                root / "config" / "qualification_display_catalog.json",
+                {
+                    "schemaVersion": 1,
+                    "qualifications": {
+                        "old-code": {"displayName": "同じ資格"},
+                        "readable-code": {"displayName": "同じ資格"},
+                    },
+                },
+            )
+            for code in ("old-code", "readable-code"):
+                write_json(
+                    root
+                    / "output"
+                    / code
+                    / "questions_json"
+                    / "90001"
+                    / "00_source"
+                    / "question.json",
+                    {"question_bodies": []},
+                )
+
+            qualifications = QuestionInventory(root).inventory()["qualifications"]
+
+        self.assertEqual(
+            {item["displayName"] for item in qualifications},
+            {"同じ資格［old-code］", "同じ資格［readable-code］"},
+        )
+
+    def test_list_group_display_name_prefers_exam_occurrence_and_keeps_id_separate(self):
+        label = list_group_display_name(
+            "57019",
+            [
+                {
+                    "projected": {
+                        "examYear": 2023,
+                        "examOccurrenceId": "2023-10",
+                        "examLabel": "令和5年10月公表 関係法令",
+                    }
+                }
+            ],
+        )
+
+        self.assertEqual(label, "2023年10月")
+
+    def test_repository_display_catalog_covers_every_console_qualification(self):
+        root = Path(__file__).resolve().parents[1]
+        catalog = load_qualification_display_catalog(
+            root / "config" / "qualification_display_catalog.json"
+        )
+        exposed = {
+            path.parents[2].name
+            for path in (root / "output").glob("*/questions_json/*/00_source")
+        }
+
+        self.assertTrue(exposed)
+        self.assertEqual(sorted(exposed - set(catalog)), [])
 
     def test_reports_missing_top_level_upload_ready_verdict(self):
         warnings = upload_document_required_warnings(

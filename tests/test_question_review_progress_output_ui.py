@@ -9,6 +9,29 @@ INDEX_PATH = ROOT / "tools/question_review_console/static/index.html"
 
 
 class ProgressOutputUiContractTests(unittest.TestCase):
+    def test_qualification_and_group_selectors_use_display_labels_but_keep_ids_as_values(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("function listGroupDisplayName", javascript)
+        self.assertIn(
+            'const option = element("option", "", qualification.displayName || qualification.id)',
+            javascript,
+        )
+        self.assertIn(
+            'const option = element("option", "", listGroupDisplayName(group))',
+            javascript,
+        )
+        self.assertIn("option.value = group", javascript)
+        self.assertIn('return "年度・実施回"', javascript)
+        self.assertIn(
+            'element("strong", "", group.displayName || group.listGroupId)',
+            javascript,
+        )
+        self.assertNotIn(
+            'element("strong", "", group.listGroupId)',
+            javascript,
+        )
+
     def test_partial_refresh_ui_uses_year_fields_and_two_simple_modes(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = INDEX_PATH.read_text(encoding="utf-8")

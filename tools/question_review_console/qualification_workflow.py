@@ -2227,6 +2227,9 @@ class QualificationWorkflow:
         ) and not (group.get("artifactResolutionBlockers") or [])
         return {
             "listGroupId": str(group.get("listGroupId") or ""),
+            "displayName": str(
+                group.get("displayName") or group.get("listGroupId") or ""
+            ),
             "questionCount": len(questions),
             "issueQuestionCount": issue_count,
             "localReady": local_ready,

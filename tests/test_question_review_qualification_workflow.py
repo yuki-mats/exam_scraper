@@ -107,6 +107,22 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_overview_exposes_group_display_name_without_changing_group_id(self):
+        group = {
+            "listGroupId": "57019",
+            "displayName": "2023年10月",
+            "questions": [question(group="57019")],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory), FakeInventory("sample", [group])
+            )
+
+            summary = workflow.overview("sample")["groups"][0]
+
+        self.assertEqual(summary["listGroupId"], "57019")
+        self.assertEqual(summary["displayName"], "2023年10月")
+
     def test_plan_selects_exact_question_ids_and_normalizes_order(self):
         groups = [
             {
