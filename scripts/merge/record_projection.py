@@ -254,6 +254,33 @@ def _apply_candidates(
     return updated
 
 
+def _compatible_downstream_candidates(
+    current_record: Mapping[str, Any],
+    candidates: Sequence[PatchArtifactEntry],
+) -> tuple[tuple[PatchArtifactEntry, ...], int]:
+    """Ignore aggregate-derived patches whose source slices are no longer current."""
+
+    compatible: list[PatchArtifactEntry] = []
+    skipped = 0
+    for candidate in candidates:
+        entry = candidate.entry
+        if "aggregateAnswerDecomposition" not in entry:
+            compatible.append(candidate)
+            continue
+        if (
+            entry.get("aggregateAnswerDecomposition")
+            == current_record.get("aggregateAnswerDecomposition")
+            and isinstance(entry.get("choiceTextList"), list)
+            and entry.get("choiceTextList") == current_record.get("choiceTextList")
+            and isinstance(entry.get("sourceUniqueKeys"), list)
+            and entry.get("sourceUniqueKeys") == current_record.get("sourceUniqueKeys")
+        ):
+            compatible.append(candidate)
+            continue
+        skipped += 1
+    return tuple(compatible), skipped
+
+
 def project_merge_record(
     source_record: Mapping[str, Any],
     *,
@@ -267,11 +294,6 @@ def project_merge_record(
     question_issues: Sequence[QuestionIssueCorrectionEntry] = (),
     validate_aggregate_question_type: bool = True,
 ) -> RecordMergeProjection:
-    if originalized and explanation:
-        ensure_originalized_explanation_is_distinct(
-            source_record,
-            explanation,
-        )
     merged1 = {"question_bodies": [copy.deepcopy(dict(source_record))]}
     counts: dict[str, int] = {}
     counts["originalized"] = _apply_candidates(
@@ -295,6 +317,27 @@ def project_merge_record(
         apply_question_type_for_projection,
         apply_empty_map_when_missing=True,
     )
+    current_question_type = merged1["question_bodies"][0]
+    intent_fallback, counts["stale_aggregate_question_intent"] = (
+        _compatible_downstream_candidates(current_question_type, intent_fallback)
+    )
+    strict_correct, counts["stale_aggregate_correct_choice"] = (
+        _compatible_downstream_candidates(current_question_type, strict_correct)
+    )
+    law_context, counts["stale_aggregate_law_context"] = (
+        _compatible_downstream_candidates(current_question_type, law_context)
+    )
+    explanation, counts["stale_aggregate_explanation"] = (
+        _compatible_downstream_candidates(current_question_type, explanation)
+    )
+    question_set, counts["stale_aggregate_question_set"] = (
+        _compatible_downstream_candidates(current_question_type, question_set)
+    )
+    if originalized and explanation:
+        ensure_originalized_explanation_is_distinct(
+            source_record,
+            explanation,
+        )
     counts["answer_result_override"] = _apply_candidates(
         merged1, intent_fallback, apply_answer_result_overrides
     )

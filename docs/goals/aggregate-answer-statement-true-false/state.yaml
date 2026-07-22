@@ -73,7 +73,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aggregate-answer-statement-true-false/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aggregate-answer-statement-true-false"
 
-active_task: T064
+active_task: T065
 
 tasks:
   - id: T001
@@ -3540,7 +3540,7 @@ tasks:
   - id: T064
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "question_type再分類後も古い下流patchが残る場合、下流patchが保持するaggregate decomposition、choiceTextList、sourceUniqueKeysを現在のquestion_type投影と照合し、一致しない下流patchを資格共通で自動的に適用対象外とする。個別recordの削除又は例外一覧を作らず、現在の40 targetだけが後続工程の正本になることを証明する。"
     inputs:
@@ -3571,6 +3571,71 @@ tasks:
       - "Compatibility cannot be decided from existing patch content and current projection without adding per-record metadata or exceptions."
       - "A valid ordinary patch would be skipped."
       - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      changed_files:
+        - "scripts/merge/record_projection.py"
+        - "tests/test_prepare_qualification_01_04_manual_review.py"
+      commands:
+        - command: "python -m unittest -q tests.test_question_review_inventory tests.test_question_review_projection tests.test_prepare_qualification_01_04_manual_review tests.test_question_review_qualification_runs tests.test_question_review_qualification_record_scope tests.test_aggregate_answer_decomposition tests.test_question_review_workflow tests.test_question_review_question_candidate tests.test_original_question_pipeline"
+          status: pass
+          summary: "231 tests passed"
+        - command: "Current-data projection readback for aggregate-derived correct-choice records no longer present in the 40-target set"
+          status: pass
+          summary: "8 of 8 stale records were skipped; immutable source choices and keys were restored, decomposition was absent, and projection errors were zero"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      summary: "共有projectionへ一つの依存整合ガードを追加した。aggregate由来の下流patchは、現在のquestion_type投影とdecomposition、choiceTextList、sourceUniqueKeysが完全一致する場合だけ適用する。再分類で対象外になった古いpatchは削除も個別除外もせず無効化され、通常問題の下流patchは従来どおり適用される。"
+      deviations: []
+      spawned_tasks:
+        - T065
+      verification_attempts: 1
+      stopped_because: null
+  - id: T065
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "T063で再確定した第一種衛生管理者40 targetをexact source scopeで既存question_intent、correct_choice、law_context、explanation工程へ通し、172の原文記述を変更せず、全記述の正誤・法令情報・解説を確定する。"
+    inputs:
+      - "T063 current 40-target question_type projection"
+      - "T064 cross-stage compatibility guard"
+      - "Existing four-stage qualification runner"
+    constraints:
+      - "Use current projected target records as the scope source; do not keep a handwritten ID allowlist."
+      - "Use the existing four stages and shared validators; do not create an aggregate-specific duplicate pipeline."
+      - "Keep question concurrency at 5 or lower and do not start additional sub-agents."
+      - "Do not rewrite extracted statements or sourceUniqueKeys."
+      - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
+    expected_output:
+      - "Fresh exact-40 four-stage parent and child receipts"
+      - "All 172 source slices retain exact text and stable keys"
+      - "All 40 questions have complete verdict, law, and explanation arrays with zero blocked work"
+      - "No stale non-target downstream patch enters the run"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/questions_json/*/15_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+      - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+      - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/*/99_model_review_flags/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "Preview resolves exactly the 40 current approved aggregate targets and 160 work items across the four existing stages."
+      - "Every run input decomposition, choiceTextList, and sourceUniqueKeys matches the current question_type projection."
+      - "All 40 questions and 172 statements finish without hold, invalid, or pending work."
+      - "correctChoiceText, lawReferences, and explanationText align one-to-one with the 172 source slices."
+      - "00_source immutability, no Firestore, focused regression, and git diff check pass."
+    stop_if:
+      - "Preview contains a non-target or omits a current target."
+      - "A stage attempts to rewrite choiceTextList, sourceUniqueKeys, or aggregate decomposition."
+      - "A shared validator rejects a current target for a semantic reason that requires changing question_type scope."
+      - "Need an aggregate-specific downstream pipeline or a path outside allowed_files."
       - "00_source or Firestore would change."
     receipt: null
   - id: T999

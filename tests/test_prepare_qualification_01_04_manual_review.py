@@ -4,7 +4,8 @@ from pathlib import Path
 import unittest
 
 from scripts.check import prepare_qualification_01_04_manual_review as module
-from scripts.merge.patch_views import apply_question_type
+from scripts.merge.patch_views import PatchArtifactEntry, apply_question_type
+from scripts.merge.record_projection import project_merge_record
 from scripts.common.aggregate_answer_decomposition import (
     REVIEW_SCHEMA_VERSION,
     generate_statement_candidates,
@@ -14,6 +15,10 @@ from scripts.common.aggregate_answer_decomposition import (
 
 
 class PrepareQualification0104ManualReviewTest(unittest.TestCase):
+    @staticmethod
+    def _patch(path: str, entry: dict) -> PatchArtifactEntry:
+        return PatchArtifactEntry(path=Path(path), entry=entry)
+
     def test_aggregate_answer_projection_discards_old_ids_and_choice_data(self) -> None:
         body = "組合せを選べ。\nA 原文一。\nB 原文二。"
         source = {
@@ -52,6 +57,125 @@ class PrepareQualification0104ManualReviewTest(unittest.TestCase):
         self.assertNotIn("firestoreSourceQuestions", projected)
         self.assertNotIn("correctChoiceText", projected)
         self.assertNotIn("explanationText", projected)
+
+    def test_matching_aggregate_downstream_patch_remains_applicable(self) -> None:
+        body = "組合せを選べ。\nA 原文一。\nB 原文二。"
+        source = {
+            "canonical_question_key": "sample:2026:q001",
+            "original_question_id": "q1",
+            "questionBodyText": body,
+            "choiceTextList": ["A、B", "Aのみ"],
+            "sourceUniqueKeys": ["source:1", "source:2"],
+            "questionType": "group_choice",
+        }
+        candidate = generate_statement_candidates(body)["candidates"][0]
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(body),
+            "classification": "target",
+            "candidateId": candidate["candidateId"],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+        target = {
+            "questionType": "true_false",
+            "isCalculationQuestion": False,
+            **materialize_decomposition(source, [review, dict(review)]),
+        }
+        downstream = {
+            **target,
+            "questionIntent": "select_correct",
+            "correctChoiceText": ["正しい", "間違い"],
+        }
+
+        projected = project_merge_record(
+            source,
+            question_type=(self._patch("question_type.json", target),),
+            intent_fallback=(self._patch("intent.json", downstream),),
+            strict_correct=(self._patch("correct.json", downstream),),
+        )
+
+        self.assertEqual(projected.merged2["correctChoiceText"], ["正しい", "間違い"])
+        self.assertEqual(projected.update_counts["stale_aggregate_question_intent"], 0)
+        self.assertEqual(projected.update_counts["stale_aggregate_correct_choice"], 0)
+        self.assertIn(Path("correct.json"), projected.applied_paths)
+
+    def test_reclassified_non_target_ignores_all_stale_aggregate_layers(self) -> None:
+        source = {
+            "canonical_question_key": "sample:2026:q001",
+            "original_question_id": "q1",
+            "questionBodyText": "個数を選べ。\nA 前提一。\nB 前提二。",
+            "choiceTextList": ["一つ", "二つ"],
+            "sourceUniqueKeys": ["source:1", "source:2"],
+            "questionType": "group_choice",
+        }
+        restored = {
+            "questionType": "group_choice",
+            "choiceTextList": list(source["choiceTextList"]),
+            "sourceUniqueKeys": list(source["sourceUniqueKeys"]),
+        }
+        stale = {
+            "aggregateAnswerDecomposition": {
+                "schemaVersion": "aggregate-answer-decomposition/v1",
+                "sourceHash": source_text_hash(source["questionBodyText"]),
+                "classification": "target",
+                "spans": [{"start": 7, "end": 13}, {"start": 14, "end": 20}],
+                "decision": "approve",
+                "issueCodes": [],
+            },
+            "choiceTextList": ["A 前提一。", "B 前提二。"],
+            "sourceUniqueKeys": ["derived:1", "derived:2"],
+            "questionIntent": "select_correct",
+            "correctChoiceText": ["正しい", "間違い"],
+            "lawReferences": [[{"lawId": "old"}], [{"lawId": "old"}]],
+            "explanationText": ["古い解説一", "古い解説二"],
+            "questionSetId": "old-set",
+        }
+
+        projected = project_merge_record(
+            source,
+            question_type=(self._patch("question_type.json", restored),),
+            intent_fallback=(self._patch("intent.json", stale),),
+            strict_correct=(self._patch("correct.json", stale),),
+            law_context=(self._patch("law.json", stale),),
+            explanation=(self._patch("explanation.json", stale),),
+            question_set=(self._patch("question_set.json", stale),),
+        )
+
+        self.assertEqual(projected.merged2["choiceTextList"], ["一つ", "二つ"])
+        self.assertEqual(projected.merged2["sourceUniqueKeys"], ["source:1", "source:2"])
+        self.assertNotIn("aggregateAnswerDecomposition", projected.merged2)
+        self.assertNotIn("lawReferences", projected.merged2)
+        self.assertNotIn("explanationText", projected.merged2)
+        self.assertNotIn("questionSetId", projected.merged2)
+        self.assertNotIn(Path("correct.json"), projected.applied_paths)
+        self.assertEqual(projected.update_counts["stale_aggregate_question_intent"], 1)
+        self.assertEqual(projected.update_counts["stale_aggregate_correct_choice"], 1)
+        self.assertEqual(projected.update_counts["stale_aggregate_law_context"], 1)
+        self.assertEqual(projected.update_counts["stale_aggregate_explanation"], 1)
+        self.assertEqual(projected.update_counts["stale_aggregate_question_set"], 1)
+
+    def test_ordinary_downstream_patch_remains_applicable(self) -> None:
+        source = {
+            "original_question_id": "q1",
+            "questionBodyText": "正しいものを選べ。",
+            "choiceTextList": ["選択肢一", "選択肢二"],
+            "questionType": "true_false",
+        }
+        ordinary = {
+            "questionIntent": "select_correct",
+            "correctChoiceText": ["正しい", "間違い"],
+        }
+
+        projected = project_merge_record(
+            source,
+            intent_fallback=(self._patch("intent.json", ordinary),),
+            strict_correct=(self._patch("correct.json", ordinary),),
+        )
+
+        self.assertEqual(projected.merged2["correctChoiceText"], ["正しい", "間違い"])
+        self.assertEqual(projected.update_counts["stale_aggregate_question_intent"], 0)
+        self.assertEqual(projected.update_counts["stale_aggregate_correct_choice"], 0)
 
     def test_flash_card_review_uses_one_question_level_explanation(self) -> None:
         row = module.build_review_row(
