@@ -3984,7 +3984,7 @@ tasks:
   - id: T071
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "代表1問で実証した共通03b経路を、現在の第一種衛生管理者25法令対象すべてへ低並列で適用し、各問のpatch・v2 sidecar・原文不変を一件単位で確定する。"
     inputs:
@@ -3993,7 +3993,7 @@ tasks:
       - "prompt/qualification_docs/1eiseikanrisha/01_law_reference_policy.md"
     constraints:
       - "Use one existing workflow and one per-question atomic transaction; do not add another pipeline."
-      - "Use questionConcurrency 2 or less and do not spawn additional agents."
+      - "Use questionConcurrency 1 and do not spawn additional agents."
       - "Use only e-Gov or competent ministry primary sources."
       - "Do not add qualification-specific code or question-ID exceptions."
       - "Do not touch 00_source, Firestore, category, question sets, or gas-shunin dirty files."
@@ -4012,7 +4012,7 @@ tasks:
       - "output/1eiseikanrisha/review/law_revision_audit/**"
       - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
     verify:
-      - "Preview contains exactly the current 25 approved target and law-related questions with questionConcurrency 2."
+      - "Preview contains exactly the current 25 approved target and law-related questions with questionConcurrency 1."
       - "Every completed question passes the existing server-owned candidate and law-audit quality validators."
       - "Every non-hold question has structured verified lawReferences, aligned current verdicts, and exactly one v2 sidecar row."
       - "All 40 targets and 172 source slices/keys retain the pre-run digest."
@@ -4021,6 +4021,88 @@ tasks:
     stop_if:
       - "The same generic validation error recurs after one bounded prompt or contract correction."
       - "Need qualification-specific code or a question-ID exception."
+      - "Need a path outside allowed_files."
+      - "00_source or Firestore would change."
+    receipt:
+      result: done
+      harness: codex
+      changed_files:
+        - "output/question_review_console/workflow_runs/1eiseikanrisha/20260722T153511160762-e6ff300b/**"
+        - "output/question_review_console/1eiseikanrisha/*/work_versions.json"
+        - "output/1eiseikanrisha/questions_json/*/18_law_context_prepared/**"
+        - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+        - "output/1eiseikanrisha/questions_json/*/23_correctChoiceText_fixed/**"
+        - "output/1eiseikanrisha/review/law_revision_audit/**"
+        - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+      commands:
+        - command: "dynamic current-scope validation and law_audit preview"
+          status: pass
+          summary: "現在のapproved targetかつisLawRelated=trueの25問を一意に確認し、25 work items、questionConcurrency 1で開始した"
+        - command: "qualification-runs parent 20260722T153511160762-e6ff300b"
+          status: pass
+          summary: "25問・25 work itemsをすべてvalidatedにし、親receiptと各問のserver-owned candidate validationを通した"
+        - command: "independent sidecar and projection readback"
+          status: pass
+          summary: "25 sourceRecordRefすべてにv2 sidecarがちょうど1件あり、170件のlawReferenceがverified object、現行正誤とfactsの不一致0件だった"
+        - command: "python -m unittest -q tests.test_question_review_qualification_law_version tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "119 tests passed"
+        - command: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 source files unchanged"
+        - command: "git diff --check"
+          status: pass
+      summary: "追加エージェントを起動せず、同時model turn・write workerを各1に固定して25法令問を共通03bへ通した。初回で22問、検査feedbackを引き継いだ限定再試行で残る3問も確定し、最終的に25問すべてsame_as_current・secondary_verifiedへ収束した。資格固有コード又は問題ID例外は追加していない。40 target・172 source slices/keysのdigestはf4f253085613b83a9c827899ec424f6ffc2893c3b50a70b191e2e3940fcb2611のままである。"
+      deviations:
+        - "questionConcurrencyは許可値の最小である1を使用したため、全件監査を直列で実行した"
+      spawned_tasks:
+        - T072
+      verification_attempts: 1
+      stopped_because: null
+  - id: T072
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "現行法監査後の40 targetを既存03工程で再確定して工程版を最新化し、資格共通の03c・04・deliveryでcategory、questionSet、merge、convert、upload dry-runを第一種衛生管理者の公開候補へ整える。"
+    inputs:
+      - "T071 all 25 law questions current-law verified"
+      - "Current 40 approved aggregate targets and 172 source statements"
+      - "Existing qualification maintenance workflow and delivery workflow"
+    constraints:
+      - "Use only existing explanation, category_setup, question_set, and delivery stages."
+      - "Use exact 40 target questionIds for question-level stages and questionConcurrency 1."
+      - "Do not add qualification-specific code or question-ID exceptions."
+      - "Do not spawn additional agents."
+      - "Do not write 00_source or Firestore and do not touch gas-shunin dirty files."
+      - "Do not directly edit generated merge, convert, or upload-ready artifacts."
+    expected_output:
+      - "Current explanation work versions for all 40 target questions after law audit"
+      - "Canonical first-class health category.json"
+      - "QuestionSet assignment for all 40 target questions"
+      - "Fresh merge, convert, quality-gate, and upload dry-run receipts for every target group"
+      - "No drift in the 40 targets or 172 extracted source statements"
+    allowed_files:
+      - "output/question_review_console/workflow_runs/1eiseikanrisha/**"
+      - "output/question_review_console/1eiseikanrisha/**"
+      - "output/1eiseikanrisha/category/**"
+      - "output/1eiseikanrisha/questions_json/*/21_explanationText_added/**"
+      - "output/1eiseikanrisha/questions_json/*/22_questionSetId_linked/**"
+      - "output/1eiseikanrisha/questions_json/*/20_merged_1/**"
+      - "output/1eiseikanrisha/questions_json/*/30_merged_2/**"
+      - "output/1eiseikanrisha/questions_json/*/40_convert/**"
+      - "output/1eiseikanrisha/questions_json/upload_to_firestore/**"
+      - "docs/goals/aggregate-answer-statement-true-false/state.yaml"
+    verify:
+      - "All 40 target questions have current explanation and question_set work versions."
+      - "Every target question resolves to category.json questionSetId values without placeholders."
+      - "Delivery succeeds for all groups containing target questions with upload dry-run only."
+      - "All 40 targets and 172 source slices/keys retain the pre-run digest."
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "Category design would require a qualification-specific runtime branch rather than data."
+      - "A target question cannot be assigned without inventing a one-question category."
       - "Need a path outside allowed_files."
       - "00_source or Firestore would change."
     receipt: null
