@@ -5,7 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v2";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
-const AUTO_QUESTION_CONCURRENCY = 10;
+const AUTO_QUESTION_CONCURRENCY = 1;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -1895,34 +1895,16 @@ function renderQualificationActiveRun() {
     : view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
   const model = run.model || state.codexStatus?.model || "自動選択";
   const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
-  const parallelWorkers = Number(run.parallelWorkerLimit || 0);
-  const actualResearchWorkers = Number(run.researchSubagentCount || 0);
-  const researchStatus = String(run.researchStatus || "");
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
     const modelBatchSize = Number(run.modelBatchSize || 1);
-    const questionConcurrency = Number(run.questionConcurrency || parallelWorkers || 1);
-    parallelLabel = ` ・ 入力別に最大${modelBatchSize}問・最大${questionConcurrency}turn・検査と確定は1問ずつ`;
-  } else if (view.active && parallelWorkers > 1 && run.executionPhase === "parallel_research") {
-    parallelLabel = ` ・ 判断調査中（最大${parallelWorkers}並列・読取専用）`;
-  } else if (view.active && run.executionPhase === "writing" && researchStatus === "failed") {
-    parallelLabel = " ・ 並列調査失敗・単独保存中";
-  } else if (view.active && run.executionPhase === "writing" && actualResearchWorkers > 1) {
-    parallelLabel = ` ・ 判断${actualResearchWorkers}並列完了・保存中（1件ずつ）`;
-  } else if (view.active && run.executionPhase === "writing" && actualResearchWorkers > 0) {
-    parallelLabel = ` ・ 判断調査${actualResearchWorkers}担当完了・保存中（1件ずつ）`;
+    parallelLabel = ` ・ 入力別に最大${modelBatchSize}問・直列実行・検査と確定は1問ずつ`;
+  } else if (view.active && run.executionPhase === "parallel_research") {
+    parallelLabel = " ・ 判断調査中（1 thread・読取専用）";
   } else if (view.active && run.executionPhase === "writing") {
     parallelLabel = " ・ 保存中（1件ずつ）";
-  } else if (researchStatus === "failed") {
-    parallelLabel = " ・ 並列調査失敗・単独処理";
-  } else if (actualResearchWorkers > 1) {
-    parallelLabel = ` ・ 判断${actualResearchWorkers}並列完了（保存は1件ずつ）`;
-  } else if (actualResearchWorkers > 0) {
-    parallelLabel = ` ・ 判断調査${actualResearchWorkers}担当完了（保存は1件ずつ）`;
-  } else if (researchStatus === "completed_without_parallel") {
-    parallelLabel = " ・ 並列調査実績0・単独処理";
-  } else if (parallelWorkers > 1) {
-    parallelLabel = ` ・ 判断最大${parallelWorkers}並列（保存は1件ずつ）`;
+  } else {
+    parallelLabel = " ・ 判断と保存は直列";
   }
   $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}${parallelLabel}`;
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);

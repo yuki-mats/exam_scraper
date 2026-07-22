@@ -1,11 +1,9 @@
 from __future__ import annotations
 
 import copy
-import concurrent.futures
 import hashlib
 import hmac
 import json
-import os
 import secrets
 import tempfile
 import threading
@@ -32,8 +30,6 @@ from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 
 
 SCHEMA_VERSION = "question-evaluation/v1"
-EVALUATION_CONCURRENCY_ENV = "QUESTION_EVALUATION_CONCURRENCY"
-DEFAULT_EVALUATION_CONCURRENCY = 4
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
 ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
@@ -383,7 +379,6 @@ class QuestionEvaluationService:
         run_store: QualificationRunStore | None = None,
         work_versions: QuestionWorkVersionStore | None = None,
         work_policy_provider: Callable[[str], Any] | None = None,
-        concurrency: int | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.secret = secret.encode("utf-8")
@@ -397,7 +392,6 @@ class QuestionEvaluationService:
         self._policy_lock = threading.RLock()
         self._policy = evaluation_policy(self.repo_root)
         self._policy_checked_at = time.monotonic()
-        self.concurrency = concurrency or self._concurrency_from_environment()
         self.provider = (
             str(app_server.provider)
             if app_server is not None
@@ -543,16 +537,7 @@ class QuestionEvaluationService:
             }, None
 
         positioned_items = list(enumerate(eligible_items, start=1))
-        worker_count = min(self.concurrency, len(positioned_items))
-        if worker_count > 1:
-            emit(f"個別の別セッションを最大{worker_count}件並列で実行します。")
-            with concurrent.futures.ThreadPoolExecutor(
-                max_workers=worker_count,
-                thread_name_prefix="question-evaluation",
-            ) as executor:
-                outcomes = list(executor.map(evaluate, positioned_items))
-        else:
-            outcomes = [evaluate(item) for item in positioned_items]
+        outcomes = [evaluate(item) for item in positioned_items]
         for completed_item, failure in outcomes:
             if completed_item is not None:
                 completed.append(completed_item)
@@ -1009,12 +994,3 @@ class QuestionEvaluationService:
     def _token(self, payload: Mapping[str, Any]) -> str:
         value = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return hmac.new(self.secret, value.encode("utf-8"), hashlib.sha256).hexdigest()
-
-    @staticmethod
-    def _concurrency_from_environment() -> int:
-        raw = os.environ.get(EVALUATION_CONCURRENCY_ENV, "")
-        try:
-            value = int(raw) if raw else DEFAULT_EVALUATION_CONCURRENCY
-        except ValueError:
-            return DEFAULT_EVALUATION_CONCURRENCY
-        return max(1, min(value, 8))

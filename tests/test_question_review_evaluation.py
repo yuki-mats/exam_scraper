@@ -1,7 +1,6 @@
 import copy
 import json
 import tempfile
-import threading
 import time
 import unittest
 from pathlib import Path
@@ -449,20 +448,15 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["failedCount"], 1)
         self.assertEqual(result["passedCount"], 1)
 
-    def test_batch_limits_parallel_sessions_and_preserves_result_order(self):
+    def test_batch_runs_sessions_serially_and_preserves_result_order(self):
         active = 0
         max_active = 0
-        lock = threading.Lock()
-        pair_started = threading.Barrier(2)
 
         def runner(_prompt):
             nonlocal active, max_active
-            with lock:
-                active += 1
-                max_active = max(max_active, active)
-            pair_started.wait(timeout=2)
-            with lock:
-                active -= 1
+            active += 1
+            max_active = max(max_active, active)
+            active -= 1
             return evaluation_result()
 
         questions = []
@@ -482,14 +476,13 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 Path(directory),
                 "secret",
                 result_runner=runner,
-                concurrency=2,
             )
             preview = service.preview_many(questions)
             result = service.run_many(
                 questions, preview["previewToken"], lambda _line: None
             )
 
-        self.assertEqual(max_active, 2)
+        self.assertEqual(max_active, 1)
         self.assertEqual(
             [item["questionId"] for item in result["results"]],
             [question["id"] for question in questions],

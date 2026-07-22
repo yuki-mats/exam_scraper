@@ -191,21 +191,14 @@ class ProgressOutputUiContractTests(unittest.TestCase):
             self.assertIn(selector, css)
         self.assertIn(".progress-value-item p { font-size: 13px;", css)
 
-    def test_active_run_explains_safe_parallelism(self):
+    def test_active_run_explains_serial_execution(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
 
-        self.assertIn("run.parallelWorkerLimit", javascript)
-        self.assertIn("run.researchSubagentCount", javascript)
         self.assertIn('run.executionPhase === "parallel_research"', javascript)
-        self.assertIn("判断調査中（最大${parallelWorkers}並列・読取専用）", javascript)
-        self.assertIn("判断${actualResearchWorkers}並列完了・保存中", javascript)
-        self.assertIn('researchStatus === "failed"', javascript)
-        self.assertIn("並列調査失敗・単独保存中", javascript)
-        self.assertIn("判断${actualResearchWorkers}並列完了（保存は1件ずつ）", javascript)
-        self.assertIn("並列調査実績0・単独処理", javascript)
-        self.assertIn("判断最大${parallelWorkers}並列（保存は1件ずつ）", javascript)
+        self.assertIn("判断調査中（1 thread・読取専用）", javascript)
+        self.assertIn("判断と保存は直列", javascript)
         self.assertIn(
-            "入力別に最大${modelBatchSize}問・最大${questionConcurrency}turn・検査と確定は1問ずつ",
+            "入力別に最大${modelBatchSize}問・直列実行・検査と確定は1問ずつ",
             javascript,
         )
 

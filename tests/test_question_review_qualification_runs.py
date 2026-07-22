@@ -3814,7 +3814,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertFalse(patch_exists)
 
-    def test_question_concurrency_defaults_to_ten_and_allows_explicit_thirty_two(self):
+    def test_question_concurrency_defaults_to_one_and_allows_explicit_override(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -3855,15 +3855,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 preview_default["previewToken"],
                 stage_ids=["question_type"],
                 list_group_ids=["2026"],
-                question_concurrency=10,
+                question_concurrency=1,
             )
             parent = started["run"]
 
-        self.assertEqual(preview_default["questionConcurrency"], 10)
-        self.assertEqual(preview_thirty_two["questionConcurrency"], 32)
+        self.assertEqual(preview_default["questionConcurrency"], 1)
+        self.assertEqual(preview_thirty_two["questionConcurrency"], 1)
         self.assertEqual(preview_default["previewToken"], preview_ten["previewToken"])
-        self.assertEqual(parent["questionConcurrency"], 10)
-        self.assertEqual(parent["parallelWorkerLimit"], 10)
+        self.assertEqual(parent["questionConcurrency"], 1)
+        self.assertEqual(parent["parallelWorkerLimit"], 1)
 
 
     def test_improvement_report_failure_warns_without_rejecting_validated_patch(self):
@@ -5052,14 +5052,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 question_number = Path(
                     source_record_ref.split("#", 1)[0]
                 ).stem.rsplit("_", 1)[1]
+                question_id = f"{qualification}-{list_group_id}-q{question_number}"
                 return SimpleNamespace(
                     record={
-                        "original_question_id": (
-                            f"{qualification}-{list_group_id}-q{question_number}"
-                        ),
+                        "original_question_id": question_id,
                         "sourceQuestionKey": (
                             f"{qualification}:{list_group_id}:q{question_number}"
                         ),
+                        "reviewQuestionId": question_id,
+                        "sourceRecordRef": source_record_ref,
                         "questionBodyText": listed_source_text,
                         "choiceTextList": ["選択肢A", "選択肢B"],
                         "isCalculationQuestion": True,

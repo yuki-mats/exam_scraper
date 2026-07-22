@@ -1609,16 +1609,16 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
-        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 10", javascript)
+        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 1", javascript)
         self.assertIn("return AUTO_QUESTION_CONCURRENCY", javascript)
         self.assertIn(
-            'name="qualification-run-concurrency" value="10"',
+            'name="qualification-run-concurrency" value="1"',
             html,
         )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
         self.assertIn("自動・安定優先", html)
-        self.assertIn("同時実行は最大10件", html)
-        self.assertIn("入力token量と失敗率", html)
+        self.assertIn("model turnを1本ずつ実行", html)
+        self.assertIn("検査と確定も一問単位", html)
         self.assertIn("複数選択可", javascript)
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
         self.assertIn("${preview.targetCount}${questionUnit} × ${preview.stageCount}工程", javascript)

@@ -13,11 +13,10 @@ from tools.question_review_console.codex_app_server import (
     APP_SERVER_AGENT_THREAD_CAP,
     CodexAppServerError,
     CodexAppServerClient,
-    MAINTENANCE_RESEARCH_WORKERS,
+    DEFAULT_TURN_TIMEOUT_SECONDS,
     QUESTION_MAINTENANCE_RETRY_MODEL,
     RESEARCH_AGENT_CONFIG,
     RESEARCH_AGENT_CONFIG_FILENAME,
-    RESEARCH_AGENT_DESCRIPTION,
     RESEARCH_AGENT_ROLE,
     SAFE_SHELL_PATH,
     SubscriptionGateError,
@@ -281,7 +280,10 @@ class ProtocolClient(CodexAppServerClient):
         if method == "thread/start":
             self.turn_number += 1
             thread_id = f"thread-{self.turn_number}"
-            if params.get("threadSource") == "exam_scraper_maintenance_research":
+            if (
+                params.get("threadSource") == "exam_scraper_maintenance_research"
+                and params.get("config", {}).get("features", {}).get("multi_agent") is True
+            ):
                 self.research_threads.add(thread_id)
             sandbox_type = "readOnly" if params["sandbox"] == "read-only" else "workspaceWrite"
             return {
@@ -640,6 +642,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertIn("hooks", command)
         self.assertIn("browser_use", command)
         self.assertIn("multi_agent", command)
+        self.assertEqual(command[command.index("multi_agent") - 1], "--disable")
         self.assertNotIn(f"agents.max_threads={APP_SERVER_AGENT_THREAD_CAP}", command)
         self.assertNotIn(f"agents.max_depth={APP_SERVER_AGENT_MAX_DEPTH}", command)
         self.assertIn('forced_login_method="chatgpt"', command)
@@ -828,7 +831,7 @@ class AppServerTurnTests(unittest.TestCase):
             any(method == "turn/interrupt" for method, _params in client.calls)
         )
 
-    def test_read_only_research_enables_bounded_subagents_only_for_that_thread(self):
+    def test_read_only_research_uses_one_thread_without_subagents(self):
         client = ProtocolClient()
         with tempfile.TemporaryDirectory() as directory:
             result = client.run_turn(
@@ -840,16 +843,13 @@ class AppServerTurnTests(unittest.TestCase):
             )
 
         self.assertEqual(result.model, "gpt-5.5")
-        self.assertEqual(
-            result.subagent_thread_ids,
-            ("thread-1-child-1", "thread-1-child-2"),
-        )
-        self.assertEqual(result.subagent_models, ("gpt-5.5",))
-        self.assertEqual(result.subagent_reasoning_efforts, ("high",))
+        self.assertEqual(result.subagent_thread_ids, ())
+        self.assertEqual(result.subagent_models, ())
+        self.assertEqual(result.subagent_reasoning_efforts, ())
         thread_params = next(
             params for method, params in client.calls if method == "thread/start"
         )
-        self.assertTrue(thread_params["config"]["features"]["multi_agent"])
+        self.assertFalse(thread_params["config"]["features"]["multi_agent"])
         self.assertEqual(
             thread_params["config"]["agents"]["max_threads"],
             APP_SERVER_AGENT_THREAD_CAP,
@@ -858,18 +858,10 @@ class AppServerTurnTests(unittest.TestCase):
             thread_params["config"]["agents"]["max_depth"],
             APP_SERVER_AGENT_MAX_DEPTH,
         )
-        self.assertEqual(
-            thread_params["config"]["agents"][RESEARCH_AGENT_ROLE],
-            {
-                "description": RESEARCH_AGENT_DESCRIPTION,
-                "config_file": str(client.research_agent_config_path),
-            },
-        )
+        self.assertNotIn(RESEARCH_AGENT_ROLE, thread_params["config"]["agents"])
         self.assertTrue(thread_params["ephemeral"])
-        self.assertIn(
-            f"最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagent",
-            thread_params["developerInstructions"],
-        )
+        self.assertIn("subagentは使わず", thread_params["developerInstructions"])
+        self.assertEqual(client.turn_timeout, DEFAULT_TURN_TIMEOUT_SECONDS)
 
 
     def test_research_rejects_any_project_custom_agent_before_start(self):
@@ -894,40 +886,19 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertNotIn("thread/start", [method for method, _params in client.calls])
 
-    def test_research_rejects_more_than_two_wrong_model_or_wrong_effort_subagents(self):
-        too_many = ProtocolClient()
-        too_many.research_child_count = MAINTENANCE_RESEARCH_WORKERS + 1
+    def test_research_does_not_spawn_children_even_when_fixture_requests_them(self):
+        client = ProtocolClient()
+        client.research_child_count = 20
         with tempfile.TemporaryDirectory() as directory:
-            with self.assertRaisesRegex(CodexAppServerError, "上限を超え"):
-                too_many.run_turn(
-                    "research",
-                    work_type="maintenance_research",
-                    sandbox="read-only",
-                    emit=lambda _line: None,
-                    cwd=Path(directory),
-                )
+            result = client.run_turn(
+                "research",
+                work_type="maintenance_research",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                cwd=Path(directory),
+            )
 
-            wrong_model = ProtocolClient()
-            wrong_model.research_child_model = "gpt-other"
-            with self.assertRaisesRegex(SubscriptionGateError, "指定外model"):
-                wrong_model.run_turn(
-                    "research",
-                    work_type="maintenance_research",
-                    sandbox="read-only",
-                    emit=lambda _line: None,
-                    cwd=Path(directory),
-                )
-
-            wrong_effort = ProtocolClient()
-            wrong_effort.research_child_effort = "medium"
-            with self.assertRaisesRegex(SubscriptionGateError, "medium"):
-                wrong_effort.run_turn(
-                    "research",
-                    work_type="maintenance_research",
-                    sandbox="read-only",
-                    emit=lambda _line: None,
-                    cwd=Path(directory),
-                )
+        self.assertEqual(result.subagent_thread_ids, ())
 
     def test_four_work_types_use_distinct_sessions_and_expected_sandboxes(self):
         client = ProtocolClient()

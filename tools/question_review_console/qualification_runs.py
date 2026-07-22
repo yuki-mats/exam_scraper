@@ -25,6 +25,7 @@ from scripts.merge.merge_utils import (
 )
 from scripts.common.question_identity import (
     SourceIdentityBinding,
+    question_id_from_source_unique_key,
     source_question_key,
     source_record_ref,
 )
@@ -158,7 +159,7 @@ class QuestionValidationResult:
 
 
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, DEFAULT_MAX_PARALLEL_TURNS)
-DEFAULT_QUESTION_CONCURRENCY = 10
+DEFAULT_QUESTION_CONCURRENCY = 1
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -649,7 +650,8 @@ def normalize_question_concurrency(value: Any) -> int:
         raise QualificationRunError(
             "同時model turn上限は1、5、10、32から選択してください。"
         )
-    return concurrency
+    # 旧runとAPI requestの読み取り互換は維持するが、新しい実行は常に直列化する。
+    return 1
 
 
 class QuestionItemError(QualificationRunError):
@@ -12322,6 +12324,11 @@ class QualificationRunCoordinator:
                     derived_aliases = set(
                         allowed_derived_fields.get("sourceUniqueKeys") or []
                     )
+                    derived_aliases.update(
+                        document_id
+                        for source_key in tuple(derived_aliases)
+                        if (document_id := question_id_from_source_unique_key(source_key))
+                    )
                     source_bound_aliases = {
                         alias
                         for entry in source_matches
@@ -12352,8 +12359,24 @@ class QualificationRunCoordinator:
                             )
                         )
                     ):
+                        target_extras = sorted(
+                            (entry_aliases - derived_aliases)
+                            - (matched_target_group | source_bound_aliases)
+                        )
+                        source_extras = sorted(
+                            (source_aliases(after_entry) - derived_aliases)
+                            - source_bound_aliases
+                        )
+                        workflow_extras = sorted(
+                            workflow_aliases(after_entry) - source_bound_aliases
+                        )
                         raise QualificationRunError(
-                            f"sourceと異なるID fieldを検出しました: {relative}"
+                            f"sourceと異なるID fieldを検出しました: {relative} / "
+                            f"targetGroups={len(matching_target_groups)}, "
+                            f"sourceMatches={len(source_matches)}, "
+                            f"targetExtras={target_extras}, "
+                            f"sourceExtras={source_extras}, "
+                            f"workflowExtras={workflow_extras}"
                         )
                 if is_law_audit_sidecar:
                     if (

@@ -83,10 +83,11 @@ QUESTION_MAINTENANCE_MODELS = frozenset(
     {QUESTION_MAINTENANCE_MODEL, QUESTION_MAINTENANCE_RETRY_MODEL}
 )
 TURN_REASONING_EFFORT = "high"
-MAINTENANCE_RESEARCH_WORKERS = 2
-APP_SERVER_AGENT_THREAD_CAP = MAINTENANCE_RESEARCH_WORKERS + 1
+MAINTENANCE_RESEARCH_WORKERS = 0
+APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
 TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
+DEFAULT_TURN_TIMEOUT_SECONDS = 900
 RESEARCH_AGENT_ROLE = "explorer"
 RESEARCH_AGENT_CONFIG_FILENAME = "question-maintenance-explorer.toml"
 RESEARCH_AGENT_DESCRIPTION = "問題整備のread-only事前調査担当"
@@ -270,7 +271,7 @@ class CodexAppServerClient:
         *,
         binary_path: Path | None = None,
         request_timeout: int = 30,
-        turn_timeout: int = 1800,
+        turn_timeout: int = DEFAULT_TURN_TIMEOUT_SECONDS,
         status_cache_seconds: float = 3.0,
     ) -> None:
         self.repo_root = repo_root.resolve()
@@ -428,8 +429,7 @@ class CodexAppServerClient:
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
                 "fast_mode": False,
-                # 並列subagentはread-only調査threadだけに限定する。
-                "multi_agent": research_work,
+                "multi_agent": False,
             },
             "agents": {
                 "max_threads": APP_SERVER_AGENT_THREAD_CAP,
@@ -446,8 +446,8 @@ class CodexAppServerClient:
         elif research_work:
             developer_instructions = (
                 "このthreadは問題整備のread-only事前調査専用である。file又は外部状態を変更しない。"
-                f"対象問題を重複なく分け、最大{MAINTENANCE_RESEARCH_WORKERS}つのexplorer subagentで並列に読み取り、"
-                "根拠と問題IDごとの最終判断案を親threadで統合する。思考過程は返さない。"
+                "subagentは使わず、対象問題の根拠と問題IDごとの最終判断案を一つのthreadで返す。"
+                "思考過程は返さない。"
             )
         elif candidate_work:
             developer_instructions = (
@@ -466,11 +466,6 @@ class CodexAppServerClient:
         self._assert_no_active_hooks(turn_cwd)
         if research_work:
             self._assert_no_custom_agents(turn_cwd)
-            research_agent_config = self._trusted_research_agent_config()
-            config["agents"][RESEARCH_AGENT_ROLE] = {
-                "description": RESEARCH_AGENT_DESCRIPTION,
-                "config_file": str(research_agent_config),
-            }
         thread_response = self._request(
             "thread/start",
             {
@@ -871,7 +866,7 @@ class CodexAppServerClient:
             f'model="{QUESTION_MAINTENANCE_MODEL}"',
             "-c",
             f'model_reasoning_effort="{TURN_REASONING_EFFORT}"',
-            "--enable",
+            "--disable",
             "multi_agent",
         ]
         for feature in DISABLED_EXTERNAL_FEATURES:
@@ -1038,8 +1033,8 @@ class CodexAppServerClient:
         features = _as_mapping(config.get("features"), "Codex feature設定")
         if any(features.get(name) is not False for name in DISABLED_EXTERNAL_FEATURES):
             raise SubscriptionGateError("外部作用機能の無効化を確認できません。")
-        if features.get("multi_agent") is not True:
-            raise SubscriptionGateError("整備判断の並列機能を確認できません。")
+        if features.get("multi_agent") is not False:
+            raise SubscriptionGateError("multi-agent機能の無効化を確認できません。")
         self._assert_safe_shell_environment(config)
         servers = _as_mapping(config.get("mcp_servers"), "MCP設定")
         expected_names = set(self._configured_mcp_names())
