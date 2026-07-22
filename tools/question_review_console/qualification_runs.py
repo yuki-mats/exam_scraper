@@ -2704,7 +2704,13 @@ class QualificationRunStore:
             self._write_manifest(path, manifest)
         return copy.deepcopy(manifest)
 
-    def list(self, qualification: str, *, limit: int = 8) -> list[dict[str, Any]]:
+    def list(
+        self,
+        qualification: str,
+        *,
+        limit: int = 8,
+        top_level_only: bool = False,
+    ) -> list[dict[str, Any]]:
         qualification = _safe_segment(qualification)
         directory = self.root / qualification
         if not directory.is_dir():
@@ -2713,6 +2719,8 @@ class QualificationRunStore:
         with self._lock:
             for path in sorted(directory.glob("*/manifest.json"), reverse=True):
                 manifest = self._load_manifest(path)
+                if top_level_only and manifest.get("parentRunId"):
+                    continue
                 manifest = self._apply_result_receipt(path, manifest)
                 manifests.append(self._public(manifest))
                 if len(manifests) >= limit:
@@ -5314,7 +5322,11 @@ class QualificationRunCoordinator:
     def recent(self, qualification: str) -> dict[str, Any]:
         runs = [
             self._refresh_retry_safety(qualification, run)
-            for run in self.store.list(qualification, limit=100)
+            for run in self.store.list(
+                qualification,
+                limit=100,
+                top_level_only=True,
+            )
             if run.get("workType") not in {"evaluation", "reevaluation"}
             and not run.get("parentRunId")
             and run.get("schemaVersion") != "failed-delta-reconciliation/v1"

@@ -2093,6 +2093,37 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [visible["runId"]],
         )
 
+    def test_recent_limits_runs_after_excluding_child_runs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            visible = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="interrupted",
+                prompt="visible parent",
+            )
+            child_plan = FakeWorkflow().plan("sample", "law_audit")
+            child_plan["parentRunId"] = visible["runId"]
+            for _ in range(101):
+                coordinator.store.create(
+                    child_plan,
+                    status="succeeded",
+                    prompt="child",
+                )
+
+            recent = coordinator.recent("sample")
+
+        self.assertEqual(
+            [run["runId"] for run in recent["runs"]],
+            [visible["runId"]],
+        )
+
     def test_unsafe_category_setup_stops_dependent_queue_and_sync(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
