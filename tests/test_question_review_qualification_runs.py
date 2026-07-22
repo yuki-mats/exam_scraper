@@ -19,6 +19,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_downstream_source_evidence,
     _aggregate_review_source_records,
     _candidate_unset_fields,
+    _child_retry_safe,
     _source_binding_accepts_identity,
     _server_law_audit_fields,
     _structured_candidate_stage_context,
@@ -1347,6 +1348,106 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
+    def test_read_only_candidate_failure_is_retry_safe_only_with_no_delta(self):
+        child = {
+            "status": "failed",
+            "startedAt": "started",
+            "parallelStrategy": "structured_candidate_batch",
+            "sandbox": "read-only",
+            "workType": "maintenance_originalize_candidate",
+            "deltaUnknown": False,
+            "writeAttributionVerified": True,
+            "unsafeChangedFiles": [],
+            "unsafeNotifiedChangedFiles": [],
+            "rollback": {
+                "status": "not_attempted",
+                "remainingChangedFiles": [],
+                "deltaUnknown": False,
+            },
+            "result": {
+                "status": "failed",
+                "summary": "外部providerで停止した。",
+                "changedFiles": [],
+            },
+        }
+
+        self.assertTrue(_child_retry_safe(child))
+        self.assertFalse(
+            _child_retry_safe({**child, "sandbox": "workspace-write"})
+        )
+        self.assertFalse(
+            _child_retry_safe(
+                {
+                    **child,
+                    "result": {
+                        **child["result"],
+                        "changedFiles": ["output/sample/patch.json"],
+                    },
+                }
+            )
+        )
+
+    def test_parent_retry_safety_recovers_verified_read_only_candidate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            parent = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="interrupted",
+                prompt="parent",
+            )
+            child_plan = FakeWorkflow().plan("sample", "law_audit")
+            child_plan.update(
+                parentRunId=parent["runId"],
+                parallelStrategy="structured_candidate_batch",
+                sandbox="read-only",
+                workType="maintenance_originalize_candidate",
+            )
+            child = coordinator.store.create(
+                child_plan,
+                status="failed",
+                prompt="read-only child",
+            )
+            coordinator.store.update(
+                "sample",
+                child["runId"],
+                startedAt="started",
+                deltaUnknown=False,
+                writeAttributionVerified=True,
+                unsafeChangedFiles=[],
+                unsafeNotifiedChangedFiles=[],
+                rollback={
+                    "status": "not_attempted",
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                },
+                result={
+                    "status": "failed",
+                    "summary": "外部providerで停止した。",
+                    "changedFiles": [],
+                },
+            )
+            previous = coordinator.store.update(
+                "sample",
+                parent["runId"],
+                childRunIds=[child["runId"]],
+                retrySafe=False,
+                retryUnsafeReason="旧判定で停止した。",
+                unsafeChildRunId=child["runId"],
+            )
+
+            coordinator._assert_resume_safe("sample", previous)
+            recovered = coordinator.store.get("sample", parent["runId"])
+
+        self.assertTrue(recovered["retrySafe"])
+        self.assertIsNone(recovered["retryUnsafeReason"])
+        self.assertIsNone(recovered["unsafeChildRunId"])
+
 
     @staticmethod
     def _invalid_resolved_aggregate_checkpoint(question_id, source_text):

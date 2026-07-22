@@ -750,21 +750,40 @@ def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
     )
 
 
-def _child_retry_safe(child: Mapping[str, Any]) -> bool:
-    if child.get("status") == "succeeded" and child.get("receiptValidated") is True:
-        return True
-    if not child.get("startedAt") and child.get("deltaUnknown") is not True:
-        result = child.get("result")
-        return not isinstance(result, Mapping) or not result.get("changedFiles")
-    return _isolated_failure_state(child)
-
-
 def _is_structured_candidate_batch(child: Mapping[str, Any]) -> bool:
     return bool(
         child.get("parallelStrategy") == "structured_candidate_batch"
         and child.get("sandbox") == "read-only"
         and str(child.get("workType") or "").endswith("_candidate")
     )
+
+
+def _read_only_candidate_failure_state(child: Mapping[str, Any]) -> bool:
+    rollback = child.get("rollback")
+    result = child.get("result")
+    return bool(
+        _is_structured_candidate_batch(child)
+        and isinstance(rollback, Mapping)
+        and rollback.get("status")
+        in {"succeeded", "not_required", "not_attempted"}
+        and rollback.get("deltaUnknown") is not True
+        and not rollback.get("remainingChangedFiles")
+        and child.get("deltaUnknown") is not True
+        and child.get("writeAttributionVerified") is True
+        and not child.get("unsafeChangedFiles")
+        and not child.get("unsafeNotifiedChangedFiles")
+        and isinstance(result, Mapping)
+        and not result.get("changedFiles")
+    )
+
+
+def _child_retry_safe(child: Mapping[str, Any]) -> bool:
+    if child.get("status") == "succeeded" and child.get("receiptValidated") is True:
+        return True
+    if not child.get("startedAt") and child.get("deltaUnknown") is not True:
+        result = child.get("result")
+        return not isinstance(result, Mapping) or not result.get("changedFiles")
+    return _read_only_candidate_failure_state(child) or _isolated_failure_state(child)
 
 
 def _candidate_unset_fields(
@@ -9691,7 +9710,7 @@ class QualificationRunCoordinator:
                 receiptValidated=False,
                 candidateTransactionOpen=False,
                 rollback={
-                    "status": "not_attempted",
+                    "status": "not_required",
                     "restoredFiles": [],
                     "remainingChangedFiles": [],
                     "deltaUnknown": False,
@@ -13073,9 +13092,13 @@ class QualificationRunCoordinator:
             if unsafe_child_id:
                 try:
                     child = self.store.get(qualification, unsafe_child_id)
-                    reclassified = self._reclassify_external_only_child_failure(
-                        qualification,
-                        child,
+                    reclassified = (
+                        dict(child)
+                        if _child_retry_safe(child)
+                        else self._reclassify_external_only_child_failure(
+                            qualification,
+                            child,
+                        )
                     )
                 except Exception:  # noqa: BLE001
                     reclassified = None
