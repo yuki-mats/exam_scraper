@@ -82,7 +82,11 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     SubscriptionGateError,
 )
-from tools.question_review_console.qualification_workflow import QualificationWorkflow
+from tools.question_review_console.qualification_workflow import (
+    LAW_WORKFLOW_STAGE_IDS,
+    LAW_WORKFLOW_UPDATE_TARGET_IDS,
+    QualificationWorkflow,
+)
 from tools.question_review_console.qualification_progress import (
     derive_progress_completion,
 )
@@ -4897,6 +4901,60 @@ class QualificationRunStore:
         value = copy.deepcopy(dict(manifest))
         value.pop("resultReceiptHash", None)
         return value
+
+
+def _resume_selection_matches(
+    previous_values: list[str],
+    current_values: list[str],
+    *,
+    law_workflow_enabled: Any,
+    allowed_law_removals: set[str],
+) -> bool:
+    """Allow only the policy-defined law workflow shrink on resume."""
+
+    if previous_values == current_values:
+        return True
+    if law_workflow_enabled is not False:
+        return False
+    return [
+        value for value in previous_values if value not in allowed_law_removals
+    ] == current_values
+
+
+def _resume_orchestration_selections_match(
+    previous: Mapping[str, Any],
+    plan: Mapping[str, Any],
+    selected_stage_ids: list[str],
+    *,
+    compare_update_targets: bool,
+) -> bool:
+    previous_update_target_ids = [
+        str(value) for value in previous.get("selectedUpdateTargetIds") or []
+    ]
+    allowed_law_update_target_removals = {
+        value
+        for value in previous_update_target_ids
+        if value in LAW_WORKFLOW_UPDATE_TARGET_IDS
+        or value.partition(".")[0] in LAW_WORKFLOW_STAGE_IDS
+    }
+    law_workflow_enabled = plan.get("lawWorkflowEnabled")
+    return _resume_selection_matches(
+        [str(value) for value in previous.get("stageIds") or []],
+        selected_stage_ids,
+        law_workflow_enabled=law_workflow_enabled,
+        allowed_law_removals=LAW_WORKFLOW_STAGE_IDS,
+    ) and (
+        not compare_update_targets
+        or _resume_selection_matches(
+            previous_update_target_ids,
+            [
+                str(value)
+                for value in plan.get("selectedUpdateTargetIds") or []
+            ],
+            law_workflow_enabled=law_workflow_enabled,
+            allowed_law_removals=allowed_law_update_target_removals,
+        )
+    )
 
 
 class QualificationRunCoordinator:
@@ -12959,14 +13017,17 @@ class QualificationRunCoordinator:
             previous_scope = list(previous.get("scopeListGroupIds") or [])
             if (
                 previous.get("kind") != "orchestration"
-                or list(previous.get("stageIds") or []) != selected_stage_ids
+                or not _resume_orchestration_selections_match(
+                    previous,
+                    plan,
+                    selected_stage_ids,
+                    compare_update_targets=(
+                        "selectedUpdateTargetIds" in previous
+                        or update_target_ids is not None
+                    ),
+                )
                 or str(previous.get("mode") or "") != mode
                 or previous_scope != list(plan.get("scopeListGroupIds") or [])
-                or (
-                    ("selectedUpdateTargetIds" in previous or update_target_ids is not None)
-                    and list(previous.get("selectedUpdateTargetIds") or [])
-                    != list(plan.get("selectedUpdateTargetIds") or [])
-                )
                 or (
                     ("questionRange" in previous or question_range is not None)
                     and previous.get("questionRange") != plan.get("questionRange")

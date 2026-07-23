@@ -20,6 +20,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_review_source_records,
     _candidate_unset_fields,
     _child_retry_safe,
+    _resume_orchestration_selections_match,
     _source_binding_accepts_identity,
     _server_law_audit_fields,
     _structured_candidate_stage_context,
@@ -35,6 +36,113 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class ResumePolicyCompatibilityTests(unittest.TestCase):
+    previous = {
+        "stageIds": [
+            "originalize",
+            "question_type",
+            "question_intent",
+            "correct_choice",
+            "law_context",
+            "explanation",
+            "law_audit",
+            "question_set",
+        ],
+        "selectedUpdateTargetIds": [
+            "originalize.content",
+            "question_type.question_type",
+            "law_context.law_classification",
+            "law_context.law_grounding",
+            "explanation.basic_explanation",
+            "explanation.law_support",
+            "law_audit.law_audit",
+            "question_set.question_set",
+        ],
+    }
+    current_stage_ids = [
+        "originalize",
+        "question_type",
+        "question_intent",
+        "correct_choice",
+        "explanation",
+        "question_set",
+    ]
+    current_update_target_ids = [
+        "originalize.content",
+        "question_type.question_type",
+        "explanation.basic_explanation",
+        "question_set.question_set",
+    ]
+
+    def test_law_disabled_plan_allows_only_law_selection_removal(self):
+        plan = {
+            "lawWorkflowEnabled": False,
+            "selectedUpdateTargetIds": self.current_update_target_ids,
+        }
+
+        self.assertTrue(
+            _resume_orchestration_selections_match(
+                self.previous,
+                plan,
+                self.current_stage_ids,
+                compare_update_targets=True,
+            )
+        )
+
+    def test_law_enabled_plan_rejects_law_selection_removal(self):
+        plan = {
+            "lawWorkflowEnabled": True,
+            "selectedUpdateTargetIds": self.current_update_target_ids,
+        }
+
+        self.assertFalse(
+            _resume_orchestration_selections_match(
+                self.previous,
+                plan,
+                self.current_stage_ids,
+                compare_update_targets=True,
+            )
+        )
+
+    def test_law_disabled_plan_rejects_unrelated_stage_removal(self):
+        plan = {
+            "lawWorkflowEnabled": False,
+            "selectedUpdateTargetIds": self.current_update_target_ids,
+        }
+
+        self.assertFalse(
+            _resume_orchestration_selections_match(
+                self.previous,
+                plan,
+                [
+                    stage_id
+                    for stage_id in self.current_stage_ids
+                    if stage_id != "question_intent"
+                ],
+                compare_update_targets=True,
+            )
+        )
+
+    def test_law_disabled_plan_rejects_unrelated_update_target_removal(self):
+        plan = {
+            "lawWorkflowEnabled": False,
+            "selectedUpdateTargetIds": [
+                target_id
+                for target_id in self.current_update_target_ids
+                if target_id != "question_type.question_type"
+            ],
+        }
+
+        self.assertFalse(
+            _resume_orchestration_selections_match(
+                self.previous,
+                plan,
+                self.current_stage_ids,
+                compare_update_targets=True,
+            )
+        )
 
 
 class ServerLawAuditFieldsTests(unittest.TestCase):
