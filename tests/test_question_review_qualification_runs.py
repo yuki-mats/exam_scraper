@@ -231,10 +231,26 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 "new-exam",
                 started["run"]["runId"],
             )
+            children = [
+                coordinator.store.get("new-exam", child_id)
+                for child_id in run["childRunIds"]
+            ]
 
         batches = [call.args[2] for call in update_question_stages.call_args_list]
         self.assertEqual(run["queueStatus"], "succeeded")
         self.assertEqual(run["validatedWorkItemCount"], 4)
+        self.assertEqual(run["modelBatchSize"], 2)
+        self.assertEqual(len(children), 2)
+        self.assertTrue(
+            all(len(child["progressTargets"]) == 2 for child in children)
+        )
+        self.assertTrue(
+            all(
+                "_scopedPlan" not in target
+                for child in children
+                for target in child["progressTargets"]
+            )
+        )
         self.assertTrue(
             any(
                 len(batch) == 2

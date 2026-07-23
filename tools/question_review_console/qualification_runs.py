@@ -7571,7 +7571,10 @@ class QualificationRunCoordinator:
             if projection is not None:
                 target["_projectedInputPath"] = projection["path"]
             try:
-                scoped_plan = target.get("_scopedPlan") or specialize_question_plan(
+                scoped_plan = target.pop(
+                    "_scopedPlan",
+                    None,
+                ) or specialize_question_plan(
                     spec["phasePlan"],
                     question_id,
                 )
