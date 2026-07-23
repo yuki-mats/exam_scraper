@@ -193,11 +193,13 @@ const state = {
     listGroupIds: [],
     updateTargetIds: [],
     questionRange: null,
+    questionIds: [],
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     previewController: null,
     fieldFirst: false,
     entryStageId: "",
   },
+  progressQuestion: null,
   workflowGuide: {
     open: false,
     stageId: "",
@@ -592,6 +594,7 @@ function bindControls() {
   $("#bulk-evaluate-button").addEventListener("click", () => {
     openEvaluationDialog([...state.selectedQuestionIds]);
   });
+  $("#progress-question-rerun").addEventListener("click", rerunProgressQuestion);
   for (const node of document.querySelectorAll(".close-dialog")) {
     node.addEventListener("click", () => node.closest("dialog").close());
   }
@@ -2398,6 +2401,7 @@ function openQualificationRunDialog(stage, options = {}) {
     ? (options.listGroupIds || []).filter((groupId) => availableGroupIds.includes(groupId))
     : defaultQualificationRunListGroupIds(stage, options, selectedStageIds);
   const selectedQuestionRange = options.questionRange || null;
+  const selectedQuestionIds = [...new Set(options.questionIds || [])].filter(Boolean);
   state.qualificationRunDialog = {
     preview: null,
     running: false,
@@ -2407,6 +2411,7 @@ function openQualificationRunDialog(stage, options = {}) {
     listGroupIds: selectedGroupIds,
     updateTargetIds: selectedUpdateTargetIds,
     questionRange: selectedQuestionRange,
+    questionIds: selectedQuestionIds,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     previewController: null,
     simplified: options.simplified === true,
@@ -2518,6 +2523,7 @@ async function previewQualificationRun() {
     return;
   }
   const questionRange = state.qualificationRunDialog.questionRange || null;
+  const questionIds = state.qualificationRunDialog.questionIds || [];
   state.qualificationRunDialog.updateTargetIds = updateTargetIds;
   state.qualificationRunDialog.questionRange = questionRange;
   const stage = qualificationWorkflowStage(stageId);
@@ -2547,6 +2553,7 @@ async function previewQualificationRun() {
         listGroupIds: supportsScope ? listGroupIds : undefined,
         updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
         questionRange: questionRange || undefined,
+        questionIds: questionIds.length ? questionIds : undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
@@ -2651,6 +2658,11 @@ function renderQualificationRunPreview(preview) {
         ),
       );
     }
+    if (preview.questionIds?.length) {
+      container.append(
+        element("span", "run-preview-range", `指定問題 ${preview.questionIds.length}問`),
+      );
+    }
     if (preview.selectedUpdateTargets?.length) {
       container.append(
         element(
@@ -2702,6 +2714,7 @@ async function startQualificationRun(event) {
           ? preview.selectedUpdateTargetIds
           : undefined,
         questionRange: preview.questionRange || undefined,
+        questionIds: preview.questionIds?.length ? preview.questionIds : undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
@@ -3144,6 +3157,9 @@ function progressQuestionOutputSection(title, outputs) {
 async function openProgressQuestion(event) {
   const dialog = $("#progress-question-dialog");
   const content = $("#progress-question-content");
+  const rerun = $("#progress-question-rerun");
+  state.progressQuestion = event;
+  rerun.hidden = true;
   $("#progress-question-title").textContent = progressDisplayLabel(event);
   content.replaceChildren(element("p", "", "問題を読み込んでいます。"));
   if (!dialog.open) dialog.showModal();
@@ -3202,9 +3218,37 @@ async function openProgressQuestion(event) {
         usesQuestionLevelExplanation(projected.questionType) ? "基本解説" : "選択肢",
       ),
     );
+    rerun.hidden = false;
   } catch (error) {
     content.replaceChildren(element("p", "qualification-run-progress-empty", error.message));
   }
+}
+
+function rerunProgressQuestion() {
+  const event = state.progressQuestion;
+  const run = displayedQualificationRun();
+  if (!event?.questionId || !event.listGroupId || !run) {
+    toast("再整備する問題を確認できません。", true);
+    return;
+  }
+  const stageIds = Array.isArray(run.stageIds) ? run.stageIds.filter(Boolean) : [];
+  const firstStage = state.qualificationWorkflow?.stages?.find(
+    (stage) => stage.id === stageIds[0],
+  );
+  if (!firstStage) {
+    toast("再整備する工程を現在のworkflowから確認できません。", true);
+    return;
+  }
+  $("#progress-question-dialog").close();
+  $("#qualification-run-dialog").close();
+  openQualificationRunDialog(firstStage, {
+    stageIds,
+    listGroupIds: [event.listGroupId],
+    updateTargetIds: run.selectedUpdateTargetIds,
+    questionIds: [event.questionId],
+    mode: "group_refresh",
+    fieldFirst: true,
+  });
 }
 
 function enterQualificationProgressView(run) {

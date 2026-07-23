@@ -104,6 +104,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
 
     def test_question_output_uses_structured_stage_and_value_nodes(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
         output_section = javascript[
             javascript.index("function progressQuestionOutputSection") :
             javascript.index("async function openProgressQuestion")
@@ -127,6 +128,13 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertNotIn('.join("\\n")', question_dialog)
         self.assertIn("const entry = progressResultEntry(event);", list_preview)
         self.assertNotIn("progressResultText(event)", list_preview)
+        self.assertIn('id="progress-question-rerun"', html)
+        self.assertIn("function rerunProgressQuestion", javascript)
+        self.assertIn("questionIds: [event.questionId]", javascript)
+        self.assertIn(
+            "questionIds: preview.questionIds?.length ? preview.questionIds : undefined",
+            javascript,
+        )
 
     def test_question_dialog_shows_anki_plus_display_fields(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
