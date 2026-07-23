@@ -4,6 +4,7 @@ import fnmatch
 import hashlib
 import json
 import re
+import threading
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,6 +21,7 @@ from tools.question_review_console.prompt_builder import (
     law_audit_classification_safety_contract,
 )
 from tools.question_review_console.projection import record_identity_aliases
+from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.workflow_catalog import (
     WorkflowCatalog,
     normalize_policy_version,
@@ -44,21 +46,28 @@ LAW_WORKFLOW_SETUP_DOCUMENT = (
 LAW_WORKFLOW_UPDATE_TARGET_IDS = {"explanation.law_support"}
 
 
-def qualification_law_workflow_enabled(
+def _qualification_rules(
     repo_root: Path,
-    qualification: str,
-) -> bool:
-    """Return the single qualification-level switch for legal work."""
-
+) -> tuple[Path, dict[str, Any]]:
     path = repo_root / "config" / "qualification_rules.json"
     if not path.is_file():
-        return True
+        return path, {"default": {"law_workflow_enabled": True}}
     try:
         rules = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise ValueError(f"資格設定を読み込めません: {path}: {exc}") from exc
     if not isinstance(rules, Mapping):
         raise ValueError(f"資格設定はobjectで指定してください: {path}")
+    return path, dict(rules)
+
+
+def qualification_law_workflow_enabled(
+    repo_root: Path,
+    qualification: str,
+) -> bool:
+    """Return the single qualification-level switch for legal work."""
+
+    _path, rules = _qualification_rules(repo_root)
     default = rules.get("default")
     specific = rules.get(qualification)
     if default is not None and not isinstance(default, Mapping):
@@ -404,6 +413,35 @@ class QualificationWorkflow:
         self.inventory = inventory
         self.catalog_store = WorkflowCatalog(self.repo_root)
         self.work_versions = work_versions or QuestionWorkVersionStore(self.repo_root)
+        self._qualification_rules_lock = threading.RLock()
+
+    def set_law_workflow_enabled(
+        self,
+        qualification: str,
+        enabled: bool,
+    ) -> dict[str, Any]:
+        if not isinstance(enabled, bool):
+            raise ValueError("enabledはboolで指定してください。")
+        available = {
+            str(item.get("id") or "")
+            for item in self.inventory.inventory().get("qualifications") or []
+        }
+        if qualification not in available:
+            raise FileNotFoundError(f"対象資格がありません: {qualification}")
+        with self._qualification_rules_lock:
+            path, rules = _qualification_rules(self.repo_root)
+            current = rules.get(qualification)
+            if current is not None and not isinstance(current, Mapping):
+                raise ValueError(f"資格設定の{qualification}はobjectで指定してください。")
+            rules[qualification] = {
+                **(dict(current) if isinstance(current, Mapping) else {}),
+                "law_workflow_enabled": enabled,
+            }
+            atomic_write(
+                path,
+                json.dumps(rules, ensure_ascii=False, indent=2) + "\n",
+            )
+        return self.overview(qualification)
 
     def catalog(self, qualification: str = "") -> dict[str, Any]:
         loaded = self.catalog_store.load()

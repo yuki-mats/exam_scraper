@@ -107,6 +107,38 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_law_workflow_setting_persists_and_updates_effective_catalog(self):
+        qualification = "sample"
+        group = {"listGroupId": "2026", "questions": [question()]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(qualification, [group]),
+            )
+
+            disabled = workflow.set_law_workflow_enabled(qualification, False)
+            persisted = json.loads(
+                (root / "config" / "qualification_rules.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            enabled = workflow.set_law_workflow_enabled(qualification, True)
+
+        self.assertFalse(disabled["lawWorkflowEnabled"])
+        self.assertNotIn(
+            "law_context",
+            [stage["id"] for stage in disabled["stages"]],
+        )
+        self.assertFalse(
+            persisted[qualification]["law_workflow_enabled"]
+        )
+        self.assertTrue(enabled["lawWorkflowEnabled"])
+        self.assertIn(
+            "law_audit",
+            [stage["id"] for stage in enabled["stages"]],
+        )
+
     def test_lawless_qualification_omits_law_workflow_everywhere(self):
         qualification = "aws-cloud-practitioner"
         group = {"listGroupId": "2026", "questions": [question()]}

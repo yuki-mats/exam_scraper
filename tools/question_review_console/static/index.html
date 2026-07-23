@@ -16,11 +16,18 @@
 
     <section id="maintenance-dashboard" class="maintenance-dashboard" aria-labelledby="maintenance-dashboard-title">
       <div class="maintenance-dashboard-controls">
-        <label>
+        <label class="qualification-selector">
           <span>資格</span>
           <select id="qualification-select"></select>
         </label>
         <button id="refresh-button" class="icon-button" type="button" title="再読込" aria-label="再読込">↻</button>
+        <label class="law-workflow-setting">
+          <input id="law-workflow-enabled" type="checkbox" disabled>
+          <span>
+            <strong>法令工程を使う</strong>
+            <small id="law-workflow-setting-status">資格設定を確認中</small>
+          </span>
+        </label>
       </div>
       <div class="maintenance-dashboard-summary">
         <div>

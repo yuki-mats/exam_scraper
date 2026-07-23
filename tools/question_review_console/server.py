@@ -67,7 +67,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 STATIC_ROOT = Path(__file__).resolve().parent / "static"
 MAX_REQUEST_BYTES = 2 * 1024 * 1024
 ALL_LIST_GROUPS = "__all__"
-UI_CONTRACT_VERSION = "question-review-ui/v2"
+UI_CONTRACT_VERSION = "question-review-ui/v3"
 STATIC_CONTENT_TYPES = {
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
@@ -504,6 +504,37 @@ class QuestionReviewApplication:
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
 
     def post(self, path: str, body: Mapping[str, Any]) -> tuple[int, Any]:
+        if path == "/api/qualification-workflow/law-setting":
+            qualification = str(body.get("qualification") or "")
+            enabled = body.get("enabled")
+            if not qualification:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
+                )
+            if not isinstance(enabled, bool):
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "enabledはboolで指定してください。"
+                )
+            active = self.qualification_runs.recent(qualification).get("activeRun")
+            if active:
+                raise ApiError(
+                    HTTPStatus.CONFLICT,
+                    "この資格の作業中は法令工程の設定を変更できません。",
+                )
+            try:
+                return (
+                    HTTPStatus.OK,
+                    self.qualification_workflow.set_law_workflow_enabled(
+                        qualification,
+                        enabled,
+                    ),
+                )
+            except FileNotFoundError as exc:
+                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+            except ValueError as exc:
+                raise ApiError(
+                    HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)
+                ) from exc
         if path in {
             "/api/qualification-runs/preview",
             "/api/qualification-runs/start",

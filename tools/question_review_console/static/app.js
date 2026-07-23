@@ -1,7 +1,7 @@
 "use strict";
 
 const ALL_LIST_GROUPS = "__all__";
-const UI_CONTRACT_VERSION = "question-review-ui/v2";
+const UI_CONTRACT_VERSION = "question-review-ui/v3";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 30000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
@@ -173,6 +173,7 @@ const state = {
   qualificationActiveRun: null,
   qualificationActiveJob: null,
   qualificationRunProgress: null,
+  lawWorkflowSaving: false,
   codexStatus: null,
   sharedRunPolling: false,
   lastSharedRunPollAt: 0,
@@ -437,6 +438,7 @@ function bindControls() {
     await loadQualificationRuns();
     updateUrl();
   });
+  $("#law-workflow-enabled").addEventListener("change", saveLawWorkflowSetting);
   $("#group-select").addEventListener("change", async (event) => {
     clearEvaluationSelection();
     state.listGroupId = event.target.value;
@@ -666,6 +668,8 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     $("#qualification-workflow-status").textContent = "確認中";
     $("#qualification-workflow-action").disabled = true;
     $("#qualification-workflow-guide").disabled = true;
+    $("#law-workflow-enabled").disabled = true;
+    $("#law-workflow-setting-status").textContent = "資格設定を確認中";
   }
   try {
     const params = new URLSearchParams({ qualification: state.qualification });
@@ -684,6 +688,7 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
   } catch (error) {
     if (quiet) return;
     state.qualificationWorkflow = null;
+    renderLawWorkflowSetting();
     $("#qualification-workflow-status").textContent = "取得失敗";
     $("#qualification-workflow-title").textContent = qualificationDisplayName() || "問題整備の流れ";
     $("#qualification-workflow-next").textContent = error.message;
@@ -696,6 +701,55 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
       element("span", "", "再読込してから年度・フォルダを選択してください。"),
     );
     $("#maintenance-year-progress").replaceChildren();
+  }
+}
+
+function renderLawWorkflowSetting() {
+  const checkbox = $("#law-workflow-enabled");
+  const status = $("#law-workflow-setting-status");
+  const workflow = state.qualificationWorkflow;
+  const active = Boolean(state.qualificationActiveRun);
+  checkbox.checked = workflow?.lawWorkflowEnabled !== false;
+  checkbox.disabled = !workflow || state.lawWorkflowSaving || active;
+  status.textContent = !workflow
+    ? "資格設定を取得できません"
+    : state.lawWorkflowSaving
+      ? "保存中"
+      : active
+        ? "作業中は変更できません"
+        : checkbox.checked
+          ? "02b・03bを実行"
+          : "02b・03bを省略";
+}
+
+async function saveLawWorkflowSetting(event) {
+  const qualification = state.qualification;
+  if (!qualification || state.lawWorkflowSaving) return;
+  const enabled = event.target.checked;
+  state.lawWorkflowSaving = true;
+  renderLawWorkflowSetting();
+  try {
+    const workflow = await api("/api/qualification-workflow/law-setting", {
+      method: "POST",
+      body: { qualification, enabled },
+    });
+    if (qualification !== state.qualification) return;
+    state.qualificationWorkflow = workflow;
+    const selectionExists = workflow.stages.some(
+      (stage) => stage.id === state.qualificationWorkflowStageId,
+    );
+    if (!selectionExists) {
+      state.qualificationWorkflowStageId = workflow.nextStageId
+        || workflow.stages[workflow.stages.length - 1]?.id
+        || "";
+    }
+    renderQualificationWorkflow();
+    toast(enabled ? "法令工程を有効にしました。" : "法令工程を省略します。");
+  } catch (error) {
+    toast(error.message, true);
+  } finally {
+    state.lawWorkflowSaving = false;
+    renderLawWorkflowSetting();
   }
 }
 
@@ -713,6 +767,7 @@ function revealSelectedQualificationStage(stageList) {
 function renderQualificationWorkflow() {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return;
+  renderLawWorkflowSetting();
   renderMaintenanceDashboard();
   const nextStage = workflow.stages.find((stage) => stage.id === workflow.nextStageId);
   const selectedStage = workflow.stages.find(
@@ -1426,10 +1481,12 @@ async function loadQualificationRuns({ includeLatestProgress = true } = {}) {
     state.qualificationRunProgress = null;
     renderQualificationActiveRun();
     renderMaintenanceDashboard();
+    renderLawWorkflowSetting();
     return false;
   }
   renderQualificationActiveRun();
   renderMaintenanceDashboard();
+  renderLawWorkflowSetting();
   return true;
 }
 

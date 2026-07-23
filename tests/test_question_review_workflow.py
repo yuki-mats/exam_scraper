@@ -1261,7 +1261,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('"law_audit"', selector)
         self.assertNotIn('"category_setup"', selector)
         self.assertNotIn('"question_set"', selector)
-        self.assertIn('const UI_CONTRACT_VERSION = "question-review-ui/v2"', javascript)
+        self.assertIn('const UI_CONTRACT_VERSION = "question-review-ui/v3"', javascript)
         self.assertIn("session.uiContractVersion !== UI_CONTRACT_VERSION", javascript)
         stage_controls = javascript.split(
             "function renderQualificationRunStages", 1
@@ -1271,6 +1271,23 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "state.qualificationRunDialog.listGroupIds = nextGroupIds",
             stage_controls,
         )
+
+    def test_qualification_law_workflow_toggle_is_visible_and_persisted(self):
+        root = Path(__file__).resolve().parents[1]
+        static = root / "tools" / "question_review_console" / "static"
+        html = (static / "index.html").read_text(encoding="utf-8")
+        javascript = (static / "app.js").read_text(encoding="utf-8")
+        css = (static / "styles.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="law-workflow-enabled"', html)
+        self.assertIn("法令工程を使う", html)
+        self.assertIn(
+            'api("/api/qualification-workflow/law-setting"',
+            javascript,
+        )
+        self.assertIn("body: { qualification, enabled }", javascript)
+        self.assertIn("02b・03bを省略", javascript)
+        self.assertIn(".law-workflow-setting", css)
 
     def test_law_audit_warning_has_no_manual_bulk_request(self):
         root = Path(__file__).resolve().parents[1]

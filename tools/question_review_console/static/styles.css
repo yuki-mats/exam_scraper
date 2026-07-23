@@ -109,9 +109,32 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   border-bottom: 1px solid var(--line-strong);
   background: var(--surface);
 }
-.maintenance-dashboard-controls { display: flex; align-items: end; gap: 8px; }
-.maintenance-dashboard-controls label { min-width: 0; flex: 1; }
+.maintenance-dashboard-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  align-items: end;
+  gap: 8px;
+}
+.maintenance-dashboard-controls label { min-width: 0; }
 .maintenance-dashboard-controls select { width: 100%; }
+.law-workflow-setting {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-muted);
+}
+.law-workflow-setting > input { flex: 0 0 auto; width: 18px; height: 18px; margin: 0; }
+.law-workflow-setting > span { min-width: 0; display: grid; gap: 1px; }
+.law-workflow-setting strong { color: #27323c; font-size: 11px; }
+.law-workflow-setting small { color: var(--text-muted); font-size: 9px; line-height: 1.35; }
+.law-workflow-setting:has(input:checked) { border-color: #9fc0dc; background: #edf4fa; }
+.law-workflow-setting:has(input:disabled) { opacity: 0.68; }
 .maintenance-dashboard-summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

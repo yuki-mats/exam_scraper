@@ -732,6 +732,55 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(get_status, 200)
         self.assertEqual(overview["nextStageId"], "question_type")
 
+    def test_updates_qualification_law_workflow_setting(self):
+        class Workflow:
+            def set_law_workflow_enabled(self, qualification, enabled):
+                self.updated = (qualification, enabled)
+                return {
+                    "qualification": qualification,
+                    "lawWorkflowEnabled": enabled,
+                }
+
+        class Runs:
+            def recent(self, qualification):
+                return {"qualification": qualification, "activeRun": None}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            workflow = Workflow()
+            app.qualification_workflow = workflow
+            app.qualification_runs = Runs()
+
+            status, overview = app.post(
+                "/api/qualification-workflow/law-setting",
+                {"qualification": "sample", "enabled": False},
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(workflow.updated, ("sample", False))
+        self.assertFalse(overview["lawWorkflowEnabled"])
+
+    def test_rejects_law_workflow_setting_change_during_active_run(self):
+        class Runs:
+            def recent(self, qualification):
+                return {
+                    "qualification": qualification,
+                    "activeRun": {"runId": "run-1", "status": "running"},
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.qualification_runs = Runs()
+
+            with self.assertRaises(ApiError) as caught:
+                app.post(
+                    "/api/qualification-workflow/law-setting",
+                    {"qualification": "sample", "enabled": False},
+                )
+
+        self.assertEqual(caught.exception.status, 409)
+        self.assertIn("作業中", str(caught.exception))
+
     def test_previews_and_starts_qualification_run(self):
         class Runs:
             def preview(
@@ -1598,7 +1647,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                 self.assertEqual(session["sessionToken"], app.session_token)
                 self.assertEqual(
                     session["uiContractVersion"],
-                    "question-review-ui/v2",
+                    "question-review-ui/v3",
                 )
                 connection.close()
 
