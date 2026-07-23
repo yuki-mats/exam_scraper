@@ -159,7 +159,9 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
                 {"public-1": patch},
             )
 
-    def test_complete_source_choice_set_match_is_rejected_even_if_reordered(self) -> None:
+    def test_complete_source_choice_set_match_is_allowed_when_body_is_originalized(
+        self,
+    ) -> None:
         source = {
             "public_question_id": "public-1",
             "original_question_id": "public-1",
@@ -168,17 +170,19 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
         }
         patch = {
             "questionBodyText": "独自の場面と条件に組み直した問題文",
-            "choiceTextList": ["B", "A"],
-            "correctChoiceText": ["間違い", "正しい"],
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["正しい", "間違い"],
             "questionIntent": "select_correct",
-            "answer_result_text": "正解は2です。",
+            "answer_result_text": "正解は1です。",
         }
 
-        with self.assertRaisesRegex(ValueError, "選択肢一式.*完全一致"):
-            apply_originalized_fields(
-                {"question_bodies": [source]},
-                {"public-1": patch},
-            )
+        payload = {"question_bodies": [source]}
+        apply_originalized_fields(payload, {"public-1": patch})
+
+        self.assertEqual(
+            payload["question_bodies"][0]["choiceTextList"],
+            ["A", "B"],
+        )
 
     def test_image_required_source_allows_text_to_be_finalized_before_image(self) -> None:
         source = {

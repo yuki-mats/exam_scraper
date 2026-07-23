@@ -568,12 +568,6 @@ def _normalized_originalized_text(value: Any) -> str:
     )
 
 
-def _normalized_originalized_choices(value: Any) -> tuple[str, ...]:
-    if not isinstance(value, list):
-        return ()
-    return tuple(sorted(_normalized_originalized_text(item) for item in value))
-
-
 def _normalized_explanation_fragments(value: Any) -> set[str]:
     if isinstance(value, str):
         normalized = _normalized_originalized_text(value)
@@ -674,12 +668,6 @@ def validate_originalized_entry(
     if _normalized_originalized_text(body) == _normalized_originalized_text(source_body):
         raise ValueError(
             "05_originalizedの問題文全体が00_sourceと完全一致しています。"
-        )
-    if _normalized_originalized_choices(choices) == _normalized_originalized_choices(
-        source.get("choiceTextList")
-    ):
-        raise ValueError(
-            "05_originalizedの選択肢一式が00_sourceと完全一致しています。"
         )
     return validate_originalized_image_entry(source, entry)
 
