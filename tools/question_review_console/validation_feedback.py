@@ -360,10 +360,16 @@ def _classify_message(message: str) -> tuple[str, str, bool]:
         ),
         (
             (
+                "05_originalizedの問題文と選択肢が00_sourceと完全一致",
+                "問題文と選択肢が00_sourceと完全一致",
                 "05_originalizedの問題文全体が00_sourceと完全一致",
                 "問題文全体が00_sourceと完全一致",
             ),
-            ("originalization_required", "questionBodyText", True),
+            (
+                "originalization_required",
+                "questionBodyText/choiceTextList",
+                True,
+            ),
         ),
         (
             ("00_source", "source immut", "source不変"),

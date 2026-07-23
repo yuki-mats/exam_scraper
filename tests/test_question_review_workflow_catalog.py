@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
+from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.server import ApiError, QuestionReviewApplication
 from tools.question_review_console.workflow_catalog import (
     AGENT_POLICY_MODELS,
@@ -125,20 +126,40 @@ class WorkflowCatalogTests(unittest.TestCase):
             ROOT
             / "prompt/qualification_docs/aws-solutions-architect-associate/01_exam_profile.md"
         ).read_text(encoding="utf-8")
+        aws_samples = (
+            ROOT
+            / "prompt/qualification_docs/aws_official_japanese_sample_questions.md"
+        ).read_text(encoding="utf-8")
 
         for text in (prompt, operations):
-            self.assertIn("問題文全体を別問題へ作り替え", text)
+            self.assertIn("別問題へ作り替え", text)
             self.assertIn("一つ又は必要最小限", text)
             self.assertIn("誤答", text)
             self.assertIn("難易度", text)
             self.assertIn("図表問題のまま維持", text)
-        self.assertIn("選択肢はすべて維持してよい", prompt)
-        self.assertIn("問題文は一部だけの変更でもよい", prompt)
+        self.assertIn("問題文を維持して選択肢だけを変えてもよい", prompt)
+        self.assertIn("選択肢の順番", prompt)
         for profile in (clf_profile, saa_profile):
             self.assertIn("独自問題化で維持するAWSらしさ", profile)
             self.assertIn("AWSサービス名", profile)
-            self.assertIn("図表問題", profile)
-            self.assertIn("必要最小限", profile)
+            self.assertIn("公式日本語サンプル問題", profile)
+            self.assertIn("英語から翻訳されたAWS公式試験", profile)
+        self.assertIn("ポーリングリクエスト", aws_samples)
+        self.assertIn("レイテンシー", aws_samples)
+        self.assertIn("これらの要件を満たすアプローチ", aws_samples)
+
+        aws_catalog = QualificationWorkflow(ROOT, None).catalog(
+            "aws-cloud-practitioner"
+        )
+        originalize = next(
+            stage
+            for stage in aws_catalog["stages"]
+            if stage["id"] == "originalize"
+        )
+        self.assertIn(
+            "prompt/qualification_docs/aws_official_japanese_sample_questions.md",
+            originalize["canonicalDocs"],
+        )
 
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()
@@ -217,7 +238,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["explanation"], "4.0")
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
-        self.assertEqual(version_by_stage["originalize"], "2.4")
+        self.assertEqual(version_by_stage["originalize"], "2.5")
         self.assertEqual(version_by_stage["question_type"], "3.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],

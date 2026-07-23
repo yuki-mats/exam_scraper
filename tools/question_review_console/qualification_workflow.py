@@ -1869,11 +1869,21 @@ class QualificationWorkflow:
         )
         if not directory.is_dir():
             return []
-        return [
+        documents = [
             str(path.relative_to(self.repo_root))
             for path in sorted(directory.rglob("*.md"))
             if path.is_file()
         ]
+        if qualification.startswith("aws-"):
+            aws_samples = (
+                self.repo_root
+                / "prompt"
+                / "qualification_docs"
+                / "aws_official_japanese_sample_questions.md"
+            )
+            if aws_samples.is_file():
+                documents.append(str(aws_samples.relative_to(self.repo_root)))
+        return _ordered_unique(documents)
 
     def _category_state(self, qualification: str) -> dict[str, Any]:
         relative = Path("output") / qualification / "category" / "category.json"

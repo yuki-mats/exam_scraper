@@ -45,8 +45,13 @@ kind = "human"
 # 2.4: 資格別の用語、設問の骨格、選択肢を優先して維持し、過剰なシナリオ化を避ける。
 # 2.3: 問題文と選択肢の変更を必要最小限にし、難易度と問題品質を維持する。
 # 2.2: 選択肢の書き換えを一律必須にせず、独自化した問題文との整合で判断する。
-policy_version = "2.4"
-qualification_document_patterns = ["README.md", "01_exam_profile.md"]
+# 2.5: 問題文を維持して選択肢だけを変更・並べ替える独自化とAWS公式翻訳文体を許可する。
+policy_version = "2.5"
+qualification_document_patterns = [
+  "README.md",
+  "01_exam_profile.md",
+  "aws_official_japanese_sample_questions.md",
+]
 batch_selectable = true
 automatic = false
 session_group = "maintenance"

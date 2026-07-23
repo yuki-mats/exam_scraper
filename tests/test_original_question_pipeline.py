@@ -138,7 +138,7 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
             [],
         )
 
-    def test_complete_source_body_match_is_rejected(self) -> None:
+    def test_complete_source_body_match_is_allowed_when_choices_change(self) -> None:
         source = {
             "public_question_id": "public-1",
             "original_question_id": "public-1",
@@ -153,7 +153,32 @@ class OriginalQuestionPipelineTests(unittest.TestCase):
             "answer_result_text": "正解は1です。",
         }
 
-        with self.assertRaisesRegex(ValueError, "問題文全体.*完全一致"):
+        data = {"question_bodies": [source]}
+        self.assertEqual(
+            apply_originalized_fields(data, {"public-1": patch}),
+            1,
+        )
+        self.assertEqual(
+            data["question_bodies"][0]["choiceTextList"],
+            ["Aの機能", "Bの機能"],
+        )
+
+    def test_complete_source_body_and_choices_match_is_rejected(self) -> None:
+        source = {
+            "public_question_id": "public-1",
+            "original_question_id": "public-1",
+            "questionBodyText": "AWSの費用を通知するサービスはどれか。",
+            "choiceTextList": ["A", "B"],
+        }
+        patch = {
+            "questionBodyText": " AWSの費用を通知するサービスはどれか。 ",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+        }
+
+        with self.assertRaisesRegex(ValueError, "問題文と選択肢.*完全一致"):
             apply_originalized_fields(
                 {"question_bodies": [source]},
                 {"public-1": patch},

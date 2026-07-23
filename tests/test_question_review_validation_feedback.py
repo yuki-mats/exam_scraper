@@ -82,13 +82,13 @@ class ChildFeedbackTests(unittest.TestCase):
                 "runId": "child-originalize",
                 "status": "failed",
                 "error": (
-                    "05_originalizedの問題文全体が"
+                    "05_originalizedの問題文と選択肢が"
                     "00_sourceと完全一致しています。"
                 ),
                 "result": {
                     "status": "failed",
                     "summary": (
-                        "05_originalizedの問題文全体が"
+                        "05_originalizedの問題文と選択肢が"
                         "00_sourceと完全一致しています。"
                     ),
                     "commands": [
@@ -105,7 +105,7 @@ class ChildFeedbackTests(unittest.TestCase):
             for issue in feedback["issues"]
             if issue["code"] == "originalization_required"
         )
-        self.assertEqual(issue["field"], "questionBodyText")
+        self.assertEqual(issue["field"], "questionBodyText/choiceTextList")
         self.assertTrue(issue["retryable"])
         self.assertNotIn(
             "source_immutability",
