@@ -4693,23 +4693,32 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 app_server=FlowAppServer(),
             )
             coordinator._repository_file_fingerprints = lambda *_args: {}
-            original_update_stage = coordinator.store.update_question_stage
+            original_update_stages = coordinator.store.update_question_stages
             crashed = False
 
-            def crash_after_validated(*args, **changes):
+            def crash_after_validated(*args, **kwargs):
                 nonlocal crashed
-                updated = original_update_stage(*args, **changes)
+                updated = original_update_stages(*args, **kwargs)
+                stage_updates = (
+                    args[2]
+                    if len(args) >= 3
+                    else kwargs.get("updates") or []
+                )
                 if (
                     not crashed
                     and str(args[1]) == str(parent["runId"])
-                    and str(args[3]) == "question_type"
-                    and changes.get("status") == "validated"
+                    and any(
+                        str(value.get("stageId") or "") == "question_type"
+                        and (value.get("changes") or {}).get("status")
+                        == "validated"
+                        for value in stage_updates
+                    )
                 ):
                     crashed = True
                     raise SystemExit("simulated process stop after validated save")
                 return updated
 
-            coordinator.store.update_question_stage = crash_after_validated
+            coordinator.store.update_question_stages = crash_after_validated
             with self.assertRaisesRegex(SystemExit, "after validated save"):
                 coordinator._run_maintenance_flow(
                     "new-exam",
