@@ -1644,7 +1644,10 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('`/api/qualification-workflow?${params}`', javascript)
         self.assertIn('"/api/qualification-runs/preview"', javascript)
         self.assertIn('"/api/qualification-runs/start"', javascript)
-        self.assertIn("QUALIFICATION_PREVIEW_TIMEOUT_MS", javascript)
+        self.assertIn(
+            "const QUALIFICATION_PREVIEW_TIMEOUT_MS = 120000;",
+            javascript,
+        )
         self.assertIn("function cancelQualificationRunPreview", javascript)
         self.assertIn("function setQualificationRunPreviewState", javascript)
         self.assertIn('setQualificationRunPreviewState("error", message)', javascript)
