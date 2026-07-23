@@ -512,6 +512,9 @@ class QualificationWorkflowTests(unittest.TestCase):
             prepared = workflow.overview("sample")
             prompt = workflow.prompt("sample", "question_type")["prompt"]
             originalize = workflow.plan("sample", "originalize", "refresh")
+            originalize_prompt = workflow.prompt(
+                "sample", "originalize", "refresh"
+            )["prompt"]
 
         self.assertEqual(initial["nextStageId"], "setup")
         self.assertEqual(prepared["nextStageId"], "question_type")
@@ -524,6 +527,14 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertNotIn("## 問題文", prompt)
         self.assertEqual(originalize["targetCount"], 1)
         self.assertIn("05_originalized", originalize["outputFiles"][0])
+        self.assertIn(
+            "参照用fieldでも更新許可fieldに含まれるfieldは変更できる",
+            originalize_prompt,
+        )
+        self.assertNotIn(
+            "更新不可の参照用field: `originalize=questionBodyText,choiceTextList`",
+            originalize_prompt,
+        )
 
     def test_existing_originalized_patch_opts_question_into_version_tracking(self):
         item = question(

@@ -1490,6 +1490,28 @@ class QualificationWorkflow:
 
         selected_stage_ids = list(plan.get("stageIds") or [plan["stageId"]])
         stage_plans = list(plan.get("stagePlans") or [plan])
+        selected_fields_by_stage = {
+            str(stage_id): {
+                str(field)
+                for field in fields
+                if field
+            }
+            for stage_id, fields in (
+                plan.get("selectedFieldsByStage") or {}
+            ).items()
+        }
+        reference_only_fields_by_stage = {
+            str(stage_id): [
+                str(field)
+                for field in fields
+                if field
+                and str(field)
+                not in selected_fields_by_stage.get(str(stage_id), set())
+            ]
+            for stage_id, fields in (
+                plan.get("readFieldsByStage") or {}
+            ).items()
+        }
         stage_summary = " / ".join(
             f"{item['stageCode']} {item['stageLabel']}（{item['targetCount']}件）"
             for item in stage_plans
@@ -1588,16 +1610,25 @@ class QualificationWorkflow:
             "`未作業のみ`又は`要確認のみ`では、各工程の対象に該当する問題だけを更新する。",
             *(
                 [
-                    "更新許可fieldだけをset又はunsetし、参照用fieldと選択外fieldは変更しない。",
-                    "参照用field: `"
-                    + " / ".join(
-                        f"{stage_id}=" + ",".join(fields)
-                        for stage_id, fields in (
-                            plan.get("readFieldsByStage") or {}
-                        ).items()
-                        if fields
-                    )
-                    + "`",
+                    "更新許可fieldだけをset又はunsetする。"
+                    "参照用fieldでも更新許可fieldに含まれるfieldは変更できる。"
+                    "更新許可fieldに含まれない参照用fieldと"
+                    "選択外fieldは変更しない。",
+                    *(
+                        [
+                            "更新不可の参照用field: `"
+                            + " / ".join(
+                                f"{stage_id}=" + ",".join(fields)
+                                for stage_id, fields in (
+                                    reference_only_fields_by_stage.items()
+                                )
+                                if fields
+                            )
+                            + "`"
+                        ]
+                        if any(reference_only_fields_by_stage.values())
+                        else []
+                    ),
                 ]
                 if plan.get("selectedUpdateTargets")
                 else []

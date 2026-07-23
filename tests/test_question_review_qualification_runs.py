@@ -1687,6 +1687,51 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(evidence, {})
 
+    def test_structured_candidate_prompt_drops_obsolete_field_scope_feedback(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:originalized",
+            role="originalized",
+            path="output/sample/05_originalized/question.json",
+            allowed_fields=("questionBodyText", "choiceTextList"),
+        )
+        prompt = _structured_candidate_prompt(
+            "独自問題化する。",
+            [target],
+            records_by_question={
+                "question-1": {
+                    "questionBodyText": "元の問題文",
+                    "choiceTextList": ["選択肢A", "選択肢B"],
+                }
+            },
+            candidate_targets_by_question={"question-1": (candidate_target,)},
+            feedback_by_question={
+                "question-1": [
+                    {
+                        "reason": (
+                            "Codex自動整備対象外fieldの追加を検出しました: "
+                            "output/sample/05_originalized/question.json / "
+                            "questionBodyText"
+                        )
+                    },
+                    {"reason": "問題文と選択肢の対応を再確認してください。"},
+                ]
+            },
+        )
+
+        question_payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question_payload["previousValidationFeedback"],
+            [{"reason": "問題文と選択肢の対応を再確認してください。"}],
+        )
+        self.assertIn("現行allowedFieldsを優先する", prompt)
+
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"
         with tempfile.TemporaryDirectory() as directory:

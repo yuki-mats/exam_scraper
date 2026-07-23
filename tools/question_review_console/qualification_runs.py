@@ -858,6 +858,31 @@ def _structured_candidate_prompt(
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
+        candidate_targets = tuple(candidate_targets_by_question[question_id])
+        allowed_fields = {
+            field
+            for candidate_target in candidate_targets
+            for field in candidate_target.allowed_fields
+        }
+        previous_feedback = []
+        for raw_feedback in feedback_by_question.get(question_id) or []:
+            feedback = dict(raw_feedback)
+            feedback_text = json.dumps(
+                feedback,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            obsolete_scope_fields = set(
+                re.findall(
+                    r"自動整備対象外field(?:の追加|の変更)?を検出しました:"
+                    r"[^\"\n]* / ([A-Za-z_][A-Za-z0-9_]*)",
+                    feedback_text,
+                )
+            )
+            if obsolete_scope_fields and obsolete_scope_fields <= allowed_fields:
+                continue
+            previous_feedback.append(feedback)
         question = {
             "questionId": question_id,
             "displayLabel": str(target.get("displayLabel") or question_id),
@@ -865,11 +890,9 @@ def _structured_candidate_prompt(
             "currentRecord": records_by_question[question_id],
             "candidateTargets": [
                 value.prompt_value()
-                for value in candidate_targets_by_question[question_id]
+                for value in candidate_targets
             ],
-            "previousValidationFeedback": list(
-                feedback_by_question.get(question_id) or []
-            ),
+            "previousValidationFeedback": previous_feedback,
         }
         evidence = evidence_by_question.get(question_id)
         if evidence is not None:
@@ -897,6 +920,8 @@ def _structured_candidate_prompt(
             "# 構造化候補V2（この契約を最優先する）",
             "",
             "各問題を独立に判断し、指定されたallowedFieldsだけの更新候補を返す。",
+            "previousValidationFeedbackが現行allowedFieldsと矛盾する場合は、"
+            "現行allowedFieldsを優先する。",
             "file、shell、progress、receipt、git、外部状態は変更しない。",
             "対象を特定できない場合や根拠が足りない場合は、その問題だけblockedにする。",
             "setFieldsはfieldとvalueJsonの配列とし、valueJsonには値をJSON文字列化して入れる。",
