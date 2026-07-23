@@ -38,6 +38,235 @@ _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
 
 
+class ManifestRuntimeCacheTests(unittest.TestCase):
+    def test_reuses_unchanged_manifest_and_invalidates_external_replace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            path = (
+                root
+                / "output"
+                / "question_review_console"
+                / "workflow_runs"
+                / "sample"
+                / "run-1"
+                / "manifest.json"
+            )
+            QualificationRunStore._write_json(path, {"value": "first"})
+
+            first = store._load_manifest(path)
+            with patch(
+                "tools.question_review_console.qualification_runs.json.loads",
+                side_effect=AssertionError("unchanged manifest was reparsed"),
+            ):
+                cached = store._load_manifest(path)
+            QualificationRunStore._write_json(
+                path,
+                {"value": "externally-replaced"},
+            )
+            replaced = store._load_manifest(path)
+
+        self.assertEqual(first, cached)
+        self.assertIsNot(first, cached)
+        self.assertIsNot(first, replaced)
+        self.assertEqual(replaced, {"value": "externally-replaced"})
+
+    def test_manifest_write_refreshes_cache_and_cache_stays_bounded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            paths = []
+            for index in range(5):
+                path = (
+                    root
+                    / "output"
+                    / "question_review_console"
+                    / "workflow_runs"
+                    / "sample"
+                    / f"run-{index}"
+                    / "manifest.json"
+                )
+                manifest = {"value": index}
+                store._write_manifest(path, manifest)
+                self.assertEqual(store._load_manifest(path), manifest)
+                self.assertIsNot(store._load_manifest(path), manifest)
+                paths.append(path)
+
+        self.assertEqual(len(store._manifest_cache), 4)
+        self.assertNotIn(paths[0], store._manifest_cache)
+        self.assertIn(paths[-1], store._manifest_cache)
+
+    def test_batch_stage_update_writes_once_and_preserves_single_update_semantics(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "question_type", "remaining")
+            plan.update(
+                kind="orchestration",
+                questionExecutions=[
+                    {
+                        "questionId": question_id,
+                        "listGroupId": "2026",
+                        "status": "queued",
+                        "stages": [
+                            {
+                                "stageId": "question_type",
+                                "status": "queued",
+                            },
+                            {
+                                "stageId": "question_intent",
+                                "status": "queued",
+                            },
+                        ],
+                    }
+                    for question_id in ("q1", "q2")
+                ],
+            )
+            run = store.create(plan, status="queued", prompt="batch")
+            with patch.object(
+                store,
+                "_write_manifest",
+                wraps=store._write_manifest,
+            ) as write_manifest:
+                updated = store.update_question_stages(
+                    "sample",
+                    run["runId"],
+                    [
+                        {
+                            "questionId": "q1",
+                            "stageId": "question_type",
+                            "validatedReceipt": {"recordedCount": 1, "id": "q1"},
+                            "changes": {
+                                "status": "validated",
+                                "finishedAt": "done",
+                            },
+                        },
+                        {
+                            "questionId": "q2",
+                            "stageId": "question_type",
+                            "blockDependents": True,
+                            "changes": {
+                                "status": "blocked",
+                                "error": "invalid candidate",
+                                "finishedAt": "done",
+                            },
+                        },
+                    ],
+                )
+
+            persisted = store.get("sample", run["runId"])
+
+        self.assertEqual(write_manifest.call_count, 1)
+        self.assertEqual(
+            updated["questionExecutions"],
+            persisted["questionExecutions"],
+        )
+        self.assertEqual(updated["validatedWorkItemCount"], 1)
+        self.assertEqual(updated["blockedQuestionCount"], 1)
+        self.assertEqual(updated["blockedWorkItemCount"], 2)
+        self.assertEqual(updated["confirmedGroupIds"], ["2026"])
+        self.assertEqual(updated["workVersionReceipt"]["recordedCount"], 1)
+        self.assertEqual(
+            updated["questionExecutions"][1]["stages"][1]["status"],
+            "blocked",
+        )
+
+    def test_two_question_flow_batches_projection_start_and_result_updates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = (
+                root
+                / "output"
+                / "new-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            for number in (1, 2):
+                question_id = f"new-exam-2026-q{number}"
+                QualificationRunStore._write_json(
+                    source_dir / f"question_2026_{number}.json",
+                    {
+                        "originalQuestionId": question_id,
+                        "questionBodyText": f"記述{number}は正しい。",
+                        "choiceTextList": ["正しい"],
+                    },
+                )
+            jobs = JobManager()
+            coordinator = QualificationRunCoordinator(
+                root,
+                QualificationWorkflow(root, TwoQuestionSourceInventory()),
+                FakeSynchronizer(),
+                jobs,
+                "secret",
+                app_server=PerQuestionQueueAppServer(),
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "group_refresh",
+                stage_ids=["question_type", "question_intent"],
+                list_group_ids=["2026"],
+            )
+            with patch.object(
+                coordinator.store,
+                "update_question_stages",
+                wraps=coordinator.store.update_question_stages,
+            ) as update_question_stages:
+                started = coordinator.start(
+                    "new-exam",
+                    preview["stageId"],
+                    "group_refresh",
+                    preview["previewToken"],
+                    stage_ids=["question_type", "question_intent"],
+                    list_group_ids=["2026"],
+                )
+                QualificationRunTestSupport()._wait_for_job(
+                    jobs,
+                    started["job"]["jobId"],
+                )
+            run = coordinator.store.get(
+                "new-exam",
+                started["run"]["runId"],
+            )
+
+        batches = [call.args[2] for call in update_question_stages.call_args_list]
+        self.assertEqual(run["queueStatus"], "succeeded")
+        self.assertEqual(run["validatedWorkItemCount"], 4)
+        self.assertTrue(
+            any(
+                len(batch) == 2
+                and all(
+                    "projectedInputPath" in (item.get("changes") or {})
+                    for item in batch
+                )
+                for batch in batches
+            )
+        )
+        self.assertTrue(
+            any(
+                len(batch) == 2
+                and all(
+                    (item.get("changes") or {}).get("status") == "committing"
+                    for item in batch
+                )
+                for batch in batches
+            )
+        )
+        self.assertTrue(
+            any(
+                len(batch) == 2
+                and all(
+                    (item.get("changes") or {}).get("status") == "validated"
+                    for item in batch
+                )
+                for batch in batches
+            )
+        )
+
+
 class ResumePolicyCompatibilityTests(unittest.TestCase):
     previous = {
         "stageIds": [
