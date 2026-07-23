@@ -638,6 +638,18 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             None,
             [{"original_question_id": "q1", "questionType": "single"}],
         )
+        validate(
+            {"public_question_id": "q1"},
+            None,
+            [
+                {
+                    "originalQuestionId": "q1",
+                    "sourceUniqueKeys": ["derived:choice:1"],
+                    "questionType": "single",
+                }
+            ],
+            target_aliases=("q1", "derived:choice:1", "derived-choice-1"),
+        )
         with self.assertRaisesRegex(QualificationRunError, "ID fieldが空又は不正"):
             validate(
                 {"public_question_id": "q1"},

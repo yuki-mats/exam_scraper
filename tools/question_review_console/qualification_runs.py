@@ -12455,6 +12455,36 @@ class QualificationRunCoordinator:
                     else None
                 )
                 after_source_text = after_fields.get("questionBodyText")
+                declared_source_unique_key_aliases: set[str] = set()
+                exact_scoped_source_unique_key_aliases: set[str] = set()
+                raw_source_unique_keys = after_fields.get("sourceUniqueKeys")
+                if isinstance(raw_source_unique_keys, list):
+                    for value in raw_source_unique_keys:
+                        if not value:
+                            continue
+                        source_key = str(value)
+                        candidate_aliases = {source_key}
+                        document_id = question_id_from_source_unique_key(
+                            source_key
+                        )
+                        if document_id:
+                            candidate_aliases.add(document_id)
+                        declared_source_unique_key_aliases.update(
+                            candidate_aliases
+                        )
+                        if candidate_aliases.issubset(matched_target_group):
+                            exact_scoped_source_unique_key_aliases.update(
+                                candidate_aliases
+                            )
+                if (
+                    isinstance(raw_source_unique_keys, list)
+                    and raw_source_unique_keys
+                    and exact_scoped_source_unique_key_aliases
+                    == declared_source_unique_key_aliases
+                ):
+                    allowed_derived_fields["sourceUniqueKeys"] = copy.deepcopy(
+                        raw_source_unique_keys
+                    )
                 if (
                     isinstance(source_text, str)
                     and (
@@ -12648,7 +12678,9 @@ class QualificationRunCoordinator:
                             not is_law_audit_sidecar
                             and (
                                 not (
-                                    source_aliases(after_entry) - derived_aliases
+                                    source_aliases(after_entry)
+                                    - derived_aliases
+                                    - exact_scoped_source_unique_key_aliases
                                 ).issubset(source_bound_aliases)
                                 or not workflow_aliases(after_entry).issubset(
                                     source_bound_aliases
