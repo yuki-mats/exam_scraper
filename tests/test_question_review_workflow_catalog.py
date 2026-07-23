@@ -110,6 +110,22 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("check-law-context-patch", prompt)
         self.assertNotIn("question_bank.py quality-gate", prompt)
 
+    def test_originalization_policy_preserves_quality_with_minimum_edits(self):
+        prompt = (ROOT / "prompt/05_prompt_originalize_question.md").read_text(
+            encoding="utf-8"
+        )
+        operations = (
+            ROOT / "document/operations/original_question_authoring_workflow.md"
+        ).read_text(encoding="utf-8")
+
+        for text in (prompt, operations):
+            self.assertIn("問題文全体を別問題へ作り替え", text)
+            self.assertIn("一つ又は必要最小限", text)
+            self.assertIn("誤答", text)
+            self.assertIn("難易度", text)
+        self.assertIn("選択肢はすべて維持してよい", prompt)
+        self.assertIn("問題文は一部だけの変更でもよい", prompt)
+
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()
 
@@ -187,7 +203,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["explanation"], "4.0")
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
-        self.assertEqual(version_by_stage["originalize"], "2.2")
+        self.assertEqual(version_by_stage["originalize"], "2.3")
         self.assertEqual(version_by_stage["question_type"], "3.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],

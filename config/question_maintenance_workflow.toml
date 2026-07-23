@@ -42,8 +42,9 @@ code = "05"
 label = "独自問題化"
 purpose = "取得問題の論点と試験らしさを保ち、公開用の問題文・選択肢・正答・必要画像を作る"
 kind = "human"
+# 2.3: 問題文と選択肢の変更を必要最小限にし、難易度と問題品質を維持する。
 # 2.2: 選択肢の書き換えを一律必須にせず、独自化した問題文との整合で判断する。
-policy_version = "2.2"
+policy_version = "2.3"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 automatic = false
