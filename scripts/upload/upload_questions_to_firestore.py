@@ -64,6 +64,7 @@ DOC_COMPARE_KEYS = (
     "knowledgeText",
     "suggestedQuestions",
     "suggestedQuestionDetails",
+    "explanationReferences",
     "lawReferences",
     "lawRevisionFacts",
     "isLawRelated",
@@ -80,6 +81,7 @@ DOC_COMPARE_KEYS = (
 )
 CHOICE_ONLY_OMITTED_FIELDS = (
     "explanationText",
+    "explanationReferences",
     "suggestedQuestions",
     "suggestedQuestionDetails",
 )
@@ -204,6 +206,7 @@ def build_doc_data_base(question: dict) -> dict:
         "knowledgeText",
         "suggestedQuestions",
         "suggestedQuestionDetails",
+        "explanationReferences",
         "lawReferences",
         "lawRevisionFacts",
         "isLawRelated",

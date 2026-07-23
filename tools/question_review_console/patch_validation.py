@@ -12,6 +12,7 @@ from scripts.common.independent_question_images import (
     published_image_urls,
 )
 from scripts.common.explanation_contract import explanation_shape_errors
+from scripts.common.explanation_references import explanation_reference_errors
 
 
 PATCH_REQUIRED_FIELDS = {
@@ -107,6 +108,11 @@ def projected_required_warnings(record: Mapping[str, Any]) -> list[dict[str, str
     )
     if explanation_errors:
         add("explanationText", " / ".join(explanation_errors))
+    reference_errors = explanation_reference_errors(
+        record.get("explanationReferences")
+    )
+    if reference_errors:
+        add("explanationReferences", " / ".join(reference_errors))
 
     if str(record.get("examSource") or "").strip() == INDEPENDENT_QUESTION_EXAM_SOURCE:
         image_required = record.get(INDEPENDENT_IMAGE_REQUIRED_FIELD)

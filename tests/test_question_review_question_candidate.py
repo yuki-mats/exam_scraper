@@ -104,6 +104,7 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertEqual(len(targets), 1)
         self.assertEqual(targets[0].target_id, "q1:explanation")
         self.assertIn("explanationText", targets[0].allowed_fields)
+        self.assertIn("explanationReferences", targets[0].allowed_fields)
         self.assertIn("suggestedQuestionDetailsByChoice", targets[0].allowed_fields)
         self.assertNotIn("suggestedQuestions", targets[0].allowed_fields)
         self.assertNotIn("questionBodyText", targets[0].allowed_fields)
@@ -918,6 +919,56 @@ class QuestionCandidateTest(unittest.TestCase):
             errors,
             ("選択肢1: 解説は「正しい。」又は「間違い。」で始めてください。",),
         )
+
+    def test_content_validator_rejects_invalid_explanation_reference(self):
+        targets = candidate_targets("q1", "explanation", self.plan())
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "参照先を追加した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:explanation",
+                                "setFields": [
+                                    {
+                                        "field": "explanationReferences",
+                                        "valueJson": json.dumps(
+                                            [
+                                                {
+                                                    "title": "非HTTPS資料",
+                                                    "sourceUrl": "http://example.com",
+                                                    "referenceDate": "2026-07-23",
+                                                }
+                                            ],
+                                            ensure_ascii=False,
+                                        ),
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "true_false",
+                "choiceTextList": ["選択肢"],
+                "correctChoiceText": ["正しい"],
+            },
+        )
+
+        self.assertTrue(any("HTTPS URL" in error for error in errors))
 
     def test_content_validator_rejects_choice_only_suggestions(self):
         targets = candidate_targets("q1", "explanation", self.plan())

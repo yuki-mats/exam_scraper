@@ -277,6 +277,7 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             "knowledgeText": "補足知識",
             "suggestedQuestions": [],
             "suggestedQuestionDetails": [],
+            "explanationReferences": [],
             "lawReferences": [],
             "lawRevisionFacts": {},
             "isLawRelated": False,

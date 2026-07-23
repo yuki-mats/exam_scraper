@@ -235,7 +235,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             stage["id"]: stage["policyVersion"] for stage in versioned
         }
         stage_by_id = {stage["id"]: stage for stage in catalog["stages"]}
-        self.assertEqual(version_by_stage["explanation"], "4.0")
+        self.assertEqual(version_by_stage["explanation"], "4.1")
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertEqual(version_by_stage["originalize"], "2.5")

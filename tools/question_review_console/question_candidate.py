@@ -15,6 +15,7 @@ from scripts.common.explanation_contract import (
     uses_question_level_explanation,
 )
 from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
+from scripts.common.explanation_references import explanation_reference_errors
 from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
@@ -220,6 +221,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
     "explanation": frozenset(
         {
             "explanationText",
+            "explanationReferences",
             "suggestedQuestionDetailsByChoice",
             "isLawRelated",
             "lawGroundedExplanationNotNeeded",
@@ -331,6 +333,27 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
     "suggestedQuestionDetailsByChoice": (
         _SUGGESTED_QUESTION_DETAILS_BY_CHOICE_RULE
     ),
+    "explanationReferences": {
+        "type": "array",
+        "description": (
+            "解説の根拠として実際に確認した公式一次資料だけを保存する。"
+            "各要素はtitle、sourceUrl、referenceDateだけを必須とし、"
+            "特定の選択肢だけに対応する場合のみ0始まりのchoiceIndexを加える。"
+            "sourceUrlはHTTPS URL、referenceDateはYYYY-MM-DD形式とする。"
+            "候補、未確認、非公式の参照先は正式patchへ保存しない。"
+        ),
+        "items": {
+            "type": "object",
+            "required": ["title", "sourceUrl", "referenceDate"],
+            "additionalProperties": False,
+            "properties": {
+                "title": {"type": "string", "minLength": 1},
+                "sourceUrl": {"type": "string", "minLength": 1},
+                "referenceDate": {"type": "string", "minLength": 1},
+                "choiceIndex": {"type": "integer", "minimum": 0},
+            },
+        },
+    },
 }
 
 _CORRECT_CHOICE_TEXT_RULE: dict[str, Any] = {
@@ -508,6 +531,7 @@ _CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
     "correctChoiceText": ("correct_choice", "law_audit"),
     "answer_result_text": ("correct_choice", "law_audit"),
     "explanationText": ("explanation", "law_audit"),
+    "explanationReferences": ("explanation",),
     "suggestedQuestionDetailsByChoice": ("explanation", "law_audit"),
     "lawRevisionFacts": ("explanation", "law_audit"),
     "isLawRelated": ("law_context", "explanation", "law_audit"),
@@ -1040,6 +1064,10 @@ def validate_candidate_content(
                     question_type=logical.get("questionType"),
                 )
             )
+    if "explanationReferences" in changed_fields:
+        errors.extend(
+            explanation_reference_errors(logical.get("explanationReferences"))
+        )
     if "isCalculationQuestion" in changed_fields and not isinstance(
         logical.get("isCalculationQuestion"), bool
     ):

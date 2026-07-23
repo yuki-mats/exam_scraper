@@ -53,6 +53,9 @@ from scripts.common.independent_question_images import (
 from scripts.common.question_identity import question_id_from_source_unique_key
 from scripts.common.suggested_question_contract import details_for_choice
 from scripts.common.explanation_contract import public_explanation_text
+from scripts.common.explanation_references import (
+    normalize_explanation_references,
+)
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
@@ -844,6 +847,7 @@ def finalize_firestore_question(question: dict) -> dict:
     question.setdefault("isChoiceOnly", False)
     if question["isChoiceOnly"]:
         question.pop("explanationText", None)
+        question.pop("explanationReferences", None)
         question.pop("suggestedQuestions", None)
         question.pop("suggestedQuestionDetails", None)
     question["correctChoiceText"] = normalize_correct_choice_text(question.get("correctChoiceText"))
@@ -925,6 +929,12 @@ def create_firestore_question_base(
     law_references = format_flat_law_references(question_body.get("lawReferences", []))
     if law_references:
         firestore_question["lawReferences"] = law_references
+    explanation_references = normalize_explanation_references(
+        question_body.get("explanationReferences"),
+        choice_index=suggested_choice_index,
+    )
+    if explanation_references:
+        firestore_question["explanationReferences"] = explanation_references
     is_law_related = resolve_is_law_related(question_body)
     if is_law_related is not None:
         firestore_question["isLawRelated"] = is_law_related
@@ -1313,6 +1323,11 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         law_references = format_flat_law_references(question_body.get("lawReferences", []))
         if law_references:
             firestore_question["lawReferences"] = law_references
+        explanation_references = normalize_explanation_references(
+            question_body.get("explanationReferences")
+        )
+        if explanation_references:
+            firestore_question["explanationReferences"] = explanation_references
         is_law_related = resolve_is_law_related(question_body)
         if is_law_related is not None:
             firestore_question["isLawRelated"] = is_law_related

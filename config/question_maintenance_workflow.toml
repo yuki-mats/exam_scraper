@@ -192,7 +192,8 @@ label = "解説"
 purpose = "正誤理由を整え、追加の学習価値がある場合だけ補足質問を作る"
 kind = "human"
 # 4.0: 基本解説の言い換え補足を不適合とし、追加価値がなければ0件へ洗い替える。
-policy_version = "4.0"
+# 4.1: 解説で確認したオンラインの公式一次資料を共通契約で紐づける。
+policy_version = "4.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -203,13 +204,13 @@ batch_selectable = true
 session_group = "maintenance"
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
-issue_fields = ["explanationText", "suggestedQuestionDetailsByChoice"]
+issue_fields = ["explanationText", "explanationReferences", "suggestedQuestionDetailsByChoice"]
 documents = ["prompt/03_prompt_add_explanationText.md"]
 
 [[stages.update_targets]]
 id = "basic_explanation"
 label = "基本解説"
-fields = ["explanationText"]
+fields = ["explanationText", "explanationReferences"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion", "isLawRelated", "lawReferences", "lawContextForExplanation"]
 
 [[stages.update_targets]]

@@ -84,6 +84,7 @@ const FIELD_LABELS = {
   choiceTextList: "選択肢",
   correctChoiceText: "正誤",
   explanationText: "基本解説",
+  explanationReferences: "解説の公式資料",
   questionType: "問題形式",
   isCalculationQuestion: "計算問題",
   questionIntent: "出題意図",
@@ -132,6 +133,7 @@ const EDITABLE_FIELDS = [
 
 const REVIEW_FIELDS = [
   ...EDITABLE_FIELDS,
+  "explanationReferences",
   "lawReferences",
   "lawRevisionFacts",
 ];
@@ -2776,6 +2778,7 @@ function setQualificationRunRunning(running) {
 const PROGRESS_RESULT_FIELDS = [
   ["correctChoiceText", "正答"],
   ["explanationText", "解説"],
+  ["explanationReferences", "解説の公式資料"],
   ["questionType", "問題形式"],
   ["questionIntent", "出題意図"],
   ["questionSetId", "問題セット"],
@@ -4190,7 +4193,13 @@ function renderDetail() {
     pane.append(suggestionSection);
   }
 
-  if (question.isLawRelated) pane.append(renderLawSection(publication.record));
+  const references = publication.record.explanationReferences;
+  if (
+    (Array.isArray(references) && references.length)
+    || question.isLawRelated
+  ) {
+    pane.append(renderReferenceSection(publication.record, question.isLawRelated));
+  }
   if (!state.auditView.readOnly) pane.append(renderQuestionAdminDetails(question));
 }
 
@@ -4241,6 +4250,9 @@ function publicationContent(question) {
       correctChoiceText: embeddedCorrectChoiceList
         || documents.map((document) => document.correctChoiceText || ""),
       explanationText,
+      explanationReferences: Array.isArray(projected.explanationReferences)
+        ? projected.explanationReferences
+        : documents.flatMap((document) => document.explanationReferences || []),
       suggestedQuestionDetailsByChoice: hasEmbeddedChoiceArrays
         ? projected.suggestedQuestionDetailsByChoice || []
         : documents.flatMap((document, index) => {
@@ -4775,7 +4787,7 @@ function openEvaluationRework(question) {
   const fields = stages.flatMap((stage) => {
     if (stage === "02a") return ["correctChoiceText"];
     if (stage === "02b" || stage === "03b") return ["lawReferences", "lawRevisionFacts"];
-    if (stage === "03") return ["explanationText"];
+    if (stage === "03") return ["explanationText", "explanationReferences"];
     if (stage === "01") return ["questionType", "isCalculationQuestion"];
     if (stage === "02") return ["questionIntent"];
     return [];
@@ -5884,7 +5896,8 @@ function renderLawRevisionFacts(value) {
 }
 
 function renderLawSection(projected) {
-  const node = section("法令根拠");
+  const node = section("法令・監査");
+  node.classList.add("reference-law-section");
   const references = document.createElement("details");
   references.append(element("summary", "", "条文根拠"));
   const content = element("div", "details-content");
@@ -5896,6 +5909,55 @@ function renderLawSection(projected) {
   factContent.append(renderLawRevisionFacts(projected.lawRevisionFacts));
   facts.append(factContent);
   node.append(references, facts);
+  return node;
+}
+
+function renderExplanationReferences(value) {
+  const references = Array.isArray(value)
+    ? value.filter((reference) => reference && typeof reference === "object")
+    : [];
+  if (!references.length) {
+    return element("p", "structured-empty", "解説に紐づく公式資料はありません。");
+  }
+  const list = element("div", "law-entry-list");
+  references.forEach((reference, index) => {
+    const details = document.createElement("details");
+    details.className = "law-entry";
+    details.open = index === 0;
+    const choiceIndex = Number.isInteger(reference.choiceIndex)
+      ? reference.choiceIndex
+      : null;
+    const title = [
+      choiceIndex === null ? "" : `選択肢${choiceIndex + 1}`,
+      reference.title || "資料名なし",
+      reference.referenceDate ? `確認日 ${reference.referenceDate}` : "",
+    ].filter(Boolean).join(" / ");
+    details.append(element("summary", "", title));
+    const content = element("div", "details-content");
+    content.append(renderStructuredValue(reference, {
+      fields: ["explanationReferences"],
+      choiceIndexes: choiceIndex === null ? [] : [choiceIndex],
+      targetLabel: choiceIndex === null
+        ? "解説の公式資料"
+        : `解説の公式資料 / 選択肢${choiceIndex + 1}`,
+      dataPath: `explanationReferences[${index}]`,
+    }));
+    details.append(content);
+    list.append(details);
+  });
+  return list;
+}
+
+function renderReferenceSection(projected, includeLaw) {
+  const node = section("参照資料");
+  const official = document.createElement("details");
+  official.open = true;
+  official.append(element("summary", "", "解説の公式資料"));
+  const content = element("div", "details-content");
+  content.append(renderExplanationReferences(projected.explanationReferences));
+  official.append(content);
+  node.append(official);
+  if (includeLaw) node.append(renderLawSection(projected));
   return node;
 }
 

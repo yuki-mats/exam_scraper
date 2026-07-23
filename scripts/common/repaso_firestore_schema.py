@@ -142,6 +142,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "explanationText",
         "suggestedQuestions",
         "suggestedQuestionDetails",
+        "explanationReferences",
         "lawReferences",
         "lawRevisionFacts",
         "isLawRelated",
@@ -229,6 +230,36 @@ def _is_suggested_question_detail_list(value: Any) -> bool:
             return False
         extra = sorted(set(detail.keys()) - {"question", "answer"})
         if extra:
+            return False
+    return True
+
+
+def _is_explanation_reference_list(value: Any) -> bool:
+    if not isinstance(value, list):
+        return False
+    for reference in value:
+        if not isinstance(reference, dict):
+            return False
+        if set(reference) - {
+            "title",
+            "sourceUrl",
+            "referenceDate",
+            "choiceIndex",
+        }:
+            return False
+        if any(
+            not _is_non_empty_str(reference.get(field))
+            for field in ("title", "sourceUrl", "referenceDate")
+        ):
+            return False
+        if not str(reference["sourceUrl"]).startswith("https://"):
+            return False
+        choice_index = reference.get("choiceIndex")
+        if choice_index is not None and (
+            not isinstance(choice_index, int)
+            or isinstance(choice_index, bool)
+            or choice_index < 0
+        ):
             return False
     return True
 
@@ -504,6 +535,7 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
             key
             for key in (
                 "explanationText",
+                "explanationReferences",
                 "suggestedQuestions",
                 "suggestedQuestionDetails",
             )
@@ -552,6 +584,14 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
     if "lawReferences" in doc and doc["lawReferences"] is not None and not _is_law_reference_list(doc["lawReferences"]):
         raise ValueError(f"questions:{doc_id} lawReferences must be list<object>|null")
+    if (
+        "explanationReferences" in doc
+        and doc["explanationReferences"] is not None
+        and not _is_explanation_reference_list(doc["explanationReferences"])
+    ):
+        raise ValueError(
+            f"questions:{doc_id} explanationReferences must be list<object>|null"
+        )
     if "lawRevisionFacts" in doc and doc["lawRevisionFacts"] is not None and not _is_law_revision_facts(doc["lawRevisionFacts"]):
         raise ValueError(f"questions:{doc_id} lawRevisionFacts must be object|null")
     if (
