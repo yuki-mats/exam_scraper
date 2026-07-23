@@ -359,6 +359,13 @@ def _classify_message(message: str) -> tuple[str, str, bool]:
             ("aggregate_review_hold", "aggregateAnswerReview", False),
         ),
         (
+            (
+                "05_originalizedの問題文全体が00_sourceと完全一致",
+                "問題文全体が00_sourceと完全一致",
+            ),
+            ("originalization_required", "questionBodyText", True),
+        ),
+        (
             ("00_source", "source immut", "source不変"),
             ("source_immutability", "00_source", False),
         ),

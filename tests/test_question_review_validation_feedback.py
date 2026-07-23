@@ -76,6 +76,42 @@ class ChildFeedbackTests(unittest.TestCase):
                 self.assertEqual(feedback["issues"][0]["code"], code)
                 self.assertFalse(feedback["issues"][0]["retryable"])
 
+    def test_source_identical_originalized_body_is_retryable_content_feedback(self):
+        feedback = _feedback(
+            {
+                "runId": "child-originalize",
+                "status": "failed",
+                "error": (
+                    "05_originalizedの問題文全体が"
+                    "00_sourceと完全一致しています。"
+                ),
+                "result": {
+                    "status": "failed",
+                    "summary": (
+                        "05_originalizedの問題文全体が"
+                        "00_sourceと完全一致しています。"
+                    ),
+                    "commands": [
+                        {"command": "question content", "status": "fail"}
+                    ],
+                },
+            },
+            stage_id="originalize",
+        )
+
+        self.assertEqual(feedback["status"], "retryable")
+        issue = next(
+            issue
+            for issue in feedback["issues"]
+            if issue["code"] == "originalization_required"
+        )
+        self.assertEqual(issue["field"], "questionBodyText")
+        self.assertTrue(issue["retryable"])
+        self.assertNotIn(
+            "source_immutability",
+            {value["code"] for value in feedback["issues"]},
+        )
+
     def test_write_safety_failures_are_not_retried(self):
         cases = (
             (
