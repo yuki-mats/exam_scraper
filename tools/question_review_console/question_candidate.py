@@ -15,6 +15,7 @@ from scripts.common.explanation_contract import (
     uses_question_level_explanation,
 )
 from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
+from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
 )
@@ -1014,6 +1015,11 @@ def validate_candidate_content(
         or any(value not in {"正しい", "間違い", "誤り"} for value in correct)
     ):
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
+    if any(target.role == "originalized" for target in target_values):
+        try:
+            validate_originalized_entry(projected_record, logical)
+        except ValueError as exc:
+            errors.append(str(exc))
     explanations = logical.get("explanationText")
     if "explanationText" in changed_fields and explanations is not None:
         explanation_shape = explanation_shape_errors(

@@ -628,7 +628,7 @@ def normalize_correct_choice_label(value: Any) -> str:
     }.get(text, text)
 
 
-def _validate_originalized_entry(
+def validate_originalized_entry(
     source: Mapping[str, Any],
     entry: Mapping[str, Any],
 ) -> bool:
@@ -704,7 +704,7 @@ def apply_originalized_fields(
         entry = originalized_map.get(str(question_id))
         if not isinstance(entry, Mapping):
             continue
-        image_required = _validate_originalized_entry(question, entry)
+        image_required = validate_originalized_entry(question, entry)
 
         for field in ORIGINALIZED_FIELDS:
             if field in entry and entry[field] is not None:

@@ -156,6 +156,59 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertIn("questionBodyTextが非空stringではありません。", errors)
         self.assertIn("choiceTextListが非空stringの配列ではありません。", errors)
 
+    def test_originalize_candidate_rejects_source_identical_body_and_choices(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/independent/"
+                "05_originalized/q1.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "originalize": ["answer_result_text"]
+            },
+        }
+        targets = candidate_targets("q1", "originalize", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "正解表示だけを変更した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:originalized",
+                                "setFields": [
+                                    {
+                                        "field": "answer_result_text",
+                                        "valueJson": '"正解は「B」です。"',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        source = {
+            "questionBodyText": "元の問題文",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は2です。",
+        }
+
+        errors = validate_candidate_content(candidate, targets, source)
+
+        self.assertIn(
+            "05_originalizedの問題文全体が00_sourceと完全一致しています。",
+            errors,
+        )
+
     def test_partial_target_allows_only_supplementary_questions(self):
         plan = {
             **self.plan(),
