@@ -173,6 +173,7 @@ const state = {
   qualificationActiveRun: null,
   qualificationActiveJob: null,
   qualificationRunProgress: null,
+  dashboardRefreshing: false,
   lawWorkflowSaving: false,
   codexStatus: null,
   sharedRunPolling: false,
@@ -305,8 +306,64 @@ function toast(message, isError = false) {
   toast.timer = window.setTimeout(() => { node.className = "toast"; }, 3200);
 }
 
-function setLoading(message) {
-  $("#list-summary").textContent = message;
+function setLoading(message, busy = false) {
+  const node = $("#list-summary");
+  node.textContent = message;
+  node.classList.toggle("loading", busy);
+  node.setAttribute("aria-busy", String(busy));
+}
+
+function showRefreshLoading(message) {
+  const dialog = $("#refresh-loading-dialog");
+  const refreshButton = $("#refresh-button");
+  $("#refresh-loading-message").textContent = message;
+  refreshButton.disabled = true;
+  refreshButton.classList.add("is-loading");
+  refreshButton.setAttribute("aria-busy", "true");
+  if (!dialog.open) dialog.showModal();
+}
+
+function updateRefreshLoading(message) {
+  $("#refresh-loading-message").textContent = message;
+}
+
+function hideRefreshLoading() {
+  const dialog = $("#refresh-loading-dialog");
+  const refreshButton = $("#refresh-button");
+  if (dialog.open) dialog.close();
+  refreshButton.disabled = false;
+  refreshButton.classList.remove("is-loading");
+  refreshButton.removeAttribute("aria-busy");
+}
+
+async function refreshDashboard() {
+  if (state.dashboardRefreshing) return;
+  state.dashboardRefreshing = true;
+  clearEvaluationSelection();
+  try {
+    showRefreshLoading("整備状況と年度・フォルダ別の進捗を読み込んでいます。");
+    const workflowLoaded = await loadQualificationWorkflow(true);
+    updateRefreshLoading("実行中の作業と問題ごとの進捗を読み込んでいます。");
+    const runsLoaded = await loadQualificationRuns();
+    let questionsLoaded = true;
+    if (auditViewIsOpen()) {
+      updateRefreshLoading("表示中の問題一覧と整備内容を読み込んでいます。");
+      questionsLoaded = await loadQuestions(true);
+      if (questionsLoaded) state.auditView.loadedQualification = state.qualification;
+    } else {
+      invalidateAuditView();
+    }
+    if (workflowLoaded && runsLoaded && questionsLoaded) {
+      toast("最新の状態に更新しました。");
+    } else {
+      toast("一部の情報を更新できませんでした。画面の表示を確認してください。", true);
+    }
+  } catch (error) {
+    toast(error.message, true);
+  } finally {
+    hideRefreshLoading();
+    state.dashboardRefreshing = false;
+  }
 }
 
 function auditViewIsOpen() {
@@ -470,16 +527,8 @@ function bindControls() {
     clearEvaluationSelection();
     await loadQuestions(false);
   });
-  $("#refresh-button").addEventListener("click", async () => {
-    clearEvaluationSelection();
-    await loadQualificationWorkflow(true);
-    await loadQualificationRuns();
-    if (auditViewIsOpen()) {
-      if (await loadQuestions(true)) state.auditView.loadedQualification = state.qualification;
-    } else {
-      invalidateAuditView();
-    }
-  });
+  $("#refresh-button").addEventListener("click", refreshDashboard);
+  $("#refresh-loading-dialog").addEventListener("cancel", (event) => event.preventDefault());
   $("#audit-view-close").addEventListener("click", closeAuditView);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
@@ -663,7 +712,7 @@ function updateUrl() {
 }
 
 async function loadQualificationWorkflow(preserveSelection = true, quiet = false) {
-  if (!state.qualification) return;
+  if (!state.qualification) return false;
   if (!quiet) {
     $("#qualification-workflow-status").textContent = "確認中";
     $("#qualification-workflow-action").disabled = true;
@@ -685,8 +734,9 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
         || "";
     }
     renderQualificationWorkflow();
+    return true;
   } catch (error) {
-    if (quiet) return;
+    if (quiet) return false;
     state.qualificationWorkflow = null;
     renderLawWorkflowSetting();
     $("#qualification-workflow-status").textContent = "取得失敗";
@@ -701,6 +751,7 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
       element("span", "", "再読込してから年度・フォルダを選択してください。"),
     );
     $("#maintenance-year-progress").replaceChildren();
+    return false;
   }
 }
 
@@ -2424,7 +2475,10 @@ function cancelQualificationRunPreview() {
 
 function setQualificationRunPreviewState(status, message) {
   const action = $("#qualification-run-start");
-  $("#qualification-run-preview").textContent = message;
+  const preview = $("#qualification-run-preview");
+  preview.textContent = message;
+  preview.classList.toggle("loading", status === "loading");
+  preview.setAttribute("aria-busy", String(status === "loading"));
   state.qualificationRunDialog.preview = null;
   if (status === "loading") {
     action.textContent = "確認中";
@@ -2518,6 +2572,8 @@ async function previewQualificationRun() {
 
 function renderQualificationRunPreview(preview) {
   const container = $("#qualification-run-preview");
+  container.classList.remove("loading");
+  container.setAttribute("aria-busy", "false");
   container.replaceChildren();
   const simplified = state.qualificationRunDialog.simplified;
   const fieldFirst = state.qualificationRunDialog.fieldFirst;
@@ -3440,7 +3496,7 @@ async function loadQuestions(preserveSelection, append = false) {
     $("#load-more-questions").disabled = true;
     $("#load-more-questions").textContent = "読み込み中";
   } else {
-    setLoading("読み込み中");
+    setLoading("問題一覧を更新しています", true);
   }
   try {
     const payload = await api(`/api/questions?${listQuery(offset)}`);
@@ -3461,7 +3517,7 @@ async function loadQuestions(preserveSelection, append = false) {
       + Number(counts.unreviewed || 0)
       + Number(counts.needsRework || 0)
       + Number(counts.publishReady || 0);
-    $("#list-summary").textContent = [
+    setLoading([
       `${state.questions.length}/${payload.filteredCount}問表示`,
       `全${payload.questionCount}問`,
       `反映待ち${pendingCount}`,
@@ -3472,7 +3528,7 @@ async function loadQuestions(preserveSelection, append = false) {
       ...($("#question-body-choices-only").checked
         ? [`問題文から選択肢を取得${payload.questionBodyChoicesCount || 0}問`]
         : []),
-    ].join(" / ");
+    ].join(" / "));
     updateEvaluationSelectionControls();
     const selectedStillExists = state.questions.some((question) => question.id === state.selectedId);
     if (!append && (!preserveSelection || !selectedStillExists)) {

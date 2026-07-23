@@ -1756,6 +1756,35 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             pipeline_source.index("if (!localReady)"),
         )
 
+    def test_refresh_button_shows_staged_full_screen_loading(self):
+        root = Path(__file__).resolve().parents[1]
+        static = root / "tools" / "question_review_console" / "static"
+        html = (static / "index.html").read_text(encoding="utf-8")
+        javascript = (static / "app.js").read_text(encoding="utf-8")
+        css = (static / "styles.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="refresh-loading-dialog"', html)
+        self.assertIn('id="refresh-loading-title"', html)
+        self.assertIn('id="refresh-loading-message"', html)
+        self.assertIn('class="loading-spinner"', html)
+        self.assertIn("async function refreshDashboard()", javascript)
+        refresh = javascript.split("async function refreshDashboard()", 1)[1].split(
+            "function auditViewIsOpen", 1
+        )[0]
+        self.assertIn("showRefreshLoading", refresh)
+        self.assertIn("updateRefreshLoading", refresh)
+        self.assertIn("finally", refresh)
+        self.assertIn("hideRefreshLoading", refresh)
+        self.assertIn(
+            '$("#refresh-button").addEventListener("click", refreshDashboard)',
+            javascript,
+        )
+        self.assertIn(".global-loading-dialog", css)
+        self.assertIn("width: 100vw", css)
+        self.assertIn("height: 100dvh", css)
+        self.assertIn("@keyframes loading-spin", css)
+        self.assertIn("@media (prefers-reduced-motion: reduce)", css)
+
 
 if __name__ == "__main__":
     unittest.main()
