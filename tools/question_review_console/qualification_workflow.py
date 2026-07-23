@@ -37,6 +37,49 @@ RUN_MODES = {
     "outdated": "洗い替え必要・未整備のみ",
     "refresh": "資格全体の全問題を再整備",
 }
+LAW_WORKFLOW_STAGE_IDS = {"law_context", "law_audit"}
+LAW_WORKFLOW_SETUP_DOCUMENT = (
+    "prompt/qualification_docs/_template/01_law_reference_policy.md"
+)
+LAW_WORKFLOW_UPDATE_TARGET_IDS = {"explanation.law_support"}
+
+
+def qualification_law_workflow_enabled(
+    repo_root: Path,
+    qualification: str,
+) -> bool:
+    """Return the single qualification-level switch for legal work."""
+
+    path = repo_root / "config" / "qualification_rules.json"
+    if not path.is_file():
+        return True
+    try:
+        rules = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ValueError(f"資格設定を読み込めません: {path}: {exc}") from exc
+    if not isinstance(rules, Mapping):
+        raise ValueError(f"資格設定はobjectで指定してください: {path}")
+    default = rules.get("default")
+    specific = rules.get(qualification)
+    if default is not None and not isinstance(default, Mapping):
+        raise ValueError("資格設定のdefaultはobjectで指定してください。")
+    if specific is not None and not isinstance(specific, Mapping):
+        raise ValueError(f"資格設定の{qualification}はobjectで指定してください。")
+    default_value = (
+        default.get("law_workflow_enabled", True)
+        if isinstance(default, Mapping)
+        else True
+    )
+    value = (
+        specific.get("law_workflow_enabled", default_value)
+        if isinstance(specific, Mapping)
+        else default_value
+    )
+    if not isinstance(value, bool):
+        raise ValueError(
+            f"{qualification or 'default'}.law_workflow_enabledはboolで指定してください。"
+        )
+    return value
 
 
 def _group_scope(
@@ -365,6 +408,10 @@ class QualificationWorkflow:
     def catalog(self, qualification: str = "") -> dict[str, Any]:
         loaded = self.catalog_store.load()
         system = dict(loaded["system"])
+        law_workflow_enabled = qualification_law_workflow_enabled(
+            self.repo_root,
+            qualification,
+        )
         shared_documents = _ordered_unique(
             [system["trunkDocument"], *system.get("defaultDocuments", [])]
         )
@@ -372,8 +419,27 @@ class QualificationWorkflow:
         qualification_documents = self._qualification_documents(qualification)
         stages: list[dict[str, Any]] = []
         for definition in loaded["stages"]:
+            if (
+                not law_workflow_enabled
+                and str(definition.get("id") or "") in LAW_WORKFLOW_STAGE_IDS
+            ):
+                continue
             stage = dict(definition)
             stage_documents = list(stage.pop("documents", []))
+            if not law_workflow_enabled:
+                stage_documents = [
+                    path
+                    for path in stage_documents
+                    if path != LAW_WORKFLOW_SETUP_DOCUMENT
+                ]
+                stage["updateTargets"] = [
+                    target
+                    for target in stage.get("updateTargets") or []
+                    if str(target.get("selectionId") or "")
+                    not in LAW_WORKFLOW_UPDATE_TARGET_IDS
+                ]
+                if str(stage.get("id") or "") == "setup":
+                    stage["purpose"] = "出題範囲と解説方針を固定する"
             patterns = list(stage.get("qualificationDocumentPatterns") or [])
             stage_qualification_documents = (
                 [
@@ -411,6 +477,7 @@ class QualificationWorkflow:
             json.dumps(
                 [
                     loaded["catalogHash"],
+                    law_workflow_enabled,
                     qualification_documents,
                     [
                         [stage["id"], stage.get("policyFingerprint")]
@@ -422,12 +489,20 @@ class QualificationWorkflow:
                 separators=(",", ":"),
             ).encode("utf-8")
         ).hexdigest()
+        session_group_ids = {
+            str(stage.get("sessionGroup") or "")
+            for stage in stages
+            if stage.get("sessionGroup")
+        }
         return {
             "qualification": qualification or None,
+            "lawWorkflowEnabled": law_workflow_enabled,
             "generatedAt": _now_iso(),
             "system": system,
             "sessionGroups": [
-                dict(value) for value in loaded.get("sessionGroups") or []
+                dict(value)
+                for value in loaded.get("sessionGroups") or []
+                if str(value.get("id") or "") in session_group_ids
             ],
             "catalogHash": effective_hash,
             "catalogPath": loaded["catalogPath"],
@@ -588,6 +663,7 @@ class QualificationWorkflow:
         )
         return {
             "qualification": qualification,
+            "lawWorkflowEnabled": bool(catalog["lawWorkflowEnabled"]),
             "generatedAt": _now_iso(),
             "system": catalog["system"],
             "catalogHash": catalog["catalogHash"],
@@ -600,13 +676,17 @@ class QualificationWorkflow:
                 "questionCount": len(questions),
                 "lawQuestionCount": sum(
                     question.get("isLawRelated") is True for question in questions
-                ),
+                )
+                if catalog["lawWorkflowEnabled"]
+                else 0,
                 "issueQuestionCount": sum(bool(question.get("issues")) for question in questions),
                 "holdQuestionCount": sum(
                     "law_hold" in set(question.get("issueCodes") or [])
                     or str(question.get("reviewStatus") or "") == "hold"
                     for question in questions
-                ),
+                )
+                if catalog["lawWorkflowEnabled"]
+                else 0,
                 "readyStageCount": ready_count,
                 "stageCount": len(stages),
                 "maintenanceProgress": progress,
@@ -1070,6 +1150,7 @@ class QualificationWorkflow:
         )
         return {
             "qualification": qualification,
+            "lawWorkflowEnabled": bool(catalog["lawWorkflowEnabled"]),
             "stageId": stage_id,
             "stageCode": str(definition["code"]),
             "stageLabel": str(definition["label"]),
@@ -1284,6 +1365,7 @@ class QualificationWorkflow:
         )
         return {
             "qualification": qualification,
+            "lawWorkflowEnabled": bool(catalog["lawWorkflowEnabled"]),
             "stageId": "multi",
             "stageIds": ordered,
             "stageCount": len(ordered),
@@ -1547,6 +1629,11 @@ class QualificationWorkflow:
                 if plan.get("questionRange")
                 else []
             ),
+            (
+                "- 法令工程: `有効`"
+                if plan.get("lawWorkflowEnabled", True)
+                else "- 法令工程: `無効（資格設定）`"
+            ),
             *(
                 [
                     "- 更新項目: `"
@@ -1601,6 +1688,16 @@ class QualificationWorkflow:
             (
                 f"上記正本に従い、qualification=`{qualification}`の選択工程を"
                 "対象問題ごとに一問ずつ実施する。"
+            ),
+            *(
+                [
+                    "この資格では法令工程を実施しない。"
+                    "`isLawRelated`、`lawGroundedExplanationNotNeeded`、"
+                    "`lawReferences`、`lawRevisionFacts`を新規作成・更新せず、"
+                    "02bと03bを開始条件又は完了条件にしない。"
+                ]
+                if not plan.get("lawWorkflowEnabled", True)
+                else []
             ),
             (
                 "一問を読み、その問題について選択工程を上記順序で完了してから次の問題へ進む。"

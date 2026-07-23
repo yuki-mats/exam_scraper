@@ -22,6 +22,7 @@
 - 各工程promptの本文には、共通原則と参照ルールだけを残す。
 - `04_prompt_link_questionSetId/` のような prompt 番号別の補助ディレクトリは増やさず、資格別資料はここにまとめる。
 - 新しい資格固有ルールや判断軸が必要になった場合も、prompt 本体へ書き足さず、`qualification_docs/<qualification_key>/` に整理する。
+- 法令を扱わない資格は、`config/qualification_rules.json`で`law_workflow_enabled=false`にする。この設定では02bと03bを工程一覧・自動選択・完了条件から外し、資格別の細かな除外条件は追加しない。
 
 ## 推奨構成
 各資格ディレクトリでは、次の3本を基本形にする。

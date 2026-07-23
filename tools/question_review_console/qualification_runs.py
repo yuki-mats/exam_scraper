@@ -1566,6 +1566,7 @@ class QualificationRunStore:
         manifest = {
             "runId": run_id,
             "qualification": qualification,
+            "lawWorkflowEnabled": bool(plan.get("lawWorkflowEnabled", True)),
             "stageId": str(plan["stageId"]),
             "stageIds": list(plan.get("stageIds") or [str(plan["stageId"])]),
             "stageCode": str(plan["stageCode"]),

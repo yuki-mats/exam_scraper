@@ -12,7 +12,7 @@ flowchart LR
   Route -->|公式過去問| Review["01〜03 通常整備（一問queue）"]
   Route -->|それ以外・混在| Originalize["05 独自問題化"]
   Originalize --> Review
-  Review --> Audit["03b 現行法監査（別の新規session）"]
+  Review --> Audit["03b 現行法監査（法令工程を使う資格のみ）"]
   Audit --> Category["03c category.json（未準備時の別session）"]
   Category --> QuestionSet["04 問題集（別の新規session）"]
   QuestionSet --> Merge["merge / convert"]
@@ -39,7 +39,7 @@ flowchart LR
 2. `00_source`を取得元の現在スナップショットとして保護する。手作業では変更せず、取得元が更新された場合だけ標準scraperで更新する。
 3. 独自問題は05で問題文・設問・選択肢・正答を先に確定する。画像が必要な問題は、その確定内容に合う独自画像を作って同じ05 patchへ追加してから、公式過去問と同じ01以降へ進める。詳細は[独自問題作成ワークフロー](original_question_authoring_workflow.md)を正本とする。
 4. トップの`listGroupId`一覧から対象年度、整備する項目、処理する問題を指定する。整備する項目は初期状態ですべて選択され、処理する問題は通常`整備が必要な問題だけ`を使う。必要工程は項目から自動で決まり、対象を一問単位で確定しながら進める。queueとsessionの境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を正本とする。
-5. 法令問題は02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。監査警告が残る問題は完了扱いにしない。
+5. 法令工程を使う資格では、02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。`config/qualification_rules.json`で`law_workflow_enabled=false`とした資格は02bと03bを省略する。
 6. `category.json`が未準備なら、トップ整備が03cを別sessionで自動実行し、続けて04で各問題を問題集へ紐付ける。
 7. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
 8. 適用対象の整備工程がすべて現行MAJORになった問題を評価待ちへ蓄積し、任意の問題を選んで、問題ごとの新しい評価sessionで客観的に確認する。

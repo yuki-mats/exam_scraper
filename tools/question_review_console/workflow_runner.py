@@ -22,6 +22,9 @@ from tools.question_review_console.workflow_catalog import (
     WorkflowCatalog,
     policy_version_major,
 )
+from tools.question_review_console.qualification_workflow import (
+    qualification_law_workflow_enabled,
+)
 
 
 LOCAL_STAGES = ("merge", "convert", "upload")
@@ -224,7 +227,15 @@ class ArtifactSynchronizer:
             list_group_id,
             allow_missing_answer_result=allow_missing_answer_result,
         )
-        _law_questions, current_law_questions = self._law_audit_version_scope(group)
+        law_workflow_enabled = qualification_law_workflow_enabled(
+            self.repo_root,
+            qualification,
+        )
+        _law_questions, current_law_questions = (
+            self._law_audit_version_scope(group)
+            if law_workflow_enabled
+            else ([], [])
+        )
         strict_validation_warnings = self._current_law_verdict_warnings(
             current_law_questions
         )
@@ -250,6 +261,7 @@ class ArtifactSynchronizer:
         token_payload = {
             "qualification": qualification,
             "listGroupId": list_group_id,
+            "lawWorkflowEnabled": law_workflow_enabled,
             "fingerprint": group["fingerprint"],
             "sourceHash": self._source_hash(qualification, list_group_id),
             "command": command,
@@ -263,6 +275,7 @@ class ArtifactSynchronizer:
             **summary,
             "qualification": qualification,
             "listGroupId": list_group_id,
+            "lawWorkflowEnabled": law_workflow_enabled,
             "needsSync": force or not summary["localReady"],
             "force": force,
             "canSync": not (

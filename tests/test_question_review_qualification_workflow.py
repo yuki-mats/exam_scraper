@@ -107,6 +107,67 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_lawless_qualification_omits_law_workflow_everywhere(self):
+        qualification = "aws-cloud-practitioner"
+        group = {"listGroupId": "2026", "questions": [question()]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            rules_path = root / "config" / "qualification_rules.json"
+            rules_path.parent.mkdir(parents=True)
+            rules_path.write_text(
+                json.dumps(
+                    {
+                        "default": {"law_workflow_enabled": True},
+                        qualification: {"law_workflow_enabled": False},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(qualification, [group]),
+            )
+
+            catalog = workflow.catalog(qualification)
+            overview = workflow.overview(qualification)
+            explanation = workflow.plan(
+                qualification,
+                "explanation",
+                "refresh",
+            )
+            prompt = workflow.prompt(
+                qualification,
+                "explanation",
+                "refresh",
+            )["prompt"]
+
+            with self.assertRaisesRegex(ValueError, "対象工程がありません"):
+                workflow.plan(qualification, "law_audit", "refresh")
+
+        stage_ids = [stage["id"] for stage in catalog["stages"]]
+        self.assertFalse(catalog["lawWorkflowEnabled"])
+        self.assertNotIn("law_context", stage_ids)
+        self.assertNotIn("law_audit", stage_ids)
+        self.assertNotIn(
+            "law_audit",
+            [group["id"] for group in catalog["sessionGroups"]],
+        )
+        explanation_target_ids = {
+            target["selectionId"]
+            for target in explanation["updateTargets"]
+        }
+        self.assertNotIn("explanation.law_support", explanation_target_ids)
+        self.assertNotIn(
+            "law_context",
+            overview["summary"]["requiredMaintenance"]["stageIds"],
+        )
+        self.assertNotIn(
+            "law_audit",
+            overview["summary"]["requiredMaintenance"]["stageIds"],
+        )
+        self.assertIn("法令工程: `無効（資格設定）`", prompt)
+        self.assertIn("02bと03bを開始条件又は完了条件にしない", prompt)
+
     def test_overview_exposes_group_display_name_without_changing_group_id(self):
         group = {
             "listGroupId": "57019",

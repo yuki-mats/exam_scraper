@@ -565,6 +565,36 @@ class ArtifactSynchronizerTests(unittest.TestCase):
             self.assertIn("source-q1", command)
             self.assertNotIn("source-q2", command)
 
+    def test_lawless_qualification_skips_strict_law_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = sync_group_fixture(root, is_law_related=True)
+            record_law_audit_version(root, group, "4.0")
+            rules_path = root / "config" / "qualification_rules.json"
+            rules_path.parent.mkdir(parents=True, exist_ok=True)
+            rules_path.write_text(
+                json.dumps(
+                    {
+                        "default": {"law_workflow_enabled": True},
+                        "sample-exam": {"law_workflow_enabled": False},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            synchronizer = ArtifactSynchronizer(
+                root,
+                FakeInventory(group),
+                "secret",
+                command_runner=lambda *_args, **_kwargs: 0,
+            )
+
+            preview = synchronizer.preview("sample-exam", "2026")
+
+        self.assertFalse(preview["lawWorkflowEnabled"])
+        self.assertFalse(preview["requireCurrentLawVerdict"])
+        self.assertEqual(preview["strictValidationStages"], [])
+        self.assertEqual(preview["strictValidationWarnings"], [])
+
     def test_strict_validation_uses_artifact_id_instead_of_review_identity(self):
         questions = [
             {
