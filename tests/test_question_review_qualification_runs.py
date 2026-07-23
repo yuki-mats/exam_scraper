@@ -4593,6 +4593,50 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(prompt.count('"currentRecord":'), 2)
         self.assertIn("file、shell、progress、receipt、git、外部状態は変更しない", prompt)
 
+    def test_each_batch_prompt_lists_only_its_own_questions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = FlowAppServer()
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(3),
+                ["question_type"],
+                app_server=app_server,
+            )
+            coordinator._repository_file_fingerprints = lambda *_args: {}
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "DEFAULT_MAX_QUESTIONS_PER_TURN",
+                2,
+            ):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            batch_prompts = [
+                prompt
+                for prompt, kwargs in app_server.calls
+                if kwargs["work_type"] == "maintenance_question_type_candidate"
+            ]
+
+        self.assertEqual(len(batch_prompts), 2)
+        all_source_names = {
+            f"question_2026_{index}.json"
+            for index in range(1, 4)
+        }
+        for prompt in batch_prompts:
+            questions = PerQuestionQueueAppServer._candidate_questions(prompt)
+            source_names = {
+                Path(question["sourceIdentity"]["sourceRecordRef"].split("#", 1)[0]).name
+                for question in questions
+            }
+            self.assertIn(f"- 対象問題: `{len(questions)}問`", prompt)
+            self.assertEqual(
+                {name for name in all_source_names if name in prompt},
+                source_names,
+            )
+
     def test_dependency_blocked_item_counts_in_later_phase_and_skips_sync(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
