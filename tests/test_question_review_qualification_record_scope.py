@@ -31,6 +31,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
         plan_updates,
         source_payloads=None,
         stage_id="law_audit",
+        projected_records=None,
     ):
         def write_payload(path, payload):
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -68,6 +69,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 run["runId"],
                 store.get("sample", run["runId"]),
                 {relative},
+                projected_records=projected_records,
             )
 
     def _validate_multi_row_law_sidecar(
@@ -466,6 +468,86 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     store.get("sample", run["runId"]),
                     {patch_relative},
                 )
+
+    def test_record_scope_allows_exact_current_projection_in_downstream_patch(self):
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        patch_relative = Path(
+            "output/sample/questions_json/2026/10_questionType_fixed/q1.json"
+        )
+        aliases = [
+            "ui-q1",
+            "review-q1",
+            "sample:2026:q1",
+            "q1.json#0",
+        ]
+        source_record = {
+            "originalQuestionId": "review-q1",
+            "sourceQuestionKey": "sample:2026:q1",
+            "questionBodyText": "取得元の問題文",
+            "choiceTextList": ["取得元A", "取得元B"],
+        }
+        projected_record = {
+            "questionBodyText": "独自化後の問題文",
+            "choiceTextList": ["独自化後A", "独自化後B"],
+        }
+        after_record = {
+            "originalQuestionId": "review-q1",
+            "sourceQuestionKey": "sample:2026:q1",
+            "sourceRecordRef": "q1.json#0",
+            **projected_record,
+            "questionType": "single",
+        }
+        plan = {
+            "sourceFiles": [source_relative.as_posix()],
+            "targetRecordAliasGroups": [aliases],
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": "ui-q1",
+                    "reviewQuestionId": "review-q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "sourceRecordRef": "q1.json#0",
+                    "aliases": aliases,
+                }
+            ],
+            "allowedPatchDirs": ["10_questionType_fixed"],
+            "allowedPatchFiles": [patch_relative.as_posix()],
+            "targetRecordScopes": {patch_relative.as_posix(): [aliases]},
+        }
+        self._validate_record_scope_change(
+            patch_relative,
+            None,
+            {"question_bodies": [after_record]},
+            plan_updates=plan,
+            source_payloads={
+                source_relative: {"question_bodies": [source_record]}
+            },
+            stage_id="question_type",
+            projected_records={"ui-q1": projected_record},
+        )
+
+        with self.assertRaisesRegex(
+            QualificationRunError, "自動整備対象外field"
+        ):
+            self._validate_record_scope_change(
+                patch_relative,
+                None,
+                {
+                    "question_bodies": [
+                        {
+                            **after_record,
+                            "questionBodyText": "投影にない別の問題文",
+                        }
+                    ]
+                },
+                plan_updates=plan,
+                source_payloads={
+                    source_relative: {"question_bodies": [source_record]}
+                },
+                stage_id="question_type",
+                projected_records={"ui-q1": projected_record},
+            )
 
     def test_originalize_scope_allows_only_selected_public_content_fields(self):
         source_relative = Path(

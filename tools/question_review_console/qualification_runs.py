@@ -9724,6 +9724,7 @@ class QualificationRunCoordinator:
                                 validation_paths,
                                 validation_root=workspace.root,
                                 baseline_payload=baseline_payload,
+                                projected_records=records_by_question,
                             )
                             commands.append(
                                 {"command": "record scope", "status": "pass"}
@@ -11970,6 +11971,7 @@ class QualificationRunCoordinator:
         *,
         validation_root: Path | None = None,
         baseline_payload: Mapping[str, Any] | None = None,
+        projected_records: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> None:
         record_root = (validation_root or self.repo_root).resolve()
         target_aliases = {
@@ -12360,6 +12362,19 @@ class QualificationRunCoordinator:
                     if len(matching_bindings) == 1
                     else None
                 )
+                projected_fields: dict[str, Any] = {}
+                if matched_binding is not None and isinstance(
+                    projected_records, Mapping
+                ):
+                    projected_record = projected_records.get(
+                        str(matched_binding.get("uiQuestionId") or "")
+                    )
+                    if isinstance(projected_record, Mapping):
+                        projected_fields = {
+                            field: copy.deepcopy(projected_record[field])
+                            for field in CODEX_PROTECTED_CONTENT_FIELDS
+                            if field in projected_record
+                        }
                 matched_source_binding = (
                     SourceIdentityBinding.from_mapping(matched_binding)
                     if matched_binding is not None
@@ -12737,6 +12752,11 @@ class QualificationRunCoordinator:
                     )
                     if selected_originalize_change:
                         continue
+                    exact_projected_value = bool(
+                        field in projected_fields
+                        and field in after_fields
+                        and after_fields[field] == projected_fields[field]
+                    )
                     if before_fields is not None and field in before_fields:
                         exact_server_derived_change = bool(
                             field in allowed_derived_fields
@@ -12756,6 +12776,7 @@ class QualificationRunCoordinator:
                             not exact_server_derived_change
                             and not exact_server_derived_removal
                             and not removed_redundant_source_copy
+                            and not exact_projected_value
                             and (
                             field not in after_fields
                             or after_fields[field] != before_fields[field]
@@ -12766,6 +12787,8 @@ class QualificationRunCoordinator:
                                 f"{relative} / {field}"
                             )
                     elif field in after_fields:
+                        if exact_projected_value:
+                            continue
                         if (
                             field in allowed_derived_fields
                             and after_fields[field] == allowed_derived_fields[field]
