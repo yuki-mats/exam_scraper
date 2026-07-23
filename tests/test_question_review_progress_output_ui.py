@@ -164,6 +164,34 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("現在のcorrectChoiceText", javascript)
         self.assertIn(".source-answer-comparison-card", css)
 
+    def test_originalized_question_detail_compares_source_and_current_content(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        css = STYLE_PATH.read_text(encoding="utf-8")
+
+        comparison = javascript[
+            javascript.index("function isOriginalizedQuestion") :
+            javascript.index("function renderKnowledgeNotes")
+        ]
+        detail = javascript[
+            javascript.index("function renderDetail") :
+            javascript.index("function publicationContent")
+        ]
+
+        self.assertIn('includes("05_originalized")', comparison)
+        self.assertIn("source.questionBodyText", comparison)
+        self.assertIn("current.questionBodyText", comparison)
+        self.assertIn("source.choiceTextList", comparison)
+        self.assertIn("current.choiceTextList", comparison)
+        self.assertIn("独自問題と00_sourceの比較", comparison)
+        self.assertIn("00_source（取得元・読取専用）", comparison)
+        self.assertIn("選択肢は同一でも正常です", comparison)
+        self.assertIn("renderOriginalQuestionComparison(question)", detail)
+        self.assertIn(".original-question-comparison-grid", css)
+        self.assertIn(
+            ".original-question-comparison-grid { grid-template-columns: 1fr; }",
+            css,
+        )
+
     def test_question_body_choice_provenance_has_filter_count_and_badge(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = INDEX_PATH.read_text(encoding="utf-8")

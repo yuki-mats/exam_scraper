@@ -3917,6 +3917,111 @@ function renderSourceCorrectChoiceComparison(question) {
   return node;
 }
 
+function isOriginalizedQuestion(question) {
+  const patchPaths = Array.isArray(question.paths?.patches)
+    ? question.paths.patches
+    : [];
+  return patchPaths.some((path) => String(path).split(/[\\/]/).includes("05_originalized"));
+}
+
+function originalQuestionComparisonRecord(question) {
+  if (!isOriginalizedQuestion(question)) return null;
+  const source = question.source && typeof question.source === "object"
+    ? question.source
+    : {};
+  const current = question.projected && typeof question.projected === "object"
+    ? question.projected
+    : {};
+  const sourceBody = String(
+    source.questionBodyText || source.originalQuestionBodyText || "",
+  ).trim();
+  const currentBody = String(
+    current.questionBodyText || current.originalQuestionBodyText || question.body || "",
+  ).trim();
+  const sourceChoices = Array.isArray(source.choiceTextList)
+    ? source.choiceTextList.map((value) => String(value || "").trim())
+    : [];
+  const currentChoices = Array.isArray(current.choiceTextList)
+    ? current.choiceTextList.map((value) => String(value || "").trim())
+    : [];
+  return {
+    source: { body: sourceBody, choices: sourceChoices },
+    current: { body: currentBody, choices: currentChoices },
+    bodyDifferent: sourceBody !== currentBody,
+    choicesDifferent: !same(sourceChoices, currentChoices),
+  };
+}
+
+function originalQuestionComparisonCard(title, record, tone = "") {
+  const card = element(
+    "article",
+    `original-question-comparison-card${tone ? ` ${tone}` : ""}`,
+  );
+  card.append(
+    element("strong", "original-question-comparison-title", title),
+    element(
+      "p",
+      "original-question-comparison-body",
+      record.body || "（問題文なし）",
+    ),
+  );
+  const choices = element("div", "original-question-comparison-choices");
+  choices.append(element("span", "", "選択肢"));
+  if (record.choices.length) {
+    const list = element("ol", "");
+    for (const choice of record.choices) {
+      list.append(element("li", "", choice || "（空欄）"));
+    }
+    choices.append(list);
+  } else {
+    choices.append(element("p", "", "（選択肢なし）"));
+  }
+  card.append(choices);
+  return card;
+}
+
+function renderOriginalQuestionComparison(question) {
+  const comparison = originalQuestionComparisonRecord(question);
+  if (!comparison) return null;
+  const node = section("独自問題と00_sourceの比較");
+  node.classList.add("original-question-comparison");
+  node.append(
+    element(
+      "p",
+      "audit-compare-hint",
+      "取得元の原文と、05以降の確定patchを適用した現在内容を比較します。選択肢は同一でも正常です。",
+    ),
+  );
+  const summary = element("div", "original-question-comparison-summary");
+  summary.append(
+    element(
+      "span",
+      comparison.bodyDifferent ? "different" : "same",
+      `問題文 ${comparison.bodyDifferent ? "変更あり" : "同一"}`,
+    ),
+    element(
+      "span",
+      comparison.choicesDifferent ? "different" : "same",
+      `選択肢 ${comparison.choicesDifferent ? "変更あり" : "同一"}`,
+    ),
+  );
+  const grid = element("div", "original-question-comparison-grid");
+  grid.append(
+    originalQuestionComparisonCard(
+      "00_source（取得元・読取専用）",
+      comparison.source,
+      "source",
+    ),
+    originalQuestionComparisonCard(
+      "現在の独自問題（05以降の確定patch適用後）",
+      comparison.current,
+      "current",
+    ),
+  );
+  node.append(summary, grid);
+  return node;
+}
+
 function renderKnowledgeNotes(record) {
   const raw = Array.isArray(record.knowledgeText) ? record.knowledgeText : [record.knowledgeText];
   const notes = raw
@@ -3996,6 +4101,8 @@ function renderDetail() {
     questionSection.append(issues);
   }
   pane.append(questionSection);
+  const originalQuestionComparison = renderOriginalQuestionComparison(question);
+  if (originalQuestionComparison) pane.append(originalQuestionComparison);
   const sourceAnswerComparison = renderSourceCorrectChoiceComparison(question);
   if (sourceAnswerComparison) pane.append(sourceAnswerComparison);
   pane.append(renderAppDisplaySettings(question, publication.record));

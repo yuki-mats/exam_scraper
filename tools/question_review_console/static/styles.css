@@ -709,6 +709,21 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .source-answer-values { display: grid; grid-template-columns: minmax(130px, auto) minmax(0, 1fr); gap: 5px 10px; margin: 0; padding-top: 8px; border-top: 1px solid #ead394; }
 .source-answer-values dt { color: var(--text-muted); font-size: 10px; font-weight: 800; }
 .source-answer-values dd { margin: 0; font-size: 12px; font-weight: 750; }
+.original-question-comparison-summary { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.original-question-comparison-summary span { padding: 3px 7px; border: 1px solid var(--line); border-radius: 3px; font-size: 10px; font-weight: 800; }
+.original-question-comparison-summary .different { color: #7a4f00; border-color: #ead394; background: var(--amber-bg); }
+.original-question-comparison-summary .same { color: var(--green); border-color: #b8dec7; background: var(--green-bg); }
+.original-question-comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.original-question-comparison-card { min-width: 0; padding: 14px; border: 1px solid var(--line-strong); border-radius: 6px; background: #fff; }
+.original-question-comparison-card.source { background: #f4f6f8; }
+.original-question-comparison-card.current { border-color: #9eb9cd; background: #f8fbfd; }
+.original-question-comparison-title { display: block; margin-bottom: 9px; color: #2f3b46; font-size: 12px; }
+.original-question-comparison-body { margin: 0; min-height: 72px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; font-size: 13px; }
+.original-question-comparison-choices { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+.original-question-comparison-choices > span { color: var(--text-muted); font-size: 10px; font-weight: 800; }
+.original-question-comparison-choices ol { margin: 7px 0 0; padding-left: 24px; display: grid; gap: 6px; }
+.original-question-comparison-choices li { padding-left: 3px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.55; font-size: 12px; }
+.original-question-comparison-choices p { margin: 7px 0 0; color: var(--text-muted); font-size: 12px; }
 .knowledge-note-list { display: grid; gap: 8px; }
 .knowledge-note { padding: 11px 13px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
 .knowledge-note strong { display: block; margin-bottom: 4px; color: var(--text-muted); font-size: 11px; }
@@ -1120,6 +1135,8 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .workspace { height: auto; min-height: calc(100vh - 180px); grid-template-columns: 1fr; grid-template-rows: minmax(180px, 34vh) auto; overflow: visible; }
   .queue-pane { border-right: 0; border-bottom: 1px solid var(--line-strong); }
   .queue { max-height: 34vh; }
+  .original-question-comparison-grid { grid-template-columns: 1fr; }
+  .original-question-comparison-body { min-height: 0; }
   .detail-pane { overflow: visible; padding: 0 12px 40px; }
   .detail-header { position: relative; margin: 0 -12px; padding: 12px; }
   .detail-title-row { display: block; }
