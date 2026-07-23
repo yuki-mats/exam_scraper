@@ -908,6 +908,27 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             self.assertNotIn("suggestedQuestions", document)
             self.assertNotIn("suggestedQuestionDetails", document)
 
+    def test_question_level_conversion_rejects_ambiguous_answer_cardinality(self) -> None:
+        question_body = {
+            "original_question_id": "q-answer-contract",
+            "questionBodyText": "正しいものを選べ。",
+            "choiceTextList": ["候補1", "候補2", "候補3"],
+            "correctChoiceText": ["正しい", "正しい", "間違い"],
+            "explanationText": ["正答の根拠。"],
+            "questionSetId": "set-answer-contract",
+        }
+
+        for converter in (
+            convert_flash_card_to_firestore,
+            convert_group_choice_to_firestore,
+        ):
+            with self.subTest(converter=converter.__name__):
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "questionTypeとcorrectChoiceTextのどちらが正しいか",
+                ):
+                    converter(question_body)
+
 
 if __name__ == "__main__":
     unittest.main()

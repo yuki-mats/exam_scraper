@@ -88,10 +88,11 @@ code = "01"
 label = "問題形式"
 purpose = "回答体験に合うquestionTypeを一問ずつ確定する"
 kind = "human"
+# 4.0: 複数選択問題をgroup_choiceではなく選択肢別true_falseとして再判定するため洗い替える。
 # 3.0: 全問題を二重read-onlyレビューした後にserver合意を作り、通常候補を生成するため洗い替える。
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
-policy_version = "3.0"
+policy_version = "4.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"

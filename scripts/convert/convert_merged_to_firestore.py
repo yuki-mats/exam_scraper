@@ -56,6 +56,9 @@ from scripts.common.explanation_contract import public_explanation_text
 from scripts.common.explanation_references import (
     normalize_explanation_references,
 )
+from scripts.common.question_answer_contract import (
+    question_level_answer_cardinality_issue,
+)
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
@@ -1075,6 +1078,12 @@ def convert_group_select_to_firestore(
     """
     choice_text_list = question_body.get("choiceTextList", [])
     correct_choice_list = question_body.get("correctChoiceText", [])
+    cardinality_error = question_level_answer_cardinality_issue(
+        question_type,
+        correct_choice_list,
+    )
+    if cardinality_error:
+        raise ValueError(cardinality_error)
     explanation_list = question_body.get("explanationText", [])
     choice_image_urls_by_choice = normalize_choice_image_urls_by_choice(
         question_body.get("originalQuestionChoiceImageUrls", [])

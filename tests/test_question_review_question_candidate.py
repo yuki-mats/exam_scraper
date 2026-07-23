@@ -538,6 +538,10 @@ class QuestionCandidateTest(unittest.TestCase):
                 "group_choice",
             ],
         )
+        self.assertIn(
+            "group_choiceは選択肢群から正答を1つだけ選ぶ",
+            rules["questionType"]["description"],
+        )
         candidate = parse_candidates(
             {
                 "schemaVersion": SCHEMA_VERSION,
@@ -723,6 +727,56 @@ class QuestionCandidateTest(unittest.TestCase):
             {
                 "choiceTextList": ["A", "B"],
                 "correctChoiceText": ["正しい", "間違い"],
+            },
+        )
+
+        self.assertEqual(errors, ())
+
+    def test_question_type_candidate_does_not_trust_unreviewed_answer_count(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/custom/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_type", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "候補群から1つを選ぶ形式と判定した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_type",
+                                "setFields": [
+                                    {
+                                        "field": "questionType",
+                                        "valueJson": '"group_choice"',
+                                    },
+                                    {
+                                        "field": "isCalculationQuestion",
+                                        "valueJson": "false",
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "choiceTextList": ["候補A", "候補B", "候補C"],
+                "correctChoiceText": ["正しい", "正しい", "間違い"],
             },
         )
 

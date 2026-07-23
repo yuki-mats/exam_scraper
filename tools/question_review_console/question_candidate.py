@@ -475,7 +475,9 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "true_false、flash_card、group_choiceの3分類で回答体験を表す。"
                 "single_choiceとfill_in_blankはユーザー作成問題だけに使う。"
                 "問題文の条件だけで答えを導ける計算問題は、選択肢を答え合わせに"
-                "使うflash_cardとする。"
+                "使うflash_cardとする。複数の独立した選択肢を正答として選ぶ問題は、"
+                "各選択肢を判定するtrue_falseとする。group_choiceは選択肢群から"
+                "正答を1つだけ選ぶ問題に使う。"
             ),
         },
         "isCalculationQuestion": {"type": "boolean"},

@@ -152,11 +152,13 @@
 | --- | --- | --- |
 | `true_false` | 1つの肢・文に対して正誤を答える。選択肢は `正しい` / `間違い`。 | 選択肢ごとに `questions` doc へ分割する。 |
 | `single_choice` | ユーザー作成問題の単一選択形式。公式問題ではlegacyデータの読取互換に限る。 | 原則1 doc。公式問題の新規整備又は洗い替えでは使わない。 |
-| `flash_card` | 問題文だけでも解答可能な想起型。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作ることがある。 |
+| `flash_card` | 問題文だけでも解答可能な想起型。公開時の正答は1件。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作ることがある。 |
 | `fill_in_blank` | ユーザー作成問題で本文の空欄を埋める。公式問題ではlegacyデータの読取互換に限る。 | `fillInBlanks` が必要。公式問題の新規整備又は洗い替えでは使わない。 |
-| `group_choice` | 同一設問の選択肢群を並べ、比較して1つだけ選ぶグループ出題専用。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作る。単体出題不可。 |
+| `group_choice` | 同一設問の選択肢群を並べ、比較して1つだけ選ぶグループ出題専用。公開時の正答は1件。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作る。単体出題不可。 |
 
-公式問題には、公式過去問と暗記プラス運営が整備する独自問題を含みます。`isOfficial=true`である公式問題は`examYear`の有無にかかわらず、`true_false`、`flash_card`、`group_choice`の3形式だけを使います。各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。
+公式問題には、公式過去問と暗記プラス運営が整備する独自問題を含みます。`isOfficial=true`である公式問題は`examYear`の有無にかかわらず、`true_false`、`flash_card`、`group_choice`の3形式だけを使います。各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。複数の独立した選択肢を正答として選ぶ問題は、各選択肢を個別に判定する`true_false`です。`group_choice`は複数選択形式ではありません。
+
+`questionType`は問題形式工程、`correctChoiceText`は正答精査工程で、それぞれ内容に基づいて独立に確定します。未精査の正答数だけを根拠に`questionType`を変更しません。両工程の完了後、`flash_card`又は`group_choice`なのに正答が1件でない場合は公開変換を停止し、どちらかを自動修正せず、問題形式と正答を再確認します。
 
 `single_choice`と`fill_in_blank`を新たに利用できるのは、ユーザーがアプリで作成する`isOfficial=false`の問題だけです。`examYear`は出典年度であり、公式問題かユーザー作成問題かの判定には使いません。既存データの読取互換は保ちますが、公式問題の新規整備又は洗い替えでこの2形式を候補にしません。
 

@@ -3,6 +3,7 @@ import unittest
 from scripts.check.check_questiontype_patch_coverage import compare_entries
 from scripts.common.aggregate_answer_decomposition import (
     REVIEW_SCHEMA_VERSION,
+    generate_statement_candidates,
     materialize_decomposition,
     source_text_hash,
 )
@@ -14,15 +15,14 @@ class QuestionTypePatchCoverageTest(unittest.TestCase):
         source["canonical_question_key"] = "sample:2026:q001"
         source["questionBodyText"] = "組合せを選べ。\nA 原文一。\nB 原文二。"
         body = source["questionBodyText"]
-        spans = []
-        for statement in ("A 原文一。", "B 原文二。"):
-            start = body.index(statement)
-            spans.append({"start": start, "end": start + len(statement)})
+        candidate_id = generate_statement_candidates(body)["candidates"][0][
+            "candidateId"
+        ]
         review = {
             "schemaVersion": REVIEW_SCHEMA_VERSION,
             "sourceHash": source_text_hash(body),
             "classification": "target",
-            "spans": spans,
+            "candidateId": candidate_id,
             "decision": "approve",
             "issueCodes": [],
         }
@@ -39,15 +39,14 @@ class QuestionTypePatchCoverageTest(unittest.TestCase):
         source["canonical_question_key"] = "sample:2026:q001"
         source["questionBodyText"] = "組合せを選べ。\nA 原文一。\nB 原文二。"
         body = source["questionBodyText"]
-        spans = []
-        for statement in ("A 原文一。", "B 原文二。"):
-            start = body.index(statement)
-            spans.append({"start": start, "end": start + len(statement)})
+        candidate_id = generate_statement_candidates(body)["candidates"][0][
+            "candidateId"
+        ]
         review = {
             "schemaVersion": REVIEW_SCHEMA_VERSION,
             "sourceHash": source_text_hash(body),
             "classification": "target",
-            "spans": spans,
+            "candidateId": candidate_id,
             "decision": "approve",
             "issueCodes": [],
         }

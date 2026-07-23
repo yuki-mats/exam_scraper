@@ -13,6 +13,7 @@ from scripts.fix.materialize_minimal_patch import (
 )
 from scripts.common.aggregate_answer_decomposition import (
     REVIEW_SCHEMA_VERSION,
+    generate_statement_candidates,
     source_text_hash,
 )
 
@@ -40,16 +41,14 @@ def explanation_entry(identity: dict[str, str] | None = None) -> dict[str, objec
 class MaterializeMinimalPatchIdentityTests(unittest.TestCase):
     def test_question_type_materializes_consensus_spans_from_source(self) -> None:
         body = "組合せを選べ。\nA 原文一。\nB 原文二。"
-        first_start = body.index("A 原文一。")
-        second_start = body.index("B 原文二。")
+        candidate_id = generate_statement_candidates(body)["candidates"][0][
+            "candidateId"
+        ]
         review = {
             "schemaVersion": REVIEW_SCHEMA_VERSION,
             "sourceHash": source_text_hash(body),
             "classification": "target",
-            "spans": [
-                {"start": first_start, "end": first_start + len("A 原文一。")},
-                {"start": second_start, "end": second_start + len("B 原文二。")},
-            ],
+            "candidateId": candidate_id,
             "decision": "approve",
             "issueCodes": [],
         }

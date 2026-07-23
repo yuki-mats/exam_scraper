@@ -239,7 +239,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertEqual(version_by_stage["originalize"], "2.5")
-        self.assertEqual(version_by_stage["question_type"], "3.0")
+        self.assertEqual(version_by_stage["question_type"], "4.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
             {"model": "gpt-5.5", "reasoningEffort": "high"},
