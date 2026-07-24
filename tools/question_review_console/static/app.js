@@ -510,7 +510,8 @@ async function ensureAuditViewQuestions(preserveSelection = false, options = {})
     await state.auditView.loadPromise;
     if (!auditViewIsOpen() || auditScopeKey() !== scopeKey) return false;
   }
-  const restoredFromCache = restoreCachedQuestionList();
+  const restoredFromCache = restoreCachedQuestionList()
+    || (state.questions.length > 0 && defaultQuestionListIsSelected());
   state.auditView.loading = true;
   state.auditView.loadingScopeKey = scopeKey;
   $("#audit-view-loading").hidden = false;
@@ -534,6 +535,22 @@ async function ensureAuditViewQuestions(preserveSelection = false, options = {})
       $("#audit-view-loading").hidden = true;
     }
   }
+}
+
+function primeAuditRoute() {
+  const params = new URLSearchParams(location.search);
+  if (params.get("view") !== "questions") return false;
+  const qualification = params.get("qualification") || "";
+  const listGroupId = params.get("listGroupId") || "";
+  if (qualification) state.qualification = qualification;
+  if (listGroupId) state.listGroupId = listGroupId;
+  showAuditView();
+  $("#audit-view-loading").hidden = false;
+  if (!restoreCachedQuestionList()) {
+    renderEmpty("問題一覧を準備しています。");
+    setLoading("問題一覧を準備しています", true);
+  }
+  return true;
 }
 
 async function openAuditView(listGroupId = "", options = {}) {
@@ -618,6 +635,7 @@ function closeAuditView(options = {}) {
 async function initialize() {
   bindControls();
   populateIssueControls();
+  primeAuditRoute();
   try {
     const [session, inventory, codexStatus] = await Promise.all([
       api("/api/session"),
