@@ -1790,6 +1790,10 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         )[0]
         self.assertIn("showRefreshLoading", refresh)
         self.assertIn("updateRefreshLoading", refresh)
+        self.assertIn(
+            "const [workflowLoaded, runsLoaded, questionsLoaded] = await Promise.all",
+            refresh,
+        )
         self.assertIn("finally", refresh)
         self.assertIn("hideRefreshLoading", refresh)
         self.assertIn(
@@ -1801,6 +1805,11 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("height: 100dvh", css)
         self.assertIn("@keyframes loading-spin", css)
         self.assertIn("@media (prefers-reduced-motion: reduce)", css)
+        self.assertIn("includeStats: false", javascript)
+        self.assertIn("statsOnly: true", javascript)
+        self.assertIn("payload.statsIncluded !== false", javascript)
+        self.assertIn("detailCache: new Map()", javascript)
+        self.assertIn("renderDetailLoading(summary)", javascript)
 
 
 if __name__ == "__main__":

@@ -537,6 +537,8 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .work-version-summary { margin: 8px 0 0; color: var(--text-muted); font-size: 11px; }
 .empty-state { min-height: 70vh; display: grid; place-content: center; gap: 8px; text-align: center; color: var(--text-muted); }
 .empty-state strong { color: #37414b; }
+.detail-loading-label { color: var(--text-muted); font-size: .85rem; font-weight: 700; }
+.detail-loading-preview { max-width: 44rem; margin: 0; color: var(--text); line-height: 1.8; text-align: left; }
 .load-error-state span { max-width: 520px; line-height: 1.55; overflow-wrap: anywhere; }
 .load-error-state button { justify-self: center; margin-top: 6px; }
 

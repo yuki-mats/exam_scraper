@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import ipaddress
 import json
 import logging
@@ -1150,7 +1151,15 @@ class QuestionReviewApplication:
             "sourceAnswerDifference",
             default=False,
         )
+        include_stats = _query_bool(query, "includeStats", default=True)
+        stats_only = _query_bool(query, "statsOnly", default=False)
+        if stats_only:
+            include_stats = True
+        offset = _query_int(query, "offset", default=0, minimum=0, maximum=1_000_000)
+        limit = _query_int(query, "limit", default=50, minimum=1, maximum=100)
         summaries = []
+        matched_count = 0
+        stopped_early = False
         decorated_issue_count = 0
         source_answer_difference_count = 0
         question_body_choices_count = 0
@@ -1181,21 +1190,13 @@ class QuestionReviewApplication:
                     is QuestionReviewApplication._decorate
                     else decorator(raw)
                 )
-                decorated_issue_count += bool(question["issues"])
                 answer_comparison = question.get("sourceCorrectChoiceComparison")
                 answer_comparison = (
                     answer_comparison
                     if isinstance(answer_comparison, Mapping)
                     else {}
                 )
-                source_answer_difference_count += bool(
-                    answer_comparison.get("different")
-                )
-                question_body_choices_count += bool(
-                    question.get("choicesExtractedFromQuestionBody")
-                )
                 quality_bucket = self._quality_bucket(question)
-                evaluation_counts[quality_bucket] += 1
                 selected_work_stage = next(
                     (
                         stage
@@ -1204,11 +1205,24 @@ class QuestionReviewApplication:
                     ),
                     None,
                 )
-                if work_stage_id and selected_work_stage is not None:
-                    state = str(selected_work_stage.get("status") or "unrecorded")
-                    bucket = "outdated" if state in {"outdated", "future"} else state
-                    if bucket in work_version_counts:
-                        work_version_counts[bucket] += 1
+                if include_stats:
+                    decorated_issue_count += bool(question["issues"])
+                    source_answer_difference_count += bool(
+                        answer_comparison.get("different")
+                    )
+                    question_body_choices_count += bool(
+                        question.get("choicesExtractedFromQuestionBody")
+                    )
+                    evaluation_counts[quality_bucket] += 1
+                    if work_stage_id and selected_work_stage is not None:
+                        state = str(selected_work_stage.get("status") or "unrecorded")
+                        bucket = (
+                            "outdated"
+                            if state in {"outdated", "future"}
+                            else state
+                        )
+                        if bucket in work_version_counts:
+                            work_version_counts[bucket] += 1
                 if search and search not in " ".join(
                     (
                         question.get("body", ""),
@@ -1257,26 +1271,50 @@ class QuestionReviewApplication:
                     continue
                 if exceptions_only and quality_bucket == "published":
                     continue
-                summaries.append(self._summary(question))
-        offset = _query_int(query, "offset", default=0, minimum=0, maximum=1_000_000)
-        limit = _query_int(query, "limit", default=50, minimum=1, maximum=100)
-        filtered_count = len(summaries)
-        page = summaries[offset : offset + limit]
+                matched_index = matched_count
+                matched_count += 1
+                if (
+                    not stats_only
+                    and offset <= matched_index < offset + limit
+                ):
+                    summaries.append(self._summary(question))
+                if not include_stats and matched_count >= offset + limit + 1:
+                    stopped_early = True
+                    break
+            if stopped_early:
+                break
+
+        filtered_count = (
+            matched_count
+            if include_stats or not stopped_early
+            else None
+        )
+        has_more = (
+            False
+            if stats_only
+            else matched_count > offset + len(summaries)
+        )
         return {
             "qualification": qualification,
             "listGroupId": list_group_id,
             "questionCount": sum(group["questionCount"] for group in groups),
-            "issueQuestionCount": decorated_issue_count,
-            "sourceAnswerDifferenceCount": source_answer_difference_count,
-            "questionBodyChoicesCount": question_body_choices_count,
-            "evaluationCounts": evaluation_counts,
-            "workVersionCounts": work_version_counts,
+            "issueQuestionCount": decorated_issue_count if include_stats else None,
+            "sourceAnswerDifferenceCount": (
+                source_answer_difference_count if include_stats else None
+            ),
+            "questionBodyChoicesCount": (
+                question_body_choices_count if include_stats else None
+            ),
+            "evaluationCounts": evaluation_counts if include_stats else None,
+            "workVersionCounts": work_version_counts if include_stats else None,
             "filteredCount": filtered_count,
+            "filteredCountLowerBound": matched_count,
+            "statsIncluded": include_stats,
             "offset": offset,
             "limit": limit,
-            "hasMore": offset + len(page) < filtered_count,
+            "hasMore": has_more,
             "fingerprint": "|".join(group["fingerprint"] for group in groups),
-            "questions": page,
+            "questions": summaries,
         }
 
     def _question(
@@ -1697,6 +1735,22 @@ class QuestionReviewApplication:
             ),
             "choiceCount": choice_count,
         }
+        detail_version_source = {
+            "stateHash": question.get("stateHash"),
+            "reviewStatus": question.get("reviewStatus"),
+            "issueCodes": question.get("issueCodes"),
+            "workflow": question.get("workflow"),
+            "evaluation": summary["evaluation"],
+            "workVersions": summary["workVersions"],
+        }
+        summary["detailVersion"] = hashlib.sha256(
+            json.dumps(
+                detail_version_source,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()[:16]
         body = str(summary.get("body") or "")
         summary["body"] = body if len(body) <= 280 else body[:279] + "…"
         return summary

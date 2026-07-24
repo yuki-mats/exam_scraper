@@ -169,6 +169,11 @@ const state = {
   questions: [],
   selectedId: "",
   detail: null,
+  detailCache: new Map(),
+  questionListRequestSequence: 0,
+  questionStats: null,
+  questionStatsController: null,
+  questionStatsTimer: null,
   qualificationWorkflow: null,
   qualificationWorkflowStageId: "",
   qualificationRuns: [],
@@ -213,7 +218,7 @@ const state = {
     returnToRun: false,
     tabSignature: "",
   },
-  questionPage: { filteredCount: 0, hasMore: false, limit: 50 },
+  questionPage: { filteredCount: 0, hasMore: false, limit: 20 },
   reviewMode: "awaiting_codex",
   reviewRequestKind: "",
   reviewSelection: null,
@@ -347,15 +352,17 @@ async function refreshDashboard() {
   clearEvaluationSelection();
   try {
     showRefreshLoading("整備状況と年度・フォルダ別の進捗を読み込んでいます。");
-    const workflowLoaded = await loadQualificationWorkflow(true);
-    updateRefreshLoading("実行中の作業と問題ごとの進捗を読み込んでいます。");
-    const runsLoaded = await loadQualificationRuns();
-    let questionsLoaded = true;
-    if (auditViewIsOpen()) {
-      updateRefreshLoading("表示中の問題一覧と整備内容を読み込んでいます。");
-      questionsLoaded = await loadQuestions(true);
-      if (questionsLoaded) state.auditView.loadedQualification = state.qualification;
-    } else {
+    updateRefreshLoading("工程・実行状況・問題一覧を並行して更新しています。");
+    state.detailCache.clear();
+    const auditOpen = auditViewIsOpen();
+    const [workflowLoaded, runsLoaded, questionsLoaded] = await Promise.all([
+      loadQualificationWorkflow(true),
+      loadQualificationRuns(),
+      auditOpen ? loadQuestions(true) : Promise.resolve(true),
+    ]);
+    if (auditOpen && questionsLoaded) {
+      state.auditView.loadedQualification = state.qualification;
+    } else if (!auditOpen) {
       invalidateAuditView();
     }
     if (workflowLoaded && runsLoaded && questionsLoaded) {
@@ -397,6 +404,13 @@ function renderAuditViewHeading() {
 }
 
 function invalidateAuditView() {
+  window.clearTimeout(state.questionStatsTimer);
+  state.questionStatsTimer = null;
+  state.questionStatsController?.abort();
+  state.questionStatsController = null;
+  state.questionListRequestSequence += 1;
+  state.questionStats = null;
+  state.detailCache.clear();
   state.auditView.loadedQualification = "";
   state.questions = [];
   state.selectedId = "";
@@ -458,6 +472,9 @@ function handleAuditViewBack() {
     state.detail = null;
     setAuditViewPage("list");
     renderQueue();
+    if (!state.questionStats) {
+      scheduleQuestionStats(state.questionListRequestSequence);
+    }
     window.requestAnimationFrame(() => {
       document.querySelector(`[data-question-id="${CSS.escape(selectedId)}"] .queue-open`)?.focus();
     });
@@ -468,6 +485,8 @@ function handleAuditViewBack() {
 
 function closeAuditView(options = {}) {
   if (!state.auditView.open) return;
+  window.clearTimeout(state.questionStatsTimer);
+  state.questionStatsTimer = null;
   closeWorkflowGuide({ reopenRun: false });
   clearSelectionToolbar(true);
   state.auditView.open = false;
@@ -508,8 +527,10 @@ async function initialize() {
       ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: 初回 ${modelLabel}・再試行 ${retryModelLabel} / 推論 ${effortLabel}`
       : "";
     initializeSelectors();
-    await loadQualificationWorkflow(false);
-    await loadQualificationRuns();
+    await Promise.all([
+      loadQualificationWorkflow(false),
+      loadQualificationRuns(),
+    ]);
     window.setInterval(checkFingerprint, 2000);
     window.setInterval(pollSharedRunProgress, 3000);
   } catch (error) {
@@ -527,8 +548,11 @@ function bindControls() {
     state.listGroupId = ALL_LIST_GROUPS;
     populateGroups();
     invalidateAuditView();
-    await loadQualificationWorkflow(false);
-    await loadQualificationRuns();
+    state.detailCache.clear();
+    await Promise.all([
+      loadQualificationWorkflow(false),
+      loadQualificationRuns(),
+    ]);
     updateUrl();
   });
   $("#law-workflow-enabled").addEventListener("change", saveLawWorkflowSetting);
@@ -3577,7 +3601,7 @@ async function setListMode(exceptionsOnly) {
   await loadQuestions(false);
 }
 
-function listQuery(offset = 0) {
+function listQuery(offset = 0, { includeStats = true, statsOnly = false } = {}) {
   const params = new URLSearchParams({
     qualification: state.qualification,
     listGroupId: state.listGroupId,
@@ -3589,6 +3613,8 @@ function listQuery(offset = 0) {
     sourceAnswerDifference: String($("#source-answer-difference").checked),
     offset: String(offset),
     limit: String(state.questionPage.limit),
+    includeStats: String(includeStats),
+    statsOnly: String(statsOnly),
   });
   const search = $("#search-input").value.trim();
   const issue = $("#issue-select").value;
@@ -3606,46 +3632,134 @@ function listQuery(offset = 0) {
   return params;
 }
 
+function questionListSummaryText(payload, statsPending = false) {
+  const counts = payload?.evaluationCounts || {};
+  const filteredCount = payload?.filteredCount;
+  const visibleLabel = Number.isInteger(filteredCount)
+    ? `${state.questions.length}/${filteredCount}問表示`
+    : `${state.questions.length}問表示`;
+  const parts = [
+    visibleLabel,
+    `全${payload?.questionCount || 0}問`,
+  ];
+  if (statsPending) {
+    parts.push("全件の状況を集計中");
+  } else {
+    const pendingCount = Number(counts.maintenance || 0)
+      + Number(counts.unreviewed || 0)
+      + Number(counts.needsRework || 0)
+      + Number(counts.publishReady || 0);
+    parts.push(
+      `反映待ち${pendingCount}`,
+      `反映済み${counts.published || 0}`,
+    );
+    if ($("#source-answer-difference").checked) {
+      parts.push(`00_sourceとの差分${payload?.sourceAnswerDifferenceCount || 0}問`);
+    }
+    if ($("#question-body-choices-only").checked) {
+      parts.push(`問題文から選択肢を取得${payload?.questionBodyChoicesCount || 0}問`);
+    }
+  }
+  return parts.join(" / ");
+}
+
+function pruneDetailCache(questions) {
+  for (const question of questions) {
+    const cached = state.detailCache.get(question.id);
+    if (cached && cached.version !== question.detailVersion) {
+      state.detailCache.delete(question.id);
+    }
+  }
+  while (state.detailCache.size > 12) {
+    state.detailCache.delete(state.detailCache.keys().next().value);
+  }
+}
+
+async function loadQuestionStats(requestSequence) {
+  state.questionStatsTimer = null;
+  state.questionStatsController?.abort();
+  const controller = new AbortController();
+  state.questionStatsController = controller;
+  try {
+    const payload = await api(
+      `/api/questions?${listQuery(0, { includeStats: true, statsOnly: true })}`,
+      { signal: controller.signal },
+    );
+    if (
+      requestSequence !== state.questionListRequestSequence
+      || controller.signal.aborted
+    ) return;
+    state.questionStats = payload;
+    state.questionPage.filteredCount = payload.filteredCount || 0;
+    state.questionPage.hasMore = state.questions.length < state.questionPage.filteredCount;
+    $("#queue-pagination").hidden = !state.questionPage.hasMore;
+    setLoading(questionListSummaryText(payload));
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      setLoading("問題一覧は表示済みです / 全件の状況を集計できませんでした");
+    }
+  } finally {
+    if (state.questionStatsController === controller) {
+      state.questionStatsController = null;
+    }
+  }
+}
+
+function scheduleQuestionStats(requestSequence) {
+  window.clearTimeout(state.questionStatsTimer);
+  state.questionStatsTimer = window.setTimeout(() => {
+    if (requestSequence !== state.questionListRequestSequence) return;
+    loadQuestionStats(requestSequence);
+  }, 800);
+}
+
 async function loadQuestions(preserveSelection, append = false) {
   if (!state.qualification || !state.listGroupId) return false;
   const offset = append ? state.questions.length : 0;
+  const requestSequence = append
+    ? state.questionListRequestSequence
+    : ++state.questionListRequestSequence;
   if (append) {
     $("#load-more-questions").disabled = true;
     $("#load-more-questions").textContent = "読み込み中";
   } else {
+    window.clearTimeout(state.questionStatsTimer);
+    state.questionStatsTimer = null;
+    state.questionStatsController?.abort();
+    state.questionStatsController = null;
+    state.questionStats = null;
     setLoading("問題一覧を更新しています", true);
   }
   try {
-    const payload = await api(`/api/questions?${listQuery(offset)}`);
+    const payload = await api(
+      `/api/questions?${listQuery(offset, { includeStats: false })}`,
+    );
+    if (requestSequence !== state.questionListRequestSequence) return false;
     state.questions = append
       ? [...state.questions, ...payload.questions]
       : payload.questions;
+    pruneDetailCache(payload.questions);
+    const statsIncluded = payload.statsIncluded !== false;
+    if (!append && statsIncluded) {
+      state.questionStats = payload;
+    }
     if (!append) {
       const visibleIds = new Set(state.questions.map((question) => question.id));
       for (const questionId of state.selectedQuestionIds) {
         if (!visibleIds.has(questionId)) state.selectedQuestionIds.delete(questionId);
       }
     }
-    state.questionPage.filteredCount = payload.filteredCount;
+    state.questionPage.filteredCount = payload.filteredCount
+      ?? payload.filteredCountLowerBound
+      ?? state.questions.length;
     state.questionPage.hasMore = payload.hasMore;
     renderQueue();
-    const counts = payload.evaluationCounts || {};
-    const pendingCount = Number(counts.maintenance || 0)
-      + Number(counts.unreviewed || 0)
-      + Number(counts.needsRework || 0)
-      + Number(counts.publishReady || 0);
-    setLoading([
-      `${state.questions.length}/${payload.filteredCount}問表示`,
-      `全${payload.questionCount}問`,
-      `反映待ち${pendingCount}`,
-      `反映済み${counts.published || 0}`,
-      ...($("#source-answer-difference").checked
-        ? [`00_sourceとの差分${payload.sourceAnswerDifferenceCount || 0}問`]
-        : []),
-      ...($("#question-body-choices-only").checked
-        ? [`問題文から選択肢を取得${payload.questionBodyChoicesCount || 0}問`]
-        : []),
-    ].join(" / "));
+    setLoading(
+      questionListSummaryText(
+        state.questionStats || payload,
+        !state.questionStats && !statsIncluded,
+      ),
+    );
     updateEvaluationSelectionControls();
     const selectedStillExists = state.questions.some((question) => question.id === state.selectedId);
     if (!append && state.auditView.page === "detail" && preserveSelection && selectedStillExists) {
@@ -3655,8 +3769,10 @@ async function loadQuestions(preserveSelection, append = false) {
       state.detail = null;
       setAuditViewPage("list");
     }
+    if (!append && !statsIncluded) scheduleQuestionStats(requestSequence);
     return true;
   } catch (error) {
+    if (requestSequence !== state.questionListRequestSequence) return false;
     toast(error.message, true);
     if (!append) {
       state.questions = [];
@@ -3890,19 +4006,36 @@ function normalizeVerdict(value) {
 }
 
 async function loadDetail(questionId) {
+  window.clearTimeout(state.questionStatsTimer);
+  state.questionStatsTimer = null;
   state.selectedId = questionId;
   state.detail = null;
+  const summary = state.questions.find((question) => question.id === questionId);
   setAuditViewPage("detail");
-  renderDetailLoading();
+  const cached = state.detailCache.get(questionId);
+  if (cached?.version === summary?.detailVersion) {
+    state.detail = cached.detail;
+    renderDetail();
+    renderAuditViewHeading();
+    renderQueue();
+    $("#detail-pane h2")?.focus({ preventScroll: true });
+    return;
+  }
+  renderDetailLoading(summary);
   renderQueue();
   try {
-    const summary = state.questions.find((question) => question.id === questionId);
     const params = new URLSearchParams({
       qualification: state.qualification,
       listGroupId: summary?.listGroupId || state.listGroupId,
     });
     const detail = await api(`/api/questions/${questionId}?${params}`);
     if (state.selectedId !== questionId || state.auditView.page !== "detail") return;
+    state.detailCache.delete(questionId);
+    state.detailCache.set(questionId, {
+      version: summary?.detailVersion || detail.stateHash || "",
+      detail,
+    });
+    pruneDetailCache([]);
     state.detail = detail;
     renderDetail();
     renderAuditViewHeading();
@@ -3916,7 +4049,7 @@ async function loadDetail(questionId) {
   }
 }
 
-function renderDetailLoading() {
+function renderDetailLoading(summary = null) {
   const pane = $("#detail-pane");
   pane.replaceChildren();
   const loading = element("div", "empty-state detail-loading-state");
@@ -3926,6 +4059,16 @@ function renderDetailLoading() {
     element("span", "loading-spinner"),
     element("strong", "", "問題の詳細を読み込んでいます"),
   );
+  if (summary) {
+    loading.append(
+      element(
+        "span",
+        "detail-loading-label",
+        summary.questionLabel || summary.sourceQuestionKey || "選択した問題",
+      ),
+      element("p", "detail-loading-preview", summary.body || "（問題文なし）"),
+    );
+  }
   pane.append(loading);
 }
 

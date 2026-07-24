@@ -1217,6 +1217,69 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertTrue(result["hasMore"])
         self.assertEqual(result["questions"][0]["id"], "question-50")
 
+    def test_question_list_fast_page_stops_before_full_statistics(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2026"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                questions = [
+                    {
+                        "id": f"question-{index}",
+                        "listGroupId": list_group_id,
+                        "body": f"問題{index}",
+                        "issues": [],
+                        "issueCodes": [],
+                        "reviewStatus": "unreviewed",
+                        "isLawRelated": False,
+                        "workflow": {"firestore": "unread"},
+                    }
+                    for index in range(10)
+                ]
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": "fingerprint",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            decorated_ids = []
+
+            def decorate(question):
+                decorated_ids.append(question["id"])
+                return question
+
+            app._decorate = decorate
+            app._summary = lambda question: dict(question)
+            result = app._questions(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                    "exceptionsOnly": ["false"],
+                    "includeStats": ["false"],
+                    "limit": ["2"],
+                }
+            )
+
+        self.assertEqual(decorated_ids, ["question-0", "question-1", "question-2"])
+        self.assertEqual(
+            [question["id"] for question in result["questions"]],
+            ["question-0", "question-1"],
+        )
+        self.assertIsNone(result["filteredCount"])
+        self.assertEqual(result["filteredCountLowerBound"], 3)
+        self.assertFalse(result["statsIncluded"])
+        self.assertTrue(result["hasMore"])
+        self.assertIsNone(result["evaluationCounts"])
+
     def test_reflection_pending_filter_excludes_published_questions_with_warnings(self):
         class Inventory:
             def inventory(self):
