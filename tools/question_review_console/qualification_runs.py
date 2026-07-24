@@ -1094,7 +1094,7 @@ def _aggregate_answer_review_prompt(
             "# 集約回答問題の独立レビュー",
             "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
             "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
-            "最初にchoiceTextListを確認する。受験者が選ぶ実質的な候補がchoiceTextListに既に並ぶ問題はnon_targetである。各肢が長い記述、数値、語句、組合せ候補のいずれでも同じであり、questionBodyTextに「組合せ」又は「いくつ」とあるだけでtargetにしない。",
+            "最初にquestionBodyTextとchoiceTextListの役割を確認する。個別に正誤判定する記述そのものがchoiceTextListに既に並ぶ問題は、本文に「組合せ」又は「いくつ」とあってもnon_targetである。計算結果の数値候補、穴埋めの語句候補又は並べ替え候補も、本文に集約前の完全な命題が複数なければnon_targetである。",
             "candidateSetsが空又は不完全であることだけを理由にholdにしない。questionBodyTextに個別判定すべき完全な命題が複数あることと、choiceTextListがそれらの個数・組合せ等だけを表すことの両方を確認してからtarget候補を検討する。",
             "targetは、元の回答が複数記述の正誤を個数、組合せその他の一つの回答へ集約し、candidateSetsの各境界が受験者に個別の正誤判定を求める命題そのものである場合に限る。",
             "問題が事実として与える設例条件や共通前提、並べ替える項目、空欄へ入れる語句又は数値、計算の入力は、列挙されていても個別の正誤判定対象ではないためtargetにしない。",
