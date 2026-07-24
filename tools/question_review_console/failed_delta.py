@@ -2,10 +2,18 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 from tools.question_review_console.workflow_catalog import WorkflowCatalog
+
+
+_FAILED_DELTA_CACHE_LOCK = threading.RLock()
+_FAILED_DELTA_CACHE: dict[
+    tuple[str, str, str | None],
+    tuple[tuple[tuple[str, int, int], ...], tuple[str, ...]],
+] = {}
 
 
 def unresolved_failed_delta_paths(
@@ -15,7 +23,29 @@ def unresolved_failed_delta_paths(
 ) -> tuple[str, ...]:
     """Return live paths changed by a failed run and not superseded by success."""
 
-    return _failed_delta_paths(repo_root, qualification, list_group_id)
+    resolved_root = repo_root.resolve()
+    run_root = (
+        resolved_root
+        / "output"
+        / "question_review_console"
+        / "workflow_runs"
+        / qualification
+    )
+    manifests = tuple(sorted(run_root.glob("*/manifest.json")))
+    fingerprint = _manifest_fingerprint(run_root, manifests)
+    cache_key = (str(resolved_root), qualification, list_group_id)
+    with _FAILED_DELTA_CACHE_LOCK:
+        cached = _FAILED_DELTA_CACHE.get(cache_key)
+        if cached and cached[0] == fingerprint:
+            return cached[1]
+        result = _failed_delta_paths(
+            resolved_root,
+            qualification,
+            list_group_id,
+            manifest_paths=manifests,
+        )
+        _FAILED_DELTA_CACHE[cache_key] = (fingerprint, result)
+        return result
 
 
 def resolvable_failed_delta_paths(
@@ -40,6 +70,7 @@ def _failed_delta_paths(
     list_group_id: str | None,
     *,
     resolver: Mapping[str, Any] | None = None,
+    manifest_paths: Iterable[Path] | None = None,
 ) -> tuple[str, ...]:
     root = (
         repo_root.resolve()
@@ -58,7 +89,12 @@ def _failed_delta_paths(
         for stage in WorkflowCatalog(repo_root).load()["stages"]
         if stage.get("patchDir")
     }
-    for manifest_path in sorted(root.glob("*/manifest.json")):
+    manifests = (
+        sorted(manifest_paths)
+        if manifest_paths is not None
+        else sorted(root.glob("*/manifest.json"))
+    )
+    for manifest_path in manifests:
         try:
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError, json.JSONDecodeError):
@@ -178,6 +214,26 @@ def _failed_delta_paths(
         if _success_supersedes(interrupted, resolver)
     )
     return tuple(sorted(resolvable))
+
+
+def _manifest_fingerprint(
+    root: Path,
+    manifests: Iterable[Path],
+) -> tuple[tuple[str, int, int], ...]:
+    fingerprint: list[tuple[str, int, int]] = []
+    for path in manifests:
+        try:
+            stat = path.stat()
+        except OSError:
+            continue
+        fingerprint.append(
+            (
+                path.relative_to(root).as_posix(),
+                stat.st_size,
+                stat.st_mtime_ns,
+            )
+        )
+    return tuple(fingerprint)
 
 
 def _success_contributes_to_path(

@@ -2,6 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.question_review_console.failed_delta import (
     resolvable_failed_delta_paths,
@@ -23,6 +24,34 @@ class FailedDeltaTests(unittest.TestCase):
             "21_explanationText_added/q1.json": [["q1"]]
         },
     }
+
+    def test_unchanged_manifests_are_parsed_once_and_file_changes_invalidate_cache(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/partial.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = (
+                root
+                / "output/question_review_console/workflow_runs/sample/"
+                "20260101-run/manifest.json"
+            )
+            self._write_manifest(manifest, "failed", relative)
+
+            with patch(
+                "tools.question_review_console.failed_delta.json.loads",
+                wraps=json.loads,
+            ) as loads:
+                first = unresolved_failed_delta_paths(root, "sample", "2026")
+                second = unresolved_failed_delta_paths(root, "sample", "2026")
+                self._write_manifest(manifest, "succeeded", relative)
+                updated = unresolved_failed_delta_paths(root, "sample", "2026")
+
+            self.assertEqual(first, (relative.as_posix(),))
+            self.assertEqual(second, first)
+            self.assertEqual(updated, ())
+            self.assertEqual(loads.call_count, 2)
 
     def test_failed_path_is_blocked_until_a_later_successful_run(self):
         relative = Path(
