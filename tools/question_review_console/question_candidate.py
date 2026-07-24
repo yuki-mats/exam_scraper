@@ -47,10 +47,19 @@ class QuestionCandidateError(ValueError):
 def aggregate_answer_review_schema(
     expected_question_ids: Iterable[str],
     candidate_ids_by_question: Mapping[str, Iterable[str]] | None = None,
+    source_hashes_by_question: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     """Schema for a prose-free, read-only aggregate-answer review turn."""
 
     question_ids = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
+    source_hashes = sorted(
+        {
+            str(source_hashes_by_question[question_id])
+            for question_id in question_ids
+            if source_hashes_by_question
+            and question_id in source_hashes_by_question
+        }
+    )
     return {
         "type": "object",
         "additionalProperties": False,
@@ -84,7 +93,11 @@ def aggregate_answer_review_schema(
                         },
                         "sourceHash": {
                             "type": "string",
-                            "pattern": "^sha256:[0-9a-f]{64}$",
+                            **(
+                                {"enum": source_hashes}
+                                if source_hashes
+                                else {"pattern": "^sha256:[0-9a-f]{64}$"}
+                            ),
                         },
                         "classification": {
                             "type": "string",

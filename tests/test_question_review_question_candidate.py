@@ -247,7 +247,11 @@ class QuestionCandidateTest(unittest.TestCase):
         )
 
     def test_aggregate_review_contract_has_no_prose_fields(self):
-        schema = aggregate_answer_review_schema(["q1"])
+        expected_hash = "sha256:" + "0" * 64
+        schema = aggregate_answer_review_schema(
+            ["q1"],
+            source_hashes_by_question={"q1": expected_hash},
+        )
         item = schema["properties"]["questionReviews"]["items"]
         self.assertFalse(item["additionalProperties"])
         for forbidden in (
@@ -260,13 +264,17 @@ class QuestionCandidateTest(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, item["properties"])
         self.assertIn("candidateId", item["required"])
+        self.assertEqual(
+            item["properties"]["sourceHash"]["enum"],
+            [expected_hash],
+        )
         payload = {
             "schemaVersion": "aggregate-answer-review-batch/v2",
             "questionReviews": [
                 {
                     "questionId": "q1",
                     "schemaVersion": "aggregate-answer-review/v2",
-                    "sourceHash": "sha256:" + "0" * 64,
+                    "sourceHash": expected_hash,
                     "classification": "non_target",
                     "candidateId": None,
                     "decision": "approve",

@@ -187,7 +187,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
-AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v4"
+AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v5"
 MAX_POLICY_REFRESH_ATTEMPTS = 2
 MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
@@ -1094,6 +1094,8 @@ def _aggregate_answer_review_prompt(
             "# 集約回答問題の独立レビュー",
             "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
             "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
+            "最初にchoiceTextListを確認する。受験者が選ぶ実質的な候補がchoiceTextListに既に並ぶ問題はnon_targetである。各肢が長い記述、数値、語句、組合せ候補のいずれでも同じであり、questionBodyTextに「組合せ」又は「いくつ」とあるだけでtargetにしない。",
+            "candidateSetsが空又は不完全であることだけを理由にholdにしない。questionBodyTextに個別判定すべき完全な命題が複数あることと、choiceTextListがそれらの個数・組合せ等だけを表すことの両方を確認してからtarget候補を検討する。",
             "targetは、元の回答が複数記述の正誤を個数、組合せその他の一つの回答へ集約し、candidateSetsの各境界が受験者に個別の正誤判定を求める命題そのものである場合に限る。",
             "問題が事実として与える設例条件や共通前提、並べ替える項目、空欄へ入れる語句又は数値、計算の入力は、列挙されていても個別の正誤判定対象ではないためtargetにしない。",
             "choiceTextListに受験者が選ぶ個別の命題が既に並ぶ通常問題もtargetにしない。choiceTextListが個数又は組合せ等の集約回答で、個別に判定する全命題がquestionBodyText内にあるかを確認する。",
@@ -9127,6 +9129,12 @@ class QualificationRunCoordinator:
                                         if isinstance(candidate, Mapping)
                                         and candidate.get("candidateId")
                                     ]
+                                    for question_id in pending_ids
+                                },
+                                {
+                                    question_id: str(
+                                        signatures[question_id]["sourceHash"]
+                                    )
                                     for question_id in pending_ids
                                 },
                             ),
