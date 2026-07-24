@@ -944,6 +944,23 @@ function openListGroupMaintenance(listGroupId) {
   });
 }
 
+function openSingleQuestionMaintenance(question) {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow || !question?.id || !question?.listGroupId) return;
+  const firstStage = qualificationMaintenanceEntryStage();
+  if (!firstStage) {
+    toast("更新項目を選べる問題整備工程がありません。", true);
+    return;
+  }
+  closeAuditView({ restoreFocus: false });
+  openQualificationRunDialog(firstStage, {
+    listGroupIds: [question.listGroupId],
+    questionIds: [question.id],
+    mode: "group_refresh",
+    fieldFirst: true,
+  });
+}
+
 function openListGroupStatus(listGroupId) {
   openAuditView(listGroupId);
 }
@@ -4101,7 +4118,17 @@ function renderDetail() {
     element("div", "detail-meta", `${qualificationDisplayName(question.qualification)} / ${listGroupDisplayName(question.listGroupId)} / ${question.sourceQuestionKey}`),
   );
   const actions = element("div", "detail-actions");
-  if (!state.auditView.readOnly) {
+  if (state.auditView.readOnly) {
+    actions.append(
+      actionWithHelp(
+        "この問題を再整備",
+        "primary-button",
+        () => openSingleQuestionMaintenance(question),
+        "この問題を再整備",
+        "表示中の一問だけを対象に、整備する項目を選んで再判定します。本番Firestoreには書き込みません。",
+      ),
+    );
+  } else {
     actions.append(
       actionWithHelp(
         "パッチを修正",
