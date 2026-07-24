@@ -531,7 +531,9 @@ async function initialize() {
       loadQualificationWorkflow(false),
       loadQualificationRuns(),
     ]);
-    window.setInterval(checkFingerprint, 2000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) checkFingerprint();
+    });
     window.setInterval(pollSharedRunProgress, 3000);
   } catch (error) {
     toast(error.message, true);
@@ -1657,6 +1659,17 @@ async function pollSharedRunProgress() {
   state.sharedRunPolling = true;
   state.lastSharedRunPollAt = now;
   try {
+    if (previousRunId) {
+      const progress = await loadQualificationRunProgress(previousRunId, {
+        includeQuestions: false,
+      });
+      if (!progress || qualification !== state.qualification) return;
+      if (
+        !["succeeded", "failed", "interrupted", "invalidated"].includes(
+          String(progress.status || ""),
+        )
+      ) return;
+    }
     const loaded = await loadQualificationRuns({ includeLatestProgress: false });
     if (!loaded || qualification !== state.qualification) return;
     const currentRunId = state.qualificationActiveRun?.runId || "";
@@ -3363,10 +3376,13 @@ function enterQualificationProgressView(run) {
   $("#qualification-run-cancel").textContent = "閉じる";
 }
 
-async function loadQualificationRunProgress(runId) {
+async function loadQualificationRunProgress(
+  runId,
+  { includeQuestions = true } = {},
+) {
   const params = new URLSearchParams({
     qualification: state.qualification,
-    includeQuestions: "true",
+    includeQuestions: String(includeQuestions),
   });
   try {
     const progress = await api(`/api/qualification-runs/${encodeURIComponent(runId)}/progress?${params}`);

@@ -17,6 +17,26 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_question_lookup_reuses_loaded_inventory_snapshot(self):
+        class Inventory:
+            def question(self, question_id):
+                return {
+                    "id": question_id,
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                }
+
+            def group(self, _qualification, _list_group_id):
+                raise AssertionError("loaded question must not rescan group")
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+
+            question = app._question("target-question", {})
+
+        self.assertEqual(question["id"], "target-question")
+
     def test_question_lookup_skips_unrelated_invalid_group(self):
         class Inventory:
             def __init__(self):

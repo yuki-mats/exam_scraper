@@ -1511,7 +1511,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn("progress.questions || []", javascript)
-        self.assertIn('includeQuestions: "true"', javascript)
+        self.assertIn("includeQuestions: String(includeQuestions)", javascript)
         self.assertIn("questionsIncluded !== true", javascript)
         start_failure = javascript[
             javascript.index("async function startQualificationRun") :
@@ -1711,10 +1711,18 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         )
         self.assertIn("function pollSharedRunProgress", javascript)
         self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", javascript)
+        self.assertNotIn("window.setInterval(checkFingerprint", javascript)
+        self.assertIn('document.addEventListener("visibilitychange"', javascript)
         self.assertIn("|| state.qualificationRunDialog.running", javascript)
         self.assertIn("const QUALIFICATION_RUN_IDLE_POLL_MS = 30000", javascript)
         self.assertIn("now - state.lastSharedRunPollAt < QUALIFICATION_RUN_IDLE_POLL_MS", javascript)
         self.assertIn("loadQualificationRuns({ includeLatestProgress: false })", javascript)
+        self.assertIn("loadQualificationRunProgress(previousRunId, {", javascript)
+        self.assertIn("includeQuestions: false", javascript)
+        self.assertIn(
+            '["succeeded", "failed", "interrupted", "invalidated"].includes(',
+            javascript,
+        )
         self.assertIn("state.qualificationActiveJob?.logs", javascript)
         self.assertIn("state.qualificationRunProgress", javascript)
         self.assertIn("maintenance-year-row${working ? \" working\"", javascript)

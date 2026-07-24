@@ -1327,11 +1327,9 @@ class QuestionReviewApplication:
         except KeyError:
             existing = None
         if existing is not None:
-            self.inventory.group(existing["qualification"], existing["listGroupId"])
-            try:
-                return self.inventory.question(question_id)
-            except KeyError:
-                pass
+            # 一覧で確定した同じinventory snapshotを詳細にも使う。
+            # filesystemの全group再走査は明示更新時に一覧側で行う。
+            return existing
 
         qualification = _query_value(query, "qualification")
         list_group_id = _query_value(query, "listGroupId")

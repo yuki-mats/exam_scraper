@@ -103,7 +103,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。
 
-画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。進捗から問題を開く「作業対象を確認」には、問題文・選択肢・正答・解説とpatch適用後の`questionType`、問題整備専用の`isCalculationQuestion`を表示します。`flash_card`と`group_choice`の基本解説は問題共通の1本として選択肢一覧の上に表示し、選択肢カードへ繰り返しません。問題の詳細画面では、選択肢をタップすると、その選択肢の`suggestedQuestionDetails`に相当する質問と回答だけをカード内に表示します。`suggestedQuestionDetailsByChoice`が0件の選択肢も、保存済み補足がないことを明示します。補足0件は不備ではなく、基本解説と重複する候補を保存しない正規状態です。旧flat fieldしかない場合は「選択肢未割当・再生成が必要」と表示し、推測で割り当てません。
+画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。進行中runの背景pollは軽量な進捗だけを取得し、履歴一覧はrun終了時、待機中又は明示更新時に取得します。詳細表示中の問題は定期再取得せず、一覧で確定した同じsnapshotを使い、画面へ戻った時又は明示更新時に差分を確認します。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。進捗から問題を開く「作業対象を確認」には、問題文・選択肢・正答・解説とpatch適用後の`questionType`、問題整備専用の`isCalculationQuestion`を表示します。`flash_card`と`group_choice`の基本解説は問題共通の1本として選択肢一覧の上に表示し、選択肢カードへ繰り返しません。問題の詳細画面では、選択肢をタップすると、その選択肢の`suggestedQuestionDetails`に相当する質問と回答だけをカード内に表示します。`suggestedQuestionDetailsByChoice`が0件の選択肢も、保存済み補足がないことを明示します。補足0件は不備ではなく、基本解説と重複する候補を保存しない正規状態です。旧flat fieldしかない場合は「選択肢未割当・再生成が必要」と表示し、推測で割り当てません。
 
 `05_originalized`が適用された独自問題の詳細画面では、`00_source`の問題文・全選択肢と、05以降の確定patchを適用した現在の問題文・全選択肢を読取専用で並べます。問題文と選択肢それぞれについて完全一致か変更ありかを表示し、選択肢が`00_source`と同一でも正常な独自問題として確認できるようにします。公式過去問など05未適用の問題には、この比較を表示しません。
 
