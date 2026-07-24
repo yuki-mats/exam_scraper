@@ -1,0 +1,319 @@
+version: 2
+
+goal:
+  title: "ガス主任技術者 全問通常フロー整備・Firestore公開"
+  slug: "gas-shunin-full-normal-flow-publish"
+  kind: existing_plan
+  tranche: "甲種・乙種2017〜2025年の全18年度群を通常フローで再整備し、Firestore全件readbackまで連続実行する。"
+  status: active
+  oracle:
+    signal: "00_source不変、正答・解説矛盾0、未承認正答差分0、ID drift 0、全品質ゲート成功、Firestore readback不一致0、乙種2024基礎問9の4.3/flash_card正常採点。"
+    cadence: "各Worker package後、公開直前、最終監査時"
+    final_proof: "全18年度群の通常フローreceipt、差分監査、upload artifact hash、Firestore書込結果、全対象readback、最終Judge receipt。"
+  intake:
+    original_request: "通常フローへ一本化します。"
+    interpreted_outcome: "ガス主任技術者の全問を個別hotfixではなく既存の通常問題整備フローへ統一し、Firestore公開まで完了する。"
+    input_shape: existing_plan
+    audience: "ガス主任技術者試験の受験者と問題運用者"
+    authority: approved
+    proof_type: source_backed_answer
+    completion_proof: "全対象の00_source不変、正答・解説・ID・公開候補の整合、品質ゲート成功、Firestore全対象readback一致。"
+    likely_misfire: "対象5件だけのhotfixを公開する、通常工程を省略する、正答差分を自動補正する、upload成功だけで完了する。"
+    blind_spots_considered:
+      - "旧Goalは934問scopeで現在の全18年度群を表していない。"
+      - "正答差分は00_sourceが基本正本だが、取得・組合せ展開の例外があり得る。"
+      - "全候補documentと実際のFirestore更新documentは同数ではなく、差分だけを書き込む。"
+      - "正答と解説は接頭辞表記だけでなく意味的整合を確認する。"
+    existing_plan_facts:
+      - "00_sourceを基本の正本とする。"
+      - "正答と解説の整合性を確認する。"
+      - "00_sourceと整備後正答の差分は妥当性を個別確認する。"
+      - "Firestoreへアップロードしてreadbackする。"
+      - "対象5件の個別先行uploadは行わない。"
+      - "全問整備の開始、工程操作、評価、Firestore反映は問題整備システムのUIから行う。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/gas-shunin-full-normal-flow-publish/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-full-normal-flow-publish"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "問題整備システムUIで全18年度群を通常フロー実行するため、現行UI操作、対象件数、工程版、評価状態、既存成果物、検証入口をread-onlyで確定する。"
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+      - "config/question_maintenance_workflow.toml"
+      - "docs/goals/gas-shunin-01-04-full-pass"
+      - "output/gas-shunin-kou/questions_json"
+      - "output/gas-shunin-otsu/questions_json"
+      - "output/question_review_console"
+    constraints:
+      - "Read-only。"
+      - "問題整備UIをまだ実行しない。"
+      - "CLIで工程状態を変更しない。"
+      - "甲種・乙種2017〜2025年の全18年度群を含める。"
+      - "既存の未コミット差分へ触れない。"
+    expected_output:
+      - "UI起動と全問実行の正確な操作手順"
+      - "資格・年度群・元問題・公開documentの現行件数"
+      - "既に現行工程済み、再整備必要、評価必要、公開済みの区分"
+      - "正答・解説・00_source差分の検証入口"
+      - "次のJudgeがWorkerへ渡せる対象とstop条件"
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Scoutの現物確認を審査し、UIから全問通常フローを実行する最大の安全な乙種・甲種Worker sliceを確定する。"
+    inputs:
+      - "T001 receipt"
+      - "goal oracle"
+    constraints:
+      - "実装・UI操作・Firestore書込みを行わない。"
+      - "対象5件の個別hotfixを選ばない。"
+      - "UI経由の通常フローを省略しない。"
+      - "00_source正答差分を自動補正しない。"
+    expected_output:
+      - "進行可否"
+      - "乙種Workerと甲種Workerの正確なUI操作範囲"
+      - "allowed_files"
+      - "UI verifyと補助read-only verify"
+      - "stop_if"
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "問題整備システムUIから乙種2017〜2025年の全年度群を通常フローで整備・評価し、公開直前の現行成果物まで完了する。"
+    allowed_files:
+      - "output/gas-shunin-otsu/**"
+      - "output/question_review_console/**/gas-shunin-otsu/**"
+      - "document/temporary/reviews/gas-shunin/**"
+      - "docs/goals/gas-shunin-full-normal-flow-publish/notes/**"
+    verify:
+      - "問題整備システムUIの全年度状況画面で未処理・失敗・古い工程を確認する。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "乙種全年度のquality-gateとupload dry-runのUI結果又はUI生成receiptを確認する。"
+    stop_if:
+      - "00_sourceに差分が出る。"
+      - "UI以外から工程状態を変更する必要がある。"
+      - "正答と解説に未解決の意味的矛盾がある。"
+      - "未根拠の00_source正答差分を残す必要がある。"
+      - "既存IDの変更が必要になる。"
+      - "allowed_files外の変更が必要になる。"
+    receipt: null
+
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "問題整備システムUIから甲種2017〜2025年の全年度群を通常フローで整備・評価し、公開直前の現行成果物まで完了する。"
+    allowed_files:
+      - "output/gas-shunin-kou/**"
+      - "output/question_review_console/**/gas-shunin-kou/**"
+      - "document/temporary/reviews/gas-shunin/**"
+      - "docs/goals/gas-shunin-full-normal-flow-publish/notes/**"
+    verify:
+      - "問題整備システムUIの全年度状況画面で未処理・失敗・古い工程を確認する。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "甲種全年度のquality-gateとupload dry-runのUI結果又はUI生成receiptを確認する。"
+    stop_if:
+      - "00_sourceに差分が出る。"
+      - "UI以外から工程状態を変更する必要がある。"
+      - "正答と解説に未解決の意味的矛盾がある。"
+      - "未根拠の00_source正答差分を残す必要がある。"
+      - "既存IDの変更が必要になる。"
+      - "allowed_files外の変更が必要になる。"
+    receipt: null
+
+  - id: T005
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "甲種・乙種全体について正答と解説、00_sourceと整備後正答の差分、ID、工程版、評価結果を横断監査する。"
+    inputs:
+      - "T003 receipt"
+      - "T004 receipt"
+      - "00_source"
+      - "UI生成の最新patch・evaluation・upload-ready成果物"
+    constraints:
+      - "Read-only。"
+      - "表記ゆれと意味的矛盾を区別する。"
+      - "00_source差分は問題ごとの公式解答、計算、法令根拠又は取得展開根拠で判断する。"
+      - "未根拠差分は合格にしない。"
+    expected_output:
+      - "全対象件数"
+      - "正答・解説矛盾件数と対象"
+      - "00_source正答差分一覧と妥当性判定"
+      - "ID drift件数"
+      - "再整備が必要な問題と正確なUI戻し先"
+      - "公開候補生成へ進めるか"
+    receipt: null
+
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T005で再整備が必要と判定された問題だけを問題整備システムUIから通常工程へ戻し、再評価まで完了する。"
+    allowed_files:
+      - "output/gas-shunin-kou/**"
+      - "output/gas-shunin-otsu/**"
+      - "output/question_review_console/**"
+      - "document/temporary/reviews/gas-shunin/**"
+      - "docs/goals/gas-shunin-full-normal-flow-publish/notes/**"
+    verify:
+      - "T005の全指摘にUI上の再整備・別session再評価結果が対応する。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "対象問題の正答・解説・00_source差分を再確認する。"
+    stop_if:
+      - "T005が公開候補生成へ進行可とし、再整備対象が0件ならno-op receiptを返す。"
+      - "00_sourceに差分が出る。"
+      - "UI以外から工程状態を変更する必要がある。"
+      - "根拠不足又はID変更が必要になる。"
+    receipt: null
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "問題整備システムUIから全対象の最新merge・convert・品質ゲート・upload dry-runを実行し、単一の公開前成果物とreceiptを確定する。"
+    allowed_files:
+      - "output/gas-shunin-kou/**"
+      - "output/gas-shunin-otsu/**"
+      - "output/gas-shunin-all/**"
+      - "output/question_review_console/**"
+      - "document/temporary/reviews/gas-shunin/**"
+      - "docs/goals/gas-shunin-full-normal-flow-publish/notes/**"
+    verify:
+      - "UIの全年度状況で公開前工程が現行か確認する。"
+      - "全対象のquality-gate成功を確認する。"
+      - "upload dry-runのproject ID、artifact hash、追加・更新・不変件数を確認する。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+    stop_if:
+      - "未評価、古い評価、hold、品質ゲート失敗、未承認正答差分がある。"
+      - "00_source、既存ID、対象外documentに差分がある。"
+      - "UI以外から工程状態を変更する必要がある。"
+    receipt: null
+
+  - id: T008
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Firestore公開直前に全対象artifact、live値、同時更新、ID、正答・解説、対象差分、reported問9をread-only監査する。"
+    inputs:
+      - "T005 receipt"
+      - "T006 receipt"
+      - "T007 receipt"
+      - "Firestore live read"
+    constraints:
+      - "Firestoreへ書き込まない。"
+      - "upload command成功を証拠として代用しない。"
+      - "対象5件だけのartifactへ戻さない。"
+    expected_output:
+      - "publish | reject"
+      - "project ID"
+      - "artifact hash"
+      - "全候補件数と実更新件数"
+      - "ID drift 0の証拠"
+      - "正答・解説・00_source差分監査の完了証拠"
+      - "乙種2024基礎問9の期待live値"
+    receipt: null
+
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T008がpublishと判定した同一artifactを問題整備システムUIからFirestoreへ反映し、全対象をreadbackする。"
+    allowed_files:
+      - "output/question_review_console/publish_runs/**"
+      - "output/gas-shunin-all/**/readback*.json"
+      - "docs/goals/gas-shunin-full-normal-flow-publish/notes/**"
+    verify:
+      - "UI確認dialogのproject ID、artifact hash、更新件数がT008と一致する。"
+      - "UIのFirestore反映結果が成功する。"
+      - "全対象readbackでcandidate不一致0、missing 0、ID drift 0を確認する。"
+      - "乙種2024基礎問9の5documentsがflash_cardで、4.3だけ正しいことを確認する。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+    stop_if:
+      - "T008がpublish以外。"
+      - "確認dialogがT008のproject ID、artifact hash、件数と一致しない。"
+      - "Firestore liveがT008以後に変化している。"
+      - "UI以外からFirestore書込みが必要になる。"
+      - "readback不一致が1件以上ある。"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全問通常フロー一本化、Firestore公開、全件readbackがowner outcomeを完全に満たしたか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "UI publish receipt"
+      - "Full Firestore readback"
+      - "00_source immutability result"
+      - "Current git diff and origin/main parity"
+    constraints:
+      - "実装・UI操作・Firestore書込みを行わない。"
+      - "必須Workerがqueued、active、blockedなら完了を拒否する。"
+      - "正答・解説矛盾、未承認正答差分、ID drift、readback不一致が1件でもあれば完了を拒否する。"
+      - "対象5件だけの解決を全問完了と扱わない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle各項目の証拠"
+      - "未完項目と次task"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "pre-existing changes in document/operations/local_question_review_console.md, tests/test_question_review_workflow.py, tools/question_review_console/static/app.js, static/index.html, static/styles.css; preserve untouched"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
