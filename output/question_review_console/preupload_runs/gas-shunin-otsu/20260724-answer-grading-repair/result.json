@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "question-preupload-result/v1",
+  "completedAt": "2026-07-24T10:59:42Z",
+  "status": "succeeded",
+  "outcome": "ready_for_upload",
+  "qualification": "gas-shunin-otsu",
+  "listGroupId": "2024",
+  "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09",
+  "artifactPath": "output/question_review_console/preupload_runs/gas-shunin-otsu/20260724-answer-grading-repair/artifact.json",
+  "preflightPath": "output/question_review_console/preupload_runs/gas-shunin-otsu/20260724-answer-grading-repair/preflight.json",
+  "gateReportPath": "output/question_review_console/preupload_runs/gas-shunin-otsu/20260724-answer-grading-repair/gate_report.json",
+  "documentCount": 5,
+  "correctChoiceNumber": 4,
+  "uploadCommand": ".venv/bin/python scripts/upload/upload_questions_to_firestore.py output/question_review_console/preupload_runs/gas-shunin-otsu/20260724-answer-grading-repair/artifact.json",
+  "firestoreWritePerformed": false,
+  "notes": [
+    "00_sourceは変更していない。",
+    "既存questionIdとoriginalQuestionIdを維持した。",
+    "全4639件のlive readbackでcorrectChoiceText差分は0件だった。",
+    "本番差分は対象5documentの問題形式と、それに伴う表示・グルーピングfieldに限定した。",
+    "Firestore実反映はユーザー依頼の範囲外のため実行していない。"
+  ]
+}

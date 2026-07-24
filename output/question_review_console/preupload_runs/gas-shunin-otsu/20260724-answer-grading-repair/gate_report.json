@@ -1,0 +1,35 @@
+{
+  "allowSourceConflicts": false,
+  "generatedAt": "2026-07-24T11:01:54Z",
+  "issueCount": 0,
+  "issueCounts": {},
+  "issues": [],
+  "ok": true,
+  "plan": {
+    "needsSourceReviewRowCount": 129,
+    "planRowCount": 936,
+    "scopedNeedsSourceReviewBlockerCount": 0,
+    "scopedPlanRowCount": 1,
+    "sourceConflictStatusCounts": {
+      "metadata_resolved": 7,
+      "needs_source_review": 129,
+      "none": 800
+    }
+  },
+  "policy": {
+    "existingQuestionSetId": "existing Firestore document questionSetId must not change during upload",
+    "newQuestionId": "new source-derived questions must use sourceUniqueKey-derived deterministic document IDs and not collide with local existing Firestore IDs",
+    "questionId": "existing Firestore-derived originalQuestionId must upload to one of its existing firestoreQuestionIds",
+    "questionSetId": "upload questions must have a non-empty questionSetId",
+    "sourceChoiceCountMismatch": "included source_choice_count_mismatch rows fail",
+    "sourceConflictStatus": "included needs_source_review rows fail unless upload policy preserves existing Firestore content/IDs or adds site-shadow docs without existing-ID collision"
+  },
+  "sampleIssueCount": 0,
+  "schemaVersion": "gas-shunin-upload-gate/v1",
+  "upload": {
+    "existingFirestoreOriginalQuestionCount": 0,
+    "newOriginalQuestionCount": 5,
+    "uploadFileCount": 1,
+    "uploadQuestionCount": 5
+  }
+}

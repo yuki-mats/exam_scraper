@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "question-preupload-preflight/v1",
+  "generatedAt": "2026-07-24T10:59:42Z",
+  "status": "ready_for_upload",
+  "projectId": "repaso-rbaqy4",
+  "qualification": "gas-shunin-otsu",
+  "listGroupId": "2024",
+  "questionLabel": "問9",
+  "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09",
+  "originalQuestionId": "3eaeb25a564cce4b",
+  "artifactPath": "output/question_review_console/preupload_runs/gas-shunin-otsu/20260724-answer-grading-repair/artifact.json",
+  "artifactSha256": "a20f24481906896ae9e854c0e04a17d2f5ec3e4b19d34b658e7b78f7c38bb840",
+  "candidateSha256": "b1400f3668189eb414661b4a4d475c532950a51824cfb3522ea81642f38f6ac7",
+  "sourceSha256": "06fa57ef5384691bf46fa0bdce49cee8aa4960e44d3a627e611a8a4a5d8bfd87",
+  "liveSha256": "a35bbadc8587fd941e9476f27a5680370fa89d14f0a4daaf719e3aa455d35d5a",
+  "documentCount": 5,
+  "liveDocumentCount": 5,
+  "changedCount": 5,
+  "missingCount": 0,
+  "correctChoiceMismatchCount": 0,
+  "rootCause": {
+    "field": "questionType",
+    "liveValue": "true_false",
+    "candidateValue": "flash_card",
+    "summary": "単一選択の計算問題が正誤判定形式として公開されており、回答UIと採点形式が一致していない。"
+  },
+  "answerContract": {
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "correctChoiceNumber": 4
+  },
+  "documentIds": [
+    "gas-shunin-otsu-2024-kiso-q09-s01",
+    "gas-shunin-otsu-2024-kiso-q09-s02",
+    "gas-shunin-otsu-2024-kiso-q09-s03",
+    "gas-shunin-otsu-2024-kiso-q09-s04",
+    "gas-shunin-otsu-2024-kiso-q09-s05"
+  ],
+  "verification": {
+    "sourceUnchanged": true,
+    "fullCandidateCount": 4639,
+    "fullLiveReadCount": 4639,
+    "fullCorrectChoiceMismatchCount": 0,
+    "scopedUploadGateOk": true,
+    "scopedUploadGateIssueCount": 0,
+    "scopedUploadDryRunOk": true
+  },
+  "firestoreWritePerformed": false
+}
