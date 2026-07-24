@@ -12690,7 +12690,7 @@ class QualificationRunCoordinator:
                             == {
                                 field: value
                                 for field, value in before_identity.items()
-                                if value not in {None, ""}
+                                if value is not None and value != ""
                             }
                         )
                         allowed_patch_identity_enrichment = bool(

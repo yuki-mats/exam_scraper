@@ -892,6 +892,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 "originalQuestionId": "shared-review-id",
                 "sourceQuestionKey": "sample:2026:shared",
                 "public_question_id": None,
+                "firestoreQuestionIds": ["existing-firestore-question"],
                 "explanationText": ["変更前"],
             }
             patch.write_text(
