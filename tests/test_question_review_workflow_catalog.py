@@ -175,13 +175,23 @@ class WorkflowCatalogTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
 
         for text in (prompt, operations):
-            self.assertIn("別問題へ作り替え", text)
+            self.assertIn("作り替え", text)
             self.assertIn("一つ又は必要最小限", text)
             self.assertIn("誤答", text)
             self.assertIn("難易度", text)
             self.assertIn("図表問題のまま維持", text)
         self.assertIn("問題文を維持して選択肢だけを変えてもよい", prompt)
         self.assertIn("選択肢の順番", prompt)
+        self.assertIn("正答が成立する理由", prompt)
+        self.assertIn("各誤答が誤りである理由", prompt)
+        self.assertIn("正答と解説に照らし", prompt)
+        self.assertIn("元の問題文、選択肢、正答、解説を一つの基準セット", prompt)
+        self.assertIn("問題文と選択肢は局所的な微修正", operations)
+        explanation_prompt = (
+            ROOT / "prompt/03_prompt_add_explanationText.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("構造化候補に含まれる`originalizationSource`", explanation_prompt)
+        self.assertIn("より分かりやすい独自解説へ再構成", explanation_prompt)
         for profile in (clf_profile, saa_profile):
             self.assertIn("独自問題化で維持するAWSらしさ", profile)
             self.assertIn("AWSサービス名", profile)
@@ -197,17 +207,15 @@ class WorkflowCatalogTests(unittest.TestCase):
             aws_samples,
         )
         self.assertIn(
-            "「企業は」「同社は」などの主語を先頭に置く公式翻訳の構造も維持します。",
+            "AWSサポートプランの「ベーシックサポート」について正しい説明はどれか。",
             aws_samples,
         )
-        self.assertIn(
-            "小売企業は、自社製品の評判を把握するため、SNS上の顧客コメントを分析したい。",
-            aws_samples,
-        )
-        self.assertIn(
-            "正答の選択肢1と2は変更せず、誤答だけを変更して順番を入れ替えます。",
-            aws_samples,
-        )
+        self.assertIn("ある企業は、SNS上での自社製品", aws_samples)
+        self.assertIn("バッチ処理システムを構築した", aws_samples)
+        self.assertIn("正しい組み合わせを選べ。", aws_samples)
+        self.assertIn("世界各地のAWSデータセンター", aws_samples)
+        self.assertIn("インバウンドとアウトバウンド", aws_samples)
+        self.assertNotIn("不適切な変更:", aws_samples)
 
         aws_catalog = QualificationWorkflow(ROOT, None).catalog(
             "aws-cloud-practitioner"
@@ -319,10 +327,10 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "4.1")
+        self.assertEqual(version_by_stage["explanation"], "4.2")
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
-        self.assertEqual(version_by_stage["originalize"], "2.5")
+        self.assertEqual(version_by_stage["originalize"], "2.6")
         self.assertEqual(version_by_stage["question_type"], "5.0")
         self.assertEqual(version_by_stage["question_intent"], "2.0")
         self.assertEqual(version_by_stage["correct_choice"], "2.0")

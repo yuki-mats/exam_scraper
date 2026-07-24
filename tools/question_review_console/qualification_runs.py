@@ -956,6 +956,10 @@ def _structured_candidate_prompt(
                     "correctChoiceText",
                     "questionIntent",
                     "answer_result_text",
+                    "explanation_common_prefix",
+                    "explanation_common_summary",
+                    "explanation_choice_snippets",
+                    "explanationText",
                 )
                 if field in originalization_source
             }
@@ -991,7 +995,10 @@ def _structured_candidate_prompt(
             "originalizationSourceがある場合、それは00_sourceの更新不能な比較証拠である。"
             "currentRecordがすでに独自問題として成立している場合は、その表現を維持し、"
             "必要な最小修正だけを行う。問題文と選択肢の両方を"
-            "originalizationSourceへ戻してはならない。",
+            "originalizationSourceへ戻してはならない。"
+            "originalizationSource内の解説候補はprompt内だけの参照資料である。"
+            "元解説を材料に03の解説promptへ沿ったより分かりやすい独自解説を作る。"
+            "正答理由と各誤答の理由を変えず、文面をsetFieldsへ転載しない。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "別問題の内容や判断を流用しない。思考過程は返さない。",
@@ -6886,11 +6893,19 @@ class QualificationRunCoordinator:
         }
         self.store._write_json(path, payload)
         source_record = None
-        if stage_id == "originalize":
+        applied_files = tuple(getattr(result, "applied_files", ()))
+        needs_originalization_source = stage_id == "originalize" or (
+            stage_id == "explanation"
+            and any(
+                "05_originalized" in Path(str(value)).parts
+                for value in applied_files
+            )
+        )
+        if needs_originalization_source:
             source_input = getattr(inventory, "source_input", None)
             if not callable(source_input):
                 raise QuestionItemError(
-                    "独自問題化に必要な00_source比較入力がありません。"
+                    "独自問題の比較・解説に必要な00_source参照入力がありません。"
                 )
             source_record = source_input(*project_args)
         return {

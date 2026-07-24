@@ -46,7 +46,8 @@ kind = "human"
 # 2.3: 問題文と選択肢の変更を必要最小限にし、難易度と問題品質を維持する。
 # 2.2: 選択肢の書き換えを一律必須にせず、独自化した問題文との整合で判断する。
 # 2.5: 問題文を維持して選択肢だけを変更・並べ替える独自化とAWS公式翻訳文体を許可する。
-policy_version = "2.5"
+# 2.6: 問題文と選択肢は微修正にとどめ、正答と各選択肢の意味を維持する。
+policy_version = "2.6"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -197,7 +198,8 @@ purpose = "正誤理由を整え、追加の学習価値がある場合だけ補
 kind = "human"
 # 4.0: 基本解説の言い換え補足を不適合とし、追加価値がなければ0件へ洗い替える。
 # 4.1: 解説で確認したオンラインの公式一次資料を共通契約で紐づける。
-policy_version = "4.1"
+# 4.2: 独自問題では元解説を参照し、既存の解説方針でより良く再構成する。
+policy_version = "4.2"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

@@ -2147,6 +2147,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "questionBodyText": "取得元の問題文",
                     "choiceTextList": ["取得元A", "取得元B"],
                     "correctChoiceText": ["正しい", "間違い"],
+                    "explanation_common_prefix": ["取得元の解説候補"],
                     "internalOnly": "公開しない",
                 }
             },
@@ -2161,11 +2162,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             question_payload["originalizationSource"]["questionBodyText"],
             "取得元の問題文",
         )
+        self.assertEqual(
+            question_payload["originalizationSource"]["explanation_common_prefix"],
+            ["取得元の解説候補"],
+        )
         self.assertNotIn(
             "internalOnly",
             question_payload["originalizationSource"],
         )
         self.assertIn("00_sourceの更新不能な比較証拠", prompt)
+        self.assertIn("prompt内だけの参照資料", prompt)
 
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"
