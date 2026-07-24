@@ -190,6 +190,16 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("ポーリングリクエスト", aws_samples)
         self.assertIn("レイテンシー", aws_samples)
         self.assertIn("これらの要件を満たすアプローチ", aws_samples)
+        self.assertIn("独自問題化の変更前・変更後サンプル", aws_samples)
+        self.assertIn("問題ID: `91543`", aws_samples)
+        self.assertIn(
+            "AWS WAFの特徴は次のうちどれか。（2つ選択）",
+            aws_samples,
+        )
+        self.assertIn(
+            "正答の選択肢1と2は変更せず、誤答だけを変更して順番を入れ替えます。",
+            aws_samples,
+        )
 
         aws_catalog = QualificationWorkflow(ROOT, None).catalog(
             "aws-cloud-practitioner"
