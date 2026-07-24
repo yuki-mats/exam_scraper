@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import re
 import unicodedata
@@ -81,7 +82,7 @@ LAW_CONTEXT_FIELDS = [
     "lawReferences",
     "lawContextForExplanation",
 ]
-QUESTION_SOURCE_PRESERVATION_FIELDS = [
+LEGACY_QUESTION_TYPE_IDENTITY_FIELDS = (
     "originalQuestionId",
     "original_question_id",
     "uploadOriginalQuestionId",
@@ -89,7 +90,12 @@ QUESTION_SOURCE_PRESERVATION_FIELDS = [
     "firestoreSourceQuestions",
     "sourceConflictReviewDecision",
     "sourceContentConflictPolicy",
-]
+)
+LEGACY_QUESTION_TYPE_CONTENT_FIELDS = (
+    "questionBodyText",
+    "choiceTextList",
+    "sourceUniqueKeys",
+)
 AGGREGATE_DERIVATIVE_STALE_FIELDS = (
     "correctChoiceText",
     "explanationText",
@@ -114,79 +120,6 @@ AGGREGATE_DERIVATIVE_STALE_FIELDS = (
 AGGREGATE_DERIVATIVE_OLD_ID_FIELDS = (
     "firestoreQuestionIds",
     "firestoreSourceQuestions",
-)
-NEGATIVE_PROMPT_PHRASES = (
-    "最も不適当なもの",
-    "最も不適当",
-    "不適当なもの",
-    "不適当なの",
-    "不適切なもの",
-    "不適切なの",
-    "適さない",
-    "適切でない",
-    "適切でないもの",
-    "適切でないの",
-    "適当でない",
-    "適当でないもの",
-    "適当でないの",
-    "誤っている",
-    "誤っているもの",
-    "誤っているの",
-    "誤っている記述",
-    "誤っている組合せ",
-    "誤っている組み合わせ",
-    "誤っている配列",
-    "誤ったもの",
-    "誤った組合せ",
-    "誤った組み合わせ",
-    "誤った配列",
-    "誤りのあるもの",
-    "誤りのある記述",
-    "誤りはどれか",
-    "正しくないもの",
-    "正しくないの",
-    "してはならない",
-    "してはいけない",
-    "行ってはならない",
-    "行ってはいけない",
-    "考えられない",
-    "考えにくい",
-    "認められない",
-    "診られない",
-    "共通しない",
-    "属さない",
-    "栄養されない",
-    "通らない",
-    "存在しない",
-    "増えない",
-    "原因とならない",
-    "原因でない",
-    "指標とならない",
-    "特徴としない",
-    "合併しない",
-    "関与しない",
-    "受けていない",
-    "によらない",
-    "行われない",
-    "みられない",
-    "認めにくい",
-    "できない",
-    "きたさない",
-    "起こらない",
-    "起こしにくい",
-    "起こりにくい",
-    "減弱しない",
-    "関係ない",
-    "関係のない",
-    "関連の低い",
-    "使用しない",
-    "含まれない",
-    "含まれないもの",
-    "含まれないの",
-    "でないのは",
-    "有用でない",
-    "ない経穴",
-    "診断できない",
 )
 
 
@@ -517,31 +450,31 @@ def apply_question_type(
                 if question.get("isCalculationQuestion") != new_calculation_flag:
                     question["isCalculationQuestion"] = new_calculation_flag
                     changed = True
-            new_body = patch_entry.get("questionBodyText")
-            if new_body is not None and question.get("questionBodyText") != new_body:
-                question["questionBodyText"] = new_body
-                changed = True
-            new_choices = patch_entry.get("choiceTextList")
-            if (
-                not approved_aggregate_target
-                and new_choices is not None
-                and question.get("choiceTextList") != new_choices
-            ):
-                question["choiceTextList"] = new_choices
-                changed = True
-            new_source_unique_keys = patch_entry.get("sourceUniqueKeys")
-            if (
-                not approved_aggregate_target
-                and
-                isinstance(new_source_unique_keys, list)
-                and question.get("sourceUniqueKeys") != new_source_unique_keys
-            ):
-                question["sourceUniqueKeys"] = new_source_unique_keys
-                changed = True
-            for field in QUESTION_SOURCE_PRESERVATION_FIELDS:
-                if approved_aggregate_target and field in AGGREGATE_DERIVATIVE_OLD_ID_FIELDS:
+            # 新規01は本文・選択肢を所有しない。既存10だけに保存済みの
+            # 内容は05へ移行し切るまでread-compatとして維持する。
+            # 集約回答targetはserverが原文spanから投影した内容を正本とする。
+            if not approved_aggregate_target:
+                for field in LEGACY_QUESTION_TYPE_CONTENT_FIELDS:
+                    if (
+                        field in patch_entry
+                        and patch_entry[field] is not None
+                        and question.get(field) != patch_entry[field]
+                    ):
+                        question[field] = copy.deepcopy(patch_entry[field])
+                        changed = True
+            # 既存10 patchだけが持つFirestore ID対応は、AI判断fieldではなく
+            # read-compat metadataとして維持する。集約分解後の旧ID対応は流用しない。
+            for field in LEGACY_QUESTION_TYPE_IDENTITY_FIELDS:
+                if (
+                    approved_aggregate_target
+                    and field in AGGREGATE_DERIVATIVE_OLD_ID_FIELDS
+                ):
                     continue
-                if field in patch_entry and patch_entry[field] is not None and question.get(field) != patch_entry[field]:
+                if (
+                    field in patch_entry
+                    and patch_entry[field] is not None
+                    and question.get(field) != patch_entry[field]
+                ):
                     question[field] = patch_entry[field]
                     changed = True
             if changed:
@@ -553,12 +486,6 @@ def apply_question_type(
             updated += 1
             continue
 
-        # 追加: choiceTextListが全て空欄ならgroup_choiceにする
-        choice_list = question.get("choiceTextList")
-        if isinstance(choice_list, list) and all((c is None or str(c).strip() == "") for c in choice_list):
-            question["questionType"] = "group_choice"
-            updated += 1
-            continue
     return updated
 
 
@@ -915,197 +842,6 @@ def apply_question_intent(
         question["questionIntent"] = new_value
         updated += 1
     return updated
-
-
-FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0123456789")
-ANSWER_RESULT_RE = re.compile(r"正解は\s*([0-9０-９]+(?:\s*,\s*[0-9０-９]+)*)\s*です。")
-
-
-def parse_answer_numbers(answer_result_text: Any) -> list[int]:
-    text = str(answer_result_text or "").translate(FULLWIDTH_DIGIT_TRANSLATION)
-    match = ANSWER_RESULT_RE.search(text)
-    if not match:
-        return []
-    numbers: list[int] = []
-    for part in match.group(1).split(","):
-        part = part.strip()
-        if not part.isdigit():
-            continue
-        n = int(part)
-        if n not in numbers:
-            numbers.append(n)
-    return numbers
-
-
-def infer_question_intent_from_text(question_body_text: Any) -> str | None:
-    text = str(question_body_text or "").strip()
-    if not text:
-        return None
-
-    positive_select_keywords = (
-        "使用しない機材",
-    )
-    positive_required_keywords = (
-        "見落としてはならない",
-        "見逃してはならない",
-        "しなければならない",
-        "行わなければならない",
-        "伝えなければならない",
-    )
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-    intent_text = text[-240:]
-    for index in range(len(lines) - 1, -1, -1):
-        line = lines[index]
-        if "どれか" not in line and "選べ" not in line:
-            continue
-        focus_end = max(line.rfind("どれか"), line.rfind("選べ"))
-        if focus_end >= 0:
-            focus_start = max(0, focus_end - 48)
-            focus_text = line[focus_start : focus_end + 3]
-        else:
-            focus_text = line
-        if any(phrase in focus_text for phrase in NEGATIVE_PROMPT_PHRASES):
-            intent_text = focus_text
-            break
-        if not line.startswith(("のは", "は")) and len(line) > 8:
-            intent_text = focus_text
-            break
-        previous = lines[index - 1] if index > 0 else ""
-        intent_text = f"{previous}\n{focus_text}".strip() or focus_text
-        break
-
-    if any(keyword in intent_text for keyword in positive_required_keywords):
-        return "select_correct"
-    if any(keyword in intent_text for keyword in positive_select_keywords):
-        return "select_correct"
-    if any(phrase in intent_text for phrase in NEGATIVE_PROMPT_PHRASES):
-        return "select_incorrect"
-    return "select_correct"
-
-
-def normalize_true_false_intent_and_correct_choice(
-    data: dict,
-) -> tuple[int, int]:
-    """
-    questionIntent / correctChoiceText を一次情報から整合する。
-
-    correctChoiceText は選択肢そのものの正誤を保持する。
-    既に 00_source やレビューで正誤ラベルが埋まっている場合は、
-    answer_result_text と questionIntent から再計算して上書きしない。
-
-    - questionIntent は questionBodyText（無ければ originalQuestionBodyText）から推定して上書き（推定できる場合のみ）
-    - correctChoiceText は欠損時のみ、位置選択型の answer_numbers から補完する
-    """
-    normalize_question_ids(data)
-    intent_updates = 0
-    correct_choice_updates = 0
-    questions = data.get("question_bodies")
-    if not isinstance(questions, list):
-        return (0, 0)
-
-    for question in questions:
-        if not isinstance(question, dict):
-            continue
-        question_type = question.get("questionType")
-        if question_type == "fill_in_blank":
-            continue
-        if question_type != "true_false":
-            continue
-
-        source_text = str(
-            question.get("questionBodyText")
-            or question.get("originalQuestionBodyText")
-            or ""
-        )
-        decomposition = question.get("aggregateAnswerDecomposition")
-        if decomposition is not None and is_approved_target(
-            decomposition,
-            source_text,
-        ):
-            continue
-
-        manual_intent_override = question.get("manualQuestionIntentOverride") is True
-        current_intent = question.get("questionIntent")
-        if manual_intent_override or current_intent in {"select_correct", "select_incorrect"}:
-            inferred_intent = None
-        else:
-            inferred_intent = infer_question_intent_from_text(
-                question.get("questionBodyText") or question.get("originalQuestionBodyText") or ""
-            )
-            if inferred_intent and question.get("questionIntent") != inferred_intent:
-                question["questionIntent"] = inferred_intent
-                intent_updates += 1
-
-        intent = question.get("questionIntent")
-        if intent not in {"select_correct", "select_incorrect"}:
-            continue
-
-        current_correct_choice = question.get("correctChoiceText")
-        if (
-            isinstance(current_correct_choice, list)
-            and current_correct_choice
-            and all(
-                str(value).strip() in {"正しい", "間違い"}
-                for value in current_correct_choice
-            )
-        ):
-            if manual_intent_override:
-                question.pop("manualQuestionIntentOverride", None)
-            continue
-
-        body_text = str(question.get("questionBodyText") or question.get("originalQuestionBodyText") or "")
-        if "いくつ" in body_text:
-            if manual_intent_override:
-                question.pop("manualQuestionIntentOverride", None)
-            continue
-
-        answer_numbers = parse_answer_numbers(question.get("answer_result_text"))
-        if not answer_numbers:
-            inferred_numbers = question.get("answer_result_inferred_correct_choice_numbers")
-            if isinstance(inferred_numbers, list) and inferred_numbers:
-                answer_numbers = []
-                for v in inferred_numbers:
-                    if isinstance(v, int):
-                        answer_numbers.append(v)
-                    elif str(v).isdigit():
-                        answer_numbers.append(int(str(v)))
-                # 重複除外
-                normalized: list[int] = []
-                for n in answer_numbers:
-                    if n >= 1 and n not in normalized:
-                        normalized.append(n)
-                answer_numbers = normalized
-        if not answer_numbers:
-            continue
-
-        choice_count = None
-        choice_list = question.get("choiceTextList")
-        if isinstance(choice_list, list) and choice_list:
-            choice_count = len(choice_list)
-        elif isinstance(question.get("correctChoiceText"), list) and question.get("correctChoiceText"):
-            choice_count = len(question.get("correctChoiceText"))
-        if not choice_count:
-            continue
-        if any((n < 1 or n > choice_count) for n in answer_numbers):
-            continue
-
-        if intent == "select_incorrect":
-            expected = ["正しい"] * choice_count
-            for n in answer_numbers:
-                expected[n - 1] = "間違い"
-        else:
-            expected = ["間違い"] * choice_count
-            for n in answer_numbers:
-                expected[n - 1] = "正しい"
-
-        current = question.get("correctChoiceText")
-        if current != expected:
-            question["correctChoiceText"] = expected
-            correct_choice_updates += 1
-        if manual_intent_override:
-            question.pop("manualQuestionIntentOverride", None)
-
-    return (intent_updates, correct_choice_updates)
 
 
 def materialize_view_files(

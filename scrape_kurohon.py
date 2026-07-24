@@ -12,7 +12,6 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 
-from scripts.merge.patch_views import infer_question_intent_from_text
 from scripts.scrape.common import (
     create_http_session,
     download_and_save_images,
@@ -39,6 +38,30 @@ IMAGE_OUTPUT_DIR: str | None = None
 FULLWIDTH_DIGIT_TRANS = str.maketrans("０１２３４５６７８９", "0123456789")
 QUESTION_TITLE_RE = re.compile(r"問題\s*([0-9０-９]+)\s*[．.、。]?\s*(.*)")
 CHOICE_TEXT_RE = re.compile(r"^\s*([0-9０-９]+)\s*[．.。):）]?\s*(.*)$")
+INCORRECT_INTENT_PATTERNS = (
+    r"最も不適切",
+    r"最も不適当",
+    r"誤っている",
+    r"誤り(?:である)?(?:もの|記述|説明|組合せ|組み合わせ|選択肢)?",
+    r"間違っている",
+    r"正しくない",
+    r"不適切(?:な|である)?",
+    r"不適当(?:な|である)?",
+    r"適切でない",
+    r"適当でない",
+    r"含まれない",
+    r"該当しない",
+    r"対象とならない",
+)
+CORRECT_INTENT_PATTERNS = (
+    r"最も適切",
+    r"最も適当",
+    r"正しい",
+    r"(?<!不)適切(?:な|である)?(?!でない)",
+    r"(?<!不)適当(?:な|である)?(?!でない)",
+    r"該当する",
+    r"含まれる",
+)
 
 
 @dataclass(frozen=True)
@@ -59,6 +82,25 @@ class ParsedQuestion:
     class_correct_choice_numbers: list[int]
     answer_table_choice_numbers: list[int]
     source_answer_status: str
+
+
+def determine_question_intent(question_text: str) -> str | None:
+    """取得時の設問文から、公式解答が指す側を記録する。"""
+
+    normalized = re.sub(r"\s+", "", question_text or "")
+    incorrect_match = any(
+        re.search(pattern, normalized) for pattern in INCORRECT_INTENT_PATTERNS
+    )
+    correct_match = any(
+        re.search(pattern, normalized) for pattern in CORRECT_INTENT_PATTERNS
+    )
+    if incorrect_match == correct_match:
+        return None
+    if incorrect_match:
+        return "select_incorrect"
+    if correct_match:
+        return "select_correct"
+    return None
 
 
 def apply_runtime_overrides_from_env() -> None:
@@ -279,10 +321,10 @@ def build_correct_choice_texts(
     *,
     choice_count: int,
     answer_numbers: list[int],
-    question_intent: str,
+    question_intent: str | None,
     no_answer: bool,
 ) -> list[str | None]:
-    if no_answer:
+    if no_answer or question_intent not in {"select_correct", "select_incorrect"}:
         return [None for _ in range(choice_count)]
     answer_indexes = {number - 1 for number in answer_numbers}
     if question_intent == "select_incorrect":
@@ -361,7 +403,7 @@ def parsed_question_to_dict(
         or parsed_question.class_correct_choice_numbers
     )
     no_answer = parsed_question.source_answer_status == "no_answer"
-    question_intent = infer_question_intent_from_text(parsed_question.question_body_text) or "select_correct"
+    question_intent = determine_question_intent(parsed_question.question_body_text)
     choice_texts = [choice.choice_text for choice in parsed_question.choices]
     exam_label_parts = []
     if round_number is not None and exam_year is not None:

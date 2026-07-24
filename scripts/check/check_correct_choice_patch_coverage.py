@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.question_identity import review_question_id
+from scripts.merge.patch_views import apply_question_type
 
 
 REQUIRED_FIELDS = [
@@ -179,6 +180,10 @@ def compare_entries(
         if not isinstance(correct_choices, list):
             errors.append(f"index {idx}: correctChoiceText must be a list")
         else:
+            if any(value not in {"正しい", "間違い"} for value in correct_choices):
+                errors.append(
+                    f"index {idx}: correctChoiceText must contain only 正しい/間違い"
+                )
             source_choices = source.get("choiceTextList") or []
             if isinstance(source_choices, list) and len(correct_choices) != len(source_choices):
                 errors.append(
@@ -248,6 +253,7 @@ def check_pair(
     require_full: bool,
     require_snippets: bool,
     require_change_meta: bool,
+    question_type_patch_path: Path | None = None,
 ) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
@@ -257,6 +263,17 @@ def check_pair(
         return 2
 
     source_data = load_json(source_path)
+    if question_type_patch_path is not None:
+        if not question_type_patch_path.exists():
+            print(f"[ERROR] questionType patch not found: {question_type_patch_path}")
+            return 2
+        question_type_entries = get_patch_entries(load_json(question_type_patch_path))
+        question_type_map = {
+            str(review_question_id(entry)): entry
+            for entry in question_type_entries
+            if review_question_id(entry)
+        }
+        apply_question_type(source_data, question_type_map)
     patch_data = load_json(patch_path)
 
     source_questions = get_source_questions(source_data)
@@ -305,6 +322,10 @@ def main() -> int:
         action="store_true",
         help="Require correctChoiceText change metadata to be present and consistent.",
     )
+    parser.add_argument(
+        "--question-type-patch",
+        help="Apply the corresponding 10_questionType_fixed patch before validating choice counts.",
+    )
     args = parser.parse_args()
     return check_pair(
         Path(args.source),
@@ -312,6 +333,7 @@ def main() -> int:
         args.require_full,
         args.require_snippets,
         args.require_change_meta,
+        Path(args.question_type_patch) if args.question_type_patch else None,
     )
 
 

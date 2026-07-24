@@ -847,6 +847,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             "questionBodyText": "正しいものを選べ。",
             "choiceTextList": [f"肢{i}" for i in range(1, 6)],
             "correctChoiceText": ["間違い", "間違い", "正しい", "間違い", "間違い"],
+            "questionIntent": "select_correct",
             "explanationText": ["問題全体の基本解説"],
             "examYear": 2025,
             "questionLabel": "問6",
@@ -885,6 +886,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             "questionBodyText": "正しい組合せを選べ。",
             "choiceTextList": ["組合せ1", "組合せ2", "組合せ3", "組合せ4"],
             "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+            "questionIntent": "select_correct",
             "explanationText": ["比較基準を順に当てはめると、組合せ2が正答となる。"],
             "examYear": 2025,
             "questionLabel": "問7",
@@ -914,6 +916,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             "questionBodyText": "正しいものを選べ。",
             "choiceTextList": ["候補1", "候補2", "候補3"],
             "correctChoiceText": ["正しい", "正しい", "間違い"],
+            "questionIntent": "select_correct",
             "explanationText": ["正答の根拠。"],
             "questionSetId": "set-answer-contract",
         }
@@ -925,9 +928,58 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             with self.subTest(converter=converter.__name__):
                 with self.assertRaisesRegex(
                     ValueError,
-                    "questionTypeとcorrectChoiceTextのどちらが正しいか",
+                    "questionType、questionIntent、correctChoiceText",
                 ):
                     converter(question_body)
+
+    def test_question_level_conversion_rejects_missing_correct_answer(self) -> None:
+        question_body = {
+            "original_question_id": "q-answer-contract-zero",
+            "questionBodyText": "正しいものを選べ。",
+            "choiceTextList": ["候補1", "候補2", "候補3"],
+            "correctChoiceText": ["間違い", "間違い", "間違い"],
+            "questionIntent": "select_correct",
+            "explanationText": ["正答の根拠。"],
+            "questionSetId": "set-answer-contract",
+        }
+
+        for converter in (
+            convert_flash_card_to_firestore,
+            convert_group_choice_to_firestore,
+        ):
+            with self.subTest(converter=converter.__name__):
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "questionType、questionIntent、correctChoiceText",
+                ):
+                    converter(question_body)
+
+    def test_question_level_conversion_selects_the_incorrect_statement(self) -> None:
+        question_body = {
+            "original_question_id": "q-select-incorrect",
+            "questionBodyText": "誤っているものを選べ。",
+            "choiceTextList": ["正しい記述", "誤った記述", "別の正しい記述"],
+            "correctChoiceText": ["正しい", "間違い", "正しい"],
+            "questionIntent": "select_incorrect",
+            "explanationText": ["選択肢2が設問に対する正答となる。"],
+            "examYear": 2025,
+            "questionLabel": "問8",
+            "qualificationName": "試験資格",
+            "questionSetId": "set-select-incorrect",
+            "suggestedQuestionDetailsByChoice": [],
+        }
+
+        actual = convert_group_choice_to_firestore(question_body)
+
+        public_documents = [
+            document for document in actual if not document["isChoiceOnly"]
+        ]
+        self.assertEqual(len(public_documents), 1)
+        self.assertEqual(
+            public_documents[0]["originalQuestionChoiceText"],
+            "誤った記述",
+        )
+        self.assertEqual(public_documents[0]["correctChoiceText"], "正しい")
 
 
 if __name__ == "__main__":

@@ -16,6 +16,7 @@ from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
     _aggregate_answer_review_prompt,
+    _aggregate_calculation_flag,
     _aggregate_downstream_source_evidence,
     _aggregate_review_source_records,
     _candidate_unset_fields,
@@ -536,6 +537,35 @@ class SourceBindingAliasTests(unittest.TestCase):
 
 
 class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_aggregate_calculation_requires_a_candidate_when_selected(self):
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "選択されたisCalculationQuestion",
+        ):
+            _aggregate_calculation_flag(
+                {},
+                {"isCalculationQuestion": False},
+                {"questionType", "isCalculationQuestion"},
+            )
+
+    def test_aggregate_calculation_preserves_current_when_not_selected(self):
+        self.assertFalse(
+            _aggregate_calculation_flag(
+                {},
+                {"isCalculationQuestion": False},
+                {"questionType"},
+            )
+        )
+
+    def test_aggregate_calculation_uses_independent_candidate(self):
+        self.assertTrue(
+            _aggregate_calculation_flag(
+                {"isCalculationQuestion": True},
+                {"isCalculationQuestion": False},
+                {"questionType", "isCalculationQuestion"},
+            )
+        )
+
     def test_per_choice_suggestions_remove_legacy_flat_patch_fields(self):
         target = CandidateTarget(
             target_id="q1:explanation",
@@ -595,7 +625,9 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
                 }
             ],
         )
-        self.assertTrue(any("updates=[]" in rule for rule in context["rules"]))
+        self.assertTrue(
+            any("同じ結論でも" in rule and "明示" in rule for rule in context["rules"])
+        )
         self.assertTrue(
             any("choiceQuestionSetIds" in rule for rule in context["rules"])
         )
@@ -4115,7 +4147,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     return result
                 payload = json.loads(result.final_message)
                 payload["questionResults"][0]["updates"][0]["setFields"] = [
-                    {"field": "questionType", "valueJson": '"flash_card"'}
+                    {"field": "questionType", "valueJson": '"flash_card"'},
+                    {"field": "isCalculationQuestion", "valueJson": "false"},
                 ]
                 return replace(
                     result,
@@ -5667,7 +5700,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         "decision": "hold",
                         "issueCodes": ["ambiguous_target"],
                     }
-                }
+                },
+                changed_files_by_work_item={
+                    ("new-exam-2026-q1", "question_type"): ["candidate"],
+                },
             )
             coordinator, _synchronizer, _app_server, parent = (
                 self._start_deferred_flow(

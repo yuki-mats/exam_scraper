@@ -6392,9 +6392,17 @@ function editableSuggestionChoiceIndexes(projected) {
   const choices = Array.isArray(projected.choiceTextList) ? projected.choiceTextList : [];
   const indexes = choices.map((_, index) => index);
   if (!["flash_card", "group_choice"].includes(projected.questionType)) return indexes;
-  const correct = Array.isArray(projected.correctChoiceText) ? projected.correctChoiceText : [];
-  const correctIndex = correct.findIndex((value) => normalizeVerdict(value) === "正しい");
-  return [correctIndex >= 0 ? correctIndex : 0].filter((index) => index < choices.length);
+  const verdicts = Array.isArray(projected.correctChoiceText) ? projected.correctChoiceText : [];
+  const selectedVerdict = projected.questionIntent === "select_correct"
+    ? "正しい"
+    : projected.questionIntent === "select_incorrect"
+      ? "間違い"
+      : "";
+  if (!selectedVerdict) return [];
+  const selectedIndexes = indexes.filter(
+    (index) => normalizeVerdict(verdicts[index]) === selectedVerdict,
+  );
+  return selectedIndexes.length === 1 ? selectedIndexes : [];
 }
 
 function addSuggestionRow(choiceIndex, question, answer) {

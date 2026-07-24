@@ -5,10 +5,19 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.question_bank.question_bank import main
+from tools.question_bank.question_bank import PATCH_STAGES, main
 
 
 class QuestionBankSourceModeTests(unittest.TestCase):
+    def test_standard_patch_gate_includes_independent_correct_choice_stage(self) -> None:
+        stages = {stage.label: stage for stage in PATCH_STAGES}
+
+        self.assertIn("correctChoiceText", stages)
+        self.assertEqual(
+            stages["correctChoiceText"].subdir,
+            "23_correctChoiceText_fixed",
+        )
+
     def test_source_mode_does_not_require_uncreated_merged_stage(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_dir:
             base_dir = Path(temporary_dir) / "questions_json"

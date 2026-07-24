@@ -565,6 +565,7 @@ class PatchEditor:
                     projected.get("questionType"),
                     final_correct,
                     choice_count,
+                    projected.get("questionIntent"),
                 ),
             )
             if errors:

@@ -40,6 +40,10 @@ STATEMENT_ORDER = {
     "ニ": 4,
     "ホ": 5,
 }
+QUESTION_LEVEL_TYPES = {"flash_card", "group_choice"}
+QUESTION_INTENTS = {"select_correct", "select_incorrect"}
+CORRECT_VERDICTS = {"正解", "正しい"}
+INCORRECT_VERDICTS = {"不正解", "間違い", "誤り"}
 
 
 def parse_original_question_id(original_question_id: str | None) -> dict[str, Any]:
@@ -111,19 +115,91 @@ def collect_question_image_urls(group: list[dict[str, Any]]) -> list[str]:
     return result
 
 
+def question_level_answer_fields(
+    ordered: list[dict[str, Any]],
+    question_type: Any,
+) -> tuple[list[str], str | None, list[int]]:
+    """Restore intrinsic verdicts from split-document answer semantics."""
+
+    source_verdicts = [question.get("correctChoiceText", "") for question in ordered]
+    if question_type not in QUESTION_LEVEL_TYPES:
+        correct_numbers = [
+            index
+            for index, value in enumerate(source_verdicts, start=1)
+            if value in CORRECT_VERDICTS
+        ]
+        return source_verdicts, None, correct_numbers
+
+    raw_intents = unique_nonempty(
+        [question.get("questionIntent") for question in ordered]
+    )
+    if (
+        len(raw_intents) != 1
+        or not isinstance(raw_intents[0], str)
+        or raw_intents[0] not in QUESTION_INTENTS
+    ):
+        raise ValueError(
+            "flash_card/group_choiceのintrinsic正誤を復元する"
+            "questionIntentをsplit documentから一意に取得できません。"
+        )
+    question_intent = raw_intents[0]
+
+    public_indexes: list[int] = []
+    for index, question in enumerate(ordered):
+        is_choice_only = question.get("isChoiceOnly")
+        if not isinstance(is_choice_only, bool):
+            raise ValueError(
+                "flash_card/group_choiceのisChoiceOnlyがbooleanではありません。"
+            )
+        verdict = question.get("correctChoiceText")
+        expected_verdicts = (
+            INCORRECT_VERDICTS if is_choice_only else CORRECT_VERDICTS
+        )
+        if verdict not in expected_verdicts:
+            raise ValueError(
+                "Firestore split documentのisChoiceOnlyと"
+                "correctChoiceTextが一致しません。"
+            )
+        if not is_choice_only:
+            public_indexes.append(index)
+
+    if len(public_indexes) != 1:
+        raise ValueError(
+            "flash_card/group_choiceの公開正答documentを一件に確定できません。"
+        )
+
+    public_index = public_indexes[0]
+    if question_intent == "select_correct":
+        intrinsic_verdicts = [
+            "正しい" if index == public_index else "間違い"
+            for index in range(len(ordered))
+        ]
+    else:
+        intrinsic_verdicts = [
+            "間違い" if index == public_index else "正しい"
+            for index in range(len(ordered))
+        ]
+    return intrinsic_verdicts, question_intent, [public_index + 1]
+
+
 def build_source_question(group: list[dict[str, Any]]) -> dict[str, Any]:
     ordered = sorted(group, key=statement_sort_key)
     first = ordered[0]
     parts = parse_original_question_id(first.get("originalQuestionId"))
     question_types = unique_nonempty([question.get("questionType") for question in ordered])
+    question_type = (
+        question_types[0] if len(question_types) == 1 else first.get("questionType")
+    )
     choice_texts = [question.get("originalQuestionChoiceText", "") for question in ordered]
-    correct_choice_texts = [question.get("correctChoiceText", "") for question in ordered]
+    correct_choice_texts, question_intent, correct_numbers = (
+        question_level_answer_fields(ordered, question_type)
+    )
 
     record: dict[str, Any] = {
         "questionBodyText": first.get("originalQuestionBodyText") or first.get("questionBodyText") or "",
         "originalQuestionBodyText": first.get("originalQuestionBodyText") or "",
         "examYear": first.get("examYear"),
-        "questionType": question_types[0] if len(question_types) == 1 else first.get("questionType"),
+        "questionType": question_type,
         "choiceTextList": choice_texts,
         "choiceTextMarkedList": choice_texts.copy(),
         "correctChoiceText": correct_choice_texts,
@@ -145,6 +221,8 @@ def build_source_question(group: list[dict[str, Any]]) -> dict[str, Any]:
         "firestoreIsDeleted": [question.get("isDeleted") for question in ordered],
         "firestoreSourceQuestions": ordered,
     }
+    if question_intent is not None:
+        record["questionIntent"] = question_intent
 
     subject = parts.get("subject")
     if isinstance(subject, str):
@@ -155,11 +233,6 @@ def build_source_question(group: list[dict[str, Any]]) -> dict[str, Any]:
         record["questionNo"] = question_no
         record["questionLabel"] = f"問{question_no}"
 
-    correct_numbers = [
-        index
-        for index, value in enumerate(correct_choice_texts, start=1)
-        if value == "正しい"
-    ]
     if correct_numbers:
         record["answer_result_inferred_correct_choice_numbers"] = correct_numbers
 

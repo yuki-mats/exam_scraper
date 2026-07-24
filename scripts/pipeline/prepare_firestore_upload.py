@@ -3,11 +3,10 @@
 
 実行内容:
 1. 00_merge_all.py で 20_merged_1 / 30_merged_2 を更新
-2. answer_result_text / questionIntent から correctChoiceText を自動割当
-3. convert_merged_to_firestore.py で 40_convert/<list_group_id>_firestore_<timestamp>.json を生成
-4. 同時に upload_to_firestore/<list_group_id>_firestore_<timestamp>.json へ保存
+2. convert_merged_to_firestore.py で 40_convert/<list_group_id>_firestore_<timestamp>.json を生成
+3. 同時に upload_to_firestore/<list_group_id>_firestore_<timestamp>.json へ保存
     （既存ファイル/既存フォルダは old/<timestamp>/ へ移動）
-5. 任意で questionSetId チェック / 件数集計 / category更新 / upload dry-run
+4. 任意で questionSetId チェック / 件数集計 / category更新 / upload dry-run
 """
 
 from __future__ import annotations
@@ -42,7 +41,6 @@ from scripts.common.requirements import (
 )
 
 SCRIPT_MERGE_ALL = ROOT_DIR / "scripts" / "merge" / "00_merge_all.py"
-SCRIPT_AUTO_ASSIGN_CORRECT_CHOICE = ROOT_DIR / "scripts" / "fix" / "auto_assign_correct_choice_text.py"
 SCRIPT_CONVERT = ROOT_DIR / "scripts" / "convert" / "convert_merged_to_firestore.py"
 SCRIPT_QSET_CHECK = ROOT_DIR / "scripts" / "check" / "check_questionSetId.py"
 SCRIPT_COUNT = ROOT_DIR / "scripts" / "count_questions" / "1_update_question_count.py"
@@ -258,24 +256,6 @@ def process_list_group(
     else:
         print(f"\n[STEP] merge ({list_group_id})")
         print("スキップしました。")
-
-    auto_assign_command = [
-        python_cmd,
-        str(SCRIPT_AUTO_ASSIGN_CORRECT_CHOICE),
-        list_group_id,
-        "--base-dir",
-        str(base_dir),
-        "--apply",
-    ]
-    if not allow_missing_answer_result:
-        auto_assign_command.append("--fail-on-unresolved")
-    else:
-        auto_assign_command.append("--allow-existing-without-answer-result")
-    run_step(
-        f"auto assign correctChoiceText ({list_group_id})",
-        auto_assign_command,
-        dry_run,
-    )
 
     if skip_requirements_check:
         print(f"\n[STEP] requirements check (merged) ({list_group_id})")

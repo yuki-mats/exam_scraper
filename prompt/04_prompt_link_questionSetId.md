@@ -1,236 +1,97 @@
 # [システムプロンプト] questionSetId 紐付け用
 
-このタスクの目的は、`20_merged_1/question_*_merged.json` を一次情報として読み、各設問に最も適切な `questionSetId` を付与した正式パッチJSONを `22_questionSetId_linked/` に出力することです。
+この工程の目的は、各問題が受験者に復習を求める論点を一問ずつ判断し、資格の分類正本に存在する`questionSetId`へ紐付けることです。通常の04では問題全体の主な復習先を再判定します。分類は、問題文だけでなく全選択肢を含む問題全体から確定します。
 
-判断水準は、単なる一般読者の分類ではなく、対象資格の専門家・問題作成者・参考書著者が復習単元を設計する水準とします。受験者がその設問をどの論点として復習すべきかを重視してください。
+## 入力と正本
 
-## 最重要ルール
-- 外部Webアクセス・ブラウザ参照・`question_url` の再取得は禁止。
-- 根拠に使ってよい主情報は、同一 `list_group_id` 配下の `20_merged_1/*.json` と `category.json` のみ。
-- 既存の `22_questionSetId_linked/`、`30_merged_2/`、`40_convert/` などの派生JSONを根拠として参照・転記してはいけない。
-- `questionSetId` として使ってよいのは、`category.json` の `questionSets[].questionSetId` のみ。`folders[].folderId` は絶対に使わない。
-- `category.json` に存在しない ID を勝手に作らない。
-- `category.json` が未整備又は分類不足なら04を止め、[03c](03c_prompt_prepare_category_json.md)へ戻す。この工程では分類正本を変更しない。
-- 元ファイルは編集しない。出力は必ず `22_questionSetId_linked/` に作る。
-- 元ファイルと出力パッチの件数・順序・`original_question_id` は必ず一致させる。
-- `*empty*` を含むファイルも必ず対象にする。
-- 出力ファイル名は固定名にし、既存の同名ファイルがある場合は上書きする。作業のたびにタイムスタンプ付きファイルを増やさない。
+次の入力をすべて確認します。
 
-## 参照するJSON構造
+1. 問題整備システムが渡す現在問題の`logicalProjection`
+   - 直接ファイルを扱う場合は、同じ`list_group_id`配下の`20_merged_1/question_*_merged.json`を使います。
+   - `questionBodyText`と`choiceTextList`の全選択肢を必ず読みます。
+2. `output/<qualification>/category/category.json`
+   - 利用できるIDは`questionSets[].questionSetId`だけです。
+   - `name`、`description`、`matchingHints`、`folderId`との関係を合わせて読みます。
+3. `config/question_maintenance_workflow.toml`から選ばれた対象資格の正本文書
+   - 特に`prompt/qualification_docs/<qualification>/03_category_preparation.md`がある場合は、近接分類の境界を確認します。
+   - 共通方針は[category taxonomy policy](qualification_docs/category_taxonomy_policy.md)に従います。
 
-### 1. `20_merged_1/*.json`
-- ルートは `questions` ではなく `question_bodies`。
-- 各要素の主な参照キー:
-  - `original_question_id`
-  - `questionBodyText`
-  - `choiceTextList`
-  - `questionType`
-  - `category`
+`category.json`は利用可能な分類とIDの正本、資格別文書はその分類根拠と境界の正本です。両者が矛盾する場合は04で片方へ決め打ちせず、03cの再作業対象とします。
 
-### 2. `category.json`
-- ルートは `folders` と `questionSets` の2配列。
-- 実際に付与するのは `questionSets[].questionSetId`。
-- `folderId` は分類群の親IDであり、設問に直接付与してはいけない。
+## 3 fieldの責務
+
+- `questionSetId`は、問題全体の主な復習先を表す一つのIDです。通常の04が再判定するのはこのfieldです。選択したscopeの各問題について、現在値に依存せず問題全体と分類正本から確定します。
+- `questionSetIdList`は、Firestore由来の複数の設問を一問へ束ねた際に、取得時点で各設問が持っていた`questionSetId`を重複なく記録した出典情報です。問題全体の分類候補や04の判定結果ではありません。
+- `choiceQuestionSetIds`は、`choiceTextList`と同じ順序・件数で、Firestore上の設問へ分割される各選択肢の復習先を保持するfieldです。問題全体の主な復習先とは役割が異なります。
+
+通常の04では`questionSetId`だけを再判定し、`questionSetIdList`と`choiceQuestionSetIds`を新規生成又は同期しません。既存の肢別分類を見直す場合は、各選択肢と分類正本を照合する肢別の再分類として明示的に扱います。3 fieldを互いに自動変換せず、それぞれの意味に合う入力から確定した後、対象fieldの型、件数、`category.json`への所属を機械検証します。
+
+## 守る境界
+
+- 外部Web、取得元ページ、既存の`22_questionSetId_linked`、`30_merged_2`、`40_convert`を分類根拠にしません。
+- 現在の`questionSetId`、`questionSetIdList`、`choiceQuestionSetIds`を正解として引き継ぎません。通常の04では、問題全体と分類正本から`questionSetId`を独立に確定し、最後に現在値と比較します。
+- `folders[].folderId`を問題へ付与しません。
+- `category.json`にないIDを捏造しません。
+- 04では`category.json`や資格別正本文書を編集しません。分類の不足や矛盾は03cへ戻します。
+- `00_source`、入力ファイル、問題IDは変更しません。
+- 出力は`22_questionSetId_linked/`の正式パッチだけです。既存の固定名ファイルは同じ名前で更新し、タイムスタンプ付きの別版を増やしません。
+
+資格固有のIDや境界ルールをこの共通promptへ追記してはいけません。必要な内容は対象資格の`category.json`と`prompt/qualification_docs/<qualification>/`で管理します。
+
+## 一問ごとの判断
+
+1. `questionBodyText`と`choiceTextList`の全選択肢を最初に通読し、設問全体が何を判断させる問題かを確定します。
+2. 「この問題を誤った受験者は何を復習すべきか」を一つの学習論点として言語化します。
+3. `category.json`の`name`だけでなく、`description`、`matchingHints`、親folderとの関係を比較します。資格別正本文書に境界ルールがあれば、それも照合します。
+4. 問題全体を根拠に候補を絞り、分類正本が一つの候補を明確に支持する場合だけ、その`questionSetId`を確定します。
+5. 確定後に、選んだIDが`category.json`の`questionSets[]`に存在することを機械検証します。
+
+`questionBodyText`だけで仮分類してはいけません。選択肢の一語、`examLabel`、既存の`category`、キーワード一致だけでも確定しません。これらは問題全体を読むための補助情報に限ります。
+
+「総合」「融合」「その他」のような受け皿も、その分類の`description`と問題全体が明確に一致する場合だけ選びます。複数候補が残ったという理由だけで使ってはいけません。
+
+## 一意に決まらない場合
+
+全選択肢と分類正本を照合しても複数候補が残る場合、最も近いIDへ強制しません。次のどちらかで止めます。
+
+- 同じ境界で複数問題が迷う、必要な学習単元がない、又は`description`と資格別正本文書が矛盾する場合
+  - 04を止め、03cで`category.json`と資格別正本を再作業します。
+- 分類正本は十分だが、その問題だけ主題を一つに確定できない、又は入力の欠落・崩れがある場合
+  - 問題単位の`hold`（構造化候補では`status=blocked`）とし、`22_questionSetId_linked`へ反映しません。
+
+`hold`対象について、空文字、仮ID、候補の先頭、既存値で穴埋めしてはいけません。必要なら既存IDだけを候補としてreview sidecarへ残しますが、候補の記録は分類確定を意味しません。
 
 ## 生成AIが直接出す中間JSON
-生成AIが直接出力する中間JSONは、各要素が次の2フィールドだけを持つ最小形式にする。
+
+確定できた問題は、各要素が次の2フィールドだけを持つ最小形式で出力します。
 
 ```json
 [
   {
     "original_question_id": "da6a8179822b27d9",
-    "questionSetId": "g1_xxx"
+    "questionSetId": "existing_question_set_id"
   }
 ]
 ```
 
-- `question_url` はAIが出力しない。
-- `question_url` は後段の `tools/question_bank/question_bank.py materialize-patch` で補完する。
-- `questionSetName`、`questionBodyText`、`update_reason` はJSONに含めない。
+- `question_url`は出力しません。後段の`materialize-patch`が入力から補完します。
+- 通常の04では`questionSetIdList`と`choiceQuestionSetIds`を中間JSONへ出力しません。
+- `questionSetName`、`questionBodyText`、`update_reason`などを加えません。
+- `hold`対象を含む処理単位は未完了です。空IDで形式だけを整えず、再作業又は再確認が終わるまで正式パッチの完了扱いにしません。
 
-## 推奨作業順
-1. repo ルートへ移動する。
-2. `category.json` を読み、利用可能な `questionSetId` 一覧を把握する。
-3. 対象 `20_merged_1/*.json` を読み、`question_bodies` の件数・順序・`original_question_id` を固定する。
-4. まず `questionBodyText` だけで仮分類する。
-5. 類似カテゴリが複数あり得る設問だけ `choiceTextList` まで読む。
-6. `original_question_id + questionSetId` の最小raw JSONを作る。
-7. `tools/question_bank/question_bank.py materialize-patch --task question_set` で正式パッチに変換する。
-8. `tools/question_bank/question_bank.py check-question-set-patch` で件数・順序・ID妥当性を確認する。
-9. 最終的には `tools/question_bank/question_bank.py quality-gate` を通す。
-10. 判定がぶれる設問が複数出たら、04の判断基準を見直す。分類正本の不足なら03cへ戻る。
+## 直接ファイルを扱う場合の作業順
 
-## 5.5 high 再確認フラグ sidecar
-- 判定に不安がある問題がある場合でも、`22_questionSetId_linked/` の本体パッチには `needs55HighReview`、`questionSetName`、`reason` などの追加メタフィールドを入れない。
-- 5.5 high で後から再確認したい問題だけ、同じ `list_group_id` 直下に `99_model_review_flags/` を作り、固定名の JSONL sidecar として保存してよい。
-  - 例: `questions_json/85010/99_model_review_flags/question_85010_2_questionSetId_needs_5_5_high_review.jsonl`
-- sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
-- sidecar の各行は次のフィールドを持つ:
-```json
-{"original_question_id":"da6a8179822b27d9","reviewStage":"04_questionSetId","needs55HighReview":true,"uncertaintyLevel":"medium","reasonCategory":["multiple_candidate_question_sets"],"currentDecision":{"questionSetId":"g1_xxx"},"candidateQuestionSetIds":["g1_xxx","g1_yyy"],"reviewQuestion":"主題を設備横断として扱うか、省エネ単独として扱うかを再確認する。","evidenceChecked":["20_merged_1","category.json","qualification_docs"],"notes":"問題文は省エネを含むが、選択肢に設備横断の論点も混在している。"}
-```
-- `reasonCategory` は、必要に応じて次から選ぶ:
-  - `multiple_candidate_question_sets`
-  - `category_gap`
-  - `fusion_or_other_used`
-  - `category_hint_insufficient`
-  - `subject_boundary_ambiguous`
-  - `source_text_or_ocr_issue`
-  - `other`
-- `questionSetId: ""` を使う場合、または「融合」「その他」へ逃がす場合は、原則として sidecar に残す。
-- sidecar を作っても本作業を止めない。`category.json` 内の最も妥当な `questionSetId` を選び、後続監査で sidecar 対象だけ 5.5 high 確認に回す。
+1. `category.json`と対象資格の正本文書を読みます。
+2. 対象`20_merged_1/*.json`の件数、順序、`original_question_id`を固定します。
+3. 各問題の問題文と全選択肢を読み、一問ずつ分類します。
+4. 一意に確定できない問題は、03cへの再作業又は問題単位の`hold`へ分けます。
+5. 全問を確定できた処理単位だけ、最小raw JSONから正式パッチを作ります。
+6. 件数、順序、問題ID、`category.json`へのID所属を検証します。
 
-## 判断の基本原則
-- 設問タイトルだけで一意に決まるなら、その時点で確定してよい。
-- 候補が複数あるときは、最も具体的なカテゴリを優先する。
-- 複数分野を横断し、主題が1つに絞れないときのみ「融合」を使う。
-- 法規・施工・環境の総合問題で、既存の専用カテゴリに寄せ切れないときのみ「その他」「融合」を使う。
-- 該当がない、または既存カテゴリへ寄せると精度が下がる場合のみ `questionSetId: ""` を使う。
+## 検証コマンド
 
-## 迷いやすい境界
+### 正式パッチへの変換
 
-### 建築計画
-- `g1_09_keikaku_ippan`
-  - 各部寸法、必要床面積、平面計画上の防災など、用途横断の基本計画。
-  - 住宅・公共・商業など建築計画各論をまたぐ複合問題で、主題が広く一つに絞れない場合もここへ寄せる。
-  - 例: `各部寸法`、`所要床面積`、`平面計画における防災`。
-- `g1_09_barrier_free_ud`
-  - 高齢者、障がい者、車椅子使用者等に配慮した計画、バリアフリー、ユニバーサルデザイン。
-  - 例: `高齢者や身体障がい者等に配慮した建築物`、`車椅子使用者に配慮`。
-- `g1_09_kenchiku_seisan`
-  - 建築生産、工業化住宅、プレハブ、SI など。
-  - 例: `建築生産に関する次の記述`。
-- `g1_01_kiko_shitsunai_okuagai`
-  - 気候、室内空気環境、湿り空気、温熱感、屋外気候。
-  - 例: `室内の空気環境`、`湿り空気線図`、`屋外気候等`。
-- `g1_02_kanki_tsuufuu`
-  - 必要換気量、換気回数、自然換気、通風経路。
-- `g1_03_denetsu_ketsuro`
-  - 熱貫流率、熱伝導、断熱、表面結露、内部結露。
-- `g1_08_kankyo_yugo`
-  - 環境工学内の複合問題。
-  - 例: `建築環境工学に関する次の記述`、`光と色彩`、`採光・照明`、単位横断。
-- `g1_13_koukyou_kenchiku`
-  - 複数用途に共通する公共建築の計画、または庁舎・公共建築一般。
-- `g1_13_kyouiku_kenchiku`
-  - 学校、幼稚園、保育所など教育施設。
-- `g1_13_bunka_kenchiku`
-  - 図書館、美術館、博物館、劇場、ホールなど文化施設。
-- `g1_13_iryou_fukushi_kenchiku`
-  - 病院、診療所、高齢者施設、社会福祉施設など医療・福祉施設。
-- `g1_20_denki_shoumei`
-  - 受変電、幹線、コンセント、非常電源など電気設備。
-- `g1_20_shoumei_setsubi`
-  - 照明方式、照明器具、照度計画、光束法など設備としての照明。
-- `g1_22_setsubi_yugo`
-  - 空調・衛生・電気・防災をまたぐ設備用語・横断問題。
-  - 例: `建築設備の用語`、`設備に関する用語とその説明`。
-- `g1_24_kankyo_shoene_tougou`
-  - 環境配慮、省エネルギー、省資源、CASBEE、ZEB・ZEH、建築・設備計画をまたぐ統合問題。
-  - 例: `環境・省エネルギーに配慮した建築・設備計画`、`省エネルギー・省資源`。
-- `g1_15_keikaku_yougo`
-  - 建築計画分野の単独知識・名称問題。
-  - 例: `屋根の名称`、`案内用図記号`、`伝統的木造住宅の部位名`。
-- `g1_23_kenchikushi`
-  - 日本建築史。
-- `g1_23_seiyou_kindai_kenchikushi`
-  - 西洋建築史、近現代建築、建築家、代表作品、年代。
-- `g1_13_*` と `g1_09_*`
-  - 用途が明確なら `g1_13_*` を優先する。
-  - 各部寸法・面積・バリアフリー・建築生産など用途横断の総論なら `g1_09_*`。
-
-### 建築法規
-- `g2_02_menseki_takasa_santei`
-  - 建築面積、延べ面積、高さ、地盤面、勾配天井の高さ、階数の算定。
-- `g2_03_tetsuzuki_kakunin`
-  - 確認済証の要否、確認申請、確認申請図書、中間検査、完了検査。
-  - 設問の主語が「確認申請」「確認済証」「中間検査」「完了検査」「検査済証」の流れにあるなら、仮使用や計画変更が混在しても原則 `g2_03`。
-- `g2_04_tetsuzuki_tekigou`
-  - 確認申請そのものではない手続・適合問題。
-  - 例: 仮使用、違反是正、変更手続、報告徴収、監督処分。
-  - 仮使用認定、既存不適格、用途変更後の是正・届出、報告徴収、監督処分が主題なら `g2_04`。
-  - 確認申請や完了検査が一部に出ても、論点の中心が適法状態の維持や行政処分なら `g2_04`。
-- `g2_07_saikou_kanki`
-  - 法規上の採光・換気。
-  - 例: `採光に有効な部分の面積`。
-- `g2_10_bouka_chiiki`
-  - 防火地域・準防火地域の制限。
-  - 特定防災街区整備地区、災害危険区域など、地域指定に伴う防火・防災上の制限もここへ寄せる。
-  - 例: 看板、塀、地域またがり、外壁・屋根の防火性能。
-- `g2_13_hinan_kitei`
-  - 耐火建築物・準耐火建築物、特殊建築物の防火規制、防火区画、竪穴区画、異種用途区画、直通階段、避難階段、歩行距離、非常用進入口、排煙など、防火・耐火・避難の複合規定。
-  - `耐火建築物等としなければならないもの` のような建築基準法第27条中心の問題もここへ寄せる。
-- `g2_18_zassoku_sonota`
-  - 建築基準法内の雑則・工作物・仮設・用途変更後の扱いなど、他カテゴリに寄せ切れない総合問題。
-  - 例: 工作物、仮設興行場、擁壁、建築基準法上の罰則や雑則。
-- `g2_20_barrier_free_hou`
-  - バリアフリー法単独の問題。
-  - 例: `建築物移動等円滑化基準`、`誘導基準`、`特定建築物`。
-- `g2_21_shoene_hou`
-  - 建築物省エネ法単独の問題。
-  - 例: 省エネ基準適合義務、届出、説明義務、一次エネルギー消費量、外皮性能。
-  - 省エネ法以外の関係法令が同一設問に混在する場合は `g2_26` を優先する。
-- `g2_26_kankei_hourei_yugo`
-  - 建築基準法以外の関係法令を扱う問題の受け皿。
-  - 都市計画法、住宅品質確保促進法、長期優良住宅法、建設業法、宅造法、耐震改修促進法、建設リサイクル法などは、単独出題でも原則 `g2_26` に寄せる。
-  - 建築士法は `g2_19`、バリアフリー法は `g2_20`、建築物省エネ法は `g2_21` を優先する。
-
-### 建築構造
-- 単位・用語だけを理由に独立カテゴリへ逃がさない。
-- 力学・一般構造・各種構造・材料のどれを説明しているかで主題を決め、最も具体的なカテゴリへ寄せる。
-- `g3_09_kajuu_gairyoku`
-  - 荷重・外力、風圧力、設計用地震力。
-- `g3_11_taishin_shindan_hokyou`
-  - 構造計画、耐震設計、耐震診断、耐震補強。
-- `g3_16_sonota_kouzou`
-  - 壁式RC、補強コンクリートブロック造、組積造など。
-  - 例: `壁式鉄筋コンクリート造`、`壁量`。
-
-### 建築施工
-- `g4_03_koutei_kanri`
-  - ネットワーク工程表、クリティカルパス。
-- `g4_02_sekou_keikaku`
-  - 施工計画、施工手順、施工管理体制、施工図、仮設計画に加え、品質基準、受入れ判定、検査計画、試験計画など品質管理の総論を扱う。
-  - RC・鉄骨など個別工事内の検査は各工事カテゴリを優先する。
-- `g4_07_kouji_kanri_tetsuzuki`
-  - 建設副産物、産業廃棄物、マニフェスト、廃棄物処理法など、現場の廃棄物管理。
-- `g4_07_todoke_tetsuzuki`
-  - 工事着手前後の届出、申請、報告、提出先、現場手続。
-- `g4_11_rc_kouji`
-  - 鉄筋工事。
-- `g4_11_katawaku_kouji`
-  - 型枠工事。
-- `g4_11_concrete_kouji`
-  - コンクリート工事。
-- `g4_17_sakan`
-  - `左官工事、タイル工事及び石工事` のように左官・タイル・石を一体で問う問題は `g4_17` を優先する。
-  - タイル工事・石工事だけを個別に扱う問題も、二級建築士では原則 `g4_17` にまとめる。
-- `g4_24_kakubu_yugo`
-  - 各部工事をまたぐ複合問題。
-  - ただし `左官・タイル・石` は `g4_17`、`建具・ガラス・内装` は `g4_20` を優先する。
-- `g4_20_tategu_garasu`
-  - `建具工事、ガラス工事及び内装工事` のように建具・ガラス・内装を一体で問う問題は `g4_20` を優先する。
-  - 内装、断熱、ユニット工事が主題の問題も、二級建築士では原則 `g4_20` にまとめる。
-- `g4_01_kouji_keiyaku`
-  - 請負契約約款、監理者・発注者・受注者の契約上の役割、設計図書の定義。
-  - 建設業法の許可や主任技術者は `g2_26`、建築士法の標準業務は `g2_19` を優先する。
-
-## 推奨コマンド
-
-### 0. repo ルートへ移動
-```bash
-cd /Users/yuki/development/exam_scraper
-```
-
-### 1. 既存出力の退避
-```bash
-python3 scripts/fix/archive_patch_outputs.py \
-  --task question_set \
-  --list-group-id <list_group_id> \
-  --base-dir output/<qualification>/questions_json
-```
-
-### 2. AI生出力を正式パッチJSONへ補完
 ```bash
 .venv/bin/python tools/question_bank/question_bank.py materialize-patch \
   --task question_set \
@@ -239,7 +100,8 @@ python3 scripts/fix/archive_patch_outputs.py \
   --output /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json
 ```
 
-### 3. カバレッジ検証
+### category.json所属を含むパッチ検証
+
 ```bash
 .venv/bin/python tools/question_bank/question_bank.py check-question-set-patch \
   --source /absolute/path/to/question_*_merged.json \
@@ -248,16 +110,17 @@ python3 scripts/fix/archive_patch_outputs.py \
   --questionset-only
 ```
 
-### 4. 最終検証
+### 最終検証
+
 ```bash
 .venv/bin/python tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id>
 ```
 
-## 成功条件
-- 出力先は `questions_json/<list_group_id>/22_questionSetId_linked/`
-- 出力ファイル名は `{元ファイル名}_questionSetId_linked.json`
-- すべての出力で、元ファイルとの件数・順序・`original_question_id` が一致している
-- `questionSetId` は `""` または `category.json` 内の有効IDのみ
-- `check-question-set-patch` と `quality-gate` の終了コードがどちらも `0`
+## 完了条件
+
+- 全問題を問題文と全選択肢から一問ずつ分類し、未解決の`hold`がない。
+- 出力の件数、順序、`original_question_id`が入力と一致する。
+- すべての`questionSetId`が`category.json`の`questionSets[]`に存在し、捏造ID、空文字、`folderId`がない。
+- `check-question-set-patch`と`quality-gate`がともに終了コード`0`である。

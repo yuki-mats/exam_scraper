@@ -61,6 +61,13 @@ PATCH_STAGES = (
         checker="tools/question_bank/checks/check_question_intent_patch_coverage.py",
     ),
     PatchStage(
+        label="correctChoiceText",
+        subdir="23_correctChoiceText_fixed",
+        tag="correctChoiceText_fixed",
+        checker="scripts/check/check_correct_choice_patch_coverage.py",
+        extra_args=("--require-full",),
+    ),
+    PatchStage(
         label="lawContext",
         subdir="18_law_context_prepared",
         tag="lawContext_prepared",
@@ -311,6 +318,14 @@ def run_patch_checks(
                 continue
 
             patch_map = latest_patch_map(patch_dir, stage.tag)
+            question_type_patch_map = (
+                latest_patch_map(
+                    group_dir / "10_questionType_fixed",
+                    "questionType_fixed",
+                )
+                if stage.label == "correctChoiceText"
+                else {}
+            )
             source_stems = {path.stem for path in source_files}
             for source_path in source_files:
                 patch_path = patch_map.get(source_path.stem)
@@ -329,6 +344,17 @@ def run_patch_checks(
                     str(patch_path),
                     *stage.extra_args,
                 ]
+                if stage.label == "correctChoiceText":
+                    question_type_patch = question_type_patch_map.get(
+                        source_path.stem
+                    )
+                    if question_type_patch is not None:
+                        cmd.extend(
+                            [
+                                "--question-type-patch",
+                                str(question_type_patch),
+                            ]
+                        )
                 if stage.label == "explanationText" and require_law_grounded_flag:
                     cmd.append("--require-law-grounded-flag")
                 if stage.label == "explanationText" and require_is_law_related:

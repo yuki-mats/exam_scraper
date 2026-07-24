@@ -10,7 +10,6 @@ from scripts.common.question_identity import (
     IdentityCandidateIndex,
     review_question_id,
 )
-from scripts.common.aggregate_answer_decomposition import is_approved_target
 from scripts.merge.patch_views import (
     PatchArtifactEntry,
     apply_answer_result_overrides,
@@ -23,7 +22,6 @@ from scripts.merge.patch_views import (
     apply_question_type,
     ensure_originalized_explanation_is_distinct,
     ensure_identity_candidate_index_valid,
-    normalize_true_false_intent_and_correct_choice,
 )
 from scripts.merge.question_issue_corrections import (
     QuestionIssueCorrectionEntry,
@@ -44,9 +42,6 @@ GAS_SHUNIN_GRADE_LABELS = {
     "otsu": "乙種",
 }
 FULLWIDTH_DIGIT_TRANS = str.maketrans("０１２３４５６７８９", "0123456789")
-ANSWER_RESULT_RE = re.compile(
-    r"正解は\s*([1-9０-９]+(?:\s*,\s*[1-9０-９]+)*)\s*です。"
-)
 
 
 @dataclass(frozen=True)
@@ -149,84 +144,6 @@ def backfill_firestore_snapshot_exam_label(data: dict[str, Any]) -> int:
         if not grade_label or not category or not era_label:
             continue
         body["examLabel"] = f"{year}年（{era_label}）{grade_label} {category}"
-        updated += 1
-    return updated
-
-
-def _parse_answer_numbers(answer_result_text: str) -> list[int]:
-    match = ANSWER_RESULT_RE.search(_normalize_digit_text(answer_result_text))
-    if not match:
-        return []
-    return list(
-        dict.fromkeys(
-            int(part.strip())
-            for part in match.group(1).split(",")
-            if part.strip().isdigit()
-        )
-    )
-
-
-def backfill_correct_choice_text_from_answer_result(data: dict[str, Any]) -> int:
-    updated = 0
-    for body in data.get("question_bodies") or []:
-        if not isinstance(body, dict):
-            continue
-        source_text = str(
-            body.get("questionBodyText")
-            or body.get("originalQuestionBodyText")
-            or ""
-        )
-        decomposition = body.get("aggregateAnswerDecomposition")
-        if decomposition is not None and is_approved_target(
-            decomposition,
-            source_text,
-        ):
-            continue
-        current = body.get("correctChoiceText")
-        choices = body.get("choiceTextList")
-        if not (
-            isinstance(current, list)
-            and any(value is None for value in current)
-            and isinstance(choices, list)
-            and choices
-        ):
-            continue
-        body_text = str(
-            body.get("questionBodyText")
-            or body.get("originalQuestionBodyText")
-            or ""
-        )
-        if "いくつ" in body_text:
-            continue
-        answer_numbers = _parse_answer_numbers(
-            str(body.get("answer_result_text") or "")
-        )
-        if not answer_numbers:
-            inferred = body.get("answer_result_inferred_correct_choice_numbers")
-            if isinstance(inferred, list):
-                answer_numbers = list(
-                    dict.fromkeys(
-                        int(value)
-                        for value in inferred
-                        if isinstance(value, int) or str(value).isdigit()
-                    )
-                )
-        if not answer_numbers or any(
-            number < 1 or number > len(choices) for number in answer_numbers
-        ):
-            continue
-        intent = str(body.get("questionIntent") or "").strip()
-        if intent == "select_incorrect":
-            labels = ["正しい"] * len(choices)
-            replacement = "間違い"
-        elif intent == "select_correct":
-            labels = ["間違い"] * len(choices)
-            replacement = "正しい"
-        else:
-            continue
-        for number in answer_numbers:
-            labels[number - 1] = replacement
-        body["correctChoiceText"] = labels
         updated += 1
     return updated
 
@@ -338,7 +255,7 @@ def project_merge_record(
             source_record,
             explanation,
         )
-    counts["answer_result_override"] = _apply_candidates(
+    counts["legacy_answer_result_override"] = _apply_candidates(
         merged1, intent_fallback, apply_answer_result_overrides
     )
     counts["strict_answer_result_override"] = _apply_candidates(
@@ -353,14 +270,13 @@ def project_merge_record(
     counts["law_context"] = _apply_candidates(
         merged1, law_context, apply_law_context_fields
     )
-    (
-        counts["true_false_intent"],
-        counts["true_false_correct_choice"],
-    ) = normalize_true_false_intent_and_correct_choice(merged1)
     counts["exam_year"] = backfill_exam_year(merged1)
     counts["exam_label"] = backfill_firestore_snapshot_exam_label(merged1)
-    counts["correct_choice_backfill"] = (
-        backfill_correct_choice_text_from_answer_result(merged1)
+    counts["legacy_correct_choice"] = _apply_candidates(
+        merged1,
+        intent_fallback,
+        apply_correct_choice,
+        value_key="correctChoiceText",
     )
     counts["strict_correct_choice"] = _apply_candidates(
         merged1,
@@ -376,9 +292,11 @@ def project_merge_record(
     counts["question_set"] = _apply_candidates(
         merged2, question_set, apply_question_set
     )
-    preferred = strict_correct or intent_fallback
+    counts["legacy_answer_result"] = _apply_candidates(
+        merged2, intent_fallback, apply_answer_result_overrides
+    )
     counts["answer_result"] = _apply_candidates(
-        merged2, preferred, apply_answer_result_overrides
+        merged2, strict_correct, apply_answer_result_overrides
     )
     counts["question_intent_merged2"] = _apply_candidates(
         merged2,
@@ -386,18 +304,17 @@ def project_merge_record(
         apply_question_intent,
         value_key="questionIntent",
     )
-    (
-        counts["true_false_intent_merged2"],
-        counts["true_false_correct_choice_merged2"],
-    ) = normalize_true_false_intent_and_correct_choice(merged2)
     counts["exam_year_merged2"] = backfill_exam_year(merged2)
     counts["exam_label_merged2"] = backfill_firestore_snapshot_exam_label(merged2)
-    counts["correct_choice_backfill_merged2"] = (
-        backfill_correct_choice_text_from_answer_result(merged2)
+    counts["legacy_correct_choice_merged2"] = _apply_candidates(
+        merged2,
+        intent_fallback,
+        apply_correct_choice,
+        value_key="correctChoiceText",
     )
     counts["correct_choice"] = _apply_candidates(
         merged2,
-        preferred,
+        strict_correct,
         apply_correct_choice,
         value_key="correctChoiceText",
     )

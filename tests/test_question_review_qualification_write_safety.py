@@ -104,7 +104,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": "4.0"})
+        self.assertEqual(run["policyVersions"], {"explanation": "4.1"})
         self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["writeWorkerLimit"], 1)
 
@@ -221,7 +221,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         self.assertIsNone(run["serviceTier"])
         self.assertEqual(run["reasoningEffort"], "high")
         self.assertEqual(run["parallelStrategy"], "read_only_research")
-        self.assertEqual(run["parallelWorkerLimit"], 2)
+        self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["writeWorkerLimit"], 1)
         self.assertEqual(run["researchStatus"], "succeeded")
         self.assertEqual(run["researchThreadId"], "thread-research-1")

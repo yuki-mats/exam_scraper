@@ -163,13 +163,9 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         by_name = {name: command for name, command, _ in commands}
         self.assertIn("--allow-missing-answer-result", by_name["merge (85010)"])
-        self.assertNotIn(
-            "--fail-on-unresolved",
-            by_name["auto assign correctChoiceText (85010)"],
-        )
-        self.assertIn(
-            "--allow-existing-without-answer-result",
-            by_name["auto assign correctChoiceText (85010)"],
+        self.assertFalse(
+            any(name.startswith("auto assign correctChoiceText") for name in by_name),
+            "公開準備はcorrectChoiceTextを自動生成しない",
         )
         self.assertIn(
             "--skip-intent-correct-choice-check",

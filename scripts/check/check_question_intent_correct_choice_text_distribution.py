@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
+from scripts.common.question_answer_contract import official_answer_alignment_issue
+
 
 INTENT_SELECT_CORRECT = "select_correct"
 INTENT_SELECT_INCORRECT = "select_incorrect"
@@ -141,8 +143,8 @@ def validate_question_intent_correct_choice_distribution(
     questionIntent と correctChoiceText の基礎整合性を検査する。
 
     correctChoiceText は選択肢そのものの正誤を表す。
-    answer_result_text は「いくつあるか」では件数、「どれか」では位置を表すため、
-    このチェックでは answer_result_text から correctChoiceText を再導出しない。
+    各fieldの型を確認した後、parseできる公式解答との一致を検出する。
+    不一致でも一方から他方を再導出せず、再確認対象として停止する。
     """
     violations: list[Violation] = []
     for idx, qb in enumerate(_iter_question_bodies(payload)):
@@ -220,6 +222,26 @@ def validate_question_intent_correct_choice_distribution(
                 )
             )
             continue
+
+        alignment_issue = official_answer_alignment_issue(
+            {
+                **qb,
+                "correctChoiceText": normalized,
+            }
+        )
+        if alignment_issue:
+            violations.append(
+                Violation(
+                    source_path=source_path,
+                    question_index=idx,
+                    original_question_id=qb.get("original_question_id")
+                    or qb.get("public_question_id"),
+                    question_url=qb.get("question_url"),
+                    question_intent=intent,
+                    correct_choice_text=normalized,
+                    reason=f"official_answer_mismatch:{alignment_issue}",
+                )
+            )
 
     return violations
 

@@ -676,7 +676,20 @@ class QuestionQueuePaused(QualificationRunError):
 
 
 def _maintenance_research_prompt(prompt: str) -> str:
-    base_prompt = prompt.partition("\n## 画面用の問題別進捗\n")[0].rstrip()
+    writer_section_markers = (
+        "\n## 画面用の問題別進捗\n",
+        "\n## 完了記録\n",
+    )
+    section_starts = [
+        index
+        for marker in writer_section_markers
+        if (index := prompt.find(marker)) >= 0
+    ]
+    base_prompt = (
+        prompt[: min(section_starts)].rstrip()
+        if section_starts
+        else prompt.rstrip()
+    )
     return "\n".join(
         [
             "# read-only並列調査",
@@ -807,6 +820,31 @@ def _candidate_unset_fields(
     return tuple(sorted(unset_fields))
 
 
+def _aggregate_calculation_flag(
+    candidate_fields: Mapping[str, Any],
+    current_record: Mapping[str, Any],
+    selected_fields: set[str] | None,
+) -> bool:
+    """Resolve the independently selected calculation field for span projection."""
+
+    candidate_value = candidate_fields.get("isCalculationQuestion")
+    calculation_selected = (
+        selected_fields is None or "isCalculationQuestion" in selected_fields
+    )
+    if calculation_selected:
+        if isinstance(candidate_value, bool):
+            return candidate_value
+        raise QualificationRunError(
+            "選択されたisCalculationQuestionのboolean候補がありません。"
+        )
+    current_value = current_record.get("isCalculationQuestion")
+    if isinstance(current_value, bool):
+        return current_value
+    raise QualificationRunError(
+        "更新対象外のisCalculationQuestionを現在のboolean値から維持できません。"
+    )
+
+
 def _batch_question_result(
     child: Mapping[str, Any], question_id: str
 ) -> Mapping[str, Any] | None:
@@ -930,6 +968,7 @@ def _structured_candidate_prompt(
             "file、shell、progress、receipt、git、外部状態は変更しない。",
             "対象を特定できない場合や根拠が足りない場合は、その問題だけblockedにする。",
             "setFieldsはfieldとvalueJsonの配列とし、valueJsonには値をJSON文字列化して入れる。",
+            "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
@@ -1072,8 +1111,8 @@ def _structured_candidate_stage_context(
     return {
         "rules": [
             "questionSetIdだけを判定対象とし、questionSetIdListとchoiceQuestionSetIdsの新規生成は要求しない。",
-            "現在のquestionSetIdが問題の主題に最適で変更不要なら、status=candidate、updates=[]で完了する。",
-            "変更する場合はallowedQuestionSetsにあるquestionSetIdだけを設定する。",
+            "現在値と同じ結論でも、問題全体と分類正本から独立に確定したquestionSetIdを明示して返す。",
+            "allowedQuestionSetsにあるquestionSetIdだけを設定する。",
         ],
         "allowedQuestionSets": options,
     }
@@ -9545,20 +9584,25 @@ class QualificationRunCoordinator:
                             and consensus["classification"] == "target"
                             and target.role == "question_type"
                         ):
-                            calculation_flag = server_set_fields.get(
-                                "isCalculationQuestion"
+                            raw_selected_fields = (
+                                question_plan.get("selectedFieldsByStage") or {}
                             )
-                            if not isinstance(calculation_flag, bool):
-                                calculation_flag = records_by_question[
-                                    question_id
-                                ].get("isCalculationQuestion")
-                            if not isinstance(calculation_flag, bool):
-                                raise QualificationRunError(
-                                    "集約回答targetのisCalculationQuestionを候補又は"
-                                    "current recordのbooleanから確定できません。"
-                                )
+                            selected_stage_fields = (
+                                {
+                                    str(value)
+                                    for value in raw_selected_fields.get(stage_id) or []
+                                    if value
+                                }
+                                if isinstance(raw_selected_fields, Mapping)
+                                and stage_id in raw_selected_fields
+                                else None
+                            )
                             server_set_fields["isCalculationQuestion"] = (
-                                calculation_flag
+                                _aggregate_calculation_flag(
+                                    server_set_fields,
+                                    records_by_question[question_id],
+                                    selected_stage_fields,
+                                )
                             )
                             server_set_fields.update(
                                 materialize_decomposition(
@@ -10929,6 +10973,7 @@ class QualificationRunCoordinator:
                     projected.get("questionType"),
                     projected.get("correctChoiceText"),
                     len(choices),
+                    projected.get("questionIntent"),
                 ),
             )
             if issues:

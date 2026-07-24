@@ -88,11 +88,12 @@ code = "01"
 label = "問題形式"
 purpose = "回答体験に合うquestionTypeを一問ずつ確定する"
 kind = "human"
+# 5.0: 現在値や正答数を根拠にせず、回答体験から三形式を同列に独立判定するため洗い替える。
 # 4.0: 複数選択問題をgroup_choiceではなく選択肢別true_falseとして再判定するため洗い替える。
 # 3.0: 全問題を二重read-onlyレビューした後にserver合意を作り、通常候補を生成するため洗い替える。
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
-policy_version = "4.0"
+policy_version = "5.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -119,7 +120,8 @@ code = "02"
 label = "設問意図"
 purpose = "正しいもの・誤っているもののどちらを選ぶ設問か確定する"
 kind = "human"
-policy_version = "1.0"
+# 2.0: 現在値や正答から補完せず、設問が求める方向だけを独立判定する。
+policy_version = "2.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -140,20 +142,21 @@ code = "02a"
 label = "正答精査"
 purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
 kind = "human"
-policy_version = "1.0"
+# 2.0: questionTypeやquestionIntentから生成せず、根拠から各選択肢の正誤を独立判定する。
+policy_version = "2.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
 patch_dir = "23_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
-issue_fields = ["correctChoiceText", "answer_result_text"]
+issue_fields = ["correctChoiceText"]
 documents = ["prompt/02a_prompt_review_correctChoiceText.md"]
 
 [[stages.update_targets]]
 id = "correct_answer"
 label = "正答"
-fields = ["correctChoiceText", "answer_result_text"]
-read_fields = ["questionBodyText", "choiceTextList", "questionIntent"]
+fields = ["correctChoiceText"]
+read_fields = ["questionBodyText", "choiceTextList", "questionIntent", "answer_result_text"]
 
 [[stages]]
 id = "law_context"
@@ -305,7 +308,8 @@ code = "04"
 label = "問題集"
 purpose = "category方針に沿って問題集へ意味的に紐付ける"
 kind = "human"
-policy_version = "1.0"
+# 2.0: 問題文と全選択肢、category.json、資格別正本から再判定し、複数候補を強制割当せずholdするため洗い替える。
+policy_version = "2.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -321,8 +325,13 @@ documents = ["prompt/04_prompt_link_questionSetId.md"]
 [[stages.update_targets]]
 id = "question_set"
 label = "問題集割当"
-fields = ["questionSetId", "questionSetIdList", "choiceQuestionSetIds"]
-read_fields = ["questionBodyText", "choiceTextList"]
+fields = ["questionSetId"]
+read_fields = [
+  "questionBodyText",
+  "choiceTextList",
+  "questionSetIdList",
+  "choiceQuestionSetIds",
+]
 
 [[stages]]
 id = "delivery"

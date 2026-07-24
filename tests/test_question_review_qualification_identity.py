@@ -63,7 +63,7 @@ class QualificationIdentityContractTests(QualificationRunTestSupport):
 
         self.assertEqual(run["sourceFiles"], source_files)
         self.assertEqual(run["targetRecordAliasGroups"], [["q1"], ["q2"]])
-        self.assertEqual(run["parallelWorkerLimit"], 2)
+        self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["targetRecordAliases"], ["q1", "q2"])
         self.assertEqual(run["targetCount"], 2)
         self.assertEqual(run["policyVersions"], {"law_audit": "4.0"})

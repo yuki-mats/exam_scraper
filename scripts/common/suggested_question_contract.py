@@ -3,16 +3,18 @@ from __future__ import annotations
 from collections.abc import Iterable, Mapping
 from typing import Any
 
+from scripts.common.question_answer_contract import selected_choice_labels
+
 
 FIELD_NAME = "suggestedQuestionDetailsByChoice"
 MAX_ITEMS_PER_CHOICE = 3
-PUBLIC_CORRECT_LABELS = {"正解", "正しい"}
 
 
 def public_choice_indexes(
     question_type: object,
     correct_choices: object,
     choice_count: int,
+    question_intent: object,
 ) -> set[int]:
     """Return choice indexes that become isChoiceOnly=false split documents."""
 
@@ -21,11 +23,17 @@ def public_choice_indexes(
     if question_type == "true_false":
         return set(range(choice_count))
     if question_type in {"flash_card", "group_choice"}:
-        if isinstance(correct_choices, list):
-            for index, value in enumerate(correct_choices[:choice_count]):
-                if value in PUBLIC_CORRECT_LABELS:
-                    return {index}
-        return {0}
+        if not isinstance(correct_choices, list):
+            return set()
+        public_labels = selected_choice_labels(question_intent)
+        if public_labels is None:
+            return set()
+        correct_indexes = {
+            index
+            for index, value in enumerate(correct_choices[:choice_count])
+            if value in public_labels
+        }
+        return correct_indexes if len(correct_indexes) == 1 else set()
     return set(range(choice_count))
 
 

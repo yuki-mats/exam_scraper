@@ -59,7 +59,6 @@ from scripts.common.question_identity import (
     source_json_paths,
 )
 from scripts.merge.record_projection import (
-    backfill_correct_choice_text_from_answer_result,
     backfill_exam_year,
     infer_exam_year_from_label,
     project_merge_record,
@@ -498,15 +497,7 @@ def merge_all(
     originalized_updates = update_counts.get("originalized", 0)
     qtype_updates = update_counts.get("question_type", 0)
     intent_updates = update_counts.get("question_intent", 0)
-    true_false_intent_updates = update_counts.get("true_false_intent", 0)
-    true_false_correct_choice_updates = update_counts.get(
-        "true_false_correct_choice", 0
-    )
     exam_year_backfills = update_counts.get("exam_year", 0)
-    correct_choice_backfills = update_counts.get("correct_choice_backfill", 0)
-    answer_result_override_updates = update_counts.get(
-        "answer_result_override", 0
-    )
     strict_answer_result_override_updates = update_counts.get(
         "strict_answer_result_override", 0
     )
@@ -517,16 +508,7 @@ def merge_all(
     correct_updates = update_counts.get("correct_choice", 0)
     answer_result_updates = update_counts.get("answer_result", 0)
     intent_updates_merged2 = update_counts.get("question_intent_merged2", 0)
-    true_false_intent_updates_merged2 = update_counts.get(
-        "true_false_intent_merged2", 0
-    )
-    true_false_correct_choice_updates_merged2 = update_counts.get(
-        "true_false_correct_choice_merged2", 0
-    )
     exam_year_backfills_merged2 = update_counts.get("exam_year_merged2", 0)
-    correct_choice_backfills_merged2 = update_counts.get(
-        "correct_choice_backfill_merged2", 0
-    )
     question_issue_updates = update_counts.get("question_issue", 0)
 
     print(f"[INFO] 20_merged_1 生成完了: {merged1_dir}")
@@ -534,10 +516,6 @@ def merge_all(
         print(f"[INFO] 05_originalized 更新件数: {originalized_updates}")
     print(f"[INFO] questionType 更新件数: {qtype_updates}")
     print(f"[INFO] questionIntent 更新件数: {intent_updates}")
-    print(f"[INFO] true_false questionIntent 正規化件数: {true_false_intent_updates}")
-    print(f"[INFO] true_false correctChoiceText 正規化件数: {true_false_correct_choice_updates}")
-    if answer_result_override_updates:
-        print(f"[INFO] answer_result override 更新件数: {answer_result_override_updates}")
     if strict_answer_result_override_updates:
         print(
             "[INFO] 02a answer_result override 更新件数: "
@@ -549,8 +527,6 @@ def merge_all(
         print(f"[INFO] law context 更新件数: {law_context_updates}")
     if exam_year_backfills:
         print(f"[INFO] examYear 推定補完件数: {exam_year_backfills}")
-    if correct_choice_backfills:
-        print(f"[INFO] correctChoiceText(None) 自動補完件数: {correct_choice_backfills}")
     print(f"[INFO] 12_merged_questionType 生成完了: {merged_qtype_view_dir}")
 
     print(f"[INFO] 30_merged_2 生成完了: {merged2_dir}")
@@ -560,12 +536,8 @@ def merge_all(
     if answer_result_updates:
         print(f"[INFO] answer_result 更新件数: {answer_result_updates}")
     print(f"[INFO] questionIntent 更新件数: {intent_updates_merged2}")
-    print(f"[INFO] true_false questionIntent 正規化件数: {true_false_intent_updates_merged2}")
-    print(f"[INFO] true_false correctChoiceText 正規化件数: {true_false_correct_choice_updates_merged2}")
     if exam_year_backfills_merged2:
         print(f"[INFO] examYear 推定補完件数: {exam_year_backfills_merged2}")
-    if correct_choice_backfills_merged2:
-        print(f"[INFO] correctChoiceText(None) 自動補完件数: {correct_choice_backfills_merged2}")
     if question_issue_updates:
         print(f"[INFO] 問題報告 correction 更新件数: {question_issue_updates}")
 

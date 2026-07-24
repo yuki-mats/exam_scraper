@@ -52,6 +52,7 @@ from scripts.common.independent_question_images import (
 )
 from scripts.common.question_identity import question_id_from_source_unique_key
 from scripts.common.suggested_question_contract import details_for_choice
+from scripts.common.suggested_question_contract import public_choice_indexes
 from scripts.common.explanation_contract import public_explanation_text
 from scripts.common.explanation_references import (
     normalize_explanation_references,
@@ -1081,6 +1082,7 @@ def convert_group_select_to_firestore(
     cardinality_error = question_level_answer_cardinality_issue(
         question_type,
         correct_choice_list,
+        question_body.get("questionIntent"),
     )
     if cardinality_error:
         raise ValueError(cardinality_error)
@@ -1104,13 +1106,18 @@ def convert_group_select_to_firestore(
         exam_source = f"{exam_name}, {exam_year}年, {question_label}"
 
     firestore_questions = []
-    correct_found = False
     wrong_index = 1
     split_count = get_split_count(
         choice_text_list,
         correct_choice_list,
         explanation_list,
         choice_image_urls_by_choice,
+    )
+    public_indexes = public_choice_indexes(
+        question_type,
+        correct_choice_list,
+        split_count,
+        question_body.get("questionIntent"),
     )
 
     for i in range(split_count):
@@ -1128,9 +1135,8 @@ def convert_group_select_to_firestore(
             else []
         )
 
-        if correctness in ("正解", "正しい") and not correct_found:
+        if i in public_indexes:
             # 正解の選択肢: 既存Firestore IDがあれば維持し、なければ従来IDを使う。
-            correct_found = True
             firestore_question = create_firestore_question_base(
                 question_id=firestore_question_id_for_choice(question_body, i)
                 or new_question_id_for_choice(question_body, i, original_question_id),
@@ -1158,7 +1164,7 @@ def convert_group_select_to_firestore(
                 lawRevisionFacts=resolve_law_revision_facts(question_body, i),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
-        elif correctness in ("不正解", "間違い", "誤り"):
+        elif correctness in ("正解", "正しい", "不正解", "間違い", "誤り"):
             # 誤答の選択肢: 既存Firestore IDがあれば維持し、なければ従来IDを使う。
             question_id = (
                 firestore_question_id_for_choice(question_body, i)
@@ -1195,44 +1201,6 @@ def convert_group_select_to_firestore(
                 lawRevisionFacts=resolve_law_revision_facts(question_body, i),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
-
-    # フォールバック: 正解が見つからない場合は最初の選択肢を正解として使用
-    if not correct_found and split_count > 0:
-        firestore_question = create_firestore_question_base(
-            question_id=firestore_question_id_for_choice(question_body, 0)
-            or new_question_id_for_choice(question_body, 0, original_question_id),
-            original_question_id=original_question_id,
-            question_body=question_body,
-            question_type=question_type,
-            question_text=question_text,
-            correct_choice_text="正しい",
-            explanation_text=public_explanation_text(
-                explanation_list,
-                question_type=question_type,
-                choice_index=0,
-                is_choice_only=False,
-            ),
-            exam_source=exam_source,
-            original_question_choice_text=choice_text_list[0] if choice_text_list else "",
-            original_question_choice_image_urls=(
-                choice_image_urls_by_choice[0]
-                if choice_image_urls_by_choice
-                else []
-            ),
-            question_set_id=question_set_id_for_choice(question_body, 0),
-            suggested_choice_index=0,
-            isLawRelated=resolve_is_law_related(question_body, 0),
-            lawReferences=format_choice_law_references_with_group_fallback(
-                question_body.get("lawReferences", []),
-                0,
-                allow_group_fallback=resolve_is_law_related(question_body, 0) is True,
-            ),
-            lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
-                question_body, 0
-            ),
-            lawRevisionFacts=resolve_law_revision_facts(question_body, 0),
-        )
-        firestore_questions.append(finalize_firestore_question(firestore_question))
 
     return firestore_questions
 

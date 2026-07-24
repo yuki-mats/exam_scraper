@@ -111,6 +111,49 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("check-law-context-patch", prompt)
         self.assertNotIn("question_bank.py quality-gate", prompt)
 
+    def test_question_set_policy_uses_complete_question_and_canonical_taxonomy(self):
+        prompt = (ROOT / "prompt/04_prompt_link_questionSetId.md").read_text(
+            encoding="utf-8"
+        )
+
+        required_rules = (
+            "`questionBodyText`と`choiceTextList`の全選択肢を最初に通読",
+            "`questionBodyText`だけで仮分類してはいけません",
+            "対象資格の正本文書",
+            "最も近いIDへ強制しません",
+            "03cで`category.json`と資格別正本を再作業",
+            "問題単位の`hold`",
+            "category.json所属を含むパッチ検証",
+            "すべての`questionSetId`が`category.json`の`questionSets[]`に存在",
+        )
+        for rule in required_rules:
+            with self.subTest(rule=rule):
+                self.assertIn(rule, prompt)
+
+        self.assertNotIn("g1_09_keikaku_ippan", prompt)
+        self.assertNotIn("### 建築計画", prompt)
+
+    def test_question_set_policy_distinguishes_question_and_choice_level_fields(self):
+        prompt = (ROOT / "prompt/04_prompt_link_questionSetId.md").read_text(
+            encoding="utf-8"
+        )
+        contract = (ROOT / "document/reference/question_field_contract.md").read_text(
+            encoding="utf-8"
+        )
+
+        for text in (
+            "`questionSetId`は、問題全体の主な復習先",
+            "`questionSetIdList`は、Firestore由来の複数の設問",
+            "`choiceQuestionSetIds`は、`choiceTextList`と同じ順序・件数",
+            "通常の04では`questionSetId`だけを再判定",
+            "3 fieldを互いに自動変換せず",
+        ):
+            with self.subTest(text=text):
+                self.assertIn(text, prompt)
+
+        self.assertIn("### 04の分類field", contract)
+        self.assertIn("肢別の再分類", contract)
+
     def test_originalization_policy_preserves_quality_with_minimum_edits(self):
         prompt = (ROOT / "prompt/05_prompt_originalize_question.md").read_text(
             encoding="utf-8"
@@ -235,11 +278,37 @@ class WorkflowCatalogTests(unittest.TestCase):
             stage["id"]: stage["policyVersion"] for stage in versioned
         }
         stage_by_id = {stage["id"]: stage for stage in catalog["stages"]}
+        owned_fields = {
+            stage_id: {
+                field
+                for target in stage_by_id[stage_id]["updateTargets"]
+                for field in target["fields"]
+            }
+            for stage_id in (
+                "question_type",
+                "question_intent",
+                "correct_choice",
+                "question_set",
+            )
+        }
+        self.assertEqual(
+            owned_fields["question_type"],
+            {"questionType", "isCalculationQuestion"},
+        )
+        self.assertEqual(owned_fields["question_intent"], {"questionIntent"})
+        self.assertEqual(
+            owned_fields["correct_choice"],
+            {"correctChoiceText"},
+        )
+        self.assertEqual(owned_fields["question_set"], {"questionSetId"})
         self.assertEqual(version_by_stage["explanation"], "4.1")
         self.assertEqual(version_by_stage["law_audit"], "4.0")
         self.assertEqual(version_by_stage["law_context"], "1.1")
         self.assertEqual(version_by_stage["originalize"], "2.5")
-        self.assertEqual(version_by_stage["question_type"], "4.0")
+        self.assertEqual(version_by_stage["question_type"], "5.0")
+        self.assertEqual(version_by_stage["question_intent"], "2.0")
+        self.assertEqual(version_by_stage["correct_choice"], "2.0")
+        self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
             {"model": "gpt-5.5", "reasoningEffort": "high"},
@@ -255,6 +324,9 @@ class WorkflowCatalogTests(unittest.TestCase):
                     "law_audit",
                     "law_context",
                     "question_type",
+                    "question_intent",
+                    "correct_choice",
+                    "question_set",
                 }
             )
         )

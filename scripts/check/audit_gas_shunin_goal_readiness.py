@@ -648,6 +648,8 @@ def check_patch_invariants(plan_rows: list[dict[str, Any]], issues: list[dict[st
                         row.get("questionType") or patch_row.get("questionType"),
                         row.get("correctChoiceText") or patch_row.get("correctChoiceText"),
                         choice_count,
+                        row.get("questionIntent")
+                        or patch_row.get("questionIntent"),
                     ),
                 )
                 if suggestion_errors:

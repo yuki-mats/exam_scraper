@@ -787,6 +787,81 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             {issue["code"] for issue in issues},
         )
 
+    def test_select_incorrect_question_level_convert_uses_public_answer_semantics(self):
+        projected = {
+            "questionBodyText": "誤っているものはどれか。",
+            "choiceTextList": ["A", "B", "C"],
+            "correctChoiceText": ["正しい", "間違い", "正しい"],
+            "questionIntent": "select_incorrect",
+            "explanationText": ["Bが誤りである。"],
+            "questionType": "group_choice",
+            "isLawRelated": False,
+        }
+        converted = [
+            {
+                "questionId": "doc-a",
+                "originalQuestionChoiceText": "A",
+                "correctChoiceText": "間違い",
+                "isChoiceOnly": True,
+            },
+            {
+                "questionId": "doc-b",
+                "originalQuestionChoiceText": "B",
+                "correctChoiceText": "正しい",
+                "explanationText": "Bが誤りである。",
+                "isChoiceOnly": False,
+            },
+            {
+                "questionId": "doc-c",
+                "originalQuestionChoiceText": "C",
+                "correctChoiceText": "間違い",
+                "isChoiceOnly": True,
+            },
+        ]
+
+        issues = detect_issues(projected, projected, converted, converted, [])
+
+        self.assertNotIn("convert_stale", {issue["code"] for issue in issues})
+
+    def test_select_incorrect_question_level_detects_wrong_public_root(self):
+        projected = {
+            "questionBodyText": "誤っているものはどれか。",
+            "choiceTextList": ["A", "B", "C"],
+            "correctChoiceText": ["正しい", "間違い", "正しい"],
+            "questionIntent": "select_incorrect",
+            "explanationText": ["Bが誤りである。"],
+            "questionType": "group_choice",
+            "isLawRelated": False,
+        }
+        converted = [
+            {
+                "questionId": "doc-a",
+                "originalQuestionChoiceText": "A",
+                "correctChoiceText": "正しい",
+                "explanationText": "Bが誤りである。",
+                "isChoiceOnly": False,
+            },
+            {
+                "questionId": "doc-b",
+                "originalQuestionChoiceText": "B",
+                "correctChoiceText": "間違い",
+                "isChoiceOnly": True,
+            },
+            {
+                "questionId": "doc-c",
+                "originalQuestionChoiceText": "C",
+                "correctChoiceText": "正しい",
+                "isChoiceOnly": True,
+            },
+        ]
+
+        issues = detect_issues(projected, projected, converted, converted, [])
+
+        stale = next(issue for issue in issues if issue["code"] == "convert_stale")
+        self.assertIn("isChoiceOnly[0]", stale["fields"])
+        self.assertIn("isChoiceOnly[1]", stale["fields"])
+        self.assertIn("correctChoiceText[1]", stale["fields"])
+
     def test_merge_comparison_treats_verdict_synonyms_as_equal(self):
         projected = {
             "questionBodyText": "正しいものはどれか。",

@@ -79,6 +79,7 @@ def validate_suggested_question_details(
     *,
     suggested_question_details_by_choice: Any,
     question_type: Any,
+    question_intent: Any,
     correct_choices: Any,
     choice_count: int,
     index: int,
@@ -93,6 +94,7 @@ def validate_suggested_question_details(
                 question_type,
                 correct_choices,
                 choice_count,
+                question_intent,
             ),
         )
     )
@@ -340,6 +342,7 @@ def compare_entries(
                 "suggestedQuestionDetailsByChoice"
             ),
             question_type=source_question_type,
+            question_intent=src.get("questionIntent"),
             correct_choices=src.get("correctChoiceText"),
             choice_count=len(choices) if isinstance(choices, list) else 0,
             index=idx,

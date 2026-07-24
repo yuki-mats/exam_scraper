@@ -3,7 +3,12 @@ from __future__ import annotations
 import os
 import unittest
 
-from scrape_kurohon import build_answer_result_text, extract_round_number_from_url, parse_exam_page_html
+from scrape_kurohon import (
+    build_answer_result_text,
+    determine_question_intent,
+    extract_round_number_from_url,
+    parse_exam_page_html,
+)
 
 
 SAMPLE_HTML = """
@@ -84,6 +89,7 @@ class ScrapeKurohonTests(unittest.TestCase):
         self.assertEqual(questions[1]["answer_result_text"], "正解は 4 です。")
         self.assertEqual(questions[1]["answerTableCorrectChoiceNumbers"], [4])
         self.assertEqual(questions[1]["choiceClassCorrectChoiceNumbers"], [2])
+        self.assertEqual(questions[1]["questionIntent"], "select_incorrect")
         self.assertEqual(
             questions[1]["correctChoiceText"],
             ["正しい", "正しい", "正しい", "間違い"],
@@ -104,6 +110,29 @@ class ScrapeKurohonTests(unittest.TestCase):
 
     def test_build_answer_result_text_supports_multiple_answers(self) -> None:
         self.assertEqual(build_answer_result_text([1, 3]), "正解は 1, 3 です。")
+
+    def test_question_intent_does_not_default_an_ambiguous_prompt(self) -> None:
+        self.assertIsNone(determine_question_intent("次の記述を確認せよ。"))
+
+    def test_question_intent_does_not_choose_when_both_directions_appear(self) -> None:
+        self.assertIsNone(
+            determine_question_intent(
+                "正しい記述と誤っている記述の組合せを選べ。"
+            )
+        )
+
+    def test_question_intent_keeps_negative_phrases_negative(self) -> None:
+        for prompt in (
+            "最も不適切なものはどれか。",
+            "不適当なものはどれか。",
+            "適切でないものはどれか。",
+            "適当でないものはどれか。",
+        ):
+            with self.subTest(prompt=prompt):
+                self.assertEqual(
+                    determine_question_intent(prompt),
+                    "select_incorrect",
+                )
 
     def test_extract_round_number_from_url_supports_hq_pages(self) -> None:
         self.assertEqual(

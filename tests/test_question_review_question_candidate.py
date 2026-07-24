@@ -14,6 +14,238 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_candidate_requires_every_selected_field(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "question_type": ["questionType", "isCalculationQuestion"]
+            },
+        }
+        targets = candidate_targets("q1", "question_type", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "問題形式だけを返した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_type",
+                                "setFields": [
+                                    {
+                                        "field": "questionType",
+                                        "valueJson": '"true_false"',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionBodyText": "正しい記述はどれか。",
+                "choiceTextList": ["記述A", "記述B"],
+                "isCalculationQuestion": False,
+            },
+        )
+
+        self.assertIn(
+            "選択された更新fieldの候補がありません: isCalculationQuestion。"
+            "各fieldを独立に確定できない場合は、この問題をblockedにしてください。",
+            errors,
+        )
+
+    def test_candidate_cannot_complete_an_independent_field_by_unsetting_it(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "15_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "question_intent": ["questionIntent"]
+            },
+        }
+        targets = candidate_targets("q1", "question_intent", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "設問意図を削除した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_intent",
+                                "setFields": [],
+                                "unsetFields": ["questionIntent"],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {"questionIntent": "select_correct"},
+        )
+
+        self.assertIn(
+            "選択された更新fieldの候補がありません: questionIntent。"
+            "各fieldを独立に確定できない場合は、この問題をblockedにしてください。",
+            errors,
+        )
+
+    def test_candidate_rejects_invalid_question_intent_value(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "15_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_intent", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "不正な値を返した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_intent",
+                                "setFields": [
+                                    {
+                                        "field": "questionIntent",
+                                        "valueJson": '"banana"',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        self.assertIn(
+            "questionIntentがselect_correct又はselect_incorrectではありません。",
+            validate_candidate_content(candidate, targets, {}),
+        )
+
+    def test_candidate_rejects_non_string_question_set_id(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "22_questionSetId_linked/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_set", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "不正な値を返した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_set",
+                                "setFields": [
+                                    {
+                                        "field": "questionSetId",
+                                        "valueJson": "[]",
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        self.assertIn(
+            "questionSetIdが非空stringではありません。",
+            validate_candidate_content(candidate, targets, {}),
+        )
+
+    def test_correct_choice_candidate_requires_confirmed_question_intent(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "23_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "correct_choice", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "選択肢を判定した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:correct_choice",
+                                "setFields": [
+                                    {
+                                        "field": "correctChoiceText",
+                                        "valueJson": '["正しい","間違い"]',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        self.assertIn(
+            "correctChoiceTextの照合に必要なquestionIntentが"
+            "select_correct又はselect_incorrectではありません。",
+            validate_candidate_content(
+                candidate,
+                targets,
+                {
+                    "questionType": "true_false",
+                    "choiceTextList": ["記述A", "記述B"],
+                },
+            ),
+        )
+
     def test_aggregate_review_contract_has_no_prose_fields(self):
         schema = aggregate_answer_review_schema(["q1"])
         item = schema["properties"]["questionReviews"]["items"]
@@ -519,7 +751,10 @@ class QuestionCandidateTest(unittest.TestCase):
         target = candidate_targets("q1", "question_intent", plan)[0]
 
         self.assertEqual(target.allowed_fields, ("questionIntent",))
-        self.assertNotIn("fieldRules", target.prompt_value())
+        self.assertEqual(
+            target.prompt_value()["fieldRules"]["questionIntent"]["allowedValues"],
+            ["select_correct", "select_incorrect"],
+        )
 
     def test_question_type_target_rejects_single_choice(self):
         plan = {
@@ -732,6 +967,63 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertEqual(errors, ())
 
+    def test_question_type_candidate_detects_ambiguous_group_choice_answer(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/custom/"
+                "10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_type", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "候補比較型と判定した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_type",
+                                "setFields": [
+                                    {
+                                        "field": "questionType",
+                                        "valueJson": '"group_choice"',
+                                    },
+                                    {
+                                        "field": "isCalculationQuestion",
+                                        "valueJson": "false",
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionIntent": "select_correct",
+                "choiceTextList": ["候補A", "候補B", "候補C"],
+                "correctChoiceText": ["正しい", "正しい", "間違い"],
+            },
+        )
+
+        self.assertTrue(
+            any(
+                "group_choiceは公開時に正答を1件だけ必要" in error
+                for error in errors
+            )
+        )
+
     def test_question_type_candidate_does_not_trust_unreviewed_answer_count(self):
         plan = {
             "allowedPatchFiles": [
@@ -777,6 +1069,107 @@ class QuestionCandidateTest(unittest.TestCase):
             {
                 "choiceTextList": ["候補A", "候補B", "候補C"],
                 "correctChoiceText": ["正しい", "正しい", "間違い"],
+            },
+        )
+
+        self.assertEqual(errors, ())
+
+    def test_correct_choice_candidate_reports_cross_field_mismatch(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/custom/23_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "correct_choice", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "各選択肢を根拠から精査した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:correct_choice",
+                                "setFields": [
+                                    {
+                                        "field": "correctChoiceText",
+                                        "valueJson": '["正しい","正しい","間違い"]',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "group_choice",
+                "questionIntent": "select_correct",
+                "choiceTextList": ["候補A", "候補B", "候補C"],
+                "correctChoiceText": ["間違い", "正しい", "間違い"],
+            },
+        )
+
+        self.assertTrue(
+            any(
+                "questionType、questionIntent、correctChoiceText" in error
+                for error in errors
+            )
+        )
+
+    def test_true_false_correct_choice_allows_multiple_true_statements(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/custom/23_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "correct_choice", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "各記述を独立して判定した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:correct_choice",
+                                "setFields": [
+                                    {
+                                        "field": "correctChoiceText",
+                                        "valueJson": '["正しい","正しい","間違い"]',
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "true_false",
+                "questionIntent": "select_correct",
+                "choiceTextList": ["記述A", "記述B", "記述C"],
+                "correctChoiceText": ["間違い", "間違い", "間違い"],
             },
         )
 
@@ -1227,6 +1620,7 @@ class QuestionCandidateTest(unittest.TestCase):
                 targets,
                 {
                     "questionType": "true_false",
+                    "questionIntent": "select_correct",
                     "choiceTextList": ["条文上の記述"],
                     "correctChoiceText": ["正しい"],
                 },

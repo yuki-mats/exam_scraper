@@ -58,6 +58,37 @@ class PrepareQualification0104ManualReviewTest(unittest.TestCase):
         self.assertNotIn("correctChoiceText", projected)
         self.assertNotIn("explanationText", projected)
 
+    def test_normal_question_type_patch_only_updates_owned_fields(self) -> None:
+        source = {
+            "original_question_id": "q1",
+            "questionBodyText": "現在の問題文",
+            "choiceTextList": ["現在の肢1", "現在の肢2"],
+            "sourceUniqueKeys": ["current:1", "current:2"],
+            "questionType": "group_choice",
+            "isCalculationQuestion": False,
+        }
+        patch = {
+            "original_question_id": "別ID",
+            "questionBodyText": "古い問題文",
+            "choiceTextList": ["古い肢1", "古い肢2"],
+            "sourceUniqueKeys": ["old:1", "old:2"],
+            "questionType": "true_false",
+            "isCalculationQuestion": True,
+        }
+        payload = {"question_bodies": [source]}
+
+        updated = apply_question_type(payload, {"q1": patch})
+
+        self.assertEqual(updated, 1)
+        self.assertEqual(
+            payload["question_bodies"][0],
+            {
+                **source,
+                "questionType": "true_false",
+                "isCalculationQuestion": True,
+            },
+        )
+
     def test_matching_aggregate_downstream_patch_remains_applicable(self) -> None:
         body = "組合せを選べ。\nA 原文一。\nB 原文二。"
         source = {

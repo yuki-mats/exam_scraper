@@ -16,6 +16,10 @@ from scripts.common.explanation_contract import (
 )
 from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
 from scripts.common.explanation_references import explanation_reference_errors
+from scripts.common.question_answer_contract import (
+    official_answer_alignment_issue,
+    question_level_answer_cardinality_issue,
+)
 from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
@@ -209,7 +213,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
     ),
     "question_type": frozenset({"questionType", "isCalculationQuestion"}),
     "question_intent": frozenset({"questionIntent"}),
-    "correct_choice": frozenset({"correctChoiceText", "answer_result_text"}),
+    "correct_choice": frozenset({"correctChoiceText"}),
     "law_context": frozenset(
         {
             "isLawRelated",
@@ -230,9 +234,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "lawRevisionFacts",
         }
     ),
-    "question_set": frozenset(
-        {"questionSetId", "questionSetIdList", "choiceQuestionSetIds"}
-    ),
+    "question_set": frozenset({"questionSetId"}),
     "law_audit": frozenset(
         {
             "auditStatus",
@@ -482,7 +484,16 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         },
         "isCalculationQuestion": {"type": "boolean"},
     },
+    "question_intent": {
+        "questionIntent": {
+            "type": "string",
+            "allowedValues": ["select_correct", "select_incorrect"],
+        },
+    },
     "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
+    "question_set": {
+        "questionSetId": {"type": "string", "minLength": 1},
+    },
     "law_context": _SHARED_LAW_FIELD_RULES,
     "explanation": {
         **_EXPLANATION_FIELD_RULES,
@@ -1003,11 +1014,13 @@ def validate_candidate_content(
     audit_payloads: list[Mapping[str, Any]] = []
     has_law_audit_target = any(target.role == "law_audit" for target in target_values)
     changed_fields: set[str] = set()
+    set_fields: set[str] = set()
     for update in candidate.updates:
         target = target_by_id[update.target_id]
         if target.role == "law_audit":
             audit_payloads.append(update.set_fields)
             continue
+        set_fields.update(str(field) for field in update.set_fields)
         changed_fields.update(str(field) for field in update.set_fields)
         changed_fields.update(update.unset_fields)
         logical.update(update.set_fields)
@@ -1015,6 +1028,20 @@ def validate_candidate_content(
             logical.pop(field, None)
 
     errors: list[str] = []
+    independently_required_fields = {
+        field
+        for target in target_values
+        if target.role
+        in {"question_type", "question_intent", "correct_choice", "question_set"}
+        for field in target.allowed_fields
+    }
+    missing_fields = independently_required_fields - set_fields
+    if missing_fields:
+        errors.append(
+            "選択された更新fieldの候補がありません: "
+            + ", ".join(sorted(missing_fields))
+            + "。各fieldを独立に確定できない場合は、この問題をblockedにしてください。"
+        )
     question_body = logical.get("questionBodyText")
     if "questionBodyText" in changed_fields and (
         not isinstance(question_body, str) or not question_body.strip()
@@ -1035,12 +1062,44 @@ def validate_candidate_content(
                 "公式問題はexamYearの有無にかかわらず、回答体験に応じて"
                 "true_false、flash_card、group_choiceのいずれかに分類してください。"
             )
-    if "correctChoiceText" in changed_fields and correct is not None and (
+    if "correctChoiceText" in changed_fields and (
         not isinstance(correct, list)
         or len(correct) != len(choices)
-        or any(value not in {"正しい", "間違い", "誤り"} for value in correct)
+        or any(value not in {"正しい", "間違い"} for value in correct)
     ):
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
+    cross_field_changed = bool(
+        {"questionType", "questionIntent", "correctChoiceText"} & changed_fields
+    )
+    correct_shape_valid = (
+        isinstance(correct, list)
+        and len(correct) == len(choices)
+        and all(
+            value in {"正しい", "間違い", "正解", "不正解", "誤り"}
+            for value in correct
+        )
+    )
+    intent_valid = logical.get("questionIntent") in {
+        "select_correct",
+        "select_incorrect",
+    }
+    if cross_field_changed and correct_shape_valid:
+        if "correctChoiceText" in changed_fields and not intent_valid:
+            errors.append(
+                "correctChoiceTextの照合に必要なquestionIntentが"
+                "select_correct又はselect_incorrectではありません。"
+            )
+        if intent_valid:
+            answer_contract_issue = question_level_answer_cardinality_issue(
+                logical.get("questionType"),
+                correct,
+                logical.get("questionIntent"),
+            )
+            if answer_contract_issue:
+                errors.append(answer_contract_issue)
+            official_answer_issue = official_answer_alignment_issue(logical)
+            if official_answer_issue:
+                errors.append(official_answer_issue)
     if any(target.role == "originalized" for target in target_values):
         try:
             validate_originalized_entry(projected_record, logical)
@@ -1074,6 +1133,17 @@ def validate_candidate_content(
         logical.get("isCalculationQuestion"), bool
     ):
         errors.append("isCalculationQuestionがbooleanではありません。")
+    if "questionIntent" in changed_fields and logical.get(
+        "questionIntent"
+    ) not in {"select_correct", "select_incorrect"}:
+        errors.append(
+            "questionIntentがselect_correct又はselect_incorrectではありません。"
+        )
+    if "questionSetId" in changed_fields and (
+        not isinstance(logical.get("questionSetId"), str)
+        or not logical["questionSetId"].strip()
+    ):
+        errors.append("questionSetIdが非空stringではありません。")
     if "isLawRelated" in changed_fields and not isinstance(
         logical.get("isLawRelated"), bool
     ):
@@ -1093,6 +1163,7 @@ def validate_candidate_content(
                 logical.get("questionType"),
                 correct,
                 len(choices),
+                logical.get("questionIntent"),
             ),
         )
         if suggestion_errors:

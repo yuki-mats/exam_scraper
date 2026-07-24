@@ -55,6 +55,7 @@ from scripts.common.explanation_contract import (
     public_explanation_text,
     uses_question_level_explanation,
 )
+from scripts.common.suggested_question_contract import public_choice_indexes
 
 
 SOURCE_SUBDIR = "00_source"
@@ -518,18 +519,46 @@ def detect_issues(
             ordered = _ordered_choice_docs(converted_docs, choices)
             aligned_correctness = _aligned_choice_values(correctness, choices)
             stale_fields: list[str] = []
+            question_type = projected.get("questionType")
+            question_level = question_type in {"flash_card", "group_choice"}
+            public_indexes = (
+                public_choice_indexes(
+                    question_type,
+                    aligned_correctness,
+                    len(choices),
+                    projected.get("questionIntent"),
+                )
+                if question_level
+                else set()
+            )
+            if question_level and len(public_indexes) != 1:
+                stale_fields.extend(["questionIntent", "correctChoiceText"])
             for index, doc in enumerate(ordered):
-                if (
-                    aligned_correctness is not None
+                expected_is_choice_only = doc.get("isChoiceOnly") is True
+                if question_level and len(public_indexes) == 1:
+                    expected_is_choice_only = index not in public_indexes
+                    expected_verdict = (
+                        "間違い" if expected_is_choice_only else "正しい"
+                    )
+                    if (
+                        normalize_verdict(doc.get("correctChoiceText"))
+                        != expected_verdict
+                    ):
+                        stale_fields.append(f"correctChoiceText[{index}]")
+                    if doc.get("isChoiceOnly") is not expected_is_choice_only:
+                        stale_fields.append(f"isChoiceOnly[{index}]")
+                elif (
+                    not question_level
+                    and aligned_correctness is not None
                     and normalize_verdict(doc.get("correctChoiceText"))
                     != normalize_verdict(aligned_correctness[index])
                 ):
                     stale_fields.append(f"correctChoiceText[{index}]")
                 expected_explanation = public_explanation_text(
                     explanations,
-                    question_type=projected.get("questionType"),
+                    question_type=question_type,
                     choice_index=index,
-                    is_choice_only=doc.get("isChoiceOnly") is True,
+                    is_choice_only=expected_is_choice_only,
                 )
                 if expected_explanation is None:
                     if "explanationText" in doc:

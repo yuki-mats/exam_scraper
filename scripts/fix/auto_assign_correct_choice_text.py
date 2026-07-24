@@ -249,7 +249,10 @@ def collect_target_files(group_dir: Path) -> list[Path]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="answer_result_text と questionIntent から merged JSON の correctChoiceText を自動割当する",
+        description=(
+            "legacy移行用: answer_result_text と questionIntent から"
+            "02aレビュー下書きを生成する（通常のMerge・公開準備では使わない）"
+        ),
     )
     parser.add_argument("list_group_id", type=str, help="list_group_id")
     parser.add_argument(

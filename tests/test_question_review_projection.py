@@ -165,7 +165,7 @@ class QuestionReviewProjectionTests(unittest.TestCase):
             Path("23.json"),
             {
                 "original_question_id": "q1",
-                "questionIntent": "select_incorrect",
+                "correctChoiceText": ["正しい", "間違い"],
                 "answer_result_text": "正解は 1 です。",
             },
         )
@@ -211,7 +211,7 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         )
         self.assertEqual(projected.errors, ())
 
-    def test_record_projection_normalizes_without_patch_files(self):
+    def test_record_projection_does_not_classify_without_patch_files(self):
         projected = project_merge_record(
             {
                 "original_question_id": "q1",
@@ -221,8 +221,99 @@ class QuestionReviewProjectionTests(unittest.TestCase):
             }
         )
 
-        self.assertEqual(projected.merged2["questionType"], "group_choice")
+        self.assertIsNone(projected.merged2["questionType"])
         self.assertEqual(projected.merged2["examYear"], 2013)
+
+    def test_record_projection_does_not_generate_answer_fields(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "questionType": "true_false",
+                "questionBodyText": "正しいものを選べ。",
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": [None, None],
+                "answer_result_text": "正解は 2 です。",
+            },
+            intent_fallback=(
+                PatchEntry(
+                    Path("15.json"),
+                    {
+                        "original_question_id": "q1",
+                        "questionIntent": "select_correct",
+                    },
+                ),
+            ),
+        )
+
+        self.assertEqual(projected.merged2["questionIntent"], "select_correct")
+        self.assertEqual(projected.merged2["correctChoiceText"], [None, None])
+
+    def test_record_projection_keeps_explicit_legacy_answer_patch_until_23_exists(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "questionBodyText": "正しいものを選べ。",
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["正しい", "間違い"],
+                "answer_result_text": "正解は 1 です。",
+            },
+            intent_fallback=(
+                PatchEntry(
+                    Path("15.json"),
+                    {
+                        "original_question_id": "q1",
+                        "questionIntent": "select_correct",
+                        "correctChoiceText": ["間違い", "正しい"],
+                        "answer_result_text": "正解は 2 です。",
+                    },
+                ),
+            ),
+        )
+
+        self.assertEqual(projected.merged2["questionIntent"], "select_correct")
+        self.assertEqual(
+            projected.merged2["correctChoiceText"],
+            ["間違い", "正しい"],
+        )
+        self.assertEqual(projected.merged2["answer_result_text"], "正解は 2 です。")
+
+    def test_question_type_patch_preserves_legacy_content_and_identity_metadata(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "questionBodyText": "元の本文",
+                "choiceTextList": ["A", "B"],
+            },
+            question_type=(
+                PatchEntry(
+                    Path("10.json"),
+                    {
+                        "original_question_id": "q1",
+                        "questionType": "true_false",
+                        "isCalculationQuestion": False,
+                        "questionBodyText": "10 patch内の旧本文",
+                        "firestoreQuestionIds": ["existing-a", "existing-b"],
+                        "firestoreSourceQuestions": [
+                            {"questionId": "existing-a"},
+                            {"questionId": "existing-b"},
+                        ],
+                    },
+                ),
+            ),
+        )
+
+        self.assertEqual(projected.merged2["questionBodyText"], "10 patch内の旧本文")
+        self.assertEqual(
+            projected.merged2["firestoreQuestionIds"],
+            ["existing-a", "existing-b"],
+        )
+        self.assertEqual(
+            projected.merged2["firestoreSourceQuestions"],
+            [
+                {"questionId": "existing-a"},
+                {"questionId": "existing-b"},
+            ],
+        )
 
     def test_record_projection_backfills_snapshot_exam_label_without_mutating_source(self):
         source = {

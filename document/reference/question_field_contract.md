@@ -35,8 +35,9 @@
    - 可能なら optional field は未定義にする。
    - 明示的に `null` を許すのは、既存互換または rules / schema が許容している場合に限る。
    - 空文字を「未確認」の代わりに使う場合は、upload script が既定値として作る field に限る。人間の判断結果としては未確認 reason を sidecar に残す。
-5. `correctChoiceText` は出題当時のソース、`questionIntent`、現行法監査結果の関係を崩さない。
-   - AI が目視だけで `correctChoiceText` を推測してはいけない。
+5. `questionType`、`questionIntent`、`correctChoiceText`は、それぞれの責務に合う内容と根拠から独立に確定する。
+   - 現在値、他field又は期待する正答数を正本にして、一方から他方を逆算しない。
+   - 全fieldの確定後に機械検証で整合性を確認し、矛盾時は停止して再確認へ送る。検証が正しいfieldを決めたり、一方へ自動補正したりしない。
    - 法令問題で現行法ベースへ更新する場合は、出題当時の正答・現行法根拠・更新済み注記を `lawRevisionFacts` / `explanationText` / `lawReferences` / review sidecar に残す。補足質問は後述の追加価値がある場合だけ保存する。
 6. 資格固有ルールは field の意味を変えない。
    - 資格ごとに変えてよいのは、法令スコープ、カテゴリ粒度、出題形式の傾向、解説方針。
@@ -48,23 +49,45 @@
    - 問題ごとの工程版履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`で管理する。
    - 版の意味と公開条件は[問題整備システム](../operations/local_question_review_console.md#作業バージョン)を正本とする。
 
+## 01〜02aの責務と検証順
+
+問題整備システムは、`00_source`へ確定済みpatchを物理Mergeと同じ順で重ねた一問ごとの`logicalProjection`を各工程へ渡します。01〜02aは、後続結果を含むmerged artifactを自工程の入力にしません。
+
+| 工程 | 独立に確定する内容 | 所有しない内容 |
+| --- | --- | --- |
+| 01 | 回答操作に基づく`questionType`と、解答過程に基づく`isCalculationQuestion`。この2fieldも互いから派生させない。 | 通常は問題文、選択肢、設問方向、正答。集約回答型だけは、二つの独立レビューが完全一致したcandidate IDをserverが原文spanへ解決して選択肢を投影する。 |
+| 02 | 設問が正しい側と誤っている側のどちらを選ばせるかを表す`questionIntent`。 | 各選択肢の正誤、問題形式。 |
+| 02a | 問題文と各選択肢を結合した命題を根拠に照らした`correctChoiceText`。各選択肢を独立に判定する。 | 設問方向、問題形式、問題文、選択肢。 |
+
+各工程で根拠が足りない問題は、現在値を維持して成功扱いにせず`hold`へ送ります。serverは工程ごとにsource identity、ID、件数、型、許可値を検証してpatchを確定します。01〜02aの確定後にcross-field検証を行い、`questionType`、`questionIntent`、`correctChoiceText`又は公式解答が矛盾すれば後続処理を停止します。機械検証は不整合の検出だけを担い、どのfieldを変更するかは決めません。
+
 ## 工程別の必須項目
 
 | 工程 | 対象 | 必須/準必須 | 目的 |
 | --- | --- | --- | --- |
 | `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
-| `10_questionType_fixed` | patch | `questionType`, `isCalculationQuestion`。集約回答型レビュー時は`aggregateAnswerDecomposition`、対象確定時はツール生成の`choiceTextList`, `sourceUniqueKeys` | 回答体験と計算問題分類を別々に確定する。集約回答型は二者一致したcandidate IDをserverが原文spanへ解決して記述単位へ投影する。 |
-| `15_correctChoiceText_fixed` | patch | `questionIntent` | 設問が正しいもの・誤っているもののどちらを選ばせるかだけを確定し、正答は変更しない。 |
-| `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText`。必要時のみ`answer_result_text`補正 | 02aで問題文・全選択肢・公式解答を一問ずつ照合し、03の前提となる正誤を確定する。中間配列も新規更新時は`正しい` / `間違い`へ正規化する。 |
+| `10_questionType_fixed` | patch | 新規更新は`questionType`, `isCalculationQuestion`。集約回答型レビュー時は`aggregateAnswerDecomposition`、対象確定時はツール生成の`choiceTextList`, `sourceUniqueKeys` | 回答操作と計算の要否を独立に確定する。通常は本文・選択肢を所有しない。legacy 10内の本文・選択肢・source key・Firestore ID対応は適切な層へ移行するまで読取互換として維持する。集約回答型だけ二者一致したcandidate IDをserverが原文spanへ解決する。 |
+| `15_correctChoiceText_fixed` | patch | 新規更新は`questionIntent`だけ | 設問が正しい側・誤っている側のどちらを選ばせるかだけを確定する。legacy 15内の明示済み`correctChoiceText`と`answer_result_text`は、23へ移行するまで読取互換として維持し、23があれば23を優先する。 |
+| `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文と各選択肢を結合した命題を根拠に照らし、全選択肢を独立に判定する。`answer_result_text`はread-onlyの公式解答として照合し、不一致時はどちらも自動変更せず再確認へ送る。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
 | `21_explanationText_added` | patch | `explanationText`, `suggestedQuestionDetailsByChoice`, `original_question_id`。元データにURLがある場合は`question_url`も必須 | 解説と選択肢別の想定質問・回答を事前データとして持ち、画面表示時に AI を自動起動しない。 |
 | `21_explanationText_added` | 法令判定の最終反映 | `isLawRelated`, `lawGroundedExplanationNotNeeded` | 02bの判定を引き継ぎ、解説文作成中に矛盾を見つけた場合だけ修正する。 |
-| `22_questionSetId_linked` | patch | `questionSetId` | アプリ内カテゴリ/問題集へ紐付ける。 |
+| `22_questionSetId_linked` | patch | 通常の04では`questionSetId`。既存互換として`choiceQuestionSetIds`を保持できる。 | 問題全体の主な復習先をアプリ内カテゴリ/問題集へ紐付ける。肢別分類とは別に確定する。 |
 | `40_convert` | `questions[]` | `questionId`, `questionSetId`, `questionText`, `questionType`, `qualificationId`, `questionTags`, `isOfficial`, `isDeleted`, `isChoiceOnly`, `isGroupable`, `originalQuestionBodyText`, `correctChoiceText`, `examSource`。`examYear`は公式過去問だけ必須 | upload 直前の Firestore 相当データ。 |
 | upload | Firestore doc | `createdById`, `updatedById`, `createdAt`, `updatedAt` | upload script が付与する監査フィールド。人手で中間 JSON に書かない。 |
+
+### 04の分類field
+
+| field | 意味 | 通常の04での責務 |
+| --- | --- | --- |
+| `questionSetId` | 問題全体の主な復習先を表す一つのID。 | 選択scopeの全問を、問題文、全選択肢、`category.json`、資格別正本から再判定する。 |
+| `questionSetIdList` | Firestore由来の複数設問を一問へ束ねた際に、取得時点の`questionSetId`を重複なく保持する出典情報。 | 判定結果として生成又は同期しない。問題全体の分類候補として扱わない。 |
+| `choiceQuestionSetIds` | `choiceTextList`と同じ順序・件数で保持する、Firestore上の設問へ分割される各選択肢の復習先。 | 通常の問題全体レビューでは生成又は上書きしない。見直す場合は各選択肢を分類正本に照らす肢別の再分類として扱う。 |
+
+3 fieldは役割が異なるため、一方から他方を自動生成しない。判断対象を内容と分類正本から確定した後、型、配列長、`category.json`へのID所属を機械検証する。
 
 ## `questions` フィールド契約
 
@@ -158,7 +181,7 @@
 
 公式問題には、公式過去問と暗記プラス運営が整備する独自問題を含みます。`isOfficial=true`である公式問題は`examYear`の有無にかかわらず、`true_false`、`flash_card`、`group_choice`の3形式だけを使います。各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。複数の独立した選択肢を正答として選ぶ問題は、各選択肢を個別に判定する`true_false`です。`group_choice`は複数選択形式ではありません。
 
-`questionType`は問題形式工程、`correctChoiceText`は正答精査工程で、それぞれ内容に基づいて独立に確定します。未精査の正答数だけを根拠に`questionType`を変更しません。両工程の完了後、`flash_card`又は`group_choice`なのに正答が1件でない場合は公開変換を停止し、どちらかを自動修正せず、問題形式と正答を再確認します。
+`questionType`は回答操作、`questionIntent`は設問が求める正誤方向、`correctChoiceText`は各選択肢そのものの正誤を表します。3fieldはそれぞれ内容に基づいて独立に確定し、未精査の値や期待する正答数から逆算しません。全工程の完了後、`flash_card`又は`group_choice`なのに正答が1件でないなどの不整合があれば公開変換を停止し、どのfieldも自動修正せず再確認します。
 
 `single_choice`と`fill_in_blank`を新たに利用できるのは、ユーザーがアプリで作成する`isOfficial=false`の問題だけです。`examYear`は出典年度であり、公式問題かユーザー作成問題かの判定には使いません。既存データの読取互換は保ちますが、公式問題の新規整備又は洗い替えでこの2形式を候補にしません。
 

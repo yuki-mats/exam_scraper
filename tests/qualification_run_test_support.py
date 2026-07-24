@@ -20,7 +20,9 @@ from tools.question_review_console.qualification_runs import (
     QualificationRunStore,
     _maintenance_session_phases,
 )
-from tools.question_review_console.qualification_workflow import QualificationWorkflow
+from tools.question_review_console.qualification_workflow import (
+    QualificationWorkflow as _QualificationWorkflow,
+)
 from tests.support.law_audit import valid_v2_audit_row
 
 
@@ -389,14 +391,14 @@ class FlowAppServer:
                 turn_id=turn_id,
                 final_message=json.dumps(
                     {
-                        "schemaVersion": "aggregate-answer-review-batch/v1",
+                        "schemaVersion": "aggregate-answer-review-batch/v2",
                         "questionReviews": [
                             {
                                 "questionId": str(question["questionId"]),
-                                "schemaVersion": "aggregate-answer-review/v1",
+                                "schemaVersion": "aggregate-answer-review/v2",
                                 "sourceHash": question["sourceHash"],
                                 "classification": "non_target",
-                                "spans": [],
+                                "candidateId": None,
                                 "decision": "approve",
                                 "issueCodes": [],
                             }
@@ -405,8 +407,9 @@ class FlowAppServer:
                     },
                     ensure_ascii=False,
                 ),
-                model="gpt-test",
+                model=kwargs.get("model", "gpt-test"),
                 service_tier=None,
+                reasoning_effort=kwargs.get("reasoning_effort", "high"),
             )
         self.calls.append((prompt, kwargs))
         if self.events is not None:
@@ -446,15 +449,19 @@ class FlowAppServer:
                                 "questionId": str(question["questionId"]),
                                 "status": "candidate",
                                 "summary": f"phase {number} candidate",
-                                "updates": [],
+                                "updates": PerQuestionQueueAppServer._candidate_update(
+                                    question,
+                                    stage_id,
+                                ),
                             }
                             for question in candidate_questions
                         ],
                     },
                     ensure_ascii=False,
                 ),
-                model="gpt-test",
+                model=kwargs.get("model", "gpt-test"),
                 service_tier=None,
+                reasoning_effort=kwargs.get("reasoning_effort", "high"),
             )
         _write_completed_progress(prompt)
         changed_files = list(
@@ -560,18 +567,83 @@ class PerQuestionQueueAppServer:
         targets = list(question.get("candidateTargets") or [])
         if not targets:
             return []
-        target = next(
-            (
+        selected_targets = (
+            [
                 value
                 for value in targets
-                if str(value.get("role") or "") == stage_id
-            ),
-            targets[0],
+                if str(value.get("role") or "")
+                in {
+                    "law_context",
+                    "explanation",
+                    "correct_choice",
+                    "law_audit",
+                }
+            ]
+            if stage_id == "law_audit"
+            else [
+                next(
+                    (
+                        value
+                        for value in targets
+                        if str(value.get("role") or "") == stage_id
+                    ),
+                    targets[0],
+                )
+            ]
         )
-        role = str(target.get("role") or "")
         current = question.get("currentRecord") or {}
         choices = list(current.get("choiceTextList") or [])
-        fields = {
+        correct = list(
+            current.get("correctChoiceText") or ["正しい"] * len(choices)
+        )
+        law_references = current.get("lawReferences")
+        if not (
+            isinstance(law_references, list)
+            and len(law_references) == len(choices)
+            and all(isinstance(value, list) for value in law_references)
+        ):
+            law_references = [
+                [
+                    {
+                        "role": "current_basis",
+                        "scope": "choice",
+                        "choiceIndex": index,
+                        "lawId": "329AC0000000051",
+                        "lawTitle": "ガス事業法",
+                        "referenceDate": "2026-07-24",
+                        "article": "第2条",
+                        "verificationStatus": "verified",
+                        "source": "https://elaws.e-gov.go.jp/document?lawid=329AC0000000051",
+                    }
+                ]
+                for index in range(len(choices))
+            ]
+        law_revision_facts = current.get("lawRevisionFacts")
+        if not (
+            isinstance(law_revision_facts, list)
+            and len(law_revision_facts) == len(choices)
+            and all(
+                isinstance(value, dict)
+                and isinstance(value.get("current"), dict)
+                and isinstance(value.get("examTime"), dict)
+                and isinstance(value.get("evidenceSummary"), dict)
+                for value in law_revision_facts
+            )
+        ):
+            law_revision_facts = [
+                {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "secondary_verified",
+                    "current": {"correctChoiceText": value},
+                    "examTime": {"correctChoiceText": value},
+                    "evidenceSummary": {
+                        "verdict": "correct",
+                        "summary": "一次情報と照合した。",
+                    },
+                }
+                for value in correct
+            ]
+        fields_by_role = {
             "originalized": {"questionBodyText": current.get("questionBodyText", "")},
             "question_type": {
                 "questionType": "true_false",
@@ -582,41 +654,94 @@ class PerQuestionQueueAppServer:
                 ),
             },
             "question_intent": {"questionIntent": "select_correct"},
-            "correct_choice": {
-                "correctChoiceText": list(current.get("correctChoiceText") or ["正しい"] * len(choices))
+            "correct_choice": {"correctChoiceText": correct},
+            "law_context": {
+                "isLawRelated": bool(current.get("isLawRelated", False)),
+                "lawGroundedExplanationNotNeeded": bool(
+                    current.get("lawGroundedExplanationNotNeeded", False)
+                ),
+                "lawReferences": law_references,
+                "lawContextForExplanation": "ガス事業法第2条の定義を確認した。",
             },
-            "law_context": {"isLawRelated": bool(current.get("isLawRelated", False))},
             "explanation": {
                 "explanationText": list(
                     current.get("explanationText")
                     or ["正しい。理由を確認した。"] * len(choices)
-                )
+                ),
+                "suggestedQuestionDetailsByChoice": list(
+                    current.get("suggestedQuestionDetailsByChoice") or []
+                ),
+                "isLawRelated": bool(current.get("isLawRelated", False)),
+                "lawGroundedExplanationNotNeeded": bool(
+                    current.get("lawGroundedExplanationNotNeeded", False)
+                ),
+                "lawReferences": law_references,
+                "lawContextForExplanation": "ガス事業法第2条の定義を確認した。",
+                "lawRevisionFacts": law_revision_facts,
             },
             "question_set": {"questionSetId": "test-question-set"},
             "law_audit": {
                 "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "sourceSummary": "sourceと一次情報を照合した。",
+                "verificationSummary": "二次監査で一致を確認した。",
+                "reconciliationStatus": "matched",
+                "primaryAuditRunId": "primary-run-1",
+                "secondaryAuditRunId": "secondary-run-1",
+                "tertiaryAuditRunId": None,
+                "auditInputHash": "sha256:" + "a" * 64,
+                "evidenceBindingHash": "sha256:" + "b" * 64,
+                "lawRevisionFacts": law_revision_facts,
+                "lawReferences": law_references,
+                "isLawRelated": bool(current.get("isLawRelated", False)),
+                "lawGroundedExplanationNotNeeded": bool(
+                    current.get("lawGroundedExplanationNotNeeded", False)
+                ),
+                "lawContextForExplanation": "ガス事業法第2条の定義を確認した。",
+                "correctChoiceText": correct,
+                "answer_result_text": current.get(
+                    "answer_result_text",
+                    "正解は 1 です。",
+                ),
+                "explanationText": list(
+                    current.get("explanationText")
+                    or ["正しい。理由を確認した。"] * len(choices)
+                ),
                 "suggestedQuestionDetailsByChoice": list(
                     current.get("suggestedQuestionDetailsByChoice") or []
                 ),
+                "evidenceSummary": {
+                    "verdict": "correct",
+                    "summary": "一次情報と照合した。",
+                },
+                "examTimeDecision": correct,
+                "currentLawDecision": correct,
             },
-        }.get(role, {})
-        allowed_fields = set(target.get("allowedFields") or fields)
-        fields = {
-            field: value for field, value in fields.items() if field in allowed_fields
         }
-        return [
-            {
-                "targetId": target["targetId"],
-                "setFields": [
-                    {
-                        "field": field,
-                        "valueJson": json.dumps(value, ensure_ascii=False),
-                    }
-                    for field, value in fields.items()
-                ],
-                "unsetFields": [],
+        updates = []
+        for target in selected_targets:
+            role = str(target.get("role") or "")
+            fields = fields_by_role.get(role, {})
+            allowed_fields = set(target.get("allowedFields") or fields)
+            fields = {
+                field: value
+                for field, value in fields.items()
+                if field in allowed_fields
             }
-        ]
+            updates.append(
+                {
+                    "targetId": target["targetId"],
+                    "setFields": [
+                        {
+                            "field": field,
+                            "valueJson": json.dumps(value, ensure_ascii=False),
+                        }
+                        for field, value in fields.items()
+                    ],
+                    "unsetFields": [],
+                }
+            )
+        return updates
 
     def run_turn(self, prompt, **kwargs):
         question_ids = self._question_ids(prompt)
@@ -641,7 +766,6 @@ class PerQuestionQueueAppServer:
             question_reviews = []
             for question in self._candidate_questions(prompt):
                 value = str(question["questionId"])
-                source_text = str(question["questionBodyText"])
                 override = self.aggregate_review_overrides.get(
                     (value, review_number),
                     self.aggregate_review_overrides.get(value),
@@ -651,24 +775,26 @@ class PerQuestionQueueAppServer:
                     review.get("classification") or "non_target"
                 )
                 decision = str(review.get("decision") or "approve")
-                spans = review.get("spans")
-                if spans is None:
-                    midpoint = max(1, len(source_text) // 2)
-                    spans = (
-                        [
-                            {"start": 0, "end": midpoint},
-                            {"start": midpoint, "end": len(source_text)},
-                        ]
-                        if classification == "target"
-                        else []
-                    )
                 question_reviews.append(
                     {
                         "questionId": value,
-                        "schemaVersion": "aggregate-answer-review/v1",
+                        "schemaVersion": "aggregate-answer-review/v2",
                         "sourceHash": question["sourceHash"],
                         "classification": classification,
-                        "spans": spans,
+                        "candidateId": (
+                            next(
+                                (
+                                    str(candidate["candidateId"])
+                                    for candidate in question.get("candidateSets")
+                                    or []
+                                    if candidate.get("candidateId")
+                                ),
+                                None,
+                            )
+                            if classification == "target"
+                            and decision == "approve"
+                            else None
+                        ),
                         "decision": decision,
                         "issueCodes": list(review.get("issueCodes") or []),
                     }
@@ -679,7 +805,7 @@ class PerQuestionQueueAppServer:
                 turn_id=f"turn-queue-{call_number}",
                 final_message=json.dumps(
                     {
-                        "schemaVersion": "aggregate-answer-review-batch/v1",
+                        "schemaVersion": "aggregate-answer-review-batch/v2",
                         "questionReviews": question_reviews,
                     },
                     ensure_ascii=False,
@@ -740,11 +866,7 @@ class PerQuestionQueueAppServer:
                             "updates": (
                                 []
                                 if failed
-                                else (
-                                    self._candidate_update(question, stage_id)
-                                    if changed_by_question[value]
-                                    else []
-                                )
+                                else self._candidate_update(question, stage_id)
                             ),
                         }
                     )
@@ -868,7 +990,18 @@ class SourceOnlyInventory:
                     "originalQuestionId": original_id,
                     "sourceQuestionKey": f"new-exam:{list_group_id}:q1",
                     "sourceRecordRef": f"question_{list_group_id}_1.json#0",
-                    "source": {"originalQuestionId": original_id},
+                    "source": {
+                        "qualification": "new-exam",
+                        "listGroupId": list_group_id,
+                        "originalQuestionId": original_id,
+                        "original_question_id": original_id,
+                        "reviewQuestionId": original_id,
+                        "sourceQuestionKey": f"new-exam:{list_group_id}:q1",
+                        "sourceRecordRef": f"question_{list_group_id}_1.json#0",
+                        "questionBodyText": "次の記述は正しいか。",
+                        "choiceTextList": ["テスト対象の記述"],
+                        "answer_result_text": "正解は 1 です。",
+                    },
                     "paths": {
                         "source": (
                             f"output/new-exam/questions_json/{list_group_id}/"
@@ -880,8 +1013,17 @@ class SourceOnlyInventory:
                     "issueCodes": [],
                     "isLawRelated": False,
                     "projected": {
+                        "qualification": "new-exam",
+                        "listGroupId": list_group_id,
                         "originalQuestionId": original_id,
                         "isLawRelated": False,
+                        "questionBodyText": "次の記述は正しいか。",
+                        "choiceTextList": ["テスト対象の記述"],
+                        "questionType": "true_false",
+                        "isCalculationQuestion": False,
+                        "questionIntent": "select_correct",
+                        "correctChoiceText": ["正しい"],
+                        "answer_result_text": "正解は 1 です。",
                         "suggestedQuestionDetailsByChoice": [],
                     },
                     "workflow": {
@@ -904,6 +1046,72 @@ class SourceOnlyInventory:
             applied_files=tuple(question.get("paths", {}).get("patches") or []),
             errors=(),
         )
+
+    def materialize_sources(self, repo_root):
+        records_by_path = {}
+        for qualification in self.inventory()["qualifications"]:
+            qualification_id = str(qualification["id"])
+            for list_group_id in qualification.get("listGroupIds") or []:
+                group = self.group(qualification_id, str(list_group_id))
+                for question in group.get("questions") or []:
+                    path = repo_root / str(question["paths"]["source"])
+                    source_name, raw_index = str(
+                        question["sourceRecordRef"]
+                    ).rsplit("#", 1)
+                    if path.name != source_name:
+                        continue
+                    records = records_by_path.setdefault(path, [])
+                    source_index = int(raw_index)
+                    while len(records) <= source_index:
+                        records.append({})
+                    records[source_index] = copy.deepcopy(question["source"])
+        for path, records in records_by_path.items():
+            if path.is_file():
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                existing_records = (
+                    payload.get("question_bodies")
+                    if isinstance(payload, dict)
+                    and isinstance(payload.get("question_bodies"), list)
+                    else [payload]
+                    if isinstance(payload, dict)
+                    else None
+                )
+                if existing_records is None:
+                    continue
+                changed = False
+                for index, source in enumerate(records):
+                    if index >= len(existing_records):
+                        continue
+                    existing = existing_records[index]
+                    if (
+                        not isinstance(existing, dict)
+                        or existing.get("originalQuestionId")
+                        != source.get("originalQuestionId")
+                    ):
+                        continue
+                    for field in (
+                        "original_question_id",
+                        "reviewQuestionId",
+                        "sourceQuestionKey",
+                        "sourceRecordRef",
+                    ):
+                        if field not in existing and field in source:
+                            existing[field] = copy.deepcopy(source[field])
+                            changed = True
+                if changed:
+                    path.write_text(
+                        json.dumps(payload, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                continue
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
+                json.dumps(
+                    {"question_bodies": records},
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
 
 
 class MultiGroupSourceInventory(SourceOnlyInventory):
@@ -931,10 +1139,17 @@ class TwoQuestionSourceInventory(SourceOnlyInventory):
             sourceQuestionKey=f"new-exam:{list_group_id}:q2",
             sourceRecordRef=f"question_{list_group_id}_2.json#0",
         )
-        second["source"] = {"originalQuestionId": second_id}
-        second["projected"] = {
+        second["source"] = {
+            **second["source"],
             "originalQuestionId": second_id,
-            "suggestedQuestionDetailsByChoice": [],
+            "original_question_id": second_id,
+            "reviewQuestionId": second_id,
+            "sourceQuestionKey": f"new-exam:{list_group_id}:q2",
+            "sourceRecordRef": f"question_{list_group_id}_2.json#0",
+        }
+        second["projected"] = {
+            **second["projected"],
+            "originalQuestionId": second_id,
         }
         second["paths"] = {
             **second["paths"],
@@ -968,10 +1183,21 @@ class CountedSourceInventory(SourceOnlyInventory):
                 sourceQuestionKey=f"new-exam:{list_group_id}:q{number}",
                 sourceRecordRef=f"question_{list_group_id}_{number}.json#0",
             )
-            question["source"] = {"originalQuestionId": question_id}
-            question["projected"] = {
+            question["source"] = {
+                **question["source"],
                 "originalQuestionId": question_id,
-                "suggestedQuestionDetailsByChoice": [],
+                "original_question_id": question_id,
+                "reviewQuestionId": question_id,
+                "sourceQuestionKey": (
+                    f"new-exam:{list_group_id}:q{number}"
+                ),
+                "sourceRecordRef": (
+                    f"question_{list_group_id}_{number}.json#0"
+                ),
+            }
+            question["projected"] = {
+                **question["projected"],
+                "originalQuestionId": question_id,
             }
             question["paths"] = {
                 **question["paths"],
@@ -1052,6 +1278,22 @@ class LawSourceInventory(SourceOnlyInventory):
                 }
             ],
         }
+        audit_sidecar = (
+            Path(self._fixture_repo_root)
+            / "output"
+            / "new-exam"
+            / "review"
+            / "law_revision_audit"
+            / f"{list_group_id}_law_revision_audit.jsonl"
+            if hasattr(self, "_fixture_repo_root")
+            else None
+        )
+        if (
+            hasattr(self, "law_related")
+            and (audit_sidecar is None or not audit_sidecar.is_file())
+        ):
+            # A fixture that has just become law-related has not completed 03b yet.
+            question["projected"].pop("lawRevisionFacts", None)
         return group
 
 
@@ -1074,6 +1316,17 @@ class UnverifiedLawSourceInventory(LawSourceInventory):
         reference.pop("lawId")
         reference.pop("verificationStatus")
         return group
+
+
+class QualificationWorkflow(_QualificationWorkflow):
+    """Build the immutable source snapshot used by flow-level fixtures."""
+
+    def __init__(self, repo_root, inventory, **kwargs):
+        inventory._fixture_repo_root = Path(repo_root)
+        materialize = getattr(inventory, "materialize_sources", None)
+        if callable(materialize):
+            materialize(Path(repo_root))
+        super().__init__(repo_root, inventory, **kwargs)
 
 
 class QualificationRunTestSupport(unittest.TestCase):
