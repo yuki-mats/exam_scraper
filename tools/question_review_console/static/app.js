@@ -6,6 +6,8 @@ const QUALIFICATION_PREVIEW_TIMEOUT_MS = 120000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
 const AUTO_QUESTION_CONCURRENCY = 1;
+const QUESTION_LIST_CACHE_VERSION = 1;
+const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -187,8 +189,10 @@ const state = {
   lastSharedRunPollAt: 0,
   auditView: {
     open: false,
-    loadedQualification: "",
+    loadedScopeKey: "",
     loading: false,
+    loadingScopeKey: "",
+    loadPromise: null,
     readOnly: true,
     page: "list",
   },
@@ -342,14 +346,14 @@ async function refreshDashboard() {
     const results = await Promise.allSettled([
       loadQualificationWorkflow(true),
       loadQualificationRuns(),
-      auditOpen ? loadQuestions(true) : Promise.resolve(true),
+      auditOpen
+        ? ensureAuditViewQuestions(true, { refresh: true })
+        : Promise.resolve(true),
     ]);
     const [workflowLoaded, runsLoaded, questionsLoaded] = results.map(
       (result) => result.status === "fulfilled" && result.value !== false,
     );
-    if (auditOpen && questionsLoaded) {
-      state.auditView.loadedQualification = state.qualification;
-    } else if (!auditOpen) {
+    if (!auditOpen) {
       invalidateAuditView();
     }
     if (workflowLoaded && runsLoaded && questionsLoaded) {
@@ -367,6 +371,68 @@ async function refreshDashboard() {
 
 function auditViewIsOpen() {
   return state.auditView.open && !$("#audit-view").hidden;
+}
+
+function auditScopeKey() {
+  return `${state.qualification}:${state.listGroupId}`;
+}
+
+function questionListCacheKey() {
+  return `question-review-list:v${QUESTION_LIST_CACHE_VERSION}:${auditScopeKey()}`;
+}
+
+function defaultQuestionListIsSelected() {
+  return !state.exceptionsOnly
+    && !$("#search-input").value.trim()
+    && !$("#source-answer-difference").checked
+    && !$("#question-body-choices-only").checked
+    && !$("#calculation-only").checked
+    && !$("#law-only").checked;
+}
+
+function cacheQuestionList(payload) {
+  if (!defaultQuestionListIsSelected()) return;
+  try {
+    localStorage.setItem(questionListCacheKey(), JSON.stringify({
+      version: QUESTION_LIST_CACHE_VERSION,
+      savedAt: Date.now(),
+      questions: payload.questions || [],
+      filteredCount: payload.filteredCount,
+      filteredCountLowerBound: payload.filteredCountLowerBound,
+      hasMore: payload.hasMore === true,
+    }));
+  } catch (_) {
+    // Browser storage is an optional display optimization.
+  }
+}
+
+function restoreCachedQuestionList() {
+  if (state.questions.length || !defaultQuestionListIsSelected()) return false;
+  try {
+    const cached = JSON.parse(localStorage.getItem(questionListCacheKey()) || "null");
+    if (
+      !cached
+      || cached.version !== QUESTION_LIST_CACHE_VERSION
+      || Date.now() - Number(cached.savedAt || 0) > QUESTION_LIST_CACHE_MAX_AGE_MS
+      || !Array.isArray(cached.questions)
+    ) {
+      return false;
+    }
+    state.questions = cached.questions;
+    state.questionPage.filteredCount = cached.filteredCount
+      ?? cached.filteredCountLowerBound
+      ?? cached.questions.length;
+    state.questionPage.hasMore = cached.hasMore === true;
+    renderQueue();
+    $("#queue-pagination").hidden = !state.questionPage.hasMore;
+    setLoading(
+      `前回表示 ${cached.questions.length}問 / 最新状態を更新しています`,
+      true,
+    );
+    return true;
+  } catch (_) {
+    return false;
+  }
 }
 
 function setAuditViewPage(page) {
@@ -398,7 +464,9 @@ function invalidateAuditView() {
   state.questionListRequestSequence += 1;
   state.questionStats = null;
   state.detailCache.clear();
-  state.auditView.loadedQualification = "";
+  state.auditView.loadedScopeKey = "";
+  state.auditView.loadingScopeKey = "";
+  state.auditView.loadPromise = null;
   state.questions = [];
   state.selectedId = "";
   state.detail = null;
@@ -415,20 +483,8 @@ function invalidateAuditView() {
   setLoading("状況確認を開くと読み込みます");
 }
 
-async function openAuditView(listGroupId = "") {
-  const qualification = state.qualification;
-  if (listGroupId) populateGroups(listGroupId);
-  state.exceptionsOnly = false;
-  $("#exceptions-button").classList.remove("active");
-  $("#all-button").classList.add("active");
-  $("#search-input").value = "";
-  $("#source-answer-difference").checked = false;
-  $("#question-body-choices-only").checked = false;
-  $("#calculation-only").checked = false;
-  $("#law-only").checked = false;
+function showAuditView() {
   state.auditView.open = true;
-  state.selectedId = "";
-  state.detail = null;
   $("#audit-view").hidden = false;
   $(".app-header").inert = true;
   $("#maintenance-dashboard").inert = true;
@@ -436,21 +492,92 @@ async function openAuditView(listGroupId = "") {
   $("#maintenance-dashboard").setAttribute("aria-hidden", "true");
   document.documentElement.classList.add("audit-view-open");
   document.body.classList.add("audit-view-open");
-  setAuditViewPage("list");
-  updateUrl();
-  $("#audit-view-close").focus();
-  const preserveSelection = state.auditView.loadedQualification === qualification;
-  state.auditView.loading = true;
-  $("#audit-view-loading").hidden = false;
-  try {
-    const loaded = await loadQuestions(preserveSelection);
-    if (loaded && state.qualification === qualification) {
-      state.auditView.loadedQualification = qualification;
-    }
-  } finally {
-    state.auditView.loading = false;
-    $("#audit-view-loading").hidden = true;
+}
+
+async function ensureAuditViewQuestions(preserveSelection = false, options = {}) {
+  if (!auditViewIsOpen() || !state.token || !state.qualification || !state.listGroupId) {
+    return false;
   }
+  const scopeKey = auditScopeKey();
+  if (!options.refresh && state.auditView.loadedScopeKey === scopeKey) {
+    renderQueue();
+    return true;
+  }
+  if (state.auditView.loading && state.auditView.loadPromise) {
+    if (!options.refresh && state.auditView.loadingScopeKey === scopeKey) {
+      return state.auditView.loadPromise;
+    }
+    await state.auditView.loadPromise;
+    if (!auditViewIsOpen() || auditScopeKey() !== scopeKey) return false;
+  }
+  const restoredFromCache = restoreCachedQuestionList();
+  state.auditView.loading = true;
+  state.auditView.loadingScopeKey = scopeKey;
+  $("#audit-view-loading").hidden = false;
+  const loadPromise = (async () => {
+    const loaded = await loadQuestions(preserveSelection, false, {
+      preserveExisting: restoredFromCache,
+    });
+    if (loaded && auditViewIsOpen() && auditScopeKey() === scopeKey) {
+      state.auditView.loadedScopeKey = scopeKey;
+    }
+    return loaded;
+  })();
+  state.auditView.loadPromise = loadPromise;
+  try {
+    return await loadPromise;
+  } finally {
+    if (state.auditView.loadPromise === loadPromise) {
+      state.auditView.loading = false;
+      state.auditView.loadingScopeKey = "";
+      state.auditView.loadPromise = null;
+      $("#audit-view-loading").hidden = true;
+    }
+  }
+}
+
+async function openAuditView(listGroupId = "", options = {}) {
+  const previousScopeKey = auditScopeKey();
+  if (listGroupId) populateGroups(listGroupId);
+  const scopeChanged = previousScopeKey !== auditScopeKey();
+  if (options.resetFilters !== false || scopeChanged) {
+    state.exceptionsOnly = false;
+    $("#exceptions-button").classList.remove("active");
+    $("#all-button").classList.add("active");
+    $("#search-input").value = "";
+    $("#source-answer-difference").checked = false;
+    $("#question-body-choices-only").checked = false;
+    $("#calculation-only").checked = false;
+    $("#law-only").checked = false;
+  }
+  state.selectedId = "";
+  state.detail = null;
+  showAuditView();
+  setAuditViewPage("list");
+  if (options.updateUrl !== false) updateUrl();
+  if (options.focus !== false) $("#audit-view-close").focus();
+  const preserveSelection = !scopeChanged
+    && state.auditView.loadedScopeKey === auditScopeKey();
+  return ensureAuditViewQuestions(preserveSelection);
+}
+
+async function restoreVisibleAuditView() {
+  if (!state.token || !state.inventory) return false;
+  const params = new URLSearchParams(location.search);
+  const routeRequestsAudit = params.get("view") === "questions";
+  const viewIsVisible = !$("#audit-view").hidden;
+  if (!routeRequestsAudit && !viewIsVisible) return false;
+  const requestedGroup = params.get("listGroupId") || state.listGroupId;
+  await openAuditView(requestedGroup, {
+    focus: false,
+    resetFilters: false,
+    updateUrl: false,
+  });
+  const questionId = params.get("questionId");
+  if (questionId && state.auditView.page !== "detail") {
+    await loadDetail(questionId);
+  }
+  return true;
 }
 
 function handleAuditViewBack() {
@@ -458,6 +585,7 @@ function handleAuditViewBack() {
     const selectedId = state.selectedId;
     state.detail = null;
     setAuditViewPage("list");
+    updateUrl();
     renderQueue();
     if (!state.questionStats) {
       scheduleQuestionStats(state.questionListRequestSequence);
@@ -471,7 +599,7 @@ function handleAuditViewBack() {
 }
 
 function closeAuditView(options = {}) {
-  if (!state.auditView.open) return;
+  if (!state.auditView.open && $("#audit-view").hidden) return;
   window.clearTimeout(state.questionStatsTimer);
   state.questionStatsTimer = null;
   closeWorkflowGuide({ reopenRun: false });
@@ -484,6 +612,7 @@ function closeAuditView(options = {}) {
   $("#maintenance-dashboard").removeAttribute("aria-hidden");
   document.documentElement.classList.remove("audit-view-open");
   document.body.classList.remove("audit-view-open");
+  updateUrl();
 }
 
 async function initialize() {
@@ -515,13 +644,28 @@ async function initialize() {
       : "";
     initializeSelectors();
     document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) checkFingerprint();
+      if (!document.hidden) {
+        checkFingerprint();
+        void restoreVisibleAuditView();
+      }
     });
-    window.setInterval(pollSharedRunProgress, 3000);
-    const initialResults = await Promise.allSettled([
+    window.addEventListener("pageshow", () => {
+      void restoreVisibleAuditView();
+    });
+    const params = new URLSearchParams(location.search);
+    const restoreAuditFirst = params.get("view") === "questions"
+      || !$("#audit-view").hidden;
+    const initialResults = [];
+    if (restoreAuditFirst) {
+      initialResults.push(...await Promise.allSettled([
+        restoreVisibleAuditView(),
+      ]));
+    }
+    initialResults.push(...await Promise.allSettled([
       loadQualificationWorkflow(false),
       loadQualificationRuns(),
-    ]);
+    ]));
+    window.setInterval(pollSharedRunProgress, 3000);
     if (initialResults.some(
       (result) => result.status === "rejected" || result.value === false
     )) {
@@ -762,6 +906,12 @@ function updateUrl() {
   const params = new URLSearchParams();
   if (state.qualification) params.set("qualification", state.qualification);
   if (state.listGroupId) params.set("listGroupId", state.listGroupId);
+  if (state.auditView.open) {
+    params.set("view", "questions");
+    if (state.auditView.page === "detail" && state.selectedId) {
+      params.set("questionId", state.selectedId);
+    }
+  }
   history.replaceState(null, "", `${location.pathname}?${params}`);
 }
 
@@ -1667,7 +1817,7 @@ async function pollSharedRunProgress() {
     if (previousRunId && previousRunId !== currentRunId) {
       await loadQualificationWorkflow(true, true);
       if (auditViewIsOpen()) {
-        if (await loadQuestions(true)) state.auditView.loadedQualification = state.qualification;
+        await ensureAuditViewQuestions(true, { refresh: true });
       } else {
         invalidateAuditView();
       }
@@ -3504,7 +3654,7 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
     await loadQualificationWorkflow(true);
     await loadQualificationRuns();
     if (auditViewIsOpen()) {
-      if (await loadQuestions(true)) state.auditView.loadedQualification = state.qualification;
+      await ensureAuditViewQuestions(true, { refresh: true });
     } else {
       invalidateAuditView();
     }
@@ -3720,7 +3870,7 @@ function scheduleQuestionStats(requestSequence) {
   }, 800);
 }
 
-async function loadQuestions(preserveSelection, append = false) {
+async function loadQuestions(preserveSelection, append = false, options = {}) {
   if (!state.qualification || !state.listGroupId) return false;
   const offset = append ? state.questions.length : 0;
   const requestSequence = append
@@ -3760,6 +3910,7 @@ async function loadQuestions(preserveSelection, append = false) {
       ?? payload.filteredCountLowerBound
       ?? state.questions.length;
     state.questionPage.hasMore = payload.hasMore;
+    if (!append) cacheQuestionList(payload);
     renderQueue();
     setLoading(
       questionListSummaryText(
@@ -3782,14 +3933,21 @@ async function loadQuestions(preserveSelection, append = false) {
     if (requestSequence !== state.questionListRequestSequence) return false;
     toast(error.message, true);
     if (!append) {
-      state.questions = [];
-      state.detail = null;
-      state.questionPage.hasMore = false;
-      state.questionPage.filteredCount = 0;
-      $("#queue-pagination").hidden = true;
-      renderQueue();
-      renderQueueLoadError(error.message);
-      setLoading("読み込みできませんでした");
+      if (options.preserveExisting && state.questions.length) {
+        renderQueue();
+        setLoading(
+          `${state.questions.length}問を前回表示 / 最新状態を取得できませんでした`,
+        );
+      } else {
+        state.questions = [];
+        state.detail = null;
+        state.questionPage.hasMore = false;
+        state.questionPage.filteredCount = 0;
+        $("#queue-pagination").hidden = true;
+        renderQueue();
+        renderQueueLoadError(error.message);
+        setLoading("読み込みできませんでした");
+      }
     }
     return false;
   } finally {
@@ -4032,6 +4190,7 @@ async function loadDetail(questionId) {
   state.detail = null;
   const summary = state.questions.find((question) => question.id === questionId);
   setAuditViewPage("detail");
+  updateUrl();
   const cached = state.detailCache.get(questionId);
   if (cached && (
     !summary?.detailVersion || cached.version === summary.detailVersion

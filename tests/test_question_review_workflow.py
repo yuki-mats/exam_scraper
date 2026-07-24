@@ -1630,8 +1630,12 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             javascript.index("async function openAuditView") :
             javascript.index("function closeAuditView")
         ]
-        self.assertIn("loadQuestions(preserveSelection)", audit_open_source)
-        self.assertIn('$("#maintenance-dashboard").inert = true', audit_open_source)
+        self.assertIn("ensureAuditViewQuestions(preserveSelection)", audit_open_source)
+        show_audit_source = javascript[
+            javascript.index("function showAuditView") :
+            javascript.index("async function ensureAuditViewQuestions")
+        ]
+        self.assertIn('$("#maintenance-dashboard").inert = true', show_audit_source)
         detail_source = javascript[
             javascript.index("function renderDetail") :
             javascript.index("function renderQuestionAdminDetails")
@@ -1836,6 +1840,59 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("payload.statsIncluded !== false", javascript)
         self.assertIn("detailCache: new Map()", javascript)
         self.assertIn("renderDetailLoading(summary)", javascript)
+
+    def test_visible_audit_view_restores_its_route_and_data_loading(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools" / "question_review_console" / "static" / "app.js"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("loadedScopeKey", javascript)
+        self.assertIn('loadingScopeKey: ""', javascript)
+        self.assertIn("loadPromise: null", javascript)
+        self.assertIn("async function ensureAuditViewQuestions", javascript)
+        self.assertIn("return state.auditView.loadPromise", javascript)
+        self.assertIn("async function restoreVisibleAuditView", javascript)
+        self.assertIn('params.get("view") === "questions"', javascript)
+        self.assertIn("const viewIsVisible = !$(\"#audit-view\").hidden", javascript)
+        initialize_source = javascript[
+            javascript.index("async function initialize") :
+            javascript.index("function bindControls")
+        ]
+        self.assertIn('params.get("view") === "questions"', initialize_source)
+        self.assertLess(
+            initialize_source.index("restoreVisibleAuditView()"),
+            initialize_source.index("loadQualificationWorkflow(false)"),
+        )
+        self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", initialize_source)
+        self.assertIn("updateUrl: false", javascript)
+        self.assertIn('window.addEventListener("pageshow"', javascript)
+        self.assertIn('params.set("view", "questions")', javascript)
+        self.assertIn('params.set("questionId", state.selectedId)', javascript)
+
+    def test_default_question_list_uses_stale_while_revalidate_cache(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools" / "question_review_console" / "static" / "app.js"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("QUESTION_LIST_CACHE_VERSION", javascript)
+        self.assertIn("function defaultQuestionListIsSelected", javascript)
+        self.assertIn("localStorage.setItem(questionListCacheKey()", javascript)
+        self.assertIn("function restoreCachedQuestionList", javascript)
+        self.assertIn("前回表示 ${cached.questions.length}問", javascript)
+        self.assertIn("preserveExisting: restoredFromCache", javascript)
+        self.assertIn("if (options.preserveExisting && state.questions.length)", javascript)
+
+    def test_static_assets_share_an_explicit_release_version(self):
+        root = Path(__file__).resolve().parents[1]
+        html = (
+            root / "tools" / "question_review_console" / "static" / "index.html"
+        ).read_text(encoding="utf-8")
+
+        asset_version = "question-review-ui-v3-20260724-3"
+        self.assertIn(f'href="/styles.css?v={asset_version}"', html)
+        self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
 
 if __name__ == "__main__":
