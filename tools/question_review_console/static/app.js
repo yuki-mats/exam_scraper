@@ -323,43 +323,30 @@ function setLoading(message, busy = false) {
   node.setAttribute("aria-busy", String(busy));
 }
 
-function showRefreshLoading(message) {
-  const dialog = $("#refresh-loading-dialog");
+function setDashboardRefreshState(refreshing) {
   const refreshButton = $("#refresh-button");
-  $("#refresh-loading-message").textContent = message;
-  refreshButton.disabled = true;
-  refreshButton.classList.add("is-loading");
-  refreshButton.setAttribute("aria-busy", "true");
-  if (!dialog.open) dialog.showModal();
-}
-
-function updateRefreshLoading(message) {
-  $("#refresh-loading-message").textContent = message;
-}
-
-function hideRefreshLoading() {
-  const dialog = $("#refresh-loading-dialog");
-  const refreshButton = $("#refresh-button");
-  if (dialog.open) dialog.close();
-  refreshButton.disabled = false;
-  refreshButton.classList.remove("is-loading");
-  refreshButton.removeAttribute("aria-busy");
+  refreshButton.disabled = refreshing;
+  refreshButton.classList.toggle("is-loading", refreshing);
+  refreshButton.setAttribute("aria-busy", String(refreshing));
+  refreshButton.title = refreshing ? "最新の状態を更新しています" : "最新の状態に更新";
 }
 
 async function refreshDashboard() {
   if (state.dashboardRefreshing) return;
   state.dashboardRefreshing = true;
   clearEvaluationSelection();
+  setDashboardRefreshState(true);
   try {
-    showRefreshLoading("整備状況と年度・フォルダ別の進捗を読み込んでいます。");
-    updateRefreshLoading("工程・実行状況・問題一覧を並行して更新しています。");
     state.detailCache.clear();
     const auditOpen = auditViewIsOpen();
-    const [workflowLoaded, runsLoaded, questionsLoaded] = await Promise.all([
+    const results = await Promise.allSettled([
       loadQualificationWorkflow(true),
       loadQualificationRuns(),
       auditOpen ? loadQuestions(true) : Promise.resolve(true),
     ]);
+    const [workflowLoaded, runsLoaded, questionsLoaded] = results.map(
+      (result) => result.status === "fulfilled" && result.value !== false,
+    );
     if (auditOpen && questionsLoaded) {
       state.auditView.loadedQualification = state.qualification;
     } else if (!auditOpen) {
@@ -373,7 +360,7 @@ async function refreshDashboard() {
   } catch (error) {
     toast(error.message, true);
   } finally {
-    hideRefreshLoading();
+    setDashboardRefreshState(false);
     state.dashboardRefreshing = false;
   }
 }
@@ -527,14 +514,19 @@ async function initialize() {
       ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: 初回 ${modelLabel}・再試行 ${retryModelLabel} / 推論 ${effortLabel}`
       : "";
     initializeSelectors();
-    await Promise.all([
-      loadQualificationWorkflow(false),
-      loadQualificationRuns(),
-    ]);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) checkFingerprint();
     });
     window.setInterval(pollSharedRunProgress, 3000);
+    const initialResults = await Promise.allSettled([
+      loadQualificationWorkflow(false),
+      loadQualificationRuns(),
+    ]);
+    if (initialResults.some(
+      (result) => result.status === "rejected" || result.value === false
+    )) {
+      toast("一部の情報を読み込めませんでした。表示できた情報から確認できます。", true);
+    }
   } catch (error) {
     toast(error.message, true);
     setLoading("起動に失敗しました");
@@ -590,7 +582,6 @@ function bindControls() {
     await loadQuestions(false);
   });
   $("#refresh-button").addEventListener("click", refreshDashboard);
-  $("#refresh-loading-dialog").addEventListener("cancel", (event) => event.preventDefault());
   $("#audit-view-close").addEventListener("click", handleAuditViewBack);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
@@ -3819,10 +3810,23 @@ function renderQueueLoadError(message) {
   queue.append(empty);
 }
 
-function renderLoadError(message, retry = () => loadQuestions(false)) {
+function renderLoadError(message, retry = () => loadQuestions(false), summary = null) {
   const pane = $("#detail-pane");
   pane.replaceChildren();
-  const empty = element("div", "empty-state load-error-state");
+  const empty = element(
+    "div",
+    `empty-state load-error-state${summary ? " detail-load-error-state" : ""}`,
+  );
+  if (summary) {
+    empty.append(
+      element(
+        "span",
+        "detail-loading-label",
+        summary.questionLabel || summary.sourceQuestionKey || "選択した問題",
+      ),
+      element("p", "detail-loading-preview", summary.body || "（問題文なし）"),
+    );
+  }
   empty.append(
     element("strong", "", "問題を読み込めませんでした"),
     element("span", "", message || "サーバーの稼働状態を確認してください。"),
@@ -4029,7 +4033,9 @@ async function loadDetail(questionId) {
   const summary = state.questions.find((question) => question.id === questionId);
   setAuditViewPage("detail");
   const cached = state.detailCache.get(questionId);
-  if (cached?.version === summary?.detailVersion) {
+  if (cached && (
+    !summary?.detailVersion || cached.version === summary.detailVersion
+  )) {
     state.detail = cached.detail;
     renderDetail();
     renderAuditViewHeading();
@@ -4060,7 +4066,7 @@ async function loadDetail(questionId) {
   } catch (error) {
     toast(error.message, true);
     if (state.selectedId === questionId && state.auditView.page === "detail") {
-      renderLoadError(error.message, () => loadDetail(questionId));
+      renderLoadError(error.message, () => loadDetail(questionId), summary);
     }
   }
 }
@@ -4071,10 +4077,6 @@ function renderDetailLoading(summary = null) {
   const loading = element("div", "empty-state detail-loading-state");
   loading.setAttribute("role", "status");
   loading.setAttribute("aria-live", "polite");
-  loading.append(
-    element("span", "loading-spinner"),
-    element("strong", "", "問題の詳細を読み込んでいます"),
-  );
   if (summary) {
     loading.append(
       element(
@@ -4085,6 +4087,12 @@ function renderDetailLoading(summary = null) {
       element("p", "detail-loading-preview", summary.body || "（問題文なし）"),
     );
   }
+  const progress = element("div", "detail-loading-progress");
+  progress.append(
+    element("span", "loading-spinner"),
+    element("strong", "", "選択肢・正答・解説を読み込んでいます"),
+  );
+  loading.append(progress);
   pane.append(loading);
 }
 

@@ -1781,38 +1781,56 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             pipeline_source.index("if (!localReady)"),
         )
 
-    def test_refresh_button_shows_staged_full_screen_loading(self):
+    def test_refresh_updates_sections_without_blocking_the_whole_screen(self):
         root = Path(__file__).resolve().parents[1]
         static = root / "tools" / "question_review_console" / "static"
         html = (static / "index.html").read_text(encoding="utf-8")
         javascript = (static / "app.js").read_text(encoding="utf-8")
         css = (static / "styles.css").read_text(encoding="utf-8")
 
-        self.assertIn('id="refresh-loading-dialog"', html)
-        self.assertIn('id="refresh-loading-title"', html)
-        self.assertIn('id="refresh-loading-message"', html)
-        self.assertIn('class="loading-spinner"', html)
+        self.assertNotIn('id="refresh-loading-dialog"', html)
         self.assertIn("async function refreshDashboard()", javascript)
         refresh = javascript.split("async function refreshDashboard()", 1)[1].split(
             "function auditViewIsOpen", 1
         )[0]
-        self.assertIn("showRefreshLoading", refresh)
-        self.assertIn("updateRefreshLoading", refresh)
+        self.assertIn("setDashboardRefreshState(true)", refresh)
         self.assertIn(
-            "const [workflowLoaded, runsLoaded, questionsLoaded] = await Promise.all",
+            "const results = await Promise.allSettled",
             refresh,
         )
         self.assertIn("finally", refresh)
-        self.assertIn("hideRefreshLoading", refresh)
+        self.assertIn("setDashboardRefreshState(false)", refresh)
+        self.assertNotIn("showModal", refresh)
         self.assertIn(
             '$("#refresh-button").addEventListener("click", refreshDashboard)',
             javascript,
         )
-        self.assertIn(".global-loading-dialog", css)
-        self.assertIn("width: 100vw", css)
-        self.assertIn("height: 100dvh", css)
+        self.assertNotIn(".global-loading-dialog", css)
+        self.assertIn(".audit-view-loading", css)
+        audit_loading_css = css.split(".audit-view-loading {", 1)[1].split("}", 1)[0]
+        self.assertNotIn("position: absolute", audit_loading_css)
+        self.assertNotIn("inset: 0", audit_loading_css)
         self.assertIn("@keyframes loading-spin", css)
         self.assertIn("@media (prefers-reduced-motion: reduce)", css)
+
+    def test_detail_cache_requires_an_existing_entry_before_reuse(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools" / "question_review_console" / "static" / "app.js"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            "if (cached && (",
+            javascript,
+        )
+        self.assertIn(
+            "!summary?.detailVersion || cached.version === summary.detailVersion",
+            javascript,
+        )
+        self.assertNotIn(
+            "if (cached?.version === summary?.detailVersion)",
+            javascript,
+        )
         self.assertIn("includeStats: false", javascript)
         self.assertIn("statsOnly: true", javascript)
         self.assertIn("payload.statsIncluded !== false", javascript)
