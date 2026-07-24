@@ -277,6 +277,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .simple-inspection .detail-actions,
 .simple-inspection .pipeline-buttons,
 .simple-inspection .question-admin-details { display: none; }
+.simple-inspection .detail-actions.single-question-maintenance { display: flex; }
 .simple-inspection .audit-group-selector,
 .advanced-toolbar .segmented[hidden],
 .audit-admin-tools[hidden] { display: none; }

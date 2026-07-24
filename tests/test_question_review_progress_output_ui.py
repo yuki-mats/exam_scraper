@@ -226,6 +226,11 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('"この問題を再整備"', javascript)
         self.assertIn("openSingleQuestionMaintenance(question)", javascript)
         self.assertIn("questionIds: [question.id]", javascript)
+        self.assertIn('actions.classList.add("single-question-maintenance")', javascript)
+        self.assertIn(
+            ".simple-inspection .detail-actions.single-question-maintenance",
+            css,
+        )
         self.assertIn(".maintenance-year-actions", css)
         self.assertIn(".simple-inspection .question-admin-details", css)
         self.assertIn(".simple-inspection .audit-group-selector", css)

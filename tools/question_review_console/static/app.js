@@ -4119,6 +4119,7 @@ function renderDetail() {
   );
   const actions = element("div", "detail-actions");
   if (state.auditView.readOnly) {
+    actions.classList.add("single-question-maintenance");
     actions.append(
       actionWithHelp(
         "この問題を再整備",
