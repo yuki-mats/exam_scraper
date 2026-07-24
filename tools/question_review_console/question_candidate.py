@@ -1069,7 +1069,11 @@ def validate_candidate_content(
         or any(value not in {"正しい", "間違い"} for value in correct)
     ):
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
-    cross_field_changed = bool(
+    cross_field_reviewed = any(
+        target.role in {"question_type", "question_intent", "correct_choice"}
+        for target in target_values
+    )
+    cross_field_changed = cross_field_reviewed and bool(
         {"questionType", "questionIntent", "correctChoiceText"} & changed_fields
     )
     correct_shape_valid = (

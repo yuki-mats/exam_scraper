@@ -570,6 +570,82 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertEqual(errors, ())
 
+    def test_originalize_candidate_does_not_apply_final_answer_cardinality_gate(
+        self,
+    ):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/independent/"
+                "05_originalized/q1.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "originalize": [
+                    "questionBodyText",
+                    "choiceTextList",
+                    "correctChoiceText",
+                    "questionIntent",
+                    "answer_result_text",
+                ]
+            },
+        }
+        targets = candidate_targets("q1", "originalize", plan)
+        current = {
+            "questionBodyText": "AWSの機能として正しいものを2つ選んでください。",
+            "choiceTextList": ["独自の正答A", "独自の正答B", "独自の誤答"],
+            "correctChoiceText": ["正しい", "正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は 1, 2 です。",
+            "questionType": "group_choice",
+        }
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "独自問題の内容を維持した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:originalized",
+                                "setFields": [
+                                    {
+                                        "field": field,
+                                        "valueJson": json.dumps(
+                                            value, ensure_ascii=False
+                                        ),
+                                    }
+                                    for field, value in current.items()
+                                    if field != "questionType"
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        source = {
+            "questionBodyText": "AWSの説明として正しいものを2つ選択してください。",
+            "choiceTextList": ["元の正答A", "元の正答B", "元の誤答"],
+            "correctChoiceText": ["正しい", "正しい", "間違い"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は 1, 2 です。",
+            "questionType": "group_choice",
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            current,
+            source,
+        )
+
+        self.assertEqual(errors, ())
+
     def test_originalize_candidate_allows_choice_reordering_with_source_body(
         self,
     ):
