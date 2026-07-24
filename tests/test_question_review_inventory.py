@@ -155,13 +155,20 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 ],
             )
 
-            result = QuestionInventory(root).projected_input(
+            inventory = QuestionInventory(root)
+            result = inventory.projected_input(
+                "sample-exam",
+                "2026",
+                "question.json#0",
+            )
+            source_result = inventory.source_input(
                 "sample-exam",
                 "2026",
                 "question.json#0",
             )
 
         self.assertEqual(result.record["questionType"], "flash_card")
+        self.assertEqual(source_result["questionType"], "multiple_choice")
         self.assertEqual(result.errors, ())
         self.assertEqual(len(result.applied_files), 1)
 

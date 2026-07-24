@@ -1003,6 +1003,7 @@ def validate_candidate_content(
     candidate: QuestionCandidate,
     targets: Iterable[CandidateTarget],
     projected_record: Mapping[str, Any],
+    original_source_record: Mapping[str, Any] | None = None,
 ) -> tuple[str, ...]:
     """Run cheap deterministic checks against this question only."""
 
@@ -1102,7 +1103,10 @@ def validate_candidate_content(
                 errors.append(official_answer_issue)
     if any(target.role == "originalized" for target in target_values):
         try:
-            validate_originalized_entry(projected_record, logical)
+            validate_originalized_entry(
+                original_source_record or projected_record,
+                logical,
+            )
         except ValueError as exc:
             errors.append(str(exc))
     explanations = logical.get("explanationText")

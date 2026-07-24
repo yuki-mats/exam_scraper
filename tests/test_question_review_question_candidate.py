@@ -494,6 +494,82 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertEqual(errors, ())
 
+    def test_originalize_refresh_compares_candidate_with_immutable_source(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/independent/"
+                "05_originalized/q1.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "originalize": [
+                    "questionBodyText",
+                    "choiceTextList",
+                    "correctChoiceText",
+                    "questionIntent",
+                    "answer_result_text",
+                ]
+            },
+        }
+        targets = candidate_targets("q1", "originalize", plan)
+        current = {
+            "questionBodyText": (
+                "企業は、Amazon EC2を利用しています。"
+                "正しい説明はどれですか。"
+            ),
+            "choiceTextList": ["独自の誤答", "独自の正答"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は2です。",
+        }
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "既存の独自問題を維持した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:originalized",
+                                "setFields": [
+                                    {
+                                        "field": field,
+                                        "valueJson": json.dumps(
+                                            value, ensure_ascii=False
+                                        ),
+                                    }
+                                    for field, value in current.items()
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        source = {
+            "questionBodyText": (
+                "Amazon EC2の説明として正しいものを選択してください。"
+            ),
+            "choiceTextList": ["元の誤答", "元の正答"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は2です。",
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            current,
+            source,
+        )
+
+        self.assertEqual(errors, ())
+
     def test_originalize_candidate_allows_choice_reordering_with_source_body(
         self,
     ):

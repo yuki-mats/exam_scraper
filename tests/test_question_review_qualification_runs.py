@@ -2117,6 +2117,56 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertIn("現行allowedFieldsを優先する", prompt)
 
+    def test_originalize_prompt_separates_current_record_and_source_evidence(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:originalized",
+            role="originalized",
+            path="output/sample/05_originalized/question.json",
+            allowed_fields=("questionBodyText", "choiceTextList"),
+        )
+        prompt = _structured_candidate_prompt(
+            "独自問題化する。",
+            [target],
+            records_by_question={
+                "question-1": {
+                    "questionBodyText": "既存の独自問題文",
+                    "choiceTextList": ["独自の選択肢A", "独自の選択肢B"],
+                }
+            },
+            candidate_targets_by_question={"question-1": (candidate_target,)},
+            feedback_by_question={},
+            originalization_source_by_question={
+                "question-1": {
+                    "questionBodyText": "取得元の問題文",
+                    "choiceTextList": ["取得元A", "取得元B"],
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "internalOnly": "公開しない",
+                }
+            },
+        )
+
+        question_payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question_payload["currentRecord"]["questionBodyText"],
+            "既存の独自問題文",
+        )
+        self.assertEqual(
+            question_payload["originalizationSource"]["questionBodyText"],
+            "取得元の問題文",
+        )
+        self.assertNotIn(
+            "internalOnly",
+            question_payload["originalizationSource"],
+        )
+        self.assertIn("00_sourceの更新不能な比較証拠", prompt)
+
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"
         with tempfile.TemporaryDirectory() as directory:

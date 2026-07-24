@@ -895,9 +895,13 @@ def _structured_candidate_prompt(
     original_aggregate_evidence_by_question: Mapping[
         str, Mapping[str, Any]
     ] | None = None,
+    originalization_source_by_question: Mapping[
+        str, Mapping[str, Any]
+    ] | None = None,
 ) -> str:
     questions: list[dict[str, Any]] = []
     evidence_by_question = original_aggregate_evidence_by_question or {}
+    originalization_sources = originalization_source_by_question or {}
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
@@ -942,6 +946,19 @@ def _structured_candidate_prompt(
             question["originalAggregateAnswerEvidence"] = copy.deepcopy(
                 dict(evidence)
             )
+        originalization_source = originalization_sources.get(question_id)
+        if originalization_source is not None:
+            question["originalizationSource"] = {
+                field: copy.deepcopy(originalization_source.get(field))
+                for field in (
+                    "questionBodyText",
+                    "choiceTextList",
+                    "correctChoiceText",
+                    "questionIntent",
+                    "answer_result_text",
+                )
+                if field in originalization_source
+            }
         questions.append(question)
     context_lines = (
         [
@@ -971,6 +988,10 @@ def _structured_candidate_prompt(
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
+            "originalizationSourceがある場合、それは00_sourceの更新不能な比較証拠である。"
+            "currentRecordがすでに独自問題として成立している場合は、その表現を維持し、"
+            "必要な最小修正だけを行う。問題文と選択肢の両方を"
+            "originalizationSourceへ戻してはならない。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "別問題の内容や判断を流用しない。思考過程は返さない。",
@@ -6864,10 +6885,19 @@ class QualificationRunCoordinator:
             "appliedPatchFiles": list(getattr(result, "applied_files", ())),
         }
         self.store._write_json(path, payload)
+        source_record = None
+        if stage_id == "originalize":
+            source_input = getattr(inventory, "source_input", None)
+            if not callable(source_input):
+                raise QuestionItemError(
+                    "独自問題化に必要な00_source比較入力がありません。"
+                )
+            source_record = source_input(*project_args)
         return {
             "path": path.relative_to(self.repo_root).as_posix(),
             "hash": hashlib.sha256(path.read_bytes()).hexdigest(),
             "record": copy.deepcopy(dict(record)),
+            "sourceRecord": source_record,
         }
 
     def _project_question_now(
@@ -7655,6 +7685,7 @@ class QualificationRunCoordinator:
                 **spec,
                 "target": target,
                 "candidateRecord": projection["record"],
+                "sourceRecord": projection.get("sourceRecord"),
                 "candidateTargets": prepared_targets,
                 "projectionUpdate": {
                     "questionId": question_id,
@@ -7764,6 +7795,12 @@ class QualificationRunCoordinator:
                 copy.deepcopy(dict(spec["candidateRecord"]))
                 for spec in specs
             }
+            originalization_source_by_question = {
+                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+                copy.deepcopy(dict(spec["sourceRecord"]))
+                for spec in specs
+                if isinstance(spec.get("sourceRecord"), Mapping)
+            }
             candidate_targets_by_question = {
                 str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
                 tuple(spec["candidateTargets"])
@@ -7793,6 +7830,9 @@ class QualificationRunCoordinator:
                 ),
                 original_aggregate_evidence_by_question=(
                     original_aggregate_evidence
+                ),
+                originalization_source_by_question=(
+                    originalization_source_by_question
                 ),
             )
             child = self.store.create(
@@ -7879,6 +7919,7 @@ class QualificationRunCoordinator:
                     stage_id=stage_id,
                     pipeline_stop=pipeline_stop,
                     prepared_records=records_by_question,
+                    prepared_source_records=originalization_source_by_question,
                     prepared_targets=candidate_targets_by_question,
                     model=requested_model,
                     reasoning_effort=requested_effort,
@@ -8738,6 +8779,7 @@ class QualificationRunCoordinator:
         stage_id: str,
         pipeline_stop: threading.Event,
         prepared_records: Mapping[str, Mapping[str, Any]] | None = None,
+        prepared_source_records: Mapping[str, Mapping[str, Any]] | None = None,
         prepared_targets: Mapping[str, tuple[CandidateTarget, ...]] | None = None,
         model: str = QUESTION_MAINTENANCE_MODEL,
         reasoning_effort: str = TURN_REASONING_EFFORT,
@@ -9457,6 +9499,11 @@ class QualificationRunCoordinator:
                         candidate,
                         targets_by_question[question_id],
                         records_by_question[question_id],
+                        (
+                            prepared_source_records.get(question_id)
+                            if prepared_source_records is not None
+                            else None
+                        ),
                     )
                 )
                 if content_errors:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import re
@@ -659,7 +660,9 @@ class QuestionInventory:
     def group(self, qualification: str, list_group_id: str) -> dict[str, Any]:
         qualification = _safe_segment(qualification)
         list_group_id = _safe_segment(list_group_id)
-        group_dir = self.output_root / qualification / "questions_json" / list_group_id
+        group_dir = (
+            self.output_root / qualification / "questions_json" / list_group_id
+        )
         if not (group_dir / SOURCE_SUBDIR).is_dir():
             raise FileNotFoundError(f"question group not found: {qualification}/{list_group_id}")
         fingerprint = self._group_fingerprint(group_dir)
@@ -715,6 +718,36 @@ class QuestionInventory:
             source_record_ref_value,
             validate_aggregate_question_type=stage_id != "question_type",
         )
+
+    def source_input(
+        self,
+        qualification: str,
+        list_group_id: str,
+        source_record_ref_value: str,
+    ) -> dict[str, Any]:
+        """Return one immutable 00_source record for comparison-only use."""
+
+        qualification = _safe_segment(qualification)
+        list_group_id = _safe_segment(list_group_id)
+        group_dir = (
+            self.output_root / qualification / "questions_json" / list_group_id
+        )
+        inventory = self._source_inventory(
+            qualification,
+            list_group_id,
+            group_dir,
+        )
+        matches = [
+            entry
+            for entry in inventory
+            if entry.identity.binding.source_record_ref == source_record_ref_value
+        ]
+        if len(matches) != 1:
+            raise ValueError(
+                "sourceRecordRefを一意に解決できません: "
+                f"{qualification}/{list_group_id}/{source_record_ref_value}"
+            )
+        return copy.deepcopy(dict(matches[0].record))
 
     def _projected_input(
         self,
