@@ -167,7 +167,7 @@ const state = {
   inventory: null,
   qualification: "",
   listGroupId: "",
-  exceptionsOnly: true,
+  exceptionsOnly: false,
   questions: [],
   selectedId: "",
   detail: null,

@@ -1590,7 +1590,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("公開前の内容を確認", html)
         self.assertNotIn("生成内容を監査", html)
         self.assertNotIn('id="audit-view-open"', html)
-        self.assertIn('id="exceptions-button" class="active" type="button">反映待ち</button>', html)
+        self.assertIn('id="exceptions-button" type="button">反映待ち</button>', html)
+        self.assertIn('id="all-button" class="active" type="button">全問</button>', html)
         self.assertIn("工程・評価・Firestoreなどの管理機能", html)
         self.assertNotIn('id="audit-admin-tools" class="audit-admin-tools" open', html)
         self.assertNotIn('$("#audit-view-open")', javascript)
@@ -1877,6 +1878,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         ).read_text(encoding="utf-8")
 
         self.assertIn("QUESTION_LIST_CACHE_VERSION", javascript)
+        self.assertIn("exceptionsOnly: false", javascript)
         self.assertIn("function defaultQuestionListIsSelected", javascript)
         self.assertIn("localStorage.setItem(questionListCacheKey()", javascript)
         self.assertIn("function restoreCachedQuestionList", javascript)
@@ -1890,7 +1892,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260724-3"
+        asset_version = "question-review-ui-v3-20260724-4"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
