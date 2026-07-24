@@ -869,7 +869,7 @@ function initializeSelectors() {
 }
 
 function qualificationDisplayName(qualificationId = state.qualification) {
-  return state.inventory.qualifications?.find((item) => item.id === qualificationId)?.displayName
+  return state.inventory?.qualifications?.find((item) => item.id === qualificationId)?.displayName
     || qualificationId
     || "";
 }

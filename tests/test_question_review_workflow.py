@@ -1855,6 +1855,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("function primeAuditRoute", javascript)
         self.assertIn('setLoading("問題一覧を準備しています", true)', javascript)
         self.assertIn("primeAuditRoute();", javascript)
+        self.assertIn("state.inventory?.qualifications?.find", javascript)
         self.assertIn("return state.auditView.loadPromise", javascript)
         self.assertIn("async function restoreVisibleAuditView", javascript)
         self.assertIn('params.get("view") === "questions"', javascript)
@@ -1895,7 +1896,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260724-5"
+        asset_version = "question-review-ui-v3-20260724-6"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
