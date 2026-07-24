@@ -479,7 +479,9 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "問題文の条件だけで答えを導ける計算問題は、選択肢を答え合わせに"
                 "使うflash_cardとする。複数の独立した選択肢を正答として選ぶ問題は、"
                 "各選択肢を判定するtrue_falseとする。group_choiceは選択肢群から"
-                "正答を1つだけ選ぶ問題に使う。"
+                "正答を1つだけ選ぶ問題に使う。現行correctChoiceText、"
+                "answer_result_text又は組合せmappingの欠落・不整合は、"
+                "後続の正答精査で扱うため、このfieldをblockedにする理由にしない。"
             ),
         },
         "isCalculationQuestion": {"type": "boolean"},
@@ -1069,13 +1071,6 @@ def validate_candidate_content(
         or any(value not in {"正しい", "間違い"} for value in correct)
     ):
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
-    cross_field_reviewed = any(
-        target.role in {"question_type", "question_intent", "correct_choice"}
-        for target in target_values
-    )
-    cross_field_changed = cross_field_reviewed and bool(
-        {"questionType", "questionIntent", "correctChoiceText"} & changed_fields
-    )
     correct_shape_valid = (
         isinstance(correct, list)
         and len(correct) == len(choices)
@@ -1088,8 +1083,18 @@ def validate_candidate_content(
         "select_correct",
         "select_incorrect",
     }
-    if cross_field_changed and correct_shape_valid:
-        if "correctChoiceText" in changed_fields and not intent_valid:
+    # questionTypeとquestionIntentは内容から独立に確定する。正答を所有する
+    # correct_choice工程でcorrectChoiceTextが更新された後だけ、3fieldの
+    # 最終整合性を機械検証する。
+    final_answer_reviewed = any(
+        target.role == "correct_choice" for target in target_values
+    )
+    if (
+        final_answer_reviewed
+        and "correctChoiceText" in changed_fields
+        and correct_shape_valid
+    ):
+        if not intent_valid:
             errors.append(
                 "correctChoiceTextの照合に必要なquestionIntentが"
                 "select_correct又はselect_incorrectではありません。"

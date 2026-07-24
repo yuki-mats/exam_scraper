@@ -929,6 +929,10 @@ class QuestionCandidateTest(unittest.TestCase):
             "group_choiceは選択肢群から正答を1つだけ選ぶ",
             rules["questionType"]["description"],
         )
+        self.assertIn(
+            "blockedにする理由にしない",
+            rules["questionType"]["description"],
+        )
         candidate = parse_candidates(
             {
                 "schemaVersion": SCHEMA_VERSION,
@@ -1119,7 +1123,7 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertEqual(errors, ())
 
-    def test_question_type_candidate_detects_ambiguous_group_choice_answer(self):
+    def test_question_type_candidate_defers_stale_cross_field_answer(self):
         plan = {
             "allowedPatchFiles": [
                 "output/sample/questions_json/custom/"
@@ -1169,12 +1173,7 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         )
 
-        self.assertTrue(
-            any(
-                "group_choiceは公開時に正答を1件だけ必要" in error
-                for error in errors
-            )
-        )
+        self.assertEqual(errors, ())
 
     def test_question_type_candidate_does_not_trust_unreviewed_answer_count(self):
         plan = {
