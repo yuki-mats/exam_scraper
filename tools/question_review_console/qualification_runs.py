@@ -993,9 +993,12 @@ def _structured_candidate_prompt(
             "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
             "originalizationSourceがある場合、それは00_sourceの更新不能な比較証拠である。"
-            "currentRecordがすでに独自問題として成立している場合は、その表現を維持し、"
-            "必要な最小修正だけを行う。問題文と選択肢の両方を"
-            "originalizationSourceへ戻してはならない。"
+            "originalizationSourceを基準に、currentRecordは既存の草案として比較する。"
+            "currentRecordが工程の品質規則を満たす場合は必要な最小修正にとどめる。"
+            "元問題より構成、条件又は表現を大きく変えている場合は、"
+            "元問題の情報と流れを保つ局所的な微修正へ整え直す。"
+            "問題文と選択肢の両方をoriginalizationSourceと完全一致させず、"
+            "工程の品質規則に沿う自然な差を残す。"
             "originalizationSource内の解説候補はprompt内だけの参照資料である。"
             "元解説を材料に03の解説promptへ沿ったより分かりやすい独自解説を作る。"
             "正答理由と各誤答の理由を変えず、文面をsetFieldsへ転載しない。",

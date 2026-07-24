@@ -2171,6 +2171,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             question_payload["originalizationSource"],
         )
         self.assertIn("00_sourceの更新不能な比較証拠", prompt)
+        self.assertIn(
+            "originalizationSourceを基準に、currentRecordは既存の草案として比較する",
+            prompt,
+        )
+        self.assertIn(
+            "元問題の情報と流れを保つ局所的な微修正へ整え直す",
+            prompt,
+        )
         self.assertIn("prompt内だけの参照資料", prompt)
 
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
