@@ -1358,7 +1358,11 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "@media (max-width: 520px)", 1
         )[0]
         self.assertIn(
-            ".audit-view-content { display: block; overflow-y: auto;",
+            ".audit-view-content { overflow: hidden;",
+            tablet_css,
+        )
+        self.assertIn(
+            ".audit-workspace { height: 100%; min-height: 0;",
             tablet_css,
         )
         self.assertIn(
@@ -1590,7 +1594,13 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("工程・評価・Firestoreなどの管理機能", html)
         self.assertNotIn('id="audit-admin-tools" class="audit-admin-tools" open', html)
         self.assertNotIn('$("#audit-view-open")', javascript)
-        self.assertIn('$("#audit-view-close").addEventListener("click", closeAuditView)', javascript)
+        self.assertIn('$("#audit-view-close").addEventListener("click", handleAuditViewBack)', javascript)
+        self.assertIn('page: "list"', javascript)
+        self.assertIn('setAuditViewPage("detail")', javascript)
+        self.assertNotIn("state.selectedId = state.questions[0]", javascript)
+        self.assertIn("問題一覧を読み込めませんでした", javascript)
+        self.assertIn('.audit-view:not(.detail-open) .detail-pane', css)
+        self.assertIn('.audit-view.detail-open .queue-pane', css)
         self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
         self.assertIn('.audit-view:not(.admin-tools-open) .queue-select { display: none; }', css)
         self.assertIn("Firestoreへ反映する最終内容", javascript)

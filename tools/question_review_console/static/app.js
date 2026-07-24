@@ -185,6 +185,7 @@ const state = {
     loadedQualification: "",
     loading: false,
     readOnly: true,
+    page: "list",
   },
   qualificationRunDialog: {
     preview: null,
@@ -374,11 +375,25 @@ function auditViewIsOpen() {
   return state.auditView.open && !$("#audit-view").hidden;
 }
 
+function setAuditViewPage(page) {
+  const detailOpen = page === "detail";
+  state.auditView.page = detailOpen ? "detail" : "list";
+  $("#audit-view").classList.toggle("detail-open", detailOpen);
+  $("#audit-view-close").textContent = detailOpen
+    ? "← 問題一覧へ"
+    : "← 年度・実施回へ";
+  renderAuditViewHeading();
+}
+
 function renderAuditViewHeading() {
   const scope = state.listGroupId === ALL_LIST_GROUPS
     ? "すべて"
     : listGroupDisplayName(state.listGroupId);
-  $("#audit-view-qualification").textContent = `${qualificationDisplayName()}・${scope}の問題内容を確認します。`;
+  const detailOpen = state.auditView.page === "detail";
+  $("#audit-view-title").textContent = detailOpen ? "問題の詳細" : "問題一覧";
+  $("#audit-view-qualification").textContent = detailOpen && state.detail
+    ? `${qualificationDisplayName()}・${scope}・${state.detail.questionLabel || state.detail.sourceQuestionKey || "問題"}`
+    : `${qualificationDisplayName()}・${scope}の問題を表示します。`;
 }
 
 function invalidateAuditView() {
@@ -388,6 +403,7 @@ function invalidateAuditView() {
   state.detail = null;
   state.questionPage.filteredCount = 0;
   state.questionPage.hasMore = false;
+  setAuditViewPage("list");
   $("#audit-admin-tools").open = false;
   $("#audit-view").classList.remove("admin-tools-open");
   clearEvaluationSelection();
@@ -410,6 +426,8 @@ async function openAuditView(listGroupId = "") {
   $("#calculation-only").checked = false;
   $("#law-only").checked = false;
   state.auditView.open = true;
+  state.selectedId = "";
+  state.detail = null;
   $("#audit-view").hidden = false;
   $(".app-header").inert = true;
   $("#maintenance-dashboard").inert = true;
@@ -417,7 +435,7 @@ async function openAuditView(listGroupId = "") {
   $("#maintenance-dashboard").setAttribute("aria-hidden", "true");
   document.documentElement.classList.add("audit-view-open");
   document.body.classList.add("audit-view-open");
-  renderAuditViewHeading();
+  setAuditViewPage("list");
   updateUrl();
   $("#audit-view-close").focus();
   const preserveSelection = state.auditView.loadedQualification === qualification;
@@ -432,6 +450,20 @@ async function openAuditView(listGroupId = "") {
     state.auditView.loading = false;
     $("#audit-view-loading").hidden = true;
   }
+}
+
+function handleAuditViewBack() {
+  if (state.auditView.page === "detail") {
+    const selectedId = state.selectedId;
+    state.detail = null;
+    setAuditViewPage("list");
+    renderQueue();
+    window.requestAnimationFrame(() => {
+      document.querySelector(`[data-question-id="${CSS.escape(selectedId)}"] .queue-open`)?.focus();
+    });
+    return;
+  }
+  closeAuditView();
 }
 
 function closeAuditView(options = {}) {
@@ -533,7 +565,7 @@ function bindControls() {
   });
   $("#refresh-button").addEventListener("click", refreshDashboard);
   $("#refresh-loading-dialog").addEventListener("cancel", (event) => event.preventDefault());
-  $("#audit-view-close").addEventListener("click", closeAuditView);
+  $("#audit-view-close").addEventListener("click", handleAuditViewBack);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
     renderQueue();
@@ -577,7 +609,7 @@ function bindControls() {
       closeWorkflowGuide();
     } else if (event.key === "Escape" && auditViewIsOpen() && !document.querySelector("dialog[open]")) {
       event.preventDefault();
-      closeAuditView();
+      handleAuditViewBack();
     }
   });
   $("#load-more-questions").addEventListener("click", () => loadQuestions(true, true));
@@ -1047,6 +1079,9 @@ function renderMaintenanceDashboard() {
     const groupTotal = Number(groupProgress.totalCount || 0);
     const groupCurrent = Number(groupProgress.currentCount || 0);
     const groupRequired = Number(groupProgress.requiredCount || 0);
+    const completedWorkItems = Number(groupProgress.completedWorkItemCount || 0);
+    const totalWorkItems = Number(groupProgress.totalWorkItemCount || 0);
+    const workItemPercent = Number(groupProgress.workItemProgressPercent || 0);
     const liveGroup = liveProgress?.groups?.find((item) => item.listGroupId === group.listGroupId);
     const working = isRunning && group.listGroupId === activeGroupId;
     const row = element(
@@ -1063,16 +1098,34 @@ function renderMaintenanceDashboard() {
           ? liveGroup.percent >= 100
             ? `${liveGroup.completedQuestionCount}/${liveGroup.targetQuestionCount}問完了・最終検証中`
             : `作業中 ${liveGroup.completedQuestionCount}/${liveGroup.targetQuestionCount}問完了`
-          : `${groupCurrent}/${groupTotal}問 整備済み`,
+          : totalWorkItems
+            ? `${completedWorkItems}/${totalWorkItems}工程完了・${groupCurrent}/${groupTotal}問 整備済み`
+            : `${groupCurrent}/${groupTotal}問 整備済み`,
       ),
     );
-    const meter = element("span", "maintenance-year-meter");
+    const meter = element(
+      "span",
+      `maintenance-year-meter${!working && groupRequired ? " partial" : ""}`,
+    );
+    meter.setAttribute("role", "progressbar");
+    meter.setAttribute("aria-valuemin", "0");
+    meter.setAttribute("aria-valuemax", "100");
     const meterValue = element("span", "maintenance-year-meter-value");
-    meterValue.style.width = `${working && liveGroup
+    const displayedPercent = working && liveGroup
       ? liveGroup.percent
-      : groupTotal
-        ? Math.round((groupCurrent / groupTotal) * 100)
-        : 100}%`;
+      : totalWorkItems
+        ? workItemPercent
+        : groupTotal
+          ? Math.round((groupCurrent / groupTotal) * 100)
+          : 100;
+    meter.setAttribute("aria-valuenow", String(displayedPercent));
+    meter.setAttribute(
+      "aria-label",
+      working
+        ? `${group.displayName || group.listGroupId}の実行進捗`
+        : `${group.displayName || group.listGroupId}の工程進捗`,
+    );
+    meterValue.style.width = `${displayedPercent}%`;
     meter.append(meterValue);
     const actions = element("div", "maintenance-year-actions");
     const statusAction = element("button", "secondary-button", "状況を確認");
@@ -3595,14 +3648,12 @@ async function loadQuestions(preserveSelection, append = false) {
     ].join(" / "));
     updateEvaluationSelectionControls();
     const selectedStillExists = state.questions.some((question) => question.id === state.selectedId);
-    if (!append && (!preserveSelection || !selectedStillExists)) {
-      state.selectedId = state.questions[0]?.id || "";
-    }
-    if (!append && state.selectedId) {
+    if (!append && state.auditView.page === "detail" && preserveSelection && selectedStillExists) {
       await loadDetail(state.selectedId);
     } else if (!append) {
+      if (!preserveSelection || !selectedStillExists) state.selectedId = "";
       state.detail = null;
-      renderEmpty("条件に一致する問題はありません。");
+      setAuditViewPage("list");
     }
     return true;
   } catch (error) {
@@ -3614,7 +3665,7 @@ async function loadQuestions(preserveSelection, append = false) {
       state.questionPage.filteredCount = 0;
       $("#queue-pagination").hidden = true;
       renderQueue();
-      renderLoadError(error.message);
+      renderQueueLoadError(error.message);
       setLoading("読み込みできませんでした");
     }
     return false;
@@ -3624,14 +3675,26 @@ async function loadQuestions(preserveSelection, append = false) {
   }
 }
 
-function renderLoadError(message) {
+function renderQueueLoadError(message) {
+  const queue = $("#queue");
+  queue.replaceChildren();
+  const empty = element("div", "empty-state load-error-state");
+  empty.append(
+    element("strong", "", "問題一覧を読み込めませんでした"),
+    element("span", "", message || "サーバーの稼働状態を確認してください。"),
+    button("もう一度読み込む", "primary-button", () => loadQuestions(false)),
+  );
+  queue.append(empty);
+}
+
+function renderLoadError(message, retry = () => loadQuestions(false)) {
   const pane = $("#detail-pane");
   pane.replaceChildren();
   const empty = element("div", "empty-state load-error-state");
   empty.append(
     element("strong", "", "問題を読み込めませんでした"),
     element("span", "", message || "サーバーの稼働状態を確認してください。"),
-    button("もう一度読み込む", "primary-button", () => loadQuestions(false)),
+    button("もう一度読み込む", "primary-button", retry),
   );
   pane.append(empty);
 }
@@ -3828,6 +3891,9 @@ function normalizeVerdict(value) {
 
 async function loadDetail(questionId) {
   state.selectedId = questionId;
+  state.detail = null;
+  setAuditViewPage("detail");
+  renderDetailLoading();
   renderQueue();
   try {
     const summary = state.questions.find((question) => question.id === questionId);
@@ -3835,12 +3901,32 @@ async function loadDetail(questionId) {
       qualification: state.qualification,
       listGroupId: summary?.listGroupId || state.listGroupId,
     });
-    state.detail = await api(`/api/questions/${questionId}?${params}`);
+    const detail = await api(`/api/questions/${questionId}?${params}`);
+    if (state.selectedId !== questionId || state.auditView.page !== "detail") return;
+    state.detail = detail;
     renderDetail();
+    renderAuditViewHeading();
     renderQueue();
+    $("#detail-pane h2")?.focus({ preventScroll: true });
   } catch (error) {
     toast(error.message, true);
+    if (state.selectedId === questionId && state.auditView.page === "detail") {
+      renderLoadError(error.message, () => loadDetail(questionId));
+    }
   }
+}
+
+function renderDetailLoading() {
+  const pane = $("#detail-pane");
+  pane.replaceChildren();
+  const loading = element("div", "empty-state detail-loading-state");
+  loading.setAttribute("role", "status");
+  loading.setAttribute("aria-live", "polite");
+  loading.append(
+    element("span", "loading-spinner"),
+    element("strong", "", "問題の詳細を読み込んでいます"),
+  );
+  pane.append(loading);
 }
 
 function renderEmpty(message) {
@@ -4117,6 +4203,7 @@ function renderDetail() {
     element("h2", "", question.questionLabel || question.sourceQuestionKey || "問題詳細"),
     element("div", "detail-meta", `${qualificationDisplayName(question.qualification)} / ${listGroupDisplayName(question.listGroupId)} / ${question.sourceQuestionKey}`),
   );
+  titleBlock.querySelector("h2").tabIndex = -1;
   const actions = element("div", "detail-actions");
   if (state.auditView.readOnly) {
     actions.classList.add("single-question-maintenance");

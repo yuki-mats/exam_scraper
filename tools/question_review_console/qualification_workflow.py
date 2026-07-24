@@ -2362,13 +2362,20 @@ class QualificationWorkflow:
         version_statuses: list[tuple[Mapping[str, Any], Mapping[str, Any]]],
         *,
         force_all_required: bool = False,
-    ) -> dict[str, int]:
+    ) -> dict[str, int | float]:
         total = len(version_statuses)
+        total_work_items = sum(
+            int(status.get("applicableCount") or 0)
+            for _question, status in version_statuses
+        )
         if force_all_required:
             return {
                 "totalCount": total,
                 "currentCount": 0,
                 "requiredCount": total,
+                "completedWorkItemCount": 0,
+                "totalWorkItemCount": total_work_items,
+                "workItemProgressPercent": 0,
             }
         current = sum(
             bool(status.get("allCurrent"))
@@ -2381,16 +2388,28 @@ class QualificationWorkflow:
             )
             for question, status in version_statuses
         )
+        completed_work_items = sum(
+            int(status.get("currentCount") or 0)
+            for _question, status in version_statuses
+        )
         return {
             "totalCount": total,
             "currentCount": current,
             "requiredCount": total - current,
+            "completedWorkItemCount": completed_work_items,
+            "totalWorkItemCount": total_work_items,
+            "workItemProgressPercent": round(
+                completed_work_items / total_work_items * 100,
+                1,
+            )
+            if total_work_items
+            else 100,
         }
 
     @staticmethod
     def _group_summary(
         group: Mapping[str, Any],
-        maintenance_progress: Mapping[str, int],
+        maintenance_progress: Mapping[str, int | float],
     ) -> dict[str, Any]:
         questions = group.get("questions") or []
         issue_count = sum(bool(question.get("issues")) for question in questions)

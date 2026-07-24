@@ -524,11 +524,45 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertEqual(
             overview["summary"]["maintenanceProgress"],
-            {"totalCount": 2, "currentCount": 1, "requiredCount": 1},
+            {
+                "totalCount": 2,
+                "currentCount": 1,
+                "requiredCount": 1,
+                "completedWorkItemCount": 7,
+                "totalWorkItemCount": 14,
+                "workItemProgressPercent": 50.0,
+            },
         )
         by_year = {item["listGroupId"]: item for item in overview["groups"]}
         self.assertEqual(by_year["2025"]["maintenanceProgress"]["requiredCount"], 0)
         self.assertEqual(by_year["2026"]["maintenanceProgress"]["requiredCount"], 1)
+
+    def test_overview_progress_reflects_a_completed_intermediate_stage(self):
+        item = question()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            policy = workflow.versioned_policies("sample")["question_type"]
+            workflow.work_versions.record_stage(
+                [item],
+                policy,
+                run_id="question-type-only",
+                source="validated_run",
+            )
+
+            progress = workflow.overview("sample")["summary"]["maintenanceProgress"]
+
+        self.assertEqual(progress["currentCount"], 0)
+        self.assertEqual(progress["completedWorkItemCount"], 1)
+        self.assertGreater(progress["totalWorkItemCount"], 1)
+        self.assertGreater(progress["workItemProgressPercent"], 0)
 
     def test_attention_plan_carries_only_target_record_identity_groups(self):
         target = question(
@@ -696,7 +730,14 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(plan["outputFiles"], [])
         self.assertEqual(
             overview["summary"]["maintenanceProgress"],
-            {"totalCount": 1, "currentCount": 1, "requiredCount": 0},
+            {
+                "totalCount": 1,
+                "currentCount": 1,
+                "requiredCount": 0,
+                "completedWorkItemCount": 7,
+                "totalWorkItemCount": 7,
+                "workItemProgressPercent": 100.0,
+            },
         )
 
     def test_law_issue_precedes_delivery_and_clears_to_delivery(self):
