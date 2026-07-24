@@ -197,6 +197,14 @@ class WorkflowCatalogTests(unittest.TestCase):
             aws_samples,
         )
         self.assertIn(
+            "「企業は」「同社は」などの主語を先頭に置く公式翻訳の構造も維持します。",
+            aws_samples,
+        )
+        self.assertIn(
+            "小売企業は、自社製品の評判を把握するため、SNS上の顧客コメントを分析したい。",
+            aws_samples,
+        )
+        self.assertIn(
             "正答の選択肢1と2は変更せず、誤答だけを変更して順番を入れ替えます。",
             aws_samples,
         )
