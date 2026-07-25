@@ -65,13 +65,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-full-normal-flow-publish/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-full-normal-flow-publish"
 
-active_task: T001
+active_task: T003
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "問題整備システムUIで全18年度群を通常フロー実行するため、現行UI操作、対象件数、工程版、評価状態、既存成果物、検証入口をread-onlyで確定する。"
     inputs:
@@ -94,12 +94,50 @@ tasks:
       - "既に現行工程済み、再整備必要、評価必要、公開済みの区分"
       - "正答・解説・00_source差分の検証入口"
       - "次のJudgeがWorkerへ渡せる対象とstop条件"
-    receipt: null
-
+    receipt:
+      result: done
+      harness: codex
+      summary: "PM fallbackで現行UIと全18年度群をread-only監査した。UIは127.0.0.1:8765で稼働しactive runはない。乙種522問と甲種528問は全て現行工程未完了で、通常フローの全問洗い替えが必要。公開候補は5,217document、live欠落0、正答差分0だが、乙種2024基礎問9の採点形式差分5documentは未反映。全問run前に既存UI復元修正を検証・コミットしserverを再起動する必要がある。"
+      evidence:
+        - "document/operations/local_question_review_console.md: 起点は各年度の「整備・洗い替え」、全問実行時は「選択年度の全問題を洗い替える」、patch後はartifactSync、別session評価、UI確認後のFirestore反映。"
+        - "config/question_maintenance_workflow.toml: 現行人間工程は01、02、02a、02b、03、03b、04。03cは資格scope。"
+        - "GET http://127.0.0.1:8765/api/session: question-review-ui/v3、project repaso-rbaqy4、Firestore write enabled、Codex App Server available、ChatGPT Pro、credits disabled、Standard mode。"
+        - "GET /api/qualification-runs: gas-shunin-otsu activeRun=null、gas-shunin-kou activeRun=null。"
+        - "GET /api/qualification-workflow?qualification=gas-shunin-otsu: 9 groups、522 questions、current 0、required 522、3654 work items、source answer differences 6、issue questions 522。"
+        - "GET /api/qualification-workflow?qualification=gas-shunin-kou: 9 groups、528 questions、current 0、required 528、3696 work items、issue questions 473。"
+        - "monitor_gas_shunin_grading_repair.py: candidate/live 5217、missing 0、correctChoice mismatch 0、questionType mismatch 55、gradingMode mismatch 5、target pending 5。"
+        - "check_00_source_immutability.py: 5799 files unchanged。"
+        - "git main...origin/main = 0 0。"
+      facts:
+        - "対象は甲種・乙種2017〜2025年の全18 listGroupId、合計1050元問題。"
+        - "UI操作は資格ごとに年度カードの「整備・洗い替え」から開き、9年度を選択し、全更新項目と「選択年度の全問題を洗い替える」を選ぶ。"
+        - "乙種は全522問、甲種は全528問がmaintenance bucketで、publishReady又はpublishedは0。"
+        - "乙種に00_sourceと整備後正答の差分が6問あり、甲種は0問。"
+        - "乙種のissueCountsはanswer_explanation_mismatch 4、law_audit_metadata_incomplete 113、required_field_missing 522、upload_stale 58。"
+        - "甲種のissueCountsはanswer_explanation_mismatch 40、identity_mismatch 278、law_audit_metadata_incomplete 51、merge_stale 1、required_field_missing 472。"
+        - "問題整備UIの別作業による未コミット変更が4ファイルにあり、運用正本は実装・テスト完了後のserver再起動を要求する。"
+      contradictions:
+        - "旧Goalは934問を対象としていたが、現行UI inventoryは1050問である。"
+        - "既存patchとliveのcorrectChoiceTextは一致する一方、全1050元問題の現行工程版は0問であり、過去の整備済みartifactだけでは現行評価済みと扱えない。"
+        - "既存serverは稼働中だがstatic UIの未コミット修正があり、開始前に検証・コミット・再起動が必要である。"
+      ambiguity_requiring_judge:
+        - "甲種2017の過去runでは05がstage一覧に含まれた例がある。公式過去問に05を適用しない現行条件をpreviewで確認し、05が実対象なら開始を拒否する必要がある。"
+        - "未コミットUI修正4ファイルの所有者は別作業だが、内容はSafari復元・一覧cache・asset versionの一貫した変更に見える。検証して先にcommitするWorkerをmain flow前へ挿入するかJudge判断が必要。"
+        - "全18年度群を資格ごとに1runで扱えるか、UI previewのtargetCount・workItemCount・blockingWarningsで確定する必要がある。"
+      commands:
+        - cmd: "GET /api/qualification-workflow for gas-shunin-otsu and gas-shunin-kou"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/monitor_gas_shunin_grading_repair.py"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git rev-list --left-right --count main...origin/main"
+          status: pass
+      note_needed: false
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Scoutの現物確認を審査し、UIから全問通常フローを実行する最大の安全な乙種・甲種Worker sliceを確定する。"
     inputs:
@@ -116,12 +154,250 @@ tasks:
       - "allowed_files"
       - "UI verifyと補助read-only verify"
       - "stop_if"
-    receipt: null
-
+    receipt:
+      result: done
+      harness: codex
+      decision: approved
+      full_outcome_complete: false
+      rationale: "全問通常フローの方針は妥当。ただし現在のUIにはSafari復元・一覧cache・asset versionの未コミット修正があり、運用正本は実装・テスト完了後のserver再起動を要求する。先に限定Workerで4ファイルを検証・commit・pushし、serverを再起動する。その後、資格ごとにUI previewで全9年度、全問、全更新項目、05の実対象0、blocking warning 0を確認して乙種522問、甲種528問の順に開始する。"
+      worker_package:
+        objective: "既存の問題整備UI復元・cache・asset version修正4ファイルを検証し、mainへ限定commit・pushした後、問題整備serverを再起動してUI契約とactive runなしをreadbackする。"
+        allowed_files:
+          - document/operations/local_question_review_console.md
+          - tests/test_question_review_workflow.py
+          - tools/question_review_console/static/app.js
+          - tools/question_review_console/static/index.html
+        verify:
+          - ".venv/bin/python -m pytest tests/test_question_review_workflow.py"
+          - "node --check tools/question_review_console/static/app.js"
+          - "git diff --check -- document/operations/local_question_review_console.md tests/test_question_review_workflow.py tools/question_review_console/static/app.js tools/question_review_console/static/index.html"
+          - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          - "再起動後のGET /api/sessionでquestion-review-ui/v3、project repaso-rbaqy4、appServer.available=trueを確認する。"
+          - "再起動後のGET /api/qualification-runsで甲種・乙種activeRun=nullを確認する。"
+        stop_if:
+          - "4ファイル以外の未コミット変更を含める必要がある。"
+          - "targeted test又はJavaScript構文検査が失敗する。"
+          - "00_sourceに差分がある。"
+          - "server再起動後のUI契約、project ID、Codex App Server状態が期待と異なる。"
+          - "active runが存在する。"
+      evidence:
+        - "T001 receipt"
+        - "document/operations/local_question_review_console.mdの起動前手順"
+        - "git diffで4ファイルが同一のUI復元・cache変更を構成すること"
+        - "現行UI serverのactiveRun=null"
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "UI修正、server再起動、全問runは同一UI/serverとrepositoryを共有するため直列実行する。"
+      blocked_tasks:
+        - T003
+        - T004
+      missing_evidence:
+        - "乙種UI previewのtargetCount=522、workItemCount、canStart、blockingWarnings、05実対象件数。"
+        - "甲種UI previewのtargetCount=528、workItemCount、canStart、blockingWarnings、05実対象件数。"
+      required_board_updates:
+        - "T010をT003より前のWorkerとして追加し、UI修正の検証・commit・push・server再起動を行う。"
+        - "T003とT004はUI previewが全問scope、05実対象0、blockingWarnings 0、canStart=trueを満たす場合だけ開始する。"
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "既存の問題整備UI復元・cache・asset version修正4ファイルを検証し、mainへ限定commit・pushした後、問題整備serverを再起動してUI契約とactive runなしをreadbackする。"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_workflow.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+    verify:
+      - ".venv/bin/python -m pytest tests/test_question_review_workflow.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - "git diff --check -- document/operations/local_question_review_console.md tests/test_question_review_workflow.py tools/question_review_console/static/app.js tools/question_review_console/static/index.html"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "再起動後のGET /api/sessionでquestion-review-ui/v3、project repaso-rbaqy4、appServer.available=trueを確認する。"
+      - "再起動後のGET /api/qualification-runsで甲種・乙種activeRun=nullを確認する。"
+    stop_if:
+      - "4ファイル以外の未コミット変更を含める必要がある。"
+      - "targeted test又はJavaScript構文検査が失敗する。"
+      - "00_sourceに差分がある。"
+      - "server再起動後のUI契約、project ID、Codex App Server状態が期待と異なる。"
+      - "active runが存在する。"
+    receipt:
+      result: blocked
+      harness: codex
+      changed_files: []
+      commands:
+        - cmd: ".venv/bin/python -m pytest tests/test_question_review_workflow.py"
+          status: fail
+          exit_code: 3
+          evidence: "pytest起動時に別checkoutのcode.pyが標準ライブラリcodeを遮蔽し、pdb importでAttributeError: module 'code' has no attribute 'InteractiveConsole'"
+      summary: "指定された最初のtargeted testがpytest初期化時に失敗したため、stop_ifに従って直ちに停止した。4対象ファイルの編集・stage・commit・push、server停止・再起動は行っていない。Goal管理ファイルにも触れていない。"
+      remaining_blockers:
+        - ".venvがDrive candidate checkoutのPython環境を参照しており、同checkout直下のcode.pyが標準ライブラリcodeを遮蔽してpytestを起動できない。"
+        - "targeted test失敗のため、残りの検証、commit/push、review-ui再起動とreadbackを実行できない。"
+      verification_attempts: 1
+      stopped_because: "stop_if: targeted testが失敗した。"
+  - id: T011
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "T010のpytest初期化失敗をread-onlyで切り分け、対象4ファイルを正しく検証できる既存Python環境又は同等のtest commandを確定する。"
+    inputs:
+      - "T010 receipt"
+      - ".venv"
+      - "tests/test_question_review_workflow.py"
+      - "repository root and physical checkout path"
+    constraints:
+      - "Read-only。"
+      - "code.py、.venv、test、実装fileを変更しない。"
+      - "新しい依存をinstallしない。"
+      - "targeted testの意味を弱めない。"
+    expected_output:
+      - "shadowingの正確な原因path"
+      - "成功する既存test command"
+      - "T010と同じ4file scopeで再実行できるWorker package"
+      - "stop_if"
+    receipt:
+      result: done
+      harness: codex
+      summary: "PM fallbackでpytest初期化失敗をread-only切り分けした。リポジトリ直下のcode.pyが標準ライブラリcodeを遮蔽するため、リポジトリ外を作業ディレクトリにして標準ライブラリcodeを先にimportし、その後にリポジトリをsys.pathへ追加する同等のtargeted pytest commandを確定した。対象testは41件全て成功した。"
+      evidence:
+        - ".venv/bin/python -c 'import sys,code; ...' は code.__file__=/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/code.py を示した。"
+        - ".venv/bin/pytest tests/test_question_review_workflow.py は標準ライブラリ遮蔽を回避したが、repo rootがsys.pathになくscripts importでcollection errorになった。"
+        - "workdir=/private/tmp から標準ライブラリcodeを先にimportし、sys.pathへ/Users/yuki/development/exam_scraperを追加してpytest.mainを呼ぶと41 passed in 1.69s。"
+      root_cause: "python -m pytestをrepository rootから起動するとsys.path先頭の空文字がrepository rootを指し、repository rootのcode.pyが標準ライブラリcodeより先に解決される。pytestがpdbをimportした際、期待するcode.InteractiveConsoleが存在せず初期化に失敗する。"
+      worker_package:
+        objective: "既存の問題整備UI復元・cache・asset version修正4ファイルを、分離したtargeted pytest commandで検証し、mainへ限定commit・pushした後、問題整備serverを再起動してUI契約とactive runなしをreadbackする。"
+        allowed_files:
+          - document/operations/local_question_review_console.md
+          - tests/test_question_review_workflow.py
+          - tools/question_review_console/static/app.js
+          - tools/question_review_console/static/index.html
+        verify:
+          - "workdir=/private/tmp で /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'"
+          - "node --check tools/question_review_console/static/app.js"
+          - "git diff --check -- document/operations/local_question_review_console.md tests/test_question_review_workflow.py tools/question_review_console/static/app.js tools/question_review_console/static/index.html"
+          - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          - "再起動後のGET /api/sessionでquestion-review-ui/v3、project repaso-rbaqy4、appServer.available=trueを確認する。"
+          - "再起動後のGET /api/qualification-runsで甲種・乙種activeRun=nullを確認する。"
+        stop_if:
+          - "4ファイル以外の未コミット変更を含める必要がある。"
+          - "targeted test又はJavaScript構文検査が失敗する。"
+          - "00_sourceに差分がある。"
+          - "server再起動後のUI契約、project ID、Codex App Server状態が期待と異なる。"
+          - "active runが存在する。"
+      commands:
+        - cmd: "workdir=/private/tmp /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'"
+          status: pass
+          evidence: "41 passed in 1.69s"
+      note_needed: false
+  - id: T012
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "既存の問題整備UI復元・cache・asset version修正4ファイルを、分離したtargeted pytest commandで検証し、mainへ限定commit・pushした後、問題整備serverを再起動してUI契約とactive runなしをreadbackする。"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_workflow.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+    verify:
+      - "workdir=/private/tmp で /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'"
+      - "node --check tools/question_review_console/static/app.js"
+      - "git diff --check -- document/operations/local_question_review_console.md tests/test_question_review_workflow.py tools/question_review_console/static/app.js tools/question_review_console/static/index.html"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "再起動後のGET /api/sessionでquestion-review-ui/v3、project repaso-rbaqy4、appServer.available=trueを確認する。"
+      - "再起動後のGET /api/qualification-runsで甲種・乙種activeRun=nullを確認する。"
+    stop_if:
+      - "4ファイル以外の未コミット変更を含める必要がある。"
+      - "targeted test又はJavaScript構文検査が失敗する。"
+      - "00_sourceに差分がある。"
+      - "server再起動後のUI契約、project ID、Codex App Server状態が期待と異なる。"
+      - "active runが存在する。"
+    receipt:
+      result: blocked
+      harness: codex
+      changed_files: []
+      commands: []
+      summary: "Worker契約で必須のboard_pathが委任文に含まれていないため、編集・検証・コミット・push・server再起動を開始せず停止した。"
+      remaining_blockers:
+        - "board_pathの明示が必要。"
+      verification_attempts: 0
+      stopped_because: "required board_path is missing"
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "T012と同一scopeを、明示したGoal board path付きで再実行する。既存の問題整備UI復元・cache・asset version修正4ファイルを検証し、mainへ限定commit・pushした後、問題整備serverを再起動してUI契約とactive runなしをreadbackする。"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_workflow.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+    verify:
+      - "workdir=/private/tmp で /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'"
+      - "node --check tools/question_review_console/static/app.js"
+      - "git diff --check -- document/operations/local_question_review_console.md tests/test_question_review_workflow.py tools/question_review_console/static/app.js tools/question_review_console/static/index.html"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "再起動後のGET /api/sessionでquestion-review-ui/v3、project repaso-rbaqy4、appServer.available=trueを確認する。"
+      - "再起動後のGET /api/qualification-runsで甲種・乙種activeRun=nullを確認する。"
+    stop_if:
+      - "4ファイル以外の未コミット変更を含める必要がある。"
+      - "targeted test又はJavaScript構文検査が失敗する。"
+      - "00_sourceに差分がある。"
+      - "server再起動後のUI契約、project ID、Codex App Server状態が期待と異なる。"
+      - "active runが存在する。"
+    receipt:
+      result: done
+      harness: codex
+      changed_files:
+        - document/operations/local_question_review_console.md
+        - tests/test_question_review_workflow.py
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/index.html
+      commit:
+        sha: aed567baa98a62370e10a1c21ee7cf0fa99623ae
+        subject: "問題一覧の表示状態を自動復元"
+        scope_verified: true
+      push:
+        remote: origin/main
+        status: pass
+        head_equals_origin_main: true
+      commands:
+        - cmd: "workdir=/private/tmp /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'"
+          status: pass
+          evidence: "41 passed in 0.86s"
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "git show --check --oneline aed567baa"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          evidence: "5799 files unchanged"
+      server_restart:
+        status: pass
+        pid: 71890
+        ppid: 1
+        started_at: "Fri Jul 24 23:13:47 2026"
+        command: "/Users/yuki/development/exam_scraper/.venv/bin/python tools/question_bank/question_bank.py review-ui --port 8765 --no-browser --tailscale-origin https://macbook-air.tail53d594.ts.net --tailscale-login yuki.matsuda007@gmail.com --tailscale-source-ip 100.72.173.91 --tailscale-source-ip 100.113.208.56"
+      readback:
+        session:
+          uiContractVersion: question-review-ui/v3
+          projectId: repaso-rbaqy4
+          firestoreWriteEnabled: true
+          appServerAvailable: true
+          planType: pro
+          standardMode: true
+        gas_shunin_otsu_active_run: null
+        gas_shunin_kou_active_run: null
+      summary: "UI復元・cache修正4ファイルだけをコミットしてorigin/mainへpushし、問題整備serverを同一引数で再起動した。targeted test 41件、JavaScript構文、commit whitespace、00_source不変を確認し、再起動後のUI契約・project・Codex App Server・甲乙activeRunなしをreadbackした。"
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "問題整備システムUIから乙種2017〜2025年の全年度群を通常フローで整備・評価し、公開直前の現行成果物まで完了する。"
     allowed_files:

@@ -1,0 +1,45 @@
+{
+  "result": "done",
+  "task_id": "T011",
+  "board_path": "/Users/yuki/development/exam_scraper/docs/goals/gas-shunin-full-normal-flow-publish/state.yaml",
+  "harness": "codex",
+  "summary": "PM fallbackでpytest初期化失敗をread-only切り分けした。リポジトリ直下のcode.pyが標準ライブラリcodeを遮蔽するため、リポジトリ外を作業ディレクトリにして標準ライブラリcodeを先にimportし、その後にリポジトリをsys.pathへ追加する同等のtargeted pytest commandを確定した。対象testは41件全て成功した。",
+  "evidence": [
+    ".venv/bin/python -c 'import sys,code; ...' は code.__file__=/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/code.py を示した。",
+    ".venv/bin/pytest tests/test_question_review_workflow.py は標準ライブラリ遮蔽を回避したが、repo rootがsys.pathになくscripts importでcollection errorになった。",
+    "workdir=/private/tmp から標準ライブラリcodeを先にimportし、sys.pathへ/Users/yuki/development/exam_scraperを追加してpytest.mainを呼ぶと41 passed in 1.69s。"
+  ],
+  "root_cause": "python -m pytestをrepository rootから起動するとsys.path先頭の空文字がrepository rootを指し、repository rootのcode.pyが標準ライブラリcodeより先に解決される。pytestがpdbをimportした際、期待するcode.InteractiveConsoleが存在せず初期化に失敗する。",
+  "worker_package": {
+    "objective": "既存の問題整備UI復元・cache・asset version修正4ファイルを、分離したtargeted pytest commandで検証し、mainへ限定commit・pushした後、問題整備serverを再起動してUI契約とactive runなしをreadbackする。",
+    "allowed_files": [
+      "document/operations/local_question_review_console.md",
+      "tests/test_question_review_workflow.py",
+      "tools/question_review_console/static/app.js",
+      "tools/question_review_console/static/index.html"
+    ],
+    "verify": [
+      "workdir=/private/tmp で /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'",
+      "node --check tools/question_review_console/static/app.js",
+      "git diff --check -- document/operations/local_question_review_console.md tests/test_question_review_workflow.py tools/question_review_console/static/app.js tools/question_review_console/static/index.html",
+      ".venv/bin/python scripts/check/check_00_source_immutability.py",
+      "再起動後のGET /api/sessionでquestion-review-ui/v3、project repaso-rbaqy4、appServer.available=trueを確認する。",
+      "再起動後のGET /api/qualification-runsで甲種・乙種activeRun=nullを確認する。"
+    ],
+    "stop_if": [
+      "4ファイル以外の未コミット変更を含める必要がある。",
+      "targeted test又はJavaScript構文検査が失敗する。",
+      "00_sourceに差分がある。",
+      "server再起動後のUI契約、project ID、Codex App Server状態が期待と異なる。",
+      "active runが存在する。"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "workdir=/private/tmp /Users/yuki/development/exam_scraper/.venv/bin/python -c 'import code, sys, pytest; sys.path.insert(0, \"/Users/yuki/development/exam_scraper\"); raise SystemExit(pytest.main([\"/Users/yuki/development/exam_scraper/tests/test_question_review_workflow.py\"]))'",
+      "status": "pass",
+      "evidence": "41 passed in 1.69s"
+    }
+  ],
+  "note_needed": false
+}

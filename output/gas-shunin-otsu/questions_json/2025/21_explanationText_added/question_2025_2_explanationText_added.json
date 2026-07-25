@@ -16,40 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "不正解。レイノルズ数は Re=ρvD/μ で求める。D=0.075m、v=0.8m/s、ρ=1000kg/m³、μ=1.0×10⁻³Pa·sなので、Re=1000×0.8×0.075/(1.0×10⁻³)=60000となり、10000ではない。",
-      "不正解。20000は計算値60000より小さい。式 Re=ρvD/μ に与えられた値を代入すると60000となる。",
-      "不正解。40000は計算値60000より小さい。内径75mmを0.075mに換算し、Re=1000×0.8×0.075/(1.0×10⁻³)で計算する。",
-      "正解。内径75mm=0.075mである。Re=ρvD/μ=1000×0.8×0.075/(1.0×10⁻³)=60000となるため、最も近い値は60000である。",
-      "不正解。80000は計算値60000より大きい。密度、平均流速、管内径を掛けて粘度で割ると60000となる。"
-    ],
-    "suggestedQuestions": [
-      "レイノルズ数の定義式は？",
-      "内径75mmは何mとして計算する？",
-      "本問のレイノルズ数はいくらか？",
-      "40000が不正解になる理由は？",
-      "80000が不正解になる理由は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "レイノルズ数の定義式は？",
-        "answer": "Re=ρvD/μ。。密度ρ、平均流速v、代表長さDを掛け、粘度μで割る。"
-      },
-      {
-        "question": "内径75mmは何mとして計算する？",
-        "answer": "0.075m。。75mmは1000で割ってmに直すため0.075mである。"
-      },
-      {
-        "question": "本問のレイノルズ数はいくらか？",
-        "answer": "60000。。1000×0.8×0.075/(1.0×10⁻³)=60000となる。"
-      },
-      {
-        "question": "40000が不正解になる理由は？",
-        "answer": "計算値60000より小さいため。。与えられた密度、流速、内径、粘度を代入した値は40000ではなく60000である。"
-      },
-      {
-        "question": "80000が不正解になる理由は？",
-        "answer": "計算値60000より大きいため。。レイノルズ数は60000なので、80000は最も近い値ではない。"
-      }
+      "正解は60000である。レイノルズ数は Re=ρvD/μ で求める。内径75mmは0.075mなので、Re=1000×0.8×0.075/(1.0×10⁻³)=60000 となる。したがって、最も近い選択肢は60000である。10000、20000、40000は計算値より小さく、80000は計算値より大きい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -82,7 +49,21 @@
       "正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q10",
+    "reviewQuestionId": "b9574ed6de478e60",
+    "sourceRecordRef": "question_2025_2.json#0",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "レイノルズ数を求める流体力学の計算問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "87e96a07f7e35ea9",
@@ -101,40 +82,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "不正解。平均流速は v=質量流量/(密度×断面積) で求める。内径0.20mなので断面積 A=πD²/4=π×0.20²/4≈0.0314m²、v=20/(320×0.0314)≈2.0m/s となり、0.5m/sではない。",
-      "不正解。1.0m/sでは質量流量が 320×0.0314×1.0≈10kg/s となり、問題の20kg/sに足りない。",
-      "不正解。1.5m/sでは質量流量が 320×0.0314×1.5≈15kg/s となり、問題の20kg/sより小さい。",
-      "正解。内径20cm=0.20m、断面積 A=πD²/4≈0.0314m²。質量流量 m=ρAv より v=m/(ρA)=20/(320×0.0314)≈1.99m/s なので、最も近い値は2.0m/sである。",
-      "不正解。2.5m/sでは質量流量が 320×0.0314×2.5≈25kg/s となり、問題の20kg/sより大きい。"
-    ],
-    "suggestedQuestions": [
-      "質量流量・密度・断面積・平均流速の関係式は？",
-      "内径20cmの直円管の断面積はどのように求める？",
-      "本問の平均流速はどのように計算する？",
-      "1.5m/sが不正解になる理由は？",
-      "2.5m/sが不正解になる理由は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "質量流量・密度・断面積・平均流速の関係式は？",
-        "answer": "質量流量 m=ρAv を用いる。。密度ρ、断面積A、平均流速vを掛けると単位時間あたりに流れる質量になる。"
-      },
-      {
-        "question": "内径20cmの直円管の断面積はどのように求める？",
-        "answer": "A=πD²/4=π×0.20²/4≈0.0314m²。"
-      },
-      {
-        "question": "本問の平均流速はどのように計算する？",
-        "answer": "v=20/(320×0.0314)≈2.0m/s。"
-      },
-      {
-        "question": "1.5m/sが不正解になる理由は？",
-        "answer": "質量流量が約15kg/sとなり、20kg/sに不足するため。"
-      },
-      {
-        "question": "2.5m/sが不正解になる理由は？",
-        "answer": "質量流量が約25kg/sとなり、20kg/sより大きいため。"
-      }
+      "正解は2.0m/sである。質量流量は、密度ρ、断面積A、平均流速vを用いて m=ρAv と表される。内径20cmは0.20mなので、断面積は A=πD²/4=π×0.20²/4≈0.0314m² である。したがって、v=m/(ρA)=20/(320×0.0314)≈1.99m/s となり、最も近い選択肢は2.0m/sである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -167,7 +115,21 @@
       "正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q11",
+    "reviewQuestionId": "87e96a07f7e35ea9",
+    "sourceRecordRef": "question_2025_2.json#1",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "質量流量、密度、断面積から平均流速を求める流体力学の計算問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "d3a875bb5d87861a",
@@ -186,40 +148,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "不正解。平板の定常熱伝導では、熱流束 q は q=λΔT/L で表される。λ=qL/ΔT=10×0.2/(25-(-75))=0.02 W/(m·K) となるため、0.01ではない。",
-      "正解。温度差は25-(-75)=100K、厚さは0.2m、熱流束は10W/m²である。q=λΔT/L より λ=qL/ΔT=10×0.2/100=0.02 W/(m·K) となる。",
-      "不正解。0.03 W/(m·K) とすると、q=0.03×100/0.2=15W/m²となり、問題の熱流束10W/m²より大きくなる。",
-      "不正解。0.04 W/(m·K) とすると、q=0.04×100/0.2=20W/m²となり、問題の熱流束10W/m²に合わない。",
-      "不正解。0.05 W/(m·K) とすると、q=0.05×100/0.2=25W/m²となり、問題の熱流束10W/m²より大きい。"
-    ],
-    "suggestedQuestions": [
-      "平板の定常熱伝導における熱流束の式は？",
-      "本問の温度差は何Kか？",
-      "本問の平均熱伝導率はどのように求める？",
-      "0.03 W/(m·K)が不正解になる理由は？",
-      "熱流束・厚さ・温度差から熱伝導率を求めるときの単位の見方は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "平板の定常熱伝導における熱流束の式は？",
-        "answer": "q=λΔT/L を用いる。。平板を通る一次元の定常熱伝導では、熱流束は熱伝導率と温度差に比例し、厚さに反比例する。"
-      },
-      {
-        "question": "本問の温度差は何Kか？",
-        "answer": "100K。。両面温度は-75℃と25℃なので、温度差は25-(-75)=100℃であり、温度差としては100Kである。"
-      },
-      {
-        "question": "本問の平均熱伝導率はどのように求める？",
-        "answer": "λ=qL/ΔT=10×0.2/100=0.02 W/(m·K)。"
-      },
-      {
-        "question": "0.03 W/(m·K)が不正解になる理由は？",
-        "answer": "熱流束が15W/m²になり、問題の10W/m²と一致しないため。"
-      },
-      {
-        "question": "熱流束・厚さ・温度差から熱伝導率を求めるときの単位の見方は？",
-        "answer": "温度差はKで扱い、厚さm、熱流束W/m²をそのまま qL/ΔT に代入する。"
-      }
+      "正解は0.02W/(m·K)である。平板の定常熱伝導では、熱流束qは q=λΔT/L で表される。両面の温度差は 25-(-75)=100K、厚さLは0.2m、熱流束qは10W/m²である。λ=qL/ΔT=10×0.2/100=0.02W/(m·K) となるため、最も近い選択肢は0.02である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -252,7 +181,21 @@
       "不正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q12",
+    "reviewQuestionId": "d3a875bb5d87861a",
+    "sourceRecordRef": "question_2025_2.json#2",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "平板の定常熱伝導式から平均熱伝導率を求める計算問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "75fe8fc18f6594b2",
@@ -272,39 +215,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
       "正しい。熱伝導は、物質を構成する粒子間の相互作用によって、物質内部を熱が移動する伝熱形態である。",
-      "間違い。沸騰や凝縮など相変化を伴う場合の熱伝達率は、一般に相変化を伴わない場合より大きい傾向がある。小さい傾向があるとしている点が誤り。",
-      "正しい。実在物体の全放射能は、同じ温度の黒体を基準とした放射率が1未満であるため、黒体に比べて小さい。",
-      "正しい。金属表面の放射率は、一般に滑らかな研磨面よりも酸化面や粗い面で大きくなる。",
-      "正しい。熱放射は電磁波による伝熱であり、物質媒体を必要としないため真空中でも伝熱する。"
-    ],
-    "suggestedQuestions": [
-      "熱伝導とはどのような伝熱形態か。",
-      "相変化を伴う熱伝達率は相変化を伴わない場合と比べてどうなるか。",
-      "実在物体の全放射能は黒体と比べてどうか。",
-      "金属表面の放射率は研磨面と酸化面でどちらが大きいか。",
-      "熱放射は真空中でも伝熱するか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "熱伝導とはどのような伝熱形態か。",
-        "answer": "正しい。熱伝導は、物質を構成する粒子間の相互作用によって、物質内部を熱が移動する伝熱形態である。"
-      },
-      {
-        "question": "相変化を伴う熱伝達率は相変化を伴わない場合と比べてどうなるか。",
-        "answer": "間違い。沸騰や凝縮など相変化を伴う場合の熱伝達率は、一般に相変化を伴わない場合より大きい傾向がある。小さい傾向があるとしている点が誤り。"
-      },
-      {
-        "question": "実在物体の全放射能は黒体と比べてどうか。",
-        "answer": "正しい。実在物体の全放射能は、同じ温度の黒体を基準とした放射率が1未満であるため、黒体に比べて小さい。"
-      },
-      {
-        "question": "金属表面の放射率は研磨面と酸化面でどちらが大きいか。",
-        "answer": "正しい。金属表面の放射率は、一般に滑らかな研磨面よりも酸化面や粗い面で大きくなる。"
-      },
-      {
-        "question": "熱放射は真空中でも伝熱するか。",
-        "answer": "正しい。熱放射は電磁波による伝熱であり、物質媒体を必要としないため真空中でも伝熱する。"
-      }
+      "間違い。沸騰や凝縮などの相変化を伴う場合、熱伝達率は一般に相変化を伴わない場合より大きくなる。選択肢は相変化を伴う場合の方が小さいとしているため誤りである。",
+      "正しい。実在物体の全放射能は、同じ温度の黒体を基準とした放射率が1未満であるため、黒体より小さい。",
+      "正しい。金属表面の放射率は、一般に滑らかな研磨面より酸化面や粗い面の方が大きい。",
+      "正しい。熱放射は電磁波による伝熱であり、物質媒体を必要としないため真空中でも熱を伝える。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -338,7 +252,21 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q13",
+    "reviewQuestionId": "75fe8fc18f6594b2",
+    "sourceRecordRef": "question_2025_2.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "熱伝導、相変化を伴う熱伝達、放射能、放射率及び熱放射を問う伝熱の基礎問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "c21cf801fe0d51e0",
@@ -357,40 +285,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正しい。高分子材料は一般に金属材料に比べて熱伝導率が小さく、熱を伝えにくい性質がある。",
-      "正しい。高分子材料は一般に金属材料に比べて引張強さが小さい。",
-      "間違い。高分子材料は粘弾性を示し、荷重を受けた状態で時間とともに変形が進むクリープが常温でも発生する。常温では発生しないとしている点が誤りである。",
-      "正しい。高分子材料は紫外線を吸収すると分子鎖の切断などにより分解・劣化することがある。",
-      "正しい。高分子材料は高温度で長時間使用すると、熱による酸化や分子構造の変化などで劣化することがある。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: 金属材料に比べて、熱伝導率が小さい。",
-      "次の記述の正誤を確認する: 金属材料に比べて、引張強さが小さい。",
-      "次の記述の正誤を確認する: クリープは、\n常温では発生しない\n。",
-      "次の記述の正誤を確認する: 紫外線を吸収すると、分解することがある。",
-      "次の記述の正誤を確認する: 高温度で長時間使用していると、劣化する。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: 金属材料に比べて、熱伝導率が小さい。",
-        "answer": "正しい。高分子材料は一般に金属材料に比べて熱伝導率が小さく、熱を伝えにくい性質がある。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 金属材料に比べて、引張強さが小さい。",
-        "answer": "正しい。高分子材料は一般に金属材料に比べて引張強さが小さい。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: クリープは、\n常温では発生しない\n。",
-        "answer": "間違い。高分子材料は粘弾性を示し、荷重を受けた状態で時間とともに変形が進むクリープが常温でも発生する。常温では発生しないとしている点が誤りである。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 紫外線を吸収すると、分解することがある。",
-        "answer": "正しい。高分子材料は紫外線を吸収すると分子鎖の切断などにより分解・劣化することがある。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 高温度で長時間使用していると、劣化する。",
-        "answer": "正しい。高分子材料は高温度で長時間使用すると、熱による酸化や分子構造の変化などで劣化することがある。"
-      }
+      "正しい。高分子材料は一般に金属材料より熱伝導率が小さく、熱を伝えにくい。",
+      "正しい。高分子材料は一般に金属材料より引張強さが小さい。",
+      "間違い。高分子材料は粘弾性を示すため、一定の荷重を受け続けると常温でも時間の経過とともに変形する。選択肢はクリープが常温では発生しないとしているため誤りである。",
+      "正しい。高分子材料は紫外線を吸収すると、分子鎖の切断などによって分解・劣化することがある。",
+      "正しい。高分子材料を高温で長時間使用すると、酸化や分子構造の変化などによって劣化することがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -422,7 +321,21 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q14",
+    "reviewQuestionId": "c21cf801fe0d51e0",
+    "sourceRecordRef": "question_2025_2.json#4",
+    "explanationReferences": [],
+    "lawContextForExplanation": "高分子材料の熱伝導率、引張強さ、クリープ、紫外線劣化及び熱劣化を問う材料特性の問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "f76598463308a709",
@@ -441,40 +354,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正解。問題文では下降伏点を基準強さとして用いるため、図の下降伏点240MPaを安全係数4.0で割る。240÷4.0=60MPaなので、許容応力は60MPaである。",
-      "不正解。70MPaは、下降伏点240MPaを安全係数4.0で割った値60MPaより大きい。基準強さを安全係数で除する計算になっていない。",
-      "不正解。100MPaは引張強さ400MPaを安全係数4.0で割った場合の値である。本問は下降伏点を基準強さと指定しているため、引張強さ400MPaは用いない。",
-      "不正解。240MPaは下降伏点そのものの値であり、安全係数4.0で除する前の基準強さである。許容応力は240MPaではなく60MPaである。",
-      "不正解。280MPaは上降伏点の値であり、問題文で指定された下降伏点ではない。また、安全係数4.0で除する必要がある。"
-    ],
-    "suggestedQuestions": [
-      "許容応力は基準強さと安全係数からどう求める？",
-      "この問題で基準強さとして使う値はどれ？",
-      "下降伏点240MPa、安全係数4.0のとき許容応力はいくら？",
-      "引張強さ400MPaを使わない理由は？",
-      "上降伏点と下降伏点はこの問題でどう区別する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "許容応力は基準強さと安全係数からどう求める？",
-        "answer": "基準強さを安全係数で除して求める。。正解。問題文では下降伏点を基準強さとして用いるため、図の下降伏点240MPaを安全係数4.0で割る。240÷4.0=60MPaなので、許容応力は60MPaである。"
-      },
-      {
-        "question": "この問題で基準強さとして使う値はどれ？",
-        "answer": "問題文で指定された下降伏点240MPaを使う。"
-      },
-      {
-        "question": "下降伏点240MPa、安全係数4.0のとき許容応力はいくら？",
-        "answer": "240÷4.0=60MPa。。正解。問題文では下降伏点を基準強さとして用いるため、図の下降伏点240MPaを安全係数4.0で割る。240÷4.0=60MPaなので、許容応力は60MPaである。"
-      },
-      {
-        "question": "引張強さ400MPaを使わない理由は？",
-        "answer": "問題文が下降伏点を基準強さとして用いると指定しているため。"
-      },
-      {
-        "question": "上降伏点と下降伏点はこの問題でどう区別する？",
-        "answer": "上降伏点280MPaではなく、下降伏点240MPaを基準強さとして使う。"
-      }
+      "正解は60MPaである。許容応力は、基準強さを安全係数で割って求める。本問では下降伏点を基準強さとして用いると指定されているため、図の下降伏点240MPaを使う。240÷4.0=60MPa となるので、最も近い選択肢は60である。引張強さ400MPaや上降伏点280MPaは、本問の基準強さではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -507,7 +387,21 @@
       "不正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q15",
+    "reviewQuestionId": "f76598463308a709",
+    "sourceRecordRef": "question_2025_2.json#5",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "下降伏点と安全係数から許容応力を求める材料力学の計算問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "6d21b6e2f7def104",
@@ -865,40 +759,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢1は（ロ）をTHTとしている点が誤り。",
-      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢2は（イ）をTHTとしている点が誤り。",
-      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢3は（イ）をシクロヘキセン、（ロ）をDMS、（ハ）をTHTとしており、いずれも対応が違う。",
-      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢4は（イ）をTBM、（ロ）をDMS、（ハ）をTHTとしている点が誤り。",
-      "正解。都市ガスの代表的な付臭剤の特徴では、DMSは代表的な硫黄系付臭剤の一つ、シクロヘキセンは硫黄を含まない炭化水素系付臭剤、TBMは臭気閾値が低く強い臭気をもつメルカプタン系付臭剤として整理されるため、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せが正しい。"
-    ],
-    "suggestedQuestions": [
-      "表の空欄（イ）（ロ）（ハ）は、DMS、THT、TBMの組合せである？",
-      "表の空欄（イ）はTHTではなくDMSである？",
-      "表の空欄（ロ）はDMSではなくシクロヘキセンで、（ハ）はTHTではなくTBMである？",
-      "表の空欄（イ）はTBMではなくDMSである？",
-      "都市ガスの代表的な付臭剤の特徴表では、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せが正しい？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "表の空欄（イ）（ロ）（ハ）は、DMS、THT、TBMの組合せである？",
-        "answer": "間違い"
-      },
-      {
-        "question": "表の空欄（イ）はTHTではなくDMSである？",
-        "answer": "正しい"
-      },
-      {
-        "question": "表の空欄（ロ）はDMSではなくシクロヘキセンで、（ハ）はTHTではなくTBMである？",
-        "answer": "正しい"
-      },
-      {
-        "question": "表の空欄（イ）はTBMではなくDMSである？",
-        "answer": "正しい"
-      },
-      {
-        "question": "都市ガスの代表的な付臭剤の特徴表では、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せが正しい？",
-        "answer": "正しい"
-      }
+      "正解は5。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。DMSはジメチルサルファイド、THTはテトラヒドロチオフェン、TBMはターシャリーブチルメルカプタンである。シクロヘキセンは硫黄を含まない炭化水素系付臭剤として区別でき、TBMはメルカプタン系付臭剤として強い臭気をもつ。したがって、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMを並べた選択肢5が最も適切である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -917,7 +778,21 @@
       "不正解",
       "正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q05",
+    "reviewQuestionId": "6fde3c0701bf1013",
+    "sourceRecordRef": "question_2025_2.json#10",
+    "suggestedQuestionDetailsByChoice": [],
+    "explanationReferences": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。都市ガスの代表的な付臭剤について、DMS、シクロヘキセン、TBMの性質と表中の特徴の対応から組合せを判断する。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "e4ef8e531fbc435b",
@@ -1235,40 +1110,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "不正解。初期条件ではA点2.2kPa、B点2.1kPaなので圧力損失は0.1kPaである。流量を2倍にすると同一導管の圧力損失は4倍の0.4kPaとなり、B点圧力は1.8kPaとなるため、2.0kPaでは高すぎる。",
-      "不正解。低圧導管の圧力損失は流量の2乗に比例する。初期の0.1kPaを基準にすると、流量2倍時の損失は0.4kPaであり、B点圧力は2.2−0.4=1.8kPaとなる。1.9kPaではない。",
-      "正解。同じ導管で高低差を考慮しない場合、圧力損失は流量の2乗に比例する。初期圧力損失0.1kPaに対し、流量を2倍にすると損失は0.1×2²=0.4kPaとなるため、B点圧力は2.2−0.4=1.8kPaである。",
-      "不正解。流量2倍時の圧力損失は0.4kPaで、B点圧力は1.8kPaとなる。1.7kPaは圧力損失を0.5kPaと見込む計算になり、損失を大きく取りすぎている。",
-      "不正解。流量を2倍にしたときの圧力損失は初期0.1kPaの4倍で0.4kPaである。B点圧力は1.8kPaであり、1.6kPaは圧力損失を0.6kPaと見込むため小さすぎる。"
-    ],
-    "suggestedQuestions": [
-      "同一導管で流量を2倍にすると、低圧導管の圧力損失は4倍になる？",
-      "初期圧力損失が0.1kPaなら、流量2倍時の圧力損失は0.4kPaになる？",
-      "A点2.2kPa、流量2倍時の圧力損失0.4kPaなら、B点圧力は1.8kPaになる？",
-      "この条件でB点圧力を1.7kPaとするのは、圧力損失を大きく見積もりすぎている？",
-      "この条件でB点圧力を1.6kPaとするのは正しい？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "同一導管で流量を2倍にすると、低圧導管の圧力損失は4倍になる？",
-        "answer": "正しい"
-      },
-      {
-        "question": "初期圧力損失が0.1kPaなら、流量2倍時の圧力損失は0.4kPaになる？",
-        "answer": "正しい"
-      },
-      {
-        "question": "A点2.2kPa、流量2倍時の圧力損失0.4kPaなら、B点圧力は1.8kPaになる？",
-        "answer": "正しい"
-      },
-      {
-        "question": "この条件でB点圧力を1.7kPaとするのは、圧力損失を大きく見積もりすぎている？",
-        "answer": "正しい"
-      },
-      {
-        "question": "この条件でB点圧力を1.6kPaとするのは正しい？",
-        "answer": "間違い"
-      }
+      "正解は1.8kPaである。初期条件では、A点2.2kPa、B点2.1kPaなので、導管ABの圧力損失は0.1kPaである。同じ導管で高低差を考慮しない場合、低圧導管の圧力損失は流量の2乗に比例する。流量を2倍にすると圧力損失は 0.1×2²=0.4kPa となるため、B点圧力は 2.2-0.4=1.8kPa である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1287,7 +1129,21 @@
       "不正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q10",
+    "reviewQuestionId": "ffa4745b469a77a9",
+    "sourceRecordRef": "question_2025_2.json#15",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "同一導管で圧力損失が流量の二乗に比例する関係を用いる供給設備の計算問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "6e3cdbf4facea64e",
@@ -1306,40 +1162,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "間違い。大規模地区で使用する整圧器では、できるだけオフセット及びロックアップが小さい静特性の優れたものを選定する。動特性の優れた整圧器としている点が誤り。",
-      "間違い。作動最小差圧を考慮する必要があるのはパイロット式整圧器であり、直動式整圧器は二次圧力を駆動圧力としているため作動最小差圧を考慮する必要はない。",
-      "間違い。定常状態における流量と二次圧力の関係は静特性である。流量特性（流量特性線図）は流量とメインバルブ開度（ストローク）の関係を表す。",
-      "間違い。流量がゼロとなりメインバルブが締切状態になったときの締切圧力と基準二次圧力との差はロックアップである。シフトではない。",
-      "正しい。パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅してメインガバナーを作動させるため、ロックアップを小さくできる。"
-    ],
-    "suggestedQuestions": [
-      "大規模地区で使用する整圧器は、オフセット及びロックアップが小さい静特性の優れたものを選定する？",
-      "直動式整圧器は作動最小差圧を考慮する必要がある？",
-      "定常状態における流量と二次圧力の関係は静特性である？",
-      "締切圧力と基準二次圧力との差はロックアップである？",
-      "パイロット式整圧器はロックアップを小さくできる？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "大規模地区で使用する整圧器は、オフセット及びロックアップが小さい静特性の優れたものを選定する？",
-        "answer": "正しい"
-      },
-      {
-        "question": "直動式整圧器は作動最小差圧を考慮する必要がある？",
-        "answer": "間違い"
-      },
-      {
-        "question": "定常状態における流量と二次圧力の関係は静特性である？",
-        "answer": "正しい"
-      },
-      {
-        "question": "締切圧力と基準二次圧力との差はロックアップである？",
-        "answer": "正しい"
-      },
-      {
-        "question": "パイロット式整圧器はロックアップを小さくできる？",
-        "answer": "正しい"
-      }
+      "間違い。大規模地区で使用する整圧器には、オフセットとロックアップが小さく、静特性に優れたものを選定する。選択肢は静特性ではなく動特性に優れたものとしているため誤りである。",
+      "間違い。作動最小差圧を考慮する必要があるのはパイロット式整圧器である。直動式整圧器は二次圧力を駆動圧力とするため作動最小差圧を考慮する必要がなく、選択肢は対象となる方式を取り違えているため誤りである。",
+      "間違い。定常状態における流量と二次圧力の関係は静特性である。流量特性は流量とメインバルブ開度との関係を表すため、選択肢は用語を取り違えており誤りである。",
+      "間違い。メインバルブが締め切られたときの締切圧力と基準二次圧力との差はロックアップである。選択肢はこれをシフトとしているため誤りである。",
+      "正しい。パイロット式整圧器は、二次圧力の小さな変化をパイロットで増幅してメインガバナーを作動させるため、ロックアップを小さくできる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1358,7 +1185,21 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q11",
+    "reviewQuestionId": "6e3cdbf4facea64e",
+    "sourceRecordRef": "question_2025_2.json#16",
+    "explanationReferences": [],
+    "lawContextForExplanation": "整圧器の静特性、作動最小差圧、流量特性及びロックアップを問う設備技術問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "3746645048eafc91",
@@ -1377,42 +1218,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "間違い。使用最大流量が16m3/hのガスメーターの検定有効期間は、検定を受けた翌月1日から起算して10年であり、7年ではない。",
-      "正しい。マイコンメーターには、内管の少量漏れや口火の連続使用などで30日間連続してガスが流れ続けた場合に、ガス漏れ警報を表示する機能がある。",
-      "間違い。部品摩耗などで器差が変化し、計量法に規定された使用公差を外れる故障は器差不良であり、感度不良ではない。",
-      "間違い。クランク軸のさび付きなどによりガスがメーターを通過できない故障は不通であり、不動ではない。不動はガスが通過しても指針が動かない故障をいう。",
-      "間違い。メーター出口側の圧力変動が著しくなり燃焼状態が不安定になる故障はあおりであり、通り抜けではない。"
+      "間違い。使用最大流量が16m³/hのガスメーターの検定有効期間は、検定を受けた翌月1日から起算して10年である。選択肢は7年としているため誤りである。",
+      "正しい。マイコンメーターには、内管の少量漏れや口火の連続使用などで30日間連続してガスが流れた場合に、ガス漏れ警報を表示する機能がある。",
+      "間違い。部品の摩耗などによって器差が変化し、使用公差を外れる故障は器差不良である。選択肢はこれを感度不良としているため誤りである。",
+      "間違い。クランク軸のさび付きなどによってガスがメーターを通過できない故障は不通である。不動はガスが通過しても指針が動かない故障を指すため、選択肢は故障名称を取り違えており誤りである。",
+      "間違い。メーター出口側の圧力変動が著しくなり、ガスの燃焼状態が不安定になる故障はあおりである。選択肢はこれを通り抜けとしているため誤りである。"
     ],
-    "suggestedQuestions": [
-      "使用最大流量16m3/hのガスメーターの検定有効期間は10年？",
-      "マイコンメーターには30日間の連続流量を検知してガス漏れ警報を表示する機能がある？",
-      "使用公差を外れる器差変化の故障は器差不良？",
-      "ガスがメーターを通過できない故障は不通？",
-      "出口側圧力変動で燃焼状態が不安定になる故障はあおり？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "使用最大流量16m3/hのガスメーターの検定有効期間は10年？",
-        "answer": "正しい。16m3/hのガスメーターは検定有効期間が10年であり、7年とする記述は誤り。"
-      },
-      {
-        "question": "マイコンメーターには30日間の連続流量を検知してガス漏れ警報を表示する機能がある？",
-        "answer": "正しい。少量漏れや口火連続使用などで30日間連続して流れる場合、ガス漏れ警報表示の対象となる。"
-      },
-      {
-        "question": "使用公差を外れる器差変化の故障は器差不良？",
-        "answer": "正しい。器差が使用公差を外れる故障は器差不良で、感度不良とは区別する。"
-      },
-      {
-        "question": "ガスがメーターを通過できない故障は不通？",
-        "answer": "正しい。クランク軸のさび付きなどでガスが通過できない故障は不通である。"
-      },
-      {
-        "question": "出口側圧力変動で燃焼状態が不安定になる故障はあおり？",
-        "answer": "正しい。出口側圧力変動で燃焼状態が不安定になる故障はあおりである。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1429,7 +1241,124 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": true,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q12",
+    "reviewQuestionId": "3746645048eafc91",
+    "sourceRecordRef": "question_2025_2.json#17",
+    "explanationReferences": [
+      {
+        "title": "計量法施行令 第十八条・別表第三",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/405CO0000000329",
+        "referenceDate": "2026-07-25",
+        "choiceIndex": 0
+      },
+      {
+        "title": "特定計量器検定検査規則 第四百七十三条",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/405M50000400070",
+        "referenceDate": "2026-07-25",
+        "choiceIndex": 2
+      }
+    ],
+    "lawContextForExplanation": "選択肢1の検定有効期間は計量法施行令第18条・別表第三、選択肢3の使用公差は特定計量器検定検査規則第473条を根拠とする。その他はマイコンメーターの機能及び故障名称に関する設備知識として説明する。",
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "405CO0000000329",
+          "lawTitle": "計量法施行令",
+          "referenceDate": "2026-07-25",
+          "article": "第十八条、別表第三",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/405CO0000000329"
+        }
+      ],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "405M50000400070",
+          "lawTitle": "特定計量器検定検査規則",
+          "referenceDate": "2026-07-25",
+          "article": "第四百七十三条",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/405M50000400070"
+        }
+      ],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "計量法施行令第十八条・別表第三により、使用最大流量16m³/hのガスメーターの有効期間を確認した。"
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "マイコンメーターの連続使用時間遮断予告機能に関する技術事項であり、正誤を維持する。"
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "特定計量器検定検査規則第四百七十三条の使用公差と照合し、器差不良に関する正誤を維持する。"
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "ガスメーターの故障名称に関する技術事項であり、不通と不動の区別から正誤を維持する。"
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "ガスメーターの故障名称に関する技術事項であり、あおりと通り抜けの区別から正誤を維持する。"
+        }
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "828023772aa37293",
@@ -1448,40 +1377,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正解。内圧を受ける閉じた薄肉円筒の軸方向応力は σ=pD/(4t) で求める。内径D=150-2×5=140mm、p=0.5N/mm²、t=5mmより、σ=0.5×140/(4×5)=3.5N/mm²となる。",
-      "不正解。3.8N/mm²は外径150mmをそのまま用いて σ=0.5×150/(4×5)=3.75 とした近似値で、管厚を考慮した内径140mmによる軸方向応力3.5N/mm²が最も近い。",
-      "不正解。7.0N/mm²は内径140mmを用いた円周方向応力 σ=pD/(2t)=0.5×140/(2×5) に相当する。問われているのは軸方向応力なので半分の3.5N/mm²である。",
-      "不正解。7.5N/mm²は外径150mmを用いた円周方向応力に近い値であり、軸方向応力の式 pD/(4t) ではない。",
-      "不正解。14.0N/mm²は軸方向応力・円周方向応力のいずれの適切な計算にも合わない過大な値である。"
-    ],
-    "suggestedQuestions": [
-      "内圧を受ける閉じた薄肉円筒の軸方向応力は pD/(4t) で求める？",
-      "外径150mmをそのまま使うと軸方向応力は約3.8N/mm²になる？",
-      "内径140mmで pD/(2t) を使うと円周方向応力7.0N/mm²になる？",
-      "7.5N/mm²は外径を使った円周方向応力に近い？",
-      "この条件の軸方向応力として14.0N/mm²は適切？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "内圧を受ける閉じた薄肉円筒の軸方向応力は pD/(4t) で求める？",
-        "answer": "正しい。閉じた薄肉円筒の軸方向応力は pD/(4t) で、内径140mmを使うと3.5N/mm²となる。"
-      },
-      {
-        "question": "外径150mmをそのまま使うと軸方向応力は約3.8N/mm²になる？",
-        "answer": "計算値としては近いが、管厚を考慮した内径140mmを用いるため最適解ではない。"
-      },
-      {
-        "question": "内径140mmで pD/(2t) を使うと円周方向応力7.0N/mm²になる？",
-        "answer": "正しいが、それは円周方向応力であり、本問の軸方向応力ではない。"
-      },
-      {
-        "question": "7.5N/mm²は外径を使った円周方向応力に近い？",
-        "answer": "正しい。外径150mmで pD/(2t) を使うと7.5N/mm²となるが、問われている軸方向応力ではない。"
-      },
-      {
-        "question": "この条件の軸方向応力として14.0N/mm²は適切？",
-        "answer": "誤り。適切な軸方向応力は3.5N/mm²であり、14.0N/mm²は過大である。"
-      }
+      "正解は3.5N/mm²である。内圧を受ける閉じた薄肉円筒の軸方向応力は σ=pD/(4t) で求める。外径150mm、管厚5mmなので、内径Dは 150-2×5=140mm である。0.5MPaは0.5N/mm²であるから、σ=0.5×140/(4×5)=3.5N/mm² となる。7.0N/mm²や7.5N/mm²は円周方向応力を求める式を使った値に相当し、本問の軸方向応力ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1500,7 +1396,21 @@
       "不正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q13",
+    "reviewQuestionId": "828023772aa37293",
+    "sourceRecordRef": "question_2025_2.json#18",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "内圧を受ける薄肉円筒の軸方向応力を求める材料力学の計算問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "a7c9e783d12c3ed5",
@@ -1519,40 +1429,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正しい。導管の防食方法には、塗覆装によって外部環境を遮断する措置、絶縁による措置、電気防食による措置などがある。",
-      "正しい。他防食施設からの干渉による電食は、他防食施設の防食電流の一部が近接する埋設導管に流入し、流出部で腐食を生じる現象である。",
+      "正しい。導管の防食方法には、塗覆装によって外部環境を遮断する措置、絶縁による措置及び電気防食による措置などがある。",
+      "正しい。他防食施設からの干渉による電食は、その施設の防食電流の一部が近接する埋設導管に流入し、導管から電流が流出する部分で腐食が生じる現象である。",
       "正しい。鋳鉄管と鋼管が電気的に接続されている場合、自然電位がよりマイナス側の鋼管がアノードとなり、腐食する傾向がある。",
-      "間違い。金属表面の状態や組成、環境などのわずかな違いによりアノードとカソードの位置が刻々と変化し、比較的均一な腐食を起こすのはミクロセル腐食である。マクロセル腐食としている点が誤り。",
+      "間違い。金属表面の状態、組成又は環境のわずかな違いによってアノードとカソードの位置が変化し、比較的均一な腐食を生じるのはミクロセル腐食である。選択肢はこれをマクロセルによる腐食としているため誤りである。",
       "正しい。選択排流法は、埋設導管と電気鉄道のレールを電気的に接続し、導管に流れる迷走電流をレールへ帰流させる方法である。"
-    ],
-    "suggestedQuestions": [
-      "導管の防食方法には塗覆装、絶縁、電気防食などがある？",
-      "他防食施設からの干渉電食は防食電流の流出部で腐食が起きる？",
-      "鋳鉄管と鋼管が電気的に接続されると鋼管がアノードになりやすい？",
-      "表面状態などのわずかな違いで比較的均一に腐食するのはマクロセル腐食？",
-      "選択排流法は導管と電気鉄道レールを接続して電流をレールへ帰流させる？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "導管の防食方法には塗覆装、絶縁、電気防食などがある？",
-        "answer": "正しい。導管の防食には塗覆装、絶縁、電気防食などの措置がある。"
-      },
-      {
-        "question": "他防食施設からの干渉電食は防食電流の流出部で腐食が起きる？",
-        "answer": "正しい。他防食施設から流入した防食電流が導管から流出する部分で腐食が生じる。"
-      },
-      {
-        "question": "鋳鉄管と鋼管が電気的に接続されると鋼管がアノードになりやすい？",
-        "answer": "正しい。鋳鉄管と鋼管では鋼管がアノードとなって腐食する傾向がある。"
-      },
-      {
-        "question": "表面状態などのわずかな違いで比較的均一に腐食するのはマクロセル腐食？",
-        "answer": "誤り。アノードとカソードが刻々と変化し比較的均一な腐食を起こすのはミクロセル腐食である。"
-      },
-      {
-        "question": "選択排流法は導管と電気鉄道レールを接続して電流をレールへ帰流させる？",
-        "answer": "正しい。選択排流法は導管とレールを電気的に接続し、導管の電流をレールへ帰流させる方法である。"
-      }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1571,7 +1452,21 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q14",
+    "reviewQuestionId": "a7c9e783d12c3ed5",
+    "sourceRecordRef": "question_2025_2.json#19",
+    "explanationReferences": [],
+    "lawContextForExplanation": "導管の防食方法、干渉電食、異種金属接触腐食、ミクロセル腐食及び選択排流法を問う技術問題であり、法令条文による根拠付けは不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "6472a4ae655d7828",
@@ -1661,40 +1556,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "間違い。大気中の水分を吸収してブローホール等の欠陥原因となるのは、被覆アーク溶接棒の被覆剤（フラックス）であり、金属製の心線ではない。心線が吸湿するとしている点が誤り。",
-      "正しい。放射線透過試験では、内部きずなど放射線を透過しやすい部分はフィルム上で健全部より濃度が濃く写る。",
+      "間違い。大気中の水分を吸収し、ブローホールなどの欠陥の原因となるのは、被覆アーク溶接棒の被覆剤（フラックス）である。選択肢は金属製の心線が吸湿するとしているため誤りである。",
+      "正しい。放射線透過試験では、内部きずなど放射線を透過しやすい部分は、フィルム上で健全部より濃く写る。",
       "正しい。融合不良は、溶接金属と母材又は溶接金属同士が十分に溶着していない溶接欠陥である。",
       "正しい。スラグ巻込みは、溶接時に生じるスラグが溶接金属中に残留した溶接欠陥である。",
-      "正しい。アンダーカットは、溶接ビード端部など表面における溶接金属と母材の境界に生じる凹みである。"
-    ],
-    "suggestedQuestions": [
-      "被覆アーク溶接棒の心線が吸湿してブローホールの原因になる？",
-      "放射線透過試験では、きずのある部分は健全部よりフィルム濃度が濃くなる？",
-      "融合不良は溶接金属と母材又は溶接金属同士が溶着していない状態である？",
-      "スラグ巻込みはスラグが溶接金属に残留した欠陥である？",
-      "アンダーカットは溶接金属と母材の境界に生じる表面の凹みである？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "被覆アーク溶接棒の心線が吸湿してブローホールの原因になる？",
-        "answer": "誤り。吸湿してブローホール等の原因となるのは被覆剤（フラックス）であり、心線ではない。"
-      },
-      {
-        "question": "放射線透過試験では、きずのある部分は健全部よりフィルム濃度が濃くなる？",
-        "answer": "正しい。きず部は放射線透過量が多くなり、フィルム上で健全部より濃く写る。"
-      },
-      {
-        "question": "融合不良は溶接金属と母材又は溶接金属同士が溶着していない状態である？",
-        "answer": "正しい。融合不良は母材又は溶接金属同士が十分に溶着しない欠陥である。"
-      },
-      {
-        "question": "スラグ巻込みはスラグが溶接金属に残留した欠陥である？",
-        "answer": "正しい。スラグ巻込みはスラグが溶接金属中に残留する欠陥である。"
-      },
-      {
-        "question": "アンダーカットは溶接金属と母材の境界に生じる表面の凹みである？",
-        "answer": "正しい。アンダーカットはビード端部などの母材との境界に生じる凹みである。"
-      }
+      "正しい。アンダーカットは、溶接ビード端部など、表面における溶接金属と母材との境界に生じる凹みである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1713,7 +1579,21 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q16",
+    "reviewQuestionId": "42393caf853a3f2c",
+    "sourceRecordRef": "question_2025_2.json#21",
+    "explanationReferences": [],
+    "lawContextForExplanation": "被覆アーク溶接棒、放射線透過試験、融合不良、スラグ巻込み及びアンダーカットを問う技術問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "d1aedf7ac90fc668",
@@ -1732,40 +1612,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正しい。半導体式ガス検知器は、低濃度域で感度が高く、微量のガス漏えい検知に有効である。",
-      "正しい。反転シール系の更生修理工法は、低圧導管のねじ接合部などの地震時漏えい予防対策として用いられる。",
+      "正しい。半導体式ガス検知器は低濃度域での感度が高く、微量のガス漏えい検知に有効である。",
+      "正しい。反転シール系の更生修理工法は、低圧導管のねじ接合部などに対する地震時漏えい予防策として用いられる。",
       "正しい。地中探査レーダーは、地中へ電磁波を入射し、埋設管などからの反射波を測定して埋設位置を探査する方法である。",
-      "間違い。金属テープによる外面シールは低圧導管の一部漏えいなどに用いられる修理方法であり、中圧導管の腐食による漏えいに施す恒久的な修理としては不適切である。中圧導管では溶接補修や管の取替えなどが必要となる。",
-      "正しい。低圧導管のねじ継手漏えいに対しては、恒久修理として樹脂ライニング系の更生修理工法を適用できる。"
-    ],
-    "suggestedQuestions": [
-      "半導体式ガス検知器は低濃度の微量ガス検知に有効である？",
-      "低圧導管の地震時漏えい予防に反転シール系更生修理工法を用いることがある？",
-      "地中探査レーダーは電磁波の反射を利用して埋設位置を探査する？",
-      "中圧導管の腐食漏えいに金属テープ外面シールを施すのは適切な恒久修理である？",
-      "低圧導管のねじ継手漏えいには樹脂ライニング系更生修理工法を恒久修理として適用できる？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "半導体式ガス検知器は低濃度の微量ガス検知に有効である？",
-        "answer": "正しい。半導体式は低濃度域の感度が高く、微量ガスの検知に有効である。"
-      },
-      {
-        "question": "低圧導管の地震時漏えい予防に反転シール系更生修理工法を用いることがある？",
-        "answer": "正しい。低圧導管の地震時漏えい予防策として反転シール系工法が用いられる。"
-      },
-      {
-        "question": "地中探査レーダーは電磁波の反射を利用して埋設位置を探査する？",
-        "answer": "正しい。地中探査レーダーは超音波ではなく電磁波の反射を利用する。"
-      },
-      {
-        "question": "中圧導管の腐食漏えいに金属テープ外面シールを施すのは適切な恒久修理である？",
-        "answer": "誤り。金属テープ外面シールは中圧導管の腐食漏えいに対する適切な恒久修理ではない。"
-      },
-      {
-        "question": "低圧導管のねじ継手漏えいには樹脂ライニング系更生修理工法を恒久修理として適用できる？",
-        "answer": "正しい。低圧導管のねじ継手漏えいには樹脂ライニング系の更生修理工法を適用できる。"
-      }
+      "間違い。金属テープによる外面シールは、低圧導管の一部漏えいなどに用いられる修理方法である。中圧導管の腐食による漏えいに対する恒久的な修理としては不適切であり、溶接補修や管の取替えなどが必要となる。",
+      "正しい。低圧導管のねじ継手からの漏えいには、恒久修理として樹脂ライニング系の更生修理工法を適用できる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1784,7 +1635,21 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q17",
+    "reviewQuestionId": "d1aedf7ac90fc668",
+    "sourceRecordRef": "question_2025_2.json#22",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "ガス検知器、低圧導管の更生修理、地中探査レーダー、中圧導管漏えい時の修理適否を問う維持管理の技術問題であり、法令根拠を用いた解説は不要。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "39e2b01fd3cdb8a6",
@@ -1804,39 +1669,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
       "正しい。中・低圧導管では、配管系が地盤変位を吸収できる能力と、想定される設計地盤変位を比較して耐震性を評価する。",
-      "正しい。供給停止判断には、二次災害防止を最優先として地震直後に行う第1次緊急停止判断と、その後の被害情報や対応能力を踏まえて行う第2次緊急停止判断がある。",
-      "間違い。SI値は一般的な建物の揺れの大きさを表す指標で、ガス導管被害との相関が高いため供給停止判断に用いられる。機械的接合鋼管の被害との相関が高いと限定している点が誤り。",
-      "正しい。空気吸入式（PA式）の移動式ガス発生設備は、大気中の空気とLPGを混合して、都市ガスと同じグループのプロパンエアーガスを発生させる方式である。",
-      "正しい。復旧では中圧導管と低圧導管の連携が必要であり、中圧導管は低圧導管への送出源となるラインを優先して復旧する。"
-    ],
-    "suggestedQuestions": [
-      "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位を比較して評価する？",
-      "供給停止判断には第1次緊急停止判断と第2次緊急停止判断がある？",
-      "SI値は機械的接合鋼管の被害との相関が高い指標である？",
-      "PA式移動式ガス発生設備は空気とLPGからプロパンエアーガスを発生させる？",
-      "中圧導管の復旧は低圧導管への送出源ラインを優先する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位を比較して評価する？",
-        "answer": "正しい。地盤変位吸収能力と設計地盤変位を比べて耐震性を評価する。"
-      },
-      {
-        "question": "供給停止判断には第1次緊急停止判断と第2次緊急停止判断がある？",
-        "answer": "正しい。地震直後の第1次判断と、被害情報等を踏まえる第2次判断がある。"
-      },
-      {
-        "question": "SI値は機械的接合鋼管の被害との相関が高い指標である？",
-        "answer": "誤り。SI値は一般建物の揺れやガス導管被害との相関が高い指標であり、機械的接合鋼管に限定するものではない。"
-      },
-      {
-        "question": "PA式移動式ガス発生設備は空気とLPGからプロパンエアーガスを発生させる？",
-        "answer": "正しい。PA式は大気中の空気とLPGを混合し、同グループのプロパンエアーガスを発生させる。"
-      },
-      {
-        "question": "中圧導管の復旧は低圧導管への送出源ラインを優先する？",
-        "answer": "正しい。低圧導管へ送出する中圧ラインを優先して復旧する。"
-      }
+      "正しい。供給停止判断には、二次災害の防止を最優先として地震直後に行う第1次緊急停止判断と、その後に得られる被害情報や緊急時対応能力を踏まえて行う第2次緊急停止判断がある。",
+      "間違い。SI値は一般的な建物の揺れの大きさを表し、ガス導管全般の被害との相関が高いため、供給停止判断に用いられる。選択肢は相関の対象を機械的接合鋼管の被害に限定しているため誤りである。",
+      "正しい。空気吸入式（PA式）の移動式ガス発生設備は、大気中の空気とLPGを混合し、都市ガスと同じグループのプロパンエアーガスを発生させる。",
+      "正しい。復旧時には中圧導管と低圧導管の連携が必要であり、中圧導管では低圧導管への送出源となるラインを優先して復旧する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1855,7 +1691,21 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q18",
+    "reviewQuestionId": "39e2b01fd3cdb8a6",
+    "sourceRecordRef": "question_2025_2.json#23",
+    "explanationReferences": [],
+    "lawContextForExplanation": "導管の耐震性評価、緊急停止判断、SI値、移動式ガス発生設備及び復旧の優先順位を問う防災技術問題であり、法令条文による根拠付けは不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "b52dda6015da8b95",
@@ -1874,40 +1724,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正しい。ガスの発熱量には総発熱量と真発熱量があり、一般に供給ガスの発熱量は水蒸気の凝縮潜熱を含む総発熱量で表される。",
-      "正しい。混合ガスの燃焼限界は、各可燃性ガスの容積割合とそれぞれの燃焼限界から、ルシャトリエの式により概算できる。",
-      "間違い。空気中におけるメタンの着火温度はプロパンの着火温度より高い。メタンの方が低いとしている点が誤り。",
-      "正しい。赤火燃焼式、セミ・ブンゼン燃焼式、ブンゼン燃焼式の順に二次空気の割合は大きく、炎温度はこの順に高くなるため、低い順は赤火、セミ・ブンゼン、ブンゼンである。",
-      "正しい。パルス燃焼バーナーは燃焼室と尾管で構成され、混合気の間欠的な燃焼を利用して、コンパクトな燃焼空間で燃焼させる方式である。"
-    ],
-    "suggestedQuestions": [
-      "供給ガスの発熱量は一般に総発熱量で表す？",
-      "混合ガスの燃焼限界は各可燃性ガスの容積割合と燃焼限界から計算できる？",
-      "空気中のメタンの着火温度はプロパンより低い？",
-      "二次空気割合は赤火、セミ・ブンゼン、ブンゼンの順に大きい？",
-      "パルス燃焼バーナーは燃焼室と尾管により構成される？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "供給ガスの発熱量は一般に総発熱量で表す？",
-        "answer": "正しい。供給ガスの発熱量表示は一般に総発熱量を用いる。"
-      },
-      {
-        "question": "混合ガスの燃焼限界は各可燃性ガスの容積割合と燃焼限界から計算できる？",
-        "answer": "正しい。可燃性ガスの容積割合と燃焼限界から混合ガスの燃焼限界を概算できる。"
-      },
-      {
-        "question": "空気中のメタンの着火温度はプロパンより低い？",
-        "answer": "誤り。メタンの着火温度はプロパンより高く、低いわけではない。"
-      },
-      {
-        "question": "二次空気割合は赤火、セミ・ブンゼン、ブンゼンの順に大きい？",
-        "answer": "正しい。二次空気割合は赤火燃焼式、セミ・ブンゼン燃焼式、ブンゼン燃焼式の順に大きい。"
-      },
-      {
-        "question": "パルス燃焼バーナーは燃焼室と尾管により構成される？",
-        "answer": "正しい。パルス燃焼は燃焼室と尾管を用い、混合気を瞬時に燃焼させる。"
-      }
+      "正しい。供給ガスの発熱量は、一般に総発熱量で表す。総発熱量は、燃焼で生じた水蒸気が凝縮するときの潜熱を含めた発熱量である。",
+      "正しい。混合ガスの燃焼限界は、各可燃性ガスの容積割合と、それぞれの燃焼限界を用いて計算で概算できる。代表的にはルシャトリエの式を用いる。",
+      "間違い。空気中の着火温度は、メタンの方がプロパンより高い。メタンの着火温度がプロパンより低いとしているため、この記述は誤りである。",
+      "正しい。二次空気の割合は、赤火燃焼式、セミ・ブンゼン燃焼式、ブンゼン燃焼式の順に大きくなる。炎の温度もこの順に高くなるため、低い順は赤火燃焼式、セミ・ブンゼン燃焼式、ブンゼン燃焼式である。",
+      "正しい。パルス燃焼バーナーは、燃焼室と尾管を主要部として構成される。ガスと空気の混合気を短い周期で燃焼させるため、コンパクトな燃焼空間で燃焼できる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1926,6 +1747,20 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q19",
+    "reviewQuestionId": "b52dda6015da8b95",
+    "sourceRecordRef": "question_2025_2.json#24",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。発熱量、燃焼限界、着火温度、燃焼方式、パルス燃焼の一般知識に基づいて解説する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

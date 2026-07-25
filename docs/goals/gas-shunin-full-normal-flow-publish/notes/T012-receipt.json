@@ -1,0 +1,14 @@
+{
+  "result": "blocked",
+  "task_id": "T012",
+  "board_path": "/Users/yuki/development/exam_scraper/docs/goals/gas-shunin-full-normal-flow-publish/state.yaml",
+  "harness": "codex",
+  "changed_files": [],
+  "commands": [],
+  "summary": "Worker契約で必須のboard_pathが委任文に含まれていないため、編集・検証・コミット・push・server再起動を開始せず停止した。",
+  "remaining_blockers": [
+    "board_pathの明示が必要。"
+  ],
+  "verification_attempts": 0,
+  "stopped_because": "required board_path is missing"
+}

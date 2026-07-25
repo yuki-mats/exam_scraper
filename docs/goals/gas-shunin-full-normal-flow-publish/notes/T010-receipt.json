@@ -1,0 +1,22 @@
+{
+  "result": "blocked",
+  "task_id": "T010",
+  "board_path": "/Users/yuki/development/exam_scraper/docs/goals/gas-shunin-full-normal-flow-publish/state.yaml",
+  "harness": "codex",
+  "changed_files": [],
+  "commands": [
+    {
+      "cmd": ".venv/bin/python -m pytest tests/test_question_review_workflow.py",
+      "status": "fail",
+      "exit_code": 3,
+      "evidence": "pytest起動時に別checkoutのcode.pyが標準ライブラリcodeを遮蔽し、pdb importでAttributeError: module 'code' has no attribute 'InteractiveConsole'"
+    }
+  ],
+  "summary": "指定された最初のtargeted testがpytest初期化時に失敗したため、stop_ifに従って直ちに停止した。4対象ファイルの編集・stage・commit・push、server停止・再起動は行っていない。Goal管理ファイルにも触れていない。",
+  "remaining_blockers": [
+    ".venvがDrive candidate checkoutのPython環境を参照しており、同checkout直下のcode.pyが標準ライブラリcodeを遮蔽してpytestを起動できない。",
+    "targeted test失敗のため、残りの検証、commit/push、review-ui再起動とreadbackを実行できない。"
+  ],
+  "verification_attempts": 1,
+  "stopped_because": "stop_if: targeted testが失敗した。"
+}
