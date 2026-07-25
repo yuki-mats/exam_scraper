@@ -199,6 +199,39 @@ class SubscriptionGateTests(unittest.TestCase):
 
         self.assertEqual(calls, SUBSCRIPTION_STATUS_READ_ATTEMPTS)
 
+    def test_provider_recovery_restarts_connection_after_backoff(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        process = object()
+        stream = object()
+        client._process = process
+        client._stdin = stream
+        client._initialized = True
+        client._last_status = {"allowed": True}
+        client._last_status_at = time.monotonic()
+        messages = []
+
+        with (
+            patch.object(client, "_stop_process") as stop_process,
+            patch.object(client, "_fail_all") as fail_all,
+            patch.object(client, "_ensure_started") as ensure_started,
+            patch("tools.question_review_console.codex_app_server.time.sleep") as sleep,
+        ):
+            client.recover_after_provider_failure(
+                attempt=2,
+                emit=messages.append,
+            )
+
+        stop_process.assert_called_once_with(process, stream)
+        fail_all.assert_called_once()
+        sleep.assert_called_once_with(60.0)
+        ensure_started.assert_called_once()
+        self.assertIsNone(client._process)
+        self.assertIsNone(client._stdin)
+        self.assertFalse(client._initialized)
+        self.assertIsNone(client._last_status)
+        self.assertEqual(client._last_status_at, 0.0)
+        self.assertIn("60秒後に再試行", messages[0])
+
     def test_rejects_non_subscription_accounts(self):
         for account in (
             {"account": {"type": "apiKey"}},

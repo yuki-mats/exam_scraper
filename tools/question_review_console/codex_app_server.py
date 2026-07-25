@@ -94,6 +94,9 @@ DEFAULT_TURN_TIMEOUT_SECONDS = 1800
 SUBSCRIPTION_STATUS_CACHE_SECONDS = 60.0
 SUBSCRIPTION_STATUS_READ_ATTEMPTS = 3
 SUBSCRIPTION_STATUS_READ_RETRY_DELAY_SECONDS = 0.2
+PROVIDER_RECOVERY_ATTEMPTS = 4
+PROVIDER_RECOVERY_BASE_DELAY_SECONDS = 30.0
+PROVIDER_RECOVERY_MAX_DELAY_SECONDS = 120.0
 RESEARCH_AGENT_ROLE = "explorer"
 RESEARCH_AGENT_CONFIG_FILENAME = "question-maintenance-explorer.toml"
 RESEARCH_AGENT_DESCRIPTION = "問題整備のread-only事前調査担当"
@@ -286,6 +289,7 @@ class CodexAppServerClient:
         self.turn_timeout = turn_timeout
         self.status_cache_seconds = status_cache_seconds
         self.provider = APP_SERVER_PROVIDER
+        self.provider_retry_attempts = PROVIDER_RECOVERY_ATTEMPTS
 
         self._process: subprocess.Popen[str] | None = None
         self._stdin: TextIO | None = None
@@ -703,6 +707,46 @@ class CodexAppServerClient:
         self._fail_all("Codex App Serverを停止しました。")
         if runtime_home_context is not None:
             runtime_home_context.cleanup()
+
+    def recover_after_provider_failure(
+        self,
+        *,
+        attempt: int,
+        emit: Callable[[str], None] | None = None,
+    ) -> None:
+        """Recreate the stdio client after a transient provider failure.
+
+        Subscription access remains fail-closed: the next turn still performs
+        the normal forced account/rate-limit check.  This method only prevents
+        a stale connection or a short provider outage from consuming all queue
+        retries without a recovery interval.
+        """
+
+        retry_number = max(1, int(attempt))
+        delay = min(
+            PROVIDER_RECOVERY_MAX_DELAY_SECONDS,
+            PROVIDER_RECOVERY_BASE_DELAY_SECONDS * (2 ** (retry_number - 1)),
+        )
+        with self._lifecycle_lock:
+            if self._closed:
+                raise CodexAppServerError("Codex App Server clientは停止済みです。")
+            process = self._process
+            stream = self._stdin
+            self._process = None
+            self._stdin = None
+            self._initialized = False
+        with self._state_lock:
+            self._last_status = None
+            self._last_status_at = 0.0
+        self._stop_process(process, stream)
+        self._fail_all("外部障害からの回復のためCodex App Server接続を更新します。")
+        if emit is not None:
+            emit(
+                "Codex App Serverの一時障害を検出したため、"
+                f"接続を更新して{int(delay)}秒後に再試行します。"
+            )
+        time.sleep(delay)
+        self._ensure_started()
 
     def _prepare_isolated_codex_home(self) -> Path:
         if self._runtime_home is not None:

@@ -4572,6 +4572,53 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["pauseKind"], "external_provider")
         self.assertTrue(report_saved)
 
+    def test_provider_gate_recovers_with_client_backoff_before_exhaustion(self):
+        class RecoveringGateAppServer(FlowAppServer):
+            provider_retry_attempts = 4
+
+            def __init__(self):
+                super().__init__()
+                self.provider_failures = 0
+                self.recovery_attempts = []
+
+            def recover_after_provider_failure(self, *, attempt, emit):
+                self.recovery_attempts.append(attempt)
+                emit(f"recovered after attempt {attempt}")
+
+            def run_turn(self, prompt, **kwargs):
+                if self.provider_failures < 2:
+                    self.provider_failures += 1
+                    self.calls.append((prompt, kwargs))
+                    raise SubscriptionGateError("一時的に利用状況を取得できません。")
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = RecoveringGateAppServer()
+            coordinator, _sync, _app_server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(completed["status"], "succeeded")
+        self.assertEqual(app_server.recovery_attempts, [1, 2])
+        self.assertEqual(len(app_server.calls), 3)
+        self.assertTrue(
+            all(
+                stage["status"] == "validated"
+                for question in completed["questionExecutions"]
+                for stage in question["stages"]
+            )
+        )
+
     def test_provider_retry_skips_preblocked_question(self):
         class PreparationGateAppServer(FlowAppServer):
             def run_turn(self, prompt, **kwargs):

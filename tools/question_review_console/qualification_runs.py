@@ -7588,6 +7588,20 @@ class QualificationRunCoordinator:
             pending_batches=question_concurrency,
             max_parallel_turns=question_concurrency,
         )
+        provider_attempt_limit = MAX_PROVIDER_ATTEMPTS
+        configured_provider_attempts = getattr(
+            self.app_server,
+            "provider_retry_attempts",
+            None,
+        )
+        if isinstance(configured_provider_attempts, int) and not isinstance(
+            configured_provider_attempts,
+            bool,
+        ):
+            provider_attempt_limit = max(
+                MAX_PROVIDER_ATTEMPTS,
+                min(configured_provider_attempts, 10),
+            )
         emit(
             "入力token量でmodel turnを自動分割し、"
             f"最大{question_concurrency}本を同時実行します。検査と確定は1問ずつです。"
@@ -8116,7 +8130,7 @@ class QualificationRunCoordinator:
                             },
                         }
                     )
-                    if provider_attempts < MAX_PROVIDER_ATTEMPTS:
+                    if provider_attempts < provider_attempt_limit:
                         next_ids.append(question_id)
                     else:
                         provider_waiting.add(question_id)
@@ -8236,7 +8250,7 @@ class QualificationRunCoordinator:
             max_rounds = (
                 MAX_WRITER_VALIDATION_ATTEMPTS
                 + MAX_POLICY_REFRESH_ATTEMPTS
-                + MAX_PROVIDER_ATTEMPTS
+                + provider_attempt_limit
             )
             for _round_number in range(1, max_rounds + 1):
                 if not pending_ids:
@@ -8333,6 +8347,10 @@ class QualificationRunCoordinator:
                         )
                     )
                 next_ids: list[str] = []
+                round_had_provider_failure = any(
+                    bool(outcome.get("providerFailure"))
+                    for outcome in outcomes
+                )
                 for outcome in outcomes:
                     scheduler_limits.observe(
                         provider_failure=bool(outcome.get("providerFailure")),
@@ -8352,6 +8370,17 @@ class QualificationRunCoordinator:
                         f"{stage_id}: 通常対象を一巡したため、"
                         f"不合格{len(pending_ids)}問をqueue末尾で再確認します。"
                     )
+                if round_had_provider_failure and pending_ids:
+                    recover = getattr(
+                        self.app_server,
+                        "recover_after_provider_failure",
+                        None,
+                    )
+                    if callable(recover):
+                        recover(
+                            attempt=_round_number,
+                            emit=emit,
+                        )
             if provider_waiting:
                 reason = (
                     "通常問題の処理後もCodex App Serverを利用できない問題が"
