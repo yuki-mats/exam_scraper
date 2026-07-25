@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "qir-20260725T232522-a75416366243",
+  "category": "question_content",
+  "caseIds": [
+    "gas-otsu-2021-kyokyu-q14-source-typo"
+  ],
+  "inputCaseHashes": {
+    "gas-otsu-2021-kyokyu-q14-source-typo": "e631c3d3d055b8bb5a4010303963c3979a62140bfb8262565bdfa971c88b0ad1"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "cfa0558edcd3c876494bb3cec7134694cf412c55ef8945d97d4af1e478a9b715",
+    "173af5dd55895d2f1f5f94db5be0fc6b3e979f7788395a25c377ccca20c60f83"
+  ],
+  "challengeReviewHash": "1eaa56424c3dd61cf0dae0c7f2eabe3ae35a0743cb25e7dff3e6ac9ec1bff220",
+  "createdAt": "2026-07-25T23:26:32.598820Z",
+  "entries": [
+    {
+      "original_question_id": "9252ae742b4a05f7",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:kyokyu:q14",
+      "reviewQuestionId": "9252ae742b4a05f7",
+      "sourceRecordRef": "question_2021_2.json#19",
+      "expectedBeforeHash": "e631c3d3d055b8bb5a4010303963c3979a62140bfb8262565bdfa971c88b0ad1",
+      "changes": {
+        "choiceTextList": [
+          "鋳鉄管と鋼管が電気的に接続されている場合、異種金属接触によるマクロセル腐食のため、鋼管がアノードとなって腐食する。",
+          "ミクロセル腐食とは、金属表面においてアノードとカソードの部位が刻々と変化するタイプの腐食で、全面腐食となる。",
+          "導管における設計上の防食電位は、安全を考慮して、管対地電位を-1000mV（飽和硫酸銅電極基準）程度とすることが望ましい。",
+          "流電陽極法とは、導管よりも\n自然電位がプラス側の金属を接続\nすることで、導管へ防食電流を流入させ腐食を防止する方法である。",
+          "建物に引き込まれた配管は、マクロセル腐食の原因となるコンクリートに接触する機会が多いため、一般に埋設配管部近くの架空配管部に絶縁継手を設置する。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "https://web.archive.org/web/20230809110647id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r3.pdf PDF 24ページ（冊子23ページ）、ガス技術・供給 問14",
+          "title": "令和3年度ガス主任技術者試験問題（乙種）",
+          "verifiedAt": "2026-07-26T00:00:00Z",
+          "contentHash": "d9c966e579dfb4f8d43ce8ab1e96086caabb213a4787a11bd04bf335ed02548d"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "https://web.archive.org/web/20230809111112id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r3.pdf PDF 1ページ、ガス技術・供給 問14",
+          "title": "令和3年度ガス主任技術者試験の解答（乙種）",
+          "verifiedAt": "2026-07-26T00:00:00Z",
+          "contentHash": "a2d895b2a02b9941661735bb3f153fb71d088a290434f0b12c36cf0d10dc4d0e"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "https://web.archive.org/web/20230809110647id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r3.pdf#page=24（冊子23ページ、ガス技術・供給 問14、選択肢1）",
+          "title": "令和3年度ガス主任技術者試験問題（乙種）",
+          "verifiedAt": "2026-07-26T00:00:00Z",
+          "contentHash": "d9c966e579dfb4f8d43ce8ab1e96086caabb213a4787a11bd04bf335ed02548d"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "https://web.archive.org/web/20230809111112id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r3.pdf#page=1（乙種、ガス技術・供給 問14）",
+          "title": "令和3年度ガス主任技術者試験の解答（乙種）",
+          "verifiedAt": "2026-07-26T00:00:00Z",
+          "contentHash": "a2d895b2a02b9941661735bb3f153fb71d088a290434f0b12c36cf0d10dc4d0e"
+        }
+      ]
+    }
+  ]
+}

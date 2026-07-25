@@ -200,10 +200,15 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
             manifest["workItems"][0],
             current,
             category="question_content",
+            allowed_change_fields=["questionBodyText", "choiceTextList"],
             workflow_contracts=contracts,
         )
 
         encoded = json.dumps(blind_input, ensure_ascii=False)
+        self.assertEqual(
+            blind_input["allowedChangeFields"],
+            ["questionBodyText", "choiceTextList"],
+        )
         self.assertNotIn("case-content", encoded)
         self.assertNotIn("reportCount", encoded)
         self.assertNotIn("detailComment", encoded)

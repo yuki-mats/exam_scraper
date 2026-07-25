@@ -438,6 +438,7 @@ def build_blind_input(
     current_record: Mapping[str, Any],
     *,
     category: str,
+    allowed_change_fields: list[str],
     workflow_contracts: list[Mapping[str, str]],
 ) -> dict[str, Any]:
     canonical_snapshots = [
@@ -451,6 +452,7 @@ def build_blind_input(
         "qualificationId": work_item.get("qualificationId"),
         "listGroupId": work_item.get("listGroupId"),
         "originalQuestionId": work_item.get("originalQuestionId"),
+        "allowedChangeFields": list(allowed_change_fields),
         "currentLocalRecord": copy.deepcopy(dict(current_record)),
         "currentFirestoreSnapshots": canonical_snapshots,
         "workflowContracts": [dict(contract) for contract in workflow_contracts],
@@ -849,6 +851,9 @@ def run_objective_review(
         work_item,
         current_record,
         category=category,
+        allowed_change_fields=list(
+            config["categories"][category].get("allowedChangeFields") or []
+        ),
         workflow_contracts=workflow_contracts,
     )
     blind_input_hash = sha256_json(blind_input)
