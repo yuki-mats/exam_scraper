@@ -10,6 +10,8 @@ class FakeInventory:
     def __init__(self, qualification, groups):
         self.qualification = qualification
         self.groups = {group["listGroupId"]: group for group in groups}
+        self.group_calls = 0
+        self.workflow_group_calls = 0
 
     def inventory(self):
         return {
@@ -25,6 +27,13 @@ class FakeInventory:
     def group(self, qualification, list_group_id):
         if qualification != self.qualification:
             raise FileNotFoundError(qualification)
+        self.group_calls += 1
+        return self.groups[list_group_id]
+
+    def workflow_group(self, qualification, list_group_id):
+        if qualification != self.qualification:
+            raise FileNotFoundError(qualification)
+        self.workflow_group_calls += 1
         return self.groups[list_group_id]
 
 
@@ -107,6 +116,29 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_resume_plan_many_can_use_compact_workflow_inventory(self):
+        qualification = "sample"
+        inventory = FakeInventory(
+            qualification,
+            [{"listGroupId": "2026", "questions": [question()]}],
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(root, inventory)
+
+            plan = workflow.plan_many(
+                qualification,
+                ["question_type", "correct_choice"],
+                "needed",
+                list_group_ids=["2026"],
+                _dashboard_only=True,
+            )
+
+        self.assertEqual(plan["targetCount"], 1)
+        self.assertEqual(inventory.group_calls, 0)
+        self.assertEqual(inventory.workflow_group_calls, 1)
+
     def test_group_summary_uses_latest_question_content_update(self):
         summary = QualificationWorkflow._group_summary(
             {
@@ -1523,9 +1555,9 @@ class QualificationWorkflowTests(unittest.TestCase):
                 self.catalog_calls += 1
                 return super().catalog(qualification)
 
-            def _qualification_data(self, qualification):
+            def _qualification_data(self, qualification, **kwargs):
                 self.qualification_data_calls += 1
-                return super()._qualification_data(qualification)
+                return super()._qualification_data(qualification, **kwargs)
 
         with tempfile.TemporaryDirectory() as directory:
             workflow = CountingWorkflow(

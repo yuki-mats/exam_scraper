@@ -55,6 +55,7 @@ from tools.question_review_console.patch_validation import (
     projected_required_warnings,
     upload_document_required_warnings,
 )
+from tools.question_review_console.review_store import atomic_write
 from scripts.common.explanation_contract import (
     public_explanation_text,
     uses_question_level_explanation,
@@ -63,6 +64,7 @@ from scripts.common.suggested_question_contract import public_choice_indexes
 
 
 SOURCE_SUBDIR = "00_source"
+WORKFLOW_GROUP_CACHE_SCHEMA = "question-workflow-group-cache/v1"
 QUALIFICATION_DISPLAY_CATALOG = Path("config/qualification_display_catalog.json")
 YEAR_MONTH_OCCURRENCE_RE = re.compile(r"^((?:19|20)\d{2})-(0?[1-9]|1[0-2])$")
 YEAR_GROUP_RE = re.compile(r"^((?:19|20)\d{2})$")
@@ -635,6 +637,15 @@ class QuestionInventory:
         self._issue_index_cache: dict[tuple[str, str], ProjectionCache] = {}
         self._projection_snapshot_counts: Counter[tuple[str, str]] = Counter()
         self._id_map: dict[str, dict[str, Any]] = {}
+        self._inventory_cache: dict[str, Any] | None = None
+        self._workflow_group_cache: dict[tuple[str, str], GroupCache] = {}
+        self._workflow_group_cache_root = (
+            self.repo_root
+            / "output"
+            / "question_review_console"
+            / "cache"
+            / "workflow_groups"
+        )
         self._lock = threading.RLock()
 
     @contextmanager
@@ -671,9 +682,15 @@ class QuestionInventory:
         ) > 0
 
     def inventory(self) -> dict[str, Any]:
+        with self._lock:
+            if self._inventory_cache is not None:
+                return copy.deepcopy(self._inventory_cache)
         qualifications = []
         if not self.output_root.is_dir():
-            return {"qualifications": [], "defaultQualification": None}
+            payload = {"qualifications": [], "defaultQualification": None}
+            with self._lock:
+                self._inventory_cache = payload
+            return copy.deepcopy(payload)
         for qualification_dir in sorted(self.output_root.iterdir()):
             questions_dir = qualification_dir / "questions_json"
             if not questions_dir.is_dir():
@@ -711,7 +728,19 @@ class QuestionInventory:
         default = "gas-shunin-otsu" if "gas-shunin-otsu" in ids else (
             qualifications[0]["id"] if qualifications else None
         )
-        return {"qualifications": qualifications, "defaultQualification": default}
+        payload = {
+            "qualifications": qualifications,
+            "defaultQualification": default,
+        }
+        with self._lock:
+            self._inventory_cache = payload
+        return copy.deepcopy(payload)
+
+    def invalidate_inventory(self) -> None:
+        """Forget the qualification/group topology after an external import."""
+
+        with self._lock:
+            self._inventory_cache = None
 
     def group(self, qualification: str, list_group_id: str) -> dict[str, Any]:
         qualification = _safe_segment(qualification)
@@ -736,6 +765,183 @@ class QuestionInventory:
             for question in payload["questions"]:
                 self._id_map[question["id"]] = question
             return payload
+
+    def workflow_group(
+        self,
+        qualification: str,
+        list_group_id: str,
+    ) -> dict[str, Any]:
+        """Return only the fields required by the qualification dashboard.
+
+        The full question projection is persisted as a compact derived snapshot
+        after the first build. Normal dashboard reads therefore validate file
+        metadata and load the small snapshot instead of reparsing every source,
+        patch, converted document, and upload-ready document.
+        """
+
+        qualification = _safe_segment(qualification)
+        list_group_id = _safe_segment(list_group_id)
+        group_dir = (
+            self.output_root / qualification / "questions_json" / list_group_id
+        )
+        if not (group_dir / SOURCE_SUBDIR).is_dir():
+            raise FileNotFoundError(
+                f"question group not found: {qualification}/{list_group_id}"
+            )
+        fingerprint = self._group_fingerprint(group_dir)
+        cache_key = (qualification, list_group_id)
+        with self._lock:
+            cached = self._workflow_group_cache.get(cache_key)
+            if cached and cached.fingerprint == fingerprint:
+                return copy.deepcopy(cached.payload)
+
+        path = (
+            self._workflow_group_cache_root
+            / qualification
+            / f"{list_group_id}.json"
+        )
+        payload = self._read_workflow_group_cache(
+            path,
+            qualification=qualification,
+            list_group_id=list_group_id,
+            fingerprint=fingerprint,
+        )
+        if payload is None:
+            payload = self._workflow_group_payload(
+                self.group(qualification, list_group_id)
+            )
+            try:
+                atomic_write(
+                    path,
+                    json.dumps(
+                        {
+                            "schemaVersion": WORKFLOW_GROUP_CACHE_SCHEMA,
+                            "qualification": qualification,
+                            "listGroupId": list_group_id,
+                            "fingerprint": fingerprint,
+                            "group": payload,
+                        },
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    )
+                    + "\n",
+                )
+            except OSError:
+                # This is a derived performance cache. A read-only output
+                # directory must not make the dashboard unavailable.
+                pass
+        with self._lock:
+            self._workflow_group_cache[cache_key] = GroupCache(
+                fingerprint=fingerprint,
+                payload=payload,
+            )
+        return copy.deepcopy(payload)
+
+    @staticmethod
+    def _read_workflow_group_cache(
+        path: Path,
+        *,
+        qualification: str,
+        list_group_id: str,
+        fingerprint: str,
+    ) -> dict[str, Any] | None:
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        if (
+            not isinstance(value, Mapping)
+            or value.get("schemaVersion") != WORKFLOW_GROUP_CACHE_SCHEMA
+            or value.get("qualification") != qualification
+            or value.get("listGroupId") != list_group_id
+            or value.get("fingerprint") != fingerprint
+            or not isinstance(value.get("group"), Mapping)
+        ):
+            return None
+        return copy.deepcopy(dict(value["group"]))
+
+    @staticmethod
+    def _workflow_group_payload(group: Mapping[str, Any]) -> dict[str, Any]:
+        """Drop question bodies and publication documents from dashboard data."""
+
+        questions: list[dict[str, Any]] = []
+        for raw in group.get("questions") or []:
+            if not isinstance(raw, Mapping):
+                continue
+            source = raw.get("source")
+            source = source if isinstance(source, Mapping) else {}
+            projected = raw.get("projected")
+            projected = projected if isinstance(projected, Mapping) else {}
+            paths = raw.get("paths")
+            paths = paths if isinstance(paths, Mapping) else {}
+            issues = [
+                {
+                    "code": str(issue.get("code") or ""),
+                    "fields": [
+                        str(field)
+                        for field in issue.get("fields") or []
+                        if str(field)
+                    ],
+                }
+                for issue in raw.get("issues") or []
+                if isinstance(issue, Mapping)
+            ]
+            questions.append(
+                {
+                    field: copy.deepcopy(raw[field])
+                    for field in (
+                        "id",
+                        "reviewKey",
+                        "sourceQuestionKey",
+                        "sourceRecordRef",
+                        "qualification",
+                        "publicationQualificationId",
+                        "listGroupId",
+                        "sourceStem",
+                        "sourceIndex",
+                        "originalQuestionId",
+                        "questionLabel",
+                        "contentUpdatedAt",
+                        "isLawRelated",
+                        "reviewStatus",
+                        "workflow",
+                        "issueCodes",
+                    )
+                    if field in raw
+                }
+                | {
+                    "source": {"examYear": source.get("examYear")},
+                    "projected": {
+                        "lawRevisionFacts": bool(
+                            projected.get("lawRevisionFacts")
+                        )
+                    },
+                    "paths": {
+                        "source": paths.get("source"),
+                        "patches": [
+                            str(value) for value in paths.get("patches") or []
+                        ],
+                    },
+                    "issues": issues,
+                }
+            )
+        return {
+            "qualification": str(group.get("qualification") or ""),
+            "publicationQualificationId": str(
+                group.get("publicationQualificationId") or ""
+            ),
+            "listGroupId": str(group.get("listGroupId") or ""),
+            "displayName": str(
+                group.get("displayName") or group.get("listGroupId") or ""
+            ),
+            "questionCount": len(questions),
+            "artifactResolutionBlockers": [
+                copy.deepcopy(dict(blocker))
+                for blocker in group.get("artifactResolutionBlockers") or []
+                if isinstance(blocker, Mapping)
+            ],
+            "questions": questions,
+        }
 
     def question(self, question_id: str) -> dict[str, Any]:
         with self._lock:
@@ -1003,6 +1209,7 @@ class QuestionInventory:
                         self._id_map.pop(question["id"], None)
             self._source_cache.pop(cache_key, None)
             self._issue_index_cache.pop(cache_key, None)
+            self._workflow_group_cache.pop(cache_key, None)
             stale_stage_keys = [
                 key for key in self._stage_index_cache if key[:2] == cache_key
             ]

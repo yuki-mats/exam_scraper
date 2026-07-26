@@ -53,6 +53,34 @@ class FailedDeltaTests(unittest.TestCase):
             self.assertEqual(updated, ())
             self.assertEqual(loads.call_count, 2)
 
+    def test_only_the_changed_manifest_is_reparsed(self):
+        first_path = Path(
+            "output/sample/questions_json/2025/"
+            "21_explanationText_added/partial.json"
+        )
+        second_path = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/partial.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            first_manifest = runs / "20260101-run" / "manifest.json"
+            second_manifest = runs / "20260102-run" / "manifest.json"
+            self._write_manifest(first_manifest, "failed", first_path)
+            self._write_manifest(second_manifest, "failed", second_path)
+
+            with patch(
+                "tools.question_review_console.failed_delta.json.loads",
+                wraps=json.loads,
+            ) as loads:
+                unresolved_failed_delta_paths(root, "sample")
+                unresolved_failed_delta_paths(root, "sample")
+                self._write_manifest(second_manifest, "succeeded", second_path)
+                unresolved_failed_delta_paths(root, "sample")
+
+            self.assertEqual(loads.call_count, 3)
+
     def test_failed_path_is_blocked_until_a_later_successful_run(self):
         relative = Path(
             "output/sample/questions_json/2026/"

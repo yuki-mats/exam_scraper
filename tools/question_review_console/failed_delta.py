@@ -14,6 +14,38 @@ _FAILED_DELTA_CACHE: dict[
     tuple[str, str, str | None],
     tuple[tuple[tuple[str, int, int], ...], tuple[str, ...]],
 ] = {}
+_FAILED_DELTA_MANIFEST_CACHE: dict[
+    str,
+    tuple[tuple[int, int], Mapping[str, Any] | None],
+] = {}
+_FAILED_DELTA_MANIFEST_FIELDS = frozenset(
+    {
+        "allowedPatchDirs",
+        "allowedPatchFiles",
+        "allowedWriteAreas",
+        "allowedWriteFiles",
+        "candidateTransactionOpen",
+        "deltaUnknown",
+        "kind",
+        "parallelStrategy",
+        "parentRunId",
+        "policyVersions",
+        "qualification",
+        "receiptValidated",
+        "result",
+        "retrySafe",
+        "rollback",
+        "sandbox",
+        "stageId",
+        "stageIds",
+        "status",
+        "targetGroupIds",
+        "targetQuestionIds",
+        "targetRecordScopes",
+        "verifiedStageIdsByPath",
+        "workType",
+    }
+)
 
 
 def unresolved_failed_delta_paths(
@@ -95,11 +127,8 @@ def _failed_delta_paths(
         else sorted(root.glob("*/manifest.json"))
     )
     for manifest_path in manifests:
-        try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
-            continue
-        if not isinstance(manifest, Mapping):
+        manifest = _cached_failed_delta_manifest(manifest_path)
+        if manifest is None:
             continue
         status = str(manifest.get("status") or "")
         validated_success = bool(
@@ -214,6 +243,40 @@ def _failed_delta_paths(
         if _success_supersedes(interrupted, resolver)
     )
     return tuple(sorted(resolvable))
+
+
+def _cached_failed_delta_manifest(
+    path: Path,
+) -> Mapping[str, Any] | None:
+    """Read only fields that can affect failed-delta reconciliation."""
+
+    cache_key = str(path)
+    try:
+        stat = path.stat()
+    except OSError:
+        return None
+    signature = (stat.st_size, stat.st_mtime_ns)
+    with _FAILED_DELTA_CACHE_LOCK:
+        cached = _FAILED_DELTA_MANIFEST_CACHE.get(cache_key)
+        if cached and cached[0] == signature:
+            return cached[1]
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        summary = None
+    else:
+        summary = (
+            {
+                field: value[field]
+                for field in _FAILED_DELTA_MANIFEST_FIELDS
+                if field in value
+            }
+            if isinstance(value, Mapping)
+            else None
+        )
+    with _FAILED_DELTA_CACHE_LOCK:
+        _FAILED_DELTA_MANIFEST_CACHE[cache_key] = (signature, summary)
+    return summary
 
 
 def _manifest_fingerprint(

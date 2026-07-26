@@ -30,6 +30,94 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_inventory_topology_is_cached_until_explicit_invalidation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first_source = (
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2025"
+                / "00_source"
+                / "question.json"
+            )
+            write_json(first_source, {"question_bodies": []})
+            inventory = QuestionInventory(root)
+
+            first = inventory.inventory()
+            write_json(
+                first_source.parents[2]
+                / "2026"
+                / "00_source"
+                / "question.json",
+                {"question_bodies": []},
+            )
+            cached = inventory.inventory()
+            inventory.invalidate_inventory()
+            refreshed = inventory.inventory()
+
+        self.assertEqual(first, cached)
+        self.assertEqual(first["qualifications"][0]["listGroupIds"], ["2025"])
+        self.assertEqual(
+            refreshed["qualifications"][0]["listGroupIds"],
+            ["2025", "2026"],
+        )
+
+    def test_workflow_group_reuses_compact_persistent_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_json(
+                root
+                / "output"
+                / "sample-exam"
+                / "questions_json"
+                / "2026"
+                / "00_source"
+                / "question.json",
+                {
+                    "question_bodies": [
+                        {
+                            "original_question_id": "q1",
+                            "questionBodyText": "問題本文",
+                            "choiceTextList": ["選択肢"],
+                            "correctChoiceText": ["正しい"],
+                            "questionType": "multiple_choice",
+                            "examYear": 2026,
+                        }
+                    ]
+                },
+            )
+            first_inventory = QuestionInventory(root)
+            first = first_inventory.workflow_group("sample-exam", "2026")
+            cache_path = (
+                root
+                / "output"
+                / "question_review_console"
+                / "cache"
+                / "workflow_groups"
+                / "sample-exam"
+                / "2026.json"
+            )
+
+            restarted = QuestionInventory(root)
+            with patch.object(
+                restarted,
+                "_build_group",
+                side_effect=AssertionError("full projection was rebuilt"),
+            ):
+                cached = restarted.workflow_group("sample-exam", "2026")
+            cache_exists = cache_path.is_file()
+
+        self.assertTrue(cache_exists)
+        self.assertEqual(first, cached)
+        self.assertNotIn("body", cached["questions"][0])
+        self.assertNotIn("choiceCount", cached["questions"][0])
+        self.assertEqual(
+            cached["questions"][0]["projected"],
+            {"lawRevisionFacts": False},
+        )
+
     def test_question_body_choice_flag_requires_a_valid_approved_decomposition(self):
         source_text = "A　原文一。\nB　原文二。"
         decomposition = {

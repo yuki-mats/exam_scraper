@@ -21,6 +21,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_review_source_records,
     _candidate_unset_fields,
     _child_retry_safe,
+    _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
     _source_binding_accepts_identity,
     _server_law_audit_fields,
@@ -37,6 +38,105 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class ResumeTargetAliasTests(unittest.TestCase):
+    def test_restores_only_aliases_for_the_same_complete_source_identity(self):
+        binding = {
+            "sourceQuestionKey": "sample:q1",
+            "reviewQuestionId": "review-q1",
+            "sourceRecordRef": "question.json#0",
+        }
+        current_aliases = [
+            "sample:q1",
+            "review-q1",
+            "question.json#0",
+        ]
+        plan = {
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": "ui-q1",
+                    **binding,
+                    "aliases": list(current_aliases),
+                }
+            ],
+            "progressTargets": [
+                {
+                    "id": "ui-q1",
+                    **binding,
+                    "aliases": list(current_aliases),
+                }
+            ],
+            "targetRecordAliasGroups": [list(current_aliases)],
+            "targetSourceRecordScopes": {
+                "output/sample/00_source/question.json": [list(current_aliases)]
+            },
+            "stagePlans": [
+                {
+                    "targetRecordBindings": [
+                        {
+                            "uiQuestionId": "ui-q1",
+                            **binding,
+                            "aliases": list(current_aliases),
+                        }
+                    ],
+                    "progressTargets": [
+                        {
+                            "id": "ui-q1",
+                            **binding,
+                            "aliases": list(current_aliases),
+                        }
+                    ],
+                    "targetRecordAliasGroups": [list(current_aliases)],
+                    "targetSourceRecordScopes": {
+                        "output/sample/00_source/question.json": [
+                            list(current_aliases)
+                        ]
+                    },
+                }
+            ],
+        }
+        previous = {
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": "ui-q1",
+                    **binding,
+                    "aliases": [*current_aliases, "legacy-firestore-id"],
+                },
+                {
+                    "uiQuestionId": "ui-q2",
+                    "sourceQuestionKey": "sample:q2",
+                    "reviewQuestionId": "review-q2",
+                    "sourceRecordRef": "question.json#1",
+                    "aliases": ["unrelated-legacy-id"],
+                },
+            ]
+        }
+
+        _restore_resume_target_aliases(plan, previous)
+
+        self.assertIn(
+            "legacy-firestore-id",
+            plan["targetRecordBindings"][0]["aliases"],
+        )
+        self.assertIn(
+            "legacy-firestore-id",
+            plan["progressTargets"][0]["aliases"],
+        )
+        self.assertIn(
+            "legacy-firestore-id",
+            plan["targetSourceRecordScopes"][
+                "output/sample/00_source/question.json"
+            ][0],
+        )
+        self.assertIn(
+            "legacy-firestore-id",
+            plan["stagePlans"][0]["targetRecordBindings"][0]["aliases"],
+        )
+        self.assertNotIn(
+            "unrelated-legacy-id",
+            plan["targetRecordBindings"][0]["aliases"],
+        )
 
 
 class ManifestRuntimeCacheTests(unittest.TestCase):
@@ -119,6 +219,58 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         self.assertEqual(len(store._manifest_cache), 4)
         self.assertNotIn(paths[0], store._manifest_cache)
         self.assertIn(paths[-1], store._manifest_cache)
+
+    def test_run_list_reuses_persistent_summary_without_parsing_heavy_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            path = (
+                store.root
+                / "sample"
+                / "run-1"
+                / "manifest.json"
+            )
+            store._write_manifest(
+                path,
+                {
+                    "runId": "run-1",
+                    "qualification": "sample",
+                    "parentRunId": None,
+                    "kind": "orchestration",
+                    "workType": "maintenance_flow",
+                    "status": "interrupted",
+                    "updatedAt": "2026-01-01T00:00:00+09:00",
+                    "questionExecutions": [
+                        {"questionId": f"q{index}", "status": "queued"}
+                        for index in range(200)
+                    ],
+                    "targetRecordScopes": {
+                        f"output/q{index}.json": [[f"q{index}"]]
+                        for index in range(200)
+                    },
+                },
+            )
+            sidecar = path.with_name("list_summary.json")
+
+            restarted = QualificationRunStore(root)
+            with patch.object(
+                restarted,
+                "_manifest_value",
+                side_effect=AssertionError("heavy manifest was parsed"),
+            ):
+                runs = restarted.list(
+                    "sample",
+                    limit=8,
+                    top_level_only=True,
+                    newest_updated_first=True,
+                    summary_only=True,
+                )
+            sidecar_exists = sidecar.is_file()
+
+        self.assertTrue(sidecar_exists)
+        self.assertEqual([run["runId"] for run in runs], ["run-1"])
+        self.assertNotIn("questionExecutions", runs[0])
+        self.assertNotIn("targetRecordScopes", runs[0])
 
     def test_batch_stage_update_writes_once_and_preserves_single_update_semantics(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2861,13 +3013,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for index in range(10)
             ]
             loaded_paths = []
-            original_load = coordinator.store._load_manifest
+            original_load = coordinator.store._load_manifest_list_summary
 
             def tracked_load(path):
                 loaded_paths.append(path)
                 return original_load(path)
 
-            coordinator.store._load_manifest = tracked_load
+            coordinator.store._load_manifest_list_summary = tracked_load
             recent = coordinator.recent("sample")
 
         self.assertEqual(len(recent["runs"]), 8)

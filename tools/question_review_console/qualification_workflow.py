@@ -648,7 +648,10 @@ class QualificationWorkflow:
 
     def overview(self, qualification: str) -> dict[str, Any]:
         catalog = self.catalog(qualification)
-        groups, questions = self._qualification_data(qualification)
+        groups, questions = self._qualification_data(
+            qualification,
+            dashboard_only=True,
+        )
         versioned_definitions = [
             stage
             for stage in catalog["stages"]
@@ -1270,6 +1273,7 @@ class QualificationWorkflow:
         update_target_ids: Iterable[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
         question_ids: Iterable[str] | None = None,
+        _dashboard_only: bool = False,
     ) -> dict[str, Any]:
         requested = _ordered_unique(str(stage_id) for stage_id in stage_ids)
         normalized_group_ids, scope_provided = _group_scope(
@@ -1334,6 +1338,10 @@ class QualificationWorkflow:
                     + ", ".join(missing_target_stages)
                 )
         if len(ordered) == 1:
+            qualification_data = self._qualification_data(
+                qualification,
+                dashboard_only=_dashboard_only,
+            )
             plan = self.plan(
                 qualification,
                 ordered[0],
@@ -1343,6 +1351,7 @@ class QualificationWorkflow:
                 question_range=normalized_question_range,
                 question_ids=question_ids,
                 _catalog=catalog,
+                _qualification_data=qualification_data,
             )
             plan["stageIds"] = ordered
             plan["stageCount"] = 1
@@ -1361,7 +1370,10 @@ class QualificationWorkflow:
                 "一問ずつまとめて実行できない工程が含まれています: "
                 + ", ".join(invalid)
             )
-        qualification_data = self._qualification_data(qualification)
+        qualification_data = self._qualification_data(
+            qualification,
+            dashboard_only=_dashboard_only,
+        )
         stage_plans = [
             self.plan(
                 qualification,
@@ -1847,7 +1859,10 @@ class QualificationWorkflow:
         return bool(self._category_state(qualification)["ready"])
 
     def _qualification_data(
-        self, qualification: str
+        self,
+        qualification: str,
+        *,
+        dashboard_only: bool = False,
     ) -> tuple[list[Mapping[str, Any]], list[Mapping[str, Any]]]:
         qualification_info = next(
             (
@@ -1859,8 +1874,13 @@ class QualificationWorkflow:
         )
         if qualification_info is None:
             raise FileNotFoundError(f"対象資格がありません: {qualification}")
+        group_loader = (
+            getattr(self.inventory, "workflow_group", self.inventory.group)
+            if dashboard_only
+            else self.inventory.group
+        )
         groups = [
-            self.inventory.group(qualification, str(list_group_id))
+            group_loader(qualification, str(list_group_id))
             for list_group_id in qualification_info.get("listGroupIds") or []
         ]
         questions: list[Mapping[str, Any]] = []

@@ -180,6 +180,25 @@ LIVE_RUN_STATUSES = {
 }
 RECOVERY_INDEX_MARKER_SCHEMA = "qualification-run-recovery-index/v1"
 RECOVERY_SIDECAR_SCHEMA = "qualification-run-recovery-candidate/v1"
+MANIFEST_LIST_SUMMARY_SCHEMA = "qualification-run-list-summary/v1"
+MANIFEST_HEADER_BYTES = 64 * 1024
+RUN_LIST_HEAVY_FIELDS = frozenset(
+    {
+        "allowedPatchFiles",
+        "allowedWriteFiles",
+        "policyTargets",
+        "progressTargets",
+        "questionExecutions",
+        "resumeWorkItemKeys",
+        "sourceFiles",
+        "targetQuestionKeys",
+        "targetRecordAliasGroups",
+        "targetRecordAliases",
+        "targetRecordBindings",
+        "targetRecordScopes",
+        "targetSourceRecordScopes",
+    }
+)
 ARTIFACT_SYNC_COMPLETE_STATUSES = {"succeeded", "current", "not_required"}
 PROGRESS_EVENT_TYPES = {"question_started", "stage_completed", "question_completed"}
 PROGRESS_RESULT_FIELDS = {
@@ -1486,6 +1505,20 @@ class QualificationRunStore:
         self._manifest_cache: dict[
             Path,
             tuple[tuple[int, int, int], dict[str, Any]],
+        ] = {}
+        self._manifest_header_cache: dict[
+            Path,
+            tuple[tuple[int, int, int], bool],
+        ] = {}
+        self._manifest_list_summary_cache: dict[
+            Path,
+            tuple[
+                tuple[
+                    tuple[int, int, int],
+                    tuple[int, int, int, bool] | None,
+                ],
+                dict[str, Any],
+            ],
         ] = {}
         self._technical_log_sequences: dict[Path, int] = {}
         self._technical_log_last_signatures: dict[Path, str] = {}
@@ -2913,6 +2946,7 @@ class QualificationRunStore:
         limit: int = 8,
         top_level_only: bool = False,
         newest_updated_first: bool = False,
+        summary_only: bool = False,
         excluded_work_types: Iterable[str] = (),
         excluded_schema_versions: Iterable[str] = (),
     ) -> list[dict[str, Any]]:
@@ -2934,15 +2968,22 @@ class QualificationRunStore:
         manifests: list[dict[str, Any]] = []
         with self._lock:
             for path in paths:
-                manifest = self._load_manifest(path)
-                if top_level_only and manifest.get("parentRunId"):
+                if top_level_only and self._manifest_has_parent(path):
                     continue
+                manifest = (
+                    self._load_manifest_list_summary(path)
+                    if summary_only
+                    else self._load_manifest(path)
+                )
                 if manifest.get("workType") in excluded_work_type_set:
                     continue
                 if manifest.get("schemaVersion") in excluded_schema_version_set:
                     continue
-                manifest = self._apply_result_receipt(path, manifest)
-                manifests.append(self._public(manifest))
+                if summary_only:
+                    manifests.append(manifest)
+                else:
+                    manifest = self._apply_result_receipt(path, manifest)
+                    manifests.append(self._public(manifest))
                 if len(manifests) >= limit:
                     break
         return manifests
@@ -5103,14 +5144,14 @@ class QualificationRunStore:
             oldest = next(iter(self._manifest_cache))
             self._manifest_cache.pop(oldest, None)
 
-    def _load_manifest(self, path: Path) -> dict[str, Any]:
+    def _manifest_value(self, path: Path) -> dict[str, Any]:
         if not path.is_file():
             raise QualificationRunError("作業履歴が見つかりません。")
         signature = self._manifest_file_signature(path)
         cached = self._manifest_cache.get(path)
         if cached is not None and cached[0] == signature:
             self._remember_manifest(path, signature, cached[1])
-            return copy.deepcopy(cached[1])
+            return cached[1]
         for _attempt in range(2):
             before = self._manifest_file_signature(path)
             value = json.loads(path.read_text(encoding="utf-8"))
@@ -5121,7 +5162,182 @@ class QualificationRunStore:
         if not isinstance(value, dict):
             raise QualificationRunError("作業履歴の形式が不正です。")
         self._remember_manifest(path, signature, value)
-        return copy.deepcopy(value)
+        return value
+
+    def _load_manifest(self, path: Path) -> dict[str, Any]:
+        return copy.deepcopy(self._manifest_value(path))
+
+    def _manifest_has_parent(self, path: Path) -> bool:
+        signature = self._manifest_file_signature(path)
+        cached = self._manifest_header_cache.get(path)
+        if cached is not None and cached[0] == signature:
+            return cached[1]
+        try:
+            with path.open("rb") as source:
+                header = source.read(MANIFEST_HEADER_BYTES)
+        except OSError as exc:
+            raise QualificationRunError(
+                f"作業履歴の先頭を確認できません: {path}"
+            ) from exc
+        match = re.search(
+            rb'"parentRunId"\s*:\s*(null|"[^"]*")',
+            header,
+        )
+        has_parent = (
+            match.group(1) != b"null"
+            if match is not None
+            else bool(self._manifest_value(path).get("parentRunId"))
+        )
+        self._manifest_header_cache[path] = (signature, has_parent)
+        return has_parent
+
+    def _load_manifest_list_summary(self, path: Path) -> dict[str, Any]:
+        manifest_signature = self._manifest_file_signature(path)
+        cached = self._manifest_list_summary_cache.get(path)
+        if cached is not None:
+            receipt_signature = self._list_summary_receipt_signature(
+                path,
+                cached[1],
+            )
+            cache_signature = (manifest_signature, receipt_signature)
+            if cached[0] == cache_signature:
+                return copy.deepcopy(cached[1])
+
+        sidecar = self._read_manifest_list_summary_sidecar(
+            path,
+            manifest_signature,
+        )
+        if sidecar is not None:
+            summary, receipt_signature = sidecar
+            cache_signature = (manifest_signature, receipt_signature)
+            self._manifest_list_summary_cache[path] = (
+                cache_signature,
+                summary,
+            )
+            return copy.deepcopy(summary)
+
+        manifest = self._manifest_value(path)
+        receipt_path = (
+            self._result_path(path, manifest)
+            if manifest.get("kind") == "human"
+            else None
+        )
+        receipt_signature = (
+            self._result_receipt_file_signature(receipt_path)
+            if receipt_path is not None
+            else None
+        )
+        cache_signature = (manifest_signature, receipt_signature)
+        if receipt_path is not None:
+            receipt_changed = receipt_path.is_symlink()
+            if receipt_path.is_file() and not receipt_changed:
+                receipt_changed = (
+                    hashlib.sha256(receipt_path.read_bytes()).hexdigest()
+                    != manifest.get("resultReceiptHash")
+                )
+            if receipt_changed:
+                manifest = self._apply_result_receipt(
+                    path,
+                    copy.deepcopy(manifest),
+                )
+                manifest_signature = self._manifest_file_signature(path)
+                receipt_signature = self._result_receipt_file_signature(
+                    receipt_path
+                )
+                cache_signature = (manifest_signature, receipt_signature)
+        summary = self._public_list_summary(manifest)
+        self._manifest_list_summary_cache[path] = (cache_signature, summary)
+        self._write_manifest_list_summary_sidecar(
+            path,
+            manifest_signature,
+            receipt_signature,
+            summary,
+        )
+        return copy.deepcopy(summary)
+
+    def _read_manifest_list_summary_sidecar(
+        self,
+        manifest_path: Path,
+        manifest_signature: tuple[int, int, int],
+    ) -> tuple[
+        dict[str, Any],
+        tuple[int, int, int, bool] | None,
+    ] | None:
+        path = manifest_path.with_name("list_summary.json")
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        if (
+            not isinstance(value, Mapping)
+            or value.get("schemaVersion") != MANIFEST_LIST_SUMMARY_SCHEMA
+            or value.get("manifestSignature") != list(manifest_signature)
+            or not isinstance(value.get("summary"), Mapping)
+        ):
+            return None
+        summary = copy.deepcopy(dict(value["summary"]))
+        receipt_signature = self._list_summary_receipt_signature(
+            manifest_path,
+            summary,
+        )
+        stored_receipt_signature = value.get("receiptSignature")
+        if stored_receipt_signature != (
+            list(receipt_signature) if receipt_signature is not None else None
+        ):
+            return None
+        return summary, receipt_signature
+
+    def _write_manifest_list_summary_sidecar(
+        self,
+        manifest_path: Path,
+        manifest_signature: tuple[int, int, int],
+        receipt_signature: tuple[int, int, int, bool] | None,
+        summary: Mapping[str, Any],
+    ) -> None:
+        try:
+            self._write_json(
+                manifest_path.with_name("list_summary.json"),
+                {
+                    "schemaVersion": MANIFEST_LIST_SUMMARY_SCHEMA,
+                    "manifestSignature": list(manifest_signature),
+                    "receiptSignature": (
+                        list(receipt_signature)
+                        if receipt_signature is not None
+                        else None
+                    ),
+                    "summary": copy.deepcopy(dict(summary)),
+                },
+            )
+        except OSError:
+            # This sidecar is a derived read cache. Manifest writes and run
+            # execution must remain authoritative if the cache cannot be saved.
+            pass
+
+    def _list_summary_receipt_signature(
+        self,
+        manifest_path: Path,
+        summary: Mapping[str, Any],
+    ) -> tuple[int, int, int, bool] | None:
+        if summary.get("kind") != "human":
+            return None
+        return self._result_receipt_file_signature(
+            self._result_path(manifest_path, summary)
+        )
+
+    @staticmethod
+    def _result_receipt_file_signature(
+        path: Path,
+    ) -> tuple[int, int, int, bool] | None:
+        try:
+            stat = path.lstat()
+        except OSError:
+            return None
+        return (
+            stat.st_ino,
+            stat.st_mtime_ns,
+            stat.st_size,
+            path.is_symlink(),
+        )
 
     def _write_manifest(self, path: Path, manifest: Mapping[str, Any]) -> None:
         requires_recovery = self._requires_startup_recovery(manifest)
@@ -5146,6 +5362,32 @@ class QualificationRunStore:
             path,
             self._manifest_file_signature(path),
             cached,
+        )
+        signature = self._manifest_file_signature(path)
+        self._manifest_header_cache[path] = (
+            signature,
+            bool(manifest.get("parentRunId")),
+        )
+        receipt_signature = (
+            self._result_receipt_file_signature(
+                self._result_path(path, manifest)
+            )
+            if manifest.get("kind") == "human"
+            else None
+        )
+        summary = self._public_list_summary(manifest)
+        self._manifest_list_summary_cache[path] = (
+            (
+                signature,
+                receipt_signature,
+            ),
+            summary,
+        )
+        self._write_manifest_list_summary_sidecar(
+            path,
+            signature,
+            receipt_signature,
+            summary,
         )
 
     @staticmethod
@@ -5194,6 +5436,15 @@ class QualificationRunStore:
         value = copy.deepcopy(dict(manifest))
         value.pop("resultReceiptHash", None)
         return value
+
+    @staticmethod
+    def _public_list_summary(manifest: Mapping[str, Any]) -> dict[str, Any]:
+        return {
+            field: copy.deepcopy(value)
+            for field, value in manifest.items()
+            if field not in RUN_LIST_HEAVY_FIELDS
+            and field != "resultReceiptHash"
+        }
 
 
 def _resume_selection_matches(
@@ -5248,6 +5499,113 @@ def _resume_orchestration_selections_match(
             allowed_law_removals=allowed_law_update_target_removals,
         )
     )
+
+
+def _restore_resume_target_aliases(
+    plan: dict[str, Any],
+    previous: Mapping[str, Any],
+) -> None:
+    """Restore only aliases previously bound to the same complete source identity."""
+
+    trusted: dict[SourceIdentityBinding, set[str]] = {}
+    for raw in previous.get("targetRecordBindings") or []:
+        if not isinstance(raw, Mapping):
+            continue
+        identity = SourceIdentityBinding.from_mapping(raw)
+        if not identity.is_complete():
+            continue
+        aliases = {
+            str(value).strip()
+            for value in raw.get("aliases") or []
+            if str(value).strip()
+        }
+        aliases.update(identity.as_tuple())
+        trusted.setdefault(identity, set()).update(aliases)
+    if not trusted:
+        return
+
+    def aliases_for(value: Mapping[str, Any]) -> set[str]:
+        identity = SourceIdentityBinding.from_mapping(value)
+        if not identity.is_complete():
+            return {
+                str(alias).strip()
+                for alias in value.get("aliases") or []
+                if str(alias).strip()
+            }
+        return {
+            str(alias).strip()
+            for alias in value.get("aliases") or []
+            if str(alias).strip()
+        } | trusted.get(identity, set()) | set(identity.as_tuple())
+
+    def expand_alias_group(raw_group: Any) -> list[str]:
+        aliases = {
+            str(value).strip()
+            for value in raw_group or []
+            if str(value).strip()
+        }
+        matching = [
+            trusted_aliases
+            for identity, trusted_aliases in trusted.items()
+            if set(identity.as_tuple()).issubset(aliases)
+        ]
+        if len(matching) == 1:
+            aliases.update(matching[0])
+        return sorted(aliases)
+
+    def restore(container: dict[str, Any]) -> None:
+        bindings = [
+            dict(raw)
+            for raw in container.get("targetRecordBindings") or []
+            if isinstance(raw, Mapping)
+        ]
+        for binding in bindings:
+            binding["aliases"] = sorted(aliases_for(binding))
+        if bindings:
+            container["targetRecordBindings"] = bindings
+            container["targetRecordAliasGroups"] = [
+                aliases
+                for aliases in dict.fromkeys(
+                    tuple(binding["aliases"])
+                    for binding in bindings
+                    if binding.get("aliases")
+                )
+            ]
+
+        progress_targets = [
+            dict(raw)
+            for raw in container.get("progressTargets") or []
+            if isinstance(raw, Mapping)
+        ]
+        for target in progress_targets:
+            target["aliases"] = sorted(aliases_for(target))
+        if progress_targets:
+            container["progressTargets"] = progress_targets
+
+        for field in ("targetSourceRecordScopes", "targetRecordScopes"):
+            scopes = container.get(field)
+            if not isinstance(scopes, Mapping):
+                continue
+            container[field] = {
+                str(path): [
+                    expand_alias_group(group)
+                    for group in groups or []
+                    if isinstance(group, (list, tuple, set))
+                ]
+                for path, groups in scopes.items()
+            }
+
+    restore(plan)
+    stage_plans = plan.get("stagePlans")
+    if isinstance(stage_plans, list):
+        restored_stage_plans: list[dict[str, Any]] = []
+        for raw in stage_plans:
+            if not isinstance(raw, Mapping):
+                continue
+            stage_plan = dict(raw)
+            restore(stage_plan)
+            restored_stage_plans.append(stage_plan)
+        plan["stagePlans"] = restored_stage_plans
 
 
 class QualificationRunCoordinator:
@@ -5748,6 +6106,7 @@ class QualificationRunCoordinator:
                 limit=8,
                 top_level_only=True,
                 newest_updated_first=True,
+                summary_only=True,
                 excluded_work_types={"evaluation", "reevaluation"},
                 excluded_schema_versions={"failed-delta-reconciliation/v1"},
             )
@@ -5772,8 +6131,9 @@ class QualificationRunCoordinator:
             or run.get("retrySafe") is not False
         ):
             return dict(run)
+        full_run = self.store.get(qualification, str(run["runId"]))
         try:
-            self._assert_resume_safe(qualification, run)
+            self._assert_resume_safe(qualification, full_run)
         except QualificationRunError:
             return dict(run)
         return self.store.get(qualification, str(run["runId"]))
@@ -13761,6 +14121,7 @@ class QualificationRunCoordinator:
                     qualification,
                     selected_stage_ids,
                     mode,
+                    _dashboard_only=bool(resumed_from),
                     **scope,
                 )
             )
@@ -13844,6 +14205,7 @@ class QualificationRunCoordinator:
                 )
             except QuestionWorkQueueError as exc:
                 raise QualificationRunError(str(exc)) from exc
+            _restore_resume_target_aliases(plan, previous)
             completed_scope_stage_ids = {
                 str(phase.get("id") or "")
                 for phase in previous.get("phaseExecutions") or []
