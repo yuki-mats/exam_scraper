@@ -5474,6 +5474,70 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 )
             )
 
+    def test_batch_change_detection_reuses_child_manifest_within_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                DeferredJobs(),
+                "secret",
+                app_server=FlowAppServer(),
+            )
+            child_plan = FakeWorkflow().plan(
+                "sample",
+                "question_type",
+                "remaining",
+            )
+            child_plan.update(
+                parallelStrategy="structured_candidate_batch",
+                progressTargets=[{"id": "q1"}, {"id": "q2"}],
+            )
+            child = coordinator.store.create(child_plan, status="succeeded")
+            coordinator.store.update(
+                "sample",
+                child["runId"],
+                batchQuestionResults=[
+                    {
+                        "questionId": "q1",
+                        "status": "succeeded",
+                        "changedFiles": ["patch.json"],
+                    },
+                    {
+                        "questionId": "q2",
+                        "status": "succeeded",
+                        "changedFiles": [],
+                    },
+                ],
+            )
+            stage = {"childRunIds": [child["runId"]]}
+            child_run_cache = {}
+
+            with patch.object(
+                coordinator.store,
+                "get",
+                wraps=coordinator.store.get,
+            ) as get_manifest:
+                self.assertTrue(
+                    coordinator._validated_queue_stage_changed(
+                        "sample",
+                        stage,
+                        "q1",
+                        child_run_cache,
+                    )
+                )
+                self.assertFalse(
+                    coordinator._validated_queue_stage_changed(
+                        "sample",
+                        stage,
+                        "q2",
+                        child_run_cache,
+                    )
+                )
+
+            self.assertEqual(get_manifest.call_count, 1)
+
     def test_later_stage_rechecks_only_question_changed_by_prior_stage(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

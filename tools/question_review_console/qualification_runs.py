@@ -7127,15 +7127,25 @@ class QualificationRunCoordinator:
         qualification: str,
         stage: Mapping[str, Any],
         question_id: str,
+        child_run_cache: dict[tuple[str, str], Mapping[str, Any]] | None = None,
     ) -> bool:
         child_ids = [str(value) for value in stage.get("childRunIds") or [] if value]
         if not child_ids:
             return False
         for child_id in child_ids:
-            try:
-                child = self.store.get(qualification, child_id)
-            except (FileNotFoundError, ValueError):
-                continue
+            cache_key = (qualification, child_id)
+            child = (
+                child_run_cache.get(cache_key)
+                if child_run_cache is not None
+                else None
+            )
+            if child is None:
+                try:
+                    child = self.store.get(qualification, child_id)
+                except (FileNotFoundError, ValueError):
+                    continue
+                if child_run_cache is not None:
+                    child_run_cache[cache_key] = child
             result = child.get("result")
             if child.get("parallelStrategy") in {
                 "isolated_question_batch",
@@ -7193,6 +7203,7 @@ class QualificationRunCoordinator:
         question_id: str,
         initial_plan: Mapping[str, Any],
         initial_prompt: str,
+        child_run_cache: dict[tuple[str, str], Mapping[str, Any]] | None = None,
         *,
         parent: Mapping[str, Any] | None = None,
         phase_plan_index: QuestionPlanIndex | None = None,
@@ -7248,6 +7259,7 @@ class QualificationRunCoordinator:
                     qualification,
                     prior,
                     question_id,
+                    child_run_cache,
                 )
         if prior_validated and (target is not None or prior_changed):
             phase_plan, target = self._dynamic_question_phase_plan(
@@ -7637,6 +7649,10 @@ class QualificationRunCoordinator:
         phase_runtime: dict[str, dict[str, Any]] = {}
         pipeline_stop = threading.Event()
         aggregation_lock = threading.Lock()
+        validated_child_run_cache: dict[
+            tuple[str, str],
+            Mapping[str, Any],
+        ] = {}
         last_preparation_heartbeat = 0.0
         question_concurrency = (
             normalize_question_concurrency(parent["questionConcurrency"])
@@ -7736,6 +7752,7 @@ class QualificationRunCoordinator:
                     question_id,
                     phase_plan,
                     phase_prompt,
+                    validated_child_run_cache,
                     parent=parent,
                     phase_plan_index=phase_plan_index,
                 )
