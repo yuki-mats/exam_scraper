@@ -1825,23 +1825,51 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         css = (static / "styles.css").read_text(encoding="utf-8")
 
         self.assertNotIn('id="refresh-loading-dialog"', html)
+        self.assertIn('id="maintenance-loading"', html)
+        self.assertIn('id="maintenance-loading-title"', html)
+        self.assertIn('id="maintenance-loading-message"', html)
+        self.assertIn('id="maintenance-loading-elapsed"', html)
+        self.assertIn('data-loading-step="connection"', html)
+        self.assertIn('data-loading-step="workflow"', html)
+        self.assertIn('data-loading-step="runs"', html)
+        self.assertIn('data-loading-step="questions"', html)
+        self.assertIn('data-loading-step="apply"', html)
         self.assertIn("async function refreshDashboard()", javascript)
         refresh = javascript.split("async function refreshDashboard()", 1)[1].split(
             "function auditViewIsOpen", 1
         )[0]
-        self.assertIn("setDashboardRefreshState(true)", refresh)
+        self.assertIn("startMaintenanceLoading({", refresh)
         self.assertIn(
             "const results = await Promise.allSettled",
             refresh,
         )
+        self.assertIn(
+            'trackMaintenanceLoadingStep("workflow", loadQualificationWorkflow(true))',
+            refresh,
+        )
+        self.assertIn(
+            'trackMaintenanceLoadingStep("runs", loadQualificationRuns())',
+            refresh,
+        )
+        self.assertIn("await finishMaintenanceLoading()", refresh)
+        self.assertIn("failMaintenanceLoading(", refresh)
         self.assertIn("finally", refresh)
-        self.assertIn("setDashboardRefreshState(false)", refresh)
         self.assertNotIn("showModal", refresh)
+        self.assertIn("elapsedSeconds < 10", javascript)
+        self.assertIn(
+            '$("#maintenance-loading-retry").addEventListener("click", refreshDashboard)',
+            javascript,
+        )
         self.assertIn(
             '$("#refresh-button").addEventListener("click", refreshDashboard)',
             javascript,
         )
         self.assertNotIn(".global-loading-dialog", css)
+        self.assertIn(".maintenance-loading", css)
+        self.assertIn(".maintenance-loading-steps", css)
+        self.assertIn(".maintenance-loading-steps li[hidden]", css)
+        self.assertIn("@keyframes loading-sweep", css)
+        self.assertIn("@keyframes loading-pulse", css)
         self.assertIn(".audit-view-loading", css)
         audit_loading_css = css.split(".audit-view-loading {", 1)[1].split("}", 1)[0]
         self.assertNotIn("position: absolute", audit_loading_css)
@@ -1928,7 +1956,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-4"
+        asset_version = "question-review-ui-v3-20260726-5"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

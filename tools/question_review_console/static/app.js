@@ -185,6 +185,11 @@ const state = {
   qualificationActiveJob: null,
   qualificationRunProgress: null,
   dashboardRefreshing: false,
+  maintenanceLoading: {
+    active: false,
+    startedAt: 0,
+    timer: null,
+  },
   lawWorkflowSaving: false,
   codexStatus: null,
   sharedRunPolling: false,
@@ -338,36 +343,147 @@ function setDashboardRefreshState(refreshing) {
   refreshButton.title = refreshing ? "最新の状態を更新しています" : "最新の状態に更新";
 }
 
+function setMaintenanceLoadingStep(stepId, status) {
+  const step = document.querySelector(`[data-loading-step="${stepId}"]`);
+  if (step) step.dataset.status = status;
+}
+
+function updateMaintenanceLoadingElapsed() {
+  if (!state.maintenanceLoading.active) return;
+  const elapsedSeconds = Math.max(
+    0,
+    Math.floor((Date.now() - state.maintenanceLoading.startedAt) / 1000),
+  );
+  $("#maintenance-loading-elapsed").textContent = elapsedSeconds
+    ? `取得中 ${elapsedSeconds}秒`
+    : "取得中";
+  $("#maintenance-loading-slow-note").hidden = elapsedSeconds < 10;
+}
+
+function startMaintenanceLoading({
+  title,
+  message,
+  activeSteps = [],
+  includeQuestions = false,
+}) {
+  const panel = $("#maintenance-loading");
+  panel.hidden = false;
+  panel.classList.remove("error");
+  $("#maintenance-loading-title").textContent = title;
+  $("#maintenance-loading-message").textContent = message;
+  $("#maintenance-loading-retry").hidden = true;
+  $("#maintenance-loading-slow-note").hidden = true;
+  for (const step of $("#maintenance-loading-steps").children) {
+    step.hidden = step.dataset.loadingStep === "questions" && !includeQuestions;
+    step.dataset.status = activeSteps.includes(step.dataset.loadingStep)
+      ? "active"
+      : "pending";
+  }
+  state.maintenanceLoading.active = true;
+  state.maintenanceLoading.startedAt = Date.now();
+  window.clearInterval(state.maintenanceLoading.timer);
+  state.maintenanceLoading.timer = window.setInterval(
+    updateMaintenanceLoadingElapsed,
+    1000,
+  );
+  updateMaintenanceLoadingElapsed();
+  $("#maintenance-dashboard").setAttribute("aria-busy", "true");
+  $("#qualification-select").disabled = true;
+  setDashboardRefreshState(true);
+}
+
+function trackMaintenanceLoadingStep(stepId, promise) {
+  setMaintenanceLoadingStep(stepId, "active");
+  return Promise.resolve(promise).then(
+    (result) => {
+      setMaintenanceLoadingStep(stepId, result === false ? "error" : "done");
+      return result;
+    },
+    (error) => {
+      setMaintenanceLoadingStep(stepId, "error");
+      throw error;
+    },
+  );
+}
+
+function releaseMaintenanceLoadingControls() {
+  state.maintenanceLoading.active = false;
+  window.clearInterval(state.maintenanceLoading.timer);
+  state.maintenanceLoading.timer = null;
+  $("#maintenance-dashboard").setAttribute("aria-busy", "false");
+  $("#qualification-select").disabled = false;
+  setDashboardRefreshState(false);
+}
+
+async function finishMaintenanceLoading() {
+  $("#maintenance-loading-title").textContent = "画面へ反映しています";
+  $("#maintenance-loading-message").textContent = "取得した最新情報で表示を更新しています。";
+  $("#maintenance-loading-elapsed").textContent = "反映中";
+  $("#maintenance-loading-slow-note").hidden = true;
+  setMaintenanceLoadingStep("apply", "active");
+  await new Promise((resolve) => window.setTimeout(resolve, 240));
+  setMaintenanceLoadingStep("apply", "done");
+  releaseMaintenanceLoadingControls();
+  $("#maintenance-loading").hidden = true;
+}
+
+function failMaintenanceLoading(message) {
+  const panel = $("#maintenance-loading");
+  panel.hidden = false;
+  panel.classList.add("error");
+  $("#maintenance-loading-title").textContent = "一部の情報を取得できませんでした";
+  $("#maintenance-loading-message").textContent = message;
+  $("#maintenance-loading-elapsed").textContent = "取得停止";
+  $("#maintenance-loading-slow-note").hidden = true;
+  $("#maintenance-loading-retry").hidden = false;
+  releaseMaintenanceLoadingControls();
+}
+
+function loadingResultsSucceeded(results) {
+  return results.every(
+    (result) => result.status === "fulfilled" && result.value !== false,
+  );
+}
+
 async function refreshDashboard() {
   if (state.dashboardRefreshing) return;
   state.dashboardRefreshing = true;
   clearEvaluationSelection();
-  setDashboardRefreshState(true);
+  const auditOpen = auditViewIsOpen();
+  startMaintenanceLoading({
+    title: "最新の状態を取得しています",
+    message: "整備状況と実行中の作業を並行して確認しています。",
+    activeSteps: ["workflow", "runs", ...(auditOpen ? ["questions"] : [])],
+    includeQuestions: auditOpen,
+  });
   try {
     state.detailCache.clear();
-    const auditOpen = auditViewIsOpen();
     const results = await Promise.allSettled([
-      loadQualificationWorkflow(true),
-      loadQualificationRuns(),
+      trackMaintenanceLoadingStep("workflow", loadQualificationWorkflow(true)),
+      trackMaintenanceLoadingStep("runs", loadQualificationRuns()),
       auditOpen
-        ? ensureAuditViewQuestions(true, { refresh: true })
+        ? trackMaintenanceLoadingStep(
+          "questions",
+          ensureAuditViewQuestions(true, { refresh: true }),
+        )
         : Promise.resolve(true),
     ]);
-    const [workflowLoaded, runsLoaded, questionsLoaded] = results.map(
-      (result) => result.status === "fulfilled" && result.value !== false,
-    );
     if (!auditOpen) {
       invalidateAuditView();
     }
-    if (workflowLoaded && runsLoaded && questionsLoaded) {
+    if (loadingResultsSucceeded(results)) {
+      await finishMaintenanceLoading();
       toast("最新の状態に更新しました。");
     } else {
+      failMaintenanceLoading(
+        "表示できた情報はそのまま利用できます。時間を置いてもう一度読み込んでください。",
+      );
       toast("一部の情報を更新できませんでした。画面の表示を確認してください。", true);
     }
   } catch (error) {
+    failMaintenanceLoading(error.message);
     toast(error.message, true);
   } finally {
-    setDashboardRefreshState(false);
     state.dashboardRefreshing = false;
   }
 }
@@ -642,6 +758,15 @@ async function initialize() {
   bindControls();
   populateIssueControls();
   primeAuditRoute();
+  const params = new URLSearchParams(location.search);
+  const restoreAuditFirst = params.get("view") === "questions"
+    || !$("#audit-view").hidden;
+  startMaintenanceLoading({
+    title: "問題整備システムを準備しています",
+    message: "接続状態と資格情報を確認しています。",
+    activeSteps: ["connection"],
+    includeQuestions: restoreAuditFirst,
+  });
   try {
     const [session, inventory, codexStatus] = await Promise.all([
       api("/api/session"),
@@ -667,6 +792,10 @@ async function initialize() {
       ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: 初回 ${modelLabel}・再試行 ${retryModelLabel} / 推論 ${effortLabel}`
       : "";
     initializeSelectors();
+    setMaintenanceLoadingStep("connection", "done");
+    $("#maintenance-loading-title").textContent =
+      `${qualificationDisplayName()}の最新情報を取得しています`;
+    $("#maintenance-loading-message").textContent = "整備状況と実行中の作業を並行して確認しています。";
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) {
         checkFingerprint();
@@ -676,26 +805,31 @@ async function initialize() {
     window.addEventListener("pageshow", () => {
       void restoreVisibleAuditView();
     });
-    const params = new URLSearchParams(location.search);
-    const restoreAuditFirst = params.get("view") === "questions"
-      || !$("#audit-view").hidden;
     const initialResults = [];
     if (restoreAuditFirst) {
       initialResults.push(...await Promise.allSettled([
-        restoreVisibleAuditView(),
+        trackMaintenanceLoadingStep("questions", restoreVisibleAuditView()),
       ]));
     }
     initialResults.push(...await Promise.allSettled([
-      loadQualificationWorkflow(false),
-      loadQualificationRuns(),
+      trackMaintenanceLoadingStep(
+        "workflow",
+        loadQualificationWorkflow(false),
+      ),
+      trackMaintenanceLoadingStep("runs", loadQualificationRuns()),
     ]));
     window.setInterval(pollSharedRunProgress, 3000);
-    if (initialResults.some(
-      (result) => result.status === "rejected" || result.value === false
-    )) {
+    if (!loadingResultsSucceeded(initialResults)) {
+      failMaintenanceLoading(
+        "表示できた情報はそのまま利用できます。再読込すると取得をやり直します。",
+      );
       toast("一部の情報を読み込めませんでした。表示できた情報から確認できます。", true);
+    } else {
+      await finishMaintenanceLoading();
     }
   } catch (error) {
+    setMaintenanceLoadingStep("connection", "error");
+    failMaintenanceLoading(error.message);
     toast(error.message, true);
     setLoading("起動に失敗しました");
   }
@@ -711,10 +845,25 @@ function bindControls() {
     populateGroups();
     invalidateAuditView();
     state.detailCache.clear();
-    await Promise.all([
-      loadQualificationWorkflow(false),
-      loadQualificationRuns(),
+    startMaintenanceLoading({
+      title: `${qualificationDisplayName()}を取得しています`,
+      message: "整備状況と実行中の作業を確認しています。",
+      activeSteps: ["workflow", "runs"],
+    });
+    const results = await Promise.allSettled([
+      trackMaintenanceLoadingStep(
+        "workflow",
+        loadQualificationWorkflow(false),
+      ),
+      trackMaintenanceLoadingStep("runs", loadQualificationRuns()),
     ]);
+    if (loadingResultsSucceeded(results)) {
+      await finishMaintenanceLoading();
+    } else {
+      failMaintenanceLoading(
+        "表示できた情報はそのまま利用できます。時間を置いてもう一度読み込んでください。",
+      );
+    }
     updateUrl();
   });
   $("#law-workflow-enabled").addEventListener("change", saveLawWorkflowSetting);
@@ -754,6 +903,7 @@ function bindControls() {
     await loadQuestions(false);
   });
   $("#refresh-button").addEventListener("click", refreshDashboard);
+  $("#maintenance-loading-retry").addEventListener("click", refreshDashboard);
   $("#audit-view-close").addEventListener("click", handleAuditViewBack);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
     $("#audit-view").classList.toggle("admin-tools-open", event.target.open);
