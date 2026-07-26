@@ -30,6 +30,20 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_group_invalidation_notifies_derived_read_models(self):
+        with tempfile.TemporaryDirectory() as directory:
+            inventory = QuestionInventory(Path(directory))
+            notifications = []
+            inventory.add_invalidation_listener(
+                lambda qualification, list_group_id: notifications.append(
+                    (qualification, list_group_id)
+                )
+            )
+
+            inventory.invalidate("sample-exam", "2026")
+
+        self.assertEqual(notifications, [("sample-exam", "2026")])
+
     def test_inventory_topology_is_cached_until_explicit_invalidation(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

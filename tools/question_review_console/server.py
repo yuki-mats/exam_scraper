@@ -7,6 +7,8 @@ import ipaddress
 import json
 import logging
 import secrets
+import subprocess
+import sys
 import threading
 import urllib.parse
 import webbrowser
@@ -41,6 +43,7 @@ from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobConflictError,
     JobManager,
+    qualification_operation_key,
 )
 from tools.question_review_console.law_audit_contract import (
     LAW_AUDIT_ISSUES,
@@ -64,6 +67,9 @@ from tools.question_review_console.workflow_runner import (
     ArtifactSynchronizer,
     WorkflowError,
     sync_after_patch_update,
+)
+from tools.question_review_console.workflow_overview_cache import (
+    WorkflowOverviewCache,
 )
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 
@@ -322,6 +328,18 @@ class QuestionReviewApplication:
             self.inventory,
             work_versions=self.work_versions,
         )
+        self.workflow_overviews = WorkflowOverviewCache(
+            self.repo_root,
+            self._load_workflow_overview,
+            refresh_allowed=lambda qualification: not self.jobs.has_conflict(
+                qualification_operation_key(qualification)
+            ),
+        )
+        self.inventory.add_invalidation_listener(
+            lambda qualification, _list_group_id: self.workflow_overviews.invalidate(
+                qualification
+            )
+        )
         self.evaluations = QuestionEvaluationService(
             self.repo_root,
             self.session_token,
@@ -359,6 +377,46 @@ class QuestionReviewApplication:
 
     def close(self) -> None:
         self.app_server.close()
+
+    def _load_workflow_overview(self, qualification: str) -> Mapping[str, Any]:
+        workflow_config = (
+            self.repo_root / "config" / "question_maintenance_workflow.toml"
+        )
+        if not workflow_config.is_file():
+            # Unit tests and embedded callers can inject a lightweight workflow
+            # without requiring a subprocess entrypoint.
+            return self.qualification_workflow.overview(qualification)
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "tools.question_review_console.workflow_overview_builder",
+                "--repo-root",
+                str(self.repo_root),
+                "--qualification",
+                qualification,
+            ],
+            cwd=self.repo_root,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=15 * 60,
+        )
+        if completed.returncode != 0:
+            detail = (completed.stderr or completed.stdout).strip()
+            raise ValueError(
+                "問題整備トップの集計に失敗しました。"
+                + (f" {detail[-2000:]}" if detail else "")
+            )
+        try:
+            value = json.loads(completed.stdout)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                "問題整備トップの集計結果がJSONではありません。"
+            ) from exc
+        if not isinstance(value, Mapping):
+            raise ValueError("問題整備トップの集計結果がobjectではありません。")
+        return value
 
     def get(self, path: str, query: Mapping[str, list[str]]) -> tuple[int, Any]:
         if path == "/api/session":
@@ -402,8 +460,19 @@ class QuestionReviewApplication:
                     HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
                 )
             try:
-                return HTTPStatus.OK, self.qualification_workflow.overview(
-                    qualification
+                if _query_value(query, "refresh").lower() in {
+                    "1",
+                    "true",
+                    "yes",
+                }:
+                    self.workflow_overviews.invalidate(
+                        qualification,
+                        delay_seconds=0,
+                    )
+                return HTTPStatus.OK, self.workflow_overviews.get(
+                    qualification,
+                    fresh=_query_value(query, "fresh").lower()
+                    in {"1", "true", "yes"},
                 )
             except FileNotFoundError as exc:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
@@ -531,11 +600,15 @@ class QuestionReviewApplication:
                     "この資格の作業中は法令工程の設定を変更できません。",
                 )
             try:
+                overview = self.qualification_workflow.set_law_workflow_enabled(
+                    qualification,
+                    enabled,
+                )
                 return (
                     HTTPStatus.OK,
-                    self.qualification_workflow.set_law_workflow_enabled(
+                    self.workflow_overviews.put(
                         qualification,
-                        enabled,
+                        overview,
                     ),
                 )
             except FileNotFoundError as exc:

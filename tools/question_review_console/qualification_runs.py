@@ -184,6 +184,12 @@ LIVE_RUN_STATUSES = {
 RECOVERY_INDEX_MARKER_SCHEMA = "qualification-run-recovery-index/v1"
 RECOVERY_SIDECAR_SCHEMA = "qualification-run-recovery-candidate/v1"
 MANIFEST_LIST_SUMMARY_SCHEMA = "qualification-run-list-summary/v1"
+DASHBOARD_RUN_INDEX_SCHEMA = "qualification-dashboard-run-index/v1"
+DASHBOARD_RUN_INDEX_LIMIT = 32
+DASHBOARD_RUN_EXCLUDED_WORK_TYPES = frozenset({"evaluation", "reevaluation"})
+DASHBOARD_RUN_EXCLUDED_SCHEMA_VERSIONS = frozenset(
+    {"failed-delta-reconciliation/v1"}
+)
 MANIFEST_HEADER_BYTES = 64 * 1024
 RUN_LIST_HEAVY_FIELDS = frozenset(
     {
@@ -1562,6 +1568,7 @@ class QualificationRunStore:
                 dict[str, Any],
             ],
         ] = {}
+        self._dashboard_run_index_cache: dict[str, list[dict[str, Any]]] = {}
         self._technical_log_sequences: dict[Path, int] = {}
         self._technical_log_last_signatures: dict[Path, str] = {}
         self._recovery_index_marker = self.root / ".recovery-index-v1.json"
@@ -3029,6 +3036,41 @@ class QualificationRunStore:
                 if len(manifests) >= limit:
                     break
         return manifests
+
+    def dashboard_runs(
+        self,
+        qualification: str,
+        *,
+        limit: int = 8,
+        excluded_work_types: Iterable[str] = (),
+        excluded_schema_versions: Iterable[str] = (),
+    ) -> list[dict[str, Any]]:
+        """Return the compact top-level run index used by the dashboard."""
+
+        qualification = _safe_segment(qualification)
+        with self._lock:
+            indexed = self._read_dashboard_run_index(qualification)
+        if indexed is None:
+            indexed = self.list(
+                qualification,
+                limit=min(max(limit, 1), DASHBOARD_RUN_INDEX_LIMIT),
+                top_level_only=True,
+                newest_updated_first=True,
+                summary_only=True,
+                excluded_work_types=DASHBOARD_RUN_EXCLUDED_WORK_TYPES,
+                excluded_schema_versions=DASHBOARD_RUN_EXCLUDED_SCHEMA_VERSIONS,
+            )
+            with self._lock:
+                self._write_dashboard_run_index(qualification, indexed)
+
+        excluded_work_type_set = set(excluded_work_types)
+        excluded_schema_version_set = set(excluded_schema_versions)
+        return [
+            copy.deepcopy(run)
+            for run in indexed
+            if run.get("workType") not in excluded_work_type_set
+            and run.get("schemaVersion") not in excluded_schema_version_set
+        ][:limit]
 
     def get(self, qualification: str, run_id: str) -> dict[str, Any]:
         with self._lock:
@@ -5431,6 +5473,94 @@ class QualificationRunStore:
             receipt_signature,
             summary,
         )
+        self._update_dashboard_run_index(manifest, summary)
+
+    def _read_dashboard_run_index(
+        self,
+        qualification: str,
+    ) -> list[dict[str, Any]] | None:
+        cached = self._dashboard_run_index_cache.get(qualification)
+        if cached is not None:
+            return copy.deepcopy(cached)
+        path = self.root / qualification / "dashboard_runs.json"
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            return None
+        if (
+            not isinstance(value, Mapping)
+            or value.get("schemaVersion") != DASHBOARD_RUN_INDEX_SCHEMA
+            or value.get("qualification") != qualification
+            or value.get("complete") is not True
+            or not isinstance(value.get("runs"), list)
+            or any(not isinstance(run, Mapping) for run in value["runs"])
+        ):
+            return None
+        runs = [copy.deepcopy(dict(run)) for run in value["runs"]]
+        self._dashboard_run_index_cache[qualification] = runs
+        return copy.deepcopy(runs)
+
+    def _write_dashboard_run_index(
+        self,
+        qualification: str,
+        runs: Iterable[Mapping[str, Any]],
+    ) -> None:
+        normalized = [
+            copy.deepcopy(dict(run))
+            for run in runs
+            if isinstance(run, Mapping)
+            and not run.get("parentRunId")
+            and str(run.get("qualification") or "") == qualification
+            and run.get("runId")
+            and run.get("workType") not in DASHBOARD_RUN_EXCLUDED_WORK_TYPES
+            and run.get("schemaVersion")
+            not in DASHBOARD_RUN_EXCLUDED_SCHEMA_VERSIONS
+        ]
+        normalized.sort(
+            key=lambda run: (
+                str(run.get("updatedAt") or run.get("createdAt") or ""),
+                str(run.get("runId") or ""),
+            ),
+            reverse=True,
+        )
+        normalized = normalized[:DASHBOARD_RUN_INDEX_LIMIT]
+        self._dashboard_run_index_cache[qualification] = normalized
+        try:
+            self._write_json(
+                self.root / qualification / "dashboard_runs.json",
+                {
+                    "schemaVersion": DASHBOARD_RUN_INDEX_SCHEMA,
+                    "qualification": qualification,
+                    "complete": True,
+                    "runs": normalized,
+                },
+            )
+        except OSError:
+            # The index is derived data. Manifest persistence remains the
+            # authority if the compact dashboard cache cannot be written.
+            pass
+
+    def _update_dashboard_run_index(
+        self,
+        manifest: Mapping[str, Any],
+        summary: Mapping[str, Any],
+    ) -> None:
+        if manifest.get("parentRunId"):
+            return
+        qualification = str(manifest.get("qualification") or "")
+        run_id = str(manifest.get("runId") or "")
+        if not qualification or not run_id:
+            return
+        indexed = self._read_dashboard_run_index(qualification)
+        if indexed is None:
+            return
+        indexed = [
+            run
+            for run in indexed
+            if str(run.get("runId") or "") != run_id
+        ]
+        indexed.append(copy.deepcopy(dict(summary)))
+        self._write_dashboard_run_index(qualification, indexed)
 
     @staticmethod
     def _requires_startup_recovery(manifest: Mapping[str, Any]) -> bool:
@@ -6141,9 +6271,16 @@ class QualificationRunCoordinator:
         return {"run": run, "prompt": None, "job": job}
 
     def recent(self, qualification: str) -> dict[str, Any]:
-        runs = [
-            self._refresh_retry_safety(qualification, run)
-            for run in self.store.list(
+        dashboard_runs = getattr(self.store, "dashboard_runs", None)
+        if callable(dashboard_runs):
+            recent_runs = dashboard_runs(
+                qualification,
+                limit=8,
+                excluded_work_types={"evaluation", "reevaluation"},
+                excluded_schema_versions={"failed-delta-reconciliation/v1"},
+            )
+        else:
+            recent_runs = self.store.list(
                 qualification,
                 limit=8,
                 top_level_only=True,
@@ -6152,6 +6289,9 @@ class QualificationRunCoordinator:
                 excluded_work_types={"evaluation", "reevaluation"},
                 excluded_schema_versions={"failed-delta-reconciliation/v1"},
             )
+        runs = [
+            self._refresh_retry_safety(qualification, run)
+            for run in recent_runs
         ]
         return {
             "qualification": qualification,

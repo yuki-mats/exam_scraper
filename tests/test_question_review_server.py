@@ -742,7 +742,12 @@ class QuestionReviewServerTests(unittest.TestCase):
     def test_serves_qualification_workflow(self):
         class Workflow:
             def overview(self, qualification):
-                return {"qualification": qualification, "nextStageId": "question_type"}
+                return {
+                    "qualification": qualification,
+                    "nextStageId": "question_type",
+                    "groups": [],
+                    "stages": [],
+                }
 
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))
@@ -754,6 +759,39 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(get_status, 200)
         self.assertEqual(overview["nextStageId"], "question_type")
 
+    def test_builds_production_workflow_overview_in_an_isolated_process(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app = QuestionReviewApplication(root)
+            config = root / "config" / "question_maintenance_workflow.toml"
+            config.parent.mkdir(parents=True)
+            config.write_text("[system]\n", encoding="utf-8")
+
+            class Result:
+                returncode = 0
+                stdout = json.dumps(
+                    {
+                        "qualification": "sample",
+                        "groups": [],
+                        "stages": [],
+                    }
+                )
+                stderr = ""
+
+            with patch(
+                "tools.question_review_console.server.subprocess.run",
+                return_value=Result(),
+            ) as runner:
+                overview = app._load_workflow_overview("sample")
+
+        self.assertEqual(overview["qualification"], "sample")
+        command = runner.call_args.args[0]
+        self.assertIn(
+            "tools.question_review_console.workflow_overview_builder",
+            command,
+        )
+        self.assertEqual(command[-1], "sample")
+
     def test_updates_qualification_law_workflow_setting(self):
         class Workflow:
             def set_law_workflow_enabled(self, qualification, enabled):
@@ -761,6 +799,8 @@ class QuestionReviewServerTests(unittest.TestCase):
                 return {
                     "qualification": qualification,
                     "lawWorkflowEnabled": enabled,
+                    "groups": [],
+                    "stages": [],
                 }
 
         class Runs:

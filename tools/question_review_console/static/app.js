@@ -12,6 +12,7 @@ const QUESTION_LIST_CACHE_VERSION = 3;
 const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const QUALIFICATION_WORKFLOW_CACHE_VERSION = 1;
 const QUALIFICATION_WORKFLOW_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
+const QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS = 800;
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -182,6 +183,8 @@ const state = {
   questionStatsTimer: null,
   qualificationWorkflow: null,
   qualificationWorkflowStageId: "",
+  qualificationWorkflowRequests: new Map(),
+  qualificationWorkflowRefreshTimer: null,
   qualificationRuns: [],
   qualificationActiveRun: null,
   qualificationActiveJob: null,
@@ -561,6 +564,8 @@ async function refreshDashboard() {
         loadQualificationWorkflow(true, false, {
           qualification,
           signal: loadingRequest.signal,
+          useCachedImmediately: true,
+          forceRefresh: true,
         }),
         loadingRequest.requestSequence,
       ),
@@ -586,7 +591,7 @@ async function refreshDashboard() {
     }
     if (loadingResultsSucceeded(results)) {
       await finishMaintenanceLoading(loadingRequest.requestSequence);
-      toast("最新の状態に更新しました。");
+      toast("表示を更新しました。");
     } else {
       failMaintenanceLoading(
         "表示できた情報はそのまま利用できます。時間を置いてもう一度読み込んでください。",
@@ -955,7 +960,7 @@ async function initialize() {
       ? `Codex全体設定: ${codexStatus.configuredModel || "自動選択"} / 推論 ${codexStatus.configuredReasoningEffort} ・ 問題整備システム: 初回 ${modelLabel}・再試行 ${retryModelLabel} / 推論 ${effortLabel}`
       : "";
     initializeSelectors();
-    restoreCachedQualificationWorkflow();
+    const restoredWorkflow = restoreCachedQualificationWorkflow();
     setMaintenanceLoadingStep(
       "connection",
       "done",
@@ -988,6 +993,7 @@ async function initialize() {
         loadQualificationWorkflow(false, false, {
           qualification: state.qualification,
           signal: loadingRequest.signal,
+          useCachedImmediately: restoredWorkflow,
         }),
         loadingRequest.requestSequence,
       ),
@@ -1026,6 +1032,8 @@ async function initialize() {
 
 function bindControls() {
   $("#qualification-select").addEventListener("change", async (event) => {
+    window.clearTimeout(state.qualificationWorkflowRefreshTimer);
+    state.qualificationWorkflowRefreshTimer = null;
     closeWorkflowGuide({ reopenRun: false });
     closeAuditView({ restoreFocus: false });
     clearEvaluationSelection();
@@ -1057,6 +1065,7 @@ function bindControls() {
         loadQualificationWorkflow(false, false, {
           qualification,
           signal: loadingRequest.signal,
+          useCachedImmediately: restoredWorkflow,
         }),
         loadingRequest.requestSequence,
       ),
@@ -1324,6 +1333,14 @@ async function loadQualificationWorkflow(
   const previousWorkflow = state.qualificationWorkflow?.qualification === qualification
     ? state.qualificationWorkflow
     : null;
+  if (options.useCachedImmediately && previousWorkflow) {
+    scheduleQualificationWorkflowRefresh(
+      qualification,
+      QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS,
+      options.forceRefresh === true,
+    );
+    return true;
+  }
   if (!quiet && requestIsCurrent()) {
     $("#qualification-workflow-status").textContent = "確認中";
     $("#qualification-workflow-action").disabled = true;
@@ -1333,9 +1350,21 @@ async function loadQualificationWorkflow(
   }
   try {
     const params = new URLSearchParams({ qualification });
-    const workflow = await api(`/api/qualification-workflow?${params}`, {
-      signal: options.signal,
-    });
+    if (options.fresh) params.set("fresh", "true");
+    if (options.forceRefresh) params.set("refresh", "true");
+    let request = state.qualificationWorkflowRequests.get(qualification);
+    if (!request) {
+      request = api(`/api/qualification-workflow?${params}`, {
+        signal: options.signal,
+      });
+      state.qualificationWorkflowRequests.set(qualification, request);
+      request.finally(() => {
+        if (state.qualificationWorkflowRequests.get(qualification) === request) {
+          state.qualificationWorkflowRequests.delete(qualification);
+        }
+      }).catch(() => {});
+    }
+    const workflow = await request;
     if (!requestIsCurrent()) return false;
     state.qualificationWorkflow = workflow;
     cacheQualificationWorkflow(workflow);
@@ -1350,6 +1379,12 @@ async function loadQualificationWorkflow(
         || "";
     }
     renderQualificationWorkflow();
+    if (workflow.cache?.refreshing || workflow.cache?.stale) {
+      scheduleQualificationWorkflowRefresh(
+        qualification,
+        QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS * 2,
+      );
+    }
     return true;
   } catch (error) {
     if (!requestIsCurrent() || error.name === "AbortError") return false;
@@ -1374,6 +1409,31 @@ async function loadQualificationWorkflow(
     $("#maintenance-year-progress").replaceChildren();
     return false;
   }
+}
+
+function scheduleQualificationWorkflowRefresh(
+  qualification = state.qualification,
+  delay = QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS,
+  forceRefresh = false,
+) {
+  window.clearTimeout(state.qualificationWorkflowRefreshTimer);
+  state.qualificationWorkflowRefreshTimer = window.setTimeout(() => {
+    state.qualificationWorkflowRefreshTimer = null;
+    if (qualification !== state.qualification || document.hidden) return;
+    if (state.maintenanceLoading.active) {
+      scheduleQualificationWorkflowRefresh(
+        qualification,
+        QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS,
+        forceRefresh,
+      );
+      return;
+    }
+    void loadQualificationWorkflow(
+      true,
+      true,
+      { qualification, forceRefresh },
+    );
+  }, delay);
 }
 
 function renderLawWorkflowSetting() {

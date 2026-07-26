@@ -1906,7 +1906,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         controls_css = css.split(
             "\n.maintenance-dashboard-controls {", 1
         )[1].split("}", 1)[0]
-        self.assertIn("justify-self: center", controls_css)
+        self.assertIn("justify-self: stretch", controls_css)
+        self.assertIn("width: 100%", controls_css)
         self.assertIn("qualificationRunStatusQualification", javascript)
         self.assertIn(
             "(!runStatusKnown || isRunning || workflow.restartRequired)",
@@ -1923,6 +1924,9 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             javascript,
         )
         self.assertIn("QUALIFICATION_WORKFLOW_CACHE_VERSION", javascript)
+        self.assertIn("useCachedImmediately: restoredWorkflow", javascript)
+        self.assertIn("scheduleQualificationWorkflowRefresh", javascript)
+        self.assertIn("qualificationWorkflowRequests: new Map()", javascript)
         self.assertIn("function restoreCachedQualificationWorkflow()", javascript)
         self.assertIn('dashboard.dataset.hasContent = String(Boolean(', javascript)
         active_run = javascript.split(
@@ -2029,7 +2033,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-10"
+        asset_version = "question-review-ui-v3-20260726-11"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

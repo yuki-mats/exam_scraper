@@ -215,9 +215,9 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
   align-items: end;
-  justify-self: center;
+  justify-self: stretch;
   gap: 8px;
-  width: min(420px, 100%);
+  width: 100%;
 }
 .maintenance-dashboard-controls label { min-width: 0; }
 .maintenance-dashboard-controls select { width: 100%; }

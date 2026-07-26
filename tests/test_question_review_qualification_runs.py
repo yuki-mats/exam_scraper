@@ -273,6 +273,42 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         self.assertNotIn("questionExecutions", runs[0])
         self.assertNotIn("targetRecordScopes", runs[0])
 
+    def test_dashboard_run_index_avoids_rescanning_historical_manifests(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            for run_id, updated_at, parent_run_id in (
+                ("run-1", "2026-01-01T00:00:00+09:00", None),
+                ("run-1-child", "2026-01-03T00:00:00+09:00", "run-1"),
+                ("run-2", "2026-01-02T00:00:00+09:00", None),
+            ):
+                store._write_manifest(
+                    store.root / "sample" / run_id / "manifest.json",
+                    {
+                        "runId": run_id,
+                        "qualification": "sample",
+                        "parentRunId": parent_run_id,
+                        "kind": "orchestration",
+                        "workType": "maintenance_flow",
+                        "status": "succeeded",
+                        "updatedAt": updated_at,
+                    },
+                )
+            store.dashboard_runs("sample")
+
+            restarted = QualificationRunStore(root)
+            with patch.object(
+                restarted,
+                "list",
+                side_effect=AssertionError("historical manifests were rescanned"),
+            ):
+                runs = restarted.dashboard_runs("sample")
+
+        self.assertEqual(
+            [run["runId"] for run in runs],
+            ["run-2", "run-1"],
+        )
+
     def test_batch_stage_update_writes_once_and_preserves_single_update_semantics(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

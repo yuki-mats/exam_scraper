@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
 from scripts.common.question_identity import (
     SourceIdentityBinding,
@@ -646,7 +646,20 @@ class QuestionInventory:
             / "cache"
             / "workflow_groups"
         )
+        self._invalidation_listeners: list[
+            Callable[[str, str], None]
+        ] = []
         self._lock = threading.RLock()
+
+    def add_invalidation_listener(
+        self,
+        listener: Callable[[str, str], None],
+    ) -> None:
+        """Notify a derived read model after canonical group data changes."""
+
+        with self._lock:
+            if listener not in self._invalidation_listeners:
+                self._invalidation_listeners.append(listener)
 
     @contextmanager
     def projection_snapshot(
@@ -1215,6 +1228,13 @@ class QuestionInventory:
             ]
             for key in stale_stage_keys:
                 self._stage_index_cache.pop(key, None)
+            listeners = tuple(self._invalidation_listeners)
+        for listener in listeners:
+            try:
+                listener(qualification, list_group_id)
+            except Exception:  # noqa: BLE001
+                # A display-only cache must never make the canonical write fail.
+                continue
 
     def _group_fingerprint(self, group_dir: Path) -> str:
         parts = []
