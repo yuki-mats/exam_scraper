@@ -6,7 +6,7 @@
 
 1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は現在確定中のpatchと作業版台帳を外部から変更しない。
 2. トップの年度・フォルダ（`listGroupId`）一覧で`整備・洗い替え`を開き、対象年度、整備する項目、処理する問題を指定する。工程は整備する項目から自動で決まり、serverは対象を一問queueへ分解して`00_source`と確定patchの論理projectionを次工程へ渡す。設問意図（02）は`questionIntent`だけを更新し、正答（02a）は全選択肢の`correctChoiceText`を`正しい` / `間違い`で確定する。
-3. serverは入力token量で複数問をまとめ、model turnを1本ずつ実行する。modelはread-onlyで候補だけを返し、serverが一問ずつ検査・確定する。不合格はqueue末尾で最大2回再実行する。
+3. serverは入力token量で複数問をまとめ、全資格合計32本を上限としてmodel turnを並行実行する。1資格だけなら最大32本、複数資格なら資格ごとに公平配分する。modelはread-onlyで候補だけを返し、serverが一問ずつ検査・確定する。不合格はqueue末尾で最大2回再実行する。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
 5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
 
@@ -75,7 +75,7 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。初回は`gpt-5.5`、候補生成又は機械検査に失敗した問題の再試行は`gpt-5.6-sol`を使い、推論強度はどちらも`high`とします。成功した問題は再投入せず、再開時も失敗した問題だけに直前の検査feedbackを引き継ぎます。要求modelと返された実modelはattemptとmanifestへ保存します。評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定します。
 
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- serverは問題の現在projectionをtoken量で束ねる。1 turnは最大50問とし、model turnは常に1本ずつ実行する。provider又はschema失敗時は自動で束を縮小する。UIもこの直列設定だけを使う。
+- serverは問題の現在projectionをtoken量で束ねる。1 turnは最大50問、全資格で同時に実行するtop-level model turnは合計32本までとする。UIではrunごとの希望上限を1、5、10、32から選べ、初期値は32とする。1資格なら最大32本、2資格なら原則16本ずつ、3資格なら11、11、10本のように公平配分し、資格の開始・終了に応じて新しく取得するslotから動的に再配分する。既に実行中のturnは途中で止めない。provider又はschema失敗時はrun内のadaptive schedulerが自動で束と並列数を縮小する。
 - modelは問題別の構造化候補を返すだけで、検査commandや成功receiptを自己申告しない。serverは候補ごとにsource identity、許可field、工程品質、`00_source`不変を検査し、合格recordだけを確定patchへ反映する。同じturn内の他問題の不合格や曖昧さは波及しない。
 - 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。二者不一致、source hash不一致、判定不能又は境界不明は問題単位の`hold`とし、patchへ反映しない。対象確定時の記述本文はserverが合意済みspanから切り出し、model出力の文章を保存しない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
@@ -86,7 +86,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
 
-開始前にChatGPT固定枠、利用上限、追加creditなし、公式provider、Standard tierを確認します。API key、従量課金、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。
+開始前にChatGPT認証、利用上限、公式provider、要求したservice tierを確認します。runごとに`Standard`又は`Fast`を選び、初期値は`Standard`です。`Fast`は`features.fast_mode=true`と`serviceTier=fast`をthreadとturnの両方へ明示し、App Serverの応答が`fast`でなければ開始しません。`Fast`にはCodex creditsが必要です。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限はどちらのmodeでも変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。
 
 ## 作業バージョン
 

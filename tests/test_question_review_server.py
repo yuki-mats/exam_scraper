@@ -816,12 +816,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 question_ids=None,
                 resumed_from=None,
                 question_concurrency=None,
+                speed_mode=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_range = question_range
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
+                self.speed_mode = speed_mode
                 return {
                     "qualification": qualification,
                     "stageId": stage_id,
@@ -843,12 +845,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 question_ids=None,
                 resumed_from=None,
                 question_concurrency=None,
+                speed_mode=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_range = question_range
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
+                self.speed_mode = speed_mode
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
                     "prompt": "依頼",
@@ -880,6 +884,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "questionRange": {"start": 2, "end": 10},
                     "mode": "attention",
                     "questionConcurrency": 10,
+                    "speedMode": "fast",
                 },
             )
             start_status, started = app.post(
@@ -892,6 +897,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "questionRange": {"start": 2, "end": 10},
                     "mode": "attention",
                     "questionConcurrency": 10,
+                    "speedMode": "fast",
                     "previewToken": "token",
                 },
             )
@@ -917,6 +923,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         )
         self.assertEqual(runs.question_range, {"start": 2, "end": 10})
         self.assertEqual(runs.question_concurrency, 10)
+        self.assertEqual(runs.speed_mode, "fast")
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
         self.assertEqual(recent["qualification"], "sample")

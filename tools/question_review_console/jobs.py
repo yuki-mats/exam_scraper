@@ -11,6 +11,26 @@ from typing import Any, Callable, Mapping
 JobWorker = Callable[[Callable[[str], None]], dict[str, Any]]
 ExclusiveWorker = Callable[[], dict[str, Any]]
 REPOSITORY_OPERATION_KEY = "question-review-repository-operation"
+QUALIFICATION_OPERATION_KEY_PREFIX = "question-review-qualification:"
+
+
+def qualification_operation_key(qualification: str) -> str:
+    normalized = str(qualification or "").strip()
+    if not normalized or not re.fullmatch(r"[A-Za-z0-9._-]+", normalized):
+        raise ValueError("qualification IDが不正です。")
+    return f"{QUALIFICATION_OPERATION_KEY_PREFIX}{normalized}"
+
+
+def operation_keys_conflict(left: str, right: str) -> bool:
+    if left == right:
+        return True
+    return (
+        left == REPOSITORY_OPERATION_KEY
+        and right.startswith(QUALIFICATION_OPERATION_KEY_PREFIX)
+    ) or (
+        right == REPOSITORY_OPERATION_KEY
+        and left.startswith(QUALIFICATION_OPERATION_KEY_PREFIX)
+    )
 
 
 def _now() -> str:
@@ -95,9 +115,19 @@ class JobManager:
         self._active_keys: dict[str, str] = {}
         self._lock = threading.RLock()
 
+    def _conflicting_active_id(self, key: str) -> str | None:
+        return next(
+            (
+                active_id
+                for active_key, active_id in self._active_keys.items()
+                if operation_keys_conflict(active_key, key)
+            ),
+            None,
+        )
+
     def start(self, *, kind: str, key: str, worker: JobWorker) -> dict[str, Any]:
         with self._lock:
-            active_id = self._active_keys.get(key)
+            active_id = self._conflicting_active_id(key)
             if active_id:
                 raise JobConflictError("問題整備システムで別の処理が実行中です。")
             job_id = secrets.token_urlsafe(12)
@@ -132,7 +162,7 @@ class JobManager:
     def run_exclusive(self, *, key: str, worker: ExclusiveWorker) -> dict[str, Any]:
         lease_id = f"sync:{secrets.token_urlsafe(12)}"
         with self._lock:
-            if self._active_keys.get(key):
+            if self._conflicting_active_id(key):
                 raise JobConflictError("問題整備システムで別の処理が実行中です。")
             self._active_keys[key] = lease_id
         try:

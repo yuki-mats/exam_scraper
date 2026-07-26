@@ -17,6 +17,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, TextIO
 
+from tools.question_review_console.turn_budget import (
+    GLOBAL_TURN_CAPACITY,
+    GlobalTurnBudget,
+)
+
 
 DEFAULT_CODEX_PATH = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
 SAFE_SHELL_PATH = (
@@ -83,6 +88,9 @@ QUESTION_MAINTENANCE_MODELS = frozenset(
     {QUESTION_MAINTENANCE_MODEL, QUESTION_MAINTENANCE_RETRY_MODEL}
 )
 TURN_REASONING_EFFORT = "high"
+STANDARD_SPEED_MODE = "standard"
+FAST_SPEED_MODE = "fast"
+SPEED_MODES = frozenset({STANDARD_SPEED_MODE, FAST_SPEED_MODE})
 MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
@@ -149,6 +157,13 @@ class SubscriptionGateError(CodexAppServerError):
     pass
 
 
+def normalize_speed_mode(value: Any) -> str:
+    normalized = str(value or STANDARD_SPEED_MODE).strip().casefold()
+    if normalized not in SPEED_MODES:
+        raise ValueError("speed modeはstandard又はfastで指定してください。")
+    return normalized
+
+
 @dataclass(frozen=True)
 class AppServerTurnResult:
     thread_id: str
@@ -197,9 +212,12 @@ def _as_mapping(value: Any, label: str) -> Mapping[str, Any]:
 def validate_subscription_access(
     account_response: Mapping[str, Any],
     rate_limit_response: Mapping[str, Any],
+    *,
+    speed_mode: str = STANDARD_SPEED_MODE,
 ) -> dict[str, Any]:
     """ChatGPT subscription以外へ決して進まないためのfail-closed gate。"""
 
+    speed_mode = normalize_speed_mode(speed_mode)
     account = _as_mapping(account_response.get("account"), "Codex account")
     if account.get("type") != "chatgpt":
         raise SubscriptionGateError(
@@ -232,10 +250,18 @@ def validate_subscription_access(
             raise SubscriptionGateError("サブスクリプションの利用上限に達しています。")
 
     credits = _as_mapping(snapshot.get("credits"), "credit状態")
-    if credits.get("hasCredits") is not False:
-        raise SubscriptionGateError("追加creditが有効なaccountでは実行しません。")
-    if "individualLimit" not in snapshot or snapshot.get("individualLimit") is not None:
-        raise SubscriptionGateError("追加支出を許すspend controlがあるaccountでは実行しません。")
+    credits_enabled = credits.get("hasCredits")
+    if not isinstance(credits_enabled, bool):
+        raise SubscriptionGateError("credit状態を安全に判定できません。")
+    if "individualLimit" not in snapshot:
+        raise SubscriptionGateError("spend control状態を安全に確認できません。")
+    individual_limit = snapshot.get("individualLimit")
+    if individual_limit is not None and not isinstance(individual_limit, Mapping):
+        raise SubscriptionGateError("spend control状態を安全に確認できません。")
+    if speed_mode == FAST_SPEED_MODE and not credits_enabled:
+        raise SubscriptionGateError(
+            "Fast modeにはCodex creditsの有効化が必要です。"
+        )
     if "rateLimitsByLimitId" not in rate_limit_response:
         raise SubscriptionGateError("補助利用上限を安全に確認できません。")
     auxiliary = _as_mapping(
@@ -251,23 +277,28 @@ def validate_subscription_access(
         if "credits" not in value:
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
         extra_credits = value.get("credits")
-        if extra_credits is not None and (
-            not isinstance(extra_credits, Mapping)
-            or extra_credits.get("hasCredits") is not False
+        if extra_credits is not None and not isinstance(extra_credits, Mapping):
+            raise SubscriptionGateError("補助credit状態を安全に確認できません。")
+        if extra_credits is not None and not isinstance(
+            extra_credits.get("hasCredits"), bool
         ):
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
         if "individualLimit" not in value:
             raise SubscriptionGateError("補助spend controlを安全に確認できません。")
-        if value.get("individualLimit") is not None:
-            raise SubscriptionGateError("追加支出を許すspend controlがあるaccountでは実行しません。")
+        extra_limit = value.get("individualLimit")
+        if extra_limit is not None and not isinstance(extra_limit, Mapping):
+            raise SubscriptionGateError("補助spend controlを安全に確認できません。")
 
     return {
         "allowed": True,
         "accountType": "chatgpt",
         "planType": plan_type,
         "rateLimitReachedType": None,
-        "creditsEnabled": False,
-        "standardMode": True,
+        "creditsEnabled": credits_enabled,
+        "fastModeAvailable": credits_enabled,
+        "speedMode": speed_mode,
+        "standardMode": speed_mode == STANDARD_SPEED_MODE,
+        "fastMode": speed_mode == FAST_SPEED_MODE,
     }
 
 
@@ -282,6 +313,7 @@ class CodexAppServerClient:
         request_timeout: int = 30,
         turn_timeout: int = DEFAULT_TURN_TIMEOUT_SECONDS,
         status_cache_seconds: float = SUBSCRIPTION_STATUS_CACHE_SECONDS,
+        turn_budget: GlobalTurnBudget | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.binary_path = self._resolve_binary(binary_path)
@@ -290,6 +322,7 @@ class CodexAppServerClient:
         self.status_cache_seconds = status_cache_seconds
         self.provider = APP_SERVER_PROVIDER
         self.provider_retry_attempts = PROVIDER_RECOVERY_ATTEMPTS
+        self.turn_budget = turn_budget or GlobalTurnBudget(GLOBAL_TURN_CAPACITY)
 
         self._process: subprocess.Popen[str] | None = None
         self._stdin: TextIO | None = None
@@ -308,6 +341,7 @@ class CodexAppServerClient:
         self._initialized = False
         self._last_status: dict[str, Any] | None = None
         self._last_status_at = 0.0
+        self._last_status_speed_mode: str | None = None
         self._effective_model = ""
         self._configured_reasoning_effort = ""
         self._source_codex_home = Path(
@@ -320,13 +354,21 @@ class CodexAppServerClient:
     def configured(self) -> bool:
         return self.binary_path is not None
 
-    def public_status(self, *, refresh: bool = False) -> dict[str, Any]:
+    def public_status(
+        self,
+        *,
+        refresh: bool = False,
+        speed_mode: str = STANDARD_SPEED_MODE,
+    ) -> dict[str, Any]:
+        speed_mode = normalize_speed_mode(speed_mode)
+        turn_budget = self.turn_budget.snapshot()
         if not self.configured:
             return {
                 "available": False,
                 "allowed": False,
                 "provider": self.provider,
                 "reason": "Codex App Server binaryが見つかりません。",
+                "turnBudget": turn_budget,
             }
         if not refresh and self._last_status is None:
             return {
@@ -334,23 +376,40 @@ class CodexAppServerClient:
                 "allowed": None,
                 "provider": self.provider,
                 "reason": "実行開始時にChatGPT認証と利用上限を確認します。",
+                "turnBudget": turn_budget,
             }
         try:
-            return {"available": True, "provider": self.provider, **self.assert_subscription_access(force=refresh)}
+            return {
+                "available": True,
+                "provider": self.provider,
+                **self.assert_subscription_access(
+                    force=refresh,
+                    speed_mode=speed_mode,
+                ),
+                "turnBudget": self.turn_budget.snapshot(),
+            }
         except CodexAppServerError as exc:
             return {
                 "available": True,
                 "allowed": False,
                 "provider": self.provider,
                 "reason": str(exc),
+                "turnBudget": self.turn_budget.snapshot(),
             }
 
-    def assert_subscription_access(self, *, force: bool = True) -> dict[str, Any]:
+    def assert_subscription_access(
+        self,
+        *,
+        force: bool = True,
+        speed_mode: str = STANDARD_SPEED_MODE,
+    ) -> dict[str, Any]:
+        speed_mode = normalize_speed_mode(speed_mode)
         requested_at = time.monotonic()
         with self._state_lock:
             if (
                 not force
                 and self._last_status is not None
+                and self._last_status_speed_mode == speed_mode
                 and requested_at - self._last_status_at <= self.status_cache_seconds
             ):
                 return copy.deepcopy(self._last_status)
@@ -360,10 +419,12 @@ class CodexAppServerClient:
             with self._state_lock:
                 refreshed_after_request = (
                     self._last_status is not None
+                    and self._last_status_speed_mode == speed_mode
                     and self._last_status_at >= requested_at
                 )
                 cache_is_fresh = (
                     self._last_status is not None
+                    and self._last_status_speed_mode == speed_mode
                     and time.monotonic() - self._last_status_at
                     <= self.status_cache_seconds
                 )
@@ -391,6 +452,7 @@ class CodexAppServerClient:
             status = validate_subscription_access(
                 _as_mapping(account, "Codex account response"),
                 _as_mapping(rate_limits, "Codex rate limit response"),
+                speed_mode=speed_mode,
             )
             status.update(
                 {
@@ -404,6 +466,7 @@ class CodexAppServerClient:
             with self._state_lock:
                 self._last_status = dict(status)
                 self._last_status_at = time.monotonic()
+                self._last_status_speed_mode = speed_mode
             return status
 
     def run_turn(
@@ -422,7 +485,53 @@ class CodexAppServerClient:
         heartbeat: Callable[[], None] | None = None,
         model: str = QUESTION_MAINTENANCE_MODEL,
         reasoning_effort: str = TURN_REASONING_EFFORT,
+        speed_mode: str = STANDARD_SPEED_MODE,
+        turn_group: str | None = None,
     ) -> AppServerTurnResult:
+        heartbeat_callback = heartbeat or getattr(emit, "heartbeat", None)
+        with self.turn_budget.slot(turn_group, heartbeat=heartbeat_callback):
+            return self._run_turn_unbudgeted(
+                prompt,
+                work_type=work_type,
+                sandbox=sandbox,
+                emit=emit,
+                output_schema=output_schema,
+                on_thread_started=on_thread_started,
+                on_turn_started=on_turn_started,
+                cwd=cwd,
+                writable_roots=writable_roots,
+                completion_probe=completion_probe,
+                heartbeat=heartbeat,
+                model=model,
+                reasoning_effort=reasoning_effort,
+                speed_mode=speed_mode,
+            )
+
+    def turn_group(self, qualification: str):
+        return self.turn_budget.register(qualification)
+
+    def _run_turn_unbudgeted(
+        self,
+        prompt: str,
+        *,
+        work_type: str,
+        sandbox: str,
+        emit: Callable[[str], None],
+        output_schema: Mapping[str, Any] | None = None,
+        on_thread_started: Callable[[str, str], None] | None = None,
+        on_turn_started: Callable[[str, str], None] | None = None,
+        cwd: Path | None = None,
+        writable_roots: Iterable[Path] = (),
+        completion_probe: Callable[[], bool] | None = None,
+        heartbeat: Callable[[], None] | None = None,
+        model: str = QUESTION_MAINTENANCE_MODEL,
+        reasoning_effort: str = TURN_REASONING_EFFORT,
+        speed_mode: str = STANDARD_SPEED_MODE,
+    ) -> AppServerTurnResult:
+        speed_mode = normalize_speed_mode(speed_mode)
+        requested_service_tier = (
+            FAST_SPEED_MODE if speed_mode == FAST_SPEED_MODE else None
+        )
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError(f"unsupported sandbox: {sandbox}")
         if model not in QUESTION_MAINTENANCE_MODELS:
@@ -432,7 +541,7 @@ class CodexAppServerClient:
                 f"unsupported maintenance reasoning effort: {reasoning_effort}"
             )
         # UIの事前表示とは別に、thread/start直前の実値を必ず確認する。
-        self.assert_subscription_access(force=True)
+        self.assert_subscription_access(force=True, speed_mode=speed_mode)
         turn_cwd = (cwd or self.repo_root).resolve()
         resolved_writable_roots = tuple(
             dict.fromkeys(Path(path).resolve() for path in writable_roots)
@@ -454,14 +563,14 @@ class CodexAppServerClient:
         config = {
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
-                "fast_mode": False,
+                "fast_mode": speed_mode == FAST_SPEED_MODE,
                 "multi_agent": False,
             },
             "agents": {
                 "max_threads": APP_SERVER_AGENT_THREAD_CAP,
                 "max_depth": APP_SERVER_AGENT_MAX_DEPTH,
             },
-            "service_tier": None,
+            "service_tier": requested_service_tier,
             "web_search": "live",
         }
         if evaluation_work:
@@ -501,7 +610,7 @@ class CodexAppServerClient:
                 "approvalPolicy": approval_policy,
                 "approvalsReviewer": "user",
                 "sandbox": sandbox,
-                "serviceTier": None,
+                "serviceTier": requested_service_tier,
                 "config": config,
                 "developerInstructions": developer_instructions,
                 "ephemeral": read_only_work,
@@ -517,8 +626,11 @@ class CodexAppServerClient:
         if on_thread_started is not None:
             on_thread_started(thread_id, session_id)
         service_tier = thread_response.get("serviceTier")
-        if service_tier not in {None, "default", "standard"}:
-            raise SubscriptionGateError("Standard mode以外では実行しません。")
+        if speed_mode == FAST_SPEED_MODE:
+            if service_tier != FAST_SPEED_MODE:
+                raise SubscriptionGateError("要求したFast modeが適用されませんでした。")
+        elif service_tier not in {None, "default", "standard"}:
+            raise SubscriptionGateError("要求したStandard modeが適用されませんでした。")
         model_provider = str(thread_response.get("modelProvider") or "")
         if model_provider != "openai":
             raise SubscriptionGateError("外部model providerでは実行しません。")
@@ -553,7 +665,7 @@ class CodexAppServerClient:
             "approvalPolicy": approval_policy,
             "approvalsReviewer": "user",
             "sandboxPolicy": sandbox_policy,
-            "serviceTier": None,
+            "serviceTier": requested_service_tier,
             "effort": reasoning_effort,
         }
         if output_schema is not None:
@@ -738,6 +850,7 @@ class CodexAppServerClient:
         with self._state_lock:
             self._last_status = None
             self._last_status_at = 0.0
+            self._last_status_speed_mode = None
         self._stop_process(process, stream)
         self._fail_all("外部障害からの回復のためCodex App Server接続を更新します。")
         if emit is not None:

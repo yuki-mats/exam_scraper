@@ -272,10 +272,22 @@
             </div>
           </fieldset>
           <fieldset id="qualification-run-concurrency-fieldset">
-            <legend>処理速度</legend>
-            <input type="hidden" name="qualification-run-concurrency" value="1">
-            <strong>自動・安定優先</strong>
-            <small class="run-concurrency-note">model turnを1本ずつ実行し、検査と確定も一問単位で進めます。</small>
+            <legend>同時turn上限</legend>
+            <div class="run-concurrency-options">
+              <label><input type="radio" name="qualification-run-concurrency" value="1"><span>1</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="5"><span>5</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="10"><span>10</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="32" checked><span>32</span></label>
+            </div>
+            <small class="run-concurrency-note">全資格の合計は32turnを超えません。複数資格は公平に自動配分し、検査と確定は一問単位で維持します。</small>
+          </fieldset>
+          <fieldset id="qualification-run-speed-fieldset">
+            <legend>応答モード</legend>
+            <div class="run-concurrency-options run-speed-options">
+              <label><input type="radio" name="qualification-run-speed" value="standard" checked><span>Standard</span></label>
+              <label><input type="radio" name="qualification-run-speed" value="fast"><span>Fast</span></label>
+            </div>
+            <small class="run-concurrency-note">Fastは同じmodel・推論強度・品質検査を保ち、Codex creditsを使用します。適用を確認できない場合は開始しません。</small>
           </fieldset>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
           <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>

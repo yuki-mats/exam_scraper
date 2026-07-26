@@ -110,8 +110,11 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "jobId",
     "receiptValidated",
     "model",
+    "serviceTier",
     "reasoningEffort",
     "questionConcurrency",
+    "speedMode",
+    "requestedServiceTier",
     "parallelWorkerLimit",
     "researchSubagentCount",
     "researchStatus",
@@ -579,6 +582,8 @@ class QuestionReviewApplication:
                     run_options["question_concurrency"] = body.get(
                         "questionConcurrency"
                     )
+                if "speedMode" in body:
+                    run_options["speed_mode"] = body.get("speedMode")
                 if list_group_ids is not None:
                     run_options["list_group_ids"] = list_group_ids
                 if update_target_ids is not None:

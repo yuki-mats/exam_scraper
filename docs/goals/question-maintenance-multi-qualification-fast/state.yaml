@@ -1,0 +1,287 @@
+version: 2
+
+goal:
+  title: "問題整備の複数資格・合計32turn・Fast対応"
+  slug: "question-maintenance-multi-qualification-fast"
+  kind: existing_plan
+  tranche: "資格分離、全体32turn、run単位Fastを実装し、ガス主任技術者・乙種とCLF-C02の2資格canaryをlive readbackする。"
+  status: active
+  oracle:
+    signal: "1台のreview-uiでgas-shunin-otsuとCLF-C02が同時activeとなり、両heartbeatとvalidated workが増加し、global turnsが32以下、Fast適用、資格別writer、00_source不変、品質gate維持をreadbackできる。"
+    cadence: "各Worker package後、再起動後、2資格canary中、最終監査時"
+    final_proof: "実装test、global turn telemetry、2資格live API、Fast service tier、changed-file scope、00_source不変、最終PM audit receipt。"
+  intake:
+    original_request: "現在runを中断して、合計32turnで実装して"
+    interpreted_outcome: "3資格以上へ拡張可能な問題整備システムで、全資格合計32turnと資格別Fastを使い、初回はガス主任技術者・乙種とCLF-C02を同時に品質を落とさず動かす。"
+    input_shape: existing_plan
+    audience: "問題整備の運用者と各資格の受験者"
+    authority: approved
+    proof_type: demo
+    completion_proof: "2資格同時run、global <=32turn、Fast適用、進捗増加、資格間混線なし、全gate成功のlive readback。"
+    likely_misfire: "各資格32turnとしてglobal上限を破る、Fastの黙示fallback、writer/state混線、品質工程省略。"
+    blind_spots_considered:
+      - "現在のChatGPT accountはcreditsEnabled=false。"
+      - "provider rate limitと16GB Macのlocal resourceにより32turnを維持できない場合がある。"
+      - "既存ガスrunの検証済み作業を保持して再開する必要がある。"
+      - "merge、upload、Gitは全体直列のままにする必要がある。"
+    existing_plan_facts:
+      - "同時資格数は2固定にせず3以上へ拡張可能にする。"
+      - "初回canaryはgas-shunin-otsuとCLF-C02。"
+      - "全資格合計のmodel turn hard capは32。"
+      - "障害時は並列数だけを自動縮小し、モデル、high推論、検査、品質gateは維持する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/question-maintenance-multi-qualification-fast/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-multi-qualification-fast"
+
+active_task: T004
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: high
+    objective: "現行のjob lock、run state、App Server turn、adaptive scheduler、UI/API、既存run再開、CLF-C02 inventoryをread-onlyで対応付け、資格分離とglobal 32turnとFast実装の変更面・検証面を確定する。"
+    inputs:
+      - "tools/question_review_console/"
+      - "tools/question_review_console/static/"
+      - "tests/test_question_review_*.py"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+      - "config/question_maintenance_workflow.toml"
+      - "output/question_review_console/workflow_runs/gas-shunin-otsu/20260726T083408432999-ac9ebd8c/manifest.json"
+    constraints:
+      - "Read-only。"
+      - "00_sourceとproduct fileを変更しない。"
+      - "別review-uiを起動しない。"
+      - "既存active Goalとdirty ownershipを確認する。"
+    expected_output:
+      - "現行global serializationの全箇所"
+      - "資格分離可能なstate/write scope"
+      - "global 32turn公平配分案"
+      - "Fast service tierとcredit gate契約"
+      - "CLF-C02 canonical qualificationとinventory"
+      - "Worker allowed_files、verify、stop_if"
+    receipt:
+      result: done
+      note: notes/T001-system-map.md
+      summary: "Global job key、serial normalization、32turn対応済みadaptive scheduler、Fast無効化、CLF-C02 879問、ガスrun checkpointを対応付け、資格別lock・global fair budget・run speed modeのWorker境界を確定した。"
+      evidence:
+        - tools/question_review_console/jobs.py
+        - tools/question_review_console/adaptive_scheduler.py
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/server.py
+        - config/qualification_rules.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/00_source
+        - output/question_review_console/workflow_runs/gas-shunin-otsu/20260726T083408432999-ac9ebd8c/manifest.json
+      spawned_tasks:
+        - T002
+      harness: codex
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T001の証拠から、品質を維持した最大安全実装packageを承認又は修正する。"
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "Do not implement."
+      - "各資格32ではなく全資格合計32を機械保証する。"
+      - "Fastの黙示fallbackを禁止する。"
+      - "同一資格writerとglobal merge/upload/Gitは直列を維持する。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "資格別maintenanceだけを並行し、repository-wide操作は全maintenanceと相互排他にする階層lock、App Server直前のglobal fair budget、Fastのrequest/response一致gateなら、品質境界を維持して実装できる。"
+      worker_package:
+        objective: "階層job lock、global fair turn budget 32、run単位Standard/Fast、UI/API/run telemetryを一つのvertical sliceとして実装する。"
+        allowed_files:
+          - tools/question_review_console/jobs.py
+          - tools/question_review_console/turn_budget.py
+          - tools/question_review_console/codex_app_server.py
+          - tools/question_review_console/qualification_runs.py
+          - tools/question_review_console/server.py
+          - tools/question_review_console/static/index.html
+          - tools/question_review_console/static/app.js
+          - tools/question_review_console/static/styles.css
+          - document/operations/local_question_review_console.md
+          - tests/test_question_review_jobs.py
+          - tests/test_question_review_turn_budget.py
+          - tests/test_question_review_codex_app_server.py
+          - tests/test_question_review_qualification_runs.py
+          - tests/test_question_review_server.py
+          - tests/test_question_review_workflow.py
+          - "docs/goals/question-maintenance-multi-qualification-fast/**"
+        verify:
+          - ".venv/bin/python -m unittest tests.test_question_review_jobs tests.test_question_review_turn_budget tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+          - "node --check tools/question_review_console/static/app.js"
+          - ".venv/bin/python -m compileall tools/question_review_console"
+          - "git diff --check"
+          - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/question-maintenance-multi-qualification-fast"
+        stop_if:
+          - "Fastのrequest/response service tierを確認できない。"
+          - "global 32turnをslot取得なしに通る経路が残る。"
+          - "repository-wide処理とmaintenanceの相互排他を維持できない。"
+          - "同一資格へ複数writerが入る。"
+          - "既存run resume又はvalidated workが失われる。"
+      harness: codex
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "階層job lock、global fair turn budget 32、run単位Standard/Fast、UI/API/run telemetryを一つのvertical sliceとして実装する。"
+    allowed_files:
+      - "tools/question_review_console/jobs.py"
+      - "tools/question_review_console/turn_budget.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/styles.css"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_jobs.py"
+      - "tests/test_question_review_turn_budget.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "docs/goals/question-maintenance-multi-qualification-fast/**"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_jobs tests.test_question_review_turn_budget tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python -m compileall tools/question_review_console"
+      - "git diff --check"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/question-maintenance-multi-qualification-fast"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Fast又はglobal turn capのApp Server契約を確認できない。"
+      - "資格間で同じcanonical fileへ書く可能性がある。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/jobs.py
+        - tools/question_review_console/turn_budget.py
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/server.py
+        - tools/question_review_console/static/index.html
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/styles.css
+        - document/operations/local_question_review_console.md
+        - tests/test_question_review_jobs.py
+        - tests/test_question_review_turn_budget.py
+        - tests/test_question_review_codex_app_server.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_workflow.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_jobs tests.test_question_review_turn_budget tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+          status: pass
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: ".venv/bin/python -m compileall -q tools/question_review_console"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "check-goal-state.mjs docs/goals/question-maintenance-multi-qualification-fast"
+          status: pass
+      summary: "資格別maintenance lockとrepository-wide相互排他、全資格合計32turnの公平budget、run単位Standard/Fastのfail-closed適用、API・UI・run telemetryを実装した。234 tests、JS syntax、compileall、diff、00_source 5799 files不変、board checkerが成功した。"
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "mainへscoped commit/pushし、1台のreview-uiを再起動してガス主任技術者・乙種を再開し、CLF-C02との2資格canaryを開始してlive readbackする。"
+    allowed_files:
+      - "output/question_review_console/**"
+      - "output/gas-shunin-otsu/**"
+      - "output/aws*/**"
+      - "docs/goals/question-maintenance-multi-qualification-fast/**"
+    verify:
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "2資格のactive run、heartbeat、validated work、global turn telemetry、speed mode/service tierをlive APIで確認する。"
+      - "git rev-list --left-right --count origin/main...HEAD"
+    stop_if:
+      - "creditsEnabled=falseのためFast runを開始できない。"
+      - "CLF-C02 canonical qualificationを一意に解決できない。"
+      - "資格間changed-file scopeが重なる。"
+      - "review-ui又はApp Serverが不安定化する。"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "実装と2資格canaryが元の要求を満たすか最終監査する。"
+    inputs:
+      - "All done and blocked task receipts"
+      - "Full verification"
+      - "Live API readback"
+      - "Current git state"
+    constraints:
+      - "Do not implement."
+      - "Fastが利用できない場合を成功扱いしない。"
+      - "global 32turnと資格分離をlive又は同等のstress proofなしに完了扱いしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "clean@ed109504a63ad9395f52fbd8ccdc211d2cc92249"
+  last_verification:
+    result: pass
+    task: null
+    commands:
+      - ".venv/bin/python tools/question_bank/question_bank.py check-question-type-patch --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+      - ".venv/bin/python tools/question_bank/question_bank.py check-question-type-patch --source output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json --patch output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"

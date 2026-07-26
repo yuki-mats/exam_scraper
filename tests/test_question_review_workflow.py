@@ -1678,16 +1678,18 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
-        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 1", javascript)
-        self.assertIn("return AUTO_QUESTION_CONCURRENCY", javascript)
+        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 32", javascript)
+        self.assertIn("selectedQualificationRunSpeedMode", javascript)
+        self.assertIn("speedMode: selectedQualificationRunSpeedMode()", javascript)
         self.assertIn(
-            'name="qualification-run-concurrency" value="1"',
+            'name="qualification-run-concurrency" value="32" checked',
             html,
         )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
-        self.assertIn("自動・安定優先", html)
-        self.assertIn("model turnを1本ずつ実行", html)
-        self.assertIn("検査と確定も一問単位", html)
+        self.assertIn('name="qualification-run-speed" value="standard" checked', html)
+        self.assertIn('name="qualification-run-speed" value="fast"', html)
+        self.assertIn("全資格の合計は32turnを超えません", html)
+        self.assertIn("検査と確定は一問単位", html)
         self.assertIn("複数選択可", javascript)
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
         self.assertIn("${preview.targetCount}${questionUnit} × ${preview.stageCount}工程", javascript)

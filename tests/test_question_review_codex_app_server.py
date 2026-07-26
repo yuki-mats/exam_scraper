@@ -14,6 +14,7 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     CodexAppServerClient,
     DEFAULT_TURN_TIMEOUT_SECONDS,
+    FAST_SPEED_MODE,
     QUESTION_MAINTENANCE_RETRY_MODEL,
     RESEARCH_AGENT_CONFIG,
     RESEARCH_AGENT_CONFIG_FILENAME,
@@ -242,23 +243,15 @@ class SubscriptionGateTests(unittest.TestCase):
                 with self.assertRaises(SubscriptionGateError):
                     validate_subscription_access(account, rate_limit_response())
 
-    def test_rejects_usage_based_unknown_credit_and_spend_paths(self):
+    def test_rejects_usage_based_unknown_or_malformed_credit_and_spend_paths(self):
         cases = []
         cases.append((account_response("self_serve_business_usage_based"), rate_limit_response("self_serve_business_usage_based")))
         cases.append((account_response("unknown"), rate_limit_response("unknown")))
-        credits = rate_limit_response()
-        credits["rateLimits"]["credits"]["hasCredits"] = True
-        cases.append((account_response(), credits))
         missing_credits = rate_limit_response()
         missing_credits["rateLimits"]["credits"] = None
         cases.append((account_response(), missing_credits))
         spend = rate_limit_response()
-        spend["rateLimits"]["individualLimit"] = {
-            "limit": "10",
-            "used": "0",
-            "remainingPercent": 100,
-            "resetsAt": 1,
-        }
+        spend["rateLimits"]["individualLimit"] = "unknown"
         cases.append((account_response(), spend))
         for account, limits in cases:
             with self.subTest(account=account, limits=limits):
@@ -287,7 +280,7 @@ class SubscriptionGateTests(unittest.TestCase):
                 with self.assertRaises(SubscriptionGateError):
                     validate_subscription_access(account_response(), limits)
 
-    def test_auxiliary_null_credits_are_allowed_but_enabled_credits_are_rejected(self):
+    def test_standard_allows_credits_and_fast_requires_them(self):
         allowed = rate_limit_response()
         allowed["rateLimitResetCredits"] = {
             "availableCount": 1,
@@ -295,12 +288,26 @@ class SubscriptionGateTests(unittest.TestCase):
         }
         validate_subscription_access(account_response(), allowed)
 
-        blocked = copy.deepcopy(allowed)
-        blocked["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
+        with self.assertRaises(SubscriptionGateError):
+            validate_subscription_access(
+                account_response(),
+                allowed,
+                speed_mode=FAST_SPEED_MODE,
+            )
+
+        enabled = copy.deepcopy(allowed)
+        enabled["rateLimits"]["credits"]["hasCredits"] = True
+        enabled["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
             "hasCredits": True
         }
-        with self.assertRaises(SubscriptionGateError):
-            validate_subscription_access(account_response(), blocked)
+        standard = validate_subscription_access(account_response(), enabled)
+        fast = validate_subscription_access(
+            account_response(),
+            enabled,
+            speed_mode=FAST_SPEED_MODE,
+        )
+        self.assertTrue(standard["fastModeAvailable"])
+        self.assertTrue(fast["fastMode"])
 
     def test_rejects_missing_or_malformed_auxiliary_spend_fields(self):
         cases = []
@@ -349,9 +356,9 @@ class ProtocolClient(CodexAppServerClient):
             "/isolated/question-maintenance-explorer.toml"
         )
 
-    def assert_subscription_access(self, *, force=True):
-        self.subscription_forces.append(force)
-        return {"allowed": True, "planType": "pro"}
+    def assert_subscription_access(self, *, force=True, speed_mode="standard"):
+        self.subscription_forces.append((force, speed_mode))
+        return {"allowed": True, "planType": "pro", "speedMode": speed_mode}
 
     def _trusted_research_agent_config(self):
         return self.research_agent_config_path
@@ -371,7 +378,7 @@ class ProtocolClient(CodexAppServerClient):
                 "thread": {"id": thread_id, "sessionId": f"session-{self.turn_number}"},
                 "model": params["model"],
                 "modelProvider": "openai",
-                "serviceTier": None,
+                "serviceTier": params.get("serviceTier"),
                 "sandbox": {"type": sandbox_type, "networkAccess": False},
             }
         if method == "hooks/list":
@@ -784,7 +791,10 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertNotEqual(first.thread_id, second.thread_id)
         self.assertNotEqual(first.session_id, second.session_id)
-        self.assertEqual(client.subscription_forces, [True, True])
+        self.assertEqual(
+            client.subscription_forces,
+            [(True, "standard"), (True, "standard")],
+        )
         second_turn = next(
             params
             for method, params in client.calls
@@ -884,6 +894,30 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(turn_params["effort"], "high")
         self.assertEqual(result.model, "gpt-5.6-sol")
         self.assertEqual(result.reasoning_effort, "high")
+
+    def test_fast_mode_is_requested_and_verified(self):
+        client = ProtocolClient()
+
+        result = client.run_turn(
+            "fast maintenance",
+            work_type="maintenance_question_type_candidate",
+            sandbox="read-only",
+            emit=lambda _line: None,
+            speed_mode=FAST_SPEED_MODE,
+            turn_group="gas",
+        )
+
+        thread_params = next(
+            params for method, params in client.calls if method == "thread/start"
+        )
+        turn_params = next(
+            params for method, params in client.calls if method == "turn/start"
+        )
+        self.assertEqual(thread_params["serviceTier"], "fast")
+        self.assertEqual(thread_params["config"]["service_tier"], "fast")
+        self.assertTrue(thread_params["config"]["features"]["fast_mode"])
+        self.assertEqual(turn_params["serviceTier"], "fast")
+        self.assertEqual(result.service_tier, "fast")
 
     def test_success_receipt_probe_interrupts_writer_and_returns_terminal_result(self):
         client = ReceiptInterruptProtocolClient()

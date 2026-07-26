@@ -1,0 +1,20 @@
+{
+  "result": "done",
+  "note": "notes/T001-system-map.md",
+  "summary": "Global job key、serial normalization、32turn対応済みadaptive scheduler、Fast無効化、CLF-C02 879問、ガスrun checkpointを対応付け、資格別lock・global fair budget・run speed modeのWorker境界を確定した。",
+  "evidence": [
+    "tools/question_review_console/jobs.py",
+    "tools/question_review_console/adaptive_scheduler.py",
+    "tools/question_review_console/codex_app_server.py",
+    "tools/question_review_console/qualification_runs.py",
+    "tools/question_review_console/server.py",
+    "config/qualification_rules.json",
+    "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source",
+    "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/00_source",
+    "output/question_review_console/workflow_runs/gas-shunin-otsu/20260726T083408432999-ac9ebd8c/manifest.json"
+  ],
+  "spawned_tasks": [
+    "T002"
+  ],
+  "harness": "codex"
+}

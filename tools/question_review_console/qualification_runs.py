@@ -61,6 +61,7 @@ from tools.question_review_console.jobs import (
     JobConflictError,
     JobManager,
     normalize_log_event,
+    qualification_operation_key,
 )
 from tools.question_review_console.failed_delta import (
     resolvable_failed_delta_paths,
@@ -75,12 +76,15 @@ from tools.question_review_console.law_audit_quality import (
 )
 from tools.question_review_console.law_audit_contract import is_law_audit_review
 from tools.question_review_console.codex_app_server import (
+    FAST_SPEED_MODE,
     MAINTENANCE_RESEARCH_WORKERS,
     QUESTION_MAINTENANCE_MODEL,
     QUESTION_MAINTENANCE_RETRY_MODEL,
+    STANDARD_SPEED_MODE,
     TURN_REASONING_EFFORT,
     CodexAppServerError,
     SubscriptionGateError,
+    normalize_speed_mode,
 )
 from tools.question_review_console.qualification_workflow import (
     LAW_WORKFLOW_STAGE_IDS,
@@ -163,7 +167,7 @@ class QuestionValidationResult:
 
 
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, DEFAULT_MAX_PARALLEL_TURNS)
-DEFAULT_QUESTION_CONCURRENCY = 1
+DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
 STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE = 12_000
 LIVE_RUN_STATUSES = {
     "queued",
@@ -655,8 +659,7 @@ def normalize_question_concurrency(value: Any) -> int:
         raise QualificationRunError(
             "同時model turn上限は1、5、10、32から選択してください。"
         )
-    # 旧runとAPI requestの読み取り互換は維持するが、新しい実行は常に直列化する。
-    return 1
+    return concurrency
 
 
 class QuestionItemError(QualificationRunError):
@@ -1776,6 +1779,10 @@ class QualificationRunStore:
                 if plan.get("questionConcurrency") is not None
                 else None
             ),
+            "speedMode": normalize_speed_mode(
+                plan.get("speedMode") or STANDARD_SPEED_MODE
+            ),
+            "requestedServiceTier": plan.get("requestedServiceTier"),
             "parallelWorkerLimit": int(plan.get("parallelWorkerLimit") or 1),
             "writeWorkerLimit": int(plan.get("writeWorkerLimit") or 1),
             "executionPhase": "queued",
@@ -5222,6 +5229,16 @@ class QualificationRunCoordinator:
             )
             raise
 
+    def _run_in_turn_group(
+        self,
+        qualification: str,
+        worker: Callable[[], dict[str, Any]],
+    ) -> dict[str, Any]:
+        if self.app_server is None or not hasattr(self.app_server, "turn_group"):
+            return worker()
+        with self.app_server.turn_group(qualification):
+            return worker()
+
     def preview(
         self,
         qualification: str,
@@ -5235,8 +5252,10 @@ class QualificationRunCoordinator:
         question_ids: list[str] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
+        speed_mode: str = STANDARD_SPEED_MODE,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
+        speed_mode = normalize_speed_mode(speed_mode)
         plan = self._plan(
             qualification,
             stage_id,
@@ -5287,6 +5306,10 @@ class QualificationRunCoordinator:
             "modeLabel": plan["modeLabel"],
             "resumedFrom": resumed_from,
             "questionConcurrency": question_concurrency,
+            "speedMode": speed_mode,
+            "requestedServiceTier": (
+                FAST_SPEED_MODE if speed_mode == FAST_SPEED_MODE else None
+            ),
             "targetCount": plan["targetCount"],
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "stageCount": int(
@@ -5337,8 +5360,10 @@ class QualificationRunCoordinator:
         question_ids: list[str] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
+        speed_mode: str = STANDARD_SPEED_MODE,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
+        speed_mode = normalize_speed_mode(speed_mode)
         preview = self.preview(
             qualification,
             stage_id,
@@ -5350,6 +5375,7 @@ class QualificationRunCoordinator:
             question_ids=question_ids,
             resumed_from=resumed_from,
             question_concurrency=question_concurrency,
+            speed_mode=speed_mode,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -5416,7 +5442,13 @@ class QualificationRunCoordinator:
                 saved_prompt = self.store.prompt(qualification, run["runId"])
                 return {"run": run, "prompt": saved_prompt, "job": None}
             try:
-                self.app_server.assert_subscription_access(force=False)
+                if speed_mode == STANDARD_SPEED_MODE:
+                    self.app_server.assert_subscription_access(force=False)
+                else:
+                    self.app_server.assert_subscription_access(
+                        force=False,
+                        speed_mode=speed_mode,
+                    )
             except Exception as exc:  # noqa: BLE001
                 raise QualificationRunError(str(exc)) from exc
             plan = {
@@ -5431,6 +5463,10 @@ class QualificationRunCoordinator:
                     else 1
                 ),
                 "writeWorkerLimit": 1,
+                "speedMode": speed_mode,
+                "requestedServiceTier": (
+                    FAST_SPEED_MODE if speed_mode == FAST_SPEED_MODE else None
+                ),
             }
             maintenance_phases = _maintenance_session_phases(plan)
             try:
@@ -5489,15 +5525,18 @@ class QualificationRunCoordinator:
                 try:
                     job = self.jobs.start(
                         kind="codex-maintenance-flow",
-                        key=REPOSITORY_OPERATION_KEY,
-                        worker=lambda emit: self._run_with_technical_log(
+                        key=qualification_operation_key(qualification),
+                        worker=lambda emit: self._run_in_turn_group(
                             qualification,
-                            run["runId"],
-                            emit,
-                            lambda logged_emit: self._run_maintenance_flow(
+                            lambda: self._run_with_technical_log(
                                 qualification,
                                 run["runId"],
-                                logged_emit,
+                                emit,
+                                lambda logged_emit: self._run_maintenance_flow(
+                                    qualification,
+                                    run["runId"],
+                                    logged_emit,
+                                ),
                             ),
                         ),
                     )
@@ -5523,17 +5562,20 @@ class QualificationRunCoordinator:
             try:
                 job = self.jobs.start(
                     kind="codex-maintenance",
-                    key=REPOSITORY_OPERATION_KEY,
-                    worker=lambda emit: self._run_with_technical_log(
+                    key=qualification_operation_key(qualification),
+                    worker=lambda emit: self._run_in_turn_group(
                         qualification,
-                        run["runId"],
-                        emit,
-                        lambda logged_emit: self._run_human(
+                        lambda: self._run_with_technical_log(
                             qualification,
                             run["runId"],
-                            saved_prompt,
-                            "maintenance",
-                            logged_emit,
+                            emit,
+                            lambda logged_emit: self._run_human(
+                                qualification,
+                                run["runId"],
+                                saved_prompt,
+                                "maintenance",
+                                logged_emit,
+                            ),
                         ),
                     ),
                 )
@@ -6025,6 +6067,8 @@ class QualificationRunCoordinator:
                 else 1
             ),
             "writeWorkerLimit": 1,
+            "speedMode": STANDARD_SPEED_MODE,
+            "requestedServiceTier": None,
             "canonicalDocs": canonical_docs,
             "catalogHash": catalog["catalogHash"],
             "policyVersions": {
@@ -6060,17 +6104,20 @@ class QualificationRunCoordinator:
         try:
             job = self.jobs.start(
                 kind=f"codex-{work_type}",
-                key=REPOSITORY_OPERATION_KEY,
-                worker=lambda emit: self._run_with_technical_log(
+                key=qualification_operation_key(qualification),
+                worker=lambda emit: self._run_in_turn_group(
                     qualification,
-                    run["runId"],
-                    emit,
-                    lambda logged_emit: self._run_human(
+                    lambda: self._run_with_technical_log(
                         qualification,
                         run["runId"],
-                        saved_prompt,
-                        work_type,
-                        logged_emit,
+                        emit,
+                        lambda logged_emit: self._run_human(
+                            qualification,
+                            run["runId"],
+                            saved_prompt,
+                            work_type,
+                            logged_emit,
+                        ),
                     ),
                 ),
             )
@@ -6492,6 +6539,12 @@ class QualificationRunCoordinator:
                         else 1
                     ),
                     "writeWorkerLimit": 1,
+                    "speedMode": normalize_speed_mode(
+                        parent.get("speedMode") or STANDARD_SPEED_MODE
+                    ),
+                    "requestedServiceTier": parent.get(
+                        "requestedServiceTier"
+                    ),
                 }
             )
             candidate["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
@@ -7785,6 +7838,10 @@ class QualificationRunCoordinator:
                 requestedReasoningEffort=requested_effort,
                 retryModelFallback=retrying,
                 agentPolicy=agent_policy,
+                speedMode=normalize_speed_mode(
+                    parent.get("speedMode") or STANDARD_SPEED_MODE
+                ),
+                requestedServiceTier=parent.get("requestedServiceTier"),
             )
             batch_question_ids = [
                 str(target.get("id") or target.get("uiQuestionId") or "")
@@ -8852,6 +8909,11 @@ class QualificationRunCoordinator:
             heartbeatAt=_now(),
             error=None,
         )
+        speed_mode = normalize_speed_mode(
+            child.get("speedMode")
+            or batch_plan.get("speedMode")
+            or STANDARD_SPEED_MODE
+        )
         raw_targets = [
             dict(value)
             for value in batch_plan.get("progressTargets") or []
@@ -9173,6 +9235,8 @@ class QualificationRunCoordinator:
                             cwd=self.repo_root,
                             model=review_model,
                             reasoning_effort=review_effort,
+                            speed_mode=speed_mode,
+                            turn_group=qualification,
                         )
                     except Exception as exc:  # noqa: BLE001
                         if not started_threads and _external_provider_failure(exc):
@@ -9385,6 +9449,8 @@ class QualificationRunCoordinator:
                     cwd=self.repo_root,
                     model=model,
                     reasoning_effort=reasoning_effort,
+                    speed_mode=speed_mode,
+                    turn_group=qualification,
                 )
                 if result.changed_files:
                     raise QualificationRunError(
@@ -10159,6 +10225,9 @@ class QualificationRunCoordinator:
         )
         run_at_start = self.store.get(qualification, run_id)
         parent_run_id = str(run_at_start.get("parentRunId") or "")
+        speed_mode = normalize_speed_mode(
+            run_at_start.get("speedMode") or STANDARD_SPEED_MODE
+        )
 
         def heartbeat() -> None:
             heartbeat_at = _now()
@@ -10263,6 +10332,8 @@ class QualificationRunCoordinator:
                             on_turn_started=on_research_turn_started,
                             heartbeat=heartbeat,
                             cwd=Path(research_directory).resolve(),
+                            speed_mode=speed_mode,
+                            turn_group=qualification,
                         )
                     if research_result.changed_files:
                         raise QualificationRunError(
@@ -10362,6 +10433,8 @@ class QualificationRunCoordinator:
                         cwd=turn_workspace,
                         writable_roots=writable_roots,
                         completion_probe=completion_probe,
+                        speed_mode=speed_mode,
+                        turn_group=qualification,
                     )
                     app_server_changed_files = self._repository_change_notifications(
                         result.changed_files,

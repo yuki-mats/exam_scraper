@@ -875,7 +875,8 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .run-mode-options input:checked + span small { color: #e8f3fc; }
 .run-mode-options input:focus-visible + span { outline: 3px solid rgba(22, 102, 168, 0.25); outline-offset: -3px; }
 .run-mode-options input:disabled + span { color: #929aa2; background: #f1f3f5; cursor: not-allowed; }
-.run-concurrency-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
+.run-concurrency-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
+.run-speed-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .run-concurrency-options label { position: relative; display: block; border-right: 1px solid var(--line-strong); color: #3d4853; text-align: center; }
 .run-concurrency-options label:last-child { border-right: 0; }
 .run-concurrency-options input { position: absolute; opacity: 0; pointer-events: none; }
