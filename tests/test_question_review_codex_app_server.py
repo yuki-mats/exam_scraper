@@ -15,6 +15,7 @@ from tools.question_review_console.codex_app_server import (
     APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS,
     CodexAppServerError,
     CodexAppServerClient,
+    CodexTurnTimeoutError,
     DEFAULT_TURN_TIMEOUT_SECONDS,
     FAST_SPEED_MODE,
     MIN_APP_SERVER_FILE_DESCRIPTORS,
@@ -1261,6 +1262,43 @@ class ReceiptInterruptProtocolClient(ProtocolClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_active_turn_deadline_raises_question_scoped_timeout(self):
+        class HangingTurnClient(ProtocolClient):
+            def __init__(self):
+                super().__init__(turn_timeout=0)
+                self.interrupted = []
+
+            def _request(self, method, params, *, timeout=None):
+                if method == "turn/start":
+                    self.calls.append((method, copy.deepcopy(params)))
+                    return {
+                        "turn": {
+                            "id": params["threadId"].replace("thread", "turn")
+                        }
+                    }
+                if method == "turn/interrupt":
+                    self.interrupted.append(
+                        (params["threadId"], params["turnId"])
+                    )
+                    return {}
+                return super()._request(method, params, timeout=timeout)
+
+        client = HangingTurnClient()
+
+        with self.assertRaisesRegex(
+            CodexTurnTimeoutError,
+            "turnが時間切れ",
+        ):
+            client.run_turn(
+                "question",
+                work_type="maintenance_explanation_candidate",
+                sandbox="read-only",
+                emit=lambda _line: None,
+            )
+
+        self.assertEqual(client.interrupted, [("thread-1", "turn-1")])
+        self.assertEqual(client._turns, {})
+
     def test_control_requests_allow_a_full_sixty_four_thread_startup_wave(self):
         class TimeoutClient(ProtocolClient):
             def __init__(self):

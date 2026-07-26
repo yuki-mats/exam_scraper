@@ -162,6 +162,10 @@ class CodexAppServerError(RuntimeError):
     pass
 
 
+class CodexTurnTimeoutError(CodexAppServerError):
+    """The deadline of one active model turn expired."""
+
+
 class SubscriptionGateError(CodexAppServerError):
     pass
 
@@ -1455,7 +1459,7 @@ class CodexAppServerClient:
                 while not state.event.is_set():
                     remaining = deadline - time.monotonic()
                     if remaining <= 0:
-                        raise CodexAppServerError(
+                        raise CodexTurnTimeoutError(
                             "Codex App Serverのturnが時間切れになりました。"
                         )
                     heartbeat_wait = max(

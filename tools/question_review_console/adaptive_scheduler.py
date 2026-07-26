@@ -33,6 +33,7 @@ class AdaptiveLimits:
         *,
         provider_failure: bool = False,
         schema_failure: bool = False,
+        isolated_failure: bool = False,
         elapsed_seconds: float | None = None,
         max_parallel_turns: int = DEFAULT_MAX_PARALLEL_TURNS,
     ) -> None:
@@ -40,9 +41,10 @@ class AdaptiveLimits:
             self.parallel_turns = max(1, self.parallel_turns // 2)
             self.success_streak = 0
             return
-        if schema_failure:
+        if schema_failure or isolated_failure:
             # 一問一turnでは入力をさらに束分割できない。失敗した一問だけを
-            # queue末尾へ戻し、正常な他問の並列数は下げない。
+            # queue末尾へ戻す。個別turnの期限切れも全体容量の成功又は
+            # provider失敗とは数えず、正常な他問の並列数は下げない。
             self.success_streak = 0
             return
         self.success_streak += 1

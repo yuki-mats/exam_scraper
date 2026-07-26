@@ -91,6 +91,7 @@ from tools.question_review_console.codex_app_server import (
     STANDARD_SPEED_MODE,
     TURN_REASONING_EFFORT,
     CodexAppServerError,
+    CodexTurnTimeoutError,
     SubscriptionGateError,
     normalize_speed_mode,
 )
@@ -877,13 +878,12 @@ def _maintenance_writer_prompt(prompt: str, research_summary: str) -> str:
     )
 
 
-def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None:
+def _exception_chain(exc: BaseException) -> Iterable[BaseException]:
     current: BaseException | None = exc
     seen: set[int] = set()
     while current is not None and id(current) not in seen:
         seen.add(id(current))
-        if isinstance(current, (SubscriptionGateError, CodexAppServerError)):
-            return current
+        yield current
         current = (
             current.__cause__
             if current.__cause__ is not None
@@ -891,7 +891,31 @@ def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None
             if current.__suppress_context__
             else current.__context__
         )
-    return None
+
+
+def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None:
+    chain = tuple(_exception_chain(exc))
+    if any(isinstance(current, CodexTurnTimeoutError) for current in chain):
+        return None
+    return next(
+        (
+            current
+            for current in chain
+            if isinstance(current, (SubscriptionGateError, CodexAppServerError))
+        ),
+        None,
+    )
+
+
+def _isolated_turn_timeout(exc: BaseException) -> CodexTurnTimeoutError | None:
+    return next(
+        (
+            current
+            for current in _exception_chain(exc)
+            if isinstance(current, CodexTurnTimeoutError)
+        ),
+        None,
+    )
 
 
 def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
@@ -11086,10 +11110,12 @@ class QualificationRunCoordinator:
                     "questionResults": outcome["questionResults"],
                     "providerFailure": False,
                     "schemaFailure": False,
+                    "isolatedFailure": False,
                 }
             except Exception as exc:  # noqa: BLE001
                 child = self.store.refresh(qualification, child_id)
                 provider_failure = _external_provider_failure(exc)
+                isolated_failure = _isolated_turn_timeout(exc)
                 schema_failure = isinstance(exc, QuestionCandidateError) or (
                     "構造化候補" in str(exc)
                     or "JSON Schema" in str(exc)
@@ -11111,6 +11137,7 @@ class QualificationRunCoordinator:
                     ],
                     "providerFailure": provider_failure is not None,
                     "schemaFailure": schema_failure,
+                    "isolatedFailure": isolated_failure is not None,
                     "providerError": str(provider_failure or ""),
                 }
 
@@ -11602,6 +11629,9 @@ class QualificationRunCoordinator:
                                 provider_failure=provider_failure,
                                 schema_failure=bool(
                                     outcome.get("schemaFailure")
+                                ),
+                                isolated_failure=bool(
+                                    outcome.get("isolatedFailure")
                                 ),
                                 max_parallel_turns=question_concurrency,
                             )

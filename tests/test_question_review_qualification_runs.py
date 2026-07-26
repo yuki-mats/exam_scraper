@@ -8,6 +8,7 @@ from tests.qualification_run_test_support import *  # noqa: F403
 
 from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
+    CodexTurnTimeoutError,
     SubscriptionGateError,
 )
 from tools.question_review_console.question_work_queue import (
@@ -25,6 +26,8 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_review_source_records,
     _candidate_unset_fields,
     _child_retry_safe,
+    _external_provider_failure,
+    _isolated_turn_timeout,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
     _source_binding_accepts_identity,
@@ -2197,6 +2200,21 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
+    def test_turn_timeout_scope_survives_exception_wrapping(self):
+        timeout = CodexTurnTimeoutError("turn timeout")
+        wrapped = RuntimeError("candidate failed")
+        wrapped.__cause__ = timeout
+
+        self.assertIsNone(_external_provider_failure(wrapped))
+        self.assertIs(_isolated_turn_timeout(wrapped), timeout)
+
+        provider_failure = CodexAppServerError("connection failed")
+        self.assertIs(
+            _external_provider_failure(provider_failure),
+            provider_failure,
+        )
+        self.assertIsNone(_isolated_turn_timeout(provider_failure))
+
     def test_read_only_candidate_failure_is_retry_safe_only_with_no_delta(self):
         child = {
             "status": "failed",
@@ -5002,7 +5020,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertLess(parent_write_count, 32)
         self.assertEqual(completed["validatedQuestionCount"], 64)
 
-    def test_one_provider_timeout_is_retried_after_other_questions(self):
+    def test_one_turn_timeout_is_retried_without_reducing_capacity(self):
         class TimeoutOnceAppServer(PerQuestionQueueAppServer):
             def __init__(self):
                 super().__init__()
@@ -5020,7 +5038,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         self.batch_calls.append(tuple(question_ids))
                     kwargs["on_thread_started"]("thread-timeout", "session-timeout")
                     kwargs["on_turn_started"]("thread-timeout", "turn-timeout")
-                    raise CodexAppServerError("turnが時間切れになりました。")
+                    raise CodexTurnTimeoutError("turnが時間切れになりました。")
                 return super().run_turn(prompt, **kwargs)
 
         with tempfile.TemporaryDirectory() as directory:
@@ -5039,6 +5057,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 parent["runId"],
                 lambda _message: None,
             )
+            completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertEqual(len(app_server.batch_calls), 7)
@@ -5050,6 +5069,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         }
         self.assertEqual(sorted(counts.values()), [1, 1, 1, 1, 1, 2])
+        self.assertEqual(completed["adaptiveScheduler"]["parallelTurns"], 5)
 
     def test_started_unresolved_review_slot_blocks_without_rerun(self):
         class ReviewTimeoutAppServer(PerQuestionQueueAppServer):
