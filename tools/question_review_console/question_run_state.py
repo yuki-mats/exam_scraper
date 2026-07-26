@@ -567,11 +567,15 @@ class QuestionRunStateStore:
             expected_name="question_summary.json",
         )
         summary = _read_json(path, label="question summary")
+        questions = summary.get("questions")
+        question_count = int(manifest.get("questionStateCount") or 0)
         if (
             summary.get("schemaVersion") != SUMMARY_SCHEMA_VERSION
             or summary.get("planHash") != manifest.get("planHash")
-            or summary.get("questionCount")
-            != int(manifest.get("questionStateCount") or 0)
+            or summary.get("questionCount") != question_count
+            or not isinstance(questions, list)
+            or len(questions) != question_count
+            or any(not isinstance(value, Mapping) for value in questions)
         ):
             raise QuestionRunStateError("question summaryのidentityが不正です。")
         return summary

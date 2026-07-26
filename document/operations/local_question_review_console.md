@@ -32,9 +32,7 @@
 
 ### 画面からの直接修正
 
-直接修正は、対象fileのbaseline（開始前bytes）とtransaction manifestを`output/question_review_console/direct_edit_transactions/`へ先に保存してから、全fileを更新します。途中失敗では全fileを戻し、再起動時にも未完了transactionを回収します。rollback後に開始前bytesとの差分（failed delta）が残る場合は成功扱いにしません。
-
-patch保存がcommit点です。その後のcache無効化、確認記録又は再読込に失敗してもpatchを戻さず、画面へ`warning`と`postCommitErrors`を返します。本番Firestoreへは書き込みません。
+直接修正は、対象fileのbaseline（開始前bytes）とtransaction manifestを`output/question_review_console/direct_edit_transactions/`へ先に保存してから、全fileを更新します。途中失敗では全fileを戻し、再起動時にも未完了transactionを回収します。rollback後に開始前bytesとの差分（failed delta）が残る場合は成功扱いにしません。patch保存がcommit点です。その後のcache無効化、確認記録又は再読込に失敗してもpatchを戻さず、画面へ`warning`と`postCommitErrors`を返します。本番Firestoreへは書き込みません。
 
 ### 項目を限定した洗い替え
 
@@ -58,9 +56,7 @@ patch保存がcommit点です。その後のcache無効化、確認記録又は�
 | 一問queue | 全item走査後、確定した年度又はフォルダごとに1回実行 | 自動更新失敗時は管理機能の`出力` |
 | 成果物が現在patchと一致 | 何もしない | 管理ツール内に非常用の強制再生成だけを残す |
 
-完了状態は`succeeded`、`current`、`not_required`です。それ以外は更新待ちとして理由を表示します。
-
-旧工程版と混在する年度では、現行03b済みの問題だけを再生成前後で検証します。法令関連問題がすべて現行03bになった年度は、mergedとFirestore成果物の全対象を検証します。
+完了状態は`succeeded`、`current`、`not_required`です。それ以外は更新待ちとして理由を表示します。旧工程版と混在する年度では、現行03b済みの問題だけを再生成前後で検証します。法令関連問題がすべて現行03bになった年度は、mergedとFirestore成果物の全対象を検証します。
 
 ## 問題IDと現行法監査
 
@@ -81,7 +77,7 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。初回は`gpt-5.5`、候補生成又は機械検査に失敗した問題の再試行は`gpt-5.6-sol`を使い、推論強度はどちらも`high`とします。成功した問題は再投入せず、再開時も失敗した問題だけに直前の検査feedbackを引き継ぎます。要求modelと返された実modelはattemptとmanifestへ保存します。評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定します。
 
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- serverは問題の現在projectionをrunごとの希望上限まで同時に準備し、一問を一つの独立したmodel turnへ渡す。1資格の希望上限は64問・64本、全資格で同時に実行するtop-level model turnは合計64本までとする。UIではrunごとの希望上限を1、5、10、32、64から選べ、初期値は64とする。1資格だけなら最大64問を64本で同時に整備し、2資格なら原則32本ずつ、3資格なら22、21、21本のように公平配分する。資格の開始・終了に応じて新しく取得するslotから動的に再配分し、既に実行中のturnは途中で止めない。provider失敗時はrun内のadaptive schedulerが次の再試行roundの並列数を自動で縮小する。model turnの64枠とは別に、`hooks/list`、`thread/start`、`mcpServerStatus/list`、`turn/start`の短いcontrol-plane RPCは全資格合計8本までに制限する。この8本はmodel batch又は実行中turnの上限ではなく、App Serverの起動要求を詰まらせずに64本のmodel turnを順次立ち上げるための入口である。さらに、直前waveのserver writer待ちを保持するpipeline枠を最大64問分確保する。正本patchの同時writer数は増やさず、writer待ちが次waveのmodel turnを占有しない構造にする。
+- serverは問題の現在projectionをrunごとの希望上限まで同時に準備し、一問を一つの独立したmodel turnへ渡す。1資格の希望上限は64問・64本、全資格で同時に実行するtop-level model turnは合計64本までとする。UIではrunごとの希望上限を1、5、10、32、64から選べ、初期値は64とする。1資格だけなら最大64問を64本で同時に整備し、2資格なら原則32本ずつ、3資格なら22、21、21本のように公平配分する。資格の開始・終了に応じて新しく取得するslotから動的に再配分し、既に実行中のturnは途中で止めない。provider失敗時はrun内のadaptive schedulerが次の再試行roundの並列数を自動で縮小する。`hooks/list`、`thread/start`、`mcpServerStatus/list`、`turn/start`の短いcontrol-plane RPCも全資格合計64本まで受け付ける。実model turnと別のbudgetとして観測するが、自己都合の8本制限で起動を8waveへ直列化しない。さらに、直前waveのserver writer待ちを保持するpipeline枠を最大64問分確保する。正本patchの同時writer数は増やさず、writer待ちが次waveのmodel turnを占有しない構造にする。
 - modelは一問の構造化候補を返すだけで、検査commandや成功receiptを自己申告しない。serverは候補ごとにsource identity、許可field、工程品質、`00_source`不変を検査し、合格recordだけを確定patchへ反映する。他問題の不合格や曖昧さは波及しない。
 - 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。予約、二つの結果、照合結果は、親manifest全体へ書き戻さず、親run配下の`aggregate_review_checkpoints/<questionIdのsha256>.json`へ問題単位で保存する。異なる問題の記録は互いのlockを待たず、同じ問題のslotだけを直列化する。二者不一致、source hash不一致、判定不能又は境界不明は問題単位の`hold`とし、patchへ反映しない。対象確定時の記述本文はserverが合意済みspanから切り出し、model出力の文章を保存しない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
@@ -92,9 +88,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 - 一問writerはpatchと`work_versions.json`の開始前bytesを同じbaselineへ保存してからtransactionを開く。検査、patch更新、作業版更新又はcheckpoint保存のどこで失敗しても両方を開始前へ戻し、確定済みattemptは以後変更しない。途中再起動ではtransactionが開いた一問だけをrollbackし、確定済みreceiptを持つ一問は維持し、未確定の問だけをqueueへ戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定したlistGroupIdごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
 
-評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
-
-開始前にChatGPT認証、利用上限、公式provider、`Standard` service tier、追加Codex creditsが無効であることを確認します。同じwaveの各turnは、直前60秒以内に得た一つの検証済み利用資格を共有します。cacheがない場合又は期限を過ぎた場合は、最初のturnだけが再取得し、同時に来た後続turnはその結果を待ちます。問題整備は`Standard`だけを使用し、UI又はAPIから`Fast`を指定しても開始しません。追加Codex creditsが有効な場合もfail-closedで停止します。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限は変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。hook無効化とMCP無効化は各threadで検査し続け、そのcontrol-plane照会だけを8本に絞る。64個の独立threadが同時に通信できるよう、長寿命Codex App Serverを起動する直前にprocessのfile descriptor soft limitを65,536以上へ引き上げる。hard limitが不足する、又は引上げを確認できない場合はrun開始前に停止する。
+評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。開始前にChatGPT認証、利用上限、公式provider、`Standard` service tier、追加Codex creditsが無効であることを確認します。同じwaveの各turnは、直前60秒以内に得た一つの検証済み利用資格を共有します。cacheがない場合又は期限を過ぎた場合は、最初のturnだけが再取得し、同時に来た後続turnはその結果を待ちます。問題整備は`Standard`だけを使用し、UI又はAPIから`Fast`を指定しても開始しません。追加Codex creditsが有効な場合もfail-closedで停止します。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限は変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。hook無効化とMCP無効化は各threadで検査し続ける。64個の独立threadが同時に通信できるよう、長寿命Codex App Serverを起動する直前にprocessのfile descriptor soft limitを65,536以上へ引き上げる。hard limitが不足する、又は引上げを確認できない場合はrun開始前に停止する。
 
 ## 作業バージョン
 
@@ -107,7 +101,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 - `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasや旧runのIDを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
 - `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全工程がvalidatedになった問題だけを完了とする。
 - 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、同じ区切りの一問入力を独立workerで同時に作る。入力準備はmodel・writerのpipeline workerと分離し、実行中model 64問とwriter待ち最大64問を上限として未完了futureを保持する。前waveのwriter待ちが次の64入力生成を塞がず、全対象分の入力とfutureを一度にメモリへ保持しない。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。準備できた各問から独立したmodel turnへ逐次投入するため、全問の準備完了を待たない。model候補はread-onlyである。一問stateと集約回答checkpointは問題ごとのlockで並行し、親queueの集計更新と正本patchの検査・確定だけを必要な範囲で直列化する。
-- App Serverの状態は、64枠への入場待ちを含む`turnBudget`、起動RPCの8枠を示す`controlPlaneBudget`、`turn/start`完了後からturn終了までを数える`modelTurns`に分けて返す。64問同時実行の証明には`modelTurns.peakInFlight=64`を使い、予約だけで実行済みと判断しない。
+- App Serverの状態は、64枠への入場待ちを含む`turnBudget`、起動RPCの64枠を示す`controlPlaneBudget`、`turn/start`完了後からturn終了までを数える`modelTurns`に分けて返す。64問同時実行の証明には`modelTurns.peakInFlight=64`を使い、予約だけで実行済みと判断しない。
 - Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。親runのheartbeat writerはcoordinator一つだけとし、各一問turnから親manifestへheartbeatを書き込まない。heartbeatはjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
 - 一つのmodel turnが15分で完了しない場合は中断し、その一問だけを失敗としてqueueの再試行契約へ戻す。
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。

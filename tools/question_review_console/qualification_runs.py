@@ -2551,7 +2551,14 @@ class QualificationRunStore:
             sort_keys=True,
         )
 
-    def update(self, qualification: str, run_id: str, **changes: Any) -> dict[str, Any]:
+    def update(
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        hydrate_result: bool = True,
+        **changes: Any,
+    ) -> dict[str, Any]:
         if self.is_question_attempt(run_id):
             return self._update_question_attempt(
                 qualification,
@@ -2587,7 +2594,11 @@ class QualificationRunStore:
                 )
                 with self._aggregate_checkpoint_cache_lock:
                     self._aggregate_checkpoint_cache.pop(path, None)
-        return self._hydrate_question_run(path, manifest)
+        return (
+            self._hydrate_question_run(path, manifest)
+            if hydrate_result
+            else self._public(manifest)
+        )
 
     @staticmethod
     def _validate_aggregate_review_execution(
@@ -3492,6 +3503,8 @@ class QualificationRunStore:
         *,
         block_dependents: bool = False,
         validated_receipt: Mapping[str, Any] | None = None,
+        refresh_derived: bool = True,
+        hydrate_result: bool = True,
         **changes: Any,
     ) -> dict[str, Any]:
         return self.update_question_stages(
@@ -3506,6 +3519,8 @@ class QualificationRunStore:
                     "changes": changes,
                 }
             ],
+            refresh_derived=refresh_derived,
+            hydrate_result=hydrate_result,
         )
 
     def update_question_stages(
@@ -3513,11 +3528,18 @@ class QualificationRunStore:
         qualification: str,
         run_id: str,
         updates: list[Mapping[str, Any]],
+        *,
+        refresh_derived: bool = True,
+        hydrate_result: bool = True,
     ) -> dict[str, Any]:
         """Persist independent queue-stage changes with one manifest write."""
 
         if not updates:
-            return self.get(qualification, run_id)
+            return (
+                self.get(qualification, run_id)
+                if hydrate_result
+                else self.get_compact(qualification, run_id)
+            )
         update_keys = [
             (
                 str(value.get("questionId") or ""),
@@ -3541,6 +3563,8 @@ class QualificationRunStore:
                 manifest,
                 updates,
                 update_keys,
+                refresh_derived=refresh_derived,
+                hydrate_result=hydrate_result,
             )
         with self._path_lock(path):
             manifest = self._load_manifest(path)
@@ -3826,6 +3850,51 @@ class QualificationRunStore:
                 else self._public(current)
             )
 
+        return self._refresh_v2_question_summary(
+            manifest_path,
+            manifest,
+            confirmed_group_ids=confirmed_group_ids,
+            appended_child_run_ids=appended_child_run_ids,
+            appended_stage_ids={
+                stage_id for _question_id, stage_id in update_keys
+            },
+            hydrate_result=hydrate_result,
+        )
+
+    def refresh_question_summary(
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        hydrate_result: bool = True,
+    ) -> dict[str, Any]:
+        """Refresh the derived v2 queue summary at a coordinator boundary."""
+
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._path_lock(manifest_path):
+            manifest = self._load_manifest(manifest_path)
+        if not self.question_states.is_v2(manifest):
+            return (
+                self.get(qualification, run_id)
+                if hydrate_result
+                else self.get_compact(qualification, run_id)
+            )
+        return self._refresh_v2_question_summary(
+            manifest_path,
+            manifest,
+            hydrate_result=hydrate_result,
+        )
+
+    def _refresh_v2_question_summary(
+        self,
+        manifest_path: Path,
+        manifest: Mapping[str, Any],
+        *,
+        confirmed_group_ids: Iterable[str] = (),
+        appended_child_run_ids: Iterable[str] = (),
+        appended_stage_ids: Iterable[str] = (),
+        hydrate_result: bool = True,
+    ) -> dict[str, Any]:
         summary_path = self.repo_root / str(
             manifest.get("questionSummaryPath") or ""
         )
@@ -3838,8 +3907,14 @@ class QualificationRunStore:
             except QuestionRunStateError as exc:
                 raise QualificationRunError(str(exc)) from exc
         summary = dict(summary_payload["queueSummary"])
-        appended_stage_ids = {
-            stage_id for _question_id, stage_id in update_keys
+        confirmed_group_id_set = {
+            str(value) for value in confirmed_group_ids if value
+        }
+        appended_child_run_id_list = [
+            str(value) for value in appended_child_run_ids if value
+        ]
+        appended_stage_id_set = {
+            str(value) for value in appended_stage_ids if value
         }
         with self._path_lock(manifest_path):
             current = self._load_manifest(manifest_path)
@@ -3850,12 +3925,12 @@ class QualificationRunStore:
                         for value in current.get("confirmedGroupIds") or []
                         if value
                     ),
-                    *confirmed_group_ids,
+                    *confirmed_group_id_set,
                 }
             )
-            if appended_child_run_ids:
-                if len(appended_stage_ids) == 1:
-                    active_stage_id = next(iter(appended_stage_ids))
+            if appended_child_run_id_list:
+                if len(appended_stage_id_set) == 1:
+                    active_stage_id = next(iter(appended_stage_id_set))
                     current["currentPhaseId"] = active_stage_id
                     current["executionPhase"] = (
                         f"candidate:{active_stage_id}"
@@ -3869,7 +3944,11 @@ class QualificationRunStore:
                 updatedAt=_now(),
             )
             self._write_manifest(manifest_path, current)
-        return self._hydrate_question_run(manifest_path, current)
+        return (
+            self._hydrate_question_run(manifest_path, current)
+            if hydrate_result
+            else self._public(current)
+        )
 
     def list(
         self,
@@ -4621,35 +4700,30 @@ class QualificationRunStore:
         )
         questions: list[dict[str, Any]] = []
         if include_questions:
-            try:
-                plan = self.question_states.load_plan(
-                    manifest_path.parent,
-                    manifest,
+            compact_questions = summary_payload.get("questions")
+            if not isinstance(compact_questions, list):
+                raise QualificationRunError(
+                    "question summaryに問題一覧がありません。"
                 )
-            except QuestionRunStateError as exc:
-                raise QualificationRunError(str(exc)) from exc
-            targets = {
-                str(value.get("id") or ""): dict(value)
-                for value in plan.get("progressTargets") or []
-                if isinstance(value, Mapping) and value.get("id")
-            }
-            for target_index, question_id in enumerate(
-                self.question_states.question_ids(
-                    manifest_path.parent,
-                    manifest,
-                ),
+            for target_index, raw_execution in enumerate(
+                compact_questions,
                 start=1,
             ):
-                try:
-                    state = self.question_states.load_question(
-                        manifest_path.parent,
-                        manifest,
-                        question_id,
+                if not isinstance(raw_execution, Mapping):
+                    raise QualificationRunError(
+                        "question summaryの問題状態が不正です。"
                     )
-                except QuestionRunStateError as exc:
-                    raise QualificationRunError(str(exc)) from exc
-                execution = dict(state["execution"])
-                target = targets.get(question_id, {})
+                execution = copy.deepcopy(dict(raw_execution))
+                question_id = str(execution.get("questionId") or "")
+                if not question_id:
+                    raise QualificationRunError(
+                        "question summaryにquestionIdがありません。"
+                    )
+                target = {
+                    str(key): copy.deepcopy(value)
+                    for key, value in execution.items()
+                    if key not in {"status", "stages"}
+                }
                 stages = [
                     dict(value)
                     for value in execution.get("stages") or []
@@ -4679,48 +4753,19 @@ class QualificationRunStore:
                     if question_status == "validated"
                     else str(active_stage.get("status") or "queued")
                 )
-                attempts = (
-                    state.get("attemptArtifacts")
-                    if isinstance(state.get("attemptArtifacts"), Mapping)
-                    else {}
-                )
                 outputs: list[dict[str, Any]] = []
                 for stage in stages:
-                    validation_attempts = [
-                        value
-                        for value in stage.get("validationAttempts") or []
-                        if isinstance(value, Mapping)
-                    ]
-                    latest_attempt_id = str(
-                        validation_attempts[-1].get("childRunId") or ""
-                    ) if validation_attempts else ""
-                    attempt = (
-                        attempts.get(latest_attempt_id)
-                        if latest_attempt_id
-                        else None
-                    )
-                    batch_results = (
-                        attempt.get("batchQuestionResults")
-                        if isinstance(attempt, Mapping)
-                        else []
-                    )
-                    result = next(
-                        (
-                            dict(value)
-                            for value in batch_results or []
-                            if isinstance(value, Mapping)
-                            and str(value.get("questionId") or "")
-                            == question_id
-                        ),
-                        {},
-                    )
-                    if not result and stage.get("error"):
-                        result = {"summary": str(stage["error"])}
-                    if not result and str(stage.get("status") or "") not in {
+                    stage_status = str(stage.get("status") or "")
+                    if stage_status not in {
                         "validated",
                         "blocked",
                     }:
                         continue
+                    result = (
+                        {"summary": str(stage["error"])}
+                        if stage.get("error")
+                        else {}
+                    )
                     outputs.append(
                         {
                             "event": "stage_completed",
@@ -8396,19 +8441,20 @@ class QualificationRunCoordinator:
         *,
         include_questions: bool = True,
     ) -> dict[str, Any]:
-        run = (
-            self.store.get(qualification, run_id)
-            if include_questions
-            else self.store.get_compact(qualification, run_id)
-        )
-        if str(run.get("qualification") or "") != qualification:
+        compact_run = self.store.get_compact(qualification, run_id)
+        if str(compact_run.get("qualification") or "") != qualification:
             raise QualificationRunError("対象資格と作業履歴が一致しません。")
-        if run.get("workType") == "maintenance_flow":
+        if compact_run.get("workType") == "maintenance_flow":
             return self.store.combined_progress(
                 qualification,
                 run_id,
                 include_questions=include_questions,
             )
+        run = (
+            self.store.get(qualification, run_id)
+            if include_questions
+            else compact_run
+        )
         return self.store.progress(qualification, run_id)
 
     def technical_log(self, qualification: str, run_id: str) -> dict[str, Any]:
@@ -9475,6 +9521,38 @@ class QualificationRunCoordinator:
             (phase_plan.get("policyFingerprints") or {}).get(stage_id) or ""
         )
         parent_snapshot = parent or self.store.get(qualification, run_id)
+        v2_parent = self.store.question_states.is_v2(parent_snapshot)
+
+        def persist_stage(
+            question_id: str,
+            **changes: Any,
+        ) -> dict[str, Any] | None:
+            updated_parent = self.store.update_question_stage(
+                qualification,
+                run_id,
+                question_id,
+                stage_id,
+                refresh_derived=not v2_parent,
+                hydrate_result=not v2_parent,
+                **changes,
+            )
+            if not v2_parent:
+                return self._queue_stage(
+                    updated_parent,
+                    question_id,
+                    stage_id,
+                )
+            detail = self.store.question_detail(
+                qualification,
+                run_id,
+                question_id,
+            )
+            return self._queue_stage(
+                {"questionExecutions": [detail["execution"]]},
+                question_id,
+                stage_id,
+            )
+
         refreshed_stage: dict[str, Any] | None = None
         for target in targets:
             question_id = str(
@@ -9500,17 +9578,9 @@ class QualificationRunCoordinator:
             )
             if str(current.get("inputFingerprint") or "") == expected_input:
                 if current.get("policyFingerprint") != policy_fingerprint:
-                    updated_parent = self.store.update_question_stage(
-                        qualification,
-                        run_id,
+                    refreshed_stage = persist_stage(
                         question_id,
-                        stage_id,
                         policyFingerprint=policy_fingerprint,
-                    )
-                    refreshed_stage = self._queue_stage(
-                        updated_parent,
-                        question_id,
-                        stage_id,
                     )
                 else:
                     refreshed_stage = current
@@ -9520,37 +9590,21 @@ class QualificationRunCoordinator:
                     "工程開始時に入力又は方針が変更されたため、"
                     "この問題だけを再実行してください。"
                 )
-                updated_parent = self.store.update_question_stage(
-                    qualification,
-                    run_id,
+                refreshed_stage = persist_stage(
                     question_id,
-                    stage_id,
                     status="blocked",
                     error=reason,
                     finishedAt=_now(),
                     block_dependents=True,
                 )
-                refreshed_stage = self._queue_stage(
-                    updated_parent,
-                    question_id,
-                    stage_id,
-                )
                 continue
-            updated_parent = self.store.update_question_stage(
-                qualification,
-                run_id,
+            refreshed_stage = persist_stage(
                 question_id,
-                stage_id,
                 inputFingerprint=expected_input,
                 policyFingerprint=policy_fingerprint,
                 preparationPath=None,
                 preparationHash=None,
                 error=None,
-            )
-            refreshed_stage = self._queue_stage(
-                updated_parent,
-                question_id,
-                stage_id,
             )
         return refreshed_stage
 
@@ -10096,6 +10150,8 @@ class QualificationRunCoordinator:
                 run_id,
                 question_id,
                 stage_id,
+                refresh_derived=False,
+                hydrate_result=False,
                 status="not_applicable",
                 error=None,
                 finishedAt=_now(),
@@ -10599,7 +10655,12 @@ class QualificationRunCoordinator:
             }
             if not model_started:
                 changes["executionPhase"] = f"preparing:{stage_id}"
-            self.store.update(qualification, run_id, **changes)
+            self.store.update(
+                qualification,
+                run_id,
+                hydrate_result=False,
+                **changes,
+            )
             heartbeat = getattr(emit, "heartbeat", None)
             if callable(heartbeat):
                 heartbeat()
@@ -10644,6 +10705,8 @@ class QualificationRunCoordinator:
                     run_id,
                     question_id,
                     str(phase["id"]),
+                    refresh_derived=False,
+                    hydrate_result=False,
                     status="blocked",
                     error=str(exc),
                     finishedAt=_now(),
@@ -10670,6 +10733,8 @@ class QualificationRunCoordinator:
                     run_id,
                     question_id,
                     stage_id,
+                    refresh_derived=False,
+                    hydrate_result=False,
                     status="blocked",
                     error=str(exc),
                     finishedAt=_now(),
@@ -10707,6 +10772,8 @@ class QualificationRunCoordinator:
                     run_id,
                     question_id,
                     stage_id,
+                    refresh_derived=False,
+                    hydrate_result=False,
                     status="blocked",
                     error=str(exc),
                     finishedAt=_now(),
@@ -11104,6 +11171,7 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 committing_updates,
+                hydrate_result=False,
             )
 
         def apply_batch_outcome(
@@ -11420,6 +11488,7 @@ class QualificationRunCoordinator:
                 self.store.update(
                     qualification,
                     run_id,
+                    hydrate_result=False,
                     preparationWorkerLimit=preparation_worker_limit,
                     pipelineWorkerLimit=max(1, pipeline_worker_limit),
                     pipelineBacklogLimit=max(
@@ -11516,6 +11585,7 @@ class QualificationRunCoordinator:
                                 qualification,
                                 run_id,
                                 round_stage_updates,
+                                hydrate_result=False,
                             )
 
                     for chunk_start in range(
@@ -11566,6 +11636,11 @@ class QualificationRunCoordinator:
                             if isinstance(prepared_spec, Mapping)
                         ]
                         if not chunk_specs:
+                            self.store.refresh_question_summary(
+                                qualification,
+                                run_id,
+                                hydrate_result=False,
+                            )
                             continue
                         self.store.update_question_stages(
                             qualification,
@@ -11578,6 +11653,7 @@ class QualificationRunCoordinator:
                                     Mapping,
                                 )
                             ],
+                            hydrate_result=False,
                         )
                         chunk_batches: list[list[Mapping[str, Any]]] = []
                         for retrying in (False, True):
@@ -11646,6 +11722,7 @@ class QualificationRunCoordinator:
                         self.store.update(
                             qualification,
                             run_id,
+                            hydrate_result=False,
                             adaptiveScheduler=scheduler_status(
                                 scheduler_limits,
                                 batch_count=batch_count,
@@ -11695,6 +11772,7 @@ class QualificationRunCoordinator:
                 self.store.update(
                     qualification,
                     run_id,
+                    hydrate_result=False,
                     pipelinePendingFutureCount=0,
                     pipelinePeakPendingFutureCount=peak_pending_outcomes,
                 )

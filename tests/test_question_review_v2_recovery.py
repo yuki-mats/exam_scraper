@@ -85,6 +85,143 @@ def _flow_plan(target_path: Path) -> dict:
 
 
 class V2QuestionRunRecoveryTest(unittest.TestCase):
+    def test_hot_state_updates_do_not_rebuild_or_hydrate_the_whole_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = Path(
+                "output/sample/questions_json/2026/10_fixed/q.json"
+            )
+            store = QualificationRunStore(root)
+            run = store.create(
+                _flow_plan(target),
+                status="running",
+                prompt="flow",
+            )
+            store.question_states.rebuild_summary = lambda *_args, **_kwargs: (
+                (_ for _ in ()).throw(
+                    AssertionError("hot update must not rebuild summary")
+                )
+            )
+            store._hydrate_question_run = lambda *_args, **_kwargs: (
+                (_ for _ in ()).throw(
+                    AssertionError("hot update must not hydrate whole run")
+                )
+            )
+
+            compact = store.update(
+                "sample",
+                str(run["runId"]),
+                hydrate_result=False,
+                heartbeatAt="2026-07-27T00:00:00+09:00",
+            )
+            store.update_question_stage(
+                "sample",
+                str(run["runId"]),
+                "sample-2026-q1",
+                "question_type",
+                refresh_derived=False,
+                hydrate_result=False,
+                status="prepared",
+            )
+            detail = store.question_detail(
+                "sample",
+                str(run["runId"]),
+                "sample-2026-q1",
+            )
+
+        self.assertEqual(
+            compact["heartbeatAt"],
+            "2026-07-27T00:00:00+09:00",
+        )
+        self.assertNotIn("questionExecutions", compact)
+        self.assertEqual(
+            detail["execution"]["stages"][0]["status"],
+            "prepared",
+        )
+
+    def test_summary_refresh_can_return_compact_parent_without_hydration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = Path(
+                "output/sample/questions_json/2026/10_fixed/q.json"
+            )
+            store = QualificationRunStore(root)
+            run = store.create(
+                _flow_plan(target),
+                status="running",
+                prompt="flow",
+            )
+            store._hydrate_question_run = lambda *_args, **_kwargs: (
+                (_ for _ in ()).throw(
+                    AssertionError("summary refresh must not hydrate whole run")
+                )
+            )
+
+            compact = store.update_question_stage(
+                "sample",
+                str(run["runId"]),
+                "sample-2026-q1",
+                "question_type",
+                hydrate_result=False,
+                status="blocked",
+                error="確認待ち",
+                finishedAt="2026-07-27T00:00:00+09:00",
+            )
+            progress = store.combined_progress(
+                "sample",
+                str(run["runId"]),
+                include_questions=True,
+            )
+
+        self.assertNotIn("questionExecutions", compact)
+        self.assertEqual(progress["blockedQuestionCount"], 1)
+        self.assertEqual(
+            progress["questions"][0]["blockedReason"],
+            "確認待ち",
+        )
+
+    def test_progress_question_list_uses_summary_without_loading_plan_or_states(
+        self,
+    ):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = Path(
+                "output/sample/questions_json/2026/10_fixed/q.json"
+            )
+            store = QualificationRunStore(root)
+            run = store.create(
+                _flow_plan(target),
+                status="running",
+                prompt="flow",
+            )
+            store.question_states.load_plan = lambda *_args, **_kwargs: (
+                (_ for _ in ()).throw(
+                    AssertionError("progress must not load immutable plan")
+                )
+            )
+            store.question_states.load_question = lambda *_args, **_kwargs: (
+                (_ for _ in ()).throw(
+                    AssertionError("progress must not load question states")
+                )
+            )
+
+            progress = store.combined_progress(
+                "sample",
+                str(run["runId"]),
+                include_questions=True,
+            )
+
+        self.assertEqual(progress["targetQuestionCount"], 1)
+        self.assertEqual(len(progress["questions"]), 1)
+        self.assertEqual(
+            progress["questions"][0]["questionId"],
+            "sample-2026-q1",
+        )
+        self.assertEqual(
+            progress["questions"][0]["queueStatus"],
+            "queued",
+        )
+
     def test_attempt_lookup_uses_question_hash_without_plan_id_scan(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
