@@ -408,12 +408,12 @@ function snapshotResponseIssues(payload) {
 
 function runListSelection(runs, requestedRunId) {
   const items = array(runs);
-  const requested = String(requestedRunId || "");
+  const requested = string(requestedRunId);
   const listed = requested && items.some(
-    (run) => String(first(run?.runId, run?.id)) === requested,
+    (run) => string(run?.runId, run?.id) === requested,
   );
   return {
-    selected: requested || String(first(items[0]?.runId, items[0]?.id, "")),
+    selected: requested || string(items[0]?.runId, items[0]?.id),
     requestedMissing: Boolean(requested && !listed),
   };
 }
@@ -1611,8 +1611,51 @@ async function refreshArtifactsAfterSnapshotChange(context) {
   return queueArtifactRefresh(context);
 }
 
+function qualificationInventoryModel(payload, requestedQualification = "") {
+  const source = object(payload);
+  const seen = new Set();
+  const items = [];
+  array(first(source.qualifications, source.items)).forEach((item) => {
+    const entry = object(item);
+    const id = string(
+      entry.id,
+      entry.qualification,
+      typeof item === "string" ? item : "",
+    ).trim();
+    if (!id || seen.has(id)) return;
+    seen.add(id);
+    items.push({
+      id,
+      label: string(entry.displayName, entry.name, id).trim() || id,
+    });
+  });
+
+  const requested = string(requestedQualification).trim();
+  const inventoryDefault = string(source.defaultQualification).trim();
+  const selected = requested || inventoryDefault || string(items[0]?.id);
+  if (!selected) throw new Error("監視できる資格がありません。");
+  if (!seen.has(selected)) {
+    items.unshift({ id: selected, label: selected });
+  }
+  return { items, selected };
+}
+
+async function loadQualificationInventory(requestedQualification, signal) {
+  const payload = await requestJson("/api/inventory", signal);
+  const model = qualificationInventoryModel(payload, requestedQualification);
+  const select = $("qualification-select");
+  select.replaceChildren();
+  model.items.forEach((item) => {
+    const option = node("option", "", item.label);
+    option.value = item.id;
+    select.append(option);
+  });
+  select.value = model.selected;
+  return model.selected;
+}
+
 async function loadRuns(qualification, signal) {
-  if (!qualification) throw new Error("URLのqualificationを指定してください。");
+  if (!qualification) throw new Error("資格を選択してください。");
   const payload = await requestJson(api("/runs", { qualification }), signal);
   const runs = array(first(payload.runs, payload.items, payload));
   setLoadMessage(
@@ -1621,22 +1664,6 @@ async function loadRuns(qualification, signal) {
       ? "実行一覧は上限により一部省略されています。URLで指定したrunは一覧外でも直接表示します。"
       : "",
   );
-  const qualifications = array(first(payload.qualifications, payload.availableQualifications));
-  const qualificationSelect = $("qualification-select");
-  if (qualifications.length) {
-    qualificationSelect.replaceChildren();
-    qualifications.forEach((item) => {
-      const id = String(first(item.id, item.qualification, item));
-      const option = node("option", "", first(item.displayName, item.name, id));
-      option.value = id;
-      qualificationSelect.append(option);
-    });
-    qualificationSelect.value = qualification;
-  } else {
-    const option = node("option", "", qualification);
-    option.value = qualification;
-    qualificationSelect.replaceChildren(option);
-  }
   const select = $("run-select");
   select.replaceChildren();
   const selection = runListSelection(runs, state.runId);
@@ -1731,6 +1758,15 @@ function setConnection(mode, label) {
   $("connection-label").textContent = label;
 }
 
+function replaceMonitorLocation(qualification, runId = "") {
+  const url = new URL(location.href);
+  if (qualification) url.searchParams.set("qualification", qualification);
+  else url.searchParams.delete("qualification");
+  if (runId) url.searchParams.set("runId", runId);
+  else url.searchParams.delete("runId");
+  history.replaceState(null, "", url);
+}
+
 async function eventLoop(context) {
   while (isCurrent(context)) {
     try {
@@ -1793,10 +1829,7 @@ async function selectRun(runId = $("run-select").value) {
   const context = beginGeneration(state.qualification, runId);
   resetRunView();
   if (!context.runId) return;
-  const url = new URL(location.href);
-  url.searchParams.set("runId", context.runId);
-  url.searchParams.set("qualification", context.qualification);
-  history.replaceState(null, "", url);
+  replaceMonitorLocation(context.qualification, context.runId);
   setConnection("live", "同期中");
   const snapshotResult = await loadSnapshotWithStatus(context);
   if (!isCurrent(context)) return;
@@ -1835,6 +1868,7 @@ function bind() {
   $("qualification-select").addEventListener("change", async () => {
     const qualification = $("qualification-select").value;
     const context = beginGeneration(qualification, "");
+    replaceMonitorLocation(qualification);
     resetRunView();
     try {
       const runId = await loadRuns(qualification, context.signal);
@@ -1928,13 +1962,30 @@ function showFatal(error) {
   renderObservation();
 }
 
+async function prepareInitialSelection() {
+  const requestedQualification = state.qualification;
+  const requestedRunId = state.runId;
+  const inventoryContext = beginGeneration(requestedQualification, requestedRunId);
+  const qualification = await loadQualificationInventory(
+    requestedQualification,
+    inventoryContext.signal,
+  );
+  if (!isCurrent(inventoryContext)) return null;
+
+  const runsContext = beginGeneration(qualification, requestedRunId);
+  replaceMonitorLocation(qualification, requestedRunId);
+  const runId = await loadRuns(qualification, runsContext.signal);
+  if (!isCurrent(runsContext)) return null;
+  return { qualification, runId };
+}
+
 async function start() {
   bind();
-  const bootstrap = new AbortController();
-  const runId = await loadRuns(state.qualification, bootstrap.signal);
-  if (runId) {
-    state.runId = runId;
-    await selectRun(runId);
+  const selection = await prepareInitialSelection();
+  if (!selection) return;
+  if (selection.runId) {
+    state.runId = selection.runId;
+    await selectRun(selection.runId);
   } else {
     showNoRuns();
   }
@@ -1954,6 +2005,11 @@ globalThis.MonitorUiTest = {
   artifactResponseIssues,
   snapshotResponseIssues,
   runListSelection,
+  qualificationInventoryModel,
+  loadQualificationInventory,
+  replaceMonitorLocation,
+  prepareInitialSelection,
+  start,
   normalizedEvent,
   eventText,
   eventChangesArtifact,

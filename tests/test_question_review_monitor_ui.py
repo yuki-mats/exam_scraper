@@ -49,6 +49,7 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
             "<textarea",
         ):
             self.assertNotIn(forbidden, html)
+        self.assertIn('/monitor/monitor.js?v=monitor-v3', html)
 
     def test_layout_covers_tablet_width_keyboard_and_reduced_motion(self):
         html = HTML.read_text(encoding="utf-8")
@@ -79,6 +80,7 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
 
     def test_monitor_contract_polls_snapshot_but_refreshes_artifacts_on_change(self):
         javascript = JS.read_text(encoding="utf-8")
+        self.assertIn('requestJson("/api/inventory"', javascript)
         self.assertIn('api("/runs"', javascript)
         self.assertIn('/snapshot`', javascript)
         self.assertIn('/events`', javascript)
@@ -112,6 +114,13 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
         self.assertGreaterEqual(javascript.count("showNoRuns();"), 2)
         self.assertNotIn('method: "POST"', javascript)
         self.assertNotIn('method: "DELETE"', javascript)
+        self.assertLess(
+            javascript.index("loadQualificationInventory("),
+            javascript.index("loadRuns(qualification, runsContext.signal)"),
+        )
+        self.assertIn("if (!isCurrent(inventoryContext)) return null", javascript)
+        self.assertIn("if (!isCurrent(runsContext)) return null", javascript)
+        self.assertIn("replaceMonitorLocation(qualification);", javascript)
 
     def test_plain_text_allowlist_observed_at_and_stable_deep_link_are_explicit(self):
         javascript = JS.read_text(encoding="utf-8")
@@ -192,6 +201,37 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
               ], "");
               assert.strictEqual(defaultRun.selected, "newest-run");
               assert.strictEqual(defaultRun.requestedMissing, false);
+              const noRun = ui.runListSelection([], "");
+              assert.strictEqual(noRun.selected, "");
+              assert.strictEqual(noRun.requestedMissing, false);
+
+              const defaultQualification = ui.qualificationInventoryModel({
+                defaultQualification: "gas-shunin-otsu",
+                qualifications: [
+                  { id: "demo", displayName: "デモ資格" },
+                  { id: "gas-shunin-otsu", displayName: "乙種ガス主任技術者" },
+                ],
+              }, "");
+              assert.strictEqual(defaultQualification.selected, "gas-shunin-otsu");
+              assert.strictEqual(defaultQualification.items.length, 2);
+              assert.strictEqual(defaultQualification.items[1].label, "乙種ガス主任技術者");
+
+              const requestedQualification = ui.qualificationInventoryModel({
+                defaultQualification: "gas-shunin-otsu",
+                qualifications: [{ id: "demo", displayName: "デモ資格" }],
+              }, "demo");
+              assert.strictEqual(requestedQualification.selected, "demo");
+              assert.strictEqual(requestedQualification.items[0].label, "デモ資格");
+
+              const unlistedQualification = ui.qualificationInventoryModel({
+                qualifications: [{ id: "demo", displayName: "デモ資格" }],
+              }, "deep-linked-qualification");
+              assert.strictEqual(unlistedQualification.selected, "deep-linked-qualification");
+              assert.strictEqual(unlistedQualification.items[0].id, "deep-linked-qualification");
+              assert.throws(
+                () => ui.qualificationInventoryModel({ qualifications: [] }, ""),
+                /監視できる資格がありません/,
+              );
 
               const fingerprintBase = {
                 artifactFingerprint: "sha256:artifact-a",
@@ -1107,6 +1147,151 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
               assert.strictEqual(ui.state.events.length, 500);
               assert(ui.state.seenEventIds.size <= 1000);
               assert.strictEqual(ui.state.observation.eventCount, 1200);
+            })().catch((error) => {
+              console.error(error);
+              process.exitCode = 1;
+            });
+            """
+        )
+        result = subprocess.run(
+            ["node", "-e", script, str(JS)],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_bare_url_bootstrap_preserves_deep_links_and_aborts_stale_runs(self):
+        script = textwrap.dedent(
+            r"""
+            const fs = require("fs");
+            const vm = require("vm");
+            const assert = require("assert");
+            const source = fs.readFileSync(process.argv[1], "utf8");
+
+            class FakeElement {
+              constructor() {
+                this.children = [];
+                this.value = "";
+                this.textContent = "";
+                this.hidden = false;
+              }
+              replaceChildren(...children) { this.children = children; }
+              append(...children) { this.children.push(...children); }
+            }
+
+            const elements = new Map();
+            const document = {
+              getElementById(id) {
+                if (!elements.has(id)) elements.set(id, new FakeElement());
+                return elements.get(id);
+              },
+              createElement() { return new FakeElement(); },
+            };
+            const location = { search: "", href: "http://localhost/monitor" };
+            const history = {
+              replaceState(_state, _title, value) {
+                const url = new URL(String(value));
+                location.href = url.href;
+                location.search = url.search;
+              },
+            };
+            let mode = "immediate";
+            let pendingRunsSignal = null;
+            const calls = [];
+            const response = (payload) => ({
+              ok: true,
+              status: 200,
+              json: async () => payload,
+            });
+            const fetch = (path, options) => {
+              calls.push({ path, method: options.method });
+              if (path === "/api/inventory") {
+                return Promise.resolve(response({
+                  defaultQualification: "gas-shunin-otsu",
+                  qualifications: [
+                    { id: "demo", displayName: "デモ資格" },
+                    { id: "gas-shunin-otsu", displayName: "乙種ガス主任技術者" },
+                  ],
+                }));
+              }
+              if (mode === "deferred" && path.includes("qualification=gas-shunin-otsu")) {
+                pendingRunsSignal = options.signal;
+                return new Promise((_resolve, reject) => {
+                  options.signal.addEventListener("abort", () => {
+                    reject(new DOMException("Aborted", "AbortError"));
+                  }, { once: true });
+                });
+              }
+              return Promise.resolve(response({ runs: [] }));
+            };
+            const sandbox = {
+              __MONITOR_TEST__: true,
+              document,
+              location,
+              history,
+              fetch,
+              URL,
+              URLSearchParams,
+              AbortController,
+              DOMException,
+              Intl,
+              Date,
+              Map,
+              Set,
+              Promise,
+              setTimeout,
+              clearTimeout,
+            };
+            sandbox.globalThis = sandbox;
+            vm.createContext(sandbox);
+            vm.runInContext(source, sandbox, { filename: process.argv[1] });
+            const ui = sandbox.MonitorUiTest;
+
+            (async () => {
+              const bare = await ui.prepareInitialSelection();
+              assert.strictEqual(bare.qualification, "gas-shunin-otsu");
+              assert.strictEqual(bare.runId, "");
+              assert.deepStrictEqual(
+                calls.map((call) => call.path),
+                [
+                  "/api/inventory",
+                  "/api/monitor/v1/runs?qualification=gas-shunin-otsu",
+                ],
+              );
+              assert(calls.every((call) => call.method === "GET"));
+              assert(location.href.includes("qualification=gas-shunin-otsu"));
+              assert(!location.href.includes("runId="));
+
+              ui.state.qualification = "demo";
+              ui.state.runId = "run-from-url";
+              location.href = "http://localhost/monitor?qualification=demo&runId=run-from-url";
+              location.search = "?qualification=demo&runId=run-from-url";
+              const deepLink = await ui.prepareInitialSelection();
+              assert.strictEqual(deepLink.qualification, "demo");
+              assert.strictEqual(deepLink.runId, "run-from-url");
+              assert(location.href.includes("qualification=demo"));
+              assert(location.href.includes("runId=run-from-url"));
+
+              ui.state.qualification = "";
+              ui.state.runId = "";
+              location.href = "http://localhost/monitor";
+              location.search = "";
+              mode = "deferred";
+              const staleBootstrap = ui.prepareInitialSelection().then(
+                () => null,
+                (error) => error,
+              );
+              for (let index = 0; index < 20 && !pendingRunsSignal; index += 1) {
+                await Promise.resolve();
+              }
+              assert(pendingRunsSignal);
+              ui.beginGeneration("demo", "");
+              const abortError = await staleBootstrap;
+              assert.strictEqual(abortError.name, "AbortError");
+              assert.strictEqual(pendingRunsSignal.aborted, true);
             })().catch((error) => {
               console.error(error);
               process.exitCode = 1;
