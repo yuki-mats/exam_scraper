@@ -4110,17 +4110,19 @@ function renderQueue() {
 function renderQuestionUpdatedAt(value) {
   const raw = String(value || "").trim();
   const date = new Date(raw);
-  const label = Number.isNaN(date.getTime())
-    ? "最終更新日時を確認できません"
-    : `最終更新 ${date.toLocaleString("ja-JP", {
+  const valid = !Number.isNaN(date.getTime());
+  const label = valid
+    ? `最終更新 ${date.toLocaleString("ja-JP", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
-    })}`;
+    })}`
+    : "";
   const node = element("time", "question-updated-at", label);
-  if (!Number.isNaN(date.getTime())) node.dateTime = date.toISOString();
+  node.hidden = !valid;
+  if (valid) node.dateTime = date.toISOString();
   return node;
 }
 
