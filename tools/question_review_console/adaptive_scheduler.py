@@ -34,7 +34,6 @@ class AdaptiveLimits:
         provider_failure: bool = False,
         schema_failure: bool = False,
         elapsed_seconds: float | None = None,
-        pending_batches: int = 1,
         max_parallel_turns: int = DEFAULT_MAX_PARALLEL_TURNS,
     ) -> None:
         if provider_failure:
@@ -52,8 +51,10 @@ class AdaptiveLimits:
         if elapsed_seconds is not None and elapsed_seconds > 1_800:
             self.success_streak = 0
             return
+        # parallel_turnsはrunをまたいで維持する実行容量であり、観測時点の
+        # 残りfuture数ではない。wave終端の成功を容量低下として扱わず、
+        # provider失敗で縮小した場合だけ成功に応じて一枠ずつ回復する。
         self.parallel_turns = min(
-            max(1, int(pending_batches or 1)),
             int(max_parallel_turns),
             self.parallel_turns + 1,
         )

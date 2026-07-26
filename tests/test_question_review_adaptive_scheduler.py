@@ -47,6 +47,25 @@ class AdaptiveSchedulerTest(unittest.TestCase):
         self.assertEqual(limits.parallel_turns, 8)
         self.assertEqual(limits.success_streak, 0)
 
+    def test_successful_wave_end_does_not_reduce_parallel_capacity(self):
+        limits = AdaptiveLimits(parallel_turns=64)
+
+        for _ in range(64):
+            limits.observe(max_parallel_turns=64)
+
+        self.assertEqual(limits.parallel_turns, 64)
+        self.assertEqual(limits.success_streak, 0)
+
+    def test_successes_recover_provider_reduction_one_slot_at_a_time(self):
+        limits = AdaptiveLimits(parallel_turns=64)
+        limits.observe(provider_failure=True)
+
+        for _ in range(32):
+            limits.observe(max_parallel_turns=64)
+
+        self.assertEqual(limits.parallel_turns, 33)
+        self.assertEqual(limits.success_streak, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

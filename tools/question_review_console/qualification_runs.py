@@ -11603,7 +11603,6 @@ class QualificationRunCoordinator:
                                 schema_failure=bool(
                                     outcome.get("schemaFailure")
                                 ),
-                                pending_batches=len(pending_outcomes),
                                 max_parallel_turns=question_concurrency,
                             )
                             apply_batch_outcome(
