@@ -40,6 +40,29 @@ _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
 
 
 class ManifestRuntimeCacheTests(unittest.TestCase):
+    def test_restart_uses_recovery_sidecars_instead_of_historical_manifests(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QualificationRunStore(root)
+            queued = store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="queued",
+                prompt="recover me",
+            )
+            queued_path = store._manifest_path("sample", queued["runId"])
+            self.assertTrue(queued_path.with_name("recovery.json").is_file())
+            historical_path = (
+                store.root / "sample" / "historical-broken" / "manifest.json"
+            )
+            historical_path.parent.mkdir(parents=True)
+            historical_path.write_text("{broken historical json", encoding="utf-8")
+
+            restarted = QualificationRunStore(root)
+            recovered = restarted.get("sample", queued["runId"])
+
+        self.assertEqual(recovered["status"], "interrupted")
+        self.assertFalse(queued_path.with_name("recovery.json").exists())
+
     def test_reuses_unchanged_manifest_and_invalidates_external_replace(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -2766,6 +2789,41 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [run["runId"] for run in recent["runs"][:2]],
             [resumed["runId"], duplicate["runId"]],
         )
+
+    def test_recent_loads_only_the_requested_updated_parent_runs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            parents = [
+                coordinator.store.create(
+                    FakeWorkflow().plan("sample", "law_audit"),
+                    status="interrupted",
+                    prompt=f"parent {index}",
+                )
+                for index in range(10)
+            ]
+            loaded_paths = []
+            original_load = coordinator.store._load_manifest
+
+            def tracked_load(path):
+                loaded_paths.append(path)
+                return original_load(path)
+
+            coordinator.store._load_manifest = tracked_load
+            recent = coordinator.recent("sample")
+
+        self.assertEqual(len(recent["runs"]), 8)
+        self.assertEqual(
+            [run["runId"] for run in recent["runs"]],
+            [run["runId"] for run in reversed(parents[-8:])],
+        )
+        self.assertEqual(len(loaded_paths), 8)
 
     def test_unsafe_category_setup_stops_dependent_queue_and_sync(self):
         with tempfile.TemporaryDirectory() as directory:

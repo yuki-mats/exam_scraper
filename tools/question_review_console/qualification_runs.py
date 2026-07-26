@@ -178,6 +178,8 @@ LIVE_RUN_STATUSES = {
     "running",
     "validating",
 }
+RECOVERY_INDEX_MARKER_SCHEMA = "qualification-run-recovery-index/v1"
+RECOVERY_SIDECAR_SCHEMA = "qualification-run-recovery-candidate/v1"
 ARTIFACT_SYNC_COMPLETE_STATUSES = {"succeeded", "current", "not_required"}
 PROGRESS_EVENT_TYPES = {"question_started", "stage_completed", "question_completed"}
 PROGRESS_RESULT_FIELDS = {
@@ -1475,6 +1477,7 @@ class QualificationRunStore:
         ] = {}
         self._technical_log_sequences: dict[Path, int] = {}
         self._technical_log_last_signatures: dict[Path, str] = {}
+        self._recovery_index_marker = self.root / ".recovery-index-v1.json"
         self._recover_interrupted_runs()
         # Recovery scans every historical run. Keep runtime caching bounded to
         # manifests used after startup instead of retaining the whole history.
@@ -2897,16 +2900,34 @@ class QualificationRunStore:
         *,
         limit: int = 8,
         top_level_only: bool = False,
+        newest_updated_first: bool = False,
+        excluded_work_types: Iterable[str] = (),
+        excluded_schema_versions: Iterable[str] = (),
     ) -> list[dict[str, Any]]:
         qualification = _safe_segment(qualification)
         directory = self.root / qualification
         if not directory.is_dir():
             return []
+        excluded_work_type_set = set(excluded_work_types)
+        excluded_schema_version_set = set(excluded_schema_versions)
+        paths = list(directory.glob("*/manifest.json"))
+        paths.sort(
+            key=(
+                (lambda path: (path.stat().st_mtime_ns, str(path)))
+                if newest_updated_first
+                else (lambda path: str(path))
+            ),
+            reverse=True,
+        )
         manifests: list[dict[str, Any]] = []
         with self._lock:
-            for path in sorted(directory.glob("*/manifest.json"), reverse=True):
+            for path in paths:
                 manifest = self._load_manifest(path)
                 if top_level_only and manifest.get("parentRunId"):
+                    continue
+                if manifest.get("workType") in excluded_work_type_set:
+                    continue
+                if manifest.get("schemaVersion") in excluded_schema_version_set:
                     continue
                 manifest = self._apply_result_receipt(path, manifest)
                 manifests.append(self._public(manifest))
@@ -4373,15 +4394,45 @@ class QualificationRunStore:
 
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
+            self._write_json(
+                self._recovery_index_marker,
+                {
+                    "schemaVersion": RECOVERY_INDEX_MARKER_SCHEMA,
+                    "preparedAt": _now(),
+                },
+            )
             return
         with self._lock:
-            paths = list(self.root.glob("*/*/manifest.json"))
-            paths.sort(
-                key=lambda candidate: (
-                    self._load_manifest(candidate).get("kind") == "orchestration",
-                    str(candidate),
+            indexed_startup = self._recovery_index_marker.is_file()
+            if indexed_startup:
+                candidates: list[tuple[bool, Path]] = []
+                for sidecar_path in self.root.glob("*/*/recovery.json"):
+                    try:
+                        sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
+                    except (OSError, json.JSONDecodeError):
+                        sidecar = {}
+                    candidates.append(
+                        (
+                            sidecar.get("kind") == "orchestration",
+                            sidecar_path.with_name("manifest.json"),
+                        )
+                    )
+                paths = [
+                    path
+                    for _orchestration, path in sorted(
+                        candidates,
+                        key=lambda value: (value[0], str(value[1])),
+                    )
+                    if path.is_file()
+                ]
+            else:
+                paths = list(self.root.glob("*/*/manifest.json"))
+                paths.sort(
+                    key=lambda candidate: (
+                        self._load_manifest(candidate).get("kind") == "orchestration",
+                        str(candidate),
+                    )
                 )
-            )
             for path in paths:
                 manifest = self._load_manifest(path)
                 status = str(manifest.get("status") or "")
@@ -4408,6 +4459,8 @@ class QualificationRunStore:
                 if status not in {"queued", "running", "validating"} and not (
                     recoverable_paused_parent
                 ):
+                    if not self._requires_startup_recovery(manifest):
+                        path.with_name("recovery.json").unlink(missing_ok=True)
                     continue
                 if self._recover_interrupted_structured_candidate(path, manifest):
                     continue
@@ -4630,15 +4683,16 @@ class QualificationRunStore:
                 manifest["updatedAt"] = _now()
                 manifest["finishedAt"] = manifest["updatedAt"]
                 self._write_manifest(path, manifest)
-
             # 子runのrollback結果は親queueの再開可否へ集約する。親を先に
             # 読んだ場合でも、全run回収後の二巡目なら確定状態を判定できる。
-            for path in self.root.glob("*/*/manifest.json"):
+            for path in paths:
                 manifest = self._load_manifest(path)
                 if (
                     manifest.get("kind") != "orchestration"
                     or manifest.get("retrySafe") is False
                 ):
+                    if not self._requires_startup_recovery(manifest):
+                        path.with_name("recovery.json").unlink(missing_ok=True)
                     continue
                 unsafe_child_id = ""
                 for child_run_id in manifest.get("childRunIds") or []:
@@ -4656,6 +4710,7 @@ class QualificationRunStore:
                         unsafe_child_id = str(child_run_id)
                         break
                 if not unsafe_child_id:
+                    path.with_name("recovery.json").unlink(missing_ok=True)
                     continue
                 reason = (
                     "再起動後に子作業のrollback又は残存差分を確認できないため、"
@@ -4668,6 +4723,14 @@ class QualificationRunStore:
                     updatedAt=_now(),
                 )
                 self._write_manifest(path, manifest)
+            if not indexed_startup:
+                self._write_json(
+                    self._recovery_index_marker,
+                    {
+                        "schemaVersion": RECOVERY_INDEX_MARKER_SCHEMA,
+                        "preparedAt": _now(),
+                    },
+                )
 
     def _recover_baseline_delta(
         self,
@@ -5049,12 +5112,59 @@ class QualificationRunStore:
         return copy.deepcopy(value)
 
     def _write_manifest(self, path: Path, manifest: Mapping[str, Any]) -> None:
+        requires_recovery = self._requires_startup_recovery(manifest)
+        recovery_path = path.with_name("recovery.json")
+        if requires_recovery:
+            self._write_json(
+                recovery_path,
+                {
+                    "schemaVersion": RECOVERY_SIDECAR_SCHEMA,
+                    "qualification": manifest.get("qualification"),
+                    "runId": manifest.get("runId"),
+                    "kind": manifest.get("kind"),
+                    "status": manifest.get("status"),
+                    "updatedAt": manifest.get("updatedAt"),
+                },
+            )
         QualificationRunStore._write_json(path, manifest)
+        if not requires_recovery:
+            recovery_path.unlink(missing_ok=True)
         cached = copy.deepcopy(dict(manifest))
         self._remember_manifest(
             path,
             self._manifest_file_signature(path),
             cached,
+        )
+
+    @staticmethod
+    def _requires_startup_recovery(manifest: Mapping[str, Any]) -> bool:
+        status = str(manifest.get("status") or "")
+        if status in LIVE_RUN_STATUSES:
+            return True
+        if (
+            status in {"failed", "interrupted"}
+            and manifest.get("kind") == "orchestration"
+            and manifest.get("retrySafe") is not False
+            and bool(manifest.get("childRunIds"))
+        ):
+            return True
+        if (
+            status != "interrupted"
+            or manifest.get("kind") != "orchestration"
+            or not isinstance(manifest.get("questionExecutions"), list)
+        ):
+            return False
+        return any(
+            str(stage.get("status") or "")
+            in {"preparing", "prepared", "committing"}
+            for question in manifest["questionExecutions"]
+            if isinstance(question, Mapping)
+            for stage in question.get("stages") or []
+            if isinstance(stage, Mapping)
+        ) or any(
+            str(phase.get("status") or "") == "running"
+            for phase in manifest.get("phaseExecutions") or []
+            if isinstance(phase, Mapping)
         )
 
     @staticmethod
@@ -5619,28 +5729,17 @@ class QualificationRunCoordinator:
         return {"run": run, "prompt": None, "job": job}
 
     def recent(self, qualification: str) -> dict[str, Any]:
-        runs = sorted(
-            [
-                self._refresh_retry_safety(qualification, run)
-                for run in self.store.list(
-                    qualification,
-                    limit=100,
-                    top_level_only=True,
-                )
-                if run.get("workType") not in {"evaluation", "reevaluation"}
-                and not run.get("parentRunId")
-                and run.get("schemaVersion") != "failed-delta-reconciliation/v1"
-            ],
-            key=lambda run: (
-                str(
-                    run.get("updatedAt")
-                    or run.get("createdAt")
-                    or ""
-                ),
-                str(run.get("runId") or ""),
-            ),
-            reverse=True,
-        )[:8]
+        runs = [
+            self._refresh_retry_safety(qualification, run)
+            for run in self.store.list(
+                qualification,
+                limit=8,
+                top_level_only=True,
+                newest_updated_first=True,
+                excluded_work_types={"evaluation", "reevaluation"},
+                excluded_schema_versions={"failed-delta-reconciliation/v1"},
+            )
+        ]
         return {
             "qualification": qualification,
             "runs": runs,
