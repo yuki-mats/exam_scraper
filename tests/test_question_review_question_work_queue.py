@@ -1,7 +1,9 @@
 import copy
 import unittest
+from unittest.mock import patch
 
 from tools.question_review_console.question_work_queue import (
+    build_question_plan_index,
     build_question_executions,
     queue_summary,
     recover_interrupted_executions,
@@ -157,6 +159,32 @@ class QuestionWorkQueueTests(unittest.TestCase):
             next(iter(plan["targetRecordScopes"].values())),
             [["q2", "source.json#1"]],
         )
+
+    def test_reuses_plan_index_without_copying_the_full_plan(self) -> None:
+        plan_index = build_question_plan_index(self.first)
+        original_deepcopy = copy.deepcopy
+
+        def guarded_deepcopy(value, *args, **kwargs):
+            if value is self.first:
+                raise AssertionError("full plan must not be deep-copied")
+            return original_deepcopy(value, *args, **kwargs)
+
+        with patch(
+            "tools.question_review_console.question_work_queue.copy.deepcopy",
+            side_effect=guarded_deepcopy,
+        ):
+            plan = specialize_question_plan(
+                self.first,
+                "q2",
+                index=plan_index,
+            )
+
+        plan["progressTargets"][0]["aliases"].append("scoped-only")
+        self.assertNotIn(
+            "scoped-only",
+            self.first["progressTargets"][1]["aliases"],
+        )
+        self.assertEqual(plan["targetQuestionKeys"], ["q2"])
 
     def test_restart_keeps_validated_and_requeues_only_safe_preparation(self) -> None:
         executions = build_question_executions(self.plan)

@@ -1954,9 +1954,13 @@ function qualificationRunViewState(run, progress = state.qualificationRunProgres
   } else if (["running", "awaiting_changes"].includes(run?.status) && !workComplete) {
     phase = flowPhase ? `${flowPhase.label}中` : "問題を整備中";
     const current = progressCurrentQuestion(progress);
+    const preparation = run?.preparationProgress;
     summary = current
       ? `${flowPhase ? `${flowPhase.label}・` : ""}${progressDisplayLabel(current)}・${progressQuestionQueueState(current).label} / ${progressText}`
-      : `${flowPhase ? `${flowPhase.label}の` : ""}正本文書と対象問題を読み込んでいます。`;
+      : preparation?.targetCount
+        ? `${flowPhase ? `${flowPhase.label}・` : ""}準備 ${Number(preparation.preparedCount || 0)}/${Number(preparation.targetCount)}問`
+          + `${preparation.modelStarted ? "・準備済みの束からmodel実行中" : ""}`
+        : `${flowPhase ? `${flowPhase.label}の` : ""}正本文書と対象問題を読み込んでいます。`;
   } else if (["running", "validating"].includes(run?.status) && workComplete) {
     phase = "最終検証中";
     statusLabel = "最終検証中";
@@ -2304,7 +2308,10 @@ function renderQualificationActiveRun() {
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
     const modelBatchSize = Number(run.modelBatchSize || 1);
-    parallelLabel = ` ・ 入力別に最大${modelBatchSize}問・直列実行・検査と確定は1問ずつ`;
+    const modelWorkerLimit = Number(
+      run.modelWorkerLimit || run.questionConcurrency || 1,
+    );
+    parallelLabel = ` ・ 入力別に最大${modelBatchSize}問・model turn最大${modelWorkerLimit}本並列・検査と確定は1問ずつ`;
   } else if (view.active && run.executionPhase === "parallel_research") {
     parallelLabel = " ・ 判断調査中（1 thread・読取専用）";
   } else if (view.active && run.executionPhase === "writing") {

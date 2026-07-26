@@ -122,6 +122,7 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "researchSubagentCount",
     "researchStatus",
     "executionPhase",
+    "preparationProgress",
     "currentPhaseId",
     "queueStatus",
     "pauseKind",

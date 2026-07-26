@@ -6,7 +6,7 @@
 
 1. 実装・文書・設定の変更とテストを終え、serverを再起動する。run中は現在確定中のpatchと作業版台帳を外部から変更しない。
 2. トップの年度・フォルダ（`listGroupId`）一覧で`整備・洗い替え`を開き、対象年度、整備する項目、処理する問題を指定する。工程は整備する項目から自動で決まり、serverは対象を一問queueへ分解して`00_source`と確定patchの論理projectionを次工程へ渡す。設問意図（02）は`questionIntent`だけを更新し、正答（02a）は全選択肢の`correctChoiceText`を`正しい` / `間違い`で確定する。
-3. serverは入力token量で複数問をまとめ、全資格合計32本を上限としてmodel turnを並行実行する。1資格だけなら最大32本、複数資格なら資格ごとに公平配分する。modelはread-onlyで候補だけを返し、serverが一問ずつ検査・確定する。不合格はqueue末尾で最大2回再実行する。
+3. serverは入力token量で複数問をまとめ、全資格合計64本を上限としてmodel turnを並行実行する。1資格だけなら最大32本、2資格なら原則32本ずつ、3資格以上は資格ごとに公平配分する。modelはread-onlyで候補だけを返し、serverが一問ずつ検査・確定する。不合格はqueue末尾で最大2回再実行する。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
 5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
 
@@ -75,7 +75,7 @@ browser -> Python server -> Codex App Server（stdio）
 Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。初回は`gpt-5.5`、候補生成又は機械検査に失敗した問題の再試行は`gpt-5.6-sol`を使い、推論強度はどちらも`high`とします。成功した問題は再投入せず、再開時も失敗した問題だけに直前の検査feedbackを引き継ぎます。要求modelと返された実modelはattemptとmanifestへ保存します。評価、再整備、再評価は`gpt-5.5`、推論強度`high`をturnごとに指定します。
 
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
-- serverは問題の現在projectionをtoken量で束ねる。1 turnは最大50問、全資格で同時に実行するtop-level model turnは合計32本までとする。UIではrunごとの希望上限を1、5、10、32から選べ、初期値は32とする。1資格なら最大32本、2資格なら原則16本ずつ、3資格なら11、11、10本のように公平配分し、資格の開始・終了に応じて新しく取得するslotから動的に再配分する。既に実行中のturnは途中で止めない。provider又はschema失敗時はrun内のadaptive schedulerが自動で束と並列数を縮小する。
+- serverは問題の現在projectionをtoken量で束ねる。1 turnは最大50問、1資格の希望上限は32本、全資格で同時に実行するtop-level model turnは合計64本までとする。UIではrunごとの希望上限を1、5、10、32から選べ、初期値は32とする。1資格なら最大32本、2資格なら原則32本ずつ、3資格なら希望上限32本を超えない範囲で22、21、21本のように公平配分し、資格の開始・終了に応じて新しく取得するslotから動的に再配分する。既に実行中のturnは途中で止めない。provider又はschema失敗時はrun内のadaptive schedulerが自動で束と並列数を縮小する。
 - modelは問題別の構造化候補を返すだけで、検査commandや成功receiptを自己申告しない。serverは候補ごとにsource identity、許可field、工程品質、`00_source`不変を検査し、合格recordだけを確定patchへ反映する。同じturn内の他問題の不合格や曖昧さは波及しない。
 - 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。二者不一致、source hash不一致、判定不能又は境界不明は問題単位の`hold`とし、patchへ反映しない。対象確定時の記述本文はserverが合意済みspanから切り出し、model出力の文章を保存しない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
@@ -98,7 +98,8 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 - `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasや旧runのIDを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
 - `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全子工程がvalidatedになった問題だけを完了とする。
-- Codex App Serverのturn待機中は15秒間隔で`heartbeatAt`を更新する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
+- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、準備できた束からmodel turnへ逐次投入するため、全問の準備完了を待たない。正本への検査・確定は従来どおり一問ずつ行う。
+- Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
 - 一つのmodel turnが15分で完了しない場合は中断し、その問題又は束だけを失敗としてqueueの再試行契約へ戻す。
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。

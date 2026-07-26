@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 from collections.abc import Iterable, Mapping
+from dataclasses import dataclass
 from typing import Any
 
 from scripts.common.question_identity import SourceIdentityBinding
@@ -23,6 +24,24 @@ WORK_ITEM_STATES = {
 
 class QuestionWorkQueueError(ValueError):
     pass
+
+
+@dataclass(frozen=True)
+class QuestionPlanIndex:
+    """Immutable lookup tables for repeatedly scoping one qualification plan."""
+
+    targets_by_id: Mapping[str, Mapping[str, Any]]
+    alias_groups_by_id: Mapping[str, tuple[str, ...]]
+    bindings_by_id: Mapping[str, tuple[Mapping[str, Any], ...]]
+    source_scope_paths_by_group: Mapping[tuple[str, ...], tuple[str, ...]]
+    source_scope_path_order: Mapping[str, int]
+    record_scope_paths_by_group: Mapping[tuple[str, ...], tuple[str, ...]]
+    record_scope_path_order: Mapping[str, int]
+    source_files: frozenset[str]
+    output_files: frozenset[str]
+    allowed_patch_files: frozenset[str]
+    allowed_write_files: frozenset[str]
+    policy_targets: Mapping[str, frozenset[str]]
 
 
 def _canonical_hash(value: Any) -> str:
@@ -393,63 +412,169 @@ def recover_interrupted_executions(
 
 
 
-def _matching_alias_group(
-    plan: Mapping[str, Any], target: Mapping[str, Any]
-) -> list[str]:
-    aliases = _target_aliases(target)
-    source_ref = str(target.get("sourceRecordRef") or "")
-    candidates = [
-        sorted({str(value) for value in group if value})
+def build_question_plan_index(plan: Mapping[str, Any]) -> QuestionPlanIndex:
+    """Build the immutable lookups used while preparing every question."""
+
+    targets_by_id: dict[str, Mapping[str, Any]] = {}
+    for raw_target in plan.get("progressTargets") or []:
+        if not isinstance(raw_target, Mapping):
+            continue
+        question_id = _target_id(raw_target)
+        if not question_id:
+            continue
+        if question_id in targets_by_id:
+            raise QuestionWorkQueueError(
+                f"一問queueの対象問題が重複しています: {question_id}"
+            )
+        targets_by_id[question_id] = raw_target
+
+    normalized_groups = [
+        tuple(sorted({str(value) for value in group if value}))
         for group in plan.get("targetRecordAliasGroups") or []
         if isinstance(group, (list, tuple, set))
-        and (source_ref in group if source_ref else bool(aliases & set(group)))
     ]
-    if not candidates:
-        candidates = [sorted(aliases)]
-    scores = [(len(aliases & set(group)), group) for group in candidates]
-    best = max((score for score, _group in scores), default=0)
-    strongest = [group for score, group in scores if score == best]
-    if len(strongest) != 1 or not strongest[0]:
-        raise QuestionWorkQueueError(
-            f"対象問題のrecord scopeを一意に特定できません: {_target_id(target)}"
-        )
-    return strongest[0]
+    group_indexes_by_alias: dict[str, list[int]] = {}
+    for group_index, group in enumerate(normalized_groups):
+        for alias in group:
+            group_indexes_by_alias.setdefault(alias, []).append(group_index)
 
-
-def _filter_scopes(
-    value: Any,
-    selected_groups: list[list[str]],
-) -> dict[str, list[list[str]]]:
-    if not isinstance(value, Mapping):
-        return {}
-    selected = {tuple(group) for group in selected_groups}
-    filtered: dict[str, list[list[str]]] = {}
-    for path, groups in value.items():
-        if not isinstance(groups, (list, tuple)):
-            continue
-        kept = [
-            sorted({str(alias) for alias in group if alias})
-            for group in groups
-            if isinstance(group, (list, tuple, set))
-            and tuple(sorted({str(alias) for alias in group if alias})) in selected
+    alias_groups_by_id: dict[str, tuple[str, ...]] = {}
+    for question_id, target in targets_by_id.items():
+        aliases = _target_aliases(target)
+        source_ref = str(target.get("sourceRecordRef") or "")
+        if source_ref:
+            candidate_indexes = list(group_indexes_by_alias.get(source_ref, []))
+        else:
+            candidate_indexes = sorted(
+                {
+                    group_index
+                    for alias in aliases
+                    for group_index in group_indexes_by_alias.get(alias, [])
+                }
+            )
+        candidates = [
+            normalized_groups[group_index] for group_index in candidate_indexes
         ]
-        if kept:
-            filtered[str(path)] = kept
-    return filtered
+        if not candidates:
+            candidates = [tuple(sorted(aliases))]
+        scores = [
+            (len(aliases & set(group)), group)
+            for group in candidates
+        ]
+        best = max((score for score, _group in scores), default=0)
+        strongest = [group for score, group in scores if score == best]
+        if len(strongest) != 1 or not strongest[0]:
+            raise QuestionWorkQueueError(
+                "対象問題のrecord scopeを一意に特定できません: "
+                f"{question_id}"
+            )
+        alias_groups_by_id[question_id] = strongest[0]
+
+    bindings_by_id: dict[str, list[Mapping[str, Any]]] = {}
+    for raw_binding in plan.get("targetRecordBindings") or []:
+        if not isinstance(raw_binding, Mapping):
+            continue
+        question_id = str(raw_binding.get("uiQuestionId") or "")
+        if question_id:
+            bindings_by_id.setdefault(question_id, []).append(raw_binding)
+
+    def scope_index(
+        raw_scopes: Any,
+    ) -> tuple[dict[tuple[str, ...], tuple[str, ...]], dict[str, int]]:
+        paths_by_group: dict[tuple[str, ...], list[str]] = {}
+        path_order: dict[str, int] = {}
+        if not isinstance(raw_scopes, Mapping):
+            return {}, {}
+        for path_index, (raw_path, raw_groups) in enumerate(raw_scopes.items()):
+            path = str(raw_path)
+            path_order.setdefault(path, path_index)
+            if not isinstance(raw_groups, (list, tuple)):
+                continue
+            for raw_group in raw_groups:
+                if not isinstance(raw_group, (list, tuple, set)):
+                    continue
+                group = tuple(
+                    sorted({str(alias) for alias in raw_group if alias})
+                )
+                if group:
+                    paths_by_group.setdefault(group, []).append(path)
+        return (
+            {
+                group: tuple(dict.fromkeys(paths))
+                for group, paths in paths_by_group.items()
+            },
+            path_order,
+        )
+
+    source_paths_by_group, source_path_order = scope_index(
+        plan.get("targetSourceRecordScopes")
+    )
+    record_paths_by_group, record_path_order = scope_index(
+        plan.get("targetRecordScopes")
+    )
+    return QuestionPlanIndex(
+        targets_by_id=targets_by_id,
+        alias_groups_by_id=alias_groups_by_id,
+        bindings_by_id={
+            question_id: tuple(bindings)
+            for question_id, bindings in bindings_by_id.items()
+        },
+        source_scope_paths_by_group=source_paths_by_group,
+        source_scope_path_order=source_path_order,
+        record_scope_paths_by_group=record_paths_by_group,
+        record_scope_path_order=record_path_order,
+        source_files=frozenset(
+            str(path) for path in plan.get("sourceFiles") or []
+        ),
+        output_files=frozenset(
+            str(path) for path in plan.get("outputFiles") or []
+        ),
+        allowed_patch_files=frozenset(
+            str(path) for path in plan.get("allowedPatchFiles") or []
+        ),
+        allowed_write_files=frozenset(
+            str(path) for path in plan.get("allowedWriteFiles") or []
+        ),
+        policy_targets={
+            str(stage_id): frozenset(str(value) for value in raw_targets or [])
+            for stage_id, raw_targets in (plan.get("policyTargets") or {}).items()
+        },
+    )
+
+
+def _scopes_from_index(
+    paths_by_group: Mapping[tuple[str, ...], tuple[str, ...]],
+    path_order: Mapping[str, int],
+    selected_groups: list[tuple[str, ...]],
+) -> dict[str, list[list[str]]]:
+    groups_by_path: dict[str, list[list[str]]] = {}
+    for group in dict.fromkeys(selected_groups):
+        for path in paths_by_group.get(group, ()):
+            groups_by_path.setdefault(path, []).append(list(group))
+    return {
+        path: groups_by_path[path]
+        for path in sorted(
+            groups_by_path,
+            key=lambda value: (path_order.get(value, len(path_order)), value),
+        )
+    }
 
 
 def subset_question_plan(
     plan: Mapping[str, Any],
     question_ids: Iterable[str],
+    *,
+    index: QuestionPlanIndex | None = None,
 ) -> dict[str, Any]:
     selected_ids = {str(value) for value in question_ids if str(value)}
     if not selected_ids:
         raise QuestionWorkQueueError("一問queueの対象問題がありません。")
-    candidate = copy.deepcopy(dict(plan))
+    plan_index = index or build_question_plan_index(plan)
+    candidate = dict(plan)
     targets = [
-        dict(target)
-        for target in plan.get("progressTargets") or []
-        if isinstance(target, Mapping) and _target_id(target) in selected_ids
+        copy.deepcopy(dict(target))
+        for question_id, target in plan_index.targets_by_id.items()
+        if question_id in selected_ids
     ]
     resolved_ids = {_target_id(target) for target in targets}
     missing = selected_ids - resolved_ids
@@ -458,18 +583,28 @@ def subset_question_plan(
             "一問queueの対象を実行planから解決できません: "
             + ", ".join(sorted(missing))
         )
-    groups = [_matching_alias_group(plan, target) for target in targets]
+    groups = [
+        plan_index.alias_groups_by_id[_target_id(target)]
+        for target in targets
+    ]
     aliases = {value for group in groups for value in group}
     bindings = [
         copy.deepcopy(dict(binding))
-        for binding in plan.get("targetRecordBindings") or []
-        if isinstance(binding, Mapping)
-        and str(binding.get("uiQuestionId") or "") in resolved_ids
+        for question_id in [_target_id(target) for target in targets]
+        for binding in plan_index.bindings_by_id.get(question_id, ())
     ]
     if len(bindings) != len(targets):
         raise QuestionWorkQueueError("一問queueのsource identity bindingが不足しています。")
-    source_scopes = _filter_scopes(plan.get("targetSourceRecordScopes"), groups)
-    record_scopes = _filter_scopes(plan.get("targetRecordScopes"), groups)
+    source_scopes = _scopes_from_index(
+        plan_index.source_scope_paths_by_group,
+        plan_index.source_scope_path_order,
+        groups,
+    )
+    record_scopes = _scopes_from_index(
+        plan_index.record_scope_paths_by_group,
+        plan_index.record_scope_path_order,
+        groups,
+    )
     scoped_paths = set(record_scopes)
     source_paths = set(source_scopes)
     target_group_ids = list(
@@ -486,38 +621,74 @@ def subset_question_plan(
         targetQuestionKeys=[_target_id(target) for target in targets],
         progressTargets=targets,
         targetRecordBindings=bindings,
-        targetRecordAliasGroups=groups,
+        targetRecordAliasGroups=[list(group) for group in groups],
         targetRecordAliases=sorted(aliases),
         targetSourceRecordScopes=source_scopes,
         targetRecordScopes=record_scopes,
         sourceFiles=[
-            str(path)
-            for path in plan.get("sourceFiles") or []
-            if str(path) in source_paths
+            path
+            for path in sorted(
+                source_paths,
+                key=lambda value: (
+                    plan_index.source_scope_path_order.get(
+                        value,
+                        len(plan_index.source_scope_path_order),
+                    ),
+                    value,
+                ),
+            )
+            if path in plan_index.source_files
         ],
         outputFiles=[
-            str(path)
-            for path in plan.get("outputFiles") or []
-            if str(path) in scoped_paths
+            path
+            for path in sorted(
+                scoped_paths,
+                key=lambda value: (
+                    plan_index.record_scope_path_order.get(
+                        value,
+                        len(plan_index.record_scope_path_order),
+                    ),
+                    value,
+                ),
+            )
+            if path in plan_index.output_files
         ],
         allowedPatchFiles=[
-            str(path)
-            for path in plan.get("allowedPatchFiles") or []
-            if str(path) in scoped_paths
+            path
+            for path in sorted(
+                scoped_paths,
+                key=lambda value: (
+                    plan_index.record_scope_path_order.get(
+                        value,
+                        len(plan_index.record_scope_path_order),
+                    ),
+                    value,
+                ),
+            )
+            if path in plan_index.allowed_patch_files
         ],
         allowedWriteFiles=[
-            str(path)
-            for path in plan.get("allowedWriteFiles") or []
-            if str(path) in scoped_paths
+            path
+            for path in sorted(
+                scoped_paths,
+                key=lambda value: (
+                    plan_index.record_scope_path_order.get(
+                        value,
+                        len(plan_index.record_scope_path_order),
+                    ),
+                    value,
+                ),
+            )
+            if path in plan_index.allowed_write_files
         ],
         policyTargets={
             str(stage_id): [
                 _target_id(target)
                 for target in targets
                 if _target_id(target)
-                in {str(value) for value in raw_targets or []}
+                in allowed_targets
             ]
-            for stage_id, raw_targets in (plan.get("policyTargets") or {}).items()
+            for stage_id, allowed_targets in plan_index.policy_targets.items()
         },
     )
     allowed_paths = {
@@ -535,8 +706,10 @@ def subset_question_plan(
 def specialize_question_plan(
     plan: Mapping[str, Any],
     question_id: str,
+    *,
+    index: QuestionPlanIndex | None = None,
 ) -> dict[str, Any]:
-    candidate = subset_question_plan(plan, [question_id])
+    candidate = subset_question_plan(plan, [question_id], index=index)
     stage_id = str(candidate.get("stageId") or "")
     candidate["stageIds"] = [stage_id]
     candidate.pop("stagePlans", None)

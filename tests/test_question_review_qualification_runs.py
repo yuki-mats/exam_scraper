@@ -2953,6 +2953,59 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["modelBatchSize"], 5)
         self.assertEqual(completed["modelWorkerLimit"], 1)
 
+    def test_preparation_streams_ready_chunk_before_scanning_all_questions(self):
+        class StreamingInventory(CountedSourceInventory):
+            def __init__(self):
+                super().__init__(3)
+                self.model_started = threading.Event()
+                self.projected_count = 0
+
+            def projected_input(self, *args):
+                self.projected_count += 1
+                if self.projected_count == 3 and not self.model_started.wait(2):
+                    raise AssertionError(
+                        "model turn did not start after the first prepared chunk"
+                    )
+                return super().projected_input(*args)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = StreamingInventory()
+            app_server = PerQuestionQueueAppServer(
+                before_receipt=lambda *_args: inventory.model_started.set()
+            )
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                inventory,
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 3)
+
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "PREPARATION_CHUNK_SIZE",
+                2,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertTrue(inventory.model_started.is_set())
+        self.assertEqual(
+            app_server.batch_calls,
+            [
+                ("new-exam-2026-q1", "new-exam-2026-q2"),
+                ("new-exam-2026-q3",),
+            ],
+        )
+        self.assertEqual(completed["preparationProgress"]["status"], "prepared")
+        self.assertEqual(completed["preparationProgress"]["preparedCount"], 3)
+
     def test_failed_question_retries_after_normal_queue_is_drained(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -6,6 +6,8 @@ import json
 import re
 import stat
 import threading
+from collections import Counter
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -611,8 +613,42 @@ class QuestionInventory:
         self._source_cache: dict[tuple[str, str], ProjectionCache] = {}
         self._stage_index_cache: dict[tuple[str, str, str], ProjectionCache] = {}
         self._issue_index_cache: dict[tuple[str, str], ProjectionCache] = {}
+        self._projection_snapshot_counts: Counter[tuple[str, str]] = Counter()
         self._id_map: dict[str, dict[str, Any]] = {}
         self._lock = threading.RLock()
+
+    @contextmanager
+    def projection_snapshot(
+        self,
+        qualification: str,
+        list_group_ids: Iterable[str],
+    ):
+        """Reuse one validated projection index until a canonical write invalidates it."""
+
+        keys = [
+            (_safe_segment(qualification), _safe_segment(str(list_group_id)))
+            for list_group_id in dict.fromkeys(list_group_ids)
+        ]
+        with self._lock:
+            self._projection_snapshot_counts.update(keys)
+        try:
+            yield
+        finally:
+            with self._lock:
+                for key in keys:
+                    self._projection_snapshot_counts[key] -= 1
+                    if self._projection_snapshot_counts[key] <= 0:
+                        self._projection_snapshot_counts.pop(key, None)
+
+    def _projection_snapshot_active(
+        self,
+        qualification: str,
+        list_group_id: str,
+    ) -> bool:
+        return self._projection_snapshot_counts.get(
+            (qualification, list_group_id),
+            0,
+        ) > 0
 
     def inventory(self) -> dict[str, Any]:
         qualifications = []
@@ -837,6 +873,13 @@ class QuestionInventory:
     ) -> tuple[Any, ...]:
         key = (qualification, list_group_id)
         source_dir = group_dir / SOURCE_SUBDIR
+        with self._lock:
+            cached = self._source_cache.get(key)
+            if cached and self._projection_snapshot_active(
+                qualification,
+                list_group_id,
+            ):
+                return cached.payload
         fingerprint = self._paths_fingerprint(source_json_paths(source_dir))
         with self._lock:
             cached = self._source_cache.get(key)
@@ -858,8 +901,24 @@ class QuestionInventory:
         identities: tuple[SourceRecordIdentity, ...],
     ) -> dict[str, IdentityCandidateIndex]:
         maps: dict[str, IdentityCandidateIndex] = {}
-        identity_fingerprint = self._identity_fingerprint(identities)
         with self._lock:
+            if self._projection_snapshot_active(
+                qualification,
+                list_group_id,
+            ):
+                snapshot_maps = {
+                    stage: self._stage_index_cache.get(
+                        (qualification, list_group_id, stage)
+                    )
+                    for stage, _subdir, _tag in STAGE_SPECS
+                }
+                if all(snapshot_maps.values()):
+                    return {
+                        stage: cached.payload
+                        for stage, cached in snapshot_maps.items()
+                        if cached is not None
+                    }
+            identity_fingerprint = self._identity_fingerprint(identities)
             for stage, subdir, tag in STAGE_SPECS:
                 key = (qualification, list_group_id, stage)
                 paths = selected_patch_paths(group_dir, subdir, tag)
@@ -890,6 +949,13 @@ class QuestionInventory:
         identities: tuple[SourceRecordIdentity, ...],
     ) -> IdentityCandidateIndex:
         key = (qualification, list_group_id)
+        with self._lock:
+            cached = self._issue_index_cache.get(key)
+            if cached and self._projection_snapshot_active(
+                qualification,
+                list_group_id,
+            ):
+                return cached.payload
         paths = selected_question_issue_correction_paths(
             group_dir / "24_questionIssueCorrections"
         )

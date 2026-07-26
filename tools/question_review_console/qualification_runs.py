@@ -14,6 +14,7 @@ import tempfile
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -120,7 +121,9 @@ from tools.question_review_console.adaptive_scheduler import (
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.question_work_queue import (
     WORK_ITEM_STATES,
+    QuestionPlanIndex,
     QuestionWorkQueueError,
+    build_question_plan_index,
     build_question_executions,
     input_fingerprint,
     queue_summary,
@@ -168,6 +171,8 @@ class QuestionValidationResult:
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
 STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE = 12_000
+PREPARATION_CHUNK_SIZE = 64
+PREPARATION_HEARTBEAT_SECONDS = 15.0
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -1785,6 +1790,7 @@ class QualificationRunStore:
             "parallelWorkerLimit": int(plan.get("parallelWorkerLimit") or 1),
             "writeWorkerLimit": int(plan.get("writeWorkerLimit") or 1),
             "executionPhase": "queued",
+            "preparationProgress": None,
             "researchStatus": None,
             "researchThreadId": None,
             "researchSessionId": None,
@@ -7189,6 +7195,7 @@ class QualificationRunCoordinator:
         initial_prompt: str,
         *,
         parent: Mapping[str, Any] | None = None,
+        phase_plan_index: QuestionPlanIndex | None = None,
     ) -> dict[str, Any]:
         parent = parent or self.store.get(qualification, run_id)
         stage_id = str(phase["id"])
@@ -7201,8 +7208,12 @@ class QualificationRunCoordinator:
 
         phase_plan = dict(initial_plan)
         phase_prompt = initial_prompt
+        scoped_plan_index = phase_plan_index
 
         def matching_target(plan: Mapping[str, Any]) -> dict[str, Any] | None:
+            if scoped_plan_index is not None:
+                indexed = scoped_plan_index.targets_by_id.get(question_id)
+                return dict(indexed) if indexed is not None else None
             return next(
                 (
                     dict(value)
@@ -7246,6 +7257,7 @@ class QualificationRunCoordinator:
                 phase_plan,
                 question_id,
             )
+            scoped_plan_index = None
             if not phase_prompt:
                 phase_prompt = self.store.prompt(qualification, run_id)
         if target is None:
@@ -7286,7 +7298,11 @@ class QualificationRunCoordinator:
                 f"{question_id} / {stage_id} / {current_status}"
             )
         try:
-            scoped_plan = specialize_question_plan(phase_plan, question_id)
+            scoped_plan = specialize_question_plan(
+                phase_plan,
+                question_id,
+                index=scoped_plan_index,
+            )
         except QuestionWorkQueueError as exc:
             raise QuestionItemError(str(exc)) from exc
         return {
@@ -7295,7 +7311,8 @@ class QualificationRunCoordinator:
             "phase": dict(phase),
             "phasePlan": phase_plan,
             "phasePrompt": phase_prompt,
-            "target": {**target, "_scopedPlan": scoped_plan},
+            "target": target,
+            "scopedPlan": scoped_plan,
             "queueStage": current,
         }
 
@@ -7311,8 +7328,7 @@ class QualificationRunCoordinator:
         targets: list[dict[str, Any]] = []
         for spec in specs:
             target = dict(spec["target"])
-            question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-            plan = specialize_question_plan(spec["phasePlan"], question_id)
+            plan = dict(spec["scopedPlan"])
             plan["progressTargets"] = [target]
             scoped.append(plan)
             targets.append(target)
@@ -7621,6 +7637,7 @@ class QualificationRunCoordinator:
         phase_runtime: dict[str, dict[str, Any]] = {}
         pipeline_stop = threading.Event()
         aggregation_lock = threading.Lock()
+        last_preparation_heartbeat = 0.0
         question_concurrency = (
             normalize_question_concurrency(parent["questionConcurrency"])
             if parent.get("questionConcurrency") is not None
@@ -7649,9 +7666,53 @@ class QualificationRunCoordinator:
             f"最大{question_concurrency}本を同時実行します。検査と確定は1問ずつです。"
         )
 
+        def preparation_heartbeat(
+            stage_id: str,
+            *,
+            round_number: int,
+            prepared_count: int,
+            target_count: int,
+            prepared_spec_count: int,
+            batch_count: int,
+            model_started: bool,
+            status: str,
+            force: bool = False,
+        ) -> None:
+            nonlocal last_preparation_heartbeat
+            current_monotonic = time.monotonic()
+            if (
+                not force
+                and current_monotonic - last_preparation_heartbeat
+                < PREPARATION_HEARTBEAT_SECONDS
+            ):
+                return
+            heartbeat_at = _now()
+            changes: dict[str, Any] = {
+                "heartbeatAt": heartbeat_at,
+                "preparationProgress": {
+                    "stageId": stage_id,
+                    "round": round_number,
+                    "status": status,
+                    "preparedCount": prepared_count,
+                    "preparedSpecCount": prepared_spec_count,
+                    "targetCount": target_count,
+                    "batchCount": batch_count,
+                    "modelStarted": model_started,
+                    "updatedAt": heartbeat_at,
+                },
+            }
+            if not model_started:
+                changes["executionPhase"] = f"preparing:{stage_id}"
+            self.store.update(qualification, run_id, **changes)
+            heartbeat = getattr(emit, "heartbeat", None)
+            if callable(heartbeat):
+                heartbeat()
+            last_preparation_heartbeat = current_monotonic
+
         def prepare_spec(
             phase: Mapping[str, Any],
             phase_plan: Mapping[str, Any],
+            phase_plan_index: QuestionPlanIndex,
             phase_prompt: str,
             question_id: str,
             parent: Mapping[str, Any],
@@ -7666,6 +7727,7 @@ class QualificationRunCoordinator:
                     self.store.get(qualification, run_id),
                     phase,
                 )
+                phase_plan_index = build_question_plan_index(phase_plan)
             try:
                 spec = self._question_stage_spec(
                     qualification,
@@ -7675,6 +7737,7 @@ class QualificationRunCoordinator:
                     phase_plan,
                     phase_prompt,
                     parent=parent,
+                    phase_plan_index=phase_plan_index,
                 )
             except QuestionItemError as exc:
                 self.store.update_question_stage(
@@ -7717,13 +7780,7 @@ class QualificationRunCoordinator:
             if projection is not None:
                 target["_projectedInputPath"] = projection["path"]
             try:
-                scoped_plan = target.pop(
-                    "_scopedPlan",
-                    None,
-                ) or specialize_question_plan(
-                    spec["phasePlan"],
-                    question_id,
-                )
+                scoped_plan = dict(spec["scopedPlan"])
                 prepared_targets = candidate_targets(
                     question_id,
                     stage_id,
@@ -7760,6 +7817,7 @@ class QualificationRunCoordinator:
             return {
                 **spec,
                 "target": target,
+                "scopedPlan": scoped_plan,
                 "candidateRecord": projection["record"],
                 "sourceRecord": projection.get("sourceRecord"),
                 "candidateTargets": prepared_targets,
@@ -8292,6 +8350,7 @@ class QualificationRunCoordinator:
             provider_waiting: set[str] = set()
             pending_ids = question_ids
             phase_plan: dict[str, Any] | None = None
+            phase_plan_index: QuestionPlanIndex | None = None
             phase_prompt = ""
             max_rounds = (
                 MAX_WRITER_VALIDATION_ATTEMPTS
@@ -8310,88 +8369,191 @@ class QualificationRunCoordinator:
                         self.store.get(qualification, run_id),
                         phase,
                     )
+                    phase_plan_index = build_question_plan_index(phase_plan)
+                if phase_plan_index is None:
+                    phase_plan_index = build_question_plan_index(phase_plan)
                 round_parent = self.store.get(qualification, run_id)
-                specs = [
-                    spec
-                    for question_id in pending_ids
-                    if (
-                        spec := prepare_spec(
-                            phase,
-                            phase_plan,
-                            phase_prompt,
-                            question_id,
-                            round_parent,
-                        )
-                    )
-                    is not None
-                ]
-                if not specs:
-                    break
-                self.store.update_question_stages(
-                    qualification,
-                    run_id,
-                    [
-                        dict(spec["projectionUpdate"])
-                        for spec in specs
-                        if isinstance(spec.get("projectionUpdate"), Mapping)
-                    ],
-                )
                 prompt_tokens = min(
                     estimated_tokens(phase_prompt),
                     STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE,
                 )
                 batches: list[list[Mapping[str, Any]]] = []
-                for retrying in (False, True):
-                    model_specs = [
-                        spec
-                        for spec in specs
-                        if spec_requires_retry_model(spec, stage_id) is retrying
-                    ]
-                    if not model_specs:
-                        continue
-                    batches.extend(
-                        pack_by_token_budget(
-                            model_specs,
-                            payload=lambda spec: {
-                                "target": spec["target"],
-                                "projectedInput": (
-                                    self.repo_root
-                                    / str(
-                                        spec["target"].get("_projectedInputPath")
-                                        or ""
-                                    )
-                                ).read_text(encoding="utf-8"),
-                            },
-                            token_budget=max(
-                                8_000,
-                                scheduler_limits.batch_token_budget - prompt_tokens,
-                            ),
-                            max_questions=DEFAULT_MAX_QUESTIONS_PER_TURN,
-                        )
-                    )
-                active_workers = min(
-                    len(batches),
+                outcome_futures = []
+                prepared_count = 0
+                prepared_spec_count = 0
+                maximum_batch_size = 0
+                model_started = False
+                worker_limit = min(
                     scheduler_limits.parallel_turns,
                     question_concurrency,
                 )
-                self.store.update(
-                    qualification,
-                    run_id,
-                    adaptiveScheduler=scheduler_status(
-                        scheduler_limits,
-                        batch_count=len(batches),
-                        in_flight_questions=len(specs),
-                    ),
-                    modelBatchSize=max(len(batch) for batch in batches),
-                    modelWorkerLimit=active_workers,
+                preparation_heartbeat(
+                    stage_id,
+                    round_number=_round_number,
+                    prepared_count=0,
+                    target_count=len(pending_ids),
+                    prepared_spec_count=0,
+                    batch_count=0,
+                    model_started=False,
+                    status="preparing",
+                    force=True,
                 )
-                with ThreadPoolExecutor(max_workers=active_workers) as executor:
-                    outcomes = list(
-                        executor.map(
-                            lambda batch: run_batch(batch, phase, phase_prompt),
-                            batches,
-                        )
+                inventory = getattr(self.workflow, "inventory", None)
+                projection_snapshot = getattr(
+                    inventory,
+                    "projection_snapshot",
+                    None,
+                )
+                snapshot_context = (
+                    projection_snapshot(
+                        qualification,
+                        phase_plan.get("targetGroupIds") or [],
                     )
+                    if callable(projection_snapshot)
+                    else nullcontext()
+                )
+                with snapshot_context, ThreadPoolExecutor(
+                    max_workers=max(1, worker_limit)
+                ) as executor:
+                    for chunk_start in range(
+                        0,
+                        len(pending_ids),
+                        PREPARATION_CHUNK_SIZE,
+                    ):
+                        chunk_specs: list[dict[str, Any]] = []
+                        for question_id in pending_ids[
+                            chunk_start : chunk_start + PREPARATION_CHUNK_SIZE
+                        ]:
+                            spec = prepare_spec(
+                                phase,
+                                phase_plan,
+                                phase_plan_index,
+                                phase_prompt,
+                                question_id,
+                                round_parent,
+                            )
+                            prepared_count += 1
+                            if spec is not None:
+                                chunk_specs.append(spec)
+                                prepared_spec_count += 1
+                            preparation_heartbeat(
+                                stage_id,
+                                round_number=_round_number,
+                                prepared_count=prepared_count,
+                                target_count=len(pending_ids),
+                                prepared_spec_count=prepared_spec_count,
+                                batch_count=len(batches),
+                                model_started=model_started,
+                                status="preparing",
+                            )
+                        if not chunk_specs:
+                            continue
+                        self.store.update_question_stages(
+                            qualification,
+                            run_id,
+                            [
+                                dict(spec["projectionUpdate"])
+                                for spec in chunk_specs
+                                if isinstance(
+                                    spec.get("projectionUpdate"),
+                                    Mapping,
+                                )
+                            ],
+                        )
+                        chunk_batches: list[list[Mapping[str, Any]]] = []
+                        for retrying in (False, True):
+                            model_specs = [
+                                spec
+                                for spec in chunk_specs
+                                if spec_requires_retry_model(
+                                    spec,
+                                    stage_id,
+                                )
+                                is retrying
+                            ]
+                            if not model_specs:
+                                continue
+                            chunk_batches.extend(
+                                pack_by_token_budget(
+                                    model_specs,
+                                    payload=lambda spec: {
+                                        "target": spec["target"],
+                                        "projectedInput": (
+                                            self.repo_root
+                                            / str(
+                                                spec["target"].get(
+                                                    "_projectedInputPath"
+                                                )
+                                                or ""
+                                            )
+                                        ).read_text(encoding="utf-8"),
+                                    },
+                                    token_budget=max(
+                                        8_000,
+                                        scheduler_limits.batch_token_budget
+                                        - prompt_tokens,
+                                    ),
+                                    max_questions=(
+                                        DEFAULT_MAX_QUESTIONS_PER_TURN
+                                    ),
+                                )
+                            )
+                        for batch in chunk_batches:
+                            batches.append(batch)
+                            maximum_batch_size = max(
+                                maximum_batch_size,
+                                len(batch),
+                            )
+                            outcome_futures.append(
+                                executor.submit(
+                                    run_batch,
+                                    batch,
+                                    phase,
+                                    phase_prompt,
+                                )
+                            )
+                        model_started = bool(outcome_futures)
+                        active_workers = min(len(batches), worker_limit)
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            adaptiveScheduler=scheduler_status(
+                                scheduler_limits,
+                                batch_count=len(batches),
+                                in_flight_questions=prepared_spec_count,
+                            ),
+                            modelBatchSize=maximum_batch_size,
+                            modelWorkerLimit=active_workers,
+                        )
+                        preparation_heartbeat(
+                            stage_id,
+                            round_number=_round_number,
+                            prepared_count=prepared_count,
+                            target_count=len(pending_ids),
+                            prepared_spec_count=prepared_spec_count,
+                            batch_count=len(batches),
+                            model_started=model_started,
+                            status=(
+                                "streaming"
+                                if model_started
+                                else "preparing"
+                            ),
+                            force=True,
+                        )
+                preparation_heartbeat(
+                    stage_id,
+                    round_number=_round_number,
+                    prepared_count=prepared_count,
+                    target_count=len(pending_ids),
+                    prepared_spec_count=prepared_spec_count,
+                    batch_count=len(batches),
+                    model_started=model_started,
+                    status="prepared",
+                    force=True,
+                )
+                if not outcome_futures:
+                    break
+                outcomes = [future.result() for future in outcome_futures]
                 next_ids: list[str] = []
                 round_had_provider_failure = any(
                     bool(outcome.get("providerFailure"))
@@ -9946,6 +10108,16 @@ class QualificationRunCoordinator:
                             )
                             committed_for_question.update(prepared.commit())
                             committed_files.update(committed_for_question)
+                            inventory = getattr(self.workflow, "inventory", None)
+                            invalidate = getattr(inventory, "invalidate", None)
+                            if callable(invalidate):
+                                for list_group_id in (
+                                    question_plan.get("targetGroupIds") or []
+                                ):
+                                    invalidate(
+                                        qualification,
+                                        str(list_group_id),
+                                    )
                             commands.append(
                                 {"command": "atomic commit", "status": "pass"}
                             )

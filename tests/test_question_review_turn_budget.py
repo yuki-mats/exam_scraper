@@ -4,7 +4,10 @@ import threading
 import time
 import unittest
 
-from tools.question_review_console.turn_budget import GlobalTurnBudget
+from tools.question_review_console.turn_budget import (
+    GLOBAL_TURN_CAPACITY,
+    GlobalTurnBudget,
+)
 
 
 class GlobalTurnBudgetTest(unittest.TestCase):
@@ -15,13 +18,16 @@ class GlobalTurnBudgetTest(unittest.TestCase):
         self.assertEqual(snapshot["groups"][0]["allocation"], 32)
 
     def test_two_qualifications_split_capacity_evenly(self) -> None:
-        budget = GlobalTurnBudget(32)
+        budget = GlobalTurnBudget(GLOBAL_TURN_CAPACITY)
         with budget.register("gas"), budget.register("aws"):
             allocations = {
                 row["group"]: row["allocation"]
                 for row in budget.snapshot()["groups"]
             }
-        self.assertEqual(allocations, {"aws": 16, "gas": 16})
+        self.assertEqual(allocations, {"aws": 32, "gas": 32})
+
+    def test_default_capacity_is_sixty_four(self) -> None:
+        self.assertEqual(GlobalTurnBudget().snapshot()["capacity"], 64)
 
     def test_three_qualifications_share_all_slots(self) -> None:
         budget = GlobalTurnBudget(32)

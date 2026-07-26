@@ -406,6 +406,58 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             self.assertEqual(stage_mock.call_count, 15)
             self.assertEqual(issue_mock.call_count, 2)
 
+    def test_projection_snapshot_skips_repeated_filesystem_fingerprints(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "questions.json",
+                {
+                    "question_bodies": [
+                        {"original_question_id": "q1", "questionBodyText": "一"},
+                        {"original_question_id": "q2", "questionBodyText": "二"},
+                    ]
+                },
+            )
+            inventory = QuestionInventory(root)
+            with patch.object(
+                inventory,
+                "_paths_fingerprint",
+                wraps=inventory._paths_fingerprint,
+            ) as fingerprint_mock:
+                with inventory.projection_snapshot("sample-exam", ["2026"]):
+                    inventory.projected_input(
+                        "sample-exam",
+                        "2026",
+                        "questions.json#0",
+                    )
+                    initial_calls = fingerprint_mock.call_count
+                    inventory.projected_input(
+                        "sample-exam",
+                        "2026",
+                        "questions.json#1",
+                    )
+                    inventory.source_input(
+                        "sample-exam",
+                        "2026",
+                        "questions.json#0",
+                    )
+                    self.assertEqual(
+                        fingerprint_mock.call_count,
+                        initial_calls,
+                    )
+
+                    inventory.invalidate("sample-exam", "2026")
+                    inventory.projected_input(
+                        "sample-exam",
+                        "2026",
+                        "questions.json#0",
+                    )
+                    self.assertGreater(
+                        fingerprint_mock.call_count,
+                        initial_calls,
+                    )
+
     def test_inventory_exposes_japanese_qualification_name_and_publication_id(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
