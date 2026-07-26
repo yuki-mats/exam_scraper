@@ -1338,9 +1338,10 @@ class QualificationWorkflow:
                     + ", ".join(missing_target_stages)
                 )
         if len(ordered) == 1:
-            qualification_data = self._qualification_data(
-                qualification,
-                dashboard_only=_dashboard_only,
+            qualification_data = (
+                self._qualification_data(qualification, dashboard_only=True)
+                if _dashboard_only
+                else self._qualification_data(qualification)
             )
             plan = self.plan(
                 qualification,
@@ -1370,9 +1371,10 @@ class QualificationWorkflow:
                 "一問ずつまとめて実行できない工程が含まれています: "
                 + ", ".join(invalid)
             )
-        qualification_data = self._qualification_data(
-            qualification,
-            dashboard_only=_dashboard_only,
+        qualification_data = (
+            self._qualification_data(qualification, dashboard_only=True)
+            if _dashboard_only
+            else self._qualification_data(qualification)
         )
         stage_plans = [
             self.plan(
