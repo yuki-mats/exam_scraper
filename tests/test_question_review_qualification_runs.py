@@ -1,8 +1,10 @@
+from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
 from dataclasses import replace
 from datetime import datetime, timezone
 
 from tests.qualification_run_test_support import *  # noqa: F403
+
 from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     SubscriptionGateError,
@@ -13,6 +15,7 @@ from tools.question_review_console.question_work_queue import (
 )
 from tools.question_review_console.qualification_runs import (
     AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION,
+    MANIFEST_CACHE_LIMIT,
     QuestionItemError,
     QuestionQueuePaused,
     _aggregate_answer_review_prompt,
@@ -326,7 +329,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             root = Path(directory)
             store = QualificationRunStore(root)
             paths = []
-            for index in range(5):
+            for index in range(MANIFEST_CACHE_LIMIT + 1):
                 path = (
                     root
                     / "output"
@@ -342,9 +345,83 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 self.assertIsNot(store._load_manifest(path), manifest)
                 paths.append(path)
 
-        self.assertEqual(len(store._manifest_cache), 4)
+        self.assertEqual(len(store._manifest_cache), MANIFEST_CACHE_LIMIT)
         self.assertNotIn(paths[0], store._manifest_cache)
         self.assertIn(paths[-1], store._manifest_cache)
+
+    def test_sixty_four_new_run_manifests_reach_persistence_concurrently(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QualificationRunStore(Path(directory))
+            plan = FakeWorkflow().plan("sample", "law_audit")
+            plan.update(parentRunId="parent-run", targetCount=1)
+            barrier = threading.Barrier(64)
+            original_write = store._write_manifest
+
+            def synchronized_write(path, manifest):
+                barrier.wait(timeout=10)
+                original_write(path, manifest)
+
+            store._write_manifest = synchronized_write
+            try:
+                with ThreadPoolExecutor(max_workers=64) as executor:
+                    runs = list(
+                        executor.map(
+                            lambda _index: store.create(
+                                plan,
+                                status="queued",
+                            ),
+                            range(64),
+                        )
+                    )
+            finally:
+                store._write_manifest = original_write
+
+        self.assertEqual(len({run["runId"] for run in runs}), 64)
+
+    def test_sixty_four_aggregate_checkpoints_persist_as_concurrent_shards(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QualificationRunStore(Path(directory))
+            plan = FakeWorkflow().plan("sample", "law_audit")
+            plan.update(targetCount=64)
+            parent = store.create(plan, status="running")
+            parent_path = store._manifest_path("sample", parent["runId"])
+            question_ids = [f"question-{index:02d}" for index in range(64)]
+            barrier = threading.Barrier(64)
+            original_write = store._write_aggregate_checkpoint_sidecar
+
+            def synchronized_write(*args):
+                barrier.wait(timeout=10)
+                original_write(*args)
+
+            def reserve(question_id):
+                return store.reserve_aggregate_review_slot(
+                    "sample",
+                    parent["runId"],
+                    question_id,
+                    {
+                        "sourceHash": f"sha256:{question_id}",
+                        "model": "gpt-5.5",
+                        "reasoningEffort": "high",
+                    },
+                    1,
+                )
+
+            store._write_aggregate_checkpoint_sidecar = synchronized_write
+            try:
+                with ThreadPoolExecutor(max_workers=64) as executor:
+                    results = list(executor.map(reserve, question_ids))
+            finally:
+                store._write_aggregate_checkpoint_sidecar = original_write
+
+            projected = store.get("sample", parent["runId"])
+            raw_parent = json.loads(parent_path.read_text(encoding="utf-8"))
+
+        self.assertTrue(all(result["status"] == "reserved" for result in results))
+        self.assertEqual(
+            set(projected["aggregateReviewCheckpoints"]),
+            set(question_ids),
+        )
+        self.assertNotIn("aggregateReviewCheckpoints", raw_parent)
 
     def test_run_list_reuses_persistent_summary_without_parsing_heavy_manifest(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -3790,7 +3867,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self.assertEqual(len(checkpoint["executions"]), 2)
         self.assertEqual(repeated_statuses, ["resolved"] * 4)
 
-    def test_checkpoint_batches_use_one_load_write_readback_and_fail_atomically(self):
+    def test_checkpoint_batches_use_one_parent_load_and_one_shard_write_per_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _server, parent = self._start_deferred_flow(
@@ -3822,16 +3899,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 wraps=coordinator.store._load_manifest,
             ) as loads, patch.object(
                 coordinator.store,
-                "_write_manifest",
-                wraps=coordinator.store._write_manifest,
+                "_write_aggregate_checkpoint_sidecar",
+                wraps=coordinator.store._write_aggregate_checkpoint_sidecar,
             ) as writes:
                 coordinator.store.reserve_aggregate_review_slots(
                     "new-exam",
                     parent["runId"],
                     [(value, signatures[value], 1) for value in question_ids],
                 )
-            self.assertEqual(loads.call_count, 2)
-            self.assertEqual(writes.call_count, 1)
+            self.assertEqual(loads.call_count, 1)
+            self.assertEqual(writes.call_count, len(question_ids))
 
             def execution(question_id):
                 return {
@@ -3882,8 +3959,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 wraps=coordinator.store._load_manifest,
             ) as loads, patch.object(
                 coordinator.store,
-                "_write_manifest",
-                wraps=coordinator.store._write_manifest,
+                "_write_aggregate_checkpoint_sidecar",
+                wraps=coordinator.store._write_aggregate_checkpoint_sidecar,
             ) as writes:
                 coordinator.store.resolve_aggregate_review_slots(
                     "new-exam",
@@ -3899,8 +3976,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         for value in question_ids
                     ],
                 )
-            self.assertEqual(loads.call_count, 2)
-            self.assertEqual(writes.call_count, 1)
+            self.assertEqual(loads.call_count, 1)
+            self.assertEqual(writes.call_count, len(question_ids))
 
             coordinator.store.reserve_aggregate_review_slots(
                 "new-exam",
@@ -3931,8 +4008,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 wraps=coordinator.store._load_manifest,
             ) as loads, patch.object(
                 coordinator.store,
-                "_write_manifest",
-                wraps=coordinator.store._write_manifest,
+                "_write_aggregate_checkpoint_sidecar",
+                wraps=coordinator.store._write_aggregate_checkpoint_sidecar,
             ) as writes:
                 coordinator.store.store_aggregate_review_consensuses(
                     "new-exam",
@@ -3942,8 +4019,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         for value in question_ids
                     ],
                 )
-            self.assertEqual(loads.call_count, 2)
-            self.assertEqual(writes.call_count, 1)
+            self.assertEqual(loads.call_count, 1)
+            self.assertEqual(writes.call_count, len(question_ids))
 
     def test_prethread_reservation_cancellation_is_atomic_and_preserves_other_slots(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -4026,12 +4103,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ]
             self.assertEqual(unchanged, before)
 
-            original_write = coordinator.store._write_manifest
+            original_write = (
+                coordinator.store._write_aggregate_checkpoint_sidecar
+            )
 
-            def ignore_cancellation_write(_path, _manifest):
+            def ignore_cancellation_write(*_args):
                 return None
 
-            coordinator.store._write_manifest = ignore_cancellation_write
+            coordinator.store._write_aggregate_checkpoint_sidecar = (
+                ignore_cancellation_write
+            )
             try:
                 with self.assertRaisesRegex(Exception, "再読検証"):
                     coordinator.store.cancel_unstarted_aggregate_review_slots(
@@ -4053,7 +4134,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         ],
                     )
             finally:
-                coordinator.store._write_manifest = original_write
+                coordinator.store._write_aggregate_checkpoint_sidecar = (
+                    original_write
+                )
             after_noop = coordinator.store.get("new-exam", parent["runId"])[
                 "aggregateReviewCheckpoints"
             ]
@@ -4091,12 +4174,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
             def run_turn(self, prompt, **kwargs):
                 self.calls.append((prompt, kwargs))
-                original_write = self.coordinator.store._write_manifest
+                original_write = (
+                    self.coordinator.store._write_aggregate_checkpoint_sidecar
+                )
 
-                def ignore_once(_path, _manifest):
-                    self.coordinator.store._write_manifest = original_write
+                def ignore_once(*_args):
+                    self.coordinator.store._write_aggregate_checkpoint_sidecar = (
+                        original_write
+                    )
 
-                self.coordinator.store._write_manifest = ignore_once
+                self.coordinator.store._write_aggregate_checkpoint_sidecar = (
+                    ignore_once
+                )
                 raise SubscriptionGateError("利用上限に達しています。")
 
         with tempfile.TemporaryDirectory() as directory:

@@ -82,11 +82,11 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
 - serverは問題の現在projectionをrunごとの希望上限まで同時に準備し、一問を一つの独立したmodel turnへ渡す。1資格の希望上限は64問・64本、全資格で同時に実行するtop-level model turnは合計64本までとする。UIではrunごとの希望上限を1、5、10、32、64から選べ、初期値は64とする。1資格だけなら最大64問を64本で同時に整備し、2資格なら原則32本ずつ、3資格なら22、21、21本のように公平配分する。資格の開始・終了に応じて新しく取得するslotから動的に再配分し、既に実行中のturnは途中で止めない。provider失敗時はrun内のadaptive schedulerが次の再試行roundの並列数を自動で縮小する。
 - modelは一問の構造化候補を返すだけで、検査commandや成功receiptを自己申告しない。serverは候補ごとにsource identity、許可field、工程品質、`00_source`不変を検査し、合格recordだけを確定patchへ反映する。他問題の不合格や曖昧さは波及しない。
-- 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。二者不一致、source hash不一致、判定不能又は境界不明は問題単位の`hold`とし、patchへ反映しない。対象確定時の記述本文はserverが合意済みspanから切り出し、model出力の文章を保存しない。
+- 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。予約、二つの結果、照合結果は、親manifest全体へ書き戻さず、親run配下の`aggregate_review_checkpoints/<questionIdのsha256>.json`へ問題単位で保存する。異なる問題の記録は互いのlockを待たず、同じ問題のslotだけを直列化する。二者不一致、source hash不一致、判定不能又は境界不明は問題単位の`hold`とし、patchへ反映しない。対象確定時の記述本文はserverが合意済みspanから切り出し、model出力の文章を保存しない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
 - 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。候補内容、provider又はschemaの失敗は、その一問だけをqueue末尾へ戻す。provider障害が同時に発生した場合は次の再試行roundの並列数を縮小し、回復しなければ`interrupted`として再開を待つ。
-- 一問turnの確定ごとにcheckpointを保存する。`未完了の問題を再開`はそのcheckpointを親queueへ回収し、未確定の問だけを戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
+- 一問turnの確定ごとにcheckpointを保存する。子runのmanifest、集約回答の問題別checkpoint、親queueはそれぞれの責務に分け、異なる子runのfile I/Oを一つのglobal lockへ集約しない。`未完了の問題を再開`はそのcheckpointを親queueへ回収し、未確定の問だけを戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定したlistGroupIdごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
@@ -103,7 +103,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 - `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasや旧runのIDを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
 - `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全子工程がvalidatedになった問題だけを完了とする。
-- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、同じ区切りの一問入力を独立workerで同時に作る。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。準備できた各問から独立したmodel turnへ逐次投入するため、全問の準備完了を待たない。model候補はread-onlyであり、正本への検査・確定とmanifest状態遷移は従来どおりserverが一問ずつ直列化する。
+- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、同じ区切りの一問入力を独立workerで同時に作る。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。準備できた各問から独立したmodel turnへ逐次投入するため、全問の準備完了を待たない。model候補はread-onlyである。子runの作成・状態更新と集約回答checkpointはrun又は問題ごとのlockで並行し、親queueの同じmanifest更新と正本patchの検査・確定だけを必要な範囲で直列化する。
 - Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
 - 一つのmodel turnが15分で完了しない場合は中断し、その一問だけを失敗としてqueueの再試行契約へ戻す。
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。

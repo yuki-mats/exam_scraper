@@ -13,8 +13,9 @@ import sys
 import tempfile
 import threading
 import time
+import weakref
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from contextlib import nullcontext
+from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -183,6 +184,8 @@ LIVE_RUN_STATUSES = {
 RECOVERY_INDEX_MARKER_SCHEMA = "qualification-run-recovery-index/v1"
 RECOVERY_SIDECAR_SCHEMA = "qualification-run-recovery-candidate/v1"
 MANIFEST_LIST_SUMMARY_SCHEMA = "qualification-run-list-summary/v1"
+AGGREGATE_REVIEW_CHECKPOINT_SCHEMA = "aggregate-review-checkpoint/v1"
+_AGGREGATE_CHECKPOINT_MISSING = object()
 DASHBOARD_RUN_INDEX_SCHEMA = "qualification-dashboard-run-index/v1"
 DASHBOARD_RUN_INDEX_LIMIT = 32
 DASHBOARD_RUN_EXCLUDED_WORK_TYPES = frozenset({"evaluation", "reevaluation"})
@@ -190,6 +193,7 @@ DASHBOARD_RUN_EXCLUDED_SCHEMA_VERSIONS = frozenset(
     {"failed-delta-reconciliation/v1"}
 )
 MANIFEST_HEADER_BYTES = 64 * 1024
+MANIFEST_CACHE_LIMIT = 256
 RUN_LIST_HEAVY_FIELDS = frozenset(
     {
         "allowedPatchFiles",
@@ -1587,7 +1591,15 @@ class QualificationRunStore:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
         self.root = self.repo_root / "output" / "question_review_console" / "workflow_runs"
+        # `_lock` protects only lock registries and startup recovery. Runtime
+        # manifest I/O uses a lock per path so independent question turns do
+        # not serialize behind unrelated run files.
         self._lock = threading.RLock()
+        self._cache_lock = threading.RLock()
+        self._aggregate_checkpoint_cache_lock = threading.RLock()
+        self._path_locks: weakref.WeakValueDictionary[Path, Any] = (
+            weakref.WeakValueDictionary()
+        )
         self._manifest_cache: dict[
             Path,
             tuple[tuple[int, int, int], dict[str, Any]],
@@ -1607,6 +1619,10 @@ class QualificationRunStore:
             ],
         ] = {}
         self._dashboard_run_index_cache: dict[str, list[dict[str, Any]]] = {}
+        self._aggregate_checkpoint_cache: dict[
+            Path,
+            dict[str, dict[str, Any]],
+        ] = {}
         self._technical_log_sequences: dict[Path, int] = {}
         self._technical_log_last_signatures: dict[Path, str] = {}
         self._recovery_index_marker = self.root / ".recovery-index-v1.json"
@@ -1614,6 +1630,17 @@ class QualificationRunStore:
         # Recovery scans every historical run. Keep runtime caching bounded to
         # manifests used after startup instead of retaining the whole history.
         self._manifest_cache.clear()
+
+    def _path_lock(self, path: Path) -> Any:
+        """Return one re-entrant lock for an exact persisted path."""
+
+        normalized = path.resolve()
+        with self._lock:
+            lock = self._path_locks.get(normalized)
+            if lock is None:
+                lock = threading.RLock()
+                self._path_locks[normalized] = lock
+            return lock
 
     def create(
         self,
@@ -2001,7 +2028,8 @@ class QualificationRunStore:
                 }
             ),
         }
-        with self._lock:
+        manifest_path = run_dir / "manifest.json"
+        with self._path_lock(manifest_path):
             run_dir.mkdir(parents=True, exist_ok=False)
             if str(plan["kind"]) == "human":
                 result_path.parent.mkdir()
@@ -2024,7 +2052,7 @@ class QualificationRunStore:
                     encoding="utf-8",
                 )
                 manifest["promptPath"] = str(prompt_path.relative_to(self.repo_root))
-            self._write_manifest(run_dir / "manifest.json", manifest)
+            self._write_manifest(manifest_path, manifest)
         return copy.deepcopy(manifest)
 
     def append_technical_log(
@@ -2036,7 +2064,7 @@ class QualificationRunStore:
         """run配下の技術ログへ、許可fieldだけを一行追記する。"""
 
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             relative = str(manifest.get("technicalLogPath") or "")
             path = (
@@ -2095,13 +2123,23 @@ class QualificationRunStore:
 
     def update(self, qualification: str, run_id: str, **changes: Any) -> dict[str, Any]:
         path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(path):
             manifest = self._load_manifest(path)
             manifest.update(changes)
             manifest["updatedAt"] = _now()
             if manifest.get("status") in {"succeeded", "failed"}:
                 manifest["finishedAt"] = manifest.get("finishedAt") or manifest["updatedAt"]
             self._write_manifest(path, manifest)
+            if "aggregateReviewCheckpoints" in changes:
+                # Generic full-map replacement is retained for migration and
+                # repair tools. Remove derived shards so the supplied map is
+                # the complete new baseline.
+                shutil.rmtree(
+                    path.parent / "aggregate_review_checkpoints",
+                    ignore_errors=True,
+                )
+                with self._aggregate_checkpoint_cache_lock:
+                    self._aggregate_checkpoint_cache.pop(path, None)
         return copy.deepcopy(manifest)
 
     @staticmethod
@@ -2245,22 +2283,210 @@ class QualificationRunStore:
             if field in checkpoint
         }
 
+    @staticmethod
+    def _aggregate_checkpoint_path(
+        parent_manifest_path: Path,
+        question_id: str,
+    ) -> Path:
+        digest = hashlib.sha256(question_id.encode("utf-8")).hexdigest()
+        return (
+            parent_manifest_path.parent
+            / "aggregate_review_checkpoints"
+            / f"{digest}.json"
+        )
+
+    def _legacy_aggregate_checkpoints(
+        self,
+        parent_manifest_path: Path,
+    ) -> dict[str, dict[str, Any]]:
+        with self._path_lock(parent_manifest_path):
+            manifest = self._load_manifest(parent_manifest_path)
+        raw = manifest.get("aggregateReviewCheckpoints")
+        if not isinstance(raw, Mapping):
+            return {}
+        return {
+            str(question_id): copy.deepcopy(dict(checkpoint))
+            for question_id, checkpoint in raw.items()
+            if isinstance(checkpoint, Mapping)
+        }
+
+    def _read_aggregate_checkpoint_sidecar(
+        self,
+        path: Path,
+        question_id: str,
+    ) -> object | dict[str, Any] | None:
+        if not path.is_file():
+            return _AGGREGATE_CHECKPOINT_MISSING
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise QualificationRunError(
+                "aggregate review checkpoint sidecarを読めません。"
+            ) from exc
+        if (
+            not isinstance(value, Mapping)
+            or value.get("schemaVersion") != AGGREGATE_REVIEW_CHECKPOINT_SCHEMA
+            or value.get("questionId") != question_id
+        ):
+            raise QualificationRunError(
+                "aggregate review checkpoint sidecarの形式が不正です。"
+            )
+        checkpoint = value.get("checkpoint")
+        if checkpoint is None:
+            return None
+        if not isinstance(checkpoint, Mapping):
+            raise QualificationRunError(
+                "aggregate review checkpoint sidecarの記録が不正です。"
+            )
+        return copy.deepcopy(dict(checkpoint))
+
+    def _effective_aggregate_checkpoint(
+        self,
+        path: Path,
+        question_id: str,
+        legacy: Mapping[str, Mapping[str, Any]],
+    ) -> dict[str, Any] | None:
+        sidecar = self._read_aggregate_checkpoint_sidecar(path, question_id)
+        if sidecar is _AGGREGATE_CHECKPOINT_MISSING:
+            checkpoint = legacy.get(question_id)
+            return (
+                copy.deepcopy(dict(checkpoint))
+                if isinstance(checkpoint, Mapping)
+                else None
+            )
+        return (
+            copy.deepcopy(dict(sidecar))
+            if isinstance(sidecar, Mapping)
+            else None
+        )
+
+    def _cache_aggregate_checkpoint(
+        self,
+        parent_manifest_path: Path,
+        question_id: str,
+        checkpoint: Mapping[str, Any] | None,
+    ) -> None:
+        with self._aggregate_checkpoint_cache_lock:
+            cached = self._aggregate_checkpoint_cache.get(parent_manifest_path)
+            if cached is None:
+                return
+            if checkpoint is None:
+                cached.pop(question_id, None)
+            else:
+                cached[question_id] = copy.deepcopy(dict(checkpoint))
+
+    def _write_aggregate_checkpoint_sidecar(
+        self,
+        parent_manifest_path: Path,
+        path: Path,
+        question_id: str,
+        checkpoint: Mapping[str, Any] | None,
+    ) -> None:
+        self._write_json(
+            path,
+            {
+                "schemaVersion": AGGREGATE_REVIEW_CHECKPOINT_SCHEMA,
+                "questionId": question_id,
+                # A null checkpoint is a tombstone which intentionally
+                # shadows a legacy checkpoint embedded in the parent manifest.
+                "checkpoint": (
+                    copy.deepcopy(dict(checkpoint))
+                    if isinstance(checkpoint, Mapping)
+                    else None
+                ),
+            },
+        )
+        persisted = self._read_aggregate_checkpoint_sidecar(path, question_id)
+        expected = (
+            copy.deepcopy(dict(checkpoint))
+            if isinstance(checkpoint, Mapping)
+            else None
+        )
+        if persisted is _AGGREGATE_CHECKPOINT_MISSING or persisted != expected:
+            raise QualificationRunError(
+                "aggregate review checkpoint sidecarを再読検証できません。"
+            )
+        self._cache_aggregate_checkpoint(
+            parent_manifest_path,
+            question_id,
+            expected,
+        )
+
+    def _aggregate_checkpoint_snapshot(
+        self,
+        parent_manifest_path: Path,
+        manifest: Mapping[str, Any],
+    ) -> dict[str, dict[str, Any]]:
+        raw_legacy = manifest.get("aggregateReviewCheckpoints")
+        legacy = (
+            {
+                str(question_id): copy.deepcopy(dict(checkpoint))
+                for question_id, checkpoint in raw_legacy.items()
+                if isinstance(checkpoint, Mapping)
+            }
+            if isinstance(raw_legacy, Mapping)
+            else {}
+        )
+        directory = parent_manifest_path.parent / "aggregate_review_checkpoints"
+        if not legacy and not directory.is_dir():
+            return {}
+        with self._aggregate_checkpoint_cache_lock:
+            cached = self._aggregate_checkpoint_cache.get(parent_manifest_path)
+            if cached is not None:
+                return copy.deepcopy(cached)
+            effective = copy.deepcopy(legacy)
+            if directory.is_dir():
+                for sidecar_path in directory.glob("*.json"):
+                    try:
+                        value = json.loads(sidecar_path.read_text(encoding="utf-8"))
+                    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                        raise QualificationRunError(
+                            "aggregate review checkpoint sidecarを読めません。"
+                        ) from exc
+                    if (
+                        not isinstance(value, Mapping)
+                        or value.get("schemaVersion")
+                        != AGGREGATE_REVIEW_CHECKPOINT_SCHEMA
+                        or not isinstance(value.get("questionId"), str)
+                    ):
+                        raise QualificationRunError(
+                            "aggregate review checkpoint sidecarの形式が不正です。"
+                        )
+                    question_id = str(value["questionId"])
+                    checkpoint = value.get("checkpoint")
+                    if checkpoint is None:
+                        effective.pop(question_id, None)
+                    elif isinstance(checkpoint, Mapping):
+                        effective[question_id] = copy.deepcopy(dict(checkpoint))
+                    else:
+                        raise QualificationRunError(
+                            "aggregate review checkpoint sidecarの記録が不正です。"
+                        )
+            self._aggregate_checkpoint_cache[parent_manifest_path] = effective
+            return copy.deepcopy(effective)
+
+    def _public_with_aggregate_checkpoints(
+        self,
+        path: Path,
+        manifest: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        value = copy.deepcopy(dict(manifest))
+        checkpoints = self._aggregate_checkpoint_snapshot(path, value)
+        if checkpoints or "aggregateReviewCheckpoints" in value:
+            value["aggregateReviewCheckpoints"] = checkpoints
+        return self._public(value)
+
     def aggregate_review_checkpoint(
         self,
         qualification: str,
         parent_run_id: str,
         question_id: str,
     ) -> dict[str, Any] | None:
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = manifest.get("aggregateReviewCheckpoints") or {}
-            checkpoint = checkpoints.get(question_id)
-            return (
-                copy.deepcopy(dict(checkpoint))
-                if isinstance(checkpoint, Mapping)
-                else None
-            )
+        return self.aggregate_review_checkpoints(
+            qualification,
+            parent_run_id,
+            [question_id],
+        )[question_id]
 
     def aggregate_review_checkpoints(
         self,
@@ -2268,27 +2494,27 @@ class QualificationRunStore:
         parent_run_id: str,
         question_ids: list[str],
     ) -> dict[str, dict[str, Any] | None]:
-        """Read a qualification batch from one immutable manifest snapshot."""
+        """Read independently persisted checkpoint shards."""
 
         if len(question_ids) != len(set(question_ids)):
             raise QualificationRunError(
                 "同じ問題のaggregate review checkpointを重複取得できません。"
             )
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = manifest.get("aggregateReviewCheckpoints") or {}
-            return {
-                question_id: (
-                    copy.deepcopy(dict(checkpoint))
-                    if isinstance(
-                        checkpoint := checkpoints.get(question_id),
-                        Mapping,
-                    )
-                    else None
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        legacy = self._legacy_aggregate_checkpoints(parent_path)
+        results: dict[str, dict[str, Any] | None] = {}
+        for question_id in question_ids:
+            sidecar_path = self._aggregate_checkpoint_path(
+                parent_path,
+                question_id,
+            )
+            with self._path_lock(sidecar_path):
+                results[question_id] = self._effective_aggregate_checkpoint(
+                    sidecar_path,
+                    question_id,
+                    legacy,
                 )
-                for question_id in question_ids
-            }
+        return results
 
     def reserve_aggregate_review_slot(
         self,
@@ -2298,69 +2524,11 @@ class QualificationRunStore:
         signature: Mapping[str, Any],
         slot: int,
     ) -> dict[str, Any]:
-        if slot not in {1, 2}:
-            raise QualificationRunError("aggregate review slotは1又は2です。")
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
-            )
-            current = checkpoints.get(question_id)
-            if current is None:
-                current = {
-                    **copy.deepcopy(dict(signature)),
-                    "slots": {},
-                    "reviews": [],
-                    "executions": [],
-                    "consensus": None,
-                }
-            elif not isinstance(current, Mapping):
-                return {"status": "mismatch", "checkpoint": None}
-            else:
-                current = copy.deepcopy(dict(current))
-            if self._aggregate_checkpoint_signature(current) != dict(signature):
-                return {"status": "mismatch", "checkpoint": current}
-            try:
-                slots = self._aggregate_checkpoint_slots(current)
-            except QualificationRunError:
-                return {"status": "mismatch", "checkpoint": current}
-            key = str(slot)
-            existing = slots.get(key)
-            if existing is not None:
-                status = str(existing.get("status") or "")
-                return {
-                    "status": "resolved" if status == "resolved" else "unresolved",
-                    "checkpoint": current,
-                    "slot": copy.deepcopy(existing),
-                }
-            if len(slots) >= 2:
-                return {"status": "limit", "checkpoint": current}
-            slots[key] = {
-                "slot": slot,
-                "status": "started",
-                "reservedAt": _now(),
-            }
-            current["slots"] = slots
-            checkpoints[question_id] = current
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted = self._load_manifest(path)["aggregateReviewCheckpoints"][
-                question_id
-            ]
-            persisted_slot = self._aggregate_checkpoint_slots(persisted).get(key)
-            if not isinstance(persisted_slot, Mapping) or (
-                persisted_slot.get("status") != "started"
-            ):
-                raise QualificationRunError(
-                    "aggregate review slot予約を再読検証できません。"
-                )
-            return {
-                "status": "reserved",
-                "checkpoint": copy.deepcopy(persisted),
-                "slot": copy.deepcopy(dict(persisted_slot)),
-            }
+        return self.reserve_aggregate_review_slots(
+            qualification,
+            parent_run_id,
+            [(question_id, signature, slot)],
+        )[question_id]
 
     def reserve_aggregate_review_slots(
         self,
@@ -2368,7 +2536,7 @@ class QualificationRunStore:
         parent_run_id: str,
         requests: list[tuple[str, Mapping[str, Any], int]],
     ) -> dict[str, dict[str, Any]]:
-        """Reserve one slot per question without allowing another batch to interleave."""
+        """Reserve one slot per question using independent checkpoint shards."""
 
         question_ids = [question_id for question_id, _signature, _slot in requests]
         if len(question_ids) != len(set(question_ids)):
@@ -2377,16 +2545,27 @@ class QualificationRunStore:
             )
         if any(slot not in {1, 2} for _question_id, _signature, slot in requests):
             raise QualificationRunError("aggregate review slotは1又は2です。")
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        legacy = self._legacy_aggregate_checkpoints(parent_path)
+        sidecar_paths = {
+            question_id: self._aggregate_checkpoint_path(
+                parent_path,
+                question_id,
             )
+            for question_id in question_ids
+        }
+        with ExitStack() as locks:
+            for path in sorted(set(sidecar_paths.values())):
+                locks.enter_context(self._path_lock(path))
             results: dict[str, dict[str, Any]] = {}
-            changed: dict[str, str] = {}
+            changed: dict[str, tuple[str, dict[str, Any]]] = {}
             for question_id, signature, slot in requests:
-                current = checkpoints.get(question_id)
+                sidecar_path = sidecar_paths[question_id]
+                current = self._effective_aggregate_checkpoint(
+                    sidecar_path,
+                    question_id,
+                    legacy,
+                )
                 if current is None:
                     current = {
                         **copy.deepcopy(dict(signature)),
@@ -2441,8 +2620,7 @@ class QualificationRunStore:
                     "reservedAt": _now(),
                 }
                 current["slots"] = slots
-                checkpoints[question_id] = current
-                changed[question_id] = key
+                changed[question_id] = (key, current)
                 results[question_id] = {
                     "status": "reserved",
                     "checkpoint": current,
@@ -2450,14 +2628,19 @@ class QualificationRunStore:
                 }
             if not changed:
                 return results
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted_checkpoints = self._load_manifest(path).get(
-                "aggregateReviewCheckpoints"
-            ) or {}
-            for question_id, key in changed.items():
-                persisted = persisted_checkpoints.get(question_id)
+            for question_id, (_key, current) in changed.items():
+                self._write_aggregate_checkpoint_sidecar(
+                    parent_path,
+                    sidecar_paths[question_id],
+                    question_id,
+                    current,
+                )
+            for question_id, (key, _current) in changed.items():
+                persisted = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
                 if not isinstance(persisted, Mapping):
                     raise QualificationRunError(
                         "aggregate review slot予約を再読検証できません。"
@@ -2484,26 +2667,43 @@ class QualificationRunStore:
             tuple[str, Mapping[str, Any], int, Mapping[str, Any]]
         ],
     ) -> None:
-        """Atomically cancel only slots reserved before a thread was started."""
+        """Cancel only slots reserved before a thread was started."""
 
         question_ids = [value[0] for value in cancellations]
         if len(question_ids) != len(set(question_ids)):
             raise QualificationRunError(
                 "同じ問題のaggregate review予約を重複取消できません。"
             )
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        legacy = self._legacy_aggregate_checkpoints(parent_path)
+        sidecar_paths = {
+            question_id: self._aggregate_checkpoint_path(
+                parent_path,
+                question_id,
             )
-            prepared: list[tuple[str, dict[str, Any], dict[str, dict[str, Any]], str]] = []
+            for question_id in question_ids
+        }
+        with ExitStack() as locks:
+            for sidecar_path in sorted(set(sidecar_paths.values())):
+                locks.enter_context(self._path_lock(sidecar_path))
+            prepared: list[
+                tuple[
+                    str,
+                    dict[str, Any],
+                    dict[str, dict[str, Any]],
+                    str,
+                ]
+            ] = []
             for question_id, signature, slot, expected_slot in cancellations:
                 if slot not in {1, 2}:
                     raise QualificationRunError(
                         "aggregate review取消slotは1又は2です。"
                     )
-                current = checkpoints.get(question_id)
+                current = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
                 if not isinstance(current, Mapping) or (
                     self._aggregate_checkpoint_signature(current) != dict(signature)
                 ):
@@ -2524,6 +2724,7 @@ class QualificationRunStore:
                     )
                 prepared.append((question_id, current_copy, slots, key))
 
+            expected: dict[str, dict[str, Any] | None] = {}
             for question_id, current, slots, key in prepared:
                 del slots[key]
                 if (
@@ -2532,21 +2733,38 @@ class QualificationRunStore:
                     and not current.get("executions")
                     and current.get("consensus") is None
                 ):
-                    del checkpoints[question_id]
+                    expected[question_id] = None
                     continue
                 current["slots"] = slots
-                checkpoints[question_id] = current
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted_manifest = self._load_manifest(path)
-            persisted_checkpoints = persisted_manifest.get(
-                "aggregateReviewCheckpoints"
-            )
-            if persisted_checkpoints != checkpoints:
-                raise QualificationRunError(
-                    "aggregate review予約取消を再読検証できません。"
+                ordered = [slots[value] for value in ("1", "2") if value in slots]
+                current["reviews"] = [
+                    copy.deepcopy(value["review"])
+                    for value in ordered
+                    if value.get("status") == "resolved"
+                ]
+                current["executions"] = [
+                    copy.deepcopy(value["execution"])
+                    for value in ordered
+                    if value.get("status") == "resolved"
+                ]
+                expected[question_id] = current
+            for question_id, checkpoint in expected.items():
+                self._write_aggregate_checkpoint_sidecar(
+                    parent_path,
+                    sidecar_paths[question_id],
+                    question_id,
+                    checkpoint,
                 )
+            for question_id, checkpoint in expected.items():
+                persisted = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
+                if persisted != checkpoint:
+                    raise QualificationRunError(
+                        "aggregate review予約取消を再読検証できません。"
+                    )
 
     def resolve_aggregate_review_slot(
         self,
@@ -2559,65 +2777,19 @@ class QualificationRunStore:
         review: Mapping[str, Any],
         execution: Mapping[str, Any],
     ) -> dict[str, Any]:
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
-            )
-            current = checkpoints.get(question_id)
-            if not isinstance(current, Mapping) or (
-                self._aggregate_checkpoint_signature(current) != dict(signature)
-            ):
-                raise QualificationRunError(
-                    "aggregate review checkpoint signatureが一致しません。"
+        return self.resolve_aggregate_review_slots(
+            qualification,
+            parent_run_id,
+            [
+                (
+                    question_id,
+                    signature,
+                    slot,
+                    review,
+                    execution,
                 )
-            current = copy.deepcopy(dict(current))
-            slots = self._aggregate_checkpoint_slots(current)
-            key = str(slot)
-            reserved = slots.get(key)
-            if not isinstance(reserved, Mapping) or (
-                reserved.get("status") != "started"
-            ):
-                raise QualificationRunError(
-                    "開始済みaggregate review slotを確認できません。"
-                )
-            self._validate_aggregate_review_execution(
-                execution,
-                slot=slot,
-                signature=signature,
-            )
-            slots[key] = {
-                **copy.deepcopy(dict(reserved)),
-                "status": "resolved",
-                "review": copy.deepcopy(dict(review)),
-                "execution": copy.deepcopy(dict(execution)),
-                "resolvedAt": _now(),
-            }
-            ordered = [slots[key] for key in ("1", "2") if key in slots]
-            current.update(
-                slots=slots,
-                reviews=[copy.deepcopy(value["review"]) for value in ordered if value.get("status") == "resolved"],
-                executions=[copy.deepcopy(value["execution"]) for value in ordered if value.get("status") == "resolved"],
-            )
-            checkpoints[question_id] = current
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted = self._load_manifest(path)["aggregateReviewCheckpoints"][
-                question_id
-            ]
-            persisted_slot = self._aggregate_checkpoint_slots(persisted).get(key)
-            if (
-                not isinstance(persisted_slot, Mapping)
-                or persisted_slot.get("status") != "resolved"
-                or persisted_slot.get("review") != dict(review)
-                or persisted_slot.get("execution") != dict(execution)
-            ):
-                raise QualificationRunError(
-                    "aggregate review slot確定を再読検証できません。"
-                )
-            return copy.deepcopy(dict(persisted))
+            ],
+        )[question_id]
 
     def resolve_aggregate_review_slots(
         self,
@@ -2633,19 +2805,25 @@ class QualificationRunStore:
             ]
         ],
     ) -> dict[str, dict[str, Any]]:
-        """Resolve a review batch while excluding concurrent checkpoint writers."""
+        """Resolve review results in independent checkpoint shards."""
 
         question_ids = [value[0] for value in resolutions]
         if len(question_ids) != len(set(question_ids)):
             raise QualificationRunError(
                 "同じ問題のaggregate review結果をbatch内で重複確定できません。"
             )
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        legacy = self._legacy_aggregate_checkpoints(parent_path)
+        sidecar_paths = {
+            question_id: self._aggregate_checkpoint_path(
+                parent_path,
+                question_id,
             )
+            for question_id in question_ids
+        }
+        with ExitStack() as locks:
+            for sidecar_path in sorted(set(sidecar_paths.values())):
+                locks.enter_context(self._path_lock(sidecar_path))
             prepared: list[
                 tuple[
                     str,
@@ -2663,7 +2841,11 @@ class QualificationRunStore:
                 review,
                 execution,
             ) in resolutions:
-                current = checkpoints.get(question_id)
+                current = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
                 if not isinstance(current, Mapping) or (
                     self._aggregate_checkpoint_signature(current) != dict(signature)
                 ):
@@ -2718,18 +2900,22 @@ class QualificationRunStore:
                         if value.get("status") == "resolved"
                     ],
                 )
-                checkpoints[question_id] = current
             if not prepared:
                 return {}
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted_checkpoints = self._load_manifest(path).get(
-                "aggregateReviewCheckpoints"
-            ) or {}
+            for question_id, current, _slots, _key, _review, _execution in prepared:
+                self._write_aggregate_checkpoint_sidecar(
+                    parent_path,
+                    sidecar_paths[question_id],
+                    question_id,
+                    current,
+                )
             results: dict[str, dict[str, Any]] = {}
             for question_id, _current, _slots, key, review, execution in prepared:
-                persisted = persisted_checkpoints.get(question_id)
+                persisted = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
                 if not isinstance(persisted, Mapping):
                     raise QualificationRunError(
                         "aggregate review slot確定を再読検証できません。"
@@ -2755,40 +2941,11 @@ class QualificationRunStore:
         signature: Mapping[str, Any],
         consensus: Mapping[str, Any],
     ) -> dict[str, Any]:
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
-            )
-            current = checkpoints.get(question_id)
-            if not isinstance(current, Mapping) or (
-                self._aggregate_checkpoint_signature(current) != dict(signature)
-            ):
-                raise QualificationRunError(
-                    "aggregate review consensus signatureが一致しません。"
-                )
-            current = copy.deepcopy(dict(current))
-            slots = self._aggregate_checkpoint_slots(current)
-            if set(slots) != {"1", "2"} or any(
-                value.get("status") != "resolved" for value in slots.values()
-            ):
-                raise QualificationRunError(
-                    "二つのaggregate review slot確定前にconsensusを保存できません。"
-                )
-            current["consensus"] = copy.deepcopy(dict(consensus))
-            checkpoints[question_id] = current
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted = self._load_manifest(path)["aggregateReviewCheckpoints"][
-                question_id
-            ]
-            if persisted.get("consensus") != dict(consensus):
-                raise QualificationRunError(
-                    "aggregate review consensusを再読検証できません。"
-                )
-            return copy.deepcopy(dict(persisted))
+        return self.store_aggregate_review_consensuses(
+            qualification,
+            parent_run_id,
+            [(question_id, signature, consensus)],
+        )[question_id]
 
     def store_aggregate_review_consensuses(
         self,
@@ -2798,22 +2955,32 @@ class QualificationRunStore:
             tuple[str, Mapping[str, Any], Mapping[str, Any]]
         ],
     ) -> dict[str, dict[str, Any]]:
-        """Persist a whole reconciliation batch with one write and one readback."""
+        """Persist consensus values in independent checkpoint shards."""
 
         question_ids = [question_id for question_id, _signature, _value in values]
         if len(question_ids) != len(set(question_ids)):
             raise QualificationRunError(
                 "同じ問題のaggregate review consensusを重複保存できません。"
             )
-        path = self._manifest_path(qualification, parent_run_id)
-        with self._lock:
-            manifest = self._load_manifest(path)
-            checkpoints = copy.deepcopy(
-                manifest.get("aggregateReviewCheckpoints") or {}
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        legacy = self._legacy_aggregate_checkpoints(parent_path)
+        sidecar_paths = {
+            question_id: self._aggregate_checkpoint_path(
+                parent_path,
+                question_id,
             )
+            for question_id in question_ids
+        }
+        with ExitStack() as locks:
+            for sidecar_path in sorted(set(sidecar_paths.values())):
+                locks.enter_context(self._path_lock(sidecar_path))
             prepared: list[tuple[str, dict[str, Any], Mapping[str, Any]]] = []
             for question_id, signature, consensus in values:
-                current = checkpoints.get(question_id)
+                current = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
                 if not isinstance(current, Mapping) or (
                     self._aggregate_checkpoint_signature(current) != dict(signature)
                 ):
@@ -2831,18 +2998,22 @@ class QualificationRunStore:
                 prepared.append((question_id, current_copy, consensus))
             for question_id, current, consensus in prepared:
                 current["consensus"] = copy.deepcopy(dict(consensus))
-                checkpoints[question_id] = current
             if not prepared:
                 return {}
-            manifest["aggregateReviewCheckpoints"] = checkpoints
-            manifest["updatedAt"] = _now()
-            self._write_manifest(path, manifest)
-            persisted_checkpoints = self._load_manifest(path).get(
-                "aggregateReviewCheckpoints"
-            ) or {}
+            for question_id, current, _consensus in prepared:
+                self._write_aggregate_checkpoint_sidecar(
+                    parent_path,
+                    sidecar_paths[question_id],
+                    question_id,
+                    current,
+                )
             results: dict[str, dict[str, Any]] = {}
             for question_id, _current, consensus in prepared:
-                persisted = persisted_checkpoints.get(question_id)
+                persisted = self._effective_aggregate_checkpoint(
+                    sidecar_paths[question_id],
+                    question_id,
+                    legacy,
+                )
                 if (
                     not isinstance(persisted, Mapping)
                     or persisted.get("consensus") != dict(consensus)
@@ -2903,7 +3074,7 @@ class QualificationRunStore:
         if len(update_keys) != len(set(update_keys)):
             raise QualificationRunError("一問queueの同じ工程を重複更新できません。")
         path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(path):
             manifest = self._load_manifest(path)
             executions = manifest.get("questionExecutions")
             if not isinstance(executions, list):
@@ -2913,6 +3084,7 @@ class QualificationRunStore:
                 for value in executions
                 if isinstance(value, dict) and value.get("questionId")
             }
+            appended_child_run_ids: list[str] = []
             for raw_update, (question_id, stage_id) in zip(updates, update_keys):
                 question = questions.get(question_id)
                 if question is None:
@@ -2940,6 +3112,11 @@ class QualificationRunStore:
                 if not isinstance(raw_changes, Mapping):
                     raise QualificationRunError("一問queueの一括更新内容が不正です。")
                 changes = dict(raw_changes)
+                appended_child_run_ids.extend(
+                    str(value)
+                    for value in changes.get("childRunIds") or []
+                    if value
+                )
                 next_status = str(
                     changes.get("status")
                     or stages[stage_index].get("status")
@@ -3014,6 +3191,27 @@ class QualificationRunStore:
                             finishedAt=changes.get("finishedAt") or _now(),
                         )
                 refresh_question_status(question)
+            if appended_child_run_ids:
+                manifest["childRunIds"] = list(
+                    dict.fromkeys(
+                        [
+                            *(
+                                str(value)
+                                for value in manifest.get("childRunIds") or []
+                                if value
+                            ),
+                            *appended_child_run_ids,
+                        ]
+                    )
+                )
+                appended_stage_ids = {
+                    stage_id
+                    for _question_id, stage_id in update_keys
+                }
+                if len(appended_stage_ids) == 1:
+                    active_stage_id = next(iter(appended_stage_ids))
+                    manifest["currentPhaseId"] = active_stage_id
+                    manifest["executionPhase"] = f"candidate:{active_stage_id}"
             summary = queue_summary(executions)
             manifest.update(
                 questionExecutionSummary=summary,
@@ -3053,8 +3251,8 @@ class QualificationRunStore:
             reverse=True,
         )
         manifests: list[dict[str, Any]] = []
-        with self._lock:
-            for path in paths:
+        for path in paths:
+            with self._path_lock(path):
                 if top_level_only and self._manifest_has_parent(path):
                     continue
                 manifest = (
@@ -3086,7 +3284,8 @@ class QualificationRunStore:
         """Return the compact top-level run index used by the dashboard."""
 
         qualification = _safe_segment(qualification)
-        with self._lock:
+        index_path = self.root / qualification / "dashboard_runs.json"
+        with self._path_lock(index_path):
             indexed = self._read_dashboard_run_index(qualification)
         if indexed is None:
             indexed = self.list(
@@ -3098,7 +3297,7 @@ class QualificationRunStore:
                 excluded_work_types=DASHBOARD_RUN_EXCLUDED_WORK_TYPES,
                 excluded_schema_versions=DASHBOARD_RUN_EXCLUDED_SCHEMA_VERSIONS,
             )
-            with self._lock:
+            with self._path_lock(index_path):
                 self._write_dashboard_run_index(qualification, indexed)
 
         excluded_work_type_set = set(excluded_work_types)
@@ -3111,20 +3310,22 @@ class QualificationRunStore:
         ][:limit]
 
     def get(self, qualification: str, run_id: str) -> dict[str, Any]:
-        with self._lock:
-            return self._public(self._load_manifest(self._manifest_path(qualification, run_id)))
+        path = self._manifest_path(qualification, run_id)
+        with self._path_lock(path):
+            manifest = self._load_manifest(path)
+        return self._public_with_aggregate_checkpoints(path, manifest)
 
     def refresh(self, qualification: str, run_id: str) -> dict[str, Any]:
         path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(path):
             manifest = self._apply_result_receipt(path, self._load_manifest(path))
-            return self._public(manifest)
+        return self._public_with_aggregate_checkpoints(path, manifest)
 
     def write_result(
         self, qualification: str, run_id: str, result: Mapping[str, Any]
     ) -> Path:
-        with self._lock:
-            manifest_path = self._manifest_path(qualification, run_id)
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             path = self._result_path(manifest_path, manifest)
             self._write_json(path, result)
@@ -3140,7 +3341,7 @@ class QualificationRunStore:
         result_if_missing: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(path):
             manifest = self._finalize_validated_artifact_sync_incomplete(
                 path,
                 self._load_manifest(path),
@@ -3152,7 +3353,7 @@ class QualificationRunStore:
 
     def result_path(self, qualification: str, run_id: str) -> Path:
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             return self._result_path(
                 manifest_path,
                 self._load_manifest(manifest_path),
@@ -3160,7 +3361,7 @@ class QualificationRunStore:
 
     def progress_path(self, qualification: str, run_id: str) -> Path:
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             if manifest.get("kind") != "human":
                 raise QualificationRunError("この作業には問題単位の進捗がありません。")
@@ -3174,7 +3375,7 @@ class QualificationRunStore:
         limit: int = 200,
     ) -> dict[str, Any]:
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             relative = str(manifest.get("technicalLogPath") or "")
             path = (
@@ -3218,7 +3419,7 @@ class QualificationRunStore:
 
     def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             if manifest.get("kind") != "human":
                 return self._empty_progress(manifest)
@@ -3249,11 +3450,13 @@ class QualificationRunStore:
         self, qualification: str, run_id: str
     ) -> dict[str, Any]:
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
-            children: list[tuple[dict[str, Any], bytes]] = []
-            for child_run_id in manifest.get("childRunIds") or []:
-                child_path = self._manifest_path(qualification, str(child_run_id))
+            child_run_ids = list(manifest.get("childRunIds") or [])
+        children: list[tuple[dict[str, Any], bytes]] = []
+        for child_run_id in child_run_ids:
+            child_path = self._manifest_path(qualification, str(child_run_id))
+            with self._path_lock(child_path):
                 child = self._load_manifest(child_path)
                 if str(child.get("parentRunId") or "") != str(run_id):
                     raise QualificationRunError(
@@ -3936,7 +4139,7 @@ class QualificationRunStore:
         roots: tuple[Path, ...],
     ) -> Path:
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             agent_output = self._result_path(manifest_path, manifest).parent.resolve()
             tracked_roots = [
@@ -4960,7 +5163,7 @@ class QualificationRunStore:
         """Restore an unvalidated human run to its captured write boundary."""
 
         manifest_path = self._manifest_path(qualification, run_id)
-        with self._lock:
+        with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             if manifest.get("receiptValidated") is True:
                 return None
@@ -4981,8 +5184,9 @@ class QualificationRunStore:
         qualification: str,
         run_id: str,
     ) -> None:
-        with self._lock:
-            path = self._manifest_path(qualification, run_id).parent / "baseline_files"
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._path_lock(manifest_path):
+            path = manifest_path.parent / "baseline_files"
             shutil.rmtree(path, ignore_errors=True)
 
     def _rollback_baseline_delta(
@@ -5260,20 +5464,23 @@ class QualificationRunStore:
         signature: tuple[int, int, int],
         manifest: dict[str, Any],
     ) -> None:
-        self._manifest_cache.pop(path, None)
-        self._manifest_cache[path] = (signature, manifest)
-        while len(self._manifest_cache) > 4:
-            oldest = next(iter(self._manifest_cache))
-            self._manifest_cache.pop(oldest, None)
+        with self._cache_lock:
+            self._manifest_cache.pop(path, None)
+            self._manifest_cache[path] = (signature, manifest)
+            while len(self._manifest_cache) > MANIFEST_CACHE_LIMIT:
+                oldest = next(iter(self._manifest_cache))
+                self._manifest_cache.pop(oldest, None)
 
     def _manifest_value(self, path: Path) -> dict[str, Any]:
         if not path.is_file():
             raise QualificationRunError("作業履歴が見つかりません。")
         signature = self._manifest_file_signature(path)
-        cached = self._manifest_cache.get(path)
-        if cached is not None and cached[0] == signature:
-            self._remember_manifest(path, signature, cached[1])
-            return cached[1]
+        with self._cache_lock:
+            cached = self._manifest_cache.get(path)
+            if cached is not None and cached[0] == signature:
+                self._manifest_cache.pop(path, None)
+                self._manifest_cache[path] = cached
+                return cached[1]
         for _attempt in range(2):
             before = self._manifest_file_signature(path)
             value = json.loads(path.read_text(encoding="utf-8"))
@@ -5291,7 +5498,8 @@ class QualificationRunStore:
 
     def _manifest_has_parent(self, path: Path) -> bool:
         signature = self._manifest_file_signature(path)
-        cached = self._manifest_header_cache.get(path)
+        with self._cache_lock:
+            cached = self._manifest_header_cache.get(path)
         if cached is not None and cached[0] == signature:
             return cached[1]
         try:
@@ -5310,12 +5518,14 @@ class QualificationRunStore:
             if match is not None
             else bool(self._manifest_value(path).get("parentRunId"))
         )
-        self._manifest_header_cache[path] = (signature, has_parent)
+        with self._cache_lock:
+            self._manifest_header_cache[path] = (signature, has_parent)
         return has_parent
 
     def _load_manifest_list_summary(self, path: Path) -> dict[str, Any]:
         manifest_signature = self._manifest_file_signature(path)
-        cached = self._manifest_list_summary_cache.get(path)
+        with self._cache_lock:
+            cached = self._manifest_list_summary_cache.get(path)
         if cached is not None:
             receipt_signature = self._list_summary_receipt_signature(
                 path,
@@ -5332,10 +5542,11 @@ class QualificationRunStore:
         if sidecar is not None:
             summary, receipt_signature = sidecar
             cache_signature = (manifest_signature, receipt_signature)
-            self._manifest_list_summary_cache[path] = (
-                cache_signature,
-                summary,
-            )
+            with self._cache_lock:
+                self._manifest_list_summary_cache[path] = (
+                    cache_signature,
+                    summary,
+                )
             return copy.deepcopy(summary)
 
         manifest = self._manifest_value(path)
@@ -5368,7 +5579,11 @@ class QualificationRunStore:
                 )
                 cache_signature = (manifest_signature, receipt_signature)
         summary = self._public_list_summary(manifest)
-        self._manifest_list_summary_cache[path] = (cache_signature, summary)
+        with self._cache_lock:
+            self._manifest_list_summary_cache[path] = (
+                cache_signature,
+                summary,
+            )
         self._write_manifest_list_summary_sidecar(
             path,
             manifest_signature,
@@ -5486,10 +5701,11 @@ class QualificationRunStore:
             cached,
         )
         signature = self._manifest_file_signature(path)
-        self._manifest_header_cache[path] = (
-            signature,
-            bool(manifest.get("parentRunId")),
-        )
+        with self._cache_lock:
+            self._manifest_header_cache[path] = (
+                signature,
+                bool(manifest.get("parentRunId")),
+            )
         receipt_signature = (
             self._result_receipt_file_signature(
                 self._result_path(path, manifest)
@@ -5498,13 +5714,14 @@ class QualificationRunStore:
             else None
         )
         summary = self._public_list_summary(manifest)
-        self._manifest_list_summary_cache[path] = (
-            (
-                signature,
-                receipt_signature,
-            ),
-            summary,
-        )
+        with self._cache_lock:
+            self._manifest_list_summary_cache[path] = (
+                (
+                    signature,
+                    receipt_signature,
+                ),
+                summary,
+            )
         self._write_manifest_list_summary_sidecar(
             path,
             signature,
@@ -5517,7 +5734,8 @@ class QualificationRunStore:
         self,
         qualification: str,
     ) -> list[dict[str, Any]] | None:
-        cached = self._dashboard_run_index_cache.get(qualification)
+        with self._cache_lock:
+            cached = self._dashboard_run_index_cache.get(qualification)
         if cached is not None:
             return copy.deepcopy(cached)
         path = self.root / qualification / "dashboard_runs.json"
@@ -5535,7 +5753,8 @@ class QualificationRunStore:
         ):
             return None
         runs = [copy.deepcopy(dict(run)) for run in value["runs"]]
-        self._dashboard_run_index_cache[qualification] = runs
+        with self._cache_lock:
+            self._dashboard_run_index_cache[qualification] = runs
         return copy.deepcopy(runs)
 
     def _write_dashboard_run_index(
@@ -5562,7 +5781,8 @@ class QualificationRunStore:
             reverse=True,
         )
         normalized = normalized[:DASHBOARD_RUN_INDEX_LIMIT]
-        self._dashboard_run_index_cache[qualification] = normalized
+        with self._cache_lock:
+            self._dashboard_run_index_cache[qualification] = normalized
         try:
             self._write_json(
                 self.root / qualification / "dashboard_runs.json",
@@ -5589,16 +5809,18 @@ class QualificationRunStore:
         run_id = str(manifest.get("runId") or "")
         if not qualification or not run_id:
             return
-        indexed = self._read_dashboard_run_index(qualification)
-        if indexed is None:
-            return
-        indexed = [
-            run
-            for run in indexed
-            if str(run.get("runId") or "") != run_id
-        ]
-        indexed.append(copy.deepcopy(dict(summary)))
-        self._write_dashboard_run_index(qualification, indexed)
+        index_path = self.root / qualification / "dashboard_runs.json"
+        with self._path_lock(index_path):
+            indexed = self._read_dashboard_run_index(qualification)
+            if indexed is None:
+                return
+            indexed = [
+                run
+                for run in indexed
+                if str(run.get("runId") or "") != run_id
+            ]
+            indexed.append(copy.deepcopy(dict(summary)))
+            self._write_dashboard_run_index(qualification, indexed)
 
     @staticmethod
     def _requires_startup_recovery(manifest: Mapping[str, Any]) -> bool:
@@ -8830,14 +9052,6 @@ class QualificationRunCoordinator:
             with aggregation_lock:
                 child_run_ids.append(child_id)
                 phase_child_ids.setdefault(stage_id, []).append(child_id)
-                all_child_ids = list(child_run_ids)
-            self.store.update(
-                qualification,
-                run_id,
-                childRunIds=all_child_ids,
-                currentPhaseId=stage_id,
-                executionPhase=f"candidate:{stage_id}",
-            )
             committing_parent = self.store.get(qualification, run_id)
             committing_updates: list[dict[str, Any]] = []
             for target in targets:
