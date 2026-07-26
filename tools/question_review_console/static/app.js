@@ -1391,6 +1391,20 @@ function renderMaintenanceDashboard() {
   const activeRun = state.qualificationActiveRun;
   const liveProgress = state.qualificationRunProgress;
   const isRunning = Boolean(activeRun && ["queued", "running", "validating"].includes(activeRun.status));
+  const latestRun = displayedQualificationRun();
+  const latestRunProgress = qualificationRunProgressForRun(
+    liveProgress,
+    latestRun?.runId,
+  );
+  const resumableRun = qualificationRunCanRetryBlocked(
+    latestRun,
+    qualificationRunViewState(latestRun, latestRunProgress),
+  )
+    ? latestRun
+    : null;
+  const resumableGroupIds = new Set(
+    resumableRun?.scopeListGroupIds || resumableRun?.targetGroupIds || [],
+  );
   const currentEvent = isRunning ? liveProgress?.current : null;
   const activeGroupId = currentEvent?.listGroupId
     || (activeRun?.targetGroupIds?.length === 1 ? activeRun.targetGroupIds[0] : "");
@@ -1456,6 +1470,7 @@ function renderMaintenanceDashboard() {
     const workItemPercent = Number(groupProgress.workItemProgressPercent || 0);
     const liveGroup = liveProgress?.groups?.find((item) => item.listGroupId === group.listGroupId);
     const working = isRunning && group.listGroupId === activeGroupId;
+    const resumable = resumableGroupIds.has(group.listGroupId);
     const row = element(
       "div",
       `maintenance-year-row${working ? " working" : groupRequired ? "" : " complete"}`,
@@ -1512,20 +1527,24 @@ function renderMaintenanceDashboard() {
     const action = element(
       "button",
       "secondary-button",
-      working ? "進捗を見る" : "整備・洗い替え",
+      working ? "進捗を見る" : resumable ? "未完了を再開" : "整備・洗い替え",
     );
     action.type = "button";
-    action.disabled = !working && (isRunning || workflow.restartRequired);
+    action.disabled = !working && !resumable && (isRunning || workflow.restartRequired);
     action.setAttribute(
       "aria-label",
       working
         ? `${group.displayName || group.listGroupId}の進捗を見る`
+        : resumable
+          ? `${group.displayName || group.listGroupId}の未完了を再開`
         : `${group.displayName || group.listGroupId}を整備・洗い替え`,
     );
     action.addEventListener(
       "click",
       working
         ? resumeQualificationRun
+        : resumable
+          ? retryBlockedQualificationRun
         : () => openListGroupMaintenance(group.listGroupId),
     );
     actions.append(statusAction, action);
@@ -2464,7 +2483,6 @@ function renderQualificationActiveRun() {
     retry.hidden = true;
     return;
   }
-  container.hidden = false;
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
   const statusClass = view.partial

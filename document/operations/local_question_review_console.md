@@ -10,6 +10,11 @@
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
 5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
 
+### 操作と確認の境界
+
+- runの開始・再開、成果物の再生成、Firestore反映など、共有状態を変更する操作は問題整備システムの画面から実行する。
+- 進捗確認と整合性監査は画面表示を証跡にせず、`manifest.json`、`progress.jsonl`、`technical_log.jsonl`、問題別projection、`result.json`、完了receipt、publish runのreadbackを直接確認する。画面とartifactが食い違う場合はartifactを正として原因を調べ、完了receipt又はreadback一致がない状態を完了扱いにしない。
+
 ## 確定、rollback、再生成
 
 | 状態 | 完了条件 | 後続失敗時 |
