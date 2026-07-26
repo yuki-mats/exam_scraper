@@ -63,7 +63,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-multi-qualification-fast/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-multi-qualification-fast"
 
-active_task: T004
+active_task: T005
 
 tasks:
   - id: T001
@@ -236,7 +236,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "mainへscoped commit/pushし、1台のreview-uiを再起動してガス主任技術者・乙種を再開し、CLF-C02との2資格canaryを開始してlive readbackする。"
     allowed_files:
@@ -253,11 +253,57 @@ tasks:
       - "CLF-C02 canonical qualificationを一意に解決できない。"
       - "資格間changed-file scopeが重なる。"
       - "review-ui又はApp Serverが不安定化する。"
+    receipt:
+      result: blocked
+      blocked_reason: "Live account readbackがcreditsEnabled=false / fastModeAvailable=falseであり、Fast runの開始条件を満たさない。仕様どおりStandardへfallbackせず、2資格canaryの開始直前で停止した。"
+      changed_files: []
+      commands:
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "GET /api/codex/status"
+          status: pass
+        - cmd: "Fast preview: gas-shunin-otsu resume"
+          status: pass
+        - cmd: "Fast preview: aws-cloud-practitioner CLF-C02 two groups"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+      summary: "Commit 492eaa310をorigin/mainへpushし、新コードのreview-uiを1台で起動した。gas runはinterrupted/retrySafe=true、validatedWorkItemCount=126を保持した。Fast previewはgas 522問/3528 items、CLF-C02 879問/5274 items、各32turn、requestedServiceTier=fast、canStart=trueで解決した。Global telemetryはcapacity=32/inFlight=0。Fast開始だけがcredits無効でblocked。"
+      evidence:
+        - "commit:492eaa310ad47333ccf940ea9582d565b2e28d9e"
+        - "review-ui:127.0.0.1:8765"
+        - "gas-run:20260726T083408432999-ac9ebd8c"
+        - "qualification:aws-cloud-practitioner"
+        - "listGroup:ping-t-aws-clf-c02"
+        - "listGroup:keepitup-aws-clf-c02"
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "Codex credits有効化後、gas-shunin-otsuのcheckpoint再開とaws-cloud-practitionerのCLF-C02を各32turn希望・Fastで同時開始し、global公平配分と品質進捗をlive readbackする。"
+    allowed_files:
+      - "output/question_review_console/**"
+      - "output/gas-shunin-otsu/**"
+      - "output/aws-cloud-practitioner/**"
+      - "docs/goals/question-maintenance-multi-qualification-fast/**"
+    verify:
+      - "GET /api/codex/statusでcreditsEnabled=trueとfastModeAvailable=trueを確認する。"
+      - "2資格のactive run、heartbeat、validated work、serviceTier=fast、turnBudget inFlight <= 32と資格別allocationを確認する。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "資格間changed-file scopeが重ならないことを確認する。"
+    stop_if:
+      - "creditsEnabled又はfastModeAvailableがfalse。"
+      - "Fastのrequest/response service tierが一致しない。"
+      - "global inFlightが32を超える。"
+      - "資格間changed-file scopeが重なる。"
     receipt: null
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "実装と2資格canaryが元の要求を満たすか最終監査する。"
     inputs:
@@ -274,8 +320,19 @@ tasks:
       - "full_outcome_complete: true | false"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "実装、検証、push、1台のreview-ui、2資格Fast preview、gas checkpoint回収、global capacity=32は確認できた。ただしlive accountはcreditsEnabled=falseで、Fast service tierを適用した2資格同時runを開始できないため、元の実運用outcomeは未完了。"
+      missing_evidence:
+        - "credits有効化後のgas-shunin-otsuとaws-cloud-practitioner同時active"
+        - "2資格実行中のturnBudget inFlight <= 32と資格別allocation"
+        - "両runのserviceTier=fast、heartbeat増加、validated work増加"
+        - "同時run後の資格間changed-file scopeと00_source不変"
+      next_task: null
+      blocked_on: "ユーザー側でCodex creditsを有効化した後、同じFast条件で2資格canaryを開始する。"
+      summary: "コード成果物は完成しorigin/mainへ反映済み。Fastの黙示fallbackを禁止したため、live canaryだけを外部credit条件で保留する。"
 checks:
   dirty_fingerprint: "clean@ed109504a63ad9395f52fbd8ccdc211d2cc92249"
   last_verification:

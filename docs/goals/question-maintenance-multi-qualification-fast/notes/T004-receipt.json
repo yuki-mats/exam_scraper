@@ -1,0 +1,40 @@
+{
+  "result": "blocked",
+  "blocked_reason": "Live account readbackがcreditsEnabled=false / fastModeAvailable=falseであり、Fast runの開始条件を満たさない。仕様どおりStandardへfallbackせず、2資格canaryの開始直前で停止した。",
+  "changed_files": [],
+  "commands": [
+    {
+      "cmd": "git push origin main",
+      "status": "pass"
+    },
+    {
+      "cmd": "GET /api/codex/status",
+      "status": "pass"
+    },
+    {
+      "cmd": "Fast preview: gas-shunin-otsu resume",
+      "status": "pass"
+    },
+    {
+      "cmd": "Fast preview: aws-cloud-practitioner CLF-C02 two groups",
+      "status": "pass"
+    },
+    {
+      "cmd": ".venv/bin/python scripts/check/check_00_source_immutability.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "git rev-list --left-right --count origin/main...HEAD",
+      "status": "pass"
+    }
+  ],
+  "summary": "Commit 492eaa310をorigin/mainへpushし、新コードのreview-uiを1台で起動した。gas runはinterrupted/retrySafe=true、validatedWorkItemCount=126を保持した。Fast previewはgas 522問/3528 items、CLF-C02 879問/5274 items、各32turn、requestedServiceTier=fast、canStart=trueで解決した。Global telemetryはcapacity=32/inFlight=0。Fast開始だけがcredits無効でblocked。",
+  "evidence": [
+    "commit:492eaa310ad47333ccf940ea9582d565b2e28d9e",
+    "review-ui:127.0.0.1:8765",
+    "gas-run:20260726T083408432999-ac9ebd8c",
+    "qualification:aws-cloud-practitioner",
+    "listGroup:ping-t-aws-clf-c02",
+    "listGroup:keepitup-aws-clf-c02"
+  ]
+}
