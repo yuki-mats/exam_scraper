@@ -481,8 +481,8 @@ function invalidateAuditView() {
   clearSelectionToolbar(true);
   $("#queue").replaceChildren();
   $("#queue-pagination").hidden = true;
-  renderEmpty("状況確認を開くと、問題本文と現在の整備内容を読み込みます。");
-  setLoading("状況確認を開くと読み込みます");
+  renderEmpty("問題一覧を開くと、問題本文と現在の整備内容を読み込みます。");
+  setLoading("問題一覧を開くと読み込みます");
 }
 
 function showAuditView() {
@@ -514,6 +514,7 @@ async function ensureAuditViewQuestions(preserveSelection = false, options = {})
   }
   const restoredFromCache = restoreCachedQuestionList()
     || (state.questions.length > 0 && defaultQuestionListIsSelected());
+  if (!restoredFromCache) renderQueueLoading();
   state.auditView.loading = true;
   state.auditView.loadingScopeKey = scopeKey;
   $("#audit-view-loading").hidden = false;
@@ -549,7 +550,7 @@ function primeAuditRoute() {
   showAuditView();
   $("#audit-view-loading").hidden = false;
   if (!restoreCachedQuestionList()) {
-    renderEmpty("問題一覧を準備しています。");
+    renderQueueLoading();
     setLoading("問題一覧を準備しています", true);
   }
   return true;
@@ -1320,9 +1321,9 @@ function renderMaintenanceDashboard() {
     meterValue.style.width = `${displayedPercent}%`;
     meter.append(meterValue);
     const actions = element("div", "maintenance-year-actions");
-    const statusAction = element("button", "secondary-button", "状況を確認");
+    const statusAction = element("button", "secondary-button", "問題一覧を見る");
     statusAction.type = "button";
-    statusAction.setAttribute("aria-label", `${group.displayName || group.listGroupId}の状況を確認`);
+    statusAction.setAttribute("aria-label", `${group.displayName || group.listGroupId}の問題一覧を見る`);
     statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId));
     const action = element(
       "button",
@@ -4021,6 +4022,21 @@ function renderQueueLoadError(message) {
   queue.append(empty);
 }
 
+function renderQueueLoading() {
+  const queue = $("#queue");
+  queue.replaceChildren();
+  const loading = element("div", "empty-state queue-state queue-loading-state");
+  loading.setAttribute("role", "status");
+  loading.setAttribute("aria-live", "polite");
+  loading.append(
+    element("span", "loading-spinner"),
+    element("strong", "", "問題一覧を読み込んでいます"),
+    element("span", "", "初回は問題内容の準備に数秒かかることがあります。"),
+  );
+  queue.append(loading);
+  $("#queue-pagination").hidden = true;
+}
+
 function renderLoadError(message, retry = () => loadQuestions(false), summary = null) {
   const pane = $("#detail-pane");
   pane.replaceChildren();
@@ -4050,6 +4066,14 @@ function renderQueue() {
   const queue = $("#queue");
   const adminToolsOpen = $("#audit-admin-tools").open;
   queue.replaceChildren();
+  if (!state.questions.length) {
+    const empty = element("div", "empty-state queue-state");
+    empty.append(
+      element("strong", "", "表示できる問題がありません"),
+      element("span", "", "検索条件を変えるか、最新の状態に更新してください。"),
+    );
+    queue.append(empty);
+  }
   for (const question of state.questions) {
     const item = element("div", `queue-item${question.id === state.selectedId ? " selected" : ""}`);
     item.dataset.questionId = question.id;

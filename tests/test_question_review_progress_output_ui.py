@@ -217,7 +217,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
 
         self.assertIn("function openListGroupStatus", javascript)
         self.assertIn('statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId))', javascript)
-        self.assertIn("状況を確認", javascript)
+        self.assertIn("問題一覧を見る", javascript)
         self.assertIn('id="source-answer-difference"', html)
         self.assertIn('id="calculation-only"', html)
         self.assertIn('id="law-only"', html)

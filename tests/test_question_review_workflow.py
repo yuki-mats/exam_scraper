@@ -1600,6 +1600,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('setAuditViewPage("detail")', javascript)
         self.assertNotIn("state.selectedId = state.questions[0]", javascript)
         self.assertIn("問題一覧を読み込めませんでした", javascript)
+        self.assertIn("function renderQueueLoading", javascript)
+        self.assertIn("初回は問題内容の準備に数秒かかることがあります", javascript)
         self.assertIn('.audit-view:not(.detail-open) .detail-pane', css)
         self.assertIn('.audit-view.detail-open .queue-pane', css)
         self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
@@ -1725,6 +1727,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             ".qualification-active-run-phases { grid-template-columns: 1fr; }",
             css,
         )
+        self.assertIn("@media (min-width: 1200px)", css)
+        self.assertIn("width: min(1480px, calc(100% - 40px));", css)
         self.assertIn("function pollSharedRunProgress", javascript)
         self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", javascript)
         self.assertNotIn("window.setInterval(checkFingerprint", javascript)
@@ -1908,7 +1912,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-2"
+        asset_version = "question-review-ui-v3-20260726-3"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
