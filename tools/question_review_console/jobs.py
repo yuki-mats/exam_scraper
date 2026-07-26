@@ -125,6 +125,12 @@ class JobManager:
             None,
         )
 
+    def has_conflict(self, key: str) -> bool:
+        """Return whether starting the keyed operation would conflict now."""
+
+        with self._lock:
+            return self._conflicting_active_id(key) is not None
+
     def start(self, *, kind: str, key: str, worker: JobWorker) -> dict[str, Any]:
         with self._lock:
             active_id = self._conflicting_active_id(key)

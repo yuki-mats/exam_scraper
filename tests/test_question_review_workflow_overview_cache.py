@@ -138,6 +138,44 @@ class WorkflowOverviewCacheTests(unittest.TestCase):
         self.assertEqual(current["generatedAt"], "build-2")
         self.assertEqual(calls, ["build-1", "build-2"])
 
+    def test_background_refresh_waits_until_canonical_job_is_idle(self):
+        with tempfile.TemporaryDirectory() as directory:
+            calls = []
+            refresh_allowed = False
+
+            def loader(qualification):
+                marker = f"build-{len(calls) + 1}"
+                calls.append(marker)
+                return overview(qualification, marker)
+
+            cache = WorkflowOverviewCache(
+                Path(directory),
+                loader,
+                invalidation_delay_seconds=0,
+                refresh_allowed=lambda _qualification: refresh_allowed,
+            )
+            first = cache.get("sample")
+            cache.invalidate("sample")
+            blocked = cache.get("sample")
+
+            self.assertEqual(first["generatedAt"], "build-1")
+            self.assertEqual(blocked["generatedAt"], "build-1")
+            self.assertTrue(blocked["cache"]["stale"])
+            self.assertFalse(blocked["cache"]["refreshing"])
+            self.assertEqual(calls, ["build-1"])
+
+            refresh_allowed = True
+            cache.get("sample")
+            deadline = time.monotonic() + 2
+            while time.monotonic() < deadline:
+                current = cache.get("sample")
+                if not current["cache"]["refreshing"]:
+                    break
+                time.sleep(0.01)
+
+        self.assertEqual(current["generatedAt"], "build-2")
+        self.assertEqual(calls, ["build-1", "build-2"])
+
 
 if __name__ == "__main__":
     unittest.main()

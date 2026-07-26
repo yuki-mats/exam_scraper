@@ -1061,11 +1061,14 @@ def _structured_candidate_prompt(
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な正答証拠である。"
             "evidenceType=trusted_gassyunin_judge_statement_verdictsは、取得元のjudge欄が"
-            "各記述markerとcorrectChoiceTextを直接対応付け、件数・順序・出所の機械検証を"
+            "各記述markerと基礎事実のcorrectChoiceTextを直接対応付け、件数・順序・出所の機械検証を"
             "通過したことを示す。公式解答番号は元の組合せ肢を指すため、組合せ対応表が"
-            "ないことだけを理由にblockedにしない。currentRecordの選択肢と意味・順序が"
-            "同じならこの記述別正誤を根拠として確定し、意味が変わっている場合だけ"
-            "現在の命題を独立判定する。証拠自体はsetFieldsへ転載しない。",
+            "ないことだけを理由にblockedにしない。ただし、この配列を完成後の"
+            "correctChoiceTextへ直接転記しない。currentRecordのquestionBodyTextが"
+            "「規定されていない」「誤っている」「除く」「該当しない」などを問う場合は、"
+            "選択肢の文面と順序が同じでも、その条件と極性を各記述へ適用して完全な命題を作る。"
+            "judgeの基礎事実を根拠の一つとして現在の正誤を独立判定する。"
+            "証拠自体はsetFieldsへ転載しない。",
             "questionIssueCorrectionEvidenceがある場合、currentRecordと00_sourceの差は、専用のblind reviewと公式・一次資料で承認された問題訂正である。"
             "差があることだけを理由にblocked又は00_sourceへ差し戻さず、currentRecordの訂正文を設問として正答を独立判定する。"
             "この証拠はprompt内だけで参照し、setFieldsへ転載しない。",

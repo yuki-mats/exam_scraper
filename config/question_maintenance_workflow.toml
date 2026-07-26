@@ -144,8 +144,8 @@ code = "02a"
 label = "正答精査"
 purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
 kind = "human"
-# 2.1: source-boundな記述別judge証拠を組合せ解答番号と混同せず利用する。
-policy_version = "2.1"
+# 2.2: 記述別judge証拠を基礎事実として使い、現在の設問条件と極性を適用する。
+policy_version = "2.2"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"

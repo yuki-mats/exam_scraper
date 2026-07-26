@@ -2382,6 +2382,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ["間違い", "正しい"],
         )
         self.assertIn("組合せ対応表がないことだけを理由にblockedにしない", prompt)
+        self.assertIn("correctChoiceTextへ直接転記しない", prompt)
+        self.assertIn("その条件と極性を各記述へ適用して完全な命題を作る", prompt)
 
     def test_originalize_prompt_separates_current_record_and_source_evidence(self):
         target = {
