@@ -118,7 +118,7 @@ run一覧、snapshot、events、artifactの各HTTP JSON payloadには4 MiBの総
 4. terminal stageはvalidated attempt、所有path上の`result.json`、receipt、問題別`batchQuestionResults`、`changedFiles`、output fingerprintを相互照合する
 5. 共有JSONのrecord bindingにはplanとsummaryで確定したidentityだけを使い、state側だけに存在するidentityを採用しない
 
-plan、summary、state、receiptのいずれかが欠落・改変・別runへのsymlink・identity不一致ならfail-closedで除外し、warning又はrejectionを返します。v2 planは16 MiB、state探索は最大1,024問、attempt投影は最大512件です。検証済みplan projectionのcacheは最大8件かつ合計8 MiBまでのLRUとし、run数に比例してmemoryを増やしません。
+plan、summary、state、receiptのいずれかが欠落・改変・別runへのsymlink・identity不一致ならfail-closedで除外し、warning又はrejectionを返します。v2 planは16 MiB、state探索は最大1,024問、attempt投影は最大512件です。planはimmutableであってもsnapshotごとにsecure readとhash再計算を行い、改変直後に古いcacheを正常な投影として返しません。
 
 ## GET-only API
 

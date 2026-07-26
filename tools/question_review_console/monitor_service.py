@@ -8,7 +8,6 @@ import os
 import re
 import stat
 import threading
-from collections import OrderedDict
 from itertools import islice
 from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
@@ -22,8 +21,6 @@ MAX_SNAPSHOT_CHILDREN = 128
 MAX_ARTIFACT_CHILDREN = 512
 MAX_V2_QUESTION_STATES = 1024
 MAX_V2_PLAN_BYTES = 16 * 1024 * 1024
-MAX_V2_PLAN_CACHE_ENTRIES = 8
-MAX_V2_PLAN_CACHE_BYTES = 8 * 1024 * 1024
 MAX_MANIFEST_FALLBACK_BYTES = 8 * 1024 * 1024
 MAX_LIST_SUMMARY_BYTES = 8 * 1024 * 1024
 MAX_MANIFEST_COLLECTION_BYTES = 16 * 1024 * 1024
@@ -185,12 +182,6 @@ class MonitorReadModel:
             self.run_store_root.relative_to(self.repo_root)
         except ValueError as exc:
             raise ValueError("run storeがrepository外です。") from exc
-        self._v2_plan_cache_lock = threading.RLock()
-        self._v2_plan_cache: OrderedDict[
-            tuple[str, str, str],
-            tuple[tuple[int, ...], list[dict[str, Any]], int],
-        ] = OrderedDict()
-        self._v2_plan_cache_bytes = 0
         self.event_hub = event_hub
 
     def runs(self, qualification: str, *, limit: int = 100) -> dict[str, Any]:
@@ -1002,20 +993,8 @@ class MonitorReadModel:
             return [], ["v2_plan_unavailable"]
         if file_stat.st_size > MAX_V2_PLAN_BYTES:
             return [], ["v2_plan_bytes_limit"]
-        expected_plan_hash = str(manifest.get("planHash") or "")
-        key = (
-            qualification,
-            str(manifest.get("runId") or ""),
-            expected_plan_hash,
-        )
-        signature = self._stat_identity(file_stat)
-        with self._v2_plan_cache_lock:
-            cached = self._v2_plan_cache.get(key)
-            if cached is not None and cached[0] == signature:
-                self._v2_plan_cache.move_to_end(key)
-                return cached[1], []
         try:
-            value, verified_stat, _size = self._secure_read_json(
+            value, _verified_stat, _size = self._secure_read_json(
                 path,
                 MAX_V2_PLAN_BYTES,
             )
@@ -1134,36 +1113,6 @@ class MonitorReadModel:
             compact_question["stages"] = compact_stages
             projection.append(compact_question)
             seen_questions.add(normalized_question_id)
-        verified_signature = self._stat_identity(verified_stat)
-        projection_bytes = len(
-            json.dumps(
-                projection,
-                ensure_ascii=False,
-                sort_keys=True,
-                separators=(",", ":"),
-            ).encode("utf-8")
-        )
-        with self._v2_plan_cache_lock:
-            previous = self._v2_plan_cache.pop(key, None)
-            if previous is not None:
-                self._v2_plan_cache_bytes -= previous[2]
-            if projection_bytes <= MAX_V2_PLAN_CACHE_BYTES:
-                while self._v2_plan_cache and (
-                    len(self._v2_plan_cache)
-                    >= MAX_V2_PLAN_CACHE_ENTRIES
-                    or self._v2_plan_cache_bytes + projection_bytes
-                    > MAX_V2_PLAN_CACHE_BYTES
-                ):
-                    _evicted_key, evicted = (
-                        self._v2_plan_cache.popitem(last=False)
-                    )
-                    self._v2_plan_cache_bytes -= evicted[2]
-                self._v2_plan_cache[key] = (
-                    verified_signature,
-                    projection,
-                    projection_bytes,
-                )
-                self._v2_plan_cache_bytes += projection_bytes
         return projection, []
 
     def _v2_question_summary(
@@ -1733,6 +1682,7 @@ class MonitorReadModel:
         if (
             len(state_stage_ids) != len(stages)
             or len(state_stage_ids) != len(set(state_stage_ids))
+            or set(state_stage_ids) != set(expected_stages)
         ):
             return [], ["v2_question_state_identity_mismatch"], 0
 

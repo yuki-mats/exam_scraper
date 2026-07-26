@@ -854,6 +854,8 @@ class MonitorReadModelTest(unittest.TestCase):
 
     def test_v2_tampered_plan_is_explicit(self):
         run_id, _active_attempt, _saved_attempt = self._write_v2_run()
+        first = self.model.snapshot(run_id, qualification="demo")
+        self.assertEqual(len(first["lanes"]), 2)
         plan_path = self.store.root / "demo" / run_id / "plan.json"
         plan = json.loads(plan_path.read_text(encoding="utf-8"))
         plan["plan"]["qualification"] = "tampered"
@@ -863,6 +865,33 @@ class MonitorReadModelTest(unittest.TestCase):
 
         self.assertTrue(snapshot["truncated"])
         self.assertIn("v2_plan_hash_invalid", snapshot["warnings"])
+
+    def test_v2_state_must_contain_every_planned_stage(self):
+        run_id, _active_attempt, _saved_attempt = self._write_v2_run()
+        state_path = (
+            self.store.root
+            / "demo"
+            / run_id
+            / "questions"
+            / f"{hashlib.sha256(b'q-1').hexdigest()}.json"
+        )
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["execution"]["stages"] = []
+        self._write_v2_question_state(run_id, state)
+
+        snapshot = self.model.snapshot(run_id, qualification="demo")
+        artifacts = self.model.artifacts(run_id, qualification="demo")
+
+        self.assertFalse(snapshot["artifactFingerprintComplete"])
+        self.assertIn(
+            "v2_question_state_identity_mismatch",
+            snapshot["warnings"],
+        )
+        self.assertEqual(artifacts["artifacts"], [])
+        self.assertIn(
+            "v2_question_state_identity_mismatch",
+            {item["reasonCode"] for item in artifacts["rejected"]},
+        )
 
     def test_v2_run_local_plan_symlink_is_rejected_before_resolution(self):
         run_id, _active_attempt, _saved_attempt = self._write_v2_run()
