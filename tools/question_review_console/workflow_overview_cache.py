@@ -45,9 +45,22 @@ class WorkflowOverviewCache:
         retry_interval_seconds: float = 5.0,
         invalidation_delay_seconds: float = 2.0,
         refresh_allowed: Callable[[str], bool] | None = None,
+        cache_subdirectory: str = "workflow_overviews",
+        schema_version: str = WORKFLOW_OVERVIEW_CACHE_SCHEMA,
+        payload_field: str = "overview",
+        validator: Callable[
+            [str, Mapping[str, Any]],
+            dict[str, Any],
+        ]
+        | None = None,
+        thread_name_prefix: str = "workflow-overview",
     ):
         self.repo_root = repo_root.resolve()
         self.loader = loader
+        self.schema_version = str(schema_version)
+        self.payload_field = str(payload_field)
+        self.validator = validator or self._validate_workflow_overview
+        self.thread_name_prefix = str(thread_name_prefix)
         self.refresh_interval_seconds = (
             None
             if refresh_interval_seconds is None
@@ -64,7 +77,7 @@ class WorkflowOverviewCache:
             / "output"
             / "question_review_console"
             / "cache"
-            / "workflow_overviews"
+            / _safe_segment(cache_subdirectory)
         )
         self._condition = threading.Condition(threading.RLock())
         self._snapshots: dict[str, dict[str, Any]] = {}
@@ -75,9 +88,32 @@ class WorkflowOverviewCache:
         self._generations: dict[str, int] = {}
         self._snapshot_generations: dict[str, int] = {}
 
-    def get(self, qualification: str, *, fresh: bool = False) -> dict[str, Any]:
+    def get(
+        self,
+        qualification: str,
+        *,
+        fresh: bool = False,
+        wait_for_initial: bool = True,
+    ) -> dict[str, Any] | None:
         qualification = _safe_segment(qualification)
         snapshot = self._snapshot(qualification)
+        if snapshot is None and not fresh and not wait_for_initial:
+            with self._condition:
+                should_refresh = (
+                    qualification not in self._refreshing
+                    and self.refresh_allowed(qualification)
+                )
+                if should_refresh:
+                    self._refreshing.add(qualification)
+                    generation = self._generations.get(qualification, 0)
+                    thread = threading.Thread(
+                        target=self._refresh_in_background,
+                        args=(qualification, generation),
+                        name=f"{self.thread_name_prefix}-{qualification}",
+                        daemon=True,
+                    )
+                    thread.start()
+            return None
         if fresh or snapshot is None:
             return self._refresh_and_wait(qualification)
 
@@ -101,7 +137,7 @@ class WorkflowOverviewCache:
                 thread = threading.Thread(
                     target=self._refresh_in_background,
                     args=(qualification, generation),
-                    name=f"workflow-overview-{qualification}",
+                    name=f"{self.thread_name_prefix}-{qualification}",
                     daemon=True,
                 )
                 thread.start()
@@ -165,15 +201,15 @@ class WorkflowOverviewCache:
             return None
         if (
             not isinstance(value, Mapping)
-            or value.get("schemaVersion") != WORKFLOW_OVERVIEW_CACHE_SCHEMA
+            or value.get("schemaVersion") != self.schema_version
             or value.get("qualification") != qualification
-            or not isinstance(value.get("overview"), Mapping)
+            or not isinstance(value.get(self.payload_field), Mapping)
         ):
             return None
         try:
             snapshot = self._validated_snapshot(
                 qualification,
-                value["overview"],
+                value[self.payload_field],
             )
         except ValueError:
             return None
@@ -229,8 +265,17 @@ class WorkflowOverviewCache:
             self.loader(qualification),
         )
 
-    @staticmethod
     def _validated_snapshot(
+        self,
+        qualification: str,
+        overview: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        snapshot = self.validator(qualification, overview)
+        snapshot.pop("cache", None)
+        return snapshot
+
+    @staticmethod
+    def _validate_workflow_overview(
         qualification: str,
         overview: Mapping[str, Any],
     ) -> dict[str, Any]:
@@ -243,7 +288,6 @@ class WorkflowOverviewCache:
             raise ValueError("workflow overview groups must be an array")
         if not isinstance(snapshot.get("stages"), list):
             raise ValueError("workflow overview stages must be an array")
-        snapshot.pop("cache", None)
         return snapshot
 
     def _store(
@@ -258,10 +302,10 @@ class WorkflowOverviewCache:
                 self._path(qualification),
                 json.dumps(
                     {
-                        "schemaVersion": WORKFLOW_OVERVIEW_CACHE_SCHEMA,
+                        "schemaVersion": self.schema_version,
                         "qualification": qualification,
                         "refreshedAt": refreshed_at,
-                        "overview": snapshot,
+                        self.payload_field: snapshot,
                     },
                     ensure_ascii=False,
                     separators=(",", ":"),

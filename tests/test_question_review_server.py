@@ -792,6 +792,36 @@ class QuestionReviewServerTests(unittest.TestCase):
         )
         self.assertEqual(command[-1], "sample")
 
+    def test_builds_question_list_read_model_in_an_isolated_process(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+
+            class Result:
+                returncode = 0
+                stdout = json.dumps(
+                    {
+                        "qualification": "sample",
+                        "listGroupIds": [],
+                        "groups": [],
+                        "questions": [],
+                    }
+                )
+                stderr = ""
+
+            with patch(
+                "tools.question_review_console.server.subprocess.run",
+                return_value=Result(),
+            ) as runner:
+                snapshot = app._load_question_list_read_model("sample")
+
+        self.assertEqual(snapshot["qualification"], "sample")
+        command = runner.call_args.args[0]
+        self.assertIn(
+            "tools.question_review_console.question_list_read_model_builder",
+            command,
+        )
+        self.assertEqual(command[-1], "sample")
+
     def test_updates_qualification_law_workflow_setting(self):
         class Workflow:
             def set_law_workflow_enabled(self, qualification, enabled):
@@ -1259,6 +1289,102 @@ class QuestionReviewServerTests(unittest.TestCase):
             [question["listGroupId"] for question in result["questions"]],
             ["2024", "2025"],
         )
+
+    def test_lightweight_question_list_filters_materialized_snapshot(self):
+        class QuestionLists:
+            def get(self, qualification, *, wait_for_initial):
+                self.request = (qualification, wait_for_initial)
+                return {
+                    "qualification": qualification,
+                    "listGroupIds": ["2025", "2026"],
+                    "groups": [
+                        {
+                            "listGroupId": "2025",
+                            "questionCount": 1,
+                            "fingerprint": "a",
+                        },
+                        {
+                            "listGroupId": "2026",
+                            "questionCount": 2,
+                            "fingerprint": "b",
+                        },
+                    ],
+                    "questions": [
+                        {
+                            "id": "old",
+                            "listGroupId": "2025",
+                            "body": "一般問題",
+                            "contentUpdatedAt": "2026-07-20T00:00:00+09:00",
+                            "isLawRelated": False,
+                        },
+                        {
+                            "id": "new-law",
+                            "listGroupId": "2026",
+                            "body": "法令問題",
+                            "contentUpdatedAt": "2026-07-26T00:00:00+09:00",
+                            "isLawRelated": True,
+                        },
+                        {
+                            "id": "middle-law",
+                            "listGroupId": "2026",
+                            "body": "別の法令問題",
+                            "contentUpdatedAt": "2026-07-24T00:00:00+09:00",
+                            "isLawRelated": True,
+                        },
+                    ],
+                    "cache": {
+                        "refreshing": False,
+                        "stale": False,
+                        "refreshError": None,
+                    },
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            question_lists = QuestionLists()
+            app.question_list_read_models = question_lists
+            result = app._question_list(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["__all__"],
+                    "lawOnly": ["true"],
+                    "offset": ["0"],
+                    "limit": ["1"],
+                }
+            )
+
+        self.assertEqual(question_lists.request, ("sample", False))
+        self.assertEqual(result["questionCount"], 3)
+        self.assertEqual(result["filteredCount"], 2)
+        self.assertTrue(result["hasMore"])
+        self.assertEqual(
+            [question["id"] for question in result["questions"]],
+            ["new-law"],
+        )
+
+    def test_cold_question_list_returns_loading_without_full_projection(self):
+        class QuestionLists:
+            def get(self, _qualification, *, wait_for_initial):
+                self.wait_for_initial = wait_for_initial
+                return None
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            question_lists = QuestionLists()
+            app.question_list_read_models = question_lists
+            app._questions = lambda _query: self.fail(
+                "cold simple list must not run the full projection"
+            )
+            result = app._question_list(
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                }
+            )
+
+        self.assertFalse(question_lists.wait_for_initial)
+        self.assertTrue(result["loading"])
+        self.assertEqual(result["questions"], [])
 
     def test_question_list_is_paginated(self):
         class Inventory:

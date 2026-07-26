@@ -1406,7 +1406,6 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "maintenance-year-progress",
             "audit-view",
             "audit-view-close",
-            "audit-view-loading",
             "audit-admin-tools",
             "qualification-workflow-stages",
             "qualification-workflow-action",
@@ -1557,7 +1556,6 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('"/api/evaluations/preview"', javascript)
         self.assertIn('"/api/evaluations/start"', javascript)
         self.assertIn("selectedQuestionIds", javascript)
-        self.assertIn("`反映待ち${pendingCount}`", javascript)
         self.assertIn("一覧の${visibleIds.length}問を選択", javascript)
         self.assertIn('summaryMetric("資格", qualificationDisplayName(preview.qualification))', javascript)
         self.assertIn('summaryMetric("年度", preview.listGroupIds?.join("・") || "-")', javascript)
@@ -1624,7 +1622,10 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn("state.selectedId = state.questions[0]", javascript)
         self.assertIn("問題一覧を読み込めませんでした", javascript)
         self.assertIn("function renderQueueLoading", javascript)
-        self.assertIn("初回は問題内容の準備に数秒かかることがあります", javascript)
+        self.assertNotIn("初回は問題内容の準備に数秒かかることがあります", javascript)
+        self.assertIn("queue-loading-state", javascript)
+        self.assertNotIn('id="audit-view-loading"', html)
+        self.assertNotIn('classList.toggle("loading", busy)', javascript)
         self.assertIn('.audit-view:not(.detail-open) .detail-pane', css)
         self.assertIn('.audit-view.detail-open .queue-pane', css)
         self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
@@ -1948,10 +1949,9 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("@keyframes loading-bar-shift", css)
         self.assertNotIn("@keyframes loading-sweep", css)
         self.assertNotIn("@keyframes loading-pulse", css)
-        self.assertIn(".audit-view-loading", css)
-        audit_loading_css = css.split(".audit-view-loading {", 1)[1].split("}", 1)[0]
-        self.assertNotIn("position: absolute", audit_loading_css)
-        self.assertNotIn("inset: 0", audit_loading_css)
+        self.assertNotIn(".audit-view-loading", css)
+        self.assertNotIn(".list-summary.loading", css)
+        self.assertIn(".queue-loading-state .loading-spinner", css)
         self.assertIn("@keyframes loading-spin", css)
         self.assertIn("@media (prefers-reduced-motion: reduce)", css)
 
@@ -1973,9 +1973,9 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             "if (cached?.version === summary?.detailVersion)",
             javascript,
         )
-        self.assertIn("includeStats: false", javascript)
-        self.assertIn("statsOnly: true", javascript)
-        self.assertIn("payload.statsIncluded !== false", javascript)
+        self.assertIn("/api/question-list?", javascript)
+        self.assertNotIn("loadQuestionStats", javascript)
+        self.assertNotIn("scheduleQuestionStats", javascript)
         self.assertIn("detailCache: new Map()", javascript)
         self.assertIn("renderDetailLoading(summary)", javascript)
 
@@ -1990,7 +1990,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("loadPromise: null", javascript)
         self.assertIn("async function ensureAuditViewQuestions", javascript)
         self.assertIn("function primeAuditRoute", javascript)
-        self.assertIn('setLoading("問題一覧を準備しています", true)', javascript)
+        self.assertIn("renderQueueLoading()", javascript)
         self.assertIn("primeAuditRoute();", javascript)
         self.assertIn("state.inventory?.qualifications?.find", javascript)
         self.assertIn("return state.auditView.loadPromise", javascript)
@@ -2019,14 +2019,15 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         ).read_text(encoding="utf-8")
 
         self.assertIn("QUESTION_LIST_CACHE_VERSION", javascript)
-        self.assertIn("const QUESTION_LIST_CACHE_VERSION = 3;", javascript)
+        self.assertIn("const QUESTION_LIST_CACHE_VERSION = 4;", javascript)
         self.assertIn("exceptionsOnly: false", javascript)
         self.assertIn("function defaultQuestionListIsSelected", javascript)
         self.assertIn("localStorage.setItem(questionListCacheKey()", javascript)
         self.assertIn("function restoreCachedQuestionList", javascript)
-        self.assertIn("前回表示 ${cached.questions.length}問", javascript)
+        self.assertIn("${cached.questions.length}/${state.questionPage.filteredCount}問表示", javascript)
         self.assertIn("preserveExisting: restoredFromCache", javascript)
         self.assertIn("if (options.preserveExisting && state.questions.length)", javascript)
+        self.assertIn("scheduleQuestionListRefresh", javascript)
 
     def test_static_assets_share_an_explicit_release_version(self):
         root = Path(__file__).resolve().parents[1]
@@ -2034,7 +2035,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-12"
+        asset_version = "question-review-ui-v3-20260726-13"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

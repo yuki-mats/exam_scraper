@@ -349,21 +349,6 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   overflow: hidden;
 }
-.audit-view-loading {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--line);
-  color: #344b5e;
-  background: #f4f7f9;
-  font-size: 11px;
-  font-weight: 750;
-}
-.audit-view-loading .loading-spinner { width: 18px; height: 18px; border-width: 2px; }
-.audit-view-loading .loading-copy { display: flex; min-width: 0; align-items: baseline; gap: 8px; }
-.audit-view-loading .loading-copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.audit-view-loading[hidden] { display: none; }
 .audit-admin-tools { min-height: 38px; max-height: min(45vh, 430px); overflow: auto; border-top: 1px solid var(--line-strong); background: #f7f8fa; }
 .audit-admin-tools > summary { min-height: 38px; display: flex; align-items: center; padding: 8px 16px; color: #53606c; font-size: 11px; font-weight: 750; cursor: pointer; }
 .audit-admin-tools[open] > summary { border-bottom: 1px solid var(--line); }
@@ -1200,22 +1185,6 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
 .selection-toolbar-actions { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; }
 .selection-toolbar-actions .icon-button { flex: 0 0 34px; }
 
-.list-summary.loading {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-.list-summary.loading::before {
-  width: 13px;
-  height: 13px;
-  flex: 0 0 auto;
-  border: 2px solid #c7d2db;
-  border-top-color: var(--blue);
-  border-radius: 50%;
-  content: "";
-  animation: loading-spin 850ms linear infinite;
-}
-
 .toast { position: fixed; right: 18px; bottom: 18px; z-index: 20; max-width: min(420px, calc(100vw - 36px)); padding: 10px 14px; border-radius: 4px; color: #fff; background: #28343e; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 150ms ease, transform 150ms ease; }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast.error { background: #8f2d27; }
@@ -1443,8 +1412,7 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .loading-spinner,
   .maintenance-loading.is-active .maintenance-loading-meter > span,
-  .run-preview.loading::before,
-  .list-summary.loading::before {
+  .run-preview.loading::before {
     animation-duration: 1800ms;
   }
 }

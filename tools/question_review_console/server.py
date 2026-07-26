@@ -52,6 +52,10 @@ from tools.question_review_console.law_audit_contract import (
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
+from tools.question_review_console.question_list_read_model import (
+    QUESTION_LIST_READ_MODEL_SCHEMA,
+    validate_question_list_read_model,
+)
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.qualification_runs import (
     LAW_PATCH_DIR_NAMES,
@@ -335,10 +339,20 @@ class QuestionReviewApplication:
                 qualification_operation_key(qualification)
             ),
         )
+        self.question_list_read_models = WorkflowOverviewCache(
+            self.repo_root,
+            self._load_question_list_read_model,
+            refresh_allowed=lambda qualification: not self.jobs.has_conflict(
+                qualification_operation_key(qualification)
+            ),
+            cache_subdirectory="question_lists",
+            schema_version=QUESTION_LIST_READ_MODEL_SCHEMA,
+            payload_field="snapshot",
+            validator=validate_question_list_read_model,
+            thread_name_prefix="question-list",
+        )
         self.inventory.add_invalidation_listener(
-            lambda qualification, _list_group_id: self.workflow_overviews.invalidate(
-                qualification
-            )
+            self._invalidate_qualification_read_models
         )
         self.evaluations = QuestionEvaluationService(
             self.repo_root,
@@ -417,6 +431,50 @@ class QuestionReviewApplication:
         if not isinstance(value, Mapping):
             raise ValueError("問題整備トップの集計結果がobjectではありません。")
         return value
+
+    def _load_question_list_read_model(
+        self,
+        qualification: str,
+    ) -> Mapping[str, Any]:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "tools.question_review_console.question_list_read_model_builder",
+                "--repo-root",
+                str(self.repo_root),
+                "--qualification",
+                qualification,
+            ],
+            cwd=self.repo_root,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=15 * 60,
+        )
+        if completed.returncode != 0:
+            detail = (completed.stderr or completed.stdout).strip()
+            raise ValueError(
+                "問題一覧の表示用データ作成に失敗しました。"
+                + (f" {detail[-2000:]}" if detail else "")
+            )
+        try:
+            value = json.loads(completed.stdout)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                "問題一覧の表示用データがJSONではありません。"
+            ) from exc
+        if not isinstance(value, Mapping):
+            raise ValueError("問題一覧の表示用データがobjectではありません。")
+        return value
+
+    def _invalidate_qualification_read_models(
+        self,
+        qualification: str,
+        _list_group_id: str,
+    ) -> None:
+        self.workflow_overviews.invalidate(qualification)
+        self.question_list_read_models.invalidate(qualification)
 
     def get(self, path: str, query: Mapping[str, list[str]]) -> tuple[int, Any]:
         if path == "/api/session":
@@ -532,6 +590,8 @@ class QuestionReviewApplication:
                 return HTTPStatus.OK, progress
             except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+        if path == "/api/question-list":
+            return HTTPStatus.OK, self._question_list(query)
         if path == "/api/questions":
             return HTTPStatus.OK, self._questions(query)
         if path.startswith("/api/jobs/") and path.endswith("/summary"):
@@ -1191,6 +1251,211 @@ class QuestionReviewApplication:
                 ]
                 for path, groups in sorted(target_source_record_scopes.items())
             },
+        }
+
+    def _question_list(
+        self,
+        query: Mapping[str, list[str]],
+    ) -> dict[str, Any]:
+        """Return the lightweight materialized list used by the simple UI."""
+
+        qualification = _query_value(query, "qualification")
+        list_group_id = _query_value(query, "listGroupId")
+        if not qualification or not list_group_id:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "qualificationとlistGroupIdを指定してください。",
+            )
+        if (
+            _query_bool(query, "exceptionsOnly", default=False)
+            or _query_bool(query, "firestoreMismatch", default=False)
+            or _query_bool(query, "includeStats", default=False)
+            or _query_bool(query, "statsOnly", default=False)
+            or any(
+                _query_value(query, field)
+                for field in (
+                    "issue",
+                    "status",
+                    "evaluationStatus",
+                    "workStageId",
+                    "workVersionStatus",
+                )
+            )
+        ):
+            return self._questions(query)
+
+        sort_order = _query_value(query, "sort") or "updated_desc"
+        if sort_order not in {"updated_desc", "updated_asc"}:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "sortはupdated_desc又はupdated_ascで指定してください。",
+            )
+        if _query_value(query, "refresh").lower() in {"1", "true", "yes"}:
+            self.question_list_read_models.invalidate(
+                qualification,
+                delay_seconds=0,
+            )
+        snapshot = self.question_list_read_models.get(
+            qualification,
+            wait_for_initial=False,
+        )
+        if snapshot is None:
+            refresh_allowed = not self.jobs.has_conflict(
+                qualification_operation_key(qualification)
+            )
+            return {
+                "qualification": qualification,
+                "listGroupId": list_group_id,
+                "loading": True,
+                "questionCount": 0,
+                "filteredCount": 0,
+                "filteredCountLowerBound": 0,
+                "statsIncluded": False,
+                "offset": 0,
+                "limit": _query_int(
+                    query,
+                    "limit",
+                    default=50,
+                    minimum=1,
+                    maximum=100,
+                ),
+                "sort": sort_order,
+                "hasMore": False,
+                "fingerprint": "",
+                "questions": [],
+                "cache": {
+                    "refreshing": refresh_allowed,
+                    "stale": True,
+                    "waitingForRun": not refresh_allowed,
+                    "refreshError": None,
+                },
+            }
+
+        available_group_ids = [
+            str(value) for value in snapshot.get("listGroupIds") or []
+        ]
+        if list_group_id == ALL_LIST_GROUPS:
+            selected_group_ids = set(available_group_ids)
+        elif list_group_id in available_group_ids:
+            selected_group_ids = {list_group_id}
+        else:
+            raise ApiError(HTTPStatus.NOT_FOUND, "対象年度・実施回がありません。")
+
+        search = _query_value(query, "search").casefold()
+        law_only = _query_bool(query, "lawOnly", default=False)
+        calculation_only = _query_bool(query, "calculationOnly", default=False)
+        question_body_choices_only = _query_bool(
+            query,
+            "questionBodyChoicesOnly",
+            default=False,
+        )
+        source_answer_difference = _query_bool(
+            query,
+            "sourceAnswerDifference",
+            default=False,
+        )
+        offset = _query_int(
+            query,
+            "offset",
+            default=0,
+            minimum=0,
+            maximum=1_000_000,
+        )
+        limit = _query_int(
+            query,
+            "limit",
+            default=50,
+            minimum=1,
+            maximum=100,
+        )
+        candidates = [
+            copy.deepcopy(dict(question))
+            for question in snapshot.get("questions") or []
+            if isinstance(question, Mapping)
+            and str(question.get("listGroupId") or "") in selected_group_ids
+        ]
+
+        def content_updated_sort_key(
+            question: Mapping[str, Any],
+        ) -> tuple[bool, float, str, str]:
+            value = str(question.get("contentUpdatedAt") or "").strip()
+            try:
+                timestamp = datetime.fromisoformat(
+                    value.replace("Z", "+00:00")
+                ).timestamp()
+            except (ValueError, OverflowError, OSError):
+                timestamp = None
+            directional_timestamp = (
+                -timestamp
+                if timestamp is not None and sort_order == "updated_desc"
+                else timestamp or 0.0
+            )
+            return (
+                timestamp is None,
+                directional_timestamp,
+                str(question.get("listGroupId") or ""),
+                str(question.get("sourceQuestionKey") or question.get("id") or ""),
+            )
+
+        candidates.sort(key=content_updated_sort_key)
+        filtered: list[dict[str, Any]] = []
+        for question in candidates:
+            comparison = question.get("sourceCorrectChoiceComparison")
+            comparison = comparison if isinstance(comparison, Mapping) else {}
+            if search and search not in " ".join(
+                (
+                    str(question.get("body") or ""),
+                    str(question.get("questionLabel") or ""),
+                    str(question.get("sourceQuestionKey") or ""),
+                    str(question.get("listGroupId") or ""),
+                )
+            ).casefold():
+                continue
+            if law_only and question.get("isLawRelated") is not True:
+                continue
+            if (
+                calculation_only
+                and question.get("isCalculationQuestion") is not True
+            ):
+                continue
+            if (
+                question_body_choices_only
+                and question.get("choicesExtractedFromQuestionBody") is not True
+            ):
+                continue
+            if source_answer_difference and not comparison.get("different"):
+                continue
+            filtered.append(question)
+
+        groups = [
+            value
+            for value in snapshot.get("groups") or []
+            if isinstance(value, Mapping)
+            and str(value.get("listGroupId") or "") in selected_group_ids
+        ]
+        summaries = filtered[offset : offset + limit]
+        return {
+            "qualification": qualification,
+            "listGroupId": list_group_id,
+            "loading": False,
+            "questionCount": len(candidates),
+            "issueQuestionCount": None,
+            "sourceAnswerDifferenceCount": None,
+            "questionBodyChoicesCount": None,
+            "evaluationCounts": None,
+            "workVersionCounts": None,
+            "filteredCount": len(filtered),
+            "filteredCountLowerBound": len(filtered),
+            "statsIncluded": False,
+            "offset": offset,
+            "limit": limit,
+            "sort": sort_order,
+            "hasMore": offset + len(summaries) < len(filtered),
+            "fingerprint": "|".join(
+                str(value.get("fingerprint") or "") for value in groups
+            ),
+            "questions": summaries,
+            "cache": copy.deepcopy(snapshot.get("cache") or {}),
         }
 
     def _questions(self, query: Mapping[str, list[str]]) -> dict[str, Any]:

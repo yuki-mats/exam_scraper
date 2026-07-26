@@ -8,7 +8,7 @@ const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
 const AUTO_QUESTION_CONCURRENCY = 64;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
 const DEFAULT_QUESTION_SORT = "updated_desc";
-const QUESTION_LIST_CACHE_VERSION = 3;
+const QUESTION_LIST_CACHE_VERSION = 4;
 const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const QUALIFICATION_WORKFLOW_CACHE_VERSION = 1;
 const QUALIFICATION_WORKFLOW_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
@@ -178,9 +178,7 @@ const state = {
   detail: null,
   detailCache: new Map(),
   questionListRequestSequence: 0,
-  questionStats: null,
-  questionStatsController: null,
-  questionStatsTimer: null,
+  questionListRefreshTimer: null,
   qualificationWorkflow: null,
   qualificationWorkflowStageId: "",
   qualificationWorkflowRequests: new Map(),
@@ -343,8 +341,8 @@ function toast(message, isError = false) {
 function setLoading(message, busy = false) {
   const node = $("#list-summary");
   node.textContent = message;
-  node.classList.toggle("loading", busy);
-  node.setAttribute("aria-busy", String(busy));
+  node.classList.remove("loading");
+  node.setAttribute("aria-busy", "false");
 }
 
 function maintenanceLoadingRequestIsCurrent(requestSequence) {
@@ -687,6 +685,7 @@ function cacheQuestionList(payload) {
       questions: payload.questions || [],
       filteredCount: payload.filteredCount,
       filteredCountLowerBound: payload.filteredCountLowerBound,
+      questionCount: payload.questionCount,
       hasMore: payload.hasMore === true,
     }));
   } catch (_) {
@@ -714,8 +713,12 @@ function restoreCachedQuestionList() {
     renderQueue();
     $("#queue-pagination").hidden = !state.questionPage.hasMore;
     setLoading(
-      `前回表示 ${cached.questions.length}問 / 最新状態を更新しています`,
-      true,
+      `${cached.questions.length}/${state.questionPage.filteredCount}問表示`
+      + (
+        Number.isInteger(cached.questionCount)
+          ? ` / 全${cached.questionCount}問`
+          : ""
+      ),
     );
     return true;
   } catch (_) {
@@ -745,12 +748,9 @@ function renderAuditViewHeading() {
 }
 
 function invalidateAuditView() {
-  window.clearTimeout(state.questionStatsTimer);
-  state.questionStatsTimer = null;
-  state.questionStatsController?.abort();
-  state.questionStatsController = null;
+  window.clearTimeout(state.questionListRefreshTimer);
+  state.questionListRefreshTimer = null;
   state.questionListRequestSequence += 1;
-  state.questionStats = null;
   state.detailCache.clear();
   state.auditView.loadedScopeKey = "";
   state.auditView.loadingScopeKey = "";
@@ -800,10 +800,12 @@ async function ensureAuditViewQuestions(preserveSelection = false, options = {})
   }
   const restoredFromCache = restoreCachedQuestionList()
     || (state.questions.length > 0 && defaultQuestionListIsSelected());
-  if (!restoredFromCache) renderQueueLoading();
+  if (!restoredFromCache) {
+    renderQueueLoading();
+    setLoading("");
+  }
   state.auditView.loading = true;
   state.auditView.loadingScopeKey = scopeKey;
-  $("#audit-view-loading").hidden = false;
   const loadPromise = (async () => {
     const loaded = await loadQuestions(preserveSelection, false, {
       preserveExisting: restoredFromCache,
@@ -821,7 +823,6 @@ async function ensureAuditViewQuestions(preserveSelection = false, options = {})
       state.auditView.loading = false;
       state.auditView.loadingScopeKey = "";
       state.auditView.loadPromise = null;
-      $("#audit-view-loading").hidden = true;
     }
   }
 }
@@ -834,10 +835,9 @@ function primeAuditRoute() {
   if (qualification) state.qualification = qualification;
   if (listGroupId) state.listGroupId = listGroupId;
   showAuditView();
-  $("#audit-view-loading").hidden = false;
   if (!restoreCachedQuestionList()) {
     renderQueueLoading();
-    setLoading("問題一覧を準備しています", true);
+    setLoading("");
   }
   return true;
 }
@@ -894,9 +894,6 @@ function handleAuditViewBack() {
     setAuditViewPage("list");
     updateUrl();
     renderQueue();
-    if (!state.questionStats) {
-      scheduleQuestionStats(state.questionListRequestSequence);
-    }
     window.requestAnimationFrame(() => {
       document.querySelector(`[data-question-id="${CSS.escape(selectedId)}"] .queue-open`)?.focus();
     });
@@ -907,8 +904,8 @@ function handleAuditViewBack() {
 
 function closeAuditView(options = {}) {
   if (!state.auditView.open && $("#audit-view").hidden) return;
-  window.clearTimeout(state.questionStatsTimer);
-  state.questionStatsTimer = null;
+  window.clearTimeout(state.questionListRefreshTimer);
+  state.questionListRefreshTimer = null;
   closeWorkflowGuide({ reopenRun: false });
   clearSelectionToolbar(true);
   state.auditView.open = false;
@@ -4356,7 +4353,7 @@ async function setListMode(exceptionsOnly) {
   await loadQuestions(false);
 }
 
-function listQuery(offset = 0, { includeStats = true, statsOnly = false } = {}) {
+function listQuery(offset = 0) {
   const params = new URLSearchParams({
     qualification: state.qualification,
     listGroupId: state.listGroupId,
@@ -4369,8 +4366,6 @@ function listQuery(offset = 0, { includeStats = true, statsOnly = false } = {}) 
     sort: $("#question-sort").value || DEFAULT_QUESTION_SORT,
     offset: String(offset),
     limit: String(state.questionPage.limit),
-    includeStats: String(includeStats),
-    statsOnly: String(statsOnly),
   });
   const search = $("#search-input").value.trim();
   const issue = $("#issue-select").value;
@@ -4388,35 +4383,12 @@ function listQuery(offset = 0, { includeStats = true, statsOnly = false } = {}) 
   return params;
 }
 
-function questionListSummaryText(payload, statsPending = false) {
-  const counts = payload?.evaluationCounts || {};
+function questionListSummaryText(payload) {
   const filteredCount = payload?.filteredCount;
   const visibleLabel = Number.isInteger(filteredCount)
     ? `${state.questions.length}/${filteredCount}問表示`
     : `${state.questions.length}問表示`;
-  const parts = [
-    visibleLabel,
-    `全${payload?.questionCount || 0}問`,
-  ];
-  if (statsPending) {
-    parts.push("全件の状況を集計中");
-  } else {
-    const pendingCount = Number(counts.maintenance || 0)
-      + Number(counts.unreviewed || 0)
-      + Number(counts.needsRework || 0)
-      + Number(counts.publishReady || 0);
-    parts.push(
-      `反映待ち${pendingCount}`,
-      `反映済み${counts.published || 0}`,
-    );
-    if ($("#source-answer-difference").checked) {
-      parts.push(`00_sourceとの差分${payload?.sourceAnswerDifferenceCount || 0}問`);
-    }
-    if ($("#question-body-choices-only").checked) {
-      parts.push(`問題文から選択肢を取得${payload?.questionBodyChoicesCount || 0}問`);
-    }
-  }
-  return parts.join(" / ");
+  return `${visibleLabel} / 全${payload?.questionCount || 0}問`;
 }
 
 function pruneDetailCache(questions) {
@@ -4431,42 +4403,20 @@ function pruneDetailCache(questions) {
   }
 }
 
-async function loadQuestionStats(requestSequence) {
-  state.questionStatsTimer = null;
-  state.questionStatsController?.abort();
-  const controller = new AbortController();
-  state.questionStatsController = controller;
-  try {
-    const payload = await api(
-      `/api/questions?${listQuery(0, { includeStats: true, statsOnly: true })}`,
-      { signal: controller.signal },
-    );
+function scheduleQuestionListRefresh(
+  scopeKey = auditScopeKey(),
+  delay = 900,
+) {
+  window.clearTimeout(state.questionListRefreshTimer);
+  state.questionListRefreshTimer = window.setTimeout(() => {
+    state.questionListRefreshTimer = null;
     if (
-      requestSequence !== state.questionListRequestSequence
-      || controller.signal.aborted
+      !auditViewIsOpen()
+      || state.auditView.page !== "list"
+      || auditScopeKey() !== scopeKey
     ) return;
-    state.questionStats = payload;
-    state.questionPage.filteredCount = payload.filteredCount || 0;
-    state.questionPage.hasMore = state.questions.length < state.questionPage.filteredCount;
-    $("#queue-pagination").hidden = !state.questionPage.hasMore;
-    setLoading(questionListSummaryText(payload));
-  } catch (error) {
-    if (error.name !== "AbortError") {
-      setLoading("問題一覧は表示済みです / 全件の状況を集計できませんでした");
-    }
-  } finally {
-    if (state.questionStatsController === controller) {
-      state.questionStatsController = null;
-    }
-  }
-}
-
-function scheduleQuestionStats(requestSequence) {
-  window.clearTimeout(state.questionStatsTimer);
-  state.questionStatsTimer = window.setTimeout(() => {
-    if (requestSequence !== state.questionListRequestSequence) return;
-    loadQuestionStats(requestSequence);
-  }, 800);
+    void ensureAuditViewQuestions(true, { refresh: true });
+  }, delay);
 }
 
 async function loadQuestions(preserveSelection, append = false, options = {}) {
@@ -4479,26 +4429,27 @@ async function loadQuestions(preserveSelection, append = false, options = {}) {
     $("#load-more-questions").disabled = true;
     $("#load-more-questions").textContent = "読み込み中";
   } else {
-    window.clearTimeout(state.questionStatsTimer);
-    state.questionStatsTimer = null;
-    state.questionStatsController?.abort();
-    state.questionStatsController = null;
-    state.questionStats = null;
-    setLoading("問題一覧を更新しています", true);
+    window.clearTimeout(state.questionListRefreshTimer);
+    state.questionListRefreshTimer = null;
+    setLoading("");
   }
   try {
     const payload = await api(
-      `/api/questions?${listQuery(offset, { includeStats: false })}`,
+      `/api/question-list?${listQuery(offset)}`,
     );
     if (requestSequence !== state.questionListRequestSequence) return false;
+    if (payload.loading === true) {
+      if (!state.questions.length) renderQueueLoading();
+      scheduleQuestionListRefresh(
+        auditScopeKey(),
+        payload.cache?.waitingForRun ? 3000 : 700,
+      );
+      return false;
+    }
     state.questions = append
       ? [...state.questions, ...payload.questions]
       : payload.questions;
     pruneDetailCache(payload.questions);
-    const statsIncluded = payload.statsIncluded !== false;
-    if (!append && statsIncluded) {
-      state.questionStats = payload;
-    }
     if (!append) {
       const visibleIds = new Set(state.questions.map((question) => question.id));
       for (const questionId of state.selectedQuestionIds) {
@@ -4511,12 +4462,7 @@ async function loadQuestions(preserveSelection, append = false, options = {}) {
     state.questionPage.hasMore = payload.hasMore;
     if (!append) cacheQuestionList(payload);
     renderQueue();
-    setLoading(
-      questionListSummaryText(
-        state.questionStats || payload,
-        !state.questionStats && !statsIncluded,
-      ),
-    );
+    setLoading(questionListSummaryText(payload));
     updateEvaluationSelectionControls();
     const selectedStillExists = state.questions.some((question) => question.id === state.selectedId);
     if (!append && state.auditView.page === "detail" && preserveSelection && selectedStillExists) {
@@ -4526,7 +4472,12 @@ async function loadQuestions(preserveSelection, append = false, options = {}) {
       state.detail = null;
       setAuditViewPage("list");
     }
-    if (!append && !statsIncluded) scheduleQuestionStats(requestSequence);
+    if (!append && auditViewIsOpen()) {
+      state.auditView.loadedScopeKey = auditScopeKey();
+    }
+    if (!append && payload.cache?.refreshing) {
+      scheduleQuestionListRefresh(auditScopeKey());
+    }
     return true;
   } catch (error) {
     if (requestSequence !== state.questionListRequestSequence) return false;
@@ -4576,7 +4527,6 @@ function renderQueueLoading() {
   loading.append(
     element("span", "loading-spinner"),
     element("strong", "", "問題一覧を読み込んでいます"),
-    element("span", "", "初回は問題内容の準備に数秒かかることがあります。"),
   );
   queue.append(loading);
   $("#queue-pagination").hidden = true;
@@ -4647,7 +4597,7 @@ function renderQueue() {
         ? [element("span", "queue-group", listGroupDisplayName(question.listGroupId))]
         : []),
       ...(adminToolsOpen ? [workVersionBadge(question)] : []),
-      evaluationBadge(question),
+      ...(question.evaluation ? [evaluationBadge(question)] : []),
       ...(question.sourceCorrectChoiceComparison?.different
         ? [element("span", "source-answer-difference-badge", "元正答との差分")]
         : []),
@@ -4826,8 +4776,8 @@ function normalizeVerdict(value) {
 }
 
 async function loadDetail(questionId) {
-  window.clearTimeout(state.questionStatsTimer);
-  state.questionStatsTimer = null;
+  window.clearTimeout(state.questionListRefreshTimer);
+  state.questionListRefreshTimer = null;
   state.selectedId = questionId;
   state.detail = null;
   const summary = state.questions.find((question) => question.id === questionId);
