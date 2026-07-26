@@ -598,8 +598,28 @@ class QuestionReviewApplication:
                     limit=limit,
                     wait_ms=wait_ms,
                 )
+            pagination_requested = (
+                "after" in query or "limit" in query
+            )
             return HTTPStatus.OK, self.monitor.artifacts(
-                run_id, qualification=qualification
+                run_id,
+                qualification=qualification,
+                after=(
+                    _query_value(query, "after")
+                    if pagination_requested
+                    else None
+                ),
+                limit=(
+                    _query_int(
+                        query,
+                        "limit",
+                        default=64,
+                        minimum=1,
+                        maximum=64,
+                    )
+                    if pagination_requested
+                    else None
+                ),
             )
         if path == "/api/session":
             app_server_status = self.app_server.public_status(refresh=False)

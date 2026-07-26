@@ -129,11 +129,15 @@ plan、summary、state、receiptのいずれかが欠落・改変・別runへの
 | `GET /api/monitor/v1/runs?qualification=<id>` | monitor用run一覧 |
 | `GET /api/monitor/v1/runs/<runId>/snapshot?qualification=<id>` | 実行・成果物・観測状態、exact ID、成果物fingerprintの完全性 |
 | `GET /api/monitor/v1/runs/<runId>/events?qualification=<id>&after=<cursor>&limit=<n>&waitMs=<ms>` | cursor以降のevent |
-| `GET /api/monitor/v1/runs/<runId>/artifacts?qualification=<id>` | manifestで宣言された保存済み成果物 |
+| `GET /api/monitor/v1/runs/<runId>/artifacts?qualification=<id>&after=<cursor>&limit=<1..64>` | manifestで宣言された保存済み成果物。`limit`指定・cursor未指定は先頭page |
 
 monitor namespaceにはPOST、PUT、PATCH、DELETEを実装しません。既存のHost、session、Tailscale、same-origin、CSP、`no-store`境界を継承します。各応答の`monitorModelRequests`は常に`0`であり、endpoint処理はApp Server requestを呼びません。
 
 GET処理はworkflow正本だけでなくdashboard cache、list summary、receiptも生成・更新・reconcileしません。既存のdashboard indexがない場合はmanifestをbounded read-only scanし、monitor表示のための派生fileを書きません。
+
+artifact cursorは、同じqualification・run・検証済み宣言collection内で「次に未処理の宣言」を示します。一pageは最大64宣言・64file・4 MiBです。4 MiB境界で入らない宣言は消費せず、`nextCursor`から次pageで読み直します。一宣言だけでJSON応答上限を超える場合は、その宣言を`response_item_bytes_limit`として明示的に拒否してcursorを前進させ、同じcursorで永久に停止しません。collectionがpage取得中に変化した場合は`resetRequired: true`と新しい先頭pageを返します。
+
+UIは全pageを自動結合せず、「前へ」「次へ」でpage単位に置き換えます。これによりbrowserが最大件数分の本文を保持せず、v2 state/receipt走査も表示中pageの更新時だけ行います。2,048宣言、512 attemptなど全体探索上限を超えた欠落はpage継続とは別の恒久的な`truncated`・warningとして明示します。`after`と`limit`を指定しない既存clientには、従来どおり一つのbounded応答を返します。
 
 ## 正本と三つの状態
 

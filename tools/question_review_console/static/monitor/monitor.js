@@ -15,6 +15,11 @@ const state = {
   snapshotFingerprint: "",
   artifactFingerprint: "",
   lastArtifactRefreshAt: 0,
+  artifactPageCursor: "",
+  artifactNextCursor: "",
+  artifactPageHistory: [],
+  artifactPageNumber: 1,
+  artifactPageLoading: false,
   following: true,
   unseen: 0,
   failures: 0,
@@ -290,6 +295,28 @@ function artifactReconcileRequired(
       >= ARTIFACT_RECONCILE_INTERVAL_MS;
 }
 
+function artifactPageTransition(source, direction) {
+  const current = object(source);
+  if (current.loading || current.refreshInFlight) return null;
+  const history = array(current.history).map(String);
+  const pageNumber = Math.max(1, Number(current.pageNumber) || 1);
+  if (direction === "next" && string(current.nextCursor)) {
+    return {
+      cursor: string(current.nextCursor),
+      history: [...history, string(current.cursor)],
+      pageNumber: pageNumber + 1,
+    };
+  }
+  if (direction === "previous" && history.length) {
+    return {
+      cursor: history.at(-1),
+      history: history.slice(0, -1),
+      pageNumber: Math.max(1, pageNumber - 1),
+    };
+  }
+  return null;
+}
+
 function artifactResponseIssues(payload) {
   const source = object(payload);
   const rejected = array(source.rejected);
@@ -305,7 +332,6 @@ function artifactResponseIssues(payload) {
     || source.partial === true
     || source.hasMore === true
     || pagination.truncated === true
-    || pagination.hasMore === true
     || rawState === "truncated"
     || reasonCodes.some((code) => code.includes("limit") || code.includes("truncat"));
   const parts = [];
@@ -363,6 +389,8 @@ function snapshotResponseIssues(payload) {
     v2_attempt_receipt_bytes_limit: "読取上限により一部のattempt receiptを省略",
     v2_lane_limit: "表示上限により一部の質問laneを省略",
     v2_lane_unavailable: "質問laneを取得できません",
+    artifact_declaration_limit: "成果物宣言上限によりfingerprintが一部のみです",
+    parent_manifest_unavailable: "親runを検証できないためchild成果物を除外",
     snapshot_response_bytes_limit: "応答上限により古いlaneを省略",
   };
   const details = [...new Set(warnings.map(
@@ -752,18 +780,18 @@ function artifactIdentity(item, fallbackKind, index) {
   const path = string(item.path, item.relativePath);
   const identity = allowCorrelation(item.identity);
   const scope = [
-    identity.childRunId,
-    identity.questionId,
-    identity.workItemKey,
-    identity.batchId,
-    identity.batchKey,
-    identity.batchIndex,
-    identity.batchNumber,
-    identity.batchSequence,
-    identity.sourceQuestionKey,
-    identity.sourceRecordRef,
-  ].filter((value) => value !== undefined && value !== null && value !== "");
-  if (path && scope.length) return `${path}::${scope.join("|")}`;
+    ["childRunId", identity.childRunId],
+    ["questionId", identity.questionId],
+    ["workItemKey", identity.workItemKey],
+    ["batchId", identity.batchId],
+    ["batchKey", identity.batchKey],
+    ["batchIndex", identity.batchIndex],
+    ["batchNumber", identity.batchNumber],
+    ["batchSequence", identity.batchSequence],
+    ["sourceQuestionKey", identity.sourceQuestionKey],
+    ["sourceRecordRef", identity.sourceRecordRef],
+  ].filter(([, value]) => value !== undefined && value !== null && value !== "");
+  if (path && scope.length) return JSON.stringify(["artifact", path, scope]);
   return String(first(
     path,
     item.name && `${first(item.stage, item.stageCode, "")}:${item.name}`,
@@ -1426,14 +1454,53 @@ function errorMessage(error) {
 async function refreshArtifacts(context) {
   if (!isCurrent(context)) return;
   const requestedFingerprint = state.snapshotFingerprint;
+  const requestedPageCursor = state.artifactPageCursor;
   const payload = await requestJson(api(`/runs/${encodeURIComponent(context.runId)}/artifacts`, {
     qualification: context.qualification,
+    after: requestedPageCursor,
+    limit: 64,
   }), context.signal);
-  if (!isCurrent(context)) return;
+  if (
+    !isCurrent(context)
+    || requestedPageCursor !== state.artifactPageCursor
+  ) return { stale: true };
+  const pagination = object(payload.pagination);
+  if (pagination.resetRequired === true) {
+    state.artifactPageCursor = "";
+    state.artifactPageHistory = [];
+    state.artifactPageNumber = 1;
+  } else if (typeof pagination.cursor === "string") {
+    state.artifactPageCursor = pagination.cursor;
+  }
+  state.artifactNextCursor = string(pagination.nextCursor);
+  $("artifact-page-prev").disabled = state.artifactPageHistory.length === 0;
+  $("artifact-page-next").disabled = !state.artifactNextCursor;
+  const offset = Number.isInteger(pagination.offset)
+    ? pagination.offset
+    : Math.max(0, (state.artifactPageNumber - 1) * 64);
+  const returned = Number.isInteger(pagination.returned)
+    ? pagination.returned
+    : array(payload.artifacts).length;
+  const total = Number.isInteger(pagination.totalDeclarations)
+    ? pagination.totalDeclarations
+    : null;
+  const totalLabel = total === null
+    ? ""
+    : `${total}${pagination.totalTruncated === true ? "+" : ""}`;
+  $("artifact-page-status").textContent = total === null
+    ? `${state.artifactPageNumber}ページ目`
+    : `${offset + (returned ? 1 : 0)}–${offset + returned} / ${totalLabel}`;
   const records = normalizeArtifacts(payload);
   renderArtifacts(records);
   const issues = artifactResponseIssues(payload);
-  setLoadMessage("artifactWarning", issues.message);
+  setLoadMessage("artifactWarning",
+    [
+      pagination.resetRequired === true
+        ? "成果物一覧の更新を検出したため先頭ページへ戻りました。"
+        : "",
+      issues.message,
+    ].filter(Boolean).join(" "),
+  );
   state.artifactFingerprint = requestedFingerprint;
   state.lastArtifactRefreshAt = Date.now();
   return { records, issues };
@@ -1497,6 +1564,9 @@ async function queueArtifactRefresh(context) {
     state.artifactRefreshQueued = true;
     return state.artifactRefreshPromise;
   }
+  state.artifactPageLoading = true;
+  $("artifact-page-prev").disabled = true;
+  $("artifact-page-next").disabled = true;
   let task;
   task = (async () => {
     let result = { ok: false };
@@ -1513,6 +1583,11 @@ async function queueArtifactRefresh(context) {
     if (state.artifactRefreshPromise === task) {
       state.artifactRefreshPromise = null;
       state.artifactRefreshQueued = false;
+      state.artifactPageLoading = false;
+      $("artifact-page-prev").disabled = (
+        state.artifactPageHistory.length === 0
+      );
+      $("artifact-page-next").disabled = !state.artifactNextCursor;
     }
   }
 }
@@ -1604,6 +1679,11 @@ function resetRunView() {
   state.snapshotFingerprint = "";
   state.artifactFingerprint = "";
   state.lastArtifactRefreshAt = 0;
+  state.artifactPageCursor = "";
+  state.artifactNextCursor = "";
+  state.artifactPageHistory = [];
+  state.artifactPageNumber = 1;
+  state.artifactPageLoading = false;
   state.following = true;
   state.unseen = 0;
   state.failures = 0;
@@ -1637,6 +1717,9 @@ function resetRunView() {
   $("cursor-status").textContent = "cursor —";
   renderEvents();
   renderArtifacts([], false);
+  $("artifact-page-prev").disabled = true;
+  $("artifact-page-next").disabled = true;
+  $("artifact-page-status").textContent = "1ページ目";
   renderLanes([]);
   renderObservation();
 }
@@ -1779,6 +1862,48 @@ function bind() {
     $("stream-notice").hidden = true;
     $("event-stream").scrollTop = $("event-stream").scrollHeight;
   });
+  $("artifact-page-next").addEventListener("click", () => {
+    if (!state.controller) return;
+    const transition = artifactPageTransition({
+      loading: state.artifactPageLoading,
+      refreshInFlight: Boolean(state.artifactRefreshPromise),
+      cursor: state.artifactPageCursor,
+      nextCursor: state.artifactNextCursor,
+      history: state.artifactPageHistory,
+      pageNumber: state.artifactPageNumber,
+    }, "next");
+    if (!transition) return;
+    state.artifactPageCursor = transition.cursor;
+    state.artifactPageHistory = transition.history;
+    state.artifactPageNumber = transition.pageNumber;
+    queueArtifactRefresh({
+      generation: state.generation,
+      qualification: state.qualification,
+      runId: state.runId,
+      signal: state.controller.signal,
+    }).catch(showFatal);
+  });
+  $("artifact-page-prev").addEventListener("click", () => {
+    if (!state.controller) return;
+    const transition = artifactPageTransition({
+      loading: state.artifactPageLoading,
+      refreshInFlight: Boolean(state.artifactRefreshPromise),
+      cursor: state.artifactPageCursor,
+      nextCursor: state.artifactNextCursor,
+      history: state.artifactPageHistory,
+      pageNumber: state.artifactPageNumber,
+    }, "previous");
+    if (!transition) return;
+    state.artifactPageCursor = transition.cursor;
+    state.artifactPageHistory = transition.history;
+    state.artifactPageNumber = transition.pageNumber;
+    queueArtifactRefresh({
+      generation: state.generation,
+      qualification: state.qualification,
+      runId: state.runId,
+      signal: state.controller.signal,
+    }).catch(showFatal);
+  });
   const tabs = [...document.querySelectorAll("[data-mobile-tab]")];
   tabs.forEach((button, index) => {
     button.addEventListener("click", () => activateTab(button));
@@ -1825,6 +1950,7 @@ globalThis.MonitorUiTest = {
   snapshotArtifactFingerprint,
   artifactRefreshDecision,
   artifactReconcileRequired,
+  artifactPageTransition,
   artifactResponseIssues,
   snapshotResponseIssues,
   runListSelection,

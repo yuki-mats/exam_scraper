@@ -34,6 +34,12 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
             "artifact-api-warning",
         ):
             self.assertIn(f'id="{status_id}"', html)
+        for control_id in (
+            "artifact-page-prev",
+            "artifact-page-status",
+            "artifact-page-next",
+        ):
+            self.assertIn(f'id="{control_id}"', html)
         for forbidden in (
             "停止",
             "一時停止",
@@ -210,6 +216,42 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
                   artifactFingerprintComplete: false,
                 }, 1000, 15999),
                 false,
+              );
+              const pageTwo = ui.artifactPageTransition({
+                loading: false,
+                refreshInFlight: false,
+                cursor: "fingerprint:0",
+                nextCursor: "fingerprint:64",
+                history: [],
+                pageNumber: 1,
+              }, "next");
+              assert.strictEqual(pageTwo.cursor, "fingerprint:64");
+              assert.deepStrictEqual(
+                [...pageTwo.history],
+                ["fingerprint:0"],
+              );
+              assert.strictEqual(pageTwo.pageNumber, 2);
+              assert.strictEqual(
+                ui.artifactPageTransition({
+                  loading: true,
+                  refreshInFlight: false,
+                  cursor: "fingerprint:0",
+                  nextCursor: "fingerprint:64",
+                  history: [],
+                  pageNumber: 1,
+                }, "next"),
+                null,
+              );
+              assert.strictEqual(
+                ui.artifactPageTransition({
+                  loading: false,
+                  refreshInFlight: true,
+                  cursor: "fingerprint:0",
+                  nextCursor: "fingerprint:64",
+                  history: [],
+                  pageNumber: 1,
+                }, "next"),
+                null,
               );
               assert.strictEqual(
                 ui.artifactReconcileRequired({
@@ -410,6 +452,13 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
               assert(artifactIssues.message.includes("拒否 1件"));
               assert(artifactIssues.message.includes("一部省略"));
               assert.strictEqual(ui.artifactResponseIssues({ artifacts: [] }).message, "");
+              assert.strictEqual(
+                ui.artifactResponseIssues({
+                  artifacts: [],
+                  pagination: { hasMore: true },
+                }).truncated,
+                false,
+              );
 
               let fetchCalls = 0;
               sandbox.fetch = (_url, options) => {
@@ -729,6 +778,39 @@ class QuestionReviewMonitorUiTests(unittest.TestCase):
               assert.strictEqual(
                 sharedPatchRecords[2].scopeLabel,
                 "問題 q-3 · 0",
+              );
+              const delimiterBearingIdentityRecords = ui.normalizeArtifacts({
+                artifacts: [
+                  {
+                    path: "output/demo/delimiter.json",
+                    identity: {
+                      questionId: "x|y",
+                      workItemKey: "z",
+                    },
+                    contentState: { status: "saved" },
+                  },
+                  {
+                    path: "output/demo/delimiter.json",
+                    identity: {
+                      questionId: "x",
+                      workItemKey: "y|z",
+                    },
+                    contentState: { status: "saved" },
+                  },
+                ],
+              });
+              assert.strictEqual(delimiterBearingIdentityRecords.length, 2);
+              assert.notStrictEqual(
+                delimiterBearingIdentityRecords[0].id,
+                delimiterBearingIdentityRecords[1].id,
+              );
+              assert.strictEqual(
+                delimiterBearingIdentityRecords[0].identity.questionId,
+                "x|y",
+              );
+              assert.strictEqual(
+                delimiterBearingIdentityRecords[1].identity.workItemKey,
+                "y|z",
               );
 
               const link = ui.deepLink({

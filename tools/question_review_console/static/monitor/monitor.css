@@ -183,6 +183,16 @@ h1 { font-size: 14px; letter-spacing: .01em; }
   color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .08em;
 }
 .index-label b { color: var(--dim); }
+.artifact-pagination {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+  gap: 6px; padding: 0 0 8px; border-bottom: 1px solid var(--line-soft);
+}
+.artifact-pagination span { color: var(--dim); font: 9px monospace; text-align: center; }
+.artifact-pagination button {
+  padding: 4px 7px; color: var(--muted); border: 1px solid var(--line);
+  border-radius: 4px; background: var(--panel-2); cursor: pointer; font-size: 9px;
+}
+.artifact-pagination button:disabled { opacity: .35; cursor: default; }
 .draft-section { padding-top: 10px; border-top: 1px solid var(--line-soft); }
 .artifact-list { display: grid; gap: 3px; }
 .artifact-button {

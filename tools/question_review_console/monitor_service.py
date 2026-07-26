@@ -16,7 +16,8 @@ from typing import Any, Mapping
 MAX_ARTIFACT_BYTES = 1024 * 1024
 MAX_ARTIFACT_TOTAL_BYTES = 4 * 1024 * 1024
 MAX_ARTIFACT_FILES = 64
-MAX_ARTIFACT_DECLARATIONS = 256
+MAX_ARTIFACT_DECLARATIONS = 2048
+MAX_ARTIFACT_PAGE_ITEMS = 64
 MAX_SNAPSHOT_CHILDREN = 128
 MAX_ARTIFACT_CHILDREN = 512
 MAX_V2_QUESTION_STATES = 1024
@@ -314,18 +315,33 @@ class MonitorReadModel:
                 for attempt in lane_attempts
                 if attempt.get("receiptValidated") is True
             ]
+            _fingerprint_declarations, fingerprint_declarations_truncated = (
+                self._artifact_declarations(
+                    qualification,
+                    manifest,
+                    artifact_children,
+                    parent=parent,
+                )
+            )
             artifact_fingerprint_complete = (
                 self._v2_artifact_fingerprint_complete(
                     summary,
                     artifact_children,
                 )
+                and not fingerprint_declarations_truncated
             )
+            if fingerprint_declarations_truncated:
+                child_issues.append("artifact_declaration_limit")
             artifact_fingerprint = self._v2_combined_artifact_fingerprint(
                 qualification,
                 manifest,
                 summary,
                 artifact_children,
                 parent=parent,
+                declarations=_fingerprint_declarations,
+                declarations_truncated=(
+                    fingerprint_declarations_truncated
+                ),
             )
         else:
             artifact_children, child_issues = self._child_manifests(
@@ -342,13 +358,33 @@ class MonitorReadModel:
                 child_issues.append("child_manifest_limit")
             children = artifact_children[-MAX_SNAPSHOT_CHILDREN:]
             lanes = [self._lane_summary(child) for child in children]
+            _fingerprint_declarations, fingerprint_declarations_truncated = (
+                self._artifact_declarations(
+                    qualification,
+                    manifest,
+                    artifact_children,
+                    parent=parent,
+                )
+            )
             artifact_fingerprint = self._artifact_fingerprint(
                 qualification,
                 manifest,
                 artifact_children,
                 parent=parent,
+                declarations=_fingerprint_declarations,
+                declarations_truncated=(
+                    fingerprint_declarations_truncated
+                ),
             )
-            artifact_fingerprint_complete = True
+            artifact_fingerprint_complete = (
+                not fingerprint_declarations_truncated
+                and not child_issues
+            )
+            if fingerprint_declarations_truncated:
+                child_issues.append("artifact_declaration_limit")
+        if manifest.get("parentRunId") and parent is None:
+            child_issues.append("parent_manifest_unavailable")
+            artifact_fingerprint_complete = False
         run = self._run_summary(manifest)
         identities = self._compact_identities(
             manifest,
@@ -510,7 +546,12 @@ class MonitorReadModel:
         return response
 
     def artifacts(
-        self, run_id: str, *, qualification: str = ""
+        self,
+        run_id: str,
+        *,
+        qualification: str = "",
+        after: str | None = None,
+        limit: int | None = None,
     ) -> dict[str, Any]:
         qualification, manifest = self._load_manifest(run_id, qualification)
         # A parent queue manifest can exceed the bounded fallback size while
@@ -544,12 +585,50 @@ class MonitorReadModel:
                 full=True,
             )
         parent = self._parent_manifest(qualification, manifest)
-        declarations, declarations_truncated = self._artifact_declarations(
-            qualification,
-            manifest,
-            children,
-            parent=parent,
+        parent_unavailable = bool(manifest.get("parentRunId")) and parent is None
+        if parent_unavailable:
+            child_issues.append("parent_manifest_unavailable")
+            declarations, declarations_truncated = [], False
+        else:
+            declarations, declarations_truncated = self._artifact_declarations(
+                qualification,
+                manifest,
+                children,
+                parent=parent,
+            )
+        paginated = after is not None or limit is not None
+        page_limit = (
+            max(1, min(int(limit or MAX_ARTIFACT_PAGE_ITEMS), MAX_ARTIFACT_PAGE_ITEMS))
+            if paginated
+            else len(declarations)
         )
+        collection_fingerprint = self._artifact_collection_fingerprint(
+            qualification,
+            run_id,
+            declarations,
+            declarations_truncated=declarations_truncated,
+        )
+        page_offset = 0
+        reset_required = False
+        if paginated and after:
+            cursor_fingerprint, separator, cursor_offset = after.rpartition(":")
+            if (
+                len(after) > 80
+                or not separator
+                or not _SAFE_SHA256.fullmatch(cursor_fingerprint)
+                or not cursor_offset.isdecimal()
+                or len(cursor_offset) > 6
+            ):
+                raise ValueError("artifact cursorが不正です。")
+            if cursor_fingerprint != collection_fingerprint:
+                reset_required = True
+            else:
+                page_offset = int(cursor_offset)
+                if page_offset > len(declarations):
+                    raise ValueError("artifact cursorが範囲外です。")
+        page_declarations = declarations[
+            page_offset : page_offset + page_limit
+        ]
         artifacts: list[dict[str, Any]] = []
         rejected: list[dict[str, Any]] = [
             {
@@ -584,6 +663,22 @@ class MonitorReadModel:
             "artifactState": self._artifact_state(manifest),
             "monitorModelRequests": 0,
         }
+        if paginated:
+            response["pagination"] = {
+                "cursor": (
+                    f"{collection_fingerprint}:{page_offset}"
+                ),
+                "nextCursor": (
+                    f"{collection_fingerprint}:{len(declarations)}"
+                ),
+                "hasMore": bool(page_declarations),
+                "resetRequired": reset_required,
+                "offset": page_offset,
+                "limit": page_limit,
+                "returned": 0,
+                "totalDeclarations": len(declarations),
+                "totalTruncated": declarations_truncated,
+            }
         payload_bytes = self._compact_json_size(response)
         truncation_rejection = {
             "path": "<response-limit>",
@@ -619,11 +714,29 @@ class MonitorReadModel:
         def append_bounded(
             bucket: list[dict[str, Any]],
             item: dict[str, Any],
+            *,
+            defer_page_boundary: bool = False,
         ) -> bool:
             nonlocal payload_bytes
             item_increment = self._compact_json_size(item) + (
                 1 if bucket else 0
             )
+            if (
+                defer_page_boundary
+                and paginated
+                and processed_declarations > 0
+            ):
+                # A paginated response boundary is not data truncation. Leave
+                # the declaration unconsumed for the next cursor instead of
+                # emitting a permanent response-limit rejection.
+                if (
+                    payload_bytes + item_increment
+                    > MAX_ARTIFACT_TOTAL_BYTES
+                ):
+                    return False
+                bucket.append(item)
+                payload_bytes += item_increment
+                return True
             future_rejections = len(rejected) + (
                 1 if bucket is rejected else 0
             )
@@ -645,7 +758,7 @@ class MonitorReadModel:
         unique_paths = list(
             dict.fromkeys(
                 item["path"]
-                for item in declarations
+                for item in page_declarations
                 if not item.get("_preRejected")
             )
         )
@@ -665,11 +778,14 @@ class MonitorReadModel:
         else:
             allowed_paths = set(unique_paths)
 
-        for declaration in declarations:
+        processed_declarations = 0
+
+        def append_declaration(declaration: Mapping[str, Any]) -> bool:
+            nonlocal total_bytes
             relative = declaration["path"]
             pre_rejected = declaration.get("_preRejected")
             if isinstance(pre_rejected, str) and pre_rejected:
-                if not append_bounded(
+                return append_bounded(
                     rejected,
                     {
                         "path": self._public_path(relative),
@@ -677,11 +793,9 @@ class MonitorReadModel:
                         "contentState": {"status": "rejected"},
                         "reasonCode": pre_rejected,
                     },
-                ):
-                    break
-                continue
+                )
             if relative not in allowed_paths:
-                continue
+                return True
             if relative not in content_cache:
                 remaining = MAX_ARTIFACT_TOTAL_BYTES - total_bytes
                 try:
@@ -695,6 +809,14 @@ class MonitorReadModel:
                     total_bytes += content["size"]
                     content_cache[relative] = content
                 except ArtifactReadError as exc:
+                    if (
+                        paginated
+                        and exc.reason_code
+                        in {"total_bytes_limit", "file_bytes_limit"}
+                        and processed_declarations > 0
+                        and remaining < MAX_ARTIFACT_BYTES
+                    ):
+                        return False
                     if exc.reason_code == "total_bytes_limit":
                         set_truncated()
                     content_cache[relative] = {
@@ -703,7 +825,7 @@ class MonitorReadModel:
                     }
             content = content_cache[relative]
             if content.get("rejected"):
-                if not append_bounded(
+                return append_bounded(
                     rejected,
                     {
                         "path": self._public_path(relative),
@@ -717,16 +839,14 @@ class MonitorReadModel:
                             else {}
                         ),
                     },
-                ):
-                    break
-                continue
+                )
             try:
                 public_content = self._artifact_content(
                     content,
                     declaration,
                 )
             except ArtifactReadError as exc:
-                if not append_bounded(
+                return append_bounded(
                     rejected,
                     {
                         "path": self._public_path(relative),
@@ -734,29 +854,75 @@ class MonitorReadModel:
                         "contentState": {"status": "rejected"},
                         "reasonCode": exc.reason_code,
                     },
-                ):
-                    break
-                continue
-            if not append_bounded(
+                )
+            public_artifact = {
+                "path": self._public_path(relative),
+                "size": content["size"],
+                "contentType": content["contentType"],
+                "content": public_content,
+                "identity": declaration["identity"],
+                "contentState": {"status": "saved"},
+                "receiptValidation": declaration["receiptValidation"],
+                "artifactSync": declaration["artifactSync"],
+            }
+            if append_bounded(
                 artifacts,
-                {
-                    "path": self._public_path(relative),
-                    "size": content["size"],
-                    "contentType": content["contentType"],
-                    "content": public_content,
-                    "identity": declaration["identity"],
-                    "contentState": {"status": "saved"},
-                    "receiptValidation": declaration["receiptValidation"],
-                    "artifactSync": declaration["artifactSync"],
-                },
+                public_artifact,
+                defer_page_boundary=True,
             ):
+                return True
+            if paginated and processed_declarations == 0:
+                # A single raw file can fit the 1 MiB read limit while its
+                # JSON-escaped public text exceeds the 4 MiB response limit.
+                # Consume it as an explicit permanent rejection so the cursor
+                # cannot stall forever at the same declaration.
+                append_bounded(
+                    rejected,
+                    {
+                        "path": self._public_path(relative),
+                        "identity": declaration["identity"],
+                        "contentState": {"status": "rejected"},
+                        "reasonCode": "response_item_bytes_limit",
+                        "truncated": True,
+                    },
+                )
+                return True
+            return False
+
+        for declaration in page_declarations:
+            if not append_declaration(declaration):
                 break
+            processed_declarations += 1
+        if paginated:
+            next_offset = page_offset + processed_declarations
+            has_more = next_offset < len(declarations)
+            response["pagination"] = {
+                "cursor": f"{collection_fingerprint}:{page_offset}",
+                "nextCursor": (
+                    f"{collection_fingerprint}:{next_offset}"
+                    if has_more
+                    else ""
+                ),
+                "hasMore": has_more,
+                "resetRequired": reset_required,
+                "offset": page_offset,
+                "limit": page_limit,
+                "returned": processed_declarations,
+                "totalDeclarations": len(declarations),
+                "totalTruncated": declarations_truncated,
+            }
         if self._compact_json_size(response) > MAX_ARTIFACT_TOTAL_BYTES:
             # Accounting above is exact; this is a fail-closed safeguard if
             # the response shape changes without updating the byte budget.
             response["artifacts"] = []
             response["rejected"] = [truncation_rejection]
             response["truncated"] = True
+            if paginated:
+                response["pagination"]["nextCursor"] = (
+                    f"{collection_fingerprint}:{page_offset}"
+                )
+                response["pagination"]["hasMore"] = True
+                response["pagination"]["returned"] = 0
         return response
 
     def _load_manifest(
@@ -1637,6 +1803,7 @@ class MonitorReadModel:
                     "stageCode",
                     "stageLabel",
                     "workItemKey",
+                    "status",
                 )
             }
             for stage in stages
@@ -1697,6 +1864,7 @@ class MonitorReadModel:
                 "stageCode",
                 "stageLabel",
                 "workItemKey",
+                "status",
             ):
                 expected_value = str(expected.get(field) or "")
                 if (
@@ -2377,9 +2545,17 @@ class MonitorReadModel:
         ):
             return None
         child_ids = parent.get("childRunIds")
-        if not isinstance(child_ids, list) or str(manifest.get("runId") or "") not in {
-            str(value) for value in child_ids
-        }:
+        child_run_id = manifest.get("runId")
+        if (
+            not isinstance(child_ids, list)
+            or not isinstance(child_run_id, str)
+            or not _SAFE_ID.fullmatch(child_run_id)
+            or child_run_id not in {
+                value
+                for value in child_ids
+                if isinstance(value, str) and _SAFE_ID.fullmatch(value)
+            }
+        ):
             return None
         return parent
 
@@ -2746,13 +2922,18 @@ class MonitorReadModel:
         children: list[Mapping[str, Any]],
         *,
         parent: Mapping[str, Any] | None,
+        declarations: list[dict[str, Any]] | None = None,
+        declarations_truncated: bool | None = None,
     ) -> str:
-        declarations, declarations_truncated = self._artifact_declarations(
-            qualification,
-            manifest,
-            children,
-            parent=parent,
-        )
+        if declarations is None or declarations_truncated is None:
+            declarations, declarations_truncated = (
+                self._artifact_declarations(
+                    qualification,
+                    manifest,
+                    children,
+                    parent=parent,
+                )
+            )
         public_declarations: list[dict[str, Any]] = []
         file_signatures: dict[str, list[Any]] = {}
         for declaration in declarations:
@@ -2869,6 +3050,8 @@ class MonitorReadModel:
         validated_attempts: list[Mapping[str, Any]],
         *,
         parent: Mapping[str, Any] | None,
+        declarations: list[dict[str, Any]] | None = None,
+        declarations_truncated: bool | None = None,
     ) -> str:
         material = {
             "summary": self._v2_summary_artifact_fingerprint(
@@ -2880,6 +3063,8 @@ class MonitorReadModel:
                 manifest,
                 validated_attempts,
                 parent=parent,
+                declarations=declarations,
+                declarations_truncated=declarations_truncated,
             ),
         }
         return hashlib.sha256(
@@ -3287,6 +3472,43 @@ class MonitorReadModel:
             declarations[:MAX_ARTIFACT_DECLARATIONS],
             len(declarations) > MAX_ARTIFACT_DECLARATIONS,
         )
+
+    @staticmethod
+    def _artifact_collection_fingerprint(
+        qualification: str,
+        run_id: str,
+        declarations: list[Mapping[str, Any]],
+        *,
+        declarations_truncated: bool,
+    ) -> str:
+        material = {
+            "schemaVersion": "monitor-artifact-cursor/v1",
+            "qualification": qualification,
+            "runId": run_id,
+            "declarations": [
+                {
+                    "path": str(declaration.get("path") or ""),
+                    "identity": declaration.get("identity"),
+                    "receiptValidation": declaration.get(
+                        "receiptValidation"
+                    ),
+                    "artifactSync": declaration.get("artifactSync"),
+                    "preRejected": declaration.get("_preRejected"),
+                    "recordIdentity": declaration.get("_recordIdentity"),
+                    "questionScoped": declaration.get("_questionScoped"),
+                }
+                for declaration in declarations
+            ],
+            "declarationsTruncated": declarations_truncated,
+        }
+        return hashlib.sha256(
+            json.dumps(
+                material,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
 
     def _run_artifact_declarations(
         self,

@@ -893,6 +893,49 @@ class MonitorReadModelTest(unittest.TestCase):
             {item["reasonCode"] for item in artifacts["rejected"]},
         )
 
+    def test_v2_state_stage_status_must_match_summary(self):
+        run_id, _active_attempt, _saved_attempt = self._write_v2_run()
+        state_path = (
+            self.store.root
+            / "demo"
+            / run_id
+            / "questions"
+            / f"{hashlib.sha256(b'q-1').hexdigest()}.json"
+        )
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["execution"]["stages"][0]["status"] = "blocked"
+        self._write_v2_question_state(run_id, state)
+
+        snapshot = self.model.snapshot(run_id, qualification="demo")
+        artifacts = self.model.artifacts(run_id, qualification="demo")
+
+        self.assertFalse(snapshot["artifactFingerprintComplete"])
+        self.assertIn("v2_attempt_stage_mismatch", snapshot["warnings"])
+        self.assertEqual(artifacts["artifacts"], [])
+        self.assertIn(
+            "v2_attempt_stage_mismatch",
+            {item["reasonCode"] for item in artifacts["rejected"]},
+        )
+
+    def test_v2_declaration_limit_marks_fingerprint_incomplete(self):
+        run_id, _active_attempt, _saved_attempt = self._write_v2_run()
+
+        with patch(
+            "tools.question_review_console.monitor_service."
+            "MAX_ARTIFACT_DECLARATIONS",
+            0,
+        ):
+            snapshot = self.model.snapshot(
+                run_id,
+                qualification="demo",
+            )
+
+        self.assertFalse(snapshot["artifactFingerprintComplete"])
+        self.assertIn(
+            "artifact_declaration_limit",
+            snapshot["warnings"],
+        )
+
     def test_v2_run_local_plan_symlink_is_rejected_before_resolution(self):
         run_id, _active_attempt, _saved_attempt = self._write_v2_run()
         plan_path = self.store.root / "demo" / run_id / "plan.json"
@@ -2290,7 +2333,15 @@ class MonitorReadModelTest(unittest.TestCase):
         self.child["result"]["changedFiles"] = [relative]
         self.store.write(self.child)
 
-        payload = self.model.artifacts("run-1", qualification="demo")
+        with patch(
+            "tools.question_review_console.monitor_service."
+            "MAX_ARTIFACT_DECLARATIONS",
+            256,
+        ):
+            payload = self.model.artifacts(
+                "run-1",
+                qualification="demo",
+            )
 
         self.assertTrue(payload["truncated"])
         self.assertEqual(len(payload["artifacts"]), 256)
@@ -2298,6 +2349,316 @@ class MonitorReadModelTest(unittest.TestCase):
             "declaration_limit",
             {item["reasonCode"] for item in payload["rejected"]},
         )
+
+    def test_artifact_cursor_pages_every_declaration_without_overlap(self):
+        relative = "output/demo/questions_json/2026/paged.txt"
+        path = self.root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("ページ成果物", encoding="utf-8")
+        self.child["batchQuestionResults"] = [
+            {
+                "questionId": f"page-q-{index:03d}",
+                "status": "succeeded",
+                "changedFiles": [relative],
+            }
+            for index in range(130)
+        ]
+        self.child["result"]["changedFiles"] = [relative]
+        self.store.write(self.child)
+
+        cursor = ""
+        question_ids: list[str] = []
+        pages = 0
+        while True:
+            payload = self.model.artifacts(
+                "run-1",
+                qualification="demo",
+                after=cursor,
+                limit=64,
+            )
+            pages += 1
+            question_ids.extend(
+                item["identity"]["questionId"]
+                for item in payload["artifacts"]
+            )
+            pagination = payload["pagination"]
+            if not pagination["hasMore"]:
+                break
+            self.assertTrue(pagination["nextCursor"])
+            self.assertNotEqual(pagination["nextCursor"], cursor)
+            cursor = pagination["nextCursor"]
+
+        self.assertEqual(pages, 3)
+        self.assertEqual(len(question_ids), 130)
+        self.assertEqual(len(set(question_ids)), 130)
+        self.assertEqual(
+            question_ids,
+            [f"page-q-{index:03d}" for index in range(130)],
+        )
+
+    def test_artifact_cursor_resets_when_collection_changes(self):
+        relative = "output/demo/questions_json/2026/cursor-reset.txt"
+        path = self.root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("cursor", encoding="utf-8")
+        self.child["batchQuestionResults"] = [
+            {
+                "questionId": f"cursor-q-{index}",
+                "status": "succeeded",
+                "changedFiles": [relative],
+            }
+            for index in range(3)
+        ]
+        self.child["result"]["changedFiles"] = [relative]
+        self.store.write(self.child)
+        first = self.model.artifacts(
+            "run-1",
+            qualification="demo",
+            after="",
+            limit=2,
+        )
+        stale_cursor = first["pagination"]["nextCursor"]
+        self.child["batchQuestionResults"].insert(
+            0,
+            {
+                "questionId": "cursor-new",
+                "status": "succeeded",
+                "changedFiles": [relative],
+            },
+        )
+        self.store.write(self.child)
+
+        reset = self.model.artifacts(
+            "run-1",
+            qualification="demo",
+            after=stale_cursor,
+            limit=2,
+        )
+
+        self.assertTrue(reset["pagination"]["resetRequired"])
+        self.assertEqual(reset["pagination"]["offset"], 0)
+        self.assertEqual(
+            reset["artifacts"][0]["identity"]["questionId"],
+            "cursor-new",
+        )
+
+    def test_oversized_rendered_page_item_is_rejected_and_cursor_advances(self):
+        relative = "output/demo/questions_json/2026/escaped-nul.txt"
+        path = self.root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"\x00" * 800_000)
+        self.child["batchQuestionResults"] = [
+            {
+                "questionId": "escaped-q",
+                "status": "succeeded",
+                "changedFiles": [relative],
+            }
+        ]
+        self.child["result"]["changedFiles"] = [relative]
+        self.store.write(self.child)
+
+        payload = self.model.artifacts(
+            "run-1",
+            qualification="demo",
+            after="",
+            limit=64,
+        )
+
+        self.assertEqual(payload["artifacts"], [])
+        self.assertFalse(payload["pagination"]["hasMore"])
+        self.assertEqual(payload["pagination"]["returned"], 1)
+        self.assertEqual(payload["pagination"]["nextCursor"], "")
+        self.assertIn(
+            "response_item_bytes_limit",
+            {item["reasonCode"] for item in payload["rejected"]},
+        )
+        self.assertLessEqual(
+            len(
+                json.dumps(
+                    payload,
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            MAX_ARTIFACT_TOTAL_BYTES,
+        )
+
+    def test_paginated_response_boundary_defers_item_without_truncation(self):
+        for same_path in (True, False):
+            with self.subTest(same_path=same_path):
+                relative_paths = [
+                    (
+                        "output/demo/questions_json/2026/"
+                        "page-boundary-shared.txt"
+                    )
+                    if same_path
+                    else (
+                        "output/demo/questions_json/2026/"
+                        f"page-boundary-{index}.txt"
+                    )
+                    for index in range(5)
+                ]
+                for relative in set(relative_paths):
+                    path = self.root / relative
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text("x" * 900_000, encoding="utf-8")
+                self.child["batchQuestionResults"] = [
+                    {
+                        "questionId": f"boundary-q-{index}",
+                        "status": "succeeded",
+                        "changedFiles": [relative],
+                    }
+                    for index, relative in enumerate(relative_paths)
+                ]
+                self.child["result"]["changedFiles"] = list(
+                    dict.fromkeys(relative_paths)
+                )
+                self.store.write(self.child)
+
+                cursor = ""
+                seen_question_ids: list[str] = []
+                pages = 0
+                while True:
+                    payload = self.model.artifacts(
+                        "run-1",
+                        qualification="demo",
+                        after=cursor,
+                        limit=64,
+                    )
+                    pages += 1
+                    self.assertFalse(payload["truncated"])
+                    self.assertNotIn(
+                        "response_bytes_limit",
+                        {
+                            item["reasonCode"]
+                            for item in payload["rejected"]
+                        },
+                    )
+                    seen_question_ids.extend(
+                        item["identity"]["questionId"]
+                        for item in payload["artifacts"]
+                    )
+                    pagination = payload["pagination"]
+                    self.assertEqual(
+                        pagination["returned"],
+                        len(payload["artifacts"]),
+                    )
+                    if pages == 1:
+                        self.assertTrue(pagination["hasMore"])
+                        self.assertLess(pagination["returned"], 5)
+                    if not pagination["hasMore"]:
+                        break
+                    self.assertTrue(pagination["nextCursor"])
+                    cursor = pagination["nextCursor"]
+                    self.assertLess(pages, 5)
+
+                self.assertEqual(pages, 2)
+                self.assertEqual(
+                    seen_question_ids,
+                    [f"boundary-q-{index}" for index in range(5)],
+                )
+
+    def test_artifact_cursor_rejects_malformed_and_out_of_range_values(self):
+        first = self.model.artifacts(
+            "run-1",
+            qualification="demo",
+            after="",
+            limit=1,
+        )
+        fingerprint = first["pagination"]["cursor"].split(":", 1)[0]
+
+        for cursor in (
+            "invalid",
+            f"{fingerprint}:-1",
+            f"{fingerprint}:{'9' * 7}",
+            f"{fingerprint}:999999",
+        ):
+            with self.subTest(cursor=cursor):
+                with self.assertRaises(ValueError):
+                    self.model.artifacts(
+                        "run-1",
+                        qualification="demo",
+                        after=cursor,
+                        limit=1,
+                    )
+
+    def test_unpaginated_artifact_client_keeps_legacy_response_shape(self):
+        payload = self.model.artifacts(
+            "run-1",
+            qualification="demo",
+        )
+
+        self.assertNotIn("pagination", payload)
+        self.assertEqual(len(payload["artifacts"]), 1)
+
+    def test_missing_parent_fails_closed_for_direct_child_monitor(self):
+        parent_path = (
+            self.store.root / "demo" / "run-1" / "manifest.json"
+        )
+        parent_path.unlink()
+
+        snapshot = self.model.snapshot(
+            "child-1",
+            qualification="demo",
+        )
+        artifacts = self.model.artifacts(
+            "child-1",
+            qualification="demo",
+        )
+
+        self.assertFalse(snapshot["artifactFingerprintComplete"])
+        self.assertIn("parent_manifest_unavailable", snapshot["warnings"])
+        self.assertEqual(artifacts["artifacts"], [])
+        self.assertIn(
+            "parent_manifest_unavailable",
+            {item["reasonCode"] for item in artifacts["rejected"]},
+        )
+
+    def test_non_string_parent_child_id_fails_closed_for_direct_child(self):
+        numeric_child = {**self.child, "runId": "123"}
+        self.parent["childRunIds"] = [123]
+        self.store.write(self.parent)
+        self.store.write(numeric_child)
+
+        snapshot = self.model.snapshot(
+            "123",
+            qualification="demo",
+        )
+        artifacts = self.model.artifacts(
+            "123",
+            qualification="demo",
+        )
+
+        self.assertFalse(snapshot["artifactFingerprintComplete"])
+        self.assertIn("parent_manifest_unavailable", snapshot["warnings"])
+        self.assertEqual(artifacts["artifacts"], [])
+        self.assertIn(
+            "parent_manifest_unavailable",
+            {item["reasonCode"] for item in artifacts["rejected"]},
+        )
+
+    def test_legacy_child_limit_marks_fingerprint_incomplete(self):
+        second = {
+            **self.child,
+            "runId": "child-2",
+            "questionId": "q-2",
+        }
+        self.store.write(second)
+        self.parent["childRunIds"] = ["child-1", "child-2"]
+        self.store.write(self.parent)
+
+        with patch(
+            "tools.question_review_console.monitor_service."
+            "MAX_ARTIFACT_CHILDREN",
+            1,
+        ):
+            snapshot = self.model.snapshot(
+                "run-1",
+                qualification="demo",
+            )
+
+        self.assertFalse(snapshot["artifactFingerprintComplete"])
+        self.assertIn("child_manifest_limit", snapshot["warnings"])
 
     def test_artifacts_include_oldest_of_129_children_without_silent_cutoff(self):
         relative = "output/demo/questions_json/2026/oldest-child.txt"

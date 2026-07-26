@@ -2574,7 +2574,30 @@ class QuestionReviewServerTests(unittest.TestCase):
                         )
                         payload = json.loads(response.read())
                         self.assertEqual(payload["monitorModelRequests"], 0)
+                        if resource.endswith("artifacts?qualification=demo"):
+                            self.assertNotIn("pagination", payload)
                         connection.close()
+
+                connection = http.client.HTTPConnection(
+                    "127.0.0.1", port, timeout=5
+                )
+                connection.request(
+                    "GET",
+                    (
+                        "/api/monitor/v1/runs/run-1/artifacts"
+                        "?qualification=demo&limit=64"
+                    ),
+                    headers=local_headers,
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 200)
+                paged_payload = json.loads(response.read())
+                self.assertIn("pagination", paged_payload)
+                self.assertEqual(
+                    paged_payload["pagination"]["limit"],
+                    64,
+                )
+                connection.close()
 
                 def read_snapshot_under_load(_index):
                     connection = http.client.HTTPConnection(
