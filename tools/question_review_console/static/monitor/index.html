@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="dark">
     <title>バッチ成果物モニター</title>
-    <link rel="stylesheet" href="/monitor/monitor.css?v=monitor-v1">
+    <link rel="stylesheet" href="/monitor/monitor.css?v=monitor-v2">
   </head>
   <body>
     <header class="topbar">
@@ -41,6 +41,14 @@
       <button id="tab-artifact" type="button" role="tab" aria-controls="panel-artifact" aria-selected="true" tabindex="0" data-mobile-tab="artifact" class="active">成果物</button>
       <button id="tab-live" type="button" role="tab" aria-controls="panel-live" aria-selected="false" tabindex="-1" data-mobile-tab="live">実況</button>
     </nav>
+
+    <section id="monitor-alerts" class="monitor-alerts" aria-label="取得状態" aria-live="polite" hidden>
+      <p id="snapshot-load-error" class="monitor-alert error" hidden></p>
+      <p id="run-api-warning" class="monitor-alert warning" hidden></p>
+      <p id="snapshot-api-warning" class="monitor-alert warning" hidden></p>
+      <p id="artifact-load-error" class="monitor-alert error" hidden></p>
+      <p id="artifact-api-warning" class="monitor-alert warning" hidden></p>
+    </section>
 
     <main class="monitor-grid">
       <aside id="panel-activity" class="lane-panel mobile-panel" role="tabpanel" data-panel="activity" aria-labelledby="tab-activity">
@@ -129,6 +137,6 @@
       <span id="freshness-status">データ鮮度を確認中</span>
       <span>閲覧専用 · 操作は問題整備システムで行います</span>
     </footer>
-    <script src="/monitor/monitor.js?v=monitor-v1" defer></script>
+    <script src="/monitor/monitor.js?v=monitor-v2" defer></script>
   </body>
 </html>

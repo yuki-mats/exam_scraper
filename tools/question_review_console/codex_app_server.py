@@ -13,7 +13,7 @@ import tempfile
 import threading
 import time
 import tomllib
-from collections import deque
+from collections import OrderedDict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, TextIO
@@ -374,23 +374,55 @@ MONITOR_NOTIFICATION_METHODS = frozenset(
     }
 )
 
+OBSERVER_ADAPTER_BINDING_CAPACITY = 512
+OBSERVER_ADAPTER_GAP_CAPACITY = 64
+OBSERVER_ADAPTER_CONTROL_BATCH_SIZE = 16
+OBSERVER_ADAPTER_CLOSE_TIMEOUT_SECONDS = 5.0
+
 
 class _NonBlockingObserverAdapter:
-    """Fixed queue boundary between the stdout reader and any observer."""
+    """Bounded, non-blocking boundary between stdout and an observer."""
 
-    _STOP = object()
-
-    def __init__(self, observer: Any | None, *, capacity: int = 4096) -> None:
+    def __init__(
+        self,
+        observer: Any | None,
+        *,
+        capacity: int = 4096,
+        binding_capacity: int = OBSERVER_ADAPTER_BINDING_CAPACITY,
+        gap_capacity: int = OBSERVER_ADAPTER_GAP_CAPACITY,
+        control_batch_size: int = OBSERVER_ADAPTER_CONTROL_BATCH_SIZE,
+    ) -> None:
         self._observer = observer
         self._queue: queue.Queue[Any] = queue.Queue(maxsize=max(1, capacity))
-        # Runtime bindings are correctness-critical correlation metadata. Keep
-        # them on an unbounded control queue so notification saturation can
-        # never strand a thread in the observer's pre-bind buffer.
-        self._control_queue: queue.Queue[Any] = queue.Queue()
+        self._binding_capacity = max(1, int(binding_capacity))
+        self._gap_capacity = max(1, int(gap_capacity))
+        self._control_batch_size = max(1, int(control_batch_size))
         self._gap_lock = threading.Lock()
+        self._work_event = threading.Event()
         self._next_notification_ordinal = 0
         self._last_accepted_notification_ordinal = 0
-        self._gap_segments: deque[list[int]] = deque()
+        self._last_finished_notification_ordinal = 0
+        self._gap_segments: OrderedDict[
+            tuple[Any, ...],
+            list[Any],
+        ] = OrderedDict()
+        self._gap_overflow_count = 0
+        self._gap_overflow_boundary = 0
+        self._pending_bindings: OrderedDict[
+            str,
+            tuple[dict[str, Any], str, str | None],
+        ] = OrderedDict()
+        self._thread_route_groups: OrderedDict[
+            str,
+            tuple[str, str, tuple[tuple[str, str], ...]],
+        ] = OrderedDict()
+        self._route_snapshot: tuple[
+            tuple[str, str, tuple[tuple[str, str], ...]],
+            ...,
+        ] = ()
+        self._active_callbacks = 0
+        self._worker_busy = False
+        self._worker_failure: BaseException | None = None
         self._closed = threading.Event()
         self._worker: threading.Thread | None = None
         if observer is not None:
@@ -404,20 +436,63 @@ class _NonBlockingObserverAdapter:
     def put_nowait(self, message: Mapping[str, Any]) -> None:
         if self._observer is None or self._closed.is_set():
             return
+        thread_id = self._notification_thread_id(message)
+        terminal = self._terminal_notification(message)
+        observed_at = time.time()
         with self._gap_lock:
+            if self._closed.is_set():
+                return
+            inline_binding = (
+                self._pending_bindings.pop(thread_id, None)
+                if thread_id
+                else None
+            )
+            route_group = (
+                self._thread_route_groups.get(thread_id)
+                if thread_id
+                else None
+            )
+            routes = (
+                (route_group,)
+                if route_group is not None
+                else self._route_snapshot
+            )
+            if terminal and thread_id:
+                # Freeze correlation before deleting live routing state. A
+                # terminal notification that overflows the queue must still
+                # attribute its observation gap to the completed route.
+                self._thread_route_groups.pop(thread_id, None)
+                self._refresh_route_snapshot_locked()
             self._next_notification_ordinal += 1
             ordinal = self._next_notification_ordinal
             try:
                 self._queue.put_nowait(
-                    ("notification", (ordinal, dict(message)))
+                    # Do not iterate, normalize, serialize, or persist on the
+                    # App Server stdout reader thread. The parsed notification
+                    # becomes immutable-by-convention after dispatch and is
+                    # copied/redacted only by the monitor worker.
+                    (
+                        "notification",
+                        (
+                            ordinal,
+                            message,
+                            observed_at,
+                            inline_binding,
+                        ),
+                    )
                 )
                 self._last_accepted_notification_ordinal = ordinal
             except Exception:
                 boundary = self._last_accepted_notification_ordinal
-                if self._gap_segments and self._gap_segments[-1][0] == boundary:
-                    self._gap_segments[-1][1] += 1
-                else:
-                    self._gap_segments.append([boundary, 1])
+                self._record_gap_locked(
+                    count=1,
+                    boundary=boundary,
+                    routes=routes,
+                )
+                if inline_binding is not None and not terminal:
+                    self._pending_bindings[thread_id] = inline_binding
+                    self._pending_bindings.move_to_end(thread_id)
+        self._work_event.set()
 
     def bind_runtime(
         self,
@@ -427,90 +502,459 @@ class _NonBlockingObserverAdapter:
     ) -> None:
         if self._observer is None or self._closed.is_set():
             return
-        self._control_queue.put_nowait(
-            ("binding", (dict(context), str(thread_id), turn_id))
-        )
+        resolved_thread_id = str(thread_id)
+        binding = (dict(context), resolved_thread_id, turn_id)
+        route_group = self._route_group(binding[0])
+        with self._gap_lock:
+            if self._closed.is_set():
+                return
+            refresh_routes = False
+            if route_group is not None and resolved_thread_id:
+                previous_route = self._thread_route_groups.get(
+                    resolved_thread_id
+                )
+                if (
+                    previous_route is None
+                    and len(self._thread_route_groups)
+                    >= self._binding_capacity
+                ):
+                    evicted_thread_id, _evicted_route = (
+                        self._thread_route_groups.popitem(last=False)
+                    )
+                    self._pending_bindings.pop(evicted_thread_id, None)
+                    self._record_gap_locked(
+                        count=1,
+                        boundary=self._last_accepted_notification_ordinal,
+                        routes=(),
+                        scope_truncated=True,
+                    )
+                    refresh_routes = True
+                self._thread_route_groups[resolved_thread_id] = route_group
+                self._thread_route_groups.move_to_end(resolved_thread_id)
+                refresh_routes = (
+                    refresh_routes or previous_route != route_group
+                )
+            if refresh_routes:
+                self._refresh_route_snapshot_locked()
+            if resolved_thread_id in self._pending_bindings:
+                self._pending_bindings[resolved_thread_id] = binding
+                self._pending_bindings.move_to_end(resolved_thread_id)
+            else:
+                if len(self._pending_bindings) >= self._binding_capacity:
+                    self._pending_bindings.popitem(last=False)
+                    self._record_gap_locked(
+                        count=1,
+                        boundary=self._last_accepted_notification_ordinal,
+                        routes=(),
+                        scope_truncated=True,
+                    )
+                self._pending_bindings[resolved_thread_id] = binding
+        self._work_event.set()
 
-    def close(self) -> None:
-        self._closed.set()
-        self._control_queue.put_nowait(self._STOP)
-        if self._worker is not None:
-            self._worker.join(timeout=0.2)
+    def record_observation_gap(self, count: int = 1) -> None:
+        """Queue an explicit continuity break without touching the reader path."""
+
+        if self._observer is None or self._closed.is_set():
+            return
+        resolved_count = max(1, int(count))
+        with self._gap_lock:
+            if self._closed.is_set():
+                return
+            boundary = self._last_accepted_notification_ordinal
+            self._record_gap_locked(
+                count=resolved_count,
+                boundary=boundary,
+                routes=self._route_snapshot,
+            )
+        self._work_event.set()
+
+    def close(
+        self,
+        timeout: float = OBSERVER_ADAPTER_CLOSE_TIMEOUT_SECONDS,
+    ) -> None:
+        resolved_timeout = float(timeout)
+        if not math.isfinite(resolved_timeout) or resolved_timeout < 0:
+            raise ValueError(
+                "observer adapter close timeout must be finite and nonnegative"
+            )
+        with self._gap_lock:
+            self._closed.set()
+        self._work_event.set()
+        worker = self._worker
+        if worker is None:
+            return
+        if worker is threading.current_thread():
+            raise RuntimeError("observer adapter cannot close from its worker")
+        worker.join(timeout=resolved_timeout)
+        if worker.is_alive():
+            raise TimeoutError(
+                "observer adapter did not drain accepted work before "
+                f"the {resolved_timeout:g}s close deadline"
+            )
+        if self._worker_failure is not None:
+            raise RuntimeError("observer adapter worker failed") from (
+                self._worker_failure
+            )
+        if self._has_pending_work():
+            raise RuntimeError(
+                "observer adapter worker stopped with accepted work pending"
+            )
 
     def drain_for_test(self, timeout: float = 1.0) -> bool:
         deadline = time.monotonic() + max(0.0, timeout)
-        while (
-            self._queue.unfinished_tasks
-            or self._control_queue.unfinished_tasks
-            or self._has_pending_gap()
-        ) and time.monotonic() < deadline:
+        while self._has_pending_work() and time.monotonic() < deadline:
             time.sleep(0.001)
-        return (
-            self._queue.unfinished_tasks == 0
-            and self._control_queue.unfinished_tasks == 0
-            and not self._has_pending_gap()
-        )
+        return not self._has_pending_work()
 
     def _run(self) -> None:
-        while (
-            not self._closed.is_set()
-            or not self._queue.empty()
-            or not self._control_queue.empty()
-            or self._has_pending_gap()
-        ):
-            source = self._control_queue
-            try:
-                entry = source.get_nowait()
-            except queue.Empty:
-                source = self._queue
-                try:
-                    entry = source.get(timeout=0.05)
-                except queue.Empty:
-                    continue
-            notification_ordinal: int | None = None
-            try:
-                if entry is self._STOP:
-                    continue
-                kind, payload = entry
-                if kind == "notification":
-                    notification_ordinal, notification = payload
-                    put_nowait = getattr(self._observer, "put_nowait", None)
-                    if callable(put_nowait):
-                        put_nowait(notification)
-                    else:
-                        observe = getattr(self._observer, "observe", None)
-                        if callable(observe):
-                            observe(notification)
-                elif kind == "binding":
-                    bind = getattr(self._observer, "bind_runtime", None)
-                    if callable(bind):
-                        bind(*payload)
-            except Exception:
-                pass
-            finally:
-                source.task_done()
-                if notification_ordinal is not None:
-                    self._notification_finished(notification_ordinal)
+        try:
+            self._run_loop()
+        except BaseException as exc:  # pragma: no cover - defensive boundary.
+            with self._gap_lock:
+                self._worker_failure = exc
+            self._work_event.set()
+        finally:
+            with self._gap_lock:
+                self._worker_busy = False
 
-    def _has_pending_gap(self) -> bool:
+    def _run_loop(self) -> None:
+        while True:
+            with self._gap_lock:
+                self._worker_busy = True
+            did_work = False
+            bindings = self._take_binding_batch()
+            for binding in bindings:
+                did_work = True
+                self._deliver_binding(binding)
+
+            try:
+                entry = self._queue.get_nowait()
+            except queue.Empty:
+                entry = None
+            if entry is not None:
+                did_work = True
+                notification_ordinal: int | None = None
+                try:
+                    kind, payload = entry
+                    if kind != "notification":
+                        raise RuntimeError(
+                            f"unknown observer adapter entry: {kind}"
+                        )
+                    (
+                        notification_ordinal,
+                        notification,
+                        observed_at,
+                        inline_binding,
+                    ) = payload
+                    if inline_binding is not None:
+                        self._deliver_binding(inline_binding)
+                    self._deliver_notification(notification, observed_at)
+                except Exception:
+                    pass
+                finally:
+                    self._queue.task_done()
+                    if notification_ordinal is not None:
+                        self._notification_finished(notification_ordinal)
+
+            if self._flush_ready_gaps():
+                did_work = True
+            with self._gap_lock:
+                self._worker_busy = False
+            if self._should_stop():
+                return
+            if not did_work:
+                self._work_event.wait(timeout=0.05)
+                self._work_event.clear()
+
+    def _take_binding_batch(
+        self,
+    ) -> list[tuple[dict[str, Any], str, str | None]]:
+        bindings: list[tuple[dict[str, Any], str, str | None]] = []
         with self._gap_lock:
-            return bool(self._gap_segments)
+            for _index in range(self._control_batch_size):
+                if not self._pending_bindings:
+                    break
+                _thread_id, binding = self._pending_bindings.popitem(
+                    last=False
+                )
+                bindings.append(binding)
+        return bindings
+
+    def _deliver_binding(
+        self,
+        binding: tuple[dict[str, Any], str, str | None],
+    ) -> None:
+        try:
+            bind = getattr(self._observer, "bind_runtime", None)
+        except Exception:
+            return
+        if not callable(bind):
+            return
+        self._callback_started()
+        try:
+            bind(*binding)
+        except Exception:
+            pass
+        finally:
+            self._callback_finished()
+
+    def _deliver_notification(
+        self,
+        notification: Mapping[str, Any],
+        observed_at: float,
+    ) -> None:
+        callback: Callable[..., Any] | None = None
+        arguments: tuple[Any, ...] = ()
+        try:
+            put_observed = getattr(
+                self._observer,
+                "put_observed_nowait",
+                None,
+            )
+            if callable(put_observed):
+                callback = put_observed
+                arguments = (notification, observed_at)
+            else:
+                put_nowait = getattr(self._observer, "put_nowait", None)
+                if callable(put_nowait):
+                    callback = put_nowait
+                    arguments = (notification,)
+                else:
+                    observe = getattr(self._observer, "observe", None)
+                    if callable(observe):
+                        callback = observe
+                        arguments = (notification,)
+        except Exception:
+            return
+        if callback is None:
+            return
+        self._callback_started()
+        try:
+            callback(*arguments)
+        except Exception:
+            pass
+        finally:
+            self._callback_finished()
+
+    def _callback_started(self) -> None:
+        with self._gap_lock:
+            self._active_callbacks += 1
+
+    def _callback_finished(self) -> None:
+        with self._gap_lock:
+            self._active_callbacks -= 1
+        self._work_event.set()
+
+    def _has_pending_work(self) -> bool:
+        if self._queue.unfinished_tasks:
+            return True
+        with self._gap_lock:
+            return bool(
+                self._pending_bindings
+                or self._gap_segments
+                or self._gap_overflow_count
+                or self._active_callbacks
+                or self._worker_busy
+            )
+
+    def _should_stop(self) -> bool:
+        if not self._closed.is_set() or not self._queue.empty():
+            return False
+        with self._gap_lock:
+            return not (
+                self._pending_bindings
+                or self._gap_segments
+                or self._gap_overflow_count
+                or self._active_callbacks
+            )
+
+    @staticmethod
+    def _route_group(
+        context: Mapping[str, Any],
+    ) -> tuple[str, str, tuple[tuple[str, str], ...]] | None:
+        qualification = str(context.get("qualification") or "")
+        storage_run_id = str(
+            context.get("parentRunId")
+            or context.get("runId")
+            or context.get("childRunId")
+            or ""
+        )
+        if not qualification or not storage_run_id:
+            return None
+        routes = {
+            (qualification, str(value))
+            for value in (
+                context.get("runId"),
+                context.get("parentRunId"),
+                context.get("childRunId"),
+            )
+            if isinstance(value, (str, int)) and str(value)
+        }
+        routes.add((qualification, storage_run_id))
+        return qualification, storage_run_id, tuple(sorted(routes))
+
+    def _refresh_route_snapshot_locked(self) -> None:
+        grouped: dict[tuple[str, str], set[tuple[str, str]]] = {}
+        for qualification, storage_run_id, routes in (
+            self._thread_route_groups.values()
+        ):
+            grouped.setdefault((qualification, storage_run_id), set()).update(
+                routes
+            )
+        self._route_snapshot = tuple(
+            (
+                qualification,
+                storage_run_id,
+                tuple(sorted(routes)),
+            )
+            for (qualification, storage_run_id), routes in sorted(
+                grouped.items()
+            )
+        )
+
+    @staticmethod
+    def _notification_thread_id(message: Mapping[str, Any]) -> str:
+        params = message.get("params")
+        if not isinstance(params, Mapping):
+            return ""
+        thread = params.get("thread")
+        return str(
+            params.get("threadId")
+            or (
+                thread.get("id")
+                if isinstance(thread, Mapping)
+                else ""
+            )
+            or ""
+        )
+
+    @staticmethod
+    def _terminal_notification(message: Mapping[str, Any]) -> bool:
+        method = str(message.get("method") or "")
+        if method in {
+            "turn/completed",
+            "thread/closed",
+            "thread/deleted",
+        }:
+            return True
+        if method != "error":
+            return False
+        params = message.get("params")
+        return not (
+            isinstance(params, Mapping)
+            and params.get("willRetry") is True
+        )
+
+    def _record_gap_locked(
+        self,
+        *,
+        count: int,
+        boundary: int,
+        routes: Any,
+        scope_truncated: bool = False,
+    ) -> None:
+        resolved_count = max(1, int(count))
+        resolved_boundary = max(0, int(boundary))
+        if scope_truncated:
+            self._gap_overflow_count += resolved_count
+            self._gap_overflow_boundary = max(
+                self._gap_overflow_boundary,
+                resolved_boundary,
+            )
+            return
+        normalized_routes = tuple(routes)
+        key = (resolved_boundary, normalized_routes)
+        existing = self._gap_segments.get(key)
+        if existing is not None:
+            existing[1] += resolved_count
+            return
+        if len(self._gap_segments) >= self._gap_capacity:
+            self._gap_overflow_count += resolved_count
+            self._gap_overflow_boundary = max(
+                self._gap_overflow_boundary,
+                resolved_boundary,
+            )
+            return
+        self._gap_segments[key] = [
+            resolved_boundary,
+            resolved_count,
+            normalized_routes,
+        ]
+
+    def _record_observer_gap(
+        self,
+        count: int,
+        routes: Any,
+        *,
+        scope_truncated: bool,
+    ) -> None:
+        try:
+            record_gap = getattr(
+                self._observer,
+                "record_observation_gap",
+                None,
+            )
+        except Exception:
+            return
+        if not callable(record_gap):
+            return
+        self._callback_started()
+        try:
+            try:
+                record_gap(
+                    count,
+                    affected_routes=routes,
+                    scope_truncated=scope_truncated,
+                )
+            except TypeError:
+                try:
+                    record_gap(count, affected_routes=routes)
+                except TypeError:
+                    record_gap(count)
+        except Exception:
+            pass
+        finally:
+            self._callback_finished()
 
     def _notification_finished(self, ordinal: int) -> None:
-        counts: list[int] = []
         with self._gap_lock:
-            while self._gap_segments and self._gap_segments[0][0] <= ordinal:
-                _boundary, count = self._gap_segments.popleft()
-                counts.append(count)
-        for count in counts:
-            try:
-                record_gap = getattr(
-                    self._observer, "record_observation_gap", None
+            self._last_finished_notification_ordinal = max(
+                self._last_finished_notification_ordinal,
+                int(ordinal),
+            )
+
+    def _flush_ready_gaps(self) -> bool:
+        ready: list[tuple[int, int, Any, bool]] = []
+        with self._gap_lock:
+            finished = self._last_finished_notification_ordinal
+            for key, segment in tuple(self._gap_segments.items()):
+                boundary, count, routes = segment
+                if boundary > finished:
+                    continue
+                self._gap_segments.pop(key, None)
+                ready.append((boundary, count, routes, False))
+            if (
+                self._gap_overflow_count
+                and self._gap_overflow_boundary <= finished
+            ):
+                ready.append(
+                    (
+                        self._gap_overflow_boundary,
+                        self._gap_overflow_count,
+                        (),
+                        True,
+                    )
                 )
-                if callable(record_gap):
-                    record_gap(count)
-            except Exception:
-                pass
+                self._gap_overflow_count = 0
+                self._gap_overflow_boundary = 0
+        ready.sort(key=lambda item: (item[0], item[3]))
+        for _boundary, count, routes, scope_truncated in ready:
+            self._record_observer_gap(
+                count,
+                routes,
+                scope_truncated=scope_truncated,
+            )
+        return bool(ready)
 
 
 class CodexAppServerClient:
@@ -561,6 +1005,7 @@ class CodexAppServerClient:
         self._stderr_lines: deque[str] = deque(maxlen=80)
         self._closed = False
         self._initialized = False
+        self._observation_connection_lost = False
         self._last_status: dict[str, Any] | None = None
         self._last_status_at = 0.0
         self._last_status_speed_mode: str | None = None
@@ -1151,12 +1596,21 @@ class CodexAppServerClient:
             self._process = None
             self._stdin = None
             self._initialized = False
+            self._observation_connection_lost = False
         with self._state_lock:
             self._last_status = None
             self._last_status_at = 0.0
             self._last_status_speed_mode = None
         self._stop_process(process, stream)
         self._fail_all("外部障害からの回復のためCodex App Server接続を更新します。")
+        try:
+            # The Python server remains alive, but notifications emitted while
+            # the App Server connection is being replaced are unknowable.
+            # Preserve that distinction as an observation gap; never let the
+            # optional monitor affect provider recovery.
+            self._monitor_observer_adapter.record_observation_gap()
+        except Exception:  # noqa: BLE001 - monitoring is best effort.
+            pass
         if emit is not None:
             emit(
                 "Codex App Serverの一時障害を検出したため、"
@@ -1249,12 +1703,20 @@ class CodexAppServerClient:
                 return
             previous_process = self._process
             previous_stream = self._stdin
+            continuity_gap = self._observation_connection_lost
             if previous_process is not None:
+                continuity_gap = True
                 self._process = None
                 self._stdin = None
                 self._initialized = False
                 self._stop_process(previous_process, previous_stream)
                 self._fail_all("前回のCodex App Server接続が終了しました。")
+            self._observation_connection_lost = False
+            if continuity_gap:
+                try:
+                    self._monitor_observer_adapter.record_observation_gap()
+                except Exception:  # noqa: BLE001 - monitoring is best effort.
+                    pass
             env = dict(os.environ)
             for key in API_CREDENTIAL_ENV_VARS:
                 env.pop(key, None)
@@ -1767,6 +2229,8 @@ class CodexAppServerClient:
                     self._initialized = False
                     self._process = None
                     self._stdin = None
+                    if not self._closed:
+                        self._observation_connection_lost = True
                     self._fail_all("Codex App Serverとの接続が終了しました。")
 
     def _read_stderr(self, stream: TextIO) -> None:

@@ -7,21 +7,31 @@ const state = {
   runId: search.get("runId") || "",
   cursor: "",
   seenEventIds: new Set(),
+  seenEventOrder: [],
   eventIndex: new Map(),
   events: [],
   artifacts: [],
   snapshot: null,
+  snapshotFingerprint: "",
+  artifactFingerprint: "",
+  lastArtifactRefreshAt: 0,
   following: true,
   unseen: 0,
   failures: 0,
   generation: 0,
   controller: null,
+  artifactRefreshPromise: null,
+  artifactRefreshQueued: false,
+  loadMessages: {
+    snapshot: "",
+    runWarning: "",
+    snapshotWarning: "",
+    artifact: "",
+    artifactWarning: "",
+  },
   observation: {
-    health: "unknown",
-    gap: false,
-    stale: false,
-    lastObservedAt: null,
-    detail: "",
+    health: "unknown", gap: false, stale: false, lastObservedAt: null,
+    eventCount: null, detail: "",
   },
 };
 
@@ -45,9 +55,11 @@ const CORRELATION_FIELDS = [
   "sourceQuestionKey", "sourceRecordRef", "reviewQuestionId",
 ];
 const MAX_EVENT_ITEMS = 500;
+const MAX_DEDUPE_EVENT_IDS = MAX_EVENT_ITEMS * 2;
 const MAX_VISIBLE_LANES = 48;
 const MAX_STAGE_LANES = 12;
 const REFRESH_INTERVAL_MS = 4000;
+const ARTIFACT_RECONCILE_INTERVAL_MS = 15000;
 const STALE_AFTER_MS = 120000;
 
 function node(tag, className, text) {
@@ -106,7 +118,10 @@ function shortTime(value) {
 
 function statusClass(value) {
   const status = String(value || "").toLowerCase();
-  if (["running", "active", "in_progress", "working", "started", "committing"].includes(status)) return "running";
+  if ([
+    "running", "active", "in_progress", "inprogress", "working", "started",
+    "preparing", "prepared", "committing", "validating",
+  ].includes(status)) return "running";
   if (["complete", "completed", "succeeded", "success", "done", "validated"].includes(status)) return "completed";
   if (["failed", "error", "blocked", "cancelled", "interrupted"].includes(status)) return "failed";
   return "neutral";
@@ -115,12 +130,264 @@ function statusClass(value) {
 function statusLabel(value) {
   return {
     running: "実行中", active: "実行中", in_progress: "実行中", working: "実行中",
-    started: "実行中", committing: "保存中",
+    inprogress: "実行中", started: "実行中", preparing: "準備中",
+    prepared: "準備済み", committing: "保存中", validating: "検証中",
     complete: "完了", completed: "完了", succeeded: "完了", success: "完了",
     done: "完了", validated: "検証済み",
     failed: "失敗", error: "エラー", blocked: "保留", cancelled: "中止",
     interrupted: "中断", queued: "待機中", pending: "待機中",
   }[String(value || "").toLowerCase()] || String(value || "確認中");
+}
+
+function runOptionModel(run) {
+  const source = object(run);
+  const id = string(source.runId, source.id);
+  const execution = object(source.executionState);
+  const status = statusLabel(first(execution.status, source.status, source.state));
+  const date = first(
+    source.updatedAt,
+    source.startedAt,
+    source.createdAt,
+    source.finishedAt,
+  );
+  const suffix = id.length > 12 ? `…${id.slice(-12)}` : id || "—";
+  const descriptor = string(source.title, source.name, source.label);
+  const label = [
+    status,
+    date ? timestamp(date) : "日時 —",
+    `ID ${suffix}`,
+    descriptor,
+  ].filter(Boolean).join(" · ");
+  return {
+    id,
+    label,
+    title: `stable runId: ${id || "—"}${descriptor ? `\n${descriptor}` : ""}`,
+  };
+}
+
+function canonicalValue(value) {
+  if (Array.isArray(value)) return value.map(canonicalValue);
+  if (!value || typeof value !== "object") {
+    return ["string", "number", "boolean"].includes(typeof value) || value === null
+      ? value
+      : null;
+  }
+  return Object.keys(value).sort().reduce((result, key) => {
+    result[key] = canonicalValue(value[key]);
+    return result;
+  }, {});
+}
+
+function pick(source, fields) {
+  const value = object(source);
+  return fields.reduce((result, field) => {
+    if (value[field] !== undefined) result[field] = canonicalValue(value[field]);
+    return result;
+  }, {});
+}
+
+function hasFields(value) {
+  return Object.keys(object(value)).length > 0;
+}
+
+function artifactFields(source) {
+  const value = object(source);
+  return Object.keys(value).sort().reduce((result, key) => {
+    const normalized = key.toLowerCase();
+    if (
+      normalized.includes("artifact")
+      || normalized === "changedfiles"
+      || normalized === "receiptvalidated"
+      || normalized.endsWith("hash")
+      || normalized.endsWith("hashes")
+    ) {
+      result[key] = canonicalValue(value[key]);
+    }
+    return result;
+  }, {});
+}
+
+function artifactFallbackRecord(source) {
+  const value = object(source);
+  const result = artifactFields(value);
+  const resultState = object(value.result);
+  const resultArtifacts = artifactFields(resultState);
+  if (hasFields(resultArtifacts)) {
+    result.result = {
+      ...pick(resultState, ["status", "state"]),
+      ...resultArtifacts,
+    };
+  }
+  const batchResults = array(value.batchQuestionResults).flatMap((item) => {
+    const artifactMetadata = artifactFields(item);
+    if (!hasFields(artifactMetadata)) return [];
+    return [{
+      ...pick(item, [
+        "questionId", "workItemKey", "sourceQuestionKey", "sourceRecordRef",
+        "reviewQuestionId", "batchId", "batchKey", "batchIndex",
+        "batchNumber", "batchSequence", "status", "state",
+      ]),
+      ...artifactMetadata,
+    }];
+  });
+  if (batchResults.length) {
+    result.batchQuestionResults = batchResults.sort(
+      (left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)),
+    );
+  }
+  return result;
+}
+
+function snapshotArtifactFingerprint(snapshot) {
+  const source = object(snapshot);
+  if (
+    source.artifactFingerprint !== undefined
+    && source.artifactFingerprint !== null
+    && source.artifactFingerprint !== ""
+  ) {
+    return typeof source.artifactFingerprint === "string"
+      ? source.artifactFingerprint
+      : JSON.stringify(canonicalValue(source.artifactFingerprint));
+  }
+  const run = object(source.run || source);
+  const lanes = array(source.lanes)
+    .flatMap((lane) => {
+      const artifactMetadata = artifactFallbackRecord(lane);
+      if (!hasFields(artifactMetadata)) return [];
+      return [{
+        identity: pick(lane, [
+          "runId", "parentRunId", "childRunId", "questionId", "workItemKey",
+          "stageCode", "batchId", "batchKey", "batchIndex", "batchNumber",
+          "batchSequence",
+        ]),
+        ...artifactMetadata,
+      }];
+    })
+    .sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)));
+  const shape = {
+    snapshot: artifactFallbackRecord(source),
+    run: artifactFallbackRecord(run),
+    lanes,
+  };
+  return JSON.stringify(canonicalValue(shape));
+}
+
+function artifactRefreshDecision(snapshot, loadedFingerprint) {
+  const fingerprint = snapshotArtifactFingerprint(snapshot);
+  return {
+    fingerprint,
+    artifactChanged: fingerprint !== String(loadedFingerprint || ""),
+  };
+}
+
+function artifactReconcileRequired(
+  snapshot,
+  lastArtifactRefreshAt,
+  now = Date.now(),
+) {
+  return object(snapshot).artifactFingerprintComplete === false
+    && now - Number(lastArtifactRefreshAt || 0)
+      >= ARTIFACT_RECONCILE_INTERVAL_MS;
+}
+
+function artifactResponseIssues(payload) {
+  const source = object(payload);
+  const rejected = array(source.rejected);
+  const reasonCodes = [...new Set(rejected.map((item) => string(
+    object(item).reasonCode,
+    object(object(item).contentState).status,
+    "unknown",
+  )))].filter(Boolean);
+  const pagination = object(source.pagination);
+  const rawState = string(object(source.contentState).status).toLowerCase();
+  const truncated = source.truncated === true
+    || source.isTruncated === true
+    || source.partial === true
+    || source.hasMore === true
+    || pagination.truncated === true
+    || pagination.hasMore === true
+    || rawState === "truncated"
+    || reasonCodes.some((code) => code.includes("limit") || code.includes("truncat"));
+  const parts = [];
+  if (rejected.length) {
+    parts.push(`拒否 ${rejected.length}件${reasonCodes.length ? `（${reasonCodes.join(", ")}）` : ""}`);
+  }
+  if (truncated) parts.push("上限により一部省略");
+  return {
+    rejectedCount: rejected.length,
+    reasonCodes,
+    truncated,
+    message: parts.length ? `成果物API: ${parts.join(" · ")}` : "",
+  };
+}
+
+function snapshotResponseIssues(payload) {
+  const source = object(payload);
+  const warnings = array(source.warnings)
+    .filter((value) => typeof value === "string" && value)
+    .slice(0, 64);
+  const labels = {
+    child_manifest_limit: "表示上限により一部のlaneを省略",
+    child_manifest_unavailable: "一部のlane manifestを取得できません",
+    child_manifest_bytes_limit: "読取上限により一部のlaneを省略",
+    child_manifest_identity_mismatch: "identity不一致のlaneを除外",
+    child_manifest_schema_invalid: "child一覧の形式不正によりlaneを表示できません",
+    child_manifest_id_invalid: "不正なchild IDをlaneから除外",
+    v2_question_summary_bytes_limit: "読取上限により質問summaryを表示できません",
+    v2_question_summary_unavailable: "質問summaryを取得できません",
+    v2_question_summary_schema_invalid: "質問summaryの形式不正を検出",
+    v2_question_summary_identity_mismatch: "質問summaryのidentity不一致を検出",
+    v2_question_state_limit: "表示上限により一部の質問状態を省略",
+    v2_question_state_bytes_limit: "読取上限により一部の質問状態を省略",
+    v2_question_state_unavailable: "一部の質問状態を取得できません",
+    v2_question_state_schema_invalid: "形式不正の質問状態を除外",
+    v2_question_state_identity_mismatch: "identity不一致の質問状態を除外",
+    v2_question_state_hash_invalid: "hash不一致の質問状態を除外",
+    v2_plan_unavailable: "immutable planを取得できません",
+    v2_plan_bytes_limit: "読取上限によりimmutable planを検証できません",
+    v2_plan_identity_mismatch: "immutable planのidentity不一致を検出",
+    v2_plan_hash_invalid: "immutable planのhash不一致を検出",
+    v2_output_fingerprint_invalid: "不正な成果物fingerprintを検出",
+    v2_output_fingerprint_missing: "旧実行の成果物fingerprint欠落を検出",
+    v2_terminal_run_has_nonterminal_lanes: "終了済み実行に未確定のlane状態が残っています",
+    v2_attempt_unavailable: "一部のattemptを取得できません",
+    v2_attempt_identity_mismatch: "identity不一致のattemptを除外",
+    v2_active_attempt_mismatch: "active attemptと質問状態の不一致を検出",
+    v2_attempt_stage_mismatch: "attemptとstageの不一致を検出",
+    v2_attempt_output_mismatch: "attemptと成果物fingerprintの不一致を検出",
+    v2_attempt_result_attribution_mismatch: "成果物の問題帰属不一致を検出",
+    v2_attempt_projection_limit: "表示上限により一部のattemptを省略",
+    v2_attempt_receipt_invalid: "確定条件を満たさないattempt receiptを除外",
+    v2_attempt_receipt_unavailable: "一部のattempt receiptを取得できません",
+    v2_attempt_receipt_mismatch: "内容不一致のattempt receiptを除外",
+    v2_attempt_receipt_bytes_limit: "読取上限により一部のattempt receiptを省略",
+    v2_lane_limit: "表示上限により一部の質問laneを省略",
+    v2_lane_unavailable: "質問laneを取得できません",
+    snapshot_response_bytes_limit: "応答上限により古いlaneを省略",
+  };
+  const details = [...new Set(warnings.map(
+    (code) => labels[code] || `一部のlaneを表示できません（${code.slice(0, 100)}）`,
+  ))];
+  if (source.truncated === true && !details.length) {
+    details.push("一部のlaneを省略");
+  }
+  return {
+    warnings,
+    truncated: source.truncated === true,
+    message: details.length ? `snapshot: ${details.join(" · ")}` : "",
+  };
+}
+
+function runListSelection(runs, requestedRunId) {
+  const items = array(runs);
+  const requested = String(requestedRunId || "");
+  const listed = requested && items.some(
+    (run) => String(first(run?.runId, run?.id)) === requested,
+  );
+  return {
+    selected: requested || String(first(items[0]?.runId, items[0]?.id, "")),
+    requestedMissing: Boolean(requested && !listed),
+  };
 }
 
 function isAbort(error) {
@@ -267,6 +534,7 @@ function allowEventPayload(event, category) {
     ]) {
       if (Number.isInteger(payload[key]) && payload[key] >= 0) result[key] = payload[key];
     }
+    if (payload.scopeTruncated === true) result.scopeTruncated = true;
   }
   return result;
 }
@@ -284,12 +552,22 @@ function normalizedEvent(event, index = 0) {
     `${first(source.serverInstanceId, "unknown")}:${first(source.sequence, index)}`,
   ));
   const observedAt = first(source.observedAt, source.timestamp, source.createdAt, source.updatedAt);
+  const occurredAt = first(source.occurredAt, source.eventTime);
   const itemId = correlation.itemId;
   const server = String(first(source.serverInstanceId, eventId.split(":")[0], "unknown"));
   const itemKey = itemId
     ? `${server}:${category}:${correlation.threadId || ""}:${correlation.turnId || ""}:${itemId}`
     : eventId;
-  return { eventId, itemKey, rawType, category, correlation, payload, observedAt };
+  return {
+    eventId,
+    itemKey,
+    rawType,
+    category,
+    correlation,
+    payload,
+    observedAt,
+    occurredAt,
+  };
 }
 
 function eventText(event) {
@@ -325,7 +603,8 @@ function eventText(event) {
     return `${string(payload.message, payload.state)}${suffix}`;
   }
   if (event.rawType === "observationGap" && payload.droppedNotifications !== undefined) {
-    return `観測できなかったnotification: ${payload.droppedNotifications}件`;
+    const scope = payload.scopeTruncated ? "（対象scopeを特定できない欠落を含む）" : "";
+    return `観測できなかったnotification: ${payload.droppedNotifications}件${scope}`;
   }
   return string(
     payload.text,
@@ -353,15 +632,34 @@ function mergeItemEvent(previous, incoming) {
   return merged;
 }
 
+function eventChangesArtifact(event) {
+  if (event.category === "artifact") return true;
+  if (
+    event.category !== "tool"
+    || string(event.payload?.toolType).toLowerCase() !== "filechange"
+  ) {
+    return false;
+  }
+  const lifecycle = string(
+    event.payload?.state,
+    event.payload?.status,
+    event.rawType,
+  ).toLowerCase();
+  return ["completed", "complete", "changed", "succeeded", "success", "saved"]
+    .some((value) => lifecycle === value || lifecycle.endsWith(`/${value}`));
+}
+
 function ingestEvents(payload) {
   const incoming = array(first(payload?.events, payload?.items, payload));
   let added = 0;
   let updated = 0;
+  let artifactChanged = false;
   let lastObservedAt = null;
   incoming.forEach((rawEvent, index) => {
     const event = normalizedEvent(rawEvent, index);
     if (state.seenEventIds.has(event.eventId)) return;
     state.seenEventIds.add(event.eventId);
+    state.seenEventOrder.push(event.eventId);
     const previousIndex = state.eventIndex.get(event.itemKey);
     if (previousIndex !== undefined) {
       state.events[previousIndex] = mergeItemEvent(state.events[previousIndex], event);
@@ -372,6 +670,7 @@ function ingestEvents(payload) {
       state.events.push(event);
       added += 1;
     }
+    if (eventChangesArtifact(event)) artifactChanged = true;
     if (String(event.rawType).toLowerCase() === "observationgap") {
       state.observation.gap = true;
       state.observation.health = "gap";
@@ -391,8 +690,22 @@ function ingestEvents(payload) {
     state.eventIndex.clear();
     state.events.forEach((event, index) => state.eventIndex.set(event.itemKey, index));
   }
+  if (state.seenEventIds.size > MAX_DEDUPE_EVENT_IDS) {
+    const retained = new Set(state.events.map((event) => event.eventId));
+    const recent = state.seenEventOrder.slice(-MAX_EVENT_ITEMS);
+    recent.forEach((eventId) => retained.add(eventId));
+    state.seenEventIds = retained;
+    state.seenEventOrder = [...retained];
+  }
   state.cursor = string(payload?.nextCursor, payload?.cursor, state.cursor);
-  return { added, updated, lastObservedAt };
+  if (added || updated) {
+    state.observation.eventCount = (
+      Number.isInteger(state.observation.eventCount)
+        ? state.observation.eventCount
+        : 0
+    ) + added + updated;
+  }
+  return { added, updated, artifactChanged, lastObservedAt };
 }
 
 function observationPayload(payload) {
@@ -404,6 +717,7 @@ function applyObservationHealth(payload, authoritative = false) {
   const rawStatus = string(health.status, payload?.observationStatus).toLowerCase();
   const gap = bool(first(health.gap, health.hasGap, payload?.gap, payload?.cursorGap, payload?.resetRequired));
   const stale = bool(first(health.stale, payload?.stale));
+  const eventCount = first(health.eventCount, payload?.eventCount);
   const observedAt = first(
     payload?.observedAt,
     health.observedAt,
@@ -411,6 +725,9 @@ function applyObservationHealth(payload, authoritative = false) {
     health.lastEventAt,
   );
   if (observedAt) state.observation.lastObservedAt = observedAt;
+  if (Number.isInteger(eventCount) && eventCount >= 0) {
+    state.observation.eventCount = eventCount;
+  }
   if (gap === true || rawStatus === "gap" || Number(health.gapCount) > 0) {
     state.observation.gap = true;
   }
@@ -480,6 +797,13 @@ function artifactRecord(item, fallbackSaved, artifactState, index = 0) {
   const contentState = object(source.contentState);
   const receiptValidation = object(source.receiptValidation);
   const artifactSync = object(source.artifactSync);
+  const syncStates = [
+    string(artifactSync.status).toLowerCase(),
+    string(artifactSync.parentStatus).toLowerCase(),
+  ].filter(Boolean);
+  const syncStatus = syncStates.includes("failed")
+    ? "failed"
+    : first(...syncStates, "");
   const rawStatus = string(
     contentState.status,
     perArtifact.status,
@@ -514,7 +838,7 @@ function artifactRecord(item, fallbackSaved, artifactState, index = 0) {
       identity.batchSequence,
     ),
   ].filter((value) => value !== undefined && value !== null && value !== "")
-    .join(" · ") || first(identity.childRunId, identity.workItemKey, "");
+    .join(" · ") || first(identity.childRunId, identity.workItemKey, "") || "";
   return {
     id,
     identity,
@@ -532,7 +856,7 @@ function artifactRecord(item, fallbackSaved, artifactState, index = 0) {
       receiptValidation.status,
       validated ? "validated" : saved ? "not_validated" : "not_saved",
     )),
-    syncStatus: string(artifactSync.status),
+    syncStatus: String(syncStatus),
     content: typeof content === "string" ? content : "",
   };
 }
@@ -594,7 +918,7 @@ function buildLanes(snapshot, events = state.events) {
   const lanes = new Map();
   const stageByChild = new Map();
 
-  function upsert(raw, inheritedStage = "") {
+  function upsert(raw, inheritedStage = "", runtimeUpdate = false) {
     const value = object(raw);
     const stage = String(first(
       value.stageLabel, value.stageCode, value.stageId, value.stage, inheritedStage, run.stageLabel, run.stageCode, "run",
@@ -606,52 +930,91 @@ function buildLanes(snapshot, events = state.events) {
     );
     const threadId = string(value.threadId);
     const questionId = string(value.questionId, value.id && value.listGroupId ? value.id : "");
-    if (!childRunId && !threadId && !questionId && stage === "run") return;
-    let key = `${stage}|${childRunId}|${threadId}`;
-    if (threadId && childRunId && !lanes.has(key)) {
-      const childOnlyKey = `${stage}|${childRunId}|`;
-      if (lanes.has(childOnlyKey)) {
-        const childOnly = lanes.get(childOnlyKey);
-        lanes.delete(childOnlyKey);
-        childOnly.threadId = threadId;
-        key = `${stage}|${childRunId}|${threadId}`;
-        lanes.set(key, childOnly);
+    const workItemKey = string(value.workItemKey);
+    if (!childRunId && !threadId && !workItemKey) return;
+    let key = `${stage}|${childRunId}|${threadId}|${workItemKey}`;
+    if ((childRunId || workItemKey) && !lanes.has(key)) {
+      const existingEntry = [...lanes.entries()].find(([, lane]) => (
+        lane.stage === stage
+        && (
+          (childRunId && lane.childRunId === childRunId)
+          || (
+            workItemKey
+            && lane.workItemKey === workItemKey
+            && (!childRunId || !lane.childRunId)
+          )
+        )
+      ));
+      if (existingEntry) {
+        const [existingKey, existing] = existingEntry;
+        lanes.delete(existingKey);
+        existing.childRunId = existing.childRunId || childRunId;
+        existing.threadId = existing.threadId || threadId;
+        existing.workItemKey = existing.workItemKey || workItemKey;
+        key = `${stage}|${existing.childRunId}|${existing.threadId}|${existing.workItemKey}`;
+        existing.key = key;
+        lanes.set(key, existing);
       }
     }
     const current = lanes.get(key) || {
-      key, stage, childRunId, threadId, questionIds: new Set(),
+      key, stage, childRunId, threadId, workItemKey, questionIds: new Set(),
       status: "pending", startedAt: null, finishedAt: null,
     };
     if (questionId) current.questionIds.add(questionId);
     const status = first(value.status, value.state);
-    if (status) current.status = String(status);
+    const currentStatusClass = statusClass(current.status);
+    const currentTerminal = Boolean(current.finishedAt)
+      || currentStatusClass === "completed"
+      || currentStatusClass === "failed";
+    if (status && !(runtimeUpdate && currentTerminal)) {
+      current.status = String(status);
+    }
     const startedAt = seedTime(value, ["startedAt", "startAt", "actualStartedAt"]);
     const finishedAt = seedTime(value, ["finishedAt", "completedAt", "endedAt", "actualFinishedAt"]);
     if (startedAt && (!current.startedAt || dateValue(startedAt) < dateValue(current.startedAt))) current.startedAt = startedAt;
-    if (finishedAt && (!current.finishedAt || dateValue(finishedAt) > dateValue(current.finishedAt))) current.finishedAt = finishedAt;
+    if (
+      finishedAt
+      && !(runtimeUpdate && currentTerminal)
+      && (!current.finishedAt || dateValue(finishedAt) > dateValue(current.finishedAt))
+    ) current.finishedAt = finishedAt;
     lanes.set(key, current);
     if (childRunId) stageByChild.set(childRunId, stage);
   }
 
-  function visit(raw, inheritedStage = "") {
+  function visit(raw, inheritedStage = "", includeSelf = true) {
     if (!raw || typeof raw !== "object") return;
     const value = object(raw);
     const stage = string(value.stageLabel, value.stageCode, value.stageId, value.stage, inheritedStage);
-    upsert(value, inheritedStage);
+    if (includeSelf) upsert(value, inheritedStage);
     [
       "lanes", "phaseExecutions", "stageExecutions", "questionExecutions",
       "validationAttempts", "attempts", "children",
-    ].forEach((key) => array(value[key]).forEach((child) => visit(child, stage)));
+    ].forEach((key) => array(value[key]).forEach((child) => visit(child, stage, true)));
     const stages = object(value.stages);
-    Object.entries(stages).forEach(([key, child]) => visit(child, first(object(child).stageCode, key, stage)));
+    Object.entries(stages).forEach(([key, child]) => visit(
+      child,
+      first(object(child).stageCode, key, stage),
+      true,
+    ));
   }
 
-  visit(run);
+  visit(run, "", Boolean(run.parentRunId || run.childRunId || run.threadId));
   array(snapshot?.lanes).forEach((lane) => visit(lane));
 
   events.forEach((event) => {
     const correlation = event.correlation;
-    if (!correlation.childRunId && !correlation.threadId) return;
+    if (!correlation.childRunId && !correlation.threadId && !correlation.workItemKey) return;
+    const rawType = event.rawType.toLowerCase();
+    const lifecycle = string(
+      event.payload.state,
+      event.payload.status,
+    ).toLowerCase();
+    const turnLifecycle = rawType === "turnstate";
+    const terminalError = (
+      event.category === "error"
+      && event.payload.willRetry === false
+    );
+    if (!turnLifecycle && !terminalError) return;
     const stage = String(first(
       stageByChild.get(correlation.childRunId),
       correlation.stageCode,
@@ -665,40 +1028,123 @@ function buildLanes(snapshot, events = state.events) {
       childRunId: correlation.childRunId,
       threadId: correlation.threadId,
       questionId: correlation.questionId,
+      workItemKey: correlation.workItemKey,
     };
-    const lifecycle = string(event.payload.state, event.payload.status, event.rawType).toLowerCase();
-    if (lifecycle.includes("start") || event.rawType.toLowerCase().includes("started")) {
-      seed.startedAt = event.observedAt;
+    if (
+      turnLifecycle
+      && ["started", "inprogress"].includes(lifecycle)
+    ) {
+      seed.startedAt = first(event.occurredAt, event.observedAt);
       seed.status = "running";
     }
-    if (lifecycle.includes("complet") || lifecycle.includes("succeed") || event.rawType.toLowerCase().includes("completed")) {
-      seed.finishedAt = event.observedAt;
-      seed.status = lifecycle.includes("fail") ? "failed" : "completed";
+    if (
+      terminalError
+      || (
+        turnLifecycle
+        && ["completed", "failed", "interrupted"].includes(lifecycle)
+      )
+    ) {
+      seed.finishedAt = first(event.occurredAt, event.observedAt);
+      seed.status = terminalError || lifecycle === "failed"
+        ? "failed"
+        : lifecycle === "interrupted"
+          ? "interrupted"
+          : "completed";
     }
-    if (lifecycle.includes("fail") || lifecycle.includes("error")) seed.status = "failed";
-    upsert(seed, stage);
+    upsert(seed, stage, true);
   });
 
-  return [...lanes.values()].filter((lane) => lane.startedAt || lane.finishedAt || lane.childRunId || lane.threadId);
+  return [...lanes.values()].filter(
+    (lane) => lane.startedAt || lane.finishedAt || lane.childRunId || lane.threadId || lane.workItemKey,
+  );
+}
+
+function selectVisibleLanes(
+  lanes,
+  maxTotal = MAX_VISIBLE_LANES,
+  maxPerStage = MAX_STAGE_LANES,
+) {
+  const values = array(lanes).map((lane, index) => ({ lane, index }));
+  const stageOrder = new Map();
+  values.forEach(({ lane }, index) => {
+    if (!stageOrder.has(lane.stage)) stageOrder.set(lane.stage, index);
+  });
+  const byPriority = [...values].sort((left, right) => {
+    const leftRunning = statusClass(left.lane.status) === "running" ? 1 : 0;
+    const rightRunning = statusClass(right.lane.status) === "running" ? 1 : 0;
+    if (leftRunning !== rightRunning) return rightRunning - leftRunning;
+    const leftTime = dateValue(left.lane.startedAt)?.getTime() || -Infinity;
+    const rightTime = dateValue(right.lane.startedAt)?.getTime() || -Infinity;
+    if (leftTime !== rightTime) return rightTime - leftTime;
+    return left.index - right.index;
+  });
+  const stageCounts = new Map();
+  const selected = [];
+  for (const item of byPriority) {
+    if (selected.length >= Math.max(0, maxTotal)) break;
+    const stage = item.lane.stage;
+    const count = stageCounts.get(stage) || 0;
+    if (count >= Math.max(0, maxPerStage)) continue;
+    stageCounts.set(stage, count + 1);
+    selected.push(item);
+  }
+  return selected.sort((left, right) => {
+    const stageDifference = stageOrder.get(left.lane.stage) - stageOrder.get(right.lane.stage);
+    if (stageDifference) return stageDifference;
+    const leftRunning = statusClass(left.lane.status) === "running" ? 1 : 0;
+    const rightRunning = statusClass(right.lane.status) === "running" ? 1 : 0;
+    if (leftRunning !== rightRunning) return rightRunning - leftRunning;
+    const leftTime = dateValue(left.lane.startedAt)?.getTime() || Infinity;
+    const rightTime = dateValue(right.lane.startedAt)?.getTime() || Infinity;
+    if (leftTime !== rightTime) return leftTime - rightTime;
+    return left.index - right.index;
+  }).map(({ lane }) => lane);
+}
+
+function observationDisplay(observation, executionStatus, finishedAt = null, now = Date.now()) {
+  const source = object(observation);
+  const last = dateValue(source.lastObservedAt);
+  const running = statusClass(executionStatus) === "running";
+  const terminal = ["completed", "failed"].includes(statusClass(executionStatus)) || Boolean(finishedAt);
+  const stale = Boolean(source.stale || (
+    last && now - last.getTime() > STALE_AFTER_MS && running
+  ));
+  let primary = "観測状態を確認中";
+  if (source.gap) {
+    primary = "観測gapあり · snapshotで連続性を再確認中";
+  } else if (stale) {
+    primary = `観測stale · 最終観測 ${timestamp(source.lastObservedAt)}`;
+  } else if (
+    source.health
+    && !["unknown", "healthy", "live"].includes(source.health)
+  ) {
+    primary = `観測状態 ${source.health}`;
+  } else if (["healthy", "live"].includes(source.health)) {
+    primary = `観測live${source.lastObservedAt ? ` · ${timestamp(source.lastObservedAt)}` : ""}`;
+  }
+  const zero = source.eventCount === 0
+    ? terminal
+      ? "観測イベントなし · 終了済み又は過去の実行"
+      : "観測イベント待ち · 実行中のeventを待っています"
+    : "";
+  if (zero && ["観測状態を確認中", "観測live"].some((value) => primary.startsWith(value))) {
+    primary = zero;
+  } else if (zero) {
+    primary = `${primary} · ${zero}`;
+  }
+  return { text: `${primary}（実行状態とは別）`, stale };
 }
 
 function renderObservation() {
   const observation = state.observation;
-  const last = dateValue(observation.lastObservedAt);
   const executionStatus = first(state.snapshot?.executionState?.status, state.snapshot?.run?.status);
-  const clockStale = Boolean(
-    last && Date.now() - last.getTime() > STALE_AFTER_MS && statusClass(executionStatus) === "running",
+  const finishedAt = first(
+    state.snapshot?.executionState?.finishedAt,
+    state.snapshot?.run?.finishedAt,
   );
-  if (clockStale) observation.stale = true;
-  let text = "観測状態を確認中（実行状態とは別）";
-  if (observation.gap) text = "観測gapあり · snapshotで連続性を再確認中（実行状態とは別）";
-  else if (observation.stale) text = `観測stale · 最終観測 ${timestamp(observation.lastObservedAt)}（実行状態とは別）`;
-  else if (["healthy", "live"].includes(observation.health)) {
-    text = `観測live${observation.lastObservedAt ? ` · ${timestamp(observation.lastObservedAt)}` : ""}（実行状態とは別）`;
-  } else if (observation.health && observation.health !== "unknown") {
-    text = `観測状態 ${observation.health}（実行状態とは別）`;
-  }
-  $("freshness-status").textContent = text;
+  const display = observationDisplay(observation, executionStatus, finishedAt);
+  observation.stale = display.stale;
+  $("freshness-status").textContent = display.text;
 }
 
 function renderRun(snapshot) {
@@ -724,40 +1170,55 @@ function renderLanes(lanes) {
   list.replaceChildren();
   $("lane-empty").hidden = lanes.length > 0;
   if (!lanes.length) return;
+  const parentStatus = first(
+    state.snapshot?.executionState?.status,
+    state.snapshot?.run?.status,
+  );
+  const parentTerminal = ["completed", "failed"].includes(statusClass(parentStatus));
+  const visibleLanes = selectVisibleLanes(lanes);
   const starts = lanes.map((lane) => dateValue(lane.startedAt)?.getTime()).filter(Number.isFinite);
   const ends = lanes.map((lane) => dateValue(lane.finishedAt)?.getTime()).filter(Number.isFinite);
-  const activeNow = lanes.some((lane) => lane.startedAt && !lane.finishedAt);
+  const activeNow = !parentTerminal && lanes.some((lane) => lane.startedAt && !lane.finishedAt);
   const min = Math.min(...starts);
   const max = Math.max(...ends, ...starts, activeNow ? Date.now() : -Infinity);
   const span = Math.max(1, max - min);
-  const grouped = new Map();
+  const stageTotals = new Map();
   lanes.forEach((lane) => {
+    stageTotals.set(lane.stage, (stageTotals.get(lane.stage) || 0) + 1);
+  });
+  const grouped = new Map();
+  visibleLanes.forEach((lane) => {
     if (!grouped.has(lane.stage)) grouped.set(lane.stage, []);
     grouped.get(lane.stage).push(lane);
   });
-  let visibleTotal = 0;
   for (const [stage, stageLanes] of grouped) {
-    if (visibleTotal >= MAX_VISIBLE_LANES) break;
     const group = node("li", "lane-stage-group");
     const head = node("div", "lane-stage-head");
-    head.append(node("strong", "", stage), node("span", "", `${stageLanes.length} lanes`));
+    const stageTotal = stageTotals.get(stage) || stageLanes.length;
+    head.append(node("strong", "", stage), node("span", "", `${stageTotal} lanes`));
     group.append(head);
     const cluster = node("ol", "lane-cluster");
-    const visible = stageLanes
-      .sort((a, b) => (dateValue(a.startedAt)?.getTime() || Infinity) - (dateValue(b.startedAt)?.getTime() || Infinity))
-      .slice(0, Math.min(MAX_STAGE_LANES, MAX_VISIBLE_LANES - visibleTotal));
-    visible.forEach((lane, index) => {
-      const item = node("li", `lane-item ${statusClass(lane.status)}`);
+    stageLanes.forEach((lane, index) => {
+      const rawLaneClass = statusClass(lane.status);
+      const historicalActive = parentTerminal && rawLaneClass === "running";
+      const item = node(
+        "li",
+        `lane-item ${historicalActive ? "neutral" : rawLaneClass}`,
+      );
       item.append(node("span", "lane-node", String(index + 1).padStart(2, "0")));
       const copy = node("div", "lane-copy");
-      copy.append(node("strong", "", first(lane.childRunId, lane.threadId, `${stage} aggregate`)));
+      copy.append(node("strong", "", first(lane.childRunId, lane.threadId, "stable ID不明")));
       const identities = [
         lane.threadId && `thread ${lane.threadId}`,
         lane.questionIds.size && `${lane.questionIds.size}問`,
       ].filter(Boolean).join(" · ");
       copy.append(node("p", "", identities || "stable IDを確認中"));
       const meta = node("div", "lane-meta");
-      meta.append(node("span", "", statusLabel(lane.status)));
+      meta.append(node(
+        "span",
+        "",
+        `${statusLabel(lane.status)}${historicalActive ? "（実行終了時）" : ""}`,
+      ));
       if (lane.startedAt) meta.append(node("time", "", shortTime(lane.startedAt)));
       if (lane.finishedAt) meta.append(node("time", "", `→ ${shortTime(lane.finishedAt)}`));
       copy.append(meta);
@@ -774,15 +1235,14 @@ function renderLanes(lanes) {
       item.append(copy);
       cluster.append(item);
     });
-    visibleTotal += visible.length;
     group.append(cluster);
-    if (stageLanes.length > visible.length) {
-      group.append(node("div", "lane-more", `ほか ${stageLanes.length - visible.length} lanes（集約表示）`));
+    if (stageTotal > stageLanes.length) {
+      group.append(node("div", "lane-more", `ほか ${stageTotal - stageLanes.length} lanes（集約表示）`));
     }
     list.append(group);
   }
-  if (lanes.length > visibleTotal) {
-    list.append(node("li", "lane-more", `全${lanes.length} lanes中 ${visibleTotal} lanesを表示。残りは工程別件数へ集約しています。`));
+  if (lanes.length > visibleLanes.length) {
+    list.append(node("li", "lane-more", `全${lanes.length} lanes中 ${visibleLanes.length} lanesを表示。実行中を優先し、残りは工程別件数へ集約しています。`));
   }
 }
 
@@ -801,6 +1261,29 @@ function renderArtifacts(records, preserveSelection = true) {
   else clearArtifact();
 }
 
+function artifactValidationLabel(artifact) {
+  const status = string(artifact.validationStatus).toLowerCase();
+  if (status === "failed") return "検証失敗";
+  if (artifact.validated || ["validated", "verified"].includes(status)) {
+    return "検証済み";
+  }
+  return artifact.saved ? "未検証" : "未保存";
+}
+
+function artifactSyncLabel(artifact) {
+  const status = string(artifact.syncStatus).toLowerCase();
+  if (!status || status === "unknown") return "";
+  if (status === "failed") return "同期失敗";
+  return `同期 ${artifact.syncStatus}`;
+}
+
+function artifactStateLabel(artifact) {
+  return [
+    artifactValidationLabel(artifact),
+    artifactSyncLabel(artifact),
+  ].filter(Boolean).join(" · ");
+}
+
 function renderArtifactGroup(container, records, selectedId) {
   container.replaceChildren();
   if (!records.length) {
@@ -817,7 +1300,17 @@ function renderArtifactGroup(container, records, selectedId) {
       artifact.scopeLabel ? `${artifact.scopeLabel} · ${artifact.name}` : artifact.name,
     ));
     button.append(node("span", "", artifact.path || artifact.stage));
-    button.append(node("em", artifact.validated ? "validated" : "", artifact.validated ? "検証済み" : artifact.saved ? "未検証" : "未保存"));
+    const failed = string(
+      artifact.validationStatus,
+      artifact.syncStatus,
+    ).toLowerCase() === "failed"
+      || string(artifact.validationStatus).toLowerCase() === "failed"
+      || string(artifact.syncStatus).toLowerCase() === "failed";
+    button.append(node(
+      "em",
+      failed ? "failed" : artifact.validated ? "validated" : "",
+      artifactStateLabel(artifact),
+    ));
     button.addEventListener("click", () => showArtifact(artifact));
     container.append(button);
   });
@@ -846,11 +1339,11 @@ function showArtifact(artifact) {
   $("artifact-path").textContent = artifact.path || "保存前のためpathはありません";
   $("artifact-stage").textContent = artifact.stage;
   $("artifact-saved-at").textContent = artifact.saved ? timestamp(artifact.savedAt) : "未保存";
-  $("artifact-validation").textContent = artifact.validated ? "検証済み" : artifact.saved ? "未検証" : "保存後に検証";
+  $("artifact-validation").textContent = artifactStateLabel(artifact);
   $("artifact-content").textContent = artifact.content || "内容プレビューはありません。";
   $("artifact-save-state").className = `save-state ${artifact.saved ? "saved" : "draft"}`;
   $("artifact-save-state").textContent = artifact.saved
-    ? artifact.validated ? "保存済み · 検証済み" : "保存済み · 未検証"
+    ? `保存済み · ${artifactStateLabel(artifact)}`
     : "保存前出力";
   $("artifact-updated").textContent = `更新 ${timestamp(first(artifact.observedAt, artifact.savedAt))}`;
   if (state.snapshot) $("maintenance-link").href = deepLink(state.snapshot, artifact.identity);
@@ -900,7 +1393,7 @@ function consumeEvents(payload) {
     const time = first(result.lastObservedAt, state.observation.lastObservedAt);
     if (time) $("last-event-time").textContent = `最終観測 ${timestamp(time)}`;
     if (!state.following) {
-      state.unseen += result.added;
+      state.unseen += result.added + result.updated;
       $("stream-notice").hidden = false;
       $("stream-notice-text").textContent = `新着 ${state.unseen}件`;
     }
@@ -911,14 +1404,39 @@ function consumeEvents(payload) {
   return result;
 }
 
+function setLoadMessage(kind, message) {
+  const ids = {
+    snapshot: "snapshot-load-error",
+    runWarning: "run-api-warning",
+    snapshotWarning: "snapshot-api-warning",
+    artifact: "artifact-load-error",
+    artifactWarning: "artifact-api-warning",
+  };
+  state.loadMessages[kind] = String(message || "");
+  const target = $(ids[kind]);
+  target.textContent = state.loadMessages[kind];
+  target.hidden = !state.loadMessages[kind];
+  $("monitor-alerts").hidden = !Object.values(state.loadMessages).some(Boolean);
+}
+
+function errorMessage(error) {
+  return string(error?.message, error, "不明なエラー");
+}
+
 async function refreshArtifacts(context) {
   if (!isCurrent(context)) return;
+  const requestedFingerprint = state.snapshotFingerprint;
   const payload = await requestJson(api(`/runs/${encodeURIComponent(context.runId)}/artifacts`, {
     qualification: context.qualification,
   }), context.signal);
   if (!isCurrent(context)) return;
   const records = normalizeArtifacts(payload);
   renderArtifacts(records);
+  const issues = artifactResponseIssues(payload);
+  setLoadMessage("artifactWarning", issues.message);
+  state.artifactFingerprint = requestedFingerprint;
+  state.lastArtifactRefreshAt = Date.now();
+  return { records, issues };
 }
 
 async function loadSnapshot(context) {
@@ -927,7 +1445,16 @@ async function loadSnapshot(context) {
     qualification: context.qualification,
   }), context.signal);
   if (!isCurrent(context)) return;
+  const { fingerprint, artifactChanged } = artifactRefreshDecision(
+    payload,
+    state.artifactFingerprint,
+  );
+  state.snapshotFingerprint = fingerprint;
   state.snapshot = payload;
+  setLoadMessage(
+    "snapshotWarning",
+    snapshotResponseIssues(payload).message,
+  );
   applyObservationHealth(payload, true);
   const snapshotEvents = first(payload.events, payload.recentEvents);
   if (snapshotEvents) consumeEvents({
@@ -936,26 +1463,89 @@ async function loadSnapshot(context) {
     observationHealth: payload.observationHealth,
     observedAt: payload.observedAt,
   });
-  const embedded = normalizeArtifacts(payload);
-  if (embedded.length) renderArtifacts(embedded);
   renderRun(payload);
+  return { payload, artifactChanged, fingerprint };
 }
 
-function runName(run) {
-  const id = string(run.runId, run.id);
-  const execution = object(run.executionState);
-  return first(
-    run.title,
-    run.name,
-    run.label,
-    `${statusLabel(first(execution.status, run.status, run.state))} · ${id.slice(0, 10)}`,
+async function loadSnapshotWithStatus(context) {
+  try {
+    const result = await loadSnapshot(context);
+    if (isCurrent(context)) setLoadMessage("snapshot", "");
+    return { ok: true, result };
+  } catch (error) {
+    if (isAbort(error) || !isCurrent(context)) return { ok: false, aborted: true };
+    setLoadMessage("snapshot", `snapshot取得失敗: ${errorMessage(error)}`);
+    return { ok: false, error };
+  }
+}
+
+async function refreshArtifactsWithStatus(context) {
+  try {
+    const result = await refreshArtifacts(context);
+    if (isCurrent(context)) setLoadMessage("artifact", "");
+    return { ok: true, result };
+  } catch (error) {
+    if (isAbort(error) || !isCurrent(context)) return { ok: false, aborted: true };
+    setLoadMessage("artifact", `artifact取得失敗: ${errorMessage(error)}`);
+    return { ok: false, error };
+  }
+}
+
+async function queueArtifactRefresh(context) {
+  if (!isCurrent(context)) return { ok: false, aborted: true };
+  if (state.artifactRefreshPromise) {
+    state.artifactRefreshQueued = true;
+    return state.artifactRefreshPromise;
+  }
+  let task;
+  task = (async () => {
+    let result = { ok: false };
+    do {
+      state.artifactRefreshQueued = false;
+      result = await refreshArtifactsWithStatus(context);
+    } while (isCurrent(context) && state.artifactRefreshQueued);
+    return result;
+  })();
+  state.artifactRefreshPromise = task;
+  try {
+    return await task;
+  } finally {
+    if (state.artifactRefreshPromise === task) {
+      state.artifactRefreshPromise = null;
+      state.artifactRefreshQueued = false;
+    }
+  }
+}
+
+async function refreshArtifactsAfterSnapshotChange(context) {
+  const snapshotResult = await loadSnapshotWithStatus(context);
+  if (
+    !isCurrent(context)
+    || !snapshotResult.ok
+  ) {
+    return snapshotResult;
+  }
+  const forceReconcile = artifactReconcileRequired(
+    snapshotResult.result?.payload,
+    state.lastArtifactRefreshAt,
   );
+  if (
+    !snapshotResult.result?.artifactChanged
+    && !forceReconcile
+  ) return snapshotResult;
+  return queueArtifactRefresh(context);
 }
 
 async function loadRuns(qualification, signal) {
   if (!qualification) throw new Error("URLのqualificationを指定してください。");
   const payload = await requestJson(api("/runs", { qualification }), signal);
   const runs = array(first(payload.runs, payload.items, payload));
+  setLoadMessage(
+    "runWarning",
+    payload.truncated === true
+      ? "実行一覧は上限により一部省略されています。URLで指定したrunは一覧外でも直接表示します。"
+      : "",
+  );
   const qualifications = array(first(payload.qualifications, payload.availableQualifications));
   const qualificationSelect = $("qualification-select");
   if (qualifications.length) {
@@ -974,38 +1564,74 @@ async function loadRuns(qualification, signal) {
   }
   const select = $("run-select");
   select.replaceChildren();
+  const selection = runListSelection(runs, state.runId);
+  if (selection.requestedMissing) {
+    const model = runOptionModel({
+      runId: selection.selected,
+      status: "requested",
+    });
+    const option = node("option", "", `指定run · ${model.label}`);
+    option.value = model.id;
+    option.title = model.title;
+    select.append(option);
+  }
   runs.forEach((run) => {
-    const id = String(first(run.runId, run.id));
-    const option = node("option", "", runName(run));
-    option.value = id;
+    const model = runOptionModel(run);
+    const option = node("option", "", model.label);
+    option.value = model.id;
+    option.title = model.title;
     select.append(option);
   });
-  if (!runs.length) {
+  if (!runs.length && !selection.selected) {
     const option = node("option", "", "実行はありません");
     option.value = "";
     select.append(option);
     return "";
   }
-  const requested = state.runId;
-  const selected = runs.some((run) => String(first(run.runId, run.id)) === requested)
-    ? requested
-    : String(first(runs[0].runId, runs[0].id));
-  select.value = selected;
-  return selected;
+  select.value = selection.selected;
+  return selection.selected;
 }
 
 function resetRunView() {
+  const runWarning = state.loadMessages.runWarning || "";
   state.cursor = "";
   state.seenEventIds.clear();
+  state.seenEventOrder = [];
   state.eventIndex.clear();
   state.events = [];
   state.artifacts = [];
   state.snapshot = null;
+  state.snapshotFingerprint = "";
+  state.artifactFingerprint = "";
+  state.lastArtifactRefreshAt = 0;
+  state.following = true;
   state.unseen = 0;
   state.failures = 0;
-  state.observation = {
-    health: "unknown", gap: false, stale: false, lastObservedAt: null, detail: "",
+  state.artifactRefreshPromise = null;
+  state.artifactRefreshQueued = false;
+  state.loadMessages = {
+    snapshot: "",
+    runWarning,
+    snapshotWarning: "",
+    artifact: "",
+    artifactWarning: "",
   };
+  state.observation = {
+    health: "unknown", gap: false, stale: false, lastObservedAt: null,
+    eventCount: null, detail: "",
+  };
+  for (const id of [
+    "snapshot-load-error",
+    "run-api-warning",
+    "snapshot-api-warning",
+    "artifact-load-error",
+    "artifact-api-warning",
+  ]) {
+    const message = id === "run-api-warning" ? runWarning : "";
+    $(id).textContent = message;
+    $(id).hidden = !message;
+  }
+  $("monitor-alerts").hidden = !Object.values(state.loadMessages).some(Boolean);
   $("stream-notice").hidden = true;
   $("last-event-time").textContent = "最終観測 —";
   $("cursor-status").textContent = "cursor —";
@@ -1039,7 +1665,16 @@ async function eventLoop(context) {
         state.observation.gap = true;
         state.observation.health = "gap";
       }
-      consumeEvents(payload);
+      const consumed = consumeEvents(payload);
+      if (
+        consumed.artifactChanged
+        || hasGapEvent
+        || payload.gap
+        || payload.cursorGap
+        || payload.resetRequired
+      ) {
+        refreshArtifactsAfterSnapshotChange(context).catch(showFatal);
+      }
       state.failures = 0;
       setConnection("live", "接続中");
     } catch (error) {
@@ -1063,10 +1698,10 @@ async function refreshLoop(context) {
     try {
       await delay(REFRESH_INTERVAL_MS, context.signal);
       if (!isCurrent(context)) return;
-      await Promise.allSettled([loadSnapshot(context), refreshArtifacts(context)]);
-      if (!isCurrent(context)) return;
+      await refreshArtifactsAfterSnapshotChange(context);
     } catch (error) {
       if (isAbort(error) || !isCurrent(context)) return;
+      showFatal(error);
     }
   }
 }
@@ -1080,11 +1715,23 @@ async function selectRun(runId = $("run-select").value) {
   url.searchParams.set("qualification", context.qualification);
   history.replaceState(null, "", url);
   setConnection("live", "同期中");
-  const results = await Promise.allSettled([loadSnapshot(context), refreshArtifacts(context)]);
+  const snapshotResult = await loadSnapshotWithStatus(context);
   if (!isCurrent(context)) return;
-  if (results.every((result) => result.status === "rejected")) throw results[0].reason;
+  const artifactResult = await queueArtifactRefresh(context);
+  if (!isCurrent(context)) return;
+  if (snapshotResult.ok && artifactResult.ok) {
+    state.artifactFingerprint = state.snapshotFingerprint;
+  }
+  if (!snapshotResult.ok && !artifactResult.ok) {
+    setConnection("error", "初期取得エラー");
+  }
   eventLoop(context).catch(showFatal);
   refreshLoop(context).catch(showFatal);
+}
+
+function showNoRuns() {
+  setConnection("error", "実行なし");
+  $("run-summary").textContent = "監視できる実行がありません。";
 }
 
 function activateTab(button, focus = false) {
@@ -1109,6 +1756,10 @@ function bind() {
     try {
       const runId = await loadRuns(qualification, context.signal);
       if (!isCurrent(context)) return;
+      if (!runId) {
+        showNoRuns();
+        return;
+      }
       await selectRun(runId);
     } catch (error) {
       if (!isAbort(error)) showFatal(error);
@@ -1160,8 +1811,7 @@ async function start() {
     state.runId = runId;
     await selectRun(runId);
   } else {
-    setConnection("error", "実行なし");
-    $("run-summary").textContent = "監視できる実行がありません。";
+    showNoRuns();
   }
 }
 
@@ -1171,14 +1821,24 @@ globalThis.MonitorUiTest = {
   requestJson,
   beginGeneration,
   isCurrent,
+  runOptionModel,
+  snapshotArtifactFingerprint,
+  artifactRefreshDecision,
+  artifactReconcileRequired,
+  artifactResponseIssues,
+  snapshotResponseIssues,
+  runListSelection,
   normalizedEvent,
   eventText,
+  eventChangesArtifact,
   ingestEvents,
   applyObservationHealth,
+  observationDisplay,
   artifactRecord,
   normalizeArtifacts,
   deepLink,
   buildLanes,
+  selectVisibleLanes,
 };
 
 if (!globalThis.__MONITOR_TEST__) start().catch(showFatal);

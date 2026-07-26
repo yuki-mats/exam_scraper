@@ -286,7 +286,19 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(calls, SUBSCRIPTION_STATUS_READ_ATTEMPTS)
 
     def test_provider_recovery_restarts_connection_after_backoff(self):
-        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        class Observer:
+            def __init__(self):
+                self.gaps = 0
+
+            def record_observation_gap(self, count=1):
+                self.gaps += count
+
+        observer = Observer()
+        client = CodexAppServerClient(
+            Path.cwd(),
+            binary_path=Path("/bin/echo"),
+            observer=observer,
+        )
         process = object()
         stream = object()
         client._process = process
@@ -317,6 +329,9 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertIsNone(client._last_status)
         self.assertEqual(client._last_status_at, 0.0)
         self.assertIn("60秒後に再試行", messages[0])
+        self.assertTrue(client._monitor_observer_adapter.drain_for_test())
+        self.assertEqual(observer.gaps, 1)
+        client.close()
 
     def test_rejects_non_subscription_accounts(self):
         for account in (
@@ -553,6 +568,163 @@ class ProtocolClient(CodexAppServerClient):
 
 
 class MonitorObserverTests(unittest.TestCase):
+    def test_reader_enqueue_does_not_iterate_or_copy_notification(self):
+        delivered = threading.Event()
+
+        class ReaderMessage(dict):
+            def keys(self):
+                raise AssertionError("reader thread must not normalize")
+
+            def __iter__(self):
+                raise AssertionError("reader thread must not iterate")
+
+        class Observer:
+            def __init__(self):
+                self.message = None
+
+            def observe(self, message):
+                self.message = message
+                delivered.set()
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(observer)
+        message = ReaderMessage(
+            method="turn/started",
+            params={"threadId": "thread-1", "turnId": "turn-1"},
+        )
+
+        adapter.put_nowait(message)
+
+        self.assertTrue(delivered.wait(timeout=0.5))
+        self.assertTrue(adapter.drain_for_test())
+        self.assertIs(observer.message, message)
+        adapter.close()
+
+    def test_adapter_close_drains_every_accepted_notification(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def __init__(self):
+                self.messages = []
+
+            def put_nowait(self, message):
+                self.messages.append(message["params"]["number"])
+                if len(self.messages) == 1:
+                    entered.set()
+                    release.wait()
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(observer, capacity=4)
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 1}}
+        )
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 2}}
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+
+        closer = threading.Thread(target=adapter.close)
+        closer.start()
+        time.sleep(0.25)
+        self.assertTrue(closer.is_alive())
+        release.set()
+        closer.join(timeout=1)
+
+        self.assertFalse(closer.is_alive())
+        self.assertEqual(observer.messages, [1, 2])
+        self.assertEqual(adapter._queue.unfinished_tasks, 0)
+
+    def test_monitor_enabled_and_disabled_keep_model_rpcs_and_usage_identical(self):
+        class UsageProtocolClient(ProtocolClient):
+            def __init__(self, **kwargs):
+                super().__init__(**kwargs)
+                self.protocol_usage = []
+
+            def _request(self, method, params, *, timeout=None):
+                result = super()._request(method, params, timeout=timeout)
+                if method == "turn/start":
+                    usage = {
+                        "last": {
+                            "inputTokens": 120,
+                            "cachedInputTokens": 80,
+                            "outputTokens": 30,
+                            "reasoningOutputTokens": 10,
+                            "totalTokens": 150,
+                        },
+                        "total": {
+                            "inputTokens": 120,
+                            "cachedInputTokens": 80,
+                            "outputTokens": 30,
+                            "reasoningOutputTokens": 10,
+                            "totalTokens": 150,
+                        },
+                        "modelContextWindow": 200000,
+                    }
+                    self.protocol_usage.append(copy.deepcopy(usage))
+                    self._handle_message(
+                        {
+                            "method": "thread/tokenUsage/updated",
+                            "params": {
+                                "threadId": params["threadId"],
+                                "tokenUsage": usage,
+                            },
+                        }
+                    )
+                return result
+
+        class Observer:
+            def __init__(self):
+                self.messages = []
+                self.monitor_model_requests = 0
+
+            def observe(self, message):
+                self.messages.append(copy.deepcopy(message))
+
+            def bind_runtime(self, _context, _thread_id, _turn_id=None):
+                return None
+
+        observer = Observer()
+        without_monitor = UsageProtocolClient()
+        with_monitor = UsageProtocolClient(observer=observer)
+        kwargs = {
+            "work_type": "evaluation",
+            "sandbox": "read-only",
+            "emit": lambda _message: None,
+        }
+
+        result_without = without_monitor.run_turn("same prompt", **kwargs)
+        result_with = with_monitor.run_turn("same prompt", **kwargs)
+
+        self.assertTrue(with_monitor._monitor_observer_adapter.drain_for_test())
+        model_methods = {"thread/start", "turn/start"}
+        rpcs_without = [
+            (method, params)
+            for method, params in without_monitor.calls
+            if method in model_methods
+        ]
+        rpcs_with = [
+            (method, params)
+            for method, params in with_monitor.calls
+            if method in model_methods
+        ]
+        self.assertEqual(rpcs_with, rpcs_without)
+        self.assertEqual(
+            [method for method, _params in rpcs_with],
+            ["thread/start", "turn/start"],
+        )
+        self.assertEqual(with_monitor.protocol_usage, without_monitor.protocol_usage)
+        self.assertEqual(result_with.final_message, result_without.final_message)
+        self.assertEqual(observer.monitor_model_requests, 0)
+        observed_usage = [
+            message["params"]["tokenUsage"]
+            for message in observer.messages
+            if message.get("method") == "thread/tokenUsage/updated"
+        ]
+        self.assertEqual(observed_usage, with_monitor.protocol_usage)
+        without_monitor.close()
+        with_monitor.close()
+
     def test_allowlisted_notifications_and_exact_runtime_bindings_are_observed(self):
         class Observer:
             def __init__(self):
@@ -578,10 +750,19 @@ class MonitorObserverTests(unittest.TestCase):
 
         self.assertTrue(client._monitor_observer_adapter.drain_for_test())
         self.assertEqual(result.thread_id, "thread-1")
-        self.assertEqual(observer.bindings[0][1:], ("thread-1", None))
-        self.assertEqual(observer.bindings[1][1:], ("thread-1", "turn-1"))
-        self.assertEqual(observer.bindings[0][0]["runId"], "run-1")
-        self.assertEqual(observer.bindings[0][0]["sessionId"], "session-1")
+        self.assertIn(len(observer.bindings), {1, 2})
+        self.assertEqual(
+            observer.bindings[-1][1:],
+            ("thread-1", "turn-1"),
+        )
+        if len(observer.bindings) == 2:
+            self.assertEqual(
+                observer.bindings[0][1:],
+                ("thread-1", None),
+            )
+        for context, _thread_id, _turn_id in observer.bindings:
+            self.assertEqual(context["runId"], "run-1")
+            self.assertEqual(context["sessionId"], "session-1")
         client.close()
 
     def test_observer_exception_does_not_change_protocol_handling(self):
@@ -609,6 +790,27 @@ class MonitorObserverTests(unittest.TestCase):
 
         self.assertTrue(state.event.is_set())
         self.assertEqual(state.status, "completed")
+        client.close()
+
+    def test_unexpected_stdout_eof_marks_next_connection_as_a_gap(self):
+        client = CodexAppServerClient(
+            Path.cwd(),
+            binary_path=Path("/bin/echo"),
+        )
+
+        class Process:
+            pass
+
+        process = Process()
+        client._process = process
+        client._stdin = object()
+        client._initialized = True
+
+        client._read_stdout([], process)
+
+        self.assertTrue(client._observation_connection_lost)
+        self.assertIsNone(client._process)
+        self.assertFalse(client._initialized)
         client.close()
 
     def test_stdout_path_never_calls_blocking_observer_directly(self):
@@ -694,6 +896,337 @@ class MonitorObserverTests(unittest.TestCase):
             ["notification:1", "notification:2", "gap:2"],
         )
         adapter.close()
+
+    def test_binding_backlog_is_coalesced_and_bounded_by_thread(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def __init__(self):
+                self.bindings = []
+                self.gaps = []
+
+            def put_nowait(self, _message):
+                entered.set()
+                release.wait()
+
+            def bind_runtime(self, context, thread_id, turn_id=None):
+                self.bindings.append((dict(context), thread_id, turn_id))
+
+            def record_observation_gap(
+                self,
+                count=1,
+                *,
+                affected_routes=None,
+                scope_truncated=False,
+            ):
+                self.gaps.append(
+                    (count, affected_routes, scope_truncated)
+                )
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(
+            observer,
+            capacity=1,
+            binding_capacity=2,
+            control_batch_size=1,
+        )
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 1}}
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+
+        adapter.bind_runtime(
+            {"qualification": "qual", "runId": "run-1", "version": 1},
+            "thread-1",
+        )
+        adapter.bind_runtime(
+            {"qualification": "qual", "runId": "run-2", "version": 1},
+            "thread-2",
+        )
+        adapter.bind_runtime(
+            {"qualification": "qual", "runId": "run-2", "version": 2},
+            "thread-2",
+            "turn-2",
+        )
+        with adapter._gap_lock:
+            self.assertEqual(len(adapter._pending_bindings), 2)
+            self.assertEqual(
+                adapter._pending_bindings["thread-2"],
+                (
+                    {
+                        "qualification": "qual",
+                        "runId": "run-2",
+                        "version": 2,
+                    },
+                    "thread-2",
+                    "turn-2",
+                ),
+            )
+        for index in range(3, 21):
+            adapter.bind_runtime(
+                {
+                    "qualification": "qual",
+                    "runId": f"run-{index}",
+                    "version": 1,
+                },
+                f"thread-{index}",
+            )
+
+        with adapter._gap_lock:
+            self.assertEqual(
+                tuple(adapter._pending_bindings),
+                ("thread-19", "thread-20"),
+            )
+            self.assertLessEqual(len(adapter._thread_route_groups), 2)
+        release.set()
+
+        self.assertTrue(adapter.drain_for_test())
+        self.assertEqual(
+            observer.bindings,
+            [
+                (
+                    {
+                        "qualification": "qual",
+                        "runId": "run-19",
+                        "version": 1,
+                    },
+                    "thread-19",
+                    None,
+                ),
+                (
+                    {
+                        "qualification": "qual",
+                        "runId": "run-20",
+                        "version": 1,
+                    },
+                    "thread-20",
+                    None,
+                ),
+            ],
+        )
+        self.assertEqual(observer.gaps, [(18, (), True)])
+        adapter.close()
+
+    def test_control_batch_cannot_starve_accepted_notifications(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def __init__(self):
+                self.log = []
+
+            def put_nowait(self, message):
+                number = message["params"]["number"]
+                self.log.append(f"notification:{number}")
+                if number == 1:
+                    entered.set()
+                    release.wait()
+
+            def bind_runtime(self, _context, thread_id, _turn_id=None):
+                self.log.append(f"binding:{thread_id}")
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(
+            observer,
+            capacity=2,
+            binding_capacity=8,
+            control_batch_size=2,
+        )
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 1}}
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+        for index in range(6):
+            adapter.bind_runtime({}, f"thread-{index}")
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 2}}
+        )
+        release.set()
+
+        self.assertTrue(adapter.drain_for_test())
+        notification_index = observer.log.index("notification:2")
+        self.assertEqual(notification_index, 3)
+        self.assertEqual(
+            observer.log[1:notification_index],
+            ["binding:thread-0", "binding:thread-1"],
+        )
+        adapter.close()
+
+    def test_dropped_terminal_freezes_route_and_cleans_live_state(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def __init__(self):
+                self.gaps = []
+
+            def put_nowait(self, message):
+                if message["params"].get("number") == 1:
+                    entered.set()
+                    release.wait()
+
+            def bind_runtime(self, _context, _thread_id, _turn_id=None):
+                return None
+
+            def record_observation_gap(
+                self,
+                count=1,
+                *,
+                affected_routes=None,
+                scope_truncated=False,
+            ):
+                self.gaps.append(
+                    (count, affected_routes, scope_truncated)
+                )
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(observer, capacity=1)
+        adapter.bind_runtime(
+            {"qualification": "qual", "runId": "run-1"},
+            "thread-1",
+            "turn-1",
+        )
+        adapter.put_nowait(
+            {
+                "method": "turn/started",
+                "params": {"threadId": "thread-1", "number": 1},
+            }
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 2}}
+        )
+        adapter.put_nowait(
+            {
+                "method": "turn/completed",
+                "params": {"threadId": "thread-1"},
+            }
+        )
+
+        expected_route = (
+            "qual",
+            "run-1",
+            (("qual", "run-1"),),
+        )
+        with adapter._gap_lock:
+            self.assertNotIn("thread-1", adapter._thread_route_groups)
+            self.assertEqual(adapter._route_snapshot, ())
+        release.set()
+
+        self.assertTrue(adapter.drain_for_test())
+        self.assertEqual(
+            observer.gaps,
+            [(1, (expected_route,), False)],
+        )
+        adapter.close()
+
+    def test_gap_scope_overflow_is_global_and_has_exact_drop_count(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def __init__(self):
+                self.gaps = []
+
+            def put_nowait(self, message):
+                if message["params"].get("number") == 1:
+                    entered.set()
+                    release.wait()
+
+            def bind_runtime(self, _context, _thread_id, _turn_id=None):
+                return None
+
+            def record_observation_gap(
+                self,
+                count=1,
+                *,
+                affected_routes=None,
+                scope_truncated=False,
+            ):
+                self.gaps.append(
+                    (count, affected_routes, scope_truncated)
+                )
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(
+            observer,
+            capacity=1,
+            binding_capacity=4,
+            gap_capacity=1,
+        )
+        adapter.bind_runtime(
+            {"qualification": "qual", "runId": "run-1"},
+            "thread-1",
+        )
+        adapter.put_nowait(
+            {
+                "method": "turn/started",
+                "params": {"threadId": "thread-1", "number": 1},
+            }
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 2}}
+        )
+        adapter.put_nowait(
+            {
+                "method": "thread/status/changed",
+                "params": {"threadId": "thread-1"},
+            }
+        )
+        adapter.bind_runtime(
+            {"qualification": "qual", "runId": "run-2"},
+            "thread-2",
+        )
+        for _index in range(2):
+            adapter.put_nowait(
+                {
+                    "method": "thread/status/changed",
+                    "params": {"threadId": "thread-2"},
+                }
+            )
+
+        with adapter._gap_lock:
+            self.assertLessEqual(len(adapter._gap_segments), 1)
+            self.assertEqual(adapter._gap_overflow_count, 2)
+        release.set()
+
+        self.assertTrue(adapter.drain_for_test())
+        precise = [gap for gap in observer.gaps if not gap[2]]
+        truncated = [gap for gap in observer.gaps if gap[2]]
+        self.assertEqual(sum(gap[0] for gap in precise), 1)
+        self.assertEqual(truncated, [(2, (), True)])
+        adapter.close()
+
+    def test_close_timeout_is_bounded_and_retryable(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def put_nowait(self, _message):
+                entered.set()
+                release.wait()
+
+        adapter = _NonBlockingObserverAdapter(Observer())
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 1}}
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+
+        started_at = time.monotonic()
+        try:
+            with self.assertRaisesRegex(
+                TimeoutError,
+                "did not drain accepted work",
+            ):
+                adapter.close(timeout=0.02)
+        finally:
+            release.set()
+        self.assertLess(time.monotonic() - started_at, 0.25)
+
+        adapter.close(timeout=1)
+        self.assertTrue(adapter.drain_for_test())
 
 
 class ReceiptInterruptProtocolClient(ProtocolClient):
