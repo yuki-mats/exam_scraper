@@ -678,7 +678,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                len(batch) == 1
+                len(batch) == 2
                 and all(
                     (item.get("changes") or {}).get("status") == "committing"
                     for item in batch
@@ -688,7 +688,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                len(batch) == 1
+                len(batch) == 2
                 and all(
                     (item.get("changes") or {}).get("status") == "validated"
                     for item in batch
@@ -4817,12 +4817,30 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 question_concurrency=64,
             )
             self._write_counted_sources(root, 64)
-
-            result = coordinator._run_maintenance_flow(
+            parent_path = coordinator.store._manifest_path(
                 "new-exam",
                 parent["runId"],
-                lambda _message: None,
             )
+            parent_write_count = 0
+            parent_write_lock = threading.Lock()
+            original_write = coordinator.store._write_manifest
+
+            def count_parent_writes(path, manifest):
+                nonlocal parent_write_count
+                if path == parent_path:
+                    with parent_write_lock:
+                        parent_write_count += 1
+                original_write(path, manifest)
+
+            coordinator.store._write_manifest = count_parent_writes
+            try:
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            finally:
+                coordinator.store._write_manifest = original_write
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "succeeded")
@@ -4833,6 +4851,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["modelBatchSize"], 1)
         self.assertEqual(completed["modelWorkerLimit"], 64)
         self.assertEqual(len(completed["childRunIds"]), 64)
+        self.assertLess(parent_write_count, 32)
         self.assertEqual(completed["validatedQuestionCount"], 64)
 
     def test_one_provider_timeout_is_retried_after_other_questions(self):

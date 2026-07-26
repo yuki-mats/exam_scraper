@@ -86,7 +86,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
 - 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。候補内容、provider又はschemaの失敗は、その一問だけをqueue末尾へ戻す。provider障害が同時に発生した場合は次の再試行roundの並列数を縮小し、回復しなければ`interrupted`として再開を待つ。
-- 一問turnの確定ごとにcheckpointを保存する。子runのmanifest、集約回答の問題別checkpoint、親queueはそれぞれの責務に分け、異なる子runのfile I/Oを一つのglobal lockへ集約しない。`未完了の問題を再開`はそのcheckpointを親queueへ回収し、未確定の問だけを戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
+- 一問turnの確定ごとにcheckpointを保存する。子runのmanifest、集約回答の問題別checkpoint、親queueはそれぞれの責務に分け、異なる子runのfile I/Oを一つのglobal lockへ集約しない。同じ64問区切りの子run IDと`committing`遷移は、全子runを準備してから親queueへ一括保存する。完了結果も区切り単位で一括保存し、11MB級の親manifestを一問ごとに書き直さない。`未完了の問題を再開`はそのcheckpointを親queueへ回収し、未確定の問だけを戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定したlistGroupIdごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
@@ -104,7 +104,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 - `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasや旧runのIDを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
 - `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全子工程がvalidatedになった問題だけを完了とする。
 - 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、同じ区切りの一問入力を独立workerで同時に作る。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。準備できた各問から独立したmodel turnへ逐次投入するため、全問の準備完了を待たない。model候補はread-onlyである。子runの作成・状態更新と集約回答checkpointはrun又は問題ごとのlockで並行し、親queueの同じmanifest更新と正本patchの検査・確定だけを必要な範囲で直列化する。
-- Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
+- Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。同時に動く子runから同じ親runへ届くheartbeatは15秒内に一回へ集約する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
 - 一つのmodel turnが15分で完了しない場合は中断し、その一問だけを失敗としてqueueの再試行契約へ戻す。
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。

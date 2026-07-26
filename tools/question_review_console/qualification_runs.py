@@ -6068,6 +6068,35 @@ class QualificationRunCoordinator:
         # Model turns run concurrently in private workspaces.  Only the short
         # exact-record rebase into canonical patch files is serialized.
         self._question_patch_commit_lock = threading.RLock()
+        self._parent_heartbeat_lock = threading.Lock()
+        self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
+
+    def _touch_parent_heartbeat(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        heartbeat_at: str,
+    ) -> None:
+        """Coalesce concurrent child heartbeats into one parent write."""
+
+        key = (qualification, parent_run_id)
+        observed = time.monotonic()
+        with self._parent_heartbeat_lock:
+            previous = self._parent_heartbeat_monotonic.get(key, 0.0)
+            if observed - previous < PREPARATION_HEARTBEAT_SECONDS:
+                return
+            self._parent_heartbeat_monotonic[key] = observed
+        try:
+            self.store.update(
+                qualification,
+                parent_run_id,
+                heartbeatAt=heartbeat_at,
+            )
+        except Exception:
+            with self._parent_heartbeat_lock:
+                if self._parent_heartbeat_monotonic.get(key) == observed:
+                    self._parent_heartbeat_monotonic.pop(key, None)
+            raise
 
     def _technical_log_emitter(
         self,
@@ -8856,10 +8885,11 @@ class QualificationRunCoordinator:
                 for attempt in stage.get("validationAttempts") or []
             )
 
-        def run_batch(
+        def prepare_batch(
             specs: list[Mapping[str, Any]],
             phase: Mapping[str, Any],
             phase_prompt: str,
+            parent_snapshot: Mapping[str, Any],
         ) -> dict[str, Any]:
             if len(specs) != 1:
                 raise QualificationRunError(
@@ -8931,7 +8961,6 @@ class QualificationRunCoordinator:
                     ),
                     question_ids=batch_question_ids,
                 )["prompt"]
-            parent_snapshot = self.store.get(qualification, run_id)
             feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
             for target in targets:
                 question_id = str(target.get("id") or target.get("uiQuestionId") or "")
@@ -9049,71 +9078,43 @@ class QualificationRunCoordinator:
                     f"{QUESTION_MAINTENANCE_RETRY_MODEL} / 推論 "
                     f"{TURN_REASONING_EFFORT}で再試行します。"
                 )
-            with aggregation_lock:
-                child_run_ids.append(child_id)
-                phase_child_ids.setdefault(stage_id, []).append(child_id)
-            committing_parent = self.store.get(qualification, run_id)
-            committing_updates: list[dict[str, Any]] = []
-            for target in targets:
-                question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-                current = self._queue_stage(
-                    committing_parent,
-                    question_id,
-                    stage_id,
-                ) or {}
-                attempts = [
-                    dict(value)
-                    for value in current.get("validationAttempts") or []
-                    if isinstance(value, Mapping)
-                ]
-                attempts.append(
-                    {
-                        "attempt": len(attempts) + 1,
-                        "childRunId": child_id,
-                        "status": "running",
-                        "feedback": None,
-                        "requestedModel": requested_model,
-                        "requestedReasoningEffort": requested_effort,
-                        "startedAt": _now(),
-                        "finishedAt": None,
-                    }
-                )
-                committing_updates.append(
-                    {
-                        "questionId": question_id,
-                        "stageId": stage_id,
-                        "changes": {
-                            "status": "committing",
-                            "childRunIds": [
-                                *(
-                                    str(value)
-                                    for value in current.get("childRunIds") or []
-                                    if value
-                                ),
-                                child_id,
-                            ],
-                            "validationAttempts": attempts,
-                            "error": None,
-                        },
-                    }
-                )
-            self.store.update_question_stages(
-                qualification,
-                run_id,
-                committing_updates,
-            )
+            return {
+                "childId": child_id,
+                "child": child,
+                "batchPlan": batch_plan,
+                "stageId": stage_id,
+                "targets": targets,
+                "prompt": batch_prompt,
+                "recordsByQuestion": records_by_question,
+                "sourceRecordsByQuestion": originalization_source_by_question,
+                "candidateTargetsByQuestion": candidate_targets_by_question,
+                "requestedModel": requested_model,
+                "requestedReasoningEffort": requested_effort,
+            }
+
+        def run_batch(prepared: Mapping[str, Any]) -> dict[str, Any]:
+            child_id = str(prepared["childId"])
+            batch_plan = dict(prepared["batchPlan"])
+            stage_id = str(prepared["stageId"])
+            targets = list(prepared["targets"])
+            requested_model = str(prepared["requestedModel"])
+            requested_effort = str(prepared["requestedReasoningEffort"])
             try:
                 outcome = self._run_structured_question_batch(
                     qualification,
                     child_id,
-                    self.store.prompt(qualification, child_id),
+                    str(prepared["prompt"]),
                     emit,
                     batch_plan=batch_plan,
                     stage_id=stage_id,
                     pipeline_stop=pipeline_stop,
-                    prepared_records=records_by_question,
-                    prepared_source_records=originalization_source_by_question,
-                    prepared_targets=candidate_targets_by_question,
+                    prepared_records=dict(prepared["recordsByQuestion"]),
+                    prepared_source_records=dict(
+                        prepared["sourceRecordsByQuestion"]
+                    ),
+                    prepared_targets=dict(
+                        prepared["candidateTargetsByQuestion"]
+                    ),
                     model=requested_model,
                     reasoning_effort=requested_effort,
                 )
@@ -9151,12 +9152,93 @@ class QualificationRunCoordinator:
                     "providerError": str(provider_failure or ""),
                 }
 
+        def register_prepared_batches(
+            prepared_batches: list[Mapping[str, Any]],
+            stage_id: str,
+        ) -> None:
+            if not prepared_batches:
+                return
+            committing_parent = self.store.get(qualification, run_id)
+            committing_updates: list[dict[str, Any]] = []
+            prepared_child_ids = [
+                str(prepared["childId"])
+                for prepared in prepared_batches
+            ]
+            with aggregation_lock:
+                child_run_ids.extend(prepared_child_ids)
+                phase_child_ids.setdefault(stage_id, []).extend(
+                    prepared_child_ids
+                )
+            for prepared in prepared_batches:
+                child_id = str(prepared["childId"])
+                requested_model = str(prepared["requestedModel"])
+                requested_effort = str(
+                    prepared["requestedReasoningEffort"]
+                )
+                for target in prepared.get("targets") or []:
+                    question_id = str(
+                        target.get("id")
+                        or target.get("uiQuestionId")
+                        or ""
+                    )
+                    current = self._queue_stage(
+                        committing_parent,
+                        question_id,
+                        stage_id,
+                    ) or {}
+                    attempts = [
+                        dict(value)
+                        for value in current.get("validationAttempts") or []
+                        if isinstance(value, Mapping)
+                    ]
+                    attempts.append(
+                        {
+                            "attempt": len(attempts) + 1,
+                            "childRunId": child_id,
+                            "status": "running",
+                            "feedback": None,
+                            "requestedModel": requested_model,
+                            "requestedReasoningEffort": requested_effort,
+                            "startedAt": _now(),
+                            "finishedAt": None,
+                        }
+                    )
+                    committing_updates.append(
+                        {
+                            "questionId": question_id,
+                            "stageId": stage_id,
+                            "changes": {
+                                "status": "committing",
+                                "childRunIds": [
+                                    *(
+                                        str(value)
+                                        for value in current.get(
+                                            "childRunIds"
+                                        )
+                                        or []
+                                        if value
+                                    ),
+                                    child_id,
+                                ],
+                                "validationAttempts": attempts,
+                                "error": None,
+                            },
+                        }
+                    )
+            self.store.update_question_stages(
+                qualification,
+                run_id,
+                committing_updates,
+            )
+
         def apply_batch_outcome(
             outcome: Mapping[str, Any],
             stage_id: str,
             *,
             next_ids: list[str],
             provider_waiting: set[str],
+            parent_snapshot: Mapping[str, Any],
+            stage_updates: list[dict[str, Any]],
         ) -> None:
             child = dict(outcome["child"])
             child_id = str(outcome["childId"])
@@ -9170,8 +9252,6 @@ class QualificationRunCoordinator:
                     "serviceTier": child.get("serviceTier"),
                     "reasoningEffort": child.get("reasoningEffort"),
                 }
-            parent_snapshot = self.store.get(qualification, run_id)
-            stage_updates: list[dict[str, Any]] = []
             for raw_result in outcome.get("questionResults") or []:
                 question_id = str(raw_result.get("questionId") or "")
                 current = self._queue_stage(
@@ -9356,13 +9436,6 @@ class QualificationRunCoordinator:
                 )
                 if not blocked:
                     next_ids.append(question_id)
-            if stage_updates:
-                self.store.update_question_stages(
-                    qualification,
-                    run_id,
-                    stage_updates,
-                )
-
         for phase in phases:
             stage_id = str(phase["id"])
             if stage_id in {"setup", "category_setup"}:
@@ -9565,20 +9638,34 @@ class QualificationRunCoordinator:
                             if not model_specs:
                                 continue
                             chunk_batches.extend([[spec] for spec in model_specs])
+                        preparation_futures = []
                         for batch in chunk_batches:
                             batches.append(batch)
                             maximum_batch_size = max(
                                 maximum_batch_size,
                                 len(batch),
                             )
-                            outcome_futures.append(
+                            preparation_futures.append(
                                 executor.submit(
-                                    run_batch,
+                                    prepare_batch,
                                     batch,
                                     phase,
                                     phase_prompt,
+                                    round_parent,
                                 )
                             )
+                        prepared_batches = [
+                            future.result()
+                            for future in preparation_futures
+                        ]
+                        register_prepared_batches(
+                            prepared_batches,
+                            stage_id,
+                        )
+                        outcome_futures.extend(
+                            executor.submit(run_batch, prepared)
+                            for prepared in prepared_batches
+                        )
                         model_started = bool(outcome_futures)
                         active_workers = min(len(batches), worker_limit)
                         self.store.update(
@@ -9626,6 +9713,11 @@ class QualificationRunCoordinator:
                     bool(outcome.get("providerFailure"))
                     for outcome in outcomes
                 )
+                outcome_parent_snapshot = self.store.get(
+                    qualification,
+                    run_id,
+                )
+                round_stage_updates: list[dict[str, Any]] = []
                 for outcome in outcomes:
                     scheduler_limits.observe(
                         provider_failure=bool(outcome.get("providerFailure")),
@@ -9638,6 +9730,14 @@ class QualificationRunCoordinator:
                         stage_id,
                         next_ids=next_ids,
                         provider_waiting=provider_waiting,
+                        parent_snapshot=outcome_parent_snapshot,
+                        stage_updates=round_stage_updates,
+                    )
+                if round_stage_updates:
+                    self.store.update_question_stages(
+                        qualification,
+                        run_id,
+                        round_stage_updates,
                     )
                 pending_ids = list(dict.fromkeys(next_ids))
                 if pending_ids:
@@ -10170,10 +10270,10 @@ class QualificationRunCoordinator:
             self.store.update(qualification, run_id, heartbeatAt=heartbeat_at)
             parent_run_id = str(child.get("parentRunId") or "")
             if parent_run_id:
-                self.store.update(
+                self._touch_parent_heartbeat(
                     qualification,
                     parent_run_id,
-                    heartbeatAt=heartbeat_at,
+                    heartbeat_at,
                 )
             callback = getattr(emit, "heartbeat", None)
             if callable(callback):
