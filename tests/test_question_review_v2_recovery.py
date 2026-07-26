@@ -85,6 +85,39 @@ def _flow_plan(target_path: Path) -> dict:
 
 
 class V2QuestionRunRecoveryTest(unittest.TestCase):
+    def test_interrupted_run_with_running_queue_self_heals_before_resume(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "output/sample/questions_json/2026/10_fixed/q.json"
+            plan = _flow_plan(target.relative_to(root))
+            store = QualificationRunStore(root)
+            run = store.create(plan, status="queued", prompt="flow")
+            run_id = str(run["runId"])
+
+            store.update(
+                "sample",
+                run_id,
+                status="interrupted",
+                queueStatus="running",
+                retrySafe=True,
+            )
+            recovery_path = (
+                store.run_directory("sample", run_id) / "recovery.json"
+            )
+            self.assertTrue(recovery_path.is_file())
+
+            # Reproduce a legacy v2 run whose recovery sidecar was already lost.
+            recovery_path.unlink()
+            restarted = QualificationRunStore(root)
+            recovered = restarted.recover_interrupted_v2_run_for_resume(
+                "sample",
+                run_id,
+            )
+
+        self.assertEqual(recovered["status"], "interrupted")
+        self.assertEqual(recovered["queueStatus"], "interrupted")
+        self.assertTrue(recovered["retrySafe"])
+
     def test_hot_state_updates_do_not_rebuild_or_hydrate_the_whole_run(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

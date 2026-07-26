@@ -1737,6 +1737,24 @@ class QualificationRunStore:
         # manifests used after startup instead of retaining the whole history.
         self._manifest_cache.clear()
 
+    def recover_interrupted_v2_run_for_resume(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> dict[str, Any]:
+        """Normalize a v2 run whose terminal manifest retained a live queue."""
+
+        manifest_path = self.root / qualification / run_id / "manifest.json"
+        manifest = self._load_manifest(manifest_path)
+        if (
+            self.question_states.is_v2(manifest)
+            and str(manifest.get("status") or "") == "interrupted"
+            and str(manifest.get("queueStatus") or "") == "running"
+            and manifest.get("retrySafe") is not False
+        ):
+            self._recover_v2_question_run(manifest_path, manifest)
+        return self.get(qualification, run_id)
+
     def _path_lock(self, path: Path) -> Any:
         """Return one re-entrant lock for an exact persisted path."""
 
@@ -7599,11 +7617,20 @@ class QualificationRunStore:
             and bool(manifest.get("childRunIds"))
         ):
             return True
+        if status != "interrupted" or manifest.get("kind") != "orchestration":
+            return False
         if (
-            status != "interrupted"
-            or manifest.get("kind") != "orchestration"
-            or not isinstance(manifest.get("questionExecutions"), list)
+            manifest.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION
+            and str(manifest.get("queueStatus") or "") == "running"
         ):
+            return True
+        if any(
+            str(phase.get("status") or "") == "running"
+            for phase in manifest.get("phaseExecutions") or []
+            if isinstance(phase, Mapping)
+        ):
+            return True
+        if not isinstance(manifest.get("questionExecutions"), list):
             return False
         return any(
             str(stage.get("status") or "")
@@ -7612,10 +7639,6 @@ class QualificationRunStore:
             if isinstance(question, Mapping)
             for stage in question.get("stages") or []
             if isinstance(stage, Mapping)
-        ) or any(
-            str(phase.get("status") or "") == "running"
-            for phase in manifest.get("phaseExecutions") or []
-            if isinstance(phase, Mapping)
         )
 
     @staticmethod
@@ -17001,7 +17024,10 @@ class QualificationRunCoordinator:
                     plan,
                 )
                 return plan
-            previous = self.store.get(qualification, resumed_from)
+            previous = self.store.recover_interrupted_v2_run_for_resume(
+                qualification,
+                resumed_from,
+            )
             previous_scope = list(previous.get("scopeListGroupIds") or [])
             if (
                 previous.get("kind") != "orchestration"
