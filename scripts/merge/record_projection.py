@@ -326,7 +326,10 @@ def project_merge_record(
     for patch in question_issues:
         try:
             changed = apply_question_issue_correction_entry(
-                merged2["question_bodies"][0], patch.entry, patch.path
+                merged2["question_bodies"][0],
+                patch.entry,
+                patch.path,
+                expected_hash_fields=patch.expected_hash_fields,
             )
         except (RuntimeError, ValueError) as exc:
             errors.append(str(exc))

@@ -112,7 +112,10 @@ patch schema は `question-issue-correction/v1`、`origin=user_problem_report`�
 
 新規・更新entryは`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`を一組で保存する。3要素を持たない既存entryは、資格内で`original_question_id`を一意に対応できる場合だけ適用し、曖昧又は未対応なら停止する。
 
-`expectedBeforeHash` は既存 01〜04 / 23 適用後の対象 record hash。merge 時に違えば適用せず再レビューする。overlay の provenance/rationale/evidence は question doc へ混ぜず、`changes` の既存 field だけを 30 merged へ反映する。
+`expectedBeforeHash` は既存patch適用後の対象recordのうち、修正カテゴリの判断に必要なfieldと安定identityだけを結合したhashとする。
+対象fieldは`config/question_issue_reports.json`の`expectedBeforeHashFields`を正本とし、修正対象又は判断入力が変われば適用せず再レビューする。
+解説や分類など無関係な後続工程の更新だけでは、既承認patchを無効にしない。
+overlay の provenance/rationale/evidence は question doc へ混ぜず、`changes` の既存 field だけを 30 merged へ反映する。
 
 カテゴリ別の許可 field と既存 prompt stage は `config/question_issue_reports.json` が正本。主な境界:
 

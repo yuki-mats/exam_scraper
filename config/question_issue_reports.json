@@ -18,6 +18,10 @@
         "questionBodyText",
         "choiceTextList"
       ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList"
+      ],
       "existingPromptStages": ["01", "02", "03"]
     },
     "correct_answer": {
@@ -27,6 +31,14 @@
         "answer_result_text",
         "answer_result_inferred_correct_choice_numbers",
         "questionIntent"
+      ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionIntent",
+        "correctChoiceText",
+        "answer_result_text",
+        "answer_result_inferred_correct_choice_numbers"
       ],
       "existingPromptStages": ["02", "02a"]
     },
@@ -38,6 +50,22 @@
         "suggestedQuestions",
         "suggestedQuestionDetails",
         "lawReferences"
+      ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionType",
+        "questionIntent",
+        "correctChoiceText",
+        "isCalculationQuestion",
+        "isLawRelated",
+        "lawGroundedExplanationNotNeeded",
+        "lawReferences",
+        "lawContextForExplanation",
+        "explanationText",
+        "explanationReferences",
+        "suggestedQuestions",
+        "suggestedQuestionDetails"
       ],
       "existingPromptStages": ["02b", "03"]
     },
@@ -54,11 +82,36 @@
         "isLawRelated",
         "lawGroundedExplanationNotNeeded"
       ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionType",
+        "questionIntent",
+        "correctChoiceText",
+        "answer_result_text",
+        "answer_result_inferred_correct_choice_numbers",
+        "isLawRelated",
+        "lawGroundedExplanationNotNeeded",
+        "lawReferences",
+        "lawContextForExplanation",
+        "lawRevisionFacts",
+        "explanationText",
+        "explanationReferences",
+        "suggestedQuestions",
+        "suggestedQuestionDetails"
+      ],
       "existingPromptStages": ["02b", "03", "03b"]
     },
     "image": {
       "label": "画像",
       "allowedChangeFields": [
+        "questionImageStorageUrls",
+        "originalQuestionChoiceImageUrls",
+        "explanationImageUrls"
+      ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
         "questionImageStorageUrls",
         "originalQuestionChoiceImageUrls",
         "explanationImageUrls"
@@ -72,6 +125,14 @@
         "choiceQuestionSetIds",
         "questionSetIds"
       ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionSetIdList",
+        "questionSetId",
+        "choiceQuestionSetIds",
+        "questionSetIds"
+      ],
       "existingPromptStages": ["04"]
     },
     "answer_format_or_display": {
@@ -79,6 +140,14 @@
       "allowedChangeFields": [
         "questionType",
         "questionIntent"
+      ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionType",
+        "questionIntent",
+        "correctChoiceText",
+        "answer_result_text"
       ],
       "existingPromptStages": ["01", "02"]
     },
@@ -97,6 +166,32 @@
         "suggestedQuestions",
         "suggestedQuestionDetails",
         "lawReferences",
+        "questionSetId",
+        "choiceQuestionSetIds",
+        "questionSetIds",
+        "questionImageStorageUrls",
+        "originalQuestionChoiceImageUrls",
+        "explanationImageUrls"
+      ],
+      "expectedBeforeHashFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionType",
+        "questionIntent",
+        "correctChoiceText",
+        "answer_result_text",
+        "answer_result_inferred_correct_choice_numbers",
+        "isCalculationQuestion",
+        "isLawRelated",
+        "lawGroundedExplanationNotNeeded",
+        "lawReferences",
+        "lawContextForExplanation",
+        "lawRevisionFacts",
+        "explanationText",
+        "explanationReferences",
+        "suggestedQuestions",
+        "suggestedQuestionDetails",
+        "questionSetIdList",
         "questionSetId",
         "choiceQuestionSetIds",
         "questionSetIds",

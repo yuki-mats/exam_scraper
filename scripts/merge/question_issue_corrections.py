@@ -20,6 +20,9 @@ from scripts.common.question_identity import (
 
 PATCH_SCHEMA_VERSION = "question-issue-correction/v1"
 PATCH_ORIGIN = "user_problem_report"
+DEFAULT_CATEGORY_CONFIG_PATH = (
+    Path(__file__).resolve().parents[2] / "config" / "question_issue_reports.json"
+)
 SOURCE_IDENTITY_ENTRY_FIELDS = frozenset(SOURCE_IDENTITY_BINDING_FIELDS)
 PATCHABLE_FIELDS = frozenset(
     {
@@ -45,20 +48,18 @@ PATCHABLE_FIELDS = frozenset(
         "explanationImageUrls",
     }
 )
-HASH_FIELDS = tuple(
-    sorted(
-        PATCHABLE_FIELDS
-        | {
-            "original_question_id",
-            "public_question_id",
-            "question_url",
-            "list_group_id",
-            "qualificationId",
-            "examYear",
-            "examLabel",
-        }
-    )
+IDENTITY_HASH_FIELDS = frozenset(
+    {
+        "original_question_id",
+        "public_question_id",
+        "question_url",
+        "list_group_id",
+        "qualificationId",
+        "examYear",
+        "examLabel",
+    }
 )
+HASH_FIELDS = tuple(sorted(PATCHABLE_FIELDS | IDENTITY_HASH_FIELDS))
 
 
 def selected_question_issue_correction_paths(directory: Path) -> list[Path]:
@@ -77,6 +78,7 @@ def selected_question_issue_correction_paths(directory: Path) -> list[Path]:
 class QuestionIssueCorrectionEntry:
     path: Path
     entry: dict[str, Any]
+    expected_hash_fields: tuple[str, ...] = HASH_FIELDS
 
 
 def canonical_json(value: Any) -> str:
@@ -92,13 +94,72 @@ def sha256_json(value: Any) -> str:
     return hashlib.sha256(canonical_json(value).encode("utf-8")).hexdigest()
 
 
-def question_record_hash(record: Mapping[str, Any]) -> str:
+def question_record_hash(
+    record: Mapping[str, Any],
+    *,
+    fields: Iterable[str] | None = None,
+) -> str:
+    selected_fields = HASH_FIELDS if fields is None else tuple(fields)
     stable_record = {
         field: record.get(field)
-        for field in HASH_FIELDS
+        for field in selected_fields
         if field in record
     }
     return sha256_json(stable_record)
+
+
+def expected_before_hash_fields(
+    category_config: Mapping[str, Any],
+) -> tuple[str, ...]:
+    configured = category_config.get("expectedBeforeHashFields")
+    if (
+        not isinstance(configured, list)
+        or not configured
+        or any(
+            not isinstance(field, str) or not field.strip()
+            for field in configured
+        )
+    ):
+        raise ValueError(
+            "question issue category expectedBeforeHashFields must be a non-empty list"
+        )
+    allowed_changes = {
+        str(field)
+        for field in category_config.get("allowedChangeFields") or []
+        if str(field)
+    }
+    selected = {str(field) for field in configured}
+    missing_change_fields = sorted(allowed_changes - selected)
+    if missing_change_fields:
+        raise ValueError(
+            "question issue category hash must include every allowed change field: "
+            + ", ".join(missing_change_fields)
+        )
+    return tuple(sorted(selected | IDENTITY_HASH_FIELDS))
+
+
+def load_category_configs(
+    config_path: Path = DEFAULT_CATEGORY_CONFIG_PATH,
+) -> dict[str, Mapping[str, Any]]:
+    payload = json.loads(config_path.read_text(encoding="utf-8"))
+    categories = payload.get("categories") if isinstance(payload, dict) else None
+    if not isinstance(categories, dict):
+        raise ValueError(f"question issue category config is invalid: {config_path}")
+    return {
+        str(category): config
+        for category, config in categories.items()
+        if isinstance(config, Mapping)
+    }
+
+
+def question_issue_record_hash(
+    record: Mapping[str, Any],
+    category_config: Mapping[str, Any],
+) -> str:
+    return question_record_hash(
+        record,
+        fields=expected_before_hash_fields(category_config),
+    )
 
 
 def load_correction_patch(path: Path) -> dict[str, Any]:
@@ -118,14 +179,27 @@ def load_correction_patch(path: Path) -> dict[str, Any]:
 def build_question_issue_correction_index(
     paths: Iterable[Path],
     sources: Iterable[SourceRecordIdentity],
+    *,
+    config_path: Path = DEFAULT_CATEGORY_CONFIG_PATH,
 ) -> IdentityCandidateIndex:
     source_records = tuple(sources)
+    category_configs = load_category_configs(config_path)
     candidates: list[QuestionIssueCorrectionEntry] = []
     invalid_messages: list[str] = []
     for path in sorted(paths, key=lambda value: value.name):
         try:
             payload = load_correction_patch(path)
         except (OSError, json.JSONDecodeError, ValueError) as exc:
+            invalid_messages.append(str(exc))
+            continue
+        category = str(payload.get("category") or "")
+        category_config = category_configs.get(category)
+        if category_config is None:
+            invalid_messages.append(f"unsupported question issue category: {category}")
+            continue
+        try:
+            hash_fields = expected_before_hash_fields(category_config)
+        except ValueError as exc:
             invalid_messages.append(str(exc))
             continue
         for position, entry in enumerate(payload["entries"], start=1):
@@ -142,7 +216,11 @@ def build_question_issue_correction_index(
                 )
                 continue
             candidates.append(
-                QuestionIssueCorrectionEntry(path=path, entry=dict(entry))
+                QuestionIssueCorrectionEntry(
+                    path=path,
+                    entry=dict(entry),
+                    expected_hash_fields=hash_fields,
+                )
             )
 
     index = resolve_identity_candidates(
@@ -207,12 +285,17 @@ def apply_question_issue_correction_entry(
     question: dict[str, Any],
     entry: Mapping[str, Any],
     patch_path: Path,
+    *,
+    expected_hash_fields: Iterable[str] | None = None,
 ) -> bool:
     original_id = str(entry.get("original_question_id") or "").strip()
     if not original_id:
         raise ValueError(f"entry missing original_question_id: {patch_path}")
     expected_hash = str(entry.get("expectedBeforeHash") or "").strip()
-    actual_hash = question_record_hash(question)
+    actual_hash = question_record_hash(
+        question,
+        fields=expected_hash_fields,
+    )
     if expected_hash != actual_hash:
         raise RuntimeError(
             "question issue correction input hash mismatch: "
@@ -244,8 +327,15 @@ def apply_question_issue_correction_patch(
     patch_path: Path,
     *,
     applied_targets: set[str] | None = None,
+    config_path: Path = DEFAULT_CATEGORY_CONFIG_PATH,
 ) -> int:
     payload = load_correction_patch(patch_path)
+    category_configs = load_category_configs(config_path)
+    category = str(payload.get("category") or "")
+    category_config = category_configs.get(category)
+    if category_config is None:
+        raise ValueError(f"unsupported question issue category: {category}")
+    hash_fields = expected_before_hash_fields(category_config)
     entries_by_id = _entries_by_id(payload, patch_path)
     if any(
         SourceIdentityBinding.from_mapping(entry).is_complete()
@@ -270,7 +360,12 @@ def apply_question_issue_correction_patch(
         entry = entries_by_id.get(str(original_id))
         if entry is None:
             continue
-        if apply_question_issue_correction_entry(question, entry, patch_path):
+        if apply_question_issue_correction_entry(
+            question,
+            entry,
+            patch_path,
+            expected_hash_fields=hash_fields,
+        ):
             update_count += 1
         if applied_targets is not None:
             applied_targets.add(
@@ -308,6 +403,7 @@ def apply_question_issue_correction_index(
                 question,
                 candidate.entry,
                 candidate.path,
+                expected_hash_fields=candidate.expected_hash_fields,
             ):
                 update_count += 1
             if applied_targets is not None:
@@ -325,6 +421,7 @@ def apply_question_issue_correction_paths(
     patch_paths: Iterable[Path],
     *,
     applied_targets: set[str] | None = None,
+    config_path: Path = DEFAULT_CATEGORY_CONFIG_PATH,
 ) -> int:
     updates = 0
     for patch_path in sorted(patch_paths, key=lambda path: path.name):
@@ -332,6 +429,7 @@ def apply_question_issue_correction_paths(
             data,
             patch_path,
             applied_targets=applied_targets,
+            config_path=config_path,
         )
     return updates
 

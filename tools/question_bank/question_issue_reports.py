@@ -30,7 +30,7 @@ from scripts.merge.question_issue_corrections import (
     PATCH_SCHEMA_VERSION,
     apply_question_issue_correction_index,
     build_question_issue_correction_index,
-    question_record_hash,
+    question_issue_record_hash,
     sha256_json,
 )
 from tools.question_bank.question_issue_report_store import (
@@ -953,16 +953,26 @@ def build_correction_patch(
     source_binding: SourceIdentityBinding,
     blind_reviews: list[Mapping[str, Any]],
     challenge: Mapping[str, Any],
+    config: Mapping[str, Any],
 ) -> dict[str, Any]:
     if challenge.get("decision") != "fix":
         raise ValueError("correction patch can only be built for decision=fix")
     blind_hashes = [sha256_json(review) for review in blind_reviews]
     challenge_hash = sha256_json(challenge)
+    category = str(manifest["category"])
+    categories = config.get("categories")
+    category_config = (
+        categories.get(category)
+        if isinstance(categories, Mapping)
+        else None
+    )
+    if not isinstance(category_config, Mapping):
+        raise ValueError(f"unsupported question issue category: {category}")
     return {
         "schemaVersion": PATCH_SCHEMA_VERSION,
         "origin": PATCH_ORIGIN,
         "batchId": manifest["batchId"],
-        "category": manifest["category"],
+        "category": category,
         "caseIds": list(work_item.get("caseIds") or []),
         "inputCaseHashes": dict(work_item.get("caseInputHashes") or {}),
         "reviewProtocol": "blind-a-b-challenge/v1",
@@ -973,7 +983,10 @@ def build_correction_patch(
             {
                 "original_question_id": work_item["originalQuestionId"],
                 **source_binding.as_mapping(),
-                "expectedBeforeHash": question_record_hash(current_record),
+                "expectedBeforeHash": question_issue_record_hash(
+                    current_record,
+                    category_config,
+                ),
                 "changes": copy.deepcopy(challenge["changes"]),
                 "rationale": (
                     "Independent blind A/B reviews produced identical structured "
@@ -1022,6 +1035,7 @@ def verify_patch_against_record(
         index = build_question_issue_correction_index(
             [patch_path],
             [source_identity],
+            config_path=config_path,
         )
         if apply_question_issue_correction_index(
             data,
@@ -1618,6 +1632,7 @@ def process_batch(
                     source_binding=source_identity.binding,
                     blind_reviews=[blind_a, blind_b],
                     challenge=challenge,
+                    config=config,
                 )
                 if execute_publish:
                     patch_path = (

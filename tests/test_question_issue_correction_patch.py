@@ -14,13 +14,14 @@ from scripts.merge.question_issue_corrections import (
     apply_question_issue_correction_paths,
     build_question_issue_correction_index,
     ensure_all_question_issue_corrections_applied,
-    question_record_hash,
+    question_issue_record_hash,
     sha256_json,
 )
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = REPO_ROOT / "config/question_issue_reports.json"
+CATEGORY_CONFIGS = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))["categories"]
 
 
 def current_record() -> dict:
@@ -53,7 +54,10 @@ def valid_patch(record: dict) -> dict:
         "entries": [
             {
                 "original_question_id": "question-1",
-                "expectedBeforeHash": question_record_hash(record),
+                "expectedBeforeHash": question_issue_record_hash(
+                    record,
+                    CATEGORY_CONFIGS["question_content"],
+                ),
                 "changes": {"questionBodyText": "修正後"},
                 "rationale": "公式問題冊子と一致させる",
                 "evidence": [
@@ -179,6 +183,49 @@ class QuestionIssueCorrectionPatchTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "input hash mismatch"):
                 apply_question_issue_correction_patch(
                     {"question_bodies": [copy.deepcopy(record)]},
+                    patch_path,
+                )
+
+    def test_question_content_hash_ignores_downstream_maintenance_fields(self) -> None:
+        record = current_record()
+        downstream_updated = {
+            **record,
+            "correctChoiceText": ["間違い", "正しい"],
+            "explanationText": ["更新後の解説"],
+            "questionSetId": "set-after-maintenance",
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            patch_path = Path(temp_dir) / "patch.json"
+            patch_path.write_text(
+                json.dumps(valid_patch(record), ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            data = {"question_bodies": [copy.deepcopy(downstream_updated)]}
+            self.assertEqual(
+                apply_question_issue_correction_patch(data, patch_path),
+                1,
+            )
+
+        self.assertEqual(data["question_bodies"][0]["questionBodyText"], "修正後")
+        self.assertEqual(
+            data["question_bodies"][0]["explanationText"],
+            ["更新後の解説"],
+        )
+
+    def test_question_content_hash_stops_when_choice_input_changes(self) -> None:
+        record = current_record()
+        content_changed = {**record, "choiceTextList": ["A", "別の選択肢"]}
+        with tempfile.TemporaryDirectory() as temp_dir:
+            patch_path = Path(temp_dir) / "patch.json"
+            patch_path.write_text(
+                json.dumps(valid_patch(record), ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(RuntimeError, "input hash mismatch"):
+                apply_question_issue_correction_patch(
+                    {"question_bodies": [content_changed]},
                     patch_path,
                 )
 

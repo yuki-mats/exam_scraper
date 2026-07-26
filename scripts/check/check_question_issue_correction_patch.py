@@ -27,6 +27,7 @@ from scripts.merge.question_issue_corrections import (  # noqa: E402
     PATCHABLE_FIELDS,
     PATCH_ORIGIN,
     PATCH_SCHEMA_VERSION,
+    expected_before_hash_fields,
     load_correction_patch,
     question_record_hash,
 )
@@ -302,8 +303,14 @@ def validate_patch(
     if not isinstance(category_config, dict):
         errors.append(f"unsupported category: {category}")
         allowed_fields: set[str] = set()
+        hash_fields: tuple[str, ...] = ()
     else:
         allowed_fields = set(category_config.get("allowedChangeFields") or [])
+        try:
+            hash_fields = expected_before_hash_fields(category_config)
+        except ValueError as exc:
+            errors.append(str(exc))
+            hash_fields = ()
 
     records = current_records(current_path)
     seen_identities: set[tuple[str, ...]] = set()
@@ -380,7 +387,10 @@ def validate_patch(
                     f"entry {index}: current record not found uniquely: {exc}"
                 )
                 continue
-            if question_record_hash(current) != expected_hash:
+            if (
+                not hash_fields
+                or question_record_hash(current, fields=hash_fields) != expected_hash
+            ):
                 errors.append(f"entry {index}: expectedBeforeHash does not match current record")
             else:
                 unchanged_fields = sorted(

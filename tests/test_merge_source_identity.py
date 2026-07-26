@@ -350,6 +350,7 @@ class MergeSourceIdentityTests(unittest.TestCase):
                 {
                     "schemaVersion": "question-issue-correction/v1",
                     "origin": "user_problem_report",
+                    "category": "question_content",
                     "entries": [
                         {
                             **self._binding("question_1.json", "key-1"),

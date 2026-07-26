@@ -1441,6 +1441,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 {
                     "schemaVersion": "question-issue-correction/v1",
                     "origin": "user_problem_report",
+                    "category": "question_content",
                     "entries": [
                         {
                             "original_question_id": "orphan-issue",
