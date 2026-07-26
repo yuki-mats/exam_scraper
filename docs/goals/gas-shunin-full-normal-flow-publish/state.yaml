@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-full-normal-flow-publish/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-full-normal-flow-publish"
 
-active_task: T003
+active_task: T014
 
 tasks:
   - id: T001
@@ -397,12 +397,14 @@ tasks:
   - id: T014
     type: worker
     assignee: Worker
-    status: done
+    status: active
     reasoning_hint: high
     objective: "追加エージェントを起動せず、一問を一つのtop-level model turnへ分離して最大64問を同時に整備し、正本の検査・確定も一問単位のまま維持する。"
     allowed_files:
       - "document/operations/local_question_review_console.md"
       - "tools/question_review_console/adaptive_scheduler.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/failed_delta.py"
       - "tools/question_review_console/inventory.py"
       - "tools/question_review_console/qualification_runs.py"
       - "tools/question_review_console/qualification_workflow.py"
@@ -410,7 +412,10 @@ tasks:
       - "tools/question_review_console/static/app.js"
       - "tools/question_review_console/static/index.html"
       - "tests/test_question_review_adaptive_scheduler.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_failed_delta.py"
       - "tests/test_question_review_inventory.py"
+      - "tests/test_question_review_qualification_flow_recovery.py"
       - "tests/test_question_review_qualification_runs.py"
       - "tests/test_question_review_qualification_flow_recovery.py"
       - "tests/test_question_review_server.py"
@@ -426,78 +431,19 @@ tasks:
       - "git diff --check"
       - ".venv/bin/python scripts/check/check_00_source_immutability.py"
       - "server再起動後、UIから乙種未完了runを64並列で再開し、生manifestでpreparation worker上限64、旧ルール指摘0、正常進捗を確認する。"
+      - "launchdのsoft nofile=256から起動してもCodex App Serverが65,536へ引き上げ、64thread後にToo many open filesを発生させない。"
+      - "writer待ち中もpipelineWorkerLimit=128で次waveの64 model turnが起動する。"
+      - "structured_candidate_per_questionの途中再起動で、確定済みchild receiptを回収し、未確定問題だけを再開できる。"
     stop_if:
       - "00_source又は既存questionIdの変更が必要になる。"
       - "modelが正本へ直接書き込む構造になる。"
       - "検査・確定を問題単位で維持できない。"
       - "既存の中断runを安全に再開できない。"
-    receipt:
-      result: done
-      harness: codex
-      changed_files:
-        - document/operations/local_question_review_console.md
-        - tools/question_review_console/inventory.py
-        - tools/question_review_console/qualification_runs.py
-        - tools/question_review_console/qualification_workflow.py
-        - tests/test_question_review_inventory.py
-        - tests/test_question_review_qualification_runs.py
-        - tests/test_question_review_server.py
-        - tests/test_question_review_workflow.py
-      commits:
-        - sha: d0fa80b2d
-          subject: "問題整備の入力準備を64問並列化"
-        - sha: 088c61f86
-          subject: "問題整備の年度索引構築を並列化"
-        - sha: 8a044ef29
-          subject: "問題整備を1問1turnの64並列へ統一"
-        - sha: d38aa3d57
-          subject: "一問turnのprompt再計画を除去"
-        - sha: b8b7abd97
-          subject: "問題整備runの64並列ロックを分離"
-        - sha: 7cd5fb779
-          subject: "64問の親queue更新を一括化"
-      push:
-        remote: origin/main
-        status: pass
-        head_equals_origin_main: true
-      commands:
-        - cmd: "tests/test_question_review_qualification_runs.py"
-          status: pass
-          evidence: "123 passed, 15 subtests passed in 50.94s"
-        - cmd: "関連7 test file"
-          status: pass
-          evidence: "200 passed, 23 subtests passed in 15.40s"
-        - cmd: "py_compile、node --check、git diff --check"
-          status: pass
-        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
-          status: pass
-          evidence: "5799 files unchanged"
-      live_readback:
-        parent_run_id: 20260726T215859467555-8c772bea
-        qualification: gas-shunin-otsu
-        status: running
-        current_phase_id: question_type
-        queue_order: question_turn
-        model_batch_size: 1
-        model_worker_limit: 64
-        preparation_worker_limit: 64
-        prepared_count_at_first_wave: 64
-        registered_child_count_at_first_wave: 64
-        child_progress_target_count:
-          expected: 1
-          matched_children: 64
-        aggregate_review_checkpoint_sidecars: 64
-        turn_budget:
-          capacity: 64
-          peak_in_flight: 64
-          waiting_at_peak: 0
-        old_rule_log_hits: 0
-        error: null
-      summary: "一問一turn、準備64並列、model turn最大64並列へ一本化した。大容量parent manifestの全体lock・問題ごとの親書込み・集約回答checkpointの親埋込みを除去し、path単位lock、checkpoint sidecar、64child一括登録、結果一括反映、heartbeat抑制へ変更した。UIから開始した乙種全問runで64childが一括登録され、全childの対象が一問、App ServerのpeakInFlightが64、旧ルール指摘0、00_source差分なしを生データで確認した。"
+    receipt: null
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: queued
     reasoning_hint: medium
     objective: "問題整備システムUIから乙種2017〜2025年の全年度群を通常フローで整備・評価し、公開直前の現行成果物まで完了する。"
     allowed_files:
