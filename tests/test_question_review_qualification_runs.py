@@ -2722,6 +2722,51 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [visible["runId"]],
         )
 
+    def test_recent_prefers_the_parent_run_updated_most_recently(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root,
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            resumed = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="interrupted",
+                prompt="resumed parent",
+            )
+            duplicate = coordinator.store.create(
+                FakeWorkflow().plan("sample", "law_audit"),
+                status="failed",
+                prompt="later duplicate",
+            )
+            coordinator.store.update(
+                "sample",
+                resumed["runId"],
+                error="再開後に中断した。",
+            )
+            resumed_manifest = coordinator.store.get(
+                "sample",
+                resumed["runId"],
+            )
+            resumed_manifest["updatedAt"] = "2099-01-01T00:00:00+09:00"
+            QualificationRunStore._write_json(
+                coordinator.store._manifest_path(
+                    "sample",
+                    resumed["runId"],
+                ),
+                resumed_manifest,
+            )
+
+            recent = coordinator.recent("sample")
+
+        self.assertEqual(
+            [run["runId"] for run in recent["runs"][:2]],
+            [resumed["runId"], duplicate["runId"]],
+        )
+
     def test_unsafe_category_setup_stops_dependent_queue_and_sync(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

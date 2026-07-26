@@ -5619,17 +5619,28 @@ class QualificationRunCoordinator:
         return {"run": run, "prompt": None, "job": job}
 
     def recent(self, qualification: str) -> dict[str, Any]:
-        runs = [
-            self._refresh_retry_safety(qualification, run)
-            for run in self.store.list(
-                qualification,
-                limit=100,
-                top_level_only=True,
-            )
-            if run.get("workType") not in {"evaluation", "reevaluation"}
-            and not run.get("parentRunId")
-            and run.get("schemaVersion") != "failed-delta-reconciliation/v1"
-        ][:8]
+        runs = sorted(
+            [
+                self._refresh_retry_safety(qualification, run)
+                for run in self.store.list(
+                    qualification,
+                    limit=100,
+                    top_level_only=True,
+                )
+                if run.get("workType") not in {"evaluation", "reevaluation"}
+                and not run.get("parentRunId")
+                and run.get("schemaVersion") != "failed-delta-reconciliation/v1"
+            ],
+            key=lambda run: (
+                str(
+                    run.get("updatedAt")
+                    or run.get("createdAt")
+                    or ""
+                ),
+                str(run.get("runId") or ""),
+            ),
+            reverse=True,
+        )[:8]
         return {
             "qualification": qualification,
             "runs": runs,
