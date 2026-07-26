@@ -14102,25 +14102,16 @@ class QualificationRunCoordinator:
     ) -> list[str]:
         """Limit failed-delta resolution to the current run's write contract."""
 
-        if not group_ids:
-            return list(
-                resolvable_failed_delta_paths(
-                    self.repo_root,
-                    qualification,
-                    plan,
-                )
+        # The plan's write contract and targetRecordScopes already limit which
+        # failed deltas it can resolve. Scanning once at qualification scope is
+        # therefore equivalent to scanning the same historical manifests once
+        # per selected group, while avoiding repeated reads of large manifests.
+        return list(
+            resolvable_failed_delta_paths(
+                self.repo_root,
+                qualification,
+                plan,
             )
-        return sorted(
-            {
-                path
-                for group_id in group_ids
-                for path in resolvable_failed_delta_paths(
-                    self.repo_root,
-                    qualification,
-                    plan,
-                    str(group_id),
-                )
-            }
         )
 
     def _token(self, payload: Mapping[str, Any]) -> str:

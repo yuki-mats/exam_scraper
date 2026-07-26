@@ -1,3 +1,5 @@
+from unittest import mock
+
 from tests.qualification_run_test_support import *  # noqa: F403
 
 
@@ -835,6 +837,42 @@ class QualificationIdentityContractTests(QualificationRunTestSupport):
             }
             coordinator._validate_changed_files(
                 "sample", "run-1", run, (), ()
+            )
+
+    def test_resolvable_failed_delta_scan_runs_once_for_multiple_groups(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            plan = {
+                "qualification": "sample",
+                "targetGroupIds": ["2025", "2026"],
+                "allowedPatchDirs": ["21_explanationText_added"],
+                "allowedWriteAreas": [],
+                "allowedPatchFiles": [],
+                "allowedWriteFiles": [],
+                "targetRecordScopes": {},
+            }
+            with mock.patch(
+                "tools.question_review_console.qualification_runs."
+                "resolvable_failed_delta_paths",
+                return_value=("output/sample/resolved.json",),
+            ) as resolver:
+                result = coordinator._resolvable_for_plan(
+                    "sample",
+                    ["2025", "2026"],
+                    plan,
+                )
+
+            self.assertEqual(result, ["output/sample/resolved.json"])
+            resolver.assert_called_once_with(
+                coordinator.repo_root,
+                "sample",
+                plan,
             )
 
     def test_write_transaction_prefers_exact_files_to_whole_patch_directory(self):
