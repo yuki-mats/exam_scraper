@@ -1879,7 +1879,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         )[1].split("function selectedQualificationRunMode()", 1)[0]
         self.assertIn(".qualification-active-run[hidden]", css)
         self.assertIn("container.hidden = true", active_run)
-        self.assertNotIn("container.hidden = false", active_run)
+        self.assertIn("container.hidden = false", active_run)
         self.assertIn('class="maintenance-dashboard-summary" hidden', html)
         self.assertIn(
             'class="qualification-active-run idle" aria-live="polite" '
