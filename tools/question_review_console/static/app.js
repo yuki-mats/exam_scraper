@@ -2845,11 +2845,10 @@ function renderQualificationActiveRun() {
   const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
-    const modelBatchSize = Number(run.modelBatchSize || 1);
     const modelWorkerLimit = Number(
       run.modelWorkerLimit || run.questionConcurrency || 1,
     );
-    parallelLabel = ` ・ 入力別に最大${modelBatchSize}問・model turn最大${modelWorkerLimit}本並列・検査と確定は1問ずつ`;
+    parallelLabel = ` ・ 1問1model turn・最大${modelWorkerLimit}問並列・検査と確定も1問ずつ`;
   } else if (view.active && run.executionPhase === "parallel_research") {
     parallelLabel = " ・ 判断調査中（1 thread・読取専用）";
   } else if (view.active && run.executionPhase === "writing") {
@@ -3473,7 +3472,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `最大${preview.questionConcurrency}問を並列準備・入力別の自動batch・Standard（全資格合計64turn、検査と確定は1問ずつ）`,
+          `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（全資格合計64turn、検査と確定も1問ずつ）`,
         ),
       );
     }

@@ -949,13 +949,14 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             ]
             for _question_id, prompt in writer_calls
         ]
+        self.assertTrue(all(len(batch) == 1 for batch in writer_batches))
         self.assertEqual(
-            writer_batches,
-            [
-                [failed_question_id, succeeded_question_id],
-                [failed_question_id],
-                [failed_question_id],
-            ],
+            writer_batches.count([failed_question_id]),
+            3,
+        )
+        self.assertEqual(
+            writer_batches.count([succeeded_question_id]),
+            1,
         )
         failed_retry_prompt = [
             prompt
@@ -998,7 +999,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             ],
         )
 
-    def test_per_question_pipeline_finishes_each_question_before_the_next(self):
+    def test_per_question_pipeline_uses_independent_turns_with_phase_barriers(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             jobs = JobManager()
@@ -1033,17 +1034,28 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             run = coordinator.store.get("new-exam", started["run"]["runId"])
 
         self.assertEqual(job["status"], "succeeded", job)
-        self.assertEqual(run["queueOrder"], "question_batch")
+        self.assertEqual(run["queueOrder"], "question_turn")
+        work_types = [
+            kwargs["work_type"] for _question, _prompt, kwargs in app_server.calls
+        ]
         self.assertEqual(
-            [kwargs["work_type"] for _question, _prompt, kwargs in app_server.calls],
-            ["maintenance_question_type_candidate", "maintenance_question_intent_candidate"],
+            work_types.count("maintenance_question_type_candidate"),
+            2,
         )
         self.assertEqual(
-            app_server.batch_calls,
-            [
-                ("new-exam-2026-q1", "new-exam-2026-q2"),
-                ("new-exam-2026-q1", "new-exam-2026-q2"),
-            ],
+            work_types.count("maintenance_question_intent_candidate"),
+            2,
+        )
+        self.assertEqual(
+            sorted(app_server.batch_calls),
+            sorted(
+                [
+                    ("new-exam-2026-q1",),
+                    ("new-exam-2026-q2",),
+                    ("new-exam-2026-q1",),
+                    ("new-exam-2026-q2",),
+                ]
+            ),
         )
         self.assertLessEqual(app_server.max_active_writers, 2)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])

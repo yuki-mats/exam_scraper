@@ -509,7 +509,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             "blocked",
         )
 
-    def test_two_question_flow_batches_projection_start_and_result_updates(self):
+    def test_two_question_flow_keeps_projection_batch_but_uses_one_model_turn_per_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             source_dir = (
@@ -577,10 +577,10 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         batches = [call.args[2] for call in update_question_stages.call_args_list]
         self.assertEqual(run["queueStatus"], "succeeded")
         self.assertEqual(run["validatedWorkItemCount"], 4)
-        self.assertEqual(run["modelBatchSize"], 2)
-        self.assertEqual(len(children), 2)
+        self.assertEqual(run["modelBatchSize"], 1)
+        self.assertEqual(len(children), 4)
         self.assertTrue(
-            all(len(child["progressTargets"]) == 2 for child in children)
+            all(len(child["progressTargets"]) == 1 for child in children)
         )
         self.assertTrue(
             all(
@@ -601,7 +601,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                len(batch) == 2
+                len(batch) == 1
                 and all(
                     (item.get("changes") or {}).get("status") == "committing"
                     for item in batch
@@ -611,7 +611,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                len(batch) == 2
+                len(batch) == 1
                 and all(
                     (item.get("changes") or {}).get("status") == "validated"
                     for item in batch
@@ -3447,7 +3447,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 encoding="utf-8",
             )
 
-    def test_five_questions_use_one_model_turn_without_read_only_preparation(self):
+    def test_five_questions_use_five_independent_model_turns(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
@@ -3467,13 +3467,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(app_server.batch_calls, [tuple(
-            f"new-exam-2026-q{number}" for number in range(1, 6)
-        )])
-        self.assertEqual(len(completed["childRunIds"]), 1)
+        self.assertEqual(
+            sorted(app_server.batch_calls),
+            sorted(
+                [(f"new-exam-2026-q{number}",) for number in range(1, 6)]
+            ),
+        )
+        self.assertEqual(len(completed["childRunIds"]), 5)
         self.assertEqual(completed["validatedQuestionCount"], 5)
-        self.assertEqual(completed["modelBatchSize"], 5)
-        self.assertEqual(completed["modelWorkerLimit"], 1)
+        self.assertEqual(completed["modelBatchSize"], 1)
+        self.assertEqual(completed["modelWorkerLimit"], 5)
 
     def test_preparation_streams_ready_chunk_before_scanning_all_questions(self):
         class StreamingInventory(CountedSourceInventory):
@@ -3519,11 +3522,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(inventory.model_started.is_set())
         self.assertEqual(
-            app_server.batch_calls,
-            [
-                ("new-exam-2026-q1", "new-exam-2026-q2"),
-                ("new-exam-2026-q3",),
-            ],
+            sorted(app_server.batch_calls),
+            sorted(
+                [
+                    ("new-exam-2026-q1",),
+                    ("new-exam-2026-q2",),
+                    ("new-exam-2026-q3",),
+                ]
+            ),
         )
         self.assertEqual(completed["preparationProgress"]["status"], "prepared")
         self.assertEqual(completed["preparationProgress"]["preparedCount"], 3)
@@ -3550,21 +3556,40 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(
-            app_server.batch_calls,
-            [
-                tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
-                ("new-exam-2026-q1",),
-                ("new-exam-2026-q1",),
-            ],
+        call_counts = {
+            question_id: app_server.batch_calls.count((question_id,))
+            for question_id in (
+                f"new-exam-2026-q{number}" for number in range(1, 7)
+            )
+        }
+        self.assertEqual(call_counts["new-exam-2026-q1"], 3)
+        self.assertTrue(
+            all(
+                call_counts[f"new-exam-2026-q{number}"] == 1
+                for number in range(2, 7)
+            )
         )
         self.assertEqual(completed["validatedQuestionCount"], 5)
         self.assertEqual(completed["blockedQuestionCount"], 1)
+        models_by_question = {
+            question_id: [
+                kwargs["model"]
+                for value, _prompt, kwargs in app_server.calls
+                if value == question_id
+            ]
+            for question_id in call_counts
+        }
         self.assertEqual(
-            [kwargs["model"] for _question_id, _prompt, kwargs in app_server.calls],
+            sorted(models_by_question["new-exam-2026-q1"]),
             ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
         )
-        self.assertEqual(len(app_server.aggregate_review_calls), 2)
+        self.assertTrue(
+            all(
+                models_by_question[f"new-exam-2026-q{number}"] == ["gpt-5.5"]
+                for number in range(2, 7)
+            )
+        )
+        self.assertEqual(len(app_server.aggregate_review_calls), 12)
         self.assertTrue(
             all(
                 kwargs["model"] == "gpt-5.5"
@@ -4645,7 +4670,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ["validated", "blocked"],
         )
 
-    def test_small_ten_question_input_uses_one_token_aware_turn(self):
+    def test_small_ten_question_input_uses_independent_concurrent_turns(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = PerQuestionQueueAppServer()
@@ -4666,9 +4691,60 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(app_server.max_active_writers, 1)
-        self.assertEqual(len(app_server.batch_calls), 1)
-        self.assertEqual(len(app_server.batch_calls[0]), 10)
+        self.assertGreater(app_server.max_active_writers, 1)
+        self.assertLessEqual(app_server.max_active_writers, 10)
+        self.assertEqual(len(app_server.batch_calls), 10)
+        self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
+
+    def test_sixty_four_questions_start_sixty_four_independent_model_turns(self):
+        class SixtyFourTurnAppServer(PerQuestionQueueAppServer):
+            def __init__(self):
+                super().__init__()
+                self.started = 0
+                self.started_lock = threading.Lock()
+                self.all_started = threading.Event()
+
+            def run_turn(self, prompt, **kwargs):
+                if kwargs["work_type"] == "maintenance_question_type_candidate":
+                    with self.started_lock:
+                        self.started += 1
+                        if self.started == 64:
+                            self.all_started.set()
+                    if not self.all_started.wait(10):
+                        raise AssertionError(
+                            "64問のmodel turnが同時に開始しませんでした。"
+                        )
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = SixtyFourTurnAppServer()
+            app_server.writer_delay = 0.1
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(64),
+                ["question_type"],
+                app_server=app_server,
+                question_concurrency=64,
+            )
+            self._write_counted_sources(root, 64)
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertTrue(app_server.all_started.is_set())
+        self.assertEqual(app_server.started, 64)
+        self.assertEqual(len(app_server.batch_calls), 64)
+        self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
+        self.assertEqual(completed["modelBatchSize"], 1)
+        self.assertEqual(completed["modelWorkerLimit"], 64)
+        self.assertEqual(len(completed["childRunIds"]), 64)
+        self.assertEqual(completed["validatedQuestionCount"], 64)
 
     def test_one_provider_timeout_is_retried_after_other_questions(self):
         class TimeoutOnceAppServer(PerQuestionQueueAppServer):
@@ -4709,13 +4785,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertEqual(
-            app_server.batch_calls,
-            [
-                tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
-                tuple(f"new-exam-2026-q{number}" for number in range(1, 7)),
-            ],
-        )
+        self.assertEqual(len(app_server.batch_calls), 7)
+        self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
+        counts = {
+            question_id: app_server.batch_calls.count((question_id,))
+            for question_id in (
+                f"new-exam-2026-q{number}" for number in range(1, 7)
+            )
+        }
+        self.assertEqual(sorted(counts.values()), [1, 1, 1, 1, 1, 2])
 
     def test_started_unresolved_review_slot_blocks_without_rerun(self):
         class ReviewTimeoutAppServer(PerQuestionQueueAppServer):
@@ -5163,7 +5241,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
             report_saved = (root / completed["improvementReportPath"]).is_file()
 
-        self.assertEqual(len(app_server.calls), 2)
+        self.assertEqual(len(app_server.calls), 4)
         self.assertEqual(completed["status"], "interrupted")
         self.assertEqual(completed["queueStatus"], "partial")
         self.assertTrue(completed["retrySafe"])
@@ -5215,8 +5293,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(completed["status"], "succeeded")
-        self.assertEqual(app_server.recovery_attempts, [1, 2])
-        self.assertEqual(len(app_server.calls), 3)
+        self.assertEqual(app_server.recovery_attempts, [1])
+        self.assertEqual(len(app_server.calls), 4)
         self.assertTrue(
             all(
                 stage["status"] == "validated"
@@ -5259,7 +5337,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 )
             completed = coordinator.store.get("new-exam", parent["runId"])
 
-        self.assertEqual(len(app_server.calls), 2)
+        self.assertEqual(len(app_server.calls), 4)
         self.assertEqual(completed["status"], "interrupted")
         self.assertEqual(
             [
@@ -5301,7 +5379,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(len(app_server.calls), 1)
+        self.assertEqual(len(app_server.calls), 2)
         self.assertEqual(completed["status"], "succeeded")
         self.assertIsNone(completed["pauseKind"])
         self.assertTrue(completed["retrySafe"])
@@ -5315,7 +5393,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
 
 
-    def test_batch_prompt_contains_deterministic_question_identity_and_projection(self):
+    def test_each_question_prompt_contains_deterministic_identity_and_projection(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app_server = FlowAppServer()
@@ -5337,14 +5415,22 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 if kwargs["work_type"] == "maintenance_question_type_candidate"
             ]
 
-        self.assertEqual(len(batch_prompts), 1)
-        prompt = batch_prompts[0]
-        self.assertIn('"questionId":"new-exam-2026-q1"', prompt)
-        self.assertIn('"questionId":"new-exam-2026-q2"', prompt)
-        self.assertIn('"sourceRecordRef":"question_2026_1.json#0"', prompt)
-        self.assertIn('"sourceRecordRef":"question_2026_2.json#0"', prompt)
-        self.assertEqual(prompt.count('"currentRecord":'), 2)
-        self.assertIn("file、shell、progress、receipt、git、外部状態は変更しない", prompt)
+        self.assertEqual(len(batch_prompts), 2)
+        combined = "\n".join(batch_prompts)
+        self.assertIn('"questionId":"new-exam-2026-q1"', combined)
+        self.assertIn('"questionId":"new-exam-2026-q2"', combined)
+        self.assertIn('"sourceRecordRef":"question_2026_1.json#0"', combined)
+        self.assertIn('"sourceRecordRef":"question_2026_2.json#0"', combined)
+        self.assertTrue(
+            all(prompt.count('"currentRecord":') == 1 for prompt in batch_prompts)
+        )
+        self.assertTrue(
+            all(
+                "file、shell、progress、receipt、git、外部状態は変更しない"
+                in prompt
+                for prompt in batch_prompts
+            )
+        )
 
     def test_each_batch_prompt_lists_only_its_own_questions(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -5373,13 +5459,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 if kwargs["work_type"] == "maintenance_question_type_candidate"
             ]
 
-        self.assertEqual(len(batch_prompts), 2)
+        self.assertEqual(len(batch_prompts), 3)
         all_source_names = {
             f"question_2026_{index}.json"
             for index in range(1, 4)
         }
         for prompt in batch_prompts:
             questions = PerQuestionQueueAppServer._candidate_questions(prompt)
+            self.assertEqual(len(questions), 1)
             source_names = {
                 Path(question["sourceIdentity"]["sourceRecordRef"].split("#", 1)[0]).name
                 for question in questions
@@ -6540,7 +6627,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for child_id in run["childRunIds"]
             ]
             child = next(
-                value for value in children if value.get("aggregateReviewThreadIds")
+                value
+                for value in children
+                if str(value["progressTargets"][0]["id"])
+                == "new-exam-2026-q1"
             )
             projected_paths = [
                 stage["projectedInputPath"]
@@ -6558,13 +6648,21 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         self.assertEqual(len(set(projected_paths)), 2)
         review_calls = [
-            (prompt, kwargs)
-            for _question, prompt, kwargs in app_server.aggregate_review_calls
+            (question_id, prompt, kwargs)
+            for question_id, prompt, kwargs in app_server.aggregate_review_calls
         ]
         self.assertGreaterEqual(len(review_calls), 2)
-        self.assertEqual(review_calls[0][0], review_calls[1][0])
+        review_calls_by_question = {}
+        for question_id, prompt, kwargs in review_calls:
+            review_calls_by_question.setdefault(question_id, []).append(
+                (prompt, kwargs)
+            )
+        child_question_id = str(child["progressTargets"][0]["id"])
+        child_review_calls = review_calls_by_question[child_question_id]
+        self.assertEqual(len(child_review_calls), 2)
+        self.assertEqual(child_review_calls[0][0], child_review_calls[1][0])
         review_questions = PerQuestionQueueAppServer._candidate_questions(
-            review_calls[0][0]
+            child_review_calls[0][0]
         )
         self.assertEqual(
             review_questions[0]["choiceTextList"],
@@ -6579,11 +6677,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(len(set(child["aggregateReviewThreadIds"])), 2)
         self.assertEqual(
-            [kwargs["model"] for _prompt, kwargs in review_calls[:2]],
+            [kwargs["model"] for _prompt, kwargs in child_review_calls],
             ["gpt-5.5", "gpt-5.5"],
         )
         self.assertTrue(
-            all(kwargs["reasoning_effort"] == "high" for _prompt, kwargs in review_calls[:2])
+            all(
+                kwargs["reasoning_effort"] == "high"
+                for _prompt, kwargs in child_review_calls
+            )
         )
         self.assertEqual(
             [entry["model"] for entry in child["aggregateReviewExecutions"]],
@@ -6599,11 +6700,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(
             all(
                 result["aggregateAnswerReview"]["sourceHash"].startswith("sha256:")
-                for result in child["batchQuestionResults"]
+                for value in children
+                for result in value["batchQuestionResults"]
             )
         )
         results_by_id = {
-            result["questionId"]: result for result in child["batchQuestionResults"]
+            result["questionId"]: result
+            for value in children
+            for result in value["batchQuestionResults"]
         }
         target_result = results_by_id["new-exam-2026-q1"]
         self.assertEqual(

@@ -1723,7 +1723,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('name="qualification-run-speed"', html)
         self.assertIn("応答モードはStandard固定です", html)
         self.assertIn("追加Codex creditsとAPI従量課金は使用しません", html)
-        self.assertIn("準備は最大64問を同時に進めます", html)
+        self.assertIn("1資格だけなら最大64問を同時に進めます", html)
         self.assertIn("model turnは全資格合計64本を超えず", html)
         self.assertIn("検査と確定は一問単位", html)
         self.assertIn("複数選択可", javascript)
@@ -2035,7 +2035,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-13"
+        asset_version = "question-review-ui-v3-20260726-14"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

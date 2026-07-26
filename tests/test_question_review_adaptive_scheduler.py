@@ -2,23 +2,24 @@ import unittest
 
 from tools.question_review_console.adaptive_scheduler import (
     DEFAULT_MAX_PARALLEL_TURNS,
+    DEFAULT_MAX_QUESTIONS_PER_TURN,
     AdaptiveLimits,
-    pack_by_token_budget,
+    scheduler_status,
 )
 
 
 class AdaptiveSchedulerTest(unittest.TestCase):
-    def test_packs_by_payload_size_instead_of_fixed_question_count(self):
-        values = ["a" * 300, "b" * 300, "c" * 30]
-
-        batches = pack_by_token_budget(
-            values,
-            payload=lambda value: {"body": value},
-            token_budget=8_000,
-            max_questions=2,
+    def test_one_question_is_assigned_to_each_model_turn(self):
+        limits = AdaptiveLimits.initial(pending_batches=80)
+        status = scheduler_status(
+            limits,
+            batch_count=80,
+            in_flight_questions=80,
         )
 
-        self.assertEqual([len(batch) for batch in batches], [2, 1])
+        self.assertEqual(DEFAULT_MAX_QUESTIONS_PER_TURN, 1)
+        self.assertEqual(status["questionsPerTurn"], 1)
+        self.assertEqual(status["turnCount"], 80)
 
     def test_initial_parallelism_uses_all_available_batches_up_to_safety_cap(self):
         limits = AdaptiveLimits.initial(pending_batches=17, max_parallel_turns=32)
@@ -38,13 +39,13 @@ class AdaptiveSchedulerTest(unittest.TestCase):
 
         self.assertEqual(limits.parallel_turns, 6)
 
-    def test_schema_failure_reduces_batch_budget_without_reducing_quality_checks(self):
-        limits = AdaptiveLimits(parallel_turns=8, batch_token_budget=60_000)
+    def test_schema_failure_retries_only_that_question_without_reducing_parallelism(self):
+        limits = AdaptiveLimits(parallel_turns=8)
 
         limits.observe(schema_failure=True)
 
         self.assertEqual(limits.parallel_turns, 8)
-        self.assertEqual(limits.batch_token_budget, 30_000)
+        self.assertEqual(limits.success_streak, 0)
 
 
 if __name__ == "__main__":

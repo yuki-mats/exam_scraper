@@ -118,8 +118,6 @@ from tools.question_review_console.adaptive_scheduler import (
     DEFAULT_MAX_PARALLEL_TURNS,
     DEFAULT_MAX_QUESTIONS_PER_TURN,
     AdaptiveLimits,
-    estimated_tokens,
-    pack_by_token_budget,
     scheduler_status,
 )
 from tools.question_review_console.review_store import atomic_write
@@ -174,7 +172,6 @@ class QuestionValidationResult:
 
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 32, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
-STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE = 12_000
 PREPARATION_CHUNK_SIZE = 64
 PREPARATION_MAX_PARALLEL_QUESTIONS = 64
 PREPARATION_HEARTBEAT_SECONDS = 15.0
@@ -6208,7 +6205,7 @@ class QualificationRunCoordinator:
                     "childRunIds": [],
                     "questionExecutions": question_executions,
                     "queueStatus": "queued",
-                    "queueOrder": "question_batch",
+                    "queueOrder": "question_turn",
                 }
                 run = self.store.create(
                     flow_plan,
@@ -8159,7 +8156,7 @@ class QualificationRunCoordinator:
             workType=f"maintenance_{stage_id}_candidate",
             sandbox="read-only",
             provider=self.app_server.provider,
-            parallelStrategy="structured_candidate_batch",
+            parallelStrategy="structured_candidate_per_question",
             parallelWorkerLimit=1,
             writeWorkerLimit=1,
             parentSourceChecked=True,
@@ -8443,8 +8440,9 @@ class QualificationRunCoordinator:
                 min(configured_provider_attempts, 10),
             )
         emit(
-            "入力token量でmodel turnを自動分割し、"
-            f"最大{question_concurrency}本を同時実行します。検査と確定は1問ずつです。"
+            "一問を一つのmodel turnへ分離し、"
+            f"最大{question_concurrency}問を同時に整備します。"
+            "検査と確定も1問ずつです。"
         )
 
         def preparation_heartbeat(
@@ -8641,6 +8639,10 @@ class QualificationRunCoordinator:
             phase: Mapping[str, Any],
             phase_prompt: str,
         ) -> dict[str, Any]:
+            if len(specs) != 1:
+                raise QualificationRunError(
+                    "候補生成は一問一つのmodel turnで実行してください。"
+                )
             stage_id = str(phase["id"])
             retry_flags = {
                 spec_requires_retry_model(spec, stage_id) for spec in specs
@@ -9221,10 +9223,6 @@ class QualificationRunCoordinator:
                 round_question_index = self._question_execution_index(
                     round_parent
                 )
-                prompt_tokens = min(
-                    estimated_tokens(phase_prompt),
-                    STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE,
-                )
                 batches: list[list[Mapping[str, Any]]] = []
                 outcome_futures = []
                 prepared_count = 0
@@ -9342,31 +9340,7 @@ class QualificationRunCoordinator:
                             ]
                             if not model_specs:
                                 continue
-                            chunk_batches.extend(
-                                pack_by_token_budget(
-                                    model_specs,
-                                    payload=lambda spec: {
-                                        "target": spec["target"],
-                                        "projectedInput": (
-                                            self.repo_root
-                                            / str(
-                                                spec["target"].get(
-                                                    "_projectedInputPath"
-                                                )
-                                                or ""
-                                            )
-                                        ).read_text(encoding="utf-8"),
-                                    },
-                                    token_budget=max(
-                                        8_000,
-                                        scheduler_limits.batch_token_budget
-                                        - prompt_tokens,
-                                    ),
-                                    max_questions=(
-                                        DEFAULT_MAX_QUESTIONS_PER_TURN
-                                    ),
-                                )
-                            )
+                            chunk_batches.extend([[spec] for spec in model_specs])
                         for batch in chunk_batches:
                             batches.append(batch)
                             maximum_batch_size = max(
@@ -9570,9 +9544,17 @@ class QualificationRunCoordinator:
                 for value in parent.get("phaseExecutions") or []
                 if isinstance(value, Mapping)
             ]
-            if str(parent.get("queueOrder") or "") != "question_batch":
+            queue_order = str(parent.get("queueOrder") or "")
+            if queue_order not in {"question_batch", "question_turn"}:
                 raise QualificationRunError(
                     "一問queue契約が不正です。対象範囲から新規開始してください。"
+                )
+            if queue_order != "question_turn":
+                parent = self.store.update(
+                    qualification,
+                    run_id,
+                    queueOrder="question_turn",
+                    modelBatchSize=DEFAULT_MAX_QUESTIONS_PER_TURN,
                 )
             queue_result = self._run_question_queue(
                 qualification,

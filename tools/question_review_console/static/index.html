@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-13">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-14">
   </head>
   <body>
     <header class="app-header">
@@ -293,7 +293,7 @@
               <label><input type="radio" name="qualification-run-concurrency" value="32"><span>32</span></label>
               <label><input type="radio" name="qualification-run-concurrency" value="64" checked><span>64</span></label>
             </div>
-            <small class="run-concurrency-note">準備は最大64問を同時に進めます。model turnは全資格合計64本を超えず、複数資格へ公平に配分します。検査と確定は一問単位です。</small>
+            <small class="run-concurrency-note">一問を一つのmodel turnで整備し、1資格だけなら最大64問を同時に進めます。model turnは全資格合計64本を超えず、複数資格へ公平に配分します。検査と確定は一問単位です。</small>
           </fieldset>
           <p class="inline-notice">応答モードはStandard固定です。追加Codex creditsとAPI従量課金は使用しません。</p>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
@@ -524,6 +524,6 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=question-review-ui-v3-20260726-13"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260726-14"></script>
   </body>
 </html>
