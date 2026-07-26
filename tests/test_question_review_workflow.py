@@ -1978,6 +1978,31 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn("scheduleQuestionStats", javascript)
         self.assertIn("detailCache: new Map()", javascript)
         self.assertIn("renderDetailLoading(summary)", javascript)
+        self.assertIn("questionContentApiVersion: 0", javascript)
+        self.assertIn(
+            "session.questionContentApiVersion || 0",
+            javascript,
+        )
+        self.assertIn(
+            'state.questionContentApiVersion >= 1',
+            javascript,
+        )
+        self.assertIn(
+            '? "question-content"',
+            javascript,
+        )
+        self.assertIn(
+            "await api(questionContentPath(questionId, params))",
+            javascript,
+        )
+        self.assertIn(
+            "questionContentPath(current.id, params, true)",
+            javascript,
+        )
+        self.assertIn(
+            "fingerprint.detailVersion !== current.detailVersion",
+            javascript,
+        )
 
     def test_visible_audit_view_restores_its_route_and_data_loading(self):
         root = Path(__file__).resolve().parents[1]
@@ -2035,7 +2060,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-14"
+        asset_version = "question-review-ui-v3-20260726-15"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

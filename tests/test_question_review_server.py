@@ -822,6 +822,44 @@ class QuestionReviewServerTests(unittest.TestCase):
         )
         self.assertEqual(command[-1], "sample")
 
+    def test_builds_question_detail_read_model_in_an_isolated_process(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+
+            class Result:
+                returncode = 0
+                stdout = json.dumps(
+                    {
+                        "cacheKey": "sample--2026",
+                        "qualification": "sample",
+                        "listGroupId": "2026",
+                        "questionsById": {},
+                    }
+                )
+                stderr = ""
+
+            with patch(
+                "tools.question_review_console.server.subprocess.run",
+                return_value=Result(),
+            ) as runner:
+                snapshot = app._load_question_detail_read_model(
+                    "sample--2026"
+                )
+
+        self.assertEqual(snapshot["qualification"], "sample")
+        self.assertEqual(snapshot["listGroupId"], "2026")
+        command = runner.call_args.args[0]
+        self.assertIn(
+            "tools.question_review_console.question_detail_read_model_builder",
+            command,
+        )
+        self.assertEqual(command[-4:], [
+            "--qualification",
+            "sample",
+            "--list-group-id",
+            "2026",
+        ])
+
     def test_updates_qualification_law_workflow_setting(self):
         class Workflow:
             def set_law_workflow_enabled(self, qualification, enabled):
@@ -1385,6 +1423,180 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertFalse(question_lists.wait_for_initial)
         self.assertTrue(result["loading"])
         self.assertEqual(result["questions"], [])
+
+    def test_question_content_reads_one_question_from_materialized_snapshot(self):
+        class QuestionDetails:
+            def get(self, cache_key, *, wait_for_initial):
+                self.request = (cache_key, wait_for_initial)
+                return {
+                    "cacheKey": cache_key,
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "questionsById": {
+                        "question-1": {
+                            "id": "question-1",
+                            "qualification": "sample",
+                            "listGroupId": "2026",
+                            "questionLabel": "問1",
+                            "projected": {
+                                "questionBodyText": "本文",
+                                "choiceTextList": ["A", "B"],
+                            },
+                            "detailVersion": "detail-version",
+                        }
+                    },
+                    "cache": {
+                        "refreshing": False,
+                        "stale": False,
+                        "refreshError": None,
+                    },
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            question_details = QuestionDetails()
+            app.question_detail_read_models = question_details
+            app._question = lambda _question_id, _query: self.fail(
+                "materialized detail must not load the full inventory group"
+            )
+
+            result = app._question_content(
+                "question-1",
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                },
+            )
+
+        self.assertEqual(
+            question_details.request,
+            ("sample--2026", False),
+        )
+        self.assertFalse(result["loading"])
+        self.assertEqual(result["detailVersion"], "detail-version")
+        self.assertEqual(result["projected"]["choiceTextList"], ["A", "B"])
+
+    def test_cold_question_content_returns_loading_without_sync_projection(self):
+        class QuestionDetails:
+            def get(self, _cache_key, *, wait_for_initial):
+                self.wait_for_initial = wait_for_initial
+                return None
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            question_details = QuestionDetails()
+            app.question_detail_read_models = question_details
+            app._question = lambda _question_id, _query: self.fail(
+                "cold detail must not project synchronously"
+            )
+
+            result = app._question_content(
+                "question-1",
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                },
+            )
+
+        self.assertFalse(question_details.wait_for_initial)
+        self.assertTrue(result["loading"])
+        self.assertTrue(result["cache"]["refreshing"])
+        self.assertFalse(result["cache"]["waitingForRun"])
+
+    def test_cold_question_content_uses_raw_snapshot_during_active_run(self):
+        class QuestionDetails:
+            def get(self, _cache_key, *, wait_for_initial):
+                return None
+
+        class Jobs:
+            def has_conflict(self, _key):
+                return True
+
+        raw = {
+            "id": "question-1",
+            "qualification": "sample",
+            "listGroupId": "2026",
+            "questionLabel": "問1",
+            "body": "本文",
+            "issues": [],
+            "issueCodes": [],
+            "projected": {
+                "questionBodyText": "本文",
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["正しい", "間違い"],
+                "firestoreSourceQuestions": [{"unused": True}],
+            },
+            "workVersions": {"unused": True},
+            "liveReadback": {"unused": True},
+        }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.question_detail_read_models = QuestionDetails()
+            app.jobs = Jobs()
+            app._question = lambda _question_id, _query: raw
+            app._decorate = lambda _question: self.fail(
+                "active-run fallback must not decorate admin state"
+            )
+
+            result = app._question_content(
+                "question-1",
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                },
+            )
+
+        self.assertFalse(result["loading"])
+        self.assertTrue(result["cache"]["waitingForRun"])
+        self.assertEqual(result["projected"]["choiceTextList"], ["A", "B"])
+        self.assertNotIn("firestoreSourceQuestions", result["projected"])
+        self.assertNotIn("workVersions", result)
+        self.assertNotIn("liveReadback", result)
+
+    def test_question_content_fingerprint_returns_lightweight_version(self):
+        class QuestionDetails:
+            def get(self, _cache_key, *, wait_for_initial):
+                return {
+                    "cacheKey": "sample--2026",
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "questionsById": {
+                        "question-1": {
+                            "id": "question-1",
+                            "qualification": "sample",
+                            "listGroupId": "2026",
+                            "detailVersion": "detail-version",
+                            "stateHash": "state-hash",
+                            "contentUpdatedAt": "2026-07-26T10:00:00+09:00",
+                        }
+                    },
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.question_detail_read_models = QuestionDetails()
+
+            status, result = app.get(
+                "/api/question-content/question-1/fingerprint",
+                {
+                    "qualification": ["sample"],
+                    "listGroupId": ["2026"],
+                },
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(
+            result,
+            {
+                "id": "question-1",
+                "detailVersion": "detail-version",
+                "stateHash": "state-hash",
+                "contentUpdatedAt": "2026-07-26T10:00:00+09:00",
+                "loading": False,
+                "cache": {},
+            },
+        )
 
     def test_question_list_is_paginated(self):
         class Inventory:
@@ -2038,6 +2250,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     session["uiContractVersion"],
                     "question-review-ui/v3",
                 )
+                self.assertEqual(session["questionContentApiVersion"], 1)
                 connection.close()
 
                 wrong_device_headers = {

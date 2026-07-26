@@ -177,6 +177,9 @@ const state = {
   selectedId: "",
   detail: null,
   detailCache: new Map(),
+  detailRequestSequence: 0,
+  detailRefreshTimer: null,
+  questionContentApiVersion: 0,
   questionListRequestSequence: 0,
   questionListRefreshTimer: null,
   qualificationWorkflow: null,
@@ -555,6 +558,9 @@ async function refreshDashboard() {
     includeQuestions: auditOpen,
   });
   try {
+    window.clearTimeout(state.detailRefreshTimer);
+    state.detailRefreshTimer = null;
+    state.detailRequestSequence += 1;
     state.detailCache.clear();
     const results = await Promise.allSettled([
       trackMaintenanceLoadingStep(
@@ -750,6 +756,9 @@ function renderAuditViewHeading() {
 function invalidateAuditView() {
   window.clearTimeout(state.questionListRefreshTimer);
   state.questionListRefreshTimer = null;
+  window.clearTimeout(state.detailRefreshTimer);
+  state.detailRefreshTimer = null;
+  state.detailRequestSequence += 1;
   state.questionListRequestSequence += 1;
   state.detailCache.clear();
   state.auditView.loadedScopeKey = "";
@@ -889,6 +898,9 @@ async function restoreVisibleAuditView() {
 
 function handleAuditViewBack() {
   if (state.auditView.page === "detail") {
+    window.clearTimeout(state.detailRefreshTimer);
+    state.detailRefreshTimer = null;
+    state.detailRequestSequence += 1;
     const selectedId = state.selectedId;
     state.detail = null;
     setAuditViewPage("list");
@@ -906,6 +918,9 @@ function closeAuditView(options = {}) {
   if (!state.auditView.open && $("#audit-view").hidden) return;
   window.clearTimeout(state.questionListRefreshTimer);
   state.questionListRefreshTimer = null;
+  window.clearTimeout(state.detailRefreshTimer);
+  state.detailRefreshTimer = null;
+  state.detailRequestSequence += 1;
   closeWorkflowGuide({ reopenRun: false });
   clearSelectionToolbar(true);
   state.auditView.open = false;
@@ -944,6 +959,9 @@ async function initialize() {
       );
     }
     state.token = session.sessionToken;
+    state.questionContentApiVersion = Number(
+      session.questionContentApiVersion || 0,
+    );
     state.inventory = inventory;
     state.codexStatus = codexStatus;
     state.evaluationEnabled = session.evaluationEnabled === true && codexStatus.allowed === true;
@@ -4774,7 +4792,18 @@ function normalizeVerdict(value) {
   return value || "";
 }
 
+function questionContentPath(questionId, params, fingerprint = false) {
+  const resource = state.questionContentApiVersion >= 1
+    ? "question-content"
+    : "questions";
+  const suffix = fingerprint ? "/fingerprint" : "";
+  return `/api/${resource}/${encodeURIComponent(questionId)}${suffix}?${params}`;
+}
+
 async function loadDetail(questionId) {
+  window.clearTimeout(state.detailRefreshTimer);
+  state.detailRefreshTimer = null;
+  const requestSequence = ++state.detailRequestSequence;
   window.clearTimeout(state.questionListRefreshTimer);
   state.questionListRefreshTimer = null;
   state.selectedId = questionId;
@@ -4800,8 +4829,19 @@ async function loadDetail(questionId) {
       qualification: state.qualification,
       listGroupId: summary?.listGroupId || state.listGroupId,
     });
-    const detail = await api(`/api/questions/${questionId}?${params}`);
-    if (state.selectedId !== questionId || state.auditView.page !== "detail") return;
+    const detail = await api(questionContentPath(questionId, params));
+    if (
+      requestSequence !== state.detailRequestSequence
+      || state.selectedId !== questionId
+      || state.auditView.page !== "detail"
+    ) return;
+    if (detail.loading === true) {
+      state.detailRefreshTimer = window.setTimeout(
+        () => loadDetail(questionId),
+        detail.cache?.waitingForRun ? 1200 : 350,
+      );
+      return;
+    }
     state.detailCache.delete(questionId);
     state.detailCache.set(questionId, {
       version: summary?.detailVersion || detail.stateHash || "",
@@ -4814,6 +4854,7 @@ async function loadDetail(questionId) {
     renderQueue();
     $("#detail-pane h2")?.focus({ preventScroll: true });
   } catch (error) {
+    if (requestSequence !== state.detailRequestSequence) return;
     toast(error.message, true);
     if (state.selectedId === questionId && state.auditView.page === "detail") {
       renderLoadError(error.message, () => loadDetail(questionId), summary);
@@ -7599,18 +7640,25 @@ async function checkFingerprint() {
   const current = state.detail;
   const params = new URLSearchParams({ qualification: current.qualification, listGroupId: current.listGroupId });
   try {
-    const fingerprint = await api(`/api/questions/${current.id}/fingerprint?${params}`);
-    if (
-      fingerprint.stateHash !== current.stateHash
-      || fingerprint.reviewStatus !== current.reviewStatus
-      || !same(fingerprint.issueCodes || [], current.issueCodes || [])
-      || fingerprint.workflowFirestore !== current.workflow?.firestore
-      || fingerprint.evaluationStatus !== current.evaluation?.status
-      || (fingerprint.evaluationResultHash || "") !== (current.evaluation?.resultHash || "")
-      || fingerprint.publishReady !== current.publishReady
-      || fingerprint.nextAction !== current.nextAction
-    ) {
+    const fingerprint = await api(
+      questionContentPath(current.id, params, true),
+    );
+    if (fingerprint.loading === true) return;
+    const contentChanged = fingerprint.detailVersion
+      ? fingerprint.detailVersion !== current.detailVersion
+      : (
+        fingerprint.stateHash !== current.stateHash
+        || fingerprint.reviewStatus !== current.reviewStatus
+        || !same(fingerprint.issueCodes || [], current.issueCodes || [])
+        || fingerprint.workflowFirestore !== current.workflow?.firestore
+        || fingerprint.evaluationStatus !== current.evaluation?.status
+        || (fingerprint.evaluationResultHash || "") !== (current.evaluation?.resultHash || "")
+        || fingerprint.publishReady !== current.publishReady
+        || fingerprint.nextAction !== current.nextAction
+      );
+    if (contentChanged) {
       toast("対象問題の更新を検出しました。");
+      state.detailCache.delete(current.id);
       await loadQualificationWorkflow(true);
       await loadQualificationRuns();
       await loadQuestions(true);

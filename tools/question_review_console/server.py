@@ -52,6 +52,13 @@ from tools.question_review_console.law_audit_contract import (
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
+from tools.question_review_console.question_detail_read_model import (
+    QUESTION_DETAIL_READ_MODEL_SCHEMA,
+    parse_question_detail_cache_key,
+    question_detail_cache_key,
+    question_detail_content,
+    validate_question_detail_read_model,
+)
 from tools.question_review_console.question_list_read_model import (
     QUESTION_LIST_READ_MODEL_SCHEMA,
     validate_question_list_read_model,
@@ -351,6 +358,20 @@ class QuestionReviewApplication:
             validator=validate_question_list_read_model,
             thread_name_prefix="question-list",
         )
+        self.question_detail_read_models = WorkflowOverviewCache(
+            self.repo_root,
+            self._load_question_detail_read_model,
+            refresh_allowed=lambda cache_key: not self.jobs.has_conflict(
+                qualification_operation_key(
+                    parse_question_detail_cache_key(cache_key)[0]
+                )
+            ),
+            cache_subdirectory="question_details",
+            schema_version=QUESTION_DETAIL_READ_MODEL_SCHEMA,
+            payload_field="snapshot",
+            validator=validate_question_detail_read_model,
+            thread_name_prefix="question-detail",
+        )
         self.inventory.add_invalidation_listener(
             self._invalidate_qualification_read_models
         )
@@ -468,13 +489,57 @@ class QuestionReviewApplication:
             raise ValueError("問題一覧の表示用データがobjectではありません。")
         return value
 
+    def _load_question_detail_read_model(
+        self,
+        cache_key: str,
+    ) -> Mapping[str, Any]:
+        qualification, list_group_id = parse_question_detail_cache_key(
+            cache_key
+        )
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "tools.question_review_console.question_detail_read_model_builder",
+                "--repo-root",
+                str(self.repo_root),
+                "--qualification",
+                qualification,
+                "--list-group-id",
+                list_group_id,
+            ],
+            cwd=self.repo_root,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=15 * 60,
+        )
+        if completed.returncode != 0:
+            detail = (completed.stderr or completed.stdout).strip()
+            raise ValueError(
+                "問題詳細の表示用データ作成に失敗しました。"
+                + (f" {detail[-2000:]}" if detail else "")
+            )
+        try:
+            value = json.loads(completed.stdout)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                "問題詳細の表示用データがJSONではありません。"
+            ) from exc
+        if not isinstance(value, Mapping):
+            raise ValueError("問題詳細の表示用データがobjectではありません。")
+        return value
+
     def _invalidate_qualification_read_models(
         self,
         qualification: str,
-        _list_group_id: str,
+        list_group_id: str,
     ) -> None:
         self.workflow_overviews.invalidate(qualification)
         self.question_list_read_models.invalidate(qualification)
+        self.question_detail_read_models.invalidate(
+            question_detail_cache_key(qualification, list_group_id)
+        )
 
     def get(self, path: str, query: Mapping[str, list[str]]) -> tuple[int, Any]:
         if path == "/api/session":
@@ -482,6 +547,7 @@ class QuestionReviewApplication:
             return HTTPStatus.OK, {
                 "sessionToken": self.session_token,
                 "uiContractVersion": UI_CONTRACT_VERSION,
+                "questionContentApiVersion": 1,
                 "projectId": PRODUCTION_PROJECT_ID,
                 "readOnlyFirestore": False,
                 "firestoreWriteEnabled": True,
@@ -620,6 +686,25 @@ class QuestionReviewApplication:
             }
         if path.startswith("/api/jobs/"):
             return HTTPStatus.OK, self.jobs.get(path.removeprefix("/api/jobs/"))
+        if path.startswith("/api/question-content/"):
+            suffix = path.removeprefix("/api/question-content/")
+            fingerprint_only = suffix.endswith("/fingerprint")
+            question_id = (
+                suffix.removesuffix("/fingerprint")
+                if fingerprint_only
+                else suffix
+            )
+            content = self._question_content(question_id, query)
+            if fingerprint_only and content.get("loading") is not True:
+                return HTTPStatus.OK, {
+                    "id": content["id"],
+                    "detailVersion": content["detailVersion"],
+                    "stateHash": content.get("stateHash"),
+                    "contentUpdatedAt": content.get("contentUpdatedAt"),
+                    "loading": False,
+                    "cache": copy.deepcopy(content.get("cache") or {}),
+                }
+            return HTTPStatus.OK, content
         if path.startswith("/api/questions/"):
             suffix = path.removeprefix("/api/questions/")
             if suffix.endswith("/fingerprint"):
@@ -1706,6 +1791,131 @@ class QuestionReviewApplication:
             "fingerprint": "|".join(group["fingerprint"] for group in groups),
             "questions": summaries,
         }
+
+    def _question_content(
+        self,
+        question_id: str,
+        query: Mapping[str, list[str]],
+    ) -> dict[str, Any]:
+        """Return the stable content used by the read-only detail screen."""
+
+        if not question_id:
+            raise ApiError(HTTPStatus.BAD_REQUEST, "questionIdが必要です。")
+        qualification = _query_value(query, "qualification")
+        list_group_id = _query_value(query, "listGroupId")
+        if not qualification or not list_group_id:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "qualificationとlistGroupIdを指定してください。",
+            )
+
+        actual_group_id = list_group_id
+        if list_group_id == ALL_LIST_GROUPS:
+            list_snapshot = self.question_list_read_models.get(
+                qualification,
+                wait_for_initial=False,
+            )
+            if list_snapshot is None:
+                waiting_for_run = self.jobs.has_conflict(
+                    qualification_operation_key(qualification)
+                )
+                return {
+                    "id": question_id,
+                    "loading": True,
+                    "cache": {
+                        "refreshing": not waiting_for_run,
+                        "stale": True,
+                        "waitingForRun": waiting_for_run,
+                        "refreshError": None,
+                    },
+                }
+            summary = next(
+                (
+                    value
+                    for value in list_snapshot.get("questions") or []
+                    if isinstance(value, Mapping)
+                    and str(value.get("id") or "") == question_id
+                ),
+                None,
+            )
+            if summary is None:
+                raise ApiError(
+                    HTTPStatus.NOT_FOUND,
+                    "対象問題がありません。",
+                )
+            actual_group_id = str(summary.get("listGroupId") or "")
+            if not actual_group_id:
+                raise ApiError(
+                    HTTPStatus.NOT_FOUND,
+                    "対象問題の年度・実施回を確認できません。",
+                )
+
+        cache_key = question_detail_cache_key(
+            qualification,
+            actual_group_id,
+        )
+        snapshot = self.question_detail_read_models.get(
+            cache_key,
+            wait_for_initial=False,
+        )
+        if snapshot is None:
+            waiting_for_run = self.jobs.has_conflict(
+                qualification_operation_key(qualification)
+            )
+            if waiting_for_run:
+                raw = self._question(
+                    question_id,
+                    {
+                        "qualification": [qualification],
+                        "listGroupId": [actual_group_id],
+                    },
+                )
+                content = question_detail_content(raw)
+                content["loading"] = False
+                content["cache"] = {
+                    "refreshing": False,
+                    "stale": True,
+                    "waitingForRun": True,
+                    "refreshError": None,
+                }
+                return content
+            return {
+                "id": question_id,
+                "loading": True,
+                "cache": {
+                    "refreshing": True,
+                    "stale": True,
+                    "waitingForRun": False,
+                    "refreshError": None,
+                },
+            }
+
+        questions_by_id = snapshot.get("questionsById")
+        questions_by_id = (
+            questions_by_id
+            if isinstance(questions_by_id, Mapping)
+            else {}
+        )
+        raw_content = questions_by_id.get(question_id)
+        if not isinstance(raw_content, Mapping):
+            raise ApiError(
+                HTTPStatus.NOT_FOUND,
+                "対象問題がありません。",
+            )
+        content = copy.deepcopy(dict(raw_content))
+        if str(content.get("qualification") or "") != qualification:
+            raise ApiError(
+                HTTPStatus.NOT_FOUND,
+                "対象資格の問題ではありません。",
+            )
+        if str(content.get("listGroupId") or "") != actual_group_id:
+            raise ApiError(
+                HTTPStatus.NOT_FOUND,
+                "対象年度・実施回の問題ではありません。",
+            )
+        content["loading"] = False
+        content["cache"] = copy.deepcopy(snapshot.get("cache") or {})
+        return content
 
     def _question(
         self, question_id: str, query: Mapping[str, list[str]]
