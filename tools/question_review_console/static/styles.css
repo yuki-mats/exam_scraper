@@ -210,15 +210,12 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 #maintenance-dashboard[aria-busy="true"][data-has-content="false"] .maintenance-year-section {
   display: none;
 }
-#maintenance-dashboard[aria-busy="true"][data-has-content="true"] .maintenance-year-section {
-  opacity: 0.62;
-  pointer-events: none;
-}
 .maintenance-dashboard-controls {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
   align-items: end;
+  justify-self: center;
   gap: 8px;
   width: min(420px, 100%);
 }

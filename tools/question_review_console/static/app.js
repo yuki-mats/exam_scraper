@@ -186,11 +186,14 @@ const state = {
   qualificationActiveRun: null,
   qualificationActiveJob: null,
   qualificationRunProgress: null,
+  qualificationRunStatusQualification: "",
   dashboardRefreshing: false,
   maintenanceLoading: {
     active: false,
     startedAt: 0,
     timer: null,
+    requestSequence: 0,
+    requestController: null,
     includeQuestions: false,
     steps: {},
     progress: 0,
@@ -341,7 +344,16 @@ function setLoading(message, busy = false) {
   node.setAttribute("aria-busy", String(busy));
 }
 
-function setMaintenanceLoadingStep(stepId, status) {
+function maintenanceLoadingRequestIsCurrent(requestSequence) {
+  return requestSequence === state.maintenanceLoading.requestSequence;
+}
+
+function setMaintenanceLoadingStep(
+  stepId,
+  status,
+  requestSequence = state.maintenanceLoading.requestSequence,
+) {
+  if (!maintenanceLoadingRequestIsCurrent(requestSequence)) return;
   if (!(stepId in state.maintenanceLoading.steps)) return;
   state.maintenanceLoading.steps[stepId] = status;
   renderMaintenanceLoadingProgress();
@@ -411,6 +423,11 @@ function startMaintenanceLoading({
   activeSteps = [],
   includeQuestions = false,
 }) {
+  state.maintenanceLoading.requestController?.abort();
+  const requestSequence = state.maintenanceLoading.requestSequence + 1;
+  const requestController = new AbortController();
+  state.maintenanceLoading.requestSequence = requestSequence;
+  state.maintenanceLoading.requestController = requestController;
   const panel = $("#maintenance-loading");
   panel.hidden = false;
   panel.classList.remove("error");
@@ -450,45 +467,61 @@ function startMaintenanceLoading({
   const dashboard = $("#maintenance-dashboard");
   dashboard.dataset.hasContent = String(Boolean(state.qualificationWorkflow));
   dashboard.setAttribute("aria-busy", "true");
-  $("#qualification-select").disabled = true;
   renderMaintenanceLoadingProgress();
+  return {
+    requestSequence,
+    signal: requestController.signal,
+  };
 }
 
-function trackMaintenanceLoadingStep(stepId, promise) {
-  setMaintenanceLoadingStep(stepId, "active");
+function trackMaintenanceLoadingStep(
+  stepId,
+  promise,
+  requestSequence = state.maintenanceLoading.requestSequence,
+) {
+  setMaintenanceLoadingStep(stepId, "active", requestSequence);
   return Promise.resolve(promise).then(
     (result) => {
-      setMaintenanceLoadingStep(stepId, result === false ? "error" : "done");
+      setMaintenanceLoadingStep(
+        stepId,
+        result === false ? "error" : "done",
+        requestSequence,
+      );
       return result;
     },
     (error) => {
-      setMaintenanceLoadingStep(stepId, "error");
+      setMaintenanceLoadingStep(stepId, "error", requestSequence);
       throw error;
     },
   );
 }
 
-function releaseMaintenanceLoadingControls() {
+function releaseMaintenanceLoadingControls(requestSequence) {
+  if (!maintenanceLoadingRequestIsCurrent(requestSequence)) return false;
   state.maintenanceLoading.active = false;
   window.clearInterval(state.maintenanceLoading.timer);
   state.maintenanceLoading.timer = null;
+  state.maintenanceLoading.requestController = null;
   $("#maintenance-loading").classList.remove("is-active");
   $("#maintenance-dashboard").setAttribute("aria-busy", "false");
-  $("#qualification-select").disabled = false;
+  return true;
 }
 
-async function finishMaintenanceLoading() {
+async function finishMaintenanceLoading(requestSequence) {
+  if (!maintenanceLoadingRequestIsCurrent(requestSequence)) return;
   $("#maintenance-loading-elapsed").textContent = "反映中";
-  setMaintenanceLoadingStep("apply", "active");
+  setMaintenanceLoadingStep("apply", "active", requestSequence);
   await new Promise((resolve) => window.setTimeout(resolve, 80));
-  setMaintenanceLoadingStep("apply", "done");
+  if (!maintenanceLoadingRequestIsCurrent(requestSequence)) return;
+  setMaintenanceLoadingStep("apply", "done", requestSequence);
   state.maintenanceLoading.progress = 100;
   renderMaintenanceLoadingProgress();
-  releaseMaintenanceLoadingControls();
+  if (!releaseMaintenanceLoadingControls(requestSequence)) return;
   $("#maintenance-loading").hidden = true;
 }
 
-function failMaintenanceLoading(message) {
+function failMaintenanceLoading(message, requestSequence) {
+  if (!maintenanceLoadingRequestIsCurrent(requestSequence)) return;
   const panel = $("#maintenance-loading");
   panel.hidden = false;
   panel.classList.remove("is-active");
@@ -499,7 +532,7 @@ function failMaintenanceLoading(message) {
   $("#maintenance-loading-meter").setAttribute("aria-invalid", "true");
   $("#maintenance-loading-retry").hidden = false;
   renderMaintenanceLoadingProgress();
-  releaseMaintenanceLoadingControls();
+  releaseMaintenanceLoadingControls(requestSequence);
 }
 
 function loadingResultsSucceeded(results) {
@@ -513,7 +546,8 @@ async function refreshDashboard() {
   state.dashboardRefreshing = true;
   clearEvaluationSelection();
   const auditOpen = auditViewIsOpen();
-  startMaintenanceLoading({
+  const qualification = state.qualification;
+  const loadingRequest = startMaintenanceLoading({
     title: "最新の状態を取得しています",
     message: "整備状況と実行中の作業を並行して確認しています。",
     activeSteps: ["workflow", "runs", ...(auditOpen ? ["questions"] : [])],
@@ -522,29 +556,47 @@ async function refreshDashboard() {
   try {
     state.detailCache.clear();
     const results = await Promise.allSettled([
-      trackMaintenanceLoadingStep("workflow", loadQualificationWorkflow(true)),
-      trackMaintenanceLoadingStep("runs", loadQualificationRuns()),
+      trackMaintenanceLoadingStep(
+        "workflow",
+        loadQualificationWorkflow(true, false, {
+          qualification,
+          signal: loadingRequest.signal,
+        }),
+        loadingRequest.requestSequence,
+      ),
+      trackMaintenanceLoadingStep(
+        "runs",
+        loadQualificationRuns({
+          qualification,
+          signal: loadingRequest.signal,
+        }),
+        loadingRequest.requestSequence,
+      ),
       auditOpen
         ? trackMaintenanceLoadingStep(
           "questions",
           ensureAuditViewQuestions(true, { refresh: true }),
+          loadingRequest.requestSequence,
         )
         : Promise.resolve(true),
     ]);
+    if (!maintenanceLoadingRequestIsCurrent(loadingRequest.requestSequence)) return;
     if (!auditOpen) {
       invalidateAuditView();
     }
     if (loadingResultsSucceeded(results)) {
-      await finishMaintenanceLoading();
+      await finishMaintenanceLoading(loadingRequest.requestSequence);
       toast("最新の状態に更新しました。");
     } else {
       failMaintenanceLoading(
         "表示できた情報はそのまま利用できます。時間を置いてもう一度読み込んでください。",
+        loadingRequest.requestSequence,
       );
       toast("一部の情報を更新できませんでした。画面の表示を確認してください。", true);
     }
   } catch (error) {
-    failMaintenanceLoading(error.message);
+    if (!maintenanceLoadingRequestIsCurrent(loadingRequest.requestSequence)) return;
+    failMaintenanceLoading(error.message, loadingRequest.requestSequence);
     toast(error.message, true);
   } finally {
     state.dashboardRefreshing = false;
@@ -872,7 +924,7 @@ async function initialize() {
   const params = new URLSearchParams(location.search);
   const restoreAuditFirst = params.get("view") === "questions"
     || !$("#audit-view").hidden;
-  startMaintenanceLoading({
+  const loadingRequest = startMaintenanceLoading({
     title: "問題整備システムを準備しています",
     message: "接続状態と資格情報を確認しています。",
     activeSteps: ["connection"],
@@ -904,7 +956,11 @@ async function initialize() {
       : "";
     initializeSelectors();
     restoreCachedQualificationWorkflow();
-    setMaintenanceLoadingStep("connection", "done");
+    setMaintenanceLoadingStep(
+      "connection",
+      "done",
+      loadingRequest.requestSequence,
+    );
     state.maintenanceLoading.fallbackLabel =
       `${qualificationDisplayName()}を更新しています`;
     document.addEventListener("visibilitychange", () => {
@@ -919,28 +975,50 @@ async function initialize() {
     const initialResults = [];
     if (restoreAuditFirst) {
       initialResults.push(...await Promise.allSettled([
-        trackMaintenanceLoadingStep("questions", restoreVisibleAuditView()),
+        trackMaintenanceLoadingStep(
+          "questions",
+          restoreVisibleAuditView(),
+          loadingRequest.requestSequence,
+        ),
       ]));
     }
     initialResults.push(...await Promise.allSettled([
       trackMaintenanceLoadingStep(
         "workflow",
-        loadQualificationWorkflow(false),
+        loadQualificationWorkflow(false, false, {
+          qualification: state.qualification,
+          signal: loadingRequest.signal,
+        }),
+        loadingRequest.requestSequence,
       ),
-      trackMaintenanceLoadingStep("runs", loadQualificationRuns()),
+      trackMaintenanceLoadingStep(
+        "runs",
+        loadQualificationRuns({
+          qualification: state.qualification,
+          signal: loadingRequest.signal,
+        }),
+        loadingRequest.requestSequence,
+      ),
     ]));
     window.setInterval(pollSharedRunProgress, 3000);
+    if (!maintenanceLoadingRequestIsCurrent(loadingRequest.requestSequence)) return;
     if (!loadingResultsSucceeded(initialResults)) {
       failMaintenanceLoading(
         "表示できた情報はそのまま利用できます。再読込すると取得をやり直します。",
+        loadingRequest.requestSequence,
       );
       toast("一部の情報を読み込めませんでした。表示できた情報から確認できます。", true);
     } else {
-      await finishMaintenanceLoading();
+      await finishMaintenanceLoading(loadingRequest.requestSequence);
     }
   } catch (error) {
-    setMaintenanceLoadingStep("connection", "error");
-    failMaintenanceLoading(error.message);
+    if (!maintenanceLoadingRequestIsCurrent(loadingRequest.requestSequence)) return;
+    setMaintenanceLoadingStep(
+      "connection",
+      "error",
+      loadingRequest.requestSequence,
+    );
+    failMaintenanceLoading(error.message, loadingRequest.requestSequence);
     toast(error.message, true);
     setLoading("起動に失敗しました");
   }
@@ -951,17 +1029,24 @@ function bindControls() {
     closeWorkflowGuide({ reopenRun: false });
     closeAuditView({ restoreFocus: false });
     clearEvaluationSelection();
-    state.qualification = event.target.value;
+    const qualification = event.target.value;
+    state.qualification = qualification;
     state.listGroupId = ALL_LIST_GROUPS;
     state.qualificationWorkflow = null;
     state.qualificationRuns = [];
     state.qualificationActiveRun = null;
     state.qualificationRunProgress = null;
+    state.qualificationRunStatusQualification = "";
     populateGroups();
-    restoreCachedQualificationWorkflow();
+    const restoredWorkflow = restoreCachedQualificationWorkflow();
+    if (!restoredWorkflow) {
+      $("#maintenance-dashboard").dataset.hasContent = "false";
+      $("#maintenance-year-progress").replaceChildren();
+    }
     invalidateAuditView();
     state.detailCache.clear();
-    startMaintenanceLoading({
+    updateUrl();
+    const loadingRequest = startMaintenanceLoading({
       title: `${qualificationDisplayName()}を取得しています`,
       message: "整備状況と実行中の作業を確認しています。",
       activeSteps: ["workflow", "runs"],
@@ -969,18 +1054,30 @@ function bindControls() {
     const results = await Promise.allSettled([
       trackMaintenanceLoadingStep(
         "workflow",
-        loadQualificationWorkflow(false),
+        loadQualificationWorkflow(false, false, {
+          qualification,
+          signal: loadingRequest.signal,
+        }),
+        loadingRequest.requestSequence,
       ),
-      trackMaintenanceLoadingStep("runs", loadQualificationRuns()),
+      trackMaintenanceLoadingStep(
+        "runs",
+        loadQualificationRuns({
+          qualification,
+          signal: loadingRequest.signal,
+        }),
+        loadingRequest.requestSequence,
+      ),
     ]);
+    if (!maintenanceLoadingRequestIsCurrent(loadingRequest.requestSequence)) return;
     if (loadingResultsSucceeded(results)) {
-      await finishMaintenanceLoading();
+      await finishMaintenanceLoading(loadingRequest.requestSequence);
     } else {
       failMaintenanceLoading(
         "表示できた情報はそのまま利用できます。時間を置いてもう一度読み込んでください。",
+        loadingRequest.requestSequence,
       );
     }
-    updateUrl();
   });
   $("#law-workflow-enabled").addEventListener("change", saveLawWorkflowSetting);
   $("#group-select").addEventListener("change", async (event) => {
@@ -1213,12 +1310,21 @@ function updateUrl() {
   history.replaceState(null, "", `${location.pathname}?${params}`);
 }
 
-async function loadQualificationWorkflow(preserveSelection = true, quiet = false) {
-  if (!state.qualification) return false;
-  const previousWorkflow = state.qualificationWorkflow?.qualification === state.qualification
+async function loadQualificationWorkflow(
+  preserveSelection = true,
+  quiet = false,
+  options = {},
+) {
+  const qualification = options.qualification || state.qualification;
+  if (!qualification) return false;
+  const requestIsCurrent = () => (
+    qualification === state.qualification
+    && !options.signal?.aborted
+  );
+  const previousWorkflow = state.qualificationWorkflow?.qualification === qualification
     ? state.qualificationWorkflow
     : null;
-  if (!quiet) {
+  if (!quiet && requestIsCurrent()) {
     $("#qualification-workflow-status").textContent = "確認中";
     $("#qualification-workflow-action").disabled = true;
     $("#qualification-workflow-guide").disabled = true;
@@ -1226,8 +1332,11 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     $("#law-workflow-setting-status").textContent = "資格設定を確認中";
   }
   try {
-    const params = new URLSearchParams({ qualification: state.qualification });
-    const workflow = await api(`/api/qualification-workflow?${params}`);
+    const params = new URLSearchParams({ qualification });
+    const workflow = await api(`/api/qualification-workflow?${params}`, {
+      signal: options.signal,
+    });
+    if (!requestIsCurrent()) return false;
     state.qualificationWorkflow = workflow;
     cacheQualificationWorkflow(workflow);
     $("#maintenance-dashboard").dataset.hasContent = "true";
@@ -1243,6 +1352,7 @@ async function loadQualificationWorkflow(preserveSelection = true, quiet = false
     renderQualificationWorkflow();
     return true;
   } catch (error) {
+    if (!requestIsCurrent() || error.name === "AbortError") return false;
     if (quiet) return false;
     state.qualificationWorkflow = previousWorkflow;
     renderLawWorkflowSetting();
@@ -1526,6 +1636,9 @@ function renderMaintenanceDashboard() {
   if (!workflow) return;
   const activeRun = state.qualificationActiveRun;
   const liveProgress = state.qualificationRunProgress;
+  const runStatusKnown = (
+    state.qualificationRunStatusQualification === state.qualification
+  );
   const isRunning = Boolean(activeRun && ["queued", "running", "validating"].includes(activeRun.status));
   const latestRun = displayedQualificationRun();
   const latestRunProgress = qualificationRunProgressForRun(
@@ -1666,7 +1779,9 @@ function renderMaintenanceDashboard() {
       working ? "進捗を見る" : resumable ? "未完了を再開" : "整備・洗い替え",
     );
     action.type = "button";
-    action.disabled = !working && !resumable && (isRunning || workflow.restartRequired);
+    action.disabled = !working
+      && !resumable
+      && (!runStatusKnown || isRunning || workflow.restartRequired);
     action.setAttribute(
       "aria-label",
       working
@@ -2107,17 +2222,28 @@ async function executeQualificationWorkflowAction() {
   openQualificationRunDialog(stage);
 }
 
-async function loadQualificationRuns({ includeLatestProgress = false } = {}) {
-  if (!state.qualification) return false;
-  const qualification = state.qualification;
+async function loadQualificationRuns({
+  includeLatestProgress = false,
+  qualification = state.qualification,
+  signal,
+} = {}) {
+  if (!qualification) return false;
+  const requestIsCurrent = () => (
+    qualification === state.qualification
+    && !signal?.aborted
+  );
   const previousProgress = state.qualificationRunProgress;
   try {
     const params = new URLSearchParams({ qualification });
-    const payload = await api(`/api/qualification-runs?${params}`);
-    if (qualification !== state.qualification) return false;
+    const payload = await api(`/api/qualification-runs?${params}`, { signal });
+    if (!requestIsCurrent()) return false;
     state.qualificationRuns = payload.runs || [];
     state.qualificationActiveRun = payload.activeRun || null;
     state.qualificationActiveJob = null;
+    state.qualificationRunStatusQualification = qualification;
+    renderQualificationActiveRun();
+    renderMaintenanceDashboard();
+    renderLawWorkflowSetting();
     const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null;
     if (visibleRun?.runId) {
       const params = new URLSearchParams({ qualification });
@@ -2127,12 +2253,16 @@ async function loadQualificationRuns({ includeLatestProgress = false } = {}) {
       const shouldLoadProgress = Boolean(state.qualificationActiveRun || includeLatestProgress);
       const [jobResult, progressResult] = await Promise.allSettled([
         activeJobId
-          ? api(`/api/jobs/${encodeURIComponent(activeJobId)}/summary`)
+          ? api(`/api/jobs/${encodeURIComponent(activeJobId)}/summary`, { signal })
           : Promise.resolve(null),
         shouldLoadProgress
-          ? api(`/api/qualification-runs/${encodeURIComponent(visibleRun.runId)}/progress?${params}`)
+          ? api(
+            `/api/qualification-runs/${encodeURIComponent(visibleRun.runId)}/progress?${params}`,
+            { signal },
+          )
           : Promise.resolve(null),
       ]);
+      if (!requestIsCurrent()) return false;
       state.qualificationActiveJob = jobResult.status === "fulfilled" ? jobResult.value : null;
       const fetchedProgress = progressResult.status === "fulfilled" ? progressResult.value : null;
       state.qualificationRunProgress = fetchedProgress
@@ -2141,6 +2271,8 @@ async function loadQualificationRuns({ includeLatestProgress = false } = {}) {
       state.qualificationRunProgress = null;
     }
   } catch (error) {
+    if (!requestIsCurrent() || error.name === "AbortError") return false;
+    state.qualificationRunStatusQualification = "";
     state.qualificationRuns = [];
     state.qualificationActiveRun = null;
     state.qualificationActiveJob = null;

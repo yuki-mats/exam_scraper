@@ -1853,14 +1853,22 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             refresh,
         )
         self.assertIn(
-            'trackMaintenanceLoadingStep("workflow", loadQualificationWorkflow(true))',
+            "loadQualificationWorkflow(true, false, {",
             refresh,
         )
         self.assertIn(
-            'trackMaintenanceLoadingStep("runs", loadQualificationRuns())',
+            "loadQualificationRuns({",
             refresh,
         )
-        self.assertIn("await finishMaintenanceLoading()", refresh)
+        self.assertIn("signal: loadingRequest.signal", refresh)
+        self.assertIn(
+            "maintenanceLoadingRequestIsCurrent(loadingRequest.requestSequence)",
+            refresh,
+        )
+        self.assertIn(
+            "await finishMaintenanceLoading(loadingRequest.requestSequence)",
+            refresh,
+        )
         self.assertIn("failMaintenanceLoading(", refresh)
         self.assertIn("finally", refresh)
         self.assertNotIn("showModal", refresh)
@@ -1886,6 +1894,33 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn(
             '#maintenance-dashboard[aria-busy="true"][data-has-content="false"]',
             css,
+        )
+        self.assertNotIn(
+            '#maintenance-dashboard[aria-busy="true"][data-has-content="true"]',
+            css,
+        )
+        self.assertNotIn(
+            '$("#qualification-select").disabled = true',
+            javascript,
+        )
+        controls_css = css.split(
+            "\n.maintenance-dashboard-controls {", 1
+        )[1].split("}", 1)[0]
+        self.assertIn("justify-self: center", controls_css)
+        self.assertIn("qualificationRunStatusQualification", javascript)
+        self.assertIn(
+            "(!runStatusKnown || isRunning || workflow.restartRequired)",
+            javascript,
+        )
+        self.assertIn("requestController?.abort()", javascript)
+        self.assertIn("qualification !== state.qualification", javascript)
+        self.assertIn(
+            "const restoredWorkflow = restoreCachedQualificationWorkflow()",
+            javascript,
+        )
+        self.assertIn(
+            '$("#maintenance-year-progress").replaceChildren()',
+            javascript,
         )
         self.assertIn("QUALIFICATION_WORKFLOW_CACHE_VERSION", javascript)
         self.assertIn("function restoreCachedQualificationWorkflow()", javascript)
@@ -1964,7 +1999,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('params.get("view") === "questions"', initialize_source)
         self.assertLess(
             initialize_source.index("restoreVisibleAuditView()"),
-            initialize_source.index("loadQualificationWorkflow(false)"),
+            initialize_source.index("loadQualificationWorkflow(false, false, {"),
         )
         self.assertIn("window.setInterval(pollSharedRunProgress, 3000)", initialize_source)
         self.assertIn("updateUrl: false", javascript)
@@ -1994,7 +2029,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-9"
+        asset_version = "question-review-ui-v3-20260726-10"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
