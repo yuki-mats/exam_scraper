@@ -90,7 +90,7 @@ QUESTION_MAINTENANCE_MODELS = frozenset(
 TURN_REASONING_EFFORT = "high"
 STANDARD_SPEED_MODE = "standard"
 FAST_SPEED_MODE = "fast"
-SPEED_MODES = frozenset({STANDARD_SPEED_MODE, FAST_SPEED_MODE})
+SPEED_MODES = frozenset({STANDARD_SPEED_MODE})
 MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
@@ -160,7 +160,9 @@ class SubscriptionGateError(CodexAppServerError):
 def normalize_speed_mode(value: Any) -> str:
     normalized = str(value or STANDARD_SPEED_MODE).strip().casefold()
     if normalized not in SPEED_MODES:
-        raise ValueError("speed modeはstandard又はfastで指定してください。")
+        raise ValueError(
+            "問題整備は追加課金を避けるためStandard modeだけを使用します。"
+        )
     return normalized
 
 
@@ -253,15 +255,16 @@ def validate_subscription_access(
     credits_enabled = credits.get("hasCredits")
     if not isinstance(credits_enabled, bool):
         raise SubscriptionGateError("credit状態を安全に判定できません。")
+    if credits_enabled:
+        raise SubscriptionGateError(
+            "追加Codex creditsが有効なため実行できません。"
+            "問題整備はサブスクリプション範囲内のStandard modeだけを使用します。"
+        )
     if "individualLimit" not in snapshot:
         raise SubscriptionGateError("spend control状態を安全に確認できません。")
     individual_limit = snapshot.get("individualLimit")
     if individual_limit is not None and not isinstance(individual_limit, Mapping):
         raise SubscriptionGateError("spend control状態を安全に確認できません。")
-    if speed_mode == FAST_SPEED_MODE and not credits_enabled:
-        raise SubscriptionGateError(
-            "Fast modeにはCodex creditsの有効化が必要です。"
-        )
     if "rateLimitsByLimitId" not in rate_limit_response:
         raise SubscriptionGateError("補助利用上限を安全に確認できません。")
     auxiliary = _as_mapping(
@@ -283,6 +286,11 @@ def validate_subscription_access(
             extra_credits.get("hasCredits"), bool
         ):
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
+        if extra_credits is not None and extra_credits.get("hasCredits"):
+            raise SubscriptionGateError(
+                "補助Codex creditsが有効なため実行できません。"
+                "問題整備はサブスクリプション範囲内のStandard modeだけを使用します。"
+            )
         if "individualLimit" not in value:
             raise SubscriptionGateError("補助spend controlを安全に確認できません。")
         extra_limit = value.get("individualLimit")
@@ -295,10 +303,10 @@ def validate_subscription_access(
         "planType": plan_type,
         "rateLimitReachedType": None,
         "creditsEnabled": credits_enabled,
-        "fastModeAvailable": credits_enabled,
-        "speedMode": speed_mode,
-        "standardMode": speed_mode == STANDARD_SPEED_MODE,
-        "fastMode": speed_mode == FAST_SPEED_MODE,
+        "fastModeAvailable": False,
+        "speedMode": STANDARD_SPEED_MODE,
+        "standardMode": True,
+        "fastMode": False,
     }
 
 
@@ -529,9 +537,7 @@ class CodexAppServerClient:
         speed_mode: str = STANDARD_SPEED_MODE,
     ) -> AppServerTurnResult:
         speed_mode = normalize_speed_mode(speed_mode)
-        requested_service_tier = (
-            FAST_SPEED_MODE if speed_mode == FAST_SPEED_MODE else None
-        )
+        requested_service_tier = None
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError(f"unsupported sandbox: {sandbox}")
         if model not in QUESTION_MAINTENANCE_MODELS:
@@ -563,7 +569,7 @@ class CodexAppServerClient:
         config = {
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
-                "fast_mode": speed_mode == FAST_SPEED_MODE,
+                "fast_mode": False,
                 "multi_agent": False,
             },
             "agents": {
@@ -626,10 +632,7 @@ class CodexAppServerClient:
         if on_thread_started is not None:
             on_thread_started(thread_id, session_id)
         service_tier = thread_response.get("serviceTier")
-        if speed_mode == FAST_SPEED_MODE:
-            if service_tier != FAST_SPEED_MODE:
-                raise SubscriptionGateError("要求したFast modeが適用されませんでした。")
-        elif service_tier not in {None, "default", "standard"}:
+        if service_tier not in {None, "default", "standard"}:
             raise SubscriptionGateError("要求したStandard modeが適用されませんでした。")
         model_provider = str(thread_response.get("modelProvider") or "")
         if model_provider != "openai":

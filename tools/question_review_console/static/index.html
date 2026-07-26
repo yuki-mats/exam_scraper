@@ -281,14 +281,7 @@
             </div>
             <small class="run-concurrency-note">全資格の合計は32turnを超えません。複数資格は公平に自動配分し、検査と確定は一問単位で維持します。</small>
           </fieldset>
-          <fieldset id="qualification-run-speed-fieldset">
-            <legend>応答モード</legend>
-            <div class="run-concurrency-options run-speed-options">
-              <label><input type="radio" name="qualification-run-speed" value="standard" checked><span>Standard</span></label>
-              <label><input type="radio" name="qualification-run-speed" value="fast"><span>Fast</span></label>
-            </div>
-            <small class="run-concurrency-note">Fastは同じmodel・推論強度・品質検査を保ち、Codex creditsを使用します。適用を確認できない場合は開始しません。</small>
-          </fieldset>
+          <p class="inline-notice">応答モードはStandard固定です。追加Codex creditsとAPI従量課金は使用しません。</p>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
           <p id="qualification-run-safety" class="inline-notice">ローカルのpatch・生成物だけが対象です。本番Firestoreには書き込みません。</p>
           <div id="qualification-run-job" class="qualification-run-job" hidden>

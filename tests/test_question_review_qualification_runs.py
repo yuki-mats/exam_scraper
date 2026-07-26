@@ -4495,60 +4495,27 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(parent["questionConcurrency"], 1)
         self.assertEqual(parent["parallelWorkerLimit"], 1)
 
-    def test_fast_mode_is_persisted_on_parent_run(self):
-        class FastFlowAppServer(FlowAppServer):
-            def __init__(self):
-                super().__init__()
-                self.access_checks = []
-
-            def assert_subscription_access(
-                self,
-                *,
-                force=True,
-                speed_mode="standard",
-            ):
-                self.access_checks.append((force, speed_mode))
-                return {
-                    "allowed": True,
-                    "planType": "pro",
-                    "speedMode": speed_mode,
-                }
-
+    def test_fast_mode_is_rejected_before_preview(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = FastFlowAppServer()
             coordinator = QualificationRunCoordinator(
                 root,
                 QualificationWorkflow(root, CountedSourceInventory(2)),
                 FakeSynchronizer(),
                 DeferredJobs(),
                 "secret",
-                app_server=app_server,
+                app_server=FlowAppServer(),
             )
-            preview = coordinator.preview(
-                "new-exam",
-                "question_type",
-                "outdated",
-                stage_ids=["question_type"],
-                list_group_ids=["2026"],
-                question_concurrency=32,
-                speed_mode="fast",
-            )
-            started = coordinator.start(
-                "new-exam",
-                "question_type",
-                "outdated",
-                preview["previewToken"],
-                stage_ids=["question_type"],
-                list_group_ids=["2026"],
-                question_concurrency=32,
-                speed_mode="fast",
-            )
-
-        self.assertEqual(preview["speedMode"], "fast")
-        self.assertEqual(started["run"]["speedMode"], "fast")
-        self.assertEqual(started["run"]["requestedServiceTier"], "fast")
-        self.assertEqual(app_server.access_checks, [(False, "fast")])
+            with self.assertRaisesRegex(ValueError, "Standard mode"):
+                coordinator.preview(
+                    "new-exam",
+                    "question_type",
+                    "outdated",
+                    stage_ids=["question_type"],
+                    list_group_ids=["2026"],
+                    question_concurrency=32,
+                    speed_mode="fast",
+                )
 
 
     def test_improvement_report_failure_warns_without_rejecting_validated_patch(self):

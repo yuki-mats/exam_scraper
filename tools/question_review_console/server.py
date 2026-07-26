@@ -26,7 +26,10 @@ from tools.question_review_console.bulk_readback import (
     ScopedReadbackError,
 )
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
-from tools.question_review_console.codex_app_server import CodexAppServerClient
+from tools.question_review_console.codex_app_server import (
+    CodexAppServerClient,
+    normalize_speed_mode,
+)
 from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
@@ -583,7 +586,9 @@ class QuestionReviewApplication:
                         "questionConcurrency"
                     )
                 if "speedMode" in body:
-                    run_options["speed_mode"] = body.get("speedMode")
+                    run_options["speed_mode"] = normalize_speed_mode(
+                        body.get("speedMode")
+                    )
                 if list_group_ids is not None:
                     run_options["list_group_ids"] = list_group_ids
                 if update_target_ids is not None:

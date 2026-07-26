@@ -86,7 +86,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
 
-開始前にChatGPT認証、利用上限、公式provider、要求したservice tierを確認します。runごとに`Standard`又は`Fast`を選び、初期値は`Standard`です。`Fast`は`features.fast_mode=true`と`serviceTier=fast`をthreadとturnの両方へ明示し、App Serverの応答が`fast`でなければ開始しません。`Fast`にはCodex creditsが必要です。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限はどちらのmodeでも変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。
+開始前にChatGPT認証、利用上限、公式provider、`Standard` service tier、追加Codex creditsが無効であることを確認します。問題整備は`Standard`だけを使用し、UI又はAPIから`Fast`を指定しても開始しません。追加Codex creditsが有効な場合もfail-closedで停止します。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限は変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。
 
 ## 作業バージョン
 

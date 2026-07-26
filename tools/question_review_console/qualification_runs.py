@@ -76,7 +76,6 @@ from tools.question_review_console.law_audit_quality import (
 )
 from tools.question_review_console.law_audit_contract import is_law_audit_review
 from tools.question_review_console.codex_app_server import (
-    FAST_SPEED_MODE,
     MAINTENANCE_RESEARCH_WORKERS,
     QUESTION_MAINTENANCE_MODEL,
     QUESTION_MAINTENANCE_RETRY_MODEL,
@@ -5307,9 +5306,7 @@ class QualificationRunCoordinator:
             "resumedFrom": resumed_from,
             "questionConcurrency": question_concurrency,
             "speedMode": speed_mode,
-            "requestedServiceTier": (
-                FAST_SPEED_MODE if speed_mode == FAST_SPEED_MODE else None
-            ),
+            "requestedServiceTier": None,
             "targetCount": plan["targetCount"],
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "stageCount": int(
@@ -5442,13 +5439,7 @@ class QualificationRunCoordinator:
                 saved_prompt = self.store.prompt(qualification, run["runId"])
                 return {"run": run, "prompt": saved_prompt, "job": None}
             try:
-                if speed_mode == STANDARD_SPEED_MODE:
-                    self.app_server.assert_subscription_access(force=False)
-                else:
-                    self.app_server.assert_subscription_access(
-                        force=False,
-                        speed_mode=speed_mode,
-                    )
+                self.app_server.assert_subscription_access(force=False)
             except Exception as exc:  # noqa: BLE001
                 raise QualificationRunError(str(exc)) from exc
             plan = {
@@ -5464,9 +5455,7 @@ class QualificationRunCoordinator:
                 ),
                 "writeWorkerLimit": 1,
                 "speedMode": speed_mode,
-                "requestedServiceTier": (
-                    FAST_SPEED_MODE if speed_mode == FAST_SPEED_MODE else None
-                ),
+                "requestedServiceTier": None,
             }
             maintenance_phases = _maintenance_session_phases(plan)
             try:

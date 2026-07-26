@@ -781,7 +781,7 @@ function bindControls() {
     node.addEventListener("change", previewQualificationRun);
   }
   for (const node of document.querySelectorAll(
-    'input[name="qualification-run-concurrency"], input[name="qualification-run-speed"]',
+    'input[name="qualification-run-concurrency"]',
   )) {
     node.addEventListener("change", previewQualificationRun);
   }
@@ -2338,10 +2338,7 @@ function selectedQualificationRunConcurrency() {
 }
 
 function selectedQualificationRunSpeedMode() {
-  const value = document.querySelector(
-    'input[name="qualification-run-speed"]:checked',
-  )?.value;
-  return value === "fast" ? "fast" : DEFAULT_QUALIFICATION_SPEED_MODE;
+  return DEFAULT_QUALIFICATION_SPEED_MODE;
 }
 
 function selectedQualificationRunStageIds() {
@@ -2699,7 +2696,7 @@ function openQualificationRunDialog(stage, options = {}) {
     questionRange: selectedQuestionRange,
     questionIds: selectedQuestionIds,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
-    speedMode: options.speedMode || DEFAULT_QUALIFICATION_SPEED_MODE,
+    speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
     simplified: options.simplified === true,
     fieldFirst,
@@ -2736,7 +2733,6 @@ function openQualificationRunDialog(stage, options = {}) {
       ?.kind === "human"
   ));
   $("#qualification-run-concurrency-fieldset").hidden = !supportsConcurrency;
-  $("#qualification-run-speed-fieldset").hidden = !supportsConcurrency;
   const requestedConcurrency = Number(
     options.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
   );
@@ -2744,13 +2740,6 @@ function openQualificationRunDialog(stage, options = {}) {
     'input[name="qualification-run-concurrency"]',
   )) {
     node.checked = Number(node.value) === requestedConcurrency;
-  }
-  for (const node of document.querySelectorAll(
-    'input[name="qualification-run-speed"]',
-  )) {
-    node.checked = node.value === (
-      options.speedMode || DEFAULT_QUALIFICATION_SPEED_MODE
-    );
   }
   if (state.qualificationRunDialog.simplified) {
     $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
@@ -2936,7 +2925,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `入力別の自動batch・最大${preview.questionConcurrency}turn・${preview.speedMode === "fast" ? "Fast" : "Standard"}（全資格合計32、検査と確定は1問ずつ）`,
+          `入力別の自動batch・最大${preview.questionConcurrency}turn・Standard（全資格合計32、検査と確定は1問ずつ）`,
         ),
       );
     }
@@ -3567,7 +3556,6 @@ function enterQualificationProgressView(run) {
   $("#qualification-run-group-fieldset").hidden = true;
   $("#qualification-run-mode-fieldset").hidden = true;
   $("#qualification-run-concurrency-fieldset").hidden = true;
-  $("#qualification-run-speed-fieldset").hidden = true;
   $("#qualification-run-preview").hidden = true;
   $("#qualification-run-start").hidden = true;
   $("#qualification-run-cancel").hidden = false;
@@ -3756,7 +3744,7 @@ function retryBlockedQualificationRun() {
     questionRange: run.questionRange || null,
     mode: run.mode || "outdated",
     questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
-    speedMode: run.speedMode || DEFAULT_QUALIFICATION_SPEED_MODE,
+    speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     resumedFrom: run.runId,
     simplified: true,
   });

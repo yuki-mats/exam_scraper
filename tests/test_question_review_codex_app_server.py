@@ -107,6 +107,9 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(status["accountType"], "chatgpt")
         self.assertEqual(status["planType"], "pro")
         self.assertFalse(status["creditsEnabled"])
+        self.assertFalse(status["fastModeAvailable"])
+        self.assertTrue(status["standardMode"])
+        self.assertFalse(status["fastMode"])
 
     def test_public_subscription_status_reports_effective_and_turn_model_settings(self):
         client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
@@ -280,7 +283,7 @@ class SubscriptionGateTests(unittest.TestCase):
                 with self.assertRaises(SubscriptionGateError):
                     validate_subscription_access(account_response(), limits)
 
-    def test_standard_allows_credits_and_fast_requires_them(self):
+    def test_rejects_fast_and_any_additional_credits(self):
         allowed = rate_limit_response()
         allowed["rateLimitResetCredits"] = {
             "availableCount": 1,
@@ -288,7 +291,7 @@ class SubscriptionGateTests(unittest.TestCase):
         }
         validate_subscription_access(account_response(), allowed)
 
-        with self.assertRaises(SubscriptionGateError):
+        with self.assertRaisesRegex(ValueError, "Standard mode"):
             validate_subscription_access(
                 account_response(),
                 allowed,
@@ -300,14 +303,15 @@ class SubscriptionGateTests(unittest.TestCase):
         enabled["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
             "hasCredits": True
         }
-        standard = validate_subscription_access(account_response(), enabled)
-        fast = validate_subscription_access(
-            account_response(),
-            enabled,
-            speed_mode=FAST_SPEED_MODE,
-        )
-        self.assertTrue(standard["fastModeAvailable"])
-        self.assertTrue(fast["fastMode"])
+        with self.assertRaisesRegex(SubscriptionGateError, "追加Codex credits"):
+            validate_subscription_access(account_response(), enabled)
+
+        auxiliary_only = copy.deepcopy(allowed)
+        auxiliary_only["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
+            "hasCredits": True
+        }
+        with self.assertRaisesRegex(SubscriptionGateError, "補助Codex credits"):
+            validate_subscription_access(account_response(), auxiliary_only)
 
     def test_rejects_missing_or_malformed_auxiliary_spend_fields(self):
         cases = []
@@ -895,29 +899,20 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(result.model, "gpt-5.6-sol")
         self.assertEqual(result.reasoning_effort, "high")
 
-    def test_fast_mode_is_requested_and_verified(self):
+    def test_fast_mode_is_rejected_before_provider_request(self):
         client = ProtocolClient()
 
-        result = client.run_turn(
-            "fast maintenance",
-            work_type="maintenance_question_type_candidate",
-            sandbox="read-only",
-            emit=lambda _line: None,
-            speed_mode=FAST_SPEED_MODE,
-            turn_group="gas",
-        )
+        with self.assertRaisesRegex(ValueError, "Standard mode"):
+            client.run_turn(
+                "fast maintenance",
+                work_type="maintenance_question_type_candidate",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                speed_mode=FAST_SPEED_MODE,
+                turn_group="gas",
+            )
 
-        thread_params = next(
-            params for method, params in client.calls if method == "thread/start"
-        )
-        turn_params = next(
-            params for method, params in client.calls if method == "turn/start"
-        )
-        self.assertEqual(thread_params["serviceTier"], "fast")
-        self.assertEqual(thread_params["config"]["service_tier"], "fast")
-        self.assertTrue(thread_params["config"]["features"]["fast_mode"])
-        self.assertEqual(turn_params["serviceTier"], "fast")
-        self.assertEqual(result.service_tier, "fast")
+        self.assertEqual(client.calls, [])
 
     def test_success_receipt_probe_interrupts_writer_and_returns_terminal_result(self):
         client = ReceiptInterruptProtocolClient()

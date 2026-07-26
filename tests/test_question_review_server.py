@@ -884,7 +884,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "questionRange": {"start": 2, "end": 10},
                     "mode": "attention",
                     "questionConcurrency": 10,
-                    "speedMode": "fast",
+                    "speedMode": "standard",
                 },
             )
             start_status, started = app.post(
@@ -897,7 +897,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "questionRange": {"start": 2, "end": 10},
                     "mode": "attention",
                     "questionConcurrency": 10,
-                    "speedMode": "fast",
+                    "speedMode": "standard",
                     "previewToken": "token",
                 },
             )
@@ -923,7 +923,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         )
         self.assertEqual(runs.question_range, {"start": 2, "end": 10})
         self.assertEqual(runs.question_concurrency, 10)
-        self.assertEqual(runs.speed_mode, "fast")
+        self.assertEqual(runs.speed_mode, "standard")
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
         self.assertEqual(recent["qualification"], "sample")
@@ -933,6 +933,29 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(progress["questions"], [])
         self.assertTrue(detailed_progress["questionsIncluded"])
         self.assertEqual(detailed_progress["questions"], [{"questionId": "q1"}])
+
+    def test_qualification_run_api_rejects_fast_before_coordinator(self):
+        class Runs:
+            def preview(self, *_args, **_kwargs):
+                raise AssertionError("Fast指定をcoordinatorへ渡してはいけません。")
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.qualification_runs = Runs()
+
+            with self.assertRaises(ApiError) as caught:
+                app.post(
+                    "/api/qualification-runs/preview",
+                    {
+                        "qualification": "sample",
+                        "stageIds": ["question_type"],
+                        "mode": "needed",
+                        "speedMode": "fast",
+                    },
+                )
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("Standard mode", str(caught.exception))
 
     def test_qualification_run_passes_normalized_question_ids(self):
         class Runs:

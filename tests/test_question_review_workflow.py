@@ -1694,8 +1694,9 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             html,
         )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
-        self.assertIn('name="qualification-run-speed" value="standard" checked', html)
-        self.assertIn('name="qualification-run-speed" value="fast"', html)
+        self.assertNotIn('name="qualification-run-speed"', html)
+        self.assertIn("応答モードはStandard固定です", html)
+        self.assertIn("追加Codex creditsとAPI従量課金は使用しません", html)
         self.assertIn("全資格の合計は32turnを超えません", html)
         self.assertIn("検査と確定は一問単位", html)
         self.assertIn("複数選択可", javascript)
