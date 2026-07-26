@@ -973,12 +973,35 @@ class QuestionReviewServerTests(unittest.TestCase):
             def recent(self, qualification):
                 return {"qualification": qualification, "runs": []}
 
-            def progress(self, qualification, run_id):
+            def progress(
+                self,
+                qualification,
+                run_id,
+                *,
+                include_questions=True,
+            ):
                 return {
                     "qualification": qualification,
                     "runId": run_id,
                     "completedQuestionCount": 3,
-                    "questions": [{"questionId": "q1"}],
+                    "questions": (
+                        [{"questionId": "q1"}]
+                        if include_questions
+                        else []
+                    ),
+                }
+
+            def question_run_detail(
+                self,
+                qualification,
+                run_id,
+                question_id,
+            ):
+                return {
+                    "qualification": qualification,
+                    "runId": run_id,
+                    "questionId": question_id,
+                    "revision": 7,
                 }
 
         with tempfile.TemporaryDirectory() as directory:
@@ -1026,6 +1049,10 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "includeQuestions": ["true"],
                 },
             )
+            _, question_detail = app.get(
+                "/api/qualification-runs/run-1/questions/question-1",
+                {"qualification": ["sample"]},
+            )
 
         self.assertEqual(preview["mode"], "attention")
         self.assertEqual(runs.scope, ["2024", "2026"])
@@ -1044,6 +1071,8 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(progress["questions"], [])
         self.assertTrue(detailed_progress["questionsIncluded"])
         self.assertEqual(detailed_progress["questions"], [{"questionId": "q1"}])
+        self.assertEqual(question_detail["questionId"], "question-1")
+        self.assertEqual(question_detail["revision"], 7)
 
     def test_qualification_run_api_rejects_fast_before_coordinator(self):
         class Runs:

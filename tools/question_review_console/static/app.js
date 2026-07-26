@@ -3309,7 +3309,7 @@ function openQualificationRunDialog(stage, options = {}) {
   if (state.qualificationRunDialog.simplified) {
     $("#qualification-run-scope-eyebrow").textContent = "整備が必要な問題だけを実行";
     $("#qualification-run-title").textContent = `${qualificationDisplayName()}の未整備を整備`;
-    $("#qualification-run-purpose").textContent = "必要な工程を入力token量で自動分割し、結果は問題単位で検査・確定します。";
+    $("#qualification-run-purpose").textContent = "必要な工程を一問一つのmodel turnで実行し、結果も問題単位で検査・確定します。";
     $("#qualification-run-safety").textContent = "本番Firestoreには反映せず、ローカルで整備します。";
   } else {
     $("#qualification-run-scope-eyebrow").textContent = fieldFirst

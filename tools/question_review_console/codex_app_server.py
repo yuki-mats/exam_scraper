@@ -595,12 +595,26 @@ class CodexAppServerClient:
                 "controlPlaneBudget": control_plane_budget,
                 "modelTurns": model_turns,
             }
-        if not refresh and self._last_status is None:
+        if not refresh:
+            with self._state_lock:
+                cached = (
+                    copy.deepcopy(self._last_status)
+                    if self._last_status is not None
+                    else None
+                )
+                cached_at = self._last_status_at
+            if cached is None:
+                cached = {
+                    "allowed": None,
+                    "reason": (
+                        "実行開始時にChatGPT認証と利用上限を確認します。"
+                    ),
+                }
             return {
                 "available": True,
-                "allowed": None,
                 "provider": self.provider,
-                "reason": "実行開始時にChatGPT認証と利用上限を確認します。",
+                **cached,
+                "statusCached": cached_at > 0,
                 "turnBudget": turn_budget,
                 "controlPlaneBudget": control_plane_budget,
                 "modelTurns": model_turns,
@@ -728,26 +742,24 @@ class CodexAppServerClient:
         turn_group: str | None = None,
         monitor_context: Mapping[str, Any] | None = None,
     ) -> AppServerTurnResult:
-        heartbeat_callback = heartbeat or getattr(emit, "heartbeat", None)
-        with self.turn_budget.slot(turn_group, heartbeat=heartbeat_callback):
-            return self._run_turn_unbudgeted(
-                prompt,
-                work_type=work_type,
-                sandbox=sandbox,
-                emit=emit,
-                output_schema=output_schema,
-                on_thread_started=on_thread_started,
-                on_turn_started=on_turn_started,
-                cwd=cwd,
-                writable_roots=writable_roots,
-                completion_probe=completion_probe,
-                heartbeat=heartbeat,
-                model=model,
-                reasoning_effort=reasoning_effort,
-                speed_mode=speed_mode,
-                turn_group=turn_group,
-                monitor_context=monitor_context,
-            )
+        return self._run_turn_unbudgeted(
+            prompt,
+            work_type=work_type,
+            sandbox=sandbox,
+            emit=emit,
+            output_schema=output_schema,
+            on_thread_started=on_thread_started,
+            on_turn_started=on_turn_started,
+            cwd=cwd,
+            writable_roots=writable_roots,
+            completion_probe=completion_probe,
+            heartbeat=heartbeat,
+            model=model,
+            reasoning_effort=reasoning_effort,
+            speed_mode=speed_mode,
+            turn_group=turn_group,
+            monitor_context=monitor_context,
+        )
 
     def turn_group(self, qualification: str):
         return self.turn_budget.register(qualification)
@@ -928,87 +940,108 @@ class CodexAppServerClient:
         }
         if output_schema is not None:
             params["outputSchema"] = adapt_output_schema_for_app_server(output_schema)
-        try:
-            turn_response = self._control_request(
-                "turn/start",
-                params,
-                turn_group=turn_group,
-                heartbeat=control_heartbeat,
-            )
-            turn_response = _as_mapping(turn_response, "turn/start response")
-            turn = _as_mapping(turn_response.get("turn"), "turn")
-            turn_id = str(turn.get("id") or "")
-            if not turn_id:
-                raise CodexAppServerError(
-                    "Codex App Serverがturn IDを返しませんでした。"
+        heartbeat_callback = heartbeat or getattr(emit, "heartbeat", None)
+        with self.turn_budget.slot(
+            turn_group,
+            heartbeat=heartbeat_callback,
+        ):
+            try:
+                turn_response = self._control_request(
+                    "turn/start",
+                    params,
+                    turn_group=turn_group,
+                    heartbeat=control_heartbeat,
                 )
-            self._bind_monitor_runtime(
-                runtime_monitor_context,
-                thread_id,
-                turn_id,
-            )
-        except Exception:
-            self._interrupt_active_turns(thread_id, on_turn_started)
-            raise
-        state = _TurnState(thread_id=thread_id, turn_id=turn_id, emit=emit)
-        key = (thread_id, turn_id)
-        with self._state_lock:
-            self._turns[key] = state
-            self._peak_active_turns = max(
-                self._peak_active_turns,
-                len(self._turns),
-            )
-            early = self._early_notifications.pop(key, [])
-        try:
-            for notification in early:
-                self._handle_turn_notification(notification)
-            if on_turn_started is not None:
-                on_turn_started(thread_id, turn_id)
-            emit(f"Codex App Server thread: {thread_id}")
-
-            receipt_interrupted = False
-            deadline = time.monotonic() + self.turn_timeout
-            heartbeat_callback = heartbeat or getattr(emit, "heartbeat", None)
-            next_heartbeat = (
-                time.monotonic() + TURN_HEARTBEAT_INTERVAL_SECONDS
-                if callable(heartbeat_callback)
-                else math.inf
-            )
-            while not state.event.is_set():
-                remaining = deadline - time.monotonic()
-                if remaining <= 0:
-                    raise CodexAppServerError(
-                        "Codex App Serverのturnが時間切れになりました。"
-                    )
-                heartbeat_wait = max(0.0, next_heartbeat - time.monotonic())
-                if state.event.wait(min(0.25, remaining, heartbeat_wait)):
-                    break
-                now = time.monotonic()
-                if now >= next_heartbeat:
-                    try:
-                        heartbeat_callback()
-                    except Exception:
-                        pass
-                    next_heartbeat = now + TURN_HEARTBEAT_INTERVAL_SECONDS
-                if completion_probe is None or not completion_probe():
-                    continue
-                receipt_interrupted = True
-                emit(
-                    "成功receiptを検出したため、追加操作を止めて"
-                    "最終検証へ進みます。"
+                turn_response = _as_mapping(
+                    turn_response,
+                    "turn/start response",
                 )
-                self._interrupt_turn(thread_id, turn_id)
-                if not state.event.wait(30):
+                turn = _as_mapping(turn_response.get("turn"), "turn")
+                turn_id = str(turn.get("id") or "")
+                if not turn_id:
                     raise CodexAppServerError(
-                        "成功receipt保存後のturn停止を確認できませんでした。"
+                        "Codex App Serverがturn IDを返しませんでした。"
                     )
-                break
-        except BaseException:
-            self._interrupt_turn(thread_id, turn_id)
-            raise
-        finally:
+                self._bind_monitor_runtime(
+                    runtime_monitor_context,
+                    thread_id,
+                    turn_id,
+                )
+            except Exception:
+                self._interrupt_active_turns(
+                    thread_id,
+                    on_turn_started,
+                )
+                raise
+            state = _TurnState(
+                thread_id=thread_id,
+                turn_id=turn_id,
+                emit=emit,
+            )
+            key = (thread_id, turn_id)
             with self._state_lock:
-                self._turns.pop(key, None)
+                self._turns[key] = state
+                self._peak_active_turns = max(
+                    self._peak_active_turns,
+                    len(self._turns),
+                )
+                early = self._early_notifications.pop(key, [])
+            try:
+                for notification in early:
+                    self._handle_turn_notification(notification)
+                if on_turn_started is not None:
+                    on_turn_started(thread_id, turn_id)
+                emit(f"Codex App Server thread: {thread_id}")
+
+                receipt_interrupted = False
+                deadline = time.monotonic() + self.turn_timeout
+                next_heartbeat = (
+                    time.monotonic() + TURN_HEARTBEAT_INTERVAL_SECONDS
+                    if callable(heartbeat_callback)
+                    else math.inf
+                )
+                while not state.event.is_set():
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        raise CodexAppServerError(
+                            "Codex App Serverのturnが時間切れになりました。"
+                        )
+                    heartbeat_wait = max(
+                        0.0,
+                        next_heartbeat - time.monotonic(),
+                    )
+                    if state.event.wait(
+                        min(0.25, remaining, heartbeat_wait)
+                    ):
+                        break
+                    now = time.monotonic()
+                    if now >= next_heartbeat:
+                        try:
+                            heartbeat_callback()
+                        except Exception:
+                            pass
+                        next_heartbeat = (
+                            now + TURN_HEARTBEAT_INTERVAL_SECONDS
+                        )
+                    if completion_probe is None or not completion_probe():
+                        continue
+                    receipt_interrupted = True
+                    emit(
+                        "成功receiptを検出したため、追加操作を止めて"
+                        "最終検証へ進みます。"
+                    )
+                    self._interrupt_turn(thread_id, turn_id)
+                    if not state.event.wait(30):
+                        raise CodexAppServerError(
+                            "成功receipt保存後のturn停止を確認できませんでした。"
+                        )
+                    break
+            except BaseException:
+                self._interrupt_turn(thread_id, turn_id)
+                raise
+            finally:
+                with self._state_lock:
+                    self._turns.pop(key, None)
         receipt_interrupted = bool(
             receipt_interrupted and state.status == "interrupted"
         )
@@ -1601,6 +1634,7 @@ class CodexAppServerClient:
         with self.control_plane_budget.slot(
             turn_group,
             heartbeat=heartbeat,
+            priority=method == "turn/start",
         ):
             return self._request(method, params, timeout=timeout)
 

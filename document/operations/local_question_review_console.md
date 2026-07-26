@@ -87,7 +87,9 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。writerが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
 - 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。候補内容、provider又はschemaの失敗は、その一問だけをqueue末尾へ戻す。provider障害が同時に発生した場合は次の再試行roundの並列数を縮小し、回復しなければ`interrupted`として再開を待つ。
-- 一問turnの確定ごとにcheckpointを保存する。子runのmanifest、集約回答の問題別checkpoint、親queueはそれぞれの責務に分け、異なる子runのfile I/Oを一つのglobal lockへ集約しない。同じ64問区切りの子run IDと`committing`遷移は、全子runを準備してから親queueへ一括保存する。完了結果は子runへ一問単位で確定し、親queueへの反映をまとめて11MB級の親manifestを一問ごとに書き直さない。途中再起動では`structured_candidate_per_question`の子run identity、問題別結果、transaction状態、receiptを親queueへ回収し、未確定の問だけを戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
+- 通常の一問turnは子runのmanifestを作らない。run開始時の完全な対象・工程・field契約は変更しない`plan.json`へ保存し、親`manifest.json`はrun全体の状態、heartbeat、集計値だけを持つ。一問の可変状態は`questions/<questionIdのsha256>.json`を正本とし、工程状態、`validationAttempts`、attempt metadata、検証済み作業版receiptを同じ一問内に保存する。attempt IDにも同じ完全SHA-256を含め、全plan又は全問題を走査せず対象JSONへ直接到達する。不変planはfile identityが変わった時だけ再読・hash検証する。model結果、`progress.jsonl`、開始前baselineは`attempts/<token>/`へ置く。通常のpatch形式は従来どおり工程・年度単位を維持し、patch fileを一問ごとには分割しない。
+- `question_summary.json`は一問stateから再生成できる表示用の派生物であり、正本ではない。64問の`preparing`又は確定結果はcoordinatorがまとめて更新し、各turnの`prepared`と単一writer内の`committing`は該当する一問JSONだけへ保存する。これにより、異なる問題のfile I/Oをglobal lockへ集約せず、親manifestを一問ごとに書き直さない。共有前提だけは資格全体のwriterとして独立runを持てる。
+- 一問writerはpatchと`work_versions.json`の開始前bytesを同じbaselineへ保存してからtransactionを開く。検査、patch更新、作業版更新又はcheckpoint保存のどこで失敗しても両方を開始前へ戻し、確定済みattemptは以後変更しない。途中再起動ではtransactionが開いた一問だけをrollbackし、確定済みreceiptを持つ一問は維持し、未確定の問だけをqueueへ戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定したlistGroupIdごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
@@ -103,13 +105,14 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 ## 進捗、heartbeat、技術ログ
 
 - `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasや旧runのIDを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
-- `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全子工程がvalidatedになった問題だけを完了とする。
-- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、同じ区切りの一問入力を独立workerで同時に作る。子run作成用workerはmodel・writerのpipeline workerと分離し、前waveのwriter待ちが次の64入力生成を塞がない。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。準備できた各問から独立したmodel turnへ逐次投入するため、全問の準備完了を待たない。model候補はread-onlyである。子runの作成・状態更新と集約回答checkpointはrun又は問題ごとのlockで並行し、親queueの同じmanifest更新と正本patchの検査・確定だけを必要な範囲で直列化する。
+- `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全工程がvalidatedになった問題だけを完了とする。
+- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備は64問単位で区切り、同じ区切りの一問入力を独立workerで同時に作る。入力準備はmodel・writerのpipeline workerと分離し、実行中model 64問とwriter待ち最大64問を上限として未完了futureを保持する。前waveのwriter待ちが次の64入力生成を塞がず、全対象分の入力とfutureを一度にメモリへ保持しない。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。準備できた各問から独立したmodel turnへ逐次投入するため、全問の準備完了を待たない。model候補はread-onlyである。一問stateと集約回答checkpointは問題ごとのlockで並行し、親queueの集計更新と正本patchの検査・確定だけを必要な範囲で直列化する。
 - App Serverの状態は、64枠への入場待ちを含む`turnBudget`、起動RPCの8枠を示す`controlPlaneBudget`、`turn/start`完了後からturn終了までを数える`modelTurns`に分けて返す。64問同時実行の証明には`modelTurns.peakInFlight=64`を使い、予約だけで実行済みと判断しない。
-- Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。同時に動く子runから同じ親runへ届くheartbeatは15秒内に一回へ集約する。子runのheartbeatは親runとjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
+- Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。親runのheartbeat writerはcoordinator一つだけとし、各一問turnから親manifestへheartbeatを書き込まない。heartbeatはjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
 - 一つのmodel turnが15分で完了しない場合は中断し、その一問だけを失敗としてqueueの再試行契約へ戻す。
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。
+- Run進捗の通常取得は一問stateを展開せず、派生summaryだけを返す。問題一覧が必要な場合だけ`includeQuestions=true`を指定し、さらに一問のattemptと工程履歴が必要な場合は`GET /api/qualification-runs/<runId>/questions/<questionId>?qualification=<qualification>`で対象JSONだけを読む。`GET /api/session`はApp Serverへの同期問い合わせを行わず、最後に検証済みの接続状態だけを返す。
 
 - 画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。進行中runの背景pollは軽量な進捗だけを取得し、履歴一覧はrun終了時、待機中又は明示更新時に取得します。詳細表示中の問題は定期再取得せず、一覧で確定した同じsnapshotを使い、画面へ戻った時又は明示更新時に差分を確認します。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。進捗から問題を開く「作業対象を確認」には、問題文・選択肢・正答・解説とpatch適用後の`questionType`、問題整備専用の`isCalculationQuestion`を表示します。`flash_card`と`group_choice`の基本解説は問題共通の1本として選択肢一覧の上に表示し、選択肢カードへ繰り返しません。問題の詳細画面では、選択肢をタップすると、その選択肢の`suggestedQuestionDetails`に相当する質問と回答だけをカード内に表示します。`suggestedQuestionDetailsByChoice`が0件の選択肢も、保存済み補足がないことを明示します。補足0件は不備ではなく、基本解説と重複する候補を保存しない正規状態です。旧flat fieldしかない場合は「選択肢未割当・再生成が必要」と表示し、推測で割り当てません。
 - `05_originalized`が適用された独自問題の詳細画面では、`00_source`の問題文・全選択肢と、05以降の確定patchを適用した現在の問題文・全選択肢を読取専用で並べます。問題文と選択肢それぞれについて完全一致か変更ありかを表示し、選択肢が`00_source`と同一でも正常な独自問題として確認できるようにします。公式過去問など05未適用の問題には、この比較を表示しません。
@@ -148,4 +151,6 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 
 serverは`127.0.0.1`だけへbindします。本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。
 
-起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。過去の全manifestを毎回解析しません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。旧形式から初回移行したことは`workflow_runs/.recovery-index-v1.json`へ記録します。
+serverはTCP listenerを確保した後、process全体のfile leaseを取得してから中断回収を始めます。二つ目のserver processはrunを変更せず起動に失敗し、同じ資格のrun writerも資格単位leaseで一つに限定します。`QualificationRunStore`の生成だけでは回収又はfile更新を行いません。
+
+起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。過去の全manifestを毎回解析しません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。初回索引作成時に壊れた過去manifestがあっても、実行中の正常なrunの回収を妨げません。旧形式から初回移行したことは`workflow_runs/.recovery-index-v1.json`へ記録します。

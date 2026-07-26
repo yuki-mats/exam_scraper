@@ -6,6 +6,37 @@ from tests.qualification_run_test_support import *  # noqa: F403
 class QualificationFlowRecoveryTests(QualificationRunTestSupport):
 
     @staticmethod
+    def _restart_and_recover(root):
+        store = QualificationRunStore(root)
+        store.recover_interrupted_runs()
+        return store
+
+    @staticmethod
+    def _create_legacy_parent(store, plan, *, status):
+        """Create the v1 shape that can own historical child manifests."""
+
+        legacy_plan = copy.deepcopy(plan)
+        legacy_plan["workType"] = "maintenance_flow_legacy"
+        parent = store.create(legacy_plan, status=status)
+        return store.update(
+            "sample",
+            parent["runId"],
+            workType="maintenance_flow",
+        )
+
+    @staticmethod
+    def _question_attempt_ids(run):
+        return list(
+            dict.fromkeys(
+                str(child_run_id)
+                for question in run.get("questionExecutions") or []
+                for stage in question.get("stages") or []
+                for child_run_id in stage.get("childRunIds") or []
+                if child_run_id
+            )
+        )
+
+    @staticmethod
     def _queue_recovery_plan(*, stage_status="committing", stage_ids=None):
         stages = list(stage_ids or ["question_type"])
         identity = {
@@ -329,7 +360,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertTrue(
             all(item["status"] == "succeeded" for item in run["phaseExecutions"])
         )
-        self.assertEqual(len(run["childRunIds"]), 2)
+        self.assertEqual(run["childRunIds"], [])
+        self.assertEqual(len(self._question_attempt_ids(run)), 2)
         sessions = {item["sessionId"] for item in run["phaseExecutions"]}
         threads = {item["threadId"] for item in run["phaseExecutions"]}
         self.assertEqual(len(sessions), 2)
@@ -779,7 +811,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             [item["status"] for item in run["phaseExecutions"]],
             ["skipped", "succeeded"],
         )
-        self.assertEqual(len(run["childRunIds"]), 1)
+        self.assertEqual(run["childRunIds"], [])
+        self.assertEqual(len(self._question_attempt_ids(run)), 1)
         self.assertEqual(
             [kwargs["work_type"] for _, kwargs in app_server.calls],
             ["maintenance_law_audit_candidate"],
@@ -831,7 +864,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             ["succeeded", "partial"],
             job,
         )
-        self.assertEqual(len(run["childRunIds"]), 4)
+        self.assertEqual(run["childRunIds"], [])
+        self.assertEqual(len(self._question_attempt_ids(run)), 4)
         self.assertEqual(len(app_server.calls), 4)
         self.assertEqual(synchronizer.calls, [("new-exam", "2026", True)])
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 1)
@@ -1647,7 +1681,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 FakeWorkflow().plan("sample", "delivery", "remaining"),
                 status="running",
             )
-            recovered = QualificationRunStore(root).list("sample")
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.list("sample")
 
         self.assertEqual(recovered[0]["runId"], run["runId"])
         self.assertEqual(recovered[0]["status"], "interrupted")
@@ -1658,10 +1693,15 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             root = Path(directory)
             store = QualificationRunStore(root)
             plan, identity = self._queue_recovery_plan()
-            parent = store.create(plan, status="running")
+            parent = self._create_legacy_parent(
+                store,
+                plan,
+                status="running",
+            )
             self._create_completed_child(store, parent, identity)
 
-            recovered = QualificationRunStore(root).get("sample", parent["runId"])
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get("sample", parent["runId"])
 
         stage = recovered["questionExecutions"][0]["stages"][0]
         self.assertEqual(stage["status"], "validated")
@@ -1701,7 +1741,11 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     ],
                 }
             )
-            parent = store.create(plan, status="running")
+            parent = self._create_legacy_parent(
+                store,
+                plan,
+                status="running",
+            )
             child_plan = FakeWorkflow().plan(
                 "sample", "question_type", "remaining"
             )
@@ -1747,7 +1791,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     childRunIds=[child["runId"]],
                 )
 
-            restarted = QualificationRunStore(root)
+            restarted = self._restart_and_recover(root)
             recovered = restarted.get("sample", parent["runId"])
             recovered_child = restarted.get("sample", child["runId"])
 
@@ -1795,7 +1839,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 batchQuestionResults=[],
             )
 
-            restarted = QualificationRunStore(root)
+            restarted = self._restart_and_recover(root)
             recovered = restarted.get("sample", child["runId"])
             restored_text = patch.read_text(encoding="utf-8")
 
@@ -1831,7 +1875,11 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     ],
                 }
             )
-            parent = store.create(plan, status="running")
+            parent = self._create_legacy_parent(
+                store,
+                plan,
+                status="running",
+            )
             child = self._create_completed_child(store, parent, identity)
             store.update_question_stage(
                 "sample",
@@ -1856,7 +1904,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 retrySafe=True,
             )
 
-            recovered = QualificationRunStore(root).get(
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get(
                 "sample",
                 parent["runId"],
             )
@@ -1905,7 +1954,11 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     },
                 ],
             )
-            parent = store.create(plan, status="running")
+            parent = self._create_legacy_parent(
+                store,
+                plan,
+                status="running",
+            )
             child_plan = FakeWorkflow().plan(
                 "sample",
                 "category_setup",
@@ -1943,7 +1996,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 retrySafe=True,
             )
 
-            recovered = QualificationRunStore(root).get(
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get(
                 "sample",
                 parent["runId"],
             )
@@ -1964,7 +2018,11 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             root = Path(directory)
             store = QualificationRunStore(root)
             plan, identity = self._queue_recovery_plan()
-            parent = store.create(plan, status="running")
+            parent = self._create_legacy_parent(
+                store,
+                plan,
+                status="running",
+            )
             child = self._create_completed_child(
                 store,
                 parent,
@@ -1972,7 +2030,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 identity_override={"sourceRecordRef": "other-record"},
             )
 
-            recovered = QualificationRunStore(root).get("sample", parent["runId"])
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get("sample", parent["runId"])
 
         self.assertFalse(recovered["retrySafe"])
         self.assertEqual(recovered["unsafeChildRunId"], child["runId"])
@@ -2043,7 +2102,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 artifactSync={"status": "running", "groups": []},
             )
 
-            recovered = QualificationRunStore(root).get("sample", run["runId"])
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get("sample", run["runId"])
 
         self.assertEqual(recovered["status"], "succeeded")
         self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
@@ -2064,7 +2124,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                 artifactSync={"status": "running", "groups": []},
             )
 
-            recovered = QualificationRunStore(root).get(
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get(
                 "sample", run["runId"]
             )
             persisted = json.loads(
@@ -2109,7 +2170,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             created = patch_root / "partial.json"
             created.write_text("partial\n", encoding="utf-8")
 
-            recovered = QualificationRunStore(root).get("sample", run["runId"])
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get("sample", run["runId"])
             restored_content = deleted.read_text(encoding="utf-8")
             created_exists = created.exists()
 
@@ -2163,7 +2225,8 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             plan["workType"] = "maintenance"
             run = store.create(plan, status="running", prompt="work")
 
-            recovered = QualificationRunStore(root).get("sample", run["runId"])
+            restarted = self._restart_and_recover(root)
+            recovered = restarted.get("sample", run["runId"])
 
         self.assertEqual(recovered["status"], "interrupted")
         self.assertTrue(recovered["deltaUnknown"])

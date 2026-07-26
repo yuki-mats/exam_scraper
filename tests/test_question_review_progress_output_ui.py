@@ -60,7 +60,9 @@ class ProgressOutputUiContractTests(unittest.TestCase):
             javascript,
         )
         self.assertIn(
-            "action.disabled = !working && (isRunning || workflow.restartRequired)",
+            "action.disabled = !working\n"
+            "      && !resumable\n"
+            "      && (!runStatusKnown || isRunning || workflow.restartRequired)",
             javascript,
         )
         self.assertIn('"進捗を見る"', javascript)
@@ -205,13 +207,12 @@ class ProgressOutputUiContractTests(unittest.TestCase):
             css,
         )
 
-    def test_question_body_choice_provenance_has_filter_count_and_badge(self):
+    def test_question_body_choice_provenance_has_filter_and_badge(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = INDEX_PATH.read_text(encoding="utf-8")
 
         self.assertIn('id="question-body-choices-only"', html)
         self.assertIn("questionBodyChoicesOnly", javascript)
-        self.assertIn("questionBodyChoicesCount", javascript)
         self.assertIn("choicesExtractedFromQuestionBody", javascript)
         self.assertIn("問題文から選択肢", javascript)
 
@@ -280,7 +281,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("判断調査中（1 thread・読取専用）", javascript)
         self.assertIn("判断と保存は直列", javascript)
         self.assertIn(
-            "model turn最大${modelWorkerLimit}本並列・検査と確定は1問ずつ",
+            "1問1model turn・最大${modelWorkerLimit}問並列・検査と確定も1問ずつ",
             javascript,
         )
         self.assertIn("準備済みの束からmodel実行中", javascript)

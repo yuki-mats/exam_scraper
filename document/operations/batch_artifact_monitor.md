@@ -45,7 +45,7 @@ App Server受信threadで行うのは、allowlist対象notificationのbounded qu
 | --- | --- |
 | `runId` | 観測対象run |
 | `parentRunId` | 一問queue全体の親run |
-| `childRunId` | 問題又は工程単位の子run |
+| `childRunId` | v1の子run、又はv2で一問attemptを相関する互換ID。v2の通常turnは子manifestを作らない |
 | `questionId` / `workItemKey` | 問題又は作業項目 |
 | `threadId` / `turnId` / `itemId` | App Server runtime |
 | `serverInstanceId` / `sequence` | 観測eventの順序と再接続境界 |
@@ -67,7 +67,7 @@ App Server受信threadで行うのは、allowlist対象notificationのbounded qu
   "correlation": {
     "qualification": "gas-shunin-otsu",
     "parentRunId": "<run-id>",
-    "childRunId": "<child-run-id>",
+    "childRunId": "<child-run-or-question-attempt-id>",
     "questionId": "<question-id>",
     "threadId": "<thread-id>",
     "turnId": "<turn-id>",
@@ -108,7 +108,7 @@ monitor namespaceにはPOST、PUT、PATCH、DELETEを実装しません。既存
 
 ## 正本と三つの状態
 
-`manifest.json`、`progress.jsonl`、`result.json`、receipt、保存済みpatch、`work_versions.json`をworkflowの正本とします。monitor event、replay、snapshotは表示のための再構築可能な観測projectionであり、工程完了、patch確定、公開可否を決めません。
+v2では、不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、`attempts/<token>/`の`progress.jsonl`・`result.json`・baseline、receipt、保存済みpatch、`work_versions.json`をworkflowの正本とします。`question_summary.json`、monitor event、replay、snapshotは表示のための再構築可能な観測projectionであり、工程完了、patch確定、公開可否を決めません。v1 runは既存の親・子manifestを読めますが、新規runでは生成しません。
 
 画面とAPIは、次の状態を混ぜません。
 

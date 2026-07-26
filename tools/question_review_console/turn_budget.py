@@ -20,6 +20,7 @@ class GlobalTurnBudget:
         self._registered: Counter[str] = Counter()
         self._active: Counter[str] = Counter()
         self._waiting: Counter[str] = Counter()
+        self._priority_waiting: Counter[str] = Counter()
         self._peak_in_flight = 0
         self._condition = threading.Condition(threading.RLock())
 
@@ -68,22 +69,32 @@ class GlobalTurnBudget:
         group: str | None,
         *,
         heartbeat: Callable[[], None] | None = None,
+        priority: bool = False,
     ) -> str:
         normalized = self._normalize_group(group)
         with self._condition:
             self._waiting[normalized] += 1
-            try:
-                while True:
+            if priority:
+                self._priority_waiting[normalized] += 1
+            self._condition.notify_all()
+        try:
+            while True:
+                with self._condition:
                     allocations = self._allocations_locked()
                     total_active = sum(self._active.values())
+                    priority_is_waiting = bool(
+                        sum(self._priority_waiting.values())
+                    )
                     if (
                         total_active < self.capacity
                         and self._active[normalized]
                         < allocations.get(normalized, 0)
+                        and (priority or not priority_is_waiting)
                     ):
-                        self._waiting[normalized] -= 1
-                        if self._waiting[normalized] <= 0:
-                            self._waiting.pop(normalized, None)
+                        self._remove_waiter_locked(
+                            normalized,
+                            priority=priority,
+                        )
                         self._active[normalized] += 1
                         self._peak_in_flight = max(
                             self._peak_in_flight,
@@ -92,17 +103,35 @@ class GlobalTurnBudget:
                         self._condition.notify_all()
                         return normalized
                     self._condition.wait(timeout=0.25)
-                    if callable(heartbeat):
-                        try:
-                            heartbeat()
-                        except Exception:
-                            pass
-            except BaseException:
-                self._waiting[normalized] -= 1
-                if self._waiting[normalized] <= 0:
-                    self._waiting.pop(normalized, None)
+                # A heartbeat can perform filesystem or parent-manifest I/O.
+                # Never run it while holding the allocation condition.
+                if callable(heartbeat):
+                    try:
+                        heartbeat()
+                    except Exception:
+                        pass
+        except BaseException:
+            with self._condition:
+                self._remove_waiter_locked(
+                    normalized,
+                    priority=priority,
+                )
                 self._condition.notify_all()
-                raise
+            raise
+
+    def _remove_waiter_locked(
+        self,
+        group: str,
+        *,
+        priority: bool,
+    ) -> None:
+        self._waiting[group] -= 1
+        if self._waiting[group] <= 0:
+            self._waiting.pop(group, None)
+        if priority:
+            self._priority_waiting[group] -= 1
+            if self._priority_waiting[group] <= 0:
+                self._priority_waiting.pop(group, None)
 
     def release(self, group: str) -> None:
         normalized = self._normalize_group(group)
@@ -120,8 +149,13 @@ class GlobalTurnBudget:
         group: str | None,
         *,
         heartbeat: Callable[[], None] | None = None,
+        priority: bool = False,
     ) -> Iterator[None]:
-        acquired_group = self.acquire(group, heartbeat=heartbeat)
+        acquired_group = self.acquire(
+            group,
+            heartbeat=heartbeat,
+            priority=priority,
+        )
         try:
             yield
         finally:
@@ -135,6 +169,7 @@ class GlobalTurnBudget:
                 "capacity": self.capacity,
                 "inFlight": sum(self._active.values()),
                 "waiting": sum(self._waiting.values()),
+                "priorityWaiting": sum(self._priority_waiting.values()),
                 "peakInFlight": self._peak_in_flight,
                 "groups": [
                     {
@@ -143,6 +178,7 @@ class GlobalTurnBudget:
                         "allocation": allocations.get(group, 0),
                         "inFlight": self._active[group],
                         "waiting": self._waiting[group],
+                        "priorityWaiting": self._priority_waiting[group],
                     }
                     for group in groups
                 ],

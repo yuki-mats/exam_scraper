@@ -98,6 +98,80 @@ class GlobalTurnBudgetTest(unittest.TestCase):
         for group in acquired:
             budget.release(group)
 
+    def test_heartbeat_runs_without_holding_budget_condition(self) -> None:
+        budget = GlobalTurnBudget(1)
+        held = budget.acquire("gas")
+        callback_entered = threading.Event()
+        callback_release = threading.Event()
+        snapshot_completed = threading.Event()
+
+        def heartbeat() -> None:
+            callback_entered.set()
+            callback_release.wait(timeout=2)
+
+        def waiter() -> None:
+            with budget.slot("gas", heartbeat=heartbeat):
+                pass
+
+        waiting_thread = threading.Thread(target=waiter, daemon=True)
+        waiting_thread.start()
+        self.assertTrue(callback_entered.wait(timeout=2))
+
+        snapshot_thread = threading.Thread(
+            target=lambda: (
+                budget.snapshot(),
+                snapshot_completed.set(),
+            ),
+            daemon=True,
+        )
+        snapshot_thread.start()
+        self.assertTrue(snapshot_completed.wait(timeout=0.5))
+        callback_release.set()
+        budget.release(held)
+        waiting_thread.join(timeout=2)
+        snapshot_thread.join(timeout=2)
+
+    def test_priority_waiter_enters_before_normal_waiter(self) -> None:
+        budget = GlobalTurnBudget(1)
+        held = budget.acquire("gas")
+        entered: list[str] = []
+        normal_release = threading.Event()
+        priority_release = threading.Event()
+
+        def worker(name: str, priority: bool, release: threading.Event) -> None:
+            with budget.slot("gas", priority=priority):
+                entered.append(name)
+                release.wait(timeout=2)
+
+        normal = threading.Thread(
+            target=worker,
+            args=("normal", False, normal_release),
+            daemon=True,
+        )
+        priority = threading.Thread(
+            target=worker,
+            args=("priority", True, priority_release),
+            daemon=True,
+        )
+        normal.start()
+        priority.start()
+        deadline = time.monotonic() + 2
+        while budget.snapshot()["waiting"] < 2 and time.monotonic() < deadline:
+            time.sleep(0.01)
+        budget.release(held)
+        deadline = time.monotonic() + 2
+        while not entered and time.monotonic() < deadline:
+            time.sleep(0.01)
+        self.assertEqual(entered, ["priority"])
+        priority_release.set()
+        deadline = time.monotonic() + 2
+        while len(entered) < 2 and time.monotonic() < deadline:
+            time.sleep(0.01)
+        self.assertEqual(entered, ["priority", "normal"])
+        normal_release.set()
+        normal.join(timeout=2)
+        priority.join(timeout=2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -54,6 +54,9 @@ from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.monitor_service import MonitorReadModel
 from tools.question_review_console.monitor_events import MonitorEventHub
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
+from tools.question_review_console.process_lease import (
+    review_console_process_lease,
+)
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 from tools.question_review_console.question_detail_read_model import (
     QUESTION_DETAIL_READ_MODEL_SCHEMA,
@@ -689,6 +692,32 @@ class QuestionReviewApplication:
                 )
             except (ValueError, QualificationRunError) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+        run_question_match = re.fullmatch(
+            r"/api/qualification-runs/([^/]+)/questions/([^/]+)",
+            path,
+        )
+        if run_question_match:
+            qualification = _query_value(query, "qualification")
+            run_id = urllib.parse.unquote(run_question_match.group(1))
+            question_id = urllib.parse.unquote(
+                run_question_match.group(2)
+            )
+            if not qualification or not run_id or not question_id:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "qualification、runId、questionIdを指定してください。",
+                )
+            try:
+                return HTTPStatus.OK, self.qualification_runs.question_run_detail(
+                    qualification,
+                    run_id,
+                    question_id,
+                )
+            except (ValueError, QualificationRunError) as exc:
+                raise ApiError(
+                    HTTPStatus.UNPROCESSABLE_ENTITY,
+                    str(exc),
+                ) from exc
         if path.startswith("/api/qualification-runs/") and path.endswith("/progress"):
             qualification = _query_value(query, "qualification")
             run_id = path.removeprefix("/api/qualification-runs/").removesuffix(
@@ -700,11 +729,13 @@ class QuestionReviewApplication:
                     "qualificationとrunIdを指定してください。",
                 )
             try:
-                progress = self.qualification_runs.progress(
-                    qualification, run_id
-                )
                 include_questions = _query_bool(
                     query, "includeQuestions", default=False
+                )
+                progress = self.qualification_runs.progress(
+                    qualification,
+                    run_id,
+                    include_questions=include_questions,
                 )
                 progress["questionsIncluded"] = include_questions
                 if not include_questions:
@@ -2805,32 +2836,52 @@ def run_server(
     )
     if tailscale_access is not None and port == 0:
         raise ValueError("Tailscale公開時は--portに固定portを指定してください。")
-    app = QuestionReviewApplication(repo_root, tailscale_access=tailscale_access)
     server = ThreadingHTTPServer((host, port), QuestionReviewRequestHandler)
-    server.app = app  # type: ignore[attr-defined]
-    actual_port = int(server.server_address[1])
-    app.set_origin(host, actual_port)
-    params = {}
-    if qualification:
-        params["qualification"] = qualification
-    if list_group_id:
-        params["listGroupId"] = list_group_id
-    suffix = "?" + urllib.parse.urlencode(params) if params else ""
-    url = f"{app.origin}/{suffix}"
-    print(f"問題整備システム: {url}", flush=True)
-    if tailscale_access is not None:
-        print(f"Tailscale Serve: {tailscale_access.origin}/{suffix}", flush=True)
-    print(f"Firestore: {PRODUCTION_PROJECT_ID} (UI publish enabled)", flush=True)
-    if open_browser:
-        threading.Timer(0.3, lambda: webbrowser.open(url)).start()
+    process_lease = review_console_process_lease(repo_root)
+    app: QuestionReviewApplication | None = None
     try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        pass
+        process_lease.acquire()
+        app = QuestionReviewApplication(
+            repo_root,
+            tailscale_access=tailscale_access,
+        )
+        # Store construction is intentionally read-only.  Startup recovery may
+        # mutate runs only after this process owns both the TCP listener and
+        # the process-wide lease.
+        app.run_store.recover_interrupted_runs()
+        server.app = app  # type: ignore[attr-defined]
+        actual_port = int(server.server_address[1])
+        app.set_origin(host, actual_port)
+        params = {}
+        if qualification:
+            params["qualification"] = qualification
+        if list_group_id:
+            params["listGroupId"] = list_group_id
+        suffix = "?" + urllib.parse.urlencode(params) if params else ""
+        url = f"{app.origin}/{suffix}"
+        print(f"問題整備システム: {url}", flush=True)
+        if tailscale_access is not None:
+            print(
+                f"Tailscale Serve: {tailscale_access.origin}/{suffix}",
+                flush=True,
+            )
+        print(
+            f"Firestore: {PRODUCTION_PROJECT_ID} (UI publish enabled)",
+            flush=True,
+        )
+        if open_browser:
+            threading.Timer(0.3, lambda: webbrowser.open(url)).start()
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            pass
     finally:
         server.server_close()
-        app.close()
+        if app is not None:
+            app.close()
+        process_lease.close()
     return 0
+
 
 
 def main(argv: list[str] | None = None) -> int:

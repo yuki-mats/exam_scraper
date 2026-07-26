@@ -14,7 +14,7 @@ import tempfile
 import threading
 import time
 import weakref
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, as_completed, wait
 from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -48,6 +48,10 @@ from tools.question_review_console.projection import (
     sha256_json,
     source_identity_aliases,
     workflow_identity_aliases,
+)
+from tools.question_review_console.process_lease import (
+    ProcessLeaseError,
+    qualification_run_lease,
 )
 from scripts.common.explanation_contract import uses_question_level_explanation
 from scripts.common.aggregate_answer_decomposition import (
@@ -137,6 +141,15 @@ from tools.question_review_console.question_work_queue import (
     subset_question_plan,
     work_item_key,
 )
+from tools.question_review_console.question_run_state import (
+    PLAN_OWNED_FIELDS,
+    RUN_SCHEMA_VERSION as QUESTION_RUN_SCHEMA_VERSION,
+    QuestionRunStateError,
+    QuestionRunStateStore,
+    question_state_filename,
+    update_active_attempt_from_execution,
+    validated_receipt_key,
+)
 from tools.question_review_console.run_target_identity import (
     RunTargetIdentityError,
     RunTargetIdentityResolver,
@@ -169,6 +182,53 @@ class QuestionValidationResult:
     summary: str
     commands: tuple[dict[str, str], ...]
     changed_files: tuple[str, ...]
+
+
+class _ParentRunHeartbeatTicker:
+    """One coordinator-owned heartbeat writer for a maintenance parent run."""
+
+    def __init__(
+        self,
+        store: "QualificationRunStore",
+        qualification: str,
+        run_id: str,
+        *,
+        interval_seconds: float = 15.0,
+    ):
+        self.store = store
+        self.qualification = qualification
+        self.run_id = run_id
+        self.interval_seconds = max(1.0, float(interval_seconds))
+        self._stop = threading.Event()
+        self._thread: threading.Thread | None = None
+
+    def __enter__(self) -> "_ParentRunHeartbeatTicker":
+        self._thread = threading.Thread(
+            target=self._run,
+            daemon=True,
+            name="question-run-parent-heartbeat",
+        )
+        self._thread.start()
+        return self
+
+    def __exit__(self, _exc_type, _exc, _traceback) -> None:
+        self._stop.set()
+        if self._thread is not None:
+            self._thread.join(timeout=min(self.interval_seconds, 2.0))
+
+    def _run(self) -> None:
+        while not self._stop.wait(self.interval_seconds):
+            try:
+                self.store.update(
+                    self.qualification,
+                    self.run_id,
+                    heartbeatAt=_now(),
+                    heartbeatWriter="coordinator",
+                )
+            except Exception:
+                # The owning job reports the real failure. A failed diagnostic
+                # heartbeat must not create a second failure path.
+                pass
 
 
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 32, DEFAULT_MAX_PARALLEL_TURNS)
@@ -1631,6 +1691,7 @@ class QualificationRunStore:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
         self.root = self.repo_root / "output" / "question_review_console" / "workflow_runs"
+        self.question_states = QuestionRunStateStore(self.repo_root)
         # `_lock` protects only lock registries and startup recovery. Runtime
         # manifest I/O uses a lock per path so independent question turns do
         # not serialize behind unrelated run files.
@@ -1666,6 +1727,10 @@ class QualificationRunStore:
         self._technical_log_sequences: dict[Path, int] = {}
         self._technical_log_last_signatures: dict[Path, str] = {}
         self._recovery_index_marker = self.root / ".recovery-index-v1.json"
+
+    def recover_interrupted_runs(self) -> None:
+        """Recover runs only after the UI process owns the server lease."""
+
         self._recover_interrupted_runs()
         # Recovery scans every historical run. Keep runtime caching bounded to
         # manifests used after startup instead of retaining the whole history.
@@ -1681,6 +1746,319 @@ class QualificationRunStore:
                 lock = threading.RLock()
                 self._path_locks[normalized] = lock
             return lock
+
+    @staticmethod
+    def _parse_question_attempt_id(
+        run_id: str,
+    ) -> tuple[str, str, str] | None:
+        if not str(run_id).startswith("qa-"):
+            return None
+        try:
+            parent_prefix, question_hash, token = str(run_id).rsplit("-", 2)
+        except ValueError:
+            return None
+        parent_run_id = parent_prefix.removeprefix("qa-")
+        if (
+            not parent_run_id
+            or not re.fullmatch(r"[A-Za-z0-9_-]+", parent_run_id)
+            or not re.fullmatch(r"[0-9a-f]{64}", question_hash)
+            or not re.fullmatch(r"[0-9a-f]{16}", token)
+        ):
+            return None
+        return parent_run_id, question_hash, token
+
+    def is_question_attempt(self, run_id: str) -> bool:
+        return self._parse_question_attempt_id(run_id) is not None
+
+    def _question_attempt_context(
+        self,
+        qualification: str,
+        attempt_id: str,
+    ) -> tuple[Path, dict[str, Any], str, dict[str, Any]]:
+        parsed = self._parse_question_attempt_id(attempt_id)
+        if parsed is None:
+            raise QualificationRunError("一問attempt IDが不正です。")
+        parent_run_id, question_hash, _token = parsed
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        with self._path_lock(parent_path):
+            parent = self._load_manifest(parent_path)
+        if not self.question_states.is_v2(parent):
+            raise QualificationRunError(
+                "一問attemptの親runがv2ではありません。"
+            )
+        try:
+            state = self.question_states.load_question_by_hash(
+                parent_path.parent,
+                parent,
+                question_hash,
+            )
+        except QuestionRunStateError as exc:
+            raise QualificationRunError(str(exc)) from exc
+        question_id = str(state["questionId"])
+        attempts = state.get("attemptArtifacts")
+        attempt = (
+            attempts.get(attempt_id)
+            if isinstance(attempts, Mapping)
+            else None
+        )
+        if not isinstance(attempt, Mapping):
+            raise QualificationRunError(
+                "一問attemptの永続記録がありません。"
+            )
+        return parent_path, parent, question_id, copy.deepcopy(dict(attempt))
+
+    def create_question_attempt(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+        stage_id: str,
+        plan: Mapping[str, Any],
+        prompt: str,
+    ) -> dict[str, Any]:
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        with self._path_lock(parent_path):
+            parent = self._load_manifest(parent_path)
+        if not self.question_states.is_v2(parent):
+            raise QualificationRunError(
+                "一問attemptはv2 maintenance runだけで使用できます。"
+            )
+        question_hash = question_state_filename(question_id).removesuffix(
+            ".json"
+        )
+        token = secrets.token_hex(8)
+        attempt_id = f"qa-{parent_run_id}-{question_hash}-{token}"
+        attempt_dir = parent_path.parent / "attempts" / token
+        attempt_dir.mkdir(parents=True, exist_ok=False)
+        now = _now()
+        attempt_plan = copy.deepcopy(dict(plan))
+        attempt_plan["progressStages"] = [
+            {
+                "id": str(stage.get("stageId") or ""),
+                "code": str(stage.get("stageCode") or ""),
+                "label": str(stage.get("stageLabel") or ""),
+            }
+            for stage in attempt_plan.get("stagePlans")
+            or [attempt_plan]
+            if str(stage.get("stageId") or "")
+        ]
+        attempt = {
+            "attemptId": attempt_id,
+            "questionId": question_id,
+            "stageId": stage_id,
+            "parentRunId": parent_run_id,
+            "status": "queued",
+            "createdAt": now,
+            "updatedAt": now,
+            "startedAt": None,
+            "finishedAt": None,
+            "prompt": str(prompt),
+            "plan": attempt_plan,
+            "resultReceiptPath": str(
+                (attempt_dir / "result.json").relative_to(self.repo_root)
+            ),
+            "progressReceiptPath": str(
+                (attempt_dir / "progress.jsonl").relative_to(self.repo_root)
+            ),
+            "artifactDirectory": str(
+                attempt_dir.relative_to(self.repo_root)
+            ),
+            "result": None,
+        }
+        question_path = self.question_states.question_path(
+            parent_path.parent,
+            parent,
+            question_id,
+        )
+        with self._path_lock(question_path):
+
+            def add_attempt(state: dict[str, Any]) -> None:
+                attempts = state.setdefault("attemptArtifacts", {})
+                if not isinstance(attempts, dict):
+                    raise QuestionRunStateError(
+                        "一問stateのattemptArtifactsが不正です。"
+                    )
+                if attempt_id in attempts:
+                    raise QuestionRunStateError(
+                        "一問attempt IDが重複しています。"
+                    )
+                attempts[attempt_id] = copy.deepcopy(attempt)
+                state["activeAttemptId"] = attempt_id
+
+            try:
+                self.question_states.update_question(
+                    parent_path.parent,
+                    parent,
+                    question_id,
+                    add_attempt,
+                )
+            except QuestionRunStateError as exc:
+                shutil.rmtree(attempt_dir, ignore_errors=True)
+                raise QualificationRunError(str(exc)) from exc
+        return self._question_attempt_facade(attempt)
+
+    @staticmethod
+    def _question_attempt_facade(
+        attempt: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        plan = attempt.get("plan")
+        if not isinstance(plan, Mapping):
+            raise QualificationRunError("一問attemptのplanが不正です。")
+        runtime = {
+            str(key): copy.deepcopy(value)
+            for key, value in attempt.items()
+            if key not in {"plan", "prompt"}
+        }
+        return {
+            **copy.deepcopy(dict(plan)),
+            **runtime,
+            "runId": str(attempt.get("attemptId") or ""),
+            "parentRunId": str(attempt.get("parentRunId") or ""),
+            "promptPath": None,
+            "technicalLogPath": None,
+        }
+
+    def _update_question_attempt(
+        self,
+        qualification: str,
+        attempt_id: str,
+        changes: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        parent_path, parent, question_id, _attempt = (
+            self._question_attempt_context(
+                qualification,
+                attempt_id,
+            )
+        )
+        question_path = self.question_states.question_path(
+            parent_path.parent,
+            parent,
+            question_id,
+        )
+        with self._path_lock(question_path):
+
+            def apply(state: dict[str, Any]) -> None:
+                attempts = state.get("attemptArtifacts")
+                if not isinstance(attempts, dict):
+                    raise QuestionRunStateError(
+                        "一問stateのattemptArtifactsが不正です。"
+                    )
+                current = attempts.get(attempt_id)
+                if not isinstance(current, dict):
+                    raise QuestionRunStateError(
+                        "一問attemptの永続記録がありません。"
+                    )
+                if str(current.get("status") or "") in {
+                    "succeeded",
+                    "failed",
+                    "interrupted",
+                }:
+                    non_idempotent = {
+                        str(key): value
+                        for key, value in changes.items()
+                        if current.get(key) != value
+                    }
+                    if non_idempotent:
+                        raise QuestionRunStateError(
+                            "終端済みの一問attemptは変更できません。"
+                        )
+                    return
+                immutable = {
+                    key: copy.deepcopy(current.get(key))
+                    for key in (
+                        "attemptId",
+                        "questionId",
+                        "stageId",
+                        "parentRunId",
+                        "createdAt",
+                        "plan",
+                        "prompt",
+                        "artifactDirectory",
+                        "resultReceiptPath",
+                        "progressReceiptPath",
+                    )
+                }
+                current.update(copy.deepcopy(dict(changes)))
+                if any(current.get(key) != value for key, value in immutable.items()):
+                    raise QuestionRunStateError(
+                        "一問attemptのimmutable fieldは変更できません。"
+                    )
+                current["updatedAt"] = _now()
+                if current.get("status") in {"succeeded", "failed"}:
+                    current["finishedAt"] = (
+                        current.get("finishedAt") or current["updatedAt"]
+                    )
+
+            try:
+                state = self.question_states.update_question(
+                    parent_path.parent,
+                    parent,
+                    question_id,
+                    apply,
+                )
+            except QuestionRunStateError as exc:
+                raise QualificationRunError(str(exc)) from exc
+        attempts = state.get("attemptArtifacts") or {}
+        return self._question_attempt_facade(attempts[attempt_id])
+
+    def run_directory(self, qualification: str, run_id: str) -> Path:
+        if not self.is_question_attempt(run_id):
+            return self.root / _safe_segment(qualification) / _safe_segment(
+                run_id
+            )
+        parent_path, _parent, _question_id, attempt = (
+            self._question_attempt_context(qualification, run_id)
+        )
+        return self._question_attempt_directory(parent_path, attempt)
+
+    def _question_attempt_directory(
+        self,
+        parent_path: Path,
+        attempt: Mapping[str, Any],
+    ) -> Path:
+        path = (
+            self.repo_root / str(attempt.get("artifactDirectory") or "")
+        ).resolve()
+        if path.parent != parent_path.parent / "attempts":
+            raise QualificationRunError(
+                "一問attemptのartifact directoryが不正です。"
+            )
+        return path
+
+    def update_attempt_stage_status(
+        self,
+        qualification: str,
+        attempt_id: str,
+        status: str,
+    ) -> dict[str, Any]:
+        parent_path, parent, question_id, attempt = (
+            self._question_attempt_context(
+                qualification,
+                attempt_id,
+            )
+        )
+        stage_id = str(attempt.get("stageId") or "")
+        if status not in {"preparing", "prepared", "committing"}:
+            raise QualificationRunError(
+                "一問attemptの工程状態が不正です。"
+            )
+        return self._update_v2_question_stages(
+            parent_path,
+            parent,
+            [
+                {
+                    "questionId": question_id,
+                    "stageId": stage_id,
+                    "changes": {
+                        "status": status,
+                        "error": None,
+                    },
+                }
+            ],
+            [(question_id, stage_id)],
+            refresh_derived=False,
+            hydrate_result=False,
+        )
 
     def create(
         self,
@@ -2092,8 +2470,20 @@ class QualificationRunStore:
                     encoding="utf-8",
                 )
                 manifest["promptPath"] = str(prompt_path.relative_to(self.repo_root))
+            if (
+                manifest.get("workType") == "maintenance_flow"
+                and question_executions
+            ):
+                try:
+                    manifest = self.question_states.initialize(
+                        run_dir,
+                        plan,
+                        manifest,
+                    )
+                except QuestionRunStateError as exc:
+                    raise QualificationRunError(str(exc)) from exc
             self._write_manifest(manifest_path, manifest)
-        return copy.deepcopy(manifest)
+        return self._hydrate_question_run(manifest_path, manifest)
 
     def append_technical_log(
         self,
@@ -2162,9 +2552,26 @@ class QualificationRunStore:
         )
 
     def update(self, qualification: str, run_id: str, **changes: Any) -> dict[str, Any]:
+        if self.is_question_attempt(run_id):
+            return self._update_question_attempt(
+                qualification,
+                run_id,
+                changes,
+            )
         path = self._manifest_path(qualification, run_id)
         with self._path_lock(path):
             manifest = self._load_manifest(path)
+            if self.question_states.is_v2(manifest):
+                work_version_receipt = changes.get("workVersionReceipt")
+                changes = {
+                    key: value
+                    for key, value in changes.items()
+                    if key not in PLAN_OWNED_FIELDS
+                }
+                if isinstance(work_version_receipt, Mapping):
+                    changes["workVersionRecordedCount"] = int(
+                        work_version_receipt.get("recordedCount") or 0
+                    )
             manifest.update(changes)
             manifest["updatedAt"] = _now()
             if manifest.get("status") in {"succeeded", "failed"}:
@@ -2180,7 +2587,7 @@ class QualificationRunStore:
                 )
                 with self._aggregate_checkpoint_cache_lock:
                     self._aggregate_checkpoint_cache.pop(path, None)
-        return copy.deepcopy(manifest)
+        return self._hydrate_question_run(path, manifest)
 
     @staticmethod
     def _validate_aggregate_review_execution(
@@ -2510,11 +2917,23 @@ class QualificationRunStore:
         path: Path,
         manifest: Mapping[str, Any],
     ) -> dict[str, Any]:
-        value = copy.deepcopy(dict(manifest))
+        value = self._hydrate_question_run(path, manifest)
         checkpoints = self._aggregate_checkpoint_snapshot(path, value)
         if checkpoints or "aggregateReviewCheckpoints" in value:
             value["aggregateReviewCheckpoints"] = checkpoints
         return self._public(value)
+
+    def _hydrate_question_run(
+        self,
+        path: Path,
+        manifest: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        if not self.question_states.is_v2(manifest):
+            return copy.deepcopy(dict(manifest))
+        try:
+            return self.question_states.hydrate(path.parent, manifest)
+        except QuestionRunStateError as exc:
+            raise QualificationRunError(str(exc)) from exc
 
     def aggregate_review_checkpoint(
         self,
@@ -3116,6 +3535,15 @@ class QualificationRunStore:
         path = self._manifest_path(qualification, run_id)
         with self._path_lock(path):
             manifest = self._load_manifest(path)
+        if self.question_states.is_v2(manifest):
+            return self._update_v2_question_stages(
+                path,
+                manifest,
+                updates,
+                update_keys,
+            )
+        with self._path_lock(path):
+            manifest = self._load_manifest(path)
             executions = manifest.get("questionExecutions")
             if not isinstance(executions, list):
                 raise QualificationRunError("一問queueの実行記録がありません。")
@@ -3264,6 +3692,185 @@ class QualificationRunStore:
             self._write_manifest(path, manifest)
         return copy.deepcopy(manifest)
 
+    def _update_v2_question_stages(
+        self,
+        manifest_path: Path,
+        manifest: Mapping[str, Any],
+        updates: list[Mapping[str, Any]],
+        update_keys: list[tuple[str, str]],
+        *,
+        refresh_derived: bool = True,
+        hydrate_result: bool = True,
+    ) -> dict[str, Any]:
+        appended_child_run_ids: list[str] = []
+        confirmed_group_ids: set[str] = set()
+        for raw_update, (question_id, stage_id) in zip(updates, update_keys):
+            question_path = self.question_states.question_path(
+                manifest_path.parent,
+                manifest,
+                question_id,
+            )
+            with self._path_lock(question_path):
+
+                def apply(state: dict[str, Any]) -> None:
+                    execution = state.get("execution")
+                    if not isinstance(execution, dict):
+                        raise QuestionRunStateError(
+                            "一問queueの実行記録がありません。"
+                        )
+                    stages = execution.get("stages")
+                    if not isinstance(stages, list):
+                        raise QuestionRunStateError(
+                            "一問queueの工程記録がありません。"
+                        )
+                    stage_index = next(
+                        (
+                            index
+                            for index, value in enumerate(stages)
+                            if isinstance(value, dict)
+                            and str(value.get("stageId") or "") == stage_id
+                        ),
+                        None,
+                    )
+                    if stage_index is None:
+                        raise QuestionRunStateError(
+                            "一問queueの対象工程がありません: "
+                            f"{question_id} / {stage_id}"
+                        )
+                    raw_changes = raw_update.get("changes") or {}
+                    if not isinstance(raw_changes, Mapping):
+                        raise QuestionRunStateError(
+                            "一問queueの一括更新内容が不正です。"
+                        )
+                    changes = copy.deepcopy(dict(raw_changes))
+                    appended_child_run_ids.extend(
+                        str(value)
+                        for value in changes.get("childRunIds") or []
+                        if value
+                    )
+                    next_status = str(
+                        changes.get("status")
+                        or stages[stage_index].get("status")
+                        or ""
+                    )
+                    if next_status not in WORK_ITEM_STATES:
+                        raise QuestionRunStateError(
+                            f"一問queueの工程状態が不正です: {next_status}"
+                        )
+                    stages[stage_index].update(changes)
+                    if next_status == "validated":
+                        if execution.get("listGroupId"):
+                            confirmed_group_ids.add(
+                                str(execution["listGroupId"])
+                            )
+                        validated_receipt = raw_update.get(
+                            "validatedReceipt"
+                        )
+                        if isinstance(validated_receipt, Mapping):
+                            receipts = state.setdefault(
+                                "validatedReceipts",
+                                {},
+                            )
+                            if not isinstance(receipts, dict):
+                                raise QuestionRunStateError(
+                                    "一問stateのvalidatedReceiptsが不正です。"
+                                )
+                            receipts[
+                                validated_receipt_key(
+                                    question_id,
+                                    stage_id,
+                                )
+                            ] = copy.deepcopy(dict(validated_receipt))
+                    if raw_update.get("blockDependents"):
+                        reason = str(
+                            changes.get("error")
+                            or "前工程で停止しました。"
+                        )
+                        for dependent in stages[stage_index + 1 :]:
+                            if not isinstance(dependent, dict):
+                                continue
+                            if str(dependent.get("status") or "") in {
+                                "validated",
+                                "not_applicable",
+                            }:
+                                continue
+                            dependent.update(
+                                status="blocked",
+                                error=(
+                                    f"前工程 {stage_id} の停止により保留: "
+                                    f"{reason}"
+                                ),
+                                finishedAt=(
+                                    changes.get("finishedAt") or _now()
+                                ),
+                            )
+                    refresh_question_status(execution)
+                    update_active_attempt_from_execution(state)
+
+                try:
+                    self.question_states.update_question(
+                        manifest_path.parent,
+                        manifest,
+                        question_id,
+                        apply,
+                    )
+                except QuestionRunStateError as exc:
+                    raise QualificationRunError(str(exc)) from exc
+
+        if not refresh_derived:
+            with self._path_lock(manifest_path):
+                current = self._load_manifest(manifest_path)
+            return (
+                self._hydrate_question_run(manifest_path, current)
+                if hydrate_result
+                else self._public(current)
+            )
+
+        summary_path = self.repo_root / str(
+            manifest.get("questionSummaryPath") or ""
+        )
+        with self._path_lock(summary_path):
+            try:
+                summary_payload = self.question_states.rebuild_summary(
+                    manifest_path.parent,
+                    manifest,
+                )
+            except QuestionRunStateError as exc:
+                raise QualificationRunError(str(exc)) from exc
+        summary = dict(summary_payload["queueSummary"])
+        appended_stage_ids = {
+            stage_id for _question_id, stage_id in update_keys
+        }
+        with self._path_lock(manifest_path):
+            current = self._load_manifest(manifest_path)
+            current["confirmedGroupIds"] = sorted(
+                {
+                    *(
+                        str(value)
+                        for value in current.get("confirmedGroupIds") or []
+                        if value
+                    ),
+                    *confirmed_group_ids,
+                }
+            )
+            if appended_child_run_ids:
+                if len(appended_stage_ids) == 1:
+                    active_stage_id = next(iter(appended_stage_ids))
+                    current["currentPhaseId"] = active_stage_id
+                    current["executionPhase"] = (
+                        f"candidate:{active_stage_id}"
+                    )
+            current.update(
+                questionExecutionSummary=summary,
+                blockedQuestionCount=summary["blockedQuestionCount"],
+                blockedWorkItemCount=summary["blockedWorkItemCount"],
+                validatedQuestionCount=summary["validatedQuestionCount"],
+                validatedWorkItemCount=summary["validatedWorkItemCount"],
+                updatedAt=_now(),
+            )
+            self._write_manifest(manifest_path, current)
+        return self._hydrate_question_run(manifest_path, current)
+
     def list(
         self,
         qualification: str,
@@ -3350,12 +3957,82 @@ class QualificationRunStore:
         ][:limit]
 
     def get(self, qualification: str, run_id: str) -> dict[str, Any]:
+        if self.is_question_attempt(run_id):
+            parent_path, _parent, _question_id, attempt = (
+                self._question_attempt_context(
+                    qualification,
+                    run_id,
+                )
+            )
+            return self._question_attempt_facade(attempt)
         path = self._manifest_path(qualification, run_id)
         with self._path_lock(path):
             manifest = self._load_manifest(path)
         return self._public_with_aggregate_checkpoints(path, manifest)
 
+    def get_compact(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> dict[str, Any]:
+        """Read only the mutable parent manifest without hydrating v2 state."""
+
+        if self.is_question_attempt(run_id):
+            return self.get(qualification, run_id)
+        path = self._manifest_path(qualification, run_id)
+        with self._path_lock(path):
+            manifest = self._load_manifest(path)
+        return self._public(manifest)
+
+    def question_detail(
+        self,
+        qualification: str,
+        run_id: str,
+        question_id: str,
+    ) -> dict[str, Any]:
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._path_lock(manifest_path):
+            manifest = self._load_manifest(manifest_path)
+        if not self.question_states.is_v2(manifest):
+            run = self._public_with_aggregate_checkpoints(
+                manifest_path,
+                manifest,
+            )
+            execution = next(
+                (
+                    copy.deepcopy(dict(value))
+                    for value in run.get("questionExecutions") or []
+                    if isinstance(value, Mapping)
+                    and str(value.get("questionId") or "") == question_id
+                ),
+                None,
+            )
+            if execution is None:
+                raise QualificationRunError(
+                    "指定した問題の実行記録がありません。"
+                )
+            return {
+                "schemaVersion": "question-maintenance-question/v1-view",
+                "runId": run_id,
+                "questionId": question_id,
+                "execution": execution,
+            }
+        try:
+            state = self.question_states.load_question(
+                manifest_path.parent,
+                manifest,
+                question_id,
+            )
+        except QuestionRunStateError as exc:
+            raise QualificationRunError(str(exc)) from exc
+        return {
+            **copy.deepcopy(state),
+            "runId": run_id,
+        }
+
     def refresh(self, qualification: str, run_id: str) -> dict[str, Any]:
+        if self.is_question_attempt(run_id):
+            return self.get(qualification, run_id)
         path = self._manifest_path(qualification, run_id)
         with self._path_lock(path):
             manifest = self._apply_result_receipt(path, self._load_manifest(path))
@@ -3364,6 +4041,15 @@ class QualificationRunStore:
     def write_result(
         self, qualification: str, run_id: str, result: Mapping[str, Any]
     ) -> Path:
+        if self.is_question_attempt(run_id):
+            path = self.result_path(qualification, run_id)
+            self._write_json(path, result)
+            self._update_question_attempt(
+                qualification,
+                run_id,
+                {"result": copy.deepcopy(dict(result))},
+            )
+            return path
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
@@ -3392,6 +4078,24 @@ class QualificationRunStore:
             return self._public(manifest)
 
     def result_path(self, qualification: str, run_id: str) -> Path:
+        if self.is_question_attempt(run_id):
+            parent_path, _parent, _question_id, attempt = (
+                self._question_attempt_context(
+                    qualification,
+                    run_id,
+                )
+            )
+            path = (
+                self.repo_root
+                / str(attempt.get("resultReceiptPath") or "")
+            ).resolve()
+            if not path.is_relative_to(
+                self._question_attempt_directory(parent_path, attempt)
+            ):
+                raise QualificationRunError(
+                    "一問attemptのresult pathが不正です。"
+                )
+            return path
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             return self._result_path(
@@ -3400,6 +4104,24 @@ class QualificationRunStore:
             )
 
     def progress_path(self, qualification: str, run_id: str) -> Path:
+        if self.is_question_attempt(run_id):
+            parent_path, _parent, _question_id, attempt = (
+                self._question_attempt_context(
+                    qualification,
+                    run_id,
+                )
+            )
+            path = (
+                self.repo_root
+                / str(attempt.get("progressReceiptPath") or "")
+            ).resolve()
+            if not path.is_relative_to(
+                self._question_attempt_directory(parent_path, attempt)
+            ):
+                raise QualificationRunError(
+                    "一問attemptのprogress pathが不正です。"
+                )
+            return path
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
@@ -3458,6 +4180,15 @@ class QualificationRunStore:
         }
 
     def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
+        if self.is_question_attempt(run_id):
+            manifest = self.get(qualification, run_id)
+            progress_path = self.progress_path(qualification, run_id)
+            raw = (
+                progress_path.read_bytes()
+                if progress_path.is_file()
+                else b""
+            )
+            return self._parsed_progress(manifest, raw)
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
@@ -3487,12 +4218,22 @@ class QualificationRunStore:
             question["targetIndex"] = target_index
 
     def combined_progress(
-        self, qualification: str, run_id: str
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        include_questions: bool = True,
     ) -> dict[str, Any]:
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             child_run_ids = list(manifest.get("childRunIds") or [])
+        if self.question_states.is_v2(manifest):
+            return self._v2_combined_progress(
+                manifest_path,
+                manifest,
+                include_questions=include_questions,
+            )
         children: list[tuple[dict[str, Any], bytes]] = []
         for child_run_id in child_run_ids:
             child_path = self._manifest_path(qualification, str(child_run_id))
@@ -3827,6 +4568,283 @@ class QualificationRunStore:
                 ),
             )
         payload["queueStatus"] = manifest.get("queueStatus")
+        return payload
+
+    def _v2_combined_progress(
+        self,
+        manifest_path: Path,
+        manifest: Mapping[str, Any],
+        *,
+        include_questions: bool,
+    ) -> dict[str, Any]:
+        try:
+            summary_payload = self.question_states.load_summary(
+                manifest_path.parent,
+                manifest,
+            )
+        except QuestionRunStateError:
+            try:
+                summary_payload = self.question_states.rebuild_summary(
+                    manifest_path.parent,
+                    manifest,
+                )
+            except QuestionRunStateError as exc:
+                raise QualificationRunError(str(exc)) from exc
+        execution_summary = dict(summary_payload["queueSummary"])
+        payload = self._empty_progress(
+            {
+                **dict(manifest),
+                "questionExecutionSummary": execution_summary,
+            }
+        )
+        question_count = int(summary_payload.get("questionCount") or 0)
+        validated_questions = int(
+            execution_summary.get("validatedQuestionCount") or 0
+        )
+        blocked_questions = int(
+            execution_summary.get("blockedQuestionCount") or 0
+        )
+        validated_work = int(
+            execution_summary.get("validatedWorkItemCount") or 0
+        )
+        blocked_work = int(
+            execution_summary.get("blockedWorkItemCount") or 0
+        )
+        not_applicable_work = int(
+            execution_summary.get("notApplicableWorkItemCount") or 0
+        )
+        processed_questions = validated_questions + blocked_questions
+        processed_work = validated_work + blocked_work + not_applicable_work
+        verified = bool(
+            manifest.get("status") == "succeeded"
+            and manifest.get("receiptValidated") is True
+        )
+        questions: list[dict[str, Any]] = []
+        if include_questions:
+            try:
+                plan = self.question_states.load_plan(
+                    manifest_path.parent,
+                    manifest,
+                )
+            except QuestionRunStateError as exc:
+                raise QualificationRunError(str(exc)) from exc
+            targets = {
+                str(value.get("id") or ""): dict(value)
+                for value in plan.get("progressTargets") or []
+                if isinstance(value, Mapping) and value.get("id")
+            }
+            for target_index, question_id in enumerate(
+                self.question_states.question_ids(
+                    manifest_path.parent,
+                    manifest,
+                ),
+                start=1,
+            ):
+                try:
+                    state = self.question_states.load_question(
+                        manifest_path.parent,
+                        manifest,
+                        question_id,
+                    )
+                except QuestionRunStateError as exc:
+                    raise QualificationRunError(str(exc)) from exc
+                execution = dict(state["execution"])
+                target = targets.get(question_id, {})
+                stages = [
+                    dict(value)
+                    for value in execution.get("stages") or []
+                    if isinstance(value, Mapping)
+                ]
+                active_stage = next(
+                    (
+                        stage
+                        for status in (
+                            "committing",
+                            "prepared",
+                            "preparing",
+                            "queued",
+                        )
+                        for stage in stages
+                        if str(stage.get("status") or "") == status
+                    ),
+                    stages[-1] if stages else {},
+                )
+                question_status = str(
+                    execution.get("status") or "queued"
+                )
+                queue_status = (
+                    "blocked"
+                    if question_status == "blocked"
+                    else "validated"
+                    if question_status == "validated"
+                    else str(active_stage.get("status") or "queued")
+                )
+                attempts = (
+                    state.get("attemptArtifacts")
+                    if isinstance(state.get("attemptArtifacts"), Mapping)
+                    else {}
+                )
+                outputs: list[dict[str, Any]] = []
+                for stage in stages:
+                    validation_attempts = [
+                        value
+                        for value in stage.get("validationAttempts") or []
+                        if isinstance(value, Mapping)
+                    ]
+                    latest_attempt_id = str(
+                        validation_attempts[-1].get("childRunId") or ""
+                    ) if validation_attempts else ""
+                    attempt = (
+                        attempts.get(latest_attempt_id)
+                        if latest_attempt_id
+                        else None
+                    )
+                    batch_results = (
+                        attempt.get("batchQuestionResults")
+                        if isinstance(attempt, Mapping)
+                        else []
+                    )
+                    result = next(
+                        (
+                            dict(value)
+                            for value in batch_results or []
+                            if isinstance(value, Mapping)
+                            and str(value.get("questionId") or "")
+                            == question_id
+                        ),
+                        {},
+                    )
+                    if not result and stage.get("error"):
+                        result = {"summary": str(stage["error"])}
+                    if not result and str(stage.get("status") or "") not in {
+                        "validated",
+                        "blocked",
+                    }:
+                        continue
+                    outputs.append(
+                        {
+                            "event": "stage_completed",
+                            "questionId": question_id,
+                            "stageId": str(stage.get("stageId") or ""),
+                            "stageCode": str(stage.get("stageCode") or ""),
+                            "stageLabel": str(stage.get("stageLabel") or ""),
+                            "result": result,
+                        }
+                    )
+                blocked_reason = next(
+                    (
+                        str(stage.get("error") or "")
+                        for stage in stages
+                        if str(stage.get("status") or "") == "blocked"
+                        and stage.get("error")
+                    ),
+                    "",
+                )
+                question = {
+                    **copy.deepcopy(target),
+                    "questionId": question_id,
+                    "targetIndex": target_index,
+                    "queueStatus": queue_status,
+                    "approvalState": (
+                        "blocked"
+                        if queue_status == "blocked"
+                        else "validated"
+                        if queue_status == "validated"
+                        else "working"
+                    ),
+                    "event": (
+                        "question_completed"
+                        if queue_status in {"validated", "blocked"}
+                        else "question_started"
+                        if queue_status
+                        in {"preparing", "prepared", "committing"}
+                        else None
+                    ),
+                    "stageId": str(active_stage.get("stageId") or ""),
+                    "stageCode": str(active_stage.get("stageCode") or ""),
+                    "stageLabel": str(active_stage.get("stageLabel") or ""),
+                    "blockedReason": blocked_reason or None,
+                    "processed": queue_status in {"validated", "blocked"},
+                    "completed": queue_status == "validated",
+                    "outputs": outputs,
+                }
+                questions.append(question)
+        current = next(
+            (
+                question
+                for status in ("committing", "preparing", "prepared")
+                for question in questions
+                if question.get("queueStatus") == status
+            ),
+            None,
+        )
+        groups: list[dict[str, Any]] = []
+        for list_group_id in sorted(
+            {
+                str(question.get("listGroupId") or "")
+                for question in questions
+                if question.get("listGroupId")
+            }
+        ):
+            group_questions = [
+                question
+                for question in questions
+                if str(question.get("listGroupId") or "") == list_group_id
+            ]
+            completed = sum(
+                question.get("queueStatus") == "validated"
+                for question in group_questions
+            )
+            groups.append(
+                {
+                    "listGroupId": list_group_id,
+                    "targetQuestionCount": len(group_questions),
+                    "completedQuestionCount": completed,
+                    "processedQuestionCount": sum(
+                        question.get("queueStatus")
+                        in {"validated", "blocked"}
+                        for question in group_questions
+                    ),
+                    "percent": (
+                        round(completed / len(group_questions) * 100)
+                        if group_questions
+                        else 0
+                    ),
+                }
+            )
+        payload.update(
+            {
+                "verified": verified,
+                "targetQuestionCount": question_count,
+                "completedQuestionCount": validated_questions,
+                "touchedQuestionCount": processed_questions,
+                "processedQuestionCount": processed_questions,
+                "validatedQuestionCount": validated_questions,
+                "blockedQuestionCount": blocked_questions,
+                "targetWorkItemCount": int(
+                    execution_summary.get("workItemCount") or 0
+                ),
+                "completedWorkItemCount": validated_work,
+                "processedWorkItemCount": processed_work,
+                "validatedWorkItemCount": validated_work,
+                "blockedWorkItemCount": blocked_work,
+                "percent": (
+                    round(validated_questions / question_count * 100)
+                    if question_count
+                    else 0
+                ),
+                "processedPercent": (
+                    round(processed_questions / question_count * 100)
+                    if question_count
+                    else 0
+                ),
+                "current": current,
+                "events": [],
+                "questions": questions,
+                "groups": groups,
+                "invalidEventCount": 0,
+            }
+        )
         return payload
 
     @staticmethod
@@ -4178,6 +5196,12 @@ class QualificationRunStore:
         run_id: str,
         roots: tuple[Path, ...],
     ) -> Path:
+        if self.is_question_attempt(run_id):
+            return self._write_question_attempt_baseline(
+                qualification,
+                run_id,
+                roots,
+            )
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
@@ -4256,6 +5280,112 @@ class QualificationRunStore:
             }
             manifest["updatedAt"] = _now()
             self._write_manifest(manifest_path, manifest)
+        return baseline_path
+
+    def _write_question_attempt_baseline(
+        self,
+        qualification: str,
+        run_id: str,
+        roots: tuple[Path, ...],
+    ) -> Path:
+        manifest = self.get(qualification, run_id)
+        run_dir = self.run_directory(qualification, run_id)
+        agent_output = self.result_path(
+            qualification,
+            run_id,
+        ).parent.resolve()
+        tracked_roots = [
+            path.resolve()
+            for path in roots
+            if path.resolve() != agent_output
+        ]
+        record_paths: list[Path] = []
+        for value in [
+            *(manifest.get("allowedPatchFiles") or []),
+            *(manifest.get("allowedWriteFiles") or []),
+        ]:
+            relative = Path(str(value))
+            absolute = (self.repo_root / relative).resolve()
+            if (
+                relative.is_absolute()
+                or not absolute.is_relative_to(self.repo_root)
+            ):
+                raise QualificationRunError(
+                    "record baselineのpathが不正です。"
+                )
+            if relative.suffix.lower() in {".json", ".jsonl"}:
+                record_paths.append(relative)
+        source_record_paths: list[Path] = []
+        for value in manifest.get("sourceFiles") or []:
+            relative = Path(str(value))
+            absolute = (self.repo_root / relative).resolve()
+            if (
+                relative.is_absolute()
+                or not absolute.is_relative_to(self.repo_root)
+            ):
+                raise QualificationRunError(
+                    "source baselineのpathが不正です。"
+                )
+            if relative.suffix.lower() == ".json":
+                source_record_paths.append(relative)
+        backup_root = run_dir / "baseline_files"
+        try:
+            transaction = capture_write_snapshot(
+                self.repo_root,
+                tracked_roots,
+                backup_root,
+            )
+        except (OSError, WriteTransactionError) as exc:
+            shutil.rmtree(backup_root, ignore_errors=True)
+            raise QualificationRunError(
+                f"書込transactionのbaselineを保存できません: {exc}"
+            ) from exc
+        payload = {
+            "schemaVersion": "question-maintenance-baseline/v2",
+            "roots": [
+                path.relative_to(self.repo_root).as_posix()
+                for path in tracked_roots
+            ],
+            "files": _snapshot_roots(self.repo_root, tracked_roots),
+            "writeTransaction": transaction,
+            "recordSnapshots": {
+                relative.as_posix(): _record_snapshot(
+                    self.repo_root / relative
+                )
+                for relative in sorted(set(record_paths))
+            },
+            "sourceRecordSnapshots": {
+                relative.as_posix(): _record_snapshot(
+                    self.repo_root / relative
+                )
+                for relative in sorted(set(source_record_paths))
+            },
+        }
+        baseline_path = run_dir / "baseline.json"
+        self._write_json(baseline_path, payload)
+        baseline_hash = hashlib.sha256(
+            baseline_path.read_bytes()
+        ).hexdigest()
+        self._update_question_attempt(
+            qualification,
+            run_id,
+            {
+                "baselinePath": str(
+                    baseline_path.relative_to(self.repo_root)
+                ),
+                "baselineHash": baseline_hash,
+                "deltaUnknown": False,
+                "rollback": {
+                    "status": "available",
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                    "message": (
+                        "検証前の失敗時に開始前の状態へ戻せます。"
+                    ),
+                },
+            },
+        )
         return baseline_path
 
     def prompt(self, qualification: str, run_id: str) -> str:
@@ -4810,6 +5940,500 @@ class QualificationRunStore:
         self._write_manifest(manifest_path, manifest)
         return True
 
+    def _recover_v2_question_run(
+        self,
+        manifest_path: Path,
+        manifest: dict[str, Any],
+    ) -> None:
+        """Recover each v2 question independently, then rebuild parent state."""
+
+        qualification = str(manifest.get("qualification") or "")
+        run_id = str(manifest.get("runId") or "")
+        try:
+            question_ids = self.question_states.question_ids(
+                manifest_path.parent,
+                manifest,
+            )
+        except QuestionRunStateError as exc:
+            manifest.update(
+                status="interrupted",
+                queueStatus="partial",
+                retrySafe=False,
+                retryUnsafeReason=str(exc),
+                error=str(exc),
+                updatedAt=_now(),
+                finishedAt=_now(),
+            )
+            self._write_manifest(manifest_path, manifest)
+            return
+
+        shared_unsafe_reason = ""
+        running_shared_phase = any(
+            isinstance(value, Mapping)
+            and str(value.get("id") or "") in {"setup", "category_setup"}
+            and str(value.get("status") or "") == "running"
+            for value in manifest.get("phaseExecutions") or []
+        )
+        if running_shared_phase:
+            try:
+                hydrated = self.question_states.hydrate(
+                    manifest_path.parent,
+                    manifest,
+                )
+                (
+                    recovered_phases,
+                    recovered_shared_receipts,
+                    unsafe_child_id,
+                ) = self._recover_parent_shared_prerequisites(hydrated)
+            except (QualificationRunError, QuestionRunStateError) as exc:
+                shared_unsafe_reason = str(exc)
+            else:
+                manifest["phaseExecutions"] = recovered_phases
+                manifest["confirmedGroupIds"] = list(
+                    hydrated.get("confirmedGroupIds") or []
+                )
+                shared_receipts = [
+                    dict(value)
+                    for value in manifest.get(
+                        "sharedWorkVersionReceipts"
+                    )
+                    or []
+                    if isinstance(value, Mapping)
+                ]
+                seen_shared = {
+                    json.dumps(
+                        value,
+                        ensure_ascii=False,
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    )
+                    for value in shared_receipts
+                }
+                for value in recovered_shared_receipts:
+                    encoded = json.dumps(
+                        value,
+                        ensure_ascii=False,
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    )
+                    if encoded in seen_shared:
+                        continue
+                    seen_shared.add(encoded)
+                    shared_receipts.append(dict(value))
+                manifest["sharedWorkVersionReceipts"] = shared_receipts
+                if unsafe_child_id:
+                    manifest["retrySafe"] = False
+                    manifest["unsafeChildRunId"] = unsafe_child_id
+                    shared_unsafe_reason = str(
+                        hydrated.get("retryUnsafeReason")
+                        or "共有前提を安全に回収できません。"
+                    )
+
+        unsafe_reason = ""
+        unsafe_attempt_id = ""
+        for question_id in question_ids:
+            try:
+                state = self.question_states.load_question(
+                    manifest_path.parent,
+                    manifest,
+                    question_id,
+                )
+            except QuestionRunStateError as exc:
+                unsafe_reason = str(exc)
+                break
+            attempts = state.get("attemptArtifacts")
+            attempts = attempts if isinstance(attempts, Mapping) else {}
+            for attempt_id, attempt in list(attempts.items()):
+                if (
+                    not isinstance(attempt, Mapping)
+                    or attempt.get("candidateTransactionOpen") is not True
+                ):
+                    continue
+                rollback = self.rollback_baseline(
+                    qualification,
+                    str(attempt_id),
+                )
+                rollback_safe = bool(
+                    isinstance(rollback, Mapping)
+                    and rollback.get("status") == "succeeded"
+                    and rollback.get("deltaUnknown") is not True
+                    and not rollback.get("remainingChangedFiles")
+                )
+                if not rollback_safe:
+                    unsafe_attempt_id = str(attempt_id)
+                    unsafe_reason = (
+                        f"{question_id}の未完了transactionを"
+                        "開始前の内容へ戻せません。"
+                    )
+                    break
+                self._update_question_attempt(
+                    qualification,
+                    str(attempt_id),
+                    {
+                        "status": "interrupted",
+                        "candidateTransactionOpen": False,
+                        "receiptValidated": False,
+                        "error": (
+                            "ローカルUIの再起動で一問turnが中断されました。"
+                        ),
+                        "finishedAt": _now(),
+                    },
+                )
+            if unsafe_reason:
+                break
+        if not unsafe_reason and shared_unsafe_reason:
+            unsafe_reason = shared_unsafe_reason
+
+        if unsafe_reason:
+            for question_id in question_ids:
+                question_path = self.question_states.question_path(
+                    manifest_path.parent,
+                    manifest,
+                    question_id,
+                )
+                with self._path_lock(question_path):
+
+                    def block(state: dict[str, Any]) -> None:
+                        execution = state.get("execution")
+                        if not isinstance(execution, dict):
+                            raise QuestionRunStateError(
+                                "一問stateのexecutionが不正です。"
+                            )
+                        stages = execution.get("stages") or []
+                        first_index = next(
+                            (
+                                index
+                                for index, stage in enumerate(stages)
+                                if isinstance(stage, dict)
+                                and str(stage.get("status") or "")
+                                not in {
+                                    "validated",
+                                    "not_applicable",
+                                    "blocked",
+                                }
+                            ),
+                            None,
+                        )
+                        if first_index is not None:
+                            self._block_execution_from(
+                                execution,
+                                first_index,
+                                unsafe_reason,
+                            )
+                        state["activeAttemptId"] = None
+
+                    try:
+                        self.question_states.update_question(
+                            manifest_path.parent,
+                            manifest,
+                            question_id,
+                            block,
+                        )
+                    except QuestionRunStateError:
+                        pass
+            manifest.update(
+                status="interrupted",
+                queueStatus="partial",
+                retrySafe=False,
+                retryUnsafeReason=unsafe_reason,
+                unsafeChildRunId=unsafe_attempt_id or manifest.get(
+                    "unsafeChildRunId"
+                ),
+                error=unsafe_reason,
+                updatedAt=_now(),
+                finishedAt=_now(),
+            )
+        else:
+            for question_id in question_ids:
+                question_path = self.question_states.question_path(
+                    manifest_path.parent,
+                    manifest,
+                    question_id,
+                )
+                with self._path_lock(question_path):
+
+                    def recover(state: dict[str, Any]) -> None:
+                        execution = state.get("execution")
+                        if not isinstance(execution, dict):
+                            raise QuestionRunStateError(
+                                "一問stateのexecutionが不正です。"
+                            )
+                        attempts = state.get("attemptArtifacts")
+                        attempts = (
+                            attempts if isinstance(attempts, dict) else {}
+                        )
+                        receipts = state.setdefault(
+                            "validatedReceipts",
+                            {},
+                        )
+                        if not isinstance(receipts, dict):
+                            raise QuestionRunStateError(
+                                "一問stateのvalidatedReceiptsが不正です。"
+                            )
+                        for stage in execution.get("stages") or []:
+                            if not isinstance(stage, dict):
+                                continue
+                            validation_attempts = [
+                                value
+                                for value in (
+                                    stage.get("validationAttempts") or []
+                                )
+                                if isinstance(value, dict)
+                            ]
+                            latest = (
+                                validation_attempts[-1]
+                                if validation_attempts
+                                else None
+                            )
+                            attempt_id = str(
+                                (latest or {}).get("childRunId") or ""
+                            )
+                            attempt = (
+                                attempts.get(attempt_id)
+                                if attempt_id
+                                else None
+                            )
+                            batch_results = (
+                                attempt.get("batchQuestionResults")
+                                if isinstance(attempt, Mapping)
+                                else []
+                            )
+                            result = next(
+                                (
+                                    value
+                                    for value in batch_results or []
+                                    if isinstance(value, Mapping)
+                                    and str(
+                                        value.get("questionId") or ""
+                                    )
+                                    == question_id
+                                ),
+                                None,
+                            )
+                            completed = bool(
+                                isinstance(attempt, Mapping)
+                                and attempt.get("status") == "succeeded"
+                                and attempt.get("receiptValidated") is True
+                                and isinstance(result, Mapping)
+                                and result.get("status") == "succeeded"
+                            )
+                            if completed:
+                                stage.update(
+                                    status="validated",
+                                    error=None,
+                                    retryDeferred=False,
+                                    finishedAt=(
+                                        stage.get("finishedAt") or _now()
+                                    ),
+                                )
+                                if latest is not None:
+                                    latest.update(
+                                        status="validated",
+                                        finishedAt=(
+                                            latest.get("finishedAt")
+                                            or _now()
+                                        ),
+                                    )
+                                receipt = result.get(
+                                    "workVersionReceipt"
+                                )
+                                if isinstance(receipt, Mapping):
+                                    receipts[
+                                        validated_receipt_key(
+                                            question_id,
+                                            str(
+                                                stage.get("stageId") or ""
+                                            ),
+                                        )
+                                    ] = copy.deepcopy(dict(receipt))
+                                continue
+                            if str(stage.get("status") or "") in {
+                                "preparing",
+                                "prepared",
+                                "committing",
+                            }:
+                                stage.update(
+                                    status="queued",
+                                    error=None,
+                                    retryDeferred=True,
+                                    finishedAt=None,
+                                )
+                            if latest is not None and str(
+                                latest.get("status") or ""
+                            ) in {"queued", "running", "preparing"}:
+                                latest.update(
+                                    status="interrupted",
+                                    pauseReason=(
+                                        "ローカルUIの再起動で"
+                                        "一問turnが中断されました。"
+                                    ),
+                                    finishedAt=_now(),
+                                )
+                            if isinstance(attempt, dict) and str(
+                                attempt.get("status") or ""
+                            ) in {"queued", "running", "validating"}:
+                                attempt.update(
+                                    status="interrupted",
+                                    candidateTransactionOpen=False,
+                                    receiptValidated=False,
+                                    error=(
+                                        "ローカルUIの再起動で"
+                                        "一問turnが中断されました。"
+                                    ),
+                                    finishedAt=_now(),
+                                    updatedAt=_now(),
+                                )
+                        refresh_question_status(execution)
+                        state["activeAttemptId"] = None
+
+                    try:
+                        self.question_states.update_question(
+                            manifest_path.parent,
+                            manifest,
+                            question_id,
+                            recover,
+                        )
+                    except QuestionRunStateError as exc:
+                        unsafe_reason = str(exc)
+                        break
+            if unsafe_reason:
+                manifest.update(
+                    retrySafe=False,
+                    retryUnsafeReason=unsafe_reason,
+                )
+
+        try:
+            summary_payload = self.question_states.rebuild_summary(
+                manifest_path.parent,
+                manifest,
+            )
+        except QuestionRunStateError as exc:
+            manifest.update(
+                retrySafe=False,
+                retryUnsafeReason=str(exc),
+            )
+            summary = {
+                "blockedQuestionCount": 0,
+                "blockedWorkItemCount": 0,
+                "validatedQuestionCount": 0,
+                "validatedWorkItemCount": 0,
+                "pendingWorkItemCount": 1,
+            }
+        else:
+            summary = dict(summary_payload["queueSummary"])
+        phases = [
+            copy.deepcopy(dict(value))
+            for value in manifest.get("phaseExecutions") or []
+            if isinstance(value, Mapping)
+        ]
+        try:
+            executions = self.question_states.load_executions(
+                manifest_path.parent,
+                manifest,
+            )
+        except QuestionRunStateError:
+            executions = []
+        for phase in phases:
+            stage_id = str(phase.get("id") or "")
+            if stage_id in {"", "setup", "category_setup"}:
+                if phase.get("status") == "running":
+                    phase["status"] = "pending"
+                continue
+            completion = _question_phase_completion(
+                executions,
+                stage_id,
+            )
+            phase.update(
+                **completion,
+                finishedAt=(
+                    None
+                    if completion["status"] == "pending"
+                    else phase.get("finishedAt") or _now()
+                ),
+            )
+        terminal = not int(summary.get("pendingWorkItemCount") or 0)
+        queue_status = (
+            "partial"
+            if int(summary.get("blockedQuestionCount") or 0)
+            else "succeeded"
+            if terminal
+            else "interrupted"
+        )
+        now = _now()
+        manifest.update(
+            status=(
+                "succeeded"
+                if terminal
+                and manifest.get("retrySafe") is not False
+                else "interrupted"
+            ),
+            queueStatus=queue_status,
+            retrySafe=manifest.get("retrySafe") is not False,
+            phaseExecutions=phases,
+            currentPhaseId=None,
+            executionPhase="done" if terminal else "interrupted",
+            questionExecutionSummary=summary,
+            blockedQuestionCount=int(
+                summary.get("blockedQuestionCount") or 0
+            ),
+            blockedWorkItemCount=int(
+                summary.get("blockedWorkItemCount") or 0
+            ),
+            validatedQuestionCount=int(
+                summary.get("validatedQuestionCount") or 0
+            ),
+            validatedWorkItemCount=int(
+                summary.get("validatedWorkItemCount") or 0
+            ),
+            receiptValidated=bool(
+                terminal and manifest.get("retrySafe") is not False
+            ),
+            artifactSync=(
+                {
+                    "status": "interrupted",
+                    "groups": [],
+                    "message": (
+                        "patchは確定済みです。公開用データは"
+                        "再開後に再生成してください。"
+                    ),
+                }
+                if terminal
+                else manifest.get("artifactSync")
+            ),
+            error=(
+                unsafe_reason
+                or (
+                    "ローカルUIの再起動で処理が中断されました。"
+                    "未確定の問題だけ再開できます。"
+                    if not terminal
+                    else None
+                )
+            ),
+            updatedAt=now,
+            finishedAt=now,
+        )
+        if terminal and manifest.get("retrySafe") is not False:
+            result = {
+                "status": "succeeded",
+                "summary": (
+                    "一問stateの確定receiptを再起動時に照合しました。"
+                    "公開用データの同期だけ再実行が必要です。"
+                ),
+                "commands": [
+                    {
+                        "command": (
+                            "workflow: recover validated question states"
+                        ),
+                        "status": "pass",
+                    }
+                ],
+                "changedFiles": [],
+                "resolvedFailedDeltaPaths": [],
+            }
+            self._write_json(self._result_path(manifest_path, manifest), result)
+            manifest["result"] = result
+        self._write_manifest(manifest_path, manifest)
+
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
             self._write_json(
@@ -4844,13 +6468,26 @@ class QualificationRunStore:
                     if path.is_file()
                 ]
             else:
-                paths = list(self.root.glob("*/*/manifest.json"))
-                paths.sort(
-                    key=lambda candidate: (
-                        self._load_manifest(candidate).get("kind") == "orchestration",
-                        str(candidate),
+                readable_paths: list[tuple[bool, Path]] = []
+                for candidate in self.root.glob("*/*/manifest.json"):
+                    try:
+                        kind = self._load_manifest(candidate).get("kind")
+                    except (
+                        OSError,
+                        ValueError,
+                        QualificationRunError,
+                    ):
+                        continue
+                    readable_paths.append(
+                        (kind == "orchestration", candidate)
                     )
-                )
+                paths = [
+                    candidate
+                    for _orchestration, candidate in sorted(
+                        readable_paths,
+                        key=lambda value: (value[0], str(value[1])),
+                    )
+                ]
             for path in paths:
                 manifest = self._load_manifest(path)
                 status = str(manifest.get("status") or "")
@@ -4918,6 +6555,9 @@ class QualificationRunStore:
                         ),
                         result_if_missing=fallback_result,
                     )
+                    continue
+                if self.question_states.is_v2(manifest):
+                    self._recover_v2_question_run(path, manifest)
                     continue
                 if (
                     manifest.get("kind") == "orchestration"
@@ -5202,6 +6842,32 @@ class QualificationRunStore:
     ) -> dict[str, Any] | None:
         """Restore an unvalidated human run to its captured write boundary."""
 
+        if self.is_question_attempt(run_id):
+            manifest = self.get(qualification, run_id)
+            if manifest.get("receiptValidated") is True:
+                return None
+            manifest_path = (
+                self.run_directory(qualification, run_id)
+                / "manifest.json"
+            )
+            rollback = self._rollback_baseline_delta(
+                manifest_path,
+                manifest,
+            )
+            if rollback is None:
+                return None
+            self._update_question_attempt(
+                qualification,
+                run_id,
+                {
+                    "rollback": rollback,
+                    "deltaUnknown": bool(
+                        rollback.get("deltaUnknown")
+                        or rollback.get("remainingChangedFiles")
+                    ),
+                },
+            )
+            return copy.deepcopy(rollback)
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
@@ -5224,6 +6890,13 @@ class QualificationRunStore:
         qualification: str,
         run_id: str,
     ) -> None:
+        if self.is_question_attempt(run_id):
+            path = (
+                self.run_directory(qualification, run_id)
+                / "baseline_files"
+            )
+            shutil.rmtree(path, ignore_errors=True)
+            return
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             path = manifest_path.parent / "baseline_files"
@@ -5717,6 +7390,12 @@ class QualificationRunStore:
         )
 
     def _write_manifest(self, path: Path, manifest: Mapping[str, Any]) -> None:
+        if self.question_states.is_v2(manifest):
+            manifest = {
+                key: value
+                for key, value in manifest.items()
+                if key not in PLAN_OWNED_FIELDS
+            }
         requires_recovery = self._requires_startup_recovery(manifest)
         recovery_path = path.with_name("recovery.json")
         if requires_recovery:
@@ -6264,10 +7943,20 @@ class QualificationRunCoordinator:
         qualification: str,
         worker: Callable[[], dict[str, Any]],
     ) -> dict[str, Any]:
-        if self.app_server is None or not hasattr(self.app_server, "turn_group"):
-            return worker()
-        with self.app_server.turn_group(qualification):
-            return worker()
+        try:
+            with qualification_run_lease(
+                self.repo_root,
+                qualification,
+            ):
+                if (
+                    self.app_server is None
+                    or not hasattr(self.app_server, "turn_group")
+                ):
+                    return worker()
+                with self.app_server.turn_group(qualification):
+                    return worker()
+        except ProcessLeaseError as exc:
+            raise QualificationRunError(str(exc)) from exc
 
     def preview(
         self,
@@ -6700,12 +8389,26 @@ class QualificationRunCoordinator:
             return dict(run)
         return self.store.get(qualification, str(run["runId"]))
 
-    def progress(self, qualification: str, run_id: str) -> dict[str, Any]:
-        run = self.store.get(qualification, run_id)
+    def progress(
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        include_questions: bool = True,
+    ) -> dict[str, Any]:
+        run = (
+            self.store.get(qualification, run_id)
+            if include_questions
+            else self.store.get_compact(qualification, run_id)
+        )
         if str(run.get("qualification") or "") != qualification:
             raise QualificationRunError("対象資格と作業履歴が一致しません。")
         if run.get("workType") == "maintenance_flow":
-            return self.store.combined_progress(qualification, run_id)
+            return self.store.combined_progress(
+                qualification,
+                run_id,
+                include_questions=include_questions,
+            )
         return self.store.progress(qualification, run_id)
 
     def technical_log(self, qualification: str, run_id: str) -> dict[str, Any]:
@@ -6713,6 +8416,21 @@ class QualificationRunCoordinator:
         if str(run.get("qualification") or "") != qualification:
             raise QualificationRunError("対象資格と作業履歴が一致しません。")
         return self.store.technical_log(qualification, run_id)
+
+    def question_run_detail(
+        self,
+        qualification: str,
+        run_id: str,
+        question_id: str,
+    ) -> dict[str, Any]:
+        run = self.store.get_compact(qualification, run_id)
+        if str(run.get("qualification") or "") != qualification:
+            raise QualificationRunError("対象資格と作業履歴が一致しません。")
+        return self.store.question_detail(
+            qualification,
+            run_id,
+            question_id,
+        )
 
     def start_review(
         self,
@@ -8673,7 +10391,66 @@ class QualificationRunCoordinator:
             return False
         receipt = child.get("workVersionReceipt")
         if isinstance(receipt, Mapping):
-            work_version_receipts.append(dict(receipt))
+            receipt_copy = dict(receipt)
+            work_version_receipts.append(receipt_copy)
+            shared_receipts = [
+                dict(value)
+                for value in parent.get("sharedWorkVersionReceipts") or []
+                if isinstance(value, Mapping)
+            ]
+            encoded_shared = {
+                json.dumps(
+                    value,
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                for value in shared_receipts
+            }
+            encoded_receipt = json.dumps(
+                receipt_copy,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            if encoded_receipt not in encoded_shared:
+                shared_receipts.append(receipt_copy)
+            existing_receipt = parent.get("workVersionReceipt")
+            aggregate_items = [
+                dict(value)
+                for value in (
+                    existing_receipt.get("items") or []
+                    if isinstance(existing_receipt, Mapping)
+                    else []
+                )
+                if isinstance(value, Mapping)
+            ]
+            aggregate_items.append(receipt_copy)
+            unique_items: list[dict[str, Any]] = []
+            seen_items: set[str] = set()
+            for value in aggregate_items:
+                encoded = json.dumps(
+                    value,
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+                if encoded in seen_items:
+                    continue
+                seen_items.add(encoded)
+                unique_items.append(value)
+            self.store.update(
+                qualification,
+                run_id,
+                sharedWorkVersionReceipts=shared_receipts,
+                workVersionReceipt={
+                    "recordedCount": sum(
+                        int(value.get("recordedCount") or 0)
+                        for value in unique_items
+                    ),
+                    "items": unique_items,
+                },
+            )
             if int(receipt.get("recordedCount") or 0):
                 confirmed_group_ids.update(
                     str(value) for value in child.get("targetGroupIds") or [] if value
@@ -9149,12 +10926,22 @@ class QualificationRunCoordinator:
                     source_answer_evidence_by_question
                 ),
             )
-            child = self.store.create(
-                batch_plan,
-                status="queued",
-                prompt=batch_prompt,
-                append_receipt_contract=False,
-            )
+            if parent.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION:
+                child = self.store.create_question_attempt(
+                    qualification,
+                    run_id,
+                    batch_question_ids[0],
+                    stage_id,
+                    batch_plan,
+                    batch_prompt,
+                )
+            else:
+                child = self.store.create(
+                    batch_plan,
+                    status="queued",
+                    prompt=batch_prompt,
+                    append_receipt_contract=False,
+                )
             child_id = str(child["runId"])
             if retrying:
                 emit(
@@ -9249,10 +11036,14 @@ class QualificationRunCoordinator:
                 for prepared in prepared_batches
             ]
             with aggregation_lock:
-                child_run_ids.extend(prepared_child_ids)
-                phase_child_ids.setdefault(stage_id, []).extend(
-                    prepared_child_ids
-                )
+                if (
+                    committing_parent.get("schemaVersion")
+                    != QUESTION_RUN_SCHEMA_VERSION
+                ):
+                    child_run_ids.extend(prepared_child_ids)
+                    phase_child_ids.setdefault(stage_id, []).extend(
+                        prepared_child_ids
+                    )
             for prepared in prepared_batches:
                 child_id = str(prepared["childId"])
                 requested_model = str(prepared["requestedModel"])
@@ -9292,7 +11083,7 @@ class QualificationRunCoordinator:
                             "questionId": question_id,
                             "stageId": stage_id,
                             "changes": {
-                                "status": "committing",
+                                "status": "preparing",
                                 "childRunIds": [
                                     *(
                                         str(value)
@@ -9604,12 +11395,15 @@ class QualificationRunCoordinator:
                 round_question_index = self._question_execution_index(
                     round_parent
                 )
-                batches: list[list[Mapping[str, Any]]] = []
-                outcome_futures = []
+                batch_count = 0
+                pending_outcomes: set[Any] = set()
+                peak_pending_outcomes = 0
                 prepared_count = 0
                 prepared_spec_count = 0
                 maximum_batch_size = 0
                 model_started = False
+                next_ids: list[str] = []
+                round_had_provider_failure = False
                 worker_limit = min(
                     scheduler_limits.parallel_turns,
                     question_concurrency,
@@ -9628,6 +11422,10 @@ class QualificationRunCoordinator:
                     run_id,
                     preparationWorkerLimit=preparation_worker_limit,
                     pipelineWorkerLimit=max(1, pipeline_worker_limit),
+                    pipelineBacklogLimit=max(
+                        0,
+                        pipeline_worker_limit - worker_limit,
+                    ),
                 )
                 preparation_heartbeat(
                     stage_id,
@@ -9652,6 +11450,74 @@ class QualificationRunCoordinator:
                     max_workers=max(1, pipeline_worker_limit),
                     thread_name_prefix="question-candidate",
                 ) as executor:
+                    def consume_completed_outcomes(
+                        *,
+                        block: bool,
+                        drain_all: bool = False,
+                    ) -> None:
+                        nonlocal round_had_provider_failure
+                        if not pending_outcomes:
+                            return
+                        if drain_all:
+                            completed, _pending = wait(pending_outcomes)
+                        elif block:
+                            target_count = min(
+                                worker_limit,
+                                len(pending_outcomes),
+                            )
+                            completed = set()
+                            while len(completed) < target_count:
+                                newly_completed, _pending = wait(
+                                    pending_outcomes - completed,
+                                    return_when=FIRST_COMPLETED,
+                                )
+                                completed.update(newly_completed)
+                        else:
+                            completed = {
+                                future
+                                for future in pending_outcomes
+                                if future.done()
+                            }
+                        if not completed:
+                            return
+                        pending_outcomes.difference_update(completed)
+                        outcomes = [future.result() for future in completed]
+                        outcome_parent_snapshot = self.store.get(
+                            qualification,
+                            run_id,
+                        )
+                        round_stage_updates: list[dict[str, Any]] = []
+                        for outcome in outcomes:
+                            provider_failure = bool(
+                                outcome.get("providerFailure")
+                            )
+                            round_had_provider_failure = (
+                                round_had_provider_failure
+                                or provider_failure
+                            )
+                            scheduler_limits.observe(
+                                provider_failure=provider_failure,
+                                schema_failure=bool(
+                                    outcome.get("schemaFailure")
+                                ),
+                                pending_batches=len(pending_outcomes),
+                                max_parallel_turns=question_concurrency,
+                            )
+                            apply_batch_outcome(
+                                outcome,
+                                stage_id,
+                                next_ids=next_ids,
+                                provider_waiting=provider_waiting,
+                                parent_snapshot=outcome_parent_snapshot,
+                                stage_updates=round_stage_updates,
+                            )
+                        if round_stage_updates:
+                            self.store.update_question_stages(
+                                qualification,
+                                run_id,
+                                round_stage_updates,
+                            )
+
                     for chunk_start in range(
                         0,
                         len(pending_ids),
@@ -9675,7 +11541,7 @@ class QualificationRunCoordinator:
                                 prepared_count=prepared_count,
                                 target_count=len(pending_ids),
                                 prepared_spec_count=prepared_spec_count,
-                                batch_count=len(batches),
+                                batch_count=batch_count,
                                 model_started=model_started,
                                 status="preparing",
                             )
@@ -9728,7 +11594,7 @@ class QualificationRunCoordinator:
                                 continue
                             chunk_batches.extend([[spec] for spec in model_specs])
                         for batch in chunk_batches:
-                            batches.append(batch)
+                            batch_count += 1
                             maximum_batch_size = max(
                                 maximum_batch_size,
                                 len(batch),
@@ -9761,22 +11627,38 @@ class QualificationRunCoordinator:
                             prepared_batches,
                             stage_id,
                         )
-                        outcome_futures.extend(
-                            executor.submit(run_batch, prepared)
-                            for prepared in prepared_batches
-                        )
-                        model_started = bool(outcome_futures)
-                        active_workers = min(len(batches), worker_limit)
+                        for prepared in prepared_batches:
+                            while (
+                                len(pending_outcomes)
+                                >= pipeline_worker_limit
+                            ):
+                                consume_completed_outcomes(block=True)
+                            pending_outcomes.add(
+                                executor.submit(run_batch, prepared)
+                            )
+                            peak_pending_outcomes = max(
+                                peak_pending_outcomes,
+                                len(pending_outcomes),
+                            )
+                        consume_completed_outcomes(block=False)
+                        model_started = batch_count > 0
+                        active_workers = min(batch_count, worker_limit)
                         self.store.update(
                             qualification,
                             run_id,
                             adaptiveScheduler=scheduler_status(
                                 scheduler_limits,
-                                batch_count=len(batches),
+                                batch_count=batch_count,
                                 in_flight_questions=prepared_spec_count,
                             ),
                             modelBatchSize=maximum_batch_size,
                             modelWorkerLimit=active_workers,
+                            pipelinePendingFutureCount=len(
+                                pending_outcomes
+                            ),
+                            pipelinePeakPendingFutureCount=(
+                                peak_pending_outcomes
+                            ),
                         )
                         preparation_heartbeat(
                             stage_id,
@@ -9784,7 +11666,7 @@ class QualificationRunCoordinator:
                             prepared_count=prepared_count,
                             target_count=len(pending_ids),
                             prepared_spec_count=prepared_spec_count,
-                            batch_count=len(batches),
+                            batch_count=batch_count,
                             model_started=model_started,
                             status=(
                                 "streaming"
@@ -9793,51 +11675,29 @@ class QualificationRunCoordinator:
                             ),
                             force=True,
                         )
+                    consume_completed_outcomes(
+                        block=True,
+                        drain_all=True,
+                    )
                 preparation_heartbeat(
                     stage_id,
                     round_number=_round_number,
                     prepared_count=prepared_count,
                     target_count=len(pending_ids),
                     prepared_spec_count=prepared_spec_count,
-                    batch_count=len(batches),
+                    batch_count=batch_count,
                     model_started=model_started,
                     status="prepared",
                     force=True,
                 )
-                if not outcome_futures:
+                if not batch_count:
                     break
-                outcomes = [future.result() for future in outcome_futures]
-                next_ids: list[str] = []
-                round_had_provider_failure = any(
-                    bool(outcome.get("providerFailure"))
-                    for outcome in outcomes
-                )
-                outcome_parent_snapshot = self.store.get(
+                self.store.update(
                     qualification,
                     run_id,
+                    pipelinePendingFutureCount=0,
+                    pipelinePeakPendingFutureCount=peak_pending_outcomes,
                 )
-                round_stage_updates: list[dict[str, Any]] = []
-                for outcome in outcomes:
-                    scheduler_limits.observe(
-                        provider_failure=bool(outcome.get("providerFailure")),
-                        schema_failure=bool(outcome.get("schemaFailure")),
-                        pending_batches=len(batches),
-                        max_parallel_turns=question_concurrency,
-                    )
-                    apply_batch_outcome(
-                        outcome,
-                        stage_id,
-                        next_ids=next_ids,
-                        provider_waiting=provider_waiting,
-                        parent_snapshot=outcome_parent_snapshot,
-                        stage_updates=round_stage_updates,
-                    )
-                if round_stage_updates:
-                    self.store.update_question_stages(
-                        qualification,
-                        run_id,
-                        round_stage_updates,
-                    )
                 pending_ids = list(dict.fromkeys(next_ids))
                 if pending_ids:
                     emit(
@@ -9979,12 +11839,17 @@ class QualificationRunCoordinator:
                     queueOrder="question_turn",
                     modelBatchSize=DEFAULT_MAX_QUESTIONS_PER_TURN,
                 )
-            queue_result = self._run_question_queue(
+            with _ParentRunHeartbeatTicker(
+                self.store,
                 qualification,
                 run_id,
-                phases,
-                emit,
-            )
+            ):
+                queue_result = self._run_question_queue(
+                    qualification,
+                    run_id,
+                    phases,
+                    emit,
+                )
             child_run_ids.extend(queue_result["childRunIds"])
             work_version_receipts.extend(
                 queue_result["workVersionReceipts"]
@@ -10319,7 +12184,7 @@ class QualificationRunCoordinator:
 
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
-        if run_id not in {
+        if not self.store.is_question_attempt(run_id) and run_id not in {
             str(value)
             for value in getattr(emit, "technical_run_ids", set())
             if value
@@ -10384,13 +12249,6 @@ class QualificationRunCoordinator:
         def heartbeat() -> None:
             heartbeat_at = _now()
             self.store.update(qualification, run_id, heartbeatAt=heartbeat_at)
-            parent_run_id = str(child.get("parentRunId") or "")
-            if parent_run_id:
-                self._touch_parent_heartbeat(
-                    qualification,
-                    parent_run_id,
-                    heartbeat_at,
-                )
             callback = getattr(emit, "heartbeat", None)
             if callable(callback):
                 callback()
@@ -10930,6 +12788,12 @@ class QualificationRunCoordinator:
                 )
             else:
                 candidates = []
+            if self.store.is_question_attempt(run_id):
+                self.store.update_attempt_stage_status(
+                    qualification,
+                    run_id,
+                    "prepared",
+                )
             bindings = {
                 str(value.get("id") or value.get("uiQuestionId") or ""):
                 SourceIdentityBinding.from_mapping(value)
@@ -10937,7 +12801,7 @@ class QualificationRunCoordinator:
             }
             committed_results: list[dict[str, Any]] = []
             work_version_receipts: list[dict[str, Any]] = []
-            run_dir = self.store.root / qualification / run_id
+            run_dir = self.store.run_directory(qualification, run_id)
 
             def checkpoint_question(
                 question_result: dict[str, Any],
@@ -11318,6 +13182,12 @@ class QualificationRunCoordinator:
                     candidate_paths = set(workspace.changed_paths())
                     if not candidate_paths:
                         with self._question_patch_commit_lock:
+                            if self.store.is_question_attempt(run_id):
+                                self.store.update_attempt_stage_status(
+                                    qualification,
+                                    run_id,
+                                    "committing",
+                                )
                             self._check_source_immutability(
                                 emit,
                                 source_files=[
@@ -11362,6 +13232,12 @@ class QualificationRunCoordinator:
                         )
                         continue
                     with self._question_patch_commit_lock:
+                        if self.store.is_question_attempt(run_id):
+                            self.store.update_attempt_stage_status(
+                                qualification,
+                                run_id,
+                                "committing",
+                            )
                         with workspace.canonical_transaction(
                             sorted(candidate_paths)
                         ) as canonical_transaction:
@@ -11475,20 +13351,53 @@ class QualificationRunCoordinator:
                 except CanonicalPatchCommitError as exc:
                     committed_for_question.update(exc.committed_files)
                     committed_files.update(exc.committed_files)
-                    self.store.discard_baseline_backups(
+                    rollback = self.store.rollback_baseline(
                         qualification,
                         run_id,
                     )
                     pipeline_stop.set()
+                    rollback_safe = bool(
+                        isinstance(rollback, Mapping)
+                        and rollback.get("status") == "succeeded"
+                        and rollback.get("deltaUnknown") is not True
+                        and not rollback.get("remainingChangedFiles")
+                    )
+                    if rollback_safe:
+                        committed_files.difference_update(
+                            committed_for_question
+                        )
+                        committed_for_question.clear()
                     raise QualificationRunError(
                         "検証済みpatchのatomic commitを完了できません: "
                         + ", ".join(exc.pending_files)
+                        + (
+                            "。開始前の内容へrollbackしました。"
+                            if rollback_safe
+                            else "。開始前の内容へ安全にrollbackできません。"
+                        )
                     ) from exc
                 except Exception as exc:  # noqa: BLE001
-                    self.store.discard_baseline_backups(
+                    rollback = self.store.rollback_baseline(
                         qualification,
                         run_id,
                     )
+                    rollback_safe = bool(
+                        isinstance(rollback, Mapping)
+                        and rollback.get("status") == "succeeded"
+                        and rollback.get("deltaUnknown") is not True
+                        and not rollback.get("remainingChangedFiles")
+                    )
+                    if rollback_safe:
+                        committed_files.difference_update(
+                            committed_for_question
+                        )
+                        committed_for_question.clear()
+                    if committed_for_question and not rollback_safe:
+                        pipeline_stop.set()
+                        raise QualificationRunError(
+                            "一問transactionに失敗し、開始前の内容へ"
+                            "安全にrollbackできません。全writerを停止しました。"
+                        ) from exc
                     checkpoint_question(
                         {
                             "questionId": question_id,
@@ -11499,7 +13408,11 @@ class QualificationRunCoordinator:
                                 *commands,
                                 {"command": "server commit", "status": "fail"},
                             ],
-                            "changedFiles": sorted(committed_for_question),
+                            "changedFiles": (
+                                []
+                                if rollback_safe
+                                else sorted(committed_for_question)
+                            ),
                         }
                     )
                 finally:
@@ -11593,6 +13506,11 @@ class QualificationRunCoordinator:
             )
             self.store.write_result(qualification, run_id, aggregate_receipt)
             self.store.refresh(qualification, run_id)
+            self._validate_progress_receipt(
+                qualification,
+                run_id,
+                self.store.get(qualification, run_id),
+            )
             refreshed = self.store.update(
                 qualification,
                 run_id,
@@ -11621,7 +13539,6 @@ class QualificationRunCoordinator:
                 error=None,
                 finishedAt=_now(),
             )
-            self._validate_progress_receipt(qualification, run_id, refreshed)
             emit(aggregate_receipt["summary"])
             return {
                 "qualification": qualification,

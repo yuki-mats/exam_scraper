@@ -78,7 +78,7 @@ output/question_review_console/
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
-| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、server生成のresult・receipt、技術ログ、問題別projection、構造化候補、`validationAttempts`、終端時の`improvement_report.json`。modelはここへ書き込まない。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | 不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、派生`question_summary.json`、`attempts/<token>/`のresult・progress・baseline、技術ログ、問題別projection、終端時の`improvement_report.json`。modelはここへ書き込まない。通常の一問turnは子manifestを作らない。 |
 | runtime observation | `output/question_review_console/runtime_observations/<qualification>/<parentRunId>/` | `monitor-event/v1`の`events.jsonl`と観測cursor・欠落件数を持つ`snapshot.json`。表示用のbest-effort projectionであり、工程・成果物・公開状態の正本ではない。 |
 | direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正のbaseline（開始前bytes）とcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
@@ -87,7 +87,9 @@ output/question_review_console/
 | work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 
-run directoryは再利用しません。manifestは対象、source identity、工程版、sandbox、検証・同期状態に加え、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`を記録します。model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが問題別のresult、progress、receiptを保存します。`questionExecutions`には工程状態、停止理由、子run、fingerprint、`validationAttempts`を持たせます。再起動時はserver生成receiptを回収して確定済みの問を除外し、未完了だけを再開します。patch開始前bytesと`work_versions.json`は一問のtransactionに含めます。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
+run directoryは再利用しません。通常整備runの対象、source identity、工程版、sandbox、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`は不変`plan.json`へ保存します。親`manifest.json`はrun全体の検証・同期状態と小さい集計だけを持ち、一問の`questionExecutions`、停止理由、fingerprint、`validationAttempts`、attempt、検証済み作業版receiptは`questions/<questionIdのsha256>.json`へ保存します。`question_summary.json`は一問stateから再生成できる表示用派生物です。
+
+model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが`attempts/<token>/`へresult、progress、開始前baselineを保存します。patchは工程・年度ごとの既存形式を維持し、一問ごとには分割しません。patch開始前bytesと`work_versions.json`は一問の同じtransactionに含め、checkpoint保存まで成功した後にだけ確定します。再起動時はtransactionが開いた一問を開始前へ戻し、確定済みreceiptを持つ問を除外して未完了だけを再開します。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
 
 ## 編集境界
 

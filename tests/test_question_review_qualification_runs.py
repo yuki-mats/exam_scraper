@@ -1,4 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
+from collections.abc import Mapping
 from types import SimpleNamespace
 from dataclasses import replace
 from datetime import datetime, timezone
@@ -50,6 +51,37 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+def _question_attempts(store, qualification, run):
+    attempts = []
+    for execution in run.get("questionExecutions") or []:
+        question_id = str(execution.get("questionId") or "")
+        detail = store.question_detail(
+            qualification,
+            str(run["runId"]),
+            question_id,
+        )
+        attempts.extend(
+            store.get(qualification, str(value["attemptId"]))
+            for value in (
+                detail.get("attemptArtifacts") or {}
+            ).values()
+            if isinstance(value, Mapping) and value.get("attemptId")
+        )
+    return attempts
+
+
+def _question_attempt_ids(run):
+    return list(
+        dict.fromkeys(
+            str(child_id)
+            for execution in run.get("questionExecutions") or []
+            for stage in execution.get("stages") or []
+            for child_id in stage.get("childRunIds") or []
+            if child_id
+        )
+    )
 
 
 class ParallelQuestionPreparationTests(unittest.TestCase):
@@ -304,6 +336,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             historical_path.write_text("{broken historical json", encoding="utf-8")
 
             restarted = QualificationRunStore(root)
+            restarted.recover_interrupted_runs()
             recovered = restarted.get("sample", queued["runId"])
 
         self.assertEqual(recovered["status"], "interrupted")
@@ -663,16 +696,18 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 "new-exam",
                 started["run"]["runId"],
             )
-            children = [
-                coordinator.store.get("new-exam", child_id)
-                for child_id in run["childRunIds"]
-            ]
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                run,
+            )
 
         batches = [call.args[2] for call in update_question_stages.call_args_list]
         self.assertEqual(run["queueStatus"], "succeeded")
         self.assertEqual(run["validatedWorkItemCount"], 4)
         self.assertEqual(run["modelBatchSize"], 1)
         self.assertEqual(len(children), 4)
+        self.assertEqual(run["childRunIds"], [])
         self.assertTrue(
             all(len(child["progressTargets"]) == 1 for child in children)
         )
@@ -694,13 +729,11 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             )
         )
         self.assertTrue(
-            any(
-                len(batch) == 2
-                and all(
-                    (item.get("changes") or {}).get("status") == "committing"
-                    for item in batch
-                )
-                for batch in batches
+            all(
+                child["status"] == "succeeded"
+                and child["receiptValidated"] is True
+                and child["candidateTransactionOpen"] is False
+                for child in children
             )
         )
         self.assertTrue(
@@ -2760,9 +2793,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             checkpoint = copy.deepcopy(
                 first_completed["aggregateReviewCheckpoints"][question_id]
             )
-            first_child = first_coordinator.store.get(
-                "new-exam", first_completed["childRunIds"][0]
-            )
+            first_child = _question_attempts(
+                first_coordinator.store,
+                "new-exam",
+                first_completed,
+            )[0]
 
             self.assertEqual(
                 checkpoint["promptContractVersion"],
@@ -3581,7 +3616,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 [(f"new-exam-2026-q{number}",) for number in range(1, 6)]
             ),
         )
-        self.assertEqual(len(completed["childRunIds"]), 5)
+        self.assertEqual(
+            len(_question_attempt_ids(completed)),
+            5,
+        )
+        self.assertEqual(completed["childRunIds"], [])
         self.assertEqual(completed["validatedQuestionCount"], 5)
         self.assertEqual(completed["modelBatchSize"], 1)
         self.assertEqual(completed["modelWorkerLimit"], 5)
@@ -4881,7 +4920,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
         self.assertEqual(completed["modelBatchSize"], 1)
         self.assertEqual(completed["modelWorkerLimit"], 64)
-        self.assertEqual(len(completed["childRunIds"]), 64)
+        self.assertEqual(
+            len(_question_attempt_ids(completed)),
+            64,
+        )
+        self.assertEqual(completed["childRunIds"], [])
         self.assertLess(parent_write_count, 32)
         self.assertEqual(completed["validatedQuestionCount"], 64)
 
@@ -5051,16 +5094,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 lambda _message: None,
             )
             completed = coordinator.store.get("new-exam", parent["runId"])
-            child = coordinator.store.get(
+            child = _question_attempts(
+                coordinator.store,
                 "new-exam",
-                completed["childRunIds"][0],
-            )
+                completed,
+            )[0]
             patch_path = root / child["result"]["changedFiles"][0]
             records = json.loads(patch_path.read_text(encoding="utf-8"))
             workspace_exists = (
-                root
-                / "output/question_review_console/workflow_runs/new-exam"
-                / child["runId"]
+                coordinator.store.run_directory(
+                    "new-exam",
+                    child["runId"],
+                )
                 / "candidate_workspaces"
             ).exists()
 
@@ -5069,7 +5114,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(records[0]["questionType"], "flash_card")
         self.assertFalse(workspace_exists)
 
-    def test_checkpoint_failure_keeps_validated_patch_and_blocks_publication(self):
+    def test_checkpoint_failure_rolls_back_patch_and_blocks_publication(self):
         patch_relative = (
             "output/new-exam/questions_json/2026/10_questionType_fixed/"
             "question_2026_1_questionType_fixed.json"
@@ -5138,10 +5183,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     lambda _message: None,
                 )
             completed = coordinator.store.get("new-exam", parent["runId"])
-            children = [
-                coordinator.store.get("new-exam", child_id)
-                for child_id in completed["childRunIds"]
-            ]
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )
             patch_exists = (root / patch_relative).is_file()
 
         self.assertEqual(result["queueStatus"], "partial")
@@ -5155,14 +5201,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ],
             ["failed"],
         )
-        self.assertEqual(children[0]["result"]["changedFiles"], [patch_relative])
+        self.assertEqual(children[0]["result"]["changedFiles"], [])
         self.assertEqual(
             children[0]["batchQuestionResults"][0]["changedFiles"],
-            [patch_relative],
+            [],
         )
-        self.assertTrue(patch_exists)
+        self.assertFalse(patch_exists)
 
-    def test_validation_failure_never_writes_or_rolls_back(self):
+    def test_validation_failure_never_writes_and_closes_transaction(self):
         patch_relative = (
             "output/new-exam/questions_json/2026/10_questionType_fixed/"
             "question_2026_1_questionType_fixed.json"
@@ -5208,15 +5254,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     lambda _message: None,
                 )
             completed = coordinator.store.get("new-exam", parent["runId"])
-            children = [
-                coordinator.store.get("new-exam", child_id)
-                for child_id in completed["childRunIds"]
-            ]
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )
             patch_exists = (root / patch_relative).exists()
 
         self.assertEqual(result["queueStatus"], "partial")
         self.assertEqual(validation_calls, 1)
-        self.assertEqual(rollback.call_count, 0)
+        self.assertEqual(rollback.call_count, 1)
         self.assertEqual(len(app_server.batch_calls), 1)
         self.assertEqual(
             [
@@ -5750,6 +5797,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             saved_receipt = saved["workVersionReceipt"]
 
             restarted_store = QualificationRunStore(root)
+            restarted_store.recover_interrupted_runs()
             previous = restarted_store.get("new-exam", parent["runId"])
             events = []
             app_server = FlowAppServer(events=events)
@@ -6022,16 +6070,69 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 TwoQuestionSourceInventory(),
                 ["question_type"],
             )
-            parent = self._mark_parent_partial(coordinator, parent)
-            child = self._attach_unsafe_child(coordinator, parent)
+            phase_plan, _phase_prompt = coordinator._flow_phase_plan_prompt(
+                parent,
+                parent["phaseExecutions"][0],
+            )
+            target = phase_plan["progressTargets"][0]
+            question_id = str(target["id"])
+            child_plan = specialize_question_plan(
+                phase_plan,
+                question_id,
+            )
+            child_plan.update(
+                kind="human",
+                parentRunId=parent["runId"],
+                flowPhaseId="question_type",
+                phaseIndex=1,
+                workType="maintenance_question_type_candidate",
+            )
+            child = coordinator.store.create_question_attempt(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                child_plan,
+                "unsafe child",
+            )
+            coordinator.store.update_question_stage(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                status="committing",
+                childRunIds=[child["runId"]],
+                validationAttempts=[
+                    {
+                        "attempt": 1,
+                        "childRunId": child["runId"],
+                        "status": "running",
+                    }
+                ],
+                error=None,
+            )
+            coordinator.store.update(
+                "new-exam",
+                child["runId"],
+                status="running",
+                candidateTransactionOpen=True,
+                receiptValidated=False,
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                status="running",
+                queueStatus="running",
+            )
 
             restarted_store = QualificationRunStore(root)
+            restarted_store.recover_interrupted_runs()
             recovered = restarted_store.get("new-exam", parent["runId"])
 
         self.assertEqual(recovered["queueStatus"], "partial")
         self.assertFalse(recovered["retrySafe"])
         self.assertEqual(recovered["unsafeChildRunId"], child["runId"])
-        self.assertIn("再開できません", recovered["retryUnsafeReason"])
+        self.assertIn("戻せません", recovered["retryUnsafeReason"])
 
     def test_store_restart_keeps_unstarted_bound_child_retry_safe(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -6051,32 +6152,45 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             question_id = str(target["id"])
             child_plan = specialize_question_plan(phase_plan, question_id)
             child_plan.update(
+                kind="human",
                 parentRunId=parent["runId"],
                 flowPhaseId="question_type",
                 phaseIndex=1,
-                workType="maintenance_question_type",
+                workType="maintenance_question_type_candidate",
             )
-            child = coordinator.store.create(
+            child = coordinator.store.create_question_attempt(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
                 child_plan,
-                status="queued",
-                prompt="writerはまだ開始していない。",
+                "writerはまだ開始していない。",
             )
             coordinator.store.update(
                 "new-exam",
                 parent["runId"],
-                childRunIds=[child["runId"]],
+                status="running",
+                queueStatus="running",
             )
             coordinator.store.update_question_stage(
                 "new-exam",
                 parent["runId"],
                 question_id,
                 "question_type",
-                status="committing",
+                status="preparing",
                 childRunIds=[child["runId"]],
+                validationAttempts=[
+                    {
+                        "attempt": 1,
+                        "childRunId": child["runId"],
+                        "status": "running",
+                    }
+                ],
                 error=None,
             )
 
             restarted_store = QualificationRunStore(root)
+            restarted_store.recover_interrupted_runs()
             recovered = restarted_store.get("new-exam", parent["runId"])
             statuses = {
                 question["questionId"]: question["stages"][0]["status"]
@@ -6102,7 +6216,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertTrue(recovered["retrySafe"])
         self.assertIsNone(recovered["unsafeChildRunId"])
-        self.assertEqual(statuses[question_id], "blocked")
+        self.assertEqual(statuses[question_id], "queued")
         self.assertEqual(
             statuses["new-exam-2026-q2"],
             "queued",
@@ -6802,10 +6916,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
 
             run = coordinator.store.get("new-exam", parent["runId"])
-            children = [
-                coordinator.store.get("new-exam", child_id)
-                for child_id in run["childRunIds"]
-            ]
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                run,
+            )
             child = next(
                 value
                 for value in children
@@ -7016,10 +7131,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 lambda _message: None,
             )
             completed = coordinator.store.get("new-exam", parent["runId"])
-            child = coordinator.store.get(
+            child = _question_attempts(
+                coordinator.store,
                 "new-exam",
-                completed["childRunIds"][0],
-            )
+                completed,
+            )[0]
             held = child["batchQuestionResults"][0]
             patch_path = root / held["changedFiles"][0]
             patch_record = json.loads(patch_path.read_text(encoding="utf-8"))[0]

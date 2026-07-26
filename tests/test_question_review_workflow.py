@@ -1726,6 +1726,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("1資格だけなら最大64問を同時に進めます", html)
         self.assertIn("model turnは全資格合計64本を超えず", html)
         self.assertIn("検査と確定は一問単位", html)
+        self.assertIn("必要な工程を一問一つのmodel turn", javascript)
         self.assertIn("複数選択可", javascript)
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
         self.assertIn("${preview.targetCount}${questionUnit} × ${preview.stageCount}工程", javascript)
