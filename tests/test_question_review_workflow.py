@@ -1257,7 +1257,15 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('$("#maintenance-start")', javascript)
         self.assertIn("openListGroupMaintenance(group.listGroupId)", javascript)
         self.assertIn('resumable ? "未完了を再開"', javascript)
-        self.assertIn("? retryBlockedQualificationRun", javascript)
+        self.assertIn(
+            "? () => retryBlockedQualificationRun(resumableRun)",
+            javascript,
+        )
+        self.assertIn(
+            "const run = runOverride?.runId "
+            "? runOverride : displayedQualificationRun()",
+            javascript,
+        )
         self.assertIn("returnToMaintenanceGroupList", javascript)
         self.assertIn("requiredMaintenance?.stageIds", selector)
         self.assertNotIn('"law_audit"', selector)

@@ -1870,7 +1870,7 @@ function renderMaintenanceDashboard() {
       working
         ? resumeQualificationRun
         : resumable
-          ? retryBlockedQualificationRun
+          ? () => retryBlockedQualificationRun(resumableRun)
         : () => openListGroupMaintenance(group.listGroupId),
     );
     actions.append(statusAction, action);
@@ -4286,8 +4286,8 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
   }
 }
 
-function retryBlockedQualificationRun() {
-  const run = displayedQualificationRun();
+function retryBlockedQualificationRun(runOverride = null) {
+  const run = runOverride?.runId ? runOverride : displayedQualificationRun();
   if (!run) return;
   const progress = qualificationRunProgressForRun(
     state.qualificationRunProgress,
