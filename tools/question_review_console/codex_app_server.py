@@ -555,6 +555,7 @@ class CodexAppServerClient:
         self._next_id = 1
         self._pending: dict[int | str, _PendingResponse] = {}
         self._turns: dict[tuple[str, str], _TurnState] = {}
+        self._notified_active_turns: set[tuple[str, str]] = set()
         self._peak_active_turns = 0
         self._early_notifications: dict[tuple[str, str], list[dict[str, Any]]] = {}
         self._stderr_lines: deque[str] = deque(maxlen=80)
@@ -646,7 +647,7 @@ class CodexAppServerClient:
         with self._state_lock:
             return {
                 "capacity": self.turn_budget.capacity,
-                "inFlight": len(self._turns),
+                "inFlight": len(self._notified_active_turns),
                 "peakInFlight": self._peak_active_turns,
             }
 
@@ -981,10 +982,6 @@ class CodexAppServerClient:
             key = (thread_id, turn_id)
             with self._state_lock:
                 self._turns[key] = state
-                self._peak_active_turns = max(
-                    self._peak_active_turns,
-                    len(self._turns),
-                )
                 early = self._early_notifications.pop(key, [])
             try:
                 for notification in early:
@@ -1042,6 +1039,7 @@ class CodexAppServerClient:
             finally:
                 with self._state_lock:
                     self._turns.pop(key, None)
+                    self._notified_active_turns.discard(key)
         receipt_interrupted = bool(
             receipt_interrupted and state.status == "interrupted"
         )
@@ -1797,7 +1795,12 @@ class CodexAppServerClient:
                 self._last_status = None
                 self._last_status_at = 0.0
             return
-        if method in {"item/completed", "turn/completed", "error"}:
+        if method in {
+            "turn/started",
+            "item/completed",
+            "turn/completed",
+            "error",
+        }:
             self._handle_turn_notification(message)
 
     def _observe_monitor_notification(self, message: Mapping[str, Any]) -> None:
@@ -1967,6 +1970,17 @@ class CodexAppServerClient:
             return
         key = (thread_id, turn_id)
         with self._state_lock:
+            if method == "turn/started":
+                self._notified_active_turns.add(key)
+                self._peak_active_turns = max(
+                    self._peak_active_turns,
+                    len(self._notified_active_turns),
+                )
+                return
+            if method == "turn/completed" or (
+                method == "error" and params.get("willRetry") is not True
+            ):
+                self._notified_active_turns.discard(key)
             state = self._turns.get(key)
             if state is None:
                 self._early_notifications.setdefault(key, []).append(copy.deepcopy(message))
@@ -2027,6 +2041,7 @@ class CodexAppServerClient:
         with self._state_lock:
             pending = list(self._pending.values())
             turns = list(self._turns.values())
+            self._notified_active_turns.clear()
         for item in pending:
             item.error = {"message": message}
             item.event.set()

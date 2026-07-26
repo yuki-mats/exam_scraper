@@ -793,6 +793,18 @@ class AppServerTurnTests(unittest.TestCase):
                         self.started_turns.append((thread_id, turn_id))
                         if len(self.started_turns) == 64:
                             self.all_turns_started.set()
+                    self._handle_message(
+                        {
+                            "method": "turn/started",
+                            "params": {
+                                "threadId": thread_id,
+                                "turn": {
+                                    "id": turn_id,
+                                    "status": "inProgress",
+                                },
+                            },
+                        }
+                    )
                     return {"turn": {"id": turn_id}}
                 finally:
                     with self.control_lock:
@@ -885,6 +897,53 @@ class AppServerTurnTests(unittest.TestCase):
         methods = [method for method, _params in client.calls]
         for method in BoundedControlPlaneClient.CONTROL_METHODS:
             self.assertEqual(methods.count(method), 64)
+
+    def test_model_turn_snapshot_uses_protocol_lifecycle_notifications(self):
+        client = ProtocolClient()
+        started = {
+            "method": "turn/started",
+            "params": {
+                "threadId": "thread-early",
+                "turn": {"id": "turn-early", "status": "inProgress"},
+            },
+        }
+        client._handle_message(started)
+        client._handle_message(started)
+
+        self.assertEqual(
+            client._model_turn_snapshot(),
+            {"capacity": 64, "inFlight": 1, "peakInFlight": 1},
+        )
+
+        client._handle_message(
+            {
+                "method": "turn/completed",
+                "params": {
+                    "threadId": "thread-early",
+                    "turn": {
+                        "id": "turn-early",
+                        "status": "completed",
+                        "error": None,
+                        "items": [],
+                    },
+                },
+            }
+        )
+
+        self.assertEqual(
+            client._model_turn_snapshot(),
+            {"capacity": 64, "inFlight": 0, "peakInFlight": 1},
+        )
+        self.assertEqual(
+            [
+                notification["method"]
+                for notification in client._early_notifications[
+                    ("thread-early", "turn-early")
+                ]
+            ],
+            ["turn/completed"],
+        )
+        client.close()
 
     def test_turn_item_logs_include_safe_failure_evidence_and_relative_paths(self):
         class StructuredEmitter:
