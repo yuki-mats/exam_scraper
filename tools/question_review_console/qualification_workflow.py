@@ -191,6 +191,26 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
 
 
+def _latest_content_updated_at(
+    questions: Iterable[Mapping[str, Any]],
+) -> str | None:
+    latest: tuple[datetime, str] | None = None
+    for question in questions:
+        raw = str(question.get("contentUpdatedAt") or "").strip()
+        if not raw:
+            continue
+        try:
+            parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        candidate = (parsed.astimezone(timezone.utc), raw)
+        if latest is None or candidate[0] > latest[0]:
+            latest = candidate
+    return latest[1] if latest else None
+
+
 def _has_patch(question: Mapping[str, Any], patch_dir: str) -> bool:
     marker = f"/{patch_dir}/"
     failed_paths = {
@@ -2426,6 +2446,7 @@ class QualificationWorkflow:
                 group.get("displayName") or group.get("listGroupId") or ""
             ),
             "questionCount": len(questions),
+            "latestContentUpdatedAt": _latest_content_updated_at(questions),
             "issueQuestionCount": issue_count,
             "localReady": local_ready,
             "artifactResolutionBlockers": [

@@ -107,6 +107,47 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_group_summary_uses_latest_question_content_update(self):
+        summary = QualificationWorkflow._group_summary(
+            {
+                "listGroupId": "2026",
+                "questions": [
+                    {
+                        "contentUpdatedAt": "2026-07-25T23:00:00-05:00",
+                        "workflow": {},
+                    },
+                    {
+                        "contentUpdatedAt": "2026-07-26T04:30:00Z",
+                        "workflow": {},
+                    },
+                    {
+                        "contentUpdatedAt": "invalid",
+                        "workflow": {},
+                    },
+                ],
+            },
+            {"totalCount": 3, "currentCount": 0, "requiredCount": 3},
+        )
+
+        self.assertEqual(
+            summary["latestContentUpdatedAt"],
+            "2026-07-26T04:30:00Z",
+        )
+
+    def test_group_summary_has_no_update_when_questions_have_no_valid_date(self):
+        summary = QualificationWorkflow._group_summary(
+            {
+                "listGroupId": "2026",
+                "questions": [
+                    {"contentUpdatedAt": "", "workflow": {}},
+                    {"contentUpdatedAt": "invalid", "workflow": {}},
+                ],
+            },
+            {"totalCount": 2, "currentCount": 0, "requiredCount": 2},
+        )
+
+        self.assertIsNone(summary["latestContentUpdatedAt"])
+
     def test_law_workflow_setting_persists_and_updates_effective_catalog(self):
         qualification = "sample"
         group = {"listGroupId": "2026", "questions": [question()]}

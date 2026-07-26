@@ -56,10 +56,14 @@ class ProgressOutputUiContractTests(unittest.TestCase):
             javascript,
         )
         self.assertIn(
-            'action.addEventListener("click", () => openListGroupMaintenance(group.listGroupId))',
+            "working\n        ? resumeQualificationRun",
             javascript,
         )
-        self.assertIn('action.disabled = isRunning || workflow.restartRequired', javascript)
+        self.assertIn(
+            "action.disabled = !working && (isRunning || workflow.restartRequired)",
+            javascript,
+        )
+        self.assertIn('"進捗を見る"', javascript)
         self.assertIn('"整備・洗い替え"', javascript)
         self.assertIn("function returnToMaintenanceGroupList", javascript)
         self.assertIn("function qualificationRunUpdateTargets", javascript)

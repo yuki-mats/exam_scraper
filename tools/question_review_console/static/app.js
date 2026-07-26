@@ -335,14 +335,6 @@ function setLoading(message, busy = false) {
   node.setAttribute("aria-busy", String(busy));
 }
 
-function setDashboardRefreshState(refreshing) {
-  const refreshButton = $("#refresh-button");
-  refreshButton.disabled = refreshing;
-  refreshButton.classList.toggle("is-loading", refreshing);
-  refreshButton.setAttribute("aria-busy", String(refreshing));
-  refreshButton.title = refreshing ? "最新の状態を更新しています" : "最新の状態に更新";
-}
-
 function setMaintenanceLoadingStep(stepId, status) {
   const step = document.querySelector(`[data-loading-step="${stepId}"]`);
   if (step) step.dataset.status = status;
@@ -389,7 +381,6 @@ function startMaintenanceLoading({
   updateMaintenanceLoadingElapsed();
   $("#maintenance-dashboard").setAttribute("aria-busy", "true");
   $("#qualification-select").disabled = true;
-  setDashboardRefreshState(true);
 }
 
 function trackMaintenanceLoadingStep(stepId, promise) {
@@ -412,7 +403,6 @@ function releaseMaintenanceLoadingControls() {
   state.maintenanceLoading.timer = null;
   $("#maintenance-dashboard").setAttribute("aria-busy", "false");
   $("#qualification-select").disabled = false;
-  setDashboardRefreshState(false);
 }
 
 async function finishMaintenanceLoading() {
@@ -902,7 +892,6 @@ function bindControls() {
     clearEvaluationSelection();
     await loadQuestions(false);
   });
-  $("#refresh-button").addEventListener("click", refreshDashboard);
   $("#maintenance-loading-retry").addEventListener("click", refreshDashboard);
   $("#audit-view-close").addEventListener("click", handleAuditViewBack);
   $("#audit-admin-tools").addEventListener("toggle", (event) => {
@@ -1164,6 +1153,16 @@ async function saveLawWorkflowSetting(event) {
   const qualification = state.qualification;
   if (!qualification || state.lawWorkflowSaving) return;
   const enabled = event.target.checked;
+  const runDialog = $("#qualification-run-dialog");
+  const reopenRunDialog = runDialog.open && !state.qualificationRunDialog.running
+    ? {
+      listGroupIds: selectedQualificationRunListGroupIds(),
+      updateTargetIds: selectedQualificationRunUpdateTargetIds(),
+      questionIds: [...state.qualificationRunDialog.questionIds],
+      questionRange: state.qualificationRunDialog.questionRange,
+      mode: selectedQualificationRunMode(),
+    }
+    : null;
   state.lawWorkflowSaving = true;
   renderLawWorkflowSetting();
   try {
@@ -1183,6 +1182,16 @@ async function saveLawWorkflowSetting(event) {
     }
     renderQualificationWorkflow();
     toast(enabled ? "法令工程を有効にしました。" : "法令工程を省略します。");
+    if (reopenRunDialog && runDialog.open) {
+      runDialog.close();
+      const entryStage = qualificationMaintenanceEntryStage();
+      if (entryStage) {
+        openQualificationRunDialog(entryStage, {
+          ...reopenRunDialog,
+          fieldFirst: true,
+        });
+      }
+    }
   } catch (error) {
     toast(error.message, true);
   } finally {
@@ -1356,6 +1365,26 @@ function returnToMaintenanceGroupList() {
   toast("年度・フォルダの「整備・洗い替え」から開始してください。");
 }
 
+function renderMaintenanceGroupUpdatedAt(value) {
+  const date = new Date(String(value || "").trim());
+  const valid = !Number.isNaN(date.getTime());
+  const node = element(
+    "time",
+    "maintenance-year-updated",
+    valid
+      ? `最終更新 ${date.toLocaleString("ja-JP", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      })}`
+      : "最終更新 —",
+  );
+  if (valid) node.dateTime = date.toISOString();
+  return node;
+}
+
 function renderMaintenanceDashboard() {
   const workflow = state.qualificationWorkflow;
   if (!workflow) return;
@@ -1432,8 +1461,13 @@ function renderMaintenanceDashboard() {
       `maintenance-year-row${working ? " working" : groupRequired ? "" : " complete"}`,
     );
     const copy = element("div", "maintenance-year-copy");
-    copy.append(
+    const titleRow = element("div", "maintenance-year-title-row");
+    titleRow.append(
       element("strong", "", group.displayName || group.listGroupId),
+      renderMaintenanceGroupUpdatedAt(group.latestContentUpdatedAt),
+    );
+    copy.append(
+      titleRow,
       element(
         "span",
         "",
@@ -1478,14 +1512,22 @@ function renderMaintenanceDashboard() {
     const action = element(
       "button",
       "secondary-button",
-      working
-        ? liveGroup?.percent >= 100 ? "最終検証中" : "作業中"
-        : "整備・洗い替え",
+      working ? "進捗を見る" : "整備・洗い替え",
     );
     action.type = "button";
-    action.disabled = isRunning || workflow.restartRequired;
-    action.setAttribute("aria-label", `${group.displayName || group.listGroupId}を整備・洗い替え`);
-    action.addEventListener("click", () => openListGroupMaintenance(group.listGroupId));
+    action.disabled = !working && (isRunning || workflow.restartRequired);
+    action.setAttribute(
+      "aria-label",
+      working
+        ? `${group.displayName || group.listGroupId}の進捗を見る`
+        : `${group.displayName || group.listGroupId}を整備・洗い替え`,
+    );
+    action.addEventListener(
+      "click",
+      working
+        ? resumeQualificationRun
+        : () => openListGroupMaintenance(group.listGroupId),
+    );
     actions.append(statusAction, action);
     row.append(copy, meter, actions);
     years.append(row);
@@ -2422,7 +2464,6 @@ function renderQualificationActiveRun() {
     retry.hidden = true;
     return;
   }
-  container.hidden = false;
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
   const statusClass = view.partial
@@ -2874,6 +2915,9 @@ function openQualificationRunDialog(stage, options = {}) {
   updateQualificationRunHeading();
   $("#qualification-run-guide").disabled = fieldFirst || !stage.canonicalDocs?.length;
   $("#qualification-run-guide").hidden = state.qualificationRunDialog.simplified || fieldFirst;
+  $("#qualification-run-law-setting-fieldset").hidden =
+    state.qualificationRunDialog.simplified;
+  renderLawWorkflowSetting();
   const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
   const supportsScope = qualificationRunSupportsGroupScope(stage, selectedStageIds);
   const groupRefreshLabel = $("#qualification-run-group-refresh");
@@ -3712,6 +3756,7 @@ function enterQualificationProgressView(run) {
   $("#qualification-run-title").textContent = `${qualificationDisplayName(run?.qualification)}の整備進捗`;
   $("#qualification-run-purpose").textContent = "対象問題ごとに、待機・処理中・完了・保留の状態を表示します。";
   $("#qualification-run-guide").hidden = true;
+  $("#qualification-run-law-setting-fieldset").hidden = true;
   $("#qualification-run-stage-fieldset").hidden = true;
   $("#qualification-run-group-fieldset").hidden = true;
   $("#qualification-run-mode-fieldset").hidden = true;

@@ -1281,6 +1281,11 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
 
         self.assertIn('id="law-workflow-enabled"', html)
         self.assertIn("法令工程を使う", html)
+        self.assertGreater(
+            html.index('id="law-workflow-enabled"'),
+            html.index('id="qualification-run-dialog"'),
+        )
+        self.assertIn('id="qualification-run-law-setting-fieldset"', html)
         self.assertIn(
             'api("/api/qualification-workflow/law-setting"',
             javascript,
@@ -1860,25 +1865,30 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             '$("#maintenance-loading-retry").addEventListener("click", refreshDashboard)',
             javascript,
         )
-        self.assertIn(
-            '$("#refresh-button").addEventListener("click", refreshDashboard)',
-            javascript,
-        )
+        self.assertNotIn('id="refresh-button"', html)
         self.assertNotIn(".global-loading-dialog", css)
         self.assertIn(".maintenance-loading", css)
         self.assertIn(".maintenance-loading-steps", css)
         self.assertIn(".maintenance-loading-steps li[hidden]", css)
         self.assertIn(
-            '#maintenance-dashboard[aria-busy="true"] #refresh-button',
-            css,
-        )
-        self.assertIn(
             '#maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-summary',
             css,
         )
+        active_run = javascript.split(
+            "function renderQualificationActiveRun()", 1
+        )[1].split("function selectedQualificationRunMode()", 1)[0]
         self.assertIn(".qualification-active-run[hidden]", css)
-        self.assertIn("container.hidden = true", javascript)
-        self.assertIn("container.hidden = false", javascript)
+        self.assertIn("container.hidden = true", active_run)
+        self.assertNotIn("container.hidden = false", active_run)
+        self.assertIn('class="maintenance-dashboard-summary" hidden', html)
+        self.assertIn(
+            'class="qualification-active-run idle" aria-live="polite" '
+            'aria-labelledby="qualification-active-run-title" hidden',
+            html,
+        )
+        self.assertIn("renderMaintenanceGroupUpdatedAt", javascript)
+        self.assertIn("group.latestContentUpdatedAt", javascript)
+        self.assertIn('"最終更新 —"', javascript)
         self.assertIn("@keyframes loading-sweep", css)
         self.assertIn("@keyframes loading-pulse", css)
         self.assertIn(".audit-view-loading", css)
@@ -1967,7 +1977,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-6"
+        asset_version = "question-review-ui-v3-20260726-7"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

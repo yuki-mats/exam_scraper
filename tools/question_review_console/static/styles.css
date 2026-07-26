@@ -99,7 +99,6 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   line-height: 1;
 }
 .app-header .icon-button { color: #fff; border-color: #8693a0; background: #35414d; }
-#refresh-button.is-loading { animation: none; }
 
 .loading-spinner {
   width: 36px;
@@ -238,7 +237,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 
 .maintenance-dashboard {
   display: grid;
-  grid-template-columns: minmax(180px, 230px) minmax(280px, 0.8fr) minmax(360px, 1.4fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: stretch;
   gap: 12px;
   padding: 14px 16px;
@@ -246,11 +245,8 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   background: var(--surface);
 }
 #maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-controls {
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(0, 400px);
+  grid-column: 1;
 }
-#maintenance-dashboard[aria-busy="true"] #refresh-button,
-#maintenance-dashboard[aria-busy="true"] .law-workflow-setting,
 #maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-summary,
 #maintenance-dashboard[aria-busy="true"] .qualification-active-run,
 #maintenance-dashboard[aria-busy="true"] .maintenance-year-section {
@@ -258,10 +254,11 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 }
 .maintenance-dashboard-controls {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   align-content: start;
   align-items: end;
   gap: 8px;
+  width: min(420px, 100%);
 }
 .maintenance-dashboard-controls label { min-width: 0; }
 .maintenance-dashboard-controls select { width: 100%; }
@@ -292,6 +289,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   border-radius: 6px;
   background: var(--surface-muted);
 }
+.maintenance-dashboard-summary[hidden] { display: none; }
 .maintenance-dashboard-summary h2 { margin: 2px 0 0; font-size: 14px; }
 .maintenance-required-count { display: block; margin-top: 3px; color: var(--amber); font-size: 27px; line-height: 1; }
 .maintenance-dashboard-summary p { margin: 5px 0 0; color: var(--text-muted); font-size: 11px; }
@@ -307,13 +305,11 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 }
 .maintenance-entry-guidance strong { font-size: 11px; }
 .maintenance-entry-guidance span { color: var(--text-muted); font-size: 9px; }
-.maintenance-year-section { min-width: 0; grid-column: 3; }
+.maintenance-year-section { min-width: 0; grid-column: 1; }
 .maintenance-year-progress {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 6px;
-  max-height: 132px;
-  overflow-y: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 .maintenance-year-row {
   min-width: 0;
@@ -334,8 +330,22 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 }
 .maintenance-year-row.working .maintenance-year-copy strong { color: var(--blue-dark); }
 .maintenance-year-copy { min-width: 0; display: grid; gap: 1px; }
+.maintenance-year-title-row {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
 .maintenance-year-copy strong { font-size: 12px; }
 .maintenance-year-copy span { color: var(--text-muted); font-size: 9px; }
+.maintenance-year-updated {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 .maintenance-year-row button { min-height: 30px; padding: 4px 7px; font-size: 10px; white-space: nowrap; }
 .maintenance-year-actions { display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
 .maintenance-year-meter { grid-column: 1 / -1; height: 3px; overflow: hidden; border-radius: 2px; background: #dfe4e8; }
@@ -1285,11 +1295,11 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .toolbar label { flex: 1 1 140px; }
   .toolbar select { width: 100%; min-width: 0; }
   .question-sort-selector { flex: 1 1 190px; }
-  .maintenance-dashboard { grid-template-columns: minmax(180px, 0.6fr) minmax(300px, 1fr); }
-  .maintenance-loading { grid-column: 1 / -1; }
+  .maintenance-dashboard { grid-template-columns: 1fr; }
+  .maintenance-loading { grid-column: 1; }
   .qualification-active-run { grid-row: auto; }
   .qualification-active-run-phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .maintenance-year-section { grid-column: 1 / -1; }
+  .maintenance-year-section { grid-column: 1; }
   .maintenance-year-progress { max-height: none; }
   .audit-view-content { overflow: hidden; }
   .audit-admin-tools { max-height: none; overflow: visible; }
@@ -1347,6 +1357,7 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .maintenance-year-section { grid-column: 1; }
   .maintenance-year-progress { grid-template-columns: 1fr; }
   .maintenance-year-row { padding: 9px; }
+  .maintenance-year-title-row { align-items: flex-start; flex-direction: column; gap: 2px; }
   .maintenance-year-row button { min-height: 44px; font-size: 12px; }
   .maintenance-year-actions { grid-column: 1 / -1; }
   .maintenance-year-actions button { flex: 1; }
@@ -1474,7 +1485,6 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #refresh-button.is-loading,
   .loading-spinner,
   .maintenance-loading::after,
   .maintenance-loading-steps li[data-status="active"]::before,

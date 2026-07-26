@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-6">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-7">
   </head>
   <body>
     <header class="app-header">
@@ -14,7 +14,7 @@
       </div>
     </header>
 
-    <section id="maintenance-dashboard" class="maintenance-dashboard" aria-labelledby="maintenance-dashboard-title">
+    <section id="maintenance-dashboard" class="maintenance-dashboard" aria-label="問題整備">
       <section id="maintenance-loading" class="maintenance-loading" role="status" aria-live="polite" aria-atomic="true">
         <span class="loading-spinner" aria-hidden="true"></span>
         <div class="maintenance-loading-copy">
@@ -42,16 +42,8 @@
           <span>資格</span>
           <select id="qualification-select"></select>
         </label>
-        <button id="refresh-button" class="icon-button" type="button" title="再読込" aria-label="再読込">↻</button>
-        <label class="law-workflow-setting">
-          <input id="law-workflow-enabled" type="checkbox" disabled>
-          <span>
-            <strong>法令工程を使う</strong>
-            <small id="law-workflow-setting-status">資格設定を確認中</small>
-          </span>
-        </label>
       </div>
-      <div class="maintenance-dashboard-summary">
+      <div class="maintenance-dashboard-summary" hidden aria-hidden="true">
         <div>
           <span id="maintenance-version-label" class="workflow-overall-status" hidden></span>
           <h2 id="maintenance-dashboard-title">整備が必要な問題</h2>
@@ -267,6 +259,16 @@
         <div class="dialog-body">
           <p id="qualification-run-purpose"></p>
           <button id="qualification-run-guide" class="document-link-button" type="button">この工程の正本を確認</button>
+          <fieldset id="qualification-run-law-setting-fieldset">
+            <legend>資格設定</legend>
+            <label class="law-workflow-setting">
+              <input id="law-workflow-enabled" type="checkbox" disabled>
+              <span>
+                <strong>法令工程を使う</strong>
+                <small id="law-workflow-setting-status">資格設定を確認中</small>
+              </span>
+            </label>
+          </fieldset>
           <fieldset id="qualification-run-stage-fieldset">
             <legend>工程範囲</legend>
             <div id="qualification-run-stages" class="run-stage-options"></div>
@@ -538,6 +540,6 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=question-review-ui-v3-20260726-6"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260726-7"></script>
   </body>
 </html>
