@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-5">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-6">
   </head>
   <body>
     <header class="app-header">
@@ -53,7 +53,7 @@
       </div>
       <div class="maintenance-dashboard-summary">
         <div>
-          <span id="maintenance-version-label" class="workflow-overall-status">現行基準</span>
+          <span id="maintenance-version-label" class="workflow-overall-status" hidden></span>
           <h2 id="maintenance-dashboard-title">整備が必要な問題</h2>
           <strong id="maintenance-required-count" class="maintenance-required-count">確認中</strong>
           <p id="maintenance-progress-text">資格全体の状態を確認しています。</p>
@@ -63,7 +63,7 @@
           <span>年度、整備する項目、処理する問題を選びます。</span>
         </div>
       </div>
-      <section id="qualification-active-run" class="qualification-active-run idle" aria-live="polite" aria-labelledby="qualification-active-run-title">
+      <section id="qualification-active-run" class="qualification-active-run idle" aria-live="polite" aria-labelledby="qualification-active-run-title" hidden>
         <div class="qualification-active-run-head">
           <div>
             <span id="qualification-active-run-eyebrow" class="qualification-active-run-eyebrow">いまの作業</span>
@@ -90,8 +90,7 @@
         </footer>
       </section>
       <div class="maintenance-year-section">
-        <h3 id="maintenance-group-progress-title">範囲別の進捗</h3>
-        <div id="maintenance-year-progress" class="maintenance-year-progress" aria-live="polite"></div>
+        <div id="maintenance-year-progress" class="maintenance-year-progress" aria-label="範囲別の進捗" aria-live="polite"></div>
       </div>
     </section>
 
@@ -539,6 +538,6 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=question-review-ui-v3-20260726-5"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260726-6"></script>
   </body>
 </html>

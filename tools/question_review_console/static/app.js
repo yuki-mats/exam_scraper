@@ -1369,16 +1369,8 @@ function renderMaintenanceDashboard() {
   const total = Number(progress.totalCount || 0);
   const current = Number(progress.currentCount || 0);
   const required = Number(progress.requiredCount || 0);
-  const versions = [...new Set(
-    workflow.stages
-      .filter((stage) => stage.policyVersion)
-      .map((stage) => stage.policyVersion),
-  )];
   const versionLabel = $("#maintenance-version-label");
-  versionLabel.textContent = versions.length === 1
-    ? `現行基準 v${versions[0]}`
-    : "現行基準（工程別）";
-  versionLabel.className = `workflow-overall-status ${required ? "attention" : "ready"}`;
+  versionLabel.hidden = true;
   $("#maintenance-required-count").textContent = required ? `${required}問` : "0問";
   $("#maintenance-progress-text").textContent = required
     ? `全${total}問のうち${current}問が整備済みです。`
@@ -1389,6 +1381,7 @@ function renderMaintenanceDashboard() {
     element("span", "", "年度、整備する項目、処理する問題を選びます。"),
   );
   if (workflow.restartRequired) {
+    versionLabel.hidden = false;
     versionLabel.textContent = "更新のため再起動が必要";
     versionLabel.className = "workflow-overall-status attention";
     $("#maintenance-progress-text").textContent = workflow.catalogWarning
@@ -1423,7 +1416,7 @@ function renderMaintenanceDashboard() {
   const years = $("#maintenance-year-progress");
   years.replaceChildren();
   const groupIds = (workflow.groups || []).map((group) => group.listGroupId);
-  $("#maintenance-group-progress-title").textContent = `${scopeLabelForGroups(groupIds)}別の進捗`;
+  years.setAttribute("aria-label", `${scopeLabelForGroups(groupIds)}別の進捗`);
   for (const group of workflow.groups || []) {
     const groupProgress = group.maintenanceProgress || {};
     const groupTotal = Number(groupProgress.totalCount || 0);
@@ -2410,6 +2403,7 @@ function renderQualificationActiveRun() {
   const retry = $("#qualification-active-run-retry");
   const errorBox = $("#qualification-active-run-error");
   if (!run) {
+    container.hidden = true;
     container.className = "qualification-active-run idle";
     $("#qualification-active-run-eyebrow").textContent = "いまの作業";
     $("#qualification-active-run-status").textContent = "待機中";
@@ -2428,6 +2422,7 @@ function renderQualificationActiveRun() {
     retry.hidden = true;
     return;
   }
+  container.hidden = false;
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
   const statusClass = view.partial

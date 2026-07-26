@@ -99,7 +99,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   line-height: 1;
 }
 .app-header .icon-button { color: #fff; border-color: #8693a0; background: #35414d; }
-#refresh-button.is-loading { animation: loading-spin 850ms linear infinite; }
+#refresh-button.is-loading { animation: none; }
 
 .loading-spinner {
   width: 36px;
@@ -245,6 +245,17 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   border-bottom: 1px solid var(--line-strong);
   background: var(--surface);
 }
+#maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-controls {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 400px);
+}
+#maintenance-dashboard[aria-busy="true"] #refresh-button,
+#maintenance-dashboard[aria-busy="true"] .law-workflow-setting,
+#maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-summary,
+#maintenance-dashboard[aria-busy="true"] .qualification-active-run,
+#maintenance-dashboard[aria-busy="true"] .maintenance-year-section {
+  display: none;
+}
 .maintenance-dashboard-controls {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -297,7 +308,6 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
 .maintenance-entry-guidance strong { font-size: 11px; }
 .maintenance-entry-guidance span { color: var(--text-muted); font-size: 9px; }
 .maintenance-year-section { min-width: 0; grid-column: 3; }
-.maintenance-year-section h3 { margin: 0 0 6px; font-size: 12px; }
 .maintenance-year-progress {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -511,6 +521,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
   background: #edf4fa;
   box-shadow: inset 4px 0 0 var(--blue);
 }
+.qualification-active-run[hidden] { display: none; }
 .qualification-active-run.idle { border-color: var(--line); background: var(--surface-muted); box-shadow: inset 4px 0 0 #9aa4ae; }
 .qualification-active-run.failed, .qualification-active-run.interrupted { border-color: #e2aaa5; background: var(--red-bg); box-shadow: inset 4px 0 0 var(--red); }
 .qualification-active-run.succeeded { border-color: #b8dec7; background: var(--green-bg); box-shadow: inset 4px 0 0 var(--green); }

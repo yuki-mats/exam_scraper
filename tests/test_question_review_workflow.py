@@ -1868,6 +1868,17 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn(".maintenance-loading", css)
         self.assertIn(".maintenance-loading-steps", css)
         self.assertIn(".maintenance-loading-steps li[hidden]", css)
+        self.assertIn(
+            '#maintenance-dashboard[aria-busy="true"] #refresh-button',
+            css,
+        )
+        self.assertIn(
+            '#maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-summary',
+            css,
+        )
+        self.assertIn(".qualification-active-run[hidden]", css)
+        self.assertIn("container.hidden = true", javascript)
+        self.assertIn("container.hidden = false", javascript)
         self.assertIn("@keyframes loading-sweep", css)
         self.assertIn("@keyframes loading-pulse", css)
         self.assertIn(".audit-view-loading", css)
@@ -1956,7 +1967,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-5"
+        asset_version = "question-review-ui-v3-20260726-6"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
