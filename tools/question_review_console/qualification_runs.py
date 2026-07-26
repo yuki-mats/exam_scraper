@@ -30,6 +30,9 @@ from scripts.common.question_identity import (
     source_question_key,
     source_record_ref,
 )
+from scripts.common.question_answer_contract import (
+    uses_trusted_gassyunin_judge_answers,
+)
 from scripts.common.law_audit_sidecar_contract import (
     law_audit_sidecar_metadata_errors,
 )
@@ -929,11 +932,15 @@ def _structured_candidate_prompt(
     question_issue_evidence_by_question: Mapping[
         str, tuple[Mapping[str, Any], ...]
     ] | None = None,
+    source_answer_evidence_by_question: Mapping[
+        str, Mapping[str, Any]
+    ] | None = None,
 ) -> str:
     questions: list[dict[str, Any]] = []
     evidence_by_question = original_aggregate_evidence_by_question or {}
     originalization_sources = originalization_source_by_question or {}
     issue_evidence_by_question = question_issue_evidence_by_question or {}
+    answer_evidence_by_question = source_answer_evidence_by_question or {}
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
@@ -973,6 +980,11 @@ def _structured_candidate_prompt(
             ],
             "previousValidationFeedback": previous_feedback,
         }
+        source_answer_evidence = answer_evidence_by_question.get(question_id)
+        if source_answer_evidence is not None:
+            question["sourceAnswerEvidence"] = copy.deepcopy(
+                dict(source_answer_evidence)
+            )
         evidence = evidence_by_question.get(question_id)
         if evidence is not None:
             question["originalAggregateAnswerEvidence"] = copy.deepcopy(
@@ -1041,6 +1053,13 @@ def _structured_candidate_prompt(
             "正答理由と各誤答の理由を変えず、文面をsetFieldsへ転載しない。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
+            "sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な正答証拠である。"
+            "evidenceType=trusted_gassyunin_judge_statement_verdictsは、取得元のjudge欄が"
+            "各記述markerとcorrectChoiceTextを直接対応付け、件数・順序・出所の機械検証を"
+            "通過したことを示す。公式解答番号は元の組合せ肢を指すため、組合せ対応表が"
+            "ないことだけを理由にblockedにしない。currentRecordの選択肢と意味・順序が"
+            "同じならこの記述別正誤を根拠として確定し、意味が変わっている場合だけ"
+            "現在の命題を独立判定する。証拠自体はsetFieldsへ転載しない。",
             "questionIssueCorrectionEvidenceがある場合、currentRecordと00_sourceの差は、専用のblind reviewと公式・一次資料で承認された問題訂正である。"
             "差があることだけを理由にblocked又は00_sourceへ差し戻さず、currentRecordの訂正文を設問として正答を独立判定する。"
             "この証拠はprompt内だけで参照し、setFieldsへ転載しない。",
@@ -1407,6 +1426,29 @@ def _aggregate_downstream_source_evidence(
             ),
         }
     return evidence
+
+
+def _trusted_source_answer_evidence(
+    source_record: Mapping[str, Any],
+    target: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    """Build prompt-only evidence from a source-bound statement judge table."""
+
+    source = dict(source_record)
+    if not uses_trusted_gassyunin_judge_answers(source):
+        return None
+    return {
+        "evidenceType": "trusted_gassyunin_judge_statement_verdicts",
+        "sourceRecordRef": SourceIdentityBinding.from_mapping(
+            target
+        ).source_record_ref,
+        "questionBodyText": copy.deepcopy(source.get("questionBodyText")),
+        "choiceTextList": copy.deepcopy(source.get("choiceTextList")),
+        "correctChoiceText": copy.deepcopy(source.get("correctChoiceText")),
+        "answerResultText": copy.deepcopy(source.get("answer_result_text")),
+        "judgeChoiceMarkers": copy.deepcopy(source.get("judgeChoiceMarkers")),
+        "sourceStatementCount": source.get("sourceStatementCount"),
+    }
 
 
 def _maintenance_session_phases(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -7432,18 +7474,18 @@ class QualificationRunCoordinator:
         self.store._write_json(path, payload)
         source_record = None
         applied_files = tuple(getattr(result, "applied_files", ()))
-        needs_originalization_source = stage_id == "originalize" or (
+        needs_source_record = stage_id in {"originalize", "correct_choice"} or (
             stage_id == "explanation"
             and any(
                 "05_originalized" in Path(str(value)).parts
                 for value in applied_files
             )
         )
-        if needs_originalization_source:
+        if needs_source_record:
             source_input = getattr(inventory, "source_input", None)
             if not callable(source_input):
                 raise QuestionItemError(
-                    "独自問題の比較・解説に必要な00_source参照入力がありません。"
+                    "工程の比較に必要な00_source参照入力がありません。"
                 )
             source_record = source_input(*project_args)
         return {
@@ -8448,6 +8490,26 @@ class QualificationRunCoordinator:
                 copy.deepcopy(dict(spec["sourceRecord"]))
                 for spec in specs
                 if isinstance(spec.get("sourceRecord"), Mapping)
+                and stage_id in {"originalize", "explanation"}
+            }
+            source_answer_evidence_by_question = {
+                question_id: evidence
+                for spec in specs
+                if isinstance(spec.get("sourceRecord"), Mapping)
+                for question_id in [
+                    str(
+                        spec["target"].get("id")
+                        or spec["target"].get("uiQuestionId")
+                        or ""
+                    )
+                ]
+                for evidence in [
+                    _trusted_source_answer_evidence(
+                        spec["sourceRecord"],
+                        spec["target"],
+                    )
+                ]
+                if stage_id == "correct_choice" and evidence is not None
             }
             candidate_targets_by_question = {
                 str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
@@ -8494,6 +8556,9 @@ class QualificationRunCoordinator:
                 ),
                 question_issue_evidence_by_question=(
                     question_issue_evidence_by_question
+                ),
+                source_answer_evidence_by_question=(
+                    source_answer_evidence_by_question
                 ),
             )
             child = self.store.create(

@@ -130,7 +130,7 @@ def asks_for_combination_choice(value: Any) -> bool:
     ) is not None
 
 
-def _uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
+def uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
     """Return whether per-statement answers come from the trusted judge section."""
 
     if (
@@ -221,7 +221,7 @@ def official_answer_alignment_issue(record: Any) -> str | None:
     if set(official_numbers) == set(independently_selected):
         return None
     if asks_for_combination_choice(source_text):
-        if _uses_trusted_gassyunin_judge_answers(record):
+        if uses_trusted_gassyunin_judge_answers(record):
             # gassyuninの正解番号は元の組合せ肢を指す。judge sectionが各記述の
             # source truthなので、組合せmappingなしで記述indexとは比較しない。
             return None

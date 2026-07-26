@@ -270,6 +270,36 @@ class QuestionWorkQueueTests(unittest.TestCase):
             [{"reason": "最後の指摘"}],
         )
 
+    def test_resume_drops_feedback_bound_to_an_old_policy(self) -> None:
+        executions = build_question_executions(self.plan)
+        for question in executions:
+            for stage in question["stages"]:
+                stage["status"] = "validated"
+        failed_stage = executions[0]["stages"][1]
+        failed_stage.update(
+            status="blocked",
+            validationAttempts=[
+                {
+                    "attempt": 1,
+                    "status": "blocked",
+                    "feedback": {"reason": "旧ルールの指摘"},
+                }
+            ],
+        )
+        changed_plan = copy.deepcopy(self.plan)
+        changed_plan["stagePlans"][1]["policyFingerprints"]["law_audit"] = (
+            "policy-law_audit-v2"
+        )
+
+        resumed = resume_plan(changed_plan, executions)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertTrue(rebuilt[0]["stages"][0]["retryModelRequired"])
+        self.assertEqual(
+            rebuilt[0]["stages"][0]["priorValidationFeedback"],
+            [],
+        )
+
     def test_resume_does_not_restore_item_absent_from_previous_run(self) -> None:
         executions = build_question_executions(self.plan)
         executions[0]["stages"] = [executions[0]["stages"][1]]

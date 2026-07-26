@@ -817,6 +817,7 @@ def resume_plan(
                 break
 
     explicit_question_keys: set[str] = set()
+    current_policy_by_work_item: dict[str, str] = {}
     targets_for_stage: dict[str, list[str]] = {}
     question_stage_indexes = {
         str(stage_plan.get("stageId") or ""): stage_index
@@ -830,7 +831,12 @@ def resume_plan(
                 question_id,
                 canonical_target,
             )
-            explicit_question_keys.add(work_item_key(target, stage_id))
+            item_key = work_item_key(target, stage_id)
+            explicit_question_keys.add(item_key)
+            current_policy_by_work_item[item_key] = str(
+                (stage_plan.get("policyFingerprints") or {}).get(stage_id)
+                or ""
+            )
             if question_id in targets_by_stage.get(stage_id, {}):
                 targets_for_stage.setdefault(stage_id, []).append(question_id)
 
@@ -928,7 +934,16 @@ def resume_plan(
             continue
         retry_keys.append(work_item_key_value)
         latest_feedback = failed_attempts[-1].get("feedback")
-        if isinstance(latest_feedback, Mapping):
+        previous_policy = str(
+            previous_items.get(work_item_key_value, {}).get("policyFingerprint")
+            or ""
+        )
+        current_policy = current_policy_by_work_item.get(work_item_key_value, "")
+        if (
+            isinstance(latest_feedback, Mapping)
+            and bool(previous_policy)
+            and previous_policy == current_policy
+        ):
             retry_feedback[work_item_key_value] = [dict(latest_feedback)]
     candidate["retryModelWorkItemKeys"] = retry_keys
     candidate["retryFeedbackByWorkItem"] = retry_feedback

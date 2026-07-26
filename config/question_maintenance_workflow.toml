@@ -144,8 +144,8 @@ code = "02a"
 label = "正答精査"
 purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
 kind = "human"
-# 2.0: questionTypeやquestionIntentから生成せず、根拠から各選択肢の正誤を独立判定する。
-policy_version = "2.0"
+# 2.1: source-boundな記述別judge証拠を組合せ解答番号と混同せず利用する。
+policy_version = "2.1"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"

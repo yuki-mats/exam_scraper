@@ -10,6 +10,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 - `questionBodyText`と各`choiceTextList`を結合した完全な命題を一肢ずつ読み、出題時点の公式解答、元解説、資格別方針で認めた根拠と照合します。
 - 02aが所有するのは通常`correctChoiceText`だけです。`questionType`、`isCalculationQuestion`、`questionIntent`、問題文、選択肢、解説、IDを変更しません。
 - 現在の`correctChoiceText`、正答数、`questionType`又は`questionIntent`から各肢の正誤を逆算しません。各選択肢を同じ根拠基準で独立に判定します。
+- `sourceAnswerEvidence`は、`00_source`から分離した更新不能な正答証拠です。`evidenceType=trusted_gassyunin_judge_statement_verdicts`では、取得元のjudge欄が各記述markerと正誤を直接対応付け、件数・順序・出所を機械検証済みです。公式解答番号が元の組合せ肢を指す問題でも、組合せ対応表がないことだけを理由に`hold`にしません。現在の選択肢と意味・順序が同じなら記述別正誤の根拠として使い、意味が変わっている場合だけ現在の命題を独立判定します。
 - 根拠不足、公式解答との衝突、画像欠落又は命題を一意に読めない問題は、問題単位の`hold`（構造化候補では`status=blocked`）にします。一部の肢だけを確定したり、現在値で残りを埋めたりしません。
 
 ## 判定基準

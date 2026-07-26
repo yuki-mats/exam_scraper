@@ -27,6 +27,7 @@ from tools.question_review_console.qualification_runs import (
     _server_law_audit_fields,
     _structured_candidate_stage_context,
     _structured_candidate_prompt,
+    _trusted_source_answer_evidence,
 )
 from tools.question_review_console.question_candidate import CandidateTarget
 from scripts.common.aggregate_answer_decomposition import (
@@ -2294,6 +2295,57 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [{"reason": "問題文と選択肢の対応を再確認してください。"}],
         )
         self.assertIn("現行allowedFieldsを優先する", prompt)
+
+    def test_structured_candidate_prompt_exposes_trusted_source_answer_evidence(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "2023",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q17",
+            "sourceRecordRef": "question_2023_2.json#22",
+        }
+        source_record = {
+            "questionBodyText": "正しいものの組合せはどれか。",
+            "choiceTextList": ["記述イ", "記述ロ"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "answer_result_text": "正解は 3 です。",
+            "sourceProvider": "gassyunin.com",
+            "sourceOrigin": "gassyunin_site",
+            "choiceMarkerSource": "judge",
+            "markerAlignmentMode": "judge_only",
+            "markerMismatchDetected": False,
+            "answerResultNumbersRemapped": False,
+            "judgeChoiceMarkers": ["イ", "ロ"],
+            "sourceStatementCount": 2,
+        }
+        evidence = _trusted_source_answer_evidence(source_record, target)
+        self.assertIsNotNone(evidence)
+        candidate_target = CandidateTarget(
+            target_id="question-1:correct_choice",
+            role="correct_choice",
+            path="output/sample/23_correctChoiceText_fixed/question.json",
+            allowed_fields=("correctChoiceText",),
+        )
+
+        prompt = _structured_candidate_prompt(
+            "正答を判定する。",
+            [target],
+            records_by_question={"question-1": source_record},
+            candidate_targets_by_question={
+                "question-1": (candidate_target,)
+            },
+            feedback_by_question={},
+            source_answer_evidence_by_question={
+                "question-1": evidence,
+            },
+        )
+
+        question_payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question_payload["sourceAnswerEvidence"]["correctChoiceText"],
+            ["間違い", "正しい"],
+        )
+        self.assertIn("組合せ対応表がないことだけを理由にblockedにしない", prompt)
 
     def test_originalize_prompt_separates_current_record_and_source_evidence(self):
         target = {
