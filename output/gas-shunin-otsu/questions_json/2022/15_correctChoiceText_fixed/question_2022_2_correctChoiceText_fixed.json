@@ -23,7 +23,10 @@
       "不正解",
       "不正解"
     ],
-    "answer_result_text": "正解は 2 です。"
+    "answer_result_text": "正解は 2 です。",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kiso:q10",
+    "reviewQuestionId": "8ede868c67c00cfd",
+    "sourceRecordRef": "question_2022_2.json#0"
   },
   {
     "original_question_id": "8ea9c0501cd0378d",
@@ -210,7 +213,10 @@
       "正しい",
       "正しい"
     ],
-    "correctChoiceTextCount": 5
+    "correctChoiceTextCount": 5,
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q01",
+    "reviewQuestionId": "ec7e5c572f2bab64",
+    "sourceRecordRef": "question_2022_2.json#6"
   },
   {
     "original_question_id": "190badc85dd959e2",
@@ -235,7 +241,10 @@
       "正しい",
       "正しい"
     ],
-    "correctChoiceTextCount": 2
+    "correctChoiceTextCount": 2,
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q02",
+    "reviewQuestionId": "190badc85dd959e2",
+    "sourceRecordRef": "question_2022_2.json#7"
   },
   {
     "original_question_id": "7de93f61e5847f73",
@@ -261,7 +270,10 @@
       "正しい",
       "正しい"
     ],
-    "answer_result_text": "正解は 1 です。"
+    "answer_result_text": "正解は 1 です。",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q03",
+    "reviewQuestionId": "7de93f61e5847f73",
+    "sourceRecordRef": "question_2022_2.json#8"
   },
   {
     "original_question_id": "bcc7989eafdf73a4",
@@ -324,7 +336,10 @@
       "正しい",
       "間違い"
     ],
-    "answer_result_text": "正解は 4 です。"
+    "answer_result_text": "正解は 4 です。",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q05",
+    "reviewQuestionId": "649fee0c46e8f7ca",
+    "sourceRecordRef": "question_2022_2.json#10"
   },
   {
     "original_question_id": "bafde25c56a1bb71",
@@ -358,7 +373,10 @@
       "間違い",
       "間違い",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q06",
+    "reviewQuestionId": "bafde25c56a1bb71",
+    "sourceRecordRef": "question_2022_2.json#11"
   },
   {
     "original_question_id": "478a753a8f5e9017",
@@ -392,7 +410,10 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q07",
+    "reviewQuestionId": "478a753a8f5e9017",
+    "sourceRecordRef": "question_2022_2.json#12"
   },
   {
     "original_question_id": "89a10a1e99dc8a71",
@@ -426,7 +447,10 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q08",
+    "reviewQuestionId": "89a10a1e99dc8a71",
+    "sourceRecordRef": "question_2022_2.json#13"
   },
   {
     "original_question_id": "07a5826778e1606a",
@@ -460,7 +484,10 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q09",
+    "reviewQuestionId": "07a5826778e1606a",
+    "sourceRecordRef": "question_2022_2.json#14"
   },
   {
     "original_question_id": "f74dc138c94ba44a",
@@ -707,7 +734,10 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q16",
+    "reviewQuestionId": "6aaa6948a383bdc9",
+    "sourceRecordRef": "question_2022_2.json#21"
   },
   {
     "original_question_id": "4785db6652a796e0",
@@ -732,7 +762,10 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q17",
+    "reviewQuestionId": "4785db6652a796e0",
+    "sourceRecordRef": "question_2022_2.json#22"
   },
   {
     "original_question_id": "da3050a1bed2ae44",
@@ -954,6 +987,9 @@
         }
       ],
       "answerKeyReview": "site answer_result_text and existing Firestore correctChoiceText both mark choice 4 as incorrect; upload preserves existing Firestore statement text/IDs while retaining raw site text in 00_source."
-    }
+    },
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q19",
+    "reviewQuestionId": "4c02724cceef7fcb",
+    "sourceRecordRef": "question_2022_2.json#24"
   }
 ]
