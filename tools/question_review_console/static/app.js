@@ -2970,7 +2970,7 @@ function defaultQualificationRunUpdateTargetIds(stageIds, options = {}) {
     .filter((stage) => selectedStages.has(stage.id))
     .flatMap((stage) => stage.updateTargets || [])
     .map((target) => target.selectionId);
-  if (Object.prototype.hasOwnProperty.call(options, "updateTargetIds")) {
+  if (Array.isArray(options.updateTargetIds)) {
     return options.updateTargetIds.filter((targetId) => available.includes(targetId));
   }
   return available;

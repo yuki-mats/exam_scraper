@@ -39,7 +39,6 @@ PLAN_OWNED_FIELDS = frozenset(
         "resolvableFailedDeltaPaths",
         "resumeWorkItemKeys",
         "selectedFieldsByStage",
-        "selectedUpdateTargetIds",
         "selectedUpdateTargets",
         "sourceFiles",
         "stagePlans",
@@ -281,6 +280,19 @@ class QuestionRunStateStore:
         if not self.is_v2(manifest):
             return copy.deepcopy(dict(manifest))
         plan = self.load_plan(run_dir, manifest)
+        if "selectedUpdateTargetIds" in manifest:
+            manifest_target_ids = manifest.get("selectedUpdateTargetIds")
+            if (
+                not isinstance(manifest_target_ids, list)
+                or [str(value) for value in manifest_target_ids]
+                != [
+                    str(value)
+                    for value in plan.get("selectedUpdateTargetIds") or []
+                ]
+            ):
+                raise QuestionRunStateError(
+                    "親manifestの再開項目がimmutable planと一致しません。"
+                )
         executions = self.load_executions(run_dir, manifest, plan=plan)
         hydrated = {
             **copy.deepcopy(plan),

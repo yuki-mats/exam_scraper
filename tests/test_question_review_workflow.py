@@ -1282,6 +1282,47 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             stage_controls,
         )
 
+    def test_resume_defaults_targets_when_compact_run_has_no_target_ids(self):
+        root = Path(__file__).resolve().parents[1]
+        app = root / "tools/question_review_console/static/app.js"
+        script = r"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const helper = source.slice(
+  source.indexOf("function defaultQualificationRunUpdateTargetIds"),
+  source.indexOf("function renderQualificationRunUpdateTargets"),
+);
+const state = {
+  qualificationWorkflow: {
+    stages: [{
+      id: "question_type",
+      updateTargets: [{ selectionId: "question_type.question_type" }],
+    }],
+  },
+};
+const api = new Function(
+  "state",
+  `${helper}; return defaultQualificationRunUpdateTargetIds;`,
+)(state);
+assert.deepEqual(
+  api(["question_type"], { updateTargetIds: undefined }),
+  ["question_type.question_type"],
+);
+assert.deepEqual(
+  api(["question_type"], {
+    updateTargetIds: ["question_type.question_type"],
+  }),
+  ["question_type.question_type"],
+);
+"""
+        subprocess.run(
+            ["node", "-e", script, str(app)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
     def test_qualification_law_workflow_toggle_is_visible_and_persisted(self):
         root = Path(__file__).resolve().parents[1]
         static = root / "tools" / "question_review_console" / "static"

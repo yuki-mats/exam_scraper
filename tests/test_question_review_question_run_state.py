@@ -50,6 +50,9 @@ class QuestionRunStateStoreTest(unittest.TestCase):
             "kind": "orchestration",
             "workType": "maintenance_flow",
             "sourceFiles": ["output/gas/questions_json/2025/00_source/q.json"],
+            "selectedUpdateTargetIds": [
+                "question_type.question_type",
+            ],
             "questionExecutions": [
                 _execution(f"question-{index}", index)
                 for index in range(1, count + 1)
@@ -83,6 +86,10 @@ class QuestionRunStateStoreTest(unittest.TestCase):
             self.assertNotIn("questionExecutions", manifest)
             self.assertNotIn("sourceFiles", manifest)
             self.assertNotIn("workVersionReceipt", manifest)
+            self.assertEqual(
+                manifest["selectedUpdateTargetIds"],
+                plan["selectedUpdateTargetIds"],
+            )
             self.assertLess(
                 len(json.dumps(manifest, ensure_ascii=False).encode("utf-8")),
                 256 * 1024,
@@ -95,6 +102,13 @@ class QuestionRunStateStoreTest(unittest.TestCase):
                 hydrated["workVersionReceipt"]["recordedCount"],
                 1,
             )
+            mismatched = copy.deepcopy(manifest)
+            mismatched["selectedUpdateTargetIds"] = ["other.target"]
+            with self.assertRaisesRegex(
+                QuestionRunStateError,
+                "再開項目",
+            ):
+                store.hydrate(run_dir, mismatched)
 
     def test_updates_only_target_question_and_rejects_stale_revision(self):
         with tempfile.TemporaryDirectory() as directory:
