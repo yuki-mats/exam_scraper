@@ -5404,11 +5404,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 app_server=app_server,
             )
             coordinator._repository_file_fingerprints = lambda *_args: {}
-            coordinator._run_maintenance_flow(
-                "new-exam",
-                parent["runId"],
-                lambda _message: None,
-            )
+            with patch.object(
+                coordinator.workflow,
+                "prompt",
+                side_effect=AssertionError(
+                    "一問turnで資格全体を再計画しました。"
+                ),
+            ):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
             batch_prompts = [
                 prompt
                 for prompt, kwargs in app_server.calls

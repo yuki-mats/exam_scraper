@@ -8689,16 +8689,26 @@ class QualificationRunCoordinator:
                 str(target.get("id") or target.get("uiQuestionId") or "")
                 for target in targets
             ]
-            batch_stage_prompt = self.workflow.prompt(
-                qualification,
-                stage_id,
-                str(batch_plan.get("mode") or parent.get("mode") or "remaining"),
-                list_group_ids=list(batch_plan.get("scopeListGroupIds") or []),
-                update_target_ids=list(
-                    batch_plan.get("selectedUpdateTargetIds") or []
-                ),
-                question_ids=batch_question_ids,
-            )["prompt"]
+            prompt_from_plan = getattr(self.workflow, "prompt_from_plan", None)
+            if callable(prompt_from_plan):
+                batch_stage_prompt = prompt_from_plan(batch_plan)["prompt"]
+            else:
+                batch_stage_prompt = self.workflow.prompt(
+                    qualification,
+                    stage_id,
+                    str(
+                        batch_plan.get("mode")
+                        or parent.get("mode")
+                        or "remaining"
+                    ),
+                    list_group_ids=list(
+                        batch_plan.get("scopeListGroupIds") or []
+                    ),
+                    update_target_ids=list(
+                        batch_plan.get("selectedUpdateTargetIds") or []
+                    ),
+                    question_ids=batch_question_ids,
+                )["prompt"]
             parent_snapshot = self.store.get(qualification, run_id)
             feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
             for target in targets:
