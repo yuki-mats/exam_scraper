@@ -1778,7 +1778,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             plan.update(
                 workType="maintenance_question_type_candidate",
                 sandbox="read-only",
-                parallelStrategy="structured_candidate_batch",
+                parallelStrategy="structured_candidate_per_question",
                 allowedPatchFiles=[relative.as_posix()],
                 progressTargets=[{"id": "q1"}],
             )

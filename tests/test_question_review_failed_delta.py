@@ -249,7 +249,7 @@ class FailedDeltaTests(unittest.TestCase):
                         "deltaUnknown": True,
                         "retrySafe": True,
                         "parentRunId": "parent-run",
-                        "parallelStrategy": "structured_candidate_batch",
+                        "parallelStrategy": "structured_candidate_per_question",
                         "sandbox": "read-only",
                         "workType": "maintenance_explanation_candidate",
                         "stageIds": ["explanation"],

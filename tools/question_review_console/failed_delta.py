@@ -608,7 +608,11 @@ def _isolated_interrupted_run_is_clean(manifest: Mapping[str, Any]) -> bool:
         and manifest.get("retrySafe") is True
         and manifest.get("candidateTransactionOpen") is not True
         and manifest.get("parallelStrategy")
-        in {"isolated_question_batch", "structured_candidate_batch"}
+        in {
+            "isolated_question_batch",
+            "structured_candidate_batch",
+            "structured_candidate_per_question",
+        }
         and manifest.get("sandbox") in {"workspace-write", "read-only"}
     )
 

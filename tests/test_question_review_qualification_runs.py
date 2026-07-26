@@ -32,6 +32,7 @@ from tools.question_review_console.qualification_runs import (
     _structured_candidate_prompt,
     _trusted_source_answer_evidence,
     prepare_question_items_concurrently,
+    question_pipeline_worker_limit,
 )
 from tools.question_review_console.question_patch_proposal import (
     TargetResolutionCache,
@@ -52,6 +53,22 @@ _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
 
 
 class ParallelQuestionPreparationTests(unittest.TestCase):
+    def test_pipeline_reserves_a_writer_backlog_wave_beyond_sixty_four_models(self):
+        self.assertEqual(
+            question_pipeline_worker_limit(
+                model_worker_limit=64,
+                pending_question_count=522,
+            ),
+            128,
+        )
+        self.assertEqual(
+            question_pipeline_worker_limit(
+                model_worker_limit=64,
+                pending_question_count=64,
+            ),
+            64,
+        )
+
     def test_sixty_four_questions_prepare_concurrently_and_return_in_input_order(self):
         question_ids = [f"question-{index:02d}" for index in range(64)]
         all_started = threading.Event()
@@ -2171,6 +2188,20 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         }
 
         self.assertTrue(_child_retry_safe(child))
+        self.assertTrue(
+            _child_retry_safe(
+                {
+                    **child,
+                    "status": "interrupted",
+                    "parallelStrategy": "structured_candidate_per_question",
+                    "retrySafe": True,
+                    "candidateTransactionOpen": False,
+                    "deltaUnknown": True,
+                    "result": None,
+                    "rollback": None,
+                }
+            )
+        )
         self.assertFalse(
             _child_retry_safe({**child, "sandbox": "workspace-write"})
         )

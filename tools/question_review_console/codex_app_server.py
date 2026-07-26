@@ -17,6 +17,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, TextIO
 
+try:
+    import resource
+except ImportError:  # pragma: no cover - Windows does not provide resource.
+    resource = None
+
 from tools.question_review_console.turn_budget import (
     GLOBAL_TURN_CAPACITY,
     GlobalTurnBudget,
@@ -94,6 +99,7 @@ SPEED_MODES = frozenset({STANDARD_SPEED_MODE})
 MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
+MIN_APP_SERVER_FILE_DESCRIPTORS = 65_536
 TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
 # 公式一次資料の確認を含む工程03は、1問でも high reasoning の turn が
 # 15分をわずかに超えることがある。検証済みpatchを完了直前に巻き戻さないよう、
@@ -155,6 +161,40 @@ class CodexAppServerError(RuntimeError):
 
 class SubscriptionGateError(CodexAppServerError):
     pass
+
+
+def ensure_app_server_file_descriptor_capacity(
+    minimum: int = MIN_APP_SERVER_FILE_DESCRIPTORS,
+) -> int | None:
+    """Raise the inherited soft nofile limit before the long-lived server starts."""
+
+    if resource is None:
+        return None
+    soft_limit, hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
+    if soft_limit >= minimum:
+        return int(soft_limit)
+    if hard_limit != resource.RLIM_INFINITY and hard_limit < minimum:
+        raise CodexAppServerError(
+            "64問同時整備に必要なfile descriptor上限を確保できません。"
+            f"soft={soft_limit}, hard={hard_limit}, required={minimum}"
+        )
+    try:
+        resource.setrlimit(
+            resource.RLIMIT_NOFILE,
+            (minimum, hard_limit),
+        )
+    except (OSError, ValueError) as exc:
+        raise CodexAppServerError(
+            "64問同時整備に必要なfile descriptor上限を引き上げられません。"
+            f"soft={soft_limit}, hard={hard_limit}, required={minimum}"
+        ) from exc
+    updated_soft, _updated_hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+    if updated_soft < minimum:
+        raise CodexAppServerError(
+            "64問同時整備に必要なfile descriptor上限を確認できません。"
+            f"soft={updated_soft}, required={minimum}"
+        )
+    return int(updated_soft)
 
 
 def normalize_speed_mode(value: Any) -> str:
@@ -959,6 +999,7 @@ class CodexAppServerClient:
                 env.pop(key, None)
             runtime_home = self._prepare_isolated_codex_home()
             env["CODEX_HOME"] = str(runtime_home)
+            ensure_app_server_file_descriptor_capacity()
             try:
                 process = subprocess.Popen(
                     self._app_server_command(),

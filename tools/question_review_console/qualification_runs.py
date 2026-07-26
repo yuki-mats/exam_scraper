@@ -176,6 +176,7 @@ DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
 PREPARATION_CHUNK_SIZE = 64
 PREPARATION_MAX_PARALLEL_QUESTIONS = 64
 PREPARATION_HEARTBEAT_SECONDS = 15.0
+QUESTION_PIPELINE_BACKLOG_WAVES = 1
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -699,6 +700,21 @@ def normalize_question_concurrency(value: Any) -> int:
     return concurrency
 
 
+def question_pipeline_worker_limit(
+    *,
+    model_worker_limit: int,
+    pending_question_count: int,
+) -> int:
+    """Keep one writer backlog wave without consuming the 64 model slots."""
+
+    model_workers = max(1, int(model_worker_limit))
+    pending_questions = max(1, int(pending_question_count))
+    return min(
+        pending_questions,
+        model_workers * (1 + QUESTION_PIPELINE_BACKLOG_WAVES),
+    )
+
+
 def prepare_question_items_concurrently(
     question_ids: list[str],
     prepare: Callable[[str], Any],
@@ -844,9 +860,17 @@ def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
     )
 
 
+STRUCTURED_CANDIDATE_STRATEGIES = frozenset(
+    {
+        "structured_candidate_batch",
+        "structured_candidate_per_question",
+    }
+)
+
+
 def _is_structured_candidate_batch(child: Mapping[str, Any]) -> bool:
     return bool(
-        child.get("parallelStrategy") == "structured_candidate_batch"
+        child.get("parallelStrategy") in STRUCTURED_CANDIDATE_STRATEGIES
         and child.get("sandbox") == "read-only"
         and str(child.get("workType") or "").endswith("_candidate")
     )
@@ -873,6 +897,22 @@ def _read_only_candidate_failure_state(child: Mapping[str, Any]) -> bool:
 
 def _child_retry_safe(child: Mapping[str, Any]) -> bool:
     if child.get("status") == "succeeded" and child.get("receiptValidated") is True:
+        return True
+    if (
+        child.get("status") == "interrupted"
+        and child.get("retrySafe") is True
+        and _is_structured_candidate_batch(child)
+        and child.get("candidateTransactionOpen") is not True
+        and not child.get("unsafeChangedFiles")
+        and not child.get("unsafeNotifiedChangedFiles")
+        and not (
+            isinstance(child.get("result"), Mapping)
+            and child["result"].get("changedFiles")
+        )
+    ):
+        # v1の再起動処理はper-question strategyを通常human runとして扱い、
+        # read-only候補のdeltaUnknownを誤ってtrueにした。model側は書込み不可で、
+        # server transactionも開いていないため、この組合せだけは再開可能である。
         return True
     if not child.get("startedAt") and child.get("deltaUnknown") is not True:
         result = child.get("result")
@@ -8150,7 +8190,7 @@ class QualificationRunCoordinator:
             result = child.get("result")
             if child.get("parallelStrategy") in {
                 "isolated_question_batch",
-                "structured_candidate_batch",
+                *STRUCTURED_CANDIDATE_STRATEGIES,
             }:
                 question_result = next(
                     (
@@ -9530,6 +9570,10 @@ class QualificationRunCoordinator:
                     scheduler_limits.parallel_turns,
                     question_concurrency,
                 )
+                pipeline_worker_limit = question_pipeline_worker_limit(
+                    model_worker_limit=worker_limit,
+                    pending_question_count=len(pending_ids),
+                )
                 preparation_worker_limit = min(
                     question_concurrency,
                     PREPARATION_MAX_PARALLEL_QUESTIONS,
@@ -9539,6 +9583,7 @@ class QualificationRunCoordinator:
                     qualification,
                     run_id,
                     preparationWorkerLimit=preparation_worker_limit,
+                    pipelineWorkerLimit=max(1, pipeline_worker_limit),
                 )
                 preparation_heartbeat(
                     stage_id,
@@ -9560,7 +9605,7 @@ class QualificationRunCoordinator:
                     else nullcontext()
                 )
                 with snapshot_context, ThreadPoolExecutor(
-                    max_workers=max(1, worker_limit),
+                    max_workers=max(1, pipeline_worker_limit),
                     thread_name_prefix="question-candidate",
                 ) as executor:
                     for chunk_start in range(
@@ -9638,26 +9683,36 @@ class QualificationRunCoordinator:
                             if not model_specs:
                                 continue
                             chunk_batches.extend([[spec] for spec in model_specs])
-                        preparation_futures = []
                         for batch in chunk_batches:
                             batches.append(batch)
                             maximum_batch_size = max(
                                 maximum_batch_size,
                                 len(batch),
                             )
-                            preparation_futures.append(
-                                executor.submit(
+                        with ThreadPoolExecutor(
+                            max_workers=max(
+                                1,
+                                min(
+                                    preparation_worker_limit,
+                                    len(chunk_batches),
+                                ),
+                            ),
+                            thread_name_prefix="question-child-preparation",
+                        ) as preparation_executor:
+                            child_preparation_futures = [
+                                preparation_executor.submit(
                                     prepare_batch,
                                     batch,
                                     phase,
                                     phase_prompt,
                                     round_parent,
                                 )
-                            )
-                        prepared_batches = [
-                            future.result()
-                            for future in preparation_futures
-                        ]
+                                for batch in chunk_batches
+                            ]
+                            prepared_batches = [
+                                future.result()
+                                for future in child_preparation_futures
+                            ]
                         register_prepared_batches(
                             prepared_batches,
                             stage_id,

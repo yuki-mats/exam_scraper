@@ -15,6 +15,7 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerClient,
     DEFAULT_TURN_TIMEOUT_SECONDS,
     FAST_SPEED_MODE,
+    MIN_APP_SERVER_FILE_DESCRIPTORS,
     QUESTION_MAINTENANCE_RETRY_MODEL,
     RESEARCH_AGENT_CONFIG,
     RESEARCH_AGENT_CONFIG_FILENAME,
@@ -24,6 +25,7 @@ from tools.question_review_console.codex_app_server import (
     SubscriptionGateError,
     _TurnState,
     adapt_output_schema_for_app_server,
+    ensure_app_server_file_descriptor_capacity,
     validate_subscription_access,
 )
 
@@ -59,6 +61,55 @@ class OutputSchemaAdapterTests(unittest.TestCase):
         )
         self.assertEqual(adapted["required"], ["values"])
         self.assertEqual(adapted["properties"]["values"]["minItems"], 1)
+
+
+class FileDescriptorCapacityTests(unittest.TestCase):
+    class FakeResource:
+        RLIMIT_NOFILE = 7
+        RLIM_INFINITY = -1
+
+        def __init__(self, soft, hard):
+            self.limits = (soft, hard)
+            self.calls = []
+
+        def getrlimit(self, resource_id):
+            self.calls.append(("get", resource_id))
+            return self.limits
+
+        def setrlimit(self, resource_id, limits):
+            self.calls.append(("set", resource_id, limits))
+            self.limits = limits
+
+    def test_raises_soft_limit_before_starting_app_server(self):
+        fake = self.FakeResource(256, self.FakeResource.RLIM_INFINITY)
+
+        with patch(
+            "tools.question_review_console.codex_app_server.resource",
+            fake,
+        ):
+            actual = ensure_app_server_file_descriptor_capacity()
+
+        self.assertEqual(actual, MIN_APP_SERVER_FILE_DESCRIPTORS)
+        self.assertIn(
+            (
+                "set",
+                fake.RLIMIT_NOFILE,
+                (MIN_APP_SERVER_FILE_DESCRIPTORS, fake.RLIM_INFINITY),
+            ),
+            fake.calls,
+        )
+
+    def test_rejects_hard_limit_below_sixty_four_turn_requirement(self):
+        fake = self.FakeResource(256, 1024)
+
+        with patch(
+            "tools.question_review_console.codex_app_server.resource",
+            fake,
+        ), self.assertRaisesRegex(
+            CodexAppServerError,
+            "file descriptor上限",
+        ):
+            ensure_app_server_file_descriptor_capacity()
 
 
 def account_response(plan="pro"):
