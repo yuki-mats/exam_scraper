@@ -13782,12 +13782,12 @@ class QualificationRunCoordinator:
             plan.setdefault("workType", "maintenance")
             self._apply_plan_write_contract(plan)
         if plan["kind"] == "human":
-            plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
-                qualification,
-                list(plan.get("targetGroupIds") or []),
-                plan,
-            )
             if not resumed_from:
+                plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
+                    qualification,
+                    list(plan.get("targetGroupIds") or []),
+                    plan,
+                )
                 return plan
             previous = self.store.get(qualification, resumed_from)
             previous_scope = list(previous.get("scopeListGroupIds") or [])
@@ -13893,10 +13893,20 @@ class QualificationRunCoordinator:
                 )
                 return plan
             self._apply_plan_write_contract(plan)
-            plan["resolvableFailedDeltaPaths"] = self._resolvable_for_plan(
-                qualification,
-                list(plan.get("targetGroupIds") or []),
-                plan,
+            allowed_resume_paths = {
+                str(value)
+                for value in [
+                    *(plan.get("allowedPatchFiles") or []),
+                    *(plan.get("allowedWriteFiles") or []),
+                ]
+                if value
+            }
+            plan["resolvableFailedDeltaPaths"] = sorted(
+                {
+                    str(value)
+                    for value in previous.get("resolvableFailedDeltaPaths") or []
+                    if str(value) in allowed_resume_paths
+                }
             )
             return plan
         if not resumed_from:

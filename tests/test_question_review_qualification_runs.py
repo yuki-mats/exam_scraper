@@ -5184,6 +5184,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 status="failed",
                 queueStatus="failed",
                 retrySafe=True,
+                resolvableFailedDeltaPaths=[
+                    previous["allowedPatchFiles"][0]
+                ],
+            )
+            coordinator._resolvable_for_plan = lambda *_args, **_kwargs: (
+                self.fail("再開時に失敗差分の全履歴を再走査してはいけません")
             )
 
             preview = coordinator.preview(
