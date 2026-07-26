@@ -6,6 +6,7 @@ import json
 import re
 import threading
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -39,6 +40,7 @@ RUN_MODES = {
     "outdated": "洗い替え必要・未整備のみ",
     "refresh": "資格全体の全問題を再整備",
 }
+MAX_PARALLEL_GROUP_LOADS = 16
 LAW_WORKFLOW_STAGE_IDS = {"law_context", "law_audit"}
 LAW_WORKFLOW_SETUP_DOCUMENT = (
     "prompt/qualification_docs/_template/01_law_reference_policy.md"
@@ -1616,17 +1618,31 @@ class QualificationWorkflow:
         update_target_ids: Iterable[str] | None = None,
         question_range: Mapping[str, Any] | None = None,
         question_ids: Iterable[str] | None = None,
+        _plan: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
-        plan = self.plan_many(
-            qualification,
-            stage_ids,
-            mode,
-            list_group_id=list_group_id,
-            list_group_ids=list_group_ids,
-            update_target_ids=update_target_ids,
-            question_range=question_range,
-            question_ids=question_ids,
-        )
+        requested_stage_ids = _ordered_unique(str(value) for value in stage_ids)
+        if _plan is None:
+            plan = self.plan_many(
+                qualification,
+                requested_stage_ids,
+                mode,
+                list_group_id=list_group_id,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_range=question_range,
+                question_ids=question_ids,
+            )
+        else:
+            plan = dict(_plan)
+            if (
+                str(plan.get("qualification") or "") != qualification
+                or str(plan.get("mode") or "") != mode
+                or list(plan.get("stageIds") or [plan.get("stageId")])
+                != requested_stage_ids
+            ):
+                raise ValueError(
+                    "描画するpromptと確定済み実行planの範囲が一致しません。"
+                )
         if plan["kind"] != "human":
             raise ValueError("この工程はCodex依頼ではなく既存の実行導線を使います。")
         if not plan["targetCount"]:
@@ -1857,6 +1873,23 @@ class QualificationWorkflow:
             "prompt": "\n".join(lines).strip() + "\n",
         }
 
+    def prompt_from_plan(self, plan: Mapping[str, Any]) -> dict[str, Any]:
+        """Render a prompt from the already validated plan without replanning."""
+
+        qualification = str(plan.get("qualification") or "")
+        stage_ids = [
+            str(value)
+            for value in plan.get("stageIds") or [plan.get("stageId")]
+            if value
+        ]
+        mode = str(plan.get("mode") or "")
+        return self.prompt_many(
+            qualification,
+            stage_ids,
+            mode,
+            _plan=plan,
+        )
+
     def category_ready(self, qualification: str) -> bool:
         return bool(self._category_state(qualification)["ready"])
 
@@ -1881,10 +1914,29 @@ class QualificationWorkflow:
             if dashboard_only
             else self.inventory.group
         )
-        groups = [
-            group_loader(qualification, str(list_group_id))
+        group_ids = [
+            str(list_group_id)
             for list_group_id in qualification_info.get("listGroupIds") or []
         ]
+        if len(group_ids) > 1:
+            with ThreadPoolExecutor(
+                max_workers=min(MAX_PARALLEL_GROUP_LOADS, len(group_ids)),
+                thread_name_prefix="qualification-group-load",
+            ) as executor:
+                groups = list(
+                    executor.map(
+                        lambda group_id: group_loader(
+                            qualification,
+                            group_id,
+                        ),
+                        group_ids,
+                    )
+                )
+        else:
+            groups = [
+                group_loader(qualification, group_id)
+                for group_id in group_ids
+            ]
         questions: list[Mapping[str, Any]] = []
         failed_paths = unresolved_failed_delta_paths(
             self.repo_root, qualification

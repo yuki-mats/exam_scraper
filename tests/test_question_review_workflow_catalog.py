@@ -1,6 +1,8 @@
 import tempfile
+import threading
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
@@ -81,6 +83,95 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_qualification_data_loads_groups_concurrently_and_preserves_order(self):
+        class ParallelInventory:
+            def __init__(self):
+                self.lock = threading.Lock()
+                self.release = threading.Event()
+                self.active = 0
+                self.peak = 0
+
+            @staticmethod
+            def inventory():
+                return {
+                    "qualifications": [
+                        {
+                            "id": "sample-exam",
+                            "listGroupIds": ["2025", "2026"],
+                        }
+                    ]
+                }
+
+            def group(self, qualification, group_id):
+                with self.lock:
+                    self.active += 1
+                    self.peak = max(self.peak, self.active)
+                    if self.active == 2:
+                        self.release.set()
+                try:
+                    self.release.wait(1)
+                    return {
+                        "qualification": qualification,
+                        "listGroupId": group_id,
+                        "questions": [],
+                    }
+                finally:
+                    with self.lock:
+                        self.active -= 1
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = object.__new__(QualificationWorkflow)
+            workflow.repo_root = Path(directory)
+            workflow.inventory = ParallelInventory()
+
+            groups, questions = workflow._qualification_data("sample-exam")
+
+        self.assertEqual(
+            [group["listGroupId"] for group in groups],
+            ["2025", "2026"],
+        )
+        self.assertEqual(questions, [])
+        self.assertEqual(workflow.inventory.peak, 2)
+
+    def test_prompt_from_plan_does_not_rebuild_the_validated_plan(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = object.__new__(QualificationWorkflow)
+            workflow.repo_root = Path(directory)
+            stage_plan = {
+                "stageId": "explanation",
+                "stageIds": ["explanation"],
+                "stageCode": "03",
+                "stageLabel": "解説",
+                "targetCount": 1,
+            }
+            plan = {
+                "qualification": "sample-exam",
+                "stageId": "explanation",
+                "stageIds": ["explanation"],
+                "stageCode": "03",
+                "stageLabel": "解説",
+                "kind": "human",
+                "mode": "outdated",
+                "modeLabel": "未整備",
+                "targetCount": 1,
+                "workItemCount": 1,
+                "lawWorkflowEnabled": False,
+                "canonicalDocs": [],
+                "sourceFiles": [],
+                "outputFiles": [],
+                "stagePlans": [stage_plan],
+            }
+
+            with patch.object(
+                workflow,
+                "plan_many",
+                side_effect=AssertionError("planを再計算してはいけません"),
+            ):
+                rendered = workflow.prompt_from_plan(plan)
+
+        self.assertEqual(rendered["targetCount"], 1)
+        self.assertIn("03 解説（1件）", rendered["prompt"])
+
     def test_agent_policy_allowlists_match_app_server_turn_contract(self):
         self.assertEqual(AGENT_POLICY_MODELS, set(QUESTION_MAINTENANCE_MODELS))
         self.assertEqual(AGENT_POLICY_REASONING_EFFORTS, {TURN_REASONING_EFFORT})

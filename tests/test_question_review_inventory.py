@@ -1,6 +1,7 @@
 import json
 import os
 import tempfile
+import threading
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -17,6 +18,7 @@ from tools.question_review_console.inventory import (
     list_group_display_name,
     load_qualification_display_catalog,
 )
+import tools.question_review_console.inventory as inventory_module
 from tools.question_review_console.patch_validation import (
     law_audit_quality_warnings,
     patch_entry_required_warnings,
@@ -30,6 +32,77 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_projection_indexes_build_concurrently_by_group_and_single_flight_within_group(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for group_id in ("2025", "2026"):
+                write_json(
+                    root
+                    / "output"
+                    / "sample-exam"
+                    / "questions_json"
+                    / group_id
+                    / "00_source"
+                    / "questions.json",
+                    {
+                        "question_bodies": [
+                            {
+                                "original_question_id": f"q-{group_id}",
+                                "questionBodyText": group_id,
+                            }
+                        ]
+                    },
+                )
+            inventory = QuestionInventory(root)
+            original = inventory_module.build_stage_map
+            release = threading.Event()
+            state_lock = threading.Lock()
+            active = 0
+            peak = 0
+            calls = 0
+            failures = []
+
+            def tracked(*args, **kwargs):
+                nonlocal active, peak, calls
+                with state_lock:
+                    active += 1
+                    calls += 1
+                    peak = max(peak, active)
+                    if active == 2:
+                        release.set()
+                try:
+                    release.wait(1)
+                    return original(*args, **kwargs)
+                finally:
+                    with state_lock:
+                        active -= 1
+
+            def project(group_id):
+                try:
+                    inventory.projected_input(
+                        "sample-exam",
+                        group_id,
+                        "questions.json#0",
+                    )
+                except BaseException as exc:  # noqa: BLE001
+                    failures.append(exc)
+
+            with patch.object(inventory_module, "build_stage_map", side_effect=tracked):
+                threads = [
+                    threading.Thread(target=project, args=("2025",)),
+                    threading.Thread(target=project, args=("2026",)),
+                    threading.Thread(target=project, args=("2026",)),
+                ]
+                for thread in threads:
+                    thread.start()
+                for thread in threads:
+                    thread.join(10)
+
+            self.assertTrue(all(not thread.is_alive() for thread in threads))
+            self.assertEqual(failures, [])
+            self.assertGreaterEqual(peak, 2)
+            self.assertEqual(calls, len(inventory_module.STAGE_SPECS) * 2)
+
     def test_group_invalidation_notifies_derived_read_models(self):
         with tempfile.TemporaryDirectory() as directory:
             inventory = QuestionInventory(Path(directory))

@@ -35,7 +35,6 @@ from tools.question_review_console.projection import (
     build_identity_candidate_index,
     build_question_issue_index,
     build_stage_map,
-    build_stage_maps,
     explanation_prefix_matches,
     extract_records,
     find_patch_entry,
@@ -636,6 +635,10 @@ class QuestionInventory:
         self._stage_index_cache: dict[tuple[str, str, str], ProjectionCache] = {}
         self._issue_index_cache: dict[tuple[str, str], ProjectionCache] = {}
         self._projection_snapshot_counts: Counter[tuple[str, str]] = Counter()
+        self._projection_locks: dict[
+            tuple[str, str],
+            threading.RLock,
+        ] = {}
         self._id_map: dict[str, dict[str, Any]] = {}
         self._inventory_cache: dict[str, Any] | None = None
         self._workflow_group_cache: dict[tuple[str, str], GroupCache] = {}
@@ -650,6 +653,15 @@ class QuestionInventory:
             Callable[[str, str], None]
         ] = []
         self._lock = threading.RLock()
+
+    def _projection_lock(
+        self,
+        qualification: str,
+        list_group_id: str,
+    ) -> threading.RLock:
+        key = (qualification, list_group_id)
+        with self._lock:
+            return self._projection_locks.setdefault(key, threading.RLock())
 
     def add_invalidation_listener(
         self,
@@ -763,21 +775,39 @@ class QuestionInventory:
         )
         if not (group_dir / SOURCE_SUBDIR).is_dir():
             raise FileNotFoundError(f"question group not found: {qualification}/{list_group_id}")
-        fingerprint = self._group_fingerprint(group_dir)
         cache_key = (qualification, list_group_id)
-        with self._lock:
-            cached = self._cache.get(cache_key)
-            if cached and cached.fingerprint == fingerprint:
-                return cached.payload
-            payload = self._build_group(qualification, list_group_id, group_dir, fingerprint)
-            if cached:
-                for question in cached.payload["questions"]:
-                    if self._id_map.get(question["id"]) is question:
-                        self._id_map.pop(question["id"], None)
-            self._cache[cache_key] = GroupCache(fingerprint=fingerprint, payload=payload)
-            for question in payload["questions"]:
-                self._id_map[question["id"]] = question
-            return payload
+        with self._projection_lock(qualification, list_group_id):
+            with self._lock:
+                cached = self._cache.get(cache_key)
+                if cached and self._projection_snapshot_active(
+                    qualification,
+                    list_group_id,
+                ):
+                    return cached.payload
+            fingerprint = self._group_fingerprint(group_dir)
+            with self._lock:
+                cached = self._cache.get(cache_key)
+                if cached and cached.fingerprint == fingerprint:
+                    return cached.payload
+            payload = self._build_group(
+                qualification,
+                list_group_id,
+                group_dir,
+                fingerprint,
+            )
+            with self._lock:
+                cached = self._cache.get(cache_key)
+                if cached:
+                    for question in cached.payload["questions"]:
+                        if self._id_map.get(question["id"]) is question:
+                            self._id_map.pop(question["id"], None)
+                self._cache[cache_key] = GroupCache(
+                    fingerprint=fingerprint,
+                    payload=payload,
+                )
+                for question in payload["questions"]:
+                    self._id_map[question["id"]] = question
+                return payload
 
     def workflow_group(
         self,
@@ -1112,25 +1142,27 @@ class QuestionInventory:
     ) -> tuple[Any, ...]:
         key = (qualification, list_group_id)
         source_dir = group_dir / SOURCE_SUBDIR
-        with self._lock:
-            cached = self._source_cache.get(key)
-            if cached and self._projection_snapshot_active(
-                qualification,
-                list_group_id,
-            ):
-                return cached.payload
-        fingerprint = self._paths_fingerprint(source_json_paths(source_dir))
-        with self._lock:
-            cached = self._source_cache.get(key)
-            if cached and cached.fingerprint == fingerprint:
-                return cached.payload
+        with self._projection_lock(qualification, list_group_id):
+            with self._lock:
+                cached = self._source_cache.get(key)
+                if cached and self._projection_snapshot_active(
+                    qualification,
+                    list_group_id,
+                ):
+                    return cached.payload
+            fingerprint = self._paths_fingerprint(source_json_paths(source_dir))
+            with self._lock:
+                cached = self._source_cache.get(key)
+                if cached and cached.fingerprint == fingerprint:
+                    return cached.payload
             payload = load_source_record_inventory(
                 source_dir,
                 qualification=qualification,
                 list_group_id=list_group_id,
             )
-            self._source_cache[key] = ProjectionCache(fingerprint, payload)
-            return payload
+            with self._lock:
+                self._source_cache[key] = ProjectionCache(fingerprint, payload)
+                return payload
 
     def _projection_stage_maps(
         self,
@@ -1139,24 +1171,25 @@ class QuestionInventory:
         group_dir: Path,
         identities: tuple[SourceRecordIdentity, ...],
     ) -> dict[str, IdentityCandidateIndex]:
-        maps: dict[str, IdentityCandidateIndex] = {}
-        with self._lock:
-            if self._projection_snapshot_active(
-                qualification,
-                list_group_id,
-            ):
-                snapshot_maps = {
-                    stage: self._stage_index_cache.get(
-                        (qualification, list_group_id, stage)
-                    )
-                    for stage, _subdir, _tag in STAGE_SPECS
-                }
-                if all(snapshot_maps.values()):
-                    return {
-                        stage: cached.payload
-                        for stage, cached in snapshot_maps.items()
-                        if cached is not None
+        with self._projection_lock(qualification, list_group_id):
+            maps: dict[str, IdentityCandidateIndex] = {}
+            with self._lock:
+                if self._projection_snapshot_active(
+                    qualification,
+                    list_group_id,
+                ):
+                    snapshot_maps = {
+                        stage: self._stage_index_cache.get(
+                            (qualification, list_group_id, stage)
+                        )
+                        for stage, _subdir, _tag in STAGE_SPECS
                     }
+                    if all(snapshot_maps.values()):
+                        return {
+                            stage: cached.payload
+                            for stage, cached in snapshot_maps.items()
+                            if cached is not None
+                        }
             identity_fingerprint = self._identity_fingerprint(identities)
             for stage, subdir, tag in STAGE_SPECS:
                 key = (qualification, list_group_id, stage)
@@ -1164,7 +1197,8 @@ class QuestionInventory:
                 fingerprint = sha256_json(
                     [self._paths_fingerprint(paths), identity_fingerprint]
                 )
-                cached = self._stage_index_cache.get(key)
+                with self._lock:
+                    cached = self._stage_index_cache.get(key)
                 if not cached or cached.fingerprint != fingerprint:
                     cached = ProjectionCache(
                         fingerprint,
@@ -1176,9 +1210,10 @@ class QuestionInventory:
                             tag=tag,
                         ),
                     )
-                    self._stage_index_cache[key] = cached
+                    with self._lock:
+                        self._stage_index_cache[key] = cached
                 maps[stage] = cached.payload
-        return maps
+            return maps
 
     def _projection_issue_index(
         self,
@@ -1188,47 +1223,52 @@ class QuestionInventory:
         identities: tuple[SourceRecordIdentity, ...],
     ) -> IdentityCandidateIndex:
         key = (qualification, list_group_id)
-        with self._lock:
-            cached = self._issue_index_cache.get(key)
-            if cached and self._projection_snapshot_active(
-                qualification,
-                list_group_id,
-            ):
-                return cached.payload
-        paths = selected_question_issue_correction_paths(
-            group_dir / "24_questionIssueCorrections"
-        )
-        identity_fingerprint = self._identity_fingerprint(identities)
-        fingerprint = sha256_json(
-            [self._paths_fingerprint(paths), identity_fingerprint]
-        )
-        with self._lock:
-            cached = self._issue_index_cache.get(key)
+        with self._projection_lock(qualification, list_group_id):
+            with self._lock:
+                cached = self._issue_index_cache.get(key)
+                if cached and self._projection_snapshot_active(
+                    qualification,
+                    list_group_id,
+                ):
+                    return cached.payload
+            paths = selected_question_issue_correction_paths(
+                group_dir / "24_questionIssueCorrections"
+            )
+            identity_fingerprint = self._identity_fingerprint(identities)
+            fingerprint = sha256_json(
+                [self._paths_fingerprint(paths), identity_fingerprint]
+            )
+            with self._lock:
+                cached = self._issue_index_cache.get(key)
             if not cached or cached.fingerprint != fingerprint:
                 cached = ProjectionCache(
                     fingerprint,
                     build_question_issue_index(paths, identities),
                 )
-                self._issue_index_cache[key] = cached
+                with self._lock:
+                    self._issue_index_cache[key] = cached
             return cached.payload
 
     def invalidate(self, qualification: str, list_group_id: str) -> None:
-        with self._lock:
-            cache_key = (qualification, list_group_id)
-            cached = self._cache.pop(cache_key, None)
-            if cached:
-                for question in cached.payload["questions"]:
-                    if self._id_map.get(question["id"]) is question:
-                        self._id_map.pop(question["id"], None)
-            self._source_cache.pop(cache_key, None)
-            self._issue_index_cache.pop(cache_key, None)
-            self._workflow_group_cache.pop(cache_key, None)
-            stale_stage_keys = [
-                key for key in self._stage_index_cache if key[:2] == cache_key
-            ]
-            for key in stale_stage_keys:
-                self._stage_index_cache.pop(key, None)
-            listeners = tuple(self._invalidation_listeners)
+        qualification = _safe_segment(qualification)
+        list_group_id = _safe_segment(list_group_id)
+        with self._projection_lock(qualification, list_group_id):
+            with self._lock:
+                cache_key = (qualification, list_group_id)
+                cached = self._cache.pop(cache_key, None)
+                if cached:
+                    for question in cached.payload["questions"]:
+                        if self._id_map.get(question["id"]) is question:
+                            self._id_map.pop(question["id"], None)
+                self._source_cache.pop(cache_key, None)
+                self._issue_index_cache.pop(cache_key, None)
+                self._workflow_group_cache.pop(cache_key, None)
+                stale_stage_keys = [
+                    key for key in self._stage_index_cache if key[:2] == cache_key
+                ]
+                for key in stale_stage_keys:
+                    self._stage_index_cache.pop(key, None)
+                listeners = tuple(self._invalidation_listeners)
         for listener in listeners:
             try:
                 listener(qualification, list_group_id)
@@ -1301,15 +1341,22 @@ class QuestionInventory:
             )
             source_identities.append(entry.identity)
 
-        stage_maps = build_stage_maps(group_dir, source_identities)
+        stage_maps = self._projection_stage_maps(
+            qualification,
+            list_group_id,
+            group_dir,
+            tuple(source_identities),
+        )
         downstream_source_identities = source_identities_with_bound_artifact_aliases(
             source_identities,
             stage_maps,
         )
-        issue_paths = selected_question_issue_correction_paths(
-            group_dir / "24_questionIssueCorrections"
+        issue_index = self._projection_issue_index(
+            qualification,
+            list_group_id,
+            group_dir,
+            tuple(source_identities),
         )
-        issue_index = build_question_issue_index(issue_paths, source_identities)
         merged_index = _record_index(
             _current_json_files(group_dir / "30_merged_2"),
             source_identities,

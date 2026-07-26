@@ -6110,7 +6110,14 @@ class QualificationRunCoordinator:
                 prompt_scope["question_range"] = question_range
             if question_ids is not None:
                 prompt_scope["question_ids"] = question_ids
-            if len(selected_stage_ids) > 1:
+            prompt_from_plan = getattr(
+                self.workflow,
+                "prompt_from_plan",
+                None,
+            )
+            if callable(prompt_from_plan):
+                prompt = prompt_from_plan(plan)["prompt"]
+            elif len(selected_stage_ids) > 1:
                 prompt = self.workflow.prompt_many(
                     qualification,
                     selected_stage_ids,
@@ -7307,7 +7314,14 @@ class QualificationRunCoordinator:
                 )
         if not int(plan.get("targetCount") or 0):
             return plan, ""
-        if len(stage_ids) > 1:
+        prompt_from_plan = getattr(
+            self.workflow,
+            "prompt_from_plan",
+            None,
+        )
+        if callable(prompt_from_plan):
+            prompt = prompt_from_plan(plan)["prompt"]
+        elif len(stage_ids) > 1:
             prompt = self.workflow.prompt_many(
                 qualification,
                 stage_ids,
@@ -9175,15 +9189,31 @@ class QualificationRunCoordinator:
             for _round_number in range(1, max_rounds + 1):
                 if not pending_ids:
                     break
+                inventory = getattr(self.workflow, "inventory", None)
+                projection_snapshot = getattr(
+                    inventory,
+                    "projection_snapshot",
+                    None,
+                )
                 if phase_plan is None or not self._phase_plan_policy_is_current(
                     qualification,
                     phase_plan,
                     stage_id,
                 ):
-                    phase_plan, phase_prompt = self._flow_phase_plan_prompt(
-                        self.store.get(qualification, run_id),
-                        phase,
+                    phase_parent = self.store.get(qualification, run_id)
+                    phase_snapshot_context = (
+                        projection_snapshot(
+                            qualification,
+                            phase_parent.get("targetGroupIds") or [],
+                        )
+                        if callable(projection_snapshot)
+                        else nullcontext()
                     )
+                    with phase_snapshot_context:
+                        phase_plan, phase_prompt = self._flow_phase_plan_prompt(
+                            phase_parent,
+                            phase,
+                        )
                     phase_plan_index = build_question_plan_index(phase_plan)
                 if phase_plan_index is None:
                     phase_plan_index = build_question_plan_index(phase_plan)
@@ -9225,12 +9255,6 @@ class QualificationRunCoordinator:
                     model_started=False,
                     status="preparing",
                     force=True,
-                )
-                inventory = getattr(self.workflow, "inventory", None)
-                projection_snapshot = getattr(
-                    inventory,
-                    "projection_snapshot",
-                    None,
                 )
                 snapshot_context = (
                     projection_snapshot(
