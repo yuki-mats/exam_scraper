@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-11">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-12">
   </head>
   <body>
     <header class="app-header">
@@ -293,14 +293,15 @@
             </div>
           </fieldset>
           <fieldset id="qualification-run-concurrency-fieldset">
-            <legend>同時turn上限</legend>
+            <legend>同時処理上限</legend>
             <div class="run-concurrency-options">
               <label><input type="radio" name="qualification-run-concurrency" value="1"><span>1</span></label>
               <label><input type="radio" name="qualification-run-concurrency" value="5"><span>5</span></label>
               <label><input type="radio" name="qualification-run-concurrency" value="10"><span>10</span></label>
-              <label><input type="radio" name="qualification-run-concurrency" value="32" checked><span>32</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="32"><span>32</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="64" checked><span>64</span></label>
             </div>
-            <small class="run-concurrency-note">全資格の合計は32turnを超えません。複数資格は公平に自動配分し、検査と確定は一問単位で維持します。</small>
+            <small class="run-concurrency-note">準備は最大64問を同時に進めます。model turnは全資格合計64本を超えず、複数資格へ公平に配分します。検査と確定は一問単位です。</small>
           </fieldset>
           <p class="inline-notice">応答モードはStandard固定です。追加Codex creditsとAPI従量課金は使用しません。</p>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
@@ -531,6 +532,6 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=question-review-ui-v3-20260726-11"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260726-12"></script>
   </body>
 </html>

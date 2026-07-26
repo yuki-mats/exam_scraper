@@ -5,7 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v3";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 900000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
-const AUTO_QUESTION_CONCURRENCY = 32;
+const AUTO_QUESTION_CONCURRENCY = 64;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
 const DEFAULT_QUESTION_SORT = "updated_desc";
 const QUESTION_LIST_CACHE_VERSION = 3;
@@ -2882,7 +2882,7 @@ function selectedQualificationRunConcurrency() {
     document.querySelector('input[name="qualification-run-concurrency"]:checked')?.value
       || AUTO_QUESTION_CONCURRENCY,
   );
-  return [1, 5, 10, 32].includes(value) ? value : AUTO_QUESTION_CONCURRENCY;
+  return [1, 5, 10, 32, 64].includes(value) ? value : AUTO_QUESTION_CONCURRENCY;
 }
 
 function selectedQualificationRunSpeedMode() {
@@ -3476,7 +3476,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `入力別の自動batch・最大${preview.questionConcurrency}turn・Standard（全資格合計32、検査と確定は1問ずつ）`,
+          `最大${preview.questionConcurrency}問を並列準備・入力別の自動batch・Standard（全資格合計64turn、検査と確定は1問ずつ）`,
         ),
       );
     }

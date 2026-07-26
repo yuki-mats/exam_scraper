@@ -13,7 +13,7 @@ import sys
 import tempfile
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -100,6 +100,7 @@ from tools.question_review_console.qualification_progress import (
 from tools.question_review_console.question_patch_proposal import (
     CanonicalPatchCommitError,
     IsolatedQuestionPatchWorkspace,
+    TargetResolutionCache,
     assert_target_resolvable,
 )
 from tools.question_review_console.question_candidate import (
@@ -171,10 +172,11 @@ class QuestionValidationResult:
     changed_files: tuple[str, ...]
 
 
-QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, DEFAULT_MAX_PARALLEL_TURNS)
+QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 32, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
 STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE = 12_000
 PREPARATION_CHUNK_SIZE = 64
+PREPARATION_MAX_PARALLEL_QUESTIONS = 64
 PREPARATION_HEARTBEAT_SECONDS = 15.0
 LIVE_RUN_STATUSES = {
     "queued",
@@ -679,21 +681,57 @@ class QualificationRunError(RuntimeError):
 def normalize_question_concurrency(value: Any) -> int:
     if isinstance(value, bool):
         raise QualificationRunError(
-            "同時model turn上限は1〜32で指定してください。"
+            "同時処理上限は1、5、10、32、64から選択してください。"
         )
     try:
         concurrency = int(value)
     except (TypeError, ValueError) as exc:
         raise QualificationRunError(
-            "同時model turn上限は1〜32で指定してください。"
+            "同時処理上限は1、5、10、32、64から選択してください。"
         ) from exc
     if (
         isinstance(value, float) and value != concurrency
     ) or concurrency not in QUESTION_CONCURRENCY_OPTIONS:
         raise QualificationRunError(
-            "同時model turn上限は1、5、10、32から選択してください。"
+            "同時処理上限は1、5、10、32、64から選択してください。"
         )
     return concurrency
+
+
+def prepare_question_items_concurrently(
+    question_ids: list[str],
+    prepare: Callable[[str], Any],
+    *,
+    max_workers: int,
+    on_completed: Callable[[str, Any], None] | None = None,
+) -> list[tuple[str, Any]]:
+    """Prepare independent questions concurrently and return stable input order."""
+
+    ordered_ids = [str(value) for value in question_ids]
+    if not ordered_ids:
+        return []
+    worker_limit = max(1, min(int(max_workers), len(ordered_ids)))
+    results: list[Any] = [None] * len(ordered_ids)
+    with ThreadPoolExecutor(
+        max_workers=worker_limit,
+        thread_name_prefix="question-preparation",
+    ) as executor:
+        futures = {
+            executor.submit(prepare, question_id): (index, question_id)
+            for index, question_id in enumerate(ordered_ids)
+        }
+        try:
+            for future in as_completed(futures):
+                index, question_id = futures[future]
+                result = future.result()
+                results[index] = result
+                if on_completed is not None:
+                    on_completed(question_id, result)
+        except BaseException:
+            for future in futures:
+                future.cancel()
+            raise
+    return list(zip(ordered_ids, results, strict=True))
 
 
 class QuestionItemError(QualificationRunError):
@@ -7316,23 +7354,47 @@ class QualificationRunCoordinator:
 
     @staticmethod
     def _queue_stage(
-        parent: Mapping[str, Any], question_id: str, stage_id: str
+        parent: Mapping[str, Any],
+        question_id: str,
+        stage_id: str,
+        *,
+        question_index: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> dict[str, Any] | None:
-        for question in parent.get("questionExecutions") or []:
-            if (
-                isinstance(question, Mapping)
-                and str(question.get("questionId") or "") == question_id
-            ):
-                return next(
-                    (
-                        dict(stage)
-                        for stage in question.get("stages") or []
-                        if isinstance(stage, Mapping)
-                        and str(stage.get("stageId") or "") == stage_id
-                    ),
-                    None,
-                )
-        return None
+        question = (
+            question_index.get(question_id)
+            if question_index is not None
+            else next(
+                (
+                    value
+                    for value in parent.get("questionExecutions") or []
+                    if isinstance(value, Mapping)
+                    and str(value.get("questionId") or "") == question_id
+                ),
+                None,
+            )
+        )
+        if not isinstance(question, Mapping):
+            return None
+        return next(
+            (
+                dict(stage)
+                for stage in question.get("stages") or []
+                if isinstance(stage, Mapping)
+                and str(stage.get("stageId") or "") == stage_id
+            ),
+            None,
+        )
+
+    @staticmethod
+    def _question_execution_index(
+        parent: Mapping[str, Any],
+    ) -> dict[str, Mapping[str, Any]]:
+        return {
+            str(question.get("questionId") or ""): question
+            for question in parent.get("questionExecutions") or []
+            if isinstance(question, Mapping)
+            and str(question.get("questionId") or "")
+        }
 
     def _refresh_queued_stage_inputs(
         self,
@@ -7343,6 +7405,7 @@ class QualificationRunCoordinator:
         stage_id: str,
         *,
         parent: Mapping[str, Any] | None = None,
+        parent_question_index: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> dict[str, Any] | None:
         policy_fingerprint = str(
             (phase_plan.get("policyFingerprints") or {}).get(stage_id) or ""
@@ -7357,6 +7420,7 @@ class QualificationRunCoordinator:
                 parent_snapshot,
                 question_id,
                 stage_id,
+                question_index=parent_question_index,
             )
             expected_key = work_item_key(target, stage_id)
             if current is None or str(current.get("workItemKey") or "") != expected_key:
@@ -7882,10 +7946,16 @@ class QualificationRunCoordinator:
         *,
         parent: Mapping[str, Any] | None = None,
         phase_plan_index: QuestionPlanIndex | None = None,
+        parent_question_index: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> dict[str, Any]:
         parent = parent or self.store.get(qualification, run_id)
         stage_id = str(phase["id"])
-        current = self._queue_stage(parent, question_id, stage_id)
+        current = self._queue_stage(
+            parent,
+            question_id,
+            stage_id,
+            question_index=parent_question_index,
+        )
         if current is None:
             return {"status": "not_present", "stageId": stage_id}
         current_status = str(current.get("status") or "queued")
@@ -7912,14 +7982,18 @@ class QualificationRunCoordinator:
             )
 
         target = matching_target(phase_plan)
-        question = next(
-            (
-                value
-                for value in parent.get("questionExecutions") or []
-                if isinstance(value, Mapping)
-                and str(value.get("questionId") or "") == question_id
-            ),
-            None,
+        question = (
+            parent_question_index.get(question_id)
+            if parent_question_index is not None
+            else next(
+                (
+                    value
+                    for value in parent.get("questionExecutions") or []
+                    if isinstance(value, Mapping)
+                    and str(value.get("questionId") or "") == question_id
+                ),
+                None,
+            )
         )
         prior_validated = False
         prior_changed = False
@@ -7971,6 +8045,7 @@ class QualificationRunCoordinator:
             [target],
             stage_id,
             parent=parent,
+            parent_question_index=parent_question_index,
         )
         if current is None:
             raise QuestionItemError(
@@ -8328,6 +8403,7 @@ class QualificationRunCoordinator:
             tuple[str, str],
             Mapping[str, Any],
         ] = {}
+        target_resolution_cache = TargetResolutionCache()
         last_preparation_heartbeat = 0.0
         question_concurrency = (
             normalize_question_concurrency(parent["questionConcurrency"])
@@ -8389,6 +8465,11 @@ class QualificationRunCoordinator:
                     "targetCount": target_count,
                     "batchCount": batch_count,
                     "modelStarted": model_started,
+                    "workerLimit": min(
+                        question_concurrency,
+                        PREPARATION_MAX_PARALLEL_QUESTIONS,
+                        max(target_count, 1),
+                    ),
                     "updatedAt": heartbeat_at,
                 },
             }
@@ -8407,6 +8488,7 @@ class QualificationRunCoordinator:
             phase_prompt: str,
             question_id: str,
             parent: Mapping[str, Any],
+            parent_question_index: Mapping[str, Mapping[str, Any]],
         ) -> dict[str, Any] | None:
             stage_id = str(phase["id"])
             if not self._phase_plan_policy_is_current(
@@ -8430,6 +8512,7 @@ class QualificationRunCoordinator:
                     validated_child_run_cache,
                     parent=parent,
                     phase_plan_index=phase_plan_index,
+                    parent_question_index=parent_question_index,
                 )
             except QuestionItemError as exc:
                 self.store.update_question_stage(
@@ -8492,6 +8575,7 @@ class QualificationRunCoordinator:
                         candidate_target.path,
                         binding=binding,
                         aliases=aliases,
+                        cache=target_resolution_cache,
                     )
             except Exception as exc:  # noqa: BLE001
                 self.store.update_question_stage(
@@ -9104,6 +9188,9 @@ class QualificationRunCoordinator:
                 if phase_plan_index is None:
                     phase_plan_index = build_question_plan_index(phase_plan)
                 round_parent = self.store.get(qualification, run_id)
+                round_question_index = self._question_execution_index(
+                    round_parent
+                )
                 prompt_tokens = min(
                     estimated_tokens(phase_prompt),
                     STRUCTURED_CANDIDATE_PROMPT_TOKEN_RESERVE,
@@ -9117,6 +9204,16 @@ class QualificationRunCoordinator:
                 worker_limit = min(
                     scheduler_limits.parallel_turns,
                     question_concurrency,
+                )
+                preparation_worker_limit = min(
+                    question_concurrency,
+                    PREPARATION_MAX_PARALLEL_QUESTIONS,
+                    len(pending_ids),
+                )
+                self.store.update(
+                    qualification,
+                    run_id,
+                    preparationWorkerLimit=preparation_worker_limit,
                 )
                 preparation_heartbeat(
                     stage_id,
@@ -9144,28 +9241,25 @@ class QualificationRunCoordinator:
                     else nullcontext()
                 )
                 with snapshot_context, ThreadPoolExecutor(
-                    max_workers=max(1, worker_limit)
+                    max_workers=max(1, worker_limit),
+                    thread_name_prefix="question-candidate",
                 ) as executor:
                     for chunk_start in range(
                         0,
                         len(pending_ids),
                         PREPARATION_CHUNK_SIZE,
                     ):
-                        chunk_specs: list[dict[str, Any]] = []
-                        for question_id in pending_ids[
+                        chunk_question_ids = pending_ids[
                             chunk_start : chunk_start + PREPARATION_CHUNK_SIZE
-                        ]:
-                            spec = prepare_spec(
-                                phase,
-                                phase_plan,
-                                phase_plan_index,
-                                phase_prompt,
-                                question_id,
-                                round_parent,
-                            )
+                        ]
+
+                        def record_prepared(
+                            _question_id: str,
+                            prepared_spec: Any,
+                        ) -> None:
+                            nonlocal prepared_count, prepared_spec_count
                             prepared_count += 1
-                            if spec is not None:
-                                chunk_specs.append(spec)
+                            if prepared_spec is not None:
                                 prepared_spec_count += 1
                             preparation_heartbeat(
                                 stage_id,
@@ -9177,6 +9271,26 @@ class QualificationRunCoordinator:
                                 model_started=model_started,
                                 status="preparing",
                             )
+
+                        prepared_pairs = prepare_question_items_concurrently(
+                            chunk_question_ids,
+                            lambda question_id: prepare_spec(
+                                phase,
+                                phase_plan,
+                                phase_plan_index,
+                                phase_prompt,
+                                question_id,
+                                round_parent,
+                                round_question_index,
+                            ),
+                            max_workers=preparation_worker_limit,
+                            on_completed=record_prepared,
+                        )
+                        chunk_specs = [
+                            prepared_spec
+                            for _question_id, prepared_spec in prepared_pairs
+                            if isinstance(prepared_spec, Mapping)
+                        ]
                         if not chunk_specs:
                             continue
                         self.store.update_question_stages(

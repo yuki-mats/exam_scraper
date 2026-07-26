@@ -1703,7 +1703,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
-        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 32", javascript)
+        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 64", javascript)
         self.assertIn("selectedQualificationRunSpeedMode", javascript)
         self.assertIn("speedMode: selectedQualificationRunSpeedMode()", javascript)
         self.assertIn(
@@ -1715,14 +1715,15 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             javascript,
         )
         self.assertIn(
-            'name="qualification-run-concurrency" value="32" checked',
+            'name="qualification-run-concurrency" value="64" checked',
             html,
         )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
         self.assertNotIn('name="qualification-run-speed"', html)
         self.assertIn("応答モードはStandard固定です", html)
         self.assertIn("追加Codex creditsとAPI従量課金は使用しません", html)
-        self.assertIn("全資格の合計は32turnを超えません", html)
+        self.assertIn("準備は最大64問を同時に進めます", html)
+        self.assertIn("model turnは全資格合計64本を超えず", html)
         self.assertIn("検査と確定は一問単位", html)
         self.assertIn("複数選択可", javascript)
         self.assertIn('const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)', javascript)
@@ -2033,7 +2034,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-11"
+        asset_version = "question-review-ui-v3-20260726-12"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

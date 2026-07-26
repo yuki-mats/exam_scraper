@@ -1,6 +1,7 @@
 import unittest
 
 from tools.question_review_console.adaptive_scheduler import (
+    DEFAULT_MAX_PARALLEL_TURNS,
     AdaptiveLimits,
     pack_by_token_budget,
 )
@@ -23,6 +24,12 @@ class AdaptiveSchedulerTest(unittest.TestCase):
         limits = AdaptiveLimits.initial(pending_batches=17, max_parallel_turns=32)
 
         self.assertEqual(limits.parallel_turns, 17)
+
+    def test_default_parallel_turn_limit_matches_global_capacity(self):
+        limits = AdaptiveLimits.initial(pending_batches=80)
+
+        self.assertEqual(DEFAULT_MAX_PARALLEL_TURNS, 64)
+        self.assertEqual(limits.parallel_turns, 64)
 
     def test_provider_failure_halves_parallelism(self):
         limits = AdaptiveLimits(parallel_turns=12)

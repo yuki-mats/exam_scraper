@@ -28,8 +28,15 @@ from tools.question_review_console.qualification_runs import (
     _structured_candidate_stage_context,
     _structured_candidate_prompt,
     _trusted_source_answer_evidence,
+    prepare_question_items_concurrently,
 )
+from tools.question_review_console.question_patch_proposal import (
+    TargetResolutionCache,
+    assert_target_resolvable,
+)
+import tools.question_review_console.question_patch_proposal as question_patch_proposal
 from tools.question_review_console.question_candidate import CandidateTarget
+from scripts.common.question_identity import SourceIdentityBinding
 from scripts.common.aggregate_answer_decomposition import (
     candidate_set_hash,
     generate_statement_candidates,
@@ -39,6 +46,124 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class ParallelQuestionPreparationTests(unittest.TestCase):
+    def test_sixty_four_questions_prepare_concurrently_and_return_in_input_order(self):
+        question_ids = [f"question-{index:02d}" for index in range(64)]
+        all_started = threading.Event()
+        release = threading.Event()
+        lock = threading.Lock()
+        active = 0
+        peak = 0
+        completed = []
+        failure = []
+
+        def prepare(question_id):
+            nonlocal active, peak
+            with lock:
+                active += 1
+                peak = max(peak, active)
+                if active == len(question_ids):
+                    all_started.set()
+            try:
+                self.assertTrue(release.wait(5))
+                return f"prepared-{question_id}"
+            finally:
+                with lock:
+                    active -= 1
+
+        def run():
+            try:
+                completed.extend(
+                    prepare_question_items_concurrently(
+                        question_ids,
+                        prepare,
+                        max_workers=64,
+                    )
+                )
+            except BaseException as exc:  # noqa: BLE001
+                failure.append(exc)
+
+        runner = threading.Thread(target=run)
+        runner.start()
+        started = all_started.wait(5)
+        release.set()
+        runner.join(10)
+
+        self.assertTrue(started)
+        self.assertFalse(runner.is_alive())
+        self.assertEqual(failure, [])
+        self.assertEqual(peak, 64)
+        self.assertEqual(
+            completed,
+            [
+                (question_id, f"prepared-{question_id}")
+                for question_id in question_ids
+            ],
+        )
+
+    def test_target_resolution_cache_reuses_unchanged_file_and_reloads_updates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "output" / "sample" / "patch.json"
+            path.parent.mkdir(parents=True)
+            record = {
+                "sourceQuestionKey": "sample:q1",
+                "reviewQuestionId": "review-q1",
+                "sourceRecordRef": "source.json#0",
+                "choiceTextList": ["A"],
+            }
+            path.write_text(
+                json.dumps({"question_bodies": [record]}),
+                encoding="utf-8",
+            )
+            binding = SourceIdentityBinding.from_mapping(record)
+            cache = TargetResolutionCache()
+            loader = (
+                "tools.question_review_console.question_patch_proposal."
+                "_load_record_payload"
+            )
+
+            with patch(
+                loader,
+                wraps=question_patch_proposal._load_record_payload,
+            ) as load:
+                prepare_question_items_concurrently(
+                    [f"question-{index:02d}" for index in range(64)],
+                    lambda _question_id: assert_target_resolvable(
+                        root,
+                        "output/sample/patch.json",
+                        binding=binding,
+                        aliases=set(binding.as_tuple()),
+                        cache=cache,
+                    ),
+                    max_workers=64,
+                )
+                self.assertEqual(load.call_count, 1)
+
+                path.write_text(
+                    json.dumps(
+                        {
+                            "question_bodies": [
+                                {
+                                    **record,
+                                    "choiceTextList": ["A", "B"],
+                                }
+                            ]
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                assert_target_resolvable(
+                    root,
+                    "output/sample/patch.json",
+                    binding=binding,
+                    aliases=set(binding.as_tuple()),
+                    cache=cache,
+                )
+
+        self.assertEqual(load.call_count, 2)
 
 
 class ResumeTargetAliasTests(unittest.TestCase):
@@ -4482,8 +4607,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
 
     def test_ambiguous_target_is_blocked_before_model_without_stopping_sibling(self):
-        def assert_resolvable(_root, _path, *, binding, aliases):
-            del aliases
+        def assert_resolvable(_root, _path, *, binding, aliases, cache=None):
+            del aliases, cache
             if "question_2026_2.json" in binding.source_record_ref:
                 raise ValueError("対象レコードが複数あります")
 
@@ -4894,7 +5019,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertFalse(patch_exists)
 
-    def test_question_concurrency_defaults_to_thirty_two_and_allows_override(self):
+    def test_question_concurrency_defaults_to_sixty_four_and_allows_override(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -4928,6 +5053,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 list_group_ids=["2026"],
                 question_concurrency=32,
             )
+            preview_sixty_four = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                question_concurrency=64,
+            )
             started = coordinator.start(
                 "new-exam",
                 "question_type",
@@ -4939,8 +5072,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             parent = started["run"]
 
-        self.assertEqual(preview_default["questionConcurrency"], 32)
+        self.assertEqual(preview_default["questionConcurrency"], 64)
         self.assertEqual(preview_thirty_two["questionConcurrency"], 32)
+        self.assertEqual(preview_sixty_four["questionConcurrency"], 64)
         self.assertEqual(preview_default["previewToken"], preview_ten["previewToken"])
         self.assertEqual(parent["questionConcurrency"], 1)
         self.assertEqual(parent["parallelWorkerLimit"], 1)

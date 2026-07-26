@@ -4,6 +4,7 @@ import hashlib
 import json
 import shutil
 import tempfile
+import threading
 from collections.abc import Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -41,6 +42,65 @@ class CanonicalPatchCommitError(QuestionPatchProposalError):
         super().__init__(message)
         self.committed_files = tuple(committed_files)
         self.pending_files = tuple(pending_files)
+
+
+@dataclass(frozen=True)
+class _CachedTargetRecords:
+    signature: tuple[int, int, int]
+    records: tuple[Mapping[str, Any], ...]
+
+
+class TargetResolutionCache:
+    """Reuse immutable record payloads while preparation resolves many targets.
+
+    Canonical patch writers replace whole files atomically.  The signature is
+    checked for every lookup, so the next question reloads a file after a
+    candidate commit changes it while retaining a single parse for unchanged
+    questions in the same preparation wave.
+    """
+
+    def __init__(self) -> None:
+        self._lock = threading.RLock()
+        self._path_locks: dict[Path, threading.RLock] = {}
+        self._records_by_path: dict[Path, _CachedTargetRecords] = {}
+
+    @staticmethod
+    def _signature(path: Path) -> tuple[int, int, int]:
+        stat_result = path.stat()
+        return (
+            int(stat_result.st_ino),
+            int(stat_result.st_size),
+            int(stat_result.st_mtime_ns),
+        )
+
+    def records(self, path: Path) -> tuple[Mapping[str, Any], ...]:
+        resolved = path.resolve()
+        with self._lock:
+            path_lock = self._path_locks.setdefault(
+                resolved,
+                threading.RLock(),
+            )
+        with path_lock:
+            for _attempt in range(3):
+                before = self._signature(resolved)
+                with self._lock:
+                    cached = self._records_by_path.get(resolved)
+                    if cached is not None and cached.signature == before:
+                        return cached.records
+                _payload, records = _load_record_payload(resolved)
+                after = self._signature(resolved)
+                if before != after:
+                    continue
+                normalized = tuple(records)
+                with self._lock:
+                    self._records_by_path[resolved] = _CachedTargetRecords(
+                        signature=after,
+                        records=normalized,
+                    )
+                return normalized
+            raise QuestionPatchProposalError(
+                f"候補反映先が連続更新され、安定して読み取れません: {path}"
+            )
 
 
 @contextmanager
@@ -224,6 +284,7 @@ def assert_target_resolvable(
     *,
     binding: SourceIdentityBinding,
     aliases: set[str],
+    cache: TargetResolutionCache | None = None,
 ) -> None:
     """Fail before model work when an existing patch target is ambiguous."""
 
@@ -233,7 +294,10 @@ def assert_target_resolvable(
         return
     if path.is_symlink() or not path.is_file():
         raise QuestionPatchProposalError(f"候補反映先が通常fileではありません: {relative}")
-    _payload, records = _load_record_payload(path)
+    if cache is None:
+        _payload, records = _load_record_payload(path)
+    else:
+        records = cache.records(path)
     record_aliases = {str(value) for value in aliases if str(value).strip()}
     record_aliases.update(binding.as_tuple())
     _target_index(records, binding, record_aliases)
