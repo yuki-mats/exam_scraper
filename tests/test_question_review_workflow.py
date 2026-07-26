@@ -1893,6 +1893,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         ).read_text(encoding="utf-8")
 
         self.assertIn("QUESTION_LIST_CACHE_VERSION", javascript)
+        self.assertIn("const QUESTION_LIST_CACHE_VERSION = 2;", javascript)
         self.assertIn("exceptionsOnly: false", javascript)
         self.assertIn("function defaultQuestionListIsSelected", javascript)
         self.assertIn("localStorage.setItem(questionListCacheKey()", javascript)
@@ -1907,7 +1908,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260724-6"
+        asset_version = "question-review-ui-v3-20260726-1"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

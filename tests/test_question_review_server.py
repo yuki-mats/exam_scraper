@@ -426,6 +426,7 @@ class QuestionReviewServerTests(unittest.TestCase):
     def test_question_summary_exposes_failed_delta_count_without_repeating_paths(self):
         question = {
             "id": "question-1",
+            "contentUpdatedAt": "2026-07-26T04:30:00Z",
             "evaluation": {
                 "status": "stale",
                 "failedDeltaPaths": ["first.json", "second.json"],
@@ -435,6 +436,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         summary = QuestionReviewApplication._summary(question)
 
         self.assertEqual(summary["evaluation"]["failedDeltaCount"], 2)
+        self.assertEqual(summary["contentUpdatedAt"], "2026-07-26T04:30:00Z")
         self.assertNotIn("failedDeltaPaths", summary["evaluation"])
 
     def test_job_summary_returns_only_recent_truncated_logs(self):

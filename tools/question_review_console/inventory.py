@@ -9,6 +9,7 @@ import threading
 from collections import Counter
 from contextlib import contextmanager
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -218,6 +219,25 @@ def _current_json_files(directory: Path) -> list[Path]:
         path
         for path in directory.glob("*.json")
         if path.is_file() and not path.name.endswith("_invalid.json")
+    )
+
+
+def _content_updated_at(paths: Iterable[Path]) -> str:
+    """問題内容を構成するsource・patchの最新更新日時をUTCで返す。"""
+    latest_mtime_ns: int | None = None
+    for path in paths:
+        try:
+            mtime_ns = path.stat().st_mtime_ns
+        except OSError:
+            continue
+        if latest_mtime_ns is None or mtime_ns > latest_mtime_ns:
+            latest_mtime_ns = mtime_ns
+    if latest_mtime_ns is None:
+        return ""
+    return (
+        datetime.fromtimestamp(latest_mtime_ns / 1_000_000_000, tz=timezone.utc)
+        .isoformat(timespec="seconds")
+        .replace("+00:00", "Z")
     )
 
 
@@ -1336,6 +1356,12 @@ class QuestionInventory:
                         "questionLabel": str(projection.record.get("questionLabel") or ""),
                         "examLabel": str(projection.record.get("examLabel") or ""),
                         "body": body,
+                        "contentUpdatedAt": _content_updated_at(
+                            [
+                                source_path,
+                                *(Path(path) for path in projection.applied_files),
+                            ]
+                        ),
                         "choiceCount": len(choices),
                         "choicesExtractedFromQuestionBody": (
                             choices_extracted_from_question_body(projection.record)

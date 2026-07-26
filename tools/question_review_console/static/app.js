@@ -7,7 +7,7 @@ const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
 const AUTO_QUESTION_CONCURRENCY = 32;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
-const QUESTION_LIST_CACHE_VERSION = 1;
+const QUESTION_LIST_CACHE_VERSION = 2;
 const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 
 const ISSUE_LABELS = {
@@ -4094,9 +4094,10 @@ function renderQueue() {
     );
     const body = element("p", "queue-body", question.body || "（問題文なし）");
     const publicationSummary = renderQueuePublicationSummary(question);
+    const updatedAt = renderQuestionUpdatedAt(question.contentUpdatedAt);
     const issueRow = element("div", "issue-row");
     for (const issue of question.issues.slice(0, 3)) issueRow.append(issueBadge(issue));
-    open.append(head, body, publicationSummary);
+    open.append(head, body, publicationSummary, updatedAt);
     if (adminToolsOpen) open.append(issueRow);
     open.addEventListener("click", () => loadDetail(question.id));
     item.append(selectLabel, open);
@@ -4104,6 +4105,23 @@ function renderQueue() {
   }
   $("#queue-pagination").hidden = !state.questionPage.hasMore;
   updateEvaluationSelectionControls();
+}
+
+function renderQuestionUpdatedAt(value) {
+  const raw = String(value || "").trim();
+  const date = new Date(raw);
+  const label = Number.isNaN(date.getTime())
+    ? "最終更新日時を確認できません"
+    : `最終更新 ${date.toLocaleString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
+  const node = element("time", "question-updated-at", label);
+  if (!Number.isNaN(date.getTime())) node.dateTime = date.toISOString();
+  return node;
 }
 
 function renderQueuePublicationSummary(question) {
@@ -4581,6 +4599,7 @@ function renderDetail() {
   titleBlock.append(
     element("h2", "", question.questionLabel || question.sourceQuestionKey || "問題詳細"),
     element("div", "detail-meta", `${qualificationDisplayName(question.qualification)} / ${listGroupDisplayName(question.listGroupId)} / ${question.sourceQuestionKey}`),
+    renderQuestionUpdatedAt(question.contentUpdatedAt),
   );
   titleBlock.querySelector("h2").tabIndex = -1;
   const actions = element("div", "detail-actions");

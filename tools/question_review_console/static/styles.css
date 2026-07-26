@@ -496,6 +496,8 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .work-version-badge.warning { color: var(--amber); border-color: #ead394; background: var(--amber-bg); }
 .queue-body { margin: 0 0 8px; color: #3f4852; font-size: 12px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .queue-publication-summary { display: flex; flex-wrap: wrap; gap: 5px 10px; margin: -2px 0 8px; color: #53606c; font-size: 10px; font-weight: 700; }
+.question-updated-at { display: block; width: fit-content; color: var(--text-muted); font-size: 10px; font-weight: 650; }
+.queue-open > .question-updated-at { margin-top: -3px; }
 .issue-row { display: flex; flex-wrap: wrap; gap: 4px; }
 
 .badge {
@@ -564,6 +566,7 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .detail-title-row { display: flex; align-items: start; gap: 14px; }
 .detail-title-row h2 { margin: 0; font-size: 19px; line-height: 1.35; }
 .detail-meta { margin-top: 4px; color: var(--text-muted); font-size: 12px; overflow-wrap: anywhere; }
+.detail-title-row .question-updated-at { margin-top: 5px; font-size: 11px; }
 .detail-actions { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 .publication-status-section { padding-bottom: 14px; }
 .publication-source { display: inline-flex; width: fit-content; margin-bottom: 8px; padding: 3px 7px; border: 1px solid var(--line); border-radius: 3px; font-size: 10px; font-weight: 800; }

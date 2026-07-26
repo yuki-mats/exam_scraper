@@ -580,6 +580,41 @@ class QuestionReviewInventoryTests(unittest.TestCase):
 
         self.assertEqual(label, "2023年10月")
 
+    def test_question_content_updated_at_uses_the_latest_source_or_applied_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            source_path = group / "00_source" / "question.json"
+            patch_path = (
+                group
+                / "10_questionType_fixed"
+                / "question_questionType_fixed.json"
+            )
+            write_json(
+                source_path,
+                {
+                    "question_bodies": [
+                        {
+                            "original_question_id": "q1",
+                            "questionBodyText": "問題",
+                            "choiceTextList": ["選択肢"],
+                        }
+                    ]
+                },
+            )
+            write_json(
+                patch_path,
+                [{"original_question_id": "q1", "questionType": "flash_card"}],
+            )
+            os.utime(source_path, (1_704_067_200, 1_704_067_200))
+            os.utime(patch_path, (1_706_745_600, 1_706_745_600))
+
+            question = QuestionInventory(root).group(
+                "sample-exam", "2026"
+            )["questions"][0]
+
+        self.assertEqual(question["contentUpdatedAt"], "2024-02-01T00:00:00Z")
+
     def test_repository_display_catalog_covers_every_console_qualification(self):
         root = Path(__file__).resolve().parents[1]
         catalog = load_qualification_display_catalog(

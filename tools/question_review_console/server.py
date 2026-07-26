@@ -1653,6 +1653,7 @@ class QuestionReviewApplication:
                 "qualification",
                 "listGroupId",
                 "body",
+                "contentUpdatedAt",
                 "choiceCount",
                 "choicesExtractedFromQuestionBody",
                 "isLawRelated",
@@ -1746,6 +1747,7 @@ class QuestionReviewApplication:
         }
         detail_version_source = {
             "stateHash": question.get("stateHash"),
+            "contentUpdatedAt": question.get("contentUpdatedAt"),
             "reviewStatus": question.get("reviewStatus"),
             "issueCodes": question.get("issueCodes"),
             "workflow": question.get("workflow"),
