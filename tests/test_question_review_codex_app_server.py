@@ -12,6 +12,7 @@ from tools.question_review_console.codex_app_server import (
     APP_SERVER_AGENT_MAX_DEPTH,
     APP_SERVER_AGENT_THREAD_CAP,
     APP_SERVER_CONTROL_PLANE_CAPACITY,
+    APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS,
     CodexAppServerError,
     CodexAppServerClient,
     DEFAULT_TURN_TIMEOUT_SECONDS,
@@ -456,6 +457,7 @@ class ProtocolClient(CodexAppServerClient):
         self.research_agent_config_path = Path(
             "/isolated/question-maintenance-explorer.toml"
         )
+        self.isolated_model_workspace = Path("/isolated/model-workspace")
 
     def assert_subscription_access(self, *, force=True, speed_mode="standard"):
         self.subscription_forces.append((force, speed_mode))
@@ -463,6 +465,9 @@ class ProtocolClient(CodexAppServerClient):
 
     def _trusted_research_agent_config(self):
         return self.research_agent_config_path
+
+    def _isolated_model_cwd(self):
+        return self.isolated_model_workspace
 
     def _request(self, method, params, *, timeout=None):
         self.calls.append((method, copy.deepcopy(params)))
@@ -1256,6 +1261,33 @@ class ReceiptInterruptProtocolClient(ProtocolClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_control_requests_allow_a_full_sixty_four_thread_startup_wave(self):
+        class TimeoutClient(ProtocolClient):
+            def __init__(self):
+                super().__init__()
+                self.timeouts = []
+
+            def _request(self, method, params, *, timeout=None):
+                self.timeouts.append((method, timeout))
+                return super()._request(method, params, timeout=timeout)
+
+        client = TimeoutClient()
+
+        client._control_request("hooks/list", {"cwds": ["/isolated"]})
+        client._control_request(
+            "hooks/list",
+            {"cwds": ["/isolated"]},
+            timeout=7,
+        )
+
+        self.assertEqual(
+            client.timeouts,
+            [
+                ("hooks/list", APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS),
+                ("hooks/list", 7),
+            ],
+        )
+
     def test_control_plane_is_bounded_while_64_model_turns_stay_active(self):
         class BoundedControlPlaneClient(ProtocolClient):
             CONTROL_METHODS = {
@@ -1624,6 +1656,9 @@ class AppServerTurnTests(unittest.TestCase):
                 )
                 self.assertFalse((runtime_home / "config.toml").exists())
                 self.assertFalse((runtime_home / "agents").exists())
+                model_workspace = runtime_home / "model-workspace"
+                self.assertTrue(model_workspace.is_dir())
+                self.assertEqual(model_workspace.stat().st_mode & 0o777, 0o700)
                 client.close()
                 self.assertFalse(runtime_home.exists())
 
@@ -1815,6 +1850,11 @@ class AppServerTurnTests(unittest.TestCase):
         thread_params = [params for method, params in client.calls if method == "thread/start"]
         self.assertEqual(thread_params[0]["sandbox"], "read-only")
         self.assertEqual(thread_params[1]["sandbox"], "workspace-write")
+        self.assertEqual(
+            Path(thread_params[0]["cwd"]),
+            client.isolated_model_workspace,
+        )
+        self.assertEqual(Path(thread_params[1]["cwd"]), Path.cwd().resolve())
         self.assertTrue(thread_params[0]["ephemeral"])
         self.assertFalse(thread_params[1]["ephemeral"])
         self.assertTrue(all(params["approvalPolicy"] == "never" for params in thread_params))

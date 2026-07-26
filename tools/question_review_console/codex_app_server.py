@@ -101,6 +101,7 @@ MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
 APP_SERVER_CONTROL_PLANE_CAPACITY = 64
+APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS = 120
 MIN_APP_SERVER_FILE_DESCRIPTORS = 65_536
 TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
 # 公式一次資料の確認を含む工程03は、1問でも high reasoning の turn が
@@ -1016,6 +1017,7 @@ class CodexAppServerClient:
         ).resolve()
         self._runtime_home_context: tempfile.TemporaryDirectory[str] | None = None
         self._runtime_home: Path | None = None
+        self._isolated_model_workspace: Path | None = None
 
     @property
     def configured(self) -> bool:
@@ -1240,11 +1242,25 @@ class CodexAppServerClient:
             raise ValueError(
                 f"unsupported maintenance reasoning effort: {reasoning_effort}"
             )
+        evaluation_work = work_type in {"evaluation", "reevaluation"}
+        research_work = work_type == "maintenance_research"
+        candidate_work = work_type.startswith("maintenance_") and work_type.endswith(
+            "_candidate"
+        )
+        read_only_work = evaluation_work or research_work or candidate_work
+        model_only_work = evaluation_work or candidate_work
         # 同じwaveのturnは直前60秒以内に取得した一つの検証結果を共有する。
         # cacheが無い又は期限切れなら最初のturnだけが再取得し、後続は
         # single-flight結果を待つ。UIのrun開始時確認とは独立にfail-closed。
         self.assert_subscription_access(force=False, speed_mode=speed_mode)
-        turn_cwd = (cwd or self.repo_root).resolve()
+        # 構造化候補と評価のpromptは一問分の入力と品質規則を自己完結で持つ。
+        # repositoryをcwdにすると64 threadが同時にworkspace初期化を行うため、
+        # modelだけが判断するturnは空の隔離workspaceから起動する。
+        turn_cwd = (
+            self._isolated_model_cwd()
+            if model_only_work
+            else (cwd or self.repo_root).resolve()
+        )
         resolved_writable_roots = tuple(
             dict.fromkeys(Path(path).resolve() for path in writable_roots)
         )
@@ -1256,12 +1272,6 @@ class CodexAppServerClient:
         ):
             raise ValueError("writable rootはrepository内に限定してください。")
         approval_policy = "never"
-        evaluation_work = work_type in {"evaluation", "reevaluation"}
-        research_work = work_type == "maintenance_research"
-        candidate_work = work_type.startswith("maintenance_") and work_type.endswith(
-            "_candidate"
-        )
-        read_only_work = evaluation_work or research_work or candidate_work
         config = {
             "features": {
                 **{name: False for name in DISABLED_EXTERNAL_FEATURES},
@@ -1563,6 +1573,7 @@ class CodexAppServerClient:
             self._stdin = None
             self._runtime_home_context = None
             self._runtime_home = None
+            self._isolated_model_workspace = None
         self._stop_process(process, stream)
         self._fail_all("Codex App Serverを停止しました。")
         self._monitor_observer_adapter.close()
@@ -1634,6 +1645,8 @@ class CodexAppServerClient:
             runtime_auth = runtime_home / "auth.json"
             shutil.copyfile(source_auth, runtime_auth)
             runtime_auth.chmod(0o600)
+            isolated_model_workspace = runtime_home / "model-workspace"
+            isolated_model_workspace.mkdir(mode=0o700)
         except OSError as exc:
             context.cleanup()
             raise SubscriptionGateError(
@@ -1641,7 +1654,26 @@ class CodexAppServerClient:
             ) from exc
         self._runtime_home_context = context
         self._runtime_home = runtime_home
+        self._isolated_model_workspace = isolated_model_workspace
         return runtime_home
+
+    def _isolated_model_cwd(self) -> Path:
+        if self._isolated_model_workspace is None:
+            self._prepare_isolated_codex_home()
+        path = self._isolated_model_workspace
+        runtime_home = self._runtime_home
+        if (
+            path is None
+            or runtime_home is None
+            or path.is_symlink()
+            or not path.is_dir()
+            or path.parent.resolve() != runtime_home.resolve()
+            or stat.S_IMODE(path.stat().st_mode) != 0o700
+        ):
+            raise SubscriptionGateError(
+                "read-only model turnの隔離workspaceを安全に確認できません。"
+            )
+        return path.resolve()
 
     def _trusted_research_agent_config(self) -> Path:
         runtime_home = self._runtime_home
@@ -2096,7 +2128,18 @@ class CodexAppServerClient:
             heartbeat=heartbeat,
             priority=method == "turn/start",
         ):
-            return self._request(method, params, timeout=timeout)
+            return self._request(
+                method,
+                params,
+                timeout=(
+                    timeout
+                    if timeout is not None
+                    else max(
+                        self.request_timeout,
+                        APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS,
+                    )
+                ),
+            )
 
     def _send(self, message: Mapping[str, Any]) -> None:
         line = json.dumps(message, ensure_ascii=False, separators=(",", ":")) + "\n"
