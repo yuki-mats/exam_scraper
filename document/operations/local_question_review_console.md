@@ -91,7 +91,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 
 評価と再評価は問題ごとの新しいread-only thread、再整備は問題ごとの新しいworkspace-write threadで実行し、異なる作業でthreadを再開・forkしません。
 
-開始前にChatGPT認証、利用上限、公式provider、`Standard` service tier、追加Codex creditsが無効であることを確認します。問題整備は`Standard`だけを使用し、UI又はAPIから`Fast`を指定しても開始しません。追加Codex creditsが有効な場合もfail-closedで停止します。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限は変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。hook無効化とMCP無効化は各threadで検査し続け、そのcontrol-plane照会だけを8本に絞る。64個の独立threadが同時に通信できるよう、長寿命Codex App Serverを起動する直前にprocessのfile descriptor soft limitを65,536以上へ引き上げる。hard limitが不足する、又は引上げを確認できない場合はrun開始前に停止する。
+開始前にChatGPT認証、利用上限、公式provider、`Standard` service tier、追加Codex creditsが無効であることを確認します。同じwaveの各turnは、直前60秒以内に得た一つの検証済み利用資格を共有します。cacheがない場合又は期限を過ぎた場合は、最初のturnだけが再取得し、同時に来た後続turnはその結果を待ちます。問題整備は`Standard`だけを使用し、UI又はAPIから`Fast`を指定しても開始しません。追加Codex creditsが有効な場合もfail-closedで停止します。model、推論強度、read-only候補生成、一問ごとの機械検査、writer制限は変えません。API key、従量課金plan、外部MCP・plugin・app・hook・browser操作は使いません。調査と保存はどちらも`multi_agent=false`の単一threadで実行し、調査だけを隔離したread-only threadと組み込みweb検索に限定します。hook無効化とMCP無効化は各threadで検査し続け、そのcontrol-plane照会だけを8本に絞る。64個の独立threadが同時に通信できるよう、長寿命Codex App Serverを起動する直前にprocessのfile descriptor soft limitを65,536以上へ引き上げる。hard limitが不足する、又は引上げを確認できない場合はrun開始前に停止する。
 
 ## 作業バージョン
 

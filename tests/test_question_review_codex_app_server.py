@@ -208,6 +208,35 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(calls.count("account/read"), 1)
         self.assertEqual(calls.count("account/rateLimits/read"), 1)
 
+    def test_staggered_turns_share_the_same_fresh_status_window(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._ensure_started = lambda: None
+        calls = []
+
+        def request(method, _params):
+            calls.append(method)
+            return (
+                account_response()
+                if method == "account/read"
+                else rate_limit_response()
+            )
+
+        client._request = request
+        first = client.assert_subscription_access(force=False)
+        time.sleep(0.01)
+        with ThreadPoolExecutor(max_workers=16) as executor:
+            statuses = list(
+                executor.map(
+                    lambda _index: client.assert_subscription_access(force=False),
+                    range(64),
+                )
+            )
+
+        self.assertTrue(first["allowed"])
+        self.assertTrue(all(status["allowed"] for status in statuses))
+        self.assertEqual(calls.count("account/read"), 1)
+        self.assertEqual(calls.count("account/rateLimits/read"), 1)
+
     def test_transient_status_read_is_retried_without_weakening_gate(self):
         client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
         client._ensure_started = lambda: None
@@ -704,6 +733,10 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(
             all(result.final_message == '{"status":"ok"}' for result in results)
         )
+        self.assertEqual(
+            client.subscription_forces,
+            [(False, "standard")] * 64,
+        )
         methods = [method for method, _params in client.calls]
         for method in BoundedControlPlaneClient.CONTROL_METHODS:
             self.assertEqual(methods.count(method), 64)
@@ -1008,7 +1041,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertNotEqual(first.session_id, second.session_id)
         self.assertEqual(
             client.subscription_forces,
-            [(True, "standard"), (True, "standard")],
+            [(False, "standard"), (False, "standard")],
         )
         second_turn = next(
             params

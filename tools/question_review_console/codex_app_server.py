@@ -612,8 +612,10 @@ class CodexAppServerClient:
             raise ValueError(
                 f"unsupported maintenance reasoning effort: {reasoning_effort}"
             )
-        # UIの事前表示とは別に、thread/start直前の実値を必ず確認する。
-        self.assert_subscription_access(force=True, speed_mode=speed_mode)
+        # 同じwaveのturnは直前60秒以内に取得した一つの検証結果を共有する。
+        # cacheが無い又は期限切れなら最初のturnだけが再取得し、後続は
+        # single-flight結果を待つ。UIのrun開始時確認とは独立にfail-closed。
+        self.assert_subscription_access(force=False, speed_mode=speed_mode)
         turn_cwd = (cwd or self.repo_root).resolve()
         resolved_writable_roots = tuple(
             dict.fromkeys(Path(path).resolve() for path in writable_roots)
