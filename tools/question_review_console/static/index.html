@@ -12,6 +12,9 @@
         <h1>問題整備システム</h1>
         <span id="project-status" class="environment-label">本番Firestore: 接続確認中</span>
       </div>
+      <nav class="header-navigation" aria-label="関連画面">
+        <a id="batch-monitor-link" class="secondary-button" href="/monitor">バッチ成果物モニター</a>
+      </nav>
     </header>
 
     <section id="maintenance-dashboard" class="maintenance-dashboard" aria-label="問題整備" data-has-content="false">
@@ -524,6 +527,7 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/monitor-link.js?v=batch-monitor-v1"></script>
     <script src="/app.js?v=question-review-ui-v3-20260726-15"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@ import json
 import tempfile
 import threading
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
@@ -2427,6 +2428,216 @@ class QuestionReviewServerTests(unittest.TestCase):
                 server.shutdown()
                 server.server_close()
                 thread.join(timeout=5)
+
+    def test_monitor_http_routes_preserve_security_and_never_call_app_server(self):
+        class NoRpcAppServer:
+            provider = "test"
+            configured = True
+
+            def __init__(self):
+                self.rpc_calls = 0
+                self.observer = None
+
+            def set_event_observer(self, observer):
+                self.observer = observer
+
+            def public_status(self, *args, **kwargs):
+                self.rpc_calls += 1
+                raise AssertionError("monitor GET must not call App Server")
+
+            def run_turn(self, *args, **kwargs):
+                self.rpc_calls += 1
+                raise AssertionError("monitor GET must not start a turn")
+
+            def close(self):
+                return None
+
+        class ReadOnlyHub:
+            def __init__(self):
+                self.health_calls = 0
+                self.snapshot_calls = 0
+
+            def health(self, qualification, run_id):
+                self.health_calls += 1
+                return {"status": "healthy"}
+
+            def snapshot(self, qualification, run_id):
+                self.snapshot_calls += 1
+                raise AssertionError("monitor snapshot must use lightweight health")
+
+            def events(self, qualification, run_id, *, after, limit, wait_ms):
+                return {
+                    "schemaVersion": "monitor-event/v1",
+                    "events": [],
+                    "cursor": after,
+                }
+
+            def close(self):
+                return None
+
+        access = build_tailscale_access(
+            "https://review-mac.example.ts.net",
+            ["yuki@example.com"],
+            ["100.101.102.103"],
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            repo_root = Path(directory)
+            app_server = NoRpcAppServer()
+            monitor_hub = ReadOnlyHub()
+            app = QuestionReviewApplication(
+                repo_root,
+                tailscale_access=access,
+                app_server=app_server,
+                monitor_event_hub=monitor_hub,
+            )
+            manifest_path = (
+                app.run_store.root / "demo" / "run-1" / "manifest.json"
+            )
+            manifest_path.parent.mkdir(parents=True)
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "runId": "run-1",
+                        "qualification": "demo",
+                        "status": "running",
+                        "receiptValidated": False,
+                        "artifactSync": {"status": "pending"},
+                        "childRunIds": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            server = ThreadingHTTPServer(
+                ("127.0.0.1", 0), QuestionReviewRequestHandler
+            )
+            server.app = app
+            port = int(server.server_address[1])
+            app.set_origin("127.0.0.1", port)
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            local_headers = {"Host": f"127.0.0.1:{port}"}
+            remote_headers = {
+                "Host": "review-mac.example.ts.net",
+                "Tailscale-User-Login": "yuki@example.com",
+                "Tailscale-Headers-Info": "https://tailscale.com/s/serve-headers",
+                "X-Forwarded-For": "100.101.102.103",
+                "X-Forwarded-Host": "review-mac.example.ts.net",
+                "X-Forwarded-Proto": "https",
+            }
+            try:
+                for resource in (
+                    "/api/monitor/v1/runs?qualification=demo",
+                    "/api/monitor/v1/runs/run-1/snapshot?qualification=demo",
+                    "/api/monitor/v1/runs/run-1/events?qualification=demo",
+                    "/api/monitor/v1/runs/run-1/artifacts?qualification=demo",
+                ):
+                    with self.subTest(resource=resource):
+                        connection = http.client.HTTPConnection(
+                            "127.0.0.1", port, timeout=5
+                        )
+                        connection.request("GET", resource, headers=local_headers)
+                        response = connection.getresponse()
+                        self.assertEqual(response.status, 200)
+                        self.assertEqual(response.getheader("Cache-Control"), "no-store")
+                        self.assertIn(
+                            "default-src 'self'",
+                            response.getheader("Content-Security-Policy"),
+                        )
+                        payload = json.loads(response.read())
+                        self.assertEqual(payload["monitorModelRequests"], 0)
+                        connection.close()
+
+                def read_snapshot_under_load(_index):
+                    connection = http.client.HTTPConnection(
+                        "127.0.0.1", port, timeout=10
+                    )
+                    try:
+                        connection.request(
+                            "GET",
+                            "/api/monitor/v1/runs/run-1/snapshot?qualification=demo",
+                            headers=local_headers,
+                        )
+                        response = connection.getresponse()
+                        response.read()
+                        return response.status
+                    finally:
+                        connection.close()
+
+                with ThreadPoolExecutor(max_workers=32) as executor:
+                    statuses = list(executor.map(read_snapshot_under_load, range(64)))
+                self.assertEqual(statuses, [200] * 64)
+                self.assertEqual(app_server.rpc_calls, 0)
+                self.assertEqual(monitor_hub.snapshot_calls, 0)
+                self.assertGreaterEqual(monitor_hub.health_calls, 64)
+
+                connection = http.client.HTTPConnection(
+                    "127.0.0.1", port, timeout=5
+                )
+                connection.request(
+                    "GET",
+                    "/api/monitor/v1/runs/run-1/snapshot?qualification=demo",
+                    headers=remote_headers,
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 200)
+                self.assertEqual(
+                    response.getheader("Strict-Transport-Security"),
+                    "max-age=31536000",
+                )
+                response.read()
+                connection.close()
+
+                connection = http.client.HTTPConnection(
+                    "127.0.0.1", port, timeout=5
+                )
+                connection.request(
+                    "GET",
+                    "/api/monitor/v1/runs/run-1/snapshot?qualification=demo",
+                    headers={"Host": "example.invalid"},
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+
+                connection = http.client.HTTPConnection(
+                    "127.0.0.1", port, timeout=5
+                )
+                connection.request(
+                    "GET",
+                    "/api/monitor/v1/runs/missing/snapshot?qualification=demo",
+                    headers=local_headers,
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 404)
+                response.read()
+                connection.close()
+
+                for method in ("POST", "PUT", "PATCH", "DELETE"):
+                    with self.subTest(method=method):
+                        connection = http.client.HTTPConnection(
+                            "127.0.0.1", port, timeout=5
+                        )
+                        connection.request(
+                            method,
+                            "/api/monitor/v1/runs",
+                            body="{}",
+                            headers=local_headers,
+                        )
+                        response = connection.getresponse()
+                        self.assertEqual(response.status, 405)
+                        self.assertEqual(
+                            response.getheader("Cache-Control"), "no-store"
+                        )
+                        response.read()
+                        connection.close()
+
+                self.assertEqual(app_server.rpc_calls, 0)
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=5)
+                app.close()
 
 
 if __name__ == "__main__":

@@ -32,6 +32,7 @@ output/question_review_console/
     evaluations/
     reviews/
   workflow_runs/<qualification>/<runId>/
+  runtime_observations/<qualification>/<parentRunId>/
   direct_edit_transactions/<transactionId>/
   work_version_backfills/<timestamp>/manifest.json
   work_version_invalidations/<receipt_id>/manifest.json
@@ -78,6 +79,7 @@ output/question_review_console/
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
 | session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | manifest、server生成のresult・receipt、技術ログ、問題別projection、構造化候補、`validationAttempts`、終端時の`improvement_report.json`。modelはここへ書き込まない。 |
+| runtime observation | `output/question_review_console/runtime_observations/<qualification>/<parentRunId>/` | `monitor-event/v1`の`events.jsonl`と観測cursor・欠落件数を持つ`snapshot.json`。表示用のbest-effort projectionであり、工程・成果物・公開状態の正本ではない。 |
 | direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正のbaseline（開始前bytes）とcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |

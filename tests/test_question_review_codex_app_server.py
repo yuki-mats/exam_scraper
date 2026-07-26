@@ -24,6 +24,7 @@ from tools.question_review_console.codex_app_server import (
     SAFE_SHELL_PATH,
     SUBSCRIPTION_STATUS_READ_ATTEMPTS,
     SubscriptionGateError,
+    _NonBlockingObserverAdapter,
     _TurnState,
     adapt_output_schema_for_app_server,
     ensure_app_server_file_descriptor_capacity,
@@ -426,8 +427,8 @@ class SubscriptionGateTests(unittest.TestCase):
 
 
 class ProtocolClient(CodexAppServerClient):
-    def __init__(self):
-        super().__init__(Path.cwd(), binary_path=Path("/bin/echo"))
+    def __init__(self, **kwargs):
+        super().__init__(Path.cwd(), binary_path=Path("/bin/echo"), **kwargs)
         self.calls = []
         self.turn_number = 0
         self.sent = []
@@ -549,6 +550,150 @@ class ProtocolClient(CodexAppServerClient):
 
     def _send(self, message):
         self.sent.append(copy.deepcopy(dict(message)))
+
+
+class MonitorObserverTests(unittest.TestCase):
+    def test_allowlisted_notifications_and_exact_runtime_bindings_are_observed(self):
+        class Observer:
+            def __init__(self):
+                self.messages = []
+                self.bindings = []
+
+            def observe(self, message):
+                self.messages.append(copy.deepcopy(message))
+
+            def bind_runtime(self, context, thread_id, turn_id=None):
+                self.bindings.append((copy.deepcopy(context), thread_id, turn_id))
+
+        observer = Observer()
+        client = ProtocolClient(observer=observer)
+        client._monitor_context = {"qualification": "sample", "runId": "run-1"}
+
+        result = client.run_turn(
+            "prompt",
+            work_type="evaluation",
+            sandbox="read-only",
+            emit=lambda _message: None,
+        )
+
+        self.assertTrue(client._monitor_observer_adapter.drain_for_test())
+        self.assertEqual(result.thread_id, "thread-1")
+        self.assertEqual(observer.bindings[0][1:], ("thread-1", None))
+        self.assertEqual(observer.bindings[1][1:], ("thread-1", "turn-1"))
+        self.assertEqual(observer.bindings[0][0]["runId"], "run-1")
+        self.assertEqual(observer.bindings[0][0]["sessionId"], "session-1")
+        client.close()
+
+    def test_observer_exception_does_not_change_protocol_handling(self):
+        class BrokenObserver:
+            def observe(self, _message):
+                raise RuntimeError("monitor unavailable")
+
+        client = CodexAppServerClient(
+            Path.cwd(),
+            binary_path=Path("/bin/echo"),
+            observer=BrokenObserver(),
+        )
+        state = _TurnState("thread", "turn", lambda _message: None)
+        client._turns[("thread", "turn")] = state
+
+        client._handle_message(
+            {
+                "method": "turn/completed",
+                "params": {
+                    "threadId": "thread",
+                    "turn": {"id": "turn", "status": "completed", "items": []},
+                },
+            }
+        )
+
+        self.assertTrue(state.event.is_set())
+        self.assertEqual(state.status, "completed")
+        client.close()
+
+    def test_stdout_path_never_calls_blocking_observer_directly(self):
+        release = threading.Event()
+        entered = threading.Event()
+
+        class BlockingObserver:
+            def observe(self, _message):
+                entered.set()
+                release.wait(timeout=1)
+
+        client = CodexAppServerClient(
+            Path.cwd(),
+            binary_path=Path("/bin/echo"),
+            observer=BlockingObserver(),
+        )
+        started_at = time.monotonic()
+
+        client._handle_message(
+            {
+                "method": "thread/status/changed",
+                "params": {
+                    "threadId": "thread",
+                    "status": {"type": "active", "activeFlags": []},
+                },
+            }
+        )
+
+        self.assertLess(time.monotonic() - started_at, 0.05)
+        self.assertTrue(entered.wait(timeout=0.5))
+        release.set()
+        self.assertTrue(client._monitor_observer_adapter.drain_for_test())
+        client.close()
+
+    def test_runtime_binding_survives_saturated_notification_queue(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class SlowObserver:
+            def __init__(self):
+                self.bindings = []
+                self.gaps = 0
+                self.log = []
+
+            def put_nowait(self, message):
+                self.log.append(f"notification:{message['params']['number']}")
+                entered.set()
+                release.wait(timeout=1)
+
+            def bind_runtime(self, context, thread_id, turn_id=None):
+                self.bindings.append((dict(context), thread_id, turn_id))
+
+            def record_observation_gap(self, count=1):
+                self.gaps += count
+                self.log.append(f"gap:{count}")
+
+        observer = SlowObserver()
+        adapter = _NonBlockingObserverAdapter(observer, capacity=1)
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 1}}
+        )
+        self.assertTrue(entered.wait(timeout=0.5))
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 2}}
+        )
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 3}}
+        )
+        adapter.put_nowait(
+            {"method": "turn/started", "params": {"number": 4}}
+        )
+        adapter.bind_runtime({"runId": "run"}, "thread", "turn")
+        release.set()
+
+        self.assertTrue(adapter.drain_for_test())
+        self.assertEqual(
+            observer.bindings,
+            [({"runId": "run"}, "thread", "turn")],
+        )
+        self.assertEqual(observer.gaps, 2)
+        self.assertEqual(
+            observer.log,
+            ["notification:1", "notification:2", "gap:2"],
+        )
+        adapter.close()
 
 
 class ReceiptInterruptProtocolClient(ProtocolClient):

@@ -14,6 +14,7 @@
 
 - runの開始・再開、成果物の再生成、Firestore反映など、共有状態を変更する操作は問題整備システムの画面から実行する。
 - 進捗確認と整合性監査は画面表示を証跡にせず、`manifest.json`、`progress.jsonl`、`technical_log.jsonl`、問題別projection、`result.json`、完了receipt、publish runのreadbackを直接確認する。画面とartifactが食い違う場合はartifactを正として原因を調べ、完了receipt又はreadback一致がない状態を完了扱いにしない。
+- 並列稼働、保存済み成果物、Agent発言、公開推論サマリーの観測には、独立した[バッチ成果物モニター](batch_artifact_monitor.md)を使う。モニターはread-onlyとし、この画面の開始・編集・公開責務を移さない。
 
 ## 確定、rollback、再生成
 

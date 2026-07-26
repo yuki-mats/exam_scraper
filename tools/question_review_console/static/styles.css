@@ -54,6 +54,12 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .brand-block { min-width: 210px; }
 .brand-block h1 { margin: 0 0 3px; font-size: 19px; line-height: 1.2; }
 .environment-label { color: #b8c7d5; font-size: 11px; }
+.header-navigation { display: flex; align-items: center; }
+.header-navigation .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
 
 .toolbar {
   flex: 1;

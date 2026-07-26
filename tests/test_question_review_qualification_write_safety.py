@@ -237,12 +237,38 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         writer_prompt, writer_kwargs = app_server.calls[1]
         self.assertEqual(research_kwargs["work_type"], "maintenance_research")
         self.assertEqual(research_kwargs["sandbox"], "read-only")
+        self.assertEqual(
+            research_kwargs["monitor_context"],
+            {
+                "qualification": "sample",
+                "runId": run["runId"],
+                "questionIds": [],
+                "workItemKeys": [],
+                "listGroupIds": ["2026"],
+                "stageId": "law_audit",
+                "workType": "maintenance_research",
+                "phase": "parallel_research",
+            },
+        )
         self.assertNotIn("writable_roots", research_kwargs)
         self.assertIn("read-only並列調査", research_prompt)
         self.assertNotIn("画面用の問題別進捗", research_prompt)
         self.assertNotIn("完了時に検証結果を次へJSONで保存", research_prompt)
         self.assertEqual(writer_kwargs["work_type"], "maintenance")
         self.assertEqual(writer_kwargs["sandbox"], "workspace-write")
+        self.assertEqual(
+            writer_kwargs["monitor_context"],
+            {
+                "qualification": "sample",
+                "runId": run["runId"],
+                "questionIds": [],
+                "workItemKeys": [],
+                "listGroupIds": ["2026"],
+                "stageId": "law_audit",
+                "workType": "maintenance",
+                "phase": "writing",
+            },
+        )
         self.assertIn("問題IDごとの調査案", writer_prompt)
         self.assertIn(str((root / ".venv/bin/python").resolve()), writer_prompt)
         self.assertIn("成功ならpass、失敗ならfail", writer_prompt)

@@ -61,6 +61,7 @@ flowchart LR
 | 機械検証CLI | [../../tools/question_bank/README.md](../../tools/question_bank/README.md) | `quality-gate`など、日常的に実行するCLIの使い方を定義する。 |
 | merge・convert・公開 | [delivery_workflow.md](delivery_workflow.md) | upload-ready生成、機械gate、品質確認gate、Storage・Firestore反映とreadbackを定義する。 |
 | 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 複数問題の整備、後日の複数選択評価、問題ごとのFirestore反映と安全境界を定義する。 |
+| バッチ成果物モニター | [batch_artifact_monitor.md](batch_artifact_monitor.md) | 問題整備runの並列稼働、保存済み成果物、公開Agent活動をread-onlyで観測するAPIと画面の境界を定義する。 |
 | 作業バージョン | [local_question_review_console.md#作業バージョン](local_question_review_console.md#作業バージョン) | MAJORで洗い替え、MINORで洗い替え不要の改訂を管理する。 |
 | ユーザーフィードバック対応システム | [user_feedback_response_system.md](user_feedback_response_system.md) | 常駐AI審査、スマホでの一件承認、patch確定、将来の複数レーンを定義する。現在は設計確定・実装前。 |
 | 公式問題の問題報告 | [question_issue_report_workflow.md](question_issue_report_workflow.md) | blind review、correction overlay、限定公開の手順を定義する。 |

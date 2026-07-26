@@ -5560,8 +5560,42 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for prompt, kwargs in app_server.calls
                 if kwargs["work_type"] == "maintenance_question_type_candidate"
             ]
+            monitor_contexts = [
+                kwargs["monitor_context"]
+                for _prompt, kwargs in app_server.calls
+                if kwargs["work_type"] == "maintenance_question_type_candidate"
+            ]
+            aggregate_monitor_contexts = [
+                kwargs["monitor_context"]
+                for _prompt, kwargs in app_server.aggregate_review_calls
+            ]
 
         self.assertEqual(len(batch_prompts), 2)
+        self.assertEqual(len(monitor_contexts), 2)
+        self.assertTrue(aggregate_monitor_contexts)
+        self.assertTrue(
+            all(
+                context["runId"] == parent["runId"]
+                and context["parentRunId"] == parent["runId"]
+                and context["phase"] == "independent_review"
+                and context["stageId"] == "question_type"
+                for context in aggregate_monitor_contexts
+            )
+        )
+        for context in monitor_contexts:
+            self.assertEqual(context["qualification"], "new-exam")
+            self.assertEqual(context["runId"], parent["runId"])
+            self.assertEqual(context["parentRunId"], parent["runId"])
+            self.assertTrue(context["childRunId"])
+            self.assertEqual(len(context["questionIds"]), 1)
+            self.assertEqual(context["questionId"], context["questionIds"][0])
+            self.assertEqual(context["stageId"], "question_type")
+            self.assertEqual(
+                context["workType"], "maintenance_question_type_candidate"
+            )
+            self.assertEqual(
+                context["phase"], "structured_candidate_generation"
+            )
         combined = "\n".join(batch_prompts)
         self.assertIn('"questionId":"new-exam-2026-q1"', combined)
         self.assertIn('"questionId":"new-exam-2026-q2"', combined)

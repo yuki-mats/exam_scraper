@@ -6,6 +6,7 @@ import hashlib
 import ipaddress
 import json
 import logging
+import re
 import secrets
 import subprocess
 import sys
@@ -50,6 +51,8 @@ from tools.question_review_console.law_audit_contract import (
     QUALIFICATION_LAW_AUDIT_REQUEST,
 )
 from tools.question_review_console.live_readback_store import LiveReadbackStore
+from tools.question_review_console.monitor_service import MonitorReadModel
+from tools.question_review_console.monitor_events import MonitorEventHub
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 from tools.question_review_console.question_detail_read_model import (
@@ -312,6 +315,7 @@ class QuestionReviewApplication:
         *,
         tailscale_access: TailscaleAccess | None = None,
         app_server: Any | None = None,
+        monitor_event_hub: Any | None = None,
     ):
         self.repo_root = repo_root.resolve()
         self.tailscale_access = tailscale_access
@@ -322,8 +326,18 @@ class QuestionReviewApplication:
         self.editor = PatchEditor(self.repo_root)
         self.firestore = FirestoreReadback()
         self.jobs = JobManager()
-        self.app_server = app_server or CodexAppServerClient(self.repo_root)
+        self.monitor_event_hub = monitor_event_hub or MonitorEventHub(self.repo_root)
+        self.app_server = app_server or CodexAppServerClient(
+            self.repo_root, observer=self.monitor_event_hub
+        )
+        if app_server is not None:
+            set_observer = getattr(self.app_server, "set_event_observer", None)
+            if callable(set_observer):
+                set_observer(self.monitor_event_hub)
         self.run_store = QualificationRunStore(self.repo_root)
+        self.monitor = MonitorReadModel(
+            self.repo_root, self.run_store, self.monitor_event_hub
+        )
         self.work_versions = QuestionWorkVersionStore(self.repo_root)
         self.scoped_readback = ScopedFirestoreReadback(
             self.inventory,
@@ -411,7 +425,12 @@ class QuestionReviewApplication:
         self.local_authority = f"{host}:{port}"
 
     def close(self) -> None:
-        self.app_server.close()
+        try:
+            self.app_server.close()
+        finally:
+            close_monitor = getattr(self.monitor_event_hub, "close", None)
+            if callable(close_monitor):
+                close_monitor()
 
     def _load_workflow_overview(self, qualification: str) -> Mapping[str, Any]:
         workflow_config = (
@@ -542,6 +561,43 @@ class QuestionReviewApplication:
         )
 
     def get(self, path: str, query: Mapping[str, list[str]]) -> tuple[int, Any]:
+        if path == "/api/monitor/v1/runs":
+            qualification = _query_value(query, "qualification")
+            if not qualification:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
+                )
+            return HTTPStatus.OK, self.monitor.runs(qualification)
+        monitor_match = re.fullmatch(
+            r"/api/monitor/v1/runs/([^/]+)/(snapshot|events|artifacts)", path
+        )
+        if monitor_match:
+            run_id = urllib.parse.unquote(monitor_match.group(1))
+            resource = monitor_match.group(2)
+            qualification = _query_value(query, "qualification")
+            if resource == "snapshot":
+                return HTTPStatus.OK, self.monitor.snapshot(
+                    run_id, qualification=qualification
+                )
+            if resource == "events":
+                try:
+                    limit = int(_query_value(query, "limit") or "100")
+                    wait_ms = int(_query_value(query, "waitMs") or "0")
+                except ValueError as exc:
+                    raise ApiError(
+                        HTTPStatus.BAD_REQUEST,
+                        "limit又はwaitMsが整数ではありません。",
+                    ) from exc
+                return HTTPStatus.OK, self.monitor.events(
+                    run_id,
+                    qualification=qualification,
+                    after=_query_value(query, "after"),
+                    limit=limit,
+                    wait_ms=wait_ms,
+                )
+            return HTTPStatus.OK, self.monitor.artifacts(
+                run_id, qualification=qualification
+            )
         if path == "/api/session":
             app_server_status = self.app_server.public_status(refresh=False)
             return HTTPStatus.OK, {
@@ -2403,6 +2459,12 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
             )
             return
         self._access_route = route
+        if parsed.path.startswith("/api/monitor/"):
+            self._send_json(
+                HTTPStatus.METHOD_NOT_ALLOWED,
+                {"error": "monitor APIはGET専用です。"},
+            )
+            return
         if not parsed.path.startswith("/api/"):
             self._send_json(HTTPStatus.NOT_FOUND, {"error": "Not found"})
             return
@@ -2425,6 +2487,48 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
             )
             return
         self._serve_api("POST", parsed)
+
+    def do_PUT(self) -> None:
+        parsed = urllib.parse.urlsplit(self.path)
+        route = self._authorized_route()
+        if route is None:
+            self._send_json(
+                HTTPStatus.FORBIDDEN,
+                {"error": "アクセス経路が許可されていません。"},
+            )
+            return
+        self._access_route = route
+        if parsed.path.startswith("/api/monitor/"):
+            self._send_json(
+                HTTPStatus.METHOD_NOT_ALLOWED,
+                {"error": "monitor APIはGET専用です。"},
+            )
+            return
+        self._send_json(HTTPStatus.METHOD_NOT_ALLOWED, {"error": "Method not allowed"})
+
+    def do_PATCH(self) -> None:
+        self._serve_non_get_method()
+
+    def do_DELETE(self) -> None:
+        self._serve_non_get_method()
+
+    def _serve_non_get_method(self) -> None:
+        parsed = urllib.parse.urlsplit(self.path)
+        route = self._authorized_route()
+        if route is None:
+            self._send_json(
+                HTTPStatus.FORBIDDEN,
+                {"error": "アクセス経路が許可されていません。"},
+            )
+            return
+        self._access_route = route
+        if parsed.path.startswith("/api/monitor/"):
+            self._send_json(
+                HTTPStatus.METHOD_NOT_ALLOWED,
+                {"error": "monitor APIはGET専用です。"},
+            )
+            return
+        self._send_json(HTTPStatus.METHOD_NOT_ALLOWED, {"error": "Method not allowed"})
 
     def _authorized_route(self) -> str | None:
         host = self._single_header("Host")
@@ -2519,7 +2623,10 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
         return payload
 
     def _serve_static(self, request_path: str) -> None:
-        relative = "index.html" if request_path in {"", "/"} else request_path.lstrip("/")
+        if request_path in {"/monitor", "/monitor/"}:
+            relative = "monitor/index.html"
+        else:
+            relative = "index.html" if request_path in {"", "/"} else request_path.lstrip("/")
         path = (STATIC_ROOT / relative).resolve()
         if not path.is_relative_to(STATIC_ROOT) or not path.is_file():
             self.send_error(HTTPStatus.NOT_FOUND)

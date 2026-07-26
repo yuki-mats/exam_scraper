@@ -4,6 +4,7 @@ import copy
 import json
 import math
 import os
+import queue
 import re
 import shutil
 import stat
@@ -351,6 +352,167 @@ def validate_subscription_access(
     }
 
 
+MONITOR_NOTIFICATION_METHODS = frozenset(
+    {
+        "error",
+        "item/agentMessage/delta",
+        "item/plan/delta",
+        "item/reasoning/summaryPartAdded",
+        "item/reasoning/summaryTextDelta",
+        "item/started",
+        "item/completed",
+        "thread/archived",
+        "thread/closed",
+        "thread/deleted",
+        "thread/started",
+        "thread/status/changed",
+        "thread/tokenUsage/updated",
+        "thread/unarchived",
+        "turn/plan/updated",
+        "turn/started",
+        "turn/completed",
+    }
+)
+
+
+class _NonBlockingObserverAdapter:
+    """Fixed queue boundary between the stdout reader and any observer."""
+
+    _STOP = object()
+
+    def __init__(self, observer: Any | None, *, capacity: int = 4096) -> None:
+        self._observer = observer
+        self._queue: queue.Queue[Any] = queue.Queue(maxsize=max(1, capacity))
+        # Runtime bindings are correctness-critical correlation metadata. Keep
+        # them on an unbounded control queue so notification saturation can
+        # never strand a thread in the observer's pre-bind buffer.
+        self._control_queue: queue.Queue[Any] = queue.Queue()
+        self._gap_lock = threading.Lock()
+        self._next_notification_ordinal = 0
+        self._last_accepted_notification_ordinal = 0
+        self._gap_segments: deque[list[int]] = deque()
+        self._closed = threading.Event()
+        self._worker: threading.Thread | None = None
+        if observer is not None:
+            self._worker = threading.Thread(
+                target=self._run,
+                daemon=True,
+                name="question-review-monitor-observer-adapter",
+            )
+            self._worker.start()
+
+    def put_nowait(self, message: Mapping[str, Any]) -> None:
+        if self._observer is None or self._closed.is_set():
+            return
+        with self._gap_lock:
+            self._next_notification_ordinal += 1
+            ordinal = self._next_notification_ordinal
+            try:
+                self._queue.put_nowait(
+                    ("notification", (ordinal, dict(message)))
+                )
+                self._last_accepted_notification_ordinal = ordinal
+            except Exception:
+                boundary = self._last_accepted_notification_ordinal
+                if self._gap_segments and self._gap_segments[-1][0] == boundary:
+                    self._gap_segments[-1][1] += 1
+                else:
+                    self._gap_segments.append([boundary, 1])
+
+    def bind_runtime(
+        self,
+        context: Mapping[str, Any],
+        thread_id: str,
+        turn_id: str | None = None,
+    ) -> None:
+        if self._observer is None or self._closed.is_set():
+            return
+        self._control_queue.put_nowait(
+            ("binding", (dict(context), str(thread_id), turn_id))
+        )
+
+    def close(self) -> None:
+        self._closed.set()
+        self._control_queue.put_nowait(self._STOP)
+        if self._worker is not None:
+            self._worker.join(timeout=0.2)
+
+    def drain_for_test(self, timeout: float = 1.0) -> bool:
+        deadline = time.monotonic() + max(0.0, timeout)
+        while (
+            self._queue.unfinished_tasks
+            or self._control_queue.unfinished_tasks
+            or self._has_pending_gap()
+        ) and time.monotonic() < deadline:
+            time.sleep(0.001)
+        return (
+            self._queue.unfinished_tasks == 0
+            and self._control_queue.unfinished_tasks == 0
+            and not self._has_pending_gap()
+        )
+
+    def _run(self) -> None:
+        while (
+            not self._closed.is_set()
+            or not self._queue.empty()
+            or not self._control_queue.empty()
+            or self._has_pending_gap()
+        ):
+            source = self._control_queue
+            try:
+                entry = source.get_nowait()
+            except queue.Empty:
+                source = self._queue
+                try:
+                    entry = source.get(timeout=0.05)
+                except queue.Empty:
+                    continue
+            notification_ordinal: int | None = None
+            try:
+                if entry is self._STOP:
+                    continue
+                kind, payload = entry
+                if kind == "notification":
+                    notification_ordinal, notification = payload
+                    put_nowait = getattr(self._observer, "put_nowait", None)
+                    if callable(put_nowait):
+                        put_nowait(notification)
+                    else:
+                        observe = getattr(self._observer, "observe", None)
+                        if callable(observe):
+                            observe(notification)
+                elif kind == "binding":
+                    bind = getattr(self._observer, "bind_runtime", None)
+                    if callable(bind):
+                        bind(*payload)
+            except Exception:
+                pass
+            finally:
+                source.task_done()
+                if notification_ordinal is not None:
+                    self._notification_finished(notification_ordinal)
+
+    def _has_pending_gap(self) -> bool:
+        with self._gap_lock:
+            return bool(self._gap_segments)
+
+    def _notification_finished(self, ordinal: int) -> None:
+        counts: list[int] = []
+        with self._gap_lock:
+            while self._gap_segments and self._gap_segments[0][0] <= ordinal:
+                _boundary, count = self._gap_segments.popleft()
+                counts.append(count)
+        for count in counts:
+            try:
+                record_gap = getattr(
+                    self._observer, "record_observation_gap", None
+                )
+                if callable(record_gap):
+                    record_gap(count)
+            except Exception:
+                pass
+
+
 class CodexAppServerClient:
     """One long-lived stdio Codex App Server connection for the local UI."""
 
@@ -364,6 +526,8 @@ class CodexAppServerClient:
         status_cache_seconds: float = SUBSCRIPTION_STATUS_CACHE_SECONDS,
         turn_budget: GlobalTurnBudget | None = None,
         control_plane_budget: GlobalTurnBudget | None = None,
+        observer: Any | None = None,
+        monitor_context: Mapping[str, Any] | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.binary_path = self._resolve_binary(binary_path)
@@ -376,6 +540,9 @@ class CodexAppServerClient:
         self.control_plane_budget = control_plane_budget or GlobalTurnBudget(
             APP_SERVER_CONTROL_PLANE_CAPACITY
         )
+        self._observer = observer
+        self._monitor_observer_adapter = _NonBlockingObserverAdapter(observer)
+        self._monitor_context = dict(monitor_context or {})
 
         self._process: subprocess.Popen[str] | None = None
         self._stdin: TextIO | None = None
@@ -559,6 +726,7 @@ class CodexAppServerClient:
         reasoning_effort: str = TURN_REASONING_EFFORT,
         speed_mode: str = STANDARD_SPEED_MODE,
         turn_group: str | None = None,
+        monitor_context: Mapping[str, Any] | None = None,
     ) -> AppServerTurnResult:
         heartbeat_callback = heartbeat or getattr(emit, "heartbeat", None)
         with self.turn_budget.slot(turn_group, heartbeat=heartbeat_callback):
@@ -578,6 +746,7 @@ class CodexAppServerClient:
                 reasoning_effort=reasoning_effort,
                 speed_mode=speed_mode,
                 turn_group=turn_group,
+                monitor_context=monitor_context,
             )
 
     def turn_group(self, qualification: str):
@@ -601,6 +770,7 @@ class CodexAppServerClient:
         reasoning_effort: str = TURN_REASONING_EFFORT,
         speed_mode: str = STANDARD_SPEED_MODE,
         turn_group: str | None = None,
+        monitor_context: Mapping[str, Any] | None = None,
     ) -> AppServerTurnResult:
         speed_mode = normalize_speed_mode(speed_mode)
         requested_service_tier = None
@@ -704,6 +874,12 @@ class CodexAppServerClient:
         session_id = str(thread.get("sessionId") or "")
         if not thread_id or not session_id:
             raise CodexAppServerError("Codex App Serverがthread又はsession IDを返しませんでした。")
+        runtime_monitor_context = {
+            **self._monitor_context,
+            **dict(monitor_context or {}),
+            "sessionId": session_id,
+        }
+        self._bind_monitor_runtime(runtime_monitor_context, thread_id)
         if on_thread_started is not None:
             on_thread_started(thread_id, session_id)
         service_tier = thread_response.get("serviceTier")
@@ -766,6 +942,11 @@ class CodexAppServerClient:
                 raise CodexAppServerError(
                     "Codex App Serverがturn IDを返しませんでした。"
                 )
+            self._bind_monitor_runtime(
+                runtime_monitor_context,
+                thread_id,
+                turn_id,
+            )
         except Exception:
             self._interrupt_active_turns(thread_id, on_turn_started)
             raise
@@ -908,6 +1089,7 @@ class CodexAppServerClient:
             self._runtime_home = None
         self._stop_process(process, stream)
         self._fail_all("Codex App Serverを停止しました。")
+        self._monitor_observer_adapter.close()
         if runtime_home_context is not None:
             runtime_home_context.cleanup()
 
@@ -1574,6 +1756,8 @@ class CodexAppServerClient:
             self._handle_server_request(message)
             return
         method = str(message.get("method") or "")
+        if method in MONITOR_NOTIFICATION_METHODS:
+            self._observe_monitor_notification(message)
         if method in {"account/updated", "account/rateLimits/updated"}:
             with self._state_lock:
                 self._last_status = None
@@ -1581,6 +1765,26 @@ class CodexAppServerClient:
             return
         if method in {"item/completed", "turn/completed", "error"}:
             self._handle_turn_notification(message)
+
+    def _observe_monitor_notification(self, message: Mapping[str, Any]) -> None:
+        """Reader-side boundary: one best-effort non-blocking enqueue only."""
+        try:
+            self._monitor_observer_adapter.put_nowait(message)
+        except Exception:  # noqa: BLE001 - monitoring must never affect a turn.
+            pass
+
+    def _bind_monitor_runtime(
+        self,
+        context: Mapping[str, Any],
+        thread_id: str,
+        turn_id: str | None = None,
+    ) -> None:
+        try:
+            self._monitor_observer_adapter.bind_runtime(
+                dict(context), thread_id, turn_id
+            )
+        except Exception:  # noqa: BLE001 - monitoring is an optional projection.
+            pass
 
     @staticmethod
     def _failure_output_tail(value: Any) -> str:

@@ -260,6 +260,21 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(kwargs["sandbox"], "read-only")
         self.assertNotEqual(Path(kwargs["cwd"]), root)
         self.assertNotIn('"paths"', prompt)
+        self.assertEqual(
+            kwargs["monitor_context"],
+            {
+                "qualification": "sample",
+                "runId": result["runId"],
+                "questionId": "api-q1",
+                "questionIds": ["api-q1"],
+                "workItemKey": "api-q1",
+                "workItemKeys": ["api-q1"],
+                "listGroupIds": ["2026"],
+                "stageId": "evaluation",
+                "workType": "evaluation",
+                "phase": "evaluation",
+            },
+        )
 
     def test_output_schema_uses_supported_structured_output_keywords(self):
         schema_path = (

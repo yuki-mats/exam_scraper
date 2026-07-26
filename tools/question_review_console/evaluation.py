@@ -673,6 +673,18 @@ class QuestionEvaluationService:
                     turnId=turn_id,
                 ),
                 work_type,
+                {
+                    "qualification": qualification,
+                    "runId": run_id,
+                    "questionId": question_id,
+                    "questionIds": [question_id],
+                    "workItemKey": question_id,
+                    "workItemKeys": [question_id],
+                    "listGroupIds": [str(question["listGroupId"])],
+                    "stageId": work_type,
+                    "workType": work_type,
+                    "phase": "evaluation",
+                },
             )
             thread_id = str(metadata.get("threadId") or "") or None
             app_server_session_id = str(metadata.get("sessionId") or "") or None
@@ -903,6 +915,7 @@ class QuestionEvaluationService:
         on_thread_started: Callable[[str, str], None],
         on_turn_started: Callable[[str, str], None],
         work_type: str,
+        monitor_context: Mapping[str, Any],
     ) -> tuple[Mapping[str, Any], dict[str, Any]]:
         if self.result_runner is not None:
             result = self.result_runner(prompt)
@@ -922,6 +935,7 @@ class QuestionEvaluationService:
                 on_thread_started=on_thread_started,
                 on_turn_started=on_turn_started,
                 cwd=Path(directory),
+                monitor_context=monitor_context,
             )
         if len(turn.final_message.encode("utf-8")) > 2_000_000:
             raise EvaluationError("Codex App Serverの出力が2MBを超えました。")

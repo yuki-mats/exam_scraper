@@ -19,7 +19,7 @@ from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
 from scripts.merge.merge_utils import (
     select_latest_patch_files,
@@ -6111,6 +6111,50 @@ class QualificationRunCoordinator:
         self._parent_heartbeat_lock = threading.Lock()
         self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
 
+    @staticmethod
+    def _monitor_context(
+        qualification: str,
+        run_id: str,
+        *,
+        parent_run_id: str = "",
+        question_ids: Iterable[str] = (),
+        work_item_keys: Iterable[str] = (),
+        list_group_ids: Iterable[str] = (),
+        stage_id: str = "",
+        work_type: str = "",
+        phase: str = "",
+    ) -> dict[str, Any]:
+        """Build the stable, prompt-free identity projection for monitor events."""
+
+        normalized_questions = list(
+            dict.fromkeys(str(value) for value in question_ids if value)
+        )
+        normalized_work_items = list(
+            dict.fromkeys(str(value) for value in work_item_keys if value)
+        )
+        normalized_groups = list(
+            dict.fromkeys(str(value) for value in list_group_ids if value)
+        )
+        parent_run_id = str(parent_run_id or "")
+        context: dict[str, Any] = {
+            "qualification": str(qualification),
+            "runId": parent_run_id or str(run_id),
+            "questionIds": normalized_questions,
+            "workItemKeys": normalized_work_items,
+            "listGroupIds": normalized_groups,
+            "stageId": str(stage_id or ""),
+            "workType": str(work_type or ""),
+            "phase": str(phase or ""),
+        }
+        if parent_run_id:
+            context["parentRunId"] = parent_run_id
+            context["childRunId"] = str(run_id)
+        if len(normalized_questions) == 1:
+            context["questionId"] = normalized_questions[0]
+        if len(normalized_work_items) == 1:
+            context["workItemKey"] = normalized_work_items[0]
+        return context
+
     def _touch_parent_heartbeat(
         self,
         qualification: str,
@@ -10310,6 +10354,23 @@ class QualificationRunCoordinator:
             or len(set(question_ids)) != len(question_ids)
         ):
             raise QualificationRunError("構造化候補batchの問題数が不正です。")
+        parent_run_id = str(
+            child.get("parentRunId") or batch_plan.get("parentRunId") or ""
+        )
+        batch_work_item_keys = [
+            str(value.get("workItemKey") or value.get("id") or "")
+            for value in raw_targets
+        ]
+        batch_list_group_ids = [
+            str(value)
+            for value in (
+                child.get("targetGroupIds")
+                or batch_plan.get("targetGroupIds")
+                or batch_plan.get("scopeListGroupIds")
+                or []
+            )
+            if value
+        ]
         if prepared_records is None or prepared_targets is None:
             records_by_question, targets_by_question = _structured_candidate_inputs(
                 self.repo_root,
@@ -10618,6 +10679,20 @@ class QualificationRunCoordinator:
                             reasoning_effort=review_effort,
                             speed_mode=speed_mode,
                             turn_group=qualification,
+                            monitor_context=self._monitor_context(
+                                qualification,
+                                run_id,
+                                parent_run_id=parent_run_id,
+                                question_ids=pending_ids,
+                                work_item_keys=batch_work_item_keys,
+                                list_group_ids=batch_list_group_ids,
+                                stage_id=stage_id,
+                                work_type=(
+                                    f"maintenance_{stage_id}_aggregate_review_"
+                                    f"{review_number}_candidate"
+                                ),
+                                phase="independent_review",
+                            ),
                         )
                     except Exception as exc:  # noqa: BLE001
                         if not started_threads and _external_provider_failure(exc):
@@ -10832,6 +10907,17 @@ class QualificationRunCoordinator:
                     reasoning_effort=reasoning_effort,
                     speed_mode=speed_mode,
                     turn_group=qualification,
+                    monitor_context=self._monitor_context(
+                        qualification,
+                        run_id,
+                        parent_run_id=parent_run_id,
+                        question_ids=candidate_question_ids,
+                        work_item_keys=batch_work_item_keys,
+                        list_group_ids=batch_list_group_ids,
+                        stage_id=stage_id,
+                        work_type=f"maintenance_{stage_id}_candidate",
+                        phase="structured_candidate_generation",
+                    ),
                 )
                 if result.changed_files:
                     raise QualificationRunError(
@@ -11616,6 +11702,38 @@ class QualificationRunCoordinator:
         )
         run_at_start = self.store.get(qualification, run_id)
         parent_run_id = str(run_at_start.get("parentRunId") or "")
+        human_question_ids = [
+            str(value)
+            for value in (
+                run_at_start.get("targetQuestionIds")
+                or [
+                    target.get("id") or target.get("uiQuestionId")
+                    for target in run_at_start.get("progressTargets") or []
+                    if isinstance(target, Mapping)
+                ]
+            )
+            if value
+        ]
+        human_work_item_keys = [
+            str(target.get("workItemKey") or target.get("id") or "")
+            for target in run_at_start.get("progressTargets") or []
+            if isinstance(target, Mapping)
+            and (target.get("workItemKey") or target.get("id"))
+        ]
+        human_list_group_ids = [
+            str(value)
+            for value in (
+                run_at_start.get("targetGroupIds")
+                or run_at_start.get("scopeListGroupIds")
+                or []
+            )
+            if value
+        ]
+        human_stage_id = str(
+            run_at_start.get("stageId")
+            or run_at_start.get("currentPhaseId")
+            or ""
+        )
         speed_mode = normalize_speed_mode(
             run_at_start.get("speedMode") or STANDARD_SPEED_MODE
         )
@@ -11725,6 +11843,17 @@ class QualificationRunCoordinator:
                             cwd=Path(research_directory).resolve(),
                             speed_mode=speed_mode,
                             turn_group=qualification,
+                            monitor_context=self._monitor_context(
+                                qualification,
+                                run_id,
+                                parent_run_id=parent_run_id,
+                                question_ids=human_question_ids,
+                                work_item_keys=human_work_item_keys,
+                                list_group_ids=human_list_group_ids,
+                                stage_id=human_stage_id,
+                                work_type="maintenance_research",
+                                phase="parallel_research",
+                            ),
                         )
                     if research_result.changed_files:
                         raise QualificationRunError(
@@ -11826,6 +11955,17 @@ class QualificationRunCoordinator:
                         completion_probe=completion_probe,
                         speed_mode=speed_mode,
                         turn_group=qualification,
+                        monitor_context=self._monitor_context(
+                            qualification,
+                            run_id,
+                            parent_run_id=parent_run_id,
+                            question_ids=human_question_ids,
+                            work_item_keys=human_work_item_keys,
+                            list_group_ids=human_list_group_ids,
+                            stage_id=human_stage_id,
+                            work_type=work_type,
+                            phase="writing",
+                        ),
                     )
                     app_server_changed_files = self._repository_change_notifications(
                         result.changed_files,

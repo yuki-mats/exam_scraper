@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>バッチ成果物モニター</title>
+    <link rel="stylesheet" href="/monitor/monitor.css?v=monitor-v1">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>Batch Artifact Monitor</strong>
+          <span>問題整備 / 読み取り専用</span>
+        </div>
+      </div>
+      <div class="run-picker">
+        <label>
+          <span>資格</span>
+          <select id="qualification-select" aria-label="資格"></select>
+        </label>
+        <label>
+          <span>実行</span>
+          <select id="run-select" aria-label="監視する実行"></select>
+        </label>
+      </div>
+      <div class="connection-summary">
+        <span id="connection-dot" class="connection-dot" aria-hidden="true"></span>
+        <div>
+          <strong id="connection-label">接続準備中</strong>
+          <time id="last-event-time">最終イベント —</time>
+        </div>
+        <a id="maintenance-link" class="maintenance-link" href="/">問題整備を開く ↗</a>
+      </div>
+    </header>
+
+    <nav class="mobile-tabs" aria-label="モニター表示" role="tablist">
+      <button id="tab-activity" type="button" role="tab" aria-controls="panel-activity" aria-selected="false" tabindex="-1" data-mobile-tab="activity">稼働</button>
+      <button id="tab-artifact" type="button" role="tab" aria-controls="panel-artifact" aria-selected="true" tabindex="0" data-mobile-tab="artifact" class="active">成果物</button>
+      <button id="tab-live" type="button" role="tab" aria-controls="panel-live" aria-selected="false" tabindex="-1" data-mobile-tab="live">実況</button>
+    </nav>
+
+    <main class="monitor-grid">
+      <aside id="panel-activity" class="lane-panel mobile-panel" role="tabpanel" data-panel="activity" aria-labelledby="tab-activity">
+        <header class="panel-head">
+          <div>
+            <span class="eyebrow">PARALLEL LANES</span>
+            <h1 id="lane-title">稼働レーン</h1>
+          </div>
+          <span id="run-status" class="status-chip neutral">確認中</span>
+        </header>
+        <div id="run-summary" class="run-summary">実行を読み込んでいます。</div>
+        <ol id="lane-list" class="lane-list" aria-label="並列処理のタイムライン"></ol>
+        <div id="lane-empty" class="empty-copy" hidden>レーンイベントはまだありません。</div>
+      </aside>
+
+      <section id="panel-artifact" class="artifact-panel mobile-panel active" role="tabpanel" data-panel="artifact" aria-labelledby="tab-artifact">
+        <header class="reader-head">
+          <div>
+            <span class="eyebrow">ARTIFACT READER</span>
+            <h1 id="artifact-title">成果物 Reader</h1>
+          </div>
+          <div class="reader-meta">
+            <span id="artifact-save-state" class="save-state draft">保存前出力</span>
+            <time id="artifact-updated">更新 —</time>
+          </div>
+        </header>
+        <div class="artifact-workspace">
+          <aside class="artifact-index" aria-label="成果物一覧">
+            <div class="index-section">
+              <div class="index-label">
+                <span>保存済み artifact</span>
+                <b id="saved-count">0</b>
+              </div>
+              <div id="saved-artifacts" class="artifact-list"></div>
+            </div>
+            <div class="index-section draft-section">
+              <div class="index-label">
+                <span>保存前出力</span>
+                <b id="draft-count">0</b>
+              </div>
+              <div id="draft-artifacts" class="artifact-list"></div>
+            </div>
+          </aside>
+          <article class="artifact-reader" aria-live="polite">
+            <div id="artifact-placeholder" class="reader-placeholder">
+              <span class="placeholder-icon" aria-hidden="true">⌁</span>
+              <strong>成果物を選択してください</strong>
+              <p>保存済みartifactと保存前の出力を分けて表示します。</p>
+            </div>
+            <header id="artifact-detail-head" class="artifact-detail-head" hidden>
+              <div>
+                <span id="artifact-kind" class="artifact-kind"></span>
+                <h2 id="artifact-name"></h2>
+                <p id="artifact-path"></p>
+              </div>
+              <dl>
+                <div><dt>工程</dt><dd id="artifact-stage">—</dd></div>
+                <div><dt>保存</dt><dd id="artifact-saved-at">—</dd></div>
+                <div><dt>検証</dt><dd id="artifact-validation">—</dd></div>
+              </dl>
+            </header>
+            <pre id="artifact-content" class="artifact-content" hidden></pre>
+          </article>
+        </div>
+      </section>
+
+      <aside id="panel-live" class="live-panel mobile-panel" role="tabpanel" data-panel="live" aria-labelledby="tab-live">
+        <header class="panel-head">
+          <div>
+            <span class="eyebrow">AGENT LIVE</span>
+            <h1 id="live-title">Agent実況</h1>
+          </div>
+          <span id="event-count" class="event-count">0</span>
+        </header>
+        <div id="stream-notice" class="stream-notice" role="status" aria-live="polite" hidden>
+          <span id="stream-notice-text">新着 0件</span>
+          <button id="jump-latest" type="button">最新へ</button>
+        </div>
+        <ol id="event-stream" class="event-stream" aria-label="Agentイベント"></ol>
+        <div id="event-empty" class="empty-copy">実イベントを待っています。</div>
+      </aside>
+    </main>
+
+    <footer class="monitor-footer">
+      <span id="cursor-status">cursor —</span>
+      <span id="freshness-status">データ鮮度を確認中</span>
+      <span>閲覧専用 · 操作は問題整備システムで行います</span>
+    </footer>
+    <script src="/monitor/monitor.js?v=monitor-v1" defer></script>
+  </body>
+</html>
