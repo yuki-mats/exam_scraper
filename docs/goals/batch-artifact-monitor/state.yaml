@@ -1,0 +1,280 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "バッチ成果物モニターと安定イベントAPI"
+  slug: "batch-artifact-monitor"
+  kind: existing_plan
+  tranche: "既存変更を保護し、安定イベントAPIとread-onlyモニターを実装・検証・公開する"
+  status: active
+  oracle:
+    signal: "現行問題整備Python server配下の実runを使い、並列thread、保存済み成果物、Agent発言、公開推論サマリー、活動イベントをリアルタイム表示でき、モニター起因のmodel requestが0であることを自動試験とブラウザwalkthroughで確認できる"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "対象テスト、64並列相当の負荷・再接続試験、ブラウザwalkthrough、artifact readback、monitorModelRequests=0、mainへのcommit/push"
+  intake:
+    original_request: "API基盤もあるべき姿に整備し、バッチ成果物モニターを構築してほしい"
+    interpreted_outcome: "現行問題整備Python serverが管理する単一Codex App Serverを安全に観測できる、安定したread-onlyイベントAPIと成果物中心のリアルタイムモニターを完成させる"
+    input_shape: existing_plan
+    audience: "問題整備バッチの運用者"
+    authority: approved
+    proof_type: demo
+    completion_proof: "実run又は忠実なfixtureで全主要表示と再接続を確認し、監視有無でmodel開始RPCとtoken usageが増えず、全対象テストが成功する"
+    likely_misfire: "汎用トレース画面又は操作可能なAgent管理画面を作り、保存済み成果物の確認、read-only境界、既存artifact正本を損なう"
+    blind_spots_considered:
+      - "raw reasoning、system/developer instruction、secret、無加工tool出力を漏らさない"
+      - "監視queue、disk、browserの障害で整備runを止めない"
+      - "App Server再起動時のevent gapを推測で埋めない"
+      - "既存の未コミット変更と今回の変更を混ぜない"
+      - "Codex Desktop全体ではなく、指定された単一App Serverだけを初期対象とする"
+    existing_plan_facts:
+      - "問題整備システムとモニターは別UI・別責務とする"
+      - "初期は同じPython backendと単一App Server接続ownerを共有する"
+      - "monitor-event/v1を自前の安定契約とする"
+      - "Agent発言と公開推論サマリーを表示し、非公開の内部推論は扱わない"
+      - "モニターからAgentへ指示せず、追加model tokenを消費しない"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/batch-artifact-monitor/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/batch-artifact-monitor"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "既存の未コミット変更、現行イベント経路、検証surfaceをread-onlyで監査し、安全な実装境界を確定する"
+    inputs:
+      - "git status and diffs"
+      - "existing App Server and question review console contracts"
+      - "tests"
+    constraints:
+      - "Read-only."
+      - "既存変更を編集、stage、commit、破棄しない。"
+      - "00_sourceと生成成果物を変更しない。"
+    expected_output:
+      - "既存変更の所有範囲と今回の変更との重なり"
+      - "安定イベントAPIとUIの実装境界"
+      - "正確な検証commands"
+      - "最初の安全なWorker package候補"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "既存計画とT001証拠を監査し、既存変更整理とmonitor実装の安全なwrite packageを確定する"
+    inputs:
+      - "T001 receipt"
+      - "goal.md"
+      - "現行artifact・App Server・security contracts"
+    constraints:
+      - "Do not implement."
+      - "既存変更を推測で今回scopeへ混ぜない。"
+      - "largest safe useful sliceを選び、allowed_files、verify、stop_ifを具体化する。"
+    expected_output:
+      - "既存変更を先にcommit可能かの判定"
+      - "T003のexact allowed_filesとverify"
+      - "backend・frontend・integration packageのrisk境界"
+      - "blocked又はdeferred事項"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T002が承認した範囲で既存未コミット変更を検証・整理し、内容別にcommitしてorigin/mainへpushする"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T002がallowed_files又はverifyを確定していない。"
+      - "変更所有者又は意図を証拠から確定できない。"
+      - "対象外fileの編集、破棄、巻き戻しが必要になる。"
+      - "verificationが二度失敗する。"
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "App Server通知を非blockingで正規化・秘匿・永続化し、snapshot・cursor・stream・artifact readbackを持つGET専用monitor-event/v1 backend vertical sliceを実装する"
+    allowed_files:
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/monitor_events.py"
+      - "tools/question_review_console/monitor_store.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_batch_artifact_monitor_api.py"
+      - "document/operations/batch_artifact_monitor.md"
+      - "document/operations/artifact_contract.md"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+    verify:
+      - "python -m pytest tests/test_question_review_codex_app_server.py tests/test_batch_artifact_monitor_api.py"
+      - "python -m pytest tests/test_question_review_server.py tests/test_question_review_qualification_runs.py"
+      - "python scripts/check/check_00_source_immutability.py"
+    stop_if:
+      - "App Server stdout readerでdisk I/O又はbrowser送信が必要になる。"
+      - "monitor serviceへmodel又はmutation clientを渡す必要が生じる。"
+      - "現在のApp Server stable event schemaとfixtureが一致しない。"
+      - "既存dirty変更と衝突し、T003 receiptで解消されていない。"
+      - "verificationが二度失敗する。"
+    receipt: null
+  - id: T005
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "monitor backendをsecurity、backpressure、schema compatibility、artifact truth、token-zero境界に対してphase reviewする"
+    inputs:
+      - "T004 receipt"
+      - "T004 diff"
+      - "backend tests and fixtures"
+    constraints:
+      - "Do not implement."
+      - "raw reasoning、secret、mutation capability、run阻害をfail conditionとする。"
+      - "不足が局所的ならexact follow-up Worker taskを指定する。"
+    expected_output:
+      - "accept | reject"
+      - "oracle coverage"
+      - "missing tests or contract gaps"
+      - "next Worker package"
+    receipt: null
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "成果物Readerを主役に、並列timelineとAgent実況を備えた独立read-only monitor UIを実装し、monitor APIへ接続する"
+    allowed_files:
+      - "tools/question_review_console/static/batch-artifacts.html"
+      - "tools/question_review_console/static/batch-artifacts.js"
+      - "tools/question_review_console/static/batch-artifacts.css"
+      - "tools/question_review_console/server.py"
+      - "tests/test_batch_artifact_monitor_ui.py"
+      - "document/operations/batch_artifact_monitor.md"
+    verify:
+      - "python -m pytest tests/test_batch_artifact_monitor_ui.py tests/test_batch_artifact_monitor_api.py"
+      - "ブラウザでRun選択、並列Lane、成果物、Agent発言、公開推論サマリー、tool状態、stale/gap、新着追従を確認する"
+    stop_if:
+      - "Agent操作、入力、停止、承認、再実行buttonが必要になる。"
+      - "保存前のAgent出力と保存済み成果物を同じ状態として扱う。"
+      - "fake typing又は未観測のthinking状態を表示する。"
+      - "既存app.jsの巨大state machineを複製又は取り込む必要が生じる。"
+      - "verificationが二度失敗する。"
+    receipt: null
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "問題整備システムとの相互deep link、64並列相当負荷、再接続・gap・secret masking・responsive・accessibilityを統合し、実運用MVPを完成させる"
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/batch-artifacts.html"
+      - "tools/question_review_console/static/batch-artifacts.js"
+      - "tools/question_review_console/static/batch-artifacts.css"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/monitor_events.py"
+      - "tools/question_review_console/monitor_store.py"
+      - "tests/test_batch_artifact_monitor_api.py"
+      - "tests/test_batch_artifact_monitor_ui.py"
+      - "tests/test_batch_artifact_monitor_load.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/batch_artifact_monitor.md"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "python -m pytest tests/test_batch_artifact_monitor_api.py tests/test_batch_artifact_monitor_ui.py tests/test_batch_artifact_monitor_load.py"
+      - "python -m pytest tests/test_question_review_codex_app_server.py tests/test_question_review_workflow.py tests/test_question_review_server.py"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "ブラウザでmonitorから問題詳細、問題整備からmonitorへの相互遷移を確認する"
+      - "monitor有効・無効でApp Server outbound model-start method列とtoken usageが同一でmonitorModelRequests=0であることを確認する"
+    stop_if:
+      - "64並列相当でheartbeat又はrun完了時間へ有意な悪化が出る。"
+      - "再接続後にeventを推測又は重複表示する。"
+      - "secret又はraw reasoningがfixture、API、UIのいずれかへ漏れる。"
+      - "既存workflow behaviorを変更する必要が生じる。"
+      - "verificationが二度失敗する。"
+    receipt: null
+  - id: T008
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: "実run又は忠実なfixtureでend-to-endブラウザwalkthroughとartifact readbackを行い、対象変更を内容別にcommitしてorigin/mainへpushする"
+    inputs:
+      - "T004-T007 receipts"
+      - "all monitor tests"
+      - "browser walkthrough"
+      - "git diff and origin/main state"
+    constraints:
+      - "既存runへmutationを送らない。"
+      - "画面表示だけで完了扱いにせず、artifact、event cursor、token-zero、git readbackを確認する。"
+      - "unrelated変更をstageしない。"
+    expected_output:
+      - "browser walkthrough receipt"
+      - "artifact and event readback"
+      - "test and load results"
+      - "commit hashes and origin/main readback"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全receiptとlive proofをoriginal outcomeへ対応付け、バッチ成果物モニターと安定イベントAPIの完成を最終監査する"
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Browser walkthrough"
+      - "Artifact and git readback"
+    constraints:
+      - "Do not implement."
+      - "required Worker又はPM taskがqueued、active、unverifiedなら完了を拒否する。"
+      - "API、UI、秘匿、負荷、再接続、token-zero、相互遷移、origin/mainのいずれかが未証明なら完了を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle evidence map"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "pre-existing dirty worktree; exact fingerprint pending T001"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
