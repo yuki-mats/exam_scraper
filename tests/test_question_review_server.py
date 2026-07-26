@@ -1269,6 +1269,114 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertTrue(result["hasMore"])
         self.assertEqual(result["questions"][0]["id"], "question-50")
 
+    def test_question_list_sorts_by_content_update_desc_by_default_and_can_reverse(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2025", "2026"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                timestamps = {
+                    "2025": [
+                        ("oldest", "2026-07-20T08:00:00+09:00"),
+                        ("newest", "2026-07-26T08:00:00+09:00"),
+                    ],
+                    "2026": [
+                        ("middle", "2026-07-23T08:00:00+09:00"),
+                        ("missing", None),
+                    ],
+                }
+                questions = [
+                    {
+                        "id": question_id,
+                        "listGroupId": list_group_id,
+                        "body": question_id,
+                        "contentUpdatedAt": updated_at,
+                        "issues": [],
+                        "issueCodes": [],
+                        "reviewStatus": "unreviewed",
+                        "isLawRelated": False,
+                        "workflow": {"firestore": "unread"},
+                    }
+                    for question_id, updated_at in timestamps[list_group_id]
+                ]
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": len(questions),
+                    "fingerprint": f"fingerprint-{list_group_id}",
+                    "questions": questions,
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app._decorate = lambda question: question
+            app._summary = lambda question: dict(question)
+            base_query = {
+                "qualification": ["sample"],
+                "listGroupId": ["__all__"],
+                "exceptionsOnly": ["false"],
+            }
+
+            descending = app._questions(base_query)
+            ascending = app._questions({**base_query, "sort": ["updated_asc"]})
+            second_page = app._questions({
+                **base_query,
+                "offset": ["1"],
+                "limit": ["2"],
+            })
+
+        self.assertEqual(descending["sort"], "updated_desc")
+        self.assertEqual(
+            [question["id"] for question in descending["questions"]],
+            ["newest", "middle", "oldest", "missing"],
+        )
+        self.assertEqual(
+            [question["id"] for question in ascending["questions"]],
+            ["oldest", "middle", "newest", "missing"],
+        )
+        self.assertEqual(
+            [question["id"] for question in second_page["questions"]],
+            ["middle", "oldest"],
+        )
+
+    def test_question_list_rejects_unknown_sort_order(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2026"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                return {
+                    "qualification": qualification,
+                    "listGroupId": list_group_id,
+                    "questionCount": 0,
+                    "fingerprint": "fingerprint",
+                    "questions": [],
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            with self.assertRaises(ApiError) as caught:
+                app._questions(
+                    {
+                        "qualification": ["sample"],
+                        "listGroupId": ["2026"],
+                        "sort": ["question_number"],
+                    }
+                )
+
+        self.assertEqual(caught.exception.status, 400)
+        self.assertIn("updated_desc", str(caught.exception))
+
     def test_question_list_fast_page_stops_before_full_statistics(self):
         class Inventory:
             def inventory(self):

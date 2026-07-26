@@ -7,7 +7,8 @@ const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
 const AUTO_QUESTION_CONCURRENCY = 32;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
-const QUESTION_LIST_CACHE_VERSION = 2;
+const DEFAULT_QUESTION_SORT = "updated_desc";
+const QUESTION_LIST_CACHE_VERSION = 3;
 const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 
 const ISSUE_LABELS = {
@@ -385,6 +386,7 @@ function questionListCacheKey() {
 
 function defaultQuestionListIsSelected() {
   return !state.exceptionsOnly
+    && $("#question-sort").value === DEFAULT_QUESTION_SORT
     && !$("#search-input").value.trim()
     && !$("#source-answer-difference").checked
     && !$("#question-body-choices-only").checked
@@ -565,6 +567,7 @@ async function openAuditView(listGroupId = "", options = {}) {
     $("#exceptions-button").classList.remove("active");
     $("#all-button").classList.add("active");
     $("#search-input").value = "";
+    $("#question-sort").value = DEFAULT_QUESTION_SORT;
     $("#source-answer-difference").checked = false;
     $("#question-body-choices-only").checked = false;
     $("#calculation-only").checked = false;
@@ -726,6 +729,10 @@ function bindControls() {
     clearEvaluationSelection();
     window.clearTimeout(searchTimer);
     searchTimer = window.setTimeout(() => loadQuestions(false), 220);
+  });
+  $("#question-sort").addEventListener("change", async () => {
+    clearEvaluationSelection();
+    await loadQuestions(false);
   });
   $("#exceptions-button").addEventListener("click", () => setListMode(true));
   $("#all-button").addEventListener("click", () => setListMode(false));
@@ -3822,6 +3829,7 @@ function listQuery(offset = 0, { includeStats = true, statsOnly = false } = {}) 
     questionBodyChoicesOnly: String($("#question-body-choices-only").checked),
     firestoreMismatch: String($("#firestore-mismatch").checked),
     sourceAnswerDifference: String($("#source-answer-difference").checked),
+    sort: $("#question-sort").value || DEFAULT_QUESTION_SORT,
     offset: String(offset),
     limit: String(state.questionPage.limit),
     includeStats: String(includeStats),

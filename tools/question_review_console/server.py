@@ -11,6 +11,7 @@ import threading
 import urllib.parse
 import webbrowser
 from dataclasses import dataclass
+from datetime import datetime
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -1148,6 +1149,12 @@ class QuestionReviewApplication:
         evaluation_status = _query_value(query, "evaluationStatus")
         work_stage_id = _query_value(query, "workStageId")
         work_version_status = _query_value(query, "workVersionStatus")
+        sort_order = _query_value(query, "sort") or "updated_desc"
+        if sort_order not in {"updated_desc", "updated_asc"}:
+            raise ApiError(
+                HTTPStatus.BAD_REQUEST,
+                "sortはupdated_desc又はupdated_ascで指定してください。",
+            )
         exceptions_only = _query_bool(query, "exceptionsOnly", default=True)
         law_only = _query_bool(query, "lawOnly", default=False)
         calculation_only = _query_bool(query, "calculationOnly", default=False)
@@ -1183,116 +1190,149 @@ class QuestionReviewApplication:
         }
         work_version_counts = {"current": 0, "outdated": 0, "unrecorded": 0}
         work_policies = self._work_policies(qualification)
-        for group in groups:
+        candidates: list[tuple[int, int, Mapping[str, Any], tuple[str, ...]]] = []
+        for group_index, group in enumerate(groups):
             group_failed_delta_paths = unresolved_failed_delta_paths(
                 self.repo_root,
                 qualification,
                 str(group["listGroupId"]),
             )
-            for raw in group["questions"]:
-                decorator = self._decorate
-                question = (
-                    decorator(
-                        raw,
-                        work_policies=work_policies,
-                        failed_delta_paths=group_failed_delta_paths,
-                    )
-                    if getattr(decorator, "__func__", None)
-                    is QuestionReviewApplication._decorate
-                    else decorator(raw)
+            candidates.extend(
+                (
+                    group_index,
+                    question_index,
+                    raw,
+                    group_failed_delta_paths,
                 )
-                answer_comparison = question.get("sourceCorrectChoiceComparison")
-                answer_comparison = (
-                    answer_comparison
-                    if isinstance(answer_comparison, Mapping)
-                    else {}
+                for question_index, raw in enumerate(group["questions"])
+            )
+
+        def content_updated_sort_key(
+            candidate: tuple[int, int, Mapping[str, Any], tuple[str, ...]],
+        ) -> tuple[bool, float, int, int]:
+            group_index, question_index, raw, _failed_delta_paths = candidate
+            value = str(raw.get("contentUpdatedAt") or "").strip()
+            try:
+                timestamp = datetime.fromisoformat(
+                    value.replace("Z", "+00:00")
+                ).timestamp()
+            except (ValueError, OverflowError, OSError):
+                timestamp = None
+            directional_timestamp = (
+                -timestamp
+                if timestamp is not None and sort_order == "updated_desc"
+                else timestamp or 0.0
+            )
+            return (
+                timestamp is None,
+                directional_timestamp,
+                group_index,
+                question_index,
+            )
+
+        candidates.sort(key=content_updated_sort_key)
+        for _group_index, _question_index, raw, group_failed_delta_paths in candidates:
+            decorator = self._decorate
+            question = (
+                decorator(
+                    raw,
+                    work_policies=work_policies,
+                    failed_delta_paths=group_failed_delta_paths,
                 )
-                quality_bucket = self._quality_bucket(question)
-                selected_work_stage = next(
-                    (
-                        stage
-                        for stage in question.get("workVersions", {}).get("stages", [])
-                        if stage.get("id") == work_stage_id
-                    ),
-                    None,
+                if getattr(decorator, "__func__", None)
+                is QuestionReviewApplication._decorate
+                else decorator(raw)
+            )
+            answer_comparison = question.get("sourceCorrectChoiceComparison")
+            answer_comparison = (
+                answer_comparison
+                if isinstance(answer_comparison, Mapping)
+                else {}
+            )
+            quality_bucket = self._quality_bucket(question)
+            selected_work_stage = next(
+                (
+                    stage
+                    for stage in question.get("workVersions", {}).get("stages", [])
+                    if stage.get("id") == work_stage_id
+                ),
+                None,
+            )
+            if include_stats:
+                decorated_issue_count += bool(question["issues"])
+                source_answer_difference_count += bool(
+                    answer_comparison.get("different")
                 )
-                if include_stats:
-                    decorated_issue_count += bool(question["issues"])
-                    source_answer_difference_count += bool(
-                        answer_comparison.get("different")
+                question_body_choices_count += bool(
+                    question.get("choicesExtractedFromQuestionBody")
+                )
+                evaluation_counts[quality_bucket] += 1
+                if work_stage_id and selected_work_stage is not None:
+                    state = str(selected_work_stage.get("status") or "unrecorded")
+                    bucket = (
+                        "outdated"
+                        if state in {"outdated", "future"}
+                        else state
                     )
-                    question_body_choices_count += bool(
-                        question.get("choicesExtractedFromQuestionBody")
-                    )
-                    evaluation_counts[quality_bucket] += 1
-                    if work_stage_id and selected_work_stage is not None:
-                        state = str(selected_work_stage.get("status") or "unrecorded")
-                        bucket = (
-                            "outdated"
-                            if state in {"outdated", "future"}
-                            else state
-                        )
-                        if bucket in work_version_counts:
-                            work_version_counts[bucket] += 1
-                if search and search not in " ".join(
-                    (
-                        question.get("body", ""),
-                        question.get("questionLabel", ""),
-                        question.get("sourceQuestionKey", ""),
-                        question.get("listGroupId", ""),
-                    )
-                ).casefold():
+                    if bucket in work_version_counts:
+                        work_version_counts[bucket] += 1
+            if search and search not in " ".join(
+                (
+                    question.get("body", ""),
+                    question.get("questionLabel", ""),
+                    question.get("sourceQuestionKey", ""),
+                    question.get("listGroupId", ""),
+                )
+            ).casefold():
+                continue
+            if issue and issue not in question["issueCodes"]:
+                continue
+            if review_status and question["reviewStatus"] != review_status:
+                continue
+            if evaluation_status and quality_bucket != evaluation_status:
+                continue
+            if work_version_status:
+                if selected_work_stage is None:
                     continue
-                if issue and issue not in question["issueCodes"]:
-                    continue
-                if review_status and question["reviewStatus"] != review_status:
-                    continue
-                if evaluation_status and quality_bucket != evaluation_status:
-                    continue
-                if work_version_status:
-                    if selected_work_stage is None:
+                selected_status = str(
+                    selected_work_stage.get("status") or "unrecorded"
+                )
+                if work_version_status == "outdated":
+                    if selected_status not in {"outdated", "future"}:
                         continue
-                    selected_status = str(
-                        selected_work_stage.get("status") or "unrecorded"
-                    )
-                    if work_version_status == "outdated":
-                        if selected_status not in {"outdated", "future"}:
-                            continue
-                    elif selected_status != work_version_status:
-                        continue
-                if law_only and not question["isLawRelated"]:
+                elif selected_status != work_version_status:
                     continue
-                projected = question.get("projected")
-                projected = projected if isinstance(projected, Mapping) else {}
-                if calculation_only and projected.get("isCalculationQuestion") is not True:
-                    continue
-                if (
-                    question_body_choices_only
-                    and question.get("choicesExtractedFromQuestionBody") is not True
-                ):
-                    continue
-                if firestore_mismatch and question["workflow"]["firestore"] not in {
-                    "mismatch",
-                    "missing",
-                    "error",
-                    "upstream_stale",
-                }:
-                    continue
-                if source_answer_difference and not answer_comparison.get("different"):
-                    continue
-                if exceptions_only and quality_bucket == "published":
-                    continue
-                matched_index = matched_count
-                matched_count += 1
-                if (
-                    not stats_only
-                    and offset <= matched_index < offset + limit
-                ):
-                    summaries.append(self._summary(question))
-                if not include_stats and matched_count >= offset + limit + 1:
-                    stopped_early = True
-                    break
-            if stopped_early:
+            if law_only and not question["isLawRelated"]:
+                continue
+            projected = question.get("projected")
+            projected = projected if isinstance(projected, Mapping) else {}
+            if calculation_only and projected.get("isCalculationQuestion") is not True:
+                continue
+            if (
+                question_body_choices_only
+                and question.get("choicesExtractedFromQuestionBody") is not True
+            ):
+                continue
+            if firestore_mismatch and question["workflow"]["firestore"] not in {
+                "mismatch",
+                "missing",
+                "error",
+                "upstream_stale",
+            }:
+                continue
+            if source_answer_difference and not answer_comparison.get("different"):
+                continue
+            if exceptions_only and quality_bucket == "published":
+                continue
+            matched_index = matched_count
+            matched_count += 1
+            if (
+                not stats_only
+                and offset <= matched_index < offset + limit
+            ):
+                summaries.append(self._summary(question))
+            if not include_stats and matched_count >= offset + limit + 1:
+                stopped_early = True
                 break
 
         filtered_count = (
@@ -1323,6 +1363,7 @@ class QuestionReviewApplication:
             "statsIncluded": include_stats,
             "offset": offset,
             "limit": limit,
+            "sort": sort_order,
             "hasMore": has_more,
             "fingerprint": "|".join(group["fingerprint"] for group in groups),
             "questions": summaries,

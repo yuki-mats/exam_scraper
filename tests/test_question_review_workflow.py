@@ -1592,6 +1592,22 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('id="audit-view-open"', html)
         self.assertIn('id="exceptions-button" type="button">反映待ち</button>', html)
         self.assertIn('id="all-button" class="active" type="button">全問</button>', html)
+        self.assertIn('id="question-sort"', html)
+        self.assertIn(
+            '<option value="updated_desc" selected>最終更新が新しい順</option>',
+            html,
+        )
+        self.assertIn(
+            '<option value="updated_asc">最終更新が古い順</option>',
+            html,
+        )
+        self.assertIn('const DEFAULT_QUESTION_SORT = "updated_desc"', javascript)
+        self.assertIn('sort: $("#question-sort").value || DEFAULT_QUESTION_SORT', javascript)
+        self.assertIn('$("#question-sort").addEventListener("change"', javascript)
+        self.assertIn(
+            '$("#question-sort").value = DEFAULT_QUESTION_SORT',
+            javascript,
+        )
         self.assertIn("工程・評価・Firestoreなどの管理機能", html)
         self.assertNotIn('id="audit-admin-tools" class="audit-admin-tools" open', html)
         self.assertNotIn('$("#audit-view-open")', javascript)
@@ -1897,7 +1913,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         ).read_text(encoding="utf-8")
 
         self.assertIn("QUESTION_LIST_CACHE_VERSION", javascript)
-        self.assertIn("const QUESTION_LIST_CACHE_VERSION = 2;", javascript)
+        self.assertIn("const QUESTION_LIST_CACHE_VERSION = 3;", javascript)
         self.assertIn("exceptionsOnly: false", javascript)
         self.assertIn("function defaultQuestionListIsSelected", javascript)
         self.assertIn("localStorage.setItem(questionListCacheKey()", javascript)
@@ -1912,7 +1928,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-3"
+        asset_version = "question-review-ui-v3-20260726-4"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-3">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-4">
   </head>
   <body>
     <header class="app-header">
@@ -99,6 +99,13 @@
           <label class="search-field">
             <span>問題を検索</span>
             <input id="search-input" type="search" placeholder="問題文・問番" autocomplete="off">
+          </label>
+          <label class="question-sort-selector">
+            <span>並び順</span>
+            <select id="question-sort">
+              <option value="updated_desc" selected>最終更新が新しい順</option>
+              <option value="updated_asc">最終更新が古い順</option>
+            </select>
           </label>
           <div class="segmented" aria-label="一覧範囲" hidden>
             <button id="exceptions-button" type="button">反映待ち</button>
@@ -510,6 +517,6 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=question-review-ui-v3-20260726-3"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260726-4"></script>
   </body>
 </html>
