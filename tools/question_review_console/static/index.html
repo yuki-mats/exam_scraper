@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-8">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-9">
   </head>
   <body>
     <header class="app-header">
@@ -14,26 +14,17 @@
       </div>
     </header>
 
-    <section id="maintenance-dashboard" class="maintenance-dashboard" aria-label="問題整備">
+    <section id="maintenance-dashboard" class="maintenance-dashboard" aria-label="問題整備" data-has-content="false">
       <section id="maintenance-loading" class="maintenance-loading" role="status" aria-live="polite" aria-atomic="true">
-        <span class="loading-spinner" aria-hidden="true"></span>
         <div class="maintenance-loading-copy">
-          <div class="maintenance-loading-meta">
-            <span>データ更新中</span>
-            <time id="maintenance-loading-elapsed">取得中</time>
+          <div class="maintenance-loading-head">
+            <strong id="maintenance-loading-title">接続を確認しています</strong>
+            <time id="maintenance-loading-elapsed">0秒</time>
           </div>
-          <strong id="maintenance-loading-title">問題データを取得しています</strong>
-          <p id="maintenance-loading-message">接続状態と資格情報を確認しています。</p>
-          <ol id="maintenance-loading-steps" class="maintenance-loading-steps" aria-label="読込状況">
-            <li data-loading-step="connection" data-status="active">接続確認</li>
-            <li data-loading-step="workflow" data-status="pending">整備状況</li>
-            <li data-loading-step="runs" data-status="pending">作業状況</li>
-            <li data-loading-step="questions" data-status="pending" hidden>問題一覧</li>
-            <li data-loading-step="apply" data-status="pending">画面へ反映</li>
-          </ol>
-          <small id="maintenance-loading-slow-note" class="maintenance-loading-slow-note" hidden>
-            実行中の作業と最新ファイルを確認しています。画面はそのままでお待ちください。
-          </small>
+          <div id="maintenance-loading-meter" class="maintenance-loading-meter" role="progressbar" aria-label="読込進捗" aria-valuemin="0" aria-valuemax="100" aria-valuenow="2">
+            <span id="maintenance-loading-meter-value"></span>
+          </div>
+          <p id="maintenance-loading-message" hidden></p>
         </div>
         <button id="maintenance-loading-retry" class="secondary-button" type="button" hidden>もう一度読み込む</button>
       </section>
@@ -540,6 +531,6 @@
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js?v=question-review-ui-v3-20260726-8"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260726-9"></script>
   </body>
 </html>

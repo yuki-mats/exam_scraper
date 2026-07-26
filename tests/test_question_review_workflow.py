@@ -1836,11 +1836,13 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('id="maintenance-loading-title"', html)
         self.assertIn('id="maintenance-loading-message"', html)
         self.assertIn('id="maintenance-loading-elapsed"', html)
-        self.assertIn('data-loading-step="connection"', html)
-        self.assertIn('data-loading-step="workflow"', html)
-        self.assertIn('data-loading-step="runs"', html)
-        self.assertIn('data-loading-step="questions"', html)
-        self.assertIn('data-loading-step="apply"', html)
+        self.assertIn('id="maintenance-loading-meter"', html)
+        self.assertIn('id="maintenance-loading-meter-value"', html)
+        self.assertIn('role="progressbar"', html)
+        self.assertNotIn('id="maintenance-loading-steps"', html)
+        self.assertNotIn('class="loading-spinner"', html.split(
+            'id="maintenance-loading"', 1
+        )[1].split("</section>", 1)[0])
         self.assertIn("async function refreshDashboard()", javascript)
         refresh = javascript.split("async function refreshDashboard()", 1)[1].split(
             "function auditViewIsOpen", 1
@@ -1862,7 +1864,11 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("failMaintenanceLoading(", refresh)
         self.assertIn("finally", refresh)
         self.assertNotIn("showModal", refresh)
-        self.assertIn("elapsedSeconds < 10", javascript)
+        self.assertIn("function maintenanceLoadingWeights()", javascript)
+        self.assertIn("function maintenanceLoadingStatusLabel()", javascript)
+        self.assertIn("function renderMaintenanceLoadingProgress()", javascript)
+        self.assertIn('`${elapsedSeconds}秒`', javascript)
+        self.assertNotIn("maintenance-loading-slow-note", javascript)
         self.assertIn(
             '$("#maintenance-loading-retry").addEventListener("click", refreshDashboard)',
             javascript,
@@ -1870,12 +1876,20 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('id="refresh-button"', html)
         self.assertNotIn(".global-loading-dialog", css)
         self.assertIn(".maintenance-loading", css)
-        self.assertIn(".maintenance-loading-steps", css)
-        self.assertIn(".maintenance-loading-steps li[hidden]", css)
+        self.assertIn(".maintenance-loading-meter", css)
+        self.assertIn(".maintenance-loading-meter > span", css)
+        self.assertNotIn(".maintenance-loading-steps", css)
         self.assertIn(
             '#maintenance-dashboard[aria-busy="true"] .maintenance-dashboard-summary',
             css,
         )
+        self.assertIn(
+            '#maintenance-dashboard[aria-busy="true"][data-has-content="false"]',
+            css,
+        )
+        self.assertIn("QUALIFICATION_WORKFLOW_CACHE_VERSION", javascript)
+        self.assertIn("function restoreCachedQualificationWorkflow()", javascript)
+        self.assertIn('dashboard.dataset.hasContent = String(Boolean(', javascript)
         active_run = javascript.split(
             "function renderQualificationActiveRun()", 1
         )[1].split("function selectedQualificationRunMode()", 1)[0]
@@ -1891,8 +1905,9 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("renderMaintenanceGroupUpdatedAt", javascript)
         self.assertIn("group.latestContentUpdatedAt", javascript)
         self.assertIn('"最終更新 —"', javascript)
-        self.assertIn("@keyframes loading-sweep", css)
-        self.assertIn("@keyframes loading-pulse", css)
+        self.assertIn("@keyframes loading-bar-shift", css)
+        self.assertNotIn("@keyframes loading-sweep", css)
+        self.assertNotIn("@keyframes loading-pulse", css)
         self.assertIn(".audit-view-loading", css)
         audit_loading_css = css.split(".audit-view-loading {", 1)[1].split("}", 1)[0]
         self.assertNotIn("position: absolute", audit_loading_css)
@@ -1979,7 +1994,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260726-8"
+        asset_version = "question-review-ui-v3-20260726-9"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 
