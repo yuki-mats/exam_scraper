@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "qir-20260727T043210-830f11ff77",
+  "category": "question_content",
+  "caseIds": [
+    "gas-otsu-2020-kiso-q05-source-typo"
+  ],
+  "inputCaseHashes": {
+    "gas-otsu-2020-kiso-q05-source-typo": "bbff414be1fce5780e3170842c751cb44c3e194d1ad455362df5944c9bf1e5db"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "f5e2dde4fe5f419f3e0bec285c07d6b83e3e84e38bc455fc0b93867ca3bad0d8",
+    "389904a3e71367b7159714c3da170767faf317d2f85c468ce4553bdd30208ffc"
+  ],
+  "challengeReviewHash": "830f11ff772802613536796ea646cfcd48da9bf27dbafda95b87423e315d8190",
+  "createdAt": "2026-07-26T19:32:10Z",
+  "entries": [
+    {
+      "original_question_id": "da18acfb40810c8f",
+      "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05",
+      "reviewQuestionId": "da18acfb40810c8f",
+      "sourceRecordRef": "question_2020_1.json#20",
+      "expectedBeforeHash": "ad18720f0a62101fa0f84243b16bf05c6151ef1e197aceb128ac2265aa1a1cb1",
+      "changes": {
+        "choiceTextList": [
+          "体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応である。",
+          "温度一定条件で、化学反応に伴い発生する熱、若しくは吸収される熱のことを反応熱という。",
+          "化学反応における触媒の役割は、\n反応熱を大きくする\nことである。",
+          "電気化学反応の特徴は、化学反応を電子の授受を伴って行わせることである。",
+          "燃料電池の電極間電位差は、取り出す電流を増加させる場合に小さくなる。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf#page=14（冊子13ページ、基礎 問5、選択肢5）",
+          "title": "令和2年度ガス主任技術者試験問題（乙種）",
+          "verifiedAt": "2026-07-26T19:32:10Z",
+          "contentHash": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf#page=1（乙種、基礎 問5）",
+          "title": "令和2年度ガス主任技術者試験の解答（乙種）",
+          "verifiedAt": "2026-07-26T19:32:10Z",
+          "contentHash": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        }
+      ]
+    }
+  ]
+}
