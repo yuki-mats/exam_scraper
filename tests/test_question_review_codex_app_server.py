@@ -11,6 +11,7 @@ from unittest.mock import patch
 from tools.question_review_console.codex_app_server import (
     APP_SERVER_AGENT_MAX_DEPTH,
     APP_SERVER_AGENT_THREAD_CAP,
+    APP_SERVER_CONTROL_PLANE_CAPACITY,
     CodexAppServerError,
     CodexAppServerClient,
     DEFAULT_TURN_TIMEOUT_SECONDS,
@@ -548,6 +549,165 @@ class ReceiptInterruptProtocolClient(ProtocolClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_control_plane_is_bounded_while_64_model_turns_stay_active(self):
+        class BoundedControlPlaneClient(ProtocolClient):
+            CONTROL_METHODS = {
+                "hooks/list",
+                "thread/start",
+                "mcpServerStatus/list",
+                "turn/start",
+            }
+
+            def __init__(self):
+                super().__init__()
+                self.control_lock = threading.RLock()
+                self.active_control_requests = 0
+                self.peak_control_requests = 0
+                self.started_turns = []
+                self.all_turns_started = threading.Event()
+
+            def _request(self, method, params, *, timeout=None):
+                if method not in self.CONTROL_METHODS:
+                    return super()._request(method, params, timeout=timeout)
+                with self.control_lock:
+                    self.active_control_requests += 1
+                    self.peak_control_requests = max(
+                        self.peak_control_requests,
+                        self.active_control_requests,
+                    )
+                try:
+                    time.sleep(0.005)
+                    self.calls.append((method, copy.deepcopy(params)))
+                    if method == "hooks/list":
+                        return {
+                            "data": [
+                                {
+                                    "cwd": params["cwds"][0],
+                                    "hooks": [],
+                                    "warnings": [],
+                                    "errors": [],
+                                }
+                            ]
+                        }
+                    if method == "thread/start":
+                        with self.control_lock:
+                            self.turn_number += 1
+                            number = self.turn_number
+                        sandbox_type = (
+                            "readOnly"
+                            if params["sandbox"] == "read-only"
+                            else "workspaceWrite"
+                        )
+                        return {
+                            "thread": {
+                                "id": f"thread-{number}",
+                                "sessionId": f"session-{number}",
+                            },
+                            "model": params["model"],
+                            "modelProvider": "openai",
+                            "serviceTier": params.get("serviceTier"),
+                            "sandbox": {
+                                "type": sandbox_type,
+                                "networkAccess": False,
+                            },
+                        }
+                    if method == "mcpServerStatus/list":
+                        return {"data": [], "nextCursor": None}
+                    thread_id = params["threadId"]
+                    turn_id = thread_id.replace("thread", "turn")
+                    with self.control_lock:
+                        self.started_turns.append((thread_id, turn_id))
+                        if len(self.started_turns) == 64:
+                            self.all_turns_started.set()
+                    return {"turn": {"id": turn_id}}
+                finally:
+                    with self.control_lock:
+                        self.active_control_requests -= 1
+
+            def complete_all(self):
+                with self.control_lock:
+                    started_turns = list(self.started_turns)
+                for thread_id, turn_id in started_turns:
+                    self._handle_turn_notification(
+                        {
+                            "method": "item/completed",
+                            "params": {
+                                "threadId": thread_id,
+                                "turnId": turn_id,
+                                "item": {
+                                    "id": f"answer-{turn_id}",
+                                    "type": "agentMessage",
+                                    "phase": "final_answer",
+                                    "text": '{"status":"ok"}',
+                                },
+                            },
+                        }
+                    )
+                    self._handle_turn_notification(
+                        {
+                            "method": "turn/completed",
+                            "params": {
+                                "threadId": thread_id,
+                                "turn": {
+                                    "id": turn_id,
+                                    "status": "completed",
+                                    "error": None,
+                                    "items": [],
+                                },
+                            },
+                        }
+                    )
+
+        client = BoundedControlPlaneClient()
+        with ThreadPoolExecutor(max_workers=64) as executor:
+            futures = [
+                executor.submit(
+                    client.run_turn,
+                    f"question-{index}",
+                    work_type="maintenance_law_context_candidate",
+                    sandbox="read-only",
+                    emit=lambda _line: None,
+                    turn_group="gas-shunin-otsu",
+                )
+                for index in range(64)
+            ]
+            self.assertTrue(client.all_turns_started.wait(10))
+            turn_budget = client.turn_budget.snapshot()
+            control_budget = client.control_plane_budget.snapshot()
+            model_turns = client._model_turn_snapshot()
+            public_status = client.public_status(refresh=False)
+            self.assertEqual(turn_budget["inFlight"], 64)
+            self.assertEqual(turn_budget["peakInFlight"], 64)
+            self.assertEqual(model_turns["inFlight"], 64)
+            self.assertEqual(model_turns["peakInFlight"], 64)
+            self.assertEqual(
+                control_budget["capacity"],
+                APP_SERVER_CONTROL_PLANE_CAPACITY,
+            )
+            self.assertEqual(
+                control_budget["peakInFlight"],
+                APP_SERVER_CONTROL_PLANE_CAPACITY,
+            )
+            self.assertLessEqual(
+                client.peak_control_requests,
+                APP_SERVER_CONTROL_PLANE_CAPACITY,
+            )
+            self.assertEqual(public_status["turnBudget"], turn_budget)
+            self.assertEqual(public_status["controlPlaneBudget"], control_budget)
+            self.assertEqual(public_status["modelTurns"], model_turns)
+            client.complete_all()
+            results = [future.result(timeout=5) for future in futures]
+
+        self.assertEqual(len({result.thread_id for result in results}), 64)
+        self.assertEqual(client._model_turn_snapshot()["inFlight"], 0)
+        self.assertEqual(client._model_turn_snapshot()["peakInFlight"], 64)
+        self.assertTrue(
+            all(result.final_message == '{"status":"ok"}' for result in results)
+        )
+        methods = [method for method, _params in client.calls]
+        for method in BoundedControlPlaneClient.CONTROL_METHODS:
+            self.assertEqual(methods.count(method), 64)
+
     def test_turn_item_logs_include_safe_failure_evidence_and_relative_paths(self):
         class StructuredEmitter:
             def __init__(self):

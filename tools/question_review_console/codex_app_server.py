@@ -99,6 +99,7 @@ SPEED_MODES = frozenset({STANDARD_SPEED_MODE})
 MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
+APP_SERVER_CONTROL_PLANE_CAPACITY = 8
 MIN_APP_SERVER_FILE_DESCRIPTORS = 65_536
 TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
 # 公式一次資料の確認を含む工程03は、1問でも high reasoning の turn が
@@ -362,6 +363,7 @@ class CodexAppServerClient:
         turn_timeout: int = DEFAULT_TURN_TIMEOUT_SECONDS,
         status_cache_seconds: float = SUBSCRIPTION_STATUS_CACHE_SECONDS,
         turn_budget: GlobalTurnBudget | None = None,
+        control_plane_budget: GlobalTurnBudget | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.binary_path = self._resolve_binary(binary_path)
@@ -371,6 +373,9 @@ class CodexAppServerClient:
         self.provider = APP_SERVER_PROVIDER
         self.provider_retry_attempts = PROVIDER_RECOVERY_ATTEMPTS
         self.turn_budget = turn_budget or GlobalTurnBudget(GLOBAL_TURN_CAPACITY)
+        self.control_plane_budget = control_plane_budget or GlobalTurnBudget(
+            APP_SERVER_CONTROL_PLANE_CAPACITY
+        )
 
         self._process: subprocess.Popen[str] | None = None
         self._stdin: TextIO | None = None
@@ -383,6 +388,7 @@ class CodexAppServerClient:
         self._next_id = 1
         self._pending: dict[int | str, _PendingResponse] = {}
         self._turns: dict[tuple[str, str], _TurnState] = {}
+        self._peak_active_turns = 0
         self._early_notifications: dict[tuple[str, str], list[dict[str, Any]]] = {}
         self._stderr_lines: deque[str] = deque(maxlen=80)
         self._closed = False
@@ -410,6 +416,8 @@ class CodexAppServerClient:
     ) -> dict[str, Any]:
         speed_mode = normalize_speed_mode(speed_mode)
         turn_budget = self.turn_budget.snapshot()
+        control_plane_budget = self.control_plane_budget.snapshot()
+        model_turns = self._model_turn_snapshot()
         if not self.configured:
             return {
                 "available": False,
@@ -417,6 +425,8 @@ class CodexAppServerClient:
                 "provider": self.provider,
                 "reason": "Codex App Server binaryが見つかりません。",
                 "turnBudget": turn_budget,
+                "controlPlaneBudget": control_plane_budget,
+                "modelTurns": model_turns,
             }
         if not refresh and self._last_status is None:
             return {
@@ -425,6 +435,8 @@ class CodexAppServerClient:
                 "provider": self.provider,
                 "reason": "実行開始時にChatGPT認証と利用上限を確認します。",
                 "turnBudget": turn_budget,
+                "controlPlaneBudget": control_plane_budget,
+                "modelTurns": model_turns,
             }
         try:
             return {
@@ -435,6 +447,8 @@ class CodexAppServerClient:
                     speed_mode=speed_mode,
                 ),
                 "turnBudget": self.turn_budget.snapshot(),
+                "controlPlaneBudget": self.control_plane_budget.snapshot(),
+                "modelTurns": self._model_turn_snapshot(),
             }
         except CodexAppServerError as exc:
             return {
@@ -443,6 +457,16 @@ class CodexAppServerClient:
                 "provider": self.provider,
                 "reason": str(exc),
                 "turnBudget": self.turn_budget.snapshot(),
+                "controlPlaneBudget": self.control_plane_budget.snapshot(),
+                "modelTurns": self._model_turn_snapshot(),
+            }
+
+    def _model_turn_snapshot(self) -> dict[str, int]:
+        with self._state_lock:
+            return {
+                "capacity": self.turn_budget.capacity,
+                "inFlight": len(self._turns),
+                "peakInFlight": self._peak_active_turns,
             }
 
     def assert_subscription_access(
@@ -553,6 +577,7 @@ class CodexAppServerClient:
                 model=model,
                 reasoning_effort=reasoning_effort,
                 speed_mode=speed_mode,
+                turn_group=turn_group,
             )
 
     def turn_group(self, qualification: str):
@@ -575,6 +600,7 @@ class CodexAppServerClient:
         model: str = QUESTION_MAINTENANCE_MODEL,
         reasoning_effort: str = TURN_REASONING_EFFORT,
         speed_mode: str = STANDARD_SPEED_MODE,
+        turn_group: str | None = None,
     ) -> AppServerTurnResult:
         speed_mode = normalize_speed_mode(speed_mode)
         requested_service_tier = None
@@ -644,10 +670,15 @@ class CodexAppServerClient:
                 "merge、convert、upload-ready生成は別工程に残す。git add、commit、pushは行わず、"
                 "Firestore、Storage、GitHub等の外部状態は変更しない。"
             )
-        self._assert_no_active_hooks(turn_cwd)
+        control_heartbeat = heartbeat or getattr(emit, "heartbeat", None)
+        self._assert_no_active_hooks(
+            turn_cwd,
+            turn_group=turn_group,
+            heartbeat=control_heartbeat,
+        )
         if research_work:
             self._assert_no_custom_agents(turn_cwd)
-        thread_response = self._request(
+        thread_response = self._control_request(
             "thread/start",
             {
                 "cwd": str(turn_cwd),
@@ -662,6 +693,8 @@ class CodexAppServerClient:
                 "ephemeral": read_only_work,
                 "threadSource": f"exam_scraper_{work_type}",
             },
+            turn_group=turn_group,
+            heartbeat=control_heartbeat,
         )
         thread_response = _as_mapping(thread_response, "thread/start response")
         thread = _as_mapping(thread_response.get("thread"), "thread")
@@ -688,7 +721,11 @@ class CodexAppServerClient:
             raise CodexAppServerError("要求したsandboxが適用されませんでした。")
         if sandbox_response.get("networkAccess") is not False:
             raise CodexAppServerError("commandのnetwork無効化を確認できません。")
-        self._assert_no_external_mcp(thread_id)
+        self._assert_no_external_mcp(
+            thread_id,
+            turn_group=turn_group,
+            heartbeat=control_heartbeat,
+        )
 
         sandbox_policy: dict[str, Any]
         if sandbox == "read-only":
@@ -714,7 +751,12 @@ class CodexAppServerClient:
         if output_schema is not None:
             params["outputSchema"] = adapt_output_schema_for_app_server(output_schema)
         try:
-            turn_response = self._request("turn/start", params)
+            turn_response = self._control_request(
+                "turn/start",
+                params,
+                turn_group=turn_group,
+                heartbeat=control_heartbeat,
+            )
             turn_response = _as_mapping(turn_response, "turn/start response")
             turn = _as_mapping(turn_response.get("turn"), "turn")
             turn_id = str(turn.get("id") or "")
@@ -729,6 +771,10 @@ class CodexAppServerClient:
         key = (thread_id, turn_id)
         with self._state_lock:
             self._turns[key] = state
+            self._peak_active_turns = max(
+                self._peak_active_turns,
+                len(self._turns),
+            )
             early = self._early_notifications.pop(key, [])
         try:
             for notification in early:
@@ -1275,9 +1321,20 @@ class CodexAppServerClient:
             config.get("model_reasoning_effort") or ""
         )
 
-    def _assert_no_active_hooks(self, cwd: Path) -> None:
+    def _assert_no_active_hooks(
+        self,
+        cwd: Path,
+        *,
+        turn_group: str | None = None,
+        heartbeat: Callable[[], None] | None = None,
+    ) -> None:
         response = _as_mapping(
-            self._request("hooks/list", {"cwds": [str(cwd)]}),
+            self._control_request(
+                "hooks/list",
+                {"cwds": [str(cwd)]},
+                turn_group=turn_group,
+                heartbeat=heartbeat,
+            ),
             "Codex hooks",
         )
         entries = response.get("data")
@@ -1346,6 +1403,23 @@ class CodexAppServerClient:
             with self._state_lock:
                 self._pending.pop(request_id, None)
 
+    def _control_request(
+        self,
+        method: str,
+        params: Any,
+        *,
+        timeout: int | None = None,
+        turn_group: str | None = None,
+        heartbeat: Callable[[], None] | None = None,
+    ) -> Any:
+        """Bound short App Server control RPCs without limiting active turns."""
+
+        with self.control_plane_budget.slot(
+            turn_group,
+            heartbeat=heartbeat,
+        ):
+            return self._request(method, params, timeout=timeout)
+
     def _send(self, message: Mapping[str, Any]) -> None:
         line = json.dumps(message, ensure_ascii=False, separators=(",", ":")) + "\n"
         with self._write_lock:
@@ -1361,7 +1435,13 @@ class CodexAppServerClient:
             except OSError as exc:
                 raise CodexAppServerError("Codex App Serverへの送信に失敗しました。") from exc
 
-    def _assert_no_external_mcp(self, thread_id: str) -> None:
+    def _assert_no_external_mcp(
+        self,
+        thread_id: str,
+        *,
+        turn_group: str | None = None,
+        heartbeat: Callable[[], None] | None = None,
+    ) -> None:
         cursor: str | None = None
         configured_disabled = set(self._configured_mcp_names())
         for _page in range(20):
@@ -1373,7 +1453,12 @@ class CodexAppServerClient:
             if cursor is not None:
                 params["cursor"] = cursor
             response = _as_mapping(
-                self._request("mcpServerStatus/list", params),
+                self._control_request(
+                    "mcpServerStatus/list",
+                    params,
+                    turn_group=turn_group,
+                    heartbeat=heartbeat,
+                ),
                 "MCP server status",
             )
             servers = response.get("data")
