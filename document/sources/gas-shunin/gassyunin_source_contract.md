@@ -29,6 +29,8 @@
 
 `正解: (n)`から`answer_result_text`と`answer_result_inferred_correct_choice_numbers`を作り、番号を独自にリマップしません。
 
+組合せ問題の`正解: (n)`は、取得元に表示された元の組合せ肢番号を指します。`choiceMarkerSource=judge`、`markerAlignmentMode=judge_only`、`markerMismatchDetected=false`で、`judgeChoiceMarkers`、`choiceTextList`、`correctChoiceText`、`sourceStatementCount`の件数が一致する場合は、`各選択肢の判定`の`correctChoiceText`を各記述のsource truthとします。この場合、元の組合せ肢番号を各記述のindexと比較しません。これらの監査field又は件数が一致しない場合は、推測で補正せずmapping未確認として停止します。
+
 ### 数値選択肢
 
 計算問題などで`各選択肢の判定`がなく、問題直下に`.num-choice-box`又は`ol.choice-list`がある場合は、`strong`の連番と表示テキストを直接読みます。`正解: (n)`が単一かつ選択肢範囲内であることを必須とし、次のように保存します。

@@ -907,10 +907,14 @@ def _structured_candidate_prompt(
     originalization_source_by_question: Mapping[
         str, Mapping[str, Any]
     ] | None = None,
+    question_issue_evidence_by_question: Mapping[
+        str, tuple[Mapping[str, Any], ...]
+    ] | None = None,
 ) -> str:
     questions: list[dict[str, Any]] = []
     evidence_by_question = original_aggregate_evidence_by_question or {}
     originalization_sources = originalization_source_by_question or {}
+    issue_evidence_by_question = question_issue_evidence_by_question or {}
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
@@ -972,6 +976,11 @@ def _structured_candidate_prompt(
                 )
                 if field in originalization_source
             }
+        question_issue_evidence = issue_evidence_by_question.get(question_id)
+        if question_issue_evidence:
+            question["questionIssueCorrectionEvidence"] = copy.deepcopy(
+                list(question_issue_evidence)
+            )
         questions.append(question)
     context_lines = (
         [
@@ -1013,6 +1022,9 @@ def _structured_candidate_prompt(
             "正答理由と各誤答の理由を変えず、文面をsetFieldsへ転載しない。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
+            "questionIssueCorrectionEvidenceがある場合、currentRecordと00_sourceの差は、専用のblind reviewと公式・一次資料で承認された問題訂正である。"
+            "差があることだけを理由にblocked又は00_sourceへ差し戻さず、currentRecordの訂正文を設問として正答を独立判定する。"
+            "この証拠はprompt内だけで参照し、setFieldsへ転載しない。",
             "別問題の内容や判断を流用しない。思考過程は返さない。",
             "出力は指定されたJSON Schemaに一致するobjectだけとする。",
             "",
@@ -7053,6 +7065,9 @@ class QualificationRunCoordinator:
             **identity.as_mapping(),
             "question_bodies": [copy.deepcopy(dict(record))],
             "appliedPatchFiles": list(getattr(result, "applied_files", ())),
+            "questionIssueCorrectionEvidence": copy.deepcopy(
+                list(getattr(result, "question_issue_evidence", ()))
+            ),
         }
         self.store._write_json(path, payload)
         source_record = None
@@ -7076,6 +7091,11 @@ class QualificationRunCoordinator:
             "hash": hashlib.sha256(path.read_bytes()).hexdigest(),
             "record": copy.deepcopy(dict(record)),
             "sourceRecord": source_record,
+            "questionIssueCorrectionEvidence": tuple(
+                copy.deepcopy(
+                    list(getattr(result, "question_issue_evidence", ()))
+                )
+            ),
         }
 
     def _project_question_now(
@@ -7947,6 +7967,9 @@ class QualificationRunCoordinator:
                 "scopedPlan": scoped_plan,
                 "candidateRecord": projection["record"],
                 "sourceRecord": projection.get("sourceRecord"),
+                "questionIssueCorrectionEvidence": projection.get(
+                    "questionIssueCorrectionEvidence"
+                ),
                 "candidateTargets": prepared_targets,
                 "projectionUpdate": {
                     "questionId": question_id,
@@ -8071,6 +8094,16 @@ class QualificationRunCoordinator:
                 tuple(spec["candidateTargets"])
                 for spec in specs
             }
+            question_issue_evidence_by_question = {
+                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+                tuple(
+                    copy.deepcopy(
+                        list(spec.get("questionIssueCorrectionEvidence") or ())
+                    )
+                )
+                for spec in specs
+                if spec.get("questionIssueCorrectionEvidence")
+            }
             original_aggregate_evidence = (
                 _aggregate_downstream_source_evidence(
                     self.repo_root,
@@ -8098,6 +8131,9 @@ class QualificationRunCoordinator:
                 ),
                 originalization_source_by_question=(
                     originalization_source_by_question
+                ),
+                question_issue_evidence_by_question=(
+                    question_issue_evidence_by_question
                 ),
             )
             child = self.store.create(
@@ -12871,6 +12907,8 @@ class QualificationRunCoordinator:
                     else None
                 )
                 projected_fields: dict[str, Any] = {}
+                projected_source_aliases: set[str] = set()
+                projected_workflow_aliases: set[str] = set()
                 if matched_binding is not None and isinstance(
                     projected_records, Mapping
                 ):
@@ -12883,6 +12921,12 @@ class QualificationRunCoordinator:
                             for field in CODEX_PROTECTED_CONTENT_FIELDS
                             if field in projected_record
                         }
+                        projected_source_aliases = source_identity_aliases(
+                            projected_record
+                        )
+                        projected_workflow_aliases = workflow_identity_aliases(
+                            projected_record
+                        )
                 matched_source_binding = (
                     SourceIdentityBinding.from_mapping(matched_binding)
                     if matched_binding is not None
@@ -13204,9 +13248,13 @@ class QualificationRunCoordinator:
                                     source_aliases(after_entry)
                                     - derived_aliases
                                     - exact_scoped_source_unique_key_aliases
-                                ).issubset(source_bound_aliases)
+                                ).issubset(
+                                    source_bound_aliases
+                                    | projected_source_aliases
+                                )
                                 or not workflow_aliases(after_entry).issubset(
                                     source_bound_aliases
+                                    | projected_workflow_aliases
                                 )
                             )
                         )

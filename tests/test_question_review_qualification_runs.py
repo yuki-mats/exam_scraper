@@ -2207,6 +2207,58 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertIn("prompt内だけの参照資料", prompt)
 
+    def test_structured_candidate_prompt_exposes_approved_question_correction(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:correct-choice",
+            role="correct_choice",
+            path="output/sample/23_correctChoiceText_fixed/question.json",
+            allowed_fields=("correctChoiceText",),
+        )
+        evidence = {
+            "sourceQuestionKey": "sample:group:q1",
+            "reviewQuestionId": "review-1",
+            "sourceRecordRef": "source.json#0",
+            "changedFields": ["choiceTextList"],
+            "rationale": "blind review approved",
+            "evidence": [
+                {
+                    "sourceClass": "official",
+                    "locator": "official.pdf#page=1",
+                }
+            ],
+        }
+        prompt = _structured_candidate_prompt(
+            "正答を判定する。",
+            [target],
+            records_by_question={
+                "question-1": {
+                    "questionBodyText": "訂正後の問題文",
+                    "choiceTextList": ["訂正後A", "訂正後B"],
+                }
+            },
+            candidate_targets_by_question={"question-1": (candidate_target,)},
+            feedback_by_question={},
+            question_issue_evidence_by_question={
+                "question-1": (evidence,)
+            },
+        )
+
+        question_payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question_payload["questionIssueCorrectionEvidence"],
+            [evidence],
+        )
+        self.assertIn("専用のblind reviewと公式・一次資料", prompt)
+        self.assertIn("差があることだけを理由にblocked", prompt)
+        self.assertIn("currentRecordの訂正文を設問として正答を独立判定", prompt)
+
     def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"
         with tempfile.TemporaryDirectory() as directory:

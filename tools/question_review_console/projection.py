@@ -108,6 +108,7 @@ class ProjectionResult:
     record: dict[str, Any]
     applied_files: tuple[str, ...]
     errors: tuple[str, ...]
+    question_issue_evidence: tuple[dict[str, Any], ...] = ()
 
 
 class IdentityResolutionError(ValueError):
@@ -433,6 +434,30 @@ def project_record(
         record=record,
         applied_files=tuple(dict.fromkeys(applied)),
         errors=tuple(errors),
+        question_issue_evidence=tuple(
+            {
+                "sourceQuestionKey": str(
+                    candidate.entry.get("sourceQuestionKey") or ""
+                ),
+                "reviewQuestionId": str(
+                    candidate.entry.get("reviewQuestionId") or ""
+                ),
+                "sourceRecordRef": str(
+                    candidate.entry.get("sourceRecordRef") or ""
+                ),
+                "changedFields": sorted(
+                    str(field)
+                    for field in (
+                        candidate.entry.get("changes") or {}
+                    )
+                ),
+                "rationale": str(candidate.entry.get("rationale") or ""),
+                "evidence": copy.deepcopy(
+                    candidate.entry.get("evidence") or []
+                ),
+            }
+            for candidate in issue_candidates
+        ),
     )
 
 

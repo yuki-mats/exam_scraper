@@ -196,6 +196,94 @@ class QuestionAnswerContractTests(unittest.TestCase):
             )
         )
 
+    def test_combination_answer_accepts_trusted_gassyunin_judge_answers(self) -> None:
+        self.assertIsNone(
+            official_answer_alignment_issue(
+                {
+                    "questionBodyText": (
+                        "次の記述のうち、誤っているものの組合せはどれか。"
+                    ),
+                    "questionIntent": "select_incorrect",
+                    "choiceTextList": ["記述イ", "記述ロ", "記述ハ", "記述ニ"],
+                    "correctChoiceText": [
+                        "正しい",
+                        "正しい",
+                        "間違い",
+                        "間違い",
+                    ],
+                    "answer_result_text": "正解は 5 です。",
+                    "sourceProvider": "gassyunin.com",
+                    "sourceOrigin": "gassyunin_site",
+                    "choiceMarkerSource": "judge",
+                    "markerAlignmentMode": "judge_only",
+                    "markerMismatchDetected": False,
+                    "answerResultNumbersRemapped": False,
+                    "judgeChoiceMarkers": ["イ", "ロ", "ハ", "ニ"],
+                    "sourceStatementCount": 4,
+                }
+            )
+        )
+
+    def test_gassyunin_marker_mismatch_still_requires_mapping(self) -> None:
+        issue = official_answer_alignment_issue(
+            {
+                "questionBodyText": (
+                    "次の記述のうち、誤っているものの組合せはどれか。"
+                ),
+                "questionIntent": "select_incorrect",
+                "choiceTextList": ["記述イ", "記述ロ", "記述ハ", "記述ニ"],
+                "correctChoiceText": [
+                    "正しい",
+                    "正しい",
+                    "間違い",
+                    "間違い",
+                ],
+                "answer_result_text": "正解は 5 です。",
+                "sourceProvider": "gassyunin.com",
+                "sourceOrigin": "gassyunin_site",
+                "choiceMarkerSource": "judge",
+                "markerAlignmentMode": "judge_only",
+                "markerMismatchDetected": True,
+                "answerResultNumbersRemapped": False,
+                "judgeChoiceMarkers": ["イ", "ロ", "ハ", "ニ"],
+                "sourceStatementCount": 4,
+            }
+        )
+
+        self.assertIsNotNone(issue)
+        assert issue is not None
+        self.assertIn("検証済みmappingがありません", issue)
+
+    def test_gassyunin_cardinality_mismatch_still_requires_mapping(self) -> None:
+        issue = official_answer_alignment_issue(
+            {
+                "questionBodyText": (
+                    "次の記述のうち、誤っているものの組合せはどれか。"
+                ),
+                "questionIntent": "select_incorrect",
+                "choiceTextList": ["記述イ", "記述ロ", "記述ハ", "記述ニ"],
+                "correctChoiceText": [
+                    "正しい",
+                    "正しい",
+                    "間違い",
+                    "間違い",
+                ],
+                "answer_result_text": "正解は 5 です。",
+                "sourceProvider": "gassyunin.com",
+                "sourceOrigin": "gassyunin_site",
+                "choiceMarkerSource": "judge",
+                "markerAlignmentMode": "judge_only",
+                "markerMismatchDetected": False,
+                "answerResultNumbersRemapped": False,
+                "judgeChoiceMarkers": ["イ", "ロ", "ハ"],
+                "sourceStatementCount": 4,
+            }
+        )
+
+        self.assertIsNotNone(issue)
+        assert issue is not None
+        self.assertIn("検証済みmappingがありません", issue)
+
 
 if __name__ == "__main__":
     unittest.main()

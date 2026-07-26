@@ -130,6 +130,40 @@ def asks_for_combination_choice(value: Any) -> bool:
     ) is not None
 
 
+def _uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
+    """Return whether per-statement answers come from the trusted judge section."""
+
+    if (
+        record.get("sourceProvider") != "gassyunin.com"
+        or record.get("sourceOrigin") != "gassyunin_site"
+        or record.get("choiceMarkerSource") != "judge"
+        or record.get("markerAlignmentMode") != "judge_only"
+        or record.get("markerMismatchDetected") is not False
+        or record.get("answerResultNumbersRemapped") is not False
+    ):
+        return False
+    judge_markers = record.get("judgeChoiceMarkers")
+    choices = record.get("choiceTextList")
+    correct_choices = record.get("correctChoiceText")
+    if not all(
+        isinstance(values, list) and bool(values)
+        for values in (judge_markers, choices, correct_choices)
+    ):
+        return False
+    statement_count = record.get("sourceStatementCount")
+    if not isinstance(statement_count, int) or statement_count <= 0:
+        return False
+    return (
+        len(judge_markers)
+        == len(choices)
+        == len(correct_choices)
+        == statement_count
+        and len({str(value).strip() for value in judge_markers})
+        == statement_count
+        and all(str(value).strip() for value in judge_markers)
+    )
+
+
 def official_answer_alignment_issue(record: Any) -> str | None:
     """Detect a final cross-field mismatch without choosing which field to change."""
 
@@ -187,6 +221,10 @@ def official_answer_alignment_issue(record: Any) -> str | None:
     if set(official_numbers) == set(independently_selected):
         return None
     if asks_for_combination_choice(source_text):
+        if _uses_trusted_gassyunin_judge_answers(record):
+            # gassyuninの正解番号は元の組合せ肢を指す。judge sectionが各記述の
+            # source truthなので、組合せmappingなしで記述indexとは比較しない。
+            return None
         return (
             "組合せを選ぶ公式解答番号と、現在の選択肢別正誤を対応付ける"
             "検証済みmappingがありません。"

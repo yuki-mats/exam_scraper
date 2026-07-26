@@ -498,6 +498,13 @@ class QuestionReviewProjectionTests(unittest.TestCase):
                     "original_question_id": "shared",
                     "expectedBeforeHash": question_record_hash(base),
                     "changes": {"questionBodyText": "修正後"},
+                    "rationale": "blind review approved",
+                    "evidence": [
+                        {
+                            "sourceClass": "official",
+                            "locator": "official.pdf#page=1",
+                        }
+                    ],
                 }
             ],
         }
@@ -524,6 +531,25 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         self.assertEqual(second_result.record["questionBodyText"], "修正後")
         self.assertEqual(first_result.errors, ())
         self.assertEqual(second_result.errors, ())
+        self.assertEqual(first_result.question_issue_evidence, ())
+        self.assertEqual(
+            second_result.question_issue_evidence,
+            (
+                {
+                    "sourceQuestionKey": second.binding.source_question_key,
+                    "reviewQuestionId": second.binding.review_question_id,
+                    "sourceRecordRef": second.binding.source_record_ref,
+                    "changedFields": ["questionBodyText"],
+                    "rationale": "blind review approved",
+                    "evidence": [
+                        {
+                            "sourceClass": "official",
+                            "locator": "official.pdf#page=1",
+                        }
+                    ],
+                },
+            ),
+        )
 
     def test_strict_correct_choice_patch_overrides_intent_before_explanation(self):
         with tempfile.TemporaryDirectory() as directory:
