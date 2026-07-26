@@ -2731,7 +2731,7 @@ function openQualificationRunDialog(stage, options = {}) {
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.checked = node.value === defaultMode;
   }
-  const supportsConcurrency = !fieldFirst && selectedStageIds.some((selectedStageId) => (
+  const supportsConcurrency = selectedStageIds.some((selectedStageId) => (
     state.qualificationWorkflow?.stages?.find((item) => item.id === selectedStageId)
       ?.kind === "human"
   ));
@@ -2931,7 +2931,7 @@ function renderQualificationRunPreview(preview) {
         );
       }
     }
-    if (preview.kind === "human" && !fieldFirst) {
+    if (preview.kind === "human") {
       container.append(
         element(
           "span",

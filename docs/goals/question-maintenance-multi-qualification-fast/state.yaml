@@ -300,6 +300,43 @@ tasks:
       - "global inFlightが32を超える。"
       - "資格間changed-file scopeが重なる。"
     receipt: null
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "主要な年度・フォルダ導線でも32turnとStandard/Fast設定を表示し、実ブラウザで初期値とFast切替previewを確認する。"
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_workflow.py"
+      - "docs/goals/question-maintenance-multi-qualification-fast/**"
+    verify:
+      - "node --check tools/question_review_console/static/app.js"
+      - ".venv/bin/python -m unittest tests.test_question_review_workflow"
+      - "実ブラウザで32/Standard初期値、Fast切替、Fast preview表示を確認する。"
+      - "git diff --check"
+    stop_if:
+      - "主要導線で設定欄を表示できない。"
+      - "Fast切替後のpreviewがFastを保持しない。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/static/app.js
+        - tests/test_question_review_workflow.py
+      commands:
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_workflow"
+          status: pass
+        - cmd: "full targeted suite: 234 tests"
+          status: pass
+        - cmd: "実ブラウザで32/Standard初期値、Fast切替、Fast preview表示を確認"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+      summary: "年度・フォルダから整備する主要導線でも同時turn上限と応答modeを表示した。実ブラウザで32とStandardが初期選択され、Fastへ切替後のpreviewに最大32turn・Fast・品質検査維持が表示されることを確認した。長い資格preview用の300秒timeoutもtestとともに維持した。"
   - id: T999
     type: judge
     assignee: Judge

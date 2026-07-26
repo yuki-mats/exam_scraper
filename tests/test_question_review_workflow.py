@@ -1682,6 +1682,14 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("selectedQualificationRunSpeedMode", javascript)
         self.assertIn("speedMode: selectedQualificationRunSpeedMode()", javascript)
         self.assertIn(
+            "const supportsConcurrency = selectedStageIds.some",
+            javascript,
+        )
+        self.assertNotIn(
+            "const supportsConcurrency = !fieldFirst",
+            javascript,
+        )
+        self.assertIn(
             'name="qualification-run-concurrency" value="32" checked',
             html,
         )
