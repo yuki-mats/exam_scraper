@@ -237,6 +237,7 @@ PREPARATION_CHUNK_SIZE = 64
 PREPARATION_MAX_PARALLEL_QUESTIONS = 64
 PREPARATION_HEARTBEAT_SECONDS = 15.0
 QUESTION_PIPELINE_BACKLOG_WAVES = 1
+OUTCOME_COALESCE_SECONDS = 0.25
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -11522,24 +11523,34 @@ class QualificationRunCoordinator:
                     def consume_completed_outcomes(
                         *,
                         block: bool,
-                        drain_all: bool = False,
                     ) -> None:
                         nonlocal round_had_provider_failure
                         if not pending_outcomes:
                             return
-                        if drain_all:
-                            completed, _pending = wait(pending_outcomes)
-                        elif block:
-                            target_count = min(
-                                worker_limit,
-                                len(pending_outcomes),
+                        if block:
+                            completed, remaining = wait(
+                                pending_outcomes,
+                                return_when=FIRST_COMPLETED,
                             )
-                            completed = set()
-                            while len(completed) < target_count:
-                                newly_completed, _pending = wait(
-                                    pending_outcomes - completed,
+                            coalesce_deadline = (
+                                time.monotonic() + OUTCOME_COALESCE_SECONDS
+                            )
+                            while (
+                                remaining
+                                and len(completed) < worker_limit
+                            ):
+                                timeout = (
+                                    coalesce_deadline - time.monotonic()
+                                )
+                                if timeout <= 0:
+                                    break
+                                newly_completed, remaining = wait(
+                                    remaining,
+                                    timeout=timeout,
                                     return_when=FIRST_COMPLETED,
                                 )
+                                if not newly_completed:
+                                    break
                                 completed.update(newly_completed)
                         else:
                             completed = {
@@ -11752,10 +11763,8 @@ class QualificationRunCoordinator:
                             ),
                             force=True,
                         )
-                    consume_completed_outcomes(
-                        block=True,
-                        drain_all=True,
-                    )
+                    while pending_outcomes:
+                        consume_completed_outcomes(block=True)
                 preparation_heartbeat(
                     stage_id,
                     round_number=_round_number,

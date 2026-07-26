@@ -3681,6 +3681,80 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["preparationProgress"]["status"], "prepared")
         self.assertEqual(completed["preparationProgress"]["preparedCount"], 3)
 
+    def test_final_chunk_applies_fast_outcome_before_slowest_turn_finishes(self):
+        class UnevenTurnAppServer(PerQuestionQueueAppServer):
+            def __init__(self):
+                super().__init__()
+                self.slow_question_id = "new-exam-2026-q1"
+                self.slow_release = threading.Event()
+                self.fast_returned = threading.Event()
+
+            def run_turn(self, prompt, **kwargs):
+                question_id = self._question_ids(prompt)[0]
+                candidate_work = kwargs["work_type"].endswith("_candidate")
+                if candidate_work and question_id == self.slow_question_id:
+                    if not self.slow_release.wait(5):
+                        raise AssertionError("slow turn was not released")
+                result = super().run_turn(prompt, **kwargs)
+                if candidate_work and question_id != self.slow_question_id:
+                    self.fast_returned.set()
+                return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = UnevenTurnAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(2),
+                ["question_type"],
+                app_server=app_server,
+                question_concurrency=5,
+            )
+            self._write_counted_sources(root, 2)
+            outcome: dict[str, object] = {}
+            failure: list[BaseException] = []
+
+            def run_flow():
+                try:
+                    outcome.update(
+                        coordinator._run_maintenance_flow(
+                            "new-exam",
+                            parent["runId"],
+                            lambda _message: None,
+                        )
+                    )
+                except BaseException as exc:
+                    failure.append(exc)
+
+            runner = threading.Thread(target=run_flow)
+            runner.start()
+            try:
+                self.assertTrue(app_server.fast_returned.wait(5))
+                deadline = time.monotonic() + 5
+                fast_status = None
+                while time.monotonic() < deadline:
+                    current = coordinator.store.get(
+                        "new-exam",
+                        parent["runId"],
+                    )
+                    fast_status = next(
+                        question["stages"][0]["status"]
+                        for question in current["questionExecutions"]
+                        if question["questionKey"] == "new-exam:2026:q2"
+                    )
+                    if fast_status == "validated":
+                        break
+                    time.sleep(0.01)
+                self.assertEqual(fast_status, "validated")
+                self.assertTrue(runner.is_alive())
+            finally:
+                app_server.slow_release.set()
+                runner.join(timeout=10)
+
+            self.assertFalse(runner.is_alive())
+            self.assertEqual(failure, [])
+            self.assertEqual(outcome["queueStatus"], "succeeded")
+
     def test_failed_question_retries_after_normal_queue_is_drained(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
