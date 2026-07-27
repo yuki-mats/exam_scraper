@@ -6,7 +6,7 @@ from dataclasses import dataclass
 # 一問を一つのtop-level model turnへ割り当てる。これにより
 # questionConcurrencyが「同時にmodelが整備している問題数」と一致する。
 DEFAULT_MAX_QUESTIONS_PER_TURN = 1
-DEFAULT_MAX_PARALLEL_TURNS = 64
+DEFAULT_MAX_PARALLEL_TURNS = 100
 
 
 @dataclass

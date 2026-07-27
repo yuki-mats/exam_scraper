@@ -237,9 +237,9 @@ class _ParentRunHeartbeatTicker:
                 pass
 
 
-QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 32, DEFAULT_MAX_PARALLEL_TURNS)
+QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 32, 64, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
-PREPARATION_MAX_PARALLEL_QUESTIONS = 64
+PREPARATION_MAX_PARALLEL_QUESTIONS = 100
 PREPARATION_HEARTBEAT_SECONDS = 15.0
 OUTCOME_COALESCE_SECONDS = 0.25
 PREPARED_CANDIDATE_SCHEMA_VERSION = "question-maintenance-prepared-candidate/v1"
@@ -8263,11 +8263,41 @@ class QualificationRunCoordinator:
             or getattr(workflow, "work_versions", None)
             or QuestionWorkVersionStore(self.repo_root)
         )
-        # Model turns run concurrently in private workspaces.  Only the short
-        # exact-record rebase into canonical patch files is serialized.
-        self._question_patch_commit_lock = threading.RLock()
+        # Model turns run concurrently in private workspaces. Canonical patch
+        # commits are serialized only inside the same qualification/group;
+        # different years never touch the same patch or work-version ledger.
+        self._question_patch_commit_locks_guard = threading.Lock()
+        self._question_patch_commit_locks: dict[
+            tuple[str, str],
+            threading.RLock,
+        ] = {}
         self._parent_heartbeat_lock = threading.Lock()
         self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
+
+    def _question_patch_commit_scope(
+        self,
+        qualification: str,
+        group_ids: Iterable[Any],
+    ) -> ExitStack:
+        keys = sorted(
+            {
+                (str(qualification), str(group_id))
+                for group_id in group_ids
+                if str(group_id)
+            }
+        ) or [(str(qualification), "__qualification__")]
+        with self._question_patch_commit_locks_guard:
+            locks = [
+                self._question_patch_commit_locks.setdefault(
+                    key,
+                    threading.RLock(),
+                )
+                for key in keys
+            ]
+        stack = ExitStack()
+        for lock in locks:
+            stack.enter_context(lock)
+        return stack
 
     @staticmethod
     def _monitor_context(
@@ -9874,7 +9904,7 @@ class QualificationRunCoordinator:
         phase_id: str,
         **changes: Any,
     ) -> dict[str, Any]:
-        parent = self.store.get(qualification, run_id)
+        parent = self.store.get_compact(qualification, run_id)
         executions = [
             dict(value)
             for value in parent.get("phaseExecutions") or []
@@ -10074,8 +10104,15 @@ class QualificationRunCoordinator:
         superseded_child_run_id: str | None = None,
         validation_attempts: list[dict[str, Any]] | None = None,
     ) -> bool:
+        detail = self.store.question_detail(
+            qualification,
+            run_id,
+            question_id,
+        )
         current = self._queue_stage(
-            self.store.get(qualification, run_id), question_id, stage_id
+            {"questionExecutions": [detail["execution"]]},
+            question_id,
+            stage_id,
         )
         if current is None:
             return False
@@ -11110,16 +11147,6 @@ class QualificationRunCoordinator:
             parent_question_index: Mapping[str, Mapping[str, Any]],
         ) -> dict[str, Any] | None:
             stage_id = str(phase["id"])
-            if not self._phase_plan_policy_is_current(
-                qualification,
-                phase_plan,
-                stage_id,
-            ):
-                phase_plan, phase_prompt = self._flow_phase_plan_prompt(
-                    self.store.get(qualification, run_id),
-                    phase,
-                )
-                phase_plan_index = build_question_plan_index(phase_plan)
             try:
                 spec = self._question_stage_spec(
                     qualification,
@@ -11492,6 +11519,7 @@ class QualificationRunCoordinator:
             return {
                 "childId": child_id,
                 "child": child,
+                "questionId": batch_question_ids[0],
                 "batchPlan": batch_plan,
                 "stageId": stage_id,
                 "targets": targets,
@@ -11530,6 +11558,7 @@ class QualificationRunCoordinator:
             return {
                 "childId": child_id,
                 "child": child,
+                "stageId": str(prepared.get("stageId") or child.get("stageId") or ""),
                 "questionResults": [
                     {
                         "questionId": str(
@@ -11578,12 +11607,20 @@ class QualificationRunCoordinator:
                     prepare_only=True,
                 )
                 return {
-                    "prepared": {"childId": str(prepared["childId"])},
+                    "prepared": {
+                        "childId": str(prepared["childId"]),
+                        "stageId": str(prepared["stageId"]),
+                        "questionId": str(prepared["questionId"]),
+                    },
                     "outcome": None,
                 }
             except Exception as exc:  # noqa: BLE001
                 return {
-                    "prepared": {"childId": str(prepared["childId"])},
+                    "prepared": {
+                        "childId": str(prepared["childId"]),
+                        "stageId": str(prepared["stageId"]),
+                        "questionId": str(prepared["questionId"]),
+                    },
                     "outcome": failed_batch_outcome(prepared, exc),
                 }
 
@@ -11623,6 +11660,7 @@ class QualificationRunCoordinator:
                 return {
                     "childId": child_id,
                     "child": outcome["child"],
+                    "stageId": str(child.get("stageId") or ""),
                     "questionResults": outcome["questionResults"],
                     "providerFailure": False,
                     "schemaFailure": False,
@@ -11633,27 +11671,31 @@ class QualificationRunCoordinator:
 
         def register_prepared_batches(
             prepared_batches: list[Mapping[str, Any]],
-            stage_id: str,
+            stage_id: str | None = None,
         ) -> None:
             if not prepared_batches:
                 return
-            committing_parent = self.store.get(qualification, run_id)
             committing_updates: list[dict[str, Any]] = []
             prepared_child_ids = [
                 str(prepared["childId"])
                 for prepared in prepared_batches
             ]
             with aggregation_lock:
-                if (
-                    committing_parent.get("schemaVersion")
-                    != QUESTION_RUN_SCHEMA_VERSION
-                ):
+                if parent.get("schemaVersion") != QUESTION_RUN_SCHEMA_VERSION:
                     child_run_ids.extend(prepared_child_ids)
-                    phase_child_ids.setdefault(stage_id, []).extend(
-                        prepared_child_ids
-                    )
+                    for prepared in prepared_batches:
+                        prepared_stage_id = str(
+                            prepared.get("stageId") or stage_id or ""
+                        )
+                        phase_child_ids.setdefault(
+                            prepared_stage_id,
+                            [],
+                        ).append(str(prepared["childId"]))
             for prepared in prepared_batches:
                 child_id = str(prepared["childId"])
+                prepared_stage_id = str(
+                    prepared.get("stageId") or stage_id or ""
+                )
                 requested_model = str(prepared["requestedModel"])
                 requested_effort = str(
                     prepared["requestedReasoningEffort"]
@@ -11664,10 +11706,15 @@ class QualificationRunCoordinator:
                         or target.get("uiQuestionId")
                         or ""
                     )
-                    current = self._queue_stage(
-                        committing_parent,
+                    detail = self.store.question_detail(
+                        qualification,
+                        run_id,
                         question_id,
-                        stage_id,
+                    )
+                    current = self._queue_stage(
+                        {"questionExecutions": [detail["execution"]]},
+                        question_id,
+                        prepared_stage_id,
                     ) or {}
                     attempts = [
                         dict(value)
@@ -11689,7 +11736,7 @@ class QualificationRunCoordinator:
                     committing_updates.append(
                         {
                             "questionId": question_id,
-                            "stageId": stage_id,
+                            "stageId": prepared_stage_id,
                             "changes": {
                                 "status": "preparing",
                                 "childRunIds": [
@@ -11920,692 +11967,794 @@ class QualificationRunCoordinator:
                 )
                 if not blocked:
                     next_ids.append(question_id)
-        for phase in phases:
-            stage_id = str(phase["id"])
-            if stage_id in {"setup", "category_setup"}:
-                self._run_shared_prerequisite(
-                    qualification,
-                    run_id,
-                    phase,
-                    emit,
-                    child_run_ids=child_run_ids,
-                    work_version_receipts=work_version_receipts,
-                    confirmed_group_ids=confirmed_group_ids,
-                )
-                continue
-            parent = self.store.get(qualification, run_id)
-            question_ids = [
-                str(value.get("questionId") or "")
-                for value in parent.get("questionExecutions") or []
-                if isinstance(value, Mapping)
-                and any(
-                    isinstance(stage, Mapping)
-                    and str(stage.get("stageId") or "") == stage_id
-                    and str(stage.get("status") or "queued")
-                    not in {"validated", "not_applicable", "blocked"}
-                    for stage in value.get("stages") or []
-                )
-            ]
-            if not question_ids:
-                continue
-            phase_child_ids.setdefault(stage_id, [])
-            self._update_flow_phase(
+        immutable_parent = {
+            key: copy.deepcopy(value)
+            for key, value in parent.items()
+            if key != "questionExecutions"
+        }
+        initial_question_ids = [
+            str(value.get("questionId") or "")
+            for value in parent.get("questionExecutions") or []
+            if isinstance(value, Mapping) and value.get("questionId")
+        ]
+        phase_contexts: dict[
+            str,
+            tuple[dict[str, Any], str, QuestionPlanIndex],
+        ] = {}
+        started_phase_ids: set[str] = set()
+
+        def compact_parent_snapshot() -> dict[str, Any]:
+            return {
+                **copy.deepcopy(immutable_parent),
+                **self.store.get_compact(qualification, run_id),
+            }
+
+        def question_parent_snapshot(
+            question_id: str,
+        ) -> tuple[dict[str, Any], dict[str, Mapping[str, Any]]]:
+            detail = self.store.question_detail(
                 qualification,
                 run_id,
+                question_id,
+            )
+            execution = copy.deepcopy(dict(detail["execution"]))
+            snapshot = compact_parent_snapshot()
+            snapshot["questionExecutions"] = [execution]
+            return snapshot, {question_id: execution}
+
+        def phase_context(
+            phase: Mapping[str, Any],
+        ) -> tuple[dict[str, Any], str, QuestionPlanIndex]:
+            stage_id = str(phase["id"])
+            current = phase_contexts.get(stage_id)
+            if current is not None and self._phase_plan_policy_is_current(
+                qualification,
+                current[0],
                 stage_id,
-                status="running",
-                targetCount=len(question_ids),
-                childRunIds=[],
-                startedAt=_now(),
-                error=None,
+            ):
+                return current
+            phase_parent = compact_parent_snapshot()
+            inventory = getattr(self.workflow, "inventory", None)
+            projection_snapshot = getattr(
+                inventory,
+                "projection_snapshot",
+                None,
             )
-            provider_waiting: set[str] = set()
-            pending_ids = question_ids
-            phase_plan: dict[str, Any] | None = None
-            phase_plan_index: QuestionPlanIndex | None = None
-            phase_prompt = ""
-            max_rounds = (
-                MAX_WRITER_VALIDATION_ATTEMPTS
-                + MAX_POLICY_REFRESH_ATTEMPTS
-                + provider_attempt_limit
-            )
-            for _round_number in range(1, max_rounds + 1):
-                if not pending_ids:
-                    break
-                inventory = getattr(self.workflow, "inventory", None)
-                projection_snapshot = getattr(
-                    inventory,
-                    "projection_snapshot",
-                    None,
-                )
-                if phase_plan is None or not self._phase_plan_policy_is_current(
-                    qualification,
-                    phase_plan,
-                    stage_id,
-                ):
-                    phase_parent = self.store.get(qualification, run_id)
-                    phase_snapshot_context = (
-                        projection_snapshot(
-                            qualification,
-                            phase_parent.get("targetGroupIds") or [],
-                        )
-                        if callable(projection_snapshot)
-                        else nullcontext()
-                    )
-                    with phase_snapshot_context:
-                        phase_plan, phase_prompt = self._flow_phase_plan_prompt(
-                            phase_parent,
-                            phase,
-                        )
-                    phase_plan_index = build_question_plan_index(phase_plan)
-                if phase_plan_index is None:
-                    phase_plan_index = build_question_plan_index(phase_plan)
-                round_parent = self.store.get(qualification, run_id)
-                round_question_index = self._question_execution_index(
-                    round_parent
-                )
-                batch_count = 0
-                pending_model_futures: set[Any] = set()
-                pending_commit_futures: set[Any] = set()
-                prepared_commit_backlog: deque[dict[str, str]] = deque()
-                pending_spec_futures: dict[Any, str] = {}
-                pending_batch_futures: set[Any] = set()
-                peak_model_futures = 0
-                peak_commit_futures = 0
-                peak_prepared_backlog = 0
-                peak_pipeline_futures = 0
-                peak_preparation_futures = 0
-                peak_question_window = 0
-                prepared_count = 0
-                prepared_spec_count = 0
-                maximum_batch_size = 0
-                model_started = False
-                next_ids: list[str] = []
-                round_had_provider_failure = False
-                worker_limit = min(
-                    scheduler_limits.parallel_turns,
-                    question_concurrency,
-                )
-                commit_worker_limit = worker_limit
-                pipeline_worker_limit = worker_limit + commit_worker_limit
-                preparation_worker_limit = min(
-                    question_concurrency,
-                    PREPARATION_MAX_PARALLEL_QUESTIONS,
-                    len(pending_ids),
-                )
-                self.store.update(
-                    qualification,
-                    run_id,
-                    hydrate_result=False,
-                    preparationWorkerLimit=preparation_worker_limit,
-                    pipelineWorkerLimit=max(1, pipeline_worker_limit),
-                    pipelineBacklogLimit=commit_worker_limit,
-                    questionWindowLimit=preparation_worker_limit,
-                    questionWindowPendingCount=0,
-                    preparationPendingFutureCount=0,
-                    modelPendingFutureCount=0,
-                    commitPendingFutureCount=0,
-                    preparedCommitBacklogCount=0,
-                )
-                preparation_heartbeat(
-                    stage_id,
-                    round_number=_round_number,
-                    prepared_count=0,
-                    target_count=len(pending_ids),
-                    prepared_spec_count=0,
-                    batch_count=0,
-                    model_started=False,
-                    status="preparing",
-                    force=True,
-                )
+            def build_context() -> tuple[
+                dict[str, Any],
+                str,
+                QuestionPlanIndex,
+            ]:
                 snapshot_context = (
                     projection_snapshot(
                         qualification,
-                        phase_plan.get("targetGroupIds") or [],
+                        phase_parent.get("targetGroupIds") or [],
                     )
                     if callable(projection_snapshot)
                     else nullcontext()
                 )
-                with (
-                    snapshot_context,
-                    ThreadPoolExecutor(
-                        max_workers=max(1, worker_limit),
-                        thread_name_prefix="question-model",
-                    ) as model_executor,
-                    ThreadPoolExecutor(
-                        max_workers=max(1, commit_worker_limit),
-                        thread_name_prefix="question-commit",
-                    ) as commit_executor,
-                    ThreadPoolExecutor(
-                        max_workers=max(1, preparation_worker_limit),
-                        thread_name_prefix="question-preparation",
-                    ) as preparation_executor,
-                ):
-                    def collect_completed(
-                        futures: set[Any],
-                        *,
-                        block: bool,
-                        coalesce_limit: int | None = None,
-                    ) -> set[Any]:
-                        if not futures:
-                            return set()
-                        if not block:
-                            return {
-                                future for future in futures if future.done()
-                            }
-                        completed, remaining = wait(
-                            futures,
-                            return_when=FIRST_COMPLETED,
-                        )
-                        coalesce_deadline = (
-                            time.monotonic() + OUTCOME_COALESCE_SECONDS
-                        )
-                        completion_limit = max(
-                            1,
-                            int(coalesce_limit or worker_limit),
-                        )
-                        while (
-                            remaining
-                            and len(completed) < completion_limit
-                        ):
-                            timeout = coalesce_deadline - time.monotonic()
-                            if timeout <= 0:
-                                break
-                            newly_completed, remaining = wait(
-                                remaining,
-                                timeout=timeout,
-                                return_when=FIRST_COMPLETED,
-                            )
-                            if not newly_completed:
-                                break
-                            completed.update(newly_completed)
-                        return completed
-
-                    def apply_completed_outcomes(
-                        outcomes: Iterable[Mapping[str, Any]],
-                    ) -> None:
-                        nonlocal round_had_provider_failure
-                        normalized_outcomes = list(outcomes)
-                        if not normalized_outcomes:
-                            return
-                        outcome_parent_snapshot = self.store.get(
-                            qualification,
-                            run_id,
-                        )
-                        round_stage_updates: list[dict[str, Any]] = []
-                        for outcome in normalized_outcomes:
-                            provider_failure = bool(
-                                outcome.get("providerFailure")
-                            )
-                            round_had_provider_failure = (
-                                round_had_provider_failure
-                                or provider_failure
-                            )
-                            scheduler_limits.observe(
-                                provider_failure=provider_failure,
-                                schema_failure=bool(
-                                    outcome.get("schemaFailure")
-                                ),
-                                isolated_failure=bool(
-                                    outcome.get("isolatedFailure")
-                                ),
-                                max_parallel_turns=question_concurrency,
-                            )
-                            apply_batch_outcome(
-                                outcome,
-                                stage_id,
-                                next_ids=next_ids,
-                                provider_waiting=provider_waiting,
-                                parent_snapshot=outcome_parent_snapshot,
-                                stage_updates=round_stage_updates,
-                            )
-                        if round_stage_updates:
-                            self.store.update_question_stages(
-                                qualification,
-                                run_id,
-                                round_stage_updates,
-                                hydrate_result=False,
-                            )
-
-                    def submit_commit(
-                        prepared: Mapping[str, Any],
-                    ) -> None:
-                        nonlocal peak_commit_futures, peak_pipeline_futures
-                        if len(pending_commit_futures) >= commit_worker_limit:
-                            raise QualificationRunError(
-                                "問題別writer queueが上限を超えました。"
-                            )
-                        pending_commit_futures.add(
-                            commit_executor.submit(run_commit, prepared)
-                        )
-                        peak_commit_futures = max(
-                            peak_commit_futures,
-                            len(pending_commit_futures),
-                        )
-                        peak_pipeline_futures = max(
-                            peak_pipeline_futures,
-                            len(pending_model_futures)
-                            + len(pending_commit_futures),
-                        )
-
-                    def drain_pipeline(*, block: bool) -> None:
-                        nonlocal peak_prepared_backlog, peak_pipeline_futures
-                        while True:
-                            progressed = False
-                            completed_commits = collect_completed(
-                                pending_commit_futures,
-                                block=False,
-                            )
-                            if completed_commits:
-                                pending_commit_futures.difference_update(
-                                    completed_commits
-                                )
-                                apply_completed_outcomes(
-                                    future.result()
-                                    for future in completed_commits
-                                )
-                                progressed = True
-
-                            completed_models = sorted(
-                                (
-                                    future
-                                    for future in pending_model_futures
-                                    if future.done()
-                                ),
-                                key=id,
-                            )
-                            if completed_models:
-                                immediate_outcomes: list[
-                                    Mapping[str, Any]
-                                ] = []
-                                for future in completed_models:
-                                    pending_model_futures.remove(future)
-                                    generated = future.result()
-                                    outcome = generated.get("outcome")
-                                    if isinstance(outcome, Mapping):
-                                        immediate_outcomes.append(outcome)
-                                    else:
-                                        prepared_commit_backlog.append(
-                                            dict(generated["prepared"])
-                                        )
-                                        peak_prepared_backlog = max(
-                                            peak_prepared_backlog,
-                                            len(prepared_commit_backlog),
-                                        )
-                                        peak_pipeline_futures = max(
-                                            peak_pipeline_futures,
-                                            len(pending_model_futures)
-                                            + len(pending_commit_futures)
-                                            + len(prepared_commit_backlog),
-                                        )
-                                apply_completed_outcomes(immediate_outcomes)
-                                progressed = True
-
-                            while (
-                                prepared_commit_backlog
-                                and len(pending_commit_futures)
-                                < commit_worker_limit
-                            ):
-                                submit_commit(
-                                    prepared_commit_backlog.popleft()
-                                )
-                                progressed = True
-
-                            if progressed or not block:
-                                return
-                            if not (
-                                pending_model_futures
-                                or pending_commit_futures
-                                or prepared_commit_backlog
-                            ):
-                                return
-                            # A full writer executor must never make the
-                            # coordinator wait only for writers. Completed
-                            # model futures are durable candidates and freeing
-                            # those slots is what lets the next questions
-                            # enter the 64-turn model lane.
-                            wait_target = (
-                                pending_model_futures
-                                | pending_commit_futures
-                            )
-                            collect_completed(
-                                set(wait_target),
-                                block=True,
-                            )
-
-                    pending_question_ids = iter(pending_ids)
-                    preparation_input_exhausted = False
-                    last_runtime_snapshot = 0.0
-
-                    def question_window_count() -> int:
-                        return (
-                            len(pending_spec_futures)
-                            + len(pending_batch_futures)
-                            + len(pending_model_futures)
-                        )
-
-                    def fill_preparation_window() -> None:
-                        nonlocal preparation_input_exhausted
-                        nonlocal peak_preparation_futures
-                        nonlocal peak_question_window
-                        while (
-                            not preparation_input_exhausted
-                            and question_window_count()
-                            < preparation_worker_limit
-                        ):
-                            try:
-                                question_id = next(pending_question_ids)
-                            except StopIteration:
-                                preparation_input_exhausted = True
-                                break
-                            future = preparation_executor.submit(
-                                prepare_spec,
-                                phase,
-                                phase_plan,
-                                phase_plan_index,
-                                phase_prompt,
-                                question_id,
-                                round_parent,
-                                round_question_index,
-                            )
-                            pending_spec_futures[future] = question_id
-                        peak_preparation_futures = max(
-                            peak_preparation_futures,
-                            len(pending_spec_futures)
-                            + len(pending_batch_futures),
-                        )
-                        peak_question_window = max(
-                            peak_question_window,
-                            question_window_count(),
-                        )
-
-                    def update_runtime_snapshot(
-                        *,
-                        force: bool = False,
-                    ) -> None:
-                        nonlocal last_runtime_snapshot
-                        current_monotonic = time.monotonic()
-                        if (
-                            not force
-                            and current_monotonic - last_runtime_snapshot
-                            < 1.0
-                        ):
-                            return
-                        active_workers = min(batch_count, worker_limit)
-                        self.store.update(
-                            qualification,
-                            run_id,
-                            hydrate_result=False,
-                            adaptiveScheduler=scheduler_status(
-                                scheduler_limits,
-                                batch_count=batch_count,
-                                in_flight_questions=prepared_spec_count,
-                            ),
-                            modelBatchSize=maximum_batch_size,
-                            modelWorkerLimit=active_workers,
-                            questionWindowPendingCount=(
-                                question_window_count()
-                            ),
-                            questionWindowPeakPendingCount=(
-                                peak_question_window
-                            ),
-                            preparationPendingFutureCount=(
-                                len(pending_spec_futures)
-                                + len(pending_batch_futures)
-                            ),
-                            preparationPeakPendingFutureCount=(
-                                peak_preparation_futures
-                            ),
-                            modelPendingFutureCount=len(
-                                pending_model_futures
-                            ),
-                            commitPendingFutureCount=len(
-                                pending_commit_futures
-                            ),
-                            preparedCommitBacklogCount=len(
-                                prepared_commit_backlog
-                            ),
-                            pipelinePendingFutureCount=(
-                                len(pending_model_futures)
-                                + len(pending_commit_futures)
-                                + len(prepared_commit_backlog)
-                            ),
-                            pipelinePeakPendingFutureCount=(
-                                peak_pipeline_futures
-                            ),
-                            modelPeakPendingFutureCount=peak_model_futures,
-                            commitPeakPendingFutureCount=peak_commit_futures,
-                            preparedCommitPeakBacklogCount=(
-                                peak_prepared_backlog
-                            ),
-                        )
-                        last_runtime_snapshot = current_monotonic
-
-                    fill_preparation_window()
-                    update_runtime_snapshot(force=True)
-                    try:
-                        while (
-                            not preparation_input_exhausted
-                            or pending_spec_futures
-                            or pending_batch_futures
-                        ):
-                            drain_pipeline(block=False)
-                            fill_preparation_window()
-                            preparation_futures = (
-                                set(pending_spec_futures)
-                                | pending_batch_futures
-                            )
-                            if not preparation_futures:
-                                # The 64-question window is currently occupied
-                                # by model turns. A completed, durably saved
-                                # candidate frees one slot for the next input.
-                                drain_pipeline(block=True)
-                                fill_preparation_window()
-                                continue
-                            completed_preparation = collect_completed(
-                                preparation_futures,
-                                block=True,
-                                coalesce_limit=preparation_worker_limit,
-                            )
-                            completed_specs: list[Mapping[str, Any]] = []
-                            completed_batches: list[Mapping[str, Any]] = []
-                            completed_spec_count = 0
-                            for future in completed_preparation:
-                                if future in pending_spec_futures:
-                                    pending_spec_futures.pop(future)
-                                    completed_spec_count += 1
-                                    prepared_spec = future.result()
-                                    prepared_count += 1
-                                    if isinstance(prepared_spec, Mapping):
-                                        prepared_spec_count += 1
-                                        completed_specs.append(prepared_spec)
-                                    continue
-                                pending_batch_futures.remove(future)
-                                completed_batches.append(future.result())
-
-                            if completed_specs:
-                                self.store.update_question_stages(
-                                    qualification,
-                                    run_id,
-                                    [
-                                        dict(spec["projectionUpdate"])
-                                        for spec in completed_specs
-                                        if isinstance(
-                                            spec.get("projectionUpdate"),
-                                            Mapping,
-                                        )
-                                    ],
-                                    hydrate_result=False,
-                                )
-                                for spec in completed_specs:
-                                    batch = [spec]
-                                    batch_count += 1
-                                    maximum_batch_size = max(
-                                        maximum_batch_size,
-                                        len(batch),
-                                    )
-                                    pending_batch_futures.add(
-                                        preparation_executor.submit(
-                                            prepare_batch,
-                                            batch,
-                                            phase,
-                                            phase_prompt,
-                                            round_parent,
-                                        )
-                                    )
-                            elif completed_spec_count:
-                                self.store.refresh_question_summary(
-                                    qualification,
-                                    run_id,
-                                    hydrate_result=False,
-                                )
-
-                            if completed_batches:
-                                register_prepared_batches(
-                                    completed_batches,
-                                    stage_id,
-                                )
-                            for prepared in completed_batches:
-                                if prepared.get("reusedPreparedCandidate"):
-                                    if self.store.is_question_attempt(
-                                        str(prepared["childId"])
-                                    ):
-                                        self.store.update_attempt_stage_status(
-                                            qualification,
-                                            str(prepared["childId"]),
-                                            "prepared",
-                                        )
-                                    prepared_commit_backlog.append(
-                                        {
-                                            "childId": str(
-                                                prepared["childId"]
-                                            )
-                                        }
-                                    )
-                                    peak_prepared_backlog = max(
-                                        peak_prepared_backlog,
-                                        len(prepared_commit_backlog),
-                                    )
-                                    continue
-                                while (
-                                    len(pending_model_futures)
-                                    >= worker_limit
-                                ):
-                                    drain_pipeline(block=True)
-                                pending_model_futures.add(
-                                    model_executor.submit(
-                                        run_model,
-                                        prepared,
-                                    )
-                                )
-                                model_started = True
-                                peak_model_futures = max(
-                                    peak_model_futures,
-                                    len(pending_model_futures),
-                                )
-                                peak_pipeline_futures = max(
-                                    peak_pipeline_futures,
-                                    len(pending_model_futures)
-                                    + len(pending_commit_futures),
-                                )
-
-                            peak_preparation_futures = max(
-                                peak_preparation_futures,
-                                len(pending_spec_futures)
-                                + len(pending_batch_futures),
-                            )
-                            peak_question_window = max(
-                                peak_question_window,
-                                question_window_count(),
-                            )
-                            drain_pipeline(block=False)
-                            fill_preparation_window()
-                            update_runtime_snapshot()
-                            preparation_heartbeat(
-                                stage_id,
-                                round_number=_round_number,
-                                prepared_count=prepared_count,
-                                target_count=len(pending_ids),
-                                prepared_spec_count=prepared_spec_count,
-                                batch_count=batch_count,
-                                model_started=model_started,
-                                status=(
-                                    "streaming"
-                                    if model_started
-                                    else "preparing"
-                                ),
-                            )
-                    except BaseException:
-                        for future in (
-                            set(pending_spec_futures)
-                            | pending_batch_futures
-                        ):
-                            future.cancel()
-                        raise
-                    while (
-                        pending_model_futures
-                        or pending_commit_futures
-                        or prepared_commit_backlog
-                    ):
-                        drain_pipeline(block=True)
-                    update_runtime_snapshot(force=True)
-                preparation_heartbeat(
-                    stage_id,
-                    round_number=_round_number,
-                    prepared_count=prepared_count,
-                    target_count=len(pending_ids),
-                    prepared_spec_count=prepared_spec_count,
-                    batch_count=batch_count,
-                    model_started=model_started,
-                    status="prepared",
-                    force=True,
+                with snapshot_context:
+                    phase_plan, phase_prompt = self._flow_phase_plan_prompt(
+                        phase_parent,
+                        phase,
+                    )
+                return (
+                    phase_plan,
+                    phase_prompt,
+                    build_question_plan_index(phase_plan),
                 )
-                if not batch_count:
-                    break
+            current = build_context()
+            if not self._phase_plan_policy_is_current(
+                qualification,
+                current[0],
+                stage_id,
+            ):
+                phase_parent = compact_parent_snapshot()
+                current = build_context()
+            phase_contexts[stage_id] = current
+            return current
+
+        def pending_stage_for_question(
+            question_id: str,
+            segment_stage_ids: set[str],
+        ) -> str | None:
+            detail = self.store.question_detail(
+                qualification,
+                run_id,
+                question_id,
+            )
+            for stage in detail["execution"].get("stages") or []:
+                if (
+                    not isinstance(stage, Mapping)
+                    or str(stage.get("stageId") or "")
+                    not in segment_stage_ids
+                ):
+                    continue
+                status = str(stage.get("status") or "queued")
+                if status in {"validated", "not_applicable"}:
+                    continue
+                if status == "blocked":
+                    return None
+                return str(stage["stageId"])
+            return None
+
+        def run_question_segment(
+            segment_phases: list[dict[str, Any]],
+        ) -> None:
+            if not segment_phases:
+                return
+            phase_by_id = {
+                str(value["id"]): value for value in segment_phases
+            }
+            segment_stage_ids = set(phase_by_id)
+            waiting_questions: deque[str] = deque(initial_question_ids)
+            continuation_queue: deque[tuple[str, str]] = deque()
+            retry_queue: deque[tuple[str, str]] = deque()
+            ready_queue: deque[tuple[str, str]] = deque()
+            window_questions: set[str] = set()
+            committing_questions: set[str] = set()
+            provider_waiting: set[str] = set()
+            pending_spec_futures: dict[
+                Any,
+                tuple[str, str, Mapping[str, Any], str],
+            ] = {}
+            pending_batch_futures: dict[Any, tuple[str, str]] = {}
+            pending_model_futures: dict[Any, tuple[str, str]] = {}
+            pending_commit_futures: dict[Any, tuple[str, str]] = {}
+            prepared_model_backlog: deque[dict[str, Any]] = deque()
+            prepared_commit_backlog: deque[dict[str, Any]] = deque()
+            preparation_worker_limit = min(
+                question_concurrency,
+                PREPARATION_MAX_PARALLEL_QUESTIONS,
+                max(len(initial_question_ids), 1),
+            )
+            commit_worker_limit = question_concurrency
+            batch_count = 0
+            prepared_count = 0
+            prepared_spec_count = 0
+            maximum_batch_size = 0
+            peak_model_futures = 0
+            peak_commit_futures = 0
+            peak_prepared_backlog = 0
+            peak_pipeline_futures = 0
+            peak_preparation_futures = 0
+            peak_question_window = 0
+            model_started = False
+            last_runtime_snapshot = 0.0
+            provider_recovery_attempt = 0
+            provider_recovery_needed = False
+
+            def queue_continuation(question_id: str) -> None:
+                next_stage_id = pending_stage_for_question(
+                    question_id,
+                    segment_stage_ids,
+                )
+                if next_stage_id is not None:
+                    continuation_queue.append((question_id, next_stage_id))
+
+            def release_window(question_id: str) -> None:
+                window_questions.discard(question_id)
+
+            def fill_question_window() -> None:
+                nonlocal peak_question_window
+                while len(window_questions) < question_concurrency:
+                    work: tuple[str, str] | None = None
+                    if continuation_queue:
+                        work = continuation_queue.popleft()
+                    elif waiting_questions:
+                        question_id = waiting_questions.popleft()
+                        stage_id = pending_stage_for_question(
+                            question_id,
+                            segment_stage_ids,
+                        )
+                        if stage_id is not None:
+                            work = (question_id, stage_id)
+                    elif retry_queue:
+                        work = retry_queue.popleft()
+                    else:
+                        break
+                    if work is None:
+                        continue
+                    question_id, stage_id = work
+                    if (
+                        question_id in window_questions
+                        or question_id in committing_questions
+                    ):
+                        raise QualificationRunError(
+                            "同じ問題を同時に二工程へ投入しようとしました: "
+                            f"{question_id}"
+                        )
+                    window_questions.add(question_id)
+                    ready_queue.append((question_id, stage_id))
+                peak_question_window = max(
+                    peak_question_window,
+                    len(window_questions),
+                )
+
+            def mark_phase_started(
+                stage_id: str,
+                phase_plan: Mapping[str, Any],
+            ) -> None:
+                if stage_id in started_phase_ids:
+                    return
+                started_phase_ids.add(stage_id)
+                phase_child_ids.setdefault(stage_id, [])
+                self._update_flow_phase(
+                    qualification,
+                    run_id,
+                    stage_id,
+                    status="running",
+                    targetCount=int(phase_plan.get("targetCount") or 0),
+                    childRunIds=[],
+                    startedAt=_now(),
+                    error=None,
+                )
+
+            def submit_ready_specs(
+                preparation_executor: ThreadPoolExecutor,
+            ) -> None:
+                while (
+                    ready_queue
+                    and len(pending_spec_futures)
+                    < preparation_worker_limit
+                ):
+                    question_id, stage_id = ready_queue.popleft()
+                    phase = phase_by_id[stage_id]
+                    phase_plan, phase_prompt, phase_plan_index = (
+                        phase_context(phase)
+                    )
+                    mark_phase_started(stage_id, phase_plan)
+                    question_parent, question_index = (
+                        question_parent_snapshot(question_id)
+                    )
+                    future = preparation_executor.submit(
+                        prepare_spec,
+                        phase,
+                        phase_plan,
+                        phase_plan_index,
+                        phase_prompt,
+                        question_id,
+                        question_parent,
+                        question_index,
+                    )
+                    pending_spec_futures[future] = (
+                        question_id,
+                        stage_id,
+                        phase,
+                        phase_prompt,
+                    )
+
+            def submit_model_backlog(
+                model_executor: ThreadPoolExecutor,
+            ) -> None:
+                nonlocal model_started
+                nonlocal peak_model_futures
+                nonlocal peak_pipeline_futures
+                model_limit = min(
+                    scheduler_limits.parallel_turns,
+                    question_concurrency,
+                )
+                while (
+                    prepared_model_backlog
+                    and len(pending_model_futures) < model_limit
+                ):
+                    prepared = prepared_model_backlog.popleft()
+                    question_id = str(prepared["questionId"])
+                    stage_id = str(prepared["stageId"])
+                    future = model_executor.submit(run_model, prepared)
+                    pending_model_futures[future] = (
+                        question_id,
+                        stage_id,
+                    )
+                    model_started = True
+                peak_model_futures = max(
+                    peak_model_futures,
+                    len(pending_model_futures),
+                )
+                peak_pipeline_futures = max(
+                    peak_pipeline_futures,
+                    len(pending_model_futures)
+                    + len(pending_commit_futures)
+                    + len(prepared_model_backlog)
+                    + len(prepared_commit_backlog),
+                )
+
+            def submit_commit_backlog(
+                commit_executor: ThreadPoolExecutor,
+            ) -> None:
+                nonlocal peak_commit_futures
+                nonlocal peak_pipeline_futures
+                while (
+                    prepared_commit_backlog
+                    and len(pending_commit_futures) < commit_worker_limit
+                ):
+                    prepared = prepared_commit_backlog.popleft()
+                    question_id = str(prepared["questionId"])
+                    stage_id = str(prepared["stageId"])
+                    future = commit_executor.submit(run_commit, prepared)
+                    pending_commit_futures[future] = (
+                        question_id,
+                        stage_id,
+                    )
+                peak_commit_futures = max(
+                    peak_commit_futures,
+                    len(pending_commit_futures),
+                )
+                peak_pipeline_futures = max(
+                    peak_pipeline_futures,
+                    len(pending_model_futures)
+                    + len(pending_commit_futures)
+                    + len(prepared_model_backlog)
+                    + len(prepared_commit_backlog),
+                )
+
+            def apply_completed_outcomes(
+                outcomes: Iterable[Mapping[str, Any]],
+            ) -> None:
+                nonlocal provider_recovery_needed
+                normalized_outcomes = list(outcomes)
+                if not normalized_outcomes:
+                    return
+                stage_updates: list[dict[str, Any]] = []
+                affected: list[tuple[str, str]] = []
+                retry_ids: set[tuple[str, str]] = set()
+                for outcome in normalized_outcomes:
+                    stage_id = str(outcome.get("stageId") or "")
+                    provider_failure = bool(outcome.get("providerFailure"))
+                    provider_recovery_needed = (
+                        provider_recovery_needed or provider_failure
+                    )
+                    scheduler_limits.observe(
+                        provider_failure=provider_failure,
+                        schema_failure=bool(outcome.get("schemaFailure")),
+                        isolated_failure=bool(outcome.get("isolatedFailure")),
+                        max_parallel_turns=question_concurrency,
+                    )
+                    results = [
+                        value
+                        for value in outcome.get("questionResults") or []
+                        if isinstance(value, Mapping)
+                    ]
+                    if len(results) != 1:
+                        raise QualificationRunError(
+                            "一問turnの結果件数が1件ではありません。"
+                        )
+                    question_id = str(results[0].get("questionId") or "")
+                    outcome_parent, _ = question_parent_snapshot(question_id)
+                    next_ids: list[str] = []
+                    apply_batch_outcome(
+                        outcome,
+                        stage_id,
+                        next_ids=next_ids,
+                        provider_waiting=provider_waiting,
+                        parent_snapshot=outcome_parent,
+                        stage_updates=stage_updates,
+                    )
+                    affected.append((question_id, stage_id))
+                    retry_ids.update((value, stage_id) for value in next_ids)
+                if stage_updates:
+                    self.store.update_question_stages(
+                        qualification,
+                        run_id,
+                        stage_updates,
+                        hydrate_result=False,
+                    )
+                for question_id, stage_id in affected:
+                    release_window(question_id)
+                    committing_questions.discard(question_id)
+                    if question_id in provider_waiting:
+                        continue
+                    detail = self.store.question_detail(
+                        qualification,
+                        run_id,
+                        question_id,
+                    )
+                    current = self._queue_stage(
+                        {"questionExecutions": [detail["execution"]]},
+                        question_id,
+                        stage_id,
+                    )
+                    status = str((current or {}).get("status") or "")
+                    if (question_id, stage_id) in retry_ids or status == "queued":
+                        retry_queue.append((question_id, stage_id))
+                    elif status in {"validated", "not_applicable"}:
+                        queue_continuation(question_id)
+
+            def update_runtime_snapshot(*, force: bool = False) -> None:
+                nonlocal last_runtime_snapshot
+                current_monotonic = time.monotonic()
+                if (
+                    not force
+                    and current_monotonic - last_runtime_snapshot < 5.0
+                ):
+                    return
                 self.store.update(
                     qualification,
                     run_id,
                     hydrate_result=False,
-                    questionWindowPendingCount=0,
+                    adaptiveScheduler=scheduler_status(
+                        scheduler_limits,
+                        batch_count=batch_count,
+                        in_flight_questions=len(window_questions),
+                    ),
+                    modelBatchSize=maximum_batch_size,
+                    modelWorkerLimit=peak_model_futures,
+                    preparationWorkerLimit=preparation_worker_limit,
+                    pipelineWorkerLimit=(
+                        question_concurrency + commit_worker_limit
+                    ),
+                    pipelineBacklogLimit=commit_worker_limit,
+                    questionWindowLimit=min(
+                        question_concurrency,
+                        max(len(initial_question_ids), 1),
+                    ),
+                    questionWindowPendingCount=len(window_questions),
                     questionWindowPeakPendingCount=peak_question_window,
-                    preparationPendingFutureCount=0,
+                    preparationPendingFutureCount=(
+                        len(pending_spec_futures)
+                        + len(pending_batch_futures)
+                    ),
                     preparationPeakPendingFutureCount=(
                         peak_preparation_futures
                     ),
-                    modelPendingFutureCount=0,
-                    commitPendingFutureCount=0,
-                    preparedCommitBacklogCount=0,
-                    pipelinePendingFutureCount=0,
+                    modelPendingFutureCount=len(pending_model_futures),
+                    commitPendingFutureCount=len(pending_commit_futures),
+                    preparedCommitBacklogCount=len(
+                        prepared_commit_backlog
+                    ),
+                    pipelinePendingFutureCount=(
+                        len(pending_model_futures)
+                        + len(pending_commit_futures)
+                        + len(prepared_model_backlog)
+                        + len(prepared_commit_backlog)
+                    ),
                     pipelinePeakPendingFutureCount=peak_pipeline_futures,
                     modelPeakPendingFutureCount=peak_model_futures,
                     commitPeakPendingFutureCount=peak_commit_futures,
                     preparedCommitPeakBacklogCount=peak_prepared_backlog,
                 )
-                pending_ids = list(dict.fromkeys(next_ids))
-                if pending_ids:
-                    emit(
-                        f"{stage_id}: 通常対象を一巡したため、"
-                        f"不合格{len(pending_ids)}問をqueue末尾で再確認します。"
-                    )
-                if round_had_provider_failure and pending_ids:
-                    recover = getattr(
-                        self.app_server,
-                        "recover_after_provider_failure",
-                        None,
-                    )
-                    if callable(recover):
-                        recover(
-                            attempt=_round_number,
-                            emit=emit,
+                last_runtime_snapshot = current_monotonic
+
+            fill_question_window()
+            preparation_heartbeat(
+                "question_pipeline",
+                round_number=1,
+                prepared_count=0,
+                target_count=len(initial_question_ids),
+                prepared_spec_count=0,
+                batch_count=0,
+                model_started=False,
+                status="preparing",
+                force=True,
+            )
+            with (
+                ThreadPoolExecutor(
+                    max_workers=max(1, question_concurrency),
+                    thread_name_prefix="question-model",
+                ) as model_executor,
+                ThreadPoolExecutor(
+                    max_workers=max(1, commit_worker_limit),
+                    thread_name_prefix="question-commit",
+                ) as commit_executor,
+                ThreadPoolExecutor(
+                    max_workers=max(1, preparation_worker_limit),
+                    thread_name_prefix="question-preparation",
+                ) as preparation_executor,
+            ):
+                try:
+                    while True:
+                        fill_question_window()
+                        submit_ready_specs(preparation_executor)
+                        submit_model_backlog(model_executor)
+                        submit_commit_backlog(commit_executor)
+
+                        completed_specs = [
+                            future
+                            for future in pending_spec_futures
+                            if future.done()
+                        ]
+                        projection_updates: list[dict[str, Any]] = []
+                        prepared_specs: list[
+                            tuple[
+                                Mapping[str, Any],
+                                str,
+                                str,
+                                Mapping[str, Any],
+                                str,
+                            ]
+                        ] = []
+                        spec_without_candidate = False
+                        for future in completed_specs:
+                            (
+                                question_id,
+                                stage_id,
+                                phase,
+                                phase_prompt,
+                            ) = pending_spec_futures.pop(future)
+                            prepared_count += 1
+                            spec = future.result()
+                            if not isinstance(spec, Mapping):
+                                release_window(question_id)
+                                queue_continuation(question_id)
+                                spec_without_candidate = True
+                                continue
+                            prepared_spec_count += 1
+                            if isinstance(
+                                spec.get("projectionUpdate"),
+                                Mapping,
+                            ):
+                                projection_updates.append(
+                                    dict(spec["projectionUpdate"])
+                                )
+                            prepared_specs.append(
+                                (
+                                    spec,
+                                    question_id,
+                                    stage_id,
+                                    phase,
+                                    phase_prompt,
+                                )
+                            )
+                        if projection_updates:
+                            self.store.update_question_stages(
+                                qualification,
+                                run_id,
+                                projection_updates,
+                                hydrate_result=False,
+                            )
+                        elif spec_without_candidate:
+                            self.store.refresh_question_summary(
+                                qualification,
+                                run_id,
+                                hydrate_result=False,
+                            )
+                        for (
+                            spec,
+                            question_id,
+                            stage_id,
+                            phase,
+                            phase_prompt,
+                        ) in prepared_specs:
+                            batch_count += 1
+                            maximum_batch_size = max(maximum_batch_size, 1)
+                            question_parent, _ = question_parent_snapshot(
+                                question_id
+                            )
+                            future = preparation_executor.submit(
+                                prepare_batch,
+                                [spec],
+                                phase,
+                                phase_prompt,
+                                question_parent,
+                            )
+                            pending_batch_futures[future] = (
+                                question_id,
+                                stage_id,
+                            )
+
+                        completed_batches = [
+                            future
+                            for future in pending_batch_futures
+                            if future.done()
+                        ]
+                        prepared_batches: list[Mapping[str, Any]] = []
+                        for future in completed_batches:
+                            pending_batch_futures.pop(future)
+                            prepared_batches.append(future.result())
+                        if prepared_batches:
+                            register_prepared_batches(prepared_batches)
+                        for prepared in prepared_batches:
+                            if prepared.get("reusedPreparedCandidate"):
+                                if self.store.is_question_attempt(
+                                    str(prepared["childId"])
+                                ):
+                                    self.store.update_attempt_stage_status(
+                                        qualification,
+                                        str(prepared["childId"]),
+                                        "prepared",
+                                    )
+                                question_id = str(prepared["questionId"])
+                                release_window(question_id)
+                                committing_questions.add(question_id)
+                                prepared_commit_backlog.append(
+                                    {
+                                        "childId": str(prepared["childId"]),
+                                        "stageId": str(prepared["stageId"]),
+                                        "questionId": question_id,
+                                    }
+                                )
+                            else:
+                                prepared_model_backlog.append(
+                                    dict(prepared)
+                                )
+
+                        completed_models = [
+                            future
+                            for future in pending_model_futures
+                            if future.done()
+                        ]
+                        immediate_outcomes: list[Mapping[str, Any]] = []
+                        for future in completed_models:
+                            question_id, stage_id = (
+                                pending_model_futures.pop(future)
+                            )
+                            generated = future.result()
+                            outcome = generated.get("outcome")
+                            if isinstance(outcome, Mapping):
+                                immediate_outcomes.append(outcome)
+                            else:
+                                release_window(question_id)
+                                committing_questions.add(question_id)
+                                prepared = dict(generated["prepared"])
+                                prepared.setdefault(
+                                    "questionId",
+                                    question_id,
+                                )
+                                prepared.setdefault("stageId", stage_id)
+                                prepared_commit_backlog.append(prepared)
+                        apply_completed_outcomes(immediate_outcomes)
+
+                        completed_commits = [
+                            future
+                            for future in pending_commit_futures
+                            if future.done()
+                        ]
+                        commit_outcomes: list[Mapping[str, Any]] = []
+                        for future in completed_commits:
+                            pending_commit_futures.pop(future)
+                            commit_outcomes.append(future.result())
+                        apply_completed_outcomes(commit_outcomes)
+
+                        peak_preparation_futures = max(
+                            peak_preparation_futures,
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures),
                         )
+                        peak_prepared_backlog = max(
+                            peak_prepared_backlog,
+                            len(prepared_commit_backlog),
+                        )
+                        peak_question_window = max(
+                            peak_question_window,
+                            len(window_questions),
+                        )
+                        peak_pipeline_futures = max(
+                            peak_pipeline_futures,
+                            len(pending_model_futures)
+                            + len(pending_commit_futures)
+                            + len(prepared_model_backlog)
+                            + len(prepared_commit_backlog),
+                        )
+                        fill_question_window()
+                        submit_ready_specs(preparation_executor)
+                        submit_model_backlog(model_executor)
+                        submit_commit_backlog(commit_executor)
+                        update_runtime_snapshot()
+                        preparation_heartbeat(
+                            "question_pipeline",
+                            round_number=1,
+                            prepared_count=prepared_count,
+                            target_count=len(initial_question_ids),
+                            prepared_spec_count=prepared_spec_count,
+                            batch_count=batch_count,
+                            model_started=model_started,
+                            status=(
+                                "streaming"
+                                if model_started
+                                else "preparing"
+                            ),
+                        )
+
+                        outstanding = (
+                            set(pending_spec_futures)
+                            | set(pending_batch_futures)
+                            | set(pending_model_futures)
+                            | set(pending_commit_futures)
+                        )
+                        queued = bool(
+                            waiting_questions
+                            or continuation_queue
+                            or retry_queue
+                            or ready_queue
+                            or prepared_model_backlog
+                            or prepared_commit_backlog
+                        )
+                        if not outstanding and not queued:
+                            break
+                        if not outstanding:
+                            continue
+                        if not any(future.done() for future in outstanding):
+                            completed, remaining = wait(
+                                outstanding,
+                                return_when=FIRST_COMPLETED,
+                            )
+                            if completed and remaining:
+                                wait(
+                                    remaining,
+                                    timeout=OUTCOME_COALESCE_SECONDS,
+                                )
+
+                        if (
+                            provider_recovery_needed
+                            and not pending_model_futures
+                            and not prepared_model_backlog
+                        ):
+                            provider_recovery_attempt += 1
+                            recover = getattr(
+                                self.app_server,
+                                "recover_after_provider_failure",
+                                None,
+                            )
+                            if callable(recover):
+                                recover(
+                                    attempt=provider_recovery_attempt,
+                                    emit=emit,
+                                )
+                            provider_recovery_needed = False
+                except BaseException:
+                    pipeline_stop.set()
+                    for future in (
+                        set(pending_spec_futures)
+                        | set(pending_batch_futures)
+                        | set(pending_model_futures)
+                        | set(pending_commit_futures)
+                    ):
+                        future.cancel()
+                    raise
+
+            update_runtime_snapshot(force=True)
+            preparation_heartbeat(
+                "question_pipeline",
+                round_number=1,
+                prepared_count=prepared_count,
+                target_count=len(initial_question_ids),
+                prepared_spec_count=prepared_spec_count,
+                batch_count=batch_count,
+                model_started=model_started,
+                status="prepared",
+                force=True,
+            )
+            self.store.update(
+                qualification,
+                run_id,
+                hydrate_result=False,
+                questionWindowPendingCount=0,
+                preparationPendingFutureCount=0,
+                modelPendingFutureCount=0,
+                commitPendingFutureCount=0,
+                preparedCommitBacklogCount=0,
+                pipelinePendingFutureCount=0,
+            )
             if provider_waiting:
                 reason = (
                     "通常問題の処理後もCodex App Serverを利用できない問題が"
                     f"{len(provider_waiting)}問残りました。回復後に再開してください。"
                 )
-                pause = QuestionQueuePaused(reason, pause_kind="external_provider")
+                pause = QuestionQueuePaused(
+                    reason,
+                    pause_kind="external_provider",
+                )
                 self._persist_queue_pause(qualification, run_id, pause)
                 raise pause
+
+        question_segment: list[dict[str, Any]] = []
+        for phase in phases:
+            stage_id = str(phase["id"])
+            if stage_id not in {"setup", "category_setup"}:
+                question_segment.append(phase)
+                continue
+            run_question_segment(question_segment)
+            question_segment = []
+            self._run_shared_prerequisite(
+                qualification,
+                run_id,
+                phase,
+                emit,
+                child_run_ids=child_run_ids,
+                work_version_receipts=work_version_receipts,
+                confirmed_group_ids=confirmed_group_ids,
+            )
+        run_question_segment(question_segment)
 
         self._finalize_question_phases(
             qualification,
@@ -14223,7 +14372,10 @@ class QualificationRunCoordinator:
                         )
                     candidate_paths = set(workspace.changed_paths())
                     if not candidate_paths:
-                        with self._question_patch_commit_lock:
+                        with self._question_patch_commit_scope(
+                            qualification,
+                            question_plan.get("targetGroupIds") or [],
+                        ):
                             if self.store.is_question_attempt(run_id):
                                 self.store.update_attempt_stage_status(
                                     qualification,
@@ -14273,7 +14425,10 @@ class QualificationRunCoordinator:
                             work_version_receipt,
                         )
                         continue
-                    with self._question_patch_commit_lock:
+                    with self._question_patch_commit_scope(
+                        qualification,
+                        question_plan.get("targetGroupIds") or [],
+                    ):
                         if self.store.is_question_attempt(run_id):
                             self.store.update_attempt_stage_status(
                                 qualification,

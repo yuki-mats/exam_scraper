@@ -1760,7 +1760,7 @@ assert.deepEqual(
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
-        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 64", javascript)
+        self.assertIn("const AUTO_QUESTION_CONCURRENCY = 100", javascript)
         self.assertIn("selectedQualificationRunSpeedMode", javascript)
         self.assertIn("speedMode: selectedQualificationRunSpeedMode()", javascript)
         self.assertIn(
@@ -1772,15 +1772,15 @@ assert.deepEqual(
             javascript,
         )
         self.assertIn(
-            'name="qualification-run-concurrency" value="64" checked',
+            'name="qualification-run-concurrency" value="100" checked',
             html,
         )
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
         self.assertNotIn('name="qualification-run-speed"', html)
         self.assertIn("応答モードはStandard固定です", html)
         self.assertIn("追加Codex creditsとAPI従量課金は使用しません", html)
-        self.assertIn("1資格だけなら最大64問を同時に進めます", html)
-        self.assertIn("model turnは全資格合計64本を超えず", html)
+        self.assertIn("1資格だけなら最大100問を同時に進めます", html)
+        self.assertIn("model turnは全資格合計100本を超えず", html)
         self.assertIn("検査と確定は一問単位", html)
         self.assertIn("必要な工程を一問一つのmodel turn", javascript)
         self.assertIn("複数選択可", javascript)

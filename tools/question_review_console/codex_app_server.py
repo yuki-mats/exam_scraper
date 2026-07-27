@@ -100,7 +100,7 @@ SPEED_MODES = frozenset({STANDARD_SPEED_MODE})
 MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1
-APP_SERVER_CONTROL_PLANE_CAPACITY = 64
+APP_SERVER_CONTROL_PLANE_CAPACITY = 100
 APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS = 120
 MIN_APP_SERVER_FILE_DESCRIPTORS = 65_536
 TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
@@ -191,7 +191,7 @@ def ensure_app_server_file_descriptor_capacity(
         return int(soft_limit)
     if hard_limit != resource.RLIM_INFINITY and hard_limit < minimum:
         raise CodexAppServerError(
-            "64問同時整備に必要なfile descriptor上限を確保できません。"
+            "100問同時整備に必要なfile descriptor上限を確保できません。"
             f"soft={soft_limit}, hard={hard_limit}, required={minimum}"
         )
     try:
@@ -201,13 +201,13 @@ def ensure_app_server_file_descriptor_capacity(
         )
     except (OSError, ValueError) as exc:
         raise CodexAppServerError(
-            "64問同時整備に必要なfile descriptor上限を引き上げられません。"
+            "100問同時整備に必要なfile descriptor上限を引き上げられません。"
             f"soft={soft_limit}, hard={hard_limit}, required={minimum}"
         ) from exc
     updated_soft, _updated_hard = resource.getrlimit(resource.RLIMIT_NOFILE)
     if updated_soft < minimum:
         raise CodexAppServerError(
-            "64問同時整備に必要なfile descriptor上限を確認できません。"
+            "100問同時整備に必要なfile descriptor上限を確認できません。"
             f"soft={updated_soft}, required={minimum}"
         )
     return int(updated_soft)

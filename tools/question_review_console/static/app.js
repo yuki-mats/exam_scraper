@@ -5,7 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v3";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 900000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
-const AUTO_QUESTION_CONCURRENCY = 64;
+const AUTO_QUESTION_CONCURRENCY = 100;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
 const DEFAULT_QUESTION_SORT = "updated_desc";
 const QUESTION_LIST_CACHE_VERSION = 4;
@@ -2906,7 +2906,7 @@ function selectedQualificationRunConcurrency() {
     document.querySelector('input[name="qualification-run-concurrency"]:checked')?.value
       || AUTO_QUESTION_CONCURRENCY,
   );
-  return [1, 5, 10, 32, 64].includes(value) ? value : AUTO_QUESTION_CONCURRENCY;
+  return [1, 5, 10, 32, 64, 100].includes(value) ? value : AUTO_QUESTION_CONCURRENCY;
 }
 
 function selectedQualificationRunSpeedMode() {

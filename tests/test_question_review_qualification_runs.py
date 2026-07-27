@@ -155,8 +155,8 @@ class ParallelQuestionPreparationTests(unittest.TestCase):
                     expected_hash,
                 )
 
-    def test_sixty_four_questions_prepare_concurrently_and_return_in_input_order(self):
-        question_ids = [f"question-{index:02d}" for index in range(64)]
+    def test_one_hundred_questions_prepare_concurrently_and_return_in_input_order(self):
+        question_ids = [f"question-{index:03d}" for index in range(100)]
         all_started = threading.Event()
         release = threading.Event()
         lock = threading.Lock()
@@ -185,7 +185,7 @@ class ParallelQuestionPreparationTests(unittest.TestCase):
                     prepare_question_items_concurrently(
                         question_ids,
                         prepare,
-                        max_workers=64,
+                        max_workers=100,
                     )
                 )
             except BaseException as exc:  # noqa: BLE001
@@ -200,7 +200,7 @@ class ParallelQuestionPreparationTests(unittest.TestCase):
         self.assertTrue(started)
         self.assertFalse(runner.is_alive())
         self.assertEqual(failure, [])
-        self.assertEqual(peak, 64)
+        self.assertEqual(peak, 100)
         self.assertEqual(
             completed,
             [
@@ -236,7 +236,7 @@ class ParallelQuestionPreparationTests(unittest.TestCase):
                 wraps=question_patch_proposal._load_record_payload,
             ) as load:
                 prepare_question_items_concurrently(
-                    [f"question-{index:02d}" for index in range(64)],
+                    [f"question-{index:03d}" for index in range(100)],
                     lambda _question_id: assert_target_resolvable(
                         root,
                         "output/sample/patch.json",
@@ -244,7 +244,7 @@ class ParallelQuestionPreparationTests(unittest.TestCase):
                         aliases=set(binding.as_tuple()),
                         cache=cache,
                     ),
-                    max_workers=64,
+                    max_workers=100,
                 )
                 self.assertEqual(load.call_count, 1)
 
@@ -690,7 +690,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             "blocked",
         )
 
-    def test_two_question_flow_keeps_projection_batch_but_uses_one_model_turn_per_question(self):
+    def test_two_question_flow_streams_projection_updates_and_uses_one_turn_per_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             source_dir = (
@@ -772,15 +772,23 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 for target in child["progressTargets"]
             )
         )
-        self.assertTrue(
-            any(
-                len(batch) == 2
-                and all(
-                    "projectedInputPath" in (item.get("changes") or {})
-                    for item in batch
-                )
-                for batch in batches
-            )
+        projection_updates = [
+            item
+            for batch in batches
+            for item in batch
+            if "projectedInputPath" in (item.get("changes") or {})
+        ]
+        self.assertEqual(
+            {
+                (item["questionId"], item["stageId"])
+                for item in projection_updates
+            },
+            {
+                ("new-exam-2026-q1", "question_type"),
+                ("new-exam-2026-q2", "question_type"),
+                ("new-exam-2026-q1", "question_intent"),
+                ("new-exam-2026-q2", "question_intent"),
+            },
         )
         self.assertTrue(
             all(
@@ -790,15 +798,20 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 for child in children
             )
         )
-        self.assertTrue(
-            any(
-                len(batch) == 2
-                and all(
-                    (item.get("changes") or {}).get("status") == "validated"
-                    for item in batch
-                )
-                for batch in batches
-            )
+        validated_updates = {
+            (item["questionId"], item["stageId"])
+            for batch in batches
+            for item in batch
+            if (item.get("changes") or {}).get("status") == "validated"
+        }
+        self.assertEqual(
+            validated_updates,
+            {
+                ("new-exam-2026-q1", "question_type"),
+                ("new-exam-2026-q2", "question_type"),
+                ("new-exam-2026-q1", "question_intent"),
+                ("new-exam-2026-q2", "question_intent"),
+            },
         )
 
 
@@ -4127,6 +4140,71 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self.assertEqual(failure, [])
             self.assertEqual(outcome["queueStatus"], "succeeded")
 
+    def test_fast_question_advances_before_another_question_finishes_prior_stage(self):
+        class UnevenStageAppServer(PerQuestionQueueAppServer):
+            def __init__(self):
+                super().__init__()
+                self.slow_release = threading.Event()
+                self.fast_next_stage_started = threading.Event()
+
+            def run_turn(self, prompt, **kwargs):
+                question_id = self._question_ids(prompt)[0]
+                work_type = kwargs["work_type"]
+                if (
+                    question_id == "new-exam-2026-q1"
+                    and work_type == "maintenance_question_type_candidate"
+                    and not self.slow_release.wait(5)
+                ):
+                    raise AssertionError("slow question was not released")
+                if (
+                    question_id == "new-exam-2026-q2"
+                    and work_type == "maintenance_question_intent_candidate"
+                ):
+                    self.fast_next_stage_started.set()
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = UnevenStageAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(2),
+                ["question_type", "question_intent"],
+                app_server=app_server,
+                question_concurrency=5,
+            )
+            self._write_counted_sources(root, 2)
+            outcome: dict[str, object] = {}
+            failure: list[BaseException] = []
+
+            def run_flow():
+                try:
+                    outcome.update(
+                        coordinator._run_maintenance_flow(
+                            "new-exam",
+                            parent["runId"],
+                            lambda _message: None,
+                        )
+                    )
+                except BaseException as exc:
+                    failure.append(exc)
+
+            runner = threading.Thread(target=run_flow)
+            runner.start()
+            try:
+                self.assertTrue(
+                    app_server.fast_next_stage_started.wait(5),
+                    "q2 did not enter its next stage while q1 was still running",
+                )
+                self.assertTrue(runner.is_alive())
+            finally:
+                app_server.slow_release.set()
+                runner.join(timeout=15)
+
+            self.assertFalse(runner.is_alive())
+            self.assertEqual(failure, [])
+            self.assertEqual(outcome["queueStatus"], "succeeded")
+
     def test_failed_question_retries_after_normal_queue_is_drained(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -5356,8 +5434,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(app_server.all_candidates_started.is_set())
         self.assertEqual(app_server.candidate_starts, question_count)
 
-    def test_sixty_four_questions_start_sixty_four_independent_model_turns(self):
-        class SixtyFourTurnAppServer(PerQuestionQueueAppServer):
+    def test_one_hundred_questions_start_one_hundred_independent_model_turns(self):
+        class OneHundredTurnAppServer(PerQuestionQueueAppServer):
             def __init__(self):
                 super().__init__()
                 self.started = 0
@@ -5368,26 +5446,26 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 if kwargs["work_type"] == "maintenance_question_type_candidate":
                     with self.started_lock:
                         self.started += 1
-                        if self.started == 64:
+                        if self.started == 100:
                             self.all_started.set()
                     if not self.all_started.wait(10):
                         raise AssertionError(
-                            "64問のmodel turnが同時に開始しませんでした。"
+                            "100問のmodel turnが同時に開始しませんでした。"
                         )
                 return super().run_turn(prompt, **kwargs)
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = SixtyFourTurnAppServer()
+            app_server = OneHundredTurnAppServer()
             app_server.writer_delay = 0.1
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
-                CountedSourceInventory(64),
+                CountedSourceInventory(100),
                 ["question_type"],
                 app_server=app_server,
-                question_concurrency=64,
+                question_concurrency=100,
             )
-            self._write_counted_sources(root, 64)
+            self._write_counted_sources(root, 100)
             parent_path = coordinator.store._manifest_path(
                 "new-exam",
                 parent["runId"],
@@ -5421,15 +5499,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(app_server.all_started.is_set())
-        self.assertEqual(app_server.started, 64)
-        self.assertEqual(len(app_server.batch_calls), 64)
+        self.assertEqual(app_server.started, 100)
+        self.assertEqual(len(app_server.batch_calls), 100)
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
         self.assertEqual(completed["modelBatchSize"], 1)
-        self.assertEqual(completed["modelWorkerLimit"], 64)
-        self.assertEqual(completed["modelPeakPendingFutureCount"], 64)
+        self.assertEqual(completed["modelWorkerLimit"], 100)
+        self.assertEqual(completed["modelPeakPendingFutureCount"], 100)
         self.assertEqual(
             len(_question_attempt_ids(completed)),
-            64,
+            100,
         )
         self.assertTrue(
             all(
@@ -5439,12 +5517,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         )
         self.assertEqual(completed["childRunIds"], [])
-        # Candidate durability belongs to the 64 independent question state
+        # Candidate durability belongs to the 100 independent question state
         # files. The parent may still receive fixed lifecycle and 15-second
         # progress writes, but it must not receive one candidate write per
         # question.
-        self.assertLess(parent_write_count, 64)
-        self.assertEqual(completed["validatedQuestionCount"], 64)
+        self.assertLess(parent_write_count, 100)
+        self.assertEqual(completed["validatedQuestionCount"], 100)
 
     def test_one_turn_timeout_is_retried_without_reducing_capacity(self):
         class TimeoutOnceAppServer(PerQuestionQueueAppServer):
@@ -5803,7 +5881,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertFalse(patch_exists)
 
-    def test_question_concurrency_defaults_to_sixty_four_and_allows_override(self):
+    def test_question_concurrency_defaults_to_one_hundred_and_allows_override(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -5845,6 +5923,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 list_group_ids=["2026"],
                 question_concurrency=64,
             )
+            preview_one_hundred = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                question_concurrency=100,
+            )
             started = coordinator.start(
                 "new-exam",
                 "question_type",
@@ -5856,9 +5942,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             parent = started["run"]
 
-        self.assertEqual(preview_default["questionConcurrency"], 64)
+        self.assertEqual(preview_default["questionConcurrency"], 100)
         self.assertEqual(preview_thirty_two["questionConcurrency"], 32)
         self.assertEqual(preview_sixty_four["questionConcurrency"], 64)
+        self.assertEqual(preview_one_hundred["questionConcurrency"], 100)
         self.assertEqual(preview_default["previewToken"], preview_ten["previewToken"])
         self.assertEqual(parent["questionConcurrency"], 1)
         self.assertEqual(parent["parallelWorkerLimit"], 1)

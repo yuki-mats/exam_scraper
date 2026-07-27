@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from typing import Any, Callable, Iterator
 
 
-GLOBAL_TURN_CAPACITY = 64
+GLOBAL_TURN_CAPACITY = 100
 UNGROUPED_TURN_GROUP = "__ungrouped__"
 
 
