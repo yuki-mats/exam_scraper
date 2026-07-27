@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正解は32倍である。円形ノズルから噴出するガス量は、ノズル断面積と圧力の平方根に比例する。口径を4倍にすると断面積は4²=16倍になり、圧力を4倍にすると平方根の効果で2倍になる。したがって、ガス量は16×2=32倍となる。"
+      "正解は32倍である。円形ノズルから噴出するガス量は、ノズルの断面積とガス圧力の平方根に比例する。口径を4倍にすると断面積は4²=16倍となり、圧力を4倍にすると√4=2倍となる。したがって、ガス量は16×2=32倍となる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -66,7 +66,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令問題ではない。円形ノズルの流量が口径の2乗と圧力の平方根に比例する関係を使う計算問題として解説する。",
+    "lawContextForExplanation": "法令問題ではない。円形ノズルの流量は、ノズル断面積とガス圧力の平方根に比例する関係を用いて計算する。",
     "lawRevisionFacts": []
   },
   {
@@ -86,10 +86,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正しい。こんろには、調理油過熱防止装置の温度センサーを利用し、鍋が焦げ付き始めたときの温度変化を検知して自動消火する機能を備えたものがある。",
-      "間違い。グリルは、直火からの放射熱を主に利用して食材を加熱する。選択肢は主として伝導熱で調理するとしているため誤りである。",
+      "正しい。こんろには、調理油過熱防止装置の温度センサーを利用し、鍋底の温度変化から焦げ付きを検知して自動消火する機能を備えたものがある。",
+      "間違い。グリルは、直火による放射熱を主に利用して食材を加熱する機器である。主として伝導熱で調理するという説明が誤っている。",
       "正しい。コンビネーションレンジは、ガスオーブンに電子レンジの機能を組み合わせた調理機器である。",
-      "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を排出するため、排湿筒を取り付けられるものがある。",
+      "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を屋外へ排出するための排湿筒を取り付けられるようになっている。",
       "正しい。赤外線ストーブには、放射体としてセラミックプレートを用いるものと、特殊耐熱金属を用いるものがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -132,7 +132,7 @@
     "reviewQuestionId": "157a81361551fa79",
     "sourceRecordRef": "question_2020_3.json#1",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。こんろ、グリル、コンビネーションレンジ、衣類乾燥機及び赤外線ストーブの構造や加熱方式に関する技術知識として解説する。",
+    "lawContextForExplanation": "法令問題ではない。こんろ、グリル、コンビネーションレンジ、衣類乾燥機および赤外線ストーブの機能・構造・加熱方式に関する技術知識を根拠に解説する。",
     "lawReferences": [
       [],
       [],
@@ -161,9 +161,9 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
       "正しい。こんろには、調理油過熱防止装置の温度センサーを利用し、鍋が焦げ付き始めたときの温度上昇を検知して自動消火するものがある。",
-      "間違い。グリルでは、火炎や加熱された部材からの放射熱が主に食品を加熱する。伝導熱を主な加熱方式としているため誤りである。",
-      "正しい。コンビネーションレンジは、ガスオーブンに電子レンジの機能を組み合わせた調理機器である。",
-      "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を屋外へ排出するための排湿筒を取り付けるものがある。",
+      "間違い。グリルは、直火の炎や加熱された部材からの放射熱によって食品を加熱する機器である。記述は、主として伝導熱で調理するとしているため誤りである。",
+      "正しい。コンビネーションレンジは、ガスオーブンに電子レンジ機能を組み合わせた調理機器である。",
+      "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を屋外へ排出するため、排湿筒を取り付けるものがある。",
       "正しい。赤外線ストーブには、放射体にセラミックプレートを用いるものと、特殊耐熱金属を用いるものがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -208,7 +208,7 @@
     "reviewQuestionId": "3e78d3f5a1e1c6de",
     "sourceRecordRef": "question_2020_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。こんろ、グリル、コンビネーションレンジ、衣類乾燥機、赤外線ストーブの構造や加熱方式に関する技術知識として解説する。",
+    "lawContextForExplanation": "法令問題ではない。こんろ、グリル、コンビネーションレンジ、衣類乾燥機、赤外線ストーブの構造や加熱方式に関する技術知識問題として解説する。",
     "lawReferences": [
       [],
       [],
@@ -216,7 +216,8 @@
       [],
       []
     ],
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "9f961648e725b4ba",
@@ -235,7 +236,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "間違い。固体酸化物形燃料電池（SOFC）は高温で作動し、COも燃料として利用できるため、CO変成器を搭載するという説明は適切ではない。CO変成器は、主に低温作動型の燃料電池でCOを低減するために用いられる。",
+      "間違い。固体酸化物形燃料電池（SOFC）は高温で作動し、一酸化炭素も燃料成分として利用できるため、CO変成器を搭載するという説明は適切ではない。CO変成器は、主に低温作動型の燃料電池で一酸化炭素を低減するために用いられる。",
       "正しい。吸収冷温水機は水を冷媒として用い、臭化リチウム水溶液などを吸収液として利用するノンフロン空調機である。",
       "正しい。浸管式フライヤーには、油槽中の浸管内でガスを燃焼させて加熱する方式と、燃焼排ガスを浸管内に通して加熱する方式がある。",
       "正しい。中華レンジには、強い火力を得るため、送風機で燃焼用空気を供給するブラストバーナーを用いたものがある。",
@@ -293,8 +294,91 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令問題ではない。燃料電池、吸収冷温水機、浸管式フライヤー、中華レンジ、遠赤外線ヒーターの構造や方式を扱う技術知識問題として解説する。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "法令問題ではない。燃料電池、吸収冷温水機、浸管式フライヤー、中華レンジ、遠赤外線ヒーターの構造・方式を扱う技術知識問題として解説する。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "SOFCの作動温度・CO利用性に関する技術知識であり、正誤を直接定める法令条項ではない。",
+          "sources": [
+            "https://webmagazine.nedo.go.jp/practical-realization/articles/201215osakagas/"
+          ]
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "吸収冷温水機の冷媒・吸収液に関する技術知識であり、正誤を直接定める法令条項ではない。",
+          "sources": [
+            "https://www.khi.co.jp/corp/kte/product/chiller/principle/",
+            "https://eee.tokyo-gas.co.jp/equipment/natural_chiller/index.html"
+          ]
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "浸管式フライヤーの加熱方式に関する技術知識であり、正誤を直接定める法令条項ではない。",
+          "sources": [
+            "https://www.hoshizaki.co.jp/p/fl/feature02.html?id=feature",
+            "https://asahi-hicook.com/product/dobc/"
+          ]
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "中華レンジに用いられるブラストバーナーの製品仕様・方式に関する技術知識であり、正誤を直接定める法令条項ではない。",
+          "sources": [
+            "https://www.maruzen-kitchen.co.jp/product/warmer-all/chinese-range/item-drx_020/"
+          ]
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "ガス遠赤外線放射暖房機の放射管・セラミック特殊塗料に関する技術知識であり、正誤を直接定める法令条項ではない。",
+          "sources": [
+            "https://www.mhi-mth.co.jp/business/air-conditioner-for-business/heating/05/"
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "d51f3a79ea8c01cc",
@@ -313,13 +397,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正しい。自然換気で空気の流れを起こす力には、風による圧力差と、室内外の温度差によって生じる浮力がある。",
-      "正しい。必要換気量は、室内の酸素濃度を所定の限界以上に保つために必要な最小の換気量である。",
-      "正しい。建築基準法関係法令では、安静に座っている成人男性一人当たりの必要換気量を20m³/hとしている。",
-      "間違い。一般にターボファンはシロッコファンより効率が高い。両者の効率の高低を逆に述べているため誤りである。",
-      "正しい。一酸化炭素は酸素よりもヘモグロビンと強く結合し、血液による酸素の運搬を妨げるため、吸入すると酸素欠乏症状を起こしやすい。"
+      "正しい。自然換気で空気の流れを生じさせる力には、風による圧力差を利用するものと、室内外の温度差で生じる浮力を利用するものがある。",
+      "正しい。必要換気量は、室内の酸素濃度を一定の限界以上に保つために必要となる最小限の換気量をいう。",
+      "正しい。建築基準法施行令の機械換気設備の基準では、必要有効換気量を V=20Af/N として算定するため、1人当たり20m³/hを基礎にしている。",
+      "間違い。一般に、換気扇に用いられるシロッコファンはターボファンより効率が低い。効率の高低を逆に述べているため、この記述が誤りである。",
+      "正しい。一酸化炭素は酸素よりもヘモグロビンと強く結合し、血液による酸素運搬を妨げる。そのため、吸入すると酸素欠乏症状を起こしやすい。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
       "消費機器「換気と一酸化炭素（CO）中毒（乙種）」の自然換気、必要換気量、換気扇ファン、CO中毒が本問の関連論点。",
       "本問は誤っているものを問う形式で、source順では選択肢4のみが誤りである。"
@@ -356,20 +440,117 @@
     "questionSetName": "換気と一酸化炭素（CO）中毒（乙種）",
     "category": "換気と一酸化炭素（CO）中毒（乙種）",
     "answer_result_text": "正解は 4 です。",
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2020:shohi:q24",
     "reviewQuestionId": "d51f3a79ea8c01cc",
     "sourceRecordRef": "question_2020_3.json#4",
-    "explanationReferences": [],
-    "lawContextForExplanation": "法令の適用判断を主題とする問題ではない。自然換気、必要換気量、送風機の効率、一酸化炭素の性質に関する技術知識として解説する。",
+    "explanationReferences": [
+      {
+        "title": "建築基準法施行令（昭和二十五年政令第三百三十八号）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "国土交通省 建築基準法制度概要集 換気に関する規定（法第28条関係）",
+        "sourceUrl": "https://www.mlit.go.jp/jutakukentiku/build/content/001364350.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      }
+    ],
+    "lawContextForExplanation": "選択肢3は、建築基準法施行令第20条の2第1号ロ(1)の機械換気設備における必要有効換気量 V=20Af/N を根拠に、1人当たり20m³/hを基礎とする記述として確認する。その他は換気・送風機・一酸化炭素中毒に関する技術知識として解説する。",
     "lawReferences": [
       [],
       [],
-      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "referenceDate": "2026-07-27",
+          "article": "第20条の2第1号ロ(1)",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338"
+        }
+      ],
       [],
       []
     ],
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "自然換気の駆動力に関する技術事項であり、法令改正による正誤変更の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "必要換気量の一般的定義に関する技術事項であり、法令改正による正誤変更の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "current_law_confirmed",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "建築基準法施行令第20条の2第1号ロ(1)の必要有効換気量 V=20Af/N により、1人当たり20m³/hを基礎にする点を確認した。現行法確認では正誤を変更する事情はない。",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "article": "第20条の2第1号ロ(1)",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
+          "referenceDate": "2026-07-27"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "シロッコファンとターボファンの効率比較に関する技術事項であり、法令改正による正誤変更の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "一酸化炭素のヘモグロビン結合性と中毒症状に関する技術事項であり、法令改正による正誤変更の対象ではない。"
+        }
+      }
+    ]
   },
   {
     "original_question_id": "2259492ba8e1ffca",
@@ -388,11 +569,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正しい。CF式ふろがまの排気筒トップには、燃焼排ガスや屋外環境に耐えられるよう、不燃性、耐熱性及び耐食性のある材料を用いる。",
-      "正しい。BF式ふろがまは、燃焼用空気を屋外から取り入れ、燃焼排ガスを屋外へ排出する密閉式である。このため、設置室に専用の給気口や換気口を設ける必要はない。",
-      "間違い。BF式ふろがまには、給排気筒を通じて屋外から給気し、屋外へ排気する構造により浴室内へ設置するものがある。新規に浴室内へ設置できないとしているため誤りである。",
-      "正しい。CF式ふろがまの逆風止めは、排気の逆流を抑え、機器の排気条件を保つため、機器と同じ室内に設置する。",
-      "正しい。FE式温水器は送風機で燃焼排ガスを強制的に排出するため、自然排気式に設けられる排気筒の横引き長さと高さとの関係は適用されない。"
+      "正しい。CF式ふろがまの排気筒トップには、燃焼排ガスや屋外の風雨にさらされても安全性を保てるよう、不燃性、耐熱性及び耐食性のある材料を用いる必要がある。",
+      "正しい。BF式ふろがまは、燃焼用空気を屋外から取り入れ、燃焼排ガスも屋外へ排出する密閉式の機器である。そのため、設置室に燃焼用の専用給気口や換気口を設ける必要はない。",
+      "間違い。BF式ふろがまは、給排気筒によって屋外から給気し、屋外へ排気する方式であり、浴室内に設置されるものがある。したがって、新規に浴室内へ設置できないとする記述は誤りである。",
+      "正しい。CF式ふろがまの逆風止めは、排気の逆流などが機器の燃焼状態に影響しないよう、機器と同一室内に設置する必要がある。",
+      "正しい。FE式温水器は、送風機で燃焼排ガスを強制的に屋外へ排出する方式であるため、自然排気式で問題となる排気筒の横引き長さと高さとの関係については特に規定されない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -436,7 +617,7 @@
     "reviewQuestionId": "2259492ba8e1ffca",
     "sourceRecordRef": "question_2020_3.json#5",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。CF式・BF式・FE式機器の給排気方式、排気筒トップ及び逆風止めの技術的特徴として解説する。",
+    "lawContextForExplanation": "法令問題ではない。CF式・BF式・FE式機器の給排気方式、排気筒トップ、逆風止め及び設置上の特徴に関する技術知識として解説する。",
     "lawReferences": [
       [],
       [],
@@ -444,7 +625,8 @@
       [],
       []
     ],
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "3dc78c871bcc2abf",
@@ -467,7 +649,7 @@
       "正しい。点火時安全装置は、燃焼室内に残った未燃ガスへの点火による爆発的な燃焼を防止する装置である。",
       "正しい。瞬時点火装置では、熱電対に十分な起電力が生じるまで、コンデンサーの放電電流によってガス弁を開いた状態に保つ。",
       "正しい。ガス量を制御する比例電磁弁には、固定コイル式と可動コイル式がある。",
-      "間違い。機械式温度制御装置の温度検出部には、バイメタル式や液体膨張式が用いられる。気体膨張式と液体膨張式の二つとしているため誤りである。"
+      "間違い。機械式温度制御装置の温度検出部に用いられる方式は、バイメタル式と液体膨張式である。選択肢はバイメタル式ではなく気体膨張式としているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -511,7 +693,7 @@
     "reviewQuestionId": "3dc78c871bcc2abf",
     "sourceRecordRef": "question_2020_3.json#6",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。水位制御、点火時安全装置、瞬時点火装置、比例電磁弁及び機械式温度制御装置の仕組みとして解説する。",
+    "lawContextForExplanation": "法令問題ではない。水位制御装置、点火時安全装置、瞬時点火装置、比例電磁弁及び機械式温度制御装置の構造・作動原理を扱う技術知識問題として解説する。",
     "lawReferences": [
       [],
       [],
@@ -519,7 +701,74 @@
       [],
       []
     ],
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "水位制御装置の種類と機能に関する技術知識であり、正誤を直接決める法令条文ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "点火時安全装置の目的に関する技術知識であり、正誤を直接決める法令条文ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "瞬時点火装置における熱電対とコンデンサーの作動に関する技術知識であり、正誤を直接決める法令条文ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "比例電磁弁の方式に関する技術知識であり、正誤を直接決める法令条文ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "機械式温度制御装置の温度検出方式はバイメタル式と液体膨張式であり、気体膨張式とする記述が誤りである。正誤を直接決める法令条文ではない。"
+        }
+      }
+    ]
   },
   {
     "original_question_id": "b9474a23eb82bcdf",
@@ -539,10 +788,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
       "正しい。ヒューズガス栓には作動流量の異なる種類があり、接続するガス機器のインプットなどに応じて適切なものを選ぶ必要がある。",
-      "正しい。ガスコンセントは、迅速継手を接続すると自動的に開き、取り外すと自動的に閉じる構造である。",
-      "間違い。オンオフ機構を備えたガス栓では、つまみの操作に応じて弁が全開又は全閉となり、半開状態にはならない。半開状態で接続具が外れてガスが流出するとしているため誤りである。",
-      "正しい。家庭用ガス警報器には、ガス検出センサーの小型化と省電力化によって電池で駆動できるものがある。",
-      "正しい。家庭用ガス警報器の検出方式は、半導体式、接触燃焼式及び熱線型半導体式に大別される。"
+      "正しい。ガスコンセントは、迅速継手を接続すると栓が自動的に開き、取り外すと自動的に閉じる構造である。",
+      "間違い。オンオフ機構を有するガス栓は、中途開の状態ではガスが出ないようにする機構を備える。したがって、つまみが半開状態のまま接続具が外れ、ヒューズ機構が作動せずにガスが流出するという記述は誤りである。",
+      "正しい。家庭用ガス警報器には、ガス検出センサーの小型化及び省電力化により、電池で駆動できるものがある。",
+      "正しい。家庭用ガス警報器の主な検出方式は、半導体式、接触燃焼式及び熱線型半導体式に大別される。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -586,7 +835,7 @@
     "reviewQuestionId": "b9474a23eb82bcdf",
     "sourceRecordRef": "question_2020_3.json#7",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。ヒューズガス栓、ガスコンセント、オンオフ機構付きガス栓及び家庭用ガス警報器の技術的特徴として解説する。",
+    "lawContextForExplanation": "法令問題ではない。ヒューズガス栓、ガスコンセント、オンオフ機構付きガス栓及び家庭用ガス警報器の構造・検出方式を扱う技術知識問題として解説する。",
     "lawReferences": [
       [],
       [],
@@ -594,6 +843,83 @@
       [],
       []
     ],
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": [
+      {
+        "choiceIndex": 0,
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "technical_knowledge",
+          "summary": "ヒューズガス栓の作動流量選定に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
+        }
+      },
+      {
+        "choiceIndex": 1,
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "technical_knowledge",
+          "summary": "ガスコンセントと迅速継手の開閉構造に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
+        }
+      },
+      {
+        "choiceIndex": 2,
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "classification": "technical_knowledge",
+          "summary": "オンオフ機構付きガス栓の中途開対策に関する技術事項であり、記述の『ガスが流出する』部分が誤り。正誤を直接決める検証済み法令条項は確認できない。"
+        }
+      },
+      {
+        "choiceIndex": 3,
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "technical_knowledge",
+          "summary": "電池駆動型家庭用ガス警報器のセンサー小型化・省電力化に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
+        }
+      },
+      {
+        "choiceIndex": 4,
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "technical_knowledge",
+          "summary": "家庭用ガス警報器の検出方式分類に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
+        }
+      }
+    ]
   }
 ]

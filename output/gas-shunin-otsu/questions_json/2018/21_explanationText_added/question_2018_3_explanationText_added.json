@@ -16,40 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。二酸化炭素（CO2）は都市ガスを完全燃焼させたときに生成されるため、燃焼排ガス成分に含まれる。",
-      "間違い。水蒸気（H2O）は都市ガス中の水素分が完全燃焼して生成されるため、燃焼排ガス成分に含まれる。",
-      "間違い。窒素（N2）は燃焼用空気に含まれており、燃焼後も主にそのまま燃焼排ガス成分に含まれる。",
-      "間違い。過剰空気を含む状態で完全燃焼させると、反応に使われなかった酸素（O2）が燃焼排ガス成分に含まれる。",
-      "正しい。一酸化炭素（CO）は不完全燃焼で生じる成分であり、過剰空気を含む状態で都市ガスが完全燃焼した燃焼排ガス成分には含まれない。"
-    ],
-    "suggestedQuestions": [
-      "都市ガスを完全燃焼させた燃焼排ガスに二酸化炭素は含まれるか？",
-      "都市ガスを完全燃焼させた燃焼排ガスに水蒸気は含まれるか？",
-      "都市ガスを空気で燃焼させた燃焼排ガスに窒素は含まれるか？",
-      "過剰空気を含む完全燃焼の燃焼排ガスに酸素は含まれるか？",
-      "過剰空気を含む都市ガスの完全燃焼排ガスに一酸化炭素は含まれるか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "都市ガスを完全燃焼させた燃焼排ガスに二酸化炭素は含まれるか？",
-        "answer": "含まれる。。間違い。二酸化炭素（CO2）は都市ガスを完全燃焼させたときに生成されるため、燃焼排ガス成分に含まれる。"
-      },
-      {
-        "question": "都市ガスを完全燃焼させた燃焼排ガスに水蒸気は含まれるか？",
-        "answer": "含まれる。。間違い。水蒸気（H2O）は都市ガス中の水素分が完全燃焼して生成されるため、燃焼排ガス成分に含まれる。"
-      },
-      {
-        "question": "都市ガスを空気で燃焼させた燃焼排ガスに窒素は含まれるか？",
-        "answer": "含まれる。。間違い。窒素（N2）は燃焼用空気に含まれており、燃焼後も主にそのまま燃焼排ガス成分に含まれる。"
-      },
-      {
-        "question": "過剰空気を含む完全燃焼の燃焼排ガスに酸素は含まれるか？",
-        "answer": "含まれる。。間違い。過剰空気を含む状態で完全燃焼させると、反応に使われなかった酸素（O2）が燃焼排ガス成分に含まれる。"
-      },
-      {
-        "question": "過剰空気を含む都市ガスの完全燃焼排ガスに一酸化炭素は含まれるか？",
-        "answer": "含まれない。。正しい。一酸化炭素（CO）は不完全燃焼で生じる成分であり、過剰空気を含む状態で都市ガスが完全燃焼した燃焼排ガス成分には含まれない。"
-      }
+      "正解は5。一酸化炭素（CO）は不完全燃焼で生じる代表的な成分であり、過剰空気を含む状態で都市ガスが完全燃焼した場合の燃焼排ガス成分には含まれない。完全燃焼では、都市ガス中の炭素分から二酸化炭素（CO2）、水素分から水蒸気（H2O）が生成される。また、燃焼用空気に含まれる窒素（N2）は主にそのまま排ガス中に残り、過剰空気条件では反応に使われなかった酸素（O2）も排ガス中に含まれる。したがって、含まれないものは一酸化炭素である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -86,7 +53,46 @@
     "questionIntent": "select_correct",
     "taskId": "T938",
     "workerTaskId": "T938",
-    "remainingAfterTask": 96
+    "remainingAfterTask": 96,
+    "sourceQuestionKey": "gas-shunin:otsu:2018:shohi:q20",
+    "reviewQuestionId": "21a44e9856984944",
+    "sourceRecordRef": "question_2018_3.json#0",
+    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "都市ガスを過剰空気下で完全燃焼させた場合の排ガス成分を問う燃焼化学の基礎問題。二酸化炭素、水蒸気、窒素、未反応の酸素は含まれるが、一酸化炭素は不完全燃焼時の生成物であるため含まれない。法令条文を根拠にする解説は不要。",
+    "lawRevisionFacts": {
+      "auditStatus": "not_law_related",
+      "reviewState": "secondary_verified",
+      "current": {
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      "examTime": {
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      "evidenceSummary": {
+        "reason": "燃焼排ガス成分に関する基礎知識問題であり、法令改正によって正答が変わる性質の問題ではない。過剰空気下の完全燃焼では二酸化炭素、水蒸気、窒素、残存酸素が排ガスに含まれ、一酸化炭素は不完全燃焼時の生成物であるため含まれない。"
+      }
+    }
   },
   {
     "original_question_id": "7b58a0cab7a1dcd4",
@@ -105,11 +111,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "正しい。ファンヒーターには、安全のため、一定時間燃焼を続けると自動的に暖房運転を停止する機能を備えたものがある。",
-      "間違い。FF暖房機は、燃焼用空気を屋外から取り入れ、燃焼排ガスを屋外へ排出する方式である。室内の空気を燃焼に使う方式ではないため、換気しないこと自体で室内空気不足による不完全燃焼が生じるという記述は適切でない。",
+      "正しい。ファンヒーターには、安全確保や消し忘れ防止のため、一定時間燃焼を続けると自動的に暖房運転を停止する機能を備えたものがある。",
+      "間違い。FF暖房機は、燃焼用空気を屋外から取り入れ、燃焼排ガスも屋外へ排出する密閉式の暖房機である。室内空気を燃焼に使う開放式ではないため、気密性の高い部屋で換気しないこと自体により室内空気不足で不完全燃焼が生じる、という説明は適切でない。",
       "正しい。金網ストーブでは、金網が経年劣化や外力で変形すると燃焼状態が乱れ、不完全燃焼が生じるおそれがある。",
-      "正しい。調理油過熱防止装置は、温度センサーで鍋底温度を検出し、油が発火する前にガスを止める安全装置である。",
-      "正しい。グリル付こんろには、グリル火災を防ぐため、消し忘れ消火機能に加えて過熱防止機能又は炎あふれ防止機能を備えたものがある。"
+      "正しい。調理油過熱防止装置は、温度センサーで鍋底の温度を検出し、天ぷら油などが発火する前にガスを止める安全装置である。",
+      "正しい。グリル付こんろには、グリル火災を防ぐため、消し忘れ消火機能に加えて、過熱防止機能又は炎あふれ防止機能を備えたものがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -148,7 +154,7 @@
     "sourceRecordRef": "question_2018_3.json#1",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "法令条文の直接根拠を要しない。ファンヒーター、FF暖房機、金網ストーブ、こんろ、グリル付こんろの構造と安全機能に関する技術知識で判断する。",
+    "lawContextForExplanation": "法令条文の直接根拠を要しない。ファンヒーター、FF暖房機、金網ストーブ、こんろ、グリル付こんろの構造と安全機能に関する技術知識として解説する。",
     "lawReferences": [
       [],
       [],
@@ -176,40 +182,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "正しい。2018年出題時点で、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていた。",
-      "正しい。大型給湯器には、養生シートや鳥害などで排気口が閉そくされた場合に、点火前に閉そくを検知して点火動作に入らない安全機能を備えたものがある。",
-      "正しい。給湯暖房用熱源機の暖房回路には、循環水の膨張を吸収するためのシスターンが搭載されている。",
-      "間違い。ふろ給湯器は湯張り運転中でも台所などへ給湯できるものがあり、湯張り運転中にお湯を供給できないとしている点が誤り。",
+      "正しい。2018年出題時点では、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていた。なお、現行法では制度改正により特定保守製品から除かれているため、出題時点の基準で判断する。",
+      "正しい。大型給湯器には、養生シートや鳥害などで排気口が閉そくされた場合に、点火前に閉そくを検知し、点火動作に入らないようにする安全機能を備えたものがある。",
+      "正しい。給湯暖房用熱源機の暖房回路には、循環水の温度上昇に伴う膨張を吸収するため、シスターンが搭載されている。",
+      "間違い。ふろ給湯器は、湯張り運転中でも台所などへ給湯できるものがある。したがって、湯張り運転中にお湯を供給できないとする記述は誤り。",
       "正しい。BF式ふろがまでは、給排気のバランスが崩れると不完全燃焼や立ち消えのおそれがあるため、給排気筒トップの周囲に障害物があってはならない。"
-    ],
-    "suggestedQuestions": [
-      "2018年出題時点で、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていたか？",
-      "大型給湯器には、排気口閉そくを点火前に検知して点火動作に入らない安全機能を備えたものがあるか？",
-      "給湯暖房用熱源機の暖房回路には循環水の膨張を吸収するシスターンが搭載されているか？",
-      "ふろ給湯器は湯張り運転中に台所などへお湯を供給できないか？",
-      "BF式ふろがまでは給排気筒トップの周囲に障害物があってはならないか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "2018年出題時点で、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていたか？",
-        "answer": "指定されていた。。正しい。2018年出題時点で、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていた。"
-      },
-      {
-        "question": "大型給湯器には、排気口閉そくを点火前に検知して点火動作に入らない安全機能を備えたものがあるか？",
-        "answer": "ある。。正しい。大型給湯器には、養生シートや鳥害などで排気口が閉そくされた場合に、点火前に閉そくを検知して点火動作に入らない安全機能を備えたものがある。"
-      },
-      {
-        "question": "給湯暖房用熱源機の暖房回路には循環水の膨張を吸収するシスターンが搭載されているか？",
-        "answer": "搭載されている。。正しい。給湯暖房用熱源機の暖房回路には、循環水の膨張を吸収するためのシスターンが搭載されている。"
-      },
-      {
-        "question": "ふろ給湯器は湯張り運転中に台所などへお湯を供給できないか？",
-        "answer": "供給できるものがあるため、できないとはいえない。"
-      },
-      {
-        "question": "BF式ふろがまでは給排気筒トップの周囲に障害物があってはならないか？",
-        "answer": "障害物があってはならない。。正しい。BF式ふろがまでは、給排気のバランスが崩れると不完全燃焼や立ち消えのおそれがあるため、給排気筒トップの周囲に障害物があってはならない。"
-      }
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -242,6 +219,123 @@
       "正しい",
       "間違い",
       "正しい"
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2018:shohi:q22",
+    "reviewQuestionId": "58726aadc48afa5f",
+    "sourceRecordRef": "question_2018_3.json#2",
+    "suggestedQuestionDetailsByChoice": [],
+    "explanationReferences": [
+      {
+        "title": "消費生活用製品安全法施行令",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/349CO0000000048",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      },
+      {
+        "title": "経済産業省 消費生活用製品安全法改正について",
+        "sourceUrl": "https://www.meti.go.jp/product_safety/producer/shouan/07kaisei.html",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      }
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "349CO0000000048",
+          "lawTitle": "消費生活用製品安全法施行令",
+          "referenceDate": "2018-09-30",
+          "article": "第3条、別表第三第1号・第2号（都市ガス用及び液化石油ガス用の瞬間湯沸器で、屋外式のものを除く。）",
+          "verificationStatus": "verified",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/349CO0000000048?occasion_date=20190507"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "349CO0000000048",
+          "lawTitle": "消費生活用製品安全法施行令",
+          "referenceDate": "2026-07-27",
+          "article": "第3条、別表第三（現行の特定保守製品。令和3年8月1日施行改正により屋内式ガス瞬間湯沸器は別表第三から削除）",
+          "verificationStatus": "verified",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/349CO0000000048/ ; 経済産業省 消費生活用製品安全法改正について https://www.meti.go.jp/product_safety/producer/shouan/07kaisei.html"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "選択肢1は、長期使用製品安全点検制度の特定保守製品に関する法令根拠を要する。2018年出題時点では、屋内式ガス瞬間湯沸器（都市ガス用・液化石油ガス用）は消費生活用製品安全法施行令第3条・別表第三に掲げる特定保守製品に含まれていた。現行法では令和3年8月1日施行改正により対象外となっているため、解説では出題時点の基準で正誤を述べる。選択肢2〜5は、主に機器構造、安全機能、給排気上の技術知識で判断する。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "2018年出題時点では屋内式ガス瞬間湯沸器が消費生活用製品安全法施行令第3条・別表第三の特定保守製品に含まれていたが、令和3年8月1日施行改正後の現行法では対象外である。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "排気口閉そく検知機能に関する機器技術上の記述であり、法改正による正誤変更の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "暖房回路のシスターンに関する機器構造上の記述であり、法改正による正誤変更の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "ふろ給湯器の湯張り運転中の給湯可否に関する機器機能上の記述であり、法改正による正誤変更の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "BF式ふろがまの給排気筒トップ周囲の障害物に関する安全上の技術知識であり、法改正による正誤変更の対象ではない。"
+        }
+      }
     ]
   },
   {
@@ -261,40 +355,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。厨房用低ふく射熱機器は、機器表面に断熱材を施して表面温度を下げる。燃焼排ガスを分散させて排出する構造としている点が誤り。",
-      "正しい。排気フード受け型の簡易湯沸器には、排気温度センサーとCOセンサーが搭載されている。",
-      "正しい。温水ボイラーの取扱いに必要な資格は、缶体にかかる圧力や伝熱面積の大きさによって異なる。",
-      "正しい。GHPには、EHPと同一の冷媒配管に接続し、GHPとEHPを最適な比率で運転制御できるものがある。",
-      "正しい。コージェネレーションシステムは電力と熱を同時に発生させるシステムで、ガスエンジン式、ガスタービン式、燃料電池式などがある。"
-    ],
-    "suggestedQuestions": [
-      "厨房用低ふく射熱機器は、燃焼排ガスを分散させて排出することで表面温度を下げる構造か？",
-      "排気フード受け型の簡易湯沸器には排気温度センサーとCOセンサーが搭載されているか？",
-      "温水ボイラーの取扱い資格は、圧力や伝熱面積の大きさによって異なるか？",
-      "GHPには、EHPと同一の冷媒配管に接続して最適な比率で運転制御できるものがあるか？",
-      "コージェネレーションシステムには、ガスエンジン式、ガスタービン式、燃料電池式があるか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "厨房用低ふく射熱機器は、燃焼排ガスを分散させて排出することで表面温度を下げる構造か？",
-        "answer": "いいえ。断熱材で表面温度を下げる。。間違い。厨房用低ふく射熱機器は、機器表面に断熱材を施して表面温度を下げる。燃焼排ガスを分散させて排出する構造としている点が誤り。"
-      },
-      {
-        "question": "排気フード受け型の簡易湯沸器には排気温度センサーとCOセンサーが搭載されているか？",
-        "answer": "搭載されている。。正しい。排気フード受け型の簡易湯沸器には、排気温度センサーとCOセンサーが搭載されている。"
-      },
-      {
-        "question": "温水ボイラーの取扱い資格は、圧力や伝熱面積の大きさによって異なるか？",
-        "answer": "異なる。。正しい。温水ボイラーの取扱いに必要な資格は、缶体にかかる圧力や伝熱面積の大きさによって異なる。"
-      },
-      {
-        "question": "GHPには、EHPと同一の冷媒配管に接続して最適な比率で運転制御できるものがあるか？",
-        "answer": "ある。。正しい。GHPには、EHPと同一の冷媒配管に接続し、GHPとEHPを最適な比率で運転制御できるものがある。"
-      },
-      {
-        "question": "コージェネレーションシステムには、ガスエンジン式、ガスタービン式、燃料電池式があるか？",
-        "answer": "ある。。正しい。コージェネレーションシステムは電力と熱を同時に発生させるシステムで、ガスエンジン式、ガスタービン式、燃料電池式などがある。"
-      }
+      "間違い。厨房用低ふく射熱機器は、機器表面の断熱構造などで機器からのふく射熱を抑え、排気は集中して捕集しやすくするものです。燃焼排ガスを分散させて排出する構造とする、という点が誤りです。",
+      "正しい。排気フード受け型の簡易湯沸器は、排気フード内へ排気する設置形態に対応するため、排気温度を監視するセンサーやCOセンサーなどの安全装置を備えています。",
+      "正しい。温水ボイラーの取扱いに必要な資格や教育は、ボイラーの区分によって異なります。労働安全衛生法令上の区分には、缶体にかかる圧力や伝熱面積などが関係します。",
+      "正しい。GHPには、EHPと同一の冷媒系統に組み合わせ、ガスと電気の使用状況などに応じてGHPとEHPの運転比率を最適に制御する方式のものがあります。",
+      "正しい。コージェネレーションシステムは、発電と同時に発生する排熱を利用する熱電併給システムです。ガスエンジン式、ガスタービン式、燃料電池式などがあります。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -331,7 +396,165 @@
     "questionIntent": "select_incorrect",
     "taskId": "T935",
     "workerTaskId": "T935",
-    "remainingAfterTask": 99
+    "remainingAfterTask": 99,
+    "sourceQuestionKey": "gas-shunin:otsu:2018:shohi:q23",
+    "reviewQuestionId": "1343e856970ccda4",
+    "sourceRecordRef": "question_2018_3.json#3",
+    "explanationReferences": [
+      {
+        "title": "低輻射型ガス厨房機器 | JIA 一般財団法人 日本ガス機器検査協会",
+        "sourceUrl": "https://www.jia-page.or.jp/certification/jia/teifukusya/",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      },
+      {
+        "title": "業務用給湯機器 排気フード対応形 - パーパス",
+        "sourceUrl": "https://www.purpose.co.jp/business/exhaust/",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 1
+      },
+      {
+        "title": "労働安全衛生法 - e-Gov法令検索",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/347AC0000000057",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "労働安全衛生法施行令 - e-Gov法令検索",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/347CO0000000318",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "ボイラー及び圧力容器安全規則 - e-Gov法令検索",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/347M50002000033",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "ガスと電気を組み合わせた業務用空調システム『スマートマルチ』で省エネを実現 - 東京ガス",
+        "sourceUrl": "https://www.tokyo-gas.co.jp/Press/20150930-01.html",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 3
+      },
+      {
+        "title": "ガスコージェネレーションシステムの概要 - 日本ガス協会",
+        "sourceUrl": "https://www.gas.or.jp/gas-life/n-cogeneration/",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 4
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "法令根拠が必要なのは選択肢3。温水ボイラーの取扱資格は、労働安全衛生法、労働安全衛生法施行令、ボイラー及び圧力容器安全規則に基づくボイラー区分や取扱業務の規制に関係し、その区分には圧力や伝熱面積が関係する。選択肢1、2、4、5は業務用ガス機器の構造・機能に関する技術事項。",
+    "lawReferences": [
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "347AC0000000057",
+          "lawTitle": "労働安全衛生法",
+          "referenceDate": "2026-07-27",
+          "article": "第61条第1項",
+          "verificationStatus": "verified",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/347AC0000000057"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "347CO0000000318",
+          "lawTitle": "労働安全衛生法施行令",
+          "referenceDate": "2026-07-27",
+          "article": "第1条第3号・第4号、第20条第3号",
+          "verificationStatus": "verified",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/347CO0000000318"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "347M50002000033",
+          "lawTitle": "ボイラー及び圧力容器安全規則",
+          "referenceDate": "2026-07-27",
+          "article": "第23条第1項・第2項、第92条",
+          "verificationStatus": "verified",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/347M50002000033"
+        }
+      ],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "低ふく射熱機器の構造に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "排気フード受け型簡易湯沸器の安全装置に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "current_law_verified_no_revision_impact",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "労働安全衛生法令上、ボイラー取扱業務の資格や教育はボイラー区分に応じて整理され、区分には圧力や伝熱面積が関係する。2018年出題時の正誤を変える改正影響は確認されない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "GHPとEHPを組み合わせた空調システムの機能に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "コージェネレーションシステムの方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "26d0da537de18d3c",
@@ -350,11 +573,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。CF式は自然排気式である。燃焼用空気を屋内から取り、燃焼排ガスは自然通気力で屋外へ排出するため、送風機で強制的に排出する方式ではない。",
-      "間違い。BF式は自然給排気式である。燃焼用空気を屋外から取り、燃焼排ガスも自然通気力で屋外へ排出するため、送風機で強制的に排出する方式ではない。",
-      "間違い。FE式は強制排気式である。燃焼用空気を屋内から取り、燃焼排ガスは送風機で屋外へ強制的に排出するため、自然通気力による排出ではない。",
-      "間違い。FF式は強制給排気式である。燃焼用空気を屋外から取り、送風機で給排気を行うため、自然通気力による排出ではない。",
-      "正しい。RF式は屋外式である。機器を屋外に設置し、燃焼用空気の取り入れも燃焼排ガスの排出も屋外で行う。"
+      "間違い。CF式は自然排気式で、燃焼用空気を屋内から取り、燃焼排ガスは自然通気力で屋外へ排出する方式である。送風機で強制的に排出する方式ではない。",
+      "間違い。BF式は自然給排気式で、燃焼用空気を屋外から取り、燃焼排ガスも自然通気力で屋外へ排出する方式である。送風機で強制的に排出する方式ではない。",
+      "間違い。FE式は強制排気式で、燃焼用空気を屋内から取り、燃焼排ガスは送風機で屋外へ強制的に排出する方式である。自然通気力による排出ではない。",
+      "間違い。FF式は強制給排気式で、燃焼用空気を屋外から取り、送風機で給気と排気を行う方式である。自然通気力による排出ではない。",
+      "正しい。RF式は屋外式で、機器を屋外に設置し、燃焼用空気を屋外から取り、燃焼排ガスも屋外へ排出する方式である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -397,7 +620,7 @@
     "sourceRecordRef": "question_2018_3.json#4",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "法令条文の直接根拠を要しない。CF式、BF式、FE式、FF式、RF式の給気方法、排気方法、送風機使用の有無で判断する。",
+    "lawContextForExplanation": "ガス機器の給排気方式に関する技術分類の問題であり、法令根拠は不要。CF式、BF式、FE式、FF式、RF式について、燃焼用空気を屋内・屋外のどちらから取るか、燃焼排ガスを自然通気力・送風機のどちらで屋外へ排出するかで判断する。",
     "lawReferences": [
       [],
       [],
@@ -472,7 +695,7 @@
     "sourceRecordRef": "question_2018_3.json#5",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "法令条文の直接根拠を要しない。一酸化炭素の性質、CO中毒、自然換気、局所換気方式と全体換気方式の効率差、換気扇用ファンの種類で判断する。",
+    "lawContextForExplanation": "一酸化炭素の性質、CO中毒、自然換気、局所換気・全体換気の効率差、換気扇ファンの種類に関する技術知識の問題であり、法令根拠は不要。",
     "lawReferences": [
       [],
       [],
@@ -480,7 +703,73 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "reason": "COの無色無臭という性質を問う技術知識であり、現行法令条文による正誤変更対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "reason": "CO中毒症状が濃度と吸入時間に左右されるという技術知識であり、現行法令条文による正誤変更対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "reason": "自然換気の発生要因を問う設備・衛生工学上の技術知識であり、現行法令条文による正誤変更対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "reason": "局所換気方式と全体換気方式の効率差を問う技術知識であり、現行法令条文による正誤変更対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "reason": "換気扇ファンの種類を問う機器知識であり、現行法令条文による正誤変更対象ではない。"
+        }
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -500,11 +789,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "正しい。ガスコンセントは、接続具が外れたときに内蔵弁が閉じ、ガスが流出しない構造になっている。",
-      "正しい。家庭用コージェネレーションシステムのような常設形のガス機器とガス栓との接続には、一般に強化ガスホースが使用される。",
-      "間違い。テーブルこんろとガス栓との接続には、一般にガスソフトコードを使用する。ガスコードは、迅速継手で接続する移動設置形のガス機器などに用いられる接続具であり、テーブルこんろの一般的な接続としている記述は適切でない。",
-      "正しい。警報器には、ガス漏れ警報に加えて、不完全燃焼警報や火災警報の機能を兼ね備えた複合型のものがある。",
-      "正しい。業務用換気警報器は、COを人が吸入する位置で検知できるよう、人が呼吸する高さを基準に床面からの設置高さが定められている。"
+      "正しい。ガスコンセントは、接続具が外れたときに内蔵された安全機構が働き、ガスが流出しない構造になっている。",
+      "正しい。家庭用コージェネレーションシステムのような常設形のガス機器とガス栓との接続には、一般に強化ガスホースが用いられる。",
+      "間違い。テーブルこんろとガス栓との接続には、一般にガスソフトコードを用いる。ガスコードは迅速継手で接続する移動設置形のガス機器などに用いられる接続具であり、テーブルこんろの一般的な接続具をガスコードとしている点が適切でない。",
+      "正しい。警報器には、ガス漏れ警報だけでなく、不完全燃焼警報や火災警報の機能を併せ持つ複合型のものがある。",
+      "正しい。業務用換気警報器は、一酸化炭素などを人が吸入する位置で検知できるよう、人の呼吸位置を基準として床面からの設置高さが定められている。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -547,7 +836,7 @@
     "sourceRecordRef": "question_2018_3.json#6",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "法令条文の直接根拠を要しない。ガスコンセント、強化ガスホース、ガスソフトコード、警報器、業務用換気警報器の機能と設置に関する機器・施工知識で判断する。",
+    "lawContextForExplanation": "消費機器・接続具・警報器の機器仕様及び施工実務を根拠とする非法令問題。ガス事業法施行規則第202条等には特定用途建物等の基準があるが、本問の各一般記述の正誤を直接決める条文としては扱わない。",
     "lawReferences": [
       [],
       [],
@@ -555,7 +844,73 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "ガスコンセントの安全機構に関する機器知識であり、正誤を直接決める検証済み法令条文は確認していない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "家庭用コージェネレーションシステムとガス栓の接続具に関する施工実務知識であり、正誤を直接決める検証済み法令条文は確認していない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "テーブルこんろの一般的な接続具はガスソフトコードであり、ガスコードとする点を誤りとする機器知識で判断した。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "ガス漏れ・不完全燃焼・火災警報機能を組み合わせた複合型警報器の存在に関する機器知識で判断した。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "業務用換気警報器の設置高さに関する実務上の設置基準の知識であり、正誤を直接決める検証済み法令条文は確認していない。"
+        }
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -575,11 +930,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。熱電対式立ち消え安全装置は、熱電対の熱起電力を利用して炎の有無を検知する。炎の導電性と整流性を利用するのはフレームロッド式である。",
-      "間違い。バイメタル式過熱防止装置は、異なる金属の熱膨張率差による湾曲でスイッチを作動させる。合金が溶融して電気回路を切る方式は温度ヒューズ式である。",
-      "間違い。COセンサー式不完全燃焼防止装置には、接触燃焼式、半導体式、電気化学式などが用いられる。サーミスター式は温度検出に用いられる方式であり、COセンサー方式としては適切でない。",
-      "正しい。BF式ふろがまの冠水検知装置には、水位を検知する方式として電極式とフロート式がある。",
-      "間違い。ふろがまの空だき安全装置には、温度ヒューズ式やバイメタル式などが用いられる。熱電対式は主に立ち消え安全装置に用いられる方式である。"
+      "間違い。熱電対式立ち消え安全装置は、熱電対が炎で加熱されたときに生じる熱起電力を利用して、炎の有無を検知する。炎の導電性と整流性を利用するのはフレームロッド式である。",
+      "間違い。バイメタル式過熱防止装置は、熱膨張率の異なる金属を組み合わせたバイメタルの変形でスイッチを作動させる。合金が溶融して電気回路を切る方式は温度ヒューズ式である。",
+      "間違い。COセンサー式不完全燃焼防止装置には、接触燃焼式、半導体式、電気化学式などが用いられる。サーミスター式は温度検出に用いられる方式であり、COセンサーの方式としては適切でない。",
+      "正しい。BF式ふろがまの冠水検知装置には、冠水を検知する方式として電極式とフロート式がある。したがって、この記述は正しい。",
+      "間違い。ふろがまの空だき安全装置には、温度ヒューズ式やバイメタル式などが用いられる。熱電対式は主に立ち消え安全装置に用いられる方式であり、空だき安全装置の方式としては適切でない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -621,7 +976,7 @@
     "sourceRecordRef": "question_2018_3.json#7",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "法令条文の直接根拠を要しない。立ち消え、過熱、不完全燃焼、冠水、空だきに対する安全装置の検知原理と方式で判断する。",
+    "lawContextForExplanation": "ガス機器の安全装置について、熱電対式、フレームロッド式、バイメタル式、温度ヒューズ式、COセンサー式、冠水検知装置、空だき安全装置の検知原理と方式で判定する問題であり、法令条文を直接の判定根拠としない。",
     "lawReferences": [
       [],
       [],

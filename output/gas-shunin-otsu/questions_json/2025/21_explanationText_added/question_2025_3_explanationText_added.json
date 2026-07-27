@@ -52,7 +52,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必要としない燃焼技術の問題である。混合ガスの燃焼速度と炎口からの噴出速度の大小関係を基準に判断する。",
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。燃焼速度と混合ガスの噴出速度との関係に基づき、フラッシュバックの原因を解説する。",
     "lawRevisionFacts": []
   },
   {
@@ -72,13 +72,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "正しい。瞬間湯沸器の1号は、水温を25℃上昇させた湯を毎分1L供給する能力である。必要な熱量を換算すると約1.75kWとなる。",
-      "間違い。BF-DP式ふろがまは、給気管と排気管を別々に立ち上げるが、屋外端では一つの給排気トップへ接続して給気口と排気口を近接させ、風圧の影響を相殺する。選択肢は給気筒トップと排気筒トップを別々に設けるとしているため誤りである。",
-      "正しい。制度の対象品目が見直され、屋内式ガス瞬間湯沸器と屋内式ガスふろがまは、長期使用製品安全点検制度における特定保守製品から削除されている。",
-      "正しい。2缶3水の「2缶」は燃焼によって直接加熱される熱交換器の数を示し、「3水」は給湯、ふろ、暖房の三つの回路を示す。",
-      "正しい。潜熱回収時には、燃焼排ガス中の水蒸気が凝縮して酸性の凝縮水が生じる。そのまま排出せず、中和器で水質を改善してから排出する。"
+      "正しい。瞬間湯沸器の1号は、水温を25℃上昇させた湯を毎分1L供給できる能力を表す。水1Lを毎分25℃上昇させるために必要な熱量を換算すると約1.75kWとなる。",
+      "間違い。BF-DP式ふろがまでは、給気管と排気管を別々に立ち上げるものの、屋外側では両方を一つの給排気トップに接続し、給気口と排気口を近接させて風圧の影響を抑える。選択肢は給気筒トップと排気筒トップを別々に設けるとしており、正しい構造と異なるため誤りである。",
+      "正しい。長期使用製品安全点検制度の対象品目は2021年に見直され、屋内式ガス瞬間湯沸器と屋内式ガスふろがまは特定保守製品から除外された。2025年時点でも現行法でも、別表に掲げられている特定保守製品は石油給湯機と石油ふろがまである。",
+      "正しい。2缶3水の「2缶」は、燃焼によって直接加熱される熱交換器が二つあることを示す。「3水」は、給湯、ふろ、暖房という三つの温水回路を示す。",
+      "正しい。潜熱回収時には、燃焼排ガス中の水蒸気が凝縮し、pH3程度の強い酸性を示す凝縮水が生じる。この凝縮水は、炭酸カルシウムなどを用いる中和器を通して水質を改善してから排出される。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -95,21 +95,131 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q21",
     "reviewQuestionId": "30d4a0bfbe45188a",
     "sourceRecordRef": "question_2025_3.json#1",
     "suggestedQuestionDetailsByChoice": [],
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "消費生活用製品安全法施行令（昭和四十九年政令第四十八号）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/349CO0000000048?occasion_date=20250401",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "長期使用製品安全点検制度の見直しについて",
+        "sourceUrl": "https://www.meti.go.jp/product_safety/producer/shouan/07kaisei.html",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "ドレン排水の取扱いについて",
+        "sourceUrl": "https://chintai-shoene2026.meti.go.jp/about-drain/",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 4
+      }
+    ],
     "lawReferences": [
       [],
       [],
-      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "349CO0000000048",
+          "lawTitle": "消費生活用製品安全法施行令",
+          "referenceDate": "2026-07-27",
+          "article": "第4条及び別表第3",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/349CO0000000048/20260708_508CO0000000117?occasion_date=20260708"
+        },
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "349CO0000000048",
+          "lawTitle": "消費生活用製品安全法施行令",
+          "referenceDate": "2025-04-01",
+          "article": "第3条及び別表第3",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/349CO0000000048?occasion_date=20250401"
+        }
+      ],
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必須としない温水機器の知識問題である。給湯能力、BF-DP式の給排気構成、制度対象品目、熱源機の分類及び凝縮水処理を区別する。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "選択肢3は長期使用製品安全点検制度の特定保守製品に関する法令事項である。2021年8月1日の施行令改正により、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは対象から除外された。2025年時点では施行令第3条及び別表第3、2026年7月27日現在は条番号変更後の第4条及び別表第3が根拠となり、いずれも同選択肢の判定は変わらない。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "conclusion": "給湯能力に関する機器知識であり、法令改正による判定変更はない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "conclusion": "BF-DP式の給排気構造に関する機器知識であり、法令改正による判定変更はない。"
+        }
+      },
+      {
+        "auditStatus": "verified_no_change",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "conclusion": "2021年8月1日以降、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは特定保守製品に含まれず、2025年試験時点から現行まで判定は変わらない。",
+          "currentBasis": "2026年7月27日現在の消費生活用製品安全法施行令第4条及び別表第3。",
+          "examTimeBasis": "2025年4月1日時点の消費生活用製品安全法施行令第3条及び別表第3。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "conclusion": "給湯暖房用熱源機の分類に関する機器知識であり、法令改正による判定変更はない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "conclusion": "潜熱回収型給湯器の凝縮水処理に関する機器知識であり、法令改正による判定変更はない。"
+        }
+      }
+    ]
   },
   {
     "original_question_id": "36671e7d6f13eec2",
@@ -128,13 +238,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "間違い。ガスこんろとガスストーブはガス用品に含まれるが、回転ドラム式衣類乾燥機は指定品目に含まれない。選択肢は三つの機器をすべてガス用品としているため誤りである。",
-      "正しい。回転ドラム式ガス衣類乾燥機は、燃焼用空気を設置室内から取り入れ、燃焼排ガスを排気筒で屋外へ排出する開放式ガス機器である。",
-      "正しい。焦げ付き消火機能は、調理油過熱防止装置の温度センサーで鍋底温度の変化を検知し、焦げ付きが始まったと判断すると自動消火する。",
-      "正しい。ファンヒーターの室温自動制御には、温度変化に応じて電気抵抗が変わるサーミスターが主な室温センサーとして用いられる。",
-      "正しい。FF暖房機では、低温の燃焼用空気を通す給気管に軟質塩化ビニールを用い、高温の排気を通す排気管に耐熱性のあるステンレス鋼板を用いるのが一般的である。"
+      "間違い。ガス事業法上のガス用品には、所定のガス消費量などの要件を満たすガスこんろとガスストーブは含まれるが、回転ドラム式衣類乾燥機はガス事業法施行令別表第1に掲げられていない。したがって、三つの機器をすべてガス用品とする記述は誤りである。",
+      "正しい。回転ドラム式ガス衣類乾燥機は、設置室内の空気を取り入れて燃焼し、燃焼排ガスを乾燥用空気とともに排湿筒から屋外へ排出する開放式ガス機器である。",
+      "正しい。焦げ付き消火機能は、調理油過熱防止装置の温度センサーを利用して鍋底温度の変化を検知し、焦げ付きが始まったと判断すると自動的に消火する機能である。",
+      "正しい。ファンヒーターの室温自動制御には、温度に応じて電気抵抗が変化するサーミスターが、主な室温センサーとして使用されている。",
+      "正しい。FF暖房機では一般に、低温の燃焼用空気が通る給気管には軟質塩化ビニールを用い、高温の排気が通る排気管には耐熱性のあるステンレス鋼板を用いる。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -151,21 +261,158 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q22",
     "reviewQuestionId": "36671e7d6f13eec2",
     "sourceRecordRef": "question_2025_3.json#2",
     "suggestedQuestionDetailsByChoice": [],
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "e-Gov法令検索「ガス事業法」第137条第1項（2025年9月28日時点）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20250928",
+        "referenceDate": "2025-09-28",
+        "choiceIndex": 0
+      },
+      {
+        "title": "e-Gov法令検索「ガス事業法施行令」第9条・別表第1（2025年9月28日時点）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20250928",
+        "referenceDate": "2025-09-28",
+        "choiceIndex": 0
+      },
+      {
+        "title": "e-Gov法令検索「ガス事業法」第137条第1項（現行）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20260727",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      },
+      {
+        "title": "e-Gov法令検索「ガス事業法施行令」第14条・別表第1（現行）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20260727",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      }
+    ],
     "lawReferences": [
-      [],
+      [
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2025-09-28",
+          "article": "第137条第1項",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20250928"
+        },
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329CO0000000068",
+          "lawTitle": "ガス事業法施行令",
+          "referenceDate": "2025-09-28",
+          "article": "第9条、別表第1",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20250928"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-27",
+          "article": "第137条第1項",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20260727"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329CO0000000068",
+          "lawTitle": "ガス事業法施行令",
+          "referenceDate": "2026-07-27",
+          "article": "第14条、別表第1",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20260727"
+        }
+      ],
       [],
       [],
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必須としない家庭用ガス機器の知識問題として、指定品目、給排気方式、安全機能、温度センサー及び給排気管の材質を区別する。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "選択肢1のみ法令に基づく判定を要する。ガス事業法第137条第1項および、試験日（2025年9月28日）時点のガス事業法施行令第9条・別表第1（現行は第14条・別表第1）による。同表には所定のガスストーブとガスこんろが掲げられているが、回転ドラム式衣類乾燥機は掲げられていない。2025年12月25日施行の改正で条番号は移動したが、判定に関係する品目に変更はない。選択肢2～5は機器の構造・機能に関する技術事項である。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "verified_no_change",
+        "reviewState": "tertiary_verified",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "試験日時点のガス事業法第137条第1項、ガス事業法施行令第9条および別表第1と、現行の同法第137条第1項、同令第14条および別表第1を照合した。",
+          "revisionImpact": "2025年12月25日施行の改正により施行令の条番号は第9条から第14条へ移動したが、ガスストーブおよびガスこんろが対象で、回転ドラム式衣類乾燥機が対象外である点は変わらない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "機器の燃焼・排気方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "焦げ付き消火機能と温度センサーに関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "室温自動制御用センサーに関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "not_applicable",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "FF暖房機の給排気管材料に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+        }
+      }
+    ]
   },
   {
     "original_question_id": "3a65f66e45517939",
@@ -220,7 +467,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必要としない技術知識問題である。業務用湯沸器、台数制御式給湯、吸収冷凍機、GHPの暖房サイクル及びガスエンジン式CGSの容量範囲を区別する。",
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。業務用厨房の排気ダクト接続型半密閉式湯沸器、マルチ温水機、空調用吸収冷凍機、GHP、ガスエンジン式CGSの構造・用途・運転特性に基づいて解説する。",
     "lawRevisionFacts": []
   },
   {
@@ -276,7 +523,8 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。自然換気、局所換気、必要換気量、換気の成立条件及び自然換気回数の技術的な考え方に基づいて解説する。"
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。自然換気、局所換気方式、必要換気量、換気成立条件、自然換気回数の考え方に基づいて解説する。",
+    "lawRevisionFacts": []
   },
   {
     "original_question_id": "232faed18eb90bc1",
@@ -295,13 +543,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "正しい。自然排気式（CF式）機器の逆風止め（バフラー）には、逆風による燃焼への影響を抑えるほか、排気筒の過度なドラフトによる消火や熱効率の低下を防ぐ役割がある。",
-      "正しい。自然排気式（CF式）機器の排気筒トップ及び排気筒には、排気の熱や屋外環境に耐えられるよう、不燃性、耐熱性及び耐食性を備えた材料を用いる必要がある。",
-      "正しい。自然排気式（CF式）ふろがまの排気筒に使っていた壁貫通穴を利用して設置できる機器として、自然給排気式（BF式）のBF-DP式ふろがまがある。",
-      "間違い。強制排気式（FE式）機器は、燃焼排ガスを送風機で屋外へ排出する一方、燃焼用空気は室内から取り入れる。この空気を補う給気口又は開口部が必要であり、不要としているため誤りである。",
-      "正しい。屋外式（RF式）機器は給気と排気を屋外で行うため、通常は室内空気を汚染しない。ただし、排気ガスが窓などの建物開口部から室内へ流入しないよう、設置位置に注意する必要がある。"
+      "正しい。自然排気式（CF式）機器の逆風止め（バフラー）は、外部からの逆風による燃焼への影響を抑えるだけでなく、排気筒のドラフトが過大になったときの消火や熱効率の低下を防ぐ役割も果たす。",
+      "正しい。自然排気式（CF式）機器の排気筒及び排気筒トップには、高温の燃焼排ガスや屋外環境に耐えられる不燃性、耐熱性及び耐食性のある材料が必要である。法令上も、排気筒の材料は告示で定める規格に適合するもの又はこれと同等以上のものとされている。",
+      "正しい。自然排気式（CF式）ふろがまの旧排気筒に使用していた壁貫通穴を給排気管の経路として利用し、自然給排気式（BF式）のBF-DP式ふろがまを設置できる。",
+      "間違い。強制排気式（FE式）機器は、燃焼排ガスを送風機で屋外へ排出するが、燃焼用空気は室内から取り入れる。そのため、設置する室には排気筒の有効断面積以上の給気口その他の給気上有効な開口部が必要であり、不要とする記述は誤りである。",
+      "正しい。屋外式（RF式）機器は、給気と排気を屋外で行うため、通常は室内空気を汚染しない。ただし、排気吹出口付近の窓などから燃焼排ガスが室内へ流入しないよう、建物開口部との位置関係に注意して設置する必要がある。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -318,20 +566,196 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q25",
     "reviewQuestionId": "232faed18eb90bc1",
     "sourceRecordRef": "question_2025_3.json#5",
     "suggestedQuestionDetailsByChoice": [],
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "ガス事業法施行規則（昭和四十五年通商産業省令第九十七号）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 1
+      },
+      {
+        "title": "排気筒及び給排気部の材料の規格の要件並びに給排気部の指定する部分",
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200701kaisei.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 1
+      },
+      {
+        "title": "業務用ガス機器の設置基準の改正について（通知）（平成7年消防予第167号）",
+        "sourceUrl": "https://www.fdma.go.jp/laws/tutatsu/assets/070731yo167.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 1
+      },
+      {
+        "title": "ガス事業法施行規則（昭和四十五年通商産業省令第九十七号）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 3
+      },
+      {
+        "title": "業務用ガス機器の設置基準の改正について（通知）（平成7年消防予第167号）",
+        "sourceUrl": "https://www.fdma.go.jp/laws/tutatsu/assets/070731yo167.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 4
+      }
+    ],
     "lawReferences": [
       [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "article": "第202条第2号イ(1)",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097"
+        },
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2025-09-28",
+          "article": "第202条第2号イ(1)",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20250928"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "平成9年通商産業省告示第91号",
+          "lawTitle": "排気筒及び給排気部の材料の規格の要件並びに給排気部の指定する部分",
+          "referenceDate": "2026-07-27",
+          "article": "第1条",
+          "verificationStatus": "verified",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200701kaisei.pdf"
+        },
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "平成9年通商産業省告示第91号",
+          "lawTitle": "排気筒及び給排気部の材料の規格の要件並びに給排気部の指定する部分",
+          "referenceDate": "2025-09-28",
+          "article": "第1条",
+          "verificationStatus": "verified",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200701kaisei.pdf"
+        }
+      ],
       [],
-      [],
-      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "article": "第202条第4号",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097"
+        },
+        {
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2025-09-28",
+          "article": "第202条第4号",
+          "verificationStatus": "verified",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20250928"
+        }
+      ],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。CF式、BF-DP式、FE式及びRF式の給排気方式と、それぞれの構造・設置上の一般的な注意点に基づいて解説する。"
+    "lawContextForExplanation": "選択肢2はガス事業法施行規則第202条第2号イ(1)及び平成9年通商産業省告示第91号第1条、選択肢4は同規則第202条第4号を根拠とする。2025年9月28日から2026年7月27日まで、これらの選択肢の正誤に影響する改正は確認されない。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_applicable",
+        "reviewState": "not_applicable",
+        "current": {
+          "referenceDate": "2026-07-27",
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "referenceDate": "2025-09-28",
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "逆風止めの技術的機能を問う記述であり、法令改正による正誤比較の対象外である。"
+        }
+      },
+      {
+        "auditStatus": "no_relevant_revision",
+        "reviewState": "primary_verified",
+        "current": {
+          "referenceDate": "2026-07-27",
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "referenceDate": "2025-09-28",
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "ガス事業法施行規則第202条第2号イ(1)及び平成9年通商産業省告示第91号第1条を試験時点と現行基準日で照合し、正誤に影響する変更がないことを確認した。"
+        }
+      },
+      {
+        "auditStatus": "not_applicable",
+        "reviewState": "not_applicable",
+        "current": {
+          "referenceDate": "2026-07-27",
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "referenceDate": "2025-09-28",
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "BF-DP式ふろがまの設置形態に関する技術的記述であり、法令改正による正誤比較の対象外である。"
+        }
+      },
+      {
+        "auditStatus": "no_relevant_revision",
+        "reviewState": "primary_verified",
+        "current": {
+          "referenceDate": "2026-07-27",
+          "correctChoiceText": "間違い"
+        },
+        "examTime": {
+          "referenceDate": "2025-09-28",
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "ガス事業法施行規則第202条第4号を試験時点と現行基準日で照合し、FE式機器の設置室に必要な給気口等の要件と正誤に影響する変更がないことを確認した。"
+        }
+      },
+      {
+        "auditStatus": "not_applicable",
+        "reviewState": "not_applicable",
+        "current": {
+          "referenceDate": "2026-07-27",
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "referenceDate": "2025-09-28",
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "屋外式機器の設置上の留意点に関する技術的記述であり、法令改正による正誤比較の対象外である。"
+        }
+      }
+    ]
   },
   {
     "original_question_id": "851ce6e11c7168a8",
@@ -350,11 +774,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "正しい。ガス機器の安全装置は、異常時にガスを遮断するなど、安全側に停止するフェイルセーフの考え方で構成されている。",
-      "正しい。ガス機器の安全装置には、法令などで搭載が求められるものもある。一方で、点検時期を知らせる機能など、製品仕様や自主的な安全設計として搭載されるものもあり、すべてが法令で一律に規定されているわけではない。",
-      "間違い。不完全燃焼防止装置は、開放式小型湯沸器などに搭載される代表的な安全装置である。しかし、現在販売されているすべての家庭用ガス機器に搭載されているわけではない。",
-      "正しい。立ち消え安全装置には、熱電対式とフレームロッド式がある。いずれも炎の有無を検知し、立ち消え時にガスを遮断するための方式である。",
-      "正しい。現在販売されている開放式小型湯沸器には、使用回数が10万回を超えるとランプ表示などで点検時期を知らせるタイムスタンプ機能を備えるものがある。"
+      "正しい。ガス機器の安全装置は、異常が生じたときにガスを遮断するなど、機器を安全側に停止させるフェイルセーフの考え方に基づいて構成されている。",
+      "正しい。安全装置には法令で搭載が求められるものがある一方、製品の用途や仕様、自主的な安全設計によって備えられるものもある。したがって、すべての安全装置の搭載が法令で一律に規定されているわけではない。",
+      "間違い。不完全燃焼防止装置は、開放式小型湯沸器などに用いられる代表的な安全装置であるが、現在販売されているすべての家庭用ガス機器に搭載されているわけではない。",
+      "正しい。立ち消え安全装置の代表的な方式には、熱電対式とフレームロッド式がある。いずれも炎の有無を検知し、立ち消え時にガスの供給を停止するための方式である。",
+      "正しい。現在販売されている開放式小型湯沸器には、使用回数が10万回を超えるとランプ表示などによって点検時期を知らせるタイムスタンプ機能が搭載されている。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -393,7 +817,7 @@
     "reviewQuestionId": "851ce6e11c7168a8",
     "sourceRecordRef": "question_2025_3.json#6",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令本文の逐条解釈を必要としない消費機器の知識問題。フェイルセーフ、安全装置の搭載範囲、不完全燃焼防止装置、立ち消え安全装置、タイムスタンプ機能に基づいて解説する。",
+    "lawContextForExplanation": "本問は、ガス機器の安全設計、安全装置の搭載範囲、立ち消え検知方式および点検時期を知らせる機能に関する消費機器の技術知識を中心に説明する。特定の法令条文を正誤判定の直接の根拠とはしない。",
     "lawReferences": [
       [],
       [],
@@ -421,11 +845,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "正しい。ヒューズ機構付きガス栓では、誤開放などによって過大な流量が生じると、ヒューズボール等が通過孔をふさぎ、ガスを遮断する。",
-      "正しい。ガス機器のホースエンド口に器具用スリムプラグを取り付けると、ガスコードを用いてガスコンセントと接続できる。",
-      "正しい。都市ガス用のガス警報器には、一過性のガスによる不要な警報を防ぐため、一定時間連続してガスを検知した後に警報する遅延警報型がある。",
-      "正しい。家庭用CO警報器のCOセンサーには、アルコールによる検知への影響を抑えるため、活性炭フィルターを内蔵したものがある。",
-      "間違い。業務用換気警報器は、業務用厨房などで一酸化炭素を検知できるよう、床面から170±20 cm程度の高さで、燃焼器から水平距離8 m以内などの位置に設置する。天井から30 cm以内の高さに設置するとしているため誤りである。"
+      "正しい。ヒューズ機構付きガス栓では、誤開放などによって所定以上のガス流量が生じると、ヒューズボール等が通過孔をふさいでガスを遮断する。",
+      "正しい。ガス機器のホースエンド口に器具用スリムプラグを取り付けると、ガスコードを介してガスコンセントへ接続できる。接続口の形状に適合する接続具を用いることが重要である。",
+      "正しい。都市ガス用のガス警報器には、一過性のガスによる不要な警報を抑えるため、ガスを一定時間連続して検知した場合に警報する遅延警報型がある。",
+      "正しい。家庭用CO警報器のCOセンサーには、アルコールによる影響を抑えるための活性炭フィルターが内蔵されている。",
+      "間違い。業務用換気警報器は、燃焼器と同一室内で、燃焼器から水平距離50 cm～8 m、床面から170±20 cmの範囲を目安に設置する。したがって、天井から30 cm以内に設置するという記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -448,8 +872,49 @@
     "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q27",
     "reviewQuestionId": "03f7edabcc660a32",
     "sourceRecordRef": "question_2025_3.json#7",
-    "suggestedQuestionDetailsByChoice": [],
-    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 4,
+        "items": [
+          {
+            "question": "天井面から30 cm以内という設置位置は、主にどの警報器に当てはまりますか。",
+            "answer": "空気より軽い12A・13Aの都市ガスを検知する都市ガス用ガス警報器の設置位置に当てはまります。業務用換気警報器はCOを検知するため、床面から170±20 cmの範囲が目安です。"
+          }
+        ]
+      }
+    ],
+    "explanationReferences": [
+      {
+        "title": "ガス栓の種類",
+        "sourceUrl": "https://www.tokyo-gas.co.jp/network/koji/gassen_shurui/index.html",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 0
+      },
+      {
+        "title": "ガス機器の正しい接続方法",
+        "sourceUrl": "https://home.osakagas.co.jp/c_support/use/instrument/",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 1
+      },
+      {
+        "title": "ガス警報器技術史 第1次改訂版",
+        "sourceUrl": "https://www.gkk.gr.jp/wp-content/uploads/2023/03/16_gkk_gijyutsushi20220913.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 2
+      },
+      {
+        "title": "ガス警報器技術史 第1次改訂版",
+        "sourceUrl": "https://www.gkk.gr.jp/wp-content/uploads/2023/03/16_gkk_gijyutsushi20220913.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 3
+      },
+      {
+        "title": "ガス警報器設置マニュアル 第8次改訂版",
+        "sourceUrl": "https://www.gkk.gr.jp/wp-content/themes/gkk/common/images/pdf/business/manual20220608.pdf",
+        "referenceDate": "2026-07-27",
+        "choiceIndex": 4
+      }
+    ],
     "lawReferences": [
       [],
       [],
@@ -457,6 +922,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。ヒューズ機構付きガス栓、器具用接続具、都市ガス用ガス警報器、家庭用CO警報器及び業務用換気警報器の構造・機能・設置方法に基づいて解説する。"
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。ヒューズ機構付きガス栓、ガス機器の接続具、警報遅延機能、COセンサーの活性炭フィルター及び業務用換気警報器の設置位置に関する技術資料を基に解説する。",
+    "lawRevisionFacts": []
   }
 ]
