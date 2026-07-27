@@ -67,7 +67,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "過剰空気下で都市ガスを完全燃焼させたときの燃焼排ガス成分を問う燃焼化学の基礎問題。完全燃焼では二酸化炭素、水蒸気、窒素、未反応酸素が含まれ、一酸化炭素は不完全燃焼時の生成物であるため含まれない。法令条文を根拠にする解説は不要。",
+    "lawContextForExplanation": "都市ガスを過剰空気下で完全燃焼させた場合の燃焼排ガス成分を問う燃焼化学の基礎問題。二酸化炭素、水蒸気、窒素、未反応の酸素は含まれるが、一酸化炭素は不完全燃焼時の生成物であるため含まれない。法令条文を根拠にする解説は不要。",
     "lawRevisionFacts": {
       "auditStatus": "not_law_related",
       "current": {
@@ -111,9 +111,9 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "正しい。ファンヒーターには、安全確保や消し忘れ防止のため、一定時間燃焼を続けると自動的に暖房運転を停止する機能を備えたものがある。",
+      "正しい。ファンヒーターには、消し忘れや長時間運転による事故を防ぐため、一定時間燃焼を続けると自動的に暖房運転を停止する機能を備えたものがある。",
       "間違い。FF暖房機は、燃焼用空気を屋外から取り入れ、燃焼排ガスも屋外へ排出する密閉式の暖房機である。室内空気を燃焼に使う開放式機器ではないため、気密性の高い部屋で換気しないこと自体により室内空気不足で不完全燃焼が生じる、という説明は適切でない。",
-      "正しい。金網ストーブでは、金網が経年劣化や外力で変形すると燃焼状態が乱れ、不完全燃焼が生じるおそれがある。",
+      "正しい。金網ストーブでは、金網が経年劣化や外力で変形すると、炎の状態や空気との混合が乱れ、不完全燃焼が生じるおそれがある。",
       "正しい。調理油過熱防止装置は、温度センサーで鍋底の温度を検出し、天ぷら油などが発火する前にガスを止める安全装置である。",
       "正しい。グリル付こんろには、グリル火災を防ぐため、消し忘れ消火機能に加えて、過熱防止機能又は炎あふれ防止機能を備えたものがある。"
     ],
@@ -162,7 +162,73 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "ファンヒーターの長時間運転停止機能に関する機器安全機能の知識であり、法令条文で正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "FF暖房機の給排気方式と不完全燃焼リスクに関する技術知識であり、法令条文で正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "金網ストーブの金網変形と燃焼状態に関する技術知識であり、法令条文で正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "調理油過熱防止装置の作動内容に関する機器安全機能の知識であり、法令条文で正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "グリル付こんろの消火・過熱防止等の安全機能に関する技術知識であり、法令条文で正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -182,10 +248,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "正しい。2018年出題時点では、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていた。なお、現行法では制度改正により特定保守製品から除かれているため、出題時点の基準で判断する。",
+      "正しい。2018年出題時点では、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていた。なお、現行法では制度改正により特定保守製品から除かれているため、この肢は出題時点の基準で判断する。",
       "正しい。大型給湯器には、養生シートや鳥害などで排気口が閉そくされた場合に、点火前に閉そくを検知し、点火動作に入らないようにする安全機能を備えたものがある。",
       "正しい。給湯暖房用熱源機の暖房回路には、循環水の温度上昇に伴う膨張を吸収するため、シスターンが搭載されている。",
-      "間違い。ふろ給湯器は、湯張り運転中でも台所などへ給湯できるものがある。したがって、湯張り運転中にお湯を供給できないとする記述は誤り。",
+      "間違い。ふろ給湯器には、湯張り運転中でも台所などへ給湯できるものがある。したがって、湯張り運転中にお湯を供給できないとする記述は誤りである。",
       "正しい。BF式ふろがまでは、給排気のバランスが崩れると不完全燃焼や立ち消えのおそれがあるため、給排気筒トップの周囲に障害物があってはならない。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -355,10 +421,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。厨房用低ふく射熱機器は、機器表面の断熱や低ふく射、燃焼排気の集中排気などにより、厨房内への熱の放散を抑える機器です。燃焼排ガスを分散させて排出する構造という点が誤りです。",
-      "正しい。排気フード受け型の簡易湯沸器は、排気フード内へ排気する設置形態に対応するため、COセンサーや排気温度センサーなどを備え、CO中毒や高温排気による危険を抑える構造になっています。",
+      "間違い。厨房用低ふく射熱機器は、機器表面の断熱や燃焼排気の効率的な排出などにより、厨房内への放射熱を抑える機器です。機器の表面温度を下げるために燃焼排ガスを分散させて排出する、という説明が誤りです。",
+      "正しい。排気フード受け型の簡易湯沸器は、排気フード内へ排気する設置形態に対応するため、排気温度センサーやCOセンサーを備え、排気不良や一酸化炭素濃度上昇などによる危険を抑える構造になっています。",
       "正しい。温水ボイラーの取扱いに必要な資格や教育は、ボイラーの区分によって異なります。労働安全衛生法令上の区分には、最高使用圧力や伝熱面積などが関係します。",
-      "正しい。GHPには、EHPと同一の冷媒系統に接続し、ガスと電気の使用状況などに応じてGHPとEHPの運転比率を最適に制御する方式のものがあります。",
+      "正しい。GHPには、EHPと同一の冷媒配管に接続し、ガスと電気の使用状況などに応じてGHPとEHPの運転比率を最適に制御できる方式のものがあります。",
       "正しい。コージェネレーションシステムは、発電と同時に発生する排熱を利用する熱電併給システムです。ガスエンジン式、ガスタービン式、燃料電池式などがあります。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -445,7 +511,7 @@
       }
     ],
     "isLawRelated": true,
-    "lawContextForExplanation": "選択肢3のみ法令根拠が必要。温水ボイラーの取扱いに必要な資格・技能講習・特別教育は、労働安全衛生法令上のボイラー、小規模ボイラー、小型ボイラー等の区分により異なり、その区分には最高使用圧力や伝熱面積が関係する。選択肢1、2、4、5は機器の構造・機能に関する技術事項であり、法令条文を根拠にした解説は不要。",
+    "lawContextForExplanation": "選択肢3のみ法令根拠が必要。温水ボイラーの取扱いに必要な資格は、労働安全衛生法令上のボイラー、小規模ボイラー、小型ボイラー等の区分により異なり、その区分には最高使用圧力や伝熱面積が関係する。選択肢1、2、4、5は機器の構造・機能に関する技術事項であり、法令条文を根拠にした解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -691,7 +757,7 @@
     "sourceRecordRef": "question_2018_3.json#5",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "一酸化炭素の性質、CO中毒の症状、自然換気の発生要因、局所換気方式と全体換気方式の効率差、換気扇ファンの種類に関する技術知識の問題であり、法令根拠は不要。",
+    "lawContextForExplanation": "一酸化炭素の性質、CO中毒の症状、自然換気の発生要因、換気方式の効率差及び換気扇ファンの種類に関する技術知識の問題であり、法令根拠は不要。",
     "lawReferences": [
       [],
       [],
@@ -785,7 +851,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "誤っているものは3。テーブルこんろとガス栓との接続には、一般にガスソフトコードを用いるため、ガスコードが使用されているとする記述は適切でない。ガスコンセントは接続具が外れた場合にガスが流出しない構造であり、家庭用コージェネレーションシステムとガス栓との接続には一般に強化ガスホースが用いられる。また、警報器にはガス漏れに加えて不完全燃焼や火災警報機能を備えた複合型があり、業務用換気警報器は人の呼吸位置を基準に床面からの設置高さが定められる。"
+      "誤っているものは3。テーブルこんろとガス栓との接続には、一般にガスソフトコードを使用するため、ガスコードを使用するとした記述は適切でない。ガスコンセントは、接続具を外すとガスが止まる安全機構を備える。家庭用コージェネレーションシステムのような据置型機器には強化ガスホースが用いられる。また、ガス漏れ、不完全燃焼及び火災を検知する複合型警報器があり、業務用換気警報器は人の呼吸位置を考慮した床面からの高さに設置する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -828,7 +894,7 @@
     "sourceRecordRef": "question_2018_3.json#6",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "消費機器、接続具、警報器の機器仕様及び施工実務を根拠とする非法令問題。ガス事業法令に特定用途建物等の警報設備に関する規定はあるが、本問の各一般記述の正誤を直接決める条文としては扱わない。",
+    "lawContextForExplanation": "ガス機器の接続具及び警報器に関する製品仕様・設置実務の問題。正誤を直接決める法令条文ではなく、ガス事業者及び関係工業会の機器・施工資料を根拠とする。",
     "lawReferences": [
       [],
       [],
@@ -843,7 +909,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガスコンセントの安全機構に関する機器知識であり、正誤を直接決める検証済み法令条文は確認していない。"
+          "summary": "ガスコンセントは迅速継手を外すとガスが止まる安全機構を備えることを、ガス機器関係工業会の安全案内で確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -856,7 +922,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "家庭用コージェネレーションシステムとガス栓の接続具に関する施工実務知識であり、正誤を直接決める検証済み法令条文は確認していない。"
+          "summary": "家庭用コージェネレーションシステムは据置型ガス機器であり、強化ガスホースを用いる接続実務として判断した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -869,7 +935,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "テーブルこんろの一般的な接続具はガスソフトコードであり、ガスコードとする点を誤りとする機器知識で判断した。"
+          "summary": "東京ガスの接続具案内でガスコンロの主な接続具がガスソフトコードと示されており、ガスコードとする記述を誤りと確認した。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -882,7 +948,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス漏れ・不完全燃焼・火災警報機能を組み合わせた複合型警報器の存在に関する機器知識で判断した。"
+          "summary": "ガス警報器工業会及び東京ガスの資料で、ガス漏れ・不完全燃焼・火災を検知する複合型警報器の存在を確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -895,7 +961,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "業務用換気警報器の設置高さに関する実務上の設置基準の知識であり、正誤を直接決める検証済み法令条文は確認していない。"
+          "summary": "ガス警報器設置資料で、業務用換気警報器を床面から170±20cmの範囲に設置する基準を確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -922,11 +988,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。熱電対式立ち消え安全装置は、炎で熱電対が加熱されたときに発生する熱起電力を利用して、炎の有無を検知する。炎の導電性と整流性を利用して検知するのはフレームロッド式である。",
-      "間違い。バイメタル式過熱防止装置は、熱膨張率の異なる金属を組み合わせたバイメタルが温度上昇で変形し、スイッチを作動させる方式である。合金が溶融して電気回路を切るのは温度ヒューズ式である。",
-      "間違い。COセンサー式不完全燃焼防止装置には、接触燃焼式、半導体式、電気化学式などが用いられる。サーミスター式は温度検出に用いられる方式であり、COセンサーの方式としては適切でない。",
-      "正しい。BF式ふろがまの冠水検知装置には、冠水を検知する方式として電極式とフロート式がある。したがって、この記述は正しい。",
-      "間違い。ふろがまの空だき安全装置には、温度ヒューズ式やバイメタル式などが用いられる。熱電対式は主に立ち消え安全装置に用いられる方式であり、空だき安全装置の方式としては適切でない。"
+      "間違い。熱電対式立ち消え安全装置は、炎で加熱された熱電対に生じる熱起電力を利用して炎の有無を検知する。炎の導電性と整流性を利用するのはフレームロッド式である。",
+      "間違い。バイメタル式過熱防止装置は、熱膨張率の異なる2種の金属を組み合わせたバイメタルが温度変化によって変形し、その変形を利用してガスを遮断する。低融点合金を溶融させて電気回路を切るのは温度ヒューズ式である。",
+      "間違い。COセンサーには接触燃焼式、半導体式、電気化学式などが用いられる。サーミスターは温度変化を検出する素子であり、COセンサーの検知方式には含まれない。",
+      "正しい。BF式ふろがまの冠水検知装置には、電極間の通電によって冠水を検知する電極式と、フロートの浮上によってスイッチを作動させるフロート式がある。",
+      "間違い。ふろがまの空だき安全装置には、水位を圧力変化として検知する圧力スイッチ式や、異常な温度上昇を検知するバイメタル式が用いられる。温度ヒューズ式と熱電対式の組合せではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -968,7 +1034,7 @@
     "sourceRecordRef": "question_2018_3.json#7",
     "explanationReferences": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "ガス機器の安全装置について、熱電対、バイメタル、COセンサー、冠水検知装置、空だき安全装置の方式と検知原理で判定する問題であり、法令条文を直接の判定根拠としない。",
+    "lawContextForExplanation": "ガス機器の安全装置について、熱電対、バイメタル、COセンサー、冠水検知及び空だき安全装置の方式と作動原理から判定する技術問題であり、法令条文を各肢の正誤の直接根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -976,7 +1042,78 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 0,
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "熱電対式は熱起電力を利用し、炎の導電性・整流性を利用するのはフレームロッド式である。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 1,
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "バイメタル式は異種金属の温度変化による機械的変形を利用し、低融点合金の溶融は温度ヒューズ式である。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 2,
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "接触燃焼式、半導体式及び電気化学式はCO検知方式であるが、サーミスター式は温度検出方式である。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 3,
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "BF式ふろがまの冠水検知には電極式とフロート式が用いられる。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 4,
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "ふろがまの空だき安全装置の代表的方式は圧力スイッチ式及びバイメタル式であり、提示された組合せではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   }
 ]

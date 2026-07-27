@@ -56,7 +56,7 @@
     "reviewQuestionId": "a227f152a94ed421",
     "sourceRecordRef": "question_2024_3.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "ブンゼンバーナーの一次空気量と燃焼状態、火移り不良、イエローチップ、ウォッベ指数とインプット、フラッシュバックを問う消費機器分野の技術知識問題。法令条文ではなく燃焼特性の理解に基づいて説明する。",
+    "lawContextForExplanation": "ブンゼンバーナーの一次空気量と燃焼状態、火移り不良、イエローチップ、ウォッベ指数とインプット、フラッシュバックを問う消費機器分野の技術知識問題。法令根拠ではなく燃焼特性の理解で説明する。",
     "lawReferences": [
       [],
       [],
@@ -150,11 +150,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。給排気通路が閉そくするとファンの風量が減少し、ファンモーターに流れる電流値も小さくなる。この変化を検知して閉そく状態を診断する方法がある。",
-      "間違い。燃焼用空気を屋内から取り入れ、燃焼排ガスを排気筒で屋外へ排出するのはCF式ふろがまである。BF式は、給気と排気を屋外との間で行う方式である。",
-      "正しい。Q機能は、いったん出湯を止めて再び出湯した際に生じる冷水サンドイッチ現象を緩和し、湯温を安定させるための機能である。",
-      "正しい。元止め式瞬間湯沸器は、湯を使用する場所の近くに設置し、湯沸器の出湯管から直接湯を使用する機器である。",
-      "間違い。給湯能力の号数は、水温を25℃上昇させられる毎分の湯量を表す。20号で毎分20Lとなるのは25℃上昇時であり、10℃から40℃までは30℃上昇するため、供給量は毎分約16.7Lとなる。"
+      "正しい。給排気通路が閉そくすると、ファンが送り出せる風量が減り、ファンモーターの負荷と電流値も小さくなる。この電流値の変化を検知して閉そく状態を判定する自己診断方法がある。",
+      "間違い。燃焼用空気を屋内から取り入れ、燃焼排ガスだけを排気筒で屋外へ出す方式はCF式である。BF式は、給気と排気の両方を屋外との間で行うため、方式の名称が誤っている。",
+      "正しい。Q機能は、出湯を一度止めて再開したときなどに、配管内の冷水が一時的に混ざって湯温が変動する冷水サンドイッチ現象を抑える機能である。そのため、再出湯時にも安定した湯温を得やすくなる。",
+      "正しい。元止め式は、機器本体側の操作水栓で給水を開閉し、出湯口の先に給湯配管や別の水栓を設けない方式である。この構造上、使用場所の近くに設置し、本体の出湯管から出る湯を直接使用する。",
+      "間違い。給湯能力の号数は、水温を25℃上昇させる場合に1分間に供給できる湯量を表す。20号が毎分20Lを供給できるのは25℃上昇時であり、10℃から40℃への上昇幅は30℃なので、供給量は20×25÷30≒16.7L/分となる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -206,7 +206,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "給排気閉そく時のファン風量・電流変化を利用する自己診断機能の技術説明であり、法令条文が正誤を直接決める事項ではない。",
+          "basis": "給排気通路の閉そくに伴うファン風量及びモーター電流値の変化を利用した自己診断方法についての技術的記述であり、法令条文が正誤を直接決める事項ではない。",
           "lawRelated": false
         },
         "examTime": {
@@ -220,7 +220,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "屋内給気・排気筒屋外排気はCF式で、BF式は屋外給排気を行う方式であるため、記述は方式名称を取り違えている。",
+          "basis": "屋内から給気して排気筒で屋外へ排気する方式はCF式であり、BF式は給排気の両方を屋外との間で行うため、方式名称を取り違えている。",
           "lawRelated": false
         },
         "examTime": {
@@ -234,7 +234,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "Q機能は再出湯時などの冷水サンドイッチ現象による湯温むらを抑える機能であり、技術仕様の説明である。",
+          "basis": "Q機能は再出湯時などに生じる冷水サンドイッチ現象を抑えて湯温変動を緩和する機能であり、機器機能についての技術的記述である。",
           "lawRelated": false
         },
         "examTime": {
@@ -248,7 +248,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "元止め式瞬間湯沸器は本体側の出湯管等から直接使用する方式であり、機器分類上の技術説明である。",
+          "basis": "元止め式は機器本体側で給水を開閉し、出湯管から湯を直接使用する構造であるため、機器分類上の技術的記述として正しい。",
           "lawRelated": false
         },
         "examTime": {
@@ -262,7 +262,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "号数は水温を25℃上昇させた場合の毎分湯量を表すため、10℃から40℃への30℃上昇で20L/分供給できるとはいえない。",
+          "basis": "号数は水温を25℃上昇させる場合の毎分湯量を表すため、30℃上昇となる10℃から40℃への給湯で20号機が毎分20Lを供給できるとはいえない。",
           "lawRelated": false
         },
         "examTime": {
@@ -428,11 +428,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。排気ダクト接続型の半密閉式瞬間湯沸器には、排気温度センサー、排気あふれセンサー及びCOセンサーが一般に搭載されている。これらは排気の異常や不完全燃焼を検知し、安全を確保するためのものである。",
-      "正しい。パルス燃焼式フライヤーは浸管式フライヤーの一種であり、ガスの燃焼にパルス燃焼を採用して高い熱交換効率を得る。このため、熱交換器部分の面積を大幅に小さくできる。",
-      "正しい。遠赤外線暖房は、放射された遠赤外線が身体や床、壁などに吸収されて、それらを直接暖める性質を利用する。空気を介して熱を伝える対流暖房とは、主な熱の伝わり方が異なる。",
-      "正しい。都市ガスを用いる代表的なコージェネレーションシステムには、ガスエンジン式、ガスタービン式及び燃料電池式がある。いずれも発電と併せて排熱を回収し、給湯や空調などに利用する。",
-      "間違い。固体高分子形燃料電池（PEFC）は低温作動型で、作動温度は一般に約80℃である。約700℃の高温で作動し、起動・停止よりも連続運転に適するという説明は、固体酸化物形燃料電池（SOFC）の特徴である。"
+      "正しい。排気ダクト接続型の半密閉式瞬間湯沸器には、排気温度センサー、排気あふれセンサー及びCOセンサーが一般に搭載されている。これらは排気異常や不完全燃焼を検知し、安全を確保するための装置である。",
+      "正しい。パルス燃焼式フライヤーは浸管式フライヤーの一種で、ガスの燃焼にパルス燃焼を用いる。高い熱交換効率を得られるため、熱交換器部分の面積を大幅に小さくできる。",
+      "正しい。遠赤外線暖房は、放射された遠赤外線が身体や床、壁などに吸収され、それらを直接暖める性質を利用する。空気を主に暖める対流暖房とは、熱の伝わり方が異なる。",
+      "正しい。都市ガスを用いる代表的なコージェネレーションシステムには、ガスエンジン式、ガスタービン式及び燃料電池式がある。発電時の排熱を回収し、給湯や空調などに利用する。",
+      "間違い。固体高分子形燃料電池（PEFC）は低温作動型で、作動温度は一般に約80℃であり、起動・停止が比較的容易である。約700℃の高温で作動し、頻繁な起動・停止より連続運転に適するという説明は、固体酸化物形燃料電池（SOFC）の特徴である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -476,7 +476,78 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "技術事項",
+          "finding": "半密閉式瞬間湯沸器の安全装置構成に関する記述であり、正誤を直接決定する法令条項は確認されない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "技術事項",
+          "finding": "パルス燃焼式フライヤーの構造及び熱交換上の特徴に関する記述であり、法令上の要件を問うものではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "技術事項",
+          "finding": "遠赤外線による放射加熱の性質に関する記述であり、法令上の基準を問うものではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "技術事項",
+          "finding": "資源エネルギー庁のコージェネレーション解説は、エンジン、タービン及び燃料電池を発電方式として示している。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "classification": "技術事項",
+          "finding": "NEDO資料ではPEFCは約80℃、SOFCは700℃以上で作動し、PEFCは起動・停止が容易、SOFCは連続運転に適すると説明されている。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -974,13 +1045,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。調理油過熱防止装置は鍋底の温度を検知し、調理油が発火する前にガスを止める。現在販売されている2口以上の家庭用こんろでは、一部の口だけでなく全口にこの安全機能を備えることが求められている。",
-      "正しい。COセンサーは、不完全燃焼によって発生する一酸化炭素を検知し、機器を安全に停止させるために用いられる。検知原理の異なる固体電解質式、接触燃焼式及び半導体式がある。",
-      "間違い。水位スイッチ式や水流スイッチ式は、水の有無や流れを燃焼開始前に確認し、空だきの発生を未然に防ぐ空だき防止装置の方式である。これに対し、空だき安全装置は、空だきによる異常な温度上昇を検知して、機器が損傷する前にバーナーへのガスを止める装置である。したがって、水位スイッチ式や水流スイッチ式を空だき安全装置の方式としているため誤りである。",
-      "正しい。点火直後は熱電対の起電力がまだ小さいため、コンデンサーの放電電流によって一時的にガス弁を開いた状態に保つ。熱電対の起電力が十分になると、その起電力でガス弁の開状態を維持する。",
-      "正しい。比例電磁弁は、コイル電流の大きさに応じて電磁力と弁の開度を変える。弁を単に全開又は全閉にするのではなく、ガス量を連続的に調節できる。"
+      "正しい。都市ガス用は「ガス用品の技術上の基準等に関する省令」第11条・別表第3、LPガス用は「液化石油ガス器具等の技術上の基準等に関する省令」第11条・別表第3に対応する運用解釈で、各こんろバーナーに調理油過熱防止装置を備えることが示されている。例外は業務用として使用するもの等と卓上型一口ガスこんろであり、2口以上の家庭用こんろは全口が対象となる。装置は鍋底の温度を検知し、調理油が300℃に達する前にガスを止める。",
+      "正しい。不完全燃焼防止装置のCOセンサーは、不完全燃焼によって発生する一酸化炭素を検知し、危険な濃度になる前に燃焼を停止させるために用いられる。検知方式には、固体電解質式、接触燃焼式及び半導体式がある。",
+      "間違い。水位スイッチ式や水流スイッチ式は、水の有無や流れを燃焼開始前に確認して空だきを未然に防ぐ、空だき防止装置の方式である。一方、空だき安全装置は、空だきによる異常な温度上昇を検知し、機器が損傷する前にバーナーへのガスを止める。両者を混同しているため誤りである。",
+      "正しい。点火直後は熱電対の起電力がまだ十分でないため、コンデンサーの放電電流によって一時的にガス弁を開状態に保持する。熱電対の起電力が十分になると、その起電力によって開状態を維持する。",
+      "正しい。比例電磁弁は、コイルに流す電流の大きさに応じて電磁力と弁の開度を変える。単なる全開・全閉ではなく、ガス量を連続的に調節できる。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [
       "ガス機器の安全装置、点火装置及び制御装置について、調理油過熱防止装置、COセンサー、空だき安全装置と水位・水流検知方式の区別、瞬時点火装置、比例電磁弁を確認した。"
@@ -1009,21 +1080,150 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q26",
     "reviewQuestionId": "f70c9aa836367882",
     "sourceRecordRef": "question_2024_3.json#6",
     "suggestedQuestionDetailsByChoice": [],
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-28",
+        "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+        "title": "令和6年度ガス主任技術者試験（乙種）解答"
+      },
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-07-28",
+        "sourceUrl": "https://www.meti.go.jp/policy/consumer/seian/gasji/contents/gasuji_211115tsutatsu_zenbun.pdf",
+        "title": "ガス事業法の運用及び解釈について（ガス用品関係）"
+      },
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-07-28",
+        "sourceUrl": "https://www.meti.go.jp/policy/consumer/seian/ekiseki/contents/ekiseki_211115tsutatsu_zenbun.pdf",
+        "title": "液化石油ガス器具等の技術上の基準等に関する省令の運用について"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-07-28",
+        "sourceUrl": "https://panasonic.jp/content/dam/panasonic/jp/ja/pim-assets/support/specification/000/000/000/502/537/000000000502537/gj-c16a2_syouninzu.pdf",
+        "title": "ガス給湯機付ふろがま GJ-C16A2 承認図"
+      }
+    ],
     "lawReferences": [
-      [],
+      [
+        {
+          "article": "第11条及び別表第3",
+          "choiceIndex": 0,
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "manual_review",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第11条及び別表第3",
+          "choiceIndex": 0,
+          "lawId": "343M50000400023",
+          "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "manual_review",
+          "verificationStatus": "verified"
+        }
+      ],
       [],
       [],
       [],
       []
     ],
-    "lawContextForExplanation": "調理油過熱防止装置、COセンサー、空だき防止装置と空だき安全装置、瞬時点火装置及び比例電磁弁の構造・作動原理を問う技術知識問題。各装置の機能や方式の違いを説明すれば足り、法令根拠による解説は不要。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "選択肢1のみ法令関連。都市ガス用とLPガス用の各技術基準省令第11条・別表第3及び対応する運用解釈により、例外に該当しない家庭用ガスこんろの各バーナーには調理油過熱防止装置が必要となる。選択肢2〜5は、センサー、空だき対策、点火保持及び比例制御の技術知識であり、法令根拠は不要。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "article": "第11条及び別表第3",
+          "correctChoiceText": "正しい",
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で正誤に変更はない。",
+          "explanationText": "都市ガス用とLPガス用の技術基準に対応する運用解釈では、例外に該当しないガスこんろの各バーナーに調理油過熱防止装置を備えることが示される。2口以上の家庭用こんろは例外に該当しない。",
+          "promptContext": "2口以上の家庭用こんろは全口が対象であることを説明し、業務用等と卓上型一口の例外を混同しない。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "referenceDate": "2024-09-29",
+          "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+          "verificationStatus": "from_original_answer"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "COセンサーの検知方式に関する技術知識であり、法令差分監査の対象外。",
+          "verdict": "correct"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "primary_checked"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "explanationText": "空だき防止装置と空だき安全装置の機能区分に関する技術知識であり、法令差分監査の対象外。",
+          "verdict": "incorrect"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "primary_checked"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "瞬時点火装置の作動原理に関する技術知識であり、法令差分監査の対象外。",
+          "verdict": "correct"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "primary_checked"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "比例電磁弁の作動原理に関する技術知識であり、法令差分監査の対象外。",
+          "verdict": "correct"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "primary_checked"
+      }
+    ]
   },
   {
     "original_question_id": "36c478e27d6f5c7e",

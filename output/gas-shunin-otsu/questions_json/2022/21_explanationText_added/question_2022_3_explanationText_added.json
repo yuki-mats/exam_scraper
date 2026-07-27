@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正解は5です。赤火燃焼式は、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲から二次空気を取り入れて燃焼する方式です。そのため、一次空気は0%、二次空気は100%となります。また、赤火燃焼式の炎は赤黄色で長く、炎温度は約900℃です。したがって、（イ）赤黄、（ロ）長い、（ハ）約900の組合せである5が最も適切です。"
+      "正解は5です。赤火燃焼式では、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲の空気を二次空気として取り入れます。このため、一次空気は0%、二次空気は100%です。炎は赤黄色で長く、温度は約900℃となるので、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切です。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -67,8 +67,74 @@
       [],
       []
     ],
-    "lawContextForExplanation": "赤火燃焼式の一次空気、二次空気、炎色、炎の長さ、炎温度に関する技術知識問題。法令条文ではなく、赤火燃焼式は一次空気0%、二次空気100%で、赤黄色の長い炎、炎温度約900℃という知識で判断する。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "赤火燃焼式の一次空気、二次空気、炎色、炎の長さ及び炎温度に関する技術知識で判断する問題。一次空気0%、二次空気100%、赤黄色の長い炎、約900℃という特性を用いる。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "赤火燃焼式の炎色及び炎温度に関する技術的組合せが一致しない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "赤火燃焼式の炎色、炎の長さ及び炎温度に関する技術的組合せが一致しない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "炎温度を約1300℃とする点が赤火燃焼式の技術的特性と一致しない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "炎を短いとする点が赤火燃焼式の技術的特性と一致しない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "赤黄色、長い炎、約900℃の組合せが赤火燃焼式の技術的特性と一致する。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "original_question_id": "5a3b87a2d19bd625",
@@ -87,11 +153,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正しい。ガスこんろは、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑えることや鍋底との距離を近づけることなどの改良により、熱効率が向上してきた。",
-      "正しい。ガスオーブンは、庫内の熱風をファンで強制的に撹拌・循環させるため、加熱むらを抑えながら調理時間を短くしやすく、一度に多量の調理ができる。",
-      "間違い。FF暖房機の代表的な安全装置としては、立ち消え安全装置、点火時安全装置、過熱防止装置、排気筒外れ検知装置などが挙げられる。転倒時安全装置は一般に移動式の暖房機で重視される装置であり、FF暖房機の安全装置として列挙するのは不適切である。",
-      "正しい。ファンヒーターは、設定温度と室温センサーで検知した室温との差に応じて比例弁を駆動し、ガス量に合わせて対流ファンの風量を制御する。",
-      "正しい。回転ドラム式衣類乾燥機には、衣類に接触して電気抵抗値を測定し、湿り具合を判断する乾燥センサーが搭載されている。"
+      "家庭用ガス機器に関する記述のうち、誤っているものは3である。ガスこんろは、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑えることや鍋底との距離を近づけることなどの改良により、熱効率が向上してきたため、1は正しい。ガスオーブンは、庫内の熱風をファンで強制的に撹拌・循環させるため、調理時間を短くしやすく、一度に多量の調理ができるので、2も正しい。FF暖房機の代表的な安全装置には、立ち消え安全装置、点火時安全装置、過熱防止装置、排気筒外れ検知装置などがあるが、転倒時安全装置は一般に移動式の暖房機で重視される装置であり、FF暖房機の安全装置として列挙するのは不適切であるため、3は誤りである。ファンヒーターは、設定温度と室温センサーで検知した室温との差に応じて比例弁を駆動し、ガス量に合わせて対流ファンの風量を制御するため、4は正しい。回転ドラム式衣類乾燥機には、衣類に接触して電気抵抗値を測定し、湿り具合を判断する乾燥センサーが搭載されているため、5も正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -142,7 +204,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1に省エネ法に基づくトップランナー基準への言及はあるが、正誤判断の中心は、ガスこんろの熱効率向上、ガスオーブンの熱風循環、FF暖房機の安全装置、ファンヒーターの制御及び回転ドラム式衣類乾燥機の乾燥センサーに関する技術知識である。各選択肢の正誤を直接決定する法令条文はないため、法令根拠付き解説は不要である。",
+    "lawContextForExplanation": "選択肢1に省エネ法トップランナー基準への言及はあるが、正誤判断はガスこんろの熱効率向上という技術・制度背景であり、法令条文だけで直接決まるものではない。選択肢2〜5もガスオーブン、FF暖房機、ファンヒーター、衣類乾燥機の機能・構造に関する技術知識で判定するため、法令根拠付き解説は不要である。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -150,7 +212,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガスこんろの熱効率向上に関する技術・制度背景の記述であり、この肢の正誤を直接決める法令条文は確認対象ではない。"
+          "summary": "ガスこんろの熱効率向上に関する技術・制度背景の記述であり、この肢の正誤を直接決定する法令条文は確認されない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -228,9 +290,9 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正しい。給湯能力の号数は、水温を25℃上昇させた湯を1分間に何L出せるかで表す。したがって、10号の瞬間湯沸器は、水温20℃の水を45℃まで上昇させた湯を毎分10L供給できる能力をもつ。",
-      "間違い。給排気通路の閉そく状態を診断する方法には、燃焼状態や給気ファンの風量低下、ファンモーターの電流値などを利用するものがある。記述は、給気ファンの回転数と電圧値を計測するとしており、診断に用いる量が適切でないため誤りである。",
-      "正しい。給湯負荷に応じて適切な燃焼状態を保つため、ガス量と空気量を制御することを空燃比制御という。",
+      "正しい。給湯能力の号数は、水温を25℃上昇させた湯を1分間に何L供給できるかを表す。したがって、10号の瞬間湯沸器は、水温20℃の水を45℃まで上昇させた湯を毎分10L供給できる能力をもつ。",
+      "間違い。給排気通路の閉そく状態を診断する自己診断では、ファンの回転状態やファンモーターに流れる電流値など、燃焼用空気の供給状態に関係する情報を利用する。記述は電圧値を計測するとしているため、診断に用いる量が適切でない。",
+      "正しい。給湯負荷が変化しても適切な燃焼状態を保つため、ガス量と空気量を制御することを空燃比制御という。",
       "正しい。浴室暖房乾燥機の主要な4機能は、暖房、乾燥、涼風及び換気である。",
       "正しい。ふろ給湯器の設置方式には設置フリー形があり、循環ポンプの揚程の範囲内で、機器と浴槽の設置位置を選択できる。"
     ],
@@ -283,8 +345,79 @@
       [],
       []
     ],
-    "lawContextForExplanation": "家庭用ガス温水機器の号数、自己診断機能、空燃比制御、浴室暖房乾燥機及びふろ給湯器の設置方式に関する技術知識問題。各記述の正誤は機器の性能・機能に基づいて説明でき、法令条文による根拠付けは不要。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "家庭用ガス温水機器の号数、自己診断、空燃比制御、浴室暖房乾燥機及びふろ給湯器の設置方式に関する技術知識問題。各記述の正誤は機器の性能・機能に基づいて説明でき、法令条文による根拠付けは不要。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "号数は水温を25℃上昇させた湯の毎分供給量を表す。",
+          "classification": "technical_knowledge"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "閉そく診断で用いるのはファンモーターの電流値等であり、記述の電圧値は不適切。",
+          "classification": "technical_knowledge"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "負荷に応じてガス量と燃焼用空気量を調整する制御は空燃比制御である。",
+          "classification": "technical_knowledge"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "浴室暖房乾燥機には暖房、乾燥、涼風及び換気の各機能がある。",
+          "classification": "technical_knowledge"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "設置フリー形は循環ポンプを用い、揚程の許容範囲で設置位置を選択できる。",
+          "classification": "technical_knowledge"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "original_question_id": "61ab4624931c95d5",
@@ -303,8 +436,8 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正しい。丸釜式の麺ゆで器には、燃焼排ガスの熱を有効利用するダウンドラフト方式によって、省エネルギー性を高めたタイプがある。",
-      "間違い。ガススチームコンベクションオーブンのバーナーには、ブンゼン燃焼方式とブラスト燃焼方式が用いられる。蒸気発生部にボイラー方式とインジェクション方式があるという部分は正しいが、バーナー方式をパルス燃焼方式としているため誤りである。",
+      "正しい。丸釜式の麺ゆで器には、燃焼排ガスの熱を有効利用するダウンドラフト方式により、省エネルギー性を高めたタイプがある。",
+      "間違い。ガスチームコンベクションオーブンのバーナーには、ブンゼン燃焼方式とブラスト燃焼方式が用いられる。蒸気発生部にボイラー方式とインジェクション方式があるという部分は正しいが、バーナー方式をパルス燃焼方式としているため誤りである。",
       "正しい。吸収冷凍サイクルは、蒸発、吸収、再生及び凝縮の各工程で構成される。蒸発工程で冷媒を蒸発させて冷水をつくり、その冷水を冷房に用いる。",
       "正しい。電主熱従運転は、電力負荷に合わせて発電し、発生した廃熱をできるだけ利用したうえで、余剰分を放熱する運転方法である。",
       "正しい。家庭用固体酸化物形燃料電池（SOFC）は高温で作動し、家庭用ガスエンジンコージェネレーションシステムより高い発電効率を得られる。"
@@ -381,7 +514,7 @@
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
-          "summary": "ガススチームコンベクションオーブンのバーナー方式と蒸気発生方式に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
+          "summary": "ガスチームコンベクションオーブンのバーナー方式と蒸気発生方式に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -449,11 +582,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正しい。第2種換気は送風機などで給気し、排気口から自然に排気する方式である。第3種換気は給気口から自然給気し、送風機などで排気する方式である。",
-      "正しい。火気を使用する台所などには、燃焼排ガスや熱気を排出するため、建築基準法令に適合する換気設備を設ける必要がある。",
-      "正しい。集合住宅のパイプシャフトでは、屋外に開放される扉部に屋外式のRF式機器を設置し、パイプシャフト内部の壁面には密閉式のFF式機器を設置する扱いがある。",
-      "間違い。CF式機器の一次排気筒は機器の構成部品として扱われ、設置現場で短縮したり曲げたりして長さを調整するものではない。設置環境に応じて長さを調整する必要があるとしているため誤りである。",
-      "正しい。RF式機器は屋外で給排気する方式の機器であり、その設置工事自体は、屋内に設置する特定ガス消費機器の設置工事を対象とする監督制度には該当しない。"
+      "正しい。第2種換気はファンで給気して自然排気し、第3種換気は自然給気してファンで排気する方式である。機械換気設備の構造及び換気量に関する基準は、建築基準法施行令第20条の8及び第129条の2の5に定められている。",
+      "正しい。火気を使用する台所などのうち適用対象となる室には、燃焼排ガスや熱気を排出できる換気設備を設ける必要がある。この義務と対象範囲は、建築基準法第28条第3項及び建築基準法施行令第20条の3に定められている。",
+      "正しい。RF式は屋外式、FF式は密閉燃焼式であり、集合住宅のパイプシャフトでは、屋外に開放された扉部にRF式機器を、内部の壁面にFF式機器を設置する扱いがある。密閉燃焼式及び屋外設置の燃焼器の給排気基準は、ガス事業法施行規則第202条第6号及び第7号に定められている。",
+      "間違い。CF式機器の一次排気筒は燃焼器具の一部であり、正常な燃焼に必要な径と高さを備えるよう設計されているため、設置現場で短縮したり曲げたりして長さを調整してはならない。ガス事業法施行規則第202条第2号及びガス用品の技術上の基準等に関する省令第11条・別表第3の安全設計基準に反する内容である。",
+      "正しい。RF式機器は燃焼器を屋外に設置して給排気を屋外で行う方式であり、その設置工事自体は、特定ガス消費機器の設置工事の監督に関する法律第2条及び第3条による監督対象の特定工事には該当しない。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -498,137 +631,184 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "建築基準法",
+        "choiceIndex": 1,
+        "referenceDate": "2026-07-25",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325AC0000000201",
-        "referenceDate": "2026-07-25",
-        "choiceIndex": 1
+        "title": "建築基準法"
       },
       {
-        "title": "建築基準法施行令",
+        "choiceIndex": 1,
+        "referenceDate": "2026-07-25",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
-        "referenceDate": "2026-07-25",
-        "choiceIndex": 1
+        "title": "建築基準法施行令"
       },
       {
-        "title": "特定ガス消費機器の設置工事の監督に関する法律",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+        "choiceIndex": 4,
         "referenceDate": "2026-07-25",
-        "choiceIndex": 4
+        "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+        "title": "特定ガス消費機器の設置工事の監督に関する法律"
       }
     ],
     "lawReferences": [
-      [],
       [
         {
+          "article": "第20条の8、第129条の2の5",
+          "choiceIndex": 0,
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第28条第3項",
           "choiceIndex": 1,
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
-          "referenceDate": "2026-07-25",
-          "article": "第28条第3項",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索"
-        },
-        {
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第20条の3",
           "choiceIndex": 1,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-25",
-          "article": "第20条の3",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索"
-        }
-      ],
-      [],
-      [],
-      [
-        {
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第6号、第7号",
+          "choiceIndex": 2,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第2号",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第11条、別表第3",
+          "choiceIndex": 3,
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条、第3条",
           "choiceIndex": 4,
           "lawId": "354AC0000000033",
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-25",
-          "article": "第2条、第3条",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索"
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢2は建築基準法令上の火気使用室の換気設備に関する規定、選択肢5は特定ガス消費機器の設置工事における監督制度の対象範囲に関わる。その他の選択肢は換気方式及び給排気方式に関する技術知識で判断する。",
+    "lawContextForExplanation": "選択肢1・2は建築基準法令上の換気設備、選択肢3・4はガス事業法令上の燃焼器及び給排気設備、選択肢5は特定ガス消費機器の設置工事の監督制度に関わる。現行法との比較で正誤変更はない。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "not_applicable",
-        "reviewState": "refresh_reviewed",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "第2種・第3種機械換気の給排気方式と現行の換気設備基準を照合した。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "technical_basis",
-          "explanationText": "第2種換気と第3種換気の方式区分に基づく。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "火気使用室の換気設備義務を建築基準法第28条第3項及び同法施行令第20条の3で確認した。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "火気使用室の換気設備に関する現行法令上の扱いと一致する。"
-        }
-      },
-      {
-        "auditStatus": "not_applicable",
-        "reviewState": "refresh_reviewed",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "verdict": "technical_basis",
-          "explanationText": "集合住宅のパイプシャフトにおけるRF式機器とFF式機器の設置位置の区分に基づく。"
-        }
-      },
-      {
-        "auditStatus": "not_applicable",
-        "reviewState": "refresh_reviewed",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "verdict": "technical_basis",
-          "explanationText": "CF式機器の一次排気筒は設置現場で長さを調整する部材ではない。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "RF式とFF式の給排気方式及び設置区分をガス事業法施行規則第202条と所管官庁資料で確認した。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
         "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "RF式機器の設置工事自体は、屋内設置の特定ガス消費機器を対象とする監督制度には該当しない。"
-        }
+          "explanationText": "CF式機器の一次排気筒は機器の一部であり、現場で長さを変更しないことを現行基準及び所管官庁資料で確認した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "RF式機器の設置工事自体が監督対象の特定工事に該当しないことを監督法第2条及び第3条で確認した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -649,10 +829,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "間違い。バイメタル式とサーミスター式が用いられるのは空だき安全装置である。選択肢はこれを空だき防止装置としているため誤りである。",
-      "正しい。温度制御に用いられるサーミスターは、2種類以上の金属酸化物を混合して焼結した半導体抵抗体で、負の温度特性を持つ。温度が上がると抵抗値が低下し、その値は等比的に変化する。",
-      "正しい。立ち消え安全装置には、炎による熱起電力を利用して検知する熱電対式と、炎の導電性・整流性を利用して検知するフレームロッド式がある。",
-      "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると回路を遮断する。作動後は復帰しないため、再起動するには交換が必要である。",
+      "間違い。バイメタル式とサーミスタ式が用いられるのは、空だきを起こした後に異常を検知して停止させる空だき安全装置である。選択肢はこれを空だき防止装置としているため誤りである。",
+      "正しい。温度制御に用いられるサーミスタは、2種類以上の金属酸化物を混合し、焼結して作られる半導体抵抗体である。温度が上がると抵抗値が低下する負の温度特性を持ち、抵抗値は等比的に変化する。",
+      "正しい。立ち消え安全装置には、炎によって生じる熱起電力を利用して炎を検知する熱電対式と、炎の導電性及び整流性を利用して炎を検知するフレームロッド式がある。",
+      "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると回路を遮断する。作動後は自動復帰しないため、再起動するには温度ヒューズの交換が必要である。",
       "正しい。ガス量の制御方式には、設定した段階ごとにガス量を切り替える多段式と、ガス量を連続的に変化させる比例制御式がある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -844,7 +1024,7 @@
     "reviewQuestionId": "e7990ec6baa35f4e",
     "sourceRecordRef": "question_2022_3.json#5",
     "explanationReferences": [],
-    "lawContextForExplanation": "ガス機器の制御装置及び安全装置に関する技術知識を問う問題であり、法令条文による根拠付けは不要。",
+    "lawContextForExplanation": "ガス機器の制御装置及び安全装置に関する技術知識を問う問題。法令条文による根拠付けは不要。",
     "lawReferences": [
       [],
       [],
@@ -852,7 +1032,73 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "空だき防止装置と空だき安全装置の技術的区別に関する知識問題であり、法令改正監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "サーミスタの材料及び温度特性に関する技術知識問題であり、法令改正監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "立ち消え安全装置の検知方式に関する技術知識問題であり、法令改正監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "温度ヒューズ式過熱防止装置の作動と交換要否に関する技術知識問題であり、法令改正監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "ガス量制御方式に関する技術知識問題であり、法令改正監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -874,7 +1120,7 @@
     "explanationText": [
       "正しい。都市ガス用のガス警報器は、爆発下限界より十分に低い濃度で警報を発するよう設定されており、メタン濃度が0.2～0.5％程度に達すると鳴り始めるものが多い。",
       "正しい。電池式ガス警報器には、ガス漏れの検知機能に加え、火災警報機能や不完全燃焼警報機能を備えた複合型の製品がある。",
-      "間違い。半導体式ガス警報器では、可燃性ガスがセンサー表面に吸着すると半導体の電気抵抗が小さくなり、電気伝導度は高くなる。この選択肢は電気伝導度が低下するとしているため誤りである。",
+      "間違い。半導体式ガス警報器では、可燃性ガスがセンサー表面に吸着すると半導体の電気抵抗が小さくなり、電気伝導度は高くなる。選択肢では電気伝導度が低下するとしており、正しい変化とは反対であるため誤りである。",
       "正しい。業務用換気警報器に用いられる電気化学式センサーは、一酸化炭素の酸化反応によって生じる電流を検出するもので、構造と原理は燃料電池とほぼ同様である。",
       "正しい。業務用ガス警報器は、ガス機器からの水平距離を50cm以上8m以内とし、そのガス機器が設置されている部屋と同じ室内に設置する。"
     ],
@@ -927,77 +1173,77 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠ではなく、ガス警報器の警報濃度、複合警報機能、半導体式センサーの検知原理、電気化学式センサーの原理および警報器の設置実務に関する技術知識に基づく問題。",
+    "lawContextForExplanation": "法令根拠ではなく、ガス警報器の警報濃度、複合警報機能、半導体式・電気化学式センサーの検知原理および業務用ガス警報器の設置実務に関する技術知識に基づく問題。",
     "lawRevisionFacts": [
       {
-        "choiceIndex": 0,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガス警報器の警報濃度に関する技術知識で正誤を判断する非法令関連肢。"
-        }
-      },
-      {
-        "choiceIndex": 1,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "電池式ガス警報器の複合警報機能に関する製品・技術知識で正誤を判断する非法令関連肢。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 2,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
+        "choiceIndex": 2,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "半導体式センサーでは可燃性ガス吸着時に電気抵抗が小さくなり電気伝導度は高くなるため、技術知識として誤り。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 3,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "電気化学式センサーの構造・原理に関する技術知識で正誤を判断する非法令関連肢。"
-        }
-      },
-      {
-        "choiceIndex": 4,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "業務用ガス警報器の設置実務に関する技術知識で正誤を判断する非法令関連肢。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },

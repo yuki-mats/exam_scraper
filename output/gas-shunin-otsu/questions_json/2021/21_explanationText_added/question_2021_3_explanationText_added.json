@@ -16,11 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。バーナー内のガス圧が高すぎると、炎口から出る混合ガスの速度が大きくなり、燃焼速度を上回りやすくなる。この場合、炎が炎口に保持されず浮き上がるため、リフティングの原因となる。",
-      "正しい。一次空気の吸引量が多すぎると、混合ガス量が増え、炎口からの噴出速度も大きくなりやすい。噴出速度が燃焼速度より大きくなると、炎が炎口から離れてリフティングを起こす。",
-      "正しい。燃焼室内の給排気不良で二次空気が極端に不足すると、燃焼が不安定になり、炎が炎口に安定して保持されにくくなる。したがって、リフティングを生じる原因となる。",
-      "間違い。バーナー部分が高温になって混合ガスの温度が上がりすぎると、燃焼速度が大きくなり、炎がバーナー内部へ戻るフラッシュバックを起こしやすくなる。これは炎が炎口から浮き上がるリフティングの原因ではないため、この記述が誤りである。",
-      "正しい。バーナーの炎口が詰まって有効面積が極端に小さくなると、同じガス量でも炎口からの噴出速度が大きくなりやすい。噴出速度が燃焼速度を上回ると、炎が浮き上がるリフティングの原因となる。"
+      "正しい。バーナー内のガス圧が高すぎると、炎口から出る混合ガスの速度が大きくなる。混合ガスの噴出速度が燃焼速度を上回ると、炎が炎口に保持されず浮き上がるため、リフティングの原因となる。",
+      "正しい。一次空気の吸引が多すぎると、炎口から出る混合ガス量が増え、噴出速度が過大になりやすい。噴出速度が燃焼速度より大きい状態では、炎が炎口から離れてリフティングを起こす。",
+      "正しい。燃焼室内の給排気不良によって二次空気が極端に不足すると、炎の周囲へ必要な空気が供給されず、燃焼が不安定になる。炎が炎口に安定して保持されにくくなるため、リフティングの原因となる。",
+      "間違い。バーナー部分が高温になり、そこを通る混合ガスの温度が上がりすぎると、燃焼速度が大きくなって炎がバーナー内部へ戻るフラッシュバックを起こしやすくなる。これは炎が炎口から浮き上がるリフティングの原因ではないため、この記述が誤りである。",
+      "正しい。バーナーの炎口が詰まって有効面積が極端に小さくなると、同じガス量でも炎口からの噴出速度が大きくなりやすい。噴出速度が燃焼速度を上回ると炎が浮き上がるため、リフティングの原因となる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -76,8 +76,84 @@
       [],
       []
     ],
-    "lawContextForExplanation": "ガス燃焼時に生じるリフティングの原因を、ガス圧、一次空気、二次空気、炎口面積、混合ガス温度などの燃焼技術上の知識で判定する問題。法令条文に基づく正誤判定ではないため、解説工程では法令根拠を不要として扱う。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "ガス燃焼時のリフティングについて、混合ガスの噴出速度と燃焼速度、一次・二次空気、炎口面積及び混合ガス温度の関係から正誤を判断する燃焼技術問題。法令の条項が各選択肢の正誤を直接決める問題ではない。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 0,
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "lawRelevance": "法令による直接判定ではない。",
+          "technicalBasis": "ガス圧の上昇で混合ガスの噴出速度が過大になると、炎が炎口から離れる。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 1,
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "lawRelevance": "法令による直接判定ではない。",
+          "technicalBasis": "一次空気の過剰吸引は混合ガスの流量及び燃焼速度との釣合いを崩し、炎を浮き上がらせる。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 2,
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "lawRelevance": "法令による直接判定ではない。",
+          "technicalBasis": "二次空気が極端に不足すると燃焼が不安定になり、炎が炎口に保持されにくくなる。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 3,
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "lawRelevance": "法令による直接判定ではない。",
+          "technicalBasis": "混合ガス温度の過度な上昇は燃焼速度を増大させ、リフティングではなくフラッシュバックを生じやすくする。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 4,
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "lawRelevance": "法令による直接判定ではない。",
+          "technicalBasis": "炎口の有効面積が小さくなると噴出速度が増し、炎が炎口から浮き上がりやすくなる。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "original_question_id": "205b3fd5ba830110",
@@ -152,8 +228,74 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令条文ではなく、給湯器の自己診断、中和器、先止め式貯湯湯沸器、インターロック機能、出湯温度制御に関する技術知識で正誤を判断する問題。解説工程では法令根拠を不要として扱う。",
-    "lawRevisionFacts": []
+    "lawContextForExplanation": "法令条文ではなく、給湯器の自己診断、中和器、先止め式貯湯湯沸器、開放式小型湯沸器のインターロック機能、出湯温度制御に関する技術知識で正誤を判断する問題。法令根拠を不要として扱う。",
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "給湯器の自己診断機能に関する技術知識で正誤を判断する記述であり、法令条文による現行法監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "潜熱回収型給湯器の中和器内反応に関する技術知識で正誤を判断する記述であり、法令条文による現行法監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "先止め式貯湯湯沸器の給湯方式に関する技術知識で正誤を判断する記述であり、法令条文による現行法監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "開放式小型湯沸器のインターロック機能に関する技術知識で正誤を判断する記述であり、法令条文による現行法監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "出湯温度制御におけるフィードバック制御とフィードフォワード制御の違いに関する技術知識で正誤を判断する記述であり、法令条文による現行法監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "original_question_id": "c57c43f0ad18f8df",
@@ -172,7 +314,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。マイコンタイマー式炊飯器は、炊き分け機能や早炊き機能などに応じて、ガス量や燃焼時間を自動的に制御しながら炊き上げる機器である。",
+      "正しい。マイコンタイマー式炊飯器は、炊き分け機能や早炊き機能などに応じて、ガス量や燃焼時間を自動的に制御しながら炊き上げる家庭用ガス機器である。",
       "正しい。FF暖房機は、屋外から燃焼用空気を取り入れ、燃焼排ガスを屋外へ排出する密閉式の暖房機である。一般に、給気管には軟質塩化ビニル製、排気管には耐熱性のあるステンレス鋼板製の管が用いられる。",
       "正しい。Siセンサーコンロには、調理油過熱防止装置、立ち消え安全装置、消し忘れ消火機能、早切れ防止機能が標準搭載されている。",
       "正しい。回転ドラム式衣類乾燥機は、空気で希釈された燃焼排ガスを利用し、ドラム内の洗濯物を直接乾燥させる方式である。",
@@ -224,7 +366,7 @@
     "reviewQuestionId": "c57c43f0ad18f8df",
     "sourceRecordRef": "question_2021_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "炊飯器、FF暖房機、Siセンサーコンロ、衣類乾燥機、ファンヒーターの構造・安全機能・換気に関する技術知識で判断する問題。選択肢の正誤を直接決める検証済み法令条文は確認できないため、法令根拠を不要として扱う。",
+    "lawContextForExplanation": "家庭用ガス機器である炊飯器、FF暖房機、Siセンサーコンロ、衣類乾燥機、ファンヒーターの構造、機能、安全装置、換気要否に関する技術知識で判断する問題。各選択肢の正誤を直接決める法令条文を根拠として示す必要はないため、法令根拠不要として扱う。",
     "lawReferences": [
       [],
       [],
@@ -267,7 +409,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "explanationText": "Siセンサーコンロの標準安全機能に関する技術知識で判断する。",
+          "explanationText": "Siセンサーコンロの標準搭載機能に関する技術知識で判断する。",
           "verdict": "not_law_related"
         },
         "examTime": {
@@ -323,7 +465,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。固体酸化物形燃料電池（SOFC）は高温作動の燃料電池で、一般に低温で作動する固体高分子形燃料電池（PEFC）より作動温度が高い。したがって、この記述は正しい。",
+      "正しい。固体酸化物形燃料電池（SOFC）は高温で作動する燃料電池であり、一般に低温で作動する固体高分子形燃料電池（PEFC）より作動温度が高い。したがって、この記述は正しい。",
       "正しい。家庭用燃料電池システム（エネファーム）には、停電時に発電を継続できる機能や、IoT技術を利用して運転状態を遠隔監視する機能を備えた機種がある。したがって、この記述は正しい。",
       "正しい。コージェネレーションシステムの運転方式は、電力需要を主として運転する電主熱従運転と、熱需要を主として運転する熱主電従運転に分けられる。また、電主熱従運転にはピークカット運転やベースロード運転がある。したがって、この記述は正しい。",
       "間違い。吸収冷凍機の二重効用吸収冷凍サイクルでは、熱を段階的に利用するために高温発生器と低温発生器を用いる。効率向上のために二つの蒸発器を用いるという説明ではないため、この記述は誤りである。",
@@ -474,13 +616,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "間違い。第3種換気は、送風機で室内の空気を屋外へ排出し、給気口などから外気を自然に取り入れる方式である。給気機と排気機の両方を用いて室内圧を調節する方式ではない。",
+      "間違い。第3種換気は、排気機で室内の空気を屋外へ排出し、給気口などから外気を自然に取り入れる方式である。給気機と排気機の両方を用いて、室内の圧力を給気量と排気量の割合で調節する方式ではない。",
       "正しい。従来の木造住宅では、すき間風などにより1.5〜3回/h程度の自然換気回数が見込まれた。近年の高気密住宅では、自然換気回数が0.1回/h程度まで小さくなることがある。",
-      "正しい。火気を使用する調理室などの必要換気量は、排気フードの構造等に応じた定数、燃料の単位燃焼量当たりの理論廃ガス量、器具の燃料消費量又は発熱量を用いて算出する。したがって、記述の内容は妥当である。",
+      "正しい。台所など火気を使用する室の必要換気量は、レンジフードなどの構造に応じた定数、理論排ガス量、燃料消費量などを用いて算出される。したがって、記述の内容は妥当である。",
       "正しい。COは血液中のヘモグロビンと強く結合し、酸素の運搬を妨げる。その結果、体内が酸素不足となり、CO中毒が起こる。",
       "正しい。CO中毒の症状は、空気中のCO濃度と吸入時間によって変わる。濃度が高いほど、また吸入時間が長いほど、症状は重くなりやすい。"
     ],
-    "lawGroundedExplanationNotNeeded": false,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
       "換気方式、必要換気量、一酸化炭素（CO）中毒について、各選択肢の定義・算定要素・人体影響を確認する。"
     ],
@@ -523,7 +665,7 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": true,
+    "isLawRelated": false,
     "sourceQuestionKey": "gas-shunin:otsu:2021:shohi:q24",
     "reviewQuestionId": "7e71d38d6bc6a4e5",
     "sourceRecordRef": "question_2021_3.json#4",
@@ -541,56 +683,11 @@
         "title": "換気設備の構造方法を定める件（昭和45年建設省告示第1826号）"
       }
     ],
-    "lawContextForExplanation": "選択肢3は、火気を使用する室の換気設備・必要換気量について、建築基準法施行令第20条の3第2項第1号イ及び昭和45年建設省告示第1826号第三第4号イを根拠に確認する。選択肢1、2、4、5は換気方式、住宅の自然換気回数、CO中毒の機序・症状に関する技術・安全知識で判断する。",
+    "lawContextForExplanation": "法令問題ではない。換気方式、住宅の気密性と自然換気回数、必要換気量の算定要素及びCO中毒の機序・症状に関する技術・安全衛生知識で判断する。",
     "lawReferences": [
       [],
       [],
-      [
-        {
-          "article": "第20条の3第2項第1号イ",
-          "choiceIndex": 2,
-          "lawId": "325CO0000000338",
-          "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第三第4号イ",
-          "choiceIndex": 2,
-          "lawId": "昭和45年建設省告示第1826号",
-          "lawTitle": "換気設備の構造方法を定める件",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第20条の3第2項第1号イ",
-          "choiceIndex": 2,
-          "lawId": "325CO0000000338",
-          "lawTitle": "建築基準法施行令",
-          "referenceDate": "2021-01-01",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第三第4号イ",
-          "choiceIndex": 2,
-          "lawId": "昭和45年建設省告示第1826号",
-          "lawTitle": "換気設備の構造方法を定める件",
-          "referenceDate": "2021-01-01",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [],
       []
     ],
@@ -601,8 +698,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "explanationText": "第3種換気の方式に関する技術知識で判断する。",
-          "verdict": "not_law_related"
+          "classification": "第3種換気方式の定義は換気設備の技術知識で判定でき、給気機と排気機の双方を用いるのは第1種換気である。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -615,22 +711,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "explanationText": "住宅の自然換気回数に関する技術知識で判断する。",
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "law_checked_no_revision_effect",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "explanationText": "火気使用室の必要換気量は、排気フード等に応じた定数、理論廃ガス量、燃料消費量又は発熱量を用いるため、選択肢3は正しい。現行確認でも正答への影響はない。",
-          "verdict": "current_and_exam_time_same"
+          "classification": "住宅の気密性と自然換気回数の関係を問う建築環境工学上の技術知識であり、法令条文の適用で正誤が決まる記述ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -643,8 +724,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "explanationText": "CO中毒の発生機序に関する安全知識で判断する。",
-          "verdict": "not_law_related"
+          "classification": "必要換気量の算定要素を問う換気設計上の技術知識である。設問は法令上の義務又は数値基準として問うものではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -657,8 +737,20 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "explanationText": "CO濃度と吸入時間による症状変化に関する安全知識で判断する。",
-          "verdict": "not_law_related"
+          "classification": "COとヘモグロビンの結合による酸素運搬阻害という医学・安全衛生上の知識で判定する。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "CO濃度と吸入時間に応じた中毒症状の変化という医学・安全衛生上の知識で判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -736,7 +828,7 @@
     "reviewQuestionId": "a649f9a096b7dd33",
     "sourceRecordRef": "question_2021_3.json#5",
     "explanationReferences": [],
-    "lawContextForExplanation": "開放式、FE式、BF式、FF式、RF式の給排気方式と設置上の特徴に関する技術知識で正誤を判断する問題。法令条文を直接の根拠とする解説は不要である。",
+    "lawContextForExplanation": "開放式、FE式、BF式、FF式、RF式の給排気方式と設置上の特徴を、所管官庁等の技術資料により判断する問題であり、選択肢の正誤を直接決定する法令条項は確認されなかった。",
     "lawReferences": [
       [],
       [],
@@ -747,73 +839,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "開放式は燃焼用空気を屋内から取り、燃焼排ガスを屋内へ排出する方式であることを技術資料で確認した。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "開放式機器の給排気方式に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
+        "evidenceSummary": {
+          "explanationText": "FE式は送風機で強制排気するため、排気筒トップを風圧帯内に設置できることを技術資料で確認した。",
+          "verdict": "not_law_related"
+        },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "FE式機器の強制排気方式と排気筒トップの設置条件に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "BF式は屋外から給気し屋外へ排気する密閉式であり、燃焼用の専用給気口・換気口を設置室に必要としないことを確認した。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "BF式機器の密閉構造と屋外給排気に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "FF式は給排気筒を延長でき、機器本体を外壁に面して設置する必要がないことを技術資料で確認した。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "FF式機器の給排気筒延長に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "RF式には外壁設置のほか集合住宅のパイプシャフト設置があることを技術資料で確認した。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "RF式機器の設置場所に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -835,7 +927,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "間違い。空だき安全装置は、機器内の水が不足して空だき状態になったとき、機器が損傷する前にバーナーへのガス通路を閉ざす安全装置である。水がない場合に最初からガス通路を開けないという説明は、通水や水位を検知して燃焼を開始させない制御の説明であり、空だき安全装置の説明としては適切でない。",
+      "間違い。空だき安全装置は、機器内の水が不足して空だき状態になったとき、機器の損傷などを防ぐためにバーナーへのガス通路を閉ざす安全装置である。水がない場合に最初からガス通路を開けないという説明は、通水や水位を検知して燃焼開始を制御する仕組みの説明であり、空だき安全装置の説明としては適切でない。",
       "正しい。開放式小型湯沸器の不完全燃焼防止装置には、燃焼状態の変化を検知する逆バイアス熱電対が用いられている。",
       "正しい。自然排気式（CF式）ふろがまの不完全燃焼防止装置には、熱電対を用いるものとサーミスターを用いるものがある。",
       "正しい。比例電磁弁は、コイルに流れる電流による電磁力で弁の開度を制御し、ガス量を連続的に調節する制御装置である。",
@@ -976,10 +1068,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。接触燃焼式ガス警報器は、可燃性ガスが触媒上で燃焼したときの検知素子の温度変化や抵抗変化を利用する。検知回路の出力は、ガス濃度とほぼ比例関係にある。",
-      "正しい。熱線型半導体式ガス警報器は、低濃度域のガスに比較的敏感に反応する。ガス濃度が高くなると、検知回路の出力の増加は緩やかになる。",
-      "間違い。ガス漏れ警報器の告示では、ガスの濃度が爆発下限界の1/4以上のときに確実に作動し、1/200以下のときに作動しないことが規定されている。爆発下限界の1/10のときに確実に作動するとする記述は誤りである。",
-      "正しい。酸化スズ半導体センサーを用いるCO警報器では、センサー表面の汚染などによる感度低下を抑えるため、間欠的に高温加熱するヒートクリーニングを行う。",
+      "正しい。接触燃焼式ガス警報器は、可燃性ガスが触媒上で燃焼したときの検知素子の温度変化や抵抗変化を利用する方式である。検知回路の出力は、ガス濃度とほぼ比例関係になる。",
+      "正しい。熱線型半導体式ガス警報器は、低濃度域のガスに比較的敏感に反応する。濃度が上昇すると、検知回路の出力の増加は次第に緩やかになる。",
+      "間違い。ガス漏れ警報器の告示では、ガス濃度が爆発下限界の4分の1以上のときに確実に作動することが規定されている。爆発下限界の10分の1のときに確実に作動するとする記述は誤りである。",
+      "正しい。酸化スズ半導体センサーを用いるCO警報器では、センサー表面の汚染などによる感度低下を抑えるため、間欠的に高温加熱するヒートクリーニングが行われる。",
       "正しい。業務用換気警報器には、温度、湿度、一酸化炭素以外のガスなどの影響を受けにくく、CO検知に適した電気化学式センサーが用いられる。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -1061,7 +1153,7 @@
         },
         "evidenceSummary": {
           "explanationText": "接触燃焼式ガス警報器の検知回路出力特性を問う技術知識で判断する。",
-          "verdict": "not_law_related"
+          "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1075,7 +1167,7 @@
         },
         "evidenceSummary": {
           "explanationText": "熱線型半導体式ガス警報器の濃度応答特性を問う技術知識で判断する。",
-          "verdict": "not_law_related"
+          "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1084,8 +1176,8 @@
       },
       {
         "answerImpactFacts": [
-          "現行告示では、ガス漏れ警報器はガス濃度が爆発下限界の四分の一以上のときに確実に作動することが求められる。",
-          "設問の1/10で確実に作動するという記述は現行根拠と一致しないため、間違い判定を維持する。"
+          "現行告示では、ガス漏れ警報器はガス濃度が爆発下限界の4分の1以上のときに確実に作動することが求められる。",
+          "設問の10分の1で確実に作動するという記述は現行根拠と一致しないため、間違い判定を維持する。"
         ],
         "auditStatus": "same_as_current",
         "current": {
@@ -1099,7 +1191,7 @@
         "differenceFacts": [],
         "evidenceSummary": {
           "differenceSummary": "現行根拠は既存の正誤判断と一致する。",
-          "explanationText": "可燃性ガス用のガス漏れ警報器は、爆発下限界の1/4以上で確実に作動することが求められる。",
+          "explanationText": "可燃性ガス用のガス漏れ警報器は、爆発下限界の4分の1以上で確実に作動することが求められる。",
           "refs": [
             {
               "article": "202",
@@ -1127,7 +1219,7 @@
         },
         "evidenceSummary": {
           "explanationText": "CO警報器の酸化スズ半導体センサーとヒートクリーニングに関する技術知識で判断する。",
-          "verdict": "not_law_related"
+          "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1141,7 +1233,7 @@
         },
         "evidenceSummary": {
           "explanationText": "業務用換気警報器の電気化学式センサーの特徴に関する技術知識で判断する。",
-          "verdict": "not_law_related"
+          "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1166,7 +1258,7 @@
         "title": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法 第2条"
       }
     ],
-    "lawContextForExplanation": "選択肢3は、可燃性ガス用ガス漏れ警報器の作動濃度を問う。現行根拠では、ガス事業法施行規則第202条第1項第10号が告示に適合する警報器の設置を求め、ガス漏れ警報器告示第2条が爆発下限界の4分の1以上で確実に作動し、200分の1以下で作動しない規格を定めている。したがって、爆発下限界の1/10のときに確実に作動するとする記述は誤りである。",
+    "lawContextForExplanation": "選択肢3は、可燃性ガス用ガス漏れ警報器の作動濃度を問う。現行根拠では、ガス事業法施行規則第202条第1項第10号が告示に適合する警報器の設置を求め、ガス漏れ警報器告示第2条が爆発下限界の4分の1以上で確実に作動する規格を定めている。したがって、爆発下限界の10分の1のときに確実に作動するとする記述は誤りである。",
     "suggestedQuestionDetailsByChoice": []
   }
 ]
