@@ -1251,10 +1251,75 @@ def _child_output_fingerprint(child: Mapping[str, Any]) -> str:
     ).hexdigest()
 
 
+def _law_reference_discovery_plan(
+    record: Mapping[str, Any],
+    *,
+    stage_id: str,
+) -> dict[str, Any]:
+    """Choose the narrowest legal lookup path without trusting saved metadata."""
+
+    choices = record.get("choiceTextList")
+    choice_count = len(choices) if isinstance(choices, list) else 0
+    linked_choice_indexes: set[int] = set()
+    linked_locator_count = 0
+
+    def has_locator(reference: Any) -> bool:
+        return (
+            isinstance(reference, Mapping)
+            and bool(str(reference.get("lawId") or "").strip())
+            and bool(
+                str(reference.get("article") or "").strip()
+                or str(reference.get("apiUrl") or "").strip()
+                or str(reference.get("sourceUrl") or "").strip()
+            )
+        )
+
+    def record_reference(reference: Mapping[str, Any], fallback_index: int) -> None:
+        nonlocal linked_locator_count
+        linked_locator_count += 1
+        if str(reference.get("scope") or "") == "question":
+            linked_choice_indexes.update(range(choice_count))
+            return
+        choice_index = reference.get("choiceIndex")
+        if not isinstance(choice_index, int):
+            choice_index = fallback_index
+        if 0 <= choice_index < choice_count:
+            linked_choice_indexes.add(choice_index)
+
+    references = record.get("lawReferences")
+    if isinstance(references, list):
+        for fallback_index, bucket in enumerate(references):
+            if isinstance(bucket, list):
+                for reference in bucket:
+                    if has_locator(reference):
+                        record_reference(reference, fallback_index)
+            elif has_locator(bucket):
+                record_reference(bucket, fallback_index)
+
+    missing_choice_indexes = sorted(
+        set(range(choice_count)) - linked_choice_indexes
+    )
+    if stage_id == "law_audit" and record.get("isLawRelated") is False:
+        strategy = "not_applicable"
+    elif linked_choice_indexes and not missing_choice_indexes:
+        strategy = "verify_linked_first"
+    elif linked_choice_indexes:
+        strategy = "verify_linked_then_target_gaps"
+    else:
+        strategy = "discover_after_classification"
+    return {
+        "strategy": strategy,
+        "linkedChoiceIndexes": sorted(linked_choice_indexes),
+        "missingChoiceIndexes": missing_choice_indexes,
+        "linkedLocatorCount": linked_locator_count,
+    }
+
+
 def _structured_candidate_prompt(
     stage_prompt: str,
     targets: list[Mapping[str, Any]],
     *,
+    stage_id: str | None = None,
     records_by_question: Mapping[str, Mapping[str, Any]],
     candidate_targets_by_question: Mapping[str, tuple[CandidateTarget, ...]],
     feedback_by_question: Mapping[str, list[Mapping[str, Any]]],
@@ -1316,6 +1381,13 @@ def _structured_candidate_prompt(
             ],
             "previousValidationFeedback": previous_feedback,
         }
+        if stage_id in {"law_context", "law_audit"}:
+            question["lawReferenceDiscoveryPlan"] = (
+                _law_reference_discovery_plan(
+                    records_by_question[question_id],
+                    stage_id=stage_id,
+                )
+            )
         source_answer_evidence = answer_evidence_by_question.get(question_id)
         if source_answer_evidence is not None:
             question["sourceAnswerEvidence"] = copy.deepcopy(
@@ -1359,6 +1431,14 @@ def _structured_candidate_prompt(
         if stage_context
         else []
     )
+    law_reference_contract_lines = (
+        [
+            "lawReferenceDiscoveryPlanがある場合は、そのstrategyに従って探索範囲を限定する。",
+            "これは実行順と計測用の入力情報であり、setFieldsへ転載しない。",
+        ]
+        if stage_id in {"law_context", "law_audit"}
+        else []
+    )
     return "\n".join(
         [
             "# 工程の品質規則",
@@ -1377,6 +1457,7 @@ def _structured_candidate_prompt(
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
+            *law_reference_contract_lines,
             "originalizationSourceがある場合、それは00_sourceの更新不能な比較証拠である。"
             "originalizationSourceを基準に、currentRecordは既存の草案として比較する。"
             "currentRecordが工程の品質規則を満たす場合は必要な最小修正にとどめる。"
@@ -1515,6 +1596,16 @@ def _structured_candidate_stage_context(
     qualification: str,
     stage_id: str,
 ) -> dict[str, Any]:
+    if stage_id in {"law_context", "law_audit"}:
+        return {
+            "rules": [
+                "既存lawReferencesは正答根拠として信用せず、lawId・article又は保存済みURLから一次情報本文を直接開く入口として先に使う。",
+                "既存の紐付け先だけで全選択肢を十分に説明できると確認した場合は、広域検索とlawReferencesの再構築を行わず、有効な紐付けを保持する。",
+                "不足又は不一致がある場合だけ、その選択肢と不足箇所に限定して一次情報を探索する。",
+                "保存先が404、法令名不一致又は本文不足の場合は推測で補正せず、対象問題だけholdにする。",
+                "別問題のlawReferencesを類似性だけで流用しない。",
+            ],
+        }
     if stage_id != "question_set":
         return {}
     category_path = (
@@ -10441,12 +10532,11 @@ class QualificationRunCoordinator:
         stage_id: str,
         projected: Mapping[str, Any],
     ) -> bool:
+        del phase_plan
         # Other question stages apply to every question once an actual upstream
         # patch changed.  Law audit alone has a record-level applicability gate.
         return not (
             stage_id == "law_audit"
-            and str(phase_plan.get("mode") or "")
-            not in {"refresh", "group_refresh"}
             and projected.get("isLawRelated") is False
         )
 
@@ -10599,7 +10689,9 @@ class QualificationRunCoordinator:
                     question_id,
                     child_run_cache,
                 )
-        if prior_validated and (target is not None or prior_changed):
+        if stage_id == "law_audit" or (
+            prior_validated and (target is not None or prior_changed)
+        ):
             phase_plan, target = self._dynamic_question_phase_plan(
                 qualification,
                 parent,
@@ -11435,6 +11527,7 @@ class QualificationRunCoordinator:
             batch_prompt = _structured_candidate_prompt(
                 batch_stage_prompt,
                 targets,
+                stage_id=stage_id,
                 records_by_question=records_by_question,
                 candidate_targets_by_question=candidate_targets_by_question,
                 feedback_by_question=feedback_by_question,

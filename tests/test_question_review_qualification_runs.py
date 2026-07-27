@@ -31,6 +31,7 @@ from tools.question_review_console.qualification_runs import (
     _external_provider_failure,
     _isolated_turn_failure,
     _isolated_turn_timeout,
+    _law_reference_discovery_plan,
     _prepared_candidate_envelope,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
@@ -1179,6 +1180,108 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertTrue(
             any("choiceQuestionSetIds" in rule for rule in context["rules"])
         )
+
+    def test_law_stage_context_prioritizes_existing_binding(self):
+        context = _structured_candidate_stage_context(
+            Path("."), "sample", "law_audit"
+        )
+
+        self.assertTrue(
+            any(
+                "既存lawReferences" in rule and "先に使う" in rule
+                for rule in context["rules"]
+            )
+        )
+        self.assertTrue(
+            any(
+                "広域検索" in rule and "再構築" in rule
+                for rule in context["rules"]
+            )
+        )
+
+    def test_law_reference_plan_limits_discovery_to_missing_choices(self):
+        plan = _law_reference_discovery_plan(
+            {
+                "isLawRelated": True,
+                "choiceTextList": ["A", "B", "C"],
+                "lawReferences": [
+                    [
+                        {
+                            "scope": "choice",
+                            "choiceIndex": 0,
+                            "lawId": "law-1",
+                            "article": "1",
+                        }
+                    ],
+                    [],
+                    [
+                        {
+                            "scope": "choice",
+                            "choiceIndex": 2,
+                            "lawId": "law-2",
+                            "sourceUrl": "https://example.invalid/law-2",
+                        }
+                    ],
+                ],
+            },
+            stage_id="law_audit",
+        )
+
+        self.assertEqual(plan["strategy"], "verify_linked_then_target_gaps")
+        self.assertEqual(plan["linkedChoiceIndexes"], [0, 2])
+        self.assertEqual(plan["missingChoiceIndexes"], [1])
+        self.assertEqual(plan["linkedLocatorCount"], 2)
+
+    def test_law_reference_plan_is_embedded_in_attempt_prompt(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:law_context",
+            role="law_context",
+            path="output/sample/18_law_context_prepared/question.json",
+            allowed_fields=("isLawRelated", "lawReferences"),
+        )
+        prompt = _structured_candidate_prompt(
+            "法令根拠を確認する。",
+            [target],
+            stage_id="law_context",
+            records_by_question={
+                "question-1": {
+                    "isLawRelated": True,
+                    "choiceTextList": ["A", "B"],
+                    "lawReferences": [
+                        [
+                            {
+                                "scope": "question",
+                                "lawId": "law-1",
+                                "article": "1",
+                            }
+                        ],
+                        [],
+                    ],
+                }
+            },
+            candidate_targets_by_question={
+                "question-1": (candidate_target,)
+            },
+            feedback_by_question={},
+        )
+
+        question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question["lawReferenceDiscoveryPlan"]["strategy"],
+            "verify_linked_first",
+        )
+        self.assertEqual(
+            question["lawReferenceDiscoveryPlan"]["missingChoiceIndexes"],
+            [],
+        )
+        self.assertIn("setFieldsへ転載しない", prompt)
 
     def test_other_stage_context_is_empty(self):
         self.assertEqual(
@@ -7260,8 +7363,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(any("他の問題は続行します" in value for value in messages))
 
 
-    def test_explicit_group_refresh_keeps_non_law_question_in_law_audit(self):
-        self.assertTrue(
+    def test_all_refresh_modes_skip_non_law_question_in_law_audit(self):
+        self.assertFalse(
             QualificationRunCoordinator._projection_stage_applicable(
                 {"mode": "group_refresh"},
                 "law_audit",
@@ -7276,7 +7379,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         )
 
-    def test_dynamic_replan_uses_promoted_phase_mode_for_law_audit(self):
+    def test_dynamic_replan_skips_non_law_question_in_law_audit(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator = QualificationRunCoordinator(
@@ -7304,7 +7407,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "new-exam-2026-q1",
             )
 
-        self.assertIsNotNone(target)
+        self.assertIsNone(target)
 
     def test_missing_logical_projection_blocks_only_that_question(self):
         class MissingProjectionInventory(SourceOnlyInventory):

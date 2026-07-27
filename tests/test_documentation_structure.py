@@ -139,8 +139,14 @@ class DocumentationStructureTests(unittest.TestCase):
             "../reference/question_field_contract.md",
             "問題文と各選択肢を結合した完全命題",
             "03bを通常整備とは別の新しいsessionで自動実行",
+            "広域検索と再紐付けを省略",
+            "`lawReferenceDiscoveryPlan`",
         ):
             self.assertIn(workflow_summary, audit_workflow)
+        self.assertIn(
+            "不足、404又は内容不一致がある場合だけ",
+            audit_prompt,
+        )
 
     def test_law_audit_docs_do_not_turn_technical_questions_into_holds(self):
         audit_prompt = (
@@ -314,7 +320,8 @@ class DocumentationStructureTests(unittest.TestCase):
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
         self.assertEqual(stages["explanation"]["policy_version"], "4.2")
-        self.assertEqual(stages["law_audit"]["policy_version"], "4.0")
+        self.assertEqual(stages["law_audit"]["policy_version"], "4.1")
+        self.assertEqual(stages["law_context"]["policy_version"], "1.2")
 
 
 if __name__ == "__main__":

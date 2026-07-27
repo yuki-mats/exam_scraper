@@ -102,8 +102,9 @@ def _law_audit_instruction(repo_root: Path, qualification: str) -> str:
     )
     return f"""{classification_contract}## 法令監査指示
 
-- 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。
-- 各対象選択肢で「問題文＋選択肢」の完全命題を作り、保存済み`apiUrl`/`sourceUrl`又はe-Gov条文本文を開いて目視照合する。
+- 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。まず保存済み`lawId`・`article`・`apiUrl`・`sourceUrl`から一次情報本文を直接開く。
+- 各対象選択肢で「問題文＋選択肢」の完全命題を作り、既存の紐付け先だけで十分に説明できるかを目視照合する。十分なら広域検索と`lawReferences`の再構築を省略し、有効な紐付けを保持する。
+- 既存の紐付け先が不足、404又は内容不一致の場合だけ、その選択肢と不足箇所に限定してe-Gov又は所管官庁の一次情報を探索する。
 - 法令関連と確定した問題だけを条文監査へ進める。条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。patchでは各選択肢と同じ順序・件数で保存し、トップレベル`correctChoiceText`と一致させる。法改正差分又は適用条文の確認不能は`hold`/`needs_secondary_review`へ戻す。
 - `hold`以外で法令関連と確定した問題は、公開用の`explanationText`にverifiedの法令名・別名又は条番号を少なくとも一つ具体的に記載する。metadataだけを更新して公開解説から根拠を欠落させない。
 - 解説は「正しい。燃焼器は……。この基準はガス事業法施行規則第202条に定められている。」のように、先に学習上の結論と内容を示し、法令名・条文を機械的に文頭の主語にしない。
@@ -183,7 +184,8 @@ def _build_qualification_law_audit_prompt(
 ## やること
 
 - 各ファイル内で`law_audit_metadata_incomplete`等の法令監査品質不備がある全questionを特定し、一問一肢ずつ「問題文＋選択肢」の完全命題を作る。
-- 各命題についてCodex組み込みweb検索を使い、e-Gov法令検索又は所管官庁の一次情報を開いて条文本文を目視レベルで照合する。主体、要件、数値、例外、委任先まで確認する。
+- 最初に既存`lawReferences`の`lawId`・`article`・保存済みURLから一次情報本文を直接開く。主体、要件、数値、例外、委任先まで確認し、既存の紐付け先だけで十分なら広域検索と再紐付けを省略する。
+- 既存根拠が不足、404又は内容不一致の場合だけ、その選択肢と不足箇所に限定してCodex組み込みweb検索からe-Gov又は所管官庁の一次情報を開く。
 - 既存の正誤・解説・法令メタデータや検索要約を正本扱いしない。法令関連と確定した後の不一致又は法改正差分・適用条文の根拠不足は、推測せず`hold`/`needs_secondary_review`にする。
 - 確認結果と根拠を各questionのpatchへ個別に反映する。正誤を変えない場合も`lawRevisionFacts.current.correctChoiceText`を省略せず、各選択肢と同じ順序・件数でトップレベル正誤及び解説先頭に整合させる。
 - `law_audit_metadata_incomplete`又は`law_audit_verdict_mismatch`が残る法令関連questionをno-opで完了しない。法改正差分又は適用条文を確認できない場合は推測で補完せず`hold`にする。

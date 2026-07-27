@@ -166,7 +166,8 @@ code = "02b"
 label = "法令根拠"
 purpose = "法令関連性と現行法の根拠候補を全問で整理する"
 kind = "human"
-policy_version = "1.1"
+# 1.2: 既存の法令紐付けを一次情報の確認入口として先に使い、不足箇所だけを探索する。
+policy_version = "1.2"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -239,7 +240,8 @@ label = "現行法監査"
 purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定する"
 kind = "human"
 # 4.0: 現行法監査でも基本解説との重複補足を除き、追加価値がなければ0件へ洗い替える。
-policy_version = "4.0"
+# 4.1: 既存の法令紐付けを直接確認し、十分なら広域探索と再紐付けを省略する。
+policy_version = "4.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
