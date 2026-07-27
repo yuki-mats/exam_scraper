@@ -14,6 +14,7 @@ import tempfile
 import threading
 import time
 import weakref
+from collections import deque
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, as_completed, wait
 from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass
@@ -32,6 +33,8 @@ from scripts.common.question_identity import (
     source_record_ref,
 )
 from scripts.common.question_answer_contract import (
+    asks_for_combination_choice,
+    asks_for_selected_choice_count,
     uses_trusted_gassyunin_judge_answers,
 )
 from scripts.common.law_audit_sidecar_contract import (
@@ -91,6 +94,7 @@ from tools.question_review_console.codex_app_server import (
     STANDARD_SPEED_MODE,
     TURN_REASONING_EFFORT,
     CodexAppServerError,
+    CodexControlRequestTimeoutError,
     CodexTurnTimeoutError,
     SubscriptionGateError,
     normalize_speed_mode,
@@ -112,6 +116,7 @@ from tools.question_review_console.question_patch_proposal import (
 from tools.question_review_console.question_candidate import (
     CandidateUpdate,
     CandidateTarget,
+    QuestionCandidate,
     QuestionCandidateError,
     candidate_targets,
     output_schema as candidate_output_schema,
@@ -234,11 +239,10 @@ class _ParentRunHeartbeatTicker:
 
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 32, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
-PREPARATION_CHUNK_SIZE = 64
 PREPARATION_MAX_PARALLEL_QUESTIONS = 64
 PREPARATION_HEARTBEAT_SECONDS = 15.0
-QUESTION_PIPELINE_BACKLOG_WAVES = 1
 OUTCOME_COALESCE_SECONDS = 0.25
+PREPARED_CANDIDATE_SCHEMA_VERSION = "question-maintenance-prepared-candidate/v1"
 LIVE_RUN_STATUSES = {
     "queued",
     "running",
@@ -762,19 +766,157 @@ def normalize_question_concurrency(value: Any) -> int:
     return concurrency
 
 
-def question_pipeline_worker_limit(
-    *,
-    model_worker_limit: int,
-    pending_question_count: int,
-) -> int:
-    """Keep one writer backlog wave without consuming the 64 model slots."""
+def _canonical_json_hash(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
 
-    model_workers = max(1, int(model_worker_limit))
-    pending_questions = max(1, int(pending_question_count))
-    return min(
-        pending_questions,
-        model_workers * (1 + QUESTION_PIPELINE_BACKLOG_WAVES),
-    )
+
+def _validated_projected_input_path(
+    repo_root: Path,
+    parent_run_directory: Path,
+    target: Mapping[str, Any],
+    expected_hash: str,
+) -> Path:
+    relative_path = str(target.get("_projectedInputPath") or "").strip()
+    normalized_expected_hash = str(expected_hash).strip()
+    if not relative_path or not normalized_expected_hash:
+        raise QualificationRunError(
+            "保存済み問題別候補のprojected input identityがありません。"
+        )
+    projected_root = (parent_run_directory / "projected_inputs").resolve()
+    projected_path = (repo_root / relative_path).resolve()
+    if projected_path.parent != projected_root:
+        raise QualificationRunError(
+            "保存済み問題別候補のprojected input pathがrun外を参照しています。"
+        )
+    try:
+        actual_hash = hashlib.sha256(projected_path.read_bytes()).hexdigest()
+    except OSError as exc:
+        raise QualificationRunError(
+            "保存済み問題別候補のprojected inputを読み取れません。"
+        ) from exc
+    if not hmac.compare_digest(normalized_expected_hash, actual_hash):
+        raise QualificationRunError(
+            "保存済み問題別候補のprojected input hashが一致しません。"
+        )
+    return projected_path
+
+
+def _question_candidates_payload(
+    candidates: Iterable[QuestionCandidate],
+) -> dict[str, Any]:
+    return {
+        "schemaVersion": "question-maintenance-candidates/v2",
+        "questionResults": [
+            {
+                "questionId": candidate.question_id,
+                "status": candidate.status,
+                "summary": candidate.summary,
+                "updates": [
+                    {
+                        "targetId": update.target_id,
+                        "setFields": [
+                            {
+                                "field": field,
+                                "valueJson": json.dumps(
+                                    value,
+                                    ensure_ascii=False,
+                                    sort_keys=True,
+                                    separators=(",", ":"),
+                                ),
+                            }
+                            for field, value in sorted(update.set_fields.items())
+                        ],
+                        "unsetFields": list(update.unset_fields),
+                    }
+                    for update in candidate.updates
+                ],
+            }
+            for candidate in candidates
+        ],
+    }
+
+
+def _prepared_candidate_envelope(
+    *,
+    question_id: str,
+    stage_id: str,
+    input_fingerprint_value: str,
+    projected_input_hash: str,
+    content: Mapping[str, Any],
+) -> dict[str, Any]:
+    normalized_question_id = str(question_id).strip()
+    normalized_stage_id = str(stage_id).strip()
+    normalized_input = str(input_fingerprint_value).strip()
+    normalized_projection = str(projected_input_hash).strip()
+    if not all(
+        (
+            normalized_question_id,
+            normalized_stage_id,
+            normalized_input,
+            normalized_projection,
+        )
+    ):
+        raise QualificationRunError(
+            "問題別候補のidentity又は入力fingerprintがありません。"
+        )
+    payload = {
+        "schemaVersion": PREPARED_CANDIDATE_SCHEMA_VERSION,
+        "questionId": normalized_question_id,
+        "stageId": normalized_stage_id,
+        "inputFingerprint": normalized_input,
+        "projectedInputHash": normalized_projection,
+        "content": copy.deepcopy(dict(content)),
+    }
+    payload["contentHash"] = "sha256:" + _canonical_json_hash(payload)
+    return payload
+
+
+def _validated_prepared_candidate(
+    value: Mapping[str, Any],
+    *,
+    question_id: str | None = None,
+    stage_id: str | None = None,
+    input_fingerprint_value: str | None = None,
+    projected_input_hash: str | None = None,
+) -> dict[str, Any]:
+    candidate = copy.deepcopy(dict(value))
+    expected_hash = str(candidate.pop("contentHash", "") or "")
+    actual_hash = "sha256:" + _canonical_json_hash(candidate)
+    if (
+        candidate.get("schemaVersion") != PREPARED_CANDIDATE_SCHEMA_VERSION
+        or not expected_hash
+        or not hmac.compare_digest(expected_hash, actual_hash)
+        or not isinstance(candidate.get("content"), Mapping)
+    ):
+        raise QualificationRunError(
+            "保存済み問題別候補のschema又はcontent hashが一致しません。"
+        )
+    expected = {
+        "questionId": question_id,
+        "stageId": stage_id,
+        "inputFingerprint": input_fingerprint_value,
+        "projectedInputHash": projected_input_hash,
+    }
+    mismatched = [
+        key
+        for key, expected_value in expected.items()
+        if expected_value is not None
+        and str(candidate.get(key) or "") != str(expected_value)
+    ]
+    if mismatched:
+        raise QualificationRunError(
+            "保存済み問題別候補の入力が現在の問題と一致しません: "
+            + ", ".join(mismatched)
+        )
+    candidate["contentHash"] = expected_hash
+    return candidate
 
 
 def prepare_question_items_concurrently(
@@ -895,7 +1037,13 @@ def _exception_chain(exc: BaseException) -> Iterable[BaseException]:
 
 def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None:
     chain = tuple(_exception_chain(exc))
-    if any(isinstance(current, CodexTurnTimeoutError) for current in chain):
+    if any(
+        isinstance(
+            current,
+            (CodexTurnTimeoutError, CodexControlRequestTimeoutError),
+        )
+        for current in chain
+    ):
         return None
     return next(
         (
@@ -913,6 +1061,20 @@ def _isolated_turn_timeout(exc: BaseException) -> CodexTurnTimeoutError | None:
             current
             for current in _exception_chain(exc)
             if isinstance(current, CodexTurnTimeoutError)
+        ),
+        None,
+    )
+
+
+def _isolated_turn_failure(exc: BaseException) -> CodexAppServerError | None:
+    return next(
+        (
+            current
+            for current in _exception_chain(exc)
+            if isinstance(
+                current,
+                (CodexTurnTimeoutError, CodexControlRequestTimeoutError),
+            )
         ),
         None,
     )
@@ -1018,6 +1180,10 @@ def _candidate_unset_fields(
         and "suggestedQuestionDetailsByChoice" in set_fields
     ):
         unset_fields.update(LEGACY_SUGGESTED_QUESTION_FIELDS)
+    # Server-owned normalization may authoritatively materialize a field that
+    # the model also requested to unset. The final operation must be
+    # internally consistent; an authoritative set always wins.
+    unset_fields.difference_update(set_fields)
     return tuple(sorted(unset_fields))
 
 
@@ -1225,13 +1391,16 @@ def _structured_candidate_prompt(
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な正答証拠である。"
             "evidenceType=trusted_gassyunin_judge_statement_verdictsは、取得元のjudge欄が"
-            "各記述markerと基礎事実のcorrectChoiceTextを直接対応付け、件数・順序・出所の機械検証を"
-            "通過したことを示す。公式解答番号は元の組合せ肢を指すため、組合せ対応表が"
-            "ないことだけを理由にblockedにしない。ただし、この配列を完成後の"
-            "correctChoiceTextへ直接転記しない。currentRecordのquestionBodyTextが"
-            "「規定されていない」「誤っている」「除く」「該当しない」などを問う場合は、"
-            "選択肢の文面と順序が同じでも、その条件と極性を各記述へ適用して完全な命題を作る。"
-            "judgeの基礎事実を根拠の一つとして現在の正誤を独立判定する。"
+            "sourceの問題文と各選択肢を組み合わせた最終命題へcorrectChoiceTextを直接対応付け、"
+            "件数・順序・出所の機械検証を通過したことを示す。"
+            "verdictSemantics=final_correct_choice_text_for_source_textかつ"
+            "appliesToCurrentText=trueなら、配列は現在と完全一致する本文・選択肢に対する"
+            "最終正誤であり、否定語やquestionIntentを使って再反転しない。"
+            "appliesToCurrentText=falseなら、source配列を現在値へ転記せず、現在の本文と"
+            "選択肢から完全な命題を作り直す。完全な記述肢では「誤っているものを選べ」等は"
+            "選択方向にだけ使い、名詞句等の断片肢では本文の述語を一度だけ補う。"
+            "公式解答番号の意味はanswerResultSemanticsに従い、元の組合せ肢を指す場合は"
+            "組合せ対応表がないことだけを理由にblockedにしない。"
             "証拠自体はsetFieldsへ転載しない。",
             "questionIssueCorrectionEvidenceがある場合、currentRecordと00_sourceの差は、専用のblind reviewと公式・一次資料で承認された問題訂正である。"
             "差があることだけを理由にblocked又は00_sourceへ差し戻さず、currentRecordの訂正文を設問として正答を独立判定する。"
@@ -1604,19 +1773,36 @@ def _aggregate_downstream_source_evidence(
 def _trusted_source_answer_evidence(
     source_record: Mapping[str, Any],
     target: Mapping[str, Any],
+    current_record: Mapping[str, Any],
 ) -> dict[str, Any] | None:
-    """Build prompt-only evidence from a source-bound statement judge table."""
+    """Build prompt-only final verdict evidence from a trusted judge table."""
 
     source = dict(source_record)
     if not uses_trusted_gassyunin_judge_answers(source):
         return None
+    source_body = source.get("questionBodyText")
+    source_choices = source.get("choiceTextList")
+    current_body = current_record.get("questionBodyText")
+    current_choices = current_record.get("choiceTextList")
+    if asks_for_selected_choice_count(source_body):
+        answer_result_semantics = "selected_statement_count"
+    elif asks_for_combination_choice(source_body):
+        answer_result_semantics = "source_combination_choice_index"
+    else:
+        answer_result_semantics = "source_choice_index"
     return {
         "evidenceType": "trusted_gassyunin_judge_statement_verdicts",
+        "verdictSemantics": "final_correct_choice_text_for_source_text",
+        "answerResultSemantics": answer_result_semantics,
+        "appliesToCurrentText": (
+            source_body == current_body
+            and source_choices == current_choices
+        ),
         "sourceRecordRef": SourceIdentityBinding.from_mapping(
             target
         ).source_record_ref,
-        "questionBodyText": copy.deepcopy(source.get("questionBodyText")),
-        "choiceTextList": copy.deepcopy(source.get("choiceTextList")),
+        "questionBodyText": copy.deepcopy(source_body),
+        "choiceTextList": copy.deepcopy(source_choices),
         "correctChoiceText": copy.deepcopy(source.get("correctChoiceText")),
         "answerResultText": copy.deepcopy(source.get("answer_result_text")),
         "judgeChoiceMarkers": copy.deepcopy(source.get("judgeChoiceMarkers")),
@@ -2021,6 +2207,18 @@ class QualificationRunStore:
                         "progressReceiptPath",
                     )
                 }
+                for write_once_field in (
+                    "preparedCandidate",
+                    "candidateCommitStartedAt",
+                ):
+                    if (
+                        write_once_field in changes
+                        and write_once_field in current
+                        and current[write_once_field] != changes[write_once_field]
+                    ):
+                        raise QuestionRunStateError(
+                            f"一問attemptの{write_once_field}は変更できません。"
+                        )
                 current.update(copy.deepcopy(dict(changes)))
                 if any(current.get(key) != value for key, value in immutable.items()):
                     raise QuestionRunStateError(
@@ -2102,6 +2300,194 @@ class QualificationRunStore:
             refresh_derived=False,
             hydrate_result=False,
         )
+
+    def persist_prepared_candidate(
+        self,
+        qualification: str,
+        attempt_id: str,
+        candidate: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        if not self.is_question_attempt(attempt_id):
+            current = self.get(qualification, attempt_id)
+            raw_targets = [
+                value
+                for value in current.get("progressTargets") or []
+                if isinstance(value, Mapping)
+            ]
+            if len(raw_targets) != 1:
+                raise QualificationRunError(
+                    "問題別候補を保存するlegacy runの対象が一問ではありません。"
+                )
+            validated = _validated_prepared_candidate(
+                candidate,
+                question_id=str(
+                    raw_targets[0].get("id")
+                    or raw_targets[0].get("uiQuestionId")
+                    or ""
+                ),
+                stage_id=str(current.get("stageId") or ""),
+            )
+            existing = current.get("preparedCandidate")
+            if isinstance(existing, Mapping) and dict(existing) != validated:
+                raise QualificationRunError(
+                    "一問runのpreparedCandidateは変更できません。"
+                )
+            updated = self.update(
+                qualification,
+                attempt_id,
+                preparedCandidate=validated,
+            )
+            return _validated_prepared_candidate(
+                updated["preparedCandidate"],
+                question_id=str(validated["questionId"]),
+                stage_id=str(validated["stageId"]),
+            )
+        _parent_path, _parent, question_id, attempt = (
+            self._question_attempt_context(
+                qualification,
+                attempt_id,
+            )
+        )
+        validated = _validated_prepared_candidate(
+            candidate,
+            question_id=question_id,
+            stage_id=str(attempt.get("stageId") or ""),
+        )
+        updated = self._update_question_attempt(
+            qualification,
+            attempt_id,
+            {"preparedCandidate": validated},
+        )
+        persisted = updated.get("preparedCandidate")
+        if not isinstance(persisted, Mapping):
+            raise QualificationRunError(
+                "問題別候補をattemptへ保存できませんでした。"
+            )
+        readback = _validated_prepared_candidate(
+            persisted,
+            question_id=question_id,
+            stage_id=str(attempt.get("stageId") or ""),
+        )
+        if readback != validated:
+            raise QualificationRunError(
+                "問題別候補の保存後readbackが一致しません。"
+            )
+        return readback
+
+    def load_prepared_candidate(
+        self,
+        qualification: str,
+        attempt_id: str,
+        *,
+        input_fingerprint_value: str,
+        projected_input_hash: str,
+    ) -> dict[str, Any]:
+        if not self.is_question_attempt(attempt_id):
+            current = self.get(qualification, attempt_id)
+            candidate = current.get("preparedCandidate")
+            if not isinstance(candidate, Mapping):
+                raise QualificationRunError(
+                    "一問runに保存済み問題別候補がありません。"
+                )
+            return _validated_prepared_candidate(
+                candidate,
+                input_fingerprint_value=input_fingerprint_value,
+                projected_input_hash=projected_input_hash,
+            )
+        _parent_path, _parent, question_id, attempt = (
+            self._question_attempt_context(
+                qualification,
+                attempt_id,
+            )
+        )
+        candidate = attempt.get("preparedCandidate")
+        if not isinstance(candidate, Mapping):
+            raise QualificationRunError(
+                "一問attemptに保存済み問題別候補がありません。"
+            )
+        return _validated_prepared_candidate(
+            candidate,
+            question_id=question_id,
+            stage_id=str(attempt.get("stageId") or ""),
+            input_fingerprint_value=input_fingerprint_value,
+            projected_input_hash=projected_input_hash,
+        )
+
+    def mark_candidate_commit_started(
+        self,
+        qualification: str,
+        attempt_id: str,
+    ) -> dict[str, Any]:
+        current = self.get(qualification, attempt_id)
+        if not isinstance(current.get("preparedCandidate"), Mapping):
+            raise QualificationRunError(
+                "保存済み問題別候補なしでwriterを開始できません。"
+            )
+        if current.get("candidateCommitStartedAt"):
+            raise QualificationRunError(
+                "同じ問題別候補のwriterは再実行できません。"
+            )
+        if not self.is_question_attempt(attempt_id):
+            return self.update(
+                qualification,
+                attempt_id,
+                candidateCommitStartedAt=_now(),
+            )
+        return self._update_question_attempt(
+            qualification,
+            attempt_id,
+            {"candidateCommitStartedAt": _now()},
+        )
+
+    def reusable_prepared_candidate(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+        stage_id: str,
+        *,
+        input_fingerprint_value: str,
+        projected_input_hash: str,
+    ) -> tuple[str, dict[str, Any]] | None:
+        parent = self.get_compact(qualification, parent_run_id)
+        if str(parent.get("status") or "") != "interrupted":
+            return None
+        detail = self.question_detail(
+            qualification,
+            parent_run_id,
+            question_id,
+        )
+        attempts = [
+            (str(attempt_id), dict(attempt))
+            for attempt_id, attempt in (
+                detail.get("attemptArtifacts") or {}
+            ).items()
+            if isinstance(attempt, Mapping)
+            and str(attempt.get("stageId") or "") == stage_id
+            and str(attempt.get("status") or "") == "interrupted"
+            and not attempt.get("candidateCommitStartedAt")
+            and isinstance(attempt.get("preparedCandidate"), Mapping)
+        ]
+        for attempt_id, attempt in sorted(
+            attempts,
+            key=lambda item: (
+                str(item[1].get("createdAt") or ""),
+                item[0],
+            ),
+            reverse=True,
+        ):
+            try:
+                candidate = _validated_prepared_candidate(
+                    attempt["preparedCandidate"],
+                    question_id=question_id,
+                    stage_id=stage_id,
+                    input_fingerprint_value=input_fingerprint_value,
+                    projected_input_hash=projected_input_hash,
+                )
+            except QualificationRunError:
+                continue
+            return attempt_id, candidate
+        return None
 
     def create(
         self,
@@ -10871,6 +11257,7 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     "候補生成は一問一つのmodel turnで実行してください。"
                 )
+            single_spec = specs[0]
             stage_id = str(phase["id"])
             retry_flags = {
                 spec_requires_retry_model(spec, stage_id) for spec in specs
@@ -10987,6 +11374,7 @@ class QualificationRunCoordinator:
                     _trusted_source_answer_evidence(
                         spec["sourceRecord"],
                         spec["target"],
+                        spec["candidateRecord"],
                     )
                 ]
                 if stage_id == "correct_choice" and evidence is not None
@@ -11058,6 +11446,43 @@ class QualificationRunCoordinator:
                     append_receipt_contract=False,
                 )
             child_id = str(child["runId"])
+            queue_stage = single_spec.get("queueStage") or {}
+            input_fingerprint_value = str(
+                queue_stage.get("inputFingerprint") or ""
+            )
+            projected_input_hash = str(
+                (
+                    single_spec.get("projectionUpdate") or {}
+                ).get("changes", {}).get("projectedInputHash")
+                or ""
+            )
+            reused_from_attempt_id = ""
+            if (
+                parent.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION
+                and parent.get("resumedFrom")
+            ):
+                reusable = self.store.reusable_prepared_candidate(
+                    qualification,
+                    str(parent["resumedFrom"]),
+                    batch_question_ids[0],
+                    stage_id,
+                    input_fingerprint_value=input_fingerprint_value,
+                    projected_input_hash=projected_input_hash,
+                )
+                if reusable is not None:
+                    reused_from_attempt_id, reusable_candidate = reusable
+                    self.store.persist_prepared_candidate(
+                        qualification,
+                        child_id,
+                        reusable_candidate,
+                    )
+                    self.store.update(
+                        qualification,
+                        child_id,
+                        preparedCandidateReusedFromAttemptId=(
+                            reused_from_attempt_id
+                        ),
+                    )
             if retrying:
                 emit(
                     f"{stage_id}: 失敗済み{len(targets)}問だけを"
@@ -11076,23 +11501,62 @@ class QualificationRunCoordinator:
                 "candidateTargetsByQuestion": candidate_targets_by_question,
                 "requestedModel": requested_model,
                 "requestedReasoningEffort": requested_effort,
+                "inputFingerprint": input_fingerprint_value,
+                "projectedInputHash": projected_input_hash,
+                "reusedPreparedCandidate": bool(reused_from_attempt_id),
             }
 
-        def run_batch(prepared: Mapping[str, Any]) -> dict[str, Any]:
+        def failed_batch_outcome(
+            prepared: Mapping[str, Any],
+            exc: BaseException,
+        ) -> dict[str, Any]:
             child_id = str(prepared["childId"])
-            batch_plan = dict(prepared["batchPlan"])
-            stage_id = str(prepared["stageId"])
-            targets = list(prepared["targets"])
-            requested_model = str(prepared["requestedModel"])
-            requested_effort = str(prepared["requestedReasoningEffort"])
+            child = self.store.refresh(qualification, child_id)
+            targets = [
+                dict(value)
+                for value in (
+                    prepared.get("targets")
+                    or child.get("progressTargets")
+                    or []
+                )
+                if isinstance(value, Mapping)
+            ]
+            provider_failure = _external_provider_failure(exc)
+            isolated_failure = _isolated_turn_failure(exc)
+            schema_failure = isinstance(exc, QuestionCandidateError) or (
+                "構造化候補" in str(exc)
+                or "JSON Schema" in str(exc)
+            )
+            return {
+                "childId": child_id,
+                "child": child,
+                "questionResults": [
+                    {
+                        "questionId": str(
+                            target.get("id") or target.get("uiQuestionId") or ""
+                        ),
+                        "status": "failed",
+                        "summary": str(child.get("error") or exc),
+                        "commands": [],
+                        "changedFiles": [],
+                    }
+                    for target in targets
+                ],
+                "providerFailure": provider_failure is not None,
+                "schemaFailure": schema_failure,
+                "isolatedFailure": isolated_failure is not None,
+                "providerError": str(provider_failure or ""),
+            }
+
+        def run_model(prepared: Mapping[str, Any]) -> dict[str, Any]:
             try:
-                outcome = self._run_structured_question_batch(
+                self._run_structured_question_batch(
                     qualification,
-                    child_id,
+                    str(prepared["childId"]),
                     str(prepared["prompt"]),
                     emit,
-                    batch_plan=batch_plan,
-                    stage_id=stage_id,
+                    batch_plan=dict(prepared["batchPlan"]),
+                    stage_id=str(prepared["stageId"]),
                     pipeline_stop=pipeline_stop,
                     prepared_records=dict(prepared["recordsByQuestion"]),
                     prepared_source_records=dict(
@@ -11101,8 +11565,60 @@ class QualificationRunCoordinator:
                     prepared_targets=dict(
                         prepared["candidateTargetsByQuestion"]
                     ),
-                    model=requested_model,
-                    reasoning_effort=requested_effort,
+                    model=str(prepared["requestedModel"]),
+                    reasoning_effort=str(
+                        prepared["requestedReasoningEffort"]
+                    ),
+                    input_fingerprint_value=str(
+                        prepared["inputFingerprint"]
+                    ),
+                    projected_input_hash=str(
+                        prepared["projectedInputHash"]
+                    ),
+                    prepare_only=True,
+                )
+                return {
+                    "prepared": {"childId": str(prepared["childId"])},
+                    "outcome": None,
+                }
+            except Exception as exc:  # noqa: BLE001
+                return {
+                    "prepared": {"childId": str(prepared["childId"])},
+                    "outcome": failed_batch_outcome(prepared, exc),
+                }
+
+        def run_commit(prepared: Mapping[str, Any]) -> dict[str, Any]:
+            child_id = str(prepared["childId"])
+            try:
+                child = self.store.get(qualification, child_id)
+                envelope = child.get("preparedCandidate")
+                if not isinstance(envelope, Mapping):
+                    raise QualificationRunError(
+                        "writer queueの問題に保存済み候補がありません。"
+                    )
+                outcome = self._run_structured_question_batch(
+                    qualification,
+                    child_id,
+                    "",
+                    emit,
+                    batch_plan=dict(child),
+                    stage_id=str(child.get("stageId") or ""),
+                    pipeline_stop=pipeline_stop,
+                    model=str(
+                        child.get("requestedModel")
+                        or QUESTION_MAINTENANCE_MODEL
+                    ),
+                    reasoning_effort=str(
+                        child.get("requestedReasoningEffort")
+                        or TURN_REASONING_EFFORT
+                    ),
+                    input_fingerprint_value=str(
+                        envelope.get("inputFingerprint") or ""
+                    ),
+                    projected_input_hash=str(
+                        envelope.get("projectedInputHash") or ""
+                    ),
+                    commit_prepared=True,
                 )
                 return {
                     "childId": child_id,
@@ -11113,33 +11629,7 @@ class QualificationRunCoordinator:
                     "isolatedFailure": False,
                 }
             except Exception as exc:  # noqa: BLE001
-                child = self.store.refresh(qualification, child_id)
-                provider_failure = _external_provider_failure(exc)
-                isolated_failure = _isolated_turn_timeout(exc)
-                schema_failure = isinstance(exc, QuestionCandidateError) or (
-                    "構造化候補" in str(exc)
-                    or "JSON Schema" in str(exc)
-                )
-                return {
-                    "childId": child_id,
-                    "child": child,
-                    "questionResults": [
-                        {
-                            "questionId": str(
-                                target.get("id") or target.get("uiQuestionId") or ""
-                            ),
-                            "status": "failed",
-                            "summary": str(child.get("error") or exc),
-                            "commands": [],
-                            "changedFiles": [],
-                        }
-                        for target in targets
-                    ],
-                    "providerFailure": provider_failure is not None,
-                    "schemaFailure": schema_failure,
-                    "isolatedFailure": isolated_failure is not None,
-                    "providerError": str(provider_failure or ""),
-                }
+                return failed_batch_outcome(prepared, exc)
 
         def register_prepared_batches(
             prepared_batches: list[Mapping[str, Any]],
@@ -11515,8 +12005,17 @@ class QualificationRunCoordinator:
                     round_parent
                 )
                 batch_count = 0
-                pending_outcomes: set[Any] = set()
-                peak_pending_outcomes = 0
+                pending_model_futures: set[Any] = set()
+                pending_commit_futures: set[Any] = set()
+                prepared_commit_backlog: deque[dict[str, str]] = deque()
+                pending_spec_futures: dict[Any, str] = {}
+                pending_batch_futures: set[Any] = set()
+                peak_model_futures = 0
+                peak_commit_futures = 0
+                peak_prepared_backlog = 0
+                peak_pipeline_futures = 0
+                peak_preparation_futures = 0
+                peak_question_window = 0
                 prepared_count = 0
                 prepared_spec_count = 0
                 maximum_batch_size = 0
@@ -11527,10 +12026,8 @@ class QualificationRunCoordinator:
                     scheduler_limits.parallel_turns,
                     question_concurrency,
                 )
-                pipeline_worker_limit = question_pipeline_worker_limit(
-                    model_worker_limit=worker_limit,
-                    pending_question_count=len(pending_ids),
-                )
+                commit_worker_limit = worker_limit
+                pipeline_worker_limit = worker_limit + commit_worker_limit
                 preparation_worker_limit = min(
                     question_concurrency,
                     PREPARATION_MAX_PARALLEL_QUESTIONS,
@@ -11542,10 +12039,13 @@ class QualificationRunCoordinator:
                     hydrate_result=False,
                     preparationWorkerLimit=preparation_worker_limit,
                     pipelineWorkerLimit=max(1, pipeline_worker_limit),
-                    pipelineBacklogLimit=max(
-                        0,
-                        pipeline_worker_limit - worker_limit,
-                    ),
+                    pipelineBacklogLimit=commit_worker_limit,
+                    questionWindowLimit=preparation_worker_limit,
+                    questionWindowPendingCount=0,
+                    preparationPendingFutureCount=0,
+                    modelPendingFutureCount=0,
+                    commitPendingFutureCount=0,
+                    preparedCommitBacklogCount=0,
                 )
                 preparation_heartbeat(
                     stage_id,
@@ -11566,58 +12066,74 @@ class QualificationRunCoordinator:
                     if callable(projection_snapshot)
                     else nullcontext()
                 )
-                with snapshot_context, ThreadPoolExecutor(
-                    max_workers=max(1, pipeline_worker_limit),
-                    thread_name_prefix="question-candidate",
-                ) as executor:
-                    def consume_completed_outcomes(
+                with (
+                    snapshot_context,
+                    ThreadPoolExecutor(
+                        max_workers=max(1, worker_limit),
+                        thread_name_prefix="question-model",
+                    ) as model_executor,
+                    ThreadPoolExecutor(
+                        max_workers=max(1, commit_worker_limit),
+                        thread_name_prefix="question-commit",
+                    ) as commit_executor,
+                    ThreadPoolExecutor(
+                        max_workers=max(1, preparation_worker_limit),
+                        thread_name_prefix="question-preparation",
+                    ) as preparation_executor,
+                ):
+                    def collect_completed(
+                        futures: set[Any],
                         *,
                         block: bool,
-                    ) -> None:
-                        nonlocal round_had_provider_failure
-                        if not pending_outcomes:
-                            return
-                        if block:
-                            completed, remaining = wait(
-                                pending_outcomes,
+                        coalesce_limit: int | None = None,
+                    ) -> set[Any]:
+                        if not futures:
+                            return set()
+                        if not block:
+                            return {
+                                future for future in futures if future.done()
+                            }
+                        completed, remaining = wait(
+                            futures,
+                            return_when=FIRST_COMPLETED,
+                        )
+                        coalesce_deadline = (
+                            time.monotonic() + OUTCOME_COALESCE_SECONDS
+                        )
+                        completion_limit = max(
+                            1,
+                            int(coalesce_limit or worker_limit),
+                        )
+                        while (
+                            remaining
+                            and len(completed) < completion_limit
+                        ):
+                            timeout = coalesce_deadline - time.monotonic()
+                            if timeout <= 0:
+                                break
+                            newly_completed, remaining = wait(
+                                remaining,
+                                timeout=timeout,
                                 return_when=FIRST_COMPLETED,
                             )
-                            coalesce_deadline = (
-                                time.monotonic() + OUTCOME_COALESCE_SECONDS
-                            )
-                            while (
-                                remaining
-                                and len(completed) < worker_limit
-                            ):
-                                timeout = (
-                                    coalesce_deadline - time.monotonic()
-                                )
-                                if timeout <= 0:
-                                    break
-                                newly_completed, remaining = wait(
-                                    remaining,
-                                    timeout=timeout,
-                                    return_when=FIRST_COMPLETED,
-                                )
-                                if not newly_completed:
-                                    break
-                                completed.update(newly_completed)
-                        else:
-                            completed = {
-                                future
-                                for future in pending_outcomes
-                                if future.done()
-                            }
-                        if not completed:
+                            if not newly_completed:
+                                break
+                            completed.update(newly_completed)
+                        return completed
+
+                    def apply_completed_outcomes(
+                        outcomes: Iterable[Mapping[str, Any]],
+                    ) -> None:
+                        nonlocal round_had_provider_failure
+                        normalized_outcomes = list(outcomes)
+                        if not normalized_outcomes:
                             return
-                        pending_outcomes.difference_update(completed)
-                        outcomes = [future.result() for future in completed]
                         outcome_parent_snapshot = self.store.get(
                             qualification,
                             run_id,
                         )
                         round_stage_updates: list[dict[str, Any]] = []
-                        for outcome in outcomes:
+                        for outcome in normalized_outcomes:
                             provider_failure = bool(
                                 outcome.get("providerFailure")
                             )
@@ -11651,37 +12167,139 @@ class QualificationRunCoordinator:
                                 hydrate_result=False,
                             )
 
-                    for chunk_start in range(
-                        0,
-                        len(pending_ids),
-                        PREPARATION_CHUNK_SIZE,
-                    ):
-                        chunk_question_ids = pending_ids[
-                            chunk_start : chunk_start + PREPARATION_CHUNK_SIZE
-                        ]
+                    def submit_commit(
+                        prepared: Mapping[str, Any],
+                    ) -> None:
+                        nonlocal peak_commit_futures, peak_pipeline_futures
+                        if len(pending_commit_futures) >= commit_worker_limit:
+                            raise QualificationRunError(
+                                "問題別writer queueが上限を超えました。"
+                            )
+                        pending_commit_futures.add(
+                            commit_executor.submit(run_commit, prepared)
+                        )
+                        peak_commit_futures = max(
+                            peak_commit_futures,
+                            len(pending_commit_futures),
+                        )
+                        peak_pipeline_futures = max(
+                            peak_pipeline_futures,
+                            len(pending_model_futures)
+                            + len(pending_commit_futures),
+                        )
 
-                        def record_prepared(
-                            _question_id: str,
-                            prepared_spec: Any,
-                        ) -> None:
-                            nonlocal prepared_count, prepared_spec_count
-                            prepared_count += 1
-                            if prepared_spec is not None:
-                                prepared_spec_count += 1
-                            preparation_heartbeat(
-                                stage_id,
-                                round_number=_round_number,
-                                prepared_count=prepared_count,
-                                target_count=len(pending_ids),
-                                prepared_spec_count=prepared_spec_count,
-                                batch_count=batch_count,
-                                model_started=model_started,
-                                status="preparing",
+                    def drain_pipeline(*, block: bool) -> None:
+                        nonlocal peak_prepared_backlog, peak_pipeline_futures
+                        while True:
+                            progressed = False
+                            completed_commits = collect_completed(
+                                pending_commit_futures,
+                                block=False,
+                            )
+                            if completed_commits:
+                                pending_commit_futures.difference_update(
+                                    completed_commits
+                                )
+                                apply_completed_outcomes(
+                                    future.result()
+                                    for future in completed_commits
+                                )
+                                progressed = True
+
+                            completed_models = sorted(
+                                (
+                                    future
+                                    for future in pending_model_futures
+                                    if future.done()
+                                ),
+                                key=id,
+                            )
+                            if completed_models:
+                                immediate_outcomes: list[
+                                    Mapping[str, Any]
+                                ] = []
+                                for future in completed_models:
+                                    pending_model_futures.remove(future)
+                                    generated = future.result()
+                                    outcome = generated.get("outcome")
+                                    if isinstance(outcome, Mapping):
+                                        immediate_outcomes.append(outcome)
+                                    else:
+                                        prepared_commit_backlog.append(
+                                            dict(generated["prepared"])
+                                        )
+                                        peak_prepared_backlog = max(
+                                            peak_prepared_backlog,
+                                            len(prepared_commit_backlog),
+                                        )
+                                        peak_pipeline_futures = max(
+                                            peak_pipeline_futures,
+                                            len(pending_model_futures)
+                                            + len(pending_commit_futures)
+                                            + len(prepared_commit_backlog),
+                                        )
+                                apply_completed_outcomes(immediate_outcomes)
+                                progressed = True
+
+                            while (
+                                prepared_commit_backlog
+                                and len(pending_commit_futures)
+                                < commit_worker_limit
+                            ):
+                                submit_commit(
+                                    prepared_commit_backlog.popleft()
+                                )
+                                progressed = True
+
+                            if progressed or not block:
+                                return
+                            if not (
+                                pending_model_futures
+                                or pending_commit_futures
+                                or prepared_commit_backlog
+                            ):
+                                return
+                            # A full writer executor must never make the
+                            # coordinator wait only for writers. Completed
+                            # model futures are durable candidates and freeing
+                            # those slots is what lets the next questions
+                            # enter the 64-turn model lane.
+                            wait_target = (
+                                pending_model_futures
+                                | pending_commit_futures
+                            )
+                            collect_completed(
+                                set(wait_target),
+                                block=True,
                             )
 
-                        prepared_pairs = prepare_question_items_concurrently(
-                            chunk_question_ids,
-                            lambda question_id: prepare_spec(
+                    pending_question_ids = iter(pending_ids)
+                    preparation_input_exhausted = False
+                    last_runtime_snapshot = 0.0
+
+                    def question_window_count() -> int:
+                        return (
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures)
+                            + len(pending_model_futures)
+                        )
+
+                    def fill_preparation_window() -> None:
+                        nonlocal preparation_input_exhausted
+                        nonlocal peak_preparation_futures
+                        nonlocal peak_question_window
+                        while (
+                            not preparation_input_exhausted
+                            and question_window_count()
+                            < preparation_worker_limit
+                        ):
+                            try:
+                                question_id = next(pending_question_ids)
+                            except StopIteration:
+                                preparation_input_exhausted = True
+                                break
+                            future = preparation_executor.submit(
+                                prepare_spec,
                                 phase,
                                 phase_plan,
                                 phase_plan_index,
@@ -11689,98 +12307,30 @@ class QualificationRunCoordinator:
                                 question_id,
                                 round_parent,
                                 round_question_index,
-                            ),
-                            max_workers=preparation_worker_limit,
-                            on_completed=record_prepared,
+                            )
+                            pending_spec_futures[future] = question_id
+                        peak_preparation_futures = max(
+                            peak_preparation_futures,
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures),
                         )
-                        chunk_specs = [
-                            prepared_spec
-                            for _question_id, prepared_spec in prepared_pairs
-                            if isinstance(prepared_spec, Mapping)
-                        ]
-                        if not chunk_specs:
-                            self.store.refresh_question_summary(
-                                qualification,
-                                run_id,
-                                hydrate_result=False,
-                            )
-                            continue
-                        self.store.update_question_stages(
-                            qualification,
-                            run_id,
-                            [
-                                dict(spec["projectionUpdate"])
-                                for spec in chunk_specs
-                                if isinstance(
-                                    spec.get("projectionUpdate"),
-                                    Mapping,
-                                )
-                            ],
-                            hydrate_result=False,
+                        peak_question_window = max(
+                            peak_question_window,
+                            question_window_count(),
                         )
-                        chunk_batches: list[list[Mapping[str, Any]]] = []
-                        for retrying in (False, True):
-                            model_specs = [
-                                spec
-                                for spec in chunk_specs
-                                if spec_requires_retry_model(
-                                    spec,
-                                    stage_id,
-                                )
-                                is retrying
-                            ]
-                            if not model_specs:
-                                continue
-                            chunk_batches.extend([[spec] for spec in model_specs])
-                        for batch in chunk_batches:
-                            batch_count += 1
-                            maximum_batch_size = max(
-                                maximum_batch_size,
-                                len(batch),
-                            )
-                        with ThreadPoolExecutor(
-                            max_workers=max(
-                                1,
-                                min(
-                                    preparation_worker_limit,
-                                    len(chunk_batches),
-                                ),
-                            ),
-                            thread_name_prefix="question-child-preparation",
-                        ) as preparation_executor:
-                            child_preparation_futures = [
-                                preparation_executor.submit(
-                                    prepare_batch,
-                                    batch,
-                                    phase,
-                                    phase_prompt,
-                                    round_parent,
-                                )
-                                for batch in chunk_batches
-                            ]
-                            prepared_batches = [
-                                future.result()
-                                for future in child_preparation_futures
-                            ]
-                        register_prepared_batches(
-                            prepared_batches,
-                            stage_id,
-                        )
-                        for prepared in prepared_batches:
-                            while (
-                                len(pending_outcomes)
-                                >= pipeline_worker_limit
-                            ):
-                                consume_completed_outcomes(block=True)
-                            pending_outcomes.add(
-                                executor.submit(run_batch, prepared)
-                            )
-                            peak_pending_outcomes = max(
-                                peak_pending_outcomes,
-                                len(pending_outcomes),
-                            )
-                        consume_completed_outcomes(block=False)
-                        model_started = batch_count > 0
+
+                    def update_runtime_snapshot(
+                        *,
+                        force: bool = False,
+                    ) -> None:
+                        nonlocal last_runtime_snapshot
+                        current_monotonic = time.monotonic()
+                        if (
+                            not force
+                            and current_monotonic - last_runtime_snapshot
+                            < 1.0
+                        ):
+                            return
                         active_workers = min(batch_count, worker_limit)
                         self.store.update(
                             qualification,
@@ -11793,30 +12343,212 @@ class QualificationRunCoordinator:
                             ),
                             modelBatchSize=maximum_batch_size,
                             modelWorkerLimit=active_workers,
-                            pipelinePendingFutureCount=len(
-                                pending_outcomes
+                            questionWindowPendingCount=(
+                                question_window_count()
+                            ),
+                            questionWindowPeakPendingCount=(
+                                peak_question_window
+                            ),
+                            preparationPendingFutureCount=(
+                                len(pending_spec_futures)
+                                + len(pending_batch_futures)
+                            ),
+                            preparationPeakPendingFutureCount=(
+                                peak_preparation_futures
+                            ),
+                            modelPendingFutureCount=len(
+                                pending_model_futures
+                            ),
+                            commitPendingFutureCount=len(
+                                pending_commit_futures
+                            ),
+                            preparedCommitBacklogCount=len(
+                                prepared_commit_backlog
+                            ),
+                            pipelinePendingFutureCount=(
+                                len(pending_model_futures)
+                                + len(pending_commit_futures)
+                                + len(prepared_commit_backlog)
                             ),
                             pipelinePeakPendingFutureCount=(
-                                peak_pending_outcomes
+                                peak_pipeline_futures
+                            ),
+                            modelPeakPendingFutureCount=peak_model_futures,
+                            commitPeakPendingFutureCount=peak_commit_futures,
+                            preparedCommitPeakBacklogCount=(
+                                peak_prepared_backlog
                             ),
                         )
-                        preparation_heartbeat(
-                            stage_id,
-                            round_number=_round_number,
-                            prepared_count=prepared_count,
-                            target_count=len(pending_ids),
-                            prepared_spec_count=prepared_spec_count,
-                            batch_count=batch_count,
-                            model_started=model_started,
-                            status=(
-                                "streaming"
-                                if model_started
-                                else "preparing"
-                            ),
-                            force=True,
-                        )
-                    while pending_outcomes:
-                        consume_completed_outcomes(block=True)
+                        last_runtime_snapshot = current_monotonic
+
+                    fill_preparation_window()
+                    update_runtime_snapshot(force=True)
+                    try:
+                        while (
+                            not preparation_input_exhausted
+                            or pending_spec_futures
+                            or pending_batch_futures
+                        ):
+                            drain_pipeline(block=False)
+                            fill_preparation_window()
+                            preparation_futures = (
+                                set(pending_spec_futures)
+                                | pending_batch_futures
+                            )
+                            if not preparation_futures:
+                                # The 64-question window is currently occupied
+                                # by model turns. A completed, durably saved
+                                # candidate frees one slot for the next input.
+                                drain_pipeline(block=True)
+                                fill_preparation_window()
+                                continue
+                            completed_preparation = collect_completed(
+                                preparation_futures,
+                                block=True,
+                                coalesce_limit=preparation_worker_limit,
+                            )
+                            completed_specs: list[Mapping[str, Any]] = []
+                            completed_batches: list[Mapping[str, Any]] = []
+                            completed_spec_count = 0
+                            for future in completed_preparation:
+                                if future in pending_spec_futures:
+                                    pending_spec_futures.pop(future)
+                                    completed_spec_count += 1
+                                    prepared_spec = future.result()
+                                    prepared_count += 1
+                                    if isinstance(prepared_spec, Mapping):
+                                        prepared_spec_count += 1
+                                        completed_specs.append(prepared_spec)
+                                    continue
+                                pending_batch_futures.remove(future)
+                                completed_batches.append(future.result())
+
+                            if completed_specs:
+                                self.store.update_question_stages(
+                                    qualification,
+                                    run_id,
+                                    [
+                                        dict(spec["projectionUpdate"])
+                                        for spec in completed_specs
+                                        if isinstance(
+                                            spec.get("projectionUpdate"),
+                                            Mapping,
+                                        )
+                                    ],
+                                    hydrate_result=False,
+                                )
+                                for spec in completed_specs:
+                                    batch = [spec]
+                                    batch_count += 1
+                                    maximum_batch_size = max(
+                                        maximum_batch_size,
+                                        len(batch),
+                                    )
+                                    pending_batch_futures.add(
+                                        preparation_executor.submit(
+                                            prepare_batch,
+                                            batch,
+                                            phase,
+                                            phase_prompt,
+                                            round_parent,
+                                        )
+                                    )
+                            elif completed_spec_count:
+                                self.store.refresh_question_summary(
+                                    qualification,
+                                    run_id,
+                                    hydrate_result=False,
+                                )
+
+                            if completed_batches:
+                                register_prepared_batches(
+                                    completed_batches,
+                                    stage_id,
+                                )
+                            for prepared in completed_batches:
+                                if prepared.get("reusedPreparedCandidate"):
+                                    if self.store.is_question_attempt(
+                                        str(prepared["childId"])
+                                    ):
+                                        self.store.update_attempt_stage_status(
+                                            qualification,
+                                            str(prepared["childId"]),
+                                            "prepared",
+                                        )
+                                    prepared_commit_backlog.append(
+                                        {
+                                            "childId": str(
+                                                prepared["childId"]
+                                            )
+                                        }
+                                    )
+                                    peak_prepared_backlog = max(
+                                        peak_prepared_backlog,
+                                        len(prepared_commit_backlog),
+                                    )
+                                    continue
+                                while (
+                                    len(pending_model_futures)
+                                    >= worker_limit
+                                ):
+                                    drain_pipeline(block=True)
+                                pending_model_futures.add(
+                                    model_executor.submit(
+                                        run_model,
+                                        prepared,
+                                    )
+                                )
+                                model_started = True
+                                peak_model_futures = max(
+                                    peak_model_futures,
+                                    len(pending_model_futures),
+                                )
+                                peak_pipeline_futures = max(
+                                    peak_pipeline_futures,
+                                    len(pending_model_futures)
+                                    + len(pending_commit_futures),
+                                )
+
+                            peak_preparation_futures = max(
+                                peak_preparation_futures,
+                                len(pending_spec_futures)
+                                + len(pending_batch_futures),
+                            )
+                            peak_question_window = max(
+                                peak_question_window,
+                                question_window_count(),
+                            )
+                            drain_pipeline(block=False)
+                            fill_preparation_window()
+                            update_runtime_snapshot()
+                            preparation_heartbeat(
+                                stage_id,
+                                round_number=_round_number,
+                                prepared_count=prepared_count,
+                                target_count=len(pending_ids),
+                                prepared_spec_count=prepared_spec_count,
+                                batch_count=batch_count,
+                                model_started=model_started,
+                                status=(
+                                    "streaming"
+                                    if model_started
+                                    else "preparing"
+                                ),
+                            )
+                    except BaseException:
+                        for future in (
+                            set(pending_spec_futures)
+                            | pending_batch_futures
+                        ):
+                            future.cancel()
+                        raise
+                    while (
+                        pending_model_futures
+                        or pending_commit_futures
+                        or prepared_commit_backlog
+                    ):
+                        drain_pipeline(block=True)
+                    update_runtime_snapshot(force=True)
                 preparation_heartbeat(
                     stage_id,
                     round_number=_round_number,
@@ -11834,8 +12566,20 @@ class QualificationRunCoordinator:
                     qualification,
                     run_id,
                     hydrate_result=False,
+                    questionWindowPendingCount=0,
+                    questionWindowPeakPendingCount=peak_question_window,
+                    preparationPendingFutureCount=0,
+                    preparationPeakPendingFutureCount=(
+                        peak_preparation_futures
+                    ),
+                    modelPendingFutureCount=0,
+                    commitPendingFutureCount=0,
+                    preparedCommitBacklogCount=0,
                     pipelinePendingFutureCount=0,
-                    pipelinePeakPendingFutureCount=peak_pending_outcomes,
+                    pipelinePeakPendingFutureCount=peak_pipeline_futures,
+                    modelPeakPendingFutureCount=peak_model_futures,
+                    commitPeakPendingFutureCount=peak_commit_futures,
+                    preparedCommitPeakBacklogCount=peak_prepared_backlog,
                 )
                 pending_ids = list(dict.fromkeys(next_ids))
                 if pending_ids:
@@ -12318,9 +13062,17 @@ class QualificationRunCoordinator:
         prepared_targets: Mapping[str, tuple[CandidateTarget, ...]] | None = None,
         model: str = QUESTION_MAINTENANCE_MODEL,
         reasoning_effort: str = TURN_REASONING_EFFORT,
+        input_fingerprint_value: str,
+        projected_input_hash: str,
+        prepare_only: bool = False,
+        commit_prepared: bool = False,
     ) -> dict[str, Any]:
         """Generate read-only candidates, then validate and commit each question."""
 
+        if prepare_only and commit_prepared:
+            raise QualificationRunError(
+                "候補生成と保存済み候補commitを同時指定できません。"
+            )
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
         if not self.store.is_question_attempt(run_id) and run_id not in {
@@ -12329,12 +13081,17 @@ class QualificationRunCoordinator:
             if value
         }:
             emit = self._technical_log_emitter(qualification, run_id, emit)
+        existing_child = self.store.get(qualification, run_id)
         child = self.store.update(
             qualification,
             run_id,
             status="running",
-            executionPhase="structured_candidate_generation",
-            startedAt=_now(),
+            executionPhase=(
+                "structured_candidate_commit"
+                if commit_prepared
+                else "structured_candidate_generation"
+            ),
+            startedAt=existing_child.get("startedAt") or _now(),
             heartbeatAt=_now(),
             error=None,
         )
@@ -12361,6 +13118,17 @@ class QualificationRunCoordinator:
         parent_run_id = str(
             child.get("parentRunId") or batch_plan.get("parentRunId") or ""
         )
+        if commit_prepared:
+            if len(raw_targets) != 1 or not parent_run_id:
+                raise QualificationRunError(
+                    "保存済み問題別候補の親run又は対象問題が不正です。"
+                )
+            _validated_projected_input_path(
+                self.repo_root,
+                self.store.run_directory(qualification, parent_run_id),
+                raw_targets[0],
+                projected_input_hash,
+            )
         batch_work_item_keys = [
             str(value.get("workItemKey") or value.get("id") or "")
             for value in raw_targets
@@ -12412,11 +13180,21 @@ class QualificationRunCoordinator:
         aggregate_consensus: dict[str, dict[str, Any]] = {}
         aggregate_review_pairs: dict[str, list[dict[str, Any]]] = {}
         aggregate_source_records: dict[str, Mapping[str, Any]] = {}
+        prepared_execution_metadata: dict[str, Any] = {}
+        prepared_content: dict[str, Any] | None = None
         committed_files: set[str] = set()
         try:
+            if commit_prepared:
+                envelope = self.store.load_prepared_candidate(
+                    qualification,
+                    run_id,
+                    input_fingerprint_value=input_fingerprint_value,
+                    projected_input_hash=projected_input_hash,
+                )
+                prepared_content = copy.deepcopy(dict(envelope["content"]))
             aggregate_review_enabled = stage_id == "question_type"
             checkpoint_mismatches: set[str] = set()
-            if aggregate_review_enabled:
+            if aggregate_review_enabled and prepared_content is None:
                 aggregate_source_records = _aggregate_review_source_records(
                     self.repo_root,
                     qualification,
@@ -12876,63 +13654,188 @@ class QualificationRunCoordinator:
                         AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION
                     ),
                 )
-            invalid_question_ids = set(checkpoint_mismatches)
-            candidate_question_ids = [
-                question_id
-                for question_id in question_ids
-                if question_id not in invalid_question_ids
-            ]
-            if candidate_question_ids:
-                candidate_prompt = _filter_structured_candidate_prompt(
-                    prompt,
-                    set(candidate_question_ids),
+            if prepared_content is not None:
+                raw_consensus = prepared_content.get("aggregateConsensus")
+                raw_pairs = prepared_content.get("aggregateReviewPairs")
+                raw_source_records = prepared_content.get(
+                    "aggregateSourceRecords"
                 )
-                result = self.app_server.run_turn(
-                    candidate_prompt,
-                    work_type=f"maintenance_{stage_id}_candidate",
-                    sandbox="read-only",
-                    emit=emit,
-                    output_schema=candidate_output_schema(
-                        candidate_question_ids,
-                        targets_by_question,
-                    ),
-                    on_thread_started=on_thread_started,
-                    on_turn_started=on_turn_started,
-                    heartbeat=heartbeat,
-                    cwd=self.repo_root,
-                    model=model,
-                    reasoning_effort=reasoning_effort,
-                    speed_mode=speed_mode,
-                    turn_group=qualification,
-                    monitor_context=self._monitor_context(
-                        qualification,
-                        run_id,
-                        parent_run_id=parent_run_id,
-                        question_ids=candidate_question_ids,
-                        work_item_keys=batch_work_item_keys,
-                        list_group_ids=batch_list_group_ids,
-                        stage_id=stage_id,
-                        work_type=f"maintenance_{stage_id}_candidate",
-                        phase="structured_candidate_generation",
-                    ),
+                raw_prepared_source_records = prepared_content.get(
+                    "preparedSourceRecords"
                 )
-                if result.changed_files:
+                raw_invalid_ids = prepared_content.get("invalidQuestionIds")
+                raw_execution = prepared_content.get("executionMetadata")
+                candidate_payload = prepared_content.get("candidatePayload")
+                if (
+                    not isinstance(raw_consensus, Mapping)
+                    or not isinstance(raw_pairs, Mapping)
+                    or not isinstance(raw_source_records, Mapping)
+                    or not isinstance(raw_prepared_source_records, Mapping)
+                    or not isinstance(raw_invalid_ids, list)
+                    or not isinstance(raw_execution, Mapping)
+                    or not isinstance(candidate_payload, Mapping)
+                ):
                     raise QualificationRunError(
-                        "read-only候補生成でfile変更通知を検出しました。"
+                        "保存済み問題別候補のcontent形式が不正です。"
                     )
+                aggregate_consensus = {
+                    str(key): copy.deepcopy(dict(value))
+                    for key, value in raw_consensus.items()
+                    if isinstance(value, Mapping)
+                }
+                aggregate_review_pairs = {
+                    str(key): [
+                        copy.deepcopy(dict(review))
+                        for review in value
+                        if isinstance(review, Mapping)
+                    ]
+                    for key, value in raw_pairs.items()
+                    if isinstance(value, list)
+                }
+                aggregate_source_records = {
+                    str(key): copy.deepcopy(dict(value))
+                    for key, value in raw_source_records.items()
+                    if isinstance(value, Mapping)
+                }
+                prepared_source_records = {
+                    str(key): copy.deepcopy(dict(value))
+                    for key, value in raw_prepared_source_records.items()
+                    if isinstance(value, Mapping)
+                }
+                invalid_question_ids = {
+                    str(value) for value in raw_invalid_ids
+                }
+                if not invalid_question_ids.issubset(set(question_ids)):
+                    raise QualificationRunError(
+                        "保存済み問題別候補に対象外問題があります。"
+                    )
+                candidate_question_ids = [
+                    question_id
+                    for question_id in question_ids
+                    if question_id not in invalid_question_ids
+                ]
                 candidates = parse_candidates(
-                    result.final_message,
+                    candidate_payload,
                     candidate_question_ids,
                     targets_by_question,
                 )
+                prepared_execution_metadata = copy.deepcopy(
+                    dict(raw_execution)
+                )
             else:
-                candidates = []
+                invalid_question_ids = set(checkpoint_mismatches)
+                candidate_question_ids = [
+                    question_id
+                    for question_id in question_ids
+                    if question_id not in invalid_question_ids
+                ]
+                if candidate_question_ids:
+                    candidate_prompt = _filter_structured_candidate_prompt(
+                        prompt,
+                        set(candidate_question_ids),
+                    )
+                    result = self.app_server.run_turn(
+                        candidate_prompt,
+                        work_type=f"maintenance_{stage_id}_candidate",
+                        sandbox="read-only",
+                        emit=emit,
+                        output_schema=candidate_output_schema(
+                            candidate_question_ids,
+                            targets_by_question,
+                        ),
+                        on_thread_started=on_thread_started,
+                        on_turn_started=on_turn_started,
+                        heartbeat=heartbeat,
+                        cwd=self.repo_root,
+                        model=model,
+                        reasoning_effort=reasoning_effort,
+                        speed_mode=speed_mode,
+                        turn_group=qualification,
+                        monitor_context=self._monitor_context(
+                            qualification,
+                            run_id,
+                            parent_run_id=parent_run_id,
+                            question_ids=candidate_question_ids,
+                            work_item_keys=batch_work_item_keys,
+                            list_group_ids=batch_list_group_ids,
+                            stage_id=stage_id,
+                            work_type=f"maintenance_{stage_id}_candidate",
+                            phase="structured_candidate_generation",
+                        ),
+                    )
+                    if result.changed_files:
+                        raise QualificationRunError(
+                            "read-only候補生成でfile変更通知を検出しました。"
+                        )
+                    candidates = parse_candidates(
+                        result.final_message,
+                        candidate_question_ids,
+                        targets_by_question,
+                    )
+                    prepared_execution_metadata = {
+                        "model": result.model,
+                        "serviceTier": result.service_tier,
+                        "reasoningEffort": result.reasoning_effort,
+                        "turnCompletionMode": result.completion_mode,
+                    }
+                else:
+                    candidates = []
+                envelope = _prepared_candidate_envelope(
+                    question_id=question_ids[0],
+                    stage_id=stage_id,
+                    input_fingerprint_value=input_fingerprint_value,
+                    projected_input_hash=projected_input_hash,
+                    content={
+                        "candidatePayload": _question_candidates_payload(
+                            candidates
+                        ),
+                        "aggregateConsensus": copy.deepcopy(
+                            aggregate_consensus
+                        ),
+                        "aggregateReviewPairs": copy.deepcopy(
+                            aggregate_review_pairs
+                        ),
+                        "aggregateSourceRecords": copy.deepcopy(
+                            aggregate_source_records
+                        ),
+                        "preparedSourceRecords": copy.deepcopy(
+                            dict(prepared_source_records or {})
+                        ),
+                        "invalidQuestionIds": sorted(
+                            invalid_question_ids
+                        ),
+                        "executionMetadata": copy.deepcopy(
+                            prepared_execution_metadata
+                        ),
+                    },
+                )
+                self.store.persist_prepared_candidate(
+                    qualification,
+                    run_id,
+                    envelope,
+                )
             if self.store.is_question_attempt(run_id):
                 self.store.update_attempt_stage_status(
                     qualification,
                     run_id,
                     "prepared",
                 )
+            if prepare_only:
+                return {
+                    "qualification": qualification,
+                    "runId": run_id,
+                    "preparedCandidateHash": str(
+                        self.store.get(qualification, run_id)
+                        .get("preparedCandidate", {})
+                        .get("contentHash")
+                        or ""
+                    ),
+                    "child": self.store.get(qualification, run_id),
+                }
+            self.store.mark_candidate_commit_started(
+                qualification,
+                run_id,
+            )
             bindings = {
                 str(value.get("id") or value.get("uiQuestionId") or ""):
                 SourceIdentityBinding.from_mapping(value)
@@ -13609,15 +14512,8 @@ class QualificationRunCoordinator:
                     else {}
                 ),
             }
-            execution_metadata = (
-                {
-                    "model": result.model,
-                    "serviceTier": result.service_tier,
-                    "reasoningEffort": result.reasoning_effort,
-                    "turnCompletionMode": result.completion_mode,
-                }
-                if result is not None
-                else {}
+            execution_metadata = copy.deepcopy(
+                prepared_execution_metadata
             )
             self.store.update(
                 qualification,

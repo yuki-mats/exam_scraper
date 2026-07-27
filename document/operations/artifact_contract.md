@@ -78,7 +78,7 @@ output/question_review_console/
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
 | work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
-| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | 不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、派生`question_summary.json`、`attempts/<token>/`のresult・progress・baseline、技術ログ、問題別projection、終端時の`improvement_report.json`。modelはここへ書き込まない。通常の一問turnは子manifestを作らない。 |
+| session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | 不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、派生`question_summary.json`、`attempts/<token>/`のresult・progress・baseline、技術ログ、問題別projection、終端時の`improvement_report.json`。serverはmodel候補を一問state内のattemptへwrite-onceで保存するが、model自身はここへ書き込まない。通常の一問turnは子manifestを作らない。 |
 | runtime observation | `output/question_review_console/runtime_observations/<qualification>/<parentRunId>/` | `monitor-event/v1`の`events.jsonl`と観測cursor・欠落件数を持つ`snapshot.json`。表示用のbest-effort projectionであり、工程・成果物・公開状態の正本ではない。 |
 | direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正のbaseline（開始前bytes）とcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の最新評価。promptは同階層の`evaluation_prompts/`。 |
@@ -89,7 +89,7 @@ output/question_review_console/
 
 run directoryは再利用しません。通常整備runの対象、source identity、工程版、sandbox、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`は不変`plan.json`へ保存します。親`manifest.json`はrun全体の検証・同期状態と小さい集計だけを持ち、一問の`questionExecutions`、停止理由、fingerprint、`validationAttempts`、attempt、検証済み作業版receiptは`questions/<questionIdのsha256>.json`へ保存します。`question_summary.json`は一問stateから再生成できる表示用派生物です。
 
-model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが`attempts/<token>/`へresult、progress、開始前baselineを保存します。patchは工程・年度ごとの既存形式を維持し、一問ごとには分割しません。patch開始前bytesと`work_versions.json`は一問の同じtransactionに含め、checkpoint保存まで成功した後にだけ確定します。再起動時はtransactionが開いた一問を開始前へ戻し、確定済みreceiptを持つ問を除外して未完了だけを再開します。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
+model turnはread-onlyで`question-maintenance-candidates/v2`候補だけを返し、serverが候補を問題ID、工程、入力fingerprint、projection hash、内容hashとともに一問state内のattemptへwrite-onceで保存します。writer queueはattempt IDだけを持ち、保存済み候補をreadback検証してから確定を始めます。中断後に同じ候補を再利用できるのは、これらの入力identityが完全一致し、writer開始記録がない場合だけです。serverは`attempts/<token>/`へresult、progress、開始前baselineも保存します。patchは工程・年度ごとの既存形式を維持し、一問ごとには分割しません。patch開始前bytesと`work_versions.json`は一問の同じtransactionに含め、checkpoint保存まで成功した後にだけ確定します。再起動時はtransactionが開いた一問を開始前へ戻し、確定済みreceiptを持つ問を除外して未完了だけを再開します。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
 
 ## 編集境界
 

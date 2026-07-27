@@ -10,14 +10,14 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 - `questionBodyText`と各`choiceTextList`を結合した完全な命題を一肢ずつ読み、出題時点の公式解答、元解説、資格別方針で認めた根拠と照合します。
 - 02aが所有するのは通常`correctChoiceText`だけです。`questionType`、`isCalculationQuestion`、`questionIntent`、問題文、選択肢、解説、IDを変更しません。
 - 現在の`correctChoiceText`、正答数、`questionType`又は`questionIntent`から各肢の正誤を逆算しません。各選択肢を同じ根拠基準で独立に判定します。
-- `sourceAnswerEvidence`は、`00_source`から分離した更新不能な正答証拠です。`evidenceType=trusted_gassyunin_judge_statement_verdicts`では、取得元のjudge欄が各記述markerと基礎事実の正誤を直接対応付け、件数・順序・出所を機械検証済みです。公式解答番号が元の組合せ肢を指す問題でも、組合せ対応表がないことだけを理由に`hold`にしません。ただし、この配列を完成後の`correctChoiceText`へ直接転記しません。現在の`questionBodyText`が「規定されていない」「誤っている」「除く」「該当しない」などを問う場合は、その条件と極性を各記述へ適用して完全な命題を作り、judgeの基礎事実を根拠の一つとして現在の正誤を独立判定します。
+- `sourceAnswerEvidence`は、`00_source`から分離した更新不能な正答証拠です。`evidenceType=trusted_gassyunin_judge_statement_verdicts`かつ`verdictSemantics=final_correct_choice_text_for_source_text`では、取得元のjudge欄がsourceの問題文と各選択肢を組み合わせた最終命題へ`correctChoiceText`を対応付け、件数・順序・出所を機械検証済みです。`appliesToCurrentText=true`なら現在の本文・選択肢と完全一致するため、この配列を最終正誤として扱い、否定語又は`questionIntent`で再反転しません。公式解答との衝突又は専門的根拠との明白な衝突があれば、配列を推測で変更せず`hold`にします。`appliesToCurrentText=false`ならsource配列を現在値へ転記せず、現在の完全な命題を独立に判定します。公式解答番号は`answerResultSemantics`に従って数、元の組合せ肢番号又は選択肢番号として解釈します。
 - 根拠不足、公式解答との衝突、画像欠落又は命題を一意に読めない問題は、問題単位の`hold`（構造化候補では`status=blocked`）にします。一部の肢だけを確定したり、現在値で残りを埋めたりしません。
 
 ## 判定基準
 
-`correctChoiceText`は選択肢そのものの正誤です。`select_incorrect`の問題でも、誤っている肢は`間違い`、正しい肢は`正しい`と記録します。
+`correctChoiceText`は、問題文と選択肢から作る完全な命題の正誤です。`select_incorrect`の問題でも、完結した記述肢は誤っていれば`間違い`、正しければ`正しい`と記録します。
 
-1. 問題文の条件と極性を各選択肢へ適用し、完全な判定命題を作ります。選択肢の文面と順序が`00_source`と同じでも、否定、非該当、除外、個数又は組合せの条件があれば、正答証拠の配列をそのまま使いません。
+1. 各選択肢が完結した記述なら、その記述自体を判定命題にします。「誤っているものを選べ」などの解答指示は選択方向にだけ使い、記述の真偽を反転しません。選択肢が名詞句、設備名、数値などの断片なら、問題文の述語を一度だけ補って完全な判定命題を作ります。
 2. その命題を、確認できる専門的根拠に照らして`正しい`又は`間違い`と判定します。
 3. 全肢の判定後にだけ、02で確定した`questionIntent`と出題時の公式解答を使って、選ばれる肢との整合を確認します。
 4. 不整合があれば`hold`にし、02又は02aのどちらが正しいかをこの照合だけで決めません。

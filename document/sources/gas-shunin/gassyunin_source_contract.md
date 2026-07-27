@@ -29,7 +29,7 @@
 
 `正解: (n)`から`answer_result_text`と`answer_result_inferred_correct_choice_numbers`を作り、番号を独自にリマップしません。
 
-組合せ問題の`正解: (n)`は、取得元に表示された元の組合せ肢番号を指します。`choiceMarkerSource=judge`、`markerAlignmentMode=judge_only`、`markerMismatchDetected=false`で、`judgeChoiceMarkers`、`choiceTextList`、`correctChoiceText`、`sourceStatementCount`の件数が一致する場合は、`各選択肢の判定`の`correctChoiceText`を各記述の基礎事実に対するsource truthとします。この場合、元の組合せ肢番号を各記述のindexと比較しません。問題整備工程では、この配列を公開用`correctChoiceText`へ直接転記せず、現在の問題文にある否定、非該当、除外、個数又は組合せの条件を適用して各選択肢の完全な命題を判定します。これらの監査field又は件数が一致しない場合は、推測で補正せずmapping未確認として停止します。
+組合せ問題の`正解: (n)`は、取得元に表示された元の組合せ肢番号を指します。`choiceMarkerSource=judge`、`markerAlignmentMode=judge_only`、`markerMismatchDetected=false`で、`judgeChoiceMarkers`、`choiceTextList`、`correctChoiceText`、`sourceStatementCount`の件数が一致する場合は、`各選択肢の判定`の`correctChoiceText`をsourceの問題文と各選択肢から作る完全な命題に対する最終正誤とします。この場合、元の組合せ肢番号を各記述のindexと比較しません。問題整備工程で現在の本文・選択肢がsourceと完全一致する場合は、この配列を否定語又は`questionIntent`で再反転しません。本文又は選択肢が変わっている場合は配列を直接使わず、現在の完全な命題を独立に判定します。これらの監査field又は件数が一致しない場合は、推測で補正せずmapping未確認として停止します。
 
 ### 数値選択肢
 

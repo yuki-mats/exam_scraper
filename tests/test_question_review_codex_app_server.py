@@ -15,6 +15,8 @@ from tools.question_review_console.codex_app_server import (
     APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS,
     CodexAppServerError,
     CodexAppServerClient,
+    CodexControlRequestTimeoutError,
+    CodexRequestTimeoutError,
     CodexTurnTimeoutError,
     DEFAULT_TURN_TIMEOUT_SECONDS,
     FAST_SPEED_MODE,
@@ -463,6 +465,10 @@ class ProtocolClient(CodexAppServerClient):
     def assert_subscription_access(self, *, force=True, speed_mode="standard"):
         self.subscription_forces.append((force, speed_mode))
         return {"allowed": True, "planType": "pro", "speedMode": speed_mode}
+
+    def _ensure_started(self):
+        # Protocol tests replace JSON-RPC directly and do not launch a process.
+        return None
 
     def _trusted_research_agent_config(self):
         return self.research_agent_config_path
@@ -1326,6 +1332,72 @@ class AppServerTurnTests(unittest.TestCase):
             ],
         )
 
+    def test_hook_check_is_singleflight_cached_and_generation_scoped(self):
+        client = ProtocolClient()
+        cwd = Path("/isolated/model-workspace")
+
+        with ThreadPoolExecutor(max_workers=16) as executor:
+            futures = [
+                executor.submit(client._assert_no_active_hooks, cwd)
+                for _index in range(16)
+            ]
+            for future in futures:
+                future.result(timeout=2)
+        client._assert_no_active_hooks(cwd)
+
+        hook_calls = [
+            call for call in client.calls if call[0] == "hooks/list"
+        ]
+        self.assertEqual(len(hook_calls), 1)
+
+        with client._state_lock:
+            client._app_server_generation += 1
+        client._assert_no_active_hooks(cwd)
+        hook_calls = [
+            call for call in client.calls if call[0] == "hooks/list"
+        ]
+        self.assertEqual(len(hook_calls), 2)
+
+    def test_hook_check_shares_one_timeout_but_later_request_retries(self):
+        class TimeoutHookClient(ProtocolClient):
+            def __init__(self):
+                super().__init__()
+                self.hook_requests = 0
+                self.hook_request_lock = threading.Lock()
+
+            def _request(self, method, params, *, timeout=None):
+                if method != "hooks/list":
+                    return super()._request(method, params, timeout=timeout)
+                with self.hook_request_lock:
+                    self.hook_requests += 1
+                time.sleep(0.05)
+                raise CodexRequestTimeoutError("hooks/list timeout")
+
+        client = TimeoutHookClient()
+        barrier = threading.Barrier(8)
+
+        def check():
+            barrier.wait(timeout=2)
+            client._assert_no_active_hooks(
+                Path("/isolated/model-workspace")
+            )
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            futures = [executor.submit(check) for _index in range(8)]
+            errors = []
+            for future in futures:
+                with self.assertRaises(CodexControlRequestTimeoutError) as raised:
+                    future.result(timeout=2)
+                errors.append(str(raised.exception))
+
+        self.assertEqual(client.hook_requests, 1)
+        self.assertEqual(errors, ["hooks/list timeout"] * 8)
+        with self.assertRaises(CodexControlRequestTimeoutError):
+            client._assert_no_active_hooks(
+                Path("/isolated/model-workspace")
+            )
+        self.assertEqual(client.hook_requests, 2)
+
     def test_control_plane_is_bounded_while_64_model_turns_stay_active(self):
         class BoundedControlPlaneClient(ProtocolClient):
             CONTROL_METHODS = {
@@ -1499,7 +1571,10 @@ class AppServerTurnTests(unittest.TestCase):
         )
         methods = [method for method, _params in client.calls]
         for method in BoundedControlPlaneClient.CONTROL_METHODS:
-            self.assertEqual(methods.count(method), 64)
+            self.assertEqual(
+                methods.count(method),
+                1 if method == "hooks/list" else 64,
+            )
 
     def test_model_turn_snapshot_uses_protocol_lifecycle_notifications(self):
         client = ProtocolClient()

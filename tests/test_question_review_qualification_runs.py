@@ -3,11 +3,13 @@ from collections.abc import Mapping
 from types import SimpleNamespace
 from dataclasses import replace
 from datetime import datetime, timezone
+import hashlib
 
 from tests.qualification_run_test_support import *  # noqa: F403
 
 from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
+    CodexControlRequestTimeoutError,
     CodexTurnTimeoutError,
     SubscriptionGateError,
 )
@@ -27,7 +29,9 @@ from tools.question_review_console.qualification_runs import (
     _candidate_unset_fields,
     _child_retry_safe,
     _external_provider_failure,
+    _isolated_turn_failure,
     _isolated_turn_timeout,
+    _prepared_candidate_envelope,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
     _source_binding_accepts_identity,
@@ -35,8 +39,9 @@ from tools.question_review_console.qualification_runs import (
     _structured_candidate_stage_context,
     _structured_candidate_prompt,
     _trusted_source_answer_evidence,
+    _validated_prepared_candidate,
+    _validated_projected_input_path,
     prepare_question_items_concurrently,
-    question_pipeline_worker_limit,
 )
 from tools.question_review_console.question_patch_proposal import (
     TargetResolutionCache,
@@ -88,21 +93,67 @@ def _question_attempt_ids(run):
 
 
 class ParallelQuestionPreparationTests(unittest.TestCase):
-    def test_pipeline_reserves_a_writer_backlog_wave_beyond_sixty_four_models(self):
-        self.assertEqual(
-            question_pipeline_worker_limit(
-                model_worker_limit=64,
-                pending_question_count=522,
-            ),
-            128,
+    def test_prepared_candidate_hash_binds_question_stage_and_inputs(self):
+        candidate = _prepared_candidate_envelope(
+            question_id="question-1",
+            stage_id="explanation",
+            input_fingerprint_value="input-1",
+            projected_input_hash="projection-1",
+            content={"candidatePayload": {"questionResults": []}},
         )
         self.assertEqual(
-            question_pipeline_worker_limit(
-                model_worker_limit=64,
-                pending_question_count=64,
+            _validated_prepared_candidate(
+                candidate,
+                question_id="question-1",
+                stage_id="explanation",
+                input_fingerprint_value="input-1",
+                projected_input_hash="projection-1",
             ),
-            64,
+            candidate,
         )
+        tampered = copy.deepcopy(candidate)
+        tampered["content"]["candidatePayload"]["questionResults"].append({})
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "content hash",
+        ):
+            _validated_prepared_candidate(tampered)
+
+    def test_prepared_candidate_projection_must_still_match_saved_input_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            parent_run_directory = root / "workflow_runs" / "run-1"
+            projected_path = (
+                parent_run_directory / "projected_inputs" / "question-1.json"
+            )
+            projected_path.parent.mkdir(parents=True)
+            projected_path.write_text('{"question_bodies":[]}\n', encoding="utf-8")
+            relative_path = projected_path.relative_to(root).as_posix()
+            expected_hash = hashlib.sha256(projected_path.read_bytes()).hexdigest()
+
+            self.assertEqual(
+                _validated_projected_input_path(
+                    root,
+                    parent_run_directory,
+                    {"_projectedInputPath": relative_path},
+                    expected_hash,
+                ),
+                projected_path.resolve(),
+            )
+            projected_path.write_text(
+                '{"question_bodies":[{"changed":true}]}\n',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "projected input hash",
+            ):
+                _validated_projected_input_path(
+                    root,
+                    parent_run_directory,
+                    {"_projectedInputPath": relative_path},
+                    expected_hash,
+                )
 
     def test_sixty_four_questions_prepare_concurrently_and_return_in_input_order(self):
         question_ids = [f"question-{index:02d}" for index in range(64)]
@@ -1048,6 +1099,23 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
                 (),
             ),
             ("suggestedQuestionDetails", "suggestedQuestions"),
+        )
+
+    def test_server_authoritative_set_field_cannot_also_be_unset(self):
+        target = CandidateTarget(
+            target_id="q1:law_audit",
+            role="law_audit",
+            path="output/sample/review/law_revision_audit/q1.jsonl",
+            allowed_fields=("lawReferences", "reviewNotes"),
+        )
+
+        self.assertEqual(
+            _candidate_unset_fields(
+                target,
+                {"lawReferences": [[{"lawId": "329AC0000000051"}]]},
+                ("lawReferences", "reviewNotes"),
+            ),
+            ("reviewNotes",),
         )
 
     def test_question_set_context_includes_options_and_no_op_rule(self):
@@ -2200,6 +2268,188 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
+    def test_question_attempt_candidate_is_durable_write_once_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            question_id = "new-exam-2026-q1"
+            attempt = coordinator.store.create_question_attempt(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                parent,
+                "candidate prompt",
+            )
+            candidate = _prepared_candidate_envelope(
+                question_id=question_id,
+                stage_id="question_type",
+                input_fingerprint_value="input-1",
+                projected_input_hash="projection-1",
+                content={"candidatePayload": {"questionResults": []}},
+            )
+
+            persisted = coordinator.store.persist_prepared_candidate(
+                "new-exam",
+                attempt["runId"],
+                candidate,
+            )
+            readback = coordinator.store.load_prepared_candidate(
+                "new-exam",
+                attempt["runId"],
+                input_fingerprint_value="input-1",
+                projected_input_hash="projection-1",
+            )
+            self.assertEqual(readback, persisted)
+
+            changed = _prepared_candidate_envelope(
+                question_id=question_id,
+                stage_id="question_type",
+                input_fingerprint_value="input-1",
+                projected_input_hash="projection-1",
+                content={"candidatePayload": {"questionResults": [{}]}},
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "preparedCandidateは変更できません",
+            ):
+                coordinator.store.persist_prepared_candidate(
+                    "new-exam",
+                    attempt["runId"],
+                    changed,
+                )
+
+            coordinator.store.mark_candidate_commit_started(
+                "new-exam",
+                attempt["runId"],
+            )
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "writerは再実行できません",
+            ):
+                coordinator.store.mark_candidate_commit_started(
+                    "new-exam",
+                    attempt["runId"],
+                )
+
+    def test_interrupted_unwritten_candidate_is_reusable_only_for_same_inputs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+            )
+            question_id = "new-exam-2026-q1"
+            attempt = coordinator.store.create_question_attempt(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                parent,
+                "candidate prompt",
+            )
+            candidate = _prepared_candidate_envelope(
+                question_id=question_id,
+                stage_id="question_type",
+                input_fingerprint_value="input-1",
+                projected_input_hash="projection-1",
+                content={"candidatePayload": {"questionResults": []}},
+            )
+            coordinator.store.persist_prepared_candidate(
+                "new-exam",
+                attempt["runId"],
+                candidate,
+            )
+            writer_started_attempt = coordinator.store.create_question_attempt(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                parent,
+                "second candidate prompt",
+            )
+            writer_started_candidate = _prepared_candidate_envelope(
+                question_id=question_id,
+                stage_id="question_type",
+                input_fingerprint_value="input-2",
+                projected_input_hash="projection-2",
+                content={"candidatePayload": {"questionResults": []}},
+            )
+            coordinator.store.persist_prepared_candidate(
+                "new-exam",
+                writer_started_attempt["runId"],
+                writer_started_candidate,
+            )
+            coordinator.store.mark_candidate_commit_started(
+                "new-exam",
+                writer_started_attempt["runId"],
+            )
+            coordinator.store.update(
+                "new-exam",
+                writer_started_attempt["runId"],
+                status="interrupted",
+                error="process stopped after writer started",
+            )
+            coordinator.store.update(
+                "new-exam",
+                attempt["runId"],
+                status="interrupted",
+                error="process stopped",
+            )
+            coordinator.store.update(
+                "new-exam",
+                parent["runId"],
+                status="interrupted",
+                error="process stopped",
+            )
+
+            reusable = coordinator.store.reusable_prepared_candidate(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                input_fingerprint_value="input-1",
+                projected_input_hash="projection-1",
+            )
+            self.assertIsNotNone(reusable)
+            self.assertEqual(reusable[0], attempt["runId"])
+            self.assertEqual(reusable[1], candidate)
+            self.assertIsNone(
+                coordinator.store.reusable_prepared_candidate(
+                    "new-exam",
+                    parent["runId"],
+                    question_id,
+                    "question_type",
+                    input_fingerprint_value="input-changed",
+                    projected_input_hash="projection-1",
+                )
+            )
+            self.assertIsNone(
+                coordinator.store.reusable_prepared_candidate(
+                    "new-exam",
+                    parent["runId"],
+                    question_id,
+                    "question_type",
+                    input_fingerprint_value="input-1",
+                    projected_input_hash="projection-changed",
+                )
+            )
+            self.assertIsNone(
+                coordinator.store.reusable_prepared_candidate(
+                    "new-exam",
+                    parent["runId"],
+                    question_id,
+                    "question_type",
+                    input_fingerprint_value="input-2",
+                    projected_input_hash="projection-2",
+                )
+            )
+
     def test_turn_timeout_scope_survives_exception_wrapping(self):
         timeout = CodexTurnTimeoutError("turn timeout")
         wrapped = RuntimeError("candidate failed")
@@ -2214,6 +2464,22 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             provider_failure,
         )
         self.assertIsNone(_isolated_turn_timeout(provider_failure))
+
+        control_timeout = CodexControlRequestTimeoutError(
+            "hooks/list timeout"
+        )
+        wrapped_control_timeout = RuntimeError("candidate control failed")
+        wrapped_control_timeout.__cause__ = control_timeout
+        self.assertIsNone(
+            _external_provider_failure(wrapped_control_timeout)
+        )
+        self.assertIs(
+            _isolated_turn_failure(wrapped_control_timeout),
+            control_timeout,
+        )
+        self.assertIsNone(
+            _isolated_turn_timeout(wrapped_control_timeout)
+        )
 
     def test_read_only_candidate_failure_is_retry_safe_only_with_no_delta(self):
         child = {
@@ -2638,8 +2904,21 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "judgeChoiceMarkers": ["イ", "ロ"],
             "sourceStatementCount": 2,
         }
-        evidence = _trusted_source_answer_evidence(source_record, target)
+        evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            source_record,
+        )
         self.assertIsNotNone(evidence)
+        self.assertEqual(
+            evidence["verdictSemantics"],
+            "final_correct_choice_text_for_source_text",
+        )
+        self.assertEqual(
+            evidence["answerResultSemantics"],
+            "source_combination_choice_index",
+        )
+        self.assertTrue(evidence["appliesToCurrentText"])
         candidate_target = CandidateTarget(
             target_id="question-1:correct_choice",
             role="correct_choice",
@@ -2666,8 +2945,76 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             ["間違い", "正しい"],
         )
         self.assertIn("組合せ対応表がないことだけを理由にblockedにしない", prompt)
-        self.assertIn("correctChoiceTextへ直接転記しない", prompt)
-        self.assertIn("その条件と極性を各記述へ適用して完全な命題を作る", prompt)
+        self.assertIn("否定語やquestionIntentを使って再反転しない", prompt)
+        self.assertIn("名詞句等の断片肢では本文の述語を一度だけ補う", prompt)
+
+    def test_trusted_source_verdict_is_final_for_exact_fragment_question_text(self):
+        target = {
+            "id": "45329b3c76a7c54b",
+            "listGroupId": "2018",
+            "reviewQuestionId": "45329b3c76a7c54b",
+            "sourceQuestionKey": "gas-shunin-otsu:2018:law:q9",
+            "sourceRecordRef": "question_2018_1.json#8",
+        }
+        source_record = {
+            "questionBodyText": (
+                "次のガス工作物のうち、この規定に該当しないものはどれか。"
+            ),
+            "choiceTextList": [
+                "ガス発生設備",
+                "液化ガス用貯槽",
+                "導管及びガス栓",
+                "整圧器",
+                "昇圧供給装置",
+            ],
+            "correctChoiceText": [
+                "間違い",
+                "間違い",
+                "間違い",
+                "正しい",
+                "間違い",
+            ],
+            "answer_result_text": "正解は 4 です。",
+            "sourceProvider": "gassyunin.com",
+            "sourceOrigin": "gassyunin_site",
+            "choiceMarkerSource": "judge",
+            "markerAlignmentMode": "judge_only",
+            "markerMismatchDetected": False,
+            "answerResultNumbersRemapped": False,
+            "judgeChoiceMarkers": ["1", "2", "3", "4", "5"],
+            "sourceStatementCount": 5,
+        }
+
+        evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            source_record,
+        )
+        self.assertIsNotNone(evidence)
+        self.assertTrue(evidence["appliesToCurrentText"])
+        self.assertEqual(
+            evidence["answerResultSemantics"],
+            "source_choice_index",
+        )
+        self.assertEqual(
+            evidence["correctChoiceText"],
+            source_record["correctChoiceText"],
+        )
+
+        changed_current = {
+            **source_record,
+            "choiceTextList": [
+                *source_record["choiceTextList"][:-1],
+                "変更された選択肢",
+            ],
+        }
+        changed_evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            changed_current,
+        )
+        self.assertIsNotNone(changed_evidence)
+        self.assertFalse(changed_evidence["appliesToCurrentText"])
 
     def test_originalize_prompt_separates_current_record_and_source_evidence(self):
         target = {
@@ -3643,20 +3990,30 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["modelBatchSize"], 1)
         self.assertEqual(completed["modelWorkerLimit"], 5)
 
-    def test_preparation_streams_ready_chunk_before_scanning_all_questions(self):
+    def test_slow_question_preparation_does_not_block_ready_model_turn(self):
         class StreamingInventory(CountedSourceInventory):
             def __init__(self):
                 super().__init__(3)
                 self.model_started = threading.Event()
-                self.projected_count = 0
 
-            def projected_input(self, *args):
-                self.projected_count += 1
-                if self.projected_count == 3 and not self.model_started.wait(2):
+            def projected_input(
+                self,
+                qualification,
+                list_group_id,
+                source_record_ref,
+            ):
+                if (
+                    source_record_ref == "question_2026_1.json#0"
+                    and not self.model_started.wait(2)
+                ):
                     raise AssertionError(
-                        "model turn did not start after the first prepared chunk"
+                        "a ready question did not start while q1 was preparing"
                     )
-                return super().projected_input(*args)
+                return super().projected_input(
+                    qualification,
+                    list_group_id,
+                    source_record_ref,
+                )
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -3672,16 +4029,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             self._write_counted_sources(root, 3)
 
-            with patch(
-                "tools.question_review_console.qualification_runs."
-                "PREPARATION_CHUNK_SIZE",
-                2,
-            ):
-                result = coordinator._run_maintenance_flow(
-                    "new-exam",
-                    parent["runId"],
-                    lambda _message: None,
-                )
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "succeeded")
@@ -3698,6 +4050,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(completed["preparationProgress"]["status"], "prepared")
         self.assertEqual(completed["preparationProgress"]["preparedCount"], 3)
+        self.assertEqual(completed["questionWindowLimit"], 3)
+        self.assertEqual(completed["questionWindowPeakPendingCount"], 3)
 
     def test_final_chunk_applies_fast_outcome_before_slowest_turn_finishes(self):
         class UnevenTurnAppServer(PerQuestionQueueAppServer):
@@ -4947,6 +5301,61 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(len(app_server.batch_calls), 10)
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
 
+    def test_writer_wait_does_not_consume_model_turn_capacity(self):
+        question_count = 21
+
+        class ModelStartTrackingAppServer(PerQuestionQueueAppServer):
+            def __init__(self):
+                super().__init__()
+                self.candidate_starts = 0
+                self.candidate_start_lock = threading.Lock()
+                self.all_candidates_started = threading.Event()
+
+            def run_turn(self, prompt, **kwargs):
+                if kwargs["work_type"] == "maintenance_question_type_candidate":
+                    with self.candidate_start_lock:
+                        self.candidate_starts += 1
+                        if self.candidate_starts == question_count:
+                            self.all_candidates_started.set()
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = ModelStartTrackingAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(question_count),
+                ["question_type"],
+                app_server=app_server,
+                question_concurrency=10,
+            )
+            self._write_counted_sources(root, question_count)
+            original_record_work_versions = coordinator._record_work_versions
+            writer_entered = threading.Event()
+
+            def hold_first_writer(plan):
+                writer_entered.set()
+                if not app_server.all_candidates_started.wait(10):
+                    raise AssertionError(
+                        "writer待ちがmodel workerを占有しました。"
+                    )
+                return original_record_work_versions(plan)
+
+            coordinator._record_work_versions = hold_first_writer
+            try:
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            finally:
+                coordinator._record_work_versions = original_record_work_versions
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertTrue(writer_entered.is_set())
+        self.assertTrue(app_server.all_candidates_started.is_set())
+        self.assertEqual(app_server.candidate_starts, question_count)
+
     def test_sixty_four_questions_start_sixty_four_independent_model_turns(self):
         class SixtyFourTurnAppServer(PerQuestionQueueAppServer):
             def __init__(self):
@@ -5004,6 +5413,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             finally:
                 coordinator.store._write_manifest = original_write
             completed = coordinator.store.get("new-exam", parent["runId"])
+            attempts = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(app_server.all_started.is_set())
@@ -5012,12 +5426,24 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
         self.assertEqual(completed["modelBatchSize"], 1)
         self.assertEqual(completed["modelWorkerLimit"], 64)
+        self.assertEqual(completed["modelPeakPendingFutureCount"], 64)
         self.assertEqual(
             len(_question_attempt_ids(completed)),
             64,
         )
+        self.assertTrue(
+            all(
+                isinstance(attempt.get("preparedCandidate"), Mapping)
+                and attempt.get("candidateCommitStartedAt")
+                for attempt in attempts
+            )
+        )
         self.assertEqual(completed["childRunIds"], [])
-        self.assertLess(parent_write_count, 32)
+        # Candidate durability belongs to the 64 independent question state
+        # files. The parent may still receive fixed lifecycle and 15-second
+        # progress writes, but it must not receive one candidate write per
+        # question.
+        self.assertLess(parent_write_count, 64)
         self.assertEqual(completed["validatedQuestionCount"], 64)
 
     def test_one_turn_timeout_is_retried_without_reducing_capacity(self):

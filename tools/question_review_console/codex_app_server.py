@@ -139,6 +139,7 @@ GLOBAL_AGENT_CONFIG_KEYS = {
     "max_threads",
 }
 APP_SERVER_UNSUPPORTED_OUTPUT_SCHEMA_KEYWORDS = frozenset({"uniqueItems"})
+HOOK_STATUS_CACHE_SECONDS = 60.0
 
 
 def adapt_output_schema_for_app_server(schema: Mapping[str, Any]) -> dict[str, Any]:
@@ -160,6 +161,14 @@ def adapt_output_schema_for_app_server(schema: Mapping[str, Any]) -> dict[str, A
 
 class CodexAppServerError(RuntimeError):
     pass
+
+
+class CodexRequestTimeoutError(CodexAppServerError):
+    """One JSON-RPC response did not arrive before its request deadline."""
+
+
+class CodexControlRequestTimeoutError(CodexAppServerError):
+    """A question-scoped control-plane RPC exceeded its deadline."""
 
 
 class CodexTurnTimeoutError(CodexAppServerError):
@@ -1001,6 +1010,9 @@ class CodexAppServerClient:
         self._lifecycle_lock = threading.RLock()
         self._state_lock = threading.RLock()
         self._status_refresh_lock = threading.Lock()
+        self._hook_check_locks: dict[tuple[int, str], threading.Lock] = {}
+        self._hook_check_cache: dict[tuple[int, str], dict[str, Any]] = {}
+        self._app_server_generation = 0
         self._next_id = 1
         self._pending: dict[int | str, _PendingResponse] = {}
         self._turns: dict[tuple[str, str], _TurnState] = {}
@@ -1810,6 +1822,10 @@ class CodexAppServerClient:
                 _as_mapping(initialize_result, "initialize response")
                 self._send({"method": "initialized"})
                 self._initialized = True
+                with self._state_lock:
+                    self._app_server_generation += 1
+                    self._hook_check_cache.clear()
+                    self._hook_check_locks.clear()
                 self._assert_official_chatgpt_endpoint()
             except BaseException:
                 self._process = None
@@ -2041,28 +2057,94 @@ class CodexAppServerClient:
         turn_group: str | None = None,
         heartbeat: Callable[[], None] | None = None,
     ) -> None:
-        response = _as_mapping(
-            self._control_request(
-                "hooks/list",
-                {"cwds": [str(cwd)]},
-                turn_group=turn_group,
-                heartbeat=heartbeat,
-            ),
-            "Codex hooks",
-        )
-        entries = response.get("data")
-        if not isinstance(entries, list) or not entries:
-            raise SubscriptionGateError("hook無効化を確認できません。")
-        for entry in entries:
-            if not isinstance(entry, Mapping):
-                raise SubscriptionGateError("hook無効化を確認できません。")
-            if entry.get("errors"):
-                raise SubscriptionGateError("hook設定を安全に確認できません。")
-            hooks = entry.get("hooks")
-            if not isinstance(hooks, list):
-                raise SubscriptionGateError("hook無効化を確認できません。")
-            if any(not isinstance(hook, Mapping) or hook.get("enabled") is not False for hook in hooks):
-                raise SubscriptionGateError("有効なhookがあるため実行しません。")
+        requested_at = time.monotonic()
+        self._ensure_started()
+        normalized_cwd = str(cwd.resolve())
+        with self._state_lock:
+            generation = self._app_server_generation
+            key = (generation, normalized_cwd)
+            lock = self._hook_check_locks.setdefault(key, threading.Lock())
+
+        def replay(snapshot: Mapping[str, Any]) -> bool:
+            checked_at = float(snapshot.get("checkedAt") or 0.0)
+            error_type = snapshot.get("errorType")
+            error_message = str(snapshot.get("errorMessage") or "")
+            if error_type is not None and checked_at >= requested_at:
+                exception_type = (
+                    error_type
+                    if isinstance(error_type, type)
+                    and issubclass(error_type, BaseException)
+                    else CodexAppServerError
+                )
+                raise exception_type(error_message)
+            return bool(
+                snapshot.get("succeeded") is True
+                and time.monotonic() - checked_at <= HOOK_STATUS_CACHE_SECONDS
+            )
+
+        with self._state_lock:
+            cached = self._hook_check_cache.get(key)
+            if cached is not None and replay(cached):
+                return
+
+        with lock:
+            with self._state_lock:
+                cached = self._hook_check_cache.get(key)
+                if cached is not None and replay(cached):
+                    return
+            try:
+                response = _as_mapping(
+                    self._control_request(
+                        "hooks/list",
+                        {"cwds": [normalized_cwd]},
+                        turn_group=turn_group,
+                        heartbeat=heartbeat,
+                    ),
+                    "Codex hooks",
+                )
+                entries = response.get("data")
+                if not isinstance(entries, list) or not entries:
+                    raise SubscriptionGateError(
+                        "hook無効化を確認できません。"
+                    )
+                for entry in entries:
+                    if not isinstance(entry, Mapping):
+                        raise SubscriptionGateError(
+                            "hook無効化を確認できません。"
+                        )
+                    if entry.get("errors"):
+                        raise SubscriptionGateError(
+                            "hook設定を安全に確認できません。"
+                        )
+                    hooks = entry.get("hooks")
+                    if not isinstance(hooks, list):
+                        raise SubscriptionGateError(
+                            "hook無効化を確認できません。"
+                        )
+                    if any(
+                        not isinstance(hook, Mapping)
+                        or hook.get("enabled") is not False
+                        for hook in hooks
+                    ):
+                        raise SubscriptionGateError(
+                            "有効なhookがあるため実行しません。"
+                        )
+            except Exception as exc:
+                with self._state_lock:
+                    self._hook_check_cache[key] = {
+                        "checkedAt": time.monotonic(),
+                        "succeeded": False,
+                        "errorType": type(exc),
+                        "errorMessage": str(exc),
+                    }
+                raise
+            with self._state_lock:
+                self._hook_check_cache[key] = {
+                    "checkedAt": time.monotonic(),
+                    "succeeded": True,
+                    "errorType": None,
+                    "errorMessage": "",
+                }
 
     @staticmethod
     def _stop_process(
@@ -2106,7 +2188,9 @@ class CodexAppServerClient:
         try:
             self._send(message)
             if not pending.event.wait(timeout or self.request_timeout):
-                raise CodexAppServerError(f"Codex App Serverの{method}が時間切れになりました。")
+                raise CodexRequestTimeoutError(
+                    f"Codex App Serverの{method}が時間切れになりました。"
+                )
             if pending.error is not None:
                 raise CodexAppServerError(
                     f"Codex App Serverの{method}に失敗しました: {self._rpc_error(pending.error)}"
@@ -2132,18 +2216,21 @@ class CodexAppServerClient:
             heartbeat=heartbeat,
             priority=method == "turn/start",
         ):
-            return self._request(
-                method,
-                params,
-                timeout=(
-                    timeout
-                    if timeout is not None
-                    else max(
-                        self.request_timeout,
-                        APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS,
-                    )
-                ),
-            )
+            try:
+                return self._request(
+                    method,
+                    params,
+                    timeout=(
+                        timeout
+                        if timeout is not None
+                        else max(
+                            self.request_timeout,
+                            APP_SERVER_CONTROL_REQUEST_TIMEOUT_SECONDS,
+                        )
+                    ),
+                )
+            except CodexRequestTimeoutError as exc:
+                raise CodexControlRequestTimeoutError(str(exc)) from exc
 
     def _send(self, message: Mapping[str, Any]) -> None:
         line = json.dumps(message, ensure_ascii=False, separators=(",", ":")) + "\n"
