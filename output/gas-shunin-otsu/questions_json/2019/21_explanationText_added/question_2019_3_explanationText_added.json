@@ -16,11 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
-      "間違い。炎の温度は、一般にブンゼン燃焼式の方がセミ・ブンゼン燃焼式より高い。選択肢はセミ・ブンゼン燃焼式の方が高いとしているため誤りである。",
-      "間違い。セミ・ブンゼン燃焼式の炎は、ブンゼン燃焼式に比べて一般に長くなる。選択肢は短いとしているため誤りである。",
-      "正しい。赤火燃焼式は、一次空気を用いず、炎口でガスと周囲空気が混合して燃焼する拡散燃焼である。そのため、予混合気が器具内部へ戻るフラッシュバックは起こらない。",
-      "間違い。パルス燃焼式は高負荷燃焼が可能で、一般に加熱効率も高い。選択肢は加熱の効率が低いとしているため誤りである。",
-      "間違い。全一次空気燃焼式は、燃焼に必要な空気をあらかじめガスと混合して燃焼させる方式である。燃焼速度と噴出速度の関係によってフラッシュバックに注意が必要であり、フラッシュバックしにくい方式とはいえない。"
+      "正解は3である。セミ・ブンゼン燃焼式はブンゼン燃焼式より一次空気量が少なく、一般に炎の温度は低く、炎は長くなりやすい。そのため、1の「温度が高い」および2の「炎の長さが短い」はいずれも誤りである。赤火燃焼式は、ガスが炎口から出た後に周囲の空気と混合して燃焼する拡散燃焼であり、器具内部に予混合気が戻って燃えるフラッシュバックは起こらないため、3は正しい。パルス燃焼式は高負荷燃焼が可能で、一般に熱効率も高いので、4の「加熱の効率は低い」は誤りである。全一次空気燃焼式は、燃焼に必要な空気をあらかじめガスと混合して燃焼させる方式であり、条件によってフラッシュバックに注意を要するため、5の「フラッシュバックしにくい」は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -66,7 +62,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "セミ・ブンゼン燃焼式、赤火燃焼式、パルス燃焼式、全一次空気燃焼式の炎温度、炎長、フラッシュバック、加熱効率に関する技術知識で説明する問題。法令条文を直接根拠にする解説は不要。",
+    "lawContextForExplanation": "セミ・ブンゼン燃焼式、ブンゼン燃焼式、赤火燃焼式、パルス燃焼式、全一次空気燃焼式について、一次空気量、炎温度、炎長、フラッシュバック、熱効率の技術知識で判断する問題。法令条文を直接根拠にする解説は不要。",
     "lawRevisionFacts": []
   },
   {
@@ -86,7 +82,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
-      "正解は水素である。空気中での燃焼範囲は、水素がおおむね4〜75vol%で、幅が約71vol%と最も広い。メタンはおおむね5〜15vol%、エタンはおおむね3〜12.5vol%、プロパンはおおむね2.1〜9.5vol%、ブタンはおおむね1.8〜8.4vol%であり、いずれも水素より燃焼範囲が狭い。したがって、最も燃焼範囲が広い気体は水素である。"
+      "正解は水素である。燃焼範囲とは、空気中で着火して燃焼を継続できる可燃性ガスの濃度範囲をいう。空気中での燃焼範囲は、水素が約4〜75vol%で幅が最も広い。これに対し、メタンは約5〜15vol%、エタンは約3〜12.5vol%、プロパンは約2.1〜9.5vol%、ブタンは約1.8〜8.4vol%であり、いずれも水素より範囲が狭い。したがって、大気中で燃焼させた場合に燃焼範囲が最も広い気体は水素である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -154,7 +150,7 @@
     "explanationText": [
       "正しい。瞬間湯沸器には元止め式と先止め式があり、RF式瞬間湯沸器は給湯配管に接続して使用する先止め式に分類される。",
       "正しい。給湯能力1号は、水温を25℃上昇させた湯を1分間に1L供給できる能力を表す。",
-      "正しい。給湯暖房用熱源機の分類において、2缶3水式の「2缶」は燃焼により直接加熱される熱交換器の数を表し、「3水」は給湯回路、ふろ回路、暖房回路の三つの回路を表す。",
+      "正しい。給湯暖房用熱源機の分類でいう2缶3水式の「2缶」は、燃焼により直接加熱される熱交換器の数を表し、「3水」は給湯回路、ふろ回路、暖房回路の三つの回路を表す。",
       "間違い。潜熱回収型給湯器は一次熱交換器と二次熱交換器を備えるが、酸性の凝縮水に触れる二次熱交換器には耐食性の高いステンレス鋼などが用いられる。二つの熱交換器がともに銅製であるとはいえないため、この記述は誤りである。",
       "正しい。温水暖房の熱動弁は弁の開閉動作が緩やかなため、急激な圧力変動を抑え、開閉に伴うウォーターハンマーの衝撃を緩和する効果がある。"
     ],
@@ -206,73 +202,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "RF式瞬間湯沸器の分類に関する技術知識であり、法令条文を直接根拠に正誤を決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "給湯能力1号の定義に関する技術知識であり、法令条文を直接根拠に正誤を決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "給湯暖房用熱源機の2缶3水式の呼称に関する技術知識であり、法令条文を直接根拠に正誤を決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "潜熱回収型給湯器の熱交換器材質に関する技術知識であり、法令条文を直接根拠に正誤を決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "温水暖房の熱動弁とウォーターハンマー緩和に関する技術知識であり、法令条文を直接根拠に正誤を決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -294,9 +290,9 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
       "正しい。こんろに内蔵されたグリルには、グリル皿に水を張らずに調理できる水なしグリルがある。",
-      "間違い。グリドルは、加熱したプレートの上に食材を直接載せ、主にプレートからの熱伝導で調理する機器である。選択肢は放射熱で調理するとしており、主な伝熱方法が異なるため誤りである。",
+      "間違い。グリドルは、加熱したプレートの上に食材を直接載せ、主にプレートからの熱伝導で調理する機器である。選択肢は、直火で加熱したプレートの放射熱で調理するとしており、主な加熱の考え方が異なるため誤りである。",
       "正しい。家庭用こんろには、油温度調節機能、炊飯機能、沸騰自動消火機能などを備えたものがある。",
-      "正しい。油分が付着した衣類を乾燥機にかけると、油分が熱で酸化して発熱し、乾燥後も蓄熱して自然発火するおそれがある。",
+      "正しい。油分が付着した衣類を乾燥機にかけると、油分が乾燥時の熱で酸化して発熱し、蓄熱によって自然発火するおそれがある。",
       "正しい。ファンヒーターには、フィルターなどの詰まりによって機体が過熱状態になると、フィルターサインを点滅させて手入れを促すものがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -343,7 +339,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "こんろ内蔵グリル、グリドル、家庭用こんろの便利機能、衣類乾燥機の油分による自然発火、ファンヒーターのフィルターサインに関する機器知識で説明する問題。法令条文を直接根拠にする解説は不要。",
+    "lawContextForExplanation": "こんろ内蔵グリル、グリドル、家庭用こんろの便利機能、衣類乾燥機の油分による自然発火、ファンヒーターのフィルターサインに関する家庭用ガス機器の知識で説明する問題。法令条文を直接根拠にする解説は不要。",
     "lawRevisionFacts": []
   },
   {
@@ -363,11 +359,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
-      "正しい。ガスタービン式コージェネレーションシステムは、冷却水を必要としない空冷式として扱われる。",
-      "間違い。熱主従運転は、熱需要に合わせて発電し、そのとき発生する電力を利用する運転である。電力需要に合わせて発電し、廃熱をできるだけ利用する運転は、電主熱従運転の説明である。",
+      "正しい。ガスタービン式コージェネレーションシステムは、空冷式として扱われ、冷却水を必要としない。",
+      "間違い。熱主従運転は、熱需要に合わせて発電し、そのとき発生した電力を利用する運転である。電力需要に合わせて発電し、発生した廃熱をできるだけ利用する運転は、電主熱従運転の説明である。",
       "正しい。コージェネレーションシステムを系統連系する場合、一定の条件を満たせば、発電した余剰電力を電力系統へ逆潮流できる。",
       "正しい。家庭用コージェネレーションシステムでは、一般に燃料電池式の発電効率はガスエンジン式より高い。",
-      "正しい。家庭用燃料電池コージェネレーションシステムには、発電運転中に停電が発生したとき、自立運転へ移行して家庭へ電力を供給できるものがある。"
+      "正しい。家庭用燃料電池コージェネレーションシステムには、発電運転中に停電が発生した場合でも、自立運転により家庭へ電力を供給できるものがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -413,7 +409,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "コージェネレーションシステムの方式、運転制御、系統連系、自立運転に関する技術的知識を問う問題であり、解説は法令条文ではなく設備・運用上の一般知識に基づいて行う。",
+    "lawContextForExplanation": "コージェネレーションシステムの方式、熱主従運転と電主熱従運転の違い、系統連系時の逆潮流、自立運転などの設備・運用上の一般的な技術知識を問う問題であり、解説は法令条文ではなく技術的知識に基づいて行う。",
     "lawRevisionFacts": []
   },
   {
@@ -433,9 +429,9 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
-      "正しい。第2種換気は機械給気・自然排気の方式で、給気量が排気量を上回りやすいため室内は正圧になる。第3種換気は自然給気・機械排気の方式で、排気によって室内は負圧になる。",
+      "正しい。第2種換気は機械給気・自然排気の方式で、給気量が排気量を上回りやすいため室内は正圧になりやすい。第3種換気は自然給気・機械排気の方式で、排気によって室内は負圧になりやすい。",
       "正しい。レンジフードは、調理時に発生する燃焼排ガス、油煙、臭気などを発生源の近くで捕集して排出する設備であり、室全体を対象にする全般換気ではなく局所換気方式に当たる。",
-      "正しい。CF式ふろがまの排気筒を横引きする場合は、自然通気による排気を妨げないようにする必要があり、屋外に向かって先下がり勾配とはしない。",
+      "正しい。CF式ふろがまの排気筒を横引きする場合は、自然通気による排気を妨げないように設ける必要があり、屋外に向かって先下がり勾配とはしない。",
       "正しい。FE式瞬間湯沸器は、送風機で燃焼排ガスを強制的に屋外へ排出する方式であるため、所定の条件を満たせば排気筒トップを風圧帯内に設置することができる。",
       "間違い。RF式瞬間湯沸器は屋外で給排気を行う方式であるが、給排気口の周囲条件や排気が支障なく拡散する位置などの設置上の制約を受ける。したがって、屋外であれば制約なく設置できるわけではない。"
     ],
@@ -475,185 +471,185 @@
     "sourceRecordRef": "question_2019_3.json#5",
     "explanationReferences": [
       {
-        "title": "ガス事業法施行規則",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707",
+        "choiceIndex": 2,
         "referenceDate": "2019-09-29",
-        "choiceIndex": 2
-      },
-      {
-        "title": "ガス事業法施行規則",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 2
-      },
-      {
-        "title": "ガス事業法施行規則",
         "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707",
-        "referenceDate": "2019-09-29",
-        "choiceIndex": 3
+        "title": "ガス事業法施行規則"
       },
       {
-        "title": "ガス事業法施行規則",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "choiceIndex": 2,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 3
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則"
       },
       {
-        "title": "ガス用品の技術上の基準等に関する省令",
+        "choiceIndex": 3,
+        "referenceDate": "2019-09-29",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707",
+        "title": "ガス事業法施行規則"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則"
+      },
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2019-09-29",
         "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-        "referenceDate": "2019-09-29",
-        "choiceIndex": 4
+        "title": "ガス用品の技術上の基準等に関する省令"
       },
       {
-        "title": "ガス用品の技術上の基準等に関する省令",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027/",
+        "choiceIndex": 4,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 4
+        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027/",
+        "title": "ガス用品の技術上の基準等に関する省令"
       }
     ],
     "isLawRelated": true,
-    "lawContextForExplanation": "第1・第2選択肢は換気方式と局所換気に関する設備知識で判断する。第3・第4・第5選択肢は、CF式ふろがま、FE式瞬間湯沸器、RF式瞬間湯沸器の排気筒・排気筒トップ・屋外式機器の設置条件に関係するため、ガス事業法施行規則第202条とガス用品の技術上の基準等に関する省令を根拠として扱う。",
+    "lawContextForExplanation": "第1・第2選択肢は換気方式と局所換気の一般的な設備知識である。第3選択肢はCF式ふろがまの自然排気式排気筒基準、第4選択肢はFE式瞬間湯沸器の強制排気式排気筒基準として、ガス事業法施行規則第202条を確認する。第5選択肢は屋外式のRF式瞬間湯沸器でも屋外設置燃焼器の排気筒・給排気部に基準があり、屋外なら制約なしではない点を根拠付ける。",
     "lawReferences": [
       [],
       [],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第202条第1項第1号ホ、第2号イ",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2019-09-29",
-          "article": "第202条第1項第1号ホ、第2号イ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第202条第1項第1号ホ、第2号イ",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2026-07-27",
-          "article": "第202条第1項第1号ホ、第2号イ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第202条第1項第1号ロ、第2号ロ",
           "choiceIndex": 3,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2019-09-29",
-          "article": "第202条第1項第1号ロ、第2号ロ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20170707",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第202条第1項第1号ロ、第2号ロ",
           "choiceIndex": 3,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2026-07-27",
-          "article": "第202条第1項第1号ロ、第2号ロ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第11条、別表第3（開放燃焼式若しくは密閉燃焼式又は屋外式のガス瞬間湯沸器）",
           "choiceIndex": 4,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2019-09-29",
-          "article": "第11条、別表第3（開放燃焼式若しくは密閉燃焼式又は屋外式のガス瞬間湯沸器）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第11条、別表第3（開放燃焼式若しくは密閉燃焼式又は屋外式のガス瞬間湯沸器）",
           "choiceIndex": 4,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2026-07-27",
-          "article": "第11条、別表第3（開放燃焼式若しくは密閉燃焼式又は屋外式のガス瞬間湯沸器）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
+          "verificationStatus": "verified"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_basis",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "第2種換気と第3種換気の室内圧に関する一般的な換気設備知識であり、法令条文の改正差分による正誤変更の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "not_law_basis",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "レンジフードが発生源付近を換気する局所換気方式であることは設備知識で判断でき、法令条文の改正差分による正誤変更の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "no_revision_effect",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "CF式ふろがまの排気筒横引き勾配に関する根拠として、試験時点及び現行のガス事業法施行規則第202条第1項第1号ホ、第2号イを確認し、正誤に影響する改正差分はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "no_revision_effect",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "FE式瞬間湯沸器の排気筒トップ条件に関する根拠として、試験時点及び現行のガス事業法施行規則第202条第1項第1号ロ、第2号ロを確認し、正誤に影響する改正差分はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "no_revision_effect",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "RF式瞬間湯沸器の屋外式機器としての設置条件に関する根拠として、試験時点及び現行のガス用品の技術上の基準等に関する省令第11条、別表第3を確認し、正誤に影響する改正差分はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -675,11 +671,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
-      "間違い。機器の過熱防止を目的とする安全装置には、過熱防止装置や空だき安全装置などがある。一方、点火時安全装置は、点火しなかった場合などにガスを遮断する装置であり、機器の過熱防止を目的とする装置ではないため誤りである。",
-      "間違い。バイメタル式や温度ヒューズ式は、異常な温度上昇を検知して作動する過熱防止装置などに用いられる方式であり、残火安全装置の方式ではないため誤りである。",
-      "正しい。現在販売されている家庭用こんろでは、卓上型の一口こんろを除き、すべてのこんろバーナーに調理油過熱防止装置が搭載されている。",
-      "間違い。電気制御回路を持たないガストーブでは、転倒時安全装置として主に振り子式重力スイッチ方式が用いられ、傾斜スイッチ方式ではないため誤りである。",
-      "間違い。ファンヒーターの不完全燃焼防止装置は、燃焼状態を専用センサなどで検知するものであり、立ち消え安全装置と兼用のフレームロッドを用いるものではないため誤りである。"
+      "正解は3。ガス機器の安全装置は、装置ごとに検知する異常や作動目的が異なる。1は、過熱防止装置や空だき安全装置は機器の過熱を防ぐ装置だが、点火時安全装置は点火不良時などに未燃ガスの放出を防ぐ装置であり、過熱防止目的とはいえないため誤り。2は、バイメタル式や温度ヒューズ式は異常温度を検知する過熱防止装置などの方式であり、残火安全装置の方式ではないため誤り。3は、現在販売されている家庭用こんろでは、卓上型の一口こんろを除き、全口に調理油過熱防止装置が搭載されているため正しい。4は、電気制御回路を持たないガストーブの転倒時安全装置は主に振り子式重力スイッチ方式であり、傾斜スイッチ方式とする記述は誤り。5は、ファンヒーターの不完全燃焼防止装置は燃焼状態を検知して不完全燃焼を防ぐ装置であり、立ち消え安全装置と兼用のフレームロッドを用いるものではないため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -718,230 +710,192 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "ガス用品の技術上の基準等に関する省令（令和元年6月28日時点）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
         "referenceDate": "2019-06-28",
-        "choiceIndex": 0
-      },
-      {
-        "title": "ガス用品の技術上の基準等に関する省令（現行）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027/",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 0
-      },
-      {
-        "title": "ガス用品の技術上の基準等に関する省令（令和元年6月28日時点）",
         "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-        "referenceDate": "2019-06-28",
-        "choiceIndex": 2
+        "title": "ガス用品の技術上の基準等に関する省令（令和元年6月28日時点）"
       },
       {
-        "title": "ガス用品の技術上の基準等に関する省令（現行）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027/",
         "referenceDate": "2026-07-27",
-        "choiceIndex": 2
-      },
-      {
-        "title": "ガス用品の技術上の基準等に関する省令（令和元年6月28日時点）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-        "referenceDate": "2019-06-28",
-        "choiceIndex": 3
-      },
-      {
-        "title": "ガス用品の技術上の基準等に関する省令（現行）",
         "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027/",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 3
-      },
-      {
-        "title": "ガス用品の技術上の基準等に関する省令（令和元年6月28日時点）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-        "referenceDate": "2019-06-28",
-        "choiceIndex": 4
-      },
-      {
-        "title": "ガス用品の技術上の基準等に関する省令（現行）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027/",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 4
+        "title": "ガス用品の技術上の基準等に関する省令（現行）"
       }
     ],
     "isLawRelated": true,
     "lawReferences": [
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 10・11（立ち消え安全装置）、13（過熱防止装置）",
           "choiceIndex": 0,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2019-06-28",
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 10・11（立ち消え安全装置）、13（過熱防止装置）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 10・11（立ち消え安全装置）、13（過熱防止装置）",
           "choiceIndex": 0,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2026-07-27",
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 10・11（立ち消え安全装置）、13（過熱防止装置）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
+          "verificationStatus": "verified"
         }
       ],
       [],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 14（こんろバーナーの調理油過熱防止装置）、15（調理油過熱防止装置）",
           "choiceIndex": 2,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2019-06-28",
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 14（こんろバーナーの調理油過熱防止装置）、15（調理油過熱防止装置）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 14（こんろバーナーの調理油過熱防止装置）、15（調理油過熱防止装置）",
           "choiceIndex": 2,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2026-07-27",
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 14（こんろバーナーの調理油過熱防止装置）、15（調理油過熱防止装置）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 28（床上で移動して使用できるものの転倒に関する基準）",
           "choiceIndex": 3,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2019-06-28",
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 28（床上で移動して使用できるものの転倒に関する基準）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 28（床上で移動して使用できるものの転倒に関する基準）",
           "choiceIndex": 3,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2026-07-27",
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 28（床上で移動して使用できるものの転倒に関する基準）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 14(2)（不完全燃焼防止機能）",
           "choiceIndex": 4,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2019-06-28",
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 14(2)（不完全燃焼防止機能）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 14(2)（不完全燃焼防止機能）",
           "choiceIndex": 4,
           "lawId": "346M50000400027",
           "lawTitle": "ガス用品の技術上の基準等に関する省令",
           "referenceDate": "2026-07-27",
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 14(2)（不完全燃焼防止機能）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawContextForExplanation": "ガス用品であるガスこんろ及びガスストーブの安全装置に関する問題である。ガス用品の技術上の基準等に関する省令別表第三を基礎として、こんろの過熱防止装置・調理油過熱防止装置、ストーブの転倒時の安全性及び不完全燃焼防止機能を確認する。装置の具体的な検知方式など、法令本文から直接確定できない技術事項は法令上の性能基準と区別して説明する。",
+    "lawContextForExplanation": "ガス用品であるガスこんろ、ガスストーブ等の安全装置に関する問題。03bでは、ガス用品の技術上の基準等に関する省令別表第三を中心に、ガスこんろの立ち消え安全装置、過熱防止装置、調理油過熱防止装置、ガスストーブの不完全燃焼防止機能や転倒に関する基準を確認する。残火安全装置の方式、転倒時安全装置の方式、フレームロッドの用途など、法令本文だけで機構名を直接確定しにくい部分は、一次法令と技術基準・機器構造に関する補助資料を分けて確認する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "no_revision_impact",
-        "reviewState": "tertiary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "evidenceSummary": {
-          "examTimeBasis": "試験時点の省令別表第三にある過熱防止装置等の基準を確認した。",
-          "currentBasis": "現行の同別表に対応する安全基準がある。",
+          "currentBasis": "現行の同別表にも対応する安全基準がある。",
+          "examTimeBasis": "試験時点の省令別表第三にあるガスこんろの過熱防止装置等の基準を確認した。点火時安全装置を過熱防止目的の装置に含める根拠はない。",
           "revisionImpact": "試験時点と現行とでこの記述の正誤に影響する変更はない。"
-        }
-      },
-      {
-        "auditStatus": "no_revision_impact",
-        "reviewState": "tertiary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
         "evidenceSummary": {
-          "examTimeBasis": "残火安全装置と温度検知方式の分類に関する技術的記述として判定した。",
           "currentBasis": "法令改正によって装置方式の技術的な区別が変わった事実は認められない。",
+          "examTimeBasis": "残火安全装置と温度検知方式の分類に関する技術的記述として判定した。",
           "revisionImpact": "試験時点と現行とで正誤は変わらない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "no_revision_impact",
-        "reviewState": "tertiary_verified",
         "current": {
           "correctChoiceText": "正しい"
         },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "evidenceSummary": {
-          "examTimeBasis": "試験時点の省令別表第三のガスこんろの項14・15を確認した。",
           "currentBasis": "現行の同項にも調理油過熱防止装置の基準がある。",
+          "examTimeBasis": "試験時点の省令別表第三のガスこんろの項14・15を確認した。",
           "revisionImpact": "試験時点と現行とで正誤に影響する変更はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "no_revision_impact",
-        "reviewState": "tertiary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "evidenceSummary": {
-          "examTimeBasis": "試験時点の省令別表第三にある移動式ガスストーブの転倒に関する基準を確認した。",
           "currentBasis": "現行の同別表にも転倒時の安全性に関する基準がある。",
+          "examTimeBasis": "試験時点の省令別表第三にある移動式ガスストーブの転倒に関する基準を確認した。電気制御回路を持たない機器の主な方式を傾斜スイッチ方式とする根拠はない。",
           "revisionImpact": "試験時点と現行とで正誤に影響する変更はない。"
-        }
-      },
-      {
-        "auditStatus": "no_revision_impact",
-        "reviewState": "tertiary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
         "evidenceSummary": {
-          "examTimeBasis": "試験時点の省令別表第三にあるガスストーブの不完全燃焼防止機能を確認した。",
           "currentBasis": "現行の同別表にも不完全燃焼防止機能の基準がある。",
+          "examTimeBasis": "試験時点の省令別表第三にあるガスストーブの不完全燃焼防止機能を確認した。ファンヒーターの不完全燃焼防止装置を立ち消え安全装置兼用のフレームロッドとする根拠はない。",
           "revisionImpact": "試験時点と現行とで正誤に影響する変更はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
       }
     ]
   },
@@ -1005,15 +959,15 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "金属管、金属可とう管、両端に迅速継手の付いたゴム管、ガスコード及び強化ガスホースの規格並びに燃焼器とガス栓との接続方法（平成12年通商産業省告示第579号・新旧対照条文）",
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/140812kokuji1.pdf",
-        "referenceDate": "2026-07-27"
+        "title": "金属管、金属可とう管、両端に迅速継手の付いたゴム管、ガスコード及び強化ガスホースの規格並びに燃焼器とガス栓との接続方法（平成12年通商産業省告示第579号・新旧対照条文）"
       },
       {
-        "title": "ガス栓とガス機器の正しい接続方法",
-        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/anzen_torikumi/file_jisyuhoan/study/fireaccident/connection.html",
+        "choiceIndex": 3,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 3
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/anzen_torikumi/file_jisyuhoan/study/fireaccident/connection.html",
+        "title": "ガス栓とガス機器の正しい接続方法"
       }
     ],
     "isLawRelated": false,
@@ -1024,72 +978,72 @@
       [],
       []
     ],
-    "lawContextForExplanation": "本問は、ヒューズガス栓、ガスコード、ガス栓用プラグ、金属可とう管の構造と用途を問う技術知識問題であり、各選択肢の正誤を直接決める一次法令条文は確認できない。",
+    "lawContextForExplanation": "本問は、ヒューズガス栓、ガスコード、ガス栓用プラグ、金属可とう管の構造と用途を問う技術知識問題である。燃焼器とガス栓との接続方法に関する告示等は参照資料になり得るが、各選択肢の正誤を直接決める一次法令条文として整理する必要はない。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ヒューズガス栓の遮断機構に関する技術知識であり、法令改正による正誤変更はない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ヒューズガス栓の作動流量表示に関する技術知識であり、法令改正による正誤変更はない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガスコードの構造に関する技術知識であり、法令改正による正誤変更はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "ガス栓用プラグの取付対象と接続用途に関する技術知識であり、法令改正による正誤変更はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "据置・固定形ガス機器の一般的な接続具選定に関する技術知識であり、法令改正による正誤変更はない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   }

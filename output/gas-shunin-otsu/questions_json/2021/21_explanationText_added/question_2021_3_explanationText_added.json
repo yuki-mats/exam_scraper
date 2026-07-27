@@ -16,11 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。バーナー内のガス圧が高すぎると、炎口から出る混合ガスの速度が大きくなり、燃焼速度より速くなりやすい。その結果、炎が炎口から浮き上がるリフティングの原因となる。",
-      "正しい。一次空気の吸引が多すぎると、混合ガス量が増えて炎口からの噴出速度も大きくなりやすい。噴出速度が燃焼速度を上回ると、炎が炎口に保持されにくくなりリフティングを起こす。",
-      "正しい。燃焼室内の給排気不良で二次空気が極端に不足すると、燃焼状態が乱れて炎が安定しにくくなるため、リフティングを生じる原因となる。",
-      "間違い。バーナー部分が高温になって混合ガスの温度が上がりすぎると、燃焼速度が増して炎がバーナー内部へ戻るフラッシュバックを起こしやすくなる。これは炎が炎口から浮き上がるリフティングの原因とは異なるため、この記述が誤りである。",
-      "正しい。炎口の詰まりによって有効面積が極端に小さくなると、同じガス量でも炎口からの噴出速度が大きくなりやすい。噴出速度が燃焼速度を上回るとリフティングの原因となる。"
+      "正しい。バーナー内のガス圧が高すぎると、炎口から出る混合ガスの速度が大きくなり、燃焼速度を上回りやすくなる。この場合、炎が炎口に保持されず浮き上がるため、リフティングの原因となる。",
+      "正しい。一次空気の吸引量が多すぎると、混合ガス量が増え、炎口からの噴出速度も大きくなりやすい。噴出速度が燃焼速度より大きくなると、炎が炎口から離れてリフティングを起こす。",
+      "正しい。燃焼室内の給排気不良で二次空気が極端に不足すると、燃焼が不安定になり、炎が炎口に安定して保持されにくくなる。したがって、リフティングを生じる原因となる。",
+      "間違い。バーナー部分が高温になって混合ガスの温度が上がりすぎると、燃焼速度が大きくなり、炎がバーナー内部へ戻るフラッシュバックを起こしやすくなる。これは炎が炎口から浮き上がるリフティングの原因ではないため、この記述が誤りである。",
+      "正しい。バーナーの炎口が詰まって有効面積が極端に小さくなると、同じガス量でも炎口からの噴出速度が大きくなりやすい。噴出速度が燃焼速度を上回ると、炎が浮き上がるリフティングの原因となる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -76,7 +76,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "ガス燃焼時のリフティングの原因を、炎口からの混合ガス噴出速度、燃焼速度、一次空気、二次空気、炎口面積、混合ガス温度などの燃焼技術上の知識で判断する問題。法令条文に基づく正誤判定ではないため、解説工程では法令根拠を不要として扱う。",
+    "lawContextForExplanation": "ガス燃焼時に生じるリフティングの原因を、ガス圧、一次空気、二次空気、炎口面積、混合ガス温度などの燃焼技術上の知識で判定する問題。法令条文に基づく正誤判定ではないため、解説工程では法令根拠を不要として扱う。",
     "lawRevisionFacts": []
   },
   {
@@ -96,11 +96,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。給湯器の自己診断機能には、給排気通路の閉そくを燃焼状態から検知する方法と、給気ファンの風量低下から検知する方法がある。",
-      "正しい。潜熱回収型給湯器の中和器では、炭酸カルシウムが酸性の排ガス凝縮水に含まれる硝酸と反応し、硝酸カルシウムなどを生成する。",
-      "正しい。先止め式貯湯湯沸器は、出湯側に給湯配管を接続して複数の給湯栓に給湯できる構造の湯沸器である。",
-      "正しい。現在販売されている開放式小型湯沸器には、不完全燃焼防止装置が複数回連続して作動した場合に、通常操作では再点火できなくなるインターロック機能が搭載されている。",
-      "間違い。出湯温度と設定温度との差を検出し、その差に応じて修正する制御はフィードバック制御である。フィードフォワード制御は、温度差が現れる前に外乱の影響を見越して補正する考え方なので、この記述は誤りである。"
+      "正解は5です。\n\n1は正しいです。給湯器の自己診断機能では、給排気通路の閉そくを燃焼状態の変化から診断する方法や、給気ファンの風量低下から診断する方法があります。\n\n2は正しいです。潜熱回収型給湯器では、排ガス中の水蒸気が凝縮して酸性の凝縮水を生じるため、中和器内の炭酸カルシウムで中和します。この過程で、硝酸と反応した場合は硝酸カルシウムが生成されます。\n\n3は正しいです。先止め式貯湯湯沸器は、出湯側に給湯配管を接続し、複数の給湯箇所へ湯を供給できる方式です。\n\n4は正しいです。現在販売されている開放式小型湯沸器には、不完全燃焼防止装置が複数回連続して作動したとき、通常操作では再点火できないようにするインターロック機能が搭載されています。\n\n5は誤りです。出湯温度と設定温度との差を検出し、その差に応じて補正して温度のばらつきを抑える制御はフィードバック制御です。フィードフォワード制御は、温度差が現れる前に流量や入水温度などの変化を見越して先行的に補正する考え方であるため、記述の制御名が不適切です。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -176,7 +172,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。マイコンタイマー式炊飯器は、炊き分けや早炊きなどの機能に応じて、ガス量や燃焼時間を自動的に制御しながら炊飯する機器である。",
+      "正しい。マイコンタイマー式炊飯器は、炊き分け機能や早炊き機能などに応じて、ガス量や燃焼時間を自動的に制御しながら炊き上げる機器である。",
       "正しい。FF暖房機は、屋外から燃焼用空気を取り入れ、燃焼排ガスを屋外へ排出する密閉式の暖房機である。一般に、給気管には軟質塩化ビニル製、排気管には耐熱性のあるステンレス鋼板製の管が用いられる。",
       "正しい。Siセンサーコンロには、調理油過熱防止装置、立ち消え安全装置、消し忘れ消火機能、早切れ防止機能が標準搭載されている。",
       "正しい。回転ドラム式衣類乾燥機は、空気で希釈された燃焼排ガスを利用し、ドラム内の洗濯物を直接乾燥させる方式である。",
@@ -228,7 +224,7 @@
     "reviewQuestionId": "c57c43f0ad18f8df",
     "sourceRecordRef": "question_2021_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "炊飯器、FF暖房機、Siセンサーコンロ、衣類乾燥機、ファンヒーターの構造・安全機能・換気に関する技術知識で判断する問題。少なくとも一つの選択肢の正誤を直接決める検証済み法令条文は確認できないため、法令根拠を不要として扱う。",
+    "lawContextForExplanation": "炊飯器、FF暖房機、Siセンサーコンロ、衣類乾燥機、ファンヒーターの構造・安全機能・換気に関する技術知識で判断する問題。選択肢の正誤を直接決める検証済み法令条文は確認できないため、法令根拠を不要として扱う。",
     "lawReferences": [
       [],
       [],
@@ -239,73 +235,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "マイコンタイマー式炊飯器の自動制御に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "マイコンタイマー式炊飯器の自動制御に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "FF暖房機の給排気方式と管材料に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "FF暖房機の給排気方式と管材料に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "Siセンサーコンロの標準安全機能に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "Siセンサーコンロの標準安全機能に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "回転ドラム式衣類乾燥機の乾燥方式に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "回転ドラム式衣類乾燥機の乾燥方式に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
+        "evidenceSummary": {
+          "explanationText": "ファンヒーターは不完全燃焼防止装置を備えていても使用時の換気を不要にはしないという安全知識で判断する。",
+          "verdict": "not_law_related"
+        },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "ファンヒーターは不完全燃焼防止装置を備えていても使用時の換気を不要にはしないという安全知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -327,11 +323,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "正しい。固体酸化物形燃料電池（SOFC）は高温で作動する燃料電池であり、固体高分子形燃料電池（PEFC）より作動温度が高い。",
-      "正しい。家庭用燃料電池システム（エネファーム）には、停電時に発電を継続する機能や、IoT技術を活用した遠隔監視機能を備えたものがある。",
-      "正しい。コージェネレーションシステムの運転方式は、電力需要を主に追う電主熱従運転と、熱需要を主に追う熱主電従運転に分けられる。電主熱従運転には、ピークカット運転やベースロード運転がある。",
-      "間違い。二重効用吸収冷凍サイクルでは、高温発生器と低温発生器の二つの発生器を用いて熱利用効率を高める。二つの蒸発器を用いるとする記述は誤りである。",
-      "正しい。ガスエンジンヒートポンプ（GHP）は、室外機内の四方切替弁で冷媒の流れを切り替えることにより、冷房と暖房を切り替える。"
+      "正しい。固体酸化物形燃料電池（SOFC）は高温作動の燃料電池で、一般に低温で作動する固体高分子形燃料電池（PEFC）より作動温度が高い。したがって、この記述は正しい。",
+      "正しい。家庭用燃料電池システム（エネファーム）には、停電時に発電を継続できる機能や、IoT技術を利用して運転状態を遠隔監視する機能を備えた機種がある。したがって、この記述は正しい。",
+      "正しい。コージェネレーションシステムの運転方式は、電力需要を主として運転する電主熱従運転と、熱需要を主として運転する熱主電従運転に分けられる。また、電主熱従運転にはピークカット運転やベースロード運転がある。したがって、この記述は正しい。",
+      "間違い。吸収冷凍機の二重効用吸収冷凍サイクルでは、熱を段階的に利用するために高温発生器と低温発生器を用いる。効率向上のために二つの蒸発器を用いるという説明ではないため、この記述は誤りである。",
+      "正しい。ガスエンジンヒートポンプ（GHP）は、室外機内の四方切替弁で冷媒の流れを切り替えることにより、冷房運転と暖房運転を切り替える。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -390,73 +386,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "SOFCとPEFCの作動温度差に関する技術知識で判断する。SOFCは高温作動、PEFCは比較的低温作動であり、設問の正誤は法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "SOFCとPEFCの作動温度差に関する技術知識で判断する。NEDO資料でPEFCは約80℃、SOFCは700℃以上と確認した。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "エネファームの停電時発電継続機能およびIoT・遠隔監視機能に関する製品技術知識で判断する。設問の正誤は法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "エネファームの停電時発電継続機能およびIoT・遠隔通信機能に関する製品技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "コージェネレーションシステムの電主熱従運転、熱主電従運転、ピークカット運転、ベースロード運転に関する運用方式の知識で判断する。設問の正誤は法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "コージェネレーションの運転制御・運用方式に関する技術知識で判断する。JIS B 8121の電力負荷追従運転、熱負荷追従運転、ピークカット運転、ベース運転の定義と整合する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
+        "evidenceSummary": {
+          "explanationText": "二重効用吸収冷凍サイクルの構成に関する技術知識で判断する。効率向上は発生器側の二段利用によるもので、二つの蒸発器を用いるとする記述は誤り。設問の正誤は法令改正の影響を受けない。",
+          "verdict": "not_law_related"
+        },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "二重効用吸収冷凍サイクルの構成に関する技術知識で判断する。効率向上は高温発生器・低温発生器など発生器側の二段利用であり、二つの蒸発器とする記述は誤り。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "GHPの冷暖房切替機構に関する技術知識で判断する。四方切替弁により冷媒流路を切り替えるため、設問の正誤は法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "GHPの冷暖房切替機構に関する技術知識で判断する。ヒートポンプサイクルで冷媒を循環させ、四方切替弁等により冷媒流路を切り替える。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -533,66 +529,66 @@
     "sourceRecordRef": "question_2021_3.json#4",
     "explanationReferences": [
       {
-        "title": "建築基準法施行令（e-Gov法令検索）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
+        "choiceIndex": 2,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 2
+        "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
+        "title": "建築基準法施行令（e-Gov法令検索）"
       },
       {
-        "title": "換気設備の構造方法を定める件（昭和45年建設省告示第1826号）",
-        "sourceUrl": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
+        "choiceIndex": 2,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 2
+        "sourceUrl": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
+        "title": "換気設備の構造方法を定める件（昭和45年建設省告示第1826号）"
       }
     ],
-    "lawContextForExplanation": "選択肢3は、火気使用室の換気設備の有効換気量について、建築基準法施行令第20条の3第2項及び昭和45年建設省告示第1826号（換気設備の構造方法を定める件）に基づく定数、理論廃ガス量、燃料消費量又は発熱量の考え方で確認する。その他の選択肢は、換気方式、住宅の気密性、CO中毒の発生機序及び症状変化に関する技術・安全知識で判断する。",
+    "lawContextForExplanation": "選択肢3は、火気を使用する室の換気設備・必要換気量について、建築基準法施行令第20条の3第2項第1号イ及び昭和45年建設省告示第1826号第三第4号イを根拠に確認する。選択肢1、2、4、5は換気方式、住宅の自然換気回数、CO中毒の機序・症状に関する技術・安全知識で判断する。",
     "lawReferences": [
       [],
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第20条の3第2項第1号イ",
           "choiceIndex": 2,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第20条の3第2項第1号イ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338"
-        },
-        {
           "role": "current_basis",
           "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第三第4号イ",
           "choiceIndex": 2,
           "lawId": "昭和45年建設省告示第1826号",
           "lawTitle": "換気設備の構造方法を定める件",
           "referenceDate": "2026-07-27",
-          "article": "第三第4号イ",
-          "verificationStatus": "verified",
-          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
+          "verificationStatus": "verified"
         },
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第20条の3第2項第1号イ",
           "choiceIndex": 2,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2021-01-01",
-          "article": "第20条の3第2項第1号イ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338"
-        },
-        {
           "role": "exam_time_basis",
           "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第三第4号イ",
           "choiceIndex": 2,
           "lawId": "昭和45年建設省告示第1826号",
           "lawTitle": "換気設備の構造方法を定める件",
           "referenceDate": "2021-01-01",
-          "article": "第三第4号イ",
-          "verificationStatus": "verified",
-          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
+          "verificationStatus": "verified"
         }
       ],
       [],
@@ -601,73 +597,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "explanationText": "第3種換気の方式に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "第3種換気の方式に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "住宅の自然換気回数に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "住宅の自然換気回数に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "law_checked_no_revision_effect",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "火気使用室の必要換気量は、排気フード等に応じた定数、理論廃ガス量、燃料消費量又は発熱量を用いるため、選択肢3は正しい。現行確認でも正答への影響はない。",
+          "verdict": "current_and_exam_time_same"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "current_and_exam_time_same",
-          "explanationText": "火気使用室の必要換気量は、排気フード等に応じた定数、理論廃ガス量、燃料消費量又は発熱量を用いるため、選択肢3は正しい。現行確認でも正答への影響はない。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "CO中毒の発生機序に関する安全知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "CO中毒の発生機序に関する安全知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "CO濃度と吸入時間による症状変化に関する安全知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "CO濃度と吸入時間による症状変化に関する安全知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -839,7 +835,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
     "explanationText": [
-      "間違い。空だき安全装置は、空だき状態になったときに機器が損傷する前にバーナーへのガス通路を閉ざす安全装置である。水がない場合に最初からガス通路を開けないという説明は、通水や水位を検知して空だきを防ぐ制御の説明であり、空だき安全装置の説明としては適切でない。",
+      "間違い。空だき安全装置は、機器内の水が不足して空だき状態になったとき、機器が損傷する前にバーナーへのガス通路を閉ざす安全装置である。水がない場合に最初からガス通路を開けないという説明は、通水や水位を検知して燃焼を開始させない制御の説明であり、空だき安全装置の説明としては適切でない。",
       "正しい。開放式小型湯沸器の不完全燃焼防止装置には、燃焼状態の変化を検知する逆バイアス熱電対が用いられている。",
       "正しい。自然排気式（CF式）ふろがまの不完全燃焼防止装置には、熱電対を用いるものとサーミスターを用いるものがある。",
       "正しい。比例電磁弁は、コイルに流れる電流による電磁力で弁の開度を制御し、ガス量を連続的に調節する制御装置である。",
@@ -892,73 +888,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
+        "evidenceSummary": {
+          "explanationText": "空だき安全装置と、通水・水位検知により燃焼開始を制御する仕組みとの違いに関する技術知識で判断する。",
+          "verdict": "not_law_related"
+        },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "空だき安全装置と空だき防止制御の違いに関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "開放式小型湯沸器の不完全燃焼防止装置に用いられる検知方式に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "開放式小型湯沸器の不完全燃焼防止装置に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "自然排気式（CF式）ふろがまの不完全燃焼防止装置に用いられる検知方式に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "CF式ふろがまの不完全燃焼防止装置に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "比例電磁弁が電磁力で弁開度を制御し、ガス量を連続調節することに関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "比例電磁弁のガス量制御に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "浴槽や貯湯槽の水位制御方式の種類に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "浴槽や貯湯槽の水位制御方式に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -1032,26 +1028,26 @@
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2026-07-09",
-          "article": "202",
-          "verificationStatus": "verified",
-          "source": "egov_xml"
-        },
-        {
           "role": "current_basis",
           "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "2",
           "choiceIndex": 2,
           "lawId": "平成十二年通商産業省告示第五百七十八号",
           "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
-          "referenceDate": "2026-07-09",
-          "article": "2",
-          "verificationStatus": "verified",
-          "source": "meti_pdf"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "meti_pdf",
+          "verificationStatus": "verified"
         }
       ],
       [],
@@ -1060,97 +1056,97 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "接触燃焼式ガス警報器の検知回路出力特性を問う技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "接触燃焼式ガス警報器の検知回路出力特性を問う技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "熱線型半導体式ガス警報器の濃度応答特性を問う技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "熱線型半導体式ガス警報器の濃度応答特性を問う技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
+        "answerImpactFacts": [
+          "現行告示では、ガス漏れ警報器はガス濃度が爆発下限界の四分の一以上のときに確実に作動することが求められる。",
+          "設問の1/10で確実に作動するという記述は現行根拠と一致しないため、間違い判定を維持する。"
+        ],
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
         "current": {
+          "article": "2",
           "correctChoiceText": "間違い",
           "lawId": "平成十二年通商産業省告示第五百七十八号",
           "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
-          "article": "2",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-27",
           "verificationStatus": "verified"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行根拠は既存の正誤判断と一致する。",
+          "explanationText": "可燃性ガス用のガス漏れ警報器は、爆発下限界の1/4以上で確実に作動することが求められる。",
+          "refs": [
+            {
+              "article": "202",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則"
+            },
+            {
+              "article": "2",
+              "lawId": "平成十二年通商産業省告示第五百七十八号",
+              "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法"
+            }
+          ],
+          "verdict": "incorrect"
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_2021_otsu_source_choice_correctness"
         },
-        "differenceFacts": [],
-        "answerImpactFacts": [
-          "現行告示では、ガス漏れ警報器はガス濃度が爆発下限界の四分の一以上のときに確実に作動することが求められる。",
-          "設問の1/10で確実に作動するという記述は現行根拠と一致しないため、間違い判定を維持する。"
-        ],
-        "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "可燃性ガス用のガス漏れ警報器は、爆発下限界の1/4以上で確実に作動することが求められる。",
-          "differenceSummary": "現行根拠は既存の正誤判断と一致する。",
-          "refs": [
-            {
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "202"
-            },
-            {
-              "lawId": "平成十二年通商産業省告示第五百七十八号",
-              "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
-              "article": "2"
-            }
-          ]
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "CO警報器の酸化スズ半導体センサーとヒートクリーニングに関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "CO警報器の酸化スズ半導体センサーとヒートクリーニングに関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "業務用換気警報器の電気化学式センサーの特徴に関する技術知識で判断する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "業務用換気警報器の電気化学式センサーの特徴に関する技術知識で判断する。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "sourceQuestionKey": "gas-shunin:otsu:2021:shohi:q27",
@@ -1158,19 +1154,19 @@
     "sourceRecordRef": "question_2021_3.json#7",
     "explanationReferences": [
       {
-        "title": "ガス事業法施行規則 第202条",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+        "choiceIndex": 2,
         "referenceDate": "2026-07-09",
-        "choiceIndex": 2
+        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+        "title": "ガス事業法施行規則 第202条"
       },
       {
-        "title": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法 第2条",
+        "choiceIndex": 2,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf",
-        "referenceDate": "2026-07-09",
-        "choiceIndex": 2
+        "title": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法 第2条"
       }
     ],
-    "lawContextForExplanation": "選択肢3は、可燃性ガス用ガス漏れ警報器の作動濃度を問う。現行根拠では、ガス事業法施行規則第202条第1項第10号が告示に適合する警報器の設置を求め、ガス漏れ警報器告示第2条が、爆発下限界の1/4以上で確実に作動し、1/200以下で作動しない規格を定めている。したがって、爆発下限界の1/10のときに確実に作動するとする記述は誤りである。",
+    "lawContextForExplanation": "選択肢3は、可燃性ガス用ガス漏れ警報器の作動濃度を問う。現行根拠では、ガス事業法施行規則第202条第1項第10号が告示に適合する警報器の設置を求め、ガス漏れ警報器告示第2条が爆発下限界の4分の1以上で確実に作動し、200分の1以下で作動しない規格を定めている。したがって、爆発下限界の1/10のときに確実に作動するとする記述は誤りである。",
     "suggestedQuestionDetailsByChoice": []
   }
 ]

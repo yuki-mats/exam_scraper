@@ -4707,11 +4707,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正しい。臨界温度より高い温度では、圧力をどれだけ高くしても気体を液化できない。液化するには臨界温度以下まで冷却する必要がある。",
-      "正しい。ヘンリーの法則によれば、温度が一定で溶解度が小さい気体では、一定量の液体に溶ける気体の質量はその気体の圧力に比例する。",
-      "正しい。アボガドロの法則によれば、同じ温度、同じ圧力の気体は、種類にかかわらず同じ体積中に同じ数の分子を含む。",
-      "間違い。気体の粘度は液体に比べて小さいが、一般に温度が上昇すると増加する。選択肢は温度が上昇すると減少するとしているため誤りである。",
-      "正しい。潜熱は、単一物質が融解や蒸発などの相変化をするとき、温度が一定のまま吸収又は放出される熱である。"
+      "正しい。臨界温度より高い温度では、圧力をどれだけ高くしても気体を液化できない。気体を液化させるには、臨界温度以下まで冷却したうえで圧縮する必要がある。",
+      "正しい。ヘンリーの法則では、温度が一定で溶解度が小さい気体について、一定量の液体に溶ける気体の質量は、その気体の圧力に比例する。",
+      "正しい。アボガドロの法則によれば、同じ温度、同じ圧力のもとでは、気体の種類にかかわらず同じ体積中に同じ数の分子が存在する。",
+      "間違い。気体の粘度は液体の粘度に比べて小さいが、一般に温度が上昇すると増加する。選択肢は温度上昇で減少するとしているため誤りである。",
+      "正しい。潜熱とは、単一物質が融解、凝固、蒸発、凝縮などの相変化をするときに、温度が一定のまま吸収又は放出される熱である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -4760,68 +4760,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "臨界温度に関する物理化学の基礎知識で判定できる非法令問題。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ヘンリーの法則に関する物理化学の基礎知識で判定できる非法令問題。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "アボガドロの法則に関する物理化学の基礎知識で判定できる非法令問題。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "気体粘度は一般に温度上昇で増加するという物性知識で判定できる非法令問題。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "潜熱の定義に関する物理化学の基礎知識で判定できる非法令問題。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -4843,7 +4843,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正解は0.63 MPaである。ラウールの法則より、混合液の全蒸気圧は、各成分のモル分率とその純物質の蒸気圧との積を合計して求める。プロパンとブタンのモル比が2：1なので、モル分率はそれぞれ2/3、1/3である。したがって、全蒸気圧は(2/3)×0.83＋(1/3)×0.24＝0.633… MPaとなり、最も近い値は0.63 MPaである。"
+      "正解は0.63 MPaである。ラウールの法則では、混合液の蒸気圧は各成分のモル分率に純物質の蒸気圧を掛けた値の合計で求める。プロパンとブタンのモル比は2：1なので、モル分率はプロパンが2/3、ブタンが1/3である。したがって、混合液の蒸気圧は(2/3)×0.83＋(1/3)×0.24＝0.553…＋0.080＝0.633… MPaとなる。選択肢の中で最も近い値は0.63 MPaであるため、正解は4である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -4881,7 +4881,7 @@
     "reviewQuestionId": "347b106e030fed8e",
     "sourceRecordRef": "question_2025_1.json#17",
     "explanationReferences": [],
-    "lawContextForExplanation": "ラウールの法則を用いて混合液化ガスの蒸気圧を求める基礎理論の計算問題であり、法令に基づく解説は不要である。",
+    "lawContextForExplanation": "ラウールの法則を用いて混合液化ガスの蒸気圧を求める基礎理論の計算問題であり、法令根拠を用いた解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -4909,7 +4909,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正解は500kPaである。メタンの分子量を16、プロパンの分子量を44とすると、それぞれの物質量は8kg÷16kg/kmol=0.5kmol、4.4kg÷44kg/kmol=0.1kmolであり、合計は0.6kmol=600molとなる。温度27℃を絶対温度に直すと300Kである。理想気体の状態方程式PV=nRTより、P=nRT/V=600mol×8.3J/(mol・K)×300K÷3m³=498000Pa=498kPaとなる。したがって、最も近い値は500kPaであり、他の選択肢はいずれも計算値から外れる。"
+      "正解は5（500kPa）である。メタンの分子量を16、プロパンの分子量を44とすると、メタン8kgは8,000g÷16g/mol=500mol、プロパン4.4kgは4,400g÷44g/mol=100molであり、混合ガス全体の物質量は600molである。温度27℃は絶対温度で300Kなので、理想気体の状態方程式PV=nRTより、P=nRT/V=600mol×8.3J/(mol・K)×300K÷3m³=498,000Pa=498kPaとなる。したがって、最も近い値は500kPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -4947,7 +4947,7 @@
     "reviewQuestionId": "019781c25343a50e",
     "sourceRecordRef": "question_2025_1.json#18",
     "explanationReferences": [],
-    "lawContextForExplanation": "理想気体の状態方程式を用いる基礎理論の計算問題であり、法令根拠を用いた解説は不要。",
+    "lawContextForExplanation": "理想気体の状態方程式を用いて混合ガスの圧力を求める基礎理論の計算問題であり、法令根拠を用いた解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -4975,7 +4975,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正解は110℃である。容積一定で空気を加熱するため、定積比熱容量を用いて Q=mCvΔT と表す。与えられた値を代入すると、56=1×0.7×ΔT となるので、温度上昇は ΔT=56÷0.7=80K である。温度差はKと℃で同じ大きさになるため、初期温度30℃に80℃を加えると、加熱後の温度は30+80=110℃となる。したがって、最も近い値は110℃である。"
+      "正解は110℃である。容積一定の条件では外部への体積変化による仕事を考えず、加えた熱量は空気の温度上昇に使われるため、定積比熱容量を用いて Q=mCvΔT と表す。与えられた値を代入すると、56=1×0.7×ΔT となり、ΔT=56÷0.7=80K である。温度差はKと℃で同じ大きさなので、初めの温度30℃に80℃を加えると、加熱後の温度は30+80=110℃となる。したがって、最も近い値は110℃である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -5041,10 +5041,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正しい。孤立系は、外界との間で熱や仕事としてのエネルギーも、物質も交換しない系である。外界から切り離された系として考える。",
-      "間違い。エントロピーは状態量である。そのため、系がある状態から別の状態へ移るときのエントロピー変化は、初めと終わりの状態だけで決まり、途中の経路には依存しない。",
-      "正しい。系の性質が時間的に変化しないとき、その系は平衡状態にある。巨視的に見た温度、圧力、組成などが一定に保たれる状態である。",
-      "正しい。温度や圧力は状態量である。系の状態が定まれば値が決まり、そこへ至る途中の経路には依存しない。",
+      "正しい。孤立系は、外界との間で熱や仕事としてのエネルギーも、物質も交換しない系である。外界から切り離された系として扱われる。",
+      "間違い。エントロピーは状態量である。そのため、系がある状態から別の状態へ移るときのエントロピー変化は、初めの状態と終わりの状態だけで決まり、途中の経路には依存しない。",
+      "正しい。系の性質が時間的に変化しないとき、その系は平衡状態にある。巨視的に見た温度、圧力、組成などが一定に保たれている状態である。",
+      "正しい。温度や圧力は状態量である。系の状態が定まれば値が決まり、その状態に至るまでの経路には依存しない。",
       "正しい。熱力学の第二法則によれば、熱は自然には低温の物体から高温の物体へ移らない。低温側から高温側へ熱を移すには、外部から仕事などを加える必要がある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -5083,7 +5083,7 @@
     "reviewQuestionId": "0e6e024a83f02349",
     "sourceRecordRef": "question_2025_1.json#20",
     "explanationReferences": [],
-    "lawContextForExplanation": "孤立系、エントロピー、状態量、熱力学第二法則などの基礎理論を問う問題であり、法令根拠を用いた解説は不要。",
+    "lawContextForExplanation": "孤立系、エントロピー、平衡状態、状態量、熱力学第二法則などの基礎理論を問う問題であり、法令根拠を用いた解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -5094,68 +5094,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "熱力学の孤立系の定義に関する基礎理論問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "エントロピーが状態量であることを問う基礎理論問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "平衡状態の意味を問う基礎理論問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "温度・圧力が状態量であることを問う基礎理論問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "熱力学第二法則の基礎内容を問う理論問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -5177,11 +5177,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正しい。温度及び圧力が一定の条件では、反応熱は生成系と反応系のエンタルピーの差で表される。生成系のエンタルピーが反応系より低い場合、エンタルピー変化は負となり、周囲へ熱を放出する発熱反応になる。",
-      "正しい。反応熱は反応の始状態と終状態だけで決まり、途中の反応経路には依存しない。これはヘスの法則として知られる性質である。",
+      "正しい。温度及び圧力が一定の条件では、反応熱は生成系と反応系のエンタルピー差で表される。生成系のエンタルピーが反応系より低い場合、エンタルピー変化は負となり、周囲へ熱を放出する発熱反応になる。",
+      "正しい。反応熱は、反応の始状態と終状態だけで決まり、途中の反応経路には依存しない。これはヘスの法則として知られる性質である。",
       "間違い。反応熱は一般に反応温度によって変化する。反応物と生成物の熱容量に差があると、温度の変化に伴って両者のエンタルピー差も変わるため、反応温度によらず一定とはいえない。",
       "正しい。燃焼熱とは、単位量の物質が酸素と反応して完全燃焼するときの反応熱をいう。したがって、完全燃焼を前提とするこの記述は正しい。",
-      "正しい。反応に関わるすべての成分の標準生成熱が分かれば、生成物の標準生成熱の総和から反応物の標準生成熱の総和を差し引くことにより、標準反応熱を求められる。"
+      "正しい。反応に関わるすべての成分の標準生成熱が分かれば、生成物の標準生成熱の総和から反応物の標準生成熱の総和を差し引くことで、標準反応熱を求められる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -5219,7 +5219,7 @@
     "reviewQuestionId": "e195549cd2dc1c5c",
     "sourceRecordRef": "question_2025_1.json#21",
     "explanationReferences": [],
-    "lawContextForExplanation": "反応熱、ヘスの法則及び標準生成熱に関する化学熱力学の問題であり、法令に基づく解説は不要である。",
+    "lawContextForExplanation": "反応熱、ヘスの法則、燃焼熱、標準生成熱などの化学熱力学を問う問題であり、法令根拠を用いた解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -5247,7 +5247,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
-      "正解は60分である。一次反応の半減期は反応物質の濃度によらず一定である。1/64=(1/2)^6なので、初期濃度a₀から(1/64)a₀になるまでには、a₀→(1/2)a₀→(1/4)a₀→(1/8)a₀→(1/16)a₀→(1/32)a₀→(1/64)a₀と、6回の半減を経る。したがって、必要な時間は10分×6=60分である。20分、30分、40分、50分では半減期がそれぞれ2回、3回、4回、5回しか経過せず、濃度は順に(1/4)a₀、(1/8)a₀、(1/16)a₀、(1/32)a₀であるため該当しない。"
+      "正解は60分である。一次反応では、半減期は濃度によらず一定である。半減期が10分なので、10分経過するごとに濃度は初期濃度a₀の1/2、1/4、1/8、1/16、1/32、1/64と順に半分になる。1/64=(1/2)^6であるから、初期濃度a₀から(1/64)a₀になるまでには6回の半減が必要である。したがって、必要な時間は10分×6=60分となる。20分、30分、40分、50分では半減がそれぞれ2回、3回、4回、5回にとどまり、(1/64)a₀には達しない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -5285,7 +5285,7 @@
     "reviewQuestionId": "bc0ba21d1bbbe3f5",
     "sourceRecordRef": "question_2025_1.json#22",
     "explanationReferences": [],
-    "lawContextForExplanation": "一次反応の半減期に関する化学反応速度の計算問題であり、法令上の根拠は不要である。",
+    "lawContextForExplanation": "一次反応の半減期を用いる化学反応速度の計算問題であり、法令根拠を用いた解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -5380,10 +5380,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
     "explanationText": [
       "間違い。総発熱量と真発熱量の違いは、水蒸気の顕熱ではなく、水蒸気が凝縮するときに放出する潜熱を含むかどうかにある。総発熱量はこの潜熱を含み、真発熱量は含まないため、この記述は誤りである。",
-      "正しい。温度が高くなると燃焼反応が進みやすくなるため、一般に可燃性ガスの燃焼範囲は広くなる。反対に、温度が低くなると燃焼範囲は狭くなる。",
-      "正しい。複数の可燃性ガスからなる混合ガスの燃焼下限界は、各成分の割合と、それぞれの燃焼下限界を用いるル・シャトリエの式によって概算できる。",
-      "正しい。爆ごうは、燃焼による反応波が衝撃波を伴い、非常に速い速度で伝ぱする現象である。",
-      "正しい。爆ごうが起こり得る濃度範囲は、一般に爆発範囲（燃焼範囲）より狭く、その内側にある。"
+      "正しい。温度が高くなると燃焼反応が起こりやすくなるため、一般に可燃性ガスの燃焼範囲は広くなる。逆に、温度が低くなると燃焼範囲は狭くなる。",
+      "正しい。2種類以上の可燃性ガスを含む混合ガスの燃焼下限界は、各成分の組成割合と各成分の燃焼下限界を用いるル・シャトリエの式によって概算できる。",
+      "正しい。爆ごうは、燃焼による反応波が衝撃波を伴って伝ぱする現象であり、通常の燃焼より非常に速く進む。",
+      "正しい。爆ごうが起こり得る濃度範囲は、爆発範囲（燃焼範囲）全体より狭く、爆発範囲の内側に位置する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -5420,7 +5420,7 @@
     "reviewQuestionId": "eded687b0ca663d0",
     "sourceRecordRef": "question_2025_1.json#24",
     "explanationReferences": [],
-    "lawContextForExplanation": "発熱量、燃焼範囲、混合ガスの燃焼下限界及び爆ごうに関する基礎理論の問題であり、法令に基づく解説は不要である。",
+    "lawContextForExplanation": "発熱量、燃焼範囲、混合ガスの燃焼下限界、爆ごうなど、気体燃焼の基礎概念を問う問題であり、法令根拠を用いた解説は不要。",
     "lawReferences": [
       [],
       [],

@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正解。質量流量は、密度ρ、管の断面積A、平均流速vを用いて ṁ＝ρAv で求める。内径D＝0.1mの円管断面積は A＝πD²/4＝π×0.1²/4≒0.00785m² である。したがって、ṁ＝1000kg/m³×0.00785m²×1m/s≒7.85kg/sとなるため、選択肢の中で最も近い値は8kg/sである。"
+      "正解。質量流量は、密度ρ、管の断面積A、平均流速vを用いて、ṁ＝ρAvで求める。内径D＝0.1mの直円管の断面積は、A＝πD²/4＝π×0.1²/4≒0.00785m²である。したがって、ṁ＝1000kg/m³×0.00785m²×1m/s≒7.85kg/sとなる。選択肢の中でこの値に最も近いのは8kg/sであるため、正解は8である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -55,7 +55,7 @@
     "reviewQuestionId": "82739116702dd960",
     "sourceRecordRef": "question_2021_2.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。質量流量ṁ＝ρAvと円管断面積A＝πD²/4を用いる計算問題として説明する。",
+    "lawContextForExplanation": "法令問題ではない。質量流量ṁ＝ρAvと円管断面積A＝πD²/4を用いる基礎理論の計算問題として説明する。",
     "lawReferences": [
       [],
       [],
@@ -66,18 +66,7 @@
     "suggestedQuestionDetailsByChoice": [],
     "lawRevisionFacts": {
       "auditStatus": "not_law_related",
-      "reviewState": "secondary_verified",
       "current": {
-        "correctChoiceText": [
-          "正しい",
-          "間違い",
-          "間違い",
-          "間違い",
-          "間違い"
-        ],
-        "isLawRelated": false
-      },
-      "examTime": {
         "correctChoiceText": [
           "正しい",
           "間違い",
@@ -89,8 +78,19 @@
       },
       "evidenceSummary": {
         "classification": "technical_calculation",
-        "summary": "円管内流れの質量流量を求める基礎理論の計算問題であり、法令条文によって正誤が直接決まる問題ではない。計算値は約7.85kg/sで、最も近い選択肢は8kg/sである。"
-      }
+        "summary": "円管内流れの質量流量を求める基礎理論の計算問題であり、法令条文によって正誤が直接決まる問題ではない。内径0.1m、平均流速1m/s、密度1000kg/m³から質量流量は約7.85kg/sとなり、最も近い選択肢は8kg/sである。"
+      },
+      "examTime": {
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ],
+        "isLawRelated": false
+      },
+      "reviewState": "secondary_verified"
     }
   },
   {
@@ -201,11 +201,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。伝熱量は、平板を熱として通過するエネルギー量を単位時間当たりで表した量である。",
-      "正しい。熱流束は、単位面積を単位時間当たりに通過する熱量であり、伝熱量を面積で割った量である。",
-      "正しい。熱伝導率が一定で定常状態の平板では、熱流束は q=λΔT/L で表されるため、両面の温度差ΔTに比例する。",
-      "間違い。平板の定常熱伝導では、熱流束は q=λΔT/L となり、厚さLに反比例する。厚みに比例するとしているため誤りである。",
-      "正しい。q=λΔT/L より、温度差と厚さが同じであれば、熱流束は熱伝導率λに比例する。"
+      "正しい。伝熱量は、単位時間当たりに平板を通過する熱エネルギーの量を表す。したがって、単位時間あたりに通過するエネルギー量であるという記述は正しい。",
+      "正しい。熱流束は、伝熱量を伝熱面積で割った量、すなわち単位面積当たりの伝熱量である。",
+      "正しい。熱伝導率が一定で定常状態の平板では、熱流束は q=λΔT/L で表される。このため、厚さLと熱伝導率λが一定なら、熱流束は両面の温度差ΔTに比例する。",
+      "間違い。平板の定常熱伝導では、熱流束は q=λΔT/L で表され、平板の厚さLには反比例する。厚みに比例するとしているため誤りである。",
+      "正しい。q=λΔT/L より、温度差ΔTと厚さLが同じ条件では、熱流束は熱伝導率λに比例する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -256,68 +256,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "平板の定常熱伝導式 q=λΔT/L の定義問題であり、法令条文で正誤が直接決まる肢ではない。"
-        }
+          "basis": "伝熱量の定義に関する基礎理論問題であり、法令条文で正誤が直接決まる肢ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "basis": "熱流束は単位面積当たりの伝熱量であるという物理量の定義問題であり、法令条文で正誤が直接決まる肢ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "basis": "q=λΔT/L より熱流束は温度差に比例するため正しい。法令条文で正誤が直接決まる肢ではない。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "平板の定常熱伝導式 q=λΔT/L より、熱流束は両面の温度差に比例するため正しい。法令条文で正誤が直接決まる肢ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
+        "evidenceSummary": {
+          "basis": "平板の定常熱伝導式 q=λΔT/L より、熱流束は厚さに反比例するため、厚みに比例するという記述は誤り。法令条文で正誤が直接決まる肢ではない。"
+        },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "basis": "q=λΔT/L より熱流束は厚さに反比例するため、厚みに比例するという記述は誤り。法令条文で正誤が直接決まる肢ではない。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "平板の定常熱伝導式 q=λΔT/L より、熱流束は熱伝導率に比例するため正しい。法令条文で正誤が直接決まる肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "basis": "q=λΔT/L より熱流束は熱伝導率に比例するため正しい。法令条文で正誤が直接決まる肢ではない。"
-        }
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -338,7 +338,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正解は3です。平板の定常熱伝導では、熱流束 q は q＝λ（T高−T低）/L で表されます。ここで、λ＝2W/(m・K)、L＝20cm＝0.20m、q＝6kW/m²＝6000W/m²なので、温度差は T高−T低＝qL/λ＝6000×0.20÷2＝600K です。温度差のKは℃差と同じ大きさで扱えるため、低温側の表面温度は 800−600＝200℃ となります。したがって、最も近い値は200℃です。"
+      "正解は3です。平板の定常熱伝導では、熱流束 q は q＝λ（T高−T低）/L で表されます。平均熱伝導率 λ＝2W/(m・K)、厚さ L＝20cm＝0.20m、熱流束 q＝6kW/m²＝6000W/m²を代入すると、温度差は T高−T低＝qL/λ＝6000×0.20÷2＝600K です。温度差のKは℃差と同じ大きさなので、低温側の表面温度は 800−600＝200℃ となります。したがって、最も近い値は200℃です。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -405,10 +405,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。炭素鋼は、鉄を主成分とし、主な合金元素として炭素を含む鋼であり、マンガン、ケイ素、リン、硫黄などを少量含むことがある。",
-      "正しい。炭素含有量による区分では、炭素0.30％以下を低炭素鋼、0.45％以上を高炭素鋼と呼ぶ整理が用いられる。",
+      "正しい。炭素鋼は、鉄を主成分とし、主な合金元素として炭素を含む鋼であり、マンガン、ケイ素、リン、硫黄などの不純物を少量含むことがある。",
+      "正しい。炭素含有割合による分類では、炭素0.30％以下を低炭素鋼、0.45％以上を高炭素鋼とする整理が用いられる。",
       "正しい。一般に用いられる炭素鋼は引張強さ490MPa未満であり、490MPa以上の高い引張強さをもつ鋼は高張力鋼と呼ばれる。",
-      "正しい。リンは炭素鋼の硬さや引張強さを増す一方、伸びを減少させ、延性からぜい性へ移る遷移温度を高めるため、低温じん性を低下させる。",
+      "正しい。リンは炭素鋼の硬さや引張強さを増す一方、伸びを減少させ、延性からぜい性へ移る遷移温度を高めるため、低温でぜい化しやすくする。",
       "間違い。炭素鋼は、炭素量が増加するに従って一般に引張強さや硬さが増し、伸びは減少する。選択肢は、引張強さは減少し、伸びは増すとしており、実際の傾向と逆である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -460,73 +460,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "materials_engineering",
           "reason": "炭素鋼の定義を問う技術知識であり、法令条文が正誤を直接決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "materials_engineering",
           "reason": "炭素含有量による炭素鋼区分を問う技術知識であり、法令条文が正誤を直接決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "materials_engineering",
           "reason": "高張力鋼の引張強さ区分を問う技術知識であり、法令条文が正誤を直接決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "materials_engineering",
           "reason": "鋼中リンの機械的性質への影響を問う技術知識であり、法令条文が正誤を直接決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "materials_engineering",
           "reason": "炭素量増加に伴う引張強さ・伸びの傾向を問う技術知識であり、法令条文が正誤を直接決める肢ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -547,7 +547,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正解は2です。引張応力σは、引張力Fを原断面積Aで割った値なので、σ=F/A、したがってA=F/σで求めます。200MPaは200×10⁶N/m²=2.0×10⁸N/m²です。よって、A=40000N÷(2.0×10⁸N/m²)=2.0×10⁻⁴m²となります。したがって、最も近い値は2×10⁻⁴m²です。"
+      "正解は2です。引張応力σは、引張力Fを原断面積Aで割った値なので、σ=F/A、したがってA=F/σで求めます。200MPaは200×10⁶N/m²=2.0×10⁸N/m²です。これを代入すると、A=40000N÷(2.0×10⁸N/m²)=2.0×10⁻⁴m²となります。したがって、最も近い値は2×10⁻⁴m²です。ほかの選択肢は、この計算結果と一致しないため該当しません。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -586,7 +586,7 @@
     "reviewQuestionId": "257b036e9e7b298e",
     "sourceRecordRef": "question_2021_2.json#5",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、引張応力 σ=F/A とMPaからN/m²への単位換算で説明する問題。",
+    "lawContextForExplanation": "法令条文ではなく、引張応力 σ=F/A と、MPaをN/m²へ換算して原断面積を求める計算問題。",
     "lawReferences": [
       [],
       [],
@@ -598,68 +598,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "引張試験における応力、荷重、断面積の関係を用いる計算問題であり、選択肢の正誤は法令条文によらない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "A=F/σ=40000/(200×10⁶)=2.0×10⁻⁴m²となり、法令改正の影響を受けない基礎理論の計算である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "2×10⁻⁴m²ではない数値選択肢であり、判定根拠は材料力学の応力式と単位換算である。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "classification": "2×10⁻⁴m²ではない数値選択肢であり、判定根拠は材料力学の応力式と単位換算である。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "classification": "2×10⁻⁴m²ではない数値選択肢であり、判定根拠は材料力学の応力式と単位換算である。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
         "evidenceSummary": {
           "classification": "2×10⁻⁴m²ではない数値選択肢であり、判定根拠は材料力学の応力式と単位換算である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -680,11 +680,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。バイオガスには二酸化炭素や硫化水素などの不要成分や有害成分が含まれるため、都市ガス原料として利用するには、これらを除去して所定のガス品質に整える精製が必要である。",
-      "間違い。天然ガスの液化工程で重質分を除去する主な目的は、重質炭化水素などが低温部で凝縮・固化し、配管や機器の閉塞、運転障害を起こすことを防ぐことである。アルミニウムの腐食防止を目的とする処理ではないため誤りである。",
-      "間違い。LNGポンプのキャビテーションは、吸込側の圧力低下や液温上昇による気化などによって液中に気泡が生じると発生しやすい。選択肢は、発生しやすくなる変化を急激な圧力上昇や温度低下としているため誤りである。",
-      "正しい。配管等を急速にクールダウンすると、配管の下部と上部に大きな温度差が生じ、熱収縮量の違いによってボーイングが発生するおそれがある。そのため、時間をかけて温度差を抑えながら冷却する必要がある。",
-      "正しい。軽質LNGと重質LNGを同一貯槽に受け入れると、密度差によって層状化し、蓄積した熱により上下層が急激に混合するロールオーバーにつながることがある。そのため、層状化を防ぐよう受入方法を注意深く設定する必要がある。"
+      "正しい。バイオガスには二酸化炭素や硫化水素などの不要成分・有害成分が含まれるため、そのままでは都市ガス原料として扱いにくい。都市ガスに利用するには、これらを除去し、発熱量や成分を所定の品質に整える精製が必要である。",
+      "間違い。天然ガスの液化工程で重質分を除去する主な目的は、重質炭化水素などが低温部で凝縮・固化し、配管や機器の閉塞、運転障害を起こすことを防ぐことである。アルミニウムの腐食防止を目的とする処理ではないため、この記述は誤りである。",
+      "間違い。LNGポンプのキャビテーションは、吸込側の圧力低下や液温上昇などにより液中に気泡が発生すると起こりやすい。記述では原因となる変化を急激な圧力上昇や温度低下としているため、発生条件の説明が逆であり誤りである。",
+      "正しい。配管等を急速にクールダウンすると、配管下部と上部の温度差が大きくなり、熱収縮量の違いによってボーイングが発生するおそれがある。そのため、時間をかけて温度差を抑えながら冷却する必要がある。",
+      "正しい。軽質LNGと重質LNGを同一貯槽に受け入れる場合、密度差によって層状化が生じると、後に上下層が急激に混合してロールオーバーにつながることがある。したがって、層状化を防ぐよう受入方法を注意深く設定する必要がある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -708,7 +708,7 @@
     "reviewQuestionId": "18936637c9a688f4",
     "sourceRecordRef": "question_2021_2.json#6",
     "explanationReferences": [],
-    "lawContextForExplanation": "都市ガス原料、天然ガス液化、LNGポンプ、配管のクールダウン、ロールオーバーに関する技術知識で判断する問題であり、法令条文を直接の根拠にする必要はない。",
+    "lawContextForExplanation": "都市ガス原料、天然ガス液化工程、LNGポンプ、配管のクールダウン、異種LNG受入時のロールオーバーに関する技術知識で判断する問題であり、法令条文を直接の根拠にする必要はない。",
     "lawReferences": [
       [],
       [],
@@ -720,68 +720,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "バイオガスは二酸化炭素や硫化水素等を含み、都市ガス利用には精製・品質調整を要するという技術事項で正誤を判断する。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "液化工程の重質分除去は低温部での凝縮・固化や閉塞等の運転障害を防ぐための技術事項であり、アルミニウム腐食防止を目的とする記述は誤り。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "LNGポンプのキャビテーションは吸込圧低下や液温上昇による気泡発生が問題となるため、急激な圧力上昇や温度低下を原因とする記述は誤り。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "クールダウン時の上下温度差による熱収縮差とボーイング防止に関する運転管理上の技術事項。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
           "summary": "異種LNG受入時の密度差による層状化とロールオーバー防止に関する貯槽運用上の技術事項。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -855,74 +855,74 @@
     "suggestedQuestionDetailsByChoice": [],
     "lawRevisionFacts": [
       {
-        "choiceIndex": 0,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        "choiceIndex": 0,
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "常圧断熱式円筒形LNG貯槽の断熱構造に関する技術知識で判定する肢であり、法令改正差分の監査対象外。"
-        }
-      },
-      {
-        "choiceIndex": 1,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
         },
         "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 1,
+        "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "遠心式BOG圧縮機の適用範囲に関する技術知識で判定する肢であり、法令改正差分の監査対象外。"
-        }
-      },
-      {
-        "choiceIndex": 2,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
         },
         "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 2,
+        "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "LNG一次受入基地の気化器方式とランニングコストに関する技術知識で判定する肢であり、法令改正差分の監査対象外。"
-        }
-      },
-      {
-        "choiceIndex": 3,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
         },
         "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 3,
+        "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "逆止弁の形式分類に関する技術知識で判定する肢であり、法令改正差分の監査対象外。"
-        }
-      },
-      {
-        "choiceIndex": 4,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
         },
         "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 4,
+        "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "LNGローリー出荷設備の接続方法に関する技術知識で判定する肢であり、法令改正差分の監査対象外。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -943,11 +943,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。製造設備の制御システムでは、不正アクセスやサイバー攻撃などによるトラブルのリスクを把握し、必要と判断されるセキュリティ対策を講じる必要がある。",
-      "間違い。ファイヤーウォールの設置、不要なUSBポートやLANポートの閉そく、重要機器設置場所への鍵や入退室管理装置の設置は有効な対策である。しかし、脅威や運用状況は変化するため、対策導入後も継続的な確認と見直しが必要であり、一度導入すれば以降の対応が不要になるわけではない。",
-      "正しい。セキュリティ対策では、情報を利用しやすくすることとセキュリティを確保することのバランス、想定される損害と対策レベルのバランスを考慮する必要がある。",
-      "正しい。制御システムの冗長化には、CPU、電源ユニット、通信ネットワークなどを主機系と待機系で備える方法や、制御システム全体を二重化する方法がある。",
-      "正しい。電磁リレーによるシーケンス制御回路方式は、インターロック回路やトリップ回路など、重要な制御系統で利用されている。"
+      "誤っているものは2です。制御システムでは、不正アクセスなどによるトラブルのリスクを把握し、必要なセキュリティ対策を行う必要があります。ただし、ファイヤーウォールの設置、不要なUSBポートやLANポートの閉そく、重要機器設置場所の施錠・入退室管理などは、一度導入すれば終わりではありません。脅威や設備構成、運用状況は変化するため、導入後も継続的な確認、運用、見直しが必要です。したがって、以降の対応は不要であるとする2が誤りです。3のように、情報の利用促進とセキュリティ確保、想定損害と対策レベルのバランスを考えることは適切です。また、4のCPU・電源ユニット・通信ネットワークや制御システム全体の二重化は信頼性を高める冗長化の方法であり、5の電磁リレーによるシーケンス制御回路方式もインターロック回路やトリップ回路など重要な制御系統で用いられます。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -993,72 +989,72 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令条文ではなく、制御システムのセキュリティ対策、継続的な見直し、冗長化、電磁リレーによるシーケンス制御に関する技術・運用知識で正誤を判断する問題。解説工程では法令根拠を不要として扱う。",
+    "lawContextForExplanation": "法令条文ではなく、製造設備の制御システムにおけるセキュリティ対策の継続的運用、信頼性向上のための冗長化、電磁リレーによるシーケンス制御に関する技術・運用知識で正誤を判断する問題。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "制御システムへの不正アクセス等のリスクを把握し、必要なセキュリティ対策を行うことは、制御システムの技術・運用上の一般的な対策として妥当である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "basis": "制御システムへの不正アクセス等のリスク把握と必要な対策実施を問う技術・運用知識で判断できる。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
+        "evidenceSummary": {
+          "basis": "セキュリティ対策は一度導入すれば終了するものではなく、脅威や設備構成、運用状況の変化に応じて継続的な確認と見直しが必要である。"
+        },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "basis": "セキュリティ対策は一度導入すれば終わりではなく、脅威や運用状況に応じた継続的な確認・見直しが必要である。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "情報の利用促進とセキュリティ確保、想定される損害と対策レベルの均衡は、制御システムのセキュリティ対策で考慮すべき技術・運用上の観点である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "basis": "情報の利用促進とセキュリティ確保、想定損害と対策レベルの均衡は制御システムのセキュリティ対策に関する一般的な技術・運用上の考慮事項である。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "CPU、電源ユニット、通信ネットワークの主機系・待機系構成や制御システム全体の二重化は、信頼性を高める冗長化の方法である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "basis": "CPU、電源ユニット、通信ネットワークの主機系・待機系構成やシステム全体の二重化は、制御システムの信頼性を高める冗長化の方法である。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "電磁リレーによるシーケンス制御回路方式は、インターロック回路やトリップ回路など重要な制御系統で利用される方式である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "basis": "電磁リレーによるシーケンス制御回路方式は、インターロック回路やトリップ回路など重要な制御系統で用いられる技術事項である。"
-        }
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -1079,10 +1075,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "間違い。導管中でガス温度が露点域になると、LPGなどの高発熱量成分が液化してガス相から失われ、導管の閉そくなども生じ得る。残ったガスの発熱量は低下するため、増加するとした記述は誤りである。",
-      "正しい。ガス事業法施行規則の成分検査方法では、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。",
-      "正しい。ガスクロマトグラフの水素炎イオン化検出器（FID）は、有機化合物の多くを高感度に検出できる。",
-      "正しい。イオンクロマトグラフ法は、特殊成分の分析方法として全硫黄及びアンモニアの分析に使用できる。",
+      "間違い。導管中のガス温度が露点域に入ると、LPGなどの高発熱量成分が液化してガス相から減少し、導管の閉そくなども起こり得る。残るガスの発熱量は低下する方向になるため、発熱量が増加するとした部分が誤りである。",
+      "正しい。ガス事業法施行規則の成分検査方法では、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。したがって、設問のガスは特殊成分検査を免除される。",
+      "正しい。水素炎イオン化検出器（FID）は、ガスクロマトグラフで用いられる検出器で、有機化合物の多くを高感度に検出できる。",
+      "正しい。イオンクロマトグラフ法は、特殊成分の分析方法として、全硫黄及びアンモニアの分析に使用できる。",
       "間違い。ガスクロマトグラフでは、固定相への溶解性や吸着性が強い成分ほど固定相に長く保持され、移動速度は遅くなる。選択肢は移動速度が速くなるとしているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -1107,66 +1103,66 @@
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 1,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
           "article": "23",
           "articleTitle": "ガスの成分の検査義務",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
-          "relation": "enabling_basis_for_retail_gas_component_inspection"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 1,
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "22",
-          "articleTitle": "成分の検査方法",
-          "paragraph": "1",
-          "item": "一",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
-          "relation": "direct_exclusion_basis_for_natural_gas_lpg_and_air_mixed_gas"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
           "choiceIndex": 1,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "article": "63",
-          "articleTitle": "ガスの成分の検査義務",
           "paragraph": "1",
           "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=63",
-          "relation": "parallel_enabling_basis_for_general_gas_pipeline_component_inspection"
-        },
-        {
+          "relation": "enabling_basis_for_retail_gas_component_inspection",
           "role": "current_basis",
           "scope": "choice",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "22",
+          "articleTitle": "成分の検査方法",
           "choiceIndex": 1,
+          "item": "一",
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "relation": "direct_exclusion_basis_for_natural_gas_lpg_and_air_mixed_gas",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "63",
+          "articleTitle": "ガスの成分の検査義務",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "relation": "parallel_enabling_basis_for_general_gas_pipeline_component_inspection",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=63",
+          "verificationStatus": "verified"
+        },
+        {
           "article": "90",
           "articleTitle": "成分の検査方法",
-          "paragraph": "1",
+          "choiceIndex": 1,
           "item": "一",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "paragraph": "1",
           "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
+          "relation": "parallel_direct_exclusion_basis_for_general_gas_pipeline_component_inspection",
+          "role": "current_basis",
+          "scope": "choice",
           "source": "egov_xml",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=90",
-          "relation": "parallel_direct_exclusion_basis_for_general_gas_pipeline_component_inspection"
+          "verificationStatus": "verified"
         }
       ],
       [],
@@ -1175,199 +1171,149 @@
     ],
     "lawRevisionFacts": [
       {
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T20:59:53+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
-        "reconciliationStatus": "reconciled",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice1",
+        "answerImpactFacts": [
+          "既存の正誤は出典の選択肢別判定と整合する。"
+        ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "LPGなどの高発熱量成分が液化してガス相から失われると、残ったガスの発熱量は低下するため、この記述は誤りである。",
+          "promptContext": "熱量調整の技術知識として説明する。",
+          "refs": [],
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_2021_otsu_source_choice_correctness"
         },
-        "differenceFacts": [],
-        "notes": [
-          "LPG等の液化による発熱量変化と導管閉そくを問う技術知識であり、条文適合性の直接判断ではない。"
-        ],
-        "answerImpactFacts": [
-          "既存の正誤は出典の選択肢別判定と整合する。"
-        ],
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "LPGなどの高発熱量成分が液化してガス相から失われると、残ったガスの発熱量は低下するため、この記述は誤りである。",
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "熱量調整の技術知識として説明する。",
-          "displayRefIds": [],
-          "refs": []
-        }
+        "reviewState": "secondary_verified"
       },
       {
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T20:59:53+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
-        "reconciliationStatus": "reconciled",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice2",
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "article": "22",
-          "paragraph": "1",
-          "item": "一",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_2021_otsu_source_choice_correctness"
-        },
-        "differenceFacts": [],
-        "notes": [
-          "成分検査対象からの除外は、現行施行規則第22条第1項第1号及び第90条第1項第1号で確認できる。"
-        ],
         "answerImpactFacts": [
           "現行法令は既存の正誤判定と一致する。"
         ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "article": "22",
+          "correctChoiceText": "正しい",
+          "item": "一",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "天然ガス又はプロパン等を主成分とするガス等は、現行施行規則により成分検査の対象から除かれる。",
           "differenceSummary": "現行法令では正誤・解説の変更を要しない。",
-          "promptContext": "施行規則第22条及び第90条の検査対象除外に基づいて説明する。",
           "displayRefIds": [
             "current:345M50000400097:22:1:一",
             "current:345M50000400097:90:1:一"
           ],
+          "explanationText": "天然ガス又はプロパン等を主成分とするガス等は、現行施行規則により成分検査の対象から除かれる。",
+          "promptContext": "施行規則第22条及び第90条の検査対象除外に基づいて説明する。",
           "refs": [
             {
-              "refId": "current:345M50000400097:22:1:一",
-              "lawTimeScope": "current",
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
               "article": "22",
+              "item": "一",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
               "paragraph": "1",
-              "item": "一"
+              "refId": "current:345M50000400097:22:1:一"
             },
             {
-              "refId": "current:345M50000400097:90:1:一",
-              "lawTimeScope": "current",
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
               "article": "90",
+              "item": "一",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
               "paragraph": "1",
-              "item": "一"
+              "refId": "current:345M50000400097:90:1:一"
             }
-          ]
-        }
-      },
-      {
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T20:59:53+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
-        "reconciliationStatus": "reconciled",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice3",
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
+          ],
+          "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_2021_otsu_source_choice_correctness"
         },
-        "differenceFacts": [],
-        "notes": [
-          "FIDの検出特性は分析技術上の知識であり、条文適合性の直接判断ではない。"
-        ],
+        "reviewState": "secondary_verified"
+      },
+      {
         "answerImpactFacts": [
           "既存の正誤は出典の選択肢別判定と整合する。"
         ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
         "evidenceSummary": {
-          "verdict": "not_law_related",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "displayRefIds": [],
           "explanationText": "FIDは有機化合物の多くを高感度に検出できるため、この記述は正しい。",
-          "differenceSummary": "法令改正差分の評価対象外。",
           "promptContext": "分析技術の知識として説明する。",
-          "displayRefIds": [],
-          "refs": []
-        }
-      },
-      {
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T20:59:53+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
-        "reconciliationStatus": "reconciled",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice4",
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
+          "refs": [],
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_2021_otsu_source_choice_correctness"
         },
-        "differenceFacts": [],
-        "notes": [
-          "イオンクロマトグラフ法の用途は分析技術上の知識であり、今回の法令条文を直接根拠としない。"
-        ],
+        "reviewState": "secondary_verified"
+      },
+      {
         "answerImpactFacts": [
           "既存の正誤は出典の選択肢別判定と整合する。"
         ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
         "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "イオンクロマトグラフ法は全硫黄及びアンモニアの分析に使用できるため、この記述は正しい。",
           "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "分析技術の知識として説明する。",
           "displayRefIds": [],
-          "refs": []
-        }
+          "explanationText": "イオンクロマトグラフ法は全硫黄及びアンモニアの分析に使用できるため、この記述は正しい。",
+          "promptContext": "分析技術の知識として説明する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T20:59:53+09:00",
-        "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
-        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
-        "reconciliationStatus": "reconciled",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice5",
+        "answerImpactFacts": [
+          "既存の正誤は出典の選択肢別判定と整合する。"
+        ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "固定相への溶解性や吸着性が強い成分ほど移動速度は遅くなるため、速くなるとした記述は誤りである。",
+          "promptContext": "固定相への保持と移動速度の関係を明示する。",
+          "refs": [],
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_2021_otsu_source_choice_correctness"
         },
-        "differenceFacts": [],
-        "notes": [
-          "固定相への溶解性・吸着性と移動速度の関係は分析技術上の知識であり、条文適合性の直接判断ではない。"
-        ],
-        "answerImpactFacts": [
-          "既存の正誤は出典の選択肢別判定と整合する。"
-        ],
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "explanationText": "固定相への溶解性や吸着性が強い成分ほど移動速度は遅くなるため、速くなるとした記述は誤りである。",
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "固定相への保持と移動速度の関係を明示する。",
-          "displayRefIds": [],
-          "refs": []
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "sourceQuestionKey": "gas-shunin:otsu:2021:seizo:q04",
@@ -1376,19 +1322,19 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "ガス事業法施行規則第22条（成分の検査方法）",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+        "choiceIndex": 1,
         "referenceDate": "2026-07-09",
-        "choiceIndex": 1
+        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+        "title": "ガス事業法施行規則第22条（成分の検査方法）"
       },
       {
-        "title": "ガス事業法施行規則第90条（成分の検査方法）",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=90",
+        "choiceIndex": 1,
         "referenceDate": "2026-07-09",
-        "choiceIndex": 1
+        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=90",
+        "title": "ガス事業法施行規則第90条（成分の検査方法）"
       }
     ],
-    "lawContextForExplanation": "選択肢2は、ガス事業法第23条・第63条の成分検査義務と、ガス事業法施行規則第22条第1項第1号・第90条第1項第1号の検査対象除外に関係する。天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは検査対象から除かれる。選択肢1・3・4・5は技術知識により判断する。"
+    "lawContextForExplanation": "選択肢2は、ガス事業法の成分検査義務と、ガス事業法施行規則第22条第1項第1号・第90条第1項第1号の検査対象除外に関係する。天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、特殊成分検査の対象から除かれる。選択肢1・3・4・5は熱量調整又は分析方法の技術知識であり、条文根拠を付けない。"
   },
   {
     "original_question_id": "47c7a0b88120d757",
@@ -1407,10 +1353,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。付臭剤貯蔵タンクや注入装置などの付臭設備は、付臭剤の臭気が周囲へ漏えい・拡散しにくいよう、密閉性のある室内に設置することが望ましい。さらに室内をやや負圧に保ち、換気で吸引した空気を活性炭などで脱臭して排出するため、この記述は正しい。",
+      "正しい。付臭剤貯蔵タンクや注入装置などの付臭設備は、付臭剤の臭気が周囲へ漏えい・拡散しにくいよう、密閉性のある室内に設置することが望ましい。また、室内をやや負圧に保ち、換気で吸引した空気を活性炭などで脱臭してから排出するため、この記述は正しい。",
       "正しい。FPD付ガスクロマトグラフ法は硫黄化合物の検出に適した分析方法であり、テトラヒドロチオフェン（THT）、ターシャリーブチルメルカプタン（TBM）、ジメチルスルフィド（DMS）などの有機硫黄化合物である付臭剤成分を測定できる。したがって、この記述は正しい。",
       "間違い。パネル法は、適正に選定された臭気判定者により、においの有無を判定してガスの臭気濃度を求める方法である。ただし、判定者は3名以上ではなく通常4名以上とされるため、この記述は間違い。",
-      "間違い。付臭剤は、極めて低い濃度でも特有の臭気が分かることに加え、臭気に慣れて発見が遅れないよう嗅覚疲労を起こしにくいことが必要である。嗅覚疲労を起こしやすいとしているため、この記述は間違い。",
+      "間違い。付臭剤は、極めて低い濃度でも特有の臭気が分かることに加え、臭気に慣れて漏えいの発見が遅れないよう、嗅覚疲労を起こしにくいことが必要である。嗅覚疲労を起こしやすいとしているため、この記述は間違い。",
       "正しい。手動式滴下注入方式や蒸発方式は、ガス流量の変動が少ない場合に付臭量を管理しやすく、小規模な付臭に用いられる方式である。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -1457,7 +1403,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "都市ガスの付臭設備、付臭剤成分の分析方法、パネル法、付臭剤の必要性質及び付臭方式に関する技術知識を根拠に解説する。法令条文を直接根拠として説明する必要はない。",
+    "lawContextForExplanation": "都市ガスの付臭設備、付臭剤成分の測定法、パネル法、付臭剤の性質及び付臭方式に関する技術的知識を根拠に解説する。法令条文を直接根拠として説明する必要はない。",
     "lawRevisionFacts": []
   },
   {
@@ -1477,11 +1423,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。可燃性ガス又は液化ガスを通ずるガス工作物は、ボイラーなど火気を取り扱う設備との間に保安上必要な距離を確保する必要がある。この基準はガス工作物の技術上の基準を定める省令第11条に定められている。",
-      "正しい。遮断装置には、誤操作を防止し、かつ必要なときに確実に操作できる措置を講じる必要がある。この基準はガス工作物の技術上の基準を定める省令第20条第1項に定められている。",
-      "間違い。気化装置で求められるのは、液化ガスが液体のまま気化装置の先へ流出することを防止する措置である。逆向きの流れを防ぐ逆流防止装置の設置を求める記述ではないため誤りであり、この基準はガス工作物の技術上の基準を定める省令第31条第3項に定められている。",
-      "正しい。フレアースタックは、放出ガスの燃焼で生じるふく射熱が周囲に障害を与えないよう、適切な措置を講じる必要がある。この基準はガス工作物の技術上の基準を定める省令第13条第3項に定められている。",
-      "正しい。ガスホルダーや液化ガス用貯槽の送出し又は受入れに用いる配管には、漏えい時の災害防止のため、ガス又は液化ガスの流出・流入を速やかに遮断できる適切な装置を設ける必要がある。ガスホルダーはガス工作物の技術上の基準を定める省令第33条第1項、液化ガス用貯槽は同省令第36条第1項に定められている。"
+      "正しい。可燃性のガス又は液化ガスを通ずるガス工作物は、ボイラーなど火気を取り扱う設備との間に保安上必要な距離を確保しなければならない。この基準は、ガス工作物の技術上の基準を定める省令第11条に定められている。",
+      "正しい。製造所、供給所又は移動式ガス発生設備に設置する遮断装置には、誤操作を防止し、かつ確実に操作できる措置を講じる必要がある。この基準は、ガス工作物の技術上の基準を定める省令第20条第1項に定められている。",
+      "間違い。気化装置について求められるのは、液化ガスが液体のまま気化装置から先へ流出することを防止するための措置である。逆向きの流れを防ぐ逆流防止装置の設置を求める規定ではないため、この記述は誤りである。この基準は、ガス工作物の技術上の基準を定める省令第31条第3項に定められている。",
+      "正しい。フレアースタックは、そこで発生するふく射熱が周囲に障害を与えないよう、適切な措置を講じる必要がある。この基準は、ガス工作物の技術上の基準を定める省令第13条第3項に定められている。",
+      "正しい。ガスホルダーや液化ガス用貯槽のガス又は液化ガスを送り出し、又は受け入れるための配管には、漏えい時の災害防止のため、ガス又は液化ガスの流出・流入を遮断できる適切な装置を設ける必要がある。ガスホルダーについてはガス工作物の技術上の基準を定める省令第33条第1項、液化ガス用貯槽については同省令第36条第1項に定められている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1507,160 +1453,160 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "ガス工作物の技術上の基準を定める省令",
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-        "referenceDate": "2026-07-25"
+        "title": "ガス工作物の技術上の基準を定める省令"
       }
     ],
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "11",
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "referenceDate": "2026-07-27",
-          "article": "11",
-          "verificationStatus": "verified",
-          "source": "egov_law"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "20",
           "choiceIndex": 1,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "20",
           "paragraph": "1",
-          "verificationStatus": "verified",
-          "source": "egov_law"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "31",
           "choiceIndex": 2,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "31",
           "paragraph": "3",
-          "verificationStatus": "verified",
-          "source": "egov_law"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "13",
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "13",
           "paragraph": "3",
-          "verificationStatus": "verified",
-          "source": "egov_law"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "33",
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "33",
           "paragraph": "1",
-          "verificationStatus": "verified",
-          "source": "egov_law"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "36",
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "36",
           "paragraph": "1",
-          "verificationStatus": "verified",
-          "source": "egov_law"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第11条、第20条第1項、第31条第3項、第13条第3項、第33条第1項、第36条第1項を根拠に、火気設備との距離、遮断装置、気化装置、フレアースタック、ガスホルダー等の配管の遮断装置を確認する。選択肢3は、同省令第31条第3項が求める液体流出防止措置を逆流防止装置とする点が誤り。",
+    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第11条、第20条第1項、第31条第3項、第13条第3項、第33条第1項、第36条第1項を根拠に、火気設備との距離、遮断装置、気化装置、フレアースタック、ガスホルダー等の配管の遮断装置を確認する。選択肢3は、同省令第31条第3項が求める液体流出防止措置を逆流防止装置の設置とする点が誤り。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "現行のガス工作物の技術上の基準を定める省令第11条に照らし、可燃性ガス又は液化ガスを通ずるガス工作物と火気設備との距離を確保する記述は正しい。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "現行のガス工作物の技術上の基準を定める省令第20条第1項に照らし、遮断装置に誤操作防止及び確実操作の措置を求める記述は正しい。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "現行のガス工作物の技術上の基準を定める省令第31条第3項が求めるのは液化ガスが液体のまま流出することを防止する措置であり、逆流防止装置の設置とする記述は誤り。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "現行のガス工作物の技術上の基準を定める省令第13条第3項に照らし、フレアースタックのふく射熱による障害防止措置を求める記述は正しい。"
-        }
-      },
-      {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
           "summary": "現行のガス工作物の技術上の基準を定める省令第33条第1項及び第36条第1項に照らし、ガスホルダーや液化ガス用貯槽の送出・受入配管に遮断のための適切な装置を設ける記述は正しい。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -1681,11 +1627,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。LNGローリーによる供給は気象条件や交通事情の影響を受けるため、輸送が滞った場合にも供給を継続できるよう、LNG在庫の確保や出荷元の複数化などを事前に講じることが望ましい。",
-      "間違い。LNGサテライト基地のLNG熱量は、出荷元の熱量だけで一意に決まるものではなく、貯槽内でのボイルオフに伴う濃縮などによっても変動する。したがって、熱量管理で貯槽内濃縮に留意しなくてもよいとしているため誤りである。",
-      "正しい。製造能力に関係する設備を定期修理で停止する際は、ガス製造計画と設備稼働計画を踏まえ、需要のピーク時にも最大必要能力を確保できるよう修理時期や対象設備を計画する必要がある。",
-      "正しい。ここでいう「あらかじめ確認」とは、対象となる溶接を行う前に、溶接施工法と溶接士技能が技術基準に適合するものかを確認することである。ガス製造事業では、ガス主任技術者によるガス工作物の工事・維持・運用に関する保安監督の下で行われる確認として位置付けられる。",
-      "間違い。地震時に設備へ異常が発生しても安全性を確保することは安全設計の内容であり、防災設計は異常による被害の波及や拡大を防止する観点の設計である。設問は安全設計の内容を防災設計の説明としているため誤りである。"
+      "正しい。LNGローリーによる供給は、気象条件や交通事情によって遅延・停止するおそれがある。そのため、不測の事態でも供給を継続できるよう、LNG在庫の確保、出荷元の複数化、代替輸送手段の検討などを事前に講じておくことが望ましい。",
+      "間違い。LNGサテライト基地のLNG熱量は、出荷元の熱量だけで決まるものではない。貯槽内ではボイルオフガスの発生などによりLNG成分が濃縮し、熱量が変動することがあるため、熱量管理では貯槽内濃縮にも留意する必要がある。",
+      "正しい。ガス製造能力に関係する設備の定期修理では、停止する設備と時期によって供給能力が不足しないように計画する必要がある。したがって、ガス製造計画や製造設備稼働計画をもとに、需要ピーク時の最大必要能力を確保できるよう修理計画を策定する。",
+      "正しい。ここでいう「あらかじめ確認」とは、対象となる溶接を行う前に、溶接施工法と溶接士技能が技術基準に適合するかを確認することである。ガス主任技術者は、ガス工作物の工事・維持・運用に関する保安監督を行う立場にあり、この確認を保安上の管理として位置付けて行う。",
+      "間違い。地震時に設備へ異常が発生しても安全性を確保できるようにすることは、安全設計の内容である。防災設計は、異常が生じた場合の被害の波及や拡大を防止する観点の設計であるため、設問は安全設計の内容を防災設計として説明しており誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -1725,48 +1671,48 @@
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "16",
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-09",
-          "article": "16",
-          "verificationStatus": "verified",
-          "source": "egov_xml"
-        },
-        {
+          "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "52",
           "choiceIndex": 3,
           "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-09",
-          "article": "52",
-          "verificationStatus": "verified",
-          "source": "meti_pdf_excerpt"
-        },
-        {
+          "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
+          "source": "meti_pdf_excerpt",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "98",
           "choiceIndex": 3,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "article": "98",
-          "verificationStatus": "verified",
-          "source": "egov_xml"
-        },
-        {
+          "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "検査項目4",
           "choiceIndex": 3,
           "lawId": "METI_GAS_PRE_USE_SELF_INSPECTION_GUIDE",
           "lawTitle": "ガス工作物使用前自主検査要領",
-          "referenceDate": "2026-07-09",
-          "article": "検査項目4",
-          "verificationStatus": "verified",
-          "source": "meti_pdf_excerpt"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "meti_pdf_excerpt",
+          "verificationStatus": "verified"
         }
       ],
       []
@@ -1774,78 +1720,78 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "LNGローリー運行時の供給継続対策に関する実務・技術知識として説明する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "LNGローリー運行時の供給継続対策に関する実務・技術知識として説明する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "LNG貯槽内の濃縮を含む熱量管理の技術知識として説明する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "LNG貯槽内の濃縮を含む熱量管理の技術知識として説明する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "定期修理時にもピーク時の最大必要能力を確保する運用計画として説明する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "定期修理時にもピーク時の最大必要能力を確保する運用計画として説明する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "現行の省令、解釈例、ガス事業法及び使用前自主検査要領の確認範囲で正誤判断に変更はない。",
+          "promptContext": "溶接施工法・溶接士技能の事前確認と、ガス主任技術者の保安監督上の位置付けを区別して説明する。",
+          "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "verdict": "correct",
-          "differenceSummary": "現行の省令、解釈例、ガス事業法及び使用前自主検査要領の確認範囲で正誤判断に変更はない。",
-          "promptContext": "溶接施工法・溶接士技能の事前確認と、ガス主任技術者の保安監督上の位置付けを区別して説明する。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "安全設計と防災設計の役割の違いを示す耐震設計上の技術知識として説明する。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "verdict": "not_law_related",
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "promptContext": "安全設計と防災設計の役割の違いを示す耐震設計上の技術知識として説明する。"
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "sourceQuestionKey": "gas-shunin:otsu:2021:seizo:q07",
@@ -1854,31 +1800,31 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "ガス工作物の技術上の基準を定める省令 第16条（溶接部分）",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
-        "referenceDate": "2026-07-09",
-        "choiceIndex": 3
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+        "title": "ガス工作物の技術上の基準を定める省令 第16条（溶接部分）"
       },
       {
-        "title": "ガス工作物技術基準の解釈例 第52条（溶接一般）",
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-        "referenceDate": "2026-07-09",
-        "choiceIndex": 3
+        "title": "ガス工作物技術基準の解釈例 第52条（溶接一般）"
       },
       {
-        "title": "ガス事業法 第98条（ガス主任技術者）",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
-        "referenceDate": "2026-07-09",
-        "choiceIndex": 3
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+        "title": "ガス事業法 第98条（ガス主任技術者）"
       },
       {
-        "title": "ガス工作物使用前自主検査要領 検査項目4（溶接部分）",
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/shiyoumaekensayouryou.pdf",
-        "referenceDate": "2026-07-09",
-        "choiceIndex": 3
+        "title": "ガス工作物使用前自主検査要領 検査項目4（溶接部分）"
       }
     ],
-    "lawContextForExplanation": "選択肢1・2・3・5は製造設備の運用・熱量管理・修理計画・耐震設計に関する技術知識として説明する。選択肢4は、ガス工作物技術基準省令第16条第2項と解釈例第52条第3項第1号による溶接施工法・溶接士技能の事前確認を、ガス事業法第98条第1項によるガス主任技術者の保安監督上の位置付けと区別して説明する。"
+    "lawContextForExplanation": "本問は製造設備の建設及び操業に関する正誤問題である。LNGローリー運行、LNGサテライト基地の熱量管理、定期修理計画、耐震設計は実務・技術知識として扱い、条文根拠を付けない。選択肢4の「あらかじめ確認」は、ガス工作物技術基準省令第16条、ガス工作物技術基準の解釈例第52条、ガス事業法第98条、ガス工作物使用前自主検査要領の検査項目4を根拠に、溶接施工法・溶接士技能の事前確認とガス主任技術者の保安監督上の位置付けを区別して説明する。"
   },
   {
     "original_question_id": "02e67656848d240a",
@@ -1954,68 +1900,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "異種金属接触腐食の機構に関する工学的記述であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "応力集中と疲労強度の関係に関する材料力学上の知識問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "キャビテーションエロージョンの現象名と内容に関する工学的知識問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "浸透探傷試験の適用対象に関する非破壊試験の知識問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "ステンレス鋼のすきま腐食と不動態皮膜破壊に関する腐食工学の知識問題であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -2037,10 +1983,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。LNG、LPGは硫黄分や窒素分をほとんど含まないため、都市ガスの製造段階で大気環境に負荷を与えるSOx（硫黄酸化物）やNOx（窒素酸化物）の発生は少ない。",
-      "正しい。LNGを気化するときに得られる冷熱の一部は、ガス送出圧力エネルギーとして回収される。残りの未利用冷熱についても、空気分離などへの利用が工夫されている。",
-      "間違い。調節弁による流量制御方式は設備投資を抑えやすいが、流量を絞ると圧力エネルギーが弁で失われるため、動力損失は大きくなる。",
-      "間違い。メタンを主成分とする天然ガスは、石炭や石油に比べて炭素原子の割合が小さく水素原子の割合が大きいため、燃焼時の二酸化炭素排出量が少ない。",
+      "正しい。LNG、LPGは硫黄分や窒素分をほとんど含まないため、都市ガスの製造段階で大気環境に負荷を与えるSOx（硫黄酸化物）やNOx（窒素酸化物）の発生はほとんどない。",
+      "正しい。一般に、LNG冷熱の40～50%はガス送出圧力エネルギーとして回収され、残りの未利用冷熱についても空気分離などへの利用が工夫されている。",
+      "間違い。調節弁による流量制御方式は設備投資を抑えやすいが、流量を絞ると圧力エネルギーが調節弁で失われるため、動力損失は大きくなる。",
+      "間違い。メタンを主成分とする天然ガスは、石炭や石油に比べて分子中の炭素原子の割合が小さく、水素原子の割合が大きいため、燃焼時の二酸化炭素排出量が少ない。",
       "正しい。COD（化学的酸素要求量）は、水中の有機物などを酸化剤で酸化分解するときに消費される酸化剤の量を、酸素量に換算して表した水質指標である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -2095,73 +2041,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "reason": "LNG、LPGの硫黄分・窒素分とSOx、NOx発生に関する都市ガス製造の環境技術知識であり、個別法令条文で正誤を決める記述ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "reason": "LNG冷熱の圧力エネルギー回収と未利用冷熱利用に関する製造技術知識であり、個別法令条文で正誤を決める記述ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "reason": "調節弁で流量を絞る際の圧力損失・動力損失に関する設備運用知識であり、個別法令条文で正誤を決める記述ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "reason": "天然ガスの炭素原子割合と燃焼時CO2排出量に関する燃料性状の知識であり、個別法令条文で正誤を決める記述ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "reason": "CODの定義に関する水質指標の一般技術知識であり、個別法令条文で正誤を決める記述ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -2182,7 +2128,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "基準状態では、延長200mの導管ABに200m³/hを流したとき、A点2.3kPa、B点2.1kPaなので圧力損失は0.2kPaである。低圧導管の圧力損失は、同じ口径であれば導管延長に比例し、流量の2乗に比例するとみなせる。変更後はC点でも200m³/hを供給するため、A-C間にはB点分とC点分を合わせた400m³/hが流れ、C-B間にはB点分の200m³/hが流れる。したがってA-C間の損失は0.2×(100/200)×(400/200)²=0.4kPa、C-B間の損失は0.2×(100/200)×(200/200)²=0.1kPaである。全損失は0.4+0.1=0.5kPaとなるので、B点の圧力は2.3−0.5=1.8kPaであり、最も近い値は1.8である。"
+      "基準状態では、延長200mの導管ABに200m³/hを流したとき、A点の圧力が2.3kPa、B点の圧力が2.1kPaなので、導管全体の圧力損失は0.2kPaである。低圧導管では、同じ口径であれば圧力損失は導管延長に比例し、流量の2乗に比例するとみなして計算する。変更後は中間点Cでも200m³/hを供給するため、A-C間にはB点分200m³/hとC点分200m³/hを合わせた400m³/hが流れ、C-B間にはB点分の200m³/hだけが流れる。したがって、A-C間の損失は0.2×(100/200)×(400/200)²=0.4kPa、C-B間の損失は0.2×(100/200)×(200/200)²=0.1kPaである。全損失は0.4+0.1=0.5kPaとなるので、B点の圧力は2.3−0.5=1.8kPaとなり、最も近い値は1.8である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -2224,7 +2170,7 @@
     "reviewQuestionId": "fdd4c8497660630e",
     "sourceRecordRef": "question_2021_2.json#15",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、低圧導管の圧力損失が導管延長に比例し、流量の2乗に比例する関係を用いて解く計算問題。",
+    "lawContextForExplanation": "法令条文ではなく、低圧導管の圧力損失が同一口径では導管延長と流量の2乗に比例する関係を用いて解く計算問題。",
     "lawReferences": [
       [],
       [],
@@ -2252,11 +2198,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。パイロット式整圧器は、作動に必要な一次圧力と二次圧力の差圧が一定以上確保されていないと、パイロット機構を正常に働かせることができない。",
-      "正しい。負荷変動が大きい場所では、流量の変化に対して二次圧力を速やかに安定させる必要があるため、整圧器の応答性や安定性を表す動特性が重要となる。",
-      "正しい。流量特性線図は、整圧器を流れるガスの流量とメインバルブ開度（ストローク）との関係を表したものである。",
-      "正しい。圧力上昇防止装置は、整圧器の故障などによって二次側圧力が異常に上昇することを防ぐために用いられる。",
-      "間違い。基準とした流量から流量が増大したとき、二次圧力が基準状態の圧力より低下するずれはオフセットという。シフトは同じ流量における二次圧力の設定状態が全体として移動することを指すため、この記述は誤りである。"
+      "正しい。パイロット式整圧器は、一次圧力と二次圧力の差圧を利用してパイロット機構を働かせるため、必要な差圧が一定以上確保されないと正常に作動できなくなる。",
+      "正しい。負荷変動が大きい場所では、流量変化に対して二次圧力を速やかに安定させる必要があるため、整圧器の応答性や安定性を示す動特性が重要となる。",
+      "正しい。流量特性線図は、整圧器を流れるガスの流量とメインバルブ開度（ストローク）との関係を示す線図である。",
+      "正しい。圧力上昇防止装置は、整圧器の故障などにより二次側圧力が異常に上昇することを防ぐために設けられる。",
+      "間違い。特定の流量時の二次圧力を基準状態とした場合、流量が増大するにつれて二次圧力が基準状態より低下するずれはオフセットという。シフトは同一流量における二次圧力の設定状態が全体として移動することを指すため、この記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2280,7 +2226,7 @@
     "reviewQuestionId": "6e14962c3ffd1481",
     "sourceRecordRef": "question_2021_2.json#16",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、整圧器の作動差圧、動特性、流量特性線図、圧力上昇防止装置、オフセットとシフトの違いなどの機器知識を根拠として説明する問題。",
+    "lawContextForExplanation": "法令条文ではなく、整圧器の作動差圧、動特性、流量特性線図、圧力上昇防止装置、オフセットとシフトの違いといった機器知識を根拠として説明する問題。",
     "lawReferences": [
       [],
       [],
@@ -2311,7 +2257,7 @@
       "間違い。回転子式ガスメーターは、回転子で一定容積のガスを繰り返し区切り、その回転数から通過した体積を積算する方式である。流量を推測して計量する方式ではないため誤りである。",
       "正しい。計量法施行令では、検定対象となるガスメーターを、原則として口径250mm以下のものと定めている。したがって、口径が250mmを超えるガスメーターは検定対象外となる。",
       "間違い。オリフィス式ガスメーターは、オリフィス前後に生じる圧力差を測定し、その差から流量を求める推量式である。一定容積を直接積算する容積式ではないため誤りである。",
-      "間違い。計量法施行令では、検定対象ガスメーターのうち、使用最大流量などが一定範囲を超えるものの検定証印等の有効期間を7年としている。使用最大流量が25m³/hのガスメーターは10年ではないため誤りである。",
+      "間違い。計量法施行令では、検定対象ガスメーターのうち、使用最大流量が一定範囲を超えるものの検定証印等の有効期間を7年としている。使用最大流量が25m³/hのガスメーターは10年ではないため誤りである。",
       "間違い。マイコンメーターは、少量のガスが30日間連続して流れた場合、内管の微小な漏れや口火の長期使用の可能性を警報表示する。この機能によって直ちにガスを遮断するわけではないため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -2352,63 +2298,53 @@
     "sourceRecordRef": "question_2021_2.json#17",
     "explanationReferences": [
       {
-        "title": "計量法施行令",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/405CO0000000329",
+        "choiceIndex": 1,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 1
+        "sourceUrl": "https://laws.e-gov.go.jp/law/405CO0000000329",
+        "title": "計量法施行令"
       },
       {
-        "title": "計量法施行令",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/405CO0000000329",
+        "choiceIndex": 3,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 3
+        "sourceUrl": "https://laws.e-gov.go.jp/law/405CO0000000329",
+        "title": "計量法施行令"
       }
     ],
-    "lawContextForExplanation": "選択肢2は、計量法施行令が検定対象となるガスメーターの範囲を口径で定めていることを根拠にする。選択肢4は、同令が検定証印等の有効期間を使用最大流量等に応じて定めていることを根拠にする。その他の選択肢は、ガスメーターの計量方式やマイコンメーターの警報・遮断機能に関する技術知識で説明する。",
+    "lawContextForExplanation": "選択肢2は、計量法施行令が検定対象となるガスメーターの範囲を口径で定めていることを根拠にする。選択肢4は、同令が検定証印等の有効期間を使用最大流量に応じて定めていることを根拠にする。その他の選択肢は、ガスメーターの計量方式やマイコンメーターの機能に関する技術知識で説明する。",
     "lawReferences": [
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第2条第1項第5号イ(5)",
           "choiceIndex": 1,
           "lawId": "405CO0000000329",
           "lawTitle": "計量法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第2条第1項第5号イ(5)",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/405CO0000000329"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/405CO0000000329",
+          "verificationStatus": "verified"
         }
       ],
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第12条、別表第三 二ホ(3)",
           "choiceIndex": 3,
           "lawId": "405CO0000000329",
           "lawTitle": "計量法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第12条、別表第三 二ホ(3)",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/405CO0000000329"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/405CO0000000329",
+          "verificationStatus": "verified"
         }
       ],
       []
     ],
     "lawRevisionFacts": {
       "auditStatus": "same_as_current",
-      "reviewState": "refresh_reviewed",
       "current": {
-        "correctChoiceText": [
-          "間違い",
-          "正しい",
-          "間違い",
-          "間違い",
-          "間違い"
-        ]
-      },
-      "examTime": {
         "correctChoiceText": [
           "間違い",
           "正しい",
@@ -2419,7 +2355,17 @@
       },
       "evidenceSummary": {
         "summary": "計量法施行令の現行規定と照合し、検定対象範囲及び有効期間に関する正誤は試験時から変わらないことを確認した。"
-      }
+      },
+      "examTime": {
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      "reviewState": "refresh_reviewed"
     },
     "suggestedQuestionDetailsByChoice": []
   },
@@ -2440,7 +2386,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "管厚が5mmなので、外径200mmの導管の内径Dは200−2×5=190mmである。内圧0.5MPaは0.5N/mm²に相当する。薄肉円筒の円周方向応力はσ=PD/(2t)で求めるため、σ=0.5×190/(2×5)=9.5N/mm²となる。したがって、最も近い値は9.5である。5.0N/mm²は軸方向応力PD/(4t)に近い値、10.0N/mm²は内径ではなく外径200mmを用いた場合の値に相当するため、いずれもこの設問の答えではない。"
+      "管厚tは5mmで、外径200mmの導管の内径Dは200-2×5=190mmである。内圧0.5MPaは0.5N/mm²に相当する。薄肉円筒の円周方向応力はσ=PD/(2t)で求めるので、σ=0.5×190/(2×5)=9.5N/mm²となる。したがって、最も近い値は9.5である。なお、10.0N/mm²は内径ではなく外径200mmをそのまま用いた場合の値に近く、5.0N/mm²は円周方向応力ではなく軸方向応力PD/(4t)に近い値であるため、この設問の答えではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2464,7 +2410,7 @@
     "reviewQuestionId": "299a100f857a078d",
     "sourceRecordRef": "question_2021_2.json#18",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、内圧を受ける薄肉円筒の円周方向応力をσ=PD/(2t)で求める計算問題。外径から管厚2枚分を差し引いた内径190mmを用いる。",
+    "lawContextForExplanation": "法令条文ではなく、内圧を受ける薄肉円筒の円周方向応力を σ=PD/(2t) で求める計算問題。外径200mm、管厚5mmから内径190mmを用い、0.5×190/(2×5)=9.5N/mm²となる。",
     "lawReferences": [
       [],
       [],
@@ -2493,7 +2439,7 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
       "正しい。鋳鉄管と鋼管が電気的に接続されると異種金属接触によるマクロセルが形成され、自然電位がよりマイナス側の鋼管がアノードとなって腐食する。",
-      "正しい。ミクロセル腐食は、金属表面の微小な部分に生じるアノードとカソードが刻々と変化しながら進行する腐食であり、一般に全面腐食となる。",
+      "正しい。ミクロセル腐食は、金属表面の微小な部分に生じるアノードとカソードの部位が刻々と変化しながら進行する腐食であり、一般に全面腐食となる。",
       "正しい。導管の電気防食では、安全を考慮した設計上の防食電位として、飽和硫酸銅電極基準の管対地電位を-1000mV程度とすることが望ましい。",
       "間違い。流電陽極法では、導管より自然電位がマイナス側の金属を接続し、その金属をアノードとして消耗させることで導管へ防食電流を流入させる。選択肢は接続する金属を自然電位がプラス側としているため誤りである。",
       "正しい。建物引込部の配管はコンクリートとの接触などによるマクロセル腐食を受けやすいため、一般に埋設配管部に近い架空配管部へ絶縁継手を設け、配管を電気的に絶縁する。"
@@ -2522,14 +2468,14 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "令和3年度ガス主任技術者試験問題（乙種）",
+        "referenceDate": "2026-07-26",
         "sourceUrl": "https://web.archive.org/web/20230809110647id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r3.pdf",
-        "referenceDate": "2026-07-26"
+        "title": "令和3年度ガス主任技術者試験問題（乙種）"
       },
       {
-        "title": "令和3年度ガス主任技術者試験の解答（乙種）",
+        "referenceDate": "2026-07-26",
         "sourceUrl": "https://web.archive.org/web/20230809111112id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r3.pdf",
-        "referenceDate": "2026-07-26"
+        "title": "令和3年度ガス主任技術者試験の解答（乙種）"
       }
     ],
     "lawReferences": [
@@ -2539,7 +2485,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "腐食と防食に関する技術的知識を問う問題であり、マクロセル腐食、ミクロセル腐食、防食電位、流電陽極法および絶縁継手の仕組みに基づく説明で足りるため、法令条文による根拠付けは不要である。",
+    "lawContextForExplanation": "腐食と防食に関する技術的知識を問う問題であり、解説はマクロセル腐食、ミクロセル腐食、防食電位、流電陽極法、絶縁継手の技術説明で足りる。法令条文を根拠にした説明は不要。",
     "lawRevisionFacts": []
   },
   {
@@ -2559,11 +2505,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。機械的接合は、主として鋳鉄管や口径80mm以下の小口径鋼管などで用いられる接合方法であり、記述は適切である。",
-      "正しい。ポリエチレン管の融着接合には、加熱工具で接合面を溶かすヒートフュージョン接合と、電熱線入り継手を用いるエレクトロフュージョン接合がある。",
-      "正しい。架管が橋台等の壁を貫通する部分ではスリーブを設け、スリーブとガス管の隙間に弾力性のあるシール材を隙間なく充てんする施工が適切である。",
-      "正しい。ガス検知器による気密試験では、ガス濃度が0.2%以下で作動する検知器を使用し、その検知器が作動しないことで漏えいの有無を判定できる。",
-      "間違い。道路使用許可は、道路で工事などを行うために所轄警察署長から受ける許可である。道路管理者から受けるのは道路占用許可などであり、許可主体と制度を取り違えている。"
+      "誤っているものは選択肢5である。選択肢1は、機械的接合が主として鋳鉄管や口径80mm以下の小口径鋼管などの接合に用いられるため正しい。選択肢2は、ポリエチレン管の融着接合には、ヒートフュージョン接合とエレクトロフュージョン接合があるため正しい。選択肢3は、架管が橋台等の壁を貫通する部分にスリーブを設け、スリーブとガス管の隙間へ弾力性のあるシール材を隙間なく充てんする施工として適切であるため正しい。選択肢4は、気密試験について、ガス濃度が0.2%以下で作動するガス検知器を用い、その検知器が作動しないことで漏えいの有無を判定する方法が認められるため正しい。選択肢5は、道路で工事を行うための道路使用許可は所轄警察署長から受ける許可であり、道路管理者から受ける許可ではない。道路管理者から受けるのは、道路にガス管などを設けて継続使用する場合の道路占用許可であるため、許可主体と制度を取り違えており誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -2591,148 +2533,148 @@
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "15",
           "paragraph": "3",
-          "verificationStatus": "verified",
-          "source": "egov_html"
-        },
-        {
+          "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "51",
           "choiceIndex": 3,
+          "item": "二",
           "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-27",
-          "article": "51",
           "paragraph": "2",
-          "item": "二",
-          "verificationStatus": "verified",
-          "source": "meti_pdf"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "meti_pdf",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "77",
           "choiceIndex": 4,
+          "item": "一",
           "lawId": "335AC0000000105",
           "lawTitle": "道路交通法",
-          "referenceDate": "2026-07-27",
-          "article": "77",
           "paragraph": "1",
-          "item": "一",
-          "verificationStatus": "verified",
-          "source": "egov_html"
-        },
-        {
+          "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "32",
           "choiceIndex": 4,
+          "item": "二",
           "lawId": "327AC1000000180",
           "lawTitle": "道路法",
-          "referenceDate": "2026-07-27",
-          "article": "32",
           "paragraph": "1",
-          "item": "二",
-          "verificationStatus": "verified",
-          "source": "egov_html"
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "verdict": "same_as_source",
-          "explanationText": "機械的接合の使用対象を問う施工技術知識であり、条文の直接照合は不要。",
-          "differenceSummary": "法令改正差分の評価対象外。"
-        }
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "explanationText": "機械的接合の主な使用対象を問う導管接合の施工技術知識であり、条文の直接照合を要する法令改正評価対象ではない。",
+          "verdict": "same_as_source"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "verdict": "same_as_source",
-          "explanationText": "ポリエチレン管の融着接合方式を問う施工技術知識であり、条文の直接照合は不要。",
-          "differenceSummary": "法令改正差分の評価対象外。"
-        }
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "explanationText": "ポリエチレン管の融着接合方式を問う施工技術知識であり、条文の直接照合を要する法令改正評価対象ではない。",
+          "verdict": "same_as_source"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "verdict": "same_as_source",
-          "explanationText": "架管の壁貫通部スリーブとシール材施工を問う施工技術知識であり、条文の直接照合は不要。",
-          "differenceSummary": "法令改正差分の評価対象外。"
-        }
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "explanationText": "架管の壁貫通部におけるスリーブとシール材施工を問う施工技術知識であり、条文の直接照合を要する法令改正評価対象ではない。",
+          "verdict": "same_as_source"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
+          "article": "15",
           "correctChoiceText": "正しい",
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
           "paragraph": "3",
           "referenceDate": "2026-07-27",
           "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "0.2%以下で作動するガス検知器を使い、検知器が作動しないことで判定する方法は現行解釈例と整合する。",
-          "differenceSummary": "現行根拠では正誤判断に影響する差異は確認されない。"
-        }
+          "differenceSummary": "現行根拠では正誤判断に影響する差異は確認されない。",
+          "explanationText": "省令第15条第3項は、ガスを通ずる部分について適切な方法による気密試験で漏えいがないことを求め、解釈例第51条第2項第二号は0.2%以下で作動するガス検知器による判定方法を示しているため、記述は現行根拠とも整合する。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
+          "article": "77",
           "correctChoiceText": "間違い",
+          "item": "一",
           "lawId": "335AC0000000105",
           "lawTitle": "道路交通法",
-          "article": "77",
           "paragraph": "1",
-          "item": "一",
           "referenceDate": "2026-07-27",
           "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "道路使用許可は所轄警察署長から受ける許可であり、道路管理者から受ける道路占用許可とは制度が異なる。",
-          "differenceSummary": "現行根拠では正誤判断に影響する差異は確認されない。"
-        }
+          "differenceSummary": "現行根拠では正誤判断に影響する差異は確認されない。",
+          "explanationText": "道路交通法第77条第1項第一号の道路使用許可は所轄警察署長から受ける許可であり、道路法第32条第1項第二号の道路占用許可における道路管理者の許可とは制度が異なるため、記述は現行根拠でも誤りである。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "sourceQuestionKey": "gas-shunin:otsu:2021:kyokyu:q15",
@@ -2741,31 +2683,31 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "ガス工作物の技術上の基準を定める省令 第15条",
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 3
+        "title": "ガス工作物の技術上の基準を定める省令 第15条"
       },
       {
-        "title": "ガス工作物技術基準の解釈例 第51条",
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 3
+        "title": "ガス工作物技術基準の解釈例 第51条"
       },
       {
-        "title": "道路交通法 第77条",
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/335AC0000000105",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 4
+        "title": "道路交通法 第77条"
       },
       {
-        "title": "道路法 第32条",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/327AC1000000180",
+        "choiceIndex": 4,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 4
+        "sourceUrl": "https://laws.e-gov.go.jp/law/327AC1000000180",
+        "title": "道路法 第32条"
       }
     ],
-    "lawContextForExplanation": "選択肢4は、ガス工作物の技術上の基準を定める省令第15条第3項とガス工作物技術基準の解釈例第51条第2項第二号に基づき、0.2%以下で作動するガス検知器による気密試験方法を確認する。選択肢5は、道路交通法第77条第1項第一号の道路使用許可と、道路法第32条第1項第二号の道路占用許可の許可主体・制度の違いを根拠にする。選択肢1から3は導管接合と架管施工の技術知識として説明する。"
+    "lawContextForExplanation": "選択肢4は、ガス工作物の技術上の基準を定める省令第15条第3項とガス工作物技術基準の解釈例第51条第2項第二号により、0.2%以下で作動するガス検知器を使い、検知器が作動しないことで判定する気密試験方法を根拠にする。選択肢5は、道路交通法第77条第1項第一号の道路使用許可は所轄警察署長の許可であり、道路法第32条第1項第二号の道路占用許可は道路管理者の許可であるという制度の違いを根拠にする。選択肢1から3は導管接合・架管施工の技術知識として説明する。"
   },
   {
     "original_question_id": "e91a741a0e782855",
@@ -2840,11 +2782,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "間違い。半導体式ガス検知器は、半導体表面へのガスの吸着などに伴う電気伝導度の変化を利用するものであり、雰囲気ガスの燃焼による変化を利用して検知対象を可燃性ガスだけに限定するものではないため誤りである。",
-      "正しい。埋設部のガス漏えい箇所を早期に発見して適切に修理することは、漏えい部からの地下水流入を防ぐ浸水予防対策としても有効である。",
-      "正しい。敷地内の他工事対策では、ガス設備の資産区分や解体・改装時の注意事項を記載したチラシ等を配付し、需要家へ注意喚起することが有効である。",
-      "正しい。更生修理工法を施工した導管についてモニタリングを実施し、使用材料の耐久性を確認することは、施工後の状態を把握するための適切な維持管理である。",
-      "間違い。鋼製修理バンド工法では、管体の修理箇所に鋼製修理バンドをすみ肉溶接で取り付けるので、突合せ溶接により取り付けるとしているため誤りである。"
+      "間違い。半導体式ガス検知器は、ガスが半導体表面へ吸着することなどによって半導体の電気伝導度が変化する性質を利用する。雰囲気ガスの燃焼による変化を利用するものではなく、検知対象が可燃性ガスだけに限定されるという説明も適切でないため誤りである。",
+      "正しい。埋設部のガス漏えい箇所を早期に発見して適切に修理することは、漏えい部から地下水が流入する経路をなくすことにつながるため、地下水による浸水予防対策として有効である。",
+      "正しい。敷地内で行われる解体・改装などの他工事による損傷を防ぐには、ガス設備の資産区分や工事時の注意事項を需要家に周知することが重要であり、チラシ等の配付による注意喚起は有効な対策である。",
+      "正しい。更生修理工法や浸管工法を施工した導管について、施工後にモニタリングを行い材料の耐久性を確認することは、修理後の健全性を把握する維持管理として適切である。",
+      "間違い。鋼製修理バンド工法は、修理箇所に鋼製修理バンドを取り付けて補修する工法であるが、取り付けは一般にすみ肉溶接による。突合せ溶接により取り付けるとしているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2868,7 +2810,7 @@
     "reviewQuestionId": "63e0512dcac18832",
     "sourceRecordRef": "question_2021_2.json#22",
     "explanationReferences": [],
-    "lawContextForExplanation": "本問は導管の維持管理に関する技術的知識を問う。ガス検知器の検知原理、漏えい箇所の修理、敷地内他工事対策、更生修理後のモニタリング及び鋼製修理バンドの溶接方法を判断する問題であり、特定の法令条文を根拠とする解説は不要である。",
+    "lawContextForExplanation": "本問は導管の維持管理に関する技術的知識を問う問題である。半導体式ガス検知器の検知原理、漏えい箇所の修理と浸水予防、敷地内他工事対策、更生修理後のモニタリング、鋼製修理バンド工法の溶接方法を判断する内容であり、特定の法令条文を根拠にした解説は不要である。",
     "lawReferences": [
       [],
       [],
@@ -2896,11 +2838,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "正しい。中・低圧導管の耐震性は、地震時に配管系が吸収できる地盤変位と、想定する設計地盤変位とを比較して評価する。",
-      "正しい。マイコンメーターには、設置場所で250ガルを超える地震動を継続して検知した場合にガスを止める感震遮断機能がある。",
+      "正しい。中・低圧導管の耐震性は、地震時に配管系が吸収できる地盤変位と、想定する設計地盤変位とを比較して評価する。吸収能力が設計地盤変位に対して十分かを見る考え方である。",
+      "正しい。マイコンメーターには、設置場所で250ガルを超える地震動を継続して検知した場合にガスを遮断する感震遮断機能がある。地震時の二次災害を防ぐための機能である。",
       "正しい。SI値は、地震による一般的な建物の揺れの強さを評価する指標であり、速度の単位であるカイン（cm/s）で表される。",
-      "正しい。地震対策は、設備を被害に強くする設備対策、地震発生時の二次災害を防ぐ緊急対策、供給の早期再開を図る復旧対策の三つで構成される。",
-      "間違い。ボンベに圧縮・充てんされた、熱量調整及び付臭済みの天然ガスを供給する方式は圧縮ガス式（CNG式）である。空気吸入式（PA式）は液化石油ガスなどに空気を混合して都市ガス相当の性状に調整する方式であり、記述された供給方式とは異なるため誤りである。"
+      "正しい。地震対策は、設備を地震被害に強くする設備対策、地震発生時の二次災害を防ぐ緊急対策、供給の早期再開を図る復旧対策の三つを基本として構成される。",
+      "間違い。ボンベに圧縮・充てんされた、熱量調整及び付臭済みの天然ガスを供給する方式は、圧縮ガス式（CNG式）である。空気吸入式（PA式）は液化石油ガスなどに空気を混合して都市ガス相当の性状に調整する方式であり、記述の内容とは異なる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2936,68 +2878,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "中・低圧導管の耐震評価方法に関する技術知識であり、法令条文の改正有無で正誤を直接決める肢ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "マイコンメーターの感震遮断機能に関する技術知識であり、本問の正誤整理は現行法条文の適用判断を要しない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "SI値と単位カインに関する技術知識であり、法令条文を直接根拠にする肢ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "地震対策を設備対策・緊急対策・復旧対策に整理する技術・実務知識であり、法令条文の改正差分監査対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "移動式ガス発生設備の方式分類に関する技術知識であり、PA式とCNG式の取り違えとして誤りを判定する。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -3078,77 +3020,77 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令条文ではなく、赤火燃焼式、ブンゼン燃焼式、濃淡燃焼、ブラスト燃焼、触媒燃焼に関する燃焼技術の知識で正誤を判断する問題。解説工程では法令根拠を不要として扱う。",
+    "lawContextForExplanation": "赤火燃焼式、ブンゼン燃焼式、濃淡燃焼バーナー、ブラスト燃焼、触媒燃焼に関する燃焼技術の知識で正誤を判断する問題。法令条文を直接根拠とする内容ではないため、解説工程では法令根拠を不要として扱う。",
     "lawRevisionFacts": [
       {
-        "choiceIndex": 0,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "赤火燃焼式の定義に関する技術知識で判断する肢であり、各肢の正誤を直接定める法令根拠は不要。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 1,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
+        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "赤火燃焼式とブンゼン燃焼式の炎温度の比較に関する技術知識で判断する肢であり、各肢の正誤を直接定める法令根拠は不要。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 2,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 2,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "濃淡燃焼バーナーの構造に関する技術知識で判断する肢であり、各肢の正誤を直接定める法令根拠は不要。"
-        }
-      },
-      {
-        "choiceIndex": 3,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ブラスト燃焼の方式に関する技術知識で判断する肢であり、各肢の正誤を直接定める法令根拠は不要。"
-        }
-      },
-      {
-        "choiceIndex": 4,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "触媒燃焼の方式に関する技術知識で判断する肢であり、各肢の正誤を直接定める法令根拠は不要。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   }

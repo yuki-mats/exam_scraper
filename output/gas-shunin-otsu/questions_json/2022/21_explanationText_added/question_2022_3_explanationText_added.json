@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正解は5。赤火燃焼式は、燃焼前にガスと一次空気を混合せず、燃焼時に周囲から二次空気を取り入れて燃える方式である。したがって、一次空気は0%、二次空気は100%となる。この方式の炎は赤黄色で長く、炎温度は約900℃であるため、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切である。"
+      "正解は5です。赤火燃焼式は、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲から二次空気を取り入れて燃焼する方式です。そのため、一次空気は0%、二次空気は100%となります。また、赤火燃焼式の炎は赤黄色で長く、炎温度は約900℃です。したがって、（イ）赤黄、（ロ）長い、（ハ）約900の組合せである5が最も適切です。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -87,10 +87,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正しい。ガスこんろは、炎の広がりを抑え、鍋底との距離を近づけるなどの改良により、熱効率が向上してきた。",
-      "正しい。ガスオーブンは、庫内の熱風をファンで強制的に撹拌・循環させるため、調理時間を短くしやすく、一度に多量の調理ができる。",
-      "間違い。FF暖房機には、立ち消え安全装置、点火時安全装置、過熱防止装置、排気筒外れ検知装置などが搭載される。転倒時安全装置は一般に移動式の暖房機で重視される装置であり、FF暖房機の代表的な安全装置として挙げるのは不適切である。",
-      "正しい。ファンヒーターは、設定温度と室温センサーで検知した温度との差に応じて比例弁を駆動し、ガス量に合わせて対流ファンの風量を制御する。",
+      "正しい。ガスこんろは、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑えることや鍋底との距離を近づけることなどの改良により、熱効率が向上してきた。",
+      "正しい。ガスオーブンは、庫内の熱風をファンで強制的に撹拌・循環させるため、加熱むらを抑えながら調理時間を短くしやすく、一度に多量の調理ができる。",
+      "間違い。FF暖房機の代表的な安全装置としては、立ち消え安全装置、点火時安全装置、過熱防止装置、排気筒外れ検知装置などが挙げられる。転倒時安全装置は一般に移動式の暖房機で重視される装置であり、FF暖房機の安全装置として列挙するのは不適切である。",
+      "正しい。ファンヒーターは、設定温度と室温センサーで検知した室温との差に応じて比例弁を駆動し、ガス量に合わせて対流ファンの風量を制御する。",
       "正しい。回転ドラム式衣類乾燥機には、衣類に接触して電気抵抗値を測定し、湿り具合を判断する乾燥センサーが搭載されている。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -142,72 +142,72 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1に省エネ法に基づくトップランナー基準への言及はあるが、正誤判断の中心はガスこんろの熱効率向上、ガスオーブンの熱風循環、FF暖房機の安全装置、ファンヒーターの制御、回転ドラム式衣類乾燥機の乾燥センサーという家庭用ガス機器の技術知識である。少なくとも一つの選択肢の正誤を直接決める検証済み法令条文は確認できないため、法令根拠付き解説は不要である。",
+    "lawContextForExplanation": "選択肢1に省エネ法に基づくトップランナー基準への言及はあるが、正誤判断の中心は、ガスこんろの熱効率向上、ガスオーブンの熱風循環、FF暖房機の安全装置、ファンヒーターの制御及び回転ドラム式衣類乾燥機の乾燥センサーに関する技術知識である。各選択肢の正誤を直接決定する法令条文はないため、法令根拠付き解説は不要である。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガスこんろの熱効率向上に関する技術・制度背景の記述であり、この肢の正誤を直接決める法令条文は確認対象ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガスオーブンの熱風循環方式と調理性能に関する技術知識で正誤を判断する肢である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "FF暖房機に搭載される代表的安全装置の技術知識で正誤を判断する肢であり、転倒時安全装置を含める点が不適切である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ファンヒーターの比例弁制御と対流ファン風量制御に関する技術知識で正誤を判断する肢である。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "回転ドラム式衣類乾燥機の乾燥センサーの検知原理に関する技術知識で正誤を判断する肢である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -229,7 +229,7 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
       "正しい。給湯能力の号数は、水温を25℃上昇させた湯を1分間に何L出せるかで表す。したがって、10号の瞬間湯沸器は、水温20℃の水を45℃まで上昇させた湯を毎分10L供給できる能力をもつ。",
-      "間違い。給排気通路の閉そく状態の診断には、燃焼状態、給気ファンの風量低下、ファンモーターの電流値低下などを利用する方法がある。記述は給気ファンの回転数と電圧値を計測するとしており、診断に用いる情報が異なるため誤りである。",
+      "間違い。給排気通路の閉そく状態を診断する方法には、燃焼状態や給気ファンの風量低下、ファンモーターの電流値などを利用するものがある。記述は、給気ファンの回転数と電圧値を計測するとしており、診断に用いる量が適切でないため誤りである。",
       "正しい。給湯負荷に応じて適切な燃焼状態を保つため、ガス量と空気量を制御することを空燃比制御という。",
       "正しい。浴室暖房乾燥機の主要な4機能は、暖房、乾燥、涼風及び換気である。",
       "正しい。ふろ給湯器の設置方式には設置フリー形があり、循環ポンプの揚程の範囲内で、機器と浴槽の設置位置を選択できる。"
@@ -283,7 +283,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "家庭用ガス温水機器の号数、自己診断、空燃比制御、浴室暖房乾燥機及びふろ給湯器の設置方式に関する技術知識問題。各記述の正誤は機器の性能・機能に基づいて説明でき、法令条文による根拠付けは不要。",
+    "lawContextForExplanation": "家庭用ガス温水機器の号数、自己診断機能、空燃比制御、浴室暖房乾燥機及びふろ給湯器の設置方式に関する技術知識問題。各記述の正誤は機器の性能・機能に基づいて説明でき、法令条文による根拠付けは不要。",
     "lawRevisionFacts": []
   },
   {
@@ -304,10 +304,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
       "正しい。丸釜式の麺ゆで器には、燃焼排ガスの熱を有効利用するダウンドラフト方式によって、省エネルギー性を高めたタイプがある。",
-      "間違い。ガススチームコンベクションオーブンのバーナーには、ブンゼン燃焼方式とブラスト燃焼方式がある。蒸気発生部をボイラー方式とインジェクション方式に分ける説明は正しいが、バーナーをパルス燃焼方式としているため誤りである。",
+      "間違い。ガススチームコンベクションオーブンのバーナーには、ブンゼン燃焼方式とブラスト燃焼方式が用いられる。蒸気発生部にボイラー方式とインジェクション方式があるという部分は正しいが、バーナー方式をパルス燃焼方式としているため誤りである。",
       "正しい。吸収冷凍サイクルは、蒸発、吸収、再生及び凝縮の各工程で構成される。蒸発工程で冷媒を蒸発させて冷水をつくり、その冷水を冷房に用いる。",
       "正しい。電主熱従運転は、電力負荷に合わせて発電し、発生した廃熱をできるだけ利用したうえで、余剰分を放熱する運転方法である。",
-      "正しい。家庭用固体酸化物形燃料電池は高温で作動し、家庭用ガスエンジンコージェネレーションシステムより高い発電効率を得られる。"
+      "正しい。家庭用固体酸化物形燃料電池（SOFC）は高温で作動し、家庭用ガスエンジンコージェネレーションシステムより高い発電効率を得られる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -358,77 +358,77 @@
       [],
       []
     ],
-    "lawContextForExplanation": "業務用ガス機器、吸収冷凍機、コージェネレーション及び家庭用SOFCの構造・運転方式に関する技術知識問題。誤りの選択肢はガススチームコンベクションオーブンのバーナー方式に関する記述であり、法令条文を根拠にした説明は不要。",
+    "lawContextForExplanation": "業務用ガス機器、吸収冷凍機、コージェネレーション及び家庭用SOFCの構造・運転方式・効率に関する技術知識問題。正誤判定は機器構造や方式の知識に基づくものであり、法令条文を根拠にした説明は不要。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "麺ゆで器の省エネルギー方式に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "ガススチームコンベクションオーブンのバーナー方式と蒸気発生方式に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "吸収冷凍サイクルの工程と冷房利用に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "コージェネレーションシステムの電主熱従運転に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "家庭用SOFCと家庭用ガスエンジンコージェネレーションの発電効率比較に関する技術知識であり、法令条文により正誤を直接判定する内容ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -650,10 +650,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
       "間違い。バイメタル式とサーミスター式が用いられるのは空だき安全装置である。選択肢はこれを空だき防止装置としているため誤りである。",
-      "正しい。温度制御用のサーミスターは、複数の金属酸化物を混合して焼結した半導体抵抗体である。負の温度特性を持ち、温度の上昇に伴って抵抗値が低下する。",
-      "正しい。熱電対式は炎によって生じる熱起電力を利用し、フレームロッド式は炎の導電性と整流性を利用して炎を検知する。いずれも立ち消え安全装置に用いられる方式である。",
-      "正しい。温度ヒューズは、取付部周辺が異常な高温になると回路を遮断する。作動後は元の状態に復帰しないため、再起動するには温度ヒューズの交換が必要である。",
-      "正しい。ガス量の制御方式には、設定した複数の段階でガス量を切り替える多段式と、ガス量を連続的に変化させる比例制御式がある。"
+      "正しい。温度制御に用いられるサーミスターは、2種類以上の金属酸化物を混合して焼結した半導体抵抗体で、負の温度特性を持つ。温度が上がると抵抗値が低下し、その値は等比的に変化する。",
+      "正しい。立ち消え安全装置には、炎による熱起電力を利用して検知する熱電対式と、炎の導電性・整流性を利用して検知するフレームロッド式がある。",
+      "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると回路を遮断する。作動後は復帰しないため、再起動するには交換が必要である。",
+      "正しい。ガス量の制御方式には、設定した段階ごとにガス量を切り替える多段式と、ガス量を連続的に変化させる比例制御式がある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -844,7 +844,7 @@
     "reviewQuestionId": "e7990ec6baa35f4e",
     "sourceRecordRef": "question_2022_3.json#5",
     "explanationReferences": [],
-    "lawContextForExplanation": "ガス機器の制御装置および安全装置の構造・作動原理に関する技術知識を問う問題であり、法令条文による根拠付けは不要である。",
+    "lawContextForExplanation": "ガス機器の制御装置及び安全装置に関する技術知識を問う問題であり、法令条文による根拠付けは不要。",
     "lawReferences": [
       [],
       [],

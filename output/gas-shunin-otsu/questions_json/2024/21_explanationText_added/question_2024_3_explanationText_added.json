@@ -16,10 +16,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。ブンゼンバーナーをインプットの高い範囲で燃焼させると、一次空気量を増やした場合は混合ガスの噴出速度が燃焼速度を上回りやすくなり、炎が炎口から浮くリフティングが発生する。一方、一次空気量を減らすと空気不足となり、不完全燃焼を起こしやすい。",
-      "正しい。火移りは、点火した炎口から隣の炎口へ火炎が伝わる現象である。一部の炎口が詰まると、燃焼している炎口と次の炎口との間隔が実質的に広がり、火が伝わりにくくなるため、火移り不良が発生する場合がある。",
-      "正しい。イエローチップは火炎の先端が黄色くなる現象で、すすを生じることがある。そのまま使用すると、すすが熱交換器などに付着して燃焼用空気の流れや熱交換の状態を悪化させ、不完全燃焼の原因となるおそれがある。",
-      "間違い。ガス圧力が一定であれば、ガス機器へのインプットはウォッベ指数に比例するため、ウォッベ指数が小さくなるとインプットは低下する。空気量が同じ状態で不完全燃焼のおそれが高まるのは、ウォッベ指数が大きくなってインプットが増加し、相対的に空気が不足する場合である。",
+      "正しい。ブンゼンバーナーをインプットの高い範囲で燃焼させた場合、一次空気量を増やすと混合ガスの噴出速度が燃焼速度を上回りやすくなり、炎が炎口から浮くリフティングが発生しやすい。一方、一次空気量を減らすと燃焼に必要な空気が不足し、不完全燃焼を起こしやすい。",
+      "正しい。火移りは、点火した炎口から隣の炎口へ火炎が伝わる現象である。一部の炎口が詰まると、燃焼している炎口と次の炎口との間隔が実質的に広がり、火炎が伝わりにくくなるため、火移り不良が発生する場合がある。",
+      "正しい。イエローチップは、火炎の先端が黄色くなる現象で、すすを発生させることがある。そのまま使用すると、すすが熱交換器などに付着して燃焼状態や通気を悪化させ、不完全燃焼の原因となるおそれがある。",
+      "間違い。ガス圧力が一定であれば、ガス機器へのインプットはウォッベ指数におおむね比例する。ウォッベ指数が小さくなるとインプットは低下するため、設問のようにそれ自体で不完全燃焼が発生するという説明は適切でない。不完全燃焼のおそれが高まるのは、ウォッベ指数が大きくなってインプットが増え、相対的に空気が不足する場合である。",
       "正しい。バーナー部が高温になり、そこを通過する混合ガスの温度が極端に上昇すると、燃焼速度が増加する。燃焼速度が混合ガスの噴出速度を上回ると、火炎が炎口の内部へ逆行するフラッシュバックが発生する場合がある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -56,7 +56,7 @@
     "reviewQuestionId": "a227f152a94ed421",
     "sourceRecordRef": "question_2024_3.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "ブンゼンバーナーの一次空気量と燃焼状態、火移り不良、イエローチップ、ウォッベ指数とインプット、フラッシュバックを問う消費機器分野の技術知識問題。法令根拠ではなく燃焼特性の理解で説明する。",
+    "lawContextForExplanation": "ブンゼンバーナーの一次空気量と燃焼状態、火移り不良、イエローチップ、ウォッベ指数とインプット、フラッシュバックを問う消費機器分野の技術知識問題。法令条文ではなく燃焼特性の理解に基づいて説明する。",
     "lawReferences": [
       [],
       [],
@@ -67,68 +67,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "一次空気量とリフティング・不完全燃焼の関係を問う燃焼技術知識であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "火移り不良と炎口詰まり・炎口間隔の関係を問う燃焼器の技術知識であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "イエローチップ、すす付着、不完全燃焼の関係を問う技術知識であり、法令条文で正誤を直接決める問題ではない。"
-        }
+          "summary": "イエローチップ、すす付着、不完全燃焼の関係を問う燃焼技術知識であり、法令条文で正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "ウォッベ指数とインプットの関係を問う燃焼・ガス性状の技術知識であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "混合ガス温度上昇、燃焼速度、フラッシュバックの関係を問う燃焼技術知識であり、法令条文で正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -151,7 +151,7 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
       "正しい。給排気通路が閉そくするとファンの風量が減少し、ファンモーターに流れる電流値も小さくなる。この変化を検知して閉そく状態を診断する方法がある。",
-      "間違い。燃焼用空気を屋内から取り入れ、燃焼排ガスを排気筒によって屋外へ排出するのはCF式ふろがまである。BF式は、給気と排気を屋外との間で行う方式である。",
+      "間違い。燃焼用空気を屋内から取り入れ、燃焼排ガスを排気筒で屋外へ排出するのはCF式ふろがまである。BF式は、給気と排気を屋外との間で行う方式である。",
       "正しい。Q機能は、いったん出湯を止めて再び出湯した際に生じる冷水サンドイッチ現象を緩和し、湯温を安定させるための機能である。",
       "正しい。元止め式瞬間湯沸器は、湯を使用する場所の近くに設置し、湯沸器の出湯管から直接湯を使用する機器である。",
       "間違い。給湯能力の号数は、水温を25℃上昇させられる毎分の湯量を表す。20号で毎分20Lとなるのは25℃上昇時であり、10℃から40℃までは30℃上昇するため、供給量は毎分約16.7Lとなる。"
@@ -202,73 +202,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "給排気閉そく時のファン風量・電流変化を利用する自己診断機能の技術説明であり、法令条文が正誤を直接決める事項ではない。",
+          "lawRelated": false
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "lawRelated": false,
-          "basis": "給排気閉そく時のファン風量・電流変化を利用する自己診断機能の技術説明であり、法令条文が正誤を直接決める事項ではない。"
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "evidenceSummary": {
-          "lawRelated": false,
-          "basis": "屋内給気・排気筒屋外排気はCF式で、BF式は屋外給排気を行う方式であるため、記述は方式名称を取り違えている。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "lawRelated": false,
-          "basis": "Q機能は再出湯時などの冷水サンドイッチ現象による湯温むらを抑える機能であり、技術仕様の説明である。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "lawRelated": false,
-          "basis": "元止め式瞬間湯沸器は本体側の出湯管等から直接使用する方式であり、機器分類上の技術説明である。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "間違い"
+          "basis": "屋内給気・排気筒屋外排気はCF式で、BF式は屋外給排気を行う方式であるため、記述は方式名称を取り違えている。",
+          "lawRelated": false
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
-          "lawRelated": false,
-          "basis": "号数は水温を25℃上昇させた場合の毎分湯量を表すため、10℃から40℃への30℃上昇で20L/分供給できるとはいえない。"
-        }
+          "basis": "Q機能は再出湯時などの冷水サンドイッチ現象による湯温むらを抑える機能であり、技術仕様の説明である。",
+          "lawRelated": false
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "basis": "元止め式瞬間湯沸器は本体側の出湯管等から直接使用する方式であり、機器分類上の技術説明である。",
+          "lawRelated": false
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "basis": "号数は水温を25℃上昇させた場合の毎分湯量を表すため、10℃から40℃への30℃上昇で20L/分供給できるとはいえない。",
+          "lawRelated": false
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -289,11 +289,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。こんろの中火点火機能は、点火時に炎が急に大きくなることを避け、中火で点火することで衣服への着火を防止する機能である。",
+      "正しい。こんろの中火点火機能は、点火時に炎が急に大きくなることを避け、中火で点火することで、点火時の衣服への着火を防止するための機能である。",
       "正しい。オーブンは庫内温度を調節でき、250〜300℃程度の高温の熱風を循環させることで、短時間に多量の食品を調理できる。",
-      "正しい。ファンヒーターの転倒時安全装置は、転倒や強い衝撃を検知するとガスを遮断し、火災の発生を防止する。",
-      "正しい。FF式暖房機の排気筒外れ検知装置には、排気筒接続部などに流れる微少電流の導通状態によって外れを検知する方法が用いられている。",
-      "間違い。回転式ドラム乾燥機の乾燥センサーは、接触した衣類の電気抵抗を測定し、その値から湿り具合を判断する。選択肢では衣類の温度を測定して湿り具合を判断するとしており、実際の検知原理と異なるため誤りである。"
+      "正しい。ファンヒーターの転倒時安全装置は、機器が転倒したり強い衝撃を受けたりしたときにガスを遮断し、火災の発生を防止するための安全装置である。",
+      "正しい。FF式暖房機の排気筒外れ検知装置には、排気筒接続部などに流れる微少電流の導通状態によって、排気筒の外れを検知する方法が用いられている。",
+      "間違い。回転式ドラム乾燥機の乾燥センサーは、接触した衣類の電気抵抗を測定し、その値から湿り具合を判断する。選択肢は衣類の温度を測定して湿り具合を判断するとしているため、検知原理の説明として誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -329,7 +329,7 @@
     "reviewQuestionId": "0a7a09696d84edf6",
     "sourceRecordRef": "question_2024_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "こんろの中火点火機能、オーブン、ファンヒーターの転倒時安全装置、FF式暖房機の排気筒外れ検知、回転式ドラム乾燥機の乾燥センサーを問う消費機器分野の技術知識問題。個別条文による説明は不要。",
+    "lawContextForExplanation": "こんろの中火点火機能、オーブンの熱風循環、ファンヒーターの転倒時安全装置、FF式暖房機の排気筒外れ検知、回転式ドラム乾燥機の乾燥センサーを問う消費機器分野の技術知識問題。個別条文による説明は不要。",
     "lawReferences": [
       [],
       [],
@@ -340,73 +340,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "中火点火機能の目的を問う機器機能の説明であり、法令条文を根拠に正誤を直接決める問題ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "オーブンの庫内温度調節と熱風循環による調理特性を問う機器構造・機能の説明であり、法令条文を根拠に正誤を直接決める問題ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "ファンヒーターの転倒時安全装置の働きを問う機器機能の説明であり、法令条文を根拠に正誤を直接決める問題ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "FF式暖房機の排気筒外れ検知方式を問う検知原理の説明であり、法令条文を根拠に正誤を直接決める問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
-          "summary": "回転式ドラム乾燥機の乾燥判定は衣類温度ではなく接触した衣類の電気抵抗から湿り具合を判断するという検知原理の問題であり、法令条文を根拠に正誤を直接決める問題ではない。"
-        }
+          "summary": "回転式ドラム乾燥機の乾燥判定は、衣類温度ではなく接触した衣類の電気抵抗から湿り具合を判断するという検知原理の問題であり、法令条文を根拠に正誤を直接決める問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -468,7 +468,7 @@
     "reviewQuestionId": "5bc72750fed0eebb",
     "sourceRecordRef": "question_2024_3.json#3",
     "explanationReferences": [],
-    "lawContextForExplanation": "業務用厨房機器、パルス燃焼式フライヤー、遠赤外線暖房、都市ガスCGS及び燃料電池方式の技術的特徴を問う問題である。PEFCとSOFCの作動温度・運転特性の違いを説明すれば足り、法令による根拠付けは不要。",
+    "lawContextForExplanation": "業務用厨房機器、パルス燃焼式フライヤー、遠赤外線暖房、都市ガスCGS及び燃料電池方式の技術的特徴を問う問題。PEFCとSOFCの作動温度・運転特性の違いを中心に説明すれば足り、法令条文による根拠付けは不要。",
     "lawReferences": [
       [],
       [],
@@ -499,7 +499,7 @@
       "正しい。自然換気では、建物に作用する風圧と、室内外の温度差によって生じる浮力が空気を動かす力となる。送風機を使わず、これらの圧力差によって換気する。",
       "間違い。基準上の排気フードの高さは、火源または器具に設けられた排気用開口部の中心からフード下端までで測り、1m以下とする。したがって、こんろ上面から1000mm以上に設置しなければならないとする記述は、上限と下限を逆にしている。",
       "正しい。高層住宅などでは外風圧が大きく変化し、一般的な換気扇では換気風量が不安定になりやすい。そこで、圧力変動があっても風量を確保しやすいシロッコファンなどの高静圧型換気扇を用いる。",
-      "正しい。自然換気回数は、1時間当たりの自然換気量Qを室の容積Vで割って求める。したがって、自然換気回数（回/h）＝Q（m³/h）÷V（m³）であり、単位は1時間当たりの回数となる。",
+      "正しい。自然換気回数は、1時間当たりの自然換気量Qを室の容積Vで割って求める。したがって、自然換気回数（回/h）＝Q（m³/h）÷V（室の容積m³）であり、単位は1時間当たりの回数となる。",
       "正しい。酸素不足などにより都市ガスの燃焼反応が完結しない不完全燃焼では、一酸化炭素（CO）が発生する。COは人体に有害であるため、十分な給気と確実な排気が重要である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -537,82 +537,82 @@
     "sourceRecordRef": "question_2024_3.json#4",
     "explanationReferences": [
       {
-        "title": "建築基準法施行令（昭和25年政令第338号）第20条の3",
+        "choiceIndex": 1,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 1
+        "title": "建築基準法施行令（昭和25年政令第338号）第20条の3"
       },
       {
-        "title": "換気設備の構造方法を定める件（昭和45年建設省告示第1826号）",
+        "choiceIndex": 1,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 1
+        "title": "換気設備の構造方法を定める件（昭和45年建設省告示第1826号）"
       },
       {
-        "title": "換気設備の構造方法を定める件等の一部を改正する告示（令和5年国土交通省告示第207号）",
-        "sourceUrl": "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf",
+        "choiceIndex": 1,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 1
+        "sourceUrl": "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf",
+        "title": "換気設備の構造方法を定める件等の一部を改正する告示（令和5年国土交通省告示第207号）"
       }
     ],
-    "lawContextForExplanation": "選択肢2のみ法令に基づく。建築基準法施行令第20条の3第2項第1号イ（7）を受けた昭和45年建設省告示第1826号第三第四号イは、排気フードの高さを1m以下としている。高さは火源等からフード下端までで測る。試験時から現行まで正誤に影響する変更はない。選択肢1、3、4、5は換気・燃焼の技術知識で説明する。",
+    "lawContextForExplanation": "選択肢2は、建築基準法施行令第20条の3第2項第1号イ（7）及び昭和45年建設省告示第1826号第三第四号イに基づき、火源等から排気フード下端までの高さを1m以下とする基準と対比して説明する。選択肢1、3、4、5は換気及び燃焼に関する技術知識で説明する。",
     "lawReferences": [
       [],
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第20条の3第2項第1号イ（7）",
           "choiceIndex": 1,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2024-09-29",
-          "article": "第20条の3第2項第1号イ（7）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20240929"
-        },
-        {
           "role": "exam_time_basis",
           "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20240929",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第三第四号イ（イ）（i）及び（ロ）（i）",
           "choiceIndex": 1,
           "lawId": "昭和45年建設省告示第1826号",
           "lawTitle": "換気設備の構造方法を定める件",
           "referenceDate": "2024-09-29",
-          "article": "第三第四号イ（イ）（i）及び（ロ）（i）",
-          "verificationStatus": "verified",
-          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
+          "verificationStatus": "verified"
         },
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第20条の3第2項第1号イ（7）",
           "choiceIndex": 1,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第20条の3第2項第1号イ（7）",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727"
-        },
-        {
           "role": "current_basis",
           "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第三第四号イ（イ）（i）及び（ロ）（i）",
           "choiceIndex": 1,
           "lawId": "昭和45年建設省告示第1826号",
           "lawTitle": "換気設備の構造方法を定める件",
           "referenceDate": "2026-07-27",
-          "article": "第三第四号イ（イ）（i）及び（ロ）（i）",
-          "verificationStatus": "verified",
-          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf"
-        },
-        {
           "role": "current_basis",
           "scope": "choice",
+          "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第1条",
           "choiceIndex": 1,
           "lawId": "令和5年国土交通省告示第207号",
           "lawTitle": "換気設備の構造方法を定める件等の一部を改正する告示",
           "referenceDate": "2026-07-27",
-          "article": "第1条",
-          "verificationStatus": "verified",
-          "source": "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf",
+          "verificationStatus": "verified"
         }
       ],
       [],
@@ -622,77 +622,77 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_non_law_basis",
           "summary": "自然換気の駆動力に関する技術的記述であり、法令改正による正誤変動の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "not_applicable"
       },
       {
         "auditStatus": "no_revision_impact",
-        "reviewState": "primary_verified",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "evidenceSummary": {
-          "summary": "試験時および現行の基準では、排気フードの高さは1m以下である。令和5年国土交通省告示第207号による用語整理後も、この高さ基準に正誤を変える変更はない。",
           "sources": [
             "https://laws.e-gov.go.jp/law/325CO0000000338",
             "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
             "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf"
-          ]
-        }
+          ],
+          "summary": "試験時および現行の基準では、排気フードの高さは1m以下である。令和5年国土交通省告示第207号による用語整理後も、この高さ基準に正誤を変える変更はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "primary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_non_law_basis",
           "summary": "高層住宅における外風圧と換気扇の静圧特性に関する技術的記述である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "not_applicable"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_non_law_basis",
           "summary": "自然換気回数の定義式に関する技術的記述である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "not_applicable"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_non_law_basis",
           "summary": "酸素不足時の不完全燃焼とCO発生に関する技術的記述である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "not_applicable"
       }
     ],
     "suggestedQuestionDetailsByChoice": [
@@ -700,8 +700,8 @@
         "choiceIndex": 4,
         "items": [
           {
-            "question": "一酸化炭素（CO）が特に危険とされるのはなぜですか。",
-            "answer": "COは無色・無臭で発生に気付きにくいうえ、血液中のヘモグロビンと強く結合して酸素の運搬を妨げるためです。"
+            "answer": "COは無色・無臭で発生に気付きにくいうえ、血液中のヘモグロビンと強く結合して酸素の運搬を妨げるためです。",
+            "question": "一酸化炭素（CO）が特に危険とされるのはなぜですか。"
           }
         ]
       }
@@ -768,8 +768,8 @@
         "choiceIndex": 0,
         "items": [
           {
-            "question": "「合計インプット」とは何を合計した値ですか。",
-            "answer": "同じ室に設置される対象ガス機器の定格ガス消費量（入力）の合計です。換気方式を判断するときは、機器1台ごとではなく室内の合計が6kWを超えるかを確認します。"
+            "answer": "1台ごとではなく、同じ室に設置される対象ガス機器のインプット合計で判断します。複数台を設置する場合は、それぞれの定格入力を合算して6kWを超えるかを確認します。",
+            "question": "この6kWの判定は、1台ごとのインプットで見るのですか。"
           }
         ]
       },
@@ -777,183 +777,183 @@
         "choiceIndex": 3,
         "items": [
           {
-            "question": "BF式とFF式では、給排気を行う仕組みにどのような違いがありますか。",
-            "answer": "BF式は給排気トップを介して自然給排気を行う方式、FF式は送風機によって強制給排気を行う方式です。いずれも燃焼室を室内から隔離して屋外との間で給排気します。"
+            "answer": "どちらも燃焼室が室内空気と区画された密閉燃焼式です。BF式は自然給排気、FF式は送風機による強制給排気である点が主な違いです。",
+            "question": "BF式とFF式はどちらも密閉燃焼式ですか。"
           }
         ]
       }
     ],
     "explanationReferences": [
       {
-        "title": "令和6年度 ガス主任技術者試験問題（乙種・マークシート）",
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r6.pdf",
-        "referenceDate": "2026-07-27"
+        "title": "令和6年度 ガス主任技術者試験問題（乙種・マークシート）"
       },
       {
-        "title": "令和6年度 ガス主任技術者試験の解答（乙種）",
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
-        "referenceDate": "2026-07-27"
+        "title": "令和6年度 ガス主任技術者試験の解答（乙種）"
       },
       {
-        "title": "建築基準法（昭和二十五年法律第二百一号）",
+        "choiceIndex": 0,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20260727",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 0
+        "title": "建築基準法（昭和二十五年法律第二百一号）"
       },
       {
-        "title": "建築基準法施行令（昭和二十五年政令第三百三十八号）",
+        "choiceIndex": 0,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 0
+        "title": "建築基準法施行令（昭和二十五年政令第三百三十八号）"
       },
       {
-        "title": "ガス事業法施行規則（昭和四十五年通商産業省令第九十七号）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260727",
+        "choiceIndex": 2,
         "referenceDate": "2026-07-27",
-        "choiceIndex": 2
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260727",
+        "title": "ガス事業法施行規則（昭和四十五年通商産業省令第九十七号）"
       }
     ],
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第28条第3項",
           "choiceIndex": 0,
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "referenceDate": "2026-07-27",
-          "article": "第28条第3項",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20260727"
-        },
-        {
           "role": "current_basis",
           "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20260727",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第20条の3第1項第3号及び第2項",
           "choiceIndex": 0,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第20条の3第1項第3号及び第2項",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727",
+          "verificationStatus": "verified"
         },
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第28条第3項",
           "choiceIndex": 0,
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "referenceDate": "2024-09-29",
-          "article": "第28条第3項",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20240929"
-        },
-        {
           "role": "exam_time_basis",
           "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20240929",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第20条の3第1項第3号及び第2項",
           "choiceIndex": 0,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2024-09-29",
-          "article": "第20条の3第1項第3号及び第2項",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20240929"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20240929",
+          "verificationStatus": "verified"
         }
       ],
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第202条第1項第6号ハ",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2026-07-27",
-          "article": "第202条第1項第6号ハ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260727"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260727",
+          "verificationStatus": "verified"
         },
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第202条第1項第6号ハ",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2024-09-29",
-          "article": "第202条第1項第6号ハ",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20240929"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20240929",
+          "verificationStatus": "verified"
         }
       ],
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1は、火気使用室の換気を求める建築基準法第28条第3項と、調理室以外で発熱量の合計が6kW以下の場合の除外条件及び換気設備の構造を定める建築基準法施行令第20条の3が根拠となる。選択肢3は、密閉燃焼式機器の給排気部と外壁との間に排気ガスが屋内へ流れ込む隙間を認めないガス事業法施行規則第202条第1項第6号ハが根拠となる。選択肢2、4、5は機器の構造及び施工に関する技術事項として説明する。",
+    "lawContextForExplanation": "選択肢1は、調理室以外の室で合計インプットが6kWを超える開放式ガス機器を設置する場合の換気設備について、建築基準法第28条第3項及び建築基準法施行令第20条の3が根拠となる。選択肢3は、屋内設置の密閉燃焼式ガス機器の給排気部が外壁を貫通する箇所について、排気ガスが屋内へ流れ込む隙間をなくすことを求めるガス事業法施行規則第202条第1項第6号ハが根拠となる。選択肢2、4、5は、CF式、FF式、RF式機器の構造・施工上の知識を中心に説明する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "verified_no_change",
-        "reviewState": "primary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "建築基準法第28条第3項及び建築基準法施行令第20条の3について、2024年9月29日時点と2026年7月27日時点の該当規定を照合し、6kWの区分と本肢の判定に変更がないことを確認した。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "primary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "primary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "CF式機器の一次・二次排気筒に関する構造及び施工上の技術事項であり、法令改正による判定更新の対象ではない。公式問題と公式解答により判定を確認した。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "primary_verified"
       },
       {
         "auditStatus": "verified_no_change",
-        "reviewState": "primary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガス事業法施行規則第202条第1項第6号ハについて、2024年9月29日時点と2026年7月27日時点の該当規定を照合し、壁貫通箇所の隙間に関する基準と本肢の判定に変更がないことを確認した。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "primary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "primary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "FF式機器の給排気経路による分類を問う技術事項であり、法令改正による判定更新の対象ではない。公式問題と公式解答により判定を確認した。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "primary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "primary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
           "summary": "BF式機器の既存開口部を利用するRF式機器の設置形態を問う技術事項であり、法令改正による判定更新の対象ではない。公式問題と公式解答により判定を確認した。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "primary_verified"
       }
     ]
   },
@@ -1042,11 +1042,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "間違い。ガスソフトコードをコンセント口のガス栓に接続する場合は、ゴム管用ソケットを用いる。ガス栓用プラグは、ホースエンド口のガス栓をコンセント口化するための接続具であり、コンセント口へガスソフトコードを接続するための接続具ではない。",
-      "正しい。ヒューズガス栓でヒューズボールがガスを遮断する流量を、ヒューズ作動流量という。この値は、接続できるガス機器の範囲を確認できるようにヒューズガス栓本体に表示されている。",
-      "正しい。ガス小型湯沸器は、強化ガスホースを用いて可とう管ガス栓と接続できる。機器とガス栓を接続するときは、機器の種類とガス栓の形状に合った接続具を選ぶ必要がある。",
+      "間違い。ガスソフトコードをコンセント口のガス栓に接続する場合は、ゴム管用ソケットを用いる。ガス栓用プラグは、ホースエンド口のガス栓をコンセント口化するための接続具であり、コンセント口へガスソフトコードを直接接続するための接続具ではない。",
+      "正しい。ヒューズガス栓で、ヒューズボールが作動してガスを遮断する流量をヒューズ作動流量という。ヒューズ作動流量は、接続できるガス機器の範囲を確認できるように、ヒューズガス栓本体に表示されている。",
+      "正しい。ガス小型湯沸器は、強化ガスホースを用いて可とう管ガス栓と接続できる。接続時は、ガス機器の種類、ガス栓の形状、接続具の適合を確認して選定する必要がある。",
       "正しい。空気より軽い都市ガスを検知するガス警報器は、ガス機器から水平距離で8m以内の同一室内に設置する。空気より軽いガスは上方に滞留しやすいため、警報器の取付位置もその性質に合わせる。",
-      "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から人体への悪影響のおそれを判断する。単なる一時的な濃度上昇だけでなく、人体に悪影響が及ぶおそれのある環境に達した場合に警報を発するロジックを採用している。"
+      "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から人体への悪影響のおそれを判断する。単なる一時的な濃度上昇ではなく、人体に悪影響が及ぶおそれのある環境に達した場合に警報を発するロジックを採用している。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],

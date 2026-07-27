@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "正解は4です。ガスの燃焼に関する記述のうち、4の「混合ガスの温度が極端に上昇するとリフティングが発生するおそれがある」は誤りです。ブンゼンバーナーでは、混合ガスの温度が高くなると燃焼速度が増し、火炎が炎口からバーナー内部へ戻るフラッシュバックが起こりやすくなります。リフティングは火炎が炎口から浮き上がる現象であり、混合ガスの噴出速度が燃焼速度に対して大きい場合などに生じます。1は、炎口のつまりや炎口間隔の広がりで火炎の伝ぱが妨げられると火移り不良が生じ得るため正しい記述です。2は、一次空気率を下げると燃焼用空気が不足し、不完全燃焼のおそれがあるため正しい記述です。3は、一般に一定圧力下では温度上昇により燃焼範囲が広がるため正しい記述です。5は、一次空気ダンパーの開きすぎにより燃焼状態が不安定となり、条件によってフラッシュバックやリフティングの原因になり得るため正しい記述です。"
+      "正解は4です。誤っている記述は、4の「混合ガスの温度が極端に上昇するとリフティングが発生するおそれがある」です。ブンゼンバーナーでは、混合ガスの温度が高くなると燃焼速度が大きくなり、火炎が炎口からバーナー内へ戻るフラッシュバックが起こりやすくなります。リフティングは、混合ガスの噴出速度が燃焼速度に対して大きすぎる場合などに、火炎が炎口から浮き上がる現象です。したがって、混合ガス温度の極端な上昇をリフティングの原因とする4は誤りです。1は、炎口のつまりなどで炎口間の火炎伝ぱが妨げられると火移り不良が生じ得るため正しい記述です。2は、一次空気率を下げると燃焼に必要な空気が不足し、不完全燃焼のおそれがあるため正しい記述です。3は、一般に圧力が一定であれば、温度上昇により可燃性ガスの燃焼範囲は広くなるため正しい記述です。5は、一次空気ダンパーを開きすぎると燃焼状態が不安定になり、条件によってフラッシュバックやリフティングの原因になり得るため正しい記述です。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -62,82 +62,82 @@
       [],
       []
     ],
-    "lawContextForExplanation": "火移り不良、不完全燃焼、燃焼範囲、リフティング、フラッシュバックなど、ガス燃焼とブンゼンバーナーの燃焼状態に関する技術的知識を問う問題。法令条文を直接根拠にする必要はない。",
+    "lawContextForExplanation": "火移り不良、不完全燃焼、燃焼範囲、リフティング、フラッシュバックなど、ガス燃焼とブンゼンバーナーの燃焼状態に関する技術的知識を問う問題。選択肢の正誤は法令条文ではなく燃焼理論に基づいて判断するため、法令根拠を解説に用いる必要はない。",
     "lawRevisionFacts": [
       {
-        "choiceIndex": 0,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "火移り不良の発生要因に関する技術知識であり、選択肢の正誤を直接決める法令条文問題ではない。"
-        }
-      },
-      {
-        "choiceIndex": 1,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "一次空気率低下と不完全燃焼に関する技術知識であり、選択肢の正誤を直接決める法令条文問題ではない。"
-        }
-      },
-      {
-        "choiceIndex": 2,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 2,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "可燃性ガスの燃焼範囲と温度の関係に関する技術知識であり、選択肢の正誤を直接決める法令条文問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 3,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
+        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "混合ガス温度上昇時のフラッシュバックとリフティングの区別に関する技術知識であり、選択肢の正誤を直接決める法令条文問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 4,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "not_law_related",
           "summary": "一次空気ダンパーの開きすぎと燃焼不安定の関係に関する技術知識であり、選択肢の正誤を直接決める法令条文問題ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -204,41 +204,41 @@
     "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
-        "title": "ガス事業法（平成29年7月1日時点）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20170701",
+        "choiceIndex": 0,
         "referenceDate": "2017-07-01",
-        "choiceIndex": 0
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20170701",
+        "title": "ガス事業法（平成29年7月1日時点）"
       },
       {
-        "title": "ガス事業法施行令（平成29年7月1日時点）",
-        "sourceUrl": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20170701",
+        "choiceIndex": 0,
         "referenceDate": "2017-07-01",
-        "choiceIndex": 0
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20170701",
+        "title": "ガス事業法施行令（平成29年7月1日時点）"
       }
     ],
     "lawReferences": [
       [
         {
-          "role": "exam_time_basis",
-          "scope": "choice",
+          "article": "第137条第1項",
           "choiceIndex": 0,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "referenceDate": "2017-07-01",
-          "article": "第137条第1項",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20170701"
-        },
-        {
           "role": "exam_time_basis",
           "scope": "choice",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20170701",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第9条、別表第一",
           "choiceIndex": 0,
           "lawId": "329CO0000000068",
           "lawTitle": "ガス事業法施行令",
           "referenceDate": "2017-07-01",
-          "article": "第9条、別表第一",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20170701"
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20170701",
+          "verificationStatus": "verified"
         }
       ],
       [],
@@ -246,72 +246,72 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1は、平成29年度試験時点のガス事業法上のガス用品指定品目に関する法令関連の記述である。ガス用品は政令で定める品目に限られ、同時点のガス事業法施行令別表第一に衣類乾燥機は含まれない。選択肢2から5は、機器の構造、凝縮水の性状及び安全・点検機能に関する機器知識を根拠とする。",
+    "lawContextForExplanation": "選択肢1は、平成29年度試験時点のガス事業法上のガス用品指定品目を確認する法令関連の記述である。ガス用品はガス事業法第137条第1項により政令で定めるものとされ、同時点のガス事業法施行令第9条及び別表第一の指定品目に衣類乾燥機は含まれない。選択肢2から5は、暖房機器の方式、凝縮水の性状、自己診断機能、使用回数のお知らせ機能に関する機器知識が中心で、条文を直接根拠にしない。",
     "lawRevisionFacts": [
       {
         "auditStatus": "exam_time_basis_verified",
-        "reviewState": "primary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "basis": "2017年7月1日時点のガス事業法第137条第1項及びガス事業法施行令第9条・別表第一では、ガス用品の指定品目に衣類乾燥機が含まれないことを確認した。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "primary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "basis": "暖房機器の給排気方式に関する機器知識であり、法令改正による正誤監査の対象外である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "not_applicable"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "basis": "潜熱回収で生じる凝縮水の性状に関する機器知識であり、法令改正による正誤監査の対象外である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "not_applicable"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "basis": "家庭用温水機器の自己診断機能に関する機器知識であり、法令改正による正誤監査の対象外である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "not_applicable"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "not_applicable",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "basis": "開放式瞬間湯沸器のお知らせ機能に関する機器知識であり、法令改正による正誤監査の対象外である。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "not_applicable"
       }
     ]
   },
@@ -332,11 +332,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "正しい。フライヤーでは、油温を設定温度付近に保つため、一般にサーモスタットを用いて油温を調節する。",
+      "正しい。フライヤーでは、油温を設定温度付近に保つため、一般にサーモスタットで油温調節を行う。",
       "間違い。インプット12kW前後の標準的な浸管式フライヤーでは、一般に大気式のブンゼンバーナーが用いられる。送風機で燃焼用空気を供給するブラストバーナーを用いるとしているため誤りである。",
-      "正しい。中華レンジの強火力バーナーには、送風機で燃焼用空気を供給し、強い火力を得るブラスト燃焼を用いたものがある。",
-      "正しい。排気フード接続型給湯器は、排気温度センサーで排気温度の異常を検知し、ダクトの過熱や火災を防止する。",
-      "正しい。吸収冷凍機の再生行程では、冷媒を吸収して薄くなった吸収溶液を加熱し、冷媒を蒸発させて吸収溶液を再生する。"
+      "正しい。中華レンジの強火力バーナーには、送風機で燃焼用空気を供給して強い火力を得るブラスト燃焼方式のものがある。",
+      "正しい。排気フード接続型給湯器では、排気温度の異常上昇を検知してダクトの過熱や火災を防ぐため、排気温度センサーを装備している。",
+      "正しい。吸収冷凍機の再生行程では、冷媒を吸収した吸収溶液を加熱し、冷媒を分離・蒸発させて吸収溶液を再生する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -384,7 +384,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "業務用ガス機器の構造、燃焼方式、排気温度センサーおよび吸収冷凍機の再生行程に関する技術知識を問う問題であり、法令条文を直接の根拠としない。",
+    "lawContextForExplanation": "業務用ガス機器の構造、燃焼方式、排気温度センサー、吸収冷凍機の再生行程に関する技術知識の問題であり、法令条文を直接根拠にしない。",
     "lawRevisionFacts": []
   },
   {
@@ -404,9 +404,9 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "正しい。強制排気式（FE式）ガス機器は送風機で燃焼排ガスを屋外へ排出する方式であり、自然通気力に依存する自然排気式とは扱いが異なる。ガス事業法施行規則第202条第1項第2号ロは強制排気式燃焼器の排気筒基準を定めているが、排気筒の横引き長さと高さとの関係を求める規定はFE式には置かれていない。",
+      "正しい。強制排気式（FE式）ガス機器は、送風機で燃焼排ガスを屋外へ排出する方式であり、自然通気力に依存する自然排気式とは扱いが異なる。ガス事業法施行規則第202条第1項第2号ロは強制排気式燃焼器の排気筒の基準を定めているが、排気筒の横引き長さと高さとの関係を定める規定はFE式には置かれていない。",
       "正しい。自然給排気式（BF式）ガス機器は、燃焼室が室内空気と隔てられ、給排気部を通じて屋外から燃焼用空気を取り入れて排気する方式である。ガス事業法施行規則第202条第1項第6号は密閉燃焼式燃焼器の給排気部の基準を定めており、BF式では排気のドラフトにより外気が燃焼室へ吸引されるという説明は正しい。",
-      "正しい。開放式ガス機器は室内空気を燃焼に用いるため、調理室では燃焼排ガス等を排出できる換気が必要となる。建築基準法施行令第20条の3第2項第1号イは、換気設備を設けるべき調理室等について、排気口に換気扇等を設ける構造や有効換気量を定めている。",
+      "正しい。開放式ガス機器は室内空気を燃焼に用いるため、調理室では燃焼排ガス等を排出できる換気が必要となる。建築基準法施行令第20条の3第2項第1号イは、換気設備を設けるべき調理室等について、排気口、換気扇等、有効換気量などの構造基準を定めており、調理室の開放式ガス機器に機械換気が必要とする本記述は正しい。",
       "正しい。調理室以外の居間に設置する開放式ガス機器で、合計インプットが6kW以下の場合は、換気上有効な開口部があれば自然換気で扱うことができる。建築基準法施行令第20条の3第1項第3号は、発熱量の合計が6キロワット以下の火を使用する設備又は器具を設けた調理室以外の室について、この扱いを定めている。",
       "間違い。PA13A（プロパン・エアー-13Aガス）は空気より重いガスとして扱うため、警報器は床面近くに設置する。平成12年通商産業省告示第578号第4条は、空気より重いガスを検知する警報器について、ガス機器から水平距離4m以内かつ床面の上方0.3m以内に設置する基準を定めており、天井より下方30cm以内とする本記述は誤りである。"
     ],
@@ -462,140 +462,156 @@
     "sourceQuestionKey": "gas-shunin:otsu:2017:shohi:q23",
     "reviewQuestionId": "5c94da4fce6d43ec",
     "sourceRecordRef": "question_2017_3.json#3",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則"
+      },
+      {
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
+        "title": "建築基準法施行令"
+      },
+      {
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf",
+        "title": "平成十二年通商産業省告示第五百七十八号（ガス事業法施行規則の規定に基づき、ガス漏れ警報器の規格及びその設置方法を定める件）"
+      }
+    ],
     "lawContextForExplanation": "給排気、換気、ガス漏れ警報器の設置基準を扱う法令関連問題。ガス事業法施行規則第202条、建築基準法施行令第20条の3、平成12年通商産業省告示第578号第4条を根拠に、FE式・BF式の給排気、開放式機器の換気方式、PA13A用警報器の設置高さを説明する。",
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第202条第1項第2号ロ（強制排気式燃焼器の排気筒の基準）",
           "choiceIndex": 0,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2026-07-27",
-          "article": "第202条第1項第2号ロ（強制排気式燃焼器の排気筒の基準）",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/345M50000400097"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第202条第1項第6号（密閉燃焼式燃焼器の給排気部の基準）",
           "choiceIndex": 1,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "referenceDate": "2026-07-27",
-          "article": "第202条第1項第6号（密閉燃焼式燃焼器の給排気部の基準）",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/345M50000400097"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第20条の3第2項第1号イ（換気設備を設けるべき調理室等の排気口・換気扇等及び有効換気量）",
           "choiceIndex": 2,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第20条の3第2項第1号イ（換気設備を設けるべき調理室等の排気口・換気扇等及び有効換気量）",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/325CO0000000338"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/325CO0000000338",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第20条の3第1項第3号（発熱量6キロワット以下の調理室以外の室）",
           "choiceIndex": 3,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第20条の3第1項第3号（発熱量6キロワット以下の調理室以外の室）",
-          "verificationStatus": "verified",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/325CO0000000338"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/325CO0000000338",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第4条（ガス漏れ警報器の設置方法。空気より重いガスを検知する警報器の設置位置）",
           "choiceIndex": 4,
           "lawId": "平成十二年通商産業省告示第五百七十八号",
           "lawTitle": "ガス事業法施行規則の規定に基づき、ガス漏れ警報器の規格及びその設置方法を定める件",
           "referenceDate": "2026-07-27",
-          "article": "第4条（ガス漏れ警報器の設置方法。空気より重いガスを検知する警報器の設置位置）",
-          "verificationStatus": "verified",
-          "source": "経済産業省 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "経済産業省 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf",
+          "verificationStatus": "verified"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガス事業法施行規則第202条第1項第2号ロの強制排気式排気筒基準を確認し、FE式に排気筒の横引き長さと高さとの関係を直接要求する規定は確認されないため、現行法でも正しい。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "ガス事業法施行規則第202条第1項第6号の密閉燃焼式燃焼器の給排気部基準を確認し、自然給排気式（BF式）の給排気理解は現行基準と矛盾しないため、現行法でも正しい。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法施行令第20条の3第2項第1号イにより、換気設備を設けるべき調理室等には排気口・換気扇等及び必要換気量が求められるため、調理室の開放式ガス機器に機械換気が必要とする判断は現行法でも維持される。"
-        }
+          "summary": "建築基準法施行令第20条の3第2項第1号イにより、換気設備を設けるべき調理室等には排気口・換気扇等及び必要換気量に関する構造基準が求められるため、調理室の開放式ガス機器に機械換気が必要とする判断は現行法でも維持される。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "建築基準法施行令第20条の3第1項第3号により、調理室以外の室で発熱量合計6キロワット以下かつ換気上有効な開口部がある場合は換気設備義務の対象から外れるため、居間で自然換気でよいとする判断は現行法でも正しい。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "平成12年通商産業省告示第578号第4条により、空気より重いガスを検知する警報器はガス機器から水平距離4m以内かつ床面の上方0.3m以内に設置する。PA13Aについて天井より下方30cm以内とする記述は現行基準でも誤りである。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []
@@ -617,11 +633,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "間違い。業務用ガスこんろに搭載される安全装置は、機器の種類や用途によって異なる。立ち消え安全装置と調理油過熱防止装置の両方がすべての業務用ガスこんろに搭載されているわけではないため誤りである。",
+      "間違い。業務用ガスこんろに搭載される安全装置は、機器の種類や用途によって異なる。立ち消え安全装置と調理油過熱防止装置の両方が、すべての業務用ガスこんろに搭載されているわけではないため誤りである。",
       "間違い。ファンヒーターには、不完全燃焼を検知したときに燃焼を停止させる不完全燃焼防止装置が搭載されている。選択肢はこの装置が搭載されていないとしているため誤りである。",
       "間違い。赤外線ストーブの不完全燃焼防止装置では、熱電対などを利用して燃焼状態を検知する。選択肢は温度検知素子であるサーミスターを不完全燃焼の検知に用いるとしているため誤りである。",
-      "正しい。FF暖房機の立ち消え安全装置には、炎の導電性と整流性を利用して炎の有無を検知するフレームロッドが用いられる。",
-      "間違い。衣類乾燥機の立ち消え安全装置では、熱電対などによって炎の有無を検知する。温度ヒューズは異常な過熱時に回路を遮断する部品であり、選択肢はこれを立ち消えの検知に用いるとしているため誤りである。"
+      "正しい。FF暖房機の立ち消え安全装置には、炎の導電性と整流作用を利用して炎の有無を検知するフレームロッドが用いられる。",
+      "間違い。衣類乾燥機の立ち消え安全装置では、熱電対などによって炎の有無を検知する。温度ヒューズは異常な過熱時に回路を遮断する部品であり、立ち消えを検知する装置そのものではないため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -668,7 +684,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "ガス機器の立ち消え安全装置、不完全燃焼防止装置、過熱防止部品および検知素子に関する技術知識の問題であり、法令条文を直接の根拠としない。",
+    "lawContextForExplanation": "ガス機器の立ち消え安全装置、不完全燃焼防止装置、過熱防止部品及び検知素子に関する技術知識の問題であり、法令条文を直接の根拠としない。",
     "lawRevisionFacts": []
   },
   {
@@ -759,8 +775,8 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "正しい。ヒューズガス栓には、ガスヒューズが作動する流量の異なる種類がある。接続するガス機器のインプットなどに合わせて、適切な作動流量のものを選定する必要がある。",
-      "間違い。ヒューズガス栓は、過大な流量を検知するとガスヒューズが作動してガスを遮断する。作動後に通常使用状態へ戻すためのリセット機構を備えているため、リセット機構は内蔵されていないとする記述は誤りである。",
+      "正しい。ヒューズガス栓には、ガスヒューズが作動する流量の異なる種類がある。接続するガス機器のインプットなどに応じて、適切な作動流量のものを選定する必要がある。",
+      "間違い。ヒューズガス栓は、過大な流量を検知するとガスヒューズが作動してガスを遮断する。作動後は通常使用状態へ戻すためのリセット機構で復帰させる構造であるため、リセット機構は内蔵されていないとする記述は誤りである。",
       "正しい。ガスコンセントは、コンセント継手が差し込まれて接続されると、内部の弁が開いてガス通路が開状態になる。継手を外すと通路は閉じる構造である。",
       "正しい。家庭用オーブンのような常設形のガス機器をねじガス栓に接続する場合には、所定の接続具として金属可とう管が用いられる。",
       "正しい。小型湯沸器と可とう管ガス栓との接続には、ゴム管ではなく、所定の強度を備えた強化ガスホースが用いられる。"
@@ -844,7 +860,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "正しい。密閉式ガス機器は燃焼用空気を屋外から取り入れ、燃焼排ガスを屋外へ排出する方式の機器であり、表示銘板には給排気方式等が記載される。",
+      "正しい。密閉式ガス機器は、燃焼用空気を屋外から取り入れ、燃焼排ガスを屋外へ排出する方式の機器であり、表示銘板には給排気方式等が記載される。",
       "正しい。現在製造されているBF式ふろがまには、冠水時の異常を検知する冠水検知装置が搭載されている。",
       "正しい。CF式ふろがまは浴室内の空気を燃焼に用いる半密閉式のふろがまであり、現在は新規に浴室内へ設置することができない。",
       "間違い。PA13A（プロパン・エアー-13Aガス）は、プロパンを空気で希釈して13A相当の燃焼性に調整したガスであり、空気より重く、比重は1より大きい。したがって『比重は1より小さい』とする記述が誤りである。",
@@ -913,68 +929,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "密閉式ガス機器の表示銘板に給排気方式等が記載されるという機器表示の技術知識であり、法令改正差分の確認対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "BF式ふろがまの冠水検知装置に関する機器構造・安全装置の技術知識であり、法令改正差分の確認対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "CF式ふろがまの浴室内新規設置の扱いに関する設置実務上の技術知識として整理し、条文引用を要する法令改正差分の確認対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "PA13Aの比重に関するガス性状の技術知識であり、法令改正差分の確認対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "PA13A供給時に13A用ガス機器を使用する適合関係の技術知識であり、法令改正差分の確認対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   }

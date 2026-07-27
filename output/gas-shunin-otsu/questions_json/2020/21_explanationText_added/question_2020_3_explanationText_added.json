@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正解は32倍である。円形ノズルから噴出するガス量は、ノズルの断面積とガス圧力の平方根に比例する。口径を4倍にすると断面積は4²=16倍となり、圧力を4倍にすると√4=2倍となる。したがって、ガス量は16×2=32倍となる。"
+      "正解は32倍である。円形ノズルから噴出するガス量は、ノズルの断面積とガス圧力の平方根に比例する。円形ノズルの断面積は口径の2乗に比例するため、口径を4倍にすると断面積は4^2=16倍になる。また、圧力を4倍にすると圧力の平方根は√4=2倍になる。したがって、ガス量は16×2=32倍となる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -66,7 +66,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令問題ではない。円形ノズルの流量は、ノズル断面積とガス圧力の平方根に比例する関係を用いて計算する。",
+    "lawContextForExplanation": "法令問題ではない。円形ノズルの流量が口径の2乗と圧力の平方根に比例する関係を使う計算問題として解説する。",
     "lawRevisionFacts": []
   },
   {
@@ -88,7 +88,7 @@
     "explanationText": [
       "正しい。こんろには、調理油過熱防止装置の温度センサーを利用し、鍋底の温度変化から焦げ付きを検知して自動消火する機能を備えたものがある。",
       "間違い。グリルは、直火による放射熱を主に利用して食材を加熱する機器である。主として伝導熱で調理するという説明が誤っている。",
-      "正しい。コンビネーションレンジは、ガスオーブンに電子レンジの機能を組み合わせた調理機器である。",
+      "正しい。コンビネーションレンジは、ガスオーブンに電子レンジ機能を組み合わせた調理機器である。",
       "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を屋外へ排出するための排湿筒を取り付けられるようになっている。",
       "正しい。赤外線ストーブには、放射体としてセラミックプレートを用いるものと、特殊耐熱金属を用いるものがある。"
     ],
@@ -132,7 +132,7 @@
     "reviewQuestionId": "157a81361551fa79",
     "sourceRecordRef": "question_2020_3.json#1",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。こんろ、グリル、コンビネーションレンジ、衣類乾燥機および赤外線ストーブの機能・構造・加熱方式に関する技術知識を根拠に解説する。",
+    "lawContextForExplanation": "法令問題ではない。家庭用ガス機器であるこんろ、グリル、コンビネーションレンジ、衣類乾燥機、赤外線ストーブの構造、機能、加熱方式に関する技術知識問題として解説する。",
     "lawReferences": [
       [],
       [],
@@ -236,11 +236,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "間違い。固体酸化物形燃料電池（SOFC）は高温で作動し、一酸化炭素も燃料成分として利用できるため、CO変成器を搭載するという説明は適切ではない。CO変成器は、主に低温作動型の燃料電池で一酸化炭素を低減するために用いられる。",
-      "正しい。吸収冷温水機は水を冷媒として用い、臭化リチウム水溶液などを吸収液として利用するノンフロン空調機である。",
-      "正しい。浸管式フライヤーには、油槽中の浸管内でガスを燃焼させて加熱する方式と、燃焼排ガスを浸管内に通して加熱する方式がある。",
-      "正しい。中華レンジには、強い火力を得るため、送風機で燃焼用空気を供給するブラストバーナーを用いたものがある。",
-      "正しい。遠赤外線ヒーターでは、セラミック特殊塗料で仕上げた放射管などの表面から遠赤外線を多く放射させ、加熱に利用する。"
+      "間違い。固体酸化物形燃料電池（SOFC）は高温で作動し、一酸化炭素も燃料として利用できるため、COを水素に変えるためのCO変成器を搭載するという説明は適切ではない。CO変成器は、COによる性能低下を避ける必要がある低温作動型の燃料電池で主に用いられる。",
+      "正しい。吸収冷温水機は、水を冷媒として用い、臭化リチウム水溶液などを吸収液として利用するノンフロン空調機である。ガスなどの熱で冷媒を再生し、冷水や温水をつくる業務用空調機として使われる。",
+      "正しい。浸管式フライヤーには、油槽中に設けた浸管の内部でガスを燃焼させて油を加熱する方式と、燃焼排ガスを浸管内に通して加熱する方式がある。いずれも浸管を介して油に熱を伝える構造である。",
+      "正しい。中華レンジには、強い火力を得るため、送風機で燃焼用空気を供給するブラストバーナーを用いたものがある。中華料理では短時間で高火力加熱を行うため、このような強火力バーナーが用いられる。",
+      "正しい。遠赤外線ヒーターでは、セラミック特殊塗料で仕上げた放射管などの表面から多量の遠赤外線を放射させ、その放射熱を加熱に利用する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -298,85 +298,85 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "sources": [
+            "https://webmagazine.nedo.go.jp/practical-realization/articles/201215osakagas/"
+          ],
+          "summary": "SOFCの作動温度とCO利用性に関する技術知識であり、正誤を直接定める法令条項ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "summary": "SOFCの作動温度・CO利用性に関する技術知識であり、正誤を直接定める法令条項ではない。",
-          "sources": [
-            "https://webmagazine.nedo.go.jp/practical-realization/articles/201215osakagas/"
-          ]
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
         "current": {
           "correctChoiceText": "正しい"
         },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "evidenceSummary": {
-          "summary": "吸収冷温水機の冷媒・吸収液に関する技術知識であり、正誤を直接定める法令条項ではない。",
           "sources": [
             "https://www.khi.co.jp/corp/kte/product/chiller/principle/",
             "https://eee.tokyo-gas.co.jp/equipment/natural_chiller/index.html"
-          ]
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
+          ],
+          "summary": "吸収冷温水機の冷媒・吸収液に関する技術知識であり、正誤を直接定める法令条項ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
-          "summary": "浸管式フライヤーの加熱方式に関する技術知識であり、正誤を直接定める法令条項ではない。",
           "sources": [
             "https://www.hoshizaki.co.jp/p/fl/feature02.html?id=feature",
             "https://asahi-hicook.com/product/dobc/"
-          ]
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
+          ],
+          "summary": "浸管式フライヤーの加熱方式に関する技術知識であり、正誤を直接定める法令条項ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
-          "summary": "中華レンジに用いられるブラストバーナーの製品仕様・方式に関する技術知識であり、正誤を直接定める法令条項ではない。",
           "sources": [
             "https://www.maruzen-kitchen.co.jp/product/warmer-all/chinese-range/item-drx_020/"
-          ]
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "current": {
-          "correctChoiceText": "正しい"
+          ],
+          "summary": "中華レンジに用いられるブラストバーナーの方式に関する技術知識であり、正誤を直接定める法令条項ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
         "evidenceSummary": {
-          "summary": "ガス遠赤外線放射暖房機の放射管・セラミック特殊塗料に関する技術知識であり、正誤を直接定める法令条項ではない。",
           "sources": [
             "https://www.mhi-mth.co.jp/business/air-conditioner-for-business/heating/05/"
-          ]
-        }
+          ],
+          "summary": "ガス遠赤外線放射暖房機の放射管・セラミック特殊塗料に関する技術知識であり、正誤を直接定める法令条項ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -399,8 +399,8 @@
     "explanationText": [
       "正しい。自然換気で空気の流れを生じさせる力には、風による圧力差を利用するものと、室内外の温度差で生じる浮力を利用するものがある。",
       "正しい。必要換気量は、室内の酸素濃度を一定の限界以上に保つために必要となる最小限の換気量をいう。",
-      "正しい。建築基準法施行令の機械換気設備の基準では、必要有効換気量を V=20Af/N として算定するため、1人当たり20m³/hを基礎にしている。",
-      "間違い。一般に、換気扇に用いられるシロッコファンはターボファンより効率が低い。効率の高低を逆に述べているため、この記述が誤りである。",
+      "正しい。建築基準法施行令の機械換気設備の基準では、必要有効換気量を V=20Af/N として算定する。これは1人当たり20m³/hを基礎にした考え方であり、記述は正しい。",
+      "間違い。換気扇に用いられるシロッコファンは、一般にターボファンより効率が低い。効率の高低を逆に述べているため、この記述が誤りである。",
       "正しい。一酸化炭素は酸素よりもヘモグロビンと強く結合し、血液による酸素運搬を妨げる。そのため、吸入すると酸素欠乏症状を起こしやすい。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -446,33 +446,27 @@
     "sourceRecordRef": "question_2020_3.json#4",
     "explanationReferences": [
       {
-        "title": "建築基準法施行令（昭和二十五年政令第三百三十八号）",
+        "choiceIndex": 2,
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 2
-      },
-      {
-        "title": "国土交通省 建築基準法制度概要集 換気に関する規定（法第28条関係）",
-        "sourceUrl": "https://www.mlit.go.jp/jutakukentiku/build/content/001364350.pdf",
-        "referenceDate": "2026-07-27",
-        "choiceIndex": 0
+        "title": "建築基準法施行令（昭和二十五年政令第三百三十八号）"
       }
     ],
-    "lawContextForExplanation": "選択肢3は、建築基準法施行令第20条の2第1号ロ(1)の機械換気設備における必要有効換気量 V=20Af/N を根拠に、1人当たり20m³/hを基礎とする記述として確認する。その他は換気・送風機・一酸化炭素中毒に関する技術知識として解説する。",
+    "lawContextForExplanation": "選択肢3は、建築基準法施行令第20条の2第1号ロ(1)が機械換気設備の有効換気量について V=20Af/N と定める点を根拠に確認する。その他の選択肢は、自然換気、必要換気量の一般的考え方、送風機の効率、一酸化炭素のヘモグロビン結合性に関する技術知識として解説する。",
     "lawReferences": [
       [],
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "第20条の2第1号ロ(1)",
           "choiceIndex": 2,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "referenceDate": "2026-07-27",
-          "article": "第20条の2第1号ロ(1)",
-          "verificationStatus": "verified",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338"
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
+          "verificationStatus": "verified"
         }
       ],
       [],
@@ -482,73 +476,73 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "自然換気の駆動力に関する技術事項であり、法令改正による正誤変更の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "必要換気量の一般的定義に関する技術事項であり、法令改正による正誤変更の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "current_law_confirmed",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法施行令第20条の2第1号ロ(1)の必要有効換気量 V=20Af/N により、1人当たり20m³/hを基礎にする点を確認した。現行法確認では正誤を変更する事情はない。",
-          "lawTitle": "建築基準法施行令",
-          "lawId": "325CO0000000338",
           "article": "第20条の2第1号ロ(1)",
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "referenceDate": "2026-07-27",
           "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
-          "referenceDate": "2026-07-27"
-        }
+          "summary": "建築基準法施行令第20条の2第1号ロ(1)の必要有効換気量 V=20Af/N により、1人当たり20m³/hを基礎にする点を確認した。現行法確認では正誤を変更する事情はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "間違い"
-        },
-        "examTime": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "シロッコファンとターボファンの効率比較に関する技術事項であり、法令改正による正誤変更の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "tertiary_verified",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "examTime": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "一酸化炭素のヘモグロビン結合性と中毒症状に関する技術事項であり、法令改正による正誤変更の対象ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
       }
     ]
   },
@@ -569,13 +563,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正しい。CF式ふろがまの排気筒トップには、燃焼排ガスや屋外の風雨にさらされても安全性を保てるよう、不燃性、耐熱性及び耐食性のある材料を用いる必要がある。",
-      "正しい。BF式ふろがまは、燃焼用空気を屋外から取り入れ、燃焼排ガスも屋外へ排出する密閉式の機器である。そのため、設置室に燃焼用の専用給気口や換気口を設ける必要はない。",
-      "間違い。BF式ふろがまは、給排気筒によって屋外から給気し、屋外へ排気する方式であり、浴室内に設置されるものがある。したがって、新規に浴室内へ設置できないとする記述は誤りである。",
-      "正しい。CF式ふろがまの逆風止めは、排気の逆流などが機器の燃焼状態に影響しないよう、機器と同一室内に設置する必要がある。",
-      "正しい。FE式温水器は、送風機で燃焼排ガスを強制的に屋外へ排出する方式であるため、自然排気式で問題となる排気筒の横引き長さと高さとの関係については特に規定されない。"
+      "正しい。CF式ふろがまは半密閉式の自然排気式で、屋内に設置する場合は排気筒を設け、その排気筒材料は告示で定める規格又は同等以上のものにする必要がある。排気筒トップも排気筒の先端部として燃焼排ガスや風雨にさらされるため、不燃性・耐熱性・耐食性を備えた材料が求められる。",
+      "正しい。BF式ふろがまは密閉燃焼式で、燃焼用空気を屋外から取り入れ、燃焼排ガスも屋外へ出す給排気部を備える。燃焼用空気を設置室から取らないので、CF式のような燃焼用の専用給気口や換気口は不要である。",
+      "間違い。浴室内への新規設置が禁止される代表例は半密閉式自然排気式のCF式ふろがまであり、BF式ふろがまは給排気部で屋外とつながる密閉燃焼式である。所定の給排気部基準等に適合して設置する方式であり、『新規に浴室内に設置できない』とする記述は誤りである。",
+      "正しい。自然排気式であるCF式の排気筒には、原則として燃焼器と同一室内にある部分で、燃焼器に近い箇所に逆風止めを取り付ける。機器本体に逆風止めを取り付ける場合を除き、別室に置くものではない。",
+      "正しい。FE式温水器は強制排気式であり、排気筒は自然排気式の高さ計算などの基準をそのまま受けるのではなく、排気ガスが逆流しない風量を確保できる形状等が求められる。したがって、自然排気式で問題となる横引き長さと高さとの関係について特別の規定はない。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
       "消費機器「ガス機器の給排気（乙種）」のCF式ふろがま、BF式ふろがま、逆風止め、FE式温水器の給排気が本問の関連論点。",
       "本問は誤っているものを問う形式で、source順では選択肢3のみが誤りである。"
@@ -612,21 +606,169 @@
     "questionSetName": "ガス機器の給排気（乙種）",
     "category": "ガス機器の給排気（乙種）",
     "answer_result_text": "正解は 3 です。",
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2020:shohi:q25",
     "reviewQuestionId": "2259492ba8e1ffca",
     "sourceRecordRef": "question_2020_3.json#5",
-    "explanationReferences": [],
-    "lawContextForExplanation": "法令問題ではない。CF式・BF式・FE式機器の給排気方式、排気筒トップ、逆風止め及び設置上の特徴に関する技術知識として解説する。",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則（昭和45年通商産業省令第97号）"
+      },
+      {
+        "referenceDate": "2026-07-27",
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200701kaisei.pdf",
+        "title": "排気筒及び給排気部の材料の規格の要件並びに給排気部の指定する部分（平成9年通商産業省告示第91号）"
+      }
+    ],
+    "lawContextForExplanation": "ガスふろがま・温水器の給排気は、ガス事業法施行規則第202条の消費機器技術基準が中心となる。CF式は半密閉式自然排気式として排気筒材料・逆風止め・高さ基準を確認し、BF式は密閉燃焼式として給排気部基準、FE式は強制排気式として自然排気式との排気筒基準の違いを整理する。",
     "lawReferences": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        {
+          "article": "第202条第1項第2号イ(1)",
+          "choiceIndex": 0,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第1条",
+          "choiceIndex": 0,
+          "lawId": "平成9年通商産業省告示第91号",
+          "lawTitle": "排気筒及び給排気部の材料の規格の要件並びに給排気部の指定する部分",
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200701kaisei.pdf",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第1項第1号及び第6号",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第1項第6号",
+          "choiceIndex": 2,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第1項第2号イ(2)",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第1項第2号ロ(1)及び第2号イ(9)",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-27",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
+        }
+      ]
     ],
     "suggestedQuestionDetailsByChoice": [],
-    "lawRevisionFacts": []
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "現行法でも試験時点でも、CF式ふろがまの排気筒材料は施行規則第202条及び材料告示に基づいて判断し、正誤は変わらない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "BF式は密閉燃焼式として給排気部基準で扱われ、設置室に燃焼用の専用給気口・換気口を要する判定にはならない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "密閉燃焼式であるBF式ふろがまを、CF式ふろがまの浴室内新規設置不可と同一に扱う根拠はなく、設問の正誤は現行・試験時点で同じである。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "CF式など自然排気式の排気筒では、逆風止めを燃焼器と同一室内の近接箇所に取り付ける基準で判断し、正誤は変わらない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "no_revision_impact",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "FE式は強制排気式として第202条第1項第2号ロの基準で扱われ、自然排気式の高さ計算を前提にした横引き長さと高さの関係規定は適用されない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
+      }
+    ]
   },
   {
     "original_question_id": "3dc78c871bcc2abf",
@@ -646,10 +788,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
       "正しい。水位制御装置には、自動湯張り機能付き温水機器のように設定した水位を保つものと、貯蔵湯沸器のように固定された一定水位を保つものがある。",
-      "正しい。点火時安全装置は、燃焼室内に残った未燃ガスへの点火による爆発的な燃焼を防止する装置である。",
-      "正しい。瞬時点火装置では、熱電対に十分な起電力が生じるまで、コンデンサーの放電電流によってガス弁を開いた状態に保つ。",
-      "正しい。ガス量を制御する比例電磁弁には、固定コイル式と可動コイル式がある。",
-      "間違い。機械式温度制御装置の温度検出部に用いられる方式は、バイメタル式と液体膨張式である。選択肢はバイメタル式ではなく気体膨張式としているため誤りである。"
+      "正しい。点火時安全装置は、燃焼室内に残った未燃ガスに点火して爆発的な燃焼が起こることを防ぐための装置である。",
+      "正しい。瞬時点火装置では、熱電対に十分な起電力が生じるまでの間、コンデンサーの放電電流によってガス弁を開いた状態に保持する。",
+      "正しい。ガス量制御に用いられる比例電磁弁には、固定コイル式と可動コイル式がある。",
+      "間違い。機械式温度制御装置の温度検出部に用いられる代表的な方式は、バイメタル式と液体膨張式である。選択肢はバイメタル式ではなく気体膨張式としているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -705,68 +847,68 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "水位制御装置の種類と機能に関する技術知識であり、正誤を直接決める法令条文ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "点火時安全装置の目的に関する技術知識であり、正誤を直接決める法令条文ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "瞬時点火装置における熱電対とコンデンサーの作動に関する技術知識であり、正誤を直接決める法令条文ではない。"
-        }
-      },
-      {
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "summary": "比例電磁弁の方式に関する技術知識であり、正誤を直接決める法令条文ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "summary": "機械式温度制御装置の温度検出方式はバイメタル式と液体膨張式であり、気体膨張式とする記述が誤りである。正誤を直接決める法令条文ではない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -787,7 +929,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
     "explanationText": [
-      "正しい。ヒューズガス栓には作動流量の異なる種類があり、接続するガス機器のインプットなどに応じて適切なものを選ぶ必要がある。",
+      "正しい。ヒューズガス栓には、作動流量の異なる種類があり、接続するガス機器のインプットなどに応じて適切なものを選ぶ必要がある。",
       "正しい。ガスコンセントは、迅速継手を接続すると栓が自動的に開き、取り外すと自動的に閉じる構造である。",
       "間違い。オンオフ機構を有するガス栓は、中途開の状態ではガスが出ないようにする機構を備える。したがって、つまみが半開状態のまま接続具が外れ、ヒューズ機構が作動せずにガスが流出するという記述は誤りである。",
       "正しい。家庭用ガス警報器には、ガス検出センサーの小型化及び省電力化により、電池で駆動できるものがある。",
@@ -846,79 +988,79 @@
     "suggestedQuestionDetailsByChoice": [],
     "lawRevisionFacts": [
       {
-        "choiceIndex": 0,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "ヒューズガス栓の作動流量選定に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
-        }
-      },
-      {
-        "choiceIndex": 1,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "ガスコンセントと迅速継手の開閉構造に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 2,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
+        "choiceIndex": 2,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "オンオフ機構付きガス栓の中途開対策に関する技術事項であり、記述の『ガスが流出する』部分が誤り。正誤を直接決める検証済み法令条項は確認できない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 3,
         "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
+        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "電池駆動型家庭用ガス警報器のセンサー小型化・省電力化に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
-        }
-      },
-      {
-        "choiceIndex": 4,
-        "auditStatus": "not_law_related",
-        "reviewState": "secondary_verified",
+        },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
           "classification": "technical_knowledge",
           "summary": "家庭用ガス警報器の検出方式分類に関する技術事項であり、正誤を直接決める検証済み法令条項は確認できない。"
-        }
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   }
