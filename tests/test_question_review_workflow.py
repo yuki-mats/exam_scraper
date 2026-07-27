@@ -1781,6 +1781,8 @@ assert.deepEqual(
         self.assertIn("追加Codex creditsとAPI従量課金は使用しません", html)
         self.assertIn("1資格だけなら最大100問を同時に進めます", html)
         self.assertIn("model turnは全資格合計100本を超えず", html)
+        self.assertIn("全資格合計100turn", javascript)
+        self.assertNotIn("全資格合計64turn", javascript)
         self.assertIn("検査と確定は一問単位", html)
         self.assertIn("必要な工程を一問一つのmodel turn", javascript)
         self.assertIn("複数選択可", javascript)

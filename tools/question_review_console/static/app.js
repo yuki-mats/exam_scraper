@@ -3500,7 +3500,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（全資格合計64turn、検査と確定も1問ずつ）`,
+          `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（全資格合計100turn、検査と確定も1問ずつ）`,
         ),
       );
     }
