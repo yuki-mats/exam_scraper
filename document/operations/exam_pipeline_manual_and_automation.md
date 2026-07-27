@@ -25,20 +25,31 @@ flowchart LR
   Ready -->|不合格| Rework["再整備（新規session）"]
   Rework --> Merge
 
-  Source --> Console["レビューUI"]
-  Review --> Console
-  Merge --> Console
-  Gate --> Console
-  Verify --> Console
-  Publish --> Console
+  Source & Review & Merge & Gate & Verify & Publish --> Console["レビューUI"]
 ```
+
+## 一問整備の基本仕様
+
+問題整備システムは、必要工程の判定、工程間の受け渡し、検査、保存、再試行、途中再開を自動化します。問題文、全選択肢、正答、解説をまとめて一問とし、最大100問を独立して進めます。同じ問は現在工程の検査と保存が終わるまで次工程へ進めませんが、他の問の完了は待ちません。
+
+```mermaid
+flowchart LR
+  Plan["必要工程を決める"] --> Work["一問の現在工程を実行"] --> Check{"工程固有の機械チェック"}
+  Check -->|合格| Save["確定保存"] --> Next{"次工程"}
+  Next -->|ある| Work; Next -->|ない| Done["一問完了"]
+  Check -->|同工程で修正| Work; Check -->|前工程が原因| Back["その問だけ前工程へ戻す"] --> Work
+  Check -->|判断不能| Hold["その問だけ保留"]
+```
+
+- 工程の順序、適用条件、prompt、使用ツール、更新範囲、機械チェックはworkflow設定で管理する。各工程には確定済みの現在内容と必要な指示・根拠・feedbackだけを渡し、合格した結果だけを次工程へ渡す。
+- 一問では同時に一工程だけを実行して重複処理を防ぎ、中断後は最初の未完了工程から再開する。共有工程だけを共通の待ち合わせにし、性能改善に必要な時間、再試行理由、実行数、工程版、入出力fingerprintを記録する。
 
 通常の順序は次のとおりです。
 
 1. 資格と取得元URLを確認し、問題・画像を取得する。公式過去問以外又は混在する取得元は、全問を独自問題化する。
 2. `00_source`を取得元の現在スナップショットとして保護する。手作業では変更せず、取得元が更新された場合だけ標準scraperで更新する。
 3. 独自問題は05で問題文・設問・選択肢・正答を先に確定する。画像が必要な問題は、その確定内容に合う独自画像を作って同じ05 patchへ追加してから、公式過去問と同じ01以降へ進める。詳細は[独自問題作成ワークフロー](original_question_authoring_workflow.md)を正本とする。
-4. トップの`listGroupId`一覧から対象年度、整備する項目、処理する問題を指定する。整備する項目は初期状態ですべて選択され、処理する問題は通常`整備が必要な問題だけ`を使う。必要工程は項目から自動で決まり、対象を一問単位で確定しながら進める。queueとsessionの境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を正本とする。
+4. トップの`listGroupId`一覧から対象年度、整備する項目、処理する問題を指定する。整備する項目は初期状態ですべて選択され、処理する問題は通常`整備が必要な問題だけ`を使う。必要工程は項目から自動で決まり、対象を一問単位で確定しながら進める。queueとsessionの実行境界は[問題整備システム](local_question_review_console.md#一問queueとsession)を参照する。
 5. 法令工程を使う資格では、02bで根拠候補を準備し、03bの独立sessionで一問一肢ずつ監査する。`config/qualification_rules.json`で`law_workflow_enabled=false`とした資格は02bと03bを省略する。
 6. `category.json`が未準備なら、トップ整備が03cを別sessionで自動実行し、続けて04で各問題を問題集へ紐付ける。
 7. merge、convert、quality-gate、upload dry-runで機械的な公開前条件を確認する。
