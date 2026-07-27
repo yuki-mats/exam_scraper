@@ -1848,32 +1848,42 @@ function renderMaintenanceDashboard() {
     statusAction.type = "button";
     statusAction.setAttribute("aria-label", `${group.displayName || group.listGroupId}の問題一覧を見る`);
     statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId));
+    const canStart = runStatusKnown && !isRunning && !workflow.restartRequired;
     const action = element(
       "button",
       "secondary-button",
-      working ? "進捗を見る" : resumable ? "未完了を再開" : "整備・洗い替え",
+      working ? "進捗を見る" : "整備・洗い替え",
     );
     action.type = "button";
-    action.disabled = !working
-      && !resumable
-      && (!runStatusKnown || isRunning || workflow.restartRequired);
+    action.disabled = !working && !canStart;
     action.setAttribute(
       "aria-label",
       working
         ? `${group.displayName || group.listGroupId}の進捗を見る`
-        : resumable
-          ? `${group.displayName || group.listGroupId}の未完了を再開`
         : `${group.displayName || group.listGroupId}を整備・洗い替え`,
     );
     action.addEventListener(
       "click",
       working
         ? resumeQualificationRun
-        : resumable
-          ? () => retryBlockedQualificationRun(resumableRun)
         : () => openListGroupMaintenance(group.listGroupId),
     );
-    actions.append(statusAction, action);
+    actions.append(statusAction);
+    if (!working && resumable) {
+      const resumeAction = element("button", "secondary-button", "未完了を再開");
+      resumeAction.type = "button";
+      resumeAction.disabled = !canStart;
+      resumeAction.setAttribute(
+        "aria-label",
+        `${group.displayName || group.listGroupId}の未完了を再開`,
+      );
+      resumeAction.addEventListener(
+        "click",
+        () => retryBlockedQualificationRun(resumableRun),
+      );
+      actions.append(resumeAction);
+    }
+    actions.append(action);
     row.append(copy, meter, actions);
     years.append(row);
   }

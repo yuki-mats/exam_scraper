@@ -1256,9 +1256,16 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("fieldFirst: true", flow)
         self.assertNotIn('$("#maintenance-start")', javascript)
         self.assertIn("openListGroupMaintenance(group.listGroupId)", javascript)
-        self.assertIn('resumable ? "未完了を再開"', javascript)
         self.assertIn(
-            "? () => retryBlockedQualificationRun(resumableRun)",
+            'const resumeAction = element("button", "secondary-button", '
+            '"未完了を再開")',
+            javascript,
+        )
+        self.assertIn("actions.append(resumeAction)", javascript)
+        self.assertIn('working ? "進捗を見る" : "整備・洗い替え"', javascript)
+        self.assertIn("actions.append(action)", javascript)
+        self.assertIn(
+            "() => retryBlockedQualificationRun(resumableRun)",
             javascript,
         )
         self.assertIn(
@@ -1962,9 +1969,11 @@ assert.deepEqual(
         self.assertIn("width: 100%", controls_css)
         self.assertIn("qualificationRunStatusQualification", javascript)
         self.assertIn(
-            "(!runStatusKnown || isRunning || workflow.restartRequired)",
+            "const canStart = runStatusKnown && !isRunning "
+            "&& !workflow.restartRequired",
             javascript,
         )
+        self.assertIn("action.disabled = !working && !canStart", javascript)
         self.assertIn("requestController?.abort()", javascript)
         self.assertIn("qualification !== state.qualification", javascript)
         self.assertIn(
