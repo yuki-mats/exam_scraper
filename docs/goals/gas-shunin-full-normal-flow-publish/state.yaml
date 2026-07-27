@@ -4,7 +4,7 @@ goal:
   title: "ガス主任技術者 全問通常フロー整備・Firestore公開"
   slug: "gas-shunin-full-normal-flow-publish"
   kind: existing_plan
-  tranche: "甲種・乙種2017〜2025年の全18年度群を通常フローで再整備し、Firestore全件readbackまで連続実行する。"
+  tranche: "乙種run 20260728T003259690497-6bfd7dd8の終端後に旧ルール指摘を清掃し、実質保留だけを再整備してから、甲種・全体監査・Firestore全件readbackへ進む。"
   status: active
   oracle:
     signal: "00_source不変、正答・解説矛盾0、未承認正答差分0、ID drift 0、全品質ゲート成功、Firestore readback不一致0、乙種2024基礎問9の4.3/flash_card正常採点。"
@@ -31,6 +31,7 @@ goal:
       - "Firestoreへアップロードしてreadbackする。"
       - "対象5件の個別先行uploadは行わない。"
       - "全問整備の開始、工程操作、評価、Firestore反映は問題整備システムのUIから行う。"
+      - "乙種の自動run終了後、旧ルール由来の指摘を清掃し、残る実質的な保留だけを通常UIフローで再整備する。"
 
 rules:
   pm_owns_state: true
@@ -65,7 +66,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-full-normal-flow-publish/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-full-normal-flow-publish"
 
-active_task: T014
+active_task: T003
 
 tasks:
   - id: T001
@@ -397,9 +398,9 @@ tasks:
   - id: T014
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
-    objective: "追加エージェントを起動せず、一問を一つのtop-level model turnへ分離して最大64問を同時に整備し、正本の検査・確定も一問単位のまま維持する。"
+    objective: "追加エージェントを起動せず、一問を一つのtop-level model turnへ分離して最大100問を同時に整備し、正本の検査・確定も一問単位のまま維持する。"
     allowed_files:
       - "document/operations/local_question_review_console.md"
       - "tools/question_review_console/adaptive_scheduler.py"
@@ -411,6 +412,7 @@ tasks:
       - "tools/question_review_console/question_patch_proposal.py"
       - "tools/question_review_console/static/app.js"
       - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/turn_budget.py"
       - "tests/test_question_review_adaptive_scheduler.py"
       - "tests/test_question_review_codex_app_server.py"
       - "tests/test_question_review_failed_delta.py"
@@ -422,40 +424,81 @@ tasks:
       - "tests/test_question_review_workflow.py"
       - "tests/test_question_review_workflow_catalog.py"
     verify:
-      - "64問の準備が同時に開始でき、結果順序と問題単位の検査・確定順序が安定する自動test。"
-      - "64問が64個の独立したmodel turnとして同時に開始し、各child runの対象が一問だけになる自動test。"
+      - "100問の準備が同時に開始でき、結果順序と問題単位の検査・確定順序が安定する自動test。"
+      - "100問が100個の独立したmodel turnとして同時に開始し、各child runの対象が一問だけになる自動test。"
       - "同じpatch fileの対象解決が内容fingerprint単位で再利用され、file更新後は再読込される自動test。"
-      - "questionConcurrency=64のpreview/start、UI選択、全資格合計64turnの公平配分を確認する自動test。"
+      - "questionConcurrency=100のpreview/start、UI選択、全資格合計100turnの公平配分を確認する自動test。"
       - "問題整備run、server、workflow UI、adaptive scheduler、inventoryの関連回帰test。"
       - "node --check tools/question_review_console/static/app.js"
       - "git diff --check"
       - ".venv/bin/python scripts/check/check_00_source_immutability.py"
-      - "server再起動後、UIから乙種未完了runを64並列で再開し、生manifestでpreparation worker上限64、旧ルール指摘0、正常進捗を確認する。"
-      - "launchdのsoft nofile=256から起動してもCodex App Serverが65,536へ引き上げ、64thread後にToo many open filesを発生させない。"
-      - "writer待ち中もpipelineWorkerLimit=128で次waveの64 model turnが起動する。"
+      - "server再起動後、UIから乙種未完了runを100並列で再開し、生manifestでpreparation worker上限100と正常進捗を確認する。"
+      - "launchdのsoft nofile=256から起動してもCodex App Serverが65,536へ引き上げ、100thread後にToo many open filesを発生させない。"
+      - "writer待ち中もpipelineWorkerLimit=200で次waveの100 model turnが起動する。"
       - "structured_candidate_per_questionの途中再起動で、確定済みchild receiptを回収し、未確定問題だけを再開できる。"
     stop_if:
       - "00_source又は既存questionIdの変更が必要になる。"
       - "modelが正本へ直接書き込む構造になる。"
       - "検査・確定を問題単位で維持できない。"
       - "既存の中断runを安全に再開できない。"
-    receipt: null
+    receipt:
+      result: done
+      harness: codex
+      summary: "工程全体のphase barrierを廃止し、同一問は一工程だけ、完了問の次工程は他問を待たず優先投入するevent-driven question pipelineへ刷新した。準備・model・writerを独立lane化し、questionConcurrencyとApp Server turn/control-plane上限を100へ統一した。乙種522問をUIから再開し、実runで問題形式未完了問が残る間に別問が設問意図へ進むこと、model peak 100、同一問二工程同時0、前工程未確定の後工程進行0を確認した。"
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/adaptive_scheduler.py"
+        - "tools/question_review_console/codex_app_server.py"
+        - "tools/question_review_console/turn_budget.py"
+        - "tools/question_review_console/static/app.js"
+        - "tools/question_review_console/static/index.html"
+        - "tests/test_question_review_adaptive_scheduler.py"
+        - "tests/test_question_review_codex_app_server.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tests/test_question_review_workflow.py"
+      commits:
+        - "f506d3006 問題ごとの独立工程遷移へ刷新"
+        - "e4e99eba0 問題整備の100turn表示を統一"
+      commands:
+        - cmd: "qualification run / App Server / workflow / server / adaptive scheduler related tests"
+          status: pass
+          evidence: "主要回帰295件成功"
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          evidence: "5799 files unchanged"
+        - cmd: "UI start gas-shunin-otsu 2017-2025 questionConcurrency=100"
+          status: pass
+          evidence: "run 20260728T003259690497-6bfd7dd8 running、questionWindowPeakPendingCount=100、modelPeakPendingFutureCount=100"
+      full_outcome_complete: false
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
-    objective: "問題整備システムUIから乙種2017〜2025年の全年度群を通常フローで整備・評価し、公開直前の現行成果物まで完了する。"
+    objective: "乙種run 20260728T003259690497-6bfd7dd8を終端まで監視し、run終了後に旧ルール由来の指摘を清掃して、残る実質保留だけを問題整備システムUIから再整備・再評価し、公開直前の現行成果物まで完了する。"
+    inputs:
+      - "output/question_review_console/workflow_runs/gas-shunin-otsu/20260728T003259690497-6bfd7dd8"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+      - "config/question_maintenance_workflow.toml"
+      - "00_source"
     allowed_files:
       - "output/gas-shunin-otsu/**"
       - "output/question_review_console/**/gas-shunin-otsu/**"
       - "document/temporary/reviews/gas-shunin/**"
       - "docs/goals/gas-shunin-full-normal-flow-publish/notes/**"
     verify:
+      - "現在runがterminalになり、manifest・question_summary・result・technical_logの件数が整合する。"
+      - "旧ルール由来のprompt、review、previousValidationFeedback、検証指摘を全件特定し、現在の正本で再現しないものだけを清掃する。"
+      - "旧ルール清掃後も正答・解説・法令根拠・ID・現行法監査の実質的不整合を保留一覧へ残す。"
+      - "残る実質保留だけを問題整備システムUIから再開し、確定済み問題を再実行しない。"
+      - "乙種522問の必要工程と別session評価が現行版になり、保留0又は根拠付きowner判断待ちだけになる。"
       - "問題整備システムUIの全年度状況画面で未処理・失敗・古い工程を確認する。"
       - ".venv/bin/python scripts/check/check_00_source_immutability.py"
       - "乙種全年度のquality-gateとupload dry-runのUI結果又はUI生成receiptを確認する。"
     stop_if:
+      - "自動runがまだterminalではない。"
+      - "旧ルール由来か実質不整合かを正本と証拠から区別できない。"
       - "00_sourceに差分が出る。"
       - "UI以外から工程状態を変更する必要がある。"
       - "正答と解説に未解決の意味的矛盾がある。"

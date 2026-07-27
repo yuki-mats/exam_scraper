@@ -8,6 +8,10 @@
 
 「通常フローへ一本化します。」
 
+Latest continuation:
+
+「自動run終了後、旧ルール由来の指摘を清掃し、残る実質的な保留だけを再整備してほしい」
+
 ## Intake Summary
 
 - Input shape: `existing_plan`
@@ -18,7 +22,7 @@
 - Goal oracle: `00_source`不変、全対象の正答・解説整合、正答差分の根拠付き承認、全品質ゲート成功、Firestore全対象readback一致、報告対象の乙種2024年基礎理論問9が4.3を正解として正常採点されること。
 - Likely misfire: 対象5documentだけを個別投入する、通常フロー外の一時ロジックを増やす、全件処理済みという件数だけで正答・解説品質を完了扱いにする、既存ID又は`00_source`を変更する。
 - Blind spots considered: 旧Goalは934問を対象としており、現在の全18年度群を表していない。`00_source`と整備後正答に既知差分があり、差分は自動補正せず個別根拠で判断する。Firestore公開は差分documentだけを書き、全対象を読み戻す。
-- Existing plan facts: `00_source`を基本の正本とする。正答と解説を照合する。`00_source`と整備後正答の差分は妥当性を確認する。最後にFirestoreへ反映する。個別5件の先行uploadは行わない。全問整備の開始と工程操作は問題整備システムのUIから行う。
+- Existing plan facts: `00_source`を基本の正本とする。正答と解説を照合する。`00_source`と整備後正答の差分は妥当性を確認する。最後にFirestoreへ反映する。個別5件の先行uploadは行わない。全問整備の開始と工程操作は問題整備システムのUIから行う。乙種の自動run終了後、旧ルール由来の検証指摘を清掃し、残った実質保留だけを通常UIフローで再整備する。
 
 ## Goal Oracle
 
@@ -34,7 +38,7 @@ PMは各task receiptをこのoracleと照合する。調査、局所修正、dry
 
 ## Current Tranche
 
-甲種・乙種の2017〜2025年、全18年度群を一つの公開単位として扱う。現物inventoryで問題数とFirestore document数を再確定し、乙種全年度、甲種全年度、全体差分監査、公開候補再生成、Firestore公開・readbackの順に連続実行する。
+甲種・乙種の2017〜2025年、全18年度群を一つの公開単位として扱う。まず乙種run `20260728T003259690497-6bfd7dd8` を終端まで監視し、確定済み成果を保護する。run終了後に旧ルール由来の指摘を履歴・現在状態から清掃し、残る実質保留だけを通常UIフローで再整備する。その後、甲種全年度、全体差分監査、公開候補再生成、Firestore公開・readbackの順に連続実行する。
 
 ## Non-Negotiable Constraints
 
@@ -52,6 +56,8 @@ PMは各task receiptをこのoracleと照合する。調査、局所修正、dry
 - upload後は全対象をreadbackし、候補との不一致0件を確認する。
 - 別作業の未コミット差分を変更、stage、commit、revertしない。
 - 通常フローに不足が見つかった場合は、資格固有の一時分岐を増やさず、責務に合う既存工程で解消する。
+- 稼働中runのquestion JSON、patch、manifestを手作業で変更しない。旧ルール清掃はrun終端後に行う。
+- 旧ルール由来の指摘を削除しても、正答・解説・法令根拠・ID・現行法監査の実質的な不整合は削除せず、問題単位の再整備対象に残す。
 
 ## Stop Rule
 
