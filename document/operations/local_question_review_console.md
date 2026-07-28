@@ -104,6 +104,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 - App Serverの状態は、100枠への入場待ちを含む`turnBudget`、起動RPCの100枠を示す`controlPlaneBudget`、App Serverの`turn/started`通知から終端通知までを数える`modelTurns`に分けて返す。`turn/start`応答が通知より遅れても実行中turnを数え落とさない。100問同時実行の証明には`modelTurns.peakInFlight=100`を使い、予約だけで実行済みと判断しない。
 - Codex App Serverのturn待機中も15秒間隔で`heartbeatAt`を更新する。親runのheartbeat writerはcoordinator一つだけとし、各一問turnから親manifestへheartbeatを書き込まない。heartbeatはjobの`lastActivityAt`へ伝播するが、問題処理又はreceipt検証の完了を意味しない。
 - 一つのmodel turnが30分で完了しない場合は中断し、その一問だけを失敗としてqueueの再試行契約へ戻す。この期限切れだけを理由に他問の並列容量を縮小したり、App Server全体を再起動したりしない。
+- 構造化JSONの完成済み`agentMessage`を受信した後も`turn/completed`通知だけが30秒届かない場合は、その一問のturnだけを中断し、受信済みJSONを通常のschema検証と機械検査へ渡す。通知欠落を理由に内容を無検査で保存せず、検査不合格なら通常の問題別再試行へ戻す。
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。
 - Run進捗の通常取得は一問stateを展開せず、派生summaryだけを返す。問題一覧が必要な場合だけ`includeQuestions=true`を指定し、さらに一問のattemptと工程履歴が必要な場合は`GET /api/qualification-runs/<runId>/questions/<questionId>?qualification=<qualification>`で対象JSONだけを読む。`GET /api/session`はApp Serverへの同期問い合わせを行わず、最後に検証済みの接続状態だけを返す。
