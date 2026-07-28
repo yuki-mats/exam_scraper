@@ -1244,7 +1244,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             root / "tools/question_review_console/static/app.js"
         ).read_text(encoding="utf-8")
         flow = javascript.split("function openListGroupMaintenance", 1)[1].split(
-            "function renderMaintenanceDashboard", 1
+            "function openSingleQuestionMaintenance", 1
         )[0]
         selector = javascript.split("function maintenanceRunStageIds", 1)[1].split(
             "function qualificationMaintenanceEntryStage", 1

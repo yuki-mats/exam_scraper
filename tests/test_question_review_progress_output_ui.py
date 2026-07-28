@@ -138,7 +138,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("qualificationRunStageIdsForUpdateTargetIds", dialog_section)
         list_group_section = javascript[
             javascript.index("function openListGroupMaintenance") :
-            javascript.index("function returnToMaintenanceGroupList")
+            javascript.index("function openSelectedQuestionMaintenance")
         ]
         self.assertNotIn("updateTargetIds", list_group_section)
         self.assertIn('mode: "needed"', list_group_section)
@@ -361,7 +361,9 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("questionIds: selectedQuestions.map", maintenance_section)
         self.assertIn("listGroupIds: [...new Set(", maintenance_section)
         self.assertIn('mode: "group_refresh"', maintenance_section)
-        self.assertIn("fieldFirst: true", maintenance_section)
+        self.assertIn("evaluationRework: true", maintenance_section)
+        self.assertIn("EVALUATION_REWORK_WORKFLOW_STAGE", maintenance_section)
+        self.assertIn("stageIds: selectedStages.map", maintenance_section)
         self.assertIn(
             "questionConcurrency: AUTO_QUESTION_CONCURRENCY",
             maintenance_section,

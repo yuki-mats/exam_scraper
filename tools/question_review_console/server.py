@@ -81,6 +81,7 @@ from tools.question_review_console.qualification_runs import (
     QualificationRunCoordinator,
     QualificationRunError,
     QualificationRunStore,
+    REWORK_POLICY_STAGE_IDS,
 )
 from tools.question_review_console.review_store import ReviewStore
 from tools.question_review_console.prompt_builder import (
@@ -913,11 +914,31 @@ class QuestionReviewApplication:
                 mode = str(body.get("mode") or "remaining")
                 if not stage_ids:
                     raise ValueError("stageIdsを一つ以上指定してください。")
+                evaluation_rework_snapshots = None
+                if body.get("evaluationRework") is True:
+                    if not question_ids:
+                        raise ValueError(
+                            "評価結果から再整備するquestionIdsを指定してください。"
+                        )
+                    (
+                        stage_ids,
+                        list_group_ids,
+                        update_target_ids,
+                        evaluation_rework_snapshots,
+                    ) = self._evaluation_rework_run_options(
+                        qualification,
+                        question_ids,
+                    )
+                    mode = "group_refresh"
                 stage_id = stage_ids[0]
                 run_options = {
                     "stage_ids": stage_ids,
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
+                if evaluation_rework_snapshots is not None:
+                    run_options["evaluation_rework_snapshots"] = (
+                        evaluation_rework_snapshots
+                    )
                 if "questionConcurrency" in body:
                     run_options["question_concurrency"] = body.get(
                         "questionConcurrency"
@@ -2288,6 +2309,99 @@ class QuestionReviewApplication:
             *self.qualification_workflow.versioned_policies(qualification).values(),
             self.evaluations.current_policy(),
         ]
+
+    def _evaluation_rework_run_options(
+        self,
+        qualification: str,
+        question_ids: list[str],
+    ) -> tuple[
+        list[str],
+        list[str],
+        list[str],
+        dict[str, dict[str, Any]],
+    ]:
+        questions = [
+            self._decorate(self._question(question_id, {}))
+            for question_id in question_ids
+        ]
+        if any(
+            str(question.get("qualification") or "") != qualification
+            for question in questions
+        ):
+            raise ValueError(
+                "評価結果からの再整備は同じ資格の問題だけを選択してください。"
+            )
+        snapshots: dict[str, dict[str, Any]] = {}
+        required_workflow_stage_ids: set[str] = set()
+        for question in questions:
+            question_id = str(question["id"])
+            evaluation = question.get("evaluation")
+            if (
+                not isinstance(evaluation, Mapping)
+                or evaluation.get("status") != "needs_rework"
+            ):
+                raise ValueError(
+                    "要再整備ではない問題が含まれています: "
+                    f"{question.get('questionLabel') or question_id}"
+                )
+            snapshot = {
+                key: copy.deepcopy(evaluation.get(key))
+                for key in (
+                    "status",
+                    "stateHash",
+                    "resultHash",
+                    "summary",
+                    "criticalIssues",
+                    "choiceEvaluations",
+                    "reworkItems",
+                )
+            }
+            rework_stage_codes = {
+                str(item.get("stage") or "")
+                for item in snapshot.get("reworkItems") or []
+                if isinstance(item, Mapping)
+            }
+            if not rework_stage_codes:
+                raise ValueError(
+                    "評価結果に再整備工程がありません: "
+                    f"{question.get('questionLabel') or question_id}"
+                )
+            unsupported = rework_stage_codes - set(REWORK_POLICY_STAGE_IDS)
+            if unsupported:
+                raise ValueError(
+                    "未対応の再整備工程があります: "
+                    + ", ".join(sorted(unsupported))
+                )
+            required_workflow_stage_ids.update(
+                REWORK_POLICY_STAGE_IDS[stage_code]
+                for stage_code in rework_stage_codes
+            )
+            snapshots[question_id] = snapshot
+        catalog = self.qualification_workflow.catalog(qualification)
+        ordered_stages = [
+            stage
+            for stage in catalog.get("stages") or []
+            if str(stage.get("id") or "") in required_workflow_stage_ids
+        ]
+        stage_ids = [str(stage["id"]) for stage in ordered_stages]
+        if set(stage_ids) != required_workflow_stage_ids:
+            raise ValueError(
+                "評価結果に必要な再整備工程をworkflowから解決できません。"
+            )
+        update_target_ids = [
+            str(target["selectionId"])
+            for stage in ordered_stages
+            for target in stage.get("updateTargets") or []
+            if isinstance(target, Mapping) and target.get("selectionId")
+        ]
+        list_group_ids = list(
+            dict.fromkeys(
+                str(question.get("listGroupId") or "")
+                for question in questions
+                if question.get("listGroupId")
+            )
+        )
+        return stage_ids, list_group_ids, update_target_ids, snapshots
 
     def _run_evaluation_job(
         self,

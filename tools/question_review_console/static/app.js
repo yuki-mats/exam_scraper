@@ -13,6 +13,15 @@ const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const QUALIFICATION_WORKFLOW_CACHE_VERSION = 1;
 const QUALIFICATION_WORKFLOW_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS = 800;
+const EVALUATION_REWORK_WORKFLOW_STAGE = {
+  "01": "question_type",
+  "02": "question_intent",
+  "02a": "correct_choice",
+  "02b": "law_context",
+  "03": "explanation",
+  "03b": "law_audit",
+  "04": "question_set",
+};
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
@@ -231,6 +240,7 @@ const state = {
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
     fieldFirst: false,
+    evaluationRework: false,
     entryStageId: "",
   },
   progressQuestion: null,
@@ -1708,16 +1718,29 @@ function openSelectedQuestionMaintenance() {
     toast("再整備する問題を選択してください。", true);
     return;
   }
-  const firstStage = qualificationMaintenanceEntryStage();
+  const requiredStageIds = new Set(selectedQuestions.flatMap(
+    (question) => (question.evaluation?.reworkItems || [])
+      .map((item) => EVALUATION_REWORK_WORKFLOW_STAGE[item.stage])
+      .filter(Boolean),
+  ));
+  const selectedStages = (state.qualificationWorkflow?.stages || []).filter(
+    (stage) => requiredStageIds.has(stage.id),
+  );
+  const firstStage = selectedStages[0];
   if (!firstStage) {
-    toast("更新項目を選べる問題整備工程がありません。", true);
+    toast("評価指摘から再整備工程を特定できません。", true);
     return;
   }
   openQualificationRunDialog(firstStage, {
     listGroupIds: [...new Set(selectedQuestions.map((question) => question.listGroupId))],
     questionIds: selectedQuestions.map((question) => question.id),
+    stageIds: selectedStages.map((stage) => stage.id),
+    updateTargetIds: selectedStages.flatMap(
+      (stage) => (stage.updateTargets || []).map((target) => target.selectionId),
+    ),
     mode: "group_refresh",
-    fieldFirst: true,
+    simplified: true,
+    evaluationRework: true,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
   });
 }
@@ -3340,6 +3363,12 @@ function updateQualificationRunHeading() {
       : "更新する項目を選択してください。必要な工程は自動で決まります。";
     return;
   }
+  if (state.qualificationRunDialog.evaluationRework) {
+    $("#qualification-run-title").textContent = "評価指摘から再整備";
+    $("#qualification-run-purpose").textContent =
+      "各問の不合格理由、対象選択肢、推奨工程だけを新しい一問threadへ引き継ぎます。";
+    return;
+  }
   const stages = selectedQualificationRunStageIds()
     .map((stageId) => workflow.stages.find((item) => item.id === stageId))
     .filter(Boolean);
@@ -3395,6 +3424,7 @@ function openQualificationRunDialog(stage, options = {}) {
     previewController: null,
     simplified: options.simplified === true,
     fieldFirst,
+    evaluationRework: options.evaluationRework === true,
     entryStageId: stage.id,
   };
   state.qualificationWorkflowStageId = stage.id;
@@ -3545,6 +3575,7 @@ async function previewQualificationRun() {
         updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
         questionRange: questionRange || undefined,
         questionIds: questionIds.length ? questionIds : undefined,
+        evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
@@ -3708,6 +3739,7 @@ async function startQualificationRun(event) {
           : undefined,
         questionRange: preview.questionRange || undefined,
         questionIds: preview.questionIds?.length ? preview.questionIds : undefined,
+        evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },

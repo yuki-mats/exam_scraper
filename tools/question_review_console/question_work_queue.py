@@ -108,6 +108,7 @@ def input_fingerprint(
     stage_id: str,
     policy_fingerprint: str,
     update_target_ids: Iterable[str] = (),
+    prior_feedback: Iterable[Mapping[str, Any]] = (),
 ) -> str:
     identity = SourceIdentityBinding.from_mapping(target)
     return _canonical_hash(
@@ -121,6 +122,11 @@ def input_fingerprint(
                 for value in update_target_ids
                 if str(value).startswith(f"{stage_id}.")
             ),
+            "priorFeedback": [
+                dict(value)
+                for value in prior_feedback
+                if isinstance(value, Mapping)
+            ],
         }
     )
 
@@ -212,6 +218,28 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
         for key, value in (plan.get("retryFeedbackByWorkItem") or {}).items()
         if isinstance(value, list)
     }
+    target_stage_ids_by_question = {
+        str(question_id): {
+            str(stage_id)
+            for stage_id in stage_ids
+            if str(stage_id)
+        }
+        for question_id, stage_ids in (
+            plan.get("targetStageIdsByQuestion") or {}
+        ).items()
+        if isinstance(stage_ids, (list, tuple, set))
+    }
+    evaluation_feedback_by_question = {
+        str(question_id): [
+            dict(feedback)
+            for feedback in feedback_items
+            if isinstance(feedback, Mapping)
+        ]
+        for question_id, feedback_items in (
+            plan.get("evaluationFeedbackByQuestion") or {}
+        ).items()
+        if isinstance(feedback_items, list)
+    }
     group_order = {
         str(group_id): index
         for index, group_id in enumerate(plan.get("scopeListGroupIds") or [])
@@ -258,6 +286,9 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
         }
         for stage_plan in stage_plans[first_targeted_stage:]:
             stage_id = str(stage_plan["stageId"])
+            targeted_stage_ids = target_stage_ids_by_question.get(question_id)
+            if targeted_stage_ids is not None and stage_id not in targeted_stage_ids:
+                continue
             target = targets_by_stage.get(stage_id, {}).get(
                 question_id,
                 canonical_target,
@@ -273,6 +304,10 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
             policy_fingerprint = str(
                 (stage_plan.get("policyFingerprints") or {}).get(stage_id) or ""
             )
+            prior_feedback = [
+                *evaluation_feedback_by_question.get(question_id, []),
+                *retry_feedback_by_work_item.get(item_key, []),
+            ]
             execution["stages"].append(
                 {
                     "workItemKey": item_key,
@@ -283,7 +318,7 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                     "status": "queued",
                     "retryModelRequired": item_key in retry_model_work_item_keys,
                     "priorValidationFeedback": copy.deepcopy(
-                        retry_feedback_by_work_item.get(item_key, [])
+                        prior_feedback
                     ),
                     "attempts": 0,
                     "inputFingerprint": input_fingerprint(
@@ -291,6 +326,7 @@ def build_question_executions(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                         stage_id,
                         policy_fingerprint,
                         stage_plan.get("selectedUpdateTargetIds") or [],
+                        prior_feedback,
                     ),
                     "outputFingerprint": None,
                     "preparationPath": None,

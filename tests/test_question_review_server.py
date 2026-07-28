@@ -1276,6 +1276,114 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         self.assertEqual(runs.options["question_ids"], ["q2", "q1"])
 
+    def test_qualification_run_evaluation_rework_uses_server_snapshots_and_exact_stages(self):
+        class Runs:
+            def preview(self, qualification, stage_id, mode, **options):
+                self.qualification = qualification
+                self.stage_id = stage_id
+                self.mode = mode
+                self.options = options
+                return {
+                    "previewToken": "token",
+                    "evaluationRework": True,
+                }
+
+        class Workflow:
+            def catalog(self, qualification):
+                return {
+                    "stages": [
+                        {
+                            "id": "question_intent",
+                            "updateTargets": [
+                                {"selectionId": "question_intent.intent"}
+                            ],
+                        },
+                        {
+                            "id": "explanation",
+                            "updateTargets": [
+                                {"selectionId": "explanation.basic_explanation"}
+                            ],
+                        },
+                        {
+                            "id": "law_audit",
+                            "updateTargets": [
+                                {"selectionId": "law_audit.law_audit"}
+                            ],
+                        },
+                    ]
+                }
+
+        questions = {
+            "q1": {
+                "id": "q1",
+                "qualification": "sample",
+                "listGroupId": "2025",
+                "evaluation": {
+                    "status": "needs_rework",
+                    "stateHash": "state-1",
+                    "resultHash": "result-1",
+                    "summary": "解説修正",
+                    "criticalIssues": ["根拠不足"],
+                    "choiceEvaluations": [{"choiceIndex": 0}],
+                    "reworkItems": [{"stage": "03", "message": "根拠を補う"}],
+                },
+            },
+            "q2": {
+                "id": "q2",
+                "qualification": "sample",
+                "listGroupId": "2024",
+                "evaluation": {
+                    "status": "needs_rework",
+                    "stateHash": "state-2",
+                    "resultHash": "result-2",
+                    "summary": "法令修正",
+                    "criticalIssues": ["改正確認"],
+                    "choiceEvaluations": [{"choiceIndex": 1}],
+                    "reworkItems": [{"stage": "03b", "message": "新旧法を確認"}],
+                },
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            runs = Runs()
+            app.qualification_runs = runs
+            app.qualification_workflow = Workflow()
+            app._question = lambda question_id, _query: questions[question_id]
+            app._decorate = lambda question: question
+            _, preview = app.post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["question_intent"],
+                    "questionIds": ["q1", "q2"],
+                    "evaluationRework": True,
+                    "questionConcurrency": 100,
+                },
+            )
+
+        self.assertTrue(preview["evaluationRework"])
+        self.assertEqual(runs.stage_id, "explanation")
+        self.assertEqual(runs.mode, "group_refresh")
+        self.assertEqual(
+            runs.options["stage_ids"],
+            ["explanation", "law_audit"],
+        )
+        self.assertEqual(
+            runs.options["list_group_ids"],
+            ["2025", "2024"],
+        )
+        self.assertEqual(
+            runs.options["update_target_ids"],
+            [
+                "explanation.basic_explanation",
+                "law_audit.law_audit",
+            ],
+        )
+        self.assertEqual(
+            runs.options["evaluation_rework_snapshots"]["q1"]["resultHash"],
+            "result-1",
+        )
+
     def test_qualification_run_rejects_question_ids_range_conflict(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(ApiError) as caught:
             QuestionReviewApplication(Path(directory)).post(

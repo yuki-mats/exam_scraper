@@ -266,6 +266,7 @@ RUN_LIST_HEAVY_FIELDS = frozenset(
     {
         "allowedPatchFiles",
         "allowedWriteFiles",
+        "evaluationFeedbackByQuestion",
         "policyTargets",
         "progressTargets",
         "questionExecutions",
@@ -277,6 +278,7 @@ RUN_LIST_HEAVY_FIELDS = frozenset(
         "targetRecordBindings",
         "targetRecordScopes",
         "targetSourceRecordScopes",
+        "targetStageIdsByQuestion",
     }
 )
 ARTIFACT_SYNC_COMPLETE_STATUSES = {"succeeded", "current", "not_required"}
@@ -391,6 +393,7 @@ REWORK_STAGE_PATCH_DIR_NAMES = {
     "02b": STAGE_PATCH_DIR_NAMES["law_context"],
     "03": STAGE_PATCH_DIR_NAMES["explanation"],
     "03b": STAGE_PATCH_DIR_NAMES["law_audit"],
+    "04": STAGE_PATCH_DIR_NAMES["question_set"],
 }
 REWORK_POLICY_STAGE_IDS = {
     "01": "question_type",
@@ -8566,6 +8569,120 @@ class QualificationRunCoordinator:
         except ProcessLeaseError as exc:
             raise QualificationRunError(str(exc)) from exc
 
+    def _apply_evaluation_rework_plan(
+        self,
+        plan: dict[str, Any],
+        snapshots: Mapping[str, Mapping[str, Any]] | None,
+    ) -> None:
+        if snapshots is None:
+            return
+        if not snapshots:
+            raise QualificationRunError(
+                "再整備する評価結果がありません。"
+            )
+        selected_stage_ids = {
+            str(value)
+            for value in plan.get("stageIds") or [plan.get("stageId")]
+            if value and str(value) != "multi"
+        }
+        targets_by_question = {
+            str(target.get("id") or target.get("uiQuestionId") or ""): target
+            for stage_plan in (
+                plan.get("stagePlans")
+                if isinstance(plan.get("stagePlans"), list)
+                else [plan]
+            )
+            if isinstance(stage_plan, Mapping)
+            for target in stage_plan.get("progressTargets") or []
+            if isinstance(target, Mapping)
+            and (target.get("id") or target.get("uiQuestionId"))
+        }
+        target_stage_ids: dict[str, list[str]] = {}
+        feedback_by_question: dict[str, list[dict[str, Any]]] = {}
+        for question_id, raw_snapshot in snapshots.items():
+            normalized_question_id = str(question_id)
+            snapshot = dict(raw_snapshot)
+            if str(snapshot.get("status") or "") != "needs_rework":
+                raise QualificationRunError(
+                    f"要再整備ではない評価結果が含まれています: {normalized_question_id}"
+                )
+            target = targets_by_question.get(normalized_question_id)
+            if target is None:
+                raise QualificationRunError(
+                    "評価結果の問題を実行planから解決できません: "
+                    f"{normalized_question_id}"
+                )
+            snapshot_state_hash = str(snapshot.get("stateHash") or "")
+            target_state_hash = str(target.get("stateHash") or "")
+            if (
+                not snapshot_state_hash
+                or not target_state_hash
+                or snapshot_state_hash != target_state_hash
+            ):
+                raise QualificationRunError(
+                    "評価後に問題内容が更新されました。再評価してから再整備してください: "
+                    f"{normalized_question_id}"
+                )
+            rework_items = [
+                dict(item)
+                for item in snapshot.get("reworkItems") or []
+                if isinstance(item, Mapping)
+            ]
+            workflow_stage_ids = list(
+                dict.fromkeys(
+                    REWORK_POLICY_STAGE_IDS[str(item.get("stage") or "")]
+                    for item in rework_items
+                    if str(item.get("stage") or "") in REWORK_POLICY_STAGE_IDS
+                )
+            )
+            if not workflow_stage_ids:
+                raise QualificationRunError(
+                    "評価結果から再整備工程を特定できません: "
+                    f"{normalized_question_id}"
+                )
+            missing_stage_ids = set(workflow_stage_ids) - selected_stage_ids
+            if missing_stage_ids:
+                raise QualificationRunError(
+                    "評価結果に必要な再整備工程が選択されていません: "
+                    + ", ".join(sorted(missing_stage_ids))
+                )
+            target_stage_ids[normalized_question_id] = workflow_stage_ids
+            feedback_by_question[normalized_question_id] = [
+                {
+                    "source": "independent_evaluation",
+                    "status": "needs_rework",
+                    "stateHash": snapshot_state_hash,
+                    "resultHash": str(snapshot.get("resultHash") or ""),
+                    "summary": str(snapshot.get("summary") or ""),
+                    "criticalIssues": [
+                        str(value)
+                        for value in snapshot.get("criticalIssues") or []
+                    ],
+                    "choiceEvaluations": copy.deepcopy(
+                        list(snapshot.get("choiceEvaluations") or [])
+                    ),
+                    "reworkItems": rework_items,
+                }
+            ]
+        requested_question_ids = {
+            str(value) for value in plan.get("questionIds") or [] if value
+        }
+        if requested_question_ids and requested_question_ids != set(
+            target_stage_ids
+        ):
+            raise QualificationRunError(
+                "選択した問題と評価結果が一致しません。"
+            )
+        plan.update(
+            evaluationRework=True,
+            targetStageIdsByQuestion=target_stage_ids,
+            evaluationFeedbackByQuestion=feedback_by_question,
+            targetCount=len(target_stage_ids),
+            workItemCount=sum(
+                len(stage_ids) for stage_ids in target_stage_ids.values()
+            ),
+        )
+
     def preview(
         self,
         qualification: str,
@@ -8580,6 +8697,7 @@ class QualificationRunCoordinator:
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
         speed_mode: str = STANDARD_SPEED_MODE,
+        evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
@@ -8593,6 +8711,10 @@ class QualificationRunCoordinator:
             update_target_ids=update_target_ids,
             question_range=question_range,
             question_ids=question_ids,
+        )
+        self._apply_evaluation_rework_plan(
+            plan,
+            evaluation_rework_snapshots,
         )
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
@@ -8668,6 +8790,7 @@ class QualificationRunCoordinator:
             ),
             "blockingWarnings": blocking_warnings[:20],
             "isProductionWrite": False,
+            "evaluationRework": bool(plan.get("evaluationRework")),
             "previewToken": self._token(token_payload),
         }
 
@@ -8686,6 +8809,7 @@ class QualificationRunCoordinator:
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
         speed_mode: str = STANDARD_SPEED_MODE,
+        evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
@@ -8701,6 +8825,7 @@ class QualificationRunCoordinator:
             resumed_from=resumed_from,
             question_concurrency=question_concurrency,
             speed_mode=speed_mode,
+            evaluation_rework_snapshots=evaluation_rework_snapshots,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -8727,6 +8852,10 @@ class QualificationRunCoordinator:
             update_target_ids=update_target_ids,
             question_range=question_range,
             question_ids=question_ids,
+        )
+        self._apply_evaluation_rework_plan(
+            plan,
+            evaluation_rework_snapshots,
         )
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
@@ -8777,9 +8906,14 @@ class QualificationRunCoordinator:
                 self.app_server.assert_subscription_access(force=False)
             except Exception as exc:  # noqa: BLE001
                 raise QualificationRunError(str(exc)) from exc
+            evaluation_rework = bool(plan.get("evaluationRework"))
             plan = {
                 **plan,
-                "workType": "maintenance",
+                "workType": (
+                    "evaluation_rework"
+                    if evaluation_rework
+                    else "maintenance"
+                ),
                 "sandbox": "workspace-write",
                 "provider": self.app_server.provider,
                 "parallelStrategy": "read_only_research",
@@ -8822,7 +8956,11 @@ class QualificationRunCoordinator:
                         "workItemCount"
                     ],
                     "kind": "orchestration",
-                    "workType": "maintenance_flow",
+                    "workType": (
+                        "evaluation_rework_flow"
+                        if evaluation_rework
+                        else "maintenance_flow"
+                    ),
                     "questionConcurrency": question_concurrency,
                     "parallelStrategy": "adaptive_structured_candidate",
                     "throughputMode": "auto_max",
@@ -8848,7 +8986,11 @@ class QualificationRunCoordinator:
                 )
                 try:
                     job = self.jobs.start(
-                        kind="codex-maintenance-flow",
+                        kind=(
+                            "codex-evaluation-rework-flow"
+                            if evaluation_rework
+                            else "codex-maintenance-flow"
+                        ),
                         key=qualification_operation_key(qualification),
                         worker=lambda emit: self._run_in_turn_group(
                             qualification,
@@ -10138,6 +10280,7 @@ class QualificationRunCoordinator:
                 stage_id,
                 policy_fingerprint,
                 phase_plan.get("selectedUpdateTargetIds") or [],
+                current.get("priorValidationFeedback") or [],
             )
             if str(current.get("inputFingerprint") or "") == expected_input:
                 if current.get("policyFingerprint") != policy_fingerprint:

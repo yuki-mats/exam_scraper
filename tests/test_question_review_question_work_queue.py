@@ -10,6 +10,9 @@ from tools.question_review_console.question_work_queue import (
     resume_plan,
     specialize_question_plan,
 )
+from tools.question_review_console.qualification_runs import (
+    QualificationRunCoordinator,
+)
 
 
 def target(question_id: str, index: int) -> dict:
@@ -100,6 +103,79 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(len({stage["workItemKey"] for item in executions for stage in item["stages"]}), 4)
         self.assertEqual(queue_summary(executions)["workItemCount"], 4)
+
+    def test_evaluation_rework_targets_only_requested_stages_and_carries_feedback(self) -> None:
+        feedback = {
+            "source": "independent_evaluation",
+            "summary": "問ごとの評価指摘",
+        }
+        plan = {
+            **self.plan,
+            "targetStageIdsByQuestion": {
+                "q1": ["explanation"],
+                "q2": ["law_audit"],
+            },
+            "evaluationFeedbackByQuestion": {
+                "q1": [feedback],
+                "q2": [feedback],
+            },
+        }
+
+        executions = build_question_executions(plan)
+
+        self.assertEqual(
+            [stage["stageId"] for stage in executions[0]["stages"]],
+            ["explanation"],
+        )
+        self.assertEqual(
+            [stage["stageId"] for stage in executions[1]["stages"]],
+            ["law_audit"],
+        )
+        self.assertEqual(
+            executions[0]["stages"][0]["priorValidationFeedback"],
+            [feedback],
+        )
+        baseline = build_question_executions(self.plan)
+        self.assertNotEqual(
+            executions[0]["stages"][0]["inputFingerprint"],
+            baseline[0]["stages"][0]["inputFingerprint"],
+        )
+
+    def test_evaluation_rework_plan_maps_each_question_to_its_own_stage(self) -> None:
+        plan = copy.deepcopy(self.plan)
+        coordinator = object.__new__(QualificationRunCoordinator)
+
+        coordinator._apply_evaluation_rework_plan(
+            plan,
+            {
+                "q1": {
+                    "status": "needs_rework",
+                    "stateHash": "state-1",
+                    "resultHash": "result-1",
+                    "summary": "解説",
+                    "criticalIssues": ["根拠不足"],
+                    "choiceEvaluations": [],
+                    "reworkItems": [{"stage": "03", "message": "補足"}],
+                },
+                "q2": {
+                    "status": "needs_rework",
+                    "stateHash": "state-2",
+                    "resultHash": "result-2",
+                    "summary": "法令",
+                    "criticalIssues": ["改正未確認"],
+                    "choiceEvaluations": [],
+                    "reworkItems": [{"stage": "03b", "message": "新旧法"}],
+                },
+            },
+        )
+
+        self.assertTrue(plan["evaluationRework"])
+        self.assertEqual(plan["targetCount"], 2)
+        self.assertEqual(plan["workItemCount"], 2)
+        self.assertEqual(
+            plan["targetStageIdsByQuestion"],
+            {"q1": ["explanation"], "q2": ["law_audit"]},
+        )
 
     def test_builds_placeholder_for_later_dynamic_stage(self) -> None:
         later = stage_plan("law_audit", [self.targets[1]])
