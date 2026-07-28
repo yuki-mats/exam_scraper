@@ -1059,7 +1059,7 @@ class QuestionEvaluationService:
 12. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
 13. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
 14. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
-15. 法令問題は入力済みlawReferencesのlawIdと条番号を探索の入口にする。現行法本文は公式e-Gov API v2の https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json を取得し、JSON内でtagがArticleかつattr.Numが対象条番号に一致するobjectを抽出すると、法令全体を目視探索せず条文を確認できる。入力済みlawReferencesはその公式本文と一致した場合だけ根拠として使う。
+15. 法令問題は入力済みlawReferencesのlawIdと条番号を探索の入口にする。現行法本文は公式e-Gov API v2の https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json を取得し、JSON内でtagがArticleかつattr.Numが対象条番号に一致するobjectを抽出すると、法令全体を目視探索せず条文を確認できる。例えば `curl -L --fail --silent 'https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json' | jq -c --arg n '{{articleNumber}}' '.. | objects | select(.tag? == "Article" and .attr.Num? == $n)'` を使う。`head`で法令JSONの先頭だけを読んで確認完了にしない。入力済みlawReferencesはその公式本文と一致した場合だけ根拠として使う。
 16. e-Gov法令APIのlaws.e-gov.go.jpで一時的な名前解決又は接続失敗が起きた場合は、同じlawIdを使える公式e-LAWSの https://elaws.e-gov.go.jp/document?lawid={{lawId}} も確認する。一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず、別の公式経路又は入力済みの公式lawReferencesを確認する。
 17. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
 18. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。

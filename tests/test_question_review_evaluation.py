@@ -321,6 +321,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("questionTypeとは独立に評価", prompt)
         self.assertIn("api/2/law_data/{lawId}?response_format=json", prompt)
         self.assertIn("tagがArticleかつattr.Numが対象条番号に一致", prompt)
+        self.assertIn("--arg n '{articleNumber}'", prompt)
+        self.assertIn("`head`で法令JSONの先頭だけを読んで確認完了にしない", prompt)
         self.assertIn("elaws.e-gov.go.jp/document?lawid={lawId}", prompt)
         self.assertIn("一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず", prompt)
         self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
