@@ -319,6 +319,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("複数選択形式と誤解して分類変更を求めない", prompt)
         self.assertIn("isCalculationQuestionは計算過程が主要な学習対象かを表し", prompt)
         self.assertIn("questionTypeとは独立に評価", prompt)
+        self.assertIn("elaws.e-gov.go.jp/document?lawid={lawId}", prompt)
+        self.assertIn("一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず", prompt)
         self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
         self.assertIn("非法令問題のcurrentExplanationText", prompt)
         self.assertIn("減点又は要再整備理由にしない", prompt)
