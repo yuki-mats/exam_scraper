@@ -2633,10 +2633,16 @@ async function openQualificationRunArtifactSync() {
     toast("再生成する年度を確認できません。", true);
     return;
   }
-  let listGroupId = groupIds[0];
+  const selectedGroupId = groupIds.includes(state.listGroupId)
+    ? state.listGroupId
+    : "";
+  const orderedGroupIds = selectedGroupId
+    ? [selectedGroupId, ...groupIds.filter((groupId) => groupId !== selectedGroupId)]
+    : groupIds;
+  let listGroupId = orderedGroupIds[0];
   if (groupIds.length > 1) {
     try {
-      const previews = await Promise.all(groupIds.map(async (groupId) => ({
+      const previews = await Promise.all(orderedGroupIds.map(async (groupId) => ({
         groupId,
         preview: await api(groupApiPath("sync-preview", groupId), {
           method: "POST",
