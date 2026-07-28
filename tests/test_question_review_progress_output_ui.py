@@ -338,13 +338,16 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('id="qualification-active-run-sync"', html)
         self.assertIn("function openQualificationRunArtifactSync", javascript)
         self.assertIn("openSyncDialog(false, listGroupId)", javascript)
+        self.assertIn("qualificationRunArtifactGroupIds(run)", javascript)
+        self.assertIn("await Promise.all(groupIds.map", javascript)
+        self.assertIn("preview.failedDeltaPaths?.length", javascript)
         self.assertIn(
             'if (mode === "sync" || mode === "reconcile") await loadQualificationRuns()',
             javascript,
         )
         self.assertIn("container.hidden = false;", javascript)
         self.assertIn(
-            "sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupId(run)",
+            "sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupIds(run).length",
             javascript,
         )
 

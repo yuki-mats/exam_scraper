@@ -2620,19 +2620,46 @@ function qualificationRunCanRetryBlocked(run, view) {
   );
 }
 
-function qualificationRunArtifactGroupId(run) {
-  const groupIds = [...new Set(
+function qualificationRunArtifactGroupIds(run) {
+  return [...new Set(
     (run?.scopeListGroupIds || run?.targetGroupIds || []).filter(Boolean),
   )];
-  return groupIds.length === 1 ? groupIds[0] : "";
 }
 
-function openQualificationRunArtifactSync() {
+async function openQualificationRunArtifactSync() {
   const run = displayedQualificationRun();
-  const listGroupId = qualificationRunArtifactGroupId(run);
-  if (!listGroupId) {
-    toast("再生成する年度を一つに特定できません。年度の問題詳細から再生成してください。", true);
+  const groupIds = qualificationRunArtifactGroupIds(run);
+  if (!groupIds.length) {
+    toast("再生成する年度を確認できません。", true);
     return;
+  }
+  let listGroupId = groupIds[0];
+  if (groupIds.length > 1) {
+    try {
+      const previews = await Promise.all(groupIds.map(async (groupId) => ({
+        groupId,
+        preview: await api(groupApiPath("sync-preview", groupId), {
+          method: "POST",
+          body: {},
+        }),
+      })));
+      const pending = previews.filter(({ preview }) => (
+        preview.needsSync
+        || preview.failedDeltaPaths?.length
+        || preview.requiredFieldWarnings?.length
+        || preview.strictValidationWarnings?.length
+      ));
+      const next = pending.find(({ preview }) => preview.failedDeltaPaths?.length)
+        || pending[0];
+      if (!next) {
+        toast("すべての年度で公開用データが最新です。");
+        return;
+      }
+      listGroupId = next.groupId;
+    } catch (error) {
+      toast(error.message, true);
+      return;
+    }
   }
   openSyncDialog(false, listGroupId);
 }
@@ -2893,7 +2920,7 @@ function renderQualificationActiveRun() {
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
-  sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupId(run);
+  sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupIds(run).length;
   retry.hidden = !qualificationRunCanRetryBlocked(run, view);
   retry.textContent = ["failed", "interrupted"].includes(run.status)
     ? "未完了の問題を再開"
