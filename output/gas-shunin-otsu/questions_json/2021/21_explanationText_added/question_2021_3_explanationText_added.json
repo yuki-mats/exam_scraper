@@ -1120,7 +1120,7 @@
       [],
       [
         {
-          "article": "202第1項第10号",
+          "article": "第202条第1項第10号",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
@@ -1131,7 +1131,7 @@
           "verificationStatus": "verified"
         },
         {
-          "article": "2第25号",
+          "article": "第2条第25号",
           "choiceIndex": 2,
           "lawId": "平成十二年通商産業省告示第五百七十八号",
           "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
@@ -1152,7 +1152,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "接触燃焼式ガス警報器の検知回路出力特性に関する技術知識で判断する。"
+          "verdict": "接触燃焼式ガス警報器の検知回路出力特性に関する技術知識で判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1165,7 +1165,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "熱線型半導体式ガス警報器の濃度応答特性に関する技術知識で判断する。"
+          "verdict": "熱線型半導体式ガス警報器の濃度応答特性に関する技術知識で判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1175,19 +1175,36 @@
       {
         "auditStatus": "same_as_current",
         "current": {
-          "article": "202第1項第10号、告示第2条第25号",
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097、平成十二年通商産業省告示第五百七十八号",
-          "lawTitle": "ガス事業法施行規則、ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
-          "referenceDate": "2026-07-28",
-          "verificationStatus": "verified"
+          "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "現行告示は、ガス濃度が爆発下限界の4分の1以上のときに確実に作動することを求めるため、10分の1とする記述は誤りである。現行法判定と出題時正答は一致する。"
+          "refs": [
+            {
+              "article": "第202条",
+              "item": "第10号",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "第1項",
+              "primaryBasis": true,
+              "refId": "gas_act_enforcement_regulation_article_202_item_10_current",
+              "relation": "basis"
+            },
+            {
+              "article": "第2条",
+              "item": "第25号",
+              "lawId": "平成十二年通商産業省告示第五百七十八号",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
+              "primaryBasis": true,
+              "refId": "meti_notice_2000_578_article_2_item_25_current",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "現行告示は、ガス濃度が爆発下限界の4分の1以上のときに確実に作動することを求めるため、10分の1とする記述は誤りである。現行法判定と出題時正答は一致する。"
         },
         "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+          "correctChoiceText": "間違い"
         },
         "reviewState": "secondary_verified"
       },
@@ -1197,7 +1214,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "酸化スズ半導体センサーのヒートクリーニングに関する技術知識で判断する。"
+          "verdict": "酸化スズ半導体センサーのヒートクリーニングに関する技術知識で判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1210,7 +1227,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "業務用換気警報器に用いる電気化学式センサーの特性に関する技術知識で判断する。"
+          "verdict": "業務用換気警報器に用いる電気化学式センサーの特性に関する技術知識で判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"

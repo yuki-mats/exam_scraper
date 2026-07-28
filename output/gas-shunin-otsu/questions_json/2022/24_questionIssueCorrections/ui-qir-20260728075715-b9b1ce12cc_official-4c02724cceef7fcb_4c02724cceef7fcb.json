@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728075715-b9b1ce12cc",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-b9b1ce12cc908cbc50b3"
+  ],
+  "inputCaseHashes": {
+    "ui-official-b9b1ce12cc908cbc50b3": "b9b1ce12cc908cbc50b34b8f263c4d969012225b2585430117254dadfafea3c3"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "7763ed499b9406665da79272d18d98685dc35b90a54d65c98e11bb4964ddb4b6",
+    "ae107c830428f9c7f535ae9d701bc14194ecbc0fb00e40f48b643be9db71c011"
+  ],
+  "challengeReviewHash": "8950173e6b303c415951e5bd5af82672b66f1d7a71af3a6d3e2b14f49570ebb1",
+  "createdAt": "2026-07-28T07:58:37.248546Z",
+  "entries": [
+    {
+      "original_question_id": "4c02724cceef7fcb",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q19",
+      "reviewQuestionId": "4c02724cceef7fcb",
+      "sourceRecordRef": "question_2022_2.json#24",
+      "expectedBeforeHash": "4908ebf05e70c6eeb2612595bac4a541523c1f236e18d6b151b82506cd58fdd2",
+      "changes": {
+        "choiceTextList": [
+          "可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。",
+          "サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。",
+          "不完全燃焼の原因には、空気との接触や混合が不十分、排気の排出不良等がある。",
+          "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の遅いガスでは大きく、速いガスでは小さくなる。",
+          "ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換域を外れた場合、リフティングが発生する。"
+        ],
+        "questionBodyText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-31.png / ガス技術（消費）問19（PDF 31ページ／冊子30ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T07:57:35Z",
+          "contentHash": "125480d740153dec57206831a5f65aa8ac4d69184c766532cb9ce32475ada65b"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-31.png / ガス技術（消費）問19（PDF 31ページ／冊子30ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T07:57:28Z",
+          "contentHash": "125480d740153dec57206831a5f65aa8ac4d69184c766532cb9ce32475ada65b"
+        }
+      ]
+    }
+  ]
+}

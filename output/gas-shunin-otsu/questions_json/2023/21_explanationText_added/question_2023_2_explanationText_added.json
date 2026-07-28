@@ -963,7 +963,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢5はLNGローリーの運行に適用される法令を問う法令肢である。LNGは高圧ガス保安法第2条の液化ガスに該当し、その車両による移動には同法第23条が適用される。道路の車両制限には道路法第47条・第47条の2も関係するため、ガス事業法を主要な適用法令とする記述は不適切である。",
+    "lawContextForExplanation": "選択肢5はLNGローリーの運行に適用される法令を問う法令肢である。LNGの車両による移動には高圧ガス保安法第2条・第23条が関係し、道路の車両制限には道路法第47条・第47条の2も関係する。ガス事業法を主要な適用法令とする記述は不適切である。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -971,7 +971,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "低圧部で生じる気泡をキャビテーションと呼ぶ技術用語の問題であり、法令改正監査の対象外である。"
+          "promptContext": "低圧部で生じる気泡をキャビテーションと呼ぶ技術用語の問題であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -984,7 +984,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "LPGの液封と温度上昇による液膨張に関する技術・保安事項であり、法令改正監査の対象外である。"
+          "promptContext": "LPGの液封と温度上昇による液膨張に関する技術・保安事項であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -997,7 +997,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "LPGの相対ガス密度と低所への滞留性に関する物性事項であり、法令改正監査の対象外である。"
+          "promptContext": "LPGの相対ガス密度と低所への滞留性に関する物性事項であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1010,7 +1010,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "LNGへの入熱とBOGの発生・組成に関する物性事項であり、法令改正監査の対象外である。"
+          "promptContext": "LNGへの入熱とBOGの発生・組成に関する物性事項であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1023,9 +1023,25 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "基準日現在、高圧ガス保安法第2条・第23条がLNGの高圧ガス該当性と車両による移動を規律し、道路法第47条・第47条の2が車両の通行制限等を規律する。",
-          "examTimeBasis": "出題時正誤は元問題の判定により間違いである。出題時条文の独立したsnapshotは参照せず、現行法のみを照合した。",
-          "revisionImpact": "現行法上も結論は間違いであり、正誤を変更する改正影響は認められない。"
+          "differenceSummary": "出題時判定と現行判定はいずれも間違いで一致する。",
+          "explanationText": "LNGの車両による移動には高圧ガス保安法の定義及び移動規制が関係し、道路の車両制限には道路法も関係する。選択肢は主要な保安法令をガス事業法としているため不適切である。",
+          "refs": [
+            {
+              "article": "第2条、第23条",
+              "lawId": "326AC0000000204",
+              "lawTitle": "高圧ガス保安法",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第47条、第47条の2",
+              "lawId": "327AC1000000180",
+              "lawTitle": "道路法",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法上も結論は間違いであり、正誤を変更する改正影響は認められない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1799,7 +1815,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第5条及び解釈例第2条の保安通信設備を確認し、出題時判定と現行法判定はいずれも正しい。"
+          "verdict": "省令第5条及び解釈例第2条の保安通信設備に関する基準に照らし、出題時判定と現行法判定はいずれも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1812,33 +1828,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第15条第1項及び解釈例第18条の構造基準を確認し、出題時判定と現行法判定はいずれも正しい。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "tertiary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "basis": "省令第31条第2項及び解釈例第86条の凍結防止措置を確認し、出題時判定と現行法判定はいずれも間違い。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "tertiary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "省令第12条及び解釈例第9条の静電気除去措置を確認し、出題時判定と現行法判定はいずれも正しい。"
+          "verdict": "省令第15条第1項及び解釈例第18条の構造基準に照らし、出題時判定と現行法判定はいずれも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1851,7 +1841,33 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "省令第6条第7項及び解釈例第3条の離隔距離を確認し、出題時判定と現行法判定はいずれも間違い。"
+          "verdict": "省令第31条第2項及び解釈例第86条の凍結防止措置に関する基準に照らし、出題時判定と現行法判定はいずれも間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "省令第12条及び解釈例第9条の静電気除去措置に関する基準に照らし、出題時判定と現行法判定はいずれも正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "verdict": "省令第6条第7項及び解釈例第3条の離隔距離に関する基準に照らし、出題時判定と現行法判定はいずれも間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1973,19 +1989,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第15条（構造等）",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第98条（ガス主任技術者）",
@@ -2054,41 +2058,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第91条（熱量等の測定義務）",
-          "choiceIndex": 3,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第93条（製造計画）",
-          "choiceIndex": 3,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第22条（付臭措置）",
-          "choiceIndex": 3,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第96条第1項から第3項（技術基準への適合・停止命令等）",
@@ -2125,7 +2095,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "法令関連問題として扱う。イは技術基準省令第6条の離隔距離と第11条の火気設備との距離の混同、ロは同省令第15条の地震荷重に対する構造安全、ハはガス事業法第98条・第102条、施行規則第158条・第160条及び技術基準省令第15条・第16条、ニはガス事業法第91条・第93条及び技術基準省令第22条、ホはガス事業法第96条・第97条及び施行規則第148条を確認した。現行法上の正誤は出題時正答から変わらない。",
+    "lawContextForExplanation": "法令関連問題として扱う。イは技術基準省令第6条の離隔距離と第11条の火気設備との距離を混同しているため誤り。ロは構造物の地震応答に関する技術判断であり法令改正による正誤変更対象ではない。ハはガス主任技術者の保安監督、使用前検査・記録、構造・溶接部分の技術基準に照らし、溶接に関する管理や確認が不要とはいえないため誤り。ニは修理時期調整に関する運用判断であり法令改正による正誤変更対象ではない。ホは技術基準適合維持、保安規程、巡視・点検等の規定はあるが、異常の軽重を問わず一律に速やかな設備停止を義務付けるものではないため誤り。現行法上の正誤は出題時正答から変わらない。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -2133,8 +2103,25 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "referenceDate": "2026-07-28",
-          "summary": "技術基準省令第6条は境界線や保安物件等に対する離隔距離を定め、第11条は火気設備との距離を別に定める。両者を同一視する記述は現行法でも誤りである。"
+          "differenceSummary": "技術基準省令第6条は離隔距離を定め、第11条は火気設備との距離を別に定めているため、両者を同一視する記述は現行法でも誤りである。",
+          "refs": [
+            {
+              "article": "第6条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第11条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            }
+          ]
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2142,41 +2129,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "referenceDate": "2026-07-28",
-          "summary": "技術基準省令第15条は地震荷重を含む荷重に対する構造安全を求めている。地震応答による加速度増幅という設備工学上の判断に、現行法による正誤変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "referenceDate": "2026-07-28",
-          "summary": "ガス事業法第98条・第102条、施行規則第158条・第160条及び技術基準省令第15条・第16条から、保安監督と使用前検査では溶接部を含む構造・品質の確認が必要であり、溶接管理を不要とはいえない。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "referenceDate": "2026-07-28",
-          "summary": "ガス事業法第91条・第93条及び技術基準省令第22条により、熱量管理、製造設備の運用計画及び付臭機能が供給運用に関係することを確認した。修理時期を調整するとの運用上の判断に現行法による正誤変更はない。"
+          "differenceSummary": "構造物の地震応答により水平及び鉛直方向の地震加速度が増幅され得るかを問う技術判断であり、現行法令の改正による正誤変更の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2189,8 +2147,112 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "referenceDate": "2026-07-28",
-          "summary": "ガス事業法第96条・第97条及び施行規則第148条第1項第4号は、適合維持と巡視・点検等を求めるが、異常の軽重を問わない一律の即時停止義務は定めていない。"
+          "differenceSummary": "ガス主任技術者の保安監督、使用前検査及び記録、技術基準上の構造・溶接部分の要求に照らし、溶接に関する管理や確認が不要とはいえないため、現行法でも誤りである。",
+          "refs": [
+            {
+              "article": "第98条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第102条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第158条",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第160条",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第15条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第16条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            }
+          ]
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "熱量調整設備や付臭設備の定期修理時期をガス発生設備等と調整する重要性を問う運用判断であり、現行法令の改正による正誤変更の対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "ガス事業法及び施行規則は技術基準への適合維持、保安規程、巡視・点検等を求めるが、異常の程度を問わず一律に速やかな設備停止を義務付けるものではないため、現行法でも誤りである。",
+          "refs": [
+            {
+              "article": "第96条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "paragraph": "第1項から第3項",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第97条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第148条",
+              "item": "第4号",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "第1項",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            }
+          ]
         },
         "examTime": {
           "correctChoiceText": "間違い"

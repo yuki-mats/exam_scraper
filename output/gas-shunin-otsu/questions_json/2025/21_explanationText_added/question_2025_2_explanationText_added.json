@@ -1265,7 +1265,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "外乱を予測して先行操作する方式はフィードフォワード制御であり、制御方式の技術知識によって判定する。"
+          "explanationText": "外乱を予測して先行操作する方式はフィードフォワード制御であり、フィードバック制御ではないため、技術知識により誤りと判定する。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1278,7 +1278,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "オリフィス式流量計に必要な直管部と流体物性の影響に関する計測技術によって判定する。"
+          "explanationText": "オリフィス式流量計は測定精度確保のため直管部を必要とするため、直管部が不要とする部分を技術知識により誤りと判定する。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1291,7 +1291,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "静電容量式液面計の測定原理と特性に関する計装技術によって判定する。"
+          "explanationText": "静電容量式液面計の測定原理及び可動部がないこと、誘電率の小さい液体に不向きであることは計装技術により正しいと判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1304,7 +1304,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "常用予備受電方式の切替方法に関する電気設備の技術知識によって判定する。"
+          "explanationText": "常用予備受電方式における常用線から予備線への無停電切替は電気設備の技術知識により正しいと判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1317,8 +1317,47 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第12条は液化ガスを通ずるガス工作物に静電気除去措置を求め、ガス工作物技術基準の解釈例第9条は接地を具体的方法として示す。",
-          "revisionImpact": "出題時と現行で設備の静電気除去に関する判断へ影響する差異はなく、正誤は変わらない。"
+          "differenceSummary": "出題時基準日と現行基準日で、本肢の静電気除去措置の要否及び接地による説明に影響する差異はない。",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第12条は液化ガスを通ずるガス工作物に静電気除去措置を求め、ガス工作物技術基準の解釈例第9条は接地を具体的方法として示す。",
+          "refs": [
+            {
+              "article": "第12条（静電気除去）",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "exam_time_basis",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "lawref-choice5-ordinance-exam",
+              "relation": "supports"
+            },
+            {
+              "article": "第12条（静電気除去）",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current_basis",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "lawref-choice5-ordinance-current",
+              "relation": "supports"
+            },
+            {
+              "article": "第9条（静電気除去措置）",
+              "lawId": "METI-gas-work-technical-interpretation",
+              "lawTimeScope": "exam_time_basis",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": false,
+              "refId": "lawref-choice5-interpretation-exam",
+              "relation": "supports"
+            },
+            {
+              "article": "第9条（静電気除去措置）",
+              "lawId": "METI-gas-work-technical-interpretation",
+              "lawTimeScope": "current_basis",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": false,
+              "refId": "lawref-choice5-interpretation-current",
+              "relation": "supports"
+            }
+          ],
+          "verdict": "出題時法令と現行法令で正誤判断は同じ。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1842,7 +1881,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "省令第31条第3項と第30条の現行条文及び試験時条文を照合し、流出防止措置と逆流防止の区別に正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "省令第31条第3項と第30条の試験時・現行根拠を照合し、液化ガス流出防止措置と逆流防止装置の区別に正誤を変える改正影響はない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1855,7 +1895,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "省令第13条第1項の現行条文及び試験時条文を照合し、安全な置換構造に関する正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "省令第13条第1項の試験時・現行根拠を照合し、点検修理時等に可燃物を安全に置換できる構造に関する正誤を変える改正影響はない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1868,7 +1909,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "省令第21条の現行条文及び試験時条文を照合し、デュアルフューエル型を一律に禁止する規定がなく、正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "省令第21条の試験時・現行根拠を照合し、保安電源の原動機としてデュアルフューエル型を一律禁止する規定はなく、正誤を変える改正影響はない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1881,7 +1923,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "省令第21条の現行条文及び試験時条文を照合し、停電時の保安上重要な設備の機能確保に関する正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "省令第21条の試験時・現行根拠を照合し、停電時に保安上重要な設備の機能を確保する措置に関する正誤を変える改正影響はない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1894,7 +1937,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法第97条第1項及び施行規則第148条第1項第1号の現行条文と試験時条文を照合し、保安規程における職務・組織に関する正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "ガス事業法第97条第1項及びガス事業法施行規則第148条第1項第1号の試験時・現行根拠を照合し、保安規程における職務・組織に関する正誤を変える改正影響はない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2269,7 +2313,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "reason": "フューエルNOxとサーマルNOxの生成特性を区別する技術事項であり、法令改正の影響を受けない。"
+          "explanationText": "フューエルNOxとサーマルNOxの生成特性を区別する技術事項であり、法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2282,7 +2327,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "reason": "J−クレジット制度の現行の公的説明と一致するが、正誤を法令条文が直接決める選択肢ではない。"
+          "explanationText": "J−クレジット制度の公的制度説明に関する選択肢であり、正誤を個別の法令条文が直接決めるものではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2292,20 +2338,24 @@
       {
         "auditStatus": "same_as_current",
         "current": {
-          "article": "第11条第1項、第12条第5項・第6項、第12条の3第1項",
-          "correctChoiceText": "正しい",
-          "lawId": "345AC0000000137",
-          "lawTitle": "廃棄物の処理及び清掃に関する法律",
-          "referenceDate": "2026-07-28",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345AC0000000137",
-          "verificationStatus": "verified"
+          "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "第11条第1項は事業者による産業廃棄物の処理、第12条第5項・第6項は適法な委託先と委託基準、第12条の3第1項は委託時の管理票交付を定めており、選択肢の結論は現行法でも正しい。"
+          "explanationText": "廃棄物の処理及び清掃に関する法律第11条第1項、第12条第5項・第6項及び第12条の3第1項により、産業廃棄物は排出事業者が自ら処理するか、委託基準に従って委託し、必要な場合は産業廃棄物管理票を交付するため、選択肢の結論は現行法でも正しい。",
+          "refs": [
+            {
+              "article": "第11条第1項、第12条第5項・第6項、第12条の3第1項",
+              "lawId": "345AC0000000137",
+              "lawTimeScope": "current",
+              "lawTitle": "廃棄物の処理及び清掃に関する法律",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
+          "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_2025_otsu_source_choice_correctness"
+          "correctChoiceText": "正しい"
         },
         "reviewState": "secondary_verified"
       },
@@ -2315,7 +2365,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "reason": "深冷空気分離とLNG冷熱による動力削減に関する技術事項であり、法令改正の影響を受けない。"
+          "explanationText": "深冷空気分離とLNG冷熱利用による動力削減に関する技術事項であり、法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2328,7 +2379,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "reason": "力率と電流及び配電損失の関係に関する電気工学上の技術事項であり、法令改正の影響を受けない。"
+          "explanationText": "力率と電流及び配電損失の関係に関する電気工学上の技術事項であり、法令改正の影響を受けない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2637,7 +2689,7 @@
         "title": "特定計量器検定検査規則 第四百七十三条"
       }
     ],
-    "lawContextForExplanation": "選択肢1は計量法施行令第18条・別表第三及び特定計量器検定検査規則第25条、選択肢2はガス工作物の技術上の基準を定める省令第51条第2項第1号と同条の経済産業省解釈例、選択肢3から5は特定計量器検定検査規則第437条・第472条・第473条が引用するJIS B 8571:2022附属書の性能・感度・使用公差を踏まえて確認する。現行法上も選択肢2のみ正しい。",
+    "lawContextForExplanation": "選択肢1は計量法施行令第18条・別表第三及び特定計量器検定検査規則第25条第2項により、使用最大流量16m³/hの都市ガス用ガスメーターの検定証印等の有効期間と起算日を確認する。選択肢2はガス工作物の技術上の基準を定める省令第51条第2項第1号を根拠に、マイコンメーターの漏えい警報機能を確認する。選択肢3から5はガスメーターの故障名称に関する技術知識であり、現行法令による正誤変更の対象ではない。現行でも正しい選択肢は2のみである。",
     "lawReferences": [
       [
         {
@@ -2676,45 +2728,9 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第437条・第472条・第473条（JIS B 8571:2022附属書）",
-          "choiceIndex": 2,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/405M50000400070",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第437条・第472条（JIS B 8571:2022附属書）",
-          "choiceIndex": 3,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/405M50000400070",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第437条・第472条（JIS B 8571:2022附属書）",
-          "choiceIndex": 4,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/405M50000400070",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      [],
+      []
     ],
     "lawRevisionFacts": [
       {
@@ -2723,7 +2739,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "計量法施行令第18条・別表第三は該当する都市ガス用ガスメーターの有効期間を10年とし、特定計量器検定検査規則第25条第2項は検定証印を付した月の翌月1日から起算すると定める。7年とする記述は誤りで、出題時判定と現行法判定は一致する。"
+          "explanationText": "計量法施行令第18条・別表第三は該当する都市ガス用ガスメーターの検定証印等の有効期間を10年とし、特定計量器検定検査規則第25条第2項は検定証印を付した月の翌月1日から起算すると定めるため、7年とする記述は誤りである。",
+          "verdict": "出題時判定と現行法判定は一致する。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2736,7 +2753,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第51条第2項第1号と経済産業省の同条解釈例第1項第5号イにより、流量検知式漏えい検知装置は30日間連続して流入を検知した場合に表示警報することを確認した。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第51条第2項第1号は適切な漏えい検知装置に関する基準であり、30日間連続してガス流入を検知した場合に表示警報するマイコンメーターの機能を根拠づけるため、この記述は正しい。",
+          "verdict": "出題時判定と現行法判定は一致する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2744,12 +2762,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "特定計量器検定検査規則第437条・第472条・第473条が引用するJIS B 8571:2022附属書の性能、感度及び使用公差と照合した。使用公差を外れる器差の故障は器差不良であり、感度不良ではない。"
+          "explanationText": "部品の摩耗などで器差が使用公差を外れる故障は器差不良であり、感度不良ではない。ガスメーターの故障名称に関する技術知識として、出題時判定を維持する。",
+          "verdict": "法令改正による正誤変更の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2757,12 +2776,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "特定計量器検定検査規則第437条・第472条が引用するJIS B 8571:2022附属書のガスメーター性能を踏まえて故障状態を照合した。ガスが通過できない状態は不通であり、不動ではない。"
+          "explanationText": "クランク軸のさび付きなどでガスがメーターを通過できない故障は不通であり、不動ではない。ガスメーターの故障名称に関する技術知識として、出題時判定を維持する。",
+          "verdict": "法令改正による正誤変更の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2770,12 +2790,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "特定計量器検定検査規則第437条・第472条が引用するJIS B 8571:2022附属書のガスメーター性能を踏まえて故障状態を照合した。出口側の著しい圧力変動で燃焼が不安定になる故障はあおりであり、通り抜けではない。"
+          "explanationText": "出口側の圧力変動が著しくなり燃焼状態が不安定になる故障はあおりであり、通り抜けではない。ガスメーターの故障名称に関する技術知識として、出題時判定を維持する。",
+          "verdict": "法令改正による正誤変更の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2966,7 +2987,78 @@
       [],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の監査対象外。",
+          "verdict": "防食方法の分類に関する技術知識で正誤を判断する肢であり、少なくとも一つの選択肢の正誤を直接決める検証済み法令根拠はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の監査対象外。",
+          "verdict": "他防食施設からの干渉電食に関する技術知識で正誤を判断する肢であり、少なくとも一つの選択肢の正誤を直接決める検証済み法令根拠はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の監査対象外。",
+          "verdict": "異種金属接触腐食に関する技術知識で正誤を判断する肢であり、少なくとも一つの選択肢の正誤を直接決める検証済み法令根拠はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の監査対象外。",
+          "verdict": "ミクロセル腐食とマクロセル腐食の区別に関する技術知識で正誤を判断する肢であり、少なくとも一つの選択肢の正誤を直接決める検証済み法令根拠はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の監査対象外。",
+          "verdict": "選択排流法に関する技術知識で正誤を判断する肢であり、少なくとも一つの選択肢の正誤を直接決める検証済み法令根拠はない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   },
   {

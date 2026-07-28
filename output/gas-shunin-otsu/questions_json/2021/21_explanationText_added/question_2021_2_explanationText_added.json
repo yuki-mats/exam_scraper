@@ -1622,7 +1622,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物の技術上の基準を定める省令第11条に照らし、可燃性ガス又は液化ガスを通ずるガス工作物と火気設備との保安上必要な距離を確保する記述は正しい。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第11条に照らし、可燃性ガス又は液化ガスを通ずるガス工作物と火気設備との保安上必要な距離を確保する記述は正しい。",
+          "verdict": "現行法令と試験時判断は一致。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1635,7 +1636,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物の技術上の基準を定める省令第20条第1項に照らし、遮断装置に誤操作防止及び確実操作の措置を求める記述は正しい。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第20条第1項に照らし、遮断装置に誤操作防止及び確実操作の措置を求める記述は正しい。",
+          "verdict": "現行法令と試験時判断は一致。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1648,7 +1650,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物の技術上の基準を定める省令第31条第3項が求めるのは液化ガスが液体のまま流出することを防止する措置であり、逆流防止装置の設置とする記述は誤り。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第31条第3項が求めるのは液化ガスが液体のまま流出することを防止する措置であり、逆流防止装置の設置とする記述は誤り。",
+          "verdict": "現行法令と試験時判断は一致。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1661,7 +1664,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物の技術上の基準を定める省令第13条第3項に照らし、フレアースタックのふく射熱による障害防止措置を求める記述は正しい。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第13条第3項に照らし、フレアースタックのふく射熱による障害防止措置を求める記述は正しい。",
+          "verdict": "現行法令と試験時判断は一致。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1674,7 +1678,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物の技術上の基準を定める省令第33条第1項及び第36条第1項に照らし、ガスホルダーや液化ガス用貯槽の送出・受入配管に遮断装置を設ける記述は正しい。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第33条第1項及び第36条第1項に照らし、ガスホルダーや液化ガス用貯槽の送出・受入配管に遮断装置を設ける記述は正しい。",
+          "verdict": "現行法令と試験時判断は一致。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2471,21 +2476,9 @@
         "title": "計量法施行令"
       }
     ],
-    "lawContextForExplanation": "選択肢1はJIS B 8571:2022の回転子式ガスメーターの定義、選択肢2は計量法施行令第2条第1項第5号イ(5)、選択肢3はJIS Z 8762-1:2007の差圧による流量算出原理、選択肢4は計量法施行令第12条及び別表第三第2号ホ(3)、選択肢5はKHKS 0733の微少漏えい警告機能を所管官庁資料で確認して説明する。",
+    "lawContextForExplanation": "選択肢2は計量法施行令第2条第1項第5号イ(5)により、検定対象となるガスメーターが実測湿式を除き口径250mm以下に限定されることを根拠に説明する。選択肢4は同令第12条及び別表第三第2号ホ(3)により、使用最大流量25m³/hのガスメーターの検定証印等の有効期間が7年であることを根拠に説明する。選択肢1、3、5はガスメーターの計量方式又はマイコンメーター機能に関する技術事項として説明する。",
     "lawReferences": [
-      [
-        {
-          "article": "箇条3（用語及び定義、回転子式ガスメーター）",
-          "choiceIndex": 0,
-          "lawId": "JIS B 8571:2022",
-          "lawTitle": "日本産業規格 JIS B 8571:2022 ガスメーター",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://webdesk.jsa.or.jp/preview/pre_jis_b_08571_000_000_2022_j_ed10_ch.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第2条第1項第5号イ(5)",
@@ -2499,19 +2492,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "箇条5（流量の算出）",
-          "choiceIndex": 2,
-          "lawId": "JIS Z 8762-1:2007",
-          "lawTitle": "日本産業規格 JIS Z 8762-1:2007 円形管路の絞り機構による流量測定方法―第1部：一般原理及び要求事項",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://webdesk.jsa.or.jp/preview/pre_jis_z_08762_001_000_2007_j_ed11_ch.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第12条、別表第三第2号ホ(3)",
@@ -2525,28 +2506,16 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "20（流量式微少漏えい検知機能）",
-          "choiceIndex": 4,
-          "lawId": "KHKS0733",
-          "lawTitle": "液化石油ガス用マイコン型流量検知式自動ガス遮断装置（S型）技術基準",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/lpgas/anzen_torikumi/file_itakujigyou/2017fy_maikonmeter.pdf",
-          "verificationStatus": "verified"
-        }
-      ]
+      []
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "JIS B 8571:2022の回転子式ガスメーターの定義と照合し、回転数に対応する体積を積算する実測式であることを確認した。"
+          "promptContext": "回転子式ガスメーターの計量方式に関する技術事項であり、法令改正影響の確認対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2559,7 +2528,15 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "計量法施行令第2条第1項第5号イ(5)により、検定対象のガスメーターは原則として口径250mm以下であることを確認した。"
+          "explanationText": "計量法施行令は、検定対象となるガスメーターを実測湿式ガスメーターを除き口径250mm以下のものとするため、口径250mmを超えるガスメーターは検定対象外である。",
+          "refs": [
+            {
+              "article": "第2条第1項第5号イ(5)",
+              "lawId": "405CO0000000329",
+              "lawTitle": "計量法施行令"
+            }
+          ],
+          "verdict": "現行法令と試験時点の判定は同じ。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2567,12 +2544,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "JIS Z 8762-1:2007の差圧による流量算出原理と照合し、オリフィス式は一定容積を直接量り取る方式ではないことを確認した。"
+          "promptContext": "オリフィス式ガスメーターの流量算出原理に関する技術事項であり、法令改正影響の確認対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2585,7 +2562,15 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "計量法施行令第12条及び別表第三第2号ホ(3)により、使用最大流量25m³/hの有効期間は7年であることを確認した。"
+          "explanationText": "計量法施行令第12条及び別表第三第2号ホ(3)では、使用最大流量25m³/hの検定対象ガスメーターの検定証印等の有効期間は7年であり、10年ではない。",
+          "refs": [
+            {
+              "article": "第12条、別表第三第2号ホ(3)",
+              "lawId": "405CO0000000329",
+              "lawTitle": "計量法施行令"
+            }
+          ],
+          "verdict": "現行法令と試験時点の判定は同じ。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2593,12 +2578,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "経済産業省資料が引用するKHKS 0733の20により、30日間の微少流量継続時は遮断ではなく警告表示及び警告信号出力であることを確認した。"
+          "promptContext": "マイコンメーターの微少漏えい警告機能に関する技術事項であり、法令改正影響の確認対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2886,7 +2871,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "誤っているものは選択肢5である。選択肢1は、機械的接合が主として鋳鉄管や口径80mm以下の小口径鋼管などに用いられるため正しい。導管の接合方法については、ガス工作物の技術上の基準を定める省令第15条第1項第6号を具体化するガス工作物技術基準の解釈例第41条第2項が、鋼管や鋳鉄管の機械的接合を規定している。選択肢2は、ポリエチレン管の融着接合にヒートフュージョン接合とエレクトロフュージョン接合があるため正しい。同解釈例第41条第2項は、ポリエチレン管の融着を接合方法として掲げ、ヒートフュージョン継手とエレクトロフュージョン継手の規格を示している。選択肢3は、架管の壁貫通部にスリーブを設け、その隙間を弾力性のあるシール材で隙間なく充てんする施工であり正しい。同解釈例第46条は、専用橋等に設置する導管を風圧や地震等に対して安全な構造で支持することを求めており、この施工は貫通部で導管を保護するための適切な処置である。選択肢4は、ガス濃度が0.2%以下で作動するガス検知器を用い、その検知器が作動しないことで漏えいの有無を判定する方法であるため正しい。これは同省令第15条第3項及びガス工作物技術基準の解釈例第51条第2項第二号に示されている。選択肢5は、道路で工事を行うための道路使用許可の許可主体を取り違えているため誤りである。道路交通法第77条第1項第一号による道路使用許可は所轄警察署長から受ける一方、道路法第32条第1項第二号によるガス管等の道路占用許可は道路管理者から受ける。"
+      "誤っているものは選択肢5である。選択肢1は、機械的接合が主として鋳鉄管や口径80mm以下の小口径鋼管などに用いられるため正しい。導管の接合方法については、ガス工作物の技術上の基準を定める省令第15条第1項第6号を具体化するガス工作物技術基準の解釈例第41条第2項が、鋼管や鋳鉄管の機械的接合を規定している。選択肢2は、ポリエチレン管の融着接合にヒートフュージョン接合とエレクトロフュージョン接合があるため正しい。同解釈例第41条第2項は、ポリエチレン管の融着を接合方法として掲げ、ヒートフュージョン継手とエレクトロフュージョン継手の規格を示している。選択肢3は、架管の壁貫通部にスリーブを設け、その隙間を弾力性のあるシール材で隙間なく充てんする施工であり正しい。同解釈例第46条は、導管を安全に支持し、外力等に対して保護するための措置を求めており、この施工は貫通部で導管を保護する適切な処置である。選択肢4は、ガス濃度が0.2%以下で作動するガス検知器を用い、その検知器が作動しないことで漏えいの有無を判定する方法であるため正しい。これは同省令第15条第3項及びガス工作物技術基準の解釈例第51条第2項第二号に示されている。選択肢5は、道路で工事を行うための道路使用許可の許可主体を取り違えているため誤りである。道路交通法第77条第1項第一号による道路使用許可は所轄警察署長から受ける一方、道路法第32条第1項第二号によるガス管等の道路占用許可は道路管理者から受ける。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -2913,10 +2898,8 @@
         {
           "article": "15",
           "choiceIndex": 0,
-          "item": "六",
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "1",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -2926,10 +2909,8 @@
         {
           "article": "41",
           "choiceIndex": 0,
-          "item": "一・四",
           "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "paragraph": "2",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -2941,10 +2922,8 @@
         {
           "article": "15",
           "choiceIndex": 1,
-          "item": "六",
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "1",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -2954,10 +2933,8 @@
         {
           "article": "41",
           "choiceIndex": 1,
-          "item": "一・五",
           "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "paragraph": "2",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -2969,10 +2946,8 @@
         {
           "article": "15",
           "choiceIndex": 2,
-          "item": "六",
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "1",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -2984,7 +2959,6 @@
           "choiceIndex": 2,
           "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "paragraph": "1",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -2998,7 +2972,6 @@
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "3",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -3008,10 +2981,8 @@
         {
           "article": "51",
           "choiceIndex": 3,
-          "item": "二",
           "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "paragraph": "2",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -3023,10 +2994,8 @@
         {
           "article": "77",
           "choiceIndex": 4,
-          "item": "一",
           "lawId": "335AC0000000105",
           "lawTitle": "道路交通法",
-          "paragraph": "1",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -3036,10 +3005,8 @@
         {
           "article": "32",
           "choiceIndex": 4,
-          "item": "二",
           "lawId": "327AC1000000180",
           "lawTitle": "道路法",
-          "paragraph": "1",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
@@ -3062,7 +3029,7 @@
         },
         "evidenceSummary": {
           "differenceSummary": "現行根拠でも正誤判断に影響する差異は確認されない。",
-          "explanationText": "省令第15条第1項第6号及び解釈例第41条第2項は、鋼管及び鋳鉄管の接合方法として機械的接合を規定しており、記述の正誤は維持される。",
+          "explanationText": "省令第15条第1項第6号及び解釈例第41条第2項に照らし、鋳鉄管及び小口径鋼管の機械的接合に関する記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -3083,7 +3050,7 @@
         },
         "evidenceSummary": {
           "differenceSummary": "現行根拠でも正誤判断に影響する差異は確認されない。",
-          "explanationText": "解釈例第41条第2項はポリエチレン管の融着を接合方法として掲げ、ヒートフュージョン継手及びエレクトロフュージョン継手の規格を示している。",
+          "explanationText": "解釈例第41条第2項はポリエチレン管の融着接合を扱い、ヒートフュージョン継手及びエレクトロフュージョン継手を示しているため、記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -3104,7 +3071,7 @@
         },
         "evidenceSummary": {
           "differenceSummary": "現行根拠でも正誤判断に影響する差異は確認されない。",
-          "explanationText": "省令第15条第1項第6号及び解釈例第46条の導管構造・支持上の安全要求に照らし、壁貫通部で導管を保護する施工として記述の正誤は維持される。",
+          "explanationText": "解釈例第46条の導管支持・保護に関する安全要求に照らし、壁貫通部にスリーブを設け、弾力性のあるシール材を充てんする施工は適切であり、記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -3125,7 +3092,7 @@
         },
         "evidenceSummary": {
           "differenceSummary": "現行根拠でも正誤判断に影響する差異は確認されない。",
-          "explanationText": "省令第15条第3項及び解釈例第51条第2項第二号は、0.2%以下で作動するガス検知器による気密試験の判定方法を認めている。",
+          "explanationText": "省令第15条第3項及び解釈例第51条第2項第二号により、0.2%以下で作動するガス検知器を用いて作動しないことを確認する気密試験の判定方法は認められ、記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -3147,7 +3114,7 @@
         },
         "evidenceSummary": {
           "differenceSummary": "現行根拠でも正誤判断に影響する差異は確認されない。",
-          "explanationText": "道路使用許可は道路交通法第77条第1項第一号により所轄警察署長から受け、道路管理者から受ける道路法第32条第1項第二号の道路占用許可とは異なる。",
+          "explanationText": "道路使用許可は道路交通法第77条第1項第一号に基づき所轄警察署長が行う許可であり、道路管理者が行う道路法第32条第1項第二号の道路占用許可とは異なるため、記述は誤りである。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -3186,7 +3153,7 @@
         "title": "道路法 第32条"
       }
     ],
-    "lawContextForExplanation": "選択肢1・2は、省令第15条第1項第6号とガス工作物技術基準の解釈例第41条第2項により、導管の機械的接合及びポリエチレン管の融着接合を確認する。選択肢3は同解釈例第46条の導管支持上の安全要求を踏まえて架管貫通部の施工を確認する。選択肢4は省令第15条第3項及び同解釈例第51条第2項第二号、選択肢5は道路交通法第77条第1項第一号と道路法第32条第1項第二号を根拠とする。"
+    "lawContextForExplanation": "選択肢1・2は、ガス工作物の技術上の基準を定める省令第15条とガス工作物技術基準の解釈例第41条により導管の接合方法を確認する。選択肢3は同解釈例第46条、選択肢4は同省令第15条第3項及び同解釈例第51条、選択肢5は道路交通法第77条と道路法第32条を根拠に、道路使用許可と道路占用許可の許可主体の違いを確認する。"
   },
   {
     "original_question_id": "e91a741a0e782855",

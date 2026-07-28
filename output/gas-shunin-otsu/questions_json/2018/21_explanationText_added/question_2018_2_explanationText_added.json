@@ -1320,12 +1320,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "液－ガス熱量調整方式に関する技術知識で判定する記述であり、法令条文の改正差分確認を要しない。"
+          "explanationText": "液－ガス熱量調整方式の構成に関する技術的記述であり、法令条文の改正差分確認を要しない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "law_grounding_not_needed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1333,12 +1334,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "液－液熱量調整方式での極低温混合と凍結・閉そく対策に関する技術知識で判定する記述であり、法令条文の改正差分確認を要しない。"
+          "explanationText": "極低温での液－液混合と凍結・閉そく対策に関する技術的記述であり、法令条文の改正差分確認を要しない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "law_grounding_not_needed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1346,12 +1348,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "空気希釈時の燃焼速度指数及びウォッベ指数の変化に関する技術知識で判定する記述であり、法令条文の改正差分確認を要しない。"
+          "explanationText": "空気希釈による燃焼速度指数及びウォッベ指数の変化を問う技術的記述であり、法令条文の改正差分確認を要しない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "law_grounding_not_needed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1359,12 +1362,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス－ガス熱量調整方式におけるLPG気化設備、熱源及び運転費に関する技術知識で判定する記述であり、法令条文の改正差分確認を要しない。"
+          "explanationText": "LPGの気化設備、熱源及び運転費に関する技術的記述であり、法令条文の改正差分確認を要しない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "law_grounding_not_needed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1372,12 +1376,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "供給ガスの空気希釈時に燃焼範囲へ入らないよう混合量を管理する技術知識で判定する記述であり、法令条文の改正差分確認を要しない。"
+          "explanationText": "供給ガスの空気希釈時に燃焼範囲へ入らないよう混合量を管理する技術的記述であり、法令条文の改正差分確認を要しない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "law_grounding_not_needed"
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -1456,7 +1461,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令条文の直接根拠を要しない。都市ガスの付臭には保安上の制度背景があるが、本問は付臭剤成分の分析方法、臭気濃度の測定方法、付臭設備の方式、TBMの性質を問う技術知識として解説する。",
+    "lawContextForExplanation": "都市ガスの付臭には保安上の制度背景があるが、本問は付臭剤成分の分析方法、臭気濃度の測定方法、付臭設備の方式及びTBMの性質を問う技術問題である。各肢の正誤は技術知識から判断でき、法令根拠付き解説は不要。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -1464,12 +1469,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令改正の影響を受ける条文問題ではなく、付臭剤成分と分析方法に関する技術知識として判定する。"
+          "verdict": "FPD付きガスクロマトグラフによる有機硫黄付臭剤成分の検出に関する分析技術の命題であり、法令条項ではなく技術知識で判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1477,12 +1482,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令改正の影響を受ける条文問題ではなく、臭気濃度測定方法に関する技術知識として判定する。"
+          "verdict": "選定した4名以上のパネルによる臭気濃度測定方法の命題であり、法令条項ではなく測定技術の知識で判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1490,12 +1495,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令改正の影響を受ける条文問題ではなく、滴下注入方式に関する技術知識として判定する。"
+          "verdict": "手動式滴下注入方式の調整精度と適用規模の命題であり、法令条項ではなく設備技術の知識で判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1503,12 +1508,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "法令改正の影響を受ける条文問題ではなく、バイパス蒸発方式と混合付臭剤に関する技術知識として判定する。"
+          "verdict": "バイパス蒸発方式における混合付臭剤の蒸発特性の命題であり、法令条項ではなく設備技術の知識で判定する。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1516,12 +1521,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令改正の影響を受ける条文問題ではなく、TBMの性質に関する技術知識として判定する。"
+          "verdict": "TBMの認知閾値とにおいのインパクトの命題であり、法令条項ではなく付臭剤の性質に関する技術知識で判定する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -2028,8 +2033,37 @@
         "referenceDate": "2026-07-27"
       },
       "evidenceSummary": {
-        "lawRelated": "ガス事業法施行規則第148条第1項第4号は、法第97条第1項の保安規程に、ガス工作物の工事、維持及び運用に関する保安のための巡視、点検及び検査に関する事項を定めるものとして掲げる。2018年度試験時点も同旨で、設問の(ロ)を保安規程とする根拠になる。",
-        "revisionImpact": "試験時点と現行法の根拠条文の趣旨に、正答へ影響する差分は認められない。現行法でも選択肢1が最も適切である。"
+        "differenceSummary": "2018年度試験時点と現行法令で、設問の正答判断に影響する差分はない。",
+        "displayRefIds": [
+          "ガス事業法施行規則 第148条第1項第4号",
+          "ガス事業法施行規則 第148条第1項第4号（2018年度試験時点）"
+        ],
+        "explanationText": "ガス事業法施行規則第148条第1項第4号は、法第97条第1項の保安規程に、ガス工作物の工事、維持及び運用に関する保安のための巡視、点検及び検査に関する事項を定めるものとして掲げる。設問の(ロ)を保安規程とする根拠になる。",
+        "refs": [
+          {
+            "article": "第148条",
+            "item": "第4号",
+            "lawId": "345M50000400097",
+            "lawTimeScope": "current",
+            "lawTitle": "ガス事業法施行規則",
+            "paragraph": "第1項",
+            "primaryBasis": true,
+            "refId": "ガス事業法施行規則 第148条第1項第4号",
+            "relation": "current_basis"
+          },
+          {
+            "article": "第148条",
+            "item": "第4号",
+            "lawId": "345M50000400097",
+            "lawTimeScope": "exam_time",
+            "lawTitle": "ガス事業法施行規則",
+            "paragraph": "第1項",
+            "primaryBasis": true,
+            "refId": "ガス事業法施行規則 第148条第1項第4号（2018年度試験時点）",
+            "relation": "exam_time_basis"
+          }
+        ],
+        "verdict": "試験時点と現行法の根拠条文の趣旨に、正答へ影響する差分は認められない。現行法でも選択肢1が最も適切である。"
       },
       "examTime": {
         "correctChoiceText": [
@@ -2101,11 +2135,11 @@
         "title": "ガス工作物技術基準の解釈例"
       }
     ],
-    "lawContextForExplanation": "製造所の保安設備に関する法令関連問題。防爆性能はガス工作物技術基準省令第10条、火気設備との距離は同第11条及び解釈例第8条、安全弁は同第17条、保安電力等は同第21条を根拠とする。塔槽類の避雷設備は解釈例に対応する雷保護システム基準を参照する。第4肢は必要な安全弁を爆発戸としているため誤り。",
+    "lawContextForExplanation": "製造所の保安設備に関する法令関連問題。防爆性能はガス工作物の技術上の基準を定める省令第10条、火気設備との距離は同第11条及びガス工作物技術基準の解釈例第8条、安全弁は同第17条、保安電力等は同第21条を根拠とする。塔槽類の避雷設備は解釈例の雷保護システム基準を参照する。第4肢は過圧のおそれがある対象設備に必要な安全弁ではなく、爆発戸等を掲げているため誤り。",
     "lawReferences": [
       [
         {
-          "article": "第10条（電気設備の防爆構造）",
+          "article": "第10条（電気設備の防爆性能）",
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
@@ -2187,7 +2221,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "防爆性能を求める基準を試験時点と現行法で照合し、正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "防爆性能を求める基準について、試験時点と現行法で正誤判定を変える改正影響は認められない。",
+          "refs": [
+            {
+              "article": "第10条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "law:412M50000400111:10",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2200,7 +2246,28 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "火気設備との適切な離隔を求める基準を試験時点と現行法で照合し、正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "火気設備との距離を確保する基準について、試験時点と現行法で正誤判定を変える改正影響は認められない。",
+          "refs": [
+            {
+              "article": "第11条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "law:412M50000400111:11",
+              "relation": "basis"
+            },
+            {
+              "article": "第8条",
+              "lawId": "ガス工作物技術基準の解釈例",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": false,
+              "refId": "interpretation:gas-work-technical-standard:8",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2213,7 +2280,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "可燃性の流体を通ずる塔槽類の雷保護に関する基準を照合し、試験時点と現行基準で判定が同じであることを確認した。"
+          "differenceSummary": "可燃性の流体を通ずる塔槽類の雷保護に関する基準について、試験時点と現行基準で正誤判定は同じである。",
+          "refs": [
+            {
+              "article": "雷保護システム",
+              "lawId": "ガス工作物技術基準の解釈例",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": true,
+              "refId": "interpretation:gas-work-technical-standard:lightning-protection",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2226,7 +2305,19 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "過圧のおそれがある対象設備には適切な安全弁を求める基準が試験時点と現行法で共通し、爆発戸とする記述は双方で誤りである。"
+          "differenceSummary": "過圧が生ずるおそれがある対象設備には安全弁が求められるため、爆発戸、破裂板、水封等を設けるとする記述は試験時点及び現行法のいずれでも誤りである。",
+          "refs": [
+            {
+              "article": "第17条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "law:412M50000400111:17",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2239,7 +2330,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "停電等でも保安上重要な設備の機能を失わせない措置を求める基準を照合し、正誤を変える改正影響がないことを確認した。"
+          "differenceSummary": "停電時にも保安上重要な設備の機能を維持する措置に関する基準について、試験時点と現行法で正誤判定を変える改正影響は認められない。",
+          "refs": [
+            {
+              "article": "第21条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "law:412M50000400111:21",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3245,7 +3348,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行の平成12年建設省告示第1388号第四第三号は、伸縮継手又は可撓継手などによる管の変形時の損傷防止を求めており、判定への改正影響はない。"
+          "explanationText": "平成12年建設省告示第1388号第四第三号は、管の伸縮その他の変形による損傷を防ぐため、伸縮継手又は可撓継手を設けるなどの措置を求めている。スライド型伸縮継手による変位吸収措置はこの趣旨に沿う。",
+          "refs": [
+            {
+              "article": "第四第三号",
+              "lawId": "平成12年建設省告示第1388号",
+              "lawTimeScope": "current",
+              "lawTitle": "建築設備の構造耐力上安全な構造方法を定める件",
+              "primaryBasis": true,
+              "refId": "平成12年建設省告示第1388号-第四第三号",
+              "relation": "supports_current_verdict"
+            }
+          ],
+          "verdict": "現行法令等でも判定は正しいまま変更なし。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3258,7 +3373,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物技術基準省令第14条は、最高・最低使用温度での影響に対する材料の安全性を求めており、判定への改正影響はない。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第14条は、主要材料について最高・最低使用温度で受ける化学的・物理的影響に対して安全な機械的性質を有することを求めている。使用温度範囲を超える熱の影響を受ける場所を避ける記述は妥当である。",
+          "refs": [
+            {
+              "article": "第14条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "412M50000400111-14",
+              "relation": "supports_current_verdict"
+            }
+          ],
+          "verdict": "現行法令でも判定は正しいまま変更なし。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3271,7 +3398,28 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "JIS Z 9102:1987が現行有効であること及び国土交通省令和7年版標準図で燃料ガス配管の識別色がうすい黄であることを確認した。緑色とする記述は引き続き誤りである。"
+          "explanationText": "燃料ガス配管の識別色は緑色ではなく、JIS Z 9102:1987の配管系識別に対応する国土交通省の公共建築設備工事標準図でも、燃料ガス配管の識別色はうすい黄と示されている。",
+          "refs": [
+            {
+              "article": "配管の識別色（ガス）",
+              "lawId": "JIS Z 9102:1987",
+              "lawTimeScope": "current",
+              "lawTitle": "JIS Z 9102:1987 配管系の識別表示",
+              "primaryBasis": true,
+              "refId": "JIS-Z-9102-1987-配管識別色ガス",
+              "relation": "supports_current_verdict"
+            },
+            {
+              "article": "配管色別の施工例（燃料ガス配管）",
+              "lawId": "公共建築設備工事標準図・令和7年版",
+              "lawTimeScope": "current",
+              "lawTitle": "公共建築設備工事標準図（機械設備工事編）令和7年版",
+              "primaryBasis": false,
+              "refId": "公共建築設備工事標準図-令和7年版-燃料ガス配管識別色",
+              "relation": "supports_current_verdict"
+            }
+          ],
+          "verdict": "現行基準でも判定は誤りのまま変更なし。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3284,7 +3432,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "国土交通省の令和7年版公共建築改修工事標準仕様書第6編第2章2.2.3.2(4)は、フレキ管の横走り管を2m以内ごとに支持固定するとしており、判定への改正影響はない。"
+          "explanationText": "公共建築改修工事標準仕様書（機械設備工事編）令和7年版（修補版）第6編第2章2.2.3.2(4)は、フレキ管の横走り管を2m以内ごとに支持固定するとしている。",
+          "refs": [
+            {
+              "article": "第6編第2章2.2.3.2(4)",
+              "lawId": "公共建築改修工事標準仕様書・令和7年版",
+              "lawTimeScope": "current",
+              "lawTitle": "公共建築改修工事標準仕様書（機械設備工事編）令和7年版（修補版）",
+              "primaryBasis": true,
+              "refId": "公共建築改修工事標準仕様書-令和7年版-第6編第2章2.2.3.2(4)",
+              "relation": "supports_current_verdict"
+            }
+          ],
+          "verdict": "現行基準でも判定は正しいまま変更なし。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3297,7 +3457,28 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "現行のガス工作物技術基準省令第52条及び建築基準法施行令第129条の2の4第1項第8号に配管の設置場所・構造に関する制限がある。建築基準法施行令の条番号変更を反映しても判定は変わらない。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第52条には高圧導管の設置場所に関する制限があり、建築基準法施行令第129条の2の4第1項第8号にも一定のガス配管設備に関する安全基準適合要求がある。建築基準法施行令の現行条番号を反映しても判定は変わらない。",
+          "refs": [
+            {
+              "article": "第52条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "412M50000400111-52",
+              "relation": "supports_current_verdict"
+            },
+            {
+              "article": "第129条の2の4第1項第8号",
+              "lawId": "325CO0000000338",
+              "lawTimeScope": "current",
+              "lawTitle": "建築基準法施行令",
+              "primaryBasis": false,
+              "refId": "325CO0000000338-129-2-4-1-8",
+              "relation": "supports_current_verdict"
+            }
+          ],
+          "verdict": "現行法令でも判定は正しいまま変更なし。"
         },
         "examTime": {
           "correctChoiceText": "正しい"

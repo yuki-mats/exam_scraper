@@ -2021,7 +2021,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢5は、廃棄物の処理及び清掃に関する法律第2条第2項及び第4項に基づいて判断する。同条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、第4項は産業廃棄物の範囲を定めている。選択肢1〜4は技術知識で判断する。",
+    "lawContextForExplanation": "選択肢5は、廃棄物の処理及び清掃に関する法律第2条第2項及び第4項に基づいて判断する。同条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、第4項は産業廃棄物の範囲を定めている。選択肢1〜4は燃焼・水質指標・燃料特性・環境評価に関する技術知識で判断する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -2029,8 +2029,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "サーマルNOxの生成条件に関する燃焼技術上の命題であり、法令条文が正誤を直接決めない。",
-          "classification": "technical_combustion"
+          "explanationText": "サーマルNOxの生成条件に関する燃焼技術上の命題であり、法令条文が正誤を直接決める肢ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2043,8 +2043,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "BODとCODの定義を区別する水質指標上の命題であり、法令条文が正誤を直接決めない。",
-          "classification": "technical_water_quality"
+          "explanationText": "BODとCODの定義を区別する水質指標上の命題であり、法令条文が正誤を直接決める肢ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2057,8 +2057,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "燃料組成と燃焼時二酸化炭素排出量の関係を問う技術命題であり、法令条文が正誤を直接決めない。",
-          "classification": "technical_fuel_environment"
+          "explanationText": "天然ガスの燃料組成と燃焼時二酸化炭素排出量の関係を問う技術命題であり、法令条文が正誤を直接決める肢ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2071,8 +2071,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "温室効果ガス排出量のライフサイクル評価に関する一般的な環境評価上の命題であり、法令条文が正誤を直接決めない。",
-          "classification": "technical_lifecycle_assessment"
+          "explanationText": "温室効果ガス排出量のライフサイクル評価に関する環境評価上の命題であり、法令条文が正誤を直接決める肢ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2085,10 +2085,17 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "article": "第2条第2項及び第4項",
-          "basis": "同条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、第4項は産業廃棄物を定義しているため、廃棄物に該当するもののうち産業廃棄物でないものは一般廃棄物となる。",
-          "currentSource": "e-Gov法令検索",
-          "lawId": "345AC0000000137",
+          "explanationText": "廃棄物の処理及び清掃に関する法律第2条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、同条第4項は産業廃棄物の範囲を定めているため、廃棄物に該当するもののうち産業廃棄物でないものは一般廃棄物となる。",
+          "refs": [
+            {
+              "article": "第2条第2項及び第4項",
+              "lawId": "345AC0000000137",
+              "lawTimeScope": "current",
+              "lawTitle": "廃棄物の処理及び清掃に関する法律",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2306,7 +2313,7 @@
       }
     ],
     "isLawRelated": true,
-    "lawContextForExplanation": "選択肢1・5はガス工作物の技術上の基準を定める省令第57条、選択肢4は同省令第58条第1項と対応する。選択肢2・3のシフト及び動特性、選択肢5の故障因果は法令に定義されない技術事項であるため、法定要件との境界を示して解説する。試験時と現行で結論の変更はない。",
+    "lawContextForExplanation": "選択肢1はガス工作物の技術上の基準を定める省令第57条第2号・第3号、選択肢4は同省令第58条第1項と対応する。選択肢2・3のシフト及び動特性、選択肢5の故障原因は法令に直接定義されない整圧器の技術事項として扱う。試験時と現行で結論の変更はない。",
     "lawReferences": [
       [
         {
@@ -2332,54 +2339,8 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第57条",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20260728",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第57条",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2019-09-29",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20190929",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第57条",
-          "choiceIndex": 2,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20260728",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第57条",
-          "choiceIndex": 2,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2019-09-29",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20190929",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
+      [],
       [
         {
           "article": "第58条第1項",
@@ -2404,30 +2365,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第57条第3号",
-          "choiceIndex": 4,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20260728",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第57条第3号",
-          "choiceIndex": 4,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2019-09-29",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20190929",
-          "verificationStatus": "verified"
-        }
-      ]
+      []
     ],
     "lawRevisionFacts": [
       {
@@ -2436,10 +2374,54 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "article": "第57条第2号・第3号",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "summary": "第57条は不純物除去装置及び一の使用者向け整圧器の圧力上昇防止装置を規定する。一般的な一体構造という技術上の結論に試験時から変更はない。"
+          "explanationText": "第57条第2号・第3号は、不純物除去装置及び一の使用者向け整圧器の圧力上昇防止装置に関する規定であり、ハウスレギュレーターの一般的な装置構成を説明する根拠として参照できる。",
+          "refs": [
+            {
+              "article": "第57条第2号・第3号",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            },
+            {
+              "article": "第57条第2号・第3号",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
+          "verdict": "試験時と現行で結論変更なし。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "一次圧力、大気圧又はスプリング条件の変化による流量曲線のずれをシフトという判断は、整圧器の静特性に関する技術事項であり、法令条文で直接判定する事項ではない。",
+          "verdict": "法令改正影響の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "負荷変動が大きい専用整圧器等で動特性が重要となる判断は、整圧器の応答性・安定性に関する技術事項であり、法令条文で直接判定する事項ではない。",
+          "verdict": "法令改正影響の対象外。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2452,10 +2434,26 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "article": "第57条",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "summary": "第57条は整圧器の保安装置を規定するが、シフトの定義は技術事項である。試験時と現行で判定に変更はない。"
+          "explanationText": "第58条第1項は、雨水又は地下水等の浸入のおそれがある地下に設置する整圧器について、浸水を防止する措置を講じることを規定している。",
+          "refs": [
+            {
+              "article": "第58条第1項",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            },
+            {
+              "article": "第58条第1項",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
+          "verdict": "試験時と現行で結論変更なし。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2463,47 +2461,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "article": "第57条",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "summary": "第57条は整圧器の保安装置を規定するが、動特性の定義と重要性は技術事項である。試験時と現行で判定に変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "article": "第58条第1項",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "summary": "浸水のおそれのある地下に設置する整圧器への浸水防止措置は、試験時及び現行の第58条第1項で確認でき、結論に変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "article": "第57条第3号",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "summary": "第57条第3号は圧力異常上昇の防止を求める。ダストのかみ込みによる閉め切り不良は二次圧力上昇側の故障であり、試験時と現行で判定に変更はない。"
+          "explanationText": "メインバルブへのダスト類のかみ込みによる閉め切り不良は二次側への流入停止不良を生じさせ、二次圧力異常低下ではなく異常上昇側の原因となるため、整圧器の作動原理に基づく技術事項として判定する。",
+          "verdict": "法令改正影響の対象外。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3119,7 +3083,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ポリエチレン管の紫外線劣化を避ける養生は、ガス工作物の技術上の基準を定める省令第14条の材料安全性能を維持する技術的取扱いとして妥当で、出題時判定から変更はない。"
+          "explanationText": "ポリエチレン管の紫外線劣化を避ける養生は、ガス工作物の技術上の基準を定める省令第14条の材料安全性能を維持する技術的取扱いとして妥当で、出題時判定から変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3132,7 +3096,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス工作物の技術上の基準を定める省令第51条第2項が求める適切な漏えい検査を可能にするため、ピット内配管に点検口を設ける処置は妥当で、出題時判定から変更はない。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第51条第2項が求める適切な漏えい検査を可能にするため、ピット内配管に点検口を設ける処置は妥当で、出題時判定から変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3145,7 +3109,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス工作物の技術上の基準を定める省令第47条の防食措置に照らし、絶縁性支持具で架管と構造物を絶縁する処置は妥当で、出題時判定から変更はない。"
+          "explanationText": "ガス工作物の技術上の基準を定める省令第47条の防食措置に照らし、絶縁性支持具で架管と構造物を絶縁する処置は妥当で、出題時判定から変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3158,7 +3122,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法施行令第112条第20項は、管と防火区画との隙間をモルタルその他の不燃材料で埋めることを求めており、出題時判定から変更はない。"
+          "explanationText": "建築基準法施行令第112条第20項は、管と防火区画との隙間をモルタルその他の不燃材料で埋めることを求めており、出題時判定から変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3171,7 +3135,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "労働安全衛生法第14条、労働安全衛生法施行令第6条第5号及び電離放射線障害防止規則第46条・第52条の2により、使用線源に応じた作業主任者の選任が必要である。非破壊試験技術者の選定だけで足りるとする記述は現行でも誤りである。"
+          "explanationText": "労働安全衛生法第14条、労働安全衛生法施行令第6条第5号及び電離放射線障害防止規則第46条・第52条の2により、使用線源に応じた作業主任者の選任が必要である。非破壊試験技術者の選定だけで足りるとする記述は現行でも誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3544,7 +3508,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "非裏波溶接に関する技術知識で判定し、直接の法令基準を問う選択肢ではない。"
+          "explanationText": "非裏波溶接に関する技術知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3557,7 +3521,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "液状化に関する地盤工学上の技術知識で判定し、直接の法令基準を問う選択肢ではない。"
+          "explanationText": "液状化に関する地盤工学上の技術知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3570,7 +3534,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "供給停止ブロックに関する地震対策上の運用知識で判定し、直接の法令基準を問う選択肢ではない。"
+          "explanationText": "供給停止ブロックに関する地震対策上の運用知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3583,7 +3547,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "供給継続地区における漏えい対応の運用知識で判定し、直接の法令基準を問う選択肢ではない。"
+          "explanationText": "供給継続地区における漏えい対応の運用知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3596,7 +3560,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第1条第2項第6号は、移動式ガス発生設備の使用場面に導管等の工事時と災害その他非常時を含めており、災害時だけに限定する記述は現行法でも誤りである。"
+          "explanationText": "ガス事業法施行規則第1条第2項第6号は、移動式ガス発生設備の使用場面に導管等の工事時と災害その他非常時を含めており、災害時だけに限定する記述は現行法でも誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"

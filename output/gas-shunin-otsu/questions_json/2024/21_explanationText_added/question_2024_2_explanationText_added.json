@@ -1195,8 +1195,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "PID制御のD動作とI動作の技術的相違による判定である。",
-          "revisionImpact": "法令改正の影響を受けない。"
+          "verdict": "PID制御のD動作とI動作の技術的相違による判定であり、法令改正の影響を受けない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1209,8 +1208,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "カスケード制御と比率制御の技術的相違による判定である。",
-          "revisionImpact": "法令改正の影響を受けない。"
+          "verdict": "カスケード制御と比率制御の技術的相違による判定であり、法令改正の影響を受けない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1223,8 +1221,19 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "電気機械器具防爆構造規格第1条第5号・第7号の定義により、記述は安全増防爆構造ではなく本質安全防爆構造を示す。",
-          "revisionImpact": "現行規定による正誤は出題時判定と同じである。"
+          "refs": [
+            {
+              "article": "第1条",
+              "item": "第5号・第7号",
+              "lawId": "昭和44年労働省告示第16号",
+              "lawTimeScope": "current",
+              "lawTitle": "電気機械器具防爆構造規格",
+              "primaryBasis": true,
+              "refId": "lawref-choice3-1",
+              "relation": "supports_verdict"
+            }
+          ],
+          "verdict": "電気機械器具防爆構造規格第1条第5号・第7号の定義により、記述は安全増防爆構造ではなく本質安全防爆構造を示すため誤り。現行規定による正誤は出題時判定と同じである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1237,8 +1246,19 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "電気設備に関する技術基準を定める省令第58条第1項は、300Vを超える低圧電路の絶縁抵抗値を0.4MΩ以上としている。",
-          "revisionImpact": "現行規定による正誤は出題時判定と同じである。"
+          "refs": [
+            {
+              "article": "第58条",
+              "lawId": "409M50000400052",
+              "lawTimeScope": "current",
+              "lawTitle": "電気設備に関する技術基準を定める省令",
+              "paragraph": "第1項",
+              "primaryBasis": true,
+              "refId": "lawref-choice4-1",
+              "relation": "supports_verdict"
+            }
+          ],
+          "verdict": "電気設備に関する技術基準を定める省令第58条第1項は、300Vを超える低圧電路の絶縁抵抗値を0.4MΩ以上としており、記述は正しい。現行規定による正誤は出題時判定と同じである。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1251,8 +1271,29 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "電気事業法第42条第1項及び第43条第1項は、保安規程の制定と主任技術者の選任を定めている。",
-          "revisionImpact": "現行規定による正誤は出題時判定と同じである。"
+          "refs": [
+            {
+              "article": "第42条",
+              "lawId": "339AC0000000170",
+              "lawTimeScope": "current",
+              "lawTitle": "電気事業法",
+              "paragraph": "第1項",
+              "primaryBasis": true,
+              "refId": "lawref-choice5-1",
+              "relation": "supports_verdict"
+            },
+            {
+              "article": "第43条",
+              "lawId": "339AC0000000170",
+              "lawTimeScope": "current",
+              "lawTitle": "電気事業法",
+              "paragraph": "第1項",
+              "primaryBasis": true,
+              "refId": "lawref-choice5-2",
+              "relation": "supports_verdict"
+            }
+          ],
+          "verdict": "電気事業法第42条第1項及び第43条第1項は、保安規程の制定と主任技術者の選任を定めており、記述は正しい。現行規定による正誤は出題時判定と同じである。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1671,45 +1712,10 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第18条（計測装置等）",
-          "choiceIndex": 3,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第35条第1項（液化ガス用貯槽の安全弁等）",
-          "choiceIndex": 3,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第35条第1項（液化ガス用貯槽の安全弁等）",
-          "choiceIndex": 4,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      []
     ],
-    "lawContextForExplanation": "イはガス工作物の技術上の基準を定める省令第10条、ロはガス事業法第98条第1項並びにガス事業法施行規則第150条第1項及び第26条第1項の表、ハはガス事業法第97条第1項及び同規則第148条第1項第6号を根拠に説明する。ニは同技術基準省令第18条及び第35条第1項、ホは同省令第35条第1項の過圧防止要求と大気圧低下時の内外圧力差を踏まえて説明する。",
+    "lawContextForExplanation": "イはガス工作物の技術上の基準を定める省令第10条に基づき、防爆性能を要する電気設備の設置条件として説明する。ロはガス事業法第98条第1項並びにガス事業法施行規則第150条第1項及び第26条第1項の表に基づき、保安係員ではなく保安企画推進員が関係する点を説明する。ハはガス事業法第97条第1項及び同規則第148条第1項第6号に基づき、保安規程におけるサイバーセキュリティ確保事項として説明する。ニとホは法令肢ではなく、BOG処理、内圧監視、大気圧低下時の差圧管理に関する技術判断として説明する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -1717,7 +1723,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス工作物の技術上の基準を定める省令第10条は、設置場所の状況とガスの種類に応じた防爆性能を求めており、現行法でも正しい。"
+          "promptContext": "ガス工作物の技術上の基準を定める省令第10条は、可燃性ガス等の通ずるガス工作物の付近に設置する電気設備について、設置場所の状況及びガスの種類に応じた防爆性能を求めるため、記述の正誤は現行法でも変わらない。",
+          "verdict": "現行法でも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1730,7 +1737,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法第98条第1項並びにガス事業法施行規則第150条第1項及び第26条第1項の表を確認し、保安係員ではなく保安企画推進員とする出題時判断は現行法でも変わらない。"
+          "promptContext": "ガス事業法第98条第1項並びにガス事業法施行規則第150条第1項及び第26条第1項の表に照らすと、ガス主任技術者の選任に関して記述中の『保安係員』は『保安企画推進員』とすべき部分であり、出題時判断は現行法でも変わらない。",
+          "verdict": "現行法でも間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1743,7 +1751,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法第97条第1項及び同法施行規則第148条第1項第6号は、保安規程にサイバーセキュリティ確保事項を定めることを求めており、現行法でも正しい。"
+          "promptContext": "ガス事業法第97条第1項及びガス事業法施行規則第148条第1項第6号は、保安規程にサイバーセキュリティの確保に関する事項を定めることを求めるため、製造設備の運転及び監視に係る制御システムへのリスクに応じた対策を求める記述は現行法でも正しい。",
+          "verdict": "現行法でも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1751,12 +1760,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス工作物の技術上の基準を定める省令第18条の計測・確認要求及び第35条第1項の過圧防止要求に照らし、BOG圧縮機停止時に圧力監視を強化し降圧を準備する記述は現行法上も正しい。"
+          "promptContext": "BOG圧縮機の停止が長時間化するとBOG処理能力が低下し、LNG貯槽の内部圧力上昇につながるため、内部圧力監視を強化し、必要に応じて放散処理設備による降圧準備を行う対応は妥当である。",
+          "verdict": "技術判断として正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1764,12 +1774,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "ガス工作物の技術上の基準を定める省令第35条第1項は液化ガス用貯槽の過圧防止を求める。大気圧低下前に内圧を上げる記述は過圧側の余裕を小さくするため、現行法上も間違いである。"
+          "promptContext": "台風接近に伴う大気圧低下時に事前にLNG貯槽の内圧を上げると、外気との差圧が大きくなり過圧側の余裕を小さくするため、圧力を上げておくという記述は不適切である。",
+          "verdict": "技術判断として間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1844,102 +1855,10 @@
       }
     ],
     "lawReferences": [
-      [
-        {
-          "article": "第96条（ガス製造事業用ガス工作物の技術基準適合義務）",
-          "choiceIndex": 0,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第15条（構造等）",
-          "choiceIndex": 0,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第96条（ガス製造事業用ガス工作物の技術基準適合義務）",
-          "choiceIndex": 1,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第35条（液化ガス用貯槽の安全弁等）",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第96条（ガス製造事業用ガス工作物の技術基準適合義務）",
-          "choiceIndex": 2,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第35条（液化ガス用貯槽の安全弁等）",
-          "choiceIndex": 2,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第91条（ガス製造事業者の熱量等の測定義務）",
-          "choiceIndex": 3,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第144条（ガス製造事業者の熱量等の測定方法）",
-          "choiceIndex": 3,
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
+      [],
+      [],
+      [],
       [
         {
           "article": "第18条（熱量等の測定義務）",
@@ -1998,67 +1917,111 @@
         }
       ]
     ],
-    "lawContextForExplanation": "イはガス事業法第96条及びガス工作物の技術上の基準を定める省令第15条に係る耐震設計、ロ・ハは同法第96条及び同省令第35条に係るLNG貯槽の圧力管理、ニは同法第91条及び同法施行規則第144条に係る熱量管理、ホは同法第18条・第23条、同法施行規則第17条・第22条及びガス工作物の技術上の基準を定める省令第22条に係る。現行法でもイとホが間違いであり、特殊成分は毎月ではなく毎週1回検査する。",
+    "lawContextForExplanation": "本問は製造設備の建設・操業に関する技術肢と法令肢が混在する。イからニは耐震評価、LNG貯蔵・受入れ、サテライト基地の熱量管理に関する技術・運用肢で、法令改正による正誤変更の監査対象外。ホはガス事業法第18条・第23条、ガス事業法施行規則第17条第1項・第22条第1項及びガス工作物の技術上の基準を定める省令第22条に係る法令肢で、現行法でも特殊成分は毎月ではなく毎週1回検査するため誤り。",
     "lawRevisionFacts": [
       {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "promptContext": "レベル1地震動に対する耐震性能評価の考え方に関する技術肢であり、法令改正による正誤変更の監査対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "promptContext": "LNG貯蔵中のBOG発生と貯槽内濃縮に関する技術肢であり、法令改正による正誤変更の監査対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "promptContext": "LNG受入れ時のBOG発生、圧縮機負荷及び電力デマンド管理に関する運用肢であり、法令改正による正誤変更の監査対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "promptContext": "LNGサテライト基地の熱量管理と貯槽内濃縮管理に関する運用肢であり、法令改正による正誤変更の監査対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法第96条、ガス工作物の技術上の基準を定める省令第15条及び所管官庁の現行耐震基準資料を照合し、レベル1では弾性範囲を基本とし、塑性変形能力を期待する評価はレベル2であることを確認した。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "LNG貯蔵中の外部入熱によるBOG発生と低沸点成分の気化に伴う濃縮を確認し、ガス事業法第96条及び技術省令第35条の現行枠組みに正誤変更要因がないことを確認した。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "LNG受入れ時のBOG増加、圧縮機負荷及び電力需要の関係を確認し、ガス事業法第96条及び技術省令第35条の現行枠組みに正誤変更要因がないことを確認した。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "ガス事業法第91条及びガス事業法施行規則第144条の現行規定を確認し、サテライト基地で貯槽内濃縮を考慮した熱量管理が重要との判定に変更がないことを確認した。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "basis": "ガス事業法第18条・第23条、ガス事業法施行規則第17条・第22条及びガス工作物の技術上の基準を定める省令第22条を確認した。特殊成分の検査頻度は毎週1回であり、毎月1回とする記述は現行法でも誤りである。"
+          "refs": [
+            {
+              "article": "第18条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第23条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第17条",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "第1項",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第22条",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "第1項",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第22条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法でもホは誤り。熱量等の測定義務及び成分検査義務は維持されており、供給ガスに特殊成分が含まれる場合の検査頻度は毎月1回以上ではなく毎週1回以上であるため、正誤に変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2411,12 +2374,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "法令問題ではないため、法令改正による正誤変更はない。"
+          "verdict": "法令問題ではなく、低圧導管の流量比例式で判定する計算問題であるため、法令改正による正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2424,12 +2387,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令問題ではないため、法令改正による正誤変更はない。"
+          "verdict": "流量比が2となり、120m³/hの2倍で240m³/hとなるため正しい。法令改正による正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2437,12 +2400,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "法令問題ではないため、法令改正による正誤変更はない。"
+          "verdict": "計算結果240m³/hと一致しないため間違い。法令改正による正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2450,12 +2413,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "法令問題ではないため、法令改正による正誤変更はない。"
+          "verdict": "計算結果240m³/hと一致しないため間違い。法令改正による正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2463,12 +2426,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "法令問題ではないため、法令改正による正誤変更はない。"
+          "verdict": "平方根を取らずに4倍として扱った場合に近い値であり、比例式による計算結果240m³/hと一致しないため間違い。法令改正による正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -2787,7 +2750,7 @@
           "choiceIndex": 0,
           "lawId": "meti-gas-work-technical-standards-interpretation",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "経済産業省 産業保安グループ『ガス工作物技術基準の解釈例』（2023年2月10日公表PDF）https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
@@ -2800,7 +2763,7 @@
           "choiceIndex": 1,
           "lawId": "meti-gas-work-technical-standards-interpretation",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "経済産業省 産業保安グループ『ガス工作物技術基準の解釈例』（2023年2月10日公表PDF）https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
@@ -2813,7 +2776,7 @@
           "choiceIndex": 2,
           "lawId": "meti-gas-work-technical-standards-interpretation",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "経済産業省 産業保安グループ『ガス工作物技術基準の解釈例』（2023年2月10日公表PDF）https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
@@ -2826,7 +2789,7 @@
           "choiceIndex": 3,
           "lawId": "meti-gas-work-technical-standards-interpretation",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "経済産業省 産業保安グループ『ガス工作物技術基準の解釈例』（2023年2月10日公表PDF）https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
@@ -2839,7 +2802,7 @@
           "choiceIndex": 4,
           "lawId": "meti-gas-work-technical-standards-interpretation",
           "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "経済産業省 産業保安グループ『ガス工作物技術基準の解釈例』（2023年2月10日公表PDF）https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
@@ -2859,9 +2822,24 @@
         ]
       },
       "evidenceSummary": {
-        "currentBasis": "2026年7月27日時点の確認でも、経済産業省の同解釈例第41条第1項に同じ管厚式が示されている。",
-        "examTimeBasis": "2024年度試験時点で参照できる経済産業省『ガス工作物技術基準の解釈例』第41条第1項は、外径と内径の比が1.5以下の導管について t=PDo/(2σaη+0.8P)+C とし、Doを導管の外径、σaを許容引張応力としていた。",
-        "revisionImpact": "試験時点と現行法令相当の一次情報で、各選択肢の正誤に影響する差分は確認されなかった。"
+        "differenceSummary": "試験時点基準と現行基準の差により正答が変わる事情は確認されない。",
+        "displayRefIds": [
+          "meti-gas-work-technical-standards-interpretation:article-41-1"
+        ],
+        "explanationText": "2024年度試験時点で参照できる経済産業省『ガス工作物技術基準の解釈例』第41条第1項と、2026年7月28日時点で確認対象とする同解釈例の管厚式は、選択肢の正誤に影響する範囲で同一と扱える。",
+        "promptContext": "外径と内径の比が1.5以下の鋼管では、式中のDは導管の外径、σaは許容引張応力であり、設問の組合せでは選択肢5のみが一致する。",
+        "refs": [
+          {
+            "article": "第41条第1項",
+            "lawId": "meti-gas-work-technical-standards-interpretation",
+            "lawTimeScope": "current",
+            "lawTitle": "ガス工作物技術基準の解釈例",
+            "primaryBasis": true,
+            "refId": "meti-gas-work-technical-standards-interpretation:article-41-1",
+            "relation": "current_basis"
+          }
+        ],
+        "verdict": "same_as_current"
       },
       "examTime": {
         "correctChoiceText": [
@@ -3205,7 +3183,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "conclusion": "道路占用物件の明示対象、明示事項および2m以下の表示間隔を現行規定で確認し、正誤変更なしと判断した。"
+          "verdict": "道路占用物件の明示対象、明示事項および2m以下の表示間隔を現行規定で確認し、正誤変更なしと判断した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3218,7 +3196,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "conclusion": "建物内導管の安全な支持および横走りフレキ管の2m以内の支持間隔を確認し、3m間隔は現行基準でも誤りと判断した。"
+          "verdict": "建物内導管の安全な支持および横走りフレキ管の2m以内の支持間隔を確認し、3m間隔は現行基準でも誤りと判断した。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3231,7 +3209,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "conclusion": "ガスが滞留し得るピット内配管の点検性と換気性を確保する点検口の基準を確認し、正誤変更なしと判断した。"
+          "verdict": "ガスが滞留し得るピット内配管の点検性と換気性を確保する点検口の基準を確認し、正誤変更なしと判断した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3244,7 +3222,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "conclusion": "防火区画貫通部の隙間をモルタル等の不燃材料で埋める現行規定を確認し、正誤変更なしと判断した。"
+          "verdict": "防火区画貫通部の隙間をモルタル等の不燃材料で埋める現行規定を確認し、正誤変更なしと判断した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3257,7 +3235,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "conclusion": "耐圧部分の性能規定と最高使用圧力の1.5倍以上による耐圧試験の解釈例を確認し、正誤変更なしと判断した。"
+          "verdict": "耐圧部分の性能規定と最高使用圧力の1.5倍以上による耐圧試験の解釈例を確認し、正誤変更なしと判断した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"

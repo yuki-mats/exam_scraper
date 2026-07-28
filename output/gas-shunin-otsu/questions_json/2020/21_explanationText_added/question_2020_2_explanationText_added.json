@@ -1636,7 +1636,7 @@
       ]
     ],
     "suggestedQuestionDetailsByChoice": [],
-    "lawContextForExplanation": "製造所の停電対策は、ガス工作物の技術上の基準を定める省令第21条の保安電力等に関する問題である。同条は保安上重要な設備が停電等で機能を失わない措置を求め、経済産業省解釈例第21条は買電、自家発電、蓄電池等を保安電力等の確保方法として扱う。",
+    "lawContextForExplanation": "製造所の停電対策は、ガス工作物の技術上の基準を定める省令第21条の保安電力等に関する問題である。同条は保安上重要な設備が停電等で機能を失わない措置を求め、経済産業省のガス工作物技術基準の解釈例第21条は、買電、自家発電、蓄電池等を保安電力等の確保方法として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -1644,7 +1644,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第21条及び経済産業省解釈例第21条により、買電のみで保安電力を確保する場合は常用線と系統の異なる予備回線又は相当措置が必要であり、現行法でも試験時点でも判定は変わらない。"
+          "explanationText": "省令第21条及び経済産業省解釈例第21条により、買電のみで保安電力を確保する場合は、常用線とは系統の異なる予備回線又は相当措置が必要である。",
+          "verdict": "現行法令上も試験時点と同じ判定でよい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1657,7 +1658,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第21条は停電等で保安上重要設備の機能が失われない措置を求めており、停電時の安全側移行又は停止と保安電源等の作動確認はその運用として妥当である。"
+          "explanationText": "省令第21条は、停電等で保安上重要な設備の機能が失われない措置を求めており、停電時の安全側移行又は停止と保安電源等の作動確認はその運用として妥当である。",
+          "verdict": "現行法令上も試験時点と同じ判定でよい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1670,7 +1672,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "停電時にも保安上重要設備の機能を確保する省令第21条の趣旨に照らし、BOG圧縮機停止時のLNG貯槽圧力監視と降圧準備は妥当である。"
+          "explanationText": "停電時にも保安上重要設備の機能を確保する省令第21条の趣旨に照らし、BOG圧縮機停止時にLNG貯槽の圧力監視を強化し、必要に応じて降圧準備を行うことは妥当である。",
+          "verdict": "現行法令上も試験時点と同じ判定でよい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1683,7 +1686,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "経済産業省解釈例第21条で蓄電池等が保安電力等の確保方法に含まれるため、蓄電池を用いてはならないとの記述は誤りである。"
+          "explanationText": "経済産業省解釈例第21条では蓄電池等も保安電力等の確保方法に含まれるため、蓄電池を用いてはならないとする記述は誤りである。",
+          "verdict": "現行法令上も試験時点と同じ判定でよい。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1696,7 +1700,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "省令第21条は停電等で保安上重要設備の機能が失われない措置を求めるため、非常用発電設備容量は負荷合計だけでなく起動電流等も考慮して選定する必要がある。"
+          "explanationText": "省令第21条は停電等で保安上重要設備の機能が失われない措置を求めるため、非常用発電設備容量は負荷合計だけでなく起動電流等も考慮して選定する必要があり、積み上げ合計値と同じでよいとはいえない。",
+          "verdict": "現行法令上も試験時点と同じ判定でよい。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2718,163 +2723,42 @@
       [
         {
           "article": "第47条（防食措置）",
+          "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
-          "scope": "question",
+          "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/412M50000400111",
           "verificationStatus": "verified"
         },
         {
           "article": "第103条（防食措置）",
+          "choiceIndex": 0,
           "lawId": "20230202保局第1号",
           "lawTitle": "ガス工作物技術基準の解釈例（内規）",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
-          "scope": "question",
+          "scope": "choice",
           "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
           "verificationStatus": "verified"
         },
         {
           "article": "第103条（防食措置）",
+          "choiceIndex": 0,
           "lawId": "20200310保局第1号",
           "lawTitle": "ガス工作物技術基準の解釈例（内規）",
           "referenceDate": "2020-03-18",
           "role": "exam_time_basis",
-          "scope": "question",
+          "scope": "choice",
           "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200310jyoubun.pdf",
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第47条（防食措置）",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20230202保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20200310保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2020-03-18",
-          "role": "exam_time_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200310jyoubun.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第47条（防食措置）",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20230202保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20200310保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2020-03-18",
-          "role": "exam_time_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200310jyoubun.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第47条（防食措置）",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20230202保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20200310保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2020-03-18",
-          "role": "exam_time_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200310jyoubun.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第47条（防食措置）",
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20230202保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第103条（防食措置）",
-          "lawId": "20200310保局第1号",
-          "lawTitle": "ガス工作物技術基準の解釈例（内規）",
-          "referenceDate": "2020-03-18",
-          "role": "exam_time_basis",
-          "scope": "question",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20200310jyoubun.pdf",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      [],
+      [],
+      []
     ],
     "lawRevisionFacts": [
       {
@@ -2883,9 +2767,9 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "currentBasis": "省令第47条及び現行解釈例第103条は、塗覆装、絶縁継手及び電食防止措置を防食措置として示している。",
-          "examTimeBasis": "2020年3月18日施行の解釈例第103条にも同じ防食措置が規定されている。",
-          "revisionImpact": "正誤変更なし"
+          "differenceSummary": "試験時点の解釈例第103条と現行解釈例第103条の差により、この肢の正誤を変更する事情はない。",
+          "promptContext": "解説では、防食方法の例が法令上の防食措置の具体化と整合することを簡潔に示す。",
+          "verdict": "省令第47条及び現行解釈例第103条は、導管の防食措置として塗覆装、絶縁継手、電食防止措置などを位置付けており、第1肢の正誤は試験時点から変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2893,14 +2777,14 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "省令第47条及び解釈例第103条第8項の電食防止義務を背景に異種金属接触を判断すると、鋼管側がアノードとなりやすい。",
-          "examTimeBasis": "試験時点の第103条第8項にも電食防止措置があり、異種金属の腐食傾向に正誤を変える改正はない。",
-          "revisionImpact": "正誤変更なし"
+          "differenceSummary": "法令改正による正誤変更なし。",
+          "promptContext": "解説では、鋼管側がアノードとなって腐食しやすい点を中心に説明する。",
+          "verdict": "第2肢は鋳鉄管と鋼管の異種金属接触時にどちらがアノードとなりやすいかという技術判断であり、法令改正によって正誤が変わる肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2908,14 +2792,14 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "currentBasis": "省令第47条及び解釈例第103条に基づく防食管理で用いる管対地電位は、照合電極を基準とする導管の電位である。",
-          "examTimeBasis": "試験時点にも同じ防食措置の枠組みがあり、管対地電位の定義に正誤を変える変更はない。",
-          "revisionImpact": "正誤変更なし"
+          "differenceSummary": "法令改正による正誤変更なし。",
+          "promptContext": "解説では、土壌やコンクリート等の電解質中の照合電極に対する導管電位であることを説明する。",
+          "verdict": "第3肢は照合電極を基準にした管対地電位の定義に関する技術判断であり、法令改正によって正誤が変わる肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2923,14 +2807,14 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "currentBasis": "省令第47条及び解釈例第103条が求める防食措置の状態は、湿潤期や迷走電流の影響が大きい時間帯に確認することが合理的である。",
-          "examTimeBasis": "試験時点から点検条件に関する技術的判断は変わっていない。",
-          "revisionImpact": "正誤変更なし"
+          "differenceSummary": "法令改正による正誤変更なし。",
+          "promptContext": "解説では、湿潤期や電気鉄道運行時など防食状況が厳しい条件で点検する合理性を説明する。",
+          "verdict": "第4肢は防食設備の点検時期・時間帯に関する技術判断であり、法令改正によって正誤が変わる肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2938,14 +2822,14 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "currentBasis": "省令第47条及び解釈例第103条第8項の電食防止措置として、外部電源法は大きな防食電流が必要な条件に適する。",
-          "examTimeBasis": "試験時点にも同じ防食措置の規定があり、外部電源法の適用条件に正誤を変える変更はない。",
-          "revisionImpact": "正誤変更なし"
+          "differenceSummary": "法令改正による正誤変更なし。",
+          "promptContext": "解説では、外部電源法が大きな防食電流を必要とする条件や長い防食区間に適することを説明する。",
+          "verdict": "第5肢は外部電源法の適用条件に関する技術判断であり、法令改正によって正誤が変わる肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3094,69 +2978,20 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第10章（配管支持）中のフレキ管の屋外露出配管に関する箇所",
-          "choiceIndex": 2,
-          "lawId": "JGA-KYOKYU-NAIKAN-SHISHIN-SEKKEI",
-          "lawTitle": "供給管・内管指針（設計編）",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20170301_02.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "適用範囲及びヒートフュージョン継手の融着確認に関する箇所",
-          "choiceIndex": 3,
-          "lawId": "JIS-K-6775-1",
-          "lawTitle": "JIS K 6775-1 ガス用ポリエチレン管継手－第1部：ヒートフュージョン継手",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://webdesk.jsa.or.jp/",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "適用範囲及びエレクトロフュージョン継手のインジケーターに関する箇所",
-          "choiceIndex": 3,
-          "lawId": "JIS-K-6775-3",
-          "lawTitle": "JIS K 6775-3 ガス用ポリエチレン管継手－第3部：エレクトロフュージョン継手",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://webdesk.jsa.or.jp/preview/pre_jis_k_06775_003_000_2022_j_ed10_ch.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "7.11.1 一般事項〔解説〕＊1",
-          "choiceIndex": 4,
-          "lawId": "JGA-KYOKYU-NAIKAN-SHISHIN-KOJI",
-          "lawTitle": "供給管・内管指針（工事編）",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://www.gas.or.jp/pdf/books/notice20200401-3.pdf",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      [],
+      []
     ],
     "lawContextForExplanation": "選択肢1は酸素欠乏症等防止規則第2条、第3条及び第5条、選択肢2はガス工作物の技術上の基準を定める省令第15条第3項とガス工作物技術基準の解釈例第51条を直接根拠とする。選択肢3から5は、JGAの供給管・内管指針及びJIS K 6775各部により施工基準と接合方式の違いを確認する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "currentBasis": "酸素欠乏症等防止規則第2条第1号、第3条第1項・第2項及び第5条第1項により、作業前の酸素濃度測定、18%以上の維持及び測定記録の3年間保存を確認した。",
-          "examTimeBasis": "元正答は正しいであり、出題時の判断と一致する。",
-          "revisionImpact": "現行判定を変更する改正影響はない。"
+          "explanationText": "酸素欠乏症等防止規則は、酸素欠乏のおそれのある作業場所について、作業開始前の酸素濃度測定、酸素濃度18%以上の確保、測定記録の保存を求めるため、選択肢の記述と整合する。",
+          "verdict": "現行法令上も出題時と同じく正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3165,14 +3000,12 @@
       },
       {
         "auditStatus": "same_as_current",
-        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "技術基準省令第15条第3項及び解釈例第51条第1項では、気密試験圧力を対象別に定め、最高使用圧力の1.1倍未満となる方法も認めている。",
-          "examTimeBasis": "元正答は間違いであり、2020年時点の解釈例第51条にも対象別の試験圧力が示されている。",
-          "revisionImpact": "現行判定を変更する改正影響はない。"
+          "explanationText": "技術基準省令は気密試験による漏えい確認を求め、解釈例は対象に応じた試験圧力を示しているため、必ず最高使用圧力の1.1倍以上とする記述は過度に限定している。",
+          "verdict": "現行法令上も出題時と同じく間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3180,15 +3013,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "choiceIndex": 2,
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "供給管・内管指針（設計編）のフレキ管支持基準では、屋外露出配管の支持固定間隔は0.5m以内である。",
-          "examTimeBasis": "元正答は間違いであり、出題時の施工基準による判断と一致する。",
-          "revisionImpact": "正誤を変更する指針改訂の影響は確認されない。"
+          "explanationText": "フレキ管の屋外露出配管における支持固定間隔は、施工指針上の技術基準で確認する事項である。",
+          "verdict": "法令参照対象外の技術事項として、現行判断は出題時と同じく間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3196,15 +3027,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "choiceIndex": 3,
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "JIS K 6775-1とJIS K 6775-3により、ヒートフュージョン継手とエレクトロフュージョン継手を区別した。ビードによる確認は前者、インジケーターによる確認は後者に対応する。",
-          "examTimeBasis": "元正答は間違いであり、出題時も接合方式と確認方法の対応は同じである。",
-          "revisionImpact": "2022年版JISでも方式の区別は維持され、正誤への影響はない。"
+          "explanationText": "ポリエチレン管継手のヒートフュージョン接合とエレクトロフュージョン接合の確認方法の区別は、JIS等で確認する技術事項である。",
+          "verdict": "法令参照対象外の技術事項として、現行判断は出題時と同じく間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3212,15 +3041,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "choiceIndex": 4,
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "供給管・内管指針（工事編）7.11.1は、埋設位置確認用に配管に沿わせるものをロケーティングワイヤーとしている。",
-          "examTimeBasis": "元正答は間違いであり、2020年改訂資料でもロケーティングワイヤーと標識シートの用途は区別されている。",
-          "revisionImpact": "正誤を変更する指針改訂の影響はない。"
+          "explanationText": "埋設管の位置確認に用いるロケーティングワイヤーと標識シートの用途の区別は、施工指針上の技術事項である。",
+          "verdict": "法令参照対象外の技術事項として、現行判断は出題時と同じく間違い。"
         },
         "examTime": {
           "correctChoiceText": "間違い"

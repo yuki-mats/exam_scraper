@@ -1454,45 +1454,9 @@
     ],
     "suggestedQuestionDetailsByChoice": [],
     "lawReferences": [
-      [
-        {
-          "article": "第22条（付臭措置）及びガス工作物技術基準の解釈例第77条（臭気の確認）",
-          "choiceIndex": 0,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20260728 / https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第22条（付臭措置）及びガス工作物技術基準の解釈例第77条（臭気の確認）",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20260728 / https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第22条（付臭措置）及びガス工作物技術基準の解釈例第77条（臭気の確認）",
-          "choiceIndex": 2,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111?occasion_date=20260728 / https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
+      [],
+      [],
       [
         {
           "article": "第22条（付臭措置）及びガス工作物技術基準の解釈例第77条（臭気の確認）",
@@ -1523,13 +1487,12 @@
     "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第22条は都市ガスの付臭措置を定め、ガス工作物技術基準の解釈例第77条は臭気の確認方法と臭気濃度の算定を具体化している。方式や付臭剤の性質に関する技術知識と、法令上の付臭性能を区別して説明する。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "same_as_current",
-        "choiceIndex": 0,
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "液体注入方式、蒸発方式及び液付臭方式という技術的分類を確認した。省令第22条が要求する付臭性能との関係を含め、法改正による判定変更はない。"
+          "verdict": "付臭剤の注入方式の分類に関する技術事項であり、法改正による正誤変更を扱う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1537,13 +1500,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "choiceIndex": 1,
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "手動式滴下注入方式の制御特性と用途を確認した。省令第22条及び解釈例第77条の改正による判定変更はない。"
+          "verdict": "手動式滴下注入方式の制御精度と適用設備に関する技術事項であり、法改正による正誤変更を扱う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1551,13 +1513,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "choiceIndex": 2,
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "付臭剤に求められるのは腐食疲労ではなく臭気疲労を起こしにくい性質であることを確認した。法改正による判定変更はない。"
+          "verdict": "付臭剤に求められる性質のうち『臭気疲労』を『腐食疲労』としている点が誤りであり、法改正による正誤変更を扱う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1566,12 +1527,28 @@
       },
       {
         "auditStatus": "same_as_current",
-        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "解釈例第77条のパネル法が感知可能な希釈倍数から臭気濃度を求めることを確認した。試験時と現行法で判定は一致する。"
+          "refs": [
+            {
+              "article": "第22条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第77条",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "解釈例第77条の臭気確認方法は、試料ガスを無臭空気で希釈し、臭気を感知できる希釈倍数から臭気濃度を扱うため、現行法令下でも判定は試験時と同じである。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1580,12 +1557,28 @@
       },
       {
         "auditStatus": "same_as_current",
-        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "省令第22条は容易な臭気感知を要求するが、臭気濃度を無制限に高くしてよいとは定めていない。過度な臭気には誤認や生活環境上の問題があり、判定変更はない。"
+          "refs": [
+            {
+              "article": "第22条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第77条",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": false,
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "省令第22条は漏えいを容易に感知できる付臭措置を求め、解釈例第77条は臭気確認方法を示すが、臭気濃度が高すぎても問題がないとはいえないため、現行法令下でも判定は試験時と同じである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1869,7 +1862,7 @@
         {
           "article": "第15条関係",
           "choiceIndex": 0,
-          "lawId": "412M50000400111",
+          "lawId": "412M50000400111-interpretation",
           "lawTitle": "ガス工作物技術基準の解釈例",
           "referenceDate": "2026-07-28",
           "role": "current_basis",
@@ -1878,30 +1871,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第97条",
-          "choiceIndex": 1,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第148条第1項第5号",
-          "choiceIndex": 1,
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第99条",
@@ -1975,7 +1945,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "本問は製造設備の建設・操業に関する法令関連問題である。耐震構造はガス工作物の技術上の基準を定める省令第15条、溶接部分は同省令第16条とガス事業法第99条、巡視・点検・記録及び教育・運転操作はガス事業法第97条とガス事業法施行規則第148条を根拠に確認する。流量制御方式の応答特性自体は技術事項だが、設備の運転又は操作は同規則第148条第1項第5号の保安規程事項である。",
+    "lawContextForExplanation": "本問は製造設備の建設・操業に関する法令関連問題である。耐震構造はガス工作物の技術上の基準を定める省令第15条及び同条関係の解釈例、溶接部分は同省令第16条とガス事業法第99条、巡視・点検・記録及び教育・運転操作はガス事業法第97条とガス事業法施行規則第148条を根拠に確認する。流量制御方式の応答特性は技術事項のため、法令根拠は付さない。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -1983,7 +1953,28 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス工作物の技術上の基準を定める省令第15条及び同条関係の解釈例に照らし、レベル2地震動に対する耐震設計の考え方は現行基準でも正しい。"
+          "promptContext": "レベル2地震動に対する耐震設計の考え方は、ガス工作物の技術上の基準を定める省令第15条及び同条関係の解釈例に照らして現行でも維持される。",
+          "refs": [
+            {
+              "article": "第15条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "choice0-gas-technical-standards-15",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第15条関係",
+              "lawId": "412M50000400111-interpretation",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": true,
+              "refId": "choice0-technical-interpretation-15",
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法令上も正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1991,38 +1982,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "流量制御方式は流量と設備負荷を安定させる一方、急激な需要変動への追従には適さない。運転又は操作はガス事業法施行規則第148条第1項第5号の保安規程事項であり、現行法下でも正誤は変わらない。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "summary": "ガス事業法第99条の保安監督上の職務と、ガス工作物の技術上の基準を定める省令第16条の溶接部分に関する基準に照らし、溶接施工記録の確認を求める結論は現行でも正しい。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "summary": "ガス事業法施行規則第148条第1項第4号及び第11号は巡視・点検・検査と保安記録を保安規程事項としており、結果を記録不要とする記述は現行でも誤りである。"
+          "promptContext": "流量制御方式は設備負荷を安定させる方式であり、急激な需要変動への追従に適するとはいえないため、記述は技術的に誤りである。",
+          "verdict": "法令根拠によらない技術事項として現行でも誤り。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2035,7 +2001,96 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第148条第1項第3号及び第5号は保安教育と運転・操作を保安規程事項としており、運転管理基準等に基づく教育・訓練を求める記述は現行でも正しい。"
+          "promptContext": "保安上重要なガス工作物の溶接施工記録を確認する趣旨は、ガス事業法第99条の保安監督上の職務及びガス工作物の技術上の基準を定める省令第16条に照らして現行でも妥当である。",
+          "refs": [
+            {
+              "article": "第99条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "refId": "choice2-gas-business-act-99",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第16条",
+              "lawId": "412M50000400111",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "refId": "choice2-gas-technical-standards-16",
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法令上も正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "promptContext": "ガス事業法第97条に基づく保安規程事項として、ガス事業法施行規則第148条第1項第4号は巡視・点検・検査を、同項第11号は保安記録を定めているため、巡視・点検結果を記録する必要はないとする記述は現行でも誤りである。",
+          "refs": [
+            {
+              "article": "第97条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "refId": "choice3-gas-business-act-97",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第148条第1項第4号、第11号",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "primaryBasis": true,
+              "refId": "choice3-gas-business-reg-148-1-4-11",
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法令上も誤り。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "promptContext": "ガス事業法第97条に基づく保安規程事項として、ガス事業法施行規則第148条第1項第3号は保安教育を、同項第5号はガス工作物の運転又は操作を定めており、運転管理基準等に基づく教育・訓練を行う記述は現行でも正しい。",
+          "refs": [
+            {
+              "article": "第97条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "refId": "choice4-gas-business-act-97",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第148条第1項第3号、第5号",
+              "lawId": "345M50000400097",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "primaryBasis": true,
+              "refId": "choice4-gas-business-reg-148-1-3-5",
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法令上も正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2256,32 +2311,8 @@
     ],
     "suggestedQuestionDetailsByChoice": [],
     "lawReferences": [
-      [
-        {
-          "article": "第1条第5号",
-          "choiceIndex": 0,
-          "lawId": "343CO0000000329",
-          "lawTitle": "大気汚染防止法施行令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/343CO0000000329）",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第2条第1項第2号、第3条",
-          "choiceIndex": 1,
-          "lawId": "343AC0000000097",
-          "lawTitle": "大気汚染防止法",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/343AC0000000097）",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
+      [],
       [
         {
           "article": "第8条",
@@ -2295,19 +2326,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第367条、第369条",
-          "choiceIndex": 3,
-          "lawId": "405M50000400071",
-          "lawTitle": "基準器検査規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/405M50000400071）",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第2条第2項、第4項、第5項",
@@ -2333,67 +2352,67 @@
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢1・2は大気汚染防止法上の窒素酸化物・ばいじん、選択肢3は環境基本法上の事業者責務、選択肢4は基準器検査規則上の電圧・電流・力率、選択肢5は廃棄物処理法上の廃棄物分類を確認する。技術的説明は所管官庁資料と併せて判定し、現行法による正誤変更はない。",
+    "lawContextForExplanation": "選択肢1・2・4はNOx生成区分、ばいじん低減、交流電力と力率に関する技術的説明として扱う。選択肢3は環境基本法上の事業者責務、選択肢5は廃棄物処理法上の一般廃棄物・産業廃棄物・特別管理産業廃棄物の分類を根拠に確認する。出題時点から現行法まで、選択肢3・5の正誤に影響する変更はない。",
     "lawRevisionFacts": [
       {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "verdict": "燃料中窒素由来はフューエルNOx、空気中窒素の高温酸化由来はサーマルNOxであり、法令改正による正誤変更を判定する肢ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "ばいじんの発生と燃焼管理による低減に関する技術的説明であり、法令改正による正誤変更を判定する肢ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "環境基本法第8条は事業者に環境保全上の責務を定めており、企業の社会的責任として環境問題へ対応するという記述は出題時点・現行とも正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "交流回路の有効電力と力率に関する電気工学上の説明であり、法令改正による正誤変更を判定する肢ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "大気汚染防止法施行令第1条第5号で窒素酸化物を確認し、環境省技術資料で燃料中窒素由来がフューエルNOx、空気中窒素の高温酸化由来がサーマルNOxであることを確認した。現行で正誤変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "summary": "大気汚染防止法第2条第1項第2号及び第3条と燃焼管理に関する技術資料を照合し、ばいじんの説明と低減方法に正誤変更がないことを確認した。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "summary": "環境基本法第8条が事業者の環境保全上の責務を定めており、環境対応を企業の社会的責任の柱とする記述に正誤変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "summary": "基準器検査規則第367条及び第369条並びに資源エネルギー庁資料を照合し、交流有効電力と力率の説明に正誤変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "summary": "廃棄物処理法第2条第2項、第4項及び第5項を出題時点と現行時点で確認した。産業廃棄物以外は一般廃棄物であり、特別管理産業廃棄物は産業廃棄物の一部であるという分類に正誤変更はない。"
+          "verdict": "廃棄物処理法第2条では、産業廃棄物以外の廃棄物を一般廃棄物とし、特別管理産業廃棄物を産業廃棄物のうち特別な管理を要するものと位置付けるため、産業廃棄物に該当しない廃棄物がすべて特別管理産業廃棄物になるという記述は出題時点・現行とも誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2835,7 +2854,7 @@
       ],
       [
         {
-          "article": "第457条（JIS B 8571:2015附属書）",
+          "article": "第457条（JIS B 8571附属書）",
           "choiceIndex": 2,
           "lawId": "405M50000400070",
           "lawTitle": "特定計量器検定検査規則",
@@ -2846,7 +2865,7 @@
           "verificationStatus": "verified"
         },
         {
-          "article": "第457条（JIS B 8571:2022附属書）",
+          "article": "第457条（JIS B 8571附属書）",
           "choiceIndex": 2,
           "lawId": "405M50000400070",
           "lawTitle": "特定計量器検定検査規則",
@@ -2857,56 +2876,10 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第437条（JIS B 8571:2015附属書）",
-          "choiceIndex": 3,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2022-09-25",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "egov_law",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第437条（JIS B 8571:2022附属書）",
-          "choiceIndex": 3,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "egov_law",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第437条（JIS B 8571:2015附属書）",
-          "choiceIndex": 4,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2022-09-25",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "egov_law",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第437条（JIS B 8571:2022附属書）",
-          "choiceIndex": 4,
-          "lawId": "405M50000400070",
-          "lawTitle": "特定計量器検定検査規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "egov_law",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      []
     ],
-    "lawContextForExplanation": "ガスメーターの遮断機能、検定有効期間、性能および検定公差を現行のガス工作物技術基準省令、計量法施行令、特定計量器検定検査規則と同規則が引用するJIS B 8571附属書で確認した。検定公差は流量域等に応じて異なり、一律に±1.5%ではない。",
+    "lawContextForExplanation": "ガスメーターの遮断機能、検定有効期間、検定公差は、ガス工作物の技術上の基準を定める省令、計量法施行令、特定計量器検定検査規則を根拠に確認する。検定公差は流量域等に応じて異なり、一律に±1.5%ではない。小型で容量が大きいこと、超音波式が推測計量であることは技術的事項として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -2914,8 +2887,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第50条",
-          "result": "遮断機能に関する正誤は試験時と現行で同じ。"
+          "promptContext": "ガス工作物の技術上の基準を定める省令第50条は、対象となるガスメーターについて過大流量等を検知した場合の遮断機能を根拠づける。",
+          "verdict": "試験時と現行で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2928,8 +2901,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "計量法施行令第18条・別表第三および特定計量器検定検査規則第25条第2項",
-          "result": "所定区分の有効期間10年と翌月1日起算は試験時と現行で同じ。"
+          "promptContext": "計量法施行令第18条・別表第三および特定計量器検定検査規則第25条第2項により、該当するガスメーターの有効期間10年と翌月1日起算を確認する。",
+          "verdict": "試験時と現行で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2942,8 +2915,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "特定計量器検定検査規則第457条および同条が引用するJIS B 8571附属書",
-          "result": "引用規格の年版変更後も検定公差は流量によらず一律ではなく、正誤は変わらない。"
+          "promptContext": "特定計量器検定検査規則第457条が参照するJIS B 8571附属書により、検定公差は流量によらず一律に±1.5%ではない。",
+          "verdict": "試験時と現行で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2951,13 +2924,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "特定計量器検定検査規則第437条および同条が引用するJIS B 8571附属書",
-          "result": "性能基準の引用規格更新による正誤の変更はない。"
+          "promptContext": "ガスメーターに求められる小型で容量が大きいという条件に関する記述であり、法令改正による正誤変更の確認対象ではない。",
+          "verdict": "この選択肢は法令根拠ではなく技術事項として扱う。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2965,13 +2938,13 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "特定計量器検定検査規則第437条および同条が引用するJIS B 8571附属書",
-          "result": "超音波式の計量原理に関する正誤は試験時と現行で同じ。"
+          "promptContext": "超音波式ガスメーターが流速等から流量を求める推測計量方式であることに関する技術記述であり、法令改正による正誤変更の確認対象ではない。",
+          "verdict": "この選択肢は法令根拠ではなく技術事項として扱う。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3520,7 +3493,7 @@
         "title": "ガス工作物技術基準の解釈例"
       }
     ],
-    "lawContextForExplanation": "溶接施工法の確認単位は、ガス工作物の技術上の基準を定める省令第16条第2項及びガス工作物技術基準の解釈例第54条を根拠とする。開先不良と溶込み不良・割れの関係は、同省令第16条第1項及び同解釈例第52条第1項が求める溶込みと欠陥防止の基準に結び付けて説明する。",
+    "lawContextForExplanation": "溶接施工法の確認単位は、ガス工作物の技術上の基準を定める省令第16条第2項及びガス工作物技術基準の解釈例第54条を根拠とする。開先不良が溶込み不良や割れの原因となるとの記述は溶接施工上の技術的判断であり、法令改正による正誤変動を確認する法令肢としては扱わない。",
     "lawReferences": [
       [
         {
@@ -3546,30 +3519,7 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第16条第1項",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第52条第1項",
-          "choiceIndex": 1,
-          "lawId": "METI-gas-kousakubutsu-gijutsu-kijun-kaishakurei",
-          "lawTitle": "ガス工作物技術基準の解釈例",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ]
+      []
     ],
     "lawRevisionFacts": [
       {
@@ -3578,11 +3528,23 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "references": [
-            "ガス工作物の技術上の基準を定める省令 第16条第2項",
-            "ガス工作物技術基準の解釈例 第54条"
-          ],
-          "summary": "溶接施工法は溶接施工事業所又は工場ごとに確認試験を行うとする現行基準に合致し、出題時正誤から変更はない。"
+          "differenceSummary": "溶接施工法を溶接施工事業所又は工場ごとに確認するという判断は、現行基準でも出題時の正誤から変更がない。",
+          "refs": [
+            {
+              "article": "第16条第2項",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            },
+            {
+              "article": "第54条本文",
+              "lawId": "METI-gas-kousakubutsu-gijutsu-kijun-kaishakurei",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            }
+          ]
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3590,16 +3552,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "references": [
-            "ガス工作物の技術上の基準を定める省令 第16条第1項",
-            "ガス工作物技術基準の解釈例 第52条第1項"
-          ],
-          "summary": "開先不良が溶込み不良や割れの原因となるとの技術判断は、十分な溶込みと割れ等の有害な欠陥がないことを求める現行基準と整合し、出題時正誤から変更はない。"
+          "differenceSummary": "開先不良が溶込み不良や割れの原因となるとの記述は、法令改正による正誤変動を確認する法令肢ではなく、溶接施工上の技術的判断として出題時と同じ正誤を維持する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3841,11 +3799,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
     "explanationText": [
-      "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼可能な混合比の範囲が広がるため、この記述は正しい。",
-      "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、生成量は空気比1付近で大きくなる。また、高温域での滞留時間が長いほど生成が進むため、この記述は正しい。",
-      "正しい。不完全燃焼は、燃焼用空気との接触・混合が不十分な場合や、排気の排出が不良な場合などに起こりやすい。したがって、これらを原因に含める記述は正しい。",
-      "間違い。ブンゼン燃焼の炎口負荷には一定の許容幅があり、炎口負荷の適正値は、燃焼速度の速いガスでは大きく、燃焼速度の遅いガスでは小さくなる。したがって、これと逆に述べる記述は誤りである。",
-      "正しい。ガスの燃焼速度指数（MCP）が小さくなってガス機器の互換域を外れると、ガスの噴出に対して火炎が炎口に保持されにくくなり、リフティングが発生しやすくなる。"
+      "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼を継続できる混合比の範囲が広がるため、この記述は正しい。",
+      "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、空気比1付近で生成量が大きくなる。また、高温の燃焼ガス中での滞留時間が長いほど生成が進むため、この記述は正しい。",
+      "正しい。不完全燃焼は、燃焼用空気との接触や混合が不十分な場合、又は排気が円滑に排出されない場合などに起こりやすい。したがって、この記述は正しい。",
+      "間違い。ブンゼン燃焼の炎口負荷には一定の許容幅があるが、炎口負荷の適正値は燃焼速度の速いガスでは大きく、燃焼速度の遅いガスでは小さくなる。記述はこの関係を逆にしているため誤りである。",
+      "正しい。燃焼速度指数（MCP）が小さくなってガス機器の互換域を外れると、火炎が炎口に保持されにくくなり、リフティングが発生しやすくなる。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -4040,6 +3998,86 @@
     "reviewQuestionId": "4c02724cceef7fcb",
     "sourceRecordRef": "question_2022_2.json#24",
     "explanationReferences": [],
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "lawContextForExplanation": "燃焼範囲、サーマルNOx、不完全燃焼、ブンゼン燃焼の炎口負荷及び燃焼速度指数とリフティングの関係を扱う技術問題であり、特定の法令条文に基づく解説は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "燃焼範囲に対する圧力の影響を扱う技術事項であり、法令事項ではない。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "サーマルNOxの生成条件を扱う燃焼技術上の事項であり、法令事項ではない。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "不完全燃焼の発生原因を扱う技術事項であり、法令事項ではない。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "explanationText": "ブンゼン燃焼の炎口負荷と燃焼速度との関係を扱う技術事項であり、法令事項ではない。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "燃焼速度指数とリフティングとの関係を扱うガス機器適応上の技術事項であり、法令事項ではない。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

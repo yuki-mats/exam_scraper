@@ -413,7 +413,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法第14条第1項は小売供給を受けようとする者への供給条件の説明を求めており、経済産業大臣への届出義務ではない。",
+          "explanationText": "ガス事業法第14条第1項は、小売供給契約の締結前に小売供給を受けようとする者へ供給条件を説明する義務を定めるもので、経済産業大臣への届出義務ではない。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -427,7 +427,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法第18条は供給するガスの熱量、圧力及び燃焼性の測定と結果の記録保存を求めている。",
+          "explanationText": "ガス事業法第18条は、供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存する義務を定めている。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -441,7 +441,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法施行規則第17条第1項ただし書は、特定ガス発生設備に係る場合に燃焼性の測定を要しないと定めている。",
+          "explanationText": "ガス事業法施行規則第17条第1項ただし書は、特定ガス発生設備に係る場合に供給するガスの燃焼性を測定することを要しないと定めている。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -455,7 +455,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法第23条は危害又は損傷のおそれがある成分の検査、記録及び保存を求めている。",
+          "explanationText": "ガス事業法第23条は、危害又は損傷のおそれがある成分について、所定数量を超えていないかを検査し、その量を記録して保存する義務を定めている。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -469,7 +469,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法施行規則第22条第1項第1号は、天然ガスを主成分とするガスを硫黄全量、硫化水素及びアンモニアの検査対象から除外している。",
+          "explanationText": "ガス事業法施行規則第22条第1項第1号は、天然ガスを主成分とするガスを硫黄全量、硫化水素及びアンモニアの成分検査対象から除外している。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -507,7 +507,7 @@
         "title": "ガス事業法施行規則"
       }
     ],
-    "lawContextForExplanation": "選択肢1は、ガス事業法第14条第1項が契約締結前の供給条件の説明を求めており、経済産業大臣への届出義務とはしていないため誤り。選択肢2は同法第18条、選択肢3はガス事業法施行規則第17条第1項ただし書、選択肢4は同法第23条に対応する。選択肢5は同規則第22条第1項第1号が天然ガスを主成分とするガスを硫黄全量、硫化水素及びアンモニアの検査対象から除外しているため正しい。",
+    "lawContextForExplanation": "選択肢1は、ガス事業法第14条第1項が小売供給契約締結前の料金その他の供給条件の説明を求める規定であり、経済産業大臣への届出義務ではないため誤り。選択肢2は同法第18条の熱量、圧力及び燃焼性の測定・記録保存義務、選択肢3はガス事業法施行規則第17条第1項ただし書の特定ガス発生設備に係る燃焼性測定の例外、選択肢4は同法第23条の有害成分等の検査・記録保存義務に対応する。選択肢5は同規則第22条第1項第1号により、天然ガスを主成分とするガスが硫黄全量、硫化水素及びアンモニアの検査対象から除外されるため正しい。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -1046,56 +1046,162 @@
         }
       ]
     ],
-    "lawRevisionFacts": {
-      "answerImpactFacts": [
-        "現行ガス事業法で各選択肢の正誤判定を維持する。"
-      ],
-      "auditMethodVersion": "law_audit=v4.0",
-      "auditStatus": "same_as_current",
-      "auditedAt": "2026-07-27T00:00:00+09:00",
-      "current": {
-        "articles": [
-          "第29条第1項",
-          "第65条第1項",
-          "第65条第2項",
-          "第66条第1項",
-          "第66条第2項",
-          "第67条"
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法でも当該記述は誤りである。"
         ],
-        "correctChoiceText": [
-          "間違い",
-          "正しい",
-          "正しい",
-          "正しい",
-          "間違い"
+        "auditMethodVersion": "law_audit=v4.2",
+        "auditStatus": "same_as_current",
+        "auditedAt": "2026-07-28T00:00:00+09:00",
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-27",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行法確認により、出題時の正誤判断に影響する差異は確認されなかった。"
         ],
-        "lawId": "329AC0000000051",
-        "lawTitle": "ガス事業法",
-        "referenceDate": "2026-07-27",
-        "verificationStatus": "verified"
+        "evidenceSummary": {
+          "differenceSummary": "現行法で正誤への影響なし。",
+          "explanationText": "工事従事者自身を主任技術者とする規定ではなく、事業者が主任技術者を選任し、従事者はその保安上の指示に従う。",
+          "promptContext": "ガス事業法第65条第1項及び第66条第2項を照合した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "source_judge_statement_verdicts"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-27",
+        "reviewState": "secondary_verified"
       },
-      "differenceFacts": [
-        "現行法確認により、2020年出題時の正誤判断に影響する差異は確認されなかった。"
-      ],
-      "evidenceSummary": {
-        "differenceSummary": "現行法で正答に影響する変更なし。",
-        "explanationText": "ガス主任技術者の選任・職務・試験・解任命令はいずれもガス事業法上の規定で確認でき、選択肢1と5だけが条文の規定に合わない。",
-        "promptContext": "e-Gov法令検索のガス事業法（lawId 329AC0000000051）第29条第1項、第65条第1項・第2項、第66条第1項・第2項、第67条を根拠として照合した。",
-        "verdict": "same_as_current"
-      },
-      "examTime": {
-        "correctChoiceText": [
-          "間違い",
-          "正しい",
-          "正しい",
-          "正しい",
-          "間違い"
+      {
+        "answerImpactFacts": [
+          "現行法でも当該記述は正しい。"
         ],
-        "verificationStatus": "source_judge_statement_verdicts"
+        "auditMethodVersion": "law_audit=v4.2",
+        "auditStatus": "same_as_current",
+        "auditedAt": "2026-07-28T00:00:00+09:00",
+        "current": {
+          "article": "第66条第1項",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-27",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行法確認により、出題時の正誤判断に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法で正誤への影響なし。",
+          "explanationText": "ガス主任技術者には誠実に職務を行う義務がある。",
+          "promptContext": "ガス事業法第66条第1項を照合した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "source_judge_statement_verdicts"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-27",
+        "reviewState": "secondary_verified"
       },
-      "lawCorpusSnapshotId": "egov-current-2026-07-27",
-      "reviewState": "secondary_verified"
-    },
+      {
+        "answerImpactFacts": [
+          "現行法でも当該記述は正しい。"
+        ],
+        "auditMethodVersion": "law_audit=v4.2",
+        "auditStatus": "same_as_current",
+        "auditedAt": "2026-07-28T00:00:00+09:00",
+        "current": {
+          "article": "第29条第1項",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-27",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行法確認により、出題時の正誤判断に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法で正誤への影響なし。",
+          "explanationText": "試験は、ガス工作物の工事、維持及び運用に関する保安について必要な知識及び技能を対象とする。",
+          "promptContext": "ガス事業法第29条第1項を照合した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "source_judge_statement_verdicts"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-27",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法でも当該記述は正しい。"
+        ],
+        "auditMethodVersion": "law_audit=v4.2",
+        "auditStatus": "same_as_current",
+        "auditedAt": "2026-07-28T00:00:00+09:00",
+        "current": {
+          "article": "第67条",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-27",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行法確認により、出題時の正誤判断に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法で正誤への影響なし。",
+          "explanationText": "法令違反がある場合、経済産業大臣は事業者に対してガス主任技術者の解任を命ずることができる。",
+          "promptContext": "ガス事業法第67条を照合した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "source_judge_statement_verdicts"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-27",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法でも当該記述は誤りである。"
+        ],
+        "auditMethodVersion": "law_audit=v4.2",
+        "auditStatus": "same_as_current",
+        "auditedAt": "2026-07-28T00:00:00+09:00",
+        "current": {
+          "article": "第65条第2項",
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-27",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行法確認により、出題時の正誤判断に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法で正誤への影響なし。",
+          "explanationText": "選任又は解任の届出は事前ではなく、その後遅滞なく行う。",
+          "promptContext": "ガス事業法第65条第2項を照合した。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "source_judge_statement_verdicts"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-27",
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedExplanationText": [
       "間違い。選択肢の「工事に従事する者は、ガス主任技術者でなければならない」が誤り。ガス事業法第66条第2項は、ガス工作物の工事、維持又は運用に従事する者が、ガス主任技術者の保安上の指示に従わなければならないと定めている。従事者自身がガス主任技術者であることを求める規定ではない。",
       "正しい。ガス事業法第66条第1項は、ガス主任技術者が誠実にその職務を行わなければならないと定めている。",
@@ -1145,7 +1251,7 @@
         "title": "ガス事業法第65条第2項"
       }
     ],
-    "lawContextForExplanation": "本問は、ガス主任技術者の選任、職務、試験及び解任命令に関するガス事業法上の規定を問う法令問題である。選択肢1は、一般ガス導管事業者がガス主任技術者を選任して保安監督をさせ、従事者はその保安上の指示に従うという構造に反し、従事者自身を主任技術者とする点が誤り。選択肢2は誠実義務、選択肢3は試験範囲、選択肢4は解任命令、選択肢5は選任・解任後の遅滞ない届出を事前届出とする点を照合する。",
+    "lawContextForExplanation": "本問は、ガス主任技術者の選任、職務、試験及び解任命令に関するガス事業法上の規定を問う。選択肢1は、事業者が主任技術者を選任して保安監督をさせ、従事者がその指示に従うという法の構造に反する。選択肢2は誠実義務、選択肢3は試験範囲、選択肢4は解任命令に合致する。選択肢5は、選任・解任後の遅滞ない届出を事前届出としている点が誤りである。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -1451,7 +1557,32 @@
       },
       "evidenceSummary": {
         "differenceSummary": "工事計画届出、使用前検査、検査前使用の例外、熱量等測定及び自主検査記録5年保存の規律を照合し、試験時から現行法まで正答を変える差分は確認されない。",
-        "source": "e-Gov法令検索: ガス事業法（329AC0000000051）第101条・第102条、ガス事業法施行規則（345M50000400097）第159条・第160条",
+        "refs": [
+          {
+            "article": "101",
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "primaryBasis": true
+          },
+          {
+            "article": "102",
+            "lawId": "329AC0000000051",
+            "lawTitle": "ガス事業法",
+            "primaryBasis": true
+          },
+          {
+            "article": "159",
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "primaryBasis": true
+          },
+          {
+            "article": "160",
+            "lawId": "345M50000400097",
+            "lawTitle": "ガス事業法施行規則",
+            "primaryBasis": true
+          }
+        ],
         "verdict": "same_as_current"
       },
       "examTime": {
@@ -2204,7 +2335,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第21条の保安上重要な設備に係る停電等への措置と本肢の内容が一致する。",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第21条の保安上重要な設備に係る停電等への措置と本肢の内容が一致する。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2218,7 +2349,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第18条第2項の移動式ガス発生設備に関する計測又は確認措置と本肢の内容が一致する。",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第18条第2項の移動式ガス発生設備に関する計測又は確認措置と本肢の内容が一致する。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2232,7 +2363,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第20条第1項の遮断装置の誤操作防止及び確実操作の措置と本肢の内容が一致する。",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第20条第1項の遮断装置の誤操作防止及び確実操作の措置と本肢の内容が一致する。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2246,7 +2377,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第20条第2項の計装回路に係るインターロック機構と本肢の内容が一致する。",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第20条第2項の計装回路に係るインターロック機構と本肢の内容が一致する。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2260,7 +2391,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第32条第1項は凝縮液を抜く装置を求めており、凝縮液を気化する装置とする本肢は現行法でも誤りである。",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第32条第1項は凝縮液を抜く装置を求めており、凝縮液を気化する装置とする本肢は現行法でも誤りである。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2436,7 +2567,7 @@
         "answerImpactFacts": [
           "正誤判定は維持した。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.2",
         "auditStatus": "same_as_current",
         "auditedAt": "2026-07-28T00:00:00+09:00",
         "current": {
@@ -2451,7 +2582,7 @@
           "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
         ],
         "evidenceSummary": {
-          "basis": "第25条は移動式ガス発生設備を低圧ガス発生設備等の圧力上昇防止装置規定の対象から除外する。",
+          "explanationText": "第25条は移動式ガス発生設備を低圧ガス発生設備等の圧力上昇防止装置規定の対象から除外するため、当該装置を設けなければならないとする記述は誤りである。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2466,7 +2597,7 @@
         "answerImpactFacts": [
           "正誤判定は維持した。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.2",
         "auditStatus": "same_as_current",
         "auditedAt": "2026-07-28T00:00:00+09:00",
         "current": {
@@ -2482,7 +2613,7 @@
           "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
         ],
         "evidenceSummary": {
-          "basis": "第31条第3項は気化装置又は接続配管等の液化ガス流出防止措置と、流出を考慮した設計の場合の例外を定める。",
+          "explanationText": "第31条第3項は、気化装置又は接続配管等の液化ガス流出防止措置と、液化ガスの流出を考慮した設計である場合の例外を定めているため、記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2497,7 +2628,7 @@
         "answerImpactFacts": [
           "正誤判定は維持した。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.2",
         "auditStatus": "same_as_current",
         "auditedAt": "2026-07-28T00:00:00+09:00",
         "current": {
@@ -2512,7 +2643,7 @@
           "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
         ],
         "evidenceSummary": {
-          "basis": "第30条は、直接液体又は気体を送入する装置を有する製造設備について逆流が生じない構造を求める。",
+          "explanationText": "第30条は、ガスの通ずる部分に直接液体又は気体を送入する装置を有する製造設備について、逆流が生じない構造とすることを求めているため、記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2527,7 +2658,7 @@
         "answerImpactFacts": [
           "正誤判定は維持した。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.2",
         "auditStatus": "same_as_current",
         "auditedAt": "2026-07-28T00:00:00+09:00",
         "current": {
@@ -2542,7 +2673,7 @@
           "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
         ],
         "evidenceSummary": {
-          "basis": "第42条が求めるのは操作用電源停止時のガス供給維持装置であり、供給停止装置ではない。",
+          "explanationText": "第42条が求めるのは操作用電源停止時のガス供給維持装置であり、ガスの供給を速やかに停止するための装置ではないため、記述は誤りである。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -2557,7 +2688,7 @@
         "answerImpactFacts": [
           "正誤判定は維持した。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.2",
         "auditStatus": "same_as_current",
         "auditedAt": "2026-07-28T00:00:00+09:00",
         "current": {
@@ -2573,7 +2704,7 @@
           "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
         ],
         "evidenceSummary": {
-          "basis": "第28条第1項は、移動式ガス発生設備の適切な場所への設置と容易に移動又は転倒しない措置を定める。",
+          "explanationText": "第28条第1項は、移動式ガス発生設備を適切な場所に設置し、容易に移動又は転倒しないよう措置することを定めているため、記述は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -3446,7 +3577,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
     "explanationText": [
-      "正解は 2 です。1は正しいです。特定ガス用品は、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品で、政令で定めるものをいい、この定義はガス事業法第137条第2項に定められています。2は誤りです。ガス用品の製造又は輸入の事業を行う者について、ガス事業法第140条は経済産業省令で定めるガス用品の区分に従い、型式の区分など所定事項を経済産業大臣へ届け出る制度を定めています。申請して認められなければならない制度ではありません。3は正しいです。届出事業者が届出に係る型式のガス用品を試験用に製造又は輸入する場合は、ガス事業法第145条第1項ただし書第3号により、技術上の基準への適合義務の例外とされています。4は正しいです。届出事業者は、技術上の基準への適合性について法定の義務を履行したとき、ガス事業法第147条第1項・第2項に基づき、当該ガス用品に所定の表示を付することができます。5は正しいです。届出に係る型式のガス用品が技術上の基準に適合していない場合で、災害の発生を防止するため特に必要があると認められるときは、ガス事業法第149条第1項第1号により、経済産業大臣が1年以内の期間を定めて表示を禁止できます。"
+      "正解は2（間違い）です。1は正しいです。特定ガス用品は、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品で、政令で定めるものをいい、この定義はガス事業法第137条第2項に定められています。2は誤りです。ガス用品の製造又は輸入の事業を行う者について、ガス事業法第140条は、経済産業省令で定めるガス用品の区分に従い、型式の区分を含む所定事項を経済産業大臣に届け出ることができる制度を定めています。申請して認められなければならない制度ではありません。3は正しいです。届出事業者が届出に係る型式のガス用品を試験用に製造又は輸入するときは、ガス事業法第145条第1項ただし書第3号により、技術上の基準への適合義務の例外とされています。4は正しいです。届出事業者は、技術上の基準への適合性について法定の義務を履行したとき、当該ガス用品に所定の表示を付することができます。現行法では、特定輸入事業者でない届出事業者はガス事業法第147条第1項、特定輸入事業者である届出事業者は同条第2項に基づき表示が認められます。5は正しいです。届出に係る型式のガス用品が技術上の基準に適合していない場合で、災害の発生を防止するため特に必要があると認められるときは、ガス事業法第149条第1項第1号により、経済産業大臣が1年以内の期間を定めて表示を禁止できます。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -3492,7 +3623,7 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_law",
+          "source": "egov_law:https://laws.e-gov.go.jp/law/329AC0000000051",
           "verificationStatus": "verified"
         }
       ],
@@ -3505,7 +3636,7 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_law",
+          "source": "egov_law:https://laws.e-gov.go.jp/law/329AC0000000051",
           "verificationStatus": "verified"
         }
       ],
@@ -3518,7 +3649,7 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_law",
+          "source": "egov_law:https://laws.e-gov.go.jp/law/329AC0000000051",
           "verificationStatus": "verified"
         }
       ],
@@ -3531,7 +3662,7 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_law",
+          "source": "egov_law:https://laws.e-gov.go.jp/law/329AC0000000051",
           "verificationStatus": "verified"
         }
       ],
@@ -3544,7 +3675,7 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_law",
+          "source": "egov_law:https://laws.e-gov.go.jp/law/329AC0000000051",
           "verificationStatus": "verified"
         }
       ]
@@ -3553,70 +3684,172 @@
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第137条第2項",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "特定ガス用品の定義は現行ガス事業法第137条第2項で維持され、記述1と一致する。",
+          "explanationText": "特定ガス用品の定義は、災害発生のおそれが多いガス用品で政令で定めるものとする規定であり、記述1と一致する。",
+          "refs": [
+            {
+              "article": "第137条第2項",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "article": "第137条第2項",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2020",
+          "verificationStatus": "verified"
         },
         "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "間違い"
+          "article": "第140条",
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "現行ガス事業法第140条は型式の区分を含む事項の届出制度を定める。申請し認められなければならないとする記述2は一致しない。",
+          "explanationText": "ガス事業法第140条は型式の区分を含む所定事項を経済産業大臣へ届け出る制度を定めており、申請して認められなければならないとする記述2は一致しない。",
+          "refs": [
+            {
+              "article": "第140条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "間違い"
+          "article": "第140条",
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2020",
+          "verificationStatus": "verified"
         },
         "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第145条第1項ただし書第3号",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "現行ガス事業法第145条第1項ただし書第3号は、試験用に製造又は輸入するときの技術基準適合義務の例外を定め、記述3と一致する。",
+          "explanationText": "試験用に製造し、又は輸入するときは技術基準適合義務の例外とする規定が維持され、記述3と一致する。",
+          "refs": [
+            {
+              "article": "第145条第1項ただし書第3号",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "article": "第145条第1項ただし書第3号",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2020",
+          "verificationStatus": "verified"
         },
         "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第147条第1項・第2項",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "現行ガス事業法第147条第1項・第2項により、義務履行後に所定表示を付することができる趣旨は維持され、記述4と一致する。",
+          "explanationText": "令和7年12月25日施行改正で特定輸入事業者向けの第2項が追加されたが、届出事業者が法定義務を履行した場合に表示を付することができる趣旨は維持され、記述4の正誤は変わらない。",
+          "refs": [
+            {
+              "article": "第147条第1項・第2項",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true
+            },
+            {
+              "article": "第147条",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": false
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "article": "第147条",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2020",
+          "verificationStatus": "verified"
         },
         "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第149条第1項第1号",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "現行ガス事業法第149条第1項第1号は、技術基準不適合で災害防止上特に必要な場合の1年以内の表示禁止を定め、記述5と一致する。",
+          "explanationText": "技術基準に適合しないガス用品について災害防止上特に必要がある場合、1年以内の表示禁止を命じることができる規定は維持され、記述5と一致する。",
+          "refs": [
+            {
+              "article": "第149条第1項第1号",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "article": "第149条第1項第1号",
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2020",
+          "verificationStatus": "verified"
         },
         "reviewState": "secondary_verified"
       }
@@ -3645,7 +3878,7 @@
         "title": "e-Gov法令検索「ガス事業法」"
       }
     ],
-    "lawContextForExplanation": "ガス用品等について、特定ガス用品の定義はガス事業法第137条第2項、事業の届出は第140条、試験用製造・輸入の技術基準適合義務の例外は第145条第1項ただし書第3号、表示は第147条第1項・第2項、表示禁止は第149条第1項第1号で確認する。現行法でも本問の正誤は変わらない。",
+    "lawContextForExplanation": "ガス用品等について、特定ガス用品の定義はガス事業法第137条第2項、事業の届出は第140条、試験用製造・輸入の技術基準適合義務の例外は第145条第1項ただし書第3号、表示は第147条第1項・第2項、表示禁止は第149条第1項第1号で確認する。令和7年12月25日施行改正で特定輸入事業者関連の規定が追加されたが、本問の正誤は変わらない。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -4423,7 +4656,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "ガス事業法第162条は、その消費機器を技術上の基準に適合させる義務を定めるため、「ガス用品」は該当しない。",
+          "explanationText": "ガス事業法第162条は、その消費機器を技術上の基準に適合させる義務を定めるため、『ガス用品』は該当しない。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -4437,7 +4670,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "特定ガス消費機器の設置工事の監督に関する法律第2条は、構造、使用状況等を定義要素とするため、「製造年月日」は該当しない。",
+          "explanationText": "特定ガス消費機器の設置工事の監督に関する法律第2条は、構造、使用状況等を定義要素とするため、『製造年月日』は該当しない。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -4451,7 +4684,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "同法第3条は、ガス消費機器設置工事監督者の資格を有する者による監督等を定めるため、「保安業務監督者に選任されている」は該当しない。",
+          "explanationText": "同法第3条は、ガス消費機器設置工事監督者の資格を有する者による監督等を定めるため、『保安業務監督者に選任されている』は該当しない。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -4465,7 +4698,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "同法第3条は、資格者に特定工事を実地に監督させることを定めるため、「実地に監督」は正しい。",
+          "explanationText": "同法第3条は、資格者に特定工事を実地に監督させることを定めるため、『実地に監督』は正しい。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -4479,7 +4712,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "同法第6条は、表示事項として氏名又は名称、施工年月日その他省令で定める事項を定めるため、「主要材料」は該当しない。",
+          "explanationText": "同法第6条は、表示事項として氏名又は名称、施工年月日その他省令で定める事項を定めるため、『主要材料』は該当しない。",
           "verdict": "same_as_current"
         },
         "examTime": {

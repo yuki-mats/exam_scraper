@@ -222,7 +222,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢3は長期使用製品安全点検制度の特定保守製品を問う法令肢である。2025年4月1日時点の消費生活用製品安全法施行令第3条及び別表第3と、2026年7月28日現在の同施行令第4条及び別表第3では、特定保守製品は石油給湯機と石油ふろがまであり、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは含まれない。ほかの選択肢は機器に関する技術知識として扱う。",
+    "lawContextForExplanation": "選択肢3は長期使用製品安全点検制度の特定保守製品を問う法令肢である。2025年4月1日時点の消費生活用製品安全法施行令第3条及び別表第3、ならびに2026年7月28日現在の同施行令第4条及び別表第3では、特定保守製品は石油給湯機と石油ふろがまであり、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは含まれない。ほかの選択肢は機器に関する技術知識として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -230,7 +230,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "給湯能力の号数換算に関する技術知識であり、法令改正による判定差分の対象ではない。"
+          "verdict": "給湯能力の号数換算に関する技術知識であり、法令改正による正誤差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -243,7 +243,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "BF-DP式の給排気構造に関する技術知識であり、法令改正による判定差分の対象ではない。"
+          "verdict": "BF-DP式ふろがまの給排気構造に関する技術知識であり、法令改正による正誤差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -261,7 +261,7 @@
           "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "summary": "2025年4月1日時点及び2026年7月28日現在の別表第3には石油給湯機と石油ふろがまだけが掲げられ、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは含まれないため、正誤は変わらない。"
+          "verdict": "試験時点及び現行の別表第3では特定保守製品として石油給湯機と石油ふろがまが掲げられており、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは含まれないため、選択肢3の正誤は変わらない。"
         },
         "examTime": {
           "article": "第3条及び別表第3",
@@ -279,7 +279,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "給湯暖房用熱源機の分類に関する技術知識であり、法令改正による判定差分の対象ではない。"
+          "verdict": "給湯暖房用熱源機の分類に関する技術知識であり、法令改正による正誤差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -292,7 +292,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "潜熱回収型給湯器の凝縮水処理に関する技術知識であり、法令改正による判定差分の対象ではない。"
+          "verdict": "潜熱回収型給湯器の凝縮水処理に関する技術知識であり、法令改正による正誤差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -424,7 +424,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1は、ガス事業法第137条第1項と、出題時及び現行のガス事業法施行令第14条・別表第1により判定する。同表には所定のガスストーブ及びガスこんろが掲げられる一方、回転ドラム式衣類乾燥機は掲げられていないため、この記述は誤りである。選択肢2～5は機器の構造・機能に関する技術事項として扱う。",
+    "lawContextForExplanation": "選択肢1は、ガス事業法第137条第1項及びガス事業法施行令第14条・別表第1に基づき判定する。出題時・現行とも、同別表には所定のガスストーブ及びガスこんろは掲げられているが、回転ドラム式衣類乾燥機は掲げられていないため、この記述は誤りである。選択肢2～5は機器の構造・機能に関する技術事項として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -437,8 +437,8 @@
           "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "出題時及び現行のガス事業法第137条第1項とガス事業法施行令第14条・別表第1を照合した。別表には所定のガスストーブ及びガスこんろが掲げられるが、回転ドラム式衣類乾燥機は掲げられていない。",
-          "revisionImpact": "対象品目と正誤に影響する変更は確認されず、出題時と現行はいずれも間違いである。"
+          "differenceSummary": "出題時及び現行のガス事業法第137条第1項とガス事業法施行令第14条・別表第1を照合しても、選択肢1の正誤に影響する差はない。",
+          "explanationText": "同別表には所定のガスストーブ及びガスこんろが掲げられる一方、回転ドラム式衣類乾燥機は掲げられていないため、三つともガス用品に指定されているとする記述は出題時・現行とも誤りである。"
         },
         "examTime": {
           "article": "第137条第1項 / 第14条・別表第1",
@@ -456,7 +456,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "回転ドラム式ガス衣類乾燥機の燃焼・排気方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "explanationText": "回転ドラム式ガス衣類乾燥機の燃焼・排気方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -469,7 +469,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "焦げ付き消火機能と温度センサーに関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "explanationText": "こんろの焦げ付き消火機能と温度センサーに関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -482,7 +482,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "室温自動制御用サーミスターに関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "explanationText": "ファンヒーターの室温自動制御用サーミスターに関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -495,7 +495,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "FF暖房機の給排気管材料に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "explanationText": "FF暖房機の給排気管材料に関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -957,7 +957,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "自然排気式、密閉燃焼式、強制排気式及び屋外式の給排気基準は、ガス事業法施行規則第202条第2号、第4号、第6号及び第7号を根拠とする。選択肢1、3、5の機器機能・施工方法は、同条の基準に加えて経済産業省のモデル保安業務規程等で確認した。",
+    "lawContextForExplanation": "自然排気式、密閉燃焼式、強制排気式及び屋外式の給排気基準は、ガス事業法施行規則第202条第2号、第4号、第6号及び第7号を根拠とする。排気筒等の材料は同規則第202条第2号イ(1)及び平成9年通商産業省告示第91号第1条を根拠とする。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -966,7 +966,8 @@
           "referenceDate": "2026-07-28"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第2号イ(2)及び(4)と経済産業省のモデル保安業務規程を照合した。逆風止めの取付け及び十分な排気風量に関する基準に、正誤へ影響する変更はない。"
+          "explanationText": "ガス事業法施行規則第202条第2号イ(2)及び(4)を根拠に、自然排気式機器の逆風止め及び排気風量に関する判断は試験時点と現行で同じである。",
+          "verdict": "exam_time_and_current_same"
         },
         "examTime": {
           "correctChoiceText": "正しい",
@@ -981,7 +982,8 @@
           "referenceDate": "2026-07-28"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第2号イ(1)及び平成9年通商産業省告示第91号第1条を照合した。排気筒材料の規格要件に正誤へ影響する変更はない。"
+          "explanationText": "ガス事業法施行規則第202条第2号イ(1)及び平成9年通商産業省告示第91号第1条を根拠に、排気筒及び排気筒トップの材料要件に関する判断は試験時点と現行で同じである。",
+          "verdict": "exam_time_and_current_same"
         },
         "examTime": {
           "correctChoiceText": "正しい",
@@ -996,7 +998,8 @@
           "referenceDate": "2026-07-28"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第6号ハ、ニ及びヌと経済産業省のモデル保安業務規程を照合した。BF-DP式を含む密閉燃焼式機器の給排気部基準に正誤へ影響する変更はない。"
+          "explanationText": "ガス事業法施行規則第202条第6号ハ、ニ及びヌを根拠に、密閉燃焼式機器の給排気部基準に関する判断は試験時点と現行で同じである。",
+          "verdict": "exam_time_and_current_same"
         },
         "examTime": {
           "correctChoiceText": "正しい",
@@ -1011,7 +1014,8 @@
           "referenceDate": "2026-07-28"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第4号を照合した。排気筒を設ける燃焼器の設置室には所定の給気口等が必要であり、正誤へ影響する変更はない。"
+          "explanationText": "ガス事業法施行規則第202条第4号を根拠に、排気筒を設ける燃焼器の設置室には有効な給気口又は開口部が必要であり、選択肢の判断は試験時点と現行で同じである。",
+          "verdict": "exam_time_and_current_same"
         },
         "examTime": {
           "correctChoiceText": "間違い",
@@ -1026,7 +1030,8 @@
           "referenceDate": "2026-07-28"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第7号と経済産業省委託の設置資料を照合した。屋外式機器の給排気及び建物開口部への配慮に関する判断に正誤へ影響する変更はない。"
+          "explanationText": "ガス事業法施行規則第202条第7号を根拠に、屋外式機器の給排気部基準及び屋内への排気流入防止に関する判断は試験時点と現行で同じである。",
+          "verdict": "exam_time_and_current_same"
         },
         "examTime": {
           "correctChoiceText": "正しい",
@@ -1188,54 +1193,8 @@
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第5条、別表第2（炎検出部の機構）",
-          "choiceIndex": 3,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第5条、別表第2（炎検出部の機構）",
-          "choiceIndex": 3,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2025-09-28",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20250928",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第11条、別表第3 1(2)（安全情報及び使用上の注意の表示又は記載）",
-          "choiceIndex": 4,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第11条、別表第3 1(2)（安全情報及び使用上の注意の表示又は記載）",
-          "choiceIndex": 4,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2025-09-28",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20250928",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      []
     ],
     "lawRevisionFacts": [
       {
@@ -1244,8 +1203,27 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第11条・別表第3 1(1)及び1(2)の危険低減と安全情報の要求を試験時点・現行時点で照合した。",
-          "revisionImpact": "正誤に影響する変更は確認されない。"
+          "differenceSummary": "正誤に影響する法令差は確認されない。",
+          "explanationText": "省令第11条・別表第3 1(1)及び1(2)の危険低減と安全情報の要求を、フェイルセーフの考え方を説明する法令背景として確認する。",
+          "refs": [
+            {
+              "article": "第11条、別表第3 1(1)及び1(2)",
+              "lawId": "346M50000400027",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス用品の技術上の基準等に関する省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            },
+            {
+              "article": "第11条、別表第3 1(1)及び1(2)",
+              "lawId": "346M50000400027",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス用品の技術上の基準等に関する省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
+          "verdict": "試験時点と現行時点で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1258,8 +1236,27 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令別表第3の要求が用品区分及び構造別に定められていることを両時点で照合した。",
-          "revisionImpact": "正誤に影響する変更は確認されない。"
+          "differenceSummary": "正誤に影響する法令差は確認されない。",
+          "explanationText": "省令別表第3の要求は用品区分及び構造に応じて定められており、すべての安全装置が全機器に一律法定されるわけではない。",
+          "refs": [
+            {
+              "article": "第11条、別表第3 1及び用品区分別要求事項",
+              "lawId": "346M50000400027",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス用品の技術上の基準等に関する省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            },
+            {
+              "article": "第11条、別表第3 1及び用品区分別要求事項",
+              "lawId": "346M50000400027",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス用品の技術上の基準等に関する省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
+          "verdict": "試験時点と現行時点で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1272,8 +1269,27 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "不完全燃焼防止装置が全家庭用ガス機器への一律要求ではないことを用品区分別基準と照合した。",
-          "revisionImpact": "正誤に影響する変更は確認されない。"
+          "differenceSummary": "正誤に影響する法令差は確認されない。",
+          "explanationText": "省令別表第3の安全要求は用品区分や構造に応じるため、不完全燃焼防止装置が全家庭用ガス機器へ一律に搭載されるという記述は誤りである。",
+          "refs": [
+            {
+              "article": "第11条、別表第3 1及び用品区分別要求事項",
+              "lawId": "346M50000400027",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス用品の技術上の基準等に関する省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            },
+            {
+              "article": "第11条、別表第3 1及び用品区分別要求事項",
+              "lawId": "346M50000400027",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス用品の技術上の基準等に関する省令",
+              "primaryBasis": true,
+              "relation": "basis"
+            }
+          ],
+          "verdict": "試験時点と現行時点で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1281,13 +1297,14 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第5条・別表第2の炎検出部の機構及び経済産業省の技術資料で熱電対式とフレームロッド式を確認した。",
-          "revisionImpact": "炎検出方式の正誤に影響する変更は確認されない。"
+          "differenceSummary": "法令改正による正誤変更の対象ではない。",
+          "explanationText": "立ち消え安全装置の熱電対式とフレームロッド式は炎検出方式に関する技術事項であり、解説では技術資料を中心に扱う。",
+          "verdict": "技術事項として試験時点と現行時点で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1295,13 +1312,14 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "省令第11条・別表第3 1(2)の安全情報要求と、経済産業省及び業界一次資料による約10万回使用時の点検時期告知機能を確認した。",
-          "revisionImpact": "法令改正又は技術資料の更新による正誤変更は確認されない。"
+          "differenceSummary": "法令改正による正誤変更の対象ではない。",
+          "explanationText": "開放式小型湯沸器の10万回使用時の点検時期告知は、機器の安全機能・業界技術情報として解説する。",
+          "verdict": "技術事項として試験時点と現行時点で正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"

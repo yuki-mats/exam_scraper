@@ -697,8 +697,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "technical_non_law_basis",
-          "summary": "自然換気の駆動力に関する技術的記述であり、法令の定義・義務・数値基準が正誤を直接決める肢ではない。"
+          "explanationText": "自然換気の駆動力は風圧と温度差による浮力で説明される。",
+          "verdict": "出題時・現行比較の対象となる法令基準ではなく、技術知識として正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -711,13 +711,56 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "classification": "verified_law_basis",
-          "sources": [
-            "https://laws.e-gov.go.jp/law/325CO0000000338",
-            "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
-            "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf"
+          "differenceSummary": "令和5年国土交通省告示第207号による改正を踏まえても、この肢の正誤を変える差分はない。",
+          "explanationText": "建築基準法施行令第20条の3第2項第1号イ（7）に基づく告示基準では、火源等から排気フード下端までの高さを1m以下とするため、本肢は誤りである。",
+          "refs": [
+            {
+              "article": "第20条の3第2項第1号イ（7）",
+              "lawId": "325CO0000000338",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "建築基準法施行令",
+              "primaryBasis": true,
+              "refId": "r1",
+              "relation": "basis"
+            },
+            {
+              "article": "第三第四号イ（イ）（i）及び（ロ）（i）",
+              "lawId": "昭和45年建設省告示第1826号",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "換気設備の構造方法を定める件",
+              "primaryBasis": true,
+              "refId": "r2",
+              "relation": "basis"
+            },
+            {
+              "article": "第20条の3第2項第1号イ（7）",
+              "lawId": "325CO0000000338",
+              "lawTimeScope": "current",
+              "lawTitle": "建築基準法施行令",
+              "primaryBasis": true,
+              "refId": "r3",
+              "relation": "basis"
+            },
+            {
+              "article": "第三第四号イ（イ）（i）及び（ロ）（i）",
+              "lawId": "昭和45年建設省告示第1826号",
+              "lawTimeScope": "current",
+              "lawTitle": "換気設備の構造方法を定める件",
+              "primaryBasis": true,
+              "refId": "r4",
+              "relation": "basis"
+            },
+            {
+              "article": "第1条",
+              "lawId": "令和5年国土交通省告示第207号",
+              "lawTimeScope": "current",
+              "lawTitle": "換気設備の構造方法を定める件等の一部を改正する告示",
+              "primaryBasis": false,
+              "refId": "r5",
+              "relation": "revision"
+            }
           ],
-          "summary": "出題時および現行の基準では、火源等から排気フード下端までの高さは1m以下である。令和5年国土交通省告示第207号による改正後も、この高さ基準に正誤を変える差分はない。"
+          "verdict": "出題時も現行も、排気フード高さの基準は本肢のいう1000mm以上ではなく1m以下であり、正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -730,8 +773,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "technical_non_law_basis",
-          "summary": "外風圧の変動と換気扇の静圧特性に関する技術的記述である。"
+          "explanationText": "外風圧の影響を受けやすい高層住宅等では、高静圧型換気扇により換気風量を確保しやすくする。",
+          "verdict": "出題時・現行比較の対象となる法令基準ではなく、技術知識として正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -744,8 +787,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "technical_non_law_basis",
-          "summary": "自然換気回数の定義式に関する技術的記述である。"
+          "explanationText": "自然換気回数は、自然換気量Qを室の容積Vで除して求める。",
+          "verdict": "出題時・現行比較の対象となる法令基準ではなく、技術知識として正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -758,8 +801,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "technical_non_law_basis",
-          "summary": "酸素不足時の不完全燃焼とCO発生に関する技術的記述である。"
+          "explanationText": "酸素不足等で燃焼反応が完結しない不完全燃焼ではCOが発生する。",
+          "verdict": "出題時・現行比較の対象となる法令基準ではなく、技術知識として正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1008,7 +1051,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法第28条第3項及び建築基準法施行令第20条の3を試験時点と現行時点で照合し、6kWを超える場合の判定に変更がないことを確認した。"
+          "differenceSummary": "建築基準法第28条第3項及び建築基準法施行令第20条の3を試験時点と現行時点で照合し、6kWを超える場合の判定に変更がない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1021,7 +1064,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第2号イと経済産業省の保安資料を照合し、一次排気筒は現場加工せず二次排気筒を調整するとの判定に変更がないことを確認した。"
+          "differenceSummary": "ガス事業法施行規則第202条第1項第2号イと関連一次資料を照合し、一次排気筒は現場加工せず二次排気筒を調整するとの判定に変更がない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1034,7 +1077,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第6号ハを試験時点と現行時点で照合し、外壁貫通箇所に隙間を設けない基準に変更がないことを確認した。"
+          "differenceSummary": "ガス事業法施行規則第202条第1項第6号ハを試験時点と現行時点で照合し、外壁貫通箇所に隙間を設けない基準に変更がない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1047,7 +1090,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第6号と経済産業省LPガス保安業務ガイドを照合し、FF-W、FF-C及びFF-Dの分類に変更がないことを確認した。"
+          "differenceSummary": "ガス事業法施行規則第202条第1項第6号と関連一次資料を照合し、FF-W、FF-C及びFF-Dの分類に係る判定に変更がない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1060,7 +1103,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第7号と経済産業省の講習資料を照合し、BF式の既存貫通穴を利用するRF式壁面貫通型が存在するとの判定に変更がないことを確認した。"
+          "differenceSummary": "ガス事業法施行規則第202条第1項第7号と関連一次資料を照合し、BF式の既存貫通穴を利用するRF式壁面貫通型が存在するとの判定に変更がない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1373,10 +1416,10 @@
       "間違い。ガスソフトコードをコンセント口のガス栓に接続する場合は、ゴム管用ソケットを用いる。ガス栓用プラグは、ホースエンド口のガス栓をコンセント口化するための接続具であり、コンセント口へガスソフトコードを直接接続するための接続具ではない。",
       "正しい。ヒューズガス栓で、ヒューズボールが作動してガスを遮断する流量をヒューズ作動流量という。ヒューズ作動流量は、接続できるガス機器の範囲を確認できるように、ヒューズガス栓本体に表示されている。",
       "正しい。ガス小型湯沸器は、強化ガスホースを用いて可とう管ガス栓と接続できる。接続時は、ガス機器の種類、ガス栓の形状、接続具の適合を確認して選定する必要がある。",
-      "正しい。空気より軽い都市ガスを検知するガス警報器は、ガス機器から水平距離で8m以内の同一室内に設置する。空気より軽いガスは上方に滞留しやすいため、警報器の取付位置もその性質に合わせる。",
+      "正しい。空気より軽い都市ガスを検知するガス警報器は、ガス機器と同じ室内で、ガス機器から水平距離8m以内に設置する。これはガス事業法に基づく「ガス漏れ警報設備の規格及びその設置方法を定める告示」第3条第1号イ(1)の設置方法に対応している。",
       "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から人体への悪影響のおそれを判断する。単なる一時的な濃度上昇ではなく、人体に悪影響が及ぶおそれのある環境に達した場合に警報を発するロジックを採用している。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [
       "ガス栓、接続具及び警報器の接続方式、ヒューズ作動流量、警報器の設置・警報ロジックを確認した。"
@@ -1405,20 +1448,151 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q27",
     "reviewQuestionId": "36c478e27d6f5c7e",
     "sourceRecordRef": "question_2024_3.json#7",
     "explanationReferences": [],
-    "lawContextForExplanation": "ガスソフトコードの接続具、ヒューズガス栓、強化ガスホース、都市ガス警報器の設置位置及び業務用換気警報器の警報ロジックに関する技術知識問題。各機器の仕様と適切な取扱いに基づいて説明でき、個別法令による根拠付けは不要。",
+    "lawContextForExplanation": "ガス栓・接続具・警報器の混合問題。選択肢4のみ、空気より軽い都市ガス用警報器の設置距離について「ガス漏れ警報設備の規格及びその設置方法を定める告示」第3条第1号イ(1)を直接根拠とする法令肢。その他は機器仕様・取扱いの技術知識。",
     "lawReferences": [
       [],
       [],
       [],
-      [],
+      [
+        {
+          "article": "第3条第1号イ(1)",
+          "choiceIndex": 3,
+          "lawId": "昭和56年通商産業省告示第263号",
+          "lawTitle": "ガス漏れ警報設備の規格及びその設置方法を定める告示",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihousetsubi_20190701kaisei.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第3条第1号イ(1)",
+          "choiceIndex": 3,
+          "lawId": "昭和56年通商産業省告示第263号",
+          "lawTitle": "ガス漏れ警報設備の規格及びその設置方法を定める告示",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihousetsubi_20190701kaisei.pdf",
+          "verificationStatus": "verified"
+        }
+      ],
       []
     ],
-    "lawRevisionFacts": [],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "技術知識であり、法令改正差分の監査対象ではない。",
+          "explanationText": "コンセント口にガスソフトコードを接続する接続具はゴム管用ソケットで、ガス栓用プラグではない。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "技術知識であり、法令改正差分の監査対象ではない。",
+          "explanationText": "ヒューズボールがガスを遮断する流量はヒューズ作動流量で、ヒューズガス栓本体に表示される。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "技術知識であり、法令改正差分の監査対象ではない。",
+          "explanationText": "ガス小型湯沸器は、適合する強化ガスホースで可とう管ガス栓と接続できる。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "same_as_current",
+        "current": {
+          "article": "第3条第1号イ(1)",
+          "correctChoiceText": "正しい",
+          "lawId": "昭和56年通商産業省告示第263号",
+          "lawTitle": "ガス漏れ警報設備の規格及びその設置方法を定める告示",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihousetsubi_20190701kaisei.pdf",
+          "verificationStatus": "verified"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "2019年7月1日改正溶け込み版の設置方法が試験時と現行の双方で有効で、正誤への影響はない。",
+          "explanationText": "空気より軽いガス用の検知器は、燃焼器から水平距離8m以内に設置する。",
+          "refs": [
+            {
+              "article": "第3条第1号イ(1)",
+              "lawId": "昭和56年通商産業省告示第263号",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス漏れ警報設備の規格及びその設置方法を定める告示",
+              "primaryBasis": true,
+              "refId": "choice4-current",
+              "relation": "direct_basis"
+            },
+            {
+              "article": "第3条第1号イ(1)",
+              "lawId": "昭和56年通商産業省告示第263号",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス漏れ警報設備の規格及びその設置方法を定める告示",
+              "primaryBasis": true,
+              "refId": "choice4-exam",
+              "relation": "direct_basis"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "article": "第3条第1号イ(1)",
+          "correctChoiceText": "正しい",
+          "lawId": "昭和56年通商産業省告示第263号",
+          "lawTitle": "ガス漏れ警報設備の規格及びその設置方法を定める告示",
+          "referenceDate": "2024-09-29",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihousetsubi_20190701kaisei.pdf",
+          "verificationStatus": "verified"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "技術知識であり、法令改正差分の監査対象ではない。",
+          "explanationText": "業務用換気警報器はCO濃度と検知時間を考慮し、人体への悪影響のおそれがある場合に警報する。",
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      }
+    ],
     "suggestedQuestionDetailsByChoice": []
   }
 ]

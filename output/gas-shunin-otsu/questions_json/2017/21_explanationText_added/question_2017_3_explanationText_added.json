@@ -276,7 +276,45 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法第137条第1項及び現行のガス事業法施行令第14条・別表第一では、ガス用品の指定品目に衣類乾燥機が含まれない。2017年時点の同令第9条・別表第一でも同じであり、正誤は変わらない。"
+          "refs": [
+            {
+              "article": "第137条第1項",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "refId": "gas-act-137-current",
+              "relation": "basis"
+            },
+            {
+              "article": "第14条、別表第一",
+              "lawId": "329CO0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行令",
+              "primaryBasis": true,
+              "refId": "gas-enforcement-order-attached-table-1-current",
+              "relation": "basis"
+            },
+            {
+              "article": "第137条第1項",
+              "lawId": "329AC0000000051",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス事業法",
+              "primaryBasis": true,
+              "refId": "gas-act-137-exam-time",
+              "relation": "basis"
+            },
+            {
+              "article": "第9条、別表第一",
+              "lawId": "329CO0000000068",
+              "lawTimeScope": "exam_time",
+              "lawTitle": "ガス事業法施行令",
+              "primaryBasis": true,
+              "refId": "gas-enforcement-order-attached-table-1-exam-time",
+              "relation": "basis"
+            }
+          ],
+          "verdict": "ガス用品の指定品目にガスこんろとガスストーブは含まれるが、衣類乾燥機は含まれないため、三つすべてが指定されているとする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -289,7 +327,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "ガスファンヒーターの給排気方式に関する機器知識であり、開放式を半密閉式とする記述は誤りである。"
+          "verdict": "ガスファンヒーターの給排気方式に関する機器知識であり、開放式を半密閉式とする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -302,7 +340,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "潜熱回収型給湯器の凝縮水は酸性で、中和後に排水されるため、アルカリ性とする記述は誤りである。"
+          "verdict": "潜熱回収型給湯器の凝縮水は酸性で、中和後に排水されるため、アルカリ性とする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -315,7 +353,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "給排気通路の閉塞異常を検知し、表示や運転制御を行う自己診断機能を備えた家庭用温水機器が存在するため、存在しないとする記述は誤りである。"
+          "verdict": "給排気通路の閉塞異常を検知し、表示や運転制御を行う自己診断機能を備えた家庭用温水機器が存在するため、存在しないとする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -328,7 +366,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "開放式瞬間湯沸器には、所定の使用回数等を超えた際に点検時期を知らせる機能が搭載されており、記述は正しい。"
+          "verdict": "2008年4月以降に発売された開放式瞬間湯沸器には、使用回数が所定回数に達した際に点検時期を知らせる機能が搭載されており、記述は正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -642,7 +680,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第2号ロの強制排気式排気筒基準を確認し、FE式に排気筒の横引き長さと高さとの関係を直接要求する規定は確認されないため、現行法でも正しい。"
+          "explanationText": "ガス事業法施行規則第202条第1項第2号ロの強制排気式燃焼器の排気筒基準を根拠とする。FE式について、排気筒の横引き長さと高さとの関係を直接要求する規定は確認されないため、試験時判断と現行判断は同じである。",
+          "verdict": "現行法でも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -655,7 +694,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第6号の密閉燃焼式燃焼器の給排気部基準を確認し、自然給排気式（BF式）の給排気理解は現行基準と矛盾しないため、現行法でも正しい。"
+          "explanationText": "ガス事業法施行規則第202条第1項第6号の密閉燃焼式燃焼器の給排気部基準を根拠とする。自然給排気式（BF式）の給排気理解は現行基準と矛盾しないため、試験時判断と現行判断は同じである。",
+          "verdict": "現行法でも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -668,7 +708,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法施行令第20条の3第2項第1号イにより、換気設備を設けるべき調理室等には排気口・換気扇等及び必要換気量に関する構造基準が求められるため、調理室の開放式ガス機器に機械換気が必要とする判断は現行法でも維持される。"
+          "explanationText": "建築基準法施行令第20条の3第2項第1号イを根拠とする。換気設備を設けるべき調理室等には排気口、換気扇等及び必要換気量に関する構造基準が求められるため、調理室の開放式ガス機器に機械換気が必要とする判断は現行法でも維持される。",
+          "verdict": "現行法でも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -681,7 +722,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法施行令第20条の3第1項第3号により、調理室以外の室で発熱量合計6キロワット以下かつ換気上有効な開口部がある場合は換気設備義務の対象から外れるため、居間で自然換気でよいとする判断は現行法でも正しい。"
+          "explanationText": "建築基準法施行令第20条の3第1項第3号を根拠とする。調理室以外の室で発熱量合計6キロワット以下かつ換気上有効な開口部がある場合は、換気設備義務の対象から外れるため、居間で自然換気でよいとする判断は現行法でも維持される。",
+          "verdict": "現行法でも正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -694,7 +736,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "平成12年通商産業省告示第578号第4条により、空気より重いガスを検知する警報器はガス機器から水平距離4m以内かつ床面の上方0.3m以内に設置する。PA13Aについて天井より下方30cm以内とする記述は現行基準でも誤りである。"
+          "explanationText": "平成12年通商産業省告示第578号第4条を根拠とする。空気より重いガスを検知する警報器は、ガス機器から水平距離4m以内かつ床面の上方0.3m以内に設置するため、PA13Aについて天井より下方30cm以内とする記述は現行基準でも誤りである。",
+          "verdict": "現行法でも誤り。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
