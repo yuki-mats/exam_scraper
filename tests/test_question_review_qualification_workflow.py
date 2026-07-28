@@ -352,6 +352,38 @@ class QualificationWorkflowTests(unittest.TestCase):
                     question_range={"start": 1, "end": 1},
                 )
 
+    def test_plan_many_filters_stage_applicability_after_question_id_validation(self):
+        item = question(group="2017")
+        item["source"]["examYear"] = 2017
+        item["projected"]["examYear"] = 2017
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2017", "questions": [item]}],
+                ),
+            )
+
+            plan = workflow.plan_many(
+                "sample",
+                ["originalize", "question_type"],
+                "group_refresh",
+                list_group_ids=["2017"],
+                question_ids=[item["id"]],
+            )
+
+        stages = {stage["stageId"]: stage for stage in plan["stagePlans"]}
+        self.assertEqual(plan["questionIds"], [item["id"]])
+        self.assertEqual(plan["targetCount"], 1)
+        self.assertEqual(stages["originalize"]["targetCount"], 0)
+        self.assertEqual(stages["originalize"]["questionIds"], [item["id"]])
+        self.assertEqual(stages["question_type"]["targetCount"], 1)
+        self.assertEqual(
+            stages["question_type"]["targetQuestionKeys"],
+            [item["id"]],
+        )
+
     def test_plan_filters_same_question_range_per_year_and_selected_fields(self):
         groups = [
             {

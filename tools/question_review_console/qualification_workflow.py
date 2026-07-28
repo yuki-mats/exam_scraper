@@ -889,15 +889,15 @@ class QualificationWorkflow:
                 for question in questions
                 if str(question.get("listGroupId") or "") in selected_set
             ]
+        questions, normalized_question_ids = _filter_question_ids(
+            questions, question_ids
+        )
         if stage_id == "originalize":
             questions = [
                 question
                 for question in questions
                 if _originalization_applicable(question)
             ]
-        questions, normalized_question_ids = _filter_question_ids(
-            questions, question_ids
-        )
         questions = _filter_question_range(questions, normalized_question_range)
         artifact_blockers = self._artifact_blockers_for_stage(
             groups,
