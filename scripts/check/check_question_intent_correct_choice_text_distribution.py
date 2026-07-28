@@ -143,7 +143,9 @@ def validate_question_intent_correct_choice_distribution(
     questionIntent と correctChoiceText の基礎整合性を検査する。
 
     correctChoiceText は選択肢そのものの正誤を表す。
-    各fieldの型を確認した後、parseできる公式解答との一致を検出する。
+    各fieldの型を確認した後、問題単位で回答する形式ではparseできる
+    公式解答との一致を検出する。true_falseは各肢を独立した問題へ
+    変換するため、元問題の公式解答番号との個数・index比較を行わない。
     不一致でも一方から他方を再導出せず、再確認対象として停止する。
     """
     violations: list[Violation] = []
@@ -223,11 +225,15 @@ def validate_question_intent_correct_choice_distribution(
             )
             continue
 
-        alignment_issue = official_answer_alignment_issue(
-            {
-                **qb,
-                "correctChoiceText": normalized,
-            }
+        alignment_issue = (
+            None
+            if qb.get("questionType") == "true_false"
+            else official_answer_alignment_issue(
+                {
+                    **qb,
+                    "correctChoiceText": normalized,
+                }
+            )
         )
         if alignment_issue:
             violations.append(

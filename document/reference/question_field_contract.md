@@ -59,7 +59,7 @@
 | 02 | 設問が正しい側と誤っている側のどちらを選ばせるかを表す`questionIntent`。 | 各選択肢の正誤、問題形式。 |
 | 02a | 問題文と各選択肢を結合した命題を根拠に照らした`correctChoiceText`。各選択肢を独立に判定する。 | 設問方向、問題形式、問題文、選択肢。 |
 
-各工程で根拠が足りない問題は、現在値を維持して成功扱いにせず`hold`へ送ります。serverは工程ごとにsource identity、ID、件数、型、許可値を検証してpatchを確定します。01〜02aの確定後にcross-field検証を行い、`questionType`、`questionIntent`、`correctChoiceText`又は公式解答が矛盾すれば後続処理を停止します。機械検証は不整合の検出だけを担い、どのfieldを変更するかは決めません。
+各工程で根拠が足りない問題は、現在値を維持して成功扱いにせず`hold`へ送ります。serverは工程ごとにsource identity、ID、件数、型、許可値を検証してpatchを確定します。01〜02aの候補確定時にはcross-field検証を行い、`questionType`、`questionIntent`、`correctChoiceText`又は公式解答が矛盾すれば後続処理を停止します。機械検証は不整合の検出だけを担い、どのfieldを変更するかは決めません。根拠付きの再整備で確定した`true_false`は各肢を独立した○×問題へ変換するため、convertで元問題の公式解答番号による正答数・index制約を再適用しません。公開前の別session評価が全肢の正誤と解説を独立に確認します。
 
 ## 工程別の必須項目
 
