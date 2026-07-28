@@ -1222,12 +1222,12 @@ def validate_candidate_content(
             value = audit.get(field)
             if value in (None, "", []):
                 errors.append(f"監査sidecarの{field}がありません。")
-        if audit.get("auditStatus") == "updated_to_current_law" and (
-            audit.get("reviewState") != "tertiary_verified"
-            or not str(audit.get("tertiaryAuditRunId") or "").strip()
+        if (
+            audit.get("auditStatus") == "updated_to_current_law"
+            and audit.get("reviewState") != "tertiary_verified"
         ):
             errors.append(
-                "updated_to_current_lawにはtertiary_verifiedとtertiaryAuditRunIdが必要です。"
+                "updated_to_current_lawにはtertiary_verifiedが必要です。"
             )
         fact_items = (
             list(facts)

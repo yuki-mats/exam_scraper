@@ -145,7 +145,8 @@ label = "正答精査"
 purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
 kind = "human"
 # 3.0: judge証拠をsource本文・選択肢に対する最終正誤として扱い、二重反転を廃止する。
-policy_version = "3.0"
+# 3.1: gassyunin URLとjudge対応を保持するFirestore snapshot 2問も同じ正答証拠契約で扱う。
+policy_version = "3.1"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"

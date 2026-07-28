@@ -10,7 +10,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 - `questionBodyText`と各`choiceTextList`を結合した完全な命題を一肢ずつ読み、出題時点の公式解答、元解説、資格別方針で認めた根拠と照合します。
 - 02aが所有するのは通常`correctChoiceText`だけです。`questionType`、`isCalculationQuestion`、`questionIntent`、問題文、選択肢、解説、IDを変更しません。
 - 現在の`correctChoiceText`、正答数、`questionType`又は`questionIntent`から各肢の正誤を逆算しません。各選択肢を同じ根拠基準で独立に判定します。
-- `sourceAnswerEvidence`は、`00_source`から分離した更新不能な正答証拠です。`evidenceType=trusted_gassyunin_judge_statement_verdicts`かつ`verdictSemantics=final_correct_choice_text_for_source_text`では、取得元のjudge欄がsourceの問題文と各選択肢を組み合わせた最終命題へ`correctChoiceText`を対応付け、件数・順序・出所を機械検証済みです。`appliesToCurrentText=true`なら現在の本文・選択肢と完全一致するため、この配列を最終正誤として扱い、否定語又は`questionIntent`で再反転しません。公式解答との衝突又は専門的根拠との明白な衝突があれば、配列を推測で変更せず`hold`にします。`appliesToCurrentText=false`ならsource配列を現在値へ転記せず、現在の完全な命題を独立に判定します。公式解答番号は`answerResultSemantics`に従って数、元の組合せ肢番号又は選択肢番号として解釈します。
+- `sourceAnswerEvidence`は、`00_source`から分離した更新不能な正答証拠です。`evidenceType=trusted_gassyunin_judge_statement_verdicts`かつ`verdictSemantics=final_correct_choice_text_for_source_text`では、取得元のjudge欄がsourceの問題文と各選択肢を組み合わせた最終命題へ`correctChoiceText`を対応付け、件数・順序・出所を機械検証済みです。gassyunin URLとjudge対応を保持したFirestore snapshotも同じ検証を通った場合だけ含みます。`appliesToCurrentText=true`なら現在の本文・選択肢と完全一致するため、この配列を最終正誤として扱い、否定語又は`questionIntent`で再反転しません。モデル内部の記憶や出典を示さない一般知識だけを、この証拠との明白な衝突とは扱いません。公式解答又は確認済みの公式・一次資料と衝突する場合は、配列を推測で変更せず、確認した資料を要約して`hold`にします。`appliesToCurrentText=false`ならsource配列を現在値へ転記せず、現在の完全な命題を独立に判定します。公式解答番号は`answerResultSemantics`に従って数、元の組合せ肢番号又は選択肢番号として解釈します。
 - 根拠不足、公式解答との衝突、画像欠落又は命題を一意に読めない問題は、問題単位の`hold`（構造化候補では`status=blocked`）にします。一部の肢だけを確定したり、現在値で残りを埋めたりしません。
 
 ## 判定基準

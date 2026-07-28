@@ -535,7 +535,11 @@ def _server_law_audit_fields(
             ).strip(),
         }
     )
-    values.setdefault("tertiaryAuditRunId", None)
+    values["tertiaryAuditRunId"] = (
+        f"{run_id}:tertiary"
+        if audit_status == "updated_to_current_law"
+        else None
+    )
     return values
 
 
@@ -1477,6 +1481,9 @@ def _structured_candidate_prompt(
             "verdictSemantics=final_correct_choice_text_for_source_textかつ"
             "appliesToCurrentText=trueなら、配列は現在と完全一致する本文・選択肢に対する"
             "最終正誤であり、否定語やquestionIntentを使って再反転しない。"
+            "モデル内部の記憶や出典を示さない一般知識だけを、この証拠との明白な"
+            "衝突とは扱わない。公式解答又は確認済みの公式・一次資料と衝突する場合だけ、"
+            "確認した資料をsummaryへ要約してblockedにする。"
             "appliesToCurrentText=falseなら、source配列を現在値へ転記せず、現在の本文と"
             "選択肢から完全な命題を作り直す。完全な記述肢では「誤っているものを選べ」等は"
             "選択方向にだけ使い、名詞句等の断片肢では本文の述語を一度だけ補う。"

@@ -974,6 +974,37 @@ class ServerLawAuditFieldsTests(unittest.TestCase):
         self.assertEqual(fields["noticeReason"], "")
         self.assertEqual(fields["remainingRisk"], "")
 
+    def test_server_assigns_tertiary_run_id_for_current_law_update(self):
+        fields = _server_law_audit_fields(
+            qualification="sample-exam",
+            list_group_id="2026",
+            run_id="run-2",
+            policy_version="4.2",
+            projected={
+                "questionBodyText": "問題文",
+                "choiceTextList": ["記述A"],
+                "correctChoiceText": ["正しい"],
+            },
+            candidate_fields={
+                "auditStatus": "updated_to_current_law",
+                "reviewState": "tertiary_verified",
+                "tertiaryAuditRunId": None,
+                "examTimeDecision": ["正しい"],
+                "currentLawDecision": ["間違い"],
+                "correctChoiceText": ["間違い"],
+                "lawReferences": [[{"lawId": "123AC0000000001"}]],
+                "lawRevisionFacts": [
+                    {
+                        "auditStatus": "updated_to_current_law",
+                        "reviewState": "tertiary_verified",
+                    }
+                ],
+            },
+        )
+
+        self.assertEqual(fields["tertiaryAuditRunId"], "run-2:tertiary")
+        self.assertTrue(fields["userVisibleNoticeRequired"])
+
 
 def _v2_aggregate_review_result(result, prompt):
     payload = json.loads(result.final_message)

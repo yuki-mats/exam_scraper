@@ -6,6 +6,7 @@ from scripts.common.question_answer_contract import (
     asks_for_selected_choice_count,
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
+    uses_trusted_gassyunin_judge_answers,
 )
 
 
@@ -41,6 +42,124 @@ class QuestionAnswerContractTests(unittest.TestCase):
                     "questionIntent": "select_incorrect",
                     "correctChoiceText": ["正しい", "間違い"],
                     "answer_result_text": "正解は 2 です。",
+                }
+            )
+        )
+
+    def test_official_answer_uses_exam_time_verdicts_after_current_law_update(
+        self,
+    ) -> None:
+        self.assertIsNone(
+            official_answer_alignment_issue(
+                {
+                    "questionBodyText": "誤っているものはどれか。",
+                    "questionIntent": "select_incorrect",
+                    "correctChoiceText": [
+                        "間違い",
+                        "正しい",
+                        "正しい",
+                        "間違い",
+                        "正しい",
+                    ],
+                    "answer_result_text": "正解は 4 です。",
+                    "lawRevisionFacts": [
+                        {
+                            "auditStatus": "updated_to_current_law",
+                            "examTime": {"correctChoiceText": "正しい"},
+                            "current": {"correctChoiceText": "間違い"},
+                        },
+                        {
+                            "auditStatus": "not_law_related",
+                            "examTime": {"correctChoiceText": "正しい"},
+                            "current": {"correctChoiceText": "正しい"},
+                        },
+                        {
+                            "auditStatus": "not_law_related",
+                            "examTime": {"correctChoiceText": "正しい"},
+                            "current": {"correctChoiceText": "正しい"},
+                        },
+                        {
+                            "auditStatus": "not_law_related",
+                            "examTime": {"correctChoiceText": "間違い"},
+                            "current": {"correctChoiceText": "間違い"},
+                        },
+                        {
+                            "auditStatus": "not_law_related",
+                            "examTime": {"correctChoiceText": "正しい"},
+                            "current": {"correctChoiceText": "正しい"},
+                        },
+                    ],
+                }
+            )
+        )
+
+    def test_incomplete_exam_time_verdicts_do_not_hide_official_mismatch(
+        self,
+    ) -> None:
+        issue = official_answer_alignment_issue(
+            {
+                "questionBodyText": "誤っているものはどれか。",
+                "questionIntent": "select_incorrect",
+                "correctChoiceText": ["間違い", "正しい"],
+                "answer_result_text": "正解は 2 です。",
+                "lawRevisionFacts": [
+                    {
+                        "auditStatus": "updated_to_current_law",
+                        "examTime": {"correctChoiceText": "正しい"},
+                    },
+                    {
+                        "auditStatus": "same_as_current",
+                        "examTime": {},
+                    },
+                ],
+            }
+        )
+
+        self.assertIsNotNone(issue)
+        assert issue is not None
+        self.assertIn("公式=[2]", issue)
+        self.assertIn("判定=[1]", issue)
+
+    def test_trusted_judge_accepts_bound_gassyunin_firestore_snapshot(
+        self,
+    ) -> None:
+        self.assertTrue(
+            uses_trusted_gassyunin_judge_answers(
+                {
+                    "sourceProvider": "gassyunin.com+firestore_snapshot",
+                    "sourceOrigin": "firestore_snapshot",
+                    "question_url": (
+                        "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q27"
+                    ),
+                    "choiceMarkerSource": "judge",
+                    "markerAlignmentMode": "judge_only",
+                    "markerMismatchDetected": False,
+                    "answerResultNumbersRemapped": False,
+                    "judgeChoiceMarkers": ["1", "2"],
+                    "choiceTextList": ["記述1", "記述2"],
+                    "correctChoiceText": ["間違い", "正しい"],
+                    "sourceStatementCount": 2,
+                }
+            )
+        )
+
+    def test_trusted_judge_rejects_snapshot_without_gassyunin_url(
+        self,
+    ) -> None:
+        self.assertFalse(
+            uses_trusted_gassyunin_judge_answers(
+                {
+                    "sourceProvider": "gassyunin.com+firestore_snapshot",
+                    "sourceOrigin": "firestore_snapshot",
+                    "question_url": "https://example.com/copied",
+                    "choiceMarkerSource": "judge",
+                    "markerAlignmentMode": "judge_only",
+                    "markerMismatchDetected": False,
+                    "answerResultNumbersRemapped": False,
+                    "judgeChoiceMarkers": ["1", "2"],
+                    "choiceTextList": ["記述1", "記述2"],
+                    "correctChoiceText": ["間違い", "正しい"],
+                    "sourceStatementCount": 2,
                 }
             )
         )

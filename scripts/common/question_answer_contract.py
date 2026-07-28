@@ -133,9 +133,21 @@ def asks_for_combination_choice(value: Any) -> bool:
 def uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
     """Return whether per-statement answers come from the trusted judge section."""
 
+    provider = str(record.get("sourceProvider") or "").strip()
+    origin = str(record.get("sourceOrigin") or "").strip()
+    source_url = str(
+        record.get("question_url") or record.get("sourceUrl") or ""
+    ).strip()
+    is_direct_source = (
+        provider == "gassyunin.com" and origin == "gassyunin_site"
+    )
+    is_preserved_snapshot = (
+        provider in {"gassyunin.com", "gassyunin.com+firestore_snapshot"}
+        and origin == "firestore_snapshot"
+        and source_url.startswith("https://gassyunin.com/")
+    )
     if (
-        record.get("sourceProvider") != "gassyunin.com"
-        or record.get("sourceOrigin") != "gassyunin_site"
+        not (is_direct_source or is_preserved_snapshot)
         or record.get("choiceMarkerSource") != "judge"
         or record.get("markerAlignmentMode") != "judge_only"
         or record.get("markerMismatchDetected") is not False
@@ -164,6 +176,58 @@ def uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
     )
 
 
+def _exam_time_correct_choices_for_official_alignment(
+    law_revision_facts: Any,
+    *,
+    choice_count: int,
+) -> list[str] | None:
+    """Return complete exam-time verdicts only for a verified current-law drift."""
+
+    if isinstance(law_revision_facts, list):
+        if (
+            len(law_revision_facts) != choice_count
+            or not all(isinstance(fact, dict) for fact in law_revision_facts)
+            or not any(
+                fact.get("auditStatus") == "updated_to_current_law"
+                for fact in law_revision_facts
+            )
+        ):
+            return None
+        verdicts: list[str] = []
+        for fact in law_revision_facts:
+            exam_time = fact.get("examTime")
+            verdict = (
+                exam_time.get("correctChoiceText")
+                if isinstance(exam_time, dict)
+                else None
+            )
+            if verdict not in CORRECT_LABELS | INCORRECT_LABELS:
+                return None
+            verdicts.append(verdict)
+        return verdicts
+
+    if not isinstance(law_revision_facts, dict) or (
+        law_revision_facts.get("auditStatus") != "updated_to_current_law"
+    ):
+        return None
+    exam_time = law_revision_facts.get("examTime")
+    verdicts = (
+        exam_time.get("correctChoiceText")
+        if isinstance(exam_time, dict)
+        else None
+    )
+    if (
+        not isinstance(verdicts, list)
+        or len(verdicts) != choice_count
+        or any(
+            verdict not in CORRECT_LABELS | INCORRECT_LABELS
+            for verdict in verdicts
+        )
+    ):
+        return None
+    return list(verdicts)
+
+
 def official_answer_alignment_issue(record: Any) -> str | None:
     """Detect a final cross-field mismatch without choosing which field to change."""
 
@@ -189,6 +253,13 @@ def official_answer_alignment_issue(record: Any) -> str | None:
         for value in correct_choices
     ):
         return None
+    exam_time_correct_choices = (
+        _exam_time_correct_choices_for_official_alignment(
+            record.get("lawRevisionFacts"),
+            choice_count=len(correct_choices),
+        )
+    )
+    answer_choices = exam_time_correct_choices or correct_choices
     official_numbers = parse_official_answer_numbers(record.get("answer_result_text"))
     if not official_numbers:
         return None
@@ -197,7 +268,7 @@ def official_answer_alignment_issue(record: Any) -> str | None:
         return None
     independently_selected = tuple(
         index
-        for index, value in enumerate(correct_choices, start=1)
+        for index, value in enumerate(answer_choices, start=1)
         if value in selected_labels
     )
     if asks_for_selected_choice_count(source_text):
