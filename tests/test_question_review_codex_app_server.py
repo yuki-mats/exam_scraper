@@ -1393,7 +1393,7 @@ class AppServerTurnTests(unittest.TestCase):
     def test_active_turn_deadline_raises_question_scoped_timeout(self):
         class HangingTurnClient(ProtocolClient):
             def __init__(self):
-                super().__init__(turn_timeout=0)
+                super().__init__(turn_timeout=10)
                 self.interrupted = []
 
             def _request(self, method, params, *, timeout=None):
@@ -1422,10 +1422,12 @@ class AppServerTurnTests(unittest.TestCase):
                 work_type="maintenance_explanation_candidate",
                 sandbox="read-only",
                 emit=lambda _line: None,
+                turn_timeout=0.001,
             )
 
         self.assertEqual(client.interrupted, [("thread-1", "turn-1")])
         self.assertEqual(client._turns, {})
+        self.assertEqual(client.turn_timeout, 10)
 
     def test_control_requests_allow_a_full_sixty_four_thread_startup_wave(self):
         class TimeoutClient(ProtocolClient):

@@ -2638,7 +2638,7 @@ class QuestionReviewApplication:
         status = str(evaluation.get("status") or "not_started")
         if not evaluation.get("machineReady"):
             return "maintenance"
-        if status in {"not_started", "stale", "running"}:
+        if status in {"not_started", "stale", "running", "inconclusive"}:
             return "unreviewed"
         if status == "needs_rework":
             return "needsRework"

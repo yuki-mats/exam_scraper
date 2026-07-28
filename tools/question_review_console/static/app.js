@@ -51,6 +51,7 @@ const EVALUATION_LABELS = {
   not_started: "評価待ち",
   running: "評価中",
   stale: "再評価が必要",
+  inconclusive: "評価未完了",
   needs_rework: "要再整備",
   passed: "公開可能",
 };
@@ -4803,6 +4804,7 @@ function evaluationDisplay(question) {
   }
   if (status === "passed") return { label: "公開可能", tone: "good" };
   if (status === "needs_rework") return { label: "要再整備", tone: "danger" };
+  if (status === "inconclusive") return { label: "評価未完了", tone: "warning" };
   if (status === "running") return { label: "評価中", tone: "running" };
   if (status === "stale") return { label: "再評価", tone: "warning" };
   return { label: "評価待ち", tone: "neutral" };
@@ -5903,13 +5905,24 @@ function renderPipelineActions(question) {
       "修正を依頼",
       "現在の要確認項目を、正本と対象pathを含むCodex依頼として作成します。",
     ));
-  } else if (["not_started", "stale"].includes(evaluation.status)) {
+  } else if (["not_started", "stale", "inconclusive"].includes(evaluation.status)) {
+    const retryEvaluation = ["stale", "inconclusive"].includes(evaluation.status);
     status.append(
-      element("strong", "", evaluation.status === "stale" ? "再評価が必要です" : "評価待ちです"),
-      element("span", "", "一覧で他の整備済み問題とまとめて選択し、別セッション評価を開始できます。"),
+      element("strong", "", evaluation.status === "inconclusive"
+        ? "評価を完了できませんでした"
+        : evaluation.status === "stale"
+          ? "再評価が必要です"
+          : "評価待ちです"),
+      element(
+        "span",
+        "",
+        evaluation.status === "inconclusive"
+          ? "全選択肢を一つも検証できなかった評価失敗です。問題内容の指摘にはせず、別セッションで再評価します。"
+          : "一覧で他の整備済み問題とまとめて選択し、別セッション評価を開始できます。",
+      ),
     );
     actions.append(actionWithHelp(
-      evaluation.status === "stale" ? "この問題を再評価" : "この問題を評価",
+      retryEvaluation ? "この問題を再評価" : "この問題を評価",
       "primary-button",
       () => openEvaluationDialog([question.id]),
       "別セッション評価",

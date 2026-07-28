@@ -1230,6 +1230,7 @@ class CodexAppServerClient:
         speed_mode: str = STANDARD_SPEED_MODE,
         turn_group: str | None = None,
         monitor_context: Mapping[str, Any] | None = None,
+        turn_timeout: float | None = None,
     ) -> AppServerTurnResult:
         return self._run_turn_unbudgeted(
             prompt,
@@ -1248,6 +1249,7 @@ class CodexAppServerClient:
             speed_mode=speed_mode,
             turn_group=turn_group,
             monitor_context=monitor_context,
+            turn_timeout=turn_timeout,
         )
 
     def turn_group(self, qualification: str):
@@ -1272,8 +1274,21 @@ class CodexAppServerClient:
         speed_mode: str = STANDARD_SPEED_MODE,
         turn_group: str | None = None,
         monitor_context: Mapping[str, Any] | None = None,
+        turn_timeout: float | None = None,
     ) -> AppServerTurnResult:
         speed_mode = normalize_speed_mode(speed_mode)
+        resolved_turn_timeout = float(self.turn_timeout)
+        if turn_timeout is not None:
+            requested_turn_timeout = float(turn_timeout)
+            if (
+                not math.isfinite(requested_turn_timeout)
+                or requested_turn_timeout <= 0
+            ):
+                raise ValueError("turn timeout must be finite and positive")
+            resolved_turn_timeout = min(
+                resolved_turn_timeout,
+                requested_turn_timeout,
+            )
         requested_service_tier = None
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError(f"unsupported sandbox: {sandbox}")
@@ -1502,7 +1517,7 @@ class CodexAppServerClient:
 
                 receipt_interrupted = False
                 completed_message_interrupted = False
-                deadline = time.monotonic() + self.turn_timeout
+                deadline = time.monotonic() + resolved_turn_timeout
                 next_heartbeat = (
                     time.monotonic() + TURN_HEARTBEAT_INTERVAL_SECONDS
                     if callable(heartbeat_callback)

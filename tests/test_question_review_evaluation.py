@@ -268,6 +268,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             kwargs["output_schema"]["properties"]["choiceEvaluations"]["maxItems"],
             2,
         )
+        self.assertEqual(kwargs["turn_timeout"], 8 * 60)
         self.assertNotIn('"paths"', prompt)
         self.assertEqual(
             kwargs["monitor_context"],
@@ -550,6 +551,49 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["completedCount"], 1)
         self.assertEqual(result["passedCount"], 1)
         self.assertEqual(result["needsReworkCount"], 0)
+
+    def test_batch_keeps_fully_unverified_retry_out_of_rework(self):
+        calls = 0
+
+        def runner(_prompt):
+            nonlocal calls
+            calls += 1
+            result = evaluation_result(status="needs_rework")
+            result["explanationScore"] = 0
+            result["criticalIssues"] = ["評価処理を完了できませんでした。"]
+            result["reworkItems"] = [
+                {
+                    "stage": "03",
+                    "message": "評価をやり直してください。",
+                    "choiceIndexes": [0, 1],
+                }
+            ]
+            for choice in result["choiceEvaluations"]:
+                choice["verdict"] = "insufficient_evidence"
+            return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=runner,
+            )
+            question = question_payload()
+            preview = service.preview_many([question])
+            result = service.run_many(
+                [question], preview["previewToken"], lambda _line: None
+            )
+            status = service.status_for(question)
+
+        self.assertEqual(calls, 2)
+        self.assertEqual(result["completedCount"], 1)
+        self.assertEqual(result["passedCount"], 0)
+        self.assertEqual(result["needsReworkCount"], 0)
+        self.assertEqual(result["inconclusiveCount"], 1)
+        self.assertEqual(result["results"][0]["status"], "inconclusive")
+        self.assertEqual(status["status"], "inconclusive")
+        self.assertEqual(status["nextAction"], "evaluate")
+        self.assertEqual(status["reworkItems"], [])
 
     def test_batch_rejects_questions_from_different_qualifications(self):
         with tempfile.TemporaryDirectory() as directory:
