@@ -468,6 +468,147 @@ def is_law_revision_facts_shape(
     return normalized_any and _is_law_revision_facts(normalized)
 
 
+def law_revision_facts_shape_errors(
+    value: Any,
+    *,
+    allow_choice_verdict_lists: bool = False,
+) -> list[str]:
+    """Explain why one fact object misses the public Firestore contract."""
+    if not isinstance(value, dict):
+        return ["objectではありません"]
+
+    errors: list[str] = []
+    extra_keys = sorted(set(value) - LAW_REVISION_FACT_KEYS)
+    if extra_keys:
+        errors.append("未対応field: " + ", ".join(extra_keys))
+    if value.get("auditStatus") not in LAW_REVISION_AUDIT_STATUSES:
+        errors.append("auditStatusが許可値ではありません")
+
+    required_string_fields = {
+        "reviewState",
+        "auditedAt",
+        "nextAuditDueAt",
+        "auditMethodVersion",
+        "auditInputHash",
+        "auditRunId",
+        "lawCorpusSnapshotId",
+        "primaryAuditRunId",
+        "secondaryAuditRunId",
+        "tertiaryAuditRunId",
+        "reconciliationStatus",
+        "sourceEvidenceVersionId",
+        "evidenceBindingHash",
+    }
+    for key in sorted(set(value) & required_string_fields):
+        if not _is_non_empty_str(value[key]):
+            errors.append(f"{key}が非空文字列ではありません")
+
+    for key in ("examTime", "current"):
+        if key not in value:
+            continue
+        snapshot = value[key]
+        if not isinstance(snapshot, dict):
+            errors.append(f"{key}がobjectではありません")
+            continue
+        snapshot_extra_keys = sorted(set(snapshot) - LAW_REVISION_SNAPSHOT_KEYS)
+        if snapshot_extra_keys:
+            errors.append(
+                f"{key}の未対応field: " + ", ".join(snapshot_extra_keys)
+            )
+        for field, item in snapshot.items():
+            if field not in LAW_REVISION_SNAPSHOT_KEYS:
+                continue
+            if (
+                field == "correctChoiceText"
+                and allow_choice_verdict_lists
+                and isinstance(item, list)
+            ):
+                if not item or any(not _is_non_empty_str(entry) for entry in item):
+                    errors.append(
+                        f"{key}.correctChoiceTextが非空文字列の配列ではありません"
+                    )
+            elif not _is_non_empty_str(item):
+                errors.append(f"{key}.{field}が非空文字列ではありません")
+
+    for key in ("differenceFacts", "answerImpactFacts", "notes"):
+        if key in value and not _is_list_of_str(value[key]):
+            errors.append(f"{key}が文字列配列ではありません")
+
+    if "evidenceSummary" in value:
+        summary = value["evidenceSummary"]
+        if not isinstance(summary, dict):
+            errors.append("evidenceSummaryがobjectではありません")
+        else:
+            summary_extra_keys = sorted(
+                set(summary) - LAW_REVISION_EVIDENCE_SUMMARY_KEYS
+            )
+            if summary_extra_keys:
+                errors.append(
+                    "evidenceSummaryの未対応field: "
+                    + ", ".join(summary_extra_keys)
+                )
+            for key, item in summary.items():
+                if key not in LAW_REVISION_EVIDENCE_SUMMARY_KEYS:
+                    continue
+                if key == "displayRefIds":
+                    if not _is_list_of_str(item):
+                        errors.append(
+                            "evidenceSummary.displayRefIdsが文字列配列ではありません"
+                        )
+                elif key == "refs":
+                    if not isinstance(item, list):
+                        errors.append("evidenceSummary.refsが配列ではありません")
+                        continue
+                    for index, ref in enumerate(item, start=1):
+                        if not isinstance(ref, dict):
+                            errors.append(
+                                f"evidenceSummary.refs[{index}]がobjectではありません"
+                            )
+                            continue
+                        ref_extra_keys = sorted(
+                            set(ref) - LAW_REVISION_EVIDENCE_REF_KEYS
+                        )
+                        if ref_extra_keys:
+                            errors.append(
+                                f"evidenceSummary.refs[{index}]の未対応field: "
+                                + ", ".join(ref_extra_keys)
+                            )
+                        for field, ref_value in ref.items():
+                            if field not in LAW_REVISION_EVIDENCE_REF_KEYS:
+                                continue
+                            if field == "highlightElms":
+                                if not _is_list_of_str(ref_value):
+                                    errors.append(
+                                        "evidenceSummary."
+                                        f"refs[{index}].highlightElmsが"
+                                        "文字列配列ではありません"
+                                    )
+                            elif field == "primaryBasis":
+                                if not isinstance(ref_value, bool):
+                                    errors.append(
+                                        "evidenceSummary."
+                                        f"refs[{index}].primaryBasisが"
+                                        "booleanではありません"
+                                    )
+                            elif not _is_non_empty_str(ref_value):
+                                errors.append(
+                                    "evidenceSummary."
+                                    f"refs[{index}].{field}が"
+                                    "非空文字列ではありません"
+                                )
+                elif not _is_non_empty_str(item):
+                    errors.append(
+                        f"evidenceSummary.{key}が非空文字列ではありません"
+                    )
+
+    if not errors and not is_law_revision_facts_shape(
+        value,
+        allow_choice_verdict_lists=allow_choice_verdict_lists,
+    ):
+        errors.append("公開契約に一致しません")
+    return errors
+
+
 def _ensure_only_allowed_fields(schema: CollectionSchema, doc: dict[str, Any], *, doc_id: str) -> None:
     extra = sorted(set(doc.keys()) - schema.allowed_fields)
     if extra:

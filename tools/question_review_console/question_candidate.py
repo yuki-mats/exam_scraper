@@ -23,6 +23,7 @@ from scripts.common.question_answer_contract import (
 from scripts.common.repaso_firestore_schema import (
     _is_law_revision_evidence_summary,
     is_law_revision_facts_shape,
+    law_revision_facts_shape_errors,
 )
 from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
@@ -476,6 +477,12 @@ _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
         "refId、lawTimeScope、relation、primaryBasis、lawId、lawRevisionId、"
         "lawTitle、elm、encodedElm、rootArticleElm、article、paragraph、item、"
         "subitem、highlightElms、articleTextHash、textHashだけを使用する。"
+        "currentとexamTimeで使用できるfieldはcorrectChoiceText、lawId、"
+        "lawRevisionId、lawTitle、article、paragraph、item、subitem、"
+        "referenceDate、effectiveDate、verificationStatus、articleText、"
+        "articleTextHash、sourceUrlだけである。複数の号をitems等の独自fieldへ"
+        "まとめず、単一値にできないlocatorはsnapshotからomitし、必要なら"
+        "evidenceSummary.refsのobjectごとに記録する。"
         "auditStatus=updated_to_current_lawはreviewState=tertiary_verifiedに限る。"
         "法令肢と技術肢が混在する問題では、技術肢を"
         "auditStatus=not_law_related、reviewState=secondary_verifiedとして"
@@ -1281,9 +1288,17 @@ def validate_candidate_content(
                 dict(fact),
                 allow_choice_verdict_lists=True,
             ):
+                details = law_revision_facts_shape_errors(
+                    dict(fact),
+                    allow_choice_verdict_lists=True,
+                )
                 errors.append(
                     f"lawRevisionFacts[{index}]が"
                     "Firestore公開契約に一致しません。"
+                )
+                errors.append(
+                    f"lawRevisionFacts[{index}]の公開契約エラー詳細: "
+                    + " / ".join(details)
                 )
             if fact.get("auditStatus") not in {
                 "same_as_current",

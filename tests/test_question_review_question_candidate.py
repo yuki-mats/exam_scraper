@@ -1781,6 +1781,14 @@ class QuestionCandidateTest(unittest.TestCase):
             "not_law_related",
             audit_rules["lawRevisionFacts"]["description"],
         )
+        self.assertIn(
+            "複数の号をitems等の独自fieldへ",
+            audit_rules["lawRevisionFacts"]["description"],
+        )
+        self.assertIn(
+            "evidenceSummary.refs",
+            audit_rules["lawRevisionFacts"]["description"],
+        )
         law_reference_item = audit_rules["lawReferences"]["items"]["items"]
         self.assertIn("lawId", law_reference_item["required"])
         self.assertIn("verificationStatus", law_reference_item["required"])
@@ -2095,7 +2103,10 @@ class QuestionCandidateTest(unittest.TestCase):
                 {
                     "auditStatus": "same_as_current",
                     "reviewState": "secondary_verified",
-                    "current": {"correctChoiceText": "正しい"},
+                    "current": {
+                        "correctChoiceText": "正しい",
+                        "items": ["1"],
+                    },
                     "examTime": {"correctChoiceText": "正しい"},
                     "evidenceSummary": {"summary": "旧形式の要約"},
                 }
@@ -2143,6 +2154,15 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertTrue(
             any("Firestore公開契約に一致しません" in error for error in errors)
+        )
+        self.assertTrue(
+            any("currentの未対応field: items" in error for error in errors)
+        )
+        self.assertTrue(
+            any(
+                "evidenceSummaryの未対応field: summary" in error
+                for error in errors
+            )
         )
 
     def test_law_audit_routes_misplaced_fields_to_server_owned_targets(self):
