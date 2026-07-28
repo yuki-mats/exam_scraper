@@ -2046,7 +2046,7 @@ assert.deepEqual(
             javascript,
         )
         self.assertIn(
-            'state.questionContentApiVersion >= 1',
+            'state.questionContentApiVersion >= 1 && state.auditView.readOnly',
             javascript,
         )
         self.assertIn(
@@ -2122,7 +2122,7 @@ assert.deepEqual(
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260728-22"
+        asset_version = "question-review-ui-v3-20260728-23"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

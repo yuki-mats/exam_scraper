@@ -4898,7 +4898,7 @@ function normalizeVerdict(value) {
 }
 
 function questionContentPath(questionId, params, fingerprint = false) {
-  const resource = state.questionContentApiVersion >= 1
+  const resource = state.questionContentApiVersion >= 1 && state.auditView.readOnly
     ? "question-content"
     : "questions";
   const suffix = fingerprint ? "/fingerprint" : "";
