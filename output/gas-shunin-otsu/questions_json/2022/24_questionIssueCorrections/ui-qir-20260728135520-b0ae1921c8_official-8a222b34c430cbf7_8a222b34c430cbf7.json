@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728135520-b0ae1921c8",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-b0ae1921c81d7ecad39a"
+  ],
+  "inputCaseHashes": {
+    "ui-official-b0ae1921c81d7ecad39a": "b0ae1921c81d7ecad39a85c7b049a39eb1666a779dc9a5a1c78622d54295f57c"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "8d87fc3082c10022c316b4ba3ee5629933986f0dcd1536a23daa69b83d04f43b",
+    "fa54258e5612cec22faa1e7c89b699a18bbdd21a9a4338b6a4da7c9f233da7ea"
+  ],
+  "challengeReviewHash": "fe0d401337e2055a8fd1e7baeaa47d421b6188c4a6f77eb40e3f2771e94cf9d6",
+  "createdAt": "2026-07-28T13:56:36.149880Z",
+  "entries": [
+    {
+      "original_question_id": "8a222b34c430cbf7",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q20",
+      "reviewQuestionId": "8a222b34c430cbf7",
+      "sourceRecordRef": "question_2022_3.json#0",
+      "expectedBeforeHash": "e1c4dd9b3cb4e59d0f0104f692d719a7aaf369c1938f5e607906c64af0ddea7f",
+      "changes": {
+        "questionBodyText": "赤火燃焼式に関する次の記述のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。\n赤火燃焼式\n空気割合\n一次空気 0%\n二次空気 100%\n炎の色 （イ）\n炎の長さ （ロ）\n炎の温度（℃） （ハ）"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-31.png / 消費機器 問20（PDF 31ページ、冊子30ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T13:55:37Z",
+          "contentHash": "125480d740153dec57206831a5f65aa8ac4d69184c766532cb9ce32475ada65b"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-31.png / 消費機器 問20（PDF 31ページ、冊子30ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T13:55:38Z",
+          "contentHash": "125480d740153dec57206831a5f65aa8ac4d69184c766532cb9ce32475ada65b"
+        }
+      ]
+    }
+  ]
+}
