@@ -417,7 +417,8 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
         "choiceTextListと必ず同じ件数にし、各要素をその選択肢の根拠配列にする。"
         "03bでは各根拠をobjectで返し、verificationStatus=verified、正式法令名、"
         "lawId、条番号、基準日、一次情報sourceを省略しない。変更不要な選択肢の"
-        "検証済み根拠は保持する。"
+        "検証済み根拠は保持する。法令肢と技術肢が混在する問題では、法令肢だけに"
+        "verified根拠を入れ、技術肢は空配列にする。"
     ),
     "items": {
         "type": "array",
@@ -466,6 +467,9 @@ _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
         "scalar、非空objectのevidenceSummaryを入れる。互換のquestion-level objectを"
         "使う場合はcurrent/examTime.correctChoiceTextを選択肢順の配列にする。"
         "auditStatus=updated_to_current_lawはreviewState=tertiary_verifiedに限る。"
+        "法令肢と技術肢が混在する問題では、技術肢を"
+        "auditStatus=not_law_related、reviewState=secondary_verifiedとして"
+        "選択肢別に確定する。"
     ),
 }
 
@@ -1268,7 +1272,42 @@ def validate_candidate_content(
             ):
                 errors.append("lawReferencesが選択肢と同じ件数ではありません。")
             else:
+                per_choice_facts = (
+                    fact_items
+                    if isinstance(facts, list) and len(fact_items) == len(choices)
+                    else None
+                )
+                if per_choice_facts is not None and all(
+                    isinstance(fact, Mapping)
+                    and fact.get("auditStatus") == "not_law_related"
+                    for fact in per_choice_facts
+                ):
+                    errors.append(
+                        "isLawRelated=trueですが、全選択肢が"
+                        "not_law_relatedになっています。"
+                    )
                 for choice_index, references in enumerate(law_references):
+                    fact = (
+                        per_choice_facts[choice_index]
+                        if per_choice_facts is not None
+                        else None
+                    )
+                    choice_is_not_law_related = (
+                        isinstance(fact, Mapping)
+                        and fact.get("auditStatus") == "not_law_related"
+                    )
+                    if choice_is_not_law_related:
+                        if fact.get("reviewState") != "secondary_verified":
+                            errors.append(
+                                f"lawRevisionFacts[{choice_index + 1}]の"
+                                "not_law_relatedにはsecondary_verifiedが必要です。"
+                            )
+                        if not isinstance(references, list) or references:
+                            errors.append(
+                                f"lawReferences[{choice_index}]は"
+                                "not_law_relatedの選択肢では空配列にしてください。"
+                            )
+                        continue
                     if not isinstance(references, list) or not references:
                         errors.append(
                             f"lawReferences[{choice_index}]にverified根拠がありません。"

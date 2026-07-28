@@ -378,6 +378,8 @@ e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されて�
 - `isLawRelated=false`なら`lawReferences`は空又は未定義。
 - `lawGroundedExplanationNotNeeded`は互換fieldで、原則`!isLawRelated`。
 - `isLawRelated=true`の公開対象には`lawRevisionFacts`を持たせる。
+- 法令肢と技術肢が混在する問題では、少なくとも一肢が法令関連なら問題全体を`isLawRelated=true`とする。選択肢別の`lawRevisionFacts`では、法令肢を`same_as_current`又は`updated_to_current_law`、技術肢を`not_law_related/secondary_verified`として独立に確定する。
+- 混在問題の`lawReferences`は、法令肢だけにverified根拠を入れ、技術肢の要素を空配列にする。問題全体が法令関連であることを理由に、技術肢へ無関係な法令参照を付けない。
 - `auditStatus=updated_to_current_law`の公開には`reviewState=tertiary_verified`が必要。
 - `current.correctChoiceText`、トップレベル`correctChoiceText`、解説先頭は同じ結論を示す。
 - 複数選択肢のpatchでは、`lawRevisionFacts`を選択肢順の`list<object>`にして各`current.correctChoiceText`をscalarで持つ。互換のquestion-level objectでは`current.correctChoiceText`を選択肢順の配列にする。Convert後のquestion documentでは対応肢のscalarに解決する。

@@ -16274,6 +16274,9 @@ class QualificationRunCoordinator:
                 ("same_as_current", "tertiary_verified"),
                 ("updated_to_current_law", "tertiary_verified"),
             }
+            allowed_choice_states = allowed_final_states | {
+                ("not_law_related", "secondary_verified"),
+            }
             if (audit_status, review_state) not in allowed_final_states:
                 errors.append(
                     f"{label}: 法令問題の監査sidecarが公開確定状態ではありません。"
@@ -16288,9 +16291,17 @@ class QualificationRunCoordinator:
             }
             if not fact_items or any(
                 not isinstance(fact, Mapping) for fact in fact_items
-            ) or any(state not in allowed_final_states for state in projected_states):
+            ) or any(state not in allowed_choice_states for state in projected_states):
                 errors.append(
                     f"{label}: projected lawRevisionFactsが公開確定状態ではありません。"
+                )
+            elif all(
+                state == ("not_law_related", "secondary_verified")
+                for state in projected_states
+            ):
+                errors.append(
+                    f"{label}: isLawRelated=trueですが、全選択肢が"
+                    "not_law_relatedになっています。"
                 )
             expected_audit_status = (
                 "updated_to_current_law"

@@ -46,6 +46,8 @@ Codex App Serverでは、組み込みweb検索を一次情報の入口として�
 
 出題当時の公式正答は`lawRevisionFacts.examTime`へ保持し、現行法判定と混同しません。出題当時の条文を確認できない場合は、その事実を明記して推測を避けます。
 
+法令肢と技術肢が混在する問題は、問題全体を`isLawRelated=true`とし、選択肢別の`lawRevisionFacts`で各肢を独立に確定します。技術肢は`not_law_related/secondary_verified`、対応する`lawReferences`は空配列とします。監査sidecarの問題全体の`auditStatus`は法令肢から決め、法令肢に一件でも`updated_to_current_law`があれば同じ値、それ以外は`same_as_current`とします。
+
 ### 監査sidecar
 
 03bの判断履歴は`law-revision-audit/v2`のJSONLとして、対象年度に1問1行で保存します。各行は次の三つのsource identityを必須とします。
@@ -71,7 +73,7 @@ Codex App Serverの整備sessionが更新するのは、対象問題の`18` / `2
 ## 公開前条件
 
 - 工程03と同じ解説文の形式・日本語品質検証に合格している。
-- 必要な`lawReferences`と`lawRevisionFacts`がある。
+- 法令肢には必要な`lawReferences`と`lawRevisionFacts`があり、技術肢は`not_law_related/secondary_verified`と空の`lawReferences`で確定している。
 - v2 sidecarのID、分類、必須metadataがpatchと一致する。
 - トップレベル正答、`lawRevisionFacts.current.correctChoiceText`、解説先頭が一致する。
 - `hold`と未完了review stateがない。

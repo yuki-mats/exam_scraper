@@ -45,6 +45,9 @@
 - 技術知識や計算だけで正誤を判断できる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`とする。
 - `isLawRelated=false`から`true`へ変更する場合は、正誤を直接決める法令名、`lawId`、条番号を少なくとも一つ確認し、その接続をsidecarの`sourceSummary`へ残す。
 - 法令名が背景として現れるだけの問題や、資格別方針の「作らないケース」は法令問題にしない。
+- 法令肢と技術肢が混在する問題は、少なくとも一肢が法令関連なら問題全体を`isLawRelated=true`とする。選択肢別の`lawRevisionFacts`では、法令肢を`same_as_current`又は`updated_to_current_law`、技術肢を`auditStatus="not_law_related"`かつ`reviewState="secondary_verified"`として独立に確定する。
+- 混在問題の`lawReferences`は`choiceTextList`と同じ件数を保ち、法令肢だけにverified根拠を入れ、技術肢は`[]`にする。全肢の件数を埋めるために、技術肢へ無関係な法令参照を作ってはいけない。
+- 混在問題の監査sidecarは問題全体を`isLawRelated=true`とする。問題全体の`auditStatus`は法令肢から決め、一件でも`updated_to_current_law`があれば同じ値、それ以外は`same_as_current`とする。
 
 ### 現行法差分
 
@@ -116,7 +119,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 
 - 対象全問にsidecarが1行ずつあり、v2の三つのsource identityがsource recordと一致する。
 - `isLawRelated`、`auditStatus`、`reviewState`がsidecarとpatchで一致する。
-- 法令問題には検証済み根拠と`lawRevisionFacts`があり、非法令問題には古い法令参照や`hold`が残っていない。
+- 法令問題の法令肢には検証済み根拠と`lawRevisionFacts`があり、混在する技術肢は`not_law_related/secondary_verified`と空の`lawReferences`で確定している。非法令問題には古い法令参照や`hold`が残っていない。
 - トップレベル正答、`lawRevisionFacts.current.correctChoiceText`、解説冒頭が選択肢順に一致する。
 - `updated_to_current_law`は`tertiary_verified`で、受験者向け注記がある。
 - `21_explanationText_added`を更新した場合は、工程03の必須検証を`--require-law-evidence-utilization`付きで実行する。

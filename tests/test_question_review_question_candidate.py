@@ -1668,6 +1668,14 @@ class QuestionCandidateTest(unittest.TestCase):
             audit_rules["lawRevisionFacts"]["type"],
             ["object", "array"],
         )
+        self.assertIn(
+            "技術肢は空配列",
+            audit_rules["lawReferences"]["description"],
+        )
+        self.assertIn(
+            "not_law_related",
+            audit_rules["lawRevisionFacts"]["description"],
+        )
         law_reference_item = audit_rules["lawReferences"]["items"]["items"]
         self.assertIn("lawId", law_reference_item["required"])
         self.assertIn("verificationStatus", law_reference_item["required"])
@@ -1684,7 +1692,8 @@ class QuestionCandidateTest(unittest.TestCase):
                     "verificationStatus": "verified",
                     "source": "egov_xml",
                 }
-            ]
+            ],
+            [],
         ]
         law_revision_facts = [
             {
@@ -1696,7 +1705,17 @@ class QuestionCandidateTest(unittest.TestCase):
                     "verdict": "same_as_current",
                     "explanationText": "試験法第1条を確認した。",
                 },
-            }
+            },
+            {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {"correctChoiceText": "間違い"},
+                "current": {"correctChoiceText": "間違い"},
+                "evidenceSummary": {
+                    "verdict": "not_law_related",
+                    "explanationText": "技術知識で判定する選択肢である。",
+                },
+            },
         ]
         candidate = parse_candidates(
             {
@@ -1732,11 +1751,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                     },
                                     {
                                         "field": "examTimeDecision",
-                                        "valueJson": '["正しい"]',
+                                        "valueJson": '["正しい", "間違い"]',
                                     },
                                     {
                                         "field": "currentLawDecision",
-                                        "valueJson": '["正しい"]',
+                                        "valueJson": '["正しい", "間違い"]',
                                     },
                                     {
                                         "field": "isLawRelated",
@@ -1756,11 +1775,14 @@ class QuestionCandidateTest(unittest.TestCase):
                                     },
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい"]',
+                                        "valueJson": '["正しい", "間違い"]',
                                     },
                                     {
                                         "field": "explanationText",
-                                        "valueJson": '["正しい。試験法第1条に定められている。"]',
+                                        "valueJson": (
+                                            '["正しい。試験法第1条に定められている。", '
+                                            '"間違い。技術上の理由による。"]'
+                                        ),
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1780,8 +1802,8 @@ class QuestionCandidateTest(unittest.TestCase):
                 {
                     "questionType": "true_false",
                     "questionIntent": "select_correct",
-                    "choiceTextList": ["条文上の記述"],
-                    "correctChoiceText": ["正しい"],
+                    "choiceTextList": ["条文上の記述", "技術上の記述"],
+                    "correctChoiceText": ["正しい", "間違い"],
                 },
             ),
             (),

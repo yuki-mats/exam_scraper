@@ -241,7 +241,8 @@ purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定す
 kind = "human"
 # 4.0: 現行法監査でも基本解説との重複補足を除き、追加価値がなければ0件へ洗い替える。
 # 4.1: 既存の法令紐付けを直接確認し、十分なら広域探索と再紐付けを省略する。
-policy_version = "4.1"
+# 4.2: 法令肢と技術肢が混在する問題を選択肢別に確定し、技術肢への法令参照を要求しない。
+policy_version = "4.2"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

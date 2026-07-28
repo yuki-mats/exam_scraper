@@ -67,5 +67,6 @@
 - `lawReferences` の外側配列は `choiceTextList` と同じ長さにする。
 - 選択肢ごとに根拠条文が複数ある場合は、その選択肢の配列内に複数オブジェクトを入れる。
 - 選択肢に根拠条文がない場合は、その選択肢の要素を `[]` にする。
+- 法令肢と技術肢が混在する問題は`isLawRelated=true`とし、技術肢の`lawRevisionFacts`を`not_law_related/secondary_verified`、`lawReferences`を`[]`として確定する。法令肢の存在を理由に、技術肢へ無関係な法令参照を付けない。
 - `verificationStatus="verified"` の法令参照は、e-Gov の正式な `lawId` と `article` を必ず入れる。e-Gov の法令IDがない告示は、上記の告示ルールに従う。
 - ガス主任乙種では、過去問本文が「正しいものはどれか」「誤っているものはいくつあるか」でも、アプリ側では各選択肢の `correctChoiceText` が `正しい` / `間違い` で保存される。解説と `lawReferences` は選択肢単位で作る。

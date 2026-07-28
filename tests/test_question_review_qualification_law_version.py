@@ -551,6 +551,88 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
         self.assertEqual(receipt["recordedCount"], 1)
         self.assertEqual(status["stages"][0]["status"], "current")
 
+    def test_law_audit_version_accepts_mixed_law_and_technical_choices(self):
+        class MixedChoiceInventory(LawSourceInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                question = group["questions"][0]
+                verified_reference = {
+                    "lawTitle": "ガス事業法",
+                    "lawId": "329AC0000000051",
+                    "article": "第2条",
+                    "verificationStatus": "verified",
+                }
+                question["projected"].update(
+                    {
+                        "choiceTextList": ["法令上の記述", "技術上の記述"],
+                        "correctChoiceText": ["正しい", "間違い"],
+                        "lawRevisionFacts": [
+                            {
+                                "auditStatus": "same_as_current",
+                                "reviewState": "secondary_verified",
+                                "current": {"correctChoiceText": "正しい"},
+                                "evidenceSummary": {"verdict": "correct"},
+                            },
+                            {
+                                "auditStatus": "not_law_related",
+                                "reviewState": "secondary_verified",
+                                "current": {"correctChoiceText": "間違い"},
+                                "evidenceSummary": {
+                                    "verdict": "not_law_related"
+                                },
+                            },
+                        ],
+                        "lawReferences": [[verified_reference], []],
+                        "explanationText": [
+                            "正しい。ガス事業法第2条の定義に該当する。",
+                            "間違い。技術上の理由による。",
+                        ],
+                    }
+                )
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, MixedChoiceInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": True,
+                        "auditStatus": "same_as_current",
+                        "reviewState": "secondary_verified",
+                        "examTimeDecision": ["正しい", "間違い"],
+                        "currentLawDecision": ["正しい", "間違い"],
+                        "lawReferences": [
+                            [
+                                {
+                                    "lawTitle": "ガス事業法",
+                                    "lawId": "329AC0000000051",
+                                    "article": "第2条",
+                                    "verificationStatus": "verified",
+                                }
+                            ],
+                            [],
+                        ],
+                    }
+                ],
+            )
+
+            receipt = coordinator._record_work_versions(
+                self._law_audit_policy_run(workflow)
+            )
+
+        self.assertEqual(receipt["recordedCount"], 1)
+
     def test_law_audit_version_rejects_missing_required_sidecar_metadata(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
