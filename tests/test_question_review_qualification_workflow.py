@@ -1408,11 +1408,29 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(plan["targetQuestionKeys"], [item["id"]])
 
     def test_noncanonical_law_facts_reopen_only_selected_explanation_target(self):
-        issue = {
+        law_issue = {
             "code": "law_audit_metadata_incomplete",
             "fields": ["lawRevisionFacts"],
         }
-        item = question(law_related=True, issues=[issue])
+        explanation_issue = {
+            "code": "explanation_quality",
+            "fields": ["explanationText"],
+        }
+        patch_path = (
+            "output/sample/questions_json/2026/21_explanationText_added/"
+            "question_2026_1_explanationText_added.json"
+        )
+        law_item = question(
+            law_related=True,
+            issues=[law_issue],
+            patches=[patch_path],
+        )
+        explanation_item = question(
+            law_related=True,
+            issues=[explanation_issue],
+            patches=[patch_path],
+            question_number=2,
+        )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             write_category(root)
@@ -1420,10 +1438,20 @@ class QualificationWorkflowTests(unittest.TestCase):
                 root,
                 FakeInventory(
                     "sample",
-                    [{"listGroupId": "2026", "questions": [item]}],
+                    [
+                        {
+                            "listGroupId": "2026",
+                            "questions": [law_item, explanation_item],
+                        }
+                    ],
                 ),
             )
-            mark_current(workflow, item, list(workflow.versioned_policies("sample")))
+            for item in (law_item, explanation_item):
+                mark_current(
+                    workflow,
+                    item,
+                    list(workflow.versioned_policies("sample")),
+                )
 
             plan = workflow.plan(
                 "sample",
@@ -1432,7 +1460,7 @@ class QualificationWorkflowTests(unittest.TestCase):
                 update_target_ids=["explanation.law_support"],
             )
 
-        self.assertEqual(plan["targetQuestionKeys"], [item["id"]])
+        self.assertEqual(plan["targetQuestionKeys"], [law_item["id"]])
         self.assertEqual(
             plan["selectedUpdateTargetIds"],
             ["explanation.law_support"],

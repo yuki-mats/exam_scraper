@@ -1042,6 +1042,8 @@ class QualificationWorkflow:
                     raise ValueError(f"03c カテゴリ設計を先に完了してください: {detail}")
             patch_dir = str(definition["patchDir"])
             issue_fields = set(definition.get("issueFields") or [])
+            if selected_update_targets:
+                issue_fields.intersection_update(selected_fields)
             if mode in {"refresh", "group_refresh"}:
                 target_questions = questions
             elif mode == "needed":
