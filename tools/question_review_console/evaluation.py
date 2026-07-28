@@ -1030,6 +1030,7 @@ class QuestionEvaluationService:
             "examLabel": question.get("examLabel"),
             "originalQuestionId": question.get("originalQuestionId"),
             "questionBodyText": projected.get("questionBodyText") or question.get("body"),
+            "questionType": projected.get("questionType"),
             "questionIntent": projected.get("questionIntent"),
             "choiceTextList": projected.get("choiceTextList"),
             "currentExplanationText": projected.get("explanationText"),
@@ -1050,11 +1051,12 @@ class QuestionEvaluationService:
 4. 根拠が足りない選択肢はinsufficient_evidenceとし、推測で合格にしない。
 5. choiceEvaluations[].verdictは選択肢の記述自体が事実として正しければtrue、誤っていればfalseとする。現在値との一致可否をverdictへ入れない。
 6. 現在の正誤対応との比較はPython serverが行う。推測して出力へ加えない。
-7. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
-8. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
-9. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
-10. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
-11. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
+7. questionTypeがtrue_falseの場合、各選択肢は公開時に独立した○×問題になる。元問題のquestionIntentや「どれか」という表現から正しい肢・誤った肢の個数を一つへ制限せず、各命題を独立に判定する。複数のtrue又はfalseがあることだけをcriticalIssuesや要再整備理由にしない。
+8. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
+9. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
+10. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
+11. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
+12. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
 
 ## 再整備stageの責務
 

@@ -38,6 +38,7 @@ def question_payload(*, question_id="api-q1", body="問題1", state_hash="state-
         "workflow": {"merge": "match", "convert": "match", "upload": "match"},
         "projected": {
             "questionBodyText": body,
+            "questionType": "true_false",
             "questionIntent": "select_correct",
             "choiceTextList": ["選択肢A", "選択肢B"],
             "correctChoiceText": ["正しい", "間違い"],
@@ -309,6 +310,9 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             prompt = service._build_prompt(question_payload())
 
         self.assertIn("選択肢の記述自体が事実として正しければtrue", prompt)
+        self.assertIn('"questionType": "true_false"', prompt)
+        self.assertIn("各選択肢は公開時に独立した○×問題", prompt)
+        self.assertIn("複数のtrue又はfalseがあることだけをcriticalIssues", prompt)
         self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
         self.assertIn("非法令問題のcurrentExplanationText", prompt)
         self.assertIn("減点又は要再整備理由にしない", prompt)
