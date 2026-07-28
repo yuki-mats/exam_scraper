@@ -323,7 +323,23 @@ def run_patch_checks(
                     group_dir / "10_questionType_fixed",
                     "questionType_fixed",
                 )
-                if stage.label == "correctChoiceText"
+                if stage.label in {"correctChoiceText", "explanationText"}
+                else {}
+            )
+            question_intent_patch_map = (
+                latest_patch_map(
+                    group_dir / "15_correctChoiceText_fixed",
+                    "correctChoiceText_fixed",
+                )
+                if stage.label == "explanationText"
+                else {}
+            )
+            correct_choice_patch_map = (
+                latest_patch_map(
+                    group_dir / "23_correctChoiceText_fixed",
+                    "correctChoiceText_fixed",
+                )
+                if stage.label == "explanationText"
                 else {}
             )
             source_stems = {path.stem for path in source_files}
@@ -355,6 +371,23 @@ def run_patch_checks(
                                 str(question_type_patch),
                             ]
                         )
+                if stage.label == "explanationText":
+                    for option, predecessor in (
+                        (
+                            "--question-type-patch",
+                            question_type_patch_map.get(source_path.stem),
+                        ),
+                        (
+                            "--question-intent-patch",
+                            question_intent_patch_map.get(source_path.stem),
+                        ),
+                        (
+                            "--correct-choice-patch",
+                            correct_choice_patch_map.get(source_path.stem),
+                        ),
+                    ):
+                        if predecessor is not None:
+                            cmd.extend([option, str(predecessor)])
                 if stage.label == "explanationText" and require_law_grounded_flag:
                     cmd.append("--require-law-grounded-flag")
                 if stage.label == "explanationText" and require_is_law_related:
@@ -465,6 +498,18 @@ def add_explanation_patch_parser(
     parser.set_defaults(command="check-explanation-patch")
     parser.add_argument("--source", required=True, help="Path to source question_*.json.")
     parser.add_argument("--patch", required=True, help="Path to explanationText patch JSON.")
+    parser.add_argument(
+        "--question-type-patch",
+        help="Path to the effective 01 questionType patch.",
+    )
+    parser.add_argument(
+        "--question-intent-patch",
+        help="Path to the effective 02 questionIntent patch.",
+    )
+    parser.add_argument(
+        "--correct-choice-patch",
+        help="Path to the effective 02a correctChoiceText patch.",
+    )
     parser.add_argument(
         "--require-law-grounded-flag",
         action="store_true",
@@ -871,6 +916,13 @@ def run_explanation_patch_check(args: argparse.Namespace) -> int:
         "--patch",
         args.patch,
     ]
+    for option, value in (
+        ("--question-type-patch", args.question_type_patch),
+        ("--question-intent-patch", args.question_intent_patch),
+        ("--correct-choice-patch", args.correct_choice_patch),
+    ):
+        if value:
+            cmd.extend([option, value])
     if args.require_law_grounded_flag:
         cmd.append("--require-law-grounded-flag")
     if args.require_is_law_related:

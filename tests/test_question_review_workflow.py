@@ -1796,7 +1796,7 @@ assert.deepEqual(
         self.assertIn('invalidated: "無効化済み"', javascript)
         self.assertIn('"この作業での出力（無効化済み）"', javascript)
         self.assertIn(
-            "const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null",
+            "const visibleRun = displayedQualificationRun();",
             javascript,
         )
         self.assertIn(
@@ -1997,7 +1997,7 @@ assert.deepEqual(
         )[1].split("function selectedQualificationRunMode()", 1)[0]
         self.assertIn(".qualification-active-run[hidden]", css)
         self.assertIn("container.hidden = true", active_run)
-        self.assertNotIn("container.hidden = false", active_run)
+        self.assertIn("container.hidden = false", active_run)
         self.assertIn('class="maintenance-dashboard-summary" hidden', html)
         self.assertIn(
             'class="qualification-active-run idle" aria-live="polite" '
@@ -2121,7 +2121,7 @@ assert.deepEqual(
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260728-16"
+        asset_version = "question-review-ui-v3-20260728-18"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

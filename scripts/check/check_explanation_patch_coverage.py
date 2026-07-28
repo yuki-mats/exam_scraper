@@ -17,6 +17,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.question_identity import review_question_id
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from scripts.merge.patch_views import (
+    apply_correct_choice,
+    apply_question_intent,
+    apply_question_type,
+)
 from scripts.common.suggested_question_contract import (
     public_choice_indexes,
     validation_errors as suggested_question_validation_errors,
@@ -349,22 +354,6 @@ def compare_entries(
             errors=errors,
         )
 
-        has_law_references = has_non_empty_law_references(patch.get("lawReferences"))
-        if "lawReferences" in patch:
-            validate_law_references_shape(
-                law_references=patch.get("lawReferences"),
-                choice_count=len(choices) if isinstance(choices, list) else 0,
-                index=idx,
-                errors=errors,
-            )
-        if "lawRevisionFacts" in patch:
-            validate_law_revision_facts_shape(
-                law_revision_facts=patch.get("lawRevisionFacts"),
-                choice_count=len(choices) if isinstance(choices, list) else 0,
-                index=idx,
-                errors=errors,
-            )
-
         is_law_related: bool | None = None
         if require_is_law_related and "isLawRelated" not in patch:
             errors.append(f"index {idx}: missing isLawRelated")
@@ -374,6 +363,25 @@ def compare_entries(
                 errors.append(f"index {idx}: isLawRelated must be bool when present")
             else:
                 is_law_related = value
+
+        has_law_references = has_non_empty_law_references(patch.get("lawReferences"))
+        if "lawReferences" in patch:
+            validate_law_references_shape(
+                law_references=patch.get("lawReferences"),
+                choice_count=len(choices) if isinstance(choices, list) else 0,
+                index=idx,
+                errors=errors,
+            )
+        # Non-law questions may retain the internal
+        # not_law_related/secondary_verified audit memo. Its public shape is
+        # normalized by conversion and validated on merged/Firestore output.
+        if "lawRevisionFacts" in patch and is_law_related is not False:
+            validate_law_revision_facts_shape(
+                law_revision_facts=patch.get("lawRevisionFacts"),
+                choice_count=len(choices) if isinstance(choices, list) else 0,
+                index=idx,
+                errors=errors,
+            )
 
         if require_law_grounded_flag and "lawGroundedExplanationNotNeeded" not in patch:
             errors.append(
@@ -435,6 +443,9 @@ def check_pair(
     source_path: Path,
     patch_path: Path,
     *,
+    question_type_patch_path: Path | None = None,
+    question_intent_patch_path: Path | None = None,
+    correct_choice_patch_path: Path | None = None,
     require_law_grounded_flag: bool = False,
     require_is_law_related: bool = False,
     require_law_revision_facts: bool = False,
@@ -448,6 +459,63 @@ def check_pair(
         return 2
 
     source_data = load_json(source_path)
+    if not isinstance(source_data, dict):
+        print(f"[ERROR] source JSON must be an object: {source_path}")
+        return 2
+
+    def load_predecessor(path: Path | None, label: str) -> List[Dict[str, Any]]:
+        if path is None:
+            return []
+        if not path.exists():
+            raise FileNotFoundError(f"{label} patch not found: {path}")
+        return get_patch_entries(load_json(path))
+
+    try:
+        question_type_entries = load_predecessor(
+            question_type_patch_path,
+            "questionType",
+        )
+        question_intent_entries = load_predecessor(
+            question_intent_patch_path,
+            "questionIntent",
+        )
+        correct_choice_entries = load_predecessor(
+            correct_choice_patch_path,
+            "correctChoiceText",
+        )
+    except FileNotFoundError as exc:
+        print(f"[ERROR] {exc}")
+        return 2
+
+    if question_type_entries:
+        apply_question_type(
+            source_data,
+            {
+                str(review_question_id(entry)): entry
+                for entry in question_type_entries
+                if review_question_id(entry)
+            },
+        )
+    if question_intent_entries:
+        apply_question_intent(
+            source_data,
+            {
+                str(review_question_id(entry)): entry.get("questionIntent")
+                for entry in question_intent_entries
+                if review_question_id(entry)
+                and entry.get("questionIntent") is not None
+            },
+        )
+    if correct_choice_entries:
+        apply_correct_choice(
+            source_data,
+            {
+                str(review_question_id(entry)): entry.get("correctChoiceText")
+                for entry in correct_choice_entries
+                if review_question_id(entry)
+                and entry.get("correctChoiceText") is not None
+            },
+        )
     patch_data = load_json(patch_path)
 
     source_questions = get_source_questions(source_data)
@@ -483,6 +551,18 @@ def main() -> int:
         help="Path to *_explanationText_added_YYYYMMDD_HHMM.json (旧形式 *_explanationText_added.json も可)",
     )
     parser.add_argument(
+        "--question-type-patch",
+        help="Path to the effective 01 questionType patch for this source file.",
+    )
+    parser.add_argument(
+        "--question-intent-patch",
+        help="Path to the effective 02 questionIntent patch for this source file.",
+    )
+    parser.add_argument(
+        "--correct-choice-patch",
+        help="Path to the effective 02a correctChoiceText patch for this source file.",
+    )
+    parser.add_argument(
         "--require-law-grounded-flag",
         action="store_true",
         help="Require lawGroundedExplanationNotNeeded on every patch entry.",
@@ -506,6 +586,15 @@ def main() -> int:
     return check_pair(
         Path(args.source),
         Path(args.patch),
+        question_type_patch_path=(
+            Path(args.question_type_patch) if args.question_type_patch else None
+        ),
+        question_intent_patch_path=(
+            Path(args.question_intent_patch) if args.question_intent_patch else None
+        ),
+        correct_choice_patch_path=(
+            Path(args.correct_choice_patch) if args.correct_choice_patch else None
+        ),
         require_law_grounded_flag=args.require_law_grounded_flag,
         require_is_law_related=args.require_is_law_related,
         require_law_revision_facts=args.require_law_revision_facts,

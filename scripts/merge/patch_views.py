@@ -815,8 +815,16 @@ def apply_answer_result_overrides(
             "answer_result_inferred_correct_choice_numbers",
             "manualQuestionIntentOverride",
         ):
-            if field in entry and entry[field] is not None and question.get(field) != entry[field]:
-                question[field] = entry[field]
+            if field not in entry or entry[field] is None:
+                continue
+            value = entry[field]
+            if (
+                field == "answer_result_text"
+                and (not isinstance(value, str) or not value.strip())
+            ):
+                continue
+            if question.get(field) != value:
+                question[field] = value
                 updated += 1
     return updated
 

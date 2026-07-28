@@ -638,7 +638,7 @@ class PerQuestionQueueAppServer:
                     "examTime": {"correctChoiceText": value},
                     "evidenceSummary": {
                         "verdict": "correct",
-                        "summary": "一次情報と照合した。",
+                        "explanationText": "一次情報と照合した。",
                     },
                 }
                 for value in correct

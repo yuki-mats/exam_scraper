@@ -68,7 +68,7 @@
 | `00_source` | `question_bodies[]` | `answer_result_text`、`public_question_id` または `original_question_id`。Web取得では`question_url`、公式過去問では`examYear`, `examLabel`も必須 | 取得元に応じた出典、正答根拠、公式過去問の年度を保持する。 |
 | `05_originalized` | patch | `original_question_id`, `questionBodyText`, `choiceTextList`, `correctChoiceText`, `questionIntent`, `answer_result_text` | 取得元の原文を変更せず、独自問題として公開する基礎内容を作る。公式過去問では使わない。 |
 | `10_questionType_fixed` | patch | 新規更新は`questionType`, `isCalculationQuestion`。集約回答型レビュー時は`aggregateAnswerDecomposition`、対象確定時はツール生成の`choiceTextList`, `sourceUniqueKeys` | 回答操作と計算の要否を独立に確定する。通常は本文・選択肢を所有しない。legacy 10内の本文・選択肢・source key・Firestore ID対応は適切な層へ移行するまで読取互換として維持する。集約回答型だけ二者一致したcandidate IDをserverが原文spanへ解決する。 |
-| `15_correctChoiceText_fixed` | patch | 新規更新は`questionIntent`だけ | 設問が正しい側・誤っている側のどちらを選ばせるかだけを確定する。legacy 15内の明示済み`correctChoiceText`と`answer_result_text`は、23へ移行するまで読取互換として維持し、23があれば23を優先する。 |
+| `15_correctChoiceText_fixed` | patch | 新規更新は`questionIntent`だけ | 設問が正しい側・誤っている側のどちらを選ばせるかだけを確定する。legacy 15内の明示済み`correctChoiceText`と非空の`answer_result_text`は、23へ移行するまで読取互換として維持し、23があれば23を優先する。空のlegacy `answer_result_text`は取得元の公式解答を上書きしない。 |
 | `23_correctChoiceText_fixed` | 厳密正答patch | `original_question_id`, `correctChoiceText` | 02aで問題文と各選択肢を結合した命題を根拠に照らし、全選択肢を独立に判定する。`answer_result_text`はread-onlyの公式解答として照合し、不一致時はどちらも自動変更せず再確認へ送る。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |

@@ -277,6 +277,30 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         )
         self.assertEqual(projected.merged2["answer_result_text"], "正解は 2 です。")
 
+    def test_record_projection_ignores_empty_legacy_answer_result(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "questionBodyText": "正しいものを選べ。",
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["間違い", "正しい"],
+                "answer_result_text": "正解は 2 です。",
+            },
+            intent_fallback=(
+                PatchEntry(
+                    Path("15.json"),
+                    {
+                        "original_question_id": "q1",
+                        "questionIntent": "select_correct",
+                        "correctChoiceText": ["間違い", "正しい"],
+                        "answer_result_text": "",
+                    },
+                ),
+            ),
+        )
+
+        self.assertEqual(projected.merged2["answer_result_text"], "正解は 2 です。")
+
     def test_question_type_patch_preserves_legacy_content_and_identity_metadata(self):
         projected = project_merge_record(
             {

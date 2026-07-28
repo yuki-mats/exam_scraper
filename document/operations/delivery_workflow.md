@@ -33,6 +33,8 @@ python3 tools/question_bank/question_bank.py quality-gate \
 
 法令監査を必須にする資格では、CLI正本に記載されたlaw revision optionを追加します。既存の別資格・別groupの失敗と今回対象の失敗を分けて報告し、対象のgateを省略しません。
 
+patchの機械検査は`00_source`単体の旧fieldではなく、先行工程の確定patchを順に適用した現在のprojectionを判定対象にします。特に解説の件数・文体は現行`questionType`、設問意図及び正答で検査します。非法令問題に残す`not_law_related/secondary_verified`の内部監査メモへFirestore公開objectのschemaを直接適用せず、公開schemaはmerge・convert後の成果物で検査します。これにより、現在の公開内容へ影響しない旧表現を保留として扱わず、実質的な不整合だけを停止します。
+
 ## 別セッション品質ゲート
 
 機械品質ゲートを通った問題は評価待ちへ送ります。整備・評価・再整備のsession分離、評価方法、サブスクリプション境界は[問題整備システム](local_question_review_console.md)だけを正本とします。

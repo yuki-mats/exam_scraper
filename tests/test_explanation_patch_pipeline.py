@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
-from scripts.check.check_explanation_patch_coverage import compare_entries
+from scripts.check.check_explanation_patch_coverage import check_pair, compare_entries
 from scripts.convert.convert_merged_to_firestore import (
     convert_flash_card_to_firestore,
     convert_group_choice_to_firestore,
@@ -320,6 +323,116 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertTrue(
             any("lawRevisionFacts must be a valid object" in error for error in errors)
         )
+
+    def test_compare_entries_accepts_internal_non_law_audit_memo(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+                "correctChoiceText": ["正しい"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。技術上の説明です。"],
+                "suggestedQuestionDetailsByChoice": [],
+                "isLawRelated": False,
+                "lawGroundedExplanationNotNeeded": True,
+                "lawReferences": [[]],
+                "lawRevisionFacts": [
+                    {
+                        "choiceIndex": 0,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                        "current": {"correctChoiceText": "正しい"},
+                        "examTime": {"correctChoiceText": "正しい"},
+                        "evidenceSummary": {
+                            "classification": "not_law_related",
+                            "summary": "技術知識を問う。",
+                        },
+                    }
+                ],
+            }
+        ]
+
+        errors, _ = compare_entries(source_questions, patch_entries)
+
+        self.assertEqual(errors, [])
+
+    def test_check_pair_uses_effective_predecessor_patches(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "question_2025_1.json"
+            question_type = root / "question_2025_1_questionType_fixed.json"
+            question_intent = root / "question_2025_1_intent_fixed.json"
+            correct_choice = root / "question_2025_1_correctChoiceText_fixed.json"
+            explanation = root / "question_2025_1_explanationText_added.json"
+            identity = {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+            }
+            source.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                **identity,
+                                "questionType": "true_false",
+                                "questionIntent": "select_correct",
+                                "choiceTextList": ["肢1", "肢2"],
+                                "correctChoiceText": ["正しい", "間違い"],
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            question_type.write_text(
+                json.dumps([{**identity, "questionType": "group_choice"}]),
+                encoding="utf-8",
+            )
+            question_intent.write_text(
+                json.dumps([{**identity, "questionIntent": "select_incorrect"}]),
+                encoding="utf-8",
+            )
+            correct_choice.write_text(
+                json.dumps(
+                    [
+                        {
+                            **identity,
+                            "correctChoiceText": ["間違い", "正しい"],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            explanation.write_text(
+                json.dumps(
+                    [
+                        {
+                            **identity,
+                            "explanationText": [
+                                "正解は2です。両方を比べると、肢2が正答です。"
+                            ],
+                            "suggestedQuestionDetailsByChoice": [],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            result = check_pair(
+                source,
+                explanation,
+                question_type_patch_path=question_type,
+                question_intent_patch_path=question_intent,
+                correct_choice_patch_path=correct_choice,
+            )
+
+        self.assertEqual(result, 0)
 
     def test_compare_entries_requires_law_revision_facts_for_law_related_questions(self) -> None:
         source_questions = [
