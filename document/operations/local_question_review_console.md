@@ -134,7 +134,7 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 
 - 評価は問題文と全選択肢を一問ずつ独立に判定する。現在の正答は先に渡さず、serverが全肢の結果、正答対応、解説品質、重大指摘を検証する。
 - 非法令問題の解説本文に機関名、資料名、URLがないことだけを減点理由にしない。根拠不足は`insufficient_evidence`として不合格にする。
-- `questionBodyText`と`choiceTextList`は自動整備せず、blind reviewを伴う`24_questionIssueCorrections`で扱う。
+- `questionBodyText`と`choiceTextList`は通常の自動整備では変更しない。同年度の公式問題冊子をrepository内に保存して照合できる場合は、問題詳細の`公式冊子と照合`で資料path・資料名・問番号を含むlocator・確認済み転記を固定し、read-onlyのBlind A/BとChallengeを通す。両者の変更完全値と公式根拠が一致した`fix`だけを`24_questionIssueCorrections`へ保存し、`00_source`は変更しない。利用者報告batchとの境界とpatch契約は[公式問題の問題報告 workflow](question_issue_report_workflow.md)を正本とする。
 - Firestore反映はCodex threadへ任せず、preflight、UIの明示確認、直後のreadbackを使う。
 
 ## 起動

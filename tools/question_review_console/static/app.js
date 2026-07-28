@@ -1213,6 +1213,10 @@ function bindControls() {
     node.addEventListener("click", () => node.closest("dialog").close());
   }
   $("#review-form").addEventListener("submit", submitReview);
+  $("#official-source-form").addEventListener(
+    "submit",
+    submitOfficialSourceCorrection,
+  );
   $("#review-issue").addEventListener("change", () => syncLawReviewFields());
   $("#review-field-list").addEventListener("change", (event) => {
     const field = String(event.target.value || "");
@@ -5184,6 +5188,13 @@ function renderDetail() {
         "この問題を再整備",
         "表示中の一問だけを対象に、整備する項目を選んで再判定します。本番Firestoreには書き込みません。",
       ),
+      actionWithHelp(
+        "公式冊子と照合",
+        "secondary-button",
+        () => openOfficialSourceCorrection(question),
+        "公式問題冊子と照合",
+        "同年度・同試験の公式資料をBlind A/Bで独立に照合します。両者が完全一致した場合だけ、00_sourceを変えずに24_questionIssueCorrectionsへ補正を保存します。",
+      ),
     );
   } else {
     actions.append(
@@ -5193,6 +5204,13 @@ function renderDetail() {
         openEdit,
         "パッチを直接修正",
         "正誤・解説・補足質問のpatchを確認後に更新します。法令問題の正誤など根拠監査が必要な変更は、Codex App Serverの別threadによる修正依頼へ切り替えます。",
+      ),
+      actionWithHelp(
+        "公式冊子と照合",
+        "secondary-button",
+        () => openOfficialSourceCorrection(question),
+        "公式問題冊子と照合",
+        "同年度・同試験の公式資料をBlind A/Bで独立に照合します。両者が完全一致した場合だけ、00_sourceを変えずに24_questionIssueCorrectionsへ補正を保存します。",
       ),
     );
   }
@@ -7293,6 +7311,58 @@ function openReview(
   syncLawReviewFields();
   $("#review-dialog").showModal();
   $("#review-note").focus();
+}
+
+function openOfficialSourceCorrection(question = state.detail) {
+  if (!question?.id) {
+    toast("照合する問題を確認できません。", true);
+    return;
+  }
+  $("#official-source-question").textContent =
+    `${question.questionLabel || question.sourceQuestionKey || question.id} / ${listGroupDisplayName(question.listGroupId)}`;
+  $("#official-source-path").value = "";
+  $("#official-source-title").value = "";
+  $("#official-source-locator").value = "";
+  $("#official-source-transcription").value = "";
+  $("#official-source-dialog").showModal();
+  $("#official-source-path").focus();
+}
+
+async function submitOfficialSourceCorrection(event) {
+  event.preventDefault();
+  const question = state.detail;
+  if (!question?.id || !question.stateHash) {
+    toast("照合する問題の現在状態を確認できません。", true);
+    return;
+  }
+  const request = {
+    questionId: question.id,
+    stateHash: question.stateHash,
+    evidencePath: $("#official-source-path").value,
+    evidenceTitle: $("#official-source-title").value,
+    evidenceLocator: $("#official-source-locator").value,
+    verifiedTranscription: $("#official-source-transcription").value,
+  };
+  $("#official-source-dialog").close();
+  resetWorkflowDialog("officialSourceCorrection", "公式問題冊子と照合");
+  state.workflowDialog.preview = {};
+  $("#workflow-dialog-message").textContent =
+    "公式資料を固定し、Blind A/Bの独立照合とChallengeを実行します。";
+  $("#workflow-dialog-summary").append(
+    summaryMetric("対象問題", question.questionLabel || question.sourceQuestionKey || question.id),
+    summaryMetric("対象年度", listGroupDisplayName(question.listGroupId)),
+    summaryMetric("保存先", "24_questionIssueCorrections"),
+  );
+  setWorkflowRunning(true);
+  try {
+    const job = await api("/api/official-source-corrections/start", {
+      method: "POST",
+      body: request,
+    });
+    await pollJob(job.jobId, "officialSourceCorrection");
+  } catch (error) {
+    showWorkflowError(error);
+  }
 }
 
 function syncLawReviewFields(force = false) {

@@ -18,6 +18,75 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_official_source_correction_starts_from_ui_request(self):
+        class AppServer:
+            provider = "fake"
+            configured = True
+
+            def assert_subscription_access(self, *, force):
+                self.force = force
+
+        class Inventory:
+            def question(self, question_id):
+                return {
+                    "id": question_id,
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "originalQuestionId": "q1",
+                    "stateHash": "a" * 64,
+                }
+
+        class DeferredJobs:
+            def start(self, *, kind, key, worker):
+                self.kind = kind
+                self.key = key
+                self.worker = worker
+                return {"jobId": "job-1", "status": "queued"}
+
+        class CorrectionService:
+            def run(self, question, **options):
+                self.question = question
+                self.options = options
+                return {
+                    "decision": "no_change",
+                    "patchPath": None,
+                    "message": "変更不要",
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app_server = AppServer()
+            app = QuestionReviewApplication(
+                Path(directory),
+                app_server=app_server,
+            )
+            app.inventory = Inventory()
+            jobs = DeferredJobs()
+            app.jobs = jobs
+            service = CorrectionService()
+            app.official_source_corrections = service
+
+            status, job = app.post(
+                "/api/official-source-corrections/start",
+                {
+                    "questionId": "ui-q1",
+                    "stateHash": "a" * 64,
+                    "evidencePath": "tmp/official.png",
+                    "evidenceTitle": "公式問題冊子",
+                    "evidenceLocator": "問1",
+                    "verifiedTranscription": "公式転記",
+                },
+            )
+            result = jobs.worker(lambda _message: None)
+
+        self.assertEqual(status, 202)
+        self.assertEqual(job["jobId"], "job-1")
+        self.assertEqual(jobs.kind, "official-source-correction")
+        self.assertEqual(jobs.key, "question-review-qualification:sample")
+        self.assertFalse(app_server.force)
+        self.assertEqual(service.question["id"], "ui-q1")
+        self.assertEqual(service.options["evidence_title"], "公式問題冊子")
+        self.assertEqual(result["decision"], "no_change")
+
     def test_question_lookup_reuses_loaded_inventory_snapshot(self):
         class Inventory:
             def question(self, question_id):

@@ -53,6 +53,9 @@ from tools.question_review_console.law_audit_contract import (
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.monitor_service import MonitorReadModel
 from tools.question_review_console.monitor_events import MonitorEventHub
+from tools.question_review_console.official_source_correction import (
+    OfficialSourceCorrectionService,
+)
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.process_lease import (
     review_console_process_lease,
@@ -337,6 +340,10 @@ class QuestionReviewApplication:
             set_observer = getattr(self.app_server, "set_event_observer", None)
             if callable(set_observer):
                 set_observer(self.monitor_event_hub)
+        self.official_source_corrections = OfficialSourceCorrectionService(
+            self.repo_root,
+            app_server=self.app_server,
+        )
         self.run_store = QualificationRunStore(self.repo_root)
         self.monitor = MonitorReadModel(
             self.repo_root, self.run_store, self.monitor_event_hub
@@ -975,6 +982,27 @@ class QuestionReviewApplication:
             except JobConflictError as exc:
                 raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
             except ScopedReadbackError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
+        if path == "/api/official-source-corrections/start":
+            question_id = str(body.get("questionId") or "")
+            question = self._question(question_id, {})
+            qualification = str(question.get("qualification") or "")
+            try:
+                self.app_server.assert_subscription_access(force=False)
+                job = self.jobs.start(
+                    kind="official-source-correction",
+                    key=qualification_operation_key(qualification),
+                    worker=lambda emit: self._run_official_source_correction_job(
+                        question,
+                        body,
+                        emit,
+                    ),
+                )
+                return HTTPStatus.ACCEPTED, job
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except Exception as exc:  # noqa: BLE001
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
         if path in {"/api/evaluations/preview", "/api/evaluations/start"}:
@@ -2204,6 +2232,82 @@ class QuestionReviewApplication:
     ) -> dict[str, Any]:
         question = self._question(question_id, {})
         return self.evaluations.run(question, preview_token, emit)
+
+    def _run_official_source_correction_job(
+        self,
+        question: Mapping[str, Any],
+        request: Mapping[str, Any],
+        emit: Any,
+    ) -> dict[str, Any]:
+        result = self.official_source_corrections.run(
+            question,
+            state_hash=str(request.get("stateHash") or ""),
+            evidence_path=str(request.get("evidencePath") or ""),
+            evidence_title=str(request.get("evidenceTitle") or ""),
+            evidence_locator=str(request.get("evidenceLocator") or ""),
+            verified_transcription=str(
+                request.get("verifiedTranscription") or ""
+            ),
+            emit=emit,
+        )
+        if not result.get("patchPath"):
+            return result
+
+        qualification = str(question["qualification"])
+        list_group_id = str(question["listGroupId"])
+        post_commit_errors: list[str] = []
+        try:
+            self._clear_group_live_results(qualification, list_group_id)
+        except Exception as exc:  # noqa: BLE001
+            post_commit_errors.append(f"local readbackの無効化: {exc}")
+        cache_ready = True
+        try:
+            self.inventory.invalidate(qualification, list_group_id)
+        except Exception as exc:  # noqa: BLE001
+            cache_ready = False
+            post_commit_errors.append(f"inventory更新: {exc}")
+
+        if cache_ready:
+            try:
+                artifact_sync = sync_after_patch_update(
+                    self.synchronizer,
+                    qualification,
+                    list_group_id,
+                    emit,
+                )
+            except Exception as exc:  # noqa: BLE001
+                post_commit_errors.append(f"公開用データの再生成: {exc}")
+                artifact_sync = {
+                    "status": "failed",
+                    "groups": [],
+                    "message": (
+                        "補正patchは保存しましたが、公開用データを再生成できませんでした。"
+                    ),
+                }
+        else:
+            artifact_sync = {
+                "status": "failed",
+                "groups": [],
+                "message": (
+                    "補正patchは保存しましたが、inventoryを更新できないため"
+                    "公開用データを再生成していません。"
+                ),
+            }
+
+        sync_ok = artifact_sync.get("status") in {"succeeded", "current"}
+        result["artifactSync"] = artifact_sync
+        result["postCommitErrors"] = post_commit_errors
+        result["warning"] = not sync_ok or bool(post_commit_errors)
+        if sync_ok and not post_commit_errors:
+            result["message"] = (
+                "公式資料との照合に一致し、補正patchと公開用データを最新にしました。"
+            )
+        else:
+            result["message"] = (
+                "公式資料との照合に一致して補正patchを保存しましたが、"
+                "保存後の再生成に確認事項が残りました。"
+            )
+        return result
 
     def _run_evaluation_batch_job(
         self,

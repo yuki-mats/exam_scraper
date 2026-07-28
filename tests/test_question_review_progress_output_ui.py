@@ -9,6 +9,30 @@ INDEX_PATH = ROOT / "tools/question_review_console/static/index.html"
 
 
 class ProgressOutputUiContractTests(unittest.TestCase):
+    def test_official_source_correction_is_a_dedicated_ui_flow(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
+
+        for control_id in (
+            "official-source-dialog",
+            "official-source-form",
+            "official-source-path",
+            "official-source-title",
+            "official-source-locator",
+            "official-source-transcription",
+        ):
+            self.assertIn(f'id="{control_id}"', html)
+        self.assertIn('"公式冊子と照合"', javascript)
+        self.assertIn("function openOfficialSourceCorrection", javascript)
+        self.assertIn("async function submitOfficialSourceCorrection", javascript)
+        self.assertIn(
+            '"/api/official-source-corrections/start"',
+            javascript,
+        )
+        self.assertIn('"24_questionIssueCorrections"', javascript)
+        self.assertIn("Blind A/B", html)
+        self.assertIn("00_sourceは変更しません", html)
+
     def test_qualification_and_group_selectors_use_display_labels_but_keep_ids_as_values(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
 
@@ -60,9 +84,15 @@ class ProgressOutputUiContractTests(unittest.TestCase):
             javascript,
         )
         self.assertIn(
-            "action.disabled = !working\n"
-            "      && !resumable\n"
-            "      && (!runStatusKnown || isRunning || workflow.restartRequired)",
+            "const canStart = runStatusKnown && !isRunning && !workflow.restartRequired",
+            javascript,
+        )
+        self.assertIn(
+            "action.disabled = !working && !canStart",
+            javascript,
+        )
+        self.assertIn(
+            "resumeAction.disabled = !canStart",
             javascript,
         )
         self.assertIn('"進捗を見る"', javascript)

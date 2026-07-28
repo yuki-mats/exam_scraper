@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260726-15">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260728-16">
   </head>
   <body>
     <header class="app-header">
@@ -420,6 +420,45 @@
       </form>
     </dialog>
 
+    <dialog id="official-source-dialog" class="wide-dialog">
+      <form id="official-source-form" method="dialog">
+        <header class="dialog-header">
+          <div>
+            <span class="dialog-eyebrow">00_sourceは変更しません</span>
+            <h2>公式問題冊子と照合</h2>
+          </div>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <p id="official-source-question" class="inline-notice"></p>
+          <p>
+            指定した公式資料をBlind A/Bが独立に照合し、両者の完全一致をChallengeで確認します。
+            一致した場合だけ、問題文・選択肢の補正を24_questionIssueCorrectionsへ保存します。
+          </p>
+          <label>
+            <span>公式資料のローカルpath</span>
+            <input id="official-source-path" type="text" required placeholder="tmp/pdfs/.../official-page.png">
+          </label>
+          <label>
+            <span>資料名</span>
+            <input id="official-source-title" type="text" required placeholder="令和5年度 ガス主任技術者試験 乙種問題">
+          </label>
+          <label>
+            <span>該当箇所</span>
+            <input id="official-source-locator" type="text" required placeholder="法令 問8（PDF 9ページ）">
+          </label>
+          <label>
+            <span>公式資料から確認した転記</span>
+            <textarea id="official-source-transcription" rows="10" required placeholder="問題番号、問題文、選択肢を該当箇所どおりに転記"></textarea>
+          </label>
+        </div>
+        <footer class="dialog-actions">
+          <button class="secondary-button close-dialog" type="button">キャンセル</button>
+          <button id="official-source-submit" class="primary-button" type="submit">Blind A/B照合を開始</button>
+        </footer>
+      </form>
+    </dialog>
+
     <dialog id="edit-dialog" class="wide-dialog">
       <form id="edit-form" method="dialog">
         <header class="dialog-header">
@@ -529,6 +568,6 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/monitor-link.js?v=batch-monitor-v1"></script>
-    <script src="/app.js?v=question-review-ui-v3-20260726-15"></script>
+    <script src="/app.js?v=question-review-ui-v3-20260728-16"></script>
   </body>
 </html>

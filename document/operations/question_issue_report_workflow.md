@@ -1,9 +1,9 @@
 # 公式問題の問題報告 workflow
 
-最終更新: 2026-07-19
+最終更新: 2026-07-28
 
 > [!IMPORTANT]
-> この文書は現行CLIの運用正本です。Mac常駐、自動検知、Codex App Server、スマホでの一件承認、承認後はpatchのcommit・pushまでとしてFirestore公開を既存フローへ分離する目標仕様は、[ユーザーフィードバック対応システム](user_feedback_response_system.md)で設計確定していますが、まだ実装されていません。実装完了までは、この文書の手動batch手順を使います。
+> 利用者から届いた問題報告のbatch処理は、引き続きこの文書のCLI手順を使います。運用者が同年度の公式問題冊子を手元で確認できる一問は、問題整備システムの問題詳細にある`公式冊子と照合`から、同じBlind A/B・Challenge・24 patch契約を実行できます。Mac常駐、自動検知、スマホでの一件承認、承認後はpatchのcommit・pushまでとしてFirestore公開を既存フローへ分離する目標仕様は、[ユーザーフィードバック対応システム](user_feedback_response_system.md)で設計確定していますが、まだ実装されていません。
 
 ## 目的と境界
 
@@ -77,6 +77,18 @@ export QUESTION_ISSUE_REVIEW_COMMAND="your-reviewer --json --read-prompt-from-st
 `--approve` は frozen manifest hash への承認を表す。production run は必ず `--execute-publish` を付け、修正判定を patch から live readback まで継続する。`--dry-run` と `--execute-publish` のどちらもない中間停止は拒否する。実行直前に全 case の `workflowStatus` と `currentContentHash` を transaction で再確認し、一件でも変わった question correction unit は部分処理せず全 claim を解放して次回棚卸しへ残す。
 
 ローカル検証では `--dry-run` と fixture/記録済み reviewer output を使える。fixture placeholder は `--fixture` の時だけ有効で、live review result は実 input hash と review hash の一致が必須。
+
+### 運用者が公式冊子を照合する一問
+
+利用者報告のbatchを経由せず、運用者が公式問題冊子と現在の問題文・選択肢の差を見つけた場合は、問題整備システムで対象問題を開き、`公式冊子と照合`を使う。
+
+1. repository内に保存した同年度・同資格・同試験種別の公式PDF又は表示用画像を指定する。
+2. 資料名、問番号を含むlocator、画像で確認した問題文・選択肢の転記を入力する。
+3. 画面から開始すると、Codex App Serverのread-only別threadでBlind A/Bを並列実行し、その後Challengeを実行する。
+4. A/Bの変更完全値が一致し、Challengeが画面で固定した資料名・locator・SHA-256を保持した`fix`だけ、`24_questionIssueCorrections`へ保存する。
+5. `no_change`、`hold`、`app_update`はpatchを作らない。`00_source`はどの判断でも変更しない。
+
+この操作は、利用者報告の取込、case状態更新、Git commit/push、Firestore反映を代替しない。保存後は通常の問題整備工程で正答・解説など影響する後続fieldを再生成し、公開前検査、評価、明示的なFirestore反映へ進む。
 
 ## 4. 客観レビュー
 
