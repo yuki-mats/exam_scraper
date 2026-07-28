@@ -345,6 +345,29 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("評価待ちを100問並列で連続評価", html)
         self.assertNotIn("独立した新しい別セッションで順に評価します", javascript)
 
+    def test_needs_rework_selection_uses_the_existing_parallel_maintenance_run(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+
+        self.assertIn(
+            '$("#evaluation-status-select").value === "needsRework"',
+            javascript,
+        )
+        self.assertIn("function openSelectedQuestionMaintenance()", javascript)
+        maintenance_section = javascript[
+            javascript.index("function openSelectedQuestionMaintenance()") :
+            javascript.index("function openListGroupStatus")
+        ]
+        self.assertIn("state.selectedQuestionIds.has(question.id)", maintenance_section)
+        self.assertIn("questionIds: selectedQuestions.map", maintenance_section)
+        self.assertIn("listGroupIds: [...new Set(", maintenance_section)
+        self.assertIn('mode: "group_refresh"', maintenance_section)
+        self.assertIn("fieldFirst: true", maintenance_section)
+        self.assertIn(
+            "questionConcurrency: AUTO_QUESTION_CONCURRENCY",
+            maintenance_section,
+        )
+        self.assertIn("選択した${count}問を再整備", javascript)
+
     def test_validated_work_and_artifact_sync_have_separate_ui_states(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = APP_PATH.with_name("index.html").read_text(encoding="utf-8")

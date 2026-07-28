@@ -1221,6 +1221,10 @@ function bindControls() {
   }
   $("#select-visible").addEventListener("change", toggleVisibleQuestionSelection);
   $("#bulk-evaluate-button").addEventListener("click", () => {
+    if ($("#evaluation-status-select").value === "needsRework") {
+      openSelectedQuestionMaintenance();
+      return;
+    }
     openEvaluationDialog([...state.selectedQuestionIds]);
   });
   $("#continuous-evaluate-button").addEventListener("click", () => {
@@ -1693,6 +1697,28 @@ function openSingleQuestionMaintenance(question) {
     questionIds: [question.id],
     mode: "group_refresh",
     fieldFirst: true,
+  });
+}
+
+function openSelectedQuestionMaintenance() {
+  const selectedQuestions = state.questions.filter(
+    (question) => state.selectedQuestionIds.has(question.id),
+  );
+  if (!selectedQuestions.length) {
+    toast("再整備する問題を選択してください。", true);
+    return;
+  }
+  const firstStage = qualificationMaintenanceEntryStage();
+  if (!firstStage) {
+    toast("更新項目を選べる問題整備工程がありません。", true);
+    return;
+  }
+  openQualificationRunDialog(firstStage, {
+    listGroupIds: [...new Set(selectedQuestions.map((question) => question.listGroupId))],
+    questionIds: selectedQuestions.map((question) => question.id),
+    mode: "group_refresh",
+    fieldFirst: true,
+    questionConcurrency: AUTO_QUESTION_CONCURRENCY,
   });
 }
 
@@ -4881,8 +4907,16 @@ function updateEvaluationSelectionControls() {
   const count = state.selectedQuestionIds.size;
   const action = $("#bulk-evaluate-button");
   if (action) {
-    action.disabled = count === 0 || !state.evaluationEnabled;
-    action.textContent = count ? `選択した${count}問を評価` : "選択した問題を評価";
+    const reworkSelection = $("#evaluation-status-select").value === "needsRework";
+    action.disabled = count === 0
+      || (reworkSelection ? !qualificationMaintenanceEntryStage() : !state.evaluationEnabled);
+    action.textContent = reworkSelection
+      ? count
+        ? `選択した${count}問を再整備`
+        : "選択した問題を再整備"
+      : count
+        ? `選択した${count}問を評価`
+        : "選択した問題を評価";
   }
   const continuousAction = $("#continuous-evaluate-button");
   if (continuousAction) {
