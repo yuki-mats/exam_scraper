@@ -20,6 +20,9 @@ from scripts.common.question_answer_contract import (
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
 )
+from scripts.common.repaso_firestore_schema import (
+    _is_law_revision_evidence_summary,
+)
 from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
@@ -465,6 +468,9 @@ _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
         "reviewState、current.correctChoiceTextのscalar、examTime.correctChoiceTextの"
         "scalar、非空objectのevidenceSummaryを入れる。互換のquestion-level objectを"
         "使う場合はcurrent/examTime.correctChoiceTextを選択肢順の配列にする。"
+        "evidenceSummaryで使用できるfieldはverdict、explanationText、"
+        "differenceSummary、promptContext、displayRefIds、refsだけとし、"
+        "旧形式のsummaryは使わない。"
         "auditStatus=updated_to_current_lawはreviewState=tertiary_verifiedに限る。"
         "法令肢と技術肢が混在する問題では、技術肢を"
         "auditStatus=not_law_related、reviewState=secondary_verifiedとして"
@@ -1269,6 +1275,13 @@ def validate_candidate_content(
             ):
                 errors.append(
                     f"lawRevisionFacts[{index}].evidenceSummaryが非空objectではありません。"
+                )
+            elif not _is_law_revision_evidence_summary(
+                dict(fact["evidenceSummary"])
+            ):
+                errors.append(
+                    f"lawRevisionFacts[{index}].evidenceSummaryが"
+                    "Firestore公開契約に一致しません。"
                 )
         errors.extend(
             issue["detail"]

@@ -1960,6 +1960,97 @@ class QuestionCandidateTest(unittest.TestCase):
             any("lawReferences[0][0]がobject" in error for error in errors)
         )
 
+    def test_law_audit_rejects_legacy_evidence_summary_field(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        values = {
+            "auditStatus": "same_as_current",
+            "reviewState": "secondary_verified",
+            "sourceSummary": "法令を確認した。",
+            "verificationSummary": "正誤を照合した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["正しい"],
+            "currentLawDecision": ["正しい"],
+            "isLawRelated": True,
+            "lawReferences": [
+                [
+                    {
+                        "role": "current_basis",
+                        "scope": "choice",
+                        "choiceIndex": 0,
+                        "lawId": "123AC0000000001",
+                        "lawTitle": "試験法",
+                        "referenceDate": "2026-07-28",
+                        "article": "1",
+                        "verificationStatus": "verified",
+                        "source": "egov_law",
+                    }
+                ]
+            ],
+            "lawRevisionFacts": [
+                {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "secondary_verified",
+                    "current": {"correctChoiceText": "正しい"},
+                    "examTime": {"correctChoiceText": "正しい"},
+                    "evidenceSummary": {"summary": "旧形式の要約"},
+                }
+            ],
+        }
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "旧形式の候補",
+                        "updates": [
+                            {
+                                "targetId": audit.target_id,
+                                "setFields": [
+                                    {
+                                        "field": field,
+                                        "valueJson": json.dumps(
+                                            value, ensure_ascii=False
+                                        ),
+                                    }
+                                    for field, value in values.items()
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionType": "true_false",
+                "choiceTextList": ["条文上の記述"],
+                "correctChoiceText": ["正しい"],
+            },
+        )
+
+        self.assertTrue(
+            any("Firestore公開契約に一致しません" in error for error in errors)
+        )
+
     def test_law_audit_routes_misplaced_fields_to_server_owned_targets(self):
         plan = {
             "allowedPatchFiles": [
