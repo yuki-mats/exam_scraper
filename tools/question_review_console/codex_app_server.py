@@ -108,6 +108,10 @@ TURN_HEARTBEAT_INTERVAL_SECONDS = 15.0
 # 15分をわずかに超えることがある。検証済みpatchを完了直前に巻き戻さないよう、
 # 1 turn の上限には十分な保存・receipt作成時間を含める。
 DEFAULT_TURN_TIMEOUT_SECONDS = 1800
+# 構造化応答の末尾で空白だけを生成し続ける異常は、通常の推論待ちと
+# 区別して早期に再試行へ送る。短い整形用空白では発火させない。
+STRUCTURED_OUTPUT_STALL_TIMEOUT_SECONDS = 30.0
+STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS = 256
 SUBSCRIPTION_STATUS_CACHE_SECONDS = 60.0
 SUBSCRIPTION_STATUS_READ_ATTEMPTS = 3
 SUBSCRIPTION_STATUS_READ_RETRY_DELAY_SECONDS = 0.2
@@ -250,6 +254,7 @@ class _TurnState:
     thread_id: str
     turn_id: str
     emit: Callable[[str], None]
+    structured_output: bool = False
     event: threading.Event = field(default_factory=threading.Event)
     messages: list[tuple[str | None, str]] = field(default_factory=list)
     changed_files: set[str] = field(default_factory=set)
@@ -257,6 +262,8 @@ class _TurnState:
     subagent_models: set[str] = field(default_factory=set)
     subagent_reasoning_efforts: set[str] = field(default_factory=set)
     recorded_item_ids: set[str] = field(default_factory=set)
+    last_semantic_delta_at: float | None = None
+    trailing_whitespace_chars: int = 0
     status: str = "inProgress"
     error: Any = None
 
@@ -981,6 +988,9 @@ class CodexAppServerClient:
         binary_path: Path | None = None,
         request_timeout: int = 30,
         turn_timeout: int = DEFAULT_TURN_TIMEOUT_SECONDS,
+        structured_output_stall_timeout: float = (
+            STRUCTURED_OUTPUT_STALL_TIMEOUT_SECONDS
+        ),
         status_cache_seconds: float = SUBSCRIPTION_STATUS_CACHE_SECONDS,
         turn_budget: GlobalTurnBudget | None = None,
         control_plane_budget: GlobalTurnBudget | None = None,
@@ -991,6 +1001,10 @@ class CodexAppServerClient:
         self.binary_path = self._resolve_binary(binary_path)
         self.request_timeout = request_timeout
         self.turn_timeout = turn_timeout
+        self.structured_output_stall_timeout = max(
+            0.0,
+            float(structured_output_stall_timeout),
+        )
         self.status_cache_seconds = status_cache_seconds
         self.provider = APP_SERVER_PROVIDER
         self.provider_retry_attempts = PROVIDER_RECOVERY_ATTEMPTS
@@ -1462,6 +1476,7 @@ class CodexAppServerClient:
                 thread_id=thread_id,
                 turn_id=turn_id,
                 emit=emit,
+                structured_output=output_schema is not None,
             )
             key = (thread_id, turn_id)
             with self._state_lock:
@@ -1496,6 +1511,18 @@ class CodexAppServerClient:
                     ):
                         break
                     now = time.monotonic()
+                    if (
+                        state.structured_output
+                        and state.last_semantic_delta_at is not None
+                        and state.trailing_whitespace_chars
+                        >= STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS
+                        and now - state.last_semantic_delta_at
+                        >= self.structured_output_stall_timeout
+                    ):
+                        raise CodexTurnTimeoutError(
+                            "Codex App Serverの構造化応答が、実質的な"
+                            "出力進捗のない空白生成で停止しました。"
+                        )
                     if now >= next_heartbeat:
                         try:
                             heartbeat_callback()
@@ -2604,6 +2631,17 @@ class CodexAppServerClient:
             item = params.get("item")
             if isinstance(item, Mapping):
                 self._record_turn_item(state, item)
+            return
+        if method == "item/agentMessage/delta" and state.structured_output:
+            delta = params.get("delta")
+            if not isinstance(delta, str) or not delta:
+                return
+            semantic_prefix = delta.rstrip()
+            if semantic_prefix:
+                state.last_semantic_delta_at = time.monotonic()
+                state.trailing_whitespace_chars = len(delta) - len(semantic_prefix)
+            elif state.last_semantic_delta_at is not None:
+                state.trailing_whitespace_chars += len(delta)
             return
         if method == "error":
             state.error = params.get("error")

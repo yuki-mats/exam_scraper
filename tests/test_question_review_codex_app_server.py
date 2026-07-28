@@ -26,6 +26,7 @@ from tools.question_review_console.codex_app_server import (
     RESEARCH_AGENT_CONFIG_FILENAME,
     RESEARCH_AGENT_ROLE,
     SAFE_SHELL_PATH,
+    STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS,
     SUBSCRIPTION_STATUS_READ_ATTEMPTS,
     SubscriptionGateError,
     _NonBlockingObserverAdapter,
@@ -1268,6 +1269,59 @@ class ReceiptInterruptProtocolClient(ProtocolClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_structured_output_trailing_whitespace_stall_is_interrupted(self):
+        class WhitespaceStallClient(ProtocolClient):
+            def __init__(self):
+                super().__init__(
+                    turn_timeout=10,
+                    structured_output_stall_timeout=0,
+                )
+                self.interrupted = []
+
+            def _request(self, method, params, *, timeout=None):
+                if method == "turn/start":
+                    self.calls.append((method, copy.deepcopy(params)))
+                    thread_id = params["threadId"]
+                    turn_id = thread_id.replace("thread", "turn")
+                    for delta in (
+                        '{"status":"ok"',
+                        " " * STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS,
+                    ):
+                        self._handle_turn_notification(
+                            {
+                                "method": "item/agentMessage/delta",
+                                "params": {
+                                    "threadId": thread_id,
+                                    "turnId": turn_id,
+                                    "delta": delta,
+                                },
+                            }
+                        )
+                    return {"turn": {"id": turn_id}}
+                if method == "turn/interrupt":
+                    self.interrupted.append(
+                        (params["threadId"], params["turnId"])
+                    )
+                    return {}
+                return super()._request(method, params, timeout=timeout)
+
+        client = WhitespaceStallClient()
+
+        with self.assertRaisesRegex(
+            CodexTurnTimeoutError,
+            "実質的な出力進捗のない空白生成",
+        ):
+            client.run_turn(
+                "question",
+                work_type="maintenance_explanation_candidate",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                output_schema={"type": "object", "properties": {}},
+            )
+
+        self.assertEqual(client.interrupted, [("thread-1", "turn-1")])
+        self.assertEqual(client._turns, {})
+
     def test_active_turn_deadline_raises_question_scoped_timeout(self):
         class HangingTurnClient(ProtocolClient):
             def __init__(self):
