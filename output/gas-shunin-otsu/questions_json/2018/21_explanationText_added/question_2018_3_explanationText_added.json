@@ -248,7 +248,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "正しい。2018年出題時点では、屋内式瞬間湯沸器は長期使用製品安全点検制度の特定保守製品に指定されていた。なお、現行法では制度改正により特定保守製品から除かれているため、この肢は出題時点の基準で判断する。",
+      "間違い。現行の長期使用製品安全点検制度では、屋内式瞬間湯沸器は特定保守製品から除外されている。消費生活用製品安全法施行令第3条・別表第三の現行の対象は石油給湯機と石油ふろがまであり、屋内式ガス瞬間湯沸器は令和3年8月1日施行改正により対象外となった。なお、2018年出題時点では同令第3条・別表第三第1号・第2号に掲げられていた。",
       "正しい。大型給湯器には、養生シートや鳥害などで排気口が閉そくされた場合に、点火前に閉そくを検知し、点火動作に入らないようにする安全機能を備えたものがある。",
       "正しい。給湯暖房用熱源機の暖房回路には、循環水の温度上昇に伴う膨張を吸収するため、シスターンが搭載されている。",
       "間違い。ふろ給湯器には、湯張り運転中でも台所などへ給湯できるものがある。したがって、湯張り運転中にお湯を供給できないとする記述は誤りである。",
@@ -319,11 +319,11 @@
           "verificationStatus": "verified"
         },
         {
-          "article": "第3条、別表第三（現行の特定保守製品。令和3年8月1日施行改正により屋内式ガス瞬間湯沸器は別表第三から削除）",
+          "article": "第3条、別表第三第1号・第2号（現行の特定保守製品は石油給湯機及び石油ふろがま。屋内式ガス瞬間湯沸器は令和3年8月1日施行改正により削除）",
           "choiceIndex": 0,
           "lawId": "349CO0000000048",
           "lawTitle": "消費生活用製品安全法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/349CO0000000048/ ; 経済産業省 消費生活用製品安全法改正について https://www.meti.go.jp/product_safety/producer/shouan/07kaisei.html",
@@ -335,7 +335,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1は、長期使用製品安全点検制度の特定保守製品に関する法令根拠を要する。2018年出題時点では、屋内式ガス瞬間湯沸器（都市ガス用・LPガス用）は消費生活用製品安全法施行令第3条・別表第三に掲げる特定保守製品に含まれていた。現行法では令和3年8月1日施行改正により対象外となっているため、解説では出題時点の基準で正誤を述べる。選択肢2〜5は、主に機器構造、安全機能、給排気上の技術知識で判断する。",
+    "lawContextForExplanation": "選択肢1は長期使用製品安全点検制度の特定保守製品に関する法令肢。2018年出題時点では屋内式ガス瞬間湯沸器は消費生活用製品安全法施行令第3条・別表第三に掲げられていたが、令和3年8月1日施行改正後の現行法では削除されている。選択肢2〜5は機器構造・安全機能・使用上の技術知識で判断する。現行法基準では選択肢1と4が間違いとなる。",
     "lawRevisionFacts": [
       {
         "auditStatus": "updated_to_current_law",
@@ -361,7 +361,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -374,7 +374,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -387,7 +387,7 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -400,7 +400,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },
