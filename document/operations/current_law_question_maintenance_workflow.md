@@ -60,6 +60,8 @@ Codex App Serverでは、組み込みweb検索を一次情報の入口として�
 
 画面APIの問題ID、`reviewKey`、`progressTargets[].id`、UI表示用hashは監査IDではありません。sidecarとsourceは上の3要素をexact joinし、部分一致で推測しません。UIの`reviewKey`が衝突しても`sourceRecordRef`で問題を分離し、資格・年度・問題一覧を表示します。3要素を一意に確定できない場合は03bの開始だけをfail-closedでblockします。選択肢の判定は`examTimeDecision`と`currentLawDecision`へ選択肢順で保存し、patchの正答・`lawRevisionFacts`と一致させます。
 
+旧runがv2 sidecarの`reviewQuestionId`へUI表示用hashを保存していた場合は、同じ行の`sourceQuestionKey`と`sourceRecordRef`が対象source recordへ一意に一致し、旧hashも同じ問題の既知aliasであるとserverが確認できたときだけ、次の03bでsource由来の安定IDへ修復します。この移行を実質的な`hold`には数えず、別問題への付替えと三つのidentityの推測は従来どおり拒否します。
+
 ## 保存先
 
 | 内容 | 保存先 |

@@ -106,7 +106,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             jsonl(
                 {
                     "schemaVersion": "law-revision-audit/v2",
-                    "reviewQuestionId": "ui-hash-q1",
+                    "reviewQuestionId": "source-review-q1",
                     "sourceQuestionKey": "sample:2026:q1",
                     "sourceRecordRef": "q1.json#0",
                 },
@@ -1197,8 +1197,12 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 bindings,
             )
 
-    def test_law_sidecar_allows_only_exact_v1_to_v2_identity_migration(self):
-        def validate(before_schema: str) -> None:
+    def test_law_sidecar_repairs_legacy_identity_to_exact_source_binding(self):
+        def validate(
+            before_schema: str,
+            *,
+            after_review_question_id: str = "source-review-q1",
+        ) -> None:
             with tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
                 source_relative = Path(
@@ -1274,8 +1278,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     json.dumps(
                         {
                             "schemaVersion": "law-revision-audit/v2",
-                            # v2へ移行しても既存のreview IDは変更しない。
-                            "reviewQuestionId": "ui-hash-q1",
+                            "reviewQuestionId": after_review_question_id,
                             "sourceQuestionKey": "sample:2026:q1",
                             "sourceRecordRef": "q1.json#0",
                         }
@@ -1299,11 +1302,15 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 )
 
         validate("law-revision-audit/v1")
+        validate("law-revision-audit/v2")
         with self.assertRaisesRegex(
             QualificationRunError,
-            "既存ID fieldの変更",
+            "既存ID fieldの変更|対象問題以外",
         ):
-            validate("law-revision-audit/v2")
+            validate(
+                "law-revision-audit/v2",
+                after_review_question_id="unrelated-id",
+            )
 
     def test_law_sidecar_ignores_unchanged_non_target_v1_rows(self):
         non_target = {

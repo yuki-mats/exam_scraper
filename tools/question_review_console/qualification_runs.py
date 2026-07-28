@@ -17649,37 +17649,69 @@ class QualificationRunCoordinator:
                                 "sourceRecordRef",
                             }
                         )
-                        allowed_sidecar_migration = bool(
+                        canonical_sidecar_identity = (
+                            {
+                                "reviewQuestionId": (
+                                    matched_source_binding.review_question_id
+                                ),
+                                "sourceQuestionKey": (
+                                    matched_source_binding.source_question_key
+                                ),
+                                "sourceRecordRef": (
+                                    matched_source_binding.source_record_ref
+                                ),
+                            }
+                            if (
+                                is_law_audit_sidecar
+                                and matched_source_binding is not None
+                                and matched_source_binding.is_complete()
+                            )
+                            else {}
+                        )
+                        allowed_sidecar_identity_repair = bool(
                             is_law_audit_sidecar
                             and matched_source_binding is not None
                             and before_schema_versions
-                            == {"law-revision-audit/v1"}
+                            <= {
+                                "law-revision-audit/v1",
+                                "law-revision-audit/v2",
+                            }
                             and contract(after_entry).get("schemaVersion")
                             == "law-revision-audit/v2"
                             and matched_source_binding.is_complete()
-                            and all(
-                                after_identity.get(field) == value
-                                for field, value in before_identity.items()
-                            )
-                            and after_identity.get("sourceQuestionKey")
-                            == matched_source_binding.source_question_key
-                            and after_identity.get("sourceRecordRef")
-                            == matched_source_binding.source_record_ref
-                            and str(
-                                after_identity.get("reviewQuestionId") or ""
-                            )
-                            in binding_aliases
-                            and set(after_identity) - set(before_identity)
+                            and after_identity == canonical_sidecar_identity
+                            and set(before_identity)
                             <= {
                                 "sourceQuestionKey",
                                 "reviewQuestionId",
                                 "sourceRecordRef",
                             }
+                            and str(
+                                before_identity.get("sourceQuestionKey") or ""
+                            )
+                            in {
+                                "",
+                                matched_source_binding.source_question_key,
+                            }
+                            and str(
+                                before_identity.get("sourceRecordRef") or ""
+                            )
+                            in {
+                                "",
+                                matched_source_binding.source_record_ref,
+                            }
+                            and str(
+                                before_identity.get("reviewQuestionId") or ""
+                            )
+                            in {
+                                "",
+                                *binding_aliases,
+                            }
                         )
                         if not (
                             allowed_empty_identity_cleanup
                             or allowed_patch_identity_enrichment
-                            or allowed_sidecar_migration
+                            or allowed_sidecar_identity_repair
                         ):
                             raise QualificationRunError(
                                 f"既存ID fieldの変更を検出しました: {relative}"

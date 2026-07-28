@@ -76,6 +76,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - `sourceQuestionKey`は、同じsource recordの値を必須とする。
 - `sourceRecordRef`は、`00_source/`からの相対file pathと0始まりのrecord indexを`<path>#<index>`で保存する。
 - 画面APIの問題ID、`progressTargets[].id`、24桁のUI用hashを三つのsource identityへ保存してはいけない。
+- 既存v2 sidecarの`reviewQuestionId`に旧ルール由来のUI用hashが残る場合は、同じ行の`sourceQuestionKey`と`sourceRecordRef`が対象source recordに一意に一致することを確認し、その行だけsource由来のreview IDへ修復する。patch側のIDを無条件に写さず、対象外行のIDは変更しない。
 - 三つの値をexact joinして対象source recordを一意に特定できない場合は保存せず、失敗として報告する。
 
 画面用の`reviewKey`が衝突しても、`sourceRecordRef`で問題を分離し、資格・年度・問題一覧を削除又は非表示にしてはいけません。3要素を一意に確定できない場合だけ03bをfail-closedで開始せず、source identityの修正が必要な問題を報告します。
