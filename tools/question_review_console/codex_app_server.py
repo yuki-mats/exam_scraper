@@ -112,6 +112,9 @@ DEFAULT_TURN_TIMEOUT_SECONDS = 1800
 # 区別して早期に再試行へ送る。短い整形用空白では発火させない。
 STRUCTURED_OUTPUT_STALL_TIMEOUT_SECONDS = 30.0
 STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS = 256
+# 完成した構造化messageを受信してもturn/completedだけが欠落する場合がある。
+# messageは後段のschema検証を必ず通すため、短い猶予後にturnを閉じて検証へ渡す。
+STRUCTURED_OUTPUT_COMPLETION_GRACE_SECONDS = 30.0
 SUBSCRIPTION_STATUS_CACHE_SECONDS = 60.0
 SUBSCRIPTION_STATUS_READ_ATTEMPTS = 3
 SUBSCRIPTION_STATUS_READ_RETRY_DELAY_SECONDS = 0.2
@@ -264,6 +267,7 @@ class _TurnState:
     recorded_item_ids: set[str] = field(default_factory=set)
     last_semantic_delta_at: float | None = None
     trailing_whitespace_chars: int = 0
+    completed_message_at: float | None = None
     status: str = "inProgress"
     error: Any = None
 
@@ -991,6 +995,9 @@ class CodexAppServerClient:
         structured_output_stall_timeout: float = (
             STRUCTURED_OUTPUT_STALL_TIMEOUT_SECONDS
         ),
+        structured_output_completion_grace: float = (
+            STRUCTURED_OUTPUT_COMPLETION_GRACE_SECONDS
+        ),
         status_cache_seconds: float = SUBSCRIPTION_STATUS_CACHE_SECONDS,
         turn_budget: GlobalTurnBudget | None = None,
         control_plane_budget: GlobalTurnBudget | None = None,
@@ -1004,6 +1011,10 @@ class CodexAppServerClient:
         self.structured_output_stall_timeout = max(
             0.0,
             float(structured_output_stall_timeout),
+        )
+        self.structured_output_completion_grace = max(
+            0.0,
+            float(structured_output_completion_grace),
         )
         self.status_cache_seconds = status_cache_seconds
         self.provider = APP_SERVER_PROVIDER
@@ -1490,6 +1501,7 @@ class CodexAppServerClient:
                 emit(f"Codex App Server thread: {thread_id}")
 
                 receipt_interrupted = False
+                completed_message_interrupted = False
                 deadline = time.monotonic() + self.turn_timeout
                 next_heartbeat = (
                     time.monotonic() + TURN_HEARTBEAT_INTERVAL_SECONDS
@@ -1523,6 +1535,23 @@ class CodexAppServerClient:
                             "Codex App Serverの構造化応答が、実質的な"
                             "出力進捗のない空白生成で停止しました。"
                         )
+                    if (
+                        state.structured_output
+                        and state.completed_message_at is not None
+                        and now - state.completed_message_at
+                        >= self.structured_output_completion_grace
+                    ):
+                        completed_message_interrupted = True
+                        emit(
+                            "完成した構造化応答を受信したため、欠落した"
+                            "turn完了通知を待たず最終検証へ進みます。"
+                        )
+                        self._interrupt_turn(thread_id, turn_id)
+                        if not state.event.wait(30):
+                            raise CodexAppServerError(
+                                "構造化応答受信後のturn停止を確認できませんでした。"
+                            )
+                        break
                     if now >= next_heartbeat:
                         try:
                             heartbeat_callback()
@@ -1554,7 +1583,14 @@ class CodexAppServerClient:
         receipt_interrupted = bool(
             receipt_interrupted and state.status == "interrupted"
         )
-        if state.status != "completed" and not receipt_interrupted:
+        completed_message_interrupted = bool(
+            completed_message_interrupted and state.status == "interrupted"
+        )
+        if (
+            state.status != "completed"
+            and not receipt_interrupted
+            and not completed_message_interrupted
+        ):
             detail = self._turn_error_message(state.error)
             raise CodexAppServerError(
                 f"Codex App Serverのturnを完了できませんでした（{state.status}）{detail}"
@@ -1619,7 +1655,11 @@ class CodexAppServerClient:
                 sorted(state.subagent_reasoning_efforts)
             ),
             completion_mode=(
-                "receipt_interrupted" if receipt_interrupted else "turn_completed"
+                "receipt_interrupted"
+                if receipt_interrupted
+                else "completed_message_interrupted"
+                if completed_message_interrupted
+                else "turn_completed"
             ),
         )
 
@@ -2515,6 +2555,8 @@ class CodexAppServerClient:
                 )
                 if value not in state.messages:
                     state.messages.append(value)
+                if state.structured_output:
+                    state.completed_message_at = time.monotonic()
             return
         if item_type == "commandExecution":
             command = self._failure_output_tail(item.get("command"))[:240]

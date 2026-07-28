@@ -1322,6 +1322,74 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(client.interrupted, [("thread-1", "turn-1")])
         self.assertEqual(client._turns, {})
 
+    def test_completed_structured_message_without_turn_completion_is_validated(self):
+        class MissingCompletionClient(ProtocolClient):
+            def __init__(self):
+                super().__init__(
+                    turn_timeout=10,
+                    structured_output_completion_grace=0,
+                )
+
+            def _request(self, method, params, *, timeout=None):
+                if method == "turn/start":
+                    self.calls.append((method, copy.deepcopy(params)))
+                    thread_id = params["threadId"]
+                    turn_id = thread_id.replace("thread", "turn")
+                    self._handle_turn_notification(
+                        {
+                            "method": "item/completed",
+                            "params": {
+                                "threadId": thread_id,
+                                "turnId": turn_id,
+                                "item": {
+                                    "id": "message-1",
+                                    "type": "agentMessage",
+                                    "phase": "final_answer",
+                                    "text": '{"status":"ok"}',
+                                },
+                            },
+                        }
+                    )
+                    return {"turn": {"id": turn_id}}
+                if method == "turn/interrupt":
+                    self.calls.append((method, copy.deepcopy(params)))
+                    self._handle_turn_notification(
+                        {
+                            "method": "turn/completed",
+                            "params": {
+                                "threadId": params["threadId"],
+                                "turn": {
+                                    "id": params["turnId"],
+                                    "status": "interrupted",
+                                    "error": None,
+                                    "items": [],
+                                },
+                            },
+                        }
+                    )
+                    return {}
+                return super()._request(method, params, timeout=timeout)
+
+        client = MissingCompletionClient()
+
+        result = client.run_turn(
+            "question",
+            work_type="maintenance_explanation_candidate",
+            sandbox="read-only",
+            emit=lambda _line: None,
+            output_schema={"type": "object", "properties": {}},
+        )
+
+        self.assertEqual(result.final_message, '{"status":"ok"}')
+        self.assertEqual(
+            result.completion_mode,
+            "completed_message_interrupted",
+        )
+        self.assertTrue(
+            any(method == "turn/interrupt" for method, _params in client.calls)
+        )
+        client.close()
+
     def test_active_turn_deadline_raises_question_scoped_timeout(self):
         class HangingTurnClient(ProtocolClient):
             def __init__(self):
