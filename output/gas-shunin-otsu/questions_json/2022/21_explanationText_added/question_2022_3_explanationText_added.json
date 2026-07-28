@@ -582,11 +582,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "正しい。第2種換気はファンで給気して自然排気し、第3種換気は自然給気してファンで排気する方式である。機械換気設備の構造及び換気量に関する基準は、建築基準法施行令第20条の8及び第129条の2の5に定められている。",
-      "正しい。火気を使用する台所などのうち適用対象となる室には、燃焼排ガスや熱気を排出できる換気設備を設ける必要がある。この義務と対象範囲は、建築基準法第28条第3項及び建築基準法施行令第20条の3に定められている。",
-      "正しい。RF式は屋外式、FF式は密閉燃焼式であり、集合住宅のパイプシャフトでは、屋外に開放された扉部にRF式機器を、内部の壁面にFF式機器を設置する扱いがある。密閉燃焼式及び屋外設置の燃焼器の給排気基準は、ガス事業法施行規則第202条第6号及び第7号に定められている。",
-      "間違い。CF式機器の一次排気筒は燃焼器具の一部であり、正常な燃焼に必要な径と高さを備えるよう設計されているため、設置現場で短縮したり曲げたりして長さを調整してはならない。ガス事業法施行規則第202条第2号及びガス用品の技術上の基準等に関する省令第11条・別表第3の安全設計基準に反する内容である。",
-      "正しい。RF式機器は燃焼器を屋外に設置して給排気を屋外で行う方式であり、その設置工事自体は、特定ガス消費機器の設置工事の監督に関する法律第2条及び第3条による監督対象の特定工事には該当しない。"
+      "正しい。第2種換気はファンで給気して自然排気し、第3種換気は自然給気してファンで排気する方式である。給気側にファンを置く第2種、排気側にファンを置く第3種としている記述は正しい。",
+      "正しい。火気を使用する台所等のうち適用対象となる室には、燃焼排ガスや熱気を排出できる換気設備が必要である。建築基準法第28条第3項はこの義務を定める一方、同項の括弧書きと建築基準法施行令第20条の3第1項により、密閉式燃焼器具等だけを設ける室などは対象から除かれるため、設問の「必ず」は適用対象となる室についての記述として扱う。",
+      "正しい。RF式は屋外式、FF式は密閉燃焼式であり、集合住宅のパイプシャフトでは、屋外に開放された扉部にRF式機器を、内部の壁面にFF式機器を設置する扱いがある。",
+      "間違い。CF式機器の一次排気筒は燃焼器具の一部であり、正常な燃焼に必要な径と高さを備えるよう設計されているため、設置現場で短縮したり曲げたりして長さを調整してはならない。設置環境に応じて長さを調整する必要があるという記述は誤りである。",
+      "正しい。RF式機器は燃焼器を屋外に設置して給排気を屋外で行う方式である。屋外に設置される特定ガス消費機器の設置又は変更工事は、屋内へ位置を変更するものを除き、特定ガス消費機器の設置工事の監督に関する法律施行規則第2条第1項第1号の軽微な工事に当たるため、同法第2条第2項・第3条の監督対象である特定工事には該当しない。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -632,37 +632,31 @@
     "explanationReferences": [
       {
         "choiceIndex": 1,
-        "referenceDate": "2026-07-25",
+        "referenceDate": "2026-07-28",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325AC0000000201",
         "title": "建築基準法"
       },
       {
         "choiceIndex": 1,
-        "referenceDate": "2026-07-25",
+        "referenceDate": "2026-07-28",
         "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
         "title": "建築基準法施行令"
       },
       {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-25",
+        "referenceDate": "2026-07-28",
         "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
         "title": "特定ガス消費機器の設置工事の監督に関する法律"
+      },
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-28",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/354M50000400077/",
+        "title": "特定ガス消費機器の設置工事の監督に関する法律施行規則"
       }
     ],
     "lawReferences": [
-      [
-        {
-          "article": "第20条の8、第129条の2の5",
-          "choiceIndex": 0,
-          "lawId": "325CO0000000338",
-          "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [
         {
           "article": "第28条第3項",
@@ -676,7 +670,7 @@
           "verificationStatus": "verified"
         },
         {
-          "article": "第20条の3",
+          "article": "第20条の3第1項第1号から第3号",
           "choiceIndex": 1,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
@@ -687,46 +681,11 @@
           "verificationStatus": "verified"
         }
       ],
+      [],
+      [],
       [
         {
-          "article": "第202条第6号、第7号",
-          "choiceIndex": 2,
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第202条第2号",
-          "choiceIndex": 3,
-          "lawId": "345M50000400097",
-          "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第11条、別表第3",
-          "choiceIndex": 3,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第2条、第3条",
+          "article": "第2条第2項、第3条",
           "choiceIndex": 4,
           "lawId": "354AC0000000033",
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
@@ -735,78 +694,149 @@
           "scope": "choice",
           "source": "e-Gov法令検索",
           "verificationStatus": "verified"
+        },
+        {
+          "article": "第2条第1項第1号",
+          "choiceIndex": 4,
+          "lawId": "354M50000400077",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢1・2は建築基準法令上の換気設備、選択肢3・4はガス事業法令上の燃焼器及び給排気設備、選択肢5は特定ガス消費機器の設置工事の監督制度に関わる。現行法との比較で正誤変更はない。",
+    "lawContextForExplanation": "法令関連性を先に確認し、選択肢2は建築基準法第28条第3項の火気使用室の換気設備義務と同項括弧書き・建築基準法施行令第20条の3第1項の適用除外、選択肢5は特定ガス消費機器の設置工事の監督に関する法律第2条第2項・第3条及び同法施行規則第2条第1項第1号の軽微な工事が正誤を直接決める。選択肢1・3・4は換気方式又は施工取扱いの技術肢として扱い、現行法との比較で正誤変更はない。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "explanationText": "第2種・第3種機械換気の給排気方式と現行の換気設備基準を照合した。",
-          "verdict": "same_as_current"
-        },
         "examTime": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "第2種換気と第3種換気のファン位置を問う技術知識であり、条文の定義・義務・数値基準が正誤を直接決める肢ではない。"
         },
         "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "explanationText": "火気使用室の換気設備義務を建築基準法第28条第3項及び同法施行令第20条の3で確認した。",
-          "verdict": "same_as_current"
+          "correctChoiceText": "正しい",
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "article": "第28条第3項",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/325AC0000000201"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "火気使用室の換気設備義務は建築基準法第28条第3項で確認し、同項の括弧書きによる政令除外は建築基準法施行令第20条の3第1項第1号から第3号で確認した。設問の「必ず」は適用対象となる室についての記述として扱う。",
+          "displayRefIds": [
+            "building-act-28-3",
+            "building-order-20-3-1"
+          ],
+          "refs": [
+            {
+              "refId": "building-act-28-3",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "第28条第3項"
+            },
+            {
+              "refId": "building-order-20-3-1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325CO0000000338",
+              "lawTitle": "建築基準法施行令",
+              "article": "第20条の3第1項第1号から第3号"
+            }
+          ]
+        },
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
-        "evidenceSummary": {
-          "explanationText": "RF式とFF式の給排気方式及び設置区分をガス事業法施行規則第202条と所管官庁資料で確認した。",
-          "verdict": "same_as_current"
-        },
         "examTime": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "RF式・FF式の給排気方式と集合住宅パイプシャフトでの設置区分を問う技術知識であり、条文の定義・義務・数値基準が正誤を直接決める肢ではない。"
         },
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "evidenceSummary": {
-          "explanationText": "CF式機器の一次排気筒は機器の一部であり、現場で長さを変更しないことを現行基準及び所管官庁資料で確認した。",
-          "verdict": "same_as_current"
-        },
         "examTime": {
           "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "CF式機器の一次排気筒の取扱いを問う施工上の技術知識であり、条文の定義・義務・数値基準が正誤を直接決める肢ではない。"
         },
         "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "explanationText": "RF式機器の設置工事自体が監督対象の特定工事に該当しないことを監督法第2条及び第3条で確認した。",
-          "verdict": "same_as_current"
+          "correctChoiceText": "正しい",
+          "lawId": "354M50000400077",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+          "article": "第2条第1項第1号",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/354M50000400077/"
         },
         "examTime": {
           "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "監督法第2条第2項は特定工事から経済産業省令で定める軽微な工事を除き、監督法施行規則第2条第1項第1号は屋外設置の特定ガス消費機器の設置又は変更工事を軽微な工事と定めるため、RF式機器の屋外設置工事は監督対象外である。",
+          "displayRefIds": [
+            "tokkan-act-2-2-3",
+            "tokkan-rule-2-1-1"
+          ],
+          "refs": [
+            {
+              "refId": "tokkan-act-2-2-3",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "354AC0000000033",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+              "article": "第2条第2項、第3条"
+            },
+            {
+              "refId": "tokkan-rule-2-1-1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "354M50000400077",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+              "article": "第2条第1項第1号"
+            }
+          ]
         },
         "reviewState": "secondary_verified"
       }
