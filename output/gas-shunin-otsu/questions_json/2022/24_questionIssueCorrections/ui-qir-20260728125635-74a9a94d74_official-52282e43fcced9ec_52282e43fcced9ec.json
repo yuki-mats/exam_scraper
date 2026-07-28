@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728125635-74a9a94d74",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-74a9a94d74cbefd35fc4"
+  ],
+  "inputCaseHashes": {
+    "ui-official-74a9a94d74cbefd35fc4": "74a9a94d74cbefd35fc48203cd493fd536616e3295787ee71475858965395f02"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "1d3f7ca92291b057a93a51ecda0efd7352acfb9816abaafff51d7eee67e36b52",
+    "082fb8a447cceb029e40fb1280b65bf114580f9aef606e5461763fe400ee0930"
+  ],
+  "challengeReviewHash": "d538736343cfcd67eb565b030847ab192689228f1d2f157bab33e35c0f81ee77",
+  "createdAt": "2026-07-28T12:58:06.609981Z",
+  "entries": [
+    {
+      "original_question_id": "52282e43fcced9ec",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:kiso:q14",
+      "reviewQuestionId": "52282e43fcced9ec",
+      "sourceRecordRef": "question_2022_2.json#4",
+      "expectedBeforeHash": "525af73789136849765e60bd7be44da13d3894f3a8d3eebca8faada0263c04cd",
+      "changes": {
+        "questionBodyText": "構造物の許容応力の判定の際には、材料の種類や使用状況に応じて適切な基準強さを選択することが重要である。(イ)～(ハ)のそれぞれの使用状況における基準強さの組合せとして、最も適切なものはどれか。\n\n(イ) 繰り返し応力を受けるとき\n(ロ) 延性材料が常温で静荷重を受けるとき\n(ハ) 高温で静荷重を受けるとき"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-20.png / 基礎理論 問14（PDF 20ページ／冊子19ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T12:57:13Z",
+          "contentHash": "200a4fb681629423172e72a82dee05838b00707db0895cd02457cec9da112ea1"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-20.png / 基礎理論 問14（PDF 20ページ／冊子19ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T12:56:59Z",
+          "contentHash": "200a4fb681629423172e72a82dee05838b00707db0895cd02457cec9da112ea1"
+        }
+      ]
+    }
+  ]
+}
