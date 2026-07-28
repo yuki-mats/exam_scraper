@@ -76,7 +76,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                             "evidence": [
                                 {
                                     "sourceClass": "official",
-                                    "title": "公式問題",
+                                    "title": "公式問題 レンダリング画像",
                                     "locator": "表記ゆれ",
                                     "contentHash": "a" * 64,
                                 }
@@ -117,6 +117,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             result["evidence"][0]["locator"],
             "tmp/official.png / 問1",
         )
+        self.assertEqual(result["evidence"][0]["title"], "公式問題")
 
     def test_fix_writes_one_verified_24_patch_without_changing_source(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

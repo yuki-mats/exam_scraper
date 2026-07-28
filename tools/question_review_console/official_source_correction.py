@@ -125,8 +125,8 @@ class AppServerReviewExecutor(ReviewExecutor):
                 isinstance(item, dict)
                 and item.get("sourceClass") == "official"
                 and item.get("contentHash") == self.evidence_hash
-                and item.get("title") == self.evidence_title
             ):
+                item["title"] = self.evidence_title
                 item["locator"] = self.canonical_evidence_locator
 
 
