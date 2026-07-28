@@ -38,6 +38,7 @@
 - URLは`/exam/<grade>/<grade>_<year>/`。`grade`は`kou`又は`otsu`。
 - 科目tab、`各選択肢の判定`、数値選択肢の2形式を扱う。詳細は[抽出契約](gas-shunin/gassyunin_source_contract.md)を正本とする。
 - 1年度の期待構成は法令16、基礎理論15、製造9、供給9、消費機器9の計58問。件数差があればDOM変更として停止・再監査する。
+- 公式冊子との照合ではWeb検索をやり直さず、[JIA公式PDFアーカイブ](gas-shunin/official_exam_pdf_archive.md)の問題・論述問題・正答を使う。
 
 ### sg-siken.com / nw-siken.com
 

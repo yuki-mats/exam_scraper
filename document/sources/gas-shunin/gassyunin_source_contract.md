@@ -80,3 +80,5 @@ python3 scripts/check/check_00_source_immutability.py --record-new
 - 判定セクション自体が欠ける問題が増加する。
 
 このいずれかが起きた場合は、公式PDFとのspot checkを行い、本契約とparser testを同時に更新します。
+
+公式PDFは[JIA公式PDFアーカイブ](official_exam_pdf_archive.md)のcatalogから選び、ローカル保存済みの問題・論述問題・正答を使います。保存済みPDFがある年度について、JIA公式一覧又はInternet Archiveを問題ごとに検索し直しません。
