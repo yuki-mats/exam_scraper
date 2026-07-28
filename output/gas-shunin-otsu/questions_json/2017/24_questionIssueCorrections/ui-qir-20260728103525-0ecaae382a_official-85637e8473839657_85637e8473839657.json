@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728103525-0ecaae382a",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-0ecaae382a6383a56571"
+  ],
+  "inputCaseHashes": {
+    "ui-official-0ecaae382a6383a56571": "0ecaae382a6383a56571eb792221f9948a72d3ee63a8b69a7fc7b1d91db7b684"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "31bcd4d348d5bb64fbf54f882661c485e513a721f772b08c87200106f953780f",
+    "1a30c82a98096b5857e6d5a83d9c757a8fb49374b5068901d4d9ca0d021b8f8e"
+  ],
+  "challengeReviewHash": "4ccbfaabf07442e63e1a3d8909629eedc5f6117ac303abf0c55399eb95fa1452",
+  "createdAt": "2026-07-28T10:36:36.038016Z",
+  "entries": [
+    {
+      "original_question_id": "85637e8473839657",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:law:q04",
+      "reviewQuestionId": "85637e8473839657",
+      "sourceRecordRef": "question_2017_1.json#3",
+      "expectedBeforeHash": "6ea8efd721a01cae05a918201234bf967654b050ba1d8947e3e93526ee9142f8",
+      "changes": {
+        "questionBodyText": "法令で規定されているガス工作物に関する次の記述について、[ ]の中の(イ)～(ホ)にあてはまる語句の組合せとして正しいものはどれか。\n①一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物の設置又は変更の工事であって、経済産業省令で定めるものをしようとするときは、その工事の[(イ)]を経済産業大臣に届け出なければならない。ただし、ガス工作物が滅失し、若しくは損壊した場合又は[(ロ)]その他非常の場合において、やむを得ない一時的な工事としてするときは、この限りでない。\n②一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、[(ハ)][(ニ)]を行い、その検査記録を作成し、これを[(ホ)]しなければならない。"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_h29_pages/page-05.png / 法令 問4（PDF 5ページ／冊子4ページ）",
+          "title": "平成29年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T10:35:41Z",
+          "contentHash": "ffe738edd04f33168c8cda510f0e18d01c23adbc16f7b6670db618ecfb4e85de"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_h29_pages/page-05.png / 法令 問4（PDF 5ページ／冊子4ページ）",
+          "title": "平成29年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T10:35:43Z",
+          "contentHash": "ffe738edd04f33168c8cda510f0e18d01c23adbc16f7b6670db618ecfb4e85de"
+        }
+      ]
+    }
+  ]
+}

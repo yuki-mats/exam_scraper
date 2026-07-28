@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728103923-d722e39890",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-d722e3989076d6a6afbd"
+  ],
+  "inputCaseHashes": {
+    "ui-official-d722e3989076d6a6afbd": "d722e3989076d6a6afbd77fe958b44f69f206b4b63a7a5cc0a81acba04312528"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "b5706ef962a14f4e99aeed00da1afda2502733c96ca4295240a4da148a0edb8b",
+    "403a4faa132047a953dc75cee859a29699e94d9381884aa7f3df1908ea84e0bb"
+  ],
+  "challengeReviewHash": "167d85c80793696783bfa08929b37d977dff9044c588eca754f8742be06f5fe7",
+  "createdAt": "2026-07-28T10:40:54.237095Z",
+  "entries": [
+    {
+      "original_question_id": "1d95b3355c8de331",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:shohi:q19",
+      "reviewQuestionId": "1d95b3355c8de331",
+      "sourceRecordRef": "question_2017_2.json#24",
+      "expectedBeforeHash": "ce8b3e8ac3520e456ffbb995641dfb2b029ebbfbd214a536651e05d1449a32c8",
+      "changes": {
+        "choiceTextList": [
+          "赤火式燃焼では、燃焼に必要な空気は全て周囲の大気から供給される。",
+          "ブンゼン式燃焼では、燃焼に必要な空気の一部が一次空気として空気孔から吸い込まれ、二次空気は炎の周囲から供給される。",
+          "濃淡燃焼バーナーは、全一次空気式バーナーと赤火式燃焼バーナーを交互に配置\nした構造となっている。",
+          "サーマルNOxの生成量は、燃焼ガス温度が高くなる空気比1付近で最大となる。",
+          "バーナーでガスを良好に燃焼させることができるインプットと一次空気率の組合せは、一定範囲内に限られる。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_h29_pages/page-27.png / ガス技術（消費）問19（PDF 27ページ／冊子26ページ）",
+          "title": "平成29年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T10:40:06Z",
+          "contentHash": "faac93b973206892b9add74c9760d7bdcc83d12bbb05dbabe71d6fbe0e8d6962"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_h29_pages/page-27.png / ガス技術（消費）問19（PDF 27ページ／冊子26ページ）",
+          "title": "平成29年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T10:39:51Z",
+          "contentHash": "faac93b973206892b9add74c9760d7bdcc83d12bbb05dbabe71d6fbe0e8d6962"
+        }
+      ]
+    }
+  ]
+}

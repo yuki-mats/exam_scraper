@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728103720-2719bf6fda",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-2719bf6fda24b1508db3"
+  ],
+  "inputCaseHashes": {
+    "ui-official-2719bf6fda24b1508db3": "2719bf6fda24b1508db3d1f39879a7036496a804a0184564606aa8908536e52f"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "65bafd0285d3f8fb765df8f6ff2d04061fc74df80bbadb6d42fb8c64a9d26c72",
+    "65966163918e2a9999b0cb8b19bb3ec2e17d0dd495ec218102f4987766ccf10e"
+  ],
+  "challengeReviewHash": "bc1b9d380107b6ff2b84e6a63afc649fb207eb681a20de9cf5d38e112ca3af7f",
+  "createdAt": "2026-07-28T10:38:35.822927Z",
+  "entries": [
+    {
+      "original_question_id": "44c63530e14a4ba5",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:kyokyu:q18",
+      "reviewQuestionId": "44c63530e14a4ba5",
+      "sourceRecordRef": "question_2017_2.json#23",
+      "expectedBeforeHash": "0389b62287f3a92bc47da27e31e42ebcc41ce68d53c2f7ab6cb3657b1b28d577",
+      "changes": {
+        "choiceTextList": [
+          "地盤変位が生じたときに、配管系が吸収することができる地盤変位量を地盤変位吸収能力という。",
+          "低圧の復旧は、復旧ブロックごとに、閉栓、被害箇所の調査と修理、エアパージ、開栓の順に行う。",
+          "低圧導管の被害は、ねじ接続部を有する鋼管で多く発生している。",
+          "設計地盤変位は、\n標準設計地盤変位量に口径と埋設条件の組合せによる補正係数と地域別の補正係数を乗じて\n求める。",
+          "建物内のガス配管の耐震性を向上させるには、ガス配管の支持固定が重要な要素となる。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_h29_pages/page-27.png / ガス技術（供給）問18（PDF 27ページ／冊子26ページ）",
+          "title": "平成29年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T10:37:33Z",
+          "contentHash": "faac93b973206892b9add74c9760d7bdcc83d12bbb05dbabe71d6fbe0e8d6962"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_h29_pages/page-27.png / ガス技術（供給）問18（PDF 27ページ／冊子26ページ）",
+          "title": "平成29年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T10:37:42Z",
+          "contentHash": "faac93b973206892b9add74c9760d7bdcc83d12bbb05dbabe71d6fbe0e8d6962"
+        }
+      ]
+    }
+  ]
+}
