@@ -381,8 +381,9 @@ e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されて�
 - 法令肢と技術肢が混在する問題では、少なくとも一肢が法令関連なら問題全体を`isLawRelated=true`とする。選択肢別の`lawRevisionFacts`では、法令肢を`same_as_current`又は`updated_to_current_law`、技術肢を`not_law_related/secondary_verified`として独立に確定する。
 - 混在問題の`lawReferences`は、法令肢だけにverified根拠を入れ、技術肢の要素を空配列にする。問題全体が法令関連であることを理由に、技術肢へ無関係な法令参照を付けない。
 - `auditStatus=updated_to_current_law`の公開には`reviewState=tertiary_verified`が必要。
-- `current.correctChoiceText`、トップレベル`correctChoiceText`、解説先頭は同じ結論を示す。
+- patchとmergedでは、`current.correctChoiceText`、トップレベル`correctChoiceText`、解説先頭は同じ記述真偽を示す。
 - 複数選択肢のpatchでは、`lawRevisionFacts`を選択肢順の`list<object>`にして各`current.correctChoiceText`をscalarで持つ。互換のquestion-level objectでは`current.correctChoiceText`を選択肢順の配列にする。Convert後のquestion documentでは対応肢のscalarに解決する。
+- `group_choice`と`flash_card`のFirestore question documentでは、トップレベル`correctChoiceText`は「その肢が設問への正解選択肢か」を示し、`lawRevisionFacts.current.correctChoiceText`は「その記述自体が現行法上正しいか」を示す。`select_incorrect`では両者が逆になるため、Firestore段階で直接比較しない。記述真偽はmerged段階で照合し、Firestore段階では選択肢別factsの解決、scalar形式、監査状態及び根拠を検証する。
 - `examTime.correctChoiceText`は出題時の公式正答を保持し、現行法更新で上書きしない。
 - `hold`と未完了review stateは公開可能状態として扱わない。
 
@@ -392,7 +393,7 @@ e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されて�
 
 - `lawRevisionFacts.auditStatus` / `reviewState` に監査判断と二次/三次確認状態を残す。
 - `lawRevisionFacts.auditedAt` / `auditMethodVersion` / `auditInputHash` / `lawCorpusSnapshotId` に、いつ・どの方式・どの固定入力・どの法令 corpus で監査したかを残す。
-- `lawRevisionFacts.examTime.correctChoiceText` と `lawRevisionFacts.current.correctChoiceText` を分ける。
+- `lawRevisionFacts.examTime.correctChoiceText` と `lawRevisionFacts.current.correctChoiceText` を分ける。どちらも記述自体の真偽であり、分割後Firestore documentの正解選択肢判定とは別の意味を持つ。
 - `lawRevisionFacts.evidenceSummary` に AI prompt と条文確認UIへ渡す根拠要約、`displayRefIds`、`refs[]` を残す。
 - `explanationText` に「現行法に合わせて更新済み」「出題当時の公式正答とは異なる場合がある」という趣旨の短い注記を入れる。
 - 出題当時と現行法の違いは、まず`lawRevisionFacts`と`explanationText`だけで理解できるようにする。そこにない追加疑問が残る場合だけ、後述の契約に従って補足質問を作る。

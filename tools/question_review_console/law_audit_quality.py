@@ -24,14 +24,18 @@ def law_revision_current_verdict_issues(
     *,
     correct_choice_text: Any,
     law_revision_facts: Any,
+    compare_with_correct_choice: bool = True,
 ) -> list[dict[str, str]]:
     """Validate current-law verdicts at patch/merged or Firestore granularity.
 
     Patch and merged questions carry a verdict per choice.  Their
     ``lawRevisionFacts`` may be either a per-choice list or one question-level
     object whose ``current.correctChoiceText`` is a list.  Firestore records
-    carry one scalar verdict and one facts object.  This function deliberately
-    accepts both representations so every caller applies the same invariant.
+    carry one scalar verdict and one facts object, but ``group_choice`` and
+    ``flash_card`` convert the top-level verdict to whether the choice is the
+    selected answer while the law snapshot keeps the statement truth.  Callers
+    validating those public records therefore disable the value comparison and
+    retain only the presence/cardinality check.
     """
 
     expected = _normalized_verdicts(correct_choice_text)
@@ -113,7 +117,7 @@ def law_revision_current_verdict_issues(
             else "現行法監査スナップショットの判定がありません。"
         )
         return [issue("law_audit_metadata_incomplete", field, detail)]
-    if actual != expected:
+    if compare_with_correct_choice and actual != expected:
         return [
             issue(
                 "law_audit_verdict_mismatch",

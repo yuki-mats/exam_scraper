@@ -305,6 +305,7 @@ def law_audit_quality_warnings(
     for issue in law_revision_current_verdict_issues(
         correct_choice_text=document.get("correctChoiceText"),
         law_revision_facts=facts,
+        compare_with_correct_choice=(stage == "projected"),
     ):
         add(issue["code"], issue["field"], issue["detail"])
 

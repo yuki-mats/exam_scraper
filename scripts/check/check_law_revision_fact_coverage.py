@@ -264,6 +264,7 @@ def audit_records(
     require_law_references: bool,
     require_current_correct_choice: bool = False,
     allow_question_level_choice_verdicts: bool = False,
+    compare_current_correct_choice: bool = True,
 ) -> tuple[list[str], Counter[str]]:
     errors: list[str] = []
     counts: Counter[str] = Counter()
@@ -332,6 +333,7 @@ def audit_records(
                     for issue in law_revision_current_verdict_issues(
                         correct_choice_text=record.get("correctChoiceText"),
                         law_revision_facts=record.get("lawRevisionFacts"),
+                        compare_with_correct_choice=compare_current_correct_choice,
                     )
                 )
         elif is_law_related is False:
@@ -394,6 +396,7 @@ def run(
         require_law_references=False,
         require_current_correct_choice=require_current_correct_choice,
         allow_question_level_choice_verdicts=(stage == "merged"),
+        compare_current_correct_choice=(stage == "merged"),
     )
     errors.extend(
         audit_question_level_law_evidence(
@@ -453,7 +456,7 @@ def main() -> int:
         action="store_true",
         help=(
             "Fail when lawRevisionFacts.current.correctChoiceText is missing "
-            "or differs from the published verdict."
+            "or, at merged stage, differs from the statement verdict."
         ),
     )
     parser.add_argument(

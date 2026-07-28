@@ -75,7 +75,8 @@ Codex App Serverの整備sessionが更新するのは、対象問題の`18` / `2
 - 工程03と同じ解説文の形式・日本語品質検証に合格している。
 - 法令肢には必要な`lawReferences`と`lawRevisionFacts`があり、技術肢は`not_law_related/secondary_verified`と空の`lawReferences`で確定している。
 - v2 sidecarのID、分類、必須metadataがpatchと一致する。
-- トップレベル正答、`lawRevisionFacts.current.correctChoiceText`、解説先頭が一致する。
+- patchとmergedのトップレベル記述真偽、`lawRevisionFacts.current.correctChoiceText`、解説先頭が一致する。
+- `group_choice`と`flash_card`を分割したFirestore documentでは、トップレベル正答は正解選択肢かどうか、監査factsは記述自体の真偽を表す。両者を直接比較せず、mergedで記述真偽を検証した後、変換後は選択肢対応と監査factsの形式を検証する。
 - `hold`と未完了review stateがない。
 - evidenceから公的一次情報を追跡できる。
 - [delivery workflow](delivery_workflow.md)のquality-gateとupload dry-runが通る。

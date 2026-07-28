@@ -210,7 +210,7 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
         self.assertEqual(counts["missing_law_references"], 1)
         self.assertTrue(any("missing lawReferences" in error for error in errors))
 
-    def test_can_require_current_verdict_to_match_firestore_verdict(self) -> None:
+    def test_can_require_current_verdict_to_exist(self) -> None:
         facts = valid_facts("same_as_current")
         facts["current"].pop("correctChoiceText")
         errors, _ = audit_records(
@@ -231,6 +231,30 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
         )
 
         self.assertTrue(any("現行法監査" in error for error in errors))
+
+    def test_firestore_selection_result_does_not_have_to_match_statement_truth(
+        self,
+    ) -> None:
+        facts = valid_facts("same_as_current")
+        errors, _ = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "correctChoiceText": "間違い",
+                    "isLawRelated": True,
+                    "lawReferences": [{"lawId": "law1"}],
+                    "lawRevisionFacts": facts,
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+            require_current_correct_choice=True,
+            compare_current_correct_choice=False,
+        )
+
+        self.assertEqual(errors, [])
 
     def test_accepts_matching_current_verdict(self) -> None:
         errors, _ = audit_records(

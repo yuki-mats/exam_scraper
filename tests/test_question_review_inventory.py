@@ -920,7 +920,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             [warning["field"] for warning in warnings], ["correctChoiceText"]
         )
 
-    def test_reports_law_snapshot_verdict_mismatch_separately(self):
+    def test_upload_ready_does_not_compare_selection_result_with_statement_truth(self):
         warnings = law_audit_quality_warnings(
             {
                 "questionId": "doc1",
@@ -933,6 +933,24 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                     "evidenceSummary": {"verdict": "correct"},
                 },
             }
+        )
+
+        self.assertEqual(warnings, [])
+
+    def test_projected_reports_law_snapshot_verdict_mismatch_separately(self):
+        warnings = law_audit_quality_warnings(
+            {
+                "questionId": "doc1",
+                "correctChoiceText": "正しい",
+                "isLawRelated": True,
+                "lawReferences": [{"lawId": "law1"}],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "current": {"correctChoiceText": "間違い"},
+                    "evidenceSummary": {"verdict": "correct"},
+                },
+            },
+            stage="projected",
         )
 
         self.assertEqual(len(warnings), 1)
