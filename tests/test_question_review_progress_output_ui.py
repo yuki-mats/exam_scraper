@@ -362,8 +362,8 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("listGroupIds: [...new Set(", maintenance_section)
         self.assertIn('mode: "group_refresh"', maintenance_section)
         self.assertIn("evaluationRework: true", maintenance_section)
-        self.assertIn("EVALUATION_REWORK_WORKFLOW_STAGE", maintenance_section)
-        self.assertIn("stageIds: selectedStages.map", maintenance_section)
+        self.assertIn("qualificationMaintenanceEntryStage()", maintenance_section)
+        self.assertIn("stageIds: [firstStage.id]", maintenance_section)
         self.assertIn(
             "questionConcurrency: AUTO_QUESTION_CONCURRENCY",
             maintenance_section,

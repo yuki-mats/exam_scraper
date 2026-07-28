@@ -13,16 +13,6 @@ const QUESTION_LIST_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const QUALIFICATION_WORKFLOW_CACHE_VERSION = 1;
 const QUALIFICATION_WORKFLOW_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const QUALIFICATION_WORKFLOW_REFRESH_DELAY_MS = 800;
-const EVALUATION_REWORK_WORKFLOW_STAGE = {
-  "01": "question_type",
-  "02": "question_intent",
-  "02a": "correct_choice",
-  "02b": "law_context",
-  "03": "explanation",
-  "03b": "law_audit",
-  "04": "question_set",
-};
-
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
   firestore_readback_stale: "Firestore再取得待ち",
@@ -1718,25 +1708,17 @@ function openSelectedQuestionMaintenance() {
     toast("再整備する問題を選択してください。", true);
     return;
   }
-  const requiredStageIds = new Set(selectedQuestions.flatMap(
-    (question) => (question.evaluation?.reworkItems || [])
-      .map((item) => EVALUATION_REWORK_WORKFLOW_STAGE[item.stage])
-      .filter(Boolean),
-  ));
-  const selectedStages = (state.qualificationWorkflow?.stages || []).filter(
-    (stage) => requiredStageIds.has(stage.id),
-  );
-  const firstStage = selectedStages[0];
+  const firstStage = qualificationMaintenanceEntryStage();
   if (!firstStage) {
-    toast("評価指摘から再整備工程を特定できません。", true);
+    toast("問題整備工程を開始できません。", true);
     return;
   }
   openQualificationRunDialog(firstStage, {
     listGroupIds: [...new Set(selectedQuestions.map((question) => question.listGroupId))],
     questionIds: selectedQuestions.map((question) => question.id),
-    stageIds: selectedStages.map((stage) => stage.id),
-    updateTargetIds: selectedStages.flatMap(
-      (stage) => (stage.updateTargets || []).map((target) => target.selectionId),
+    stageIds: [firstStage.id],
+    updateTargetIds: (firstStage.updateTargets || []).map(
+      (target) => target.selectionId,
     ),
     mode: "group_refresh",
     simplified: true,
