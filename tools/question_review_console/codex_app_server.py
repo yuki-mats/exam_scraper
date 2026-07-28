@@ -1260,10 +1260,16 @@ class CodexAppServerClient:
             )
         evaluation_work = work_type in {"evaluation", "reevaluation"}
         research_work = work_type == "maintenance_research"
+        official_source_work = work_type == "official_source_review"
         candidate_work = work_type.startswith("maintenance_") and work_type.endswith(
             "_candidate"
         )
-        read_only_work = evaluation_work or research_work or candidate_work
+        read_only_work = (
+            evaluation_work
+            or research_work
+            or official_source_work
+            or candidate_work
+        )
         model_only_work = evaluation_work or candidate_work
         # 同じwaveのturnは直前60秒以内に取得した一つの検証結果を共有する。
         # cacheが無い又は期限切れなら最初のturnだけが再取得し、後続は
@@ -1311,6 +1317,13 @@ class CodexAppServerClient:
                 "このthreadは問題整備のread-only事前調査専用である。file又は外部状態を変更しない。"
                 "subagentは使わず、対象問題の根拠と問題IDごとの最終判断案を一つのthreadで返す。"
                 "思考過程は返さない。"
+            )
+        elif official_source_work:
+            developer_instructions = (
+                "このthreadは公式問題冊子とのread-only照合専用である。"
+                "指定されたrepository内の公式資料と入力JSONだけを確認し、"
+                "file又は外部状態を変更しない。subagentは使わず、"
+                "指定された構造化JSONだけを返す。思考過程は返さない。"
             )
         elif candidate_work:
             developer_instructions = (
@@ -1560,6 +1573,10 @@ class CodexAppServerClient:
                     "read-only調査subagentで指定外の推論強度を検出しました: "
                     + ", ".join(sorted(unexpected_efforts))
                 )
+        if official_source_work and state.subagent_thread_ids:
+            raise SubscriptionGateError(
+                "公式問題冊子の照合threadでsubagentを検出しました。"
+            )
         return AppServerTurnResult(
             thread_id=thread_id,
             session_id=session_id,

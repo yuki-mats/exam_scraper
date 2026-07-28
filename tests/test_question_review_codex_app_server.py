@@ -2130,6 +2130,37 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertNotIn("thread/start", [method for method, _params in client.calls])
 
+    def test_official_source_review_is_read_only_without_subagents(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory) / "project"
+            agents = project / ".codex" / "agents"
+            agents.mkdir(parents=True)
+            (agents / "custom.toml").write_text(
+                'name = "other"\ndescription = "override"\n'
+                'developer_instructions = "override"\n',
+                encoding="utf-8",
+            )
+            client = ProtocolClient()
+            result = client.run_turn(
+                "official source",
+                work_type="official_source_review",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                cwd=project,
+            )
+
+        self.assertEqual(result.subagent_thread_ids, ())
+        thread_params = next(
+            params for method, params in client.calls if method == "thread/start"
+        )
+        self.assertEqual(thread_params["cwd"], str(project.resolve()))
+        self.assertTrue(thread_params["ephemeral"])
+        self.assertFalse(thread_params["config"]["features"]["multi_agent"])
+        self.assertIn(
+            "公式問題冊子とのread-only照合専用",
+            thread_params["developerInstructions"],
+        )
+
     def test_research_does_not_spawn_children_even_when_fixture_requests_them(self):
         client = ProtocolClient()
         client.research_child_count = 20

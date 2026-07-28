@@ -70,7 +70,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         self.emit(f"{phase}: 公式資料との独立照合を開始します。")
         result = self.app_server.run_turn(
             prompt,
-            work_type="maintenance_research",
+            work_type="official_source_review",
             sandbox="read-only",
             emit=lambda message: self.emit(f"{phase}: {message}"),
             cwd=self.repo_root,

@@ -22,7 +22,7 @@ CONFIG_PATH = REPO_ROOT / "config" / "question_issue_reports.json"
 
 
 class OfficialSourceCorrectionTests(unittest.TestCase):
-    def test_app_server_executor_uses_read_only_research_turn(self) -> None:
+    def test_app_server_executor_uses_dedicated_read_only_turn(self) -> None:
         class AppServer:
             def run_turn(self, prompt, **options):
                 self.prompt = prompt
@@ -51,7 +51,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
 
         self.assertEqual(result, {"decision": "hold"})
         self.assertEqual(app_server.prompt, "review this")
-        self.assertEqual(app_server.options["work_type"], "maintenance_research")
+        self.assertEqual(app_server.options["work_type"], "official_source_review")
         self.assertEqual(app_server.options["sandbox"], "read-only")
         self.assertEqual(app_server.options["turn_group"], "sample")
         self.assertTrue(logs)
