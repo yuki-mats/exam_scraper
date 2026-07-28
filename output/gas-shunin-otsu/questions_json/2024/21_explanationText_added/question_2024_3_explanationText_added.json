@@ -795,11 +795,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。開放式ガス機器は室内の空気を燃焼に使い、燃焼排ガスも室内へ放出する。建築基準法施行令では、調理室以外で発熱量の合計が6kW以下であり、換気上有効な開口部を設けた室は所定の換気設備を要する室から除かれる。一方、6kWを超える場合はこの除外に当たらないため、本問の条件では機械換気を設ける必要がある。",
-      "間違い。CF式機器の一次排気筒は、機器と一体で所定の排気性能を確保する部分であり、設置現場で切断するなどして長さを変えてはならない。設置条件に応じて長さを調整するのは二次排気筒であるため、両方を現場で加工調整するとした記述は誤りである。",
-      "正しい。BF-W式機器は、外壁を貫通する給排気部を通して屋外から燃焼用空気を取り入れ、排気ガスを屋外へ出す。給排気部と外壁の間に隙間があると排気ガスが屋内へ流入するおそれがあるため、貫通箇所は隙間がないように施工しなければならない。",
-      "正しい。FF式機器は、送風機によって屋外から燃焼用空気を取り入れ、排気ガスを屋外へ排出する密閉燃焼式機器である。給排気経路の構成によって、BF式機器と同様に外壁式、チャンバー式及びダクト式に分けられる。",
-      "正しい。既存のBF式機器を撤去した後の給排気筒トップ穴を活用し、その壁貫通部に取り付けるタイプのRF式機器がある。既存の開口部を利用して、燃焼用空気の取り入れと排気を屋外で行う方式である。"
+      "正しい。調理室以外の室に設置する開放式ガス機器は、発熱量の合計が6kW以下で換気上有効な開口部がある場合に限り、換気設備を要する室から除外される。6kWを超える本肢は除外条件に当たらないため、機械換気が必要である。この扱いは建築基準法第28条第3項及び建築基準法施行令第20条の3第1項第3号・第2項に基づく。",
+      "間違い。CF式機器の一次排気筒は燃焼器の付属部分で、正常な燃焼を確保するよう径や高さが設計されているため、現場で切断するなどの加工をしてはならない。設置条件に応じて長さを調整するのは二次排気筒であり、一次排気筒と二次排気筒の双方を現場で加工調整するとしたため誤りである。排気筒の基準はガス事業法施行規則第202条第1項第2号イに定められている。",
+      "正しい。BF-W式機器の給排気部と外壁との間に隙間があると、排気ガスが屋内へ流れ込むおそれがある。ガス事業法施行規則第202条第1項第6号ハは、密閉燃焼式機器の給排気部が外壁を貫通する箇所に、排気ガスが屋内へ流れ込む隙間がないことを求めている。",
+      "正しい。FF式は送風機を用いる強制給排気式の密閉燃焼機器であり、給排気経路により外壁式のFF-W、チャンバ式のFF-C及びダクト式のFF-Dに分類される。屋内の密閉燃焼式機器はガス事業法施行規則第202条第1項第6号の対象であり、この分類は経済産業省のLPガス保安業務ガイドでも確認できる。",
+      "正しい。屋外式のRF式機器には、既存のBF式機器の給排気筒トップ用外壁貫通部を利用して設置する壁面貫通型がある。屋外設置機器の給排気基準はガス事業法施行規則第202条第1項第7号に定められ、この設置方式は経済産業省の保安専門技術者養成講習資料でも確認できる。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -834,26 +834,7 @@
     "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q25",
     "reviewQuestionId": "c91739a7a2f130a1",
     "sourceRecordRef": "question_2024_3.json#5",
-    "suggestedQuestionDetailsByChoice": [
-      {
-        "choiceIndex": 0,
-        "items": [
-          {
-            "answer": "1台ごとではなく、同じ室に設置される対象ガス機器のインプット合計で判断します。複数台を設置する場合は、それぞれの定格入力を合算して6kWを超えるかを確認します。",
-            "question": "この6kWの判定は、1台ごとのインプットで見るのですか。"
-          }
-        ]
-      },
-      {
-        "choiceIndex": 3,
-        "items": [
-          {
-            "answer": "どちらも燃焼室が室内空気と区画された密閉燃焼式です。BF式は自然給排気、FF式は送風機による強制給排気である点が主な違いです。",
-            "question": "BF式とFF式はどちらも密閉燃焼式ですか。"
-          }
-        ]
-      }
-    ],
+    "suggestedQuestionDetailsByChoice": [],
     "explanationReferences": [
       {
         "referenceDate": "2026-07-27",
@@ -891,10 +872,10 @@
           "choiceIndex": 0,
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20260727",
+          "source": "https://laws.e-gov.go.jp/law/325AC0000000201?occasion_date=20260728",
           "verificationStatus": "verified"
         },
         {
@@ -902,10 +883,10 @@
           "choiceIndex": 0,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260728",
           "verificationStatus": "verified"
         },
         {
@@ -931,17 +912,40 @@
           "verificationStatus": "verified"
         }
       ],
-      [],
+      [
+        {
+          "article": "第202条第1項第2号イ",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260728",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第202条第1項第2号イ",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20240929",
+          "verificationStatus": "verified"
+        }
+      ],
       [
         {
           "article": "第202条第1項第6号ハ",
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260727",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260728",
           "verificationStatus": "verified"
         },
         {
@@ -956,75 +960,121 @@
           "verificationStatus": "verified"
         }
       ],
-      [],
-      []
+      [
+        {
+          "article": "第202条第1項第6号",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260728",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第202条第1項第6号",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20240929",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第202条第1項第7号",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20260728",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第202条第1項第7号",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097?occasion_date=20240929",
+          "verificationStatus": "verified"
+        }
+      ]
     ],
-    "lawContextForExplanation": "選択肢1は、調理室以外の室で合計インプットが6kWを超える開放式ガス機器を設置する場合の換気設備について、建築基準法第28条第3項及び建築基準法施行令第20条の3が根拠となる。選択肢3は、屋内設置の密閉燃焼式ガス機器の給排気部が外壁を貫通する箇所について、排気ガスが屋内へ流れ込む隙間をなくすことを求めるガス事業法施行規則第202条第1項第6号ハが根拠となる。選択肢2、4、5は、CF式、FF式、RF式機器の構造・施工上の知識を中心に説明する。",
+    "lawContextForExplanation": "選択肢1は建築基準法第28条第3項及び建築基準法施行令第20条の3、選択肢2はガス事業法施行規則第202条第1項第2号イ、選択肢3・4は同項第6号、選択肢5は同項第7号を法令上の基礎とする。機器分類及び施工上の具体的内容は、経済産業省のLPガス保安業務ガイド等の一次資料とも照合した。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "verified_no_change",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "建築基準法第28条第3項及び建築基準法施行令第20条の3について、2024年9月29日時点と2026年7月27日時点の該当規定を照合し、6kWの区分と本肢の判定に変更がないことを確認した。"
+          "summary": "建築基準法第28条第3項及び建築基準法施行令第20条の3を試験時点と現行時点で照合し、6kWを超える場合の判定に変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "CF式機器の一次・二次排気筒に関する構造及び施工上の技術事項であり、法令改正による判定更新の対象ではない。公式問題と公式解答により判定を確認した。"
+          "summary": "ガス事業法施行規則第202条第1項第2号イと経済産業省の保安資料を照合し、一次排気筒は現場加工せず二次排気筒を調整するとの判定に変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "verified_no_change",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ガス事業法施行規則第202条第1項第6号ハについて、2024年9月29日時点と2026年7月27日時点の該当規定を照合し、壁貫通箇所の隙間に関する基準と本肢の判定に変更がないことを確認した。"
+          "summary": "ガス事業法施行規則第202条第1項第6号ハを試験時点と現行時点で照合し、外壁貫通箇所に隙間を設けない基準に変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "FF式機器の給排気経路による分類を問う技術事項であり、法令改正による判定更新の対象ではない。公式問題と公式解答により判定を確認した。"
+          "summary": "ガス事業法施行規則第202条第1項第6号と経済産業省LPガス保安業務ガイドを照合し、FF-W、FF-C及びFF-Dの分類に変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "BF式機器の既存開口部を利用するRF式機器の設置形態を問う技術事項であり、法令改正による判定更新の対象ではない。公式問題と公式解答により判定を確認した。"
+          "summary": "ガス事業法施行規則第202条第1項第7号と経済産業省の講習資料を照合し、BF式の既存貫通穴を利用するRF式壁面貫通型が存在するとの判定に変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -1045,11 +1095,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
-      "正しい。都市ガス用は「ガス用品の技術上の基準等に関する省令」第11条・別表第3、LPガス用は「液化石油ガス器具等の技術上の基準等に関する省令」第11条・別表第3に対応する運用解釈で、各こんろバーナーに調理油過熱防止装置を備えることが示されている。例外は業務用として使用するもの等と卓上型一口ガスこんろであり、2口以上の家庭用こんろは全口が対象となる。装置は鍋底の温度を検知し、調理油が300℃に達する前にガスを止める。",
-      "正しい。不完全燃焼防止装置のCOセンサーは、不完全燃焼によって発生する一酸化炭素を検知し、危険な濃度になる前に燃焼を停止させるために用いられる。検知方式には、固体電解質式、接触燃焼式及び半導体式がある。",
-      "間違い。水位スイッチ式や水流スイッチ式は、水の有無や流れを燃焼開始前に確認して空だきを未然に防ぐ、空だき防止装置の方式である。一方、空だき安全装置は、空だきによる異常な温度上昇を検知し、機器が損傷する前にバーナーへのガスを止める。両者を混同しているため誤りである。",
-      "正しい。点火直後は熱電対の起電力がまだ十分でないため、コンデンサーの放電電流によって一時的にガス弁を開状態に保持する。熱電対の起電力が十分になると、その起電力によって開状態を維持する。",
-      "正しい。比例電磁弁は、コイルに流す電流の大きさに応じて電磁力と弁の開度を変える。単なる全開・全閉ではなく、ガス量を連続的に調節できる。"
+      "正しい。2口以上の家庭用ガスこんろでは、原則として各こんろバーナーに調理油過熱防止装置を備える。都市ガス用はガス用品の技術上の基準等に関する省令第11条・別表第3、LPガス用は液化石油ガス器具等の技術上の基準等に関する省令第11条・別表第3に基づく安全基準の対象であり、業務用等と卓上型一口ガスこんろを除く家庭用の2口以上のこんろは全口が対象となる。",
+      "正しい。不完全燃焼防止装置では、発生した一酸化炭素などを検知して燃焼を停止させるため、固体電解質式、接触燃焼式及び半導体式のCOセンサーが使用される。ガス用品の技術上の基準等に関する省令第5条・別表第2は、不完全燃焼防止機能の検知部としてCOセンサー式を掲げ、第11条・別表第3は危険状態を防止する安全機能を求めている。",
+      "間違い。水位スイッチ式や水流スイッチ式は、水がない状態では点火させない空だき防止装置の方式である。これに対して空だき安全装置は、空だきによる異常な温度上昇を検知し、機器が損傷する前にバーナーへのガスを遮断する。対象火気設備等に関する基準を定める省令第15条第4号も、ふろがまには空だき時に自動的に燃焼を停止できる装置を求めている。水の有無を事前に確認する装置を空だき安全装置としているため誤りである。",
+      "正しい。点火直後は熱電対の起電力がまだ十分でないため、コンデンサーの放電電流でガス弁を一時的に開状態に保持し、起電力が十分になると熱電対による保持へ移行する。ガス用品の技術上の基準等に関する省令第5条・別表第2は点火方法と熱電対式の炎検出部を型式区分として掲げ、第11条・別表第3は安全機能と円滑な動作を求めている。",
+      "正しい。比例電磁弁は、コイル電流に応じて生じる電磁力により弁の開度を変え、ガス量を連続的に調節する。ガス用品の技術上の基準等に関する省令第5条・別表第2はガス消費量切替装置を型式区分に掲げ、第11条・別表第3はガス用品の安全な設計と円滑な動作を求めている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1120,7 +1170,7 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "manual_review",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
           "verificationStatus": "verified"
         },
         {
@@ -1131,16 +1181,64 @@
           "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "manual_review",
+          "source": "https://laws.e-gov.go.jp/law/343M50000400023?occasion_date=20260728",
           "verificationStatus": "verified"
         }
       ],
-      [],
-      [],
-      [],
-      []
+      [
+        {
+          "article": "第5条及び別表第2（不完全燃焼を防止する機能に係る検知部の機構）並びに第11条・別表第3",
+          "choiceIndex": 1,
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第15条第4号",
+          "choiceIndex": 2,
+          "lawId": "414M60000008024",
+          "lawTitle": "対象火気設備等の位置、構造及び管理並びに対象火気器具等の取扱いに関する条例の制定に関する基準を定める省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/414M60000008024?occasion_date=20260728",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第5条及び別表第2（点火方法・熱電対式の炎検出部）並びに第11条・別表第3",
+          "choiceIndex": 3,
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第5条及び別表第2（ガス消費量切替装置）並びに第11条・別表第3",
+          "choiceIndex": 4,
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
+        }
+      ]
     ],
-    "lawContextForExplanation": "選択肢1のみ法令関連。都市ガス用とLPガス用の各技術基準省令第11条・別表第3及び対応する運用解釈により、例外に該当しない家庭用ガスこんろの各バーナーには調理油過熱防止装置が必要となる。選択肢2〜5は、センサー、空だき対策、点火保持及び比例制御の技術知識であり、法令根拠は不要。",
+    "lawContextForExplanation": "選択肢1は家庭用ガスこんろの各バーナーに調理油過熱防止装置を備える基準に直接関係する。選択肢2〜5は安全装置、点火装置及びガス量制御装置の技術的構造を問うが、COセンサー式、不完全燃焼防止機能、空だき時の燃焼停止、熱電対式の炎検出及びガス消費量切替装置に対応する現行法令の規定も確認した。2024年の正誤を変更する関係改正は確認されない。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
@@ -1155,8 +1253,7 @@
         },
         "evidenceSummary": {
           "differenceSummary": "出題時と現行で正誤に変更はない。",
-          "explanationText": "都市ガス用とLPガス用の技術基準に対応する運用解釈では、例外に該当しないガスこんろの各バーナーに調理油過熱防止装置を備えることが示される。2口以上の家庭用こんろは例外に該当しない。",
-          "promptContext": "2口以上の家庭用こんろは全口が対象であることを説明し、業務用等と卓上型一口の例外を混同しない。",
+          "explanationText": "都市ガス用及びLPガス用の現行技術基準でも、家庭用の2口以上のガスこんろは各バーナーへの調理油過熱防止装置の装備対象となる。",
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -1168,60 +1265,100 @@
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第5条及び別表第2並びに第11条・別表第3",
+          "correctChoiceText": "正しい",
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "COセンサーの検知方式に関する技術知識であり、法令差分監査の対象外。",
-          "verdict": "correct"
+          "differenceSummary": "出題時と現行で正誤に変更はない。",
+          "explanationText": "現行省令は不完全燃焼防止機能の検知部としてCOセンサー式を掲げており、センサー方式に関する技術的判定とも矛盾しない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2024-09-29",
+          "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+          "verificationStatus": "from_original_answer"
         },
-        "reviewState": "primary_checked"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "間違い"
+          "article": "第15条第4号",
+          "correctChoiceText": "間違い",
+          "lawId": "414M60000008024",
+          "lawTitle": "対象火気設備等の位置、構造及び管理並びに対象火気器具等の取扱いに関する条例の制定に関する基準を定める省令",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/414M60000008024?occasion_date=20260728",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "空だき防止装置と空だき安全装置の機能区分に関する技術知識であり、法令差分監査の対象外。",
-          "verdict": "incorrect"
+          "differenceSummary": "出題時と現行で正誤に変更はない。",
+          "explanationText": "空だき安全装置は空だき時に燃焼を停止させる装置であり、水位・水流スイッチ式の空だき防止装置とは作動段階が異なる。",
+          "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "間違い"
+          "correctChoiceText": "間違い",
+          "referenceDate": "2024-09-29",
+          "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+          "verificationStatus": "from_original_answer"
         },
-        "reviewState": "primary_checked"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第5条及び別表第2並びに第11条・別表第3",
+          "correctChoiceText": "正しい",
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "瞬時点火装置の作動原理に関する技術知識であり、法令差分監査の対象外。",
-          "verdict": "correct"
+          "differenceSummary": "出題時と現行で正誤に変更はない。",
+          "explanationText": "現行省令の点火方法及び熱電対式炎検出部の区分と、瞬時点火装置の作動原理に関する技術的判定は矛盾しない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2024-09-29",
+          "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+          "verificationStatus": "from_original_answer"
         },
-        "reviewState": "primary_checked"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_law_related",
+        "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第5条及び別表第2並びに第11条・別表第3",
+          "correctChoiceText": "正しい",
+          "lawId": "346M50000400027",
+          "lawTitle": "ガス用品の技術上の基準等に関する省令",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20260728",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "比例電磁弁の作動原理に関する技術知識であり、法令差分監査の対象外。",
-          "verdict": "correct"
+          "differenceSummary": "出題時と現行で正誤に変更はない。",
+          "explanationText": "現行省令のガス消費量切替装置及び安全で円滑な動作の基準と、比例電磁弁の作動原理に関する技術的判定は矛盾しない。",
+          "verdict": "same_as_current"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2024-09-29",
+          "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r6.pdf",
+          "verificationStatus": "from_original_answer"
         },
-        "reviewState": "primary_checked"
+        "reviewState": "secondary_verified"
       }
     ]
   },

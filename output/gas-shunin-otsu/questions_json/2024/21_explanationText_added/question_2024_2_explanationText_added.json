@@ -1795,11 +1795,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
     "explanationText": [
-      "間違い。レベル1地震動に対する耐震性能評価では、原則として構造物を弾性範囲にとどめる考え方で耐震性を確認する。構造物の塑性変形能力を考慮し、耐震上重要な部位に生ずる応答塑性率が許容塑性率を超えないことを確認する設計法は、レベル2地震動に対する評価で用いられるため、この記述は誤りである。",
-      "正しい。LNGは貯蔵中も外部からの入熱を受けるため、BOGが継続的に発生し、低沸点成分が抜けることで貯槽内のLNGの濃縮が進む。濃縮の進み方は、貯槽レベルなどの貯蔵条件によって異なる。",
-      "正しい。LNGの受入れ時には大量のBOGが発生し、BOG圧縮機の処理負荷が増加する。圧縮機の負荷増加は使用電力の増加につながるため、受入れ運用では電力デマンドの管理が必要となる。",
-      "正しい。LNGサテライト基地では、供給ガスの熱量が出荷元のLNG熱量に依存しやすく、保有できる貯槽数も限られる。そのため、貯槽内で進むLNGの濃縮状態を管理し、熱量変動を把握することが重要である。",
-      "間違い。製造所では熱量等を毎日1回以上、臭気濃度を毎月1回以上測定する一方、供給ガスに特殊成分が含まれる場合、その特殊成分は毎週1回以上検査しなければならない。選択肢は特殊成分の検査頻度を毎月1回以上としており、法令で求められる頻度より少ないため誤りである。"
+      "間違い。レベル1地震動に対する耐震性能評価では、有害な変形を残さず気密性を保持できるよう、原則として弾性範囲で安全性を確認する。塑性変形能力を期待し、応答塑性率が許容塑性率を超えないことを確認する方法はレベル2地震動に対する評価である。ガス事業法第96条及びガス工作物の技術上の基準を定める省令第15条が、製造設備を技術基準に適合する構造とする法令上の枠組みを定めている。",
+      "正しい。LNGは貯蔵中も外部からの入熱を受けるためBOGが継続的に発生し、低沸点成分が先に気化することで残留LNGの濃縮が進む。その進み方は貯槽レベルなどの貯蔵条件によって異なる。ガス事業法第96条及びガス工作物の技術上の基準を定める省令第35条は、こうした気化に伴う過圧のおそれがある液化ガス用貯槽について安全弁等を求めている。",
+      "正しい。LNGの受入れ時には大量のBOGが発生し、BOG圧縮機の処理負荷と使用電力が増加するため、電力デマンドの管理が必要となる。ガス事業法第96条及びガス工作物の技術上の基準を定める省令第35条は、液化ガス用貯槽の過圧防止を求める法令上の安全枠組みであり、BOG処理設備の適切な運用が必要となる。",
+      "正しい。LNGサテライト基地の供給ガス熱量は出荷元のLNG熱量に依存しやすく、保有できる貯槽数も限られるため、貯槽内濃縮による熱量変動の把握が重要である。ガス事業法第91条及びガス事業法施行規則第144条は、ガス製造事業者に製造ガスの熱量等の測定と記録を求めている。",
+      "間違い。熱量等を毎日1回以上測定する点とは別に、供給ガスに硫黄全量、硫化水素、アンモニアなどの特殊成分が含まれる場合、その成分は毎週1回検査しなければならない。ガス事業法第23条及びガス事業法施行規則第22条第1項が成分検査を定めているため、毎月1回以上とする記述は誤りである。熱量等はガス事業法第18条及び同規則第17条、付臭措置はガス工作物の技術上の基準を定める省令第22条が根拠となる。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1844,17 +1844,109 @@
       }
     ],
     "lawReferences": [
-      [],
-      [],
-      [],
-      [],
+      [
+        {
+          "article": "第96条（ガス製造事業用ガス工作物の技術基準適合義務）",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第15条（構造等）",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第96条（ガス製造事業用ガス工作物の技術基準適合義務）",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第35条（液化ガス用貯槽の安全弁等）",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第96条（ガス製造事業用ガス工作物の技術基準適合義務）",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第35条（液化ガス用貯槽の安全弁等）",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第91条（ガス製造事業者の熱量等の測定義務）",
+          "choiceIndex": 3,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第144条（ガス製造事業者の熱量等の測定方法）",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
+        }
+      ],
       [
         {
           "article": "第18条（熱量等の測定義務）",
           "choiceIndex": 4,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
@@ -1865,7 +1957,7 @@
           "choiceIndex": 4,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
@@ -1876,18 +1968,18 @@
           "choiceIndex": 4,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/345M50000400097",
           "verificationStatus": "verified"
         },
         {
-          "article": "第22条第1項（成分の検査方法）",
+          "article": "第22条第1項（ガスの成分の検査方法）",
           "choiceIndex": 4,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/345M50000400097",
@@ -1898,7 +1990,7 @@
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/412M50000400111",
@@ -1906,72 +1998,72 @@
         }
       ]
     ],
-    "lawContextForExplanation": "ホは法令関連。熱量・燃焼性の測定はガス事業法第18条及びガス事業法施行規則第17条、成分検査は同法第23条及び同規則第22条、付臭措置はガス工作物の技術上の基準を定める省令第22条が根拠となる。特殊成分の検査頻度は毎週1回以上であり、毎月1回以上とする点が誤り。",
+    "lawContextForExplanation": "イはガス事業法第96条及びガス工作物の技術上の基準を定める省令第15条に係る耐震設計、ロ・ハは同法第96条及び同省令第35条に係るLNG貯槽の圧力管理、ニは同法第91条及び同法施行規則第144条に係る熱量管理、ホは同法第18条・第23条、同法施行規則第17条・第22条及びガス工作物の技術上の基準を定める省令第22条に係る。現行法でもイとホが間違いであり、特殊成分は毎月ではなく毎週1回検査する。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "耐震性能評価に関する技術的記述であり、法令改正監査の対象外である。"
+          "basis": "ガス事業法第96条、ガス工作物の技術上の基準を定める省令第15条及び所管官庁の現行耐震基準資料を照合し、レベル1では弾性範囲を基本とし、塑性変形能力を期待する評価はレベル2であることを確認した。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "LNG貯蔵中のBOG発生と濃縮に関する技術的記述であり、法令改正監査の対象外である。"
+          "basis": "LNG貯蔵中の外部入熱によるBOG発生と低沸点成分の気化に伴う濃縮を確認し、ガス事業法第96条及び技術省令第35条の現行枠組みに正誤変更要因がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "LNG受入れ時のBOG圧縮機負荷と電力管理に関する技術的記述であり、法令改正監査の対象外である。"
+          "basis": "LNG受入れ時のBOG増加、圧縮機負荷及び電力需要の関係を確認し、ガス事業法第96条及び技術省令第35条の現行枠組みに正誤変更要因がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "LNGサテライト基地の熱量管理に関する技術的記述であり、法令改正監査の対象外である。"
+          "basis": "ガス事業法第91条及びガス事業法施行規則第144条の現行規定を確認し、サテライト基地で貯槽内濃縮を考慮した熱量管理が重要との判定に変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "現行のガス事業法第18条・第23条、同法施行規則第17条・第22条及びガス工作物の技術上の基準を定める省令第22条を確認した。特殊成分を毎月1回以上とする誤りは現行法令下でも正誤判定に影響しない。"
+          "basis": "ガス事業法第18条・第23条、ガス事業法施行規則第17条・第22条及びガス工作物の技術上の基準を定める省令第22条を確認した。特殊成分の検査頻度は毎週1回であり、毎月1回とする記述は現行法でも誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -2116,13 +2208,13 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
     "explanationText": [
-      "間違い。排ガス再循環は、燃焼排ガスの一部を燃焼用空気に混ぜて炉内へ戻し、酸素濃度や燃焼温度を下げることで、主にNOxの生成を抑える方法である。CO2の発生低減を主目的とする技術ではないため、この記述は誤りである。",
-      "正しい。pHは水質管理で重要な指標であり、水質汚濁防止法に基づく排水基準でも水素イオン濃度として規制対象になっている。海域以外の公共用水域へ排出される水の一般排水基準では5.8以上8.6以下が示され、多くの水中生物や農作物に望ましい範囲として扱われるため、この記述は正しい。",
-      "間違い。天然ガスの主成分であるメタンは、石炭や石油に比べて炭素に対する水素の割合が高く、同じ熱量を得るときのCO2排出量が少ない。炭素原子の割合が大きいためCO2排出量が少ないとしている点が逆であり、この記述は誤りである。",
-      "正しい。カーボンニュートラルは、二酸化炭素などの温室効果ガスについて、人為的な排出量から吸収量や除去量を差し引き、全体として実質ゼロにする考え方である。したがって、この記述は正しい。",
-      "正しい。e-methane（イーメタン）は、グリーン水素等の非化石エネルギー源とCO2を原料として、メタネーションにより製造される合成メタンをいう。したがって、この記述は正しい。"
+      "間違い。排ガス再循環は、燃焼排ガスの一部を燃焼用空気に混ぜて炉内へ戻し、火炎温度を下げることで主にNOxの生成を抑える方法である。CO2の発生低減を主目的とする技術ではないため、この記述は誤りである。",
+      "正しい。水素イオン濃度指数（pH）は、水域の酸性・アルカリ性を示す基本的な水質項目である。多くの水中生物や農作物にとって、おおむね5.8～8.6の範囲が望ましいとされるため、この記述は正しい。",
+      "間違い。天然ガスの主成分であるメタンは、石炭や石油に比べて炭素に対する水素の割合が高く、同じ熱量を得る際のCO2排出量が少ない。炭素原子の割合が大きいためCO2排出量が少ないとしている点が逆である。",
+      "正しい。カーボンニュートラルは、温室効果ガスの人為的な排出量と、吸収・除去される量を均衡させ、全体として実質ゼロにすることを意味する。",
+      "正しい。e-methane（イーメタン）は、グリーン水素などの非化石エネルギー源を原料として製造される合成メタンをいう。"
     ],
-    "lawGroundedExplanationNotNeeded": false,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -2141,7 +2233,7 @@
     ],
     "questionIntent": "select_incorrect",
     "explanationTextCount": 5,
-    "isLawRelated": true,
+    "isLawRelated": false,
     "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q09",
     "reviewQuestionId": "fc50a39e093fa458",
     "sourceRecordRef": "question_2024_2.json#14",
@@ -2186,35 +2278,12 @@
     "suggestedQuestionDetailsByChoice": [],
     "lawReferences": [
       [],
-      [
-        {
-          "article": "第3条第1項",
-          "choiceIndex": 1,
-          "lawId": "345AC0000000138",
-          "lawTitle": "水質汚濁防止法",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/345AC0000000138/",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第1条、別表第二",
-          "choiceIndex": 1,
-          "lawId": "346M50000002035",
-          "lawTitle": "排水基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000002035",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
       [],
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢2のpH規制は、水質汚濁防止法が排水基準を省令で定める仕組みを置き、排水基準を定める省令別表第二が水素イオン濃度の基準を掲げている点を法令根拠として説明できる。選択肢1・3・4・5は主に燃焼・環境技術や一般的な政策用語の知識で説明する。",
+    "lawContextForExplanation": "本問は、排ガス再循環、pH指標、燃料別CO2排出、カーボンニュートラル及びe-methaneに関する環境技術・一般的な政策用語の知識で正誤を判断する。特定の法令条文の適用を直接問う問題ではない。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -2222,42 +2291,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "排ガス再循環の目的は主にNOx低減という燃焼技術知識で判断し、法令改正で正誤が変わる肢ではない。"
+          "summary": "排ガス再循環の目的は主にNOx生成の抑制であるという燃焼技術知識で判断し、法令改正による正誤変更の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_required"
-      },
-      {
-        "auditStatus": "no_revision_effect",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "sources": [
-            "https://laws.e-gov.go.jp/law/345AC0000000138/",
-            "https://laws.e-gov.go.jp/law/346M50000002035"
-          ],
-          "summary": "水質汚濁防止法第3条第1項と排水基準を定める省令第1条・別表第二で、排水基準として水素イオン濃度（pH）の許容限度が定められる。2024年出題時点から2026-07-27時点まで、本肢の正誤に影響する変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "tertiary_verified"
-      },
-      {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "summary": "天然ガスのCO2排出量と炭素・水素比の関係に関するエネルギー技術知識で判断し、法令改正で正誤が変わる肢ではない。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "not_required"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2265,12 +2304,25 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "カーボンニュートラルの一般的な政策用語の定義で判断し、特定法令の改正で正誤が変わる肢ではない。"
+          "summary": "pHの性質と生物・農作物に望ましい範囲に関する一般的な水質知識として判断する。既存の排水基準は特定事業場の排出水に対する基準であり、『すべての水域』という本肢全体の直接根拠ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_required"
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "evidenceSummary": {
+          "summary": "天然ガスの炭素・水素比と燃料別CO2排出量に関するエネルギー技術知識で判断し、法令改正による正誤変更の対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2278,12 +2330,25 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "e-methaneの呼称・技術定義で判断し、特定法令の改正で正誤が変わる肢ではない。"
+          "summary": "カーボンニュートラルという一般的な政策用語の意味を問うもので、特定条文の適用によって正誤が決まる肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_required"
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "e-methaneの呼称と技術的定義を問うもので、特定条文の適用によって正誤が決まる肢ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },

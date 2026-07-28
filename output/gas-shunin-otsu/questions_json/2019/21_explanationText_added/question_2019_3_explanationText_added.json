@@ -986,9 +986,9 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
     "explanationText": [
-      "正解は3。ガス機器の安全装置は、装置ごとに検知する異常や作動目的が異なる。1は、過熱防止装置や空だき安全装置は機器の過熱を防ぐ装置だが、点火時安全装置は点火不良時などに未燃ガスの放出を防ぐ装置であり、過熱防止を目的とする安全装置には含まれないため誤り。2は、バイメタル式や温度ヒューズ式は異常温度を検知する過熱防止装置などで用いられる方式であり、残火安全装置の方式ではないため誤り。3は、現在販売されている家庭用こんろでは、卓上型の一口こんろを除き、全口に調理油過熱防止装置が搭載されているため正しい。4は、電気制御回路を持たないガストーブの転倒時安全装置は主に振り子式重力スイッチ方式であり、傾斜スイッチ方式とする記述は誤り。5は、ファンヒーターの不完全燃焼防止装置は燃焼状態を検知して不完全燃焼を防ぐ装置であり、立ち消え安全装置と兼用のフレームロッドを用いるものではないため誤りである。"
+      "正解は3である。1は、過熱防止装置と空だき安全装置は異常な温度上昇から機器を保護するが、点火時安全装置は点火不良時などの未燃ガスによる危険を防ぐ装置であり、過熱防止を目的とする装置ではないため誤り。2は、バイメタル式と温度ヒューズ式は過熱防止装置に用いられる方式であり、残火安全装置の方式ではないため誤り。3は、現在販売されている家庭用こんろでは、卓上型の一口こんろを除き、全口に調理油過熱防止装置が搭載されているため正しい。4は、電気制御回路を持たないガストーブには主に振り子式の重力スイッチ方式が用いられ、傾斜スイッチ方式とする記述は誤り。5は、ファンヒーターの不完全燃焼防止にはサーミスタ式などの専用センサーが用いられ、立ち消え安全装置と兼用のフレームロッドを用いるとする記述は誤りである。"
     ],
-    "lawGroundedExplanationNotNeeded": false,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
       "ガス機器の安全装置に関する各記述の正誤判定。"
     ],
@@ -1035,182 +1035,85 @@
         "title": "ガス用品の技術上の基準等に関する省令（現行）"
       }
     ],
-    "isLawRelated": true,
+    "isLawRelated": false,
     "lawReferences": [
-      [
-        {
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 10・11（立ち消え安全装置）、13（過熱防止装置）",
-          "choiceIndex": 0,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2019-06-28",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 10・11（立ち消え安全装置）、13（過熱防止装置）",
-          "choiceIndex": 0,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
-          "verificationStatus": "verified"
-        }
-      ],
       [],
-      [
-        {
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 14（こんろバーナーの調理油過熱防止装置）、15（調理油過熱防止装置）",
-          "choiceIndex": 2,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2019-06-28",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "別表第三（第十一条、第十三条関係）ガスこんろの項 14（こんろバーナーの調理油過熱防止装置）、15（調理油過熱防止装置）",
-          "choiceIndex": 2,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 28（床上で移動して使用できるものの転倒に関する基準）",
-          "choiceIndex": 3,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2019-06-28",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 28（床上で移動して使用できるものの転倒に関する基準）",
-          "choiceIndex": 3,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 14(2)（不完全燃焼防止機能）",
-          "choiceIndex": 4,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2019-06-28",
-          "role": "exam_time_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027?occasion_date=20190628",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "別表第三（第十一条、第十三条関係）開放燃焼式若しくは密閉燃焼式又は屋外式ガスストーブの項 14(2)（不完全燃焼防止機能）",
-          "choiceIndex": 4,
-          "lawId": "346M50000400027",
-          "lawTitle": "ガス用品の技術上の基準等に関する省令",
-          "referenceDate": "2026-07-27",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/346M50000400027/",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      [],
+      [],
+      []
     ],
-    "lawContextForExplanation": "ガス用品であるガスこんろ、ガスストーブ等の安全装置に関する問題。03bでは、ガス用品の技術上の基準等に関する省令別表第三を中心に、ガスこんろの立ち消え安全装置、過熱防止装置、調理油過熱防止装置、ガスストーブの不完全燃焼防止機能や転倒に関する基準を確認する。残火安全装置の方式など、法令本文だけで機構名を直接確定しにくい部分は、一次法令と技術基準解釈・JIS用語等の補助資料を分けて確認する。",
+    "lawContextForExplanation": "ガス機器の過熱防止、残火安全、調理油過熱防止、転倒時安全及び不完全燃焼防止の各装置について、目的、方式、搭載状況及び検知原理を問う技術知識問題。法令条文を直接の根拠とする解説は不要である。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "現行の同別表にも対応する安全基準がある。",
-          "examTimeBasis": "試験時点の省令別表第三にあるガスこんろの過熱防止装置等の基準を確認した。点火時安全装置を過熱防止目的の装置に含める根拠はない。",
-          "revisionImpact": "試験時点と現行とでこの記述の正誤に影響する変更はない。"
+          "classification": "technical_device_knowledge",
+          "summary": "点火時安全装置と過熱防止装置の目的の違いを問う技術知識であり、法令条文が正誤を直接決める記述ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "法令改正によって装置方式の技術的な区別が変わった事実は認められない。",
-          "examTimeBasis": "残火安全装置と温度検知方式の分類に関する技術的記述として判定した。",
-          "revisionImpact": "試験時点と現行とで正誤は変わらない。"
+          "classification": "technical_device_knowledge",
+          "summary": "残火安全装置と過熱防止装置の方式分類を問う技術知識であり、法令条文が正誤を直接決める記述ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "currentBasis": "現行の同項にも調理油過熱防止装置の基準がある。",
-          "examTimeBasis": "試験時点の省令別表第三のガスこんろの項14・15を確認した。",
-          "revisionImpact": "試験時点と現行とで正誤に影響する変更はない。"
+          "classification": "technical_device_knowledge",
+          "summary": "家庭用こんろの調理油過熱防止装置の搭載状況を問う機器知識として正しい。法令上の義務や適用要件そのものを問う記述ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "現行の同別表にも転倒時の安全性に関する基準がある。",
-          "examTimeBasis": "試験時点の省令別表第三にある移動式ガスストーブの転倒に関する基準を確認した。電気制御回路を持たない機器の主な方式を傾斜スイッチ方式とする根拠はない。",
-          "revisionImpact": "試験時点と現行とで正誤に影響する変更はない。"
+          "classification": "technical_device_knowledge",
+          "summary": "電気制御回路を持たないガストーブの転倒時安全装置の方式を問う技術知識であり、主な方式を傾斜スイッチ方式とする点が誤り。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "現行の同別表にも不完全燃焼防止機能の基準がある。",
-          "examTimeBasis": "試験時点の省令別表第三にあるガスストーブの不完全燃焼防止機能を確認した。ファンヒーターの不完全燃焼防止装置を立ち消え安全装置兼用のフレームロッドとする根拠はない。",
-          "revisionImpact": "試験時点と現行とで正誤に影響する変更はない。"
+          "classification": "technical_device_knowledge",
+          "summary": "ファンヒーターの不完全燃焼防止装置に用いる検知方式を問う技術知識であり、立ち消え安全装置兼用のフレームロッドとする点が誤り。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },

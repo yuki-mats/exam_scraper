@@ -1624,11 +1624,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
     "explanationText": [
-      "間違い。付臭措置は、容易に臭気でガスを感知できるようにするための規定であるが、ガスを供給する事業を営む者に供給されるガスについては、低圧により供給されるものに限って対象となる。中圧により供給されるガスまで対象としているため誤りである（ガス工作物の技術上の基準を定める省令第22条第1項）。",
-      "間違い。最高使用圧力が低圧のガス発生設備等で圧力が異常に上昇するおそれがあるものには、圧力上昇防止装置を設けなければならない。負圧が生ずるおそれに対する負圧防止装置としているため誤りである（同省令第25条第1項）。",
-      "間違い。異常が発生した場合に迅速かつ安全にガスの発生を停止し、又はガスを処理できることが求められるのは、特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備である。特定ガス発生設備を対象としているため誤りである（同省令第27条第1項）。",
-      "正しい。移動式ガス発生設備は、ガス又は液化ガスの漏えいによる火災等を防止するため、適切な場所に設置し、容易に移動又は転倒しないように適切な措置が講じられていなければならない（同省令第28条第1項）。",
-      "正しい。ガスの通ずる部分に液体又は気体を直接送入する装置を有する製造設備は、送入部分を通じたガスの逆流による設備損傷やガスの大気放出を防ぐため、逆流が生じない構造でなければならない（同省令第30条第1項）。"
+      "間違い。ガスを供給する事業を営む者に供給されるガスについて付臭が義務付けられるのは、低圧で供給されるものに限られる。中圧で供給されるガスも一律に付臭対象としているため誤りである（ガス工作物の技術上の基準を定める省令第22条第1項）。",
+      "間違い。最高使用圧力が低圧の対象設備で過圧が生ずるおそれがあるものには、圧力を逃がすための圧力上昇防止装置を設ける必要がある。負圧のおそれに対する負圧防止装置としているため誤りである（ガス工作物の技術上の基準を定める省令第25条第1項）。",
+      "間違い。異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できることが求められるのは、特定ガス発生設備および移動式ガス発生設備を除くガス発生設備である。特定ガス発生設備を対象としているため誤りである（ガス工作物の技術上の基準を定める省令第27条第1項）。",
+      "正しい。移動式ガス発生設備は、ガスまたは不活性のものを除く液化ガスの漏えいによる火災等を防止するため、適切な場所に設置し、容易に移動または転倒しない措置を講じる必要がある（ガス工作物の技術上の基準を定める省令第28条第1項）。",
+      "正しい。ガスの通ずる部分に液体または気体を直接送入する装置を有する製造設備は、送入部分を通じたガスの逆流による設備の損傷や大気への放出を防ぐため、逆流が生じない構造でなければならない（ガス工作物の技術上の基準を定める省令第30条）。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1669,8 +1669,19 @@
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "22",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2017-04-01",
+          "role": "exam_time_basis",
           "scope": "choice",
           "source": "egov_law",
           "verificationStatus": "verified"
@@ -1682,8 +1693,19 @@
           "choiceIndex": 1,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "25",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2017-04-01",
+          "role": "exam_time_basis",
           "scope": "choice",
           "source": "egov_law",
           "verificationStatus": "verified"
@@ -1695,8 +1717,19 @@
           "choiceIndex": 2,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "27",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2017-04-01",
+          "role": "exam_time_basis",
           "scope": "choice",
           "source": "egov_law",
           "verificationStatus": "verified"
@@ -1708,8 +1741,19 @@
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "28",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2017-04-01",
+          "role": "exam_time_basis",
           "scope": "choice",
           "source": "egov_law",
           "verificationStatus": "verified"
@@ -1721,8 +1765,19 @@
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "30",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2017-04-01",
+          "role": "exam_time_basis",
           "scope": "choice",
           "source": "egov_law",
           "verificationStatus": "verified"
@@ -1736,13 +1791,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "ガス工作物の技術上の基準を定める省令第22条の現行確認により、試験時の判定と現行法令上の判定は一致する。",
+          "basis": "ガス工作物の技術上の基準を定める省令第22条を現行時点および平成29年4月1日時点で照合し、事業者間供給の付臭対象が低圧に限られることを確認した。",
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "refresh_reviewed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
@@ -1750,13 +1805,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "同省令第25条の現行確認により、試験時の判定と現行法令上の判定は一致する。",
+          "basis": "同省令第25条を両時点で照合し、規定対象が過圧および圧力上昇防止装置であることを確認した。",
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "refresh_reviewed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
@@ -1764,13 +1819,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "同省令第27条の現行確認により、試験時の判定と現行法令上の判定は一致する。",
+          "basis": "同省令第27条を両時点で照合し、第1項が特定ガス発生設備および移動式ガス発生設備を除外していることを確認した。",
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "refresh_reviewed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
@@ -1778,13 +1833,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "同省令第28条の現行確認により、試験時の判定と現行法令上の判定は一致する。",
+          "basis": "同省令第28条を両時点で照合し、移動式ガス発生設備の設置場所ならびに移動・転倒防止措置を確認した。",
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "refresh_reviewed"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
@@ -1792,13 +1847,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "同省令第30条の現行確認により、試験時の判定と現行法令上の判定は一致する。",
+          "basis": "同省令第30条を両時点で照合し、送入部分を通じたガスの逆流を防止する構造要件を確認した。",
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "refresh_reviewed"
+        "reviewState": "secondary_verified"
       }
     ],
     "lawzillaWorkflowReview": {
@@ -1853,7 +1908,7 @@
         "title": "ガス工作物の技術上の基準を定める省令第30条"
       }
     ],
-    "lawContextForExplanation": "選択肢1は付臭措置（ガス工作物の技術上の基準を定める省令第22条）、選択肢2はガス発生設備等の圧力上昇防止装置（第25条）、選択肢3はガス発生設備等の緊急停止等（第27条）、選択肢4は移動式ガス発生設備の設置等（第28条）、選択肢5はガスの逆流防止（第30条）を根拠に正誤を説明する。"
+    "lawContextForExplanation": "選択肢1は付臭措置（ガス工作物の技術上の基準を定める省令第22条）、選択肢2は低圧ガス発生設備等の圧力上昇防止装置（第25条）、選択肢3は緊急停止装置（第27条）、選択肢4は移動式ガス発生設備の設置等（第28条）、選択肢5はガスの逆流防止（第30条）に基づいて説明する。"
   },
   {
     "original_question_id": "f44221b2f39b2de0",
@@ -4847,7 +4902,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
     "explanationText": [
-      "正解は200kPaである。一定量の理想気体では状態方程式 PV=nRT より、PV/T は一定となる。したがって P₂=P₁×(T₂/T₁)×(V₁/V₂)=300×(400/300)×(10/20)=200kPa となる。温度が300Kから400Kへ上がる効果だけでなく、体積が10m³から20m³へ増える効果も同時に考えるため、最も近い値は200kPaである。"
+      "正解は200kPaである。一定量の理想気体では状態方程式PV=nRTより、PV/Tは一定である。初期状態をP1=300kPa、T1=300K、V1=10m³、変化後をT2=400K、V2=20m³とすると、P2=P1×(T2/T1)×(V1/V2)=300×(400/300)×(10/20)=200kPaとなる。温度上昇は圧力を上げる向きに働くが、体積が2倍になるため圧力は下がり、最も近い値は200kPaである。300kPa、400kPa、600kPa、800kPaはいずれもこの計算値より大きく、該当しない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -4887,7 +4942,7 @@
     "reviewQuestionId": "fc8950165381e94c",
     "sourceRecordRef": "question_2017_1.json#16",
     "explanationReferences": [],
-    "lawContextForExplanation": "理想気体の状態方程式を用いて圧力を求める基礎理論の計算問題であり、法令条文を直接の根拠にしない。",
+    "lawContextForExplanation": "理想気体の状態方程式を用いる基礎理論の計算問題であり、法令条文を直接の根拠としない。",
     "lawReferences": [
       [],
       [],

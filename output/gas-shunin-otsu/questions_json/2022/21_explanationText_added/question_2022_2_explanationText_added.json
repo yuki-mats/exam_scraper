@@ -2199,11 +2199,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
     "explanationText": [
-      "間違い。燃料中の窒素化合物が燃焼して生成するNOxはフューエルNOxであり、空気中の窒素が燃焼時の高温で酸化されて生成するNOxがサーマルNOxである。記述は、前者をサーマルNOxとしているため誤りである。",
-      "正しい。ばいじんは、燃料などの燃焼に伴って発生する灰分やすすなどの固形物である。燃焼温度や空気比を適正に管理するなど、燃焼管理を強化することで発生量を減少させることができる。",
-      "正しい。環境問題への対応は、都市ガス事業者が果たすべき企業の社会的責任（CSR）の重要な柱であり、省エネルギーや環境負荷低減などの取組が求められる。",
-      "正しい。交流回路の有効電力は、電圧、電流、力率の積で表される。力率が1に近いほど、同じ有効電力を得るために必要な電流を抑えやすくなり、設備や配線での損失を小さくできる。",
-      "間違い。廃棄物処理法では、産業廃棄物以外の廃棄物は一般廃棄物に分類される。特別管理産業廃棄物は、産業廃棄物のうち爆発性、毒性、感染性などにより特別な管理を要するものをいうため、産業廃棄物に該当しない廃棄物がすべて特別管理産業廃棄物になるわけではない。"
+      "間違い。燃料中の窒素化合物から生成するNOxはフューエルNOxであり、空気中の窒素が燃焼時の高温で酸化されて生成するものがサーマルNOxである。前者をサーマルNOxとする点が逆である。大気汚染防止法施行令第1条第5号は窒素酸化物を有害物質として掲げており、生成区分は環境省の固定発生源向けNOx対策技術資料でもこの区別が示されている。",
+      "正しい。ばいじんは、燃料などの燃焼に伴って発生する灰分やすすなどの固形物であり、燃焼温度や空気比を適正に管理することで発生量を抑えられる。大気汚染防止法第2条第1項第2号は、燃焼等に伴い発生するばいじんをばい煙に含め、同法第3条はその排出基準を定めている。",
+      "正しい。環境問題への対応は、都市ガス事業者を含む企業が果たす社会的責任の重要な柱である。環境基本法第8条は、事業者に公害防止措置、廃棄物の適正処理への配慮及び環境負荷低減への自主的努力を求めている。",
+      "正しい。交流回路の有効電力は電圧、電流及び力率の積で表され、同じ有効電力なら力率が1に近いほど必要電流を小さくできるため、配線等の損失を抑えやすい。基準器検査規則第367条及び第369条も、交流電力量計の検査条件として電圧、負荷電流及び力率を組み合わせている。",
+      "間違い。産業廃棄物に該当しない廃棄物は一般廃棄物であり、すべてが特別管理産業廃棄物になるわけではない。廃棄物の処理及び清掃に関する法律第2条第2項は一般廃棄物を産業廃棄物以外の廃棄物とし、同条第5項は特別管理産業廃棄物を産業廃棄物のうち特別な管理を要するものと定義している。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -2256,101 +2256,149 @@
     ],
     "suggestedQuestionDetailsByChoice": [],
     "lawReferences": [
-      [],
-      [],
-      [],
-      [],
       [
         {
-          "article": "第2条第2項、第2条第4項、第2条第5項",
+          "article": "第1条第5号",
+          "choiceIndex": 0,
+          "lawId": "343CO0000000329",
+          "lawTitle": "大気汚染防止法施行令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/343CO0000000329）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第1項第2号、第3条",
+          "choiceIndex": 1,
+          "lawId": "343AC0000000097",
+          "lawTitle": "大気汚染防止法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/343AC0000000097）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第8条",
+          "choiceIndex": 2,
+          "lawId": "405AC0000000091",
+          "lawTitle": "環境基本法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/405AC0000000091）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第367条、第369条",
+          "choiceIndex": 3,
+          "lawId": "405M50000400071",
+          "lawTitle": "基準器検査規則",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/405M50000400071）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第2項、第4項、第5項",
           "choiceIndex": 4,
           "lawId": "345AC0000000137",
           "lawTitle": "廃棄物の処理及び清掃に関する法律",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "e-Gov法令検索（廃棄物の処理及び清掃に関する法律）",
+          "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/345AC0000000137）",
           "verificationStatus": "verified"
         },
         {
-          "article": "第2条第2項、第2条第4項、第2条第5項",
+          "article": "第2条第2項、第4項、第5項",
           "choiceIndex": 4,
           "lawId": "345AC0000000137",
           "lawTitle": "廃棄物の処理及び清掃に関する法律",
           "referenceDate": "2022-01-01",
           "role": "exam_time_basis",
           "scope": "choice",
-          "source": "e-Gov法令検索（廃棄物の処理及び清掃に関する法律）",
+          "source": "e-Gov法令検索（廃棄物の処理及び清掃に関する法律・出題時点）",
           "verificationStatus": "verified"
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢ホは、廃棄物処理法上の廃棄物分類を扱う。同法第2条では、産業廃棄物以外の廃棄物を一般廃棄物とし、特別管理産業廃棄物を、産業廃棄物のうち爆発性・毒性・感染性などにより特別な管理を要するものと定義している。",
+    "lawContextForExplanation": "選択肢1・2は大気汚染防止法上の窒素酸化物・ばいじん、選択肢3は環境基本法上の事業者責務、選択肢4は基準器検査規則上の電圧・電流・力率、選択肢5は廃棄物処理法上の廃棄物分類を確認する。技術的説明は所管官庁資料と併せて判定し、現行法による正誤変更はない。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "NOxの生成区分に関する技術的記述であり、法改正比較の対象ではない。"
+          "summary": "大気汚染防止法施行令第1条第5号で窒素酸化物を確認し、環境省技術資料で燃料中窒素由来がフューエルNOx、空気中窒素の高温酸化由来がサーマルNOxであることを確認した。現行で正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "ばいじんと燃焼管理に関する技術的記述であり、法改正比較の対象ではない。"
+          "summary": "大気汚染防止法第2条第1項第2号及び第3条と燃焼管理に関する技術資料を照合し、ばいじんの説明と低減方法に正誤変更がないことを確認した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "企業の社会的責任に関する一般的記述であり、法改正比較の対象ではない。"
+          "summary": "環境基本法第8条が事業者の環境保全上の責務を定めており、環境対応を企業の社会的責任の柱とする記述に正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "交流回路の電力と力率に関する技術的記述であり、法改正比較の対象ではない。"
+          "summary": "基準器検査規則第367条及び第369条並びに資源エネルギー庁資料を照合し、交流有効電力と力率の説明に正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "廃棄物処理法第2条第2項、第4項及び第5項について、産業廃棄物、一般廃棄物、特別管理産業廃棄物の分類関係を確認した結果、試験時点と現行時点で正誤への改正影響はない。"
+          "summary": "廃棄物処理法第2条第2項、第4項及び第5項を出題時点と現行時点で確認した。産業廃棄物以外は一般廃棄物であり、特別管理産業廃棄物は産業廃棄物の一部であるという分類に正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },
