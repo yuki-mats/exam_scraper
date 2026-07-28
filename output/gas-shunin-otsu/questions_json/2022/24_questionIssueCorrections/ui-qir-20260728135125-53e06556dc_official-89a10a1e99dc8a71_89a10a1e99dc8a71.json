@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728135125-53e06556dc",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-53e06556dce26235f1d0"
+  ],
+  "inputCaseHashes": {
+    "ui-official-53e06556dce26235f1d0": "53e06556dce26235f1d0e9da25a5058c534abe4c0e4cb2d952ea4eadd62f5e85"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "8656b8ac23c1c73fcdf777e46d1b9ce9a1aa8eeb1d1de494cf9bc466e1fe6860",
+    "53ab795bffc78237edaf3261928f80814639893c7e6a396c05c155f8d05960f8"
+  ],
+  "challengeReviewHash": "c81f9ccb812b4f997b5f6091d6fa71d19d4e35dea051b26854f5f46ddb625596",
+  "createdAt": "2026-07-28T13:53:05.809456Z",
+  "entries": [
+    {
+      "original_question_id": "89a10a1e99dc8a71",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q08",
+      "reviewQuestionId": "89a10a1e99dc8a71",
+      "sourceRecordRef": "question_2022_2.json#13",
+      "expectedBeforeHash": "9e8bb37b570fa6c584059fe04f8f32db4dfb7973b5989bcbc53ebd42170ee237",
+      "changes": {
+        "choiceTextList": [
+          "引張応力発生下にある金属に腐食作用が働いて、破断応力以下でも割れが生じる現象を応力腐食割れという。",
+          "粒界腐食とは\n、ステンレス鋼等不動態皮膜を持つ金属が非金属物質と面を接していたり、異物が付着していたりすると、接触面や異物との間にできるすきま部分に局部腐食が生じる現象をいう。",
+          "放射線透過試験は、欠陥の形状をフィルム上に投影された像としてみることができ、\n場所的な制約もなく\n、わかりやすく直観性がある検査である。",
+          "故障しても影響の少ない設備や代替設備がある場合、経済性を考慮して故障発生後に設備を運用可能な状態に回復する保全を事後保全という。",
+          "浸透探傷試験は、金属、非金属のあらゆる材料の表面欠陥を調べることができる。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-26.png / 製造 問8（PDF 26ページ、冊子25ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T13:52:09Z",
+          "contentHash": "2563e2b41f7eb7dd27a221f93d644a6a8b049d32fd5992436ce04bda8cee21ac"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-26.png / 製造 問8（PDF 26ページ、冊子25ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T13:51:43Z",
+          "contentHash": "2563e2b41f7eb7dd27a221f93d644a6a8b049d32fd5992436ce04bda8cee21ac"
+        }
+      ]
+    }
+  ]
+}
