@@ -2840,6 +2840,7 @@ function renderQualificationActiveRun() {
     retry.hidden = true;
     return;
   }
+  container.hidden = false;
   const progress = state.qualificationRunProgress;
   const view = qualificationRunViewState(run, progress);
   const statusClass = view.partial
