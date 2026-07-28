@@ -33,7 +33,7 @@ from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 SCHEMA_VERSION = "question-evaluation/v1"
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
-MAX_EVALUATION_CONCURRENCY = 64
+MAX_EVALUATION_CONCURRENCY = 100
 MAX_INCOMPLETE_EVALUATION_ATTEMPTS = 2
 EVALUATION_TURN_TIMEOUT_SECONDS = 8 * 60
 ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
@@ -465,7 +465,10 @@ class QuestionEvaluationService:
         return bool(expected and hmac.compare_digest(expected, token))
 
     def preview_many(
-        self, questions: list[Mapping[str, Any]]
+        self,
+        questions: list[Mapping[str, Any]],
+        *,
+        continuous_queue: bool = False,
     ) -> dict[str, Any]:
         unique: list[Mapping[str, Any]] = []
         seen: set[str] = set()
@@ -476,7 +479,7 @@ class QuestionEvaluationService:
                 unique.append(question)
         if not unique:
             raise EvaluationError("評価する問題を1問以上選択してください。")
-        if len(unique) > MAX_BATCH_SIZE:
+        if not continuous_queue and len(unique) > MAX_BATCH_SIZE:
             raise EvaluationError(f"一度に評価できるのは{MAX_BATCH_SIZE}問までです。")
         qualifications = sorted(
             {str(question.get("qualification") or "") for question in unique}
@@ -506,6 +509,7 @@ class QuestionEvaluationService:
             "blockedCount": len(items) - len(evaluable),
             "sessionCount": len(evaluable),
             "evaluationConcurrencyLimit": MAX_EVALUATION_CONCURRENCY,
+            "continuousQueue": continuous_queue,
             "canStart": bool(evaluable),
             "provider": self.provider,
             "items": items,
@@ -517,8 +521,13 @@ class QuestionEvaluationService:
         questions: list[Mapping[str, Any]],
         preview_token: str,
         emit: Callable[[str], None],
+        *,
+        continuous_queue: bool = False,
     ) -> dict[str, Any]:
-        preview = self.preview_many(questions)
+        preview = self.preview_many(
+            questions,
+            continuous_queue=continuous_queue,
+        )
         if not self.token_matches(preview, preview_token):
             raise EvaluationError("確認後に選択問題の内容が更新されました。")
         by_id = {str(question["id"]): question for question in questions}

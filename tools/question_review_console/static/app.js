@@ -1223,6 +1223,9 @@ function bindControls() {
   $("#bulk-evaluate-button").addEventListener("click", () => {
     openEvaluationDialog([...state.selectedQuestionIds]);
   });
+  $("#continuous-evaluate-button").addEventListener("click", () => {
+    openEvaluationDialog([], { continuousQueue: true });
+  });
   $("#progress-question-rerun").addEventListener("click", rerunProgressQuestion);
   for (const node of document.querySelectorAll(".close-dialog")) {
     node.addEventListener("click", () => node.closest("dialog").close());
@@ -4881,6 +4884,10 @@ function updateEvaluationSelectionControls() {
     action.disabled = count === 0 || !state.evaluationEnabled;
     action.textContent = count ? `選択した${count}問を評価` : "選択した問題を評価";
   }
+  const continuousAction = $("#continuous-evaluate-button");
+  if (continuousAction) {
+    continuousAction.disabled = !state.evaluationEnabled;
+  }
 }
 
 function issueBadge(issue) {
@@ -6331,7 +6338,15 @@ function questionApiPath(action) {
 }
 
 function resetWorkflowDialog(mode, title) {
-  state.workflowDialog = { mode, preview: null, running: false, questionIds: [] };
+  state.workflowDialog = {
+    mode,
+    preview: null,
+    running: false,
+    questionIds: [],
+    continuousQueue: false,
+    qualification: "",
+    listGroupId: "",
+  };
   $("#workflow-dialog-title").textContent = title;
   $("#workflow-dialog-message").textContent = "確認情報を取得しています。";
   $("#workflow-dialog-summary").replaceChildren();
@@ -6447,22 +6462,44 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
   }
 }
 
-async function openEvaluationDialog(questionIds = []) {
+async function openEvaluationDialog(
+  questionIds = [],
+  { continuousQueue = false } = {},
+) {
   const selected = [...new Set(questionIds)].filter(Boolean);
-  resetWorkflowDialog("evaluation", "選択した問題を別セッションで評価");
+  resetWorkflowDialog(
+    "evaluation",
+    continuousQueue
+      ? "評価待ちを100問並列で連続評価"
+      : "選択した問題を別セッションで評価",
+  );
   state.workflowDialog.questionIds = selected;
+  state.workflowDialog.continuousQueue = continuousQueue;
+  state.workflowDialog.qualification = state.qualification;
+  state.workflowDialog.listGroupId = state.listGroupId;
   try {
+    const requestBody = continuousQueue
+      ? {
+        continuousQueue: true,
+        qualification: state.qualification,
+        listGroupId: state.listGroupId,
+      }
+      : { questionIds: selected };
     const preview = await api("/api/evaluations/preview", {
       method: "POST",
-      body: { questionIds: selected },
+      body: requestBody,
     });
     state.workflowDialog.preview = preview;
     $("#workflow-dialog-summary").append(
       summaryMetric("資格", qualificationDisplayName(preview.qualification)),
       summaryMetric("年度", preview.listGroupIds?.join("・") || "-"),
-      summaryMetric("選択", `${preview.selectedCount}問`),
+      summaryMetric(continuousQueue ? "評価queue" : "選択", `${preview.selectedCount}問`),
       summaryMetric("評価可能", `${preview.evaluableCount}問`, preview.evaluableCount ? "good" : "danger"),
-      summaryMetric("別セッション", `${preview.sessionCount}回`, preview.sessionCount ? "warning" : ""),
+      summaryMetric(
+        continuousQueue ? "予定セッション" : "別セッション",
+        `${preview.sessionCount}回`,
+        preview.sessionCount ? "warning" : "",
+      ),
       summaryMetric("評価前整備", `${preview.blockedCount}問`, preview.blockedCount ? "warning" : "good"),
       summaryMetric("実行方式", preview.provider || "未設定"),
     );
@@ -6474,9 +6511,11 @@ async function openEvaluationDialog(questionIds = []) {
       $("#workflow-execute").disabled = false;
       return;
     }
-    $("#workflow-dialog-message").textContent = preview.blockedCount
-      ? `評価可能な問題だけを、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。整備が必要な問題はスキップします。`
-      : `選択した各問題を、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。一問が遅延又は失敗しても他の問題は続行します。`;
+    $("#workflow-dialog-message").textContent = continuousQueue
+      ? `評価待ちqueueから最大${preview.evaluationConcurrencyLimit}問を常時稼働させ、完了した枠へ次の問題を自動補充します。一問が遅延又は失敗しても他の問題は続行します。`
+      : preview.blockedCount
+        ? `評価可能な問題だけを、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。整備が必要な問題はスキップします。`
+        : `選択した各問題を、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。一問が遅延又は失敗しても他の問題は続行します。`;
     $("#workflow-execute").textContent = `${preview.evaluableCount}問の評価を開始`;
     $("#workflow-execute").disabled = false;
   } catch (error) {
@@ -6542,7 +6581,14 @@ async function executeWorkflow(event) {
 }
 
 async function startWorkflowExecution() {
-  const { mode, preview, questionIds } = state.workflowDialog;
+  const {
+    mode,
+    preview,
+    questionIds,
+    continuousQueue,
+    qualification,
+    listGroupId,
+  } = state.workflowDialog;
   if (!mode || !preview) {
     $("#workflow-dialog").close();
     return;
@@ -6564,7 +6610,14 @@ async function startWorkflowExecution() {
       body = { previewToken: preview.previewToken };
     } else if (mode === "evaluation") {
       path = "/api/evaluations/start";
-      body = { questionIds, previewToken: preview.previewToken };
+      body = continuousQueue
+        ? {
+          continuousQueue: true,
+          qualification,
+          listGroupId,
+          previewToken: preview.previewToken,
+        }
+        : { questionIds, previewToken: preview.previewToken };
     } else {
       path = questionApiPath("publish");
       body = { preflightToken: preview.preflightToken, confirmedProduction: true };

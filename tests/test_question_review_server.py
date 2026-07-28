@@ -18,6 +18,39 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_continuous_evaluation_queue_collects_every_page(self):
+        app = object.__new__(QuestionReviewApplication)
+        offsets = []
+        pages = {
+            0: {
+                "questions": [{"id": f"q{index}"} for index in range(100)],
+                "hasMore": True,
+            },
+            100: {
+                "questions": [
+                    {"id": f"q{index}"} for index in range(100, 135)
+                ],
+                "hasMore": False,
+            },
+        }
+
+        def questions(query):
+            offset = int(query["offset"][0])
+            offsets.append(offset)
+            self.assertEqual(query["evaluationStatus"], ["unreviewed"])
+            self.assertEqual(query["sort"], ["updated_asc"])
+            return pages[offset]
+
+        app._questions = questions
+        app._question = lambda question_id, _query: {"id": question_id}
+
+        result = app._evaluation_queue_questions("sample", "__all__")
+
+        self.assertEqual(offsets, [0, 100])
+        self.assertEqual(len(result), 135)
+        self.assertEqual(result[0]["id"], "q0")
+        self.assertEqual(result[-1]["id"], "q134")
+
     def test_official_source_correction_starts_from_ui_request(self):
         class AppServer:
             provider = "fake"

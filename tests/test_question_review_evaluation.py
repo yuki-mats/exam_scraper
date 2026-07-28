@@ -4,6 +4,7 @@ import tempfile
 import threading
 import time
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import patch
 
@@ -466,7 +467,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             )
 
         self.assertEqual(preview["sessionCount"], 2)
-        self.assertEqual(preview["evaluationConcurrencyLimit"], 64)
+        self.assertEqual(preview["evaluationConcurrencyLimit"], 100)
         self.assertEqual(preview["qualification"], "sample")
         self.assertEqual(preview["listGroupIds"], ["2026"])
         self.assertEqual(len(calls), 2)
@@ -519,6 +520,107 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             [item["questionId"] for item in result["results"]],
             [question["id"] for question in questions],
         )
+
+    def test_continuous_queue_refills_workers_until_all_questions_finish(self):
+        active = 0
+        max_active = 0
+        call_count = 0
+        lock = threading.Lock()
+        first_wave_started = threading.Event()
+        release = threading.Event()
+
+        def runner(_prompt):
+            nonlocal active, max_active, call_count
+            with lock:
+                active += 1
+                call_count += 1
+                max_active = max(max_active, active)
+                if call_count >= 3:
+                    first_wave_started.set()
+            release.wait(timeout=5)
+            time.sleep(0.01)
+            with lock:
+                active -= 1
+            return evaluation_result()
+
+        questions = []
+        for index in range(7):
+            question = question_payload(
+                question_id=f"api-q{index + 1}",
+                body=f"問題{index + 1}",
+                state_hash=f"state-{index + 1}",
+            )
+            question["reviewKey"] = (
+                f"sample:2026:question_{index + 1}:api-q{index + 1}"
+            )
+            questions.append(question)
+
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            patch(
+                "tools.question_review_console.evaluation."
+                "MAX_EVALUATION_CONCURRENCY",
+                3,
+            ),
+            ThreadPoolExecutor(max_workers=1) as executor,
+        ):
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=runner,
+            )
+            preview = service.preview_many(
+                questions,
+                continuous_queue=True,
+            )
+            future = executor.submit(
+                service.run_many,
+                questions,
+                preview["previewToken"],
+                lambda _line: None,
+                continuous_queue=True,
+            )
+            self.assertTrue(first_wave_started.wait(timeout=5))
+            self.assertEqual(max_active, 3)
+            release.set()
+            result = future.result(timeout=5)
+
+        self.assertTrue(preview["continuousQueue"])
+        self.assertEqual(preview["evaluationConcurrencyLimit"], 3)
+        self.assertEqual(call_count, 7)
+        self.assertEqual(max_active, 3)
+        self.assertEqual(result["completedCount"], 7)
+        self.assertEqual(result["passedCount"], 7)
+
+    def test_continuous_queue_can_exceed_manual_selection_limit(self):
+        questions = []
+        for index in range(101):
+            question = question_payload(
+                question_id=f"api-q{index + 1}",
+                body=f"問題{index + 1}",
+                state_hash=f"state-{index + 1}",
+            )
+            question["reviewKey"] = (
+                f"sample:2026:question_{index + 1}:api-q{index + 1}"
+            )
+            questions.append(question)
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            with self.assertRaisesRegex(EvaluationError, "100問まで"):
+                service.preview_many(questions)
+            preview = service.preview_many(
+                questions,
+                continuous_queue=True,
+            )
+
+        self.assertEqual(preview["selectedCount"], 101)
+        self.assertEqual(preview["sessionCount"], 101)
+        self.assertTrue(preview["continuousQueue"])
 
     def test_batch_retries_once_when_all_choice_evidence_is_incomplete(self):
         calls = 0

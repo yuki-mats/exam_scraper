@@ -1009,15 +1009,37 @@ class QuestionReviewApplication:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
         if path in {"/api/evaluations/preview", "/api/evaluations/start"}:
-            question_ids = _body_string_list(body, "questionIds")
-            if not question_ids:
-                raise ApiError(
-                    HTTPStatus.BAD_REQUEST,
-                    "評価するquestionIdsを1問以上指定してください。",
+            continuous_queue = body.get("continuousQueue") is True
+            if continuous_queue:
+                qualification = str(body.get("qualification") or "").strip()
+                list_group_id = str(
+                    body.get("listGroupId") or ALL_LIST_GROUPS
+                ).strip()
+                if not qualification:
+                    raise ApiError(
+                        HTTPStatus.BAD_REQUEST,
+                        "連続評価するqualificationを指定してください。",
+                    )
+                questions = self._evaluation_queue_questions(
+                    qualification,
+                    list_group_id,
                 )
-            questions = [self._question(question_id, {}) for question_id in question_ids]
+                question_ids = [str(question["id"]) for question in questions]
+            else:
+                question_ids = _body_string_list(body, "questionIds")
+                if not question_ids:
+                    raise ApiError(
+                        HTTPStatus.BAD_REQUEST,
+                        "評価するquestionIdsを1問以上指定してください。",
+                    )
+                questions = [
+                    self._question(question_id, {}) for question_id in question_ids
+                ]
             try:
-                preview = self.evaluations.preview_many(questions)
+                preview = self.evaluations.preview_many(
+                    questions,
+                    continuous_queue=continuous_queue,
+                )
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, preview
                 token = str(body.get("previewToken") or "")
@@ -1029,7 +1051,10 @@ class QuestionReviewApplication:
                     kind="question-evaluation-batch",
                     key=REPOSITORY_OPERATION_KEY,
                     worker=lambda emit: self._run_evaluation_batch_job(
-                        question_ids, token, emit
+                        question_ids,
+                        token,
+                        emit,
+                        continuous_queue=continuous_queue,
                     ),
                 )
                 return HTTPStatus.ACCEPTED, job
@@ -2354,9 +2379,51 @@ class QuestionReviewApplication:
         question_ids: list[str],
         preview_token: str,
         emit: Any,
+        *,
+        continuous_queue: bool = False,
     ) -> dict[str, Any]:
         questions = [self._question(question_id, {}) for question_id in question_ids]
-        return self.evaluations.run_many(questions, preview_token, emit)
+        return self.evaluations.run_many(
+            questions,
+            preview_token,
+            emit,
+            continuous_queue=continuous_queue,
+        )
+
+    def _evaluation_queue_questions(
+        self,
+        qualification: str,
+        list_group_id: str,
+    ) -> list[dict[str, Any]]:
+        questions: list[dict[str, Any]] = []
+        offset = 0
+        while True:
+            page = self._questions(
+                {
+                    "qualification": [qualification],
+                    "listGroupId": [list_group_id],
+                    "evaluationStatus": ["unreviewed"],
+                    "exceptionsOnly": ["false"],
+                    "includeStats": ["false"],
+                    "offset": [str(offset)],
+                    "limit": ["100"],
+                    "sort": ["updated_asc"],
+                }
+            )
+            summaries = [
+                value
+                for value in page.get("questions") or []
+                if isinstance(value, Mapping)
+            ]
+            questions.extend(
+                self._question(str(summary["id"]), {})
+                for summary in summaries
+                if summary.get("id")
+            )
+            offset += len(summaries)
+            if not summaries or not page.get("hasMore"):
+                break
+        return questions
 
     def _run_question_publish_job(
         self,
