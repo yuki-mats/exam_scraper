@@ -1100,6 +1100,22 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
                     [non_law_question],
                 )
 
+    def test_law_support_rejects_noncanonical_fact_shape_before_version_recording(
+        self,
+    ):
+        question = LawSourceInventory().group("new-exam", "2026")[
+            "questions"
+        ][0]
+        question["projected"]["lawRevisionFacts"][0]["evidenceSummary"][
+            "refs"
+        ] = ["旧形式の文字列根拠"]
+
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "Firestore公開契約に一致しません",
+        ):
+            QualificationRunCoordinator._validate_law_audit_quality([question])
+
     def test_law_audit_version_is_atomic_when_one_group_sidecar_is_missing(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

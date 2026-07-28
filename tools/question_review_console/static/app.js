@@ -6278,6 +6278,29 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
       stageSummary(preview, "convert", "Convert"),
       stageSummary(preview, "upload", "upload-ready"),
     );
+    const failedCount = Number(preview.failedDeltaPaths?.length || 0);
+    if (failedCount) {
+      const reconciliation = await api(
+        groupApiPath("failed-delta-reconciliation-preview", listGroupId),
+        { method: "POST", body: {} },
+      );
+      if (reconciliation.status !== "ready") {
+        throw new Error("旧run由来の未確定patchを安全に検証できません。");
+      }
+      state.workflowDialog.mode = "reconcile";
+      state.workflowDialog.preview = reconciliation;
+      $("#workflow-dialog-message").textContent =
+        "旧runの失敗状態だけを、保存済みbaseline・現在のrecord scope・全file hashで検証して清掃します。問題内容と実質的な指摘は削除しません。";
+      $("#workflow-dialog-summary").append(
+        summaryMetric("旧run由来", `${failedCount}件`, "warning"),
+        summaryMetric("検証対象", `${reconciliation.verifiedQuestionCount || 0}問`),
+        summaryMetric("元run", reconciliation.failedRunIds?.join("・") || "-"),
+      );
+      $("#workflow-execute").textContent = "旧runの指摘を清掃";
+      $("#workflow-execute").disabled = false;
+      if (autoStart) await startWorkflowExecution();
+      return;
+    }
     if (preview.requiredFieldWarnings?.length) {
       $("#workflow-dialog-message").textContent =
         "必須field不足があるため、パッチ変更を反映できません。問題詳細の警告を修正してください。";
@@ -6306,15 +6329,8 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
       return;
     }
     if (!preview.canSync) {
-      const failedCount = Number(preview.failedDeltaPaths?.length || 0);
-      $("#workflow-dialog-message").textContent = failedCount
-        ? "失敗した作業の未確定patchがあります。対象問題を成功runで再検証してください。"
-        : "再生成前の確認項目が残っています。問題詳細を確認してください。";
-      if (failedCount) {
-        $("#workflow-dialog-summary").append(
-          summaryMetric("未確定patch", `${failedCount}件`, "danger"),
-        );
-      }
+      $("#workflow-dialog-message").textContent =
+        "再生成前の確認項目が残っています。問題詳細を確認してください。";
       state.workflowDialog.mode = "";
       $("#workflow-execute").textContent = "閉じる";
       $("#workflow-execute").disabled = false;
@@ -6438,6 +6454,12 @@ async function startWorkflowExecution() {
     if (mode === "sync") {
       path = groupApiPath("sync", preview.listGroupId);
       body = { previewToken: preview.previewToken };
+    } else if (mode === "reconcile") {
+      path = groupApiPath(
+        "failed-delta-reconciliation",
+        preview.listGroupId,
+      );
+      body = { previewToken: preview.previewToken };
     } else if (mode === "evaluation") {
       path = "/api/evaluations/start";
       body = { questionIds, previewToken: preview.previewToken };
@@ -6499,7 +6521,7 @@ async function refreshAfterWorkflow(mode) {
   }
   if (mode === "evaluation") clearEvaluationSelection();
   await loadQualificationWorkflow(true);
-  if (mode === "sync") await loadQualificationRuns();
+  if (mode === "sync" || mode === "reconcile") await loadQualificationRuns();
   await loadQuestions(true);
 }
 

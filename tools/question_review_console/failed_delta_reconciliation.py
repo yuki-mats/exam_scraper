@@ -514,6 +514,20 @@ def reconcile_failed_deltas(
         ),
         "verifiedFileHashes": before_hashes,
     }
+    result["previewToken"] = hashlib.sha256(
+        json.dumps(
+            {
+                "qualification": qualification,
+                "listGroupId": list_group_id,
+                "baselineRunId": baseline_run_id,
+                "failedRunIds": result["failedRunIds"],
+                "verifiedFileHashes": before_hashes,
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
     if not execute:
         return result
 

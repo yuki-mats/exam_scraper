@@ -37,6 +37,7 @@ from scripts.common.question_answer_contract import (
     asks_for_selected_choice_count,
     uses_trusted_gassyunin_judge_answers,
 )
+from scripts.common.repaso_firestore_schema import is_law_revision_facts_shape
 from scripts.common.law_audit_sidecar_contract import (
     law_audit_sidecar_metadata_errors,
 )
@@ -15691,8 +15692,15 @@ class QualificationRunCoordinator:
                 self._validate_explanation_quality(selected)
             if "suggestedQuestionDetailsByChoice" in selected_fields:
                 self._validate_supplementary_questions(selected)
-            if stage_id == "law_audit":
+            if (
+                stage_id == "law_audit"
+                or (
+                    stage_id == "explanation"
+                    and "lawRevisionFacts" in selected_fields
+                )
+            ):
                 self._validate_law_audit_quality(selected)
+            if stage_id == "law_audit":
                 self._validate_law_audit_sidecar_consistency(
                     qualification,
                     selected,
@@ -15947,6 +15955,14 @@ class QualificationRunCoordinator:
                 if not isinstance(fact, Mapping):
                     errors.append(f"{label}: {fact_label}を確認できません。")
                     continue
+                if not is_law_revision_facts_shape(
+                    dict(fact),
+                    allow_choice_verdict_lists=True,
+                ):
+                    errors.append(
+                        f"{label}: {fact_label}が"
+                        "Firestore公開契約に一致しません。"
+                    )
                 if not str(fact.get("auditStatus") or "").strip():
                     errors.append(f"{label}: {fact_label}.auditStatusがありません。")
                 summary = fact.get("evidenceSummary")
@@ -17657,9 +17673,12 @@ class QualificationRunCoordinator:
                         matched_source_binding is not None
                         and run.get("legacyFailedDeltaReconciliation") is True
                     ):
-                        source_bound_aliases.update(
-                            matched_source_binding.as_tuple()
-                        )
+                        # 旧runのpatchには、当時のsource snapshotがまだ
+                        # canonical identityとして保持していなかったURL等の
+                        # source aliasが残ることがある。現在inventoryが同じ
+                        # sourceRecordRefへ一意に束ねた対象groupだけを許可し、
+                        # 無関係なID注入は従来どおり拒否する。
+                        source_bound_aliases.update(matched_target_group)
                     if (
                         len(matching_target_groups) != 1
                         or not source_matches

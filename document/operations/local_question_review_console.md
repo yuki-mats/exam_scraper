@@ -129,6 +129,8 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 各問は工程固有の機械チェックに不合格となった場合、その問と工程に限った検査feedback付きで最大2回再整備します。他の問は再試行の完了を待ちません。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成には該当問題のfeedbackだけを渡します。
 
+過去の失敗runだけを根拠とする未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から旧runの指摘を清掃します。serverは失敗runの保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
+
 queueがterminalになった後、`improvement_report.json`へ工程・指摘code・fieldごとの発生問数とattempt数を集計します。3問以上で同じ指摘が出た場合、又はモデル側の検査は通ったのにserverが拒否した場合を改善候補とします。正本文書、prompt、checker、testの変更はactive run中に行わず、別の改善jobで候補を確認して実施します。checkerを変える場合は、該当工程の正本・検査契約と[`policy_version`](../../config/question_maintenance_workflow.toml)を同時に更新します。既存問題の洗い替えが必要ならMAJOR、今後の作業だけに適用できる変更ならMINORを上げます。
 
 ## 評価と公開の安全境界

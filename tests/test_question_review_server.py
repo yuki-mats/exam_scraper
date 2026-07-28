@@ -248,6 +248,61 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(artifact_sync["groups"][0]["listGroupId"], "2026")
         self.assertIn("直近の整備記録", logs[-1])
 
+    def test_failed_delta_reconciliation_runs_from_group_ui_action(self):
+        class DeferredJobs:
+            def start(self, *, kind, key, worker):
+                self.kind = kind
+                self.key = key
+                self.worker = worker
+                return {"jobId": "job-1", "status": "queued"}
+
+        class Inventory:
+            def __init__(self):
+                self.invalidated = []
+
+            def invalidate(self, qualification, list_group_id):
+                self.invalidated.append((qualification, list_group_id))
+
+        def reconcile(_root, *, qualification, list_group_id, execute):
+            result = {
+                "qualification": qualification,
+                "listGroupId": list_group_id,
+                "status": "succeeded" if execute else "ready",
+                "previewToken": "verified-token",
+                "unresolvedPathCount": 3,
+                "verifiedQuestionCount": 10,
+                "failedRunIds": ["old-run"],
+            }
+            return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            jobs = DeferredJobs()
+            inventory = Inventory()
+            app.jobs = jobs
+            app.inventory = inventory
+            with patch(
+                "tools.question_review_console.server.reconcile_failed_deltas",
+                side_effect=reconcile,
+            ):
+                preview_status, preview = app.post(
+                    "/api/groups/sample/2026/"
+                    "failed-delta-reconciliation-preview",
+                    {},
+                )
+                start_status, job = app.post(
+                    "/api/groups/sample/2026/failed-delta-reconciliation",
+                    {"previewToken": preview["previewToken"]},
+                )
+                result = jobs.worker(lambda _message: None)
+
+        self.assertEqual((preview_status, start_status), (200, 202))
+        self.assertEqual(job["jobId"], "job-1")
+        self.assertEqual(jobs.kind, "failed-delta-reconciliation")
+        self.assertEqual(jobs.key, "question-review-repository-operation")
+        self.assertEqual(inventory.invalidated, [("sample", "2026")])
+        self.assertIn("実質的な指摘は残しています", result["message"])
+
     def test_manual_sync_reports_strict_law_validation_reason(self):
         class Synchronizer:
             def preview(self, qualification, list_group_id, *, force=False):

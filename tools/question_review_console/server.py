@@ -39,6 +39,9 @@ from tools.question_review_console.evaluation import (
     QuestionEvaluationService,
 )
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
+from tools.question_review_console.failed_delta_reconciliation import (
+    reconcile_failed_deltas,
+)
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
@@ -1091,6 +1094,39 @@ class QuestionReviewApplication:
         if group_action is not None:
             qualification, list_group_id, action = group_action
             try:
+                if action == "failed-delta-reconciliation-preview":
+                    return HTTPStatus.OK, reconcile_failed_deltas(
+                        self.repo_root,
+                        qualification=qualification,
+                        list_group_id=list_group_id,
+                        execute=False,
+                    )
+                if action == "failed-delta-reconciliation":
+                    preview = reconcile_failed_deltas(
+                        self.repo_root,
+                        qualification=qualification,
+                        list_group_id=list_group_id,
+                        execute=False,
+                    )
+                    token = str(body.get("previewToken") or "")
+                    if preview.get("previewToken") != token:
+                        raise QualificationRunError(
+                            "確認後に未確定patch又は対象状態が更新されました。"
+                        )
+                    if preview.get("status") != "ready":
+                        raise QualificationRunError(
+                            "清掃する旧run由来の未確定patchはありません。"
+                        )
+                    job = self.jobs.start(
+                        kind="failed-delta-reconciliation",
+                        key=REPOSITORY_OPERATION_KEY,
+                        worker=lambda emit: self._run_failed_delta_reconciliation_job(
+                            qualification,
+                            list_group_id,
+                            emit,
+                        ),
+                    )
+                    return HTTPStatus.ACCEPTED, job
                 if action == "sync-preview":
                     return HTTPStatus.OK, self.synchronizer.preview(
                         qualification, list_group_id, force=True
@@ -1134,7 +1170,11 @@ class QuestionReviewApplication:
                     )
             except JobConflictError as exc:
                 raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
-            except (WorkflowError, PublicationError) as exc:
+            except (
+                WorkflowError,
+                PublicationError,
+                QualificationRunError,
+            ) as exc:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
         if path.startswith("/api/questions/") and path.endswith("/live-readback"):
@@ -2347,6 +2387,31 @@ class QuestionReviewApplication:
         self._clear_group_live_results(qualification, list_group_id)
         return result
 
+    def _run_failed_delta_reconciliation_job(
+        self,
+        qualification: str,
+        list_group_id: str,
+        emit: Any,
+    ) -> dict[str, Any]:
+        emit("旧run由来の未確定patchをbaseline・record scope・hashで検証します。")
+        result = reconcile_failed_deltas(
+            self.repo_root,
+            qualification=qualification,
+            list_group_id=list_group_id,
+            execute=True,
+        )
+        self.inventory.invalidate(qualification, list_group_id)
+        self._invalidate_qualification_read_models(
+            qualification,
+            list_group_id,
+        )
+        result["message"] = (
+            f"旧run由来の未確定patch {result.get('unresolvedPathCount', 0)}件を"
+            "検証済み履歴で清掃しました。実質的な指摘は残しています。"
+        )
+        emit(result["message"])
+        return result
+
     def _mark_recent_run_artifact_synced(
         self,
         qualification: str,
@@ -2906,7 +2971,14 @@ def _group_action(path: str) -> tuple[str, str, str] | None:
     qualification = urllib.parse.unquote(parts[2])
     list_group_id = urllib.parse.unquote(parts[3])
     action = parts[4]
-    if action not in {"sync-preview", "sync", "publish-preview", "publish"}:
+    if action not in {
+        "failed-delta-reconciliation-preview",
+        "failed-delta-reconciliation",
+        "sync-preview",
+        "sync",
+        "publish-preview",
+        "publish",
+    }:
         return None
     return qualification, list_group_id, action
 

@@ -874,7 +874,14 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
         source_relative = Path(
             "output/sample/questions_json/2026/00_source/q1.json"
         )
-        aliases = ["ui-q1", "review-q1", "sample:2026:q1", "q1.json#0"]
+        source_url = "https://example.test/exam/2026/#q1"
+        aliases = [
+            "ui-q1",
+            "review-q1",
+            "sample:2026:q1",
+            "q1.json#0",
+            source_url,
+        ]
         self._validate_record_scope_change(
             relative,
             {
@@ -884,7 +891,11 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             },
             {
                 "question_bodies": [
-                    {"originalQuestionId": "review-q1", "value": "after"}
+                    {
+                        "originalQuestionId": "review-q1",
+                        "question_url": source_url,
+                        "value": "after",
+                    }
                 ]
             },
             plan_updates={

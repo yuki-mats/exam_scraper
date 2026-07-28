@@ -197,6 +197,100 @@ class QuestionCandidateTest(unittest.TestCase):
             validate_candidate_content(candidate, targets, {}),
         )
 
+    def test_explanation_law_support_rejects_legacy_fact_reference_strings(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/patch.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "explanation": [
+                    "isLawRelated",
+                    "lawGroundedExplanationNotNeeded",
+                    "lawReferences",
+                    "lawContextForExplanation",
+                    "lawRevisionFacts",
+                ]
+            },
+        }
+        targets = candidate_targets("q1", "explanation", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "法令根拠を更新した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:explanation",
+                                "setFields": [
+                                    {
+                                        "field": "lawRevisionFacts",
+                                        "valueJson": json.dumps(
+                                            [
+                                                {
+                                                    "auditStatus": "same_as_current",
+                                                    "reviewState": "secondary_verified",
+                                                    "current": {
+                                                        "correctChoiceText": "正しい"
+                                                    },
+                                                    "examTime": {
+                                                        "correctChoiceText": "正しい"
+                                                    },
+                                                    "evidenceSummary": {
+                                                        "verdict": "正誤は変わらない。",
+                                                        "refs": ["旧形式の文字列根拠"],
+                                                    },
+                                                }
+                                            ],
+                                            ensure_ascii=False,
+                                        ),
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            {
+                "questionBodyText": "正しいものはどれか。",
+                "choiceTextList": ["記述A"],
+                "correctChoiceText": ["正しい"],
+                "isLawRelated": True,
+                "lawReferences": [
+                    [
+                        {
+                            "role": "current_basis",
+                            "scope": "choice",
+                            "choiceIndex": 0,
+                            "lawId": "law-1",
+                            "lawTitle": "法律",
+                            "referenceDate": "2026-07-28",
+                            "article": "1",
+                            "verificationStatus": "verified",
+                            "source": "https://example.test/law",
+                        }
+                    ]
+                ],
+            },
+        )
+
+        self.assertIn(
+            "lawRevisionFacts[1]がFirestore公開契約に一致しません。",
+            errors,
+        )
+
     def test_correct_choice_candidate_requires_confirmed_question_intent(self):
         plan = {
             "allowedPatchFiles": [

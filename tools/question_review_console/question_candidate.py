@@ -22,6 +22,7 @@ from scripts.common.question_answer_contract import (
 )
 from scripts.common.repaso_firestore_schema import (
     _is_law_revision_evidence_summary,
+    is_law_revision_facts_shape,
 )
 from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
@@ -470,7 +471,11 @@ _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
         "使う場合はcurrent/examTime.correctChoiceTextを選択肢順の配列にする。"
         "evidenceSummaryで使用できるfieldはverdict、explanationText、"
         "differenceSummary、promptContext、displayRefIds、refsだけとし、"
-        "旧形式のsummaryは使わない。"
+        "旧形式のsummaryは使わない。refsは文字列配列ではなくobject配列とし、"
+        "構造化できない根拠はrefsをomitする。refsのobjectは"
+        "refId、lawTimeScope、relation、primaryBasis、lawId、lawRevisionId、"
+        "lawTitle、elm、encodedElm、rootArticleElm、article、paragraph、item、"
+        "subitem、highlightElms、articleTextHash、textHashだけを使用する。"
         "auditStatus=updated_to_current_lawはreviewState=tertiary_verifiedに限る。"
         "法令肢と技術肢が混在する問題では、技術肢を"
         "auditStatus=not_law_related、reviewState=secondary_verifiedとして"
@@ -1219,10 +1224,20 @@ def validate_candidate_content(
                 + " / ".join(suggestion_errors)
             )
     facts = logical.get("lawRevisionFacts")
-    if "lawRevisionFacts" in changed_fields and facts is not None and not isinstance(
-        facts, (Mapping, list)
-    ):
-        errors.append("lawRevisionFactsがobject又はobject配列ではありません。")
+    law_revision_facts_targeted = any(
+        "lawRevisionFacts" in target.allowed_fields for target in target_values
+    )
+    validate_law_revision_facts = bool(
+        has_law_audit_target
+        or (
+            law_revision_facts_targeted
+            and logical.get("isLawRelated") is True
+        )
+        or (
+            "lawRevisionFacts" in changed_fields
+            and facts is not None
+        )
+    )
     if has_law_audit_target:
         if not audit_payloads:
             errors.append("監査sidecarの更新候補がありません。")
@@ -1246,6 +1261,7 @@ def validate_candidate_content(
             errors.append(
                 "updated_to_current_lawにはtertiary_verifiedが必要です。"
             )
+    if validate_law_revision_facts:
         fact_items = (
             list(facts)
             if isinstance(facts, list)
@@ -1261,6 +1277,14 @@ def validate_candidate_content(
             if not isinstance(fact, Mapping):
                 errors.append(f"lawRevisionFacts[{index}]がobjectではありません。")
                 continue
+            if not is_law_revision_facts_shape(
+                dict(fact),
+                allow_choice_verdict_lists=True,
+            ):
+                errors.append(
+                    f"lawRevisionFacts[{index}]が"
+                    "Firestore公開契約に一致しません。"
+                )
             if fact.get("auditStatus") not in {
                 "same_as_current",
                 "updated_to_current_law",
