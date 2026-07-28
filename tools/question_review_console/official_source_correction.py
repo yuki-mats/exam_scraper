@@ -46,6 +46,11 @@ class AppServerReviewExecutor(ReviewExecutor):
         *,
         repo_root: Path,
         qualification: str,
+        current_record: Mapping[str, Any],
+        evidence_hash: str,
+        evidence_title: str,
+        evidence_locator: str,
+        evidence_relative_path: str,
         emit: Callable[[str], None],
     ):
         super().__init__(
@@ -56,6 +61,12 @@ class AppServerReviewExecutor(ReviewExecutor):
         self.app_server = app_server
         self.repo_root = repo_root
         self.qualification = qualification
+        self.current_record = dict(current_record)
+        self.evidence_hash = evidence_hash
+        self.evidence_title = evidence_title
+        self.canonical_evidence_locator = (
+            f"{evidence_relative_path} / {evidence_locator}"
+        )
         self.emit = emit
 
     def execute(
@@ -88,8 +99,35 @@ class AppServerReviewExecutor(ReviewExecutor):
                 f"{phase}のread-only reviewがfile変更を報告しました。"
             )
         payload = _extract_json_text(str(getattr(result, "final_message", "") or ""))
+        self._normalize_review_payload(payload, phase=phase)
         self.emit(f"{phase}: 構造化結果を受領しました。")
         return payload
+
+    def _normalize_review_payload(
+        self,
+        payload: dict[str, Any],
+        *,
+        phase: str,
+    ) -> None:
+        change_field = "changes" if phase == "challenge" else "proposedChanges"
+        changes = payload.get(change_field)
+        if isinstance(changes, Mapping):
+            payload[change_field] = {
+                key: value
+                for key, value in changes.items()
+                if self.current_record.get(key) != value
+            }
+        evidence = payload.get("evidence")
+        if not isinstance(evidence, list):
+            return
+        for item in evidence:
+            if (
+                isinstance(item, dict)
+                and item.get("sourceClass") == "official"
+                and item.get("contentHash") == self.evidence_hash
+                and item.get("title") == self.evidence_title
+            ):
+                item["locator"] = self.canonical_evidence_locator
 
 
 class OfficialSourceCorrectionService:
@@ -226,6 +264,11 @@ class OfficialSourceCorrectionService:
             self.app_server,
             repo_root=self.repo_root,
             qualification=qualification,
+            current_record=current_record,
+            evidence_hash=evidence_hash,
+            evidence_title=title,
+            evidence_locator=locator,
+            evidence_relative_path=evidence_relative_path,
             emit=emit,
         )
         blind_a, blind_b, challenge = self.review_runner(

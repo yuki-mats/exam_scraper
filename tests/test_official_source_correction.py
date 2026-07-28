@@ -39,6 +39,11 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 app_server,
                 repo_root=Path(directory),
                 qualification="sample",
+                current_record={"choiceTextList": ["A", "B"]},
+                evidence_hash="a" * 64,
+                evidence_title="公式問題",
+                evidence_locator="問1",
+                evidence_relative_path="tmp/official.png",
                 emit=logs.append,
             )
 
@@ -55,6 +60,63 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
         self.assertEqual(app_server.options["sandbox"], "read-only")
         self.assertEqual(app_server.options["turn_group"], "sample")
         self.assertTrue(logs)
+
+    def test_app_server_executor_removes_noop_changes_and_normalizes_evidence(
+        self,
+    ) -> None:
+        class AppServer:
+            def run_turn(self, _prompt, **_options):
+                return SimpleNamespace(
+                    final_message=json.dumps(
+                        {
+                            "proposedChanges": {
+                                "questionBodyText": "修正後",
+                                "choiceTextList": ["イ", "ロ"],
+                            },
+                            "evidence": [
+                                {
+                                    "sourceClass": "official",
+                                    "title": "公式問題",
+                                    "locator": "表記ゆれ",
+                                    "contentHash": "a" * 64,
+                                }
+                            ],
+                        },
+                        ensure_ascii=False,
+                    ),
+                    changed_files=(),
+                )
+
+        executor = AppServerReviewExecutor(
+            AppServer(),
+            repo_root=REPO_ROOT,
+            qualification="sample",
+            current_record={
+                "questionBodyText": "修正前",
+                "choiceTextList": ["イ", "ロ"],
+            },
+            evidence_hash="a" * 64,
+            evidence_title="公式問題",
+            evidence_locator="問1",
+            evidence_relative_path="tmp/official.png",
+            emit=lambda _message: None,
+        )
+
+        result = executor.execute(
+            work_id="work-1",
+            phase="blind_a",
+            prompt="review this",
+            replacements={},
+        )
+
+        self.assertEqual(
+            result["proposedChanges"],
+            {"questionBodyText": "修正後"},
+        )
+        self.assertEqual(
+            result["evidence"][0]["locator"],
+            "tmp/official.png / 問1",
+        )
 
     def test_fix_writes_one_verified_24_patch_without_changing_source(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
