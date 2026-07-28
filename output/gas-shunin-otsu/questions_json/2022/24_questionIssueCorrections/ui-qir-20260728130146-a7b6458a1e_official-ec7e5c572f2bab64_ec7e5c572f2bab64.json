@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728130146-a7b6458a1e",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-a7b6458a1e5e3af39237"
+  ],
+  "inputCaseHashes": {
+    "ui-official-a7b6458a1e5e3af39237": "a7b6458a1e5e3af3923745626b5f7fdc1b6b32a23ec3307454b7fef5c6331fe8"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "033a898e508430ed78510376ba9e11c04aa96edff294ec18b1ee6c7068738bb9",
+    "d8b78a251613e6a0ce7daad30a9883435ec9994fa869852d06df1966bc6d3fb7"
+  ],
+  "challengeReviewHash": "dcf96c530d7425ebd6b48655398b5a1a88016abb28d5ae01d3cde29173611fce",
+  "createdAt": "2026-07-28T13:03:30.597236Z",
+  "entries": [
+    {
+      "original_question_id": "ec7e5c572f2bab64",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q01",
+      "reviewQuestionId": "ec7e5c572f2bab64",
+      "sourceRecordRef": "question_2022_2.json#6",
+      "expectedBeforeHash": "f330ae0e9f059ba0db0f3caf5fef9a816cf018f6eb7cb203bff293404fc312d1",
+      "changes": {
+        "choiceTextList": [
+          "メタンは、\nすべての温度領域において、常温の空気よりも軽い\n。",
+          "液撃は、弁の閉鎖やポンプの急停止等の急激な変化によって、配管内流体の運動エネルギーの一部が圧力エネルギーに変換され、\n流体の圧力が低下することにより起こる\n。",
+          "LNGは、貯蔵中に外部からの入熱により沸点の低いメタンを主成分とするボイルオフガス（BOG）が発生するため、液密度が高くなる。",
+          "LNGローリーやLNGコンテナは、真空断熱方式の二重殻式横置円筒型の超低温容器を有し、道路輸送や鉄道輸送が可能である。",
+          "LNGは水と反応して氷に似た水和物を生成するため、配管の閉そく等のトラブルを起こさないよう、LNGを取り扱う前に機器内を十分乾燥することが必要である。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-22.png / ガス技術（製造）問1（PDF 22ページ／冊子21ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T13:02:05Z",
+          "contentHash": "f201a2e9acf270321b49320a92d08a9d95d2caf7f9de964a0b466036ce522143"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-otsu-evidence/q_otsu_r4_pages/page-22.png / ガス技術（製造）問1（PDF 22ページ／冊子21ページ）",
+          "title": "令和4年度 ガス主任技術者試験 乙種問題（JIA公式）",
+          "verifiedAt": "2026-07-28T13:02:21Z",
+          "contentHash": "f201a2e9acf270321b49320a92d08a9d95d2caf7f9de964a0b466036ce522143"
+        }
+      ]
+    }
+  ]
+}
