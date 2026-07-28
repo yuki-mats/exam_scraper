@@ -934,7 +934,12 @@ class QuestionCandidateTest(unittest.TestCase):
             ],
         )
         self.assertIn(
-            "group_choiceは選択肢群から正答を1つだけ選ぶ",
+            "choiceTextListの各候補を",
+            rules["questionType"]["description"],
+        )
+        self.assertIn("計算問題でもtrue_false", rules["questionType"]["description"])
+        self.assertIn(
+            "比較対象そのものを持つ場合もtrue_false",
             rules["questionType"]["description"],
         )
         self.assertIn(
@@ -1348,7 +1353,7 @@ class QuestionCandidateTest(unittest.TestCase):
         rules = audit.prompt_value()["fieldRules"]
 
         self.assertIn("lawContextForExplanation", audit.allowed_fields)
-        self.assertIn("answer_result_text", audit.allowed_fields)
+        self.assertNotIn("answer_result_text", audit.allowed_fields)
         self.assertIn("examTimeDecision", audit.allowed_fields)
         self.assertIn("currentLawDecision", audit.allowed_fields)
         self.assertIn("choiceTextListと必ず同じ件数", rules["lawReferences"]["description"])

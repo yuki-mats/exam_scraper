@@ -266,7 +266,6 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "lawGroundedExplanationNotNeeded",
             "lawContextForExplanation",
             "correctChoiceText",
-            "answer_result_text",
             "explanationText",
             "suggestedQuestionDetailsByChoice",
             "holdReason",
@@ -493,10 +492,14 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "公式過去問とexamYearのない暗記プラス独自問題は、いずれも"
                 "true_false、flash_card、group_choiceの3分類で回答体験を表す。"
                 "single_choiceとfill_in_blankはユーザー作成問題だけに使う。"
-                "問題文の条件だけで答えを導ける計算問題は、選択肢を答え合わせに"
-                "使うflash_cardとする。複数の独立した選択肢を正答として選ぶ問題は、"
-                "各選択肢を判定するtrue_falseとする。group_choiceは選択肢群から"
-                "正答を1つだけ選ぶ問題に使う。現行correctChoiceText、"
+                "問題文の条件だけから、choiceTextListを見なくても具体的な答えを"
+                "一意に導ける問題だけをflash_cardとする。choiceTextListの各候補を"
+                "計算又は比較し、その候補が条件を満たすかを個別に判定する問題は、"
+                "計算問題でもtrue_falseとする。最大・最小などを問う問題で、"
+                "choiceTextListが組合せ番号ではなく比較対象そのものを持つ場合も"
+                "true_falseとする。最終回答となる組合せ候補そのものが"
+                "choiceTextListに並び、そこから正答を1つ選ぶ場合だけgroup_choice"
+                "とする。現行correctChoiceText、"
                 "answer_result_text又は組合せmappingの欠落・不整合は、"
                 "後続の正答精査で扱うため、このfieldをblockedにする理由にしない。"
             ),
@@ -561,7 +564,6 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
 _CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
     # 03bの一つの候補を、既存patch責務と監査sidecarへ同時に配送する。
     "correctChoiceText": ("correct_choice", "law_audit"),
-    "answer_result_text": ("correct_choice", "law_audit"),
     "explanationText": ("explanation", "law_audit"),
     "explanationReferences": ("explanation",),
     "suggestedQuestionDetailsByChoice": ("explanation", "law_audit"),
