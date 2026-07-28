@@ -144,11 +144,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "正しい。瞬間湯沸器の1号は、水温を25℃上昇させた湯を毎分1L供給できる能力を表す。水1Lを毎分25℃上昇させるために必要な熱量を換算すると約1.75kWとなる。",
-      "間違い。BF-DP式ふろがまでは、給気管と排気管を別々に立ち上げるものの、屋外側では両方を一つの給排気トップに接続し、給気口と排気口を近接させて風圧の影響を抑える。選択肢は給気筒トップと排気筒トップを別々に設けるとしており、正しい構造と異なるため誤りである。",
-      "正しい。長期使用製品安全点検制度の対象品目は2021年に見直され、屋内式ガス瞬間湯沸器と屋内式ガスふろがまは特定保守製品から除外された。2025年時点でも現行法でも、別表に掲げられている特定保守製品は石油給湯機と石油ふろがまである。",
+      "正しい。瞬間湯沸器の1号は、水温を25℃上昇させた湯を毎分1L供給できる能力を表す。この熱量を換算すると約1.75kWとなる。",
+      "間違い。BF-DP式ふろがまでは、給気管と排気管を別々に立ち上げるが、屋外側では給排気筒を一つの給排気トップに接続する。選択肢は給気筒トップと排気筒トップを別々に設けるとしており、正しい構造と異なる。",
+      "正しい。長期使用製品安全点検制度の対象品目は2021年に見直された。2025年4月1日時点の消費生活用製品安全法施行令第3条及び別表第3、ならびに現行の同施行令第4条及び別表第3では、特定保守製品は石油給湯機と石油ふろがまであり、屋内式ガス瞬間湯沸器と屋内式ガスふろがまは掲げられていない。",
       "正しい。2缶3水の「2缶」は、燃焼によって直接加熱される熱交換器が二つあることを示す。「3水」は、給湯、ふろ、暖房という三つの温水回路を示す。",
-      "正しい。潜熱回収時には、燃焼排ガス中の水蒸気が凝縮し、pH3程度の強い酸性を示す凝縮水が生じる。この凝縮水は、炭酸カルシウムなどを用いる中和器を通して水質を改善してから排出される。"
+      "正しい。潜熱回収時には燃焼排ガス中の水蒸気が凝縮して酸性の凝縮水が生じるため、中和器を通して水質を改善してから排出する。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -201,7 +201,7 @@
           "choiceIndex": 2,
           "lawId": "349CO0000000048",
           "lawTitle": "消費生活用製品安全法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/349CO0000000048/20260708_508CO0000000117?occasion_date=20260708",
@@ -222,7 +222,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢3は、長期使用製品安全点検制度の特定保守製品に関する法令事項として扱う。消費生活用製品安全法施行令の別表第3では、2025年試験時点及び2026年7月27日現在、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは特定保守製品として掲げられていない。ほかの選択肢は、給湯能力、BF-DP式、熱源機分類、凝縮水処理に関する機器知識で解説する。",
+    "lawContextForExplanation": "選択肢3は長期使用製品安全点検制度の特定保守製品を問う法令肢である。2025年4月1日時点の消費生活用製品安全法施行令第3条及び別表第3と、2026年7月28日現在の同施行令第4条及び別表第3では、特定保守製品は石油給湯機と石油ふろがまであり、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは含まれない。ほかの選択肢は機器に関する技術知識として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -230,12 +230,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "conclusion": "給湯能力に関する機器知識であり、法令改正による判定変更はない。"
+          "summary": "給湯能力の号数換算に関する技術知識であり、法令改正による判定差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -243,40 +243,35 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "conclusion": "BF-DP式の給排気構造に関する機器知識であり、法令改正による判定変更はない。"
+          "summary": "BF-DP式の給排気構造に関する技術知識であり、法令改正による判定差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "verified_no_change",
+        "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第4条及び別表第3",
+          "correctChoiceText": "正しい",
+          "lawId": "349CO0000000048",
+          "lawTitle": "消費生活用製品安全法施行令",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "conclusion": "2021年8月1日以降、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは特定保守製品に含まれず、2025年試験時点から現行まで判定は変わらない。",
-          "currentBasis": "2026年7月27日現在の消費生活用製品安全法施行令第4条及び別表第3。",
-          "examTimeBasis": "2025年4月1日時点の消費生活用製品安全法施行令第3条及び別表第3。"
+          "summary": "2025年4月1日時点及び2026年7月28日現在の別表第3には石油給湯機と石油ふろがまだけが掲げられ、屋内式ガス瞬間湯沸器及び屋内式ガスふろがまは含まれないため、正誤は変わらない。"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "article": "第3条及び別表第3",
+          "correctChoiceText": "正しい",
+          "lawId": "349CO0000000048",
+          "lawTitle": "消費生活用製品安全法施行令",
+          "referenceDate": "2025-04-01",
+          "verificationStatus": "verified"
         },
-        "reviewState": "tertiary_verified"
-      },
-      {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "conclusion": "給湯暖房用熱源機の分類に関する機器知識であり、法令改正による判定変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -284,12 +279,25 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "conclusion": "潜熱回収型給湯器の凝縮水処理に関する機器知識であり、法令改正による判定変更はない。"
+          "summary": "給湯暖房用熱源機の分類に関する技術知識であり、法令改正による判定差分の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "summary": "潜熱回収型給湯器の凝縮水処理に関する技術知識であり、法令改正による判定差分の対象ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -310,7 +318,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
     "explanationText": [
-      "間違い。ガス事業法上のガス用品には、所定のガス消費量などの要件を満たすガスこんろとガスストーブは含まれるが、回転ドラム式衣類乾燥機はガス事業法施行令別表第1に掲げられていない。したがって、三つの機器をすべてガス用品とする記述は誤りである。",
+      "間違い。所定の要件を満たすガスこんろとガスストーブはガス用品に含まれるが、回転ドラム式衣類乾燥機は含まれない。ガス事業法第137条第1項及びガス事業法施行令第14条・別表第1には回転ドラム式衣類乾燥機が掲げられていないため、三つともガス用品であるとする記述は誤りである。",
       "正しい。回転ドラム式ガス衣類乾燥機は、設置室内の空気を取り入れて燃焼し、燃焼排ガスを乾燥用空気とともに排湿筒から屋外へ排出する開放式ガス機器である。",
       "正しい。焦げ付き消火機能は、調理油過熱防止装置の温度センサーを利用して鍋底温度の変化を検知し、焦げ付きが始まったと判断すると自動的に消火する機能である。",
       "正しい。ファンヒーターの室温自動制御には、温度に応じて電気抵抗が変化するサーミスターが、主な室温センサーとして使用されている。",
@@ -378,7 +386,7 @@
           "verificationStatus": "verified"
         },
         {
-          "article": "第9条、別表第1",
+          "article": "第14条、別表第1",
           "choiceIndex": 0,
           "lawId": "329CO0000000068",
           "lawTitle": "ガス事業法施行令",
@@ -393,10 +401,10 @@
           "choiceIndex": 0,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20260727",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20260728",
           "verificationStatus": "verified"
         },
         {
@@ -404,10 +412,10 @@
           "choiceIndex": 0,
           "lawId": "329CO0000000068",
           "lawTitle": "ガス事業法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20260727",
+          "source": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20260728",
           "verificationStatus": "verified"
         }
       ],
@@ -416,21 +424,31 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1は、ガス事業法第137条第1項と、試験日（2025年9月28日）時点のガス事業法施行令第9条・別表第1（現行は第14条・別表第1）により判定する。同表ではガスこんろ及びガスストーブはガス用品に該当し得るが、回転ドラム式衣類乾燥機は掲げられていないため、この記述は誤りである。選択肢2～5は機器の構造・機能に関する技術事項として解説する。",
+    "lawContextForExplanation": "選択肢1は、ガス事業法第137条第1項と、出題時及び現行のガス事業法施行令第14条・別表第1により判定する。同表には所定のガスストーブ及びガスこんろが掲げられる一方、回転ドラム式衣類乾燥機は掲げられていないため、この記述は誤りである。選択肢2～5は機器の構造・機能に関する技術事項として扱う。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "verified_no_change",
+        "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "間違い"
+          "article": "第137条第1項 / 第14条・別表第1",
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051 / 329CO0000000068",
+          "lawTitle": "ガス事業法 / ガス事業法施行令",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "basis": "試験日時点のガス事業法第137条第1項、ガス事業法施行令第9条および別表第1と、現行の同法第137条第1項、同令第14条および別表第1を照合した。",
-          "revisionImpact": "2025年12月25日施行の改正により施行令の条番号は第9条から第14条へ移動したが、ガスストーブおよびガスこんろが対象で、回転ドラム式衣類乾燥機が対象外である点は変わらない。"
+          "basis": "出題時及び現行のガス事業法第137条第1項とガス事業法施行令第14条・別表第1を照合した。別表には所定のガスストーブ及びガスこんろが掲げられるが、回転ドラム式衣類乾燥機は掲げられていない。",
+          "revisionImpact": "対象品目と正誤に影響する変更は確認されず、出題時と現行はいずれも間違いである。"
         },
         "examTime": {
-          "correctChoiceText": "間違い"
+          "article": "第137条第1項 / 第14条・別表第1",
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051 / 329CO0000000068",
+          "lawTitle": "ガス事業法 / ガス事業法施行令",
+          "referenceDate": "2025-09-28",
+          "verificationStatus": "verified"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -438,12 +456,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "機器の燃焼・排気方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "basis": "回転ドラム式ガス衣類乾燥機の燃焼・排気方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -456,7 +474,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -464,12 +482,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "室温自動制御用センサーに関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "basis": "室温自動制御用サーミスターに関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -482,7 +500,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       }
     ]
   },

@@ -159,11 +159,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
     "explanationText": [
-      "間違い。試験時点でガス用品として政令で定められていた品目には、こんろやストーブは含まれるが、衣類乾燥機は含まれないため、三つすべてがガス用品に指定されているとする記述は誤りである。",
-      "間違い。ガスファンヒーターは、室内の空気を用いてガスを燃焼させ、燃焼排ガスも室内へ放出する開放式の暖房機器であり、半密閉式ではないため誤りである。",
-      "間違い。潜熱回収型給湯器（エコジョーズ）で発生する凝縮水は酸性であり、中和剤で中和してから排水するため、アルカリ性とする記述は誤りである。",
-      "間違い。家庭用温水機器には、給排気通路の閉そくなどを検知して自己診断する機能を備えたものがあるため、そのような機器はないとする記述は誤りである。",
-      "正しい。2008年4月以降に発売された開放式瞬間湯沸器には、機器の使用が一定回数を超えると、使用者へ点検時期などを知らせる機能が搭載されている。"
+      "間違い。ガス用品はガス事業法第137条第1項により政令で指定され、現行のガス事業法施行令第14条及び別表第一にはガスこんろとガスストーブが含まれる一方、衣類乾燥機は含まれないため、三つすべてが指定品目であるとする記述は誤りである。2017年時点も同法第137条第1項、同令第9条及び別表第一により同じ結論となる。",
+      "間違い。ガスファンヒーターは、室内の空気を用いてガスを燃焼させ、燃焼排ガスを室内に放出する開放式の暖房機器であり、燃焼排ガスを排気筒で屋外へ出す半密閉式ではないため誤りである。",
+      "間違い。潜熱回収型給湯器で発生する凝縮水は酸性であり、中和剤で中性付近まで中和してから排水するため、凝縮水をアルカリ性とする記述は誤りである。",
+      "間違い。家庭用温水機器には、給排気通路の閉塞などによる異常を検知し、故障表示や運転停止を行う自己診断機能を備えたものがあるため、そのような機器がないとする記述は誤りである。",
+      "正しい。2008年4月以降に発売された開放式瞬間湯沸器には、使用回数が所定回数に達すると、ランプの点滅などによって点検時期を知らせる機能が搭載されている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -223,10 +223,32 @@
           "choiceIndex": 0,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第14条、別表第一",
+          "choiceIndex": 0,
+          "lawId": "329CO0000000068",
+          "lawTitle": "ガス事業法施行令",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329CO0000000068/",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第137条第1項",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
           "referenceDate": "2017-07-01",
           "role": "exam_time_basis",
           "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20170701",
+          "source": "https://laws.e-gov.go.jp/law/329AC0000000051?occasion_date=20170701",
           "verificationStatus": "verified"
         },
         {
@@ -237,7 +259,7 @@
           "referenceDate": "2017-07-01",
           "role": "exam_time_basis",
           "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20170701",
+          "source": "https://laws.e-gov.go.jp/law/329CO0000000068?occasion_date=20170701",
           "verificationStatus": "verified"
         }
       ],
@@ -246,20 +268,20 @@
       [],
       []
     ],
-    "lawContextForExplanation": "選択肢1は、平成29年度試験時点のガス事業法上のガス用品指定品目を確認する法令関連の記述である。ガス用品はガス事業法第137条第1項により政令で定めるものとされ、同時点のガス事業法施行令第9条及び別表第一の指定品目に衣類乾燥機は含まれない。選択肢2から5は、暖房機器の方式、凝縮水の性状、自己診断機能、使用回数のお知らせ機能に関する機器知識が中心で、条文を直接根拠にしない。",
+    "lawContextForExplanation": "選択肢1はガス用品の指定範囲を問う法令肢である。ガス事業法第137条第1項と現行のガス事業法施行令第14条・別表第一では、ガスこんろとガスストーブは指定品目に含まれるが、衣類乾燥機は含まれない。2017年時点も同法第137条第1項、同令第9条・別表第一により同じ結論となる。選択肢2〜5は機器の構造、凝縮水、自己診断機能及び点検時期のお知らせ機能に関する技術肢である。",
     "lawRevisionFacts": [
       {
-        "auditStatus": "exam_time_basis_verified",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "2017年7月1日時点のガス事業法第137条第1項及びガス事業法施行令第9条・別表第一では、ガス用品の指定品目に衣類乾燥機が含まれないことを確認した。"
+          "summary": "ガス事業法第137条第1項及び現行のガス事業法施行令第14条・別表第一では、ガス用品の指定品目に衣類乾燥機が含まれない。2017年時点の同令第9条・別表第一でも同じであり、正誤は変わらない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -267,12 +289,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "暖房機器の給排気方式に関する機器知識であり、法令改正による正誤監査の対象外である。"
+          "summary": "ガスファンヒーターの給排気方式に関する機器知識であり、開放式を半密閉式とする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -280,12 +302,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "潜熱回収で生じる凝縮水の性状に関する機器知識であり、法令改正による正誤監査の対象外である。"
+          "summary": "潜熱回収型給湯器の凝縮水は酸性で、中和後に排水されるため、アルカリ性とする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -293,12 +315,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "家庭用温水機器の自己診断機能に関する機器知識であり、法令改正による正誤監査の対象外である。"
+          "summary": "給排気通路の閉塞異常を検知し、表示や運転制御を行う自己診断機能を備えた家庭用温水機器が存在するため、存在しないとする記述は誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -306,12 +328,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "開放式瞬間湯沸器のお知らせ機能に関する機器知識であり、法令改正による正誤監査の対象外である。"
+          "summary": "開放式瞬間湯沸器には、所定の使用回数等を超えた際に点検時期を知らせる機能が搭載されており、記述は正しい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       }
     ]
   },

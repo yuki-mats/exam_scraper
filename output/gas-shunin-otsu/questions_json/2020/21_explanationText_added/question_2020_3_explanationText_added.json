@@ -605,7 +605,7 @@
     "explanationText": [
       "正しい。自然換気で空気の流れを生じさせる力には、風による圧力差を利用するものと、室内外の温度差で生じる浮力を利用するものがある。",
       "正しい。必要換気量は、室内の酸素濃度を一定の限界以上に保つために必要となる最小限の換気量をいう。",
-      "正しい。建築基準法施行令の機械換気設備の基準では、必要有効換気量を V=20Af/N として算定する。これは1人当たり20m³/hを基礎にした考え方であり、記述は正しい。",
+      "正しい。機械換気設備の必要有効換気量は、1人当たり20m³/hを基礎として算定される。建築基準法施行令第20条の2第1号ロ(1)は、必要有効換気量をV=20Af/Nと定めている。",
       "間違い。換気扇に用いられるシロッコファンは、一般にターボファンより効率が低い。効率の高低を逆に述べているため、この記述が誤りである。",
       "正しい。一酸化炭素（CO）は酸素よりもヘモグロビンと強く結合し、血液による酸素運搬を妨げる。そのため、吸入すると酸素欠乏症状を引き起こしやすい。"
     ],
@@ -658,7 +658,7 @@
         "title": "建築基準法施行令（昭和二十五年政令第三百三十八号）"
       }
     ],
-    "lawContextForExplanation": "選択肢3は、建築基準法施行令第20条の2第1号ロ(1)が機械換気設備の有効換気量について V=20Af/N と定める点を根拠に確認する。その他の選択肢は、自然換気、必要換気量の一般的考え方、送風機の効率、一酸化炭素のヘモグロビン結合性に関する技術知識として解説する。",
+    "lawContextForExplanation": "選択肢3は、建築基準法施行令第20条の2第1号ロ(1)が機械換気設備の必要有効換気量をV=20Af/Nと定める点から確認する。他の選択肢は換気及び一酸化炭素中毒に関する技術事項として扱う。",
     "lawReferences": [
       [],
       [],
@@ -668,7 +668,7 @@
           "choiceIndex": 2,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
@@ -691,7 +691,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -704,10 +704,10 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "current_law_confirmed",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
@@ -715,9 +715,9 @@
           "article": "第20条の2第1号ロ(1)",
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "source": "https://laws.e-gov.go.jp/law/325CO0000000338",
-          "summary": "建築基準法施行令第20条の2第1号ロ(1)の必要有効換気量 V=20Af/N により、1人当たり20m³/hを基礎にする点を確認した。現行法確認では正誤を変更する事情はない。"
+          "summary": "機械換気設備の必要有効換気量をV=20Af/Nとする現行規定を確認し、1人当たり20m³/hを基礎とする記述の正誤に変更がないと判断した。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -735,7 +735,7 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -748,7 +748,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },

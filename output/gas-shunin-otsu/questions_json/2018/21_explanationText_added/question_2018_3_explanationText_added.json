@@ -421,11 +421,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_3.json",
     "explanationText": [
-      "間違い。厨房用低ふく射熱機器は、機器表面の断熱や燃焼排気の効率的な排出などにより、厨房内への放射熱を抑える機器です。機器の表面温度を下げるために燃焼排ガスを分散させて排出する、という説明が誤りです。",
-      "正しい。排気フード受け型の簡易湯沸器は、排気フード内へ排気する設置形態に対応するため、排気温度センサーやCOセンサーを備え、排気不良や一酸化炭素濃度上昇などによる危険を抑える構造になっています。",
-      "正しい。温水ボイラーの取扱いに必要な資格や教育は、ボイラーの区分によって異なります。労働安全衛生法令上の区分には、最高使用圧力や伝熱面積などが関係します。",
-      "正しい。GHPには、EHPと同一の冷媒配管に接続し、ガスと電気の使用状況などに応じてGHPとEHPの運転比率を最適に制御できる方式のものがあります。",
-      "正しい。コージェネレーションシステムは、発電と同時に発生する排熱を利用する熱電併給システムです。ガスエンジン式、ガスタービン式、燃料電池式などがあります。"
+      "間違い。厨房用低ふく射熱機器は、低ふく射や集中排気などによって厨房内の温度上昇を抑える機器です。燃焼排ガスを分散させて排出することで機器の表面温度を下げる、という説明が誤りです。",
+      "正しい。排気フード受け型の簡易湯沸器には、CO中毒対策のCOセンサーと、火災予防対策の排気温度センサーが搭載されています。",
+      "正しい。温水ボイラーの取扱いに必要な資格や教育は、最高使用圧力や伝熱面積による区分に応じて異なります。労働安全衛生法第61条第1項、労働安全衛生法施行令第1条第3号・第4号及び第20条第3号・第5号、ボイラー及び圧力容器安全規則第23条・第24条・第92条が、ボイラー技士免許、技能講習、特別教育などの取扱要件を定めています。",
+      "正しい。GHPには、EHPと一つの冷媒配管で同一冷媒系統に接続し、エネルギー需給や料金などに応じて両者を最適な運転比率で制御できるシステムがあります。",
+      "正しい。コージェネレーションシステムは、発電と同時に生じる排熱を利用する熱電併給システムです。ガスエンジン式、ガスタービン式、燃料電池式があります。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -511,7 +511,7 @@
       }
     ],
     "isLawRelated": true,
-    "lawContextForExplanation": "選択肢3のみ法令根拠が必要。温水ボイラーの取扱いに必要な資格は、労働安全衛生法令上のボイラー、小規模ボイラー、小型ボイラー等の区分により異なり、その区分には最高使用圧力や伝熱面積が関係する。選択肢1、2、4、5は機器の構造・機能に関する技術事項であり、法令条文を根拠にした解説は不要。",
+    "lawContextForExplanation": "選択肢3のみ法令根拠が必要。温水ボイラーの取扱要件は、労働安全衛生法令上の区分に応じて異なり、その区分には最高使用圧力と伝熱面積が関係する。選択肢1、2、4、5は機器の構造・機能に関する技術事項である。",
     "lawReferences": [
       [],
       [],
@@ -521,7 +521,7 @@
           "choiceIndex": 2,
           "lawId": "347AC0000000057",
           "lawTitle": "労働安全衛生法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/347AC0000000057",
@@ -532,7 +532,7 @@
           "choiceIndex": 2,
           "lawId": "347CO0000000318",
           "lawTitle": "労働安全衛生法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/347CO0000000318",
@@ -543,7 +543,7 @@
           "choiceIndex": 2,
           "lawId": "347M50002000033",
           "lawTitle": "ボイラー及び圧力容器安全規則",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/347M50002000033",
@@ -560,12 +560,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "低ふく射熱機器の構造に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "classification": "technical_equipment",
+          "summary": "低ふく射型厨房機器の排気方式と表面温度に関する技術事項であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -573,38 +574,28 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "排気フード受け型簡易湯沸器の安全装置に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "classification": "technical_equipment",
+          "summary": "排気フード対応形給湯器のCOセンサー及び排気温度センサーに関する技術事項である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "current_law_verified_no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "温水ボイラーを含むボイラーの取扱資格等は、労働安全衛生法令上の区分に応じて整理され、区分には最高使用圧力や伝熱面積が関係する。温水ボイラー区分に関する改正はあるが、この記述の正誤を変える影響はない。"
+          "currentBasis": "労働安全衛生法第61条第1項、労働安全衛生法施行令第1条第3号・第4号及び第20条第3号・第5号、ボイラー及び圧力容器安全規則第23条・第24条・第92条により、ボイラーの圧力・伝熱面積による区分と取扱資格・教育の違いを確認した。",
+          "examTimeEvidence": "出題時条文の版は今回直接取得していないため、元正答を保持し、出題時条文の差分は推定していない。",
+          "summary": "現行法でも、温水ボイラーの取扱要件は最高使用圧力や伝熱面積による区分に応じて異なるため、正誤変更はない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
-      },
-      {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "summary": "GHPとEHPを組み合わせた空調システムの機能に関する技術事項であり、法令改正による正誤変動の対象ではない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -612,12 +603,27 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "コージェネレーションシステムの方式に関する技術事項であり、法令改正による正誤変動の対象ではない。"
+          "classification": "technical_equipment",
+          "summary": "GHPとEHPを同一冷媒系統に接続して運転比率を制御する空調システムの技術事項である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "classification": "technical_energy_system",
+          "summary": "コージェネレーションシステムの機能と方式に関する技術事項である。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []

@@ -1953,10 +1953,10 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_2.json",
     "explanationText": [
       "間違い。サーマルNOxは、燃焼温度と酸素濃度が高く、燃焼ガスが高温域に長く滞留するほど生成されやすい。選択肢はこれらの条件を反対に述べているため誤りである。",
-      "間違い。BODは、水中の有機物が微生物によって分解される際に消費される溶存酸素量を表す指標である。酸化剤の消費量を酸素量に換算するのはCODの考え方であり、BODの説明ではないため誤りである。",
+      "間違い。BODは、水中の有機物が微生物によって分解される際に消費される溶存酸素量を表す指標である。酸化剤の消費量を酸素量に換算するのはCODの考え方であり、BODの説明ではない。",
       "正しい。メタンを主成分とする天然ガスは、石油や石炭より水素に対する炭素の割合が小さいため、同程度のエネルギーを得る際の燃焼時二酸化炭素排出量が化石燃料の中で少ない。",
       "正しい。化石燃料による温室効果ガス排出量は、燃焼時だけでなく、採掘、加工、輸送などに伴う排出も含め、ライフサイクル全体で評価することが重要である。",
-      "正しい。産業廃棄物以外の廃棄物は一般廃棄物に分類される。これは、廃棄物処理法第2条第2項が一般廃棄物を産業廃棄物以外の廃棄物と定義し、同条第4項が産業廃棄物の範囲を定めているためである。"
+      "正しい。ここでいう対象は廃棄物に該当するものであり、そのうち産業廃棄物でないものは一般廃棄物となる。廃棄物の処理及び清掃に関する法律第2条第2項が一般廃棄物を「産業廃棄物以外の廃棄物」と定義し、同条第4項が産業廃棄物の範囲を定めている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -2013,7 +2013,7 @@
           "choiceIndex": 4,
           "lawId": "345AC0000000137",
           "lawTitle": "廃棄物の処理及び清掃に関する法律",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -2021,7 +2021,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢5は、廃棄物処理法第2条の定義に基づいて判断する。同条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、第4項は産業廃棄物の範囲を定めている。このため、廃棄物に該当するもののうち、産業廃棄物に該当しないものは一般廃棄物となる。",
+    "lawContextForExplanation": "選択肢5は、廃棄物の処理及び清掃に関する法律第2条第2項及び第4項に基づいて判断する。同条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、第4項は産業廃棄物の範囲を定めている。選択肢1〜4は技術知識で判断する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -2029,12 +2029,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "サーマルNOxの生成条件に関する技術事項であり、法令改正による正誤への影響はない。"
+          "basis": "サーマルNOxの生成条件に関する燃焼技術上の命題であり、法令条文が正誤を直接決めない。",
+          "classification": "technical_combustion"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2042,12 +2043,13 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "BODとCODの定義に関する技術事項であり、法令改正による正誤への影響はない。"
+          "basis": "BODとCODの定義を区別する水質指標上の命題であり、法令条文が正誤を直接決めない。",
+          "classification": "technical_water_quality"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2055,12 +2057,13 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "燃料組成と燃焼時二酸化炭素排出量に関する技術事項であり、法令改正による正誤への影響はない。"
+          "basis": "燃料組成と燃焼時二酸化炭素排出量の関係を問う技術命題であり、法令条文が正誤を直接決めない。",
+          "classification": "technical_fuel_environment"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -2068,26 +2071,30 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "温室効果ガスのライフサイクル評価に関する一般的な技術事項であり、法令改正による正誤への影響はない。"
+          "basis": "温室効果ガス排出量のライフサイクル評価に関する一般的な環境評価上の命題であり、法令条文が正誤を直接決めない。",
+          "classification": "technical_lifecycle_assessment"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "廃棄物処理法第2条第2項及び第4項の定義に照らし、産業廃棄物以外の廃棄物を一般廃棄物とする判定は現行法でも試験時と同じである。",
-          "currentSource": "e-Gov法令検索"
+          "article": "第2条第2項及び第4項",
+          "basis": "同条第2項は一般廃棄物を産業廃棄物以外の廃棄物と定義し、第4項は産業廃棄物を定義しているため、廃棄物に該当するもののうち産業廃棄物でないものは一般廃棄物となる。",
+          "currentSource": "e-Gov法令検索",
+          "lawId": "345AC0000000137",
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -3468,11 +3475,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_2.json",
     "explanationText": [
-      "正しい。非裏波溶接は、溶融金属が継手の裏側まで十分に溶け込まず、裏波が形成されていない溶接状態をいう。十分な溶込みが得られていない部分は強度面で弱点になりやすく、中圧導管被害の要因となる。",
+      "正しい。非裏波溶接は、溶融金属が継手の裏側まで十分に溶け込まず、裏波が形成されていない溶接状態をいう。十分な溶込みが得られていない部分は強度上の弱点になりやすく、中圧導管被害の要因となる。",
       "正しい。液状化は、水を多く含む砂質地盤などが地震の揺れを受け、土粒子間の結合が弱まって液体のような状態となり、地盤の支持力を失う現象である。",
-      "正しい。供給停止ブロックには、供給停止判断の基本単位となる単位ブロックと、複数の単位ブロックを一括して供給停止するための統合ブロックがある。これにより、被害状況に応じた範囲で供給停止を行うことができる。",
+      "正しい。供給停止ブロックには、供給停止判断の基本単位となる単位ブロックと、複数の単位ブロックを一括して供給停止するための統合ブロックがある。これにより、被害状況に応じた範囲で供給を停止できる。",
       "正しい。供給継続地区では導管内にガスが残っているため、漏えいを放置すると火災や爆発などの二次災害につながるおそれがある。そのため、供給停止地区より優先して通報に対応し、遮断など必要な措置を講ずる。",
-      "間違い。移動式ガス発生設備は、災害時の臨時供給だけでなく、工事などにより通常の導管供給ができない場合の仮供給にも使用できる。用途を災害時だけに限定するものではないため、この記述が誤りである。"
+      "間違い。移動式ガス発生設備は災害時だけでなく、導管等の工事を行った場合にも一時的なガス供給に使用できる。ガス事業法施行規則第1条第2項第6号が、導管等の工事を行った場合と災害その他非常の場合の双方を対象としているため、用途を災害時だけに限定する記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -3510,7 +3517,7 @@
     "sourceRecordRef": "question_2019_2.json#23",
     "explanationReferences": [],
     "isLawRelated": true,
-    "lawContextForExplanation": "非裏波溶接、液状化、供給停止ブロック、漏えい通報への対応は、地震対策上の技術・運用知識で説明する。移動式ガス発生設備は災害時の臨時供給だけに限られず、ガス事業法上のガス工作物・供給設備として、工事などで通常の導管供給ができない場合の仮供給にも用いられる。",
+    "lawContextForExplanation": "選択肢1〜4は、非裏波溶接、液状化、供給停止ブロック及び地震時の漏えい対応に関する技術・運用知識で判定する。選択肢5は、ガス事業法施行規則第1条第2項第6号が、移動式ガス発生設備を導管等の工事時にも使用する一時供給設備として定義しているため、災害時だけに限定する記述は誤りである。",
     "lawReferences": [
       [],
       [],
@@ -3518,22 +3525,11 @@
       [],
       [
         {
-          "article": "第2条第13項",
+          "article": "第1条第2項第6号",
           "choiceIndex": 4,
-          "lawId": "昭和二十九年法律第五十一号",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-25",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "第1条第2項第9号",
-          "choiceIndex": 4,
-          "lawId": "昭和四十五年通商産業省令第九十八号",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-25",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -3543,56 +3539,56 @@
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令ではなく、非裏波溶接に関する技術知識で判定する。"
+          "summary": "非裏波溶接に関する技術知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令ではなく、液状化に関する技術知識で判定する。"
+          "summary": "液状化に関する地盤工学上の技術知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令ではなく、供給停止ブロックの運用知識で判定する。"
+          "summary": "供給停止ブロックに関する地震対策上の運用知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "not_applicable",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "法令ではなく、地震時の漏えい対応に関する運用知識で判定する。"
+          "summary": "供給継続地区における漏えい対応の運用知識で判定し、直接の法令基準を問う選択肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
@@ -3600,12 +3596,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "移動式ガス発生設備は災害時以外の仮供給にも使用でき、現行法令との照合で正誤への影響は確認されない。"
+          "summary": "ガス事業法施行規則第1条第2項第6号は、移動式ガス発生設備の使用場面に導管等の工事時と災害その他非常時を含めており、災害時だけに限定する記述は現行法でも誤りである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "refresh_reviewed"
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedQuestionDetailsByChoice": []

@@ -1084,9 +1084,9 @@
     "explanationText": [
       "間違い。PID制御のD動作は、偏差を時間的に微分した値に比例する操作量を出力し、偏差の変化にすばやく対応する動作である。記述のように偏差を時間的に積分し、定常偏差をなくす方向に働くのはI動作であるため誤りである。",
       "間違い。二つのプロセス量を一定の比率に保つ制御方式は比率制御である。カスケード制御は、主調節計の出力で副調節計の目標値を設定し、外乱の影響を早く補正する制御方式であり、記述とは異なる。",
-      "間違い。記述は、電気機械器具を構成する部分に発生する火花、アーク又は熱がガス又は蒸気に点火するおそれがないことを点火試験等で確認する本質安全防爆構造の説明である。安全増防爆構造は、正常運転中に火花、アーク又は危険な温度を発生するおそれがない部分について、安全度を増加した構造をいう。",
-      "正しい。使用電圧が300Vを超える低圧電路では、電線相互間および電路と大地との間の絶縁抵抗を0.4MΩ以上とする基準であり、記述はこれに一致する。",
-      "正しい。事業用電気工作物を設置する者には、保安規程を定めて届け出ること、主任技術者を選任して届け出ることが電気事業法で求められる。これらは製造所における自主保安体制の確立に関する記述として妥当である。"
+      "間違い。記述は、電気機械器具を構成する部分に発生する火花、アーク又は熱がガス又は蒸気に点火するおそれがないことを点火試験等で確認する本質安全防爆構造の説明である。安全増防爆構造は、正常運転中に火花、アーク又は危険な高温を生じるおそれがない部分について安全性を高めた構造であり、この区別は電気機械器具防爆構造規格第1条第5号・第7号に定められている。",
+      "正しい。使用電圧が300Vを超える低圧電路では、電線相互間及び電路と大地との間の絶縁抵抗を0.4MΩ以上とする基準である。電気設備に関する技術基準を定める省令第58条第1項の表に一致する。",
+      "正しい。事業用電気工作物を設置する者には、保安規程を定めることと主任技術者を選任することが求められる。これらは電気事業法第42条第1項及び第43条第1項に基づく自主保安体制であり、記述は妥当である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -1153,7 +1153,7 @@
           "choiceIndex": 2,
           "lawId": "昭和44年労働省告示第16号",
           "lawTitle": "電気機械器具防爆構造規格",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "厚生労働省法令等データベースサービス https://www.mhlw.go.jp/web/t_doc?dataId=74038000&dataType=0&pageNo=1",
@@ -1166,7 +1166,7 @@
           "choiceIndex": 3,
           "lawId": "409M50000400052",
           "lawTitle": "電気設備に関する技術基準を定める省令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/409M50000400052",
@@ -1179,7 +1179,7 @@
           "choiceIndex": 4,
           "lawId": "339AC0000000170",
           "lawTitle": "電気事業法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/339AC0000000170",
@@ -1187,7 +1187,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢1・2はPID制御とカスケード制御に関する計装制御の技術知識であり、法令根拠は不要。選択肢3は電気機械器具防爆構造規格第1条第5号・第7号の安全増防爆構造と本質安全防爆構造の定義、選択肢4は電気設備に関する技術基準を定める省令第58条第1項の低圧電路の絶縁抵抗、選択肢5は電気事業法第42条第1項・第43条第1項の保安規程と主任技術者選任を根拠に扱う。",
+    "lawContextForExplanation": "選択肢1・2はPID制御及びカスケード制御に関する技術知識であり、法令根拠は不要。選択肢3は電気機械器具防爆構造規格第1条第5号・第7号、選択肢4は電気設備に関する技術基準を定める省令第58条第1項、選択肢5は電気事業法第42条第1項・第43条第1項を根拠として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -1201,7 +1201,7 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1215,49 +1215,49 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "電気機械器具防爆構造規格第1条第5号・第7号の定義を確認した。",
-          "revisionImpact": "試験時点と基準日との間で正誤判定に影響する変更は認められない。"
+          "basis": "電気機械器具防爆構造規格第1条第5号・第7号の定義により、記述は安全増防爆構造ではなく本質安全防爆構造を示す。",
+          "revisionImpact": "現行規定による正誤は出題時判定と同じである。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "電気設備に関する技術基準を定める省令第58条第1項の絶縁抵抗基準を確認した。",
-          "revisionImpact": "試験時点と基準日との間で正誤判定に影響する変更は認められない。"
+          "basis": "電気設備に関する技術基準を定める省令第58条第1項は、300Vを超える低圧電路の絶縁抵抗値を0.4MΩ以上としている。",
+          "revisionImpact": "現行規定による正誤は出題時判定と同じである。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "電気事業法第42条第1項および第43条第1項の義務を確認した。",
-          "revisionImpact": "試験時点と基準日との間で正誤判定に影響する変更は認められない。"
+          "basis": "電気事業法第42条第1項及び第43条第1項は、保安規程の制定と主任技術者の選任を定めている。",
+          "revisionImpact": "現行規定による正誤は出題時判定と同じである。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },

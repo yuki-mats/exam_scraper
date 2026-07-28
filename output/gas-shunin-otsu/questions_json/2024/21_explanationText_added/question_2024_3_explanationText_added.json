@@ -568,9 +568,9 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
     "explanationText": [
       "正しい。自然換気では、建物に作用する風圧と、室内外の温度差によって生じる浮力が空気を動かす力となる。送風機を使わず、これらの圧力差によって換気する。",
-      "間違い。基準上の排気フードの高さは、火源または器具に設けられた排気用開口部の中心からフード下端までで測り、1m以下とする。したがって、こんろ上面から1000mm以上に設置しなければならないとする記述は、上限と下限を逆にしている。",
+      "間違い。排気フードの高さは、火源または器具に設けられた排気用開口部の中心からフード下端までで測り、1m以下とする。これは、建築基準法施行令第20条の3第2項第1号イ（7）に基づく昭和45年建設省告示第1826号「換気設備の構造方法を定める件」第三第四号イ（イ）（i）及び（ロ）（i）の基準である。したがって、こんろ上面から1000mm以上に設置しなければならないとする記述は誤りである。",
       "正しい。高層住宅などでは外風圧が大きく変化し、一般的な換気扇では換気風量が不安定になりやすい。そこで、圧力変動があっても風量を確保しやすいシロッコファンなどの高静圧型換気扇を用いる。",
-      "正しい。自然換気回数は、1時間当たりの自然換気量Qを室の容積Vで割って求める。したがって、自然換気回数（回/h）＝Q（m³/h）÷V（室の容積m³）であり、単位は1時間当たりの回数となる。",
+      "正しい。自然換気回数は、1時間当たりの自然換気量Qを室の容積Vで割って求める。したがって、自然換気回数（回/h）＝Q（m³/h）÷V（m³）となる。",
       "正しい。酸素不足などにより都市ガスの燃焼反応が完結しない不完全燃焼では、一酸化炭素（CO）が発生する。COは人体に有害であるため、十分な給気と確実な排気が重要である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -626,7 +626,7 @@
         "title": "換気設備の構造方法を定める件等の一部を改正する告示（令和5年国土交通省告示第207号）"
       }
     ],
-    "lawContextForExplanation": "選択肢2は、建築基準法施行令第20条の3第2項第1号イ（7）及び昭和45年建設省告示第1826号第三第四号イに基づき、火源等から排気フード下端までの高さを1m以下とする基準と対比して説明する。選択肢1、3、4、5は換気及び燃焼に関する技術知識で説明する。",
+    "lawContextForExplanation": "選択肢2は、建築基準法施行令第20条の3第2項第1号イ（7）の委任に基づく昭和45年建設省告示第1826号「換気設備の構造方法を定める件」第三第四号イ（イ）（i）及び（ロ）（i）の排気フード高さ1m以下の基準と対比する。選択肢1、3、4、5は換気・燃焼に関する技術知識として説明する。",
     "lawReferences": [
       [],
       [
@@ -657,10 +657,10 @@
           "choiceIndex": 1,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260727",
+          "source": "https://laws.e-gov.go.jp/law/325CO0000000338?occasion_date=20260728",
           "verificationStatus": "verified"
         },
         {
@@ -668,7 +668,7 @@
           "choiceIndex": 1,
           "lawId": "昭和45年建設省告示第1826号",
           "lawTitle": "換気設備の構造方法を定める件",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
@@ -679,7 +679,7 @@
           "choiceIndex": 1,
           "lawId": "令和5年国土交通省告示第207号",
           "lawTitle": "換気設備の構造方法を定める件等の一部を改正する告示",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf",
@@ -698,30 +698,31 @@
         },
         "evidenceSummary": {
           "classification": "technical_non_law_basis",
-          "summary": "自然換気の駆動力に関する技術的記述であり、法令改正による正誤変動の対象ではない。"
+          "summary": "自然換気の駆動力に関する技術的記述であり、法令の定義・義務・数値基準が正誤を直接決める肢ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
+          "classification": "verified_law_basis",
           "sources": [
             "https://laws.e-gov.go.jp/law/325CO0000000338",
             "https://www.mlit.go.jp/notice/noticedata/pdf/201703/00006606.pdf",
             "https://www.mlit.go.jp/jutakukentiku/build/content/001598635.pdf"
           ],
-          "summary": "試験時および現行の基準では、排気フードの高さは1m以下である。令和5年国土交通省告示第207号による用語整理後も、この高さ基準に正誤を変える変更はない。"
+          "summary": "出題時および現行の基準では、火源等から排気フード下端までの高さは1m以下である。令和5年国土交通省告示第207号による改正後も、この高さ基準に正誤を変える差分はない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "primary_verified"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -730,12 +731,12 @@
         },
         "evidenceSummary": {
           "classification": "technical_non_law_basis",
-          "summary": "高層住宅における外風圧と換気扇の静圧特性に関する技術的記述である。"
+          "summary": "外風圧の変動と換気扇の静圧特性に関する技術的記述である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -749,7 +750,7 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -763,20 +764,10 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       }
     ],
-    "suggestedQuestionDetailsByChoice": [
-      {
-        "choiceIndex": 4,
-        "items": [
-          {
-            "answer": "COは無色・無臭で発生に気付きにくいうえ、血液中のヘモグロビンと強く結合して酸素の運搬を妨げるためです。",
-            "question": "一酸化炭素（CO）が特に危険とされるのはなぜですか。"
-          }
-        ]
-      }
-    ]
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "c91739a7a2f130a1",

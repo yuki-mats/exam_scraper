@@ -1141,11 +1141,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
-      "間違い。導管中のガス温度が露点域に入ると、LPGなどの高発熱量成分が液化してガス相から減少し、導管の閉そくなども起こり得る。残るガスの発熱量は低下する方向になるため、発熱量が増加するとした部分が誤りである。",
-      "正しい。ガス事業法施行規則の成分検査方法では、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。したがって、設問のガスは特殊成分検査を免除される。",
+      "間違い。導管内のガス温度が露点域に入ると、LPGなどの高発熱量成分が液化してガス相から減少するため、残ったガスの発熱量は低下する。液化物による導管の閉そくも起こり得るが、発熱量が増加するとした部分は誤りである。",
+      "正しい。天然ガス又はプロパンなどを主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。これはガス事業法施行規則第22条第1項第1号及び第90条第1項第1号に定められている。",
       "正しい。水素炎イオン化検出器（FID）は、ガスクロマトグラフで用いられる検出器で、有機化合物の多くを高感度に検出できる。",
       "正しい。イオンクロマトグラフ法は、特殊成分の分析方法として、全硫黄及びアンモニアの分析に使用できる。",
-      "間違い。ガスクロマトグラフでは、固定相への溶解性や吸着性が強い成分ほど固定相に長く保持され、移動速度は遅くなる。選択肢は移動速度が速くなるとしているため誤りである。"
+      "間違い。固定相への溶解性や吸着性が強い成分ほど固定相に長く保持されるため、ガスクロマトグラフ内の移動速度は遅くなる。速くなるとした記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1175,12 +1175,10 @@
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "relation": "enabling_basis_for_retail_gas_component_inspection",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
+          "source": "egov_law_search",
           "verificationStatus": "verified"
         },
         {
@@ -1191,12 +1189,10 @@
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "relation": "direct_exclusion_basis_for_natural_gas_lpg_and_air_mixed_gas",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "source": "egov_law_search",
           "verificationStatus": "verified"
         },
         {
@@ -1206,12 +1202,10 @@
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "relation": "parallel_enabling_basis_for_general_gas_pipeline_component_inspection",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=63",
+          "source": "egov_law_search",
           "verificationStatus": "verified"
         },
         {
@@ -1222,12 +1216,10 @@
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "relation": "parallel_direct_exclusion_basis_for_general_gas_pipeline_component_inspection",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=90",
+          "source": "egov_law_search",
           "verificationStatus": "verified"
         }
       ],
@@ -1237,20 +1229,12 @@
     ],
     "lawRevisionFacts": [
       {
-        "answerImpactFacts": [
-          "既存の正誤は出典の選択肢別判定と整合する。"
-        ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "displayRefIds": [],
-          "explanationText": "LPGなどの高発熱量成分が液化してガス相から失われると、残ったガスの発熱量は低下するため、この記述は誤りである。",
-          "promptContext": "熱量調整の技術知識として説明する。",
-          "refs": [],
+          "explanationText": "高発熱量成分が液化してガス相から減少すると、残ったガスの発熱量は低下する。",
           "verdict": "not_law_related"
         },
         "examTime": {
@@ -1260,9 +1244,6 @@
         "reviewState": "secondary_verified"
       },
       {
-        "answerImpactFacts": [
-          "現行法令は既存の正誤判定と一致する。"
-        ],
         "auditStatus": "same_as_current",
         "current": {
           "article": "22",
@@ -1271,62 +1252,43 @@
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "referenceDate": "2026-07-28",
           "verificationStatus": "verified"
         },
-        "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "現行法令では正誤・解説の変更を要しない。",
-          "displayRefIds": [
-            "current:345M50000400097:22:1:一",
-            "current:345M50000400097:90:1:一"
-          ],
-          "explanationText": "天然ガス又はプロパン等を主成分とするガス等は、現行施行規則により成分検査の対象から除かれる。",
-          "promptContext": "施行規則第22条及び第90条の検査対象除外に基づいて説明する。",
+          "differenceSummary": "出題時と現行法で正誤に影響する差分は確認されない。",
+          "explanationText": "ガス事業法施行規則第22条第1項第1号及び第90条第1項第1号は、設問に挙げられたガスを成分検査の対象から除いている。",
           "refs": [
             {
               "article": "22",
               "item": "一",
               "lawId": "345M50000400097",
-              "lawTimeScope": "current",
               "lawTitle": "ガス事業法施行規則",
-              "paragraph": "1",
-              "refId": "current:345M50000400097:22:1:一"
+              "paragraph": "1"
             },
             {
               "article": "90",
               "item": "一",
               "lawId": "345M50000400097",
-              "lawTimeScope": "current",
               "lawTitle": "ガス事業法施行規則",
-              "paragraph": "1",
-              "refId": "current:345M50000400097:90:1:一"
+              "paragraph": "1"
             }
           ],
           "verdict": "correct"
         },
         "examTime": {
           "correctChoiceText": "正しい",
-          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+          "verificationStatus": "from_2021_otsu_source_choice_correctness_and_exam_time_egov_text"
         },
         "reviewState": "secondary_verified"
       },
       {
-        "answerImpactFacts": [
-          "既存の正誤は出典の選択肢別判定と整合する。"
-        ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
-        "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "displayRefIds": [],
-          "explanationText": "FIDは有機化合物の多くを高感度に検出できるため、この記述は正しい。",
-          "promptContext": "分析技術の知識として説明する。",
-          "refs": [],
+          "explanationText": "FIDは有機化合物の多くを高感度に検出できる。",
           "verdict": "not_law_related"
         },
         "examTime": {
@@ -1336,20 +1298,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "answerImpactFacts": [
-          "既存の正誤は出典の選択肢別判定と整合する。"
-        ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
-        "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "displayRefIds": [],
-          "explanationText": "イオンクロマトグラフ法は全硫黄及びアンモニアの分析に使用できるため、この記述は正しい。",
-          "promptContext": "分析技術の知識として説明する。",
-          "refs": [],
+          "explanationText": "イオンクロマトグラフ法は全硫黄及びアンモニアの分析に使用できる。",
           "verdict": "not_law_related"
         },
         "examTime": {
@@ -1359,20 +1313,12 @@
         "reviewState": "secondary_verified"
       },
       {
-        "answerImpactFacts": [
-          "既存の正誤は出典の選択肢別判定と整合する。"
-        ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
-        "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分の評価対象外。",
-          "displayRefIds": [],
-          "explanationText": "固定相への溶解性や吸着性が強い成分ほど移動速度は遅くなるため、速くなるとした記述は誤りである。",
-          "promptContext": "固定相への保持と移動速度の関係を明示する。",
-          "refs": [],
+          "explanationText": "固定相への溶解性や吸着性が強い成分ほど保持時間が長くなり、移動速度は遅くなる。",
           "verdict": "not_law_related"
         },
         "examTime": {
@@ -1400,7 +1346,7 @@
         "title": "ガス事業法施行規則第90条（成分の検査方法）"
       }
     ],
-    "lawContextForExplanation": "選択肢2は、ガス事業法上のガス成分検査義務と、ガス事業法施行規則第22条第1項第1号・第90条第1項第1号の検査対象除外に関係する。天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、特殊成分検査の対象から除かれる。選択肢1・3・4・5は熱量調整又は分析方法の技術知識であり、条文根拠を付けない。"
+    "lawContextForExplanation": "選択肢2は、ガス事業法第23条・第63条の成分検査義務と、ガス事業法施行規則第22条第1項第1号・第90条第1項第1号の検査対象除外に関係する。天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。選択肢1・3・4・5は技術知識で判断する。"
   },
   {
     "original_question_id": "47c7a0b88120d757",

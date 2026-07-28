@@ -837,7 +837,7 @@
       "間違い。液封されたLPGも外部からの入熱や温度上昇によって液膨張し、逃げ場がなければ内部圧力が著しく上昇して配管やフランジなどを損傷するおそれがある。LPGでは液封への考慮が不要としているため誤りである。",
       "正しい。LPGの主成分であるプロパンやブタンの気体は空気より重く、相対ガス密度はおおむね1.5～2程度である。流出すると地表面や低所に滞留しやすく、着火源に達する危険がある。",
       "正しい。貯蔵中のLNGは外部からの入熱を受け、その一部が気化してボイルオフガス（BOG）を生じる。LNGとそのBOGはメタンを主成分とする。",
-      "間違い。LNGローリーによる高圧ガスの移動には高圧ガス保安法が、道路の通行条件には道路法が関係する。選択肢は主たる適用法令をガス事業法としており、高圧ガス保安法を挙げていないため誤りである。"
+      "間違い。LNGローリーによるLNGの移動には、高圧ガス保安法第2条の定義と同法第23条の移動規制が適用される。車両の寸法や重量に関しては道路法第47条・第47条の2も関係するが、選択肢は主要な保安法令をガス事業法としており、高圧ガス保安法を挙げていないため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -944,7 +944,7 @@
           "choiceIndex": 4,
           "lawId": "326AC0000000204",
           "lawTitle": "高圧ガス保安法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/326AC0000000204）",
@@ -955,7 +955,7 @@
           "choiceIndex": 4,
           "lawId": "327AC1000000180",
           "lawTitle": "道路法",
-          "referenceDate": "2026-07-27",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索（https://laws.e-gov.go.jp/law/327AC1000000180）",
@@ -963,7 +963,7 @@
         }
       ]
     ],
-    "lawContextForExplanation": "選択肢5は、LNGローリーの運行に適用される法令を問う。LNGは高圧ガス保安法上の高圧ガスに該当し得るため、車両による移動には同法の移動規制が関係する。また、道路の通行条件には道路法上の車両制限や特殊車両通行許可が関係する。したがって、主たる適用法令をガス事業法及び道路法等とする記述は不適切である。",
+    "lawContextForExplanation": "選択肢5はLNGローリーの運行に適用される法令を問う法令肢である。LNGは高圧ガス保安法第2条の液化ガスに該当し、その車両による移動には同法第23条が適用される。道路の車両制限には道路法第47条・第47条の2も関係するため、ガス事業法を主要な適用法令とする記述は不適切である。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -971,12 +971,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "キャビテーションの名称に関する技術事項であり、法令改正監査の対象外である。"
+          "summary": "低圧部で生じる気泡をキャビテーションと呼ぶ技術用語の問題であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -984,12 +984,12 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "LPGの液封と熱膨張に関する技術・保安事項であり、法令改正による正誤変更はない。"
+          "summary": "LPGの液封と温度上昇による液膨張に関する技術・保安事項であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -997,12 +997,12 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "LPGの相対ガス密度と滞留性に関する物性事項であり、法令改正監査の対象外である。"
+          "summary": "LPGの相対ガス密度と低所への滞留性に関する物性事項であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "not_law_related",
@@ -1010,27 +1010,27 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "LNGの入熱とBOG発生に関する物性・設備事項であり、法令改正監査の対象外である。"
+          "summary": "LNGへの入熱とBOGの発生・組成に関する物性事項であり、法令改正監査の対象外である。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "reviewState": "not_applicable"
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "no_revision_impact",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "currentBasis": "基準日現在、高圧ガス保安法第2条・第23条および道路法第47条・第47条の2が関係する。",
-          "examTimeBasis": "2023年の出題時点でもLNGローリーには高圧ガス保安法上の規制が関係し、正誤の結論は同じである。",
-          "revisionImpact": "出題時点から基準日までに正誤を変える改正影響は確認されない。"
+          "currentBasis": "基準日現在、高圧ガス保安法第2条・第23条がLNGの高圧ガス該当性と車両による移動を規律し、道路法第47条・第47条の2が車両の通行制限等を規律する。",
+          "examTimeBasis": "出題時正誤は元問題の判定により間違いである。出題時条文の独立したsnapshotは参照せず、現行法のみを照合した。",
+          "revisionImpact": "現行法上も結論は間違いであり、正誤を変更する改正影響は認められない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "reviewState": "tertiary_verified"
+        "reviewState": "secondary_verified"
       }
     ]
   },
