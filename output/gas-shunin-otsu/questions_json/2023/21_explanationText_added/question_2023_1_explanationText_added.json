@@ -2067,45 +2067,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第14条第1項第6号は、導管及びガス栓の主要材料について、最高使用温度及び最低使用温度で材料に及ぼす化学的及び物理的影響に対し、設備の種類及び規模に応じて安全な機械的性質を有しなければならないと定めている。",
-      "間違い。選択肢の「供用中の衝撃」と「供給圧力」が誤りで、正しくは「供用中の荷重」と「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。",
-      "間違い。選択肢の「供給圧力」が誤りで、正しくは「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。「供用中の荷重」は正しい。",
-      "間違い。選択肢の「肉厚が十分」が誤りで、正しくは「溶込みが十分」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
-      "間違い。選択肢の「運用時に問題を生じない強度」が誤りで、正しくは「設計上要求される強度以上の強度」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。"
-    ],
-    "suggestedQuestions": [
-      "導管及びガス栓の主要材料に必要な性質は？",
-      "導管及びガス栓の構造が耐えるべき条件は？",
-      "構造の圧力条件は供給圧力か最高使用圧力か？",
-      "溶接部分で十分であることが必要なのは肉厚か溶込みか？",
-      "溶接部分に必要な強度は？",
-      "この問題の根拠条文は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "導管及びガス栓の主要材料に必要な性質は？",
-        "answer": "使用温度での化学的・物理的影響に対して安全な機械的性質。"
-      },
-      {
-        "question": "導管及びガス栓の構造が耐えるべき条件は？",
-        "answer": "供用中の荷重と、最高使用温度・最低使用温度における最高使用圧力。"
-      },
-      {
-        "question": "構造の圧力条件は供給圧力か最高使用圧力か？",
-        "answer": "最高使用圧力。"
-      },
-      {
-        "question": "溶接部分で十分であることが必要なのは肉厚か溶込みか？",
-        "answer": "溶込み。肉厚ではない。"
-      },
-      {
-        "question": "溶接部分に必要な強度は？",
-        "answer": "設計上要求される強度以上の強度。"
-      },
-      {
-        "question": "この問題の根拠条文は？",
-        "answer": "ガス工作物の技術上の基準を定める省令第14条第1項第6号、第15条第1項第6号及び第16条第1項。"
-      }
+      "正しいのは（イ）である。導管及びガス栓の主要材料について、最高使用温度及び最低使用温度で受ける化学的・物理的影響に対し、設備の種類及び規模に応じて安全な機械的性質を有することが求められるため、（イ）は正しい。この基準はガス工作物の技術上の基準を定める省令第14条第1項第6号に定められている。（ロ）は、同省令第15条第1項第6号が構造上考慮すべきものを「供用中の荷重」としており、「衝撃」ではないため誤りである。（ハ）は、同号が温度条件と併せて考慮すべき圧力を「最高使用圧力」としており、「供給圧力」ではないため誤りである。（ニ）は、同省令第16条第1項が溶接部分について十分であることを求めているのは「溶込み」であり、「肉厚」ではないため誤りである。（ホ）は、同項が「設計上要求される強度以上の強度」を求めており、単に「運用時に問題を生じない強度」とするものではないため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -2156,409 +2118,206 @@
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 0,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "14",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第14条第1項第6号は、導管及びガス栓の主要材料について、最高使用温度及び最低使用温度で材料に及ぼす化学的及び物理的影響に対し、設備の種類及び規模に応じて安全な機械的性質を有しなければならないと定めている。",
-          "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
-          "paragraph": "1",
+          "choiceIndex": 0,
           "item": "6",
-          "rawXmlHash": "e0d84b1fc82d0d92104d709f240effa5231c1ffb00654b879aebbd7077153c72"
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "第14条第1項第6号は、導管及びガス栓の主要材料について、安全な機械的性質を有することを求めているため、（イ）は正しい。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 1,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「供用中の衝撃」と「供給圧力」が誤りで、正しくは「供用中の荷重」と「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。",
-          "paragraph": "1",
-          "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
           "item": "6",
-          "rawXmlHash": "46ecb63163da5c4400fc4696986770b97f46edd2b77df6ff95bb9b957497992d"
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "第15条第1項第6号は構造上考慮すべきものを供用中の荷重と定めており、選択肢の衝撃とは異なるため、（ロ）は誤りである。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 2,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「供給圧力」が誤りで、正しくは「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。「供用中の荷重」は正しい。",
-          "paragraph": "1",
-          "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
           "item": "6",
-          "rawXmlHash": "46ecb63163da5c4400fc4696986770b97f46edd2b77df6ff95bb9b957497992d"
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "第15条第1項第6号は温度条件と併せて考慮すべき圧力を最高使用圧力と定めており、選択肢の供給圧力とは異なるため、（ハ）は誤りである。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "16",
           "choiceIndex": 3,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "16",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「肉厚が十分」が誤りで、正しくは「溶込みが十分」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
-          "paragraph": "1",
           "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
-          "rawXmlHash": "03982d36807a04cb6defaebe192d00fdbf429fb6985c2ed4689b055b2e7c4e19"
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "第16条第1項は溶接部分について溶込みが十分であることを求めており、肉厚が十分であることを示す選択肢ではないため、（ニ）は誤りである。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
+          "article": "16",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "第16条第1項は設計上要求される強度以上の強度を求めており、単に運用時に問題を生じない強度とする選択肢ではないため、（ホ）は誤りである。",
+          "referenceDate": "2026-07-28",
           "role": "current_basis",
           "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "16",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「運用時に問題を生じない強度」が誤りで、正しくは「設計上要求される強度以上の強度」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
-          "paragraph": "1",
-          "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
-          "rawXmlHash": "03982d36807a04cb6defaebe192d00fdbf429fb6985c2ed4689b055b2e7c4e19"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+          "verificationStatus": "verified"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
-        "auditedAt": "2026-07-12T03:25:53+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
-        "auditInputHash": "e2bb619e0039d907b361710df4fc247dae8ecc2cd58ecd4fa2d91ffcc9f9e997",
-        "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-2026-07-12",
-        "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
-        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:6ef7a08857fedb18:choice1",
-        "evidenceBindingHash": "9344847a707ef0dcacdf7832fd1792167e1c41cb82583b7afcb297ff0de9a8f7",
-        "examTime": {
-          "correctChoiceText": "正解",
-          "verificationStatus": "from_2023_otsu_source_choice_correctness"
-        },
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "14",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
+          "correctChoiceText": "正しい",
+          "item": "6",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "lawId": "412M50000400111",
-          "paragraph": "1",
-          "item": "6"
+          "verificationStatus": "verified"
         },
-        "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-        ],
-        "notes": [
-          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
-        ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "ガス工作物の技術上の基準を定める省令第14条第1項第6号は、導管及びガス栓の主要材料について、最高使用温度及び最低使用温度で材料に及ぼす化学的及び物理的影響に対し、設備の種類及び規模に応じて安全な機械的性質を有しなければならないと定めている。",
-          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第14条第1項第6号を選択肢0の直接根拠として確認。",
-          "refs": [
-            {
-              "refId": "choice-0-ref-1",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "14",
-              "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
-              "lawId": "412M50000400111",
-              "paragraph": "1",
-              "item": "6"
-            }
-          ]
-        }
+          "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+          "explanationText": "第14条第1項第6号により、安全な機械的性質を有するとの記述は現行法令と一致する。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2023_otsu_source_choice_correctness"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
-        "auditedAt": "2026-07-12T03:25:53+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
-        "auditInputHash": "c646c66e010578275aa6fbabfbae3cfe2ec3daeb7b23fde471bc943fc8265e4b",
-        "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-2026-07-12",
-        "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
-        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:6ef7a08857fedb18:choice2",
-        "evidenceBindingHash": "d7aafe19a1a8a42ca120d6771f2d5eaf6d55b9fc85f12766f8feea06ca1049da",
-        "examTime": {
-          "correctChoiceText": "不正解",
-          "verificationStatus": "from_2023_otsu_source_choice_correctness"
-        },
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "correctChoiceText": "間違い",
+          "item": "6",
           "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "paragraph": "1",
-          "item": "6"
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "verificationStatus": "verified"
         },
-        "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-        ],
-        "notes": [
-          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
-        ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "選択肢の「供用中の衝撃」と「供給圧力」が誤りで、正しくは「供用中の荷重」と「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。",
-          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第15条第1項第6号を選択肢1の直接根拠として確認。",
-          "refs": [
-            {
-              "refId": "choice-1-ref-1",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "15",
-              "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-              "lawId": "412M50000400111",
-              "paragraph": "1",
-              "item": "6"
-            }
-          ]
-        }
+          "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+          "explanationText": "第15条第1項第6号が定めるのは供用中の荷重であり、衝撃ではない。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2023_otsu_source_choice_correctness"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
-        "auditedAt": "2026-07-12T03:25:53+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
-        "auditInputHash": "f6d6601ea2b4132620ee882f229cd05e8ead9c493e2284e6721b71e8c13b5fb1",
-        "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-2026-07-12",
-        "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
-        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:6ef7a08857fedb18:choice3",
-        "evidenceBindingHash": "8d92fdcd5f0c3fdd86156513480cd9121b39ae144ae02f966f3261be38331c14",
-        "examTime": {
-          "correctChoiceText": "不正解",
-          "verificationStatus": "from_2023_otsu_source_choice_correctness"
-        },
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "correctChoiceText": "間違い",
+          "item": "6",
           "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "paragraph": "1",
-          "item": "6"
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "verificationStatus": "verified"
         },
-        "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-        ],
-        "notes": [
-          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
-        ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "選択肢の「供給圧力」が誤りで、正しくは「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。「供用中の荷重」は正しい。",
-          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第15条第1項第6号を選択肢2の直接根拠として確認。",
-          "refs": [
-            {
-              "refId": "choice-2-ref-1",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "15",
-              "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-              "lawId": "412M50000400111",
-              "paragraph": "1",
-              "item": "6"
-            }
-          ]
-        }
+          "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+          "explanationText": "第15条第1項第6号が定めるのは最高使用圧力であり、供給圧力ではない。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2023_otsu_source_choice_correctness"
+        },
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
-        "auditedAt": "2026-07-12T03:25:53+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
-        "auditInputHash": "1956a82d24080f7cc0b1b82ebee2c7c15d6b242072e212f4761c0e5d053fb7d8",
-        "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-2026-07-12",
-        "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
-        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:6ef7a08857fedb18:choice4",
-        "evidenceBindingHash": "adc6d40c68634d814f2d5b2d06f3463419c597c1b3f153ad6c4d9b28a0b90bdb",
+        "current": {
+          "article": "16",
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+          "verificationStatus": "verified"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+          "explanationText": "第16条第1項が十分であることを求めるのは溶込みであり、肉厚ではない。",
+          "verdict": "same_as_current"
+        },
         "examTime": {
-          "correctChoiceText": "不正解",
+          "correctChoiceText": "間違い",
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
-        "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "article": "16",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
-          "lawId": "412M50000400111",
-          "paragraph": "1"
-        },
-        "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-        ],
-        "notes": [
-          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
-        ],
-        "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "選択肢の「肉厚が十分」が誤りで、正しくは「溶込みが十分」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
-          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第16条第1項を選択肢3の直接根拠として確認。",
-          "refs": [
-            {
-              "refId": "choice-3-ref-1",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "16",
-              "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
-              "lawId": "412M50000400111",
-              "paragraph": "1"
-            }
-          ]
-        }
+        "reviewState": "secondary_verified"
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "refresh_reviewed",
-        "auditedAt": "2026-07-12T03:25:53+09:00",
-        "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
-        "auditInputHash": "6d6e3d6a366ce0b6d63adc0ea85b413fe925aa5f4fb87b1784fa8af10546c508",
-        "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-current-2026-07-12",
-        "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
-        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:6ef7a08857fedb18:choice5",
-        "evidenceBindingHash": "985d9e3ac19168aed4d1881a17ec8836bbe9d0bf4205f4f01c236dedbeea9832",
+        "current": {
+          "article": "16",
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+          "verificationStatus": "verified"
+        },
+        "evidenceSummary": {
+          "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
+          "explanationText": "第16条第1項は設計上要求される強度以上の強度を求めている。",
+          "verdict": "same_as_current"
+        },
         "examTime": {
-          "correctChoiceText": "不正解",
+          "correctChoiceText": "間違い",
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
-        "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "article": "16",
-          "referenceDate": "2026-07-12",
-          "verificationStatus": "verified",
-          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
-          "lawId": "412M50000400111",
-          "paragraph": "1"
-        },
-        "differenceFacts": [
-          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-        ],
-        "notes": [
-          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
-        ],
-        "evidenceSummary": {
-          "verdict": "same_as_current",
-          "explanationText": "選択肢の「運用時に問題を生じない強度」が誤りで、正しくは「設計上要求される強度以上の強度」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
-          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第16条第1項を選択肢4の直接根拠として確認。",
-          "refs": [
-            {
-              "refId": "choice-4-ref-1",
-              "lawTimeScope": "current",
-              "relation": "direct_basis",
-              "primaryBasis": true,
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "article": "16",
-              "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
-              "lawId": "412M50000400111",
-              "paragraph": "1"
-            }
-          ]
-        }
+        "reviewState": "secondary_verified"
       }
     ],
     "lawzillaWorkflowReview": {
@@ -2583,7 +2342,29 @@
       "間違い。選択肢の「供給圧力」が誤りで、正しくは「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。「供用中の荷重」は正しい。",
       "間違い。選択肢の「肉厚が十分」が誤りで、正しくは「溶込みが十分」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
       "間違い。選択肢の「運用時に問題を生じない強度」が誤りで、正しくは「設計上要求される強度以上の強度」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08",
+    "reviewQuestionId": "6ef7a08857fedb18",
+    "sourceRecordRef": "question_2023_1.json#7",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-12",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+        "title": "e-Gov法令検索「ガス工作物の技術上の基準を定める省令」第14条"
+      },
+      {
+        "referenceDate": "2026-07-12",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+        "title": "e-Gov法令検索「ガス工作物の技術上の基準を定める省令」第15条"
+      },
+      {
+        "referenceDate": "2026-07-12",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+        "title": "e-Gov法令検索「ガス工作物の技術上の基準を定める省令」第16条"
+      }
+    ],
+    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第14条第1項第6号、第15条第1項第6号及び第16条第1項に照らし、導管及びガス栓の主要材料の機械的性質、導管及びガス栓の構造が耐えるべき荷重・最高使用圧力、並びに溶接部分の溶込み及び設計上要求される強度以上の強度を確認する。",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "718d13890847209e",
