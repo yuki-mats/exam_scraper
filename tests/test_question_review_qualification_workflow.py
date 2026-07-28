@@ -852,19 +852,26 @@ class QualificationWorkflowTests(unittest.TestCase):
             )
 
             with_issue = workflow.overview("sample")
-            retry_plan = workflow.plan("sample", "law_audit", "outdated")
+            retry_plan = workflow.plan(
+                "sample",
+                "explanation",
+                "needed",
+                update_target_ids=["explanation.law_support"],
+            )
             item["issues"] = []
             item["issueCodes"] = []
             without_issue = workflow.overview("sample")
 
-        self.assertEqual(with_issue["nextStageId"], "law_audit")
-        audit = next(item for item in with_issue["stages"] if item["id"] == "law_audit")
-        self.assertEqual(audit["remainingCount"], 1)
+        self.assertEqual(with_issue["nextStageId"], "explanation")
+        explanation = next(
+            item for item in with_issue["stages"] if item["id"] == "explanation"
+        )
+        self.assertEqual(explanation["issueCount"], 1)
         self.assertEqual(
             with_issue["summary"]["maintenanceProgress"]["requiredCount"], 1
         )
         self.assertEqual(retry_plan["targetCount"], 1)
-        self.assertIn("21_explanationText_added", audit["outputPreview"][0])
+        self.assertIn("21_explanationText_added", retry_plan["outputFiles"][0])
         self.assertEqual(
             without_issue["summary"]["maintenanceProgress"]["requiredCount"], 0
         )
@@ -986,7 +993,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(attention["targetCount"], 1)
         self.assertEqual(refresh["targetCount"], 1)
 
-    def test_needed_mode_combines_missing_outdated_and_attention(self):
+    def test_needed_mode_uses_target_receipt_before_stage_patch_presence(self):
         patch = (
             "output/sample/questions_json/2026/10_questionType_fixed/"
             "question_2026_1_questionType_fixed.json"
@@ -1016,10 +1023,10 @@ class QualificationWorkflowTests(unittest.TestCase):
                 list_group_ids=["2026"],
             )
 
-        self.assertEqual(needed["targetCount"], 3)
+        self.assertEqual(needed["targetCount"], 2)
         self.assertEqual(
             [target["questionLabel"] for target in needed["progressTargets"]],
-            ["問1", "問3", "問4"],
+            ["問3", "問4"],
         )
         self.assertEqual(needed["modeLabel"], "2026の整備が必要な問題だけ")
 
@@ -1416,6 +1423,14 @@ class QualificationWorkflowTests(unittest.TestCase):
             "code": "explanation_quality",
             "fields": ["explanationText"],
         }
+        verdict_issue = {
+            "code": "law_audit_verdict_mismatch",
+            "fields": ["lawRevisionFacts.current.correctChoiceText"],
+        }
+        downstream_issue = {
+            "code": "merge_stale",
+            "fields": ["lawRevisionFacts"],
+        }
         patch_path = (
             "output/sample/questions_json/2026/21_explanationText_added/"
             "question_2026_1_explanationText_added.json"
@@ -1431,6 +1446,17 @@ class QualificationWorkflowTests(unittest.TestCase):
             patches=[patch_path],
             question_number=2,
         )
+        verdict_item = question(
+            law_related=True,
+            issues=[verdict_issue],
+            patches=[patch_path],
+            question_number=3,
+        )
+        downstream_item = question(
+            law_related=True,
+            issues=[downstream_issue],
+            question_number=4,
+        )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             write_category(root)
@@ -1441,12 +1467,22 @@ class QualificationWorkflowTests(unittest.TestCase):
                     [
                         {
                             "listGroupId": "2026",
-                            "questions": [law_item, explanation_item],
+                            "questions": [
+                                law_item,
+                                explanation_item,
+                                verdict_item,
+                                downstream_item,
+                            ],
                         }
                     ],
                 ),
             )
-            for item in (law_item, explanation_item):
+            for item in (
+                law_item,
+                explanation_item,
+                verdict_item,
+                downstream_item,
+            ):
                 mark_current(
                     workflow,
                     item,
@@ -1460,7 +1496,10 @@ class QualificationWorkflowTests(unittest.TestCase):
                 update_target_ids=["explanation.law_support"],
             )
 
-        self.assertEqual(plan["targetQuestionKeys"], [law_item["id"]])
+        self.assertEqual(
+            plan["targetQuestionKeys"],
+            [law_item["id"], verdict_item["id"]],
+        )
         self.assertEqual(
             plan["selectedUpdateTargetIds"],
             ["explanation.law_support"],

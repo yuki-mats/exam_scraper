@@ -236,7 +236,17 @@ def _originalization_applicable(question: Mapping[str, Any]) -> bool:
 def _issue_count(question: Mapping[str, Any], fields: set[str]) -> int:
     count = 0
     for issue in question.get("issues") or []:
-        issue_fields = {str(value).split("[")[0] for value in issue.get("fields") or []}
+        if str(issue.get("code") or "") in {
+            "merge_stale",
+            "convert_stale",
+            "upload_stale",
+            "upload_missing",
+        }:
+            continue
+        issue_fields = {
+            str(value).split("[", 1)[0].split(".", 1)[0]
+            for value in issue.get("fields") or []
+        }
         if issue_fields & fields:
             count += 1
     return count
@@ -1053,7 +1063,10 @@ class QualificationWorkflow:
                     else [
                         question
                         for question in questions
-                        if not _has_patch(question, patch_dir)
+                        if (
+                            not selected_update_targets
+                            and not _has_patch(question, patch_dir)
+                        )
                         or self._stage_version_status(
                             question, definition, selected_update_target_ids
                         )
