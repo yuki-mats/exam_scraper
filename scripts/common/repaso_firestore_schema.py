@@ -431,6 +431,43 @@ def _is_law_revision_facts(value: Any) -> bool:
     return True
 
 
+def is_law_revision_facts_shape(
+    value: Any,
+    *,
+    allow_choice_verdict_lists: bool = False,
+) -> bool:
+    """Validate one fact object against the public Firestore contract.
+
+    Question-level patch and merged records may keep every choice verdict in
+    one snapshot list. Firestore splits those verdicts into scalar documents,
+    so shape validation normalizes only that representation difference.
+    """
+    if _is_law_revision_facts(value):
+        return True
+    if not allow_choice_verdict_lists or not isinstance(value, dict):
+        return False
+
+    normalized = dict(value)
+    normalized_any = False
+    for snapshot_key in ("examTime", "current"):
+        snapshot = value.get(snapshot_key)
+        if not isinstance(snapshot, dict):
+            continue
+        verdicts = snapshot.get("correctChoiceText")
+        if (
+            not isinstance(verdicts, list)
+            or not verdicts
+            or any(not _is_non_empty_str(verdict) for verdict in verdicts)
+        ):
+            continue
+        normalized_snapshot = dict(snapshot)
+        normalized_snapshot["correctChoiceText"] = verdicts[0]
+        normalized[snapshot_key] = normalized_snapshot
+        normalized_any = True
+
+    return normalized_any and _is_law_revision_facts(normalized)
+
+
 def _ensure_only_allowed_fields(schema: CollectionSchema, doc: dict[str, Any], *, doc_id: str) -> None:
     extra = sorted(set(doc.keys()) - schema.allowed_fields)
     if extra:

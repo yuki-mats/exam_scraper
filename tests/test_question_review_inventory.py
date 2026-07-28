@@ -973,6 +973,37 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             },
         )
 
+    def test_reports_noncanonical_projected_choice_fact(self):
+        warnings = law_audit_quality_warnings(
+            {
+                "isLawRelated": True,
+                "correctChoiceText": ["正しい", "間違い"],
+                "lawReferences": [
+                    {"lawId": "law1", "verificationStatus": "verified"}
+                ],
+                "lawRevisionFacts": [
+                    {
+                        "auditStatus": "same_as_current",
+                        "reviewState": "secondary_verified",
+                        "current": {"correctChoiceText": "正しい"},
+                        "evidenceSummary": {"verdict": "same_as_current"},
+                    },
+                    {
+                        "auditStatus": "same_as_current",
+                        "reviewState": "secondary_verified",
+                        "current": {"correctChoiceText": "間違い"},
+                        "evidenceSummary": {"basis": "旧形式の根拠要約"},
+                    },
+                ],
+            },
+            stage="projected",
+        )
+
+        self.assertEqual(len(warnings), 1)
+        self.assertEqual(warnings[0]["code"], "law_audit_metadata_incomplete")
+        self.assertEqual(warnings[0]["field"], "lawRevisionFacts[1]")
+        self.assertEqual(warnings[0]["stage"], "projected")
+
     def test_detects_missing_required_fields_in_applied_patch_entry(self):
         warnings = patch_entry_required_warnings(
             {

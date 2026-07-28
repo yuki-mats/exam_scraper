@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from scripts.common.repaso_firestore_schema import is_law_revision_facts_shape
 from tools.question_bank.question_bank import timestamp_sort_key
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
@@ -222,45 +222,29 @@ def is_law_revision_facts_for_record(
     ``law_revision_current_verdict_issues``.
     """
 
-    if _is_law_revision_facts(facts):
-        return True
-    if not allow_question_level_choice_verdicts:
-        return False
-
     expected_verdicts = record.get("correctChoiceText")
-    if (
-        not isinstance(expected_verdicts, list)
-        or not expected_verdicts
-        or any(
-            not isinstance(verdict, str) or not verdict.strip()
-            for verdict in expected_verdicts
-        )
-    ):
-        return False
-
-    normalized_facts = dict(facts)
-    normalized_any = False
-    for snapshot_key in ("examTime", "current"):
-        snapshot = facts.get(snapshot_key)
-        if not isinstance(snapshot, dict):
-            continue
-        verdicts = snapshot.get("correctChoiceText")
-        if not isinstance(verdicts, list):
-            continue
+    if allow_question_level_choice_verdicts:
         if (
-            len(verdicts) != len(expected_verdicts)
+            not isinstance(expected_verdicts, list)
+            or not expected_verdicts
             or any(
                 not isinstance(verdict, str) or not verdict.strip()
-                for verdict in verdicts
+                for verdict in expected_verdicts
             )
         ):
             return False
-        normalized_snapshot = dict(snapshot)
-        normalized_snapshot["correctChoiceText"] = verdicts[0]
-        normalized_facts[snapshot_key] = normalized_snapshot
-        normalized_any = True
+        for snapshot_key in ("examTime", "current"):
+            snapshot = facts.get(snapshot_key)
+            if not isinstance(snapshot, dict):
+                continue
+            verdicts = snapshot.get("correctChoiceText")
+            if isinstance(verdicts, list) and len(verdicts) != len(expected_verdicts):
+                return False
 
-    return normalized_any and _is_law_revision_facts(normalized_facts)
+    return is_law_revision_facts_shape(
+        facts,
+        allow_choice_verdict_lists=allow_question_level_choice_verdicts,
+    )
 
 
 def record_label(record: dict[str, Any], index: int) -> str:

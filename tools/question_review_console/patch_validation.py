@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
-from scripts.common.repaso_firestore_schema import _is_law_revision_facts
+from scripts.common.repaso_firestore_schema import is_law_revision_facts_shape
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
 )
@@ -221,6 +221,8 @@ def upload_document_required_warnings(
 
 def law_audit_quality_warnings(
     document: Mapping[str, Any],
+    *,
+    stage: str = "upload-ready",
 ) -> list[dict[str, Any]]:
     """Validate law-audit metadata without conflating it with upload schema."""
     if document.get("isLawRelated") is not True:
@@ -234,7 +236,7 @@ def law_audit_quality_warnings(
             {
                 "code": code,
                 "category": "law_audit_quality",
-                "stage": "upload-ready",
+                "stage": stage,
                 "documentId": document_id,
                 "field": field,
                 "dataPath": field,
@@ -253,7 +255,15 @@ def law_audit_quality_warnings(
         )
 
     facts = document.get("lawRevisionFacts")
-    if not isinstance(facts, Mapping) or not facts:
+    if isinstance(facts, Mapping) and facts:
+        fact_items = [facts]
+    elif (
+        isinstance(facts, list)
+        and facts
+        and all(isinstance(fact, Mapping) for fact in facts)
+    ):
+        fact_items = facts
+    else:
         add(
             "law_audit_metadata_incomplete",
             "lawRevisionFacts",
@@ -261,27 +271,36 @@ def law_audit_quality_warnings(
         )
         return warnings
 
-    if not _is_law_revision_facts(dict(facts)):
-        add(
-            "law_audit_metadata_incomplete",
-            "lawRevisionFacts",
-            "lawRevisionFactsがFirestore公開契約に一致しません。",
+    for index, fact in enumerate(fact_items):
+        prefix = (
+            "lawRevisionFacts"
+            if isinstance(facts, Mapping)
+            else f"lawRevisionFacts[{index}]"
         )
+        if not is_law_revision_facts_shape(
+            dict(fact),
+            allow_choice_verdict_lists=True,
+        ):
+            add(
+                "law_audit_metadata_incomplete",
+                prefix,
+                f"{prefix}がFirestore公開契約に一致しません。",
+            )
 
-    if not str(facts.get("auditStatus") or "").strip():
-        add(
-            "law_audit_metadata_incomplete",
-            "lawRevisionFacts.auditStatus",
-            "lawRevisionFacts.auditStatusがありません。",
-        )
+        if not str(fact.get("auditStatus") or "").strip():
+            add(
+                "law_audit_metadata_incomplete",
+                f"{prefix}.auditStatus",
+                f"{prefix}.auditStatusがありません。",
+            )
 
-    summary = facts.get("evidenceSummary")
-    if not isinstance(summary, Mapping) or not summary:
-        add(
-            "law_audit_metadata_incomplete",
-            "lawRevisionFacts.evidenceSummary",
-            "lawRevisionFacts.evidenceSummaryがありません。",
-        )
+        summary = fact.get("evidenceSummary")
+        if not isinstance(summary, Mapping) or not summary:
+            add(
+                "law_audit_metadata_incomplete",
+                f"{prefix}.evidenceSummary",
+                f"{prefix}.evidenceSummaryがありません。",
+            )
 
     for issue in law_revision_current_verdict_issues(
         correct_choice_text=document.get("correctChoiceText"),
