@@ -140,7 +140,7 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 - `要再整備`で絞り込んだ問題は一覧から複数選択し、既存の問題整備runへまとめて戻す。選択した各問は新しいworkspace-write threadで一問一model turnとして処理し、通常整備と同じ最大100問の同時実行、問題単位の検査・確定、完了枠への自動補充を使う。
 - 評価の構造化出力schemaは、その問題の選択肢数を`choiceEvaluations`の`minItems`と`maxItems`へ設定する。serverは選択肢indexの全件・一意性も検証し、空配列や欠落した肢を評価結果として確定しない。全肢の根拠確認が完了しなかった場合だけ同じworker内で一度再評価する。一部の肢だけ根拠不足なら実質的な要再整備として残すが、全肢が未検証の結果は問題内容の指摘ではなく`inconclusive`（評価未完了）として評価待ちへ戻す。
 - 評価の再試行には、前回のsummary、critical issue、確認済み肢数をfeedbackとして渡す。隔離workspaceの探索と`placeholder`、`N/A`等の仮値を禁止し、一次情報の確認を最初から完了させる。e-Gov APIは条番号をjq式内の固定値で抽出し、一時的な名前解決又は接続失敗にはcurlの短い自動再試行と公式e-LAWS経路を使う。調査中の`commentary`は構造化JSONであっても完了扱いにせず、`final_answer`だけを欠落したturn完了通知の代替にする。
-- 一問の評価turnは8分で終了させる。時間切れはその一問だけを評価失敗として残し、同時に開始した他の問題の結果と次の評価runを30分の共通timeoutまで待たせない。
+- 一問の評価turnはCodex App Serverの共通timeoutを使う。評価待ちqueueは問題単位で独立しているため、長い一問の完了を待たずに空いた枠へ次の問題を補充し、他の問題を先に確定する。共通timeoutへ達した場合だけ、その一問を評価失敗として評価待ちへ戻す。
 - 非法令問題の解説本文に機関名、資料名、URLがないことだけを減点理由にしない。根拠不足は`insufficient_evidence`として不合格にする。
 - `questionBodyText`と`choiceTextList`は通常の自動整備では変更しない。同年度の公式問題冊子をrepository内に保存して照合できる場合は、問題詳細の`公式冊子と照合`で資料path・資料名・問番号を含むlocator・確認済み転記を固定し、read-onlyのBlind A/BとChallengeを通す。両者の変更完全値と公式根拠が一致した`fix`だけを`24_questionIssueCorrections`へ保存し、`00_source`は変更しない。利用者報告batchとの境界とpatch契約は[公式問題の問題報告 workflow](question_issue_report_workflow.md)を正本とする。
 - Firestore反映はCodex threadへ任せず、preflight、UIの明示確認、直後のreadbackを使う。

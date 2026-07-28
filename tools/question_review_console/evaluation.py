@@ -35,7 +35,6 @@ PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
 MAX_EVALUATION_CONCURRENCY = 100
 MAX_INCOMPLETE_EVALUATION_ATTEMPTS = 2
-EVALUATION_TURN_TIMEOUT_SECONDS = 8 * 60
 ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
 TRUE_LABELS = {"正しい", "正解", "○", "〇", "true"}
 FALSE_LABELS = {"間違い", "不正解", "誤り", "×", "false"}
@@ -1027,7 +1026,6 @@ class QuestionEvaluationService:
                 on_turn_started=on_turn_started,
                 cwd=Path(directory),
                 monitor_context=monitor_context,
-                turn_timeout=EVALUATION_TURN_TIMEOUT_SECONDS,
             )
         if len(turn.final_message.encode("utf-8")) > 2_000_000:
             raise EvaluationError("Codex App Serverの出力が2MBを超えました。")

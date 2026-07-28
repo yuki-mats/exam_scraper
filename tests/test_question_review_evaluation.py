@@ -270,7 +270,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             kwargs["output_schema"]["properties"]["choiceEvaluations"]["maxItems"],
             2,
         )
-        self.assertEqual(kwargs["turn_timeout"], 8 * 60)
+        self.assertNotIn("turn_timeout", kwargs)
         self.assertNotIn('"paths"', prompt)
         self.assertEqual(
             kwargs["monitor_context"],
