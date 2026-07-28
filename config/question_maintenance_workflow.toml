@@ -91,11 +91,12 @@ label = "問題形式"
 purpose = "回答体験に合うquestionTypeを一問ずつ確定する"
 kind = "human"
 # 5.0: 現在値や正答数を根拠にせず、回答体験から三形式を同列に独立判定するため洗い替える。
+# 5.1: 選択肢の各候補を計算・比較して該当性を個別判定する問題と、問題文だけで答えを導く想起型を区別する。
 # 4.0: 複数選択問題をgroup_choiceではなく選択肢別true_falseとして再判定するため洗い替える。
 # 3.0: 全問題を二重read-onlyレビューした後にserver合意を作り、通常候補を生成するため洗い替える。
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
-policy_version = "5.0"
+policy_version = "5.1"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -243,7 +244,8 @@ kind = "human"
 # 4.0: 現行法監査でも基本解説との重複補足を除き、追加価値がなければ0件へ洗い替える。
 # 4.1: 既存の法令紐付けを直接確認し、十分なら広域探索と再紐付けを省略する。
 # 4.2: 法令肢と技術肢が混在する問題を選択肢別に確定し、技術肢への法令参照を要求しない。
-policy_version = "4.2"
+# 4.3: 取得元の公式解答文answer_result_textをread-onlyとし、現行法判定による上書きを禁止する。
+policy_version = "4.3"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -282,7 +284,6 @@ fields = [
   "lawGroundedExplanationNotNeeded",
   "lawContextForExplanation",
   "correctChoiceText",
-  "answer_result_text",
   "explanationText",
   "suggestedQuestionDetailsByChoice",
   "holdReason",
@@ -291,7 +292,12 @@ fields = [
   "examTimeDecision",
   "currentLawDecision",
 ]
-read_fields = ["questionBodyText", "choiceTextList", "questionIntent"]
+read_fields = [
+  "questionBodyText",
+  "choiceTextList",
+  "questionIntent",
+  "answer_result_text",
+]
 
 [[stages]]
 id = "category_setup"

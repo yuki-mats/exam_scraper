@@ -8,6 +8,7 @@
 
 - `02b`と`03`の後に、新しいsessionで対象を一問一肢ずつ監査する。
 - `00_source`の本文、選択肢、ID、file名を変更しない。
+- `answer_result_text`は取得元の公式解答を保持するread-only fieldである。現行法で正誤が変わっても書き換えず、出題時正答と現行法判定の差は`lawRevisionFacts`、監査sidecar、正答patchと解説へ分けて保存する。
 - 更新できるのは、対象問題の`18_law_context_prepared`、`21_explanationText_added`、`23_correctChoiceText_fixed`と対象年度の監査sidecarだけである。
 - merge、convert、upload-ready、Firestoreは変更しない。後続処理は問題整備システムへ任せる。
 - 判断不能な問題は推測で閉じず、`hold`又は未完了review stateとして残す。
@@ -52,6 +53,7 @@
 ### 現行法差分
 
 - 公式過去問の元正答と、現行法ベースの学習用正誤を混同しない。
+- `answer_result_text`は試験当時の公式解答としてそのまま保持する。現行法上の正答番号又は正誤を表す文へ置き換えない。
 - 現行法で正誤が明らかに変わる場合だけ、正誤と解説を更新する。
 - `updated_to_current_law`の公開確定は`tertiary_verified`後に限る。
 - 条文本文、法令名、条・項・号、基準日を確認できない場合は推測で`correctChoiceText`を変えない。

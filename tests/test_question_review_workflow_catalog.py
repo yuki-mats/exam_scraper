@@ -194,6 +194,39 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("通常の問題形式候補を生成", operations)
         self.assertIn("問題単位の`hold`", operations)
 
+    def test_question_type_policy_distinguishes_choice_comparison_from_recall(self):
+        prompt = (ROOT / "prompt/01_prompt_fix_questionType.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn(
+            "`choiceTextList`に並ぶ各候補を計算又は比較して",
+            prompt,
+        )
+        self.assertIn(
+            "比較対象の反応式そのものを持つ場合は",
+            prompt,
+        )
+        self.assertIn("各反応式の該当・非該当を判定する`true_false`", prompt)
+
+    def test_law_audit_keeps_official_answer_result_read_only(self):
+        catalog = WorkflowCatalog(ROOT).load()
+        law_audit = next(
+            stage for stage in catalog["stages"] if stage["id"] == "law_audit"
+        )
+        target = next(
+            item
+            for item in law_audit["updateTargets"]
+            if item["id"] == "law_audit"
+        )
+        prompt = (
+            ROOT / "prompt/03b_prompt_audit_current_law_and_patch.md"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("answer_result_text", target["fields"])
+        self.assertIn("answer_result_text", target["readFields"])
+        self.assertIn("取得元の公式解答を保持するread-only field", prompt)
+
     def test_law_context_prompt_uses_only_its_stage_validator(self):
         prompt = (ROOT / "prompt/02b_prompt_prepare_law_context.md").read_text(
             encoding="utf-8"
@@ -419,10 +452,10 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
         self.assertEqual(version_by_stage["explanation"], "4.2")
-        self.assertEqual(version_by_stage["law_audit"], "4.2")
+        self.assertEqual(version_by_stage["law_audit"], "4.3")
         self.assertEqual(version_by_stage["law_context"], "1.2")
         self.assertEqual(version_by_stage["originalize"], "2.7")
-        self.assertEqual(version_by_stage["question_type"], "5.0")
+        self.assertEqual(version_by_stage["question_type"], "5.1")
         self.assertEqual(version_by_stage["question_intent"], "3.0")
         self.assertEqual(version_by_stage["correct_choice"], "3.1")
         self.assertEqual(version_by_stage["question_set"], "2.0")
