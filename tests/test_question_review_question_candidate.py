@@ -1786,6 +1786,10 @@ class QuestionCandidateTest(unittest.TestCase):
             audit_rules["lawRevisionFacts"]["description"],
         )
         self.assertIn(
+            "choiceIndex等の独自fieldをobjectへ追加しない",
+            audit_rules["lawRevisionFacts"]["description"],
+        )
+        self.assertIn(
             "evidenceSummary.refs",
             audit_rules["lawRevisionFacts"]["description"],
         )

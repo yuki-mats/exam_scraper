@@ -21,6 +21,10 @@ from scripts.common.question_answer_contract import (
     question_level_answer_cardinality_issue,
 )
 from scripts.common.repaso_firestore_schema import (
+    LAW_REVISION_EVIDENCE_REF_KEYS,
+    LAW_REVISION_EVIDENCE_SUMMARY_KEYS,
+    LAW_REVISION_FACT_KEYS,
+    LAW_REVISION_SNAPSHOT_KEYS,
     _is_law_revision_evidence_summary,
     is_law_revision_facts_shape,
     law_revision_facts_shape_errors,
@@ -462,25 +466,36 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
     },
 }
 
+_LAW_REVISION_FACT_FIELDS = "、".join(sorted(LAW_REVISION_FACT_KEYS))
+_LAW_REVISION_SNAPSHOT_FIELDS = "、".join(
+    sorted(LAW_REVISION_SNAPSHOT_KEYS)
+)
+_LAW_REVISION_EVIDENCE_SUMMARY_FIELDS = "、".join(
+    sorted(LAW_REVISION_EVIDENCE_SUMMARY_KEYS)
+)
+_LAW_REVISION_EVIDENCE_REF_FIELDS = "、".join(
+    sorted(LAW_REVISION_EVIDENCE_REF_KEYS)
+)
+
 _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
     "type": ["object", "array"],
     "description": (
         "question field契約に従う。true_false等の複数選択肢patchでは"
         "choiceTextListと同じ件数のobject配列を使い、各objectにauditStatus、"
         "reviewState、current.correctChoiceTextのscalar、examTime.correctChoiceTextの"
-        "scalar、非空objectのevidenceSummaryを入れる。互換のquestion-level objectを"
+        "scalar、非空objectのevidenceSummaryを入れる。選択肢との対応は配列順で表し、"
+        "choiceIndex等の独自fieldをobjectへ追加しない。"
+        f"各objectのtop-levelで使用できるfieldは{_LAW_REVISION_FACT_FIELDS}だけである。"
+        "互換のquestion-level objectを"
         "使う場合はcurrent/examTime.correctChoiceTextを選択肢順の配列にする。"
-        "evidenceSummaryで使用できるfieldはverdict、explanationText、"
-        "differenceSummary、promptContext、displayRefIds、refsだけとし、"
+        "evidenceSummaryで使用できるfieldは"
+        f"{_LAW_REVISION_EVIDENCE_SUMMARY_FIELDS}だけとし、"
         "旧形式のsummaryは使わない。refsは文字列配列ではなくobject配列とし、"
         "構造化できない根拠はrefsをomitする。refsのobjectは"
-        "refId、lawTimeScope、relation、primaryBasis、lawId、lawRevisionId、"
-        "lawTitle、elm、encodedElm、rootArticleElm、article、paragraph、item、"
-        "subitem、highlightElms、articleTextHash、textHashだけを使用する。"
-        "currentとexamTimeで使用できるfieldはcorrectChoiceText、lawId、"
-        "lawRevisionId、lawTitle、article、paragraph、item、subitem、"
-        "referenceDate、effectiveDate、verificationStatus、articleText、"
-        "articleTextHash、sourceUrlだけである。複数の号をitems等の独自fieldへ"
+        f"{_LAW_REVISION_EVIDENCE_REF_FIELDS}だけを使用する。"
+        "currentとexamTimeで使用できるfieldは"
+        f"{_LAW_REVISION_SNAPSHOT_FIELDS}だけである。"
+        "複数の号をitems等の独自fieldへ"
         "まとめず、単一値にできないlocatorはsnapshotからomitし、必要なら"
         "evidenceSummary.refsのobjectごとに記録する。"
         "auditStatus=updated_to_current_lawはreviewState=tertiary_verifiedに限る。"
