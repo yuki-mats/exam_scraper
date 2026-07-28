@@ -750,7 +750,19 @@ function renderAuditViewHeading() {
   $("#audit-view-title").textContent = detailOpen ? "問題の詳細" : "問題一覧";
   $("#audit-view-qualification").textContent = detailOpen && state.detail
     ? `${qualificationDisplayName()}・${scope}・${state.detail.questionLabel || state.detail.sourceQuestionKey || "問題"}`
-    : `${qualificationDisplayName()}・${scope}の問題を表示します。`;
+    : state.auditView.readOnly
+      ? `${qualificationDisplayName()}・${scope}の問題を表示します。`
+      : `${qualificationDisplayName()}・${scope}の評価・公開状態を管理します。`;
+}
+
+function setAuditViewMode(readOnly) {
+  state.auditView.readOnly = readOnly;
+  const adminTools = $("#audit-admin-tools");
+  adminTools.hidden = readOnly;
+  adminTools.open = !readOnly;
+  $("#audit-view").classList.toggle("simple-inspection", readOnly);
+  $("#audit-view").classList.toggle("admin-tools-open", !readOnly);
+  renderAuditViewHeading();
 }
 
 function invalidateAuditView() {
@@ -769,9 +781,8 @@ function invalidateAuditView() {
   state.detail = null;
   state.questionPage.filteredCount = 0;
   state.questionPage.hasMore = false;
+  setAuditViewMode(true);
   setAuditViewPage("list");
-  $("#audit-admin-tools").open = false;
-  $("#audit-view").classList.remove("admin-tools-open");
   clearEvaluationSelection();
   clearSelectionToolbar(true);
   $("#queue").replaceChildren();
@@ -843,6 +854,7 @@ function primeAuditRoute() {
   const listGroupId = params.get("listGroupId") || "";
   if (qualification) state.qualification = qualification;
   if (listGroupId) state.listGroupId = listGroupId;
+  setAuditViewMode(params.get("mode") !== "manage");
   showAuditView();
   if (!restoreCachedQuestionList()) {
     renderQueueLoading();
@@ -854,6 +866,7 @@ function primeAuditRoute() {
 async function openAuditView(listGroupId = "", options = {}) {
   const previousScopeKey = auditScopeKey();
   if (listGroupId) populateGroups(listGroupId);
+  setAuditViewMode(options.readOnly !== false);
   const scopeChanged = previousScopeKey !== auditScopeKey();
   if (options.resetFilters !== false || scopeChanged) {
     state.exceptionsOnly = false;
@@ -886,6 +899,7 @@ async function restoreVisibleAuditView() {
   const requestedGroup = params.get("listGroupId") || state.listGroupId;
   await openAuditView(requestedGroup, {
     focus: false,
+    readOnly: params.get("mode") !== "manage",
     resetFilters: false,
     updateUrl: false,
   });
@@ -1331,6 +1345,7 @@ function updateUrl() {
   if (state.listGroupId) params.set("listGroupId", state.listGroupId);
   if (state.auditView.open) {
     params.set("view", "questions");
+    if (!state.auditView.readOnly) params.set("mode", "manage");
     if (state.auditView.page === "detail" && state.selectedId) {
       params.set("questionId", state.selectedId);
     }
@@ -1678,7 +1693,11 @@ function openSingleQuestionMaintenance(question) {
 }
 
 function openListGroupStatus(listGroupId) {
-  openAuditView(listGroupId);
+  openAuditView(listGroupId, { readOnly: true });
+}
+
+function openListGroupManagement(listGroupId) {
+  openAuditView(listGroupId, { readOnly: false });
 }
 
 function returnToMaintenanceGroupList() {
@@ -1853,6 +1872,17 @@ function renderMaintenanceDashboard() {
     statusAction.setAttribute("aria-label", `${group.displayName || group.listGroupId}の問題一覧を見る`);
     statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId));
     const canStart = runStatusKnown && !isRunning && !workflow.restartRequired;
+    const manageAction = element("button", "secondary-button", "評価・公開");
+    manageAction.type = "button";
+    manageAction.disabled = !canStart || group.localReady !== true;
+    manageAction.setAttribute(
+      "aria-label",
+      `${group.displayName || group.listGroupId}を評価・公開`,
+    );
+    manageAction.addEventListener(
+      "click",
+      () => openListGroupManagement(group.listGroupId),
+    );
     const action = element(
       "button",
       "secondary-button",
@@ -1872,7 +1902,7 @@ function renderMaintenanceDashboard() {
         ? resumeQualificationRun
         : () => openListGroupMaintenance(group.listGroupId),
     );
-    actions.append(statusAction);
+    actions.append(statusAction, manageAction);
     if (!working && group.localReady === false) {
       const syncAction = element(
         "button",

@@ -260,6 +260,16 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("function openListGroupStatus", javascript)
         self.assertIn('statusAction.addEventListener("click", () => openListGroupStatus(group.listGroupId))', javascript)
         self.assertIn("問題一覧を見る", javascript)
+        self.assertIn("function openListGroupManagement", javascript)
+        self.assertIn("openAuditView(listGroupId, { readOnly: false })", javascript)
+        self.assertIn('"評価・公開"', javascript)
+        self.assertIn(
+            "() => openListGroupManagement(group.listGroupId)",
+            javascript,
+        )
+        self.assertIn('params.set("mode", "manage")', javascript)
+        self.assertIn('params.get("mode") !== "manage"', javascript)
+        self.assertIn("adminTools.hidden = readOnly", javascript)
         self.assertIn('id="source-answer-difference"', html)
         self.assertIn('id="calculation-only"', html)
         self.assertIn('id="law-only"', html)
