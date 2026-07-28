@@ -915,6 +915,12 @@ class QuestionCandidateTest(unittest.TestCase):
             target.prompt_value()["fieldRules"]["questionIntent"]["allowedValues"],
             ["select_correct", "select_incorrect"],
         )
+        description = target.prompt_value()["fieldRules"]["questionIntent"][
+            "description"
+        ]
+        self.assertIn("設備名、名詞句、数値又は対象名などの断片", description)
+        self.assertIn("成立する命題を選ぶselect_correct", description)
+        self.assertIn("もう一度反転しない", description)
 
     def test_question_type_target_rejects_single_choice(self):
         plan = {

@@ -510,6 +510,15 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         "questionIntent": {
             "type": "string",
             "allowedValues": ["select_correct", "select_incorrect"],
+            "description": (
+                "choiceTextListがそれだけで真偽を判定できる完結した記述なら、"
+                "誤り又は不適合を選ばせる設問はselect_incorrectとする。"
+                "choiceTextListが設備名、名詞句、数値又は対象名などの断片で、"
+                "問題文の『該当しない』『除く』などの述語を補って完全な命題に"
+                "する場合は、その成立する命題を選ぶselect_correctとする。"
+                "断片へ補った否定述語を選択方向としてもう一度反転しない。"
+                "現在値、正答番号又はcorrectChoiceTextから逆算しない。"
+            ),
         },
     },
     "correct_choice": {"correctChoiceText": _CORRECT_CHOICE_TEXT_RULE},
