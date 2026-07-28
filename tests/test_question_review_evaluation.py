@@ -321,10 +321,14 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("questionTypeとは独立に評価", prompt)
         self.assertIn("api/2/law_data/{lawId}?response_format=json", prompt)
         self.assertIn("tagがArticleかつattr.Numが対象条番号に一致", prompt)
-        self.assertIn("--arg n '{articleNumber}'", prompt)
+        self.assertIn("--retry 3 --retry-all-errors", prompt)
+        self.assertIn('.attr.Num? == \"45\"', prompt)
+        self.assertIn("jq式全体を一組のsingle quote内に保つ", prompt)
         self.assertIn("`head`で法令JSONの先頭だけを読んで確認完了にしない", prompt)
         self.assertIn("elaws.e-gov.go.jp/document?lawid={lawId}", prompt)
         self.assertIn("一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず", prompt)
+        self.assertIn("隔離workspaceにはrepository fileがない", prompt)
+        self.assertIn("`placeholder`、`N/A`", prompt)
         self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
         self.assertIn("非法令問題のcurrentExplanationText", prompt)
         self.assertIn("減点又は要再整備理由にしない", prompt)
@@ -360,7 +364,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "2.0")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "2.1")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -640,10 +644,12 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
 
     def test_batch_retries_once_when_all_choice_evidence_is_incomplete(self):
         calls = 0
+        prompts = []
 
-        def runner(_prompt):
+        def runner(prompt):
             nonlocal calls
             calls += 1
+            prompts.append(prompt)
             result = evaluation_result()
             if calls == 1:
                 result["status"] = "needs_rework"
@@ -669,6 +675,10 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["completedCount"], 1)
         self.assertEqual(result["passedCount"], 1)
         self.assertEqual(result["needsReworkCount"], 0)
+        self.assertNotIn("前回の評価未完了feedback", prompts[0])
+        self.assertIn("前回の評価未完了feedback", prompts[1])
+        self.assertIn("全選択肢の根拠確認が未完了。", prompts[1])
+        self.assertIn('"verifiedChoiceCount": 0', prompts[1])
 
     def test_batch_keeps_fully_unverified_retry_out_of_rework(self):
         calls = 0
