@@ -6462,8 +6462,8 @@ async function openEvaluationDialog(questionIds = []) {
       return;
     }
     $("#workflow-dialog-message").textContent = preview.blockedCount
-      ? "評価可能な問題だけを開始し、整備が必要な問題はスキップします。各問題は独立した新しい別セッションで評価します。"
-      : "選択した各問題を、独立した新しい別セッションで順に評価します。一問が失敗しても残りは続行します。";
+      ? `評価可能な問題だけを、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。整備が必要な問題はスキップします。`
+      : `選択した各問題を、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。一問が遅延又は失敗しても他の問題は続行します。`;
     $("#workflow-execute").textContent = `${preview.evaluableCount}問の評価を開始`;
     $("#workflow-execute").disabled = false;
   } catch (error) {

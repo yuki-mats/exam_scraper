@@ -1,6 +1,7 @@
 import copy
 import json
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -259,6 +260,14 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         prompt, kwargs = app_server.calls[0]
         self.assertEqual(kwargs["sandbox"], "read-only")
         self.assertNotEqual(Path(kwargs["cwd"]), root)
+        self.assertEqual(
+            kwargs["output_schema"]["properties"]["choiceEvaluations"]["minItems"],
+            2,
+        )
+        self.assertEqual(
+            kwargs["output_schema"]["properties"]["choiceEvaluations"]["maxItems"],
+            2,
+        )
         self.assertNotIn('"paths"', prompt)
         self.assertEqual(
             kwargs["monitor_context"],
@@ -456,6 +465,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             )
 
         self.assertEqual(preview["sessionCount"], 2)
+        self.assertEqual(preview["evaluationConcurrencyLimit"], 64)
         self.assertEqual(preview["qualification"], "sample")
         self.assertEqual(preview["listGroupIds"], ["2026"])
         self.assertEqual(len(calls), 2)
@@ -463,15 +473,21 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["failedCount"], 1)
         self.assertEqual(result["passedCount"], 1)
 
-    def test_batch_runs_sessions_serially_and_preserves_result_order(self):
+    def test_batch_runs_sessions_in_parallel_and_preserves_result_order(self):
         active = 0
         max_active = 0
+        lock = threading.Lock()
+        barrier = threading.Barrier(4)
 
         def runner(_prompt):
             nonlocal active, max_active
-            active += 1
-            max_active = max(max_active, active)
-            active -= 1
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            barrier.wait(timeout=5)
+            time.sleep(0.01)
+            with lock:
+                active -= 1
             return evaluation_result()
 
         questions = []
@@ -497,11 +513,43 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 questions, preview["previewToken"], lambda _line: None
             )
 
-        self.assertEqual(max_active, 1)
+        self.assertEqual(max_active, 4)
         self.assertEqual(
             [item["questionId"] for item in result["results"]],
             [question["id"] for question in questions],
         )
+
+    def test_batch_retries_once_when_all_choice_evidence_is_incomplete(self):
+        calls = 0
+
+        def runner(_prompt):
+            nonlocal calls
+            calls += 1
+            result = evaluation_result()
+            if calls == 1:
+                result["status"] = "needs_rework"
+                result["explanationScore"] = 0
+                result["criticalIssues"] = ["全選択肢の根拠確認が未完了。"]
+                for choice in result["choiceEvaluations"]:
+                    choice["verdict"] = "insufficient_evidence"
+            return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=runner,
+            )
+            question = question_payload()
+            preview = service.preview_many([question])
+            result = service.run_many(
+                [question], preview["previewToken"], lambda _line: None
+            )
+
+        self.assertEqual(calls, 2)
+        self.assertEqual(result["completedCount"], 1)
+        self.assertEqual(result["passedCount"], 1)
+        self.assertEqual(result["needsReworkCount"], 0)
 
     def test_batch_rejects_questions_from_different_qualifications(self):
         with tempfile.TemporaryDirectory() as directory:

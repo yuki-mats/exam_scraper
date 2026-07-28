@@ -332,6 +332,14 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         )
         self.assertIn("準備済みの束からmodel実行中", javascript)
 
+    def test_evaluation_dialog_explains_independent_64_question_concurrency(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("preview.evaluationConcurrencyLimit", javascript)
+        self.assertIn("問同時に評価します", javascript)
+        self.assertIn("一問が遅延又は失敗しても他の問題は続行します", javascript)
+        self.assertNotIn("独立した新しい別セッションで順に評価します", javascript)
+
     def test_validated_work_and_artifact_sync_have_separate_ui_states(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = APP_PATH.with_name("index.html").read_text(encoding="utf-8")

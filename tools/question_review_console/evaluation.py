@@ -8,6 +8,7 @@ import secrets
 import tempfile
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
@@ -32,6 +33,8 @@ from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 SCHEMA_VERSION = "question-evaluation/v1"
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
+MAX_EVALUATION_CONCURRENCY = 64
+MAX_INCOMPLETE_EVALUATION_ATTEMPTS = 2
 ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
 TRUE_LABELS = {"正しい", "正解", "○", "〇", "true"}
 FALSE_LABELS = {"間違い", "不正解", "誤り", "×", "false"}
@@ -489,6 +492,7 @@ class QuestionEvaluationService:
             "evaluableCount": len(evaluable),
             "blockedCount": len(items) - len(evaluable),
             "sessionCount": len(evaluable),
+            "evaluationConcurrencyLimit": MAX_EVALUATION_CONCURRENCY,
             "canStart": bool(evaluable),
             "provider": self.provider,
             "items": items,
@@ -518,15 +522,32 @@ class QuestionEvaluationService:
                 f"{item.get('questionLabel') or question_id}"
             )
             try:
-                result = self.run(
-                    by_id[question_id], str(item["previewToken"]), emit
-                )
+                result = None
+                for attempt in range(1, MAX_INCOMPLETE_EVALUATION_ATTEMPTS + 1):
+                    result = self.run(
+                        by_id[question_id], str(item["previewToken"]), emit
+                    )
+                    evaluation = result["evaluation"]
+                    if (
+                        evaluation["verifiedChoiceCount"]
+                        >= evaluation["choiceCount"]
+                        or attempt >= MAX_INCOMPLETE_EVALUATION_ATTEMPTS
+                    ):
+                        break
+                    emit(
+                        "全選択肢の根拠確認が完了しなかったため、"
+                        f"評価を再試行します（{attempt + 1}/"
+                        f"{MAX_INCOMPLETE_EVALUATION_ATTEMPTS}）: "
+                        f"{item.get('questionLabel') or question_id}"
+                    )
             except Exception as exc:  # noqa: BLE001
                 error = str(exc)
                 emit(
                     f"評価失敗: {item.get('questionLabel') or question_id} / {error}"
                 )
                 return None, {"questionId": question_id, "error": error}
+            if result is None:  # pragma: no cover - the attempt range is non-empty.
+                raise AssertionError("評価結果がありません。")
             evaluation = result["evaluation"]
             return {
                 "questionId": question_id,
@@ -537,7 +558,17 @@ class QuestionEvaluationService:
             }, None
 
         positioned_items = list(enumerate(eligible_items, start=1))
-        outcomes = [evaluate(item) for item in positioned_items]
+        if positioned_items:
+            with ThreadPoolExecutor(
+                max_workers=min(
+                    MAX_EVALUATION_CONCURRENCY,
+                    len(positioned_items),
+                ),
+                thread_name_prefix="question-evaluation",
+            ) as executor:
+                outcomes = list(executor.map(evaluate, positioned_items))
+        else:
+            outcomes = []
         for completed_item, failure in outcomes:
             if completed_item is not None:
                 completed.append(completed_item)
@@ -685,6 +716,7 @@ class QuestionEvaluationService:
                     "workType": work_type,
                     "phase": "evaluation",
                 },
+                choice_count=int(question.get("choiceCount") or 0),
             )
             thread_id = str(metadata.get("threadId") or "") or None
             app_server_session_id = str(metadata.get("sessionId") or "") or None
@@ -916,6 +948,8 @@ class QuestionEvaluationService:
         on_turn_started: Callable[[str, str], None],
         work_type: str,
         monitor_context: Mapping[str, Any],
+        *,
+        choice_count: int,
     ) -> tuple[Mapping[str, Any], dict[str, Any]]:
         if self.result_runner is not None:
             result = self.result_runner(prompt)
@@ -924,7 +958,12 @@ class QuestionEvaluationService:
             return result, {}
         if self.app_server is None:
             raise EvaluationError("Codex App Serverが設定されていません。")
+        if choice_count <= 0:
+            raise EvaluationError("評価対象の選択肢数を確認できません。")
         schema = json.loads(self.schema_path.read_text(encoding="utf-8"))
+        choice_schema = schema["properties"]["choiceEvaluations"]
+        choice_schema["minItems"] = choice_count
+        choice_schema["maxItems"] = choice_count
         with tempfile.TemporaryDirectory(prefix="question-objective-evaluation-") as directory:
             turn = self.app_server.run_turn(
                 prompt,
