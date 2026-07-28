@@ -716,6 +716,43 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             any("must distinguish current law from exam-time handling" in error for error in errors)
         )
 
+    def test_compare_entries_accepts_exam_time_point_wording_for_current_law_update(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": [
+                    "間違い。現行法では対象外である。2018年出題時点では対象に含まれていた。"
+                ],
+                "suggestedQuestionDetailsByChoice": saved_details(
+                    (
+                        "建築基準法第6条では何を確認しますか？",
+                        "建築基準法第6条の要件に当たるかを確認する。",
+                    )
+                ),
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts("updated_to_current_law"),
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertFalse(
+            any("must distinguish current law from exam-time handling" in error for error in errors)
+        )
+
     def test_convert_true_false_to_firestore_attaches_choice_law_references(self) -> None:
         question_body = {
             "original_question_id": "q123",

@@ -25,8 +25,10 @@ PUBLIC_EVIDENCE_TITLE = re.compile(
 CURRENT_LAW_TERMS = ("現行法", "現在", "現行")
 EXAM_TIME_TERMS = (
     "出題当時",
+    "出題時点",
     "当時",
     "試験当時",
+    "試験時点",
     "元の正答",
     "掲載元",
 )
