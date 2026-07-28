@@ -2570,7 +2570,7 @@ class CodexAppServerClient:
                 )
                 if value not in state.messages:
                     state.messages.append(value)
-                if state.structured_output:
+                if state.structured_output and phase == "final_answer":
                     state.completed_message_at = time.monotonic()
             return
         if item_type == "commandExecution":

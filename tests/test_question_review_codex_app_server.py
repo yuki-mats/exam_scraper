@@ -70,6 +70,50 @@ class OutputSchemaAdapterTests(unittest.TestCase):
         self.assertEqual(adapted["properties"]["values"]["minItems"], 1)
 
 
+class StructuredMessageCompletionTests(unittest.TestCase):
+    def test_only_final_answer_starts_missing_completion_grace(self):
+        state = _TurnState(
+            thread_id="thread-1",
+            turn_id="turn-1",
+            emit=lambda _line: None,
+            structured_output=True,
+        )
+        client = object.__new__(CodexAppServerClient)
+
+        client._record_turn_item(
+            state,
+            {
+                "id": "commentary-1",
+                "type": "agentMessage",
+                "phase": "commentary",
+                "text": '{"status":"needs_rework","summary":"調査を続行します"}',
+            },
+        )
+
+        self.assertIsNone(state.completed_message_at)
+        self.assertEqual(
+            state.messages,
+            [
+                (
+                    "commentary",
+                    '{"status":"needs_rework","summary":"調査を続行します"}',
+                )
+            ],
+        )
+
+        client._record_turn_item(
+            state,
+            {
+                "id": "final-1",
+                "type": "agentMessage",
+                "phase": "final_answer",
+                "text": '{"status":"passed"}',
+            },
+        )
+
+        self.assertIsNotNone(state.completed_message_at)
+
+
 class FileDescriptorCapacityTests(unittest.TestCase):
     class FakeResource:
         RLIMIT_NOFILE = 7

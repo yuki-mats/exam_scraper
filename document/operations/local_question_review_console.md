@@ -138,7 +138,7 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 - 評価は`questionType`、問題文、全選択肢を一問ずつ独立に判定する。現在の正答は先に渡さず、serverが全肢の結果、正答対応、解説品質、重大指摘を検証する。`true_false`は各選択肢を独立した○×問題として公開するため、元問題の選択指示から正しい肢又は誤った肢の個数を一つへ制限しない。複数の正しい肢又は誤った肢があることだけでは不合格にしない。
 - 評価待ちqueueは最大100問を同時に進め、一問が終了するたびに空いた枠へ次の問題を自動補充する。各問は独立したread-only thread、run manifest、result receipt、評価JSONを持ち、遅い一問又は失敗した一問を待たずに他の問を完了できる。repository全体で実行するjobは従来どおり一つに限定する。
 - 評価の構造化出力schemaは、その問題の選択肢数を`choiceEvaluations`の`minItems`と`maxItems`へ設定する。serverは選択肢indexの全件・一意性も検証し、空配列や欠落した肢を評価結果として確定しない。全肢の根拠確認が完了しなかった場合だけ同じworker内で一度再評価する。一部の肢だけ根拠不足なら実質的な要再整備として残すが、全肢が未検証の結果は問題内容の指摘ではなく`inconclusive`（評価未完了）として評価待ちへ戻す。
-- 評価の再試行には、前回のsummary、critical issue、確認済み肢数をfeedbackとして渡す。隔離workspaceの探索と`placeholder`、`N/A`等の仮値を禁止し、一次情報の確認を最初から完了させる。e-Gov APIは条番号をjq式内の固定値で抽出し、一時的な名前解決又は接続失敗にはcurlの短い自動再試行と公式e-LAWS経路を使う。
+- 評価の再試行には、前回のsummary、critical issue、確認済み肢数をfeedbackとして渡す。隔離workspaceの探索と`placeholder`、`N/A`等の仮値を禁止し、一次情報の確認を最初から完了させる。e-Gov APIは条番号をjq式内の固定値で抽出し、一時的な名前解決又は接続失敗にはcurlの短い自動再試行と公式e-LAWS経路を使う。調査中の`commentary`は構造化JSONであっても完了扱いにせず、`final_answer`だけを欠落したturn完了通知の代替にする。
 - 一問の評価turnは8分で終了させる。時間切れはその一問だけを評価失敗として残し、同時に開始した他の問題の結果と次の評価runを30分の共通timeoutまで待たせない。
 - 非法令問題の解説本文に機関名、資料名、URLがないことだけを減点理由にしない。根拠不足は`insufficient_evidence`として不合格にする。
 - `questionBodyText`と`choiceTextList`は通常の自動整備では変更しない。同年度の公式問題冊子をrepository内に保存して照合できる場合は、問題詳細の`公式冊子と照合`で資料path・資料名・問番号を含むlocator・確認済み転記を固定し、read-onlyのBlind A/BとChallengeを通す。両者の変更完全値と公式根拠が一致した`fix`だけを`24_questionIssueCorrections`へ保存し、`00_source`は変更しない。利用者報告batchとの境界とpatch契約は[公式問題の問題報告 workflow](question_issue_report_workflow.md)を正本とする。
