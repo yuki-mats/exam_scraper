@@ -1873,6 +1873,24 @@ function renderMaintenanceDashboard() {
         : () => openListGroupMaintenance(group.listGroupId),
     );
     actions.append(statusAction);
+    if (!working && group.localReady === false) {
+      const syncAction = element(
+        "button",
+        "primary-button",
+        "公開用データを再生成",
+      );
+      syncAction.type = "button";
+      syncAction.disabled = !canStart;
+      syncAction.setAttribute(
+        "aria-label",
+        `${group.displayName || group.listGroupId}の公開用データを再生成`,
+      );
+      syncAction.addEventListener(
+        "click",
+        () => openSyncDialog(false, group.listGroupId),
+      );
+      actions.append(syncAction);
+    }
     if (!working && resumable) {
       const resumeAction = element("button", "secondary-button", "未完了を再開");
       resumeAction.type = "button";

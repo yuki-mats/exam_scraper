@@ -2121,7 +2121,7 @@ assert.deepEqual(
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260728-18"
+        asset_version = "question-review-ui-v3-20260728-19"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

@@ -97,6 +97,12 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         )
         self.assertIn('"進捗を見る"', javascript)
         self.assertIn('"整備・洗い替え"', javascript)
+        self.assertIn('group.localReady === false', javascript)
+        self.assertIn('"公開用データを再生成"', javascript)
+        self.assertIn(
+            "() => openSyncDialog(false, group.listGroupId)",
+            javascript,
+        )
         self.assertIn("function returnToMaintenanceGroupList", javascript)
         self.assertIn("function qualificationRunUpdateTargets", javascript)
         self.assertNotIn("function selectedQualificationRunQuestionRange", javascript)

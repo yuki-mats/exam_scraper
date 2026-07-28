@@ -35,6 +35,8 @@ python3 tools/question_bank/question_bank.py quality-gate \
 
 patchの機械検査は`00_source`単体の旧fieldではなく、先行工程の確定patchを順に適用した現在のprojectionを判定対象にします。特に解説の件数・文体は現行`questionType`、設問意図及び正答で検査します。非法令問題に残す`not_law_related/secondary_verified`の内部監査メモへFirestore公開objectのschemaを直接適用せず、公開schemaはmerge・convert後の成果物で検査します。これにより、現在の公開内容へ影響しない旧表現を保留として扱わず、実質的な不整合だけを停止します。
 
+問題整備システムは、年度の現在projectionとmerge・convert・upload-readyに差分がある場合、年度一覧へ`公開用データを再生成`を表示します。過去runの成功表示ではなく現在の成果物差分を判定し、この操作から対象年度だけをmerge、convert、upload dry-runまで更新します。
+
 ## 別セッション品質ゲート
 
 機械品質ゲートを通った問題は評価待ちへ送ります。整備・評価・再整備のsession分離、評価方法、サブスクリプション境界は[問題整備システム](local_question_review_console.md)だけを正本とします。
