@@ -51,6 +51,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         evidence_title: str,
         evidence_locator: str,
         evidence_relative_path: str,
+        evidence_verified_at: str,
         emit: Callable[[str], None],
     ):
         super().__init__(
@@ -64,6 +65,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         self.current_record = dict(current_record)
         self.evidence_hash = evidence_hash
         self.evidence_title = evidence_title
+        self.evidence_verified_at = evidence_verified_at
         self.canonical_evidence_locator = (
             f"{evidence_relative_path} / {evidence_locator}"
         )
@@ -128,6 +130,7 @@ class AppServerReviewExecutor(ReviewExecutor):
             ):
                 item["title"] = self.evidence_title
                 item["locator"] = self.canonical_evidence_locator
+                item["verifiedAt"] = self.evidence_verified_at
 
 
 class OfficialSourceCorrectionService:
@@ -269,6 +272,7 @@ class OfficialSourceCorrectionService:
             evidence_title=title,
             evidence_locator=locator,
             evidence_relative_path=evidence_relative_path,
+            evidence_verified_at=created_at,
             emit=emit,
         )
         blind_a, blind_b, challenge = self.review_runner(

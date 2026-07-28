@@ -44,6 +44,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 evidence_title="公式問題",
                 evidence_locator="問1",
                 evidence_relative_path="tmp/official.png",
+                evidence_verified_at="2026-07-28T00:00:00Z",
                 emit=logs.append,
             )
 
@@ -78,6 +79,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                                     "sourceClass": "official",
                                     "title": "公式問題 レンダリング画像",
                                     "locator": "表記ゆれ",
+                                    "verifiedAt": "2026-07-28T00:00:01Z",
                                     "contentHash": "a" * 64,
                                 }
                             ],
@@ -99,6 +101,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             evidence_title="公式問題",
             evidence_locator="問1",
             evidence_relative_path="tmp/official.png",
+            evidence_verified_at="2026-07-28T00:00:00Z",
             emit=lambda _message: None,
         )
 
@@ -118,6 +121,10 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             "tmp/official.png / 問1",
         )
         self.assertEqual(result["evidence"][0]["title"], "公式問題")
+        self.assertEqual(
+            result["evidence"][0]["verifiedAt"],
+            "2026-07-28T00:00:00Z",
+        )
 
     def test_fix_writes_one_verified_24_patch_without_changing_source(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
