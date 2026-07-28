@@ -251,6 +251,7 @@ class OfficialSourceCorrectionService:
             content_hash=evidence_hash,
             title=title,
             locator=locator,
+            local_path=evidence_relative_path,
         )
         patch = build_correction_patch(
             manifest=manifest,
@@ -355,18 +356,24 @@ class OfficialSourceCorrectionService:
         content_hash: str,
         title: str,
         locator: str,
+        local_path: str,
     ) -> None:
+        allowed_locators = {
+            locator,
+            f"{local_path} / {locator}",
+        }
         evidence = challenge.get("evidence")
         if not isinstance(evidence, list) or not any(
             isinstance(item, Mapping)
             and item.get("sourceClass") == "official"
             and item.get("contentHash") == content_hash
             and item.get("title") == title
-            and item.get("locator") == locator
+            and item.get("locator") in allowed_locators
             for item in evidence
         ):
             raise OfficialSourceCorrectionError(
-                "Challenge結果が、画面で指定した公式資料のtitle・locator・hashを保持していません。"
+                "Challenge結果が、画面で固定した公式資料の"
+                "title・path・locator・hashを保持していません。"
             )
 
     @staticmethod

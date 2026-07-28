@@ -110,7 +110,10 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 ][0]
                 evidence = {
                     "sourceClass": "official",
-                    "locator": candidate["locator"],
+                    "locator": (
+                        f'{candidate["localRenderedPagePath"]} / '
+                        f'{candidate["locator"]}'
+                    ),
                     "title": candidate["title"],
                     "verifiedAt": "2026-07-28T00:00:00Z",
                     "contentHash": candidate["contentHash"],
