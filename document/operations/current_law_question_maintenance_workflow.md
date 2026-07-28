@@ -25,6 +25,8 @@ Codex App Serverでは、組み込みweb検索を一次情報の入口として�
 
 問題整備システムでは、03bを通常整備とは別の新しいsessionで自動実行します。法令監査警告が残る問題はトップ整備の対象へ戻し、警告がなくなるまで完了記録を更新しません。技術知識又は計算だけで判断できる問題は、根拠のある`not_law_related`として03bを完了できます。法令根拠がないという理由だけで`hold`にしません。通常の再実行はトップから行い、詳細画面で監査対象を組み直しません。
 
+03bの入力projectionが`isLawRelated=false`で、同じsource identityに対応するv2監査sidecarが`not_law_related/secondary_verified`として整合する場合は、モデルを再実行せず`not_applicable`で完了し、現在の03b作業版と検証receiptを記録します。sidecarがない又は分類が一致しない場合は旧ルール由来の指摘として消さず、その一問だけを実質的な保留に戻します。
+
 ## 監査
 
 1. qualification、対象listGroupId、基準日、資格別law policyを固定する。

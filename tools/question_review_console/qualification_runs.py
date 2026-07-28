@@ -4147,7 +4147,7 @@ class QualificationRunStore:
                         f"一問queueの工程状態が不正です: {next_status}"
                     )
                 stages[stage_index].update(copy.deepcopy(changes))
-                if next_status == "validated":
+                if next_status in {"validated", "not_applicable"}:
                     if question.get("listGroupId"):
                         list_group_id = str(question["listGroupId"])
                         manifest["confirmedGroupIds"] = sorted(
@@ -4310,7 +4310,7 @@ class QualificationRunStore:
                             f"一問queueの工程状態が不正です: {next_status}"
                         )
                     stages[stage_index].update(changes)
-                    if next_status == "validated":
+                    if next_status in {"validated", "not_applicable"}:
                         if execution.get("listGroupId"):
                             confirmed_group_ids.add(
                                 str(execution["listGroupId"])
@@ -10716,18 +10716,51 @@ class QualificationRunCoordinator:
                     "一問工程の対象判定中に未確定状態が残っています: "
                     f"{question_id} / {stage_id} / {current_status}"
                 )
+            work_version_receipt: dict[str, Any] | None = None
+            if stage_id == "law_audit":
+                try:
+                    no_op_plan = specialize_question_plan(
+                        phase_plan,
+                        question_id,
+                    )
+                    no_op_plan.update(
+                        runId=run_id,
+                        stageId=stage_id,
+                        stageIds=[stage_id],
+                        parallelStrategy="structured_candidate",
+                    )
+                    work_version_receipt = self._record_work_versions(
+                        no_op_plan
+                    )
+                except (
+                    QualificationRunError,
+                    QuestionWorkQueueError,
+                    ValueError,
+                ) as exc:
+                    raise QuestionItemError(
+                        "対象外判定の根拠又は作業版を記録できません: "
+                        f"{exc}"
+                    ) from exc
             self.store.update_question_stage(
                 qualification,
                 run_id,
                 question_id,
                 stage_id,
+                validated_receipt=work_version_receipt,
                 refresh_derived=False,
                 hydrate_result=False,
                 status="not_applicable",
                 error=None,
                 finishedAt=_now(),
             )
-            return {"status": "not_applicable", "stageId": stage_id}
+            result = {
+                "status": "not_applicable",
+                "stageId": stage_id,
+                "listGroupId": str((question or {}).get("listGroupId") or ""),
+            }
+            if work_version_receipt is not None:
+                result["workVersionReceipt"] = work_version_receipt
+            return result
 
         current = self._refresh_queued_stage_inputs(
             qualification,
@@ -11276,6 +11309,17 @@ class QualificationRunCoordinator:
                 emit(f"{question_id}: この問題だけを保留しました: {exc}")
                 return None
             if str(spec.get("status") or "") not in {"queued", "prepared"}:
+                work_version_receipt = spec.get("workVersionReceipt")
+                if isinstance(work_version_receipt, Mapping):
+                    with aggregation_lock:
+                        work_version_receipts.append(
+                            dict(work_version_receipt)
+                        )
+                        list_group_id = str(
+                            spec.get("listGroupId") or ""
+                        )
+                        if list_group_id:
+                            confirmed_group_ids.add(list_group_id)
                 return None
             target = dict(spec["target"])
             stage_id = str(spec["stageId"])

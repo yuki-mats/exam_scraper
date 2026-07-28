@@ -7271,12 +7271,75 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
 
     def test_changed_question_can_make_later_law_stage_not_applicable(self):
+        class ExplainedSourceInventory(SourceOnlyInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                question = group["questions"][0]
+                question["projected"] = {
+                    **question["projected"],
+                    "choiceTextList": ["A"],
+                    "correctChoiceText": ["正しい"],
+                    "explanationText": [
+                        "正しい。法令に関係しない技術事項である。"
+                    ],
+                    "lawGroundedExplanationNotNeeded": True,
+                    "lawReferences": [[]],
+                }
+                return group
+
+        class NonLawContextAppServer(PerQuestionQueueAppServer):
+            @staticmethod
+            def _candidate_update(question, stage_id):
+                updates = PerQuestionQueueAppServer._candidate_update(
+                    question,
+                    stage_id,
+                )
+                if stage_id != "law_context":
+                    return updates
+                for update in updates:
+                    set_fields = {
+                        str(value["field"]): json.loads(
+                            str(value.get("valueJson") or "null")
+                        )
+                        for value in update.get("setFields") or []
+                    }
+                    set_fields.update(
+                        isLawRelated=False,
+                        lawGroundedExplanationNotNeeded=True,
+                        lawReferences=[[]],
+                        lawContextForExplanation="技術事項として確認した。",
+                    )
+                    update["setFields"] = [
+                        {
+                            "field": field,
+                            "valueJson": json.dumps(
+                                value,
+                                ensure_ascii=False,
+                            ),
+                        }
+                        for field, value in set_fields.items()
+                    ]
+                return updates
+
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = PerQuestionQueueAppServer()
+            self._write_law_audit_sidecar(
+                root,
+                "2026",
+                [
+                    {
+                        "reviewQuestionId": "new-exam-2026-q1",
+                        "isLawRelated": False,
+                        "lawGroundedExplanationNotNeeded": True,
+                        "auditStatus": "not_law_related",
+                        "reviewState": "secondary_verified",
+                    }
+                ],
+            )
+            app_server = NonLawContextAppServer()
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
-                SourceOnlyInventory(),
+                ExplainedSourceInventory(),
                 ["law_context", "law_audit"],
                 app_server=app_server,
             )
@@ -7288,15 +7351,30 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 lambda _message: None,
             )
             run = coordinator.store.get("new-exam", parent["runId"])
+            question = coordinator.workflow.inventory.group(
+                "new-exam",
+                "2026",
+            )["questions"][0]
+            law_audit_status = coordinator.work_versions.status_for(
+                question,
+                [
+                    coordinator.workflow.versioned_policies("new-exam")[
+                        "law_audit"
+                    ]
+                ],
+            )
 
         self.assertEqual(
             [stage["status"] for stage in run["questionExecutions"][0]["stages"]],
             ["validated", "not_applicable"],
+            run["questionExecutions"][0]["stages"],
         )
         self.assertEqual(
             app_server.successful_writes,
             [("new-exam-2026-q1", "law_context")],
         )
+        self.assertEqual(law_audit_status["status"], "current")
+        self.assertEqual(run["workVersionReceipt"]["recordedCount"], 2)
 
 
     def test_writer_reprepares_only_current_question_when_policy_changes(self):
