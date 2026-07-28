@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
+from scripts.common.repaso_firestore_schema import _is_law_revision_facts
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
 )
@@ -259,6 +260,13 @@ def law_audit_quality_warnings(
             "法令問題のlawRevisionFactsがありません。",
         )
         return warnings
+
+    if not _is_law_revision_facts(dict(facts)):
+        add(
+            "law_audit_metadata_incomplete",
+            "lawRevisionFacts",
+            "lawRevisionFactsがFirestore公開契約に一致しません。",
+        )
 
     if not str(facts.get("auditStatus") or "").strip():
         add(

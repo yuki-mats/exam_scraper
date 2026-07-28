@@ -1407,6 +1407,37 @@ class QualificationWorkflowTests(unittest.TestCase):
         )
         self.assertEqual(plan["targetQuestionKeys"], [item["id"]])
 
+    def test_noncanonical_law_facts_reopen_only_selected_explanation_target(self):
+        issue = {
+            "code": "law_audit_metadata_incomplete",
+            "fields": ["lawRevisionFacts"],
+        }
+        item = question(law_related=True, issues=[issue])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            mark_current(workflow, item, list(workflow.versioned_policies("sample")))
+
+            plan = workflow.plan(
+                "sample",
+                "explanation",
+                "needed",
+                update_target_ids=["explanation.law_support"],
+            )
+
+        self.assertEqual(plan["targetQuestionKeys"], [item["id"]])
+        self.assertEqual(
+            plan["selectedUpdateTargetIds"],
+            ["explanation.law_support"],
+        )
+
     def test_unclassified_question_without_facts_reopens_current_law_audit(self):
         item = question(law_related=None)
         with tempfile.TemporaryDirectory() as directory:

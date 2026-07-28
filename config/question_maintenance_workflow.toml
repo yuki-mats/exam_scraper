@@ -204,7 +204,8 @@ kind = "human"
 # 4.0: 基本解説の言い換え補足を不適合とし、追加価値がなければ0件へ洗い替える。
 # 4.1: 解説で確認したオンラインの公式一次資料を共通契約で紐づける。
 # 4.2: 独自問題では元解説を参照し、既存の解説方針でより良く再構成する。
-policy_version = "4.2"
+# 4.3: 公開契約に合わないlawRevisionFactsを要整備としてUIへ表示する。
+policy_version = "4.3"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -215,7 +216,12 @@ batch_selectable = true
 session_group = "maintenance"
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
-issue_fields = ["explanationText", "explanationReferences", "suggestedQuestionDetailsByChoice"]
+issue_fields = [
+  "explanationText",
+  "explanationReferences",
+  "suggestedQuestionDetailsByChoice",
+  "lawRevisionFacts",
+]
 documents = ["prompt/03_prompt_add_explanationText.md"]
 
 [[stages.update_targets]]

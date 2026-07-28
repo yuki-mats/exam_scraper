@@ -938,6 +938,41 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertEqual(len(warnings), 1)
         self.assertEqual(warnings[0]["code"], "law_audit_verdict_mismatch")
 
+    def test_reports_noncanonical_law_revision_facts_as_publish_blocker(self):
+        warnings = law_audit_quality_warnings(
+            {
+                "questionId": "doc1",
+                "correctChoiceText": "正しい",
+                "isLawRelated": True,
+                "lawReferences": [{"lawId": "law1"}],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "secondary_verified",
+                    "current": {"correctChoiceText": "正しい"},
+                    "evidenceSummary": {
+                        "basis": "旧形式の根拠要約",
+                        "classification": "legacy",
+                    },
+                },
+            }
+        )
+
+        self.assertEqual(len(warnings), 1)
+        self.assertEqual(
+            warnings[0],
+            {
+                "code": "law_audit_metadata_incomplete",
+                "category": "law_audit_quality",
+                "stage": "upload-ready",
+                "documentId": "doc1",
+                "field": "lawRevisionFacts",
+                "dataPath": "lawRevisionFacts",
+                "detail": "lawRevisionFactsがFirestore公開契約に一致しません。",
+                "blocksSync": False,
+                "blocksPublish": True,
+            },
+        )
+
     def test_detects_missing_required_fields_in_applied_patch_entry(self):
         warnings = patch_entry_required_warnings(
             {
