@@ -17,6 +17,10 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.question_identity import review_question_id
 from scripts.merge.patch_views import apply_question_type
+from scripts.check.patch_entry_matching import (
+    bind_source_records,
+    match_patch_entries,
+)
 
 
 REQUIRED_FIELDS = [
@@ -43,17 +47,6 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
     if not isinstance(data, list):
         raise ValueError("patch JSON must be an array")
     return [q for q in data if isinstance(q, dict)]
-
-
-def build_source_index(
-    questions: List[Dict[str, Any]],
-) -> Dict[str, Tuple[int, Dict[str, Any]]]:
-    index: Dict[str, Tuple[int, Dict[str, Any]]] = {}
-    for idx, q in enumerate(questions):
-        pid = review_question_id(q)
-        if pid:
-            index[str(pid)] = (idx, q)
-    return index
 
 
 def normalize_snippet_list(source_snippets: Any) -> List[List[str]] | None:
@@ -88,11 +81,18 @@ def compare_entries(
             warnings.append("patch is empty")
         return errors, warnings
 
-    source_index = build_source_index(source_questions)
-    seen_ids = set()
-    indices: List[int] = []
+    matches, identity_errors, identity_warnings = match_patch_entries(
+        source_questions,
+        patch_entries,
+        require_full=require_full,
+    )
+    errors.extend(identity_errors)
+    warnings.extend(identity_warnings)
 
-    for idx, entry in enumerate(patch_entries, start=1):
+    for match in matches:
+        idx = match.patch_index + 1
+        entry = match.patch
+        source = match.source
         missing_fields = [k for k in REQUIRED_FIELDS if k not in entry]
         if missing_fields:
             errors.append(f"index {idx}: missing fields {missing_fields}")
@@ -102,17 +102,6 @@ def compare_entries(
         if not pid:
             errors.append(f"index {idx}: original_question_id is missing")
             continue
-        if str(pid) in seen_ids:
-            errors.append(f"index {idx}: duplicate original_question_id {pid}")
-            continue
-        seen_ids.add(str(pid))
-
-        if str(pid) not in source_index:
-            errors.append(f"index {idx}: original_question_id not found in source {pid}")
-            continue
-
-        source_pos, source = source_index[str(pid)]
-        indices.append(source_pos)
 
         if (
             "question_url" in entry
@@ -231,19 +220,6 @@ def compare_entries(
             ):
                 errors.append(f"index {idx}: correctChoiceText is unchanged from source")
 
-    if indices and indices != sorted(indices):
-        errors.append("patch entries are not in source order")
-    if require_full:
-        if len(patch_entries) != len(source_questions):
-            errors.append(
-                "patch entry count mismatch (source={} patch={})".format(
-                    len(source_questions), len(patch_entries)
-                )
-            )
-        expected_indices = list(range(len(source_questions)))
-        if indices != expected_indices:
-            errors.append("patch entries do not cover all questions in source order")
-
     return errors, warnings
 
 
@@ -263,20 +239,35 @@ def check_pair(
         return 2
 
     source_data = load_json(source_path)
+    source_questions = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
     if question_type_patch_path is not None:
         if not question_type_patch_path.exists():
             print(f"[ERROR] questionType patch not found: {question_type_patch_path}")
             return 2
         question_type_entries = get_patch_entries(load_json(question_type_patch_path))
+        question_type_matches, identity_errors, _ = match_patch_entries(
+            source_questions,
+            question_type_entries,
+        )
+        if identity_errors:
+            for error in identity_errors:
+                print(f"[ERROR] questionType patch: {error}")
+            return 1
         question_type_map = {
-            str(review_question_id(entry)): entry
-            for entry in question_type_entries
-            if review_question_id(entry)
+            str(review_question_id(match.source)): match.patch
+            for match in question_type_matches
+            if review_question_id(match.source)
         }
         apply_question_type(source_data, question_type_map)
     patch_data = load_json(patch_path)
 
-    source_questions = get_source_questions(source_data)
+    source_questions = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
     patch_entries = get_patch_entries(patch_data)
 
     errors, warnings = compare_entries(

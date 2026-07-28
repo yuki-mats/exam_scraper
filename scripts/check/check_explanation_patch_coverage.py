@@ -16,6 +16,10 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.question_identity import review_question_id
+from scripts.check.patch_entry_matching import (
+    bind_source_records,
+    match_patch_entries,
+)
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
 from scripts.merge.patch_views import (
     apply_correct_choice,
@@ -264,33 +268,21 @@ def compare_entries(
     errors: List[str] = []
     warnings: List[str] = []
 
-    if len(source_questions) != len(patch_entries):
-        errors.append(
-            f"count mismatch: source={len(source_questions)} patch={len(patch_entries)}"
-        )
+    matches, identity_errors, identity_warnings = match_patch_entries(
+        source_questions,
+        patch_entries,
+    )
+    errors.extend(identity_errors)
+    warnings.extend(identity_warnings)
 
-    source_ids = [get_question_identity(q) for q in source_questions]
-    patch_ids = [q.get("original_question_id") for q in patch_entries]
-    missing_ids = sorted({sid for sid in source_ids if sid} - {pid for pid in patch_ids if pid})
-    extra_ids = sorted({pid for pid in patch_ids if pid} - {sid for sid in source_ids if sid})
-    if missing_ids:
-        errors.append(f"missing original_question_id: {missing_ids}")
-    if extra_ids:
-        errors.append(f"extra original_question_id: {extra_ids}")
-
-    for idx, (src, patch) in enumerate(zip(source_questions, patch_entries), start=1):
+    for match in matches:
+        idx = match.patch_index + 1
+        src = match.source
+        patch = match.patch
         missing_fields = [k for k in REQUIRED_FIELDS if k not in patch]
         if missing_fields:
             errors.append(f"index {idx}: missing fields {missing_fields}")
             continue
-
-        source_question_id = get_question_identity(src)
-        if patch.get("original_question_id") != source_question_id:
-            errors.append(
-                "index {}: original_question_id mismatch (source={} patch={})".format(
-                    idx, source_question_id, patch.get("original_question_id")
-                )
-            )
 
         if patch.get("question_url") != src.get("question_url"):
             errors.append(
@@ -415,9 +407,10 @@ def compare_entries(
                 f"index {idx}: missing lawRevisionFacts for law-related question"
             )
         elif require_law_revision_facts and is_law_related is True:
-            effective_correctness = patch.get(
-                "correctChoiceText", src.get("correctChoiceText")
-            )
+            # Stage 03 does not own correctChoiceText. Legacy explanation
+            # patches may retain a copied value, so validate against the
+            # effective predecessor projection.
+            effective_correctness = src.get("correctChoiceText")
             errors.extend(
                 f"index {idx}: {issue['detail']}"
                 for issue in law_revision_current_verdict_issues(
@@ -432,9 +425,6 @@ def compare_entries(
                 has_law_references=has_law_references,
                 errors=errors,
             )
-
-    if len(set(patch_ids)) != len(patch_ids):
-        warnings.append("duplicate original_question_id detected in patch")
 
     return errors, warnings
 
@@ -487,38 +477,76 @@ def check_pair(
         print(f"[ERROR] {exc}")
         return 2
 
+    bound_sources = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
+
+    def predecessor_map(
+        entries: List[Dict[str, Any]],
+        label: str,
+    ) -> Dict[str, Dict[str, Any]] | None:
+        matches, identity_errors, _ = match_patch_entries(
+            bound_sources,
+            entries,
+        )
+        if identity_errors:
+            for error in identity_errors:
+                print(f"[ERROR] {label} patch: {error}")
+            return None
+        return {
+            str(review_question_id(match.source)): match.patch
+            for match in matches
+            if review_question_id(match.source)
+        }
+
     if question_type_entries:
+        question_type_map = predecessor_map(
+            question_type_entries,
+            "questionType",
+        )
+        if question_type_map is None:
+            return 1
         apply_question_type(
             source_data,
-            {
-                str(review_question_id(entry)): entry
-                for entry in question_type_entries
-                if review_question_id(entry)
-            },
+            question_type_map,
         )
     if question_intent_entries:
+        question_intent_map = predecessor_map(
+            question_intent_entries,
+            "questionIntent",
+        )
+        if question_intent_map is None:
+            return 1
         apply_question_intent(
             source_data,
             {
-                str(review_question_id(entry)): entry.get("questionIntent")
-                for entry in question_intent_entries
-                if review_question_id(entry)
-                and entry.get("questionIntent") is not None
+                question_id: entry.get("questionIntent")
+                for question_id, entry in question_intent_map.items()
+                if entry.get("questionIntent") is not None
             },
         )
     if correct_choice_entries:
+        correct_choice_map = predecessor_map(
+            correct_choice_entries,
+            "correctChoiceText",
+        )
+        if correct_choice_map is None:
+            return 1
         apply_correct_choice(
             source_data,
             {
-                str(review_question_id(entry)): entry.get("correctChoiceText")
-                for entry in correct_choice_entries
-                if review_question_id(entry)
-                and entry.get("correctChoiceText") is not None
+                question_id: entry.get("correctChoiceText")
+                for question_id, entry in correct_choice_map.items()
+                if entry.get("correctChoiceText") is not None
             },
         )
     patch_data = load_json(patch_path)
 
-    source_questions = get_source_questions(source_data)
+    source_questions = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
     patch_entries = get_patch_entries(patch_data)
 
     errors, warnings = compare_entries(

@@ -323,7 +323,7 @@ def run_patch_checks(
                     group_dir / "10_questionType_fixed",
                     "questionType_fixed",
                 )
-                if stage.label in {"correctChoiceText", "explanationText"}
+                if stage.label in {"correctChoiceText", "lawContext", "explanationText"}
                 else {}
             )
             question_intent_patch_map = (
@@ -360,7 +360,7 @@ def run_patch_checks(
                     str(patch_path),
                     *stage.extra_args,
                 ]
-                if stage.label == "correctChoiceText":
+                if stage.label in {"correctChoiceText", "lawContext"}:
                     question_type_patch = question_type_patch_map.get(
                         source_path.stem
                     )
@@ -545,6 +545,10 @@ def add_law_context_patch_parser(
     parser.set_defaults(command="check-law-context-patch")
     parser.add_argument("--source", required=True, help="Path to source question_*.json.")
     parser.add_argument("--patch", required=True, help="Path to law context patch JSON.")
+    parser.add_argument(
+        "--question-type-patch",
+        help="Path to the effective 01 questionType patch for this source file.",
+    )
 
 
 def add_question_set_patch_parser(
@@ -895,16 +899,17 @@ def run_question_intent_patch_check(args: argparse.Namespace) -> int:
 
 
 def run_law_context_patch_check(args: argparse.Namespace) -> int:
-    return run_command(
-        [
-            sys.executable,
-            "scripts/check/check_law_context_patch_coverage.py",
-            "--source",
-            args.source,
-            "--patch",
-            args.patch,
-        ]
-    )
+    cmd = [
+        sys.executable,
+        "scripts/check/check_law_context_patch_coverage.py",
+        "--source",
+        args.source,
+        "--patch",
+        args.patch,
+    ]
+    if args.question_type_patch:
+        cmd.extend(["--question-type-patch", args.question_type_patch])
+    return run_command(cmd)
 
 
 def run_explanation_patch_check(args: argparse.Namespace) -> int:

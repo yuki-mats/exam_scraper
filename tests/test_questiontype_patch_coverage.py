@@ -97,6 +97,14 @@ class QuestionTypePatchCoverageTest(unittest.TestCase):
         self.assertEqual(issues, [])
         self.assertTrue(any("legacy questionType preserved" in warning for warning in warnings))
 
+    def test_ignores_legacy_choice_content_outside_stage_01_ownership(self):
+        patch = self.patch("true_false")
+        patch["choiceTextList"] = ["既存patchだけに残る補正肢"]
+
+        issues, _warnings = compare_entries([self.source()], [patch])
+
+        self.assertEqual(issues, [])
+
 
 if __name__ == "__main__":
     unittest.main()

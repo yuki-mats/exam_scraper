@@ -43,13 +43,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 ]
 ```
 
-正式patchは同じ`list_group_id`の`15_correctChoiceText_fixed/<source_stem>_merged_correctChoiceText_fixed.json`へ固定名で保存します。ディレクトリ名は互換上維持しますが、この工程の所有fieldは`questionIntent`だけです。materialize処理が次の既存メタデータを機械的に付けます。
-
-- `questionIntent_changed`
-- `questionIntent_change_detail`
-- `original_question_id`
-- `questionIntent`
-- `questionIntent_change_reason`
+正式patchは同じ`list_group_id`の`15_correctChoiceText_fixed/<source_stem>_merged_correctChoiceText_fixed.json`へ固定名で保存します。ディレクトリ名は互換上維持しますが、この工程の所有fieldは`questionIntent`だけです。serverは`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と互換用の識別fieldを機械的に付けます。旧patchにある`questionIntent_changed`、`questionIntent_change_detail`、`questionIntent_change_reason`は現行工程の必須fieldではありません。
 
 ```bash
 python3 tools/question_bank/question_bank.py materialize-patch \
@@ -64,7 +58,7 @@ python3 tools/question_bank/question_bank.py materialize-patch \
 - `00_source`は変更、削除、改名しません。既存IDを変更しません。
 - merged、convert、upload-readyを直接編集しません。
 - 不確実性は`99_model_review_flags/`又はreview sidecarへ`hold`理由と不足根拠を残します。
-- server又は`check-question-intent-patch`はID、件数、型、許可値、変更メタデータを検証します。
+- server又は`check-question-intent-patch`はsource identity、件数、型及び許可値を検証します。
 - 02aの独立判定後に`questionIntent`、`correctChoiceText`、公式解答が矛盾した場合、機械検証は停止して再確認へ送ります。`questionIntent`又は`correctChoiceText`のどちらかを自動補正しません。
 
 ```bash

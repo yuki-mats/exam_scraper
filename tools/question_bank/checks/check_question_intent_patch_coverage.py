@@ -18,15 +18,15 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.common.question_identity import review_question_id  # noqa: E402
+from scripts.check.patch_entry_matching import (  # noqa: E402
+    bind_source_records,
+    match_patch_entries,
+)
 
 VALID_QUESTION_INTENTS = {"select_correct", "select_incorrect"}
 REQUIRED_FIELDS = [
     "original_question_id",
     "questionIntent",
-    "questionIntent_changed",
-    "questionIntent_change_detail",
-    "questionIntent_change_reason",
 ]
 
 
@@ -54,15 +54,15 @@ def compare_entries(
     patch_entries: list[dict[str, Any]],
 ) -> list[str]:
     errors: list[str] = []
-    source_ids = [review_question_id(question) for question in source_questions]
-    patch_ids: list[str] = []
+    matches, identity_errors, _ = match_patch_entries(
+        source_questions,
+        patch_entries,
+    )
+    errors.extend(identity_errors)
 
-    if len(source_questions) != len(patch_entries):
-        errors.append(
-            f"patch entry count mismatch (source={len(source_questions)} patch={len(patch_entries)})"
-        )
-
-    for idx, entry in enumerate(patch_entries, start=1):
+    for match in matches:
+        idx = match.patch_index + 1
+        entry = match.patch
         missing = [key for key in REQUIRED_FIELDS if key not in entry]
         if missing:
             errors.append(f"index {idx}: missing fields {missing}")
@@ -72,59 +72,10 @@ def compare_entries(
         if not original_question_id:
             errors.append(f"index {idx}: original_question_id is empty")
             continue
-        patch_ids.append(original_question_id)
-
-        if idx <= len(source_ids) and original_question_id != source_ids[idx - 1]:
-            errors.append(
-                "index {}: original_question_id mismatch (source={} patch={})".format(
-                    idx,
-                    source_ids[idx - 1],
-                    original_question_id,
-                )
-            )
 
         intent = entry.get("questionIntent")
         if intent not in VALID_QUESTION_INTENTS:
             errors.append(f"index {idx}: questionIntent is invalid: {intent!r}")
-
-        changed = entry.get("questionIntent_changed")
-        detail = entry.get("questionIntent_change_detail")
-        reason = entry.get("questionIntent_change_reason")
-
-        if not isinstance(changed, bool):
-            errors.append(f"index {idx}: questionIntent_changed must be bool")
-            continue
-        if not isinstance(detail, str):
-            errors.append(f"index {idx}: questionIntent_change_detail must be string")
-            continue
-        if not isinstance(reason, str):
-            errors.append(f"index {idx}: questionIntent_change_reason must be string")
-            continue
-
-        if changed:
-            if not detail.strip():
-                errors.append(f"index {idx}: questionIntent_change_detail is empty")
-            if not reason.strip():
-                errors.append(f"index {idx}: questionIntent_change_reason is empty")
-        else:
-            if detail.strip():
-                errors.append(f"index {idx}: questionIntent_change_detail must be empty when unchanged")
-            if reason.strip():
-                errors.append(f"index {idx}: questionIntent_change_reason must be empty when unchanged")
-
-    source_id_set = {source_id for source_id in source_ids if source_id}
-    patch_id_set = {patch_id for patch_id in patch_ids if patch_id}
-    missing_ids = sorted(source_id_set - patch_id_set)
-    extra_ids = sorted(patch_id_set - source_id_set)
-    duplicate_ids = sorted(
-        patch_id for patch_id in patch_id_set if patch_ids.count(patch_id) > 1
-    )
-    if missing_ids:
-        errors.append(f"missing original_question_id: {missing_ids}")
-    if extra_ids:
-        errors.append(f"extra original_question_id: {extra_ids}")
-    if duplicate_ids:
-        errors.append(f"duplicate original_question_id: {duplicate_ids}")
 
     return errors
 
@@ -137,7 +88,10 @@ def check_pair(source_path: Path, patch_path: Path) -> int:
         print(f"[ERROR] patch not found: {patch_path}")
         return 2
 
-    source_questions = get_source_questions(load_json(source_path))
+    source_questions = bind_source_records(
+        get_source_questions(load_json(source_path)),
+        source_path,
+    )
     patch_entries = get_patch_entries(load_json(patch_path))
     errors = compare_entries(source_questions, patch_entries)
     if errors:

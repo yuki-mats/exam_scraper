@@ -16,7 +16,6 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.common.question_identity import review_question_id
 from scripts.common.questions_json_paths import resolve_list_group_base_dir
 from scripts.common.aggregate_answer_decomposition import (
     derived_source_unique_keys,
@@ -24,14 +23,15 @@ from scripts.common.aggregate_answer_decomposition import (
     is_approved_target,
     normalize_decomposition,
 )
+from scripts.check.patch_entry_matching import (
+    bind_source_records,
+    match_patch_entries,
+)
 
 
 REQUIRED_FIELDS = [
-    "questionBodyText",
-    "choiceTextList",
     "questionType",
     "original_question_id",
-    "question_url",
 ]
 MAINTENANCE_QUESTION_TYPES = {"true_false", "flash_card", "group_choice"}
 
@@ -87,10 +87,6 @@ def get_source_questions(data: Any) -> List[Dict[str, Any]]:
     return [q for q in questions if isinstance(q, dict)]
 
 
-def resolve_source_original_id(question: Dict[str, Any]) -> Any:
-    return review_question_id(question)
-
-
 def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
     if not isinstance(data, list):
         raise ValueError("patch JSON must be an array")
@@ -104,25 +100,17 @@ def compare_entries(
     issues: List[str] = []
     warnings: List[str] = []
 
-    source_ids = [resolve_source_original_id(q) for q in source_questions]
-    patch_ids = [q.get("original_question_id") for q in patch_entries]
+    matches, identity_errors, identity_warnings = match_patch_entries(
+        source_questions,
+        patch_entries,
+    )
+    issues.extend(identity_errors)
+    warnings.extend(identity_warnings)
 
-    source_id_set = {sid for sid in source_ids if sid}
-    patch_id_set = {pid for pid in patch_ids if pid}
-
-    if len(source_questions) != len(patch_entries):
-        issues.append(
-            f"count mismatch: source={len(source_questions)} patch={len(patch_entries)}"
-        )
-
-    missing_ids = sorted(source_id_set - patch_id_set)
-    extra_ids = sorted(patch_id_set - source_id_set)
-    if missing_ids:
-        issues.append(f"missing original_question_id: {missing_ids}")
-    if extra_ids:
-        issues.append(f"extra original_question_id: {extra_ids}")
-
-    for idx, (src, patch) in enumerate(zip(source_questions, patch_entries), start=1):
+    for match in matches:
+        idx = match.patch_index + 1
+        src = match.source
+        patch = match.patch
         if not isinstance(patch, dict):
             issues.append(f"index {idx}: patch entry is not an object")
             continue
@@ -157,31 +145,17 @@ def compare_entries(
                     )
                 )
 
-        source_id = resolve_source_original_id(src)
-        if patch.get("original_question_id") != source_id:
-            issues.append(
-                "index {}: original_question_id mismatch "
-                "(source={} patch={})".format(
-                    idx, source_id, patch.get("original_question_id")
-                )
-            )
-
-        if patch.get("question_url") != src.get("question_url"):
+        if (
+            "question_url" in patch
+            and patch.get("question_url") != src.get("question_url")
+        ):
             issues.append(
                 "index {}: question_url mismatch (source={} patch={})".format(
                     idx, src.get("question_url"), patch.get("question_url")
                 )
             )
 
-        # DEBUGGING: Print repr of strings for comparison
         src_qb_text = src.get("questionBodyText")
-        patch_qb_text = patch.get("questionBodyText")
-        if src_qb_text != patch_qb_text:
-            print(f"DEBUG (check script): index {idx}: questionBodyText mismatch detected.")
-            print(f"DEBUG (check script): Source repr: {repr(src_qb_text)}")
-            print(f"DEBUG (check script): Patch repr:  {repr(patch_qb_text)}")
-            issues.append(f"index {idx}: questionBodyText mismatch")
-
         src_ctl = src.get("choiceTextList")
         patch_ctl = patch.get("choiceTextList")
         decomposition = patch.get("aggregateAnswerDecomposition")
@@ -217,15 +191,6 @@ def compare_entries(
                 issues.append(
                     f"index {idx}: invalid aggregateAnswerDecomposition: {exc}"
                 )
-        elif src_ctl != patch_ctl:
-            print(f"DEBUG (check script): index {idx}: choiceTextList mismatch detected.")
-            print(f"DEBUG (check script): Source repr: {repr(src_ctl)}")
-            print(f"DEBUG (check script): Patch repr:  {repr(patch_ctl)}")
-            issues.append(f"index {idx}: choiceTextList mismatch")
-
-    if len(patch_id_set) != len([pid for pid in patch_ids if pid]):
-        warnings.append("duplicate original_question_id detected in patch")
-
     return issues, warnings
 
 
@@ -249,7 +214,10 @@ def check_pair(source_path: Path, patch_path: Path) -> Tuple[bool, List[str]]:
     source_data = load_json(source_path)
     patch_data = load_json(patch_path)
 
-    source_questions = get_source_questions(source_data)
+    source_questions = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
     patch_entries = get_patch_entries(patch_data)
 
     issues, warnings = compare_entries(source_questions, patch_entries)

@@ -434,6 +434,50 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
 
         self.assertEqual(result, 0)
 
+    def test_law_verdict_ignores_legacy_correct_choice_in_explanation_patch(
+        self,
+    ) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["正しい記述", "誤った記述"],
+                "correctChoiceText": ["正しい", "間違い"],
+                "questionType": "true_false",
+                "questionIntent": "select_incorrect",
+            }
+        ]
+        first = valid_law_revision_facts()
+        second = valid_law_revision_facts()
+        second["current"]["correctChoiceText"] = "間違い"
+        second["examTime"]["correctChoiceText"] = "間違い"
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": [
+                    "正しい。根拠がある。",
+                    "間違い。根拠がある。",
+                ],
+                "suggestedQuestionDetailsByChoice": [],
+                "isLawRelated": True,
+                "lawRevisionFacts": [first, second],
+                # Stage 03 does not own this legacy copied field.
+                "correctChoiceText": ["間違い", "正しい"],
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_revision_facts=True,
+        )
+
+        self.assertFalse(
+            any("現行法監査判定が一致しません" in error for error in errors),
+            errors,
+        )
+
     def test_compare_entries_requires_law_revision_facts_for_law_related_questions(self) -> None:
         source_questions = [
             {

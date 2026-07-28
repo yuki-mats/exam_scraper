@@ -17,7 +17,10 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.check.question_set_validation import collect_category_ids
-from scripts.common.question_identity import review_question_id
+from scripts.check.patch_entry_matching import (
+    bind_source_records,
+    match_patch_entries,
+)
 
 
 REQUIRED_FIELDS = [
@@ -47,10 +50,6 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
     if not isinstance(data, list):
         raise ValueError("patch JSON must be an array")
     return [q for q in data if isinstance(q, dict)]
-
-
-def get_question_identity(question: Dict[str, Any]) -> Any:
-    return review_question_id(question)
 
 
 def choice_count_for_pair(src: Dict[str, Any], patch: Dict[str, Any]) -> int:
@@ -97,33 +96,21 @@ def compare_entries(
     errors: List[str] = []
     warnings: List[str] = []
 
-    if len(source_questions) != len(patch_entries):
-        errors.append(
-            f"count mismatch: source={len(source_questions)} patch={len(patch_entries)}"
-        )
+    matches, identity_errors, identity_warnings = match_patch_entries(
+        source_questions,
+        patch_entries,
+    )
+    errors.extend(identity_errors)
+    warnings.extend(identity_warnings)
 
-    source_ids = [get_question_identity(q) for q in source_questions]
-    patch_ids = [q.get("original_question_id") for q in patch_entries]
-    missing_ids = sorted({sid for sid in source_ids if sid} - {pid for pid in patch_ids if pid})
-    extra_ids = sorted({pid for pid in patch_ids if pid} - {sid for sid in source_ids if sid})
-    if missing_ids:
-        errors.append(f"missing original_question_id: {missing_ids}")
-    if extra_ids:
-        errors.append(f"extra original_question_id: {extra_ids}")
-
-    for idx, (src, patch) in enumerate(zip(source_questions, patch_entries), start=1):
+    for match in matches:
+        idx = match.patch_index + 1
+        src = match.source
+        patch = match.patch
         missing_fields = [k for k in REQUIRED_FIELDS if k not in patch]
         if missing_fields:
             errors.append(f"index {idx}: missing fields {missing_fields}")
             continue
-
-        source_question_id = get_question_identity(src)
-        if patch.get("original_question_id") != source_question_id:
-            errors.append(
-                "index {}: original_question_id mismatch (source={} patch={})".format(
-                    idx, source_question_id, patch.get("original_question_id")
-                )
-            )
 
         if patch.get("question_url") != src.get("question_url"):
             errors.append(
@@ -152,9 +139,6 @@ def compare_entries(
                 )
             )
 
-    if len(set(patch_ids)) != len(patch_ids):
-        warnings.append("duplicate original_question_id detected in patch")
-
     return errors, warnings
 
 
@@ -178,7 +162,10 @@ def check_pair(
     patch_data = load_json(patch_path)
     category_data = load_json(category_path)
 
-    source_questions = get_source_questions(source_data)
+    source_questions = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
     patch_entries = get_patch_entries(patch_data)
     category_ids = collect_category_ids(
         category_data,

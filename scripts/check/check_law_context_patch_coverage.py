@@ -16,12 +16,17 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.check.check_explanation_patch_coverage import (  # noqa: E402
     get_patch_entries,
-    get_question_identity,
     get_source_questions,
     has_non_empty_law_references,
     load_json,
     validate_law_references_shape,
 )
+from scripts.check.patch_entry_matching import (  # noqa: E402
+    bind_source_records,
+    match_patch_entries,
+)
+from scripts.common.question_identity import review_question_id  # noqa: E402
+from scripts.merge.patch_views import apply_question_type  # noqa: E402
 
 
 REQUIRED_FIELDS = [
@@ -39,33 +44,21 @@ def compare_entries(
     errors: List[str] = []
     warnings: List[str] = []
 
-    if len(source_questions) != len(patch_entries):
-        errors.append(
-            f"count mismatch: source={len(source_questions)} patch={len(patch_entries)}"
-        )
+    matches, identity_errors, identity_warnings = match_patch_entries(
+        source_questions,
+        patch_entries,
+    )
+    errors.extend(identity_errors)
+    warnings.extend(identity_warnings)
 
-    source_ids = [get_question_identity(q) for q in source_questions]
-    patch_ids = [q.get("original_question_id") for q in patch_entries]
-    missing_ids = sorted({sid for sid in source_ids if sid} - {pid for pid in patch_ids if pid})
-    extra_ids = sorted({pid for pid in patch_ids if pid} - {sid for sid in source_ids if sid})
-    if missing_ids:
-        errors.append(f"missing original_question_id: {missing_ids}")
-    if extra_ids:
-        errors.append(f"extra original_question_id: {extra_ids}")
-
-    for idx, (src, patch) in enumerate(zip(source_questions, patch_entries), start=1):
+    for match in matches:
+        idx = match.patch_index + 1
+        src = match.source
+        patch = match.patch
         missing_fields = [key for key in REQUIRED_FIELDS if key not in patch]
         if missing_fields:
             errors.append(f"index {idx}: missing fields {missing_fields}")
             continue
-
-        source_question_id = get_question_identity(src)
-        if patch.get("original_question_id") != source_question_id:
-            errors.append(
-                "index {}: original_question_id mismatch (source={} patch={})".format(
-                    idx, source_question_id, patch.get("original_question_id")
-                )
-            )
 
         if patch.get("question_url") != src.get("question_url"):
             errors.append(
@@ -113,13 +106,14 @@ def compare_entries(
                 f"index {idx}: lawContextForExplanation must be non-empty string when present"
             )
 
-    if len(set(patch_ids)) != len(patch_ids):
-        warnings.append("duplicate original_question_id detected in patch")
-
     return errors, warnings
 
 
-def check_pair(source_path: Path, patch_path: Path) -> int:
+def check_pair(
+    source_path: Path,
+    patch_path: Path,
+    question_type_patch_path: Path | None = None,
+) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
         return 2
@@ -127,7 +121,36 @@ def check_pair(source_path: Path, patch_path: Path) -> int:
         print(f"[ERROR] patch not found: {patch_path}")
         return 2
 
-    source_questions = get_source_questions(load_json(source_path))
+    source_data = load_json(source_path)
+    source_questions = bind_source_records(
+        get_source_questions(source_data),
+        source_path,
+    )
+    if question_type_patch_path is not None:
+        if not question_type_patch_path.exists():
+            print(f"[ERROR] questionType patch not found: {question_type_patch_path}")
+            return 2
+        question_type_entries = get_patch_entries(load_json(question_type_patch_path))
+        matches, identity_errors, _ = match_patch_entries(
+            source_questions,
+            question_type_entries,
+        )
+        if identity_errors:
+            for error in identity_errors:
+                print(f"[ERROR] questionType patch: {error}")
+            return 1
+        apply_question_type(
+            source_data,
+            {
+                str(review_question_id(match.source)): match.patch
+                for match in matches
+                if review_question_id(match.source)
+            },
+        )
+        source_questions = bind_source_records(
+            get_source_questions(source_data),
+            source_path,
+        )
     patch_entries = get_patch_entries(load_json(patch_path))
     errors, warnings = compare_entries(source_questions, patch_entries)
     for warning in warnings:
@@ -146,8 +169,16 @@ def main() -> int:
     )
     parser.add_argument("--source", required=True, help="Path to source question_*.json.")
     parser.add_argument("--patch", required=True, help="Path to law context patch JSON.")
+    parser.add_argument(
+        "--question-type-patch",
+        help="Apply the corresponding 10_questionType_fixed patch before validating choice counts.",
+    )
     args = parser.parse_args()
-    return check_pair(Path(args.source), Path(args.patch))
+    return check_pair(
+        Path(args.source),
+        Path(args.patch),
+        Path(args.question_type_patch) if args.question_type_patch else None,
+    )
 
 
 if __name__ == "__main__":
