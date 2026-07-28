@@ -2333,7 +2333,7 @@ async function loadQualificationRuns({
     renderQualificationActiveRun();
     renderMaintenanceDashboard();
     renderLawWorkflowSetting();
-    const visibleRun = state.qualificationActiveRun || state.qualificationRuns[0] || null;
+    const visibleRun = displayedQualificationRun();
     if (visibleRun?.runId) {
       const params = new URLSearchParams({ qualification });
       const activeJobId = state.qualificationActiveRun?.runId === visibleRun.runId
@@ -2422,7 +2422,14 @@ async function pollSharedRunProgress() {
 }
 
 function displayedQualificationRun() {
-  return state.qualificationActiveRun || state.qualificationRuns[0] || null;
+  if (state.qualificationActiveRun) return state.qualificationActiveRun;
+  if (state.listGroupId && state.listGroupId !== ALL_LIST_GROUPS) {
+    const scoped = state.qualificationRuns.find((run) => (
+      run.scopeListGroupIds || run.targetGroupIds || []
+    ).includes(state.listGroupId));
+    if (scoped) return scoped;
+  }
+  return state.qualificationRuns[0] || null;
 }
 
 function humanizeQualificationRunError(value) {
