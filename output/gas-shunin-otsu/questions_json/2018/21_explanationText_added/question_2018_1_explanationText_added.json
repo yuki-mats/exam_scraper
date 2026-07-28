@@ -2395,11 +2395,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
     "explanationText": [
-      "正しい。ガス発生設備（石炭を原料とするものを除く。）及びガス精製設備に属する容器・管のうち、内面に0Paを超える圧力を受ける部分は、ガス工作物の技術上の基準を定める省令第14条第1項第1号の主要材料規定の対象である。したがって、この選択肢は規定に該当する。",
-      "正しい。附帯設備であって製造設備に属する液化ガス用貯槽は、ガス工作物の技術上の基準を定める省令第14条第1項第3号イの主要材料規定の対象である。したがって、この選択肢は規定に該当する。",
-      "正しい。導管及びガス栓は、ガス工作物の技術上の基準を定める省令第14条第1項第6号の主要材料規定の対象である。したがって、この選択肢は規定に該当する。",
-      "間違い。整圧器そのものは、ガス工作物の技術上の基準を定める省令第14条第1項の列挙対象ではない。同項第9号で対象となるのは整圧器に取り付けるガス加温装置のガスを通ずる配管であり、整圧器単体ではないため、この規定に該当しない。",
-      "正しい。昇圧供給装置のガスを通ずる部分は、ガス工作物の技術上の基準を定める省令第14条第1項第10号の主要材料規定の対象である。したがって、この選択肢は規定に該当する。"
+      "ガス工作物の技術上の基準を定める省令第14条第1項は、主要材料が最高使用温度及び最低使用温度で安全な機械的性質を有すべきガス工作物を列挙している。ガス発生設備（石炭を原料とするものを除く。）のうち内面に0Paを超える圧力を受ける部分は同項第1号、製造設備に属する液化ガス用貯槽は同項第3号イ、導管及びガス栓は同項第6号、昇圧供給装置のガスを通ずる部分は同項第10号に含まれる。一方、同項第9号で対象となるのは整圧器に取り付けるガス加温装置のガスを通ずる配管であり、整圧器そのものは列挙されていない。したがって、この規定に該当しないものは4である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -2457,267 +2453,267 @@
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+          "article": "14",
           "choiceIndex": 0,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "14",
-          "verificationStatus": "verified",
-          "source": "egov_law",
-          "paragraph": "1",
           "item": "1",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "ガス発生設備（石炭を原料とするものを除く。）のうち内面に0Paを超える圧力を受ける部分は、第14条第1項第1号の主要材料規定対象に含まれる。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "reason": "ガス発生設備（石炭を原料とするものを除く。）及びガス精製設備に属する容器・管のうち内面に0Paを超える圧力を受ける部分は対象である。"
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+          "article": "14",
           "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "14",
-          "verificationStatus": "verified",
-          "source": "egov_law",
-          "paragraph": "1",
           "item": "3",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "附帯設備であって製造設備に属する液化ガス用貯槽は、第14条第1項第3号イの主要材料規定対象に含まれる。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "subitem": "イ",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "reason": "附帯設備であって製造設備に属する液化ガス用貯槽は対象である。"
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+          "article": "14",
           "choiceIndex": 2,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "14",
-          "verificationStatus": "verified",
-          "source": "egov_law",
-          "paragraph": "1",
           "item": "6",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "reason": "導管及びガス栓は、第14条第1項第6号の主要材料規定対象に含まれる。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "reason": "導管及びガス栓は対象である。"
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+          "article": "14",
           "choiceIndex": 3,
+          "item": "9",
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "14",
-          "verificationStatus": "verified",
-          "source": "egov_law",
           "paragraph": "1",
-          "item": "9",
+          "reason": "第14条第1項第9号は整圧器に取り付けるガス加温装置のガスを通ずる配管を対象とし、整圧器そのものは列挙していない。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "reason": "整圧器そのものは対象として列挙されておらず、第9号の対象は整圧器に取り付けるガス加温装置のガスを通ずる配管である。"
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
+          "article": "14",
           "choiceIndex": 4,
+          "item": "10",
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-27",
-          "article": "14",
-          "verificationStatus": "verified",
-          "source": "egov_law",
           "paragraph": "1",
-          "item": "10",
+          "reason": "昇圧供給装置のガスを通ずる部分は、第14条第1項第10号の主要材料規定対象に含まれる。",
+          "referenceDate": "2026-07-28",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-          "reason": "昇圧供給装置のガスを通ずる部分は対象である。"
+          "verificationStatus": "verified"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
+        "answerImpactFacts": [
+          "correctChoiceTextは維持する。"
+        ],
+        "auditMethodVersion": "law_audit=v4.3",
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-27",
-        "auditMethodVersion": "law_audit=v4.0",
-        "lawCorpusSnapshotId": "egov-current-2026-07-27",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "examTime": {
-          "referenceDate": "2018",
-          "verificationStatus": "source_judge_checked",
-          "correctChoiceText": "正しい"
-        },
+        "auditedAt": "2026-07-28",
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawId": "412M50000400111",
           "article": "14",
-          "paragraph": "1",
+          "correctChoiceText": "間違い",
           "item": "1",
-          "referenceDate": "2026-07-27",
-          "verificationStatus": "verified",
-          "correctChoiceText": "正しい"
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行の第14条第1項第1号で該当性を確認し、正誤に影響する差異は認めない。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持する。"
+          "現行の第14条第1項第1号で対象該当性を確認し、正答に影響する差異は認めない。"
         ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
           "currentBasis": "第14条第1項第1号",
-          "explanationText": "ガス発生設備の該当部分は主要材料規定の対象である。"
-        }
+          "explanationText": "この選択肢は主要材料規定の対象であるため、『該当しないもの』としては誤りである。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "referenceDate": "2018",
+          "verificationStatus": "source_judge_checked"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-28",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "secondary_verified"
       },
       {
+        "answerImpactFacts": [
+          "correctChoiceTextは維持する。"
+        ],
+        "auditMethodVersion": "law_audit=v4.3",
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-27",
-        "auditMethodVersion": "law_audit=v4.0",
-        "lawCorpusSnapshotId": "egov-current-2026-07-27",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "examTime": {
-          "referenceDate": "2018",
-          "verificationStatus": "source_judge_checked",
-          "correctChoiceText": "正しい"
-        },
+        "auditedAt": "2026-07-28",
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawId": "412M50000400111",
           "article": "14",
-          "paragraph": "1",
+          "correctChoiceText": "間違い",
           "item": "3",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
           "subitem": "イ",
-          "referenceDate": "2026-07-27",
-          "verificationStatus": "verified",
-          "correctChoiceText": "正しい"
+          "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行の第14条第1項第3号イで該当性を確認し、正誤に影響する差異は認めない。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持する。"
+          "現行の第14条第1項第3号イで対象該当性を確認し、正答に影響する差異は認めない。"
         ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
           "currentBasis": "第14条第1項第3号イ",
-          "explanationText": "製造設備に属する液化ガス用貯槽は主要材料規定の対象である。"
-        }
+          "explanationText": "この選択肢は主要材料規定の対象であるため、『該当しないもの』としては誤りである。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "referenceDate": "2018",
+          "verificationStatus": "source_judge_checked"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-28",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "secondary_verified"
       },
       {
+        "answerImpactFacts": [
+          "correctChoiceTextは維持する。"
+        ],
+        "auditMethodVersion": "law_audit=v4.3",
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-27",
-        "auditMethodVersion": "law_audit=v4.0",
-        "lawCorpusSnapshotId": "egov-current-2026-07-27",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "examTime": {
-          "referenceDate": "2018",
-          "verificationStatus": "source_judge_checked",
-          "correctChoiceText": "正しい"
-        },
+        "auditedAt": "2026-07-28",
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawId": "412M50000400111",
           "article": "14",
-          "paragraph": "1",
+          "correctChoiceText": "間違い",
           "item": "6",
-          "referenceDate": "2026-07-27",
-          "verificationStatus": "verified",
-          "correctChoiceText": "正しい"
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行の第14条第1項第6号で該当性を確認し、正誤に影響する差異は認めない。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持する。"
+          "現行の第14条第1項第6号で対象該当性を確認し、正答に影響する差異は認めない。"
         ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
           "currentBasis": "第14条第1項第6号",
-          "explanationText": "導管及びガス栓は主要材料規定の対象である。"
-        }
+          "explanationText": "この選択肢は主要材料規定の対象であるため、『該当しないもの』としては誤りである。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "referenceDate": "2018",
+          "verificationStatus": "source_judge_checked"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-28",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "secondary_verified"
       },
       {
+        "answerImpactFacts": [
+          "correctChoiceTextは維持する。"
+        ],
+        "auditMethodVersion": "law_audit=v4.3",
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-27",
-        "auditMethodVersion": "law_audit=v4.0",
-        "lawCorpusSnapshotId": "egov-current-2026-07-27",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "examTime": {
-          "referenceDate": "2018",
-          "verificationStatus": "source_judge_checked",
-          "correctChoiceText": "間違い"
-        },
+        "auditedAt": "2026-07-28",
         "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawId": "412M50000400111",
           "article": "14",
-          "paragraph": "1",
+          "correctChoiceText": "正しい",
           "item": "9",
-          "referenceDate": "2026-07-27",
-          "verificationStatus": "verified",
-          "correctChoiceText": "間違い"
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "現行の第14条第1項第9号は整圧器に取り付けるガス加温装置の配管を対象としており、整圧器そのものを対象にしないため、正誤に影響する差異は認めない。"
-        ],
-        "answerImpactFacts": [
-          "correctChoiceTextは維持する。"
+          "現行の第14条第1項第9号は整圧器に取り付けるガス加温装置のガスを通ずる配管を対象としており、整圧器そのものを対象にしないため、正答に影響する差異は認めない。"
         ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
           "currentBasis": "第14条第1項第9号との比較",
-          "explanationText": "整圧器そのものは主要材料規定の対象に列挙されていない。"
-        }
+          "explanationText": "整圧器そのものは主要材料規定の対象に列挙されていないため、『該当しないもの』として正しい。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "referenceDate": "2018",
+          "verificationStatus": "source_judge_checked"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-28",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-27",
-        "auditMethodVersion": "law_audit=v4.0",
-        "lawCorpusSnapshotId": "egov-current-2026-07-27",
-        "reconciliationStatus": "direct_primary_basis_reverified",
-        "examTime": {
-          "referenceDate": "2018",
-          "verificationStatus": "source_judge_checked",
-          "correctChoiceText": "正しい"
-        },
-        "current": {
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawId": "412M50000400111",
-          "article": "14",
-          "paragraph": "1",
-          "item": "10",
-          "referenceDate": "2026-07-27",
-          "verificationStatus": "verified",
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [
-          "現行の第14条第1項第10号で該当性を確認し、正誤に影響する差異は認めない。"
-        ],
         "answerImpactFacts": [
           "correctChoiceTextは維持する。"
         ],
+        "auditMethodVersion": "law_audit=v4.3",
+        "auditStatus": "same_as_current",
+        "auditedAt": "2026-07-28",
+        "current": {
+          "article": "14",
+          "correctChoiceText": "間違い",
+          "item": "10",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "paragraph": "1",
+          "referenceDate": "2026-07-28",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行の第14条第1項第10号で対象該当性を確認し、正答に影響する差異は認めない。"
+        ],
         "evidenceSummary": {
-          "verdict": "same_as_current",
           "currentBasis": "第14条第1項第10号",
-          "explanationText": "昇圧供給装置のガスを通ずる部分は主要材料規定の対象である。"
-        }
+          "explanationText": "この選択肢は主要材料規定の対象であるため、『該当しないもの』としては誤りである。",
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "referenceDate": "2018",
+          "verificationStatus": "source_judge_checked"
+        },
+        "lawCorpusSnapshotId": "egov-current-2026-07-28",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedExplanationText": [
@@ -2739,9 +2735,9 @@
     "sourceRecordRef": "question_2018_1.json#8",
     "explanationReferences": [
       {
-        "title": "e-Gov法令検索「ガス工作物の技術上の基準を定める省令」第14条",
+        "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=14",
-        "referenceDate": "2026-07-11"
+        "title": "e-Gov法令検索「ガス工作物の技術上の基準を定める省令」第14条"
       }
     ],
     "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第14条第1項は、主要材料規定の対象となるガス工作物を列挙している。選択肢1は第1号、選択肢2は第3号イ、選択肢3は第6号、選択肢5は第10号に該当する。整圧器そのものは列挙されておらず、第9号は整圧器に取り付けるガス加温装置のガスを通ずる配管を対象とするため、該当しないものは選択肢4である。",
