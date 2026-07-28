@@ -10737,30 +10737,36 @@ class QualificationRunCoordinator:
                     QuestionWorkQueueError,
                     ValueError,
                 ) as exc:
-                    raise QuestionItemError(
-                        "対象外判定の根拠又は作業版を記録できません: "
-                        f"{exc}"
-                    ) from exc
-            self.store.update_question_stage(
-                qualification,
-                run_id,
-                question_id,
-                stage_id,
-                validated_receipt=work_version_receipt,
-                refresh_derived=False,
-                hydrate_result=False,
-                status="not_applicable",
-                error=None,
-                finishedAt=_now(),
-            )
-            result = {
-                "status": "not_applicable",
-                "stageId": stage_id,
-                "listGroupId": str((question or {}).get("listGroupId") or ""),
-            }
-            if work_version_receipt is not None:
-                result["workVersionReceipt"] = work_version_receipt
-            return result
+                    target = matching_target(phase_plan)
+                    if target is None:
+                        raise QuestionItemError(
+                            "対象外判定の根拠又は作業版を記録できず、"
+                            "通常writerの対象も解決できません: "
+                            f"{exc}"
+                        ) from exc
+            if target is None:
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    validated_receipt=work_version_receipt,
+                    refresh_derived=False,
+                    hydrate_result=False,
+                    status="not_applicable",
+                    error=None,
+                    finishedAt=_now(),
+                )
+                result = {
+                    "status": "not_applicable",
+                    "stageId": stage_id,
+                    "listGroupId": str(
+                        (question or {}).get("listGroupId") or ""
+                    ),
+                }
+                if work_version_receipt is not None:
+                    result["workVersionReceipt"] = work_version_receipt
+                return result
 
         current = self._refresh_queued_stage_inputs(
             qualification,

@@ -7518,6 +7518,40 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertIsNone(target)
 
+    def test_non_law_without_valid_receipt_returns_to_normal_writer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                NonLawSourceInventory(),
+                ["law_audit"],
+            )
+            parent = coordinator.store.get("new-exam", parent["runId"])
+            phase = parent["phaseExecutions"][0]
+            phase_plan, phase_prompt = coordinator._flow_phase_plan_prompt(
+                parent,
+                phase,
+            )
+            coordinator._record_work_versions = lambda _plan: (
+                (_ for _ in ()).throw(
+                    QualificationRunError("監査sidecarがありません")
+                )
+            )
+
+            spec = coordinator._question_stage_spec(
+                "new-exam",
+                parent["runId"],
+                phase,
+                "new-exam-2026-q1",
+                phase_plan,
+                phase_prompt,
+                parent=parent,
+            )
+
+        self.assertEqual(spec["status"], "queued")
+        self.assertEqual(spec["stageId"], "law_audit")
+        self.assertEqual(spec["target"]["id"], "new-exam-2026-q1")
+
     def test_missing_logical_projection_blocks_only_that_question(self):
         class MissingProjectionInventory(SourceOnlyInventory):
             projected_input = None
