@@ -8906,14 +8906,9 @@ class QualificationRunCoordinator:
                 self.app_server.assert_subscription_access(force=False)
             except Exception as exc:  # noqa: BLE001
                 raise QualificationRunError(str(exc)) from exc
-            evaluation_rework = bool(plan.get("evaluationRework"))
             plan = {
                 **plan,
-                "workType": (
-                    "evaluation_rework"
-                    if evaluation_rework
-                    else "maintenance"
-                ),
+                "workType": "maintenance",
                 "sandbox": "workspace-write",
                 "provider": self.app_server.provider,
                 "parallelStrategy": "read_only_research",
@@ -8956,11 +8951,7 @@ class QualificationRunCoordinator:
                         "workItemCount"
                     ],
                     "kind": "orchestration",
-                    "workType": (
-                        "evaluation_rework_flow"
-                        if evaluation_rework
-                        else "maintenance_flow"
-                    ),
+                    "workType": "maintenance_flow",
                     "questionConcurrency": question_concurrency,
                     "parallelStrategy": "adaptive_structured_candidate",
                     "throughputMode": "auto_max",
@@ -8986,11 +8977,7 @@ class QualificationRunCoordinator:
                 )
                 try:
                     job = self.jobs.start(
-                        kind=(
-                            "codex-evaluation-rework-flow"
-                            if evaluation_rework
-                            else "codex-maintenance-flow"
-                        ),
+                        kind="codex-maintenance-flow",
                         key=qualification_operation_key(qualification),
                         worker=lambda emit: self._run_in_turn_group(
                             qualification,
