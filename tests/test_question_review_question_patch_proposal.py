@@ -273,6 +273,26 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
 
         self.assertTrue(all(not thread.is_alive() for thread in threads))
 
+    def test_runtime_locks_are_not_written_into_git_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".git").mkdir()
+            workspace = self._lock_only_workspace(root, "outside-git")
+            work_version_path = Path(
+                "output/question_review_console/sample/group/"
+                "work_versions/question-a.json"
+            )
+
+            with workspace.canonical_transaction(
+                (),
+                lock_paths=(work_version_path,),
+            ):
+                self.assertFalse(
+                    (root / ".git/question-patch-locks").exists()
+                )
+
+        self.assertFalse((root / ".git/question-patch-locks").exists())
+
     def test_rebases_one_record_without_losing_sibling_commit(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

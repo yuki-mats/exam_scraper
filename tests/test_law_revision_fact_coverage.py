@@ -51,7 +51,7 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
         self.assertEqual(selected, [records[0]])
         self.assertEqual(missing, ["q3"])
 
-    def test_can_require_verified_references_and_public_evidence(self) -> None:
+    def test_can_require_verified_references(self) -> None:
         errors = audit_question_level_law_evidence(
             [
                 {
@@ -79,7 +79,6 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
         )
 
         self.assertTrue(any("no verified lawReferences" in error for error in errors))
-        self.assertTrue(any("concrete law evidence anchor" in error for error in errors))
 
     def test_question_level_evidence_combines_firestore_choice_records(self) -> None:
         records = [

@@ -17,10 +17,6 @@ LAW_AS_SENTENCE_SUBJECT = re.compile(
 )
 POINT_IS_WRONG = re.compile(r"(?:点|ところ)が誤り(?:である)?(?:。|$)")
 VERDICT_PREFIX = re.compile(r"^(正しい|間違い)。")
-PUBLIC_EVIDENCE_TITLE = re.compile(
-    r"[一-龥ぁ-んァ-ヶA-Za-z0-9・（）()]{2,40}"
-    r"(?:法|省令|規則|告示|示方書|指針|要領)"
-)
 
 CURRENT_LAW_TERMS = ("現行法", "現在", "現行")
 EXAM_TIME_TERMS = (
@@ -42,10 +38,6 @@ def has_non_empty_law_references(value: Any) -> bool:
     return False
 
 
-def _normalize_for_anchor_match(value: Any) -> str:
-    return re.sub(r"\s+", "", str(value or ""))
-
-
 def _iter_nested_strings(value: Any) -> list[str]:
     strings: list[str] = []
     if isinstance(value, str):
@@ -58,16 +50,6 @@ def _iter_nested_strings(value: Any) -> list[str]:
         for nested in value:
             strings.extend(_iter_nested_strings(nested))
     return strings
-
-
-def _iter_law_reference_objects(value: Any) -> list[dict[str, Any]]:
-    refs: list[dict[str, Any]] = []
-    if isinstance(value, dict):
-        refs.append(value)
-    elif isinstance(value, list):
-        for nested in value:
-            refs.extend(_iter_law_reference_objects(nested))
-    return refs
 
 
 def _iter_law_revision_fact_objects(value: Any) -> list[dict[str, Any]]:
@@ -98,56 +80,6 @@ def _law_related_for_utilization(
     return bool(statuses and statuses != {"not_law_related"})
 
 
-def _law_evidence_anchors(patch: dict[str, Any]) -> list[str]:
-    anchors: list[str] = []
-
-    for ref in _iter_law_reference_objects(patch.get("lawReferences")):
-        for key in ("lawTitle", "lawAlias"):
-            value = ref.get(key)
-            if isinstance(value, str) and len(_normalize_for_anchor_match(value)) >= 3:
-                anchors.append(value)
-        article = ref.get("article")
-        if isinstance(article, str) and article.strip():
-            article_text = article.strip()
-            if "条" in article_text:
-                anchors.append(article_text)
-            elif article_text.isdigit():
-                anchors.append(f"第{article_text}条")
-                anchors.append(f"{article_text}条")
-
-    for fact in _iter_law_revision_fact_objects(patch.get("lawRevisionFacts")):
-        for key in ("current", "examTime", "evidenceSummary"):
-            source = fact.get(key)
-            for text in _iter_nested_strings(source):
-                if "法" in text and len(_normalize_for_anchor_match(text)) <= 40:
-                    anchors.append(text)
-            if isinstance(source, dict):
-                law_title = source.get("lawTitle")
-                if (
-                    isinstance(law_title, str)
-                    and len(_normalize_for_anchor_match(law_title)) >= 3
-                ):
-                    anchors.append(law_title)
-                article = source.get("article")
-                if isinstance(article, str) and article.strip():
-                    article_text = article.strip()
-                    if "条" in article_text:
-                        anchors.append(article_text)
-                    elif article_text.isdigit():
-                        anchors.append(f"第{article_text}条")
-                        anchors.append(f"{article_text}条")
-
-    normalized_seen: set[str] = set()
-    unique: list[str] = []
-    for anchor in anchors:
-        normalized = _normalize_for_anchor_match(anchor)
-        if len(normalized) < 2 or normalized in normalized_seen:
-            continue
-        normalized_seen.add(normalized)
-        unique.append(anchor)
-    return unique
-
-
 def _public_text_for_patch(patch: dict[str, Any]) -> str:
     parts: list[str] = []
     parts.extend(_iter_nested_strings(patch.get("explanationText")))
@@ -171,7 +103,7 @@ def law_evidence_utilization_issues(
     *,
     has_law_references: bool | None = None,
 ) -> list[str]:
-    """Return deterministic violations of the public law-evidence policy."""
+    """Return deterministic violations of the public current-law policy."""
 
     errors: list[str] = []
     if has_law_references is None:
@@ -187,19 +119,6 @@ def law_evidence_utilization_issues(
         return errors
 
     public_text = _public_text_for_patch(patch)
-
-    anchors = _law_evidence_anchors(patch)
-    normalized_public_text = _normalize_for_anchor_match(public_text)
-    mentions_known_anchor = any(
-        _normalize_for_anchor_match(anchor) in normalized_public_text
-        for anchor in anchors
-    )
-    mentions_named_public_source = bool(PUBLIC_EVIDENCE_TITLE.search(public_text))
-    if anchors and not (mentions_known_anchor or mentions_named_public_source):
-        errors.append(
-            "public explanation fields do not mention any concrete law "
-            "evidence anchor"
-        )
 
     if "updated_to_current_law" in statuses:
         if not _contains_any(public_text, CURRENT_LAW_TERMS) or not _contains_any(

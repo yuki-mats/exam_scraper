@@ -5,6 +5,7 @@ import unittest
 from scripts.common.question_answer_contract import (
     all_correct_choice_sentinel_number,
     asks_for_selected_choice_count,
+    explicit_statement_question_intent,
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
     uses_trusted_gassyunin_judge_answers,
@@ -12,6 +13,35 @@ from scripts.common.question_answer_contract import (
 
 
 class QuestionAnswerContractTests(unittest.TestCase):
+    def test_explicit_statement_intent_reads_inappropriate_as_incorrect(
+        self,
+    ) -> None:
+        self.assertEqual(
+            explicit_statement_question_intent(
+                "次の記述のうち、不適切なものはどれか。"
+            ),
+            "select_incorrect",
+        )
+
+    def test_explicit_statement_intent_reads_appropriate_as_correct(
+        self,
+    ) -> None:
+        self.assertEqual(
+            explicit_statement_question_intent(
+                "次の記述のうち、適切なものはどれか。"
+            ),
+            "select_correct",
+        )
+
+    def test_explicit_statement_intent_ignores_fragment_predicate(
+        self,
+    ) -> None:
+        self.assertIsNone(
+            explicit_statement_question_intent(
+                "次の設備のうち、この規定に該当しないものはどれか。"
+            )
+        )
+
     def test_question_level_cardinality_follows_select_incorrect(self) -> None:
         self.assertIsNone(
             question_level_answer_cardinality_issue(

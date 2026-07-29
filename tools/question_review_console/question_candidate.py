@@ -17,6 +17,7 @@ from scripts.common.explanation_contract import (
 from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
 from scripts.common.explanation_references import explanation_reference_errors
 from scripts.common.question_answer_contract import (
+    explicit_statement_question_intent,
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
 )
@@ -702,6 +703,9 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
             "description": (
                 "choiceTextListがそれだけで真偽を判定できる完結した記述なら、"
                 "誤り又は不適合を選ばせる設問はselect_incorrectとする。"
+                "問題文が『次の記述のうち、誤っているものはいくつあるか』"
+                "のように記述の正誤方向を明示する場合は、その要求を優先し、"
+                "選択肢が短い又は『場合』で終わることだけで断片肢へ変えない。"
                 "choiceTextListが設備名、名詞句、数値又は対象名などの断片で、"
                 "問題文の『該当しない』『除く』などの述語を補って完全な命題に"
                 "する場合は、その成立する命題を選ぶselect_correctとする。"
@@ -1803,6 +1807,33 @@ def validate_candidate_content(
         errors.append(
             "questionIntentがselect_correct又はselect_incorrectではありません。"
         )
+    if "questionIntent" in changed_fields:
+        explicit_intent = explicit_statement_question_intent(question_body)
+        if (
+            explicit_intent is not None
+            and logical.get("questionIntent") != explicit_intent
+        ):
+            source_agrees = bool(
+                isinstance(original_source_record, Mapping)
+                and original_source_record.get("questionBodyText")
+                == projected_record.get("questionBodyText")
+                and original_source_record.get("choiceTextList")
+                == projected_record.get("choiceTextList")
+                and original_source_record.get("questionIntent")
+                == explicit_intent
+            )
+            errors.append(
+                "questionBodyTextが記述の正誤方向を明示していますが、"
+                "questionIntent候補が一致しません。選択肢が短い又は"
+                "『場合』で終わることだけで、明示された選択方向を"
+                "反転しないでください。"
+                + (
+                    "00_sourceの同一本文・選択肢に対するquestionIntentも"
+                    "明示された方向と一致しています。"
+                    if source_agrees
+                    else ""
+                )
+            )
     if "questionSetId" in changed_fields and (
         not isinstance(logical.get("questionSetId"), str)
         or not logical["questionSetId"].strip()

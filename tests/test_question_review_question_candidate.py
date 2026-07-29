@@ -16,6 +16,44 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    @staticmethod
+    def _question_intent_candidate(value):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/"
+                "15_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        }
+        targets = candidate_targets("q1", "question_intent", plan)
+        candidate = _parse_prepared_candidates(
+            {
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "設問本文から選択方向を判定した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:question_intent",
+                                "setFields": [
+                                    {
+                                        "field": "questionIntent",
+                                        "value": value,
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        return candidate, targets
+
     def test_candidate_cannot_override_exact_trusted_source_answer(self):
         plan = {
             "allowedPatchFiles": [
@@ -236,6 +274,90 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertIn(
             "questionIntentがselect_correct又はselect_incorrectではありません。",
             validate_candidate_content(candidate, targets, {}),
+        )
+
+    def test_question_intent_rejects_reversing_explicit_incorrect_statement_request(
+        self,
+    ):
+        candidate, targets = self._question_intent_candidate("select_correct")
+        projected = {
+            "questionBodyText": (
+                "埋設された導管の腐食速度を速める一般的な要因に関する"
+                "次の記述のうち、誤っているものはいくつあるか。"
+            ),
+            "choiceTextList": [
+                "細粒分が少ない土質の場合",
+                "土壌比抵抗が高い場合",
+            ],
+            "questionIntent": "select_correct",
+        }
+        source = {
+            **projected,
+            "questionIntent": "select_incorrect",
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            projected,
+            source,
+        )
+
+        self.assertTrue(
+            any(
+                "記述の正誤方向を明示" in error
+                and "00_source" in error
+                for error in errors
+            ),
+            errors,
+        )
+
+    def test_question_intent_accepts_explicit_incorrect_statement_request(
+        self,
+    ):
+        candidate, targets = self._question_intent_candidate(
+            "select_incorrect"
+        )
+        projected = {
+            "questionBodyText": (
+                "次の記述のうち、誤っているものはいくつあるか。"
+            ),
+            "choiceTextList": ["条件Aの場合", "条件Bの場合"],
+            "questionIntent": "select_correct",
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            projected,
+        )
+
+        self.assertFalse(
+            any("記述の正誤方向を明示" in error for error in errors),
+            errors,
+        )
+
+    def test_question_intent_keeps_negative_predicate_for_fragment_choices(
+        self,
+    ):
+        candidate, targets = self._question_intent_candidate("select_correct")
+        projected = {
+            "questionBodyText": (
+                "次の設備のうち、この規定に該当しないものはどれか。"
+            ),
+            "choiceTextList": ["設備A", "設備B"],
+            "questionIntent": "select_incorrect",
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            projected,
+        )
+
+        self.assertFalse(
+            any("記述の正誤方向を明示" in error for error in errors),
+            errors,
         )
 
     def test_candidate_rejects_non_string_question_set_id(self):
@@ -1088,6 +1210,7 @@ class QuestionCandidateTest(unittest.TestCase):
             "description"
         ]
         self.assertIn("設備名、名詞句、数値又は対象名などの断片", description)
+        self.assertIn("誤っているものはいくつあるか", description)
         self.assertIn("成立する命題を選ぶselect_correct", description)
         self.assertIn("もう一度反転しない", description)
 

@@ -8,6 +8,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 
 - 入力は`00_source`と確定済みpatchを重ねた`logicalProjection`です。物理的なmerged artifactを02の前提にしません。
 - `questionBodyText`の解答指示を読み、受験者が選ぶべき正誤方向を文全体の意味から判断します。
+- `questionBodyText`が「次の記述のうち、誤っているものはいくつあるか」のように記述の正誤方向を明示する場合は、その解答指示を最優先します。選択肢が短い又は「場合」で終わることだけを理由に、明示された選択方向を反転しません。
 - 先に各`choiceTextList`が、それだけで真偽を判定できる完結した記述か、`questionBodyText`の述語を補わないと命題にならない名詞句・数値・対象名などの断片かを判定します。
 - 02が所有するfieldは`questionIntent`だけです。`correctChoiceText`、`answer_result_text`、`questionType`、問題文、選択肢、解説、IDを変更しません。
 - 現在の`questionIntent`、正答番号又は`correctChoiceText`から方向を逆算しません。設問の要求だけから独立に確定します。
@@ -23,6 +24,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 否定語の有無だけで決めず、否定が完結した記述肢の選択方向に掛かるのか、断片肢へ補う述語の一部なのかを読み分けます。
 
 - 「次の記述のうち、誤っているものはどれか」のように各肢が完結した記述なら、設問は誤った記述を選ばせるため`select_incorrect`です。
+- 「腐食を速める要因に関する次の記述のうち、誤っているものはいくつあるか」の各肢が「〜の場合」のように短くても、本文は各肢を記述として扱い、誤っている記述の個数を求めています。この設問は`select_incorrect`です。
 - 「次の設備のうち、この規定に該当しないものはどれか」のように各肢が設備名などの断片なら、本文の述語を補って「この設備は規定に該当しない」という命題を作ります。受験者は成立する命題を選ぶため`select_correct`です。
 - 断片肢へ本文の述語を補った後、その否定を選択方向としてもう一度反転しません。
 
@@ -58,7 +60,7 @@ python3 tools/question_bank/question_bank.py materialize-patch \
 - `00_source`は変更、削除、改名しません。既存IDを変更しません。
 - merged、convert、upload-readyを直接編集しません。
 - 不確実性は`99_model_review_flags/`又はreview sidecarへ`hold`理由と不足根拠を残します。
-- server又は`check-question-intent-patch`はsource identity、件数、型及び許可値を検証します。
+- server又は`check-question-intent-patch`はsource identity、件数、型、許可値及び問題文に明示された記述の正誤方向との整合を検証します。
 - 02aの独立判定後に`questionIntent`、`correctChoiceText`、公式解答が矛盾した場合、機械検証は停止して再確認へ送ります。`questionIntent`又は`correctChoiceText`のどちらかを自動補正しません。
 
 ```bash

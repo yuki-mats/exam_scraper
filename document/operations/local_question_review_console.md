@@ -27,7 +27,7 @@
 ### 整備runのfile transaction
 
 - modelはfile、progress、receiptを変更せず、model-owned semantic fieldだけをnative JSONで返すcandidate v3に従う。問題ID、target、run ID、hash等のidentity・routing metadataはserverが所有する。保存payloadはcandidate v3だけとし、preparedCandidate envelope v1へ格納する。source identityの解決、field制限、工程検査、patch・作業版・progress・receiptの保存もserverが所有する。
-- serverは候補を問題別の一時workspaceへ反映して機械検査する。合格した一問だけを決定的なpatch toolで最新patchへ反映し、失敗時はその問だけを戻す。資格又は年度全体を排他せず、実際に更新するpatch JSONと対象一問のwork version JSONを同じ順序でlockする。同じfileを更新する処理だけが直列になり、異なる実pathは並行できる。対象を一意に解決できない問題もmodelへ渡さず、その問だけを保留する。
+- serverは候補を問題別の一時workspaceへ反映して機械検査する。合格した一問だけを決定的なpatch toolで最新patchへ反映し、失敗時はその問だけを戻す。資格又は年度全体を排他せず、実際に更新するpatch JSONと対象一問のwork version JSONを同じ順序でlockする。同じfileを更新する処理だけが直列になり、異なる実pathは並行できる。実行時lock fileはrepository及びDrive同期領域の外にあるOS一時領域へrepository別に置き、同一processでは同じ実pathのthread lockも先に取得する。対象を一意に解決できない問題もmodelへ渡さず、その問だけを保留する。
 - patchと対象一問のwork version JSONを同じcommit点で確定する。`receiptValidated=true`後の`artifactSync`失敗ではpatchを戻さず、成果物の再生成だけを再試行する。rollback不能又は共有状態の破損だけが親queueの停止理由である。
 
 ### 画面からの直接修正

@@ -389,7 +389,9 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
 
         QualificationRunCoordinator._validate_law_audit_quality([question])
 
-    def test_law_audit_quality_rejects_unpublished_law_evidence(self):
+    def test_law_audit_quality_accepts_structured_evidence_without_duplication(
+        self,
+    ):
         question = {
             "id": "law-question",
             "questionLabel": "問2",
@@ -397,7 +399,14 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
             "issueCodes": [],
             "projected": {
                 "isLawRelated": True,
-                "lawRevisionFacts": [{"auditStatus": "same_as_current"}],
+                "correctChoiceText": ["正しい"],
+                "lawRevisionFacts": [
+                    {
+                        "auditStatus": "same_as_current",
+                        "current": {"correctChoiceText": "正しい"},
+                        "evidenceSummary": {"verdict": "correct"},
+                    }
+                ],
                 "lawReferences": [
                     {"lawTitle": "ガス事業法", "article": "第2条"}
                 ],
@@ -409,11 +418,7 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
             },
         }
 
-        with self.assertRaisesRegex(
-            QualificationRunError,
-            "concrete law evidence anchor",
-        ):
-            QualificationRunCoordinator._validate_law_audit_quality([question])
+        QualificationRunCoordinator._validate_law_audit_quality([question])
 
     def test_law_audit_quality_accepts_published_law_evidence(self):
         question = {

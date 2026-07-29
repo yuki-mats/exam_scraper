@@ -47,6 +47,38 @@ ALL_CORRECT_CHOICE_SENTINEL_PATTERN = re.compile(
     r"選択肢\s*[（(]\s*([0-9０-９]+)\s*[）)]"
     r"\s*は\s*(?:すべて|全て)\s*正しい"
 )
+EXPLICIT_INCORRECT_STATEMENT_REQUESTS = (
+    "誤っているもの",
+    "正しくないもの",
+    "不適切なもの",
+    "適切でないもの",
+)
+EXPLICIT_CORRECT_STATEMENT_REQUESTS = (
+    "正しいもの",
+    "適切なもの",
+)
+
+
+def explicit_statement_question_intent(value: Any) -> str | None:
+    """Read only unambiguous correct/incorrect requests about statements."""
+
+    if not isinstance(value, str):
+        return None
+    normalized = "".join(value.split())
+    if "記述" not in normalized:
+        return None
+    selects_incorrect = any(
+        token in normalized
+        for token in EXPLICIT_INCORRECT_STATEMENT_REQUESTS
+    )
+    positive_text = normalized.replace("不適切なもの", "")
+    selects_correct = any(
+        token in positive_text
+        for token in EXPLICIT_CORRECT_STATEMENT_REQUESTS
+    )
+    if selects_incorrect == selects_correct:
+        return None
+    return "select_incorrect" if selects_incorrect else "select_correct"
 
 
 def selected_choice_labels(question_intent: Any) -> frozenset[str] | None:

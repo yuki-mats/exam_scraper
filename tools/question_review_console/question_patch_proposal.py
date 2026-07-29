@@ -26,6 +26,8 @@ _RECORD_CONTAINER_KEYS = (
     "question_bodies",
     "questions",
 )
+_CANONICAL_THREAD_LOCK_REGISTRY_GUARD = threading.Lock()
+_CANONICAL_THREAD_LOCKS: dict[tuple[str, str], Any] = {}
 
 
 class QuestionPatchProposalError(ValueError):
@@ -112,45 +114,55 @@ def _canonical_file_locks(
     """Serialize short, write-after-validation commits across processes."""
 
     resolved_repo = repo_root.resolve()
-    git_metadata = resolved_repo / ".git"
-    if git_metadata.is_file() and not git_metadata.is_symlink():
-        try:
-            marker = git_metadata.read_text(encoding="utf-8").strip()
-        except (OSError, UnicodeDecodeError):
-            marker = ""
-        if marker.startswith("gitdir:"):
-            candidate = Path(marker.removeprefix("gitdir:").strip())
-            git_metadata = (
-                candidate if candidate.is_absolute() else resolved_repo / candidate
-            ).resolve()
+    normalized_paths = tuple(
+        sorted(set(relative_paths), key=lambda value: value.as_posix())
+    )
+    if not normalized_paths:
+        raise QuestionPatchProposalError(
+            "canonical transactionの対象fileがありません。"
+        )
+    repo_namespace = hashlib.sha256(
+        str(resolved_repo).encode("utf-8")
+    ).hexdigest()
     lock_root = (
-        git_metadata / "question-patch-locks"
-        if git_metadata.is_dir()
-        else Path(tempfile.gettempdir()) / "exam-scraper-question-patch-locks"
+        Path(tempfile.gettempdir())
+        / "exam-scraper-question-patch-locks"
+        / repo_namespace
     )
     try:
         lock_root.mkdir(mode=0o700, parents=True, exist_ok=True)
+        if lock_root.is_symlink() or not lock_root.is_dir():
+            raise OSError("lock root is not a regular directory")
     except OSError as exc:
         raise QuestionPatchProposalError(
             "canonical transaction lock領域を作成できません。"
         ) from exc
-    handles = []
-    try:
-        normalized_paths = tuple(
-            sorted(set(relative_paths), key=lambda value: value.as_posix())
+    lock_keys = tuple(
+        (str(resolved_repo), relative.as_posix())
+        for relative in normalized_paths
+    )
+    with _CANONICAL_THREAD_LOCK_REGISTRY_GUARD:
+        thread_locks = tuple(
+            _CANONICAL_THREAD_LOCKS.setdefault(key, threading.RLock())
+            for key in lock_keys
         )
-        if not normalized_paths:
-            raise QuestionPatchProposalError(
-                "canonical transactionの対象fileがありません。"
-            )
+    acquired_thread_locks: list[Any] = []
+    handles: list[Any] = []
+    try:
+        for thread_lock in thread_locks:
+            thread_lock.acquire()
+            acquired_thread_locks.append(thread_lock)
         for relative in normalized_paths:
             lock_id = hashlib.sha256(
                 f"{resolved_repo}\0{relative.as_posix()}".encode("utf-8")
             ).hexdigest()
+            handle = None
             try:
                 handle = (lock_root / f"{lock_id}.lock").open("a+b")
                 fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
             except OSError as exc:
+                if handle is not None:
+                    handle.close()
                 raise QuestionPatchProposalError(
                     "canonical transaction lockを取得できません。"
                 ) from exc
@@ -160,6 +172,8 @@ def _canonical_file_locks(
         for handle in reversed(handles):
             fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
             handle.close()
+        for thread_lock in reversed(acquired_thread_locks):
+            thread_lock.release()
 
 
 def _safe_relative(repo_root: Path, value: str | Path) -> Path:

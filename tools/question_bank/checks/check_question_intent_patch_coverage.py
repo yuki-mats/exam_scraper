@@ -22,6 +22,9 @@ from scripts.check.patch_entry_matching import (  # noqa: E402
     bind_source_records,
     match_patch_entries,
 )
+from scripts.common.question_answer_contract import (  # noqa: E402
+    explicit_statement_question_intent,
+)
 
 VALID_QUESTION_INTENTS = {"select_correct", "select_incorrect"}
 REQUIRED_FIELDS = [
@@ -76,6 +79,17 @@ def compare_entries(
         intent = entry.get("questionIntent")
         if intent not in VALID_QUESTION_INTENTS:
             errors.append(f"index {idx}: questionIntent is invalid: {intent!r}")
+            continue
+        source_body = match.source.get("questionBodyText")
+        if not isinstance(source_body, str) or not source_body.strip():
+            source_body = match.source.get("originalQuestionBodyText")
+        explicit_intent = explicit_statement_question_intent(source_body)
+        if explicit_intent is not None and intent != explicit_intent:
+            errors.append(
+                f"index {idx}: questionIntent conflicts with the explicit "
+                f"statement request: expected {explicit_intent!r}, "
+                f"got {intent!r}"
+            )
 
     return errors
 
