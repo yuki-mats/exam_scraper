@@ -2420,6 +2420,7 @@ class QuestionReviewApplication:
         result = self.official_source_corrections.run(
             question,
             state_hash=str(request.get("stateHash") or ""),
+            category=str(request.get("category") or "question_content"),
             evidence_path=str(request.get("evidencePath") or ""),
             evidence_title=str(request.get("evidenceTitle") or ""),
             evidence_locator=str(request.get("evidenceLocator") or ""),

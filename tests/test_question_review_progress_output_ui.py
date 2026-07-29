@@ -16,6 +16,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         for control_id in (
             "official-source-dialog",
             "official-source-form",
+            "official-source-category",
             "official-source-path",
             "official-source-title",
             "official-source-locator",

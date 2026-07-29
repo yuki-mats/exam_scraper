@@ -7545,6 +7545,7 @@ function openOfficialSourceCorrection(question = state.detail) {
   }
   $("#official-source-question").textContent =
     `${question.questionLabel || question.sourceQuestionKey || question.id} / ${listGroupDisplayName(question.listGroupId)}`;
+  $("#official-source-category").value = "question_content";
   $("#official-source-path").value = "";
   $("#official-source-title").value = "";
   $("#official-source-locator").value = "";
@@ -7563,6 +7564,7 @@ async function submitOfficialSourceCorrection(event) {
   const request = {
     questionId: question.id,
     stateHash: question.stateHash,
+    category: $("#official-source-category").value,
     evidencePath: $("#official-source-path").value,
     evidenceTitle: $("#official-source-title").value,
     evidenceLocator: $("#official-source-locator").value,

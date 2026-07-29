@@ -159,6 +159,7 @@ class OfficialSourceCorrectionService:
         question: Mapping[str, Any],
         *,
         state_hash: str,
+        category: str = "question_content",
         evidence_path: str,
         evidence_title: str,
         evidence_locator: str,
@@ -173,6 +174,12 @@ class OfficialSourceCorrectionService:
             raise OfficialSourceCorrectionError(
                 "画面表示後に問題内容が更新されました。問題を開き直してください。"
             )
+        category_id = str(category or "").strip()
+        if category_id not in {"question_content", "correct_answer"}:
+            raise OfficialSourceCorrectionError(
+                "公式資料との照合対象は問題文・選択肢又は正答を指定してください。"
+            )
+        category_config = self.config["categories"][category_id]
 
         title = self._bounded_text(evidence_title, "資料名", 512)
         locator = self._bounded_text(evidence_locator, "該当箇所", 2048)
@@ -196,6 +203,7 @@ class OfficialSourceCorrectionService:
             "listGroupId": list_group_id,
             "originalQuestionId": original_question_id,
             "stateHash": current_state_hash,
+            "category": category_id,
             "evidenceHash": evidence_hash,
             "locator": locator,
             "transcription": transcription,
@@ -243,8 +251,8 @@ class OfficialSourceCorrectionService:
             "schemaVersion": "question-issue-batch/v1",
             "batchId": batch_id,
             "status": "awaiting_approval",
-            "category": "question_content",
-            "categoryLabel": self.config["categories"]["question_content"]["label"],
+            "category": category_id,
+            "categoryLabel": category_config["label"],
             "snapshotAt": created_at,
             "totalQuestions": 1,
             "totalCases": 1,
@@ -277,7 +285,7 @@ class OfficialSourceCorrectionService:
         )
         blind_a, blind_b, challenge = self.review_runner(
             work_item,
-            category="question_content",
+            category=category_id,
             current_record=current_record,
             store=_EmptyClaimsStore(),
             executor=executor,
@@ -347,7 +355,8 @@ class OfficialSourceCorrectionService:
             "workDirectory": str(work_dir.relative_to(self.repo_root)),
             "changedFields": sorted((challenge.get("changes") or {}).keys()),
             "message": (
-                "公式資料とのBlind A/B照合に一致し、問題文・選択肢の補正patchを保存しました。"
+                "公式資料とのBlind A/B照合に一致し、"
+                f"{category_config['label']}の補正patchを保存しました。"
             ),
         }
 

@@ -103,6 +103,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                 {
                     "questionId": "ui-q1",
                     "stateHash": "a" * 64,
+                    "category": "correct_answer",
                     "evidencePath": "tmp/official.png",
                     "evidenceTitle": "公式問題冊子",
                     "evidenceLocator": "問1",
@@ -117,6 +118,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(jobs.key, "question-review-qualification:sample")
         self.assertFalse(app_server.force)
         self.assertEqual(service.question["id"], "ui-q1")
+        self.assertEqual(service.options["category"], "correct_answer")
         self.assertEqual(service.options["evidence_title"], "公式問題冊子")
         self.assertEqual(result["decision"], "no_change")
 
