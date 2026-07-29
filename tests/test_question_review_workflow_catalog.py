@@ -276,7 +276,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 self.assertIn(text, prompt)
 
         self.assertIn("### 04の分類field", contract)
-        self.assertIn("肢別の再分類", contract)
+        self.assertIn("肢別分類とは別に確定する", contract)
 
     def test_originalization_policy_preserves_quality_with_minimum_edits(self):
         prompt = (ROOT / "prompt/05_prompt_originalize_question.md").read_text(
