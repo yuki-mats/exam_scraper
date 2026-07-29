@@ -4,6 +4,7 @@ import copy
 import hashlib
 import json
 import threading
+from contextlib import ExitStack, contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -301,6 +302,25 @@ class QuestionWorkVersionStore:
         self.root = self.repo_root / "output" / "question_review_console"
         self._cache: dict[Path, tuple[int, int, dict[str, Any]]] = {}
         self._lock = threading.RLock()
+        self._path_locks: dict[Path, threading.RLock] = {}
+
+    @contextmanager
+    def _path_transaction(self, paths: Iterable[Path]):
+        normalized_paths = tuple(
+            sorted(
+                {path.resolve() for path in paths},
+                key=lambda path: path.as_posix(),
+            )
+        )
+        with self._lock:
+            locks = [
+                self._path_locks.setdefault(path, threading.RLock())
+                for path in normalized_paths
+            ]
+        with ExitStack() as stack:
+            for lock in locks:
+                stack.enter_context(lock)
+            yield
 
     def path_for(self, qualification: str, list_group_id: str) -> Path:
         return (
@@ -311,7 +331,11 @@ class QuestionWorkVersionStore:
         )
 
     def load_group(self, qualification: str, list_group_id: str) -> dict[str, Any]:
-        return copy.deepcopy(self._load_group_payload(qualification, list_group_id))
+        path = self.path_for(qualification, list_group_id)
+        with self._path_transaction((path,)):
+            return copy.deepcopy(
+                self._load_group_payload(qualification, list_group_id)
+            )
 
     def _load_group_payload(
         self,
@@ -345,8 +369,9 @@ class QuestionWorkVersionStore:
     def record_for(self, question: Mapping[str, Any]) -> dict[str, Any] | None:
         if not question.get("qualification") or not question.get("listGroupId"):
             return None
-        payload = self._load_group_payload(
-            str(question["qualification"]), str(question["listGroupId"])
+        payload = self.load_group(
+            str(question["qualification"]),
+            str(question["listGroupId"]),
         )
         record = payload["questions"].get(_question_key_hash(question))
         if not isinstance(record, Mapping):
@@ -568,7 +593,11 @@ class QuestionWorkVersionStore:
         skipped_count = 0
         reconciled_count = 0
         paths: list[str] = []
-        with self._lock:
+        transaction_paths = [
+            self.path_for(qualification, list_group_id)
+            for qualification, list_group_id in grouped
+        ]
+        with self._path_transaction(transaction_paths):
             prepared: list[tuple[Path, dict[str, Any]]] = []
             for (qualification, list_group_id), items in sorted(grouped.items()):
                 payload = self.load_group(qualification, list_group_id)
@@ -719,7 +748,8 @@ class QuestionWorkVersionStore:
                     json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
                     + "\n",
                 )
-                self._cache.pop(path, None)
+                with self._lock:
+                    self._cache.pop(path, None)
                 paths.append(str(path.relative_to(self.repo_root)))
         return {
             "stageId": stage_id,
@@ -761,7 +791,8 @@ class QuestionWorkVersionStore:
         if not str(receipt_id).strip():
             raise ValueError("無効化receipt IDがありません。")
 
-        with self._lock:
+        path = self.path_for(qualification, list_group_id)
+        with self._path_transaction((path,)):
             payload = self.load_group(qualification, list_group_id)
             self._normalize_payload_versions(payload)
             matched: list[tuple[str, dict[str, Any], list[str] | None]] = []
@@ -837,13 +868,13 @@ class QuestionWorkVersionStore:
                     }
                 payload["schemaVersion"] = SCHEMA_VERSION
                 payload["updatedAt"] = recorded_at
-                path = self.path_for(qualification, list_group_id)
                 atomic_write(
                     path,
                     json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
                     + "\n",
                 )
-                self._cache.pop(path, None)
+                with self._lock:
+                    self._cache.pop(path, None)
 
         return {
             "qualification": qualification,
@@ -867,7 +898,7 @@ class QuestionWorkVersionStore:
         prepared: list[tuple[Path, dict[str, Any]]] = []
         stage_record_count = 0
         changed_paths: list[str] = []
-        with self._lock:
+        with self._path_transaction(paths):
             for path in paths:
                 qualification = path.parent.parent.name
                 list_group_id = path.parent.name
@@ -888,7 +919,8 @@ class QuestionWorkVersionStore:
                         )
                         + "\n",
                     )
-                    self._cache.pop(path, None)
+                    with self._lock:
+                        self._cache.pop(path, None)
         return {
             "schemaVersion": SCHEMA_VERSION,
             "executed": execute,

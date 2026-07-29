@@ -1,8 +1,13 @@
 import json
 import tempfile
+import threading
+import time
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from unittest.mock import patch
 
+import tools.question_review_console.work_versions as work_versions_module
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 
 
@@ -28,7 +33,131 @@ def policy(stage_id="question_type", *, fingerprint="fingerprint-1"):
     }
 
 
+def question_for(question_id, *, list_group_id):
+    item = question()
+    item.update(
+        id=f"question-{question_id}",
+        reviewKey=f"sample:{list_group_id}:question_{question_id}:original-{question_id}",
+        listGroupId=list_group_id,
+        originalQuestionId=f"original-{question_id}",
+    )
+    return item
+
+
 class QuestionWorkVersionStoreTests(unittest.TestCase):
+    def test_distinct_work_version_paths_write_concurrently(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            original_atomic_write = work_versions_module.atomic_write
+            rendezvous = threading.Barrier(2)
+            counter_lock = threading.Lock()
+            active_writes = 0
+            peak_writes = 0
+
+            def observed_atomic_write(path, content):
+                nonlocal active_writes, peak_writes
+                with counter_lock:
+                    active_writes += 1
+                    peak_writes = max(peak_writes, active_writes)
+                try:
+                    rendezvous.wait(timeout=3)
+                    original_atomic_write(path, content)
+                finally:
+                    with counter_lock:
+                        active_writes -= 1
+
+            items = [
+                question_for("1", list_group_id="2025"),
+                question_for("2", list_group_id="2026"),
+            ]
+            with patch.object(
+                work_versions_module,
+                "atomic_write",
+                side_effect=observed_atomic_write,
+            ):
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    futures = [
+                        executor.submit(
+                            store.record_stage,
+                            [item],
+                            policy(),
+                            run_id=f"run-{index}",
+                            source="validated_run",
+                        )
+                        for index, item in enumerate(items, start=1)
+                    ]
+                    receipts = [future.result(timeout=5) for future in futures]
+
+            saved_counts = [
+                len(
+                    json.loads(
+                        store.path_for("sample", group_id).read_text(
+                            encoding="utf-8"
+                        )
+                    )["questions"]
+                )
+                for group_id in ("2025", "2026")
+            ]
+
+        self.assertEqual(peak_writes, 2)
+        self.assertEqual(
+            [receipt["recordedCount"] for receipt in receipts],
+            [1, 1],
+        )
+        self.assertEqual(saved_counts, [1, 1])
+
+    def test_same_work_version_path_serializes_without_lost_updates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            original_atomic_write = work_versions_module.atomic_write
+            counter_lock = threading.Lock()
+            active_writes = 0
+            peak_writes = 0
+
+            def observed_atomic_write(path, content):
+                nonlocal active_writes, peak_writes
+                with counter_lock:
+                    active_writes += 1
+                    peak_writes = max(peak_writes, active_writes)
+                try:
+                    time.sleep(0.05)
+                    original_atomic_write(path, content)
+                finally:
+                    with counter_lock:
+                        active_writes -= 1
+
+            items = [
+                question_for("1", list_group_id="2026"),
+                question_for("2", list_group_id="2026"),
+            ]
+            with patch.object(
+                work_versions_module,
+                "atomic_write",
+                side_effect=observed_atomic_write,
+            ):
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    futures = [
+                        executor.submit(
+                            store.record_stage,
+                            [item],
+                            policy(),
+                            run_id=f"run-{index}",
+                            source="validated_run",
+                        )
+                        for index, item in enumerate(items, start=1)
+                    ]
+                    receipts = [future.result(timeout=5) for future in futures]
+            saved = json.loads(
+                store.path_for("sample", "2026").read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(peak_writes, 1)
+        self.assertEqual(
+            [receipt["recordedCount"] for receipt in receipts],
+            [1, 1],
+        )
+        self.assertEqual(len(saved["questions"]), 2)
+
     def test_manual_policy_is_tracked_only_after_its_patch_exists(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))
