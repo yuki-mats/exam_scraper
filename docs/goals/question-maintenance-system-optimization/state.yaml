@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T041
+active_task: T042
 tasks:
   - id: T001
     type: pm
@@ -2505,7 +2505,7 @@ tasks:
   - id: T041
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "第四改善である確認対象を固定する明示選択式の直列公開queueについて、現行UI・API・publisher・artifact契約を反証監査し、全体最適となる最大の安全な一改善を確定する"
     inputs:
@@ -2533,6 +2533,70 @@ tasks:
     stop_if:
       - "現行実装が既に明示選択式直列queueの契約を満たし、改善効果を示せない。"
       - "安全な一改善として切り出せず別アーキテクチャ変更が必須になる。"
+    receipt:
+      result: done
+      decision: approve_worker
+      summary: "現行の問題単位publisherとrepository排他は安全で、複数選択から確認対象を固定して終端readbackまで束ねる直列queueだけが不足している。"
+      evidence:
+        - "app.jsの複数選択は評価・再整備専用で、公開は単問dialog反復"
+        - "serverは複数評価APIを持つが、公開は問題単位APIだけ"
+        - "QuestionPublisherは既存ID、00_source hash、Firestore値、評価hash、即時readbackを問題単位で保護"
+        - "JobManagerのrepository-wide排他を単一writerに再利用可能"
+        - "publisher/server/workflow baseline 113 tests passed"
+      harness: codex
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T042
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "単問と複数問の公開入口を一つの明示選択batch APIへ統合し、順序付き対象を固定して既存QuestionPublisherを直列実行し、問題別readbackと親queue receiptを終端まで保存する"
+    inputs:
+      - "T041 approved worker package"
+      - "Current QuestionPublisher, server batch patterns and management UI"
+      - "Existing publish safety, server, workflow and UI tests"
+    constraints:
+      - "選択対象は1〜100問の明示questionIdsだけとし、filter又はgroupから暗黙展開しない。"
+      - "単問詳細と複数選択は同じbatch API、dialog、queueを使う。"
+      - "指定順、各単問preflight token、親tokenを固定し、一件でも開始時に公開不可なら書込前に全体を拒否する。"
+      - "既存QuestionPublisherのID照合、00_source fingerprint、評価、Firestore競合、upload、即時readbackを迂回しない。"
+      - "単一repository job内で常に1問ずつ実行し、問題単位失敗は記録して次問へ進む。自動再試行しない。"
+      - "親receiptはqueue identity、確認preflight、終端集計だけを持ち、問題内容、artifact、詳細readbackを複製しない。"
+      - "成功問はreadback matchかつsourceUnchanged=trueだけを成功として扱う。"
+      - "jobs.py、uploader、evaluation、inventory、workflow、00_sourceを変更しない。"
+    expected_output:
+      - "single and multi-question unified publication batch flow"
+      - "ordered serial execution with isolated failures"
+      - "durable parent publish queue receipt"
+      - "UI failed-only reselection after partial completion"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/publisher.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_publisher_safety.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/delivery_workflow.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "selection order, duplicate normalization, 1-100 limit, same qualification and parent token"
+      - "single detail and multi-selection use the same batch API"
+      - "selection mutation after preview does not change execution target"
+      - "one blocked preview causes zero writes"
+      - "q1 success, q2 failure, q3 success remains ordered with peak uploader 1"
+      - "parent manifest, preflight and result retain ordered terminal evidence"
+      - "publisher, server, workflow, jobs, evaluation and Firestore readback regressions"
+      - "full question-review regression, JS syntax, py_compile, 00_source immutability and diff check"
+    stop_if:
+      - "既存問題単位preflight、ID照合、00_source fingerprint又は即時readbackを迂回する必要がある。"
+      - "単問と複数問を同じbatch経路へ統合できない。"
+      - "許可外のproduction file変更が必要になる。"
+      - "並列Firestore writer又は選択外問題の暗黙追加が必要になる。"
     receipt: null
   - id: T999
     type: judge
