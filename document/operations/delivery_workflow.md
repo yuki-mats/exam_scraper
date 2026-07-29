@@ -86,11 +86,11 @@ python3 scripts/upload/upload_questions_to_firestore.py \
 
 ## 問題整備システムからの公開
 
-標準UXでは、問題詳細で最新評価が`publishReady=true`になった元問題だけ`この問題をFirestoreへ反映`を有効にします。元問題がFirestore上で複数documentへ分割されている場合は、その全documentを一つの公開単位として扱い、一部の選択肢だけを公開しません。
+標準UXでは、`公開可能`で絞り込んだ一覧から1〜100問を明示選択します。問題詳細の`この問題をFirestoreへ反映`も同じ公開queueへ一問だけ渡します。previewは指定順と各問題のpreflight tokenを一つの親tokenへ固定し、問題名、元問題ID、document数、追加・更新件数をすべて表示します。一問でも公開不可又は差分なしなら対象を黙って除外せず、全問題を書き込み前に停止します。
 
-preflightはproject ID、元問題ID、Firestore document数、追加・更新件数、元artifact SHA、`00_source` hash、確認時のFirestore値、問題内容のhash、適用工程の作業版、評価版を固定します。candidate又は既存Firestoreの`isDeleted=true`、既存documentの資格・年度・元問題ID不一致、対象外document、現行MAJOR未満・未記録、評価の古さがあれば停止します。確認dialogの明示操作後だけ、元artifactから対象問題のdocumentを抽出した一時artifactを既存uploaderへ渡します。
+確認dialogの明示操作後、serverは同じ問題集合を再previewし、単一のrepository排他jobで指定順に一問ずつ処理します。各問のpreflightはproject ID、元問題ID、Firestore document数、追加・更新件数、元artifact SHA、`00_source` hash、確認時のFirestore値、問題内容のhash、適用工程の作業版、評価版を固定します。candidate又は既存Firestoreの`isDeleted=true`、既存documentの資格・年度・元問題ID不一致、対象外document、現行MAJOR未満・未記録、評価の古さがあれば、その問は書き込みません。
 
-実行直前にFirestore、ローカルhash、`publishReady`を再確認し、uploader内でも確認時のFirestore値とdocument更新時刻を照合して同時更新の上書きを拒否します。反映直後に同じdocumentを自動readbackし、upload成功だけでは完了にせず、全対象fieldが一致した場合だけ`Firestore反映済み`とします。preflight、対象artifact、result、readbackは`output/question_review_console/publish_runs/<qualification>/<runId>/`へ保存し、worker開始後の早期停止でもfailed receiptを残します。
+各問は実行直前にFirestore、ローカルhash、`publishReady`を再確認し、uploader内でも確認時のFirestore値とdocument更新時刻を照合して同時更新の上書きを拒否します。反映直後に同じdocumentを自動readbackし、全対象fieldの一致と`00_source`不変を確認できた問だけ成功とします。一問の失敗は問題単位のfailed receiptへ残して次問へ進み、自動再試行しません。問題単位のpreflight、対象artifact、result、readbackは`publish_runs/`、選択順とqueue全体の終端集計は`publish_queue_runs/`へ分けて保存します。
 
 ## 公開境界
 

@@ -6,6 +6,7 @@ const QUALIFICATION_PREVIEW_TIMEOUT_MS = 900000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
 const AUTO_QUESTION_CONCURRENCY = 100;
+const MAX_PUBLICATION_QUEUE_SIZE = 100;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
 const DEFAULT_QUESTION_SORT = "updated_desc";
 const QUESTION_LIST_CACHE_VERSION = 4;
@@ -254,6 +255,7 @@ const state = {
   workflowDialog: { mode: "", preview: null, running: false },
   readbackDialog: { preview: null, running: false, requestSequence: 0 },
   selectedQuestionIds: new Set(),
+  publicationRetryQuestionIds: new Set(),
   evaluationEnabled: false,
 };
 
@@ -1221,8 +1223,13 @@ function bindControls() {
   }
   $("#select-visible").addEventListener("change", toggleVisibleQuestionSelection);
   $("#bulk-evaluate-button").addEventListener("click", () => {
-    if ($("#evaluation-status-select").value === "needsRework") {
+    const evaluationStatus = $("#evaluation-status-select").value;
+    if (evaluationStatus === "needsRework") {
       openSelectedQuestionMaintenance();
+      return;
+    }
+    if (evaluationStatus === "publishReady") {
+      openPublicationDialog([...state.selectedQuestionIds]);
       return;
     }
     openEvaluationDialog([...state.selectedQuestionIds]);
@@ -1252,6 +1259,9 @@ function bindControls() {
   $("#production-confirm").addEventListener("change", updateWorkflowExecuteState);
   $("#workflow-dialog").addEventListener("cancel", (event) => {
     if (state.workflowDialog.running) event.preventDefault();
+  });
+  $("#workflow-dialog").addEventListener("close", () => {
+    if (!state.workflowDialog.running) invalidateWorkflowDialogRequest();
   });
   $("#readback-form").addEventListener("submit", executeScopedReadback);
   $("#readback-dialog").addEventListener("cancel", (event) => {
@@ -4616,9 +4626,7 @@ async function loadQuestions(preserveSelection, append = false, options = {}) {
     pruneDetailCache(payload.questions);
     if (!append) {
       const visibleIds = new Set(state.questions.map((question) => question.id));
-      for (const questionId of state.selectedQuestionIds) {
-        if (!visibleIds.has(questionId)) state.selectedQuestionIds.delete(questionId);
-      }
+      pruneQuestionSelection(visibleIds);
     }
     state.questionPage.filteredCount = payload.filteredCount
       ?? payload.filteredCountLowerBound
@@ -4748,7 +4756,10 @@ function renderQueue() {
     );
     select.addEventListener("change", () => {
       if (select.checked) state.selectedQuestionIds.add(question.id);
-      else state.selectedQuestionIds.delete(question.id);
+      else {
+        state.selectedQuestionIds.delete(question.id);
+        state.publicationRetryQuestionIds.delete(question.id);
+      }
       updateEvaluationSelectionControls();
     });
     selectLabel.append(select);
@@ -4893,13 +4904,28 @@ function workVersionBadge(question) {
 
 function clearEvaluationSelection() {
   state.selectedQuestionIds.clear();
+  state.publicationRetryQuestionIds.clear();
   updateEvaluationSelectionControls();
+}
+
+function pruneQuestionSelection(visibleIds) {
+  for (const questionId of state.selectedQuestionIds) {
+    if (
+      !visibleIds.has(questionId)
+      && !state.publicationRetryQuestionIds.has(questionId)
+    ) {
+      state.selectedQuestionIds.delete(questionId);
+    }
+  }
 }
 
 function toggleVisibleQuestionSelection(event) {
   for (const question of state.questions) {
     if (event.target.checked) state.selectedQuestionIds.add(question.id);
-    else state.selectedQuestionIds.delete(question.id);
+    else {
+      state.selectedQuestionIds.delete(question.id);
+      state.publicationRetryQuestionIds.delete(question.id);
+    }
   }
   renderQueue();
 }
@@ -4921,10 +4947,26 @@ function updateEvaluationSelectionControls() {
   const count = state.selectedQuestionIds.size;
   const action = $("#bulk-evaluate-button");
   if (action) {
-    const reworkSelection = $("#evaluation-status-select").value === "needsRework";
+    const evaluationStatus = $("#evaluation-status-select").value;
+    const reworkSelection =
+      $("#evaluation-status-select").value === "needsRework";
+    const publicationSelection = evaluationStatus === "publishReady";
+    const publicationSelectionTooLarge =
+      publicationSelection && count > MAX_PUBLICATION_QUEUE_SIZE;
     action.disabled = count === 0
-      || (reworkSelection ? !qualificationMaintenanceEntryStage() : !state.evaluationEnabled);
-    action.textContent = reworkSelection
+      || publicationSelectionTooLarge
+      || (reworkSelection
+        ? !qualificationMaintenanceEntryStage()
+        : publicationSelection
+          ? false
+          : !state.evaluationEnabled);
+    action.textContent = publicationSelectionTooLarge
+      ? `Firestore反映は最大${MAX_PUBLICATION_QUEUE_SIZE}問（${count}問選択中）`
+      : publicationSelection
+      ? count
+        ? `選択した${count}問をFirestoreへ反映`
+        : "選択した問題をFirestoreへ反映"
+      : reworkSelection
       ? count
         ? `選択した${count}問を再整備`
         : "選択した問題を再整備"
@@ -4935,6 +4977,9 @@ function updateEvaluationSelectionControls() {
   const continuousAction = $("#continuous-evaluate-button");
   if (continuousAction) {
     continuousAction.disabled = !state.evaluationEnabled;
+    continuousAction.hidden = ["needsRework", "publishReady"].includes(
+      $("#evaluation-status-select").value,
+    );
   }
 }
 
@@ -6018,9 +6063,9 @@ function renderPipelineActions(question) {
     actions.append(actionWithHelp(
       "この問題をFirestoreへ反映",
       "primary-button",
-      openPublishDialog,
+      () => openPublicationDialog([question.id]),
       "Firestoreへ反映",
-      "評価に合格したこの元問題に属する全documentだけを、確認画面を経て本番へ反映します。",
+      "この問題を明示選択の公開queueへ入れ、確認画面を経て本番へ反映します。",
     ));
   } else {
     status.append(
@@ -6380,12 +6425,9 @@ function groupApiPath(action, listGroupIdOverride = "") {
   return `/api/groups/${encodeURIComponent(state.qualification)}/${encodeURIComponent(listGroupId)}/${action}`;
 }
 
-function questionApiPath(action) {
-  if (!state.detail?.id) throw new Error("対象問題を選択してください。");
-  return `/api/questions/${encodeURIComponent(state.detail.id)}/${action}`;
-}
-
 function resetWorkflowDialog(mode, title) {
+  const requestSequence =
+    Number(state.workflowDialog.requestSequence || 0) + 1;
   state.workflowDialog = {
     mode,
     preview: null,
@@ -6394,12 +6436,15 @@ function resetWorkflowDialog(mode, title) {
     continuousQueue: false,
     qualification: "",
     listGroupId: "",
+    requestSequence,
   };
   $("#workflow-dialog-title").textContent = title;
   $("#workflow-dialog-message").textContent = "確認情報を取得しています。";
   $("#workflow-dialog-summary").replaceChildren();
   $("#production-confirm-wrap").hidden = true;
   $("#production-confirm").checked = false;
+  $("#production-confirm-wrap span").textContent =
+    "本番Firestore「repaso-rbaqy4」へ、表示された差分だけを反映する";
   $("#job-status").hidden = true;
   $("#job-status").textContent = "";
   $("#job-log-wrap").hidden = true;
@@ -6409,6 +6454,20 @@ function resetWorkflowDialog(mode, title) {
   $("#workflow-cancel").hidden = false;
   for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
   if (!$("#workflow-dialog").open) $("#workflow-dialog").showModal();
+  return requestSequence;
+}
+
+function workflowDialogRequestIsCurrent(requestSequence, mode = "") {
+  return state.workflowDialog.requestSequence === requestSequence
+    && (!mode || state.workflowDialog.mode === mode);
+}
+
+function invalidateWorkflowDialogRequest() {
+  state.workflowDialog.requestSequence =
+    Number(state.workflowDialog.requestSequence || 0) + 1;
+  state.workflowDialog.mode = "";
+  state.workflowDialog.preview = null;
+  state.workflowDialog.questionIds = [];
 }
 
 function summaryMetric(label, value, tone = "") {
@@ -6427,9 +6486,10 @@ function stageSummary(preview, stage, label) {
 }
 
 async function openSyncDialog(autoStart = false, listGroupId = "") {
-  resetWorkflowDialog("sync", "パッチ変更を反映");
+  const requestSequence = resetWorkflowDialog("sync", "パッチ変更を反映");
   try {
     const preview = await api(groupApiPath("sync-preview", listGroupId), { method: "POST", body: {} });
+    if (!workflowDialogRequestIsCurrent(requestSequence, "sync")) return;
     state.workflowDialog.preview = preview;
     $("#workflow-dialog-message").textContent = preview.needsSync
       ? preview.allowMissingAnswerResult
@@ -6449,6 +6509,7 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
         groupApiPath("failed-delta-reconciliation-preview", listGroupId),
         { method: "POST", body: {} },
       );
+      if (!workflowDialogRequestIsCurrent(requestSequence, "sync")) return;
       if (reconciliation.status !== "ready") {
         throw new Error("旧run由来の未確定patchを安全に検証できません。");
       }
@@ -6506,6 +6567,7 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
     if (!preview.needsSync) state.workflowDialog.mode = "";
     if (autoStart && preview.needsSync) await startWorkflowExecution();
   } catch (error) {
+    if (!workflowDialogRequestIsCurrent(requestSequence)) return;
     showWorkflowError(error);
   }
 }
@@ -6515,7 +6577,7 @@ async function openEvaluationDialog(
   { continuousQueue = false } = {},
 ) {
   const selected = [...new Set(questionIds)].filter(Boolean);
-  resetWorkflowDialog(
+  const requestSequence = resetWorkflowDialog(
     "evaluation",
     continuousQueue
       ? "評価待ちを100問並列で連続評価"
@@ -6537,6 +6599,7 @@ async function openEvaluationDialog(
       method: "POST",
       body: requestBody,
     });
+    if (!workflowDialogRequestIsCurrent(requestSequence, "evaluation")) return;
     state.workflowDialog.preview = preview;
     $("#workflow-dialog-summary").append(
       summaryMetric("資格", qualificationDisplayName(preview.qualification)),
@@ -6567,58 +6630,82 @@ async function openEvaluationDialog(
     $("#workflow-execute").textContent = `${preview.evaluableCount}問の評価を開始`;
     $("#workflow-execute").disabled = false;
   } catch (error) {
+    if (!workflowDialogRequestIsCurrent(requestSequence)) return;
     showWorkflowError(error);
   }
 }
 
-async function openPublishDialog() {
-  resetWorkflowDialog("publish", "この問題をFirestoreへ反映");
+function appendPublicationQueueItems(summary, preview) {
+  for (const [index, item] of (preview.items || []).entries()) {
+    const label = item.questionLabel
+      || item.originalQuestionId
+      || item.questionId;
+    const identity = item.originalQuestionId
+      ? `元問題 ${item.originalQuestionId}`
+      : `問題ID ${item.questionId}`;
+    const detail = item.canPublish
+      ? `${identity}・document ${item.documentCount || 0}件・更新 ${item.updateCount || 0}件・追加 ${item.missingCount || 0}件`
+      : `${identity}・${item.reason || "本番反映の前提条件を満たしていません。"}`;
+    summary.append(
+      summaryMetric(
+        `${index + 1}. ${label}`,
+        detail,
+        item.canPublish ? "good" : "danger",
+      ),
+    );
+  }
+}
+
+async function openPublicationDialog(questionIds) {
+  const selected = [...new Set(questionIds || [])].filter(Boolean);
+  const requestSequence = resetWorkflowDialog(
+    "publication",
+    selected.length === 1
+      ? "この問題をFirestoreへ反映"
+      : "選択した問題をFirestoreへ反映",
+  );
+  state.workflowDialog.questionIds = selected;
   try {
-    const preview = await api(questionApiPath("publish-preview"), { method: "POST", body: {} });
+    const preview = await api("/api/publications/preview", {
+      method: "POST",
+      body: { questionIds: selected },
+    });
+    if (!workflowDialogRequestIsCurrent(requestSequence, "publication")) return;
     state.workflowDialog.preview = preview;
+    state.workflowDialog.questionIds = [...preview.questionIds];
     const summary = $("#workflow-dialog-summary");
     summary.append(
-      summaryMetric("対象問題", preview.questionLabel || preview.originalQuestionId),
-      summaryMetric("対象年度", listGroupDisplayName(preview.listGroupId)),
+      summaryMetric("確認対象", `${preview.selectedCount}問`),
       summaryMetric("本番project", preview.projectId),
-    );
-    if (!preview.publishReady) {
-      $("#workflow-dialog-message").textContent = preview.reason || "本番反映の前提条件を満たしていません。";
-      summary.append(summaryMetric("評価状態", EVALUATION_LABELS[preview.evaluationStatus] || preview.evaluationStatus, "danger"));
-      state.workflowDialog.mode = "";
-      $("#workflow-execute").textContent = "閉じる";
-      $("#workflow-execute").disabled = false;
-      return;
-    }
-
-    summary.append(
       summaryMetric("全document", `${preview.documentCount}件`),
       summaryMetric("更新", `${preview.updateCount || 0}件`, preview.updateCount ? "warning" : "good"),
-      summaryMetric("追加", `${preview.missingCount}件`, preview.missingCount ? "warning" : "good"),
-      summaryMetric("成果物SHA", String(preview.artifactHash || "").slice(0, 12)),
+      summaryMetric("追加", `${preview.missingCount || 0}件`, preview.missingCount ? "warning" : "good"),
     );
-    if (!preview.canPublish) {
-      $("#workflow-dialog-message").textContent = preview.status === "match"
-        ? "この問題のupload-readyと本番Firestoreは一致しています。反映は不要です。"
-        : preview.reason || "安全条件を満たさないため、本番反映を開始できません。";
+    appendPublicationQueueItems(summary, preview);
+    if (!preview.canStart) {
+      $("#workflow-dialog-message").textContent =
+        `${preview.blockedCount || 0}問が本番反映の前提条件を満たしていません。選択対象を自動で除外せず、開始を停止しました。`;
       state.workflowDialog.mode = "";
       $("#workflow-execute").textContent = "閉じる";
       $("#workflow-execute").disabled = false;
       return;
     }
     $("#workflow-dialog-message").textContent =
-      "評価に合格したこの元問題の全documentだけを本番へ差分反映し、直後にreadbackします。";
+      "表示した問題を上から1問ずつ本番へ差分反映し、各問の直後にreadbackします。一問が失敗しても、対象を変えずに次の問題へ進みます。";
+    $("#production-confirm-wrap span").textContent =
+      `本番Firestore「${preview.projectId}」へ、表示した${preview.selectedCount}問を指定順に1問ずつ反映する`;
     $("#production-confirm-wrap").hidden = false;
-    $("#workflow-execute").textContent = "本番へ反映";
+    $("#workflow-execute").textContent = `${preview.selectedCount}問を本番へ反映`;
     updateWorkflowExecuteState();
   } catch (error) {
+    if (!workflowDialogRequestIsCurrent(requestSequence)) return;
     showWorkflowError(error);
   }
 }
 
 function updateWorkflowExecuteState() {
   if (state.workflowDialog.running) return;
-  if (state.workflowDialog.mode === "publish") {
+  if (state.workflowDialog.mode === "publication") {
     $("#workflow-execute").disabled = !$("#production-confirm").checked;
   }
 }
@@ -6641,7 +6728,7 @@ async function startWorkflowExecution() {
     $("#workflow-dialog").close();
     return;
   }
-  if (mode === "publish" && !$("#production-confirm").checked) return;
+  if (mode === "publication" && !$("#production-confirm").checked) return;
 
   setWorkflowRunning(true);
   try {
@@ -6666,9 +6753,15 @@ async function startWorkflowExecution() {
           previewToken: preview.previewToken,
         }
         : { questionIds, previewToken: preview.previewToken };
+    } else if (mode === "publication") {
+      path = "/api/publications/start";
+      body = {
+        questionIds: [...questionIds],
+        previewToken: preview.previewToken,
+        confirmedProduction: true,
+      };
     } else {
-      path = questionApiPath("publish");
-      body = { preflightToken: preview.preflightToken, confirmedProduction: true };
+      throw new Error("実行する処理を確認できません。");
     }
     const job = await api(path, {
       method: "POST",
@@ -6702,7 +6795,7 @@ async function pollJob(jobId, mode) {
       continue;
     }
     if (job.status === "failed") throw new Error(job.error || "処理に失敗しました。");
-    await refreshAfterWorkflow(mode);
+    await refreshAfterWorkflow(mode, job.result);
     state.workflowDialog.running = false;
     state.workflowDialog.mode = "";
     $("#job-status").textContent = job.result?.message || "完了しました。";
@@ -6716,13 +6809,23 @@ async function pollJob(jobId, mode) {
   }
 }
 
-async function refreshAfterWorkflow(mode) {
+async function refreshAfterWorkflow(mode, result = null) {
   if (mode === "sync" && state.exceptionsOnly) {
     state.exceptionsOnly = false;
     $("#exceptions-button").classList.remove("active");
     $("#all-button").classList.add("active");
   }
   if (mode === "evaluation") clearEvaluationSelection();
+  if (mode === "publication") {
+    state.selectedQuestionIds.clear();
+    state.publicationRetryQuestionIds.clear();
+    for (const item of result?.items || []) {
+      if (item.status !== "succeeded" && item.questionId) {
+        state.selectedQuestionIds.add(item.questionId);
+        state.publicationRetryQuestionIds.add(item.questionId);
+      }
+    }
+  }
   await loadQualificationWorkflow(true);
   if (mode === "sync" || mode === "reconcile") await loadQualificationRuns();
   await loadQuestions(true);

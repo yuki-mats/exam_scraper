@@ -63,7 +63,11 @@ from tools.question_review_console.patch_editor import DirectEditError, PatchEdi
 from tools.question_review_console.process_lease import (
     review_console_process_lease,
 )
-from tools.question_review_console.publisher import PublicationError, QuestionPublisher
+from tools.question_review_console.publisher import (
+    MAX_QUESTION_PUBLISH_QUEUE_SIZE,
+    PublicationError,
+    QuestionPublisher,
+)
 from tools.question_review_console.question_detail_read_model import (
     QUESTION_DETAIL_READ_MODEL_SCHEMA,
     parse_question_detail_cache_key,
@@ -1030,6 +1034,54 @@ class QuestionReviewApplication:
             except Exception as exc:  # noqa: BLE001
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
+        if path in {"/api/publications/preview", "/api/publications/start"}:
+            question_ids = _body_string_list(body, "questionIds")
+            if not question_ids:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "公開するquestionIdsを1問以上指定してください。",
+                )
+            if len(question_ids) > MAX_QUESTION_PUBLISH_QUEUE_SIZE:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    f"公開queueは最大{MAX_QUESTION_PUBLISH_QUEUE_SIZE}問です。",
+                )
+            try:
+                if (
+                    path.endswith("/start")
+                    and body.get("confirmedProduction") is not True
+                ):
+                    raise PublicationError("本番反映の確認が必要です。")
+                questions = [
+                    self._question(question_id, {}) for question_id in question_ids
+                ]
+                preview = self.question_publisher.preview_many(questions)
+                if path.endswith("/preview"):
+                    return HTTPStatus.OK, preview
+                token = str(body.get("previewToken") or "")
+                if not self.question_publisher.queue_token_matches(preview, token):
+                    raise PublicationError(
+                        "確認後に選択問題、評価結果又はFirestoreが更新されました。"
+                    )
+                if not preview.get("canStart"):
+                    raise PublicationError(
+                        "選択した問題に本番反映できない対象が含まれています。"
+                    )
+                job = self.jobs.start(
+                    kind="question-publish-queue",
+                    key=REPOSITORY_OPERATION_KEY,
+                    worker=lambda emit: self._run_question_publish_queue_job(
+                        question_ids,
+                        preview,
+                        emit,
+                    ),
+                )
+                return HTTPStatus.ACCEPTED, job
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except PublicationError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
         if path in {"/api/evaluations/preview", "/api/evaluations/start"}:
             continuous_queue = body.get("continuousQueue") is True
             if continuous_queue:
@@ -1106,29 +1158,6 @@ class QuestionReviewApplication:
                         key=REPOSITORY_OPERATION_KEY,
                         worker=lambda emit: self._run_evaluation_job(
                             question_id, token, emit
-                        ),
-                    )
-                    return HTTPStatus.ACCEPTED, job
-                if action == "publish-preview":
-                    return HTTPStatus.OK, self.question_publisher.preview(question)
-                if action == "publish":
-                    if body.get("confirmedProduction") is not True:
-                        raise PublicationError("本番反映の確認が必要です。")
-                    preview = self.question_publisher.preview(question)
-                    token = str(body.get("preflightToken") or "")
-                    if not self.question_publisher.token_matches(preview, token):
-                        raise PublicationError(
-                            "確認後に問題、評価結果又はFirestoreが更新されました。"
-                        )
-                    if not preview.get("canPublish"):
-                        raise PublicationError(
-                            str(preview.get("reason") or "本番反映する差分がありません。")
-                        )
-                    job = self.jobs.start(
-                        kind="question-publish",
-                        key=REPOSITORY_OPERATION_KEY,
-                        worker=lambda emit: self._run_question_publish_job(
-                            question_id, preview, emit
                         ),
                     )
                     return HTTPStatus.ACCEPTED, job
@@ -1213,7 +1242,7 @@ class QuestionReviewApplication:
                     return HTTPStatus.ACCEPTED, job
                 if action in {"publish-preview", "publish"}:
                     raise PublicationError(
-                        "グループ単位の本番反映は無効です。評価合格した問題を問題詳細から反映してください。"
+                        "グループ単位の本番反映は無効です。評価・公開画面で問題を明示選択してください。"
                     )
             except JobConflictError as exc:
                 raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
@@ -2539,18 +2568,33 @@ class QuestionReviewApplication:
                 break
         return questions
 
-    def _run_question_publish_job(
+    def _run_question_publish_queue_job(
         self,
-        question_id: str,
+        question_ids: list[str],
         preflight: Mapping[str, Any],
         emit: Any,
     ) -> dict[str, Any]:
-        question = self._question(question_id, {})
-        result = self.question_publisher.run(question, preflight, emit)
-        readback = result.get("readback")
-        if isinstance(readback, Mapping):
-            self._store_live_result(question_id, dict(readback))
-        return result
+        questions = [
+            self._question(question_id, {}) for question_id in question_ids
+        ]
+
+        def store_readback(
+            question: Mapping[str, Any],
+            result: Mapping[str, Any],
+        ) -> None:
+            readback = result.get("readback")
+            if isinstance(readback, Mapping):
+                self._store_live_result(
+                    str(question["id"]),
+                    dict(readback),
+                )
+
+        return self.question_publisher.run_many(
+            questions,
+            preflight,
+            emit,
+            on_success=store_readback,
+        )
 
     def _run_sync_job(
         self,
@@ -3172,8 +3216,6 @@ def _question_action(path: str) -> tuple[str, str] | None:
     if action not in {
         "evaluation-preview",
         "evaluation",
-        "publish-preview",
-        "publish",
     }:
         return None
     return urllib.parse.unquote(parts[2]), action

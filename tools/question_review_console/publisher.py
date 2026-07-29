@@ -36,6 +36,9 @@ class PublicationError(RuntimeError):
     pass
 
 
+MAX_QUESTION_PUBLISH_QUEUE_SIZE = 100
+
+
 def _source_fingerprint(
     repo_root: Path,
     qualification: str,
@@ -458,6 +461,350 @@ class QuestionPublisher:
         self.secret = secret.encode("utf-8")
         self.command_runner = command_runner or GroupPublisher._run_command
 
+    def preview_many(
+        self,
+        questions: list[Mapping[str, Any]],
+    ) -> dict[str, Any]:
+        normalized = self._normalize_queue_questions(questions)
+        qualification = str(normalized[0]["qualification"])
+        items: list[dict[str, Any]] = []
+        for question in normalized:
+            try:
+                item = self.preview(question)
+            except PublicationError as exc:
+                item = {
+                    "questionId": str(question["id"]),
+                    "reviewKey": str(question.get("reviewKey") or ""),
+                    "originalQuestionId": str(
+                        question.get("originalQuestionId") or ""
+                    ),
+                    "qualification": str(question["qualification"]),
+                    "listGroupId": str(question.get("listGroupId") or ""),
+                    "questionLabel": str(
+                        question.get("questionLabel")
+                        or question.get("sourceQuestionKey")
+                        or question["id"]
+                    ),
+                    "projectId": PRODUCTION_PROJECT_ID,
+                    "publishReady": False,
+                    "canPublish": False,
+                    "reason": str(exc),
+                }
+            if str(item.get("qualification") or "") != qualification:
+                raise PublicationError(
+                    "公開queueには同じ資格の問題だけを指定してください。"
+                )
+            items.append(item)
+
+        question_ids = [str(question["id"]) for question in normalized]
+        blocked_items = [item for item in items if item.get("canPublish") is not True]
+        can_start = not blocked_items
+        preview_token = ""
+        if can_start:
+            preview_token = self._queue_preview_token(
+                qualification,
+                question_ids,
+                items,
+            )
+        return {
+            "schemaVersion": "question-publish-queue-preview/v1",
+            "qualification": qualification,
+            "projectId": PRODUCTION_PROJECT_ID,
+            "questionIds": question_ids,
+            "selectedCount": len(items),
+            "documentCount": sum(int(item.get("documentCount") or 0) for item in items),
+            "updateCount": sum(int(item.get("updateCount") or 0) for item in items),
+            "missingCount": sum(int(item.get("missingCount") or 0) for item in items),
+            "blockedCount": len(blocked_items),
+            "canStart": can_start,
+            "previewToken": preview_token,
+            "items": items,
+        }
+
+    def run_many(
+        self,
+        questions: list[Mapping[str, Any]],
+        preflight: Mapping[str, Any],
+        emit: Callable[[str], None],
+        *,
+        on_success: Callable[[Mapping[str, Any], Mapping[str, Any]], None]
+        | None = None,
+    ) -> dict[str, Any]:
+        normalized = self._normalize_queue_questions(questions)
+        question_ids = [str(question["id"]) for question in normalized]
+        expected_question_ids = [
+            str(value) for value in preflight.get("questionIds") or []
+        ]
+        items = preflight.get("items")
+        if (
+            question_ids != expected_question_ids
+            or not isinstance(items, list)
+            or len(items) != len(normalized)
+            or preflight.get("canStart") is not True
+            or not str(preflight.get("previewToken") or "")
+        ):
+            raise PublicationError("確認した公開queueの対象と実行対象が一致しません。")
+        for question_id, item in zip(question_ids, items, strict=True):
+            if (
+                not isinstance(item, Mapping)
+                or str(item.get("questionId") or "") != question_id
+                or item.get("canPublish") is not True
+                or not str(item.get("preflightToken") or "")
+            ):
+                raise PublicationError(
+                    "確認した問題単位preflightと公開queueが一致しません。"
+                )
+
+        qualification = str(normalized[0]["qualification"])
+        expected_preview_token = self._queue_preview_token(
+            qualification,
+            question_ids,
+            items,
+        )
+        if not hmac.compare_digest(
+            expected_preview_token,
+            str(preflight.get("previewToken") or ""),
+        ):
+            raise PublicationError("確認した公開queue tokenが一致しません。")
+        started_at = self._now()
+        seed = json.dumps(
+            {
+                "qualification": qualification,
+                "questionIds": question_ids,
+                "previewToken": str(preflight["previewToken"]),
+                "startedAt": started_at,
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        queue_run_id = (
+            datetime.now().strftime("%Y%m%dT%H%M%S%f")
+            + "-"
+            + hashlib.sha256(seed.encode("utf-8")).hexdigest()[:8]
+        )
+        run_dir = (
+            self.repo_root
+            / "output"
+            / "question_review_console"
+            / "publish_queue_runs"
+            / qualification
+            / queue_run_id
+        )
+        manifest_path = run_dir / "manifest.json"
+        result_path = run_dir / "result.json"
+        manifest = {
+            "schemaVersion": "question-publish-queue-run/v1",
+            "queueRunId": queue_run_id,
+            "status": "running",
+            "qualification": qualification,
+            "projectId": PRODUCTION_PROJECT_ID,
+            "questionIds": question_ids,
+            "selectedCount": len(question_ids),
+            "startedAt": started_at,
+            "items": [
+                {
+                    "position": position,
+                    "questionId": question_id,
+                    "questionLabel": str(
+                        item.get("questionLabel")
+                        or item.get("originalQuestionId")
+                        or question_id
+                    ),
+                    "status": "queued",
+                }
+                for position, (question_id, item) in enumerate(
+                    zip(question_ids, items, strict=True),
+                    start=1,
+                )
+            ],
+        }
+        try:
+            self._write_json(manifest_path, manifest)
+            self._write_json(run_dir / "preflight.json", dict(preflight))
+        except Exception as exc:
+            raise PublicationError(
+                "公開queueの確認receiptを保存できないため開始しません。"
+            ) from exc
+
+        item_results: list[dict[str, Any]] = []
+        try:
+            for position, (question, item_preflight) in enumerate(
+                zip(normalized, items, strict=True),
+                start=1,
+            ):
+                question_id = str(question["id"])
+                manifest["items"][position - 1]["status"] = "running"
+                self._write_json(manifest_path, manifest)
+                emit(
+                    f"公開queue {position}/{len(normalized)}: "
+                    f"{item_preflight.get('questionLabel') or question_id}"
+                )
+                try:
+                    publication = self.run(question, item_preflight, emit)
+                    readback = publication.get("readback")
+                    publish_run_id = str(publication.get("runId") or "")
+                    if (
+                        publication.get("status") != "succeeded"
+                        or not publish_run_id
+                        or not isinstance(readback, Mapping)
+                        or readback.get("status") != "match"
+                        or readback.get("sourceUnchanged") is not True
+                    ):
+                        raise PublicationError(
+                            "問題単位の公開readbackを成功として確認できません。"
+                        )
+                    item_result = {
+                        "position": position,
+                        "questionId": question_id,
+                        "status": "succeeded",
+                        "publishRunId": publish_run_id,
+                        "publishedCount": int(
+                            publication.get("publishedCount") or 0
+                        ),
+                        "documentCount": int(
+                            publication.get("documentCount") or 0
+                        ),
+                        "readback": {
+                            "status": "match",
+                            "sourceUnchanged": True,
+                            "documentCount": int(
+                                readback.get("documentCount") or 0
+                            ),
+                        },
+                    }
+                    if on_success is not None:
+                        try:
+                            on_success(question, publication)
+                        except Exception as exc:  # noqa: BLE001
+                            warning = (
+                                "公開readbackは成功しましたが、表示用cacheを"
+                                f"更新できませんでした: {exc}"
+                            )
+                            item_result["warnings"] = [warning]
+                            emit(f"警告: {warning}")
+                except Exception as exc:  # noqa: BLE001
+                    item_result = {
+                        "position": position,
+                        "questionId": question_id,
+                        "status": "failed",
+                        "publishRunId": str(
+                            getattr(exc, "publish_run_id", "") or ""
+                        ),
+                        "error": str(exc),
+                    }
+                    emit(f"公開queue {position}問目を完了できませんでした: {exc}")
+                item_results.append(item_result)
+                manifest["items"][position - 1] = copy.deepcopy(item_result)
+                self._write_json(manifest_path, manifest)
+
+            succeeded_count = sum(
+                item.get("status") == "succeeded" for item in item_results
+            )
+            failed_count = len(item_results) - succeeded_count
+            status = (
+                "all_succeeded"
+                if failed_count == 0
+                else "partial"
+                if succeeded_count
+                else "failed"
+            )
+            finished_at = self._now()
+            result = {
+                "schemaVersion": "question-publish-queue-result/v1",
+                "queueRunId": queue_run_id,
+                "status": status,
+                "qualification": qualification,
+                "questionIds": question_ids,
+                "selectedCount": len(question_ids),
+                "succeededCount": succeeded_count,
+                "failedCount": failed_count,
+                "items": item_results,
+                "startedAt": started_at,
+                "finishedAt": finished_at,
+                "message": (
+                    f"{succeeded_count}問を本番Firestoreへ反映し、"
+                    f"{failed_count}問は反映せずに終了しました。"
+                ),
+            }
+            self._write_json(result_path, result)
+            manifest["status"] = status
+            manifest["finishedAt"] = finished_at
+            manifest["succeededCount"] = succeeded_count
+            manifest["failedCount"] = failed_count
+            self._write_json(manifest_path, manifest)
+            return result
+        except Exception as exc:
+            finished_at = self._now()
+            succeeded_count = sum(
+                item.get("status") == "succeeded" for item in item_results
+            )
+            terminal_items = [copy.deepcopy(item) for item in item_results]
+            for position in range(len(terminal_items) + 1, len(question_ids) + 1):
+                item_preflight = items[position - 1]
+                terminal_items.append(
+                    {
+                        "position": position,
+                        "questionId": question_ids[position - 1],
+                        "questionLabel": str(
+                            item_preflight.get("questionLabel")
+                            or item_preflight.get("originalQuestionId")
+                            or question_ids[position - 1]
+                        ),
+                        "status": "not_run",
+                        "reason": (
+                            "公開queue自体のエラーにより、この問題は実行しませんでした。"
+                        ),
+                    }
+                )
+            failed_count = len(question_ids) - succeeded_count
+            not_run_count = sum(
+                item.get("status") == "not_run" for item in terminal_items
+            )
+            failed_result = {
+                "schemaVersion": "question-publish-queue-result/v1",
+                "queueRunId": queue_run_id,
+                "status": "failed",
+                "qualification": qualification,
+                "questionIds": question_ids,
+                "selectedCount": len(question_ids),
+                "succeededCount": succeeded_count,
+                "failedCount": failed_count,
+                "notRunCount": not_run_count,
+                "items": terminal_items,
+                "queueError": str(exc),
+                "startedAt": started_at,
+                "finishedAt": finished_at,
+                "message": (
+                    f"{succeeded_count}問を本番Firestoreへ反映しました。"
+                    "公開queue自体のエラーにより、"
+                    f"残る{failed_count}問は反映せずに終了しました。"
+                ),
+            }
+            manifest["status"] = "failed"
+            manifest["finishedAt"] = finished_at
+            manifest["succeededCount"] = succeeded_count
+            manifest["failedCount"] = failed_count
+            manifest["notRunCount"] = not_run_count
+            manifest["items"] = copy.deepcopy(terminal_items)
+            manifest["queueError"] = str(exc)
+            result_saved = False
+            manifest_saved = False
+            try:
+                self._write_json(result_path, failed_result)
+                result_saved = True
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                self._write_json(manifest_path, manifest)
+                manifest_saved = True
+            except Exception:  # noqa: BLE001
+                pass
+            if result_saved and manifest_saved:
+                emit(failed_result["message"])
+                return failed_result
+            raise
+
     def preview(self, question: Mapping[str, Any]) -> dict[str, Any]:
         current = self._current_question(question)
         failed_delta_paths = list(
@@ -613,7 +960,10 @@ class QuestionPublisher:
                 str(fresh.get("sourceHash") or ""),
             )
         except Exception as exc:
-            self._write_rejected_receipt(question, preflight, exc)
+            rejected_run_id = self._write_rejected_receipt(
+                question, preflight, exc
+            )
+            self._attach_publish_run_id(exc, rejected_run_id)
             raise
 
         run_id = datetime.now().strftime("%Y%m%dT%H%M%S%f") + "-" + hashlib.sha256(
@@ -754,10 +1104,16 @@ class QuestionPublisher:
                 run_dir / "manifest.json",
                 json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
             )
+            self._attach_publish_run_id(exc, run_id)
             raise
 
     def token_matches(self, preview: Mapping[str, Any], token: str) -> bool:
         expected = str(preview.get("preflightToken") or "")
+        return bool(expected and hmac.compare_digest(expected, token))
+
+    @staticmethod
+    def queue_token_matches(preview: Mapping[str, Any], token: str) -> bool:
+        expected = str(preview.get("previewToken") or "")
         return bool(expected and hmac.compare_digest(expected, token))
 
     def _write_rejected_receipt(
@@ -765,7 +1121,7 @@ class QuestionPublisher:
         question: Mapping[str, Any],
         preflight: Mapping[str, Any],
         error: Exception,
-    ) -> None:
+    ) -> str:
         now = self._now()
         qualification = str(question.get("qualification") or "unknown")
         seed = (
@@ -816,6 +1172,53 @@ class QuestionPublisher:
         atomic_write(
             run_dir / "manifest.json",
             json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        )
+        return run_id
+
+    @staticmethod
+    def _attach_publish_run_id(error: Exception, run_id: str) -> None:
+        try:
+            setattr(error, "publish_run_id", run_id)
+        except Exception:  # noqa: BLE001
+            pass
+
+    @staticmethod
+    def _normalize_queue_questions(
+        questions: list[Mapping[str, Any]],
+    ) -> list[Mapping[str, Any]]:
+        normalized: list[Mapping[str, Any]] = []
+        seen: set[str] = set()
+        for question in questions:
+            question_id = str(question.get("id") or "").strip()
+            if not question_id:
+                raise PublicationError(
+                    "公開queueにはquestionIdのある問題だけを指定してください。"
+                )
+            if question_id in seen:
+                continue
+            seen.add(question_id)
+            normalized.append(question)
+        if not normalized:
+            raise PublicationError("公開する問題を1問以上指定してください。")
+        if len(normalized) > MAX_QUESTION_PUBLISH_QUEUE_SIZE:
+            raise PublicationError(
+                f"公開queueは最大{MAX_QUESTION_PUBLISH_QUEUE_SIZE}問です。"
+            )
+        qualifications = {
+            str(question.get("qualification") or "").strip()
+            for question in normalized
+        }
+        if "" in qualifications or len(qualifications) != 1:
+            raise PublicationError(
+                "公開queueには同じ資格の問題だけを指定してください。"
+            )
+        return normalized
+
+    @staticmethod
+    def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
+        atomic_write(
+            path,
+            json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         )
 
     def _current_question(self, question: Mapping[str, Any]) -> Mapping[str, Any]:
@@ -982,6 +1385,24 @@ class QuestionPublisher:
     def _token(self, payload: Mapping[str, Any]) -> str:
         value = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return hmac.new(self.secret, value.encode("utf-8"), hashlib.sha256).hexdigest()
+
+    def _queue_preview_token(
+        self,
+        qualification: str,
+        question_ids: list[str],
+        items: list[Mapping[str, Any]],
+    ) -> str:
+        item_tokens = [str(item.get("preflightToken") or "") for item in items]
+        if not all(item_tokens):
+            raise PublicationError("問題単位preflight tokenを固定できませんでした。")
+        return self._token(
+            {
+                "schemaVersion": "question-publish-queue-preflight/v1",
+                "qualification": qualification,
+                "questionIds": question_ids,
+                "itemPreflightTokens": item_tokens,
+            }
+        )
 
     def _environment(self) -> dict[str, str]:
         env = os.environ.copy()

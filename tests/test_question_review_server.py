@@ -18,6 +18,155 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_publication_preview_uses_only_explicit_ids_in_normalized_order(self):
+        class Inventory:
+            def question(self, question_id):
+                return {
+                    "id": question_id,
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                }
+
+        class Publisher:
+            def preview_many(self, questions):
+                self.question_ids = [question["id"] for question in questions]
+                return {
+                    "questionIds": self.question_ids,
+                    "selectedCount": len(self.question_ids),
+                    "canStart": True,
+                    "previewToken": "queue-token",
+                    "items": [],
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            publisher = Publisher()
+            app.inventory = Inventory()
+            app.question_publisher = publisher
+
+            status, preview = app.post(
+                "/api/publications/preview",
+                {"questionIds": ["q2", "q1", "q2"]},
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(publisher.question_ids, ["q2", "q1"])
+        self.assertEqual(preview["questionIds"], ["q2", "q1"])
+
+    def test_publication_preview_rejects_more_than_one_hundred_questions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            with self.assertRaises(ApiError) as caught:
+                app.post(
+                    "/api/publications/preview",
+                    {"questionIds": [f"q{index}" for index in range(101)]},
+                )
+
+        self.assertEqual(caught.exception.status, 400)
+        self.assertIn("最大100問", str(caught.exception))
+
+    def test_publication_start_rechecks_token_and_runs_one_repository_job(self):
+        class Inventory:
+            def question(self, question_id):
+                return {
+                    "id": question_id,
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                }
+
+        class Publisher:
+            def preview_many(self, questions):
+                self.preview_ids = [question["id"] for question in questions]
+                return {
+                    "questionIds": self.preview_ids,
+                    "selectedCount": len(self.preview_ids),
+                    "canStart": True,
+                    "previewToken": "queue-token",
+                    "items": [
+                        {
+                            "questionId": question_id,
+                            "canPublish": True,
+                            "preflightToken": f"item-{question_id}",
+                        }
+                        for question_id in self.preview_ids
+                    ],
+                }
+
+            @staticmethod
+            def queue_token_matches(preview, token):
+                return preview["previewToken"] == token
+
+            def run_many(self, questions, preflight, emit, *, on_success):
+                self.run_ids = [question["id"] for question in questions]
+                self.run_preflight = preflight
+                self.on_success = on_success
+                emit("直列公開")
+                return {
+                    "status": "all_succeeded",
+                    "succeededCount": len(questions),
+                    "failedCount": 0,
+                    "items": [],
+                }
+
+        class DeferredJobs:
+            def start(self, *, kind, key, worker):
+                self.kind = kind
+                self.key = key
+                self.worker = worker
+                return {"jobId": "job-1", "status": "queued"}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            publisher = Publisher()
+            jobs = DeferredJobs()
+            app.inventory = Inventory()
+            app.question_publisher = publisher
+            app.jobs = jobs
+
+            with self.assertRaises(ApiError) as unconfirmed:
+                app.post(
+                    "/api/publications/start",
+                    {
+                        "questionIds": ["q2", "q1"],
+                        "previewToken": "queue-token",
+                    },
+                )
+            with self.assertRaises(ApiError) as changed:
+                app.post(
+                    "/api/publications/start",
+                    {
+                        "questionIds": ["q2", "q1"],
+                        "previewToken": "changed-token",
+                        "confirmedProduction": True,
+                    },
+                )
+            status, job = app.post(
+                "/api/publications/start",
+                {
+                    "questionIds": ["q2", "q1"],
+                    "previewToken": "queue-token",
+                    "confirmedProduction": True,
+                },
+            )
+            result = jobs.worker(lambda _message: None)
+
+        self.assertEqual(unconfirmed.exception.status, 422)
+        self.assertIn("確認が必要", str(unconfirmed.exception))
+        self.assertEqual(changed.exception.status, 422)
+        self.assertIn("更新されました", str(changed.exception))
+        self.assertEqual(status, 202)
+        self.assertEqual(job["jobId"], "job-1")
+        self.assertEqual(jobs.kind, "question-publish-queue")
+        self.assertEqual(jobs.key, "question-review-repository-operation")
+        self.assertEqual(publisher.preview_ids, ["q2", "q1"])
+        self.assertEqual(publisher.run_ids, ["q2", "q1"])
+        self.assertEqual(
+            publisher.run_preflight["questionIds"],
+            ["q2", "q1"],
+        )
+        self.assertTrue(callable(publisher.on_success))
+        self.assertEqual(result["status"], "all_succeeded")
+
     def test_continuous_evaluation_queue_collects_every_page(self):
         app = object.__new__(QuestionReviewApplication)
         offsets = []

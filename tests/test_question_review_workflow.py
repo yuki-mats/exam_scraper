@@ -1534,7 +1534,7 @@ assert.deepEqual(
             "openProgressQuestion",
             "loadQualificationRunProgress",
             "openSyncDialog",
-            "openPublishDialog",
+            "openPublicationDialog",
             "openEvaluationDialog",
             "executeWorkflow",
             "pollJob",
@@ -1871,8 +1871,8 @@ assert.deepEqual(
         self.assertIn('`すべて（${groups.length}件）`', javascript)
         self.assertIn('"パッチ適用後データ"', javascript)
         self.assertIn('summaryMetric("更新", `${preview.updateCount || 0}件`', javascript)
-        self.assertIn('summaryMetric("追加", `${preview.missingCount}件`', javascript)
-        self.assertIn('preview.reason || "安全条件を満たさないため', javascript)
+        self.assertIn('summaryMetric("追加", `${preview.missingCount || 0}件`', javascript)
+        self.assertIn("選択対象を自動で除外せず、開始を停止しました", javascript)
         self.assertNotIn("references.open = true", javascript)
         self.assertNotIn('"投影後JSON"', javascript)
         self.assertNotIn("function jsonPre", javascript)
@@ -2115,6 +2115,268 @@ assert.deepEqual(
         self.assertIn("preserveExisting: restoredFromCache", javascript)
         self.assertIn("if (options.preserveExisting && state.questions.length)", javascript)
         self.assertIn("scheduleQuestionListRefresh", javascript)
+
+    def test_single_and_multi_question_publication_share_one_serial_queue(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools" / "question_review_console" / "static" / "app.js"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            'if (evaluationStatus === "publishReady")',
+            javascript,
+        )
+        self.assertIn(
+            "openPublicationDialog([...state.selectedQuestionIds])",
+            javascript,
+        )
+        self.assertIn(
+            "() => openPublicationDialog([question.id])",
+            javascript,
+        )
+        self.assertIn("const MAX_PUBLICATION_QUEUE_SIZE = 100;", javascript)
+        self.assertIn(
+            "publicationSelection && count > MAX_PUBLICATION_QUEUE_SIZE",
+            javascript,
+        )
+        self.assertIn("選択した${count}問をFirestoreへ反映", javascript)
+        self.assertIn('"/api/publications/preview"', javascript)
+        self.assertIn('path = "/api/publications/start"', javascript)
+        self.assertIn(
+            "state.workflowDialog.questionIds = [...preview.questionIds]",
+            javascript,
+        )
+        self.assertIn("questionIds: [...questionIds]", javascript)
+        self.assertIn("previewToken: preview.previewToken", javascript)
+        self.assertIn("confirmedProduction: true", javascript)
+        self.assertIn("指定順に1問ずつ反映する", javascript)
+        self.assertIn(
+            'if (item.status !== "succeeded" && item.questionId)',
+            javascript,
+        )
+        self.assertNotIn("questionApiPath(", javascript)
+        self.assertNotIn("/publish-preview", javascript)
+
+    def test_late_publication_preview_cannot_replace_newer_selection(self):
+        root = Path(__file__).resolve().parents[1]
+        app = root / "tools" / "question_review_console" / "static" / "app.js"
+        script = r"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const reset = source.slice(
+  source.indexOf("function resetWorkflowDialog"),
+  source.indexOf("function summaryMetric"),
+);
+const publication = source.slice(
+  source.indexOf("function appendPublicationQueueItems"),
+  source.indexOf("function updateWorkflowExecuteState"),
+);
+const start = source.slice(
+  source.indexOf("async function startWorkflowExecution"),
+  source.indexOf("function setWorkflowRunning"),
+);
+const api = new Function(`
+  const state = {
+    workflowDialog: { mode: "", preview: null, running: false },
+  };
+  const nodes = new Map();
+  function node(id) {
+    if (!nodes.has(id)) {
+      nodes.set(id, {
+        id,
+        checked: false,
+        disabled: false,
+        hidden: false,
+        open: false,
+        textContent: "",
+        replaceChildren() {},
+        append() {},
+        querySelectorAll() { return []; },
+        showModal() { this.open = true; },
+        close() { this.open = false; },
+      });
+    }
+    return nodes.get(id);
+  }
+  function $(selector) {
+    return node(selector.replace("#", ""));
+  }
+  function summaryMetric(label, value, tone = "") {
+    return { label, value, tone };
+  }
+  function updateWorkflowExecuteState() {
+    if (state.workflowDialog.mode === "publication") {
+      $("#workflow-execute").disabled = !$("#production-confirm").checked;
+    }
+  }
+  function setWorkflowRunning(running) {
+    state.workflowDialog.running = running;
+  }
+  function groupApiPath() {
+    throw new Error("unexpected group API");
+  }
+  async function pollJob() {}
+  function showWorkflowError(error) {
+    throw error;
+  }
+  const pending = new Map();
+  const startBodies = [];
+  function deferred(questionId) {
+    let resolve;
+    const promise = new Promise((done) => { resolve = done; });
+    pending.set(questionId, { promise, resolve });
+    return promise;
+  }
+  async function api(path, options = {}) {
+    if (path === "/api/publications/preview") {
+      const questionId = options.body.questionIds[0];
+      return deferred(questionId);
+    }
+    if (path === "/api/publications/start") {
+      startBodies.push(options.body);
+      return { jobId: "job-q2" };
+    }
+    throw new Error("unexpected API: " + path);
+  }
+  ${reset}
+  ${publication}
+  ${start}
+  return {
+    state,
+    nodes,
+    pending,
+    startBodies,
+    openPublicationDialog,
+    startWorkflowExecution,
+  };
+`)();
+
+function preview(questionId, token) {
+  return {
+    questionIds: [questionId],
+    selectedCount: 1,
+    projectId: "repaso-rbaqy4",
+    documentCount: 2,
+    updateCount: 1,
+    missingCount: 1,
+    blockedCount: 0,
+    canStart: true,
+    previewToken: token,
+    items: [{
+      questionId,
+      questionLabel: questionId,
+      canPublish: true,
+      documentCount: 2,
+      updateCount: 1,
+      missingCount: 1,
+    }],
+  };
+}
+
+(async () => {
+  const first = api.openPublicationDialog(["q1"]);
+  const second = api.openPublicationDialog(["q2"]);
+  api.pending.get("q2").resolve(preview("q2", "token2"));
+  await second;
+  api.pending.get("q1").resolve(preview("q1", "token1"));
+  await first;
+  assert.deepEqual(api.state.workflowDialog.questionIds, ["q2"]);
+  assert.equal(api.state.workflowDialog.preview.previewToken, "token2");
+  api.nodes.get("production-confirm").checked = true;
+  await api.startWorkflowExecution();
+  assert.deepEqual(api.startBodies, [{
+    questionIds: ["q2"],
+    previewToken: "token2",
+    confirmedProduction: true,
+  }]);
+})().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+"""
+        subprocess.run(
+            ["node", "-e", script, str(app)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    def test_publication_refresh_keeps_only_failed_questions_selected(self):
+        root = Path(__file__).resolve().parents[1]
+        app = root / "tools" / "question_review_console" / "static" / "app.js"
+        script = r"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const prune = source.slice(
+  source.indexOf("function pruneQuestionSelection"),
+  source.indexOf("function toggleVisibleQuestionSelection"),
+);
+const refresh = source.slice(
+  source.indexOf("async function refreshAfterWorkflow"),
+  source.indexOf("function showWorkflowError"),
+);
+const api = new Function(`
+  const state = {
+    exceptionsOnly: false,
+    selectedQuestionIds: new Set(["previous"]),
+    publicationRetryQuestionIds: new Set(),
+  };
+  const calls = [];
+  function $() {
+    return { classList: { add() {}, remove() {} } };
+  }
+  function clearEvaluationSelection() {
+    state.selectedQuestionIds.clear();
+    state.publicationRetryQuestionIds.clear();
+  }
+  ${prune}
+  async function loadQualificationWorkflow(force) {
+    calls.push(["workflow", force]);
+  }
+  async function loadQualificationRuns() {
+    calls.push(["runs"]);
+  }
+  async function loadQuestions(preserveSelection) {
+    calls.push(["questions", preserveSelection]);
+    const firstPage = new Set(
+      Array.from({ length: 20 }, (_, index) => "q" + (index + 1)),
+    );
+    pruneQuestionSelection(firstPage);
+  }
+  ${refresh}
+  return { state, calls, refreshAfterWorkflow };
+`)();
+
+(async () => {
+  await api.refreshAfterWorkflow("publication", {
+    items: [
+      { questionId: "q1", status: "succeeded" },
+      { questionId: "q25", status: "failed" },
+      { questionId: "q26", status: "not_run" },
+    ],
+  });
+  assert.deepEqual([...api.state.selectedQuestionIds], ["q25", "q26"]);
+  assert.deepEqual(
+    [...api.state.publicationRetryQuestionIds],
+    ["q25", "q26"],
+  );
+  assert.deepEqual(api.calls, [
+    ["workflow", true],
+    ["questions", true],
+  ]);
+})().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+"""
+        subprocess.run(
+            ["node", "-e", script, str(app)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
 
     def test_static_assets_share_an_explicit_release_version(self):
         root = Path(__file__).resolve().parents[1]

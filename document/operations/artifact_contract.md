@@ -37,6 +37,7 @@ output/question_review_console/
   work_version_backfills/<timestamp>/manifest.json
   work_version_invalidations/<receipt_id>/manifest.json
   publish_runs/<qualification>/<runId>/
+  publish_queue_runs/<qualification>/<queueRunId>/
 ```
 
 `<qualification>`は人が読めるkebab-caseのローカル資格コードとします。本番Firestoreで既存`qualificationId`を維持する必要がある場合は、`config/scrape_presets.json`の`publication_qualification_id`へ分離します。
@@ -86,6 +87,7 @@ output/question_review_console/
 | work version invalidation | `output/question_review_console/work_version_invalidations/<receipt_id>/manifest.json` | 誤って成功扱いにしたrun・工程を再整備対象へ戻した履歴。 |
 | work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
+| publish queue run | `output/question_review_console/publish_queue_runs/<qualification>/<queueRunId>/` | 明示選択した順序付き問題IDを固定する親`manifest.json`、全問題の確認時preflightを持つ`preflight.json`、問題別の成否・publish run ID・readback要約を持つ終端`result.json`。問題内容、対象artifact、詳細readbackは問題単位のpublish runだけに保存し、親へ複製しない。 |
 
 run directoryは再利用しません。通常整備runの対象、source identity、工程版、sandbox、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`は不変`plan.json`へ保存します。親`manifest.json`はrun全体の検証・同期状態と小さい集計だけを持ち、一問の`questionExecutions`、停止理由、fingerprint、`validationAttempts`、attempt、検証済み作業版receiptは`questions/<questionIdのsha256>.json`へ保存します。`question_summary.json`は一問stateから再生成できる表示用派生物です。
 

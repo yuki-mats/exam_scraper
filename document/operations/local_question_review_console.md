@@ -8,12 +8,12 @@
 2. トップの年度・フォルダ（`listGroupId`）一覧で`整備・洗い替え`を開き、対象年度、整備する項目、処理する問題を指定する。工程は整備する項目から自動で決まり、serverは対象を一問queueへ分解して`00_source`と確定patchの論理projectionを次工程へ渡す。設問意図（02）は`questionIntent`だけを更新し、正答（02a）は全選択肢の`correctChoiceText`を`正しい` / `間違い`で確定する。
 3. serverは[幹の基本仕様](exam_pipeline_manual_and_automation.md#一問整備の基本仕様)に従って最大100問を進行させ、各問を独立して検査・確定する。
 4. patch確定後は[`artifactSync`](#artifactsync)で公開用成果物を自動更新する。自動更新を完了できない場合だけ手動再生成を使う。
-5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題だけを明示操作でFirestoreへ反映し、readback一致を確認する。
+5. 公開用成果物が最新になった後、別sessionで評価する。合格した問題を1〜100問明示選択し、一度の確認後に指定順で一問ずつFirestoreへ反映する。単問公開も同じqueueを使い、各問のreadback一致を確認する。
 
 ### 操作と確認の境界
 
 - runの開始・再開、成果物の再生成、Firestore反映など、共有状態を変更する操作は問題整備システムの画面から実行する。
-- 進捗確認と整合性監査は画面表示を証跡にせず、`manifest.json`、`progress.jsonl`、`technical_log.jsonl`、問題別projection、`result.json`、完了receipt、publish runのreadbackを直接確認する。画面とartifactが食い違う場合はartifactを正として原因を調べ、完了receipt又はreadback一致がない状態を完了扱いにしない。
+- 進捗確認と整合性監査は画面表示を証跡にせず、`manifest.json`、`progress.jsonl`、`technical_log.jsonl`、問題別projection、`result.json`、完了receipt、publish queueの終端result、問題単位publish runのreadbackを直接確認する。画面とartifactが食い違う場合はartifactを正として原因を調べ、完了receipt又はreadback一致がない状態を完了扱いにしない。
 - 並列稼働、保存済み成果物、Agent発言、公開推論サマリーの観測には、独立した[バッチ成果物モニター](batch_artifact_monitor.md)を使う。モニターはread-onlyとし、この画面の開始・編集・公開責務を移さない。
 
 ## 確定、rollback、再生成
@@ -148,7 +148,7 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 - 一問の評価turnはCodex App Serverの共通timeoutを使う。評価待ちqueueは問題単位で独立しているため、長い一問の完了を待たずに空いた枠へ次の問題を補充し、他の問題を先に確定する。共通timeoutへ達した場合だけ、その一問を評価失敗として評価待ちへ戻す。
 - 非法令問題の解説本文に機関名、資料名、URLがないことだけを減点理由にしない。根拠不足は`insufficient_evidence`として不合格にする。
 - `questionBodyText`と`choiceTextList`は通常の自動整備では変更しない。同年度の公式問題冊子をrepository内に保存して照合できる場合は、問題詳細の`公式冊子と照合`で資料path・資料名・問番号を含むlocator・確認済み転記を固定し、read-onlyのBlind A/BとChallengeを通す。両者の変更完全値と公式根拠が一致した`fix`だけを`24_questionIssueCorrections`へ保存し、`00_source`は変更しない。利用者報告batchとの境界とpatch契約は[公式問題の問題報告 workflow](question_issue_report_workflow.md)を正本とする。
-- Firestore反映はCodex threadへ任せず、preflight、UIの明示確認、直後のreadbackを使う。
+- Firestore反映はCodex threadへ任せない。公開可能な問題を最大100問まで明示選択し、serverは指定順、問題単位preflight token、親tokenを確認時に固定する。開始直前に全件を再確認した後、既存の問題単位publisherをrepository排他job内で一問ずつ実行する。一問の失敗は次問へ波及させず、失敗問だけを再選択状態へ残す。親queueは選択順と終端集計、問題単位runは対象artifactと直後のreadbackをそれぞれ保存する。
 
 ## 起動
 
