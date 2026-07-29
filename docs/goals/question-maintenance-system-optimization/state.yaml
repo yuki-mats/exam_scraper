@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T022
+active_task: T041
 tasks:
   - id: T001
     type: pm
@@ -1440,7 +1440,7 @@ tasks:
   - id: T022
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "第三改善候補である評価結果のlatest-valid防御について、現行保存・選択・API/UI・resume経路を反証調査し、未完成又は失敗した後続評価が直前の有効評価を上書きする現行欠陥があるかを再現して最大の安全な実装sliceを確定する"
     inputs:
@@ -1461,6 +1461,1078 @@ tasks:
       - "attempt history and current result ownership"
       - "exact implementation files/tests/API readback"
       - "rejected alternatives and stop conditions"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "passed then two inconclusive production-harness reproduction"
+          status: fail
+          summary: "attempt履歴は残るがcurrent projectionが最後のinconclusiveへ上書き"
+        - cmd: "passed then post-save work-version failure reproduction"
+          status: fail
+          summary: "失敗runのprojectionがstaleとして残り旧passedへ戻れない"
+        - cmd: "baseline evaluation/server/workflow tests"
+          status: pass
+          summary: "126 tests passed; existing tests do not cover latest-valid"
+      summary: "現行欠陥を二系統で再現。attempt historyとcurrent-valid promotionの責務分離が必要。index/journal案を提示したが、正本層と変更範囲が大きいため実装前に単純化監査を行う。"
+      remaining_blockers:
+        - "同じcrash safetyとlatest-attempt UXをより少ない正本で実現できるか確定する"
+        - "確定したcanonical storage/promotionだけを実装する"
+      needs_judge: false
+      verification_attempts: 3
+      stopped_because: null
+      decision: approve_next
+      full_outcome_complete: false
+      defect_reproduced: true
+  - id: T023
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T022のindex+journal案を過度な複雑化の観点から反証し、既存run artifact、work-version、単一evaluation projectionを最大限再利用してlatest-valid防御を実現する最小かつcrash-safeなcanonical設計を確定する"
+    inputs:
+      - "T022 defect reproductions and proposed index/journal design"
+      - "Current EvaluationStore, QualificationRunStore and QuestionWorkVersionStore APIs"
+      - "artifact contract and API/UI consumers"
+    constraints:
+      - "Read-only。file/artifactを変更しない。"
+      - "inconclusiveだけの例外、best-effort rollback、timestamp順、履歴削除は不採用。"
+      - "attempt historyの既存workflow_runs正本を重複保存しない。"
+      - "current valid、latest attempt、promotion orderingに必要な永続stateを最小化する。"
+      - "crash後に旧validを失わず、新valid成功を旧へ戻さない。"
+      - "legacy evaluation v1を一括migration又は書換えしない。"
+      - "API/UI変更は既存のinconclusive再評価UX又は履歴可視性に本当に必要な最小範囲だけにする。"
+    expected_output:
+      - "comparison of T022 index+journal, atomic v2 projection, and reordered promotion alternatives"
+      - "single canonical storage and commit point"
+      - "crash-point proof using existing APIs"
+      - "minimal exact file scope/tests"
+      - "rejected complexity and stop conditions"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "index+journal、atomic projection v2、reordered v1 comparison"
+          status: pass
+          summary: "single atomic projection v2 selected"
+        - cmd: "work-version current/history and crash-point audit"
+          status: pass
+          summary: "旧record historyでrollback journal不要、新validをlatestAttempt pointerから回復可能"
+      summary: "別index/journalを廃止し、既存evaluation pathのatomic projection v2だけでcurrentValid、latestAttempt、sequenceを保持する設計を承認。全attempt履歴はworkflow_runsへ一本化し、API/UI形状とwork_versions実装は変更しない。"
+      remaining_blockers:
+        - "projection v2とpromotion orderingを実装する"
+        - "crash point、legacy v1自然昇格、全回帰を検証する"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      decision: approve_next
+      full_outcome_complete: false
+      canonical_path: "output/question_review_console/<qualification>/<listGroupId>/evaluations/<reviewKeyHash>.json"
+      rejected_complexity:
+        - "separate evaluation index"
+        - "commit rollback journal"
+        - "new API/UI contract"
+        - "work_versions schema change"
+  - id: T024
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "既存evaluation pathをatomic projection v2へ後方互換拡張し、workflow_runsとwork_versionsの既存証拠だけでlatest-validをcrash-safeかつ単調に選択する"
+    inputs:
+      - "T022 deterministic defect reproductions"
+      - "T023 approved atomic projection v2 design"
+      - "Current evaluation, run store and work-version implementation"
+    constraints:
+      - "projection v2はcurrentValid、latestAttempt、next/latest/promoted sequenceを同一fileへatomic保存する。"
+      - "full attempt historyはworkflow_runsだけを正本とし、別index/journal/attempt historyを作らない。"
+      - "attempt開始時にcurrentを保持したままsequenceとrunIdを先行予約する。"
+      - "inconclusive/failedはlatestAttemptだけを更新しcurrentValid/work-versionを変えない。"
+      - "passed/needs_reworkはresult、work-version、manifest succeeded+receipt確定後だけpromotionする。"
+      - "commit point後のprojection失敗をrun failedへ戻さず、latestAttempt pointerから論理回復する。"
+      - "次attempt予約前に未反映validを回復・永続化する。"
+      - "legacy v1は無変更で読み、最初の新attempt時だけ同pathをv2へ自然昇格する。一括migrationしない。"
+      - "API/UI形状、work_versions.py、server.py、app.js、publisher.pyを変更しない。"
+      - "timestamp、mtime、runId文字列をorderingに使わない。"
+    expected_output:
+      - "question-evaluation-projection/v2 atomic storage"
+      - "monotonic attempt and promotion sequence"
+      - "current valid preserved across incomplete/failed attempts"
+      - "crash recovery from existing run/work-version evidence"
+      - "legacy v1 compatibility"
+      - "unchanged API/UI/publisher behavior"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "別index、journal、history正本又は新API endpointが必要になる。"
+      - "work_versions.py、server.py、app.js、publisher.pyのproduction変更が必要になる。"
+      - "timestamp、mtime又はrunId文字列をorderingに使う必要がある。"
+      - "manifest succeededとworkVersionReceiptを一つのatomic updateで確定できない。"
+      - "commit point後のprojection失敗をfailedへ書き戻す経路を除去できない。"
+      - "次attempt前に未反映validを回復・永続化できない。"
+      - "旧currentValidのwork-version証拠をcurrent又はhistoryからexact照合できない。"
+      - "既存v1 artifactの一括migration又は書換えが必要になる。"
+      - "candidate DTO、queue/window/writer、patch、ID、publisherへ変更が広がる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "evaluation focused tests"
+          status: pass
+          summary: "30 tests passed"
+        - cmd: "server/workflow/publisher regression"
+          status: pass
+          summary: "113 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "932 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "atomic evaluation projection v2でcurrentValidとmonotonic latest attemptを分離し、result/work-version/manifest commit後だけvalidをpromotionする。inconclusive/failed後も旧currentを維持し、commit後projection失敗を既存run/work-version証拠から回復する。legacy v1は次attempt時に自然昇格する。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T025
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T024のatomic evaluation projection v2実装を、単一正本、sequence単調性、promotion commit、全crash point、work-version current/history、legacy v1、API/UI不変から反証監査しcommit可否を判定する"
+    inputs:
+      - "T022 defect reproductions"
+      - "T023 approved simplified design"
+      - "T024 implementation and 932 full regression receipt"
+      - "Current four-file diff"
+    constraints:
+      - "Read-only。file/artifactを変更しない。"
+      - "テスト名やsummaryだけで承認せず実装とfailure injectionを直接読む。"
+      - "別index/journal/history正本が隠れていないことを確認する。"
+      - "commit point前後で旧valid保護、新valid回復、failed書戻し禁止を確認する。"
+      - "corrupt promotedは旧validへ黙ってfallbackせずstaleになることを確認する。"
+      - "API/UI/publisher/work_versions product code不変を確認する。"
+    expected_output:
+      - "approved | rejected"
+      - "blocker closure and crash-point map"
+      - "safe-to-commit exact four-file scope"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "T024 diff and focused test audit"
+          status: fail
+          summary: "post-commit read recovery、完全証拠照合、v2構造、API互換、failed result保持にblocker"
+        - cmd: "post-commit projection failure reproduction"
+          status: fail
+          summary: "manifest succeededでも直後status_forはnot_started"
+        - cmd: "foreign identity/policy recovery reproduction"
+          status: fail
+          summary: "改変resultをpromotion可能"
+        - cmd: "evaluation focused tests, py_compile and diff check"
+          status: pass
+          summary: "30 tests passed but missing blocker coverage"
+      summary: "単一projectionとcommit順は再利用可能だが、通常read回復と完全証拠検証が不足しcommit拒否。fresh inconclusive full API、corrupt stale、legacy各status、failed full result保持、strict monotonicも補完が必要。"
+      remaining_blockers:
+        - "status_for直後logical recovery"
+        - "identity/state/session/hash/policy/work-version exact validation"
+        - "strict v2 shape and corrupt stale handling"
+        - "legacy/fresh inconclusive API compatibility"
+        - "failed attempt full result preservation"
+        - "strictly increasing promotion"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      decision: reject_next
+      full_outcome_complete: false
+  - id: T026
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T024のatomic projection v2を維持し、通常read回復、完全attempt証拠検証、strict v2構造、legacy/fresh API互換、failed result保持、strict monotonic promotionを完成させる"
+    inputs:
+      - "T023 approved simplified design"
+      - "T024 reusable partial implementation"
+      - "T025 rejected receipt and exact reproductions"
+    constraints:
+      - "status_for/previewの通常readでcommit済み未反映validを論理currentとして返し、次attempt前に永続化する。"
+      - "promotion前にresultHash再計算、全identity、stateHash、session/thread/turn、manifest/result policy、workVersionReceipt、work_versions current/historyのrun/version/fingerprintを完全照合する。"
+      - "v2 nested identity、latestAttempt shape/sequence、currentValid conclusive/full identity/hashをfail-closed検証する。"
+      - "corrupt promoted projectionはnot_startedではなくstaleとして停止し旧validへfallbackしない。"
+      - "fresh inconclusiveはworkflow run resultから従来full evaluation payloadを返す。"
+      - "validated result.jsonは後段record_stage/manifest failureでfailed summaryへ上書きしない。manifest/latestAttemptだけをfailedにする。"
+      - "promotionはstrictly greater。same sequenceは同じrun/hashのidempotent recoveryだけ許可するか、明示拒否する。"
+      - "legacy v1 passed/needs_rework/inconclusiveは新attemptまで無変更で読み、最初の予約時だけ自然昇格する。"
+      - "別index/journal/API/UI契約、work_versions/server/app/publisher変更を追加しない。"
+    expected_output:
+      - "read-time logical recovery"
+      - "complete promotion evidence validation"
+      - "strict projection v2 parser"
+      - "legacy and fresh API compatibility"
+      - "full failed attempt evidence retention"
+      - "monotonic/idempotent promotion"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "別index、journal、history正本又は新API/UI契約が必要になる。"
+      - "server.py、app.js、publisher.py、work_versions.pyのproduction変更が必要になる。"
+      - "通常readでcurrentを安全に選べない。"
+      - "work_versions current/historyからexact証拠を照合できない。"
+      - "commit済みrunをfailedへ書戻す必要がある。"
+      - "failed attemptの完全resultを保持できない。"
+      - "legacy v1の一括migration又は既存artifact書換えが必要になる。"
+      - "候補DTO、queue/window/writer、patch、ID、publisherへ変更が広がる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "evaluation focused tests"
+          status: pass
+          summary: "31 tests passed"
+        - cmd: "server/workflow/publisher regression"
+          status: pass
+          summary: "113 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "933 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "通常readでの論理回復、完全identity/evidence検証、corrupt stale、fresh inconclusive full API、validated failure result保持、strict monotonic/idempotent promotionを実装し、全不一致fieldを個別testで覆った。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T027
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T025の全blockerがT026で実質的に閉じたかを再監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか最終判定する"
+    inputs:
+      - "T025 rejected receipt"
+      - "T026 corrected implementation and 933 full regression"
+      - "Current full four-file diff"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "T025各blockerを実装とdirect testへ一対一で照合する。"
+      - "通常read回復がprojection修復失敗時も新validを返すことを再現する。"
+      - "foreign/corrupt evidence、failed full result、legacy byte stabilityを再確認する。"
+      - "別正本/API/UI/work_versions変更がないことを確認する。"
+    expected_output:
+      - "approved | rejected"
+      - "T025 blocker closure map"
+      - "safe-to-commit exact four-file scope"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: reject_next
+      changed_files: []
+      commands:
+        - cmd: "post-commit promotion and repair failure direct reproduction"
+          status: pass
+          summary: "logical current、resultHash、publishReady、full payloadを維持"
+        - cmd: "next-attempt recovery and sequence reproduction"
+          status: pass
+          summary: "write復旧時はcurrent永続化後にsequence 2を予約"
+        - cmd: "active leak reproduction"
+          status: fail
+          summary: "回復write失敗後に_activeが残りstatus=running"
+        - cmd: "terminal read amplification reproduction"
+          status: fail
+          summary: "inconclusiveのstatus read 2回でprojection write 2回"
+        - cmd: "malformed policy metadata reproduction"
+          status: fail
+          summary: "非Mapping又は不正versionが通常readへ例外を漏出"
+        - cmd: "focused combined regression"
+          status: pass
+          summary: "144 tests passed"
+      summary: "T025主要blockerは閉じたが、回復失敗時active解放、terminal read no-op、型破損証拠のfail-closedが未完のためcommit拒否。"
+      remaining_blockers:
+        - "pre-attempt recovery failure active release"
+        - "terminal inconclusive/failed read no-op"
+        - "malformed policy/work-version metadata fail-closed"
+      needs_judge: false
+      verification_attempts: 5
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T028
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "atomic projection v2の現行差分を維持し、回復失敗時の_active解放、terminal readのno-op化、malformed policy evidenceの例外なしfail-closedを完成させる"
+    inputs:
+      - "T027 rejected receipt"
+      - "T026 current four-file implementation"
+      - "Three direct reproductions"
+    constraints:
+      - "回復永続化に失敗した場合はmodel、run create、sequence予約へ進まず、_activeを必ず解放する。"
+      - "既にterminalとして反映済みのinconclusive/failedは通常readでprojectionを書き直さない。"
+      - "reservedからterminal又はvalidへ回復する場合だけ一度projectionを書く。"
+      - "policy maps、receipt、work-version recordの型とversionを例外なしで検証し、不正証拠はpromotionしない。"
+      - "fresh inconclusiveのfull API payload、logical recovery、sequence、legacy互換を維持する。"
+      - "別index/journal/API/UI/work_versions production変更を追加しない。"
+    expected_output:
+      - "active lifecycle cleanup"
+      - "terminal read no-op"
+      - "malformed evidence fail-closed"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "別index、journal、history正本又はAPI/UI変更が必要になる。"
+      - "server.py、app.js、publisher.py、work_versions.pyのproduction変更が必要になる。"
+      - "_active解放のため同一問排他又はsequence予約順を弱める必要がある。"
+      - "read amplification回避のためattempt履歴又はfresh inconclusive full APIを失う必要がある。"
+      - "malformed evidenceを成功扱いへ補正する必要がある。"
+      - "既存v1 artifactの一括migration又は書換えが必要になる。"
+      - "候補DTO、queue/window/writer、patch、ID、publisherへ変更が広がる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "evaluation focused tests"
+          status: pass
+          summary: "34 tests passed"
+        - cmd: "server/workflow/publisher regression"
+          status: pass
+          summary: "113 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "936 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "回復失敗時active解放、terminal read no-op、型破損証拠の例外なしfail-closedを実装し、再試行とfull inconclusive APIを維持した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T029
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T027の三blockerとT025の主要blockerがT028後も閉じているかを独立再監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか最終判定する"
+    inputs:
+      - "T027 rejected receipt"
+      - "T028 corrected implementation"
+      - "34 focused, 113 API/publisher and 936 full regression"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "active cleanup、terminal read zero-write、malformed evidence fail-closedをdirect reproductionする。"
+      - "logical recovery、full fresh inconclusive、sequence、legacy、result retentionの回帰を確認する。"
+      - "指定4製品ファイル以外へ変更が広がっていないことを確認する。"
+    expected_output:
+      - "approved | rejected"
+      - "T027 blocker closure map"
+      - "safe-to-commit exact scope"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: reject_next
+      changed_files: []
+      commands:
+        - cmd: "T027 blocker direct reproductions"
+          status: pass
+          summary: "active個別修復、terminal no-write、malformed evidence fail-closedは閉鎖"
+        - cmd: "run_store.create failure reproduction"
+          status: fail
+          summary: "_activeが残留しstatus=running"
+        - cmd: "reserved-to-failed repair reproduction"
+          status: fail
+          summary: "初回stale、次回not_startedで表示不安定"
+        - cmd: "focused combined regression"
+          status: pass
+          summary: "147 tests passed"
+      summary: "個別blockerは閉じたが、active登録後の共通lifecycle保証とfailed修復直後の表示安定性が未完のためcommit拒否。"
+      remaining_blockers:
+        - "single outer active lifecycle guard"
+        - "reserved-to-failed first-read stability"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T030
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "_active.add以後の全処理を単一の外側try/finallyで保護し、全失敗経路でactiveを解放する。failed manifestからreserved projectionを修復するstatus_forを初回から安定させる"
+    inputs:
+      - "T029 rejected receipt"
+      - "T028 current four-file implementation"
+      - "run_store.create and reserved-to-failed direct reproductions"
+    constraints:
+      - "active登録後は一つのlifecycle ownerだけがfinallyで解放する。個別discardを増やさない。"
+      - "各失敗段階より後のrun create、予約、model処理へ進めない。"
+      - "failed修復後は同じ呼出し内で最新projectionを判定し、初回からnot_started、以後同値・追記なしとする。"
+      - "T028のlogical recovery、terminal no-write、malformed evidence fail-closed、legacy/API互換を維持する。"
+      - "別schema/index/journal/API/UI又は許可外production fileへ広げない。"
+    expected_output:
+      - "single active lifecycle guard"
+      - "stable failed repair status"
+      - "failure-stage regression matrix"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "許可された4ファイル以外のproduct変更が必要になる。"
+      - "新規API、projection保存先、schema、journal又はindexが必要になる。"
+      - "00_source、既存run成果物又はFirestoreを変更する必要がある。"
+      - "個別catch追加だけで済ませる必要が生じる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "evaluation/server/workflow/publisher focused regression"
+          status: pass
+          summary: "149 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "938 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "active登録後を単一try/finallyで所有し、8失敗段階の解放・後続抑止・再試行を固定。reserved-to-failedは一度だけ修復し初回からnot_startedで安定させた。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T031
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T029の二blockerと過去blockerがT030後にすべて閉じたかを独立再監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか最終判定する"
+    inputs:
+      - "T029 rejected receipt"
+      - "T030 single lifecycle implementation"
+      - "149 focused and 938 full regression"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "8失敗段階のactive解放、後続抑止、表示、再試行をdirect確認する。"
+      - "reserved-to-failedの初回・連続表示とwrite countをdirect確認する。"
+      - "logical recovery、terminal no-write、証拠fail-closed、sequence、legacy/API/result保持を確認する。"
+      - "指定4製品ファイルだけをsafe-to-commit判定する。"
+    expected_output:
+      - "approved | rejected"
+      - "all blocker closure map"
+      - "safe-to-commit exact files"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: reject_next
+      changed_files: []
+      commands:
+        - cmd: "8-stage active lifecycle and retry matrix"
+          status: pass
+          summary: "全段階でactive解放、後続抑止、retry passed"
+        - cmd: "reserved-to-failed first-read repair"
+          status: pass
+          summary: "初回からnot_started、repair 1回、連続read不変"
+        - cmd: "foreign work-version parent identity reproduction"
+          status: fail
+          summary: "4 identity field不一致でもpassedへpromotion"
+        - cmd: "focused/full/immutability verification"
+          status: pass
+          summary: "149 focused、938 full、5799 source unchanged"
+      summary: "lifecycleと表示安定性は閉じたが、work-version親record identity/source/非空fingerprintのstrict証拠が不足しcommit拒否。"
+      remaining_blockers:
+        - "strict work-version parent identity"
+        - "validated evaluation source"
+        - "non-empty policy fingerprint"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T032
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "work-version親recordの問題identity、validated source、非空policy fingerprintを完全照合し、異質証拠からのpromotionをfail-closedにする"
+    inputs:
+      - "T031 rejected receipt"
+      - "Two independent foreign work-version reproductions"
+      - "T030 current four-file implementation"
+    constraints:
+      - "reviewKey、questionId、originalQuestionId、publicationQualificationIdを現在問題と完全一致で照合する。"
+      - "version record sourceはvalidated_evaluationだけを受理する。"
+      - "result、manifest、version recordのpolicy fingerprintは非空かつ三者一致を必須にする。"
+      - "不一致は自動補正せずpromotionを止め、projection bytes/mtimeを変えない。"
+      - "identity完全一致のcurrent及びhistory recordは従来どおり回復する。"
+      - "既存projection schema、保存先、API/UI/work_versions schemaを変更しない。"
+    expected_output:
+      - "strict parent identity validation"
+      - "validated source and non-empty fingerprint validation"
+      - "foreign current/history fail-closed tests"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "指定4製品ファイル以外の変更が必要になる。"
+      - "identity不一致を自動補正又は別recordへ移送する必要が生じる。"
+      - "work_versions schema/API変更又は新規index/journalが必要になる。"
+      - "00_source、既存run成果物又はFirestore変更が必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "evaluation focused tests"
+          status: pass
+          summary: "43 tests passed"
+        - cmd: "evaluation/server/workflow/publisher focused regression"
+          status: pass
+          summary: "152 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "941 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "親record4 identity、validated source、非空fingerprint三者一致を必須化し、異質current/historyはprojection不変でstale、完全一致current/historyは回復可能にした。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T033
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T031のstrict work-version証拠blockerと全過去blockerがT032後に閉じたかを最終監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか判定する"
+    inputs:
+      - "T031 rejected receipt"
+      - "T032 strict identity/source/fingerprint implementation"
+      - "152 focused and 941 full regression"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "4 identity、source、空fingerprintの異質current/historyをdirect確認する。"
+      - "正常current/historyの回復、projection不変、旧current保持を確認する。"
+      - "lifecycle、read no-write、fail-closed、sequence、legacy/API/result保持を回帰確認する。"
+      - "指定4製品ファイルだけをsafe-to-commit判定する。"
+    expected_output:
+      - "approved | rejected"
+      - "all blocker closure map"
+      - "safe-to-commit exact files"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: reject_next
+      changed_files: []
+      commands:
+        - cmd: "strict identity/source/fingerprint current/history probes"
+          status: pass
+          summary: "異質証拠はprojection不変でstale、完全一致は回復"
+        - cmd: "past blocker regression"
+          status: pass
+          summary: "lifecycle、repair、logical recovery、legacy/API/result保持を確認"
+        - cmd: "stable v2 poll I/O measurement"
+          status: fail
+          summary: "status_for一回でload_projection 5回、同path os.stat 10回"
+        - cmd: "focused/full/immutability verification"
+          status: pass
+          summary: "152 focused、941 full、5799 source unchanged"
+      summary: "全correctness blockerは閉じたが、stable pollの恒常read amplificationが全体最適化に反するためcommit拒否。"
+      remaining_blockers:
+        - "single projection snapshot per stable status poll"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T034
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "status_forを単一projection snapshot中心に整理し、stable v2/legacy/未評価pollの重複load/statを除去する"
+    inputs:
+      - "T033 rejected receipt"
+      - "stable passed load_projection=5 and os.stat=10 measurement"
+      - "T032 current four-file implementation"
+    constraints:
+      - "stable v2 passed、needs_rework、inconclusive、failedはload_projection 1回以下、対象path os.stat 2回以下にする。"
+      - "legacy v1と未評価もload_projection 1回にする。"
+      - "一度読んだprojection snapshotをpayload選択とrecoveryへ渡し、同じ呼出し内の再読を避ける。"
+      - "実際にpromotion又はrepairを書く稀な経路だけ、store内の整合確認読取を許容する。"
+      - "新cache/index/journalを作らず、strict証拠・atomic repair・fail-closedを維持する。"
+      - "既存projection schema、API/UI、保存先を変えない。"
+    expected_output:
+      - "single-snapshot status path"
+      - "stable poll call/stat upper-bound tests"
+      - "recovery race and repair regression"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "指定4製品ファイル以外の変更が必要になる。"
+      - "projection schema、保存先、API又はUI変更が必要になる。"
+      - "新規cache、index又はjournalが必要になる。"
+      - "read削減のため破損検出、atomic repair又はfail-closedを弱める必要がある。"
+      - "00_source、既存run成果物又はFirestore変更が必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "single-snapshot and recovery targeted tests"
+          status: pass
+          summary: "3 tests passed"
+        - cmd: "evaluation/server/workflow/publisher focused regression"
+          status: pass
+          summary: "153 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "942 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "status_forを単一projection snapshot中心にし、stable v2四状態・legacy・未評価をload 1回/stat 2回以下へ削減。atomic repairとstrict証拠を維持した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T035
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T033 read amplificationと全correctness blockerがT034後に閉じたかを最終監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか判定する"
+    inputs:
+      - "T033 rejected receipt"
+      - "T034 single-snapshot implementation"
+      - "153 focused and 942 full regression"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "stable全状態、legacy、未評価のload/stat上限をdirect測定する。"
+      - "repair/promotion競合、strict証拠、lifecycle、legacy/API/result保持を回帰確認する。"
+      - "新cache/index/schemaがないことと4製品file scopeを確認する。"
+    expected_output:
+      - "approved | rejected"
+      - "all blocker closure map"
+      - "safe-to-commit exact files"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: reject_next
+      changed_files: []
+      commands:
+        - cmd: "stable projection I/O measurement"
+          status: pass
+          summary: "6状態すべてload 1回、os.stat 2回"
+        - cmd: "old-current plus latest-inconclusive artifact read measurement"
+          status: fail
+          summary: "表示に未使用のmanifest/resultを毎poll各1回"
+        - cmd: "correctness and architecture regression"
+          status: pass
+          summary: "全既知blocker閉鎖、新cache/index/schemaなし"
+        - cmd: "focused/full/immutability verification"
+          status: pass
+          summary: "153 focused、942 full、5799 source unchanged"
+      summary: "projection重複読取は閉じたが、旧current表示時のlatest inconclusive run証拠が未使用なのに毎poll読まれるためcommit拒否。"
+      remaining_blockers:
+        - "skip unused terminal inconclusive run reads when currentValid exists"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T036
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "currentValidあり・latest inconclusiveのstable pollでは旧currentだけから表示を決め、未使用のlatest run manifest/result読取をなくす"
+    inputs:
+      - "T035 rejected receipt"
+      - "manifest/result each one unused read measurement"
+      - "T034 single-snapshot implementation"
+    constraints:
+      - "currentValid passed又はneeds_reworkかつlatest inconclusiveでは_committed_attempt_resultとrun artifactを読まない。"
+      - "旧currentのstatus/resultHashを維持し、projectionを変更しない。"
+      - "currentValidなしのfresh inconclusiveはexact run証拠を読み、full payloadを維持する。"
+      - "reserved attemptは従来どおりfailed/conclusive/inconclusiveへ回復する。"
+      - "新cache/index/journal/schemaを追加しない。"
+    expected_output:
+      - "old-current terminal fast path"
+      - "zero manifest/result read test"
+      - "fresh inconclusive and reserved recovery regression"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "指定4製品ファイル以外の変更が必要になる。"
+      - "新cache、index、journal又はschemaが必要になる。"
+      - "fresh inconclusiveのfull API又はreserved recoveryを弱める必要がある。"
+      - "00_source、既存run成果物又はFirestore変更が必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "old-current/fresh-inconclusive targeted tests"
+          status: pass
+          summary: "4 tests passed"
+        - cmd: "evaluation/server/workflow/publisher focused regression"
+          status: pass
+          summary: "155 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "944 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "旧current＋latest inconclusiveはrun artifact 0読取で旧status/hashを返し、fresh inconclusiveだけexact evidenceとfull payloadを維持した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T037
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T035 terminal artifact read amplificationと全correctness blockerがT036後に閉じたかを最終監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか判定する"
+    inputs:
+      - "T035 rejected receipt"
+      - "T036 old-current terminal fast path"
+      - "155 focused and 944 full regression"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "old current + inconclusiveとfresh inconclusiveのI/O境界をdirect測定する。"
+      - "single snapshot、repair/promotion、strict証拠、lifecycle、legacy/API/result保持を確認する。"
+      - "新cache/index/schemaなし、4製品file scope、docs整合を確認する。"
+    expected_output:
+      - "approved | rejected"
+      - "all blocker closure map"
+      - "safe-to-commit exact files"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: reject_next
+      changed_files: []
+      commands:
+        - cmd: "old-current terminal and fresh local I/O probes"
+          status: pass
+          summary: "旧current latest artifact 0、fresh exact evidence各1"
+        - cmd: "App Server fresh inconclusive production probe"
+          status: fail
+          summary: "同じmanifest/resultを各2回検証"
+        - cmd: "correctness, scope and architecture regression"
+          status: pass
+          summary: "全既知blocker閉鎖、新cache/index/schemaなし"
+        - cmd: "focused/full/immutability verification"
+          status: pass
+          summary: "155 focused、944 full、5799 source unchanged"
+      summary: "旧current fast pathは閉じたが、App Server fresh inconclusiveの同一呼出し内でexact証拠を二重読取するためcommit拒否。"
+      remaining_blockers:
+        - "propagate same-call exact evidence verification"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "同じstatus呼出し内でexact検証済みのlogical resultを伝播し、App Server fresh inconclusiveの重複manifest/result検証を除去する"
+    inputs:
+      - "T037 rejected receipt"
+      - "App Server fresh inconclusive manifest/result each two reads"
+      - "T036 current four-file implementation"
+    constraints:
+      - "_committed_attempt_resultでsession/thread/turnまで検証したlogical resultだけ、同じ呼出し内の_session_receipt_validを省く。"
+      - "別呼出しへ検証結果を持ち越すcacheを作らない。"
+      - "legacy/current projectionは従来どおり_session_receipt_validを行い、不一致をstaleにする。"
+      - "fresh inconclusiveとpost-commit logical recoveryはmanifest/result各1回にする。"
+      - "旧current terminal 0 latest artifact readとsingle snapshotを維持する。"
+    expected_output:
+      - "same-call exact-evidence flag"
+      - "App Server one-read tests"
+      - "legacy/current receipt validation regression"
+      - "focused and full regression evidence"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_evaluation tests.test_question_review_server tests.test_question_review_workflow tests.test_question_review_publisher_safety"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/evaluation.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "指定4製品ファイル以外の変更が必要になる。"
+      - "session/thread/turnの完全一致検証を省略する必要がある。"
+      - "別呼出しへ検証結果を再利用するcacheが必要になる。"
+      - "新index、journal、schema、API又はUI変更が必要になる。"
+      - "00_source、既存run成果物又はFirestore変更が必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "App Server exact-evidence targeted tests"
+          status: pass
+          summary: "5 tests passed"
+        - cmd: "evaluation/server/workflow/publisher focused regression"
+          status: pass
+          summary: "157 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "946 tests passed"
+        - cmd: "py_compile, 00_source immutability and diff check"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "same-call exact_verifiedを伝播し、App Server fresh inconclusive/logical passedをmanifest/result各1回にし、promoted current/legacyのreceipt再検証を維持した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T039
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T037 App Server evidence重複と全correctness/performance blockerがT038後に閉じたかを最終監査し、atomic evaluation projection v2の4ファイルをcommitしてよいか判定する"
+    inputs:
+      - "T037 rejected receipt"
+      - "T038 same-call exact evidence implementation"
+      - "157 focused and 946 full regression"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "App Server fresh/logical recoveryとpromoted/legacy receipt境界をdirect測定する。"
+      - "projection/run I/O、repair/race、strict証拠、lifecycle、legacy/API/result保持を確認する。"
+      - "新cache/index/schemaなし、4製品file scope、docs整合を確認する。"
+      - "実測P0/P1だけをcommit blockerにする。"
+    expected_output:
+      - "approved | rejected"
+      - "all blocker closure map"
+      - "safe-to-commit exact files"
+      - "exact pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      decision: approve_next
+      changed_files: []
+      commands:
+        - cmd: "App Server evidence boundary direct probes"
+          status: pass
+          summary: "fresh/logical各1読取、promoted/legacy receipt維持"
+        - cmd: "projection/run I/O and recovery probes"
+          status: pass
+          summary: "single snapshot、old-current latest 0読取、repair/race成功"
+        - cmd: "strict evidence and past blocker regression"
+          status: pass
+          summary: "全correctness blocker閉鎖"
+        - cmd: "targeted/focused/full/immutability verification"
+          status: pass
+          summary: "19 targeted、157 focused、946 full、5799 source unchanged"
+      summary: "全correctness/performance blockerが閉じ、新規実測P0/P1なし。指定4製品ファイルのscoped commitを承認。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+      safe_to_commit_exact_four_files:
+        - tools/question_review_console/evaluation.py
+        - tests/test_question_review_evaluation.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+  - id: T040
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "承認済みatomic evaluation projection v2の4製品ファイルだけを最終検証し、mainへscoped commitしてorigin/mainへpushする"
+    inputs:
+      - "T039 approved receipt"
+      - "Current exact four-file product diff"
+    constraints:
+      - "pre-commit verificationを全件再実行する。"
+      - "承認済み4製品ファイルだけをstage/commitする。"
+      - "GoalBuddy state/notesをproduct commitへ含めない。"
+      - "mainからorigin/mainだけへpushする。"
+      - "00_source、patch、output artifactを含めない。"
+    expected_output:
+      - "verified atomic evaluation projection product commit"
+      - "origin/main push readback"
+      - "GoalBuddy control files only remaining outside product diff"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "157 focused tests"
+      - "946 full question-review tests"
+      - "py_compile"
+      - "5799 source immutability"
+      - "diff check"
+      - "exact staged four-file scope"
+      - "origin/main parity after push"
+    stop_if:
+      - "pre-commit verificationが一件でも失敗する。"
+      - "承認済み4ファイル以外がstagedされる。"
+      - "main以外のbranchにいる。"
+      - "origin/mainが先行して競合する。"
+    receipt:
+      result: done
+      summary: "承認済み4製品ファイルだけを再検証して4713ba51dへcommitし、origin/mainへpushした。"
+      evidence:
+        - "157 focused tests passed"
+        - "946 full question-review tests passed"
+        - "evaluation.py py_compile passed"
+        - "00_source 5799 files unchanged"
+        - "git diff --check and staged diff check passed"
+        - "commit 4713ba51d85d57bc4f53522a576f37650ab4b8bf"
+        - "origin/main...HEAD = 0 0"
+      harness: codex
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T041
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "第四改善である確認対象を固定する明示選択式の直列公開queueについて、現行UI・API・publisher・artifact契約を反証監査し、全体最適となる最大の安全な一改善を確定する"
+    inputs:
+      - "T001 prioritized improvement plan"
+      - "Current question maintenance UI, server, publisher and tests"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+    constraints:
+      - "Read-only。実装、file変更、commit、pushを行わない。"
+      - "現行の公開安全境界、existing question ID、00_source不変、一問一turn、100問window、単一writerを維持する。"
+      - "旧run又はUI待ち時間だけから現行欠陥を推測せず、current codeとtestsで再現する。"
+      - "個別禁止条件や資格固有条件を追加せず、公開対象選択と直列実行の責務を単純な契約として定義する。"
+      - "複数改善を混ぜず、確認対象の固定から公開完了readbackまでを一つの縦sliceにする。"
+    expected_output:
+      - "current-state evidence and reproduced gap"
+      - "recommended simple contract and rejected alternatives"
+      - "exact implementation files and verification matrix"
+      - "approve_worker | revise_scope | no_change"
+    verify:
+      - "UI selection and confirmation behavior"
+      - "server request and run identity behavior"
+      - "publisher serialization and failure continuation behavior"
+      - "artifact and readback contract"
+      - "existing publisher safety regressions"
+    stop_if:
+      - "現行実装が既に明示選択式直列queueの契約を満たし、改善効果を示せない。"
+      - "安全な一改善として切り出せず別アーキテクチャ変更が必須になる。"
     receipt: null
   - id: T999
     type: judge

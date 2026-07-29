@@ -1,0 +1,17 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T023",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "summary": "別index/journalを廃止し、既存evaluation pathのatomic projection v2にcurrentValid、latestAttempt、sequenceを同居させる設計を承認。full historyはworkflow_runs、work-version証拠は既存current/historyを使い、API/UI形状は変えない。",
+    "canonical_schema": "question-evaluation-projection/v2",
+    "rejected": [
+      "separate index",
+      "rollback journal",
+      "new API/UI contract",
+      "work_versions schema change"
+    ]
+  }
+}

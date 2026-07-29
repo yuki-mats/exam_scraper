@@ -1,0 +1,17 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T025",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "T024の単一projection/commit順は再利用可能だが、通常read回復、完全証拠照合、strict v2構造、fresh/legacy API互換、failed full result保持が不足するためcommit拒否。",
+    "remaining_blockers": [
+      "read-time recovery",
+      "exact evidence validation",
+      "strict projection parser",
+      "API compatibility",
+      "failed result preservation"
+    ]
+  }
+}

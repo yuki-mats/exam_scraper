@@ -1,0 +1,14 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T029",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "T027三blockerは閉じたが、run_store.create失敗のactive残留とreserved-to-failed修復直後の表示不安定を再現したためcommitを拒否した。",
+    "remaining_blockers": [
+      "single outer active lifecycle guard",
+      "stable failed repair status"
+    ]
+  }
+}

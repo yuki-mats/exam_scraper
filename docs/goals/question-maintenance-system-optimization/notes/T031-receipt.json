@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T031",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "single lifecycleとfailed修復は閉じたが、foreign work-version親identity/source/空fingerprintからpromotionできるためcommitを拒否した。",
+    "remaining_blockers": [
+      "strict work-version parent identity",
+      "validated evaluation source",
+      "non-empty policy fingerprint"
+    ]
+  }
+}

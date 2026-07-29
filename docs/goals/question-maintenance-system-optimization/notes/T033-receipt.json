@@ -1,0 +1,13 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T033",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "correctness blockerは閉じたが、stable v2のstatus_for一回がload_projection 5回、同path os.stat 10回のためcommitを拒否した。",
+    "remaining_blockers": [
+      "single projection snapshot per stable status poll"
+    ]
+  }
+}

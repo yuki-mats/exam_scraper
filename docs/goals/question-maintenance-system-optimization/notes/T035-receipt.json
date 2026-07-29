@@ -1,0 +1,13 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T035",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "single snapshotは閉じたが、currentValidあり/latest inconclusiveのpollが未使用manifest/resultを各1回読むためcommitを拒否した。",
+    "remaining_blockers": [
+      "skip unused terminal inconclusive run reads when currentValid exists"
+    ]
+  }
+}

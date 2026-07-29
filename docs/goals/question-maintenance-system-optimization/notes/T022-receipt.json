@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T022",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "approve_next",
+    "defect_reproduced": true,
+    "full_outcome_complete": false,
+    "summary": "passed後のinconclusive上書きと、projection保存後のwork-version失敗で旧validを失う欠陥をdeterministicに再現。attempt historyとcurrent-valid promotionの分離が必要。初案のindex/journalは実装前に単純化監査する。",
+    "reproductions": [
+      "passed -> inconclusive -> inconclusive leaves current inconclusive",
+      "passed -> saved needs_rework -> work-version failure leaves stale failed projection"
+    ]
+  }
+}

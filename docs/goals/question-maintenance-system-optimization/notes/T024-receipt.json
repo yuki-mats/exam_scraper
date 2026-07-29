@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T024",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/evaluation.py",
+      "tests/test_question_review_evaluation.py",
+      "document/operations/local_question_review_console.md",
+      "document/operations/artifact_contract.md"
+    ],
+    "summary": "atomic projection v2でlatest-valid保護とcrash recoveryを実装。評価30件、API/公開113件、全932件、5799 source不変が成功した。",
+    "remaining_blockers": []
+  }
+}

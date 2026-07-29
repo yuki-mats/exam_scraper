@@ -1,0 +1,15 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T027",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "T025主要blockerは閉じたが、回復失敗時のactive残留、terminal readのprojection再書込み、型破損したpolicy証拠の例外漏出を再現したためcommitを拒否した。",
+    "remaining_blockers": [
+      "active lifecycle cleanup",
+      "terminal read no-op",
+      "malformed evidence fail-closed"
+    ]
+  }
+}
