@@ -1,0 +1,10 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T042",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "commit": "3823d115f5bff8d104b6319bc23448fbb2701462",
+    "summary": "明示選択した1〜100問を同じbatch APIで固定し、既存QuestionPublisherを常時1問ずつ実行する公開queueを実装した。親receipt、readback、失敗継続、retry選択、preview競合防止を959件の全回帰まで検証した。",
+    "remaining_blockers": []
+  }
+}

@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T042
+active_task: T045
 tasks:
   - id: T001
     type: pm
@@ -2551,7 +2551,7 @@ tasks:
   - id: T042
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "単問と複数問の公開入口を一つの明示選択batch APIへ統合し、順序付き対象を固定して既存QuestionPublisherを直列実行し、問題別readbackと親queue receiptを終端まで保存する"
     inputs:
@@ -2597,6 +2597,130 @@ tasks:
       - "単問と複数問を同じbatch経路へ統合できない。"
       - "許可外のproduction file変更が必要になる。"
       - "並列Firestore writer又は選択外問題の暗黙追加が必要になる。"
+    receipt:
+      result: done
+      summary: "単問と複数問を同じ明示選択batch APIへ統合し、1〜100問の指定順を親tokenで固定して既存QuestionPublisherを常時1問ずつ実行する公開queueを完成させた。親receipt、問題別readback要約、失敗継続、失敗・未実行問だけの再選択、遅着preview遮断を実装した。"
+      changed_files:
+        - tools/question_review_console/publisher.py
+        - tools/question_review_console/server.py
+        - tools/question_review_console/static/app.js
+        - tests/test_question_review_publisher_safety.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+        - document/operations/delivery_workflow.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "queue-level failure, late preview and page-outside retry targeted tests"
+          status: pass
+          summary: "4 tests passed"
+        - cmd: "publisher/server/workflow/jobs/evaluation/readback focused regression"
+          status: pass
+          summary: "197 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "959 tests passed in 95.871 seconds"
+        - cmd: "node --check, py_compile and git diff --check"
+          status: pass
+        - cmd: "00_source immutability"
+          status: pass
+          summary: "5799 files unchanged"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T043
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T042の直列公開queueを、親receipt終端整合、preview競合、ページ外retry選択、JobManager結果伝播を含めて反証監査し、製品commit可否を判定する"
+    inputs:
+      - "T042 implementation and tests"
+      - "Focused and full regression evidence"
+      - "Current documentation contract"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "P0、P1、P2を区別して報告する。"
+      - "一時的な親receipt失敗と永続保存失敗を別々に確認する。"
+    expected_output:
+      - "approve | reject"
+      - "P0/P1/P2 findings"
+      - "safe-to-commit exact scope"
+    receipt:
+      result: done
+      decision: approve
+      summary: "三回の反証監査で親receipt、遅着preview、ページ外retry、JobManager結果伝播のP1を順に検出・修正確認し、最終的にP0・P1・P2なしで9製品ファイルのcommitを承認した。"
+      evidence:
+        - "復旧receiptを両方保存できた場合だけfailed_resultをJobManagerへ返す"
+        - "保存不能時は元例外をraiseして不確実な結果を成功扱いしない"
+        - "q1 succeeded、q2/q3 not_runがjob result、manifest、resultで一致"
+        - "UIはfailed/not_runだけを再選択し、ページ外q25/q26も保持"
+        - "独立対象126テスト、node --check、py_compile、git diff --check合格"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 3
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T044
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "承認済み直列公開queueの9製品ファイルだけをmainへscoped commitし、origin/mainへpushする"
+    inputs:
+      - "T042 verified implementation"
+      - "T043 approved receipt"
+    constraints:
+      - "GoalBuddy control filesをproduct commitへ含めない。"
+      - "mainからorigin/mainだけへpushする。"
+      - "00_source、patch、output artifactを含めない。"
+    expected_output:
+      - "verified product commit"
+      - "origin/main parity"
+    receipt:
+      result: done
+      summary: "承認済み9製品ファイルだけを3823d115fへcommitし、origin/mainへpushした。"
+      evidence:
+        - "commit 3823d115f5bff8d104b6319bc23448fbb2701462"
+        - "staged exact 9-file scope"
+        - "origin/main...HEAD = 0 0"
+        - "main branch"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T045
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "origin/mainの問題整備UIを代表データで開き、明示選択した問題だけが同じ公開queue previewへ入り、対象順・件数・本番確認・非書込境界を画面と生artifact/API readbackで最終確認する"
+    inputs:
+      - "commit 3823d115f5bff8d104b6319bc23448fbb2701462"
+      - "current gas-shunin-otsu question maintenance artifacts"
+      - "question maintenance UI"
+    constraints:
+      - "本番Firestoreへの書込みは行わない。previewまでをread-onlyで確認する。"
+      - "UIを操作し、進捗や対象の裏付けには生JSON・APIを併用する。"
+      - "00_source、patch、既存run artifactを変更しない。"
+      - "代表データにpublishReadyがない場合は、その事実をreadbackし、既存fixtureによるUI契約検証と区別して記録する。"
+    expected_output:
+      - "representative UI preview readback"
+      - "explicit selection and order evidence"
+      - "no production write evidence"
+      - "current representative run artifact readback"
+    verify:
+      - "UI loads current origin/main asset"
+      - "single and multi selection route to /api/publications/preview"
+      - "preview target equals explicit selection"
+      - "production execution is not triggered"
+      - "git and 00_source remain unchanged"
+    stop_if:
+      - "UI previewに本番書込みが必要になる。"
+      - "代表データの確認にproduct変更が必要になる。"
     receipt: null
   - id: T999
     type: judge
