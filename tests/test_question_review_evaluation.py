@@ -329,7 +329,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず", prompt)
         self.assertIn("隔離workspaceにはrepository fileがない", prompt)
         self.assertIn("`placeholder`、`N/A`", prompt)
-        self.assertIn("現在の正答対応と公式正答は意図的に渡されていない", prompt)
+        self.assertIn("現在の正答対応は意図的に渡されていない", prompt)
+        self.assertIn("sourceAnswerEvidenceがある場合", prompt)
         self.assertIn("非法令問題のcurrentExplanationText", prompt)
         self.assertIn("減点又は要再整備理由にしない", prompt)
         self.assertIn("正しい定義・基準と条文位置", prompt)
@@ -340,6 +341,43 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("法令の根拠、改正、現行法判定の問題を02へ入れない", prompt)
         self.assertNotIn("currentCorrectChoiceText", prompt)
         self.assertNotIn("officialAnswer", prompt)
+
+    def test_prompt_includes_exact_trusted_source_answer_as_separate_evidence(self):
+        question = question_payload()
+        question["sourceRecordRef"] = "question_2025_2.json#13"
+        question["source"] = {
+            "questionBodyText": question["projected"]["questionBodyText"],
+            "choiceTextList": copy.deepcopy(
+                question["projected"]["choiceTextList"]
+            ),
+            "correctChoiceText": ["正しい", "間違い"],
+            "answer_result_text": "正解は 5 です。",
+            "sourceProvider": "gassyunin.com",
+            "sourceOrigin": "gassyunin_site",
+            "choiceMarkerSource": "judge",
+            "markerAlignmentMode": "judge_only",
+            "markerMismatchDetected": False,
+            "answerResultNumbersRemapped": False,
+            "judgeChoiceMarkers": ["イ", "ロ"],
+            "sourceStatementCount": 2,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            prompt = service._build_prompt(question)
+
+        self.assertIn('"sourceAnswerEvidence"', prompt)
+        self.assertIn(
+            '"verdictSemantics": "final_correct_choice_text_for_source_text"',
+            prompt,
+        )
+        self.assertIn(
+            "同じ年度・資格・種別・科目・問番号の公式問題冊子と公式解答",
+            prompt,
+        )
 
     def test_saves_passed_result_and_marks_it_stale_after_question_change(self):
         with tempfile.TemporaryDirectory() as directory:

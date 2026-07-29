@@ -1067,6 +1067,7 @@ def validate_candidate_content(
     targets: Iterable[CandidateTarget],
     projected_record: Mapping[str, Any],
     original_source_record: Mapping[str, Any] | None = None,
+    source_answer_evidence: Mapping[str, Any] | None = None,
 ) -> tuple[str, ...]:
     """Run cheap deterministic checks against this question only."""
 
@@ -1132,6 +1133,23 @@ def validate_candidate_content(
         or any(value not in {"正しい", "間違い"} for value in correct)
     ):
         errors.append("correctChoiceTextが選択肢と同じ件数の正誤配列ではありません。")
+    if (
+        any(target.role == "correct_choice" for target in target_values)
+        and isinstance(source_answer_evidence, Mapping)
+        and source_answer_evidence.get("evidenceType")
+        == "trusted_gassyunin_judge_statement_verdicts"
+        and source_answer_evidence.get("verdictSemantics")
+        == "final_correct_choice_text_for_source_text"
+        and source_answer_evidence.get("appliesToCurrentText") is True
+    ):
+        expected_correct = source_answer_evidence.get("correctChoiceText")
+        if isinstance(expected_correct, list) and correct != expected_correct:
+            errors.append(
+                "現在の問題文・選択肢は00_sourceと完全一致するため、"
+                "検証済みsourceAnswerEvidenceのcorrectChoiceTextを変更できません。"
+                "公式問題・解答との衝突を確認した場合は推測で上書きせず、"
+                "問題単位をblockedにしてください。"
+            )
     correct_shape_valid = (
         isinstance(correct, list)
         and len(correct) == len(choices)

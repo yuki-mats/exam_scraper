@@ -13,6 +13,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
+from scripts.common.question_answer_contract import (
+    uses_trusted_gassyunin_judge_answers,
+)
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_runs import QualificationRunStore
@@ -72,6 +75,36 @@ def _normalize_current_verdict(value: Any) -> bool | None:
     if normalized in {label.casefold() for label in FALSE_LABELS}:
         return False
     return None
+
+
+def _source_answer_evidence(
+    question: Mapping[str, Any],
+    projected: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    source = question.get("source")
+    if not isinstance(source, Mapping) or not uses_trusted_gassyunin_judge_answers(
+        source
+    ):
+        return None
+    if (
+        source.get("questionBodyText")
+        != (projected.get("questionBodyText") or question.get("body"))
+        or source.get("choiceTextList") != projected.get("choiceTextList")
+    ):
+        return None
+    correct = source.get("correctChoiceText")
+    if not isinstance(correct, list) or len(correct) != len(
+        source.get("choiceTextList") or []
+    ):
+        return None
+    return {
+        "evidenceType": "trusted_gassyunin_judge_statement_verdicts",
+        "verdictSemantics": "final_correct_choice_text_for_source_text",
+        "sourceRecordRef": question.get("sourceRecordRef"),
+        "correctChoiceText": copy.deepcopy(correct),
+        "answerResultText": source.get("answer_result_text"),
+        "judgeChoiceMarkers": copy.deepcopy(source.get("judgeChoiceMarkers")),
+    }
 
 
 def _extract_json(text: str) -> dict[str, Any]:
@@ -1063,6 +1096,9 @@ class QuestionEvaluationService:
             "lawRevisionFacts": projected.get("lawRevisionFacts"),
             "examYear": projected.get("examYear"),
         }
+        source_answer_evidence = _source_answer_evidence(question, projected)
+        if source_answer_evidence is not None:
+            input_payload["sourceAnswerEvidence"] = source_answer_evidence
         retry_section = ""
         if retry_feedback is not None:
             retry_section = f"""
@@ -1083,7 +1119,7 @@ class QuestionEvaluationService:
 ## 必須確認
 
 1. 問題文と全選択肢を一体で読み、各選択肢の命題を一次資料、公式資料、法令本文又は独立計算で確認する。
-2. 現在の正答対応と公式正答は意図的に渡されていない。currentExplanationTextは解説採点だけに使い、各選択肢の判定根拠として扱わない。
+2. 現在の正答対応は意図的に渡されていない。currentExplanationTextは解説採点だけに使い、各選択肢の判定根拠として扱わない。sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な取得元正答証拠であり、現在値ではない。まず問題文と全選択肢を独立に検証し、その後にsourceAnswerEvidenceと照合する。
 3. 各選択肢に、第三者がたどれるsource、具体的locator、短い根拠要約を最低1件付ける。
 4. 根拠が足りない選択肢はinsufficient_evidenceとし、推測で合格にしない。
 5. `placeholder`、`N/A`、`invalid`、`test`、`wrong channel`、`確認中`などの仮値は根拠にも評価結果にも使わない。隔離workspaceにはrepository fileがないため、`rg`又は`find`でローカル資料を探さず、一次情報の取得と問題の評価に時間を使う。
@@ -1101,6 +1137,7 @@ class QuestionEvaluationService:
 17. e-Gov法令APIのlaws.e-gov.go.jpで一時的な名前解決又は接続失敗が起きた場合は、上記curlの自動再試行後に、同じlawIdを使える公式e-LAWSの https://elaws.e-gov.go.jp/document?lawid={{lawId}} も確認する。一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず、別の公式経路を確認する。
 18. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
 19. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
+20. sourceAnswerEvidenceのverdictSemanticsがfinal_correct_choice_text_for_source_textの場合、その配列は取得元のjudge欄と同一本文・同一選択肢の対応を機械検証した基準である。一般資料に書かれた適用除外や例外を広く解釈しただけで覆さない。同じ年度・資格・種別・科目・問番号の公式問題冊子と公式解答を確認して明白に衝突する場合だけ、公式資料を根拠に異なるverdictを返す。問題文と選択肢自体が公式冊子と一致しない場合は、正答配列を推測で合わせずcriticalIssuesへ記録する。
 
 ## 再整備stageの責務
 

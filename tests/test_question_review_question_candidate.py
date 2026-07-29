@@ -14,6 +14,87 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_candidate_cannot_override_exact_trusted_source_answer(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2025/"
+                "23_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "correct_choice": ["correctChoiceText"]
+            },
+        }
+        targets = candidate_targets("q1", "correct_choice", plan)
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "一般資料を理由に取得元の正答を変更した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:correct_choice",
+                                "setFields": [
+                                    {
+                                        "field": "correctChoiceText",
+                                        "valueJson": (
+                                            '["正しい","正しい","間違い",'
+                                            '"間違い","間違い"]'
+                                        ),
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        projected = {
+            "questionBodyText": "いずれも誤っているものの組合せはどれか。",
+            "choiceTextList": ["イ", "ロ", "ハ", "ニ", "ホ"],
+            "correctChoiceText": [
+                "正しい",
+                "正しい",
+                "正しい",
+                "間違い",
+                "間違い",
+            ],
+            "questionType": "true_false",
+            "questionIntent": "select_incorrect",
+            "answer_result_text": "正解は 5 です。",
+        }
+        evidence = {
+            "evidenceType": "trusted_gassyunin_judge_statement_verdicts",
+            "verdictSemantics": "final_correct_choice_text_for_source_text",
+            "appliesToCurrentText": True,
+            "correctChoiceText": [
+                "正しい",
+                "正しい",
+                "正しい",
+                "間違い",
+                "間違い",
+            ],
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            projected,
+            projected,
+            evidence,
+        )
+
+        self.assertTrue(
+            any("検証済みsourceAnswerEvidence" in error for error in errors),
+            errors,
+        )
+
     def test_candidate_requires_every_selected_field(self):
         plan = {
             "allowedPatchFiles": [

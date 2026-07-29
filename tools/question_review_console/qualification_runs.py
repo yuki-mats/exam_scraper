@@ -13582,6 +13582,26 @@ class QualificationRunCoordinator:
         else:
             records_by_question = dict(prepared_records)
             targets_by_question = dict(prepared_targets)
+        raw_target_by_question = {
+            str(value.get("id") or value.get("uiQuestionId") or ""): value
+            for value in raw_targets
+        }
+        source_answer_evidence_by_question = {
+            question_id: evidence
+            for question_id, source_record in (
+                prepared_source_records or {}
+            ).items()
+            if question_id in raw_target_by_question
+            and question_id in records_by_question
+            for evidence in [
+                _trusted_source_answer_evidence(
+                    source_record,
+                    raw_target_by_question[question_id],
+                    records_by_question[question_id],
+                )
+            ]
+            if stage_id == "correct_choice" and evidence is not None
+        }
 
         def heartbeat() -> None:
             heartbeat_at = _now()
@@ -14428,6 +14448,7 @@ class QualificationRunCoordinator:
                             if prepared_source_records is not None
                             else None
                         ),
+                        source_answer_evidence_by_question.get(question_id),
                     )
                 )
                 if content_errors:
