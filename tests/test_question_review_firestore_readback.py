@@ -62,6 +62,43 @@ class QuestionReviewFirestoreReadbackTests(unittest.TestCase):
         self.assertEqual(result["missingDocumentIds"], ["doc2"])
         self.assertIn("doc1.lawReferences[0].article", result["differences"])
 
+    def test_compare_preserves_omitted_optional_fields_for_regular_documents(self):
+        result = compare_documents(
+            [{"questionId": "doc1", "isChoiceOnly": False}],
+            {
+                "doc1": {
+                    "suggestedQuestions": ["既存の補足質問"],
+                    "suggestedQuestionDetails": [
+                        {"question": "既存の補足質問", "answer": "既存の回答"}
+                    ],
+                }
+            },
+            fields=("suggestedQuestions", "suggestedQuestionDetails"),
+        )
+
+        self.assertEqual(result["status"], "match")
+        self.assertEqual(result["differences"], [])
+
+    def test_compare_requires_choice_only_omitted_fields_to_be_deleted(self):
+        result = compare_documents(
+            [{"questionId": "doc1", "isChoiceOnly": True}],
+            {
+                "doc1": {
+                    "suggestedQuestions": ["削除対象の補足質問"],
+                    "suggestedQuestionDetails": [
+                        {"question": "削除対象の補足質問", "answer": "削除対象の回答"}
+                    ],
+                }
+            },
+            fields=("suggestedQuestions", "suggestedQuestionDetails"),
+        )
+
+        self.assertEqual(result["status"], "mismatch")
+        self.assertEqual(
+            result["differences"],
+            ["doc1.suggestedQuestionDetails", "doc1.suggestedQuestions"],
+        )
+
     def test_reader_fetches_only_expected_document_ids(self):
         database = FakeDatabase({"doc1": {"correctChoiceText": "正しい"}, "other": {}})
         reader = FirestoreReadback(db_factory=lambda: database)

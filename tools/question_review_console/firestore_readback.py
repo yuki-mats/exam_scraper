@@ -3,6 +3,10 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Any, Callable, Iterable, Mapping
 
+from scripts.upload.upload_questions_to_firestore import (
+    build_doc_data_base,
+    choice_only_delete_fields,
+)
 from tools.question_review_console.inventory import FIRESTORE_COMPARE_FIELDS
 
 
@@ -77,10 +81,18 @@ def compare_documents(
             )
             continue
         live = json_safe(live_raw)
+        expected_write = json_safe(build_doc_data_base(expected))
+        deleted_fields = set(choice_only_delete_fields(expected_write, live))
         differences: list[str] = []
         for field in fields:
+            if field in expected:
+                expected_value = expected_write[field]
+            elif field in deleted_fields:
+                expected_value = None
+            else:
+                continue
             differences.extend(
-                recursive_diff(expected.get(field), live.get(field), field)
+                recursive_diff(expected_value, live.get(field), field)
             )
         differences = sorted(set(differences))
         all_differences.extend(f"{question_id}.{value}" for value in differences)
