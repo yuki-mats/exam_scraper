@@ -1,0 +1,22 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T999",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "complete",
+    "full_outcome_complete": true,
+    "rationale": "P0・P1・P2の未解決事項はない。4改善は個別に反証監査、検証、commit、pushされ、現行959回帰、00_source 5799件不変、origin/main parity 0/0、乙種・甲種の実UI/API fail-closed確認まで完了した。state v3とUI/worker分離には必要性を示す実測がないため、条件どおり未実装を維持する。",
+    "evidence": [
+      "Telemetry: 34cddff07619aee5f7c6ba15e4d71d352093fe90",
+      "Typed candidate DTO: 5962fef75",
+      "Atomic evaluation projection: 4713ba51d85d57bc4f53522a576f37650ab4b8bf",
+      "Serial publication queue: 3823d115f5bff8d104b6319bc23448fbb2701462",
+      "959 question-review tests passed",
+      "00_source 5799 files unchanged",
+      "乙種522問はFirestore readbackで全件match",
+      "甲種2問previewは全件blocked、canStart=falseで書込みなし",
+      "P0なし、P1なし、P2なし"
+    ],
+    "remaining_blockers": []
+  }
+}

@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-system-optimization"
   kind: existing_plan
   tranche: "continuous execution: 優先改善を一つずつ実装・検証・commit・pushし、実測に基づいて次の改善へ進む"
-  status: active
+  status: done
   oracle:
     signal: "各改善の独立commit、対象テスト、関連回帰、00_source不変検査、成果物又はUI readbackが揃う"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T045
+active_task: null
 tasks:
   - id: T001
     type: pm
@@ -2695,7 +2695,7 @@ tasks:
   - id: T045
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "origin/mainの問題整備UIを代表データで開き、明示選択した問題だけが同じ公開queue previewへ入り、対象順・件数・本番確認・非書込境界を画面と生artifact/API readbackで最終確認する"
     inputs:
@@ -2721,11 +2721,29 @@ tasks:
     stop_if:
       - "UI previewに本番書込みが必要になる。"
       - "代表データの確認にproduct変更が必要になる。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "最新版serverを再起動し、実UIで乙種と甲種の評価・公開画面を確認した。乙種はFirestore readbackで522問・2601documentが全件matchのため公開可能0問、甲種は現行整備未完のため公開可能0問として実行を無効化した。甲種の実在2問を明示順でpreviewすると2問ともblocked、canStart=false、親token空となり、start・publish run・queue artifactを作らなかった。"
+      evidence:
+        - "UI asset app.js?v=question-review-ui-v3-20260728-23 loaded after server restart"
+        - "乙種 UI: 9年度、522問、12/12工程、要確認0問"
+        - "乙種 Firestore readback: 522 questions, 2601 documents, statusCounts.match=522"
+        - "甲種 UI: 528問、4/12工程、要確認473問、公開可能0問"
+        - "甲種 preview IDs b4089a859f3a9a60852f6b5c then 07bf11e1daa6c3502f90665f"
+        - "preview selectedCount=2, blockedCount=2, canStart=false, previewToken empty"
+        - "server log contains POST /api/publications/preview and no /api/publications/start"
+        - "甲種 publish queue files=0 and publish runs=0"
+        - "00_source 5799 files unchanged"
+        - "origin/main...HEAD = 0 0"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: false
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "各改善receiptと最終検証を元に、全体最適化がユーザーの目的を満たしたか監査する"
     inputs:
@@ -2742,11 +2760,32 @@ tasks:
       - "full_outcome_complete: true | false"
       - "Evidence map"
       - "Remaining or rejected changes"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      summary: "P0・P1・P2の未解決事項はない。4改善は一つずつ反証監査、検証、commit、pushされ、最終回帰、00_source不変、origin/main一致、乙種・甲種の実UI/API fail-closed確認まで完了した。"
+      evidence:
+        - "telemetry 34cddff07619aee5f7c6ba15e4d71d352093fe90: run-local model turn、question-window refill、writer queue/lock telemetry"
+        - "typed candidate DTO 5962fef75: native JSON v3、server-owned field分離、保存済みv2 resume互換"
+        - "atomic evaluation projection 4713ba51d85d57bc4f53522a576f37650ab4b8bf: latest-valid保護、crash recovery、strict evidence"
+        - "serial publication queue 3823d115f5bff8d104b6319bc23448fbb2701462: 明示選択1〜100問、固定順、単一publisher、親receipt"
+        - "959 question-review tests passed、00_source 5799 files unchanged、origin/main parity 0 0"
+        - "乙種522問はFirestore 522問・2601documentsが全件match、甲種2問previewはblocked=2、canStart=falseで本番書込みなし"
+        - "state v3又はUI/worker分離を必要とする計測結果はなく、条件付き改善を未実装のままとする判断は妥当"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: true
 
 checks:
   dirty_fingerprint: "goal-control-files-only"
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass
+    task: T999
+    commands:
+      - "959 question-review tests passed"
+      - "00_source immutability: 5799 files unchanged"
+      - "git diff --check passed"
+      - "origin/main...HEAD = 0 0 before final control commit"
+      - "乙種・甲種 UI/API read-only validation passed"
