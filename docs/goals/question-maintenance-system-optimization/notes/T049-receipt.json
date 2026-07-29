@@ -1,0 +1,33 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T049",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "summary": "temp fixtureで64問同時実行と98問/同時枠64の連続補充をreadbackし、modelBatchSize=1の独立turn、汎用tool、完全receipt、全問validatedを確認した。",
+    "metrics": {
+      "simultaneous_fixture": {
+        "question_count": 64,
+        "model_turn_peak_in_flight": 64,
+        "question_window_peak": 64,
+        "validated_question_count": 64,
+        "fully_receipted": true
+      },
+      "rolling_refill_fixture": {
+        "question_count": 98,
+        "capacity": 64,
+        "automatic_refill_count": 34,
+        "model_turn_peak_in_flight": 64,
+        "validated_question_count": 98,
+        "fully_receipted": true
+      },
+      "different_work_version_paths": {
+        "peak_writes_before": 1,
+        "peak_writes_after": 2,
+        "elapsed_seconds_before": 0.224,
+        "elapsed_seconds_after": 0.115
+      }
+    },
+    "production_writes": false,
+    "remaining_blockers": []
+  }
+}

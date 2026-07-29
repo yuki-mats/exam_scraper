@@ -40,12 +40,12 @@ PMは各receiptをこのoracleへ対応付ける。一つのテスト成功、�
 
 ## Current Tranche
 
-第一改善のrun固有telemetryは`34cddff07`で検証・反映済みである。第二改善として、モデル出力の`valueJson`二重JSONとserver-owned fieldを廃止し、native JSONの型付きcandidate DTOへ移行する。新規runだけを新契約にし、既存candidate v2はresume/readback専用に読み続け、既存成果物を移行書換えしない。
+専用の`preparation worker`と`commit writer`を業務主体として扱う構造を廃止し、一問ごとの単純なstate machineへ統合した。入力生成、candidate検証、patch反映、receipt保存は決定的なserver toolとし、AI modelは文章生成と意味判断だけを担当する。共有patchへの短いatomic更新だけを実path単位で調停し、その他の検証・進捗集約・inventory更新をpatch lockから分離した。実装は`b23940b93`と`27319b0df`、契約テスト整合は`483069a38`として`origin/main`へ反映済みである。
 
 ## Non-Negotiable Constraints
 
 - `00_source`、既存question ID、既存patch、既存run成果物を移行書換えしない。
-- 最大100問の連続補充、一問一turn、同一問題内の工程順、単一commit writerを維持する。
+- 最大100問の連続補充、一問一turn、同一問題内の工程順を維持する。patch確定は一問単位の決定的toolで行い、同じ実pathを更新する処理だけを直列化する。
 - 新規runの契約変更では、既存runをresume又はreadbackできる後方互換を保つ。
 - モデルがserver-owned ID、hash、日時、確定状態を決める契約を増やさない。
 - 機械検証は矛盾を検出して止める役割とし、一方の値へ自動補正しない。
@@ -58,7 +58,7 @@ PMは各receiptをこのoracleへ対応付ける。一つのテスト成功、�
 
 Stop only when a final audit proves the full original owner outcome is complete.
 
-安全な改善が残る限り継続する。ただし、先行計測が不要と示したstate v3、UI/worker分離、常駐uploaderは実施せず、その判断根拠をreceiptへ残す。
+安全な改善が残る限り継続する。新しい一問pipelineについて、機械検証、同一path競合、複数path atomicity、rollback、resume互換、実測telemetryまで確認し、旧worker queueの不要な責務と表現が正本文書・API・成果物から除かれるまで完了としない。
 
 ## Slice Sizing
 

@@ -1,0 +1,45 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T047",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "approved",
+    "full_outcome_complete": false,
+    "rationale": "既存IsolatedQuestionPatchWorkspaceのrecord rebase、実path process lock、競合検出、atomic writeを再利用すれば、新形式やmigrationなしで専用preparation/commit executorを汎用tool executorへ統合できる。年度単位lockはpatch pathとwork_versions pathを同じ安定順transactionへ含めることで除去可能である。",
+    "worker_package": {
+      "objective": "通常の一問structured-candidate pipelineから専用preparation/commit executorと資格・年度writer scopeを除去し、入力生成とpatch反映を一つの汎用deterministic tool executorへ統合する。patch反映は実patch pathと対象work_versions pathだけを安定順にlockし、新telemetryと旧run read互換を持たせる。",
+      "allowed_files": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_patch_proposal.py",
+        "tests/test_question_review_qualification_runs.py",
+        "tests/test_question_review_question_patch_proposal.py",
+        "tests/test_question_review_question_run_state.py",
+        "tests/test_question_review_work_versions.py",
+        "document/operations/local_question_review_console.md",
+        "document/operations/artifact_contract.md"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_question_candidate tests.test_question_review_question_run_state tests.test_question_review_work_versions tests.test_question_review_qualification_runs",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_jobs tests.test_question_review_evaluation tests.test_question_review_firestore_readback",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_patch_proposal.py",
+        "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py",
+        "git diff --check"
+      ],
+      "stop_if": [
+        "patch形式、work_versions形式又は既存run artifactのmigrationが必要になる。",
+        "一問一turn、最大100 model turn、問題単位再試行又はresume互換を弱める必要がある。",
+        "実patch pathとwork_versions pathを同じtransaction lockへ含められない。",
+        "modelにidentity、hash、検証又はfile更新判断を移す必要がある。",
+        "00_source又は許可外production fileの変更が必要になる。"
+      ]
+    },
+    "evidence": [
+      "question_patch_proposal.py already serializes exact canonical paths across processes",
+      "qualification_runs.py currently duplicates preparation and commit pools plus qualification/group scope",
+      "current focused baseline passed",
+      "patch and work-version formats can remain unchanged"
+    ],
+    "remaining_blockers": []
+  }
+}

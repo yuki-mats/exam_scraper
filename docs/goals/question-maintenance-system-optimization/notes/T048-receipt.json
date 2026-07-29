@@ -1,0 +1,22 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T048",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "summary": "専用preparation/commit executorと資格・年度writer scopeを除去し、modelは一問semantic candidate、汎用question-toolは入力投影・機械検証・実path atomic反映・receipt保存を担う一問pipelineへ統合した。",
+    "commits": [
+      "b23940b93",
+      "483069a38",
+      "27319b0df"
+    ],
+    "verification": {
+      "focused_tests": 233,
+      "related_tests": 99,
+      "full_question_review_tests": 965,
+      "source_files_unchanged": 5799,
+      "py_compile": "pass",
+      "diff_check": "pass"
+    },
+    "remaining_blockers": []
+  }
+}

@@ -4,7 +4,7 @@ goal:
   title: "問題整備システムの全体最適化"
   slug: "question-maintenance-system-optimization"
   kind: existing_plan
-  tranche: "continuous execution: 優先改善を一つずつ実装・検証・commit・pushし、実測に基づいて次の改善へ進む"
+  tranche: "deterministic per-question pipeline: preparation/commit専用workerを決定的toolへ統合し、実path単位のatomic更新と機械検証で安全性・効率を実証する"
   status: done
   oracle:
     signal: "各改善の独立commit、対象テスト、関連回帰、00_source不変検査、成果物又はUI readbackが揃う"
@@ -2777,15 +2777,264 @@ tasks:
       verification_attempts: 1
       stopped_because: null
       full_outcome_complete: true
+  - id: T046
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: high
+    objective: "現行の入力生成、model実行、candidate検証、patch確定、進捗・receipt集約をread-onlyで追い、専用preparation/commit workerを除去できる最小完全な責務境界を確定する"
+    inputs:
+      - "Current qualification run pipeline and typed candidate DTO"
+      - "Current patch workspace, transaction, work-version and run-state stores"
+      - "Current telemetry and question-review regression tests"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    constraints:
+      - "Read-only。product file、artifact、00_sourceを変更しない。"
+      - "単なるclass rename又はqueue削除でなく、共有mutable resourceをすべて列挙する。"
+      - "既存runのresume/readback互換と一問複数path更新を見落とさない。"
+      - "modelによる意味判断と機械toolによる検証・反映を混同しない。"
+    expected_output:
+      - "Current responsibility and data-flow map"
+      - "Exact shared mutable resources and lock scope"
+      - "Simplest target architecture"
+      - "Exact implementation and test files"
+      - "Migration and rollback risks"
+    receipt:
+      result: done
+      summary: "現行のpreparation/model/commit三queue、実path transaction、年度単位work-version、問題state、resume境界を追跡した。既存IsolatedQuestionPatchWorkspaceが必要な機械的patch更新を既に実装しており、新形式を増やさず一問state machineと汎用tool executorへ統合できる。"
+      note: notes/T046-deterministic-pipeline-map.md
+      evidence:
+        - "qualification_runs.py prepare_spec, prepare_batch, run_model, run_commit and run_question_segment"
+        - "question_patch_proposal.py actual-path locks, record rebase, conflict detection and atomic write"
+        - "work_versions.py group ledger and atomic record_stage"
+        - "current focused baseline passed"
+      remaining_blockers: []
+  - id: T047
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T046の調査を反証し、一問state machineへのリファクタリング契約、許可file、検証matrix、停止条件を確定する"
+    inputs:
+      - "T046 receipt"
+      - "Current implementation and tests"
+    constraints:
+      - "Read-only。実装しない。"
+      - "不要な新形式、migration、dual-write、別daemonを増やさない。"
+      - "実path競合と複数path atomicityを証明できない案を拒否する。"
+    expected_output:
+      - "approved | rejected"
+      - "Exact Worker package"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "既存IsolatedQuestionPatchWorkspaceのrecord rebase、実path process lock、競合検出、atomic writeを再利用すれば、新形式やmigrationなしで専用preparation/commit executorを汎用tool executorへ統合できる。年度単位lockはpatch pathとwork_versions pathを同じ安定順transactionへ含めることで除去可能である。"
+      worker_package:
+        objective: "通常の一問structured-candidate pipelineから専用preparation/commit executorと資格・年度writer scopeを除去し、入力生成とpatch反映を一つの汎用deterministic tool executorへ統合する。patch反映は実patch pathと対象work_versions pathだけを安定順にlockし、新telemetryと旧run read互換を持たせる。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tools/question_review_console/question_patch_proposal.py
+          - tests/test_question_review_qualification_runs.py
+          - tests/test_question_review_question_patch_proposal.py
+          - tests/test_question_review_question_run_state.py
+          - tests/test_question_review_work_versions.py
+          - document/operations/local_question_review_console.md
+          - document/operations/artifact_contract.md
+        verify:
+          - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_question_candidate tests.test_question_review_question_run_state tests.test_question_review_work_versions tests.test_question_review_qualification_runs"
+          - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_jobs tests.test_question_review_evaluation tests.test_question_review_firestore_readback"
+          - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_patch_proposal.py"
+          - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          - "git diff --check"
+        stop_if:
+          - "patch形式、work_versions形式又は既存run artifactのmigrationが必要になる。"
+          - "一問一turn、最大100 model turn、問題単位再試行又はresume互換を弱める必要がある。"
+          - "実patch pathとwork_versions pathを同じtransaction lockへ含められない。"
+          - "modelにidentity、hash、検証又はfile更新判断を移す必要がある。"
+          - "00_source又は許可外production fileの変更が必要になる。"
+      evidence:
+        - "question_patch_proposal.py already serializes exact canonical paths across processes"
+        - "qualification_runs.py currently duplicates preparation and commit pools plus qualification/group scope"
+        - "current focused baseline passed"
+        - "patch and work-version formats can remain unchanged"
+      remaining_blockers: []
+  - id: T048
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "通常の一問structured-candidate pipelineから専用preparation/commit executorと資格・年度writer scopeを除去し、入力生成とpatch反映を一つの汎用deterministic tool executorへ統合する"
+    inputs:
+      - "T047 approved worker package"
+    constraints:
+      - "T047で確定した責務とscopeだけを実装する。"
+    expected_output:
+      - "Working deterministic per-question pipeline"
+      - "Mechanical verification and concurrency regression"
+      - "Canonical documentation update"
+    allowed_files:
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/question_patch_proposal.py
+      - tests/test_question_review_qualification_runs.py
+      - tests/test_question_review_question_patch_proposal.py
+      - tests/test_question_review_question_run_state.py
+      - tests/test_question_review_work_versions.py
+      - document/operations/local_question_review_console.md
+      - document/operations/artifact_contract.md
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_question_candidate tests.test_question_review_question_run_state tests.test_question_review_work_versions tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_jobs tests.test_question_review_evaluation tests.test_question_review_firestore_readback"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_patch_proposal.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "patch形式、work_versions形式又は既存run artifactのmigrationが必要になる。"
+      - "一問一turn、最大100 model turn、問題単位再試行又はresume互換を弱める必要がある。"
+      - "実patch pathとwork_versions pathを同じtransaction lockへ含められない。"
+      - "modelにidentity、hash、検証又はfile更新判断を移す必要がある。"
+      - "00_source又は許可外production fileの変更が必要になる。"
+      - "検証失敗の原因が同じまま二回繰り返す。"
+    receipt:
+      result: done
+      summary: "入力準備とpatch反映を汎用question-tool executorへ統合し、modelは一問のsemantic candidate生成だけに限定した。資格・年度単位writer scopeを除去し、patch JSONとwork_versions.jsonの実pathだけを安定順にlockして、検証、atomic反映、checkpoint、失敗時rollbackを一問transactionで完結させた。"
+      commits:
+        - "b23940b93 refactor(question-review): unify deterministic per-question tools"
+        - "483069a38 test(question-review): align category field contract wording"
+        - "27319b0df refactor(question-review): lock work versions by actual path"
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/question_patch_proposal.py
+        - tools/question_review_console/work_versions.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_question_patch_proposal.py
+        - tests/test_question_review_work_versions.py
+        - tests/test_question_review_workflow_catalog.py
+        - document/operations/local_question_review_console.md
+        - document/operations/artifact_contract.md
+      commands:
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_patch_proposal tests.test_question_review_question_candidate tests.test_question_review_question_run_state tests.test_question_review_work_versions tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "233 tests passed"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_jobs tests.test_question_review_evaluation tests.test_question_review_firestore_readback"
+          status: pass
+          summary: "99 tests passed"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "965 tests passed"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 files unchanged"
+        - cmd: "py_compile and git diff --check"
+          status: pass
+      evidence:
+        - "question-modelとquestion-toolの二executorだけを生成し、旧question-preparation/question-commit executorは生成しない"
+        - "model候補はread-only typed candidateで、server-owned ID、hash、開始時刻、確定状態をserverが検証・保存する"
+        - "patchとwork-versionを同じ開始前baselineへ含め、callback失敗をtransaction外へ漏らさず、実path lock解放前にrollbackする"
+        - "同じ実pathは直列、異なる実pathは並行、複数pathは安定順lockという競合testを固定した"
+        - "新規runはpatchApplyStartedAt、旧runはcandidateCommitStartedAtをread-only互換としてresume判定できる"
+      deviations:
+        - "全回帰で現行category field文言と一致しない既存testを検出し、production契約を変えず期待値だけを483069a38で独立修正した"
+        - "stable failure codeのserver commitはvalidation feedback分類に必要なため、役割名ではなく機械codeとして維持した"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T049
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "新pipelineを代表fixtureと実runでreadbackし、速度、安全性、resume互換、artifact終端を確認する"
+    inputs:
+      - "T048 verified implementation"
+      - "Current telemetry contract"
+    constraints:
+      - "本番Firestoreへ書き込まない。"
+      - "00_sourceと既存patchを変更しないfixture又は明示された安全な対象で検証する。"
+    expected_output:
+      - "Before/after telemetry"
+      - "Safety and compatibility readback"
+      - "Remaining bottleneck decision"
+    receipt:
+      result: done
+      summary: "本番データを変更しないtemp fixtureで、64問同時と98問/同時枠64の二つをreadbackした。model batchは常に1問のまま64個の独立turnが同時稼働し、98問runでは終了枠へ残り34問が自動補充され、全問がvalidatedと完全receiptへ到達した。"
+      evidence:
+        - "64問fixture: queueStatus=succeeded, modelTurnPeakInFlight=64, questionWindowPeakPendingCount=64"
+        - "64問fixture: candidateTurnsStartedTogether=64, modelBatchSize=1, validatedQuestionCount=64"
+        - "64問fixture: patchToolStartedCount=64, patchToolFinishedCount=64, attemptsFullyReceipted=true"
+        - "98問fixture: firstWindowReached64=true, candidateTurnCount=98, automaticRefillCount=34"
+        - "98問fixture: modelTurnPeakInFlight=64, validatedQuestionCount=98, attemptsFullyReceipted=true"
+        - "work_versions異path benchmark: peak writes 1から2、100ms delay下のelapsed 0.224秒から0.115秒"
+        - "同一work_versions pathはpeak writes 1で、同時2問のledger recordを両方保持"
+        - "Firestore、workspace patch、00_source、既存run artifactへの書込みなし"
+      remaining_bottlenecks:
+        - "同じ実patch path又は同じwork_versions.jsonを更新する短いcritical sectionだけは、lost update防止のため意図的に直列化する"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: false
+  - id: T050
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "新trancheが専用workerを不要にした単純な一問pipelineと機械検証を完全に実現したか最終監査する"
+    inputs:
+      - "T046-T049 receipts"
+      - "Full regression and representative readback"
+      - "Current git and origin/main state"
+    constraints:
+      - "Read-only。実装しない。"
+      - "名前だけの置換、旧queue残存、弱い競合試験、未計測の性能主張を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "P0/P1/P2 findings"
+      - "Remaining work"
+    receipt:
+      result: done
+      decision: complete
+      summary: "専用preparation/commit workerは実装・thread・新run artifactの業務主体から除去された。意味判断はmodel、入力投影・candidate検証・patch反映・receiptは決定的tool、一問stateは一問JSON、共有更新は実pathだけという単純な責務境界になった。競合、rollback、resume、64同時、98問連続補充、全回帰、00_source不変、origin/main反映まで証拠が揃い、P0/P1/P2の残存事項はない。"
+      audit_mode: "ユーザーの一人で進める指示に従い、PMがread-only最終監査を実施"
+      findings:
+        p0: []
+        p1: []
+        p2: []
+      evidence:
+        - "b23940b93, 483069a38, 27319b0df are on origin/main"
+        - "965 question-review tests passed"
+        - "00_source 5799 files unchanged"
+        - "64 simultaneous one-question model turns succeeded"
+        - "98 questions with capacity 64 refilled exactly 34 slots and all validated"
+        - "different actual ledger paths overlap; the same path serializes without lost updates"
+        - "legacy candidateCommitStartedAt remains read-only resume compatibility only"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      full_outcome_complete: true
 
 checks:
   dirty_fingerprint: "goal-control-files-only"
   last_verification:
     result: pass
-    task: T999
+    task: T050
     commands:
-      - "959 question-review tests passed"
+      - "233 focused deterministic-pipeline tests passed"
+      - "99 workflow/jobs/evaluation/firestore-readback tests passed"
+      - "965 question-review tests passed"
+      - "64-question simultaneous fixture passed"
+      - "98-question rolling refill fixture passed with 34 refills"
+      - "work_versions actual-path benchmark and concurrency regression passed"
       - "00_source immutability: 5799 files unchanged"
-      - "git diff --check passed"
-      - "origin/main...HEAD = 0 0 before final control commit"
-      - "乙種・甲種 UI/API read-only validation passed"
+      - "py_compile and git diff --check passed"
+      - "origin/main...HEAD = 0 0 before final goal-control commit"

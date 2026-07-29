@@ -1,0 +1,16 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T046",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "summary": "現行のpreparation/model/commit三queue、実path transaction、年度単位work-version、問題state、resume境界を追跡した。既存IsolatedQuestionPatchWorkspaceが必要な機械的patch更新を既に実装しており、新形式を増やさず一問state machineと汎用tool executorへ統合できる。",
+    "note": "notes/T046-deterministic-pipeline-map.md",
+    "evidence": [
+      "qualification_runs.py prepare_spec, prepare_batch, run_model, run_commit and run_question_segment",
+      "question_patch_proposal.py actual-path locks, record rebase, conflict detection and atomic write",
+      "work_versions.py group ledger and atomic record_stage",
+      "current focused baseline passed"
+    ],
+    "remaining_blockers": []
+  }
+}
