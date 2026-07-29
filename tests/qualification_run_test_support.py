@@ -5,6 +5,7 @@ import tempfile
 import threading
 import time
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -760,6 +761,57 @@ class PerQuestionQueueAppServer:
         kwargs["on_turn_started"](
             f"thread-queue-{call_number}", f"turn-queue-{call_number}"
         )
+        lifecycle_callback = kwargs.get("on_model_turn_event")
+        lifecycle_started_monotonic = time.monotonic()
+        lifecycle_finished_monotonic = None
+        if callable(lifecycle_callback):
+            lifecycle_callback(
+                {
+                    "event": "started",
+                    "threadId": f"thread-queue-{call_number}",
+                    "turnId": f"turn-queue-{call_number}",
+                    "observedAt": "2026-01-01T00:00:00+00:00",
+                    "observedMonotonic": lifecycle_started_monotonic,
+                    "queueWaitSeconds": 0.0,
+                }
+            )
+
+        def finish_lifecycle() -> float:
+            nonlocal lifecycle_finished_monotonic
+            if lifecycle_finished_monotonic is None:
+                lifecycle_finished_monotonic = time.monotonic()
+                if callable(lifecycle_callback):
+                    lifecycle_callback(
+                        {
+                            "event": "finished",
+                            "threadId": f"thread-queue-{call_number}",
+                            "turnId": f"turn-queue-{call_number}",
+                            "observedAt": "2026-01-01T00:00:01+00:00",
+                            "observedMonotonic": lifecycle_finished_monotonic,
+                            "durationSeconds": max(
+                                0.0,
+                                lifecycle_finished_monotonic
+                                - lifecycle_started_monotonic,
+                            ),
+                        }
+                    )
+            return lifecycle_finished_monotonic
+
+        def completed(result: AppServerTurnResult) -> AppServerTurnResult:
+            finished_monotonic = finish_lifecycle()
+            return replace(
+                result,
+                model_turn_started_at="2026-01-01T00:00:00+00:00",
+                model_turn_finished_at="2026-01-01T00:00:01+00:00",
+                model_turn_duration_seconds=round(
+                    max(
+                        0.0,
+                        finished_monotonic - lifecycle_started_monotonic,
+                    ),
+                    6,
+                ),
+                model_turn_queue_wait_seconds=0.0,
+            )
 
         if "_aggregate_review_" in work_type:
             review_number = int(work_type.split("_aggregate_review_", 1)[1][0])
@@ -799,7 +851,7 @@ class PerQuestionQueueAppServer:
                         "issueCodes": list(review.get("issueCodes") or []),
                     }
                 )
-            return AppServerTurnResult(
+            return completed(AppServerTurnResult(
                 thread_id=f"thread-queue-{call_number}",
                 session_id=f"session-queue-{call_number}",
                 turn_id=f"turn-queue-{call_number}",
@@ -813,7 +865,7 @@ class PerQuestionQueueAppServer:
                 model=kwargs.get("model", "gpt-test"),
                 service_tier=None,
                 reasoning_effort=kwargs.get("reasoning_effort", "high"),
-            )
+            ))
 
         with self._lock:
             self._active_writers += 1
@@ -877,7 +929,7 @@ class PerQuestionQueueAppServer:
                         if value != self.failed_question_id
                         and (value, stage_id) not in self.failed_work_items
                     )
-                return AppServerTurnResult(
+                return completed(AppServerTurnResult(
                     thread_id=f"thread-queue-{call_number}",
                     session_id=f"session-queue-{call_number}",
                     turn_id=f"turn-queue-{call_number}",
@@ -891,7 +943,7 @@ class PerQuestionQueueAppServer:
                     model=kwargs.get("model", "gpt-test"),
                     service_tier=None,
                     reasoning_effort=kwargs.get("reasoning_effort", "high"),
-                )
+                ))
 
             _write_completed_progress(prompt)
             receipt_line = next(
@@ -952,7 +1004,7 @@ class PerQuestionQueueAppServer:
                     if value != self.failed_question_id
                     and (value, stage_id) not in self.failed_work_items
                 )
-            return AppServerTurnResult(
+            return completed(AppServerTurnResult(
                 thread_id=f"thread-queue-{call_number}",
                 session_id=f"session-queue-{call_number}",
                 turn_id=f"turn-queue-{call_number}",
@@ -960,8 +1012,9 @@ class PerQuestionQueueAppServer:
                 model=kwargs.get("model", "gpt-test"),
                 service_tier=None,
                 reasoning_effort=kwargs.get("reasoning_effort", "high"),
-            )
+            ))
         finally:
+            finish_lifecycle()
             with self._lock:
                 self._active_writers -= 1
 

@@ -1760,6 +1760,11 @@ class AppServerTurnTests(unittest.TestCase):
             client._model_turn_snapshot(),
             {"capacity": 100, "inFlight": 1, "peakInFlight": 1},
         )
+        started_at, started_monotonic = client._notified_turn_started[
+            ("thread-early", "turn-early")
+        ]
+        self.assertIn("T", started_at)
+        self.assertGreater(started_monotonic, 0)
 
         client._handle_message(
             {
@@ -1789,6 +1794,123 @@ class AppServerTurnTests(unittest.TestCase):
             ],
             ["turn/completed"],
         )
+        client.close()
+
+    def test_model_turn_lifecycle_callback_uses_monotonic_durations(self):
+        client = ProtocolClient()
+        events = []
+        state = _TurnState(
+            thread_id="thread-timed",
+            turn_id="turn-timed",
+            emit=lambda _line: None,
+            requested_monotonic=2.0,
+            on_model_turn_event=events.append,
+        )
+        client._turns[("thread-timed", "turn-timed")] = state
+
+        with patch(
+            "tools.question_review_console.codex_app_server.time.monotonic",
+            side_effect=[5.0, 8.0],
+        ):
+            client._handle_message(
+                {
+                    "method": "turn/started",
+                    "params": {
+                        "threadId": "thread-timed",
+                        "turn": {
+                            "id": "turn-timed",
+                            "status": "inProgress",
+                        },
+                    },
+                }
+            )
+            client._handle_message(
+                {
+                    "method": "turn/completed",
+                    "params": {
+                        "threadId": "thread-timed",
+                        "turn": {
+                            "id": "turn-timed",
+                            "status": "completed",
+                            "error": None,
+                            "items": [],
+                        },
+                    },
+                }
+            )
+
+        self.assertEqual([value["event"] for value in events], ["started", "finished"])
+        self.assertEqual(events[0]["queueWaitSeconds"], 3.0)
+        self.assertEqual(events[1]["durationSeconds"], 3.0)
+        self.assertEqual(
+            client._model_turn_snapshot(),
+            {"capacity": 100, "inFlight": 0, "peakInFlight": 1},
+        )
+        client.close()
+
+    def test_early_protocol_lifecycle_is_attached_to_turn_result(self):
+        class EarlyLifecycleClient(ProtocolClient):
+            def _request(self, method, params, *, timeout=None):
+                if method != "turn/start":
+                    return super()._request(method, params, timeout=timeout)
+                self.calls.append((method, copy.deepcopy(params)))
+                thread_id = params["threadId"]
+                turn_id = thread_id.replace("thread", "turn")
+                for message in (
+                    {
+                        "method": "turn/started",
+                        "params": {
+                            "threadId": thread_id,
+                            "turn": {
+                                "id": turn_id,
+                                "status": "inProgress",
+                            },
+                        },
+                    },
+                    {
+                        "method": "item/completed",
+                        "params": {
+                            "threadId": thread_id,
+                            "turnId": turn_id,
+                            "item": {
+                                "type": "agentMessage",
+                                "phase": "final_answer",
+                                "text": '{"status":"ok"}',
+                            },
+                        },
+                    },
+                    {
+                        "method": "turn/completed",
+                        "params": {
+                            "threadId": thread_id,
+                            "turn": {
+                                "id": turn_id,
+                                "status": "completed",
+                                "error": None,
+                                "items": [],
+                            },
+                        },
+                    },
+                ):
+                    self._handle_turn_notification(message)
+                return {"turn": {"id": turn_id}}
+
+        client = EarlyLifecycleClient()
+        events = []
+
+        result = client.run_turn(
+            "question",
+            work_type="maintenance_explanation_candidate",
+            sandbox="read-only",
+            emit=lambda _line: None,
+            on_model_turn_event=events.append,
+        )
+
+        self.assertEqual([value["event"] for value in events], ["started", "finished"])
+        self.assertIsNotNone(result.model_turn_started_at)
+        self.assertIsNotNone(result.model_turn_finished_at)
+        self.assertGreaterEqual(result.model_turn_queue_wait_seconds, 0.0)
+        self.assertGreaterEqual(result.model_turn_duration_seconds, 0.0)
         client.close()
 
     def test_turn_item_logs_include_safe_failure_evidence_and_relative_paths(self):

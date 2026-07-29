@@ -16,11 +16,11 @@ import time
 import weakref
 from collections import deque
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, as_completed, wait
-from contextlib import ExitStack, nullcontext
+from contextlib import ExitStack, contextmanager, nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any, Callable, Iterable, Iterator, Mapping
 
 from scripts.merge.merge_utils import (
     select_latest_patch_files,
@@ -189,6 +189,239 @@ class QuestionValidationResult:
     summary: str
     commands: tuple[dict[str, str], ...]
     changed_files: tuple[str, ...]
+
+
+class _PipelineRuntimeTelemetry:
+    """Run-local monotonic telemetry; never writes from App Server callbacks."""
+
+    def __init__(self, *, model_capacity: int, writer_capacity: int) -> None:
+        self.model_capacity = max(1, int(model_capacity))
+        self.writer_capacity = max(1, int(writer_capacity))
+        self._lock = threading.Lock()
+        self._model_started: set[tuple[str, str]] = set()
+        self._model_finished: set[tuple[str, str]] = set()
+        self._model_active = 0
+        self._model_peak = 0
+        self._model_queue_waits: list[float] = []
+        self._model_durations: list[float] = []
+        self._question_window_release_times: deque[tuple[str, float]] = deque()
+        self._question_window_admitted_count = 0
+        self._question_window_released_count = 0
+        self._question_window_refill_latencies: list[float] = []
+        self._writer_active: dict[str, tuple[str, ...]] = {}
+        self._writer_peak = 0
+        self._writer_started_count = 0
+        self._writer_finished_count = 0
+        self._writer_lock_active: dict[str, tuple[str, ...]] = {}
+        self._writer_lock_peak = 0
+        self._writer_lock_group_active: dict[str, int] = {}
+        self._writer_lock_group_peak: dict[str, int] = {}
+        self._writer_queue_waits: list[float] = []
+        self._writer_lock_waits: list[float] = []
+
+    @staticmethod
+    def _duration_summary(values: Iterable[float]) -> dict[str, float | int]:
+        normalized = [max(0.0, float(value)) for value in values]
+        total = sum(normalized)
+        return {
+            "count": len(normalized),
+            "total": round(total, 6),
+            "average": (
+                round(total / len(normalized), 6)
+                if normalized
+                else 0.0
+            ),
+            "maximum": round(max(normalized), 6) if normalized else 0.0,
+        }
+
+    def observe_model_turn(self, event: Mapping[str, Any]) -> float | None:
+        key = (
+            str(event.get("threadId") or ""),
+            str(event.get("turnId") or ""),
+        )
+        observed = event.get("observedMonotonic")
+        if not all(key) or not isinstance(observed, (int, float)):
+            return None
+        event_name = str(event.get("event") or "")
+        with self._lock:
+            if event_name == "started":
+                if key in self._model_started:
+                    return None
+                self._model_started.add(key)
+                self._model_active += 1
+                self._model_peak = max(
+                    self._model_peak,
+                    self._model_active,
+                )
+                queue_wait = event.get("queueWaitSeconds")
+                if isinstance(queue_wait, (int, float)):
+                    self._model_queue_waits.append(max(0.0, float(queue_wait)))
+                return None
+            if (
+                event_name != "finished"
+                or key not in self._model_started
+                or key in self._model_finished
+            ):
+                return None
+            self._model_finished.add(key)
+            self._model_active = max(0, self._model_active - 1)
+            duration = event.get("durationSeconds")
+            if isinstance(duration, (int, float)):
+                self._model_durations.append(max(0.0, float(duration)))
+            return None
+
+    def question_window_released(
+        self,
+        question_id: str,
+        *,
+        observed_monotonic: float,
+    ) -> None:
+        with self._lock:
+            self._question_window_released_count += 1
+            self._question_window_release_times.append(
+                (str(question_id), float(observed_monotonic))
+            )
+
+    def question_window_segment_started(self) -> None:
+        with self._lock:
+            self._question_window_release_times.clear()
+
+    def question_window_admitted(
+        self,
+        question_id: str,
+        *,
+        source: str,
+        observed_monotonic: float,
+    ) -> float | None:
+        with self._lock:
+            self._question_window_admitted_count += 1
+            if not self._question_window_release_times:
+                return None
+            released_question_id, released_at = (
+                self._question_window_release_times.popleft()
+            )
+            if source != "waiting" or released_question_id == str(question_id):
+                return None
+            latency = max(0.0, float(observed_monotonic) - released_at)
+            self._question_window_refill_latencies.append(latency)
+            return latency
+
+    def writer_started(
+        self,
+        child_id: str,
+        *,
+        queue_wait_seconds: float,
+    ) -> None:
+        with self._lock:
+            if child_id in self._writer_active:
+                return
+            self._writer_active[child_id] = ()
+            self._writer_started_count += 1
+            self._writer_peak = max(
+                self._writer_peak,
+                len(self._writer_active),
+            )
+            self._writer_queue_waits.append(max(0.0, queue_wait_seconds))
+
+    def writer_lock_acquired(
+        self,
+        child_id: str,
+        group_ids: Iterable[Any],
+        seconds: float,
+    ) -> None:
+        groups = tuple(
+            sorted({str(value) for value in group_ids if str(value)})
+        ) or ("__qualification__",)
+        with self._lock:
+            self._writer_lock_waits.append(max(0.0, float(seconds)))
+            if child_id in self._writer_lock_active:
+                return
+            self._writer_lock_active[child_id] = groups
+            self._writer_lock_peak = max(
+                self._writer_lock_peak,
+                len(self._writer_lock_active),
+            )
+            for group_id in groups:
+                active = self._writer_lock_group_active.get(group_id, 0) + 1
+                self._writer_lock_group_active[group_id] = active
+                self._writer_lock_group_peak[group_id] = max(
+                    self._writer_lock_group_peak.get(group_id, 0),
+                    active,
+                )
+
+    def writer_lock_released(self, child_id: str) -> None:
+        with self._lock:
+            groups = self._writer_lock_active.pop(child_id, None)
+            if groups is None:
+                return
+            for group_id in groups:
+                self._writer_lock_group_active[group_id] = max(
+                    0,
+                    self._writer_lock_group_active.get(group_id, 0) - 1,
+                )
+
+    def writer_finished(self, child_id: str) -> None:
+        with self._lock:
+            if self._writer_active.pop(child_id, None) is None:
+                return
+            self._writer_finished_count += 1
+
+    def model_snapshot(self) -> dict[str, Any]:
+        with self._lock:
+            return {
+                "measurement": "app_server_protocol_notifications",
+                "capacity": self.model_capacity,
+                "inFlight": self._model_active,
+                "peakInFlight": self._model_peak,
+                "startedCount": len(self._model_started),
+                "finishedCount": len(self._model_finished),
+                "queueWaitSeconds": self._duration_summary(
+                    self._model_queue_waits
+                ),
+                "durationSeconds": self._duration_summary(
+                    self._model_durations
+                ),
+            }
+
+    def question_window_snapshot(self) -> dict[str, Any]:
+        with self._lock:
+            return {
+                "measurement": "scheduler_question_window",
+                "admittedCount": self._question_window_admitted_count,
+                "releasedCount": self._question_window_released_count,
+                "refillLatencySeconds": self._duration_summary(
+                    self._question_window_refill_latencies
+                ),
+            }
+
+    def writer_snapshot(self) -> dict[str, Any]:
+        with self._lock:
+            return {
+                "measurement": "worker_and_scope_lock_activity",
+                "capacity": self.writer_capacity,
+                "inFlight": len(self._writer_active),
+                "peakInFlight": self._writer_peak,
+                "startedCount": self._writer_started_count,
+                "finishedCount": self._writer_finished_count,
+                "lockHeldInFlight": len(self._writer_lock_active),
+                "lockHeldPeakInFlight": self._writer_lock_peak,
+                "lockHeldInFlightByGroup": {
+                    key: value
+                    for key, value in sorted(
+                        self._writer_lock_group_active.items()
+                    )
+                    if value
+                },
+                "lockHeldPeakInFlightByGroup": dict(
+                    sorted(self._writer_lock_group_peak.items())
+                ),
+                "queueWaitSeconds": self._duration_summary(
+                    self._writer_queue_waits
+                ),
+                "lockWaitSeconds": self._duration_summary(
+                    self._writer_lock_waits
+                ),
+            }
 
 
 class _ParentRunHeartbeatTicker:
@@ -8403,11 +8636,15 @@ class QualificationRunCoordinator:
         self._parent_heartbeat_lock = threading.Lock()
         self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
 
+    @contextmanager
     def _question_patch_commit_scope(
         self,
         qualification: str,
         group_ids: Iterable[Any],
-    ) -> ExitStack:
+        *,
+        on_acquired: Callable[[float], None] | None = None,
+        on_released: Callable[[], None] | None = None,
+    ) -> Iterator[None]:
         keys = sorted(
             {
                 (str(qualification), str(group_id))
@@ -8423,10 +8660,26 @@ class QualificationRunCoordinator:
                 )
                 for key in keys
             ]
-        stack = ExitStack()
-        for lock in locks:
-            stack.enter_context(lock)
-        return stack
+        wait_started = time.monotonic()
+        acquired: list[Any] = []
+        try:
+            for lock in locks:
+                lock.acquire()
+                acquired.append(lock)
+            if on_acquired is not None:
+                try:
+                    on_acquired(time.monotonic() - wait_started)
+                except Exception:
+                    pass
+            yield
+        finally:
+            for lock in reversed(acquired):
+                lock.release()
+            if on_released is not None:
+                try:
+                    on_released()
+                except Exception:
+                    pass
 
     @staticmethod
     def _monitor_context(
@@ -11355,6 +11608,10 @@ class QualificationRunCoordinator:
             pending_batches=question_concurrency,
             max_parallel_turns=question_concurrency,
         )
+        pipeline_telemetry = _PipelineRuntimeTelemetry(
+            model_capacity=question_concurrency,
+            writer_capacity=question_concurrency,
+        )
         provider_attempt_limit = MAX_PROVIDER_ATTEMPTS
         configured_provider_attempts = getattr(
             self.app_server,
@@ -11881,7 +12138,27 @@ class QualificationRunCoordinator:
             }
 
         def run_model(prepared: Mapping[str, Any]) -> dict[str, Any]:
+            model_queue_origin = float(
+                prepared.get("_modelQueueEnteredMonotonic")
+                or time.monotonic()
+            )
+            executor_wait = max(
+                0.0,
+                time.monotonic() - model_queue_origin,
+            )
+
+            def observe_model_turn(event: Mapping[str, Any]) -> float | None:
+                return pipeline_telemetry.observe_model_turn(event)
+
             try:
+                self.store.update(
+                    qualification,
+                    str(prepared["childId"]),
+                    modelExecutorQueueWaitSeconds=round(
+                        executor_wait,
+                        6,
+                    ),
+                )
                 self._run_structured_question_batch(
                     qualification,
                     str(prepared["childId"]),
@@ -11907,6 +12184,8 @@ class QualificationRunCoordinator:
                     projected_input_hash=str(
                         prepared["projectedInputHash"]
                     ),
+                    model_queue_origin_monotonic=model_queue_origin,
+                    on_model_turn_event=observe_model_turn,
                     prepare_only=True,
                 )
                 return {
@@ -11929,8 +12208,25 @@ class QualificationRunCoordinator:
 
         def run_commit(prepared: Mapping[str, Any]) -> dict[str, Any]:
             child_id = str(prepared["childId"])
+            writer_queue_wait = max(
+                0.0,
+                time.monotonic()
+                - float(prepared.get("_commitQueueEnteredMonotonic") or time.monotonic()),
+            )
+            pipeline_telemetry.writer_started(
+                child_id,
+                queue_wait_seconds=writer_queue_wait,
+            )
             try:
                 child = self.store.get(qualification, child_id)
+                self.store.update(
+                    qualification,
+                    child_id,
+                    commitWriterQueueWaitSeconds=round(
+                        writer_queue_wait,
+                        6,
+                    ),
+                )
                 envelope = child.get("preparedCandidate")
                 if not isinstance(envelope, Mapping):
                     raise QualificationRunError(
@@ -11958,6 +12254,16 @@ class QualificationRunCoordinator:
                     projected_input_hash=str(
                         envelope.get("projectedInputHash") or ""
                     ),
+                    on_commit_lock_wait=(
+                        lambda seconds: pipeline_telemetry.writer_lock_acquired(
+                            child_id,
+                            child.get("targetGroupIds") or [],
+                            seconds,
+                        )
+                    ),
+                    on_commit_lock_released=lambda: (
+                        pipeline_telemetry.writer_lock_released(child_id)
+                    ),
                     commit_prepared=True,
                 )
                 return {
@@ -11971,6 +12277,8 @@ class QualificationRunCoordinator:
                 }
             except Exception as exc:  # noqa: BLE001
                 return failed_batch_outcome(prepared, exc)
+            finally:
+                pipeline_telemetry.writer_finished(child_id)
 
         def register_prepared_batches(
             prepared_batches: list[Mapping[str, Any]],
@@ -12386,6 +12694,7 @@ class QualificationRunCoordinator:
         ) -> None:
             if not segment_phases:
                 return
+            pipeline_telemetry.question_window_segment_started()
             phase_by_id = {
                 str(value["id"]): value for value in segment_phases
             }
@@ -12436,14 +12745,22 @@ class QualificationRunCoordinator:
                     continuation_queue.append((question_id, next_stage_id))
 
             def release_window(question_id: str) -> None:
-                window_questions.discard(question_id)
+                if question_id not in window_questions:
+                    return
+                window_questions.remove(question_id)
+                pipeline_telemetry.question_window_released(
+                    question_id,
+                    observed_monotonic=time.monotonic(),
+                )
 
             def fill_question_window() -> None:
                 nonlocal peak_question_window
                 while len(window_questions) < question_concurrency:
                     work: tuple[str, str] | None = None
+                    admission_source = ""
                     if continuation_queue:
                         work = continuation_queue.popleft()
+                        admission_source = "continuation"
                     elif waiting_questions:
                         question_id = waiting_questions.popleft()
                         stage_id = pending_stage_for_question(
@@ -12452,8 +12769,10 @@ class QualificationRunCoordinator:
                         )
                         if stage_id is not None:
                             work = (question_id, stage_id)
+                            admission_source = "waiting"
                     elif retry_queue:
                         work = retry_queue.popleft()
+                        admission_source = "retry"
                     else:
                         break
                     if work is None:
@@ -12468,6 +12787,11 @@ class QualificationRunCoordinator:
                             f"{question_id}"
                         )
                     window_questions.add(question_id)
+                    pipeline_telemetry.question_window_admitted(
+                        question_id,
+                        source=admission_source,
+                        observed_monotonic=time.monotonic(),
+                    )
                     ready_queue.append((question_id, stage_id))
                 peak_question_window = max(
                     peak_question_window,
@@ -12715,6 +13039,9 @@ class QualificationRunCoordinator:
                     modelPeakPendingFutureCount=peak_model_futures,
                     commitPeakPendingFutureCount=peak_commit_futures,
                     preparedCommitPeakBacklogCount=peak_prepared_backlog,
+                    modelTurns=pipeline_telemetry.model_snapshot(),
+                    questionWindow=pipeline_telemetry.question_window_snapshot(),
+                    commitWriter=pipeline_telemetry.writer_snapshot(),
                 )
                 last_runtime_snapshot = current_monotonic
 
@@ -12864,11 +13191,16 @@ class QualificationRunCoordinator:
                                         "childId": str(prepared["childId"]),
                                         "stageId": str(prepared["stageId"]),
                                         "questionId": question_id,
+                                        "_commitQueueEnteredMonotonic": time.monotonic(),
                                     }
                                 )
                             else:
+                                prepared_value = dict(prepared)
+                                prepared_value["_modelQueueEnteredMonotonic"] = (
+                                    time.monotonic()
+                                )
                                 prepared_model_backlog.append(
-                                    dict(prepared)
+                                    prepared_value
                                 )
 
                         completed_models = [
@@ -12894,6 +13226,9 @@ class QualificationRunCoordinator:
                                     question_id,
                                 )
                                 prepared.setdefault("stageId", stage_id)
+                                prepared["_commitQueueEnteredMonotonic"] = (
+                                    time.monotonic()
+                                )
                                 prepared_commit_backlog.append(prepared)
                         apply_completed_outcomes(immediate_outcomes)
 
@@ -13516,6 +13851,12 @@ class QualificationRunCoordinator:
         reasoning_effort: str = TURN_REASONING_EFFORT,
         input_fingerprint_value: str,
         projected_input_hash: str,
+        model_queue_origin_monotonic: float | None = None,
+        on_model_turn_event: (
+            Callable[[Mapping[str, Any]], float | None] | None
+        ) = None,
+        on_commit_lock_wait: Callable[[float], None] | None = None,
+        on_commit_lock_released: Callable[[], None] | None = None,
         prepare_only: bool = False,
         commit_prepared: bool = False,
     ) -> dict[str, Any]:
@@ -13552,6 +13893,48 @@ class QualificationRunCoordinator:
             or batch_plan.get("speedMode")
             or STANDARD_SPEED_MODE
         )
+        candidate_turn_runtime: dict[str, Any] = {}
+        candidate_turn_runtime_lock = threading.Lock()
+
+        def model_turn_callback(
+            work_type: str,
+            *,
+            capture_candidate: bool = False,
+        ) -> Callable[[Mapping[str, Any]], None] | None:
+            if not callable(on_model_turn_event):
+                return None
+
+            def observe(event: Mapping[str, Any]) -> None:
+                payload = {
+                    **dict(event),
+                    "workType": work_type,
+                }
+                on_model_turn_event(payload)
+                if (
+                    capture_candidate
+                    and str(payload.get("event") or "") == "started"
+                ):
+                    with candidate_turn_runtime_lock:
+                        observed = payload.get("observedMonotonic")
+                        candidate_turn_runtime["queueWaitSeconds"] = (
+                            round(
+                                max(
+                                    0.0,
+                                    float(observed)
+                                    - model_queue_origin_monotonic,
+                                ),
+                                6,
+                            )
+                            if isinstance(observed, (int, float))
+                            and isinstance(
+                                model_queue_origin_monotonic,
+                                (int, float),
+                            )
+                            else None
+                        )
+
+            return observe
+
         raw_targets = [
             dict(value)
             for value in batch_plan.get("progressTargets") or []
@@ -13920,6 +14303,12 @@ class QualificationRunCoordinator:
                             ),
                             on_thread_started=on_review_thread_started,
                             on_turn_started=on_review_turn_started,
+                            on_model_turn_event=model_turn_callback(
+                                (
+                                    f"maintenance_{stage_id}_aggregate_review_"
+                                    f"{review_number}_candidate"
+                                )
+                            ),
                             heartbeat=heartbeat,
                             cwd=self.repo_root,
                             model=review_model,
@@ -14217,6 +14606,10 @@ class QualificationRunCoordinator:
                         ),
                         on_thread_started=on_thread_started,
                         on_turn_started=on_turn_started,
+                        on_model_turn_event=model_turn_callback(
+                            f"maintenance_{stage_id}_candidate",
+                            capture_candidate=True,
+                        ),
                         heartbeat=heartbeat,
                         cwd=self.repo_root,
                         model=model,
@@ -14249,7 +14642,43 @@ class QualificationRunCoordinator:
                         "serviceTier": result.service_tier,
                         "reasoningEffort": result.reasoning_effort,
                         "turnCompletionMode": result.completion_mode,
+                        "modelTurnStartedAt": getattr(
+                            result, "model_turn_started_at", None
+                        ),
+                        "modelTurnFinishedAt": getattr(
+                            result, "model_turn_finished_at", None
+                        ),
+                        "modelTurnDurationSeconds": getattr(
+                            result, "model_turn_duration_seconds", None
+                        ),
+                        "appServerQueueWaitSeconds": getattr(
+                            result, "model_turn_queue_wait_seconds", None
+                        ),
                     }
+                    child_runtime = self.store.get(qualification, run_id)
+                    executor_wait = float(
+                        child_runtime.get("modelExecutorQueueWaitSeconds") or 0.0
+                    )
+                    queue_wait = candidate_turn_runtime.get(
+                        "queueWaitSeconds"
+                    )
+                    self.store.update(
+                        qualification,
+                        run_id,
+                        modelTurnTelemetry={
+                            **prepared_execution_metadata,
+                            "executorQueueWaitSeconds": round(
+                                executor_wait,
+                                6,
+                            ),
+                            "queueWaitSeconds": round(
+                                float(queue_wait),
+                                6,
+                            )
+                            if isinstance(queue_wait, (int, float))
+                            else None,
+                        },
+                    )
                 else:
                     candidates = []
                 envelope = _prepared_candidate_envelope(
@@ -14308,6 +14737,14 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
             )
+            commit_lock_wait_seconds: float | None = None
+
+            def record_commit_lock_wait(seconds: float) -> None:
+                nonlocal commit_lock_wait_seconds
+                commit_lock_wait_seconds = max(0.0, float(seconds))
+                if callable(on_commit_lock_wait):
+                    on_commit_lock_wait(commit_lock_wait_seconds)
+
             bindings = {
                 str(value.get("id") or value.get("uiQuestionId") or ""):
                 SourceIdentityBinding.from_mapping(value)
@@ -14384,6 +14821,7 @@ class QualificationRunCoordinator:
                 )
 
             for candidate in candidates:
+                commit_lock_wait_seconds = None
                 question_id = candidate.question_id
                 self.store.update(
                     qualification,
@@ -14699,6 +15137,8 @@ class QualificationRunCoordinator:
                         with self._question_patch_commit_scope(
                             qualification,
                             question_plan.get("targetGroupIds") or [],
+                            on_acquired=record_commit_lock_wait,
+                            on_released=on_commit_lock_released,
                         ):
                             if self.store.is_question_attempt(run_id):
                                 self.store.update_attempt_stage_status(
@@ -14752,6 +15192,8 @@ class QualificationRunCoordinator:
                     with self._question_patch_commit_scope(
                         qualification,
                         question_plan.get("targetGroupIds") or [],
+                        on_acquired=record_commit_lock_wait,
+                        on_released=on_commit_lock_released,
                     ):
                         if self.store.is_question_attempt(run_id):
                             self.store.update_attempt_stage_status(
@@ -14938,6 +15380,20 @@ class QualificationRunCoordinator:
                     )
                 finally:
                     workspace.cleanup()
+                    if commit_lock_wait_seconds is not None:
+                        try:
+                            self.store.update(
+                                qualification,
+                                run_id,
+                                commitWriterLockWaitSeconds=round(
+                                    commit_lock_wait_seconds,
+                                    6,
+                                ),
+                            )
+                        except Exception:
+                            # Telemetry must not replace a transaction result
+                            # or hide its original failure.
+                            pass
 
             shutil.rmtree(run_dir / "candidate_workspaces", ignore_errors=True)
             progress_lines: list[str] = []

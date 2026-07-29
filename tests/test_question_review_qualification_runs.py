@@ -22,6 +22,8 @@ from tools.question_review_console.qualification_runs import (
     MANIFEST_CACHE_LIMIT,
     QuestionItemError,
     QuestionQueuePaused,
+    QualificationRunCoordinator,
+    _PipelineRuntimeTelemetry,
     _aggregate_answer_review_prompt,
     _aggregate_calculation_flag,
     _aggregate_downstream_source_evidence,
@@ -60,6 +62,150 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class PipelineTelemetryContractTests(unittest.TestCase):
+    @staticmethod
+    def _lock_only_coordinator():
+        coordinator = object.__new__(QualificationRunCoordinator)
+        coordinator._question_patch_commit_locks_guard = threading.Lock()
+        coordinator._question_patch_commit_locks = {}
+        return coordinator
+
+    def test_commit_scope_releases_locks_when_acquired_callback_throws(self):
+        coordinator = self._lock_only_coordinator()
+        with coordinator._question_patch_commit_scope(
+            "sample",
+            ["group-1"],
+            on_acquired=lambda _seconds: (_ for _ in ()).throw(
+                RuntimeError("telemetry failed")
+            ),
+        ):
+            pass
+
+        acquired = threading.Event()
+
+        def take_same_scope():
+            with coordinator._question_patch_commit_scope(
+                "sample",
+                ["group-1"],
+            ):
+                acquired.set()
+
+        thread = threading.Thread(target=take_same_scope)
+        thread.start()
+        thread.join(1)
+        self.assertTrue(acquired.is_set())
+        self.assertFalse(thread.is_alive())
+
+    def test_question_window_segment_boundary_discards_stale_release(self):
+        telemetry = _PipelineRuntimeTelemetry(
+            model_capacity=10,
+            writer_capacity=10,
+        )
+        telemetry.question_window_released(
+            "previous-segment-question",
+            observed_monotonic=1.0,
+        )
+
+        telemetry.question_window_segment_started()
+        latency = telemetry.question_window_admitted(
+            "new-segment-question",
+            source="waiting",
+            observed_monotonic=2.0,
+        )
+
+        self.assertIsNone(latency)
+        self.assertEqual(
+            telemetry.question_window_snapshot()["refillLatencySeconds"][
+                "count"
+            ],
+            0,
+        )
+
+    def test_commit_writer_separates_worker_and_lock_held_concurrency(self):
+        coordinator = self._lock_only_coordinator()
+        telemetry = _PipelineRuntimeTelemetry(
+            model_capacity=1,
+            writer_capacity=3,
+        )
+        barrier = threading.Barrier(2)
+
+        def hold(child_id, group_id):
+            telemetry.writer_started(
+                child_id,
+                queue_wait_seconds=0.0,
+            )
+            with coordinator._question_patch_commit_scope(
+                "sample",
+                [group_id],
+                on_acquired=lambda seconds: telemetry.writer_lock_acquired(
+                    child_id,
+                    [group_id],
+                    seconds,
+                ),
+                on_released=lambda: telemetry.writer_lock_released(child_id),
+            ):
+                barrier.wait(1)
+            telemetry.writer_finished(child_id)
+
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            list(
+                executor.map(
+                    lambda args: hold(*args),
+                    [("child-1", "group-1"), ("child-2", "group-2")],
+                )
+            )
+        snapshot = telemetry.writer_snapshot()
+        self.assertEqual(snapshot["peakInFlight"], 2)
+        self.assertEqual(snapshot["lockHeldPeakInFlight"], 2)
+        self.assertEqual(
+            snapshot["lockHeldPeakInFlightByGroup"],
+            {"group-1": 1, "group-2": 1},
+        )
+
+        same_group = _PipelineRuntimeTelemetry(
+            model_capacity=1,
+            writer_capacity=2,
+        )
+        first_entered = threading.Event()
+        release_first = threading.Event()
+
+        def hold_same_group(child_id):
+            same_group.writer_started(
+                child_id,
+                queue_wait_seconds=0.0,
+            )
+            with coordinator._question_patch_commit_scope(
+                "sample",
+                ["group-1"],
+                on_acquired=lambda seconds: same_group.writer_lock_acquired(
+                    child_id,
+                    ["group-1"],
+                    seconds,
+                ),
+                on_released=lambda: same_group.writer_lock_released(child_id),
+            ):
+                if child_id == "same-1":
+                    first_entered.set()
+                    release_first.wait(1)
+            same_group.writer_finished(child_id)
+
+        first = threading.Thread(target=hold_same_group, args=("same-1",))
+        second = threading.Thread(target=hold_same_group, args=("same-2",))
+        first.start()
+        self.assertTrue(first_entered.wait(1))
+        second.start()
+        time.sleep(0.02)
+        self.assertEqual(
+            same_group.writer_snapshot()["lockHeldPeakInFlightByGroup"],
+            {"group-1": 1},
+        )
+        release_first.set()
+        first.join(1)
+        second.join(1)
+        self.assertFalse(first.is_alive())
+        self.assertFalse(second.is_alive())
 
 
 def _question_attempts(store, qualification, run):
@@ -5513,6 +5659,123 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(len(app_server.batch_calls), 10)
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
 
+    def test_candidate_queue_wait_includes_aggregate_review_time(self):
+        class SlowAggregateReviewAppServer(PerQuestionQueueAppServer):
+            def run_turn(self, prompt, **kwargs):
+                if "_aggregate_review_" in kwargs["work_type"]:
+                    time.sleep(0.04)
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(1),
+                ["question_type"],
+                app_server=SlowAggregateReviewAppServer(),
+                question_concurrency=1,
+            )
+            self._write_counted_sources(root, 1)
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            attempt = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )[0]
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        telemetry = attempt["modelTurnTelemetry"]
+        self.assertGreaterEqual(telemetry["queueWaitSeconds"], 0.075)
+        self.assertLess(
+            telemetry["executorQueueWaitSeconds"],
+            telemetry["queueWaitSeconds"],
+        )
+        self.assertEqual(
+            completed["modelTurns"]["queueWaitSeconds"]["count"],
+            3,
+        )
+        self.assertEqual(
+            completed["modelTurns"]["queueWaitSeconds"]["total"],
+            0.0,
+        )
+
+    def test_commit_writer_is_active_while_manifest_read_is_blocked(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(1),
+                ["question_type"],
+                app_server=PerQuestionQueueAppServer(),
+                question_concurrency=1,
+            )
+            self._write_counted_sources(root, 1)
+            original_get = coordinator.store.get
+            read_entered = threading.Event()
+            release_read = threading.Event()
+
+            def slow_commit_get(qualification, run_id):
+                if (
+                    threading.current_thread().name.startswith(
+                        "question-commit"
+                    )
+                    and str(run_id).startswith("qa-")
+                    and not read_entered.is_set()
+                ):
+                    read_entered.set()
+                    if not release_read.wait(10):
+                        raise AssertionError("manifest read release timed out")
+                return original_get(qualification, run_id)
+
+            coordinator.store.get = slow_commit_get
+            result_holder = {}
+            writer_started = threading.Event()
+            active_snapshot = {}
+            original_writer_started = _PipelineRuntimeTelemetry.writer_started
+
+            def capture_writer_started(telemetry, child_id, **kwargs):
+                original_writer_started(telemetry, child_id, **kwargs)
+                active_snapshot.update(telemetry.writer_snapshot())
+                writer_started.set()
+
+            def run_flow():
+                result_holder["result"] = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+
+            with patch.object(
+                _PipelineRuntimeTelemetry,
+                "writer_started",
+                new=capture_writer_started,
+            ):
+                thread = threading.Thread(target=run_flow)
+                thread.start()
+                try:
+                    self.assertTrue(writer_started.wait(5))
+                    self.assertTrue(read_entered.wait(5))
+                    self.assertEqual(active_snapshot.get("inFlight"), 1)
+                    self.assertEqual(active_snapshot.get("peakInFlight"), 1)
+                finally:
+                    release_read.set()
+                    thread.join(10)
+                    coordinator.store.get = original_get
+
+            self.assertFalse(thread.is_alive())
+            self.assertEqual(
+                result_holder["result"]["queueStatus"],
+                "succeeded",
+            )
+            completed = original_get("new-exam", parent["runId"])
+            self.assertEqual(completed["commitWriter"]["inFlight"], 0)
+            self.assertEqual(completed["commitWriter"]["peakInFlight"], 1)
+
     def test_writer_wait_does_not_consume_model_turn_capacity(self):
         question_count = 21
 
@@ -5562,11 +5825,29 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 )
             finally:
                 coordinator._record_work_versions = original_record_work_versions
+            completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(writer_entered.is_set())
         self.assertTrue(app_server.all_candidates_started.is_set())
         self.assertEqual(app_server.candidate_starts, question_count)
+        self.assertEqual(completed["modelTurns"]["inFlight"], 0)
+        self.assertGreaterEqual(completed["modelTurns"]["peakInFlight"], 1)
+        self.assertLessEqual(completed["modelTurns"]["peakInFlight"], 10)
+        self.assertEqual(
+            completed["questionWindow"]["refillLatencySeconds"]["count"],
+            11,
+        )
+        self.assertNotIn("refillLatencySeconds", completed["modelTurns"])
+        self.assertEqual(completed["commitWriter"]["inFlight"], 0)
+        self.assertEqual(
+            completed["commitWriter"]["startedCount"],
+            question_count,
+        )
+        self.assertEqual(
+            completed["commitWriter"]["finishedCount"],
+            question_count,
+        )
 
     def test_one_hundred_questions_start_one_hundred_independent_model_turns(self):
         class OneHundredTurnAppServer(PerQuestionQueueAppServer):
@@ -5578,14 +5859,23 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
             def run_turn(self, prompt, **kwargs):
                 if kwargs["work_type"] == "maintenance_question_type_candidate":
-                    with self.started_lock:
-                        self.started += 1
-                        if self.started == 100:
-                            self.all_started.set()
-                    if not self.all_started.wait(10):
-                        raise AssertionError(
-                            "100問のmodel turnが同時に開始しませんでした。"
-                        )
+                    observe = kwargs.get("on_model_turn_event")
+
+                    def observe_and_hold(event):
+                        result = observe(event) if callable(observe) else None
+                        if str(event.get("event") or "") != "started":
+                            return result
+                        with self.started_lock:
+                            self.started += 1
+                            if self.started == 100:
+                                self.all_started.set()
+                        if not self.all_started.wait(10):
+                            raise AssertionError(
+                                "100問のmodel turnが同時に開始しませんでした。"
+                            )
+                        return result
+
+                    kwargs["on_model_turn_event"] = observe_and_hold
                 return super().run_turn(prompt, **kwargs)
 
         with tempfile.TemporaryDirectory() as directory:
@@ -5640,6 +5930,46 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(completed["modelWorkerLimit"], 100)
         self.assertEqual(completed["modelPeakPendingFutureCount"], 100)
         self.assertEqual(
+            completed["modelTurns"],
+            {
+                "measurement": "app_server_protocol_notifications",
+                "capacity": 100,
+                "inFlight": 0,
+                "peakInFlight": 100,
+                "startedCount": 300,
+                "finishedCount": 300,
+                "queueWaitSeconds": completed["modelTurns"][
+                    "queueWaitSeconds"
+                ],
+                "durationSeconds": completed["modelTurns"][
+                    "durationSeconds"
+                ],
+            },
+        )
+        self.assertEqual(
+            completed["questionWindow"]["refillLatencySeconds"]["count"],
+            0,
+        )
+        self.assertEqual(
+            completed["modelTurns"]["queueWaitSeconds"]["count"],
+            300,
+        )
+        self.assertEqual(
+            completed["modelTurns"]["durationSeconds"]["count"],
+            300,
+        )
+        self.assertEqual(completed["commitWriter"]["inFlight"], 0)
+        self.assertEqual(completed["commitWriter"]["startedCount"], 100)
+        self.assertEqual(completed["commitWriter"]["finishedCount"], 100)
+        self.assertEqual(
+            completed["commitWriter"]["queueWaitSeconds"]["count"],
+            100,
+        )
+        self.assertEqual(
+            completed["commitWriter"]["lockWaitSeconds"]["count"],
+            100,
+        )
+        self.assertEqual(
             len(_question_attempt_ids(completed)),
             100,
         )
@@ -5647,6 +5977,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             all(
                 isinstance(attempt.get("preparedCandidate"), Mapping)
                 and attempt.get("candidateCommitStartedAt")
+                and attempt.get("modelTurnTelemetry", {}).get(
+                    "modelTurnStartedAt"
+                )
+                and attempt.get("modelTurnTelemetry", {}).get(
+                    "modelTurnFinishedAt"
+                )
+                and attempt.get("modelTurnTelemetry", {}).get(
+                    "executorQueueWaitSeconds"
+                )
+                is not None
+                and attempt.get("commitWriterQueueWaitSeconds") is not None
+                and attempt.get("commitWriterLockWaitSeconds") is not None
                 for attempt in attempts
             )
         )

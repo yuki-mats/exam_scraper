@@ -15,6 +15,7 @@ import time
 import tomllib
 from collections import OrderedDict, deque
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, TextIO
 
@@ -243,6 +244,10 @@ class AppServerTurnResult:
     subagent_models: tuple[str, ...] = ()
     subagent_reasoning_efforts: tuple[str, ...] = ()
     completion_mode: str = "turn_completed"
+    model_turn_started_at: str | None = None
+    model_turn_finished_at: str | None = None
+    model_turn_duration_seconds: float | None = None
+    model_turn_queue_wait_seconds: float | None = None
 
 
 @dataclass
@@ -258,6 +263,8 @@ class _TurnState:
     turn_id: str
     emit: Callable[[str], None]
     structured_output: bool = False
+    requested_monotonic: float | None = None
+    on_model_turn_event: Callable[[Mapping[str, Any]], None] | None = None
     event: threading.Event = field(default_factory=threading.Event)
     messages: list[tuple[str | None, str]] = field(default_factory=list)
     changed_files: set[str] = field(default_factory=set)
@@ -268,6 +275,10 @@ class _TurnState:
     last_semantic_delta_at: float | None = None
     trailing_whitespace_chars: int = 0
     completed_message_at: float | None = None
+    protocol_started_at: str | None = None
+    protocol_started_monotonic: float | None = None
+    protocol_finished_at: str | None = None
+    protocol_finished_monotonic: float | None = None
     status: str = "inProgress"
     error: Any = None
 
@@ -1042,6 +1053,7 @@ class CodexAppServerClient:
         self._pending: dict[int | str, _PendingResponse] = {}
         self._turns: dict[tuple[str, str], _TurnState] = {}
         self._notified_active_turns: set[tuple[str, str]] = set()
+        self._notified_turn_started: dict[tuple[str, str], tuple[str, float]] = {}
         self._peak_active_turns = 0
         self._early_notifications: dict[tuple[str, str], list[dict[str, Any]]] = {}
         self._stderr_lines: deque[str] = deque(maxlen=80)
@@ -1221,6 +1233,7 @@ class CodexAppServerClient:
         output_schema: Mapping[str, Any] | None = None,
         on_thread_started: Callable[[str, str], None] | None = None,
         on_turn_started: Callable[[str, str], None] | None = None,
+        on_model_turn_event: Callable[[Mapping[str, Any]], None] | None = None,
         cwd: Path | None = None,
         writable_roots: Iterable[Path] = (),
         completion_probe: Callable[[], bool] | None = None,
@@ -1240,6 +1253,7 @@ class CodexAppServerClient:
             output_schema=output_schema,
             on_thread_started=on_thread_started,
             on_turn_started=on_turn_started,
+            on_model_turn_event=on_model_turn_event,
             cwd=cwd,
             writable_roots=writable_roots,
             completion_probe=completion_probe,
@@ -1265,6 +1279,7 @@ class CodexAppServerClient:
         output_schema: Mapping[str, Any] | None = None,
         on_thread_started: Callable[[str, str], None] | None = None,
         on_turn_started: Callable[[str, str], None] | None = None,
+        on_model_turn_event: Callable[[Mapping[str, Any]], None] | None = None,
         cwd: Path | None = None,
         writable_roots: Iterable[Path] = (),
         completion_probe: Callable[[], bool] | None = None,
@@ -1276,6 +1291,7 @@ class CodexAppServerClient:
         monitor_context: Mapping[str, Any] | None = None,
         turn_timeout: float | None = None,
     ) -> AppServerTurnResult:
+        turn_requested_monotonic = time.monotonic()
         speed_mode = normalize_speed_mode(speed_mode)
         resolved_turn_timeout = float(self.turn_timeout)
         if turn_timeout is not None:
@@ -1503,12 +1519,22 @@ class CodexAppServerClient:
                 turn_id=turn_id,
                 emit=emit,
                 structured_output=output_schema is not None,
+                requested_monotonic=turn_requested_monotonic,
+                on_model_turn_event=on_model_turn_event,
             )
             key = (thread_id, turn_id)
             with self._state_lock:
+                notified_started = self._notified_turn_started.get(key)
+                if notified_started is not None:
+                    (
+                        state.protocol_started_at,
+                        state.protocol_started_monotonic,
+                    ) = notified_started
                 self._turns[key] = state
                 early = self._early_notifications.pop(key, [])
             try:
+                if state.protocol_started_monotonic is not None:
+                    self._emit_model_turn_event(state, "started")
                 for notification in early:
                     self._handle_turn_notification(notification)
                 if on_turn_started is not None:
@@ -1595,6 +1621,7 @@ class CodexAppServerClient:
                 with self._state_lock:
                     self._turns.pop(key, None)
                     self._notified_active_turns.discard(key)
+                    self._notified_turn_started.pop(key, None)
         receipt_interrupted = bool(
             receipt_interrupted and state.status == "interrupted"
         )
@@ -1675,6 +1702,27 @@ class CodexAppServerClient:
                 else "completed_message_interrupted"
                 if completed_message_interrupted
                 else "turn_completed"
+            ),
+            model_turn_started_at=state.protocol_started_at,
+            model_turn_finished_at=state.protocol_finished_at,
+            model_turn_duration_seconds=(
+                round(
+                    state.protocol_finished_monotonic
+                    - state.protocol_started_monotonic,
+                    6,
+                )
+                if state.protocol_started_monotonic is not None
+                and state.protocol_finished_monotonic is not None
+                else None
+            ),
+            model_turn_queue_wait_seconds=(
+                round(
+                    state.protocol_started_monotonic
+                    - turn_requested_monotonic,
+                    6,
+                )
+                if state.protocol_started_monotonic is not None
+                else None
             ),
         )
 
@@ -2653,6 +2701,56 @@ class CodexAppServerClient:
                 f"read-only調査担当を{len(state.subagent_thread_ids)}件開始しました。"
             )
 
+    @staticmethod
+    def _emit_model_turn_event(state: _TurnState, event: str) -> None:
+        callback = state.on_model_turn_event
+        if not callable(callback):
+            return
+        observed_at = (
+            state.protocol_started_at
+            if event == "started"
+            else state.protocol_finished_at
+        )
+        observed_monotonic = (
+            state.protocol_started_monotonic
+            if event == "started"
+            else state.protocol_finished_monotonic
+        )
+        if observed_at is None or observed_monotonic is None:
+            return
+        payload: dict[str, Any] = {
+            "event": event,
+            "threadId": state.thread_id,
+            "turnId": state.turn_id,
+            "observedAt": observed_at,
+            "observedMonotonic": observed_monotonic,
+        }
+        if (
+            event == "started"
+            and state.requested_monotonic is not None
+        ):
+            payload["queueWaitSeconds"] = round(
+                max(0.0, observed_monotonic - state.requested_monotonic),
+                6,
+            )
+        if (
+            event == "finished"
+            and state.protocol_started_monotonic is not None
+        ):
+            payload["durationSeconds"] = round(
+                max(
+                    0.0,
+                    observed_monotonic - state.protocol_started_monotonic,
+                ),
+                6,
+            )
+        try:
+            # The qualification callback only updates a small in-memory
+            # accumulator. Telemetry must never affect turn completion.
+            callback(payload)
+        except Exception:
+            pass
+
     def _handle_turn_notification(self, message: dict[str, Any]) -> None:
         method = str(message.get("method") or "")
         params = message.get("params")
@@ -2668,14 +2766,27 @@ class CodexAppServerClient:
         if not thread_id or not turn_id:
             return
         key = (thread_id, turn_id)
+        notify_started = False
         with self._state_lock:
             if method == "turn/started":
+                observed = time.monotonic()
+                observed_at = datetime.now().astimezone().isoformat()
                 self._notified_active_turns.add(key)
+                self._notified_turn_started.setdefault(
+                    key,
+                    (observed_at, observed),
+                )
                 self._peak_active_turns = max(
                     self._peak_active_turns,
                     len(self._notified_active_turns),
                 )
-                return
+                state = self._turns.get(key)
+                if state is not None and state.protocol_started_monotonic is None:
+                    state.protocol_started_at = observed_at
+                    state.protocol_started_monotonic = observed
+                    notify_started = True
+                if state is None:
+                    return
             if method == "turn/completed" or (
                 method == "error" and params.get("willRetry") is not True
             ):
@@ -2684,6 +2795,10 @@ class CodexAppServerClient:
             if state is None:
                 self._early_notifications.setdefault(key, []).append(copy.deepcopy(message))
                 return
+        if method == "turn/started":
+            if notify_started:
+                self._emit_model_turn_event(state, "started")
+            return
         if method == "item/completed":
             item = params.get("item")
             if isinstance(item, Mapping):
@@ -2703,10 +2818,22 @@ class CodexAppServerClient:
         if method == "error":
             state.error = params.get("error")
             if params.get("willRetry") is not True:
+                if state.protocol_finished_monotonic is None:
+                    state.protocol_finished_at = (
+                        datetime.now().astimezone().isoformat()
+                    )
+                    state.protocol_finished_monotonic = time.monotonic()
+                    self._emit_model_turn_event(state, "finished")
                 state.status = "failed"
                 state.event.set()
             return
         if method == "turn/completed":
+            if state.protocol_finished_monotonic is None:
+                state.protocol_finished_at = (
+                    datetime.now().astimezone().isoformat()
+                )
+                state.protocol_finished_monotonic = time.monotonic()
+                self._emit_model_turn_event(state, "finished")
             turn = params.get("turn")
             if isinstance(turn, Mapping):
                 state.status = str(turn.get("status") or "failed")
