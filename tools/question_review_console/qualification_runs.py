@@ -16,11 +16,11 @@ import time
 import weakref
 from collections import deque
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, as_completed, wait
-from contextlib import ExitStack, contextmanager, nullcontext
+from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable, Iterable, Iterator, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
 from scripts.merge.merge_utils import (
     select_latest_patch_files,
@@ -195,9 +195,14 @@ class QuestionValidationResult:
 class _PipelineRuntimeTelemetry:
     """Run-local monotonic telemetry; never writes from App Server callbacks."""
 
-    def __init__(self, *, model_capacity: int, writer_capacity: int) -> None:
+    def __init__(
+        self,
+        *,
+        model_capacity: int,
+        patch_tool_capacity: int,
+    ) -> None:
         self.model_capacity = max(1, int(model_capacity))
-        self.writer_capacity = max(1, int(writer_capacity))
+        self.patch_tool_capacity = max(1, int(patch_tool_capacity))
         self._lock = threading.Lock()
         self._model_started: set[tuple[str, str]] = set()
         self._model_finished: set[tuple[str, str]] = set()
@@ -209,16 +214,16 @@ class _PipelineRuntimeTelemetry:
         self._question_window_admitted_count = 0
         self._question_window_released_count = 0
         self._question_window_refill_latencies: list[float] = []
-        self._writer_active: dict[str, tuple[str, ...]] = {}
-        self._writer_peak = 0
-        self._writer_started_count = 0
-        self._writer_finished_count = 0
-        self._writer_lock_active: dict[str, tuple[str, ...]] = {}
-        self._writer_lock_peak = 0
-        self._writer_lock_group_active: dict[str, int] = {}
-        self._writer_lock_group_peak: dict[str, int] = {}
-        self._writer_queue_waits: list[float] = []
-        self._writer_lock_waits: list[float] = []
+        self._patch_tool_active: dict[str, tuple[str, ...]] = {}
+        self._patch_tool_peak = 0
+        self._patch_tool_started_count = 0
+        self._patch_tool_finished_count = 0
+        self._patch_lock_active: dict[str, tuple[str, ...]] = {}
+        self._patch_lock_peak = 0
+        self._patch_lock_path_active: dict[str, int] = {}
+        self._patch_lock_path_peak: dict[str, int] = {}
+        self._patch_tool_queue_waits: list[float] = []
+        self._patch_lock_waits: list[float] = []
 
     @staticmethod
     def _duration_summary(values: Iterable[float]) -> dict[str, float | int]:
@@ -307,65 +312,67 @@ class _PipelineRuntimeTelemetry:
             self._question_window_refill_latencies.append(latency)
             return latency
 
-    def writer_started(
+    def patch_tool_started(
         self,
         child_id: str,
         *,
         queue_wait_seconds: float,
     ) -> None:
         with self._lock:
-            if child_id in self._writer_active:
+            if child_id in self._patch_tool_active:
                 return
-            self._writer_active[child_id] = ()
-            self._writer_started_count += 1
-            self._writer_peak = max(
-                self._writer_peak,
-                len(self._writer_active),
+            self._patch_tool_active[child_id] = ()
+            self._patch_tool_started_count += 1
+            self._patch_tool_peak = max(
+                self._patch_tool_peak,
+                len(self._patch_tool_active),
             )
-            self._writer_queue_waits.append(max(0.0, queue_wait_seconds))
+            self._patch_tool_queue_waits.append(
+                max(0.0, queue_wait_seconds)
+            )
 
-    def writer_lock_acquired(
+    def patch_lock_acquired(
         self,
         child_id: str,
-        group_ids: Iterable[Any],
+        paths: Iterable[Any],
         seconds: float,
     ) -> None:
-        groups = tuple(
-            sorted({str(value) for value in group_ids if str(value)})
-        ) or ("__qualification__",)
+        normalized_paths = tuple(
+            sorted({str(value) for value in paths if str(value)})
+        )
         with self._lock:
-            self._writer_lock_waits.append(max(0.0, float(seconds)))
-            if child_id in self._writer_lock_active:
+            self._patch_lock_waits.append(max(0.0, float(seconds)))
+            if child_id in self._patch_lock_active:
                 return
-            self._writer_lock_active[child_id] = groups
-            self._writer_lock_peak = max(
-                self._writer_lock_peak,
-                len(self._writer_lock_active),
+            self._patch_lock_active[child_id] = normalized_paths
+            self._patch_lock_peak = max(
+                self._patch_lock_peak,
+                len(self._patch_lock_active),
             )
-            for group_id in groups:
-                active = self._writer_lock_group_active.get(group_id, 0) + 1
-                self._writer_lock_group_active[group_id] = active
-                self._writer_lock_group_peak[group_id] = max(
-                    self._writer_lock_group_peak.get(group_id, 0),
+            for path in normalized_paths:
+                active = self._patch_lock_path_active.get(path, 0) + 1
+                self._patch_lock_path_active[path] = active
+                self._patch_lock_path_peak[path] = max(
+                    self._patch_lock_path_peak.get(path, 0),
                     active,
                 )
 
-    def writer_lock_released(self, child_id: str) -> None:
+    def patch_lock_released(self, child_id: str) -> None:
         with self._lock:
-            groups = self._writer_lock_active.pop(child_id, None)
-            if groups is None:
+            paths = self._patch_lock_active.pop(child_id, None)
+            if paths is None:
                 return
-            for group_id in groups:
-                self._writer_lock_group_active[group_id] = max(
+            for path in paths:
+                self._patch_lock_path_active[path] = max(
                     0,
-                    self._writer_lock_group_active.get(group_id, 0) - 1,
+                    self._patch_lock_path_active.get(path, 0) - 1,
                 )
 
-    def writer_finished(self, child_id: str) -> None:
+    def patch_tool_finished(self, child_id: str) -> None:
         with self._lock:
-            if self._writer_active.pop(child_id, None) is None:
+            if self._patch_tool_active.pop(child_id, None) is None:
                 return
-            self._writer_finished_count += 1
+            self._patch_tool_finished_count += 1
 
     def model_snapshot(self) -> dict[str, Any]:
         with self._lock:
@@ -395,32 +402,32 @@ class _PipelineRuntimeTelemetry:
                 ),
             }
 
-    def writer_snapshot(self) -> dict[str, Any]:
+    def patch_tool_snapshot(self) -> dict[str, Any]:
         with self._lock:
             return {
-                "measurement": "worker_and_scope_lock_activity",
-                "capacity": self.writer_capacity,
-                "inFlight": len(self._writer_active),
-                "peakInFlight": self._writer_peak,
-                "startedCount": self._writer_started_count,
-                "finishedCount": self._writer_finished_count,
-                "lockHeldInFlight": len(self._writer_lock_active),
-                "lockHeldPeakInFlight": self._writer_lock_peak,
-                "lockHeldInFlightByGroup": {
+                "measurement": "deterministic_patch_tool_and_path_locks",
+                "capacity": self.patch_tool_capacity,
+                "inFlight": len(self._patch_tool_active),
+                "peakInFlight": self._patch_tool_peak,
+                "startedCount": self._patch_tool_started_count,
+                "finishedCount": self._patch_tool_finished_count,
+                "lockHeldInFlight": len(self._patch_lock_active),
+                "lockHeldPeakInFlight": self._patch_lock_peak,
+                "lockHeldInFlightByPath": {
                     key: value
                     for key, value in sorted(
-                        self._writer_lock_group_active.items()
+                        self._patch_lock_path_active.items()
                     )
                     if value
                 },
-                "lockHeldPeakInFlightByGroup": dict(
-                    sorted(self._writer_lock_group_peak.items())
+                "lockHeldPeakInFlightByPath": dict(
+                    sorted(self._patch_lock_path_peak.items())
                 ),
                 "queueWaitSeconds": self._duration_summary(
-                    self._writer_queue_waits
+                    self._patch_tool_queue_waits
                 ),
                 "lockWaitSeconds": self._duration_summary(
-                    self._writer_lock_waits
+                    self._patch_lock_waits
                 ),
             }
 
@@ -1199,7 +1206,7 @@ def prepare_question_items_concurrently(
     results: list[Any] = [None] * len(ordered_ids)
     with ThreadPoolExecutor(
         max_workers=worker_limit,
-        thread_name_prefix="question-preparation",
+        thread_name_prefix="question-tool",
     ) as executor:
         futures = {
             executor.submit(prepare, question_id): (index, question_id)
@@ -2568,6 +2575,7 @@ class QualificationRunStore:
                 }
                 for write_once_field in (
                     "preparedCandidate",
+                    "patchApplyStartedAt",
                     "candidateCommitStartedAt",
                 ):
                     if (
@@ -2772,7 +2780,7 @@ class QualificationRunStore:
             projected_input_hash=projected_input_hash,
         )
 
-    def mark_candidate_commit_started(
+    def mark_patch_apply_started(
         self,
         qualification: str,
         attempt_id: str,
@@ -2780,23 +2788,34 @@ class QualificationRunStore:
         current = self.get(qualification, attempt_id)
         if not isinstance(current.get("preparedCandidate"), Mapping):
             raise QualificationRunError(
-                "保存済み問題別候補なしでwriterを開始できません。"
+                "保存済み問題別候補なしでpatch反映を開始できません。"
             )
-        if current.get("candidateCommitStartedAt"):
+        if current.get("patchApplyStartedAt") or current.get(
+            "candidateCommitStartedAt"
+        ):
             raise QualificationRunError(
-                "同じ問題別候補のwriterは再実行できません。"
+                "同じ問題別候補のpatch反映は再実行できません。"
             )
         if not self.is_question_attempt(attempt_id):
             return self.update(
                 qualification,
                 attempt_id,
-                candidateCommitStartedAt=_now(),
+                patchApplyStartedAt=_now(),
             )
         return self._update_question_attempt(
             qualification,
             attempt_id,
-            {"candidateCommitStartedAt": _now()},
+            {"patchApplyStartedAt": _now()},
         )
+
+    def mark_candidate_commit_started(
+        self,
+        qualification: str,
+        attempt_id: str,
+    ) -> dict[str, Any]:
+        """Compatibility entrypoint for callers resuming pre-tool runs."""
+
+        return self.mark_patch_apply_started(qualification, attempt_id)
 
     def reusable_prepared_candidate(
         self,
@@ -2824,6 +2843,7 @@ class QualificationRunStore:
             if isinstance(attempt, Mapping)
             and str(attempt.get("stageId") or "") == stage_id
             and str(attempt.get("status") or "") == "interrupted"
+            and not attempt.get("patchApplyStartedAt")
             and not attempt.get("candidateCommitStartedAt")
             and isinstance(attempt.get("preparedCandidate"), Mapping)
         ]
@@ -6392,7 +6412,7 @@ class QualificationRunStore:
                     receiptValidated=False,
                     artifactSync={"status": "not_required", "groups": []},
                     finishedAt=None,
-                    error="共有前提のwriter開始前に停止したため再実行できます。",
+                    error="共有前提処理の開始前に停止したため再実行できます。",
                 )
                 continue
             if len(matches) != 1 or missing_child_ids:
@@ -6405,7 +6425,7 @@ class QualificationRunStore:
                 )
                 reason = (
                     "再起動前の共有前提childを親runと一意に照合できないため、"
-                    "安全側で後続writerを停止しました。"
+                    "安全側で後続patch toolを停止しました。"
                 )
                 phase.update(status="failed", error=reason, finishedAt=_now())
                 manifest.update(
@@ -6482,7 +6502,7 @@ class QualificationRunStore:
             unsafe_child_id = child_id
             reason = (
                 "再起動前の共有前提childでrollback又は確定receiptを"
-                "確認できないため、安全側で後続writerを停止しました。"
+                "確認できないため、安全側で後続patch toolを停止しました。"
             )
             phase.update(status="failed", error=reason, finishedAt=_now())
             manifest.update(
@@ -6650,7 +6670,7 @@ class QualificationRunStore:
                     and _child_retry_safe(child)
                 ):
                     reason = (
-                        "再起動前の一問writerは未開始で、file差分がありません。"
+                        "再起動前の一問patch反映は未開始で、file差分がありません。"
                         "この問題だけを再実行できます。"
                     )
                     self._block_execution_from(question, stage_index, reason)
@@ -6664,14 +6684,14 @@ class QualificationRunStore:
                     reason = str(
                         child.get("error")
                         or result_summary
-                        or "再起動前の一問writerはrollback済みです。"
+                        or "再起動前の一問patch反映はrollback済みです。"
                     )
                     self._block_execution_from(question, stage_index, reason)
                     continue
                 unsafe_child_id = child_id or "unknown"
                 reason = (
-                    "再起動前の一問writerと親queueのidentity又は確定receiptを"
-                    "照合できないため、安全側で全writerを停止しました。"
+                    "再起動前の一問patch反映と親queueのidentity又は確定receiptを"
+                    "照合できないため、安全側で全patch toolを停止しました。"
                 )
                 self._block_execution_from(question, stage_index, reason)
                 for candidate in executions:
@@ -7487,7 +7507,7 @@ class QualificationRunStore:
                         fallback_result = {
                             "status": "succeeded",
                             "summary": (
-                                "一問writerの確定receiptを再起動時に照合しました。"
+                                "一問patch反映の確定receiptを再起動時に照合しました。"
                                 "公開用データの同期だけ再実行が必要です。"
                             ),
                             "commands": [
@@ -8622,61 +8642,8 @@ class QualificationRunCoordinator:
             or getattr(workflow, "work_versions", None)
             or QuestionWorkVersionStore(self.repo_root)
         )
-        # Model turns run concurrently in private workspaces. Canonical patch
-        # commits are serialized only inside the same qualification/group;
-        # different years never touch the same patch or work-version ledger.
-        self._question_patch_commit_locks_guard = threading.Lock()
-        self._question_patch_commit_locks: dict[
-            tuple[str, str],
-            threading.RLock,
-        ] = {}
         self._parent_heartbeat_lock = threading.Lock()
         self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
-
-    @contextmanager
-    def _question_patch_commit_scope(
-        self,
-        qualification: str,
-        group_ids: Iterable[Any],
-        *,
-        on_acquired: Callable[[float], None] | None = None,
-        on_released: Callable[[], None] | None = None,
-    ) -> Iterator[None]:
-        keys = sorted(
-            {
-                (str(qualification), str(group_id))
-                for group_id in group_ids
-                if str(group_id)
-            }
-        ) or [(str(qualification), "__qualification__")]
-        with self._question_patch_commit_locks_guard:
-            locks = [
-                self._question_patch_commit_locks.setdefault(
-                    key,
-                    threading.RLock(),
-                )
-                for key in keys
-            ]
-        wait_started = time.monotonic()
-        acquired: list[Any] = []
-        try:
-            for lock in locks:
-                lock.acquire()
-                acquired.append(lock)
-            if on_acquired is not None:
-                try:
-                    on_acquired(time.monotonic() - wait_started)
-                except Exception:
-                    pass
-            yield
-        finally:
-            for lock in reversed(acquired):
-                lock.release()
-            if on_released is not None:
-                try:
-                    on_released()
-                except Exception:
-                    pass
 
     @staticmethod
     def _monitor_context(
@@ -11409,7 +11376,7 @@ class QualificationRunCoordinator:
             if not self._isolated_child_failure(child):
                 unsafe_reason = (
                     f"{phase['label']}: 失敗後のrollback完了を検証できないため、"
-                    "後続writerと成果物同期を停止しました。"
+                    "後続処理と成果物同期を停止しました。"
                 )
                 self.store.update(
                     qualification,
@@ -11607,7 +11574,7 @@ class QualificationRunCoordinator:
         )
         pipeline_telemetry = _PipelineRuntimeTelemetry(
             model_capacity=question_concurrency,
-            writer_capacity=question_concurrency,
+            patch_tool_capacity=question_concurrency,
         )
         provider_attempt_limit = MAX_PROVIDER_ATTEMPTS
         configured_provider_attempts = getattr(
@@ -11626,7 +11593,7 @@ class QualificationRunCoordinator:
         emit(
             "一問を一つのmodel turnへ分離し、"
             f"最大{question_concurrency}問を同時に整備します。"
-            "検査と確定も1問ずつです。"
+            "入力生成、機械検証、patch反映も一問単位です。"
         )
 
         def preparation_heartbeat(
@@ -12203,31 +12170,36 @@ class QualificationRunCoordinator:
                     "outcome": failed_batch_outcome(prepared, exc),
                 }
 
-        def run_commit(prepared: Mapping[str, Any]) -> dict[str, Any]:
+        def apply_prepared_candidate(
+            prepared: Mapping[str, Any],
+        ) -> dict[str, Any]:
             child_id = str(prepared["childId"])
-            writer_queue_wait = max(
+            patch_tool_queue_wait = max(
                 0.0,
                 time.monotonic()
-                - float(prepared.get("_commitQueueEnteredMonotonic") or time.monotonic()),
+                - float(
+                    prepared.get("_patchToolQueueEnteredMonotonic")
+                    or time.monotonic()
+                ),
             )
-            pipeline_telemetry.writer_started(
+            pipeline_telemetry.patch_tool_started(
                 child_id,
-                queue_wait_seconds=writer_queue_wait,
+                queue_wait_seconds=patch_tool_queue_wait,
             )
             try:
                 child = self.store.get(qualification, child_id)
                 self.store.update(
                     qualification,
                     child_id,
-                    commitWriterQueueWaitSeconds=round(
-                        writer_queue_wait,
+                    patchToolQueueWaitSeconds=round(
+                        patch_tool_queue_wait,
                         6,
                     ),
                 )
                 envelope = child.get("preparedCandidate")
                 if not isinstance(envelope, Mapping):
                     raise QualificationRunError(
-                        "writer queueの問題に保存済み候補がありません。"
+                        "patch反映対象に保存済み候補がありません。"
                     )
                 outcome = self._run_structured_question_batch(
                     qualification,
@@ -12251,17 +12223,19 @@ class QualificationRunCoordinator:
                     projected_input_hash=str(
                         envelope.get("projectedInputHash") or ""
                     ),
-                    on_commit_lock_wait=(
-                        lambda seconds: pipeline_telemetry.writer_lock_acquired(
-                            child_id,
-                            child.get("targetGroupIds") or [],
-                            seconds,
+                    on_patch_lock_acquired=(
+                        lambda seconds, paths: (
+                            pipeline_telemetry.patch_lock_acquired(
+                                child_id,
+                                paths,
+                                seconds,
+                            )
                         )
                     ),
-                    on_commit_lock_released=lambda: (
-                        pipeline_telemetry.writer_lock_released(child_id)
+                    on_patch_lock_released=lambda: (
+                        pipeline_telemetry.patch_lock_released(child_id)
                     ),
-                    commit_prepared=True,
+                    apply_prepared=True,
                 )
                 return {
                     "childId": child_id,
@@ -12275,7 +12249,7 @@ class QualificationRunCoordinator:
             except Exception as exc:  # noqa: BLE001
                 return failed_batch_outcome(prepared, exc)
             finally:
-                pipeline_telemetry.writer_finished(child_id)
+                pipeline_telemetry.patch_tool_finished(child_id)
 
         def register_prepared_batches(
             prepared_batches: list[Mapping[str, Any]],
@@ -12701,7 +12675,7 @@ class QualificationRunCoordinator:
             retry_queue: deque[tuple[str, str]] = deque()
             ready_queue: deque[tuple[str, str]] = deque()
             window_questions: set[str] = set()
-            committing_questions: set[str] = set()
+            applying_questions: set[str] = set()
             provider_waiting: set[str] = set()
             pending_spec_futures: dict[
                 Any,
@@ -12709,24 +12683,26 @@ class QualificationRunCoordinator:
             ] = {}
             pending_batch_futures: dict[Any, tuple[str, str]] = {}
             pending_model_futures: dict[Any, tuple[str, str]] = {}
-            pending_commit_futures: dict[Any, tuple[str, str]] = {}
+            pending_patch_tool_futures: dict[Any, tuple[str, str]] = {}
             prepared_model_backlog: deque[dict[str, Any]] = deque()
-            prepared_commit_backlog: deque[dict[str, Any]] = deque()
-            preparation_worker_limit = min(
+            patch_tool_backlog: deque[dict[str, Any]] = deque()
+            input_tool_limit = min(
                 question_concurrency,
                 PREPARATION_MAX_PARALLEL_QUESTIONS,
                 max(len(initial_question_ids), 1),
             )
-            commit_worker_limit = question_concurrency
+            patch_tool_limit = question_concurrency
+            tool_worker_limit = input_tool_limit + patch_tool_limit
             batch_count = 0
             prepared_count = 0
             prepared_spec_count = 0
             maximum_batch_size = 0
             peak_model_futures = 0
-            peak_commit_futures = 0
-            peak_prepared_backlog = 0
+            peak_patch_tool_futures = 0
+            peak_patch_tool_backlog = 0
             peak_pipeline_futures = 0
             peak_preparation_futures = 0
+            peak_tool_futures = 0
             peak_question_window = 0
             model_started = False
             last_runtime_snapshot = 0.0
@@ -12777,7 +12753,7 @@ class QualificationRunCoordinator:
                     question_id, stage_id = work
                     if (
                         question_id in window_questions
-                        or question_id in committing_questions
+                        or question_id in applying_questions
                     ):
                         raise QualificationRunError(
                             "同じ問題を同時に二工程へ投入しようとしました: "
@@ -12815,12 +12791,14 @@ class QualificationRunCoordinator:
                 )
 
             def submit_ready_specs(
-                preparation_executor: ThreadPoolExecutor,
+                tool_executor: ThreadPoolExecutor,
             ) -> None:
+                nonlocal peak_preparation_futures
+                nonlocal peak_pipeline_futures
+                nonlocal peak_tool_futures
                 while (
                     ready_queue
-                    and len(pending_spec_futures)
-                    < preparation_worker_limit
+                    and len(pending_spec_futures) < input_tool_limit
                 ):
                     question_id, stage_id = ready_queue.popleft()
                     phase = phase_by_id[stage_id]
@@ -12831,7 +12809,7 @@ class QualificationRunCoordinator:
                     question_parent, question_index = (
                         question_parent_snapshot(question_id)
                     )
-                    future = preparation_executor.submit(
+                    future = tool_executor.submit(
                         prepare_spec,
                         phase,
                         phase_plan,
@@ -12847,6 +12825,26 @@ class QualificationRunCoordinator:
                         phase,
                         phase_prompt,
                     )
+                peak_preparation_futures = max(
+                    peak_preparation_futures,
+                    len(pending_spec_futures)
+                    + len(pending_batch_futures),
+                )
+                peak_tool_futures = max(
+                    peak_tool_futures,
+                    len(pending_spec_futures)
+                    + len(pending_batch_futures)
+                    + len(pending_patch_tool_futures),
+                )
+                peak_pipeline_futures = max(
+                    peak_pipeline_futures,
+                    len(pending_spec_futures)
+                    + len(pending_batch_futures)
+                    + len(pending_model_futures)
+                    + len(pending_patch_tool_futures)
+                    + len(prepared_model_backlog)
+                    + len(patch_tool_backlog),
+                )
 
             def submit_model_backlog(
                 model_executor: ThreadPoolExecutor,
@@ -12877,39 +12875,53 @@ class QualificationRunCoordinator:
                 )
                 peak_pipeline_futures = max(
                     peak_pipeline_futures,
-                    len(pending_model_futures)
-                    + len(pending_commit_futures)
+                    len(pending_spec_futures)
+                    + len(pending_batch_futures)
+                    + len(pending_model_futures)
+                    + len(pending_patch_tool_futures)
                     + len(prepared_model_backlog)
-                    + len(prepared_commit_backlog),
+                    + len(patch_tool_backlog),
                 )
 
-            def submit_commit_backlog(
-                commit_executor: ThreadPoolExecutor,
+            def submit_patch_tool_backlog(
+                tool_executor: ThreadPoolExecutor,
             ) -> None:
-                nonlocal peak_commit_futures
+                nonlocal peak_patch_tool_futures
                 nonlocal peak_pipeline_futures
+                nonlocal peak_tool_futures
                 while (
-                    prepared_commit_backlog
-                    and len(pending_commit_futures) < commit_worker_limit
+                    patch_tool_backlog
+                    and len(pending_patch_tool_futures) < patch_tool_limit
                 ):
-                    prepared = prepared_commit_backlog.popleft()
+                    prepared = patch_tool_backlog.popleft()
                     question_id = str(prepared["questionId"])
                     stage_id = str(prepared["stageId"])
-                    future = commit_executor.submit(run_commit, prepared)
-                    pending_commit_futures[future] = (
+                    future = tool_executor.submit(
+                        apply_prepared_candidate,
+                        prepared,
+                    )
+                    pending_patch_tool_futures[future] = (
                         question_id,
                         stage_id,
                     )
-                peak_commit_futures = max(
-                    peak_commit_futures,
-                    len(pending_commit_futures),
+                peak_patch_tool_futures = max(
+                    peak_patch_tool_futures,
+                    len(pending_patch_tool_futures),
+                )
+                peak_tool_futures = max(
+                    peak_tool_futures,
+                    len(pending_spec_futures)
+                    + len(pending_batch_futures)
+                    + len(pending_patch_tool_futures),
                 )
                 peak_pipeline_futures = max(
                     peak_pipeline_futures,
-                    len(pending_model_futures)
-                    + len(pending_commit_futures)
+                    len(pending_spec_futures)
+                    + len(pending_batch_futures)
+                    + len(pending_model_futures)
+                    + len(pending_patch_tool_futures)
                     + len(prepared_model_backlog)
-                    + len(prepared_commit_backlog),
+                    + len(patch_tool_backlog),
                 )
 
             def apply_completed_outcomes(
@@ -12965,7 +12977,7 @@ class QualificationRunCoordinator:
                     )
                 for question_id, stage_id in affected:
                     release_window(question_id)
-                    committing_questions.discard(question_id)
+                    applying_questions.discard(question_id)
                     if question_id in provider_waiting:
                         continue
                     detail = self.store.question_detail(
@@ -13003,42 +13015,53 @@ class QualificationRunCoordinator:
                     ),
                     modelBatchSize=maximum_batch_size,
                     modelWorkerLimit=peak_model_futures,
-                    preparationWorkerLimit=preparation_worker_limit,
+                    inputToolLimit=input_tool_limit,
+                    toolWorkerLimit=tool_worker_limit,
                     pipelineWorkerLimit=(
-                        question_concurrency + commit_worker_limit
+                        question_concurrency + tool_worker_limit
                     ),
-                    pipelineBacklogLimit=commit_worker_limit,
+                    patchToolBacklogLimit=patch_tool_limit,
                     questionWindowLimit=min(
                         question_concurrency,
                         max(len(initial_question_ids), 1),
                     ),
                     questionWindowPendingCount=len(window_questions),
                     questionWindowPeakPendingCount=peak_question_window,
-                    preparationPendingFutureCount=(
+                    inputToolPendingFutureCount=(
                         len(pending_spec_futures)
                         + len(pending_batch_futures)
                     ),
-                    preparationPeakPendingFutureCount=(
+                    inputToolPeakPendingFutureCount=(
                         peak_preparation_futures
                     ),
                     modelPendingFutureCount=len(pending_model_futures),
-                    commitPendingFutureCount=len(pending_commit_futures),
-                    preparedCommitBacklogCount=len(
-                        prepared_commit_backlog
+                    patchToolPendingFutureCount=len(
+                        pending_patch_tool_futures
+                    ),
+                    patchToolBacklogCount=len(patch_tool_backlog),
+                    toolPendingFutureCount=(
+                        len(pending_spec_futures)
+                        + len(pending_batch_futures)
+                        + len(pending_patch_tool_futures)
                     ),
                     pipelinePendingFutureCount=(
-                        len(pending_model_futures)
-                        + len(pending_commit_futures)
+                        len(pending_spec_futures)
+                        + len(pending_batch_futures)
+                        + len(pending_model_futures)
+                        + len(pending_patch_tool_futures)
                         + len(prepared_model_backlog)
-                        + len(prepared_commit_backlog)
+                        + len(patch_tool_backlog)
                     ),
                     pipelinePeakPendingFutureCount=peak_pipeline_futures,
                     modelPeakPendingFutureCount=peak_model_futures,
-                    commitPeakPendingFutureCount=peak_commit_futures,
-                    preparedCommitPeakBacklogCount=peak_prepared_backlog,
+                    patchToolPeakPendingFutureCount=(
+                        peak_patch_tool_futures
+                    ),
+                    patchToolPeakBacklogCount=peak_patch_tool_backlog,
+                    toolPeakPendingFutureCount=peak_tool_futures,
                     modelTurns=pipeline_telemetry.model_snapshot(),
                     questionWindow=pipeline_telemetry.question_window_snapshot(),
-                    commitWriter=pipeline_telemetry.writer_snapshot(),
+                    patchTools=pipeline_telemetry.patch_tool_snapshot(),
                 )
                 last_runtime_snapshot = current_monotonic
 
@@ -13060,20 +13083,16 @@ class QualificationRunCoordinator:
                     thread_name_prefix="question-model",
                 ) as model_executor,
                 ThreadPoolExecutor(
-                    max_workers=max(1, commit_worker_limit),
-                    thread_name_prefix="question-commit",
-                ) as commit_executor,
-                ThreadPoolExecutor(
-                    max_workers=max(1, preparation_worker_limit),
-                    thread_name_prefix="question-preparation",
-                ) as preparation_executor,
+                    max_workers=max(1, tool_worker_limit),
+                    thread_name_prefix="question-tool",
+                ) as tool_executor,
             ):
                 try:
                     while True:
                         fill_question_window()
-                        submit_ready_specs(preparation_executor)
+                        submit_ready_specs(tool_executor)
                         submit_model_backlog(model_executor)
-                        submit_commit_backlog(commit_executor)
+                        submit_patch_tool_backlog(tool_executor)
 
                         completed_specs = [
                             future
@@ -13147,7 +13166,7 @@ class QualificationRunCoordinator:
                             question_parent, _ = question_parent_snapshot(
                                 question_id
                             )
-                            future = preparation_executor.submit(
+                            future = tool_executor.submit(
                                 prepare_batch,
                                 [spec],
                                 phase,
@@ -13158,6 +13177,26 @@ class QualificationRunCoordinator:
                                 question_id,
                                 stage_id,
                             )
+                        peak_preparation_futures = max(
+                            peak_preparation_futures,
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures),
+                        )
+                        peak_tool_futures = max(
+                            peak_tool_futures,
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures)
+                            + len(pending_patch_tool_futures),
+                        )
+                        peak_pipeline_futures = max(
+                            peak_pipeline_futures,
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures)
+                            + len(pending_model_futures)
+                            + len(pending_patch_tool_futures)
+                            + len(prepared_model_backlog)
+                            + len(patch_tool_backlog),
+                        )
 
                         completed_batches = [
                             future
@@ -13179,16 +13218,18 @@ class QualificationRunCoordinator:
                                         qualification,
                                         str(prepared["childId"]),
                                         "prepared",
-                                    )
+                                )
                                 question_id = str(prepared["questionId"])
                                 release_window(question_id)
-                                committing_questions.add(question_id)
-                                prepared_commit_backlog.append(
+                                applying_questions.add(question_id)
+                                patch_tool_backlog.append(
                                     {
                                         "childId": str(prepared["childId"]),
                                         "stageId": str(prepared["stageId"]),
                                         "questionId": question_id,
-                                        "_commitQueueEnteredMonotonic": time.monotonic(),
+                                        "_patchToolQueueEnteredMonotonic": (
+                                            time.monotonic()
+                                        ),
                                     }
                                 )
                             else:
@@ -13216,38 +13257,44 @@ class QualificationRunCoordinator:
                                 immediate_outcomes.append(outcome)
                             else:
                                 release_window(question_id)
-                                committing_questions.add(question_id)
+                                applying_questions.add(question_id)
                                 prepared = dict(generated["prepared"])
                                 prepared.setdefault(
                                     "questionId",
                                     question_id,
                                 )
                                 prepared.setdefault("stageId", stage_id)
-                                prepared["_commitQueueEnteredMonotonic"] = (
+                                prepared["_patchToolQueueEnteredMonotonic"] = (
                                     time.monotonic()
                                 )
-                                prepared_commit_backlog.append(prepared)
+                                patch_tool_backlog.append(prepared)
                         apply_completed_outcomes(immediate_outcomes)
 
-                        completed_commits = [
+                        completed_patch_tools = [
                             future
-                            for future in pending_commit_futures
+                            for future in pending_patch_tool_futures
                             if future.done()
                         ]
-                        commit_outcomes: list[Mapping[str, Any]] = []
-                        for future in completed_commits:
-                            pending_commit_futures.pop(future)
-                            commit_outcomes.append(future.result())
-                        apply_completed_outcomes(commit_outcomes)
+                        patch_tool_outcomes: list[Mapping[str, Any]] = []
+                        for future in completed_patch_tools:
+                            pending_patch_tool_futures.pop(future)
+                            patch_tool_outcomes.append(future.result())
+                        apply_completed_outcomes(patch_tool_outcomes)
 
                         peak_preparation_futures = max(
                             peak_preparation_futures,
                             len(pending_spec_futures)
                             + len(pending_batch_futures),
                         )
-                        peak_prepared_backlog = max(
-                            peak_prepared_backlog,
-                            len(prepared_commit_backlog),
+                        peak_patch_tool_backlog = max(
+                            peak_patch_tool_backlog,
+                            len(patch_tool_backlog),
+                        )
+                        peak_tool_futures = max(
+                            peak_tool_futures,
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures)
+                            + len(pending_patch_tool_futures),
                         )
                         peak_question_window = max(
                             peak_question_window,
@@ -13255,15 +13302,17 @@ class QualificationRunCoordinator:
                         )
                         peak_pipeline_futures = max(
                             peak_pipeline_futures,
-                            len(pending_model_futures)
-                            + len(pending_commit_futures)
+                            len(pending_spec_futures)
+                            + len(pending_batch_futures)
+                            + len(pending_model_futures)
+                            + len(pending_patch_tool_futures)
                             + len(prepared_model_backlog)
-                            + len(prepared_commit_backlog),
+                            + len(patch_tool_backlog),
                         )
                         fill_question_window()
-                        submit_ready_specs(preparation_executor)
+                        submit_ready_specs(tool_executor)
                         submit_model_backlog(model_executor)
-                        submit_commit_backlog(commit_executor)
+                        submit_patch_tool_backlog(tool_executor)
                         update_runtime_snapshot()
                         preparation_heartbeat(
                             "question_pipeline",
@@ -13284,7 +13333,7 @@ class QualificationRunCoordinator:
                             set(pending_spec_futures)
                             | set(pending_batch_futures)
                             | set(pending_model_futures)
-                            | set(pending_commit_futures)
+                            | set(pending_patch_tool_futures)
                         )
                         queued = bool(
                             waiting_questions
@@ -13292,7 +13341,7 @@ class QualificationRunCoordinator:
                             or retry_queue
                             or ready_queue
                             or prepared_model_backlog
-                            or prepared_commit_backlog
+                            or patch_tool_backlog
                         )
                         if not outstanding and not queued:
                             break
@@ -13332,7 +13381,7 @@ class QualificationRunCoordinator:
                         set(pending_spec_futures)
                         | set(pending_batch_futures)
                         | set(pending_model_futures)
-                        | set(pending_commit_futures)
+                        | set(pending_patch_tool_futures)
                     ):
                         future.cancel()
                     raise
@@ -13354,10 +13403,11 @@ class QualificationRunCoordinator:
                 run_id,
                 hydrate_result=False,
                 questionWindowPendingCount=0,
-                preparationPendingFutureCount=0,
+                inputToolPendingFutureCount=0,
                 modelPendingFutureCount=0,
-                commitPendingFutureCount=0,
-                preparedCommitBacklogCount=0,
+                patchToolPendingFutureCount=0,
+                patchToolBacklogCount=0,
+                toolPendingFutureCount=0,
                 pipelinePendingFutureCount=0,
             )
             if provider_waiting:
@@ -13852,16 +13902,18 @@ class QualificationRunCoordinator:
         on_model_turn_event: (
             Callable[[Mapping[str, Any]], float | None] | None
         ) = None,
-        on_commit_lock_wait: Callable[[float], None] | None = None,
-        on_commit_lock_released: Callable[[], None] | None = None,
+        on_patch_lock_acquired: (
+            Callable[[float, tuple[str, ...]], None] | None
+        ) = None,
+        on_patch_lock_released: Callable[[], None] | None = None,
         prepare_only: bool = False,
-        commit_prepared: bool = False,
+        apply_prepared: bool = False,
     ) -> dict[str, Any]:
-        """Generate read-only candidates, then validate and commit each question."""
+        """Generate a read-only candidate, then validate and apply it by tool."""
 
-        if prepare_only and commit_prepared:
+        if prepare_only and apply_prepared:
             raise QualificationRunError(
-                "候補生成と保存済み候補commitを同時指定できません。"
+                "候補生成と保存済み候補のpatch反映を同時指定できません。"
             )
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
@@ -13877,8 +13929,8 @@ class QualificationRunCoordinator:
             run_id,
             status="running",
             executionPhase=(
-                "structured_candidate_commit"
-                if commit_prepared
+                "structured_candidate_patch_apply"
+                if apply_prepared
                 else "structured_candidate_generation"
             ),
             startedAt=existing_child.get("startedAt") or _now(),
@@ -13950,7 +14002,7 @@ class QualificationRunCoordinator:
         parent_run_id = str(
             child.get("parentRunId") or batch_plan.get("parentRunId") or ""
         )
-        if commit_prepared:
+        if apply_prepared:
             if len(raw_targets) != 1 or not parent_run_id:
                 raise QualificationRunError(
                     "保存済み問題別候補の親run又は対象問題が不正です。"
@@ -14036,7 +14088,7 @@ class QualificationRunCoordinator:
         prepared_content: dict[str, Any] | None = None
         committed_files: set[str] = set()
         try:
-            if commit_prepared:
+            if apply_prepared:
                 envelope = self.store.load_prepared_candidate(
                     qualification,
                     run_id,
@@ -14730,17 +14782,26 @@ class QualificationRunCoordinator:
                     ),
                     "child": self.store.get(qualification, run_id),
                 }
-            self.store.mark_candidate_commit_started(
+            self.store.mark_patch_apply_started(
                 qualification,
                 run_id,
             )
-            commit_lock_wait_seconds: float | None = None
+            patch_lock_wait_seconds: float | None = None
+            patch_lock_paths: tuple[str, ...] = ()
 
-            def record_commit_lock_wait(seconds: float) -> None:
-                nonlocal commit_lock_wait_seconds
-                commit_lock_wait_seconds = max(0.0, float(seconds))
-                if callable(on_commit_lock_wait):
-                    on_commit_lock_wait(commit_lock_wait_seconds)
+            def record_patch_lock_acquired(
+                seconds: float,
+                paths: tuple[str, ...],
+            ) -> None:
+                nonlocal patch_lock_wait_seconds
+                nonlocal patch_lock_paths
+                patch_lock_wait_seconds = max(0.0, float(seconds))
+                patch_lock_paths = tuple(paths)
+                if callable(on_patch_lock_acquired):
+                    on_patch_lock_acquired(
+                        patch_lock_wait_seconds,
+                        patch_lock_paths,
+                    )
 
             bindings = {
                 str(value.get("id") or value.get("uiQuestionId") or ""):
@@ -14818,12 +14879,13 @@ class QualificationRunCoordinator:
                 )
 
             for candidate in candidates:
-                commit_lock_wait_seconds = None
+                patch_lock_wait_seconds = None
+                patch_lock_paths = ()
                 question_id = candidate.question_id
                 self.store.update(
                     qualification,
                     run_id,
-                    executionPhase="server_candidate_commit",
+                    executionPhase="server_candidate_patch_apply",
                     activeCandidateQuestionId=question_id,
                     candidateTransactionOpen=False,
                 )
@@ -14974,6 +15036,8 @@ class QualificationRunCoordinator:
                     mutable_paths=mutable_paths,
                 )
                 committed_for_question: set[str] = set()
+                rollback: Mapping[str, Any] | None = None
+                baseline_captured = False
                 try:
                     scopes = question_plan.get("targetRecordScopes") or {}
                     effective_updates = (
@@ -15130,93 +15194,91 @@ class QualificationRunCoordinator:
                             base_record=base_record,
                         )
                     candidate_paths = set(workspace.changed_paths())
-                    if not candidate_paths:
-                        with self._question_patch_commit_scope(
-                            qualification,
-                            question_plan.get("targetGroupIds") or [],
-                            on_acquired=record_commit_lock_wait,
-                            on_released=on_commit_lock_released,
-                        ):
-                            if self.store.is_question_attempt(run_id):
-                                self.store.update_attempt_stage_status(
-                                    qualification,
-                                    run_id,
-                                    "committing",
+                    target_group_ids = tuple(
+                        sorted(
+                            {
+                                str(value)
+                                for value in (
+                                    question_plan.get("targetGroupIds") or []
                                 )
-                            self._check_source_immutability(
-                                emit,
-                                source_files=[
-                                    str(value)
-                                    for value in question_plan.get("sourceFiles") or []
-                                ],
-                            )
-                            work_version_receipt = (
-                                None
-                                if hold_cleanup_required
-                                else self._record_work_versions(question_plan)
-                            )
-                        commands.extend(
-                            [
-                                {"command": "record scope", "status": "pass"},
-                                {"command": "00_source immutability", "status": "pass"},
-                            ]
+                                if str(value)
+                            }
+                        )
+                    )
+                    work_version_paths = tuple(
+                        self.work_versions.path_for(
+                            qualification,
+                            list_group_id,
+                        ).relative_to(self.repo_root)
+                        for list_group_id in target_group_ids
+                    )
+                    record_work_version = not hold_cleanup_required
+                    self._check_source_immutability(
+                        emit,
+                        source_files=[
+                            str(value)
+                            for value in question_plan.get("sourceFiles") or []
+                        ],
+                    )
+                    commands.append(
+                        {"command": "00_source immutability", "status": "pass"}
+                    )
+                    if self.store.is_question_attempt(run_id):
+                        self.store.update_attempt_stage_status(
+                            qualification,
+                            run_id,
+                            "committing",
+                        )
+                    if not candidate_paths and not record_work_version:
+                        commands.append(
+                            {"command": "record scope", "status": "pass"}
                         )
                         checkpoint_question(
                             {
                                 "questionId": question_id,
-                                "status": (
-                                    "failed"
-                                    if hold_cleanup_required
-                                    else "succeeded"
-                                ),
+                                "status": "failed",
                                 "summary": (
                                     "集約回答レビューを保留し、旧targetを解除しました。"
-                                    if hold_cleanup_required
-                                    else candidate.summary
                                 ),
                                 "aggregateAnswerReview": aggregate_review_evidence,
                                 "commands": commands,
                                 "changedFiles": [],
-                                **(
-                                    {"workVersionReceipt": work_version_receipt}
-                                    if work_version_receipt is not None
-                                    else {}
-                                ),
-                            },
-                            work_version_receipt,
+                            }
                         )
                         continue
-                    with self._question_patch_commit_scope(
-                        qualification,
-                        question_plan.get("targetGroupIds") or [],
-                        on_acquired=record_commit_lock_wait,
-                        on_released=on_commit_lock_released,
-                    ):
-                        if self.store.is_question_attempt(run_id):
-                            self.store.update_attempt_stage_status(
-                                qualification,
-                                run_id,
-                                "committing",
-                            )
+
+                    try:
                         with workspace.canonical_transaction(
-                            sorted(candidate_paths)
+                            sorted(candidate_paths),
+                            lock_paths=(
+                                work_version_paths
+                                if record_work_version
+                                else ()
+                            ),
+                            on_acquired=record_patch_lock_acquired,
+                            on_released=on_patch_lock_released,
                         ) as canonical_transaction:
-                            transaction_roots = [
-                                *(self.repo_root / value for value in candidate_paths),
-                                *(
-                                    self.work_versions.path_for(
-                                        qualification,
-                                        str(group_id),
-                                    )
-                                    for group_id in question_plan.get("targetGroupIds")
-                                    or []
-                                ),
-                            ]
+                            transaction_roots = tuple(
+                                dict.fromkeys(
+                                    [
+                                        *(
+                                            self.repo_root / value
+                                            for value in candidate_paths
+                                        ),
+                                        *(
+                                            self.repo_root / value
+                                            for value in work_version_paths
+                                            if record_work_version
+                                        ),
+                                    ]
+                                )
+                            )
                             baseline_path = self.store.write_baseline(
                                 qualification,
                                 run_id,
-                                tuple(dict.fromkeys(transaction_roots)),
+                                transaction_roots,
                             )
+                            baseline_captured = True
                             self.store.update(
                                 qualification,
                                 run_id,
@@ -15225,57 +15287,44 @@ class QualificationRunCoordinator:
                             baseline_payload = json.loads(
                                 baseline_path.read_text(encoding="utf-8")
                             )
-                            prepared = canonical_transaction.prepare(
-                                binding=binding,
-                                aliases_by_path=scopes,
-                            )
-                            validation_paths = {
-                                Path(value) for value in candidate_paths
-                            }
-                            self._validate_record_scope(
-                                qualification,
-                                run_id,
-                                question_plan,
-                                validation_paths,
-                                validation_root=workspace.root,
-                                baseline_payload=baseline_payload,
-                                projected_records=records_by_question,
-                            )
+                            prepared_patch = None
+                            if candidate_paths:
+                                prepared_patch = (
+                                    canonical_transaction.prepare(
+                                        binding=binding,
+                                        aliases_by_path=scopes,
+                                    )
+                                )
+                                self._validate_record_scope(
+                                    qualification,
+                                    run_id,
+                                    question_plan,
+                                    {
+                                        Path(value)
+                                        for value in candidate_paths
+                                    },
+                                    validation_root=workspace.root,
+                                    baseline_payload=baseline_payload,
+                                    projected_records=records_by_question,
+                                )
                             commands.append(
                                 {"command": "record scope", "status": "pass"}
                             )
-                            self._check_source_immutability(
-                                emit,
-                                source_files=[
-                                    str(value)
-                                    for value in question_plan.get("sourceFiles")
-                                    or []
-                                ],
-                            )
-                            commands.append(
-                                {
-                                    "command": "00_source immutability",
-                                    "status": "pass",
-                                }
-                            )
-                            committed_for_question.update(prepared.commit())
+                            if prepared_patch is not None:
+                                committed_for_question.update(
+                                    prepared_patch.commit()
+                                )
                             committed_files.update(committed_for_question)
-                            inventory = getattr(self.workflow, "inventory", None)
-                            invalidate = getattr(inventory, "invalidate", None)
-                            if callable(invalidate):
-                                for list_group_id in (
-                                    question_plan.get("targetGroupIds") or []
-                                ):
-                                    invalidate(
-                                        qualification,
-                                        str(list_group_id),
-                                    )
-                            commands.append(
-                                {"command": "atomic commit", "status": "pass"}
-                            )
+                            if candidate_paths:
+                                commands.append(
+                                    {
+                                        "command": "atomic patch apply",
+                                        "status": "pass",
+                                    }
+                                )
                             work_version_receipt = (
                                 None
-                                if hold_cleanup_required
+                                if not record_work_version
                                 else self._record_work_versions(question_plan)
                             )
                             checkpoint_question(
@@ -15308,13 +15357,37 @@ class QualificationRunCoordinator:
                                 qualification,
                                 run_id,
                             )
+                    except CanonicalPatchCommitError as exc:
+                        committed_for_question.update(exc.committed_files)
+                        committed_files.update(exc.committed_files)
+                        if baseline_captured:
+                            rollback = self.store.rollback_baseline(
+                                qualification,
+                                run_id,
+                            )
+                        raise
+                    except Exception:
+                        if baseline_captured:
+                            rollback = self.store.rollback_baseline(
+                                qualification,
+                                run_id,
+                            )
+                        raise
+
+                    inventory = getattr(self.workflow, "inventory", None)
+                    invalidate = getattr(inventory, "invalidate", None)
+                    if callable(invalidate) and candidate_paths:
+                        for list_group_id in target_group_ids:
+                            try:
+                                invalidate(
+                                    qualification,
+                                    list_group_id,
+                                )
+                            except Exception:
+                                # Inventory is a derived cache. Canonical patch
+                                # and work-version success remain authoritative.
+                                pass
                 except CanonicalPatchCommitError as exc:
-                    committed_for_question.update(exc.committed_files)
-                    committed_files.update(exc.committed_files)
-                    rollback = self.store.rollback_baseline(
-                        qualification,
-                        run_id,
-                    )
                     pipeline_stop.set()
                     rollback_safe = bool(
                         isinstance(rollback, Mapping)
@@ -15328,7 +15401,7 @@ class QualificationRunCoordinator:
                         )
                         committed_for_question.clear()
                     raise QualificationRunError(
-                        "検証済みpatchのatomic commitを完了できません: "
+                        "検証済みpatchのatomic反映を完了できません: "
                         + ", ".join(exc.pending_files)
                         + (
                             "。開始前の内容へrollbackしました。"
@@ -15337,26 +15410,25 @@ class QualificationRunCoordinator:
                         )
                     ) from exc
                 except Exception as exc:  # noqa: BLE001
-                    rollback = self.store.rollback_baseline(
-                        qualification,
-                        run_id,
-                    )
-                    rollback_safe = bool(
-                        isinstance(rollback, Mapping)
-                        and rollback.get("status") == "succeeded"
-                        and rollback.get("deltaUnknown") is not True
-                        and not rollback.get("remainingChangedFiles")
+                    rollback_safe = (
+                        not baseline_captured
+                        or bool(
+                            isinstance(rollback, Mapping)
+                            and rollback.get("status") == "succeeded"
+                            and rollback.get("deltaUnknown") is not True
+                            and not rollback.get("remainingChangedFiles")
+                        )
                     )
                     if rollback_safe:
                         committed_files.difference_update(
                             committed_for_question
                         )
                         committed_for_question.clear()
-                    if committed_for_question and not rollback_safe:
+                    if baseline_captured and not rollback_safe:
                         pipeline_stop.set()
                         raise QualificationRunError(
                             "一問transactionに失敗し、開始前の内容へ"
-                            "安全にrollbackできません。全writerを停止しました。"
+                            "安全にrollbackできません。全patch toolを停止しました。"
                         ) from exc
                     checkpoint_question(
                         {
@@ -15366,7 +15438,12 @@ class QualificationRunCoordinator:
                             "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": [
                                 *commands,
-                                {"command": "server commit", "status": "fail"},
+                                {
+                                    # Stable machine code retained for existing
+                                    # validation-feedback readers.
+                                    "command": "server commit",
+                                    "status": "fail",
+                                },
                             ],
                             "changedFiles": (
                                 []
@@ -15377,15 +15454,16 @@ class QualificationRunCoordinator:
                     )
                 finally:
                     workspace.cleanup()
-                    if commit_lock_wait_seconds is not None:
+                    if patch_lock_wait_seconds is not None:
                         try:
                             self.store.update(
                                 qualification,
                                 run_id,
-                                commitWriterLockWaitSeconds=round(
-                                    commit_lock_wait_seconds,
+                                patchToolLockWaitSeconds=round(
+                                    patch_lock_wait_seconds,
                                     6,
                                 ),
+                                patchToolLockPaths=list(patch_lock_paths),
                             )
                         except Exception:
                             # Telemetry must not replace a transaction result
@@ -16433,7 +16511,7 @@ class QualificationRunCoordinator:
         ]
         if len(targets) != 1:
             raise QualificationRunError(
-                "一問writerの工程バージョン対象が1問ではありません。"
+                "一問patch反映の工程バージョン対象が1問ではありません。"
             )
         target = targets[0]
         try:

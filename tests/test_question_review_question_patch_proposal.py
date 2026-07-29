@@ -1,6 +1,8 @@
 import json
 import multiprocessing
 import tempfile
+import threading
+import time
 import unittest
 from pathlib import Path
 
@@ -142,6 +144,132 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
             "sourceRecordRef": f"source.json#{question.removeprefix('q')}",
             "explanationText": explanation,
         }
+
+    @staticmethod
+    def _lock_only_workspace(
+        root: Path,
+        name: str,
+    ) -> IsolatedQuestionPatchWorkspace:
+        return IsolatedQuestionPatchWorkspace.create(
+            root,
+            root / f"output/question_review_console/{name}",
+            qualification="sample",
+            mutable_paths=[],
+        )
+
+    def test_lock_only_transaction_ignores_callbacks_and_releases_lock(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspace = self._lock_only_workspace(root, "callback")
+            work_version_path = Path(
+                "output/question_review_console/sample/group/work_versions.json"
+            )
+            observed: list[tuple[str, ...]] = []
+
+            with workspace.canonical_transaction(
+                (),
+                lock_paths=(work_version_path,),
+                on_acquired=lambda _seconds, _paths: (_ for _ in ()).throw(
+                    RuntimeError("telemetry failed")
+                ),
+                on_released=lambda: (_ for _ in ()).throw(
+                    RuntimeError("telemetry failed")
+                ),
+            ):
+                pass
+            with workspace.canonical_transaction(
+                (),
+                lock_paths=(work_version_path,),
+                on_acquired=lambda _seconds, paths: observed.append(paths),
+            ) as transaction:
+                self.assertEqual(
+                    transaction.lock_paths,
+                    (work_version_path,),
+                )
+
+        self.assertEqual(observed, [(work_version_path.as_posix(),)])
+
+    def test_lock_only_transactions_serialize_the_same_actual_path(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspaces = [
+                self._lock_only_workspace(root, f"same-path-{index}")
+                for index in range(2)
+            ]
+            work_version_path = Path(
+                "output/question_review_console/sample/group/work_versions.json"
+            )
+            first_acquired = threading.Event()
+            release_first = threading.Event()
+            second_attempting = threading.Event()
+            second_acquired = threading.Event()
+
+            def hold_first() -> None:
+                with workspaces[0].canonical_transaction(
+                    (),
+                    lock_paths=(work_version_path,),
+                    on_acquired=lambda _seconds, _paths: first_acquired.set(),
+                ):
+                    release_first.wait(2)
+
+            def hold_second() -> None:
+                second_attempting.set()
+                with workspaces[1].canonical_transaction(
+                    (),
+                    lock_paths=(work_version_path,),
+                    on_acquired=lambda _seconds, _paths: second_acquired.set(),
+                ):
+                    pass
+
+            first = threading.Thread(target=hold_first)
+            second = threading.Thread(target=hold_second)
+            first.start()
+            self.assertTrue(first_acquired.wait(1))
+            second.start()
+            self.assertTrue(second_attempting.wait(1))
+            time.sleep(0.02)
+            self.assertFalse(second_acquired.is_set())
+            release_first.set()
+            first.join(2)
+            second.join(2)
+
+        self.assertFalse(first.is_alive())
+        self.assertFalse(second.is_alive())
+        self.assertTrue(second_acquired.is_set())
+
+    def test_lock_only_transactions_allow_distinct_actual_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspaces = [
+                self._lock_only_workspace(root, f"distinct-path-{index}")
+                for index in range(2)
+            ]
+            paths = [
+                Path(
+                    "output/question_review_console/sample/"
+                    f"group-{index}/work_versions.json"
+                )
+                for index in range(2)
+            ]
+            barrier = threading.Barrier(2)
+
+            def hold(index: int) -> None:
+                with workspaces[index].canonical_transaction(
+                    (),
+                    lock_paths=(paths[index],),
+                ):
+                    barrier.wait(1)
+
+            threads = [
+                threading.Thread(target=hold, args=(index,))
+                for index in range(2)
+            ]
+            for thread in threads:
+                thread.start()
+            for thread in threads:
+                thread.join(2)
+
+        self.assertTrue(all(not thread.is_alive() for thread in threads))
 
     def test_rebases_one_record_without_losing_sibling_commit(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

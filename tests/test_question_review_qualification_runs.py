@@ -65,43 +65,10 @@ _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
 
 
 class PipelineTelemetryContractTests(unittest.TestCase):
-    @staticmethod
-    def _lock_only_coordinator():
-        coordinator = object.__new__(QualificationRunCoordinator)
-        coordinator._question_patch_commit_locks_guard = threading.Lock()
-        coordinator._question_patch_commit_locks = {}
-        return coordinator
-
-    def test_commit_scope_releases_locks_when_acquired_callback_throws(self):
-        coordinator = self._lock_only_coordinator()
-        with coordinator._question_patch_commit_scope(
-            "sample",
-            ["group-1"],
-            on_acquired=lambda _seconds: (_ for _ in ()).throw(
-                RuntimeError("telemetry failed")
-            ),
-        ):
-            pass
-
-        acquired = threading.Event()
-
-        def take_same_scope():
-            with coordinator._question_patch_commit_scope(
-                "sample",
-                ["group-1"],
-            ):
-                acquired.set()
-
-        thread = threading.Thread(target=take_same_scope)
-        thread.start()
-        thread.join(1)
-        self.assertTrue(acquired.is_set())
-        self.assertFalse(thread.is_alive())
-
     def test_question_window_segment_boundary_discards_stale_release(self):
         telemetry = _PipelineRuntimeTelemetry(
             model_capacity=10,
-            writer_capacity=10,
+            patch_tool_capacity=10,
         )
         telemetry.question_window_released(
             "previous-segment-question",
@@ -123,89 +90,49 @@ class PipelineTelemetryContractTests(unittest.TestCase):
             0,
         )
 
-    def test_commit_writer_separates_worker_and_lock_held_concurrency(self):
-        coordinator = self._lock_only_coordinator()
+    def test_patch_tool_reports_tool_and_actual_path_lock_concurrency(self):
         telemetry = _PipelineRuntimeTelemetry(
             model_capacity=1,
-            writer_capacity=3,
+            patch_tool_capacity=3,
         )
-        barrier = threading.Barrier(2)
-
-        def hold(child_id, group_id):
-            telemetry.writer_started(
+        path_pairs = {
+            "child-1": (
+                "output/sample/questions_json/2025/21_explanationText_added/"
+                "patch.json",
+            ),
+            "child-2": (
+                "output/sample/questions_json/2026/21_explanationText_added/"
+                "patch.json",
+            ),
+        }
+        for child_id, paths in path_pairs.items():
+            telemetry.patch_tool_started(
                 child_id,
                 queue_wait_seconds=0.0,
             )
-            with coordinator._question_patch_commit_scope(
-                "sample",
-                [group_id],
-                on_acquired=lambda seconds: telemetry.writer_lock_acquired(
-                    child_id,
-                    [group_id],
-                    seconds,
-                ),
-                on_released=lambda: telemetry.writer_lock_released(child_id),
-            ):
-                barrier.wait(1)
-            telemetry.writer_finished(child_id)
-
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            list(
-                executor.map(
-                    lambda args: hold(*args),
-                    [("child-1", "group-1"), ("child-2", "group-2")],
-                )
+            telemetry.patch_lock_acquired(
+                child_id,
+                paths,
+                0.01,
             )
-        snapshot = telemetry.writer_snapshot()
+
+        snapshot = telemetry.patch_tool_snapshot()
         self.assertEqual(snapshot["peakInFlight"], 2)
         self.assertEqual(snapshot["lockHeldPeakInFlight"], 2)
         self.assertEqual(
-            snapshot["lockHeldPeakInFlightByGroup"],
-            {"group-1": 1, "group-2": 1},
+            snapshot["lockHeldPeakInFlightByPath"],
+            {
+                path_pairs["child-1"][0]: 1,
+                path_pairs["child-2"][0]: 1,
+            },
         )
-
-        same_group = _PipelineRuntimeTelemetry(
-            model_capacity=1,
-            writer_capacity=2,
-        )
-        first_entered = threading.Event()
-        release_first = threading.Event()
-
-        def hold_same_group(child_id):
-            same_group.writer_started(
-                child_id,
-                queue_wait_seconds=0.0,
-            )
-            with coordinator._question_patch_commit_scope(
-                "sample",
-                ["group-1"],
-                on_acquired=lambda seconds: same_group.writer_lock_acquired(
-                    child_id,
-                    ["group-1"],
-                    seconds,
-                ),
-                on_released=lambda: same_group.writer_lock_released(child_id),
-            ):
-                if child_id == "same-1":
-                    first_entered.set()
-                    release_first.wait(1)
-            same_group.writer_finished(child_id)
-
-        first = threading.Thread(target=hold_same_group, args=("same-1",))
-        second = threading.Thread(target=hold_same_group, args=("same-2",))
-        first.start()
-        self.assertTrue(first_entered.wait(1))
-        second.start()
-        time.sleep(0.02)
-        self.assertEqual(
-            same_group.writer_snapshot()["lockHeldPeakInFlightByGroup"],
-            {"group-1": 1},
-        )
-        release_first.set()
-        first.join(1)
-        second.join(1)
-        self.assertFalse(first.is_alive())
-        self.assertFalse(second.is_alive())
+        for child_id in path_pairs:
+            telemetry.patch_lock_released(child_id)
+            telemetry.patch_tool_finished(child_id)
+        completed = telemetry.patch_tool_snapshot()
+        self.assertEqual(completed["inFlight"], 0)
+        self.assertEqual(completed["lockHeldInFlight"], 0)
+        self.assertEqual(completed["finishedCount"], 2)
 
 
 def _question_attempts(store, qualification, run):
@@ -2719,7 +2646,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             resumed_attempt["preparedCandidateReusedFromAttemptId"],
             previous_attempt["runId"],
         )
-        self.assertTrue(resumed_attempt["candidateCommitStartedAt"])
+        self.assertTrue(resumed_attempt["patchApplyStartedAt"])
         self.assertTrue(resumed_attempt["receiptValidated"])
         self.assertEqual(
             resumed_attempt["workVersionReceipt"]["recordedCount"],
@@ -2790,15 +2717,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     changed,
                 )
 
-            coordinator.store.mark_candidate_commit_started(
+            coordinator.store.mark_patch_apply_started(
                 "new-exam",
                 attempt["runId"],
             )
             with self.assertRaisesRegex(
                 QualificationRunError,
-                "writerは再実行できません",
+                "patch反映は再実行できません",
             ):
-                coordinator.store.mark_candidate_commit_started(
+                coordinator.store.mark_patch_apply_started(
                     "new-exam",
                     attempt["runId"],
                 )
@@ -2832,7 +2759,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 attempt["runId"],
                 candidate,
             )
-            writer_started_attempt = coordinator.store.create_question_attempt(
+            patch_started_attempt = coordinator.store.create_question_attempt(
                 "new-exam",
                 parent["runId"],
                 question_id,
@@ -2840,7 +2767,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 parent,
                 "second candidate prompt",
             )
-            writer_started_candidate = _prepared_candidate_envelope(
+            patch_started_candidate = _prepared_candidate_envelope(
                 question_id=question_id,
                 stage_id="question_type",
                 input_fingerprint_value="input-2",
@@ -2849,18 +2776,45 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             coordinator.store.persist_prepared_candidate(
                 "new-exam",
-                writer_started_attempt["runId"],
-                writer_started_candidate,
+                patch_started_attempt["runId"],
+                patch_started_candidate,
             )
-            coordinator.store.mark_candidate_commit_started(
+            coordinator.store.mark_patch_apply_started(
                 "new-exam",
-                writer_started_attempt["runId"],
+                patch_started_attempt["runId"],
             )
             coordinator.store.update(
                 "new-exam",
-                writer_started_attempt["runId"],
+                patch_started_attempt["runId"],
                 status="interrupted",
-                error="process stopped after writer started",
+                error="process stopped after patch apply started",
+            )
+            legacy_started_attempt = coordinator.store.create_question_attempt(
+                "new-exam",
+                parent["runId"],
+                question_id,
+                "question_type",
+                parent,
+                "legacy candidate prompt",
+            )
+            legacy_started_candidate = _prepared_candidate_envelope(
+                question_id=question_id,
+                stage_id="question_type",
+                input_fingerprint_value="input-legacy",
+                projected_input_hash="projection-legacy",
+                content={"candidatePayload": {"questionResults": []}},
+            )
+            coordinator.store.persist_prepared_candidate(
+                "new-exam",
+                legacy_started_attempt["runId"],
+                legacy_started_candidate,
+            )
+            coordinator.store.update(
+                "new-exam",
+                legacy_started_attempt["runId"],
+                candidateCommitStartedAt="2026-07-28T00:00:00+09:00",
+                status="interrupted",
+                error="legacy process stopped after commit started",
             )
             coordinator.store.update(
                 "new-exam",
@@ -2914,6 +2868,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "question_type",
                     input_fingerprint_value="input-2",
                     projected_input_hash="projection-2",
+                )
+            )
+            self.assertIsNone(
+                coordinator.store.reusable_prepared_candidate(
+                    "new-exam",
+                    parent["runId"],
+                    question_id,
+                    "question_type",
+                    input_fingerprint_value="input-legacy",
+                    projected_input_hash="projection-legacy",
                 )
             )
 
@@ -5878,7 +5842,82 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             0.0,
         )
 
-    def test_commit_writer_is_active_while_manifest_read_is_blocked(self):
+    def test_pipeline_uses_model_and_generic_tool_executors(self):
+        class ThreadCapturingAppServer(PerQuestionQueueAppServer):
+            def __init__(self):
+                super().__init__()
+                self.candidate_thread_names = []
+
+            def run_turn(self, prompt, **kwargs):
+                if (
+                    kwargs["work_type"]
+                    == "maintenance_question_type_candidate"
+                ):
+                    self.candidate_thread_names.append(
+                        threading.current_thread().name
+                    )
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = ThreadCapturingAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(1),
+                ["question_type"],
+                app_server=app_server,
+                question_concurrency=1,
+            )
+            self._write_counted_sources(root, 1)
+            input_thread_names = []
+            patch_thread_names = []
+            original_question_stage_spec = coordinator._question_stage_spec
+            original_record_work_versions = coordinator._record_work_versions
+
+            def capture_input_thread(*args, **kwargs):
+                input_thread_names.append(threading.current_thread().name)
+                return original_question_stage_spec(*args, **kwargs)
+
+            def capture_patch_thread(plan):
+                patch_thread_names.append(threading.current_thread().name)
+                return original_record_work_versions(plan)
+
+            coordinator._question_stage_spec = capture_input_thread
+            coordinator._record_work_versions = capture_patch_thread
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertTrue(input_thread_names)
+        self.assertTrue(patch_thread_names)
+        self.assertTrue(app_server.candidate_thread_names)
+        self.assertTrue(
+            all(
+                name.startswith("question-tool")
+                for name in [*input_thread_names, *patch_thread_names]
+            )
+        )
+        self.assertTrue(
+            all(
+                name.startswith("question-model")
+                for name in app_server.candidate_thread_names
+            )
+        )
+        self.assertFalse(
+            any(
+                name.startswith(("question-preparation", "question-commit"))
+                for name in [
+                    *input_thread_names,
+                    *patch_thread_names,
+                    *app_server.candidate_thread_names,
+                ]
+            )
+        )
+
+    def test_patch_tool_is_active_while_manifest_read_is_blocked(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _server, parent = self._start_deferred_flow(
@@ -5893,10 +5932,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             read_entered = threading.Event()
             release_read = threading.Event()
 
-            def slow_commit_get(qualification, run_id):
+            def slow_patch_get(qualification, run_id):
                 if (
                     threading.current_thread().name.startswith(
-                        "question-commit"
+                        "question-tool"
                     )
                     and str(run_id).startswith("qa-")
                     and not read_entered.is_set()
@@ -5906,16 +5945,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         raise AssertionError("manifest read release timed out")
                 return original_get(qualification, run_id)
 
-            coordinator.store.get = slow_commit_get
+            coordinator.store.get = slow_patch_get
             result_holder = {}
-            writer_started = threading.Event()
+            patch_tool_started = threading.Event()
             active_snapshot = {}
-            original_writer_started = _PipelineRuntimeTelemetry.writer_started
+            original_patch_tool_started = (
+                _PipelineRuntimeTelemetry.patch_tool_started
+            )
 
-            def capture_writer_started(telemetry, child_id, **kwargs):
-                original_writer_started(telemetry, child_id, **kwargs)
-                active_snapshot.update(telemetry.writer_snapshot())
-                writer_started.set()
+            def capture_patch_tool_started(telemetry, child_id, **kwargs):
+                original_patch_tool_started(telemetry, child_id, **kwargs)
+                active_snapshot.update(telemetry.patch_tool_snapshot())
+                patch_tool_started.set()
 
             def run_flow():
                 result_holder["result"] = coordinator._run_maintenance_flow(
@@ -5926,13 +5967,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
             with patch.object(
                 _PipelineRuntimeTelemetry,
-                "writer_started",
-                new=capture_writer_started,
+                "patch_tool_started",
+                new=capture_patch_tool_started,
             ):
                 thread = threading.Thread(target=run_flow)
                 thread.start()
                 try:
-                    self.assertTrue(writer_started.wait(5))
+                    self.assertTrue(patch_tool_started.wait(5))
                     self.assertTrue(read_entered.wait(5))
                     self.assertEqual(active_snapshot.get("inFlight"), 1)
                     self.assertEqual(active_snapshot.get("peakInFlight"), 1)
@@ -5947,10 +5988,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "succeeded",
             )
             completed = original_get("new-exam", parent["runId"])
-            self.assertEqual(completed["commitWriter"]["inFlight"], 0)
-            self.assertEqual(completed["commitWriter"]["peakInFlight"], 1)
+            self.assertEqual(completed["patchTools"]["inFlight"], 0)
+            self.assertEqual(completed["patchTools"]["peakInFlight"], 1)
 
-    def test_writer_wait_does_not_consume_model_turn_capacity(self):
+    def test_patch_tool_wait_does_not_consume_model_turn_capacity(self):
         question_count = 21
 
         class ModelStartTrackingAppServer(PerQuestionQueueAppServer):
@@ -5980,17 +6021,17 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
             self._write_counted_sources(root, question_count)
             original_record_work_versions = coordinator._record_work_versions
-            writer_entered = threading.Event()
+            patch_tool_entered = threading.Event()
 
-            def hold_first_writer(plan):
-                writer_entered.set()
+            def hold_first_patch_tool(plan):
+                patch_tool_entered.set()
                 if not app_server.all_candidates_started.wait(10):
                     raise AssertionError(
-                        "writer待ちがmodel workerを占有しました。"
+                        "patch tool待ちがmodel turnを占有しました。"
                     )
                 return original_record_work_versions(plan)
 
-            coordinator._record_work_versions = hold_first_writer
+            coordinator._record_work_versions = hold_first_patch_tool
             try:
                 result = coordinator._run_maintenance_flow(
                     "new-exam",
@@ -6002,7 +6043,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed = coordinator.store.get("new-exam", parent["runId"])
 
         self.assertEqual(result["queueStatus"], "succeeded")
-        self.assertTrue(writer_entered.is_set())
+        self.assertTrue(patch_tool_entered.is_set())
         self.assertTrue(app_server.all_candidates_started.is_set())
         self.assertEqual(app_server.candidate_starts, question_count)
         self.assertEqual(completed["modelTurns"]["inFlight"], 0)
@@ -6013,13 +6054,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             11,
         )
         self.assertNotIn("refillLatencySeconds", completed["modelTurns"])
-        self.assertEqual(completed["commitWriter"]["inFlight"], 0)
+        self.assertEqual(completed["patchTools"]["inFlight"], 0)
         self.assertEqual(
-            completed["commitWriter"]["startedCount"],
+            completed["patchTools"]["startedCount"],
             question_count,
         )
         self.assertEqual(
-            completed["commitWriter"]["finishedCount"],
+            completed["patchTools"]["finishedCount"],
             question_count,
         )
 
@@ -6132,15 +6173,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             completed["modelTurns"]["durationSeconds"]["count"],
             300,
         )
-        self.assertEqual(completed["commitWriter"]["inFlight"], 0)
-        self.assertEqual(completed["commitWriter"]["startedCount"], 100)
-        self.assertEqual(completed["commitWriter"]["finishedCount"], 100)
+        self.assertEqual(completed["patchTools"]["inFlight"], 0)
+        self.assertEqual(completed["patchTools"]["startedCount"], 100)
+        self.assertEqual(completed["patchTools"]["finishedCount"], 100)
         self.assertEqual(
-            completed["commitWriter"]["queueWaitSeconds"]["count"],
+            completed["patchTools"]["queueWaitSeconds"]["count"],
             100,
         )
         self.assertEqual(
-            completed["commitWriter"]["lockWaitSeconds"]["count"],
+            completed["patchTools"]["lockWaitSeconds"]["count"],
             100,
         )
         self.assertEqual(
@@ -6150,7 +6191,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertTrue(
             all(
                 isinstance(attempt.get("preparedCandidate"), Mapping)
-                and attempt.get("candidateCommitStartedAt")
+                and attempt.get("patchApplyStartedAt")
                 and attempt.get("modelTurnTelemetry", {}).get(
                     "modelTurnStartedAt"
                 )
@@ -6161,8 +6202,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "executorQueueWaitSeconds"
                 )
                 is not None
-                and attempt.get("commitWriterQueueWaitSeconds") is not None
-                and attempt.get("commitWriterLockWaitSeconds") is not None
+                and attempt.get("patchToolQueueWaitSeconds") is not None
+                and attempt.get("patchToolLockWaitSeconds") is not None
+                and attempt.get("patchToolLockPaths")
                 for attempt in attempts
             )
         )
@@ -6349,6 +6391,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )[0]
             patch_path = root / child["result"]["changedFiles"][0]
             records = json.loads(patch_path.read_text(encoding="utf-8"))
+            work_version_relative = (
+                "output/question_review_console/new-exam/2026/"
+                "work_versions.json"
+            )
             workspace_exists = (
                 coordinator.store.run_directory(
                     "new-exam",
@@ -6360,6 +6406,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(child["receiptValidated"])
         self.assertEqual(records[0]["questionType"], "flash_card")
+        self.assertEqual(
+            set(child["patchToolLockPaths"]),
+            {
+                child["result"]["changedFiles"][0],
+                work_version_relative,
+            },
+        )
+        self.assertTrue(child["patchApplyStartedAt"])
+        self.assertIsNotNone(child["patchToolQueueWaitSeconds"])
+        self.assertIsNotNone(child["patchToolLockWaitSeconds"])
         self.assertFalse(workspace_exists)
 
     def test_checkpoint_failure_rolls_back_patch_and_blocks_publication(self):
@@ -6437,6 +6493,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 completed,
             )
             patch_exists = (root / patch_relative).is_file()
+            work_version_exists = (
+                root
+                / "output/question_review_console/new-exam/2026/"
+                "work_versions.json"
+            ).is_file()
 
         self.assertEqual(result["queueStatus"], "partial")
         self.assertEqual(failed_checkpoints, 1)
@@ -6455,6 +6516,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             [],
         )
         self.assertFalse(patch_exists)
+        self.assertFalse(work_version_exists)
 
     def test_validation_failure_never_writes_and_closes_transaction(self):
         patch_relative = (
@@ -8267,7 +8329,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
                 def reject_group_scan(*_args, **_kwargs):
                     raise AssertionError(
-                        "一問writerの工程版記録で年度全体を再構築しました。"
+                        "一問patch toolの工程版記録で年度全体を再構築しました。"
                     )
 
                 inventory.group = reject_group_scan

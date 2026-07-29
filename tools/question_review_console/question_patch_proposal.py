@@ -5,7 +5,8 @@ import json
 import shutil
 import tempfile
 import threading
-from collections.abc import Mapping
+import time
+from collections.abc import Callable, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass
 import fcntl
@@ -507,8 +508,12 @@ class IsolatedQuestionPatchWorkspace:
     def canonical_transaction(
         self,
         changed_paths: list[Path] | tuple[Path, ...] | set[Path],
+        *,
+        lock_paths: list[str | Path] | tuple[str | Path, ...] = (),
+        on_acquired: Callable[[float, tuple[str, ...]], None] | None = None,
+        on_released: Callable[[], None] | None = None,
     ):
-        """Hold canonical file locks for the caller's complete transaction."""
+        """Hold exact canonical file locks for one deterministic transaction."""
 
         relative_paths = tuple(
             sorted(
@@ -521,8 +526,56 @@ class IsolatedQuestionPatchWorkspace:
         )
         if any(path not in self.mutable_paths for path in relative_paths):
             raise QuestionPatchProposalError("可変範囲外のfileは反映できません。")
-        with _canonical_file_locks(self.repo_root, list(relative_paths)):
-            yield LockedCanonicalPatchTransaction(self, relative_paths)
+        additional_lock_paths = tuple(
+            sorted(
+                {
+                    _safe_relative(self.repo_root, value)
+                    for value in lock_paths
+                },
+                key=lambda value: value.as_posix(),
+            )
+        )
+        if any(
+            not path.is_relative_to(Path("output"))
+            for path in additional_lock_paths
+        ):
+            raise QuestionPatchProposalError(
+                "canonical transactionの追加lockはoutput配下に限定してください。"
+            )
+        transaction_lock_paths = tuple(
+            sorted(
+                {*relative_paths, *additional_lock_paths},
+                key=lambda value: value.as_posix(),
+            )
+        )
+        wait_started = time.monotonic()
+        with _canonical_file_locks(
+            self.repo_root,
+            list(transaction_lock_paths),
+        ):
+            if on_acquired is not None:
+                try:
+                    on_acquired(
+                        max(0.0, time.monotonic() - wait_started),
+                        tuple(
+                            path.as_posix()
+                            for path in transaction_lock_paths
+                        ),
+                    )
+                except Exception:
+                    pass
+            try:
+                yield LockedCanonicalPatchTransaction(
+                    self,
+                    relative_paths,
+                    transaction_lock_paths,
+                )
+            finally:
+                if on_released is not None:
+                    try:
+                        on_released()
+                    except Exception:
+                        pass
 
     def _prepare_rebase_locked(
         self,
@@ -646,6 +699,7 @@ def copy_payload_shape(payload: Any) -> Any:
 class LockedCanonicalPatchTransaction:
     workspace: IsolatedQuestionPatchWorkspace
     changed_paths: tuple[Path, ...]
+    lock_paths: tuple[Path, ...]
 
     def prepare(
         self,
