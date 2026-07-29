@@ -177,6 +177,35 @@ class QuestionWorkQueueTests(unittest.TestCase):
             {"q1": ["explanation"], "q2": ["law_audit"]},
         )
 
+    def test_evaluation_rework_plan_adds_correct_choice_for_mapping_mismatch(self) -> None:
+        correct_choice = stage_plan("correct_choice", self.targets)
+        plan = {
+            **self.plan,
+            "stageIds": ["correct_choice", "explanation", "law_audit"],
+            "stagePlans": [correct_choice, self.first, self.second],
+        }
+        coordinator = object.__new__(QualificationRunCoordinator)
+
+        coordinator._apply_evaluation_rework_plan(
+            plan,
+            {
+                "q1": {
+                    "status": "needs_rework",
+                    "stateHash": "state-1",
+                    "resultHash": "result-1",
+                    "answerMappingMatched": False,
+                    "reworkItems": [{"stage": "03", "message": "解説"}],
+                },
+            },
+        )
+
+        self.assertEqual(
+            plan["targetStageIdsByQuestion"]["q1"],
+            ["correct_choice", "explanation"],
+        )
+        feedback = plan["evaluationFeedbackByQuestion"]["q1"][0]
+        self.assertFalse(feedback["answerMappingMatched"])
+
     def test_builds_placeholder_for_later_dynamic_stage(self) -> None:
         later = stage_plan("law_audit", [self.targets[1]])
         plan = {

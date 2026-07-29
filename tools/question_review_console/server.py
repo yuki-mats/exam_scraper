@@ -82,6 +82,7 @@ from tools.question_review_console.qualification_runs import (
     QualificationRunError,
     QualificationRunStore,
     REWORK_POLICY_STAGE_IDS,
+    evaluation_rework_stage_codes,
 )
 from tools.question_review_console.review_store import ReviewStore
 from tools.question_review_console.prompt_builder import (
@@ -1276,6 +1277,7 @@ class QuestionReviewApplication:
                         "resultHash",
                         "summary",
                         "criticalIssues",
+                        "answerMappingMatched",
                         "choiceEvaluations",
                         "reworkItems",
                     )
@@ -2352,15 +2354,12 @@ class QuestionReviewApplication:
                     "resultHash",
                     "summary",
                     "criticalIssues",
+                    "answerMappingMatched",
                     "choiceEvaluations",
                     "reworkItems",
                 )
             }
-            rework_stage_codes = {
-                str(item.get("stage") or "")
-                for item in snapshot.get("reworkItems") or []
-                if isinstance(item, Mapping)
-            }
+            rework_stage_codes = set(evaluation_rework_stage_codes(snapshot))
             if not rework_stage_codes:
                 raise ValueError(
                     "評価結果に再整備工程がありません: "

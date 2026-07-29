@@ -404,6 +404,33 @@ REWORK_POLICY_STAGE_IDS = {
     "03b": "law_audit",
     "04": "question_set",
 }
+
+
+def evaluation_rework_stage_codes(snapshot: Mapping[str, Any]) -> list[str]:
+    """Return every workflow stage required by an evaluation result."""
+    requested = list(
+        dict.fromkeys(
+            str(item.get("stage") or "")
+            for item in snapshot.get("reworkItems") or []
+            if isinstance(item, Mapping) and item.get("stage")
+        )
+    )
+    if snapshot.get("answerMappingMatched") is False and "02a" not in requested:
+        requested.append("02a")
+    return [
+        *(
+            stage_code
+            for stage_code in REWORK_POLICY_STAGE_IDS
+            if stage_code in requested
+        ),
+        *(
+            stage_code
+            for stage_code in requested
+            if stage_code not in REWORK_POLICY_STAGE_IDS
+        ),
+    ]
+
+
 POLICY_STAGE_BY_PATCH_DIR = {
     "05_originalized": "originalize",
     "10_questionType_fixed": "question_type",
@@ -8630,9 +8657,9 @@ class QualificationRunCoordinator:
             ]
             workflow_stage_ids = list(
                 dict.fromkeys(
-                    REWORK_POLICY_STAGE_IDS[str(item.get("stage") or "")]
-                    for item in rework_items
-                    if str(item.get("stage") or "") in REWORK_POLICY_STAGE_IDS
+                    REWORK_POLICY_STAGE_IDS[stage_code]
+                    for stage_code in evaluation_rework_stage_codes(snapshot)
+                    if stage_code in REWORK_POLICY_STAGE_IDS
                 )
             )
             if not workflow_stage_ids:
@@ -8658,6 +8685,9 @@ class QualificationRunCoordinator:
                         str(value)
                         for value in snapshot.get("criticalIssues") or []
                     ],
+                    "answerMappingMatched": snapshot.get(
+                        "answerMappingMatched"
+                    ),
                     "choiceEvaluations": copy.deepcopy(
                         list(snapshot.get("choiceEvaluations") or [])
                     ),
@@ -9205,16 +9235,11 @@ class QualificationRunCoordinator:
         selected_stages: set[str] = set()
         if work_type == "rework":
             snapshot = review.get("evaluationSnapshot")
-            rework_items = (
-                snapshot.get("reworkItems")
+            selected_stages = set(
+                evaluation_rework_stage_codes(snapshot)
                 if isinstance(snapshot, Mapping)
-                else None
+                else []
             )
-            selected_stages = {
-                str(item.get("stage") or "")
-                for item in rework_items or []
-                if isinstance(item, Mapping)
-            }
             selected_dirs = set().union(
                 *(
                     REWORK_STAGE_PATCH_DIR_NAMES.get(stage, set())
@@ -9665,19 +9690,16 @@ class QualificationRunCoordinator:
             )
         )
         evaluation_snapshot = review.get("evaluationSnapshot")
-        rework_items = (
-            evaluation_snapshot.get("reworkItems")
+        evaluation_rework_stages = (
+            evaluation_rework_stage_codes(evaluation_snapshot)
             if isinstance(evaluation_snapshot, Mapping)
             else []
         )
         patch_dirs.update(
             set().union(
                 *(
-                    REWORK_STAGE_PATCH_DIR_NAMES.get(
-                        str(item.get("stage") or ""), set()
-                    )
-                    for item in rework_items or []
-                    if isinstance(item, Mapping)
+                    REWORK_STAGE_PATCH_DIR_NAMES.get(stage_code, set())
+                    for stage_code in evaluation_rework_stages
                 )
             )
         )

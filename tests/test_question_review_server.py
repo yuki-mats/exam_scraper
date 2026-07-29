@@ -1384,6 +1384,79 @@ class QuestionReviewServerTests(unittest.TestCase):
             "result-1",
         )
 
+    def test_evaluation_rework_adds_correct_choice_when_answer_mapping_mismatches(self):
+        class Runs:
+            def preview(self, qualification, stage_id, mode, **options):
+                self.stage_id = stage_id
+                self.options = options
+                return {"previewToken": "token", "evaluationRework": True}
+
+        class Workflow:
+            def catalog(self, qualification):
+                return {
+                    "stages": [
+                        {
+                            "id": "correct_choice",
+                            "updateTargets": [
+                                {"selectionId": "correct_choice.correct_answer"}
+                            ],
+                        },
+                        {
+                            "id": "explanation",
+                            "updateTargets": [
+                                {"selectionId": "explanation.basic_explanation"}
+                            ],
+                        },
+                    ]
+                }
+
+        question = {
+            "id": "q1",
+            "qualification": "sample",
+            "listGroupId": "2025",
+            "evaluation": {
+                "status": "needs_rework",
+                "stateHash": "state-1",
+                "resultHash": "result-1",
+                "answerMappingMatched": False,
+                "reworkItems": [{"stage": "03", "message": "解説を直す"}],
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            runs = Runs()
+            app.qualification_runs = runs
+            app.qualification_workflow = Workflow()
+            app._question = lambda question_id, _query: question
+            app._decorate = lambda value: value
+            app.post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["explanation"],
+                    "questionIds": ["q1"],
+                    "evaluationRework": True,
+                },
+            )
+
+        self.assertEqual(runs.stage_id, "correct_choice")
+        self.assertEqual(
+            runs.options["stage_ids"],
+            ["correct_choice", "explanation"],
+        )
+        self.assertEqual(
+            runs.options["update_target_ids"],
+            [
+                "correct_choice.correct_answer",
+                "explanation.basic_explanation",
+            ],
+        )
+        self.assertFalse(
+            runs.options["evaluation_rework_snapshots"]["q1"][
+                "answerMappingMatched"
+            ]
+        )
+
     def test_qualification_run_rejects_question_ids_range_conflict(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(ApiError) as caught:
             QuestionReviewApplication(Path(directory)).post(
