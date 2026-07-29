@@ -457,7 +457,9 @@ class QuestionWorkQueueTests(unittest.TestCase):
         self.assertEqual(resumed["targetCount"], 1)
         self.assertEqual(resumed["progressTargets"][0]["id"], "q1")
 
-    def test_partial_completion_retry_keeps_validated_items_out(self) -> None:
+    def test_partial_retry_refreshes_changed_upstream_policy_only_for_blocked_question(
+        self,
+    ) -> None:
         executions = build_question_executions(self.plan)
         for stage in executions[0]["stages"]:
             stage["status"] = "validated"
@@ -475,7 +477,7 @@ class QuestionWorkQueueTests(unittest.TestCase):
                 for question in rebuilt
                 for stage in question["stages"]
             ],
-            [("q2", "law_audit")],
+            [("q2", "explanation"), ("q2", "law_audit")],
         )
 
     def test_resume_queue_does_not_cross_product_other_question_stages(self) -> None:

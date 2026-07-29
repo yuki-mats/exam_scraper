@@ -779,6 +779,17 @@ def resume_plan(
     }
     if not previous_question_ids:
         raise QuestionWorkQueueError("再実行元の対象問題IDがありません。")
+    unfinished_question_ids = {
+        str(question.get("questionId") or "").strip()
+        for question in previous_execution_list
+        if str(question.get("questionId") or "").strip()
+        and any(
+            str(stage.get("status") or "")
+            not in {"validated", "not_applicable"}
+            for stage in question.get("stages") or []
+            if isinstance(stage, Mapping)
+        )
+    }
 
     raw_stage_plans = _stage_plans(plan)
     question_stage_plans = [
@@ -810,6 +821,8 @@ def resume_plan(
 
     resume_start_by_question: dict[str, int] = {}
     for question_id, canonical_target in canonical_targets.items():
+        if unfinished_only and question_id not in unfinished_question_ids:
+            continue
         for stage_index, stage_plan in enumerate(question_stage_plans):
             stage_id = str(stage_plan.get("stageId") or "")
             target = targets_by_stage.get(stage_id, {}).get(
@@ -824,12 +837,7 @@ def resume_plan(
                 needs_resume = False
             else:
                 previous_status = str(previous.get("status") or "")
-                if unfinished_only and previous_status in {
-                    "validated",
-                    "not_applicable",
-                }:
-                    needs_resume = False
-                elif previous_status == "validated":
+                if previous_status == "validated":
                     previous_policy = previous.get("policyFingerprint")
                     if previous_policy is None:
                         needs_resume = current_target_exists
