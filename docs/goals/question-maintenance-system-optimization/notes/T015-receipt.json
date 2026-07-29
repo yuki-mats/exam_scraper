@@ -1,0 +1,19 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T015",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_candidate.py",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_question_candidate.py"
+    ],
+    "summary": "fresh v2 shimとfixtureを除去し、ローカル921件と不変検査まで成功したが、実App ServerがsetFields.itemsのoneOfをHTTP 400 invalid_json_schemaで拒否したため停止した。",
+    "remaining_blockers": [
+      "field別native型とexplicit unsetを維持しつつ受理されるstructured-output schemaを実測で確定する"
+    ],
+    "needs_judge": true,
+    "stopped_because": "real App Server structured-output acceptance rejected oneOf"
+  }
+}

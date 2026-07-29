@@ -1,0 +1,39 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T011",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "cmd": ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs",
+        "status": "fail",
+        "summary": "208 tests; 32 failures; 4 errors"
+      },
+      {
+        "cmd": ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs",
+        "status": "fail",
+        "summary": "162 tests; 0 failures; 1 error"
+      },
+      {
+        "cmd": ".venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py",
+        "status": "pass"
+      }
+    ],
+    "summary": "一問semantic DTO、native JSON、server routing、v2/v3 dispatch、server-owned field除外、v3 test fakeを実装途中まで反映した。旧questionResults/valueJsonを直接改変する同じcustom fake原因が再発したためstop_ifに従って停止した。",
+    "remaining_blockers": [
+      "custom fake互換修正とSSOT文書更新が未完",
+      "全必須verifyが未実施",
+      "未コミット差分のproduct妥当性を再監査する必要がある"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": "同じcustom fake互換原因で二回失敗した"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T010",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [],
+    "commands": [
+      {
+        "cmd": "read candidate schema, routing, prompt, prepared envelope, persistence, resume and commit paths",
+        "status": "pass"
+      },
+      {
+        "cmd": "candidate, workflow and prepared-resume focused tests",
+        "status": "pass",
+        "summary": "70 tests passed"
+      }
+    ],
+    "summary": "新規runだけを一問専用native-JSON DTOとcandidatePayload v3へ移し、外側prepared envelope v1と既存v2読取を維持する単一sliceを承認した。questionIdとtargetIdはserverが注入し、raw JSON重複keyを局所loaderで拒否する。",
+    "remaining_blockers": [],
+    "needs_judge": false,
+    "verification_attempts": 1,
+    "stopped_because": null,
+    "decision": "approved",
+    "approved_dto": {
+      "modelOutput": {
+        "decision": "candidate | blocked",
+        "summary": "non-empty string",
+        "update": {
+          "setFields": [
+            {
+              "field": "allowed semantic field",
+              "value": "field-specific native JSON"
+            }
+          ],
+          "unsetFields": [
+            "allowed semantic field"
+          ]
+        }
+      },
+      "preparedPayloadVersion": "question-maintenance-candidates/v3",
+      "preparedEnvelopeVersion": "question-maintenance-prepared-candidate/v1"
+    },
+    "server_owned_boundary": [
+      "schemaVersion、questionId、targetId、stage/run/attempt ID、hash、日時、run確定状態",
+      "03b qualification、listGroupId、監査run ID、audit hash、audit日時、notice metadata"
+    ],
+    "compatibility_flow": [
+      "new model DTO -> server identity/routing -> prepared payload v3",
+      "prepared envelope v1 identity/hash unchanged",
+      "resume/readback/commit dispatch v2 valueJson reader or v3 native reader",
+      "unknown version and structural ambiguity fail closed",
+      "no migration, rewrite or dual-write"
+    ],
+    "implementation_files": [
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_workflow_catalog.py",
+      "document/operations/local_question_review_console.md"
+    ],
+    "required_tests": [
+      "model output excludes schemaVersion/questionId/targetId/valueJson",
+      "native scalar/array/object/null types and type rejection",
+      "unknown and duplicate key rejection",
+      "server identity and canonical/unique routing",
+      "v2 unchanged resume/readback/commit",
+      "new envelope v1 plus payload v3 without valueJson",
+      "queue, writer, patch, ID and publisher regressions"
+    ],
+    "rejected_alternatives": [
+      "model-owned identity",
+      "valueJson in v3",
+      "arbitrary target fallback",
+      "prepared envelope version bump",
+      "v2 migration or dual-write",
+      "generic compatibility framework"
+    ],
+    "stop_conditions": [
+      "multi-question DTO",
+      "ambiguous field routing",
+      "unsupported native field schema",
+      "v2 resume incompatibility",
+      "envelope or queue/writer/publisher changes"
+    ]
+  }
+}

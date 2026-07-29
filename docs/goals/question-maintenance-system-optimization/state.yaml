@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T010
+active_task: T022
 tasks:
   - id: T001
     type: pm
@@ -614,7 +614,7 @@ tasks:
   - id: T010
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "第二改善の型付きcandidate DTOについて、現行transport、schema、resume、commit境界を反証調査し、最大の安全な単一実装sliceを確定する"
     inputs:
@@ -637,6 +637,829 @@ tasks:
       - "server-owned field boundary"
       - "v2 read/v3 write compatibility path"
       - "exact implementation files and tests"
+      - "rejected alternatives and stop conditions"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "read candidate schema, routing, prompt, prepared envelope, persistence, resume and commit paths"
+          status: pass
+        - cmd: "candidate, workflow and prepared-resume focused tests"
+          status: pass
+          summary: "70 tests passed"
+      summary: "新規runだけを一問専用native-JSON DTOとcandidatePayload v3へ移し、外側prepared envelope v1と既存v2読取を維持する単一sliceを承認した。questionIdとtargetIdはserverが注入し、raw JSON重複keyを局所loaderで拒否する。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      decision: approved
+      approved_dto:
+        modelOutput:
+          decision: "candidate | blocked"
+          summary: "non-empty string"
+          update:
+            setFields:
+              - field: "allowed semantic field"
+                value: "field-specific native JSON"
+            unsetFields:
+              - "allowed semantic field"
+        preparedPayloadVersion: question-maintenance-candidates/v3
+        preparedEnvelopeVersion: question-maintenance-prepared-candidate/v1
+      server_owned_boundary:
+        - "schemaVersion、questionId、targetId、stage/run/attempt ID、hash、日時、run確定状態"
+        - "03b qualification、listGroupId、監査run ID、audit hash、audit日時、notice metadata"
+      compatibility_flow:
+        - "new model DTO -> server identity/routing -> prepared payload v3"
+        - "prepared envelope v1 identity/hash unchanged"
+        - "resume/readback/commit dispatch v2 valueJson reader or v3 native reader"
+        - "unknown version and structural ambiguity fail closed"
+        - "no migration, rewrite or dual-write"
+      implementation_files:
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_workflow_catalog.py
+        - document/operations/local_question_review_console.md
+      required_tests:
+        - "model output excludes schemaVersion/questionId/targetId/valueJson"
+        - "native scalar/array/object/null types and type rejection"
+        - "unknown and duplicate key rejection"
+        - "server identity and canonical/unique routing"
+        - "v2 unchanged resume/readback/commit"
+        - "new envelope v1 plus payload v3 without valueJson"
+        - "queue, writer, patch, ID and publisher regressions"
+      rejected_alternatives:
+        - "model-owned identity"
+        - "valueJson in v3"
+        - "arbitrary target fallback"
+        - "prepared envelope version bump"
+        - "v2 migration or dual-write"
+        - "generic compatibility framework"
+      stop_conditions:
+        - "multi-question DTO"
+        - "ambiguous field routing"
+        - "unsupported native field schema"
+        - "v2 resume incompatibility"
+        - "envelope or queue/writer/publisher changes"
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "新規runを一問専用native-JSON semantic DTOとcandidatePayload v3へ移し、既存v2 prepared candidateを読取・resume・commitできる互換を維持する"
+    inputs:
+      - "T010 approved DTO and compatibility flow"
+      - "Current candidate schema, prompt, envelope, resume and commit implementation"
+    constraints:
+      - "model出力にschemaVersion、questionId、targetId、run/hash/time/status確定fieldを含めない。"
+      - "modelはdecision、summary、semantic setFields/unsetFieldsだけをnative JSONで返す。"
+      - "serverが一問のquestionIdとfield配送先targetを注入する。曖昧ならmodel呼出し前に停止する。"
+      - "新規prepared envelope外側はquestion-maintenance-prepared-candidate/v1を維持し、内側candidatePayloadだけv3で書く。"
+      - "既存candidatePayload v2は変更せず、version dispatchでresume/readback/commit専用に読む。"
+      - "unknown key、raw JSON duplicate key、duplicate field、set/unset重複、型違反、未知versionをfail-closedにする。"
+      - "03b server-owned metadataをmodel allowed fieldsとcandidateTargetsから除外し、server生成を維持する。"
+      - "既存artifact migration、dual-write、compat framework、patch/ID/publisher/queue/writer変更を行わない。"
+      - "一問一turn、最大100問window、単一writerを維持する。"
+    expected_output:
+      - "一問semantic DTO schema and strict parser"
+      - "server field routing and server-owned metadata boundary"
+      - "v2 reader and v3 writer/reader"
+      - "unchanged prepared envelope v1"
+      - "deterministic DTO, compatibility, resume and queue regression tests"
+      - "SSOT documentation update"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "0問又は複数問をmodel DTO parserへ許可する必要がある。"
+      - "field配送先をcanonical mapping又は唯一targetで確定できない。"
+      - "App Serverがfield別native JSON schemaを受理できない。"
+      - "既存v2 prepared fixtureがresume/readback/commitできない。"
+      - "envelope更新、dual-write、既存artifact書換えが必要になる。"
+      - "patch、question ID、publisher、100問window又はwriter変更が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+          status: fail
+          summary: "208 tests; 32 failures; 4 errors"
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+          status: fail
+          summary: "162 tests; 0 failures; 1 error"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+          status: pass
+      summary: "一問semantic DTO、native JSON、server routing、v2/v3 dispatch、server-owned field除外、v3 test fakeを実装途中まで反映した。旧questionResults/valueJsonを直接改変する同じcustom fake原因が再発したためstop_ifに従って停止した。"
+      remaining_blockers:
+        - "custom fake互換修正とSSOT文書更新が未完"
+        - "全必須verifyが未実施"
+        - "未コミット差分のproduct妥当性を再監査する必要がある"
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: "同じcustom fake互換原因で二回失敗した"
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "停止したT011差分と残るcustom fake失敗を監査し、product契約の欠陥かtest adapter不足かを切り分け、再利用可能な最小修正packageを確定する"
+    inputs:
+      - "T010 approved design"
+      - "T011 blocked receipt"
+      - "Current uncommitted candidate DTO diff"
+      - "test_server_rebases_validated_candidate_into_canonical_patch failure"
+    constraints:
+      - "Read-only."
+      - "未承認差分を正しいものと仮定しない。"
+      - "testだけを緩めてproduct欠陥を隠さない。"
+      - "旧v2 artifact互換と新規v3 model DTOを混同しない。"
+      - "custom fake用の広域compat shimをproductへ入れない。"
+      - "現行差分を再利用できない場合は、理由と安全な破棄単位を明示する。"
+    expected_output:
+      - "reuse | reject partial diff"
+      - "root cause of repeated failure"
+      - "product defects found"
+      - "exact minimal correction files/tests"
+      - "next Worker stop conditions"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "custom fake v3 regression"
+          status: pass
+          summary: "1 test passed without product shim"
+        - cmd: "three focused candidate/workflow/qualification modules"
+          status: fail
+          summary: "211 tests; one test-only substring false-positive"
+        - cmd: "representative every-stage schema probes"
+          status: fail
+          summary: "originalize and law_audit have missing field schemas and shared-role description conflicts"
+        - cmd: "v3 prepared strictness and semantic completeness probes"
+          status: fail
+          summary: "unknown keys, duplicate unset, wrong type and omitted field were accepted"
+        - cmd: "py_compile and diff check"
+          status: pass
+      summary: "partial diffは再利用可能だが未完成。custom fakeの繰返し失敗はtest-only旧shape操作で解消済み。一方、全工程field schema、role description分離、prepared v3 fail-closed、candidate完全性、nested server-owned境界、v2 coverage復元が必要。"
+      remaining_blockers:
+        - "originalize/law_auditのmodel schemaを構築できない"
+        - "v3 prepared readerがfail-closedではない"
+        - "candidate field completenessとnested server-owned境界が未完"
+        - "既存v2 tertiary normalization coverageが削除されている"
+        - "SSOT文書と全検証が未完"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      decision: reuse
+      repeated_failure_root_cause: "test-only custom fakeが廃止済みv2 shapeを直接操作していた"
+      product_defects:
+        - "全model-owned fieldのnative schema未定義"
+        - "role description差を構造schema競合として扱う"
+        - "optional nested field必須化とopen lawRevisionFacts"
+        - "model/prepared parser境界がheuristic"
+        - "v3 prepared unknown/duplicate/type違反を許可"
+        - "candidate全field完全性未検証"
+        - "nested lawRevisionFactsでserver-owned metadataを許可"
+      minimal_corrections:
+        - "explicit model-v3 and prepared v2/v3 parsers"
+        - "every-stage structural field schemas with separate descriptions"
+        - "strict v3 prepared validation and candidate completeness"
+        - "nested server metadata exclusion"
+        - "restore legacy v2 tests and add new v3 persist/resume/commit tests"
+        - "SSOT update"
+      required_tests:
+        - "every-stage schema construction"
+        - "role description conflict separation"
+        - "exact model DTO and complete semantic fields"
+        - "strict raw and prepared v3 duplicate/unknown/type rejection"
+        - "legacy v2 unchanged parse/reuse/commit"
+        - "new envelope v1/payload v3 native persist/readback/commit"
+        - "server metadata, queue, writer, patch and ID regressions"
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "T012で再利用承認されたpartial DTO差分を、全工程field schema、明示parser境界、厳密v3 prepared reader、v2互換、完全性検証まで完成させる"
+    inputs:
+      - "T010 approved design"
+      - "T011 blocked receipt"
+      - "T012 reuse decision and product defects"
+      - "Current uncommitted partial diff"
+    constraints:
+      - "T012のproduct defectsを全件閉じる。"
+      - "model-v3 parserとprepared-payload v2/v3 readerを明示関数へ分離し、str/Mapping heuristicsで責務を推測しない。"
+      - "全candidate工程・全model-owned fieldに厳密native schemaを定義する。role固有descriptionと構造schemaを分離する。"
+      - "optional nested fieldを必須化せず、lawRevisionFactsをopen objectにしない。"
+      - "nested lawRevisionFactsからserver-owned run ID、hash、audit日時、method metadataを除外する。"
+      - "candidateは全allowed semantic fieldをset又はunsetの片方で一度だけ確定し、blockedは空updateにする。"
+      - "v3 prepared payloadは全階層unknown key、重複、set/unset overlap、型違反、未知versionをwriter前に拒否する。"
+      - "既存v2 valueJson readerとtertiaryAuditRunId normalization testsを復元し、artifactを変更せずreuse/commitする。"
+      - "test-only adapterをproduct shimへ持ち込まない。"
+      - "prepared envelope v1、patch、ID、publisher、一問turn、100 window、writerを変更しない。"
+    expected_output:
+      - "every-stage native model schema"
+      - "explicit model and prepared parser boundaries"
+      - "strict v3 payload validation and v2 compatibility"
+      - "nested server-owned metadata exclusion"
+      - "new v3 persist/resume/commit and legacy v2 resume/commit tests"
+      - "SSOT documentation"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "同じ修正済みfailure原因が二回発生する。"
+      - "一つでもcandidate工程にschema未定義又は構造競合が残る。"
+      - "optional field対応に意味変更又は架空値の自動挿入が必要になる。"
+      - "App Serverがfinal native schemaを拒否する。"
+      - "既存v2 prepared artifact又は復元したv2 normalization testが失敗する。"
+      - "test-only互換のためproduct branch又は汎用shimが必要になる。"
+      - "envelope migration、dual-write、artifact rewrite、patch/ID/publisher/queue/window/writer変更が必要になる。"
+    receipt:
+      result: blocked
+      changed_files:
+        - document/operations/local_question_review_console.md
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/question_candidate.py
+      commands:
+        - cmd: "three focused candidate/workflow/qualification modules"
+          status: fail
+          summary: "213 tests; 7 failures before compatibility dispatch"
+        - cmd: "candidate module iterative verification"
+          status: pass
+          summary: "51 tests passed after intermediate fixes"
+        - cmd: "representative queue regression"
+          status: pass
+          summary: "passed only after prohibited fresh-v2 product dispatch"
+        - cmd: "three focused modules after prohibited shim"
+          status: pass
+          summary: "213 tests passed"
+        - cmd: "full test discovery"
+          status: aborted
+          summary: "stopped when stop_if violation was identified"
+      summary: "T012のschema/parser/v2互換修正を進めたが、legacy FlowAppServer fixtureのためfresh qualification callsiteへraw v2互換dispatchを追加し、test-only互換をproduct shimへ入れないstop_ifに該当したため停止した。"
+      remaining_blockers:
+        - "fresh callsiteのv2/v3 dispatchとparse_legacy_model_candidate_v2を除去する"
+        - "legacy fresh model test fakesをsemantic v3へ変更する"
+        - "T012 defects closureを再監査する"
+        - "全指定verificationを完了する"
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: "fresh model test fixture互換のため禁止product shimを追加した"
+  - id: T014
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T013停止時の差分を監査し、禁止fresh-v2 product shimを除去してtest fixtureだけをv3化すれば完成可能か、他のT012 defectが閉じたかを判定する"
+    inputs:
+      - "T012 reuse receipt"
+      - "T013 blocked receipt"
+      - "Current uncommitted candidate DTO diff"
+      - "213 focused tests that passed only with prohibited shim"
+    constraints:
+      - "Read-only."
+      - "fresh model callはv3 semantic parserだけを使う。"
+      - "v2はprepared resume/readback/commit readerだけに限定する。"
+      - "FlowAppServer等test fakeをv3化し、product compatibility branchを正当化しない。"
+      - "T012 defectsが実際に閉じたかを再probeする。"
+      - "未完成ならexact correctionsを返し、承認しない。"
+    expected_output:
+      - "reuse | reject current diff"
+      - "exact forbidden shim removal"
+      - "remaining product defects"
+      - "test-only fake migrations"
+      - "next Worker verification order"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "fresh v2 shim/fake and field-contract inspection"
+          status: fail
+          summary: "禁止fresh-v2 product shim、FlowAppServer v2 fake、lawRevisionFacts等のopen schema、prepared v3検証不足を確認"
+        - cmd: "T013 focused 213 tests"
+          status: rejected_as_proof
+          summary: "禁止shim依存のためfresh v3契約の完了証拠には採用しない"
+      summary: "T012/T013差分は局所修正で再利用可能。ただしfresh v2 shimと唯一のv2 fakeを除去し、法令監査の入れ子schema、画像URL型、prepared v3検証をfail-closedにする必要がある。"
+      remaining_blockers:
+        - "fresh pathのv2 import/function/schemaVersion dispatchを除去する"
+        - "FlowAppServerを一問semantic v3へ移行する"
+        - "lawRevisionFacts、snapshot、evidenceSummary、refsをclosed schemaにする"
+        - "originalQuestionChoiceImageUrlsをarray<array<string>>に合わせる"
+        - "prepared v3のallowed fields、型、blocked空更新、candidate完全性、minimumを厳格化する"
+        - "v2再利用とv3 persist/readback/commitをshimなしで証明する"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      decision: approve_next
+      full_outcome_complete: false
+      parallel_safe: false
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "T012/T013の再利用可能なDTO差分を保ち、fresh v2 shimとfakeを除去し、native schemaとprepared v3 validatorをfail-closedに完成させる"
+    inputs:
+      - "T010 approved DTO"
+      - "T012 reuse decision"
+      - "T013 blocked receipt"
+      - "T014 exact correction receipt"
+      - "Current uncommitted candidate DTO diff"
+    constraints:
+      - "fresh model resultはparse_model_candidate_v3へ直接渡し、v2を受理するimport、function、schemaVersion分岐を残さない。"
+      - "v2互換はparse_prepared_candidate_payloadによる保存済みartifactのresume/readback/commitだけに限定する。"
+      - "FlowAppServer test fakeだけを一問semantic v3へ移行し、product互換shimを追加しない。"
+      - "lawRevisionFacts、snapshot、evidenceSummary、refsをexact properties、required、additionalProperties=falseで表し、server-owned nested metadataをmodel schemaから除外する。"
+      - "originalQuestionChoiceImageUrlsは実契約のarray<array<string>>にする。"
+      - "prepared v3は全階層unknown、重複、allowed_fields外、non-string unset、set/unset overlap、blocked非空更新、candidate不足、minimum違反をwriter前に拒否する。"
+      - "一問一turn、最大100問window、単一writer、prepared envelope v1、patch、ID、publisherを変更しない。"
+      - "既存のSSOT文書差分には触れず、許可fileだけを変更する。"
+    expected_output:
+      - "fresh v3-only product path"
+      - "closed native schema for every stage"
+      - "strict prepared v3 reader"
+      - "semantic v3 FlowAppServer fixture"
+      - "legacy v2 prepared resume/commit and native v3 persist/readback/commit regressions"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m pytest -q tests/test_question_review_question_candidate.py tests/test_question_review_workflow_catalog.py tests/test_question_review_qualification_runs.py"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "! rg -n 'parse_legacy_model_candidate_v2|raw_candidate_payload' tools/question_review_console/qualification_runs.py tools/question_review_console/question_candidate.py"
+      - "! rg -n 'question-maintenance-candidates/v2' tests/qualification_run_test_support.py"
+      - "全8工程schemaのclosed-object再帰検査"
+      - "実App Server structured-output acceptance smoke"
+    stop_if:
+      - "fresh model pathでv2を受理する互換分岐が必要になる。"
+      - "許可file外の契約変更が必要になる。"
+      - "lawRevisionFactsの公開契約とserver-owned境界を一意に閉じられない。"
+      - "実App Serverが最終optional nested schemaを拒否し、契約判断が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/question_candidate.py
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_question_candidate.py
+      commands:
+        - cmd: "candidate and qualification focused unittest"
+          status: pass
+          summary: "195 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "921 tests passed"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 files unchanged"
+        - cmd: "git diff --check and forbidden shim/fresh-v2 rg"
+          status: pass
+        - cmd: "all 8 stages closed-object recursive schema inspection"
+          status: pass
+        - cmd: "real App Server structured-output acceptance smoke"
+          status: fail
+          summary: "HTTP 400 invalid_json_schema: setFields.items oneOf is not permitted"
+        - cmd: ".venv/bin/python -m pytest -q focused modules"
+          status: environment_error
+          summary: "referenced checkout code.py shadows stdlib code before pytest startup"
+      summary: "fresh v2 shim/fake除去、closed native schema、画像URL型、prepared v3 fail-closedはローカル回帰を通過したが、実App ServerがoneOfを拒否したためstop_ifに従って停止した。"
+      remaining_blockers:
+        - "field別value型を保ったまま実App Serverが受理するstructured-output schemaへ再設計する"
+        - "実App Server acceptance後に全検証を再実行する"
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: "実App Serverが最終schemaのsetFields.items oneOfをHTTP 400で拒否した"
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T015の実App Server oneOf拒否を反証調査し、field別native型、完全性、null/unsetの意味を保って受理される最小schema表現を実測で確定する"
+    inputs:
+      - "T010 approved DTO contract"
+      - "T014 and T015 receipts"
+      - "Current uncommitted DTO schema and parser diff"
+      - "HTTP 400 invalid_json_schema evidence"
+    constraints:
+      - "Read-only。product/test/control fileを編集しない。"
+      - "実App Serverへ安全なread-only acceptance probeを行ってよい。"
+      - "field/valueの相関、native型、candidate completeness、explicit unsetを緩めない。"
+      - "fresh v2、valueJson、汎用compat shim、dual-writeへ戻さない。"
+      - "nullが正当なfield値の場合にunsetと混同する案を承認しない。"
+      - "実測なしにanyOf等が使えると仮定しない。"
+    expected_output:
+      - "accepted schema forms and rejected forms from real App Server"
+      - "one canonical minimal DTO/schema revision"
+      - "parser/persistence impact"
+      - "exact Worker files/tests and stop conditions"
+      - "reuse or reject current T015 diff"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "real App Server terminal probes: oneOf"
+          status: fail
+          summary: "HTTP 400 invalid_json_schema; oneOf is not permitted"
+        - cmd: "real App Server terminal probes: anyOf and field-discriminated variants"
+          status: pass
+          summary: "question_type and non-empty explanationReferences accepted"
+        - cmd: "real App Server law_audit closed choiceIndex variants"
+          status: pass
+          summary: "choiceIndexなし/整数必須の相互排他的anyOfとnested lawRevisionFacts object/arrayを受理"
+        - cmd: "candidate unit tests and git diff check"
+          status: pass
+          summary: "52 tests passed; repository diff unchanged by probes"
+      summary: "App Server向けschema投影だけを相互排他的anyOfへ変換すれば、内部oneOf exact-one parser、field別native型、explicit unset、persist v3を維持できる。optional choiceIndexはnull sentinelではなくclosed二variantで表す。"
+      remaining_blockers:
+        - "canonical anyOf projectionを2ファイルだけで実装する"
+        - "全8工程再帰検査、実App Server最終schema、全回帰を再確認する"
+        - "承認後にscoped commit/pushする"
+      needs_judge: false
+      verification_attempts: 9
+      stopped_because: null
+      decision: approve_next
+      full_outcome_complete: false
+      canonical_revision:
+        - "内部field rulesとparser oneOf exact-oneは維持"
+        - "output_schema生成時だけdisjoint anyOfへ投影"
+        - "setFields field const、lawRevisionFacts object/array、choiceIndex有無を相互排他的variantにする"
+        - "nullable sentinel、broad value、fixed-slot DTOは不採用"
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T015差分を再利用し、App Server向けschema投影だけを相互排他的anyOf対応へ修正してcandidate DTO改善を完成させる"
+    inputs:
+      - "T015 blocked implementation"
+      - "T016 real App Server probe receipt"
+      - "Current uncommitted DTO diff"
+    constraints:
+      - "内部semantic field rulesと_matches_ruleのoneOf exact-oneを変更しない。"
+      - "output_schema生成時だけoneOfを相互排他的anyOfへ投影する。"
+      - "setFields field const、lawRevisionFacts object/arrayは同一payloadが複数variantへ一致しないようにする。"
+      - "optional choiceIndexはchoiceIndex propertyなしのclosed objectとinteger必須のclosed objectに分ける。null sentinel又は架空値を使わない。"
+      - "model DTO、persist v3 shape、parse_model_candidate_v3、v2 prepared readerを変更しない。"
+      - "fresh v2、valueJson、broad generic value schema、fixed-slot DTO、compat shim、dual-writeを追加しない。"
+      - "qualification_runs、fixture、prepared envelope、patch、ID、publisher、queue、window、writerを変更しない。"
+    expected_output:
+      - "provider-accepted disjoint anyOf schema projection"
+      - "unchanged strict parser and persistence contracts"
+      - "recursive schema regression tests"
+      - "question_type, law_audit and non-empty candidate live acceptance"
+      - "focused/full regression and immutability proof"
+    allowed_files:
+      - "tools/question_review_console/question_candidate.py"
+      - "tests/test_question_review_question_candidate.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "! rg -n 'parse_legacy_model_candidate_v2|raw_candidate_payload' tools/question_review_console/qualification_runs.py tools/question_review_console/question_candidate.py"
+      - "! rg -n 'question-maintenance-candidates/v2' tests/qualification_run_test_support.py"
+      - "全8工程schemaのoneOf不在、全properties required、closed object、field const variant一意性を再帰検査"
+      - "実App Serverでquestion_typeとlaw_audit最終schemaを終端まで実行"
+      - "実App Serverでnon-empty explanationReferencesを生成しparse_model_candidate_v3まで成功"
+    stop_if:
+      - "anyOf variantsが同一payloadへ複数一致する。"
+      - "optional choiceIndexにnull sentinel又は架空integerが必要になる。"
+      - "parserのfield別型、exact-one、完全性、explicit unsetを緩める必要がある。"
+      - "fresh v2、valueJson、compat shim又はdual-writeが必要になる。"
+      - "許可file外の編集が必要になる。"
+      - "実App Serverが最終question_type又はlaw_audit schemaを拒否する。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/question_candidate.py
+        - tests/test_question_review_question_candidate.py
+      commands:
+        - cmd: "focused candidate/workflow/qualification tests"
+          status: pass
+          summary: "216 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "923 tests passed"
+        - cmd: "py_compile, 00_source immutability, diff and forbidden rg"
+          status: pass
+          summary: "5799 files unchanged; forbidden fresh-v2 paths absent"
+        - cmd: "all 8 stages recursive schema probe"
+          status: pass
+          summary: "output oneOf 0; all objects closed/all properties required; field const variants unique"
+        - cmd: "real App Server final question_type and law_audit schema"
+          status: pass
+          summary: "candidate/blocked terminated and strict parser accepted"
+        - cmd: "real App Server non-empty explanationReferences"
+          status: pass
+          summary: "one reference generated and parse_model_candidate_v3 accepted"
+      summary: "App Server向けoutput schemaだけを相互排他的anyOfへ投影し、内部exact-one parser、native型、完全性、explicit unset、persist v3、v2 readerを維持した。全回帰と実App Server終端が成功した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T010〜T017のcandidate DTO最終差分を、契約単純性、fresh v3-only、v2保存互換、closed schema、server-owned境界、永続化・commit回帰、実App Server証拠から反証監査しcommit可否を判定する"
+    inputs:
+      - "T010 through T017 receipts"
+      - "Current full candidate DTO diff"
+      - "923 full regression and live App Server readbacks"
+      - "document/operations/local_question_review_console.md"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "局所テスト成功だけで承認せず、新規生成、prepared persist、resume、commitまで追う。"
+      - "fresh v2 shim、valueJson新規書込、server-owned漏出、open object、anyOf多重一致を拒否する。"
+      - "一般化したschema投影が現行optional fieldだけに適用され、variant爆発又は意味変更を起こさないか確認する。"
+      - "prepared envelope v1、payload v3、一問turn、100 window、writer、patch、ID、publisher不変を確認する。"
+    expected_output:
+      - "approved | rejected"
+      - "blocker closure map"
+      - "exact pre-commit verification"
+      - "safe-to-commit file scope"
+      - "full outcome remains incomplete"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "full DTO diff and production flow audit"
+          status: pass
+          summary: "fresh v3-only、native payload v3、server routing、closed schema、disjoint anyOf、v3 commitを確認"
+        - cmd: "focused DTO/workflow/qualification tests"
+          status: pass
+          summary: "216 tests passed"
+        - cmd: "v2 production parser read-only probe"
+          status: pass
+          summary: "parse_prepared_candidate_payload(v2/valueJson)はQuestionCandidateへ変換"
+        - cmd: "saved v2 production resume-to-commit integration evidence audit"
+          status: fail
+          summary: "明示的統合testが存在しない"
+      summary: "製品差分の主要契約は閉じたが、T014で必須化した保存済みv2 envelopeのproduction resume→共通writer commit統合証拠がないためcommitを拒否した。"
+      remaining_blockers:
+        - "tests/test_question_review_qualification_runs.pyへv2保存候補resume/commit統合testを1件追加する"
+        - "成功後にcommit前Judge再監査する"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      decision: reject_next
+      full_outcome_complete: false
+      currently_safe_to_commit: false
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "保存済みprepared envelope v1内candidatePayload v2/valueJsonをproduction dispatchでresumeし、共通writer commitまで成功する統合testを1件だけ追加する"
+    inputs:
+      - "T018 rejected receipt"
+      - "Existing QualificationRunTestSupport, SourceOnlyInventory and FlowAppServer"
+      - "Current candidate DTO product diff"
+    constraints:
+      - "test 1件だけを追加し、product codeを変更しない。"
+      - "interrupted旧attemptへ同一inputFingerprint/projectedInputHashのv2 candidatePayload入りenvelope v1を保存し、再開runでreuseする。"
+      - "v2 artifactをmigration、rewrite、dual-writeしない。"
+      - "fresh model pathへv2分岐を戻さない。"
+      - "patch、ID、publisher、queue、window、writer動作を変更しない。"
+    expected_output:
+      - "no fresh candidate model call on resume"
+      - "unchanged envelope v1/contentHash/payload v2/valueJson"
+      - "production parse_prepared_candidate_payload dispatch"
+      - "candidateCommitStartedAt and common writer success"
+      - "expected patch/workVersionReceipt with stable question ID"
+      - "normal run/queue completion"
+    allowed_files:
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_saved_v2_prepared_candidate_resumes_and_commits_through_production_dispatch"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m py_compile tools/question_review_console/question_candidate.py tools/question_review_console/qualification_runs.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "! rg -n 'parse_legacy_model_candidate_v2|raw_candidate_payload' tools/question_review_console/qualification_runs.py tools/question_review_console/question_candidate.py"
+    stop_if:
+      - "product file変更が必要になる。"
+      - "v2 artifactのmigration、rewrite又はdual-writeが必要になる。"
+      - "fresh model pathへv2分岐を戻す必要になる。"
+      - "既存patch、ID、publisher、queue、window又はwriter動作変更が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "saved v2 production resume-to-commit integration test"
+          status: pass
+          summary: "1 test passed"
+        - cmd: "focused candidate/workflow/qualification suite"
+          status: pass
+          summary: "217 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "924 tests passed"
+        - cmd: "py_compile, 00_source immutability, diff and forbidden symbol rg"
+          status: pass
+          summary: "5799 files unchanged"
+      summary: "保存済みenvelope v1内v2/valueJson候補をproduction resume分岐から共通writer commitまで通し、model再呼出しなし、artifact不変、patch/receipt/ID/run成功を統合testで証明した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T020
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T018唯一のblockerだったv2 production resume-to-commit統合証拠がT019で閉じたかを監査し、candidate DTO製品6ファイルのcommit可否を最終判定する"
+    inputs:
+      - "T018 rejected receipt"
+      - "T019 done receipt and new integration test"
+      - "Current full candidate DTO diff"
+      - "924 full regression and 5799 immutability evidence"
+    constraints:
+      - "Read-only。fileを編集しない。"
+      - "T019がproduct codeを変更していないことを確認する。"
+      - "保存済みv2 envelope/contentHash/payloadが書換えられず、production resume dispatch→common writer commitを通るassertを確認する。"
+      - "T018でclosedとしたblockerを再び推測だけで開閉しない。"
+      - "GoalBuddy control filesをproduct commit scopeへ含めない。"
+    expected_output:
+      - "approved | rejected"
+      - "T018 open blocker closure"
+      - "safe-to-commit exact six-file scope"
+      - "exact final pre-commit verification"
+      - "full outcome incomplete"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "T019 integration test and product diff audit"
+          status: pass
+          summary: "saved v2 production resume-to-common-writer blocker closed"
+        - cmd: "T019 single integration test"
+          status: pass
+          summary: "1 test passed"
+      summary: "旧v2保存候補のproduction resume→共通writer commit統合証拠が閉じ、candidate DTO製品6ファイルのscoped commitを承認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+      decision: approve_next
+      full_outcome_complete: false
+      safe_to_commit_exact_six_files:
+        - document/operations/local_question_review_console.md
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/question_candidate.py
+  - id: T021
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "承認済みcandidate DTO製品6ファイルを最終検証し、独立commitとしてorigin/mainへpushする"
+    inputs:
+      - "T020 approved receipt"
+      - "Current candidate DTO product diff"
+    constraints:
+      - "T020のpre-commit verificationを全件再実行する。"
+      - "承認済み製品6ファイルだけをstage/commitする。"
+      - "GoalBuddy state/notesをproduct commitへ含めない。"
+      - "00_source、patch、output artifactを含めない。"
+      - "origin/main以外へpushしない。"
+    expected_output:
+      - "verified candidate DTO product commit"
+      - "origin/main push readback"
+      - "GoalBuddy control files only remaining outside product diff"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_candidate.py"
+    verify:
+      - "saved v2 resume-to-commit integration test"
+      - "217 focused tests"
+      - "924 full question-review tests"
+      - "py_compile"
+      - "5799 source immutability"
+      - "diff and forbidden symbol checks"
+      - "exact staged six-file scope"
+      - "origin/main parity after push"
+    stop_if:
+      - "pre-commit verificationが一件でも失敗する。"
+      - "承認済み6ファイル以外がstagedされる。"
+      - "origin/mainが先行して競合する。"
+    receipt:
+      result: done
+      changed_files:
+        - document/operations/local_question_review_console.md
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/question_candidate.py
+      commands:
+        - cmd: "saved v2 resume-to-commit integration test"
+          status: pass
+          summary: "1 test passed"
+        - cmd: "focused candidate/workflow/qualification suite"
+          status: pass
+          summary: "217 tests passed"
+        - cmd: "full question-review test discovery"
+          status: pass
+          summary: "924 tests passed"
+        - cmd: "py_compile, 00_source immutability, diff and forbidden symbol checks"
+          status: pass
+          summary: "5799 files unchanged"
+        - cmd: "exact scoped staging"
+          status: pass
+          summary: "approved six product files only"
+        - cmd: "git commit and push origin main"
+          status: pass
+          summary: "5962fef75 refactor: type question maintenance candidates"
+        - cmd: "git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+          summary: "0 0"
+      summary: "candidate DTO改善を全検証後に製品6ファイルだけで独立commitし、origin/mainへpushした。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      commit: 5962fef75
+      pushed_to: origin/main
+  - id: T022
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "第三改善候補である評価結果のlatest-valid防御について、現行保存・選択・API/UI・resume経路を反証調査し、未完成又は失敗した後続評価が直前の有効評価を上書きする現行欠陥があるかを再現して最大の安全な実装sliceを確定する"
+    inputs:
+      - "Current evaluation implementation and tests"
+      - "config/question_maintenance_workflow.toml evaluation policy"
+      - "completed qualification run artifacts and monitor/readback paths"
+      - "T001 prioritized improvement plan"
+    constraints:
+      - "Read-only。file、run artifact、Firestore、patch、00_sourceを変更しない。"
+      - "古いrunの症状だけで現行欠陥と断定せず、current code又はdeterministic test harnessで再現する。"
+      - "最新時刻と最新有効結果を混同しない。"
+      - "失敗履歴を隠さず、表示用current valid resultとattempt historyを責務分離する。"
+      - "正常な新しい有効評価が旧評価へ戻される設計を承認しない。"
+      - "候補DTO、queue/window/writer、patch、ID、publisherへ変更を広げない。"
+    expected_output:
+      - "current defect reproduced | already protected"
+      - "canonical valid-result selection invariant"
+      - "attempt history and current result ownership"
+      - "exact implementation files/tests/API readback"
       - "rejected alternatives and stop conditions"
     receipt: null
   - id: T999

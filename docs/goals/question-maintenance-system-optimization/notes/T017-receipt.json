@@ -1,0 +1,13 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T017",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/question_candidate.py",
+      "tests/test_question_review_question_candidate.py"
+    ],
+    "summary": "App Server schema投影を相互排他的anyOfへ変更し、内部exact-one parserとDTO/persist契約を維持。923回帰、5799 source不変、全8工程closed schema、実App Serverの分類・法令監査・非空根拠候補が成功した。",
+    "remaining_blockers": []
+  }
+}

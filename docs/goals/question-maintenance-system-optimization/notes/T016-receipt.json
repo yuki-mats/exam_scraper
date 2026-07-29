@@ -1,0 +1,22 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T016",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "summary": "実App Server終端実測でoneOf拒否、相互排他的anyOf受理を確認。optional choiceIndexはnullable sentinelではなくpropertyなし/整数必須のclosed二variantで表し、内部parserのexact-oneとpersist v3 shapeを維持する。",
+    "accepted_probes": [
+      "question_type full schema with disjoint anyOf",
+      "law_audit with closed choiceIndex variants and nested object/array anyOf",
+      "non-empty explanationReferences candidate through current parser"
+    ],
+    "rejected_probes": [
+      "oneOf",
+      "optional fixed properties",
+      "nullable choiceIndex as canonical design",
+      "broad native value union",
+      "fixed-slot DTO"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T013",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "document/operations/local_question_review_console.md",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_question_candidate.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_candidate.py"
+    ],
+    "commands": [
+      {
+        "cmd": "three focused candidate/workflow/qualification modules",
+        "status": "fail",
+        "summary": "213 tests; 7 failures before compatibility dispatch"
+      },
+      {
+        "cmd": "candidate module iterative verification",
+        "status": "pass",
+        "summary": "51 tests passed after intermediate fixes"
+      },
+      {
+        "cmd": "representative queue regression",
+        "status": "pass",
+        "summary": "passed only after prohibited fresh-v2 product dispatch"
+      },
+      {
+        "cmd": "three focused modules after prohibited shim",
+        "status": "pass",
+        "summary": "213 tests passed"
+      },
+      {
+        "cmd": "full test discovery",
+        "status": "aborted",
+        "summary": "stopped when stop_if violation was identified"
+      }
+    ],
+    "summary": "T012のschema/parser/v2互換修正を進めたが、legacy FlowAppServer fixtureのためfresh qualification callsiteへraw v2互換dispatchを追加し、test-only互換をproduct shimへ入れないstop_ifに該当したため停止した。",
+    "remaining_blockers": [
+      "fresh callsiteのv2/v3 dispatchとparse_legacy_model_candidate_v2を除去する",
+      "legacy fresh model test fakesをsemantic v3へ変更する",
+      "T012 defects closureを再監査する",
+      "全指定verificationを完了する"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": "fresh model test fixture互換のため禁止product shimを追加した"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T014",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "T012/T013の主要実装は再利用できるが、fresh v2互換shimと唯一の旧fixture、closed schemaとprepared v3検証の欠陥を局所修正して再検証する必要がある。",
+    "required_corrections": [
+      "fresh callsiteをparse_model_candidate_v3直呼びにし、parse_legacy_model_candidate_v2を削除する",
+      "FlowAppServerを一問semantic v3へ移行する",
+      "lawRevisionFacts、snapshot、evidenceSummary、refsをclosed schemaにする",
+      "originalQuestionChoiceImageUrlsをarray<array<string>>へ直す",
+      "prepared v3をallowed fields、型、blocked空更新、candidate完全性、minimumでfail-closedにする"
+    ],
+    "parallel_safety": {
+      "safe": false,
+      "reason": "product parser/schemaと共有test supportが同一変更面のため単一Workerで実施する"
+    }
+  }
+}

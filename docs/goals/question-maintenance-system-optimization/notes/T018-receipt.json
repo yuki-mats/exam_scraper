@@ -1,0 +1,13 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T018",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "summary": "fresh v3-only、native payload v3、server routing、closed schema、disjoint anyOf、v3 commitは承認。保存済みv2 envelopeをproduction resumeから共通writer commitまで通す統合testがないためcommitを拒否。",
+    "remaining_blockers": [
+      "tests/test_question_review_qualification_runs.pyへv2 resume-to-commit統合testを1件追加する"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T012",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [],
+    "commands": [
+      {
+        "cmd": "custom fake v3 regression",
+        "status": "pass",
+        "summary": "1 test passed without product shim"
+      },
+      {
+        "cmd": "three focused candidate/workflow/qualification modules",
+        "status": "fail",
+        "summary": "211 tests; one test-only substring false-positive"
+      },
+      {
+        "cmd": "representative every-stage schema probes",
+        "status": "fail",
+        "summary": "originalize and law_audit have missing field schemas and shared-role description conflicts"
+      },
+      {
+        "cmd": "v3 prepared strictness and semantic completeness probes",
+        "status": "fail",
+        "summary": "unknown keys, duplicate unset, wrong type and omitted field were accepted"
+      },
+      {
+        "cmd": "py_compile and diff check",
+        "status": "pass"
+      }
+    ],
+    "summary": "partial diffは再利用可能だが未完成。custom fakeの繰返し失敗はtest-only旧shape操作で解消済み。一方、全工程field schema、role description分離、prepared v3 fail-closed、candidate完全性、nested server-owned境界、v2 coverage復元が必要。",
+    "remaining_blockers": [
+      "originalize/law_auditのmodel schemaを構築できない",
+      "v3 prepared readerがfail-closedではない",
+      "candidate field completenessとnested server-owned境界が未完",
+      "既存v2 tertiary normalization coverageが削除されている",
+      "SSOT文書と全検証が未完"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 4,
+    "stopped_because": null,
+    "decision": "reuse",
+    "repeated_failure_root_cause": "test-only custom fakeが廃止済みv2 shapeを直接操作していた",
+    "product_defects": [
+      "全model-owned fieldのnative schema未定義",
+      "role description差を構造schema競合として扱う",
+      "optional nested field必須化とopen lawRevisionFacts",
+      "model/prepared parser境界がheuristic",
+      "v3 prepared unknown/duplicate/type違反を許可",
+      "candidate全field完全性未検証",
+      "nested lawRevisionFactsでserver-owned metadataを許可"
+    ],
+    "minimal_corrections": [
+      "explicit model-v3 and prepared v2/v3 parsers",
+      "every-stage structural field schemas with separate descriptions",
+      "strict v3 prepared validation and candidate completeness",
+      "nested server metadata exclusion",
+      "restore legacy v2 tests and add new v3 persist/resume/commit tests",
+      "SSOT update"
+    ],
+    "required_tests": [
+      "every-stage schema construction",
+      "role description conflict separation",
+      "exact model DTO and complete semantic fields",
+      "strict raw and prepared v3 duplicate/unknown/type rejection",
+      "legacy v2 unchanged parse/reuse/commit",
+      "new envelope v1/payload v3 native persist/readback/commit",
+      "server metadata, queue, writer, patch and ID regressions"
+    ]
+  }
+}
