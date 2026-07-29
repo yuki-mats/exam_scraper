@@ -43,6 +43,10 @@ SELECTED_CHOICE_COUNT_PATTERNS = (
     ),
 )
 COMBINATION_CHOICE_PATTERN = re.compile(r"組(?:合せ|み合わせ)")
+ALL_CORRECT_CHOICE_SENTINEL_PATTERN = re.compile(
+    r"選択肢\s*[（(]\s*([0-9０-９]+)\s*[）)]"
+    r"\s*は\s*(?:すべて|全て)\s*正しい"
+)
 
 
 def selected_choice_labels(question_intent: Any) -> frozenset[str] | None:
@@ -128,6 +132,15 @@ def asks_for_combination_choice(value: Any) -> bool:
     return COMBINATION_CHOICE_PATTERN.search(
         re.sub(r"\s+", "", str(value or ""))
     ) is not None
+
+
+def all_correct_choice_sentinel_number(value: Any) -> int | None:
+    """Return the explicit answer option meaning that every statement is true."""
+
+    match = ALL_CORRECT_CHOICE_SENTINEL_PATTERN.search(str(value or ""))
+    if match is None:
+        return None
+    return int(match.group(1).translate(FULLWIDTH_DIGIT_TRANSLATION))
 
 
 def uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
@@ -281,6 +294,27 @@ def official_answer_alignment_issue(record: Any) -> str | None:
             )
         official_count = official_numbers[0]
         selected_count = len(independently_selected)
+        all_correct_sentinel = all_correct_choice_sentinel_number(source_text)
+        if (
+            all_correct_sentinel is not None
+            and official_count == all_correct_sentinel
+        ):
+            expected_count = (
+                0
+                if intent == "select_incorrect"
+                else len(answer_choices)
+            )
+            if selected_count == expected_count:
+                return None
+            return (
+                f"公式解答は選択肢({all_correct_sentinel})の"
+                "「すべて正しい」を示しますが、独立判定と一致しません"
+                f"（期待する該当肢数={expected_count} / "
+                f"判定した該当肢数={selected_count}）。"
+                "questionIntent、correctChoiceText、answer_result_textを"
+                "再確認してください。"
+                "機械検証ではどのfieldを変更するか決めません。"
+            )
         if official_count == selected_count:
             return None
         return (

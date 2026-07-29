@@ -1331,7 +1331,7 @@ class AppServerTurnTests(unittest.TestCase):
                         '{"status":"ok"',
                         " " * STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS,
                     ):
-                        self._handle_turn_notification(
+                        self._handle_message(
                             {
                                 "method": "item/agentMessage/delta",
                                 "params": {

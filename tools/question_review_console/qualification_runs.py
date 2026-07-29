@@ -33,6 +33,7 @@ from scripts.common.question_identity import (
     source_record_ref,
 )
 from scripts.common.question_answer_contract import (
+    all_correct_choice_sentinel_number,
     asks_for_combination_choice,
     asks_for_selected_choice_count,
     uses_trusted_gassyunin_judge_answers,
@@ -2084,7 +2085,11 @@ def _trusted_source_answer_evidence(
     current_body = current_record.get("questionBodyText")
     current_choices = current_record.get("choiceTextList")
     if asks_for_selected_choice_count(source_body):
-        answer_result_semantics = "selected_statement_count"
+        answer_result_semantics = (
+            "count_choice_index_with_all_correct_sentinel"
+            if all_correct_choice_sentinel_number(source_body) is not None
+            else "selected_statement_count"
+        )
     elif asks_for_combination_choice(source_body):
         answer_result_semantics = "source_combination_choice_index"
     else:

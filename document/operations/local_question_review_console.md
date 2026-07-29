@@ -92,9 +92,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 
 ## 作業バージョン
 
-工程版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけを`MAJOR.MINOR`形式で管理します。洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げます。公開済みだが使用版を証明できない初期値は`v0.0`です。
-
-run開始時とreceipt検証時に、完全な版番号と正本文書fingerprintを照合します。全更新項目を実行した場合は工程単位、部分実行ではupdate target単位で、成功receiptを検証した対象だけを`work_versions.json`へ記録します。未選択のupdate targetは現行版になりません。`stateHash`変更又は現行MAJOR未満は再整備、評価版のMAJOR変更は再評価の対象です。
+工程版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけを`MAJOR.MINOR`形式で管理します。洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げます。公開済みだが使用版を証明できない初期値は`v0.0`です。run開始時とreceipt検証時に、完全な版番号と正本文書fingerprintを照合します。全更新項目を実行した場合は工程単位、部分実行ではupdate target単位で、成功receiptを検証した対象だけを`work_versions.json`へ記録します。未選択のupdate targetは現行版になりません。`stateHash`変更又は現行MAJOR未満は再整備、評価版のMAJOR変更は再評価の対象です。
 
 ## 進捗、heartbeat、技術ログ
 
@@ -111,7 +109,6 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 - runごとの`technical_log.jsonl`はappend-onlyで、`sequence`、`observedAt`、`level`、`message`を保存する。該当時は`commandStatus`、`exitCode`、`outputTail`、repository相対`changedPaths`も保存する。同一イベントを重複記録せず、秘密情報と思考過程を除く。
 - 通常のrun・job APIは要約だけを返す。技術ログは`GET /api/qualification-runs/<runId>/technical-log?qualification=<qualification>`から、画面で展開中だけ取得する。
 - Run進捗の通常取得は一問stateを展開せず、派生summaryだけを返す。問題一覧が必要な場合だけ`includeQuestions=true`を指定し、さらに一問のattemptと工程履歴が必要な場合は`GET /api/qualification-runs/<runId>/questions/<questionId>?qualification=<qualification>`で対象JSONだけを読む。`GET /api/session`はApp Serverへの同期問い合わせを行わず、最後に検証済みの接続状態だけを返す。
-
 - 画面は一つのpoll管理でrun、job、進捗を更新し、実行dialog表示中は背景pollを止めます。進行中runの背景pollは軽量な進捗だけを取得し、履歴一覧はrun終了時、待機中又は明示更新時に取得します。詳細表示中の問題は定期再取得せず、一覧で確定した同じsnapshotを使い、画面へ戻った時又は明示更新時に差分を確認します。問題は分野・問題番号とsource上の自然な順序で表示し、processedとvalidatedを分けます。進捗から問題を開く「作業対象を確認」には、問題文・選択肢・正答・解説とpatch適用後の`questionType`、問題整備専用の`isCalculationQuestion`を表示します。`flash_card`と`group_choice`の基本解説は問題共通の1本として選択肢一覧の上に表示し、選択肢カードへ繰り返しません。問題の詳細画面では、選択肢をタップすると、その選択肢の`suggestedQuestionDetails`に相当する質問と回答だけをカード内に表示します。`suggestedQuestionDetailsByChoice`が0件の選択肢も、保存済み補足がないことを明示します。補足0件は不備ではなく、基本解説と重複する候補を保存しない正規状態です。旧flat fieldしかない場合は「選択肢未割当・再生成が必要」と表示し、推測で割り当てません。
 - `05_originalized`が適用された独自問題の詳細画面では、`00_source`の問題文・全選択肢と、05以降の確定patchを適用した現在の問題文・全選択肢を読取専用で並べます。問題文と選択肢それぞれについて完全一致か変更ありかを表示し、選択肢が`00_source`と同一でも正常な独自問題として確認できるようにします。公式過去問など05未適用の問題には、この比較を表示しません。
 - トップの初回表示、資格切替、再読込では、取得中・画面反映中を区別できる待機パネルを表示します。待機パネルには接続確認、整備状況、実行中の作業、必要な場合は問題一覧、画面反映の段階と経過時間を示します。10秒を超えた場合も処理が続いていることを明示し、取得失敗時は再試行できる状態にします。読込完了後のトップは資格選択と年度・フォルダカード一覧だけを表示し、資格全体の基準、必要問題数、作業状況、進捗見出しの独立カードは置きません。法令工程の資格設定は`整備・洗い替え`の開始dialogへ置きます。実行中の作業は対象カードの表示と`進捗を見る`ボタンへ集約します。整備状況、実行中の作業、表示中の問題一覧は並行して取得します。問題一覧の絞り込み、状況確認の初回取得、実行対象のpreviewにも、それぞれ操作箇所に近いローディングを表示します。
@@ -130,9 +127,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 ## 検査feedbackと改善記録
 
-各問は工程固有の機械チェックに不合格となった場合、その問と工程に限った検査feedback付きで最大2回再整備します。他の問は再試行の完了を待ちません。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成には該当問題のfeedbackだけを渡します。
-
-未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から清掃します。serverは保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
+各問は工程固有の機械チェックに不合格となった場合、その問と工程に限った検査feedback付きで最大2回再整備します。他の問は再試行の完了を待ちません。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成には該当問題のfeedbackだけを渡します。未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から清掃します。serverは保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
 
 queueがterminalになった後、`improvement_report.json`へ工程・指摘code・fieldごとの発生問数とattempt数を集計します。3問以上で同じ指摘が出た場合、又はモデル側の検査は通ったのにserverが拒否した場合を改善候補とします。正本文書、prompt、checker、testの変更はactive run中に行わず、別の改善jobで候補を確認して実施します。checkerを変える場合は、該当工程の正本・検査契約と[`policy_version`](../../config/question_maintenance_workflow.toml)を同時に更新します。既存問題の洗い替えが必要ならMAJOR、今後の作業だけに適用できる変更ならMINORを上げます。
 
@@ -152,12 +147,4 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 
 ## 起動
 
-```bash
-.venv/bin/python tools/question_bank/question_bank.py review-ui
-```
-
-serverは`127.0.0.1`だけへbindします。本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。
-
-serverはTCP listenerを確保した後、process全体のfile leaseを取得してから中断回収を始めます。二つ目のserver processはrunを変更せず起動に失敗し、同じ資格のrun writerも資格単位leaseで一つに限定します。`QualificationRunStore`の生成だけでは回収又はfile更新を行いません。
-
-起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。全manifestの索引や初回移行処理は持ちません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。
+`.venv/bin/python tools/question_bank/question_bank.py review-ui`で起動します。serverは`127.0.0.1`だけへbindし、本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。TCP listenerを確保した後、process全体のfile leaseを取得してから中断回収を始めます。二つ目のserver processはrunを変更せず起動に失敗し、同じ資格のrun writerも資格単位leaseで一つに限定します。`QualificationRunStore`の生成だけでは回収又はfile更新を行いません。起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。全manifestの索引や初回移行処理は持ちません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。

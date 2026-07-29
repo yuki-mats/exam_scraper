@@ -3224,6 +3224,45 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertIn("否定語やquestionIntentを使って再反転しない", prompt)
         self.assertIn("名詞句等の断片肢では本文の述語を一度だけ補う", prompt)
 
+    def test_trusted_count_evidence_exposes_all_correct_sentinel_semantics(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "2018",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "gas-shunin:kou:2018:kyokyu:q17",
+            "sourceRecordRef": "question_2018_2.json#22",
+        }
+        source_record = {
+            "questionBodyText": (
+                "次の記述のうち、誤っているものはいくつあるか"
+                "(選択肢(5)はすべて正しい)。"
+            ),
+            "choiceTextList": ["イ", "ロ", "ハ", "ニ", "ホ"],
+            "correctChoiceText": ["正しい"] * 5,
+            "answer_result_text": "正解は 5 です。",
+            "sourceProvider": "gassyunin.com",
+            "sourceOrigin": "gassyunin_site",
+            "choiceMarkerSource": "judge",
+            "markerAlignmentMode": "judge_only",
+            "markerMismatchDetected": False,
+            "answerResultNumbersRemapped": False,
+            "judgeChoiceMarkers": ["イ", "ロ", "ハ", "ニ", "ホ"],
+            "sourceStatementCount": 5,
+        }
+
+        evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            source_record,
+        )
+
+        self.assertIsNotNone(evidence)
+        assert evidence is not None
+        self.assertEqual(
+            evidence["answerResultSemantics"],
+            "count_choice_index_with_all_correct_sentinel",
+        )
+
     def test_trusted_source_verdict_is_final_for_exact_fragment_question_text(self):
         target = {
             "id": "45329b3c76a7c54b",

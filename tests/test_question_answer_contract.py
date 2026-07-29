@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from scripts.common.question_answer_contract import (
+    all_correct_choice_sentinel_number,
     asks_for_selected_choice_count,
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
@@ -201,6 +202,48 @@ class QuestionAnswerContractTests(unittest.TestCase):
                 }
             )
         )
+
+    def test_all_correct_sentinel_maps_option_number_to_zero_incorrect(self) -> None:
+        record = {
+            "questionBodyText": (
+                "次の記述のうち、誤っているものはいくつあるか"
+                "（選択肢（５）はすべて正しい）。"
+            ),
+            "questionIntent": "select_incorrect",
+            "correctChoiceText": ["正しい"] * 5,
+            "answer_result_text": "正解は 5 です。",
+        }
+
+        self.assertEqual(
+            all_correct_choice_sentinel_number(record["questionBodyText"]),
+            5,
+        )
+        self.assertIsNone(official_answer_alignment_issue(record))
+
+    def test_all_correct_sentinel_still_rejects_an_incorrect_statement(self) -> None:
+        issue = official_answer_alignment_issue(
+            {
+                "questionBodyText": (
+                    "次の記述のうち、誤っているものはいくつあるか"
+                    "（選択肢(5)は全て正しい）。"
+                ),
+                "questionIntent": "select_incorrect",
+                "correctChoiceText": [
+                    "正しい",
+                    "間違い",
+                    "正しい",
+                    "正しい",
+                    "正しい",
+                ],
+                "answer_result_text": "正解は 5 です。",
+            }
+        )
+
+        self.assertIsNotNone(issue)
+        assert issue is not None
+        self.assertIn("期待する該当肢数=0", issue)
+        self.assertIn("判定した該当肢数=1", issue)
+        self.assertIn("どのfieldを変更するか決めません", issue)
 
     def test_official_answer_alignment_compares_count_for_tsugi_no_uchi(self) -> None:
         self.assertIsNone(

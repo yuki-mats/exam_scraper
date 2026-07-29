@@ -2543,6 +2543,7 @@ class CodexAppServerClient:
         if method in {
             "turn/started",
             "item/completed",
+            "item/agentMessage/delta",
             "turn/completed",
             "error",
         }:
