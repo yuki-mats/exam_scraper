@@ -1,0 +1,48 @@
+{
+  "result": "blocked",
+  "task_id": "T002",
+  "board_path": "/Users/yuki/development/exam_scraper/docs/goals/question-maintenance-system-optimization/state.yaml",
+  "changed_files": [
+    "document/operations/local_question_review_console.md",
+    "tests/qualification_run_test_support.py",
+    "tests/test_question_review_codex_app_server.py",
+    "tests/test_question_review_qualification_runs.py",
+    "tools/question_review_console/codex_app_server.py",
+    "tools/question_review_console/qualification_runs.py"
+  ],
+  "commands": [
+    {
+      "cmd": ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs",
+      "status": "pass",
+      "summary": "221 tests passed"
+    },
+    {
+      "cmd": ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'",
+      "status": "fail",
+      "summary": "909 passed; pre-existing catalog expectation 2.0 disagrees with current evaluation policy 2.1"
+    },
+    {
+      "cmd": ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_run_state.py tools/question_review_console/question_work_queue.py tools/question_review_console/codex_app_server.py",
+      "status": "pass"
+    },
+    {
+      "cmd": ".venv/bin/python scripts/check/check_00_source_immutability.py",
+      "status": "pass",
+      "summary": "5799 files unchanged"
+    },
+    {
+      "cmd": "git diff --check",
+      "status": "pass"
+    }
+  ],
+  "summary": "実App Server通知からrun固有のmodel turn並列度、queue wait、duration、refill latencyを集計し、writer queue/lock waitとgroup別実行数を永続化した。対象221件と不変検査は通過。全体回帰は変更外のstale policy期待値1件だけでblocked。",
+  "deviations": [
+    "Dedicated goal_worker timed out after leaving an incomplete diff; PM fallback completed and corrected the implementation.",
+    "Global App Server peak was replaced with run-local lifecycle aggregation."
+  ],
+  "remaining_blockers": [
+    "tests/test_question_review_workflow_catalog.py expects evaluation policy 2.0 while the current SSOT is 2.1"
+  ],
+  "verification_attempts": 3,
+  "stopped_because": "A pre-existing out-of-scope regression gate must be repaired in T003 before T002 can be finalized."
+}
