@@ -19,9 +19,9 @@ from scripts.upload.upload_questions_to_firestore import (  # noqa: E402
     DOC_COMPARE_KEYS,
     EXISTING_DOC_FIELD_PATHS,
     build_doc_data_base,
-    choice_only_delete_fields,
     firestore_live_fingerprint,
     init_firestore,
+    stale_public_fields_to_delete,
 )
 
 
@@ -127,7 +127,7 @@ def upload_difference_fields(candidate: dict, live: dict) -> list[str]:
     ]
     fields.extend(
         f"{field} (delete)"
-        for field in choice_only_delete_fields(candidate_base, live)
+        for field in stale_public_fields_to_delete(candidate_base, live)
     )
     return fields
 

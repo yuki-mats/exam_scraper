@@ -79,13 +79,27 @@ DOC_COMPARE_KEYS = (
     "isChoiceOnly",
     "isGroupable",
 )
+PRODUCTION_CLIENT_OMITTED_FIELDS = (
+    # App Store 公開版 2.17.6 は未知fieldを拒否するため、対応版の公開確認まで
+    # Firestore question documentへ書き込まない。整備patchには保持する。
+    "explanationReferences",
+)
 CHOICE_ONLY_OMITTED_FIELDS = (
     "explanationText",
     "explanationReferences",
     "suggestedQuestions",
     "suggestedQuestionDetails",
 )
-EXISTING_DOC_FIELD_PATHS = tuple(dict.fromkeys((*DOC_COMPARE_KEYS, "createdAt", "createdById")))
+EXISTING_DOC_FIELD_PATHS = tuple(
+    dict.fromkeys(
+        (
+            *DOC_COMPARE_KEYS,
+            *PRODUCTION_CLIENT_OMITTED_FIELDS,
+            "createdAt",
+            "createdById",
+        )
+    )
+)
 
 _TRUTHY_CORRECT = {"正しい", "正解", "○", "〇", "true", "True", "TRUE"}
 _TRUTHY_INCORRECT = {"間違い", "不正解", "誤り", "×", "false", "False", "FALSE"}
@@ -215,6 +229,8 @@ def build_doc_data_base(question: dict) -> dict:
         "importKey",
         "originalQuestionChoiceImageUrls",
     ):
+        if opt_key in PRODUCTION_CLIENT_OMITTED_FIELDS:
+            continue
         if is_choice_only and opt_key in CHOICE_ONLY_OMITTED_FIELDS:
             continue
         if opt_key in question:
@@ -222,12 +238,24 @@ def build_doc_data_base(question: dict) -> dict:
     return doc_data
 
 
-def choice_only_delete_fields(new_base: dict, existing: dict) -> tuple[str, ...]:
-    """Return stale public fields that must be deleted from an existing choice-only doc."""
+def stale_public_fields_to_delete(
+    new_base: dict,
+    existing: dict,
+) -> tuple[str, ...]:
+    """Return fields that the current public document contract must omit."""
 
-    if new_base.get("isChoiceOnly") is not True:
-        return ()
-    return tuple(field for field in CHOICE_ONLY_OMITTED_FIELDS if field in existing)
+    fields = [
+        field
+        for field in PRODUCTION_CLIENT_OMITTED_FIELDS
+        if field in existing
+    ]
+    if new_base.get("isChoiceOnly") is True:
+        fields.extend(
+            field
+            for field in CHOICE_ONLY_OMITTED_FIELDS
+            if field in existing and field not in fields
+        )
+    return tuple(fields)
 
 
 def build_doc_data(question: dict, now: datetime) -> dict:
@@ -548,7 +576,10 @@ def upload_questions(
             exists = getattr(snap, "exists", False)
             if exists:
                 existing = snap.to_dict() or {}
-                fields_to_delete = choice_only_delete_fields(new_base, existing)
+                fields_to_delete = stale_public_fields_to_delete(
+                    new_base,
+                    existing,
+                )
                 changed = bool(fields_to_delete) or any(
                     existing.get(k) != new_base.get(k)
                     for k in DOC_COMPARE_KEYS
@@ -570,7 +601,7 @@ def upload_questions(
             doc_data["updatedById"] = UPDATED_BY_ID
             validate_question_doc(doc_data, doc_id=str(qid))
             if exists:
-                for field in choice_only_delete_fields(new_base, existing):
+                for field in stale_public_fields_to_delete(new_base, existing):
                     doc_data[field] = firestore.DELETE_FIELD
             add_guarded_question_write(batch, doc_ref, doc_data, snap)
             chunk_valid += 1

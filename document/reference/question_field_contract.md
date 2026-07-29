@@ -85,7 +85,7 @@
 | --- | --- | --- |
 | `questionSetId` | 問題全体の主な復習先を表す一つのID。 | 選択scopeの全問を、問題文、全選択肢、`category.json`、資格別正本から再判定する。 |
 | `questionSetIdList` | Firestore由来の複数設問を一問へ束ねた際に、取得時点の`questionSetId`を重複なく保持する出典情報。 | 判定結果として生成又は同期しない。問題全体の分類候補として扱わない。 |
-| `choiceQuestionSetIds` | `choiceTextList`と同じ順序・件数で保持する、Firestore上の設問へ分割される各選択肢の復習先。 | 通常の問題全体レビューでは生成又は上書きしない。見直す場合は各選択肢を分類正本に照らす肢別の再分類として扱う。 |
+| `choiceQuestionSetIds` | `choiceTextList`と同じ順序・件数で保持する、Firestore上で独立した正誤問題へ分割される各選択肢の復習先。 | `true_false`の独立設問だけに使う。`group_choice`と`flash_card`は全選択肢を同じ画面で組み立てるため、全documentへ問題全体の`questionSetId`を使う。通常の問題全体レビューでは生成又は上書きしない。 |
 
 3 fieldは役割が異なるため、一方から他方を自動生成しない。判断対象を内容と分類正本から確定した後、型、配列長、`category.json`へのID所属を機械検証する。
 
@@ -125,7 +125,7 @@
 | 誤答4 | `incorrectChoice4Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 知識メモ | `knowledgeText` | string | 任意 | 任意 | 原則omit | string。 | explanation / manual | 解説本文と分ける補足知識。 |
 | 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。`isChoiceOnly=true`ではfield自体を禁止する。 | `21_explanationText_added`, convert | AI自動起動を避けるため事前データとして持つ。`flash_card`と`group_choice`は問題単位の1本だけを正答documentへ投影する。法令差分注記もここに含める。 |
-| 解説の公式資料 | `explanationReferences` | array<object> | 任意 | 公式一次資料をオンライン確認できる場合は必須相当 | 原則omit | 後述の`explanationReferences`契約に従う。`isChoiceOnly=true`ではfield自体を禁止する。 | `21_explanationText_added`, convert | 解説の根拠として実際に確認した公式ページの軽量メタデータ。取得元の`referenceUrls`とは分ける。 |
+| 解説の公式資料 | `explanationReferences` | array<object> | 任意 | 公式一次資料をオンライン確認できる場合は必須相当 | omit | 後述の`explanationReferences`契約に従う。公開アプリの読取対応が確認できるまではFirestoreへ投影しない。 | `21_explanationText_added` | 解説の根拠として実際に確認した公式ページの軽量メタデータ。取得元の`referenceUrls`とは分ける。 |
 | 想定質問 | `suggestedQuestions` | array<string> | 任意 | 条件付き | 原則omit | Firestore公開時に`suggestedQuestionDetails[].question`から派生する。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 解説画面に即時表示する質問候補。patchでは手書きしない。 |
 | 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 条件付き | 原則omit | 各要素は `{question, answer}` のみ。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 対応する`isChoiceOnly=false` documentだけへ選択肢別正本から投影する。 |
 | 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
@@ -214,6 +214,8 @@ serverは合意したcandidate IDを元の候補spanへ解決し、順序、非�
 ## `explanationReferences` 契約
 
 `explanationReferences`は、解説の事実確認に実際に使った公式一次資料を、アプリからすぐ開ける形で保存します。資格別の型は作らず、すべての資格で同じ4 fieldだけを使います。
+
+整備patchにはこのfieldを保持しますが、Firestoreへの投影は、App Store公開版が同fieldを読み取れることを確認してから有効にします。公開前の互換性確認では、最新ソースではなく実際に配信中のアプリ版を基準にします。未対応期間中はuploaderがfieldを除外し、既存documentに残っていれば削除します。
 
 ```json
 [

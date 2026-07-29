@@ -5,7 +5,7 @@ from typing import Any, Callable, Iterable, Mapping
 
 from scripts.upload.upload_questions_to_firestore import (
     build_doc_data_base,
-    choice_only_delete_fields,
+    stale_public_fields_to_delete,
 )
 from tools.question_review_console.inventory import FIRESTORE_COMPARE_FIELDS
 
@@ -82,13 +82,15 @@ def compare_documents(
             continue
         live = json_safe(live_raw)
         expected_write = json_safe(build_doc_data_base(expected))
-        deleted_fields = set(choice_only_delete_fields(expected_write, live))
+        deleted_fields = set(
+            stale_public_fields_to_delete(expected_write, live)
+        )
         differences: list[str] = []
         for field in fields:
-            if field in expected:
-                expected_value = expected_write[field]
-            elif field in deleted_fields:
+            if field in deleted_fields:
                 expected_value = None
+            elif field in expected and field in expected_write:
+                expected_value = expected_write[field]
             else:
                 continue
             differences.extend(

@@ -159,6 +159,33 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
             ],
         )
 
+    def test_grouped_question_uses_one_question_level_question_set(self) -> None:
+        question_body = {
+            "original_question_id": "grouped-question-1",
+            "firestoreQuestionIds": ["doc-correct", "doc-wrong-1", "doc-wrong-2"],
+            "questionBodyText": "正しいものはどれか。",
+            "choiceTextList": ["正答", "誤答1", "誤答2"],
+            "correctChoiceText": ["正しい", "間違い", "間違い"],
+            "questionIntent": "select_correct",
+            "explanationText": ["共通解説"],
+            "questionType": "flash_card",
+            "questionSetId": "qset-question",
+            "choiceQuestionSetIds": [
+                "qset-choice-1",
+                "qset-choice-2",
+                "qset-choice-3",
+            ],
+            "examYear": 2025,
+            "questionLabel": "問1",
+        }
+
+        converted = convert_flash_card_to_firestore(question_body)
+
+        self.assertEqual(
+            [item["questionSetId"] for item in converted],
+            ["qset-question", "qset-question", "qset-question"],
+        )
+
     def test_flash_card_falls_back_to_group_law_references_for_law_related_wrong_choices(self) -> None:
         question_body = {
             "original_question_id": "site-law-question-1",

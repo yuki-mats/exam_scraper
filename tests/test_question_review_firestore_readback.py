@@ -99,6 +99,36 @@ class QuestionReviewFirestoreReadbackTests(unittest.TestCase):
             ["doc1.suggestedQuestionDetails", "doc1.suggestedQuestions"],
         )
 
+    def test_compare_requires_release_incompatible_field_to_be_deleted(self):
+        result = compare_documents(
+            [
+                {
+                    "questionId": "doc1",
+                    "isChoiceOnly": False,
+                    "explanationReferences": [
+                        {
+                            "title": "公式資料",
+                            "sourceUrl": "https://example.test/reference",
+                            "referenceDate": "2026-07-29",
+                        }
+                    ],
+                }
+            ],
+            {
+                "doc1": {
+                    "isChoiceOnly": False,
+                    "explanationReferences": [],
+                }
+            },
+            fields=("isChoiceOnly", "explanationReferences"),
+        )
+
+        self.assertEqual(result["status"], "mismatch")
+        self.assertEqual(
+            result["differences"],
+            ["doc1.explanationReferences"],
+        )
+
     def test_reader_fetches_only_expected_document_ids(self):
         database = FakeDatabase({"doc1": {"correctChoiceText": "正しい"}, "other": {}})
         reader = FirestoreReadback(db_factory=lambda: database)

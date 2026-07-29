@@ -1091,6 +1091,9 @@ def convert_group_select_to_firestore(
         question_body.get("originalQuestionChoiceImageUrls", [])
     )
     original_question_id = original_question_id_for_upload(question_body)
+    group_question_set_id = (
+        str(question_body.get("questionSetId") or "").strip() or None
+    )
 
     # questionText: questionBodyTextのみ（改行除去）
     question_text = question_body.get("questionBodyText", "").replace('\n', '')
@@ -1154,7 +1157,7 @@ def convert_group_select_to_firestore(
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
-                question_set_id=question_set_id_for_choice(question_body, i),
+                question_set_id=group_question_set_id,
                 suggested_choice_index=i,
                 isLawRelated=is_law_related,
                 lawReferences=law_references,
@@ -1191,7 +1194,7 @@ def convert_group_select_to_firestore(
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
-                question_set_id=question_set_id_for_choice(question_body, i),
+                question_set_id=group_question_set_id,
                 isChoiceOnly=True,
                 isLawRelated=is_law_related,
                 lawReferences=law_references,

@@ -22,7 +22,7 @@
 
 - `questionSetId`は、問題全体の主な復習先を表す一つのIDです。通常の04が再判定するのはこのfieldです。選択したscopeの各問題について、現在値に依存せず問題全体と分類正本から確定します。
 - `questionSetIdList`は、Firestore由来の複数の設問を一問へ束ねた際に、取得時点で各設問が持っていた`questionSetId`を重複なく記録した出典情報です。問題全体の分類候補や04の判定結果ではありません。
-- `choiceQuestionSetIds`は、`choiceTextList`と同じ順序・件数で、Firestore上の設問へ分割される各選択肢の復習先を保持するfieldです。問題全体の主な復習先とは役割が異なります。
+- `choiceQuestionSetIds`は、`choiceTextList`と同じ順序・件数で、Firestore上の独立した`true_false`設問へ分割される各選択肢の復習先を保持するfieldです。`group_choice`と`flash_card`は全選択肢を同じ画面で組み立てるため、全documentへ問題全体の`questionSetId`を使います。
 
 通常の04では`questionSetId`だけを再判定し、`questionSetIdList`と`choiceQuestionSetIds`を新規生成又は同期しません。既存の肢別分類を見直す場合は、各選択肢と分類正本を照合する肢別の再分類として明示的に扱います。3 fieldを互いに自動変換せず、それぞれの意味に合う入力から確定した後、対象fieldの型、件数、`category.json`への所属を機械検証します。
 

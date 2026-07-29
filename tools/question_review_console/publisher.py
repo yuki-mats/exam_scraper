@@ -16,6 +16,7 @@ from scripts.upload.upload_questions_to_firestore import (
     DOC_COMPARE_KEYS,
     build_doc_data_base,
     firestore_live_fingerprint,
+    stale_public_fields_to_delete,
     validate_required_question_fields,
 )
 from tools.question_review_console.firestore_readback import (
@@ -237,13 +238,19 @@ class GroupPublisher:
                 missing.append(question_id)
                 changed.append({"questionId": question_id, "fields": ["document"]})
                 continue
-            fields = [
+            fields = list(stale_public_fields_to_delete(base, existing))
+            fields.extend(
                 field
                 for field in DOC_COMPARE_KEYS
                 if field in base and existing.get(field) != base.get(field)
-            ]
+            )
             if fields:
-                changed.append({"questionId": question_id, "fields": fields})
+                changed.append(
+                    {
+                        "questionId": question_id,
+                        "fields": list(dict.fromkeys(fields)),
+                    }
+                )
 
         live_hash = _live_fingerprint(document_ids, live)
         token_payload = {
@@ -1318,13 +1325,19 @@ class QuestionPublisher:
                 missing.append(question_id)
                 changed.append({"questionId": question_id, "fields": ["document"]})
                 continue
-            fields = [
+            fields = list(stale_public_fields_to_delete(base, existing))
+            fields.extend(
                 field
                 for field in DOC_COMPARE_KEYS
                 if field in base and existing.get(field) != base.get(field)
-            ]
+            )
             if fields:
-                changed.append({"questionId": question_id, "fields": fields})
+                changed.append(
+                    {
+                        "questionId": question_id,
+                        "fields": list(dict.fromkeys(fields)),
+                    }
+                )
         return changed, missing
 
     @classmethod

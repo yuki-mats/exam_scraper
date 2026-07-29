@@ -125,7 +125,7 @@ class ExplanationReferencesTests(unittest.TestCase):
         self.assertEqual(public_document["explanationReferences"], [reference])
         self.assertNotIn("explanationReferences", choice_only_document)
 
-    def test_upload_schema_accepts_reference_contract(self) -> None:
+    def test_upload_projection_omits_reference_until_public_app_supports_it(self) -> None:
         now = datetime(2026, 7, 23, 12, 0, 0)
         reference = {
             "title": "公式資料",
@@ -148,7 +148,7 @@ class ExplanationReferencesTests(unittest.TestCase):
         )
 
         validate_question_doc(doc, doc_id="q-reference")
-        self.assertEqual(doc["explanationReferences"], [reference])
+        self.assertNotIn("explanationReferences", doc)
 
 
 if __name__ == "__main__":

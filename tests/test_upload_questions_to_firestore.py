@@ -295,7 +295,12 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
 
         self.assertEqual(
             set(module.build_doc_data_base(question)),
-            set(module.DOC_COMPARE_KEYS),
+            set(module.DOC_COMPARE_KEYS)
+            - set(module.PRODUCTION_CLIENT_OMITTED_FIELDS),
+        )
+        self.assertNotIn(
+            "explanationReferences",
+            module.build_doc_data_base(question),
         )
 
     def test_choice_only_doc_omits_explanation_and_saved_suggestions(self) -> None:
@@ -330,10 +335,17 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
         self.assertNotIn("suggestedQuestions", actual)
         self.assertNotIn("suggestedQuestionDetails", actual)
         self.assertEqual(
-            module.choice_only_delete_fields(
+            module.stale_public_fields_to_delete(
                 actual,
                 {
                     "explanationText": "古い選択肢別解説",
+                    "explanationReferences": [
+                        {
+                            "title": "公式資料",
+                            "sourceUrl": "https://example.test/reference",
+                            "referenceDate": "2026-07-29",
+                        }
+                    ],
                     "suggestedQuestions": ["古い質問"],
                     "suggestedQuestionDetails": [
                         {"question": "古い質問", "answer": "古い回答"}
@@ -341,10 +353,44 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
                 },
             ),
             (
+                "explanationReferences",
                 "explanationText",
                 "suggestedQuestions",
                 "suggestedQuestionDetails",
             ),
+        )
+
+    def test_release_incompatible_field_is_removed_from_regular_doc(self) -> None:
+        actual = module.build_doc_data_base(
+            {
+                "questionId": "q-regular",
+                "questionSetId": "qs1",
+                "originalQuestionBodyText": "元問題文",
+                "questionText": "本文",
+                "questionType": "true_false",
+                "qualificationId": "sample-qualification",
+                "questionTags": [],
+                "isOfficial": True,
+                "isDeleted": False,
+                "isChoiceOnly": False,
+                "isGroupable": False,
+                "explanationReferences": [
+                    {
+                        "title": "公式資料",
+                        "sourceUrl": "https://example.test/reference",
+                        "referenceDate": "2026-07-29",
+                    }
+                ],
+            }
+        )
+
+        self.assertNotIn("explanationReferences", actual)
+        self.assertEqual(
+            module.stale_public_fields_to_delete(
+                actual,
+                {"explanationReferences": []},
+            ),
+            ("explanationReferences",),
         )
 
     def test_build_doc_data_sets_meta_fields(self) -> None:
