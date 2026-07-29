@@ -40,7 +40,7 @@ PMは各receiptをこのoracleへ対応付ける。一つのテスト成功、�
 
 ## Current Tranche
 
-第一改善として、問題整備runに実際のmodel turn並列度、queue wait、枠解放後の補充遅延、commit writerの待ち時間を記録する。予約future数ではなく実処理を測り、manifestとAPI/readbackから確認できるようにする。検証とcommit・pushが完了した後だけ、型付きcandidate DTOへ進む。
+第一改善のrun固有telemetryは`34cddff07`で検証・反映済みである。第二改善として、モデル出力の`valueJson`二重JSONとserver-owned fieldを廃止し、native JSONの型付きcandidate DTOへ移行する。新規runだけを新契約にし、既存candidate v2はresume/readback専用に読み続け、既存成果物を移行書換えしない。
 
 ## Non-Negotiable Constraints
 

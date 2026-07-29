@@ -1,0 +1,41 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T007",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "tests/test_question_review_qualification_runs.py",
+      "tools/question_review_console/qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "cmd": ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "226 tests passed"
+      },
+      {
+        "cmd": ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'",
+        "status": "pass",
+        "summary": "915 tests passed"
+      },
+      {
+        "cmd": ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py",
+        "status": "pass"
+      },
+      {
+        "cmd": ".venv/bin/python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 files unchanged"
+      },
+      {
+        "cmd": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "親modelTurnsはApp Server callback元のqueue waitだけを集計し、backlog起点のend-to-end待ち時間はattemptだけへ保存するよう分離した。commitWriter worker activeをrun_commit入口・永続I/O前へ移し、aggregate review遅延と遅いmanifest readの決定的テストを追加した。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

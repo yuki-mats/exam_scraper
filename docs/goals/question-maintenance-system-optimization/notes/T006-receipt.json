@@ -1,0 +1,70 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T006",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [],
+    "commands": [
+      {
+        "cmd": "read T004/T005 receipts, current telemetry diff and focused tests",
+        "status": "pass"
+      },
+      {
+        "cmd": "five telemetry contract and queue tests",
+        "status": "pass",
+        "summary": "callback、segment、writer lock、aggregate wait、21/100問契約が成功"
+      },
+      {
+        "cmd": "partial lock acquisition failure reproduction",
+        "status": "pass",
+        "summary": "取得済みlockを解放"
+      },
+      {
+        "cmd": "question-window exclusion matrix",
+        "status": "pass",
+        "summary": "別waiting questionだけをrefillへ計上"
+      },
+      {
+        "cmd": "slow aggregate review manifest reproduction",
+        "status": "fail",
+        "summary": "親modelTurnsのqueue集計にattempt end-to-end値が混在"
+      }
+    ],
+    "summary": "T004の5 blockerは概ね閉じたが、親modelTurnsのqueue waitに異種定義が混在し、writer worker activeの開始もmanifest read後だったためcommitを再度拒否した。",
+    "remaining_blockers": [
+      "親modelTurnsへcandidateのmodel backlog起点end-to-end queue waitを混入している",
+      "commitWriter worker activeがrun_commit入口ではなくstore.get後から始まる"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 7,
+    "stopped_because": null,
+    "decision": "rejected",
+    "safe_to_commit": false,
+    "blocker_closure_map": [
+      {
+        "blocker": "questionWindow refill定義",
+        "status": "closed"
+      },
+      {
+        "blocker": "attempt aggregate review待ち時間",
+        "status": "closed"
+      },
+      {
+        "blocker": "writer workerとlock-held分離",
+        "status": "closed_with_residual_defect"
+      },
+      {
+        "blocker": "callback例外と途中lock取得失敗",
+        "status": "closed"
+      },
+      {
+        "blocker": "scheduler非変更と後方互換",
+        "status": "closed"
+      }
+    ],
+    "residual_risks": [
+      "実App Serverを使う代表runとAPI readbackはgoal完了前に必要",
+      "telemetry欠測を明示するcompleteness fieldはない"
+    ]
+  }
+}

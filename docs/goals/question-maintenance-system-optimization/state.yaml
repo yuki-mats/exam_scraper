@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T004
+active_task: T010
 tasks:
   - id: T001
     type: pm
@@ -221,7 +221,7 @@ tasks:
   - id: T004
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T002のtelemetry実装を、run固有性、monotonic duration、refill定義、writer非干渉、後方互換、検証証拠の観点から反証監査する"
     inputs:
@@ -239,6 +239,405 @@ tasks:
       - "Evidence map"
       - "Required corrections"
       - "Whether the telemetry slice is safe to commit"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "read T002/T003 receipts, goal.md, state.yaml, telemetry diff and related tests"
+          status: pass
+          summary: "監査対象と検証履歴を確認"
+        - cmd: "git diff --check"
+          status: pass
+          summary: "whitespace errorなし"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python <inline refill/callback-failure reproduction>"
+          status: fail
+          summary: "同一問題内turnのrefill誤計上とcallback例外によるscope lockリークを再現"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python <inline writer-group reproduction>"
+          status: fail
+          summary: "lock待機workerがgroup別activeへ誤計上されることを再現"
+      summary: "run固有集計、monotonic duration、reader-thread callbackのI/O非実行、scheduler非変更、後方互換は確認した。一方、refillとattempt queue waitの定義、writer group指標、lock callback例外時の解放にblocking defectがあるためcommitを拒否した。"
+      remaining_blockers:
+        - "refillLatencySecondsが問題枠補充ではなく任意のmodel turn終了と次turn開始をFIFO対応している"
+        - "01工程のattempt queueWaitSecondsがaggregate review実行時間を欠落する"
+        - "commitWriter.peakInFlightByGroupがlock待機workerを含み、同一groupのlock-held writer数を示さない"
+        - "scope lock取得後のtelemetry callback例外でExitStackが閉じられずlockが残る"
+        - "評価待ちqueueの一問完了ごとの自動補充を直接検証する実装・テスト証拠がない"
+      needs_judge: false
+      verification_attempts: 4
+      stopped_because: null
+      decision: rejected
+      safe_to_commit: false
+      evidence_map:
+        - claim: "model turn metricsはrun固有"
+          verdict: pass
+        - claim: "durationはmonotonic基準"
+          verdict: pass
+        - claim: "attempt queue waitはexecutor投入からcandidate開始まで"
+          verdict: fail
+        - claim: "refillは一問完了後の次問題補充を証明"
+          verdict: fail
+        - claim: "writer telemetryは安全境界と一致し例外非干渉"
+          verdict: fail
+      required_corrections:
+        - "question/window slotの解放と、待機中だった別問題の初回入場を明示的に関連付ける"
+        - "model backlog投入時のmonotonic originからcandidate startedまでを直接測る"
+        - "writer worker activeとscope-lock-held activeを別指標にする"
+        - "callback例外でもExitStackを必ず閉じ、transaction結果へ波及させない"
+        - "正本文書を修正後の厳密な起点、終点、除外条件へ更新する"
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T004の反証結果に従い、問題window補充、candidate待ち時間、writer lock-held並列度、callback例外非干渉を正しい計測単位へ修正する"
+    inputs:
+      - "T004 receipt and required corrections"
+      - "Current uncommitted telemetry diff"
+      - "Existing question/window scheduler and scope-lock implementation"
+    constraints:
+      - "scheduler、同時実行数、queue優先順、公開処理の挙動を変更しない。"
+      - "refillは問題windowの実際のslot解放から、待機中だった別問題のwindow入場までだけを測る。同一問題内turn、aggregate review、retryをrefillに数えない。"
+      - "attempt queue waitはmodel backlog投入のmonotonic時刻からcandidate turn/started通知までを直接測る。"
+      - "writer worker activeとscope-lock-held activeを別指標にし、同一groupのlock-held peak=1を証明する。"
+      - "telemetry callback例外でlockをリークせず、transaction結果へ波及させない。"
+      - "App Server reader callbackとscope-lock内で永続I/Oをしない。"
+      - "既存manifest/attempt readerとの後方互換、00_source、ID、patchを維持する。"
+    expected_output:
+      - "questionWindowのadmitted/released/refill telemetry"
+      - "candidate開始までを欠落なく測るattempt telemetry"
+      - "workerとlock-heldを分離したcommitWriter telemetry"
+      - "callback例外でもlock解放を証明する決定的テスト"
+      - "修正後の厳密な計測定義を記した正本文書"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_run_state.py tools/question_review_console/question_work_queue.py tools/question_review_console/codex_app_server.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "正しいrefillの計測にscheduler挙動変更が必要になる。"
+      - "既存成果物の書換え又はmigrationが必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - document/operations/local_question_review_console.md
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_codex_app_server.py
+        - tests/test_question_review_qualification_runs.py
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/qualification_runs.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "225 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "914 tests passed"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_run_state.py tools/question_review_console/question_work_queue.py tools/question_review_console/codex_app_server.py"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      summary: "model turn FIFOから問題windowの実補充へ計測を移し、21問/capacity 10で11件、100問/capacity 100で0件を証明した。prepared backlog起点からcandidate開始までの待ち時間、writer workerとscope-lock-heldの分離、callback例外時のlock解放を実装した。PM再読で工程segment境界のrelease持越しも除去し専用テストを追加した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 4
+      stopped_because: null
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T004で拒否したtelemetry差分が、T005で正しい問題window補充とwriter lock安全境界へ修正されたかを再監査する"
+    inputs:
+      - "T004 rejected receipt"
+      - "T005 done receipt"
+      - "Current corrected telemetry diff"
+      - "225 focused and 914 full regression results"
+    constraints:
+      - "Read-only."
+      - "前回指摘5件を一件ずつ再現又はコード証拠で閉じる。"
+      - "初期入場、同一question、retry、aggregate turn、segment境界をrefillに数える実装を拒否する。"
+      - "lock待機workerをgroup別lock-heldへ数える実装を拒否する。"
+      - "callback例外、取得途中例外、永続I/Oでlock又はtransaction結果が影響を受ける場合は拒否する。"
+      - "scheduler又はqueue挙動の変更が混入していれば拒否する。"
+    expected_output:
+      - "approved | rejected"
+      - "T004 blocker closure map"
+      - "Residual risks"
+      - "safe_to_commit"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "read T004/T005 receipts, current telemetry diff and focused tests"
+          status: pass
+        - cmd: "five telemetry contract and queue tests"
+          status: pass
+          summary: "callback、segment、writer lock、aggregate wait、21/100問契約が成功"
+        - cmd: "partial lock acquisition failure reproduction"
+          status: pass
+          summary: "取得済みlockを解放"
+        - cmd: "question-window exclusion matrix"
+          status: pass
+          summary: "別waiting questionだけをrefillへ計上"
+        - cmd: "slow aggregate review manifest reproduction"
+          status: fail
+          summary: "親modelTurnsのqueue集計にattempt end-to-end値が混在"
+      summary: "T004の5 blockerは概ね閉じたが、親modelTurnsのqueue waitに異種定義が混在し、writer worker activeの開始もmanifest read後だったためcommitを再度拒否した。"
+      remaining_blockers:
+        - "親modelTurnsへcandidateのmodel backlog起点end-to-end queue waitを混入している"
+        - "commitWriter worker activeがrun_commit入口ではなくstore.get後から始まる"
+      needs_judge: false
+      verification_attempts: 7
+      stopped_because: null
+      decision: rejected
+      safe_to_commit: false
+      blocker_closure_map:
+        - blocker: "questionWindow refill定義"
+          status: closed
+        - blocker: "attempt aggregate review待ち時間"
+          status: closed
+        - blocker: "writer workerとlock-held分離"
+          status: closed_with_residual_defect
+        - blocker: "callback例外と途中lock取得失敗"
+          status: closed
+        - blocker: "scheduler非変更と後方互換"
+          status: closed
+      residual_risks:
+        - "実App Serverを使う代表runとAPI readbackはgoal完了前に必要"
+        - "telemetry欠測を明示するcompleteness fieldはない"
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T006で検出した親model turn queue定義の混在とwriter worker開始位置の2点だけを修正する"
+    inputs:
+      - "T006 rejected receipt"
+      - "Current corrected telemetry diff"
+    constraints:
+      - "親modelTurnsにはApp Server lifecycle callbackの元queueWaitSecondsだけを集計する。"
+      - "model backlog起点のend-to-end値はattempt modelTurnTelemetryだけに保存する。"
+      - "commitWriter worker activeはrun_commit入口かつ永続I/O前から計測する。"
+      - "group別安全境界はscope-lock-held指標だけで表す。"
+      - "その他のscheduler、queue、telemetry定義を変更しない。"
+      - "00_source、patch、ID、既存成果物を変更しない。"
+    expected_output:
+      - "異種queue waitを分離する回帰テスト"
+      - "遅いmanifest readもworker activeへ含む回帰テスト"
+      - "225+ focused、914+ full regression"
+    allowed_files:
+      - "tests/test_question_review_qualification_runs.py"
+      - "tools/question_review_console/qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "修正にscheduler又はqueue挙動変更が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tests/test_question_review_qualification_runs.py
+        - tools/question_review_console/qualification_runs.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "226 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "915 tests passed"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+      summary: "親modelTurnsはApp Server callback元のqueue waitだけを集計し、backlog起点のend-to-end待ち時間はattemptだけへ保存するよう分離した。commitWriter worker activeをrun_commit入口・永続I/O前へ移し、aggregate review遅延と遅いmanifest readの決定的テストを追加した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T008
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T006で新規検出した2件が閉じ、telemetry改善全体を安全にcommitできるか最終監査する"
+    inputs:
+      - "T004 and T006 rejected receipts"
+      - "T005 and T007 worker receipts"
+      - "Current full telemetry diff"
+      - "226 focused and 915 full regression results"
+    constraints:
+      - "Read-only."
+      - "親modelTurns、attempt end-to-end wait、writer worker、scope-lock-heldの各定義が混在していれば拒否する。"
+      - "前回再現を再実行し、scheduler非変更、callback非干渉、後方互換を再確認する。"
+      - "新たなblocking defectがなければsafe_to_commitを明示する。"
+    expected_output:
+      - "approved | rejected"
+      - "All blocker closure map"
+      - "safe_to_commit"
+      - "Required pre-commit verification"
+    receipt:
+      result: done
+      changed_files: []
+      commands:
+        - cmd: "six telemetry contract and queue tests"
+          status: pass
+          summary: "refill、segment、writer lock、slow aggregate、slow manifest read、21/100問契約が成功"
+        - cmd: "slow aggregate review manifest reproduction"
+          status: pass
+          summary: "parent App Server waitとattempt end-to-end waitを分離"
+        - cmd: "question-window exclusion and lock failure matrix"
+          status: pass
+          summary: "除外条件、途中lock取得失敗、callback例外の非干渉を確認"
+        - cmd: "three App Server lifecycle tests"
+          status: pass
+          summary: "protocol lifecycle、monotonic duration、early notificationが成功"
+        - cmd: "review T007 verification receipt and git scope"
+          status: pass
+          summary: "226 focused、915 full、5799 immutable、scheduler非変更"
+      summary: "過去2回の全拒否理由が閉じ、parent modelTurns、attempt end-to-end wait、writer worker active、scope-lock-held/groupを明確に分離した。telemetry sliceをsafe_to_commit=trueで承認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 7
+      stopped_because: null
+      decision: approved
+      safe_to_commit: true
+      blocker_closure_map:
+        - blocker: "questionWindow refillと全除外条件"
+          status: closed
+        - blocker: "attemptとparent model turn queue waitの分離"
+          status: closed
+        - blocker: "writer workerとscope-lock-held/groupの分離"
+          status: closed
+        - blocker: "callback例外、途中lock取得失敗、lock解放"
+          status: closed
+        - blocker: "run固有App Server lifecycle、scheduler非変更、後方互換"
+          status: closed
+      required_pre_commit_verification:
+        - "226 focused tests"
+        - "915 full question-review tests"
+        - py_compile
+        - "5799 source immutability"
+        - "git diff scope and origin/main parity"
+  - id: T009
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "承認済みtelemetry改善を最終検証し、product差分だけを独立commitしてorigin/mainへpushする"
+    inputs:
+      - "T008 approved receipt"
+      - "Current telemetry diff"
+    constraints:
+      - "T008のpre-commit verificationを全件再実行する。"
+      - "product 6ファイルだけを一つの改善commitへstageする。"
+      - "GoalBuddy control/receiptはproduct commitへ混ぜない。"
+      - "00_source、patch、既存run成果物を含めない。"
+      - "origin/main以外へpushしない。"
+    expected_output:
+      - "verified telemetry product commit"
+      - "origin/main push readback"
+      - "clean product diff with GoalBuddy control files only remaining"
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/qualification_run_test_support.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_run_state.py tools/question_review_console/question_work_queue.py tools/question_review_console/codex_app_server.py"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git rev-list --left-right --count origin/main...HEAD"
+    stop_if:
+      - "pre-commit verificationが一件でも失敗する。"
+      - "product 6ファイル以外がstagedされる。"
+      - "origin/mainが先行して競合する。"
+    receipt:
+      result: done
+      changed_files:
+        - document/operations/local_question_review_console.md
+        - tests/qualification_run_test_support.py
+        - tests/test_question_review_codex_app_server.py
+        - tests/test_question_review_qualification_runs.py
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/qualification_runs.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs"
+          status: pass
+          summary: "226 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "915 tests passed"
+        - cmd: ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_run_state.py tools/question_review_console/question_work_queue.py tools/question_review_console/codex_app_server.py"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          summary: "5799 files unchanged"
+        - cmd: "git diff --check and staged scope audit"
+          status: pass
+          summary: "product 6 files only"
+        - cmd: "git commit and push origin main"
+          status: pass
+          summary: "34cddff07 feat: add run-local question pipeline telemetry"
+        - cmd: "git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+          summary: "0 0"
+      summary: "run固有telemetry改善を全検証後にproduct 6ファイルだけで独立commitし、origin/mainへpushした。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      commit: 34cddff07619aee5f7c6ba15e4d71d352093fe90
+      pushed_to: origin/main
+  - id: T010
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "第二改善の型付きcandidate DTOについて、現行transport、schema、resume、commit境界を反証調査し、最大の安全な単一実装sliceを確定する"
+    inputs:
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "config/question_maintenance_workflow.toml"
+      - "candidate schema and resume tests"
+      - "T001 skeptical audit"
+    constraints:
+      - "Read-only."
+      - "新規runはnative JSON値を使い、valueJson二重JSONを残さない。"
+      - "モデルは意味判断fieldだけを返し、run ID、hash、日時、確定状態はserverが決定する。"
+      - "unknown field、重複target、型違反はfail-closedにする。"
+      - "既存candidate v2はresume/readback専用に読める状態を維持し、新規runだけをv3にする。"
+      - "既存prepared candidate、patch、00_source、question IDを移行書換えしない。"
+      - "一問一turn、最大100問window、単一writerを変更しない。"
+      - "互換shim、dual-write、汎用migration frameworkを必要以上に増やさない。"
+    expected_output:
+      - "approved DTO shape and schema version"
+      - "server-owned field boundary"
+      - "v2 read/v3 write compatibility path"
+      - "exact implementation files and tests"
+      - "rejected alternatives and stop conditions"
     receipt: null
   - id: T999
     type: judge

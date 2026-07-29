@@ -1,0 +1,72 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T004",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [],
+    "commands": [
+      {
+        "cmd": "read T002/T003 receipts, goal.md, state.yaml, telemetry diff and related tests",
+        "status": "pass",
+        "summary": "監査対象と検証履歴を確認"
+      },
+      {
+        "cmd": "git diff --check",
+        "status": "pass",
+        "summary": "whitespace errorなし"
+      },
+      {
+        "cmd": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python <inline refill/callback-failure reproduction>",
+        "status": "fail",
+        "summary": "同一問題内turnのrefill誤計上とcallback例外によるscope lockリークを再現"
+      },
+      {
+        "cmd": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python <inline writer-group reproduction>",
+        "status": "fail",
+        "summary": "lock待機workerがgroup別activeへ誤計上されることを再現"
+      }
+    ],
+    "summary": "run固有集計、monotonic duration、reader-thread callbackのI/O非実行、scheduler非変更、後方互換は確認した。一方、refillとattempt queue waitの定義、writer group指標、lock callback例外時の解放にblocking defectがあるためcommitを拒否した。",
+    "remaining_blockers": [
+      "refillLatencySecondsが問題枠補充ではなく任意のmodel turn終了と次turn開始をFIFO対応している",
+      "01工程のattempt queueWaitSecondsがaggregate review実行時間を欠落する",
+      "commitWriter.peakInFlightByGroupがlock待機workerを含み、同一groupのlock-held writer数を示さない",
+      "scope lock取得後のtelemetry callback例外でExitStackが閉じられずlockが残る",
+      "評価待ちqueueの一問完了ごとの自動補充を直接検証する実装・テスト証拠がない"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 4,
+    "stopped_because": null,
+    "decision": "rejected",
+    "safe_to_commit": false,
+    "evidence_map": [
+      {
+        "claim": "model turn metricsはrun固有",
+        "verdict": "pass"
+      },
+      {
+        "claim": "durationはmonotonic基準",
+        "verdict": "pass"
+      },
+      {
+        "claim": "attempt queue waitはexecutor投入からcandidate開始まで",
+        "verdict": "fail"
+      },
+      {
+        "claim": "refillは一問完了後の次問題補充を証明",
+        "verdict": "fail"
+      },
+      {
+        "claim": "writer telemetryは安全境界と一致し例外非干渉",
+        "verdict": "fail"
+      }
+    ],
+    "required_corrections": [
+      "question/window slotの解放と、待機中だった別問題の初回入場を明示的に関連付ける",
+      "model backlog投入時のmonotonic originからcandidate startedまでを直接測る",
+      "writer worker activeとscope-lock-held activeを別指標にする",
+      "callback例外でもExitStackを必ず閉じ、transaction結果へ波及させない",
+      "正本文書を修正後の厳密な起点、終点、除外条件へ更新する"
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T008",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [],
+    "commands": [
+      {
+        "cmd": "six telemetry contract and queue tests",
+        "status": "pass",
+        "summary": "refill、segment、writer lock、slow aggregate、slow manifest read、21/100問契約が成功"
+      },
+      {
+        "cmd": "slow aggregate review manifest reproduction",
+        "status": "pass",
+        "summary": "parent App Server waitとattempt end-to-end waitを分離"
+      },
+      {
+        "cmd": "question-window exclusion and lock failure matrix",
+        "status": "pass",
+        "summary": "除外条件、途中lock取得失敗、callback例外の非干渉を確認"
+      },
+      {
+        "cmd": "three App Server lifecycle tests",
+        "status": "pass",
+        "summary": "protocol lifecycle、monotonic duration、early notificationが成功"
+      },
+      {
+        "cmd": "review T007 verification receipt and git scope",
+        "status": "pass",
+        "summary": "226 focused、915 full、5799 immutable、scheduler非変更"
+      }
+    ],
+    "summary": "過去2回の全拒否理由が閉じ、parent modelTurns、attempt end-to-end wait、writer worker active、scope-lock-held/groupを明確に分離した。telemetry sliceをsafe_to_commit=trueで承認した。",
+    "remaining_blockers": [],
+    "needs_judge": false,
+    "verification_attempts": 7,
+    "stopped_because": null,
+    "decision": "approved",
+    "safe_to_commit": true,
+    "blocker_closure_map": [
+      {
+        "blocker": "questionWindow refillと全除外条件",
+        "status": "closed"
+      },
+      {
+        "blocker": "attemptとparent model turn queue waitの分離",
+        "status": "closed"
+      },
+      {
+        "blocker": "writer workerとscope-lock-held/groupの分離",
+        "status": "closed"
+      },
+      {
+        "blocker": "callback例外、途中lock取得失敗、lock解放",
+        "status": "closed"
+      },
+      {
+        "blocker": "run固有App Server lifecycle、scheduler非変更、後方互換",
+        "status": "closed"
+      }
+    ],
+    "required_pre_commit_verification": [
+      "226 focused tests",
+      "915 full question-review tests",
+      "py_compile",
+      "5799 source immutability",
+      "git diff scope and origin/main parity"
+    ]
+  }
+}

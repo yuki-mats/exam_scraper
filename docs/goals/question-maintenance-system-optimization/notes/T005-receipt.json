@@ -1,0 +1,45 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T005",
+    "board_path": "docs/goals/question-maintenance-system-optimization/state.yaml",
+    "changed_files": [
+      "document/operations/local_question_review_console.md",
+      "tests/qualification_run_test_support.py",
+      "tests/test_question_review_codex_app_server.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tools/question_review_console/codex_app_server.py",
+      "tools/question_review_console/qualification_runs.py"
+    ],
+    "commands": [
+      {
+        "cmd": ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs",
+        "status": "pass",
+        "summary": "225 tests passed"
+      },
+      {
+        "cmd": ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'",
+        "status": "pass",
+        "summary": "914 tests passed"
+      },
+      {
+        "cmd": ".venv/bin/python -m py_compile tools/question_review_console/qualification_runs.py tools/question_review_console/question_run_state.py tools/question_review_console/question_work_queue.py tools/question_review_console/codex_app_server.py",
+        "status": "pass"
+      },
+      {
+        "cmd": ".venv/bin/python scripts/check/check_00_source_immutability.py",
+        "status": "pass",
+        "summary": "5799 files unchanged"
+      },
+      {
+        "cmd": "git diff --check",
+        "status": "pass"
+      }
+    ],
+    "summary": "model turn FIFOから問題windowの実補充へ計測を移し、21問/capacity 10で11件、100問/capacity 100で0件を証明した。prepared backlog起点からcandidate開始までの待ち時間、writer workerとscope-lock-heldの分離、callback例外時のlock解放を実装した。PM再読で工程segment境界のrelease持越しも除去し専用テストを追加した。",
+    "remaining_blockers": [],
+    "needs_judge": true,
+    "verification_attempts": 4,
+    "stopped_because": null
+  }
+}
