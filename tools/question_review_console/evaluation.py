@@ -969,11 +969,7 @@ class QuestionEvaluationService:
         question: Mapping[str, Any],
         run_id: str,
     ) -> Mapping[str, Any] | None:
-        group = self.work_versions.load_group(
-            str(question["qualification"]),
-            str(question["listGroupId"]),
-        )
-        record = (group.get("questions") or {}).get(_question_key_hash(question))
+        record = self.work_versions.record_for(question)
         expected_identity = {
             "reviewKey": str(question.get("reviewKey") or ""),
             "questionId": str(question.get("id") or ""),

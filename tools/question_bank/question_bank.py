@@ -712,7 +712,7 @@ def add_work_version_backfill_parser(
     parser.add_argument(
         "--execute",
         action="store_true",
-        help="Write local work_versions.json files. Without this flag, read-only dry-run.",
+        help="Write local one-question work version files. Without this flag, read-only dry-run.",
     )
     parser.add_argument("--credentials-json", type=Path)
 
@@ -722,13 +722,13 @@ def add_work_version_migration_parser(
 ) -> None:
     parser = subparsers.add_parser(
         "migrate-work-versions",
-        help="Normalize local work versions to MAJOR.MINOR strings.",
+        help="Split legacy group work versions into validated one-question files.",
     )
     parser.set_defaults(command="migrate-work-versions")
     parser.add_argument(
         "--execute",
         action="store_true",
-        help="Rewrite validated work_versions.json files. Without this flag, dry-run.",
+        help="Write one-question files and remove validated legacy group files. Without this flag, dry-run.",
     )
 
 

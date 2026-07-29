@@ -1022,21 +1022,22 @@ class QualificationRunError(RuntimeError):
 
 
 def normalize_question_concurrency(value: Any) -> int:
+    option_labels = "、".join(str(option) for option in QUESTION_CONCURRENCY_OPTIONS)
     if isinstance(value, bool):
         raise QualificationRunError(
-            "同時処理上限は1、5、10、32、64から選択してください。"
+            f"同時処理上限は{option_labels}から選択してください。"
         )
     try:
         concurrency = int(value)
     except (TypeError, ValueError) as exc:
         raise QualificationRunError(
-            "同時処理上限は1、5、10、32、64から選択してください。"
+            f"同時処理上限は{option_labels}から選択してください。"
         ) from exc
     if (
         isinstance(value, float) and value != concurrency
     ) or concurrency not in QUESTION_CONCURRENCY_OPTIONS:
         raise QualificationRunError(
-            "同時処理上限は1、5、10、32、64から選択してください。"
+            f"同時処理上限は{option_labels}から選択してください。"
         )
     return concurrency
 
@@ -14303,11 +14304,19 @@ class QualificationRunCoordinator:
                         )
                     )
                     work_version_paths = tuple(
-                        self.work_versions.path_for(
-                            qualification,
-                            list_group_id,
-                        ).relative_to(self.repo_root)
-                        for list_group_id in target_group_ids
+                        path.relative_to(self.repo_root)
+                        for path in (
+                            self.work_versions.transaction_paths_for_questions(
+                                {
+                                    **target,
+                                    "qualification": qualification,
+                                }
+                                for target in (
+                                    question_plan.get("progressTargets") or []
+                                )
+                                if isinstance(target, Mapping)
+                            )
+                        )
                     )
                     record_work_version = not hold_cleanup_required
                     self._check_source_immutability(
@@ -14835,18 +14844,38 @@ class QualificationRunCoordinator:
                 current_run,
                 writable_roots,
             )
+            work_version_questions = [
+                {
+                    **target,
+                    "qualification": qualification,
+                }
+                for target in (current_run.get("progressTargets") or [])
+                if isinstance(target, Mapping)
+            ]
+            if not work_version_questions:
+                inventory = getattr(self.workflow, "inventory", None)
+                if inventory is not None:
+                    for list_group_id in (
+                        current_run.get("targetGroupIds") or []
+                    ):
+                        group = inventory.group(
+                            qualification,
+                            str(list_group_id),
+                        )
+                        work_version_questions.extend(
+                            {
+                                **question,
+                                "qualification": qualification,
+                            }
+                            for question in (group.get("questions") or [])
+                            if isinstance(question, Mapping)
+                        )
             transaction_roots = tuple(
                 dict.fromkeys(
                     [
                         *scoped_transaction_roots,
-                        *(
-                            self.work_versions.path_for(
-                                qualification, str(list_group_id)
-                            )
-                            for list_group_id in current_run.get(
-                                "targetGroupIds"
-                            )
-                            or []
+                        *self.work_versions.transaction_paths_for_questions(
+                            work_version_questions
                         ),
                     ]
                 )
@@ -15573,8 +15602,6 @@ class QualificationRunCoordinator:
                 else None
             )
             planned.append((selected, policy, partial_target_ids))
-        for list_group_id in run.get("targetGroupIds") or []:
-            self.work_versions.load_group(qualification, str(list_group_id))
         receipts = [
             self.work_versions.record_stage(
                 selected,

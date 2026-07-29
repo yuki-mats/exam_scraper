@@ -84,7 +84,7 @@ class DocumentationStructureTests(unittest.TestCase):
 
         for concept in (
             "開始前bytes",
-            "work_versions.json",
+            "work_versions/",
             "failed delta",
             "question_started",
             "stage_completed",
@@ -101,7 +101,7 @@ class DocumentationStructureTests(unittest.TestCase):
             "/technical-log",
         ):
             self.assertIn(concept, text)
-        for concept in ("baseline", "work_versions.json", "direct_edit_transactions"):
+        for concept in ("baseline", "work_versions/", "direct_edit_transactions"):
             self.assertIn(concept, artifact_contract)
 
     def test_law_audit_sidecar_v2_uses_source_identity(self):

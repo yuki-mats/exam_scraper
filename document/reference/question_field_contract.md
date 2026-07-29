@@ -46,7 +46,7 @@
    - `answer_result_text`が複数番号を示す問題は、資格・問題形式により正規の仕様として存在する。
    - 単一正解を要求する検証は、対象資格と`questionType`を明示的に限定する。
 8. 作業バージョンをFirestore fieldにしない。
-   - 問題ごとの工程版履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions.json`で管理する。
+   - 問題ごとの工程版履歴は`output/question_review_console/<qualification>/<listGroupId>/work_versions/<reviewKeyのsha256先頭24桁>.json`で一問ずつ管理する。
    - 版の意味と公開条件は[問題整備システム](../operations/local_question_review_console.md#作業バージョン)を正本とする。
 
 ## 01〜02aの責務と検証順
@@ -441,7 +441,7 @@ patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`
 | 法令スコープ、短縮表記、現行法監査方針 | `prompt/qualification_docs/<qualification>/*law_reference*.md` | `lawReferences` / `explanationText` / `suggestedQuestionDetailsByChoice` に反映 |
 | 03前の法令作業メモ | `18_law_context_prepared[].lawContextForExplanation` | Firestore には入れない。03の文章化補助だけに使う |
 | 作業中の不確実性、AI再確認対象 | `99_model_review_flags/`, review sidecar, goal notes | 入れない |
-| 問題ごとの整備・評価工程版 | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 入れない |
+| 問題ごとの整備・評価工程版 | `output/question_review_console/<qualification>/<listGroupId>/work_versions/<reviewKeyのsha256先頭24桁>.json` | 入れない |
 | 元サイト固有の一時キー | `00_source` または intermediate JSON | 入れない |
 
 Firestore に資格固有キーを入れたい場合は、この文書の更新だけでは足りません。`repaso` の DB schema と app UI まで含めた仕様変更として扱います。

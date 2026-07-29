@@ -661,7 +661,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         self.assertEqual(run["rollback"]["status"], "succeeded")
         self.assertEqual(run["threadId"], "thread-failed-1")
         self.assertEqual(run["turnId"], "turn-failed-1")
-        self.assertIn(
+        self.assertNotIn(
             "output/question_review_console/sample/2026/work_versions.json",
             baseline["writeTransaction"]["roots"],
         )

@@ -141,7 +141,7 @@ UIは全pageを自動結合せず、「前へ」「次へ」でpage単位に置�
 
 ## 正本と三つの状態
 
-v2では、不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、`attempts/<token>/`の`progress.jsonl`・`result.json`・baseline、receipt、保存済みpatch、`work_versions.json`をworkflowの正本とします。`question_summary.json`、monitor event、replay、snapshotは表示のための再構築可能な観測projectionであり、工程完了、patch確定、公開可否を決めません。v1 runは既存の親・子manifestを読めますが、新規runでは生成しません。
+v2では、不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、`attempts/<token>/`の`progress.jsonl`・`result.json`・baseline、receipt、保存済みpatch、一問単位の`work_versions/<reviewKey hash>.json`をworkflowの正本とします。`question_summary.json`、monitor event、replay、snapshotは表示のための再構築可能な観測projectionであり、工程完了、patch確定、公開可否を決めません。v1 runは既存の親・子manifestを読めますが、新規runでは生成しません。
 
 画面とAPIは、次の状態を混ぜません。
 

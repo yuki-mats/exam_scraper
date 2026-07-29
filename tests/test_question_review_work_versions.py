@@ -91,12 +91,12 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             saved_counts = [
                 len(
                     json.loads(
-                        store.path_for("sample", group_id).read_text(
+                        store.question_path_for(item).read_text(
                             encoding="utf-8"
                         )
                     )["questions"]
                 )
-                for group_id in ("2025", "2026")
+                for item in items
             ]
 
         self.assertEqual(peak_writes, 2)
@@ -106,10 +106,11 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         )
         self.assertEqual(saved_counts, [1, 1])
 
-    def test_same_work_version_path_serializes_without_lost_updates(self):
+    def test_distinct_questions_in_same_group_write_concurrently(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))
             original_atomic_write = work_versions_module.atomic_write
+            rendezvous = threading.Barrier(2)
             counter_lock = threading.Lock()
             active_writes = 0
             peak_writes = 0
@@ -120,7 +121,7 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
                     active_writes += 1
                     peak_writes = max(peak_writes, active_writes)
                 try:
-                    time.sleep(0.05)
+                    rendezvous.wait(timeout=3)
                     original_atomic_write(path, content)
                 finally:
                     with counter_lock:
@@ -147,16 +148,67 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
                         for index, item in enumerate(items, start=1)
                     ]
                     receipts = [future.result(timeout=5) for future in futures]
-            saved = json.loads(
-                store.path_for("sample", "2026").read_text(encoding="utf-8")
-            )
+            saved = store.load_group("sample", "2026")
+
+        self.assertEqual(peak_writes, 2)
+        self.assertEqual(
+            [receipt["recordedCount"] for receipt in receipts],
+            [1, 1],
+        )
+        self.assertEqual(len(saved["questions"]), 2)
+
+    def test_same_question_path_serializes_without_lost_updates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            original_atomic_write = work_versions_module.atomic_write
+            counter_lock = threading.Lock()
+            active_writes = 0
+            peak_writes = 0
+            item = question_for("1", list_group_id="2026")
+
+            def observed_atomic_write(path, content):
+                nonlocal active_writes, peak_writes
+                with counter_lock:
+                    active_writes += 1
+                    peak_writes = max(peak_writes, active_writes)
+                try:
+                    time.sleep(0.05)
+                    original_atomic_write(path, content)
+                finally:
+                    with counter_lock:
+                        active_writes -= 1
+
+            with patch.object(
+                work_versions_module,
+                "atomic_write",
+                side_effect=observed_atomic_write,
+            ):
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    futures = [
+                        executor.submit(
+                            store.record_stage,
+                            [item],
+                            policy(stage_id),
+                            run_id=f"run-{index}",
+                            source="validated_run",
+                        )
+                        for index, stage_id in enumerate(
+                            ("question_type", "law_audit"),
+                            start=1,
+                        )
+                    ]
+                    receipts = [future.result(timeout=5) for future in futures]
+            record = store.record_for(item)
 
         self.assertEqual(peak_writes, 1)
         self.assertEqual(
             [receipt["recordedCount"] for receipt in receipts],
             [1, 1],
         )
-        self.assertEqual(len(saved["questions"]), 2)
+        self.assertEqual(
+            set(record["stages"]),
+            {"question_type", "law_audit"},
+        )
 
     def test_manual_policy_is_tracked_only_after_its_patch_exists(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -225,7 +277,7 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))
             with self.assertRaisesRegex(ValueError, "invalid"):
-                store.path_for("..", "2026")
+                store.question_directory_for("..", "2026")
 
     def test_legacy_version_is_outdated_and_current_run_replaces_it(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -291,27 +343,136 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             store.record_stage(
                 [item], policy(), run_id="run-1", source="validated_run"
             )
-            path = store.path_for("sample", "2026")
-            payload = json.loads(path.read_text(encoding="utf-8"))
+            question_path = store.question_path_for(item)
+            payload = json.loads(question_path.read_text(encoding="utf-8"))
             payload["schemaVersion"] = "question-work-versions/v1"
             stage = next(iter(payload["questions"].values()))["stages"]["question_type"]
             stage["version"] = 1
             stage["history"] = [{"version": 0}]
-            path.write_text(
+            legacy_path = store.legacy_group_path_for("sample", "2026")
+            legacy_path.write_text(
                 json.dumps(payload, ensure_ascii=False),
                 encoding="utf-8",
             )
+            question_path.unlink()
 
             dry_run = QuestionWorkVersionStore(root).migrate_all()
             migrated = QuestionWorkVersionStore(root).migrate_all(execute=True)
-            saved = json.loads(path.read_text(encoding="utf-8"))
+            saved = json.loads(question_path.read_text(encoding="utf-8"))
 
-        self.assertEqual(dry_run["changedFileCount"], 1)
+        self.assertEqual(dry_run["changedFileCount"], 2)
         self.assertEqual(migrated["stageRecordCount"], 1)
-        self.assertEqual(saved["schemaVersion"], "question-work-versions/v3")
+        self.assertEqual(saved["schemaVersion"], "question-work-versions/v4")
+        self.assertFalse(legacy_path.exists())
         saved_stage = next(iter(saved["questions"].values()))["stages"]["question_type"]
         self.assertEqual(saved_stage["version"], "1.0")
         self.assertEqual(saved_stage["history"][0]["version"], "0.0")
+
+    def test_migration_reconciles_legacy_ui_identity_into_canonical_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QuestionWorkVersionStore(root)
+            canonical = question()
+            legacy = {**canonical, "reviewKey": canonical["id"]}
+            store.record_stage(
+                [canonical],
+                policy("question_type"),
+                run_id="question-type-run",
+                source="validated_run",
+            )
+            store.record_stage(
+                [legacy],
+                policy("law_audit"),
+                run_id="law-audit-run",
+                source="validated_run",
+            )
+            group = store.load_group("sample", "2026")
+            group["schemaVersion"] = "question-work-versions/v3"
+            legacy_path = store.legacy_group_path_for("sample", "2026")
+            legacy_path.write_text(
+                json.dumps(group, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            for path in store.question_directory_for(
+                "sample",
+                "2026",
+            ).glob("*.json"):
+                path.unlink()
+
+            result = QuestionWorkVersionStore(root).migrate_all(execute=True)
+            migrated_store = QuestionWorkVersionStore(root)
+            record = migrated_store.record_for(canonical)
+            question_files = list(
+                migrated_store.question_directory_for(
+                    "sample",
+                    "2026",
+                ).glob("*.json")
+            )
+
+        self.assertEqual(result["questionCount"], 1)
+        self.assertEqual(len(question_files), 1)
+        self.assertFalse(legacy_path.exists())
+        self.assertEqual(
+            set(record["stages"]),
+            {"question_type", "law_audit"},
+        )
+
+    def test_migration_write_failure_restores_legacy_group_and_removes_shards(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = QuestionWorkVersionStore(root)
+            items = [
+                question_for("1", list_group_id="2026"),
+                question_for("2", list_group_id="2026"),
+            ]
+            store.record_stage(
+                items,
+                policy(),
+                run_id="run-1",
+                source="validated_run",
+            )
+            group = store.load_group("sample", "2026")
+            group["schemaVersion"] = "question-work-versions/v3"
+            legacy_path = store.legacy_group_path_for("sample", "2026")
+            legacy_path.write_text(
+                json.dumps(group, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            original_legacy = legacy_path.read_bytes()
+            for path in store.question_directory_for(
+                "sample",
+                "2026",
+            ).glob("*.json"):
+                path.unlink()
+            original_atomic_write = work_versions_module.atomic_write
+            write_count = 0
+
+            def fail_second_write(path, content):
+                nonlocal write_count
+                write_count += 1
+                if write_count == 2:
+                    raise OSError("migration write failed")
+                return original_atomic_write(path, content)
+
+            with (
+                patch.object(
+                    work_versions_module,
+                    "atomic_write",
+                    side_effect=fail_second_write,
+                ),
+                self.assertRaisesRegex(OSError, "migration write failed"),
+            ):
+                QuestionWorkVersionStore(root).migrate_all(execute=True)
+            remaining_question_files = list(
+                store.question_directory_for(
+                    "sample",
+                    "2026",
+                ).glob("*.json")
+            )
+            recovered_legacy = legacy_path.read_bytes()
+
+        self.assertEqual(recovered_legacy, original_legacy)
+        self.assertEqual(remaining_question_files, [])
 
     def test_backfill_never_overwrites_a_validated_run(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -387,6 +548,61 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         self.assertEqual(record["invalidatedRunId"], "bad-run")
         self.assertEqual(record["history"][-1]["version"], "2.0")
 
+    def test_invalidation_does_not_overwrite_a_newer_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            item = question()
+            explanation_policy = {
+                **policy("explanation"),
+                "code": "03",
+                "label": "解説",
+                "policyVersion": "2.0",
+            }
+            store.record_stage(
+                [item],
+                explanation_policy,
+                run_id="bad-run",
+                source="validated_run",
+            )
+            original_transaction_paths = (
+                store.transaction_paths_for_questions
+            )
+            injected = False
+
+            def inject_newer_run(questions):
+                nonlocal injected
+                items = list(questions)
+                if not injected:
+                    injected = True
+                    store.record_stage(
+                        [item],
+                        explanation_policy,
+                        run_id="newer-run",
+                        source="validated_run",
+                    )
+                return original_transaction_paths(items)
+
+            with patch.object(
+                store,
+                "transaction_paths_for_questions",
+                side_effect=inject_newer_run,
+            ):
+                receipt = store.invalidate_stage_run(
+                    "sample",
+                    "2026",
+                    stage_id="explanation",
+                    run_id="bad-run",
+                    question_ids=["question-1"],
+                    reason="旧runだけを無効化するため",
+                    receipt_id="invalidate-1",
+                    execute=True,
+                )
+            record = store.record_for(item)["stages"]["explanation"]
+
+        self.assertEqual(receipt["invalidatedCount"], 0)
+        self.assertEqual(receipt["skippedQuestionIds"], ["question-1"])
+        self.assertEqual(record["runId"], "newer-run")
+
     def test_law_audit_version_records_explicit_non_law_classification(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))
@@ -403,11 +619,11 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
         self.assertEqual(status["applicableCount"], 1)
         self.assertTrue(status["allCurrent"])
 
-    def test_corrupt_group_file_fails_closed_without_overwrite(self):
+    def test_corrupt_question_file_fails_closed_without_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))
             item = question()
-            path = store.path_for("sample", "2026")
+            path = store.question_path_for(item)
             path.parent.mkdir(parents=True)
             path.write_text("{broken", encoding="utf-8")
 
@@ -420,6 +636,29 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             unchanged = path.read_text(encoding="utf-8")
 
         self.assertEqual(unchanged, "{broken")
+
+    def test_corrupt_question_file_does_not_block_another_question(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            broken = question_for("1", list_group_id="2026")
+            healthy = question_for("2", list_group_id="2026")
+            broken_path = store.question_path_for(broken)
+            broken_path.parent.mkdir(parents=True)
+            broken_path.write_text("{broken", encoding="utf-8")
+
+            receipt = store.record_stage(
+                [healthy],
+                policy(),
+                run_id="healthy-run",
+                source="validated_run",
+            )
+            healthy_record = store.record_for(healthy)
+
+        self.assertEqual(receipt["recordedCount"], 1)
+        self.assertEqual(
+            healthy_record["stages"]["question_type"]["runId"],
+            "healthy-run",
+        )
 
     def test_partial_update_records_only_selected_target(self):
         target_policy = {
@@ -473,7 +712,7 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
             )
             complete = store.status_for(item, [target_policy])
             saved = json.loads(
-                store.path_for("sample", "2026").read_text(encoding="utf-8")
+                store.question_path_for(item).read_text(encoding="utf-8")
             )
 
         self.assertTrue(receipt["partial"])
@@ -526,12 +765,14 @@ class QuestionWorkVersionStoreTests(unittest.TestCase):
                 source="validated_run",
             )
             saved = json.loads(
-                store.path_for("sample", "2026").read_text(encoding="utf-8")
+                store.question_path_for(canonical).read_text(encoding="utf-8")
             )
             record = store.record_for(canonical)
+            alias_path = store.question_path_for(legacy)
 
         self.assertEqual(receipt["reconciledCount"], 1)
         self.assertEqual(len(saved["questions"]), 1)
+        self.assertFalse(alias_path.exists())
         self.assertEqual(record["reviewKey"], canonical["reviewKey"])
         self.assertEqual(
             set(record["stages"]),

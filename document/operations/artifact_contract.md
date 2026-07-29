@@ -28,7 +28,7 @@ output/<qualification>/
   reports/
 output/question_review_console/
   <qualification>/<listGroupId>/
-    work_versions.json
+    work_versions/<reviewKeyのsha256先頭24桁>.json
     evaluations/
     reviews/
   workflow_runs/<qualification>/<runId>/
@@ -36,6 +36,7 @@ output/question_review_console/
   direct_edit_transactions/<transactionId>/
   work_version_backfills/<timestamp>/manifest.json
   work_version_invalidations/<receipt_id>/manifest.json
+  work_version_migrations/<timestamp>/manifest.json
   publish_runs/<qualification>/<runId>/
   publish_queue_runs/<qualification>/<queueRunId>/
 ```
@@ -78,24 +79,24 @@ output/question_review_console/
 | law audit | `output/<qualification>/review/law_revision_audit/` | queue、sidecar、監査結果。 |
 | generated reports | `output/<qualification>/reports/` | checkerやmigrationの再生成可能なreport。 |
 | review | `output/question_review_console/<qualification>/<listGroupId>/reviews/` | 人間の指摘とCodex依頼。 |
-| work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions.json` | 検証済み問題の工程版履歴。patch又はFirestore fieldではない。 |
+| work version | `output/question_review_console/<qualification>/<listGroupId>/work_versions/<reviewKeyのsha256先頭24桁>.json` | 一問だけの検証済み工程版履歴。patch又はFirestore fieldではない。 |
 | session run | `output/question_review_console/workflow_runs/<qualification>/<runId>/` | 不変`plan.json`、小さい親`manifest.json`、`questions/<questionIdのsha256>.json`、派生`question_summary.json`、`attempts/<token>/`のresult・progress・baseline、技術ログ、問題別projection、終端時の`improvement_report.json`。serverはmodel候補を一問state内のattemptへwrite-onceで保存するが、model自身はここへ書き込まない。通常の一問turnは子manifestを作らない。 |
 | runtime observation | `output/question_review_console/runtime_observations/<qualification>/<parentRunId>/` | `monitor-event/v1`の`events.jsonl`と観測cursor・欠落件数を持つ`snapshot.json`。表示用のbest-effort projectionであり、工程・成果物・公開状態の正本ではない。 |
 | direct edit transaction | `output/question_review_console/direct_edit_transactions/<transactionId>/` | 直接修正のbaseline（開始前bytes）とcommit・rollback結果。 |
 | evaluation projection | `output/question_review_console/<qualification>/<listGroupId>/evaluations/` | 元問題単位の`question-evaluation-projection/v2`。有効な現行評価、最新attempt pointer、単調sequenceを一つのatomic fileに保持する。全attempt履歴は`workflow_runs/`だけを正本とする。promptは同階層の`evaluation_prompts/`。 |
 | work version backfill | `output/question_review_console/work_version_backfills/<timestamp>/manifest.json` | 公開済み問題をlegacy `v0.0`へ初期化した対象、照合結果、件数のreceipt。 |
 | work version invalidation | `output/question_review_console/work_version_invalidations/<receipt_id>/manifest.json` | 誤って成功扱いにしたrun・工程を再整備対象へ戻した履歴。 |
-| work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 既存工程版を`MAJOR.MINOR`形式へ移行した件数と保存先のreceipt。 |
+| work version migration | `output/question_review_console/work_version_migrations/<timestamp>/manifest.json` | 旧年度単位台帳を検証し、一問単位へ分割して旧fileを除去した件数と保存先のreceipt。 |
 | publish run | `output/question_review_console/publish_runs/<qualification>/<runId>/` | preflight、対象artifact、result、readback。 |
 | publish queue run | `output/question_review_console/publish_queue_runs/<qualification>/<queueRunId>/` | 明示選択した順序付き問題IDを固定する親`manifest.json`、全問題の確認時preflightを持つ`preflight.json`、問題別の成否・publish run ID・readback要約を持つ終端`result.json`。問題内容、対象artifact、詳細readbackは問題単位のpublish runだけに保存し、親へ複製しない。 |
 
 run directoryは再利用しません。通常整備runの対象、source identity、工程版、sandbox、`stateHash`、`policyVersions`、`policyFingerprints`、`policyTargets`は不変`plan.json`へ保存します。親`manifest.json`はrun全体の検証・同期状態と小さい集計だけを持ち、一問の`questionExecutions`、停止理由、fingerprint、`validationAttempts`、attempt、検証済み作業版receiptは`questions/<questionIdのsha256>.json`へ保存します。`question_summary.json`は一問stateから再生成できる表示用派生物です。
 
-model turnはread-onlyで`question-maintenance-candidates/v3`候補だけを返し、serverが候補を問題ID、工程、入力fingerprint、projection hash、内容hashとともに一問state内のattemptへwrite-onceで保存します。汎用`question-tool` executor上のpatch tool queueはattempt IDだけを持ち、保存済み候補をreadback検証してから`patchApplyStartedAt`をwrite-onceで記録します。中断後に同じ候補を再利用できるのは、入力identityが完全一致し、patch反映を開始していない場合だけです。serverは`attempts/<token>/`へresult、progress、開始前baselineも保存します。patchは工程・年度ごとの既存形式を維持し、一問ごとには分割しません。実際に更新するpatch JSONと`work_versions.json`だけを同じ実path transactionに含め、checkpoint保存まで成功した後に確定します。失敗時は実path lockを解放する前に両方を開始前へ戻します。再起動時はtransactionが開いた一問を開始前へ戻し、確定済みreceiptを持つ問を除外して未完了だけを再開します。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
+model turnはread-onlyで`question-maintenance-candidates/v3`候補だけを返し、serverが候補を問題ID、工程、入力fingerprint、projection hash、内容hashとともに一問state内のattemptへwrite-onceで保存します。汎用`question-tool` executor上のpatch tool queueはattempt IDだけを持ち、保存済み候補をreadback検証してから`patchApplyStartedAt`をwrite-onceで記録します。中断後に同じ候補を再利用できるのは、入力identityが完全一致し、patch反映を開始していない場合だけです。serverは`attempts/<token>/`へresult、progress、開始前baselineも保存します。patchは工程・年度ごとの既存形式を維持し、一問ごとには分割しません。実際に更新するpatch JSONと対象一問のwork version JSONだけを同じ実path transactionに含め、checkpoint保存まで成功した後に確定します。失敗時は実path lockを解放する前に両方を開始前へ戻します。再起動時はtransactionが開いた一問を開始前へ戻し、確定済みreceiptを持つ問を除外して未完了だけを再開します。詳細は[問題整備システム](local_question_review_console.md)、評価内容は[`evaluation_result.schema.json`](../../tools/question_review_console/evaluation_result.schema.json)を正本とします。
 
 評価projectionの`currentValid`は従来v1の完全な評価結果又は`null`、`latestAttempt`はrun IDと結果要約だけです。`nextAttemptSequence`、`latestAttemptSequence`、`promotedAttemptSequence`は整数で順序を決め、日時、mtime、run ID文字列では並べません。従来v1は読取を維持し、次の評価attemptを予約する時だけ同じpathでv2へ昇格します。
 
-promotion時は`result.json`のhashと問題identity、state、App Server session/thread/turn、run種別、評価版とfingerprintをmanifestと照合します。合格又は要再整備では、さらにmanifestの作業版receiptと`work_versions.json`のcurrent又はhistoryを確認します。作業版の親recordは`reviewKey`、`questionId`、`originalQuestionId`、`publicationQualificationId`が現在問題と完全一致し、stageは同じrun ID、`source=validated_evaluation`、同じ版を示す必要があります。result、manifest、stageのfingerprintは非空かつ三者一致の場合だけ受理します。通常の状態取得は、最初に検証したprojection snapshotから現行payloadと回復判定を導出し、同じ取得内でprojectionを読み直しません。同じ取得内でresult、manifest、App Server session/thread/turnまで完全照合したlogical resultは、その照合済み事実を後段へ渡し、同じreceiptを再読しません。この事実は別の状態取得へ持ち越しません。`currentValid`があり、最新attemptが既に`inconclusive`なら、表示に使わない最新run成果物を再読せず`currentValid`を返します。`currentValid`がない場合と予約状態の回復は、引き続き最新runの証拠を照合します。実際にrepair又はpromotionを書く場合だけ、atomic更新側が現行projectionを再確認します。projectionが破損している場合は未評価へ戻さず`stale`として停止します。
+promotion時は`result.json`のhashと問題identity、state、App Server session/thread/turn、run種別、評価版とfingerprintをmanifestと照合します。合格又は要再整備では、さらにmanifestの作業版receiptと対象一問のwork version JSONにあるcurrent又はhistoryを確認します。作業版の親recordは`reviewKey`、`questionId`、`originalQuestionId`、`publicationQualificationId`が現在問題と完全一致し、stageは同じrun ID、`source=validated_evaluation`、同じ版を示す必要があります。result、manifest、stageのfingerprintは非空かつ三者一致の場合だけ受理します。通常の状態取得は、最初に検証したprojection snapshotから現行payloadと回復判定を導出し、同じ取得内でprojectionを読み直しません。同じ取得内でresult、manifest、App Server session/thread/turnまで完全照合したlogical resultは、その照合済み事実を後段へ渡し、同じreceiptを再読しません。この事実は別の状態取得へ持ち越しません。`currentValid`があり、最新attemptが既に`inconclusive`なら、表示に使わない最新run成果物を再読せず`currentValid`を返します。`currentValid`がない場合と予約状態の回復は、引き続き最新runの証拠を照合します。実際にrepair又はpromotionを書く場合だけ、atomic更新側が現行projectionを再確認します。projectionが破損している場合は未評価へ戻さず`stale`として停止します。
 
 ## 編集境界
 
@@ -104,6 +105,6 @@ promotion時は`result.json`のhashと問題identity、state、App Server sessio
 - `12`、`20`、`30`、`40`、`upload_to_firestore`は生成物であり、直接修正しない。
 - 不確実性と監査履歴をFirestore用recordへ未知fieldとして混ぜない。
 - 品質確認artifactと公開flagはreview専用であり、patch、merged、Firestore question documentへ混ぜない。
-- `work_versions.json`はserverだけが検証済みreceipt又は明示的なbackfillから更新し、patch、merged、upload-ready、Firestore question documentへ複製しない。
+- 一問work version JSONはserverだけが検証済みreceipt又は明示的なbackfillから更新し、patch、merged、upload-ready、Firestore question documentへ複製しない。
 - 新fieldを公開artifactへ入れる前に、field契約、repaso schema、convert、upload、quality-gateを同時に更新する。
 - 正誤が02a又は03bで変わった場合は`23`を更新し、`20`と03以降を再生成する。

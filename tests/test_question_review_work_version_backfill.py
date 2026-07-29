@@ -209,7 +209,7 @@ class WorkVersionBackfillTests(unittest.TestCase):
                 )
             version_files = list(
                 (root / "output" / "question_review_console").glob(
-                    "*/*/work_versions.json"
+                    "*/*/work_versions/*.json"
                 )
             )
 

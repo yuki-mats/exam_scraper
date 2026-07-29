@@ -369,9 +369,12 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
                         },
                     }
                 )
-            version_path_exists = workflow.work_versions.path_for(
-                "new-exam", "2026"
-            ).exists()
+            version_path_exists = any(
+                workflow.work_versions.question_directory_for(
+                    "new-exam",
+                    "2026",
+                ).glob("*.json")
+            )
 
         self.assertFalse(version_path_exists)
 

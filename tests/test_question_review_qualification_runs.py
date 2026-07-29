@@ -6233,10 +6233,22 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )[0]
             patch_path = root / child["result"]["changedFiles"][0]
             records = json.loads(patch_path.read_text(encoding="utf-8"))
-            work_version_relative = (
-                "output/question_review_console/new-exam/2026/"
-                "work_versions.json"
+            work_version_relative = str(
+                coordinator.work_versions.question_path_for(
+                    {
+                        **parent["progressTargets"][0],
+                        "qualification": "new-exam",
+                    }
+                ).relative_to(root.resolve())
             )
+            work_version_payload = json.loads(
+                (root / work_version_relative).read_text(encoding="utf-8")
+            )
+            legacy_work_version_exists = (
+                root
+                / "output/question_review_console/new-exam/2026/"
+                "work_versions.json"
+            ).exists()
             workspace_exists = (
                 coordinator.store.run_directory(
                     "new-exam",
@@ -6255,6 +6267,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 work_version_relative,
             },
         )
+        self.assertEqual(
+            work_version_payload["schemaVersion"],
+            "question-work-versions/v4",
+        )
+        self.assertEqual(len(work_version_payload["questions"]), 1)
+        self.assertFalse(legacy_work_version_exists)
         self.assertTrue(child["patchApplyStartedAt"])
         self.assertIsNotNone(child["patchToolQueueWaitSeconds"])
         self.assertIsNotNone(child["patchToolLockWaitSeconds"])
@@ -6335,11 +6353,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 completed,
             )
             patch_exists = (root / patch_relative).is_file()
-            work_version_exists = (
-                root
-                / "output/question_review_console/new-exam/2026/"
-                "work_versions.json"
-            ).is_file()
+            work_version_exists = any(
+                (
+                    root
+                    / "output/question_review_console/new-exam/2026/"
+                    "work_versions"
+                ).glob("*.json")
+            )
 
         self.assertEqual(result["queueStatus"], "partial")
         self.assertEqual(failed_checkpoints, 1)

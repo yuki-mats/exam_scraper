@@ -162,7 +162,8 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
             root = Path(directory)
             workspace = self._lock_only_workspace(root, "callback")
             work_version_path = Path(
-                "output/question_review_console/sample/group/work_versions.json"
+                "output/question_review_console/sample/group/"
+                "work_versions/question-a.json"
             )
             observed: list[tuple[str, ...]] = []
 
@@ -197,7 +198,8 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
                 for index in range(2)
             ]
             work_version_path = Path(
-                "output/question_review_console/sample/group/work_versions.json"
+                "output/question_review_console/sample/group/"
+                "work_versions/question-a.json"
             )
             first_acquired = threading.Event()
             release_first = threading.Event()
@@ -247,7 +249,7 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
             paths = [
                 Path(
                     "output/question_review_console/sample/"
-                    f"group-{index}/work_versions.json"
+                    f"group-{index}/work_versions/question-a.json"
                 )
                 for index in range(2)
             ]

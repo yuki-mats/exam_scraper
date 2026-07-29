@@ -43,7 +43,7 @@ def _database(credentials_json: Path | None = None) -> Any:
 
 
 def migrate_work_versions(repo_root: Path, *, execute: bool) -> dict[str, Any]:
-    """Normalize existing local records to the MAJOR.MINOR schema."""
+    """Normalize and split existing local records into one file per question."""
 
     repo_root = repo_root.resolve()
     result = QuestionWorkVersionStore(repo_root).migrate_all(execute=execute)

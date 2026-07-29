@@ -437,7 +437,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 elif case == "receipt_version":
                     manifest["workVersionReceipt"]["version"] = []
                 elif case == "work_version":
-                    version_path = service.work_versions.path_for("sample", "2026")
+                    version_path = service.work_versions.question_path_for(question)
                     versions = json.loads(version_path.read_text(encoding="utf-8"))
                     record = next(iter(versions["questions"].values()))
                     record["stages"]["evaluation"]["version"] = []
@@ -509,7 +509,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 elif case == "manifest_summary":
                     manifest["result"]["summary"] = "foreign"
                 elif case == "work_version":
-                    version_path = service.work_versions.path_for("sample", "2026")
+                    version_path = service.work_versions.question_path_for(question)
                     versions = json.loads(version_path.read_text(encoding="utf-8"))
                     record = next(iter(versions["questions"].values()))
                     record["stages"]["evaluation"]["policyFingerprint"] = "foreign"
@@ -575,7 +575,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 projection_path = service.store.evaluation_path(question)
                 before_bytes = projection_path.read_bytes()
                 before_mtime = projection_path.stat().st_mtime_ns
-                version_path = service.work_versions.path_for("sample", "2026")
+                version_path = service.work_versions.question_path_for(question)
                 versions = json.loads(version_path.read_text(encoding="utf-8"))
                 record = next(iter(versions["questions"].values()))
                 stage = record["stages"]["evaluation"]
@@ -630,7 +630,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                     directory
                 )
                 if location == "history":
-                    version_path = service.work_versions.path_for("sample", "2026")
+                    version_path = service.work_versions.question_path_for(question)
                     versions = json.loads(version_path.read_text(encoding="utf-8"))
                     record = next(iter(versions["questions"].values()))
                     stage = record["stages"]["evaluation"]
@@ -676,7 +676,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             preview = service.preview(question)
             service.run(question, preview["previewToken"], lambda _line: None)
             service.store._write_projection = original_write
-            version_path = service.work_versions.path_for("sample", "2026")
+            version_path = service.work_versions.question_path_for(question)
             versions = json.loads(version_path.read_text(encoding="utf-8"))
             record = next(iter(versions["questions"].values()))
             record["stages"]["evaluation"]["source"] = "foreign"

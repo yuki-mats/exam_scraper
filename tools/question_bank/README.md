@@ -57,12 +57,14 @@ python3 tools/question_bank/question_bank.py backfill-work-versions --execute
 
 このコマンドはFirestoreを変更せず、既存の検証済み工程版も上書きしません。結果は`output/question_review_console/work_version_backfills/<timestamp>/manifest.json`へ保存します。版の意味と洗い替え方法は[作業バージョン](../../document/operations/local_question_review_console.md#作業バージョン)を参照してください。
 
-既存の整数版を`MAJOR.MINOR`形式へ移行する場合は、dry-run後に実行します。
+旧`work_versions.json`を検証し、整数版を`MAJOR.MINOR`形式へ正規化して一問単位のwork version JSONへ分割する場合は、UI serverと整備runを停止してdry-run後に実行します。
 
 ```bash
 python3 tools/question_bank/question_bank.py migrate-work-versions
 python3 tools/question_bank/question_bank.py migrate-work-versions --execute
 ```
+
+実行時は全一問fileを再読検証してから旧年度単位fileを除去し、結果を`output/question_review_console/work_version_migrations/<timestamp>/manifest.json`へ保存します。
 
 ## patch単体
 

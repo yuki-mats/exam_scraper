@@ -17,13 +17,19 @@ from tools.question_review_console.workflow_catalog import (
 )
 
 
-SCHEMA_VERSION = "question-work-versions/v3"
-READABLE_SCHEMA_VERSIONS = {
+SCHEMA_VERSION = "question-work-versions/v4"
+LEGACY_GROUP_SCHEMA_VERSIONS = {
     "question-work-versions/v1",
     "question-work-versions/v2",
+    "question-work-versions/v3",
+}
+READABLE_SCHEMA_VERSIONS = {
+    *LEGACY_GROUP_SCHEMA_VERSIONS,
     SCHEMA_VERSION,
 }
 LEGACY_VERSION = "0.0"
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
 
@@ -322,7 +328,11 @@ class QuestionWorkVersionStore:
                 stack.enter_context(lock)
             yield
 
-    def path_for(self, qualification: str, list_group_id: str) -> Path:
+    def legacy_group_path_for(
+        self,
+        qualification: str,
+        list_group_id: str,
+    ) -> Path:
         return (
             self.root
             / _safe_segment(qualification)
@@ -330,21 +340,110 @@ class QuestionWorkVersionStore:
             / "work_versions.json"
         )
 
-    def load_group(self, qualification: str, list_group_id: str) -> dict[str, Any]:
-        path = self.path_for(qualification, list_group_id)
-        with self._path_transaction((path,)):
-            return copy.deepcopy(
-                self._load_group_payload(qualification, list_group_id)
-            )
-
-    def _load_group_payload(
+    def question_directory_for(
         self,
         qualification: str,
         list_group_id: str,
+    ) -> Path:
+        return (
+            self.root
+            / _safe_segment(qualification)
+            / _safe_segment(list_group_id)
+            / "work_versions"
+        )
+
+    def question_path_for(self, question: Mapping[str, Any]) -> Path:
+        qualification = _safe_segment(str(question.get("qualification") or ""))
+        list_group_id = _safe_segment(str(question.get("listGroupId") or ""))
+        return (
+            self.question_directory_for(qualification, list_group_id)
+            / f"{_question_key_hash(question)}.json"
+        )
+
+    def transaction_paths_for_questions(
+        self,
+        questions: Iterable[Mapping[str, Any]],
+    ) -> tuple[Path, ...]:
+        paths: set[Path] = set()
+        for question in questions:
+            canonical_path = self.question_path_for(question)
+            paths.add(canonical_path)
+            question_id = str(question.get("id") or "")
+            if question_id:
+                alias_path = (
+                    canonical_path.parent
+                    / f"{_identity_hash(question_id)}.json"
+                )
+                if alias_path.is_file():
+                    paths.add(alias_path)
+            legacy_path = self.legacy_group_path_for(
+                str(question.get("qualification") or ""),
+                str(question.get("listGroupId") or ""),
+            )
+            if legacy_path.is_file():
+                paths.add(legacy_path)
+        return tuple(sorted(paths, key=lambda path: path.as_posix()))
+
+    def load_group(self, qualification: str, list_group_id: str) -> dict[str, Any]:
+        legacy_path = self.legacy_group_path_for(
+            qualification,
+            list_group_id,
+        )
+        question_paths = tuple(
+            sorted(
+                self.question_directory_for(
+                    qualification,
+                    list_group_id,
+                ).glob("*.json"),
+                key=lambda path: path.as_posix(),
+            )
+        )
+        paths = (
+            *((legacy_path,) if legacy_path.is_file() else ()),
+            *question_paths,
+        )
+        with self._path_transaction(paths):
+            payload = self._empty_group(qualification, list_group_id)
+            if legacy_path.is_file():
+                legacy = self._load_payload(
+                    legacy_path,
+                    qualification,
+                    list_group_id,
+                )
+                payload["questions"].update(
+                    copy.deepcopy(legacy["questions"])
+                )
+                payload["updatedAt"] = legacy.get("updatedAt")
+            for path in question_paths:
+                current = self._load_payload(
+                    path,
+                    qualification,
+                    list_group_id,
+                    require_single_question=True,
+                )
+                key, record = next(iter(current["questions"].items()))
+                existing = payload["questions"].get(key)
+                if isinstance(existing, Mapping):
+                    payload["questions"][key] = _merge_question_records(
+                        record,
+                        existing,
+                    )
+                else:
+                    payload["questions"][key] = copy.deepcopy(record)
+                payload["updatedAt"] = max(
+                    str(payload.get("updatedAt") or ""),
+                    str(current.get("updatedAt") or ""),
+                ) or None
+            return payload
+
+    def _load_payload(
+        self,
+        path: Path,
+        qualification: str,
+        list_group_id: str,
+        *,
+        require_single_question: bool = False,
     ) -> dict[str, Any]:
-        path = self.path_for(qualification, list_group_id)
-        if not path.is_file():
-            return self._empty_group(qualification, list_group_id)
         stat = path.stat()
         with self._lock:
             cached = self._cache.get(path)
@@ -362,6 +461,16 @@ class QuestionWorkVersionStore:
             or not isinstance(payload.get("questions"), dict)
         ):
             raise ValueError(f"作業バージョンfileの形式が不正です: {path}")
+        if require_single_question:
+            questions = payload["questions"]
+            if (
+                payload.get("schemaVersion") != SCHEMA_VERSION
+                or len(questions) != 1
+                or path.stem != next(iter(questions))
+            ):
+                raise ValueError(
+                    f"一問作業バージョンfileの形式が不正です: {path}"
+                )
         with self._lock:
             self._cache[path] = (stat.st_size, stat.st_mtime_ns, payload)
         return payload
@@ -369,11 +478,32 @@ class QuestionWorkVersionStore:
     def record_for(self, question: Mapping[str, Any]) -> dict[str, Any] | None:
         if not question.get("qualification") or not question.get("listGroupId"):
             return None
-        payload = self.load_group(
-            str(question["qualification"]),
-            str(question["listGroupId"]),
-        )
-        record = payload["questions"].get(_question_key_hash(question))
+        qualification = str(question["qualification"])
+        list_group_id = str(question["listGroupId"])
+        key = _question_key_hash(question)
+        path = self.question_path_for(question)
+        if path.is_file():
+            with self._path_transaction((path,)):
+                payload = self._load_payload(
+                    path,
+                    qualification,
+                    list_group_id,
+                    require_single_question=True,
+                )
+        else:
+            legacy_path = self.legacy_group_path_for(
+                qualification,
+                list_group_id,
+            )
+            if not legacy_path.is_file():
+                return None
+            with self._path_transaction((legacy_path,)):
+                payload = self._load_payload(
+                    legacy_path,
+                    qualification,
+                    list_group_id,
+                )
+        record = payload["questions"].get(key)
         if not isinstance(record, Mapping):
             return None
         identity = str(question.get("reviewKey") or question.get("id") or "")
@@ -548,6 +678,133 @@ class QuestionWorkVersionStore:
             "stages": stages,
         }
 
+    def _canonical_payload_for_question(
+        self,
+        question: Mapping[str, Any],
+    ) -> tuple[Path, dict[str, Any], tuple[Path, ...], int]:
+        qualification = str(question.get("qualification") or "")
+        list_group_id = str(question.get("listGroupId") or "")
+        canonical_path = self.question_path_for(question)
+        key = _question_key_hash(question)
+        identity = str(question.get("reviewKey") or question.get("id") or "")
+        question_id = str(question.get("id") or "")
+        original_question_id = str(question.get("originalQuestionId") or "")
+        publication_qualification_id = str(
+            question.get("publicationQualificationId")
+            or qualification
+            or ""
+        )
+        alias_key = _identity_hash(question_id) if question_id else ""
+        alias_path = (
+            canonical_path.parent / f"{alias_key}.json"
+            if alias_key and alias_key != key
+            else None
+        )
+
+        def alias_matches(record: Mapping[str, Any]) -> bool:
+            return bool(
+                str(record.get("reviewKey") or "") == question_id
+                and (
+                    not original_question_id
+                    or not record.get("originalQuestionId")
+                    or str(record.get("originalQuestionId"))
+                    == original_question_id
+                )
+                and (
+                    not publication_qualification_id
+                    or not record.get("publicationQualificationId")
+                    or str(record.get("publicationQualificationId"))
+                    == publication_qualification_id
+                )
+            )
+
+        existing: dict[str, Any] | None = None
+        aliases: list[dict[str, Any]] = []
+        obsolete_paths: list[Path] = []
+        if canonical_path.is_file():
+            payload = self._load_payload(
+                canonical_path,
+                qualification,
+                list_group_id,
+                require_single_question=True,
+            )
+            record = payload["questions"].get(key)
+            if (
+                not isinstance(record, dict)
+                or str(record.get("reviewKey") or "") != identity
+            ):
+                raise ValueError(
+                    f"一問作業バージョンのidentityが一致しません: {canonical_path}"
+                )
+            existing = copy.deepcopy(record)
+        else:
+            legacy_path = self.legacy_group_path_for(
+                qualification,
+                list_group_id,
+            )
+            if legacy_path.is_file():
+                legacy = self._load_payload(
+                    legacy_path,
+                    qualification,
+                    list_group_id,
+                )
+                record = legacy["questions"].get(key)
+                if isinstance(record, Mapping):
+                    if str(record.get("reviewKey") or "") != identity:
+                        raise ValueError(
+                            "旧作業バージョンのidentityが一致しません: "
+                            f"{legacy_path}"
+                        )
+                    existing = copy.deepcopy(dict(record))
+                alias = (
+                    legacy["questions"].get(alias_key)
+                    if alias_key and alias_key != key
+                    else None
+                )
+                if isinstance(alias, Mapping) and alias_matches(alias):
+                    aliases.append(copy.deepcopy(dict(alias)))
+
+        if alias_path is not None and alias_path.is_file():
+            alias_payload = self._load_payload(
+                alias_path,
+                qualification,
+                list_group_id,
+                require_single_question=True,
+            )
+            alias = next(iter(alias_payload["questions"].values()))
+            if not isinstance(alias, Mapping) or not alias_matches(alias):
+                raise ValueError(
+                    f"旧identityの一問作業バージョンが一致しません: {alias_path}"
+                )
+            aliases.append(copy.deepcopy(dict(alias)))
+            obsolete_paths.append(alias_path)
+
+        if existing is None:
+            existing = {
+                "reviewKey": identity,
+                "questionId": question_id,
+                "originalQuestionId": original_question_id,
+                "publicationQualificationId": publication_qualification_id,
+                "stages": {},
+            }
+        for alias in aliases:
+            existing = _merge_question_records(existing, alias)
+        existing.update(
+            reviewKey=identity,
+            questionId=question_id,
+            originalQuestionId=original_question_id,
+            publicationQualificationId=publication_qualification_id,
+        )
+        payload = self._empty_group(qualification, list_group_id)
+        payload["questions"][key] = existing
+        self._normalize_payload_versions(payload)
+        return (
+            canonical_path,
+            payload,
+            tuple(obsolete_paths),
+            len(aliases),
+        )
+
     def record_stage(
         self,
         questions: Iterable[Mapping[str, Any]],
@@ -585,102 +842,61 @@ class QuestionWorkVersionStore:
             if selected_target_ids and selected_target_ids != available_target_ids
             else set()
         )
-        grouped: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
+        items_by_path: dict[Path, Mapping[str, Any]] = {}
         for question in questions:
-            key = (str(question["qualification"]), str(question["listGroupId"]))
-            grouped.setdefault(key, []).append(question)
+            path = self.question_path_for(question)
+            existing_item = items_by_path.get(path)
+            if existing_item is not None and (
+                str(existing_item.get("reviewKey") or existing_item.get("id") or "")
+                != str(question.get("reviewKey") or question.get("id") or "")
+            ):
+                raise ValueError(f"作業バージョンpathが重複しています: {path}")
+            items_by_path[path] = question
         recorded_count = 0
         skipped_count = 0
         reconciled_count = 0
         paths: list[str] = []
-        transaction_paths = [
-            self.path_for(qualification, list_group_id)
-            for qualification, list_group_id in grouped
-        ]
+        transaction_paths = self.transaction_paths_for_questions(
+            items_by_path.values()
+        )
         with self._path_transaction(transaction_paths):
-            prepared: list[tuple[Path, dict[str, Any]]] = []
-            for (qualification, list_group_id), items in sorted(grouped.items()):
-                payload = self.load_group(qualification, list_group_id)
-                self._normalize_payload_versions(payload)
-                payload["schemaVersion"] = SCHEMA_VERSION
-                changed = False
-                for question in items:
-                    key = _question_key_hash(question)
-                    existing = payload["questions"].get(key)
-                    identity = str(
-                        question.get("reviewKey") or question.get("id") or ""
+            prepared: list[
+                tuple[Path, dict[str, Any], tuple[Path, ...]]
+            ] = []
+            for path, question in sorted(
+                items_by_path.items(),
+                key=lambda value: value[0].as_posix(),
+            ):
+                (
+                    canonical_path,
+                    payload,
+                    obsolete_paths,
+                    reconciled,
+                ) = self._canonical_payload_for_question(question)
+                reconciled_count += reconciled
+                record = next(iter(payload["questions"].values()))
+                stages = record.get("stages")
+                if not isinstance(stages, dict):
+                    stages = {}
+                    record["stages"] = stages
+                previous = stages.get(stage_id)
+                previous_targets = (
+                    previous.get("targets")
+                    if isinstance(previous, Mapping)
+                    and isinstance(previous.get("targets"), Mapping)
+                    else {}
+                )
+                should_skip = only_missing and (
+                    stage_id in stages
+                    if not partial_target_ids
+                    else all(
+                        target_id in previous_targets
+                        for target_id in partial_target_ids
                     )
-                    question_id = str(question.get("id") or "")
-                    alias_key = _identity_hash(question_id) if question_id else ""
-                    alias = (
-                        payload["questions"].get(alias_key)
-                        if alias_key and alias_key != key
-                        else None
-                    )
-                    original_question_id = str(
-                        question.get("originalQuestionId") or ""
-                    )
-                    publication_qualification_id = str(
-                        question.get("publicationQualificationId")
-                        or question.get("qualification")
-                        or ""
-                    )
-                    alias_matches = bool(
-                        isinstance(alias, Mapping)
-                        and str(alias.get("reviewKey") or "") == question_id
-                        and (
-                            not original_question_id
-                            or not alias.get("originalQuestionId")
-                            or str(alias.get("originalQuestionId"))
-                            == original_question_id
-                        )
-                        and (
-                            not publication_qualification_id
-                            or not alias.get("publicationQualificationId")
-                            or str(alias.get("publicationQualificationId"))
-                            == publication_qualification_id
-                        )
-                    )
-                    if not isinstance(existing, dict) or existing.get("reviewKey") != identity:
-                        existing = {
-                            "reviewKey": identity,
-                            "questionId": question_id,
-                            "originalQuestionId": original_question_id,
-                            "publicationQualificationId": publication_qualification_id,
-                            "stages": {},
-                        }
-                    if alias_matches:
-                        existing = _merge_question_records(existing, alias)
-                        del payload["questions"][alias_key]
-                        reconciled_count += 1
-                        changed = True
-                    existing.update(
-                        reviewKey=identity,
-                        questionId=question_id,
-                        originalQuestionId=original_question_id,
-                        publicationQualificationId=publication_qualification_id,
-                    )
-                    stages = existing.get("stages")
-                    if not isinstance(stages, dict):
-                        stages = {}
-                        existing["stages"] = stages
-                    previous = stages.get(stage_id)
-                    previous_targets = (
-                        previous.get("targets")
-                        if isinstance(previous, Mapping)
-                        and isinstance(previous.get("targets"), Mapping)
-                        else {}
-                    )
-                    if only_missing and (
-                        stage_id in stages
-                        if not partial_target_ids
-                        else all(
-                            target_id in previous_targets
-                            for target_id in partial_target_ids
-                        )
-                    ):
-                        skipped_count += 1
-                        continue
+                )
+                if should_skip:
+                    skipped_count += 1
+                else:
 
                     def version_record(
                         old: Mapping[str, Any] | None,
@@ -715,6 +931,7 @@ class QuestionWorkVersionStore:
                             "recordedAt": _now(),
                             "history": history,
                         }
+
                     if partial_target_ids:
                         stage_record = (
                             copy.deepcopy(dict(previous))
@@ -735,14 +952,17 @@ class QuestionWorkVersionStore:
                         stages[stage_id] = version_record(
                             previous if isinstance(previous, Mapping) else None
                         )
-                    payload["questions"][key] = existing
                     recorded_count += 1
-                    changed = True
-                if changed:
+                if (
+                    not should_skip
+                    or not canonical_path.is_file()
+                    or obsolete_paths
+                ):
                     payload["updatedAt"] = _now()
-                    path = self.path_for(qualification, list_group_id)
-                    prepared.append((path, payload))
-            for path, payload in prepared:
+                    prepared.append(
+                        (canonical_path, payload, obsolete_paths)
+                    )
+            for path, payload, obsolete_paths in prepared:
                 atomic_write(
                     path,
                     json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
@@ -750,6 +970,10 @@ class QuestionWorkVersionStore:
                 )
                 with self._lock:
                     self._cache.pop(path, None)
+                for obsolete_path in obsolete_paths:
+                    obsolete_path.unlink(missing_ok=True)
+                    with self._lock:
+                        self._cache.pop(obsolete_path, None)
                 paths.append(str(path.relative_to(self.repo_root)))
         return {
             "stageId": stage_id,
@@ -791,40 +1015,89 @@ class QuestionWorkVersionStore:
         if not str(receipt_id).strip():
             raise ValueError("無効化receipt IDがありません。")
 
-        path = self.path_for(qualification, list_group_id)
-        with self._path_transaction((path,)):
-            payload = self.load_group(qualification, list_group_id)
-            self._normalize_payload_versions(payload)
-            matched: list[tuple[str, dict[str, Any], list[str] | None]] = []
-            skipped_ids: list[str] = []
-            for record in payload["questions"].values():
-                if not isinstance(record, dict):
-                    continue
-                question_id = str(record.get("questionId") or "")
-                if question_id not in target_ids:
-                    continue
-                stages = record.get("stages")
-                current = stages.get(stage_id) if isinstance(stages, dict) else None
-                if not isinstance(current, dict):
-                    skipped_ids.append(question_id)
-                    continue
-                matching_target_ids = [
-                    str(target_id)
-                    for target_id, target in (current.get("targets") or {}).items()
-                    if isinstance(target, Mapping) and target.get("runId") == run_id
-                ]
-                if current.get("runId") == run_id:
-                    matched.append((question_id, record, None))
-                elif matching_target_ids:
-                    matched.append((question_id, record, matching_target_ids))
-                else:
-                    skipped_ids.append(question_id)
+        group = self.load_group(qualification, list_group_id)
+        self._normalize_payload_versions(group)
+        matched: list[
+            tuple[dict[str, Any], list[str] | None]
+        ] = []
+        skipped_ids = set(target_ids)
+        for record in group["questions"].values():
+            if not isinstance(record, dict):
+                continue
+            question_id = str(record.get("questionId") or "")
+            if question_id not in target_ids:
+                continue
+            skipped_ids.discard(question_id)
+            stages = record.get("stages")
+            current = stages.get(stage_id) if isinstance(stages, dict) else None
+            if not isinstance(current, dict):
+                skipped_ids.add(question_id)
+                continue
+            matching_target_ids = [
+                str(target_id)
+                for target_id, target in (current.get("targets") or {}).items()
+                if isinstance(target, Mapping) and target.get("runId") == run_id
+            ]
+            if current.get("runId") == run_id or matching_target_ids:
+                matched.append(
+                    (
+                        {
+                            **record,
+                            "id": question_id,
+                            "qualification": qualification,
+                            "listGroupId": list_group_id,
+                        },
+                        None
+                        if current.get("runId") == run_id
+                        else matching_target_ids,
+                    )
+                )
+            else:
+                skipped_ids.add(question_id)
 
-            if execute and matched:
+        written_paths: list[str] = []
+        invalidated_question_ids: list[str] = []
+        if execute and matched:
+            transaction_paths = self.transaction_paths_for_questions(
+                question for question, _target_ids in matched
+            )
+            with self._path_transaction(transaction_paths):
                 recorded_at = _now()
-                for _, record, matching_target_ids in matched:
-                    stages = record["stages"]
-                    previous = stages[stage_id]
+                prepared: list[
+                    tuple[Path, dict[str, Any], tuple[Path, ...]]
+                ] = []
+                for question, matching_target_ids in matched:
+                    (
+                        path,
+                        payload,
+                        obsolete_paths,
+                        _reconciled,
+                    ) = self._canonical_payload_for_question(question)
+                    record = next(iter(payload["questions"].values()))
+                    stages = record.get("stages")
+                    previous = (
+                        stages.get(stage_id)
+                        if isinstance(stages, dict)
+                        else None
+                    )
+                    if not isinstance(previous, dict):
+                        skipped_ids.add(str(question.get("id") or ""))
+                        continue
+                    current_target_ids = [
+                        str(target_id)
+                        for target_id, target in (
+                            previous.get("targets") or {}
+                        ).items()
+                        if isinstance(target, Mapping)
+                        and target.get("runId") == run_id
+                    ]
+                    if previous.get("runId") == run_id:
+                        matching_target_ids = None
+                    elif current_target_ids:
+                        matching_target_ids = current_target_ids
+                    else:
+                        skipped_ids.add(str(question.get("id") or ""))
+                        continue
                     if matching_target_ids is not None:
                         targets = previous["targets"]
                         for target_id in matching_target_ids:
@@ -847,34 +1120,50 @@ class QuestionWorkVersionStore:
                                 "reason": str(reason).strip(),
                                 "history": history,
                             }
-                        continue
-                    history = list(previous.get("history") or [])
-                    history.append(
-                        {
-                            str(key): copy.deepcopy(value)
-                            for key, value in previous.items()
-                            if key != "history"
+                    else:
+                        history = list(previous.get("history") or [])
+                        history.append(
+                            {
+                                str(key): copy.deepcopy(value)
+                                for key, value in previous.items()
+                                if key != "history"
+                            }
+                        )
+                        stages[stage_id] = {
+                            "version": LEGACY_VERSION,
+                            "policyFingerprint": "invalidated",
+                            "runId": receipt_id,
+                            "source": "invalidated_run",
+                            "recordedAt": recorded_at,
+                            "invalidatedRunId": run_id,
+                            "reason": str(reason).strip(),
+                            "history": history,
                         }
+                    payload["updatedAt"] = recorded_at
+                    prepared.append((path, payload, obsolete_paths))
+                    invalidated_question_ids.append(
+                        str(question.get("id") or "")
                     )
-                    stages[stage_id] = {
-                        "version": LEGACY_VERSION,
-                        "policyFingerprint": "invalidated",
-                        "runId": receipt_id,
-                        "source": "invalidated_run",
-                        "recordedAt": recorded_at,
-                        "invalidatedRunId": run_id,
-                        "reason": str(reason).strip(),
-                        "history": history,
-                    }
-                payload["schemaVersion"] = SCHEMA_VERSION
-                payload["updatedAt"] = recorded_at
-                atomic_write(
-                    path,
-                    json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
-                    + "\n",
-                )
-                with self._lock:
-                    self._cache.pop(path, None)
+                for path, payload, obsolete_paths in prepared:
+                    atomic_write(
+                        path,
+                        json.dumps(
+                            payload,
+                            ensure_ascii=False,
+                            indent=2,
+                            sort_keys=True,
+                        )
+                        + "\n",
+                    )
+                    written_paths.append(
+                        str(path.relative_to(self.repo_root))
+                    )
+                    with self._lock:
+                        self._cache.pop(path, None)
+                    for obsolete_path in obsolete_paths:
+                        obsolete_path.unlink(missing_ok=True)
+                        with self._lock:
+                            self._cache.pop(obsolete_path, None)
 
         return {
             "qualification": qualification,
@@ -883,51 +1172,281 @@ class QuestionWorkVersionStore:
             "invalidatedRunId": run_id,
             "executed": execute,
             "targetCount": len(target_ids),
-            "invalidatedCount": len(matched),
-            "invalidatedQuestionIds": sorted(
-                question_id for question_id, _, _ in matched
+            "invalidatedCount": (
+                len(invalidated_question_ids) if execute else len(matched)
+            ),
+            "invalidatedQuestionIds": (
+                sorted(invalidated_question_ids)
+                if execute
+                else sorted(
+                    str(question.get("id") or "")
+                    for question, _target_ids in matched
+                )
             ),
             "skippedQuestionIds": sorted(skipped_ids),
-            "path": str(self.path_for(qualification, list_group_id).relative_to(self.repo_root)),
+            "paths": written_paths,
         }
 
     def migrate_all(self, *, execute: bool = False) -> dict[str, Any]:
-        """Convert legacy integer versions to MAJOR.MINOR after full validation."""
+        """Normalize and split every legacy group ledger into one file per question."""
 
-        paths = sorted(self.root.glob("*/*/work_versions.json"))
-        prepared: list[tuple[Path, dict[str, Any]]] = []
-        stage_record_count = 0
-        changed_paths: list[str] = []
-        with self._path_transaction(paths):
-            for path in paths:
-                qualification = path.parent.parent.name
-                list_group_id = path.parent.name
-                original = self.load_group(qualification, list_group_id)
-                payload = copy.deepcopy(original)
-                stage_record_count += self._normalize_payload_versions(payload)
-                payload["schemaVersion"] = SCHEMA_VERSION
-                if payload != original:
-                    payload["updatedAt"] = _now()
-                    prepared.append((path, payload))
-                    changed_paths.append(str(path.relative_to(self.repo_root)))
-            if execute:
-                for path, payload in prepared:
-                    atomic_write(
-                        path,
-                        json.dumps(
-                            payload, ensure_ascii=False, indent=2, sort_keys=True
-                        )
-                        + "\n",
+        legacy_paths = tuple(
+            sorted(
+                self.root.glob("*/*/work_versions.json"),
+                key=lambda path: path.as_posix(),
+            )
+        )
+        existing_question_paths = tuple(
+            sorted(
+                self.root.glob("*/*/work_versions/*.json"),
+                key=lambda path: path.as_posix(),
+            )
+        )
+        source_paths = (*legacy_paths, *existing_question_paths)
+        planned_records: dict[
+            Path,
+            tuple[str, str, dict[str, Any], str],
+        ] = {}
+        obsolete_paths: set[Path] = set()
+        with self._path_transaction(source_paths):
+            for path in source_paths:
+                if path.name == "work_versions.json":
+                    qualification = path.parent.parent.name
+                    list_group_id = path.parent.name
+                    require_single_question = False
+                    obsolete_paths.add(path)
+                else:
+                    qualification = path.parent.parent.parent.name
+                    list_group_id = path.parent.parent.name
+                    require_single_question = True
+                payload = self._load_payload(
+                    path,
+                    qualification,
+                    list_group_id,
+                    require_single_question=False,
+                )
+                self._normalize_payload_versions(payload)
+                if require_single_question and len(payload["questions"]) != 1:
+                    raise ValueError(
+                        f"一問作業バージョンfileの件数が不正です: {path}"
                     )
-                    with self._lock:
-                        self._cache.pop(path, None)
+                if (
+                    require_single_question
+                    and payload.get("schemaVersion") == SCHEMA_VERSION
+                    and path.stem != next(iter(payload["questions"]))
+                ):
+                    raise ValueError(
+                        f"一問作業バージョンfileのidentityが不正です: {path}"
+                    )
+                for record in payload["questions"].values():
+                    if not isinstance(record, Mapping):
+                        raise ValueError(
+                            f"作業バージョンfileのquestion形式が不正です: {path}"
+                        )
+                    question = {
+                        **record,
+                        "id": str(record.get("questionId") or ""),
+                        "qualification": qualification,
+                        "listGroupId": list_group_id,
+                    }
+                    target_path = self.question_path_for(question)
+                    existing = planned_records.get(target_path)
+                    merged = (
+                        _merge_question_records(record, existing[2])
+                        if existing is not None
+                        else copy.deepcopy(dict(record))
+                    )
+                    updated_at = max(
+                        str(payload.get("updatedAt") or ""),
+                        existing[3] if existing is not None else "",
+                    )
+                    planned_records[target_path] = (
+                        qualification,
+                        list_group_id,
+                        merged,
+                        updated_at,
+                    )
+                    if require_single_question and path != target_path:
+                        obsolete_paths.add(path)
+
+            records_by_question_id: dict[
+                tuple[str, str, str],
+                list[Path],
+            ] = {}
+            for path, (
+                qualification,
+                list_group_id,
+                record,
+                _updated_at,
+            ) in planned_records.items():
+                question_id = str(record.get("questionId") or "")
+                if question_id:
+                    records_by_question_id.setdefault(
+                        (qualification, list_group_id, question_id),
+                        [],
+                    ).append(path)
+            for (
+                qualification,
+                list_group_id,
+                question_id,
+            ), paths_for_question in records_by_question_id.items():
+                if len(paths_for_question) < 2:
+                    continue
+                canonical_paths = [
+                    path
+                    for path in paths_for_question
+                    if str(
+                        planned_records[path][2].get("reviewKey") or ""
+                    )
+                    != question_id
+                ]
+                if len(canonical_paths) != 1:
+                    raise ValueError(
+                        "同じquestionIdに複数のcanonical reviewKeyがあります: "
+                        f"{qualification}/{list_group_id}/{question_id}"
+                    )
+                canonical_path = canonical_paths[0]
+                (
+                    _qualification,
+                    _list_group_id,
+                    canonical_record,
+                    canonical_updated_at,
+                ) = planned_records[canonical_path]
+                for alias_path in paths_for_question:
+                    if alias_path == canonical_path:
+                        continue
+                    alias_record = planned_records[alias_path][2]
+                    for field in (
+                        "originalQuestionId",
+                        "publicationQualificationId",
+                    ):
+                        canonical_value = str(
+                            canonical_record.get(field) or ""
+                        )
+                        alias_value = str(alias_record.get(field) or "")
+                        if (
+                            canonical_value
+                            and alias_value
+                            and canonical_value != alias_value
+                        ):
+                            raise ValueError(
+                                "旧identityの作業バージョンが別問題を示しています: "
+                                f"{qualification}/{list_group_id}/{question_id}"
+                            )
+                    canonical_record = _merge_question_records(
+                        canonical_record,
+                        alias_record,
+                    )
+                    canonical_updated_at = max(
+                        canonical_updated_at,
+                        planned_records[alias_path][3],
+                    )
+                    del planned_records[alias_path]
+                    if alias_path.is_file():
+                        obsolete_paths.add(alias_path)
+                planned_records[canonical_path] = (
+                    qualification,
+                    list_group_id,
+                    canonical_record,
+                    canonical_updated_at,
+                )
+
+            prepared: list[tuple[Path, str]] = []
+            stage_record_count = 0
+            for path, (
+                qualification,
+                list_group_id,
+                record,
+                updated_at,
+            ) in sorted(
+                planned_records.items(),
+                key=lambda value: value[0].as_posix(),
+            ):
+                payload = self._empty_group(qualification, list_group_id)
+                payload["questions"][_question_key_hash(record)] = record
+                stage_record_count += self._normalize_payload_versions(payload)
+                payload["updatedAt"] = updated_at or _now()
+                content = (
+                    json.dumps(
+                        payload,
+                        ensure_ascii=False,
+                        indent=2,
+                        sort_keys=True,
+                    )
+                    + "\n"
+                )
+                current = (
+                    path.read_text(encoding="utf-8")
+                    if path.is_file()
+                    else None
+                )
+                if current != content:
+                    prepared.append((path, content))
+
+            obsolete_paths.difference_update(planned_records)
+            changed_paths = [
+                str(path.relative_to(self.repo_root))
+                for path, _content in prepared
+            ]
+            removed_paths = [
+                str(path.relative_to(self.repo_root))
+                for path in sorted(
+                    obsolete_paths,
+                    key=lambda value: value.as_posix(),
+                )
+            ]
+            if execute and (prepared or obsolete_paths):
+                touched_paths = {
+                    *(path for path, _content in prepared),
+                    *obsolete_paths,
+                }
+                originals = {
+                    path: (
+                        path.read_text(encoding="utf-8")
+                        if path.is_file()
+                        else None
+                    )
+                    for path in touched_paths
+                }
+                try:
+                    for path, content in prepared:
+                        atomic_write(path, content)
+                        with self._lock:
+                            self._cache.pop(path, None)
+                    for path in planned_records:
+                        self._load_payload(
+                            path,
+                            planned_records[path][0],
+                            planned_records[path][1],
+                            require_single_question=True,
+                        )
+                    for path in obsolete_paths:
+                        path.unlink(missing_ok=True)
+                        with self._lock:
+                            self._cache.pop(path, None)
+                except Exception:
+                    for path, content in originals.items():
+                        if content is None:
+                            path.unlink(missing_ok=True)
+                        else:
+                            atomic_write(path, content)
+                        with self._lock:
+                            self._cache.pop(path, None)
+                    raise
         return {
             "schemaVersion": SCHEMA_VERSION,
             "executed": execute,
-            "fileCount": len(paths),
-            "changedFileCount": len(prepared),
+            "sourceFileCount": len(source_paths),
+            "legacyGroupFileCount": len(legacy_paths),
+            "existingQuestionFileCount": len(existing_question_paths),
+            "questionCount": len(planned_records),
+            "changedFileCount": len(prepared) + len(obsolete_paths),
+            "writtenFileCount": len(prepared),
+            "removedFileCount": len(obsolete_paths),
             "stageRecordCount": stage_record_count,
-            "changedPaths": changed_paths,
+            "changedPaths": [*changed_paths, *removed_paths],
+            "writtenPaths": changed_paths,
+            "removedPaths": removed_paths,
         }
 
     @classmethod
