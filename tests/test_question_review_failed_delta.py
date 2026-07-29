@@ -232,38 +232,6 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(blocked, (relative.as_posix(),))
 
-    def test_interrupted_isolated_child_does_not_create_unknown_delta(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            manifest = (
-                root
-                / "output/question_review_console/workflow_runs/sample/"
-                "20260101-run/manifest.json"
-            )
-            manifest.parent.mkdir(parents=True)
-            manifest.write_text(
-                json.dumps(
-                    {
-                        "qualification": "sample",
-                        "status": "interrupted",
-                        "deltaUnknown": True,
-                        "retrySafe": True,
-                        "parentRunId": "parent-run",
-                        "parallelStrategy": "structured_candidate_per_question",
-                        "sandbox": "read-only",
-                        "workType": "maintenance_explanation_candidate",
-                        "stageIds": ["explanation"],
-                        "targetGroupIds": ["2026"],
-                        **self.UNKNOWN_CONTRACT,
-                    }
-                ),
-                encoding="utf-8",
-            )
-
-            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
-
-        self.assertEqual(blocked, ())
-
     def test_successful_rollback_does_not_leave_failed_delta(self):
         relative = Path(
             "output/sample/questions_json/2026/"

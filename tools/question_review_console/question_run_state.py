@@ -152,7 +152,7 @@ def _write_json(path: Path, value: Mapping[str, Any]) -> None:
 
 
 class QuestionRunStateStore:
-    """Durable v2 state for one maintenance run.
+    """Durable current state for one maintenance run.
 
     plan.json is immutable, manifest.json is a small coordinator record, and
     each question owns exactly one mutable JSON state file.  Derived summary
@@ -168,7 +168,7 @@ class QuestionRunStateStore:
         ] = {}
 
     @staticmethod
-    def is_v2(manifest: Mapping[str, Any]) -> bool:
+    def is_current(manifest: Mapping[str, Any]) -> bool:
         return manifest.get("schemaVersion") == RUN_SCHEMA_VERSION
 
     def initialize(
@@ -187,7 +187,7 @@ class QuestionRunStateStore:
         ]
         if not executions:
             raise QuestionRunStateError(
-                "v2 maintenance runには一問queueが必要です。"
+                "現行maintenance runには一問queueが必要です。"
             )
         question_ids = [
             str(value.get("questionId") or "").strip() for value in executions
@@ -201,7 +201,7 @@ class QuestionRunStateStore:
         question_dir = run_dir / "questions"
         summary_path = run_dir / "question_summary.json"
         if plan_path.exists() or question_dir.exists() or summary_path.exists():
-            raise QuestionRunStateError("v2 run stateの保存先が既に存在します。")
+            raise QuestionRunStateError("現行run stateの保存先が既に存在します。")
         question_dir.mkdir(parents=True, exist_ok=False)
 
         immutable_plan = copy.deepcopy(dict(plan))
@@ -277,7 +277,7 @@ class QuestionRunStateStore:
         run_dir: Path,
         manifest: Mapping[str, Any],
     ) -> dict[str, Any]:
-        if not self.is_v2(manifest):
+        if not self.is_current(manifest):
             return copy.deepcopy(dict(manifest))
         plan = self.load_plan(run_dir, manifest)
         if "selectedUpdateTargetIds" in manifest:
@@ -682,7 +682,7 @@ class QuestionRunStateStore:
     ) -> Path:
         if not raw_path:
             raise QuestionRunStateError(
-                f"v2 runに{expected_name} pathがありません。"
+                f"現行runに{expected_name} pathがありません。"
             )
         path = (self.repo_root / str(raw_path)).resolve()
         run_dir = run_dir.resolve()
@@ -693,7 +693,7 @@ class QuestionRunStateStore:
             or (not directory and path.parent != run_dir)
         ):
             raise QuestionRunStateError(
-                f"v2 runの{expected_name} pathが不正です。"
+                f"現行runの{expected_name} pathが不正です。"
             )
         return path
 

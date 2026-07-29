@@ -25,7 +25,7 @@ Codex App Serverでは、組み込みweb検索を一次情報の入口として�
 
 問題整備システムでは、03bを通常整備とは別の新しいsessionで自動実行します。法令監査警告が残る問題はトップ整備の対象へ戻し、警告がなくなるまで完了記録を更新しません。技術知識又は計算だけで判断できる問題は、根拠のある`not_law_related`として03bを完了できます。法令根拠がないという理由だけで`hold`にしません。通常の再実行はトップから行い、詳細画面で監査対象を組み直しません。
 
-03bの入力projectionが`isLawRelated=false`で、同じsource identityに対応するv2監査sidecarが`not_law_related/secondary_verified`として整合する場合は、モデルを再実行せず`not_applicable`で完了し、現在の03b作業版と検証receiptを記録します。sidecarがない又は分類が一致しない場合は旧ルール由来の指摘として消さず、その一問を通常writerへ戻して根拠と判断履歴を再整備します。通常writerでも確定できない場合に限り、理由付きの実質的な`hold`とします。
+03bの入力projectionが`isLawRelated=false`で、同じsource identityに対応するv2監査sidecarが`not_law_related/secondary_verified`として整合する場合は、モデルを再実行せず`not_applicable`で完了し、現在の03b作業版と検証receiptを記録します。sidecarがない又は分類が一致しない場合は未確認事項として自動削除せず、その一問を通常writerへ戻して根拠と判断履歴を再整備します。通常writerでも確定できない場合に限り、理由付きの実質的な`hold`とします。
 
 ## 監査
 
@@ -59,8 +59,6 @@ Codex App Serverでは、組み込みweb検索を一次情報の入口として�
 - `sourceRecordRef`: `00_source/`からの相対file pathと0始まりのrecord index（`<path>#<index>`）
 
 画面APIの問題ID、`reviewKey`、`progressTargets[].id`、UI表示用hashは監査IDではありません。sidecarとsourceは上の3要素をexact joinし、部分一致で推測しません。UIの`reviewKey`が衝突しても`sourceRecordRef`で問題を分離し、資格・年度・問題一覧を表示します。3要素を一意に確定できない場合は03bの開始だけをfail-closedでblockします。選択肢の判定は`examTimeDecision`と`currentLawDecision`へ選択肢順で保存し、patchの正答・`lawRevisionFacts`と一致させます。
-
-旧runがv2 sidecarの`reviewQuestionId`へUI表示用hashを保存していた場合は、同じ行の`sourceQuestionKey`と`sourceRecordRef`が対象source recordへ一意に一致し、旧hashも同じ問題の既知aliasであるとserverが確認できたときだけ、次の03bでsource由来の安定IDへ修復します。この移行を実質的な`hold`には数えず、別問題への付替えと三つのidentityの推測は従来どおり拒否します。
 
 ## 保存先
 

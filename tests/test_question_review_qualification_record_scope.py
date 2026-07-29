@@ -899,7 +899,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 ]
             },
             plan_updates={
-                "legacyFailedDeltaReconciliation": True,
+                "failedDeltaReconciliation": True,
                 "sourceFiles": [source_relative.as_posix()],
                 "targetRecordAliasGroups": [aliases],
                 "targetRecordBindings": [

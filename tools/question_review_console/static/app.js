@@ -225,7 +225,6 @@ const state = {
     stageIds: [],
     listGroupIds: [],
     updateTargetIds: [],
-    questionRange: null,
     questionIds: [],
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
@@ -1516,7 +1515,6 @@ async function saveLawWorkflowSetting(event) {
       listGroupIds: selectedQualificationRunListGroupIds(),
       updateTargetIds: selectedQualificationRunUpdateTargetIds(),
       questionIds: [...state.qualificationRunDialog.questionIds],
-      questionRange: state.qualificationRunDialog.questionRange,
       mode: selectedQualificationRunMode(),
     }
     : null;
@@ -3399,7 +3397,6 @@ function openQualificationRunDialog(stage, options = {}) {
   const selectedGroupIds = fieldFirst
     ? (options.listGroupIds || []).filter((groupId) => availableGroupIds.includes(groupId))
     : defaultQualificationRunListGroupIds(stage, options, selectedStageIds);
-  const selectedQuestionRange = options.questionRange || null;
   const selectedQuestionIds = [...new Set(options.questionIds || [])].filter(Boolean);
   state.qualificationRunDialog = {
     preview: null,
@@ -3409,7 +3406,6 @@ function openQualificationRunDialog(stage, options = {}) {
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
     updateTargetIds: selectedUpdateTargetIds,
-    questionRange: selectedQuestionRange,
     questionIds: selectedQuestionIds,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
@@ -3534,10 +3530,8 @@ async function previewQualificationRun() {
     setQualificationRunPreviewState("blocked", `${label}の更新項目を一つ以上選択してください。`);
     return;
   }
-  const questionRange = state.qualificationRunDialog.questionRange || null;
   const questionIds = state.qualificationRunDialog.questionIds || [];
   state.qualificationRunDialog.updateTargetIds = updateTargetIds;
-  state.qualificationRunDialog.questionRange = questionRange;
   const stage = qualificationWorkflowStage(stageId);
   const supportsScope = qualificationRunSupportsGroupScope(stage, stageIds);
   const listGroupIds = selectedQualificationRunListGroupIds();
@@ -3565,7 +3559,6 @@ async function previewQualificationRun() {
         speedMode: selectedQualificationRunSpeedMode(),
         listGroupIds: supportsScope ? listGroupIds : undefined,
         updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
-        questionRange: questionRange || undefined,
         questionIds: questionIds.length ? questionIds : undefined,
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
@@ -3664,15 +3657,6 @@ function renderQualificationRunPreview(preview) {
         ),
       );
     }
-    if (preview.questionRange) {
-      container.append(
-        element(
-          "span",
-          "run-preview-range",
-          `問題番号 各選択範囲の第${preview.questionRange.start}問〜第${preview.questionRange.end}問`,
-        ),
-      );
-    }
     if (preview.questionIds?.length) {
       container.append(
         element("span", "run-preview-range", `指定問題 ${preview.questionIds.length}問`),
@@ -3729,7 +3713,6 @@ async function startQualificationRun(event) {
         updateTargetIds: preview.selectedUpdateTargetIds?.length
           ? preview.selectedUpdateTargetIds
           : undefined,
-        questionRange: preview.questionRange || undefined,
         questionIds: preview.questionIds?.length ? preview.questionIds : undefined,
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         previewToken: preview.previewToken,
@@ -4464,7 +4447,6 @@ function retryBlockedQualificationRun(runOverride = null) {
     stageIds,
     listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
     updateTargetIds: run.selectedUpdateTargetIds,
-    questionRange: run.questionRange || null,
     mode: run.mode || "outdated",
     questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
@@ -6511,18 +6493,18 @@ async function openSyncDialog(autoStart = false, listGroupId = "") {
       );
       if (!workflowDialogRequestIsCurrent(requestSequence, "sync")) return;
       if (reconciliation.status !== "ready") {
-        throw new Error("旧run由来の未確定patchを安全に検証できません。");
+        throw new Error("未確定patchを安全に検証できません。");
       }
       state.workflowDialog.mode = "reconcile";
       state.workflowDialog.preview = reconciliation;
       $("#workflow-dialog-message").textContent =
-        "旧runの失敗状態だけを、保存済みbaseline・現在のrecord scope・全file hashで検証して清掃します。問題内容と実質的な指摘は削除しません。";
+        "未確定patchを、保存済みbaseline・現在のrecord scope・全file hashで検証して清掃します。問題内容と実質的な指摘は削除しません。";
       $("#workflow-dialog-summary").append(
-        summaryMetric("旧run由来", `${failedCount}件`, "warning"),
+        summaryMetric("未確定patch", `${failedCount}件`, "warning"),
         summaryMetric("検証対象", `${reconciliation.verifiedQuestionCount || 0}問`),
-        summaryMetric("元run", reconciliation.failedRunIds?.join("・") || "-"),
+        summaryMetric("検出run", reconciliation.failedRunIds?.join("・") || "-"),
       );
-      $("#workflow-execute").textContent = "旧runの指摘を清掃";
+      $("#workflow-execute").textContent = "未確定patchを清掃";
       $("#workflow-execute").disabled = false;
       if (autoStart) await startWorkflowExecution();
       return;

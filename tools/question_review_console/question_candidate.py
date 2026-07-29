@@ -38,7 +38,6 @@ from tools.question_review_console.law_audit_quality import (
 )
 
 
-SCHEMA_VERSION = "question-maintenance-candidates/v2"
 CANDIDATE_PAYLOAD_SCHEMA_VERSION = "question-maintenance-candidates/v3"
 OFFICIAL_QUESTION_TYPES = ("true_false", "flash_card", "group_choice")
 AGGREGATE_REVIEW_ISSUE_CODES = (
@@ -1214,36 +1213,19 @@ def _matches_rule(value: Any, rule: Mapping[str, Any]) -> bool:
     return True
 
 
-def parse_candidates(
-    value: str | Mapping[str, Any],
-    expected_question_ids: Iterable[str],
-    targets_by_question: Mapping[str, Iterable[CandidateTarget]],
-) -> tuple[QuestionCandidate, ...]:
-    """Legacy v2 reader retained for existing prepared artifacts and fixtures."""
-    try:
-        payload = json.loads(value) if isinstance(value, str) else dict(value)
-    except (TypeError, json.JSONDecodeError) as exc:
-        raise QuestionCandidateError("構造化候補をJSONとして読み取れません。") from exc
-    if payload.get("schemaVersion") != SCHEMA_VERSION:
-        raise QuestionCandidateError("構造化候補のschemaVersionが一致しません。")
-    return _parse_prepared_candidates(payload, expected_question_ids, targets_by_question)
-
-
 def parse_prepared_candidate_payload(
     payload: Mapping[str, Any],
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
 ) -> tuple[QuestionCandidate, ...]:
-    """Read an explicitly identified persisted v2 or v3 payload."""
+    """Read one closed native-JSON payload persisted by the current pipeline."""
     if not isinstance(payload, Mapping):
         raise QuestionCandidateError("保存済み候補はobjectでなければなりません。")
-    version = payload.get("schemaVersion")
-    if version not in {SCHEMA_VERSION, CANDIDATE_PAYLOAD_SCHEMA_VERSION}:
+    if payload.get("schemaVersion") != CANDIDATE_PAYLOAD_SCHEMA_VERSION:
         raise QuestionCandidateError("構造化候補のschemaVersionが一致しません。")
-    if version == CANDIDATE_PAYLOAD_SCHEMA_VERSION:
-        _validate_v3_prepared_shape(
-            payload, expected_question_ids, targets_by_question
-        )
+    _validate_v3_prepared_shape(
+        payload, expected_question_ids, targets_by_question
+    )
     return _parse_prepared_candidates(
         dict(payload), expected_question_ids, targets_by_question
     )
@@ -1401,8 +1383,7 @@ def _parse_prepared_candidates(
         )
     except (TypeError, json.JSONDecodeError) as exc:
         raise QuestionCandidateError("構造化候補をJSONとして読み取れません。") from exc
-    version = payload.get("schemaVersion")
-    if version not in {SCHEMA_VERSION, CANDIDATE_PAYLOAD_SCHEMA_VERSION}:
+    if payload.get("schemaVersion") != CANDIDATE_PAYLOAD_SCHEMA_VERSION:
         raise QuestionCandidateError("構造化候補のschemaVersionが一致しません。")
     raw_results = payload.get("questionResults")
     if not isinstance(raw_results, list):
@@ -1493,29 +1474,11 @@ def _parse_prepared_candidates(
                             f"setFieldsのfieldが空又は重複しています: "
                             f"{question_id}"
                         )
-                    try:
-                        parsed_fields[field] = _normalized_candidate_value(
-                            field,
-                            (
-                                json.loads(str(item.get("valueJson") or ""))
-                                if version == SCHEMA_VERSION
-                                else item.get("value")
-                            ),
-                        )
-                    except json.JSONDecodeError as exc:
-                        raise QuestionCandidateError(
-                            f"setFields.valueJsonがJSONではありません: "
-                            f"{question_id} / {field}"
-                        ) from exc
-                unset = tuple(dict.fromkeys(str(field) for field in unset_fields))
-                if "tertiaryAuditRunId" in unset:
-                    # 監査sidecarは三次監査が不要な場合もfield自体を必須とし、
-                    # 値をnullで保持する。modelが「不要」をunsetで表した場合は
-                    # server側で契約上のnullへ正規化する。
-                    parsed_fields.setdefault("tertiaryAuditRunId", None)
-                    unset = tuple(
-                        field for field in unset if field != "tertiaryAuditRunId"
+                    parsed_fields[field] = _normalized_candidate_value(
+                        field,
+                        item.get("value"),
                     )
+                unset = tuple(dict.fromkeys(str(field) for field in unset_fields))
                 overlap = set(parsed_fields) & set(unset)
                 if overlap:
                     raise QuestionCandidateError(
@@ -1526,14 +1489,8 @@ def _parse_prepared_candidates(
                         + ", ".join(target.allowed_fields)
                     )
                 for field, field_value in parsed_fields.items():
-                    destinations = (
-                        (target,)
-                        if version == SCHEMA_VERSION
-                        and field == "tertiaryAuditRunId"
-                        and target.role == "law_audit"
-                        else _field_destinations(
-                            question_id, field, allowed_targets, target
-                        )
+                    destinations = _field_destinations(
+                        question_id, field, allowed_targets, target
                     )
                     for destination in destinations:
                         routed = routed_fields[destination.target_id]
@@ -1548,14 +1505,8 @@ def _parse_prepared_candidates(
                             )
                         routed["set"][field] = field_value
                 for field in unset:
-                    destinations = (
-                        (target,)
-                        if version == SCHEMA_VERSION
-                        and field == "tertiaryAuditRunId"
-                        and target.role == "law_audit"
-                        else _field_destinations(
-                            question_id, field, allowed_targets, target
-                        )
+                    destinations = _field_destinations(
+                        question_id, field, allowed_targets, target
                     )
                     for destination in destinations:
                         routed = routed_fields[destination.target_id]

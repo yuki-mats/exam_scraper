@@ -387,7 +387,7 @@ class QuestionWorkQueueTests(unittest.TestCase):
                 {
                     "attempt": 1,
                     "status": "blocked",
-                    "feedback": {"reason": "旧ルールの指摘"},
+                    "feedback": {"reason": "根拠の再検証が必要"},
                 }
             ],
         )

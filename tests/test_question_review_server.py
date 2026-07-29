@@ -1231,7 +1231,6 @@ class QuestionReviewServerTests(unittest.TestCase):
                 stage_ids=None,
                 list_group_ids=None,
                 update_target_ids=None,
-                question_range=None,
                 question_ids=None,
                 resumed_from=None,
                 question_concurrency=None,
@@ -1239,7 +1238,6 @@ class QuestionReviewServerTests(unittest.TestCase):
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
-                self.question_range = question_range
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
@@ -1260,7 +1258,6 @@ class QuestionReviewServerTests(unittest.TestCase):
                 stage_ids=None,
                 list_group_ids=None,
                 update_target_ids=None,
-                question_range=None,
                 question_ids=None,
                 resumed_from=None,
                 question_concurrency=None,
@@ -1268,7 +1265,6 @@ class QuestionReviewServerTests(unittest.TestCase):
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
-                self.question_range = question_range
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
@@ -1323,7 +1319,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
                     "updateTargetIds": ["explanation.supplementary_questions"],
-                    "questionRange": {"start": 2, "end": 10},
+                    "questionIds": ["q2", "q10"],
                     "mode": "attention",
                     "questionConcurrency": 10,
                     "speedMode": "standard",
@@ -1336,7 +1332,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "stageIds": ["law_audit"],
                     "listGroupIds": ["2024", "2026"],
                     "updateTargetIds": ["explanation.supplementary_questions"],
-                    "questionRange": {"start": 2, "end": 10},
+                    "questionIds": ["q2", "q10"],
                     "mode": "attention",
                     "questionConcurrency": 10,
                     "speedMode": "standard",
@@ -1367,7 +1363,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(
             runs.update_target_ids, ["explanation.supplementary_questions"]
         )
-        self.assertEqual(runs.question_range, {"start": 2, "end": 10})
+        self.assertEqual(runs.question_ids, ["q2", "q10"])
         self.assertEqual(runs.question_concurrency, 10)
         self.assertEqual(runs.speed_mode, "standard")
         self.assertEqual(start_status, 201)
@@ -1608,20 +1604,6 @@ class QuestionReviewServerTests(unittest.TestCase):
             ]
         )
 
-    def test_qualification_run_rejects_question_ids_range_conflict(self):
-        with tempfile.TemporaryDirectory() as directory, self.assertRaises(ApiError) as caught:
-            QuestionReviewApplication(Path(directory)).post(
-                "/api/qualification-runs/preview",
-                {
-                    "qualification": "sample",
-                    "stageIds": ["question_type"],
-                    "questionIds": ["q1"],
-                    "questionRange": {"start": 1, "end": 1},
-                },
-            )
-        self.assertEqual(caught.exception.status, 422)
-        self.assertIn("同時に指定", str(caught.exception))
-
     def test_qualification_run_rejects_unsupported_question_concurrency(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(
             ApiError
@@ -1640,7 +1622,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(caught.exception.status, 422)
         self.assertIn("1、5、10", str(caught.exception))
 
-    def test_qualification_run_rejects_invalid_question_range(self):
+    def test_qualification_run_rejects_unknown_request_field(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(
             ApiError
         ) as caught:
@@ -1650,14 +1632,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 {
                     "qualification": "sample",
                     "stageIds": ["explanation"],
-                    "questionRange": {"start": 5, "end": 2},
+                    "unknownScope": {"start": 5, "end": 2},
                 },
             )
 
-        self.assertEqual(caught.exception.status, 400)
-        self.assertIn("questionRange", str(caught.exception))
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("未対応のrequest field", str(caught.exception))
 
-    def test_qualification_run_rejects_legacy_singular_scope(self):
+    def test_qualification_run_rejects_unknown_singular_scope(self):
         cases = (
             {"stageId": "law_audit", "listGroupIds": ["2026"]},
             {"stageIds": ["law_audit"], "listGroupId": "2026"},
@@ -1675,7 +1657,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                 )
 
             self.assertEqual(caught.exception.status, 422)
-            self.assertIn("stageIdsとlistGroupIds", str(caught.exception))
+            self.assertIn("未対応のrequest field", str(caught.exception))
 
     def test_bulk_law_audit_post_adds_all_qualification_target_files(self):
         class Inventory:

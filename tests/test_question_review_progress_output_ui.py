@@ -110,7 +110,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("function selectAllQualificationRunUpdateTargets", javascript)
         self.assertIn("scopeLabelForGroups(groupIds)", javascript)
         self.assertIn(": selectableTargetIds", javascript)
-        self.assertIn("questionRange: questionRange || undefined", javascript)
+        self.assertNotIn("questionRange", javascript)
         self.assertIn("preview.selectedUpdateTargets", javascript)
         self.assertNotIn("examYear", javascript[
             javascript.index("function qualificationRunSelectableUpdateTargets") :

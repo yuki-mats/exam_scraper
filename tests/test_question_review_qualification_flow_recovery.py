@@ -12,19 +12,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         return store
 
     @staticmethod
-    def _create_legacy_parent(store, plan, *, status):
-        """Create the v1 shape that can own historical child manifests."""
-
-        legacy_plan = copy.deepcopy(plan)
-        legacy_plan["workType"] = "maintenance_flow_legacy"
-        parent = store.create(legacy_plan, status=status)
-        return store.update(
-            "sample",
-            parent["runId"],
-            workType="maintenance_flow",
-        )
-
-    @staticmethod
     def _question_attempt_ids(run):
         return list(
             dict.fromkeys(
@@ -86,43 +73,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             ],
         )
         return plan, identity
-
-    @staticmethod
-    def _create_completed_child(store, parent, identity, *, identity_override=None):
-        child_identity = dict(identity)
-        child_identity.update(identity_override or {})
-        child_plan = FakeWorkflow().plan("sample", "question_type", "remaining")
-        child_plan.update(
-            parentRunId=parent["runId"],
-            flowPhaseId="question_type",
-            stageId="question_type",
-            stageIds=["question_type"],
-            targetCount=1,
-            progressTargets=[child_identity],
-        )
-        child = store.create(child_plan, status="succeeded", prompt="child")
-        store.update(
-            "sample",
-            child["runId"],
-            receiptValidated=True,
-            result={
-                "status": "succeeded",
-                "summary": "一問を確定しました。",
-                "commands": [],
-                "changedFiles": [],
-            },
-            deltaUnknown=False,
-            workVersionReceipt={"recordedCount": 1, "items": ["q1"]},
-        )
-        store.update_question_stage(
-            "sample",
-            parent["runId"],
-            "q1",
-            "question_type",
-            status="committing",
-            childRunIds=[child["runId"]],
-        )
-        return child
 
     def test_every_top_maintenance_stage_has_its_own_session_phase(self):
         stage_ids = [
@@ -406,7 +356,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageCode": "03b",
                     "stageLabel": "トップ整備",
                     "workType": "maintenance_flow",
-                    "queueOrder": "question_batch",
+                    "queueOrder": "question_turn",
                     "confirmedGroupIds": ["2026"],
                     "workVersionReceipt": {
                         "recordedCount": 3,
@@ -488,7 +438,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageId": "multi",
                     "stageIds": ["category_setup", "question_set"],
                     "workType": "maintenance_flow",
-                    "queueOrder": "question_batch",
+                    "queueOrder": "question_turn",
                     "questionExecutions": queued_plan["questionExecutions"],
                     "phaseExecutions": [
                         {
@@ -562,7 +512,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
                     "stageCode": "03b",
                     "stageLabel": "トップ整備",
                     "workType": "maintenance_flow",
-                    "queueOrder": "question_batch",
+                    "queueOrder": "question_turn",
                     "confirmedGroupIds": ["2026"],
                     "workVersionReceipt": {
                         "recordedCount": 3,
@@ -1688,359 +1638,6 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(recovered[0]["status"], "interrupted")
         self.assertIn("再開", recovered[0]["error"])
 
-    def test_committing_stage_recovers_from_completed_bound_child(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = QualificationRunStore(root)
-            plan, identity = self._queue_recovery_plan()
-            parent = self._create_legacy_parent(
-                store,
-                plan,
-                status="running",
-            )
-            self._create_completed_child(store, parent, identity)
-
-            restarted = self._restart_and_recover(root)
-            recovered = restarted.get("sample", parent["runId"])
-
-        stage = recovered["questionExecutions"][0]["stages"][0]
-        self.assertEqual(stage["status"], "validated")
-        self.assertTrue(stage["outputFingerprint"])
-        self.assertEqual(recovered["confirmedGroupIds"], ["2026"])
-        self.assertEqual(recovered["status"], "succeeded")
-        self.assertTrue(recovered["receiptValidated"])
-        self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
-
-    def test_structured_batch_restart_keeps_checkpoint_and_retries_only_missing(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = QualificationRunStore(root)
-            plan, first = self._queue_recovery_plan()
-            second = {
-                **first,
-                "id": "q2",
-                "questionId": "q2",
-                "questionKey": "q2",
-                "sourceQuestionKey": "source-q2",
-                "reviewQuestionId": "review-q2",
-                "sourceRecordRef": "record-q2",
-                "displayLabel": "2026 問2",
-            }
-            plan["questionExecutions"].append(
-                {
-                    **second,
-                    "status": "committing",
-                    "stages": [
-                        {
-                            "workItemKey": "work-question_type-q2",
-                            "stageId": "question_type",
-                            "status": "committing",
-                            "childRunIds": [],
-                            "error": None,
-                        }
-                    ],
-                }
-            )
-            parent = self._create_legacy_parent(
-                store,
-                plan,
-                status="running",
-            )
-            child_plan = FakeWorkflow().plan(
-                "sample", "question_type", "remaining"
-            )
-            child_plan.update(
-                parentRunId=parent["runId"],
-                flowPhaseId="question_type",
-                stageId="question_type",
-                stageIds=["question_type"],
-                workType="maintenance_question_type_candidate",
-                sandbox="read-only",
-                parallelStrategy="structured_candidate_batch",
-                progressTargets=[first, second],
-            )
-            child = store.create(child_plan, status="running", prompt="child")
-            store.update(
-                "sample",
-                child["runId"],
-                startedAt="2026-01-01T00:00:00+09:00",
-                executionPhase="server_candidate_commit",
-                activeCandidateQuestionId="q2",
-                candidateTransactionOpen=False,
-                batchQuestionResults=[
-                    {
-                        "questionId": "q1",
-                        "status": "succeeded",
-                        "summary": "q1を確定した。",
-                        "changedFiles": ["patch.json"],
-                        "workVersionReceipt": {
-                            "recordedCount": 1,
-                            "items": ["q1"],
-                        },
-                    }
-                ],
-                deltaUnknown=False,
-            )
-            for question_id in ("q1", "q2"):
-                store.update_question_stage(
-                    "sample",
-                    parent["runId"],
-                    question_id,
-                    "question_type",
-                    status="committing",
-                    childRunIds=[child["runId"]],
-                )
-
-            restarted = self._restart_and_recover(root)
-            recovered = restarted.get("sample", parent["runId"])
-            recovered_child = restarted.get("sample", child["runId"])
-
-        stages = {
-            question["questionId"]: question["stages"][0]
-            for question in recovered["questionExecutions"]
-        }
-        self.assertEqual(stages["q1"]["status"], "validated")
-        self.assertEqual(stages["q2"]["status"], "blocked")
-        self.assertIn("再実行", stages["q2"]["error"])
-        self.assertTrue(recovered["retrySafe"])
-        self.assertIsNone(recovered["unsafeChildRunId"])
-        self.assertEqual(recovered_child["status"], "interrupted")
-        self.assertFalse(recovered_child["deltaUnknown"])
-        self.assertTrue(recovered_child["retrySafe"])
-
-    def test_structured_batch_restart_rolls_back_only_open_question_transaction(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            relative = Path(
-                "output/sample/questions_json/2026/10_questionType_fixed/q.json"
-            )
-            patch = root / relative
-            patch.parent.mkdir(parents=True)
-            patch.write_text('{"value":"before"}', encoding="utf-8")
-            store = QualificationRunStore(root)
-            plan = FakeWorkflow().plan("sample", "question_type", "remaining")
-            plan.update(
-                workType="maintenance_question_type_candidate",
-                sandbox="read-only",
-                parallelStrategy="structured_candidate_per_question",
-                allowedPatchFiles=[relative.as_posix()],
-                progressTargets=[{"id": "q1"}],
-            )
-            child = store.create(plan, status="running", prompt="child")
-            store.write_baseline("sample", child["runId"], (patch,))
-            patch.write_text('{"value":"after"}', encoding="utf-8")
-            store.update(
-                "sample",
-                child["runId"],
-                startedAt="2026-01-01T00:00:00+09:00",
-                executionPhase="server_candidate_commit",
-                activeCandidateQuestionId="q1",
-                candidateTransactionOpen=True,
-                batchQuestionResults=[],
-            )
-
-            restarted = self._restart_and_recover(root)
-            recovered = restarted.get("sample", child["runId"])
-            restored_text = patch.read_text(encoding="utf-8")
-
-        self.assertEqual(restored_text, '{"value":"before"}')
-        self.assertEqual(recovered["rollback"]["status"], "succeeded")
-        self.assertFalse(recovered["deltaUnknown"])
-        self.assertTrue(recovered["retrySafe"])
-
-    def test_interrupted_parent_recovers_completed_child_before_resume(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = QualificationRunStore(root)
-            plan, identity = self._queue_recovery_plan()
-            plan["questionExecutions"].append(
-                {
-                    "id": "q2",
-                    "questionKey": "q2",
-                    "sourceQuestionKey": "source-q2",
-                    "reviewQuestionId": "review-q2",
-                    "sourceRecordRef": "record-q2",
-                    "questionId": "q2",
-                    "listGroupId": "2026",
-                    "displayLabel": "2026 問2",
-                    "status": "blocked",
-                    "stages": [
-                        {
-                            "workItemKey": "work-question_type-q2",
-                            "stageId": "question_type",
-                            "status": "blocked",
-                            "childRunIds": [],
-                            "error": "外部providerの回復後に再開できます。",
-                        }
-                    ],
-                }
-            )
-            parent = self._create_legacy_parent(
-                store,
-                plan,
-                status="running",
-            )
-            child = self._create_completed_child(store, parent, identity)
-            store.update_question_stage(
-                "sample",
-                parent["runId"],
-                "q1",
-                "question_type",
-                validationAttempts=[
-                    {
-                        "attempt": 1,
-                        "childRunId": child["runId"],
-                        "status": "running",
-                        "feedback": None,
-                    }
-                ],
-            )
-            store.update(
-                "sample",
-                parent["runId"],
-                status="interrupted",
-                queueStatus="partial",
-                pauseKind="external_provider",
-                retrySafe=True,
-            )
-
-            restarted = self._restart_and_recover(root)
-            recovered = restarted.get(
-                "sample",
-                parent["runId"],
-            )
-
-        first_stage = recovered["questionExecutions"][0]["stages"][0]
-        second_stage = recovered["questionExecutions"][1]["stages"][0]
-        self.assertEqual(first_stage["status"], "validated")
-        self.assertEqual(
-            first_stage["validationAttempts"][0]["status"],
-            "validated",
-        )
-        self.assertEqual(second_stage["status"], "blocked")
-        self.assertEqual(recovered["status"], "succeeded")
-        self.assertEqual(recovered["queueStatus"], "partial")
-        self.assertEqual(recovered["phaseExecutions"][0]["status"], "partial")
-        self.assertTrue(recovered["receiptValidated"])
-        self.assertEqual(recovered["workVersionReceipt"]["recordedCount"], 1)
-        self.assertEqual(recovered["artifactSync"]["status"], "interrupted")
-
-    def test_interrupted_parent_recovers_completed_shared_prerequisite(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = QualificationRunStore(root)
-            plan, _identity = self._queue_recovery_plan(
-                stage_status="queued",
-                stage_ids=["question_set"],
-            )
-            plan.update(
-                stageIds=["category_setup", "question_set"],
-                phaseExecutions=[
-                    {
-                        "id": "category_setup",
-                        "index": 1,
-                        "label": "分野を整備",
-                        "stageIds": ["category_setup"],
-                        "status": "running",
-                        "childRunIds": [],
-                    },
-                    {
-                        "id": "question_set",
-                        "index": 2,
-                        "label": "問題集を整備",
-                        "stageIds": ["question_set"],
-                        "status": "pending",
-                        "childRunIds": [],
-                    },
-                ],
-            )
-            parent = self._create_legacy_parent(
-                store,
-                plan,
-                status="running",
-            )
-            child_plan = FakeWorkflow().plan(
-                "sample",
-                "category_setup",
-                "outdated",
-            )
-            child_plan.update(
-                parentRunId=parent["runId"],
-                flowPhaseId="category_setup",
-                phaseIndex=1,
-                targetGroupIds=["2026"],
-            )
-            child = store.create(child_plan, status="succeeded", prompt="child")
-            store.update(
-                "sample",
-                child["runId"],
-                receiptValidated=True,
-                result={
-                    "status": "succeeded",
-                    "summary": "共有前提を確定しました。",
-                    "commands": [],
-                    "changedFiles": [],
-                },
-                deltaUnknown=False,
-                workVersionReceipt={
-                    "recordedCount": 1,
-                    "items": [{"stageId": "category_setup"}],
-                },
-            )
-            store.update(
-                "sample",
-                parent["runId"],
-                childRunIds=[child["runId"]],
-                status="interrupted",
-                queueStatus="interrupted",
-                retrySafe=True,
-            )
-
-            restarted = self._restart_and_recover(root)
-            recovered = restarted.get(
-                "sample",
-                parent["runId"],
-            )
-
-        phases = {
-            phase["id"]: phase for phase in recovered["phaseExecutions"]
-        }
-        self.assertEqual(phases["category_setup"]["status"], "succeeded")
-        self.assertTrue(phases["category_setup"]["receiptValidated"])
-        self.assertEqual(phases["question_set"]["status"], "pending")
-        self.assertEqual(recovered["status"], "interrupted")
-        self.assertEqual(recovered["queueStatus"], "interrupted")
-        self.assertEqual(recovered["confirmedGroupIds"], ["2026"])
-        self.assertEqual(recovered["workVersionReceipt"]["recordedCount"], 1)
-
-    def test_committing_stage_identity_mismatch_fails_closed(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = QualificationRunStore(root)
-            plan, identity = self._queue_recovery_plan()
-            parent = self._create_legacy_parent(
-                store,
-                plan,
-                status="running",
-            )
-            child = self._create_completed_child(
-                store,
-                parent,
-                identity,
-                identity_override={"sourceRecordRef": "other-record"},
-            )
-
-            restarted = self._restart_and_recover(root)
-            recovered = restarted.get("sample", parent["runId"])
-
-        self.assertFalse(recovered["retrySafe"])
-        self.assertEqual(recovered["unsafeChildRunId"], child["runId"])
-        self.assertEqual(
-            recovered["questionExecutions"][0]["stages"][0]["status"],
-            "blocked",
-        )
-        self.assertNotEqual(recovered["status"], "succeeded")
-
     def test_resumed_flow_keeps_prior_confirmed_groups_and_receipts(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -2057,7 +1654,7 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
             plan.update(
                 kind="orchestration",
                 workType="maintenance_flow",
-                queueOrder="question_batch",
+                queueOrder="question_turn",
                 stageId="multi",
                 stageIds=[],
                 phaseExecutions=[],

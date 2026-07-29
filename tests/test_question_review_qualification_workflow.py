@@ -336,22 +336,6 @@ class QualificationWorkflowTests(unittest.TestCase):
                         question_ids=[question_id],
                     )
 
-    def test_plan_rejects_question_ids_with_question_range(self):
-        group = {"listGroupId": "2026", "questions": [question()]}
-        with tempfile.TemporaryDirectory() as directory:
-            workflow = QualificationWorkflow(
-                Path(directory), FakeInventory("sample", [group])
-            )
-            with self.assertRaisesRegex(ValueError, "同時に指定"):
-                workflow.plan(
-                    "sample",
-                    "question_type",
-                    "group_refresh",
-                    list_group_ids=["2026"],
-                    question_ids=["sample-2026-q1"],
-                    question_range={"start": 1, "end": 1},
-                )
-
     def test_plan_many_filters_stage_applicability_after_question_id_validation(self):
         item = question(group="2017")
         item["source"]["examYear"] = 2017
@@ -384,7 +368,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             [item["id"]],
         )
 
-    def test_plan_filters_same_question_range_per_year_and_selected_fields(self):
+    def test_plan_filters_exact_question_ids_and_selected_fields(self):
         groups = [
             {
                 "listGroupId": year,
@@ -394,6 +378,12 @@ class QualificationWorkflowTests(unittest.TestCase):
                 ],
             }
             for year in ("original", "2026")
+        ]
+        selected_question_ids = [
+            item["id"]
+            for group in groups
+            for item in group["questions"]
+            if item["questionLabel"] in {"問2", "問3"}
         ]
         with tempfile.TemporaryDirectory() as directory:
             workflow = QualificationWorkflow(
@@ -405,7 +395,7 @@ class QualificationWorkflowTests(unittest.TestCase):
                 "group_refresh",
                 list_group_ids=["original", "2026"],
                 update_target_ids=["explanation.supplementary_questions"],
-                question_range={"start": 2, "end": 3},
+                question_ids=selected_question_ids,
             )
             prompt = workflow.prompt(
                 "sample",
@@ -413,7 +403,7 @@ class QualificationWorkflowTests(unittest.TestCase):
                 "group_refresh",
                 list_group_ids=["original", "2026"],
                 update_target_ids=["explanation.supplementary_questions"],
-                question_range={"start": 2, "end": 3},
+                question_ids=selected_question_ids,
             )["prompt"]
 
         self.assertEqual(plan["targetCount"], 4)
@@ -434,10 +424,9 @@ class QualificationWorkflowTests(unittest.TestCase):
             {"explanation": ["suggestedQuestionDetailsByChoice"]},
         )
         self.assertIn("explanationText", plan["readFieldsByStage"]["explanation"])
-        self.assertEqual(plan["questionRange"], {"start": 2, "end": 3})
+        self.assertEqual(plan["questionIds"], selected_question_ids)
         self.assertIn("補足質問と回答", prompt)
         self.assertIn("参照用field", prompt)
-        self.assertIn("第2問〜第3問", prompt)
 
     def test_plan_rejects_update_target_from_another_stage(self):
         group = {"listGroupId": "2026", "questions": [question()]}

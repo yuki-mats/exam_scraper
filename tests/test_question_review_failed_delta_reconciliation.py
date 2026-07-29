@@ -5,70 +5,46 @@ import unittest
 from pathlib import Path
 
 from tools.question_review_console.failed_delta_reconciliation import (
-    _migrated_sidecars,
     _record_scopes,
+    _validate_sidecars,
     _verified_baseline,
 )
 from tools.question_review_console.qualification_runs import QualificationRunError
 
 
 class FailedDeltaReconciliationTests(unittest.TestCase):
-    def test_migrates_only_sidecar_identity_contract(self):
+    def test_accepts_current_sidecar_identity_without_mutation(self):
         relative = (
             "output/sample/review/law_revision_audit/"
             "2026_law_revision_audit.jsonl"
         )
-        binding = {
-            "uiQuestionId": "ui-q1",
-            "reviewQuestionId": "source-q1",
-            "sourceQuestionKey": "sample:2026:q1",
-            "sourceRecordRef": "source.json#0",
-            "aliases": ["ui-q1", "source-q1", "sample:2026:q1", "source.json#0"],
-        }
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             path = root / relative
             path.parent.mkdir(parents=True)
-            path.write_text(
+            content = (
                 json.dumps(
                     {
-                        "schemaVersion": "law-revision-audit/v1",
-                        "reviewQuestionId": "ui-q1",
+                        "schemaVersion": "law-revision-audit/v2",
+                        "reviewQuestionId": "source-q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": "source.json#0",
                         "auditStatus": "not_law_related",
                     }
                 )
-                + "\n",
-                encoding="utf-8",
+                + "\n"
             )
+            path.write_text(content, encoding="utf-8")
 
-            candidates, migrated = _migrated_sidecars(
-                root,
-                (relative,),
-                [binding],
-            )
+            _validate_sidecars(root, (relative,))
 
-        row = json.loads(candidates[relative])
-        self.assertEqual(row["schemaVersion"], "law-revision-audit/v2")
-        self.assertEqual(row["reviewQuestionId"], "ui-q1")
-        self.assertEqual(row["sourceQuestionKey"], "sample:2026:q1")
-        self.assertEqual(row["sourceRecordRef"], "source.json#0")
-        self.assertEqual(row["auditStatus"], "not_law_related")
-        self.assertEqual(migrated, ["ui-q1"])
+            self.assertEqual(path.read_text(encoding="utf-8"), content)
 
-    def test_rejects_ambiguous_legacy_sidecar_identity(self):
+    def test_rejects_non_current_sidecar_identity(self):
         relative = (
             "output/sample/review/law_revision_audit/"
             "2026_law_revision_audit.jsonl"
         )
-        bindings = [
-            {
-                "uiQuestionId": question_id,
-                "sourceQuestionKey": f"sample:2026:{question_id}",
-                "sourceRecordRef": f"source.json#{index}",
-                "aliases": ["shared", question_id],
-            }
-            for index, question_id in enumerate(("q1", "q2"))
-        ]
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             path = root / relative
@@ -77,7 +53,7 @@ class FailedDeltaReconciliationTests(unittest.TestCase):
                 json.dumps(
                     {
                         "schemaVersion": "law-revision-audit/v1",
-                        "reviewQuestionId": "shared",
+                        "reviewQuestionId": "q1",
                     }
                 )
                 + "\n",
@@ -86,9 +62,9 @@ class FailedDeltaReconciliationTests(unittest.TestCase):
 
             with self.assertRaisesRegex(
                 QualificationRunError,
-                "一意に確認できません",
+                "現行identity契約",
             ):
-                _migrated_sidecars(root, (relative,), bindings)
+                _validate_sidecars(root, (relative,))
 
     def test_record_scopes_follow_exact_patch_paths(self):
         patch = (

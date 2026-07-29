@@ -84,7 +84,7 @@ def _flow_plan(target_path: Path) -> dict:
     }
 
 
-class V2QuestionRunRecoveryTest(unittest.TestCase):
+class QuestionRunRecoveryTest(unittest.TestCase):
     def test_interrupted_run_with_running_queue_self_heals_before_resume(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -106,10 +106,10 @@ class V2QuestionRunRecoveryTest(unittest.TestCase):
             )
             self.assertTrue(recovery_path.is_file())
 
-            # Reproduce a legacy v2 run whose recovery sidecar was already lost.
+            # Explicit resume must self-heal even if the active sidecar was lost.
             recovery_path.unlink()
             restarted = QualificationRunStore(root)
-            recovered = restarted.recover_interrupted_v2_run_for_resume(
+            recovered = restarted.recover_interrupted_question_run_for_resume(
                 "sample",
                 run_id,
             )

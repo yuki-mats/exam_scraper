@@ -109,25 +109,6 @@ def _group_scope(
     return selected, provided
 
 
-def _question_range(value: Mapping[str, Any] | None) -> dict[str, int] | None:
-    if value is None:
-        return None
-    if not isinstance(value, Mapping) or set(value) != {"start", "end"}:
-        raise ValueError("問題番号範囲はstartとendで指定してください。")
-    start = value.get("start")
-    end = value.get("end")
-    if (
-        isinstance(start, bool)
-        or isinstance(end, bool)
-        or not isinstance(start, int)
-        or not isinstance(end, int)
-        or start < 1
-        or end < start
-    ):
-        raise ValueError("問題番号範囲は1以上かつstart以下でないendを指定してください。")
-    return {"start": start, "end": end}
-
-
 def _select_update_targets(
     definition: Mapping[str, Any],
     update_target_ids: Iterable[str] | None,
@@ -149,26 +130,6 @@ def _select_update_targets(
     if available and not requested:
         raise ValueError(f"{definition['label']}の更新項目を一つ以上選択してください。")
     return [available_by_id[value] for value in requested]
-
-
-def _filter_question_range(
-    questions: Iterable[Mapping[str, Any]],
-    question_range: Mapping[str, int] | None,
-) -> list[Mapping[str, Any]]:
-    values = list(questions)
-    if question_range is None:
-        return values
-    by_group: dict[str, list[Mapping[str, Any]]] = {}
-    for question in values:
-        by_group.setdefault(str(question.get("listGroupId") or ""), []).append(
-            question
-        )
-    selected: list[Mapping[str, Any]] = []
-    start = int(question_range["start"]) - 1
-    end = int(question_range["end"])
-    for group_id in sorted(by_group):
-        selected.extend(sorted(by_group[group_id], key=_progress_sort_key)[start:end])
-    return selected
 
 
 def _filter_question_ids(
@@ -782,7 +743,6 @@ class QualificationWorkflow:
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: Iterable[str] | None = None,
         allow_category_pending: bool = False,
         _catalog: Mapping[str, Any] | None = None,
@@ -801,9 +761,6 @@ class QualificationWorkflow:
         )
         if definition is None:
             raise ValueError(f"対象工程がありません: {stage_id}")
-        normalized_question_range = _question_range(question_range)
-        if normalized_question_range is not None and question_ids is not None:
-            raise ValueError("questionIdsとquestionRangeは同時に指定できません。")
         selected_update_targets = _select_update_targets(
             definition, update_target_ids
         )
@@ -843,11 +800,6 @@ class QualificationWorkflow:
                 mode = "refresh"
         if not definition.get("supportsGroupScope") and scope_provided:
             raise ValueError(f"{definition['label']}は年度ではなく資格単位で整備します。")
-        if normalized_question_range and (
-            not definition.get("supportsGroupScope")
-            or definition.get("kind") != "human"
-        ):
-            raise ValueError(f"{definition['label']}は問題番号範囲を指定できません。")
         if question_ids is not None and (
             not definition.get("supportsGroupScope")
             or definition.get("kind") != "human"
@@ -898,7 +850,6 @@ class QualificationWorkflow:
                 for question in questions
                 if _originalization_applicable(question)
             ]
-        questions = _filter_question_range(questions, normalized_question_range)
         artifact_blockers = self._artifact_blockers_for_stage(
             groups,
             definition,
@@ -1201,11 +1152,6 @@ class QualificationWorkflow:
             }[mode]
         else:
             mode_label = RUN_MODES[mode]
-        if normalized_question_range:
-            mode_label += (
-                f"（各選択範囲の第{normalized_question_range['start']}問〜"
-                f"第{normalized_question_range['end']}問）"
-            )
         policy_versions = (
             {
                 stage_id: normalize_policy_version(definition["policyVersion"])
@@ -1255,7 +1201,6 @@ class QualificationWorkflow:
                 selected_group_ids[0] if len(selected_group_ids) == 1 else None
             ),
             "scopeListGroupIds": selected_group_ids,
-            "questionRange": normalized_question_range,
             "questionIds": normalized_question_ids,
             "updateTargets": [dict(value) for value in definition.get("updateTargets") or []],
             "selectedUpdateTargets": selected_update_targets,
@@ -1288,7 +1233,6 @@ class QualificationWorkflow:
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: Iterable[str] | None = None,
         _dashboard_only: bool = False,
     ) -> dict[str, Any]:
@@ -1311,15 +1255,6 @@ class QualificationWorkflow:
             for stage in catalog["stages"]
             if str(stage["id"]) in requested
         ]
-        normalized_question_range = _question_range(question_range)
-        if normalized_question_range is not None and question_ids is not None:
-            raise ValueError("questionIdsとquestionRangeは同時に指定できません。")
-        if normalized_question_range and not any(
-            definitions[stage_id].get("supportsGroupScope")
-            and definitions[stage_id].get("kind") == "human"
-            for stage_id in ordered
-        ):
-            raise ValueError("選択工程は問題番号範囲を指定できません。")
         requested_update_target_ids = (
             _ordered_unique(str(value).strip() for value in update_target_ids)
             if update_target_ids is not None
@@ -1366,7 +1301,6 @@ class QualificationWorkflow:
                 mode,
                 list_group_ids=scoped_group_ids,
                 update_target_ids=requested_update_target_ids,
-                question_range=normalized_question_range,
                 question_ids=question_ids,
                 _catalog=catalog,
                 _qualification_data=qualification_data,
@@ -1417,11 +1351,6 @@ class QualificationWorkflow:
                         for value in requested_update_target_ids
                         if value.startswith(f"{stage_id}.")
                     ]
-                ),
-                question_range=(
-                    normalized_question_range
-                    if definitions[stage_id].get("supportsGroupScope")
-                    else None
                 ),
                 question_ids=(
                     question_ids
@@ -1529,7 +1458,6 @@ class QualificationWorkflow:
                 else None
             ),
             "scopeListGroupIds": list(scoped_group_ids or []),
-            "questionRange": normalized_question_range,
             "questionIds": (
                 _ordered_unique(str(value).strip() for value in question_ids)
                 if question_ids is not None
@@ -1608,7 +1536,6 @@ class QualificationWorkflow:
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         return self.prompt_many(
@@ -1618,7 +1545,6 @@ class QualificationWorkflow:
             list_group_id=list_group_id,
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
-            question_range=question_range,
             question_ids=question_ids,
         )
 
@@ -1631,7 +1557,6 @@ class QualificationWorkflow:
         list_group_id: str | None = None,
         list_group_ids: Iterable[str] | None = None,
         update_target_ids: Iterable[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: Iterable[str] | None = None,
         _plan: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
@@ -1644,7 +1569,6 @@ class QualificationWorkflow:
                 list_group_id=list_group_id,
                 list_group_ids=list_group_ids,
                 update_target_ids=update_target_ids,
-                question_range=question_range,
                 question_ids=question_ids,
             )
         else:
@@ -1722,14 +1646,6 @@ class QualificationWorkflow:
                     + "`"
                 ]
                 if plan.get("scopeListGroupIds")
-                else []
-            ),
-            *(
-                [
-                    f"- 問題番号: `各listGroupIdの第{plan['questionRange']['start']}問〜"
-                    f"第{plan['questionRange']['end']}問`"
-                ]
-                if plan.get("questionRange")
                 else []
             ),
             (
@@ -1879,7 +1795,6 @@ class QualificationWorkflow:
             "mode": mode,
             "targetCount": plan["targetCount"],
             "workItemCount": plan.get("workItemCount", plan["targetCount"]),
-            "questionRange": plan.get("questionRange"),
             "questionIds": list(plan.get("questionIds") or []),
             "selectedUpdateTargetIds": list(
                 plan.get("selectedUpdateTargetIds") or []

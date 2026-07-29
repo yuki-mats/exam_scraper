@@ -142,7 +142,6 @@ from tools.question_review_console.question_work_queue import (
     build_question_executions,
     input_fingerprint,
     queue_summary,
-    recover_interrupted_executions,
     refresh_question_status,
     resume_plan,
     specialize_question_plan,
@@ -490,7 +489,6 @@ LIVE_RUN_STATUSES = {
     "running",
     "validating",
 }
-RECOVERY_INDEX_MARKER_SCHEMA = "qualification-run-recovery-index/v1"
 RECOVERY_SIDECAR_SCHEMA = "qualification-run-recovery-candidate/v1"
 MANIFEST_LIST_SUMMARY_SCHEMA = "qualification-run-list-summary/v1"
 AGGREGATE_REVIEW_CHECKPOINT_SCHEMA = "aggregate-review-checkpoint/v1"
@@ -1378,64 +1376,13 @@ def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
     )
 
 
-STRUCTURED_CANDIDATE_STRATEGIES = frozenset(
-    {
-        "structured_candidate_batch",
-        "structured_candidate_per_question",
-    }
-)
-
-
-def _is_structured_candidate_batch(child: Mapping[str, Any]) -> bool:
-    return bool(
-        child.get("parallelStrategy") in STRUCTURED_CANDIDATE_STRATEGIES
-        and child.get("sandbox") == "read-only"
-        and str(child.get("workType") or "").endswith("_candidate")
-    )
-
-
-def _read_only_candidate_failure_state(child: Mapping[str, Any]) -> bool:
-    rollback = child.get("rollback")
-    result = child.get("result")
-    return bool(
-        _is_structured_candidate_batch(child)
-        and isinstance(rollback, Mapping)
-        and rollback.get("status")
-        in {"succeeded", "not_required", "not_attempted"}
-        and rollback.get("deltaUnknown") is not True
-        and not rollback.get("remainingChangedFiles")
-        and child.get("deltaUnknown") is not True
-        and child.get("writeAttributionVerified") is True
-        and not child.get("unsafeChangedFiles")
-        and not child.get("unsafeNotifiedChangedFiles")
-        and isinstance(result, Mapping)
-        and not result.get("changedFiles")
-    )
-
-
 def _child_retry_safe(child: Mapping[str, Any]) -> bool:
     if child.get("status") == "succeeded" and child.get("receiptValidated") is True:
-        return True
-    if (
-        child.get("status") == "interrupted"
-        and child.get("retrySafe") is True
-        and _is_structured_candidate_batch(child)
-        and child.get("candidateTransactionOpen") is not True
-        and not child.get("unsafeChangedFiles")
-        and not child.get("unsafeNotifiedChangedFiles")
-        and not (
-            isinstance(child.get("result"), Mapping)
-            and child["result"].get("changedFiles")
-        )
-    ):
-        # v1の再起動処理はper-question strategyを通常human runとして扱い、
-        # read-only候補のdeltaUnknownを誤ってtrueにした。model側は書込み不可で、
-        # server transactionも開いていないため、この組合せだけは再開可能である。
         return True
     if not child.get("startedAt") and child.get("deltaUnknown") is not True:
         result = child.get("result")
         return not isinstance(result, Mapping) or not result.get("changedFiles")
-    return _read_only_candidate_failure_state(child) or _isolated_failure_state(child)
+    return _isolated_failure_state(child)
 
 
 def _candidate_unset_fields(
@@ -1506,20 +1453,6 @@ def _terminal_receipt_validated(run: Mapping[str, Any]) -> bool:
             )
         )
     )
-
-
-def _child_output_fingerprint(child: Mapping[str, Any]) -> str:
-    return hashlib.sha256(
-        json.dumps(
-            {
-                "result": child.get("result"),
-                "workVersionReceipt": child.get("workVersionReceipt"),
-            },
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
 
 
 def _law_reference_discovery_plan(
@@ -2303,32 +2236,35 @@ class QualificationRunStore:
         ] = {}
         self._technical_log_sequences: dict[Path, int] = {}
         self._technical_log_last_signatures: dict[Path, str] = {}
-        self._recovery_index_marker = self.root / ".recovery-index-v1.json"
 
     def recover_interrupted_runs(self) -> None:
         """Recover runs only after the UI process owns the server lease."""
 
         self._recover_interrupted_runs()
-        # Recovery scans every historical run. Keep runtime caching bounded to
-        # manifests used after startup instead of retaining the whole history.
+        # Recovery reads only active sidecars. Drop those manifests from the
+        # runtime cache so later requests observe the recovered state.
         self._manifest_cache.clear()
 
-    def recover_interrupted_v2_run_for_resume(
+    def recover_interrupted_question_run_for_resume(
         self,
         qualification: str,
         run_id: str,
     ) -> dict[str, Any]:
-        """Normalize a v2 run whose terminal manifest retained a live queue."""
+        """Normalize a current question run whose terminal manifest stayed live."""
 
         manifest_path = self.root / qualification / run_id / "manifest.json"
         manifest = self._load_manifest(manifest_path)
+        if not self.question_states.is_current(manifest):
+            raise QualificationRunError(
+                "現行の一問stateを持たないrunは再開できません。"
+                "新規runとして開始してください。"
+            )
         if (
-            self.question_states.is_v2(manifest)
-            and str(manifest.get("status") or "") == "interrupted"
+            str(manifest.get("status") or "") == "interrupted"
             and str(manifest.get("queueStatus") or "") == "running"
             and manifest.get("retrySafe") is not False
         ):
-            self._recover_v2_question_run(manifest_path, manifest)
+            self._recover_question_run(manifest_path, manifest)
         return self.get(qualification, run_id)
 
     def _path_lock(self, path: Path) -> Any:
@@ -2377,9 +2313,9 @@ class QualificationRunStore:
         parent_path = self._manifest_path(qualification, parent_run_id)
         with self._path_lock(parent_path):
             parent = self._load_manifest(parent_path)
-        if not self.question_states.is_v2(parent):
+        if not self.question_states.is_current(parent):
             raise QualificationRunError(
-                "一問attemptの親runがv2ではありません。"
+                "一問attemptの親runが現行形式ではありません。"
             )
         try:
             state = self.question_states.load_question_by_hash(
@@ -2414,9 +2350,9 @@ class QualificationRunStore:
         parent_path = self._manifest_path(qualification, parent_run_id)
         with self._path_lock(parent_path):
             parent = self._load_manifest(parent_path)
-        if not self.question_states.is_v2(parent):
+        if not self.question_states.is_current(parent):
             raise QualificationRunError(
-                "一問attemptはv2 maintenance runだけで使用できます。"
+                "一問attemptは現行のmaintenance runだけで使用できます。"
             )
         question_hash = question_state_filename(question_id).removesuffix(
             ".json"
@@ -2576,7 +2512,6 @@ class QualificationRunStore:
                 for write_once_field in (
                     "preparedCandidate",
                     "patchApplyStartedAt",
-                    "candidateCommitStartedAt",
                 ):
                     if (
                         write_once_field in changes
@@ -2650,7 +2585,7 @@ class QualificationRunStore:
             raise QualificationRunError(
                 "一問attemptの工程状態が不正です。"
             )
-        return self._update_v2_question_stages(
+        return self._update_current_question_stages(
             parent_path,
             parent,
             [
@@ -2675,39 +2610,8 @@ class QualificationRunStore:
         candidate: Mapping[str, Any],
     ) -> dict[str, Any]:
         if not self.is_question_attempt(attempt_id):
-            current = self.get(qualification, attempt_id)
-            raw_targets = [
-                value
-                for value in current.get("progressTargets") or []
-                if isinstance(value, Mapping)
-            ]
-            if len(raw_targets) != 1:
-                raise QualificationRunError(
-                    "問題別候補を保存するlegacy runの対象が一問ではありません。"
-                )
-            validated = _validated_prepared_candidate(
-                candidate,
-                question_id=str(
-                    raw_targets[0].get("id")
-                    or raw_targets[0].get("uiQuestionId")
-                    or ""
-                ),
-                stage_id=str(current.get("stageId") or ""),
-            )
-            existing = current.get("preparedCandidate")
-            if isinstance(existing, Mapping) and dict(existing) != validated:
-                raise QualificationRunError(
-                    "一問runのpreparedCandidateは変更できません。"
-                )
-            updated = self.update(
-                qualification,
-                attempt_id,
-                preparedCandidate=validated,
-            )
-            return _validated_prepared_candidate(
-                updated["preparedCandidate"],
-                question_id=str(validated["questionId"]),
-                stage_id=str(validated["stageId"]),
+            raise QualificationRunError(
+                "問題別候補は現行の一問attemptにだけ保存できます。"
             )
         _parent_path, _parent, question_id, attempt = (
             self._question_attempt_context(
@@ -2750,16 +2654,8 @@ class QualificationRunStore:
         projected_input_hash: str,
     ) -> dict[str, Any]:
         if not self.is_question_attempt(attempt_id):
-            current = self.get(qualification, attempt_id)
-            candidate = current.get("preparedCandidate")
-            if not isinstance(candidate, Mapping):
-                raise QualificationRunError(
-                    "一問runに保存済み問題別候補がありません。"
-                )
-            return _validated_prepared_candidate(
-                candidate,
-                input_fingerprint_value=input_fingerprint_value,
-                projected_input_hash=projected_input_hash,
+            raise QualificationRunError(
+                "保存済み候補は現行の一問attemptからだけ読み取れます。"
             )
         _parent_path, _parent, question_id, attempt = (
             self._question_attempt_context(
@@ -2790,32 +2686,19 @@ class QualificationRunStore:
             raise QualificationRunError(
                 "保存済み問題別候補なしでpatch反映を開始できません。"
             )
-        if current.get("patchApplyStartedAt") or current.get(
-            "candidateCommitStartedAt"
-        ):
+        if current.get("patchApplyStartedAt"):
             raise QualificationRunError(
                 "同じ問題別候補のpatch反映は再実行できません。"
             )
         if not self.is_question_attempt(attempt_id):
-            return self.update(
-                qualification,
-                attempt_id,
-                patchApplyStartedAt=_now(),
+            raise QualificationRunError(
+                "patch反映は現行の一問attemptでだけ開始できます。"
             )
         return self._update_question_attempt(
             qualification,
             attempt_id,
             {"patchApplyStartedAt": _now()},
         )
-
-    def mark_candidate_commit_started(
-        self,
-        qualification: str,
-        attempt_id: str,
-    ) -> dict[str, Any]:
-        """Compatibility entrypoint for callers resuming pre-tool runs."""
-
-        return self.mark_patch_apply_started(qualification, attempt_id)
 
     def reusable_prepared_candidate(
         self,
@@ -2844,7 +2727,6 @@ class QualificationRunStore:
             and str(attempt.get("stageId") or "") == stage_id
             and str(attempt.get("status") or "") == "interrupted"
             and not attempt.get("patchApplyStartedAt")
-            and not attempt.get("candidateCommitStartedAt")
             and isinstance(attempt.get("preparedCandidate"), Mapping)
         ]
         for attempt_id, attempt in sorted(
@@ -3078,7 +2960,6 @@ class QualificationRunStore:
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
-            "questionRange": copy.deepcopy(plan.get("questionRange")),
             "questionIds": list(plan.get("questionIds") or []),
             "updateTargets": copy.deepcopy(list(plan.get("updateTargets") or [])),
             "selectedUpdateTargets": copy.deepcopy(
@@ -3205,8 +3086,8 @@ class QualificationRunStore:
                 {str(value) for value in plan.get("resumeWorkItemKeys") or [] if value}
             ),
             "parentSourceChecked": bool(plan.get("parentSourceChecked")),
-            "legacyFailedDeltaReconciliation": bool(
-                plan.get("legacyFailedDeltaReconciliation")
+            "failedDeltaReconciliation": bool(
+                plan.get("failedDeltaReconciliation")
             ),
             "createdAt": now,
             "startedAt": None,
@@ -3373,10 +3254,14 @@ class QualificationRunStore:
                 run_id,
                 changes,
             )
+        if "aggregateReviewCheckpoints" in changes:
+            raise QualificationRunError(
+                "aggregate review checkpointは問題別sidecar APIで更新してください。"
+            )
         path = self._manifest_path(qualification, run_id)
         with self._path_lock(path):
             manifest = self._load_manifest(path)
-            if self.question_states.is_v2(manifest):
+            if self.question_states.is_current(manifest):
                 work_version_receipt = changes.get("workVersionReceipt")
                 changes = {
                     key: value
@@ -3392,16 +3277,6 @@ class QualificationRunStore:
             if manifest.get("status") in {"succeeded", "failed"}:
                 manifest["finishedAt"] = manifest.get("finishedAt") or manifest["updatedAt"]
             self._write_manifest(path, manifest)
-            if "aggregateReviewCheckpoints" in changes:
-                # Generic full-map replacement is retained for migration and
-                # repair tools. Remove derived shards so the supplied map is
-                # the complete new baseline.
-                shutil.rmtree(
-                    path.parent / "aggregate_review_checkpoints",
-                    ignore_errors=True,
-                )
-                with self._aggregate_checkpoint_cache_lock:
-                    self._aggregate_checkpoint_cache.pop(path, None)
         return (
             self._hydrate_question_run(path, manifest)
             if hydrate_result
@@ -3436,100 +3311,43 @@ class QualificationRunStore:
         checkpoint: Mapping[str, Any],
     ) -> dict[str, dict[str, Any]]:
         raw_slots = checkpoint.get("slots")
-        if isinstance(raw_slots, Mapping):
-            if any(str(key) not in {"1", "2"} for key in raw_slots):
-                raise QualificationRunError(
-                    "aggregate review checkpointに未知のslotがあります。"
-                )
-            slots: dict[str, dict[str, Any]] = {}
-            for raw_key, raw_value in raw_slots.items():
-                key = str(raw_key)
-                if not isinstance(raw_value, Mapping):
-                    raise QualificationRunError(
-                        "aggregate review slotの形式が不正です。"
-                    )
-                value = copy.deepcopy(dict(raw_value))
-                if value.get("slot") != int(key) or value.get("status") not in {
-                    "started",
-                    "resolved",
-                }:
-                    raise QualificationRunError(
-                        "aggregate review slotの番号又は状態が不正です。"
-                    )
-                if value["status"] == "resolved" and (
-                    not isinstance(value.get("review"), Mapping)
-                    or not isinstance(value.get("execution"), Mapping)
-                ):
-                    raise QualificationRunError(
-                        "確定済みaggregate review slotの証拠が不正です。"
-                    )
-                if value["status"] == "resolved":
-                    QualificationRunStore._validate_aggregate_review_execution(
-                        value["execution"],
-                        slot=int(key),
-                        signature=checkpoint,
-                    )
-                slots[key] = value
-            resolved = [
-                slots[key]
-                for key in ("1", "2")
-                if key in slots and slots[key]["status"] == "resolved"
-            ]
-            legacy_reviews = checkpoint.get("reviews")
-            legacy_executions = checkpoint.get("executions")
-            if legacy_reviews is not None or legacy_executions is not None:
-                if (
-                    not isinstance(legacy_reviews, list)
-                    or not isinstance(legacy_executions, list)
-                    or len(legacy_reviews) != len(legacy_executions)
-                    or len(legacy_reviews) > 2
-                    or legacy_reviews != [value["review"] for value in resolved]
-                    or legacy_executions
-                    != [value["execution"] for value in resolved]
-                ):
-                    raise QualificationRunError(
-                        "aggregate review slotとlegacy配列が一致しません。"
-                    )
-            return slots
-        if raw_slots is not None:
+        if not isinstance(raw_slots, Mapping):
             raise QualificationRunError(
                 "aggregate review checkpoint slotsの形式が不正です。"
             )
-        reviews = checkpoint.get("reviews") or []
-        executions = checkpoint.get("executions") or []
-        if (
-            not isinstance(reviews, list)
-            or not isinstance(executions, list)
-            or len(reviews) != len(executions)
-            or len(reviews) > 2
-            or any(not isinstance(value, Mapping) for value in reviews)
-            or any(not isinstance(value, Mapping) for value in executions)
-        ):
+        if any(str(key) not in {"1", "2"} for key in raw_slots):
             raise QualificationRunError(
-                "legacy aggregate review checkpointの形式が不正です。"
+                "aggregate review checkpointに未知のslotがあります。"
             )
-        if any(
-            execution.get("reviewNumber") != index
-            for index, execution in enumerate(executions, start=1)
-        ):
-            raise QualificationRunError(
-                "legacy aggregate review executionの順序が不正です。"
-            )
-        slots = {
-            str(index): {
-                "slot": index,
-                "status": "resolved",
-                "review": copy.deepcopy(review),
-                "execution": copy.deepcopy(executions[index - 1]),
-            }
-            for index, review in enumerate(reviews, start=1)
-        }
-        for key, value in slots.items():
-            QualificationRunStore._validate_aggregate_review_execution(
-                value["execution"],
-                slot=int(key),
-                signature=checkpoint,
-            )
+        slots: dict[str, dict[str, Any]] = {}
+        for raw_key, raw_value in raw_slots.items():
+            key = str(raw_key)
+            if not isinstance(raw_value, Mapping):
+                raise QualificationRunError(
+                    "aggregate review slotの形式が不正です。"
+                )
+            value = copy.deepcopy(dict(raw_value))
+            if value.get("slot") != int(key) or value.get("status") not in {
+                "started",
+                "resolved",
+            }:
+                raise QualificationRunError(
+                    "aggregate review slotの番号又は状態が不正です。"
+                )
+            if value["status"] == "resolved" and (
+                not isinstance(value.get("review"), Mapping)
+                or not isinstance(value.get("execution"), Mapping)
+            ):
+                raise QualificationRunError(
+                    "確定済みaggregate review slotの証拠が不正です。"
+                )
+            if value["status"] == "resolved":
+                QualificationRunStore._validate_aggregate_review_execution(
+                    value["execution"],
+                    slot=int(key),
+                    signature=checkpoint,
+                )
+            slots[key] = value
         return slots
 
     @staticmethod
@@ -3561,26 +3379,11 @@ class QualificationRunStore:
             / f"{digest}.json"
         )
 
-    def _legacy_aggregate_checkpoints(
-        self,
-        parent_manifest_path: Path,
-    ) -> dict[str, dict[str, Any]]:
-        with self._path_lock(parent_manifest_path):
-            manifest = self._load_manifest(parent_manifest_path)
-        raw = manifest.get("aggregateReviewCheckpoints")
-        if not isinstance(raw, Mapping):
-            return {}
-        return {
-            str(question_id): copy.deepcopy(dict(checkpoint))
-            for question_id, checkpoint in raw.items()
-            if isinstance(checkpoint, Mapping)
-        }
-
     def _read_aggregate_checkpoint_sidecar(
         self,
         path: Path,
         question_id: str,
-    ) -> object | dict[str, Any] | None:
+    ) -> object | dict[str, Any]:
         if not path.is_file():
             return _AGGREGATE_CHECKPOINT_MISSING
         try:
@@ -3598,8 +3401,6 @@ class QualificationRunStore:
                 "aggregate review checkpoint sidecarの形式が不正です。"
             )
         checkpoint = value.get("checkpoint")
-        if checkpoint is None:
-            return None
         if not isinstance(checkpoint, Mapping):
             raise QualificationRunError(
                 "aggregate review checkpoint sidecarの記録が不正です。"
@@ -3610,16 +3411,10 @@ class QualificationRunStore:
         self,
         path: Path,
         question_id: str,
-        legacy: Mapping[str, Mapping[str, Any]],
     ) -> dict[str, Any] | None:
         sidecar = self._read_aggregate_checkpoint_sidecar(path, question_id)
         if sidecar is _AGGREGATE_CHECKPOINT_MISSING:
-            checkpoint = legacy.get(question_id)
-            return (
-                copy.deepcopy(dict(checkpoint))
-                if isinstance(checkpoint, Mapping)
-                else None
-            )
+            return None
         return (
             copy.deepcopy(dict(sidecar))
             if isinstance(sidecar, Mapping)
@@ -3648,26 +3443,33 @@ class QualificationRunStore:
         question_id: str,
         checkpoint: Mapping[str, Any] | None,
     ) -> None:
+        if checkpoint is None:
+            try:
+                path.unlink(missing_ok=True)
+            except OSError as exc:
+                raise QualificationRunError(
+                    "aggregate review checkpoint sidecarを削除できません。"
+                ) from exc
+            if path.exists() or path.is_symlink():
+                raise QualificationRunError(
+                    "aggregate review checkpoint sidecarの削除を再読検証できません。"
+                )
+            self._cache_aggregate_checkpoint(
+                parent_manifest_path,
+                question_id,
+                None,
+            )
+            return
         self._write_json(
             path,
             {
                 "schemaVersion": AGGREGATE_REVIEW_CHECKPOINT_SCHEMA,
                 "questionId": question_id,
-                # A null checkpoint is a tombstone which intentionally
-                # shadows a legacy checkpoint embedded in the parent manifest.
-                "checkpoint": (
-                    copy.deepcopy(dict(checkpoint))
-                    if isinstance(checkpoint, Mapping)
-                    else None
-                ),
+                "checkpoint": copy.deepcopy(dict(checkpoint)),
             },
         )
         persisted = self._read_aggregate_checkpoint_sidecar(path, question_id)
-        expected = (
-            copy.deepcopy(dict(checkpoint))
-            if isinstance(checkpoint, Mapping)
-            else None
-        )
+        expected = copy.deepcopy(dict(checkpoint))
         if persisted is _AGGREGATE_CHECKPOINT_MISSING or persisted != expected:
             raise QualificationRunError(
                 "aggregate review checkpoint sidecarを再読検証できません。"
@@ -3681,53 +3483,39 @@ class QualificationRunStore:
     def _aggregate_checkpoint_snapshot(
         self,
         parent_manifest_path: Path,
-        manifest: Mapping[str, Any],
     ) -> dict[str, dict[str, Any]]:
-        raw_legacy = manifest.get("aggregateReviewCheckpoints")
-        legacy = (
-            {
-                str(question_id): copy.deepcopy(dict(checkpoint))
-                for question_id, checkpoint in raw_legacy.items()
-                if isinstance(checkpoint, Mapping)
-            }
-            if isinstance(raw_legacy, Mapping)
-            else {}
-        )
         directory = parent_manifest_path.parent / "aggregate_review_checkpoints"
-        if not legacy and not directory.is_dir():
+        if not directory.is_dir():
             return {}
         with self._aggregate_checkpoint_cache_lock:
             cached = self._aggregate_checkpoint_cache.get(parent_manifest_path)
             if cached is not None:
                 return copy.deepcopy(cached)
-            effective = copy.deepcopy(legacy)
-            if directory.is_dir():
-                for sidecar_path in directory.glob("*.json"):
-                    try:
-                        value = json.loads(sidecar_path.read_text(encoding="utf-8"))
-                    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-                        raise QualificationRunError(
-                            "aggregate review checkpoint sidecarを読めません。"
-                        ) from exc
-                    if (
-                        not isinstance(value, Mapping)
-                        or value.get("schemaVersion")
-                        != AGGREGATE_REVIEW_CHECKPOINT_SCHEMA
-                        or not isinstance(value.get("questionId"), str)
-                    ):
-                        raise QualificationRunError(
-                            "aggregate review checkpoint sidecarの形式が不正です。"
-                        )
-                    question_id = str(value["questionId"])
-                    checkpoint = value.get("checkpoint")
-                    if checkpoint is None:
-                        effective.pop(question_id, None)
-                    elif isinstance(checkpoint, Mapping):
-                        effective[question_id] = copy.deepcopy(dict(checkpoint))
-                    else:
-                        raise QualificationRunError(
-                            "aggregate review checkpoint sidecarの記録が不正です。"
-                        )
+            effective: dict[str, dict[str, Any]] = {}
+            for sidecar_path in directory.glob("*.json"):
+                try:
+                    value = json.loads(sidecar_path.read_text(encoding="utf-8"))
+                except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                    raise QualificationRunError(
+                        "aggregate review checkpoint sidecarを読めません。"
+                    ) from exc
+                if (
+                    not isinstance(value, Mapping)
+                    or value.get("schemaVersion")
+                    != AGGREGATE_REVIEW_CHECKPOINT_SCHEMA
+                    or not isinstance(value.get("questionId"), str)
+                ):
+                    raise QualificationRunError(
+                        "aggregate review checkpoint sidecarの形式が不正です。"
+                    )
+                question_id = str(value["questionId"])
+                checkpoint = value.get("checkpoint")
+                if isinstance(checkpoint, Mapping):
+                    effective[question_id] = copy.deepcopy(dict(checkpoint))
+                else:
+                    raise QualificationRunError(
+                        "aggregate review checkpoint sidecarの記録が不正です。"
+                    )
             self._aggregate_checkpoint_cache[parent_manifest_path] = effective
             return copy.deepcopy(effective)
 
@@ -3737,8 +3525,9 @@ class QualificationRunStore:
         manifest: Mapping[str, Any],
     ) -> dict[str, Any]:
         value = self._hydrate_question_run(path, manifest)
-        checkpoints = self._aggregate_checkpoint_snapshot(path, value)
-        if checkpoints or "aggregateReviewCheckpoints" in value:
+        checkpoints = self._aggregate_checkpoint_snapshot(path)
+        value.pop("aggregateReviewCheckpoints", None)
+        if checkpoints:
             value["aggregateReviewCheckpoints"] = checkpoints
         return self._public(value)
 
@@ -3747,7 +3536,7 @@ class QualificationRunStore:
         path: Path,
         manifest: Mapping[str, Any],
     ) -> dict[str, Any]:
-        if not self.question_states.is_v2(manifest):
+        if not self.question_states.is_current(manifest):
             return copy.deepcopy(dict(manifest))
         try:
             return self.question_states.hydrate(path.parent, manifest)
@@ -3779,7 +3568,6 @@ class QualificationRunStore:
                 "同じ問題のaggregate review checkpointを重複取得できません。"
             )
         parent_path = self._manifest_path(qualification, parent_run_id)
-        legacy = self._legacy_aggregate_checkpoints(parent_path)
         results: dict[str, dict[str, Any] | None] = {}
         for question_id in question_ids:
             sidecar_path = self._aggregate_checkpoint_path(
@@ -3790,7 +3578,6 @@ class QualificationRunStore:
                 results[question_id] = self._effective_aggregate_checkpoint(
                     sidecar_path,
                     question_id,
-                    legacy,
                 )
         return results
 
@@ -3824,7 +3611,6 @@ class QualificationRunStore:
         if any(slot not in {1, 2} for _question_id, _signature, slot in requests):
             raise QualificationRunError("aggregate review slotは1又は2です。")
         parent_path = self._manifest_path(qualification, parent_run_id)
-        legacy = self._legacy_aggregate_checkpoints(parent_path)
         sidecar_paths = {
             question_id: self._aggregate_checkpoint_path(
                 parent_path,
@@ -3842,14 +3628,11 @@ class QualificationRunStore:
                 current = self._effective_aggregate_checkpoint(
                     sidecar_path,
                     question_id,
-                    legacy,
                 )
                 if current is None:
                     current = {
                         **copy.deepcopy(dict(signature)),
                         "slots": {},
-                        "reviews": [],
-                        "executions": [],
                         "consensus": None,
                     }
                 elif not isinstance(current, Mapping):
@@ -3917,7 +3700,6 @@ class QualificationRunStore:
                 persisted = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if not isinstance(persisted, Mapping):
                     raise QualificationRunError(
@@ -3953,7 +3735,6 @@ class QualificationRunStore:
                 "同じ問題のaggregate review予約を重複取消できません。"
             )
         parent_path = self._manifest_path(qualification, parent_run_id)
-        legacy = self._legacy_aggregate_checkpoints(parent_path)
         sidecar_paths = {
             question_id: self._aggregate_checkpoint_path(
                 parent_path,
@@ -3980,7 +3761,6 @@ class QualificationRunStore:
                 current = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if not isinstance(current, Mapping) or (
                     self._aggregate_checkpoint_signature(current) != dict(signature)
@@ -4005,26 +3785,10 @@ class QualificationRunStore:
             expected: dict[str, dict[str, Any] | None] = {}
             for question_id, current, slots, key in prepared:
                 del slots[key]
-                if (
-                    not slots
-                    and not current.get("reviews")
-                    and not current.get("executions")
-                    and current.get("consensus") is None
-                ):
+                if not slots and current.get("consensus") is None:
                     expected[question_id] = None
                     continue
                 current["slots"] = slots
-                ordered = [slots[value] for value in ("1", "2") if value in slots]
-                current["reviews"] = [
-                    copy.deepcopy(value["review"])
-                    for value in ordered
-                    if value.get("status") == "resolved"
-                ]
-                current["executions"] = [
-                    copy.deepcopy(value["execution"])
-                    for value in ordered
-                    if value.get("status") == "resolved"
-                ]
                 expected[question_id] = current
             for question_id, checkpoint in expected.items():
                 self._write_aggregate_checkpoint_sidecar(
@@ -4037,7 +3801,6 @@ class QualificationRunStore:
                 persisted = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if persisted != checkpoint:
                     raise QualificationRunError(
@@ -4091,7 +3854,6 @@ class QualificationRunStore:
                 "同じ問題のaggregate review結果をbatch内で重複確定できません。"
             )
         parent_path = self._manifest_path(qualification, parent_run_id)
-        legacy = self._legacy_aggregate_checkpoints(parent_path)
         sidecar_paths = {
             question_id: self._aggregate_checkpoint_path(
                 parent_path,
@@ -4122,7 +3884,6 @@ class QualificationRunStore:
                 current = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if not isinstance(current, Mapping) or (
                     self._aggregate_checkpoint_signature(current) != dict(signature)
@@ -4164,20 +3925,7 @@ class QualificationRunStore:
                     "execution": copy.deepcopy(dict(execution)),
                     "resolvedAt": _now(),
                 }
-                ordered = [slots[value] for value in ("1", "2") if value in slots]
-                current.update(
-                    slots=slots,
-                    reviews=[
-                        copy.deepcopy(value["review"])
-                        for value in ordered
-                        if value.get("status") == "resolved"
-                    ],
-                    executions=[
-                        copy.deepcopy(value["execution"])
-                        for value in ordered
-                        if value.get("status") == "resolved"
-                    ],
-                )
+                current["slots"] = slots
             if not prepared:
                 return {}
             for question_id, current, _slots, _key, _review, _execution in prepared:
@@ -4192,7 +3940,6 @@ class QualificationRunStore:
                 persisted = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if not isinstance(persisted, Mapping):
                     raise QualificationRunError(
@@ -4241,7 +3988,6 @@ class QualificationRunStore:
                 "同じ問題のaggregate review consensusを重複保存できません。"
             )
         parent_path = self._manifest_path(qualification, parent_run_id)
-        legacy = self._legacy_aggregate_checkpoints(parent_path)
         sidecar_paths = {
             question_id: self._aggregate_checkpoint_path(
                 parent_path,
@@ -4257,7 +4003,6 @@ class QualificationRunStore:
                 current = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if not isinstance(current, Mapping) or (
                     self._aggregate_checkpoint_signature(current) != dict(signature)
@@ -4290,7 +4035,6 @@ class QualificationRunStore:
                 persisted = self._effective_aggregate_checkpoint(
                     sidecar_paths[question_id],
                     question_id,
-                    legacy,
                 )
                 if (
                     not isinstance(persisted, Mapping)
@@ -4365,8 +4109,8 @@ class QualificationRunStore:
         path = self._manifest_path(qualification, run_id)
         with self._path_lock(path):
             manifest = self._load_manifest(path)
-        if self.question_states.is_v2(manifest):
-            return self._update_v2_question_stages(
+        if self.question_states.is_current(manifest):
+            return self._update_current_question_stages(
                 path,
                 manifest,
                 updates,
@@ -4524,7 +4268,7 @@ class QualificationRunStore:
             self._write_manifest(path, manifest)
         return copy.deepcopy(manifest)
 
-    def _update_v2_question_stages(
+    def _update_current_question_stages(
         self,
         manifest_path: Path,
         manifest: Mapping[str, Any],
@@ -4658,7 +4402,7 @@ class QualificationRunStore:
                 else self._public(current)
             )
 
-        return self._refresh_v2_question_summary(
+        return self._refresh_current_question_summary(
             manifest_path,
             manifest,
             confirmed_group_ids=confirmed_group_ids,
@@ -4676,24 +4420,24 @@ class QualificationRunStore:
         *,
         hydrate_result: bool = True,
     ) -> dict[str, Any]:
-        """Refresh the derived v2 queue summary at a coordinator boundary."""
+        """Refresh the derived question queue summary at a coordinator boundary."""
 
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
-        if not self.question_states.is_v2(manifest):
+        if not self.question_states.is_current(manifest):
             return (
                 self.get(qualification, run_id)
                 if hydrate_result
                 else self.get_compact(qualification, run_id)
             )
-        return self._refresh_v2_question_summary(
+        return self._refresh_current_question_summary(
             manifest_path,
             manifest,
             hydrate_result=hydrate_result,
         )
 
-    def _refresh_v2_question_summary(
+    def _refresh_current_question_summary(
         self,
         manifest_path: Path,
         manifest: Mapping[str, Any],
@@ -4862,7 +4606,7 @@ class QualificationRunStore:
         qualification: str,
         run_id: str,
     ) -> dict[str, Any]:
-        """Read only the mutable parent manifest without hydrating v2 state."""
+        """Read only the mutable parent manifest without hydrating question state."""
 
         if self.is_question_attempt(run_id):
             return self.get(qualification, run_id)
@@ -4880,7 +4624,7 @@ class QualificationRunStore:
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
-        if not self.question_states.is_v2(manifest):
+        if not self.question_states.is_current(manifest):
             run = self._public_with_aggregate_checkpoints(
                 manifest_path,
                 manifest,
@@ -5115,8 +4859,8 @@ class QualificationRunStore:
         with self._path_lock(manifest_path):
             manifest = self._load_manifest(manifest_path)
             child_run_ids = list(manifest.get("childRunIds") or [])
-        if self.question_states.is_v2(manifest):
-            return self._v2_combined_progress(
+        if self.question_states.is_current(manifest):
+            return self._current_question_run_progress(
                 manifest_path,
                 manifest,
                 include_questions=include_questions,
@@ -5457,7 +5201,7 @@ class QualificationRunStore:
         payload["queueStatus"] = manifest.get("queueStatus")
         return payload
 
-    def _v2_combined_progress(
+    def _current_question_run_progress(
         self,
         manifest_path: Path,
         manifest: Mapping[str, Any],
@@ -6346,24 +6090,6 @@ class QualificationRunStore:
             )
         refresh_question_status(question)
 
-    @staticmethod
-    def _child_identity_matches_question(
-        child: Mapping[str, Any],
-        question: Mapping[str, Any],
-    ) -> bool:
-        targets = [
-            value
-            for value in child.get("progressTargets") or []
-            if isinstance(value, Mapping)
-        ]
-        expected = SourceIdentityBinding.from_mapping(question)
-        matches = [
-            target
-            for target in targets
-            if SourceIdentityBinding.from_mapping(target) == expected
-        ]
-        return expected.is_complete() and len(matches) == 1
-
     def _recover_parent_shared_prerequisites(
         self,
         manifest: dict[str, Any],
@@ -6531,274 +6257,12 @@ class QualificationRunStore:
         manifest["confirmedGroupIds"] = sorted(confirmed_group_ids)
         return phases, recovered_receipts, unsafe_child_id
 
-    def _recover_parent_committing_executions(
-        self,
-        manifest: dict[str, Any],
-    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str | None]:
-        executions = copy.deepcopy(list(manifest.get("questionExecutions") or []))
-        recovered_receipts: list[dict[str, Any]] = []
-        confirmed_group_ids = {
-            str(value) for value in manifest.get("confirmedGroupIds") or [] if value
-        }
-        unsafe_child_id: str | None = None
-        qualification = str(manifest.get("qualification") or "")
-        parent_run_id = str(manifest.get("runId") or "")
-        for question in executions:
-            if not isinstance(question, dict):
-                continue
-            for stage_index, stage in enumerate(question.get("stages") or []):
-                if not isinstance(stage, dict) or stage.get("status") != "committing":
-                    continue
-                child_ids = [str(value) for value in stage.get("childRunIds") or [] if value]
-                child_id = child_ids[-1] if child_ids else ""
-                try:
-                    child_path = self._manifest_path(qualification, child_id)
-                    child = self._load_manifest(child_path)
-                except (OSError, QualificationRunError, ValueError):
-                    child = {}
-                expected_stage_id = str(stage.get("stageId") or "")
-                binding_matches = bool(
-                    child
-                    and str(child.get("parentRunId") or "") == parent_run_id
-                    and str(child.get("flowPhaseId") or "") == expected_stage_id
-                    and (
-                        str(child.get("stageId") or "") == expected_stage_id
-                        or list(child.get("stageIds") or []) == [expected_stage_id]
-                    )
-                    and self._child_identity_matches_question(child, question)
-                )
-                if (
-                    binding_matches
-                    and child.get("status") == "validating"
-                    and child.get("receiptValidated") is True
-                ):
-                    child.update(
-                        status="succeeded",
-                        error=None,
-                        finishedAt=child.get("finishedAt") or _now(),
-                        updatedAt=_now(),
-                    )
-                    self._write_manifest(child_path, child)
-                question_id = str(question.get("questionId") or "")
-                batch_result = _batch_question_result(child, question_id)
-                result = child.get("result")
-                receipt = (
-                    batch_result.get("workVersionReceipt")
-                    if isinstance(batch_result, Mapping)
-                    else child.get("workVersionReceipt")
-                )
-                checkpoint_succeeded = bool(
-                    binding_matches
-                    and isinstance(batch_result, Mapping)
-                    and batch_result.get("status") == "succeeded"
-                    and isinstance(receipt, Mapping)
-                    and child.get("deltaUnknown") is not True
-                )
-                child_succeeded = bool(
-                    checkpoint_succeeded
-                    or (
-                        binding_matches
-                        and child.get("status") == "succeeded"
-                        and child.get("receiptValidated") is True
-                        and isinstance(result, Mapping)
-                        and result.get("status") == "succeeded"
-                        and child.get("deltaUnknown") is not True
-                        and isinstance(receipt, Mapping)
-                    )
-                )
-                if child_succeeded:
-                    validation_attempts = [
-                        dict(value)
-                        for value in stage.get("validationAttempts") or []
-                        if isinstance(value, Mapping)
-                    ]
-                    for attempt in reversed(validation_attempts):
-                        if str(attempt.get("childRunId") or "") != child_id:
-                            continue
-                        attempt_number = int(
-                            attempt.get("attempt") or len(validation_attempts) or 1
-                        )
-                        attempt.update(
-                            status="validated",
-                            feedback=build_child_feedback(
-                                child,
-                                attempt=attempt_number,
-                                question_id=str(question.get("questionId") or ""),
-                                stage_id=expected_stage_id,
-                            ),
-                            finishedAt=attempt.get("finishedAt") or _now(),
-                        )
-                        stage["validationAttempts"] = validation_attempts
-                        break
-                    stage.update(
-                        status="validated",
-                        outputFingerprint=_child_output_fingerprint(child),
-                        error=None,
-                        finishedAt=_now(),
-                    )
-                    recovered_receipts.append(dict(receipt))
-                    if question.get("listGroupId"):
-                        confirmed_group_ids.add(str(question["listGroupId"]))
-                    refresh_question_status(question)
-                    continue
-                if (
-                    binding_matches
-                    and isinstance(batch_result, Mapping)
-                    and batch_result.get("status") == "failed"
-                ):
-                    self._block_execution_from(
-                        question,
-                        stage_index,
-                        str(batch_result.get("summary") or "問題別検査に失敗しました。"),
-                    )
-                    continue
-                if (
-                    binding_matches
-                    and _is_structured_candidate_batch(child)
-                    and _child_retry_safe(child)
-                ):
-                    self._block_execution_from(
-                        question,
-                        stage_index,
-                        "read-only候補生成が再起動で中断されました。"
-                        "この問題だけを再実行できます。",
-                    )
-                    continue
-                if (
-                    binding_matches
-                    and not child.get("startedAt")
-                    and _child_retry_safe(child)
-                ):
-                    reason = (
-                        "再起動前の一問patch反映は未開始で、file差分がありません。"
-                        "この問題だけを再実行できます。"
-                    )
-                    self._block_execution_from(question, stage_index, reason)
-                    continue
-                if binding_matches and _isolated_failure_state(child):
-                    result_summary = (
-                        str(result.get("summary") or "")
-                        if isinstance(result, Mapping)
-                        else ""
-                    )
-                    reason = str(
-                        child.get("error")
-                        or result_summary
-                        or "再起動前の一問patch反映はrollback済みです。"
-                    )
-                    self._block_execution_from(question, stage_index, reason)
-                    continue
-                unsafe_child_id = child_id or "unknown"
-                reason = (
-                    "再起動前の一問patch反映と親queueのidentity又は確定receiptを"
-                    "照合できないため、安全側で全patch toolを停止しました。"
-                )
-                self._block_execution_from(question, stage_index, reason)
-                for candidate in executions:
-                    if not isinstance(candidate, dict):
-                        continue
-                    for index, candidate_stage in enumerate(candidate.get("stages") or []):
-                        if str(candidate_stage.get("status") or "") in {
-                            "validated",
-                            "not_applicable",
-                            "blocked",
-                        }:
-                            continue
-                        self._block_execution_from(candidate, index, reason)
-                        break
-                manifest.update(
-                    retrySafe=False,
-                    retryUnsafeReason=reason,
-                    unsafeChildRunId=unsafe_child_id,
-                )
-                break
-            if unsafe_child_id:
-                break
-        manifest["confirmedGroupIds"] = sorted(confirmed_group_ids)
-        return executions, recovered_receipts, unsafe_child_id
-
-    def _recover_interrupted_structured_candidate(
-        self,
-        manifest_path: Path,
-        manifest: dict[str, Any],
-    ) -> bool:
-        if (
-            manifest.get("status") not in {"running", "validating"}
-            or not _is_structured_candidate_batch(manifest)
-        ):
-            return False
-        qualification = str(manifest.get("qualification") or "")
-        run_id = str(manifest.get("runId") or "")
-        active_question_id = str(
-            manifest.get("activeCandidateQuestionId") or ""
-        )
-        active_checkpoint = (
-            _batch_question_result(manifest, active_question_id)
-            if active_question_id
-            else None
-        )
-        rollback: dict[str, Any] = {
-            "status": "succeeded",
-            "restoredFiles": [],
-            "remainingChangedFiles": [],
-            "deltaUnknown": False,
-            "message": "read-only候補生成の未確定結果を破棄しました。",
-        }
-        if (
-            manifest.get("candidateTransactionOpen") is True
-            and active_checkpoint is None
-        ):
-            recovered = self._rollback_baseline_delta(
-                manifest_path,
-                manifest,
-            )
-            if recovered is None:
-                recovered = {
-                    "status": "failed",
-                    "restoredFiles": [],
-                    "remainingChangedFiles": [],
-                    "deltaUnknown": True,
-                    "message": "問題別transactionを確認できません。",
-                }
-            rollback = dict(recovered)
-        else:
-            self.discard_baseline_backups(qualification, run_id)
-
-        safe = bool(
-            rollback.get("status") == "succeeded"
-            and rollback.get("deltaUnknown") is not True
-            and not rollback.get("remainingChangedFiles")
-        )
-        now = _now()
-        manifest.update(
-            status="interrupted",
-            receiptValidated=False,
-            rollback=rollback,
-            deltaUnknown=not safe,
-            retrySafe=safe,
-            retryUnsafeReason=(
-                None
-                if safe
-                else "再起動時に問題別transactionをrollbackできませんでした。"
-            ),
-            candidateTransactionOpen=False,
-            error=(
-                "read-only候補生成が中断されました。未確定の問題だけ再開できます。"
-                if safe
-                else "問題別transactionを安全に復元できません。"
-            ),
-            updatedAt=now,
-            finishedAt=now,
-        )
-        self._write_manifest(manifest_path, manifest)
-        return True
-
-    def _recover_v2_question_run(
+    def _recover_question_run(
         self,
         manifest_path: Path,
         manifest: dict[str, Any],
     ) -> None:
-        """Recover each v2 question independently, then rebuild parent state."""
+        """Recover each current question independently, then rebuild parent state."""
 
         qualification = str(manifest.get("qualification") or "")
         run_id = str(manifest.get("runId") or "")
@@ -7289,88 +6753,32 @@ class QualificationRunStore:
 
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
-            self._write_json(
-                self._recovery_index_marker,
-                {
-                    "schemaVersion": RECOVERY_INDEX_MARKER_SCHEMA,
-                    "preparedAt": _now(),
-                },
-            )
             return
         with self._lock:
-            indexed_startup = self._recovery_index_marker.is_file()
-            if indexed_startup:
-                candidates: list[tuple[bool, Path]] = []
-                for sidecar_path in self.root.glob("*/*/recovery.json"):
-                    try:
-                        sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
-                    except (OSError, json.JSONDecodeError):
-                        sidecar = {}
-                    candidates.append(
-                        (
-                            sidecar.get("kind") == "orchestration",
-                            sidecar_path.with_name("manifest.json"),
-                        )
-                    )
-                paths = [
-                    path
-                    for _orchestration, path in sorted(
-                        candidates,
-                        key=lambda value: (value[0], str(value[1])),
-                    )
-                    if path.is_file()
-                ]
-            else:
-                readable_paths: list[tuple[bool, Path]] = []
-                for candidate in self.root.glob("*/*/manifest.json"):
-                    try:
-                        kind = self._load_manifest(candidate).get("kind")
-                    except (
-                        OSError,
-                        ValueError,
-                        QualificationRunError,
-                    ):
-                        continue
-                    readable_paths.append(
-                        (kind == "orchestration", candidate)
-                    )
-                paths = [
-                    candidate
-                    for _orchestration, candidate in sorted(
-                        readable_paths,
-                        key=lambda value: (value[0], str(value[1])),
-                    )
-                ]
-            for path in paths:
-                manifest = self._load_manifest(path)
-                status = str(manifest.get("status") or "")
-                recoverable_paused_parent = bool(
-                    status == "interrupted"
-                    and manifest.get("kind") == "orchestration"
-                    and isinstance(manifest.get("questionExecutions"), list)
-                    and (
-                        any(
-                            str(stage.get("status") or "")
-                            in {"preparing", "prepared", "committing"}
-                            for question in manifest["questionExecutions"]
-                            if isinstance(question, Mapping)
-                            for stage in question.get("stages") or []
-                            if isinstance(stage, Mapping)
-                        )
-                        or any(
-                            str(phase.get("status") or "") == "running"
-                            for phase in manifest.get("phaseExecutions") or []
-                            if isinstance(phase, Mapping)
-                        )
+            candidates: list[tuple[bool, Path]] = []
+            for sidecar_path in self.root.glob("*/*/recovery.json"):
+                try:
+                    sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    sidecar = {}
+                candidates.append(
+                    (
+                        sidecar.get("kind") == "orchestration",
+                        sidecar_path.with_name("manifest.json"),
                     )
                 )
-                if status not in {"queued", "running", "validating"} and not (
-                    recoverable_paused_parent
-                ):
-                    if not self._requires_startup_recovery(manifest):
-                        path.with_name("recovery.json").unlink(missing_ok=True)
-                    continue
-                if self._recover_interrupted_structured_candidate(path, manifest):
+            paths = [
+                path
+                for _orchestration, path in sorted(
+                    candidates,
+                    key=lambda value: (value[0], str(value[1])),
+                )
+                if path.is_file()
+            ]
+            for path in paths:
+                manifest = self._load_manifest(path)
+                if not self._requires_startup_recovery(manifest):
+                    path.with_name("recovery.json").unlink(missing_ok=True)
                     continue
                 if (
                     manifest.get("status") == "validating"
@@ -7409,138 +6817,9 @@ class QualificationRunStore:
                         result_if_missing=fallback_result,
                     )
                     continue
-                if self.question_states.is_v2(manifest):
-                    self._recover_v2_question_run(path, manifest)
+                if self.question_states.is_current(manifest):
+                    self._recover_question_run(path, manifest)
                     continue
-                if (
-                    manifest.get("kind") == "orchestration"
-                    and isinstance(manifest.get("questionExecutions"), list)
-                ):
-                    phase_executions, shared_receipts, _shared_unsafe = (
-                        self._recover_parent_shared_prerequisites(manifest)
-                    )
-                    recovered_before_interrupt, question_receipts, _unsafe = (
-                        self._recover_parent_committing_executions(manifest)
-                    )
-                    recovered_receipts = [*shared_receipts, *question_receipts]
-                    recovered_executions = recover_interrupted_executions(
-                        recovered_before_interrupt
-                    )
-                    execution_summary = queue_summary(recovered_executions)
-                    for phase in phase_executions:
-                        stage_id = str(phase.get("id") or "")
-                        if stage_id in {"", "setup", "category_setup"}:
-                            continue
-                        completion = _question_phase_completion(
-                            recovered_executions,
-                            stage_id,
-                        )
-                        phase.update(
-                            **completion,
-                            finishedAt=(
-                                None
-                                if completion["status"] == "pending"
-                                else phase.get("finishedAt") or _now()
-                            ),
-                        )
-                    existing_receipt = manifest.get("workVersionReceipt")
-                    existing_items = (
-                        list(existing_receipt.get("items") or [])
-                        if isinstance(existing_receipt, Mapping)
-                        else []
-                    )
-                    receipt_items: list[dict[str, Any]] = []
-                    seen_receipts: set[str] = set()
-                    for value in [*existing_items, *recovered_receipts]:
-                        if not isinstance(value, Mapping):
-                            continue
-                        encoded = json.dumps(
-                            value,
-                            ensure_ascii=False,
-                            sort_keys=True,
-                            separators=(",", ":"),
-                        )
-                        if encoded in seen_receipts:
-                            continue
-                        seen_receipts.add(encoded)
-                        receipt_items.append(dict(value))
-                    work_version_receipt = {
-                        "recordedCount": sum(
-                            int(value.get("recordedCount") or 0)
-                            for value in receipt_items
-                        ),
-                        "items": receipt_items,
-                    }
-                    manifest.update(
-                        questionExecutions=recovered_executions,
-                        phaseExecutions=phase_executions,
-                        questionExecutionSummary=execution_summary,
-                        workVersionReceipt=work_version_receipt,
-                        blockedQuestionCount=execution_summary[
-                            "blockedQuestionCount"
-                        ],
-                        blockedWorkItemCount=execution_summary[
-                            "blockedWorkItemCount"
-                        ],
-                        validatedQuestionCount=execution_summary[
-                            "validatedQuestionCount"
-                        ],
-                        validatedWorkItemCount=execution_summary[
-                            "validatedWorkItemCount"
-                        ],
-                        queueStatus=(
-                            "partial"
-                            if execution_summary["blockedQuestionCount"]
-                            else "interrupted"
-                        ),
-                    )
-                    if (
-                        not execution_summary["pendingWorkItemCount"]
-                        and execution_summary["validatedWorkItemCount"]
-                        and manifest.get("retrySafe") is not False
-                    ):
-                        queue_status = (
-                            "partial"
-                            if execution_summary["blockedQuestionCount"]
-                            else "succeeded"
-                        )
-                        fallback_result = {
-                            "status": "succeeded",
-                            "summary": (
-                                "一問patch反映の確定receiptを再起動時に照合しました。"
-                                "公開用データの同期だけ再実行が必要です。"
-                            ),
-                            "commands": [
-                                {
-                                    "command": (
-                                        "workflow: recover validated per-question receipts"
-                                    ),
-                                    "status": "pass",
-                                }
-                            ],
-                            "changedFiles": [],
-                            "resolvedFailedDeltaPaths": [],
-                        }
-                        manifest.update(
-                            status="validating",
-                            queueStatus=queue_status,
-                            executionPhase="done",
-                            currentPhaseId=None,
-                            receiptValidated=True,
-                            artifactSync={"status": "running", "groups": []},
-                            error=None,
-                        )
-                        self._finalize_validated_artifact_sync_incomplete(
-                            path,
-                            manifest,
-                            artifact_status="interrupted",
-                            message=(
-                                "patchは確定済みです。公開用データの自動更新中に"
-                                "ローカルUIが停止したため、手動再生成できます。"
-                            ),
-                            result_if_missing=fallback_result,
-                        )
-                        continue
                 was_running = manifest.get("status") in {"running", "validating"}
                 changed_files: list[str] | None = None
                 if was_running and manifest.get("kind") == "human":
@@ -7594,54 +6873,6 @@ class QualificationRunStore:
                 manifest["updatedAt"] = _now()
                 manifest["finishedAt"] = manifest["updatedAt"]
                 self._write_manifest(path, manifest)
-            # 子runのrollback結果は親queueの再開可否へ集約する。親を先に
-            # 読んだ場合でも、全run回収後の二巡目なら確定状態を判定できる。
-            for path in paths:
-                manifest = self._load_manifest(path)
-                if (
-                    manifest.get("kind") != "orchestration"
-                    or manifest.get("retrySafe") is False
-                ):
-                    if not self._requires_startup_recovery(manifest):
-                        path.with_name("recovery.json").unlink(missing_ok=True)
-                    continue
-                unsafe_child_id = ""
-                for child_run_id in manifest.get("childRunIds") or []:
-                    try:
-                        child = self._load_manifest(
-                            self._manifest_path(
-                                str(manifest["qualification"]),
-                                str(child_run_id),
-                            )
-                        )
-                    except (OSError, QualificationRunError, ValueError):
-                        unsafe_child_id = str(child_run_id)
-                        break
-                    if not _child_retry_safe(child):
-                        unsafe_child_id = str(child_run_id)
-                        break
-                if not unsafe_child_id:
-                    path.with_name("recovery.json").unlink(missing_ok=True)
-                    continue
-                reason = (
-                    "再起動後に子作業のrollback又は残存差分を確認できないため、"
-                    "手動で差分を解消するまで再開できません。"
-                )
-                manifest.update(
-                    retrySafe=False,
-                    retryUnsafeReason=reason,
-                    unsafeChildRunId=unsafe_child_id,
-                    updatedAt=_now(),
-                )
-                self._write_manifest(path, manifest)
-            if not indexed_startup:
-                self._write_json(
-                    self._recovery_index_marker,
-                    {
-                        "schemaVersion": RECOVERY_INDEX_MARKER_SCHEMA,
-                        "preparedAt": _now(),
-                    },
-                )
 
     def _recover_baseline_delta(
         self,
@@ -8243,7 +7474,7 @@ class QualificationRunStore:
         )
 
     def _write_manifest(self, path: Path, manifest: Mapping[str, Any]) -> None:
-        if self.question_states.is_v2(manifest):
+        if self.question_states.is_current(manifest):
             manifest = {
                 key: value
                 for key, value in manifest.items()
@@ -8399,35 +7630,11 @@ class QualificationRunStore:
         status = str(manifest.get("status") or "")
         if status in LIVE_RUN_STATUSES:
             return True
-        if (
-            status in {"failed", "interrupted"}
+        return bool(
+            status == "interrupted"
             and manifest.get("kind") == "orchestration"
-            and manifest.get("retrySafe") is not False
-            and bool(manifest.get("childRunIds"))
-        ):
-            return True
-        if status != "interrupted" or manifest.get("kind") != "orchestration":
-            return False
-        if (
-            manifest.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION
+            and manifest.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION
             and str(manifest.get("queueStatus") or "") == "running"
-        ):
-            return True
-        if any(
-            str(phase.get("status") or "") == "running"
-            for phase in manifest.get("phaseExecutions") or []
-            if isinstance(phase, Mapping)
-        ):
-            return True
-        if not isinstance(manifest.get("questionExecutions"), list):
-            return False
-        return any(
-            str(stage.get("status") or "")
-            in {"preparing", "prepared", "committing"}
-            for question in manifest["questionExecutions"]
-            if isinstance(question, Mapping)
-            for stage in question.get("stages") or []
-            if isinstance(stage, Mapping)
         )
 
     @staticmethod
@@ -8939,7 +8146,6 @@ class QualificationRunCoordinator:
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
         update_target_ids: list[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: list[str] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
@@ -8956,7 +8162,6 @@ class QualificationRunCoordinator:
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
-            question_range=question_range,
             question_ids=question_ids,
         )
         self._apply_evaluation_rework_plan(
@@ -9012,7 +8217,6 @@ class QualificationRunCoordinator:
             "targetGroupIds": plan["targetGroupIds"],
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
-            "questionRange": plan.get("questionRange"),
             "questionIds": list(plan.get("questionIds") or []),
             "updateTargets": list(plan.get("updateTargets") or []),
             "selectedUpdateTargets": list(
@@ -9051,7 +8255,6 @@ class QualificationRunCoordinator:
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
         update_target_ids: list[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: list[str] | None = None,
         resumed_from: str | None = None,
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
@@ -9067,7 +8270,6 @@ class QualificationRunCoordinator:
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
-            question_range=question_range,
             question_ids=question_ids,
             resumed_from=resumed_from,
             question_concurrency=question_concurrency,
@@ -9097,7 +8299,6 @@ class QualificationRunCoordinator:
             stage_ids=stage_ids,
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
-            question_range=question_range,
             question_ids=question_ids,
         )
         self._apply_evaluation_rework_plan(
@@ -9111,8 +8312,6 @@ class QualificationRunCoordinator:
                 prompt_scope["list_group_ids"] = list_group_ids
             if update_target_ids is not None:
                 prompt_scope["update_target_ids"] = update_target_ids
-            if question_range is not None:
-                prompt_scope["question_range"] = question_range
             if question_ids is not None:
                 prompt_scope["question_ids"] = question_ids
             prompt_from_plan = getattr(
@@ -9200,7 +8399,7 @@ class QualificationRunCoordinator:
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "questionConcurrency": question_concurrency,
-                    "parallelStrategy": "adaptive_structured_candidate",
+                    "parallelStrategy": "rolling_question_window",
                     "throughputMode": "auto_max",
                     "modelBatchSize": DEFAULT_MAX_QUESTIONS_PER_TURN,
                     "modelWorkerLimit": question_concurrency,
@@ -9342,10 +8541,7 @@ class QualificationRunCoordinator:
                 excluded_work_types={"evaluation", "reevaluation"},
                 excluded_schema_versions={"failed-delta-reconciliation/v1"},
             )
-        runs = [
-            self._refresh_retry_safety(qualification, run)
-            for run in recent_runs
-        ]
+        runs = [dict(run) for run in recent_runs]
         return {
             "qualification": qualification,
             "runs": runs,
@@ -9354,24 +8550,6 @@ class QualificationRunCoordinator:
                 None,
             ),
         }
-
-    def _refresh_retry_safety(
-        self,
-        qualification: str,
-        run: Mapping[str, Any],
-    ) -> dict[str, Any]:
-        if (
-            run.get("workType") != "maintenance_flow"
-            or run.get("status") not in {"failed", "interrupted"}
-            or run.get("retrySafe") is not False
-        ):
-            return dict(run)
-        full_run = self.store.get(qualification, str(run["runId"]))
-        try:
-            self._assert_resume_safe(qualification, full_run)
-        except QualificationRunError:
-            return dict(run)
-        return self.store.get(qualification, str(run["runId"]))
 
     def progress(
         self,
@@ -10240,8 +9418,6 @@ class QualificationRunCoordinator:
         ]
         if phase_update_target_ids:
             scope["update_target_ids"] = phase_update_target_ids
-            if parent.get("questionRange") is not None:
-                scope["question_range"] = parent["questionRange"]
         phase_mode = mode
         if (
             stage_ids == ["question_set"]
@@ -10452,27 +9628,20 @@ class QualificationRunCoordinator:
             (phase_plan.get("policyFingerprints") or {}).get(stage_id) or ""
         )
         parent_snapshot = parent or self.store.get(qualification, run_id)
-        v2_parent = self.store.question_states.is_v2(parent_snapshot)
 
         def persist_stage(
             question_id: str,
             **changes: Any,
         ) -> dict[str, Any] | None:
-            updated_parent = self.store.update_question_stage(
+            self.store.update_question_stage(
                 qualification,
                 run_id,
                 question_id,
                 stage_id,
-                refresh_derived=not v2_parent,
-                hydrate_result=not v2_parent,
+                refresh_derived=False,
+                hydrate_result=False,
                 **changes,
             )
-            if not v2_parent:
-                return self._queue_stage(
-                    updated_parent,
-                    question_id,
-                    stage_id,
-                )
             detail = self.store.question_detail(
                 qualification,
                 run_id,
@@ -10921,7 +10090,6 @@ class QualificationRunCoordinator:
         self,
         qualification: str,
         stage: Mapping[str, Any],
-        question_id: str,
         child_run_cache: dict[tuple[str, str], Mapping[str, Any]] | None = None,
     ) -> bool:
         child_ids = [str(value) for value in stage.get("childRunIds") or [] if value]
@@ -10942,32 +10110,6 @@ class QualificationRunCoordinator:
                 if child_run_cache is not None:
                     child_run_cache[cache_key] = child
             result = child.get("result")
-            if child.get("parallelStrategy") in {
-                "isolated_question_batch",
-                *STRUCTURED_CANDIDATE_STRATEGIES,
-            }:
-                question_result = next(
-                    (
-                        value
-                        for value in child.get("batchQuestionResults") or []
-                        if isinstance(value, Mapping)
-                        and str(value.get("questionId") or "") == question_id
-                    ),
-                    None,
-                )
-                if not isinstance(question_result, Mapping):
-                    continue
-                changed_files = question_result.get("changedFiles")
-                if (
-                    question_result.get("status") == "succeeded"
-                    and isinstance(changed_files, list)
-                    and any(
-                        isinstance(value, str) and value.strip()
-                        for value in changed_files
-                    )
-                ):
-                    return True
-                continue
             changed_files = (
                 result.get("changedFiles")
                 if isinstance(result, Mapping)
@@ -10988,7 +10130,6 @@ class QualificationRunCoordinator:
             ):
                 return True
         return False
-
 
     def _question_stage_spec(
         self,
@@ -11063,7 +10204,6 @@ class QualificationRunCoordinator:
                 prior_changed = prior_changed or self._validated_queue_stage_changed(
                     qualification,
                     prior,
-                    question_id,
                     child_run_cache,
                 )
         if stage_id == "law_audit" or (
@@ -11096,7 +10236,7 @@ class QualificationRunCoordinator:
                         runId=run_id,
                         stageId=stage_id,
                         stageIds=[stage_id],
-                        parallelStrategy="structured_candidate",
+                        parallelStrategy="question_turn",
                     )
                     work_version_receipt = self._record_work_versions(
                         no_op_plan
@@ -11177,24 +10317,15 @@ class QualificationRunCoordinator:
             "queueStage": current,
         }
 
-    def _batch_plan_for_specs(
+    def _question_plan_for_spec(
         self,
-        specs: list[Mapping[str, Any]],
+        spec: Mapping[str, Any],
         *,
         parent_run_id: str,
-    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-        if not specs or len(specs) > DEFAULT_MAX_QUESTIONS_PER_TURN:
-            raise QualificationRunError("model batchの対象件数が不正です。")
-        scoped: list[dict[str, Any]] = []
-        targets: list[dict[str, Any]] = []
-        for spec in specs:
-            target = dict(spec["target"])
-            plan = dict(spec["scopedPlan"])
-            plan["progressTargets"] = [target]
-            scoped.append(plan)
-            targets.append(target)
-
-        combined = copy.deepcopy(scoped[0])
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        target = copy.deepcopy(dict(spec["target"]))
+        question_plan = copy.deepcopy(dict(spec["scopedPlan"]))
+        question_plan["progressTargets"] = [target]
         list_fields = {
             "targetGroupIds",
             "targetQuestionKeys",
@@ -11209,53 +10340,49 @@ class QualificationRunCoordinator:
             "resolvableFailedDeltaPaths",
         }
         for field in list_fields:
-            values: list[Any] = []
-            for plan in scoped:
-                values.extend(copy.deepcopy(list(plan.get(field) or [])))
+            values = copy.deepcopy(list(question_plan.get(field) or []))
             if field in {"progressTargets", "targetRecordBindings", "targetRecordAliasGroups"}:
-                combined[field] = values
+                question_plan[field] = values
             else:
-                combined[field] = list(dict.fromkeys(values))
+                question_plan[field] = list(dict.fromkeys(values))
 
         for field in ("targetSourceRecordScopes", "targetRecordScopes"):
             merged: dict[str, list[list[str]]] = {}
-            for plan in scoped:
-                for path, groups in (plan.get(field) or {}).items():
-                    bucket = merged.setdefault(str(path), [])
-                    for group in groups or []:
-                        normalized = sorted({str(value) for value in group if value})
-                        if normalized and normalized not in bucket:
-                            bucket.append(normalized)
-            combined[field] = merged
+            for path, groups in (question_plan.get(field) or {}).items():
+                bucket = merged.setdefault(str(path), [])
+                for group in groups or []:
+                    normalized = sorted({str(value) for value in group if value})
+                    if normalized and normalized not in bucket:
+                        bucket.append(normalized)
+            question_plan[field] = merged
 
-        stage_id = str(specs[0]["stageId"])
-        question_ids = [
-            str(target.get("id") or target.get("uiQuestionId") or "")
-            for target in targets
-        ]
-        combined.update(
-            targetCount=len(targets),
-            workItemCount=len(targets),
+        stage_id = str(spec["stageId"])
+        question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+        if not question_id:
+            raise QualificationRunError("一問planの問題IDが空です。")
+        question_plan.update(
+            targetCount=1,
+            workItemCount=1,
             stageId=stage_id,
             stageIds=[stage_id],
-            policyTargets={stage_id: question_ids},
+            policyTargets={stage_id: [question_id]},
             parentRunId=parent_run_id,
             flowPhaseId=stage_id,
             workType=f"maintenance_{stage_id}_candidate",
             sandbox="read-only",
             provider=self.app_server.provider,
-            parallelStrategy="structured_candidate_per_question",
+            parallelStrategy="question_turn",
             parallelWorkerLimit=1,
             writeWorkerLimit=1,
             parentSourceChecked=True,
-            modelBatchSize=len(targets),
+            modelBatchSize=1,
         )
-        combined.pop("stagePlans", None)
-        self._apply_plan_write_contract(combined)
-        return combined, targets
+        question_plan.pop("stagePlans", None)
+        self._apply_plan_write_contract(question_plan)
+        return question_plan, target
 
     @staticmethod
-    def _batch_feedback(
+    def _question_feedback(
         child: Mapping[str, Any],
         result: QuestionValidationResult,
         *,
@@ -11288,7 +10415,6 @@ class QualificationRunCoordinator:
             question_id=result.question_id,
             stage_id=stage_id,
         )
-
 
     def _run_shared_prerequisite(
         self,
@@ -11836,10 +10962,11 @@ class QualificationRunCoordinator:
             requested_effort = str(
                 candidate_policy.get("reasoningEffort") or TURN_REASONING_EFFORT
             )
-            batch_plan, targets = self._batch_plan_for_specs(
-                specs,
+            batch_plan, target = self._question_plan_for_spec(
+                single_spec,
                 parent_run_id=run_id,
             )
+            targets = [target]
             batch_plan.update(
                 requestedModel=requested_model,
                 requestedReasoningEffort=requested_effort,
@@ -11980,22 +11107,14 @@ class QualificationRunCoordinator:
                     source_answer_evidence_by_question
                 ),
             )
-            if parent.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION:
-                child = self.store.create_question_attempt(
-                    qualification,
-                    run_id,
-                    batch_question_ids[0],
-                    stage_id,
-                    batch_plan,
-                    batch_prompt,
-                )
-            else:
-                child = self.store.create(
-                    batch_plan,
-                    status="queued",
-                    prompt=batch_prompt,
-                    append_receipt_contract=False,
-                )
+            child = self.store.create_question_attempt(
+                qualification,
+                run_id,
+                batch_question_ids[0],
+                stage_id,
+                batch_plan,
+                batch_prompt,
+            )
             child_id = str(child["runId"])
             queue_stage = single_spec.get("queueStage") or {}
             input_fingerprint_value = str(
@@ -12008,10 +11127,7 @@ class QualificationRunCoordinator:
                 or ""
             )
             reused_from_attempt_id = ""
-            if (
-                parent.get("schemaVersion") == QUESTION_RUN_SCHEMA_VERSION
-                and parent.get("resumedFrom")
-            ):
+            if parent.get("resumedFrom"):
                 reusable = self.store.reusable_prepared_candidate(
                     qualification,
                     str(parent["resumedFrom"]),
@@ -12058,7 +11174,7 @@ class QualificationRunCoordinator:
                 "reusedPreparedCandidate": bool(reused_from_attempt_id),
             }
 
-        def failed_batch_outcome(
+        def failed_question_outcome(
             prepared: Mapping[str, Any],
             exc: BaseException,
         ) -> dict[str, Any]:
@@ -12123,7 +11239,7 @@ class QualificationRunCoordinator:
                         6,
                     ),
                 )
-                self._run_structured_question_batch(
+                self._run_structured_question(
                     qualification,
                     str(prepared["childId"]),
                     str(prepared["prompt"]),
@@ -12167,7 +11283,7 @@ class QualificationRunCoordinator:
                         "stageId": str(prepared["stageId"]),
                         "questionId": str(prepared["questionId"]),
                     },
-                    "outcome": failed_batch_outcome(prepared, exc),
+                    "outcome": failed_question_outcome(prepared, exc),
                 }
 
         def apply_prepared_candidate(
@@ -12201,7 +11317,7 @@ class QualificationRunCoordinator:
                     raise QualificationRunError(
                         "patch反映対象に保存済み候補がありません。"
                     )
-                outcome = self._run_structured_question_batch(
+                outcome = self._run_structured_question(
                     qualification,
                     child_id,
                     "",
@@ -12247,7 +11363,7 @@ class QualificationRunCoordinator:
                     "isolatedFailure": False,
                 }
             except Exception as exc:  # noqa: BLE001
-                return failed_batch_outcome(prepared, exc)
+                return failed_question_outcome(prepared, exc)
             finally:
                 pipeline_telemetry.patch_tool_finished(child_id)
 
@@ -12258,21 +11374,6 @@ class QualificationRunCoordinator:
             if not prepared_batches:
                 return
             committing_updates: list[dict[str, Any]] = []
-            prepared_child_ids = [
-                str(prepared["childId"])
-                for prepared in prepared_batches
-            ]
-            with aggregation_lock:
-                if parent.get("schemaVersion") != QUESTION_RUN_SCHEMA_VERSION:
-                    child_run_ids.extend(prepared_child_ids)
-                    for prepared in prepared_batches:
-                        prepared_stage_id = str(
-                            prepared.get("stageId") or stage_id or ""
-                        )
-                        phase_child_ids.setdefault(
-                            prepared_stage_id,
-                            [],
-                        ).append(str(prepared["childId"]))
             for prepared in prepared_batches:
                 child_id = str(prepared["childId"])
                 prepared_stage_id = str(
@@ -12521,7 +11622,7 @@ class QualificationRunCoordinator:
                     str(value.get("status") or "") in {"failed", "blocked"}
                     for value in attempts[:attempt_index]
                 )
-                feedback = self._batch_feedback(
+                feedback = self._question_feedback(
                     child,
                     normalized,
                     attempt=quality_attempt,
@@ -13545,16 +12646,9 @@ class QualificationRunCoordinator:
                 if isinstance(value, Mapping)
             ]
             queue_order = str(parent.get("queueOrder") or "")
-            if queue_order not in {"question_batch", "question_turn"}:
+            if queue_order != "question_turn":
                 raise QualificationRunError(
                     "一問queue契約が不正です。対象範囲から新規開始してください。"
-                )
-            if queue_order != "question_turn":
-                parent = self.store.update(
-                    qualification,
-                    run_id,
-                    queueOrder="question_turn",
-                    modelBatchSize=DEFAULT_MAX_QUESTIONS_PER_TURN,
                 )
             with _ParentRunHeartbeatTicker(
                 self.store,
@@ -13881,7 +12975,7 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
-    def _run_structured_question_batch(
+    def _run_structured_question(
         self,
         qualification: str,
         run_id: str,
@@ -13917,12 +13011,10 @@ class QualificationRunCoordinator:
             )
         if self.app_server is None:
             raise QualificationRunError("Codex App Serverが設定されていません。")
-        if not self.store.is_question_attempt(run_id) and run_id not in {
-            str(value)
-            for value in getattr(emit, "technical_run_ids", set())
-            if value
-        }:
-            emit = self._technical_log_emitter(qualification, run_id, emit)
+        if not self.store.is_question_attempt(run_id):
+            raise QualificationRunError(
+                "構造化候補pipelineは現行の一問attemptだけを処理します。"
+            )
         existing_child = self.store.get(qualification, run_id)
         child = self.store.update(
             qualification,
@@ -15002,7 +14094,7 @@ class QualificationRunCoordinator:
                     runId=run_id,
                     stageId=stage_id,
                     stageIds=[stage_id],
-                    parallelStrategy="structured_candidate",
+                    parallelStrategy="question_turn",
                 )
                 if not self._phase_plan_policy_is_current(
                     qualification,
@@ -16368,11 +15460,7 @@ class QualificationRunCoordinator:
         inventory = getattr(self.workflow, "inventory", None)
         if inventory is None:
             raise QualificationRunError("工程バージョン記録用inventoryがありません。")
-        if str(run.get("parallelStrategy") or "") in {
-            "prepared_question",
-            "isolated_question",
-            "structured_candidate",
-        }:
+        if str(run.get("parallelStrategy") or "") == "question_turn":
             questions = self._projected_policy_questions(run)
         else:
             questions = []
@@ -17214,111 +16302,6 @@ class QualificationRunCoordinator:
             "externalActual": external_actual,
             "extraAgentOutput": extra_agent_output,
         }
-
-    def _stored_app_server_changed_files(
-        self,
-        qualification: str,
-        child: Mapping[str, Any],
-    ) -> tuple[str, ...] | None:
-        stored = child.get("appServerChangedFiles")
-        if isinstance(stored, list):
-            return tuple(str(value) for value in stored if str(value).strip())
-        run_id = str(child.get("runId") or "")
-        if not run_id:
-            return None
-        try:
-            relative = str(child.get("technicalLogPath") or "")
-            path = (self.repo_root / relative).resolve()
-            run_dir = self.store.result_path(
-                qualification,
-                run_id,
-            ).parent.parent.resolve()
-            if path.parent != run_dir or path.name != "technical_log.jsonl":
-                return None
-            raw_lines = path.read_bytes().splitlines() if path.is_file() else []
-        except (OSError, QualificationRunError, ValueError):
-            return None
-        changed: list[str] = []
-        for raw_line in raw_lines:
-            try:
-                entry = json.loads(raw_line.decode("utf-8"))
-            except (UnicodeDecodeError, json.JSONDecodeError):
-                continue
-            if not isinstance(entry, Mapping):
-                continue
-            changed.extend(
-                str(value)
-                for value in entry.get("changedPaths") or []
-                if str(value).strip()
-            )
-        return tuple(changed)
-
-    def _reclassify_external_only_child_failure(
-        self,
-        qualification: str,
-        child: Mapping[str, Any],
-    ) -> dict[str, Any] | None:
-        """旧runの安全なrollbackを、永続file通知から再判定する。"""
-
-        if _isolated_failure_state(child):
-            return dict(child)
-        rollback = child.get("rollback")
-        if not (
-            child.get("sandbox") == "workspace-write"
-            and isinstance(rollback, Mapping)
-            and rollback.get("status") == "succeeded"
-            and rollback.get("deltaUnknown") is not True
-            and not rollback.get("remainingChangedFiles")
-            and child.get("deltaUnknown") is not True
-        ):
-            return None
-        notified = self._stored_app_server_changed_files(qualification, child)
-        if notified is None:
-            return None
-        result = child.get("result")
-        result = dict(result) if isinstance(result, Mapping) else {}
-        declared = [str(value) for value in result.get("changedFiles") or []]
-        attribution = self._attribute_repository_changes(
-            qualification,
-            str(child["runId"]),
-            child,
-            declared_files=declared,
-            notified_files=notified,
-        )
-        if (
-            attribution["unsafeNotified"]
-            or attribution["unsafeActual"]
-            or attribution["unsafeDeclared"]
-            or attribution["extraAgentOutput"]
-        ):
-            return None
-        normalized_result = {
-            **result,
-            "changedFiles": [],
-        }
-        self.store.write_result(
-            qualification,
-            str(child["runId"]),
-            normalized_result,
-        )
-        self.store.refresh(qualification, str(child["runId"]))
-        refreshed = self.store.update(
-            qualification,
-            str(child["runId"]),
-            appServerChangedFiles=sorted(notified),
-            writeAttributionVerified=True,
-            unsafeNotifiedChangedFiles=[],
-            unsafeChangedFiles=[],
-            externalConcurrentChangedFiles=sorted(
-                str(path) for path in attribution["externalDeclared"]
-            ),
-            ignoredReceiptChangedFiles=sorted(
-                str(path) for path in attribution["externalDeclared"]
-            ),
-            retrySafe=True,
-            retryUnsafeReason=None,
-        )
-        return refreshed if _isolated_failure_state(refreshed) else None
 
     def _failed_run_changed_files(
         self,
@@ -18165,7 +17148,7 @@ class QualificationRunCoordinator:
                     ]
                     if (
                         not source_matches
-                        and run.get("legacyFailedDeltaReconciliation") is True
+                        and run.get("failedDeltaReconciliation") is True
                     ):
                         source_matches = unbound_legacy_matches(
                             source_entries,
@@ -18194,7 +17177,7 @@ class QualificationRunCoordinator:
                     and matched_source_binding is not None
                     and entry_source_binding.source_record_ref
                     != matched_source_binding.source_record_ref
-                    and run.get("legacyFailedDeltaReconciliation") is not True
+                    and run.get("failedDeltaReconciliation") is not True
                 ):
                     raise QualificationRunError(
                         f"更新patch rowにsourceRecordRefがありません: {relative}"
@@ -18457,13 +17440,11 @@ class QualificationRunCoordinator:
                     }
                     if (
                         matched_source_binding is not None
-                        and run.get("legacyFailedDeltaReconciliation") is True
+                        and run.get("failedDeltaReconciliation") is True
                     ):
-                        # 旧runのpatchには、当時のsource snapshotがまだ
-                        # canonical identityとして保持していなかったURL等の
-                        # source aliasが残ることがある。現在inventoryが同じ
-                        # sourceRecordRefへ一意に束ねた対象groupだけを許可し、
-                        # 無関係なID注入は従来どおり拒否する。
+                        # baseline側にURL等のsource aliasが残っていても、
+                        # 現在inventoryが同じsourceRecordRefへ一意に束ねた
+                        # 対象groupだけを許可し、無関係なID注入は拒否する。
                         source_bound_aliases.update(matched_target_group)
                     if (
                         len(matching_target_groups) != 1
@@ -18972,7 +17953,6 @@ class QualificationRunCoordinator:
         stage_ids: list[str] | None = None,
         list_group_ids: list[str] | None = None,
         update_target_ids: list[str] | None = None,
-        question_range: Mapping[str, Any] | None = None,
         question_ids: list[str] | None = None,
     ) -> dict[str, Any]:
         selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
@@ -18981,8 +17961,6 @@ class QualificationRunCoordinator:
             scope["list_group_ids"] = list_group_ids
         if update_target_ids is not None:
             scope["update_target_ids"] = update_target_ids
-        if question_range is not None:
-            scope["question_range"] = question_range
         if question_ids is not None:
             scope["question_ids"] = question_ids
         if len(selected_stage_ids) > 1:
@@ -19020,7 +17998,7 @@ class QualificationRunCoordinator:
                     plan,
                 )
                 return plan
-            previous = self.store.recover_interrupted_v2_run_for_resume(
+            previous = self.store.recover_interrupted_question_run_for_resume(
                 qualification,
                 resumed_from,
             )
@@ -19038,10 +18016,6 @@ class QualificationRunCoordinator:
                 )
                 or str(previous.get("mode") or "") != mode
                 or previous_scope != list(plan.get("scopeListGroupIds") or [])
-                or (
-                    ("questionRange" in previous or question_range is not None)
-                    and previous.get("questionRange") != plan.get("questionRange")
-                )
                 or (
                     ("questionIds" in previous or question_ids is not None)
                     and list(previous.get("questionIds") or [])
@@ -19066,7 +18040,7 @@ class QualificationRunCoordinator:
                 raise QualificationRunError(
                     "再開元のrun状態とqueue状態の組合せが不正です。"
                 )
-            self._assert_resume_safe(qualification, previous)
+            self._assert_resume_safe(previous)
             previous_executions = previous.get("questionExecutions")
             if not isinstance(previous_executions, list):
                 raise QualificationRunError("再開元に一問queueの記録がありません。")
@@ -19163,10 +18137,6 @@ class QualificationRunCoordinator:
                 != list(plan.get("selectedUpdateTargetIds") or [])
             )
             or (
-                ("questionRange" in previous or question_range is not None)
-                and previous.get("questionRange") != plan.get("questionRange")
-            )
-            or (
                 ("questionIds" in previous or question_ids is not None)
                 and list(previous.get("questionIds") or [])
                 != list(plan.get("questionIds") or [])
@@ -19191,76 +18161,18 @@ class QualificationRunCoordinator:
 
     def _assert_resume_safe(
         self,
-        qualification: str,
         previous: Mapping[str, Any],
     ) -> None:
         if previous.get("retrySafe") is False:
-            unsafe_child_id = str(previous.get("unsafeChildRunId") or "")
-            reclassified = None
-            if unsafe_child_id:
-                try:
-                    child = self.store.get(qualification, unsafe_child_id)
-                    reclassified = (
-                        dict(child)
-                        if _child_retry_safe(child)
-                        else self._reclassify_external_only_child_failure(
-                            qualification,
-                            child,
-                        )
-                    )
-                except Exception:  # noqa: BLE001
-                    reclassified = None
-            if reclassified is None:
-                raise QualificationRunError(
-                    str(previous.get("retryUnsafeReason") or "").strip()
-                    or "未確定差分の安全を確認できないため、この作業は再開できません。"
-                )
-            self.store.update(
-                qualification,
-                str(previous["runId"]),
-                retrySafe=True,
-                retryUnsafeReason=None,
-                unsafeChildRunId=None,
+            raise QualificationRunError(
+                str(previous.get("retryUnsafeReason") or "").strip()
+                or "未確定差分の安全を確認できないため、この作業は再開できません。"
             )
-            if isinstance(previous, dict):
-                previous.update(
-                    retrySafe=True,
-                    retryUnsafeReason=None,
-                    unsafeChildRunId=None,
-                )
-        for child_run_id in previous.get("childRunIds") or []:
-            try:
-                child = self.store.get(qualification, str(child_run_id))
-            except Exception as exc:  # noqa: BLE001
-                reason = "子作業の安全状態を確認できないため、この作業は再開できません。"
-                self.store.update(
-                    qualification,
-                    str(previous["runId"]),
-                    retrySafe=False,
-                    retryUnsafeReason=reason,
-                    unsafeChildRunId=str(child_run_id),
-                )
-                raise QualificationRunError(reason) from exc
-            if _child_retry_safe(child):
-                continue
-            reclassified = self._reclassify_external_only_child_failure(
-                qualification,
-                child,
+        if previous.get("childRunIds"):
+            raise QualificationRunError(
+                "現行の一問state runにtop-level子run参照があるため再開できません。"
+                "対象範囲から新規runとして開始してください。"
             )
-            if reclassified is not None and _child_retry_safe(reclassified):
-                continue
-            reason = (
-                "失敗した子作業のrollback又は残存差分を確認できないため、"
-                "手動で差分を解消するまで再開できません。"
-            )
-            self.store.update(
-                qualification,
-                str(previous["runId"]),
-                retrySafe=False,
-                retryUnsafeReason=reason,
-                unsafeChildRunId=str(child_run_id),
-            )
-            raise QualificationRunError(reason)
 
     def _apply_plan_write_contract(self, plan: dict[str, Any]) -> None:
         raw_stage_plans = plan.get("stagePlans")

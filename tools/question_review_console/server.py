@@ -142,7 +142,6 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "targetGroupIds",
     "scopeListGroupId",
     "scopeListGroupIds",
-    "questionRange",
     "questionIds",
     "selectedUpdateTargetIds",
     "selectedFieldsByStage",
@@ -895,9 +894,24 @@ class QuestionReviewApplication:
                     HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
                 )
             try:
-                if "stageId" in body or "listGroupId" in body:
+                allowed_fields = {
+                    "qualification",
+                    "stageIds",
+                    "listGroupIds",
+                    "updateTargetIds",
+                    "questionIds",
+                    "mode",
+                    "evaluationRework",
+                    "resumedFrom",
+                    "questionConcurrency",
+                    "speedMode",
+                    "previewToken",
+                }
+                unknown_fields = sorted(set(body) - allowed_fields)
+                if unknown_fields:
                     raise ValueError(
-                        "stageIdsとlistGroupIdsの配列で指定してください。"
+                        "未対応のrequest fieldがあります: "
+                        + ", ".join(unknown_fields)
                     )
                 raw_stage_ids = body.get("stageIds")
                 if (
@@ -911,11 +925,6 @@ class QuestionReviewApplication:
                 list_group_ids = _body_string_list(body, "listGroupIds")
                 update_target_ids = _body_string_list(body, "updateTargetIds")
                 question_ids = _body_string_list(body, "questionIds")
-                question_range = _body_question_range(body)
-                if question_ids is not None and question_range is not None:
-                    raise ValueError(
-                        "questionIdsとquestionRangeは同時に指定できません。"
-                    )
                 mode = str(body.get("mode") or "remaining")
                 if not stage_ids:
                     raise ValueError("stageIdsを一つ以上指定してください。")
@@ -958,8 +967,6 @@ class QuestionReviewApplication:
                     run_options["update_target_ids"] = update_target_ids
                 if question_ids is not None:
                     run_options["question_ids"] = question_ids
-                if question_range is not None:
-                    run_options["question_range"] = question_range
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, self.qualification_runs.preview(
                         qualification,
@@ -1191,7 +1198,7 @@ class QuestionReviewApplication:
                         )
                     if preview.get("status") != "ready":
                         raise QualificationRunError(
-                            "清掃する旧run由来の未確定patchはありません。"
+                            "清掃できる未確定patchはありません。"
                         )
                     job = self.jobs.start(
                         kind="failed-delta-reconciliation",
@@ -2618,7 +2625,7 @@ class QuestionReviewApplication:
         list_group_id: str,
         emit: Any,
     ) -> dict[str, Any]:
-        emit("旧run由来の未確定patchをbaseline・record scope・hashで検証します。")
+        emit("未確定patchをbaseline・record scope・hashで検証します。")
         result = reconcile_failed_deltas(
             self.repo_root,
             qualification=qualification,
@@ -2631,7 +2638,7 @@ class QuestionReviewApplication:
             list_group_id,
         )
         result["message"] = (
-            f"旧run由来の未確定patch {result.get('unresolvedPathCount', 0)}件を"
+            f"未確定patch {result.get('unresolvedPathCount', 0)}件を"
             "検証済み履歴で清掃しました。実質的な指摘は残しています。"
         )
         emit(result["message"])
@@ -3134,32 +3141,6 @@ def _body_string_list(
             HTTPStatus.BAD_REQUEST, f"{key}は空でない文字列配列で指定してください。"
         )
     return list(dict.fromkeys(item.strip() for item in value))
-
-
-def _body_question_range(body: Mapping[str, Any]) -> dict[str, int] | None:
-    value = body.get("questionRange")
-    if value is None:
-        return None
-    if not isinstance(value, Mapping) or set(value) != {"start", "end"}:
-        raise ApiError(
-            HTTPStatus.BAD_REQUEST,
-            "questionRangeはstartとendを持つobjectで指定してください。",
-        )
-    start = value.get("start")
-    end = value.get("end")
-    if (
-        isinstance(start, bool)
-        or isinstance(end, bool)
-        or not isinstance(start, int)
-        or not isinstance(end, int)
-        or start < 1
-        or end < start
-    ):
-        raise ApiError(
-            HTTPStatus.BAD_REQUEST,
-            "questionRangeは1以上かつstart以下でないendを指定してください。",
-        )
-    return {"start": start, "end": end}
 
 
 def _query_bool(

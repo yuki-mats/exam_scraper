@@ -29,7 +29,6 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_downstream_source_evidence,
     _aggregate_review_source_records,
     _candidate_unset_fields,
-    _child_retry_safe,
     _external_provider_failure,
     _isolated_turn_failure,
     _isolated_turn_timeout,
@@ -1477,7 +1476,10 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
                 status="failed",
                 prompt="work",
             )
-            with self.assertRaisesRegex(QualificationRunError, "対象範囲"):
+            with self.assertRaisesRegex(
+                QualificationRunError,
+                "現行の一問stateを持たないrun",
+            ):
                 coordinator._plan(
                     "sample",
                     "explanation",
@@ -1492,7 +1494,6 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             store = QualificationRunStore(root)
             plan = FakeWorkflow().plan("sample", "explanation", "group_refresh")
             plan.update(
-                questionRange={"start": 2, "end": 3},
                 questionIds=["q2", "q1"],
                 updateTargets=[
                     {
@@ -1524,7 +1525,6 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
             run = store.create(plan, status="queued", prompt="work")
             saved = store.get("sample", run["runId"])
 
-        self.assertEqual(saved["questionRange"], {"start": 2, "end": 3})
         self.assertEqual(saved["questionIds"], ["q2", "q1"])
         self.assertEqual(
             saved["selectedUpdateTargetIds"],
@@ -2488,7 +2488,7 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
-    def test_saved_v2_prepared_candidate_resumes_and_commits_through_production_dispatch(
+    def test_saved_v3_prepared_candidate_resumes_and_commits_through_production_dispatch(
         self,
     ):
         with tempfile.TemporaryDirectory() as directory:
@@ -2503,7 +2503,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             original_persist = coordinator.store.persist_prepared_candidate
             saved_envelope = None
 
-            def persist_v2_then_interrupt(
+            def persist_v3_then_interrupt(
                 qualification,
                 run_id,
                 candidate,
@@ -2512,23 +2512,23 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 content = copy.deepcopy(candidate["content"])
                 question_id = previous["questionExecutions"][0]["questionId"]
                 content["candidatePayload"] = {
-                    "schemaVersion": "question-maintenance-candidates/v2",
+                    "schemaVersion": "question-maintenance-candidates/v3",
                     "questionResults": [
                         {
                             "questionId": question_id,
                             "status": "candidate",
-                            "summary": "保存済みv2候補を再開して確定する。",
+                            "summary": "保存済みv3候補を再開して確定する。",
                             "updates": [
                                 {
                                     "targetId": f"{question_id}:question_type",
                                     "setFields": [
                                         {
                                             "field": "questionType",
-                                            "valueJson": '"flash_card"',
+                                            "value": "flash_card",
                                         },
                                         {
                                             "field": "isCalculationQuestion",
-                                            "valueJson": "false",
+                                            "value": False,
                                         },
                                     ],
                                     "unsetFields": [],
@@ -2549,14 +2549,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     run_id,
                     saved_envelope,
                 )
-                raise SystemExit("simulated stop after saved v2 preparation")
+                raise SystemExit("simulated stop after saved v3 preparation")
 
             coordinator.store.persist_prepared_candidate = (
-                persist_v2_then_interrupt
+                persist_v3_then_interrupt
             )
             with self.assertRaisesRegex(
                 SystemExit,
-                "after saved v2 preparation",
+                "after saved v3 preparation",
             ):
                 coordinator._run_maintenance_flow(
                     "new-exam",
@@ -2634,13 +2634,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(
             saved_envelope["content"]["candidatePayload"]["schemaVersion"],
-            "question-maintenance-candidates/v2",
+            "question-maintenance-candidates/v3",
         )
         self.assertEqual(
             saved_envelope["content"]["candidatePayload"]["questionResults"][0][
                 "updates"
-            ][0]["setFields"][0]["valueJson"],
-            '"flash_card"',
+            ][0]["setFields"][0]["value"],
+            "flash_card",
         )
         self.assertEqual(
             resumed_attempt["preparedCandidateReusedFromAttemptId"],
@@ -2789,33 +2789,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 status="interrupted",
                 error="process stopped after patch apply started",
             )
-            legacy_started_attempt = coordinator.store.create_question_attempt(
-                "new-exam",
-                parent["runId"],
-                question_id,
-                "question_type",
-                parent,
-                "legacy candidate prompt",
-            )
-            legacy_started_candidate = _prepared_candidate_envelope(
-                question_id=question_id,
-                stage_id="question_type",
-                input_fingerprint_value="input-legacy",
-                projected_input_hash="projection-legacy",
-                content={"candidatePayload": {"questionResults": []}},
-            )
-            coordinator.store.persist_prepared_candidate(
-                "new-exam",
-                legacy_started_attempt["runId"],
-                legacy_started_candidate,
-            )
-            coordinator.store.update(
-                "new-exam",
-                legacy_started_attempt["runId"],
-                candidateCommitStartedAt="2026-07-28T00:00:00+09:00",
-                status="interrupted",
-                error="legacy process stopped after commit started",
-            )
             coordinator.store.update(
                 "new-exam",
                 attempt["runId"],
@@ -2870,17 +2843,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     projected_input_hash="projection-2",
                 )
             )
-            self.assertIsNone(
-                coordinator.store.reusable_prepared_candidate(
-                    "new-exam",
-                    parent["runId"],
-                    question_id,
-                    "question_type",
-                    input_fingerprint_value="input-legacy",
-                    projected_input_hash="projection-legacy",
-                )
-            )
-
     def test_turn_timeout_scope_survives_exception_wrapping(self):
         timeout = CodexTurnTimeoutError("turn timeout")
         wrapped = RuntimeError("candidate failed")
@@ -2911,121 +2873,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertIsNone(
             _isolated_turn_timeout(wrapped_control_timeout)
         )
-
-    def test_read_only_candidate_failure_is_retry_safe_only_with_no_delta(self):
-        child = {
-            "status": "failed",
-            "startedAt": "started",
-            "parallelStrategy": "structured_candidate_batch",
-            "sandbox": "read-only",
-            "workType": "maintenance_originalize_candidate",
-            "deltaUnknown": False,
-            "writeAttributionVerified": True,
-            "unsafeChangedFiles": [],
-            "unsafeNotifiedChangedFiles": [],
-            "rollback": {
-                "status": "not_attempted",
-                "remainingChangedFiles": [],
-                "deltaUnknown": False,
-            },
-            "result": {
-                "status": "failed",
-                "summary": "外部providerで停止した。",
-                "changedFiles": [],
-            },
-        }
-
-        self.assertTrue(_child_retry_safe(child))
-        self.assertTrue(
-            _child_retry_safe(
-                {
-                    **child,
-                    "status": "interrupted",
-                    "parallelStrategy": "structured_candidate_per_question",
-                    "retrySafe": True,
-                    "candidateTransactionOpen": False,
-                    "deltaUnknown": True,
-                    "result": None,
-                    "rollback": None,
-                }
-            )
-        )
-        self.assertFalse(
-            _child_retry_safe({**child, "sandbox": "workspace-write"})
-        )
-        self.assertFalse(
-            _child_retry_safe(
-                {
-                    **child,
-                    "result": {
-                        **child["result"],
-                        "changedFiles": ["output/sample/patch.json"],
-                    },
-                }
-            )
-        )
-
-    def test_parent_retry_safety_recovers_verified_read_only_candidate(self):
-        with tempfile.TemporaryDirectory() as directory:
-            coordinator = QualificationRunCoordinator(
-                Path(directory),
-                FakeWorkflow(),
-                FakeSynchronizer(),
-                JobManager(),
-                "secret",
-            )
-            parent = coordinator.store.create(
-                FakeWorkflow().plan("sample", "law_audit"),
-                status="interrupted",
-                prompt="parent",
-            )
-            child_plan = FakeWorkflow().plan("sample", "law_audit")
-            child_plan.update(
-                parentRunId=parent["runId"],
-                parallelStrategy="structured_candidate_batch",
-                sandbox="read-only",
-                workType="maintenance_originalize_candidate",
-            )
-            child = coordinator.store.create(
-                child_plan,
-                status="failed",
-                prompt="read-only child",
-            )
-            coordinator.store.update(
-                "sample",
-                child["runId"],
-                startedAt="started",
-                deltaUnknown=False,
-                writeAttributionVerified=True,
-                unsafeChangedFiles=[],
-                unsafeNotifiedChangedFiles=[],
-                rollback={
-                    "status": "not_attempted",
-                    "remainingChangedFiles": [],
-                    "deltaUnknown": False,
-                },
-                result={
-                    "status": "failed",
-                    "summary": "外部providerで停止した。",
-                    "changedFiles": [],
-                },
-            )
-            previous = coordinator.store.update(
-                "sample",
-                parent["runId"],
-                childRunIds=[child["runId"]],
-                retrySafe=False,
-                retryUnsafeReason="旧判定で停止した。",
-                unsafeChildRunId=child["runId"],
-            )
-
-            coordinator._assert_resume_safe("sample", previous)
-            recovered = coordinator.store.get("sample", parent["runId"])
-
-        self.assertTrue(recovered["retrySafe"])
-        self.assertIsNone(recovered["retryUnsafeReason"])
-        self.assertIsNone(recovered["unsafeChildRunId"])
-
 
     @staticmethod
     def _invalid_resolved_aggregate_checkpoint(question_id, source_text):
@@ -3060,8 +2907,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     "execution": copy.deepcopy(execution),
                 }
             },
-            "reviews": [copy.deepcopy(review)],
-            "executions": [copy.deepcopy(execution)],
             "consensus": None,
         }
 
@@ -3563,7 +3408,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertIn("差があることだけを理由にblocked", prompt)
         self.assertIn("currentRecordの訂正文を設問として正答を独立判定", prompt)
 
-    def test_prompt_contract_version_is_saved_and_legacy_checkpoint_holds(self):
+    def test_prompt_contract_version_is_saved_and_stale_checkpoint_holds(self):
         source_text = "ア　最初の項目。\nイ　次の項目。"
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -3622,10 +3467,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             self._write_counted_sources(
                 second_root, 1, question_body_text=source_text
             )
-            second_coordinator.store.update(
+            self._write_aggregate_checkpoint(
+                second_coordinator.store,
                 "new-exam",
                 second_parent["runId"],
-                aggregateReviewCheckpoints={question_id: copy.deepcopy(checkpoint)},
+                question_id,
+                copy.deepcopy(checkpoint),
             )
 
             result = second_coordinator._run_maintenance_flow(
@@ -3948,8 +3795,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         return child
 
-
-    def test_recent_reclassifies_legacy_external_only_child_failure(self):
+    def test_recent_is_read_only_for_retry_unsafe_history(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _app_server, parent = self._start_deferred_flow(
@@ -3957,87 +3803,26 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 SourceOnlyInventory(),
                 ["question_type"],
             )
-            parent = self._mark_parent_partial(coordinator, parent)
-            child_plan = FakeWorkflow().plan(
-                "new-exam",
-                "question_type",
-                "outdated",
-            )
-            child_plan.update(
-                parentRunId=parent["runId"],
-                flowPhaseId="question_type",
-                sandbox="workspace-write",
-            )
-            child = coordinator.store.create(
-                child_plan,
-                status="failed",
-                prompt="legacy child",
-            )
-            external = ["docs/goals/question-maintenance/state.yaml"]
-            coordinator.store.update(
-                "new-exam",
-                child["runId"],
-                startedAt="started",
-                deltaUnknown=False,
-                rollback={
-                    "status": "succeeded",
-                    "deltaUnknown": False,
-                    "remainingChangedFiles": [],
-                },
-                result={
-                    "status": "failed",
-                    "summary": "scope外の並行変更を誤検出した。",
-                    "commands": [],
-                    "changedFiles": external,
-                },
-                error="scope外の並行変更を誤検出した。",
-            )
-            coordinator.store.append_technical_log(
-                "new-exam",
-                child["runId"],
-                {
-                    "changedPaths": [
-                        child["progressReceiptPath"],
-                        child["resultReceiptPath"],
-                    ]
-                },
-            )
             coordinator.store.update(
                 "new-exam",
                 parent["runId"],
+                status="interrupted",
+                queueStatus="partial",
                 retrySafe=False,
-                retryUnsafeReason="rollbackを確認できない。",
-                unsafeChildRunId=child["runId"],
-                childRunIds=[child["runId"]],
+                retryUnsafeReason="未確定差分を確認できない。",
             )
+            manifest_path = coordinator.store._manifest_path(
+                "new-exam",
+                parent["runId"],
+            )
+            before = manifest_path.read_bytes()
 
             recent = coordinator.recent("new-exam")
-            preview = coordinator.preview(
-                "new-exam",
-                "question_type",
-                "outdated",
-                list_group_ids=["2026"],
-                resumed_from=parent["runId"],
-            )
-            recovered_parent = coordinator.store.get(
-                "new-exam",
-                parent["runId"],
-            )
-            recovered_child = coordinator.store.get(
-                "new-exam",
-                child["runId"],
-            )
 
-        self.assertTrue(recent["runs"][0]["retrySafe"])
-        self.assertEqual(preview["targetCount"], 1)
-        self.assertTrue(recovered_parent["retrySafe"])
-        self.assertIsNone(recovered_parent["unsafeChildRunId"])
-        self.assertTrue(recovered_child["writeAttributionVerified"])
-        self.assertEqual(recovered_child["result"]["changedFiles"], [])
-        self.assertEqual(
-            recovered_child["externalConcurrentChangedFiles"],
-            external,
-        )
+            after = manifest_path.read_bytes()
+
+        self.assertFalse(recent["runs"][0]["retrySafe"])
+        self.assertEqual(after, before)
 
     def test_recent_hides_failed_delta_reconciliation_receipts(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -4690,8 +4475,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         checkpoint = completed["aggregateReviewCheckpoints"][
             "new-exam-2026-q1"
         ]
-        self.assertEqual(len(checkpoint["reviews"]), 2)
-        self.assertEqual(len(checkpoint["executions"]), 2)
+        self.assertEqual(len(checkpoint["slots"]), 2)
+        self.assertNotIn("reviews", checkpoint)
+        self.assertNotIn("executions", checkpoint)
         self.assertEqual(
             [attempt["requestedModel"] for attempt in failed_stage["validationAttempts"]],
             ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
@@ -4726,16 +4512,20 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         "new-exam",
                         self.parent_run_id,
                     )
-                    checkpoints = copy.deepcopy(
-                        parent["aggregateReviewCheckpoints"]
+                    checkpoint = copy.deepcopy(
+                        parent["aggregateReviewCheckpoints"][
+                            "new-exam-2026-q1"
+                        ]
                     )
-                    checkpoints["new-exam-2026-q1"]["sourceHash"] = (
+                    checkpoint["sourceHash"] = (
                         "sha256:" + "0" * 64
                     )
-                    self.coordinator.store.update(
+                    QualificationRunTestSupport._write_aggregate_checkpoint(
+                        self.coordinator.store,
                         "new-exam",
                         self.parent_run_id,
-                        aggregateReviewCheckpoints=checkpoints,
+                        "new-exam-2026-q1",
+                        checkpoint,
                     )
                     self.checkpoint_changed = True
                 return result
@@ -4875,11 +4665,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         for question_id in question_ids:
             checkpoint = checkpoints[question_id]
             self.assertEqual(set(checkpoint["slots"]), {"1", "2"})
-            self.assertEqual(len(checkpoint["reviews"]), 2)
-            self.assertEqual(len(checkpoint["executions"]), 2)
+            self.assertNotIn("reviews", checkpoint)
+            self.assertNotIn("executions", checkpoint)
         self.assertEqual(repeated_statuses, ["resolved"] * 4)
 
-    def test_checkpoint_batches_use_one_parent_load_and_one_shard_write_per_question(self):
+    def test_checkpoint_batches_skip_parent_load_and_write_one_shard_per_question(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             coordinator, _sync, _server, parent = self._start_deferred_flow(
@@ -4919,7 +4709,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     parent["runId"],
                     [(value, signatures[value], 1) for value in question_ids],
                 )
-            self.assertEqual(loads.call_count, 1)
+            self.assertEqual(loads.call_count, 0)
             self.assertEqual(writes.call_count, len(question_ids))
 
             def execution(question_id):
@@ -4988,7 +4778,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         for value in question_ids
                     ],
                 )
-            self.assertEqual(loads.call_count, 1)
+            self.assertEqual(loads.call_count, 0)
             self.assertEqual(writes.call_count, len(question_ids))
 
             coordinator.store.reserve_aggregate_review_slots(
@@ -5031,7 +4821,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         for value in question_ids
                     ],
                 )
-            self.assertEqual(loads.call_count, 1)
+            self.assertEqual(loads.call_count, 0)
             self.assertEqual(writes.call_count, len(question_ids))
 
     def test_prethread_reservation_cancellation_is_atomic_and_preserves_other_slots(self):
@@ -5336,14 +5126,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "slots": {
                     "3": {"slot": 3, "status": "started"},
                 },
-                "reviews": [],
-                "executions": [],
                 "consensus": None,
             }
-            coordinator.store.update(
+            self._write_aggregate_checkpoint(
+                coordinator.store,
                 "new-exam",
                 parent["runId"],
-                aggregateReviewCheckpoints={first_id: corrupt},
+                first_id,
+                corrupt,
             )
             mismatch = coordinator.store.reserve_aggregate_review_slot(
                 "new-exam",
@@ -5357,27 +5147,25 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 parent["runId"],
             )["aggregateReviewCheckpoints"][first_id]
 
-            legacy_overflow = {
+            missing_slots = {
                 **signature(first_id),
-                "reviews": [{"slot": value} for value in (1, 2, 3)],
-                "executions": [
-                    {"reviewNumber": value} for value in (1, 2, 3)
-                ],
                 "consensus": None,
             }
-            coordinator.store.update(
+            self._write_aggregate_checkpoint(
+                coordinator.store,
                 "new-exam",
                 parent["runId"],
-                aggregateReviewCheckpoints={first_id: legacy_overflow},
+                first_id,
+                missing_slots,
             )
-            overflow = coordinator.store.reserve_aggregate_review_slot(
+            missing_slots_result = coordinator.store.reserve_aggregate_review_slot(
                 "new-exam",
                 parent["runId"],
                 first_id,
                 signature(first_id),
                 1,
             )
-            persisted_overflow = coordinator.store.get(
+            persisted_missing_slots = coordinator.store.get(
                 "new-exam",
                 parent["runId"],
             )["aggregateReviewCheckpoints"][first_id]
@@ -5426,8 +5214,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(mismatch["status"], "mismatch")
         self.assertIn("3", persisted_unknown["slots"])
-        self.assertEqual(overflow["status"], "mismatch")
-        self.assertEqual(len(persisted_overflow["reviews"]), 3)
+        self.assertEqual(missing_slots_result["status"], "mismatch")
+        self.assertEqual(persisted_missing_slots, missing_slots)
         self.assertEqual(unresolved["slots"]["1"]["status"], "started")
 
     def test_invalid_resolved_execution_evidence_is_preserved_and_not_rereviewed(self):
@@ -5485,11 +5273,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 with self.subTest(field=field):
                     corrupt = copy.deepcopy(original)
                     corrupt["slots"]["1"]["execution"][field] = invalid
-                    corrupt["executions"][0][field] = invalid
-                    coordinator.store.update(
+                    self._write_aggregate_checkpoint(
+                        coordinator.store,
                         "new-exam",
                         parent["runId"],
-                        aggregateReviewCheckpoints={question_id: corrupt},
+                        question_id,
+                        corrupt,
                     )
                     result = coordinator.store.reserve_aggregate_review_slot(
                         "new-exam", parent["runId"], question_id, signature, 1
@@ -5516,10 +5305,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             invalid = self._invalid_resolved_aggregate_checkpoint(
                 question_id, source_text
             )
-            coordinator.store.update(
+            self._write_aggregate_checkpoint(
+                coordinator.store,
                 "new-exam",
                 parent["runId"],
-                aggregateReviewCheckpoints={question_id: copy.deepcopy(invalid)},
+                question_id,
+                copy.deepcopy(invalid),
             )
 
             result = coordinator._run_maintenance_flow(
@@ -5557,10 +5348,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             invalid = self._invalid_resolved_aggregate_checkpoint(
                 invalid_id, source_text
             )
-            coordinator.store.update(
+            self._write_aggregate_checkpoint(
+                coordinator.store,
                 "new-exam",
                 parent["runId"],
-                aggregateReviewCheckpoints={invalid_id: copy.deepcopy(invalid)},
+                invalid_id,
+                copy.deepcopy(invalid),
             )
 
             result = coordinator._run_maintenance_flow(
@@ -6141,6 +5934,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(app_server.started, 100)
         self.assertEqual(len(app_server.batch_calls), 100)
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
+        self.assertEqual(
+            completed["parallelStrategy"],
+            "rolling_question_window",
+        )
+        self.assertTrue(
+            all(
+                attempt.get("parallelStrategy") == "question_turn"
+                for attempt in attempts
+            )
+        )
         self.assertEqual(completed["modelBatchSize"], 1)
         self.assertEqual(completed["modelWorkerLimit"], 100)
         self.assertEqual(completed["modelPeakPendingFutureCount"], 100)
@@ -6661,6 +6464,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(preview_default["previewToken"], preview_ten["previewToken"])
         self.assertEqual(parent["questionConcurrency"], 1)
         self.assertEqual(parent["parallelWorkerLimit"], 1)
+        self.assertEqual(parent["parallelStrategy"], "rolling_question_window")
 
     def test_fast_mode_is_rejected_before_preview(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -7343,7 +7147,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                             retryUnsafeReason="親runの再開安全性を確認できません。",
                         )
                     else:
-                        child = self._attach_unsafe_child(coordinator, parent)
+                        self._attach_unsafe_child(coordinator, parent)
 
                     arguments = {
                         "stage_ids": ["question_type"],
@@ -7374,12 +7178,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     )
 
                 self.assertEqual(rejected["queueStatus"], "partial")
-                self.assertFalse(rejected["retrySafe"])
-                if unsafe_source == "child":
-                    self.assertEqual(
-                        rejected["unsafeChildRunId"],
-                        child["runId"],
-                    )
+                if unsafe_source == "parent":
+                    self.assertFalse(rejected["retrySafe"])
+                else:
+                    self.assertTrue(rejected["retrySafe"])
+                    self.assertIsNone(rejected["unsafeChildRunId"])
 
     def test_store_restart_propagates_unsafe_child_to_parent_retry_safety(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -7651,130 +7454,6 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             {"2026": "succeeded"},
         )
 
-
-    def test_batch_change_detection_is_scoped_to_its_question(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            coordinator = QualificationRunCoordinator(
-                root,
-                FakeWorkflow(),
-                FakeSynchronizer(),
-                DeferredJobs(),
-                "secret",
-                app_server=FlowAppServer(),
-            )
-            child_plan = FakeWorkflow().plan(
-                "sample",
-                "question_type",
-                "remaining",
-            )
-            child_plan.update(
-                parallelStrategy="structured_candidate_batch",
-                progressTargets=[{"id": "q1"}, {"id": "q2"}],
-            )
-            child = coordinator.store.create(child_plan, status="succeeded")
-            coordinator.store.update(
-                "sample",
-                child["runId"],
-                receiptValidated=True,
-                deltaUnknown=False,
-                workVersionReceipt={"recordedCount": 1},
-                result={
-                    "status": "succeeded",
-                    "summary": "batch完了",
-                    "commands": [{"command": "check", "status": "pass"}],
-                    "changedFiles": ["patch.json"],
-                },
-                batchQuestionResults=[
-                    {
-                        "questionId": "q1",
-                        "status": "succeeded",
-                        "changedFiles": ["patch.json"],
-                    },
-                    {
-                        "questionId": "q2",
-                        "status": "succeeded",
-                        "changedFiles": [],
-                    },
-                ],
-            )
-            stage = {"childRunIds": [child["runId"]]}
-
-            self.assertTrue(
-                coordinator._validated_queue_stage_changed(
-                    "sample", stage, "q1"
-                )
-            )
-            self.assertFalse(
-                coordinator._validated_queue_stage_changed(
-                    "sample", stage, "q2"
-                )
-            )
-
-    def test_batch_change_detection_reuses_child_manifest_within_run(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            coordinator = QualificationRunCoordinator(
-                root,
-                FakeWorkflow(),
-                FakeSynchronizer(),
-                DeferredJobs(),
-                "secret",
-                app_server=FlowAppServer(),
-            )
-            child_plan = FakeWorkflow().plan(
-                "sample",
-                "question_type",
-                "remaining",
-            )
-            child_plan.update(
-                parallelStrategy="structured_candidate_batch",
-                progressTargets=[{"id": "q1"}, {"id": "q2"}],
-            )
-            child = coordinator.store.create(child_plan, status="succeeded")
-            coordinator.store.update(
-                "sample",
-                child["runId"],
-                batchQuestionResults=[
-                    {
-                        "questionId": "q1",
-                        "status": "succeeded",
-                        "changedFiles": ["patch.json"],
-                    },
-                    {
-                        "questionId": "q2",
-                        "status": "succeeded",
-                        "changedFiles": [],
-                    },
-                ],
-            )
-            stage = {"childRunIds": [child["runId"]]}
-            child_run_cache = {}
-
-            with patch.object(
-                coordinator.store,
-                "get",
-                wraps=coordinator.store.get,
-            ) as get_manifest:
-                self.assertTrue(
-                    coordinator._validated_queue_stage_changed(
-                        "sample",
-                        stage,
-                        "q1",
-                        child_run_cache,
-                    )
-                )
-                self.assertFalse(
-                    coordinator._validated_queue_stage_changed(
-                        "sample",
-                        stage,
-                        "q2",
-                        child_run_cache,
-                    )
-                )
-
-            self.assertEqual(get_manifest.call_count, 1)
-
     def test_later_stage_rechecks_only_question_changed_by_prior_stage(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -7876,9 +7555,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     return updates
                 for update in updates:
                     set_fields = {
-                        str(value["field"]): json.loads(
-                            str(value.get("valueJson") or "null")
-                        )
+                        str(value["field"]): value.get("value")
                         for value in update.get("setFields") or []
                     }
                     set_fields.update(
@@ -7890,10 +7567,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                     update["setFields"] = [
                         {
                             "field": field,
-                            "valueJson": json.dumps(
-                                value,
-                                ensure_ascii=False,
-                            ),
+                            "value": value,
                         }
                         for field, value in set_fields.items()
                     ]

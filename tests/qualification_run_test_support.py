@@ -135,35 +135,6 @@ def _write_completed_progress(prompt: str) -> None:
     )
 
 
-def _batch_manifest(prompt: str):
-    manifest_line = next(
-        (
-            line
-            for line in prompt.splitlines()
-            if "progressTargetsとprogressStages" in line
-        ),
-        "",
-    )
-    if not manifest_line:
-        return None
-    return json.loads(Path(manifest_line.split("`")[1]).read_text(encoding="utf-8"))
-
-
-def _batch_question_results(prompt: str, changed_files=()):
-    manifest = _batch_manifest(prompt)
-    if not manifest or manifest.get("parallelStrategy") != "isolated_question_batch":
-        return None
-    return [
-        {
-            "questionId": target["id"],
-            "status": "succeeded",
-            "summary": f"{target['id']}の整備を完了した。",
-            "commands": [{"command": "python check.py", "status": "pass"}],
-            "changedFiles": list(changed_files),
-        }
-        for target in manifest.get("progressTargets") or []
-    ]
-
 class SuccessfulAppServer:
     configured = True
     provider = "Codex App Server"
@@ -223,9 +194,6 @@ class SuccessfulAppServer:
             "commands": [{"command": "python check.py", "status": "pass"}],
             "changedFiles": self.changed_files,
         }
-        question_results = _batch_question_results(prompt, self.changed_files)
-        if question_results is not None:
-            receipt = {**receipt, "questionResults": question_results}
         Path(receipt_line.split("`")[1]).write_text(
             json.dumps(receipt, ensure_ascii=False),
             encoding="utf-8",
@@ -481,11 +449,6 @@ class FlowAppServer:
                     "summary": f"phase {number} completed",
                     "commands": [{"command": "python check.py", "status": "pass"}],
                     "changedFiles": changed_files,
-                    **(
-                        {"questionResults": _batch_question_results(prompt, changed_files)}
-                        if _batch_question_results(prompt, changed_files) is not None
-                        else {}
-                    ),
                 },
                 ensure_ascii=False,
             ),
@@ -543,12 +506,6 @@ class PerQuestionQueueAppServer:
         questions = PerQuestionQueueAppServer._candidate_questions(prompt)
         if questions:
             return [str(value["questionId"]) for value in questions]
-        manifest = _batch_manifest(prompt)
-        if manifest and manifest.get("parallelStrategy") == "isolated_question_batch":
-            return [
-                str(target["id"])
-                for target in manifest.get("progressTargets") or []
-            ]
         return [PerQuestionQueueAppServer._question_id(prompt)]
 
     @staticmethod
@@ -762,7 +719,7 @@ class PerQuestionQueueAppServer:
                     "setFields": [
                         {
                             "field": field,
-                            "valueJson": json.dumps(value, ensure_ascii=False),
+                            "value": value,
                         }
                         for field, value in fields.items()
                     ],
@@ -773,7 +730,7 @@ class PerQuestionQueueAppServer:
 
     @staticmethod
     def _semantic_update(updates):
-        """Adapt legacy test overrides to the model-owned v3 semantic update."""
+        """Adapt prepared native values to the model-owned semantic update."""
         set_fields = {}
         unset_fields = []
         allowed_fields = set()
@@ -781,12 +738,10 @@ class PerQuestionQueueAppServer:
             allowed_fields.update(str(value) for value in update.get("_allowedFields") or [])
             for item in update.get("setFields") or []:
                 field = str(item["field"])
-                candidate_value = json.loads(
-                    str(item.get("valueJson") or "null")
-                )
+                candidate_value = item.get("value")
                 if field in set_fields and set_fields[field] != candidate_value:
                     raise AssertionError(
-                        f"legacy override has conflicting values: {field}"
+                        f"test override has conflicting values: {field}"
                     )
                 set_fields[field] = candidate_value
             unset_fields.extend(str(value) for value in update.get("unsetFields") or [])
@@ -1434,6 +1389,27 @@ class QualificationWorkflow(_QualificationWorkflow):
 
 
 class QualificationRunTestSupport(unittest.TestCase):
+
+    @staticmethod
+    def _write_aggregate_checkpoint(
+        store,
+        qualification,
+        parent_run_id,
+        question_id,
+        checkpoint,
+    ):
+        parent_path = store._manifest_path(qualification, parent_run_id)
+        sidecar_path = store._aggregate_checkpoint_path(
+            parent_path,
+            question_id,
+        )
+        with store._path_lock(sidecar_path):
+            store._write_aggregate_checkpoint_sidecar(
+                parent_path,
+                sidecar_path,
+                question_id,
+                checkpoint,
+            )
 
     def _wait_for_job(
         self,

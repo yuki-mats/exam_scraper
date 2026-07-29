@@ -26,7 +26,7 @@
 
 ### 整備runのfile transaction
 
-- modelはfile、progress、receiptを変更せず、model-owned semantic fieldだけをnative JSONで返すcandidate v3に従う。問題ID、target、run ID、hash等のidentity・routing metadataはserverが所有する。新規保存payloadはcandidate v3、既存candidate v2（`valueJson`）はresume/patch反映時だけ読み取り、preparedCandidate envelopeは従来どおりv1を維持する。source identityの解決、field制限、工程検査、patch・作業版・progress・receiptの保存もserverが所有する。
+- modelはfile、progress、receiptを変更せず、model-owned semantic fieldだけをnative JSONで返すcandidate v3に従う。問題ID、target、run ID、hash等のidentity・routing metadataはserverが所有する。保存payloadはcandidate v3だけとし、preparedCandidate envelope v1へ格納する。source identityの解決、field制限、工程検査、patch・作業版・progress・receiptの保存もserverが所有する。
 - serverは候補を問題別の一時workspaceへ反映して機械検査する。合格した一問だけを決定的なpatch toolで最新patchへ反映し、失敗時はその問だけを戻す。資格又は年度全体を排他せず、実際に更新するpatch JSONと対応する`work_versions.json`を同じ順序でlockする。同じfileを更新する処理だけが直列になり、異なる実pathは並行できる。対象を一意に解決できない問題もmodelへ渡さず、その問だけを保留する。
 - patchと`work_versions.json`を同じcommit点で確定する。`receiptValidated=true`後の`artifactSync`失敗ではpatchを戻さず、成果物の再生成だけを再試行する。rollback不能又は共有状態の破損だけが親queueの停止理由である。
 
@@ -43,8 +43,8 @@
 - 年度又はフォルダの識別には`examYear`を使わず、`listGroupId`を使う。独自問題に`examYear`がなくても実行契約は変わらない。ただし、`examYear`がある公式過去問では独自問題専用の`05_originalized`を自動的に非適用とし、`examYear`がない問題だけを05の対象にする。
 - `補足質問と回答`だけを選ぶ場合、`explanationText`は候補判断の参照用であり、更新できるのは`suggestedQuestionDetailsByChoice`だけである。他の工程も、選択したupdate targetの`fields`だけを書き換えられる。
 - 相互に整合させる必要があるfieldは一つのupdate targetとして選ぶ。modelが選択外fieldをset又はunsetした候補は問題単位で拒否し、patchへ反映しない。
-- preview tokenとrun receiptには`selectedUpdateTargetIds`、`selectedFieldsByStage`、`readFieldsByStage`を保存する。旧runの`questionRange`は再開互換のため読み取るが、新規runの画面からは指定しない。再開時に実行条件が一つでも違う場合は別runとして確認し直す。
-- APIから問題を厳密に限定する場合は`questionIds`を使う。serverは重複を除いて指定順を保持し、選択した`listGroupIds`内のinventoryにある`question.id`だけを受け入れる。未知ID、選択外年度のID、`questionRange`との併用はpreview前に拒否し、正規化した同じID集合をpreview token、plan、run receipt、再開条件へ保存する。`updateTargetIds`は更新を許可するfieldの選択であり、問題scopeには使わない。
+- preview tokenとrun receiptには`selectedUpdateTargetIds`、`selectedFieldsByStage`、`readFieldsByStage`を保存する。再開時に実行条件が一つでも違う場合は別runとして確認し直す。
+- APIから問題を厳密に限定する場合は`questionIds`を使う。serverは重複を除いて指定順を保持し、選択した`listGroupIds`内のinventoryにある`question.id`だけを受け入れる。未知IDと選択外年度のIDはpreview前に拒否し、正規化した同じID集合をpreview token、plan、run receipt、再開条件へ保存する。`updateTargetIds`は更新を許可するfieldの選択であり、問題scopeには使わない。
 
 ### `artifactSync`
 
@@ -83,7 +83,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。patch toolが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
 - 一問を安全に破棄又はrollbackできる失敗は他問へ波及させない。候補内容、schema又は個別turn期限切れは、その一問だけをqueue末尾へ戻す。接続、認証又はcontrol-planeのprovider障害が発生した場合は次の再試行roundの並列数を縮小し、回復しなければ`interrupted`として再開を待つ。
-- 通常の一問turnは子runのmanifestを作らない。run開始時の完全な対象・工程・field契約は変更しない`plan.json`へ保存し、親`manifest.json`はrun全体の状態、heartbeat、集計値と軽量な再開用update target IDだけを持つ。再開用IDがplanと異なる場合は停止する。一問の可変状態は`questions/<questionIdのsha256>.json`を正本とし、工程状態、`validationAttempts`、attempt metadata、検証済み作業版receiptを同じ一問内に保存する。model候補はattemptの`preparedCandidate`へwrite-onceで保存し、問題ID、工程、入力fingerprint、projection hash、候補内容hashを結び付ける。patch tool開始時刻は`patchApplyStartedAt`へwrite-onceで保存する。旧runの`candidateCommitStartedAt`は再開判定のため読み取るが、新規runでは書かない。attempt IDにも同じ完全SHA-256を含め、全plan又は全問題を走査せず対象JSONへ直接到達する。不変planはfile identityが変わった時だけ再読・hash検証する。model結果、`progress.jsonl`、開始前baselineは`attempts/<token>/`へ置く。通常のpatch形式は従来どおり工程・年度単位を維持し、patch fileを一問ごとには分割しない。
+- 通常の一問turnは子runのmanifestを作らない。親runの`parallelStrategy`は`rolling_question_window`、一問attemptは`question_turn`に固定する。run開始時の完全な対象・工程・field契約は変更しない`plan.json`へ保存し、親`manifest.json`はrun全体の状態、heartbeat、集計値と軽量な再開用update target IDだけを持つ。再開用IDがplanと異なる場合は停止する。一問の可変状態は`questions/<questionIdのsha256>.json`を正本とし、工程状態、`validationAttempts`、attempt metadata、検証済み作業版receiptを同じ一問内に保存する。model候補はattemptの`preparedCandidate`へwrite-onceで保存し、問題ID、工程、入力fingerprint、projection hash、候補内容hashを結び付ける。patch tool開始時刻は`patchApplyStartedAt`へwrite-onceで保存する。attempt IDにも同じ完全SHA-256を含め、全plan又は全問題を走査せず対象JSONへ直接到達する。不変planはfile identityが変わった時だけ再読・hash検証する。model結果、`progress.jsonl`、開始前baselineは`attempts/<token>/`へ置く。通常のpatch形式は従来どおり工程・年度単位を維持し、patch fileを一問ごとには分割しない。
 - `question_summary.json`は一問stateから再生成できる表示用の派生物であり、正本ではない。最大100問の`preparing`又は確定結果はcoordinatorがまとめて更新し、各turnの`prepared`とpatch反映中の`committing`は該当する一問JSONだけへ保存する。入力生成とpatch反映は同じ汎用`question-tool` executorへ載せ、model turnだけを専用executorへ分離する。これにより、専用preparation worker又はcommit writerを業務主体として持たず、異なる問題のfile I/Oをglobal lockへ集約せず、親manifestを一問ごとに書き直さない。共有前提は資格全体の独立runとして扱う。
 - 一問patch toolは、実際に更新するpatchと`work_versions.json`の開始前bytesを同じbaselineへ保存し、両方の実path lockを保持したままtransactionを実行する。検査、patch更新、作業版更新又はcheckpoint保存のどこで失敗しても、lockを解放する前に両方を開始前へ戻す。確定済みattemptは以後変更しない。途中再起動ではtransactionが開いた一問だけをrollbackし、確定済みreceiptを持つ一問は維持し、未確定の問だけをqueueへ戻す。工程の方針fingerprintが欠けるitemは確定済みとみなさず再検査する。rollback又は残存差分を確認できないrunは再開せず、成果物同期もしない。
 - 物理Merge、Convert、upload-ready、upload dry-runはqueue終了時に確定したlistGroupIdごと1回だけ実行する。失敗してもpatchは保持し、更新待ちのときだけ手動再生成を表示する。
@@ -98,9 +98,9 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 ## 進捗、heartbeat、技術ログ
 
-- `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasや旧runのIDを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
+- `progress.jsonl`は、問題ごとに`question_started`、`policyTargets`順の`stage_completed`、`question_completed`を直後に追記する。`policyTargets`には現在runの正式な問題IDだけを保存し、aliasを補完しない。順序違反、重複、対象外工程は無効であり、完了数へ含めない。
 - `processed`は全イベントがそろった状態、`validated`は成功receiptをserverが確認した状態である。停止時のprocessed出力は`未承認`とし、完了表示や作業版記録に使わない。親runは必要な全工程がvalidatedになった問題だけを完了とする。
-- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備中とmodel候補生成中を合わせたローリングウィンドウを最大100問とし、一問入力を汎用`question-tool` executorで同時に作る。準備済みの一問は同じウィンドウ内で直ちに独立model turnへ移るため、遅い一問又は残り全問の準備完了を待たない。候補をattemptへ永続化した時点で大きな入力を解放し、patch tool queueにはattempt IDだけを渡す。patch待ちはこの100問ウィンドウを占有しないので、全対象分の入力とfutureを一度にメモリへ保持しない。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。model候補はread-onlyである。中断runの候補を再利用できるのは、同じ問題・工程・入力fingerprint・projection hashで、かつ`patchApplyStartedAt`も旧`candidateCommitStartedAt`もない場合だけとする。完了futureは250ms以内の同着分だけをまとめ、遅い一問を待たずに機械検査・patch反映へ渡す。一問stateと集約回答checkpointは問題ごとのlockで並行し、正本更新は実際のpatch JSONと`work_versions.json`のpathだけを直列化する。
+- 問題projectionの準備中も15秒間隔で`heartbeatAt`と`preparationProgress`を更新する。準備中とmodel候補生成中を合わせたローリングウィンドウを最大100問とし、一問入力を汎用`question-tool` executorで同時に作る。準備済みの一問は同じウィンドウ内で直ちに独立model turnへ移るため、遅い一問又は残り全問の準備完了を待たない。候補をattemptへ永続化した時点で大きな入力を解放し、patch tool queueにはattempt IDだけを渡す。patch待ちはこの100問ウィンドウを占有しないので、全対象分の入力とfutureを一度にメモリへ保持しない。対象解決用patch JSONはpathと内容fingerprintで再利用し、正本が更新された時だけ読み直す。model候補はread-onlyである。中断runの候補を再利用できるのは、同じ問題・工程・入力fingerprint・projection hashで、かつ`patchApplyStartedAt`がない場合だけとする。完了futureは250ms以内の同着分だけをまとめ、遅い一問を待たずに機械検査・patch反映へ渡す。一問stateと集約回答checkpointは問題ごとのlockで並行し、正本更新は実際のpatch JSONと`work_versions.json`のpathだけを直列化する。
 - App Serverの状態は、100枠への入場待ちを含む`turnBudget`、起動RPCの100枠を示す`controlPlaneBudget`、App Serverの`turn/started`通知から終端通知までを数える`modelTurns`に分けて返す。`turn/start`応答が通知より遅れても実行中turnを数え落とさない。100問同時実行の証明には`modelTurns.peakInFlight=100`を使い、予約だけで実行済みと判断しない。
 - 各attemptの主指標`modelTurnTelemetry.queueWaitSeconds`は、prepared candidateをmodel backlogへ投入したmonotonic時刻を起点とし、そのattemptのcandidate turnについてApp Serverの`turn/started`を観測したmonotonic時刻を終点とする。この間に実行した01工程のaggregate review、executor待ち、App Server request待ちをすべて含む。`executorQueueWaitSeconds`と`appServerQueueWaitSeconds`は切り分け用の補助値であり、足し合わせて主指標を再構成しない。candidate開始通知又は起点を観測できなければ主指標は`null`とし、推定値で補わない。同通知から終端通知までを`modelTurnDurationSeconds`として保存する。
 - 親manifestの`modelTurns`は、このrunに属するApp Server実通知だけから`inFlight`、`peakInFlight`、queue wait、turn durationを集計する。問題枠の補充は別の`questionWindow`に保存し、schedulerが保持中の問題を実際に解放したmonotonic時刻から、その解放で空いた枠へ、それまでwindow外で待機していた別questionを初めて入場させたmonotonic時刻までを`refillLatencySeconds`とする。初期入場、capacity未充足時の開始、同一questionの次工程、aggregate review、candidate turn、retry、工程segmentをまたぐ入場は補充に数えない。起点と該当する待機question入場の組を観測できなければ欠測とし、0秒を補わない。
@@ -132,7 +132,7 @@ run開始時とreceipt検証時に、完全な版番号と正本文書fingerprin
 
 各問は工程固有の機械チェックに不合格となった場合、その問と工程に限った検査feedback付きで最大2回再整備します。他の問は再試行の完了を待ちません。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成には該当問題のfeedbackだけを渡します。
 
-過去の失敗runだけを根拠とする未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から旧runの指摘を清掃します。serverは失敗runの保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
+未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から清掃します。serverは保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
 
 queueがterminalになった後、`improvement_report.json`へ工程・指摘code・fieldごとの発生問数とattempt数を集計します。3問以上で同じ指摘が出た場合、又はモデル側の検査は通ったのにserverが拒否した場合を改善候補とします。正本文書、prompt、checker、testの変更はactive run中に行わず、別の改善jobで候補を確認して実施します。checkerを変える場合は、該当工程の正本・検査契約と[`policy_version`](../../config/question_maintenance_workflow.toml)を同時に更新します。既存問題の洗い替えが必要ならMAJOR、今後の作業だけに適用できる変更ならMINORを上げます。
 
@@ -160,4 +160,4 @@ serverは`127.0.0.1`だけへbindします。本人端末から使う場合だ�
 
 serverはTCP listenerを確保した後、process全体のfile leaseを取得してから中断回収を始めます。二つ目のserver processはrunを変更せず起動に失敗し、同じ資格のrun writerも資格単位leaseで一つに限定します。`QualificationRunStore`の生成だけでは回収又はfile更新を行いません。
 
-起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。過去の全manifestを毎回解析しません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。初回索引作成時に壊れた過去manifestがあっても、実行中の正常なrunの回収を妨げません。旧形式から初回移行したことは`workflow_runs/.recovery-index-v1.json`へ記録します。
+起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。全manifestの索引や初回移行処理は持ちません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。

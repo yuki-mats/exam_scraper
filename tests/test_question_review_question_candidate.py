@@ -2,11 +2,11 @@ import json
 import unittest
 
 from tools.question_review_console.question_candidate import (
-    SCHEMA_VERSION,
+    CANDIDATE_PAYLOAD_SCHEMA_VERSION,
     QuestionCandidateError,
     candidate_targets,
     output_schema,
-    parse_candidates,
+    _parse_prepared_candidates,
     parse_model_candidate_v3,
     parse_prepared_candidate_payload,
     validate_candidate_content,
@@ -28,9 +28,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "correct_choice", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -42,9 +42,8 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": (
-                                            '["正しい","正しい","間違い",'
-                                            '"間違い","間違い"]'
+                                        "value": (
+                                            ['正しい', '正しい', '間違い', '間違い', '間違い']
                                         ),
                                     }
                                 ],
@@ -109,9 +108,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "question_type", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -123,7 +122,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"true_false"',
+                                        "value": 'true_false',
                                     }
                                 ],
                                 "unsetFields": [],
@@ -164,9 +163,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "question_intent", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -207,9 +206,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_intent", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -221,7 +220,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionIntent",
-                                        "valueJson": '"banana"',
+                                        "value": 'banana',
                                     }
                                 ],
                                 "unsetFields": [],
@@ -248,9 +247,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_set", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -262,7 +261,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionSetId",
-                                        "valueJson": "[]",
+                                        "value": [],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -298,9 +297,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "explanation", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -312,8 +311,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "lawRevisionFacts",
-                                        "valueJson": json.dumps(
-                                            [
+                                        "value": [
                                                 {
                                                     "auditStatus": "same_as_current",
                                                     "reviewState": "secondary_verified",
@@ -329,8 +327,6 @@ class QuestionCandidateTest(unittest.TestCase):
                                                     },
                                                 }
                                             ],
-                                            ensure_ascii=False,
-                                        ),
                                     }
                                 ],
                                 "unsetFields": [],
@@ -383,9 +379,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "correct_choice", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -397,7 +393,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい","間違い"]',
+                                        "value": ['正しい', '間違い'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -538,9 +534,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "originalize", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -552,11 +548,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionBodyText",
-                                        "valueJson": '""',
+                                        "value": '',
                                     },
                                     {
                                         "field": "choiceTextList",
-                                        "valueJson": '["A", ""]',
+                                        "value": ['A', ''],
                                     },
                                 ],
                                 "unsetFields": [],
@@ -586,9 +582,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "originalize", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -600,7 +596,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "answer_result_text",
-                                        "valueJson": '"正解は「B」です。"',
+                                        "value": '正解は「B」です。',
                                     }
                                 ],
                                 "unsetFields": [],
@@ -641,9 +637,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "originalize", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -655,7 +651,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "choiceTextList",
-                                        "valueJson": '["Aを構成する。", "B"]',
+                                        "value": ['Aを構成する。', 'B'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -707,9 +703,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "questionIntent": "select_correct",
             "answer_result_text": "正解は2です。",
         }
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -721,9 +717,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": field,
-                                        "valueJson": json.dumps(
-                                            value, ensure_ascii=False
-                                        ),
+                                        "value": value,
                                     }
                                     for field, value in current.items()
                                 ],
@@ -783,9 +777,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "answer_result_text": "正解は 1, 2 です。",
             "questionType": "group_choice",
         }
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -797,9 +791,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": field,
-                                        "valueJson": json.dumps(
-                                            value, ensure_ascii=False
-                                        ),
+                                        "value": value,
                                     }
                                     for field, value in current.items()
                                     if field != "questionType"
@@ -849,9 +841,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "originalize", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -863,15 +855,15 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "choiceTextList",
-                                        "valueJson": '["B", "A"]',
+                                        "value": ['B', 'A'],
                                     },
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい", "間違い"]',
+                                        "value": ['正しい', '間違い'],
                                     },
                                     {
                                         "field": "answer_result_text",
-                                        "valueJson": '"正解は1です。"',
+                                        "value": '正解は1です。',
                                     },
                                 ],
                                 "unsetFields": [],
@@ -909,9 +901,9 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         }
         targets = candidate_targets("q1", "originalize", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -923,7 +915,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionBodyText",
-                                        "valueJson": '"独自の場面と条件に組み直した問題文"',
+                                        "value": '独自の場面と条件に組み直した問題文',
                                     }
                                 ],
                                 "unsetFields": [],
@@ -962,9 +954,9 @@ class QuestionCandidateTest(unittest.TestCase):
         )
         self.assertNotIn("explanationText", target.prompt_value()["fieldRules"])
 
-        result = parse_candidates(
+        result = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -976,7 +968,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "explanationText",
-                                        "valueJson": '["変更してはならない"]',
+                                        "value": ['変更してはならない'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -1129,9 +1121,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "blockedにする理由にしない",
             rules["questionType"]["description"],
         )
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1143,11 +1135,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"single_choice"',
+                                        "value": 'single_choice',
                                     },
                                     {
                                         "field": "isCalculationQuestion",
-                                        "valueJson": "true",
+                                        "value": True,
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1180,9 +1172,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_type", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1194,11 +1186,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"single_choice"',
+                                        "value": 'single_choice',
                                     },
                                     {
                                         "field": "isCalculationQuestion",
-                                        "valueJson": "false",
+                                        "value": False,
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1227,9 +1219,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_type", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1241,11 +1233,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"fill_in_blank"',
+                                        "value": 'fill_in_blank',
                                     },
                                     {
                                         "field": "isCalculationQuestion",
-                                        "valueJson": "false",
+                                        "value": False,
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1277,9 +1269,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_type", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1291,11 +1283,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"flash_card"',
+                                        "value": 'flash_card',
                                     },
                                     {
                                         "field": "isCalculationQuestion",
-                                        "valueJson": "false",
+                                        "value": False,
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1328,9 +1320,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_type", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1342,11 +1334,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"group_choice"',
+                                        "value": 'group_choice',
                                     },
                                     {
                                         "field": "isCalculationQuestion",
-                                        "valueJson": "false",
+                                        "value": False,
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1379,9 +1371,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "question_type", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1393,11 +1385,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "questionType",
-                                        "valueJson": '"group_choice"',
+                                        "value": 'group_choice',
                                     },
                                     {
                                         "field": "isCalculationQuestion",
-                                        "valueJson": "false",
+                                        "value": False,
                                     },
                                 ],
                                 "unsetFields": [],
@@ -1429,9 +1421,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "correct_choice", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1443,7 +1435,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい","正しい","間違い"]',
+                                        "value": ['正しい', '正しい', '間違い'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -1482,9 +1474,9 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
         targets = candidate_targets("q1", "correct_choice", plan)
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1496,7 +1488,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい","正しい","間違い"]',
+                                        "value": ['正しい', '正しい', '間違い'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -1546,7 +1538,7 @@ class QuestionCandidateTest(unittest.TestCase):
     def test_parses_only_allowed_problem_fields(self):
         targets = candidate_targets("q1", "explanation", self.plan())
         payload = {
-            "schemaVersion": SCHEMA_VERSION,
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
             "questionResults": [
                 {
                     "questionId": "q1",
@@ -1558,7 +1550,7 @@ class QuestionCandidateTest(unittest.TestCase):
                             "setFields": [
                                 {
                                     "field": "explanationText",
-                                    "valueJson": '["正しい。理由。"]',
+                                    "value": ['正しい。理由。'],
                                 }
                             ],
                             "unsetFields": [],
@@ -1568,7 +1560,7 @@ class QuestionCandidateTest(unittest.TestCase):
             ],
         }
 
-        result = parse_candidates(json.dumps(payload), ["q1"], {"q1": targets})
+        result = _parse_prepared_candidates(json.dumps(payload), ["q1"], {"q1": targets})
 
         self.assertEqual(result[0].updates[0].set_fields["explanationText"][0], "正しい。理由。")
         schema_text = json.dumps(output_schema(["q1"], {"q1": targets}))
@@ -1684,7 +1676,7 @@ class QuestionCandidateTest(unittest.TestCase):
         targets_q1 = candidate_targets("q1", "explanation", self.plan())
         targets_q2 = candidate_targets("q2", "explanation", self.plan())
         payload = {
-            "schemaVersion": SCHEMA_VERSION,
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
             "questionResults": [
                 {
                     "questionId": "q1",
@@ -1694,7 +1686,7 @@ class QuestionCandidateTest(unittest.TestCase):
                         {
                             "targetId": "q1:explanation",
                             "setFields": [
-                                {"field": "questionBodyText", "valueJson": '"変更"'}
+                                {"field": "questionBodyText", "value": '変更'}
                             ],
                             "unsetFields": [],
                         }
@@ -1709,7 +1701,7 @@ class QuestionCandidateTest(unittest.TestCase):
             ],
         }
 
-        result = parse_candidates(
+        result = _parse_prepared_candidates(
             payload,
             ["q1", "q2"],
             {"q1": targets_q1, "q2": targets_q2},
@@ -1721,9 +1713,9 @@ class QuestionCandidateTest(unittest.TestCase):
 
     def test_content_validator_is_question_scoped(self):
         targets = candidate_targets("q1", "explanation", self.plan())
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1735,7 +1727,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "explanationText",
-                                        "valueJson": '["正しい。理由。"]',
+                                        "value": ['正しい。理由。'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -1758,9 +1750,9 @@ class QuestionCandidateTest(unittest.TestCase):
 
     def test_content_validator_rejects_bad_explanation_style_before_write(self):
         targets = candidate_targets("q1", "explanation", self.plan())
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1772,7 +1764,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "explanationText",
-                                        "valueJson": '["理由から正しい。"]',
+                                        "value": ['理由から正しい。'],
                                     }
                                 ],
                                 "unsetFields": [],
@@ -1802,9 +1794,9 @@ class QuestionCandidateTest(unittest.TestCase):
 
     def test_content_validator_rejects_invalid_explanation_reference(self):
         targets = candidate_targets("q1", "explanation", self.plan())
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1816,16 +1808,13 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "explanationReferences",
-                                        "valueJson": json.dumps(
-                                            [
+                                        "value": [
                                                 {
                                                     "title": "非HTTPS資料",
                                                     "sourceUrl": "http://example.com",
                                                     "referenceDate": "2026-07-23",
                                                 }
                                             ],
-                                            ensure_ascii=False,
-                                        ),
                                     }
                                 ],
                                 "unsetFields": [],
@@ -1852,9 +1841,9 @@ class QuestionCandidateTest(unittest.TestCase):
 
     def test_content_validator_rejects_choice_only_suggestions(self):
         targets = candidate_targets("q1", "explanation", self.plan())
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -1866,8 +1855,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "suggestedQuestionDetailsByChoice",
-                                        "valueJson": json.dumps(
-                                            [
+                                        "value": [
                                                 {
                                                     "choiceIndex": 1,
                                                     "items": [
@@ -1878,8 +1866,6 @@ class QuestionCandidateTest(unittest.TestCase):
                                                     ],
                                                 }
                                             ],
-                                            ensure_ascii=False,
-                                        ),
                                     }
                                 ],
                                 "unsetFields": [],
@@ -2003,9 +1989,9 @@ class QuestionCandidateTest(unittest.TestCase):
                 },
             },
         ]
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -2017,57 +2003,56 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "auditStatus",
-                                        "valueJson": '"same_as_current"',
+                                        "value": 'same_as_current',
                                     },
                                     {
                                         "field": "reviewState",
-                                        "valueJson": '"secondary_verified"',
+                                        "value": 'secondary_verified',
                                     },
                                     {
                                         "field": "sourceSummary",
-                                        "valueJson": '"e-Govの試験法第1条を確認した。"',
+                                        "value": 'e-Govの試験法第1条を確認した。',
                                     },
                                     {
                                         "field": "verificationSummary",
-                                        "valueJson": '"条文本文と正誤が一致した。"',
+                                        "value": '条文本文と正誤が一致した。',
                                     },
                                     {
                                         "field": "reconciliationStatus",
-                                        "valueJson": '"matched"',
+                                        "value": 'matched',
                                     },
                                     {
                                         "field": "examTimeDecision",
-                                        "valueJson": '["正しい", "間違い"]',
+                                        "value": ['正しい', '間違い'],
                                     },
                                     {
                                         "field": "currentLawDecision",
-                                        "valueJson": '["正しい", "間違い"]',
+                                        "value": ['正しい', '間違い'],
                                     },
                                     {
                                         "field": "isLawRelated",
-                                        "valueJson": "true",
+                                        "value": True,
                                     },
                                     {
                                         "field": "lawGroundedExplanationNotNeeded",
-                                        "valueJson": "false",
+                                        "value": False,
                                     },
                                     {
                                         "field": "lawReferences",
-                                        "valueJson": json.dumps(law_references, ensure_ascii=False),
+                                        "value": law_references,
                                     },
                                     {
                                         "field": "lawRevisionFacts",
-                                        "valueJson": json.dumps(law_revision_facts, ensure_ascii=False),
+                                        "value": law_revision_facts,
                                     },
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい", "間違い"]',
+                                        "value": ['正しい', '間違い'],
                                     },
                                     {
                                         "field": "explanationText",
-                                        "valueJson": (
-                                            '["正しい。試験法第1条に定められている。", '
-                                            '"間違い。技術上の理由による。"]'
+                                        "value": (
+                                            ['正しい。試験法第1条に定められている。', '間違い。技術上の理由による。']
                                         ),
                                     },
                                 ],
@@ -2108,9 +2093,9 @@ class QuestionCandidateTest(unittest.TestCase):
         }
         targets = candidate_targets("q1", "law_audit", plan)
         audit = next(target for target in targets if target.role == "law_audit")
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -2120,11 +2105,11 @@ class QuestionCandidateTest(unittest.TestCase):
                             {
                                 "targetId": audit.target_id,
                                 "setFields": [
-                                    {"field": "isLawRelated", "valueJson": "true"},
-                                    {"field": "lawReferences", "valueJson": "[[{\"lawId\":\"x\"}]]"},
-                                    {"field": "lawRevisionFacts", "valueJson": "[{\"auditStatus\":\"same_as_current\"}]"},
-                                    {"field": "correctChoiceText", "valueJson": '["正しい"]'},
-                                    {"field": "explanationText", "valueJson": '["正しい。根拠。"]'},
+                                    {"field": "isLawRelated", "value": True},
+                                    {"field": "lawReferences", "value": [[{'lawId': 'x'}]]},
+                                    {"field": "lawRevisionFacts", "value": [{'auditStatus': 'same_as_current'}]},
+                                    {"field": "correctChoiceText", "value": ['正しい']},
+                                    {"field": "explanationText", "value": ['正しい。根拠。']},
                                 ],
                                 "unsetFields": [],
                             }
@@ -2188,9 +2173,9 @@ class QuestionCandidateTest(unittest.TestCase):
                 "evidenceSummary": "文字列の要約",
             },
         }
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -2202,9 +2187,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": field,
-                                        "valueJson": json.dumps(
-                                            value, ensure_ascii=False
-                                        ),
+                                        "value": value,
                                     }
                                     for field, value in values.items()
                                 ],
@@ -2285,9 +2268,9 @@ class QuestionCandidateTest(unittest.TestCase):
                 }
             ],
         }
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -2299,9 +2282,7 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": field,
-                                        "valueJson": json.dumps(
-                                            value, ensure_ascii=False
-                                        ),
+                                        "value": value,
                                     }
                                     for field, value in values.items()
                                 ],
@@ -2353,9 +2334,9 @@ class QuestionCandidateTest(unittest.TestCase):
         explanation = next(
             target for target in targets if target.role == "explanation"
         )
-        candidate = parse_candidates(
+        candidate = _parse_prepared_candidates(
             {
-                "schemaVersion": SCHEMA_VERSION,
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
                 "questionResults": [
                     {
                         "questionId": "q1",
@@ -2367,11 +2348,11 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "setFields": [
                                     {
                                         "field": "correctChoiceText",
-                                        "valueJson": '["正しい"]',
+                                        "value": ['正しい'],
                                     },
                                     {
                                         "field": "holdReason",
-                                        "valueJson": '"根拠不足"',
+                                        "value": '根拠不足',
                                     },
                                 ],
                                 "unsetFields": [],
@@ -2444,70 +2425,6 @@ class QuestionCandidateTest(unittest.TestCase):
                 for target in targets
             )
         )
-
-    def test_v2_law_audit_normalizes_empty_tertiary_run_id(self):
-        plan = {
-            "allowedPatchFiles": [
-                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
-            ],
-            "allowedWriteFiles": [
-                "output/sample/review/law_revision_audit/2026.jsonl"
-            ],
-        }
-        targets = candidate_targets("q1", "law_audit", plan)
-        audit = next(target for target in targets if target.role == "law_audit")
-        candidate = parse_candidates(
-            {
-                "schemaVersion": SCHEMA_VERSION,
-                "questionResults": [{
-                    "questionId": "q1",
-                    "status": "candidate",
-                    "summary": "二次監査で維持した。",
-                    "updates": [{
-                        "targetId": audit.target_id,
-                        "setFields": [{
-                            "field": "tertiaryAuditRunId",
-                            "valueJson": "[]",
-                        }],
-                        "unsetFields": [],
-                    }],
-                }],
-            },
-            ["q1"],
-            {"q1": targets},
-        )[0]
-        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
-
-    def test_v2_law_audit_normalizes_unset_tertiary_run_id_to_null(self):
-        plan = {
-            "allowedPatchFiles": [
-                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
-            ],
-            "allowedWriteFiles": [
-                "output/sample/review/law_revision_audit/2026.jsonl"
-            ],
-        }
-        targets = candidate_targets("q1", "law_audit", plan)
-        audit = next(target for target in targets if target.role == "law_audit")
-        candidate = parse_candidates(
-            {
-                "schemaVersion": SCHEMA_VERSION,
-                "questionResults": [{
-                    "questionId": "q1",
-                    "status": "candidate",
-                    "summary": "三次監査は不要と判断した。",
-                    "updates": [{
-                        "targetId": audit.target_id,
-                        "setFields": [],
-                        "unsetFields": ["tertiaryAuditRunId"],
-                    }],
-                }],
-            },
-            ["q1"],
-            {"q1": targets},
-        )[0]
-        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
-        self.assertNotIn("tertiaryAuditRunId", candidate.updates[0].unset_fields)
 
     def test_semantic_v3_injects_question_and_routes_native_values(self):
         targets = candidate_targets("q1", "question_type", {

@@ -182,18 +182,14 @@ def _record_scopes(
     return scopes
 
 
-def _migrated_sidecars(
+def _validate_sidecars(
     repo_root: Path,
     paths: tuple[str, ...],
-    bindings: list[dict[str, Any]],
-) -> tuple[dict[str, str], list[str]]:
-    candidates: dict[str, str] = {}
-    migrated_ids: list[str] = []
+) -> None:
     for relative in paths:
         if not relative.endswith("_law_revision_audit.jsonl"):
             continue
         path = repo_root / relative
-        rows: list[dict[str, Any]] = []
         for line_number, line in enumerate(
             path.read_text(encoding="utf-8").splitlines(),
             1,
@@ -212,40 +208,10 @@ def _migrated_sidecars(
                 )
             actual = SourceIdentityBinding.from_mapping(row)
             if row.get("schemaVersion") != LAW_AUDIT_SCHEMA or not actual.is_complete():
-                aliases = {
-                    str(value)
-                    for value in (
-                        row.get("reviewQuestionId"),
-                        row.get("sourceQuestionKey"),
-                        row.get("sourceRecordRef"),
-                    )
-                    if value
-                }
-                matches = [
-                    binding
-                    for binding in bindings
-                    if aliases & set(binding["aliases"])
-                ]
-                if len(matches) != 1:
-                    raise QualificationRunError(
-                        "旧監査sidecarの対象問題を一意に確認できません: "
-                        f"{relative}:{line_number}"
-                    )
-                binding = matches[0]
-                row.update(
-                    {
-                        "schemaVersion": LAW_AUDIT_SCHEMA,
-                        "sourceQuestionKey": binding["sourceQuestionKey"],
-                        "sourceRecordRef": binding["sourceRecordRef"],
-                    }
+                raise QualificationRunError(
+                    "監査sidecarを現行identity契約で確認できません: "
+                    f"{relative}:{line_number}"
                 )
-                migrated_ids.append(str(binding["uiQuestionId"]))
-            rows.append(row)
-        candidates[relative] = "".join(
-            json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n"
-            for row in rows
-        )
-    return candidates, sorted(set(migrated_ids))
 
 
 def _build_contract(
@@ -320,7 +286,7 @@ def _build_contract(
         "targetRecordBindings": bindings,
         "targetRecordScopes": scopes,
         "verifiedStageIdsByPath": verified_stages_by_path,
-        "legacyFailedDeltaReconciliation": True,
+        "failedDeltaReconciliation": True,
     }
 
 
@@ -431,11 +397,7 @@ def reconcile_failed_deltas(
         scopes=scopes,
         source_files=source_files,
     )
-    sidecar_candidates, migrated_ids = _migrated_sidecars(
-        repo_root,
-        unresolved,
-        bindings,
-    )
+    _validate_sidecars(repo_root, unresolved)
     before_hashes = {
         relative: _sha256(repo_root / relative)
         for relative in unresolved
@@ -454,8 +416,6 @@ def reconcile_failed_deltas(
             destination = validation_root / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(repo_root / relative, destination)
-        for relative, content in sidecar_candidates.items():
-            (validation_root / relative).write_text(content, encoding="utf-8")
         coordinator._validate_record_scope(
             qualification,
             baseline_run_id,
@@ -504,7 +464,6 @@ def reconcile_failed_deltas(
         "listGroupId": list_group_id,
         "unresolvedPathCount": len(unresolved),
         "verifiedQuestionCount": len(questions),
-        "migratedSidecarQuestionIds": migrated_ids,
         "baselineRunId": baseline_run_id,
         "failedRunIds": sorted(
             {
@@ -537,10 +496,6 @@ def reconcile_failed_deltas(
     }:
         raise QualificationRunError("dry-run後に未確定差分が変化しました。再実行してください。")
 
-    originals = {
-        relative: (repo_root / relative).read_text(encoding="utf-8")
-        for relative in sidecar_candidates
-    }
     run_id = _run_id()
     run_dir = (
         repo_root
@@ -549,14 +504,8 @@ def reconcile_failed_deltas(
         / run_id
     )
     manifest_path = run_dir / "manifest.json"
-    changed_files = [
-        relative
-        for relative, content in sidecar_candidates.items()
-        if content != originals[relative]
-    ]
+    changed_files: list[str] = []
     try:
-        for relative in changed_files:
-            atomic_write(repo_root / relative, sidecar_candidates[relative])
         completed_at = _now()
         post_hashes = {
             relative: _sha256(repo_root / relative)
@@ -583,12 +532,11 @@ def reconcile_failed_deltas(
             "result": {
                 "status": "succeeded",
                 "summary": (
-                    f"旧runの未確定差分{len(unresolved)}fileを"
+                    f"未確定差分{len(unresolved)}fileを"
                     f"{len(questions)}問のrecord scopeで検証しました。"
                 ),
                 "changedFiles": changed_files,
                 "resolvedFailedDeltaPaths": list(unresolved),
-                "migratedSidecarQuestionIds": migrated_ids,
             },
         }
         atomic_write(
@@ -607,8 +555,6 @@ def reconcile_failed_deltas(
             )
     except Exception:
         manifest_path.unlink(missing_ok=True)
-        for relative, content in originals.items():
-            atomic_write(repo_root / relative, content)
         if run_dir.is_dir() and not any(run_dir.iterdir()):
             run_dir.rmdir()
         raise

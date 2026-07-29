@@ -148,8 +148,6 @@ def _failed_delta_paths(
             )
         ):
             if _manifest_in_scope(manifest, qualification, list_group_id):
-                if _isolated_interrupted_run_is_clean(manifest):
-                    continue
                 unknown_runs[
                     manifest_path.relative_to(repo_root.resolve()).as_posix()
                 ] = manifest
@@ -598,23 +596,6 @@ def _aligned_scope_coverage(
         if len(matches) == 1:
             covered.add(matches[0])
     return covered
-
-
-def _isolated_interrupted_run_is_clean(manifest: Mapping[str, Any]) -> bool:
-    """An interrupted child sandbox has no canonical delta before server commit."""
-
-    return bool(
-        manifest.get("parentRunId")
-        and manifest.get("retrySafe") is True
-        and manifest.get("candidateTransactionOpen") is not True
-        and manifest.get("parallelStrategy")
-        in {
-            "isolated_question_batch",
-            "structured_candidate_batch",
-            "structured_candidate_per_question",
-        }
-        and manifest.get("sandbox") in {"workspace-write", "read-only"}
-    )
 
 
 def _rollback_restored_run(manifest: Mapping[str, Any]) -> bool:
