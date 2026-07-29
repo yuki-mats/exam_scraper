@@ -125,8 +125,8 @@ purpose = "正しいもの・誤っているもののどちらを選ぶ設問か
 kind = "human"
 # 3.0: 完結記述の選択方向と、断片肢へ本文の述語を補った命題を区別して洗い替える。
 # 3.1: 断片肢へ否定述語を補う問題では、成立する完全命題を選ぶselect_correctとする実行契約を明示する。
-# 3.2: 記述の正誤方向を本文が明示する問題では、短い肢を理由に選択方向を反転しない。
-policy_version = "3.2"
+# 4.0: 記述の正誤方向を本文が明示する問題では、短い肢を理由に選択方向を反転しない。
+policy_version = "4.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"

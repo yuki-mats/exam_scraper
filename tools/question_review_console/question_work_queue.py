@@ -832,9 +832,10 @@ def resume_plan(
             previous = previous_items.get(work_item_key(target, stage_id))
             current_target_exists = question_id in targets_by_stage.get(stage_id, {})
             if previous is None:
-                # 再開は直前runに実在した未完了itemだけを対象にする。
-                # 新たに検出された対象は通常runで扱い、再開範囲を広げない。
-                needs_resume = False
+                # partial再開は未完了問題のscopeだけを継承し、その中では
+                # 現在のworkflowが必要とする工程を正本とする。再開を重ねて
+                # 直前runから先行工程が省かれていても、古い方針へ固定しない。
+                needs_resume = unfinished_only and current_target_exists
             else:
                 previous_status = str(previous.get("status") or "")
                 if previous_status == "validated":

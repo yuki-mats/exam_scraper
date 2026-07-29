@@ -426,6 +426,27 @@ class QuestionWorkQueueTests(unittest.TestCase):
             [("q2", "explanation"), ("q2", "law_audit")],
         )
 
+    def test_partial_retry_replans_missing_upstream_stage_for_unfinished_question(
+        self,
+    ) -> None:
+        executions = build_question_executions(self.plan)
+        executions[0]["stages"] = [executions[0]["stages"][1]]
+        executions[0]["stages"][0]["status"] = "blocked"
+        for stage in executions[1]["stages"]:
+            stage["status"] = "validated"
+
+        resumed = resume_plan(self.plan, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [("q1", "explanation"), ("q1", "law_audit")],
+        )
+
     def test_resume_never_adds_questions_outside_previous_run(self) -> None:
         current_targets = [*self.targets, target("q3", 3)]
         current = stage_plan("explanation", current_targets)
