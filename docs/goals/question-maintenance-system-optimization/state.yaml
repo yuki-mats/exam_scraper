@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-system-optimization/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.1/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-system-optimization"
 
-active_task: T003
+active_task: T004
 tasks:
   - id: T001
     type: pm
@@ -175,7 +175,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "現行evaluation policy 2.1へ追従していないcatalog SSOTテストの期待値だけを修正し、T002の全体回帰ゲートを回復する"
     inputs:
@@ -200,6 +200,45 @@ tasks:
       - "policy 2.1が現行SSOTである根拠を確認できない。"
       - "production config又は実装変更が必要になる。"
       - "同じ原因で検証が二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tests/test_question_review_workflow_catalog.py
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog"
+          status: pass
+          summary: "19 tests passed"
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "910 tests passed"
+        - cmd: "git diff --check"
+          status: pass
+      summary: "catalog SSOTテストのevaluation policy期待値を2.0から完全値2.1へ更新した。production config、telemetry実装、GoalBuddy control files、他者の未コミット変更には触れていない。指定された全検証が初回で成功した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T002のtelemetry実装を、run固有性、monotonic duration、refill定義、writer非干渉、後方互換、検証証拠の観点から反証監査する"
+    inputs:
+      - "T002 and T003 receipts"
+      - "Current telemetry diff"
+      - "221 focused and 910 full regression results"
+      - "document/operations/local_question_review_console.md"
+    constraints:
+      - "Read-only."
+      - "Do not approve global App Server lifetime counters as a run-local metric."
+      - "Reject telemetry callbacks that write files from the App Server reader thread."
+      - "Reject scheduler or concurrency behavior changes hidden in instrumentation."
+    expected_output:
+      - "approved | rejected"
+      - "Evidence map"
+      - "Required corrections"
+      - "Whether the telemetry slice is safe to commit"
     receipt: null
   - id: T999
     type: judge
